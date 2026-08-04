@@ -141,7 +141,7 @@ export default async function BrandFlipPage(
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>
           {[
-            "Max buy price per model — the number that guarantees your margin after fees",
+            "Max buy price per model — the number that targets a healthy margin after fees",
             "Sell-through rate — how fast each model actually moves",
             "Momentum — which models are heating up right now, not last month",
             "The exact sizes that sell fastest",

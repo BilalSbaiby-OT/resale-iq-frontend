@@ -115,7 +115,10 @@ export default function Landing() {
           <Link href="/support" style={{ color: "#5b6b8c", textDecoration: "none" }}>Support</Link>
           <Link href="/login" style={{ color: "#5b6b8c", textDecoration: "none" }}>Sign in</Link>
         </div>
-        Resale IQ — market intelligence for Vinted resellers.
+        <div style={{ marginBottom: 8 }}>Resale IQ — market intelligence for Vinted resellers.</div>
+        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#3f4a63", lineHeight: 1.6 }}>
+          Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
+        </div>
       </footer>
     </div>
   )
