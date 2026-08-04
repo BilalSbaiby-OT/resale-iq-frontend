@@ -1,0 +1,108 @@
+/* Google Fonts must come first */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+/* Tailwind v4 */
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0B0D10;
+  --color-bg-2: #0F1115;
+  --color-bg-3: #141820;
+  --color-bg-4: #1a2030;
+  --color-bg-5: #1f2840;
+  --color-border: #1e2535;
+  --color-border-2: #263147;
+  --color-text-primary: #e8ecf4;
+  --color-text-secondary: #8fa3c4;
+  --color-text-muted: #546380;
+  --color-green: #22c55e;
+  --color-amber: #f59e0b;
+  --color-red: #ef4444;
+  --color-blue: #3b82f6;
+  --color-purple: #a855f7;
+  --color-cyan: #06b6d4;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* This reset MUST live in @layer base. Left unlayered it outranks every Tailwind
+   utility (which live in @layer utilities), silently zeroing out all padding and
+   margin utilities app-wide. Inside @layer base, Tailwind's utilities win. */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+}
+html { color-scheme: dark; }
+body {
+  background: #0B0D10;
+  color: #e8ecf4;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #263147; border-radius: 4px; }
+::selection { background: rgba(34,197,94,.2); }
+*:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
+@keyframes shimmer { from{background-position:-400px 0} to{background-position:calc(400px + 100%) 0} }
+@keyframes fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+.animate-fade-in { animation: fade-in 0.2s ease-out; }
+.skeleton { background: linear-gradient(90deg,#141820 25%,#1a2030 50%,#141820 75%); background-size:400px 100%; animation:shimmer 1.6s infinite; border-radius:6px; }
+
+/* ── Responsive shell (mobile-first customers) ───────────────────────────────
+   The sidebar is a fixed off-canvas drawer on phones, toggled by a hamburger in
+   the topbar. On >=900px it's a normal static column and the hamburger/overlay
+   hide. Class names are consumed by app-shell/sidebar/topbar. */
+.riq-hamburger { display: none; }
+.riq-scrim { display: none; }
+
+@media (max-width: 899px) {
+  .riq-hamburger { display: inline-flex; }
+  .riq-sidebar {
+    position: fixed; top: 0; left: 0; height: 100vh; z-index: 50;
+    transform: translateX(-100%); transition: transform .22s ease;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+  }
+  .riq-sidebar.open { transform: translateX(0); }
+  .riq-scrim.open {
+    display: block; position: fixed; inset: 0; z-index: 40;
+    background: rgba(0,0,0,.55);
+  }
+  /* tighter content padding on phones */
+  .riq-main { padding: 12px !important; }
+  .riq-topbar { padding: 0 12px !important; gap: 10px !important; }
+  /* let the page title breathe less, hide the subtitle on very small screens */
+  .riq-topbar-titlewrap { min-width: 0 !important; }
+  .riq-topbar-sub { display: none; }
+  /* the topbar search + live indicator + email crowd a phone — drop them */
+  .riq-topbar-search { display: none !important; }
+  .riq-live { display: none !important; }
+  .riq-topbar-email { max-width: 0 !important; display: none; }
+}
+
+/* Any wide element (tables, matrices) scrolls inside its own box, never the page */
+.riq-scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* On phones, data tables keep a usable min width and scroll horizontally within
+   their card rather than clipping columns off-screen. */
+@media (max-width: 639px) {
+  .riq-scroll-x > table { min-width: 560px; }
+}
+
+/* Responsive KPI / card grids: 4-up desktop → 2-up phone */
+.riq-grid-kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.riq-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.riq-grid-main { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
+.riq-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 899px) {
+  .riq-grid-main { grid-template-columns: 1fr; }
+}
+@media (max-width: 639px) {
+  .riq-grid-kpi { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .riq-grid-2 { grid-template-columns: 1fr; }
+  .riq-grid-3 { grid-template-columns: 1fr; }
+}

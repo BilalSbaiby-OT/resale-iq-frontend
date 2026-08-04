@@ -1,0 +1,125 @@
+"use client"
+import { useEffect, useState } from "react"
+import { AppShell } from "@/components/layout/app-shell"
+import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal } from "@/lib/api"
+import { useAuthStore } from "@/lib/auth-store"
+import type { User } from "@/types"
+import Link from "next/link"
+import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn } from "lucide-react"
+
+export default function AccountPage() {
+  const [user, setUser] = useState<User | null>(null)
+  const [logs, setLogs] = useState<Array<{ action: string; created_at: string }>>([])
+  const [newPw, setNewPw] = useState(""); const [confirmPw, setConfirmPw] = useState("")
+  const [pwMsg, setPwMsg] = useState(""); const [pwOk, setPwOk] = useState(false); const [deleteConfirm, setDeleteConfirm] = useState("")
+  const { logout } = useAuthStore()
+  const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
+  const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
+
+  useEffect(() => {
+    getMe().then(setUser)
+    getActivity().then(d => setLogs(d.logs.slice(0, 20))).catch(() => {})
+  }, [])
+
+  const handleChangePw = async () => {
+    if (newPw.length < 8) { setPwOk(false); setPwMsg("Min 8 characters"); return }
+    if (newPw !== confirmPw) { setPwOk(false); setPwMsg("Passwords do not match"); return }
+    try { await changePassword(newPw); setPwOk(true); setPwMsg("Password updated"); setNewPw(""); setConfirmPw("") }
+    catch (e: unknown) { setPwOk(false); setPwMsg(e instanceof Error ? e.message : "Error") }
+  }
+
+  const handlePortal = async () => {
+    try { const r = await getBillingPortal(); window.location.href = r.portal_url }
+    catch { alert("Stripe portal not available") }
+  }
+
+  const handleDelete = async () => {
+    if (deleteConfirm !== "DELETE") { alert("Type DELETE to confirm"); return }
+    try { await deleteAccount(); logout() } catch (e: unknown) { alert(e instanceof Error ? e.message : "Error") }
+  }
+
+  const handleExport = async () => {
+    try { const d = await exportData(); const b = new Blob([JSON.stringify(d, null, 2)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "resale-iq-data.json"; a.click() }
+    catch { alert("Export failed") }
+  }
+
+  return (
+    <AppShell title="Account" subtitle="Plan, billing, password, and data">
+      <div className="max-w-2xl flex flex-col gap-4">
+        {/* Plan */}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>
+          <div className="p-5">
+            <div className={`flex items-center justify-between p-4 rounded-xl border ${user ? PLAN_STYLES[user.plan] : "border-[#263147]"} mb-4`}>
+              <div><div className="font-extrabold text-[20px]">{user?.plan === "operator" ? "Starter" : user?.plan === "power" ? "Pro" : user?.plan === "free" ? "Unpaid" : "—"}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{user?.plan === "free" ? "Subscribe to unlock the full toolkit" : "Unlimited verdicts · all 100 signals"}</div></div>
+              <div className="font-mono font-bold text-[22px]">{user?.plan === "operator" ? "€19/mo" : user?.plan === "power" ? "€49/mo" : "—"}</div>
+            </div>
+            {user?.plan === "free" ? (
+              <div className="flex flex-col gap-2">
+                <Link href="/register?plan=operator" className="block text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">UPGRADE TO OPERATOR — €19/mo →</Link>
+                <Link href="/register?plan=power" className="block text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors">UPGRADE TO POWER — €49/mo →</Link>
+              </div>
+            ) : (
+              <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">MANAGE SUBSCRIPTION (cancel, update card, billing history)</button>
+              <p className="text-[11px] text-[#546380] text-center mt-2">Opens Stripe's secure customer portal — cancel anytime</p></div>
+            )}
+          </div>
+        </div>
+
+        {/* Change password */}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><KeyRound size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Change Password</span></div>
+          <div className="p-5 flex flex-col gap-3">
+            <div>
+              <label className="text-[10px] text-[#546380] block mb-1.5">New password</label>
+              <input type="password" value={newPw} onChange={e => setNewPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="text-[10px] text-[#546380] block mb-1.5">Confirm password</label>
+              <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500" />
+            </div>
+            {pwMsg && <div className={`text-[12px] text-center ${pwOk ? "text-emerald-400" : "text-red-400"}`}>{pwMsg}</div>}
+            <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">UPDATE PASSWORD</button>
+          </div>
+        </div>
+
+        {/* Activity */}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><ScrollText size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Recent Activity</span></div>
+          <div className="p-3 flex flex-col gap-1.5">
+            {logs.length === 0 ? <div className="text-center py-4 text-[#546380] font-mono text-[11px]">No activity yet</div> :
+              logs.map((l, i) => (
+                <div key={i} className="flex items-center gap-2 bg-[#1a2030] rounded-lg px-3 py-2">
+                  {(() => { const Ico = ACTIVITY_ICON[l.action]; return Ico ? <Ico size={13} className="text-[#8fa3c4]" /> : <span className="text-[#546380]">•</span> })()}
+                  <span className="flex-1 text-[12px] text-[#8fa3c4] capitalize">{l.action.replace(/_/g, " ")}</span>
+                  <span className="font-mono text-[10px] text-[#546380]">{l.created_at?.slice(0, 16).replace("T", " ")}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        {/* GDPR */}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><Database size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Data (GDPR)</span></div>
+          <div className="p-5 flex flex-col gap-3">
+            <p className="text-[13px] text-[#8fa3c4]">Under GDPR Article 20, you have the right to receive a copy of all personal data we hold about you.</p>
+            <button onClick={handleExport} className="flex items-center justify-center gap-2 border border-[#263147] text-[#8fa3c4] font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-[#1a2030] hover:text-[#e8ecf4] transition-colors"><Download size={14} /> DOWNLOAD MY DATA (JSON)</button>
+            <p className="text-[11px] text-[#546380]"><Link href="/privacy" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Privacy Policy</Link> · <Link href="/terms" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Terms of Service</Link></p>
+          </div>
+        </div>
+
+        {/* Danger zone */}
+        <div className="bg-[#141820] border border-red-500/30 rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-red-500/20"><AlertTriangle size={14} className="text-red-400" /><span className="font-bold text-[13px] text-red-400">Danger Zone</span></div>
+          <div className="p-5 flex flex-col gap-3">
+            <p className="text-[13px] text-[#8fa3c4]">Deleting your account is permanent and cannot be undone.</p>
+            <div><label className="text-[10px] text-[#546380] block mb-1.5">Type <strong className="text-red-400">DELETE</strong> to confirm</label>
+            <input value={deleteConfirm} onChange={e => setDeleteConfirm(e.target.value)} placeholder="DELETE" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-red-500 mb-2" />
+            <button onClick={handleDelete} className="w-full border border-red-500/40 text-red-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-red-500/10 transition-colors">DELETE MY ACCOUNT</button></div>
+          </div>
+        </div>
+      </div>
+    </AppShell>
+  )
+}

@@ -1,0 +1,317 @@
+{
+ "brands": [
+  {
+   "brand": "Nike",
+   "slug": "nike",
+   "sold_7d": 54350,
+   "avg_price_eur": 21,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Tracksuits"
+   ],
+   "models_tracked": 15
+  },
+  {
+   "brand": "Levi's",
+   "slug": "levis",
+   "sold_7d": 41269,
+   "avg_price_eur": 17,
+   "top_categories": [
+    "Jeans",
+    "T-Shirts",
+    "Shirts"
+   ],
+   "models_tracked": 11
+  },
+  {
+   "brand": "Adidas",
+   "slug": "adidas",
+   "sold_7d": 37449,
+   "avg_price_eur": 22,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Tracksuits"
+   ],
+   "models_tracked": 11
+  },
+  {
+   "brand": "Pull&Bear",
+   "slug": "pull-bear",
+   "sold_7d": 35189,
+   "avg_price_eur": 9,
+   "top_categories": [
+    "Hoodies",
+    "Jeans",
+    "Jackets"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Lacoste",
+   "slug": "lacoste",
+   "sold_7d": 34313,
+   "avg_price_eur": 36,
+   "top_categories": [
+    "Shirts",
+    "Hoodies",
+    "T-Shirts"
+   ],
+   "models_tracked": 2
+  },
+  {
+   "brand": "Tommy Hilfiger",
+   "slug": "tommy-hilfiger",
+   "sold_7d": 33030,
+   "avg_price_eur": 23,
+   "top_categories": [
+    "Shirts",
+    "Hoodies",
+    "T-Shirts"
+   ],
+   "models_tracked": 1
+  },
+  {
+   "brand": "Puma",
+   "slug": "puma",
+   "sold_7d": 29408,
+   "avg_price_eur": 13,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Tracksuits"
+   ],
+   "models_tracked": 6
+  },
+  {
+   "brand": "Ralph Lauren",
+   "slug": "ralph-lauren",
+   "sold_7d": 29358,
+   "avg_price_eur": 40,
+   "top_categories": [
+    "Shirts",
+    "Hoodies",
+    "T-Shirts"
+   ],
+   "models_tracked": 10
+  },
+  {
+   "brand": "Zara",
+   "slug": "zara",
+   "sold_7d": 25589,
+   "avg_price_eur": 12,
+   "top_categories": [
+    "Jeans",
+    "Jackets",
+    "Shirts"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "New Balance",
+   "slug": "new-balance",
+   "sold_7d": 25262,
+   "avg_price_eur": 22,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Tracksuits"
+   ],
+   "models_tracked": 19
+  },
+  {
+   "brand": "Bershka",
+   "slug": "bershka",
+   "sold_7d": 22988,
+   "avg_price_eur": 9,
+   "top_categories": [
+    "Jeans",
+    "T-Shirts",
+    "Jackets"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "The North Face",
+   "slug": "the-north-face",
+   "sold_7d": 22464,
+   "avg_price_eur": 30,
+   "top_categories": [
+    "Jackets",
+    "T-Shirts",
+    "Hoodies"
+   ],
+   "models_tracked": 3
+  },
+  {
+   "brand": "Jordan",
+   "slug": "jordan",
+   "sold_7d": 20588,
+   "avg_price_eur": 26,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Hoodies"
+   ],
+   "models_tracked": 9
+  },
+  {
+   "brand": "Carhartt",
+   "slug": "carhartt",
+   "sold_7d": 19908,
+   "avg_price_eur": 33,
+   "top_categories": [
+    "T-Shirts",
+    "Hoodies",
+    "Jeans"
+   ],
+   "models_tracked": 4
+  },
+  {
+   "brand": "Hugo Boss",
+   "slug": "hugo-boss",
+   "sold_7d": 15964,
+   "avg_price_eur": 34,
+   "top_categories": [
+    "Shirts",
+    "T-Shirts",
+    "Jackets"
+   ],
+   "models_tracked": 2
+  },
+  {
+   "brand": "Mango",
+   "slug": "mango",
+   "sold_7d": 15603,
+   "avg_price_eur": 12,
+   "top_categories": [
+    "Jeans",
+    "Jackets",
+    "T-Shirts"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Diesel",
+   "slug": "diesel",
+   "sold_7d": 15069,
+   "avg_price_eur": 35,
+   "top_categories": [
+    "Jeans",
+    "T-Shirts",
+    "Shirts"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Calvin Klein",
+   "slug": "calvin-klein",
+   "sold_7d": 14319,
+   "avg_price_eur": 22,
+   "top_categories": [
+    "T-Shirts",
+    "Shirts",
+    "Hoodies"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Reebok",
+   "slug": "reebok",
+   "sold_7d": 13113,
+   "avg_price_eur": 15,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Tracksuits"
+   ],
+   "models_tracked": 3
+  },
+  {
+   "brand": "Fred Perry",
+   "slug": "fred-perry",
+   "sold_7d": 9105,
+   "avg_price_eur": 35,
+   "top_categories": [
+    "Shirts",
+    "T-Shirts",
+    "Hoodies"
+   ],
+   "models_tracked": 1
+  },
+  {
+   "brand": "Stone Island",
+   "slug": "stone-island",
+   "sold_7d": 6188,
+   "avg_price_eur": 110,
+   "top_categories": [
+    "Hoodies",
+    "Shirts",
+    "Jackets"
+   ],
+   "models_tracked": 1
+  },
+  {
+   "brand": "Gucci",
+   "slug": "gucci",
+   "sold_7d": 5411,
+   "avg_price_eur": 231,
+   "top_categories": [
+    "Bags",
+    "Sneakers",
+    "Caps"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Patagonia",
+   "slug": "patagonia",
+   "sold_7d": 5146,
+   "avg_price_eur": 37,
+   "top_categories": [
+    "Jackets",
+    "T-Shirts",
+    "Hoodies"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Supreme",
+   "slug": "supreme",
+   "sold_7d": 3123,
+   "avg_price_eur": 100,
+   "top_categories": [
+    "T-Shirts",
+    "Hoodies",
+    "Shirts"
+   ],
+   "models_tracked": 2
+  },
+  {
+   "brand": "Off-White",
+   "slug": "off-white",
+   "sold_7d": 2365,
+   "avg_price_eur": 88,
+   "top_categories": [
+    "T-Shirts",
+    "Shirts",
+    "Sneakers"
+   ],
+   "models_tracked": 0
+  },
+  {
+   "brand": "Balenciaga",
+   "slug": "balenciaga",
+   "sold_7d": 1778,
+   "avg_price_eur": 288,
+   "top_categories": [
+    "Sneakers",
+    "T-Shirts",
+    "Shirts"
+   ],
+   "models_tracked": 0
+  }
+ ],
+ "note": "Aggregates only. See scripts/export_seo_data.py exposure policy."
+}
