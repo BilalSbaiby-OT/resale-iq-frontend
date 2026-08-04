@@ -7,12 +7,12 @@ export const metadata = { title: "Legal Notice — Resale IQ" }
 // FILL IN the placeholders marked [ ] before taking real payments.
 
 const OPERATOR = {
-  name: "[YOUR FULL LEGAL NAME]",
+  name: "Bilal Sbaiby",
   status: "Sole trader (autónomo)",
-  address: "[YOUR REGISTERED ADDRESS]",
+  address: "Spain — full postal address available on request by email",
   country: "Spain",
-  taxId: "[YOUR NIF / NIE]",
-  email: "emmanuelbilal33@gmail.com",
+  taxId: "Y9590842V",
+  email: "parapluis@outlook.com",
 }
 
 export default function LegalNotice() {

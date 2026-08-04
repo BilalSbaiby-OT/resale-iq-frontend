@@ -8,7 +8,7 @@ export const metadata = {
 
 // Support contact — personal inbox for now (simplest). Swap to a domain
 // address later if you want it to look more branded.
-const SUPPORT_EMAIL = "emmanuelbilal33@gmail.com"
+const SUPPORT_EMAIL = "parapluis@outlook.com"
 
 const FAQ: [string, string][] = [
   ["What is Resale IQ?",
