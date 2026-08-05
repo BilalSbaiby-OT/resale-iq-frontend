@@ -70,7 +70,7 @@ export function PricingSection() {
         ))}
       </div>
       <p style={{ textAlign: "center", fontSize: 12, color: "#4d5a75", marginTop: 26 }}>
-        Try the buy/sell verdict tool free, no signup — then pick a plan when you see the data.
+        Every plan unlocks the full data — verdicts, buy-below prices, sizes, and live deals. Cancel anytime.
       </p>
     </section>
   )
