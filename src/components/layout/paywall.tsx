@@ -42,7 +42,7 @@ export function Paywall() {
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>30M+ listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, maxWidth: 940, width: "100%" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>
         {TIERS.map(t => (
           <div key={t.id} style={{
             position: "relative", background: t.highlight ? "linear-gradient(180deg,#141a24,#10141c)" : "#12151d",

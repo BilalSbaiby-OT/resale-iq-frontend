@@ -77,7 +77,7 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px 20px", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+      <section style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
         {[
           { icon: Zap, t: "Instant verdicts", d: "BUY / WATCH / SKIP on any item, backed by real sell-through data." },
           { icon: Package, t: "Order Planner", d: "What to order today for stock arriving in 3 weeks — and its odds of selling in one." },
