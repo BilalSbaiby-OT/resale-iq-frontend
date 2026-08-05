@@ -43,7 +43,7 @@ export default function Landing() {
         </p>
 
         {/* CTA + locked preview — sells the output without giving it away free */}
-        <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 34 }}>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 34 }}>
           <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, textDecoration: "none", padding: "13px 26px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 7 }}>
             Get started <ArrowRight size={16} />
           </Link>
@@ -108,7 +108,8 @@ export default function Landing() {
 
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#4d5a75", fontSize: 12 }}>
-        <div style={{ display: "flex", gap: 18, justifyContent: "center", marginBottom: 12 }}>
+        {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
+        <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>Free tools</Link>
           <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>Market data</Link>
           <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
