@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next"
 import seo from "@/data/seo-brands.json"
+import { POSTS } from "@/data/blog-posts"
 
 const BASE = "https://resaleiq.dev"
 
-// Static-generated sitemap covering the public pages + every programmatic SEO
-// brand page. Regenerates on each build (which reruns the seo export).
+// Static-generated sitemap covering public pages + every programmatic SEO brand
+// page + every blog article. Regenerates on each build.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/register", "/login", "/terms", "/privacy", "/legal", "/support"].map((p) => ({
+  const staticPages = ["", "/blog", "/register", "/login", "/terms", "/privacy", "/legal", "/support"].map((p) => ({
     url: `${BASE}${p}`,
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.6,
@@ -18,5 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...brandPages]
+  const blogPages = POSTS.map((p) => ({
+    url: `${BASE}/blog/${p.slug}`,
+    lastModified: p.date,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...blogPages, ...brandPages]
 }

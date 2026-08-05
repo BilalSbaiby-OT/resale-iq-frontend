@@ -34,9 +34,30 @@ export const viewport: Viewport = {
   themeColor: "#0B0D10",
 }
 
+// Site-wide Organization + SoftwareApplication schema. Helps search AND answer
+// engines (ChatGPT, Perplexity, Google AI) recognise Resale IQ as an entity and
+// cite it as the tool that answers "what to buy on Vinted".
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "SoftwareApplication"],
+  name: "Resale IQ",
+  url: "https://resaleiq.dev",
+  applicationCategory: "BusinessApplication",
+  description:
+    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 30M+ listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
+  offers: [
+    { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR" },
+    { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR" },
+  ],
+  areaServed: ["ES", "FR", "DE", "IT", "PT"],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
+      </head>
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
         {children}
       </body>

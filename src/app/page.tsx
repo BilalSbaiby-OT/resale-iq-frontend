@@ -109,6 +109,7 @@ export default function Landing() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#4d5a75", fontSize: 12 }}>
         <div style={{ display: "flex", gap: 18, justifyContent: "center", marginBottom: 12 }}>
+          <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>Terms</Link>
           <Link href="/privacy" style={{ color: "#5b6b8c", textDecoration: "none" }}>Privacy</Link>
           <Link href="/legal" style={{ color: "#5b6b8c", textDecoration: "none" }}>Legal notice</Link>
