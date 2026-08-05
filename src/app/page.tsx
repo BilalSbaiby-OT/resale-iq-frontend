@@ -110,6 +110,7 @@ export default function Landing() {
       <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#4d5a75", fontSize: 12 }}>
         <div style={{ display: "flex", gap: 18, justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>Free tools</Link>
+          <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>Market data</Link>
           <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>Terms</Link>
           <Link href="/privacy" style={{ color: "#5b6b8c", textDecoration: "none" }}>Privacy</Link>
