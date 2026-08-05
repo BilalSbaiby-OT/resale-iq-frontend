@@ -39,7 +39,7 @@ export function Paywall() {
           <Lock size={13} /> Choose a plan to unlock your dashboard
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>The data that pays for itself on your first flip.</h1>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>17M+ listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>30M+ listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, maxWidth: 940, width: "100%" }}>
