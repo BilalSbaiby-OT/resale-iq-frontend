@@ -6,7 +6,7 @@ const BASE = "https://resaleiq.dev"
 // engines (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.) — we WANT
 // to be cited by ChatGPT/Perplexity/Google AI, so they're explicitly allowed.
 // The logged-in app and admin stay out of every index.
-const PUBLIC_ALLOW = ["/", "/blog", "/flip", "/terms", "/privacy", "/legal", "/support"]
+const PUBLIC_ALLOW = ["/", "/tools", "/blog", "/flip", "/terms", "/privacy", "/legal", "/support"]
 const PRIVATE_DISALLOW = [
   "/dashboard", "/admin", "/account", "/deals", "/watchlist",
   "/portfolio", "/order-planner", "/verdict", "/authenticity",
