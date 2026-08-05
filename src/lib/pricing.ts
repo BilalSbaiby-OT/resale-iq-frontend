@@ -20,14 +20,16 @@ export const TIERS: Tier[] = [
     name: "Business",
     price: 99,
     anchor: true,
-    tagline: "For high-volume resellers & small teams",
+    tagline: "High volume or a team? Let's talk.",
     cta: "Talk to us",
+    // Enquiry-only tier: no priceId, so it can never be self-served. We promise
+    // a conversation, NOT specific unbuilt features — anything scoped here is
+    // agreed case-by-case before any money changes hands.
     features: [
       "Everything in Pro",
-      "Team seats & shared watchlists",
-      "Bulk order planning across 500+ items",
-      "Priority live-deal scanning",
-      "Priority support & onboarding",
+      "Custom scope, agreed with you directly",
+      "Priority support from the founder",
+      "Volume & multi-seat pricing on request",
     ],
   },
   {
@@ -43,7 +45,9 @@ export const TIERS: Tier[] = [
       "Live deal finder across 5 EU markets",
       "3-week demand Order Planner",
       "Per-size sell-through velocity",
-      "REST API + webhook alerts",
+      // REST API is real (POST /auth/api-key → X-Api-Key auth, power plan only).
+      // "Webhook alerts" was removed — we do not ship customer webhooks.
+      "REST API access (your own API key)",
       "Cross-platform fee calculator",
     ],
   },

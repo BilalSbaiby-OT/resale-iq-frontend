@@ -14,7 +14,9 @@ export function PricingSection() {
   useEffect(() => { getPlans().then(d => setPlans(d.plans)).catch(() => {}) }, [])
 
   const choose = async (tierId: string, placeholder?: string) => {
-    if (!placeholder) { window.location.href = "mailto:hello@resaleiq.app?subject=Business%20plan%20early%20access"; return }
+    // Enquiry-only tier (no Stripe price): open a real mailbox we actually own.
+    // Was hello@resaleiq.app — wrong domain, so every Business lead was lost.
+    if (!placeholder) { window.location.href = "mailto:parapluis@outlook.com?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
     if (!getToken()) { router.push(`/register?plan=${tierId === "power" ? "power" : "operator"}`); return }
     setBusy(tierId)
     try {
