@@ -402,8 +402,9 @@ export const POSTS: BlogPost[] = [
 
 // Batch 2 lives in its own file for readability; ALL_POSTS is what pages consume.
 import { POSTS_2 } from "./blog-posts-2"
+import { POSTS_3 } from "./blog-posts-3"
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2]
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3]
 
 export function getPost(slug: string): BlogPost | undefined {
   return ALL_POSTS.find((p) => p.slug === slug)
