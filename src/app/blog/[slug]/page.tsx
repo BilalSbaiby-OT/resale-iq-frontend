@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { POSTS, getPost } from "@/data/blog-posts"
+import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }))

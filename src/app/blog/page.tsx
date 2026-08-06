@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { POSTS } from "@/data/blog-posts"
+import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 
 export const metadata: Metadata = {
   title: "Resale IQ Blog — Vinted reselling guides & data",

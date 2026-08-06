@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 import seo from "@/data/seo-brands.json"
-import { POSTS } from "@/data/blog-posts"
+import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 import { INTENTS } from "@/data/search-intents"
 
 const BASE = "https://resaleiq.dev"
@@ -33,5 +33,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
-  return [...staticPages, ...toolPages, ...blogPages, ...brandPages]
+  // brand x category pages (one per brand's top categories)
+  const catSlug = (c: string) =>
+    c.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+  const brandCategoryPages = (seo.brands as { slug: string; top_categories: string[] }[])
+    .flatMap((b) => (b.top_categories || []).map((c) => ({
+      url: `${BASE}/flip/${b.slug}/${catSlug(c)}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })))
+
+  return [...staticPages, ...toolPages, ...blogPages, ...brandPages, ...brandCategoryPages]
 }
