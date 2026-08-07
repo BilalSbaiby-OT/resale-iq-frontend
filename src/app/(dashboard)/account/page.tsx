@@ -147,6 +147,9 @@ export default function AccountPage() {
                   <code>/api/brands/rankings</code>, <code>/api/trends/summary</code>, <code>/api/watchlist</code>,{" "}
                   <code>/api/portfolio</code>. Rate limit 60 req/min.
                 </p>
+                <Link href="/api-docs" className="inline-block mt-2 text-[11.5px] text-emerald-400 hover:underline">
+                  Full API documentation →
+                </Link>
               </div>
             </div>
           </div>
