@@ -30,8 +30,11 @@ export default function AccountPage() {
   }
 
   const handlePortal = async () => {
+    // Surface the backend's actual reason. Swallowing it behind a generic
+    // "not available" made an account with no subscription look like a broken
+    // integration — the portal works fine for anyone who actually checked out.
     try { const r = await getBillingPortal(); window.location.href = r.portal_url }
-    catch { alert("Stripe portal not available") }
+    catch (e: unknown) { alert(e instanceof Error ? e.message : "Could not open the billing portal") }
   }
 
   const handleDelete = async () => {
