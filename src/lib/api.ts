@@ -62,6 +62,10 @@ export const resetPassword = (token: string, new_password: string) =>
   request<{ ok: boolean }>("/auth/reset-password", {
     method: "POST", body: JSON.stringify({ token, new_password }),
   })
+export const verifyEmail = (token: string) =>
+  request<{ ok: boolean; message?: string }>("/auth/verify-email", {
+    method: "POST", body: JSON.stringify({ token }),
+  })
 export const changePassword = (new_password: string) =>
   request<{ ok: boolean }>("/auth/change-password", {
     method: "POST", body: JSON.stringify({ new_password }),
