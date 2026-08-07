@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
+import { PageviewTracker } from "@/components/pageview-tracker"
 
 const TITLE = "Resale IQ — Market Intelligence for Vinted Resellers"
 const DESC = "Know exactly what to buy, at what price, in which sizes. Millions of Vinted listings analyzed across 5 EU markets."
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
+        <PageviewTracker />
         {children}
       </body>
     </html>

@@ -158,6 +158,14 @@ export const getLiveDeals = (params: {
 }
 
 // Admin (power plan only)
+export interface TrafficStats {
+  days: number; views: number; visitors: number; bot_views: number
+  top_pages: Array<{ path: string; views: number; visitors: number }>
+  sources: Array<{ source: string; views: number }>
+  daily: Array<{ day: string; views: number; visitors: number }>
+}
+export const getTraffic = (days = 30) => request<TrafficStats>(`/api/admin/traffic?days=${days}`)
+
 export interface AdminUser {
   id: number; email: string; plan: string; is_active: number; created_at: string;
   stripe_customer_id: string | null; stripe_sub_id: string | null;

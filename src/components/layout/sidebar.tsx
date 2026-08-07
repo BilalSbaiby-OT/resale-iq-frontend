@@ -3,7 +3,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
-  ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert,
+  ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
   BookOpen, Wrench, Database, LifeBuoy,
 } from "lucide-react"
 import { getPlanFromToken } from "@/lib/utils"
@@ -54,7 +54,10 @@ const NAV_SECTIONS = [
 ]
 
 // Shown only to Power-plan (owner) accounts.
-const ADMIN_ITEM = { href: "/admin", icon: ShieldAlert, label: "Admin" }
+const ADMIN_ITEMS = [
+  { href: "/admin", icon: ShieldAlert, label: "Admin" },
+  { href: "/admin/traffic", icon: BarChart3, label: "Traffic" },
+]
 
 const PLAN_STYLE: Record<string, { color: string; bg: string; border: string }> = {
   free:     { color: "#60a5fa", bg: "rgba(59,130,246,.10)", border: "rgba(59,130,246,.25)" },
@@ -69,7 +72,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
 
   // Power-plan owner accounts also get an Admin section.
   const sections = plan === "power"
-    ? [...NAV_SECTIONS, { label: "Owner", items: [ADMIN_ITEM] }]
+    ? [...NAV_SECTIONS, { label: "Owner", items: ADMIN_ITEMS }]
     : NAV_SECTIONS
 
   return (
