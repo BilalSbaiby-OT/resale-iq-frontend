@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
@@ -97,9 +98,7 @@ export default async function BlogPostPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns 30M+ Vinted sales into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Try Resale IQ →
-          </Link>
+          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
         </div>
 
         {/* Internal links help SEO + crawl depth */}

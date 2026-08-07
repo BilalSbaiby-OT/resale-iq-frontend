@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { SmartCTA } from "@/components/smart-cta"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 
@@ -60,9 +61,7 @@ export default function BlogIndex() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Get started →
-          </Link>
+          <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
         </div>
       </div>
     </div>

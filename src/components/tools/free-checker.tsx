@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import Link from "next/link"
+import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
 
 // Free public checker. Calls the unauthenticated /api/verdict, which returns the
@@ -97,9 +98,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               <Lock size={14} color="#22c55e" />
               {res.message ?? "Unlock the buy-below price, sell price, best sizes and sell-through."}
             </div>
-            <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }}>
-              Unlock the numbers →
-            </Link>
+            <SmartCTA anonLabel="Unlock the numbers →" authedLabel="See full numbers →" authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
           </div>
         </div>
       )}
