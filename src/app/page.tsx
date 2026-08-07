@@ -33,7 +33,7 @@ export default function Landing() {
       {/* Hero */}
       <section style={{ maxWidth: 820, margin: "0 auto", padding: "56px 24px 40px", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 12, color: "#8b99b8", border: "1px solid #1c2333", borderRadius: 20, padding: "5px 14px", marginBottom: 22 }}>
-          <BarChart3 size={13} color="#22c55e" /> 30M+ Vinted listings analyzed across 5 EU markets
+          <BarChart3 size={13} color="#22c55e" /> 500,000+ Vinted listings analyzed across 5 EU markets
         </div>
         <h1 style={{ fontSize: 48, fontWeight: 800, letterSpacing: "-1.5px", lineHeight: 1.08 }}>
           Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>Know before you buy.</span>
@@ -95,7 +95,7 @@ export default function Landing() {
       {/* Social proof band */}
       <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[["30M+", "listings analyzed"], ["5", "EU markets tracked"], ["100", "live product signals"], ["30%", "target margin, after fees"]].map(([n, l]) => (
+          {[["500,000+", "listings analyzed"], ["5", "EU markets tracked"], ["100", "live product signals"], ["30%", "target margin, after fees"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "center" }}>
               <div style={{ fontSize: 28, fontWeight: 800, color: "#eef1f7" }}>{n}</div>
               <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>{l}</div>

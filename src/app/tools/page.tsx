@@ -6,7 +6,7 @@ import { FreeChecker } from "@/components/tools/free-checker"
 export const metadata: Metadata = {
   title: "Free Vinted Reseller Tools — Resale IQ",
   description:
-    "Free tools for Vinted resellers: price checker, sourcing tool, resale analytics and profit calculator, built on 30M+ listings across 5 EU markets.",
+    "Free tools for Vinted resellers: price checker, sourcing tool, resale analytics and profit calculator, built on 500,000+ listings across 5 EU markets.",
   alternates: { canonical: "/tools" },
 }
 

@@ -1,6 +1,6 @@
 // Search-intent landing pages. Each targets a distinct query a Vinted reseller
 // actually types, answers it directly (AEO-friendly), embeds the free checker,
-// and converts to signup. Claims stay honest: 30M+ listings, 5 EU markets.
+// and converts to signup. Claims stay honest: 500,000+ listings, 5 EU markets.
 
 export interface SearchIntent {
   slug: string
@@ -19,17 +19,17 @@ export const INTENTS: SearchIntent[] = [
     keyword: "vinted price checker",
     title: "Vinted Price Checker — What Any Item Really Sells For",
     description:
-      "Free Vinted price checker. See what an item actually sells for, the max you should pay, and how fast it moves — from 30M+ listings across 5 EU markets.",
+      "Free Vinted price checker. See what an item actually sells for, the max you should pay, and how fast it moves — from 500,000+ listings across 5 EU markets.",
     h1: "Vinted Price Checker",
     lede:
-      "Check what any item genuinely sells for on Vinted before you buy or list it. Type a brand and model below to get an instant BUY / WATCH / SKIP call, computed from 30M+ real listings across Spain, France, Germany, Italy and Portugal.",
+      "Check what any item genuinely sells for on Vinted before you buy or list it. Type a brand and model below to get an instant BUY / WATCH / SKIP call, computed from 500,000+ real listings across Spain, France, Germany, Italy and Portugal.",
     bullets: [
       { h: "Real sold prices, not asking prices", p: "Active listings show what people hope to get. We anchor on what actually sold, so your price reflects the real market." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
       { h: "Speed, not just price", p: "A high price on an item that never sells is worthless. We show sell-through so you know how fast your cash comes back." },
     ],
     faq: [
-      { q: "How do I check the price of an item on Vinted?", a: "Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across 30M+ listings in 5 EU markets and returns the typical sale price plus a buy-below price." },
+      { q: "How do I check the price of an item on Vinted?", a: "Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across 500,000+ listings in 5 EU markets and returns the typical sale price plus a buy-below price." },
       { q: "Is there a free Vinted price checker?", a: "Yes — you can run a free check here to get the headline BUY/WATCH/SKIP verdict for any item. The exact buy-below price, sell price, best sizes and sell-through rate are available on a paid plan." },
       { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average sale price × 0.95 (after the ~5% fee) × 0.70, which targets about a 30% margin." },
     ],
@@ -49,16 +49,16 @@ export const INTENTS: SearchIntent[] = [
       { h: "Plan three weeks ahead", p: "The Order Planner shows what to buy today for stock landing in three weeks, based on where demand is heading." },
     ],
     faq: [
-      { q: "What is the best sourcing tool for Vinted resellers?", a: "A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from 30M+ Vinted listings across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price." },
+      { q: "What is the best sourcing tool for Vinted resellers?", a: "A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from 500,000+ Vinted listings across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price." },
       { q: "How do resellers decide what to buy on Vinted?", a: "Experienced resellers check demand (weekly sales volume), sell-through rate, and size demand before buying, then only pay under their buy-below price. Guessing is what creates dead stock." },
     ],
   },
   {
     slug: "vinted-resale-analytics",
     keyword: "vinted resale analytics",
-    title: "Vinted Resale Analytics — 30M+ Listings, 5 EU Markets",
+    title: "Vinted Resale Analytics — 500,000+ Listings, 5 EU Markets",
     description:
-      "Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across 30M+ listings in 5 EU markets.",
+      "Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across 500,000+ listings in 5 EU markets.",
     h1: "Vinted Resale Analytics",
     lede:
       "Analytics built specifically for secondhand resale. Resale IQ continuously analyses live and sold Vinted listings across five EU markets and turns them into the metrics that actually drive profit.",
@@ -69,7 +69,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "What analytics matter for Vinted reselling?", a: "The three that decide profit are sell-through rate (how fast items sell), average sale price (margin room), and per-size demand (whether your specific stock will move). Volume alone is misleading." },
-      { q: "Where can I get Vinted market data?", a: "Vinted doesn't publish analytics. Resale IQ builds them from 30M+ public live and sold listings across Spain, France, Germany, Italy and Portugal." },
+      { q: "Where can I get Vinted market data?", a: "Vinted doesn't publish analytics. Resale IQ builds them from 500,000+ public live and sold listings across Spain, France, Germany, Italy and Portugal." },
     ],
   },
   {
@@ -77,7 +77,7 @@ export const INTENTS: SearchIntent[] = [
     keyword: "reselling intelligence",
     title: "Reselling Intelligence — Source With Data, Not Guesswork",
     description:
-      "Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on 30M+ analyzed listings.",
+      "Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on 500,000+ analyzed listings.",
     h1: "Reselling Intelligence",
     lede:
       "Reselling intelligence means replacing gut feel with evidence: knowing what sells, at what price, how fast, and in which sizes — before you buy. That's what Resale IQ delivers for Vinted resellers across 5 EU markets.",

@@ -1,7 +1,7 @@
 // Programmatic SEO + AEO content. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
-// Claims kept honest: "30M+ listings across 5 EU markets" is true; no fabricated
+// Claims kept honest: "500,000+ listings across 5 EU markets" is true; no fabricated
 // per-item stats. Methodology figures (30% margin math) are the product's real logic.
 
 export interface BlogPost {
@@ -17,14 +17,14 @@ export interface BlogPost {
 }
 
 const BRAND = "Resale IQ"
-const DATA = "30M+ Vinted listings across the 5 main EU markets (Spain, France, Germany, Italy, Portugal)"
+const DATA = "500,000+ Vinted listings across the 5 main EU markets (Spain, France, Germany, Italy, Portugal)"
 
 export const POSTS: BlogPost[] = [
   {
     slug: "what-sells-best-on-vinted",
     title: "What Sells Best on Vinted in 2026 (Data-Backed)",
     description:
-      "The categories and brands that sell fastest on Vinted right now, based on 30M+ analyzed listings across 5 EU markets — and how to tell before you buy.",
+      "The categories and brands that sell fastest on Vinted right now, based on 500,000+ analyzed listings across 5 EU markets — and how to tell before you buy.",
     date: "2026-08-05",
     category: "Sourcing",
     readMins: 6,
@@ -58,7 +58,7 @@ export const POSTS: BlogPost[] = [
     faq: [
       { q: "What sells fastest on Vinted?", a: "Recognisable sneakers (Nike, Adidas, New Balance) and everyday branded basics (Levi's, Carhartt, The North Face) in common sizes sell fastest, provided they're priced fairly for their condition. Sell-through drops sharply for outlier sizes and off-season items." },
       { q: "What should I avoid buying to resell on Vinted?", a: "Avoid off-season stock you'll hold for months, unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical sale price after fees." },
-      { q: "How do I know if an item will sell before I buy it?", a: "Check the item's real sell-through rate, average sale price, and best-selling sizes. Tools like Resale IQ compute this from 30M+ real Vinted listings so you get a BUY/SKIP decision instead of guessing." },
+      { q: "How do I know if an item will sell before I buy it?", a: "Check the item's real sell-through rate, average sale price, and best-selling sizes. Tools like Resale IQ compute this from 500,000+ real Vinted listings so you get a BUY/SKIP decision instead of guessing." },
     ],
   },
   {
@@ -104,7 +104,7 @@ export const POSTS: BlogPost[] = [
     slug: "best-brands-to-resell-on-vinted",
     title: "The Best Brands to Resell on Vinted (and How to Judge Any Brand)",
     description:
-      "Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from 30M+ analyzed sales.",
+      "Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from 500,000+ analyzed sales.",
     date: "2026-08-05",
     category: "Sourcing",
     readMins: 6,
@@ -137,7 +137,7 @@ export const POSTS: BlogPost[] = [
     faq: [
       { q: "What are the best brands to resell on Vinted?", a: "Consistently liquid brands include Nike, Adidas, New Balance, Levi's, Carhartt, The North Face, and Stone Island. The 'best' brand for you is whichever sells fast at a margin in sizes you can source." },
       { q: "Is it better to resell premium or mid-tier brands?", a: "Mid-tier brands that sell weekly often out-earn premium brands that sell rarely, because your cash recycles faster. Liquidity usually beats prestige for active resellers." },
-      { q: "How do I know if a brand is worth reselling?", a: "Check three numbers: weekly sales volume, average sale price, and sell-through by size. Resale IQ ranks brands on these from 30M+ real listings." },
+      { q: "How do I know if a brand is worth reselling?", a: "Check three numbers: weekly sales volume, average sale price, and sell-through by size. Resale IQ ranks brands on these from 500,000+ real listings." },
     ],
   },
   {
@@ -169,7 +169,7 @@ export const POSTS: BlogPost[] = [
         h: "How to decide",
         p: [
           "Match the item to the platform: high-volume branded basics and sneakers → Vinted; curated/vintage/trend pieces → Depop. Many resellers cross-list.",
-          "Wherever you list, the buy decision is the same: only source items with real demand and margin. " + BRAND + " focuses on Vinted's 5 EU markets and 30M+ listings to make that call.",
+          "Wherever you list, the buy decision is the same: only source items with real demand and margin. " + BRAND + " focuses on Vinted's 5 EU markets and 500,000+ listings to make that call.",
         ],
       },
     ],

@@ -95,7 +95,7 @@ export default async function IntentPage(
         <div style={{ marginTop: 30, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Get the full numbers.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Buy-below price, sell price, best sizes and sell-through on every item — from 30M+ Vinted listings across 5 EU markets.
+            Buy-below price, sell price, best sizes and sell-through on every item — from 500,000+ Vinted listings across 5 EU markets.
           </p>
           <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans →

@@ -52,7 +52,7 @@ export default async function DataPage() {
     "@type": "Dataset",
     name: "Vinted Resale Market Snapshot",
     description:
-      "Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from 30M+ analyzed listings.",
+      "Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from 500,000+ analyzed listings.",
     url: "https://resaleiq.dev/data",
     creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
     license: "https://resaleiq.dev/legal",
@@ -77,7 +77,7 @@ export default async function DataPage() {
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
           Weekly units sold and average sale price by brand across Vinted&apos;s five main EU markets
-          (Spain, France, Germany, Italy, Portugal), from 30M+ analyzed listings.
+          (Spain, France, Germany, Italy, Portugal), from 500,000+ analyzed listings.
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
 

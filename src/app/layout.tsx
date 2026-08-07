@@ -45,7 +45,7 @@ const ORG_JSONLD = {
   url: "https://resaleiq.dev",
   applicationCategory: "BusinessApplication",
   description:
-    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 30M+ listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
+    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 500,000+ listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
   offers: [
     { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR" },
     { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR" },
