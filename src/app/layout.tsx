@@ -3,7 +3,7 @@ import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 
 const TITLE = "Resale IQ — Market Intelligence for Vinted Resellers"
-const DESC = "Know exactly what to buy, at what price, in which sizes. Millions of Vinted listings analyzed across 5 EU markets."
+const DESC = "Know exactly what to buy, at what price, in which sizes. 500,000+ Vinted listings analyzed across 5 EU markets."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://resaleiq.dev"),

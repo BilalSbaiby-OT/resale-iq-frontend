@@ -31,7 +31,7 @@ export const INTENTS: SearchIntent[] = [
     faq: [
       { q: "How do I check the price of an item on Vinted?", a: "Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across 500,000+ listings in 5 EU markets and returns the typical sale price plus a buy-below price." },
       { q: "Is there a free Vinted price checker?", a: "Yes — you can run a free check here to get the headline BUY/WATCH/SKIP verdict for any item. The exact buy-below price, sell price, best sizes and sell-through rate are available on a paid plan." },
-      { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average sale price × 0.95 (after the ~5% fee) × 0.70, which targets about a 30% margin." },
+      { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average sale price × 0.95 (the 5% platform deduction we model for Vinted) × 0.70, which targets about a 30% margin. Substitute your own fee figure if yours differs." },
     ],
   },
   {
@@ -88,7 +88,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "What is reselling intelligence?", a: "Reselling intelligence is the use of real market data — sell-through rates, sold prices, size demand and momentum — to decide what stock to buy, instead of relying on intuition. It reduces dead stock and protects margin." },
-      { q: "How is it different from just checking sold listings?", a: "Checking sold listings manually gives you a tiny sample from one market. Reselling intelligence aggregates millions of listings across markets and converts them into a priced, sized, time-bound decision." },
+      { q: "How is it different from just checking sold listings?", a: "Checking sold listings manually gives you a tiny sample from one market. Reselling intelligence aggregates 500,000+ listings across all five EU markets and converts them into a priced, sized, time-bound decision." },
     ],
   },
   {

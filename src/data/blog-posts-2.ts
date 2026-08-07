@@ -65,7 +65,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Daily timing",
         p: [
-          "Evenings — roughly 18:00 to 22:00 local time — are when most casual browsing happens. Listing then puts your item in front of the largest audience while it's still new in the feed.",
+          "The usual advice is to list in the evening, on the reasoning that casual browsing peaks after work. We have not measured Vinted's traffic by hour and cannot — so treat that as a plausible default rather than a finding, and test it on your own account by splitting listings between two times of day and comparing.",
           "Weekends, particularly Sunday evening, tend to be busy as people plan the week ahead.",
         ],
       },

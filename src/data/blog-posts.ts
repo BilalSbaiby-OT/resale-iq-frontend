@@ -50,7 +50,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "How to know before you buy",
         p: [
-          "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + " — it turns millions of real sales into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.",
+          "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + " — it turns 500,000+ real listings into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.",
           "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months.",
         ],
       },
@@ -58,7 +58,7 @@ export const POSTS: BlogPost[] = [
     faq: [
       { q: "What sells fastest on Vinted?", a: "Recognisable sneakers (Nike, Adidas, New Balance) and everyday branded basics (Levi's, Carhartt, The North Face) in common sizes sell fastest, provided they're priced fairly for their condition. Sell-through drops sharply for outlier sizes and off-season items." },
       { q: "What should I avoid buying to resell on Vinted?", a: "Avoid off-season stock you'll hold for months, unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical sale price after fees." },
-      { q: "How do I know if an item will sell before I buy it?", a: "Check the item's real sell-through rate, average sale price, and best-selling sizes. Tools like Resale IQ compute this from 500,000+ real Vinted listings so you get a BUY/SKIP decision instead of guessing." },
+      { q: "How do I know if an item will sell before I buy it?", a: "Check the item's real sell-through rate, average sale price, and best-selling sizes. Tools like Resale IQ compute this from 500,000+ real Vinted listings so you get a BUY / WATCH / SKIP call instead of guessing." },
     ],
   },
   {
@@ -83,7 +83,7 @@ export const POSTS: BlogPost[] = [
         h: "Work backwards to your buy-below price",
         p: [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
-          "A common rule: buy-below = average sale price × 0.95 (after the ~5% selling fee) × 0.70, which targets roughly a 30% margin. Pay more than that and you're gambling on price appreciation.",
+          "A common rule: buy-below = average sale price × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs. Pay more than that and you're gambling on price appreciation.",
         ],
       },
       {
@@ -321,7 +321,7 @@ export const POSTS: BlogPost[] = [
     ],
     faq: [
       { q: "What is the biggest mistake in reselling?", a: "Buying dead stock — items with no real demand. The costly mistake happens at the buy decision, not the sale. Checking demand and sell-through before buying prevents it." },
-      { q: "How do I stop buying items that don't sell?", a: "Only buy items with proven demand and fast sell-through in sizes that move, and stay under your buy-below price. Data tools give you a BUY/SKIP call before you spend." },
+      { q: "How do I stop buying items that don't sell?", a: "Only buy items with proven demand and fast sell-through in sizes that move, and stay under your buy-below price. Data tools give you a BUY / WATCH / SKIP call before you spend." },
     ],
   },
   {
@@ -346,7 +346,7 @@ export const POSTS: BlogPost[] = [
         h: "The formula",
         p: [
           "A widely used rule: buy-below = average sale price × 0.95 × 0.70.",
-          "The 0.95 accounts for the ~5% selling fee; the 0.70 targets roughly a 30% margin. Adjust the margin factor to your goals, but keep the discipline.",
+          "The 0.95 accounts for the 5% platform deduction we model for Vinted; the 0.70 targets roughly a 30% margin. Adjust both to your own fee structure and goals, but keep the discipline.",
         ],
       },
       {
@@ -357,7 +357,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "How do you calculate a buy-below price?", a: "Buy-below price = average sale price × 0.95 × 0.70. The 0.95 covers the ~5% selling fee and the 0.70 targets about a 30% margin. Never pay more than this when sourcing." },
+      { q: "How do you calculate a buy-below price?", a: "Buy-below price = average sale price × 0.95 × 0.70. The 0.95 covers the 5% platform deduction Resale IQ models for Vinted, and the 0.70 targets about a 30% margin. Fee structures differ by platform and by whether you sell privately or as a business, so substitute your own figure. Never pay more than the result when sourcing." },
       { q: "Why is buy-below price important?", a: "It protects your margin before you list. Profit in reselling is mostly decided at the buy, not the sale — buying under your buy-below price is what makes an item profitable." },
     ],
   },

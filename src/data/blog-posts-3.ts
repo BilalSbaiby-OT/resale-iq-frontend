@@ -236,7 +236,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Consistency keeps you visible",
         p: [
-          "Steady listing activity keeps your closet fresh in the feed. A burst of 40 listings then silence performs worse than a few every day.",
+          "Secondhand marketplace feeds generally favour recent activity, so steady listing should keep your closet surfacing more often than a burst of 40 followed by silence. Nobody outside Vinted can verify how its ranking works, so treat this as a working assumption — but it is cheap to test by splitting a batch across a week.",
         ],
       },
       {

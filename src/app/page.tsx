@@ -39,7 +39,7 @@ export default function Landing() {
           Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>Know before you buy.</span>
         </h1>
         <p style={{ fontSize: 17, color: "#8b99b8", marginTop: 20, lineHeight: 1.55, maxWidth: 600, margin: "20px auto 0" }}>
-          Resale IQ turns millions of real Vinted sales into one answer: what to buy, at what price, in which sizes — and how fast it'll sell.
+          Resale IQ turns 500,000+ real Vinted listings into one answer: what to buy, at what price, in which sizes — and how fast it'll sell.
         </p>
 
         {/* CTA + locked preview — sells the output without giving it away free */}
