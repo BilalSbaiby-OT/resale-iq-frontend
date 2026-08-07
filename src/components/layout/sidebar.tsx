@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert,
+  BookOpen, Wrench, Database, LifeBuoy,
 } from "lucide-react"
 import { getPlanFromToken } from "@/lib/utils"
 
@@ -31,6 +32,19 @@ const NAV_SECTIONS = [
       { href: "/watchlist", icon: Star, label: "Watchlist" },
       { href: "/portfolio", icon: Briefcase, label: "Portfolio" },
       { href: "/verdict", icon: Zap, label: "Quick Verdict" },
+    ],
+  },
+  {
+    // Everything public lives outside the dashboard, so a logged-in customer had
+    // no way to reach the guides, free tools, market data or support without
+    // manually editing the URL. Paying users were the only people walled off
+    // from the content meant to help them.
+    label: "Resources",
+    items: [
+      { href: "/blog", icon: BookOpen, label: "Guides & Tips" },
+      { href: "/tools", icon: Wrench, label: "Free Tools" },
+      { href: "/data", icon: Database, label: "Market Data" },
+      { href: "/support", icon: LifeBuoy, label: "Support" },
     ],
   },
   {
