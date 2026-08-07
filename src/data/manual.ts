@@ -119,8 +119,9 @@ export const CHAPTERS_1: ManualChapter[] = [
       {
         h2: "The derivation",
         body: [
-          "Start from the price the item realistically sells for — the price similar items have actually sold at, not the price hopeful sellers are asking. Take off the platform fee. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
-          "Concretely: an item that reliably sells for €40 on Vinted nets about €38 after a 5% fee. If you want a 30% margin on the sale, you can pay up to about €26.60. Pay €30 and you are working for roughly 21%. Pay €34 and you are working for free once one item in ten fails to sell.",
+          "Start from the price the item realistically sells for — the price similar items have actually sold at, not the price hopeful sellers are asking. Take off whatever the platform deducts from you. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
+          "Concretely, using the 5% deduction Resale IQ models for Vinted: an item that reliably sells for €40 nets about €38. If you want a 30% margin on the sale, you can pay up to about €26.60. Pay €30 and you are working for roughly 21%. Pay €34 and you are working for free once one item in ten fails to sell.",
+          "Substitute your own figure — fee structures differ by platform, by market and by whether you sell as a private individual or a business, and they change. The arithmetic does not care what the number is, only that you use the real one. The profit calculator applies the current per-platform rates so you are not working from a figure you memorised a year ago.",
           "The arithmetic is trivial. The hard part is the first input — the realistic sale price — and that is where almost every bad buy originates.",
         ],
         callout: {
@@ -193,7 +194,7 @@ export const CHAPTERS_1: ManualChapter[] = [
         h2: "Momentum: the third number",
         body: [
           "Volume and sell-through are both snapshots. Momentum is the derivative — whether this week is running ahead of or behind the recent baseline. A category with flat volume and rising momentum is warming up; the same volume with falling momentum means you are buying into a market that is cooling, and by the time you list, the numbers you sourced against will be stale.",
-          "Momentum needs history to mean anything. A market you have only observed for a week has no baseline to compare against, and any momentum figure computed from it is noise dressed up as a signal. Treat momentum from a short window with suspicion — including our own, which is why Resale IQ flags its momentum labels as warming up until enough history has accumulated.",
+          "Momentum needs history to mean anything. A market you have only observed for a week has no baseline to compare against, and any momentum figure computed from it is noise dressed up as a signal — a board where every model is labelled the same way is telling you it cannot yet rank them, not that everything is hot at once. Treat any momentum reading from a short observation window with suspicion, ours included, and lean on volume and sell-through until the history is deep enough to rank against.",
         ],
       },
     ],
@@ -453,8 +454,20 @@ export const CHAPTERS_1: ManualChapter[] = [
       "A practical grading approach, which defects are economically fatal, and how to handle commonly-counterfeited brands without becoming an expert authenticator.",
     minutes: 7,
     intro:
-      "Two items of the same model can differ in value by 70% on condition alone. Grading consistently is not perfectionism — it is how you avoid paying good-condition prices for stock you will have to describe honestly later.",
+      "Condition is the single largest price variable we can measure, and it is bigger than almost anyone assumes. Grading consistently is not perfectionism — it is how you avoid paying good-condition prices for stock you will have to describe honestly later.",
     sections: [
+      {
+        h2: "How much condition is actually worth",
+        body: [
+          "We took sold listings on Vinted Spain and grouped them by the condition the seller selected. The gap between the top and bottom grade is not a rounding error — across the categories we checked, the best grade sold for roughly three and a half to seven times the worst.",
+          "Nike sneakers are the clearest example. Median sold price ran about €70 new with tags, €50 new without tags, €30 very good, €15 good, and €10 satisfactory. Adidas sneakers showed nearly the same shape, from about €55 down to €8. Levi's jeans compressed into a narrower band — roughly €40 down to €10 — and Zara jackets narrower still.",
+          "Two things fall out of that. First, the drop from \"very good\" to \"good\" is brutal: on Nike sneakers it halved the median. One grade of honesty costs a lot, which is exactly why sellers over-grade and why you must not pay their grade's price without checking. Second, deadstock with tags carries a real premium — it is often the only condition where a premium buy price is justified.",
+        ],
+        callout: {
+          label: "Read this honestly",
+          text: "These grades are seller-selected and confounded — an item listed new-with-tags is also more likely to be a newer, more desirable model, so not all of the gap is condition alone. The direction and the rough scale are solid; treat the exact multiples as indicative.",
+        },
+      },
       {
         h2: "Grade in the shop, not at home",
         body: [
@@ -489,6 +502,8 @@ export const CHAPTERS_1: ManualChapter[] = [
       },
     ],
     takeaways: [
+      "Condition is the biggest measurable price variable: best grade sold for ~3.5–7× the worst across the categories we checked.",
+      "The very-good to good step alone halved the median on Nike sneakers. Never pay a grade's price without verifying the grade.",
       "Grade before paying, in daylight, to a fixed routine — and write it down immediately.",
       "Washable defects are an opportunity; repairable ones rarely pay for the repair.",
       "Smoke and damp odour has no viable price. Walk away.",

@@ -24,7 +24,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         ],
         callout: {
           label: "Price-filter awareness",
-          text: "Buyers routinely filter with round maximums. Listing at €51 when a large cohort filters at €50 removes you from their results entirely for one euro of upside.",
+          text: "A buyer who sets a maximum price will almost always set a round one. So listing at €51 risks being filtered out of the results of everyone who capped at €50 — for one euro of upside. Price just under the round numbers, not just over.",
         },
       },
       {
@@ -134,7 +134,8 @@ export const CHAPTERS_2: ManualChapter[] = [
       {
         h2: "Freshness is the lever you get for free",
         body: [
-          "Marketplace feeds lean heavily on recency, which means a newly-listed or newly-updated item gets a burst of visibility and then decays. Practically, this makes listing cadence matter: spreading twenty listings across a week generally outperforms posting all twenty on Sunday evening, because each one gets its own slot in the feed instead of competing with your other nineteen.",
+          "Secondhand marketplace feeds generally favour recent activity, so a newly-listed item tends to get an initial burst of visibility that fades. We have not measured Vinted's ranking directly and nobody outside the company can, so treat this as a working assumption rather than a fact — but it is the assumption the platform's own bump products are sold on, which is reasonable evidence it holds.",
+          "If it does hold, listing cadence matters: spreading twenty listings across a week should beat posting all twenty on Sunday evening, because each gets its own moment in the feed instead of competing with your other nineteen. This one is cheap to test on your own account, and worth testing rather than believing.",
           "It also means a stale listing is not being shown to many people, which is worth remembering before concluding that the price is wrong. Sometimes the price is fine and the listing is simply invisible.",
         ],
       },
