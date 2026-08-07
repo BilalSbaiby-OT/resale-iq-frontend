@@ -1,24 +1,13 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import seo from "@/data/seo-brands.json"
+import { BRANDS, catSlug, type BrandSeo } from "@/lib/seo-categories"
 import { Lock, TrendingUp, ArrowRight } from "lucide-react"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
 // from scripts/export_seo_data.py — aggregates only, never the paid signals.
 // See that script's exposure policy before adding any field here.
-
-interface BrandSeo {
-  brand: string
-  slug: string
-  sold_7d: number
-  avg_price_eur: number
-  top_categories: string[]
-  models_tracked: number
-}
-
-const BRANDS = seo.brands as BrandSeo[]
 
 function getBrand(slug: string): BrandSeo | undefined {
   return BRANDS.find(b => b.slug === slug)
@@ -125,6 +114,24 @@ export default async function BrandFlipPage(
         kills your return even when the margin looks fine on paper.
       </p>
 
+      {/* Every brand x category page must be linked from here. An unlinked page
+          is an unreachable page — the same failure mode as a route with no UI. */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+        {(b.categories || []).map(c => (
+          <Link key={c.category} href={`/flip/${b.slug}/${catSlug(c.category)}`} style={{
+            display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline",
+            fontSize: 14, color: "#8fa3c4", textDecoration: "none",
+            background: "#12151d", border: "1px solid #1c2333",
+            borderRadius: 9, padding: "10px 14px",
+          }}>
+            <span>Are {b.brand} {c.category} worth reselling?</span>
+            <span style={{ fontSize: 12.5, color: "#5b6b8c", whiteSpace: "nowrap" }}>
+              {c.sold_7d.toLocaleString()}/wk
+            </span>
+          </Link>
+        ))}
+      </div>
+
       {/* The gate — this is the paid product */}
       <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 22, margin: "26px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -169,8 +176,13 @@ export default async function BrandFlipPage(
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         We continuously track live and sold listings across Vinted ES, FR, DE, IT and PT —
-        millions of items — and recompute every signal hourly. The figures on this page are
+        500,000+ listings — and recompute every signal hourly. The figures on this page are
         live aggregates, not estimates.
+      </p>
+      <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
+        For how to turn figures like these into a buy decision, the{" "}
+        <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>reselling manual</Link>{" "}
+        covers the margin maths, the maximum buy price and why sell-through matters more than volume.
       </p>
 
       <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 12px" }}>

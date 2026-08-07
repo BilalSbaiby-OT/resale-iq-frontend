@@ -111,6 +111,7 @@ export default function Landing() {
         {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>Free tools</Link>
+          <Link href="/manual" style={{ color: "#5b6b8c", textDecoration: "none" }}>Reselling manual</Link>
           <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>Market data</Link>
           <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>Terms</Link>

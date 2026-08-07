@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
-  BookOpen, Wrench, Database, LifeBuoy,
+  BookOpen, Wrench, Database, LifeBuoy, GraduationCap,
 } from "lucide-react"
 import { getPlanFromToken } from "@/lib/utils"
 
@@ -41,6 +41,7 @@ const NAV_SECTIONS = [
     // from the content meant to help them.
     label: "Resources",
     items: [
+      { href: "/manual", icon: GraduationCap, label: "Reselling Manual" },
       { href: "/blog", icon: BookOpen, label: "Guides & Tips" },
       { href: "/tools", icon: Wrench, label: "Free Tools" },
       { href: "/data", icon: Database, label: "Market Data" },

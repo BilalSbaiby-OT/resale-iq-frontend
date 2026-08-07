@@ -10,7 +10,14 @@ import seo from "@/data/seo-brands.json"
 // aggregate volumes only — never buy-below prices, scores or model names.
 export const revalidate = 900
 
-interface BrandSeo { brand: string; slug: string; top_categories: string[] }
+interface BrandSeo {
+  brand: string
+  slug: string
+  sold_7d: number
+  avg_price_eur: number
+  top_categories: string[]
+  categories: { category: string; sold_7d: number }[]
+}
 const BRANDS = seo.brands as BrandSeo[]
 
 const catSlug = (c: string) =>
@@ -18,16 +25,16 @@ const catSlug = (c: string) =>
 
 export function generateStaticParams() {
   return BRANDS.flatMap((b) =>
-    (b.top_categories || []).map((c) => ({ brand: b.slug, category: catSlug(c) }))
+    (b.categories || []).map((c) => ({ brand: b.slug, category: catSlug(c.category) }))
   )
 }
 
 function resolve(brandSlug: string, categorySlug: string) {
   const b = BRANDS.find((x) => x.slug === brandSlug)
   if (!b) return null
-  const category = (b.top_categories || []).find((c) => catSlug(c) === categorySlug)
-  if (!category) return null
-  return { b, category }
+  const row = (b.categories || []).find((c) => catSlug(c.category) === categorySlug)
+  if (!row) return null
+  return { b, category: row.category, baselineSold: row.sold_7d }
 }
 
 export async function generateMetadata(
@@ -68,14 +75,17 @@ export default async function BrandCategoryPage(
   const { brand, category } = await params
   const r = resolve(brand, category)
   if (!r) notFound()
-  const { b, category: catName } = r
+  const { b, category: catName, baselineSold } = r
 
+  // Live figures when the snapshot is reachable; otherwise the numbers baked in
+  // at build time. Falling back beats rendering "—" on a page whose whole point
+  // is the number.
   const snap = await getSnapshot()
   const live = snap.find((s) => s.brand === b.brand)
   const catRow = live?.categories?.find((c) => c.category === catName)
-  const catSold = catRow?.sold_7d ?? null
-  const brandSold = live?.sold_7d ?? null
-  const avgPrice = live?.avg_price_eur ?? null
+  const catSold = catRow?.sold_7d ?? baselineSold ?? null
+  const brandSold = live?.sold_7d ?? b.sold_7d ?? null
+  const avgPrice = live?.avg_price_eur ?? b.avg_price_eur ?? null
   const share = catSold && brandSold ? Math.round((catSold / brandSold) * 100) : null
 
   const answer = catSold
@@ -98,7 +108,7 @@ export default async function BrandCategoryPage(
     },
   ]
 
-  const siblings = (b.top_categories || []).filter((c) => c !== catName)
+  const siblings = (b.categories || []).map((c) => c.category).filter((c) => c !== catName)
 
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
@@ -142,10 +152,16 @@ export default async function BrandCategoryPage(
 
         <section style={{ marginBottom: 26 }}>
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>How to check before you buy</h2>
-          <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
+          <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             Look up the exact model rather than the category. Resale IQ returns a BUY / WATCH / SKIP verdict with the buy-below
             price, typical sale price, sell-through rate and the sizes that sell fastest — computed from 500,000+ listings across
             Spain, France, Germany, Italy and Portugal.
+          </p>
+          <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
+            If you are new to this, the{" "}
+            <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>reselling manual</Link>{" "}
+            walks through the margin maths, the fee structure and the sourcing rules that decide whether a
+            category like this is actually worth your money.
           </p>
         </section>
 
@@ -159,19 +175,20 @@ export default async function BrandCategoryPage(
           </Link>
         </div>
 
-        {siblings.length > 0 && (
-          <div style={{ marginTop: 30 }}>
-            <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>Other {b.brand} categories</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {siblings.map((c) => (
-                <Link key={c} href={`/flip/${b.slug}/${catSlug(c)}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-                  → Are {b.brand} {c} worth reselling?
-                </Link>
-              ))}
-              <Link href="/data" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Full Vinted market data</Link>
-            </div>
+        <div style={{ marginTop: 30 }}>
+          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>Keep reading</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <Link href={`/category/${category}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+              → Which brands sell best in {catName}?
+            </Link>
+            {siblings.map((c) => (
+              <Link key={c} href={`/flip/${b.slug}/${catSlug(c)}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+                → Are {b.brand} {c} worth reselling?
+              </Link>
+            ))}
+            <Link href="/data" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Full Vinted market data</Link>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

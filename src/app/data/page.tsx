@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
+import { CATEGORIES } from "@/lib/seo-categories"
 
 // Public, citable open data. Rendered server-side and revalidated hourly (ISR),
 // so the page HTML always contains fresh numbers for crawlers — no redeploy
@@ -135,7 +136,27 @@ export default async function DataPage() {
           </Link>
         </div>
 
+        {/* /data is the parent of the category rankings — without these links the
+            hubs are only reachable from deep brand pages. */}
+        <div style={{ marginTop: 30 }}>
+          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+            Brands ranked by category
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {CATEGORIES.map((c) => (
+              <Link key={c.slug} href={`/category/${c.slug}`} style={{
+                fontSize: 13, color: "#a9b6d0", textDecoration: "none",
+                background: "#12151d", border: "1px solid #1c2333",
+                borderRadius: 8, padding: "7px 12px",
+              }}>
+                {c.category}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div style={{ marginTop: 26, display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ The reselling manual</Link>
           <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Free reseller tools</Link>
           <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Reselling guides</Link>
         </div>
