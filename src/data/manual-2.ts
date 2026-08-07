@@ -179,53 +179,63 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "cross-border-markets",
     number: 12,
     part: "Selling",
-    title: "The five EU markets and where the price gaps are",
+    title: "The five EU markets are mostly one market",
     description:
-      "Vinted ES, FR, DE, IT and PT are one platform and five different markets. Where the durable price differences come from and how to use them without getting burned on shipping.",
+      "We measured how much Vinted's ES, FR, DE, IT and PT catalogues overlap. Most listings appear on several domains at an identical price — which means the country-arbitrage playbook does not work the way it is usually described.",
     minutes: 7,
     intro:
-      "The same model does not fetch the same price in Madrid, Milan and Munich. Those differences are structural rather than random, which is what makes them usable — and they are the single most durable information edge available to a small operator.",
+      "The standard advice is to buy in a cheap country and sell in an expensive one. We checked that against our own crawl of all five Vinted domains, and it does not survive contact with the data. The five markets are far closer to one shared catalogue than to five separate ones.",
     sections: [
       {
-        h2: "Why the gaps exist and persist",
+        h2: "What we measured",
         body: [
-          "Price differences between markets come from three sources: what was originally sold there, which brands carry local cultural weight, and how many resellers are competing locally. None of those equalise quickly, because clothing does not flow between markets frictionlessly the way a commodity would.",
-          "The practical consequence is that a brand that is unremarkable in one country can be sought-after in another, and the gap can persist for years. This is different from a temporary mispricing — it is a standing feature of the market, which means you can build a sourcing routine around it rather than chasing individual listings.",
-        ],
-      },
-      {
-        h2: "The costs that eat the gap",
-        body: [
-          "Cross-border shipping costs more and takes longer, which raises the buyer's total price and lowers your conversion at any given list price. Returns cost more too, and a dispute across a language barrier is slower and more likely to go badly.",
-          "So the gap has to be wide enough to survive all of that with room to spare. A five-euro difference between markets is not an opportunity once you have paid international postage on it. A thirty-euro difference on a premium item is a different conversation. The screening question is whether the gap is structural and large, not whether a gap exists.",
+          "For several high-volume brand and category combinations, we took every listing we had collected on each of the five domains and compared them by listing ID. If the domains were genuinely separate marketplaces, the overlap between them would be small. It is not.",
+          "Across the combinations we checked, between roughly 60% and 90% of listings appeared on more than one domain, and between about 12% and 39% appeared on all five at once. Adding up the per-domain counts therefore overstates the true number of distinct listings by roughly two and a half to three and a half times.",
+          "The price finding is the decisive one. Of the listings that appeared on four or more domains, over 99% carried an identical price on every single one. Not a similar price — the same number.",
         ],
         callout: {
-          label: "Screening rule",
-          text: "Only pursue a cross-border gap that survives international shipping, a slower sale and a worse returns experience — and still leaves a margin you would have accepted domestically.",
+          label: "What this means in one line",
+          text: "Vinted is largely one catalogue surfaced under five domains, not five national marketplaces. A buyer browsing the Italian site can already see the Spanish listing, at the Spanish price.",
         },
       },
       {
-        h2: "Listing across markets",
+        h2: "Why the arbitrage playbook fails here",
         body: [
-          "The pragmatic approach for most sellers is not to operate five separate businesses but to write listings that surface in more than one market: brand and model in their original form, translated category nouns, and measurements in centimetres so no buyer has to interpret a size label from another country's convention.",
-          "Watch delivery expectations closely. A buyer in another country who is not clearly told the item ships internationally is a buyer who will be unhappy on day six, and unhappiness converts into ratings that cost you more than the sale was worth.",
+          "Arbitrage requires that the buyer in the expensive market cannot easily see the cheap market. On Vinted, for most listings, they can — the item is already visible to them at the same price. There is no gap to capture, because the platform has already closed it.",
+          "This also means you should be sceptical of any tool or guide quoting per-country Vinted sales volumes. If those figures come from counting each domain separately, they are counting the same listings several times over, and the differences between countries they present as insight are mostly differences in crawl coverage. We publish a single aggregated figure across the five markets specifically to avoid that error.",
+          "There is a real exception, and it is the minority tail: the share of listings we found on only one domain — around 10% to 35% depending on the category. Genuinely local inventory does exist. It is simply much smaller than the conventional advice implies, and it is not where a beginner should be looking for an edge.",
+        ],
+      },
+      {
+        h2: "What the shared catalogue is actually good for",
+        body: [
+          "Read the finding the other way round and it is good news. Your listing is not competing for one country's buyers — it is exposed to a pool spanning five of the largest secondhand markets in Europe. Demand is deeper than a single-country view suggests, which is precisely why a thin-looking national niche can still clear quickly.",
+          "The practical work shifts from picking a market to being legible across all of them. Keep brand and model names in their original form, since those are searched identically everywhere. Translate the category noun and the description where you can. Always give measurements in centimetres, because a buyer reading a size label from another country's convention is a buyer guessing, and guessing produces returns.",
+          "Be explicit about shipping. A buyer who was not clearly told the item crosses a border is unhappy on day six, and that converts into a rating that costs more than the sale earned.",
+        ],
+      },
+      {
+        h2: "Where local advantage is real",
+        body: [
+          "The sourcing side is genuinely national in a way the selling side is not. Charity shops, car boot sales, local classifieds and wholesale contacts are all bounded by geography, and they are not visible to a reseller in another country. That is a real, durable edge — it just sits upstream of the platform, not on it.",
+          "So the honest version of the cross-border strategy is the inverse of the usual one: source locally, where distance genuinely protects you from competition, and sell into the shared pool, where distance does not exist.",
         ],
       },
     ],
     takeaways: [
-      "Market price gaps are structural — origin of stock, local brand status and local competition — so they persist.",
-      "International shipping, slower sales and harder disputes all eat the gap before you do.",
-      "Only chase gaps wide enough to survive all three and still leave a normal margin.",
-      "Keep brand and model untranslated, translate the rest, and always give measurements in centimetres.",
+      "60–90% of listings appear on more than one Vinted domain; 12–39% appear on all five.",
+      "Over 99% of multi-domain listings carry an identical price everywhere — there is no gap to arbitrage.",
+      "Per-country Vinted volume figures usually double-count: summing domains overstates distinct listings by 2.5–3.5×.",
+      "Source locally, where geography protects you. Sell into the shared pool, where it does not.",
     ],
     faq: [
       {
-        q: "Which Vinted market is best to sell in?",
-        a: "There is no single best market — it depends entirely on the brand and category. Resale IQ aggregates ES, FR, DE, IT and PT precisely because the answer moves around. Treating any one country's prices as the truth is how resellers systematically misjudge value.",
+        q: "Can I buy on Vinted in one country and resell in another?",
+        a: "Generally not profitably, because for most listings the buyer in the second country can already see the first listing at the same price. Our crawl found over 99% of listings present on four or more domains priced identically on all of them. The exception is the minority of genuinely single-country inventory, which is a much smaller pool than the usual advice suggests.",
       },
       {
-        q: "Is cross-border selling worth the hassle for cheap items?",
-        a: "Rarely. Shipping is a larger share of a cheap item's price, so the gap almost never survives it. Cross-border works best on premium items where a wide absolute difference dwarfs the extra postage.",
+        q: "Which Vinted market is best to sell in?",
+        a: "For most listings the question does not apply the way it is usually asked, because the item surfaces across several domains regardless. That is why Resale IQ reports one aggregated figure across ES, FR, DE, IT and PT rather than five national ones — presenting them separately would mean counting the same listings several times.",
       },
     ],
   },

@@ -308,7 +308,7 @@ export const CHAPTERS_1: ManualChapter[] = [
         h2: "Platform-to-platform",
         body: [
           "Buying underpriced listings on one platform and reselling them on another, or in another market, is the lowest-friction channel and the most competitive. No travel, no storage before purchase, immediate scale. The catch is that everyone else can also see the listing, and the good ones are gone in minutes.",
-          "It works when you have an information edge — you know a model's real value in a market where the seller does not — and it fails when you are simply refreshing the same feed as three hundred other people. Cross-border price differences between the five main EU Vinted markets are the most durable version of this edge.",
+          "It works when you have an information edge — you know a model's real value and the seller does not — and it fails when you are simply refreshing the same feed as three hundred other people. Note that the edge has to come from knowing the item, not from geography: we measured the five EU Vinted domains and found most listings appear on several of them at an identical price, so buying in one country to sell in another mostly does not work. Chapter 12 has the numbers.",
         ],
       },
     ],

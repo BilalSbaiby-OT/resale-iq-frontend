@@ -365,37 +365,47 @@ export const POSTS_2: BlogPost[] = [
     slug: "what-is-retail-arbitrage-secondhand",
     title: "Retail Arbitrage in Secondhand Fashion, Explained",
     description:
-      "What retail arbitrage means for clothing resellers, how it works across Vinted's five EU markets, and where the real margin comes from.",
-    date: "2026-08-06",
+      "What arbitrage actually means for clothing resellers — and why the popular 'buy in a cheap country, sell in an expensive one' version does not work on Vinted. We measured it.",
+    date: "2026-08-07",
     category: "Business",
     readMins: 5,
     intro:
-      "Retail arbitrage is buying something in one market and selling it in another where it's worth more. In secondhand fashion this happens constantly — often between countries on the same platform.",
+      "Arbitrage is buying something where it is cheap and selling it where it is dear. In secondhand fashion the version everyone repeats is geographic — buy in Spain, sell in Germany. We checked that against our own crawl of all five EU Vinted domains, and it is mostly not true.",
     sections: [
       {
-        h: "Where the price gaps come from",
+        h: "The country-gap version does not survive the data",
         p: [
-          "The same item can sell for noticeably different prices in Spain, France, Germany, Italy and Portugal, driven by local demand, local supply and what's fashionable in each market.",
-          "A brand that's saturated in one country can be scarce and well-priced in another.",
+          "We compared every listing we had collected on Vinted's Spanish, French, German, Italian and Portuguese domains by listing ID. If these were five separate marketplaces, the overlap would be small. Instead, depending on the brand and category, roughly 60% to 90% of listings appeared on more than one domain, and 12% to 39% appeared on all five at once.",
+          "The prices settle it. Of the listings present on four or more domains, over 99% carried an identical price on every one — not a similar price, the same number. A buyer browsing the German site can already see the Spanish listing, at the Spanish price. There is no gap left to capture.",
+          "A side effect worth knowing: because the same listing is counted once per domain, adding up per-country Vinted figures overstates the real number of distinct listings by roughly two and a half to three and a half times. Treat any per-country volume stat with suspicion unless the source says how it deduplicates.",
         ],
       },
       {
-        h: "Why most people miss it",
+        h: "The version that does work: mispricing, not geography",
         p: [
-          "Checking five markets manually for every item is impossible, so most resellers only ever see their own market's prices — and leave the gap on the table.",
+          "Real arbitrage on Vinted is not between places, it is between what a seller thinks an item is worth and what it actually sells for. Those gaps appear constantly, because most sellers are clearing a wardrobe rather than trading, and they price by guessing.",
+          "The tells are consistent: a vague title with no model name, so the listing never surfaces in the searches that would price it correctly; casual photos; and a round-number price that was chosen rather than researched. The item is cheap because it is invisible, not because it is worthless.",
         ],
       },
       {
         h: "Turning it into a system",
         p: [
-          "The workflow is: know the item's real value, know your buy-below price, then scan all markets for listings underneath it.",
-          BRAND + " tracks all five EU Vinted markets and (on Pro) surfaces live listings already below your buy-below price, which is exactly this arbitrage automated.",
+          "The workflow is: know the item's real value, know your buy-below price, then find listings underneath it before anyone else does. Speed matters — if verifying a find takes ten minutes, the good ones are gone and you systematically end up with only the listings nobody else wanted.",
+          BRAND + " computes the buy-below price per model from sold listings across all five EU domains, and on Pro surfaces live listings already beneath it. That is mispricing detection, not a geographic play — the edge is knowing the item, not knowing a border.",
+        ],
+      },
+      {
+        h: "Where geography does still help",
+        p: [
+          "Upstream of the platform. Charity shops, car boot sales, local classifieds and wholesale contacts are genuinely bounded by where you live, and a reseller in another country cannot touch them. That is a durable edge.",
+          "So the honest strategy inverts the usual advice: source locally, where distance protects you from competition, and sell into the shared pool, where distance does not exist.",
         ],
       },
     ],
     faq: [
-      { q: "What is retail arbitrage in reselling?", a: "Buying an item in one market where it's cheap and selling it in another where it's worth more. In secondhand fashion, price gaps often exist between countries on the same platform." },
-      { q: "Can you make money buying on Vinted and reselling on Vinted?", a: "Yes — the same item often sells at different prices across Vinted's five EU markets, and underpriced listings appear constantly. The skill is knowing the item's real value and your maximum buy price before you commit." },
+      { q: "What is retail arbitrage in reselling?", a: "Buying an item where it is cheap and selling it where it is worth more. In secondhand fashion the durable version is buying underpriced listings — items priced by sellers who do not know what they have — rather than moving stock between countries." },
+      { q: "Can you buy on Vinted in one country and resell in another?", a: "Generally not profitably. We found that most listings appear on several of Vinted's five EU domains, and over 99% of those present on four or more are priced identically on all of them. The buyer in the expensive country can already see the cheap listing at the same price." },
+      { q: "Can you make money buying on Vinted and reselling on Vinted?", a: "Yes, but from mispricing rather than geography. Underpriced listings appear constantly because most sellers guess at prices. The skill is knowing the item's real value and your maximum buy price before you commit, and acting faster than the people who have to look it up." },
     ],
   },
 ]
