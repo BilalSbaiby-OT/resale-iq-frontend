@@ -1,17 +1,18 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal } from "@/lib/api"
+import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
-import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn } from "lucide-react"
+import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check } from "lucide-react"
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
   const [logs, setLogs] = useState<Array<{ action: string; created_at: string }>>([])
   const [newPw, setNewPw] = useState(""); const [confirmPw, setConfirmPw] = useState("")
   const [pwMsg, setPwMsg] = useState(""); const [pwOk, setPwOk] = useState(false); const [deleteConfirm, setDeleteConfirm] = useState("")
+  const [apiKey, setApiKey] = useState(""); const [apiMsg, setApiMsg] = useState(""); const [copied, setCopied] = useState(false)
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
@@ -36,6 +37,21 @@ export default function AccountPage() {
   const handleDelete = async () => {
     if (deleteConfirm !== "DELETE") { alert("Type DELETE to confirm"); return }
     try { await deleteAccount(); logout() } catch (e: unknown) { alert(e instanceof Error ? e.message : "Error") }
+  }
+
+  const handleIssueKey = async () => {
+    setApiMsg("")
+    try {
+      const r = await issueApiKey()
+      setApiKey(r.api_key)
+      setApiMsg("Copy it now — it is not shown again. Issuing a new key revokes the old one.")
+    } catch (e: unknown) {
+      setApiMsg(e instanceof Error ? e.message : "Could not issue key")
+    }
+  }
+
+  const handleCopyKey = async () => {
+    try { await navigator.clipboard.writeText(apiKey); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { /* clipboard blocked */ }
   }
 
   const handleExport = async () => {
@@ -82,6 +98,56 @@ export default function AccountPage() {
             <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">UPDATE PASSWORD</button>
           </div>
         </div>
+
+        {/* REST API — Pro plan only. The endpoints and X-Api-Key auth already
+            existed and worked, but there was no way for a paying customer to
+            obtain a key: no UI, no docs. The €49 tier advertised "REST API
+            access" that in practice required opening browser dev tools. */}
+        {user?.plan === "power" && (
+          <div className="bg-[#12151d] border border-[#1c2333] rounded-xl overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]">
+              <Terminal size={14} className="text-amber-400" />
+              <span className="font-bold text-[13px]">REST API</span>
+              <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-amber-500/12 border border-amber-500/30 text-amber-400">Pro</span>
+            </div>
+            <div className="p-4">
+              <p className="text-[12.5px] text-[#8b99b8] mb-3">
+                Query your data programmatically. Send your key as an <code className="text-emerald-400">X-Api-Key</code> header.
+              </p>
+
+              {apiKey ? (
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 bg-[#0e1118] border border-[#232c42] rounded-lg px-3 py-2.5">
+                    <code className="text-[12px] text-emerald-400 break-all flex-1">{apiKey}</code>
+                    <button onClick={handleCopyKey} className="shrink-0 text-[#8b99b8] hover:text-[#eef1f7]" title="Copy">
+                      {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {apiMsg && (
+                <p className={`text-[11.5px] mb-3 ${apiKey ? "text-amber-400" : "text-red-300"}`}>{apiMsg}</p>
+              )}
+
+              <button onClick={handleIssueKey}
+                className="bg-[#1a2030] border border-[#232c42] hover:border-emerald-500/50 text-[12.5px] font-semibold px-4 py-2 rounded-lg transition-colors">
+                {apiKey ? "Regenerate key" : "Generate API key"}
+              </button>
+
+              <div className="mt-4 pt-4 border-t border-[#1e2535]">
+                <p className="text-[11px] text-[#5b6b8c] mb-2">Example</p>
+                <pre className="bg-[#0e1118] border border-[#232c42] rounded-lg p-3 text-[11px] text-[#8b99b8] overflow-x-auto"><code>{`curl https://resaleiq.dev/api/model-signals \\
+  -H "X-Api-Key: YOUR_KEY"`}</code></pre>
+                <p className="text-[11px] text-[#5b6b8c] mt-3">
+                  Available: <code>/api/model-signals</code>, <code>/api/deals</code>, <code>/api/kpis</code>,{" "}
+                  <code>/api/brands/rankings</code>, <code>/api/trends/summary</code>, <code>/api/watchlist</code>,{" "}
+                  <code>/api/portfolio</code>. Rate limit 60 req/min.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Activity */}
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
