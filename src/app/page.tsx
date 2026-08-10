@@ -1,23 +1,17 @@
-"use client"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { TrendingUp, Zap, Package, ShieldCheck, ArrowRight, BarChart3, Lock } from "lucide-react"
-import { getToken } from "@/lib/utils"
 import { PricingSection } from "@/components/landing/pricing-section"
+import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 
+// Server Component ON PURPOSE. This is the site's most-linked page and its
+// entire content must exist in the prerendered HTML — see RedirectIfAuthed for
+// the full reasoning. Only the two genuinely interactive pieces (the signed-in
+// redirect and the pricing section) are Client Components. Do not add
+// "use client" here to get a hook; extract a child component instead.
 export default function Landing() {
-  const router = useRouter()
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    if (getToken()) { router.replace("/dashboard"); return }
-    setReady(true)
-  }, [router])
-  if (!ready) return null
-
   return (
     <div style={{ background: "#0B0D10", color: "#eef1f7", minHeight: "100vh" }}>
+      <RedirectIfAuthed />
       {/* Nav */}
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
