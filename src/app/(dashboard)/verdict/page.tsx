@@ -6,6 +6,7 @@ import { getVerdict } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
 import { Zap, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { UnlockPanel } from "@/components/ui/unlock-panel"
 
 const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string; label: string }> = {
   BUY:     { color: "#34d399", bg: "rgba(52,211,153,.10)", border: "rgba(52,211,153,.35)", label: "BUY" },
@@ -31,6 +32,7 @@ function VerdictInner() {
   const [query, setQuery] = useState("")
   const [result, setResult] = useState<VerdictResult | null>(null)
   const [loading, setLoading] = useState(false)
+  const [unlocking, setUnlocking] = useState(false)
   const [error, setError] = useState("")
 
   const run = useCallback(async (raw?: string) => {
@@ -43,6 +45,20 @@ function VerdictInner() {
       setError("Couldn't fetch a verdict. Try again.")
     } finally { setLoading(false) }
   }, [query])
+
+  // Spends one of the free tier's daily unlocks. The server decides whether the
+  // claim succeeds and only then sends the paid fields — this just re-asks with
+  // unlock=true and swaps in whatever comes back.
+  const unlock = useCallback(async () => {
+    const q = (result?.product || query).trim()
+    if (!q) return
+    setUnlocking(true)
+    try {
+      setResult(await getVerdict(q, true))
+    } catch {
+      setError("Couldn't unlock that one. Try again.")
+    } finally { setUnlocking(false) }
+  }, [result, query])
 
   // Deep-link: /verdict?q=Adidas Samba (e.g. the watchlist VERDICT button) —
   // prefill and run automatically.
@@ -91,6 +107,18 @@ function VerdictInner() {
             {result.verdict === "UNKNOWN" ? (
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
+              </div>
+            ) : result.locked ? (
+              // Server withheld every number. Rendering the metric grid here
+              // would just print a row of em-dashes, which reads as "we have no
+              // data" rather than "this is behind a plan".
+              <div className="p-6 pt-5">
+                <div className="text-[13px] leading-6 text-[#8b99b8]">
+                  This is the headline call on{" "}
+                  <span className="font-semibold text-[#eef1f7]">{result.product || query}</span>,
+                  computed from live sold listings across 5 EU markets.
+                </div>
+                <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
               </div>
             ) : (
               <>

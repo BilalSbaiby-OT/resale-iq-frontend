@@ -177,6 +177,15 @@ export interface VerdictResult {
   upgrade_url?: string
   used_today?: number
   limit?: number
+  /** Server-side redaction flag. When true the paid fields are ABSENT, not blurred. */
+  locked?: boolean
+  locked_fields?: string[]
+  /** Free-tier daily unlock quota. Absent for anonymous callers and paid plans. */
+  unlocks_used?: number
+  unlocks_limit?: number
+  unlocks_remaining?: number
+  unlock_denied?: boolean
+  unlocked_with_quota?: boolean
 }
 
 export interface CalcPlatform {

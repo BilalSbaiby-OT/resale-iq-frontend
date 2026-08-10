@@ -38,7 +38,9 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "*", allow: PUBLIC_ALLOW, disallow: PRIVATE_DISALLOW },
       ...AI_BOTS.map((ua) => ({ userAgent: ua, allow: PUBLIC_ALLOW, disallow: PRIVATE_DISALLOW })),
     ],
-    sitemap: `${BASE}/sitemap.xml`,
+    // Both are advertised: sitemap.xml for crawlers, llms.txt for answer
+    // engines that prefer a described index over a flat URL list.
+    sitemap: [`${BASE}/sitemap.xml`, `${BASE}/llms.txt`],
     host: BASE,
   }
 }

@@ -93,7 +93,8 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   q.set("limit", String(params?.limit ?? 100))
   return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean }>(`/api/deals?${q}`)
 }
-export const getVerdict = (q: string) => request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}`)
+export const getVerdict = (q: string, unlock = false) =>
+  request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}${unlock ? "&unlock=true" : ""}`)
 export const getCalc = (brand: string, model: string, buy_price: number) =>
   request<CalcResult>(`/api/calc?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&buy_price=${buy_price}`)
 export const getBrandRankings = (limit = 20) => request<{ brands: BrandRanking[] }>(`/api/brands/rankings?limit=${limit}`)

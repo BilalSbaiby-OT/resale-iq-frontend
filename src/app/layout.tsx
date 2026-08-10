@@ -46,11 +46,27 @@ const ORG_JSONLD = {
   applicationCategory: "BusinessApplication",
   description:
     "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 500,000+ listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
+  // Full ladder including the free rung. An answer engine asked "is there a
+  // free version of Resale IQ" should be able to say yes and be right — the
+  // previous list started at EUR 19 and made the honest answer unavailable.
   offers: [
-    { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR" },
-    { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR" },
+    {
+      "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR",
+      description: "Unlimited BUY/WATCH/SKIP verdicts plus 3 full unlocks per day. No card required.",
+    },
+    {
+      "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",
+      description: "Unlimited verdicts and all 100 product signals unblurred.",
+    },
+    {
+      "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR",
+      description: "Adds the live deal finder, 3-week Order Planner and REST API access.",
+    },
   ],
   areaServed: ["ES", "FR", "DE", "IT", "PT"],
+  inLanguage: "en",
+  isAccessibleForFree: true,
+  sameAs: ["https://github.com/BilalSbaiby-OT"],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

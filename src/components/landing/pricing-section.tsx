@@ -14,6 +14,8 @@ export function PricingSection() {
   useEffect(() => { getPlans().then(d => setPlans(d.plans)).catch(() => {}) }, [])
 
   const choose = async (tierId: string, placeholder?: string) => {
+    // Free rung: no Stripe involved, just get them an account.
+    if (tierId === "free") { router.push("/register"); return }
     // Enquiry-only tier (no Stripe price): open a real mailbox we actually own.
     // Was hello@resaleiq.app — wrong domain, so every Business lead was lost.
     if (!placeholder) { window.location.href = "mailto:parapluis@outlook.com?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
@@ -32,7 +34,7 @@ export function PricingSection() {
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>One bad sourcing decision costs more than a month of Pro.</h2>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>No free tier — just the data that pays for itself on your first flip. Cancel anytime.</p>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — three items a day come with the full numbers, no card. Upgrade when the cap starts costing you finds.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, alignItems: "start" }}>
@@ -50,8 +52,10 @@ export function PricingSection() {
             <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7" }}>{t.name}</div>
             <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 4, minHeight: 34 }}>{t.tagline}</div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "18px 0" }}>
-              <span style={{ fontSize: 40, fontWeight: 800, color: "#eef1f7", letterSpacing: "-1px" }}>€{t.price}</span>
-              <span style={{ fontSize: 14, color: "#5b6b8c" }}>/month</span>
+              <span style={{ fontSize: 40, fontWeight: 800, color: "#eef1f7", letterSpacing: "-1px" }}>
+                {t.free ? "€0" : `€${t.price}`}
+              </span>
+              <span style={{ fontSize: 14, color: "#5b6b8c" }}>{t.free ? "forever" : "/month"}</span>
             </div>
             <button onClick={() => choose(t.id, t.priceId)} disabled={busy === t.id} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13.5, fontWeight: 700, cursor: "pointer",
@@ -59,7 +63,12 @@ export function PricingSection() {
               background: t.highlight ? "#22c55e" : t.anchor ? "transparent" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7", transition: "opacity .15s",
             }}>{busy === t.id ? "…" : t.cta}</button>
-            <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 11 }}>
+            {t.ceiling && (
+              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid #1c2333", fontSize: 12, color: "#5b6b8c", lineHeight: 1.5 }}>
+                <span style={{ color: "#8b99b8", fontWeight: 600 }}>Where it stops: </span>{t.ceiling}
+              </div>
+            )}
+            <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 11 }}>
               {t.features.map(f => (
                 <div key={f} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
                   <Check size={15} color={t.highlight ? "#22c55e" : "#5b6b8c"} strokeWidth={2.5} style={{ marginTop: 1, flexShrink: 0 }} />
