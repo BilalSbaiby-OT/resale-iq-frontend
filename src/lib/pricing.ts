@@ -1,11 +1,14 @@
 // Pricing ladder: Free -> Starter -> Pro -> Business.
 //
-// Free is deliberately depth-limited rather than time-limited. Every lookup
-// returns the BUY/WATCH/SKIP headline, and FREE_UNLOCKS_PER_DAY (3) of them
-// per day also return the numbers. That proves the data is real — the hardest
-// thing to sell — while staying useless for sourcing a week's stock, so it
-// converts rather than substitutes. A trial would instead give everything away
-// and then take it back, which churns.
+// Free is depth-limited AND lifetime-capped. Every lookup returns the
+// BUY/WATCH/SKIP headline; FREE_UNLOCK_LIFETIME_BUDGET (10) of them also return
+// the numbers — once, for the life of the account, with no reset.
+//
+// The reset is what mattered. A daily allowance is ~90 unlocks a month
+// renewable forever, which lets free substitute for paying and makes farming a
+// matter of patience. A lifetime budget can be MORE generous up front (10 at
+// once evaluates better than 3 dripped) while giving away strictly less in
+// total, and it can never become a substitute because it runs out for good.
 //
 // Business €99 is an enquiry-only anchor that makes Pro €49 read as obvious
 // value. It has no Stripe price on purpose: team seats and bulk features are
@@ -90,11 +93,11 @@ export const TIERS: Tier[] = [
     cta: "Create a free account",
     features: [
       "Unlimited BUY / WATCH / SKIP verdicts",
-      "3 full unlocks a day — buy-below price, sell price, sizes, sell-through",
+      "10 full unlocks — buy-below price, sell price, sizes, sell-through",
       "The whole reselling manual and market data",
       "No card required",
     ],
-    ceiling: "Only 3 items a day come with the numbers.",
+    ceiling: "10 unlocks total, then the numbers stay locked. It does not reset.",
   },
 ]
 

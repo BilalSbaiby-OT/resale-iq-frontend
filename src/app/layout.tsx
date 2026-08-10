@@ -59,7 +59,7 @@ const ORG_JSONLD = {
   offers: [
     {
       "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR",
-      description: "Unlimited BUY/WATCH/SKIP verdicts plus 3 full unlocks per day. No card required.",
+      description: "Unlimited BUY/WATCH/SKIP verdicts plus 10 full unlocks for the life of the account. No card required.",
     },
     {
       "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",

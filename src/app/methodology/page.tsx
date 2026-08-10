@@ -237,7 +237,7 @@ export default async function MethodologyPage() {
           </div>
           <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.65, marginBottom: 16 }}>
             The aggregate market data is public and free to cite with attribution. A free account
-            gets you three fully-unlocked verdicts a day, no card.
+            gets you 10 fully-unlocked verdicts, no card.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>

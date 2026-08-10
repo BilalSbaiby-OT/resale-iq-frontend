@@ -13,8 +13,11 @@ import type { VerdictResult } from "@/types"
  *  - No fake urgency. No countdowns, no "3 people are viewing", no invented
  *    scarcity. The only pressure is the real quota, stated plainly.
  *  - The ask escalates with evidence. Someone who has spent nothing sees a
- *    quiet unlock button; someone who has used all three today has actually
+ *    quiet unlock button; someone who has spent the whole budget has actually
  *    felt the ceiling, and only then do we make the case for paying.
+ *  - The budget is a LIFETIME allowance, not a daily one. Copy must never
+ *    imply it comes back — "resets tomorrow" was the old model and saying it
+ *    now would be a lie that also teaches people to wait instead of pay.
  */
 export function UnlockPanel({
   result, onUnlock, unlocking,
@@ -29,6 +32,7 @@ export function UnlockPanel({
   const remaining = result.unlocks_remaining
   const isAnonymous = remaining === undefined
   const exhausted = remaining === 0
+  const needsVerification = result.verification_required === true
 
   // Anonymous: the job is to get an account, not to sell a plan.
   if (isAnonymous) {
@@ -40,7 +44,7 @@ export function UnlockPanel({
         <Body>
           You just saw the verdict on a real item, computed from live sold listings.
           A free account unlocks the buy-below price, typical sale price, sell-through
-          and best sizes on {limit ?? 3} items a day — no card.
+          and best sizes on {limit ?? 10} items — no card.
         </Body>
         <Row>
           <Primary href="/register">Create a free account</Primary>
@@ -50,7 +54,27 @@ export function UnlockPanel({
     )
   }
 
-  // Quota left: keep it quiet and let the product do the talking.
+  // Email not verified yet. Not a paywall — a one-click step they already have
+  // in their inbox — so it must not read like one.
+  if (needsVerification) {
+    return (
+      <Shell tone="neutral">
+        <Title icon={<Unlock size={15} className="text-emerald-400" />}>
+          Confirm your email to use your {limit} free unlocks
+        </Title>
+        <Body>
+          We sent a confirmation link when you signed up. One click and your{" "}
+          {limit} unlocks are live — buy-below price, sell price, sell-through and
+          best sizes on any {limit} items you choose.
+        </Body>
+        <Row>
+          <Secondary href="/account">Resend the link</Secondary>
+        </Row>
+      </Shell>
+    )
+  }
+
+  // Budget left: keep it quiet and let the product do the talking.
   if (!exhausted) {
     return (
       <Shell tone="neutral">
@@ -70,25 +94,26 @@ export function UnlockPanel({
             {unlocking ? "Unlocking…" : "Unlock this item"}
           </button>
           <span className="text-[12.5px] text-[#8b99b8]">
-            {remaining} of {limit} free unlocks left today
+            {remaining} of {limit} free unlocks left
           </span>
         </div>
       </Shell>
     )
   }
 
-  // Exhausted: they have now used the product three times and hit a real wall.
+  // Exhausted: the budget is gone for good and they have felt it.
   // This is the honest moment to make the case, with their own usage as the
   // argument rather than a manufactured one.
   return (
     <Shell tone="warm">
       <Title icon={<Lock size={15} className="text-amber-400" />}>
-        You&apos;ve used all {limit} free unlocks today
+        You&apos;ve used all {limit} free unlocks
       </Title>
       <Body>
-        They reset tomorrow. If you&apos;re checking more than {limit} items a day you&apos;re
-        sourcing seriously, and the daily cap is going to keep costing you time on exactly
-        the finds worth acting on quickly.
+        That is the whole free allowance — it does not reset. You have now seen the
+        real numbers on {limit} items, so you know whether they hold up. If they did,
+        the question is just whether unlimited access is worth less to you than one
+        item you would otherwise have bought wrong.
       </Body>
       <div className="mb-4 rounded-lg border border-[#1c2333] bg-[#12151d] px-4 py-3">
         <div className="text-[12.5px] leading-5 text-[#a9b6d0]">
@@ -103,7 +128,7 @@ export function UnlockPanel({
         <Secondary href="/#pricing">Compare plans</Secondary>
       </Row>
       <p className="mt-3 text-[11.5px] text-[#5b6b8c]">
-        Cancel anytime. Your free unlocks come back tomorrow either way.
+        Cancel anytime. Your account and the free BUY / WATCH / SKIP verdicts stay either way.
       </p>
     </Shell>
   )

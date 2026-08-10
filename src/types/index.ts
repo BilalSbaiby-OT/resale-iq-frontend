@@ -185,6 +185,8 @@ export interface VerdictResult {
   unlocks_limit?: number
   unlocks_remaining?: number
   unlock_denied?: boolean
+  /** True when the account must verify its email before it can spend the budget. */
+  verification_required?: boolean
   unlocked_with_quota?: boolean
 }
 

@@ -34,7 +34,7 @@ export function PricingSection() {
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>One bad sourcing decision costs more than a month of Pro.</h2>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — three items a day come with the full numbers, no card. Upgrade when the cap starts costing you finds.</p>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 10 items come with the full numbers, no card. Enough to prove the data holds up; not enough to source on.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, alignItems: "start" }}>
