@@ -1,7 +1,8 @@
 import Link from "next/link"
-import { TrendingUp, Zap, Package, ShieldCheck, ArrowRight, BarChart3, Lock } from "lucide-react"
+import { TrendingUp, Zap, Package, ShieldCheck, ArrowRight, BarChart3 } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
+import { LiveMarketProof } from "@/components/landing/live-market-proof"
 
 // Server Component ON PURPOSE. This is the site's most-linked page and its
 // entire content must exist in the prerendered HTML — see RedirectIfAuthed for
@@ -44,30 +45,7 @@ export default function Landing() {
           <a href="#pricing" style={{ background: "#161b26", border: "1px solid #232c42", color: "#eef1f7", fontWeight: 600, fontSize: 14.5, textDecoration: "none", padding: "13px 24px", borderRadius: 10 }}>See pricing</a>
         </div>
 
-        <div style={{ position: "relative", maxWidth: 440, margin: "40px auto 0" }}>
-          <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 18, textAlign: "left" }}>
-            <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 12, textTransform: "uppercase", letterSpacing: "1px" }}>What every search looks like</div>
-            <div style={{ background: "#1a2030", borderRadius: 9, padding: "13px 15px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 22, fontWeight: 800, color: "#22c55e", letterSpacing: "1px" }}>BUY</span>
-                <span style={{ fontSize: 13, color: "#8b99b8" }}>Adidas Samba OG</span>
-              </div>
-              <div style={{ fontSize: 12.5, color: "#c3cde0", marginTop: 7, filter: "blur(4px)", userSelect: "none" }}>
-                Buy below €37 · sells ~€55 · 41% sell-through/wk · best sizes 38, 39, 40
-              </div>
-            </div>
-            <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              {["Buy-below price", "Sell-through rate", "Best sizes", "Live listings"].map(x => (
-                <div key={x} style={{ background: "#1a2030", borderRadius: 8, padding: "9px 11px", fontSize: 11, color: "#8b99b8", filter: "blur(3px)", userSelect: "none" }}>{x}</div>
-              ))}
-            </div>
-          </div>
-          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 16, background: "linear-gradient(180deg,transparent 40%,rgba(11,13,16,.55))", borderRadius: 14 }}>
-            <Link href="/register" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(34,197,94,.14)", border: "1px solid rgba(34,197,94,.4)", color: "#22c55e", fontSize: 12.5, fontWeight: 700, textDecoration: "none", padding: "8px 16px", borderRadius: 8, backdropFilter: "blur(2px)" }}>
-              <Lock size={13} /> Unlock the full data
-            </Link>
-          </div>
-        </div>
+        <LiveMarketProof />
       </section>
 
       {/* How it works */}

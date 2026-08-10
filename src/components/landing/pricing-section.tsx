@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Check } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
+import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
 
@@ -37,6 +38,8 @@ export function PricingSection() {
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 10 items come with the full numbers, no card. Enough to prove the data holds up; not enough to source on.</p>
       </div>
 
+      <PaybackCalculator />
+
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, alignItems: "start" }}>
         {TIERS.map(t => (
           <div key={t.id} style={{
@@ -51,11 +54,17 @@ export function PricingSection() {
             )}
             <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7" }}>{t.name}</div>
             <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 4, minHeight: 34 }}>{t.tagline}</div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "18px 0" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "18px 0 4px" }}>
               <span style={{ fontSize: 40, fontWeight: 800, color: "#eef1f7", letterSpacing: "-1px" }}>
                 {t.free ? "€0" : `€${t.price}`}
               </span>
               <span style={{ fontSize: 14, color: "#5b6b8c" }}>{t.free ? "forever" : "/month"}</span>
+            </div>
+            {/* Per-day price. A monthly figure is compared against other
+                subscriptions; a daily one is compared against a coffee, and
+                against the margin on a single flip. Same number, honest framing. */}
+            <div style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 14, minHeight: 17 }}>
+              {t.free ? "No card required" : `about €${(t.price / 30).toFixed(2)} a day`}
             </div>
             <button onClick={() => choose(t.id, t.priceId)} disabled={busy === t.id} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13.5, fontWeight: 700, cursor: "pointer",
@@ -63,6 +72,14 @@ export function PricingSection() {
               background: t.highlight ? "#22c55e" : t.anchor ? "transparent" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7", transition: "opacity .15s",
             }}>{busy === t.id ? "…" : t.cta}</button>
+            {t.stepUp && (
+              <div style={{ marginBottom: 16, background: "rgba(34,197,94,.07)", border: "1px solid rgba(34,197,94,.25)", borderRadius: 10, padding: "12px 14px" }}>
+                <div style={{ fontSize: 12.5, fontWeight: 700, color: "#22c55e", marginBottom: 5 }}>{t.stepUp}</div>
+                {t.stepUpWhy && (
+                  <div style={{ fontSize: 12, color: "#a9b6d0", lineHeight: 1.55 }}>{t.stepUpWhy}</div>
+                )}
+              </div>
+            )}
             {t.ceiling && (
               <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid #1c2333", fontSize: 12, color: "#5b6b8c", lineHeight: 1.5 }}>
                 <span style={{ color: "#8b99b8", fontWeight: 600 }}>Where it stops: </span>{t.ceiling}

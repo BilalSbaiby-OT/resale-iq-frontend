@@ -23,6 +23,10 @@ export interface Tier {
   cta: string
   highlight?: boolean      // the recommended / most-popular tier
   anchor?: boolean         // the high anchor tier (no checkout, enquiry only)
+  /** Framed increment over the tier below — the "it is only X more" line. */
+  stepUp?: string
+  /** The one sentence that justifies that increment. */
+  stepUpWhy?: string
   free?: boolean           // the no-card entry rung
   features: string[]
   /** One honest sentence on what runs out — the reason to climb. */
@@ -54,8 +58,17 @@ export const TIERS: Tier[] = [
     price: 49,
     priceId: "__POWER__",
     highlight: true,
-    tagline: "For serious sellers who move volume",
-    cta: "Start selling smarter",
+    // The €19 -> €49 jump only reads as fair once the difference is named as a
+    // category change rather than a longer feature list. Starter answers when
+    // you ask. Pro does the asking: it watches all five markets continuously
+    // and surfaces items already under your buy price. That is the difference
+    // between a reference tool and a sourcing engine, and it is what people are
+    // actually paying the extra €30 for.
+    tagline: "It stops waiting for you to ask",
+    cta: "Let it find the deals",
+    stepUp: "+€30 over Starter — about €1 a day",
+    stepUpWhy:
+      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: it scans all five EU markets around the clock and shows you listings already priced under your buy-below number.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
@@ -73,8 +86,8 @@ export const TIERS: Tier[] = [
     name: "Starter",
     price: 19,
     priceId: "__OPERATOR__",
-    tagline: "Everything you need to stop guessing",
-    cta: "Start selling smarter",
+    tagline: "Answers on anything you look up",
+    cta: "Get the numbers",
     features: [
       "Unlimited buy/sell verdicts",
       "All 100 product signals, unblurred",
