@@ -24,6 +24,13 @@ export const metadata: Metadata = {
     description: DESC,
   },
   robots: { index: true, follow: true },
+  // Google Search Console ownership. Google does NOT support IndexNow, so
+  // Search Console (or inbound links) is the only discovery path for it — and
+  // verification needs a human with the Google account. Set
+  // GOOGLE_SITE_VERIFICATION in Coolify and redeploy; no code change needed.
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 }
 
 // Without this, mobile browsers render at ~980px desktop width and force the
