@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
+import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
 import { ScoreBar } from "@/components/ui/score-bar"
 import { getTrendsSummary } from "@/lib/api"
 import { eur } from "@/lib/utils"
@@ -19,6 +20,7 @@ export default function TrendsPage() {
 
   return (
     <AppShell title="Market Trends" subtitle="Category performance and trending models — updated hourly">
+      <MomentumWarmupNotice warmingUp={data?.momentum_warming_up} />
       <div className="mb-5">
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl mb-4">
           <div className="px-4 py-3 border-b border-[#1e2535] font-bold text-[13px]">Top Categories by 7-Day Sales Volume</div>

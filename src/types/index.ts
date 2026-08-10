@@ -86,6 +86,8 @@ export interface TrendsSummary {
   categories: Array<{ category: string; sold_7d: number; avg_price: number | null; speed: number }>
   trending_models: ModelSignal[]
   price_history: Array<{ category: string; avg_price: number; snapshot_date: string }>
+  /** True when the momentum board cannot yet rank models — show the warm-up notice. */
+  momentum_warming_up?: boolean
 }
 
 export interface WatchlistItem {

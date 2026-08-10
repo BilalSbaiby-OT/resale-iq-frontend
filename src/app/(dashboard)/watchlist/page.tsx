@@ -3,17 +3,19 @@ import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { getWatchlist, addToWatchlist, removeFromWatchlist } from "@/lib/api"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
+import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
 import { eur } from "@/lib/utils"
 import type { WatchlistItem } from "@/types"
 import Link from "next/link"
 
 export default function WatchlistPage() {
   const [items, setItems] = useState<WatchlistItem[]>([])
+  const [warmingUp, setWarmingUp] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showAdd, setShowAdd] = useState(false)
   const [brand, setBrand] = useState(""); const [model, setModel] = useState("")
 
-  const load = async () => { setLoading(true); const d = await getWatchlist(); setItems(d.items); setLoading(false) }
+  const load = async () => { setLoading(true); const d = await getWatchlist(); setItems(d.items); setWarmingUp(!!d.momentum_warming_up); setLoading(false) }
   useEffect(() => { load() }, [])
 
   const add = async () => { if (!brand || !model) return; try { await addToWatchlist(brand, model); setBrand(""); setModel(""); setShowAdd(false); load() } catch { alert("Already in watchlist") } }
@@ -21,6 +23,7 @@ export default function WatchlistPage() {
 
   return (
     <AppShell title="Watchlist" subtitle="Track brands and models you want to source">
+      <MomentumWarmupNotice warmingUp={warmingUp} />
       <div className="flex justify-end mb-4">
         <button onClick={() => setShowAdd(true)} className="bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[11px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ WATCH ITEM</button>
       </div>

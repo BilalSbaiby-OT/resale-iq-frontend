@@ -91,7 +91,7 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   if (params?.momentum) q.set("momentum", params.momentum)
   if (params?.min_str) q.set("min_str", String(params.min_str))
   q.set("limit", String(params?.limit ?? 100))
-  return request<{ deals: Deal[]; count: number }>(`/api/deals?${q}`)
+  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean }>(`/api/deals?${q}`)
 }
 export const getVerdict = (q: string) => request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}`)
 export const getCalc = (brand: string, model: string, buy_price: number) =>
@@ -115,7 +115,7 @@ export const createCheckout = (price_id: string) =>
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")
 
 // Watchlist
-export const getWatchlist = () => request<{ items: WatchlistItem[] }>("/api/watchlist")
+export const getWatchlist = () => request<{ items: WatchlistItem[]; momentum_warming_up?: boolean }>("/api/watchlist")
 export const addToWatchlist = (brand: string, model: string, category = "", notes = "") =>
   request<{ id: number; ok: boolean }>("/api/watchlist", {
     method: "POST", body: JSON.stringify({ brand, model, category, notes }),

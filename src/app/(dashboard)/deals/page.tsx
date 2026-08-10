@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { AppShell } from "@/components/layout/app-shell"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
+import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
 import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { LiveDealsModal } from "@/components/ui/live-deals-modal"
@@ -16,6 +17,7 @@ function DealsContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [all, setAll] = useState<Deal[]>([])
+  const [warmingUp, setWarmingUp] = useState(false)
   const [filtered, setFiltered] = useState<Deal[]>([])
   const [loading, setLoading] = useState(true)
   const [q, setQ] = useState(searchParams.get("q") || "")
@@ -27,7 +29,7 @@ function DealsContent() {
 
   const load = useCallback(async () => {
     setLoading(true)
-    try { const d = await getDeals({ limit: 200 }); setAll(d.deals) }
+    try { const d = await getDeals({ limit: 200 }); setAll(d.deals); setWarmingUp(!!d.momentum_warming_up) }
     catch (e) { console.error(e) }
     finally { setLoading(false) }
   }, [])
@@ -51,6 +53,7 @@ function DealsContent() {
 
   return (
     <AppShell title="Deal Scanner" subtitle={`${filtered.length} opportunities`}>
+      <MomentumWarmupNotice warmingUp={warmingUp} />
       {/* Filters */}
       <div className="bg-[#141820] border border-[#1e2535] rounded-xl p-4 mb-5 flex flex-wrap gap-3 items-center">
         <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search model or brand…"
