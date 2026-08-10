@@ -76,7 +76,7 @@ export default function Landing() {
           { icon: Zap, t: "Instant verdicts", d: "BUY / WATCH / SKIP on any item, backed by real sell-through data." },
           { icon: Package, t: "Order Planner", d: "What to order today for stock arriving in 3 weeks — and its odds of selling in one." },
           { icon: TrendingUp, t: "Live deal finder", d: "Actual listings under your buy price, across all 5 EU markets, right now." },
-          { icon: ShieldCheck, t: "Authenticity check", d: "Paste a link, get a probabilistic authenticity read before you commit." },
+          { icon: ShieldCheck, t: "Authenticity signals", d: "Paste a link, get a 0-100 confidence score from price, seller and listing signals. Not a guarantee — it never sees the item." },
         ].map(({ icon: Icon, t, d }) => (
           <div key={t} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 20 }}>
             <Icon size={20} color="#22c55e" strokeWidth={2} />
@@ -106,6 +106,7 @@ export default function Landing() {
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>Free tools</Link>
           <Link href="/manual" style={{ color: "#5b6b8c", textDecoration: "none" }}>Reselling manual</Link>
+          <Link href="/methodology" style={{ color: "#5b6b8c", textDecoration: "none" }}>Methodology</Link>
           <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>Market data</Link>
           <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>Terms</Link>

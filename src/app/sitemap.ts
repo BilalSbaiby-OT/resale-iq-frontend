@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // auth utilities that prerender to an empty shell (~52 chars of text, no h1),
   // so listing them tells search engines a blank page is worth indexing. They
   // remain crawlable — they are simply not advertised as content.
-  const staticPages = ["", "/blog", "/tools", "/data", "/manual", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  const staticPages = ["", "/blog", "/tools", "/data", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.6,

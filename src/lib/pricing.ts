@@ -76,7 +76,7 @@ export const TIERS: Tier[] = [
       "Unlimited buy/sell verdicts",
       "All 100 product signals, unblurred",
       "Full market trends & brand rankings",
-      "Authenticity checker",
+      "Authenticity signals (confidence score, not a guarantee)",
       "Watchlist & portfolio P&L",
     ],
     ceiling: "No live deal finder, Order Planner or API — that's Pro.",
