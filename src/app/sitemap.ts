@@ -13,7 +13,11 @@ const BASE = "https://resaleiq.dev"
 // module the pages themselves use, so a sitemap entry can never point at a route
 // that generateStaticParams did not produce.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/blog", "/tools", "/data", "/manual", "/register", "/login", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  // /register and /login are deliberately NOT here. Both are client-rendered
+  // auth utilities that prerender to an empty shell (~52 chars of text, no h1),
+  // so listing them tells search engines a blank page is worth indexing. They
+  // remain crawlable — they are simply not advertised as content.
+  const staticPages = ["", "/blog", "/tools", "/data", "/manual", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
     changeFrequency: "monthly" as const,
     priority: p === "" ? 1 : 0.6,

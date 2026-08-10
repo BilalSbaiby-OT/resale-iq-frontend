@@ -6,7 +6,15 @@ const BASE = "https://resaleiq.dev"
 // engines (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.) — we WANT
 // to be cited by ChatGPT/Perplexity/Google AI, so they're explicitly allowed.
 // The logged-in app and admin stay out of every index.
-const PUBLIC_ALLOW = ["/", "/tools", "/data", "/blog", "/flip", "/terms", "/privacy", "/legal", "/support"]
+//
+// EVERY public section must be listed. "/" already permits them all, but this
+// list is the explicit contract: if the wildcard is ever tightened, anything
+// missing silently drops out of every index. /manual (17 pages) and /category
+// (9) were added later and had been missed.
+const PUBLIC_ALLOW = [
+  "/", "/tools", "/data", "/blog", "/flip", "/manual", "/category",
+  "/api-docs", "/terms", "/privacy", "/legal", "/support",
+]
 const PRIVATE_DISALLOW = [
   "/dashboard", "/admin", "/account", "/deals", "/watchlist",
   "/portfolio", "/order-planner", "/verdict", "/authenticity",
