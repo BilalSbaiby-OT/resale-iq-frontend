@@ -26,4 +26,12 @@ COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
 EXPOSE 3000
+# Without this the backend reported running:healthy while the frontend sat at
+# running:unknown — Docker had no way to tell whether Next was actually serving,
+# so a wedged container that stayed up looked identical to a working one.
+# Uses node's global fetch rather than curl, which node:22-slim does not ship.
+# Targets "/" and not "/api/ping": the api path is a rewrite to the backend, so
+# using it would make the frontend report unhealthy whenever the BACKEND is down.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["node", "server.js"]
