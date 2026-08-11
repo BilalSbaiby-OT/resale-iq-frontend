@@ -240,7 +240,7 @@ export default async function MethodologyPage() {
             gets you 10 fully-unlocked verdicts, no card.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Create a free account
             </Link>
             <Link href="/data" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>

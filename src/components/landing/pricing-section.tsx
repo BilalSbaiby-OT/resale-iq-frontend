@@ -16,7 +16,7 @@ export function PricingSection() {
 
   const choose = async (tierId: string, placeholder?: string) => {
     // Free rung: no Stripe involved, just get them an account.
-    if (tierId === "free") { router.push("/register"); return }
+    if (tierId === "free") { router.push("/register?plan=free"); return }
     // Enquiry-only tier (no Stripe price): open a real mailbox we actually own.
     // Was hello@resaleiq.app — wrong domain, so every Business lead was lost.
     if (!placeholder) { window.location.href = "mailto:parapluis@outlook.com?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }

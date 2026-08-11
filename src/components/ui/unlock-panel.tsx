@@ -47,7 +47,7 @@ export function UnlockPanel({
           and best sizes on {limit ?? 10} items — no card.
         </Body>
         <Row>
-          <Primary href="/register">Create a free account</Primary>
+          <Primary href="/register?plan=free">Create a free account</Primary>
           <Secondary href="/login">Sign in</Secondary>
         </Row>
       </Shell>
