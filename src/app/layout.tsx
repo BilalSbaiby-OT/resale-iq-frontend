@@ -25,12 +25,19 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   // Google Search Console ownership. Google does NOT support IndexNow, so
-  // Search Console (or inbound links) is the only discovery path for it — and
-  // verification needs a human with the Google account. Set
-  // GOOGLE_SITE_VERIFICATION in Coolify and redeploy; no code change needed.
-  ...(process.env.GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  // Search Console (or inbound links) is its only discovery path.
+  //
+  // Checked in rather than read from a runtime env var, on purpose. This page
+  // is statically prerendered, so process.env is evaluated at BUILD time — a
+  // value set in Coolify's runtime environment would never reach the emitted
+  // HTML, which is the same build-vs-runtime trap that broke BACKEND_URL. The
+  // token is public by design (Google requires it to be served in the page),
+  // so there is nothing to protect by keeping it out of the repo. The env var
+  // still wins if set, so it can be rotated without a code change.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION
+      || "6JW8vtenTRCdaP9uzpKI81gASKOZxg2WEK8cmLYNxKM",
+  },
 }
 
 // Without this, mobile browsers render at ~980px desktop width and force the
