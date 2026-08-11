@@ -31,7 +31,7 @@ export function PricingSection() {
   }
 
   return (
-    <section id="pricing" style={{ padding: "72px 24px", maxWidth: 1080, margin: "0 auto" }}>
+    <section id="pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>One bad sourcing decision costs more than a month of Pro.</h2>
@@ -40,7 +40,16 @@ export function PricingSection() {
 
       <PaybackCalculator />
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, alignItems: "start" }}>
+      {/* 4 tiers. At 1080px wide with a 260px minimum this resolved to 3
+          columns, orphaning Free alone on a second row, left-aligned against a
+          full-width row above — it read as a mistake. Widened the section and
+          dropped the minimum so all four sit on one row at desktop, and added
+          justifyContent so any wrapped row centres instead of hanging left. */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(232px, 1fr))",
+        gap: 18, alignItems: "stretch", justifyContent: "center",
+      }}>
         {TIERS.map(t => (
           <div key={t.id} style={{
             position: "relative",

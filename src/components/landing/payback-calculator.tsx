@@ -9,9 +9,11 @@ import Link from "next/link"
  * TONE RULE — this must be encouraging, never alarming. The tempting version
  * computes "you are wasting €X a month on dead stock", which is a guess about
  * the reader's competence, reads as an accusation, and makes people close the
- * tab. This version computes the same arithmetic from the other end: what ONE
- * avoided mistake is worth. Same maths, and it frames the reader as someone
- * about to get better rather than someone currently failing.
+ * tab. This version answers it as a break-even instead: how few bad buys the
+ * tool has to prevent before it has paid for itself. Same arithmetic, but it
+ * frames the reader as someone about to get better rather than someone
+ * currently failing — and it lands in items, the unit they actually think in,
+ * rather than a percentage they have to translate.
  *
  * HONESTY RULE — no invented statistics. We do NOT claim a hit rate, a typical
  * saving, or "users report X". The prediction ledger has scored zero outcomes
@@ -23,11 +25,10 @@ export function PaybackCalculator() {
   const [avgBuyPrice, setAvgBuy] = useState(15)
 
   const STARTER = 19
-  // One item bought that never sells: the buy price is gone. That is the
-  // smallest, most conservative unit of value the product can deliver — no
-  // margin assumptions, no sell-through assumptions, nothing to dispute.
-  const oneMistake = avgBuyPrice
-  const monthsCovered = oneMistake / STARTER
+  // Break-even expressed in items, which is the unit a reseller actually
+  // thinks in. Rounded UP so the claim is never flattering: at €15 an item,
+  // 19/15 = 1.27 becomes "2 items", not "1".
+  const breakEvenItems = Math.max(1, Math.ceil(STARTER / Math.max(avgBuyPrice, 1)))
   const spendPerMonth = itemsPerMonth * avgBuyPrice
   const costAsPctOfSpend = spendPerMonth > 0 ? (STARTER / spendPerMonth) * 100 : 0
 
@@ -40,7 +41,7 @@ export function PaybackCalculator() {
         Will it pay for itself?
       </div>
       <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.6, marginBottom: 20 }}>
-        Your numbers, not ours. Move the sliders.
+        Move the sliders to your own numbers.
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20, marginBottom: 22 }}>
@@ -54,33 +55,39 @@ export function PaybackCalculator() {
         />
       </div>
 
+      {/* ONE number, stated in the unit the reader thinks in — items, not
+          percentages. The earlier version led with "you have covered 79% of
+          it", which is ambiguous (79% of what?) and made the reader do the
+          translation themselves. Break-even in bad buys needs no explaining. */}
       <div style={{
         background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12,
-        padding: "18px 20px",
+        padding: "22px 20px", textAlign: "center",
       }}>
-        <div style={{ fontSize: 15, color: "#c3cde0", lineHeight: 1.7 }}>
-          You put about <strong style={{ color: "#eef1f7" }}>€{spendPerMonth.toLocaleString()}</strong> into stock
-          each month. Starter is <strong style={{ color: "#eef1f7" }}>€{STARTER}</strong> — around{" "}
-          <strong style={{ color: "#22c55e" }}>{costAsPctOfSpend.toFixed(1)}%</strong> of what you are
-          already spending.
+        <div style={{ fontSize: 13, color: "#8b99b8", marginBottom: 6 }}>
+          For Starter to pay for itself, it has to stop you buying
         </div>
-        <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid #1c2333", fontSize: 15, color: "#c3cde0", lineHeight: 1.7 }}>
-          Skip <strong style={{ color: "#eef1f7" }}>one</strong> item at €{avgBuyPrice} that would not have
-          sold, and you have covered{" "}
-          <strong style={{ color: "#22c55e" }}>
-            {monthsCovered >= 1
-              ? `${monthsCovered.toFixed(monthsCovered >= 10 ? 0 : 1)} month${monthsCovered >= 2 ? "s" : ""}`
-              : `${Math.round(monthsCovered * 100)}%`}
-          </strong>{" "}
-          {monthsCovered >= 1 ? "of it." : "of it — two covers the month."}
+        <div style={{ fontSize: 40, fontWeight: 800, color: "#22c55e", lineHeight: 1.1, letterSpacing: "-1px" }}>
+          {breakEvenItems} bad {breakEvenItems === 1 ? "item" : "items"}
+        </div>
+        <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 6 }}>
+          a month. That&apos;s it.
+        </div>
+
+        <div style={{
+          marginTop: 18, paddingTop: 16, borderTop: "1px solid #1c2333",
+          fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7,
+        }}>
+          You put roughly <strong style={{ color: "#eef1f7" }}>€{spendPerMonth.toLocaleString()}</strong> into
+          stock each month. Starter is <strong style={{ color: "#eef1f7" }}>€{STARTER}</strong> of that —
+          about <strong style={{ color: "#22c55e" }}>{costAsPctOfSpend.toFixed(1)}%</strong>.
         </div>
       </div>
 
       <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginTop: 14 }}>
-        Deliberately conservative: this counts only the buy price of an item you avoid, and ignores
-        the shipping, the listing time and the shelf space it would have taken. It is arithmetic on
-        your own figures — we do not claim a hit rate, because we have not measured one yet and
-        would rather say so than invent it. See{" "}
+        Deliberately conservative: it counts only the money you spent on an item you avoid, ignoring
+        the shipping, the listing time and the shelf space it would have taken. This is arithmetic on
+        your own figures — we do not claim a hit rate, because we have not measured one yet and would
+        rather say so than invent it. See{" "}
         <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>methodology</Link>.
       </p>
     </div>
