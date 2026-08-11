@@ -109,7 +109,8 @@ function Slider({
       <input
         id={label} type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        style={{ width: "100%", accentColor: "#22c55e", cursor: "pointer" }}
+        aria-valuetext={display}
+        className="riq-range"
       />
     </div>
   )
