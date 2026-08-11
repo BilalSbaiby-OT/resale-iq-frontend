@@ -1,0 +1,52 @@
+# Customer / agent firewall — CI enforcement.
+#
+# Company spec §54 requires the customer/agent isolation tests to run in
+# CI/CD. The backend repo holds the matching Python suite, but its frontend
+# assertions skip when this repo isn't checked out — which is always, in
+# backend CI. So this is the half that actually guards the browser bundle.
+#
+# It builds first on purpose. Source-only scanning misses the real failure
+# mode: a secret inlined at build time (NEXT_PUBLIC_*, or baked into a
+# prerendered page). The bundle is what the customer receives, so the bundle
+# is what gets checked.
+name: Agent Isolation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  firewall:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Fast fail: catches a committed secret before spending a build on it.
+      - name: Check source
+        run: npm run check:isolation
+
+      - name: Build
+        run: npm run build
+        env:
+          # No agent credential is provided here, deliberately. If a build ever
+          # needs one, the firewall has already been breached by design and this
+          # job should fail rather than be "fixed" by adding the secret.
+          #
+          # The names are not spelled out even in this comment: the checker
+          # treats any mention of them in this repo as a violation, and that
+          # strictness is worth more than a more explicit comment. It is what
+          # stops a real secret being parked in a workflow env block.
+          BACKEND_URL: http://localhost:8080
+
+      - name: Check build output
+        run: npm run check:isolation:built

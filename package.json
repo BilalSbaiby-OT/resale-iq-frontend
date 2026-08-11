@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:isolation": "node scripts/check-agent-isolation.mjs",
+    "check:isolation:built": "node scripts/check-agent-isolation.mjs --built"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",
