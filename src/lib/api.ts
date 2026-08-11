@@ -62,6 +62,9 @@ export const resetPassword = (token: string, new_password: string) =>
   request<{ ok: boolean }>("/auth/reset-password", {
     method: "POST", body: JSON.stringify({ token, new_password }),
   })
+export const resendVerification = () =>
+  request<{ ok: boolean; already_verified: boolean; message: string }>(
+    "/auth/resend-verification", { method: "POST" })
 export const issueApiKey = () =>
   request<{ api_key: string; note?: string }>("/auth/api-key", { method: "POST" })
 export const verifyEmail = (token: string) =>

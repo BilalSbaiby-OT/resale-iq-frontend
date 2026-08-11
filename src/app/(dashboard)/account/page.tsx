@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey } from "@/lib/api"
+import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
@@ -12,6 +12,7 @@ export default function AccountPage() {
   const [logs, setLogs] = useState<Array<{ action: string; created_at: string }>>([])
   const [newPw, setNewPw] = useState(""); const [confirmPw, setConfirmPw] = useState("")
   const [pwMsg, setPwMsg] = useState(""); const [pwOk, setPwOk] = useState(false); const [deleteConfirm, setDeleteConfirm] = useState("")
+  const [resendMsg, setResendMsg] = useState(""); const [resending, setResending] = useState(false)
   const [apiKey, setApiKey] = useState(""); const [apiMsg, setApiMsg] = useState(""); const [copied, setCopied] = useState(false)
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
@@ -51,6 +52,18 @@ export default function AccountPage() {
     } catch (e: unknown) {
       setApiMsg(e instanceof Error ? e.message : "Could not issue key")
     }
+  }
+
+  // Free unlocks are gated on a verified address, and registration only ever
+  // sent the link once. Without this the user has no route to their unlocks.
+  const handleResend = async () => {
+    setResending(true); setResendMsg("")
+    try {
+      const r = await resendVerification()
+      setResendMsg(r.message)
+    } catch (e) {
+      setResendMsg(e instanceof Error ? e.message : "Could not send right now. Try again shortly.")
+    } finally { setResending(false) }
   }
 
   const handleCopyKey = async () => {
@@ -101,6 +114,25 @@ export default function AccountPage() {
             <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">UPDATE PASSWORD</button>
           </div>
         </div>
+
+        {/* Email confirmation. Only rendered when actionable — a permanent
+            "confirm your email" banner on a verified account is noise that
+            trains people to ignore the real one. */}
+        {user && user.email_verified === false && (
+          <div className="bg-[#141820] border border-amber-500/30 rounded-xl p-5 mb-5">
+            <div className="font-bold text-[14px] text-amber-400 mb-1">Confirm your email</div>
+            <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
+              Your 10 free unlocks — buy-below price, sell price, sell-through and best
+              sizes — need a confirmed address. We sent a link when you signed up; if it
+              never arrived or has expired, send a fresh one.
+            </p>
+            <button onClick={handleResend} disabled={resending}
+              className="bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[11px] px-4 py-2 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
+              {resending ? "SENDING…" : "RESEND CONFIRMATION EMAIL"}
+            </button>
+            {resendMsg && <p className="text-[11.5px] text-[#8fa3c4] mt-3">{resendMsg}</p>}
+          </div>
+        )}
 
         {/* REST API — Pro plan only. The endpoints and X-Api-Key auth already
             existed and worked, but there was no way for a paying customer to

@@ -6,6 +6,7 @@ export interface User {
   id: number
   email: string
   plan: Plan
+  email_verified?: boolean | number | null
 }
 
 export interface SizeVelocity {
