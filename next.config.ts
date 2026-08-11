@@ -44,6 +44,23 @@ const nextConfig: NextConfig = {
   output: "standalone",
   // Don't advertise the framework/version to attackers picking targets.
   poweredByHeader: false,
+  // www serves a byte-identical copy of the site instead of redirecting, which
+  // splits any links people build to it and forces Google to guess which host
+  // is canonical. Canonical tags now cover the pages; this removes the
+  // duplicate at source so there is nothing to guess about.
+  //
+  // Cannot loop: the destination host is the apex, which does not satisfy the
+  // `has` condition, so the redirect fires at most once.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.resaleiq.dev" }],
+        destination: "https://resaleiq.dev/:path*",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [{ source: "/:path*", headers: SECURITY_HEADERS }];
   },

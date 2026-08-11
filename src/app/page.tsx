@@ -4,6 +4,17 @@ import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 import { LiveMarketProof } from "@/components/landing/live-market-proof"
 
+import type { Metadata } from "next"
+
+// The landing had NO metadata export, so "/" was the only page on the site
+// without a self-referencing canonical — and www.resaleiq.dev serves a full
+// 200 duplicate rather than redirecting, so Google saw two identical
+// homepages and had nothing telling it which one to index. Deep pages were
+// already fine: metadataBase makes their canonicals absolute to the apex.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+}
+
 // Server Component ON PURPOSE. This is the site's most-linked page and its
 // entire content must exist in the prerendered HTML — see RedirectIfAuthed for
 // the full reasoning. Only the two genuinely interactive pieces (the signed-in
