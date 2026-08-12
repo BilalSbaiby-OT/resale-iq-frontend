@@ -18,7 +18,7 @@ const FAQ: [string, string][] = [
   ["What's the difference between Starter and Pro?",
    "Starter (€19/mo) gives you unlimited verdicts, all 100 product signals, market trends, brand rankings, the authenticity checker, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder across 5 markets, the 3-week Order Planner, per-size sell-through velocity, and REST API access."],
   ["Is there a free plan or trial?",
-   "Not currently — access is subscription-only. You can cancel any time and keep access until the end of the period you've paid for."],
+   "Yes. Free gives you 3 verdicts a day, plus 10 full unlocks that show every number — buy-below price, sell-through and size velocity. The 10 are for the life of the account, not per month: they do not refill. No card required; you just verify your email. Paid plans remove the daily limit."],
   ["How do I cancel?",
    "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
   ["How do I reset my password?",

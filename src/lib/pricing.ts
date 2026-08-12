@@ -105,7 +105,7 @@ export const TIERS: Tier[] = [
     tagline: "See that the data is real before you pay",
     cta: "Create a free account",
     features: [
-      "Unlimited BUY / WATCH / SKIP verdicts",
+      "3 BUY / WATCH / SKIP verdicts a day",
       "10 full unlocks — buy-below price, sell price, sizes, sell-through",
       "The whole reselling manual and market data",
       "No card required",

@@ -16,7 +16,7 @@ import { getPlans, createCheckout } from "@/lib/api"
 const PLAN_META = [
   { id: "power", pricePlan: "power", name: "Pro", tag: "Most popular", desc: "Live deals, Order Planner, API, per-size velocity" },
   { id: "operator", pricePlan: "operator", name: "Starter", desc: "Unlimited verdicts, all 100 signals, watchlist & P&L" },
-  { id: "free", pricePlan: "free", name: "Free", desc: "Unlimited BUY/WATCH/SKIP verdicts + 10 full unlocks. No card." },
+  { id: "free", pricePlan: "free", name: "Free", desc: "3 verdicts a day + 10 full unlocks. No card." },
 ]
 
 function RegisterContent() {
