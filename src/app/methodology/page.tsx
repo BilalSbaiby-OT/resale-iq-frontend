@@ -170,6 +170,17 @@ export default async function MethodologyPage() {
             A tool showing you &ldquo;760% sell-through&rdquo; is not showing you a sell-through
             rate. It is showing you a ratio and hoping you do not ask.
           </Callout>
+          <Callout label="Currently withheld">
+            Sell-through is not being displayed right now, and you will see
+            &ldquo;measuring&rdquo; where the number would be. The reason is the numerator: our
+            sold-date is stamped when the scraper first sees an item already marked sold, not
+            when the sale happened. While we are still working through the backlog of listings
+            that sold before we started watching, &ldquo;sold this week&rdquo; is really
+            &ldquo;found this week&rdquo;, which inflates the ratio. Everything else on the site
+            — buy-below prices, sale prices, sales counts, sizes — is unaffected, because those
+            come from the sale itself rather than from when we noticed it. The check runs every
+            six hours and restores the number on its own once the backlog is worked through.
+          </Callout>
         </Section>
 
         <Section title="Buy-below price — the formula">

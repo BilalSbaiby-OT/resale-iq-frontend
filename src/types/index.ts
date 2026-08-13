@@ -24,6 +24,7 @@ export interface ModelSignal {
   avg_price_eur: number | null
   max_buy_price: number | null
   str_pct: number | null
+  str_unavailable_reason?: string
   opportunity_score: number | null
   momentum_label: Momentum | null
   months_supply: number | null
@@ -64,7 +65,7 @@ export interface LiveDealsResult {
 }
 
 export interface KPIs {
-  avg_profit_margin: { value: number; unit: string; label?: string; sublabel?: string; delta_30d: string | null; trend: "up" | "down" | null }
+  avg_profit_margin: { value: number | string; unit: string; label?: string; sublabel?: string; delta_30d: string | null; trend: "up" | "down" | null }
   items_analyzed: { value: number; formatted: string; unit: string }
   top_category: { value: string; sublabel: string }
   market_opportunity: { value: number; label: string; sublabel: string; top_signal?: string; top_score?: number | null }
@@ -104,6 +105,7 @@ export interface WatchlistItem {
   avg_price_eur: number | null
   max_buy_price: number | null
   str_pct: number | null
+  str_unavailable_reason?: string
   top_sizes: string[]
 }
 

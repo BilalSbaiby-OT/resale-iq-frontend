@@ -76,7 +76,7 @@ export default function DashboardPage() {
 
       {/* KPI row */}
       <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
-        <KpiCard label={kpis?.avg_profit_margin.label ?? "Avg sell-through / wk"} loading={!kpis} value={kpis?.avg_profit_margin.value} unit="%" sublabel={kpis?.avg_profit_margin.sublabel ?? "across all tracked models"} />
+        <KpiCard label={kpis?.avg_profit_margin.label ?? "Avg sell-through / wk"} loading={!kpis} value={kpis?.avg_profit_margin.value} unit={kpis?.avg_profit_margin.unit ?? "%"} sublabel={kpis?.avg_profit_margin.sublabel ?? "across all tracked models"} />
         <KpiCard label="Listings tracked" loading={!kpis} value={kpis?.items_analyzed.formatted} sublabel="across 5 Vinted markets" />
         <KpiCard label="Top category" loading={!kpis} value={kpis?.top_category.value} sublabel={kpis?.top_category.sublabel ?? "by 7-day sales volume"} />
         <KpiCard label={kpis?.market_opportunity.label ?? "Buy signals"} loading={!kpis} value={kpis?.market_opportunity.value} sublabel={kpis?.market_opportunity.sublabel ?? (kpis?.market_opportunity.top_signal ? `Top: ${kpis.market_opportunity.top_signal}` : "actionable now")} />
@@ -99,7 +99,7 @@ export default function DashboardPage() {
                     <td style={NUM}>
                       <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>
                     </td>
-                    <td style={NUM}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>
+                    <td style={NUM} title={d.str_pct == null ? d.str_unavailable_reason : undefined}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>
                     <td style={TD}><MomentumBadge momentum={d.momentum_label} /></td>
                     <td style={TD}><SizePills sizes={d.top_sizes ?? []} /></td>
                     <td style={TD}>
