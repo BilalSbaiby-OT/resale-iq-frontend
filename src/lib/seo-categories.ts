@@ -11,7 +11,7 @@ export interface BrandSeo {
   sold_7d: number
   avg_price_eur: number
   top_categories: string[]
-  categories: { category: string; sold_7d: number }[]
+  categories: { category: string; sold_7d: number; avg_price_eur?: number }[]
   models_tracked: number
 }
 

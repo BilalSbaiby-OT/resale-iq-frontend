@@ -45,7 +45,7 @@ export default function Landing() {
           Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>Know before you buy.</span>
         </h1>
         <p style={{ fontSize: 17, color: "#8b99b8", marginTop: 20, lineHeight: 1.55, maxWidth: 600, margin: "20px auto 0" }}>
-          Resale IQ turns 500,000+ real Vinted listings into one answer: what to buy, at what price, in which sizes — and how fast it'll sell.
+          The most you can pay for an item and still make money. Worked out from 500,000+ real Vinted sales, not guesswork.
         </p>
 
         {/* CTA + locked preview — sells the output without giving it away free */}
@@ -62,10 +62,10 @@ export default function Landing() {
       {/* How it works */}
       <section style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
         {[
-          { icon: Zap, t: "Instant verdicts", d: "BUY / WATCH / SKIP on any item, backed by real sell-through data." },
-          { icon: Package, t: "Order Planner", d: "What to order today for stock arriving in 3 weeks — and its odds of selling in one." },
-          { icon: TrendingUp, t: "Live deal finder", d: "Actual listings under your buy price, across all 5 EU markets, right now." },
-          { icon: ShieldCheck, t: "Authenticity signals", d: "Paste a link, get a 0-100 confidence score from price, seller and listing signals. Not a guarantee — it never sees the item." },
+          { icon: Zap, t: "Buy or skip", d: "One answer per item, from what it actually sold for and how many sold." },
+          { icon: Package, t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
+          { icon: TrendingUp, t: "Deal finder", d: "Listings on sale right now below the price you should pay." },
+          { icon: ShieldCheck, t: "Authenticity check", d: "Paste a link for a 0-100 score from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
         ].map(({ icon: Icon, t, d }) => (
           <div key={t} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 20 }}>
             <Icon size={20} color="#22c55e" strokeWidth={2} />
@@ -78,10 +78,13 @@ export default function Landing() {
       {/* Social proof band */}
       <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[["500,000+", "listings analyzed"], ["5", "EU markets tracked"], ["100", "live product signals"], ["30%", "target margin, after fees"]].map(([n, l]) => (
-            <div key={l} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 28, fontWeight: 800, color: "#eef1f7" }}>{n}</div>
-              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>{l}</div>
+          {[["500,000+", "real sold listings, not estimates"], ["Hourly", "every price recomputed"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until we have measured one"]].map(([n, l]) => (
+            <div key={l} style={{ textAlign: "center", maxWidth: 190 }}>
+              {/* Word-length varies now that these are claims rather than bare
+                  figures, so the size steps down instead of wrapping mid-phrase
+                  across four columns. */}
+              <div style={{ fontSize: n.length > 12 ? 17 : 28, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15 }}>{n}</div>
+              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 4, lineHeight: 1.35 }}>{l}</div>
             </div>
           ))}
         </div>

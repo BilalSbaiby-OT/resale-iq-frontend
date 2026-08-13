@@ -100,18 +100,38 @@ export default async function BrandFlipPage(
       </div>
 
       <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
-        Where {b.brand} actually sells
+        What {b.brand} sells for, by category
       </h2>
-      <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        Its strongest categories by volume right now are{" "}
-        {b.top_categories.map((c, i) => (
-          <span key={c}>
-            <strong style={{ color: "#eef1f7" }}>{c}</strong>
-            {i < b.top_categories.length - 2 ? ", " : i === b.top_categories.length - 2 ? " and " : ""}
-          </span>
+      {/* THIS TABLE IS WHY THE PAGE EXISTS. Measured 2026-08-13, these pages
+          were 95-98% identical to each other: the template had three variables
+          and the rest was prose shared by all 156 brands. Numbers a reader can
+          only get here are what makes the page worth indexing — and worth
+          reading. Keep per-brand data ABOVE the generic explanation. */}
+      <div style={{ border: "1px solid #1c2333", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "#12151d", fontSize: 11, color: "#5b6b8c" }}>
+          <span>Category</span><span style={{ textAlign: "right" }}>Sold/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
+        </div>
+        {(b.categories || []).slice(0, 5).map(c => (
+          <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid #1c2333", fontSize: 14, color: "#a9b6d0" }}>
+            <span style={{ color: "#eef1f7" }}>{c.category}</span>
+            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{c.sold_7d.toLocaleString()}</span>
+            <span style={{ textAlign: "right", minWidth: 62, fontVariantNumeric: "tabular-nums", color: c.avg_price_eur ? "#34d399" : "#5b6b8c" }}>
+              {c.avg_price_eur ? `\u20ac${c.avg_price_eur}` : "—"}
+            </span>
+          </div>
         ))}
-        . Sourcing outside those categories usually means slower sell-through, which quietly
-        kills your return even when the margin looks fine on paper.
+      </div>
+      <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
+        {b.categories?.[0] && b.categories[0].avg_price_eur ? (
+          <>
+            {b.brand} {b.categories[0].category.toLowerCase()} sell at about{" "}
+            <strong style={{ color: "#eef1f7" }}>&euro;{b.categories[0].avg_price_eur}</strong>, on{" "}
+            <strong style={{ color: "#eef1f7" }}>{b.categories[0].sold_7d.toLocaleString()}</strong> sales a week.
+            Work backwards from that price, not from what the seller is asking.
+          </>
+        ) : (
+          <>Volume alone does not pay you. What you pay does.</>
+        )}
       </p>
 
       {/* Every brand x category page must be linked from here. An unlinked page
