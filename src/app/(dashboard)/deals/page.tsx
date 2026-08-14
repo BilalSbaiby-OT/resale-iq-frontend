@@ -106,19 +106,24 @@ function DealsContent() {
                 {[
                   { label: "Buy Below", value: eur(d.max_buy_price), color: "text-emerald-400" },
                   { label: "Est. Profit", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400" },
-                  // Sell-through is withheld product-wide, and Hermes put the
-                  // problem better than "show a placeholder": the gap is not
-                  // data quality, it is the ABSENCE OF A SIGNAL where the user
-                  // expects one. A competitor showing "sells in ~3 days" wins
-                  // that slot against our apology every time.
+                  // Sell-through is withheld product-wide.
                   //
-                  // So the slot carries supply instead. Beside the 7d Sold tile
-                  // the reseller reads 247 sold against 3,200 listed and forms
-                  // the judgement themselves — two counts we stand behind,
-                  // rather than a ratio we do not.
+                  // "Listed Now" shipped here for about ten minutes, on Hermes'
+                  // reasoning that the gap is the ABSENCE OF A SIGNAL and that
+                  // raw counts beat a ratio we do not trust. The reasoning is
+                  // right; the fix is wrong on this data. Production reads
+                  // Ace 247 sold / 21 listed, Track 648 / 15 — put side by
+                  // side, the reader divides them and concludes the item flies
+                  // off the shelf. That is the same false impression the
+                  // suppression exists to prevent, just computed by the user
+                  // instead of by us. sold_7d is inflated by backlog discovery,
+                  // so ANY juxtaposition with supply launders the artefact.
+                  //
+                  // The slot carries sale price instead: a fact that is true,
+                  // useful, and implies no velocity.
                   d.str_pct != null
                     ? { label: "STR / Week", value: `${d.str_pct.toFixed(0)}%`, color: "" }
-                    : { label: "Listed Now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
+                    : { label: "Sells For", value: d.avg_price_eur != null ? eur(d.avg_price_eur) : "—", color: "" },
                   { label: "7d Sold", value: (d.sold_7d ?? 0).toLocaleString(), color: "" },
                 ].map(({ label, value, color }) => (
                   <div key={label} className="bg-[#1a2030] rounded-lg p-2">
