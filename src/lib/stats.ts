@@ -37,13 +37,26 @@ export async function getListingsTracked(): Promise<number | null> {
 }
 
 /**
- * The phrase pages render, e.g. "900,000+".
+ * The phrase pages render inside a sentence, e.g. "900,000+".
  *
- * Falls back to a deliberately conservative floor if the API is unreachable —
- * never to a number we might have outgrown, and never to a guess above the
- * last figure we actually measured.
+ * Floored, because prose reads badly with six significant figures and a "+"
+ * stays true as the number grows. Falls back to the last measured floor if the
+ * API is unreachable — never to a guess above it.
  */
 export async function listingsTrackedLabel(): Promise<string> {
   const n = await getListingsTracked()
   return n ? `${floorTo10k(n)}+` : "900,000+"
+}
+
+/**
+ * The EXACT count, for places where the number stands alone.
+ *
+ * A rounded figure sits still for days and reads like marketing. The precise
+ * one moves with every scrape and says something a rounded number cannot:
+ * that we actually counted, and counted items rather than rows. It is also the
+ * harder claim to make — anyone can write "500,000+".
+ */
+export async function listingsTrackedExact(): Promise<string | null> {
+  const n = await getListingsTracked()
+  return n ? n.toLocaleString("en-GB") : null
 }

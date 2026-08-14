@@ -3,7 +3,7 @@ import { ArrowRight, Package, ShieldCheck, TrendingUp, Zap } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 import { LiveMarketProof } from "@/components/landing/live-market-proof"
-import { listingsTrackedLabel } from "@/lib/stats"
+import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 
 import type { Metadata } from "next"
 
@@ -23,6 +23,9 @@ export const metadata: Metadata = {
 // "use client" here to get a hook; extract a child component instead.
 export default async function Landing() {
   const tracked = await listingsTrackedLabel()
+  // Exact in the proof band: it moves with every scrape, and a precise
+  // figure is the harder claim. Anyone can write a round number.
+  const trackedExact = await listingsTrackedExact()
   return (
     <div style={{ background: "#0B0D10", color: "#eef1f7", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -111,7 +114,7 @@ export default async function Landing() {
       {/* Social proof band */}
       <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[[tracked, "unique items tracked, not counted twice"], ["Every 30 min", "scraped, recomputed hourly"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until 100 outcomes are scored"]].map(([n, l]) => (
+          {[[trackedExact ?? tracked, "unique items tracked, not counted twice"], ["Every 30 min", "scraped, recomputed hourly"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until 100 outcomes are scored"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "center", maxWidth: 190 }}>
               {/* Word-length varies now that these are claims rather than bare
                   figures, so the size steps down instead of wrapping mid-phrase
