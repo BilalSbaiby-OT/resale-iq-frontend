@@ -58,8 +58,25 @@ function panel() {
 
 function render(html) { panel().innerHTML = html; }
 
+/**
+ * Escape anything that came off the wire before it reaches innerHTML.
+ *
+ * `product` is the only response field rendered as text rather than a number,
+ * and it is interpolated into markup. We control the API, so this is not a
+ * live vulnerability — but "the server would never send that" is exactly the
+ * assumption that turns one compromised response into script execution on
+ * every Vinted page the user opens. It also removes the reason a reviewer
+ * would query our innerHTML use at all.
+ */
+function esc(v) {
+  return String(v ?? "").replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
 function money(n) {
-  return n == null ? "—" : `€${Number(n).toFixed(0)}`;
+  const x = Number(n);
+  return (n == null || !isFinite(x)) ? "—" : `€${x.toFixed(0)}`;
 }
 
 function paint(d, askingPrice) {
@@ -100,7 +117,7 @@ function paint(d, askingPrice) {
         <span class="riq-logo">R</span> Resale IQ
         ${verdict ? `<span class="riq-verdict riq-${tone}">${verdict}</span>` : ""}
       </div>
-      ${d.product ? `<div class="riq-match">matched: ${d.product}</div>` : ""}
+      ${d.product ? `<div class="riq-match">matched: ${esc(d.product)}</div>` : ""}
       ${body}
       ${overBy != null
           ? `<div class="riq-row riq-warn">listed at ${money(askingPrice)} — ${money(overBy)} over</div>`
