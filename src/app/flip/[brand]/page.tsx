@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { BRANDS, catSlug, type BrandSeo } from "@/lib/seo-categories"
 import { Lock, TrendingUp, ArrowRight } from "lucide-react"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
@@ -38,6 +39,7 @@ export async function generateMetadata(
 export default async function BrandFlipPage(
   { params }: { params: Promise<{ brand: string }> }
 ) {
+  const tracked = await listingsTrackedLabel()
   const { brand: slug } = await params
   const b = getBrand(slug)
   if (!b) notFound()
@@ -196,7 +198,7 @@ export default async function BrandFlipPage(
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         We continuously track live and sold listings across Vinted ES, FR, DE, IT and PT —
-        900,000+ unique listings — and recompute every signal hourly. The figures on this page are
+        {tracked} unique listings — and recompute every signal hourly. The figures on this page are
         live aggregates, not estimates.
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>

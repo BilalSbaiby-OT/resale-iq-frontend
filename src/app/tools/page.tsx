@@ -2,15 +2,23 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { INTENTS } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { listingsTrackedLabel } from "@/lib/stats"
 
-export const metadata: Metadata = {
-  title: "Free Vinted Reseller Tools — Resale IQ",
-  description:
-    "Free tools for Vinted resellers: price checker, sourcing tool, resale analytics and profit calculator, built on 900,000+ unique listings across 5 EU markets.",
-  alternates: { canonical: "/tools" },
+export async function generateMetadata(): Promise<Metadata> {
+  // Async so the description carries the LIVE dataset size. A static metadata
+  // export cannot see a value computed in the component, and would have
+  // shipped the literal "${tracked}" into the page description.
+  const tracked = await listingsTrackedLabel()
+  return {
+    title: "Free Vinted Reseller Tools — Resale IQ",
+    description:
+      `Free tools for Vinted resellers: price checker, sourcing tool, resale analytics and profit calculator, built on ${tracked} unique listings across 5 EU markets.`,
+    alternates: { canonical: "/tools" },
+  }
 }
 
-export default function ToolsIndex() {
+export default async function ToolsIndex() {
+  const tracked = await listingsTrackedLabel()
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
