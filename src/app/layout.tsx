@@ -80,7 +80,6 @@ const ORG_JSONLD = {
   areaServed: ["ES", "FR", "DE", "IT", "PT"],
   inLanguage: "en",
   isAccessibleForFree: true,
-  sameAs: ["https://github.com/BilalSbaiby-OT"],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

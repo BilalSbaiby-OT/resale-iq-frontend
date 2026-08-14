@@ -25,7 +25,7 @@ export function Paywall() {
   useEffect(() => { getMe().then(u => setVerified(u.email_verified !== false)).catch(() => {}) }, [])
 
   const subscribe = async (placeholder?: string) => {
-    if (!placeholder) { window.location.href = "mailto:parapluis@outlook.com?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
+    if (!placeholder) { window.location.href = "mailto:support@resaleiq.dev?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
     setBusy(placeholder)
     try {
       const priceId = resolvePriceId(placeholder, plans)

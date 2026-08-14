@@ -12,7 +12,7 @@ const OPERATOR = {
   address: "Spain — full postal address available on request by email",
   country: "Spain",
   taxId: "Y9590842V",
-  email: "parapluis@outlook.com",
+  email: "support@resaleiq.dev",
 }
 
 export default function LegalNotice() {

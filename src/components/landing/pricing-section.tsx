@@ -18,8 +18,11 @@ export function PricingSection() {
     // Free rung: no Stripe involved, just get them an account.
     if (tierId === "free") { router.push("/register?plan=free"); return }
     // Enquiry-only tier (no Stripe price): open a real mailbox we actually own.
-    // Was hello@resaleiq.app — wrong domain, so every Business lead was lost.
-    if (!placeholder) { window.location.href = "mailto:parapluis@outlook.com?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
+    // Was hello@resaleiq.app (wrong domain, every Business lead lost), then a
+    // personal Outlook address. Now the company address, which sends AND
+    // receives: Resend SMTP out, Porkbun forwarding in. Verified round-trip
+    // 2026-08-14.
+    if (!placeholder) { window.location.href = "mailto:support@resaleiq.dev?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
     if (!getToken()) { router.push(`/register?plan=${tierId === "power" ? "power" : "operator"}`); return }
     setBusy(tierId)
     try {
