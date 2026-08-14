@@ -34,8 +34,8 @@ export function PricingSection() {
     <section id="pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
-        <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>One bad sourcing decision costs more than a month of Pro.</h2>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 10 items come with the full numbers, no card. Enough to prove the data holds up; not enough to source on.</p>
+        <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>Pay less for stock than you sell it for.</h2>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 10 full unlocks, no card. Enough to check the numbers against your own sales.</p>
       </div>
 
       <PaybackCalculator />

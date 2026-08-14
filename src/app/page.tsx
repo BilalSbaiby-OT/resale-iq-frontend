@@ -42,10 +42,10 @@ export default function Landing() {
           <BarChart3 size={13} color="#22c55e" /> 500,000+ Vinted listings analyzed across 5 EU markets
         </div>
         <h1 style={{ fontSize: 48, fontWeight: 800, letterSpacing: "-1.5px", lineHeight: 1.08 }}>
-          Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>Know before you buy.</span>
+          Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>See what it sold for.</span>
         </h1>
         <p style={{ fontSize: 17, color: "#8b99b8", marginTop: 20, lineHeight: 1.55, maxWidth: 600, margin: "20px auto 0" }}>
-          The most you can pay for an item and still make money. Worked out from 500,000+ real Vinted sales, not guesswork.
+          The highest price to pay for an item, worked out from what it actually sells for. 500,000+ live and sold Vinted listings across five EU markets.
         </p>
 
         {/* CTA + locked preview — sells the output without giving it away free */}
@@ -62,9 +62,9 @@ export default function Landing() {
       {/* How it works */}
       <section style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
         {[
-          { icon: Zap, t: "Buy or skip", d: "One answer per item, from what it actually sold for and how many sold." },
+          { icon: Zap, t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
           { icon: Package, t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
-          { icon: TrendingUp, t: "Deal finder", d: "Listings on sale right now below the price you should pay." },
+          { icon: TrendingUp, t: "Deal finder", d: "Listings on sale now, under your buy-below price." },
           { icon: ShieldCheck, t: "Authenticity check", d: "Paste a link for a 0-100 score from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
         ].map(({ icon: Icon, t, d }) => (
           <div key={t} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 20 }}>
@@ -78,7 +78,7 @@ export default function Landing() {
       {/* Social proof band */}
       <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[["500,000+", "real sold listings, not estimates"], ["Hourly", "every price recomputed"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until we have measured one"]].map(([n, l]) => (
+          {[["500,000+", "live and sold listings tracked"], ["Hourly", "every price recomputed"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until we have measured one"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "center", maxWidth: 190 }}>
               {/* Word-length varies now that these are claims rather than bare
                   figures, so the size steps down instead of wrapping mid-phrase

@@ -38,7 +38,7 @@ export function PaybackCalculator() {
       border: "1px solid #1c2333", borderRadius: 16, padding: "26px 24px",
     }}>
       <div style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>
-        Will it pay for itself?
+        How many bad buys would it have to catch?
       </div>
       <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.6, marginBottom: 20 }}>
         Move the sliders to your own numbers.
@@ -64,7 +64,7 @@ export function PaybackCalculator() {
         padding: "22px 20px", textAlign: "center",
       }}>
         <div style={{ fontSize: 13, color: "#8b99b8", marginBottom: 6 }}>
-          For Starter to pay for itself, it has to stop you buying
+          At that average, Starter costs the same as
         </div>
         <div style={{ fontSize: 40, fontWeight: 800, color: "#22c55e", lineHeight: 1.1, letterSpacing: "-1px" }}>
           {breakEvenItems} bad {breakEvenItems === 1 ? "item" : "items"}

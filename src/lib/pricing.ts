@@ -68,13 +68,13 @@ export const TIERS: Tier[] = [
     cta: "Let it find the deals",
     stepUp: "+€30 over Starter — about €1 a day",
     stepUpWhy:
-      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: it scans all five EU markets around the clock and shows you listings already priced under your buy-below number.",
+      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: it scans all five EU markets every 30 minutes and shows you listings already priced under your buy-below number.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
       "Live deal finder across 5 EU markets",
       "3-week demand Order Planner",
-      "Per-size sell-through velocity",
+      "Per-size sell-through velocity (paused — see /methodology)",
       // REST API is real (POST /auth/api-key → X-Api-Key auth, power plan only).
       // "Webhook alerts" was removed — we do not ship customer webhooks.
       "REST API access (your own API key)",
@@ -106,7 +106,7 @@ export const TIERS: Tier[] = [
     cta: "Create a free account",
     features: [
       "3 BUY / WATCH / SKIP verdicts a day",
-      "10 full unlocks — buy-below price, sell price, sizes, sell-through",
+      "10 full unlocks — buy-below price, sell price, sizes",
       "The whole reselling manual and market data",
       "No card required",
     ],
