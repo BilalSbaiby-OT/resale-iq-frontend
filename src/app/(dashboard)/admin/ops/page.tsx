@@ -58,7 +58,11 @@ export default function OpsPage() {
     return () => clearInterval(t)
   }, [])
 
-  const stale = (data?.scrapers ?? []).filter(s => s.hours_ago >= 3)
+  // Only the Vinted scrapers run every 30 minutes. google_trends runs DAILY at
+  // 06:00 and is documented as rate-limited and non-fatal, so a 3-hour rule
+  // would paint it red every single day — which is how an operator learns to
+  // ignore the banner, at which point the banner is worse than nothing.
+  const stale = (data?.scrapers ?? []).filter(s => s.platform.startsWith("vinted") && s.hours_ago >= 3)
 
   return (
     <AppShell>
@@ -82,11 +86,11 @@ export default function OpsPage() {
               </div>
             )}
 
-            <Panel icon={Database} title="Ingestion" sub="Vinted runs every 30 minutes. Over 3 hours means stopped, not quiet.">
+            <Panel icon={Database} title="Ingestion" sub="Vinted runs every 30 minutes; over 3 hours means stopped. Trends runs daily and is non-fatal.">
               {data.scrapers.length === 0 && <div style={{ color: "#5b6b8c", fontSize: 13 }}>No scraper runs recorded.</div>}
               {data.scrapers.map(s => (
                 <div key={s.platform} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid #1c2333", fontSize: 13 }}>
-                  <Dot status={s.hours_ago >= 3 ? "fail" : "pass"} />
+                  <Dot status={s.platform.startsWith("vinted") && s.hours_ago >= 3 ? "fail" : "pass"} />
                   <span style={{ color: "#eef1f7", minWidth: 110 }}>{s.platform}</span>
                   <span style={{ color: "#8b99b8", flex: 1 }}>{s.hours_ago}h ago</span>
                   <span style={{ color: "#5b6b8c", fontVariantNumeric: "tabular-nums" }}>
