@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
-  BookOpen, Wrench, Database, LifeBuoy, GraduationCap,
+  BookOpen, Wrench, Database, LifeBuoy, GraduationCap, Activity,
 } from "lucide-react"
 import { getPlanFromToken } from "@/lib/utils"
 
@@ -57,6 +57,7 @@ const NAV_SECTIONS = [
 // Shown only to Power-plan (owner) accounts.
 const ADMIN_ITEMS = [
   { href: "/admin", icon: ShieldAlert, label: "Admin" },
+  { href: "/admin/ops", icon: Activity, label: "Operations" },
   { href: "/admin/traffic", icon: BarChart3, label: "Traffic" },
 ]
 

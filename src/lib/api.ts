@@ -170,6 +170,14 @@ export interface TrafficStats {
 }
 export const getTraffic = (days = 30) => request<TrafficStats>(`/api/admin/traffic?days=${days}`)
 
+/** Operations view: agent heartbeats, scraper freshness, health checks. */
+export interface OpsStatus {
+  agents: { agent: string; job: string | null; status: string; detail: string | null; reported_at: string }[]
+  scrapers: { platform: string; run_at: string; items_new: number; errors: number; hours_ago: number }[]
+  health: { overall: string; checks: { name: string; status: string; detail: string }[] }
+}
+export const getOps = () => request<OpsStatus>("/api/admin/ops")
+
 export interface AdminUser {
   id: number; email: string; plan: string; is_active: number; created_at: string;
   stripe_customer_id: string | null; stripe_sub_id: string | null;
