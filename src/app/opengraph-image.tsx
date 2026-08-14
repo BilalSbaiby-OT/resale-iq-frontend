@@ -62,7 +62,7 @@ export default async function OpengraphImage() {
         </div>
 
         <div style={{ fontSize: 27, color: "#8b99b8", marginTop: 30, lineHeight: 1.4 }}>
-          500,000+ Vinted listings across 5 EU markets — buy-below price,
+          900,000+ Vinted listings across 5 EU markets — buy-below price,
           sell-through and the sizes that actually move.
         </div>
 

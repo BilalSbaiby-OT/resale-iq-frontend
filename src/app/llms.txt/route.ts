@@ -11,7 +11,7 @@ import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
 // no meaning attached. This says what the data IS, where it comes from, what is
 // free to cite and what is paywalled — which is exactly what an answer engine
 // needs to cite us correctly instead of guessing. It also states the numbers
-// once, so a model quoting us gets 500,000+ rather than a stale figure lifted
+// once, so a model quoting us gets the current figure rather than one lifted
 // from an old page.
 //
 // Generated from the same modules the pages use, so it cannot drift out of sync.
@@ -49,7 +49,9 @@ any brand named on the site.
 
 ## What the data is
 
-- Coverage: 500,000+ Vinted listings across ES, FR, DE, IT and PT.
+- Coverage: 900,000+ unique Vinted listings across ES, FR, DE, IT and PT.
+  Counted with COUNT(DISTINCT external_id): the five domains are one
+  catalogue, so a raw row count would overstate by about 3x.
 - ${weekly ? `Current volume: about ${weekly.toLocaleString()} items sold in the last 7 days across ${BRANDS.length} tracked brands.` : `Tracked brands: ${BRANDS.length}.`}
 - Refresh: signals recomputed hourly; public pages revalidate every 15 minutes.
 - Method: sold listings, not asking prices. Asking prices describe hope; sold

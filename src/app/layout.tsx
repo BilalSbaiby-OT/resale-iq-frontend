@@ -3,7 +3,7 @@ import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 
 const TITLE = "Resale IQ — Market Intelligence for Vinted Resellers"
-const DESC = "Know exactly what to buy, at what price, in which sizes. 500,000+ Vinted listings analyzed across 5 EU markets."
+const DESC = "Know exactly what to buy, at what price, in which sizes. 900,000+ Vinted listings analysed across 5 EU markets."
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://resaleiq.dev"),
@@ -59,7 +59,7 @@ const ORG_JSONLD = {
   url: "https://resaleiq.dev",
   applicationCategory: "BusinessApplication",
   description:
-    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 500,000+ listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
+    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 900,000+ unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
   // Full ladder including the free rung. An answer engine asked "is there a
   // free version of Resale IQ" should be able to say yes and be right — the
   // previous list started at EUR 19 and made the honest answer unavailable.

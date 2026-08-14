@@ -1,5 +1,5 @@
 // Batch 3 of SEO/AEO articles. Same contract as blog-posts.ts.
-// Honest claims only: "500,000+ listings across 5 EU markets", no earnings promises,
+// Honest claims only: "900,000+ listings across 5 EU markets", no earnings promises,
 // no tax/legal advice presented as professional advice.
 
 import type { BlogPost } from "./blog-posts"

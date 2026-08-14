@@ -26,7 +26,7 @@ const FAQ: [string, string][] = [
   ["Can I get my data / delete my account?",
    "Yes. From your account page you can export all your data (GDPR) as JSON, or permanently delete your account and its data."],
   ["Where does the data come from?",
-   "Public live and sold listings across Vinted ES, FR, DE, IT and PT — 500,000+ items, recomputed hourly. The figures shown are live aggregates, not estimates."],
+   "Public live and sold listings across Vinted ES, FR, DE, IT and PT — 900,000+ items, recomputed hourly. The figures shown are live aggregates, not estimates."],
   ["Is my payment secure?",
    "Payments are handled entirely by Stripe. We never see or store your card details."],
 ]

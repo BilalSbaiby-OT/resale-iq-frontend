@@ -1,6 +1,6 @@
 // Batch 2 of SEO/AEO articles. Same contract as blog-posts.ts — kept in a
 // separate file so each batch stays readable and reviewable.
-// Claims honest: "500,000+ listings across 5 EU markets"; no earnings promises.
+// Claims honest: "900,000+ listings across 5 EU markets"; no earnings promises.
 
 import type { BlogPost } from "./blog-posts"
 
@@ -154,7 +154,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Know your number before you queue",
         p: [
           "The buy-below price decides everything. If the tag is above it, walking away IS the profitable decision.",
-          BRAND + " gives you that number per item from " + "500,000+ listings across 5 EU markets, so you can check on your phone in the aisle instead of guessing.",
+          BRAND + " gives you that number per item from " + "900,000+ listings across 5 EU markets, so you can check on your phone in the aisle instead of guessing.",
         ],
       },
     ],

@@ -45,7 +45,7 @@ export async function generateMetadata(
   if (!r) return { title: "Not found — Resale IQ" }
   const title = `Are ${r.b.brand} ${r.category} worth reselling on Vinted?`
   const description =
-    `${r.b.brand} ${r.category} resale data from 500,000+ Vinted listings across 5 EU markets — weekly sales volume, average sale price and how to judge whether to buy.`
+    `${r.b.brand} ${r.category} resale data from 900,000+ Vinted listings across 5 EU markets — weekly sales volume, average sale price and how to judge whether to buy.`
   return {
     title, description,
     alternates: { canonical: `/flip/${r.b.slug}/${category}` },
@@ -154,7 +154,7 @@ export default async function BrandCategoryPage(
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>How to check before you buy</h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             Look up the exact model rather than the category. Resale IQ returns a BUY / WATCH / SKIP verdict with the buy-below
-            price, typical sale price, sell-through rate and the sizes that sell fastest — computed from 500,000+ listings across
+            price, typical sale price, sell-through rate and the sizes that sell fastest — computed from 900,000+ listings across
             Spain, France, Germany, Italy and Portugal.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>

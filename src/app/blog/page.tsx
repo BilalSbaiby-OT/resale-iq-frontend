@@ -19,7 +19,7 @@ export default function BlogIndex() {
     name: "Resale IQ Blog",
     url: "https://resaleiq.dev/blog",
     description:
-      "Data-backed guides for Vinted resellers, from 500,000+ analyzed listings across 5 EU markets.",
+      "Data-backed guides for Vinted resellers, from 900,000+ analyzed listings across 5 EU markets.",
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
@@ -37,7 +37,7 @@ export default function BlogIndex() {
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
-          Built on 500,000+ analyzed listings across 5 EU markets.
+          Built on 900,000+ analyzed listings across 5 EU markets.
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
