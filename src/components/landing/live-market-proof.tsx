@@ -62,7 +62,7 @@ export async function LiveMarketProof() {
   const total = (snap.length ? snap : BRANDS).reduce((s, b) => s + (b.sold_7d || 0), 0)
 
   return (
-    <div style={{ maxWidth: 460, margin: "40px auto 0" }}>
+    <div style={{ width: "100%", maxWidth: 460, marginInline: "auto" }}>
       <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 18, textAlign: "left" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 13 }}>
           <span style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "1px" }}>

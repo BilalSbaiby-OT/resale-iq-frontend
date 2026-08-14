@@ -98,8 +98,19 @@ body {
 .riq-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .riq-grid-main { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
 .riq-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+/* Landing hero: claim left, live evidence right. Collapses to one column on
+   tablet, where side-by-side would squeeze both to unreadable widths. */
+.riq-hero { display: grid; grid-template-columns: 1fr 0.95fr; gap: 48px; align-items: center; }
+.riq-grid-4-flat { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; }
 @media (max-width: 899px) {
   .riq-grid-main { grid-template-columns: 1fr; }
+  .riq-hero { grid-template-columns: 1fr; gap: 36px; }
+  .riq-grid-4-flat { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+@media (max-width: 520px) {
+  .riq-hero h1 { font-size: 38px !important; letter-spacing: -1.2px !important; }
+  .riq-grid-4-flat { grid-template-columns: 1fr; gap: 4px; }
 }
 @media (max-width: 639px) {
   .riq-grid-kpi { grid-template-columns: repeat(2, 1fr); gap: 8px; }

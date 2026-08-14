@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { TrendingUp, Zap, Package, ShieldCheck, ArrowRight, BarChart3 } from "lucide-react"
+import { ArrowRight, Package, ShieldCheck, TrendingUp, Zap } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 import { LiveMarketProof } from "@/components/landing/live-market-proof"
@@ -36,43 +36,67 @@ export default function Landing() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section style={{ maxWidth: 820, margin: "0 auto", padding: "56px 24px 40px", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 12, color: "#8b99b8", border: "1px solid #1c2333", borderRadius: 20, padding: "5px 14px", marginBottom: 22 }}>
-          <BarChart3 size={13} color="#22c55e" /> 500,000+ Vinted listings analyzed across 5 EU markets
-        </div>
-        <h1 style={{ fontSize: 48, fontWeight: 800, letterSpacing: "-1.5px", lineHeight: 1.08 }}>
-          Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>See what it sold for.</span>
-        </h1>
-        <p style={{ fontSize: 17, color: "#8b99b8", marginTop: 20, lineHeight: 1.55, maxWidth: 600, margin: "20px auto 0" }}>
-          The highest price to pay for a Vinted item before you buy it — in euros, per model and size. From 500,000+ live and sold listings across five EU markets.
-        </p>
+      {/* Hero — ASYMMETRIC ON PURPOSE.
+          It was centred: pill badge, centred headline, centred paragraph, two
+          centred buttons, proof panel underneath. That stack is the default
+          shape of every generated landing page, which is most of why the site
+          "looked AI generated" — the words were only half of it.
 
-        {/* CTA + locked preview — sells the output without giving it away free */}
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 34 }}>
-          <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, textDecoration: "none", padding: "13px 26px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 7 }}>
-            Get started <ArrowRight size={16} />
-          </Link>
-          <a href="#pricing" style={{ background: "#161b26", border: "1px solid #232c42", color: "#eef1f7", fontWeight: 600, fontSize: 14.5, textDecoration: "none", padding: "13px 24px", borderRadius: 10 }}>See pricing</a>
-        </div>
+          Two columns instead: the claim on the left, the evidence beside it
+          rather than below it. A sceptical reseller reads "highest price to
+          pay" and sees real weekly sold counts in the same glance, with no
+          scroll between promise and proof. */}
+      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "64px 24px 48px" }}>
+        <div className="riq-hero">
+          <div>
+            <h1 style={{ fontSize: 52, fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.04, margin: 0 }}>
+              Stop guessing<br />what sells.
+            </h1>
+            {/* One accent, one job. Green was on the headline, both buttons and
+                every stat, so it signalled nothing. It now marks the action. */}
+            <p style={{ fontSize: 17.5, color: "#93a1bd", marginTop: 22, lineHeight: 1.6, maxWidth: 480 }}>
+              The highest price to pay for a Vinted item before you buy it — in euros,
+              per model and size.
+            </p>
+            <p style={{ fontSize: 13.5, color: "#5b6b8c", marginTop: 12, maxWidth: 480 }}>
+              From 500,000+ live and sold listings across five EU markets.
+            </p>
 
-        <LiveMarketProof />
+            {/* ONE primary action. "See pricing" was competing at nearly equal
+                weight while already sitting in the nav two inches above. */}
+            <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
+              <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
+                Check an item free <ArrowRight size={16} />
+              </Link>
+              <span style={{ fontSize: 13, color: "#5b6b8c" }}>10 free checks. No card.</span>
+            </div>
+          </div>
+
+          <LiveMarketProof />
+        </div>
       </section>
 
-      {/* How it works */}
-      <section style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 24px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 16 }}>
-        {[
-          { icon: Zap, t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
-          { icon: Package, t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
-          { icon: TrendingUp, t: "Deal finder", d: "Listings on sale now, under your buy-below price." },
-          { icon: ShieldCheck, t: "Authenticity check", d: "Paste a link for a 0-100 score from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
-        ].map(({ icon: Icon, t, d }) => (
-          <div key={t} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 20 }}>
-            <Icon size={20} color="#22c55e" strokeWidth={2} />
-            <div style={{ fontSize: 14, fontWeight: 700, marginTop: 12 }}>{t}</div>
-            <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6, lineHeight: 1.5 }}>{d}</div>
-          </div>
-        ))}
+      {/* What it does.
+          Was four identical bordered boxes with an icon on top — the same
+          component repeated, which reads as filler regardless of the words in
+          it. Boxes removed: a hairline rule and spacing separate them, the
+          label carries the weight, and the green icons are gone so the only
+          green left on the page is the thing you click. */}
+      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 8px" }}>
+        <div style={{ borderTop: "1px solid #1c2333" }} />
+        <div className="riq-grid-4-flat">
+          {[
+            { t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
+            { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
+            { t: "Deal finder", d: "Listings on sale now, under your buy-below price." },
+            { t: "Authenticity check", d: "A 0-100 flag from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
+          ].map(({ t, d }) => (
+            <div key={t} style={{ paddingTop: 26 }}>
+              <div style={{ fontSize: 14.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.2px" }}>{t}</div>
+              <div style={{ fontSize: 13, color: "#7f8da9", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Social proof band */}
