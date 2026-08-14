@@ -15,7 +15,12 @@ what the console expects.
 ## Listing fields
 
 **Name**
-Resale IQ — buy-below price on Vinted
+Resale IQ - buy-below prices for resellers
+
+NOTE: the name deliberately does NOT contain "Vinted". Google treats another
+product's trademark in an extension NAME as implying endorsement, and it is one
+of the most common rejections. Descriptive use in the DESCRIPTION is fine, so
+the description says Vinted plainly.
 
 **Summary** (132 char limit)
 See the most you can pay for a Vinted item and still hit your margin, on the listing page itself.
