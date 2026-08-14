@@ -69,7 +69,10 @@ export default function Landing() {
             {/* ONE primary action. "See pricing" was competing at nearly equal
                 weight while already sitting in the nav two inches above. */}
             <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
-              <Link href="/register" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
+              {/* plan=free is load-bearing, not decoration: check_journeys asserts
+                  that any CTA whose text says "free" requests the free plan, so a
+                  visitor clicking "free" cannot land on a paid tier preselected. */}
+              <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
                 Check an item free <ArrowRight size={16} />
               </Link>
               <span style={{ fontSize: 13, color: "#5b6b8c" }}>10 free checks. No card.</span>
