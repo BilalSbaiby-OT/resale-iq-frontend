@@ -44,7 +44,7 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "#0B0D10" }}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 11, fontWeight: 700, letterSpacing: "5px", color: "#22c55e", marginBottom: 16, animation: "pulse-dot 2s ease-in-out infinite" }}>RESALE·IQ</div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "5px", color: "#22c55e", marginBottom: 16, animation: "pulse-dot 2s ease-in-out infinite" }}>RESALE·IQ</div>
           <div style={{ width: 32, height: 32, border: "2px solid #263147", borderTopColor: "#22c55e", borderRadius: "50%", animation: "shimmer 0.8s linear infinite", margin: "0 auto" }} />
         </div>
       </div>

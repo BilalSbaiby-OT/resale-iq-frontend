@@ -1,7 +1,22 @@
 import type { Metadata, Viewport } from "next"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 import { listingsTrackedLabel } from "@/lib/stats"
+
+// Self-hosted, NOT hot-linked.
+//
+// globals.css opened with @import url("https://fonts.googleapis.com/...") and
+// the site's own Content-Security-Policy (style-src 'self' 'unsafe-inline')
+// blocked it on every request, so production had been rendering in system-ui
+// the whole time — the console showed the violation on every page load and
+// document.fonts listed nothing loaded. Two separate reasons not to just widen
+// the CSP: hot-linking Google Fonts sends every EU visitor's IP to Google,
+// which German courts have already held breaches the GDPR, and this site
+// serves ES/FR/DE/IT/PT. next/font downloads at build time and serves from our
+// own origin: no third-party request, no CSP hole, no layout shift.
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" })
 
 const TITLE = "Resale IQ — Market Intelligence for Vinted Resellers"
 
@@ -105,7 +120,7 @@ const orgJsonLd = (tracked: string) => ({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const ORG_JSONLD = orgJsonLd(await listingsTrackedLabel())
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${inter.variable} ${mono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>

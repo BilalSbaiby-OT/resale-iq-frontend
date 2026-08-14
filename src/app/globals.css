@@ -1,5 +1,6 @@
-/* Google Fonts must come first */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+/* Fonts are self-hosted via next/font in app/layout.tsx — see the comment
+   there. Do NOT reintroduce an @import to fonts.googleapis.com: the CSP blocks
+   it and it leaks every EU visitor to Google. */
 
 /* Tailwind v4 */
 @import "tailwindcss";
@@ -21,8 +22,8 @@
   --color-blue: #3b82f6;
   --color-purple: #a855f7;
   --color-cyan: #06b6d4;
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 /* This reset MUST live in @layer base. Left unlayered it outranks every Tailwind
@@ -35,7 +36,7 @@ html { color-scheme: dark; }
 body {
   background: #0B0D10;
   color: #e8ecf4;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

@@ -19,7 +19,7 @@ export function MomentumBadge({ momentum, size = "sm" }: MomentumBadgeProps) {
       padding: size === "sm" ? "2px 8px" : "3px 10px",
       borderRadius: 5, border: `1px solid ${m.border}`, background: m.bg,
       fontSize: size === "sm" ? 10 : 11, fontWeight: 600, letterSpacing: "0.4px",
-      color: m.text, whiteSpace: "nowrap", fontFamily: "var(--font-sans, Inter)",
+      color: m.text, whiteSpace: "nowrap", fontFamily: "var(--font-sans)",
     }}>
       <span style={{ width: 5, height: 5, borderRadius: "50%", background: m.dot, flexShrink: 0 }} />
       {momentum}
