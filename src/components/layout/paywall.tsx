@@ -6,6 +6,32 @@ import { Lock, Check, Unlock } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { getPlans, createCheckout, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
+import { floorTo10k } from "@/lib/stats"
+
+/**
+ * The dataset size, fetched client-side.
+ *
+ * Every server component gets this from listingsTrackedLabel(); this one is
+ * behind "use client" and cannot await at render, so it fetches the same
+ * same-origin public endpoint (allowed by connect-src 'self') and starts from
+ * the floored last-known value. It is a headline number on the upgrade screen —
+ * a stale literal here is read by exactly the people deciding whether to pay.
+ */
+function useTracked(): string {
+  const [tracked, setTracked] = useState("900,000+")
+  useEffect(() => {
+    let live = true
+    fetch("/api/public/market-snapshot")
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        const n = d?.listings_tracked
+        if (live && typeof n === "number" && n > 0) setTracked(`${floorTo10k(n)}+`)
+      })
+      .catch(() => {})
+    return () => { live = false }
+  }, [])
+  return tracked
+}
 
 // Shown to any authenticated account without an active PAID plan.
 //
@@ -15,6 +41,7 @@ import { useAuthStore } from "@/lib/auth-store"
 // their account was worthless. They signed up and immediately hit a sales
 // page. What they actually have now comes first; the plans stay underneath.
 export function Paywall() {
+  const tracked = useTracked()
   const router = useRouter()
   const { logout } = useAuthStore()
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
@@ -83,7 +110,7 @@ export function Paywall() {
           <Lock size={13} /> Upgrade for the full dashboard
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>The data that pays for itself on your first flip.</h1>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>900,000+ listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>{tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>

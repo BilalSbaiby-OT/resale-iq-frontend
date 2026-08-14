@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Mail, MessageCircle } from "lucide-react"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 export const metadata = {
   title: "Support & FAQ — Resale IQ",
@@ -26,12 +27,12 @@ const FAQ: [string, string][] = [
   ["Can I get my data / delete my account?",
    "Yes. From your account page you can export all your data (GDPR) as JSON, or permanently delete your account and its data."],
   ["Where does the data come from?",
-   "Public live and sold listings across Vinted ES, FR, DE, IT and PT — 900,000+ items, recomputed hourly. The figures shown are live aggregates, not estimates."],
+   "Public live and sold listings across Vinted ES, FR, DE, IT and PT — ${tracked} items, recomputed hourly. The figures shown are live aggregates, not estimates."],
   ["Is my payment secure?",
    "Payments are handled entirely by Stripe. We never see or store your card details."],
 ]
 
-export default function Support() {
+export default async function Support() {
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>

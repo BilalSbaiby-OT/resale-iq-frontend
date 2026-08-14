@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { CATEGORIES } from "@/lib/seo-categories"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 // Public, citable open data. Rendered server-side and revalidated hourly (ISR),
 // so the page HTML always contains fresh numbers for crawlers — no redeploy
@@ -41,6 +42,7 @@ async function getSnapshot(): Promise<Snapshot | null> {
 }
 
 export default async function DataPage() {
+  const tracked = await listingsTrackedLabel()
   const snap = await getSnapshot()
   const brands = snap?.brands ?? []
   const updated = snap?.updated_at ? new Date(snap.updated_at) : null
@@ -53,7 +55,7 @@ export default async function DataPage() {
     "@type": "Dataset",
     name: "Vinted Resale Market Snapshot",
     description:
-      "Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from 900,000+ analyzed listings.",
+      `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
     url: "https://resaleiq.dev/data",
     creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
     license: "https://resaleiq.dev/legal",
@@ -78,7 +80,7 @@ export default async function DataPage() {
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
           Weekly units sold and average sale price by brand across Vinted&apos;s five main EU markets
-          (Spain, France, Germany, Italy, Portugal), from 900,000+ analyzed listings.
+          (Spain, France, Germany, Italy, Portugal), from {tracked} analyzed listings.
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
 

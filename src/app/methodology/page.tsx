@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
@@ -43,6 +44,7 @@ async function getSnapshot(): Promise<SnapBrand[]> {
 }
 
 export default async function MethodologyPage() {
+  const tracked = await listingsTrackedLabel()
   const snap = await getSnapshot()
   const weekly = snap.reduce((s, b) => s + (b.sold_7d || 0), 0)
 
@@ -238,7 +240,7 @@ export default async function MethodologyPage() {
         <Section title="What we will not do">
           <Bullets items={[
             "Quote an accuracy figure. We log every verdict to a prediction ledger so accuracy can be measured honestly later. Until enough of those have been scored against real outcomes, any number we published would be invented — so there isn't one.",
-            "Overstate the dataset. The site says 900,000+ because that is what COUNT(DISTINCT external_id) returns — the five Vinted domains are one catalogue, so a raw row count would say 2.8M and overstate by about 3x. We previously said 30M+, which came from a development database that does not serve this site. Both were corrected.",
+            `Overstate the dataset. The site says ${tracked} because that is what COUNT(DISTINCT external_id) returns — the five Vinted domains are one catalogue, so a raw row count would say 2.8M and overstate by about 3x. We previously said 30M+, which came from a development database that does not serve this site. Both were corrected.`,
             "Count the same listing five times. Vinted's five domains are largely one shared catalogue — most listings appear on several at an identical price. Summing per-country volumes inflates the total by roughly 2.5–3.5×. We publish one aggregated figure.",
           ]} />
         </Section>

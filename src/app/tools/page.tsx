@@ -1,8 +1,9 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { INTENTS } from "@/data/search-intents"
+import { INTENTS as RAW_INTENTS } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { fillTracked } from "@/lib/stats"
 
 export async function generateMetadata(): Promise<Metadata> {
   // Async so the description carries the LIVE dataset size. A static metadata
@@ -18,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ToolsIndex() {
+  const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   const tracked = await listingsTrackedLabel()
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>

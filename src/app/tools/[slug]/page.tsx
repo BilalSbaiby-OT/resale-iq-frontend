@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { INTENTS, getIntent } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -12,7 +13,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const i = getIntent(slug)
+  const i = fillTracked(getIntent(slug), await listingsTrackedLabel())
   if (!i) return { title: "Not found — Resale IQ" }
   return {
     title: `${i.title} — Resale IQ`,
@@ -26,9 +27,10 @@ export default async function IntentPage(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params
-  const i = getIntent(slug)
+  const tracked = await listingsTrackedLabel()
+  const i = fillTracked(getIntent(slug), tracked)
   if (!i) notFound()
-  const others = INTENTS.filter((x) => x.slug !== i.slug)
+  const others = fillTracked(INTENTS.filter((x) => x.slug !== i.slug), tracked)
 
   // WebApplication + FAQPage schema: tells search AND answer engines exactly what
   // this tool is and lets them lift a citable answer for the target query.
@@ -95,7 +97,7 @@ export default async function IntentPage(
         <div style={{ marginTop: 30, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Get the full numbers.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Buy-below price, sell price, best sizes and sell-through on every item — from 900,000+ unique Vinted listings across 5 EU markets.
+            Buy-below price, sell price, best sizes and sell-through on every item — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
           <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans →

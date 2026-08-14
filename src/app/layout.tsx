@@ -1,11 +1,24 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 const TITLE = "Resale IQ — Market Intelligence for Vinted Resellers"
-const DESC = "Know exactly what to buy, at what price, in which sizes. 900,000+ Vinted listings analysed across 5 EU markets."
 
-export const metadata: Metadata = {
+// The dataset size is FETCHED, never typed. Two literal "900,000+" strings
+// lived here — one in the meta description, one in the JSON-LD — and by
+// 2026-08-14 the real figure was 966,236, so every search result and every
+// answer engine was quoting a number 66k stale and drifting further each day.
+// That is the exact failure src/lib/stats.ts was written to end; this file was
+// simply never migrated. Floored to 10k, so the "+" stays true between the
+// hourly refreshes.
+const desc = (tracked: string) =>
+  `Know exactly what to buy, at what price, in which sizes. ${tracked} Vinted listings analysed across 5 EU markets.`
+
+export async function generateMetadata(): Promise<Metadata> {
+  const tracked = await listingsTrackedLabel()
+  const DESC = desc(tracked)
+  return {
   metadataBase: new URL("https://resaleiq.dev"),
   title: { default: TITLE, template: "%s" },
   description: DESC,
@@ -38,6 +51,7 @@ export const metadata: Metadata = {
     google: process.env.GOOGLE_SITE_VERIFICATION
       || "6JW8vtenTRCdaP9uzpKI81gASKOZxg2WEK8cmLYNxKM",
   },
+  }
 }
 
 // Without this, mobile browsers render at ~980px desktop width and force the
@@ -52,14 +66,20 @@ export const viewport: Viewport = {
 // Site-wide Organization + SoftwareApplication schema. Helps search AND answer
 // engines (ChatGPT, Perplexity, Google AI) recognise Resale IQ as an entity and
 // cite it as the tool that answers "what to buy on Vinted".
-const ORG_JSONLD = {
+const orgJsonLd = (tracked: string) => ({
   "@context": "https://schema.org",
   "@type": ["Organization", "SoftwareApplication"],
   name: "Resale IQ",
   url: "https://resaleiq.dev",
   applicationCategory: "BusinessApplication",
+  // Sell-through is deliberately ABSENT from this list. It is blanked on every
+  // read path while app_meta.str_discovery_rate exceeds the ceiling in
+  // engine/sufficiency.py, so a visitor arriving on the strength of that claim
+  // would not find it. Put it back in the same commit that lifts the hold, not
+  // before — a structured-data claim is exactly where an unkept promise does
+  // the most damage, because answer engines repeat it verbatim.
   description:
-    "Resale IQ is a market-intelligence tool for Vinted resellers. It analyses 900,000+ unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price, best sizes, and sell-through rate for any item.",
+    `Resale IQ is a market-intelligence tool for Vinted resellers. It analyses ${tracked} unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price and best sizes for any item.`,
   // Full ladder including the free rung. An answer engine asked "is there a
   // free version of Resale IQ" should be able to say yes and be right — the
   // previous list started at EUR 19 and made the honest answer unavailable.
@@ -80,9 +100,10 @@ const ORG_JSONLD = {
   areaServed: ["ES", "FR", "DE", "IT", "PT"],
   inLanguage: "en",
   isAccessibleForFree: true,
-}
+})
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const ORG_JSONLD = orgJsonLd(await listingsTrackedLabel())
   return (
     <html lang="en" className="dark">
       <head>

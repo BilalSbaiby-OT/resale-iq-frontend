@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 // Site-wide social card. Until now every share of resaleiq.dev on X, LinkedIn,
 // WhatsApp or Slack rendered as a bare blue link with no image — the single
@@ -12,6 +13,7 @@ export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
 export default async function OpengraphImage() {
+  const tracked = await listingsTrackedLabel()
   return new ImageResponse(
     (
       <div
@@ -61,9 +63,13 @@ export default async function OpengraphImage() {
           <span style={{ color: "#22c55e" }}>Know before you buy.</span>
         </div>
 
+        {/* ONE text child, deliberately. Satori throws "Expected <div> to have
+            explicit display: flex ... if it has more than one child node" the
+            moment an interpolation splits this into an expression plus a text
+            node, and it fails the whole build, not just the image. Keep the
+            sentence a single template literal. */}
         <div style={{ fontSize: 27, color: "#8b99b8", marginTop: 30, lineHeight: 1.4 }}>
-          900,000+ Vinted listings across 5 EU markets — buy-below price,
-          sell-through and the sizes that actually move.
+          {`${tracked} Vinted listings across 5 EU markets — buy-below price, sell-through and the sizes that actually move.`}
         </div>
 
         <div

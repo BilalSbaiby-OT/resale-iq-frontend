@@ -49,6 +49,41 @@ export async function listingsTrackedLabel(): Promise<string> {
 }
 
 /**
+ * Sentinel for prose that lives in a static data module.
+ *
+ * `src/data/*.ts` are plain exported constants — they are evaluated at import
+ * time and cannot await anything, which is precisely why 34 copies of a literal
+ * "900,000+" survived the first migration to this file and went on drifting.
+ * The modules now write TRACKED where the figure belongs and every render site
+ * passes the value through `fillTracked`, so the literal has nowhere left to
+ * hide. `tests/tracked-figure.test.ts` fails the build if one reappears.
+ */
+export const TRACKED = "{{TRACKED}}"
+
+/**
+ * Deep-substitutes TRACKED through any JSON-ish structure, returning a new one.
+ *
+ * Deep rather than top-level because the figure appears inside nested FAQ
+ * answers and section bodies; a shallow replace would silently leave those
+ * showing the raw sentinel to customers.
+ */
+export function fillTracked<T>(value: T, tracked: string): T {
+  if (typeof value === "string") {
+    return value.split(TRACKED).join(tracked) as unknown as T
+  }
+  if (Array.isArray(value)) {
+    return value.map(v => fillTracked(v, tracked)) as unknown as T
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .map(([k, v]) => [k, fillTracked(v, tracked)]),
+    ) as unknown as T
+  }
+  return value
+}
+
+/**
  * The EXACT count, for places where the number stands alone.
  *
  * A rounded figure sits still for days and reads like marketing. The precise

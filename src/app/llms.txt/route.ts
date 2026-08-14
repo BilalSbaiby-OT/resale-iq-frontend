@@ -1,7 +1,8 @@
-import { ALL_POSTS } from "@/data/blog-posts"
-import { INTENTS } from "@/data/search-intents"
+import { ALL_POSTS as RAW_POSTS } from "@/data/blog-posts"
+import { INTENTS as RAW_INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
+import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 
 // /llms.txt — the emerging convention (llmstxt.org) for telling language models
 // what a site is and which URLs are worth reading, in markdown rather than
@@ -34,6 +35,12 @@ async function liveWeeklyVolume(): Promise<number | null> {
 }
 
 export async function GET() {
+  // The INTENT and POST titles carry the TRACKED sentinel; without this the raw
+  // "{{TRACKED}}" shipped straight into llms.txt, which is the one file whose
+  // entire audience is machines that quote it verbatim.
+  const tracked = await listingsTrackedLabel()
+  const INTENTS = fillTracked(RAW_INTENTS, tracked)
+  const ALL_POSTS = fillTracked(RAW_POSTS, tracked)
   const weekly = await liveWeeklyVolume()
 
   const body = `# Resale IQ
@@ -49,7 +56,7 @@ any brand named on the site.
 
 ## What the data is
 
-- Coverage: 900,000+ unique Vinted listings across ES, FR, DE, IT and PT.
+- Coverage: ${tracked} unique Vinted listings across ES, FR, DE, IT and PT.
   Counted with COUNT(DISTINCT external_id): the five domains are one
   catalogue, so a raw row count would overstate by about 3x.
 - ${weekly ? `Current volume: about ${weekly.toLocaleString()} items sold in the last 7 days across ${BRANDS.length} tracked brands.` : `Tracked brands: ${BRANDS.length}.`}
