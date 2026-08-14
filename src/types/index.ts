@@ -25,6 +25,7 @@ export interface ModelSignal {
   max_buy_price: number | null
   str_pct: number | null
   str_unavailable_reason?: string
+  active_listings?: number | null
   opportunity_score: number | null
   momentum_label: Momentum | null
   months_supply: number | null

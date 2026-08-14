@@ -106,13 +106,19 @@ function DealsContent() {
                 {[
                   { label: "Buy Below", value: eur(d.max_buy_price), color: "text-emerald-400" },
                   { label: "Est. Profit", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400" },
-                  // Sell-through is withheld product-wide. Rather than spend one
-                  // of four tiles on the word "measuring", show what it sells
-                  // for — the number the buy-below is derived from, which the
-                  // reseller wants anyway. The tile returns when STR does.
+                  // Sell-through is withheld product-wide, and Hermes put the
+                  // problem better than "show a placeholder": the gap is not
+                  // data quality, it is the ABSENCE OF A SIGNAL where the user
+                  // expects one. A competitor showing "sells in ~3 days" wins
+                  // that slot against our apology every time.
+                  //
+                  // So the slot carries supply instead. Beside the 7d Sold tile
+                  // the reseller reads 247 sold against 3,200 listed and forms
+                  // the judgement themselves — two counts we stand behind,
+                  // rather than a ratio we do not.
                   d.str_pct != null
                     ? { label: "STR / Week", value: `${d.str_pct.toFixed(0)}%`, color: "" }
-                    : { label: "Sells For", value: d.avg_price_eur != null ? eur(d.avg_price_eur) : "—", color: "" },
+                    : { label: "Listed Now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
                   { label: "7d Sold", value: (d.sold_7d ?? 0).toLocaleString(), color: "" },
                 ].map(({ label, value, color }) => (
                   <div key={label} className="bg-[#1a2030] rounded-lg p-2">
