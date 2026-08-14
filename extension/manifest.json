@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Resale IQ — buy-below price on Vinted",
+  "version": "0.1.0",
+  "description": "Shows the highest price you can pay for a Vinted item and still hit your margin, on the listing page itself.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://resaleiq.dev/*"],
+  "background": { "service_worker": "background.js" },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.vinted.es/*",
+        "https://www.vinted.fr/*",
+        "https://www.vinted.de/*",
+        "https://www.vinted.it/*",
+        "https://www.vinted.pt/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

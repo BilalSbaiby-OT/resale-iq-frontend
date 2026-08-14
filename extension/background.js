@@ -1,0 +1,38 @@
+// All network calls live here, not in the content script.
+//
+// A content script's fetch is subject to the HOST page's CORS policy, so
+// calling resaleiq.dev from a vinted.es page would need the API to advertise
+// Vinted as an allowed origin — widening CORS on a live payment backend to
+// make a browser extension work is a bad trade. The service worker has its
+// own origin and host_permissions, so nothing about the API changes.
+const API = "https://resaleiq.dev";
+
+chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
+  if (msg?.type !== "verdict") return false;
+
+  (async () => {
+    try {
+      const { riq_token } = await chrome.storage.sync.get("riq_token");
+      const headers = { Accept: "application/json" };
+      // Optional. Without it the caller gets the anonymous free allowance,
+      // which is the point — the extension has to be useful before signup.
+      if (riq_token) headers.Authorization = `Bearer ${riq_token}`;
+
+      const r = await fetch(`${API}/api/verdict?q=${encodeURIComponent(msg.q)}`, { headers });
+      if (!r.ok) { respond({ ok: false, status: r.status }); return; }
+      const data = await r.json();
+
+      // Verified against production: the endpoint returns HTTP 200 with
+      // {"verdict":"LIMIT_REACHED"} when the free allowance is spent, and
+      // "UNKNOWN" when it has no data for the query. Checking r.status alone
+      // would have rendered both as a normal verdict card.
+      if (data?.verdict === "LIMIT_REACHED") { respond({ ok: false, limited: true }); return; }
+      if (data?.verdict === "UNKNOWN") { respond({ ok: false, unknown: true }); return; }
+      respond({ ok: true, data });
+    } catch (e) {
+      respond({ ok: false, error: String(e) });
+    }
+  })();
+
+  return true; // keep the message channel open for the async respond
+});
