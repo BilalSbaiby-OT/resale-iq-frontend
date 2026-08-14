@@ -60,6 +60,15 @@ export function Paywall() {
             <div style={{ fontSize: 12.5, color: "#fbbf24", fontWeight: 700, marginBottom: 3 }}>One step first</div>
             <div style={{ fontSize: 12.5, color: "#a9b6d0", lineHeight: 1.55 }}>
               Confirm your email to switch the unlocks on — we sent a link when you signed up.{" "}
+              {/* CHECK SPAM IS THE POINT, not a footnote. Verified 2026-08-14:
+                  mail from noreply@resaleiq.dev lands in Outlook's Junk folder,
+                  direct and forwarded alike. SPF, DKIM and DMARC all pass — the
+                  domain is simply young and unknown. A user who never finds the
+                  link never gets their unlocks and never sees the product work,
+                  which makes this the cheapest conversion fix available. */}
+              <b style={{ color: "#eef1f7" }}>It often lands in spam or junk</b> — search
+              for <b style={{ color: "#eef1f7" }}>noreply@resaleiq.dev</b> and mark it
+              &ldquo;not junk&rdquo; so later emails reach you.{" "}
               <Link href="/account" style={{ color: "#22c55e", textDecoration: "none" }}>Resend it</Link>.
             </div>
           </div>

@@ -123,8 +123,11 @@ export default function AccountPage() {
             <div className="font-bold text-[14px] text-amber-400 mb-1">Confirm your email</div>
             <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
               Your 10 free unlocks — buy-below price, sell price, sell-through and best
-              sizes — need a confirmed address. We sent a link when you signed up; if it
-              never arrived or has expired, send a fresh one.
+              sizes — need a confirmed address. We sent a link when you signed up.
+              {" "}<b className="text-[#eef1f7]">Look in spam or junk first</b> — mail from{" "}
+              <b className="text-[#eef1f7]">noreply@resaleiq.dev</b> often lands there, and
+              marking it &ldquo;not junk&rdquo; keeps later emails out of it. If it never
+              arrived or has expired, send a fresh one.
             </p>
             <button onClick={handleResend} disabled={resending}
               className="bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[11px] px-4 py-2 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">

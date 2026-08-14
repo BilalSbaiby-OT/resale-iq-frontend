@@ -26,7 +26,11 @@ export default function ForgotPasswordPage() {
           <div className="text-center">
             <div className="flex justify-center mb-4"><Mail size={34} className="text-emerald-400" /></div>
             <h1 className="text-[18px] font-bold mb-2">Check your inbox</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-6">If that email exists, a reset link has been sent.</p>
+            <p className="text-[#8b99b8] text-[13px] mb-3">If that email exists, a reset link has been sent.</p>
+            <p className="text-[#8b99b8] text-[13px] mb-6">
+              <b className="text-[#eef1f7]">Check spam or junk</b> — our mail often
+              lands there. Search for <b className="text-[#eef1f7]">noreply@resaleiq.dev</b>.
+            </p>
             <Link href="/login" className="text-emerald-400 hover:underline text-[13px]">← Back to sign in</Link>
           </div>
         ) : (
