@@ -34,6 +34,15 @@
         "content.css"
       ],
       "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://resaleiq.dev/*"
+      ],
+      "js": [
+        "link.js"
+      ],
+      "run_at": "document_idle"
     }
   ]
 }

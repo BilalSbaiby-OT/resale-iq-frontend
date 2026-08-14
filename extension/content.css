@@ -43,3 +43,5 @@
    how a tool loses trust: a confident number against the wrong model is worse
    than no number. */
 #riq-badge .riq-match { font-size: 10.5px; color: #5b6b8c; margin-bottom: 6px; }
+#riq-badge .riq-warn { color: #f87171; font-weight: 600; }
+#riq-badge .riq-good { color: #34d399; font-weight: 600; }

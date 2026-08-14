@@ -51,12 +51,16 @@ plan's allowance.
 Show Resale IQ pricing data on Vinted listing pages.
 
 **Permission justifications**
-- `storage` — stores one optional API token the user pastes in, so their plan's
-  allowance is used instead of the anonymous free tier. Nothing else is stored.
+- `storage` — stores the user's own session token so their plan allowance is
+  used instead of the anonymous free tier. Nothing else is stored.
 - `host_permissions: https://resaleiq.dev/*` — the extension asks our own API
   for the buy-below price. This is the only host it contacts.
-- Content scripts on `vinted.*` — reads the public product title and brand
-  already rendered on the page in order to look that product up.
+- Content script on `vinted.*` — reads the public product title, brand and
+  asking price already rendered on the page, in order to look that product up
+  and compare it against the buy-below price.
+- Content script on `resaleiq.dev` — reads the session our own site already
+  stored in the user's browser, so signing in connects the extension without
+  the user copying a token by hand. It runs only on our own domain.
 
 **Data use — tick these honestly**
 - Does NOT collect: personal info, health, financial, authentication,

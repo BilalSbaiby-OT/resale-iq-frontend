@@ -27,11 +27,23 @@ function readListing() {
   const brand =
     document.querySelector('a[href*="/brand/"], [itemprop="brand"]')?.textContent?.trim() || "";
 
+  // The asking price. Vinted shows two: the item price and a larger
+  // "buyer protection included" total. We want the first — the buy-below is
+  // computed against the item price, and comparing against the inflated total
+  // would tell the reseller to walk away from deals that are fine.
+  let price = null;
+  for (const el of document.querySelectorAll('[data-testid*="price"], p, div, span')) {
+    const t = (el.textContent || "").trim();
+    if (t.length > 18) continue;
+    const m = t.match(/^(\d{1,3}(?:[.\s]\d{3})*(?:,\d{2})?)\s*€$/);
+    if (m) { price = parseFloat(m[1].replace(/[.\s]/g, "").replace(",", ".")); break; }
+  }
+
   if (!title || title.length < 3) return null;
   // Brand first: the API matches against "brand model" strings.
   const q = (brand && !title.toLowerCase().startsWith(brand.toLowerCase()))
     ? `${brand} ${title}` : title;
-  return { q: q.slice(0, 120) };
+  return { q: q.slice(0, 120), price };
 }
 
 function panel() {
@@ -50,10 +62,29 @@ function money(n) {
   return n == null ? "—" : `€${Number(n).toFixed(0)}`;
 }
 
-function paint(d) {
-  const verdict = (d.verdict || d.signal || "").toUpperCase();
-  const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
+function paint(d, askingPrice) {
   const buyBelow = d.buy_below ?? null;   // verified field name
+
+  // THE DECISION IS ABOUT THIS LISTING, NOT THE MODEL.
+  //
+  // The API's verdict answers "is this model worth trading". Rendered on a
+  // specific listing it reads as "buy this one" — and it was doing exactly
+  // that on a Jordan 4 listed at EUR140 against a EUR65 buy-below, i.e.
+  // telling a reseller to buy at more than twice the price they should pay.
+  // On the page where the money is actually spent, the asking price decides.
+  let verdict = (d.verdict || d.signal || "").toUpperCase();
+  let tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
+  let overBy = null;
+  if (buyBelow != null && askingPrice != null) {
+    if (askingPrice > buyBelow) {
+      overBy = askingPrice - buyBelow;
+      verdict = "TOO DEAR";
+      tone = "skip";
+    } else {
+      verdict = "IN RANGE";
+      tone = "buy";
+    }
+  }
 
   // If we have no buy-below we say so. A blank panel reads as broken, and a
   // fabricated number is the one thing this product cannot afford.
@@ -71,6 +102,10 @@ function paint(d) {
       </div>
       ${d.product ? `<div class="riq-match">matched: ${d.product}</div>` : ""}
       ${body}
+      ${overBy != null
+          ? `<div class="riq-row riq-warn">listed at ${money(askingPrice)} — ${money(overBy)} over</div>`
+          : (askingPrice != null && buyBelow != null
+              ? `<div class="riq-row riq-good">listed at ${money(askingPrice)} — within your price</div>` : "")}
       ${d.sell_avg != null ? `<div class="riq-row">sells around <b>${money(d.sell_avg)}</b></div>` : ""}
       <a class="riq-link" href="https://resaleiq.dev/methodology" target="_blank" rel="noopener">how this is calculated</a>
     </div>`);
@@ -80,8 +115,9 @@ function paintLimited() {
   render(`
     <div class="riq-card riq-watch">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
-      <div class="riq-sub">Free checks used up for today.</div>
-      <a class="riq-link" href="https://resaleiq.dev/register?plan=free" target="_blank" rel="noopener">Get more checks</a>
+      <div class="riq-sub">Free checks used up for today. Sign in and the panel
+        reconnects on its own.</div>
+      <a class="riq-link" href="https://resaleiq.dev/login" target="_blank" rel="noopener">Sign in</a>
     </div>`);
 }
 
@@ -102,7 +138,7 @@ async function run() {
       else document.getElementById(BADGE_ID)?.remove();  // unknown item: stay out of the way
       return;
     }
-    paint(res.data);
+    paint(res.data, listing.price);
   });
 }
 
