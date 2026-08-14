@@ -10,7 +10,22 @@ function getScoreStyle(s: number) {
 interface ScoreBarProps { score: number | null; showNumber?: boolean; width?: number }
 
 export function ScoreBar({ score, showNumber = true, width = 64 }: ScoreBarProps) {
-  const s = Math.min(Math.max(score ?? 0, 0), 100)
+  // A WITHHELD score is not a zero score. `score ?? 0` rendered a red "0/100"
+  // on every card the moment opportunity_score was suppressed — telling the
+  // reseller "worst possible opportunity" about an item we had simply declined
+  // to rate. That is a worse lie than the number we withdrew.
+  if (score == null) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {showNumber && (
+          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 14, fontWeight: 800, color: "#5b6b8c", lineHeight: 1 }}
+                title="Not rated while sell-through is being measured">—</span>
+        )}
+        <div style={{ height: 3, width, borderRadius: 2, background: "#1e2535" }} />
+      </div>
+    )
+  }
+  const s = Math.min(Math.max(score, 0), 100)
   const style = getScoreStyle(s)
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
