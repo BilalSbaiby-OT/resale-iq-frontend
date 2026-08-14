@@ -60,6 +60,10 @@ export default function DashboardPage() {
     catch { alert("Already in watchlist") }
   }
 
+  // Sell-through is withheld product-wide right now. Rather than render a
+  // column of dashes, drop it until at least one row carries a real value.
+  const strLive = (deals ?? []).some(d => d.str_pct != null)
+
   return (
     <AppShell title="Dashboard" subtitle="Live market overview across 5 Vinted markets">
       {plan === "free" && (
@@ -87,7 +91,7 @@ export default function DashboardPage() {
         <Section title="Top opportunities" sub="Ranked by opportunity score, refreshed hourly" action={{ href: "/deals", label: "Deal scanner" }}>
           {!deals ? <SkeletonRows rows={6} height={34} /> : (
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead><tr>{["Product", "Buy below", "Est. profit", "STR", "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
+              <thead><tr>{["Product", "Buy below", "Est. profit", ...(strLive ? ["STR"] : []), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
               <tbody>
                 {deals.map((d, i) => (
                   <tr key={i}>
@@ -99,7 +103,7 @@ export default function DashboardPage() {
                     <td style={NUM}>
                       <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>
                     </td>
-                    <td style={NUM} title={d.str_pct == null ? d.str_unavailable_reason : undefined}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>
+                    {strLive && <td style={NUM}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>}
                     <td style={TD}><MomentumBadge momentum={d.momentum_label} /></td>
                     <td style={TD}><SizePills sizes={d.top_sizes ?? []} /></td>
                     <td style={TD}>
