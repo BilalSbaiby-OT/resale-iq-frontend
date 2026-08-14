@@ -7,11 +7,16 @@ export const metadata = {
   description: "Get help with Resale IQ — billing, accounts, data, and how the signals work.",
 }
 
-// Support contact — personal inbox for now (simplest). Swap to a domain
-// address later if you want it to look more branded.
+// The company address: sends via Resend SMTP, receives via Porkbun forwarding.
+// Was a personal Outlook inbox, which meant every customer got a reply from a
+// personal mailbox and the address could not be handed to anyone else later.
 const SUPPORT_EMAIL = "support@resaleiq.dev"
 
-const FAQ: [string, string][] = [
+// A function, not a const: the dataset size is fetched per request, and a
+// module-scope array cannot await. Written as a const with ${tracked} inside a
+// plain quoted string it type-checked, built, and rendered the characters
+// "${tracked}" to the customer — which is what check:tracked:built now catches.
+const faq = (tracked: string): [string, string][] => [
   ["What is Resale IQ?",
    "A market-analytics tool for secondhand resellers. We continuously track live and sold listings across Vinted's five main EU markets and turn them into signals to help you decide what to buy, at what price, and in which sizes."],
   ["Do you guarantee I'll make money?",
@@ -27,12 +32,13 @@ const FAQ: [string, string][] = [
   ["Can I get my data / delete my account?",
    "Yes. From your account page you can export all your data (GDPR) as JSON, or permanently delete your account and its data."],
   ["Where does the data come from?",
-   "Public live and sold listings across Vinted ES, FR, DE, IT and PT — ${tracked} items, recomputed hourly. The figures shown are live aggregates, not estimates."],
+   `Public live and sold listings across Vinted ES, FR, DE, IT and PT — ${tracked} items, recomputed hourly. The figures shown are live aggregates, not estimates.`],
   ["Is my payment secure?",
    "Payments are handled entirely by Stripe. We never see or store your card details."],
 ]
 
 export default async function Support() {
+  const FAQ = faq(await listingsTrackedLabel())
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>

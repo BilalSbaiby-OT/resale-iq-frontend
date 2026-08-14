@@ -97,7 +97,18 @@ if (process.argv.includes("--built")) {
       if (statSync(p).isDirectory()) { walkOut(p); continue }
       if (!RENDERED.test(p)) continue
       scanned++
-      if (readFileSync(p, "utf8").includes("{{TRACKED}}")) leaks.push(relative(ROOT, p))
+      const body = readFileSync(p, "utf8")
+      if (body.includes("{{TRACKED}}")) leaks.push(relative(ROOT, p) + "  (raw sentinel)")
+      // An un-evaluated ${...} means an interpolation was written into an
+      // ordinary quoted string instead of a template literal. /support shipped
+      // "... — ${tracked} items, recomputed hourly" exactly this way: it type-
+      // checks, it builds, and it renders the source text to the customer.
+      // Only plain-text outputs are scanned; .rsc and .json embed JS payloads
+      // where a ${...} is legitimate.
+      if (/\.(html|body|txt)$/.test(p)) {
+        const m = body.match(/\$\{[a-zA-Z_$][\w$.]*\}/)
+        if (m) leaks.push(`${relative(ROOT, p)}  (un-evaluated ${m[0]})`)
+      }
     }
   }
   try { walkOut(OUT) } catch {
@@ -105,9 +116,12 @@ if (process.argv.includes("--built")) {
     process.exit(1)
   }
   if (leaks.length) {
-    console.error(`\n✗ raw {{TRACKED}} sentinel shipped in ${leaks.length} rendered file(s):\n`)
+    console.error(`\n✗ unresolved placeholder shipped in ${leaks.length} rendered file(s):\n`)
     leaks.forEach(l => console.error("   " + l))
-    console.error("\n   A render site is reading a data module without fillTracked().\n")
+    console.error(`
+   raw sentinel      -> a render site reads a data module without fillTracked()
+   un-evaluated \${} -> an interpolation sits in a quoted string; use a template literal
+`)
     process.exit(1)
   }
   console.log(`✓ ${scanned} rendered artefact(s) clean — no sentinel reached the output`)
