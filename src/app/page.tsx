@@ -78,7 +78,7 @@ export default function Landing() {
       {/* Social proof band */}
       <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[["500,000+", "live and sold listings tracked"], ["Hourly", "every price recomputed"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until we have measured one"]].map(([n, l]) => (
+          {[["500,000+", "live and sold listings tracked"], ["Every 30 min", "scraped, recomputed hourly"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until 100 outcomes are scored"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "center", maxWidth: 190 }}>
               {/* Word-length varies now that these are claims rather than bare
                   figures, so the size steps down instead of wrapping mid-phrase

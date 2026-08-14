@@ -12,7 +12,7 @@ const SUPPORT_EMAIL = "parapluis@outlook.com"
 
 const FAQ: [string, string][] = [
   ["What is Resale IQ?",
-   "A market-analytics tool for secondhand resellers. We continuously track live and sold listings across Vinted's five main EU markets and turn them into clear signals — what to buy, at what price, in which sizes — so you source with data instead of guesswork."],
+   "A market-analytics tool for secondhand resellers. We continuously track live and sold listings across Vinted's five main EU markets and turn them into signals to help you decide what to buy, at what price, and in which sizes."],
   ["Do you guarantee I'll make money?",
    "No. Every signal, score and verdict is informational and probabilistic, based on public market data. Outcomes depend on what you pay, condition, timing and factors outside our control. It's a decision tool, not financial advice or a guarantee."],
   ["What's the difference between Starter and Pro?",

@@ -115,8 +115,8 @@ export default async function MethodologyPage() {
           <P>
             We continuously read public live and sold listings from all five main EU Vinted
             domains — Spain, France, Germany, Italy and Portugal. Nothing is bought from a
-            third party and nothing is estimated from a model: every figure traces back to
-            listings that actually existed.
+            third party. Prices and counts trace back to listings that actually existed;
+            momentum and sell-through are ratios computed from them, not predictions.
           </P>
           <P>
             We anchor on <strong style={{ color: "#eef1f7" }}>sold</strong> listings, not active
@@ -179,7 +179,8 @@ export default async function MethodologyPage() {
             &ldquo;found this week&rdquo;, which inflates the ratio. Everything else on the site
             — buy-below prices, sale prices, sales counts, sizes — is unaffected, because those
             come from the sale itself rather than from when we noticed it. The check runs every
-            six hours and restores the number on its own once the backlog is worked through.
+            six hours and restores the number automatically once the measured rate drops
+            below 20%.
           </Callout>
         </Section>
 
