@@ -32,7 +32,11 @@ export default function Landing() {
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>Sign in</Link>
-          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#06090c", background: "#22c55e", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>See pricing</a>
+          {/* Demoted from a green button. It was pulling the eye away from the
+              one action on the page, and put a second green element in the
+              top-right corner of a layout whose whole point is that green
+              means "click this". */}
+          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>Pricing</a>
         </div>
       </nav>
 
