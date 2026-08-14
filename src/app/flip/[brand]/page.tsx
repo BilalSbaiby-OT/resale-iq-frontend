@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { BRANDS, catSlug, type BrandSeo } from "@/lib/seo-categories"
 import { Lock, TrendingUp, ArrowRight } from "lucide-react"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { brandNarrative } from "@/lib/flip-narrative"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
@@ -86,6 +87,17 @@ export default async function BrandFlipPage(
         doesn&apos;t make you money — the margin depends entirely on which model you buy and
         what you pay for it.
       </p>
+
+      {/* Brand-specific analysis — COMPUTED from this brand's own category
+          numbers, so the prose differs brand to brand instead of being the same
+          template with the name swapped. This is what stops the 156 flip pages
+          reading as one duplicated page to a search engine. See
+          src/lib/flip-narrative.ts for why. */}
+      {brandNarrative(b).map((para, i) => (
+        <p key={i} style={{ color: "#a9b6d0", fontSize: 15, lineHeight: 1.7, marginBottom: 14, maxWidth: 680 }}>
+          {para}
+        </p>
+      ))}
 
       {/* Public aggregates */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 28 }}>
