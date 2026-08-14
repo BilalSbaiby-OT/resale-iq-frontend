@@ -1,8 +1,12 @@
 /* Fixed, corner-anchored, and narrow on purpose: it must never cover Vinted's
    own buy button or reflow their layout. An extension that gets in the way of
    the purchase is uninstalled the same day. */
+/* BOTTOM-LEFT, not bottom-right. Verified on a live vinted.es item page:
+   Vinted puts the item details and the buy button in a right-hand column, and
+   a right-anchored badge sat on top of it. The left side is the image gallery,
+   which has nothing the buyer needs to click. */
 #riq-badge {
-  position: fixed; right: 18px; bottom: 18px; z-index: 2147483000;
+  position: fixed; left: 18px; bottom: 18px; z-index: 2147483000;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 #riq-badge .riq-card {
