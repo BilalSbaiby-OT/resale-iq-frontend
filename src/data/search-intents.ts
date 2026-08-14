@@ -26,7 +26,7 @@ export const INTENTS: SearchIntent[] = [
     bullets: [
       { h: "Real sold prices, not asking prices", p: "Active listings show what people hope to get. We anchor on what actually sold, so your price reflects the real market." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
-      { h: "Speed, not just price", p: "A high price on an item that never sells is worthless. We show sell-through so you know how fast your cash comes back." },
+      { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the data supports it. It is paused right now." },
     ],
     faq: [
       { q: "How do I check the price of an item on Vinted?", a: "Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across 500,000+ listings in 5 EU markets and returns the typical sale price plus a buy-below price." },
@@ -44,9 +44,9 @@ export const INTENTS: SearchIntent[] = [
     lede:
       "Sourcing is where reselling profit is won or lost. Resale IQ tells you which items have real demand, the maximum you should pay, and which sizes actually sell — before you spend a cent.",
     bullets: [
-      { h: "Stop buying dead stock", p: "Most resellers lose money on a chunk of what they buy. We flag demand before you commit, so your cash goes into stock that moves." },
+      { h: "Stop buying dead stock", p: "Most resellers lose money on a chunk of what they buy. We flag demand before you buy." },
       { h: "Live deals under your price", p: "Pro scans current listings across all 5 EU markets and surfaces items already below your buy-below price." },
-      { h: "Plan three weeks ahead", p: "The Order Planner shows what to buy today for stock landing in three weeks, based on where demand is heading." },
+      { h: "Plan three weeks ahead", p: "The Order Planner shows what to buy today for stock landing in three weeks, based on recent weekly demand." },
     ],
     faq: [
       { q: "What is the best sourcing tool for Vinted resellers?", a: "A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from 500,000+ Vinted listings across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price." },
@@ -80,11 +80,11 @@ export const INTENTS: SearchIntent[] = [
       "Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on 500,000+ analyzed listings.",
     h1: "Reselling Intelligence",
     lede:
-      "Reselling intelligence means replacing gut feel with evidence: knowing what sells, at what price, how fast, and in which sizes — before you buy. That's what Resale IQ delivers for Vinted resellers across 5 EU markets.",
+      "Reselling intelligence means using market data instead of guesswork: knowing what sells, at what price, how fast, and in which sizes — before you buy. That's what Resale IQ delivers for Vinted resellers across 5 EU markets.",
     bullets: [
       { h: "Decisions, not dashboards", p: "Every signal resolves to one call: BUY, WATCH or SKIP. No interpretation required." },
       { h: "Margin protected at the buy", p: "Profit is decided when you buy, not when you sell. Our buy-below price enforces that discipline." },
-      { h: "Momentum, not history", p: "We track what's accelerating this week, so you're sourcing into rising demand rather than last month's trend." },
+      { h: "Momentum, not history", p: "We rank what sold most this week against the past month." },
     ],
     faq: [
       { q: "What is reselling intelligence?", a: "Reselling intelligence is the use of real market data — sell-through rates, sold prices, size demand and momentum — to decide what stock to buy, instead of relying on intuition. It reduces dead stock and protects margin." },

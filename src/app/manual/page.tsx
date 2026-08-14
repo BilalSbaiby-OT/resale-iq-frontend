@@ -85,7 +85,7 @@ export default async function ManualIndex() {
           ) : (
             <>live sold-listing data across {brandCount} brands on Vinted ES, FR, DE, IT and PT</>
           )}
-          {" "}— so the claims about how the market behaves are things we can see, not things we heard.
+          {" "}— so the claims about how the market behaves are grounded in the dataset, with its limits named.
         </p>
 
         {PARTS.map((part, pi) => {
@@ -121,7 +121,7 @@ export default async function ManualIndex() {
 
         <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginBottom: 30 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>
-            The manual gives you the method. The data gives you the answer.
+            The manual gives you the method. The data gives you a signal.
           </div>
           <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.65, marginBottom: 16 }}>
             Chapter 2 shows you how to derive a maximum buy price. Doing it by hand for every model across
