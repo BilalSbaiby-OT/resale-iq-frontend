@@ -45,7 +45,7 @@ export default function Landing() {
           Stop guessing what sells.<br /><span style={{ color: "#22c55e" }}>See what it sold for.</span>
         </h1>
         <p style={{ fontSize: 17, color: "#8b99b8", marginTop: 20, lineHeight: 1.55, maxWidth: 600, margin: "20px auto 0" }}>
-          The highest price to pay for an item, worked out from what it actually sells for. 500,000+ live and sold Vinted listings across five EU markets.
+          The highest price to pay for a Vinted item before you buy it — in euros, per model and size. From 500,000+ live and sold listings across five EU markets.
         </p>
 
         {/* CTA + locked preview — sells the output without giving it away free */}
