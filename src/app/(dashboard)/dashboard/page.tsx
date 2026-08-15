@@ -9,7 +9,8 @@ import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist } from "@/lib/api"
-import { eur, ago, getPlanFromToken } from "@/lib/utils"
+import { eur, ago } from "@/lib/utils"
+import { useAuthStore } from "@/lib/auth-store"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /* Section shell: uniform card with header + optional action link */
@@ -45,7 +46,8 @@ export default function DashboardPage() {
   const [brands, setBrands] = useState<BrandRanking[] | null>(null)
   const [trending, setTrending] = useState<ModelSignal[] | null>(null)
   const [sold, setSold] = useState<RecentSold[] | null>(null)
-  const plan = getPlanFromToken()
+  const { user } = useAuthStore()
+  const plan = user?.plan || "free"
 
   useEffect(() => {
     getKPIs().then(setKpis).catch(() => setKpis(null))
