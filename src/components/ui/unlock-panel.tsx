@@ -124,7 +124,7 @@ export function UnlockPanel({
         </div>
       </div>
       <Row>
-        <Primary href="/register?plan=operator">See Starter — €19/mo</Primary>
+        <Primary href="/account">See Starter — €19/mo</Primary>
         <Secondary href="/#pricing">Compare plans</Secondary>
       </Row>
       <p className="mt-3 text-[11.5px] text-[#5b6b8c]">

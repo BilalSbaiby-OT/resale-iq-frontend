@@ -72,7 +72,7 @@ export default function DashboardPage() {
             <div style={{ fontSize: 13, fontWeight: 650, color: "#eef1f7" }}>Unlock full market intelligence</div>
             <div style={{ fontSize: 11.5, color: "#8b99b8" }}>100 signals · unlimited verdicts · size velocity · alerts</div>
           </div>
-          <Link href="/register?plan=operator" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "8px 16px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+          <Link href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "8px 16px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
             Upgrade — €19/mo
           </Link>
         </div>

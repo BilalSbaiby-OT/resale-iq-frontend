@@ -1,7 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification } from "@/lib/api"
+import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification, getPlans, createCheckout } from "@/lib/api"
+import { resolvePriceId } from "@/lib/pricing"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
@@ -14,6 +15,8 @@ export default function AccountPage() {
   const [pwMsg, setPwMsg] = useState(""); const [pwOk, setPwOk] = useState(false); const [deleteConfirm, setDeleteConfirm] = useState("")
   const [resendMsg, setResendMsg] = useState(""); const [resending, setResending] = useState(false)
   const [apiKey, setApiKey] = useState(""); const [apiMsg, setApiMsg] = useState(""); const [copied, setCopied] = useState(false)
+  const [plansList, setPlansList] = useState<{ id: string; price_id?: string }[]>([])
+  const [upgrading, setUpgrading] = useState("")
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
@@ -21,7 +24,21 @@ export default function AccountPage() {
   useEffect(() => {
     getMe().then(setUser)
     getActivity().then(d => setLogs(d.logs.slice(0, 20))).catch(() => {})
+    getPlans().then(d => setPlansList(d.plans)).catch(() => {})
   }, [])
+
+  const handleUpgrade = async (planId: string) => {
+    setUpgrading(planId)
+    try {
+      const placeholder = planId === "operator" ? "__OPERATOR__" : "__POWER__"
+      const priceId = resolvePriceId(placeholder, plansList)
+      if (!priceId) { alert("Plans are still loading — try again in a moment."); return }
+      const { checkout_url } = await createCheckout(priceId)
+      window.location.href = checkout_url
+    } catch (e: unknown) {
+      alert(e instanceof Error ? e.message : "Could not start checkout")
+    } finally { setUpgrading("") }
+  }
 
   const handleChangePw = async () => {
     if (newPw.length < 8) { setPwOk(false); setPwMsg("Min 8 characters"); return }
@@ -88,8 +105,8 @@ export default function AccountPage() {
             </div>
             {user?.plan === "free" ? (
               <div className="flex flex-col gap-2">
-                <Link href="/register?plan=operator" className="block text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">UPGRADE TO OPERATOR — €19/mo →</Link>
-                <Link href="/register?plan=power" className="block text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors">UPGRADE TO POWER — €49/mo →</Link>
+                <button onClick={() => handleUpgrade("operator")} disabled={!!upgrading} className="block w-full text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "operator" ? "REDIRECTING TO STRIPE…" : "UPGRADE TO STARTER — €19/mo →"}</button>
+                <button onClick={() => handleUpgrade("power")} disabled={!!upgrading} className="block w-full text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "power" ? "REDIRECTING TO STRIPE…" : "UPGRADE TO PRO — €49/mo →"}</button>
               </div>
             ) : (
               <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">MANAGE SUBSCRIPTION (cancel, update card, billing history)</button>

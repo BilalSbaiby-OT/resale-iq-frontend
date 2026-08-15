@@ -4,9 +4,11 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
-  BookOpen, Wrench, Database, LifeBuoy, GraduationCap, Activity,
+  BookOpen, Wrench, Database, LifeBuoy, GraduationCap, Activity, Lock,
 } from "lucide-react"
-import { getPlanFromToken } from "@/lib/utils"
+import { useAuthStore } from "@/lib/auth-store"
+
+const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator"])
 
 const NAV_SECTIONS = [
   {
@@ -69,7 +71,8 @@ const PLAN_STYLE: Record<string, { color: string; bg: string; border: string }> 
 
 export function Sidebar({ className = "" }: { className?: string }) {
   const pathname = usePathname()
-  const plan = (getPlanFromToken() || "free") as "free" | "operator" | "power"
+  const { user } = useAuthStore()
+  const plan = (user?.plan || "free") as "free" | "operator" | "power"
   const ps = PLAN_STYLE[plan] ?? PLAN_STYLE.free
 
   // Power-plan owner accounts also get an Admin section.
@@ -95,18 +98,20 @@ export function Sidebar({ className = "" }: { className?: string }) {
             <div style={{ padding: "4px 10px 6px", fontSize: 9.5, fontWeight: 600, color: "#4d5a75", letterSpacing: "1.2px", textTransform: "uppercase" }}>{label}</div>
             {items.map(({ href, icon: Icon, label: itemLabel }) => {
               const active = pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
+              const locked = plan === "free" && PAID_ROUTES.has(href)
               return (
                 <Link key={href} href={href} style={{
                   position: "relative", display: "flex", alignItems: "center", gap: 10,
                   padding: "7.5px 10px", marginBottom: 1, borderRadius: 7,
                   textDecoration: "none", fontSize: 13, fontWeight: active ? 600 : 450,
-                  color: active ? "#eef1f7" : "#8b99b8",
+                  color: active ? "#eef1f7" : locked ? "#4d5a75" : "#8b99b8",
                   background: active ? "rgba(255,255,255,.05)" : "transparent",
                   transition: "background .12s,color .12s",
                 }}>
                   {active && <span style={{ position: "absolute", left: -8, top: 8, bottom: 8, width: 2.5, borderRadius: 2, background: "#22c55e" }} />}
-                  <Icon size={15.5} strokeWidth={active ? 2.1 : 1.8} color={active ? "#22c55e" : "#5b6b8c"} />
+                  <Icon size={15.5} strokeWidth={active ? 2.1 : 1.8} color={active ? "#22c55e" : locked ? "#3d4a62" : "#5b6b8c"} />
                   {itemLabel}
+                  {locked && <Lock size={10} style={{ marginLeft: "auto", color: "#3d4a62" }} />}
                 </Link>
               )
             })}
@@ -123,7 +128,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
           </span>
         </div>
         {plan === "free" && (
-          <Link href="/register?plan=operator" style={{ display: "block", textAlign: "center", marginTop: 8, padding: "8px 0", background: "#22c55e", color: "#06090c", borderRadius: 7, textDecoration: "none", fontSize: 12, fontWeight: 700 }}>
+          <Link href="/account" style={{ display: "block", textAlign: "center", marginTop: 8, padding: "8px 0", background: "#22c55e", color: "#06090c", borderRadius: 7, textDecoration: "none", fontSize: 12, fontWeight: 700 }}>
             Upgrade
           </Link>
         )}

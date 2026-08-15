@@ -113,7 +113,7 @@ export const createCheckout = (price_id: string) =>
       // Land on our success page, which verifies the session server-side and
       // applies the upgrade without depending on webhook delivery.
       success_url: `${window.location.origin}/billing/success?`,
-      cancel_url: `${window.location.origin}/register`,
+      cancel_url: `${window.location.origin}/account`,
     }),
   })
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")

@@ -12,8 +12,12 @@ interface AppShellProps {
   subtitle?: string
 }
 
-// Pages a non-paying account may still reach: managing/paying for a plan.
-const PAYWALL_EXEMPT = ["/account", "/billing"]
+// Pages that require a PAID subscription. Everything not listed here is
+// accessible to free-tier users — the backend enforces the real limits (3
+// verdicts/day, 10 lifetime unlocks), so the frontend no longer blanket-blocks
+// the dashboard. The old approach showed the Paywall on every single route,
+// which meant a free user could never actually use their entitlements.
+const PAID_ONLY = ["/deals", "/order-planner", "/calculator"]
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
@@ -28,6 +32,12 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
       setChecked(true)
     })
   }, [])
+
+  // Re-fetch the user on every route change so an admin plan upgrade, Stripe
+  // webhook, or billing-success redirect is picked up without a full reload.
+  useEffect(() => {
+    if (checked && isAuthenticated) checkAuth()
+  }, [pathname])
 
   // Close the mobile drawer when the route ACTUALLY changes — not on the initial
   // mount / hydration settle, which would otherwise slam the drawer shut the
@@ -53,12 +63,9 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
 
   if (!isAuthenticated) return null
 
-  // Hard paywall: no free tier. Any account without an active paid plan sees the
-  // paywall instead of the app — except on the account/billing pages so they can
-  // subscribe or manage their plan.
   const isPaid = user?.plan === "operator" || user?.plan === "power"
-  const exempt = PAYWALL_EXEMPT.some(p => pathname.startsWith(p))
-  if (!isPaid && !exempt) return <Paywall />
+  const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
+  if (!isPaid && needsPaid) return <Paywall />
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#0B0D10" }}>
