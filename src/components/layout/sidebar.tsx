@@ -98,7 +98,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
             <div style={{ padding: "4px 10px 6px", fontSize: 9.5, fontWeight: 600, color: "#4d5a75", letterSpacing: "1.2px", textTransform: "uppercase" }}>{label}</div>
             {items.map(({ href, icon: Icon, label: itemLabel }) => {
               const active = pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
-              const locked = plan === "free" && PAID_ROUTES.has(href)
+              const locked = plan === "free" && !user?.trial_active && PAID_ROUTES.has(href)
               return (
                 <Link key={href} href={href} style={{
                   position: "relative", display: "flex", alignItems: "center", gap: 10,

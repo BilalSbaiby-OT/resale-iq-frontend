@@ -7,6 +7,9 @@ export interface User {
   email: string
   plan: Plan
   email_verified?: boolean | number | null
+  trial_active?: boolean
+  trial_days_left?: number
+  telegram_chat_id?: string | null
 }
 
 export interface SizeVelocity {

@@ -1,12 +1,12 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification, getPlans, createCheckout } from "@/lib/api"
+import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification, getPlans, createCheckout, connectTelegram, disconnectTelegram, testTelegramAlert } from "@/lib/api"
 import { resolvePriceId } from "@/lib/pricing"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
-import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check } from "lucide-react"
+import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell } from "lucide-react"
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -17,6 +17,9 @@ export default function AccountPage() {
   const [apiKey, setApiKey] = useState(""); const [apiMsg, setApiMsg] = useState(""); const [copied, setCopied] = useState(false)
   const [plansList, setPlansList] = useState<{ id: string; price_id?: string }[]>([])
   const [upgrading, setUpgrading] = useState("")
+  const [tgChatId, setTgChatId] = useState("")
+  const [tgMsg, setTgMsg] = useState("")
+  const [tgBusy, setTgBusy] = useState(false)
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
@@ -85,6 +88,28 @@ export default function AccountPage() {
 
   const handleCopyKey = async () => {
     try { await navigator.clipboard.writeText(apiKey); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { /* clipboard blocked */ }
+  }
+
+  const handleTgConnect = async () => {
+    if (!tgChatId.trim()) { setTgMsg("Enter your Telegram chat ID"); return }
+    setTgBusy(true); setTgMsg("")
+    try { await connectTelegram(tgChatId.trim()); setTgMsg("Connected! We'll send you price drop alerts."); getMe().then(setUser) }
+    catch (e) { setTgMsg(e instanceof Error ? e.message : "Connection failed") }
+    finally { setTgBusy(false) }
+  }
+
+  const handleTgDisconnect = async () => {
+    setTgBusy(true); setTgMsg("")
+    try { await disconnectTelegram(); setTgMsg("Disconnected."); setTgChatId(""); getMe().then(setUser) }
+    catch (e) { setTgMsg(e instanceof Error ? e.message : "Error") }
+    finally { setTgBusy(false) }
+  }
+
+  const handleTgTest = async () => {
+    setTgBusy(true); setTgMsg("")
+    try { await testTelegramAlert(); setTgMsg("Test alert sent — check your Telegram!") }
+    catch (e) { setTgMsg(e instanceof Error ? e.message : "Test failed") }
+    finally { setTgBusy(false) }
   }
 
   const handleExport = async () => {
@@ -206,6 +231,36 @@ export default function AccountPage() {
             </div>
           </div>
         )}
+
+        {/* Telegram Alerts */}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><Bell size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Telegram Alerts</span></div>
+          <div className="p-5 flex flex-col gap-3">
+            <p className="text-[12.5px] text-[#8fa3c4] leading-5">
+              Get price drop alerts for your watchlist items directly in Telegram.
+              Message <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">@userinfobot</a> on Telegram to find your chat ID.
+            </p>
+            {user?.telegram_chat_id ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2 bg-emerald-500/8 border border-emerald-500/25 rounded-lg px-3 py-2.5">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-[12px] text-emerald-400 font-mono flex-1">Connected · {user.telegram_chat_id}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={handleTgTest} disabled={tgBusy} className="flex-1 border border-blue-500/40 text-blue-400 font-mono font-bold text-[11px] py-2 rounded-lg hover:bg-blue-500/10 transition-colors disabled:opacity-50">SEND TEST ALERT</button>
+                  <button onClick={handleTgDisconnect} disabled={tgBusy} className="flex-1 border border-red-500/30 text-red-400 font-mono font-bold text-[11px] py-2 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50">DISCONNECT</button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3">
+                <input value={tgChatId} onChange={e => setTgChatId(e.target.value)} placeholder="Your Telegram chat ID (e.g. 123456789)"
+                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500 placeholder:text-[#546380]" />
+                <button onClick={handleTgConnect} disabled={tgBusy} className="border border-emerald-500/40 text-emerald-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-emerald-500/10 transition-colors disabled:opacity-50">{tgBusy ? "CONNECTING…" : "CONNECT TELEGRAM"}</button>
+              </div>
+            )}
+            {tgMsg && <div className="text-[12px] text-center text-[#8fa3c4]">{tgMsg}</div>}
+          </div>
+        </div>
 
         {/* Activity */}
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl">

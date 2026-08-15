@@ -7,10 +7,32 @@ import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
 import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { LiveDealsModal } from "@/components/ui/live-deals-modal"
-import { getDeals, addToWatchlist } from "@/lib/api"
+import { getDeals, addToWatchlist, getBatchPriceHistory } from "@/lib/api"
+import type { PricePoint } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { Deal } from "@/types"
 import { Star } from "lucide-react"
+
+function Sparkline({ points, width = 80, height = 28 }: { points: PricePoint[]; width?: number; height?: number }) {
+  if (points.length < 2) return null
+  const prices = points.map(p => p.avg_price)
+  const min = Math.min(...prices)
+  const max = Math.max(...prices)
+  const range = max - min || 1
+  const coords = prices.map((p, i) => ({
+    x: (i / (prices.length - 1)) * width,
+    y: height - ((p - min) / range) * (height - 4) - 2,
+  }))
+  const d = coords.map((c, i) => `${i === 0 ? "M" : "L"}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ")
+  const trending = prices[prices.length - 1] >= prices[0]
+  const color = trending ? "#22c55e" : "#ef4444"
+  return (
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: "block" }}>
+      <path d={d} fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx={coords[coords.length - 1].x} cy={coords[coords.length - 1].y} r={2} fill={color} />
+    </svg>
+  )
+}
 
 function DealsContent() {
   const [liveDeal, setLiveDeal] = useState<Deal | null>(null)
@@ -20,6 +42,7 @@ function DealsContent() {
   const [warmingUp, setWarmingUp] = useState(false)
   const [filtered, setFiltered] = useState<Deal[]>([])
   const [loading, setLoading] = useState(true)
+  const [sparklines, setSparklines] = useState<Record<string, PricePoint[]>>({})
   const [q, setQ] = useState(searchParams.get("q") || "")
   const [category, setCategory] = useState(searchParams.get("category") || "")
   const [brand, setBrand] = useState(searchParams.get("brand") || "")
@@ -35,6 +58,14 @@ function DealsContent() {
   }, [])
 
   useEffect(() => { load() }, [load])
+
+  useEffect(() => {
+    if (all.length === 0) return
+    const pairs = all.slice(0, 20).map(d => `${d.brand}::${d.model}`)
+    getBatchPriceHistory(pairs, 30)
+      .then(r => setSparklines(r.data))
+      .catch(() => {})
+  }, [all])
   useEffect(() => {
     let f = all
     if (q) f = f.filter(d => d.model.toLowerCase().includes(q.toLowerCase()) || d.brand.toLowerCase().includes(q.toLowerCase()))
@@ -133,7 +164,14 @@ function DealsContent() {
                 ))}
               </div>
               <div className="flex justify-between items-center">
-                {d.momentum_label && <MomentumBadge momentum={d.momentum_label} />}
+                <div className="flex items-center gap-2">
+                  {d.momentum_label && <MomentumBadge momentum={d.momentum_label} />}
+                  {sparklines[`${d.brand}::${d.model}`] && (
+                    <div title="30-day price trend">
+                      <Sparkline points={sparklines[`${d.brand}::${d.model}`]} />
+                    </div>
+                  )}
+                </div>
                 <SizePills sizes={d.top_sizes ?? []} />
                 <button onClick={() => handleWatchlist(d)} className="opacity-40 hover:opacity-100 transition-opacity text-amber-400" title="Add to watchlist"><Star size={16} /></button>
               </div>

@@ -191,3 +191,20 @@ export const adminChangePlan = (userId: number, plan: string) =>
   })
 export const adminToggleUser = (userId: number) =>
   request<{ ok: boolean }>(`/admin/users/${userId}/toggle`, { method: "PUT" })
+
+// Telegram alerts
+export const connectTelegram = (chat_id: string) =>
+  request<{ ok: boolean }>("/api/alerts/telegram/connect", {
+    method: "POST", body: JSON.stringify({ chat_id }),
+  })
+export const disconnectTelegram = () =>
+  request<{ ok: boolean }>("/api/alerts/telegram/disconnect", { method: "DELETE" })
+export const testTelegramAlert = () =>
+  request<{ ok: boolean }>("/api/alerts/telegram/test", { method: "POST" })
+
+// Price history sparklines
+export interface PricePoint { day: string; avg_price: number; sold_count?: number }
+export const getModelPriceHistory = (brand: string, model: string, days = 30) =>
+  request<{ data: PricePoint[] }>(`/api/price-history/model?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&days=${days}`)
+export const getBatchPriceHistory = (pairs: string[], days = 30) =>
+  request<{ data: Record<string, PricePoint[]> }>(`/api/price-history/batch?models=${pairs.map(encodeURIComponent).join(",")}&days=${days}`)

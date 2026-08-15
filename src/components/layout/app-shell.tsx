@@ -64,8 +64,9 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   if (!isAuthenticated) return null
 
   const isPaid = user?.plan === "operator" || user?.plan === "power"
+  const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
-  if (!isPaid && needsPaid) return <Paywall />
+  if (!isPaid && !isTrial && needsPaid) return <Paywall />
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#0B0D10" }}>
@@ -75,6 +76,17 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: 20, background: "#0B0D10" }}>
+          {isTrial && !isPaid && (
+            <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
+              <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
+                <span style={{ fontWeight: 650 }}>Free trial</span>
+                <span style={{ color: "#8b99b8" }}> — {user?.trial_days_left ?? 0} day{(user?.trial_days_left ?? 0) !== 1 ? "s" : ""} left of full access</span>
+              </div>
+              <a href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+                Upgrade now
+              </a>
+            </div>
+          )}
           {children}
         </main>
       </div>
