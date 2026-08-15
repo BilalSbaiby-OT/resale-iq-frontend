@@ -21,7 +21,12 @@ FROM node:22-slim AS run
 WORKDIR /app
 # HOSTNAME=0.0.0.0 overrides Docker's default (container id) so the standalone
 # server binds to all interfaces and Traefik can reach it (else: bad gateway).
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0
+# BACKEND_URL must be present at runtime too — stats.ts fetches the listing
+# count from the backend during SSR. Without it, the SSR falls back to
+# http://localhost:8080, which doesn't resolve inside the container, and the
+# landing page shows the stale "900,000+" fallback instead of the live count.
+ARG BACKEND_URL=http://ph5clxk9hmghspv65pdkvak9.62.238.51.83.sslip.io
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 BACKEND_URL=$BACKEND_URL
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
