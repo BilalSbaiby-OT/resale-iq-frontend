@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: () => {
     clearToken()
     set({ user: null, isAuthenticated: false })
-    if (typeof window !== "undefined") window.location.href = "/login"
+    if (typeof window !== "undefined") window.location.href = "/"
   },
 
   checkAuth: async () => {
