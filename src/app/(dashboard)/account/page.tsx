@@ -130,11 +130,11 @@ export default function AccountPage() {
             </div>
             {user?.plan === "free" ? (
               <div className="flex flex-col gap-2">
-                <button onClick={() => handleUpgrade("operator")} disabled={!!upgrading} className="block w-full text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "operator" ? "REDIRECTING TO STRIPE…" : "UPGRADE TO STARTER — €19/mo →"}</button>
-                <button onClick={() => handleUpgrade("power")} disabled={!!upgrading} className="block w-full text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "power" ? "REDIRECTING TO STRIPE…" : "UPGRADE TO PRO — €49/mo →"}</button>
+                <button onClick={() => handleUpgrade("operator")} disabled={!!upgrading} className="block w-full text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "operator" ? "Redirecting to Stripe…" : "Upgrade to Starter — €19/mo"}</button>
+                <button onClick={() => handleUpgrade("power")} disabled={!!upgrading} className="block w-full text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "power" ? "Redirecting to Stripe…" : "Upgrade to Pro — €49/mo"}</button>
               </div>
             ) : (
-              <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">MANAGE SUBSCRIPTION (cancel, update card, billing history)</button>
+              <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">Manage subscription</button>
               <p className="text-[11px] text-[#546380] text-center mt-2">Opens Stripe's secure customer portal — cancel anytime</p></div>
             )}
           </div>
@@ -146,14 +146,14 @@ export default function AccountPage() {
           <div className="p-5 flex flex-col gap-3">
             <div>
               <label className="text-[10px] text-[#546380] block mb-1.5">New password</label>
-              <input type="password" value={newPw} onChange={e => setNewPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500" />
+              <input type="password" value={newPw} onChange={e => setNewPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             <div>
               <label className="text-[10px] text-[#546380] block mb-1.5">Confirm password</label>
-              <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500" />
+              <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             {pwMsg && <div className={`text-[12px] text-center ${pwOk ? "text-emerald-400" : "text-red-400"}`}>{pwMsg}</div>}
-            <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">UPDATE PASSWORD</button>
+            <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">Update password</button>
           </div>
         </div>
 
@@ -172,8 +172,8 @@ export default function AccountPage() {
               arrived or has expired, send a fresh one.
             </p>
             <button onClick={handleResend} disabled={resending}
-              className="bg-amber-500/10 border border-amber-500 text-amber-400 font-mono font-bold text-[11px] px-4 py-2 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
-              {resending ? "SENDING…" : "RESEND CONFIRMATION EMAIL"}
+              className="bg-amber-500/10 border border-amber-500 text-amber-400 font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
+              {resending ? "Sending…" : "Resend confirmation email"}
             </button>
             {resendMsg && <p className="text-[11.5px] text-[#8fa3c4] mt-3">{resendMsg}</p>}
           </div>
@@ -247,15 +247,15 @@ export default function AccountPage() {
                   <span className="text-[12px] text-emerald-400 font-mono flex-1">Connected · {user.telegram_chat_id}</span>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={handleTgTest} disabled={tgBusy} className="flex-1 border border-blue-500/40 text-blue-400 font-mono font-bold text-[11px] py-2 rounded-lg hover:bg-blue-500/10 transition-colors disabled:opacity-50">SEND TEST ALERT</button>
-                  <button onClick={handleTgDisconnect} disabled={tgBusy} className="flex-1 border border-red-500/30 text-red-400 font-mono font-bold text-[11px] py-2 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50">DISCONNECT</button>
+                  <button onClick={handleTgTest} disabled={tgBusy} className="flex-1 border border-blue-500/40 text-blue-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-blue-500/10 transition-colors disabled:opacity-50">Send test alert</button>
+                  <button onClick={handleTgDisconnect} disabled={tgBusy} className="flex-1 border border-red-500/30 text-red-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50">Disconnect</button>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
                 <input value={tgChatId} onChange={e => setTgChatId(e.target.value)} placeholder="Your Telegram chat ID (e.g. 123456789)"
-                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-blue-500 placeholder:text-[#546380]" />
-                <button onClick={handleTgConnect} disabled={tgBusy} className="border border-emerald-500/40 text-emerald-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-emerald-500/10 transition-colors disabled:opacity-50">{tgBusy ? "CONNECTING…" : "CONNECT TELEGRAM"}</button>
+                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+                <button onClick={handleTgConnect} disabled={tgBusy} className="border border-emerald-500/40 text-emerald-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-emerald-500/10 transition-colors disabled:opacity-50">{tgBusy ? "Connecting…" : "Connect Telegram"}</button>
               </div>
             )}
             {tgMsg && <div className="text-[12px] text-center text-[#8fa3c4]">{tgMsg}</div>}
@@ -266,7 +266,7 @@ export default function AccountPage() {
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><ScrollText size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Recent Activity</span></div>
           <div className="p-3 flex flex-col gap-1.5">
-            {logs.length === 0 ? <div className="text-center py-4 text-[#546380] font-mono text-[11px]">No activity yet</div> :
+            {logs.length === 0 ? <div className="text-center py-4 text-[#546380] text-[12px]">No activity yet</div> :
               logs.map((l, i) => (
                 <div key={i} className="flex items-center gap-2 bg-[#1a2030] rounded-lg px-3 py-2">
                   {(() => { const Ico = ACTIVITY_ICON[l.action]; return Ico ? <Ico size={13} className="text-[#8fa3c4]" /> : <span className="text-[#546380]">•</span> })()}
@@ -283,7 +283,7 @@ export default function AccountPage() {
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><Database size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Data (GDPR)</span></div>
           <div className="p-5 flex flex-col gap-3">
             <p className="text-[13px] text-[#8fa3c4]">Under GDPR Article 20, you have the right to receive a copy of all personal data we hold about you.</p>
-            <button onClick={handleExport} className="flex items-center justify-center gap-2 border border-[#263147] text-[#8fa3c4] font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-[#1a2030] hover:text-[#e8ecf4] transition-colors"><Download size={14} /> DOWNLOAD MY DATA (JSON)</button>
+            <button onClick={handleExport} className="flex items-center justify-center gap-2 border border-[#263147] text-[#8fa3c4] font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-[#1a2030] hover:text-[#e8ecf4] transition-colors"><Download size={14} /> Download my data (JSON)</button>
             <p className="text-[11px] text-[#546380]"><Link href="/privacy" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Privacy Policy</Link> · <Link href="/terms" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Terms of Service</Link></p>
           </div>
         </div>
@@ -295,7 +295,7 @@ export default function AccountPage() {
             <p className="text-[13px] text-[#8fa3c4]">Deleting your account is permanent and cannot be undone.</p>
             <div><label className="text-[10px] text-[#546380] block mb-1.5">Type <strong className="text-red-400">DELETE</strong> to confirm</label>
             <input value={deleteConfirm} onChange={e => setDeleteConfirm(e.target.value)} placeholder="DELETE" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-red-500 mb-2" />
-            <button onClick={handleDelete} className="w-full border border-red-500/40 text-red-400 font-mono font-bold text-[12px] py-2.5 rounded-lg hover:bg-red-500/10 transition-colors">DELETE MY ACCOUNT</button></div>
+            <button onClick={handleDelete} className="w-full border border-red-500/40 text-red-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-red-500/10 transition-colors">Delete my account</button></div>
           </div>
         </div>
       </div>

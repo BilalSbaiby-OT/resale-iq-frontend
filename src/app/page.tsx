@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Package, ShieldCheck, TrendingUp, Zap } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 import { LiveMarketProof } from "@/components/landing/live-market-proof"
@@ -88,43 +88,32 @@ export default async function Landing() {
         </div>
       </section>
 
-      {/* What it does.
-          Was four identical bordered boxes with an icon on top — the same
-          component repeated, which reads as filler regardless of the words in
-          it. Boxes removed: a hairline rule and spacing separate them, the
-          label carries the weight, and the green icons are gone so the only
-          green left on the page is the thing you click. */}
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 8px" }}>
-        <div style={{ borderTop: "1px solid #1c2333" }} />
-        <div className="riq-grid-4-flat">
+      {/* Features — 3×2 grid, balanced. */}
+      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "48px 24px 20px" }}>
+        <div className="riq-grid-features">
           {[
             { t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
             { t: "Live search", d: "Search Vinted listings across 26 markets in real time — find what's available anywhere in Europe." },
             { t: "Price compare", d: "Compare prices for the same item across countries. Buy where it's cheapest, sell where it's not." },
-            { t: "Deal finder", d: "Listings on sale now, under your buy-below price." },
+            { t: "Deal finder", d: "Listings priced under your buy-below threshold, right now." },
             { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
-            { t: "Authenticity check", d: "A 0-100 flag from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
+            { t: "Authenticity check", d: "A 0-100 flag from price and seller signals. It never sees the item — a flag, not a verdict." },
           ].map(({ t, d }) => (
-            <div key={t} style={{ paddingTop: 26 }}>
-              <div style={{ fontSize: 14.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.2px" }}>{t}</div>
+            <div key={t} style={{ padding: "18px 0" }}>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{t}</div>
               <div style={{ fontSize: 13, color: "#7f8da9", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Social proof band */}
-      <section style={{ maxWidth: 1000, margin: "36px auto 0", padding: "0 24px" }}>
-        <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", padding: "26px 0", borderTop: "1px solid #1c2333", borderBottom: "1px solid #1c2333" }}>
-          {[[trackedExact ?? tracked, "unique items tracked, not counted twice"], ["Every 30 min", "scraped, recomputed hourly"], ["Every formula", "published on /methodology"], ["No accuracy claims", "until 100 outcomes are scored"]].map(([n, l]) => (
-            <div key={l} style={{ textAlign: "center", maxWidth: 190 }}>
-              {/* Word-length varies now that these are claims rather than bare
-                  figures, so the size steps down instead of wrapping mid-phrase
-                  across four columns. */}
-              <div style={{ fontSize: n.length > 12 ? 17 : 28, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15 }}>{n}</div>
-              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 4, lineHeight: 1.35 }}>{l}</div>
-            </div>
-          ))}
+      {/* Trust signals — inline, no borders, no template. */}
+      <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
+        <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#546380", fontSize: 12.5, lineHeight: 1.5 }}>
+          <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked</span>
+          <span>Scraped every 30 min</span>
+          <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
+          <span>No accuracy claims until 100 outcomes scored</span>
         </div>
       </section>
 

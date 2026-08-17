@@ -88,28 +88,28 @@ function DealsContent() {
       {/* Filters */}
       <div className="bg-[#141820] border border-[#1e2535] rounded-xl p-4 mb-5 flex flex-wrap gap-3 items-center">
         <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search model or brand…"
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] font-mono text-[#e8ecf4] w-52 outline-none focus:border-blue-500 placeholder:text-[#546380]" />
+          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] w-52 outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
         <select value={category} onChange={e => setCategory(e.target.value)}
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] font-mono text-[#e8ecf4] outline-none">
+          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] outline-none">
           <option value="">All Categories</option>
           {categories.map(c => <option key={c}>{c}</option>)}
         </select>
         <select value={brand} onChange={e => setBrand(e.target.value)}
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] font-mono text-[#e8ecf4] outline-none">
+          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] outline-none">
           <option value="">All Brands</option>
           {brands.map(b => <option key={b}>{b}</option>)}
         </select>
         <div className="flex gap-1.5">
           {["", "HOT", "RISING", "STABLE"].map(m => (
-            <button key={m} onClick={() => setMomentum(m)} className={`px-3 py-1.5 rounded-full text-[10px] font-mono font-bold border transition-all ${
+            <button key={m} onClick={() => setMomentum(m)} className={`px-3 py-1.5 rounded-full text-[10.5px] font-semibold border transition-all ${
               momentum === m ? "bg-emerald-500/15 border-emerald-500 text-emerald-400" : "bg-[#1a2030] border-[#263147] text-[#8fa3c4] hover:bg-[#222d42]"
             }`}>{m || "All"}</button>
           ))}
         </div>
-        <span className="text-[10px] text-[#546380] font-mono ml-1">{filtered.length} deals</span>
+        <span className="text-[10px] text-[#546380] tabular-nums ml-1">{filtered.length} deals</span>
         {(q || category || brand || momentum) && (
           <button onClick={() => { setQ(""); setCategory(""); setBrand(""); setMomentum("") }}
-            className="text-[10px] text-[#546380] hover:text-[#e8ecf4] font-mono">× Clear</button>
+            className="text-[10px] text-[#546380] hover:text-[#e8ecf4]">× Clear</button>
         )}
       </div>
 
@@ -121,7 +121,7 @@ function DealsContent() {
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 text-[#546380] font-mono text-[12px]">No deals match filters. Try removing some.</div>
+        <div className="text-center py-20 text-[#546380] text-[13px]">No deals match filters. Try removing some.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.map((d, i) => (
@@ -177,9 +177,9 @@ function DealsContent() {
               </div>
               <div className="flex items-center gap-2 pt-2 border-t border-[#1e2535]">
                 <button onClick={() => setLiveDeal(d)}
-                  className="flex-1 text-[11px] font-mono font-bold py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/50 text-emerald-400 hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors"
+                  className="flex-1 text-[11.5px] font-semibold py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/50 text-emerald-400 hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors"
                   title="Find live buyable listings under your buy-price, right now">
-                  FIND LIVE DEALS
+                  Find live deals
                 </button>
                 {d.sourcing_links && d.sourcing_links.length > 0 && (
                   <div className="flex items-center gap-1">

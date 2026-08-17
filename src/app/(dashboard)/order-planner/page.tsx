@@ -76,9 +76,9 @@ export default function OrderPlannerPage() {
           </div>
         </div>
         <button onClick={load} disabled={loading} style={{
-          padding: "10px 22px", borderRadius: 8, fontFamily: "monospace", fontSize: 13, fontWeight: 800, letterSpacing: 1,
+          padding: "10px 22px", borderRadius: 8, fontSize: 13, fontWeight: 600,
           background: "#22c55e", color: "#0B0D10", border: "none", cursor: "pointer", opacity: loading ? 0.6 : 1,
-        }}>{loading ? "FORECASTING…" : "BUILD ORDER PLAN"}</button>
+        }}>{loading ? "Forecasting…" : "Build order plan"}</button>
       </div>
 
       {/* Hero stats */}

@@ -25,7 +25,7 @@ export default function WatchlistPage() {
     <AppShell title="Watchlist" subtitle="Track brands and models you want to source">
       <MomentumWarmupNotice warmingUp={warmingUp} />
       <div className="flex justify-end mb-4">
-        <button onClick={() => setShowAdd(true)} className="bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[11px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ WATCH ITEM</button>
+        <button onClick={() => setShowAdd(true)} className="bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Watch item</button>
       </div>
       {showAdd && (
         <div className="fixed inset-0 bg-[#0B0D10]/90 z-50 flex items-center justify-center p-6">
@@ -33,21 +33,21 @@ export default function WatchlistPage() {
             <h2 className="font-bold text-[18px]">Watch an item</h2>
             <div>
               <label className="text-[10px] text-[#546380] block mb-1">Brand*</label>
-              <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Nike" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none" />
+              <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Nike" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             <div>
               <label className="text-[10px] text-[#546380] block mb-1">Model*</label>
-              <input value={model} onChange={e => setModel(e.target.value)} placeholder="Air Max 90" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none" />
+              <input value={model} onChange={e => setModel(e.target.value)} placeholder="Air Max 90" className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             <div className="flex gap-2">
               <button onClick={() => setShowAdd(false)} className="flex-1 border border-[#263147] rounded-lg py-2.5 text-[12px] text-[#546380]">Cancel</button>
-              <button onClick={add} className="flex-1 bg-emerald-400 text-[#0B0D10] font-mono font-bold text-[12px] rounded-lg py-2.5">ADD →</button>
+              <button onClick={add} className="flex-1 bg-emerald-400 text-[#0B0D10] font-semibold text-[12.5px] rounded-lg py-2.5">Add</button>
             </div>
           </div>
         </div>
       )}
-      {loading ? <div className="text-center py-12 text-[#546380] font-mono text-[11px]">Loading…</div> :
-       items.length === 0 ? <div className="text-center py-20 text-[#546380] font-mono text-[12px]">Your watchlist is empty. Add brands and models you want to track.</div> :
+      {loading ? <div className="text-center py-12 text-[#546380] text-[12px]">Loading…</div> :
+       items.length === 0 ? <div className="text-center py-20 text-[#546380] text-[13px]">Your watchlist is empty. Add brands and models you want to track.</div> :
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {items.map(item => (
             <div key={item.id} className="bg-[#141820] border border-[#1e2535] rounded-xl p-4">
@@ -65,8 +65,8 @@ export default function WatchlistPage() {
               </div>
               {item.momentum_label && <div className="mb-3"><MomentumBadge momentum={item.momentum_label} /></div>}
               <div className="flex gap-2">
-                <Link href={`/deals?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[10px] font-mono font-bold border border-emerald-500/40 text-emerald-400 py-1.5 rounded-lg hover:bg-emerald-500/10">FIND DEALS</Link>
-                <Link href={`/verdict?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[10px] font-mono font-bold border border-[#263147] text-[#8fa3c4] py-1.5 rounded-lg hover:bg-[#1a2030]">VERDICT</Link>
+                <Link href={`/deals?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[11px] font-semibold border border-emerald-500/40 text-emerald-400 py-1.5 rounded-lg hover:bg-emerald-500/10">Find deals</Link>
+                <Link href={`/verdict?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[11px] font-semibold border border-[#263147] text-[#8fa3c4] py-1.5 rounded-lg hover:bg-[#1a2030]">Verdict</Link>
               </div>
             </div>
           ))}

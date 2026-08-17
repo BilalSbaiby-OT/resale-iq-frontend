@@ -44,7 +44,7 @@ export default function CalculatorPage() {
         <div className="flex gap-2 mb-5">
           {(["single", "reverse"] as const).map(m => (
             <button key={m} onClick={() => { setMode(m); setResult(null); setMaxBuy(null) }}
-              className={`px-4 py-2 rounded-lg text-[12px] font-mono font-bold border transition-all ${mode === m ? "bg-emerald-500/10 border-emerald-500 text-emerald-400" : "bg-[#141820] border-[#263147] text-[#8fa3c4]"}`}>
+              className={`px-4 py-2 rounded-lg text-[12px] font-semibold border transition-all ${mode === m ? "bg-emerald-500/10 border-emerald-500 text-emerald-400" : "bg-[#141820] border-[#263147] text-[#8fa3c4]"}`}>
               {m === "single" ? "Single Item" : "Reverse Mode"}
             </button>
           ))}
@@ -56,26 +56,26 @@ export default function CalculatorPage() {
               <div key={String(label)}>
                 <label className="text-[10px] text-[#546380] tracking-wide block mb-1.5">{String(label)}</label>
                 <input value={String(val)} onChange={e => (set as (v: string) => void)(e.target.value)} placeholder={String(ph)}
-                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] font-mono text-[#e8ecf4] outline-none focus:border-blue-500 placeholder:text-[#546380]" />
+                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
               </div>
             ))}
             {mode === "single" ? (
               <div>
                 <label className="text-[10px] text-[#546380] tracking-wide block mb-1.5">Your buy price (€) *</label>
                 <input value={buyPrice} onChange={e => setBuyPrice(e.target.value)} type="number" min="0.01" placeholder="45"
-                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] font-mono text-[#e8ecf4] outline-none focus:border-blue-500 placeholder:text-[#546380]" />
+                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] tabular-nums text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
               </div>
             ) : (
               <div>
                 <label className="text-[10px] text-[#546380] tracking-wide block mb-1.5">Target profit (€)</label>
                 <input value={targetProfit} onChange={e => setTargetProfit(e.target.value)} type="number" min="1" placeholder="20"
-                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] font-mono text-[#e8ecf4] outline-none focus:border-blue-500 placeholder:text-[#546380]" />
+                  className="w-full bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2.5 text-[13px] tabular-nums text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
               </div>
             )}
           </div>
           <button onClick={mode === "single" ? calculate : calculateReverse} disabled={loading}
-            className="w-full bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-mono font-bold text-[13px] tracking-wide py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
-            {loading ? "Calculating…" : mode === "single" ? "CALCULATE PROFIT →" : "FIND MAX BUY PRICE →"}
+            className="w-full bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[13px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
+            {loading ? "Calculating…" : mode === "single" ? "Calculate profit" : "Find max buy price"}
           </button>
         </div>
 

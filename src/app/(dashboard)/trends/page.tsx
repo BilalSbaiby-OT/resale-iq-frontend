@@ -45,7 +45,7 @@ export default function TrendsPage() {
               <div className="text-[10px] text-[#8fa3c4]">HOT + RISING momentum</div>
             </div>
             <div className="divide-y divide-[#1e2535]">
-              {loading ? <div className="text-center py-8 text-[#546380] font-mono text-[11px]">Loading…</div> :
+              {loading ? <div className="text-center py-8 text-[#546380] text-[12px]">Loading…</div> :
                 (data?.trending_models ?? []).filter(m => m.momentum_label === "HOT" || m.momentum_label === "RISING").slice(0, 10).map((m, i) => (
                   <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#1a2030]">
                     <span className="font-mono text-[11px] text-[#546380] w-4">{i + 1}</span>
@@ -66,7 +66,7 @@ export default function TrendsPage() {
               <div className="text-[10px] text-[#8fa3c4]">Highest scoring models</div>
             </div>
             <div className="divide-y divide-[#1e2535]">
-              {loading ? <div className="text-center py-8 text-[#546380] font-mono text-[11px]">Loading…</div> :
+              {loading ? <div className="text-center py-8 text-[#546380] text-[12px]">Loading…</div> :
                 [...(data?.trending_models ?? [])].sort((a, b) => (b.opportunity_score ?? 0) - (a.opportunity_score ?? 0)).slice(0, 10).map((m, i) => (
                   <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#1a2030]">
                     <span className="font-mono text-[11px] text-[#546380] w-4">{i + 1}</span>

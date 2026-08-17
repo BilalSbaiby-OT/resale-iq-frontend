@@ -43,7 +43,7 @@ export default function BrandsPage() {
             </tr>
           </thead>
           <tbody>
-            {loading ? <tr><td colSpan={8} className="text-center py-12 text-[#546380] font-mono text-[11px]">Loading brand rankings…</td></tr> :
+            {loading ? <tr><td colSpan={8} className="text-center py-12 text-[#546380] text-[12px]">Loading brand rankings…</td></tr> :
               sorted.map((b, i) => (
                 <tr key={b.brand} onClick={() => window.location.href = `/deals?brand=${encodeURIComponent(b.brand)}`}
                   className="hover:bg-[#1a2030] cursor-pointer transition-colors border-b border-[#1e2535] last:border-0">
