@@ -230,3 +230,55 @@ export interface PlansResponse {
   stripe_enabled: boolean
   plans: PlanInfo[]
 }
+
+export interface SearchSeller {
+  id: number
+  login: string
+  rating: number | null
+  feedback_count: number
+  item_count: number
+  photo?: string
+}
+
+export interface SearchItem {
+  id: number
+  title: string
+  price: number
+  price_eur: number
+  currency: string
+  size: string | null
+  brand: string
+  url: string
+  photo: string | null
+  country: string
+  seller: SearchSeller | null
+  favourite_count: number
+  view_count: number
+}
+
+export interface SearchResult {
+  query: string
+  market: string
+  country: string
+  count: number
+  items: SearchItem[]
+}
+
+export interface CountryPriceStats {
+  country: string
+  avg_price: number
+  min_price: number
+  max_price: number
+  median_price: number
+  count: number
+  items: SearchItem[]
+}
+
+export interface PriceCompareResult {
+  query: string
+  markets_searched: number
+  markets_with_results: number
+  cheapest_market: { country: string; tld: string; avg_price: number } | null
+  most_expensive_market: { country: string; tld: string; avg_price: number } | null
+  by_country: Record<string, CountryPriceStats>
+}

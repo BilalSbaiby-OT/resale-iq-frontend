@@ -5,10 +5,11 @@ import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
   BookOpen, Wrench, Database, LifeBuoy, GraduationCap, Activity, Lock,
+  Search, Globe,
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 
-const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator"])
+const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/search", "/compare"])
 
 const NAV_SECTIONS = [
   {
@@ -25,6 +26,8 @@ const NAV_SECTIONS = [
     items: [
       { href: "/trends", icon: TrendingUp, label: "Market Trends" },
       { href: "/brands", icon: Tags, label: "Brand Rankings" },
+      { href: "/search", icon: Search, label: "Live Search" },
+      { href: "/compare", icon: Globe, label: "Price Compare" },
       { href: "/authenticity", icon: ShieldCheck, label: "Authenticity" },
     ],
   },

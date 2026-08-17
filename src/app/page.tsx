@@ -99,8 +99,10 @@ export default async function Landing() {
         <div className="riq-grid-4-flat">
           {[
             { t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
-            { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
+            { t: "Live search", d: "Search Vinted listings across 26 markets in real time — find what's available anywhere in Europe." },
+            { t: "Price compare", d: "Compare prices for the same item across countries. Buy where it's cheapest, sell where it's not." },
             { t: "Deal finder", d: "Listings on sale now, under your buy-below price." },
+            { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
             { t: "Authenticity check", d: "A 0-100 flag from price and seller signals. It never sees the item, so it is a flag, not a verdict." },
           ].map(({ t, d }) => (
             <div key={t} style={{ paddingTop: 26 }}>

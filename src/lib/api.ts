@@ -2,6 +2,7 @@ import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
   RecentSold, VerdictResult, CalcResult, PlansResponse, LiveDealsResult,
+  SearchResult, PriceCompareResult,
 } from "@/types"
 import { getToken, clearToken } from "./utils"
 
@@ -201,6 +202,29 @@ export const disconnectTelegram = () =>
   request<{ ok: boolean }>("/api/alerts/telegram/disconnect", { method: "DELETE" })
 export const testTelegramAlert = () =>
   request<{ ok: boolean }>("/api/alerts/telegram/test", { method: "POST" })
+
+// On-demand Vinted search (26 markets)
+export const searchVinted = (params: {
+  q: string; market?: string; limit?: number; sort?: string;
+}) => {
+  const qs = new URLSearchParams()
+  qs.set("q", params.q)
+  if (params.market) qs.set("market", params.market)
+  if (params.limit) qs.set("limit", String(params.limit))
+  if (params.sort) qs.set("sort", params.sort)
+  return request<SearchResult>(`/api/search/vinted?${qs}`)
+}
+
+// Cross-country price comparison
+export const comparePrices = (params: {
+  q: string; markets?: string[]; limit?: number;
+}) => {
+  const qs = new URLSearchParams()
+  qs.set("q", params.q)
+  if (params.markets?.length) qs.set("markets", params.markets.join(","))
+  if (params.limit) qs.set("limit", String(params.limit))
+  return request<PriceCompareResult>(`/api/compare/prices?${qs}`)
+}
 
 // Price history sparklines
 export interface PricePoint { day: string; avg_price: number; sold_count?: number }
