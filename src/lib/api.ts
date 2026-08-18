@@ -1,10 +1,26 @@
 import type {
-  User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary,
+  User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
   RecentSold, VerdictResult, CalcResult, PlansResponse, LiveDealsResult,
   SearchResult, PriceCompareResult,
 } from "@/types"
 import { getToken, clearToken } from "./utils"
+
+/**
+ * Thrown on HTTP 402 — the caller is authenticated but not entitled.
+ * Distinguishable with `isPaymentRequired(err)` so a page can render an
+ * upgrade prompt instead of an empty state or a generic error.
+ */
+export class PaymentRequiredError extends Error {
+  readonly status = 402
+  constructor(message = "A paid plan is required for this data.") {
+    super(message)
+    this.name = "PaymentRequiredError"
+  }
+}
+
+export const isPaymentRequired = (e: unknown): boolean =>
+  e instanceof PaymentRequiredError
 
 async function request<T>(
   path: string,
@@ -39,6 +55,13 @@ async function request<T>(
       const body = await res.json()
       detail = body.detail || body.message || detail
     } catch { /* ignore JSON parse errors */ }
+    // 402 is an entitlement boundary, not a failure. It was previously thrown
+    // as a generic Error, so every page's catch-all treated "you need to
+    // upgrade" identically to "the server broke" — and since most catches fall
+    // back to an empty array, a paywalled section rendered as though the
+    // dataset were simply empty. Tagging it lets callers show an upgrade CTA
+    // and, critically, tell the two cases apart.
+    if (res.status === 402) throw new PaymentRequiredError(detail)
     throw new Error(detail)
   }
 
@@ -95,14 +118,17 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   if (params?.momentum) q.set("momentum", params.momentum)
   if (params?.min_str) q.set("min_str", String(params.min_str))
   q.set("limit", String(params?.limit ?? 100))
-  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean }>(`/api/deals?${q}`)
+  // locked:true means max_buy_price/est_profit_eur/profit_margin_pct/str_pct/
+  // top_sizes/opportunity_score are redacted server-side on every deal — free
+  // or expired-trial account. Never trust the frontend to hide these instead.
+  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[] }>(`/api/deals?${q}`)
 }
 export const getVerdict = (q: string, unlock = false) =>
   request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}${unlock ? "&unlock=true" : ""}`)
 export const getCalc = (brand: string, model: string, buy_price: number) =>
   request<CalcResult>(`/api/calc?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&buy_price=${buy_price}`)
 export const getBrandRankings = (limit = 20) => request<{ brands: BrandRanking[] }>(`/api/brands/rankings?limit=${limit}`)
-export const getBrandDetail = (slug: string) => request<unknown>(`/api/brands/${slug}`)
+export const getBrandDetail = (slug: string) => request<BrandDetail>(`/api/brands/${slug}`)
 export const getTrendsSummary = () => request<TrendsSummary>("/api/trends/summary")
 export const getRecentSold = (limit = 20) => request<{ data: RecentSold[] }>(`/api/recent-sold?limit=${limit}`)
 export const getPlans = () => request<PlansResponse>("/stripe/plans")
@@ -114,13 +140,19 @@ export const createCheckout = (price_id: string) =>
       // Land on our success page, which verifies the session server-side and
       // applies the upgrade without depending on webhook delivery.
       success_url: `${window.location.origin}/billing/success?`,
-      cancel_url: `${window.location.origin}/account`,
+      // Flag the abandoned-checkout return so /account can acknowledge it.
+      // Bouncing the user back to a page that looks exactly as they left it
+      // gives no signal whether the cancel registered or the payment silently
+      // failed.
+      cancel_url: `${window.location.origin}/account?checkout=cancelled`,
     }),
   })
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")
 
 // Watchlist
-export const getWatchlist = () => request<{ items: WatchlistItem[]; momentum_warming_up?: boolean }>("/api/watchlist")
+// locked:true means max_buy_price/avg_price_eur/str_pct/opportunity_score are
+// redacted server-side on every item for a free or expired-trial account.
+export const getWatchlist = () => request<{ items: WatchlistItem[]; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[] }>("/api/watchlist")
 export const addToWatchlist = (brand: string, model: string, category = "", notes = "") =>
   request<{ id: number; ok: boolean }>("/api/watchlist", {
     method: "POST", body: JSON.stringify({ brand, model, category, notes }),

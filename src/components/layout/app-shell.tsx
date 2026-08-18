@@ -17,7 +17,7 @@ interface AppShellProps {
 // verdicts/day, 10 lifetime unlocks), so the frontend no longer blanket-blocks
 // the dashboard. The old approach showed the Paywall on every single route,
 // which meant a free user could never actually use their entitlements.
-const PAID_ONLY = ["/deals", "/order-planner", "/calculator"]
+const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare"]
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()

@@ -94,6 +94,19 @@ export interface TrendsSummary {
   price_history: Array<{ category: string; avg_price: number; snapshot_date: string }>
   /** True when the momentum board cannot yet rank models — show the warm-up notice. */
   momentum_warming_up?: boolean
+  /** True for a free/expired-trial account — trending_models' per-model paid
+   * fields (max_buy_price, str_pct, opportunity_score, top_sizes) are redacted. */
+  locked: boolean
+  locked_fields: string[]
+}
+
+export interface BrandDetail {
+  brand: string
+  top_models: ModelSignal[]
+  category_breakdown: Array<{ category: string; sold: number; score: number | null }>
+  momentum_warming_up?: boolean
+  locked: boolean
+  locked_fields: string[]
 }
 
 export interface WatchlistItem {

@@ -7,15 +7,23 @@ import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
 import { eur } from "@/lib/utils"
 import type { WatchlistItem } from "@/types"
 import Link from "next/link"
+import { Lock } from "lucide-react"
 
 export default function WatchlistPage() {
   const [items, setItems] = useState<WatchlistItem[]>([])
   const [warmingUp, setWarmingUp] = useState(false)
+  const [locked, setLocked] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showAdd, setShowAdd] = useState(false)
   const [brand, setBrand] = useState(""); const [model, setModel] = useState("")
 
-  const load = async () => { setLoading(true); const d = await getWatchlist(); setItems(d.items); setWarmingUp(!!d.momentum_warming_up); setLoading(false) }
+  const load = async () => {
+    setLoading(true)
+    try {
+      const d = await getWatchlist()
+      setItems(d.items); setWarmingUp(!!d.momentum_warming_up); setLocked(d.locked)
+    } finally { setLoading(false) }
+  }
   useEffect(() => { load() }, [])
 
   const add = async () => { if (!brand || !model) return; try { await addToWatchlist(brand, model); setBrand(""); setModel(""); setShowAdd(false); load() } catch { alert("Already in watchlist") } }
@@ -24,6 +32,13 @@ export default function WatchlistPage() {
   return (
     <AppShell title="Watchlist" subtitle="Track brands and models you want to source">
       <MomentumWarmupNotice warmingUp={warmingUp} />
+      {locked && items.length > 0 && (
+        <div className="flex items-center gap-3 bg-emerald-500/8 border border-emerald-500/25 rounded-xl px-4 py-3 mb-4 text-[12px] text-[#8fa3c4]">
+          <Lock size={14} className="text-emerald-400 shrink-0" />
+          <span>Buy-below, sell price and STR are hidden on the free plan.</span>
+          <Link href="/account" className="ml-auto text-emerald-400 font-semibold whitespace-nowrap">Upgrade — €19/mo</Link>
+        </div>
+      )}
       <div className="flex justify-end mb-4">
         <button onClick={() => setShowAdd(true)} className="bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Watch item</button>
       </div>
@@ -59,7 +74,9 @@ export default function WatchlistPage() {
                 {[["Buy Below", eur(item.max_buy_price), "text-emerald-400"], ["Sell ~", eur(item.avg_price_eur), ""], ["STR", item.str_pct != null ? `${item.str_pct.toFixed(0)}%` : "—", "text-amber-400"]].map(([l,v,c]) => (
                   <div key={String(l)} className="bg-[#1a2030] rounded-lg p-2">
                     <div className="text-[9px] font-mono text-[#546380] uppercase">{l}</div>
-                    <div className={`font-mono font-bold text-[13px] mt-0.5 ${c}`}>{v}</div>
+                    <div className={`font-mono font-bold text-[13px] mt-0.5 ${c}`}>
+                      {locked ? <Lock size={11} className="text-[#546380]" /> : v}
+                    </div>
                   </div>
                 ))}
               </div>

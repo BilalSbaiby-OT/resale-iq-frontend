@@ -17,8 +17,10 @@ export default function PortfolioPage() {
 
   const load = async () => {
     setLoading(true)
-    const [p, s] = await Promise.all([getPortfolio(filter || undefined), getPortfolioStats()])
-    setItems(p.items); setStats(s); setLoading(false)
+    try {
+      const [p, s] = await Promise.all([getPortfolio(filter || undefined), getPortfolioStats()])
+      setItems(p.items); setStats(s)
+    } finally { setLoading(false) }
   }
 
   useEffect(() => { load() }, [filter])

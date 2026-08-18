@@ -9,7 +9,9 @@ import {
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 
-const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/search", "/compare"])
+// /search is a free feature (Live Search) — not gated, so it must not show
+// the lock icon here. /compare (Price Compare) is paid, matches app-shell's PAID_ONLY.
+const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/compare"])
 
 const NAV_SECTIONS = [
   {

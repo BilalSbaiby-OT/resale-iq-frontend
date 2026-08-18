@@ -1,14 +1,14 @@
 "use client"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Lock } from "lucide-react"
 import { AppShell } from "@/components/layout/app-shell"
 import { KpiCard } from "@/components/ui/kpi-card"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
 import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { SkeletonRows } from "@/components/ui/skeleton"
-import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist } from "@/lib/api"
+import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
@@ -43,6 +43,8 @@ export default function DashboardPage() {
   // Each section loads independently — one slow endpoint never blanks the page.
   const [kpis, setKpis] = useState<KPIs | null>(null)
   const [deals, setDeals] = useState<Deal[] | null>(null)
+  const [dealsLocked, setDealsLocked] = useState(false)
+  const [paywalled, setPaywalled] = useState(false)
   const [brands, setBrands] = useState<BrandRanking[] | null>(null)
   const [trending, setTrending] = useState<ModelSignal[] | null>(null)
   const [sold, setSold] = useState<RecentSold[] | null>(null)
@@ -50,11 +52,23 @@ export default function DashboardPage() {
   const plan = user?.plan || "free"
 
   useEffect(() => {
-    getKPIs().then(setKpis).catch(() => setKpis(null))
-    getDeals({ limit: 8 }).then(d => setDeals(d.deals)).catch(() => setDeals([]))
-    getBrandRankings(8).then(d => setBrands(d.brands)).catch(() => setBrands([]))
-    getTrendsSummary().then(d => setTrending((d.trending_models ?? []).slice(0, 7))).catch(() => setTrending([]))
-    getRecentSold(7).then(d => setSold(d.data)).catch(() => setSold([]))
+    // A 402 means "not entitled", not "no data". Catching it into an empty
+    // array — as every one of these used to — renders a paywalled section as
+    // an empty one, which reads to the customer as a broken or dead product
+    // rather than an upgrade prompt.
+    const onFail = <T,>(set: (v: T) => void, empty: T) => (e: unknown) => {
+      if (isPaymentRequired(e)) setPaywalled(true)
+      set(empty)
+    }
+    getKPIs().then(setKpis).catch(onFail(setKpis, null))
+    getDeals({ limit: 8 })
+      .then(d => { setDeals(d.deals); setDealsLocked(d.locked) })
+      .catch(onFail(setDeals, [] as Deal[]))
+    getBrandRankings(8).then(d => setBrands(d.brands)).catch(onFail(setBrands, [] as BrandRanking[]))
+    getTrendsSummary()
+      .then(d => setTrending((d.trending_models ?? []).slice(0, 7)))
+      .catch(onFail(setTrending, [] as ModelSignal[]))
+    getRecentSold(7).then(d => setSold(d.data)).catch(onFail(setSold, [] as RecentSold[]))
   }, [])
 
   const watch = async (b: string, m: string) => {
@@ -68,6 +82,18 @@ export default function DashboardPage() {
 
   return (
     <AppShell title="Dashboard" subtitle="Live market overview across 5 Vinted markets">
+      {paywalled && (
+        <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.25)", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
+          <Lock size={15} color="#fbbf24" style={{ flexShrink: 0 }} />
+          <div style={{ flex: 1, fontSize: 12.5, color: "#eef1f7" }}>
+            Some sections need a paid plan — they&rsquo;re hidden, not empty.
+          </div>
+          <Link href="/account" style={{ background: "#fbbf24", color: "#0B0D10", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            See plans
+          </Link>
+        </div>
+      )}
+
       {plan === "free" && (
         <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(90deg,rgba(34,197,94,.07),transparent)", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "13px 16px", marginBottom: 18 }}>
           <div style={{ flex: 1 }}>
@@ -101,9 +127,15 @@ export default function DashboardPage() {
                       <div style={{ fontWeight: 600, color: "#eef1f7" }}>{d.model}</div>
                       <div style={{ fontSize: 10.5, color: "#4d5a75" }}>{d.brand} · {d.category}</div>
                     </td>
-                    <td style={{ ...NUM, color: "#34d399", fontWeight: 650 }}>{eur(d.max_buy_price)}</td>
+                    <td style={{ ...NUM, color: "#34d399", fontWeight: 650 }}>
+                      {dealsLocked
+                        ? <Link href="/account" title="Upgrade to see buy-below prices" style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
+                        : eur(d.max_buy_price)}
+                    </td>
                     <td style={NUM}>
-                      <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>
+                      {dealsLocked
+                        ? <Link href="/account" title="Upgrade to see estimated profit" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
+                        : <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>}
                     </td>
                     {strLive && <td style={NUM}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>}
                     <td style={TD}><MomentumBadge momentum={d.momentum_label} /></td>

@@ -20,11 +20,24 @@ export default function AccountPage() {
   const [tgChatId, setTgChatId] = useState("")
   const [tgMsg, setTgMsg] = useState("")
   const [tgBusy, setTgBusy] = useState(false)
+  // Set when Stripe bounces the user back from an abandoned checkout.
+  const [checkoutCancelled, setCheckoutCancelled] = useState(false)
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
 
   useEffect(() => {
+    // Read the flag then strip it from the URL, so a refresh or a shared link
+    // doesn't keep re-announcing a cancellation that already happened.
+    if (typeof window !== "undefined") {
+      const p = new URLSearchParams(window.location.search)
+      if (p.get("checkout") === "cancelled") {
+        setCheckoutCancelled(true)
+        p.delete("checkout")
+        const qs = p.toString()
+        window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""))
+      }
+    }
     getMe().then(setUser)
     getActivity().then(d => setLogs(d.logs.slice(0, 20))).catch(() => {})
     getPlans().then(d => setPlansList(d.plans)).catch(() => {})
@@ -120,6 +133,12 @@ export default function AccountPage() {
   return (
     <AppShell title="Account" subtitle="Plan, billing, password, and data">
       <div className="max-w-2xl flex flex-col gap-4">
+        {checkoutCancelled && (
+          <div className="flex items-center gap-3 bg-[#1a2030] border border-[#263147] rounded-xl px-4 py-3 text-[12.5px] text-[#8fa3c4]">
+            <CreditCard size={15} className="text-[#8fa3c4] shrink-0" />
+            <span>Checkout cancelled — you haven&rsquo;t been charged. Your plan is unchanged.</span>
+          </div>
+        )}
         {/* Plan */}
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>
