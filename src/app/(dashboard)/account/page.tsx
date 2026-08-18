@@ -20,28 +20,35 @@ export default function AccountPage() {
   const [tgChatId, setTgChatId] = useState("")
   const [tgMsg, setTgMsg] = useState("")
   const [tgBusy, setTgBusy] = useState(false)
-  // Set when Stripe bounces the user back from an abandoned checkout.
-  const [checkoutCancelled, setCheckoutCancelled] = useState(false)
+  // Set when Stripe bounces the user back from an abandoned checkout. Read in
+  // the initialiser rather than an effect so the banner is correct on first
+  // paint and no setState fires during render.
+  const [checkoutCancelled] = useState(
+    () => typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("checkout") === "cancelled")
   const { logout } = useAuthStore()
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
 
   useEffect(() => {
-    // Read the flag then strip it from the URL, so a refresh or a shared link
-    // doesn't keep re-announcing a cancellation that already happened.
-    if (typeof window !== "undefined") {
+    // Strip the flag from the URL so a refresh or a shared link doesn't keep
+    // re-announcing a cancellation that already happened. The VALUE is read in
+    // useState's initialiser above, not set here — calling setState
+    // synchronously inside an effect triggers a cascading render and is a lint
+    // error (react-hooks/set-state-in-effect).
+    if (typeof window !== "undefined" && checkoutCancelled) {
       const p = new URLSearchParams(window.location.search)
-      if (p.get("checkout") === "cancelled") {
-        setCheckoutCancelled(true)
-        p.delete("checkout")
-        const qs = p.toString()
-        window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""))
-      }
+      p.delete("checkout")
+      const qs = p.toString()
+      window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""))
     }
     getMe().then(setUser)
     getActivity().then(d => setLogs(d.logs.slice(0, 20))).catch(() => {})
     getPlans().then(d => setPlansList(d.plans)).catch(() => {})
-  }, [])
+    // checkoutCancelled comes from useState's initialiser and has no setter, so
+    // it is constant for the component's life — listing it satisfies
+    // exhaustive-deps without causing the effect to re-run.
+  }, [checkoutCancelled])
 
   const handleUpgrade = async (planId: string) => {
     setUpgrading(planId)
