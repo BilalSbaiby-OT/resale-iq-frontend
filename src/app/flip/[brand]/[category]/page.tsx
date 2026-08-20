@@ -156,7 +156,7 @@ export default async function BrandCategoryPage(
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>How to check before you buy</h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             Look up the exact model rather than the category. Resale IQ returns a BUY / WATCH / SKIP verdict with the buy-below
-            price, typical sale price, sell-through rate and the sizes that sell fastest — computed from {tracked} listings across
+            price, typical sale price, sales momentum and the sizes that sell fastest — computed from {tracked} listings across
             Spain, France, Germany, Italy and Portugal.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>

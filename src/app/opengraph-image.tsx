@@ -69,7 +69,7 @@ export default async function OpengraphImage() {
             node, and it fails the whole build, not just the image. Keep the
             sentence a single template literal. */}
         <div style={{ fontSize: 27, color: "#8b99b8", marginTop: 30, lineHeight: 1.4 }}>
-          {`${tracked} Vinted listings across 5 EU markets — buy-below price, sell-through and the sizes that actually move.`}
+          {`${tracked} Vinted listings across 5 EU markets — buy-below price, sales momentum and the sizes that actually move.`}
         </div>
 
         <div

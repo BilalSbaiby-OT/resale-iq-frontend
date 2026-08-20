@@ -15,6 +15,7 @@ interface PlanItem {
 interface Plan {
   horizon_weeks: number; budget_eur: number | null; allocated_eur: number
   expected_week1_profit: number; items: PlanItem[]; disclaimer: string
+  provisional?: boolean
 }
 
 const TREND_STYLE: Record<string, { color: string; icon: string }> = {
@@ -82,6 +83,14 @@ export default function OrderPlannerPage() {
       </div>
 
       {/* Hero stats */}
+      {plan?.provisional && (
+        <div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
+          <span style={{ fontSize: 13, color: "#fbbf24", fontWeight: 700 }}>Provisional</span>
+          <span style={{ fontSize: 12.5, color: "#c3cde0", lineHeight: 1.5 }}>
+            Sell-through is still being measured, so week-1 sell probabilities use a conservative estimate. Cost, demand and margin are live — treat P(sell) as a floor until sold-date history matures.
+          </span>
+        </div>
+      )}
       {plan && (
         <div className="riq-grid-3" style={{ marginBottom: 16 }}>
           {[
