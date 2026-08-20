@@ -105,7 +105,7 @@ export default function ApiDocs() {
       "sold_7d": 1240,
       "avg_price_eur": 21.4,
       "max_buy_price": 14.2,
-      "str_pct": 62.5,
+      "str_pct": 148.6,
       "top_sizes": ["M", "L", "S"]
     }
   ],
@@ -114,7 +114,11 @@ export default function ApiDocs() {
         <p style={{ fontSize: 12.5, color: "#5b6b8c" }}>
           <code style={{ color: "#8fe3b0" }}>max_buy_price</code> is the highest price you can pay and still
           clear roughly 30% margin after platform fees. <code style={{ color: "#8fe3b0" }}>str_pct</code> is
-          sell-through — the share of tracked listings that sold.
+          weekly sell-through against current stock — <code style={{ color: "#8fe3b0" }}>sold_7d</code> divided
+          by <code style={{ color: "#8fe3b0" }}>active_listings</code>, as a percentage. It is a turnover rate,
+          not a share of listings, so it exceeds 100% whenever a model&apos;s stock turns over more than once in
+          a week. <code style={{ color: "#8fe3b0" }}>null</code> means we do not yet have enough observed sales
+          to state it, and we would rather return nothing than a number we cannot stand behind.
         </p>
 
         <h2 style={H2}>Fair use</h2>
