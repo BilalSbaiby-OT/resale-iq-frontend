@@ -5,13 +5,13 @@ import {
   LayoutDashboard, Flame, Calculator, Package, TrendingUp, Tags,
   ShieldCheck, Star, Briefcase, Zap, Settings, ShieldAlert, BarChart3,
   BookOpen, Wrench, Database, LifeBuoy, GraduationCap, Activity, Lock,
-  Search, Globe,
+  Search, Globe, Radar,
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 
 // /search is a free feature (Live Search) — not gated, so it must not show
 // the lock icon here. /compare (Price Compare) is paid, matches app-shell's PAID_ONLY.
-const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/compare"])
+const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/compare", "/market"])
 
 const NAV_SECTIONS = [
   {
@@ -26,6 +26,7 @@ const NAV_SECTIONS = [
   {
     label: "Intelligence",
     items: [
+      { href: "/market", icon: Radar, label: "Market Signals" },
       { href: "/trends", icon: TrendingUp, label: "Market Trends" },
       { href: "/brands", icon: Tags, label: "Brand Rankings" },
       { href: "/search", icon: Search, label: "Live Search" },

@@ -17,7 +17,7 @@ interface AppShellProps {
 // verdicts/day, 10 lifetime unlocks), so the frontend no longer blanket-blocks
 // the dashboard. The old approach showed the Paywall on every single route,
 // which meant a free user could never actually use their entitlements.
-const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare"]
+const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare", "/market"]
 // PRO-only (€49) scale features. Starter (€19/operator) sees these locked; the
 // backend enforces the same split via require_power_or_trial. An active trial is
 // full/Pro-level, so triallers pass. Keep this in sync with the backend gate.

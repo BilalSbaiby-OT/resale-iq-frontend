@@ -275,3 +275,25 @@ export interface TrialRecap {
   headline: string
 }
 export const getTrialRecap = () => request<TrialRecap>("/api/account/trial-recap")
+
+// Market Signals — brand×category demand board (demand_index). Paid feature.
+export interface MarketSignal {
+  brand: string
+  category: string
+  signal: string
+  investment_score: number
+  confidence: number
+  units_sold_all_7d: number
+  overall_demand_score: number
+  overall_speed_score: number
+  recommended_list_price: number | null
+  avg_days_to_sell_overall: number | null
+  trend_direction: string | null
+}
+export interface MarketSignalsResponse {
+  strong_buy: MarketSignal[]
+  buy: MarketSignal[]
+  total_strong_buy: number
+  total_buy: number
+}
+export const getMarketSignals = () => request<MarketSignalsResponse>("/api/signals")
