@@ -264,3 +264,14 @@ export const getModelPriceHistory = (brand: string, model: string, days = 30) =>
   request<{ data: PricePoint[] }>(`/api/price-history/model?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&days=${days}`)
 export const getBatchPriceHistory = (pairs: string[], days = 30) =>
   request<{ data: Record<string, PricePoint[]> }>(`/api/price-history/batch?models=${pairs.map(encodeURIComponent).join(",")}&days=${days}`)
+
+// Trial-expiry value recap — "in your trial we flagged N BUYs worth ~€X"
+export interface TrialRecap {
+  days: number
+  verdicts: number
+  buys: number
+  watches: number
+  est_margin_eur: number
+  headline: string
+}
+export const getTrialRecap = () => request<TrialRecap>("/api/account/trial-recap")

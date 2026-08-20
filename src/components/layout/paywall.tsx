@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Lock, Check, Unlock } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
-import { getPlans, createCheckout, getMe } from "@/lib/api"
+import { getPlans, createCheckout, getMe, getTrialRecap } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { floorTo10k } from "@/lib/stats"
 
@@ -40,15 +40,20 @@ function useTracked(): string {
 // and nothing else told someone who had just deliberately chosen Free that
 // their account was worthless. They signed up and immediately hit a sales
 // page. What they actually have now comes first; the plans stay underneath.
-export function Paywall() {
+export function Paywall({ pro = false }: { pro?: boolean }) {
   const tracked = useTracked()
   const router = useRouter()
   const { logout } = useAuthStore()
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
   const [verified, setVerified] = useState<boolean | null>(null)
+  // Personalized value recap — "in your trial we flagged N BUYs worth ~€X".
+  // The single highest-leverage thing on this screen: it turns an abstract price
+  // into a concrete return the user already saw.
+  const [recap, setRecap] = useState<{ headline: string; buys: number } | null>(null)
 
   useEffect(() => { getPlans().then(d => setPlans(d.plans)).catch(() => {}) }, [])
+  useEffect(() => { getTrialRecap().then(r => setRecap(r)).catch(() => {}) }, [])
   useEffect(() => { getMe().then(u => setVerified(u.email_verified !== false)).catch(() => {}) }, [])
 
   const subscribe = async (placeholder?: string) => {
@@ -105,12 +110,29 @@ export function Paywall() {
         </Link>
       </div>
 
-      <div style={{ textAlign: "center", maxWidth: 560, marginBottom: 34 }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#22c55e", marginBottom: 18 }}>
-          <Lock size={13} /> Upgrade for the full dashboard
+      {/* Personalized value recap — loss aversion + proven ROI in one line. */}
+      {recap && recap.buys > 0 && (
+        <div style={{ width: "100%", maxWidth: 560, marginBottom: 20, background: "linear-gradient(180deg,#12241c,#0f1a16)", border: "1px solid #1f5a44", borderRadius: 14, padding: "16px 20px", textAlign: "center" }}>
+          <div style={{ fontSize: 14.5, color: "#eafff5", fontWeight: 650, lineHeight: 1.5 }}>{recap.headline}</div>
         </div>
-        <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>The data that pays for itself on your first flip.</h1>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>{tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.</p>
+      )}
+
+      <div style={{ textAlign: "center", maxWidth: 560, marginBottom: 20 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#22c55e", marginBottom: 18 }}>
+          <Lock size={13} /> {pro ? "Order Planner & Compare are Pro features" : "Upgrade for the full dashboard"}
+        </div>
+        <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
+          {pro ? "Source at volume. Arbitrage 26 markets." : "The data that pays for itself on your first flip."}
+        </h1>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
+          {pro
+            ? "The Order Planner, 26-market Price Compare and live deals are on Pro. Upgrade to unlock the scale toolkit — cancel anytime."
+            : `${tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
+        </p>
+        {/* The one reframe that collapses price resistance. */}
+        <p style={{ fontSize: 14, color: "#22c55e", fontWeight: 650, marginTop: 12 }}>
+          One good flip pays for the whole month.
+        </p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>
@@ -145,7 +167,13 @@ export function Paywall() {
         ))}
       </div>
 
-      <div style={{ marginTop: 26, fontSize: 12, color: "#5b6b8c" }}>
+      {/* Risk reversal — removes the last objection for an ROI-driven buyer. */}
+      <div style={{ marginTop: 22, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(34,197,94,.06)", border: "1px solid rgba(34,197,94,.25)", borderRadius: 20, padding: "7px 16px" }}>
+        <Check size={14} color="#22c55e" strokeWidth={2.5} />
+        <span style={{ fontSize: 13, color: "#c3cde0" }}>30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.</span>
+      </div>
+
+      <div style={{ marginTop: 20, fontSize: 12, color: "#5b6b8c" }}>
         Secure checkout by Stripe · <button onClick={logout} style={{ background: "none", border: "none", color: "#8b99b8", cursor: "pointer", textDecoration: "underline" }}>Sign out</button>
       </div>
     </div>

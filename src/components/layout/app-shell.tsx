@@ -18,6 +18,10 @@ interface AppShellProps {
 // the dashboard. The old approach showed the Paywall on every single route,
 // which meant a free user could never actually use their entitlements.
 const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare"]
+// PRO-only (€49) scale features. Starter (€19/operator) sees these locked; the
+// backend enforces the same split via require_power_or_trial. An active trial is
+// full/Pro-level, so triallers pass. Keep this in sync with the backend gate.
+const POWER_ONLY = ["/order-planner", "/compare"]
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
@@ -64,9 +68,14 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   if (!isAuthenticated) return null
 
   const isPaid = user?.plan === "operator" || user?.plan === "power"
+  const isPower = user?.plan === "power"
   const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
+  const needsPower = POWER_ONLY.some(p => pathname.startsWith(p))
   if (!isPaid && !isTrial && needsPaid) return <Paywall />
+  // Starter (operator) hits a Pro upgrade wall on Pro-only routes; trial passes.
+  if (needsPower && !isPower && !isTrial) return <Paywall pro />
+
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#0B0D10" }}>
