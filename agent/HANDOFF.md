@@ -1,8 +1,38 @@
-STATUS: READY
+STATUS: BLOCKED
 PUSH: no
-UPDATED: 2026-08-21T11:10Z
-LAST SESSION DID: P0-0 — repo map (below)
+UPDATED: 2026-08-21T09:12Z
+LAST SESSION DID: P0-0 repo map + built and debugged the unattended loop
 NEXT TASK: P0-1 — /data never empty: last-good snapshot + UTC timestamp when the live query returns 0
+
+## ⛔ BLOCKED — one human action, then everything runs by itself
+
+The `claude` CLI's OAuth token has expired, so every unattended session dies in
+~12 seconds:
+
+    $ claude -p "reply with exactly: OK" --max-turns 1
+    Failed to authenticate. API Error: 401 OAuth access token has expired.
+    Re-authenticate to continue.
+
+I cannot fix this — re-authenticating means entering your credentials, which I
+will not do on your behalf.
+
+**DO THIS, then walk away again:**
+
+    cd ~/Desktop/resale-iq
+    claude                      # then: /login   (browser opens, sign in, quit with /exit)
+    sed -i '' '1s/^STATUS: .*/STATUS: READY/' agent/HANDOFF.md
+    tmux new-session -d -s resaleiq "cd $(pwd) && ./scripts/unattended.sh"
+
+That is it. The loop preflights the credential, and if it is good it starts
+working through TASKS.md on its own — one task per fresh session, committing as
+it goes. Watch it with `tail -f agent/loop.log` or `tmux attach -t resaleiq`.
+
+Everything else is built, tested and waiting. Nothing else needs you.
+
+UNRELATED, harmless: your GLOBAL settings have a stale SessionEnd hook pointing
+at `/private/tmp/Claude-Code-Agent-Monitor/scripts/hook-handler.js`, which no
+longer exists. It prints a Node stack trace on every session exit but does not
+affect the run. Remove it from `~/.claude/settings.json` when convenient.
 
 ---
 
