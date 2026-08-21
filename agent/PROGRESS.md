@@ -74,3 +74,19 @@ NEXT (once unblocked): P0-1.
   but STATUS never set to DONE, or a crash that still exits 0). It now stops
   after 3 rather than burning the night at a session every 2 seconds. Verified.
 - NEXT: P0-2.
+
+## 2026-08-21T09:50Z — owner signed in; blocker moved from auth to credits
+- Sign-in succeeded. The CLI authenticates. New error: "You're out of usage
+  credits ... claude.ai/settings/usage".
+- **Bug 5 — out-of-credits was invisible to the loop.** A THIRD state, distinct
+  from "not signed in" and from a rolling rate limit: the credential is valid,
+  the balance is not. `auth_ok()` did not match that string, so the preflight
+  PASSED and every session would have died in seconds until the no-progress
+  guard stopped it. Now detected as `BLOCKED_REASON: credits`, re-checked every
+  5 min like auth, so a top-up resumes the loop with no human step.
+- Also removed a duplicated preflight: the startup check had its own copy of the
+  grep and had ALREADY drifted — it knew about expired sign-in but not about
+  exhausted credit. It now calls `auth_ok()`, so there is one definition.
+- VERIFIED against the real CLI: preflight reports `(credits)` with the real
+  message, sets BLOCKED_REASON: credits, and re-checks rather than spinning.
+- NEXT: P0-2.

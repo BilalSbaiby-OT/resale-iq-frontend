@@ -33,19 +33,34 @@ log "=== loop start (budget $(( BUDGET_SECONDS / 3600 ))h of in-claude time) ===
 # loop retries forever and reports nothing useful. Block loudly instead.
 # One definition of "can we authenticate", used by both the startup preflight
 # and the in-loop recovery check, so they can never disagree.
+#: Set by auth_ok() so callers can say WHICH problem it is. "auth" = not signed
+#: in; "credits" = signed in fine but the account has no CLI credit left.
+CLI_PROBLEM=""
+
 auth_ok() {
-  [ -n "$CLAUDE_BIN" ] && [ -x "$CLAUDE_BIN" ] || return 1
+  CLI_PROBLEM=""
+  if [ -z "$CLAUDE_BIN" ] || [ ! -x "$CLAUDE_BIN" ]; then
+    CLI_PROBLEM="binary"; return 1
+  fi
   local out
   out="$("$CLAUDE_BIN" -p "reply with exactly: OK" --max-turns 1 < /dev/null 2>&1)"
-  ! printf '%s' "$out" | grep -qiE 'failed to authenticate|401|re-authenticate|not logged in|invalid api key'
+  if printf '%s' "$out" | grep -qiE 'out of usage credits|insufficient credit|billing'; then
+    CLI_PROBLEM="credits"; CLI_DETAIL="$(printf '%s' "$out" | grep -iE 'out of usage credits|insufficient credit|billing' | head -1)"
+    return 1
+  fi
+  if printf '%s' "$out" | grep -qiE 'failed to authenticate|401|re-authenticate|not logged in|invalid api key'; then
+    CLI_PROBLEM="auth"; CLI_DETAIL="$(printf '%s' "$out" | grep -iE 'failed to authenticate|401|re-authenticate|not logged in' | head -1)"
+    return 1
+  fi
+  return 0
 }
 
-block_on_auth() {
+block_on_cli() {   # $1 = reason slug (auth | credits | binary)
   /usr/bin/sed -i '' '1s/^STATUS: .*/STATUS: BLOCKED/' "$HANDOFF" 2>/dev/null || true
-  grep -q '^BLOCKED_REASON: auth' "$HANDOFF" 2>/dev/null || \
-    /usr/bin/sed -i '' '1a\
-BLOCKED_REASON: auth
-' "$HANDOFF" 2>/dev/null || true
+  /usr/bin/sed -i '' '/^BLOCKED_REASON: /d' "$HANDOFF" 2>/dev/null || true
+  /usr/bin/sed -i '' "1a\\
+BLOCKED_REASON: $1
+" "$HANDOFF" 2>/dev/null || true
 }
 
 if [ -z "$CLAUDE_BIN" ] || [ ! -x "$CLAUDE_BIN" ]; then
@@ -54,16 +69,13 @@ if [ -z "$CLAUDE_BIN" ] || [ ! -x "$CLAUDE_BIN" ]; then
   /usr/bin/sed -i '' '1s/^STATUS: .*/STATUS: BLOCKED/' "$HANDOFF" 2>/dev/null || true
   exit 0
 fi
-PRE="$("$CLAUDE_BIN" -p "reply with exactly: OK" --max-turns 1 < /dev/null 2>&1)"
-if printf '%s' "$PRE" | grep -qiE 'failed to authenticate|401|re-authenticate|not logged in|invalid api key'; then
-  :
-  log "PREFLIGHT FAILED — claude CLI cannot authenticate:"
-  log "  $(printf '%s' "$PRE" | grep -iE 'failed to authenticate|401|re-authenticate|not logged in' | head -1)"
-  block_on_auth
-  log "HANDOFF set to BLOCKED (reason: auth). Owner: run 'claude' then /login."
-  log "The loop re-checks every 5 min and resumes by itself once that is done."
+if auth_ok; then
+  log "preflight OK — CLI usable"
 else
-  log "preflight OK — CLI authenticated"
+  log "PREFLIGHT FAILED (${CLI_PROBLEM}): ${CLI_DETAIL:-no detail}"
+  block_on_cli "$CLI_PROBLEM"
+  log "HANDOFF set to BLOCKED (reason: $CLI_PROBLEM)."
+  log "The loop re-checks every 5 min and resumes by itself once that clears."
 fi
 
 while :; do
@@ -76,14 +88,19 @@ while :; do
   # dead for the rest of the night with a perfectly usable credential. So an
   # auth block re-tests itself and lifts on its own; every other block stays
   # put, because those genuinely need a person.
-  if [ "$STATUS" = "BLOCKED" ] && [ "$REASON" = "auth" ]; then
+  if [ "$STATUS" = "BLOCKED" ] && { [ "$REASON" = "auth" ] || [ "$REASON" = "credits" ]; }; then
     if auth_ok; then
-      log "auth recovered — clearing the auth block and resuming"
+      log "CLI usable again ($REASON cleared) — resuming"
       /usr/bin/sed -i '' '1s/^STATUS: .*/STATUS: READY/' "$HANDOFF" 2>/dev/null || true
-      /usr/bin/sed -i '' '/^BLOCKED_REASON: auth$/d' "$HANDOFF" 2>/dev/null || true
+      /usr/bin/sed -i '' '/^BLOCKED_REASON: /d' "$HANDOFF" 2>/dev/null || true
       STATUS=READY
     else
-      log "still blocked on auth — re-checking in 5 min. Owner: run 'claude' then /login"
+      block_on_cli "$CLI_PROBLEM"
+      case "$CLI_PROBLEM" in
+        credits) log "blocked: out of CLI usage credits — re-checking in 5 min. Owner: claude.ai/settings/usage" ;;
+        auth)    log "blocked: not signed in — re-checking in 5 min. Owner: run 'claude' then /login" ;;
+        *)       log "blocked: no usable claude binary — npm install -g @anthropic-ai/claude-code" ;;
+      esac
       sleep 300
       continue
     fi
