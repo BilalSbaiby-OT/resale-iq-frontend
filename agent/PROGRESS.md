@@ -54,3 +54,23 @@ NEXT (once unblocked): P0-1.
   - NEGATIVE CONTROL: empty / null / error responses all REFUSE to overwrite a
     good cache; a good one replaces it. That guard is the whole safety property.
 - NEXT: P0-2.
+
+## 2026-08-21T09:36Z — session 2 (cont.) — loop hardened; 4 bugs, all found by running it
+- **Bug 3 — preflight passed when auth was dead.** `head -3` truncated the CLI
+  output; under tmux extra preamble pushed the auth error to line 4+, so the
+  check silently PASSED and the loop span on 60s retries. Now greps the full
+  output, and closes stdin (`< /dev/null`) — the CLI's own warning named that fix
+  and it was costing 3s per invocation.
+- **Bug 4 — the auth block was SELF-LATCHING.** Once STATUS was BLOCKED the loop
+  exited at step 1 without ever re-testing, so signing in would have fixed
+  nothing: it would have sat dead all night holding a working credential. Now an
+  auth block carries `BLOCKED_REASON: auth`, re-tests every 5 min, and lifts
+  itself. Every other block still needs a human, which is the point of them.
+  VERIFIED both directions with a stub CLI: dead auth -> blocks and re-checks
+  without spawning; working auth -> "auth recovered", STATUS back to READY,
+  BLOCKED_REASON deleted, sessions start.
+- **Added a no-progress guard.** A session exiting cleanly without committing
+  makes no progress; three in a row means the loop is spinning (all tasks done
+  but STATUS never set to DONE, or a crash that still exits 0). It now stops
+  after 3 rather than burning the night at a session every 2 seconds. Verified.
+- NEXT: P0-2.
