@@ -1,8 +1,10 @@
 STATUS: READY
-PUSH: pending
+PUSH: yes
 UPDATED: 2026-08-21
-LAST SESSION DID: P0-2 through P0-8 + C2/C3/C4 withholding + Playwright smoke
-NEXT TASK: P1-1 (only after this is pushed and P0 boxes stay [x])
+LAST SESSION DID: P0-2 through P0-8 + C2/C3/C4 withholding + Playwright smoke; pushed
+NEXT TASK: P1-1 (P0 boxes stay [x]; do not unpause sell-through)
+
+Frontend origin: e80b5cd / 50de75d / b0c26a6 (plus earlier P0-0/P0-1). Backend: ffcbce6 / d8b2e30.
 
 P0s 0–8 are done. Do not unpause sell-through. Do not invent numbers.
 `src/lib/market-numbers.ts` is the warehouse. Playwright: `npm run test:e2e`.

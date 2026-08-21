@@ -5,4 +5,6 @@
 - Public `sold_7d` on `/data` still carries the snapshot `counting_method` caveat (discovery vs sale) until the corpus saturates.
 - Sell-through remains paused product-wide.
 
+Production disk/DR: see `../demand-intel/AI/KNOWN_ISSUES.md` (99% full, empty Coolify backups, no rclone).
+
 See also `../demand-intel/docs/READINESS_AUDIT_2026-08-20.md`.
