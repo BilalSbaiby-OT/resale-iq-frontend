@@ -42,6 +42,9 @@ const SECURITY_HEADERS = [
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // Playwright and some local setups hit 127.0.0.1 while the dev server
+  // binds localhost — Next 16 blocks that as a cross-origin /_next request.
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   // Don't advertise the framework/version to attackers picking targets.
   poweredByHeader: false,
   // www serves a byte-identical copy of the site instead of redirecting, which

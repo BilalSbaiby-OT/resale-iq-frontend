@@ -5,6 +5,8 @@ import { BRANDS, catSlug, type BrandSeo } from "@/lib/seo-categories"
 import { Lock, TrendingUp, ArrowRight } from "lucide-react"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { brandNarrative } from "@/lib/flip-narrative"
+import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
@@ -25,10 +27,18 @@ export async function generateMetadata(
   const { brand: slug } = await params
   const b = getBrand(slug)
   if (!b) return { title: "Brand not found — Resale IQ" }
-  const title = `Is ${b.brand} worth reselling on Vinted? (${b.sold_7d.toLocaleString()} sold/week)`
+  const live = (await getMarketNumbers()).get(b.brand)
+  const sold = live?.sold_7d
+  const avg = live?.avg_price_eur
+  const title = sold != null
+    ? `Is ${b.brand} worth reselling on Vinted? (${fmtCount(sold)} sold/week)`
+    : `Is ${b.brand} worth reselling on Vinted?`
   const description =
-    `${b.brand} sells about ${b.sold_7d.toLocaleString()} items a week across 5 EU Vinted markets ` +
-    `at an average of €${b.avg_price_eur}. See which ${b.brand} models are actually profitable to flip.`
+    sold != null
+      ? `${b.brand} sells about ${fmtCount(sold)} items a week across 5 EU Vinted markets` +
+        (avg != null ? ` at an average of ${fmtEur(avg)}.` : ".") +
+        ` See which ${b.brand} models are actually profitable to flip.`
+      : `${b.brand} resale data across 5 EU Vinted markets. See which models are actually profitable to flip.`
   return {
     title,
     description,
@@ -45,7 +55,31 @@ export default async function BrandFlipPage(
   const b = getBrand(slug)
   if (!b) notFound()
 
+  const market = await getMarketNumbers()
+  const live = market.get(b.brand)
+  const sold = live?.sold_7d ?? null
+  const avg = live?.avg_price_eur ?? null
+  const models = live?.models_tracked ?? null
+  const cats = live?.categories ?? []
+
   const others = BRANDS.filter(x => x.slug !== b.slug).slice(0, 12)
+
+  const overlay: BrandSeo | null = live && sold != null && avg != null
+    ? {
+        ...b,
+        sold_7d: sold,
+        avg_price_eur: avg,
+        models_tracked: models ?? b.models_tracked,
+        top_categories: live.top_categories.length ? live.top_categories : b.top_categories,
+        categories: cats
+          .filter(c => c.sold_7d != null)
+          .map(c => ({
+            category: c.category,
+            sold_7d: c.sold_7d as number,
+            avg_price_eur: c.avg_price_eur ?? undefined,
+          })),
+      }
+    : null
 
   // Structured data helps this rank as an answer to "is X worth reselling".
   const jsonLd = {
@@ -58,10 +92,12 @@ export default async function BrandFlipPage(
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            `${b.brand} sells roughly ${b.sold_7d.toLocaleString()} items per week across the five ` +
-            `main EU Vinted markets, at an average sale price of €${b.avg_price_eur}. Its strongest ` +
-            `categories are ${b.top_categories.join(", ")}. Whether it is profitable depends on the ` +
-            `specific model and the price you source it at.`,
+            sold != null
+              ? `${b.brand} sells roughly ${fmtCount(sold)} items per week across the five ` +
+                `main EU Vinted markets` +
+                (avg != null ? `, at an average sale price of ${fmtEur(avg)}.` : ".") +
+                ` Whether it is profitable depends on the specific model and the price you source it at.`
+              : `${b.brand} is tracked across the five main EU Vinted markets. Whether it is profitable depends on the specific model and the price you source it at.`,
         },
       },
     ],
@@ -76,35 +112,48 @@ export default async function BrandFlipPage(
         ← Resale IQ
       </Link>
 
+      <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
+
       <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "22px 0 10px", lineHeight: 1.2 }}>
         Is {b.brand} worth reselling on Vinted in 2026?
       </h1>
       <p style={{ color: "#8b99b8", fontSize: 15, lineHeight: 1.6, marginBottom: 26 }}>
-        Short answer: {b.brand} moves serious volume — about{" "}
-        <strong style={{ color: "#eef1f7" }}>{b.sold_7d.toLocaleString()} items a week</strong>{" "}
-        across the five main EU Vinted markets, at an average sale price of{" "}
-        <strong style={{ color: "#eef1f7" }}>€{b.avg_price_eur}</strong>. But volume alone
-        doesn&apos;t make you money — the margin depends entirely on which model you buy and
-        what you pay for it.
+        {sold != null ? (
+          <>
+            Short answer: {b.brand} moves serious volume — about{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} items a week</strong>{" "}
+            across the five main EU Vinted markets
+            {avg != null ? (
+              <>
+                , at an average sale price of{" "}
+                <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
+              </>
+            ) : null}
+            . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
+            what you pay for it.
+          </>
+        ) : (
+          <>
+            Short answer: we track {b.brand} across the five main EU Vinted markets. Live weekly volume
+            is not on this snapshot — check a specific model rather than trusting a frozen brand average.
+          </>
+        )}
       </p>
 
-      {/* Brand-specific analysis — COMPUTED from this brand's own category
-          numbers, so the prose differs brand to brand instead of being the same
-          template with the name swapped. This is what stops the 156 flip pages
-          reading as one duplicated page to a search engine. See
-          src/lib/flip-narrative.ts for why. */}
-      {brandNarrative(b).map((para, i) => (
-        <p key={i} style={{ color: "#a9b6d0", fontSize: 15, lineHeight: 1.7, marginBottom: 14, maxWidth: 680 }}>
-          {para}
-        </p>
-      ))}
+      {overlay
+        ? brandNarrative(overlay).map((para, i) => (
+            <p key={i} style={{ color: "#a9b6d0", fontSize: 15, lineHeight: 1.7, marginBottom: 14, maxWidth: 680 }}>
+              {para}
+            </p>
+          ))
+        : null}
 
       {/* Public aggregates */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 28 }}>
         {[
-          ["Sold per week", b.sold_7d.toLocaleString()],
-          ["Avg sale price", `€${b.avg_price_eur}`],
-          ["Models tracked", String(b.models_tracked || "—")],
+          ["Sold per week", fmtCount(sold)],
+          ["Avg sale price", fmtEur(avg)],
+          ["Models tracked", models != null ? String(models) : "—"],
         ].map(([label, value]) => (
           <div key={label} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 4 }}>{label}</div>
@@ -125,22 +174,22 @@ export default async function BrandFlipPage(
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "#12151d", fontSize: 11, color: "#5b6b8c" }}>
           <span>Category</span><span style={{ textAlign: "right" }}>Sold/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
         </div>
-        {(b.categories || []).slice(0, 5).map(c => (
+        {(cats.length ? cats : []).slice(0, 5).map(c => (
           <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid #1c2333", fontSize: 14, color: "#a9b6d0" }}>
             <span style={{ color: "#eef1f7" }}>{c.category}</span>
-            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{c.sold_7d.toLocaleString()}</span>
+            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtCount(c.sold_7d)}</span>
             <span style={{ textAlign: "right", minWidth: 62, fontVariantNumeric: "tabular-nums", color: c.avg_price_eur ? "#34d399" : "#5b6b8c" }}>
-              {c.avg_price_eur ? `\u20ac${c.avg_price_eur}` : "—"}
+              {fmtEur(c.avg_price_eur)}
             </span>
           </div>
         ))}
       </div>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        {b.categories?.[0] && b.categories[0].avg_price_eur ? (
+        {cats[0] && cats[0].avg_price_eur != null && cats[0].sold_7d != null ? (
           <>
-            {b.brand} {b.categories[0].category.toLowerCase()} sell at about{" "}
-            <strong style={{ color: "#eef1f7" }}>&euro;{b.categories[0].avg_price_eur}</strong>, on{" "}
-            <strong style={{ color: "#eef1f7" }}>{b.categories[0].sold_7d.toLocaleString()}</strong> sales a week.
+            {b.brand} {cats[0].category.toLowerCase()} sell at about{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtEur(cats[0].avg_price_eur)}</strong>, on{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtCount(cats[0].sold_7d)}</strong> sales a week.
             Work backwards from that price, not from what the seller is asking.
           </>
         ) : (
@@ -151,7 +200,10 @@ export default async function BrandFlipPage(
       {/* Every brand x category page must be linked from here. An unlinked page
           is an unreachable page — the same failure mode as a route with no UI. */}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-        {(b.categories || []).map(c => (
+        {(cats.length
+          ? cats
+          : (b.categories || []).map(c => ({ category: c.category, sold_7d: null as number | null, avg_price_eur: null as number | null }))
+        ).map(c => (
           <Link key={c.category} href={`/flip/${b.slug}/${catSlug(c.category)}`} style={{
             display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline",
             fontSize: 14, color: "#8fa3c4", textDecoration: "none",
@@ -160,7 +212,7 @@ export default async function BrandFlipPage(
           }}>
             <span>Are {b.brand} {c.category} worth reselling?</span>
             <span style={{ fontSize: 12.5, color: "#5b6b8c", whiteSpace: "nowrap" }}>
-              {c.sold_7d.toLocaleString()}/wk
+              {fmtCount(c.sold_7d)}/wk
             </span>
           </Link>
         ))}
@@ -176,8 +228,8 @@ export default async function BrandFlipPage(
         </div>
         <p style={{ color: "#8b99b8", fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>
           Averages don&apos;t tell you what to buy. Resale IQ tracks{" "}
-          {b.models_tracked ? `${b.models_tracked} ${b.brand} model${b.models_tracked === 1 ? "" : "s"}`
-            : `every tracked ${b.brand} model`}{" "}
+          {b.brand} models{" "}
+          {models != null ? `(${models} with enough sales to show figures)` : "we track"}{" "}
           individually and gives you:
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>

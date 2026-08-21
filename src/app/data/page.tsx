@@ -2,7 +2,8 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { CATEGORIES } from "@/lib/seo-categories"
 import { listingsTrackedLabel } from "@/lib/stats"
-import { readLastGood, writeLastGood, isUsable, utcStamp } from "@/lib/last-good-snapshot"
+import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Public, citable open data. Rendered server-side and revalidated hourly (ISR),
 // so the page HTML always contains fresh numbers for crawlers — no redeploy
@@ -17,56 +18,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/data" },
 }
 
-interface Brand {
-  brand: string
-  sold_7d: number
-  avg_price_eur: number
-  top_categories: string[]
-  models_tracked: number
-}
-interface Snapshot {
-  updated_at: string
-  brand_count: number
-  brands: Brand[]
-  markets: string[]
-}
-
-async function getSnapshot(): Promise<Snapshot | null> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return null
-    return await r.json()
-  } catch {
-    return null
-  }
-}
-
 export default async function DataPage() {
   const tracked = await listingsTrackedLabel()
-
-  // Live first. If the backend is down or hands back an empty set, fall back to
-  // the last snapshot we successfully fetched rather than rendering a page with
-  // no numbers on it — this is the page we ask answer engines to cite, and
-  // "check back shortly" is not a citation.
-  //
-  // The fallback is LABELLED, never disguised: `stale` drives a banner and the
-  // timestamp shown is the snapshot's own, so the page never implies that old
-  // figures are current.
-  const live = await getSnapshot()
-  let snap: Snapshot | null = null
-  let stale = false
-  if (isUsable(live)) {
-    snap = live
-    await writeLastGood(live)
-  } else {
-    snap = (await readLastGood()) as Snapshot | null
-    stale = snap !== null
-  }
-
-  const brands = snap?.brands ?? []
-  const stamp = utcStamp(snap?.updated_at)
-  const totalWeekly = brands.reduce((s, b) => s + (b.sold_7d || 0), 0)
+  const market = await getMarketNumbers()
+  const brands = market.brandNames.map((name) => {
+    const f = market.get(name)!
+    return { brand: name, ...f }
+  })
+  const stamp = market.stamp
+  const totalWeekly = brands.reduce((s, b) => s + (typeof b.sold_7d === "number" ? b.sold_7d : 0), 0)
 
   // Dataset schema — makes the DATA ITSELF indexable and citable, and eligible
   // for Google Dataset Search.
@@ -82,7 +42,7 @@ export default async function DataPage() {
     isAccessibleForFree: true,
     temporalCoverage: "P7D",
     spatialCoverage: "Spain, France, Germany, Italy, Portugal",
-    ...(snap?.updated_at ? { dateModified: new Date(snap.updated_at).toISOString() } : {}),
+    ...(market.updatedAt ? { dateModified: new Date(market.updatedAt).toISOString() } : {}),
     variableMeasured: [
       { "@type": "PropertyValue", name: "units sold (7 days)" },
       { "@type": "PropertyValue", name: "average sale price (EUR)" },
@@ -104,19 +64,12 @@ export default async function DataPage() {
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
 
-        {stale && (
-          <p role="status" style={{ fontSize: 12.5, lineHeight: 1.6, color: "#fbbf24", marginTop: 12,
-                                    padding: "9px 12px", background: "rgba(251,191,36,.07)",
-                                    border: "1px solid rgba(251,191,36,.28)", borderRadius: 9 }}>
-            Live feed unavailable right now — showing the last complete snapshot
-            {stamp ? <> from <strong>{stamp}</strong></> : null}. The figures below are real, just not current.
-          </p>
-        )}
+        <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />
 
         {stamp && (
           <p style={{ fontSize: 12.5, color: "#5b6b8c", marginTop: 10 }}>
-            {stale ? "Snapshot taken" : "Last updated"} {stamp} · {snap?.brand_count} brands ·{" "}
-            {totalWeekly.toLocaleString()} units sold in the 7 days to that time
+            {market.stale ? "Snapshot taken" : "Last updated"} {stamp} · {market.brandCount} brands ·{" "}
+            {fmtCount(totalWeekly)} units sold in the 7 days to that time
           </p>
         )}
 
@@ -142,9 +95,9 @@ export default async function DataPage() {
                     <td style={{ padding: "11px 14px", color: "#5b6b8c" }}>{i + 1}</td>
                     <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>{b.brand}</td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>
-                      {typeof b.sold_7d === "number" ? b.sold_7d.toLocaleString() : "—"}
+                      {fmtCount(b.sold_7d)}
                     </td>
-                    <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "#22c55e" }}>€{b.avg_price_eur}</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "#22c55e" }}>{fmtEur(b.avg_price_eur)}</td>
                     <td style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>
                   </tr>
                 ))}

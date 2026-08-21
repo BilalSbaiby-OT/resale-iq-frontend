@@ -189,7 +189,9 @@ export interface VerdictResult {
   product?: string
   category?: string
   opportunity_score?: number
-  sell_through_rate?: string
+  sell_through_rate?: string | null
+  sold_7d?: number | null
+  active_listings?: number | null
   momentum?: string
   buy_below?: number
   sell_avg?: number

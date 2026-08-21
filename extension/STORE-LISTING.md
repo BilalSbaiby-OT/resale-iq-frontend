@@ -26,8 +26,9 @@ the description says Vinted plainly.
 See the most you can pay for a Vinted item and still hit your margin, on the listing page itself.
 
 **Description**
-Resale IQ shows the highest price you can pay for a Vinted item and still make
-your margin — in euros, on the listing page, before you buy.
+Resale IQ is not affiliated with, endorsed by, or connected to Vinted. It shows
+the highest price you can pay for a Vinted item and still make your margin — in
+euros, on the listing page, before you buy.
 
 Open any item on Vinted ES, FR, DE, IT or PT and a small panel appears with:
 • the buy-below price for that model
@@ -41,6 +42,8 @@ along with what the data cannot tell you.
 
 Works without an account — you get free checks each day. Sign in for your
 plan's allowance.
+
+Support: support@resaleiq.dev
 
 **Category:** Shopping
 **Language:** English

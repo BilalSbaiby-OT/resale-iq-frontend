@@ -154,8 +154,8 @@ function DealsContent() {
                   // useful, and implies no velocity.
                   d.str_pct != null
                     ? { label: "STR / Week", value: `${d.str_pct.toFixed(0)}%`, color: "" }
-                    : { label: "Sells For", value: d.avg_price_eur != null ? eur(d.avg_price_eur) : "—", color: "" },
-                  { label: "7d Sold", value: (d.sold_7d ?? 0).toLocaleString(), color: "" },
+                    : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
+                  { label: "7d Sold", value: d.sold_7d != null ? d.sold_7d.toLocaleString() : "—", color: "" },
                 ].map(({ label, value, color }) => (
                   <div key={label} className="bg-[#1a2030] rounded-lg p-2">
                     <div className="text-[9px] font-mono uppercase tracking-wide text-[#546380]">{label}</div>

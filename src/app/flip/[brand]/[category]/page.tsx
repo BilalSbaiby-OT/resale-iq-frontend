@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import seo from "@/data/seo-brands.json"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { getMarketNumbers, categoryFigure } from "@/lib/market-numbers"
 
 // Programmatic SEO: one page per brand x top-category, targeting
 // "are <brand> <category> worth reselling on Vinted".
@@ -54,22 +55,6 @@ export async function generateMetadata(
   }
 }
 
-interface SnapBrand {
-  brand: string
-  sold_7d: number
-  avg_price_eur: number
-  categories?: { category: string; sold_7d: number }[]
-}
-
-async function getSnapshot(): Promise<SnapBrand[]> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return []
-    return (await r.json()).brands ?? []
-  } catch { return [] }
-}
-
 export default async function BrandCategoryPage(
   { params }: { params: Promise<{ brand: string; category: string }> }
 ) {
@@ -77,17 +62,20 @@ export default async function BrandCategoryPage(
   const { brand, category } = await params
   const r = resolve(brand, category)
   if (!r) notFound()
-  const { b, category: catName, baselineSold } = r
+  const { b, category: catName } = r
 
-  // Live figures when the snapshot is reachable; otherwise the numbers baked in
-  // at build time. Falling back beats rendering "—" on a page whose whole point
-  // is the number.
-  const snap = await getSnapshot()
-  const live = snap.find((s) => s.brand === b.brand)
-  const catRow = live?.categories?.find((c) => c.category === catName)
-  const catSold = catRow?.sold_7d ?? baselineSold ?? null
-  const brandSold = live?.sold_7d ?? b.sold_7d ?? null
-  const avgPrice = live?.avg_price_eur ?? b.avg_price_eur ?? null
+  // Figures from the warehouse only. No `?? baselineSold`: that fell back to the
+  // BUILD-TIME export, so a figure frozen months ago rendered as if it were
+  // current with nothing on the page saying so. The warehouse has the last-good
+  // snapshot behind it — a real measurement with a real timestamp — and when
+  // even that has no row for this brand the honest answer is null, which the
+  // prose and the stat cards below already handle.
+  const market = await getMarketNumbers()
+  const figures = market.get(b.brand)
+  const catRow = categoryFigure(figures, catName)
+  const catSold = catRow?.sold_7d ?? null
+  const brandSold = figures?.sold_7d ?? null
+  const avgPrice = figures?.avg_price_eur ?? null
   const share = catSold && brandSold ? Math.round((catSold / brandSold) * 100) : null
 
   const answer = catSold

@@ -3,7 +3,9 @@ import { ArrowRight } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
 import { LiveMarketProof } from "@/components/landing/live-market-proof"
+import { ExtensionHero, chromeStoreUrl } from "@/components/landing/extension-hero"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
+import { getMarketNumbers } from "@/lib/market-numbers"
 
 import type { Metadata } from "next"
 
@@ -26,6 +28,8 @@ export default async function Landing() {
   // Exact in the proof band: it moves with every scrape, and a precise
   // figure is the harder claim. Anyone can write a round number.
   const trackedExact = await listingsTrackedExact()
+  const market = await getMarketNumbers()
+  const chrome = chromeStoreUrl()
   return (
     <div style={{ background: "#0B0D10", color: "#eef1f7", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -74,17 +78,16 @@ export default async function Landing() {
             {/* ONE primary action. "See pricing" was competing at nearly equal
                 weight while already sitting in the nav two inches above. */}
             <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
-              {/* plan=free is load-bearing, not decoration: check_journeys asserts
-                  that any CTA whose text says "free" requests the free plan, so a
-                  visitor clicking "free" cannot land on a paid tier preselected. */}
-              <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
-                Check an item free <ArrowRight size={16} />
+              <a href={chrome} style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
+                Add to Chrome <ArrowRight size={16} />
+              </a>
+              <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
+                Or check an item on the site — 10 free, no card
               </Link>
-              <span style={{ fontSize: 13, color: "#5b6b8c" }}>10 free checks. No card.</span>
             </div>
           </div>
 
-          <LiveMarketProof />
+          <ExtensionHero />
         </div>
       </section>
 
@@ -97,7 +100,7 @@ export default async function Landing() {
             { t: "Price compare", d: "Compare prices for the same item across countries. Buy where it's cheapest, sell where it's not." },
             { t: "Deal finder", d: "Listings priced under your buy-below threshold, right now." },
             { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
-            { t: "Authenticity check", d: "A 0-100 flag from price and seller signals. It never sees the item — a flag, not a verdict." },
+            { t: "Watchlist", d: "Pin models you source and get the buy-below, sale price and sizes without re-searching." },
           ].map(({ t, d }) => (
             <div key={t} style={{ padding: "18px 0" }}>
               <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{t}</div>
@@ -107,10 +110,14 @@ export default async function Landing() {
         </div>
       </section>
 
+      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 28px" }}>
+        <LiveMarketProof />
+      </section>
+
       {/* Trust signals — inline, no borders, no template. */}
       <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#546380", fontSize: 12.5, lineHeight: 1.5 }}>
-          <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked</span>
+          <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
           <span>Scraped every 30 min</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
           <span>No accuracy claims until 100 outcomes scored</span>

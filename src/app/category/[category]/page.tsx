@@ -2,6 +2,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { CATEGORIES, getCategory, catSlug, type CategoryEntry } from "@/lib/seo-categories"
+import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO, cross-brand cut: one page per category, ranking every
 // tracked brand by that category's own weekly sales volume. This is the axis
@@ -24,11 +26,13 @@ export async function generateMetadata(
   const { category } = await params
   const c = getCategory(category)
   if (!c) return { title: "Not found — Resale IQ" }
-  const top = c.entries[0]
+  const market = await getMarketNumbers()
+  const entries = withLiveVolumes(c.entries, c.category, market)
+  const top = entries.find(e => e.sold_7d != null)
   const title = `Best brands for reselling ${c.category} on Vinted (${c.entries.length} ranked)`
-  const description =
-    `${c.entries.length} brands ranked by how many ${c.category.toLowerCase()} they actually sell each week on ` +
-    `Vinted across 5 EU markets. ${top.brand} leads with ${top.sold_7d.toLocaleString()} a week.`
+  const description = top && top.sold_7d != null
+    ? `${c.entries.length} brands ranked by how many ${c.category.toLowerCase()} they actually sell each week on Vinted across 5 EU markets. ${top.brand} leads with ${fmtCount(top.sold_7d)} a week.`
+    : `${c.entries.length} brands ranked for ${c.category.toLowerCase()} on Vinted across 5 EU markets.`
   return {
     title,
     description,
@@ -37,35 +41,27 @@ export async function generateMetadata(
   }
 }
 
-interface SnapBrand {
+interface LiveEntry {
   brand: string
-  avg_price_eur: number
-  categories?: { category: string; sold_7d: number }[]
+  slug: string
+  sold_7d: number | null
+  avg_price_eur: number | null
 }
 
-async function getSnapshot(): Promise<SnapBrand[]> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return []
-    return (await r.json()).brands ?? []
-  } catch { return [] }
-}
-
-/** Overlay live volumes on the build-time ranking, then re-rank. */
-function withLiveVolumes(entries: CategoryEntry[], category: string, snap: SnapBrand[]): CategoryEntry[] {
-  if (snap.length === 0) return entries
+/** Overlay live volumes. Missing live ≠ frozen JSON. */
+function withLiveVolumes(entries: CategoryEntry[], category: string, market: Awaited<ReturnType<typeof getMarketNumbers>>): LiveEntry[] {
   return entries
     .map((e) => {
-      const live = snap.find((s) => s.brand === e.brand)
-      const row = live?.categories?.find((c) => c.category === category)
+      const live = market.get(e.brand)
+      const row = live?.categories.find((c) => c.category === category)
       return {
-        ...e,
-        sold_7d: row?.sold_7d ?? e.sold_7d,
-        avg_price_eur: live?.avg_price_eur ?? e.avg_price_eur,
+        brand: e.brand,
+        slug: e.slug,
+        sold_7d: row?.sold_7d ?? null,
+        avg_price_eur: live?.avg_price_eur ?? null,
       }
     })
-    .sort((a, b) => b.sold_7d - a.sold_7d)
+    .sort((a, b) => (b.sold_7d ?? -1) - (a.sold_7d ?? -1))
 }
 
 export default async function CategoryPage(
@@ -75,18 +71,23 @@ export default async function CategoryPage(
   const c = getCategory(category)
   if (!c) notFound()
 
-  const entries = withLiveVolumes(c.entries, c.category, await getSnapshot())
-  const total = entries.reduce((sum, e) => sum + e.sold_7d, 0)
+  const market = await getMarketNumbers()
+  const entries = withLiveVolumes(c.entries, c.category, market)
+  const total = entries.reduce((sum, e) => sum + (e.sold_7d ?? 0), 0)
   const lower = c.category.toLowerCase()
-  const top = entries[0]
-  const dearest = [...entries].sort((a, b) => b.avg_price_eur - a.avg_price_eur)[0]
+  const top = entries.find(e => e.sold_7d != null) ?? entries[0]
+  const dearest = [...entries].filter(e => e.avg_price_eur != null).sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
 
   const answer =
-    `Across the tracked brands, ${top.brand} sells the most ${lower} on Vinted — about ` +
-    `${top.sold_7d.toLocaleString()} a week across ${MARKETS}. ` +
-    `${dearest.brand} carries the highest average sale price at €${dearest.avg_price_eur}. ` +
-    `Volume and price pull in opposite directions: the high-volume brands sell fast at thin margins, ` +
-    `the expensive ones carry more margin per unit but sit longer.`
+    top && top.sold_7d != null
+      ? `Across the tracked brands, ${top.brand} sells the most ${lower} on Vinted — about ` +
+        `${fmtCount(top.sold_7d)} a week across ${MARKETS}. ` +
+        (dearest?.avg_price_eur != null
+          ? `${dearest.brand} carries the highest average sale price at ${fmtEur(dearest.avg_price_eur)}. `
+          : "") +
+        `Volume and price pull in opposite directions: the high-volume brands sell fast at thin margins, ` +
+        `the expensive ones carry more margin per unit but sit longer.`
+      : `${c.category} demand across ${MARKETS} is tracked live. Weekly volume for this snapshot is not yet available for ranked brands.`
 
   const jsonLd = [
     {
@@ -104,7 +105,7 @@ export default async function CategoryPage(
           acceptedAnswer: {
             "@type": "Answer",
             text:
-              `The ${entries.length} brands Resale IQ tracks account for roughly ${total.toLocaleString()} ` +
+              `The ${entries.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
               `${lower} sold per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
               `unbranded and untracked listings are not counted.`,
           },
@@ -138,6 +139,7 @@ export default async function CategoryPage(
           <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>Market data</Link>
         </div>
 
+        <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", lineHeight: 1.18, marginBottom: 14 }}>
           Best brands for reselling {lower} on Vinted
         </h1>
@@ -145,9 +147,9 @@ export default async function CategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 28 }}>
           {[
-            [total.toLocaleString(), `${lower} sold / week`],
+            [fmtCount(total), `${lower} sold / week`],
             [String(entries.length), "brands ranked"],
-            [`€${dearest.avg_price_eur}`, `highest avg (${dearest.brand})`],
+            [dearest ? `${fmtEur(dearest.avg_price_eur)}` : "—", dearest ? `highest avg (${dearest.brand})` : "highest avg"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>
@@ -180,13 +182,13 @@ export default async function CategoryPage(
                     </Link>
                   </td>
                   <td style={{ padding: "10px", textAlign: "right", color: "#eef1f7", fontWeight: 600 }}>
-                    {e.sold_7d.toLocaleString()}
+                    {fmtCount(e.sold_7d)}
                   </td>
                   <td style={{ padding: "10px", textAlign: "right", color: "#5b6b8c" }}>
-                    {total > 0 ? `${Math.round((e.sold_7d / total) * 100)}%` : "—"}
+                    {total > 0 && e.sold_7d != null ? `${Math.round((e.sold_7d / total) * 100)}%` : "—"}
                   </td>
                   <td style={{ padding: "10px 0 10px 10px", textAlign: "right", color: "#a9b6d0" }}>
-                    €{e.avg_price_eur}
+                    {fmtEur(e.avg_price_eur)}
                   </td>
                 </tr>
               ))}
@@ -204,12 +206,12 @@ export default async function CategoryPage(
           </h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             The top of the table is where the buyers are, not where the profit is. A brand selling{" "}
-            {top.sold_7d.toLocaleString()} {lower} a week is easy to shift, which also means the supply side is crowded
+            {fmtCount(top?.sold_7d)} {lower} a week is easy to shift, which also means the supply side is crowded
             and the price is well known to everyone sourcing. The margin usually lives one or two rows down, or at the
             expensive end of the list where fewer people can afford the buy-in.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
-            Read the share column as competition. A brand holding {Math.round((top.sold_7d / Math.max(total, 1)) * 100)}%
+            Read the share column as competition. A brand holding {top?.sold_7d != null && total > 0 ? `${Math.round((top.sold_7d / total) * 100)}%` : "—"}
             of {lower} volume is the default choice for every reseller in the market. That is fine if you can source
             below everyone else, and a trap if you cannot.
           </p>

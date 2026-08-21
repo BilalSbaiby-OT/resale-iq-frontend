@@ -18,7 +18,7 @@ import { floorTo10k } from "@/lib/stats"
  * a stale literal here is read by exactly the people deciding whether to pay.
  */
 function useTracked(): string {
-  const [tracked, setTracked] = useState("900,000+")
+  const [tracked, setTracked] = useState("…")
   useEffect(() => {
     let live = true
     fetch("/api/public/market-snapshot")

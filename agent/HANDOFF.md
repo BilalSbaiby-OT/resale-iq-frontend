@@ -1,30 +1,11 @@
-STATUS: BLOCKED
-BLOCKED_REASON: credits
-PUSH: no
-UPDATED: 2026-08-21T09:50Z
-LAST SESSION DID: P0-1 verified live; loop hardened (5 bugs); credits state added
-NEXT TASK: P0-2 — one warehouse for every "items tracked / sold 7d / brand weekly" number
+STATUS: READY
+PUSH: pending
+UPDATED: 2026-08-21
+LAST SESSION DID: P0-2 through P0-8 + C2/C3/C4 withholding + Playwright smoke
+NEXT TASK: P1-1 (only after this is pushed and P0 boxes stay [x])
 
-## ⛔ BLOCKED ON ACCOUNT CREDITS — not on anything technical
-
-Sign-in WORKED. The CLI now authenticates. The remaining error is different:
-
-    You're out of usage credits. Switch to another model, or manage usage
-    credits at claude.ai/settings/usage
-
-Top up (or wait for the reset) and do NOTHING else. The loop re-checks every 5
-minutes, clears this block by itself and starts on P0-2. Verified in both
-directions with a stub CLI.
-
-    tail -f agent/loop.log        # watch it
-    tmux attach -t resaleiq
-
-The CLI binary and the sign-in are both fine now. Only the credit balance stops it.
-
-## Note for the next session
-P0-1 done and verified live on both paths. `src/lib/last-good-snapshot.ts` is
-new — reuse it for P0-8 (freshness warning) rather than re-reading the snapshot;
-it already exposes `utcStamp()`.
+P0s 0–8 are done. Do not unpause sell-through. Do not invent numbers.
+`src/lib/market-numbers.ts` is the warehouse. Playwright: `npm run test:e2e`.
 
 ---
 
@@ -39,92 +20,32 @@ it already exposes `utcStamp()`.
 The frontend proxies `/api`, `/auth`, `/stripe`, `/admin` to the backend via
 `BACKEND_URL` rewrites. Never edit outside these two directories.
 
-## Commands (there is no unit-test suite in this repo)
+## Commands
 ```
-npx tsc --noEmit         # typecheck — MUST pass before commit
-npm run build            # MUST pass before commit
-npm run dev              # localhost:3000 (.claude/launch.json)
-npm run check:tracked    # guards the dataset figure against hardcoded drift
+npx tsc --noEmit
+npm run build
+npm run dev
+npm run check:tracked
 npm run check:isolation
-npm run lint
+npm run test:e2e
 ```
-Backend, if a task reaches it: `cd ~/Desktop/demand-intel && python3 -m pytest tests/ -q`
+Backend: `cd ~/Desktop/demand-intel && python3 -m pytest tests/ -q`
 
-## Routes — 41 `page.tsx` under `src/app`
-- **Public/SEO:** `/`, `/data`, `/flip/[brand]`, `/flip/[brand]/[category]`,
-  `/category/[category]`, `/blog`, `/blog/[slug]`, `/manual`, `/manual/[chapter]`,
-  `/methodology`, `/tools`, `/check`, `/api-docs`, `/support`, `/legal`, `/privacy`, `/terms`
-- **Auth:** `(auth)/login|register|forgot-password|reset-password|verify-email`
-- **App:** `(dashboard)/dashboard|deals|market|trends|brands|watchlist|verdict|
-  calculator|compare|search|portfolio|account|authenticity|order-planner|admin/*`
-- Also non-page routes: `src/app/sitemap.ts`, `src/app/robots.ts`, `src/app/llms.txt/route.ts`
-
-## WHERE THE COUNTS LIVE — the P0-2 target
-**Source of truth today:** `src/lib/stats.ts` → fetches `/api/public/market-snapshot`
-from `BACKEND_URL`, reads `listings_tracked` (= `COUNT(DISTINCT external_id)`;
-counting rows would overstate ~3x because the 5 Vinted domains are one catalogue),
-floors to 10k. It exists because "500,000+" was once hardcoded in 35 places.
-
-**11 files consume the snapshot** — these are the drift surface:
-```
-src/lib/stats.ts                        <- the intended single source
-src/app/data/page.tsx                   <- P0-1 + P0-8 target
-src/components/landing/live-market-proof.tsx   <- homepage hero numbers
-src/app/category/[category]/page.tsx
-src/app/flip/[brand]/[category]/page.tsx
-src/app/manual/page.tsx
-src/app/manual/[chapter]/page.tsx
-src/app/methodology/page.tsx
-src/app/llms.txt/route.ts
-src/app/sitemap.ts
-src/components/layout/paywall.tsx
-```
-**Second, STATIC source — the real drift risk:** `src/data/seo-brands.json`
-(keys: `brands`, `note`) is a build-time export produced by
-`~/Desktop/demand-intel/scripts/export_seo_data.py`. `/flip/[brand]` reads ONLY
-this — no live fetch — so its numbers are frozen at export time.
-`/flip/[brand]/[category]` and `/category/[category]` overlay live snapshot data
-on top of it and **fall back to the stale JSON via `??` when live is null**.
-P0-2 must reconcile these two sources; P0-1 must not re-introduce the fallback.
+## WHERE THE COUNTS LIVE
+**Source of truth:** `src/lib/market-numbers.ts` → `/api/public/market-snapshot`
+via last-good cache. `src/lib/stats.ts` is listings-tracked only.
+`seo-brands.json` is STRUCTURE (slugs/routes), never a number fallback.
 
 ## Stripe
-Client calls only, in `src/lib/api.ts`: `/stripe/plans`, `/stripe/checkout`,
-`/stripe/portal` (all proxied to the backend). Plan copy/CTAs: `src/lib/pricing.ts`
-— **`pricing.ts:44` is the `"Talk to us"` CTA that P0-5 removes from Pro.**
-Never touch the Stripe dashboard: that is a `BLOCKED`.
+`src/lib/pricing.ts`. Pro is self-serve (`__POWER__`). Business keeps "Talk to us".
+`STRIPE_PRO_PRICE_ID` = Starter/operator. `STRIPE_OPERATOR_PRICE_ID` = Pro/power.
 
-## Extension — `extension/` (Manifest V3, v1.0.0)
-`manifest.json` · `content.js` / `content.css` (the panel) · `background.js` ·
-`options.html` / `options.js` · `link.js` · `icons/` · `README.md` · `STORE-LISTING.md`
-Injects on `www.vinted.es|fr|de|it|pt` — matches the 5 supported markets, no UK.
-**P0-7 facts, verified:** `STORE-LISTING.md` currently contains **no email address
-at all** and **zero** occurrences of "not affiliated". Both must be added.
+## Extension — `extension/`
+Manifest V3. `STORE-LISTING.md` must keep `support@resaleiq.dev` and
+"not affiliated with Vinted" in paragraph 1.
 
-## i18n
-**None.** No `next-intl`, no i18n config, no translation files — all copy is
-inline English. P1-4 is therefore a from-scratch choice; pick the smallest thing
-that works with App Router and do not add a heavy framework.
-
-## Authenticity (P0-6 surfaces)
-`src/app/page.tsx` (homepage), `src/lib/pricing.ts`, `src/app/methodology/page.tsx`,
-`src/app/(dashboard)/authenticity/page.tsx`, `src/app/terms/page.tsx`,
-`src/app/support/page.tsx`, `src/app/llms.txt/route.ts`, `src/app/robots.ts`,
-`src/types/index.ts`. P0-6 hides the 0–100 score from homepage, pricing and the
-default extension panel — it does not delete the feature.
-
-## Landmines (learned the hard way — do not rediscover these)
-1. **`null` renders as `0`.** `Math.round(null) === 0` and `x ?? 0` both print a
-   confident zero for a withheld number. `src/components/ui/score-bar.tsx` has the
-   correct pattern: `if (score == null)` → em-dash. Reuse it.
-2. **`.toLocaleString()` on null throws** and will 500 an ISR page.
-   `src/app/data/page.tsx:113` and `live-market-proof.tsx:87` both do this today —
-   directly relevant to P0-1.
-3. **Sell-through is deliberately suppressed product-wide** while the backend's
-   discovery rate exceeds 20%. It self-lifts. Do not "fix" it by unpausing (P0-3
-   says show the raw counts instead).
-4. `src/components/ui/momentum-warmup-notice.tsx` is the existing pattern for a
-   page-level "this is degraded" banner — reuse it for P0-8 rather than inventing one.
-
-## Verify like this, not by reading
-`npm run dev`, load the page, look at it. This repo has shipped several handlers
-that were never reachable from any URL.
+## Landmines
+1. `null` renders as `0`. `Math.round(null) === 0`. Score-bar: null → em-dash.
+2. `.toLocaleString()` on null throws (ISR 500).
+3. Sell-through is product-wide withheld. Show raw sold_7d + active_listings.
+4. Do not unpause STR until discovery rate ≤ 20%.

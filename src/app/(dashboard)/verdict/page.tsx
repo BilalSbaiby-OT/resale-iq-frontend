@@ -135,8 +135,12 @@ function VerdictInner() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
                   <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="#34d399" />
                   <Metric label="Sells for" value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
-                  <Metric label="Sell-through" value={result.sell_through_rate || "—"} />
-                  <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
+                  {result.sell_through_rate
+                    ? <Metric label="Sell-through" value={result.sell_through_rate} />
+                    : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
+                  {result.sell_through_rate
+                    ? <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
+                    : <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
                 </div>
 
                 {/* Momentum + sizes */}

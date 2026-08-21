@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
@@ -32,21 +33,13 @@ export const metadata: Metadata = {
   },
 }
 
-interface SnapBrand { brand: string; sold_7d: number }
-
-async function getSnapshot(): Promise<SnapBrand[]> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return []
-    return (await r.json()).brands ?? []
-  } catch { return [] }
-}
-
 export default async function MethodologyPage() {
   const tracked = await listingsTrackedLabel()
-  const snap = await getSnapshot()
-  const weekly = snap.reduce((s, b) => s + (b.sold_7d || 0), 0)
+  const market = await getMarketNumbers()
+  const weekly = market.brandNames.reduce((s, name) => {
+    const n = market.get(name)?.sold_7d
+    return s + (typeof n === "number" ? n : 0)
+  }, 0)
 
   const faq = [
     {
@@ -55,7 +48,7 @@ export default async function MethodologyPage() {
     },
     {
       q: "How is sell-through rate calculated?",
-      a: "We start with a demand-to-supply ratio: units sold in the last 7 days divided by items currently listed. That ratio can exceed 100% — 760 sold against 100 listed is 760%. Because a number like that reads as broken, we convert it to a share using r/(r+1), so a ratio of 70% displays as roughly 41%. The conversion is monotonic, so it never changes the ranking or the scoring, only the number you read.",
+      a: "We start with weekly turns: units sold in the last 7 days divided by items currently listed, as a percentage. That arithmetic can exceed 100% — 760 sold against 100 listed is 760% turns, not a sell-through share. When the ratio is not a 0–100 share, or when sold-date history is still maturing, we withhold the percentage and show the raw sold and listed counts instead. We will not label 706% as sell-through.",
     },
     {
       q: "How is the buy-below price calculated?",
@@ -127,8 +120,8 @@ export default async function MethodologyPage() {
           </P>
           {weekly > 0 && (
             <Callout label="Right now">
-              The {snap.length} brands we track account for about{" "}
-              <strong style={{ color: "#eef1f7" }}>{weekly.toLocaleString()} items sold in the last 7 days</strong>{" "}
+              The {market.brandCount} brands we track account for about{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} items sold in the last 7 days</strong>{" "}
               across the five markets. That number moves every hour — it is read live from the
               same feed the product uses.
             </Callout>
@@ -173,16 +166,15 @@ export default async function MethodologyPage() {
             rate. It is showing you a ratio and hoping you do not ask.
           </Callout>
           <Callout label="Currently withheld">
-            Sell-through is not being displayed right now, and you will see
-            &ldquo;measuring&rdquo; where the number would be. The reason is the numerator: our
+            Sell-through % is not displayed right now. Instead of a dead
+            &ldquo;measuring&rdquo; hole we show the raw counts: watched units sold in 7 days
+            and current active listings. The reason is the numerator: our
             sold-date is stamped when the scraper first sees an item already marked sold, not
             when the sale happened. While we are still working through the backlog of listings
-            that sold before we started watching, &ldquo;sold this week&rdquo; is really
-            &ldquo;found this week&rdquo;, which inflates the ratio. Everything else on the site
-            — buy-below prices, sale prices, sales counts, sizes — is unaffected, because those
-            come from the sale itself rather than from when we noticed it. The check runs every
-            six hours and restores the number automatically once the measured rate drops
-            below 20%.
+            that sold before we started watching, a percentage would inflate. The check runs every
+            six hours and restores the number automatically once the measured discovery rate drops
+            below 20%. A ratio above 100% is weekly turns, not a sell-through share — we will not
+            label it as one.
           </Callout>
         </Section>
 
