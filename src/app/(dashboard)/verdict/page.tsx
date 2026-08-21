@@ -13,6 +13,9 @@ const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string;
   WATCH:   { color: "#fbbf24", bg: "rgba(251,191,36,.10)", border: "rgba(251,191,36,.35)", label: "WATCH" },
   SKIP:    { color: "#f87171", bg: "rgba(248,113,113,.10)", border: "rgba(248,113,113,.35)", label: "SKIP" },
   UNKNOWN: { color: "#8b99b8", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NO DATA" },
+  // Distinct from NO DATA on purpose: we found the product, we just will not
+  // put a call on it. "NOT MEASURED" says the gap is ours, not the market's.
+  INSUFFICIENT_DATA: { color: "#8b99b8", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -104,7 +107,13 @@ function VerdictInner() {
               </div>
             </div>
 
-            {result.verdict === "UNKNOWN" ? (
+            {result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
+              // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
+              // The server withholds every number behind it, so the grid would
+              // render a row of em-dashes — the same thing the `locked` branch
+              // avoids for the same reason. The backend's own message explains
+              // WHY (thin sample, or a brand whose sales we cannot observe yet),
+              // and it is the only useful thing on the card.
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
               </div>

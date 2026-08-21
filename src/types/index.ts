@@ -181,7 +181,11 @@ export interface RecentSold {
 }
 
 export interface VerdictResult {
-  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "LIMIT_REACHED"
+  // INSUFFICIENT_DATA was missing here while the backend had been returning it
+  // for months — so every render path that switched on `verdict` type-checked
+  // without ever handling it. It is the answer whenever the sufficiency gate or
+  // the shelf-observability gate withholds the numbers.
+  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED"
   product?: string
   category?: string
   opportunity_score?: number
