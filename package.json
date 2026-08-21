@@ -11,7 +11,9 @@
     "check:isolation:built": "node scripts/check-agent-isolation.mjs --built",
     "check:tracked": "node scripts/check-tracked-figure.mjs",
     "check:tracked:built": "node scripts/check-tracked-figure.mjs --built",
-    "seo:indexnow": "node scripts/indexnow.mjs"
+    "seo:indexnow": "node scripts/indexnow.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:prod": "playwright test e2e/prod.smoke.spec.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",
@@ -32,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@playwright/test": "^1.55.0"
   }
 }
