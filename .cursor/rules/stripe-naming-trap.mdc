@@ -1,0 +1,14 @@
+---
+description: Stripe env naming trap — PRO is Starter, OPERATOR is Pro
+alwaysApply: true
+---
+
+# Stripe naming trap
+
+Do not "fix" these names. They are inverted on purpose (historical):
+
+- `STRIPE_PRO_PRICE_ID` → Starter / `operator` / €19
+- `STRIPE_OPERATOR_PRICE_ID` → Pro / `power` / €49
+
+Frontend placeholders: `__OPERATOR__` → operator, `__POWER__` → power.
+Do not change the Stripe dashboard, prices, or webhook settings.

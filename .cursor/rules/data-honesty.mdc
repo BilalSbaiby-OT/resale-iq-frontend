@@ -1,0 +1,14 @@
+---
+description: Data honesty — null is not zero; withheld numbers stay blank
+alwaysApply: true
+---
+
+# Data honesty
+
+- Never invent a figure. `null` ≠ `0`. `Math.round(null) === 0` is a landmine.
+- Render withheld values as an em-dash (`score-bar.tsx` pattern).
+- `.toLocaleString()` on null throws — guard first.
+- Sell-through % is withheld while discovery rate > 20%. Show raw `sold_7d` and `active_listings`.
+- Do not label a number >100% as "sell-through". Weekly turns can exceed 100%; that is not a share.
+- `avg_days_to_sell` is withheld unless n ≥ 30 non-null samples.
+- Last-good snapshot beats empty. Stale must be labelled. Scrape >2h old: warn, still show numbers.

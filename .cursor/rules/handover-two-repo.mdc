@@ -1,0 +1,18 @@
+---
+description: Two-repo Resale IQ handover — never mix frontend and backend trees
+alwaysApply: true
+---
+
+# Two repos
+
+- Frontend: this repo (`resale-iq`). Next.js. UI, extension, Playwright.
+- Backend: `../demand-intel`. FastAPI + SQLite. Numbers, Stripe, auth, scraper.
+
+Never edit sibling Desktop projects (learn-os, second-brain, …). Never delete `.claude` ECC trees.
+
+Counts: `src/lib/market-numbers.ts` only. `seo-brands.json` is slugs, not numbers.
+`null` is not `0`. Sell-through is paused — show raw sold_7d + active_listings.
+Do not unpause STR. Do not enable UK / auto-buy / fake hit rates / authenticity marketing.
+Pro CTA is checkout. Business may keep talk-to-us.
+Stripe: do not change dashboard/prices/webhooks. See `AI/STRIPE.md` for the naming trap.
+Coolify is canonical. systemd `deploy/DEPLOYMENT.md` is obsolete.

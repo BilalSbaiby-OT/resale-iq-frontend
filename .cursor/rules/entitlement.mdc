@@ -1,0 +1,11 @@
+---
+description: Entitlement — locked means absent, not blurred
+alwaysApply: true
+---
+
+# Entitlement
+
+- Free: 10 lifetime unlocks, 3 verdicts/day. Do not reset the lifetime budget.
+- Starter = plan `operator` (€19). Pro = plan `power` (€49).
+- `locked: true` means paid fields are ABSENT from the payload. Never CSS-blur secrets into the DOM.
+- Backend enforces gates. Frontend Paywall is UX, not security.

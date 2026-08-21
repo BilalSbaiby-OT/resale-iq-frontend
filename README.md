@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resale IQ (frontend)
 
-## Getting Started
+Next.js 16 marketing site + authenticated app. Numbers come from the FastAPI
+backend in `../demand-intel` via `/api` rewrites.
 
-First, run the development server:
+## Run
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npm install
+npx tsc --noEmit
+npm run dev          # :3000, proxies BACKEND_URL (default localhost:8080)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Required before commit: `npx tsc --noEmit && npm run build && npm run check:tracked && npm run check:isolation`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+npm run test:e2e     # Playwright smoke (starts a mock snapshot server)
+```
 
-## Learn More
+## Where counts live
 
-To learn more about Next.js, take a look at the following resources:
+One warehouse: `src/lib/market-numbers.ts` → `/api/public/market-snapshot`
+(+ last-good cache in `src/lib/last-good-snapshot.ts`). `seo-brands.json` is
+route structure only. `null` is not `0`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stripe naming trap
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`STRIPE_PRO_PRICE_ID` = Starter / operator (€19).
+`STRIPE_OPERATOR_PRICE_ID` = Pro / power (€49). Do not "fix" the names.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `AI/CURRENT_STATE.md` for what is true in production today.

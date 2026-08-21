@@ -1,0 +1,10 @@
+---
+description: Database lock — frontend never migrates or writes the production DB
+alwaysApply: true
+---
+
+# Database lock
+
+This repo does not own SQLite. Schema changes belong in `demand-intel/db/schema.py`
+as ALTER ADD COLUMN only, never history rewrites. Do not run production DB writes
+from here. Do not dump secrets into git.
