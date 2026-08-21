@@ -1,38 +1,23 @@
-STATUS: BLOCKED
+STATUS: READY
 PUSH: no
-UPDATED: 2026-08-21T09:12Z
-LAST SESSION DID: P0-0 repo map + built and debugged the unattended loop
-NEXT TASK: P0-1 — /data never empty: last-good snapshot + UTC timestamp when the live query returns 0
+UPDATED: 2026-08-21T09:35Z
+LAST SESSION DID: P0-1 — /data falls back to the last good snapshot instead of going empty
+NEXT TASK: P0-2 — one warehouse for every "items tracked / sold 7d / brand weekly" number
 
-## ⛔ BLOCKED — one human action, then everything runs by itself
+## Note for the next session
+P0-1 is done and verified against a running server, both paths. New module
+`src/lib/last-good-snapshot.ts` — reuse it for P0-8 (freshness warning) rather
+than re-reading the snapshot; it already exposes `utcStamp()`.
 
-The `claude` CLI's OAuth token has expired, so every unattended session dies in
-~12 seconds:
+The loop is repaired and preflights correctly, but it CANNOT run unattended yet:
+the `claude` CLI's OAuth token is expired. I reinstalled the CLI (the native
+binary was missing after an npm update — that part is fixed, `claude --version`
+now works), but re-authenticating needs a browser sign-in:
 
-    $ claude -p "reply with exactly: OK" --max-turns 1
-    Failed to authenticate. API Error: 401 OAuth access token has expired.
-    Re-authenticate to continue.
-
-I cannot fix this — re-authenticating means entering your credentials, which I
-will not do on your behalf.
-
-**DO THIS, then walk away again:**
-
-    cd ~/Desktop/resale-iq
-    claude                      # then: /login   (browser opens, sign in, quit with /exit)
-    sed -i '' '1s/^STATUS: .*/STATUS: READY/' agent/HANDOFF.md
+    cd ~/Desktop/resale-iq && claude      # then /login, then /exit
     tmux new-session -d -s resaleiq "cd $(pwd) && ./scripts/unattended.sh"
 
-That is it. The loop preflights the credential, and if it is good it starts
-working through TASKS.md on its own — one task per fresh session, committing as
-it goes. Watch it with `tail -f agent/loop.log` or `tmux attach -t resaleiq`.
-
-Everything else is built, tested and waiting. Nothing else needs you.
-
-UNRELATED, harmless: your GLOBAL settings have a stale SessionEnd hook pointing
-at `/private/tmp/Claude-Code-Agent-Monitor/scripts/hook-handler.js`, which no
-longer exists. It prints a Node stack trace on every session exit but does not
-affect the run. Remove it from `~/.claude/settings.json` when convenient.
+Until then, sessions have to be driven by hand — which is what produced P0-1.
 
 ---
 

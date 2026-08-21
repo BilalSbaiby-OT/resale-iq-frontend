@@ -27,3 +27,30 @@ Added a preflight so a dead credential BLOCKS loudly instead of burning the
 8h budget on retries. Verified: preflight fails -> HANDOFF set to BLOCKED, rc=0,
 no session spawned.
 NEXT (once unblocked): P0-1.
+
+## 2026-08-21T09:35Z — session 2 — P0-1 done (driven by hand; loop still auth-blocked)
+- Repaired the `claude` CLI: an npm update had left the package installed but the
+  native binary missing (`bin/claude.exe` was a stub that only prints an error).
+  `npm install -g @anthropic-ai/claude-code@2.1.238` restored it; `claude --version`
+  now returns 2.1.238. The OAuth token is still expired — that needs a browser.
+- Fixed a third loop bug: `unattended.sh` assumed `claude` was on PATH. It is not
+  in a non-interactive shell (nvm is not sourced), so every session would have
+  died with "command not found". It now resolves the binary explicitly and blocks
+  with the install command if there is none.
+- **P0-1**: `/data` now serves the last good snapshot when the live query fails or
+  returns nothing, labelled and timestamped, instead of "check back shortly".
+  New `src/lib/last-good-snapshot.ts` persists to disk (not memory — ISR
+  re-renders in any worker and the container restarts on deploy, so an in-memory
+  cache is empty exactly when it is needed).
+  Also fixed the `b.sold_7d.toLocaleString()` null crash noted in the repo map.
+- VERIFIED against a running server, not by reading:
+  - dead backend + cache  -> 200, stale banner, "2026-08-21 07:30 UTC", cached
+    rows rendered (3,942 / 2,661 / 1,567), dead-end message gone (0 occurrences)
+  - live backend          -> 200, no banner, "Last updated 2026-08-21 09:28 UTC ·
+    26 brands · 396,754 units", and the live fetch WROTE the cache (26 brands)
+  - no cache + dead backend -> first-boot message returns, no false stale banner
+  - JSON-LD `dateModified` tracks the snapshot, never the render — a stale page
+    must not emit a fresh-looking machine-readable timestamp
+  - NEGATIVE CONTROL: empty / null / error responses all REFUSE to overwrite a
+    good cache; a good one replaces it. That guard is the whole safety property.
+- NEXT: P0-2.

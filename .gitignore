@@ -43,3 +43,6 @@ next-env.d.ts
 # unattended agent loop runtime
 agent/loop.log
 agent/RATE_LIMITED
+
+# per-session output the loop inspects
+agent/.session.out

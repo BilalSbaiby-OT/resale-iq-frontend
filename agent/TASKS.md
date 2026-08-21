@@ -5,7 +5,7 @@ Check the box in the SAME commit as the work.
 
 ## P0 — trust
 - [x] **P0-0** Repo map into HANDOFF (stack, routes, where counts live, Stripe, extension path, i18n, test command)
-- [ ] **P0-1** `/data` never empty: if the live query returns 0, show the last-good snapshot + UTC timestamp
+- [x] **P0-1** `/data` never empty: if the live query returns 0, show the last-good snapshot + UTC timestamp
 - [ ] **P0-2** One warehouse for every "items tracked / sold 7d / brand weekly" number (homepage, `/data`, `/flip/*`, meta). Kill hardcoded drifting counts.
 - [ ] **P0-3** If sell-through is paused, show raw `units_sold_7d` and `active_listings`. No dead "measuring" hole. Do NOT unpause the % until the 20% discovery-rate check passes.
 - [ ] **P0-4** Homepage hero = screenshot of the extension panel on a Vinted listing + primary CTA "Add to Chrome". Methodology off the hero.

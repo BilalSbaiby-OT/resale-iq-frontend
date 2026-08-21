@@ -2,6 +2,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { CATEGORIES } from "@/lib/seo-categories"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { readLastGood, writeLastGood, isUsable, utcStamp } from "@/lib/last-good-snapshot"
 
 // Public, citable open data. Rendered server-side and revalidated hourly (ISR),
 // so the page HTML always contains fresh numbers for crawlers — no redeploy
@@ -43,9 +44,28 @@ async function getSnapshot(): Promise<Snapshot | null> {
 
 export default async function DataPage() {
   const tracked = await listingsTrackedLabel()
-  const snap = await getSnapshot()
+
+  // Live first. If the backend is down or hands back an empty set, fall back to
+  // the last snapshot we successfully fetched rather than rendering a page with
+  // no numbers on it — this is the page we ask answer engines to cite, and
+  // "check back shortly" is not a citation.
+  //
+  // The fallback is LABELLED, never disguised: `stale` drives a banner and the
+  // timestamp shown is the snapshot's own, so the page never implies that old
+  // figures are current.
+  const live = await getSnapshot()
+  let snap: Snapshot | null = null
+  let stale = false
+  if (isUsable(live)) {
+    snap = live
+    await writeLastGood(live)
+  } else {
+    snap = (await readLastGood()) as Snapshot | null
+    stale = snap !== null
+  }
+
   const brands = snap?.brands ?? []
-  const updated = snap?.updated_at ? new Date(snap.updated_at) : null
+  const stamp = utcStamp(snap?.updated_at)
   const totalWeekly = brands.reduce((s, b) => s + (b.sold_7d || 0), 0)
 
   // Dataset schema — makes the DATA ITSELF indexable and citable, and eligible
@@ -62,7 +82,7 @@ export default async function DataPage() {
     isAccessibleForFree: true,
     temporalCoverage: "P7D",
     spatialCoverage: "Spain, France, Germany, Italy, Portugal",
-    ...(updated ? { dateModified: updated.toISOString() } : {}),
+    ...(snap?.updated_at ? { dateModified: new Date(snap.updated_at).toISOString() } : {}),
     variableMeasured: [
       { "@type": "PropertyValue", name: "units sold (7 days)" },
       { "@type": "PropertyValue", name: "average sale price (EUR)" },
@@ -84,14 +104,25 @@ export default async function DataPage() {
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
 
-        {updated && (
+        {stale && (
+          <p role="status" style={{ fontSize: 12.5, lineHeight: 1.6, color: "#fbbf24", marginTop: 12,
+                                    padding: "9px 12px", background: "rgba(251,191,36,.07)",
+                                    border: "1px solid rgba(251,191,36,.28)", borderRadius: 9 }}>
+            Live feed unavailable right now — showing the last complete snapshot
+            {stamp ? <> from <strong>{stamp}</strong></> : null}. The figures below are real, just not current.
+          </p>
+        )}
+
+        {stamp && (
           <p style={{ fontSize: 12.5, color: "#5b6b8c", marginTop: 10 }}>
-            Last updated {updated.toISOString().slice(0, 16).replace("T", " ")} UTC · {snap?.brand_count} brands ·{" "}
-            {totalWeekly.toLocaleString()} units sold in the last 7 days
+            {stale ? "Snapshot taken" : "Last updated"} {stamp} · {snap?.brand_count} brands ·{" "}
+            {totalWeekly.toLocaleString()} units sold in the 7 days to that time
           </p>
         )}
 
         {brands.length === 0 ? (
+          // Only reachable before the very first successful fetch has ever been
+          // cached. Once one lands, this page always has numbers on it.
           <p style={{ marginTop: 28, color: "#8b99b8" }}>Market data is being refreshed — check back shortly.</p>
         ) : (
           <div style={{ marginTop: 26, overflowX: "auto", border: "1px solid #1c2333", borderRadius: 12 }}>
@@ -110,7 +141,9 @@ export default async function DataPage() {
                   <tr key={b.brand} style={{ borderTop: "1px solid #161b26" }}>
                     <td style={{ padding: "11px 14px", color: "#5b6b8c" }}>{i + 1}</td>
                     <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>{b.brand}</td>
-                    <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>{b.sold_7d.toLocaleString()}</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>
+                      {typeof b.sold_7d === "number" ? b.sold_7d.toLocaleString() : "—"}
+                    </td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "#22c55e" }}>€{b.avg_price_eur}</td>
                     <td style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>
                   </tr>

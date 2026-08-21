@@ -13,13 +13,31 @@ BUDGET_SECONDS=$(( 8 * 3600 ))
 SPENT=0
 
 mkdir -p "$REPO/agent"
+
+# Resolve the CLI explicitly. A non-interactive shell does not source nvm, so
+# `claude` is frequently NOT on PATH here even though it is in an interactive
+# terminal — the loop would then fail every session with "command not found".
+CLAUDE_BIN="${CLAUDE_BIN:-$(command -v claude || true)}"
+if [ -z "$CLAUDE_BIN" ]; then
+  for c in "$HOME"/.nvm/versions/node/*/bin/claude "$HOME/.claude/local/claude" \
+           /usr/local/bin/claude /opt/homebrew/bin/claude; do
+    [ -x "$c" ] && CLAUDE_BIN="$c" && break
+  done
+fi
+
 log() { printf '%s  %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$*" | tee -a "$LOG"; }
 
 log "=== loop start (budget $(( BUDGET_SECONDS / 3600 ))h of in-claude time) ==="
 
 # Preflight: a dead credential fails every session in seconds. Without this the
 # loop retries forever and reports nothing useful. Block loudly instead.
-PRE="$(claude -p "reply with exactly: OK" --max-turns 1 2>&1 | head -3)"
+if [ -z "$CLAUDE_BIN" ] || [ ! -x "$CLAUDE_BIN" ]; then
+  log "PREFLIGHT FAILED — no usable claude binary found."
+  log "  Fix: npm install -g @anthropic-ai/claude-code   (or set CLAUDE_BIN)"
+  /usr/bin/sed -i '' '1s/^STATUS: .*/STATUS: BLOCKED/' "$HANDOFF" 2>/dev/null || true
+  exit 0
+fi
+PRE="$("$CLAUDE_BIN" -p "reply with exactly: OK" --max-turns 1 2>&1 | head -3)"
 if printf '%s' "$PRE" | grep -qiE 'failed to authenticate|401|re-authenticate|not logged in'; then
   log "PREFLIGHT FAILED — claude CLI cannot authenticate:"
   log "  $PRE"
@@ -53,7 +71,7 @@ while :; do
   START=$(date +%s)
   SESSION_OUT="$REPO/agent/.session.out"
   : > "$SESSION_OUT"
-  claude --permission-mode acceptEdits \
+  "$CLAUDE_BIN" --permission-mode acceptEdits \
          --max-turns 50 \
          --append-system-prompt "--resaleiq-loop" \
          -p "$(cat "$REPO/scripts/resume-prompt.md")" \
