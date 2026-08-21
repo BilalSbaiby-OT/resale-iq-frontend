@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# unattended agent loop runtime
+agent/loop.log
+agent/RATE_LIMITED

@@ -1,0 +1,108 @@
+STATUS: READY
+PUSH: no
+UPDATED: 2026-08-21T11:10Z
+LAST SESSION DID: P0-0 — repo map (below)
+NEXT TASK: P0-1 — /data never empty: last-good snapshot + UTC timestamp when the live query returns 0
+
+---
+
+# REPO MAP (P0-0)
+
+## Two repos. Know which one you are in.
+| | path | what | commit here for |
+|---|---|---|---|
+| **this** | `~/Desktop/resale-iq` | Next.js 16.3 + React 19.2, App Router, TypeScript | all P0/P1 UI, marketing, `extension/` |
+| sibling | `~/Desktop/demand-intel` | FastAPI + SQLite (aiosqlite), port 8080 | anything serving the numbers |
+
+The frontend proxies `/api`, `/auth`, `/stripe`, `/admin` to the backend via
+`BACKEND_URL` rewrites. Never edit outside these two directories.
+
+## Commands (there is no unit-test suite in this repo)
+```
+npx tsc --noEmit         # typecheck — MUST pass before commit
+npm run build            # MUST pass before commit
+npm run dev              # localhost:3000 (.claude/launch.json)
+npm run check:tracked    # guards the dataset figure against hardcoded drift
+npm run check:isolation
+npm run lint
+```
+Backend, if a task reaches it: `cd ~/Desktop/demand-intel && python3 -m pytest tests/ -q`
+
+## Routes — 41 `page.tsx` under `src/app`
+- **Public/SEO:** `/`, `/data`, `/flip/[brand]`, `/flip/[brand]/[category]`,
+  `/category/[category]`, `/blog`, `/blog/[slug]`, `/manual`, `/manual/[chapter]`,
+  `/methodology`, `/tools`, `/check`, `/api-docs`, `/support`, `/legal`, `/privacy`, `/terms`
+- **Auth:** `(auth)/login|register|forgot-password|reset-password|verify-email`
+- **App:** `(dashboard)/dashboard|deals|market|trends|brands|watchlist|verdict|
+  calculator|compare|search|portfolio|account|authenticity|order-planner|admin/*`
+- Also non-page routes: `src/app/sitemap.ts`, `src/app/robots.ts`, `src/app/llms.txt/route.ts`
+
+## WHERE THE COUNTS LIVE — the P0-2 target
+**Source of truth today:** `src/lib/stats.ts` → fetches `/api/public/market-snapshot`
+from `BACKEND_URL`, reads `listings_tracked` (= `COUNT(DISTINCT external_id)`;
+counting rows would overstate ~3x because the 5 Vinted domains are one catalogue),
+floors to 10k. It exists because "500,000+" was once hardcoded in 35 places.
+
+**11 files consume the snapshot** — these are the drift surface:
+```
+src/lib/stats.ts                        <- the intended single source
+src/app/data/page.tsx                   <- P0-1 + P0-8 target
+src/components/landing/live-market-proof.tsx   <- homepage hero numbers
+src/app/category/[category]/page.tsx
+src/app/flip/[brand]/[category]/page.tsx
+src/app/manual/page.tsx
+src/app/manual/[chapter]/page.tsx
+src/app/methodology/page.tsx
+src/app/llms.txt/route.ts
+src/app/sitemap.ts
+src/components/layout/paywall.tsx
+```
+**Second, STATIC source — the real drift risk:** `src/data/seo-brands.json`
+(keys: `brands`, `note`) is a build-time export produced by
+`~/Desktop/demand-intel/scripts/export_seo_data.py`. `/flip/[brand]` reads ONLY
+this — no live fetch — so its numbers are frozen at export time.
+`/flip/[brand]/[category]` and `/category/[category]` overlay live snapshot data
+on top of it and **fall back to the stale JSON via `??` when live is null**.
+P0-2 must reconcile these two sources; P0-1 must not re-introduce the fallback.
+
+## Stripe
+Client calls only, in `src/lib/api.ts`: `/stripe/plans`, `/stripe/checkout`,
+`/stripe/portal` (all proxied to the backend). Plan copy/CTAs: `src/lib/pricing.ts`
+— **`pricing.ts:44` is the `"Talk to us"` CTA that P0-5 removes from Pro.**
+Never touch the Stripe dashboard: that is a `BLOCKED`.
+
+## Extension — `extension/` (Manifest V3, v1.0.0)
+`manifest.json` · `content.js` / `content.css` (the panel) · `background.js` ·
+`options.html` / `options.js` · `link.js` · `icons/` · `README.md` · `STORE-LISTING.md`
+Injects on `www.vinted.es|fr|de|it|pt` — matches the 5 supported markets, no UK.
+**P0-7 facts, verified:** `STORE-LISTING.md` currently contains **no email address
+at all** and **zero** occurrences of "not affiliated". Both must be added.
+
+## i18n
+**None.** No `next-intl`, no i18n config, no translation files — all copy is
+inline English. P1-4 is therefore a from-scratch choice; pick the smallest thing
+that works with App Router and do not add a heavy framework.
+
+## Authenticity (P0-6 surfaces)
+`src/app/page.tsx` (homepage), `src/lib/pricing.ts`, `src/app/methodology/page.tsx`,
+`src/app/(dashboard)/authenticity/page.tsx`, `src/app/terms/page.tsx`,
+`src/app/support/page.tsx`, `src/app/llms.txt/route.ts`, `src/app/robots.ts`,
+`src/types/index.ts`. P0-6 hides the 0–100 score from homepage, pricing and the
+default extension panel — it does not delete the feature.
+
+## Landmines (learned the hard way — do not rediscover these)
+1. **`null` renders as `0`.** `Math.round(null) === 0` and `x ?? 0` both print a
+   confident zero for a withheld number. `src/components/ui/score-bar.tsx` has the
+   correct pattern: `if (score == null)` → em-dash. Reuse it.
+2. **`.toLocaleString()` on null throws** and will 500 an ISR page.
+   `src/app/data/page.tsx:113` and `live-market-proof.tsx:87` both do this today —
+   directly relevant to P0-1.
+3. **Sell-through is deliberately suppressed product-wide** while the backend's
+   discovery rate exceeds 20%. It self-lifts. Do not "fix" it by unpausing (P0-3
+   says show the raw counts instead).
+4. `src/components/ui/momentum-warmup-notice.tsx` is the existing pattern for a
+   page-level "this is degraded" banner — reuse it for P0-8 rather than inventing one.
+
+## Verify like this, not by reading
+`npm run dev`, load the page, look at it. This repo has shipped several handlers
+that were never reachable from any URL.
