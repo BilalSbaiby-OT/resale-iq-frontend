@@ -48,7 +48,7 @@ export default async function MethodologyPage() {
     },
     {
       q: "How is sell-through rate calculated?",
-      a: "We start with weekly turns: units sold in the last 7 days divided by items currently listed, as a percentage. That arithmetic can exceed 100% — 760 sold against 100 listed is 760% turns, not a sell-through share. When the ratio is not a 0–100 share, or when sold-date history is still maturing, we withhold the percentage and show the raw sold and listed counts instead. We will not label 706% as sell-through.",
+      a: "Watched sales divided by watched sales plus still-listed items, capped at 100%. Only transitions we observed (sold_observed). Below 30 watched sales in the window we withhold the percentage (null, not 0) and show the raw counts. We never label weekly turns as sell-through.",
     },
     {
       q: "How is the buy-below price calculated?",
@@ -144,37 +144,22 @@ export default async function MethodologyPage() {
 
         <Section title="Sell-through rate — the formula">
           <P>
-            Sell-through is the metric that decides how long your money stays tied up, and it is
-            the one most often quoted without a definition. Ours starts as a demand-to-supply
-            ratio: units sold in the last 7 days divided by the items currently listed.
+            Sell-through is the share of the universe we actually watched: items we
+            saw listed and then saw sell, versus items still listed. It is not weekly
+            turns (sold ÷ active × 100), which can exceed 100% and must never be
+            labelled sell-through.
           </P>
-          <Code>ratio = units_sold_7d / active_listings × 100</Code>
+          <Code>str = sold_observed / (sold_observed + active_listings) × 100</Code>
           <P>
-            That ratio legitimately exceeds 100%. 760 items sold against 100 currently listed is
-            a ratio of 760% — a fast-moving market where stock is replaced faster than it sits.
-            Displayed raw it reads as a bug, so we convert it to a share:
-          </P>
-          <Code>displayed = ratio / (ratio + 100) × 100</Code>
-          <P>
-            Read it as: <em>of the items in this market this week, roughly what share sold.</em>{" "}
-            A ratio of 70% displays as about 41%. The conversion is monotonic, so it never
-            changes which models rank above which — only the number you read. The raw ratio is
-            what the scoring uses internally.
+            Capped at 100%. The numerator is only transitions we watched
+            (<Code>sold_observed=1</Code>) — never a discovery-stamped <Code>sold_at</Code>.
+            If the watched sample is below 30 sales in the window, we withhold the
+            percentage (null, not 0) and still show the raw sold and listed counts.
           </P>
           <Callout label="Why this matters">
             A tool showing you &ldquo;760% sell-through&rdquo; is not showing you a sell-through
-            rate. It is showing you a ratio and hoping you do not ask.
-          </Callout>
-          <Callout label="Currently withheld">
-            Sell-through % is not displayed right now. Instead of a dead
-            &ldquo;measuring&rdquo; hole we show the raw counts: watched units sold in 7 days
-            and current active listings. The reason is the numerator: our
-            sold-date is stamped when the scraper first sees an item already marked sold, not
-            when the sale happened. While we are still working through the backlog of listings
-            that sold before we started watching, a percentage would inflate. The check runs every
-            six hours and restores the number automatically once the measured discovery rate drops
-            below 20%. A ratio above 100% is weekly turns, not a sell-through share — we will not
-            label it as one.
+            rate. It is showing you weekly turns and hoping you do not ask. 760 watched
+            sales against 100 still listed is 88.4% — a share.
           </Callout>
         </Section>
 

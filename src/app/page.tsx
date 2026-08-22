@@ -1,3 +1,4 @@
+import { headers } from "next/headers"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { PricingSection } from "@/components/landing/pricing-section"
@@ -6,6 +7,7 @@ import { LiveMarketProof } from "@/components/landing/live-market-proof"
 import { ExtensionHero, chromeStoreUrl } from "@/components/landing/extension-hero"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { copy, detectLocale } from "@/lib/i18n"
 
 import type { Metadata } from "next"
 
@@ -30,6 +32,7 @@ export default async function Landing() {
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
   const chrome = chromeStoreUrl()
+  const t = copy[detectLocale((await headers()).get("accept-language"))]
   return (
     <div style={{ background: "#0B0D10", color: "#eef1f7", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -40,12 +43,12 @@ export default async function Landing() {
           <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>Sign in</Link>
+          <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>{t.signIn}</Link>
           {/* Demoted from a green button. It was pulling the eye away from the
               one action on the page, and put a second green element in the
               top-right corner of a layout whose whole point is that green
               means "click this". */}
-          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>Pricing</a>
+          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>{t.pricing}</a>
         </div>
       </nav>
 
@@ -63,26 +66,23 @@ export default async function Landing() {
         <div className="riq-hero">
           <div>
             <h1 style={{ fontSize: 52, fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.04, margin: 0 }}>
-              Stop guessing<br />what sells.
+              {t.heroTitle}
             </h1>
-            {/* One accent, one job. Green was on the headline, both buttons and
-                every stat, so it signalled nothing. It now marks the action. */}
             <p style={{ fontSize: 17.5, color: "#93a1bd", marginTop: 22, lineHeight: 1.6, maxWidth: 480 }}>
-              The highest price to pay for a Vinted item before you buy it — in euros,
-              per model and size.
+              {t.heroBody}
             </p>
             <p style={{ fontSize: 13.5, color: "#5b6b8c", marginTop: 12, maxWidth: 480 }}>
-              From {tracked} live and sold listings across five EU markets.
+              {t.heroFrom(tracked)}
             </p>
 
             {/* ONE primary action. "See pricing" was competing at nearly equal
                 weight while already sitting in the nav two inches above. */}
             <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
               <a href={chrome} style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
-                Add to Chrome <ArrowRight size={16} />
+                {t.addToChrome} <ArrowRight size={16} />
               </a>
               <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
-                Or check an item on the site — 10 free, no card
+                {t.orCheck}
               </Link>
             </div>
           </div>
@@ -95,15 +95,10 @@ export default async function Landing() {
       <section style={{ maxWidth: 1080, margin: "0 auto", padding: "48px 24px 20px" }}>
         <div className="riq-grid-features">
           {[
-            { t: "Buy or skip", d: "BUY, WATCH or SKIP on any item, from its sold prices and current supply." },
-            { t: "Live search", d: "Search Vinted listings across 26 markets in real time — find what's available anywhere in Europe." },
-            { t: "Price compare", d: "Compare prices for the same item across countries. Buy where it's cheapest, sell where it's not." },
-            { t: "Deal finder", d: "Listings priced under your buy-below threshold, right now." },
-            { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
-            { t: "Watchlist", d: "Pin models you source and get the buy-below, sale price and sizes without re-searching." },
-          ].map(({ t, d }) => (
-            <div key={t} style={{ padding: "18px 0" }}>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{t}</div>
+            ...t.features,
+          ].map(({ t: title, d }) => (
+            <div key={title} style={{ padding: "18px 0" }}>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{title}</div>
               <div style={{ fontSize: 13, color: "#7f8da9", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
             </div>
           ))}
@@ -120,7 +115,7 @@ export default async function Landing() {
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
           <span>Scraped every 30 min</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
-          <span>No accuracy claims until 100 outcomes scored</span>
+          <span>No accuracy claims until 30 outcomes scored</span>
         </div>
       </section>
 
@@ -141,7 +136,7 @@ export default async function Landing() {
           <Link href="/support" style={{ color: "#5b6b8c", textDecoration: "none" }}>Support</Link>
           <Link href="/login" style={{ color: "#5b6b8c", textDecoration: "none" }}>Sign in</Link>
         </div>
-        <div style={{ marginBottom: 8 }}>Resale IQ — market intelligence for Vinted resellers.</div>
+        <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
         <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#3f4a63", lineHeight: 1.6 }}>
           Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
         </div>

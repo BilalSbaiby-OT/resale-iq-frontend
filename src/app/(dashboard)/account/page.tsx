@@ -190,7 +190,7 @@ export default function AccountPage() {
           <div className="bg-[#141820] border border-amber-500/30 rounded-xl p-5 mb-5">
             <div className="font-bold text-[14px] text-amber-400 mb-1">Confirm your email</div>
             <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
-              Your 10 free unlocks — buy-below price, sell price, sell-through and best
+              Your 10 free checks each month — buy-below price, sell price, sell-through and best
               sizes — need a confirmed address. We sent a link when you signed up.
               {" "}<b className="text-[#eef1f7]">Look in spam or junk first</b> — mail from{" "}
               <b className="text-[#eef1f7]">noreply@resaleiq.dev</b> often lands there, and

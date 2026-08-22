@@ -38,7 +38,7 @@ export function PricingSection() {
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>Pay less for stock than you sell it for.</h2>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 10 full unlocks, no card. Enough to check the numbers against your own sales.</p>
+        <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 7 days unlimited, then 10 checks a month. No card.</p>
       </div>
 
       <PaybackCalculator />

@@ -8,6 +8,30 @@
 const API = "https://resaleiq.dev";
 
 chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
+  if (msg?.type === "bought") {
+    (async () => {
+      try {
+        const { riq_token } = await chrome.storage.sync.get("riq_token");
+        const headers = { Accept: "application/json", "Content-Type": "application/json" };
+        if (riq_token) headers.Authorization = `Bearer ${riq_token}`;
+        const r = await fetch(`${API}/api/purchases`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            bought_at: msg.bought_at,
+            query: msg.query,
+            product: msg.product,
+            listing_url: msg.listing_url,
+            listing_price: msg.listing_price,
+          }),
+        });
+        respond({ ok: r.ok });
+      } catch (e) {
+        respond({ ok: false, error: String(e) });
+      }
+    })();
+    return true;
+  }
   if (msg?.type !== "verdict") return false;
 
   (async () => {

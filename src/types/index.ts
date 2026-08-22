@@ -191,6 +191,7 @@ export interface VerdictResult {
   opportunity_score?: number
   sell_through_rate?: string | null
   sold_7d?: number | null
+  n?: number | null
   active_listings?: number | null
   momentum?: string
   buy_below?: number

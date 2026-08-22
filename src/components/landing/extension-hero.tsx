@@ -7,7 +7,7 @@
  */
 const CHROME_STORE =
   process.env.NEXT_PUBLIC_CHROME_STORE_URL ||
-  "https://chromewebstore.google.com/search/Resale%20IQ"
+  "https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm"
 
 export function chromeStoreUrl() {
   return CHROME_STORE
@@ -71,7 +71,7 @@ export function ExtensionHero() {
               </span>
               Resale IQ
               <span style={{ marginLeft: "auto", fontWeight: 800, fontSize: 10.5, letterSpacing: ".4px", color: "#22c55e" }}>
-                IN RANGE
+                BUY
               </span>
             </div>
             <div style={{ fontSize: 10.5, color: "#5b6b8c", marginBottom: 6 }}>matched: Nike Air Max 1</div>
@@ -83,7 +83,7 @@ export function ExtensionHero() {
               listed at €50 — within your price
             </div>
             <div style={{ fontSize: 12, color: "#a9b6d0", marginTop: 8 }}>
-              sells around <b style={{ color: "#eef1f7" }}>€115</b>
+              median sold <b style={{ color: "#eef1f7" }}>€115</b> · n 86
             </div>
           </div>
         </div>

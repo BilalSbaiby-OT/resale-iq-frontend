@@ -15,9 +15,8 @@ import type { VerdictResult } from "@/types"
  *  - The ask escalates with evidence. Someone who has spent nothing sees a
  *    quiet unlock button; someone who has spent the whole budget has actually
  *    felt the ceiling, and only then do we make the case for paying.
- *  - The budget is a LIFETIME allowance, not a daily one. Copy must never
- *    imply it comes back — "resets tomorrow" was the old model and saying it
- *    now would be a lie that also teaches people to wait instead of pay.
+ *  - The budget is 10 full checks per calendar month after the 7-day trial.
+ *    Copy must not imply a lifetime cap.
  */
 export function UnlockPanel({
   result, onUnlock, unlocking,
@@ -44,7 +43,7 @@ export function UnlockPanel({
         <Body>
           You just saw the verdict on a real item, computed from live sold listings.
           A free account unlocks the buy-below price, typical sale price, sell-through
-          and best sizes on {limit ?? 10} items — no card.
+          and best sizes on {limit ?? 10} items a month after a 7-day trial — no card.
         </Body>
         <Row>
           <Primary href="/register?plan=free">Create a free account</Primary>
@@ -94,7 +93,7 @@ export function UnlockPanel({
             {unlocking ? "Unlocking…" : "Unlock this item"}
           </button>
           <span className="text-[12.5px] text-[#8b99b8]">
-            {remaining} of {limit} free unlocks left
+            {remaining} of {limit} free checks left this month
           </span>
         </div>
       </Shell>
@@ -107,13 +106,12 @@ export function UnlockPanel({
   return (
     <Shell tone="warm">
       <Title icon={<Lock size={15} className="text-amber-400" />}>
-        You&apos;ve used all {limit} free unlocks
+        You&apos;ve used all {limit} free checks this month
       </Title>
       <Body>
-        That is the whole free allowance — it does not reset. You have now seen the
-        real numbers on {limit} items, so you know whether they hold up. If they did,
-        the question is just whether unlimited access is worth less to you than one
-        item you would otherwise have bought wrong.
+        That is this month&apos;s free allowance — it refills next calendar month.
+        You have now seen the real numbers on {limit} items. If they held up,
+        unlimited access is usually cheaper than one item bought wrong.
       </Body>
       <div className="mb-4 rounded-lg border border-[#1c2333] bg-[#12151d] px-4 py-3">
         <div className="text-[12.5px] leading-5 text-[#a9b6d0]">

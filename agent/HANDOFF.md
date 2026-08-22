@@ -1,13 +1,16 @@
 STATUS: READY
 PUSH: yes
 UPDATED: 2026-08-21
-LAST SESSION DID: P0-2 through P0-8 + C2/C3/C4 withholding + Playwright smoke; pushed
-NEXT TASK: P1-1 (P0 boxes stay [x]; do not unpause sell-through)
+LAST SESSION DID: P1-1–P1-5 + honest observed STR + Chrome store URL
+NEXT TASK: P2 (deal alerts) only if asked — P0+P1 boxes are [x]
 
-Frontend origin: e80b5cd / 50de75d / b0c26a6 (plus earlier P0-0/P0-1). Backend: ffcbce6 / d8b2e30.
+Frontend origin: (this commit). Backend: (this commit).
+Chrome store: https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm
 
-P0s 0–8 are done. Do not unpause sell-through. Do not invent numbers.
+P0s 0–8 and P1s 1–5 are done. Do not invent numbers.
 `src/lib/market-numbers.ts` is the warehouse. Playwright: `npm run test:e2e`.
+
+STR: `sold_observed / (sold_observed + active)`, cap 100%, withhold if n < 30.
 
 ---
 
@@ -43,11 +46,11 @@ via last-good cache. `src/lib/stats.ts` is listings-tracked only.
 `STRIPE_PRO_PRICE_ID` = Starter/operator. `STRIPE_OPERATOR_PRICE_ID` = Pro/power.
 
 ## Extension — `extension/`
-Manifest V3. `STORE-LISTING.md` must keep `support@resaleiq.dev` and
-"not affiliated with Vinted" in paragraph 1.
+Manifest V3. Store URL is the published listing. `STORE-LISTING.md` must keep
+`support@resaleiq.dev` and "not affiliated with Vinted" in paragraph 1.
 
 ## Landmines
 1. `null` renders as `0`. `Math.round(null) === 0`. Score-bar: null → em-dash.
 2. `.toLocaleString()` on null throws (ISR 500).
-3. Sell-through is product-wide withheld. Show raw sold_7d + active_listings.
-4. Do not unpause STR until discovery rate ≤ 20%.
+3. Sell-through is an observed share. Show % when n ≥ 30 watched sales; otherwise raw sold_7d + active_listings. Never weekly turns as STR.
+4. Do not enable UK, auto-buy, fake hit rates, authenticity marketing.

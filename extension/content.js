@@ -12,7 +12,65 @@
  * anything about them anywhere. It reads the public title and price already
  * rendered on the page, and asks our own public verdict endpoint about it.
  */
-const BADGE_ID = "riq-badge";
+function locale() {
+  const h = (location.hostname || "").toLowerCase();
+  if (h.includes("vinted.fr") || h.endsWith(".fr")) return "fr";
+  if (h.includes("vinted.es") || h.endsWith(".es")) return "es";
+  return "en";
+}
+
+const I18N = {
+  en: {
+    most: "most you can pay for your margin",
+    notTracked: "not tracked",
+    noData: "we have no model-level data for this item yet",
+    matched: "matched",
+    listedOver: (ask, over) => `listed at ${ask} — ${over} over`,
+    listedOk: (ask) => `listed at ${ask} — within your price`,
+    median: "median sold",
+    n: "n",
+    how: "how this is calculated",
+    bought: "I bought at €",
+    saved: "logged",
+    limited: "Free checks used up for today. Sign in and the panel reconnects on its own.",
+    signIn: "Sign in",
+    checking: "checking…",
+  },
+  fr: {
+    most: "le maximum à payer pour votre marge",
+    notTracked: "non suivi",
+    noData: "pas encore de données modèle pour cet article",
+    matched: "associé",
+    listedOver: (ask, over) => `affiché ${ask} — ${over} au-dessus`,
+    listedOk: (ask) => `affiché ${ask} — dans votre prix`,
+    median: "médiane vendue",
+    n: "n",
+    how: "comment c'est calculé",
+    bought: "J'ai acheté à €",
+    saved: "enregistré",
+    limited: "Essais gratuits épuisés aujourd'hui. Connectez-vous et le panneau se reconnecte.",
+    signIn: "Connexion",
+    checking: "vérification…",
+  },
+  es: {
+    most: "lo máximo que puedes pagar para tu margen",
+    notTracked: "sin datos",
+    noData: "aún no hay datos de modelo para este artículo",
+    matched: "asociado",
+    listedOver: (ask, over) => `puesto a ${ask} — ${over} por encima`,
+    listedOk: (ask) => `puesto a ${ask} — dentro de tu precio`,
+    median: "mediana vendida",
+    n: "n",
+    how: "cómo se calcula",
+    bought: "Lo compré a €",
+    saved: "guardado",
+    limited: "Comprobaciones gratis agotadas hoy. Entra y el panel se reconecta solo.",
+    signIn: "Entrar",
+    checking: "comprobando…",
+  },
+};
+
+function t() { return I18N[locale()] || I18N.en; }
 
 /** Vinted renders client-side, so the title can arrive after we do. */
 function readListing() {
@@ -80,82 +138,103 @@ function money(n) {
 }
 
 function paint(d, askingPrice) {
-  const buyBelow = d.buy_below ?? null;   // verified field name
-
-  // THE DECISION IS ABOUT THIS LISTING, NOT THE MODEL.
-  //
-  // The API's verdict answers "is this model worth trading". Rendered on a
-  // specific listing it reads as "buy this one" — and it was doing exactly
-  // that on a Jordan 4 listed at EUR140 against a EUR65 buy-below, i.e.
-  // telling a reseller to buy at more than twice the price they should pay.
-  // On the page where the money is actually spent, the asking price decides.
-  let verdict = (d.verdict || d.signal || "").toUpperCase();
-  let tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
+  const L = t();
+  const buyBelow = d.buy_below ?? null;
+  // Model call stays BUY / WATCH / SKIP (P1-2). Asking vs buy-below is a
+  // warning row, not a rewritten verdict — covering the Vinted Buy button
+  // would get us uninstalled, rewriting BUY into TOO DEAR hid the model call.
+  const verdict = (d.verdict || d.signal || "WATCH").toUpperCase();
+  const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
   let overBy = null;
-  if (buyBelow != null && askingPrice != null) {
-    if (askingPrice > buyBelow) {
-      overBy = askingPrice - buyBelow;
-      verdict = "TOO DEAR";
-      tone = "skip";
-    } else {
-      verdict = "IN RANGE";
-      tone = "buy";
-    }
+  if (buyBelow != null && askingPrice != null && askingPrice > buyBelow) {
+    overBy = askingPrice - buyBelow;
   }
-
-  // If we have no buy-below we say so. A blank panel reads as broken, and a
-  // fabricated number is the one thing this product cannot afford.
+  const n = d.n ?? d.sold_7d ?? null;
   const body = buyBelow != null
     ? `<div class="riq-num">${money(buyBelow)}</div>
-       <div class="riq-sub">most you can pay for your margin</div>`
-    : `<div class="riq-num riq-muted">not tracked</div>
-       <div class="riq-sub">we have no model-level data for this item yet</div>`;
+       <div class="riq-sub">${esc(L.most)}</div>`
+    : `<div class="riq-num riq-muted">${esc(L.notTracked)}</div>
+       <div class="riq-sub">${esc(L.noData)}</div>`;
 
   render(`
     <div class="riq-card riq-${tone}">
       <div class="riq-head">
         <span class="riq-logo">R</span> Resale IQ
-        ${verdict ? `<span class="riq-verdict riq-${tone}">${verdict}</span>` : ""}
+        <span class="riq-verdict riq-${tone}">${esc(verdict)}</span>
       </div>
-      ${d.product ? `<div class="riq-match">matched: ${esc(d.product)}</div>` : ""}
+      ${d.product ? `<div class="riq-match">${esc(L.matched)}: ${esc(d.product)}</div>` : ""}
       ${body}
       ${overBy != null
-          ? `<div class="riq-row riq-warn">listed at ${money(askingPrice)} — ${money(overBy)} over</div>`
+          ? `<div class="riq-row riq-warn">${esc(L.listedOver(money(askingPrice), money(overBy)))}</div>`
           : (askingPrice != null && buyBelow != null
-              ? `<div class="riq-row riq-good">listed at ${money(askingPrice)} — within your price</div>` : "")}
-      ${d.sell_avg != null ? `<div class="riq-row">sells around <b>${money(d.sell_avg)}</b></div>` : ""}
-      <a class="riq-link" href="https://resaleiq.dev/methodology" target="_blank" rel="noopener">how this is calculated</a>
+              ? `<div class="riq-row riq-good">${esc(L.listedOk(money(askingPrice)))}</div>` : "")}
+      ${d.sell_avg != null ? `<div class="riq-row">${esc(L.median)} <b>${money(d.sell_avg)}</b>${n != null ? ` · ${esc(L.n)} ${esc(n)}` : ""}</div>` : (n != null ? `<div class="riq-row">${esc(L.n)} ${esc(n)}</div>` : "")}
+      <div class="riq-bought">
+        <label>${esc(L.bought)}</label>
+        <input class="riq-bought-input" type="number" min="1" step="1" value="${askingPrice != null ? Math.round(askingPrice) : ""}" />
+        <button class="riq-bought-btn" type="button">OK</button>
+      </div>
+      <a class="riq-link" href="https://resaleiq.dev/methodology" target="_blank" rel="noopener">${esc(L.how)}</a>
     </div>`);
 }
 
 function paintLimited() {
+  const L = t();
   render(`
     <div class="riq-card riq-watch">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
-      <div class="riq-sub">Free checks used up for today. Sign in and the panel
-        reconnects on its own.</div>
-      <a class="riq-link" href="https://resaleiq.dev/login" target="_blank" rel="noopener">Sign in</a>
+      <div class="riq-sub">${esc(L.limited)}</div>
+      <a class="riq-link" href="https://resaleiq.dev/login" target="_blank" rel="noopener">${esc(L.signIn)}</a>
     </div>`);
 }
 
 let lastQuery = "";
+let lastData = null;
+
+function bindBought() {
+  const root = document.getElementById(BADGE_ID);
+  if (!root) return;
+  const btn = root.querySelector(".riq-bought-btn");
+  const input = root.querySelector(".riq-bought-input");
+  if (!btn || !input) return;
+  btn.addEventListener("click", () => {
+    const price = parseFloat(input.value);
+    if (!isFinite(price) || price <= 0) return;
+    const listing = readListing();
+    chrome.runtime.sendMessage({
+      type: "bought",
+      bought_at: price,
+      query: listing?.q || lastQuery,
+      product: lastData?.product || "",
+      listing_url: location.href.slice(0, 500),
+      listing_price: listing?.price ?? null,
+    }, (res) => {
+      if (res?.ok) {
+        btn.textContent = t().saved;
+        btn.disabled = true;
+      }
+    });
+  });
+}
 
 async function run() {
   const listing = readListing();
   if (!listing) { document.getElementById(BADGE_ID)?.remove(); return; }
-  if (listing.q === lastQuery) return;      // Vinted re-renders constantly
+  if (listing.q === lastQuery) return;
   lastQuery = listing.q;
 
-  render(`<div class="riq-card"><div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div><div class="riq-sub">checking…</div></div>`);
+  render(`<div class="riq-card"><div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div><div class="riq-sub">${esc(t().checking)}</div></div>`);
 
   chrome.runtime.sendMessage({ type: "verdict", q: listing.q }, (res) => {
     if (chrome.runtime.lastError) return;
     if (!res?.ok) {
       if (res?.limited) paintLimited();
-      else document.getElementById(BADGE_ID)?.remove();  // unknown item: stay out of the way
+      else document.getElementById(BADGE_ID)?.remove();
       return;
     }
+    lastData = res.data;
     paint(res.data, listing.price);
+    bindBought();
   });
 }
 

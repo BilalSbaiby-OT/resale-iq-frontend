@@ -27,7 +27,7 @@ export const INTENTS: SearchIntent[] = [
     bullets: [
       { h: "Real sold prices, not asking prices", p: "Active listings show what people hope to get. We anchor on what actually sold, so your price reflects the real market." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
-      { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the data supports it. It is paused right now." },
+      { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the watched sample supports it — otherwise the raw sold and listed counts." },
     ],
     faq: [
       { q: "How do I check the price of an item on Vinted?", a: `Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across ${TRACKED} listings in 5 EU markets and returns the typical sale price plus a buy-below price.` },

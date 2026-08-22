@@ -185,7 +185,7 @@ function VerdictInner() {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
-            Enter a brand and model above. The verdict is computed from live Vinted sales momentum and price (sell-through is rolling out as our sold-date history matures),
+            Enter a brand and model above. The verdict is computed from live Vinted sales momentum and price.
             momentum, and price data — the same signals behind the deal scanner.
           </div>
         )}

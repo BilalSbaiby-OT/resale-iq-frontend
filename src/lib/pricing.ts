@@ -1,14 +1,7 @@
 // Pricing ladder: Free -> Starter -> Pro -> Business.
 //
-// Free is depth-limited AND lifetime-capped. Every lookup returns the
-// BUY/WATCH/SKIP headline; FREE_UNLOCK_LIFETIME_BUDGET (10) of them also return
-// the numbers — once, for the life of the account, with no reset.
-//
-// The reset is what mattered. A daily allowance is ~90 unlocks a month
-// renewable forever, which lets free substitute for paying and makes farming a
-// matter of patience. A lifetime budget can be MORE generous up front (10 at
-// once evaluates better than 3 dripped) while giving away strictly less in
-// total, and it can never become a substitute because it runs out for good.
+// Free is a 7-day reverse trial, then 10 full checks per calendar month.
+// Anonymous visitors get 10 numbered views, then a sign-in wall.
 //
 // Business €99 is an enquiry-only anchor that makes Pro €49 read as obvious
 // value. It has no Stripe price on purpose: team seats and bulk features are
@@ -74,7 +67,7 @@ export const TIERS: Tier[] = [
       "Everything in Starter",
       "Live deal finder across 5 EU markets",
       "3-week demand Order Planner",
-      "Per-size sell-through velocity (paused — see /methodology)",
+      "Per-size sell-through when the watched sample supports it",
       // REST API is real (POST /auth/api-key → X-Api-Key auth, power plan only).
       // "Webhook alerts" was removed — we do not ship customer webhooks.
       "REST API access (your own API key)",
@@ -104,12 +97,12 @@ export const TIERS: Tier[] = [
     tagline: "See that the data is real before you pay",
     cta: "Create a free account",
     features: [
-      "3 BUY / WATCH / SKIP verdicts a day",
-      "10 full unlocks — buy-below price, sell price, sizes",
+      "7 days unlimited, then 10 full checks / month",
+      "BUY / WATCH / SKIP on every lookup",
       "The whole reselling manual and market data",
       "No card required",
     ],
-    ceiling: "10 unlocks total, then the numbers stay locked. It does not reset.",
+    ceiling: "10 checks each calendar month after the trial. It resets monthly, not daily.",
   },
 ]
 

@@ -17,8 +17,10 @@ of the buy, which happens on Vinted, not on our dashboard.
 3. **Load unpacked** → select this `extension/` folder
 4. Open any Vinted item page on .es / .fr / .de / .it / .pt
 
-No account needed — you get the anonymous free checks. The options page accepts
+No account needed — the first 10 listing views still show numbers. The options page accepts
 a token to use your plan's allowance instead.
+
+**Chrome Web Store:** https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm
 
 ## Publishing
 

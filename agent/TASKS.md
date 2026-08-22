@@ -15,11 +15,11 @@ Check the box in the SAME commit as the work.
 - [x] **P0-8** Freshness line on homepage + `/data`. If the scrape is >2h old, warn — but still show the numbers.
 
 ## P1 — only after every P0 is [x]
-- [ ] **P1-1** Replace 10 lifetime unlocks with 7 days unlimited, then 10 checks/month.
-- [ ] **P1-2** Extension panel: buy-below, median sold, n, BUY/WATCH/SKIP. Never cover the Buy button. "I bought at €X" button. Logged-out first 10 views still show numbers.
-- [ ] **P1-3** Short homepage (hero under 80 words).
-- [ ] **P1-4** i18n FR + ES for marketing + panel. `vinted.fr` → French, `vinted.es` → Spanish.
-- [ ] **P1-5** Outcome log row for bought-at vs later sold. No public scorecard until n >= 30.
+- [x] **P1-1** Replace 10 lifetime unlocks with 7 days unlimited, then 10 checks/month.
+- [x] **P1-2** Extension panel: buy-below, median sold, n, BUY/WATCH/SKIP. Never cover the Buy button. "I bought at €X" button. Logged-out first 10 views still show numbers.
+- [x] **P1-3** Short homepage (hero under 80 words).
+- [x] **P1-4** i18n FR + ES for marketing + panel. `vinted.fr` → French, `vinted.es` → Spanish.
+- [x] **P1-5** Outcome log row for bought-at vs later sold. No public scorecard until n >= 30.
 
 ## P2 — not in the first 8h unless P0+P1 are done
 - [ ] Deal alerts

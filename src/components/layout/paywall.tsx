@@ -35,8 +35,8 @@ function useTracked(): string {
 
 // Shown to any authenticated account without an active PAID plan.
 //
-// It is no longer a hard wall. A free account has real entitlements — 10
-// lifetime unlocks on the verdict tool — so leading with "choose a plan"
+// It is no longer a hard wall. A free account has a 7-day reverse trial, then
+// 10 checks per month on the verdict tool — so leading with "choose a plan"
 // and nothing else told someone who had just deliberately chosen Free that
 // their account was worthless. They signed up and immediately hit a sales
 // page. What they actually have now comes first; the plans stay underneath.

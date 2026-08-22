@@ -2,12 +2,14 @@
 
 Updated 2026-08-21.
 
-- P0-0 … P0-8 done. P1 not started.
-- Sell-through % is globally withheld. UI shows raw sold_7d + active_listings.
-- Counts: `src/lib/market-numbers.ts` only. `seo-brands.json` is route structure.
-- Hero CTA is Add to Chrome. Authenticity 0–100 is hidden from homepage/pricing/default panel; `/authenticity` still exists.
-- Playwright smoke: `npm run test:e2e` (mock snapshot server). Optional prod GETs in `e2e/prod.smoke.spec.ts`.
-- Do not unpause STR. Do not enable UK, auto-buy, fake hit rates, or authenticity marketing.
-- Stripe dashboard/prices/webhooks: do not touch. Naming trap lives in backend env.
+- P0 and P1 done.
+- Chrome Web Store: https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm
+  (`chromeStoreUrl()` / `NEXT_PUBLIC_CHROME_STORE_URL`).
+- Sell-through % is the observed share `sold_observed / (sold_observed + active)`,
+  capped at 100%, withheld (null) when n < 30 watched sales. Raw counts stay.
+- Free: 7-day reverse trial, then 10 checks/month. Logged-out first 10 views show numbers.
+- i18n: FR/ES for homepage + extension panel (`vinted.fr` / `vinted.es`).
+- Playwright: `npm run test:e2e`.
 
-Evidence: `../demand-intel/docs/READINESS_AUDIT_2026-08-20.md`
+Do not enable UK, auto-buy, fake hit rates, or authenticity marketing.
+Stripe dashboard/prices/webhooks: do not touch.

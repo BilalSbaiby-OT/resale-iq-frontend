@@ -19,7 +19,7 @@ export function ScoreBar({ score, showNumber = true, width = 64 }: ScoreBarProps
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
         {showNumber && (
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 800, color: "#5b6b8c", lineHeight: 1 }}
-                title="Not rated while sell-through is being measured">—</span>
+                title="Not rated — sample too thin">—</span>
         )}
         <div style={{ height: 3, width, borderRadius: 2, background: "#1e2535" }} />
       </div>

@@ -40,8 +40,8 @@ The numbers come from live and sold Vinted listings across five EU markets,
 recomputed hourly. Every formula is published at resaleiq.dev/methodology,
 along with what the data cannot tell you.
 
-Works without an account — you get free checks each day. Sign in for your
-plan's allowance.
+Works without an account — the first 10 listing views still show the numbers.
+Then 7 days unlimited after you sign up, then 10 checks a month.
 
 Support: support@resaleiq.dev
 

@@ -1,9 +1,10 @@
 # Decisions (frontend)
 
 - One warehouse for published counts (`market-numbers.ts`). Static JSON is structure.
-- STR % withheld while discovery rate > 20%. Show raw counts, not "Measuring".
+- STR % is the observed share; show it when n ≥ 30 watched sales, else raw counts (null, not 0).
 - Do not label weekly turns >100% as sell-through.
 - avg_days_to_sell withheld unless n ≥ 30.
-- Hero is the extension panel + Add to Chrome.
+- Hero is the extension panel + Add to Chrome (published store listing).
 - Authenticity 0–100 stays in the product, off marketing surfaces.
 - Pro is self-serve; Business is talk-to-us.
+- Free: 7-day trial, then 10 checks/month. Logged-out first 10 views show numbers.
