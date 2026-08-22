@@ -8,6 +8,7 @@ import type { VerdictResult } from "@/types"
 import { Zap, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
 import { MedianN } from "@/components/ui/median-n"
+import { watchedSampleNote } from "@/lib/watched-sample"
 
 const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string; label: string }> = {
   BUY:     { color: "#34d399", bg: "rgba(52,211,153,.10)", border: "rgba(52,211,153,.35)", label: "BUY" },
@@ -74,6 +75,14 @@ function VerdictInner() {
 
   const vs = result ? (VERDICT_STYLE[result.verdict] ?? VERDICT_STYLE.UNKNOWN) : null
   const MomIcon = result?.momentum ? (MOMENTUM_ICON[result.momentum] ?? Minus) : Minus
+  const sampleNote = result
+    ? watchedSampleNote(result.sold_7d ?? result.n, result.active_listings, result.verdict)
+    : null
+  const honestyNote = sampleNote
+    || result?.confidence_note
+    || (result?.confidence === "LOW" && (result.n ?? result.sold_7d) != null
+      ? `Only ${result.n ?? result.sold_7d} comparable sold items`
+      : null)
 
   return (
     <AppShell title="Quick Verdict" subtitle="Type any product — get an instant buy / skip call from live market data">
@@ -117,10 +126,9 @@ function VerdictInner() {
               </div>
             </div>
 
-            {(result.confidence_note || (result.confidence === "LOW" && (result.n ?? result.sold_7d) != null)) && (
+            {honestyNote && (
               <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#c4a574] bg-[#16140f]">
-                {result.confidence_note
-                  || `Only ${result.n ?? result.sold_7d} comparable sold items`}
+                {honestyNote}
               </div>
             )}
 

@@ -2,10 +2,14 @@
 import { useState } from "react"
 import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
+import { fmtCount } from "@/lib/market-numbers"
+import { watchedSampleNote } from "@/lib/watched-sample"
 
 // Public checker. Anonymous callers get market price + buy-below on the first
 // views (the conversion "holy shit" moment). STR, demand, sizes and history
 // stay behind the plan. Never invent numbers: only render fields the API sent.
+// Number first, letter second, sample third — SKIP without counts reads as
+// "this model does not sell".
 
 interface FreeVerdict {
   verdict?: string
@@ -17,6 +21,7 @@ interface FreeVerdict {
   sell_avg?: number | null
   n?: number | null
   sold_7d?: number | null
+  active_listings?: number | null
   confidence?: string
   confidence_note?: string
   sell_through_rate?: string | null
@@ -58,8 +63,10 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
   }
 
   const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "#8b99b8") : "#8b99b8"
-  const n = res?.n ?? res?.sold_7d
+  const sold = res?.sold_7d ?? res?.n
+  const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
+  const sample = watchedSampleNote(sold, listed, res?.verdict)
   const label = res?.verdict === "INSUFFICIENT_DATA" ? "NOT MEASURED"
     : res?.verdict === "LIMIT_REACHED" ? "LIMIT REACHED"
     : res?.verdict ?? "—"
@@ -89,47 +96,52 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
 
       {res && (
         <div style={{ marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
-              {label}
-            </span>
-            <div>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600 }}>{res.product ?? q}</div>
-              <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
-                {res.category ? `${res.category} · ` : ""}
-                {res.confidence ? `Confidence ${res.confidence}` : ""}
-              </div>
-            </div>
-          </div>
-
-          {res.confidence_note && (
-            <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
-          )}
-
           {res.verdict === "LIMIT_REACHED" ? (
-            <p style={{ marginTop: 12, fontSize: 13.5, color: "#8b99b8" }}>
+            <p style={{ fontSize: 13.5, color: "#8b99b8" }}>
               {res.message ?? "Free checks used up for today. Sign in to continue."}
             </p>
           ) : (
-            <div style={{ marginTop: 16, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
-              <Stat label="Buy-below" value={money(res.buy_below)} accent="#22c55e" />
-              <Stat label="Market price" value={money(res.sell_avg)} />
-              {n != null ? <Stat label="Comparables" value={String(n)} /> : null}
-              {res.locked || res.sell_through_rate == null ? (
-                <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>
-                  <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>Sell-through</div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#5b6b8c" }}>{res.locked ? "Plan" : "—"}</div>
-                </div>
-              ) : (
-                <Stat label="Sell-through" value={res.sell_through_rate} />
-              )}
-            </div>
-          )}
+            <>
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 12 }}>{res.product ?? q}</div>
 
-          {!hasPrices && res.verdict !== "LIMIT_REACHED" && res.verdict !== "INSUFFICIENT_DATA" && (
-            <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
-              Headline call only — market price and buy-below need an account (7 days free, then 10/month).
-            </p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
+                <Stat label="Buy-below" value={money(res.buy_below)} accent="#22c55e" />
+                <Stat label="Market price" value={money(res.sell_avg)} />
+                {sold != null ? <Stat label="Sold (watched)" value={fmtCount(sold)} /> : null}
+                {listed != null ? <Stat label="Still listed" value={fmtCount(listed)} /> : null}
+                {res.locked || res.sell_through_rate == null ? (
+                  <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>
+                    <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>Sell-through</div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: "#5b6b8c" }}>{res.locked ? "Plan" : "—"}</div>
+                  </div>
+                ) : (
+                  <Stat label="Sell-through" value={res.sell_through_rate} />
+                )}
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: 16 }}>
+                <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
+                  {label}
+                </span>
+                <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
+                  {res.category ? `${res.category} · ` : ""}
+                  {res.confidence ? `Confidence ${res.confidence}` : ""}
+                </div>
+              </div>
+
+              {sample && (
+                <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
+              )}
+              {!sample && res.confidence_note && (
+                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
+              )}
+
+              {!hasPrices && res.verdict !== "INSUFFICIENT_DATA" && (
+                <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
+                  Headline call only — market price and buy-below need an account (7 days free, then 10/month).
+                </p>
+              )}
+            </>
           )}
 
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
