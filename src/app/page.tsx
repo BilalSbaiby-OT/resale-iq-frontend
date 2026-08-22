@@ -38,10 +38,10 @@ export default async function Landing() {
       <RedirectIfAuthed />
       {/* Nav */}
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
+        <Link href="/" aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", color: "inherit" }}>
+          <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
           <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
-        </div>
+        </Link>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>{t.signIn}</Link>
           {/* Demoted from a green button. It was pulling the eye away from the
@@ -52,6 +52,7 @@ export default async function Landing() {
         </div>
       </nav>
 
+      <main id="main">
       {/* Hero — ASYMMETRIC ON PURPOSE.
           It was centred: pill badge, centred headline, centred paragraph, two
           centred buttons, proof panel underneath. That stack is the default
@@ -71,7 +72,7 @@ export default async function Landing() {
             <p style={{ fontSize: 17.5, color: "#93a1bd", marginTop: 22, lineHeight: 1.6, maxWidth: 480 }}>
               {t.heroBody}
             </p>
-            <p style={{ fontSize: 13.5, color: "#5b6b8c", marginTop: 12, maxWidth: 480 }}>
+            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 12, maxWidth: 480 }}>
               {t.heroFrom(tracked)}
             </p>
 
@@ -99,7 +100,7 @@ export default async function Landing() {
           ].map(({ t: title, d }) => (
             <div key={title} style={{ padding: "18px 0" }}>
               <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{title}</div>
-              <div style={{ fontSize: 13, color: "#7f8da9", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
+              <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
             </div>
           ))}
         </div>
@@ -111,7 +112,7 @@ export default async function Landing() {
 
       {/* Trust signals — inline, no borders, no template. */}
       <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
-        <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#546380", fontSize: 12.5, lineHeight: 1.5 }}>
+        <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
           <span>Scraped every 30 min</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
@@ -120,24 +121,25 @@ export default async function Landing() {
       </section>
 
       <PricingSection />
+      </main>
 
       {/* Footer */}
-      <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#4d5a75", fontSize: 12 }}>
+      <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#8b99b8", fontSize: 12 }}>
         {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-          <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>Free tools</Link>
-          <Link href="/manual" style={{ color: "#5b6b8c", textDecoration: "none" }}>Reselling manual</Link>
-          <Link href="/methodology" style={{ color: "#5b6b8c", textDecoration: "none" }}>Methodology</Link>
-          <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>Market data</Link>
-          <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>Blog</Link>
-          <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>Terms</Link>
-          <Link href="/privacy" style={{ color: "#5b6b8c", textDecoration: "none" }}>Privacy</Link>
-          <Link href="/legal" style={{ color: "#5b6b8c", textDecoration: "none" }}>Legal notice</Link>
-          <Link href="/support" style={{ color: "#5b6b8c", textDecoration: "none" }}>Support</Link>
-          <Link href="/login" style={{ color: "#5b6b8c", textDecoration: "none" }}>Sign in</Link>
+          <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>Free tools</Link>
+          <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
+          <Link href="/methodology" style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
+          <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>Market data</Link>
+          <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>Blog</Link>
+          <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>Terms</Link>
+          <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>Privacy</Link>
+          <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>Legal notice</Link>
+          <Link href="/support" style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
+          <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
-        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#3f4a63", lineHeight: 1.6 }}>
+        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
           Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
         </div>
       </footer>

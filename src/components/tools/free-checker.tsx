@@ -88,6 +88,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
         <button
           onClick={run}
           disabled={loading}
+          aria-label={loading ? "Checking item" : "Check it free"}
           style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, border: "none", borderRadius: 10, padding: "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}

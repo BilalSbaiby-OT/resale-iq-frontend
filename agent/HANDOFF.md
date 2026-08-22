@@ -10,7 +10,7 @@ Chrome store: https://chromewebstore.google.com/detail/resale-iq-buy-below-price
 P0s 0–8, P1s 1–5, and P2 are done. Do not invent numbers.
 `src/lib/market-numbers.ts` is the warehouse. Playwright: `npm run test:e2e`.
 
-STR: `sold_observed / (sold_observed + active)`, cap 100%, withhold if n < 30.
+STR: `sold_observed / (sold_observed + active) × 100`, null if n < 30 OR active ≤ 0.
 Median sold always carries sample size n; null is an em-dash, never 0.
 
 ---

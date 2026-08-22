@@ -48,7 +48,7 @@ export default async function MethodologyPage() {
     },
     {
       q: "How is sell-through rate calculated?",
-      a: "Watched sales divided by watched sales plus still-listed items, capped at 100%. Only transitions we observed (sold_observed). Below 30 watched sales in the window we withhold the percentage (null, not 0) and show the raw counts. We never label weekly turns as sell-through.",
+      a: "Watched sales divided by watched sales plus still-listed items. Only transitions we observed (sold_observed). We withhold the percentage (null, not 0) when watched sales are below 30 or still-listed is 0 — that last case is the 100% hole, not a rate. Raw counts stay. We never label weekly turns as sell-through.",
     },
     {
       q: "How is the buy-below price calculated?",
@@ -163,10 +163,11 @@ export default async function MethodologyPage() {
           </P>
           <Code>str = sold_observed / (sold_observed + active_listings) × 100</Code>
           <P>
-            Capped at 100%. The numerator is only transitions we watched
+            The numerator is only transitions we watched
             (<Code>sold_observed=1</Code>) — never a discovery-stamped <Code>sold_at</Code>.
-            If the watched sample is below 30 sales in the window, we withhold the
-            percentage (null, not 0) and still show the raw sold and listed counts.
+            Null, not 0 or 100, when watched sales are below 30 <em>or</em> still-listed
+            is 0 (active≤0 is the only way this share hits 100%). Raw sold and listed
+            counts still show.
           </P>
           <Callout label="Why this matters">
             A tool showing you &ldquo;760% sell-through&rdquo; is not showing you a sell-through
