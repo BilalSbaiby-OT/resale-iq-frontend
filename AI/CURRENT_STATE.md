@@ -2,9 +2,9 @@
 
 Updated 2026-08-22 (thin-n/DTS docs + a11y contrast on `/` and `/tools`).
 
-- Live Coolify image tag: `3050aacf…-live` (Target net, SKIP glut helper).
-  Local HEAD may be ahead. Pin: do not rebuild solely to chase git unless the
-  running tag is no longer 3050aac.
+- Live Coolify image tag: `26f5033` (methodology STR withhold + a11y + Target net).
+  Matches origin/main as of 2026-08-22 13:45 UTC. Coolify has overwritten tags
+  before (`1c31d23`, `3050aac`); pin to the running SHA, do not rebuild to chase git.
 - Verdict UI is DECISION → WHY → NUMBER → EVIDENCE. Confidence HIGH/MEDIUM/LOW
   plus "Only N comparable sold items" on LOW. Gated free view still shows the band.
 - Public checker (/tools) shows market price + buy-below + watched sold vs
