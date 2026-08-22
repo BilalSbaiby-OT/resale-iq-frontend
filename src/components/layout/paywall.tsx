@@ -83,9 +83,9 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Your free account is active</span>
         </div>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
-          You get 3 BUY / WATCH / SKIP verdicts a day, plus{" "}
-          <strong style={{ color: "#eef1f7" }}>10 full unlocks</strong> — buy-below price, typical
-          sale price, sell-through and best sizes. They do not expire.
+          You get 7 days unlimited, then{" "}
+          <strong style={{ color: "#eef1f7" }}>10 full checks a month</strong> — buy-below price, typical
+          sale price, sell-through and best sizes. No card required.
         </p>
         {verified === false && (
           <div style={{ background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 9, padding: "11px 13px", marginBottom: 14 }}>

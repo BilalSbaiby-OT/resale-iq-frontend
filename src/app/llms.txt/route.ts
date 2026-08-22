@@ -115,8 +115,7 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 
 ## Pricing
 
-- Free: 3 BUY / WATCH / SKIP verdicts per day, plus 10 full unlocks for the life
-  of the account (not per day — the allowance does not reset). No card.
+- Free: 7 days unlimited, then 10 full checks a month. No card.
 - Starter EUR 19/month: unlimited verdicts and all 100 product signals unblurred.
 - Pro EUR 49/month: adds the live deal finder, Order Planner and REST API access.
 - Business EUR 99/month: enquiry only, scoped case by case.

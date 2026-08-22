@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Entitlement
 
-- Free: 10 lifetime unlocks, 3 verdicts/day. Do not reset the lifetime budget.
+- Free: 7 days unlimited, then 10 checks a month. The monthly budget resets; it is not lifetime.
 - Starter = plan `operator` (€19). Pro = plan `power` (€49).
 - `locked: true` means paid fields are ABSENT from the payload. Never CSS-blur secrets into the DOM.
 - Backend enforces gates. Frontend Paywall is UX, not security.
