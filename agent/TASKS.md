@@ -22,9 +22,9 @@ Check the box in the SAME commit as the work.
 - [x] **P1-5** Outcome log row for bought-at vs later sold. No public scorecard until n >= 30.
 
 ## P2 — not in the first 8h unless P0+P1 are done
-- [ ] Deal alerts
-- [ ] Median + n quality bar
-- [ ] `/data` weekly table
+- [x] Deal alerts
+- [x] Median + n quality bar
+- [x] `/data` weekly table
 
 ## Hard no (do not do these, ever)
 UK market · REST API · Order Planner · auto-buy · fake hit rates · fake users ·

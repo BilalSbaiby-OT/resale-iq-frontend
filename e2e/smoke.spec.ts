@@ -19,6 +19,11 @@ test("/data shows a number or last-good snapshot, never crashes on null", async 
   expect(body).not.toMatch(/undefined|NaN/)
   // Either live/last-good figures or the honest empty state — not a 500.
   expect(body.includes("Nike") || body.includes("being refreshed") || body.includes("Sold")).toBeTruthy()
+  const weekly = page.getByRole("table", { name: /Weekly market snapshot/i })
+  await expect(weekly).toBeVisible()
+  await expect(weekly).toContainText(/Sold \(7 days\)/)
+  await expect(weekly).toContainText(/Listings tracked/)
+  await expect(weekly).toContainText(/Freshness/)
 })
 
 test("login page loads", async ({ page }) => {

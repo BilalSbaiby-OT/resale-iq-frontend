@@ -42,8 +42,10 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
     return () => { cancelled = true }
   }, [deal])
 
-  const avg = deal.avg_price_eur ?? 0
-  const netProfit = (price: number) => avg > 0 ? avg * 0.95 - price : null
+  const avg = typeof deal.avg_price_eur === "number" && Number.isFinite(deal.avg_price_eur)
+    ? deal.avg_price_eur
+    : null
+  const netProfit = (price: number) => avg != null && avg > 0 ? avg * 0.95 - price : null
 
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
@@ -53,7 +55,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
           <div>
             <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#f59e0b" }} /> Live Deals — {deal.brand} {deal.model}</div>
             <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>
-              Buyable now · under €{Math.floor(deal.max_buy_price ?? 0)} · sizes {(deal.top_sizes ?? []).slice(0,4).join(", ") || "all"}
+              Buyable now · {deal.max_buy_price != null ? `under €${Math.floor(deal.max_buy_price)}` : "buy-below withheld"} · sizes {(deal.top_sizes ?? []).slice(0,4).join(", ") || "all"}
               {markets.length > 0 && ` · ${markets.join(" ")}`}
             </div>
           </div>

@@ -26,7 +26,10 @@ export default async function DataPage() {
     return { brand: name, ...f }
   })
   const stamp = market.stamp
-  const totalWeekly = brands.reduce((s, b) => s + (typeof b.sold_7d === "number" ? b.sold_7d : 0), 0)
+  const solds = brands
+    .map(b => b.sold_7d)
+    .filter((n): n is number => typeof n === "number" && Number.isFinite(n))
+  const totalWeekly = solds.length ? solds.reduce((s, n) => s + n, 0) : null
 
   // Dataset schema — makes the DATA ITSELF indexable and citable, and eligible
   // for Google Dataset Search.
@@ -65,6 +68,29 @@ export default async function DataPage() {
         </p>
 
         <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />
+
+        <table
+          aria-label="Weekly market snapshot"
+          style={{ width: "100%", borderCollapse: "collapse", marginTop: 22, fontSize: 13.5, background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, overflow: "hidden" }}
+        >
+          <thead>
+            <tr style={{ background: "#151924", color: "#8b99b8", textAlign: "left" }}>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Sold (7 days)</th>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Listings tracked</th>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Freshness</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(totalWeekly)}</td>
+              <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(market.listingsTracked)}</td>
+              <td style={{ padding: "12px 14px", color: market.stale ? "#fbbf24" : "#8b99b8" }}>
+                {stamp ?? "—"}
+                {market.stale ? " · last-good" : ""}
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         {stamp && (
           <p style={{ fontSize: 12.5, color: "#5b6b8c", marginTop: 10 }}>

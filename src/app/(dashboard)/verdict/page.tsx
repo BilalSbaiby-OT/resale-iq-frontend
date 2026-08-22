@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useCallback, Suspense } from "react"
+import { useState, useEffect, useCallback, Suspense, type ReactNode } from "react"
 import { useSearchParams } from "next/navigation"
 import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict } from "@/lib/api"
@@ -7,6 +7,7 @@ import { eur } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
 import { Zap, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
+import { MedianN } from "@/components/ui/median-n"
 
 const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string; label: string }> = {
   BUY:     { color: "#34d399", bg: "rgba(52,211,153,.10)", border: "rgba(52,211,153,.35)", label: "BUY" },
@@ -134,7 +135,7 @@ function VerdictInner() {
                 {/* Metrics grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
                   <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="#34d399" />
-                  <Metric label="Sells for" value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
+                  <Metric label="Median sold" value={<MedianN median={result.sell_avg} n={result.n ?? result.sold_7d} />} />
                   {result.sell_through_rate
                     ? <Metric label="Sell-through" value={result.sell_through_rate} />
                     : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
@@ -194,7 +195,7 @@ function VerdictInner() {
   )
 }
 
-function Metric({ label, value, accent }: { label: string; value: string; accent?: string }) {
+function Metric({ label, value, accent }: { label: string; value: ReactNode; accent?: string }) {
   return (
     <div className="p-5">
       <div className="text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{label}</div>

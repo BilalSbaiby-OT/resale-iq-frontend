@@ -121,6 +121,7 @@ export interface WatchlistItem {
   momentum_label: Momentum | null
   avg_price_eur: number | null
   max_buy_price: number | null
+  sold_7d: number | null
   str_pct: number | null
   str_unavailable_reason?: string
   top_sizes: string[]

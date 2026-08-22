@@ -7,6 +7,7 @@ import { KpiCard } from "@/components/ui/kpi-card"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
 import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
+import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { eur, ago } from "@/lib/utils"
@@ -119,7 +120,7 @@ export default function DashboardPage() {
         <Section title="Top opportunities" sub="Ranked by opportunity score, refreshed hourly" action={{ href: "/deals", label: "Deal scanner" }}>
           {!deals ? <SkeletonRows rows={6} height={34} /> : (
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead><tr>{["Product", "Buy below", "Est. profit", ...(strLive ? ["STR"] : ["Sold / 7d", "Listed"]), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
+              <thead><tr>{["Product", "Buy below", "Median sold", "Est. profit", ...(strLive ? ["STR"] : ["Sold / 7d", "Listed"]), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
               <tbody>
                 {deals.map((d, i) => (
                   <tr key={i}>
@@ -131,6 +132,11 @@ export default function DashboardPage() {
                       {dealsLocked
                         ? <Link href="/account" title="Upgrade to see buy-below prices" style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
                         : eur(d.max_buy_price)}
+                    </td>
+                    <td style={NUM}>
+                      {dealsLocked
+                        ? <Link href="/account" title="Upgrade to see median sold" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
+                        : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}
                     </td>
                     <td style={NUM}>
                       {dealsLocked
@@ -166,7 +172,9 @@ export default function DashboardPage() {
                   style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 16px", textDecoration: "none", borderBottom: "1px solid #181e2d" }}>
                   <span style={{ fontSize: 11, color: "#4d5a75", width: 20, fontVariantNumeric: "tabular-nums" }}>{b.rank}</span>
                   <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "#eef1f7" }}>{b.brand}</span>
-                  <span style={{ fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>{eur(b.avg_price_eur)}</span>
+                  <span style={{ fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
+                    <MedianN median={b.avg_price_eur} n={b.sold_7d} />
+                  </span>
                   <span style={{ fontSize: 10, fontWeight: 600, color: b.speed_label?.includes("Fast") ? "#34d399" : "#fbbf24" }}>{b.speed_label}</span>
                 </Link>
               ))}

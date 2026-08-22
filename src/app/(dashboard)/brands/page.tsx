@@ -49,8 +49,8 @@ export default function BrandsPage() {
                   className="hover:bg-[#1a2030] cursor-pointer transition-colors border-b border-[#1e2535] last:border-0">
                   <td className="px-3 py-2.5 font-mono text-[11px] text-[#546380]">#{b.rank}</td>
                   <td className="px-3 py-2.5 font-semibold text-[14px]">{b.brand}</td>
-                  <td className="px-3 py-2.5 font-mono text-[12px]">{eur(b.avg_price_eur)}</td>
-                  <td className="px-3 py-2.5 font-mono font-bold text-[12px]">{(b.sold_7d ?? 0).toLocaleString()}</td>
+                  <td className="px-3 py-2.5 font-mono text-[12px]">{eur(b.avg_price_eur)}{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? <span className="text-[#5b6b8c] font-medium"> · n {b.sold_7d.toLocaleString("en-GB")}</span> : null}</td>
+                  <td className="px-3 py-2.5 font-mono font-bold text-[12px]">{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? b.sold_7d.toLocaleString("en-GB") : "—"}</td>
                   <td className="px-3 py-2.5"><span className={`text-[9px] font-mono font-bold px-2 py-1 rounded border ${SPEED_COLORS[b.speed_label] ?? ""}`}>{b.speed_label}</span></td>
                   <td className="px-3 py-2.5"><span className={`text-[9px] font-mono font-bold px-2 py-1 rounded border ${b.profit_label === "High" ? SPEED_COLORS["Very Fast"] : b.profit_label === "Medium" ? SPEED_COLORS["Medium"] : SPEED_COLORS["Slow"]}`}>{b.profit_label}</span></td>
                   <td className="px-3 py-2.5 font-mono text-[12px]">{b.demand_score?.toFixed(0) ?? "—"}</td>

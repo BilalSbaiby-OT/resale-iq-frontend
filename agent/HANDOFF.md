@@ -1,16 +1,17 @@
 STATUS: READY
 PUSH: yes
-UPDATED: 2026-08-21
-LAST SESSION DID: P1-1–P1-5 + honest observed STR + Chrome store URL
-NEXT TASK: P2 (deal alerts) only if asked — P0+P1 boxes are [x]
+UPDATED: 2026-08-22
+LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
+NEXT TASK: offsite backup OAuth (Drive token) — see CURRENT_STATE. P0–P2 boxes are [x]
 
 Frontend origin: (this commit). Backend: (this commit).
 Chrome store: https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm
 
-P0s 0–8 and P1s 1–5 are done. Do not invent numbers.
+P0s 0–8, P1s 1–5, and P2 are done. Do not invent numbers.
 `src/lib/market-numbers.ts` is the warehouse. Playwright: `npm run test:e2e`.
 
 STR: `sold_observed / (sold_observed + active)`, cap 100%, withhold if n < 30.
+Median sold always carries sample size n; null is an em-dash, never 0.
 
 ---
 

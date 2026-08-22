@@ -8,6 +8,7 @@ import { eur } from "@/lib/utils"
 import type { WatchlistItem } from "@/types"
 import Link from "next/link"
 import { Lock } from "lucide-react"
+import { MedianN } from "@/components/ui/median-n"
 
 export default function WatchlistPage() {
   const [items, setItems] = useState<WatchlistItem[]>([])
@@ -71,14 +72,24 @@ export default function WatchlistPage() {
                 <button onClick={() => remove(item.id)} className="text-[#546380] hover:text-red-400 text-lg leading-none">×</button>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-3">
-                {[["Buy Below", eur(item.max_buy_price), "text-emerald-400"], ["Sell ~", eur(item.avg_price_eur), ""], ["STR", item.str_pct != null ? `${item.str_pct.toFixed(0)}%` : "—", "text-amber-400"]].map(([l,v,c]) => (
-                  <div key={String(l)} className="bg-[#1a2030] rounded-lg p-2">
-                    <div className="text-[9px] font-mono text-[#546380] uppercase">{l}</div>
-                    <div className={`font-mono font-bold text-[13px] mt-0.5 ${c}`}>
-                      {locked ? <Lock size={11} className="text-[#546380]" /> : v}
-                    </div>
+                <div className="bg-[#1a2030] rounded-lg p-2">
+                  <div className="text-[9px] font-mono text-[#546380] uppercase">Buy Below</div>
+                  <div className="font-mono font-bold text-[13px] mt-0.5 text-emerald-400">
+                    {locked ? <Lock size={11} className="text-[#546380]" /> : eur(item.max_buy_price)}
                   </div>
-                ))}
+                </div>
+                <div className="bg-[#1a2030] rounded-lg p-2">
+                  <div className="text-[9px] font-mono text-[#546380] uppercase">Median sold</div>
+                  <div className="font-mono font-bold text-[13px] mt-0.5">
+                    {locked ? <Lock size={11} className="text-[#546380]" /> : <MedianN median={item.avg_price_eur} n={item.sold_7d} />}
+                  </div>
+                </div>
+                <div className="bg-[#1a2030] rounded-lg p-2">
+                  <div className="text-[9px] font-mono text-[#546380] uppercase">STR</div>
+                  <div className="font-mono font-bold text-[13px] mt-0.5 text-amber-400">
+                    {locked ? <Lock size={11} className="text-[#546380]" /> : (item.str_pct != null ? `${item.str_pct.toFixed(0)}%` : "—")}
+                  </div>
+                </div>
               </div>
               {item.momentum_label && <div className="mb-3"><MomentumBadge momentum={item.momentum_label} /></div>}
               <div className="flex gap-2">
