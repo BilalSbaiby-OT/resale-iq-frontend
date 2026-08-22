@@ -2,8 +2,11 @@
 import { useState } from "react"
 import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
-import { fmtCount } from "@/lib/market-numbers"
 import { watchedSampleNote } from "@/lib/watched-sample"
+
+function fmtCount(n: number | null | undefined): string {
+  return n != null && Number.isFinite(n) ? n.toLocaleString("en-GB") : "—"
+}
 
 // Public checker. Anonymous callers get market price + buy-below on the first
 // views (the conversion "holy shit" moment). STR, demand, sizes and history
