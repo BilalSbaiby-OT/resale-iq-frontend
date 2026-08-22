@@ -34,7 +34,7 @@ export default async function Landing() {
   const chrome = chromeStoreUrl()
   const t = copy[detectLocale((await headers()).get("accept-language"))]
   return (
-    <div style={{ background: "#0B0D10", color: "#eef1f7", minHeight: "100vh" }}>
+    <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
       {/* Nav */}
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
@@ -77,9 +77,10 @@ export default async function Landing() {
             </p>
 
             {/* ONE primary action. "See pricing" was competing at nearly equal
-                weight while already sitting in the nav two inches above. */}
+                weight while already sitting in the nav two inches above.
+                Chrome Web Store is desktop-only — hide the extension CTA below md. */}
             <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
-              <a href={chrome} style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10, display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10 }}>
                 {t.addToChrome} <ArrowRight size={16} />
               </a>
               <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
@@ -88,7 +89,9 @@ export default async function Landing() {
             </div>
           </div>
 
-          <ExtensionHero />
+          <div className="hidden md:block">
+            <ExtensionHero />
+          </div>
         </div>
       </section>
 

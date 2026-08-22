@@ -65,13 +65,11 @@ export const TIERS: Tier[] = [
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
-      "Live deal finder across 5 EU markets",
+      "Live Deal Finder — current Vinted listings under your buy-below, scanned every 30 minutes",
       "3-week demand Order Planner",
       "Per-size sell-through when the watched sample supports it",
-      // REST API is real (POST /auth/api-key → X-Api-Key auth, power plan only).
-      // "Webhook alerts" was removed — we do not ship customer webhooks.
       "REST API access (your own API key)",
-      "Cross-platform fee calculator",
+      "26-market Price Compare",
     ],
   },
   {
@@ -84,10 +82,12 @@ export const TIERS: Tier[] = [
     features: [
       "Unlimited buy/sell verdicts",
       "All 100 product signals, unblurred",
+      "Deal Scanner — warehouse models already under buy-below",
       "Full market trends & brand rankings",
       "Watchlist & portfolio P&L",
+      "Cross-platform fee calculator",
     ],
-    ceiling: "No live deal finder, Order Planner or API — that's Pro.",
+    ceiling: "No Live Deal Finder, Order Planner, Price Compare or API — that's Pro.",
   },
   {
     id: "free",
@@ -97,12 +97,12 @@ export const TIERS: Tier[] = [
     tagline: "See that the data is real before you pay",
     cta: "Create a free account",
     features: [
-      "7 days unlimited, then 10 full checks / month",
+      "7 days of Starter (verdicts + Deal Scanner), 5 live finds and 1 order plan, then 10 full checks / month",
       "BUY / WATCH / SKIP on every lookup",
       "The whole reselling manual and market data",
       "No card required",
     ],
-    ceiling: "10 checks each calendar month after the trial. It resets monthly, not daily.",
+    ceiling: "10 checks each calendar month after the trial. Live Finder after the 5 trial searches is Pro.",
   },
 ]
 

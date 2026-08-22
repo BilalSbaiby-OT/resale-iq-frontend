@@ -74,5 +74,12 @@ function buildCategories(): CategoryData[] {
 export const CATEGORIES: CategoryData[] = buildCategories()
 
 export function getCategory(slug: string): CategoryData | undefined {
-  return CATEGORIES.find((c) => c.slug === slug)
+  const want = (slug || "").trim().toLowerCase()
+  if (!want) return undefined
+  return CATEGORIES.find(
+    (c) =>
+      c.slug === want ||
+      c.slug === catSlug(slug) ||
+      c.category.toLowerCase() === want,
+  )
 }

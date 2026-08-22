@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import type { Metadata } from "next"
 import { CATEGORIES, getCategory, catSlug, type CategoryEntry } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
@@ -70,6 +70,7 @@ export default async function CategoryPage(
   const { category } = await params
   const c = getCategory(category)
   if (!c) notFound()
+  if (category !== c.slug) redirect(`/category/${c.slug}`)
 
   const market = await getMarketNumbers()
   const entries = withLiveVolumes(c.entries, c.category, market)
