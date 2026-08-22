@@ -99,6 +99,7 @@ function VerdictInner() {
             {/* Verdict header */}
             <div className="p-6 flex items-center justify-between border-b border-[#1e2535]">
               <div>
+                <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">Decision</div>
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
                 {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
               </div>
@@ -110,10 +111,18 @@ function VerdictInner() {
                 {result.confidence && (
                   <div className="text-[10px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
                     Confidence {result.confidence}
+                    {result.provisional ? " · provisional" : ""}
                   </div>
                 )}
               </div>
             </div>
+
+            {(result.confidence_note || (result.confidence === "LOW" && (result.n ?? result.sold_7d) != null)) && (
+              <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#c4a574] bg-[#16140f]">
+                {result.confidence_note
+                  || `Only ${result.n ?? result.sold_7d} comparable sold items`}
+              </div>
+            )}
 
             {result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
               // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
@@ -126,20 +135,32 @@ function VerdictInner() {
                 {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
               </div>
             ) : result.locked ? (
-              // Server withheld every number. Rendering the metric grid here
-              // would just print a row of em-dashes, which reads as "we have no
-              // data" rather than "this is behind a plan".
+              // Server withheld the paid numbers. Confidence + comparable count
+              // stay visible so the headline does not look like magical AI.
               <div className="p-6 pt-5">
                 <div className="text-[13px] leading-6 text-[#8b99b8]">
                   This is the headline call on{" "}
                   <span className="font-semibold text-[#eef1f7]">{result.product || query}</span>,
-                  computed from live sold listings across 5 EU markets.
+                  computed from watched sold listings across 5 EU markets.
                 </div>
                 <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
               </div>
             ) : (
               <>
-                {/* Metrics grid */}
+                {/* WHY before numbers — DECISION → REASON → NUMBER → EVIDENCE */}
+                {result.reasons && result.reasons.length > 0 && (
+                  <div className="p-6 border-b border-[#1e2535]">
+                    <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">Why</div>
+                    <ul className="flex flex-col gap-2">
+                      {result.reasons.map((r, i) => (
+                        <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
+                          <span className="text-emerald-400 mt-0.5">•</span>{r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
                   <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="#34d399" />
                   <Metric label="Median sold" value={<MedianN median={result.sell_avg} n={result.n ?? result.sold_7d} />} />
@@ -147,17 +168,16 @@ function VerdictInner() {
                     ? <Metric label="Sell-through" value={result.sell_through_rate} />
                     : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
                   {result.buy_below != null && result.sell_avg != null
-                    ? <Metric label="Buying room" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="#34d399" />
+                    ? <Metric label="Est. margin" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="#34d399" />
                     : result.sell_through_rate
                     ? <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
                     : <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
                 </div>
 
-                {/* Momentum + sizes */}
-                <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3 border-b border-[#1e2535]">
+                <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3">
                   {result.momentum && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">Momentum</span>
+                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">Demand</span>
                       <span className="flex items-center gap-1 text-[13px] font-semibold text-[#e8ecf4]">
                         <MomIcon size={14} /> {result.momentum}
                       </span>
@@ -174,20 +194,6 @@ function VerdictInner() {
                     </div>
                   )}
                 </div>
-
-                {/* Reasons */}
-                {result.reasons && result.reasons.length > 0 && (
-                  <div className="p-6">
-                    <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">Why</div>
-                    <ul className="flex flex-col gap-2">
-                      {result.reasons.map((r, i) => (
-                        <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
-                          <span className="text-emerald-400 mt-0.5">•</span>{r}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </>
             )}
           </div>

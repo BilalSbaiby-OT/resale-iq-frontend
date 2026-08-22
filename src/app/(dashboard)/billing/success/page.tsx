@@ -46,7 +46,7 @@ function BillingSuccessContent() {
         </>)}
         {state === "ok" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><CheckCircle2 size={34} style={{ color: "#22c55e" }} /></div>
-          <div style={{ fontSize: 18, fontWeight: 750 }}>Welcome to {plan.charAt(0).toUpperCase() + plan.slice(1)}</div>
+          <div style={{ fontSize: 18, fontWeight: 750 }}>Welcome to {plan === "operator" ? "Starter" : plan === "power" ? "Pro" : plan}</div>
           <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded. Taking you to your dashboard…</div>
         </>)}
         {state === "unpaid" && (<>

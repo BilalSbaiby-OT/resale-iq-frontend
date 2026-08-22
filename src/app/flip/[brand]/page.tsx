@@ -245,12 +245,18 @@ export default async function BrandFlipPage(
             </li>
           ))}
         </ul>
-        <Link href="/register" style={{
+          <Link href="/register" style={{
           display: "inline-flex", alignItems: "center", gap: 7, background: "#22c55e",
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",
         }}>
-          See {b.brand} buy prices <ArrowRight size={15} />
+          Analyze a {b.brand} item <ArrowRight size={15} />
+        </Link>
+        <Link href="/tools" style={{
+          display: "inline-flex", alignItems: "center", gap: 7, marginLeft: 10,
+          color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none",
+        }}>
+          or check one free
         </Link>
         <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 10 }}>
           From €19/month. Cancel anytime.
@@ -263,7 +269,12 @@ export default async function BrandFlipPage(
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         We continuously track live and sold listings across Vinted ES, FR, DE, IT and PT —
         {tracked} unique listings — and recompute every signal hourly. The figures on this page are
-        live aggregates, not estimates.
+        live aggregates, not estimates. Last calculated {market.stamp ?? "—"}.{" "}
+        <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>Methodology</Link>
+        {" · "}
+        <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>Market data</Link>
+        {" · "}
+        <Link href="/tools" style={{ color: "#22c55e", textDecoration: "none" }}>Analyze an item</Link>.
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         For how to turn figures like these into a buy decision, the{" "}

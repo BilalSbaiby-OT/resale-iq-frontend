@@ -5,7 +5,7 @@
  * Reuses utcStamp() from last-good-snapshot and the same role="status" pattern
  * as MomentumWarmupNotice. Renders nothing when the stamp is fresh.
  */
-import { scrapeIsStale } from "@/lib/last-good-snapshot"
+import { scrapeIsStale } from "@/lib/snapshot-freshness"
 
 export function FreshnessNotice({
   stamp,

@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test"
 test("landing page loads and is not empty", async ({ page }) => {
   const res = await page.goto("/")
   expect(res?.ok()).toBeTruthy()
-  await expect(page.locator("h1")).toContainText(/Stop guessing/i)
+  await expect(page.locator("h1")).toContainText(/Know what to pay/i)
   await expect(page.getByRole("link", { name: /Add to Chrome|Ajouter à Chrome|Añadir a Chrome/i })).toBeVisible()
   const chrome = page.getByRole("link", { name: /Add to Chrome|Ajouter à Chrome|Añadir a Chrome/i })
   await expect(chrome).toHaveAttribute("href", /fgpajplglnapkebhbcbhlmbbkmnighcm/)
@@ -37,6 +37,22 @@ test("/pricing redirects to /#pricing", async ({ page }) => {
   const res = await page.goto("/pricing")
   expect(res?.status()).toBeLessThan(400)
   await expect(page).toHaveURL(/\/#pricing$/)
+})
+
+test("methodology explains sell-through, buy-below and confidence", async ({ page }) => {
+  const res = await page.goto("/methodology")
+  expect(res?.ok()).toBeTruthy()
+  const body = await page.locator("body").innerText()
+  expect(body).toMatch(/sold_observed/i)
+  expect(body).toMatch(/0\.95/i)
+  expect(body).toMatch(/HIGH/i)
+  expect(body).not.toMatch(/undefined|NaN/)
+})
+
+test("/tools checker is the free holy-shit moment, not a register wall", async ({ page }) => {
+  const res = await page.goto("/tools")
+  expect(res?.ok()).toBeTruthy()
+  await expect(page.getByLabel(/Item to check/i)).toBeVisible()
 })
 
 test("unauthenticated /dashboard redirects to auth", async ({ page }) => {

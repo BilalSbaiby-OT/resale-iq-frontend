@@ -11,14 +11,8 @@
  * catalogue, so counting rows would overstate by roughly 3x.
  */
 
-/**
- * Rounded DOWN to the nearest 10k, so the claim stays true between refreshes
- * and as the number grows. Rounding up would make the site briefly overstate,
- * which is the whole failure being fixed.
- */
-export function floorTo10k(n: number): string {
-  return (Math.floor(n / 10_000) * 10_000).toLocaleString("en-GB")
-}
+import { floorTo10k } from "./floor-to-10k"
+export { floorTo10k }
 
 export async function getListingsTracked(): Promise<number | null> {
   // Same warehouse and same 15-minute revalidate as /data. A second fetch of

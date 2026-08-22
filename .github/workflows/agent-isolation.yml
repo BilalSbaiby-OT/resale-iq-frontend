@@ -35,6 +35,12 @@ jobs:
       - name: Check source
         run: npm run check:isolation
 
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Warehouse honesty
+        run: npm run check:tracked && npm run check:warehouse
+
       - name: Build
         run: npm run build
         env:

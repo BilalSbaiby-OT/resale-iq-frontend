@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { CATEGORIES } from "@/lib/seo-categories"
+import { CATEGORIES, BRANDS } from "@/lib/seo-categories"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
@@ -142,7 +142,14 @@ export default async function DataPage() {
                 {brands.map((b, i) => (
                   <tr key={b.brand} style={{ borderTop: "1px solid #161b26" }}>
                     <td style={{ padding: "11px 14px", color: "#5b6b8c" }}>{i + 1}</td>
-                    <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>{b.brand}</td>
+                    <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>
+                      {(() => {
+                        const slug = BRANDS.find(x => x.brand === b.brand)?.slug
+                        return slug
+                          ? <Link href={`/flip/${slug}`} style={{ color: "#eef1f7", textDecoration: "none" }}>{b.brand}</Link>
+                          : b.brand
+                      })()}
+                    </td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>
                       {fmtCount(b.sold_7d)}
                     </td>
@@ -167,6 +174,9 @@ export default async function DataPage() {
           <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans →
           </Link>
+          <Link href="/tools" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+            or check an item free
+          </Link>
         </div>
 
         {/* /data is the parent of the category rankings — without these links the
@@ -189,8 +199,9 @@ export default async function DataPage() {
         </div>
 
         <div style={{ marginTop: 26, display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Analyze an item</Link>
+          <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Methodology</Link>
           <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ The reselling manual</Link>
-          <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Free reseller tools</Link>
           <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Reselling guides</Link>
         </div>
       </div>

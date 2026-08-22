@@ -6,6 +6,15 @@
 // make a browser extension work is a bad trade. The service worker has its
 // own origin and host_permissions, so nothing about the API changes.
 const API = "https://resaleiq.dev";
+const CACHE_TTL_MS = 10 * 60 * 1000;
+const cache = new Map();
+
+function cached(q) {
+  const hit = cache.get(q);
+  if (!hit) return null;
+  if (Date.now() - hit.at > CACHE_TTL_MS) { cache.delete(q); return null; }
+  return hit.data;
+}
 
 chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
   if (msg?.type === "bought") {
@@ -36,27 +45,26 @@ chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
 
   (async () => {
     try {
+      const hit = cached(msg.q);
+      if (hit) { respond({ ok: true, data: hit, cached: true }); return; }
+
       const { riq_token } = await chrome.storage.sync.get("riq_token");
       const headers = { Accept: "application/json" };
-      // Optional. Without it the caller gets the anonymous free allowance,
-      // which is the point — the extension has to be useful before signup.
       if (riq_token) headers.Authorization = `Bearer ${riq_token}`;
 
       const r = await fetch(`${API}/api/verdict?q=${encodeURIComponent(msg.q)}`, { headers });
+      if (r.status === 429) { respond({ ok: false, limited: true, rate: true }); return; }
       if (!r.ok) { respond({ ok: false, status: r.status }); return; }
       const data = await r.json();
 
-      // Verified against production: the endpoint returns HTTP 200 with
-      // {"verdict":"LIMIT_REACHED"} when the free allowance is spent, and
-      // "UNKNOWN" when it has no data for the query. Checking r.status alone
-      // would have rendered both as a normal verdict card.
       if (data?.verdict === "LIMIT_REACHED") { respond({ ok: false, limited: true }); return; }
       if (data?.verdict === "UNKNOWN") { respond({ ok: false, unknown: true }); return; }
+      cache.set(msg.q, { at: Date.now(), data });
       respond({ ok: true, data });
     } catch (e) {
       respond({ ok: false, error: String(e) });
     }
   })();
 
-  return true; // keep the message channel open for the async respond
+  return true;
 });

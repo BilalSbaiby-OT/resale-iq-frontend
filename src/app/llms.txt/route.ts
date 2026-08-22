@@ -36,11 +36,9 @@ export async function GET() {
 
   const body = `# Resale IQ
 
-> Resale intelligence for people reselling secondhand clothing on Vinted.
-> We continuously track live and sold listings across the five main EU Vinted
-> markets (Spain, France, Germany, Italy, Portugal) and turn them into a
-> BUY / WATCH / SKIP decision with a maximum buy price, expected sale price,
-> sell-through rate and the sizes that sell fastest.
+> Market intelligence for second-hand commerce. Know what to pay before you buy.
+> Flow: DATA → ANALYSIS → DECISION (BUY / WATCH / SKIP with a why).
+> Vinted is the first marketplace we cover; the intelligence layer is not Vinted-only.
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
 any brand named on the site.

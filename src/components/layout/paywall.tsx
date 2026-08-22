@@ -6,7 +6,7 @@ import { Lock, Check, Unlock } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { getPlans, createCheckout, getMe, getTrialRecap } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
-import { floorTo10k } from "@/lib/stats"
+import { floorTo10k } from "@/lib/floor-to-10k"
 
 /**
  * The dataset size, fetched client-side.

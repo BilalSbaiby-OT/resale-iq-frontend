@@ -120,7 +120,7 @@ export default function DashboardPage() {
         <Section title="Top opportunities" sub="Ranked by opportunity score, refreshed hourly" action={{ href: "/deals", label: "Deal scanner" }}>
           {!deals ? <SkeletonRows rows={6} height={34} /> : (
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead><tr>{["Product", "Buy below", "Median sold", "Est. profit", ...(strLive ? ["STR"] : ["Sold / 7d", "Listed"]), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
+              <thead><tr>{["Product", "Buy below", "Median sold", "Est. margin", ...(strLive ? ["STR"] : ["Sold / 7d", "Listed"]), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
               <tbody>
                 {deals.map((d, i) => (
                   <tr key={i}>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
                     </td>
                     <td style={NUM}>
                       {dealsLocked
-                        ? <Link href="/account" title="Upgrade to see estimated profit" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
+                        ? <Link href="/account" title="Upgrade to see estimated margin" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
                         : <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>}
                     </td>
                     {strLive

@@ -15,6 +15,10 @@ const SNAPSHOT = {
   listings_tracked: 966236,
   updated_at: NOW,
   brand_count: 2,
+  brands_tracked: 26,
+  publish_floor_sold_7d: 5,
+  sold_7d_kind: "sold_observed",
+  provenance: { scope: "EU5", sold: "watched transitions", window: "trailing 7d" },
   brands: [
     {
       brand: "Nike",

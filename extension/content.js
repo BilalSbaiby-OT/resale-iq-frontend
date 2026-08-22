@@ -12,6 +12,8 @@
  * anything about them anywhere. It reads the public title and price already
  * rendered on the page, and asks our own public verdict endpoint about it.
  */
+const BADGE_ID = "riq-badge";
+
 function locale() {
   const h = (location.hostname || "").toLowerCase();
   if (h.includes("vinted.fr") || h.endsWith(".fr")) return "fr";
@@ -35,6 +37,8 @@ const I18N = {
     limited: "Free checks used up for today. Sign in and the panel reconnects on its own.",
     signIn: "Sign in",
     checking: "checking…",
+    why: "why",
+    rate: "Too many lookups. Wait a minute.",
   },
   fr: {
     most: "le maximum à payer pour votre marge",
@@ -51,6 +55,8 @@ const I18N = {
     limited: "Essais gratuits épuisés aujourd'hui. Connectez-vous et le panneau se reconnecte.",
     signIn: "Connexion",
     checking: "vérification…",
+    why: "pourquoi",
+    rate: "Trop de requêtes. Attendez une minute.",
   },
   es: {
     most: "lo máximo que puedes pagar para tu margen",
@@ -67,6 +73,8 @@ const I18N = {
     limited: "Comprobaciones gratis agotadas hoy. Entra y el panel se reconecta solo.",
     signIn: "Entrar",
     checking: "comprobando…",
+    why: "por qué",
+    rate: "Demasiadas consultas. Espera un minuto.",
   },
 };
 
@@ -78,7 +86,9 @@ function readListing() {
   if (!/\/items\/\d+/.test(location.pathname)) return null;
 
   const title =
-    document.querySelector('h1[class*="title"], .details-list__item-value, h1')?.textContent?.trim() ||
+    document.querySelector(
+      '[data-testid="item-title"], h1[class*="title"], h1, .details-list__item-value'
+    )?.textContent?.trim() ||
     document.title.split("|")[0].trim();
 
   // The brand link is the most reliable signal; the title alone is noisy.
@@ -145,11 +155,16 @@ function paint(d, askingPrice) {
   // would get us uninstalled, rewriting BUY into TOO DEAR hid the model call.
   const verdict = (d.verdict || d.signal || "WATCH").toUpperCase();
   const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
+  const shown = verdict === "INSUFFICIENT_DATA" ? "NO DATA" : verdict;
   let overBy = null;
   if (buyBelow != null && askingPrice != null && askingPrice > buyBelow) {
     overBy = askingPrice - buyBelow;
   }
   const n = d.n ?? d.sold_7d ?? null;
+  const conf = (d.confidence || "").toUpperCase();
+  const note = d.confidence_note
+    || (conf === "LOW" && n != null ? `Only ${n} comparable sold items` : "");
+  const why = Array.isArray(d.reasons) && d.reasons[0] ? d.reasons[0] : "";
   const body = buyBelow != null
     ? `<div class="riq-num">${money(buyBelow)}</div>
        <div class="riq-sub">${esc(L.most)}</div>`
@@ -160,15 +175,18 @@ function paint(d, askingPrice) {
     <div class="riq-card riq-${tone}">
       <div class="riq-head">
         <span class="riq-logo">R</span> Resale IQ
-        <span class="riq-verdict riq-${tone}">${esc(verdict)}</span>
+        <span class="riq-verdict riq-${tone}">${esc(shown)}</span>
       </div>
       ${d.product ? `<div class="riq-match">${esc(L.matched)}: ${esc(d.product)}</div>` : ""}
       ${body}
+      ${conf ? `<div class="riq-conf">${esc(conf)}${d.provisional ? " · prov." : ""}</div>` : ""}
+      ${note ? `<div class="riq-note">${esc(note)}</div>` : ""}
       ${overBy != null
           ? `<div class="riq-row riq-warn">${esc(L.listedOver(money(askingPrice), money(overBy)))}</div>`
           : (askingPrice != null && buyBelow != null
               ? `<div class="riq-row riq-good">${esc(L.listedOk(money(askingPrice)))}</div>` : "")}
       ${d.sell_avg != null ? `<div class="riq-row">${esc(L.median)} <b>${money(d.sell_avg)}</b>${n != null ? ` · ${esc(L.n)} ${esc(n)}` : ""}</div>` : (n != null ? `<div class="riq-row">${esc(L.n)} ${esc(n)}</div>` : "")}
+      ${why ? `<div class="riq-why">${esc(L.why)}: ${esc(why)}</div>` : ""}
       <div class="riq-bought">
         <label>${esc(L.bought)}</label>
         <input class="riq-bought-input" type="number" min="1" step="1" value="${askingPrice != null ? Math.round(askingPrice) : ""}" />
@@ -178,12 +196,12 @@ function paint(d, askingPrice) {
     </div>`);
 }
 
-function paintLimited() {
+function paintLimited(rate) {
   const L = t();
   render(`
     <div class="riq-card riq-watch">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
-      <div class="riq-sub">${esc(L.limited)}</div>
+      <div class="riq-sub">${esc(rate ? L.rate : L.limited)}</div>
       <a class="riq-link" href="https://resaleiq.dev/login" target="_blank" rel="noopener">${esc(L.signIn)}</a>
     </div>`);
 }
@@ -226,15 +244,22 @@ async function run() {
   render(`<div class="riq-card"><div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div><div class="riq-sub">${esc(t().checking)}</div></div>`);
 
   chrome.runtime.sendMessage({ type: "verdict", q: listing.q }, (res) => {
-    if (chrome.runtime.lastError) return;
+    if (chrome.runtime.lastError) {
+      document.getElementById(BADGE_ID)?.remove();
+      return;
+    }
     if (!res?.ok) {
-      if (res?.limited) paintLimited();
+      if (res?.limited) paintLimited(res.rate);
       else document.getElementById(BADGE_ID)?.remove();
       return;
     }
     lastData = res.data;
-    paint(res.data, listing.price);
-    bindBought();
+    try {
+      paint(res.data, listing.price);
+      bindBought();
+    } catch {
+      document.getElementById(BADGE_ID)?.remove();
+    }
   });
 }
 
@@ -242,6 +267,9 @@ async function run() {
 // load would only ever work for the first item the user opens.
 let t;
 const debounced = () => { clearTimeout(t); t = setTimeout(run, 400); };
-new MutationObserver(debounced).observe(document.body, { childList: true, subtree: true });
+try {
+  const root = document.body || document.documentElement;
+  if (root) new MutationObserver(debounced).observe(root, { childList: true, subtree: true });
+} catch { /* fail closed: no overlay is better than breaking Vinted */ }
 addEventListener("popstate", debounced);
-run();
+try { run(); } catch { /* same */ }

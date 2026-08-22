@@ -55,6 +55,10 @@ export default async function MethodologyPage() {
       a: "Recent average sale price for that specific model, minus the platform deduction we model for Vinted (5%), multiplied by 0.70 to target roughly a 30% margin. Substitute your own fee figure if yours differs — the arithmetic does not care what the number is, only that you use the real one.",
     },
     {
+      q: "What does HIGH / MEDIUM / LOW confidence mean?",
+      a: "It is a band from data-quality score, comparable watched sales and snapshot recency — not a model guessing. HIGH needs at least 30 comparable sold items. LOW always says how many comparables we have. LOW is not a SKIP.",
+    },
+    {
       q: "Is the authenticity check a guarantee?",
       a: "No. It is a confidence score, not a verification, and it never sees the physical item. It weighs how far the price sits below market, seller trust signals and listing patterns, then returns a 0-100 score with a band. It cannot authenticate anything and must not be treated as a guarantee. For anything valuable, use a professional authentication service.",
     },
@@ -181,6 +185,23 @@ export default async function MethodologyPage() {
             <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>profit calculator</Link>{" "}
             applies current per-platform rates across Vinted, Depop, eBay, Poshmark, StockX and GOAT.
           </P>
+        </Section>
+
+        <Section title="Verdict confidence — HIGH / MEDIUM / LOW">
+          <P>
+            Every BUY / WATCH / SKIP carries a confidence band from the data we actually have:
+            data-quality score, comparable watched sales, and snapshot recency. It is not a
+            model guessing how sure it is.
+          </P>
+          <Table rows={[
+            ["HIGH", "≥ 30 comparable sold items and quality ≥ 70", "snapshot younger than 48 hours"],
+            ["MEDIUM", "≥ 10 comparable sold items and quality ≥ 40", "or HIGH but the snapshot is stale"],
+            ["LOW", "thinner than that", "always paired with “Only N comparable sold items”"],
+          ]} />
+          <Callout label="What LOW means">
+            LOW is not a SKIP. It means we will not pretend precision we do not have.
+            A call from four watched sales is labelled LOW on purpose.
+          </Callout>
         </Section>
 
         <Section title="The authenticity check is a confidence score, not a verdict">

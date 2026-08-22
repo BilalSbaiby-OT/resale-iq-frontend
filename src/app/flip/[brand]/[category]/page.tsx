@@ -3,7 +3,8 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import seo from "@/data/seo-brands.json"
 import { listingsTrackedLabel } from "@/lib/stats"
-import { getMarketNumbers, categoryFigure } from "@/lib/market-numbers"
+import { getMarketNumbers, categoryFigure, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO: one page per brand x top-category, targeting
 // "are <brand> <category> worth reselling on Vinted".
@@ -82,7 +83,7 @@ export default async function BrandCategoryPage(
     ? `${b.brand} ${catName} sell roughly ${catSold.toLocaleString()} units a week across the five main EU Vinted markets` +
       (avgPrice ? `, with ${b.brand} averaging about €${avgPrice} per sale` : "") +
       `. That is real, current demand — whether an individual item is worth buying depends on its condition, size and the price you pay.`
-    : `${b.brand} ${catName} is one of ${b.brand}'s strongest categories on Vinted across the five main EU markets. Whether a specific item is worth buying depends on its condition, size and the price you pay.`
+    : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Live weekly volume is not on this snapshot — check a specific model rather than trusting a frozen category average.`
 
   const jsonLd = [
     {
@@ -110,6 +111,8 @@ export default async function BrandCategoryPage(
           <Link href={`/flip/${b.slug}`} style={{ color: "#22c55e", textDecoration: "none" }}>{b.brand}</Link>
         </div>
 
+        <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
+
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", lineHeight: 1.18, marginBottom: 14 }}>
           Are {b.brand} {catName} worth reselling on Vinted?
         </h1>
@@ -117,9 +120,9 @@ export default async function BrandCategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 26 }}>
           {[
-            [catSold ? catSold.toLocaleString() : "—", `${catName} sold / week`],
-            [avgPrice ? `€${avgPrice}` : "—", `avg ${b.brand} sale price`],
-            [share ? `${share}%` : "—", `of ${b.brand} volume`],
+            [fmtCount(catSold), `${catName} sold / week`],
+            [fmtEur(avgPrice), `avg ${b.brand} sale price`],
+            [share != null ? `${share}%` : "—", `of ${b.brand} volume`],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>
@@ -176,6 +179,8 @@ export default async function BrandCategoryPage(
                 → Are {b.brand} {c} worth reselling?
               </Link>
             ))}
+            <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ How these numbers are calculated</Link>
+            <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Analyze an item</Link>
             <Link href="/data" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Full Vinted market data</Link>
           </div>
         </div>

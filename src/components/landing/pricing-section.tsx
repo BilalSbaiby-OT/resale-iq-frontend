@@ -37,7 +37,7 @@ export function PricingSection() {
     <section id="pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "#22c55e", textTransform: "uppercase" }}>Pricing</div>
-        <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>Pay less for stock than you sell it for.</h2>
+        <h2 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", marginTop: 10, letterSpacing: "-0.6px" }}>Know what to pay. Skip what you shouldn&apos;t.</h2>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>Start free — 7 days unlimited, then 10 checks a month. No card.</p>
       </div>
 
@@ -109,7 +109,7 @@ export function PricingSection() {
         ))}
       </div>
       <p style={{ textAlign: "center", fontSize: 12, color: "#4d5a75", marginTop: 26 }}>
-        Every plan unlocks the full data — verdicts, buy-below prices, sizes, and live deals. Cancel anytime.
+        Every paid plan unlocks the full numbers — verdicts, buy-below, sizes, and live deals. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription.
       </p>
     </section>
   )

@@ -55,3 +55,11 @@
   background: #1c2333; color: #c3cde0; border: 1px solid #263147;
   border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;
 }
+#riq-badge .riq-conf {
+  font-size: 10px; letter-spacing: .4px; text-transform: uppercase;
+  color: #8b99b8; margin-top: 6px;
+}
+#riq-badge .riq-note { font-size: 11px; color: #c4a574; margin-top: 4px; line-height: 1.4; }
+#riq-badge .riq-why { font-size: 11px; color: #8b99b8; margin-top: 8px; line-height: 1.4; }
+#riq-badge .riq-row.riq-warn { color: #f87171; }
+#riq-badge .riq-row.riq-good { color: #34d399; }

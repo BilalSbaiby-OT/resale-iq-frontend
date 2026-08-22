@@ -27,8 +27,8 @@ export default async function ToolsIndex() {
         <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", margin: "20px 0 12px" }}>Free Vinted reseller tools</h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 26, maxWidth: 620 }}>
-          Check any item free and get the headline verdict. The buy-below price, sold prices and best
-          sizes come with a plan. Sell-through is shown when we have enough watched sales.
+          Check any item free. Anonymous views show the market price and buy-below.
+          Sell-through, demand and sizes stay on a plan. Null sell-through is not zero.
         </p>
 
         <FreeChecker />

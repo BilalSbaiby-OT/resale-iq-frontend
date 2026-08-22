@@ -10,6 +10,7 @@ export default function Privacy() {
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Privacy Policy</h1>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: July 2026</p>
         {[
+          ["Chrome extension", "On Vinted item pages we read the public title and asking price already on the page, and send that query to resaleiq.dev. We do not read your Vinted account, cookies or messages. Sign-in is synced from resaleiq.dev in your browser only."],
           ["What we collect", "Your email address, a securely hashed password (never stored in plain text), your subscription status via Stripe, and product-usage events (searches, watchlist and portfolio entries you create). We do not collect payment card details — those are handled entirely by Stripe."],
           ["How we use it", "To provide the service, authenticate you, process your subscription, send account and product emails, and improve the product. We do not sell your personal data."],
           ["Data you create", "Watchlists, portfolio items, and searches are private to your account. You can export all your data or delete your account at any time from the account page (GDPR rights to access and erasure)."],
