@@ -36,10 +36,6 @@ function Section({ title, sub, action, children }: {
   )
 }
 
-const TH: React.CSSProperties = { fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.8px", color: "#4d5a75", textAlign: "left", padding: "9px 14px", background: "#151924", borderBottom: "1px solid #1c2333" }
-const TD: React.CSSProperties = { padding: "10px 14px", borderBottom: "1px solid #181e2d", fontSize: 12.5, verticalAlign: "middle" }
-const NUM: React.CSSProperties = { ...TD, fontVariantNumeric: "tabular-nums" }
-
 export default function DashboardPage() {
   // Each section loads independently — one slow endpoint never blanks the page.
   const [kpis, setKpis] = useState<KPIs | null>(null)
@@ -82,7 +78,7 @@ export default function DashboardPage() {
   const strLive = (deals ?? []).some(d => d.str_pct != null)
 
   return (
-    <AppShell title="Dashboard" subtitle="Live market overview across 5 Vinted markets">
+    <AppShell title="Dashboard" subtitle="Decide what to buy — number first, evidence second">
       {paywalled && (
         <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.25)", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
           <Lock size={15} color="#fbbf24" style={{ flexShrink: 0 }} />
@@ -96,13 +92,13 @@ export default function DashboardPage() {
       )}
 
       {plan === "free" && (
-        <div style={{ display: "flex", alignItems: "center", gap: 14, background: "linear-gradient(90deg,rgba(34,197,94,.07),transparent)", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "13px 16px", marginBottom: 18 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#12151d", border: "1px solid #1c3327", borderRadius: 10, padding: "13px 16px", marginBottom: 18 }}>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 650, color: "#eef1f7" }}>Unlock full market intelligence</div>
-            <div style={{ fontSize: 11.5, color: "#8b99b8" }}>100 signals · unlimited verdicts · size velocity · alerts</div>
+            <div style={{ fontSize: 13, fontWeight: 650, color: "#eef1f7" }}>Analyze an item before you spend</div>
+            <div style={{ fontSize: 11.5, color: "#8b99b8" }}>Market price and buy-below are already on — sell-through, sizes and live deals unlock with a plan.</div>
           </div>
-          <Link href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "8px 16px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
-            Upgrade — €19/mo
+          <Link href="/verdict" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "8px 16px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            Check an item
           </Link>
         </div>
       )}
@@ -117,50 +113,52 @@ export default function DashboardPage() {
 
       {/* Opportunities + Brands */}
       <div className="riq-grid-main" style={{ marginBottom: 14 }}>
-        <Section title="Top opportunities" sub="Ranked by opportunity score, refreshed hourly" action={{ href: "/deals", label: "Deal scanner" }}>
-          {!deals ? <SkeletonRows rows={6} height={34} /> : (
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead><tr>{["Product", "Buy below", "Median sold", "Est. margin", ...(strLive ? ["STR"] : ["Sold / 7d", "Listed"]), "Momentum", "Sizes", ""].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
-              <tbody>
-                {deals.map((d, i) => (
-                  <tr key={i}>
-                    <td style={TD}>
-                      <div style={{ fontWeight: 600, color: "#eef1f7" }}>{d.model}</div>
-                      <div style={{ fontSize: 10.5, color: "#4d5a75" }}>{d.brand} · {d.category}</div>
-                    </td>
-                    <td style={{ ...NUM, color: "#34d399", fontWeight: 650 }}>
-                      {dealsLocked
-                        ? <Link href="/account" title="Upgrade to see buy-below prices" style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
-                        : eur(d.max_buy_price)}
-                    </td>
-                    <td style={NUM}>
-                      {dealsLocked
-                        ? <Link href="/account" title="Upgrade to see median sold" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
-                        : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}
-                    </td>
-                    <td style={NUM}>
-                      {dealsLocked
-                        ? <Link href="/account" title="Upgrade to see estimated margin" style={{ color: "#4d5a75", textDecoration: "none" }}><Lock size={11} /></Link>
-                        : <span style={{ color: "#fbbf24", fontWeight: 600 }}>{d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—"}</span>}
-                    </td>
-                    {strLive
-                      ? <td style={NUM}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}%` : "—"}</td>
-                      : <>
-                          <td style={NUM}>{d.sold_7d != null ? d.sold_7d.toLocaleString() : "—"}</td>
-                          <td style={NUM}>{d.active_listings != null ? d.active_listings.toLocaleString() : "—"}</td>
-                        </>}
-                    <td style={TD}><MomentumBadge momentum={d.momentum_label} /></td>
-                    <td style={TD}><SizePills sizes={d.top_sizes ?? []} /></td>
-                    <td style={TD}>
+        <Section title="Top opportunities" sub="Pay no more than buy-below. Analyze before you spend." action={{ href: "/deals", label: "Deal scanner" }}>
+          {!deals ? <SkeletonRows rows={6} height={72} /> : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: 10, padding: 12 }}>
+              {deals.map((d, i) => {
+                const q = `${d.brand} ${d.model}`
+                return (
+                  <div key={i} style={{ background: "#0f1218", border: "1px solid #1c2333", borderRadius: 10, padding: "14px 14px 12px", display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div>
+                      <div style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", lineHeight: 1.25 }}>{d.model}</div>
+                      <div style={{ fontSize: 11, color: "#4d5a75", marginTop: 3 }}>{d.brand}{d.category ? ` · ${d.category}` : ""}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.6px", textTransform: "uppercase", color: "#4d5a75" }}>Buy below</div>
+                      <div style={{ fontSize: 22, fontWeight: 800, color: "#34d399", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.4px" }}>
+                        {dealsLocked
+                          ? <Link href="/account" style={{ color: "#4d5a75", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}><Lock size={14} /></Link>
+                          : eur(d.max_buy_price)}
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
+                      <span>Market {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
+                      <span style={{ color: "#fbbf24", fontWeight: 600 }}>
+                        {dealsLocked ? "—" : (d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—")}
+                      </span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                      <MomentumBadge momentum={d.momentum_label} />
+                      {strLive
+                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}% STR` : "STR —"}</span>
+                        : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? `${d.sold_7d.toLocaleString()} sold / 7d` : ""}</span>}
+                    </div>
+                    <SizePills sizes={d.top_sizes ?? []} />
+                    <div style={{ display: "flex", gap: 6, marginTop: "auto" }}>
+                      <Link href={`/verdict?q=${encodeURIComponent(q)}`}
+                        style={{ flex: 1, textAlign: "center", background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "7px 8px", fontSize: 11.5, fontWeight: 700, textDecoration: "none" }}>
+                        Analyze
+                      </Link>
                       <button onClick={() => watch(d.brand, d.model)} title="Add to watchlist"
-                        style={{ background: "transparent", border: "1px solid #232c42", borderRadius: 6, color: "#8b99b8", fontSize: 11, padding: "4px 9px", cursor: "pointer" }}>
+                        style={{ background: "transparent", border: "1px solid #232c42", borderRadius: 7, color: "#8b99b8", fontSize: 11, padding: "7px 10px", cursor: "pointer" }}>
                         Watch
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           )}
         </Section>
 
@@ -203,22 +201,20 @@ export default function DashboardPage() {
           )}
         </Section>
 
-        <Section title="Recently sold" sub="Live sold-evidence feed">
+        <Section title="Recently sold" sub="Watched sold evidence — not asking prices">
           {!sold ? <SkeletonRows rows={5} height={28} /> : (
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead><tr>{["Brand", "Item", "Size", "Price", "When"].map(h => <th key={h} style={TH}>{h}</th>)}</tr></thead>
-              <tbody>
-                {sold.map((s, i) => (
-                  <tr key={i}>
-                    <td style={{ ...TD, fontWeight: 600, color: "#eef1f7" }}>{s.brand}</td>
-                    <td style={{ ...TD, color: "#8b99b8", maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.model || s.title}</td>
-                    <td style={NUM}>{s.size ?? "—"}</td>
-                    <td style={{ ...NUM, color: "#34d399", fontWeight: 650 }}>{eur(s.price_eur)}</td>
-                    <td style={{ ...NUM, color: "#4d5a75", fontSize: 11 }}>{ago(s.sold_at)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div style={{ padding: "4px 0" }}>
+              {sold.map((s, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 16px", borderBottom: "1px solid #181e2d" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "#eef1f7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.brand}</div>
+                    <div style={{ fontSize: 10.5, color: "#4d5a75", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.model || s.title}{s.size ? ` · ${s.size}` : ""}</div>
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34d399", fontVariantNumeric: "tabular-nums" }}>{eur(s.price_eur)}</span>
+                  <span style={{ fontSize: 11, color: "#4d5a75", fontVariantNumeric: "tabular-nums", width: 64, textAlign: "right" }}>{ago(s.sold_at)}</span>
+                </div>
+              ))}
+            </div>
           )}
         </Section>
       </div>

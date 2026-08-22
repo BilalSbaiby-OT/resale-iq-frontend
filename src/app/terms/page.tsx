@@ -8,7 +8,7 @@ export default function Terms() {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Terms of Service</h1>
-        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: July 2026</p>
+        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: 22 August 2026</p>
         {[
           ["1. What Resale IQ is", "Resale IQ is a market-analytics tool that summarizes publicly available resale-market data to help sellers make sourcing and pricing decisions. All signals, scores, verdicts, and authenticity estimates are informational and probabilistic — they are not guarantees, financial advice, or determinations of authenticity."],
           ["2. Your account", "You are responsible for keeping your login credentials secure and for all activity under your account. You must provide a valid email and be at least 18 years old."],

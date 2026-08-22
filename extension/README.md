@@ -22,11 +22,17 @@ a token to use your plan's allowance instead.
 
 **Chrome Web Store:** https://chromewebstore.google.com/detail/resale-iq-buy-below-price/fgpajplglnapkebhbcbhlmbbkmnighcm
 
-## Publishing
+## Publishing (Chrome Web Store)
 
-Needs the owner's Chrome Web Store developer account (one-off $5 registration).
-Zip the folder contents and upload. Screenshots and a privacy justification for
-`storage` + the `resaleiq.dev` host permission are required.
+1. Zip is already built at `~/Desktop/resale-iq-extension-1.2.0.zip` (manifest at the zip root).
+   To rebuild: from this folder, `zip -r ~/Desktop/resale-iq-extension-1.2.0.zip manifest.json background.js content.js content.css link.js options.html options.js icons -x "*.DS_Store"`
+2. Open https://chrome.google.com/webstore/devconsole (one-off $5 registration).
+3. Find **Resale IQ**, click **Package** → **Upload new package** → the zip.
+4. Bump listing if asked; paste copy from `STORE-LISTING.md`.
+5. Privacy policy URL: https://resaleiq.dev/privacy
+6. Submit for review. Usually a few days.
+
+The public listing is still the previous version until Google approves 1.2.0.
 
 ## What it does not do
 

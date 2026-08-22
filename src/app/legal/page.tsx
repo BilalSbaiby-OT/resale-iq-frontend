@@ -21,7 +21,7 @@ export default function LegalNotice() {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Legal Notice</h1>
-        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: July 2026</p>
+        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: 22 August 2026</p>
 
         <div style={{ marginBottom: 22 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>Service operator</h2>

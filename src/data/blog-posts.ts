@@ -390,7 +390,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "When in doubt",
         p: [
-          "If you can't confirm authenticity, walk away — the downside outweighs the deal. " + BRAND + " includes a probabilistic authenticity read to flag risk before you buy, but a human check always wins.",
+          "If you can't confirm authenticity, walk away — the downside outweighs the deal. " + BRAND + " does not certify items as authentic. A human check of tags, photos and provenance always wins.",
         ],
       },
     ],
