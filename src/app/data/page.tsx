@@ -62,12 +62,35 @@ export default async function DataPage() {
           Vinted market data
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
-          Weekly units sold and average sale price by brand across Vinted&apos;s five main EU markets
+          Weekly units we **watched sell** and average observed sale price by brand across Vinted&apos;s five main EU markets
           (Spain, France, Germany, Italy, Portugal), from {tracked} analyzed listings.
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
 
         <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />
+
+        {market.listingsTracked != null && market.brandCount < (market.brandsTracked ?? 26) ? (
+          <p
+            role="status"
+            style={{
+              fontSize: 13, lineHeight: 1.65, color: "#c3cde0", marginTop: 14,
+              padding: "12px 14px", background: "#12151d", border: "1px solid #1c2333", borderRadius: 10,
+            }}
+          >
+            <strong style={{ color: "#eef1f7" }}>Observed sales, not catalogue size.</strong>{" "}
+            We track {market.brandsTracked ?? 26} brands and {fmtCount(market.listingsTracked)} distinct listings.
+            Weekly sold below counts only listings we watched go from active to sold
+            {market.publishFloorSold7d != null ? ` (≥ ${market.publishFloorSold7d} watched sales to appear in this table)` : ""}.
+            Most of the catalogue was already sold when we first saw it, so this weekly figure is much smaller than listings tracked.
+            That is a measurement limit, not a refresh failure.
+          </p>
+        ) : null}
+
+        {market.provenance && market.updatedAt && (
+          <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 10, fontFamily: "monospace" }}>
+            Scope EU5 (ES/FR/DE/IT/PT) · trailing 7 days · dedup listing ID · sold = watched transitions · last calculated {stamp}
+          </p>
+        )}
 
         <table
           aria-label="Weekly market snapshot"
@@ -133,11 +156,7 @@ export default async function DataPage() {
         )}
 
         <div style={{ marginTop: 26, fontSize: 13, color: "#5b6b8c", lineHeight: 1.7 }}>
-          <strong style={{ color: "#8b99b8" }}>Methodology.</strong> Figures are aggregated from public live and sold
-          Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID across markets and recomputed
-          continuously. &quot;Sold / 7 days&quot; counts units sold in the trailing week; &quot;avg sale price&quot; is
-          the mean observed sale price. Buy-below prices, sell-through rates and per-size demand are part of the paid
-          product and are not published here.
+          <strong style={{ color: "#8b99b8" }}>Methodology.</strong> Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
         </div>
 
         <div style={{ marginTop: 28, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>

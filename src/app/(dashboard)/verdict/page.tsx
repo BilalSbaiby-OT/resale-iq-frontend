@@ -102,9 +102,16 @@ function VerdictInner() {
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
                 {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
               </div>
-              <div className="px-4 py-2 rounded-lg text-[15px] font-extrabold tracking-wide"
-                style={{ color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
-                {vs.label}
+              <div className="text-right">
+                <div className="px-4 py-2 rounded-lg text-[15px] font-extrabold tracking-wide"
+                  style={{ color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
+                  {vs.label}
+                </div>
+                {result.confidence && (
+                  <div className="text-[10px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
+                    Confidence {result.confidence}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -139,7 +146,9 @@ function VerdictInner() {
                   {result.sell_through_rate
                     ? <Metric label="Sell-through" value={result.sell_through_rate} />
                     : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
-                  {result.sell_through_rate
+                  {result.buy_below != null && result.sell_avg != null
+                    ? <Metric label="Buying room" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="#34d399" />
+                    : result.sell_through_rate
                     ? <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
                     : <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
                 </div>
@@ -186,8 +195,7 @@ function VerdictInner() {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
-            Enter a brand and model above. The verdict is computed from live Vinted sales momentum and price.
-            momentum, and price data — the same signals behind the deal scanner.
+            Enter a brand and model. You get BUY, WATCH or SKIP plus the reason — from watched sold listings, not a model guessing.
           </div>
         )}
       </div>

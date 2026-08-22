@@ -201,6 +201,8 @@ export interface VerdictResult {
   size_velocity?: SizeVelocity[]
   reasons?: string[]
   data_quality?: number
+  /** HIGH | MEDIUM | LOW — data-quality band, never invented precision. */
+  confidence?: string
   message?: string
   upgrade_url?: string
   used_today?: number

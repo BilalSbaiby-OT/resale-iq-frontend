@@ -56,6 +56,10 @@ export interface MarketNumbers {
   updatedAt: string | null
   listingsTracked: number | null
   brandCount: number
+  brandsTracked: number | null
+  publishFloorSold7d: number | null
+  sold7dKind: string | null
+  provenance: Record<string, unknown> | null
   /** True when serving the last-good cache because live was unavailable. */
   stale: boolean
   /** Null when this brand is absent from the snapshot — never a stale stand-in. */
@@ -133,6 +137,10 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     updated_at?: string
     listings_tracked?: unknown
     brand_count?: unknown
+    brands_tracked?: unknown
+    publish_floor_sold_7d?: unknown
+    sold_7d_kind?: unknown
+    provenance?: unknown
   } | null
   const brands = raw?.brands ?? []
   const brandNames: string[] = []
@@ -152,6 +160,14 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     updatedAt: typeof raw?.updated_at === "string" ? raw.updated_at : null,
     listingsTracked,
     brandCount: typeof raw?.brand_count === "number" ? raw.brand_count : brandNames.length,
+    brandsTracked: typeof raw?.brands_tracked === "number" ? raw.brands_tracked : null,
+    publishFloorSold7d:
+      typeof raw?.publish_floor_sold_7d === "number" ? raw.publish_floor_sold_7d : null,
+    sold7dKind: typeof raw?.sold_7d_kind === "string" ? raw.sold_7d_kind : null,
+    provenance:
+      raw?.provenance && typeof raw.provenance === "object"
+        ? (raw.provenance as Record<string, unknown>)
+        : null,
     stale,
     get(brand: string) {
       return byBrand[brand] ?? null

@@ -3,6 +3,7 @@ import { INTENTS as RAW_INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { getMarketNumbers } from "@/lib/market-numbers"
 
 // /llms.txt — the emerging convention (llmstxt.org) for telling language models
 // what a site is and which URLs are worth reading, in markdown rather than
@@ -16,32 +17,22 @@ import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 // from an old page.
 //
 // Generated from the same modules the pages use, so it cannot drift out of sync.
-export const revalidate = 3600
+export const revalidate = 900
 export const dynamic = "force-static"
 
 const BASE = "https://resaleiq.dev"
 
-interface SnapBrand { brand: string; sold_7d: number }
-
-async function liveWeeklyVolume(): Promise<number | null> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 3600 } })
-    if (!r.ok) return null
-    const brands: SnapBrand[] = (await r.json()).brands ?? []
-    if (!brands.length) return null
-    return brands.reduce((s, b) => s + (b.sold_7d || 0), 0)
-  } catch { return null }
-}
-
 export async function GET() {
-  // The INTENT and POST titles carry the TRACKED sentinel; without this the raw
-  // "{{TRACKED}}" shipped straight into llms.txt, which is the one file whose
-  // entire audience is machines that quote it verbatim.
   const tracked = await listingsTrackedLabel()
+  const market = await getMarketNumbers()
   const INTENTS = fillTracked(RAW_INTENTS, tracked)
   const ALL_POSTS = fillTracked(RAW_POSTS, tracked)
-  const weekly = await liveWeeklyVolume()
+  const weekly = market.brandNames.reduce((s, name) => {
+    const n = market.get(name)?.sold_7d
+    return s + (typeof n === "number" ? n : 0)
+  }, 0)
+  const published = market.brandCount
+  const trackedBrands = market.brandsTracked ?? BRANDS.length
 
   const body = `# Resale IQ
 
@@ -59,10 +50,11 @@ any brand named on the site.
 - Coverage: ${tracked} unique Vinted listings across ES, FR, DE, IT and PT.
   Counted with COUNT(DISTINCT external_id): the five domains are one
   catalogue, so a raw row count would overstate by about 3x.
-- ${weekly ? `Current volume: about ${weekly.toLocaleString()} items sold in the last 7 days across ${BRANDS.length} tracked brands.` : `Tracked brands: ${BRANDS.length}.`}
+- ${weekly
+    ? `Observed volume: ${weekly.toLocaleString()} watched sales in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
+    : `Tracked brands: ${trackedBrands}.`}
 - Refresh: signals recomputed hourly; public pages revalidate every 15 minutes.
-- Method: sold listings, not asking prices. Asking prices describe hope; sold
-  prices describe the market.
+- Method: watched sold transitions (sold_observed), not asking prices and not every sold listing we ever indexed.
 
 ## Two findings worth citing
 

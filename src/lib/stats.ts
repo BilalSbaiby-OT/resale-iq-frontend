@@ -10,7 +10,6 @@
  * The API returns COUNT(DISTINCT external_id): the five Vinted domains are one
  * catalogue, so counting rows would overstate by roughly 3x.
  */
-const API = process.env.BACKEND_URL || "http://localhost:8080";
 
 /**
  * Rounded DOWN to the nearest 10k, so the claim stays true between refreshes
@@ -22,30 +21,23 @@ export function floorTo10k(n: number): string {
 }
 
 export async function getListingsTracked(): Promise<number | null> {
-  try {
-    const r = await fetch(`${API}/api/public/market-snapshot`, {
-      // Hourly. The scraper adds ~16k rows per run, so a fresher cadence would
-      // cost requests without changing a figure rounded to 10k.
-      next: { revalidate: 3600 },
-    })
-    if (!r.ok) return null
-    const n = (await r.json())?.listings_tracked
-    return typeof n === "number" && n > 0 ? n : null
-  } catch {
-    return null
-  }
+  // Same warehouse and same 15-minute revalidate as /data. A second fetch of
+  // the same endpoint at 3600s was how the homepage and /data could disagree.
+  const { getMarketNumbers } = await import("./market-numbers")
+  const n = (await getMarketNumbers()).listingsTracked
+  return typeof n === "number" && n > 0 ? n : null
 }
 
 /**
- * The phrase pages render inside a sentence, e.g. "900,000+".
+ * The phrase pages render inside a sentence, e.g. "1,960,000+".
  *
  * Floored, because prose reads badly with six significant figures and a "+"
- * stays true as the number grows. Falls back to the last measured floor if the
- * API is unreachable — never to a guess above it.
+ * stays true as the number grows. If the warehouse has no number, return "—"
+ * — never a hardcoded guess. Unknown is not 900,000.
  */
 export async function listingsTrackedLabel(): Promise<string> {
   const n = await getListingsTracked()
-  return n ? `${floorTo10k(n)}+` : "900,000+"
+  return n ? `${floorTo10k(n)}+` : "—"
 }
 
 /**

@@ -118,12 +118,20 @@ export default async function MethodologyPage() {
             ones. Active listings tell you what sellers hope to get. Sold listings tell you what
             buyers agreed to pay. Most tools quote the former because it is far easier to collect.
           </P>
+          <P>
+            A sale on this site means we <strong style={{ color: "#eef1f7" }}>watched</strong> a
+            listing go from active to gone. Listings we first saw already sold are in the
+            catalogue count, not in weekly sold. That is why listings tracked can be millions
+            while weekly observed sales are in the hundreds or thousands — not because the
+            market died, and not because a refresh zeroed the table.
+          </P>
           {weekly > 0 && (
             <Callout label="Right now">
-              The {market.brandCount} brands we track account for about{" "}
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} items sold in the last 7 days</strong>{" "}
-              across the five markets. That number moves every hour — it is read live from the
-              same feed the product uses.
+              {fmtCount(market.listingsTracked)} distinct listings tracked ·{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} watched sales in 7 days</strong>
+              {" "}across {market.brandCount} brands on the public table
+              {market.brandsTracked != null ? ` (${market.brandsTracked} brands in the catalogue)` : ""}.
+              Last calculated {market.stamp ?? "—"}.
             </Callout>
           )}
         </Section>

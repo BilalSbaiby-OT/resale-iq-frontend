@@ -32,11 +32,8 @@ const SRC = join(ROOT, "src")
 // a timeout or a year.
 const CLAIM = /\b\d{3},\d{3}\+|\b\d{1,2}(\.\d+)?M\+?\s*(unique\s+)?(listings|items|sales)/gi
 
-/** Fallbacks that are floors: they can understate, never overstate. */
-const ALLOWED = new Set([
-  "src/lib/stats.ts",
-  "src/components/layout/paywall.tsx",
-])
+/** Comments may quote old literals. No source file is allowed a live claim. */
+const ALLOWED = new Set([])
 
 function walk(dir) {
   return readdirSync(dir).flatMap(name => {

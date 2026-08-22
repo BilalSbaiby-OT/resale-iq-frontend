@@ -20,9 +20,9 @@ export const copy = {
   en: {
     signIn: "Sign in",
     pricing: "Pricing",
-    heroTitle: "Stop guessing what sells.",
+    heroTitle: "Know what to pay before you buy.",
     heroBody:
-      "The highest price to pay for a Vinted item before you buy — in euros, on the listing.",
+      "Market price, buy-below, demand and comparable sold listings — then BUY, WATCH or SKIP. Vinted is the first marketplace.",
     heroFrom: (tracked: string) =>
       `From ${tracked} live and sold listings across five EU markets.`,
     addToChrome: "Add to Chrome",
@@ -35,15 +35,15 @@ export const copy = {
       { t: "Order planner", d: "What to order now for stock landing in three weeks, priced off this week's sales." },
       { t: "Watchlist", d: "Pin models you source and get the buy-below, sale price and sizes without re-searching." },
     ],
-    footerTag: "Resale IQ — market intelligence for Vinted resellers.",
+    footerTag: "Resale IQ — market intelligence for second-hand commerce.",
     noAccuracy: "No accuracy claims until 30 outcomes scored",
   },
   fr: {
     signIn: "Connexion",
     pricing: "Tarifs",
-    heroTitle: "Arrêtez de deviner ce qui se vend.",
+    heroTitle: "Sachez quoi payer avant d'acheter.",
     heroBody:
-      "Le prix maximum à payer pour un article Vinted avant d'acheter — en euros, sur l'annonce.",
+      "Prix de marché, prix d'achat max, demande et ventes comparables — puis BUY, WATCH ou SKIP. Vinted d'abord.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne et vendues sur cinq marchés UE.`,
     addToChrome: "Ajouter à Chrome",
@@ -62,9 +62,9 @@ export const copy = {
   es: {
     signIn: "Entrar",
     pricing: "Precios",
-    heroTitle: "Deja de adivinar qué se vende.",
+    heroTitle: "Sabe qué pagar antes de comprar.",
     heroBody:
-      "El precio máximo a pagar por un artículo de Vinted antes de comprarlo — en euros, en el anuncio.",
+      "Precio de mercado, precio máximo de compra, demanda y ventas comparables — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos y vendidos en cinco mercados de la UE.`,
     addToChrome: "Añadir a Chrome",
