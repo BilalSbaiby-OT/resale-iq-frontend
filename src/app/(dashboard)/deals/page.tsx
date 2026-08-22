@@ -10,7 +10,7 @@ import { LiveDealsModal } from "@/components/ui/live-deals-modal"
 import { MedianN } from "@/components/ui/median-n"
 import { getDeals, addToWatchlist, getBatchPriceHistory } from "@/lib/api"
 import type { PricePoint } from "@/lib/api"
-import { eur } from "@/lib/utils"
+import { eur, pct } from "@/lib/utils"
 import type { Deal } from "@/types"
 import { Star } from "lucide-react"
 
@@ -140,7 +140,7 @@ function DealsContent() {
                   { label: "Median sold", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
                   { label: "Est. Profit", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400" },
                   d.str_pct != null
-                    ? { label: "STR / Week", value: `${d.str_pct.toFixed(0)}%`, color: "" }
+                    ? { label: "Sell-through", value: pct(d.str_pct), color: "" }
                     : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
                 ].map(({ label, value, color }) => (
                   <div key={label} className="bg-[#1a2030] rounded-lg p-2">
