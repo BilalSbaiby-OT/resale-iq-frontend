@@ -106,10 +106,10 @@ export default function MarketPage() {
                   <td className="px-3 py-2.5">
                     <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border whitespace-nowrap ${SIGNAL_STYLE[r.signal] ?? SIGNAL_STYLE.HOLD}`}>{r.signal}</span>
                   </td>
-                  <td className="px-3 py-2.5 text-[13px] font-mono font-bold text-emerald-400 tabular-nums">{Math.round(r.investment_score)}</td>
-                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#c3cde0] tabular-nums">{(r.units_sold_all_7d ?? 0).toLocaleString()}</td>
-                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#8b99b8] tabular-nums">{Math.round(r.overall_demand_score ?? 0)}</td>
-                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#8b99b8] tabular-nums">{Math.round(r.overall_speed_score ?? 0)}</td>
+                  <td className="px-3 py-2.5 text-[13px] font-mono font-bold text-emerald-400 tabular-nums">{r.investment_score != null ? Math.round(r.investment_score) : "—"}</td>
+                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#c3cde0] tabular-nums">{r.units_sold_all_7d != null ? r.units_sold_all_7d.toLocaleString() : "—"}</td>
+                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#8b99b8] tabular-nums">{r.overall_demand_score != null ? Math.round(r.overall_demand_score) : "—"}</td>
+                  <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#8b99b8] tabular-nums">{r.overall_speed_score != null ? Math.round(r.overall_speed_score) : "—"}</td>
                   <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#c3cde0] tabular-nums">{r.recommended_list_price ? eur(r.recommended_list_price) : "—"}</td>
                   <td className="px-3 py-2.5 text-[12.5px] text-center"><TrendArrow dir={r.trend_direction} /></td>
                 </tr>

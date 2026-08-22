@@ -30,7 +30,7 @@ export default function TrendsPage() {
                 <Link key={c.category} href={`/deals?category=${encodeURIComponent(c.category)}`}
                   className="bg-[#1a2030] border border-[#263147] rounded-xl p-3 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all cursor-pointer">
                   <div className="font-bold text-[13px] mb-1">{c.category}</div>
-                  <div className="font-mono text-[18px] font-extrabold text-emerald-400">{(c.sold_7d ?? 0).toLocaleString()}</div>
+                  <div className="font-mono text-[18px] font-extrabold text-emerald-400">{c.sold_7d != null ? c.sold_7d.toLocaleString() : "—"}</div>
                   <div className="text-[10px] text-[#546380]">units/7d · avg {c.avg_price ? eur(c.avg_price) : "—"}</div>
                 </Link>
               ))

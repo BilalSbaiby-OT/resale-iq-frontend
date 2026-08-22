@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_CHAPTERS, getChapter } from "@/data/manual"
+import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
@@ -29,17 +30,6 @@ export async function generateMetadata(
   }
 }
 
-interface SnapBrand { brand: string; sold_7d: number; avg_price_eur: number }
-
-async function getSnapshot(): Promise<SnapBrand[]> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return []
-    return (await r.json()).brands ?? []
-  } catch { return [] }
-}
-
 export default async function ChapterPage(
   { params }: { params: Promise<{ chapter: string }> }
 ) {
@@ -51,8 +41,8 @@ export default async function ChapterPage(
   const prev = idx > 0 ? ALL_CHAPTERS[idx - 1] : null
   const next = idx < ALL_CHAPTERS.length - 1 ? ALL_CHAPTERS[idx + 1] : null
 
-  const snap = await getSnapshot()
-  const totalWeekly = snap.reduce((s, b) => s + (b.sold_7d || 0), 0)
+  const market = await getMarketNumbers()
+  const totalWeekly = market.sold7dTotal
 
   const jsonLd = [
     {
@@ -159,14 +149,14 @@ export default async function ChapterPage(
           ))}
         </section>
 
-        {totalWeekly > 0 && (
+        {totalWeekly != null && market.brandCount > 0 && (
           <div style={{ padding: "18px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginBottom: 26 }}>
             <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 8 }}>
               Live, while you read this
             </div>
             <div style={{ fontSize: 14.5, lineHeight: 1.7, color: "#c3cde0" }}>
-              The {snap.length} brands Resale IQ tracks sold about{" "}
-              <strong style={{ color: "#eef1f7" }}>{totalWeekly.toLocaleString()} items</strong> in the last
+              The {market.brandCount} brands Resale IQ tracks sold about{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items</strong> in the last
               seven days across Vinted ES, FR, DE, IT and PT. Every figure in this manual&apos;s data pages comes
               from that same feed —{" "}
               <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>see the full market data</Link>.

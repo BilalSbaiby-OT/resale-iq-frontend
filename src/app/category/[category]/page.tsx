@@ -73,7 +73,10 @@ export default async function CategoryPage(
 
   const market = await getMarketNumbers()
   const entries = withLiveVolumes(c.entries, c.category, market)
-  const total = entries.reduce((sum, e) => sum + (e.sold_7d ?? 0), 0)
+  const total = entries.reduce(
+    (sum, e) => (e.sold_7d != null ? sum + e.sold_7d : sum),
+    0,
+  )
   const lower = c.category.toLowerCase()
   const top = entries.find(e => e.sold_7d != null) ?? entries[0]
   const dearest = [...entries].filter(e => e.avg_price_eur != null).sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]

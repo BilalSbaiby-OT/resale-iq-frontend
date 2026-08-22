@@ -4,8 +4,11 @@ Updated 2026-08-22 (forensic pass: coverage gate + target-net label).
 
 - Verdict UI is DECISION → WHY → NUMBER → EVIDENCE. Confidence HIGH/MEDIUM/LOW
   plus "Only N comparable sold items" on LOW. Gated free view still shows the band.
-- Public checker (/tools) shows market price + buy-below when the API sends them.
+- Public checker (/tools) shows market price + buy-below + watched sold vs
+  listed when the API sends them. SKIP is explained as a glut in our sample.
   STR / sizes stay gated. /check redirects to /tools, not /register.
+- Manual pages and the live data strip read `getMarketNumbers()` only.
+- Sidebar shows Starter/Pro, not OPERATOR/POWER.
 - Deal scanner labels the constructed 30% gap "Target net", not "Est. Profit".
 - Extension 1.2.0: BADGE_ID fix, confidence, why, 10-min cache, 429 handling.
 - Pricing sells outcomes; estimated margin, not promised profit. Account shows

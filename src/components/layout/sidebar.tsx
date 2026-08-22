@@ -8,6 +8,7 @@ import {
   Search, Globe, Radar,
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
+import { planDisplayName } from "@/lib/pricing"
 
 // /search is a free feature (Live Search) — not gated, so it must not show
 // the lock icon here. /compare (Price Compare) is paid, matches app-shell's PAID_ONLY.
@@ -130,7 +131,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "9px 11px", borderRadius: 8, background: "#12151d", border: "1px solid #1c2333" }}>
           <span style={{ fontSize: 11.5, color: "#8b99b8", fontWeight: 500 }}>Current plan</span>
           <span style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: "0.8px", padding: "2.5px 8px", borderRadius: 5, color: ps.color, background: ps.bg, border: `1px solid ${ps.border}` }}>
-            {plan.toUpperCase()}
+            {planDisplayName(plan)}
           </span>
         </div>
         {plan === "free" && (

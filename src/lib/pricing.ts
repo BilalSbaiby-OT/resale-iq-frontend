@@ -107,6 +107,14 @@ export const TIERS: Tier[] = [
 ]
 
 // Resolve the display placeholders to the live Stripe price ids from /stripe/plans.
+/** Internal plan ids stay operator/power. Customers see Starter/Pro. */
+export function planDisplayName(plan: string | undefined | null): string {
+  if (plan === "operator") return "Starter"
+  if (plan === "power") return "Pro"
+  if (plan === "free") return "Free"
+  return plan ? plan : "Free"
+}
+
 export function resolvePriceId(placeholder: string | undefined, plans: { id: string; price_id?: string }[]): string | undefined {
   if (!placeholder) return undefined
   const map: Record<string, string> = { "__OPERATOR__": "operator", "__POWER__": "power" }

@@ -2,6 +2,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { ALL_CHAPTERS, PARTS } from "@/data/manual"
 import { CATEGORIES } from "@/lib/seo-categories"
+import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 
 // Manual index. Deliberately a real table of contents rather than a landing
 // page — this is the hub every chapter and every programmatic SEO page links
@@ -23,21 +24,10 @@ export const metadata: Metadata = {
   },
 }
 
-interface SnapBrand { brand: string; sold_7d: number }
-
-async function getSnapshot(): Promise<SnapBrand[]> {
-  const base = process.env.BACKEND_URL || "http://localhost:8080"
-  try {
-    const r = await fetch(`${base}/api/public/market-snapshot`, { next: { revalidate: 900 } })
-    if (!r.ok) return []
-    return (await r.json()).brands ?? []
-  } catch { return [] }
-}
-
 export default async function ManualIndex() {
-  const snap = await getSnapshot()
-  const totalWeekly = snap.reduce((s, b) => s + (b.sold_7d || 0), 0)
-  const brandCount = snap.length || 26
+  const market = await getMarketNumbers()
+  const totalWeekly = market.sold7dTotal
+  const brandCount = market.brandCount > 0 ? market.brandCount : null
 
   const jsonLd = [
     {
@@ -77,13 +67,13 @@ export default async function ManualIndex() {
         </p>
         <p style={{ fontSize: 15, color: "#8b99b8", lineHeight: 1.7, marginBottom: 30 }}>
           It is written from the same dataset that powers the product —{" "}
-          {totalWeekly > 0 ? (
+          {totalWeekly != null ? (
             <>
-              <strong style={{ color: "#eef1f7" }}>{totalWeekly.toLocaleString()} items sold in the last seven days</strong>{" "}
-              across {brandCount} tracked brands on Vinted ES, FR, DE, IT and PT
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items sold in the last seven days</strong>{" "}
+              across {brandCount != null ? brandCount : "our"} tracked brands on Vinted ES, FR, DE, IT and PT
             </>
           ) : (
-            <>live sold-listing data across {brandCount} brands on Vinted ES, FR, DE, IT and PT</>
+            <>live sold-listing data across tracked brands on Vinted ES, FR, DE, IT and PT</>
           )}
           {" "}— so the claims about how the market behaves are grounded in the dataset, with its limits named.
         </p>

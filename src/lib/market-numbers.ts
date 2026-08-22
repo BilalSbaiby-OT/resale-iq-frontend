@@ -55,6 +55,8 @@ export interface MarketNumbers {
   /** ISO stamp from the snapshot, for age checks (P0-8). */
   updatedAt: string | null
   listingsTracked: number | null
+  /** Sum of per-brand sold_7d. Null if no brand has a finite sold count. */
+  sold7dTotal: number | null
   brandCount: number
   brandsTracked: number | null
   publishFloorSold7d: number | null
@@ -152,6 +154,11 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
   }
 
   const listingsTracked = num(raw?.listings_tracked)
+  let sold7dTotal: number | null = null
+  for (const name of brandNames) {
+    const n = byBrand[name]?.sold_7d
+    if (n != null) sold7dTotal = (sold7dTotal ?? 0) + n
+  }
 
   return {
     byBrand,
@@ -159,6 +166,7 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     stamp: utcStamp(raw?.updated_at),
     updatedAt: typeof raw?.updated_at === "string" ? raw.updated_at : null,
     listingsTracked,
+    sold7dTotal,
     brandCount: typeof raw?.brand_count === "number" ? raw.brand_count : brandNames.length,
     brandsTracked: typeof raw?.brands_tracked === "number" ? raw.brands_tracked : null,
     publishFloorSold7d:
