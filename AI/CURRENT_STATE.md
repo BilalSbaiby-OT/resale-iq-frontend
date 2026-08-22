@@ -1,11 +1,12 @@
 # Current state (frontend)
 
-Updated 2026-08-22 (Luna phases 3–8).
+Updated 2026-08-22 (forensic pass: coverage gate + target-net label).
 
 - Verdict UI is DECISION → WHY → NUMBER → EVIDENCE. Confidence HIGH/MEDIUM/LOW
   plus "Only N comparable sold items" on LOW. Gated free view still shows the band.
 - Public checker (/tools) shows market price + buy-below when the API sends them.
   STR / sizes stay gated. /check redirects to /tools, not /register.
+- Deal scanner labels the constructed 30% gap "Target net", not "Est. Profit".
 - Extension 1.2.0: BADGE_ID fix, confidence, why, 10-min cache, 429 handling.
 - Pricing sells outcomes; estimated margin, not promised profit. Account shows
   trial vs 10/month clearly; billing success says Starter/Pro not operator/power.

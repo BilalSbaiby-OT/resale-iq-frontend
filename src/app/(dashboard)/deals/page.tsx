@@ -138,12 +138,12 @@ function DealsContent() {
                 {[
                   { label: "Buy Below", value: eur(d.max_buy_price), color: "text-emerald-400" },
                   { label: "Median sold", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
-                  { label: "Est. Profit", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400" },
+                  { label: "Target net", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400", title: "Buy-below is 70% of the fee-adjusted sold price. This is that gap, not a forecast." },
                   d.str_pct != null
                     ? { label: "Sell-through", value: pct(d.str_pct), color: "" }
                     : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
-                ].map(({ label, value, color }) => (
-                  <div key={label} className="bg-[#1a2030] rounded-lg p-2">
+                ].map(({ label, value, color, title }) => (
+                  <div key={label} className="bg-[#1a2030] rounded-lg p-2" title={title}>
                     <div className="text-[9px] font-mono uppercase tracking-wide text-[#546380]">{label}</div>
                     <div className={`font-mono font-bold text-base mt-1 ${color}`}>{value}</div>
                   </div>

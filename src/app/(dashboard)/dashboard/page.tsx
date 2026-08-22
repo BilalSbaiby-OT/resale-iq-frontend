@@ -134,14 +134,14 @@ export default function DashboardPage() {
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
                       <span>Market {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
-                      <span style={{ color: "#fbbf24", fontWeight: 600 }}>
+                      <span style={{ color: "#fbbf24", fontWeight: 600 }} title="Gap at buy-below after fees — not a forecast">
                         {dealsLocked ? "—" : (d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—")}
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                       <MomentumBadge momentum={d.momentum_label} />
                       {strLive
-                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.str_pct != null ? `${d.str_pct.toFixed(0)}% STR` : "STR —"}</span>
+                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.str_pct != null ? `${d.str_pct.toFixed(1)}% STR` : "STR —"}</span>
                         : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? `${d.sold_7d.toLocaleString()} sold / 7d` : ""}</span>}
                     </div>
                     <SizePills sizes={d.top_sizes ?? []} />
