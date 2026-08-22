@@ -68,7 +68,11 @@ export interface MarketNumbers {
   get(brand: string): BrandFigures | null
 }
 
-const API = process.env.BACKEND_URL || "http://localhost:8080"
+function backendUrl(): string {
+  // Read inside the function so a Coolify image that did not bake BACKEND_URL
+  // still picks up the runtime env. Module-scope process.env is inlined at build.
+  return process.env.BACKEND_URL || "http://localhost:8080"
+}
 
 function num(v: unknown): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null
@@ -120,7 +124,9 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
   let stale = false
 
   try {
-    const r = await fetch(`${API}/api/public/market-snapshot`, { next: { revalidate: 900 } })
+    const r = await fetch(`${backendUrl()}/api/public/market-snapshot`, {
+      cache: "no-store",
+    })
     if (r.ok) snap = await r.json()
   } catch {
     // fall through to the cache

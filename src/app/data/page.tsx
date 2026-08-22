@@ -5,11 +5,10 @@ import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
-// Public, citable open data. Rendered server-side and revalidated hourly (ISR),
-// so the page HTML always contains fresh numbers for crawlers — no redeploy
-// needed for the data to update. This is the page we want ChatGPT/Perplexity/
-// Google to quote when asked "what sells on Vinted".
-export const revalidate = 900
+// Public, citable open data. Must render at request time: docker build cannot
+// reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
+// no brands. Runtime BACKEND_URL can. Crawlers still see the numbers in HTML.
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Vinted Market Data — Weekly Resale Statistics by Brand",
