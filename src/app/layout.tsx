@@ -87,12 +87,9 @@ const orgJsonLd = (tracked: string) => ({
   name: "Resale IQ",
   url: "https://resaleiq.dev",
   applicationCategory: "BusinessApplication",
-  // Sell-through is deliberately ABSENT from this list. It is blanked on every
-  // read path while app_meta.str_discovery_rate exceeds the ceiling in
-  // engine/sufficiency.py, so a visitor arriving on the strength of that claim
-  // would not find it. Put it back in the same commit that lifts the hold, not
-  // before — a structured-data claim is exactly where an unkept promise does
-  // the most damage, because answer engines repeat it verbatim.
+  // Sell-through is deliberately ABSENT from this list. Customer-facing STR is
+  // withheld (null) when the watched sample is below 30, so a structured-data
+  // hit-rate claim would over-promise. Do not invent one here.
   description:
     `Resale IQ is a market-intelligence tool for Vinted resellers. It analyses ${tracked} unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price and best sizes for any item.`,
   // Full ladder including the free rung. An answer engine asked "is there a
@@ -101,7 +98,7 @@ const orgJsonLd = (tracked: string) => ({
   offers: [
     {
       "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR",
-      description: "3 BUY/WATCH/SKIP verdicts a day, plus 10 full unlocks for the life of the account. No card required.",
+      description: "7 days unlimited, then 10 checks a month. No card required.",
     },
     {
       "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",
