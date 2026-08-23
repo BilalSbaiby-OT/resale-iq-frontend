@@ -182,7 +182,8 @@ export const scoreAuthenticity = (data: {
 
 // Live deal finder — real-time Vinted listings you can buy right now
 export const getLiveDeals = (params: {
-  brand: string; model: string; max_price?: number | null; sizes?: string[]; markets?: string[]; limit?: number;
+  brand: string; model: string; max_price?: number | null; sizes?: string[]; markets?: string[];
+  category?: string; limit?: number;
 }) => {
   const q = new URLSearchParams()
   q.set("brand", params.brand)
@@ -190,6 +191,7 @@ export const getLiveDeals = (params: {
   if (params.max_price) q.set("max_price", String(params.max_price))
   if (params.sizes?.length) q.set("sizes", params.sizes.join(","))
   if (params.markets?.length) q.set("markets", params.markets.join(","))
+  if (params.category) q.set("category", params.category)
   q.set("limit", String(params.limit ?? 24))
   return request<LiveDealsResult>(`/api/live-deals?${q}`)
 }
