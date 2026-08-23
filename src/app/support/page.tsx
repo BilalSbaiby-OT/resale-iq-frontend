@@ -22,7 +22,7 @@ const faq = (tracked: string): [string, string][] => [
   ["Do you guarantee I'll make money?",
    "No. Every signal, score and verdict is informational and probabilistic, based on public market data. Outcomes depend on what you pay, condition, timing and factors outside our control. It's a decision tool, not financial advice or a guarantee."],
   ["What's the difference between Starter and Pro?",
-   "Starter (€19/mo) gives you unlimited verdicts, all 100 product signals, market trends, brand rankings, the authenticity checker, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder across 5 markets, the 3-week Order Planner, Price Compare, per-size velocity, and REST API access."],
+   "Starter (€19/mo) gives you unlimited verdicts, all 100 product signals, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder across 5 markets, the 3-week Order Planner, Price Compare, per-size velocity, and REST API access."],
   ["Is there a free plan or trial?",
    "No account: 10 checks/day. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 full checks/month. Live Finder, Order Planner and Price Compare are Pro. No card required; you just verify your email. Paid plans remove the monthly cap."],
   ["How do I cancel?",

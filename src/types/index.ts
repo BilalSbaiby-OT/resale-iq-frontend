@@ -10,6 +10,7 @@ export interface User {
   trial_active?: boolean
   trial_days_left?: number
   telegram_chat_id?: string | null
+  is_owner?: boolean
 }
 
 export interface SizeVelocity {
@@ -66,6 +67,7 @@ export interface LiveDealsResult {
   markets_hit: string[]
   deals: LiveDeal[]
   error?: string
+  reason?: string | null
 }
 
 export interface KPIs {
@@ -197,6 +199,7 @@ export interface VerdictResult {
   momentum?: string
   buy_below?: number
   sell_avg?: number
+  sell_median?: number | null
   top_sizes?: string[]
   size_velocity?: SizeVelocity[]
   reasons?: string[]

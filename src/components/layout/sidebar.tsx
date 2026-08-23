@@ -10,9 +10,9 @@ import {
 import { useAuthStore } from "@/lib/auth-store"
 import { planDisplayName } from "@/lib/pricing"
 
-// /search is a free feature (Live Search) — not gated, so it must not show
-// the lock icon here. /compare (Price Compare) is paid, matches app-shell's PAID_ONLY.
-const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/compare", "/market"])
+// /search is paid (require_paid_plan) — lock it for expired-free like Deal Scanner.
+const PAID_ROUTES = new Set(["/deals", "/order-planner", "/calculator", "/compare", "/market", "/search"])
+const PRO_ROUTES = new Set(["/order-planner", "/compare"])
 
 const NAV_SECTIONS = [
   {
@@ -32,7 +32,6 @@ const NAV_SECTIONS = [
       { href: "/brands", icon: Tags, label: "Brand Rankings" },
       { href: "/search", icon: Search, label: "Live Search" },
       { href: "/compare", icon: Globe, label: "Price Compare" },
-      { href: "/authenticity", icon: ShieldCheck, label: "Authenticity" },
     ],
   },
   {
@@ -59,11 +58,14 @@ const NAV_SECTIONS = [
   },
   {
     label: "Account",
-    items: [{ href: "/account", icon: Settings, label: "Settings" }],
+    items: [
+      { href: "/account", icon: Settings, label: "Settings" },
+      { href: "/authenticity", icon: ShieldCheck, label: "Listing check" },
+    ],
   },
 ]
 
-// Shown only to Power-plan (owner) accounts.
+// Shown only when /auth/me says is_owner. Pro (plan=power) is not owner.
 const ADMIN_ITEMS = [
   { href: "/admin", icon: ShieldAlert, label: "Admin" },
   { href: "/admin/ops", icon: Activity, label: "Operations" },
@@ -82,8 +84,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
   const plan = (user?.plan || "free") as "free" | "operator" | "power"
   const ps = PLAN_STYLE[plan] ?? PLAN_STYLE.free
 
-  // Power-plan owner accounts also get an Admin section.
-  const sections = plan === "power"
+  const sections = user?.is_owner
     ? [...NAV_SECTIONS, { label: "Owner", items: ADMIN_ITEMS }]
     : NAV_SECTIONS
 
@@ -105,7 +106,9 @@ export function Sidebar({ className = "" }: { className?: string }) {
             <div style={{ padding: "4px 10px 6px", fontSize: 9.5, fontWeight: 600, color: "#4d5a75", letterSpacing: "1.2px", textTransform: "uppercase" }}>{label}</div>
             {items.map(({ href, icon: Icon, label: itemLabel }) => {
               const active = pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
-              const locked = plan === "free" && !user?.trial_active && PAID_ROUTES.has(href)
+              const locked = (plan === "free" && !user?.trial_active && PAID_ROUTES.has(href))
+                || (plan === "operator" && PRO_ROUTES.has(href))
+                || (plan === "free" && user?.trial_active && href === "/compare")
               return (
                 <Link key={href} href={href} style={{
                   position: "relative", display: "flex", alignItems: "center", gap: 10,

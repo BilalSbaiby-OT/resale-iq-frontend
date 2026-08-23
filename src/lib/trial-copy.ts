@@ -8,3 +8,7 @@ export const TRIAL_LIMITS_SENTENCE =
 
 export const TRIAL_LIMITS_SHORT =
   "10 checks/day without an account; 7 days of Starter + 5 live finds + 1 order plan after signup, then 10/month."
+
+/** Logged-in trial banner. Compare is Pro; live finds and one plan are in the trial. */
+export const TRIAL_BANNER =
+  "Starter trial: Deal Scanner, 5 live finds and 1 order plan. Price Compare is Pro."

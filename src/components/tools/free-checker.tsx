@@ -166,13 +166,15 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
             </>
           )}
 
+          {res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && (
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#22c55e" />
-              {res.message ?? "Unlock sell-through, demand, sizes and history with a plan."}
+              Unlock sell-through, demand, sizes and history with a plan.
             </div>
             <SmartCTA anonLabel="Unlock the rest →" authedLabel="See full numbers →" authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
           </div>
+          )}
         </div>
       )}
     </div>

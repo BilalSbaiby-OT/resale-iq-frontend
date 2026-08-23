@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { comparePrices } from "@/lib/api"
+import { comparePrices, isPaymentRequired } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { PriceCompareResult, SearchItem } from "@/types"
 import { Globe, ArrowDown, ArrowUp, ExternalLink } from "lucide-react"
@@ -15,7 +15,7 @@ const ALL_MARKETS: Record<string, string> = {
   si: "Slovenia", ee: "Estonia",
 }
 
-const DEFAULT_MARKETS = ["es", "fr", "de", "it", "pt", "nl", "be", "pl"]
+const DEFAULT_MARKETS = ["es", "fr", "de", "it", "pt"]
 
 export default function ComparePage() {
   const [query, setQuery] = useState("")
@@ -37,8 +37,10 @@ export default function ComparePage() {
     setLoading(true); setError(""); setResult(null); setExpandedCountry(null)
     try {
       setResult(await comparePrices({ q, markets: selectedMarkets, limit: 10 }))
-    } catch {
-      setError("Comparison failed. Try again.")
+    } catch (e) {
+      setError(isPaymentRequired(e)
+        ? "Price Compare is a Pro feature. Upgrade to unlock 26-market compare."
+        : "Comparison failed. Try again.")
     } finally { setLoading(false) }
   }
 

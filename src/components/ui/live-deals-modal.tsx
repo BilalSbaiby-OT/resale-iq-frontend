@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getLiveDeals } from "@/lib/api"
+import { getLiveDeals, isPaymentRequired } from "@/lib/api"
 import type { Deal, LiveDeal } from "@/types"
 import { Zap, Search, Heart } from "lucide-react"
 
@@ -14,6 +14,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
   const [deals, setDeals] = useState<LiveDeal[]>([])
   const [markets, setMarkets] = useState<string[]>([])
   const [error, setError] = useState("")
+  const [reason, setReason] = useState<string | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
@@ -24,17 +25,23 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      setLoading(true); setError("")
+      setLoading(true); setError(""); setReason(null)
       try {
         const res = await getLiveDeals({
           brand: deal.brand, model: deal.model,
-          max_price: deal.max_buy_price, sizes: deal.top_sizes, limit: 24,
+          max_price: deal.max_buy_price, sizes: deal.top_sizes,
+          category: deal.category, limit: 24,
         })
         if (cancelled) return
         setDeals(res.deals); setMarkets(res.markets_hit)
+        setReason(res.reason ?? null)
         if (res.error) setError(res.error)
-      } catch {
-        if (!cancelled) setError("Live search failed — try again shortly.")
+      } catch (e) {
+        if (!cancelled) {
+          setError(isPaymentRequired(e)
+            ? "Live Deal Finder is a Pro feature. Upgrade to see listings you can buy now."
+            : "Live search failed — try again shortly.")
+        }
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -45,7 +52,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
   const avg = typeof deal.avg_price_eur === "number" && Number.isFinite(deal.avg_price_eur)
     ? deal.avg_price_eur
     : null
-  const netProfit = (price: number) => avg != null && avg > 0 ? avg * 0.95 - price : null
+  const targetNet = (price: number) => avg != null && avg > 0 ? avg * 0.95 - price : null
 
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
@@ -69,14 +76,21 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
               <Search size={13} /> Searching live Vinted across 5 markets…
             </div>
           ) : deals.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontSize: 13 }}>
-              {error || "No live listings under your buy-price right now. Check back — new deals drop constantly."}
+            <div style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontSize: 13, lineHeight: 1.55, maxWidth: 420, margin: "0 auto" }}>
+              {error || (reason === "model_too_vague"
+                ? "This model name is too vague to search live — a year or a clothing word would return kits and jackets, not the item. Open a more specific model."
+                : "No listings that match this brand and model under buy-below right now.")}
+              {error.includes("Pro feature") && (
+                <div style={{ marginTop: 14 }}>
+                  <a href="/account" style={{ color: "#22c55e", fontWeight: 700, textDecoration: "none" }}>Upgrade to Pro →</a>
+                </div>
+              )}
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {error && <div style={{ fontSize: 11, color: "#f59e0b", padding: "4px 8px" }}>{error}</div>}
               {deals.map((d, i) => {
-                const profit = netProfit(d.price_eur)
+                const net = targetNet(d.price_eur)
                 return (
                   <a key={i} href={d.url} target="_blank" rel="noopener noreferrer"
                     style={{ display: "flex", alignItems: "center", gap: 12, background: "#141820", border: "1px solid #1e2535", borderRadius: 10, padding: 10, textDecoration: "none", color: "#e8ecf4", transition: "border-color .12s" }}>
@@ -94,8 +108,8 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       <div style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 16, color: "#22c55e" }}>€{d.price_eur.toFixed(0)}</div>
-                      {profit != null && profit > 0 && (
-                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#f59e0b" }}>~€{profit.toFixed(0)} profit</div>
+                      {net != null && net > 0 && (
+                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#f59e0b" }} title="Fee-adjusted warehouse avg minus this ask — constructed, not a forecast">Target net €{net.toFixed(0)}</div>
                       )}
                     </div>
                     <span style={{ color: "#3b82f6", fontSize: 13 }}>↗</span>

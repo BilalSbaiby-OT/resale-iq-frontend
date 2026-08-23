@@ -5,6 +5,7 @@ import { Sidebar } from "./sidebar"
 import { Topbar } from "./topbar"
 import { Paywall } from "./paywall"
 import { useAuthStore } from "@/lib/auth-store"
+import { TRIAL_BANNER } from "@/lib/trial-copy"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -17,11 +18,11 @@ interface AppShellProps {
 // trial, then 10 checks/month), so the frontend no longer blanket-blocks
 // the dashboard. The old approach showed the Paywall on every single route,
 // which meant a free user could never actually use their entitlements.
-const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare", "/market"]
-// PRO-only (€49) scale features. Starter (€19/operator) sees these locked; the
-// backend enforces the same split via require_power_or_trial. An active trial is
-// full/Pro-level, so triallers pass. Keep this in sync with the backend gate.
-const POWER_ONLY = ["/order-planner", "/compare"]
+const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare", "/market", "/search"]
+// Compare is Pro paid only (require_pro_paid — trial does not pass).
+const PRO_PAID_ONLY = ["/compare"]
+// Order Planner is Pro or an active trial (require_order_planner_access).
+const PRO_OR_TRIAL = ["/order-planner"]
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
@@ -71,10 +72,11 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   const isPower = user?.plan === "power"
   const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
-  const needsPower = POWER_ONLY.some(p => pathname.startsWith(p))
+  const needsProPaid = PRO_PAID_ONLY.some(p => pathname.startsWith(p))
+  const needsProOrTrial = PRO_OR_TRIAL.some(p => pathname.startsWith(p))
   if (!isPaid && !isTrial && needsPaid) return <Paywall />
-  // Starter (operator) hits a Pro upgrade wall on Pro-only routes; trial passes.
-  if (needsPower && !isPower && !isTrial) return <Paywall pro />
+  if (needsProPaid && !isPower) return <Paywall pro />
+  if (needsProOrTrial && !isPower && !isTrial) return <Paywall pro />
 
 
   return (
@@ -89,7 +91,7 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
             <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
               <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
                 <span style={{ fontWeight: 650 }}>Free trial</span>
-                <span style={{ color: "#8b99b8" }}> — {user?.trial_days_left ?? 0} day{(user?.trial_days_left ?? 0) !== 1 ? "s" : ""} left of full access</span>
+                <span style={{ color: "#8b99b8" }}> — {user?.trial_days_left ?? 0} day{(user?.trial_days_left ?? 0) !== 1 ? "s" : ""} left. {TRIAL_BANNER}</span>
               </div>
               <a href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
                 Upgrade now

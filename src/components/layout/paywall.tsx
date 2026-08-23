@@ -75,9 +75,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
       </div>
 
-      {/* What a free account actually has. Shown FIRST — the previous screen
-          opened with a paywall badge, so someone who had just chosen Free was
-          told to pay before being told what they already own. */}
+      {!pro && (
       <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Unlock size={15} style={{ color: "#22c55e" }} />
@@ -92,12 +90,6 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             <div style={{ fontSize: 12.5, color: "#fbbf24", fontWeight: 700, marginBottom: 3 }}>One step first</div>
             <div style={{ fontSize: 12.5, color: "#a9b6d0", lineHeight: 1.55 }}>
               Confirm your email to switch the unlocks on — we sent a link when you signed up.{" "}
-              {/* CHECK SPAM IS THE POINT, not a footnote. Verified 2026-08-14:
-                  mail from noreply@resaleiq.dev lands in Outlook's Junk folder,
-                  direct and forwarded alike. SPF, DKIM and DMARC all pass — the
-                  domain is simply young and unknown. A user who never finds the
-                  link never gets their unlocks and never sees the product work,
-                  which makes this the cheapest conversion fix available. */}
               <b style={{ color: "#eef1f7" }}>It often lands in spam or junk</b> — search
               for <b style={{ color: "#eef1f7" }}>noreply@resaleiq.dev</b> and mark it
               &ldquo;not junk&rdquo; so later emails reach you.{" "}
@@ -109,6 +101,18 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           Check your first item →
         </Link>
       </div>
+      )}
+      {pro && (
+        <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <Lock size={15} style={{ color: "#22c55e" }} />
+            <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>This is a Pro feature</span>
+          </div>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>
+            Order Planner, live deals and Price Compare are on Pro. Starter keeps unlimited verdicts and the Deal Scanner.
+          </p>
+        </div>
+      )}
 
       {/* Personalized value recap — loss aversion + proven ROI in one line. */}
       {recap && recap.buys > 0 && (

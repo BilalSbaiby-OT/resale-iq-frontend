@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
-import { searchVinted } from "@/lib/api"
+import { searchVinted, isPaymentRequired } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { SearchItem } from "@/types"
 import { Search, ExternalLink, Star, Eye } from "lucide-react"
@@ -39,8 +39,10 @@ export default function SearchPage() {
       const res = await searchVinted({ q, market, limit: 30, sort })
       setItems(res.items)
       setSearched(true)
-    } catch {
-      setError("Search failed. Try again.")
+    } catch (e) {
+      setError(isPaymentRequired(e)
+        ? "Live Search needs Starter or Pro. Upgrade to look up listings across markets."
+        : "Search failed. Try again.")
     } finally { setLoading(false) }
   }
 
