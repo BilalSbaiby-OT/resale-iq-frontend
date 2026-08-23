@@ -70,6 +70,7 @@ const nextConfig: NextConfig = {
       // page today, and a permanent redirect would be cached by browsers long
       // after a real /pricing page exists.
       { source: "/pricing", destination: "/#pricing", permanent: false },
+      { source: "/sign-in", destination: "/login", permanent: false },
     ]
   },
   async headers() {

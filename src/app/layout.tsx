@@ -98,7 +98,7 @@ const orgJsonLd = (tracked: string) => ({
   offers: [
     {
       "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR",
-      description: "7 days unlimited, then 10 checks a month. No card required.",
+      description: "No account: 10 checks/day. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 full checks/month. No card required.",
     },
     {
       "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",
@@ -106,7 +106,7 @@ const orgJsonLd = (tracked: string) => ({
     },
     {
       "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR",
-      description: "Adds the live deal finder, 3-week Order Planner and REST API access.",
+      description: "Adds Live Finder, Order Planner, Price Compare and REST API access.",
     },
   ],
   areaServed: ["ES", "FR", "DE", "IT", "PT"],

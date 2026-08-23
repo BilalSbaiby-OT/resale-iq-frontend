@@ -8,6 +8,8 @@ import { ExtensionHero, chromeStoreUrl } from "@/components/landing/extension-he
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { copy, detectLocale } from "@/lib/i18n"
+import { FreeChecker } from "@/components/tools/free-checker"
+import { TRIAL_LIMITS_SHORT } from "@/lib/trial-copy"
 
 import type { Metadata } from "next"
 
@@ -76,12 +78,17 @@ export default async function Landing() {
               {t.heroFrom(tracked)}
             </p>
 
-            {/* ONE primary action. "See pricing" was competing at nearly equal
-                weight while already sitting in the nav two inches above.
-                Chrome Web Store is desktop-only — hide the extension CTA below md. */}
-            <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 32, flexWrap: "wrap" }}>
-              <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 15, textDecoration: "none", padding: "14px 28px", borderRadius: 10 }}>
-                {t.addToChrome} <ArrowRight size={16} />
+            {/* Checker is the job on every viewport. Chrome cannot run on a
+                phone, so it stays a desktop-only secondary link. */}
+            <div id="check" style={{ marginTop: 28, maxWidth: 520 }}>
+              <FreeChecker />
+              <p style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 10, lineHeight: 1.5 }}>
+                {TRIAL_LIMITS_SHORT}
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
+              <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "10px 16px", borderRadius: 8 }}>
+                {t.addToChrome} <ArrowRight size={14} />
               </a>
               <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
                 {t.orCheck}

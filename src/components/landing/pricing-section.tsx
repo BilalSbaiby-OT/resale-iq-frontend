@@ -7,6 +7,7 @@ import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
+import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 
 export function PricingSection() {
   const router = useRouter()
@@ -40,7 +41,7 @@ export function PricingSection() {
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "var(--color-buy)", textTransform: "uppercase" }}>Pricing</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "var(--color-text-primary)", marginTop: 10, letterSpacing: "-0.6px" }}>Know what to pay. Skip what you shouldn&apos;t.</h2>
-        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginTop: 10 }}>Start free — 7 days of Starter plus 5 live finds and 1 order plan, then 10 checks a month. No card.</p>
+        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginTop: 10 }}>{TRIAL_LIMITS_SENTENCE}</p>
       </div>
 
       <PaybackCalculator />
@@ -111,7 +112,7 @@ export function PricingSection() {
         ))}
       </div>
       <p style={{ textAlign: "center", fontSize: 12, color: "#4d5a75", marginTop: 26 }}>
-        Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder and Order Planner are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription.
+        Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription.
       </p>
     </section>
   )

@@ -26,7 +26,8 @@ export const copy = {
     heroFrom: (tracked: string) =>
       `From ${tracked} live and sold listings across five EU markets.`,
     addToChrome: "Add to Chrome",
-    orCheck: "Or check an item on the site — 7 days free, then 10/month",
+    checkItem: "Check an item",
+    orCheck: "Start 7-day Starter trial",
     features: [
       { t: "Decide before you buy", d: "DATA → ANALYSIS → DECISION. BUY, WATCH or SKIP from watched sold listings — not a model guessing." },
       { t: "Live search", d: "Search live Vinted listings across country sites. Intelligence is built on 5 EU markets." },
@@ -47,7 +48,8 @@ export const copy = {
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne et vendues sur cinq marchés UE.`,
     addToChrome: "Ajouter à Chrome",
-    orCheck: "Ou vérifiez un article sur le site — 7 jours gratuits, puis 10/mois",
+    checkItem: "Vérifier un article",
+    orCheck: "Essai Starter 7 jours",
     features: [
       { t: "Décider avant d'acheter", d: "DONNÉES → ANALYSE → DÉCISION. BUY, WATCH ou SKIP d'après les ventes observées — pas un modèle qui devine." },
       { t: "Recherche live", d: "Cherchez des annonces Vinted en direct. L'intelligence est construite sur 5 marchés UE." },
@@ -68,7 +70,8 @@ export const copy = {
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos y vendidos en cinco mercados de la UE.`,
     addToChrome: "Añadir a Chrome",
-    orCheck: "O comprueba un artículo en la web — 7 días gratis, luego 10/mes",
+    checkItem: "Comprobar un artículo",
+    orCheck: "Prueba Starter 7 días",
     features: [
       { t: "Decide antes de comprar", d: "DATOS → ANÁLISIS → DECISIÓN. BUY, WATCH o SKIP a partir de ventas observadas — no un modelo que adivina." },
       { t: "Búsqueda en vivo", d: "Busca anuncios de Vinted en vivo. La inteligencia se construye sobre 5 mercados de la UE." },

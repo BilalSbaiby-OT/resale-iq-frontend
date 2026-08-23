@@ -97,7 +97,7 @@ export const TIERS: Tier[] = [
     tagline: "See that the data is real before you pay",
     cta: "Create a free account",
     features: [
-      "7 days of Starter (verdicts + Deal Scanner), 5 live finds and 1 order plan, then 10 full checks / month",
+      "7 days of Starter (verdicts + Deal Scanner), 5 live finds and 1 order plan, then 10 full checks / month. Anonymous visitors get 10 checks/day.",
       "BUY / WATCH / SKIP on every lookup",
       "The whole reselling manual and market data",
       "No card required",

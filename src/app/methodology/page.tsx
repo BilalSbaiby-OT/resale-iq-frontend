@@ -2,6 +2,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
+import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
@@ -257,8 +258,7 @@ export default async function MethodologyPage() {
             Check the data yourself
           </div>
           <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.65, marginBottom: 16 }}>
-            The aggregate market data is public and free to cite with attribution. A free account
-            gets you 7 days unlimited, then 10 checks a month. No card.
+            The aggregate market data is public and free to cite with attribution. {TRIAL_LIMITS_SENTENCE} No card.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>

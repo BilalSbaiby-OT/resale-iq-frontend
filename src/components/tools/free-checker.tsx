@@ -3,6 +3,7 @@ import { useState } from "react"
 import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
 import { watchedSampleNote } from "@/lib/watched-sample"
+import { TRIAL_LIMITS_SHORT } from "@/lib/trial-copy"
 
 function fmtCount(n: number | null | undefined): string {
   return n != null && Number.isFinite(n) ? n.toLocaleString("en-GB") : "—"
@@ -29,6 +30,8 @@ interface FreeVerdict {
   confidence_note?: string
   sell_through_rate?: string | null
   top_sizes?: string[]
+  match_note?: string | null
+  reason?: string | null
 }
 
 const VERDICT_COLOR: Record<string, string> = {
@@ -104,10 +107,21 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
             <p style={{ fontSize: 13.5, color: "#8b99b8" }}>
               {res.message ?? "Free checks used up for today. Sign in to continue."}
             </p>
+          ) : res.verdict === "UNKNOWN" ? (
+            <>
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
+                {res.message ?? "No data for that query. Use a brand and a real model."}
+              </p>
+            </>
           ) : (
             <>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 12 }}>{res.product ?? q}</div>
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              {res.match_note && (
+                <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12 }}>{res.match_note}</p>
+              )}
 
+              {hasPrices && (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label="Buy-below" value={money(res.buy_below)} accent="#22c55e" />
                 <Stat label="Market price" value={money(res.sell_avg)} />
@@ -122,8 +136,9 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                   <Stat label="Sell-through" value={res.sell_through_rate} />
                 )}
               </div>
+              )}
 
-              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: 16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: hasPrices ? 16 : 4 }}>
                 <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
                   {label}
                 </span>
@@ -139,10 +154,13 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               {!sample && res.confidence_note && (
                 <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
               )}
+              {res.verdict === "INSUFFICIENT_DATA" && res.message && (
+                <p style={{ marginTop: 10, fontSize: 13.5, color: "#8b99b8", lineHeight: 1.55 }}>{res.message}</p>
+              )}
 
               {!hasPrices && res.verdict !== "INSUFFICIENT_DATA" && (
                 <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
-                  Headline call only — market price and buy-below need an account (7 days free, then 10/month).
+                  Headline call only — market price and buy-below need an account. {TRIAL_LIMITS_SHORT}
                 </p>
               )}
             </>
