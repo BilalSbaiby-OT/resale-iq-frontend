@@ -48,6 +48,14 @@ function Panel({ icon: Icon, title, sub, children }: {
 }
 
 export default function OpsPage() {
+  return (
+    <AppShell>
+      <OpsDashboard />
+    </AppShell>
+  )
+}
+
+function OpsDashboard() {
   const [data, setData] = useState<OpsStatus | null>(null)
   const [err, setErr] = useState("")
 
@@ -65,7 +73,6 @@ export default function OpsPage() {
   const stale = (data?.scrapers ?? []).filter(s => s.platform.startsWith("vinted") && s.hours_ago >= 3)
 
   return (
-    <AppShell>
       <div style={{ maxWidth: 900 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
           <Activity size={18} color="#22c55e" />
@@ -131,6 +138,5 @@ export default function OpsPage() {
           </>
         )}
       </div>
-    </AppShell>
   )
 }

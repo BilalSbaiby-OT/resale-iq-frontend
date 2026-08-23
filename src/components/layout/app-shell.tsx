@@ -23,6 +23,8 @@ const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare", "/mark
 const PRO_PAID_ONLY = ["/compare"]
 // Order Planner is Pro or an active trial (require_order_planner_access).
 const PRO_OR_TRIAL = ["/order-planner"]
+// Admin / ops / traffic: owner email only. Paying Pro is not the owner.
+const OWNER_ONLY_PREFIX = "/admin"
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
@@ -77,6 +79,17 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   if (!isPaid && !isTrial && needsPaid) return <Paywall />
   if (needsProPaid && !isPower) return <Paywall pro />
   if (needsProOrTrial && !isPower && !isTrial) return <Paywall pro />
+  if (pathname.startsWith(OWNER_ONLY_PREFIX) && user?.is_owner !== true) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#8b99b8", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>Owner access required</div>
+          <div style={{ fontSize: 13, maxWidth: 360, lineHeight: 1.5 }}>This area is limited to the site owner. Paying Pro does not include it.</div>
+          <a href="/dashboard" style={{ display: "inline-block", marginTop: 16, color: "#22c55e", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>Back to dashboard</a>
+        </div>
+      </div>
+    )
+  }
 
 
   return (

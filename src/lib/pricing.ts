@@ -41,7 +41,7 @@ export const TIERS: Tier[] = [
     features: [
       "Everything in Pro",
       "Custom scope, agreed with you directly",
-      "Priority support from the founder",
+      "Priority support",
       "Volume & multi-seat pricing on request",
     ],
   },

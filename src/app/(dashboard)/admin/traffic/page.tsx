@@ -7,6 +7,14 @@ import { BarChart3, Users, Eye, Bot } from "lucide-react"
 const RANGES = [7, 30, 90]
 
 export default function TrafficPage() {
+  return (
+    <AppShell>
+      <TrafficDashboard />
+    </AppShell>
+  )
+}
+
+function TrafficDashboard() {
   const [data, setData] = useState<TrafficStats | null>(null)
   const [days, setDays] = useState(30)
   const [err, setErr] = useState("")
@@ -19,7 +27,6 @@ export default function TrafficPage() {
   const maxDay = Math.max(1, ...(data?.daily ?? []).map(d => d.views))
 
   return (
-    <AppShell>
       <div className="max-w-5xl">
         <div className="flex items-center gap-2 mb-1">
           <BarChart3 size={18} className="text-emerald-400" />
@@ -114,6 +121,5 @@ export default function TrafficPage() {
           </>
         )}
       </div>
-    </AppShell>
   )
 }

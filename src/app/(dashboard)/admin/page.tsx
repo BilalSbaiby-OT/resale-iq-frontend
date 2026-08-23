@@ -11,6 +11,14 @@ const TH: React.CSSProperties = { fontSize: 10, fontWeight: 600, textTransform: 
 const TD: React.CSSProperties = { padding: "11px 14px", borderBottom: "1px solid #181e2d", fontSize: 12.5, verticalAlign: "middle" }
 
 export default function AdminPage() {
+  return (
+    <AppShell title="Admin" subtitle="User management & revenue">
+      <AdminInner />
+    </AppShell>
+  )
+}
+
+function AdminInner() {
   const [users, setUsers] = useState<AdminUser[] | null>(null)
   const [err, setErr] = useState("")
   const [busy, setBusy] = useState<number | null>(null)
@@ -43,18 +51,16 @@ export default function AdminPage() {
 
   if (err.includes("403") || err.includes("Power") || err.includes("Owner")) {
     return (
-      <AppShell title="Admin" subtitle="Restricted">
         <div style={{ maxWidth: 420, margin: "80px auto", textAlign: "center", color: "#8b99b8" }}>
           <div style={{ marginBottom: 10, display: "flex", justifyContent: "center" }}><Lock size={30} style={{ color: "#8b99b8" }} /></div>
           <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7" }}>Admin access required</div>
           <div style={{ fontSize: 13, marginTop: 6 }}>This area is limited to the site owner.</div>
         </div>
-      </AppShell>
     )
   }
 
   return (
-    <AppShell title="Admin" subtitle="User management & revenue">
+    <>
       {stats && (
         <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
           {[
@@ -110,6 +116,6 @@ export default function AdminPage() {
           </table></div>
         )}
       </div>
-    </AppShell>
+    </>
   )
 }

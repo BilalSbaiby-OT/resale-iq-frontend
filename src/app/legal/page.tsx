@@ -2,16 +2,10 @@ import Link from "next/link"
 
 export const metadata = { title: "Legal Notice — Resale IQ" }
 
-// EU e-commerce law (Directive 2000/31/EC, and in Spain the LSSI-CE) requires a
-// site selling to consumers to publish who is behind it and how to reach them.
-// FILL IN the placeholders marked [ ] before taking real payments.
+// Identity (legal name, tax ID, postal address) is not published on the site.
+// It is provided on request to support@resaleiq.dev.
 
 const OPERATOR = {
-  name: "Bilal Sbaiby",
-  status: "Sole trader (autónomo)",
-  address: "Spain — full postal address available on request by email",
-  country: "Spain",
-  taxId: "Y9590842V",
   email: "support@resaleiq.dev",
 }
 
@@ -21,16 +15,14 @@ export default function LegalNotice() {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Legal Notice</h1>
-        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: 22 August 2026</p>
+        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: 23 August 2026</p>
 
         <div style={{ marginBottom: 22 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>Service operator</h2>
           <p style={{ fontSize: 13.5, lineHeight: 1.9 }}>
-            {OPERATOR.name}<br />
-            {OPERATOR.status}<br />
-            {OPERATOR.address}<br />
-            {OPERATOR.country}<br />
-            Tax ID: {OPERATOR.taxId}
+            Resale IQ is operated from Spain.<br />
+            The operator’s legal name, tax identification number and postal
+            address are provided on request — email {OPERATOR.email}.
           </p>
         </div>
 
