@@ -1,13 +1,15 @@
 "use client"
 import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { getToken } from "@/lib/utils"
+import { setToken } from "@/lib/utils"
+import { verifyCheckoutSession, getMe } from "@/lib/api"
+import { useAuthStore } from "@/lib/auth-store"
 import { CheckCircle2, Clock, AlertTriangle, Loader2 } from "lucide-react"
 
 /**
- * Post-checkout landing. Verifies the Stripe session server-side and applies
- * the plan upgrade immediately — no dependency on webhook delivery. This is
- * what guarantees a paying customer actually receives their plan.
+ * Post-checkout landing. Stripe often returns in a different webview with empty
+ * localStorage. session_id is enough: the API upgrades the bound account and
+ * may return a login token so this page can sign them in.
  */
 function BillingSuccessContent() {
   const params = useSearchParams()
@@ -20,16 +22,22 @@ function BillingSuccessContent() {
     if (!sessionId) { setState("error"); return }
     ;(async () => {
       try {
-        const res = await fetch(`/stripe/verify-session?session_id=${encodeURIComponent(sessionId)}`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        })
-        const d = await res.json()
-        if (res.ok && d.paid) {
+        const d = await verifyCheckoutSession(sessionId)
+        if (d.paid) {
+          if (d.access_token) {
+            setToken(d.access_token)
+            try {
+              const user = await getMe(d.access_token)
+              useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
+            } catch {
+              useAuthStore.setState({ isAuthenticated: true, isLoading: false })
+            }
+          }
           setPlan(d.plan); setState("ok")
           setTimeout(() => { window.location.href = "/dashboard" }, 2500)
-        } else if (res.ok) {
+        } else {
           setState("unpaid")
-        } else { setState("error") }
+        }
       } catch { setState("error") }
     })()
   }, [params])
@@ -57,7 +65,7 @@ function BillingSuccessContent() {
         </>)}
         {state === "error" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><AlertTriangle size={34} style={{ color: "#f59e0b" }} /></div>
-          <div style={{ fontSize: 17, fontWeight: 700 }}>Couldn't verify the session</div>
+          <div style={{ fontSize: 17, fontWeight: 700 }}>Couldn&apos;t verify the session</div>
           <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your payment is safe. Contact support or retry from your account page.</div>
           <button onClick={() => router.push("/account")} style={{ marginTop: 16, padding: "9px 20px", borderRadius: 8, background: "#1a2030", color: "#eef1f7", border: "1px solid #263147", fontWeight: 600, cursor: "pointer" }}>Go to account</button>
         </>)}

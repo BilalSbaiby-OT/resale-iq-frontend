@@ -57,6 +57,12 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
     }
   }, [pathname])
 
+  useEffect(() => {
+    if (checked && isAuthenticated && user && user.email_verified === false) {
+      router.replace("/check-email")
+    }
+  }, [checked, isAuthenticated, user, router])
+
   if (!checked || isLoading) {
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "#0B0D10" }}>
@@ -69,6 +75,10 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   }
 
   if (!isAuthenticated) return null
+
+  if (user && user.email_verified === false) {
+    return null
+  }
 
   const isPaid = user?.plan === "operator" || user?.plan === "power"
   const isPower = user?.plan === "power"

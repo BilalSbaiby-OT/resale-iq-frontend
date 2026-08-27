@@ -1,6 +1,9 @@
 "use client"
 import { useState, useEffect } from "react"
-import { resetPassword } from "@/lib/api"
+import { resetPassword, getMe } from "@/lib/api"
+import { setToken } from "@/lib/utils"
+import { useAuthStore } from "@/lib/auth-store"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { CheckCircle2, AlertCircle } from "lucide-react"
 
@@ -17,6 +20,7 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     const t = new URLSearchParams(window.location.search).get("token")
@@ -31,7 +35,18 @@ export default function ResetPasswordPage() {
     if (!token) { setError("This link is missing its token. Request a new one."); return }
     setLoading(true)
     try {
-      await resetPassword(token, password)
+      const res = await resetPassword(token, password)
+      if (res.access_token) {
+        setToken(res.access_token)
+        try {
+          const user = await getMe(res.access_token)
+          useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
+        } catch {
+          useAuthStore.setState({ isAuthenticated: true, isLoading: false })
+        }
+        router.replace("/dashboard")
+        return
+      }
       setDone(true)
     } catch (err) {
       // Surface the backend's own message (expired / already used / too common).

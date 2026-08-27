@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
-import { getPlans, createCheckout } from "@/lib/api"
+import { getPlans, isConflict } from "@/lib/api"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -62,17 +62,15 @@ function RegisterContent() {
     setError(""); setLoading(true)
     try {
       await register(email, password)
-      if (isFree) { router.push("/dashboard"); return }
-      const chosen = PLANS.find(p => p.id === plan)!
-      const plans = await getPlans()
-      const planInfo = plans.plans.find(p => p.id === chosen.pricePlan)
-      if (planInfo?.price_id && plans.stripe_enabled) {
-        const co = await createCheckout(planInfo.price_id)
-        window.location.href = co.checkout_url; return
+      router.push("/check-email")
+      return
+    } catch (err: unknown) {
+      if (isConflict(err)) {
+        setError("You already have an account — Sign in")
+      } else {
+        setError(err instanceof Error ? err.message : "Registration failed")
       }
-      // Stripe not configured yet — land them in-app (they'll hit the paywall).
-      router.push("/dashboard")
-    } catch (err: unknown) { setError(err instanceof Error ? err.message : "Registration failed") }
+    }
     finally { setLoading(false) }
   }
 
@@ -139,10 +137,10 @@ function RegisterContent() {
           {error && <div className="text-[12px] text-red-400 text-center">{error}</div>}
           <button type="submit" disabled={loading}
             className="w-full bg-emerald-400 text-[#06090c] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
-            {loading ? "Setting up…" : isFree ? <>Create free account <Check size={15} /></> : <>Continue to payment <Check size={15} /></>}
+            {loading ? "Setting up…" : <>Create account <Check size={15} /></>}
           </button>
           <p className="text-[10.5px] text-[#4d5a75] text-center">
-            {isFree ? "No card required. Upgrade any time." : "Secure checkout by Stripe. No charge until you confirm."}
+            {isFree ? "No card required. Confirm your email, then you’re in." : "Confirm your email first. Then subscribe from Settings — Stripe checkout, cancel anytime."}
           </p>
         </form>
         <div className="text-center mt-4 text-[13px] text-[#5b6b8c]">

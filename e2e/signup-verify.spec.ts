@@ -1,0 +1,119 @@
+import { expect, test } from "@playwright/test"
+
+test.describe("signup verify session", () => {
+  test("register lands on check-email, not the dashboard", async ({ page }) => {
+    const email = `e2e-reg-${Date.now()}@example.com`
+    await page.goto("/register?plan=free")
+    await page.locator('input[type="radio"]').last().check()
+    await page.locator('input[type="email"]').fill(email)
+    await page.locator('input[type="password"]').fill("goodpass123")
+    await page.locator('input[type="checkbox"]').first().check()
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    await expect(page.locator("h1")).toContainText(/Check your email/i)
+    await expect(page).not.toHaveURL(/\/app/)
+  })
+
+  test("verify with token signs in to the dashboard", async ({ page }) => {
+    const email = `e2e-ver-${Date.now()}@example.com`
+    await page.goto("/register?plan=free")
+    await page.locator('input[type="radio"]').last().check()
+    await page.locator('input[type="email"]').fill(email)
+    await page.locator('input[type="password"]').fill("goodpass123")
+    await page.locator('input[type="checkbox"]').first().check()
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+
+    const id = await page.evaluate(async () => {
+      const t = localStorage.getItem("di_jwt")
+      const r = await fetch("/auth/me", { headers: { Authorization: `Bearer ${t}` } })
+      const d = await r.json()
+      return d.id
+    })
+    expect(id).toBeTruthy()
+
+    await page.goto(`/verify-email?token=vtok-${id}`)
+    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+    await expect(page.getByRole("link", { name: "Watchlist" })).toBeVisible({ timeout: 20_000 })
+    const jwt = await page.evaluate(() => localStorage.getItem("di_jwt"))
+    expect(jwt).toBeTruthy()
+  })
+
+  test("used verify token does not mint a second session", async ({ page }) => {
+    const email = `e2e-used-${Date.now()}@example.com`
+    await page.goto("/register?plan=free")
+    await page.locator('input[type="radio"]').last().check()
+    await page.locator('input[type="email"]').fill(email)
+    await page.locator('input[type="password"]').fill("goodpass123")
+    await page.locator('input[type="checkbox"]').first().check()
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    const id = await page.evaluate(async () => {
+      const t = localStorage.getItem("di_jwt")
+      const r = await fetch("/auth/me", { headers: { Authorization: `Bearer ${t}` } })
+      return (await r.json()).id
+    })
+    await page.goto(`/verify-email?token=vtok-${id}`)
+    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+    await page.evaluate(() => localStorage.removeItem("di_jwt"))
+    await page.goto(`/verify-email?token=vtok-${id}`)
+    await expect(page.locator("h1")).toContainText(/confirmed/i)
+    await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
+    await expect(page).not.toHaveURL(/\/app/)
+  })
+
+  test("wrong password shows the real API detail", async ({ page }) => {
+    await page.goto("/login")
+    await page.locator('input[type="email"]').fill("alice@example.com")
+    await page.locator('input[type="password"]').fill("definitely-wrong")
+    await page.getByRole("button", { name: /Sign in/i }).click()
+    await expect(page.getByText("Invalid email or password")).toBeVisible()
+    await expect(page.getByText("Unauthorized")).toHaveCount(0)
+  })
+
+  test("429 on /auth/me does not wipe the JWT", async ({ page }) => {
+    await page.goto("/login")
+    await page.locator('input[type="email"]').fill("alice@example.com")
+    await page.locator('input[type="password"]').fill("password12345")
+    await page.getByRole("button", { name: /Sign in/i }).click()
+    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+    const before = await page.evaluate(() => localStorage.getItem("di_jwt"))
+    expect(before).toBeTruthy()
+
+    let once = true
+    await page.route("**/auth/me", async (route) => {
+      if (once) {
+        once = false
+        await route.fulfill({
+          status: 429,
+          contentType: "application/json",
+          body: JSON.stringify({ detail: "Rate limit exceeded (60 req/min)" }),
+        })
+        return
+      }
+      await route.continue()
+    })
+    await page.reload()
+    const after = await page.evaluate(() => localStorage.getItem("di_jwt"))
+    expect(after).toBe(before)
+    await expect(page).not.toHaveURL(/\/login/)
+  })
+
+  test("register 409 copy points to Sign in", async ({ page }) => {
+    const email = `e2e-dup-${Date.now()}@example.com`
+    const fill = async () => {
+      await page.goto("/register?plan=free")
+      await page.locator('input[type="radio"]').last().check()
+      await page.locator('input[type="email"]').fill(email)
+      await page.locator('input[type="password"]').fill("goodpass123")
+      await page.locator('input[type="checkbox"]').first().check()
+      await page.getByRole("button", { name: /Create account/i }).click()
+    }
+    await fill()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    await fill()
+    await expect(page.getByText(/already have an account/i)).toBeVisible()
+    await expect(page.getByText("Unauthorized")).toHaveCount(0)
+    await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
+  })
+})

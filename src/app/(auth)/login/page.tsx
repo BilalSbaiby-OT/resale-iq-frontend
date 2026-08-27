@@ -15,7 +15,15 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(""); setLoading(true)
-    try { await login(email, password); router.push("/dashboard") }
+    try {
+      await login(email, password)
+      const u = useAuthStore.getState().user
+      if (u && u.email_verified === false) {
+        router.push("/check-email")
+        return
+      }
+      router.push("/dashboard")
+    }
     catch (err: unknown) { setError(err instanceof Error ? err.message : "Invalid email or password") }
     finally { setLoading(false) }
   }

@@ -19,8 +19,37 @@ export class PaymentRequiredError extends Error {
   }
 }
 
+export class HttpError extends Error {
+  readonly status: number
+  constructor(status: number, message: string) {
+    super(message)
+    this.name = "HttpError"
+    this.status = status
+  }
+}
+
 export const isPaymentRequired = (e: unknown): boolean =>
   e instanceof PaymentRequiredError
+
+export const isUnauthorized = (e: unknown): boolean =>
+  e instanceof HttpError && e.status === 401
+
+export const isConflict = (e: unknown): boolean =>
+  e instanceof HttpError && e.status === 409
+
+/** Credential endpoints. A leftover JWT must not ride along, and a 401 here
+ *  is a bad password / duplicate email — never a reason to wipe a new session. */
+const PUBLIC_AUTH = new Set([
+  "/auth/register",
+  "/auth/login",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+  "/auth/verify-email",
+])
+
+function pathOnly(path: string): string {
+  return path.split("?")[0]
+}
 
 async function request<T>(
   path: string,
@@ -29,53 +58,59 @@ async function request<T>(
   // Only runs client-side — SSR will never reach real API calls
   if (typeof window === "undefined") throw new Error("SSR: API not available")
 
-  const token = getToken()
+  const publicAuth = PUBLIC_AUTH.has(pathOnly(path))
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     ...(options.headers as Record<string, string>),
   }
-  if (token) headers["Authorization"] = `Bearer ${token}`
+  if (!headers.Authorization && !publicAuth) {
+    const token = getToken()
+    if (token) headers["Authorization"] = `Bearer ${token}`
+  }
 
   let res: Response
   try {
-    res = await fetch(path, { ...options, headers })
+    res = await fetch(path, { ...options, headers, cache: "no-store" })
   } catch (networkErr) {
     throw new Error("Network error — is the backend running?")
-  }
-
-  if (res.status === 401) {
-    clearToken()
-    // Don't navigate here — let the caller (checkAuth) handle routing
-    throw new Error("Unauthorized")
   }
 
   if (!res.ok) {
     let detail = `Error ${res.status}`
     try {
       const body = await res.json()
-      detail = body.detail || body.message || detail
+      const d = body.detail || body.message
+      detail = typeof d === "string" ? d : detail
     } catch { /* ignore JSON parse errors */ }
-    // 402 is an entitlement boundary, not a failure. It was previously thrown
-    // as a generic Error, so every page's catch-all treated "you need to
-    // upgrade" identically to "the server broke" — and since most catches fall
-    // back to an empty array, a paywalled section rendered as though the
-    // dataset were simply empty. Tagging it lets callers show an upgrade CTA
-    // and, critically, tell the two cases apart.
+    if (res.status === 401) {
+      // Login/register 401 is "wrong password" / similar — keep any new JWT.
+      if (!publicAuth) clearToken()
+      throw new HttpError(401, detail)
+    }
     if (res.status === 402) throw new PaymentRequiredError(detail)
-    throw new Error(detail)
+    if (res.status === 403) {
+      const verifyUrl = res.headers.get("X-Verify-Url")
+      if (verifyUrl && typeof window !== "undefined" && !window.location.pathname.startsWith("/check-email")) {
+        window.location.href = verifyUrl
+      }
+    }
+    throw new HttpError(res.status, detail)
   }
 
   return res.json() as Promise<T>
 }
 
 // Auth
-export const getMe = () => request<User>("/auth/me")
+export const getMe = (accessToken?: string) =>
+  request<User>("/auth/me", accessToken
+    ? { headers: { Authorization: `Bearer ${accessToken}` } }
+    : {})
 export const login = (email: string, password: string) =>
   request<{ access_token: string; plan: string }>("/auth/login", {
     method: "POST", body: JSON.stringify({ email, password }),
   })
 export const register = (email: string, password: string) =>
-  request<{ access_token: string; plan: string }>("/auth/register", {
+  request<{ access_token: string; plan: string; email_sent?: boolean }>("/auth/register", {
     method: "POST", body: JSON.stringify({ email, password, plan: "free" }),
   })
 export const forgotPassword = (email: string) =>
@@ -83,7 +118,7 @@ export const forgotPassword = (email: string) =>
     method: "POST", body: JSON.stringify({ email }),
   })
 export const resetPassword = (token: string, new_password: string) =>
-  request<{ ok: boolean }>("/auth/reset-password", {
+  request<{ ok: boolean; access_token?: string; plan?: string }>("/auth/reset-password", {
     method: "POST", body: JSON.stringify({ token, new_password }),
   })
 export const resendVerification = () =>
@@ -92,7 +127,7 @@ export const resendVerification = () =>
 export const issueApiKey = () =>
   request<{ api_key: string; note?: string }>("/auth/api-key", { method: "POST" })
 export const verifyEmail = (token: string) =>
-  request<{ ok: boolean; message?: string }>("/auth/verify-email", {
+  request<{ ok: boolean; message?: string; access_token?: string; plan?: string; already_verified?: boolean }>("/auth/verify-email", {
     method: "POST", body: JSON.stringify({ token }),
   })
 export const changePassword = (new_password: string) =>
@@ -147,6 +182,10 @@ export const createCheckout = (price_id: string) =>
       cancel_url: `${window.location.origin}/account?checkout=cancelled`,
     }),
   })
+export const verifyCheckoutSession = (sessionId: string) =>
+  request<{ paid: boolean; plan: string; access_token?: string; plan_unchanged?: boolean }>(
+    `/stripe/verify-session?session_id=${encodeURIComponent(sessionId)}`,
+  )
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")
 
 // Watchlist

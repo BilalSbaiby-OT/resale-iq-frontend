@@ -44,9 +44,14 @@ let nextWatchId = 1
 const users = new Map()
 const watchlists = new Map()
 
-function seed(id, email, password, plan = "operator") {
+function seed(id, email, password, plan = "operator", { verified = true } = {}) {
   const token = `tok-${id}`
-  users.set(token, { id, email, password, plan, token })
+  users.set(token, {
+    id, email, password, plan, token,
+    email_verified: verified,
+    verifyToken: `vtok-${id}`,
+    verifyUsed: false,
+  })
   watchlists.set(id, [])
   return token
 }
@@ -54,7 +59,8 @@ seed(1, "alice@example.com", "password12345", "operator")
 seed(2, "bob@example.com", "password12345", "operator")
 
 function json(res, status, body) {
-  res.writeHead(status, { "Content-Type": "application/json" })
+  const headers = { "Content-Type": "application/json", ...res.getHeaders() }
+  res.writeHead(status, headers)
   res.end(JSON.stringify(body))
 }
 
@@ -106,9 +112,14 @@ const server = http.createServer(async (req, res) => {
       json(res, 400, { detail: "Invalid email or password" })
       return
     }
+    const dup = [...users.values()].find((u) => u.email === body.email)
+    if (dup) {
+      json(res, 409, { detail: "You already have an account — Sign in" })
+      return
+    }
     const id = nextUserId++
-    const token = seed(id, body.email, body.password, "free")
-    json(res, 201, { access_token: token, plan: "free" })
+    const token = seed(id, body.email, body.password, "free", { verified: false })
+    json(res, 201, { access_token: token, plan: "free", email_sent: true })
     return
   }
   if (method === "POST" && url === "/auth/login") {
@@ -118,14 +129,38 @@ const server = http.createServer(async (req, res) => {
     json(res, 200, { access_token: found.token, plan: found.plan })
     return
   }
+  if (method === "POST" && url === "/auth/verify-email") {
+    const body = await readBody(req)
+    const found = [...users.values()].find((u) => u.verifyToken === body.token)
+    if (!found) { json(res, 400, { detail: "Invalid verification link" }); return }
+    if (found.verifyUsed) {
+      json(res, 200, { ok: true, already_verified: true, message: "This email is already confirmed" })
+      return
+    }
+    found.verifyUsed = true
+    found.email_verified = true
+    json(res, 200, { ok: true, access_token: found.token, plan: found.plan, message: "Email verified successfully" })
+    return
+  }
+  if (method === "POST" && url === "/auth/resend-verification") {
+    const u = caller(req)
+    if (!u) { json(res, 401, { detail: "Not authenticated" }); return }
+    if (u.email_verified) {
+      json(res, 200, { ok: true, already_verified: true, message: "Your email is already confirmed." })
+      return
+    }
+    json(res, 200, { ok: true, already_verified: false, message: "Sent. Check your inbox — the link is valid for 24 hours." })
+    return
+  }
 
   const user = caller(req)
 
   if (url === "/auth/me") {
     if (!user) { json(res, 401, { detail: "Not authenticated" }); return }
+    res.setHeader("Cache-Control", "no-store, private")
     json(res, 200, {
       id: user.id, email: user.email, plan: user.plan,
-      email_verified: true, trial_active: user.plan === "free", is_owner: false,
+      email_verified: !!user.email_verified, trial_active: user.plan === "free" && !!user.email_verified, is_owner: false,
     })
     return
   }
@@ -175,6 +210,12 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.startsWith("/api/kpis")) {
+    if (!user) { json(res, 401, { detail: "Authentication required" }); return }
+    if (!user.email_verified) {
+      res.setHeader("X-Verify-Url", "/check-email")
+      json(res, 403, { detail: "Confirm your email" })
+      return
+    }
     json(res, 200, {
       avg_profit_margin: { value: 1200, unit: "", label: "Sold / 7d", sublabel: "watched", delta_30d: null, trend: null },
       items_analyzed: { value: 966236, formatted: "966,236", unit: "" },
