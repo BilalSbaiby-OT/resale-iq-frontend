@@ -32,7 +32,7 @@ export function buildSellingThisWeekRows(
   for (const { name, data } of brands) {
     let top: ProofCategory | null = null
     for (const c of data.categories) {
-      if (typeof c.sold_7d !== "number" || !Number.isFinite(c.sold_7d)) continue
+      if (typeof c.sold_7d !== "number" || !Number.isFinite(c.sold_7d) || c.sold_7d <= 0) continue
       if (!top || (top.sold_7d ?? 0) < c.sold_7d) top = c
     }
     if (!top || top.sold_7d == null) continue

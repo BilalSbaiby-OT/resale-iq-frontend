@@ -72,9 +72,31 @@ assert.equal(rows[0].sold, 197)
 assert.equal(rows[0].avg, 41, "must use category avg, not brand avg 21")
 assert.equal(rows[1].avg, 16, "Fred Perry shirts are €16, not brand €24")
 
+const empty = buildSellingThisWeekRows([
+  {
+    name: "Adidas",
+    data: {
+      avg_price_eur: 0,
+      categories: [
+        { category: "Hoodies", sold_7d: 0, avg_price_eur: 0 },
+        { category: "Sneakers", sold_7d: 100, avg_price_eur: 45 },
+      ],
+    },
+  },
+], 3)
+assert.equal(empty[0].category, "Sneakers")
+assert.equal(empty[0].avg, 45)
+assert.notEqual(empty[0].avg, 0)
+
 const ts = readFileSync(join(ROOT, "src/lib/market-proof.ts"), "utf8")
 assert.match(ts, /top\.avg_price_eur/)
 assert.doesNotMatch(ts, /data\.avg_price_eur/)
+assert.match(ts, /c\.sold_7d <= 0/)
+
+const warehouse = readFileSync(join(ROOT, "src/lib/market-numbers.ts"), "utf8")
+assert.match(warehouse, /function price\(/)
+assert.match(warehouse, /avg_price_eur: price\(/)
+assert.match(warehouse, /n > 0 \? `€\$\{Math\.round\(n\)\}`/)
 
 const component = readFileSync(join(ROOT, "src/components/landing/live-market-proof.tsx"), "utf8")
 assert.match(component, /buildSellingThisWeekRows/)

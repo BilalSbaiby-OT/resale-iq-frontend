@@ -78,6 +78,12 @@ function num(v: unknown): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null
 }
 
+/** Sale prices. 0 is a hole, not a market — same rule as the public snapshot. */
+function price(v: unknown): number | null {
+  const n = num(v)
+  return n != null && n > 0 ? n : null
+}
+
 interface RawCategory {
   category?: string
   sold_7d?: unknown
@@ -97,7 +103,7 @@ function shape(raw: RawBrand): BrandFigures {
   const cats = Array.isArray(raw.categories) ? (raw.categories as RawCategory[]) : []
   return {
     sold_7d: num(raw.sold_7d),
-    avg_price_eur: num(raw.avg_price_eur),
+    avg_price_eur: price(raw.avg_price_eur),
     models_tracked: num(raw.models_tracked),
     top_categories: Array.isArray(raw.top_categories)
       ? (raw.top_categories as string[]).filter(c => typeof c === "string")
@@ -107,7 +113,7 @@ function shape(raw: RawBrand): BrandFigures {
       .map(c => ({
         category: c.category as string,
         sold_7d: num(c.sold_7d),
-        avg_price_eur: num(c.avg_price_eur),
+        avg_price_eur: price(c.avg_price_eur),
       })),
   }
 }
@@ -204,5 +210,5 @@ export function fmtCount(n: number | null | undefined): string {
 }
 
 export function fmtEur(n: number | null | undefined): string {
-  return typeof n === "number" && Number.isFinite(n) ? `€${Math.round(n)}` : "—"
+  return typeof n === "number" && Number.isFinite(n) && n > 0 ? `€${Math.round(n)}` : "—"
 }

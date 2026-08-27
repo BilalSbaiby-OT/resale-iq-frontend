@@ -34,7 +34,13 @@ const k = (n: number) => n.toLocaleString("en-GB")
  */
 export function brandNarrative(b: BrandSeo): string[] {
   const cats = (b.categories || [])
-    .filter((c): c is Cat => !!c && typeof c.sold_7d === "number" && c.sold_7d > 0)
+    .filter((c): c is Cat =>
+      !!c &&
+      typeof c.sold_7d === "number" &&
+      c.sold_7d > 0 &&
+      typeof c.avg_price_eur === "number" &&
+      c.avg_price_eur > 0
+    )
   if (cats.length < 2) {
     return [
       `${b.brand} moves about ${k(b.sold_7d)} items a week across the five EU Vinted ` +
