@@ -67,7 +67,7 @@ const NAV_SECTIONS = [
 
 // Shown only when /auth/me says is_owner. Pro (plan=power) is not owner.
 const ADMIN_ITEMS = [
-  { href: "/admin", icon: ShieldAlert, label: "Admin" },
+  { href: "/admin", icon: ShieldAlert, label: "Customers" },
   { href: "/admin/ops", icon: Activity, label: "Operations" },
   { href: "/admin/traffic", icon: BarChart3, label: "Traffic" },
 ]
@@ -105,7 +105,9 @@ export function Sidebar({ className = "" }: { className?: string }) {
           <div key={label} style={{ marginBottom: 14 }}>
             <div style={{ padding: "4px 10px 6px", fontSize: 9.5, fontWeight: 600, color: "#4d5a75", letterSpacing: "1.2px", textTransform: "uppercase" }}>{label}</div>
             {items.map(({ href, icon: Icon, label: itemLabel }) => {
-              const active = pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
+              const active = href === "/admin"
+                ? pathname === "/admin"
+                : pathname === href || (href !== "/dashboard" && pathname.startsWith(href + "/"))
               const locked = (plan === "free" && !user?.trial_active && PAID_ROUTES.has(href))
                 || (plan === "operator" && PRO_ROUTES.has(href))
                 || (plan === "free" && user?.trial_active && href === "/compare")

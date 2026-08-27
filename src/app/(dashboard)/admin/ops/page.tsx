@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
+import { AdminNav } from "@/components/layout/admin-nav"
 import { getOps, type OpsStatus } from "@/lib/api"
 import { Activity, Bot, Database, HeartPulse } from "lucide-react"
 
@@ -74,6 +75,7 @@ function OpsDashboard() {
 
   return (
       <div style={{ maxWidth: 900 }}>
+        <AdminNav />
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
           <Activity size={18} color="#22c55e" />
           <h1 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7" }}>Operations</h1>

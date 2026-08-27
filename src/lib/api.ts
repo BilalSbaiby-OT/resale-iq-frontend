@@ -218,10 +218,14 @@ export interface AdminUser {
   id: number; email: string; plan: string; is_active: boolean; created_at: string;
   stripe_customer_id: string | null; stripe_sub_id: string | null;
   verdict_count_today: number; verdict_date: string | null;
-  email_verified?: boolean; is_owner?: boolean; protected?: boolean; plan_locked?: boolean;
+  email_verified?: boolean; is_owner?: boolean; protected?: boolean;
+  billing?: "stripe" | "comped" | "none";
 }
 export const adminListUsers = () =>
-  request<{ users: AdminUser[]; total: number }>("/admin/users")
+  request<{
+    users: AdminUser[]; total: number;
+    metrics?: { paying_total: number; mrr_eur: number; verified_users: number; total_users: number };
+  }>("/admin/users")
 export const adminChangePlan = (userId: number, plan: string) =>
   request<{ ok: boolean; new_plan: string }>(`/admin/users/${userId}/plan`, {
     method: "PUT", body: JSON.stringify({ plan }),

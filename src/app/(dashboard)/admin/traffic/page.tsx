@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
+import { AdminNav } from "@/components/layout/admin-nav"
 import { getTraffic, type TrafficStats } from "@/lib/api"
 import { BarChart3, Users, Eye, Bot } from "lucide-react"
 
@@ -28,6 +29,7 @@ function TrafficDashboard() {
 
   return (
       <div className="max-w-5xl">
+        <AdminNav />
         <div className="flex items-center gap-2 mb-1">
           <BarChart3 size={18} className="text-emerald-400" />
           <h1 className="text-[21px] font-bold">Traffic</h1>
