@@ -215,9 +215,10 @@ export interface OpsStatus {
 export const getOps = () => request<OpsStatus>("/api/admin/ops")
 
 export interface AdminUser {
-  id: number; email: string; plan: string; is_active: number; created_at: string;
+  id: number; email: string; plan: string; is_active: boolean; created_at: string;
   stripe_customer_id: string | null; stripe_sub_id: string | null;
   verdict_count_today: number; verdict_date: string | null;
+  email_verified?: boolean; is_owner?: boolean; protected?: boolean; plan_locked?: boolean;
 }
 export const adminListUsers = () =>
   request<{ users: AdminUser[]; total: number }>("/admin/users")
@@ -225,8 +226,17 @@ export const adminChangePlan = (userId: number, plan: string) =>
   request<{ ok: boolean; new_plan: string }>(`/admin/users/${userId}/plan`, {
     method: "PUT", body: JSON.stringify({ plan }),
   })
-export const adminToggleUser = (userId: number) =>
-  request<{ ok: boolean }>(`/admin/users/${userId}/toggle`, { method: "PUT" })
+export const adminToggleUser = (userId: number, isActive: boolean) =>
+  request<{ ok: boolean; is_active: boolean }>(`/admin/users/${userId}/toggle`, {
+    method: "PUT", body: JSON.stringify({ is_active: isActive }),
+  })
+export const adminDeleteUser = (userId: number) =>
+  request<{ ok: boolean; email: string }>(`/admin/users/${userId}`, { method: "DELETE" })
+export const adminPurgeDisabledJunk = (confirm = false) =>
+  request<{ dry_run: boolean; would_delete?: number; deleted?: number; emails: string[] }>(
+    `/admin/users/disabled-junk?confirm=${confirm ? "true" : "false"}`,
+    { method: "DELETE" },
+  )
 
 // Telegram alerts
 export const connectTelegram = (chat_id: string) =>
