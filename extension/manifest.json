@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Resale IQ - buy-below prices for resellers",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Shows the highest price you can pay for a Vinted item and still hit your margin, on the listing page itself.",
   "icons": {
     "16": "icons/16.png",

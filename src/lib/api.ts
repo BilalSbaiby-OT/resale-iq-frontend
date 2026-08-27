@@ -209,6 +209,7 @@ export const getTraffic = (days = 30) => request<TrafficStats>(`/api/admin/traff
 export interface OpsStatus {
   agents: { agent: string; job: string | null; status: string; detail: string | null; reported_at: string }[]
   scrapers: { platform: string; run_at: string; items_new: number; errors: number; hours_ago: number }[]
+  backup?: { hours_ago: number | null; file: string | null; stale: boolean }
   health: { overall: string; checks: { name: string; status: string; detail: string }[] }
 }
 export const getOps = () => request<OpsStatus>("/api/admin/ops")

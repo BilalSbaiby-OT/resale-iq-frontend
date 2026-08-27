@@ -105,10 +105,10 @@ export default function DashboardPage() {
 
       {/* KPI row */}
       <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
-        <KpiCard label={kpis?.avg_profit_margin.label ?? "Sold / 7d"} loading={!kpis} value={kpis?.avg_profit_margin.value} unit={kpis?.avg_profit_margin.unit ?? ""} sublabel={kpis?.avg_profit_margin.sublabel} />
-        <KpiCard label="Listings tracked" loading={!kpis} value={kpis?.items_analyzed.formatted} sublabel="across 5 Vinted markets" />
-        <KpiCard label="Top category" loading={!kpis} value={kpis?.top_category.value} sublabel={kpis?.top_category.sublabel ?? "by 7-day sales volume"} />
-        <KpiCard label={kpis?.market_opportunity.label ?? "Buy signals"} loading={!kpis} value={kpis?.market_opportunity.value} sublabel={kpis?.market_opportunity.sublabel ?? (kpis?.market_opportunity.top_signal ? `Top: ${kpis.market_opportunity.top_signal}` : "actionable now")} />
+        <KpiCard label={kpis?.avg_profit_margin?.label ?? "Sold / 7d"} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={kpis?.avg_profit_margin?.unit ?? ""} sublabel={kpis?.avg_profit_margin?.sublabel} />
+        <KpiCard label="Listings tracked" loading={!kpis} value={kpis?.items_analyzed?.formatted} sublabel="across 5 Vinted markets" />
+        <KpiCard label="Top category" loading={!kpis} value={kpis?.top_category?.value} sublabel={kpis?.top_category?.sublabel ?? "by 7-day sales volume"} />
+        <KpiCard label={kpis?.market_opportunity?.label ?? "Buy signals"} loading={!kpis} value={kpis?.market_opportunity?.value} sublabel={kpis?.market_opportunity?.sublabel ?? (kpis?.market_opportunity?.top_signal ? `Top: ${kpis.market_opportunity.top_signal}` : "actionable now")} />
       </div>
 
       {/* Opportunities + Brands */}
@@ -133,9 +133,9 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
-                      <span>Market {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
-                      <span style={{ color: "#fbbf24", fontWeight: 600 }} title="Gap at buy-below after fees — not a forecast">
-                        {dealsLocked ? "—" : (d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—")}
+                      <span>Avg sold {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
+                      <span style={{ color: "var(--color-watch)", fontWeight: 600 }} title="Gap at buy-below after fees — constructed ~30%, not a forecast">
+                        {dealsLocked ? "—" : (d.est_profit_eur != null ? `Target net +${eur(d.est_profit_eur)}` : "—")}
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>

@@ -44,13 +44,14 @@ export default function PortfolioPage() {
   return (
     <AppShell title="Portfolio & P&L" subtitle="Track every item from sourcing to sold">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
-        {[["Total Items", stats?.total_items ?? "—", ""], ["Total Invested", stats?.total_invested ? eur(stats.total_invested) : "—", "text-amber-400"], ["Realized Profit", stats?.realized_profit ? eur(stats.realized_profit) : "—", "text-emerald-400"], ["Avg ROI", stats?.avg_roi_pct ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-emerald-400"], ["Avg Days Held", stats?.avg_days_held ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
+        {[["Total Items", stats?.total_items ?? "—", ""], ["Cost basis", stats?.total_invested ? eur(stats.total_invested) : "—", "text-amber-400"], ["Realized profit", stats?.realized_profit ? eur(stats.realized_profit) : "—", "text-emerald-400"], ["Avg ROI (sold)", stats?.avg_roi_pct ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-emerald-400"], ["Avg days held", stats?.avg_days_held ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
           <div key={String(l)} className="bg-[#141820] border border-[#1e2535] rounded-xl p-3">
             <div className="text-[9px] font-mono text-[#546380] uppercase tracking-[1.5px] mb-1">{l}</div>
             <div className={`font-mono font-bold text-[20px] ${c}`}>{v}</div>
           </div>
         ))}
       </div>
+      <p className="text-[12px] text-[#5b6b8c] mb-4 -mt-2">Cost basis and realized P&amp;L from the items you logged. This is not a mark-to-market portfolio value.</p>
       <div className="flex gap-2 mb-4">
         {["", "sourced", "listed", "sold"].map(s => (
           <button key={s} onClick={() => setFilter(s)} className={`px-4 py-1.5 rounded-lg text-[11.5px] font-semibold border transition-all capitalize ${filter === s ? "bg-emerald-500/10 border-emerald-500 text-emerald-400" : "bg-[#141820] border-[#263147] text-[#8fa3c4]"}`}>{s || "All"}</button>

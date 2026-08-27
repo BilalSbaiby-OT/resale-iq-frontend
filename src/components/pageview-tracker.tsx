@@ -1,22 +1,15 @@
 "use client"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
+import { trackEvent, type FunnelEvent } from "@/lib/analytics"
 
-/**
- * First-party pageview tracking.
- *
- * Nothing measured site traffic before this, so there was no way to tell which
- * of the ~150 SEO pages earned anything. This posts to our own backend instead
- * of loading a third-party tracker: no external script, no cookie, no consent
- * banner, and the data stays in our database.
- *
- * Deliberately silent — a failed beacon must never surface to a visitor or
- * block navigation.
- */
+const PATH_EVENTS: Record<string, FunnelEvent> = {
+  "/": "landing_view",
+  "/register": "signup_started",
+}
+
 export function PageviewTracker() {
   const pathname = usePathname()
-  // React runs effects twice in dev StrictMode, and a repeated pathname would
-  // otherwise double-count. Track the last path actually sent.
   const lastSent = useRef<string | null>(null)
 
   useEffect(() => {
@@ -25,19 +18,21 @@ export function PageviewTracker() {
 
     const body = JSON.stringify({
       path: pathname,
-      // document.referrer is the previous page; the backend keeps only the host.
       referrer: typeof document !== "undefined" ? document.referrer : "",
     })
 
-    // keepalive lets the request survive the page being navigated away from.
     fetch("/api/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body,
       keepalive: true,
-    }).catch(() => {
-      /* analytics must never break the page */
-    })
+    }).catch(() => {})
+
+    const ev = PATH_EVENTS[pathname]
+    if (ev) trackEvent(ev, pathname)
+    if (typeof window !== "undefined" && window.location.hash === "#pricing") {
+      trackEvent("pricing_view", pathname)
+    }
   }, [pathname])
 
   return null

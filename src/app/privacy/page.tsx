@@ -1,6 +1,15 @@
 import Link from "next/link"
 
-export const metadata = { title: "Privacy Policy — Resale IQ" }
+export const metadata = {
+  title: "Privacy Policy — Resale IQ",
+  description:
+    "How Resale IQ handles your data: what we collect, why, who processes it, and your GDPR rights.",
+  // Self-referencing canonical. www.resaleiq.dev 308s to the apex, but a
+  // canonical is what consolidates any other duplicate path (tracking params,
+  // trailing-slash variants) onto one URL. Every other public page already
+  // carries one; these four were simply missed.
+  alternates: { canonical: "/privacy" },
+}
 
 export default function Privacy() {
   return (

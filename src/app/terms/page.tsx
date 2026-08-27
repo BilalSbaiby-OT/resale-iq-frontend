@@ -1,6 +1,11 @@
 import Link from "next/link"
 
-export const metadata = { title: "Terms of Service — Resale IQ" }
+export const metadata = {
+  title: "Terms of Service — Resale IQ",
+  description:
+    "The terms covering Resale IQ accounts, subscriptions, acceptable use and limitations of the market data.",
+  alternates: { canonical: "/terms" },
+}
 
 export default function Terms() {
   return (

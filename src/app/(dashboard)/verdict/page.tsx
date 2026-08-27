@@ -9,15 +9,16 @@ import { Zap, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
 import { MedianN } from "@/components/ui/median-n"
 import { watchedSampleNote } from "@/lib/watched-sample"
+import { trackEvent } from "@/lib/analytics"
 
 const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string; label: string }> = {
-  BUY:     { color: "#34d399", bg: "rgba(52,211,153,.10)", border: "rgba(52,211,153,.35)", label: "BUY" },
-  WATCH:   { color: "#fbbf24", bg: "rgba(251,191,36,.10)", border: "rgba(251,191,36,.35)", label: "WATCH" },
-  SKIP:    { color: "#f87171", bg: "rgba(248,113,113,.10)", border: "rgba(248,113,113,.35)", label: "SKIP" },
-  UNKNOWN: { color: "#8b99b8", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NO DATA" },
+  BUY:     { color: "var(--color-buy)", bg: "rgba(34,197,94,.10)", border: "rgba(34,197,94,.35)", label: "BUY" },
+  WATCH:   { color: "var(--color-watch)", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: "WATCH" },
+  SKIP:    { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: "SKIP" },
+  UNKNOWN: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NO DATA" },
   // Distinct from NO DATA on purpose: we found the product, we just will not
   // put a call on it. "NOT MEASURED" says the gap is ours, not the market's.
-  INSUFFICIENT_DATA: { color: "#8b99b8", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
+  INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -46,8 +47,11 @@ function VerdictInner() {
     setLoading(true); setError(""); setResult(null)
     try {
       setResult(await getVerdict(q))
-    } catch {
-      setError("Couldn't fetch a verdict. Try again.")
+      trackEvent("verdict_seen")
+      trackEvent("analysis_completed")
+    } catch (e) {
+      trackEvent("analysis_failed")
+      setError(e instanceof Error ? e.message : "We couldn't find enough comparable sales to finish that check. Try again, or a more specific model name.")
     } finally { setLoading(false) }
   }, [query])
 
@@ -85,7 +89,7 @@ function VerdictInner() {
       : null)
 
   return (
-    <AppShell title="Quick Verdict" subtitle="Type any product — get an instant buy / skip call from live market data">
+    <AppShell title="Quick Verdict" subtitle="Type any product — BUY / WATCH / SKIP from watched sold listings">
       <div className="max-w-2xl">
         {/* Search */}
         <div className="flex gap-2 mb-6">
@@ -97,7 +101,7 @@ function VerdictInner() {
             className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
-            <Zap size={15} />{loading ? "Checking…" : "Get verdict"}
+            <Zap size={15} />{loading ? "Looking up watched sales…" : "Check market"}
           </button>
         </div>
 
@@ -170,13 +174,13 @@ function VerdictInner() {
                 )}
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
-                  <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="#34d399" />
-                  <Metric label="Median sold" value={<MedianN median={result.sell_avg} n={result.n ?? result.sold_7d} />} />
+                  <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
+                  <Metric label="Avg sold" value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
                   {result.sell_through_rate
                     ? <Metric label="Sell-through" value={result.sell_through_rate} />
                     : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
                   {result.buy_below != null && result.sell_avg != null
-                    ? <Metric label="Est. margin" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="#34d399" />
+                    ? <Metric label="Target net" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
                     : result.sell_through_rate
                     ? <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
                     : <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}

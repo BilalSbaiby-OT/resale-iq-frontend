@@ -23,6 +23,8 @@ export default function WatchlistPage() {
     try {
       const d = await getWatchlist()
       setItems(d.items); setWarmingUp(!!d.momentum_warming_up); setLocked(d.locked)
+    } catch {
+      setItems([])
     } finally { setLoading(false) }
   }
   useEffect(() => { load() }, [])
@@ -63,7 +65,15 @@ export default function WatchlistPage() {
         </div>
       )}
       {loading ? <div className="text-center py-12 text-[#546380] text-[12px]">Loading…</div> :
-       items.length === 0 ? <div className="text-center py-20 text-[#546380] text-[13px]">Your watchlist is empty. Add brands and models you want to track.</div> :
+       items.length === 0 ? (
+        <div className="text-center py-16 px-6 bg-[#141820] border border-[#1e2535] rounded-xl max-w-lg mx-auto">
+          <div className="font-semibold text-[16px] text-[#eef1f7]">Watch a model you might buy</div>
+          <p className="text-[13px] text-[#8b99b8] mt-2 leading-relaxed">
+            When the market moves — price, sell-through, or a listing under your buy-below — we can ping you. A WATCH becomes BUY when the ask is at or under buy-below and we have enough comparable sold items. Pin the models you source so you do not have to re-check them.
+          </p>
+          <button onClick={() => setShowAdd(true)} className="mt-4 bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-2 rounded-lg">Watch your first model</button>
+        </div>
+       ) :
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {items.map(item => (
             <div key={item.id} className="bg-[#141820] border border-[#1e2535] rounded-xl p-4">
@@ -79,7 +89,7 @@ export default function WatchlistPage() {
                   </div>
                 </div>
                 <div className="bg-[#1a2030] rounded-lg p-2">
-                  <div className="text-[9px] font-mono text-[#546380] uppercase">Median sold</div>
+                  <div className="text-[9px] font-mono text-[#546380] uppercase">Avg sold</div>
                   <div className="font-mono font-bold text-[13px] mt-0.5">
                     {locked ? <Lock size={11} className="text-[#546380]" /> : <MedianN median={item.avg_price_eur} n={item.sold_7d} />}
                   </div>

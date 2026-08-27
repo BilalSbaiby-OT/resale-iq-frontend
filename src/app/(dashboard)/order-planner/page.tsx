@@ -11,6 +11,7 @@ interface PlanItem {
   week1_sell_probability: number; fast_sale_price: number | null
   target_unit_cost: number; unit_profit: number | null
   order_score: number; suggested_units: number
+  str_withheld?: boolean
 }
 interface Plan {
   horizon_weeks: number; budget_eur: number | null; allocated_eur: number
@@ -87,7 +88,7 @@ export default function OrderPlannerPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
           <span style={{ fontSize: 13, color: "#fbbf24", fontWeight: 700 }}>Provisional</span>
           <span style={{ fontSize: 12.5, color: "#c3cde0", lineHeight: 1.5 }}>
-            Sell-through is still being measured, so week-1 sell probabilities use a conservative estimate. Cost, demand and margin are live — treat P(sell) as a floor until sold-date history matures.
+            Sell-through is still being measured, so week-1 sell probabilities use a conservative prior and suggested units cap at 1 per model. Cost and demand are live — do not treat P(sell) as measured sell-through.
           </span>
         </div>
       )}
@@ -135,8 +136,8 @@ export default function OrderPlannerPage() {
                     <div style={{ fontSize: 9, color: "#546380" }}>now {e.current_weekly_demand.toLocaleString()}</div>
                   </td>
                   <td style={{ padding: "11px 12px", fontFamily: "monospace", fontSize: 11, fontWeight: 700, color: t.color }}>{t.icon} {e.trend}</td>
-                  <td style={{ padding: "11px 12px", fontFamily: "monospace", fontSize: 13, color: e.week1_sell_probability >= 0.7 ? "#22c55e" : e.week1_sell_probability >= 0.5 ? "#f59e0b" : "#ef4444" }}>
-                    {(e.week1_sell_probability * 100).toFixed(0)}%
+                  <td title={e.str_withheld ? "Sell-through withheld — this is a 0.25 prior, not a measured rate" : undefined} style={{ padding: "11px 12px", fontFamily: "monospace", fontSize: 13, color: e.week1_sell_probability >= 0.7 ? "var(--color-buy)" : e.week1_sell_probability >= 0.5 ? "var(--color-watch)" : "var(--color-skip)" }}>
+                    {(e.week1_sell_probability * 100).toFixed(0)}%{e.str_withheld ? <span style={{ fontSize: 9, color: "var(--color-watch)", marginLeft: 4 }}>prior</span> : null}
                   </td>
                   <td style={{ padding: "11px 12px", fontFamily: "monospace", fontWeight: 700, color: "#22c55e" }}>€{e.target_unit_cost.toFixed(0)}</td>
                   <td style={{ padding: "11px 12px", fontFamily: "monospace" }}>€{e.fast_sale_price?.toFixed(0) ?? "—"}</td>

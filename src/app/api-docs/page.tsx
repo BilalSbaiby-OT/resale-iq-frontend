@@ -4,7 +4,7 @@ export const metadata = {
   title: "Vinted Resale API — Resale IQ Developer Docs",
   description:
     "REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average sold prices, buy-below prices and demand signals for 26 brands. Included with the Pro plan.",
-  alternates: { canonical: "https://resaleiq.dev/api-docs" },
+  alternates: { canonical: "/api-docs" },
 }
 
 // Documented here rather than only in the app, because a developer evaluating

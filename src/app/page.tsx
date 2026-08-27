@@ -138,9 +138,12 @@ export default async function Landing() {
         {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>Free tools</Link>
+          <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>Nike resale</Link>
+          <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>Sneakers</Link>
           <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
           <Link href="/methodology" style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
           <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>Market data</Link>
+          <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>API</Link>
           <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>Terms</Link>
           <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>Privacy</Link>

@@ -10,7 +10,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # BACKEND_URL is baked into the Next rewrites at build time (required-server-files.json),
-# so it MUST be present during `npm run build`. Overridable via Coolify build arg.
+# so it MUST be present during `npm run build`. Pass it explicitly.
+# Production today still uses the Coolify sslip.io hostname (public HTTP — see
+# docs/OVERHAUL_2026-08-27.md). Prefer the docker-internal container hostname
+# on the next deploy: http://<backend-container>:8080
 ARG BACKEND_URL=http://ph5clxk9hmghspv65pdkvak9.62.238.51.83.sslip.io
 ENV BACKEND_URL=$BACKEND_URL
 ENV NEXT_TELEMETRY_DISABLED=1

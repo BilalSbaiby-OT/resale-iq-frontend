@@ -18,7 +18,8 @@ const PUBLIC_ALLOW = [
 const PRIVATE_DISALLOW = [
   "/dashboard", "/admin", "/account", "/deals", "/watchlist",
   "/portfolio", "/order-planner", "/verdict", "/authenticity",
-  "/trends", "/brands", "/calculator", "/api/",
+  "/trends", "/brands", "/calculator", "/market", "/search",
+  "/compare", "/billing", "/login", "/register", "/check", "/api/",
 ]
 
 // Answer-engine + AI crawlers we explicitly welcome on public content.

@@ -53,11 +53,11 @@ export default async function DataPage() {
   }
 
   return (
-    <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
+    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
-        <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", margin: "20px 0 10px" }}>
+        <Link href="/" style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <h1 style={{ fontSize: 32, fontWeight: 800, color: "var(--color-text-primary)", margin: "20px 0 10px" }}>
           Vinted market data
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
@@ -152,7 +152,7 @@ export default async function DataPage() {
                     <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>
                       {fmtCount(b.sold_7d)}
                     </td>
-                    <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "#22c55e" }}>{fmtEur(b.avg_price_eur)}</td>
+                    <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "var(--color-buy)" }}>{fmtEur(b.avg_price_eur)}</td>
                     <td style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>
                   </tr>
                 ))}
@@ -170,7 +170,7 @@ export default async function DataPage() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Buy-below price, sell-through and best sizes for any item — plus live deals under your price.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/register" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans →
           </Link>
           <Link href="/tools" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>

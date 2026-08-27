@@ -5,6 +5,7 @@ import { listingsTrackedLabel } from "@/lib/stats"
 export const metadata = {
   title: "Support & FAQ — Resale IQ",
   description: "Get help with Resale IQ — billing, accounts, data, and how the signals work.",
+  alternates: { canonical: "/support" },
 }
 
 // The company address: sends via Resend SMTP, receives via Porkbun forwarding.

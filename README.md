@@ -11,7 +11,7 @@ npx tsc --noEmit
 npm run dev          # :3000, proxies BACKEND_URL (default localhost:8080)
 ```
 
-Required before commit: `npx tsc --noEmit && npm run build && npm run check:tracked && npm run check:isolation`
+Required before commit: `npx tsc --noEmit && npm run build && npm run check:tracked && npm run check:market-proof && npm run check:isolation`
 
 ## Tests
 

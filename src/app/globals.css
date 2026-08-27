@@ -11,12 +11,21 @@
   --color-bg-3: #141820;
   --color-bg-4: #1a2030;
   --color-bg-5: #1f2840;
+  --color-surface: #12151d;
+  --color-surface-elevated: #1a2030;
   --color-border: #1e2535;
   --color-border-2: #263147;
+  --color-border-ui: #1c2333;
   --color-text-primary: #e8ecf4;
   --color-text-secondary: #8fa3c4;
   --color-text-muted: #546380;
+  --color-text-body: #c3cde0;
+  --color-on-buy: #06090c;
   --color-green: #22c55e;
+  --color-buy: #22c55e;
+  --color-watch: #f59e0b;
+  --color-skip: #ef4444;
+  --color-unknown: #8b99b8;
   --color-amber: #f59e0b;
   --color-red: #ef4444;
   --color-blue: #3b82f6;
@@ -34,8 +43,8 @@
 }
 html { color-scheme: dark; }
 body {
-  background: #0B0D10;
-  color: #e8ecf4;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.5;
@@ -53,6 +62,22 @@ body {
 @keyframes fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
 
 .animate-fade-in { animation: fade-in 0.2s ease-out; }
+
+/* Semantic BUY / WATCH / SKIP — do not rainbow cards. */
+.riq-buy { color: var(--color-buy); }
+.riq-watch { color: var(--color-watch); }
+.riq-skip { color: var(--color-skip); }
+.riq-unknown { color: var(--color-unknown); }
+
+@media (max-width: 480px) {
+  .riq-check-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    background: var(--color-surface);
+  }
+}
 .skeleton { background: linear-gradient(90deg,#141820 25%,#1a2030 50%,#141820 75%); background-size:400px 100%; animation:shimmer 1.6s infinite; border-radius:6px; }
 
 /* ── Responsive shell (mobile-first customers) ───────────────────────────────
