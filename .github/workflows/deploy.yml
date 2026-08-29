@@ -53,9 +53,26 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # Generous: the wait step polls for up to 15 minutes while Coolify
+    # builds the image and swaps the container. A 5-minute cap would kill
+    # the job mid-check and report a failure for a deploy that succeeded.
+    timeout-minutes: 25
 
     steps:
+      # Fingerprint the CURRENTLY served build first. Next.js names its chunks
+      # by content hash, so this string changes whenever the bundle changes —
+      # which is what lets the check below prove a NEW build is live rather
+      # than merely that the site is up.
+      - name: Fingerprint the running build
+        id: before
+        run: |
+          set -uo pipefail
+          fp=$(curl -sL -m 20 https://resaleiq.dev/ \
+               | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
+               | sort -u | sha256sum | cut -d' ' -f1)
+          echo "fingerprint=${fp}" >> "$GITHUB_OUTPUT"
+          echo "Serving build fingerprint ${fp}"
+
       - name: Trigger Coolify deploy over SSH
         env:
           DEPLOY_KEY: ${{ secrets.COOLIFY_DEPLOY_KEY }}
@@ -76,29 +93,36 @@ jobs:
           # ever rebuilt this fails loudly instead of trusting a new host.
           ssh-keyscan -t ed25519 "${DEPLOY_HOST}" >> ~/.ssh/known_hosts 2>/dev/null
 
-          # No command argument on purpose — the forced command runs regardless.
-          # curl -f inside it means an HTTP error becomes a non-zero exit here,
-          # so a refused deploy fails this job instead of reporting success.
+          # No command argument on purpose — authorized_keys carries a forced
+          # command (POST to Coolify's deploy API) that sshd runs regardless of
+          # what the client asks for. curl -f inside it turns an HTTP error into
+          # a non-zero exit here, so a refused deploy fails this job.
           ssh -o BatchMode=yes -o StrictHostKeyChecking=yes \
               -i ~/.ssh/id_ed25519 "root@${DEPLOY_HOST}"
 
           echo "Deploy queued in Coolify."
 
-      - name: Wait for the new build to serve
+      - name: Wait for the NEW build to serve
         run: |
           set -uo pipefail
-          # Coolify returns as soon as the deploy is QUEUED, so a green job here
-          # would otherwise prove nothing about production. Poll a route that
-          # only exists in the new build's route table until it answers.
+          BEFORE="${{ steps.before.outputs.fingerprint }}"
+          # Coolify returns as soon as the deploy is QUEUED. Polling for HTTP 200
+          # would pass instantly against the OLD container and prove nothing —
+          # it did exactly that on the first run of this workflow. Wait for the
+          # bundle fingerprint to actually change.
           for i in $(seq 1 60); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' -m 15 https://resaleiq.dev/flip || true)
-            if [ "$code" = "200" ]; then
-              echo "Production is serving (attempt $i)."
+            sleep 15
+            now=$(curl -sL -m 20 https://resaleiq.dev/ \
+                  | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
+                  | sort -u | sha256sum | cut -d' ' -f1)
+            if [ -n "${now}" ] && [ "${now}" != "${BEFORE}" ]; then
+              echo "New build is live after ~$((i*15))s (fingerprint ${now})."
+              code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://resaleiq.dev/flip || true)
+              [ "$code" = "200" ] || echo "::warning::New build is live but /flip returned ${code}."
               exit 0
             fi
-            sleep 15
           done
-          echo "::warning::Site did not confirm within 15 minutes. Check Coolify's deployment log."
-          # Deliberately not a failure: the deploy may still be building. This
-          # step reports, it does not gate.
+          # Not a failure. A redeploy of an unchanged commit produces an
+          # identical bundle, so the fingerprint legitimately never moves.
+          echo "::warning::Bundle unchanged after 15 min. Either the commit was already deployed, or the build failed — check Coolify's deployment log."
           exit 0
