@@ -1,5 +1,5 @@
 STATUS: BLOCKED
-OWNER: growth          # extension 1.3.0 — blocked on owner (see below)
+OWNER: none            # released — the remaining step is the owner's, not an agent's
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
@@ -13,11 +13,15 @@ LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30)
       other host). NOTE: a plain curl served a STALE cached copy showing the old
       date — verify this page with a cache-buster (?v=timestamp) or you will
       mis-read it as un-deployed.
-  BLOCKED ON OWNER, one thing:
-    Google re-auth — the Web Store dev console shows "Verify it's you" for
-    emmanuelbilal33@gmail.com. An agent must not enter a password or a 2FA code.
-    Owner signs in at chrome.google.com/webstore/devconsole, then the upload and
-    submit can proceed unattended.
+  BLOCKED ON OWNER — and NO AGENT CAN DO THIS STEP. Do not retry it:
+    Chrome refuses to let ANY extension script the Web Store ("The extensions
+    gallery cannot be scripted"), so Claude-in-Chrome cannot drive the dashboard.
+    The Chrome Web Store API v2 is no substitute: it exposes only media.upload
+    and publishers.items.publish — there is no resource for screenshots, listing
+    copy, permission justifications or data-use declarations, and for 1.3.0 the
+    screenshots and declarations are precisely what must change.
+    Owner does the dashboard: extension/SUBMIT-CHECKLIST.md has every field in
+    order, paste-ready, generated from STORE-LISTING.md.
   Package ready: ~/Desktop/resale-iq-extension-1.3.0.zip (1.3.0, matches the tree).
   Listing copy to paste verbatim: extension/STORE-LISTING.md
 BLOCKED ON DEPLOY — a human must click Redeploy in Coolify.
