@@ -1,5 +1,5 @@
-STATUS: READY
-OWNER: none            # free — claim before your first edit (see agent/LANES.md)
+STATUS: BLOCKED
+OWNER: none            # one owner-only step left: replace 2 screenshots, then Submit
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
@@ -13,7 +13,27 @@ LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30)
       other host). NOTE: a plain curl served a STALE cached copy showing the old
       date — verify this page with a cache-buster (?v=timestamp) or you will
       mis-read it as un-deployed.
-  BLOCKED ON OWNER — and NO AGENT CAN DO THIS STEP. Do not retry it:
+  DASHBOARD PROGRESS 2026-08-29 (done via the Claude Browser pane, which CAN
+  script the Web Store even though the Chrome extension cannot):
+    [x] Package 1.3.0 was ALREADY uploaded as the draft (published is 1.2.0).
+    [x] Store listing copy, category, language, URLs: already correct.
+    [x] Privacy: single purpose, storage + host justifications, remote-code=No,
+        the 3 certifications and the policy URL were all already correct.
+    [x] FIXED A REAL COMPLIANCE GAP: every "data usage" box was UNCHECKED, while
+        the extension does send listing content and does store a session token.
+        Ticked "Authentication information" and "Website content" (and nothing
+        else), saved, and verified they survive a page reload.
+    [ ] NOT SUBMITTED, deliberately. The attached screenshots are byte-identical
+        to the 14 Aug originals (836100 / 863476 bytes) and visibly say
+        "IN RANGE" — a label 1.3.0 removed. Submitting would invite the exact
+        rejection STORE-LISTING.md warns about.
+  OWNER, TWO CLICKS TO FINISH:
+    Store listing -> replace both screenshots with
+      extension/store-assets/screenshot-1-in-range.png   (says BUY)
+      extension/store-assets/screenshot-2-too-dear.png   (says SKIP)
+    then Submit for review.
+
+  WHY AN AGENT CANNOT DO THE UPLOAD — do not retry it:
     Chrome refuses to let ANY extension script the Web Store ("The extensions
     gallery cannot be scripted"), so Claude-in-Chrome cannot drive the dashboard.
     The Chrome Web Store API v2 is no substitute: it exposes only media.upload
