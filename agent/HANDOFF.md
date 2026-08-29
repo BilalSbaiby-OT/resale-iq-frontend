@@ -1,5 +1,5 @@
-STATUS: BLOCKED
-OWNER: none            # one owner-only step left: replace 2 screenshots, then Submit
+STATUS: IN_PROGRESS
+OWNER: growth          # Phase 1 attribution: utm capture -> pageviews -> activated -> growth-funnel
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
