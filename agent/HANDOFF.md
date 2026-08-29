@@ -1,7 +1,11 @@
-STATUS: READY
+STATUS: IN_PROGRESS
+OWNER: seo           # seo | growth | none — claim before your first edit (see agent/LANES.md)
 PUSH: yes
-UPDATED: 2026-08-22
+UPDATED: 2026-08-29
 LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
+SEO IN FLIGHT (branch seo/p1-p4): GSC now connected; shipping /flip + /category hubs,
+  blog→money-page internal links, vinted-vs-depop rebuild, title/meta pass, breadcrumbs.
+  Queue + resume prompt: ~/Desktop/resale-iq-seo/WORK-QUEUE.md
 NEXT TASK: offsite backup OAuth (Drive token) — see CURRENT_STATE. P0–P2 boxes are [x]
 
 Frontend origin: (this commit). Backend: (this commit).

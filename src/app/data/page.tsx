@@ -197,7 +197,13 @@ export default async function DataPage() {
           </div>
         </div>
 
+        {/* /data is the highest-authority page that links into the programmatic
+            estate, so the two hubs go here. The homepage already links /data, which
+            puts /flip and /category at crawl depth 2 without touching page.tsx —
+            that file belongs to the other agent's lane (agent/LANES.md). */}
         <div style={{ marginTop: 26, display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <Link href="/flip" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Every brand ranked</Link>
+          <Link href="/category" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Every category ranked</Link>
           <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Analyze an item</Link>
           <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Methodology</Link>
           <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ The reselling manual</Link>
