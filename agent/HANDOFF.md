@@ -1,5 +1,5 @@
-STATUS: READY
-OWNER: none          # seo | growth | none — claim before your first edit (see agent/LANES.md)
+STATUS: IN_PROGRESS
+OWNER: seo           # seo | growth | none — claim before your first edit (see agent/LANES.md)
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
