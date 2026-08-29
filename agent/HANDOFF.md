@@ -1,8 +1,21 @@
 STATUS: BLOCKED
-OWNER: none          # seo | growth | none — claim before your first edit (see agent/LANES.md)
+OWNER: growth          # extension 1.3.0 — blocked on owner (see below)
 PUSH: yes
 UPDATED: 2026-08-29
-LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
+LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
+  The 404 uncommitted lines that blocked this repo are now in. Store screenshots
+  regenerated: they showed the removed IN RANGE / TOO DEAR labels, and the hardcoded
+  asking price had gone stale so the panel claimed EUR140 on a page showing EUR120 —
+  price now read live from [data-testid="item-price"].
+  BLOCKED ON OWNER, two things:
+    1. Coolify deploy — src/app/privacy/page.tsx must be LIVE before the store
+       submission; a reviewer compares it to the data declarations. Still shows
+       "22 August 2026". Coolify :8000 is unreachable from the dev machine.
+    2. Google re-auth — the Web Store dev console asked to sign in again. An agent
+       must not enter a password or a 2FA code. Owner signs in, then the upload and
+       submit can proceed.
+  Package ready: ~/Desktop/resale-iq-extension-1.3.0.zip (1.3.0, matches the tree).
+  Listing copy to paste verbatim: extension/STORE-LISTING.md
 BLOCKED ON DEPLOY — a human must click Redeploy in Coolify.
   SEO P1-P4 is MERGED AND PUSHED to main (738d66f). Production is still serving the
   OLD build: verified 2026-08-29 that resaleiq.dev/flip returns 404, /data has 0 <h2>,
