@@ -5,8 +5,8 @@
 | `store-icon-128.png` | Store icon | 128x128, mark at 96x96 with padding, per Google's guidance |
 | `small-promo-440x280.jpg` | Small promo tile | 440x280, JPEG so there is no alpha channel |
 | `marquee-1400x560.jpg` | Marquee promo tile | 1400x560, JPEG so there is no alpha channel |
-| `screenshot-1-in-range.png` | Screenshot 1 | 1280x800, IN RANGE on a real listing |
-| `screenshot-2-too-dear.png` | Screenshot 2 | 1280x800, TOO DEAR on a real listing |
+| `screenshot-1-in-range.png` | Screenshot 1 | 1280x800, **BUY** on a real listing (filename is historical) |
+| `screenshot-2-too-dear.png` | Screenshot 2 | 1280x800, **SKIP** on a real listing (filename is historical) |
 
 Both tiles are JPEG on purpose: the store rejects PNGs with an alpha channel,
 and a flattened JPEG cannot have one. The icon stays PNG because transparency

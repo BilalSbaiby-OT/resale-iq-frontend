@@ -1,23 +1,19 @@
 /**
  * Puts the buy-below price on the Vinted listing page itself.
  *
- * WHY THIS EXISTS
- * The site has ~21 human visitors a month. Four independent models, asked
- * separately, all reached the same conclusion: the constraint is distribution,
- * not data — and the buy-below number is worth most at the moment of the buy,
- * which happens on Vinted, not on our dashboard.
- *
- * WHAT IT DELIBERATELY DOES NOT DO
- * It does not read the user's Vinted account, touch their session, or send
- * anything about them anywhere. It reads the public title and price already
- * rendered on the page, and asks our own public verdict endpoint about it.
+ * Deliberately does not read the user's Vinted account, session, or messages.
+ * Reads the public title, brand and asking price already on the page, then
+ * asks resaleiq.dev about that string.
  */
 const BADGE_ID = "riq-badge";
 
 function locale() {
   const h = (location.hostname || "").toLowerCase();
-  if (h.includes("vinted.fr") || h.endsWith(".fr")) return "fr";
-  if (h.includes("vinted.es") || h.endsWith(".es")) return "es";
+  if (h.includes("vinted.fr")) return "fr";
+  if (h.includes("vinted.es")) return "es";
+  if (h.includes("vinted.de")) return "de";
+  if (h.includes("vinted.it")) return "it";
+  if (h.includes("vinted.pt")) return "pt";
   return "en";
 }
 
@@ -35,10 +31,15 @@ const I18N = {
     bought: "I bought at €",
     saved: "logged",
     limited: "Free checks used up for today. Sign in and the panel reconnects on its own.",
+    verify: "Confirm your email, then this panel will show numbers again.",
+    down: "Could not reach Resale IQ. Try again in a moment.",
     signIn: "Sign in",
+    confirm: "Confirm email",
     checking: "checking…",
     why: "why",
     rate: "Too many lookups. Wait a minute.",
+    hide: "Hide",
+    show: "Show Resale IQ",
   },
   fr: {
     most: "le maximum à payer pour votre marge",
@@ -53,10 +54,15 @@ const I18N = {
     bought: "J'ai acheté à €",
     saved: "enregistré",
     limited: "Essais gratuits épuisés aujourd'hui. Connectez-vous et le panneau se reconnecte.",
+    verify: "Confirmez votre e-mail, puis le panneau réaffichera les chiffres.",
+    down: "Resale IQ est injoignable. Réessayez dans un instant.",
     signIn: "Connexion",
+    confirm: "Confirmer l'e-mail",
     checking: "vérification…",
     why: "pourquoi",
     rate: "Trop de requêtes. Attendez une minute.",
+    hide: "Masquer",
+    show: "Afficher Resale IQ",
   },
   es: {
     most: "lo máximo que puedes pagar para tu margen",
@@ -71,18 +77,90 @@ const I18N = {
     bought: "Lo compré a €",
     saved: "guardado",
     limited: "Comprobaciones gratis agotadas hoy. Entra y el panel se reconecta solo.",
+    verify: "Confirma tu email y el panel volverá a mostrar números.",
+    down: "No se pudo contactar con Resale IQ. Prueba en un momento.",
     signIn: "Entrar",
+    confirm: "Confirmar email",
     checking: "comprobando…",
     why: "por qué",
     rate: "Demasiadas consultas. Espera un minuto.",
+    hide: "Ocultar",
+    show: "Mostrar Resale IQ",
+  },
+  de: {
+    most: "Höchstpreis für deine Marge",
+    notTracked: "nicht erfasst",
+    noData: "noch keine Modelldaten für diesen Artikel",
+    matched: "zugeordnet",
+    listedOver: (ask, over) => `inseriert ${ask} — ${over} darüber`,
+    listedOk: (ask) => `inseriert ${ask} — innerhalb deines Preises`,
+    median: "Ø verkauft",
+    n: "n",
+    how: "so wird gerechnet",
+    bought: "Gekauft für €",
+    saved: "gespeichert",
+    limited: "Kostenlose Checks für heute aufgebraucht. Anmelden, dann verbindet sich das Panel.",
+    verify: "E-Mail bestätigen, dann zeigt das Panel wieder Zahlen.",
+    down: "Resale IQ nicht erreichbar. Gleich nochmal versuchen.",
+    signIn: "Anmelden",
+    confirm: "E-Mail bestätigen",
+    checking: "prüfe…",
+    why: "warum",
+    rate: "Zu viele Anfragen. Eine Minute warten.",
+    hide: "Ausblenden",
+    show: "Resale IQ zeigen",
+  },
+  it: {
+    most: "il massimo che puoi pagare per il margine",
+    notTracked: "non tracciato",
+    noData: "ancora nessun dato di modello per questo articolo",
+    matched: "associato",
+    listedOver: (ask, over) => `in vendita a ${ask} — ${over} in più`,
+    listedOk: (ask) => `in vendita a ${ask} — nel tuo prezzo`,
+    median: "media venduta",
+    n: "n",
+    how: "come si calcola",
+    bought: "L'ho comprato a €",
+    saved: "salvato",
+    limited: "Controlli gratuiti finiti per oggi. Accedi e il pannello si ricollega.",
+    verify: "Conferma l'email, poi il pannello mostra di nuovo i numeri.",
+    down: "Resale IQ non raggiungibile. Riprova tra un attimo.",
+    signIn: "Accedi",
+    confirm: "Conferma email",
+    checking: "controllo…",
+    why: "perché",
+    rate: "Troppe richieste. Aspetta un minuto.",
+    hide: "Nascondi",
+    show: "Mostra Resale IQ",
+  },
+  pt: {
+    most: "o máximo que podes pagar para a tua margem",
+    notTracked: "sem dados",
+    noData: "ainda sem dados de modelo para este artigo",
+    matched: "associado",
+    listedOver: (ask, over) => `anunciado a ${ask} — ${over} acima`,
+    listedOk: (ask) => `anunciado a ${ask} — dentro do teu preço`,
+    median: "média vendida",
+    n: "n",
+    how: "como se calcula",
+    bought: "Comprei a €",
+    saved: "guardado",
+    limited: "Verificações grátis esgotadas hoje. Entra e o painel liga-se sozinho.",
+    verify: "Confirma o email e o painel volta a mostrar números.",
+    down: "Não foi possível contactar a Resale IQ. Tenta daqui a pouco.",
+    signIn: "Entrar",
+    confirm: "Confirmar email",
+    checking: "a verificar…",
+    why: "porquê",
+    rate: "Demasiados pedidos. Espera um minuto.",
+    hide: "Ocultar",
+    show: "Mostrar Resale IQ",
   },
 };
 
 function t() { return I18N[locale()] || I18N.en; }
 
-/** Vinted renders client-side, so the title can arrive after we do. */
 function readListing() {
-  // Item pages only. Vinted's URL shape is /items/<id>-<slug> across all TLDs.
   if (!/\/items\/\d+/.test(location.pathname)) return null;
 
   const title =
@@ -91,24 +169,18 @@ function readListing() {
     )?.textContent?.trim() ||
     document.title.split("|")[0].trim();
 
-  // The brand link is the most reliable signal; the title alone is noisy.
   const brand =
     document.querySelector('a[href*="/brand/"], [itemprop="brand"]')?.textContent?.trim() || "";
 
-  // The asking price. Vinted shows two: the item price and a larger
-  // "buyer protection included" total. We want the first — the buy-below is
-  // computed against the item price, and comparing against the inflated total
-  // would tell the reseller to walk away from deals that are fine.
   let price = null;
   for (const el of document.querySelectorAll('[data-testid*="price"], p, div, span')) {
-    const t = (el.textContent || "").trim();
-    if (t.length > 18) continue;
-    const m = t.match(/^(\d{1,3}(?:[.\s]\d{3})*(?:,\d{2})?)\s*€$/);
+    const txt = (el.textContent || "").trim();
+    if (txt.length > 18) continue;
+    const m = txt.match(/^(\d{1,3}(?:[.\s]\d{3})*(?:,\d{2})?)\s*€$/);
     if (m) { price = parseFloat(m[1].replace(/[.\s]/g, "").replace(",", ".")); break; }
   }
 
   if (!title || title.length < 3) return null;
-  // Brand first: the API matches against "brand model" strings.
   const q = (brand && !title.toLowerCase().startsWith(brand.toLowerCase()))
     ? `${brand} ${title}` : title;
   return { q: q.slice(0, 120), price };
@@ -126,16 +198,6 @@ function panel() {
 
 function render(html) { panel().innerHTML = html; }
 
-/**
- * Escape anything that came off the wire before it reaches innerHTML.
- *
- * `product` is the only response field rendered as text rather than a number,
- * and it is interpolated into markup. We control the API, so this is not a
- * live vulnerability — but "the server would never send that" is exactly the
- * assumption that turns one compromised response into script execution on
- * every Vinted page the user opens. It also removes the reason a reviewer
- * would query our innerHTML use at all.
- */
 function esc(v) {
   return String(v ?? "").replace(/[&<>"']/g, c => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
@@ -144,18 +206,34 @@ function esc(v) {
 
 function money(n) {
   const x = Number(n);
-  return (n == null || !isFinite(x)) ? "—" : `€${x.toFixed(0)}`;
+  return (n == null || !isFinite(x) || x <= 0) ? "—" : `€${Math.round(x)}`;
+}
+
+let collapsed = false;
+chrome.storage.local.get("riq_collapsed").then(({ riq_collapsed }) => {
+  collapsed = !!riq_collapsed;
+});
+
+function setCollapsed(v) {
+  collapsed = !!v;
+  chrome.storage.local.set({ riq_collapsed: collapsed });
+}
+
+function paintStatus(sub, href, label) {
+  render(`
+    <div class="riq-card riq-watch">
+      <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
+      <div class="riq-sub">${esc(sub)}</div>
+      ${href ? `<a class="riq-link" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>` : ""}
+    </div>`);
 }
 
 function paint(d, askingPrice) {
   const L = t();
   const buyBelow = d.buy_below ?? null;
-  // Model call stays BUY / WATCH / SKIP (P1-2). Asking vs buy-below is a
-  // warning row, not a rewritten verdict — covering the Vinted Buy button
-  // would get us uninstalled, rewriting BUY into TOO DEAR hid the model call.
   const verdict = (d.verdict || d.signal || "WATCH").toUpperCase();
   const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
-  const shown = verdict === "INSUFFICIENT_DATA" ? "NO DATA" : verdict;
+  const shown = (verdict === "INSUFFICIENT_DATA" || verdict === "UNKNOWN") ? "NO DATA" : verdict;
   let overBy = null;
   if (buyBelow != null && askingPrice != null && askingPrice > buyBelow) {
     overBy = askingPrice - buyBelow;
@@ -165,6 +243,24 @@ function paint(d, askingPrice) {
   const note = d.confidence_note
     || (conf === "LOW" && n != null ? `Only ${n} comparable sold items` : "");
   const why = Array.isArray(d.reasons) && d.reasons[0] ? d.reasons[0] : "";
+
+  if (collapsed) {
+    render(`
+      <button type="button" class="riq-pill riq-pill-${tone}" aria-label="${esc(L.show)}">
+        <span class="riq-logo">R</span>
+        <span>${esc(money(buyBelow))}</span>
+        <span class="riq-pill-v">${esc(shown)}</span>
+      </button>`);
+    panel().querySelector(".riq-pill")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setCollapsed(false);
+      paint(d, askingPrice);
+      bindBought();
+    });
+    return;
+  }
+
   const body = buyBelow != null
     ? `<div class="riq-num">${money(buyBelow)}</div>
        <div class="riq-sub">${esc(L.most)}</div>`
@@ -176,6 +272,7 @@ function paint(d, askingPrice) {
       <div class="riq-head">
         <span class="riq-logo">R</span> Resale IQ
         <span class="riq-verdict riq-${tone}">${esc(shown)}</span>
+        <button type="button" class="riq-hide" aria-label="${esc(L.hide)}">–</button>
       </div>
       ${d.product ? `<div class="riq-match">${esc(L.matched)}: ${esc(d.product)}</div>` : ""}
       ${body}
@@ -189,24 +286,22 @@ function paint(d, askingPrice) {
       ${why ? `<div class="riq-why">${esc(L.why)}: ${esc(why)}</div>` : ""}
       <div class="riq-bought">
         <label>${esc(L.bought)}</label>
-        <input class="riq-bought-input" type="number" min="1" step="1" value="${askingPrice != null ? Math.round(askingPrice) : ""}" />
+        <input class="riq-bought-input" type="number" min="1" step="1" value="${askingPrice != null && askingPrice > 0 ? Math.round(askingPrice) : ""}" />
         <button class="riq-bought-btn" type="button">OK</button>
       </div>
       <a class="riq-link" href="https://resaleiq.dev/methodology" target="_blank" rel="noopener">${esc(L.how)}</a>
     </div>`);
-}
 
-function paintLimited(rate) {
-  const L = t();
-  render(`
-    <div class="riq-card riq-watch">
-      <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
-      <div class="riq-sub">${esc(rate ? L.rate : L.limited)}</div>
-      <a class="riq-link" href="https://resaleiq.dev/login" target="_blank" rel="noopener">${esc(L.signIn)}</a>
-    </div>`);
+  panel().querySelector(".riq-hide")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCollapsed(true);
+    paint(d, askingPrice);
+  });
 }
 
 let lastQuery = "";
+let lastPath = "";
 let lastData = null;
 
 function bindBought() {
@@ -235,22 +330,30 @@ function bindBought() {
   });
 }
 
-async function run() {
+function run() {
   const listing = readListing();
-  if (!listing) { document.getElementById(BADGE_ID)?.remove(); return; }
+  if (!listing) {
+    lastQuery = "";
+    lastPath = location.pathname;
+    document.getElementById(BADGE_ID)?.remove();
+    return;
+  }
+  if (location.pathname !== lastPath) lastQuery = "";
   if (listing.q === lastQuery) return;
   lastQuery = listing.q;
+  lastPath = location.pathname;
 
   render(`<div class="riq-card"><div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div><div class="riq-sub">${esc(t().checking)}</div></div>`);
 
   chrome.runtime.sendMessage({ type: "verdict", q: listing.q }, (res) => {
     if (chrome.runtime.lastError) {
-      document.getElementById(BADGE_ID)?.remove();
+      paintStatus(t().down);
       return;
     }
     if (!res?.ok) {
-      if (res?.limited) paintLimited(res.rate);
-      else document.getElementById(BADGE_ID)?.remove();
+      if (res?.verify) paintStatus(t().verify, "https://resaleiq.dev/check-email", t().confirm);
+      else if (res?.limited) paintStatus(res.rate ? t().rate : t().limited, "https://resaleiq.dev/login", t().signIn);
+      else paintStatus(t().down);
       return;
     }
     lastData = res.data;
@@ -258,18 +361,35 @@ async function run() {
       paint(res.data, listing.price);
       bindBought();
     } catch {
-      document.getElementById(BADGE_ID)?.remove();
+      paintStatus(t().down);
     }
   });
 }
 
-// Vinted is a SPA: navigation does not reload the page, so a one-shot run on
-// load would only ever work for the first item the user opens.
-let t;
-const debounced = () => { clearTimeout(t); t = setTimeout(run, 400); };
+let timer;
+const debounced = () => { clearTimeout(timer); timer = setTimeout(run, 400); };
 try {
   const root = document.body || document.documentElement;
   if (root) new MutationObserver(debounced).observe(root, { childList: true, subtree: true });
 } catch { /* fail closed: no overlay is better than breaking Vinted */ }
-addEventListener("popstate", debounced);
+addEventListener("popstate", () => { lastQuery = ""; debounced(); });
+
+try {
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "local" && changes.riq_token) {
+      lastQuery = "";
+      run();
+    }
+  });
+} catch { /* storage listener is a convenience, not required to paint */ }
+
+let lastHref = location.href;
+setInterval(() => {
+  if (location.href !== lastHref) {
+    lastHref = location.href;
+    lastQuery = "";
+    debounced();
+  }
+}, 600);
+
 try { run(); } catch { /* same */ }

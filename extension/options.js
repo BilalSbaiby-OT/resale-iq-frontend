@@ -1,11 +1,41 @@
-// Stored with chrome.storage.sync and sent only to resaleiq.dev, from the
-// service worker. It is never exposed to the Vinted page.
+// Token lives in chrome.storage.local on this device only — never Chrome sync,
+// never the Vinted page. Sent only to resaleiq.dev from the service worker.
+const status = document.getElementById("status");
 const tok = document.getElementById("tok");
 const msg = document.getElementById("msg");
-chrome.storage.sync.get("riq_token").then(({ riq_token }) => {
-  if (riq_token) tok.value = riq_token;
+
+function paintStatus(connected) {
+  status.className = "status" + (connected ? "" : " off");
+  status.textContent = connected
+    ? "Connected — checks count against your plan."
+    : "Not signed in — using free daily checks.";
+}
+
+async function refresh() {
+  const { riq_token } = await chrome.storage.local.get("riq_token");
+  paintStatus(!!(riq_token && String(riq_token).trim()));
+}
+
+document.getElementById("signin").addEventListener("click", () => {
+  chrome.tabs.create({ url: "https://resaleiq.dev/login" });
 });
+
+document.getElementById("disconnect").addEventListener("click", async () => {
+  await chrome.storage.local.set({ riq_token: "" });
+  tok.value = "";
+  msg.textContent = "Disconnected.";
+  paintStatus(false);
+});
+
 document.getElementById("save").addEventListener("click", async () => {
-  await chrome.storage.sync.set({ riq_token: tok.value.trim() });
-  msg.textContent = tok.value.trim() ? "Saved." : "Cleared — using free checks.";
+  const value = tok.value.trim();
+  await chrome.storage.local.set({ riq_token: value });
+  tok.value = "";
+  msg.textContent = value ? "Saved." : "Cleared — using free checks.";
+  paintStatus(!!value);
+});
+
+refresh();
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && changes.riq_token) refresh();
 });
