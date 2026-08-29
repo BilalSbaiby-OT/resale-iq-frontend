@@ -76,22 +76,22 @@ export const POSTS: BlogPost[] = [
       {
         h: "Start from the real sale price, not the retail price",
         p: [
-          "Retail price is almost irrelevant on resale. What matters is the current typical sale price for that exact model, in that condition, in your market.",
-          "Look at recently sold listings (not active ones — active listings show hopes, not sales). The median sold price is your anchor.",
+          "Retail price is almost irrelevant on resale. What matters is the current typical sale price for that exact model, in that condition, in your market. Our [weekly Vinted market data](/data) publishes those averages by brand, free.",
+          "Look at recently sold listings (not active ones — active listings show hopes, not sales). The median sold price is your anchor, and the [free Vinted price checker](/tools/vinted-price-checker) works it out across five markets for you.",
         ],
       },
       {
         h: "Work backwards to your buy-below price",
         p: [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
-          "A common rule: buy-below = average sale price × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs. Pay more than that and you're gambling on price appreciation.",
+          "A common rule: buy-below = average sale price × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
       },
       {
         h: "Price to sell in a reasonable window",
         p: [
           "Pricing slightly below the median sold price sells faster and frees your cash to reinvest. Pricing above it can work for rare items but slows everything down.",
-          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item sells — should drive your pricing as much as the price itself.",
+          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item sells — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually sells per week](/flip).",
         ],
       },
     ],
@@ -231,15 +231,15 @@ export const POSTS: BlogPost[] = [
       {
         h: "Start from demand, not from what's cheap",
         p: [
-          "Cheap doesn't mean profitable. Start with items that have proven demand and margin room, then look for them below their buy-below price.",
-          "Working backwards from demand means you only spend time on items that will actually sell.",
+          "Cheap doesn't mean profitable. Start with items that have proven demand and margin room, then look for them below their buy-below price. [Which categories actually move](/category) is the place to start.",
+          "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](/flip) before committing cash.",
         ],
       },
       {
         h: "Use the buy-below filter",
         p: [
-          "For each target model, know its average sale price and buy-below price. Any listing under that number, in a good size and condition, is a candidate deal.",
-          "This turns sourcing into a scan for numbers rather than a gut call.",
+          "For each target model, know its average sale price and buy-below price. Our [free weekly market data](/data) publishes average sale prices by brand. Any listing under that number, in a good size and condition, is a candidate deal.",
+          "This turns sourcing into a scan for numbers rather than a gut call — which is exactly what a [Vinted sourcing tool](/tools/vinted-sourcing-tool) automates.",
         ],
       },
       {
@@ -376,8 +376,8 @@ export const POSTS: BlogPost[] = [
       {
         h: "Price and listing red flags",
         p: [
-          "A price far below the typical sale price for that model is the most common red flag — if it looks too good, it often is.",
-          "Vague descriptions, stock photos instead of real ones, and refusal to send extra photos of tags/labels are warning signs.",
+          "A price far below the typical sale price for that model is the most common red flag — if it looks too good, it often is. Knowing the real number first is the whole defence: [check what the model actually sells for](/tools/vinted-price-checker).",
+          "Vague descriptions, stock photos instead of real ones, and refusal to send extra photos of tags/labels are warning signs. Our [weekly market data](/data) shows the normal price band by brand, so an outlier is easy to spot.",
         ],
       },
       {
@@ -395,7 +395,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "How do I spot fake items on Vinted?", a: "Watch for prices far below the model's typical sale price, stock photos, and vague descriptions. Compare tags, fonts, stitching and style codes to verified references. When in doubt, don't buy." },
+      { q: "How do I spot fake items on Vinted?", a: "Watch for prices far below the model's typical sale price — [check what it really sells for](/tools/vinted-price-checker) — plus stock photos and vague descriptions. Compare tags, fonts, stitching and style codes to verified references. When in doubt, don't buy." },
       { q: "Is it risky to resell items bought on Vinted?", a: "The main risk is counterfeits. Verify authenticity before buying, keep evidence, and walk away from anything you can't confirm — reselling a fake costs you money and reputation." },
     ],
   },

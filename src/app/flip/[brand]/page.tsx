@@ -282,6 +282,25 @@ export default async function BrandFlipPage(
         covers the margin maths, the maximum buy price and why sell-through matters more than volume.
       </p>
 
+      {/* Reciprocal links into the guides. The blog holds 84% of the site's
+          impressions (GSC 2026-07-30..08-26) and now links out to these data
+          pages; linking back completes the loop instead of dead-ending, and
+          gives a reader who has the number but not the method somewhere to go. */}
+      <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
+        How to use these numbers
+      </h2>
+      <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 6 }}>
+        <Link href="/blog/how-to-price-items-on-vinted" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → How to price items on Vinted without underselling
+        </Link>
+        <Link href="/blog/how-to-find-items-to-flip-on-vinted" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → How to find profitable items to flip
+        </Link>
+        <Link href="/blog/what-is-a-good-sell-through-rate" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → What counts as a good sell-through rate
+        </Link>
+      </div>
+
       <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 12px" }}>
         Other brands
       </h2>
