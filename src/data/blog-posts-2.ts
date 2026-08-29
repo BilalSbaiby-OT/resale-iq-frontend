@@ -246,7 +246,7 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "seasonal-reselling-calendar",
-    title: "Reseller's Seasonal Calendar: What to Buy, and When",
+    title: "Reseller's Seasonal Calendar: What to Buy, When",
     description:
       "A month-by-month guide to what to source and what to list on Vinted, so your cash isn't frozen in off-season stock.",
     date: "2026-08-06",
