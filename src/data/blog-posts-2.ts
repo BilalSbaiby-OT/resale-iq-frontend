@@ -204,7 +204,7 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "how-to-get-more-views-on-vinted",
-    title: "How to Get More Views on Vinted",
+    title: "How to Get More Views on Vinted (4 Real Causes)",
     description:
       "Why your Vinted listings aren't getting seen, and the practical fixes — search wording, photos, pricing, freshness and closet size.",
     date: "2026-08-06",
@@ -216,19 +216,19 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "First: is there demand at all?",
         p: [
-          "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip.",
+          "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip. [What each brand sells per week](/flip) answers it in one look.",
         ],
       },
       {
         h: "Match the words buyers type",
         p: [
-          "Use the brand and model exactly as people search it, plus common synonyms. If your title says 'vintage jumper' and buyers search 'Nike sweatshirt', you're invisible.",
+          "Use the brand and model exactly as people search it, plus common synonyms. If your title says 'vintage jumper' and buyers search 'Nike sweatshirt', you're invisible. [Which brands lead each category](/category) is a good source of the wording buyers actually use.",
         ],
       },
       {
         h: "Price and freshness",
         p: [
-          "Price above the typical sold range suppresses views badly. A modest reduction often restarts traffic.",
+          "Price above the typical sold range suppresses views badly. A modest reduction often restarts traffic — [check the typical sold price first](/tools/vinted-price-checker) so you cut to the right number rather than guessing.",
           "Vinted favours fresh activity. Regular small updates and consistent listing keep your closet visible.",
         ],
       },
@@ -246,7 +246,7 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "seasonal-reselling-calendar",
-    title: "The Reseller's Seasonal Calendar: What to Buy and When",
+    title: "Reseller's Seasonal Calendar: What to Buy, When",
     description:
       "A month-by-month guide to what to source and what to list on Vinted, so your cash isn't frozen in off-season stock.",
     date: "2026-08-06",
@@ -265,14 +265,14 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "The cash-flow trap",
         p: [
-          "Holding stock for six months means your money earns nothing while you wait. Only buy far off-season when the discount is genuinely large.",
+          "Holding stock for six months means your money earns nothing while you wait. Only buy far off-season when the discount is genuinely large — large relative to [the brand's actual average sale price](/data), not to retail.",
           "Beginners should stay closer to the current season until cash flow is comfortable.",
         ],
       },
       {
         h: "Year-round movers",
         p: [
-          "Sneakers, denim, branded T-shirts and hoodies sell all year with milder seasonal swings — they're the backbone of a stable closet.",
+          "Sneakers, denim, branded T-shirts and hoodies sell all year with milder seasonal swings — they're the backbone of a stable closet. Weekly volumes for [sneakers](/category/sneakers), [jeans](/category/jeans) and [hoodies](/category/hoodies) are published free.",
         ],
       },
     ],

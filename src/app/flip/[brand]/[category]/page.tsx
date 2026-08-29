@@ -97,6 +97,16 @@ export default async function BrandCategoryPage(
             : `Prices vary by model, condition and size. Check recently sold listings rather than active ones, since active listings show asking prices, not real sale prices.` } },
       ],
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+        { "@type": "ListItem", position: 2, name: "Brands", item: "https://resaleiq.dev/flip" },
+        { "@type": "ListItem", position: 3, name: b.brand, item: `https://resaleiq.dev/flip/${b.slug}` },
+        { "@type": "ListItem", position: 4, name: catName, item: `https://resaleiq.dev/flip/${b.slug}/${catSlug(catName)}` },
+      ],
+    },
   ]
 
   const siblings = (b.categories || []).map((c) => c.category).filter((c) => c !== catName)

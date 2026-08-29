@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }))
@@ -50,11 +51,22 @@ export default async function BlogPostPage(
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      // stripRichText, not f.a: body copy may carry [label](/path) link syntax,
+      // and a schema value is data, not markup — it must read as clean prose.
       mainEntity: p.faq.map((f) => ({
         "@type": "Question",
         name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
+        acceptedAnswer: { "@type": "Answer", text: stripRichText(f.a) },
       })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://resaleiq.dev/blog" },
+        { "@type": "ListItem", position: 3, name: p.title, item: `https://resaleiq.dev/blog/${p.slug}` },
+      ],
     },
   ]
 
@@ -72,14 +84,59 @@ export default async function BlogPostPage(
           {p.category} · {p.readMins} min read
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
-        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{p.intro}</p>
+        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
 
         {p.sections.map((s) => (
           <section key={s.h} style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{s.h}</h2>
             {s.p.map((para, i) => (
-              <p key={i} style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>{para}</p>
+              <p key={i} style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>{renderRichText(para)}</p>
             ))}
+
+            {/* Comparison tables scroll inside their own container: the article
+                column is 720px and a phone is not, so without this the page
+                body itself would scroll sideways. */}
+            {s.table && (
+              <figure style={{ margin: "6px 0 14px", overflowX: "auto" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 420, fontSize: 13.5 }}>
+                  {s.table.caption && (
+                    <caption style={{ captionSide: "bottom", textAlign: "left", fontSize: 12.5, color: "#5b6b8c", paddingTop: 8, lineHeight: 1.55 }}>
+                      {renderRichText(s.table.caption)}
+                    </caption>
+                  )}
+                  <thead>
+                    <tr>
+                      {s.table.head.map((th) => (
+                        <th key={th} scope="col" style={{ textAlign: "left", padding: "9px 12px", color: "#eef1f7", fontWeight: 700, borderBottom: "1px solid #263042", background: "#12151d" }}>
+                          {th}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {s.table.rows.map((row, ri) => (
+                      <tr key={ri}>
+                        {row.map((cell, ci) => (
+                          <td
+                            key={ci}
+                            style={{
+                              padding: "9px 12px",
+                              borderBottom: "1px solid #161b26",
+                              color: ci === 0 ? "#c3cde0" : "#a9b6d0",
+                              fontWeight: ci === 0 ? 600 : 400,
+                              verticalAlign: "top",
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {renderRichText(cell)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </figure>
+            )}
           </section>
         ))}
 
@@ -89,7 +146,7 @@ export default async function BlogPostPage(
           {p.faq.map((f) => (
             <div key={f.q} style={{ marginBottom: 18, borderBottom: "1px solid #161b26", paddingBottom: 16 }}>
               <h3 style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.65 }}>{f.a}</p>
+              <p style={{ fontSize: 14, lineHeight: 1.65 }}>{renderRichText(f.a)}</p>
             </div>
           ))}
         </section>

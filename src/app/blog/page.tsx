@@ -44,6 +44,10 @@ export default async function BlogIndex() {
           Built on {tracked} analyzed listings across 5 EU markets.
         </p>
 
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "0 0 14px" }}>
+          All guides
+        </h2>
+
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           {posts.map((p) => (
             <Link
@@ -59,6 +63,30 @@ export default async function BlogIndex() {
             </Link>
           ))}
         </div>
+
+        {/* The guides are the site's strongest pages by a wide margin — Search
+            Console for 2026-07-30..08-26 put 84% of all impressions on /blog/*,
+            against 4% for the 156 /flip URLs and zero for the nine /category ones.
+            Sending readers (and crawlers) from here into the data pages is the
+            cheapest way to share that standing. */}
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "40px 0 10px" }}>
+          Go straight to the numbers
+        </h2>
+        <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 14 }}>
+          The guides explain the method. The data pages apply it to live listings:{" "}
+          <Link href="/flip" style={{ color: "#22c55e", textDecoration: "none" }}>
+            every tracked brand ranked by what it sells each week
+          </Link>
+          ,{" "}
+          <Link href="/category" style={{ color: "#22c55e", textDecoration: "none" }}>
+            every category ranked by which brands move in it
+          </Link>
+          , and the{" "}
+          <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>
+            full weekly market data
+          </Link>
+          , published free.
+        </p>
 
         <div style={{ marginTop: 40, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Stop guessing what sells.</div>

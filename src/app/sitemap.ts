@@ -47,11 +47,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // auth utilities that prerender to an empty shell (~52 chars of text, no h1),
   // so listing them tells search engines a blank page is worth indexing. They
   // remain crawlable — they are simply not advertised as content.
-  const staticPages = ["", "/blog", "/tools", "/data", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  // /flip and /category are the hubs for the 156 + 9 programmatic URLs. Both
+  // returned 404 until 2026-08-29, which left 73% of the site orphaned — Search
+  // Console measured 0 impressions across all nine category pages over
+  // 2026-07-30..08-26. They carry the snapshot's lastmod and a high priority
+  // because they are entry points to the data-driven estate, not static copy.
+  const dataDrivenHubs = new Set(["", "/data", "/flip", "/category"])
+  const staticPages = ["", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: p === "" || p === "/data" ? dataFresh : buildTime,
-    changeFrequency: "monthly" as const,
-    priority: p === "" ? 1 : 0.6,
+    lastModified: dataDrivenHubs.has(p) ? dataFresh : buildTime,
+    changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
+    priority: p === "" ? 1 : p === "/flip" || p === "/category" ? 0.9 : 0.6,
   }))
 
   const brandPages = BRANDS.map((b) => ({

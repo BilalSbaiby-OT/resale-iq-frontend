@@ -21,21 +21,21 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Know your floor before you negotiate",
         p: [
-          "Your floor is your cost plus fees plus the minimum margin you'll accept. Work it out before you list, not while a buyer is waiting.",
+          "Your floor is your cost plus fees plus the minimum margin you'll accept. Work it out before you list, not while a buyer is waiting — the [Vinted profit calculator](/tools/vinted-profit-calculator) gives you the after-fees number in one step.",
           "Without a floor you negotiate emotionally — and you'll accept offers that quietly lose money once shipping and fees come out.",
         ],
       },
       {
         h: "Bundles are a volume tool",
         p: [
-          "A bundle discount that clears three slow items at once is usually better than holding all three hoping for full price. Cash that recycles beats theoretical margin.",
+          "A bundle discount that clears three slow items at once is usually better than holding all three hoping for full price. Cash that recycles beats theoretical margin — and [which categories recycle fastest](/category) is measurable, not a matter of opinion.",
           "Be stricter on fast-moving stock: if the item sells reliably at full price, there's no reason to discount it.",
         ],
       },
       {
         h: "Let sell-through decide",
         p: [
-          "Items with strong sell-through: hold the price. Items sitting with low sell-through: take the reasonable offer and free the cash.",
+          "Items with strong sell-through: hold the price. Items sitting with low sell-through: take the reasonable offer and free the cash. Sell-through differs sharply by brand — [see which brands move](/flip) before you decide which of yours is genuinely slow.",
           BRAND + " shows the sell-through for the specific model, so the decision stops being a guess.",
         ],
       },
@@ -307,7 +307,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "The minimum per item",
         p: [
-          "Purchase price, purchase date, sale price, sale date, fees and shipping. Six fields. That's enough to compute everything that matters.",
+          "Purchase price, purchase date, sale price, sale date, fees and shipping. Six fields. That's enough to compute everything that matters — [the profit calculator](/tools/vinted-profit-calculator) turns them into a net figure per item.",
           "A simple spreadsheet is fine. The discipline matters far more than the tool.",
         ],
       },
@@ -315,13 +315,13 @@ export const POSTS_3: BlogPost[] = [
         h: "The numbers it unlocks",
         p: [
           "Real profit per item after fees, average days to sell, and the share of purchases that never sold — the metric almost nobody tracks and everybody needs.",
-          "You'll quickly see which categories genuinely earn and which just feel productive.",
+          "You'll quickly see which categories genuinely earn and which just feel productive — then compare your own numbers against [what each category does market-wide](/category).",
         ],
       },
       {
         h: "Why it changes behaviour",
         p: [
-          "Once you can see that a category averages 90 days to sell, you stop buying it. Records don't just report the past — they correct your sourcing.",
+          "Once you can see that a category averages 90 days to sell, you stop buying it. Records don't just report the past — they correct your sourcing, especially read against [how fast each brand actually moves](/flip).",
           BRAND + "'s portfolio tracking does this alongside the market data, so your own results sit next to the market's.",
         ],
       },

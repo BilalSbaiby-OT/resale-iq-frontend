@@ -82,7 +82,7 @@ export default async function BrandFlipPage(
     : null
 
   // Structured data helps this rank as an answer to "is X worth reselling".
-  const jsonLd = {
+  const jsonLd = [{
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
@@ -101,7 +101,18 @@ export default async function BrandFlipPage(
         },
       },
     ],
-  }
+  },
+  // Breadcrumbs need a hub that resolves; /flip only started returning 200 on
+  // 2026-08-29, so this could not have been correct before that.
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+      { "@type": "ListItem", position: 2, name: "Brands", item: "https://resaleiq.dev/flip" },
+      { "@type": "ListItem", position: 3, name: b.brand, item: `https://resaleiq.dev/flip/${b.slug}` },
+    ],
+  }]
 
   return (
     <main style={{ maxWidth: 760, margin: "0 auto", padding: "32px 20px 64px" }}>
@@ -281,6 +292,25 @@ export default async function BrandFlipPage(
         <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>reselling manual</Link>{" "}
         covers the margin maths, the maximum buy price and why sell-through matters more than volume.
       </p>
+
+      {/* Reciprocal links into the guides. The blog holds 84% of the site's
+          impressions (GSC 2026-07-30..08-26) and now links out to these data
+          pages; linking back completes the loop instead of dead-ending, and
+          gives a reader who has the number but not the method somewhere to go. */}
+      <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
+        How to use these numbers
+      </h2>
+      <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 6 }}>
+        <Link href="/blog/how-to-price-items-on-vinted" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → How to price items on Vinted without underselling
+        </Link>
+        <Link href="/blog/how-to-find-items-to-flip-on-vinted" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → How to find profitable items to flip
+        </Link>
+        <Link href="/blog/what-is-a-good-sell-through-rate" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+          → What counts as a good sell-through rate
+        </Link>
+      </div>
 
       <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 12px" }}>
         Other brands

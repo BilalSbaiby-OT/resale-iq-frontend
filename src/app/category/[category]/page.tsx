@@ -129,6 +129,15 @@ export default async function CategoryPage(
         url: `https://resaleiq.dev/flip/${e.slug}/${catSlug(c.category)}`,
       })),
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+        { "@type": "ListItem", position: 2, name: "Categories", item: "https://resaleiq.dev/category" },
+        { "@type": "ListItem", position: 3, name: c.category, item: `https://resaleiq.dev/category/${c.slug}` },
+      ],
+    },
   ]
 
   const others = CATEGORIES.filter((x) => x.slug !== c.slug)
@@ -244,9 +253,20 @@ export default async function CategoryPage(
               </Link>
             ))}
           </div>
-          <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-            → The Vinted reselling manual: how to price, source and turn stock
-          </Link>
+          {/* Reciprocal links into the guides — see the same block on
+              /flip/[brand]. The blog carries 84% of site impressions and now
+              links into these pages; this closes the loop rather than ending it. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+            <Link href="/blog/what-sells-best-on-vinted" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+              → What sells best on Vinted, by category and brand
+            </Link>
+            <Link href="/blog/seasonal-reselling-calendar" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+              → The seasonal calendar: what to buy, and when
+            </Link>
+            <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+              → The Vinted reselling manual: how to price, source and turn stock
+            </Link>
+          </div>
         </div>
       </div>
     </div>
