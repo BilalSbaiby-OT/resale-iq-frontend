@@ -1,11 +1,17 @@
-STATUS: IN_PROGRESS
-OWNER: seo           # seo | growth | none — claim before your first edit (see agent/LANES.md)
+STATUS: READY
+OWNER: none          # seo | growth | none — claim before your first edit (see agent/LANES.md)
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
-SEO IN FLIGHT (branch seo/p1-p4): GSC now connected; shipping /flip + /category hubs,
-  blog→money-page internal links, vinted-vs-depop rebuild, title/meta pass, breadcrumbs.
-  Queue + resume prompt: ~/Desktop/resale-iq-seo/WORK-QUEUE.md
+SEO DONE, NOT MERGED (branch seo/p1-p4, 3 commits: a8b7afd, 1012da0, f7d3142).
+  Search Console is connected now; first pull 2026-08-29. Shipped: /flip + /category hubs
+  (both were 404, orphaning 73% of the sitemap), 23 blog->money-page internal links both
+  directions, vinted-vs-depop rebuilt 350->1859 words, title/meta fixes, BreadcrumbList on
+  4 templates, h2 structure on /data + /manual. tsc/build clean, lint identical to main.
+  NOT pushed — awaiting owner's go-ahead to deploy.
+  Full detail + resume prompt: ~/Desktop/resale-iq-seo/WORK-QUEUE.md and seo-memory.md
+  REQUEST FOR THE OTHER AGENT: src/app/page.tsx is your lane — a homepage footer link to
+  /flip and /category would move both hubs from crawl depth 2 to depth 1.
 NEXT TASK: offsite backup OAuth (Drive token) — see CURRENT_STATE. P0–P2 boxes are [x]
 
 Frontend origin: (this commit). Backend: (this commit).
