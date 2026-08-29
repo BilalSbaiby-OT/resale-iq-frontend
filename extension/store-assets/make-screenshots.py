@@ -62,8 +62,17 @@ def card(d, asking):
       <a class="riq-link" href="#">how this is calculated</a>
     </div></div>'''
 
+def _launch(p):
+    """macOS 12 has no supported bundled Chromium build, so drive the system
+    Chrome. Same wall the growth engine's capture.js hit — see launchChrome()."""
+    try:
+        return p.chromium.launch(headless=True, channel="chrome")
+    except Exception:
+        return p.chromium.launch(headless=True)
+
+
 with sync_playwright() as p:
-    b = p.chromium.launch(headless=True)
+    b = _launch(p)
     page = b.new_page(viewport={"width": 1280, "height": 800})
     for name, url, d, asking in SHOTS:
         html = card(d, asking)
@@ -85,6 +94,23 @@ with sync_playwright() as p:
             except Exception:
                 pass
         page.wait_for_timeout(1500)
+
+        # Read the asking price NOW, off the untouched DOM, from Vinted's own
+        # testid. Two bugs lived here: the price was hardcoded and had gone
+        # stale (the panel claimed EUR140 on a page showing EUR120), and a
+        # regex over innerText ran AFTER the element-stripping below, which
+        # removes the price block - so it read the shipping cost instead and
+        # called a 50 euro sneaker 5 euros.
+        try:
+            txt = page.locator('[data-testid="item-price"]').first.inner_text(timeout=5000)
+            live = float(txt.replace("\u00a0", " ").split("\u20ac")[0].strip().replace(".", "").replace(",", "."))
+        except Exception:
+            live = None
+        if live and live > 1:
+            if abs(live - asking) > 0.5:
+                print(f"    page says \u20ac{live:.0f}, script had \u20ac{asking:.0f} - using the page")
+            asking = live
+            html = card(d, asking)
 
         # If the wall survived, strip it and any backdrop rather than ship a
         # screenshot of a dimmed page.
@@ -122,6 +148,7 @@ with sync_playwright() as p:
           }
         }""")
         page.wait_for_timeout(900)
+
         page.add_style_tag(content=CSS)
         page.evaluate("h => document.body.insertAdjacentHTML('beforeend', h)", html)
         page.wait_for_timeout(400)
