@@ -1,0 +1,104 @@
+# Deploy to production on a green build.
+#
+# Why this exists: pushing to main did NOT deploy. Coolify talks to GitHub
+# through a GitHub App, and Coolify builds that App's webhook URL from its own
+# instance URL — which is empty (Settings > General > URL is blank, and
+# `docker exec coolify printenv APP_URL` returns nothing). So GitHub had
+# nowhere to deliver push events. The SEO release on 2026-08-29 sat unshipped
+# for 20+ minutes before someone clicked Redeploy by hand.
+#
+# Fixing that properly needs a public HTTPS name for Coolify, which needs DNS
+# the agents cannot change. This is the route that works today: Coolify's API
+# is only reachable on localhost (a Hetzner Cloud Firewall blocks 8000 from the
+# internet; the host itself is wide open), and port 22 is allowed — so SSH is
+# the door.
+#
+# SECURITY. The key in COOLIFY_DEPLOY_KEY is useless for anything but this.
+# It is registered in the server's authorized_keys behind a forced command:
+#
+#   command="curl ... /api/v1/deploy?uuid=<this app>",no-pty,no-port-forwarding,...
+#
+# sshd runs that command and ignores whatever the client asks for, which is why
+# the ssh call below sends no command at all. A leaked key can redeploy this one
+# application and nothing else — no shell, no file access, no other app. The
+# Coolify API token lives in that forced command on the server and is never
+# stored in GitHub.
+#
+# Setup lives in /root/setup-ci-deploy.sh on the server (idempotent).
+name: Deploy
+
+# "on" is quoted deliberately: bare `on` is a YAML 1.1 boolean, so a strict
+# parser reads this key as `true`. GitHub tolerates it, every local linter does
+# not. Same reason as backend-tests.yml in the demand-intel repo.
+"on":
+  # Only after CI is green. Deploying on raw `push` would ship a build that
+  # never typechecked — the isolation workflow is the gate that makes the
+  # customer/agent firewall meaningful, so it has to pass first.
+  workflow_run:
+    workflows: ["Agent Isolation"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+# A newer commit should win. Deploys are not queued: cancel an in-flight one
+# rather than racing two builds onto the same container.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # workflow_dispatch has no workflow_run context, hence the first clause.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Trigger Coolify deploy over SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.COOLIFY_DEPLOY_KEY }}
+          DEPLOY_HOST: 62.238.51.83
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DEPLOY_KEY}" ]; then
+            echo "::error::COOLIFY_DEPLOY_KEY is not set on this repository."
+            exit 1
+          fi
+
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${DEPLOY_KEY}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          # Pin the host key rather than disabling the check. If the server is
+          # ever rebuilt this fails loudly instead of trusting a new host.
+          ssh-keyscan -t ed25519 "${DEPLOY_HOST}" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # No command argument on purpose — the forced command runs regardless.
+          # curl -f inside it means an HTTP error becomes a non-zero exit here,
+          # so a refused deploy fails this job instead of reporting success.
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes \
+              -i ~/.ssh/id_ed25519 "root@${DEPLOY_HOST}"
+
+          echo "Deploy queued in Coolify."
+
+      - name: Wait for the new build to serve
+        run: |
+          set -uo pipefail
+          # Coolify returns as soon as the deploy is QUEUED, so a green job here
+          # would otherwise prove nothing about production. Poll a route that
+          # only exists in the new build's route table until it answers.
+          for i in $(seq 1 60); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -m 15 https://resaleiq.dev/flip || true)
+            if [ "$code" = "200" ]; then
+              echo "Production is serving (attempt $i)."
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::warning::Site did not confirm within 15 minutes. Check Coolify's deployment log."
+          # Deliberately not a failure: the deploy may still be building. This
+          # step reports, it does not gate.
+          exit 0

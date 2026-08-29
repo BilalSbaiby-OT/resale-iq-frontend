@@ -1,5 +1,5 @@
-STATUS: BLOCKED
-OWNER: none            # released — the remaining step is the owner's, not an agent's
+STATUS: IN_PROGRESS
+OWNER: seo             # released — the remaining step is the owner's, not an agent's
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
