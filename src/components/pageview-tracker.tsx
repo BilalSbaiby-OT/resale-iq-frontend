@@ -1,7 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
-import { trackEvent, type FunnelEvent } from "@/lib/analytics"
+import { captureAttribution, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
 
 const PATH_EVENTS: Record<string, FunnelEvent> = {
   "/": "landing_view",
@@ -13,20 +13,21 @@ export function PageviewTracker() {
   const lastSent = useRef<string | null>(null)
 
   useEffect(() => {
-    if (!pathname || lastSent.current === pathname) return
-    lastSent.current = pathname
+    if (!pathname) return
 
-    const body = JSON.stringify({
-      path: pathname,
-      referrer: typeof document !== "undefined" ? document.referrer : "",
-    })
+    // usePathname() returns the path WITHOUT the query string, so every
+    // ?utm_content=... we put on a tracked link used to be dropped before it
+    // ever left the browser. Read the real URL instead.
+    const search = typeof window !== "undefined" ? window.location.search : ""
+    const full = pathname + search
+    if (lastSent.current === full) return
+    lastSent.current = full
 
-    fetch("/api/track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-      keepalive: true,
-    }).catch(() => {})
+    // Store the campaign that brought them here before anything else runs, so
+    // it survives even if this is the only page they ever load.
+    captureAttribution()
+
+    trackPageview(full)
 
     const ev = PATH_EVENTS[pathname]
     if (ev) trackEvent(ev, pathname)

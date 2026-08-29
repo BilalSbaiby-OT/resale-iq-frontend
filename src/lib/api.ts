@@ -1,3 +1,4 @@
+import { getAttribution } from "@/lib/analytics"
 import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
@@ -109,10 +110,24 @@ export const login = (email: string, password: string) =>
   request<{ access_token: string; plan: string }>("/auth/login", {
     method: "POST", body: JSON.stringify({ email, password }),
   })
-export const register = (email: string, password: string) =>
-  request<{ access_token: string; plan: string; email_sent?: boolean }>("/auth/register", {
-    method: "POST", body: JSON.stringify({ email, password, plan: "free" }),
+export const register = (email: string, password: string) => {
+  // Carry the first-touch campaign through to the signup, so we can answer
+  // "which post produced this user?". Attribution must never be able to break
+  // a registration, hence the guard and the optional fields on the server.
+  let attribution: Record<string, string> = {}
+  try {
+    attribution = getAttribution() as Record<string, string>
+  } catch {
+    attribution = {}
+  }
+  const landing_path =
+    typeof window !== "undefined" ? window.location.pathname.slice(0, 300) : undefined
+
+  return request<{ access_token: string; plan: string; email_sent?: boolean }>("/auth/register", {
+    method: "POST",
+    body: JSON.stringify({ email, password, plan: "free", landing_path, ...attribution }),
   })
+}
 export const forgotPassword = (email: string) =>
   request<{ ok: boolean }>("/auth/forgot-password", {
     method: "POST", body: JSON.stringify({ email }),
