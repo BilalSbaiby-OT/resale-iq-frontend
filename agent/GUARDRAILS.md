@@ -3,9 +3,30 @@
 The loop runs unattended with `--permission-mode acceptEdits`. Nobody is
 watching. These are the things that cannot be undone by the next session.
 
+## READ THIS FIRST — since 2026-08-29, A PUSH TO `main` IS A DEPLOY
+
+`git push origin main` now ships to production by itself. Both repos have a
+`Deploy` workflow that fires automatically once CI passes:
+
+- `resale-iq` — after **Agent Isolation** goes green → resaleiq.dev rebuilds
+- `demand-intel` — after **Tests** goes green → the customer-facing API rebuilds
+
+There is no second confirmation, no human in the loop, and nothing to click.
+The gate is CI: a red build does not deploy. That is the whole safety net.
+
+So `PUSH: yes` in HANDOFF no longer means "publishing the commit is safe" — it
+means **"deploying to production is safe."** If you are not ready for customers
+to get your change, commit on a branch and do not push `main`.
+
+To ship without deploying, push a branch. To deploy deliberately, run
+`gh workflow run deploy.yml`.
+
 ## NEVER, without a human saying so in HANDOFF
-- `git push` — commits stay LOCAL unless HANDOFF says `PUSH: yes`
-- Deploy anything (Coolify, `gh repo edit --visibility public`, any deploy API)
+- `git push` to `main` — this DEPLOYS (see above). Commits stay LOCAL, or on a
+  branch, unless HANDOFF says `PUSH: yes`
+- Deploy anything by any other route (Coolify UI/API, `gh repo edit
+  --visibility public`) — the automatic pipeline above is the sanctioned path,
+  and it is the only one that runs the CI gate first
 - Write to the production database
 - Change Stripe prices, products, webhooks, or any dashboard setting
 - Publish/update the Chrome extension listing

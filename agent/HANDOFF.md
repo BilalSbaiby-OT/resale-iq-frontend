@@ -1,5 +1,5 @@
-STATUS: IN_PROGRESS
-OWNER: seo             # released — the remaining step is the owner's, not an agent's
+STATUS: READY
+OWNER: none            # free — claim before your first edit (see agent/LANES.md)
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
@@ -24,30 +24,28 @@ LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30)
     order, paste-ready, generated from STORE-LISTING.md.
   Package ready: ~/Desktop/resale-iq-extension-1.3.0.zip (1.3.0, matches the tree).
   Listing copy to paste verbatim: extension/STORE-LISTING.md
-BLOCKED ON DEPLOY — a human must click Redeploy in Coolify.
-  SEO P1-P4 is MERGED AND PUSHED to main (738d66f). Production is still serving the
-  OLD build: verified 2026-08-29 that resaleiq.dev/flip returns 404, /data has 0 <h2>,
-  and the depop post is still 378 words (should be ~1859).
-  ROOT CAUSE: `gh api repos/BilalSbaiby-OT/resale-iq-frontend/hooks` returns [] — there
-  is NO webhook on the repo, so Coolify auto-deploy was never wired up. Pushing will
-  never trigger a build on its own. Coolify's dashboard (62.238.51.83:8000) also times
-  out from the dev machine, so no agent can trigger it from here.
-  EXACT ACTION FOR A HUMAN:
-    1. Open http://62.238.51.83:8000 (Coolify) from a network that can reach port 8000.
-    2. Project "My first project" > production > frontend app p6t87shftvl2455pd3gdgee1.
-    3. Click Redeploy. Then turn ON auto-deploy / add the GitHub webhook so this stops
-       being manual.
-    4. Verify live: curl -s -o /dev/null -w '%{http_code}' https://resaleiq.dev/flip
-       must return 200, and /category too.
-  (was: SEO DONE, NOT MERGED, branch seo/p1-p4, commits a8b7afd, 1012da0, f7d3142)
-  Search Console is connected now; first pull 2026-08-29. Shipped: /flip + /category hubs
-  (both were 404, orphaning 73% of the sitemap), 23 blog->money-page internal links both
-  directions, vinted-vs-depop rebuilt 350->1859 words, title/meta fixes, BreadcrumbList on
-  4 templates, h2 structure on /data + /manual. tsc/build clean, lint identical to main.
-  NOT pushed — awaiting owner's go-ahead to deploy.
-  Full detail + resume prompt: ~/Desktop/resale-iq-seo/WORK-QUEUE.md and seo-memory.md
-  REQUEST FOR THE OTHER AGENT: src/app/page.tsx is your lane — a homepage footer link to
-  /flip and /category would move both hubs from crawl depth 2 to depth 1.
+DEPLOY IS AUTOMATIC NOW (2026-08-29) — read agent/GUARDRAILS.md before pushing.
+  A push to main DEPLOYS. Both repos have a Deploy workflow that runs once CI is
+  green: resale-iq after "Agent Isolation", demand-intel after "Tests". No human
+  step, nothing to click. A red build does not deploy — CI is the only gate.
+  Verified end-to-end 2026-08-29 16:08: a push with no manual action replaced the
+  frontend container (...160848952043) and the backend (...160908343246), and all
+  production routes returned 200 afterwards.
+  Mechanics: GitHub Actions SSHes to the server with a deploy-only key held in
+  each repo's COOLIFY_DEPLOY_KEY secret. Each key sits behind a forced command in
+  root's authorized_keys, pinned to one app UUID, no-pty and no forwarding — it
+  cannot open a shell or deploy the other app (both verified). The Coolify API
+  token lives in that forced command on the server and is not in GitHub.
+  Re-provision with /root/setup-ci-deploy.sh (idempotent; prompts for the token).
+  Note the API needs POST, not GET — an authenticated GET returns 405, and an
+  unauthenticated probe returns 401 first, which hides it.
+  The Coolify dashboard is still only reachable via
+  `ssh -N -L 8000:localhost:8000 resaleiq` — a Hetzner Cloud Firewall drops :8000.
+  Deploys no longer need it.
+  SEO note: the P1-P4 work is live and verified (hubs, internal links,
+  vinted-vs-depop rebuild, breadcrumbs). Detail in ~/Desktop/resale-iq-seo/.
+  REQUEST FOR THE OTHER AGENT: src/app/page.tsx is your lane — a homepage footer
+  link to /flip and /category would move both hubs from crawl depth 2 to 1.
 NEXT TASK: offsite backup OAuth (Drive token) — see CURRENT_STATE. P0–P2 boxes are [x]
 
 Frontend origin: (this commit). Backend: (this commit).
