@@ -1,9 +1,24 @@
-STATUS: IN_PROGRESS
-OWNER: seo           # seo | growth | none — claim before your first edit (see agent/LANES.md)
+STATUS: BLOCKED
+OWNER: none          # seo | growth | none — claim before your first edit (see agent/LANES.md)
 PUSH: yes
 UPDATED: 2026-08-29
 LAST SESSION DID: P2 deal alerts + median·n + /data weekly table
-SEO DONE, NOT MERGED (branch seo/p1-p4, 3 commits: a8b7afd, 1012da0, f7d3142).
+BLOCKED ON DEPLOY — a human must click Redeploy in Coolify.
+  SEO P1-P4 is MERGED AND PUSHED to main (738d66f). Production is still serving the
+  OLD build: verified 2026-08-29 that resaleiq.dev/flip returns 404, /data has 0 <h2>,
+  and the depop post is still 378 words (should be ~1859).
+  ROOT CAUSE: `gh api repos/BilalSbaiby-OT/resale-iq-frontend/hooks` returns [] — there
+  is NO webhook on the repo, so Coolify auto-deploy was never wired up. Pushing will
+  never trigger a build on its own. Coolify's dashboard (62.238.51.83:8000) also times
+  out from the dev machine, so no agent can trigger it from here.
+  EXACT ACTION FOR A HUMAN:
+    1. Open http://62.238.51.83:8000 (Coolify) from a network that can reach port 8000.
+    2. Project "My first project" > production > frontend app p6t87shftvl2455pd3gdgee1.
+    3. Click Redeploy. Then turn ON auto-deploy / add the GitHub webhook so this stops
+       being manual.
+    4. Verify live: curl -s -o /dev/null -w '%{http_code}' https://resaleiq.dev/flip
+       must return 200, and /category too.
+  (was: SEO DONE, NOT MERGED, branch seo/p1-p4, commits a8b7afd, 1012da0, f7d3142)
   Search Console is connected now; first pull 2026-08-29. Shipped: /flip + /category hubs
   (both were 404, orphaning 73% of the sitemap), 23 blog->money-page internal links both
   directions, vinted-vs-depop rebuilt 350->1859 words, title/meta fixes, BreadcrumbList on
