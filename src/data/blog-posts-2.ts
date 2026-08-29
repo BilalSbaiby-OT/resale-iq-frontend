@@ -204,7 +204,7 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "how-to-get-more-views-on-vinted",
-    title: "How to Get More Views on Vinted",
+    title: "How to Get More Views on Vinted (4 Real Causes)",
     description:
       "Why your Vinted listings aren't getting seen, and the practical fixes — search wording, photos, pricing, freshness and closet size.",
     date: "2026-08-06",
@@ -246,7 +246,7 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "seasonal-reselling-calendar",
-    title: "The Reseller's Seasonal Calendar: What to Buy and When",
+    title: "Reseller's Seasonal Calendar: What to Buy, and When",
     description:
       "A month-by-month guide to what to source and what to list on Vinted, so your cash isn't frozen in off-season stock.",
     date: "2026-08-06",

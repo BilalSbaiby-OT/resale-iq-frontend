@@ -91,6 +91,10 @@ export default async function DataPage() {
           </p>
         )}
 
+        <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "26px 0 0" }}>
+          This week&apos;s snapshot
+        </h2>
+
         <table
           aria-label="Weekly market snapshot"
           style={{ width: "100%", borderCollapse: "collapse", marginTop: 22, fontSize: 13.5, background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, overflow: "hidden" }}
@@ -126,7 +130,11 @@ export default async function DataPage() {
           // cached. Once one lands, this page always has numbers on it.
           <p style={{ marginTop: 28, color: "#8b99b8" }}>Market data is being refreshed — check back shortly.</p>
         ) : (
-          <div style={{ marginTop: 26, overflowX: "auto", border: "1px solid #1c2333", borderRadius: 12 }}>
+          <>
+          <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "30px 0 0" }}>
+            Weekly sales and average price by brand
+          </h2>
+          <div style={{ marginTop: 18, overflowX: "auto", border: "1px solid #1c2333", borderRadius: 12 }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5, minWidth: 620 }}>
               <thead>
                 <tr style={{ background: "#12151d", color: "#8b99b8", textAlign: "left" }}>
@@ -159,10 +167,14 @@ export default async function DataPage() {
               </tbody>
             </table>
           </div>
+          </>
         )}
 
-        <div style={{ marginTop: 26, fontSize: 13, color: "#5b6b8c", lineHeight: 1.7 }}>
-          <strong style={{ color: "#8b99b8" }}>Methodology.</strong> Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
+        <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "30px 0 8px" }}>
+          How these numbers are produced
+        </h2>
+        <div style={{ fontSize: 13, color: "#5b6b8c", lineHeight: 1.7 }}>
+          Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
         </div>
 
         <div style={{ marginTop: 28, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
@@ -181,9 +193,9 @@ export default async function DataPage() {
         {/* /data is the parent of the category rankings — without these links the
             hubs are only reachable from deep brand pages. */}
         <div style={{ marginTop: 30 }}>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+          <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "0 0 10px" }}>
             Brands ranked by category
-          </div>
+          </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {CATEGORIES.map((c) => (
               <Link key={c.slug} href={`/category/${c.slug}`} style={{

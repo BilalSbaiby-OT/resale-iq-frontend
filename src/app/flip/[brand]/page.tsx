@@ -82,7 +82,7 @@ export default async function BrandFlipPage(
     : null
 
   // Structured data helps this rank as an answer to "is X worth reselling".
-  const jsonLd = {
+  const jsonLd = [{
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
@@ -101,7 +101,18 @@ export default async function BrandFlipPage(
         },
       },
     ],
-  }
+  },
+  // Breadcrumbs need a hub that resolves; /flip only started returning 200 on
+  // 2026-08-29, so this could not have been correct before that.
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+      { "@type": "ListItem", position: 2, name: "Brands", item: "https://resaleiq.dev/flip" },
+      { "@type": "ListItem", position: 3, name: b.brand, item: `https://resaleiq.dev/flip/${b.slug}` },
+    ],
+  }]
 
   return (
     <main style={{ maxWidth: 760, margin: "0 auto", padding: "32px 20px 64px" }}>

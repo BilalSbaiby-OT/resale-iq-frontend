@@ -129,6 +129,15 @@ export default async function CategoryPage(
         url: `https://resaleiq.dev/flip/${e.slug}/${catSlug(c.category)}`,
       })),
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+        { "@type": "ListItem", position: 2, name: "Categories", item: "https://resaleiq.dev/category" },
+        { "@type": "ListItem", position: 3, name: c.category, item: `https://resaleiq.dev/category/${c.slug}` },
+      ],
+    },
   ]
 
   const others = CATEGORIES.filter((x) => x.slug !== c.slug)

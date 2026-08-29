@@ -59,6 +59,15 @@ export default async function BlogPostPage(
         acceptedAnswer: { "@type": "Answer", text: stripRichText(f.a) },
       })),
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://resaleiq.dev/blog" },
+        { "@type": "ListItem", position: 3, name: p.title, item: `https://resaleiq.dev/blog/${p.slug}` },
+      ],
+    },
   ]
 
   return (
@@ -83,6 +92,51 @@ export default async function BlogPostPage(
             {s.p.map((para, i) => (
               <p key={i} style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>{renderRichText(para)}</p>
             ))}
+
+            {/* Comparison tables scroll inside their own container: the article
+                column is 720px and a phone is not, so without this the page
+                body itself would scroll sideways. */}
+            {s.table && (
+              <figure style={{ margin: "6px 0 14px", overflowX: "auto" }}>
+                <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 420, fontSize: 13.5 }}>
+                  {s.table.caption && (
+                    <caption style={{ captionSide: "bottom", textAlign: "left", fontSize: 12.5, color: "#5b6b8c", paddingTop: 8, lineHeight: 1.55 }}>
+                      {renderRichText(s.table.caption)}
+                    </caption>
+                  )}
+                  <thead>
+                    <tr>
+                      {s.table.head.map((th) => (
+                        <th key={th} scope="col" style={{ textAlign: "left", padding: "9px 12px", color: "#eef1f7", fontWeight: 700, borderBottom: "1px solid #263042", background: "#12151d" }}>
+                          {th}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {s.table.rows.map((row, ri) => (
+                      <tr key={ri}>
+                        {row.map((cell, ci) => (
+                          <td
+                            key={ci}
+                            style={{
+                              padding: "9px 12px",
+                              borderBottom: "1px solid #161b26",
+                              color: ci === 0 ? "#c3cde0" : "#a9b6d0",
+                              fontWeight: ci === 0 ? 600 : 400,
+                              verticalAlign: "top",
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {renderRichText(cell)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </figure>
+            )}
           </section>
         ))}
 

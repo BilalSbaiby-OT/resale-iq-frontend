@@ -13,7 +13,19 @@ export interface BlogPost {
   category: string
   readMins: number
   intro: string
-  sections: { h: string; p: string[] }[]
+  sections: {
+    h: string
+    p: string[]
+    /**
+     * Optional comparison table, rendered after the section's paragraphs.
+     *
+     * Prose cannot carry a side-by-side comparison legibly, and a comparison
+     * query ("vinted vs depop") is answered by a table or it is not answered.
+     * Cells are plain strings and may use the same [label](/path) link syntax
+     * as paragraphs. Every row must have the same length as `head`.
+     */
+    table?: { caption?: string; head: string[]; rows: string[][] }
+  }[]
   faq: { q: string; a: string }[]
 }
 
@@ -64,9 +76,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price Items on Vinted to Sell Fast (Without Underselling)",
+    title: "How to Price on Vinted: Sell Fast, Keep Margin",
     description:
-      "A simple, data-backed method for pricing items on Vinted so they sell quickly but still protect your margin — including the exact buy-below rule resellers use.",
+      "The buy-below rule resellers use to price Vinted items: sell fast without underselling. Worked from real sale prices across 5 EU markets.",
     date: "2026-08-05",
     category: "Pricing",
     readMins: 5,
@@ -143,43 +155,110 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "vinted-vs-depop-for-sellers",
-    title: "Vinted vs Depop for Sellers: Which Should You Use in 2026?",
+    title: "Vinted vs Depop for Sellers: Who Pays More?",
     description:
-      "A practical comparison of Vinted and Depop for resellers — fees, audience, what sells on each, and how to decide where to list.",
-    date: "2026-08-05",
+      "Vinted vs Depop on fees, audience and speed. Where you sell from decides it: Depop's 0% commission does not apply outside the US and UK.",
+    date: "2026-08-29",
     category: "Platforms",
-    readMins: 5,
+    readMins: 9,
     intro:
-      "Vinted and Depop are the two biggest secondhand platforms in Europe, but they behave differently for sellers. Here's how they compare on the things that affect your profit.",
+      "Vinted and Depop get compared endlessly, usually on vibes. The comparison that actually decides your profit is narrower than that, and it has an answer most guides get wrong: what each platform takes depends on which country you sell from. Depop's headline 0% selling fee applies to sellers based in the US and the UK. If you sell from Spain, France, Germany, Italy or Portugal, it does not apply to you.",
     sections: [
       {
-        h: "Fees",
+        h: "The fee difference, and why your country decides it",
         p: [
-          "Vinted charges buyers a Buyer Protection fee and lets sellers list for free, so your listed price is closer to what you keep. Depop charges sellers a commission on sales.",
-          "Lower seller-side friction is a big reason Vinted has scaled so fast across the EU.",
+          "Vinted does not charge sellers a commission. You list an item, it sells, and the listed price is your payout. The fee on a Vinted transaction is paid by the buyer, as a Buyer Protection charge added at checkout — roughly a percentage of the item price plus a small fixed amount, shown to the buyer before they commit.",
+          "Depop changed its model in 2024: it removed its 10% selling fee for sellers based in the UK (March 2024) and the US (July 2024). Outside those two countries, the 10% selling fee still applies. Payment processing is charged on top, and its exact rate varies by region and payment method.",
+          "That single detail reorders the whole comparison depending on where you are. A seller in Manchester and a seller in Madrid are not choosing between the same two platforms.",
+        ],
+        table: {
+          caption:
+            "Fee structures as published in August 2026. Both platforms have changed their fees before and will again — check each platform's current fee page before you rely on these figures for a real decision.",
+          head: ["", "Vinted", "Depop"],
+          rows: [
+            ["Seller commission (ES/FR/DE/IT/PT)", "None", "10%"],
+            ["Seller commission (UK, US)", "None", "0% on eligible listings since 2024"],
+            ["Who pays the platform fee", "The buyer, at checkout", "The seller, from the sale"],
+            ["Payment processing", "Included in the buyer's fee", "Charged to the seller; varies by region"],
+            ["Listing fee", "None", "None"],
+            ["Optional paid promotion", "Bump / wardrobe spotlight", "Boosted Listings"],
+          ],
+        },
+      },
+      {
+        h: "What that costs you on a real sale",
+        p: [
+          "Take a €40 jacket, sold from Spain. On Vinted, you keep €40 — the buyer paid their protection fee separately, on top of your price. On Depop, the 10% selling fee applies because you are not a UK or US seller, so €4 goes to the platform before payment processing takes its share.",
+          "That gap compounds in a way that is easy to underestimate. On thin-margin stock — the branded basics most resellers actually move — 10% is often a third or more of the entire profit on the item. Sell forty items a month at €40 and the same inventory is €160 a month apart, before you have made a single different sourcing decision.",
+          "The honest caveat: fees are not the whole picture. A platform that takes 10% but sells your item for €55 beats one that takes nothing and sells it for €40. Which is exactly why the next section matters more than this one.",
         ],
       },
       {
-        h: "Audience and what sells",
+        h: "Audience: where each platform actually wins",
         p: [
-          "Vinted skews toward everyday branded fashion, basics, and value across five large EU markets. Depop skews younger, more trend- and vintage-led, and is strong in the UK and US.",
-          "If you source recognisable mid-market brands and sneakers, Vinted's volume is hard to beat. For curated vintage and streetwear with a story, Depop can command higher prices.",
+          "Vinted's centre of gravity is everyday branded fashion across large EU markets — recognisable mid-market brands, basics, sneakers, denim, outerwear. Volume is its advantage. Items that are easy to search for by brand and model sell reliably, and they sell at a fair rather than a remarkable price.",
+          "Depop skews younger and more trend-led, with real strength in curated vintage, Y2K, streetwear and anything with a story attached to it. A well-styled, well-photographed piece can command a price on Depop that the same item would never reach on Vinted, because the buyer is shopping a look rather than a brand name.",
+          "The practical translation: Vinted rewards recognisability and price discipline, Depop rewards curation and presentation. If your sourcing edge is spotting underpriced known brands, Vinted's volume is hard to beat. If your edge is taste — finding pieces other people cannot name but want — Depop pays for that in a way Vinted does not.",
+        ],
+        table: {
+          caption: "Which platform tends to suit which stock. Generalisations, not rules — test your own categories.",
+          head: ["Stock type", "Usually better on", "Why"],
+          rows: [
+            ["Branded sneakers", "Vinted", "Searched by exact model; volume and speed beat presentation"],
+            ["Branded basics (tees, hoodies, denim)", "Vinted", "High search volume, price-led buyers, fast turnover"],
+            ["Curated vintage / Y2K", "Depop", "Styling and story command a premium the brand name cannot"],
+            ["Streetwear with hype", "Either", "Depop for presentation, Vinted for speed at a fair price"],
+            ["Outerwear and coats", "Vinted", "Seasonal demand across five large markets"],
+            ["One-off statement pieces", "Depop", "Trend-led audience pays for uniqueness"],
+          ],
+        },
+      },
+      {
+        h: "Speed versus price: the trade nobody names",
+        p: [
+          "The comparison people usually make is \'which platform pays more per item\'. The one that matters to a working reseller is \'which platform returns my cash faster at an acceptable price\'.",
+          "Money sitting in unsold stock earns nothing. An item that clears in nine days at €40 is generally a better business than one that clears in seventy days at €50 — you can recycle the first one seven times a year and the second one five. Sell-through, not sale price, is what compounds.",
+          "This is where Vinted's volume tends to win for anyone running stock at scale, and where Depop tends to win for someone selling a small, curated, high-margin selection. Neither is the better platform in the abstract. They reward different businesses.",
+          "Before you commit to either, it is worth knowing what your specific stock actually does: [which brands sell fastest each week](/flip) and [which categories move](/category) are both published free, and [what counts as a good sell-through rate](/blog/what-is-a-good-sell-through-rate) explains how to read them.",
         ],
       },
       {
-        h: "How to decide",
+        h: "Should you cross-list on both?",
         p: [
-          "Match the item to the platform: high-volume branded basics and sneakers → Vinted; curated/vintage/trend pieces → Depop. Many resellers cross-list.",
-          "Wherever you list, the buy decision is the same: only source items with real demand and margin. " + BRAND + ` focuses on Vinted's 5 EU markets and ${TRACKED} listings to make that call.`,
+          "Many resellers do, and for a mixed inventory it is usually correct: list the branded, searchable stock on Vinted and the curated pieces on Depop, rather than treating either platform as the default for everything.",
+          "The cost is operational, not financial. Two platforms means two sets of listings, two inboxes, two shipping flows, and the standing risk of selling the same physical item twice. Most sellers who cross-list successfully keep a single source of truth for what is actually in stock and delist immediately on the other platform.",
+          "If you are starting out, one platform done properly beats two done carelessly. Pick the one that matches your stock and your country's fee position, and add the second only when the first is running smoothly.",
+        ],
+      },
+      {
+        h: "How to decide, in order",
+        p: [
+          "First, your country. If you sell from the US or UK, Depop's 0% commission makes it genuinely competitive on fees and the decision comes down to audience. If you sell from the EU, Depop costs you 10% that Vinted does not, and it has to earn that back in a higher sale price.",
+          "Second, your stock. Recognisable brands that people search by name lean Vinted. Curated, styled, trend-led pieces lean Depop.",
+          "Third, your working capital. If your money is tied up in stock and you need it back, optimise for sell-through, which usually means Vinted's volume. If you can afford to wait for the right buyer, Depop's ceiling is higher.",
+          "Whichever you choose, the buy decision does not change: only source items with real demand and real margin. That is the part that decides whether you make money, and it is the same question on every platform.",
+        ],
+      },
+      {
+        h: "Where Resale IQ fits, and where it does not",
+        p: [
+          "Resale IQ covers Vinted only, across five markets: Spain, France, Germany, Italy and Portugal. It does not cover Depop, and it does not cover the UK or the US. If you sell on Depop, or you sell in Britain, it will not price your stock — worth saying plainly rather than letting you find out after signing up.",
+          "For those five Vinted markets it answers the sourcing question directly: what an item genuinely sells for, the most you can pay and still profit, and how fast it moves. The buy-below price is calculated as the average sale price × 0.95 for the platform deduction we model, × 0.70 to target roughly a 30% margin — [the methodology](/methodology) sets out every step and, more usefully, what the data cannot tell you.",
+          "You can check a specific item free with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator).",
         ],
       },
     ],
     faq: [
-      { q: "Is Vinted or Depop better for sellers?", a: "Vinted has free listings and huge EU volume, ideal for branded basics and sneakers. Depop takes a seller commission but reaches a younger, trend-led audience that pays more for curated vintage. Match the item to the platform." },
-      { q: "Does Vinted charge sellers fees?", a: "Vinted lets sellers list for free and charges buyers a Buyer Protection fee, so sellers keep more of the listed price than on platforms that take a seller commission." },
+      { q: "Is Vinted or Depop better for sellers?", a: "It depends on where you sell from. Vinted charges sellers no commission anywhere. Depop charges 0% to sellers based in the US and UK, but 10% to sellers elsewhere — including Spain, France, Germany, Italy and Portugal. On audience: Vinted suits recognisable branded stock sold at volume, Depop suits curated vintage and trend-led pieces that command a premium." },
+      { q: "Does Vinted charge sellers fees?", a: "No. Vinted takes no seller commission and no listing fee — the listed price is your payout. The platform fee on a Vinted sale is the Buyer Protection charge, paid by the buyer at checkout, shown to them before they buy." },
+      { q: "What percentage does Depop take?", a: "Depop removed its 10% selling fee for UK sellers in March 2024 and US sellers in July 2024, on eligible listings. Sellers based outside the US and UK still pay the 10% selling fee, plus payment processing which varies by region. Check Depop's current fee page before relying on this." },
+      { q: "Is Depop or Vinted better in Spain, France, Germany, Italy or Portugal?", a: "On fees, Vinted — Depop's 0% commission does not extend to those countries, so Depop takes 10% where Vinted takes nothing from the seller. Depop can still win on individual items if its audience pays enough more to cover that 10%, which is most likely for curated vintage and trend pieces rather than branded basics." },
+      { q: "What is the difference between Vinted and Depop?", a: "Structurally: Vinted charges the buyer and takes nothing from the seller; Depop charges the seller a commission outside the US and UK. Commercially: Vinted is a high-volume marketplace for everyday branded fashion across large EU markets, Depop is a curated, trend-led marketplace where presentation and styling carry more of the value." },
+      { q: "Should I sell on both Vinted and Depop?", a: "For a mixed inventory, usually yes — branded searchable stock on Vinted, curated pieces on Depop. The cost is operational: two sets of listings, two inboxes, and the risk of double-selling the same item. If you are starting out, run one platform properly before adding the second." },
+      { q: "Which sells faster, Vinted or Depop?", a: "Vinted generally sells faster for recognisable branded items, because buyers search by brand and model and the EU markets carry high volume. Depop can take longer per item but reach a higher price on curated pieces. Faster is usually the better business: cash that recycles beats theoretical margin." },
     ],
   },
-  {
+{
     slug: "what-is-a-good-sell-through-rate",
     title: "What Is a Good Sell-Through Rate for Reselling?",
     description:

@@ -14,7 +14,7 @@ const BASE = "https://resaleiq.dev"
 export const metadata: Metadata = {
   title: "The Vinted Reselling Manual — 16 chapters, free",
   description:
-    "A complete operator's manual for reselling on Vinted: margin maths, buy-below pricing, sourcing channels, sizes, listings, cross-border markets, cashflow and the metrics that matter. Free, no signup.",
+    "The operator's manual for reselling on Vinted: margin maths, buy-below pricing, sourcing, sizes, cashflow and the metrics that matter. Free, no signup.",
   alternates: { canonical: "/manual" },
   openGraph: {
     title: "The Vinted Reselling Manual — 16 chapters, free",
@@ -83,9 +83,9 @@ export default async function ManualIndex() {
           if (chapters.length === 0) return null
           return (
             <section key={part.name} style={{ marginBottom: 34 }}>
-              <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.7px", fontWeight: 700, marginBottom: 4 }}>
+              <h2 style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.7px", fontWeight: 700, margin: "0 0 4px" }}>
                 Part {pi + 1} — {part.name}
-              </div>
+              </h2>
               <p style={{ fontSize: 14, color: "#5b6b8c", marginBottom: 14 }}>{part.blurb}</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {chapters.map((c) => (
@@ -128,9 +128,9 @@ export default async function ManualIndex() {
         </div>
 
         <div>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+          <h2 style={{ fontSize: 12.5, color: "#5b6b8c", margin: "0 0 10px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
             Category rankings
-          </div>
+          </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {CATEGORIES.map((c) => (
               <Link key={c.slug} href={`/category/${c.slug}`} style={{
