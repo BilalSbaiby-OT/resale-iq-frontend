@@ -9,6 +9,7 @@ import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
+import { OutcomePrompt } from "@/components/ui/outcome-prompt"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
@@ -79,6 +80,8 @@ export default function DashboardPage() {
 
   return (
     <AppShell title="Dashboard" subtitle="Decide what to buy — number first, evidence second">
+      {/* Asks about one past verdict. Renders nothing when there is nothing to ask. */}
+      <OutcomePrompt />
       {paywalled && (
         <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.25)", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
           <Lock size={15} color="#fbbf24" style={{ flexShrink: 0 }} />
