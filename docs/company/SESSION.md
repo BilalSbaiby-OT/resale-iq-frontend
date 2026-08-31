@@ -3,17 +3,26 @@
 **Updated** 2026-08-31 (CEO, main session)
 
 ## Working on
-**Closing the gaps in `GAPS.md`.** The founder asked what was forgotten, broken, or built and
-never used. Four things were reported done and were inert — the agent roster was invisible to
-every session that spawned agents, the Stop gate was armed but never wired, the activity ledger
-attributed all 1,380 events to the CEO, and the lock was six hours stale. All four fixed.
+**Root-cause fix, steps 1–2 of 8 done.** The founder asked why work kept being reported
+done without working. One cause covers every instance: *I verified artefacts existed,
+never that the running configuration used them.* Full analysis in `ROOT-CAUSE.md`.
 
-**GTM landed and it overturns the marketing plan.** `docs/company/GTM.md`: the channel is
-**TikTok in Spanish**, not Instagram in English. None of the 10 queued posts ship as drafted —
-4 cut, 6 reworked. The 14-day bet is pre-registered with a kill rule.
+**Shipped:** 8 emergency wiring defects fixed (3 security-relevant, incl. the credential
+file being dot-sourced so a malformed line executed as shell) · `wiring.mjs` with 11 live
+checks · `wiring-selftest.mjs` with 14 predicates seeded from the pre-fix broken config ·
+**`test_rails.py` now derives its subjects from the settings registry** and refuses to
+report when nothing is registered — the structural fix · `job_reddit_bot` gated (was
+failing twice daily in production with empty credentials).
 
-**Next, in this order:** `METRICS.md` + `sql/metrics/` → schedulers → commands and skills →
-the three live data defects (FX, `n>=8` failing open, the predictions resolver).
+**Verified:** harness 11/11 · predicates 14/14 · rails 40/40 · backend 1159/1159 ·
+negative control confirms unwired rails now REFUSE rather than print green.
+
+**Next (founder-approved order):** `status_report.py` + `STATUS.md` → credentials layer
+with live auth → launchd hourly → production layer → claims register → Stop gate.
+
+**Who builds what:** harness work is CEO-only — `guard.py` forbids agents from editing
+hooks, settings or the roster. Everything else goes to the roster, which now actually
+resolves, so spawns name a real agent instead of falling back to `general-purpose`.
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.

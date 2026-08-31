@@ -59,3 +59,16 @@ block`
 - `2026-08-31T22:05:57Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/.claude/plans/couod-you-find-the-resilient-dawn.md`
 - `2026-08-31T22:09:11Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq printf 'Step 0 emergency fixes: guard SCOPE gaps, StopFailure non-event, 8 dead user-level hooks,\nDEPLOY_APPROVED gitignore, and .env being dot-sourced (arbitrary code execution). Broken state\nalready captured to resale-iq-growth/skills/resale-iq-verify/fixt`
 - `2026-08-31T22:09:22Z` **BLOCKED** Bash — shell write to a protected harness path (.claude/hooks) — `cd /Users/bilalsbaiby/Desktop/resale-iq printf 'Step 0 emergency fixes: guard SCOPE gaps, StopFailure non-event, 8 dead user-level hooks,\nDEPLOY_APPROVED gitignore, and the credential file being dot-sourced (arbitrary code execution).\nBroken state already captured to resale-iq-growth/skills/resale`
+- `2026-08-31T22:18:52Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:18:52Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:18:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:18:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:19:08Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:19:08Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:19:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:19:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:20:02Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:20:02Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:20:02Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:20:02Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:20:18Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq git add -A scripts/company docs/audit .claude git -C /Users/bilalsbaiby/Desktop/resale-iq-growth add -A skills/resale-iq-verify git commit -q -F - <<'MSG' os: make "works" and "is wired" the same assertion The structural fix. test_rails.py named its own subjec`
