@@ -55,3 +55,9 @@ docs/audit/ACTIVITY.jsonl
 .claude/UNLOCK_HARNESS
 .claude/STOP_GATE_ON
 .claude/DEPLOY_APPROVED
+
+# Machine state, rewritten every hour by dev.resaleiq.os-verify. Tracking it would
+# leave the tree permanently dirty and the Stop gate permanently blocked. STATUS.md
+# stays tracked - it is the human-readable record - and is only written when it changes.
+dashboard/status.json
+dashboard/.status.prev.json
