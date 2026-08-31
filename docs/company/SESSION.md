@@ -3,22 +3,17 @@
 **Updated** 2026-08-31 (CEO, main session)
 
 ## Working on
-**SHIPPED, 2026-08-31.** Founder said "yeh do it go on ship both". Both repos deployed to
-production, both verified live.
+**Closing the gaps in `GAPS.md`.** The founder asked what was forgotten, broken, or built and
+never used. Four things were reported done and were inert — the agent roster was invisible to
+every session that spawned agents, the Stop gate was armed but never wired, the activity ledger
+attributed all 1,380 events to the CEO, and the lock was six hours stale. All four fixed.
 
-| Deploy | Gate | Result |
-|---|---|---|
-| `demand-intel` → backend | 1,159 pytest | ✅ Tests + Deploy green |
-| `resale-iq` → frontend | tsc + 4 honesty checks + build | ✅ Agent Isolation + Deploy green |
+**GTM landed and it overturns the marketing plan.** `docs/company/GTM.md`: the channel is
+**TikTok in Spanish**, not Instagram in English. None of the 10 queued posts ship as drafted —
+4 cut, 6 reworked. The 14-day bet is pre-registered with a kill rule.
 
-**The P0 is fixed in production.** A cookieless request to `/api/verdict?q=Adidas Samba` returns
-`WATCH · n=81 · buy_below €30.67`. That exact request returned `LIMIT_REACHED` at the start of the
-session. Cookie issued with `HttpOnly; SameSite=lax; Secure`.
-
-**Verified live on the site:** `€99` 0 occurrences, "Talk to us" 0, "100 product signals" 0, hero
-reads "the first marketplace it covers", `/methodology` now says "about every 30 minutes — measured
-on production, 97% of gaps under an hour" and "Signal recomputation ~every 2 hours". The
-"at most about an hour behind the market" overclaim is gone.
+**Next, in this order:** `METRICS.md` + `sql/metrics/` → schedulers → commands and skills →
+the three live data defects (FX, `n>=8` failing open, the predictions resolver).
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.

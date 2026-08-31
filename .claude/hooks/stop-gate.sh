@@ -28,9 +28,16 @@ fi
 
 MISSING=""
 [ -f "$REPO/docs/company/SESSION.md" ] || MISSING="$MISSING SESSION.md"
-if [ -n "$(git -C "$REPO" status --porcelain 2>/dev/null)" ]; then
-  MISSING="$MISSING uncommitted-tree"
+# Only MODIFIED TRACKED files count as leaving the tree dirty. That is the state
+# agent/LANES.md warns about: another agent cannot tell in-progress from abandoned.
+# A brand-new UNTRACKED file is visible and unambiguous, and is usually a running
+# background agent mid-write — this gate blocked once on exactly that, on a
+# deliverable another agent had not finished writing yet. Refusing to stop until
+# someone commits a half-written file is the wrong trade.
+if [ -n "$(git -C "$REPO" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+  MISSING="$MISSING uncommitted-tracked-changes"
 fi
+UNTRACKED="$(git -C "$REPO" ls-files --others --exclude-standard 2>/dev/null | head -5)"
 
 if [ -z "$MISSING" ]; then
   printf '%s  stop: clean\n' "$TS" >> "$REPO/agent/loop.log"
