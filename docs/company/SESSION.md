@@ -3,26 +3,23 @@
 **Updated** 2026-08-31 (CEO, main session)
 
 ## Working on
-**Root-cause fix, steps 1–2 of 8 done.** The founder asked why work kept being reported
-done without working. One cause covers every instance: *I verified artefacts existed,
-never that the running configuration used them.* Full analysis in `ROOT-CAUSE.md`.
+**The company moved to `~/work/` (2026-09-01).** Start sessions there, not in `~/Desktop`.
+`~/work/.claude/` is the company root — settings plus the agent-roster symlink.
 
-**Shipped:** 8 emergency wiring defects fixed (3 security-relevant, incl. the credential
-file being dot-sourced so a malformed line executed as shell) · `wiring.mjs` with 11 live
-checks · `wiring-selftest.mjs` with 14 predicates seeded from the pre-fix broken config ·
-**`test_rails.py` now derives its subjects from the settings registry** and refuses to
-report when nothing is registered — the structural fix · `job_reddit_bot` gated (was
-failing twice daily in production with empty credentials).
+**Why:** macOS TCC lets a launchd job read a file under `~/Desktop` but not list a directory or
+execute a script there. Measured, not assumed (`~/Library/Logs/resaleiq/tcc-probe.log`). That wall
+killed the scrape agent for 11 days and then the hourly verifier identically. **No unattended work
+of any kind can run against `~/Desktop`.**
 
-**Verified:** harness 11/11 · predicates 14/14 · rails 40/40 · backend 1159/1159 ·
-negative control confirms unwired rails now REFUSE rather than print green.
+**What it bought:** `dev.resaleiq.os-verify` runs hourly — exit 0, empty stderr, GREEN, with no
+session open. The first unattended verification that has ever worked here.
 
-**Next (founder-approved order):** `status_report.py` + `STATUS.md` → credentials layer
-with live auth → launchd hourly → production layer → claims register → Stop gate.
+**Root-cause programme, steps 3–7 done:** generated status report (223ms at session start, states
+its own age, STALE past 90 min) · credentials layer that authenticates rather than checks presence ·
+production layer · claims register binding DONE to a passing check (**43 asserted → 17 bindable**).
 
-**Who builds what:** harness work is CEO-only — `guard.py` forbids agents from editing
-hooks, settings or the roster. Everything else goes to the roster, which now actually
-resolves, so spawns name a real agent instead of falling back to `general-purpose`.
+**Next:** `METRICS.md` + `sql/metrics/` — closes four UNKNOWNs and revives three dashboard panels.
+Then the Stop gate on the harness layer, after clean unattended runs.
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.
