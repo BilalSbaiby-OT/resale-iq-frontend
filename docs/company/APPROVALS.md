@@ -170,3 +170,30 @@ plugin catalog, which returned empty. They are community plugins installed throu
 marketplace, an interactive terminal panel not available in this session. **Recommendation: fix A9
 first.** A memory plugin layered on a memory directory the rails refuse to write to would fail the
 same way, and would be much harder to diagnose from inside a plugin.
+
+
+---
+
+### A10 — the last of the ECC harness sits behind the rails
+
+**2026-09-01.** `GAPS.md` C2 executed as far as the rails allow, on `demand-intel` branch
+`claude/devops/delete-ecc-harness`: **1,156 files → 43, 11M → 408K.** Removed 159 skills, 45
+commands, the ECC scripts and `ecc-package.json`.
+
+New evidence, observed rather than argued: those 159 skill descriptions are **injected into context
+on any session that touches a demand-intel file**. It is not dormant weight, it is a context tax
+paid on every backend task for a harness with no evidence of ever running.
+
+Two directories could not be removed — both are PROTECTED in `guard.py`, and I did not self-unlock:
+
+- [ ] **`demand-intel/.claude/agents/` — 22 ECC agents.** Worth deciding rather than rubber-stamping:
+      the company's real roster is the 21 agents in `resale-iq/.claude/agents/`. It is worth
+      checking whether these 22 shadow that roster for anyone working in `demand-intel`, because
+      `GAPS.md` A1 was exactly this failure — a roster that existed where the company could not see
+      it. I have not verified the shadowing; it is a question, not a finding.
+- [ ] **`demand-intel/.claude/hooks/`** — includes the no-op `pre:write:gate` whose entire body is
+      `echo "[ECC] File write/edit detected" >/dev/null`.
+
+**Kept deliberately, and this one is not a gate — it is a warning:** `.claude/rules/` (3 dirs, 68K).
+`HARNESS.md` marks it **MERGE, "do not delete unread"** — the topics overlap `docs/eng/STANDARDS.md`,
+which does not exist yet. Deleting it would destroy the only draft of a document we still owe.

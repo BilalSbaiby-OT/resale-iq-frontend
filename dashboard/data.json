@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T23:44:44Z",
+  "generated_at": "2026-08-31T23:47:24Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -82,15 +82,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 27.1,
-      "n": 1343,
+      "value": 29.8,
+      "n": 1342,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12685109
+      "value": 12685258
     },
     "newest_sold_at": {
-      "value": "2026-08-31 23:43:49"
+      "value": "2026-08-31 23:45:42"
     },
     "predictions_total": {
       "value": 340
@@ -536,6 +536,10 @@
     ],
     "recent_commits": [
       {
+        "sha": "9ba8415",
+        "msg": "chore: lock reflects the session's end state"
+      },
+      {
         "sha": "fb3f8bb",
         "msg": "gaps: C4/C5/C6 closed, C7 partly addressed by pipeline_lag_min"
       },
@@ -578,10 +582,6 @@
       {
         "sha": "4f0d985",
         "msg": "move: out of ~/Desktop, so scheduled work can finally see the company"
-      },
-      {
-        "sha": "aef16fa",
-        "msg": "chore: security log before the repo move"
       }
     ],
     "dirty": false,
@@ -626,6 +626,36 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-08-31T23:45:00Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"--- demand-intel: ahead of main ---\" && git log --oneline main..HEAD && echo && echo \"--- both trees clean, nothing pushed ---\" && git status --short |",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T23:44:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && git add -A && git commit -q -m \"chore: lock reflects the session's end state\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\"; echo \"--- resale-iq ---\"; ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T23:44:51Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat > .claude/LOCK <<'EOF'\nHOLDER:  ceo (main session)\nSINCE:   2026-09-01T01:50:00Z\nWIP:     none - session complete. METRICS layer shipped; C6/C5/C4 fixed on\n         demand-intel branch claude/back",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-08-31T23:44:16Z",
       "session": "fb348ebc",
@@ -1095,54 +1125,24 @@
       "cmd": "python3 -m pytest tests/test_verdict_leak.py::test_anonymous_first_views_show_numbers -q 2>&1 | head -35",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-08-31T23:26:47Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "sed -n '100,125p' tests/test_verdict_refuse.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T23:26:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && python3 - <<'PY'\nimport io\np = \"engine/listing_identity.py\"\ns = io.open(p, encoding=\"utf-8\").read()\nold = '''def verdict_allows_buy_below(row: dict) -> bool:",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T23:25:10Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport sys, os\nsys.path.insert(0, \"scripts/company\")\nimport build_dashboard as B\nprobe = r'''\nimport sqlite3, json\ncon = sqlite3.connect(\"file:",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 193,
+    "blocked": 199,
     "tripwire": 0,
     "recent": [
+      "`2026-08-31T23:44:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-08-31T23:44:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-08-31T23:44:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-08-31T23:44:46Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-08-31T23:44:46Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-08-31T23:44:46Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-08-31T23:36:29Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/memory/os-rails-scope-after-move.md`",
       "`2026-08-31T23:20:38Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `rm -f .claude/UNLOCK_HARNESS && echo \"re-armed: $([ -f .claude/UNLOCK_HARNESS ] && echo STILL-PRESENT-B",
       "`2026-08-31T23:20:25Z` **BLOCKED** Bash — shell write to a protected harness path (docs/company/METRICS.md) — `printf 'Founder authorised in chat 2026-09-01: install docs/company/METRICS.md ",
       "`2026-08-31T23:20:21Z` **BLOCKED** Bash — shell write to a protected harness path (docs/company/METRICS.md) — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5dd",
       "`2026-08-31T23:16:54Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-08-31T23:16:54Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-08-31T23:16:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-08-31T23:16:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-08-31T23:16:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-08-31T23:16:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-08-31T23:13:48Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-08-31T23:13:48Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-08-31T23:16:54Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
     ],
     "restore_test": {
       "value": null,

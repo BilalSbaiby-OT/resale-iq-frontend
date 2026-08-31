@@ -63,7 +63,7 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 | # | Problem | Evidence |
 |---|---|---|
 | C1 | **`demand-intel/CLAUDE.md` is 395 lines**; the prompt caps it at 60 | §8 Ph3. `resale-iq/CLAUDE.md` is fine at 46 |
-| C2 | **The ECC harness is still there** — 159 skills, 22 agents, 45 commands | `HARNESS.md` recommended DELETE with evidence none has ever run. I wrote the recommendation and never executed it |
+| ~~C2~~ **MOSTLY DONE** `85f77fc` — 1,156 files → 43, 11M → 408K. 159 skills, 45 commands and the ECC scripts deleted. The 22 agents + hooks are PROTECTED paths, parked as APPROVALS **A10**. `.claude/rules/` kept: HARNESS says MERGE, not delete | `HARNESS.md` recommended DELETE with evidence none has ever run. I wrote the recommendation and never executed it |
 | C3 | Playwright still gates nothing | The frontend deployed today on typecheck + build alone |
 | ~~C4~~ **FIXED** `d3850d9` | now reads `sold_observed=1`. Root cause was **not** brokenness: no prediction has ever been ripe (oldest 27d, window 30d; first eligible ~2026-09-04) | Ran the production query `DATA.md` §900 asked for: **5,332,659 of 5,435,995 sold rows (98.1%) were never observed** |
 | ~~C5~~ **FIXED** `c1143d3` | fails closed now | Measured first: production `model_signals` has `comparable_n` on **100/100** rows, so the fail-open protected nothing live. The North Star is now a count, not an upper bound |
