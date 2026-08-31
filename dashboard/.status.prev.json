@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-08-31T22:45:11Z",
+  "generated_at": "2026-08-31T22:50:06Z",
   "layer": "harness+credentials+production",
   "results": [
     {
       "id": "harness/settings-parse",
       "ok": true,
-      "n": 3,
-      "detail": "desktop, resale-iq, user"
+      "n": 4,
+      "detail": "work, resale-iq, user, desktop"
     },
     {
       "id": "harness/hook-commands-exist",
       "ok": true,
-      "n": 13,
+      "n": 19,
       "detail": "every registered hook resolves to a real file",
       "fix": null
     },
     {
       "id": "harness/hook-commands-executable",
       "ok": true,
-      "n": 13,
+      "n": 19,
       "detail": "all executable",
       "fix": null
     },
@@ -39,7 +39,7 @@
     {
       "id": "harness/hooks-not-ephemeral",
       "ok": true,
-      "n": 13,
+      "n": 19,
       "detail": "none in a tmp-cleaned tree",
       "fix": null
     },
@@ -53,8 +53,8 @@
     {
       "id": "harness/guard-scope-covers-session-roots",
       "ok": true,
-      "n": 9,
-      "detail": "9 entries cover every session root",
+      "n": 10,
+      "detail": "10 entries cover every session root",
       "fix": null
     },
     {
@@ -67,8 +67,8 @@
     {
       "id": "harness/registered-gates-actually-block",
       "ok": true,
-      "n": 4,
-      "detail": "4 registered gate probes behaved correctly",
+      "n": 6,
+      "detail": "6 registered gate probes behaved correctly",
       "fix": null
     },
     {
@@ -117,7 +117,7 @@
       "id": "production/dashboard-data-fresh",
       "ok": true,
       "n": 1,
-      "detail": "generated 1.0h ago, prod_included=true",
+      "detail": "generated 1.1h ago, prod_included=true",
       "fix": null
     }
   ],

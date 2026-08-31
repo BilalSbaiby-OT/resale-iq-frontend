@@ -158,3 +158,27 @@ block`
 - `2026-08-31T22:47:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-08-31T22:47:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-08-31T22:47:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:33Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:33Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:34Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:34Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:34Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:34Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:56Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:57Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:57Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:49:57Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:57Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:49:57Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:01Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:01Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:01Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:01Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:02Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:02Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:16Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:16Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:16Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:50:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:50:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`

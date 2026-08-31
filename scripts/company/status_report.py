@@ -102,7 +102,12 @@ def sym(r):
 def render(data, prev, session=False):
     res = data.get("results", [])
     failed = [r for r in res if not r.get("ok") and r.get("n", 0) > 0]
-    empty = [r for r in res if r.get("n", 0) == 0]
+    # `skipped` is the third state and must not read as a failure: a check that
+    # cannot run here (no credentials in this process) is a different fact from one
+    # that ran and found nothing. os_verify already distinguishes them; collapsing
+    # them here turned an offline run into a spurious AMBER.
+    empty = [r for r in res if r.get("n", 0) == 0 and not r.get("skipped")]
+    skipped = [r for r in res if r.get("skipped")]
     blocking = failed + empty
     verdict = "GREEN" if not blocking else ("RED" if failed else "AMBER")
     stamp = data.get("generated_at", datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"))
@@ -150,7 +155,8 @@ def render(data, prev, session=False):
         L.append("")
 
     p = len([r for r in res if r.get("ok") and r.get("n", 0) > 0])
-    L.append(f"  {len(res)} checks · {len(failed)} failed · {len(empty)} inspected nothing")
+    L.append(f"  {len(res)} checks · {len(failed)} failed · {len(empty)} inspected nothing"
+             + (f" · {len(skipped)} not checked" if skipped else ""))
     return "\n".join(L)
 
 
@@ -182,7 +188,8 @@ def main():
             fh.write("\n```\n")
 
     print(text)
-    blocking = [r for r in data.get("results", []) if not r.get("ok") or r.get("n", 0) == 0]
+    blocking = [r for r in data.get("results", [])
+                if not r.get("skipped") and (not r.get("ok") or r.get("n", 0) == 0)]
     return 1 if blocking else 0
 
 

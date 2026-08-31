@@ -2,7 +2,7 @@
 
 # CHECKS — what the company can actually prove
 
-Generated 2026-08-31T22:36Z from `dashboard/status.json`.
+Generated 2026-08-31T22:50Z from `dashboard/status.json`.
 
 **The rule: a row in `OS-COMPLIANCE.md` may say DONE only if it names a check id below that passed in the last run.** Anything else is `UNVERIFIED` — not an accusation, just the absence of a machine that could tell.
 
@@ -25,15 +25,15 @@ The gap between those first two numbers is the honest state of this company's se
 | `harness/event-names-valid` | 6 | PreToolUse, PostToolUse, SessionStart, PreCompact, SubagentStop, Stop |
 | `harness/event-parity-across-roots` | 6 | both roots wire identical events |
 | `harness/gate-flags-gitignored` | 4 | all four founder-gate flags ignored |
-| `harness/guard-scope-covers-session-roots` | 9 | 9 entries cover every session root |
-| `harness/hook-commands-executable` | 13 | all executable |
-| `harness/hook-commands-exist` | 13 | every registered hook resolves to a real file |
-| `harness/hooks-not-ephemeral` | 13 | none in a tmp-cleaned tree |
+| `harness/guard-scope-covers-session-roots` | 10 | 10 entries cover every session root |
+| `harness/hook-commands-executable` | 19 | all executable |
+| `harness/hook-commands-exist` | 19 | every registered hook resolves to a real file |
+| `harness/hooks-not-ephemeral` | 19 | none in a tmp-cleaned tree |
 | `harness/proof-suite-targets-registered-hooks` | 1 | proof suite derives its subjects from the settings registry |
-| `harness/registered-gates-actually-block` | 4 | 4 registered gate probes behaved correctly |
+| `harness/registered-gates-actually-block` | 6 | 6 registered gate probes behaved correctly |
 | `harness/roster-resolves-from-session-root` | 21 | 21 agents resolve from the session root |
-| `harness/settings-parse` | 3 | desktop, resale-iq, user |
-| `production/dashboard-data-fresh` | 1 | generated 0.9h ago, prod_included=true |
+| `harness/settings-parse` | 4 | work, resale-iq, user, desktop |
+| `production/dashboard-data-fresh` | 1 | generated 1.1h ago, prod_included=true |
 | `production/public-api-serves-data` | 1 | listings_tracked = 3,806,042 |
 
 ## What is NOT bindable, and never will be
