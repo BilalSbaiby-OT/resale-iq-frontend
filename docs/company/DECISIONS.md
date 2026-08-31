@@ -47,3 +47,35 @@ Authorised by the founder's bootstrap message (OS §8). Hooks over prose, becaus
 unattended. Every deny rule ships with a negative control, since a rule that also blocks the benign
 case is broken rather than strict. Proof: `docs/audit/proof/W36/phase0/proof.sh`, 26/26.
 `.claude/UNLOCK_HARNESS` was used once and removed; both facts are in `SECURITY-LOG.md`.
+
+---
+
+## 2026-08-31 — Gate #1 waived as a blocking stop; the company switches to build mode
+
+**Founder:** *"okey CEO what are you saying then why are you not fixing or working on ui/ux or
+the rest of what i asked for. Where is the marketing. Where is everything bro in the prompt?"*
+
+**Decision: he is right, and the stop is lifted.** OS §8 makes Founder Gate #1 the one sanctioned
+hard stop, and I was holding it. But a gate exists to stop the company building the wrong thing,
+and by that point the audit had already told us what the right thing is. Holding the stop was
+following the letter of the OS while failing its purpose.
+
+What the audit bought, and why it was not wasted: a new visitor's first click returns
+`LIMIT_REACHED` instead of a number (`FUNNEL.md` F-1). Marketing spend into that funnel is
+water into a bucket with no bottom. So the funnel fix and the marketing go out **together**,
+which is the one sequencing decision worth defending.
+
+What did not need a gate, and shipped straight away:
+- **P0 #1, the quota bug** — nobody needs to approve fixing a defect that blocks every visitor.
+- **The truth pass** — a false public claim is a liability, not a roadmap item.
+- **Business €99** — already approved (AM-3), and verified zero-risk: no €99 Stripe price has
+  ever existed and no customer is on it.
+- **Design and marketing** — the founder asked for both by name.
+
+What still stops at a gate, and why that is not stalling: **publishing**. Pushing `main` deploys
+production, and posting to his accounts speaks in his voice. Those are one decision each, made
+once, not a running stream of questions.
+
+**Standing change to how I work:** default to acting. Bring the founder decisions, not homework.
+When something genuinely needs him — a click only he can make, a price, a public post — batch it
+into one ask instead of interrupting per item. See [[feedback_operating_config]].

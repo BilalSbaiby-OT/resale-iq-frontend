@@ -3,15 +3,16 @@
 **Updated** 2026-08-31 (CEO, main session)
 
 ## Working on
-**Phase 1 — the read-only audit.** Six department agents are running in parallel:
-MAP+HARNESS, DATA (Opus), CLAIMS, MONEY, SECURITY-AUDIT, MARKETING+SUPPORT. The CEO
-does the FUNNEL Chrome walk, then writes `docs/audit/AUDIT.md` and Founder Gate #1.
+**BUILD MODE.** The founder called it on 2026-08-31: too much auditing, nothing shipped.
+Gate #1 is waived as a blocking stop — the audit findings are enough to act on. Four lanes
+are running in parallel, on separate branches, on disjoint files:
 
-The founder answered A1–A6 on 2026-08-31. Six amendments now sit alongside the charter
-in `docs/company/AMENDMENTS.md`; where they conflict with `OS.md`, the amendment wins.
-The load-bearing ones: the stack is **FastAPI + SQLite, not Supabase** (AM-1), spend is
-capped at **€200/month all-in** (AM-2), and **Business €99 is cut** along with the
-`sales` agent that would have served it (AM-3).
+| Lane | Repo / dir | Shipping |
+|---|---|---|
+| `backend-eng` | `demand-intel` | P0 #1 — anonymous quota keyed to a signed cookie, not IP; fix `_client_ip()` XFF |
+| `frontend-eng` | `resale-iq/src` | truth pass on every FALSE claim + remove Business €99 (AM-3) |
+| `designer` | `resale-iq/design` | tokens from live CSS, the 4 extension panel states, landing hero |
+| `content-social` + `seo` | growth / seo repos | deploy Postiz, 10 IG + 10 Reddit posts queued, SEO kill list |
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.
