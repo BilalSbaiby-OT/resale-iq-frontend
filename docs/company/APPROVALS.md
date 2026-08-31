@@ -122,9 +122,9 @@ rails will not let an agent create.
 OS §3 makes a KPI definition a founder gate. The file is written and staged; I did not create
 `.claude/UNLOCK_HARNESS` to get around it, because an agent that unlocks its own gate has no gate.
 
-- [ ] **Install the staged `METRICS.md`.** One line: `touch .claude/UNLOCK_HARNESS` with a reason,
-      or paste the staged file in yourself. Staged at
-      `/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/METRICS.md`.
+- [x] **Installed 2026-09-01**, on the founder's explicit authorisation in chat. `UNLOCK_HARNESS`
+      was created for that single write and **removed immediately after**; the gate is re-armed.
+      The three definition decisions below are still open and are the actual founder calls.
 
 **Three definition changes this work forced, which are yours to decide (OS §3: changing a definition
 is a founder gate):**
