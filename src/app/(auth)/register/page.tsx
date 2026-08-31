@@ -82,7 +82,7 @@ function RegisterContent() {
       </div>
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">Create your account</h1>
-        <p className="text-[#8b99b8] text-[13px] mb-5">Start free, or pick a plan to unlock the full toolkit. Cancel anytime.</p>
+        <p className="text-[#8b99b8] text-[13px] mb-5">Start free, or pick a plan for the full toolkit. Cancel anytime.</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2.5">
             {PLANS.map(p => (

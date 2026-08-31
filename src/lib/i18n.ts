@@ -22,7 +22,7 @@ export const copy = {
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
     heroBody:
-      "Market price, buy-below, demand and comparable sold listings — then BUY, WATCH or SKIP. Vinted is the first marketplace.",
+      "Market price, buy-below, demand and comparable sold listings — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
       `From ${tracked} live and sold listings across five EU markets.`,
     addToChrome: "Add to Chrome",

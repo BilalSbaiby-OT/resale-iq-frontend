@@ -130,7 +130,7 @@ export default function ApiDocs() {
         <div style={{ marginTop: 34, padding: "20px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7" }}>Get an API key</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "7px 0 14px" }}>
-            The API is included with Pro. Generate your key from your account page in seconds.
+            The API is included with Pro. Generate your key from your account page.
           </p>
           <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
             Get Pro →

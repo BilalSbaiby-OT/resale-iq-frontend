@@ -91,7 +91,7 @@ const orgJsonLd = (tracked: string) => ({
   // withheld (null) when the watched sample is below 30, so a structured-data
   // hit-rate claim would over-promise. Do not invent one here.
   description:
-    `Resale IQ is market intelligence for second-hand commerce. It analyses ${tracked} unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price and best sizes. Vinted is the first marketplace.`,
+    `Resale IQ is market intelligence for second-hand commerce. It analyses ${tracked} unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price and best sizes. Vinted is the first marketplace it covers.`,
   // Full ladder including the free rung. An answer engine asked "is there a
   // free version of Resale IQ" should be able to say yes and be right — the
   // previous list started at EUR 19 and made the honest answer unavailable.

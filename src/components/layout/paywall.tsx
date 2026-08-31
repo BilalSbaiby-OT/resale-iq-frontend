@@ -130,7 +130,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
-            ? "The Order Planner, Price Compare and live deals are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade to unlock the scale toolkit — cancel anytime."
+            ? "The Order Planner, Price Compare and live deals are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime."
             : `${tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
         </p>
         {/* The one reframe that collapses price resistance. */}
