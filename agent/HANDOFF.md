@@ -3,6 +3,35 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-08-31
 
+SEO LANE, 2026-08-31 (after the growth release below):
+  [x] Sitemap lastmod was LYING and is fixed (94bc5ef). It advertised that 174
+      URLs changed several times a day — measured 17:56Z, then 23:55Z, then
+      00:51Z within one evening — because data pages used the snapshot's hourly
+      TIMESTAMP and static pages used BUILD TIME, which now moves on every
+      auto-deploy. Told repeatedly that a page changed, fetching it, and finding
+      it identical is how a crawler learns to ignore your lastmod. Now day
+      granularity for data pages, a fixed STATIC_CONTENT_DATE for static ones.
+  [x] Spanish test page live (4292461): /blog/como-poner-precio-en-vinted, paired
+      to how-to-price-items-on-vinted with RECIPROCAL hreflang. It exists to test
+      one thing: does EU-language demand exist? Every EU5 impression we get is on
+      an ENGLISH query, and the site has no non-English page — so "no Spanish
+      impressions" was never evidence, it was a measurement artefact. Read at
+      +28 days: any Spanish-language query = demand proven; none = localisation
+      is dead on evidence. Criteria fixed in advance, in
+      ~/Desktop/resale-iq-seo/briefs/2026-08-31-spanish-test-page.md.
+  [x] Corrected the extension block below — it claimed NOT SUBMITTED / published
+      1.2.0; the store has served 1.3.0 since 30 Aug.
+  THANKS FOR THE HOMEPAGE HUB LINKS — verified live. Crawl depth 2 -> 1.
+  YOUR GSC READ IS LOGGED and matches mine independently. Two of your points went
+  straight into the SEO plan: the depop cluster is a page-exists-but-won't-rank
+  problem (not a missing page), and the description/photo queries are a FREE TOOL
+  opportunity rather than a blog post. Full analysis + the market-fit plan:
+  ~/Desktop/resale-iq-seo/briefs/2026-08-31-market-fit-plan.md
+  ONE THING THE GSC DATA CANNOT SETTLE, flagged for the owner: 78.5% of
+  impressions are US/GB/IE/AU/CA and the product covers ES/FR/DE/IT/PT (6.7%).
+  At 901 impressions that is too small to justify any market decision — but it is
+  the question that matters most once volume grows.
+
 GROWTH LANE RELEASED 2026-08-31. Everything below is committed and pushed; the
 working tree is clean. Phase 1 attribution is live and PROVEN — the first tagged
 pageviews arrived on 30 Aug (16 from Instagram). Repo is free for the SEO lane.
@@ -73,7 +102,8 @@ LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30)
       mis-read it as un-deployed.
   DASHBOARD PROGRESS 2026-08-29 (done via the Claude Browser pane, which CAN
   script the Web Store even though the Chrome extension cannot):
-    [x] Package 1.3.0 was ALREADY uploaded as the draft (published is 1.2.0).
+    [x] Package 1.3.0 uploaded as the draft (published was 1.2.0 at the time;
+        1.3.0 is the published version since 30 Aug — see the [x] below).
     [x] Store listing copy, category, language, URLs: already correct.
     [x] Privacy: single purpose, storage + host justifications, remote-code=No,
         the 3 certifications and the policy URL were all already correct.
@@ -81,15 +111,16 @@ LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30)
         the extension does send listing content and does store a session token.
         Ticked "Authentication information" and "Website content" (and nothing
         else), saved, and verified they survive a page reload.
-    [ ] NOT SUBMITTED, deliberately. The attached screenshots are byte-identical
-        to the 14 Aug originals (836100 / 863476 bytes) and visibly say
-        "IN RANGE" — a label 1.3.0 removed. Submitting would invite the exact
-        rejection STORE-LISTING.md warns about.
-  OWNER, TWO CLICKS TO FINISH:
-    Store listing -> replace both screenshots with
-      extension/store-assets/screenshot-1-in-range.png   (says BUY)
-      extension/store-assets/screenshot-2-too-dear.png   (says SKIP)
-    then Submit for review.
+    [x] SUBMITTED AND LIVE. The owner replaced the screenshots and submitted;
+        it passed review. Verified against the public listing 2026-08-31:
+        **version 1.3.0, updated 30 August 2026, 18.22 KiB, 0 ratings.**
+        The two blockers below are RESOLVED and kept only as the record of why
+        the release waited — do not re-action them.
+        (was: NOT SUBMITTED — the attached screenshots were byte-identical to the
+        14 Aug originals, 836100 / 863476 bytes, and visibly said "IN RANGE", a
+        label 1.3.0 removed. Owner then uploaded
+        extension/store-assets/screenshot-1-in-range.png (BUY) and
+        screenshot-2-too-dear.png (SKIP) and submitted.)
 
   WHY AN AGENT CANNOT DO THE UPLOAD — do not retry it:
     Chrome refuses to let ANY extension script the Web Store ("The extensions
