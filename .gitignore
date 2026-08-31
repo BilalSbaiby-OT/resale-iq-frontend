@@ -48,3 +48,9 @@ agent/RATE_LIMITED
 
 # per-session output the loop inspects
 agent/.session.out
+
+# Company OS: local telemetry, regenerated constantly; the dashboard reads it in place
+docs/audit/ACTIVITY.jsonl
+.claude/LOCK
+.claude/UNLOCK_HARNESS
+.claude/STOP_GATE_ON

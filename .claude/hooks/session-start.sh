@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
-# Puts the handoff and the next task in front of the model before it does anything.
+# SessionStart — put the company's state in front of the model before it acts.
+# OS §8 Phase 0: inject SESSION, GOALS, LOCK. The lane HANDOFF stays, because
+# two loop agents still share this repo (agent/LANES.md).
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
-echo "=== agent/HANDOFF.md ==="
-cat "$REPO/agent/HANDOFF.md" 2>/dev/null || echo "(no HANDOFF yet)"
+
+echo "=== docs/company/OS.md governs this repo (read §0 CONSTITUTION) ==="
+echo
+echo "=== .claude/LOCK (WIP = 1) ==="
+cat "$REPO/.claude/LOCK" 2>/dev/null || echo "(free — claim it before your first edit)"
+echo
+echo "=== docs/company/SESSION.md ==="
+cat "$REPO/docs/company/SESSION.md" 2>/dev/null || echo "(no SESSION.md yet)"
+echo
+echo "=== docs/company/GOALS.md ==="
+cat "$REPO/docs/company/GOALS.md" 2>/dev/null || echo "(no GOALS.md yet)"
+echo
+echo "=== docs/company/APPROVALS.md — waiting on the founder ==="
+grep -n '^- \[ \]' "$REPO/docs/company/APPROVALS.md" 2>/dev/null | head -20 || echo "(none)"
+echo
+echo "=== agent/HANDOFF.md (lane lock) ==="
+sed -n '1,40p' "$REPO/agent/HANDOFF.md" 2>/dev/null || echo "(no HANDOFF yet)"
 echo
 echo "=== next unchecked task ==="
-grep -m1 '^- \[ \]' "$REPO/agent/TASKS.md" 2>/dev/null || echo "(no unchecked tasks — TASKS.md is complete)"
+grep -m1 '^- \[ \]' "$REPO/agent/TASKS.md" 2>/dev/null || echo "(no unchecked tasks)"
 exit 0
