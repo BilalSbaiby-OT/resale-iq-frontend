@@ -71,6 +71,42 @@ const nextConfig: NextConfig = {
       // after a real /pricing page exists.
       { source: "/pricing", destination: "/#pricing", permanent: false },
       { source: "/sign-in", destination: "/login", permanent: false },
+
+      // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,
+      // and Instagram allows exactly one — so a lot of people arrive by TYPING
+      // the address, and typed traffic carries no campaign tag at all. The
+      // channel then gets credit for nothing.
+      //
+      // resaleiq.dev/tt is short enough to read off a phone screen, and because
+      // we own the redirect we attach the tags ourselves: what the visitor types
+      // is not what gets recorded, the destination is.
+      //
+      // These live HERE and not in the FastAPI backend. Single-segment paths on
+      // this domain are served by Next.js — I put them in the backend first and
+      // they 404'd, because /tt never reaches FastAPI at all.
+      //
+      // permanent:false (307) on purpose — a 308 is cached by browsers forever
+      // and a slug may need retargeting at a later campaign.
+      {
+        source: "/tt",
+        destination: "/check?utm_source=tiktok&utm_medium=bio&utm_campaign=growth-0-500&utm_content=tt-bio",
+        permanent: false,
+      },
+      {
+        source: "/ig",
+        destination: "/check?utm_source=instagram&utm_medium=bio&utm_campaign=growth-0-500&utm_content=ig-bio",
+        permanent: false,
+      },
+      {
+        source: "/rd",
+        destination: "/check?utm_source=reddit&utm_medium=bio&utm_campaign=growth-0-500&utm_content=rd-bio",
+        permanent: false,
+      },
+      {
+        source: "/li",
+        destination: "/check?utm_source=linkedin&utm_medium=bio&utm_campaign=growth-0-500&utm_content=li-bio",
+        permanent: false,
+      },
     ]
   },
   async headers() {
