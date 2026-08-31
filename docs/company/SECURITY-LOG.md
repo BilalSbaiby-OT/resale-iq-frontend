@@ -123,3 +123,7 @@ block`
 - `2026-08-31T22:36:58Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
 - `2026-08-31T22:36:58Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
 - `2026-08-31T22:36:58Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:41:46Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:41:46Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-08-31T22:41:47Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
+- `2026-08-31T22:41:47Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/Desktop/resale-iq/docs/company/OS.md`
