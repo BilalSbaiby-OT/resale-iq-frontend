@@ -213,3 +213,35 @@ Two directories could not be removed — both are PROTECTED in `guard.py`, and I
 **Kept deliberately, and this one is not a gate — it is a warning:** `.claude/rules/` (3 dirs, 68K).
 `HARNESS.md` marks it **MERGE, "do not delete unread"** — the topics overlap `docs/eng/STANDARDS.md`,
 which does not exist yet. Deleting it would destroy the only draft of a document we still owe.
+
+
+---
+
+### A11 — the rails cannot express "only the verifier may write this", so they block everyone
+
+**2026-09-01, found by `verifier` in an independent cold audit**, not by me.
+
+The OS gives `verifier` one exclusive duty: it is the **sole writer** of `docs/company/SCOREBOARD.md`
+(OS §7). `guard.py` lists that same path in `PROTECTED`. So the agent the OS appoints to write the
+file is the one agent the rails guarantee cannot. The duty and the enforcement contradict.
+
+**The root cause is not a bad rule — it is a missing input, and we have met it before.** A PreToolUse
+hook cannot tell which agent is calling it: `CLAUDE_AGENT_NAME` is unset, and the main session and
+its subagents share one session id. That is **exactly** `GAPS.md` **A3**, the bug that made all 1,380
+activity rows claim to be the CEO's work. The same blind spot has now produced a second, quieter
+failure: a rule meaning "only verifier writes here" is not expressible, so it degrades to "nobody
+writes here", and the scoring loop in OS §7 has never run.
+
+This is worth deciding rather than patching, because the same limit applies to every
+"only agent X may do Y" rule the OS contains.
+
+- [ ] **Pick one:**
+      **(a)** Accept it — `verifier` reports its scoreboard to the founder in chat and the file stays
+      empty. Cheapest, and OS §7's tier ladder stays decorative.
+      **(b)** Un-protect `SCOREBOARD.md` and rely on the doer≠scorer convention rather than the
+      rails. Honest about what is actually enforced, and enforces nothing.
+      **(c)** Give the hook a real agent identity so the rule can mean what it says — this also
+      fixes A3's attribution, which is the reason to prefer it.
+
+**Recommendation: (c)**, and not for the scoreboard's sake. It is the same missing input twice; the
+third time will be a rule we trusted more.
