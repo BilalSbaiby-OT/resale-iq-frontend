@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { width: 1080px; height: 1920px; background: #0B0D10; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</helmet>
+
+<!-- Reels safe zone respected via padding: top 260, bottom 340, right 220 -->
+<div style="width: 1080px; height: 1920px; box-sizing: border-box; background: #0B0D10; display: flex; flex-direction: column; padding: 260px 220px 340px 90px;">
+
+  <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 56px;">
+    <div style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 26px; color: #06090c;">R</div>
+    <div style="font-size: 32px; font-weight: 700; color: #e8ecf4; letter-spacing: -0.3px;">Resale IQ</div>
+  </div>
+
+  <div style="font-size: 38px; font-weight: 700; color: #a9b6d0; margin-bottom: 36px; line-height: 1.4;">
+    We don’t know this one. And we’ll tell you.
+  </div>
+
+  <!-- worked example: post 3, the honesty post — verbatim from the queue.
+       Same card chrome, same weight as ReelEndCard's confident numbers.
+       Nothing here should read as an error state. -->
+  <dc-import name="HonestyCard"
+    statement="Models tracked: —"
+    sub-statement="6 of 26 brands, honestly. Fixed 2026-09."
+    fact-value="6"
+    fact-label="of 26 brands, zero models tracked"
+    item1="Zara" item2="Mango" item3="Bershka"
+    item4="Pull&amp;Bear" item5="Hugo Boss" item6="Calvin Klein"
+    why-line="These six don’t name individual products the way our tracked brands do — so there’s nothing model-level to price yet."
+    next-line="We’re killing those six pages this week for exactly this reason — a number we can’t back is worse than no number."
+    citation="Source: src/data/seo-brands.json, verified 2026-08-31."
+    hint-size="900,900">
+  </dc-import>
+
+</div>
+</x-dc>
+</body>
+</html>

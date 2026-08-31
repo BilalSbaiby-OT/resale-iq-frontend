@@ -81,7 +81,11 @@ def main():
     row = {
         "ts": stamp(),
         "session": (ev.get("session_id") or "")[:8],
-        "agent": os.environ.get("CLAUDE_AGENT_NAME", "ceo"),
+        # Main session and subagents share ONE session id, so this hook cannot tell
+        # them apart. Defaulting to "ceo" labelled 1,380 subagent events as the
+        # CEO's own work — a false attribution dressed as data. Attribute agent
+        # work by branches and commits instead; those are actually knowable.
+        "agent": os.environ.get("CLAUDE_AGENT_NAME") or "unattributed",
         "tool": tool,
         "files": files_touched(ti),
         "cmd": (ti.get("command") or "")[:200],

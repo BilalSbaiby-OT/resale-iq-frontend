@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { width: 1080px; height: 1920px; background: #0B0D10; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</helmet>
+
+<!-- Reels safe zone respected via padding: top 260, bottom 340, right 220 -->
+<div style="width: 1080px; height: 1920px; box-sizing: border-box; background: #0B0D10; display: flex; flex-direction: column; padding: 260px 220px 340px 90px;">
+
+  <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 72px;">
+    <div style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 26px; color: #06090c;">R</div>
+    <div style="font-size: 32px; font-weight: 700; color: #e8ecf4; letter-spacing: -0.3px;">Resale IQ</div>
+  </div>
+
+  <div style="font-size: 40px; font-weight: 700; color: #a9b6d0; margin-bottom: 40px; line-height: 1.4;">
+    A model, not just a brand — the number that means something.
+  </div>
+
+  <!-- worked example: post 1's exact end-card text, verbatim from the queue —
+       "542 sold · €40 median · €26.88 ceiling — New Balance 530, 7d, EU5 · n=174" -->
+  <dc-import name="NumbersCard"
+    title="New Balance 530"
+    accent="buy"
+    stat1-value="542" stat1-label="sold"
+    stat2-value="€40" stat2-label="median"
+    stat3-value="€26.88" stat3-label="ceiling"
+    n-value="174" period="7d" market="EU5"
+    footnote="n = 174 comparable sales. This is the number, not the brand-wide guess."
+    hint-size="900,760">
+  </dc-import>
+
+  <div style="flex: 1;"></div>
+  <div style="font-size: 28px; color: #7f8da9; font-weight: 600;">END CARD — where the numbers land. Video assembly is a separate job.</div>
+
+</div>
+</x-dc>
+</body>
+</html>

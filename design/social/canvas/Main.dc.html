@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { width: 1240px; background: #0B0D10; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #e8ecf4; }
+    .lbl { font-size: 22px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #7f8da9; }
+    .sec { padding: 64px 80px; border-bottom: 1px solid #1e2535; }
+    .swatch { width: 96px; height: 96px; border-radius: 16px; border: 1px solid #1c2333; flex: none; }
+    .type-row { display: flex; align-items: baseline; gap: 28px; padding: 20px 0; border-bottom: 1px solid #1e2535; }
+    .type-meta { font-size: 22px; color: #7f8da9; width: 300px; flex: none; font-family: "JetBrains Mono", monospace; }
+  </style>
+</helmet>
+
+<div style="width: 1240px; box-sizing: border-box; background: #0B0D10; display: flex; flex-direction: column;">
+
+  <!-- header -->
+  <div class="sec" style="padding-top: 80px;">
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 28px;">
+      <div style="width: 56px; height: 56px; border-radius: 15px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: #06090c;">R</div>
+      <div style="font-size: 34px; font-weight: 700; letter-spacing: -0.2px;">Resale IQ</div>
+    </div>
+    <div style="font-size: 56px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.15;">Social design system — components, not posts</div>
+    <div style="font-size: 30px; color: #93a1bd; margin-top: 20px; line-height: 1.6; max-width: 980px;">
+      Built from <span style="color:#c3cde0; font-weight:600;">design/tokens.json</span> and the four extension panel
+      reference states. Every card here is a reusable piece: fill it with real numbers, never redraw it.
+      Positioning, every surface: “The Vinted price check that tells you when it doesn’t know.”
+    </div>
+  </div>
+
+  <!-- amber / red decision -->
+  <div class="sec">
+    <div class="lbl" style="margin-bottom: 24px;">The amber / red decision</div>
+    <div style="display: flex; gap: 56px; margin-bottom: 32px;">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="swatch" style="background: #fbbf24;"></div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700;">#fbbf24</div>
+          <div style="font-size: 24px; color: #8b99b8;">amber — chosen for social</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="swatch" style="background: #f87171;"></div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700;">#f87171</div>
+          <div style="font-size: 24px; color: #8b99b8;">red — chosen for social</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px; opacity: .45;">
+        <div class="swatch" style="background: #22c55e;"></div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700;">#22c55e</div>
+          <div style="font-size: 24px; color: #8b99b8;">buy green — no split, unchanged</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 20px; opacity: .45;">
+        <div class="swatch" style="background: #c4a574;"></div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 32px; font-weight: 700;">#c4a574</div>
+          <div style="font-size: 24px; color: #8b99b8;">honesty tan — no split, unchanged</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 28px; line-height: 1.65; color: #c3cde0; max-width: 1000px;">
+      <b style="color:#e8ecf4;">Why the extension's values, not the site token or the dashboard's:</b>
+      both <span style="font-family:'JetBrains Mono',monospace;">#fbbf24</span> and
+      <span style="font-family:'JetBrains Mono',monospace;">#f87171</span> are the only two of the five candidate
+      values that <span style="color:#e8ecf4;">tokens.json</span> records as deliberately chosen for contrast against
+      a dark card (<span style="font-family:'JetBrains Mono',monospace;">#12151d</span>,
+      <span style="font-family:'JetBrains Mono',monospace;">extension/content.css:18,19,32,33,64,77,78</span>) — the exact
+      surface every asset here shares: a dark card, viewed on a phone screen, at arm's length. The site token amber
+      (<span style="font-family:'JetBrains Mono',monospace;">#f59e0b</span>), the dashboard amber
+      (<span style="font-family:'JetBrains Mono',monospace;">#eab308</span>) and the site token red
+      (<span style="font-family:'JetBrains Mono',monospace;">#ef4444</span>) were tuned for lighter contexts — component
+      chips, hero mockups — that this surface doesn't share.
+    </div>
+    <div style="margin-top: 24px; padding: 24px 28px; border-radius: 14px; background: rgba(196,165,116,.08); border-left: 4px solid #c4a574; font-size: 26px; line-height: 1.6; color: #d7c39c; max-width: 1000px;">
+      This does not reconcile the split. <span style="color:#eef1f7; font-weight:600;">src/</span> and
+      <span style="color:#eef1f7; font-weight:600;">extension/</span> still ship three ambers and two reds
+      simultaneously — see <span style="font-family:'JetBrains Mono',monospace;">tokens.json → known_splits</span>.
+      Fixing that is a code change, out of design/'s remit; this canvas only picks one pair for new social work.
+    </div>
+  </div>
+
+  <!-- type scale -->
+  <div class="sec">
+    <div class="lbl" style="margin-bottom: 24px;">Type scale — Inter (sans) + JetBrains Mono (numbers)</div>
+    <div class="type-row"><div class="type-meta">104px / 800 / sans</div><div style="font-size: 104px; font-weight: 800; letter-spacing: -2px;">Hook</div></div>
+    <div class="type-row"><div class="type-meta">76px / 800 / sans</div><div style="font-size: 76px; font-weight: 800; letter-spacing: -1.5px;">CTA headline</div></div>
+    <div class="type-row"><div class="type-meta">128px / 800 / mono</div><div style="font-family:'JetBrains Mono',monospace; font-size: 128px; font-weight: 800; letter-spacing: -3px;">128</div></div>
+    <div class="type-row"><div class="type-meta">44px / 800 / mono</div><div style="font-family:'JetBrains Mono',monospace; font-size: 44px; font-weight: 800;">n=174</div></div>
+    <div class="type-row"><div class="type-meta">36px / 600 / sans</div><div style="font-size: 36px; font-weight: 600; color: #c3cde0;">Stat label</div></div>
+    <div class="type-row"><div class="type-meta">30px / 600 / sans</div><div style="font-size: 30px; font-weight: 600; color: #93a1bd;">Body / caption line</div></div>
+    <div class="type-row" style="border-bottom: none;"><div class="type-meta">28px / 700 / sans — floor</div><div style="font-size: 28px; font-weight: 700; color: #7f8da9;">Nothing on any artboard goes smaller than this</div></div>
+  </div>
+
+  <!-- components in situ -->
+  <div class="sec">
+    <div class="lbl" style="margin-bottom: 24px;">The two reusable components</div>
+    <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+      <dc-import name="NumbersCard"
+        title="Balenciaga sneakers"
+        accent="watch"
+        stat1-value="€116.50" stat1-label="ceiling"
+        stat2-value="€187" stat2-label="median"
+        stat3-value="" stat3-label=""
+        n-value="61" period="7d" market="EU5"
+        footnote=""
+        hint-size="560,460">
+      </dc-import>
+      <dc-import name="HonestyCard"
+        statement="Not enough sold data to price this."
+        sub-statement="We’d rather say that than guess."
+        fact-value="4"
+        fact-label="sold, watched"
+        item1="" item2="" item3="" item4="" item5="" item6=""
+        why-line="Our floor for a price is 8 comparable sales. This model has 4."
+        next-line=""
+        citation=""
+        hint-size="560,460">
+      </dc-import>
+    </div>
+    <div style="font-size: 26px; color: #7f8da9; margin-top: 20px; line-height: 1.6; max-width: 1000px;">
+      NumbersCard takes 1–3 stats plus n / period / market — the provenance row is a fixed part of the layout, not
+      a caption, so it survives edits that would otherwise trim it for space. HonestyCard reuses the same chrome,
+      radius and shadow language as <span style="font-family:'JetBrains Mono',monospace;">extension-panel/insufficient.html</span>
+      — the statement sits in the exact slot a price would occupy, at the same weight, so the honest state never
+      reads as broken.
+    </div>
+  </div>
+
+  <!-- safe margins -->
+  <div class="sec" style="border-bottom: none; padding-bottom: 96px;">
+    <div class="lbl" style="margin-bottom: 24px;">Safe margins</div>
+    <div style="display: flex; gap: 72px; align-items: flex-start; flex-wrap: wrap;">
+
+      <div>
+        <div style="font-size: 26px; color: #c3cde0; margin-bottom: 16px; font-weight: 600;">Carousel · 1080×1350 (4:5)</div>
+        <div style="width: 378px; height: 472px; border: 2px solid #263147; border-radius: 10px; position: relative; background: #0f1218;">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 47px; border-bottom: 1px dashed #3b4a6b;"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 47px; border-top: 1px dashed #3b4a6b;"></div>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 20px; color: #7f8da9; padding: 0 24px;">
+            content column<br>90px side margins
+          </div>
+        </div>
+        <div style="font-size: 22px; color: #7f8da9; margin-top: 12px; max-width: 378px; line-height: 1.5;">
+          Dashed bands: ~135px the profile-grid preview center-crops to a square, top and bottom. Keep the one
+          essential line inside the un-dashed center.
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 26px; color: #c3cde0; margin-bottom: 16px; font-weight: 600;">Reel · 1080×1920 (9:16)</div>
+        <div style="width: 378px; height: 672px; border: 2px solid #263147; border-radius: 10px; position: relative; background: #0f1218;">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 91px; border-bottom: 1px dashed #3b4a6b;"></div>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 119px; border-top: 1px dashed #3b4a6b;"></div>
+          <div style="position: absolute; right: 0; top: 91px; bottom: 119px; width: 77px; border-left: 1px dashed #3b4a6b;"></div>
+          <div style="position: absolute; left: 0; top: 91px; right: 77px; bottom: 119px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 20px; color: #7f8da9; padding: 0 16px;">
+            content column
+          </div>
+        </div>
+        <div style="font-size: 22px; color: #7f8da9; margin-top: 12px; max-width: 378px; line-height: 1.5;">
+          Top 250px: profile / audio row. Bottom 320px: caption, username, audio title. Right 200px:
+          like / comment / share / save column. Built in as padding on every reel template — nothing is drawn
+          as a visible guide in the exported frame.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

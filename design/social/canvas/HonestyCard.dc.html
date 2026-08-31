@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+  <style>
+    body { margin: 0; background: transparent; }
+    a { color: #8fa3c4; } a:hover { color: #c3cde0; }
+    .riq-hc-value { font-family: "JetBrains Mono", ui-monospace, "SF Mono", monospace; }
+    .riq-hc-sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .riq-hc-chip { font-size: 28px; font-weight: 600; color: #eef1f7; background: rgba(196,165,116,.10); border: 1px solid rgba(196,165,116,.35); border-radius: 999px; padding: 10px 22px; }
+  </style>
+</helmet>
+
+<div style="width: 100%; box-sizing: border-box; background: #12151d; border: 1px solid #1c2333; border-left: 10px solid #c4a574; border-radius: 28px; padding: 56px 60px; display: flex; flex-direction: column;">
+
+  <!-- brand row -->
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 36px;">
+    <div style="width: 40px; height: 40px; border-radius: 11px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; color: #06090c;" class="riq-hc-sans">R</div>
+    <div class="riq-hc-sans" style="font-size: 28px; font-weight: 700; color: #e8ecf4; letter-spacing: -0.2px;">Resale IQ</div>
+    <div class="riq-hc-sans" style="margin-left: auto; font-size: 28px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: #c4a574; background: rgba(196,165,116,.12); border: 1px solid rgba(196,165,116,.4); border-radius: 999px; padding: 8px 18px;">Honestly, no</div>
+  </div>
+
+  <!-- the statement sits where a price would sit — same weight, same slot -->
+  <div class="riq-hc-sans" style="font-size: 64px; font-weight: 800; line-height: 1.15; color: #eef1f7; letter-spacing: -0.5px;">{{statement}}</div>
+  <div class="riq-hc-sans" style="font-size: 32px; line-height: 1.5; color: #7f8da9; margin-top: 18px;">{{subStatement}}</div>
+
+  <!-- the honest fact — still a number, still owns its provenance -->
+  <div style="display: flex; align-items: baseline; gap: 20px; margin-top: 44px; padding-top: 36px; border-top: 1px solid #1e2535;">
+    <div class="riq-hc-value" style="font-size: 96px; font-weight: 800; letter-spacing: -2px; color: #eef1f7;">{{factValue}}</div>
+    <div class="riq-hc-sans" style="font-size: 30px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: #8b99b8;">{{factLabel}}</div>
+  </div>
+
+  <!-- named brands / items, when this is a coverage gap -->
+  <sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+    <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px;">
+      <sc-if value="{{hasItem1}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item1}}</div></sc-if>
+      <sc-if value="{{hasItem2}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item2}}</div></sc-if>
+      <sc-if value="{{hasItem3}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item3}}</div></sc-if>
+      <sc-if value="{{hasItem4}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item4}}</div></sc-if>
+      <sc-if value="{{hasItem5}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item5}}</div></sc-if>
+      <sc-if value="{{hasItem6}}" hint-placeholder-val="{{true}}"><div class="riq-hc-chip">{{item6}}</div></sc-if>
+    </div>
+  </sc-if>
+
+  <div class="riq-hc-sans" style="font-size: 28px; line-height: 1.6; color: #a9b6d0; margin-top: 32px;">{{whyLine}}</div>
+
+  <sc-if value="{{hasNextLine}}" hint-placeholder-val="{{true}}">
+    <div class="riq-hc-sans" style="margin-top: 20px; padding: 22px 26px; border-radius: 14px; background: rgba(139,153,184,.06); border-left: 4px solid #8b99b8; font-size: 28px; line-height: 1.55; color: #a9b6d0;">{{nextLine}}</div>
+  </sc-if>
+
+  <sc-if value="{{hasCitation}}" hint-placeholder-val="{{true}}">
+    <div class="riq-hc-sans" style="margin-top: 28px; font-size: 28px; color: #7f8da9;">{{citation}}</div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "statement": {"editor": null, "default": "Models tracked: —"},
+  "subStatement": {"editor": null, "default": "Not “low confidence.” Zero."},
+  "factValue": {"editor": null, "default": "6"},
+  "factLabel": {"editor": null, "default": "of 26 brands, honestly"},
+  "item1": {"editor": null, "default": "Zara"},
+  "item2": {"editor": null, "default": "Mango"},
+  "item3": {"editor": null, "default": "Bershka"},
+  "item4": {"editor": null, "default": "Pull&amp;Bear"},
+  "item5": {"editor": null, "default": "Hugo Boss"},
+  "item6": {"editor": null, "default": "Calvin Klein"},
+  "whyLine": {"editor": null, "default": "These six don’t name individual products the way tracked brands do — so there is nothing model-level to price yet."},
+  "nextLine": {"editor": null, "default": ""},
+  "citation": {"editor": null, "default": ""},
+  "$preview": {"width": 900, "height": 780}
+}'>
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const items = [p.item1, p.item2, p.item3, p.item4, p.item5, p.item6];
+    const anyItem = items.some((x) => x && x.length);
+    return {
+      statement: p.statement ?? "",
+      subStatement: p.subStatement ?? "",
+      factValue: p.factValue ?? "",
+      factLabel: p.factLabel ?? "",
+      hasItems: anyItem,
+      hasItem1: !!(p.item1 && p.item1.length), item1: p.item1 ?? "",
+      hasItem2: !!(p.item2 && p.item2.length), item2: p.item2 ?? "",
+      hasItem3: !!(p.item3 && p.item3.length), item3: p.item3 ?? "",
+      hasItem4: !!(p.item4 && p.item4.length), item4: p.item4 ?? "",
+      hasItem5: !!(p.item5 && p.item5.length), item5: p.item5 ?? "",
+      hasItem6: !!(p.item6 && p.item6.length), item6: p.item6 ?? "",
+      whyLine: p.whyLine ?? "",
+      hasNextLine: !!(p.nextLine && p.nextLine.length),
+      nextLine: p.nextLine ?? "",
+      hasCitation: !!(p.citation && p.citation.length),
+      citation: p.citation ?? ""
+    };
+  }
+}
+</script>
+</body>
+</html>

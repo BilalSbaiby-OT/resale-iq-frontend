@@ -1,0 +1,22 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1240, "h": 3600, "title": "System overview" },
+
+    { "file": "NumbersCard.dc.html", "x": 0, "y": 3750, "w": 900, "h": 620, "title": "Component — Numbers Card" },
+    { "file": "HonestyCard.dc.html", "x": 1000, "y": 3750, "w": 900, "h": 780, "title": "Component — Honesty Card" },
+
+    { "file": "CarouselHook.dc.html", "x": 0, "y": 4680, "w": 1080, "h": 1350, "title": "Carousel — hook slide (template)" },
+    { "file": "CarouselData.dc.html", "x": 1160, "y": 4680, "w": 1080, "h": 1350, "title": "Carousel — data slide (worked: Post 1)" },
+    { "file": "CarouselCTA.dc.html", "x": 2320, "y": 4680, "w": 1080, "h": 1350, "title": "Carousel — CTA slide (template)" },
+
+    { "file": "ReelCover.dc.html", "x": 0, "y": 6180, "w": 1080, "h": 1920, "title": "Reel — cover frame (template)" },
+    { "file": "ReelEndCard.dc.html", "x": 1160, "y": 6180, "w": 1080, "h": 1920, "title": "Reel — end card (worked: Post 1)" },
+    { "file": "HonestyReelEnd.dc.html", "x": 2320, "y": 6180, "w": 1080, "h": 1920, "title": "Reel — end card, honesty (worked: Post 3)" }
+  ],
+  "annotations": [
+    { "id": "note-components", "x": 0, "y": 3600, "w": 900, "text": "Reusable components — dc-import these into any slide, never redraw.\nNumbersCard: 1–3 stats + a fixed n / period / market row.\nHonestyCard: the \"we don't know this one\" treatment, same chrome as insufficient.html." },
+    { "id": "note-carousel", "x": 0, "y": 4530, "w": 1080, "text": "Carousel slide templates, 1080×1350. Hook and CTA carry bracket placeholder copy — content isn't final until the marketing strategy and humanizer pass land. Data slide is a worked example: Post 1's real numbers (New Balance 530), proving the template against real content, not lorem." },
+    { "id": "note-reel", "x": 0, "y": 6030, "w": 1080, "text": "Reel frame templates, 1080×1920 — cover + end card only, no video assembly here (that's a separate job; these frames assume a 15s vertical clip with the same numbers spoken over it). Cover carries placeholder copy. The two end cards are worked examples, verbatim from QUEUE-INSTAGRAM-W1.md: Post 1 (confident numbers) and Post 3 (the honesty post) side by side, so the same card weight is visible on both." }
+  ],
+  "launch": { "view": "canvas" }
+}

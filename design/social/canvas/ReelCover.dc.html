@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { width: 1080px; height: 1920px; background: #0B0D10; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  </style>
+</helmet>
+
+<!-- Reels safe zone (Meta guidance): keep primary content clear of the top ~250px
+     (profile/audio row), bottom ~320px (caption/username/audio title), and the
+     right ~200px (like/comment/share/save column). Built in via padding, not
+     drawn — nothing here should show a guide line in the exported frame. -->
+<div style="width: 1080px; height: 1920px; box-sizing: border-box; background: #0B0D10; display: flex; flex-direction: column; padding: 260px 220px 340px 90px;">
+
+  <div style="display: flex; align-items: center; gap: 18px;">
+    <div style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 26px; color: #06090c;">R</div>
+    <div style="font-size: 32px; font-weight: 700; color: #e8ecf4; letter-spacing: -0.3px;">Resale IQ</div>
+  </div>
+
+  <!-- hook — the 0s frame, placeholder pending strategy + humanizer pass -->
+  <div style="flex: 1; display: flex; align-items: center;">
+    <div style="font-size: 92px; font-weight: 800; line-height: 1.15; letter-spacing: -1.8px; color: #e8ecf4; text-wrap: pretty;">
+      [Hook — spoken line 1, on screen at 0s. ≤ 12 words.]
+    </div>
+  </div>
+
+  <div style="font-size: 28px; color: #7f8da9; font-weight: 600;">COVER FRAME — video assembly is a separate job</div>
+
+</div>
+</x-dc>
+</body>
+</html>

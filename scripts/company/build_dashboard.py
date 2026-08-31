@@ -167,7 +167,10 @@ def departments():
             "secondary": field("secondary"),
             "counter": field("counter"),
             "branches": branches,
-            "events": act.get("events", 0),
+            # Not derivable: main and subagents share one session id, so the
+            # ledger cannot attribute an event to an agent. Branches and commits
+            # can, and do. Reporting a 0 here would be a made-up number.
+            "events": None,
             "last_active": act.get("last"),
             # No verifier run yet, so there is no score. Say so rather than draw a dash.
             "score": None,
