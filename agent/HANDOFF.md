@@ -1,7 +1,65 @@
-STATUS: IN_PROGRESS
-OWNER: growth          # Phase 1 attribution: utm capture -> pageviews -> activated -> growth-funnel
+STATUS: READY
+OWNER: none
 PUSH: yes
-UPDATED: 2026-08-29
+UPDATED: 2026-08-31
+
+GROWTH LANE RELEASED 2026-08-31. Everything below is committed and pushed; the
+working tree is clean. Phase 1 attribution is live and PROVEN — the first tagged
+pageviews arrived on 30 Aug (16 from Instagram). Repo is free for the SEO lane.
+
+WHAT THE GROWTH LANE DID SINCE 29 AUG (all live):
+  [x] Attribution end-to-end. utm_source/medium/campaign/content/term all stored
+      on pageviews; signup_attribution wired to register(). First real tagged
+      traffic 30 Aug.
+  [x] Search intent capture. Every FAILED search now records its reason
+      (model_too_vague / ambiguous / no_data / limit_reached) with user_id.
+      All of it was discarded before 30 Aug.
+  [x] verdict_outcomes + the dashboard prompt asking customers what actually
+      happened after a verdict. /api/admin/calibration returns ready:false until
+      20 completed sales, by design.
+  [x] SHORT TRACKED LINKS in next.config: /tt /ig /rd /li -> /check with tags.
+      NOTE FOR ANYONE ADDING MORE: these MUST live in next.config, not FastAPI.
+      Single-segment paths on this domain are served by Next.js — I put them in
+      the backend first and they 404'd. /health 404ing the same way is the tell.
+  [x] Homepage footer now links /flip and /category (the HUBS, not just leaves) —
+      the SEO agent's request, actioned. Both were at crawl depth 2.
+  [x] Security: CSRF guard on the local dashboard (a cross-origin text/plain POST
+      used to return 200 and could approve or publish content); search-triage
+      prompt hardened against injection.
+
+SEARCH CONSOLE, READ 31 AUG — hand this to the SEO lane, it is the freshest
+signal available and it changes priorities:
+  Property is the URL-PREFIX one (https://resaleiq.dev/), NOT sc-domain — the
+  domain property is not accessible to emmanuelbilal33@gmail.com.
+  All-time (data starts 10 Aug): 901 impressions, 5 clicks, CTR 0.6%, avg pos 14.
+  Impressions climbing hard: ~0/day early Aug -> ~100/day by 28 Aug.
+
+  "Average position 14" is FLATTERING. It is an average pulled up by a few
+  long-tails. The commercial clusters are far worse:
+
+  1. DEPOP vs VINTED — the biggest cluster and the worst ranked.
+     14 query variants, ~20 impressions, EVERY ONE at position 49-77.
+     ("vinted vs depop" 61.5, "depop vs vinted" 62.3, "is depop or vinted better"
+     56.5, "vinted vs depop uk" 59, "difference between vinted and depop" 63...)
+     The vinted-vs-depop rebuild is live per the last SEO note — so the page
+     EXISTS and is not ranking. That is a different problem from a missing page.
+
+  2. PRICING / VALUATION — literally the product, all on page 5+.
+     "how to price vintage clothing" 10 impressions at position 48.9 (top query).
+     "evaluating vintage clothing value" 56, "vintage fashion valuation" 79,
+     "vinted price" 56.
+
+  3. VINTED DESCRIPTIONS / PHOTOS — a free-tool opportunity, not a blog post.
+     "vinted photos" 45, "how to write vinted descriptions" 48,
+     "vinted description generator" 57, "vinted description" 57.
+
+  WHERE WE ALREADY RANK (and get no clicks — a titles/CTR problem, not a
+  position problem): "resale?" pos 2.0 · "how to get more views on my sports
+  items on vinted?" pos 10 · "how to start reselling with no money" pos 11 ·
+  "vinted arbitrage" pos 17.3.
+
+  Only 29 distinct queries total. The site is young; impressions are the leading
+  indicator and they are healthy.
 LAST SESSION DID: extension 1.3.0 committed + pushed (ead8449, 0a1950c, ada0d30).
   The 404 uncommitted lines that blocked this repo are now in. Store screenshots
   regenerated: they showed the removed IN RANGE / TOO DEAR labels, and the hardcoded

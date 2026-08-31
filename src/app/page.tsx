@@ -138,6 +138,14 @@ export default async function Landing() {
         {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
           <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>Free tools</Link>
+          {/* The HUBS, not just leaves. /flip/nike and /category/sneakers were
+              already here, but the indexes themselves sat at crawl depth 2 —
+              reachable only through a leaf. Linking the hubs from the homepage
+              puts them at depth 1 and gives every child page a shorter path to
+              authority. Requested by the SEO agent; page.tsx is the growth lane,
+              which is why it needed doing here. */}
+          <Link href="/flip" style={{ color: "#8b99b8", textDecoration: "none" }}>What to flip</Link>
+          <Link href="/category" style={{ color: "#8b99b8", textDecoration: "none" }}>Categories</Link>
           <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>Nike resale</Link>
           <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>Sneakers</Link>
           <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
