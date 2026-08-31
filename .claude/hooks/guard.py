@@ -30,6 +30,10 @@ PROTECTED = (
     "docs/company/SCOREBOARD.md",
     "docs/audit/MATCH-AUDIT.md",
     "docs/audit/CALIBRATION.md",
+    # Generated from check output. A hand-written status is precisely the drift
+    # these files exist to prevent, so nobody gets to type into them.
+    "docs/company/STATUS.md",
+    "dashboard/status.json",
 )
 
 # Anything outside these trees is out of scope for every agent.

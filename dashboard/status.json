@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-08-31T22:26:46Z",
+  "layer": "harness",
+  "results": [
+    {
+      "id": "harness/settings-parse",
+      "ok": true,
+      "n": 3,
+      "detail": "desktop, resale-iq, user"
+    },
+    {
+      "id": "harness/hook-commands-exist",
+      "ok": true,
+      "n": 13,
+      "detail": "every registered hook resolves to a real file",
+      "fix": null
+    },
+    {
+      "id": "harness/hook-commands-executable",
+      "ok": true,
+      "n": 13,
+      "detail": "all executable",
+      "fix": null
+    },
+    {
+      "id": "harness/event-names-valid",
+      "ok": true,
+      "n": 6,
+      "detail": "PreToolUse, PostToolUse, SessionStart, PreCompact, SubagentStop, Stop",
+      "fix": null
+    },
+    {
+      "id": "harness/event-parity-across-roots",
+      "ok": true,
+      "n": 6,
+      "detail": "both roots wire identical events",
+      "fix": null
+    },
+    {
+      "id": "harness/hooks-not-ephemeral",
+      "ok": true,
+      "n": 13,
+      "detail": "none in a tmp-cleaned tree",
+      "fix": null
+    },
+    {
+      "id": "harness/roster-resolves-from-session-root",
+      "ok": true,
+      "n": 21,
+      "detail": "21 agents resolve from the session root",
+      "fix": null
+    },
+    {
+      "id": "harness/guard-scope-covers-session-roots",
+      "ok": true,
+      "n": 9,
+      "detail": "9 entries cover every session root",
+      "fix": null
+    },
+    {
+      "id": "harness/gate-flags-gitignored",
+      "ok": true,
+      "n": 4,
+      "detail": "all four founder-gate flags ignored",
+      "fix": null
+    },
+    {
+      "id": "harness/registered-gates-actually-block",
+      "ok": true,
+      "n": 4,
+      "detail": "4 registered gate probes behaved correctly",
+      "fix": null
+    },
+    {
+      "id": "harness/proof-suite-targets-registered-hooks",
+      "ok": true,
+      "n": 1,
+      "detail": "proof suite derives its subjects from the settings registry",
+      "fix": null
+    }
+  ],
+  "passed": 11,
+  "failed": 0,
+  "empty": 0
+}

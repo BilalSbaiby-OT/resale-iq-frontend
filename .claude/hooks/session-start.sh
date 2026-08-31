@@ -4,6 +4,17 @@
 # two loop agents still share this repo (agent/LANES.md).
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 
+# The generated status, before anything else. Reads the CACHE, not the verifier:
+# re-running it here cost 981ms, which is slow enough that someone eventually
+# deletes the hook. The hourly job keeps the cache fresh, and the report prints
+# its own age, so a stale green cannot pass for a current one.
+# A session that starts by being told the wiring is broken cannot spend an hour
+# building on it, which is exactly what happened on 2026-08-31.
+if [ -x "$REPO/scripts/company/status_report.py" ] || [ -f "$REPO/scripts/company/status_report.py" ]; then
+  python3 "$REPO/scripts/company/status_report.py" --session --no-run 2>/dev/null || \
+    echo "(status report unavailable — run: python3 scripts/company/status_report.py)"
+  echo
+fi
 echo "=== docs/company/OS.md governs this repo (read §0 CONSTITUTION) ==="
 echo "=== ...together with docs/company/AMENDMENTS.md — where they conflict, the AMENDMENT WINS ==="
 grep -E '^## AM-' "$REPO/docs/company/AMENDMENTS.md" 2>/dev/null | sed 's/^## /  /'
