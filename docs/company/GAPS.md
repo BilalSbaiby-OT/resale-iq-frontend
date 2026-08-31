@@ -44,7 +44,7 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 
 | # | Missing | OS ref | Why it matters |
 |---|---|---|---|
-| B1 | **`docs/company/METRICS.md` + `sql/metrics/*.sql`** | §3 | **The single biggest gap.** Every KPI in §3 is supposed to have one SQL file. Without it the North Star, retention, band coverage and match precision panels are permanently UNKNOWN, and "no KPI is ever computed ad hoc" is unenforceable |
+| ~~B1~~ **DONE 2026-09-01** (`9174d3c`) — `sql/metrics/` + runner + production path shipped; `METRICS.md` itself blocked at the founder gate, parked as APPROVALS **A8** | ~~**`docs/company/METRICS.md` + `sql/metrics/*.sql`**~~ | §3 | **The single biggest gap.** Every KPI in §3 is supposed to have one SQL file. Without it the North Star, retention, band coverage and match precision panels are permanently UNKNOWN, and "no KPI is ever computed ad hoc" is unenforceable |
 | B2 | `GOALS.md`, `SCOREBOARD.md` | §4, §7 | The whole reward/penalty loop is inert. Nothing is pre-registered, nothing is scored, tiers can never move |
 | B3 | `OKRS.md`, `ROADMAP.md` | §4 | Deliberately deferred — an OKR set written at €0 MRR and 6 users would be fiction. Still owed |
 | B4 | `docs/eng/STANDARDS.md` | §5 | The standards exist only as prose inside 21 agent files |
@@ -86,7 +86,10 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 
 ## The order I will work it
 
-1. **B1 — `METRICS.md` + `sql/metrics/`.** Unblocks B2, D2, and three dead dashboard panels.
+1. ~~**B1 — `METRICS.md` + `sql/metrics/`.**~~ **DONE** (`9174d3c`). Four UNKNOWN panels became
+   numbers. It also did part of B9: the hourly job now refreshes the dashboard. And it produced the
+   first real reading — **`band_coverage` 59.1 % against a ≥ 80 % target**, and
+   **`n_predictions_resolved` 0 of 340**, which is C4 at ten times the scale this file assumed.
 2. **B9 — schedulers.** Nothing is autonomous until this exists; it is the difference between a
    company and a folder of documents.
 3. **B8 + B7 — commands and skills**, so the founder can drive this by name.

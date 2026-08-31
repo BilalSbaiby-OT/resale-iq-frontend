@@ -1,6 +1,6 @@
 # SESSION
 
-**Updated** 2026-08-31 (CEO, main session)
+**Updated** 2026-09-01 (CEO, main session)
 
 ## Working on
 **The company moved to `~/work/` (2026-09-01).** Start sessions there, not in `~/Desktop`.
@@ -18,8 +18,18 @@ session open. The first unattended verification that has ever worked here.
 its own age, STALE past 90 min) · credentials layer that authenticates rather than checks presence ·
 production layer · claims register binding DONE to a passing check (**43 asserted → 17 bindable**).
 
-**Next:** `METRICS.md` + `sql/metrics/` — closes four UNKNOWNs and revives three dashboard panels.
-Then the Stop gate on the harness layer, after clean unattended runs.
+**DONE this session: `sql/metrics/` + the runner + the production path** (`9174d3c`). Four UNKNOWN
+panels became numbers, read from production hourly. `docs/company/METRICS.md` itself is written and
+**blocked at the founder gate** — it is a PROTECTED path, parked as **A8** in `APPROVALS.md`. I did
+not create `.claude/UNLOCK_HARNESS` to get past it: an agent that unlocks its own gate has no gate.
+
+**The number that matters: `band_coverage` = 59.1 %, n = 44, against a §3 target of ≥ 80 %.**
+Four in ten people who ask us something are told we cannot price it. The North Star is **0** on
+n = 1 — a volume problem, not yet a retention one.
+
+**Next:** the three live data defects, in `GAPS.md` order — **C6** (FX: HUF/RON/BGN/SEK/DKK treated
+as EUR, on a paid feature), **C5** (the n ≥ 8 gate fails open, which is why the North Star is only
+an upper bound), then **C4** (the predictions resolver: 0 of 340 graded).
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.
@@ -64,30 +74,13 @@ while `CLAUDE.md` bans both).
 
 ---
 
-## CEO error to clean up — commits stranded on feature branches
+## CEO error, CLOSED — the stranded commits are on `main`
 
-**2026-08-31.** I ran four agents concurrently in **two shared working trees** instead of giving
-each one `isolation: worktree`. Agents check out their own branch, which moves the tree under
-everyone else, so three CEO-level commits landed on whatever branch happened to be checked out
-rather than on `main`:
+**2026-08-31, resolved by 2026-09-01.** Four agents ran in two shared working trees instead of one
+worktree each, so three CEO-level commits landed on whatever branch happened to be checked out.
+**Verified this session with `git merge-base --is-ancestor`: `b23b17a`, `7a56129` and `f56c418` are
+all ancestors of `main`.** Nothing is stranded and the cherry-pick in the old note is not needed.
 
-| Commit | What | Currently only on |
-|---|---|---|
-| `b23b17a` | the scraper fix runbook | `claude/content/humanize-frontend`, `claude/frontend-eng/truth-pass-and-cut-business` |
-| `7a56129` | design tokens + the four panel states | same |
-| `f56c418` | the 21-agent roster + `OS-COMPLIANCE.md` | `claude/content/humanize-frontend` only |
-
-Nothing is lost — every commit exists and `main` is clean at `ac55769`. But company documentation
-should not live on a copywriting branch.
-
-**Do NOT fix this now.** Two agents are working in these trees at this moment; checking out `main`
-would change the files under them mid-task. Wait until they report, then:
-
-```bash
-git -C ~/Desktop/resale-iq checkout main
-git -C ~/Desktop/resale-iq cherry-pick b23b17a 7a56129 f56c418
-```
-
-**The lesson, for the next fan-out:** more than one agent in a repo means worktree isolation, or
-strictly one agent per repo at a time. Disjoint *files* are not enough — git branches are per-tree,
-not per-agent.
+**The lesson stands, and it is the one worth keeping:** more than one agent in a repo means
+worktree isolation, or strictly one agent per repo at a time. Disjoint *files* are not enough —
+git branches are per-tree, not per-agent.
