@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resale IQ — Extension panel: NOT COVERED (brand/model outside catalogue)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --page-bg: #f4f5f7; --page-border: #e4e6ea; --page-text: #17181a; --page-text-2: #6b6f76; --page-accent: #09b1a6;
+    --riq-bg: #12151d; --riq-border: #1c2333; --riq-text: #eef1f7; --riq-text-2: #8b99b8;
+    --riq-text-3: #7f8da9; --riq-text-4: #a9b6d0; --riq-muted: #5b6b8c;
+    --riq-on-buy: #06090c; --riq-link: #8fa3c4;
+    --riq-shadow: 0 8px 28px rgba(0,0,0,.45); --riq-focus: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--page-bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--page-text); }
+
+  .spec-strip { background: #0B0D10; color: #e8ecf4; font-family: ui-monospace, monospace; font-size: 12px; padding: 10px 20px; display: flex; gap: 18px; align-items: center; border-bottom: 3px solid var(--riq-muted); flex-wrap: wrap; }
+  .spec-strip b { color: #c9d2e6; }
+  .spec-note { position: fixed; top: 64px; right: 20px; width: 280px; z-index: 100; background: #fffef2; border: 1px dashed #c9a227; border-radius: 10px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #4a3f10; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+  .spec-note .h { font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #8a6d00; margin-bottom: 6px; }
+
+  .listing { max-width: 1040px; margin: 0 auto; padding: 28px 24px 300px; }
+  .listing-top { font-size: 12.5px; color: var(--page-text-2); margin-bottom: 18px; }
+  .listing-grid { display: grid; grid-template-columns: 1.1fr 0.7fr; gap: 40px; }
+  .photo { aspect-ratio: 3/4; background: linear-gradient(135deg,#eceef1,#dfe2e7); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #b7bcc5; font-size: 13px; }
+  .info h1 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.3px; }
+  .info .meta { font-size: 13.5px; color: var(--page-text-2); margin-bottom: 18px; }
+  .info .price { font-size: 30px; font-weight: 800; margin-bottom: 18px; }
+  .buy-btn { display: inline-block; background: var(--page-accent); color: #fff; font-weight: 700; font-size: 15px; padding: 14px 22px; border-radius: 10px; border: none; width: 100%; text-align: center; cursor: pointer; }
+  .buy-btn:focus-visible { outline: 3px solid #054d47; outline-offset: 2px; }
+  .seller-card { margin-top: 20px; padding: 14px 16px; border: 1px solid var(--page-border); border-radius: 12px; font-size: 13px; color: var(--page-text-2); }
+
+  #riq-badge { position: fixed; left: 18px; bottom: 18px; z-index: 2147483000; }
+  @media (max-width: 720px) { #riq-badge { left: 12px; bottom: 72px; } }
+
+  .riq-card { width: 232px; background: var(--riq-bg); border: 1px solid var(--riq-border); border-left: 3px solid var(--riq-muted); border-radius: 12px; padding: 13px 15px; color: var(--riq-text); box-shadow: var(--riq-shadow); }
+  .riq-head { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--riq-text-2); margin-bottom: 9px; }
+  .riq-logo { width: 17px; height: 17px; border-radius: 5px; color: var(--riq-on-buy); background: linear-gradient(135deg,#22c55e,#0ea5e9); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
+  .riq-brand-pill {
+    margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase;
+    color: var(--riq-text-2); background: #1c2333; border-radius: 999px; padding: 2px 8px;
+  }
+
+  .riq-statement { font-size: 15px; font-weight: 700; line-height: 1.4; color: var(--riq-text); }
+  .riq-sub { font-size: 11.5px; color: var(--riq-text-3); margin-top: 6px; line-height: 1.5; }
+
+  .riq-fact-row { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--riq-border); }
+  .riq-fact-n { font-size: 20px; font-weight: 800; color: var(--riq-text-2); letter-spacing: -0.5px; }
+  .riq-fact-label { font-size: 10.5px; color: var(--riq-text-2); text-transform: uppercase; letter-spacing: .4px; }
+  .riq-range { font-size: 10.5px; color: var(--riq-muted); margin-top: 4px; }
+
+  .riq-why { margin-top: 10px; font-size: 11px; line-height: 1.6; color: var(--riq-text-4); }
+  .riq-next {
+    margin-top: 10px; padding: 9px 10px; border-radius: 8px; background: rgba(139,153,184,.08);
+    border-left: 2px solid var(--riq-text-2); font-size: 11px; line-height: 1.55; color: var(--riq-text-4);
+  }
+  .riq-next b { color: var(--riq-text); }
+  .riq-link { display: inline-block; margin-top: 11px; font-size: 11px; color: var(--riq-link); text-decoration: none; border-bottom: 1px solid #2a3550; padding-bottom: 1px; }
+  .riq-link:focus-visible, .riq-hide:focus-visible { outline: 2px solid var(--riq-focus); outline-offset: 2px; border-radius: 3px; }
+  .riq-hide { margin-left: 6px; width: 20px; height: 20px; border: 0; border-radius: 6px; background: #1c2333; color: var(--riq-text-2); font-size: 13px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+  <div class="spec-strip">
+    <span>STATE:&nbsp;<b>NOT COVERED · brand/model outside catalogue</b></span>
+    <span>backend verdict: UNKNOWN · label "NO DATA"</span>
+    <span>maps to → src/app/(dashboard)/verdict/page.tsx:18 · free-checker.tsx:110-116 · methodology.tsx "What this data cannot tell you"</span>
+  </div>
+
+  <div class="spec-note">
+    <div class="h">Design note</div>
+    Different failure shape from INSUFFICIENT, so it gets different copy:
+    that state says "not enough evidence yet" (a sample-size problem);
+    this one says "we don't track this at all" (a coverage problem). Naming
+    it plainly and naming what happens next — six marketed brands
+    (Pull&amp;Bear, Zara, Bershka, Mango, Hugo Boss, Calvin Klein) hit this
+    for real, so it can't read as a dead end.
+  </div>
+
+  <main class="listing">
+    <div class="listing-top">vinted.es › Mujer › Chaquetas</div>
+    <div class="listing-grid">
+      <div class="photo">item photo</div>
+      <div class="info">
+        <h1>Zara Oversized Blazer</h1>
+        <div class="meta">Size M · Good condition · Beige</div>
+        <div class="price">22,00&nbsp;€</div>
+        <button class="buy-btn" type="button">Buy now</button>
+        <div class="seller-card">Sold by closet_clearout · 89 reviews · ships in 2 days</div>
+      </div>
+    </div>
+  </main>
+
+  <div id="riq-badge">
+    <div class="riq-card" role="region" aria-label="Resale IQ price check">
+      <div class="riq-head">
+        <span class="riq-logo" aria-hidden="true">R</span> Resale IQ
+        <span class="riq-brand-pill">Zara</span>
+        <button type="button" class="riq-hide" aria-label="Hide Resale IQ panel">–</button>
+      </div>
+
+      <div class="riq-statement">Zara isn't in our model catalogue.</div>
+      <div class="riq-sub">This is a coverage gap, not a thin sample — different from "not enough data".</div>
+
+      <div class="riq-fact-row">
+        <span class="riq-fact-n">0</span>
+        <span class="riq-fact-label">models tracked</span>
+      </div>
+      <div class="riq-range">catalogue checked Aug 31, 2026</div>
+
+      <div class="riq-why">Zara doesn't name its products, so there's nothing model-level to track yet — the same is true for Pull&amp;Bear, Bershka and Mango.</div>
+      <div class="riq-next"><b>What happens next:</b> we still price every brand whose catalogue does track individual models. Check the brand page for what's covered before you buy.</div>
+      <a class="riq-link" href="#" tabindex="0">see covered brands</a>
+    </div>
+  </div>
+
+</body>
+</html>

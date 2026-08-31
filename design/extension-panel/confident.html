@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resale IQ — Extension panel: CONFIDENT (HIGH)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ===== Design tokens — see /design/tokens.json for path:line citations ===== */
+  :root {
+    --page-bg: #f4f5f7;
+    --page-card: #ffffff;
+    --page-border: #e4e6ea;
+    --page-text: #17181a;
+    --page-text-2: #6b6f76;
+    --page-accent: #09b1a6;
+
+    --riq-bg: #12151d;           /* tokens.json color.background.surface */
+    --riq-border: #1c2333;       /* tokens.json color.border.border-ui */
+    --riq-text: #eef1f7;         /* extension card text, content.css:15 */
+    --riq-text-2: #8b99b8;       /* content.css:22 head label */
+    --riq-text-3: #7f8da9;       /* content.css:36 .riq-sub */
+    --riq-text-4: #a9b6d0;       /* content.css:37 .riq-row */
+    --riq-muted: #5b6b8c;        /* content.css:45 .riq-match */
+    --riq-buy: #22c55e;
+    --riq-on-buy: #06090c;
+    --riq-link: #8fa3c4;
+    --riq-shadow: 0 8px 28px rgba(0,0,0,.45);
+    --riq-focus: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: var(--page-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--page-text);
+  }
+
+  /* ── reviewer chrome — NOT part of the shipped product ───────────────── */
+  .spec-strip {
+    background: #0B0D10; color: #e8ecf4; font-family: ui-monospace, monospace;
+    font-size: 12px; padding: 10px 20px; display: flex; gap: 18px; align-items: center;
+    border-bottom: 3px solid var(--riq-buy); flex-wrap: wrap;
+  }
+  .spec-strip b { color: var(--riq-buy); }
+  .spec-note {
+    position: fixed; top: 64px; right: 20px; width: 260px; z-index: 100;
+    background: #fffef2; border: 1px dashed #c9a227; border-radius: 10px;
+    padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #4a3f10;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .spec-note .h { font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #8a6d00; margin-bottom: 6px; }
+
+  /* ── simulated Vinted item page (light, real context) ─────────────────── */
+  .listing {
+    max-width: 1040px; margin: 0 auto; padding: 28px 24px 260px;
+  }
+  .listing-top { font-size: 12.5px; color: var(--page-text-2); margin-bottom: 18px; }
+  .listing-grid { display: grid; grid-template-columns: 1.1fr 0.7fr; gap: 40px; }
+  .photo {
+    aspect-ratio: 3/4; background: linear-gradient(135deg,#eceef1,#dfe2e7);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    color: #b7bcc5; font-size: 13px;
+  }
+  .info h1 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.3px; }
+  .info .meta { font-size: 13.5px; color: var(--page-text-2); margin-bottom: 18px; }
+  .info .price { font-size: 30px; font-weight: 800; margin-bottom: 18px; }
+  .buy-btn {
+    display: inline-block; background: var(--page-accent); color: #fff; font-weight: 700;
+    font-size: 15px; padding: 14px 22px; border-radius: 10px; border: none; width: 100%;
+    text-align: center; cursor: pointer;
+  }
+  .buy-btn:focus-visible { outline: 3px solid #054d47; outline-offset: 2px; }
+  .seller-card {
+    margin-top: 20px; padding: 14px 16px; border: 1px solid var(--page-border);
+    border-radius: 12px; font-size: 13px; color: var(--page-text-2);
+  }
+
+  /* ── the Resale IQ panel — anchored bottom-left, never over the Buy button ── */
+  #riq-badge { position: fixed; left: 18px; bottom: 18px; z-index: 2147483000; }
+  @media (max-width: 720px) { #riq-badge { left: 12px; bottom: 72px; } }
+
+  .riq-card {
+    width: 232px;
+    background: var(--riq-bg);
+    border: 1px solid var(--riq-border);
+    border-left: 3px solid var(--riq-buy);
+    border-radius: 12px;
+    padding: 13px 15px;
+    color: var(--riq-text);
+    box-shadow: var(--riq-shadow);
+  }
+  .riq-head { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--riq-text-2); margin-bottom: 9px; }
+  .riq-logo {
+    width: 17px; height: 17px; border-radius: 5px; color: var(--riq-on-buy);
+    background: linear-gradient(135deg,#22c55e,#0ea5e9);
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px;
+  }
+  .riq-verdict { margin-left: auto; font-weight: 800; font-size: 10.5px; letter-spacing: .4px; color: var(--riq-buy); }
+  .riq-match { font-size: 10.5px; color: var(--riq-muted); margin-bottom: 6px; }
+  .riq-num { font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+  .riq-sub { font-size: 11.5px; color: var(--riq-text-3); margin-top: 3px; line-height: 1.45; }
+  .riq-conf-row { display: flex; align-items: center; gap: 6px; margin-top: 9px; }
+  .riq-conf-pill {
+    font-size: 9.5px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--riq-buy); background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.35);
+    border-radius: 999px; padding: 2px 8px;
+  }
+  .riq-n { font-size: 10.5px; color: var(--riq-text-2); }
+  .riq-row { font-size: 12px; color: var(--riq-text-4); margin-top: 8px; }
+  .riq-row.good { color: #34d399; font-weight: 600; }
+  .riq-range { font-size: 10.5px; color: var(--riq-muted); margin-top: 4px; }
+  .riq-link {
+    display: inline-block; margin-top: 11px; font-size: 11px; color: var(--riq-link);
+    text-decoration: none; border-bottom: 1px solid #2a3550; padding-bottom: 1px;
+  }
+  .riq-link:focus-visible, .riq-hide:focus-visible { outline: 2px solid var(--riq-focus); outline-offset: 2px; border-radius: 3px; }
+  .riq-hide {
+    margin-left: 6px; width: 20px; height: 20px; border: 0; border-radius: 6px;
+    background: #1c2333; color: var(--riq-text-2); font-size: 13px; line-height: 1; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+  <div class="spec-strip">
+    <span>STATE:&nbsp;<b>CONFIDENT · HIGH</b></span>
+    <span>n ≥ 30, quality ≥ 70, snapshot &lt; 48h</span>
+    <span>maps to → extension/content.js <code>paint()</code>, verdict card in extension/content.css #riq-badge .riq-buy</span>
+  </div>
+
+  <div class="spec-note">
+    <div class="h">Design note</div>
+    HIGH gets the least design: one accent colour, a number nobody has to
+    second-guess, and a confidence pill that only whispers. Confidence work
+    goes into the other three states, not this one — if HIGH felt like it
+    needed decoration, that would be a sign something else was wrong.
+  </div>
+
+  <main class="listing">
+    <div class="listing-top">vinted.es › Shoes › Trainers</div>
+    <div class="listing-grid">
+      <div class="photo">item photo</div>
+      <div class="info">
+        <h1>Adidas Samba OG</h1>
+        <div class="meta">Size 42 · Very good · Black/white</div>
+        <div class="price">28,00&nbsp;€</div>
+        <button class="buy-btn" type="button">Buy now</button>
+        <div class="seller-card">Sold by resell_marta · 214 reviews · ships in 2 days</div>
+      </div>
+    </div>
+  </main>
+
+  <div id="riq-badge">
+    <div class="riq-card" role="region" aria-label="Resale IQ price check">
+      <div class="riq-head">
+        <span class="riq-logo" aria-hidden="true">R</span> Resale IQ
+        <span class="riq-verdict">BUY</span>
+        <button type="button" class="riq-hide" aria-label="Hide Resale IQ panel">–</button>
+      </div>
+      <div class="riq-match">matched: Adidas Samba OG</div>
+      <div class="riq-num">€33</div>
+      <div class="riq-sub">most you can pay for your margin</div>
+      <div class="riq-conf-row">
+        <span class="riq-conf-pill">High confidence</span>
+        <span class="riq-n">n 42</span>
+      </div>
+      <div class="riq-range">sold Aug 3 – Aug 31, 2026</div>
+      <div class="riq-row good">listed at €28 — within your price</div>
+      <div class="riq-row">avg sold <b style="color:var(--riq-text)">€50</b></div>
+      <a class="riq-link" href="#" tabindex="0">how this is calculated</a>
+    </div>
+  </div>
+
+</body>
+</html>
