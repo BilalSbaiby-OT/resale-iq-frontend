@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resale IQ — Company OS</title>
+<style>
+  :root{
+    --bg:#0B0D10; --panel:#12151A; --line:#1E232B; --ink:#E6EAF0; --dim:#8B96A5;
+    --accent:#22C55E; --warn:#F59E0B; --bad:#EF4444; --unknown:#5A6472;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:14px;line-height:1.5;padding:24px}
+  h1{font-size:18px;margin:0;letter-spacing:-.01em}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);
+     margin:0 0 12px;font-weight:600}
+  header{display:flex;justify-content:space-between;align-items:baseline;
+         gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  .stamp{font-family:var(--mono);font-size:12px;color:var(--dim)}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;
+         min-width:0}
+  .panel.wide{grid-column:1/-1}
+  .kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+  .kpi .n{font-family:var(--mono);font-size:24px;letter-spacing:-.02em}
+  .kpi .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  .kpi .src{font-size:10px;color:var(--unknown);font-family:var(--mono);margin-top:2px;
+            word-break:break-word}
+  .unknown{color:var(--unknown);font-style:italic;font-size:13px;font-family:var(--mono)}
+  .ok{color:var(--accent)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td,th{text-align:left;padding:5px 8px 5px 0;border-bottom:1px solid var(--line);
+        vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11px;text-transform:uppercase;
+     letter-spacing:.05em}
+  code,.mono{font-family:var(--mono);font-size:12px}
+  .scroll{max-height:300px;overflow:auto}
+  .tag{display:inline-block;padding:1px 7px;border-radius:999px;font-size:10.5px;
+       border:1px solid var(--line);color:var(--dim);font-family:var(--mono)}
+  pre{white-space:pre-wrap;font-family:var(--mono);font-size:12px;color:var(--dim);margin:0}
+  .empty{color:var(--accent);font-size:13px}
+  .why{font-size:11px;color:var(--unknown);margin-top:3px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Resale IQ — Company OS</h1>
+  <div class="stamp" id="stamp">loading…</div>
+</header>
+<div class="grid" id="root"></div>
+
+<script>
+const $ = (h) => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild; };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// A value with no source behind it renders as UNKNOWN. Never a placeholder, never a zero.
+function val(v, fmt) {
+  if (v === null || v === undefined) return '<span class="unknown">UNKNOWN</span>';
+  if (typeof v === 'object') {
+    if (v.unknown || v.value === null || v.value === undefined) {
+      return '<span class="unknown">UNKNOWN</span>' +
+             (v.why ? `<div class="why">${esc(v.why)}${v.fix ? ' → ' + esc(v.fix) : ''}</div>` : '');
+    }
+    const n = fmt ? fmt(v.value) : esc(v.value);
+    const bits = [];
+    if (v.n !== undefined) bits.push('n=' + v.n);
+    if (v.source) bits.push(v.source);
+    return n + (bits.length ? `<div class="src">${esc(bits.join(' · '))}</div>` : '');
+  }
+  return fmt ? fmt(v) : esc(v);
+}
+const eur = (n) => '€' + Number(n).toLocaleString('en-GB', {maximumFractionDigits: 2});
+const num = (n) => Number(n).toLocaleString('en-GB');
+
+function kpi(label, v, fmt) {
+  return `<div class="kpi"><div class="l">${esc(label)}</div><div class="n">${val(v, fmt)}</div></div>`;
+}
+function panel(title, body, wide) {
+  return `<section class="panel${wide ? ' wide' : ''}"><h2>${esc(title)}</h2>${body}</section>`;
+}
+
+fetch('data.json?' + Date.now()).then(r => r.json()).then(d => {
+  document.getElementById('stamp').textContent =
+    d.generated_at + (d.prod_included ? '  ·  production included' : '  ·  LOCAL ONLY — run with --prod');
+  const root = document.getElementById('root');
+  const add = (h) => root.appendChild($(h));
+
+  // 1 — founder inbox
+  add(panel('1 · Founder inbox', d.founder_inbox.count
+    ? '<table>' + d.founder_inbox.open.map(i => `<tr><td>${esc(i)}</td></tr>`).join('') + '</table>'
+    : '<div class="empty">Nothing waiting on you.</div>'));
+
+  // 2 — company
+  add(panel('2 · Company', '<div class="kpis">' +
+    kpi('MRR', d.company.mrr, eur) +
+    kpi('Customers', d.company.customers) +
+    kpi('Users', d.company.users_total) +
+    kpi('Paying users', d.company.users_paying) +
+    kpi('Spend cap', {value: d.company.spend_cap_eur, source: 'AM-2'}, eur) +
+    kpi('North Star', d.company.north_star_weekly_trusted_checks) +
+    '</div>'));
+
+  // 3 — quality
+  add(panel('3 · Quality', '<div class="kpis">' +
+    kpi('Listings', d.quality.listings_total, num) +
+    kpi('Newest data', d.quality.newest_sold_at) +
+    kpi('Predictions', d.quality.predictions_total) +
+    kpi('Canary', d.quality.canary) +
+    kpi('Match precision', d.quality.match_precision) +
+    kpi('Band coverage', d.quality.band_coverage) +
+    '</div>'));
+
+  // 4 — funnel
+  const f = d.funnel || {};
+  add(panel('4 · Funnel (7 days)', '<div class="kpis">' +
+    kpi('Pageviews', f.pageviews_7d) + kpi('Verdicts', f.verdicts_7d) +
+    kpi('Signups', f.signups_7d) + kpi('Attributed', f.attributed_signups) +
+    '</div>'));
+
+  // 5 — departments
+  add(panel('5 · Departments', val(d.departments)));
+
+  // 6 — work
+  add(panel('6 · Work', `
+    <table><tr><th>lock</th><td><pre>${esc(d.work.lock)}</pre></td></tr>
+    <tr><th>tree</th><td>${d.work.dirty ? '<span class="warn">uncommitted changes</span>' : '<span class="ok">clean</span>'}</td></tr>
+    <tr><th>branches</th><td>${d.work.branches.length ? d.work.branches.map(b => `<span class="tag">${esc(b)}</span>`).join(' ') : '<span class="unknown">none</span>'}</td></tr></table>
+    <div class="scroll" style="margin-top:10px"><table>${
+      d.work.recent_commits.map(c => `<tr><td class="mono" style="color:var(--dim);white-space:nowrap">${esc(c.sha)}</td><td>${esc(c.msg)}</td></tr>`).join('')
+    }</table></div>`, true));
+
+  // 7 — activity
+  add(panel('7 · Activity (last 50)', `<div class="scroll"><table>
+    <tr><th>when</th><th>agent</th><th>tool</th><th>what</th></tr>${
+      d.activity.map(a => `<tr><td class="mono" style="white-space:nowrap">${esc((a.ts||'').slice(11,19))}</td>
+        <td class="mono">${esc(a.agent||'')}</td><td class="mono">${esc(a.tool||'')}</td>
+        <td class="mono" style="color:var(--dim)">${esc((a.files&&a.files.length?a.files.join(' '):a.cmd||a.url||'').slice(0,110))}</td></tr>`).join('')
+    }</table></div>`, true));
+
+  // 8 — security & ops
+  add(panel('8 · Security & ops', '<div class="kpis">' +
+    kpi('Blocked calls', d.security.blocked) + kpi('Tripwire hits', d.security.tripwire) +
+    kpi('Restore test', d.security.restore_test) + '</div>' +
+    `<div class="scroll" style="margin-top:10px"><table>${
+      d.security.recent.map(r => `<tr><td class="mono" style="color:var(--dim)">${esc(r)}</td></tr>`).join('')
+    }</table></div>`));
+
+  // 9 — marketing
+  const m = d.marketing;
+  add(panel('9 · Marketing', '<div class="kpis">' +
+    kpi('GSC clicks 28d', m.gsc_clicks_28d) + kpi('Impressions 28d', m.gsc_impressions_28d) +
+    kpi('Extension installs', m.extension_installs) +
+    kpi('Posts ever', m.posts_published_all_time) +
+    kpi('0-model URLs', m.zero_model_urls) + '</div>'));
+
+  // 10 — audits + amendments + session
+  add(panel('10 · Audit files', `<table>${
+    d.audits.map(a => `<tr><td class="mono">${esc(a.file)}</td><td style="color:var(--dim)">${a.lines} lines</td></tr>`).join('')
+  }</table>`));
+  add(panel('Amendments in force', `<table>${
+    d.amendments.map(a => `<tr><td>${esc(a)}</td></tr>`).join('')
+  }</table>`));
+  add(panel('SESSION.md', `<div class="scroll"><pre>${esc(d.session)}</pre></div>`, true));
+}).catch(e => {
+  document.getElementById('root').innerHTML =
+    `<section class="panel wide"><h2>error</h2><pre>${esc(e)}\n\nRun: python3 scripts/company/build_dashboard.py --prod</pre></section>`;
+});
+</script>
+</body>
+</html>
