@@ -7,9 +7,6 @@ OS STATUS                                  checked 0m ago
 
   GREEN — nothing blocking
 
-WHAT CHANGED
-  production/dashboard-data-fresh              ✗ -> ✓
-
 UNKNOWN — asked, no answer (never rendered as zero)
   company.retention_30d              inspected nothing (n = 0)
   company.spend_vs_cap               no spend ledger yet
