@@ -138,3 +138,35 @@ is a founder gate):**
 - [ ] **Accept the North Star as an upper bound, or fix C5 first.** The `n ≥ 8` gate fails open when
       `comparable_n` is absent (`engine/listing_identity.py:50-58`), so today's count is an upper
       bound, not an exact figure.
+
+
+---
+
+### A9 — the persistent memory directory is outside the rails' SCOPE, so memory does not work
+
+**2026-09-01.** The founder asked whether a memory plugin would improve project memory. The more
+useful finding came first: **the memory this session already has is completely blocked.**
+
+`guard.py`'s `SCOPE` allows `~/.claude/projects/-Users-bilalsbaiby-Desktop/memory`. Sessions rooted
+at `~/work` write to `-Users-bilalsbaiby-work/memory`, which no SCOPE entry covers. Measured, not
+assumed — a real write was attempted and refused:
+
+    BLOCKED by Company OS rails: path outside company scope
+
+Both directories exist on disk. Nothing has been written to the `work` one since the move, and
+nothing can be.
+
+This is the **third** instance of the same root cause, which is now a pattern worth naming: SCOPE
+was written from the paths the CEO imagined the harness would touch, rather than from what it
+actually touches. The first two are recorded in `guard.py`'s own comment — the Desktop
+`settings.json` was unreadable, and `~/.claude/plans` blocked the plan describing that very fix.
+
+- [ ] **Add `~/.claude/projects/` to `SCOPE`** (the whole tree, not one project dir, so this does
+      not recur the next time the company moves). One line in `.claude/hooks/guard.py` — a
+      PROTECTED path, hence a founder gate.
+
+**On the plugins themselves** (`claude-mem`, `task-observer`, `headroom`): none is in this account's
+plugin catalog, which returned empty. They are community plugins installed through the `/plugin`
+marketplace, an interactive terminal panel not available in this session. **Recommendation: fix A9
+first.** A memory plugin layered on a memory directory the rails refuse to write to would fail the
+same way, and would be much harder to diagnose from inside a plugin.
