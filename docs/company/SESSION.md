@@ -54,3 +54,33 @@ while `CLAUDE.md` bans both).
   unattended loop, delete it **first**.
 - Do not build for Supabase. Read `AMENDMENTS.md` AM-1 before writing a line of backend code.
 - Do not remove the Business €99 tier while a customer is still on it — that is a founder gate.
+
+---
+
+## CEO error to clean up — commits stranded on feature branches
+
+**2026-08-31.** I ran four agents concurrently in **two shared working trees** instead of giving
+each one `isolation: worktree`. Agents check out their own branch, which moves the tree under
+everyone else, so three CEO-level commits landed on whatever branch happened to be checked out
+rather than on `main`:
+
+| Commit | What | Currently only on |
+|---|---|---|
+| `b23b17a` | the scraper fix runbook | `claude/content/humanize-frontend`, `claude/frontend-eng/truth-pass-and-cut-business` |
+| `7a56129` | design tokens + the four panel states | same |
+| `f56c418` | the 21-agent roster + `OS-COMPLIANCE.md` | `claude/content/humanize-frontend` only |
+
+Nothing is lost — every commit exists and `main` is clean at `ac55769`. But company documentation
+should not live on a copywriting branch.
+
+**Do NOT fix this now.** Two agents are working in these trees at this moment; checking out `main`
+would change the files under them mid-task. Wait until they report, then:
+
+```bash
+git -C ~/Desktop/resale-iq checkout main
+git -C ~/Desktop/resale-iq cherry-pick b23b17a 7a56129 f56c418
+```
+
+**The lesson, for the next fan-out:** more than one agent in a repo means worktree isolation, or
+strictly one agent per repo at a time. Disjoint *files* are not enough — git branches are per-tree,
+not per-agent.
