@@ -1,0 +1,8 @@
+# F-4 evidence, captured 2026-08-31
+launchctl list | grep resaleiq  ->
+-	126	dev.resaleiq.scrape-agent
+
+failures logged:      131
+first: Aug 20 20:32:31 2026   last: Aug 31 17:25:44 2026
+launchd.out size: 0 bytes
+scrape-agent.log exists: NO - the wrapper never executed

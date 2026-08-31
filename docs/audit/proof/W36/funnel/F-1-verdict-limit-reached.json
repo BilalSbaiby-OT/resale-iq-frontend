@@ -1,0 +1,15 @@
+{
+  "_captured": "2026-08-31T16:35Z, clean browser profile, no cookies, no localStorage, no sessionStorage",
+  "_step": "hero CTA 'Check it free' with the site's own example model, as an anonymous visitor",
+  "_request": "GET https://resaleiq.dev/api/verdict?q=Adidas%20Samba",
+  "_status": 200,
+  "_client_state_before": {"cookies": "(none)", "localStorage": {}, "sessionStorage": []},
+  "response": {
+    "verdict": "LIMIT_REACHED",
+    "message": "Free tier: 10 verdicts/day. Starter or Pro for unlimited.",
+    "upgrade_url": "/stripe/plans",
+    "used_today": 22,
+    "limit": 10
+  },
+  "_conclusion": "The server counted 22 prior uses for a client that carried no identifier. The anonymous quota is keyed server-side, almost certainly on IP, so everyone behind one NAT shares one 10/day bucket. Also: used_today (22) exceeds limit (10), so counting and enforcing disagree."
+}

@@ -1,0 +1,24 @@
+F-2  "every 30 minutes" vs the scheduler that actually runs the scraper
+captured 2026-08-31
+
+CLAIMED, https://resaleiq.dev/methodology, freshness table:
+  "Listing collection    every 30 minutes    all 5 EU domains"
+CLAIMED, homepage:   "Scraped every 30 min"
+CLAIMED, Pro EUR 49: "scans all five EU markets every 30 minutes"
+
+SCHEDULED, ~/Library/LaunchAgents/dev.resaleiq.scrape-agent.plist:
+  ProgramArguments -> /bin/bash /Users/bilalsbaiby/Desktop/demand-intel/scripts/run_local_agent.sh
+  StartInterval    -> 7200      (= every 2 hours, i.e. 4x slower than claimed)
+  RunAtLoad        -> false
+  AbandonProcessGroup -> false  ("Never let two scrapes overlap")
+
+launchctl list -> dev.resaleiq.scrape-agent present, last exit 126
+
+Reproduce:
+  plutil -p ~/Library/LaunchAgents/dev.resaleiq.scrape-agent.plist
+  launchctl list | grep resaleiq
+
+NOTE beyond the interval: this is a launchd job on the founder's laptop. It cannot run while that
+machine is asleep, closed or offline, so the true cadence is "every 2 hours while one Mac is awake".
+The site tells a paying customer a figure is "at most about an hour behind the market".
+The real distribution of scrape intervals is being measured by the DATA audit; until then: UNKNOWN.
