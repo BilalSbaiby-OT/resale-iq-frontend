@@ -76,6 +76,9 @@ def block(reason, tool, detail, remedy):
     sys.exit(2)
 
 
+MUTATING = ("Edit", "Write", "NotebookEdit", "MultiEdit")
+
+
 def check_paths(tool, paths):
     unlocked = os.path.exists(UNLOCK)
     for p in paths:
@@ -87,7 +90,11 @@ def check_paths(tool, paths):
                   "Never read or write secrets. Ask the founder to supply what you need.")
         for prot in PROTECTED:
             if ap.replace("\\", "/").endswith(prot.rstrip("/")) or f"/{prot}" in ap.replace("\\", "/"):
-                if not unlocked:
+                # Read freely, write gated. Blocking reads made the constitution
+                # unreadable to the agents told to read it, and pushed them into
+                # `cat`, which the Bash path did not check. Found by the Phase 1
+                # HARNESS and SECURITY audits, 2026-08-31.
+                if tool in MUTATING and not unlocked:
                     block(f"protected harness path ({prot})", tool, ap,
                           "This is a founder gate (OS §0.10). Park the change in "
                           "docs/company/APPROVALS.md. To proceed deliberately, the founder "
@@ -144,6 +151,25 @@ def check_bash(cmd):
     if re.search(r"\bgh\s+(repo\s+edit|release\s+create|workflow\s+run|secret\s+set)", low):
         block("publish/deploy via gh", "Bash", c,
               "Deploys and releases are founder gates. Park it in APPROVALS.md.")
+
+    # The Bash path never checked PROTECTED, so a shell redirect walked straight
+    # around the Edit/Write gate. Catch shell writes: redirects, in-place sed, tee,
+    # and cp/mv/rm onto a protected path. Reads (cat/sed -n/grep) still pass.
+    # KNOWN LIMIT: a heredoc'd interpreter (python3 - <<EOF) that opens a protected
+    # path for writing is NOT caught. Recorded rather than pretended away.
+    if not os.path.exists(UNLOCK):
+        for prot in PROTECTED:
+            stem = prot.rstrip("/")
+            if stem not in c:
+                continue
+            esc = re.escape(stem)
+            if (re.search(r">>?\s*\S*" + esc, c)
+                    or re.search(r"\b(tee|sed\s+-i|cp|mv|install|ln)\b[^|;&]*" + esc, c)
+                    or re.search(r"\brm\b[^|;&]*" + esc, c)):
+                block("shell write to a protected harness path (" + stem + ")", "Bash", c,
+                      "Read it freely; changing it is a founder gate (OS 0.10). Park the "
+                      "change in docs/company/APPROVALS.md, or the founder creates "
+                      ".claude/UNLOCK_HARNESS with a one-line reason.")
 
     if "chmod 777" in low:
         block("chmod 777", "Bash", c, "Use the narrowest mode that works.")

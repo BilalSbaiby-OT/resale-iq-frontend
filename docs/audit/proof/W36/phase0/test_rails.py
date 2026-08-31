@@ -41,6 +41,16 @@ CASES = [
     ("harness: write a hook",         GUARD, write(R + ".claude/hooks/guard.py"), 2),
     ("harness: write settings",       GUARD, write(R + ".claude/settings.json"), 2),
     ("harness CONTROL: src file",     GUARD, write(R + "src/app/page.tsx"), 0),
+    # Regression: the Phase 1 HARNESS + SECURITY audits found the gate blocked READS
+    # of OS.md (which every agent is told to read) while letting a shell redirect
+    # write to it. Protected paths are read-freely, write-gated, on every tool.
+    ("harness READ must pass: OS.md", GUARD, read(R + "docs/company/OS.md"), 0),
+    ("harness READ via cat",          GUARD, bash("cat " + R + "docs/company/OS.md"), 0),
+    ("harness READ via sed -n",       GUARD, bash("sed -n '1,40p' " + R + ".claude/hooks/guard.py"), 0),
+    ("bash write: redirect to settings", GUARD, bash("echo x > " + R + ".claude/settings.json"), 2),
+    ("bash write: append to OS.md",   GUARD, bash("echo x >> " + R + "docs/company/OS.md"), 2),
+    ("bash write: sed -i a hook",     GUARD, bash("sed -i '' s/a/b/ " + R + ".claude/hooks/guard.py"), 2),
+    ("bash write: cp over a hook",    GUARD, bash("cp /tmp/x " + R + ".claude/hooks/guard.py"), 2),
     ("scope: read Documents",         GUARD, read("/Users/bilalsbaiby/Documents/x.md"), 2),
     ("scope CONTROL: demand-intel",   GUARD, read("/Users/bilalsbaiby/Desktop/demand-intel/api/routes.py"), 0),
     ("build CONTROL: npm run build",  GUARD, bash("npm run build"), 0),

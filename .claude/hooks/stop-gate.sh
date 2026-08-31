@@ -14,6 +14,18 @@ if printf '%s' "$PAYLOAD" | grep -q '"stop_hook_active"[[:space:]]*:[[:space:]]*
   exit 0
 fi
 
+# SubagentStop is NOT the Definition of Done. A subagent is given a narrow
+# mandate by the session that spawned it — a Phase 1 audit agent is told
+# read-only, never commit, write one file. Demanding a commit and a SESSION.md
+# rewrite from it asks it to break its own instructions to satisfy a shell
+# script, and the correct response from a well-behaved agent is to refuse.
+# One did, on 2026-08-31, and it was right. The gate belongs to the session that
+# holds write authority, not to its read-only children. Record and let it go.
+if printf '%s' "$PAYLOAD" | grep -q '"hook_event_name"[[:space:]]*:[[:space:]]*"SubagentStop"'; then
+  printf '%s  subagent stopped\n' "$TS" >> "$REPO/agent/loop.log"
+  exit 0
+fi
+
 MISSING=""
 [ -f "$REPO/docs/company/SESSION.md" ] || MISSING="$MISSING SESSION.md"
 if [ -n "$(git -C "$REPO" status --porcelain 2>/dev/null)" ]; then
