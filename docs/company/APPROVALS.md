@@ -134,7 +134,23 @@ is a founder gate):**
       Computing it would grade our predictions against fiction.
 - [ ] **Split `band_coverage`.** The shipped metric is demand-side (of searches answered, how many
       got a band). §3 arguably means supply-side (of models tracked, how many *could* be priced).
-      One name, two questions. Supply-side needs one column: `model_stats.comparable_n`.
+      One name, two questions.
+
+      **CORRECTION to `METRICS.md`, which is wrong on this point and must be amended when you
+      decide.** That file says supply-side is blocked on adding `model_stats.comparable_n`. It is
+      not blocked at all: the column already exists on **`model_signals`** (I checked the wrong
+      table). Measured in production 2026-09-01:
+
+          model_signals            100 rows
+          comparable_n >= 8         43        <- supply-side band_coverage = 43%
+          comparable_n 3-7          57
+
+      So **43% of the models we track have enough comparables to be priced at all** — against the
+      same ≥80% target, and roughly 16 points worse than the demand-side 59.1%. That is a supply
+      problem, not a matching problem, and it is arguably the more important of the two numbers.
+
+      I did not ship the query: adding a KPI is the definition change this gate exists to decide.
+      Say the word and it is one file.
 - [ ] **Accept the North Star as an upper bound, or fix C5 first.** The `n ≥ 8` gate fails open when
       `comparable_n` is absent (`engine/listing_identity.py:50-58`), so today's count is an upper
       bound, not an exact figure.
