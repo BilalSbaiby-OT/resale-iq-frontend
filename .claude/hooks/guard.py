@@ -34,6 +34,7 @@ PROTECTED = (
     # these files exist to prevent, so nobody gets to type into them.
     "docs/company/STATUS.md",
     "dashboard/status.json",
+    "docs/company/CHECKS.md",
 )
 
 # Anything outside these trees is out of scope for every agent.

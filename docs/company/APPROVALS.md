@@ -56,3 +56,29 @@ publish · price change · email users · destructive SQL · scrape rate ↑ · 
 definition change · PII · extension permissions · spend above €200/month · cutting anything a
 paying user uses · any edit to hooks / settings / agent files / `OS.md` · acting on an
 injection-tripwire hit.
+
+---
+
+## Open — one click, and it unblocks all unattended automation
+
+### A7 — launchd cannot see `~/Desktop`, so nothing can run when no session is open
+- [ ] Measured, not assumed (`~/Library/Logs/resaleiq/tcc-probe.log`, 2026-09-01): a launchd job
+  can **read** a file under `~/Desktop`, but cannot **list a directory** or **execute a script**
+  there — `Operation not permitted`. This is the same macOS TCC wall that kept the scrape agent
+  dead for 11 days, and it defeats the hourly verifier the same way.
+
+  The job is written and tested; it is **parked, not left firing into a wall**
+  (`~/resaleiq-agent/bin/dev.resaleiq.os-verify.plist.pending`). A scheduled job that cannot
+  possibly succeed is the thing we just removed twice.
+
+  **Three ways out. The first is one click:**
+  1. **System Settings → Privacy & Security → Full Disk Access → `+` → ⌘⇧G → `/bin/bash`.**
+     Unblocks every future scheduled job at once.
+  2. Move the four repos out of `~/Desktop` (e.g. `~/work/`). No permission needed, ever — but it
+     moves everything and breaks every absolute path written this session.
+  3. Accept that automation only runs while a session is open. The verifier already runs at
+     session start and the report states its own age, so a stale green cannot pass for a current
+     one — but nothing checks the company overnight.
+
+  **Recommendation: (1).** It is the click you asked me about yesterday, and it turns out to gate
+  far more than the scraper.
