@@ -62,7 +62,13 @@ injection-tripwire hit.
 ## Open — one click, and it unblocks all unattended automation
 
 ### A7 — launchd cannot see `~/Desktop`, so nothing can run when no session is open
-- [ ] Measured, not assumed (`~/Library/Logs/resaleiq/tcc-probe.log`, 2026-09-01): a launchd job
+**RESOLVED 2026-09-01 by option 2, without needing the founder.** The four repos moved to
+`~/work/`. `dev.resaleiq.os-verify` now runs hourly with no session open — exit 0, empty
+stderr, GREEN. Option (1), the Full Disk Access click, was never needed and is no longer
+requested. Kept below for the measurement, which still governs any future path choice:
+**no unattended work of any kind may live under `~/Desktop`.**
+
+- [x] Measured, not assumed (`~/Library/Logs/resaleiq/tcc-probe.log`, 2026-09-01): a launchd job
   can **read** a file under `~/Desktop`, but cannot **list a directory** or **execute a script**
   there — `Operation not permitted`. This is the same macOS TCC wall that kept the scrape agent
   dead for 11 days, and it defeats the hourly verifier the same way.
@@ -82,3 +88,53 @@ injection-tripwire hit.
 
   **Recommendation: (1).** It is the click you asked me about yesterday, and it turns out to gate
   far more than the scraper.
+
+
+---
+
+### A8 — `docs/company/METRICS.md` is written and blocked at the founder gate
+
+**2026-09-01.** `GAPS.md` B1 — *"the single biggest gap"* — is done except for one file that the
+rails will not let an agent create.
+
+**What already shipped** (none of it gated, all of it on `main`):
+
+| | |
+|---|---|
+| `sql/metrics/*.sql` | 7 KPI queries, one file each, all keeping a 5-column contract |
+| `scripts/company/metrics.py` | the only thing that executes them; opens every db `mode=ro` |
+| `docs/audit/proof/W36/metrics/proof.sh` | **8/8 cold**, incl. a negative control |
+| `build_dashboard.py` | runs the queries **inside the production container**, read-only |
+| `run_verify.sh` | the hourly job now refreshes the dashboard too (GAPS B9, in part) |
+
+**The first production reading — four UNKNOWN panels are now numbers:**
+
+- **North Star `weekly_trusted_checks` = 0**, n = 1. One trusted check in 7 days; they did not return.
+- **`band_coverage` = 59.1 %**, n = 44 — against a §3 target of **≥ 80 %**. Four in ten people who
+  ask us something are told we cannot price it. The most actionable number produced this session.
+- **`insufficient_data_rate` = 40.9 %**, n = 44.
+- **`n_predictions_resolved` = 0 of 340** — C4, at ten times the scale the dev db showed.
+- `pipeline_lag_min` = 1.5 min over 1,344 productive runs. Ingestion is healthy.
+- `retention_30d` = UNKNOWN, n = 0 — correctly: the oldest account is **28 days old**. It starts
+  computing on its own around 2026-09-03.
+
+**What is blocked and why.** `docs/company/METRICS.md` is in `guard.py`'s `PROTECTED` list, because
+OS §3 makes a KPI definition a founder gate. The file is written and staged; I did not create
+`.claude/UNLOCK_HARNESS` to get around it, because an agent that unlocks its own gate has no gate.
+
+- [ ] **Install the staged `METRICS.md`.** One line: `touch .claude/UNLOCK_HARNESS` with a reason,
+      or paste the staged file in yourself. Staged at
+      `/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/METRICS.md`.
+
+**Three definition changes this work forced, which are yours to decide (OS §3: changing a definition
+is a founder gate):**
+
+- [ ] **`MAPE ≤ 15 %` must be struck from §3 or redefined.** It is **impossible**, not merely open:
+      no ground-truth sold price exists or can exist, and the `is_sold = 1` rows are fabricated.
+      Computing it would grade our predictions against fiction.
+- [ ] **Split `band_coverage`.** The shipped metric is demand-side (of searches answered, how many
+      got a band). §3 arguably means supply-side (of models tracked, how many *could* be priced).
+      One name, two questions. Supply-side needs one column: `model_stats.comparable_n`.
+- [ ] **Accept the North Star as an upper bound, or fix C5 first.** The `n ≥ 8` gate fails open when
+      `comparable_n` is absent (`engine/listing_identity.py:50-58`), so today's count is an upper
+      bound, not an exact figure.

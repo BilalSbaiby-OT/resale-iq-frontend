@@ -61,3 +61,7 @@ docs/audit/ACTIVITY.jsonl
 # stays tracked - it is the human-readable record - and is only written when it changes.
 dashboard/status.json
 dashboard/.status.prev.json
+
+# Python bytecode from scripts/company/*.py
+__pycache__/
+*.pyc

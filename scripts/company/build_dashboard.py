@@ -23,6 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 COMPANY = os.path.join(ROOT, "docs", "company")
 AUDIT = os.path.join(ROOT, "docs", "audit")
 OUT = os.path.join(ROOT, "dashboard", "data.json")
+SQL_METRICS = os.path.join(ROOT, "sql", "metrics")
 BACKEND = "ph5clxk9hmghspv65pdkvak9"
 
 UNKNOWN = {"value": None, "unknown": True}
@@ -65,6 +66,54 @@ def ssh_py(script, timeout=120):
         return None
 
 
+# ---------- metrics: the ONLY source of KPI numbers (OS §3) ----------
+_METRICS_CACHE = {}
+# Set by main() when --prod succeeds. Production is the only database where
+# every metric can actually compute, so its results win over the local read.
+_PROD_METRICS = {}
+
+
+def metric_values(db=None):
+    """Run sql/metrics/*.sql and shape the results for the panels.
+
+    Until now every KPI here was a hardcoded unknown() reading "no sql/metrics
+    yet". The files exist, so the panels read them instead of describing their
+    own absence.
+
+    Results keep their `n`, and val() in index.html renders it — so OS §0 rule 2
+    survives all the way to the screen rather than stopping at the query. The
+    `source` field puts the .sql filename under every number, which is the other
+    half of the rule: you can see what produced it without leaving the page.
+
+    Never raises. A metrics failure degrades a panel to UNKNOWN; it does not take
+    the dashboard down.
+    """
+    if _PROD_METRICS:
+        return _PROD_METRICS
+    key = db or "default"
+    if key in _METRICS_CACHE:
+        return _METRICS_CACHE[key]
+    out = {}
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import metrics as _m
+        data = _m.collect(db or _m.DEFAULT_DB)
+        for r in data.get("results", []):
+            name = r.get("metric")
+            if not name:
+                continue
+            if r.get("unknown"):
+                out[name] = unknown(r.get("why") or "no result", r.get("fix"))
+            else:
+                out[name] = {"value": r["value"], "n": r["n"],
+                             "source": "sql/metrics/%s.sql" % name}
+    except Exception as e:  # noqa: BLE001 — a broken metric must not blank the page
+        out = {"_error": unknown("metrics runner failed: %s" % e,
+                                 "python3 scripts/company/metrics.py")}
+    _METRICS_CACHE[key] = out
+    return out
+
+
 # ---------- panel 1: founder inbox ----------
 def founder_inbox():
     txt = read(os.path.join(COMPANY, "APPROVALS.md"))
@@ -74,13 +123,22 @@ def founder_inbox():
 
 # ---------- panel 2: company ----------
 def company(prod):
+    M = metric_values()
     d = {
         "mrr": unknown("no Stripe read", "run with --prod"),
         "customers": unknown("no Stripe read", "run with --prod"),
-        "north_star_weekly_trusted_checks": unknown(
-            "no sql/metrics/weekly_trusted_checks.sql yet",
-            "Phase 2: write the metric and its counter"),
-        "retention_30d": unknown("no sql/metrics/retention.sql yet", "Phase 2"),
+        # Upper bound, not an exact count: the n>=8 gate fails open when
+        # comparable_n is absent (GAPS C5). METRICS.md says so; so must anyone
+        # quoting this number.
+        "north_star_weekly_trusted_checks": M.get(
+            "weekly_trusted_checks",
+            unknown("sql/metrics/weekly_trusted_checks.sql did not run", None)),
+        "retention_30d": M.get(
+            "retention_30d",
+            unknown("sql/metrics/retention_30d.sql did not run", None)),
+        "trial_to_paid": M.get(
+            "trial_to_paid",
+            unknown("sql/metrics/trial_to_paid.sql did not run", None)),
         "spend_vs_cap": unknown("no spend ledger yet",
                                 "Phase 2: finance-ops writes docs/company/LEDGER.md"),
         "spend_cap_eur": 200,
@@ -92,12 +150,26 @@ def company(prod):
 
 # ---------- panel 3: quality ----------
 def quality(prod):
+    M = metric_values()
     d = {
         "canary": unknown("no canary set yet",
                           "Phase 2: 60 frozen labelled listings with auto-revert"),
         "match_precision": unknown("no 30-sample audit run yet", "Phase 2: /precision"),
-        "band_coverage": unknown("no sql/metrics yet", "Phase 2"),
-        "insufficient_data_rate": unknown("no sql/metrics yet", "Phase 2"),
+        # These two are COMPLEMENTS on the same window (band_coverage =
+        # 100 - insufficient_data_rate, by construction). They are one
+        # measurement from two sides and must never be read as corroborating
+        # each other — see METRICS.md.
+        "band_coverage": M.get(
+            "band_coverage", unknown("sql/metrics/band_coverage.sql did not run", None)),
+        "insufficient_data_rate": M.get(
+            "insufficient_data_rate",
+            unknown("sql/metrics/insufficient_data_rate.sql did not run", None)),
+        "n_predictions_resolved": M.get(
+            "n_predictions_resolved",
+            unknown("sql/metrics/n_predictions_resolved.sql did not run", None)),
+        "pipeline_lag_min": M.get(
+            "pipeline_lag_min",
+            unknown("sql/metrics/pipeline_lag_min.sql did not run", None)),
     }
     if prod:
         d.update(prod.get("quality", {}))
@@ -300,6 +372,86 @@ print(json.dumps(out))
 '''
 
 
+# Ships sql/metrics/*.sql into the production container and runs them there.
+#
+# The queries are NOT duplicated here: sql/metrics/ stays the single definition
+# and this is transport only. The container has no copy of the repo, so the files
+# travel inline with the script — which also means a query edited locally takes
+# effect on the next run with no deploy.
+#
+# Why this exists at all: the local demand_intel.db is a stale dev copy missing
+# four migrated columns, so weekly_trusted_checks and retention_30d can NEVER
+# compute against it. Reading the North Star from the local db would report
+# UNKNOWN forever while production had the answer all along.
+PROD_METRICS_SCRIPT = r"""
+import json, sqlite3
+FILES = __FILES__
+CONTRACT = ("metric", "value", "n", "window_start", "window_end")
+out = []
+try:
+    con = sqlite3.connect("file:/app/data/demand_intel.db?mode=ro", uri=True, timeout=20)
+    for name, sql in sorted(FILES.items()):
+        try:
+            cur = con.execute(sql)
+            cols = tuple(d[0] for d in cur.description or ())
+            rows = cur.fetchall()
+        except Exception as e:
+            out.append({"metric": name, "unknown": True, "why": str(e)[:200]})
+            continue
+        if cols != CONTRACT or len(rows) != 1:
+            out.append({"metric": name, "unknown": True,
+                        "why": "contract violation: %s / %d rows" % (str(cols), len(rows))})
+            continue
+        m, v, n, w0, w1 = rows[0]
+        n = int(n or 0)
+        if n == 0:
+            out.append({"metric": m or name, "unknown": True, "why": "inspected nothing (n = 0)"})
+        elif v is None:
+            out.append({"metric": m or name, "unknown": True,
+                        "why": "query returned NULL over a non-empty population"})
+        else:
+            out.append({"metric": m or name, "value": v, "n": n,
+                        "window_start": w0, "window_end": w1})
+    con.close()
+except Exception as e:
+    out.append({"metric": "_all", "unknown": True, "why": "prod db: " + str(e)[:200]})
+print(json.dumps(out))
+"""
+
+
+def prod_metric_values():
+    """Run the metric queries against production. Returns {} on any failure."""
+    files = {}
+    try:
+        for f in sorted(os.listdir(SQL_METRICS)):
+            if f.endswith(".sql"):
+                files[f[:-4]] = read(os.path.join(SQL_METRICS, f))
+    except OSError:
+        return {}
+    if not files:
+        return {}
+
+    raw = ssh_py(PROD_METRICS_SCRIPT.replace("__FILES__", json.dumps(files)))
+    if not raw:
+        return {}
+    try:
+        rows = json.loads(raw.strip().splitlines()[-1])
+    except Exception:
+        return {}
+
+    out = {}
+    for r in rows:
+        name = r.get("metric")
+        if not name:
+            continue
+        if r.get("unknown"):
+            out[name] = unknown(r.get("why") or "no result", None)
+        else:
+            out[name] = {"value": r["value"], "n": r["n"],
+                         "source": "sql/metrics/%s.sql (production)" % name}
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--prod", action="store_true",
@@ -308,6 +460,11 @@ def main():
 
     prod = None
     if args.prod:
+        global _PROD_METRICS
+        _PROD_METRICS = prod_metric_values()
+        if not _PROD_METRICS:
+            print("prod metrics read failed — KPI panels fall back to the local db",
+                  file=sys.stderr)
         raw = ssh_py(PROD_SCRIPT)
         if raw:
             try:

@@ -7,19 +7,19 @@ OS STATUS                                  checked 0m ago
 
   GREEN — nothing blocking
 
+WHAT CHANGED
+  production/dashboard-data-fresh              ✗ -> ✓
+
 UNKNOWN — asked, no answer (never rendered as zero)
-  company.north_star_weekly_trusted_checks no sql/metrics/weekly_trusted_checks.sql yet
-      -> Phase 2: write the metric and its counter
-  company.retention_30d              no sql/metrics/retention.sql yet
-      -> Phase 2
+  company.retention_30d              inspected nothing (n = 0)
   company.spend_vs_cap               no spend ledger yet
       -> Phase 2: finance-ops writes docs/company/LEDGER.md
   quality.canary                     no canary set yet
       -> Phase 2: 60 frozen labelled listings with auto-revert
   quality.match_precision            no 30-sample audit run yet
       -> Phase 2: /precision
-  quality.band_coverage              no sql/metrics yet
-      -> Phase 2
+  security.restore_test              no restore drill recorded
+      -> SECURITY-AUDIT.md finding #2
 
   17 checks · 0 failed · 0 inspected nothing
 ```
