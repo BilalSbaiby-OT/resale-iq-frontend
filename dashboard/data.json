@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T20:52:06Z",
+  "generated_at": "2026-08-31T21:11:33Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [],
@@ -70,21 +70,21 @@
       "fix": "Phase 2"
     },
     "listings_total": {
-      "value": 12608434
+      "value": 12639356
     },
     "newest_sold_at": {
-      "value": "2026-08-31 20:26:03"
+      "value": "2026-08-31 21:11:14"
     },
     "predictions_total": {
-      "value": 337
+      "value": 340
     }
   },
   "funnel": {
     "verdicts_7d": {
-      "value": 75
+      "value": 78
     },
     "pageviews_7d": {
-      "value": 985
+      "value": 971
     },
     "signups_7d": {
       "value": 3
@@ -107,6 +107,26 @@
     ],
     "recent_commits": [
       {
+        "sha": "8155727",
+        "msg": "os: settings deny on push-to-main is superseded by the guard token gate"
+      },
+      {
+        "sha": "7e58600",
+        "msg": "os: gate the production deploy on an explicit founder token"
+      },
+      {
+        "sha": "2443a8a",
+        "msg": "merge: the 20-point security checklist evidence — 18 PASS, 1 FIXED, 1 OPEN. Founder approved 2026-08-31."
+      },
+      {
+        "sha": "d975931",
+        "msg": "merge: truth pass, Business tier removed, copy humanized"
+      },
+      {
+        "sha": "badadbd",
+        "msg": "dashboard: refresh against production after the four lanes landed"
+      },
+      {
         "sha": "530bb87",
         "msg": "os: build the org roster, and audit the master prompt against what exists"
       },
@@ -123,39 +143,19 @@
         "msg": "fix: the fallback scraper had never run once, and it was broken two ways"
       },
       {
-        "sha": "ac55769",
-        "msg": "dashboard: the founder's 15-minute view, reading production"
+        "sha": "e688bf0",
+        "msg": "Bklit UI eval: real gap, missing prerequisite, conditional go"
       },
       {
-        "sha": "78cca53",
-        "msg": "os: waive Gate 1 and switch to build mode, on the founder's call"
+        "sha": "66a47f4",
+        "msg": "docs(audit): security-eng 20-point hardening checklist (W36)"
       },
       {
-        "sha": "a8f2f15",
-        "msg": "access: take the credentials the founder pointed at, and find out the company has no revenue"
-      },
-      {
-        "sha": "163ee48",
-        "msg": "audit: land marketing and support, and correct a finding that did not survive review"
-      },
-      {
-        "sha": "83b9da9",
-        "msg": "os: fix two rails the audit found, and land the first four audit files"
-      },
-      {
-        "sha": "32a8df8",
-        "msg": "audit: walk the funnel, and find that the first check a new visitor makes returns nothing"
-      },
-      {
-        "sha": "b9aeb43",
-        "msg": "os: record the founder's answers, and adapt the charter to the stack we actually run"
-      },
-      {
-        "sha": "5a0709e",
-        "msg": "os: install the company rails before reading a line of product code"
+        "sha": "2552976",
+        "msg": "content: humanize pass — audit found the front end already clean"
       }
     ],
-    "dirty": false,
+    "dirty": true,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-08-31T16:24:00Z\nWIP:     Company OS bootstrap — Phase 1 audit (read-only)\nRELEASE: delete this file, or set HOLDER: none\n\nWIP = 1 per agent (OS §0.5). If HOLDER is not you, do not edit this repo.\nThis is the OS-level lock. The lane lock for the two loop agents is still\nagent/HANDOFF.md (OWNER) — both must agree before an edit."
   },
   "audits": [
@@ -197,6 +197,280 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-08-31T21:10:56Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport re,html\ns=open('/tmp/m.html').read()\n# strip tags + unescape, then find the freshness table rows\nt=re.sub(r'<script[^>]*>.*?</script>','',s,flags=re.S)\nt=re.sub(r'<[^>]+>',' ',",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:10:33Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo \"=== what are the 2 remaining 'Business' mentions? ===\"\ngrep -o \".\\{70\\}Business.\\{70\\}\" /tmp/home.html | head -3 | sed 's/^/  … /'\necho\necho \"=== cadence claim now says? ===\"\ncurl -sS -m 20 \"htt",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:10:23Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo \"=== live pricing page: is Business €99 gone? ===\"\ncurl -sS -m 20 \"https://resaleiq.dev/?cb=$(date +%s)\" -o /tmp/home.html\nfor s in \"Business\" \"€99\" \"99\" \"Talk to us\" \"All 100 product signals\" \"1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:10:13Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\ndocs/audit/proof/W36/phase0/proof.sh 2>&1 | grep -E \"passed|FAIL\"\necho \"--- frontend deploy status ---\"\ngh run list --limit 2 2>&1 | head -3",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:10:00Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\nprintf 'Audit-integrity fix: log() hardcoded **BLOCKED**, so an ALLOWED deploy was recorded as blocked. 2026-08-31.\\n' > .claude/UNLOCK_HARNESS\npython3 - <<'PY'",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:09:41Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\nrm .claude/DEPLOY_APPROVED\necho \"DEPLOY_APPROVED removed: $([ -f .claude/DEPLOY_APPROVED ] && echo STILL-THERE-BAD || echo yes)\"\necho \"--- gate closed again? --",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:09:24Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "gh run list --limit 4 2>&1 | head -5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:07:14Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\ngit status --porcelain | head -5\ngit add -A .claude/settings.json docs 2>/dev/null\ngit commit -q -m \"os: settings deny on push-to-main is superseded by the guar",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:06:57Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo \"=== fresh visitor, no cookies at all ===\"\ncurl -sS -m 20 -D /tmp/h.txt \"https://resaleiq.dev/api/verdict?q=Adidas%20Samba\" -o /tmp/v.json\necho \"--- response ---\"; head -c 400 /tmp/v.json; echo\ne",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:06:45Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel\ni=0\nuntil [ $i -ge 20 ]; do\n  S=$(gh run list --limit 1 --json status,conclusion,name -q '.[0] | \"\\(.name)|\\(.status)|\\(.conclusion)\"' 2>/dev/null)\n  case \"$",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:02:33Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && git push origin main 2>&1 | tail -5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:02:25Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\nprintf 'Deploy: the settings.json blanket deny on push-to-main is redundant now that guard.py gates it on\\n.claude/DEPLOY_APPROVED (token-based, logged, revocab",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:02:03Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\npython3 - <<'PY'\np=\"docs/audit/proof/W36/phase0/test_rails.py\"; s=open(p).read()\nold = '    (\"deploy: push to main\",          GUARD, bash(\"git push origin main\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:01:45Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\necho \"=== gate CLOSED (no token) ===\"\ndocs/audit/proof/W36/phase0/proof.sh 2>&1 | grep -E \"deploy:|passed|FAIL\"\necho\nprintf 'Founder, 2026-08-31: \"yeh do it go ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:01:31Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Edit",
+      "files": [
+        "/Users/bilalsbaiby/Desktop/resale-iq/docs/audit/proof/W36/phase0/test_rails.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:01:23Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\nprintf 'Add a founder-gated deploy token to guard.py. Founder said ship both, 2026-08-31.\\n' > .claude/UNLOCK_HARNESS\npython3 /private/tmp/claude-501/-Users-bil",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:01:01Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-Desktop/762b8ce6-729a-419d-9dff-2109a3e524d7/scratchpad/patch_guard_deploy.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:00:40Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\necho \"=== the frontend gate, re-run on the ACTUALLY merged tree ===\"\nnpx tsc --noEmit 2>&1 | tail -3 && echo \"  tsc: clean\"\nfor c in check:tracked check:warehou",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:00:17Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\npython3 - <<'PY'\nimport re\np=\"docs/company/SECURITY-LOG.md\"\nkeep=[l for l in open(p).read().splitlines() if not l.startswith((\"<<<<<<<\",\"=======\",\">>>>>>>\"))]\nh",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T21:00:04Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\ngit checkout -q main\ngit merge --no-ff -q claude/content/humanize-frontend -m \"merge: truth pass, Business tier removed, copy humanized\n\nEvery claim CLAIMS.md a",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:59:48Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel\ngit checkout -q main\necho \"=== merging into demand-intel main ===\"\ngit merge --no-ff -q claude/backend-eng/anon-quota-cookie -m \"merge: anon verdict quota ke",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:54:34Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\necho \"=== are the LIVE Starter/Pro price IDs untouched? (the only payment risk) ===\"\ngit diff main..claude/content/humanize-frontend -- src/lib/pricing.ts | gre",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:54:17Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\necho \"############ OPTION B — everything else (resale-iq frontend) ############\"\necho \"=== truth pass + Business cut + humanize (cumulative, main..humanize-fron",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:54:03Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel\ngit checkout -q claude/backend-eng/anon-quota-cookie\necho \"=== the ceiling value ===\"\ngrep -n \"ANON_IP_DAILY_CEILING\\|ANON_VISITOR_COOKIE_MAX_AGE\" config.py ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:53:45Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel\necho \"=== does the extension send cookies? (service-worker fetch) ===\"\ngrep -n \"fetch(\\|credentials\\|X-Api-Key\\|headers\" ~/Desktop/resale-iq/extension/backgr",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:53:32Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo \"############ OPTION A — P0 ONLY (demand-intel: anon-quota-cookie) ############\"\ncd /Users/bilalsbaiby/Desktop/demand-intel\ngit diff --stat main..claude/backend-eng/anon-quota-cookie | tail -12\ne",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-08-31T20:52:07Z",
+      "session": "762b8ce6",
+      "agent": "ceo",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq\n.claude/bin/with-secrets.sh python3 scripts/company/build_dashboard.py --prod 2>&1 | grep -v \"line 21\"\ngit add -A dashboard && git commit -q -m \"dashboard: refr",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-08-31T20:51:39Z",
       "session": "762b8ce6",
@@ -434,286 +708,14 @@
       "cmd": "",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:47:03Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== what actually serves /admin on production? ===\"\ncurl -sS -m 15 -o /tmp/admin.html -w \"  HTTP %{http_code}  %{size_download}b  ct=%{content_type}\\n\" https://resaleiq.dev/admin\necho \"  is it t",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:46:21Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && git status --short; git branch --show-current",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:46:18Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git checkout claude/content/humanize-frontend -q && git branch --show-current && git status --short",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:46:14Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --short && git add docs/audit/proof/W36/security-20/CHECKLIST.md && git commit -m \"$(cat <<'EOF'\ndocs(audit): security-eng 20-point hardening checklist (W36)\n\nPhase 2 of the hardening pass,",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:46:08Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Write",
-      "files": [
-        "/Users/bilalsbaiby/Desktop/resale-iq/docs/audit/proof/W36/security-20/CHECKLIST.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:45:57Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq-growth && sqlite3 -header -column data/growth.db \"SELECT brand, model, category, sold_7d, sold_median_eur, max_buy_eur, sample_n, confidence FROM model_signals ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:45:33Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 -c \"\nimport json\nd = json.load(open('/tmp/reddit_queue.json'))\nbyid = {x['id']: x for x in d}\nfor i in [401,402,403,404,405,339]:\n    x = byid[i]\n    print('='*70)\n    print(i, x['subreddit'],",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:45:18Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 -c \"\nimport json\nd = json.load(open('/tmp/reddit_queue.json'))\nalert = [x for x in d if 'Market alert' in x['title']]\nfor x in alert:\n    print(x['id'], x['subreddit'])\n\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:45:06Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && sqlite3 -json \"file:demand_intel.db?mode=ro\" \"SELECT id, subreddit, title, body, created_at FROM reddit_queue WHERE created_at='2026-08-23 08:00:00' ORDER",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:44:55Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Write",
-      "files": [
-        "/Users/bilalsbaiby/Desktop/resale-iq-growth/QUEUE-INSTAGRAM-W1.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:44:15Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git fetch origin -q; git checkout main -q && git pull -q --ff-only 2>&1 | tail -5; git checkout -b claude/security-eng/hardening-20 -q && git branch --show-current",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:44:08Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --short | wc -l; git status --short | head -30; git log --oneline -3",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:44:00Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "find docs/audit/proof/W36 -maxdepth 3 | head -40; git status --short | head -20; git branch --show-current",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:57Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "pwd; git remote -v 2>&1 | head -2",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:50Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ls docs/audit/proof 2>/dev/null; mkdir -p docs/audit/proof/W36/security-20 && ls docs/audit/proof/W36/security-20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:47Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && grep -n \"ALLOWED_ORIGINS\\|security_headers\\|def get_verdict\\|def check_rate_limit\\|def auth_attempts_ok\\|def reset_request_ok\\|def register_attempts_ok\" m",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:46Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && grep -n \"_EMAIL_RE = re.compile\" api/auth.py; grep -n \"_pwd = CryptContext\" api/auth.py; grep -n \"if user_id\" api/resale_routes.py | head -0; grep -n \"def",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:43Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "curl -s https://resaleiq.dev/methodology 2>/dev/null | python3 -c \"\nimport sys,re\nhtml = sys.stdin.read()\ntext = re.sub('<[^<]+?>', ' ', html)\ntext = re.sub(r'\\s+', ' ', text)\nidx = text.find('760')\np",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:41Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && git add api/auth.py frontend/admin.html tests/test_register_email_validation.py && git commit -m \"$(cat <<'EOF'\nfix: reject HTML metacharacters in registe",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:38Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "curl -s https://resaleiq.dev/methodology 2>/dev/null | python3 -c \"\nimport sys,re\nhtml = sys.stdin.read()\ntext = re.sub('<[^<]+?>', ' ', html)\ntext = re.sub(r'\\s+', ' ', text)\nprint(text[:6000])\n\" ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:34Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && git status && git diff --stat",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:30Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && grep -rniE \"sk_live|sk_test|resend_api|jwt_secret\\s*=\\s*['\\\"]\" frontend/*.html 2>/dev/null | head -20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:21Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/demand-intel && grep -rln \"ecdsa\" --include=\"*.py\" api/ db/ engine/ scrapers/ main.py config.py 2>/dev/null; echo \"search done\"; grep -n \"JWT_ALGORITHM\" api/auth.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:12Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "curl -s \"https://api.osv.dev/v1/vulns/PYSEC-2026-1325\" | python3 -m json.tool 2>&1 | head -60",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:11Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "curl -s https://pypi.org/pypi/python-jose/3.5.0/json | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(d['info']['requires_dist'])\n\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:02Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/Desktop/resale-iq-growth && sqlite3 -header -column data/growth.db \"SELECT id, platform, format, status, hook, caption, cta, link FROM content WHERE id=51;\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-08-31T20:43:01Z",
-      "session": "762b8ce6",
-      "agent": "ceo",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "/private/tmp/claude-501/-Users-bilalsbaiby-Desktop/762b8ce6-729a-419d-9dff-2109a3e524d7/scratchpad/audit-venv/bin/pip show ecdsa 2>&1 | head -10; echo ---; curl -s https://osv.dev/vulnerability/PYSEC-",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 25,
+    "blocked": 27,
     "tripwire": 0,
     "recent": [
+      "`2026-08-31T21:01:12Z` **BLOCKED** Bash — git push --force — `cd /Users/bilalsbaiby/Desktop/resale-iq printf 'Add a founder-gated deploy token to guard.py. Founder said \"yeh do it go on ship",
+      "`2026-08-31T20:48:07Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq-growth && git commit -m \"$(cat <<'EOF' Postiz readiness, and the first real co",
       "`2026-08-31T20:35:33Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq-growth && grep -E \"^[A-Z_]+=.+\" .env | sed -E 's/=.{4,}$/=<SET>/' | grep -iE \"",
       "`2026-08-31T20:35:30Z` **BLOCKED** Write — protected harness path (.claude/agents/) — `/Users/bilalsbaiby/Desktop/resale-iq/.claude/agents/verifier.md`",
       "`2026-08-31T20:35:24Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/demand-intel && git log --all -p 2>/dev/null | grep -niE \"(password|passwd|secret|token|",
@@ -723,9 +725,7 @@
       "`2026-08-31T17:09:38Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/demand-intel && grep -rn \"APP_URL\" .env* config.py 2>/dev/null | head -10`",
       "`2026-08-31T17:06:39Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq-growth && cat .env 2>&1 | head -5`",
       "`2026-08-31T17:06:28Z` **BLOCKED** Bash — direct read of a .env file — `ls -la /Users/bilalsbaiby/Desktop/resale-iq-growth/deploy/ echo \"---\" cat /Users/bilalsbaiby/Desktop/resale-iq-growth/",
-      "`2026-08-31T17:05:13Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-Desktop/762b8ce6-729a-419d-9dff-2109a3e524d7/tool-results/bgyu1",
-      "`2026-08-31T16:52:12Z` **BLOCKED** Bash — would print a secret value into the transcript — `cd /Users/bilalsbaiby/Desktop/resale-iq printf 'Narrow the print-a-secret rule; it blocked benign ",
-      "`2026-08-31T16:51:35Z` **BLOCKED** Bash — would print a secret value into the transcript — `cd /Users/bilalsbaiby/Desktop/resale-iq echo \"===== STRIPE: live subscriptions (aggregate only, no"
+      "`2026-08-31T17:05:13Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-Desktop/762b8ce6-729a-419d-9dff-2109a3e524d7/tool-results/bgyu1"
     ],
     "restore_test": {
       "value": null,

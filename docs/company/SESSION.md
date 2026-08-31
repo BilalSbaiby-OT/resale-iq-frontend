@@ -3,16 +3,22 @@
 **Updated** 2026-08-31 (CEO, main session)
 
 ## Working on
-**BUILD MODE.** The founder called it on 2026-08-31: too much auditing, nothing shipped.
-Gate #1 is waived as a blocking stop — the audit findings are enough to act on. Four lanes
-are running in parallel, on separate branches, on disjoint files:
+**SHIPPED, 2026-08-31.** Founder said "yeh do it go on ship both". Both repos deployed to
+production, both verified live.
 
-| Lane | Repo / dir | Shipping |
+| Deploy | Gate | Result |
 |---|---|---|
-| `backend-eng` | `demand-intel` | P0 #1 — anonymous quota keyed to a signed cookie, not IP; fix `_client_ip()` XFF |
-| `frontend-eng` | `resale-iq/src` | truth pass on every FALSE claim + remove Business €99 (AM-3) |
-| `designer` | `resale-iq/design` | tokens from live CSS, the 4 extension panel states, landing hero |
-| `content-social` + `seo` | growth / seo repos | deploy Postiz, 10 IG + 10 Reddit posts queued, SEO kill list |
+| `demand-intel` → backend | 1,159 pytest | ✅ Tests + Deploy green |
+| `resale-iq` → frontend | tsc + 4 honesty checks + build | ✅ Agent Isolation + Deploy green |
+
+**The P0 is fixed in production.** A cookieless request to `/api/verdict?q=Adidas Samba` returns
+`WATCH · n=81 · buy_below €30.67`. That exact request returned `LIMIT_REACHED` at the start of the
+session. Cookie issued with `HttpOnly; SameSite=lax; Secure`.
+
+**Verified live on the site:** `€99` 0 occurrences, "Talk to us" 0, "100 product signals" 0, hero
+reads "the first marketplace it covers", `/methodology` now says "about every 30 minutes — measured
+on production, 97% of gaps under an hour" and "Signal recomputation ~every 2 hours". The
+"at most about an hour behind the market" overclaim is gone.
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.

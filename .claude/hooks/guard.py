@@ -55,7 +55,9 @@ POST_HOSTS_OK = ("localhost", "127.0.0.1", "resaleiq.dev", "62.238.51.83", "0.0.
 RM_SAFE = ("scratchpad", "node_modules", ".next", "test-results", "/private/tmp/", "tsconfig.tsbuildinfo")
 
 
-def log(reason, tool, detail):
+def log(reason, tool, detail, label="BLOCKED"):
+    """label distinguishes a refusal from a sanctioned action. An audit trail that
+    calls an allowed deploy 'BLOCKED' teaches its reader to distrust it."""
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     os.makedirs(os.path.dirname(LOG), exist_ok=True)
     if not os.path.exists(LOG):
@@ -63,7 +65,7 @@ def log(reason, tool, detail):
             fh.write("# SECURITY-LOG\n\nEvery blocked call and every tripwire hit. "
                      "Written by hooks only.\n\n")
     with open(LOG, "a") as fh:
-        fh.write(f"- `{stamp}` **BLOCKED** {tool} — {reason} — `{detail[:300]}`\n")
+        fh.write(f"- `{stamp}` **{label}** {tool} — {reason} — `{detail[:300]}`\n")
 
 
 def block(reason, tool, detail, remedy):
@@ -225,7 +227,8 @@ def main():
                 reason = open(approved).read().strip().splitlines()[0][:160]
             except OSError:
                 reason = "(token unreadable)"
-            log("DEPLOY ALLOWED by .claude/DEPLOY_APPROVED — " + reason, "Bash", cmd)
+            log("authorised by .claude/DEPLOY_APPROVED — " + reason, "Bash", cmd,
+                label="DEPLOY ALLOWED")
         check_bash(cmd)
     elif tool in ("Read", "Edit", "Write", "NotebookEdit", "MultiEdit"):
         paths = [ti.get("file_path") or ti.get("notebook_path") or ""]
