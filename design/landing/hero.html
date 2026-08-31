@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resale IQ — Landing hero reference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* Tokens from /design/tokens.json — see color.background / color.text / color.verdict */
+  :root {
+    --bg: #0B0D10;                 /* globals.css:9 */
+    --surface: #12151d;            /* globals.css:14 */
+    --border: #1e2535;             /* globals.css:16 */
+    --border-2: #263147;           /* globals.css:17 */
+    --border-ui: #1c2333;          /* globals.css:18 */
+    --text-primary: #e8ecf4;       /* globals.css:19 */
+    --text-secondary: #8fa3c4;     /* globals.css:20 */
+    --text-muted: #546380;         /* globals.css:21 */
+    --text-hero-body: #93a1bd;     /* src/app/page.tsx:74 */
+    --on-buy: #06090c;             /* globals.css:23 */
+    --buy: #22c55e;                /* globals.css:24-25 */
+    --watch: #eab308;              /* free-checker.tsx:39 — see tokens.json known_splits */
+    --focus: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text-primary);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  *:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .spec-strip { background: #050607; color: #8fa3c4; font-family: ui-monospace, monospace; font-size: 12px; padding: 10px 20px; border-bottom: 1px solid var(--border); }
+  .spec-strip b { color: var(--buy); }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; max-width: 1080px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--on-buy); }
+  .brand span { font-size: 16px; font-weight: 700; }
+  .navlinks { display: flex; gap: 8px; align-items: center; }
+  .navlinks a { font-size: 13.5px; text-decoration: none; padding: 8px 14px; }
+  .navlinks a.signin { color: var(--text-secondary); }
+  .navlinks a.pricing-link { color: #c3cde0; border: 1px solid #232c42; border-radius: 8px; font-weight: 600; }
+
+  .hero-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 48px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 0.95fr; gap: 48px; align-items: center; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  h1 { font-size: 52px; font-weight: 800; letter-spacing: -2px; line-height: 1.05; margin: 0; }
+  @media (max-width: 560px) { h1 { font-size: 36px; letter-spacing: -1.1px; } }
+  .accent { color: var(--buy); }
+
+  .hero-body { font-size: 17.5px; color: var(--text-hero-body); margin-top: 22px; line-height: 1.6; max-width: 480px; }
+  .hero-from { font-size: 13.5px; color: var(--text-secondary); margin-top: 12px; max-width: 480px; }
+
+  .checker { margin-top: 28px; max-width: 520px; background: #12151d; border: 1px solid var(--border-ui); border-radius: 14px; padding: 20px; }
+  .checker-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .checker input {
+    flex: 1 1 240px; min-width: 0; background: #0f1218; border: 1px solid #232c42; border-radius: 10px;
+    padding: 13px 15px; color: #eef1f7; font-size: 14.5px; font-family: inherit;
+  }
+  .checker input::placeholder { color: #556080; }
+  .checker input:focus-visible { outline: 2px solid var(--buy); outline-offset: 1px; border-color: var(--buy); }
+  .checker button {
+    background: var(--buy); color: var(--on-buy); font-weight: 700; font-size: 14.5px; border: none;
+    border-radius: 10px; padding: 13px 22px; cursor: pointer; font-family: inherit;
+  }
+  .checker-result { margin-top: 18px; border-top: 1px solid var(--border-ui); padding-top: 16px; }
+  .checker-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 10px; }
+  .stat { background: #1a2030; border-radius: 9px; padding: 11px 13px; }
+  .stat-label { font-size: 10.5px; color: #5b6b8c; text-transform: uppercase; letter-spacing: .5px; }
+  .stat-value { font-size: 17px; font-weight: 800; color: #eef1f7; margin-top: 2px; }
+  .stat-value.green { color: var(--buy); }
+  .verdict-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .verdict-tag { font-size: 22px; font-weight: 800; color: var(--watch); letter-spacing: .3px; }
+  .honesty-note { margin-top: 10px; font-size: 12.5px; color: #c4a574; line-height: 1.5; }
+
+  .cta-row { display: flex; gap: 20px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+  .cta-row a { font-size: 13.5px; text-decoration: none; }
+  .cta-chrome { font-weight: 600; color: #c3cde0; border: 1px solid #232c42; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; }
+  .cta-secondary { color: var(--text-secondary); }
+
+  /* right column — evidence panel, mirrors extension-hero.tsx */
+  .evidence { width: 100%; max-width: 460px; margin-inline: auto; }
+  .evidence-card { position: relative; background: #12151d; border: 1px solid var(--border-ui); border-radius: 14px; min-height: 300px; overflow: hidden; }
+  .evidence-listing { padding: 16px 16px 90px; }
+  .evidence-listing .breadcrumb { font-size: 11px; color: #5b6b8c; letter-spacing: .4px; }
+  .evidence-listing h3 { font-size: 18px; font-weight: 800; color: #eef1f7; margin: 10px 0 0; line-height: 1.25; }
+  .evidence-listing .meta { font-size: 13px; color: #8b99b8; margin-top: 6px; }
+  .evidence-listing .price { font-size: 28px; font-weight: 800; color: #eef1f7; margin-top: 14px; letter-spacing: -1px; }
+  .badge { position: absolute; left: 14px; bottom: 14px; width: 232px; }
+  .badge-card { background: #12151d; border: 1px solid #1c2333; border-left: 3px solid var(--buy); border-radius: 12px; padding: 13px 15px; box-shadow: 0 8px 28px rgba(0,0,0,.45); }
+  .badge-head { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #8b99b8; margin-bottom: 9px; }
+  .badge-logo { width: 17px; height: 17px; border-radius: 5px; color: #06090c; background: linear-gradient(135deg,#22c55e,#0ea5e9); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
+  .badge-verdict { margin-left: auto; font-weight: 800; font-size: 10.5px; letter-spacing: .4px; color: var(--watch); }
+  .badge-match { font-size: 10.5px; color: #5b6b8c; margin-bottom: 6px; }
+  .badge-num { font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: #eef1f7; }
+  .badge-sub { font-size: 11.5px; color: #7f8da9; margin-top: 3px; line-height: 1.45; }
+  .badge-row { font-size: 12px; color: #a9b6d0; margin-top: 8px; }
+  .evidence-caption { font-size: 11.5px; color: #5b6b8c; margin-top: 10px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="spec-strip">maps to → <b>src/app/page.tsx</b> hero section (lines ~57-103) + <b>src/components/tools/free-checker.tsx</b> + <b>src/components/landing/extension-hero.tsx</b>. Message per OS §6: "The Vinted price check that tells you when it doesn't know."</div>
+
+<nav>
+  <a class="brand" href="#" aria-label="Resale IQ home">
+    <span class="mark" aria-hidden="true">R</span>
+    <span>Resale IQ</span>
+  </a>
+  <div class="navlinks">
+    <a class="signin" href="#">Sign in</a>
+    <a class="pricing-link" href="#">Pricing</a>
+  </div>
+</nav>
+
+<main class="hero-wrap">
+  <div class="hero-grid">
+    <div>
+      <h1>The Vinted price check<br>that tells you <span class="accent">when it doesn't know</span>.</h1>
+      <p class="hero-body">
+        Type any brand and model. Get the highest price worth paying, from
+        sold listings across five EU markets — and a plain "not enough data"
+        when that's the honest answer, not a guess dressed up as one.
+      </p>
+      <p class="hero-from">From 3,711,796 listings tracked across ES / FR / DE / IT / PT, refreshed roughly every 2 hours.</p>
+
+      <div class="checker">
+        <div class="checker-row">
+          <input type="text" value="Adidas Samba" aria-label="Item to check" readonly>
+          <button type="button">Check it free</button>
+        </div>
+        <div class="checker-result">
+          <div class="checker-stats">
+            <div class="stat"><div class="stat-label">Buy-below</div><div class="stat-value green">€33</div></div>
+            <div class="stat"><div class="stat-label">Avg sold</div><div class="stat-value">€50</div></div>
+            <div class="stat"><div class="stat-label">Sold (watched)</div><div class="stat-value">42</div></div>
+          </div>
+          <div class="verdict-row">
+            <span class="verdict-tag">WATCH</span>
+            <span style="font-size:12.5px;color:#5b6b8c;">Confidence HIGH · sold Aug 3–31</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12.5px;color:#8b99b8;margin-top:10px;line-height:1.5;">10 checks/day, no account. 7-day full trial, then 10/month.</p>
+
+      <div class="cta-row">
+        <a class="cta-chrome" href="#">Add to Chrome →</a>
+        <a class="cta-secondary" href="#">or check a model above ↑</a>
+      </div>
+    </div>
+
+    <div class="evidence">
+      <div class="evidence-card">
+        <div class="evidence-listing">
+          <div class="breadcrumb">vinted.es · listing</div>
+          <h3>Adidas Samba</h3>
+          <div class="meta">Size 42 · Very good</div>
+          <div class="price">40,00 €</div>
+        </div>
+        <div class="badge">
+          <div class="badge-card">
+            <div class="badge-head">
+              <span class="badge-logo" aria-hidden="true">R</span> Resale IQ
+              <span class="badge-verdict">WATCH</span>
+            </div>
+            <div class="badge-match">matched: Adidas Samba</div>
+            <div class="badge-num">€33</div>
+            <div class="badge-sub">most you can pay for your margin</div>
+            <div class="badge-row">avg sold <b style="color:#eef1f7">€50</b> · n 42</div>
+          </div>
+        </div>
+      </div>
+      <p class="evidence-caption">Example of the Chrome panel on an Adidas Samba listing — not a live quote. Check the model above to see today's number.</p>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

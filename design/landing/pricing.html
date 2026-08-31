@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resale IQ — Pricing reference (3 tiers)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0B0D10; --surface: #12151d; --border: #1e2535; --border-2: #263147; --border-ui: #1c2333;
+    --text-primary: #e8ecf4; --text-secondary: #8fa3c4; --text-muted: #546380;
+    --on-buy: #06090c; --buy: #22c55e; --focus: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body { margin: 0; background: var(--bg); color: var(--text-primary); font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  *:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  button:focus-visible { outline-offset: 3px; }
+
+  .spec-strip { background: #050607; color: #8fa3c4; font-family: ui-monospace, monospace; font-size: 12px; padding: 10px 20px; border-bottom: 1px solid var(--border); }
+  .spec-strip b { color: var(--buy); }
+
+  section { padding: 64px 24px 72px; max-width: 1080px; margin: 0 auto; }
+  .kicker { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; color: var(--buy); text-transform: uppercase; text-align: center; }
+  h2 { font-size: 34px; font-weight: 800; color: var(--text-primary); margin: 10px 0 0; letter-spacing: -0.6px; text-align: center; }
+  .sub { font-size: 15px; color: var(--text-secondary); margin: 10px 0 0; text-align: center; }
+
+  /* THREE tiers only — Business €99 removed (founder-approved, in progress
+     elsewhere in the repo as of this design pass). Pro is centred and
+     widened slightly rather than shrunk, since dropping a card without
+     rebalancing leaves Pro looking like an afterthought instead of the
+     recommended tier. */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; margin-top: 44px; align-items: stretch; }
+  @media (max-width: 780px) { .grid { grid-template-columns: 1fr; max-width: 380px; margin-inline: auto; } }
+
+  .card { position: relative; background: var(--surface); border: 1px solid var(--border-ui); border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; }
+  .card.highlight { background: linear-gradient(180deg,#141a24,#10141c); border-color: var(--buy); box-shadow: 0 12px 40px rgba(34,197,94,.12); transform: scale(1.02); }
+  @media (max-width: 780px) { .card.highlight { transform: none; } }
+  .badge-pop { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--buy); color: var(--on-buy); font-size: 11px; font-weight: 800; letter-spacing: .5px; padding: 4px 14px; border-radius: 20px; }
+
+  .tier-name { font-size: 15px; font-weight: 700; color: #eef1f7; }
+  .tier-tagline { font-size: 12.5px; color: #8b99b8; margin-top: 4px; min-height: 34px; }
+  .tier-price { display: flex; align-items: baseline; gap: 4px; margin: 18px 0 4px; }
+  .tier-price .amount { font-size: 40px; font-weight: 800; color: #eef1f7; letter-spacing: -1px; }
+  .tier-price .period { font-size: 14px; color: #5b6b8c; }
+  .tier-daily { font-size: 12px; color: #5b6b8c; margin-bottom: 14px; min-height: 17px; }
+
+  .cta { width: 100%; padding: 11px 0; border-radius: 9px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  .cta.primary { border: none; background: var(--buy); color: var(--on-buy); }
+  .cta.secondary { border: 1px solid #263147; background: #1a2030; color: #eef1f7; }
+
+  .stepup { margin-top: 16px; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.25); border-radius: 10px; padding: 12px 14px; }
+  .stepup .lead { font-size: 12.5px; font-weight: 700; color: var(--buy); margin-bottom: 5px; }
+  .stepup .why { font-size: 12px; color: #a9b6d0; line-height: 1.55; }
+
+  .ceiling { margin-top: 16px; padding-top: 14px; border-top: 1px solid #1c2333; font-size: 12px; color: #5b6b8c; line-height: 1.5; }
+  .ceiling b { color: #8b99b8; font-weight: 600; }
+
+  .features { margin-top: 18px; display: flex; flex-direction: column; gap: 11px; }
+  .feature { display: flex; gap: 9px; align-items: flex-start; font-size: 12.5px; color: #c3cde0; line-height: 1.4; }
+  .feature .tick { flex-shrink: 0; margin-top: 1px; }
+
+  .honesty-footer {
+    margin-top: 36px; text-align: center; max-width: 640px; margin-inline: auto;
+    font-size: 12.5px; color: #8b99b8; line-height: 1.6; padding: 14px 18px;
+    background: rgba(196,165,116,.06); border: 1px solid rgba(196,165,116,.2); border-radius: 10px;
+  }
+  .honesty-footer b { color: #d7c39c; }
+
+  .fineprint { text-align: center; font-size: 12px; color: #4d5a75; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+<div class="spec-strip">maps to → <b>src/components/landing/pricing-section.tsx</b> + <b>src/lib/pricing.ts TIERS</b>. Business (€99, anchor tier) removed per founder decision — this reference assumes 3 tiers: Free / Starter / Pro.</div>
+
+<section>
+  <div class="kicker">Pricing</div>
+  <h2>Know what to pay. Skip what you shouldn't.</h2>
+  <p class="sub">10 checks/day free, no account. 7-day full trial when you sign up. No card required.</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="tier-name">Free</div>
+      <div class="tier-tagline">See that the data is real before you pay</div>
+      <div class="tier-price"><span class="amount">€0</span><span class="period">forever</span></div>
+      <div class="tier-daily">No card required</div>
+      <button class="cta secondary" type="button">Create a free account</button>
+      <div class="ceiling"><b>Where it stops: </b>10 checks each calendar month after a 7-day trial. Live Finder after the 5 trial searches is Pro.</div>
+      <div class="features">
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>7 days of Starter, then 10 full checks/month</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>BUY / WATCH / SKIP on every lookup</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>The whole reselling manual and market data</div>
+      </div>
+    </div>
+
+    <div class="card highlight">
+      <div class="badge-pop">MOST POPULAR</div>
+      <div class="tier-name">Pro</div>
+      <div class="tier-tagline">It stops waiting for you to ask</div>
+      <div class="tier-price"><span class="amount">€49</span><span class="period">/month</span></div>
+      <div class="tier-daily">about €1.63 a day</div>
+      <button class="cta primary" type="button">Let it find the deals</button>
+      <div class="stepup">
+        <div class="lead">+€30 over Starter — about €1 a day</div>
+        <div class="why">Starter tells you whether an item is worth buying, once you've found it. Pro finds it: scans all five EU markets every 30 minutes and shows listings already under your buy-below number.</div>
+      </div>
+      <div class="ceiling"><b>Where it stops: </b>Need seats, bulk or a custom scope? That's a conversation — <a href="#" style="color:#8fa3c4;">talk to us</a>.</div>
+      <div class="features">
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Starter</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live Deal Finder — listings under buy-below, scanned every 30 min</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Per-size sell-through when the sample supports it</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API access (your own key)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tier-name">Starter</div>
+      <div class="tier-tagline">Answers on anything you look up</div>
+      <div class="tier-price"><span class="amount">€19</span><span class="period">/month</span></div>
+      <div class="tier-daily">about €0.63 a day</div>
+      <button class="cta secondary" type="button">Get the numbers</button>
+      <div class="ceiling"><b>Where it stops: </b>No Live Deal Finder or API — that's Pro.</div>
+      <div class="features">
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Unlimited buy/sell verdicts</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Deal Scanner — models already under buy-below</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full market trends &amp; brand rankings</div>
+        <div class="feature"><svg class="tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5b6b8c" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Watchlist &amp; portfolio P&amp;L</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="honesty-footer">
+    <b>Every plan carries the same honesty rule.</b> If a model doesn't have enough sold data, every tier gets "not enough data" instead of a number — that never changes with what you pay.
+  </div>
+
+  <p class="fineprint">Every paid plan unlocks the full numbers. Estimated margin, not a promised profit. Cancel anytime.</p>
+</section>
+
+</body>
+</html>
