@@ -65,10 +65,10 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 | C1 | **`demand-intel/CLAUDE.md` is 395 lines**; the prompt caps it at 60 | §8 Ph3. `resale-iq/CLAUDE.md` is fine at 46 |
 | C2 | **The ECC harness is still there** — 159 skills, 22 agents, 45 commands | `HARNESS.md` recommended DELETE with evidence none has ever run. I wrote the recommendation and never executed it |
 | C3 | Playwright still gates nothing | The frontend deployed today on typecheck + build alone |
-| C4 | `predictions`: 340 rows, 0 resolved, resolver reads fabricated `is_sold=1` | `DATA.md` §18. The site's "30 outcomes" promise still has no working machine |
-| C5 | The `n ≥ 8` gate fails open when `comparable_n` is absent | `DATA.md` §15 |
-| C6 | FX bug: HUF/RON/BGN/SEK/DKK treated as EUR | `DATA.md` §19 — live, on a paid feature |
-| C7 | Ingestion monitoring is a liveness check | asserts a scrape *ran*, never that a row *landed* |
+| ~~C4~~ **FIXED** `d3850d9` | now reads `sold_observed=1`. Root cause was **not** brokenness: no prediction has ever been ripe (oldest 27d, window 30d; first eligible ~2026-09-04) | Ran the production query `DATA.md` §900 asked for: **5,332,659 of 5,435,995 sold rows (98.1%) were never observed** |
+| ~~C5~~ **FIXED** `c1143d3` | fails closed now | Measured first: production `model_signals` has `comparable_n` on **100/100** rows, so the fail-open protected nothing live. The North Star is now a count, not an upper bound |
+| ~~C6~~ **FIXED** `af4042d` | five rates added **and** `to_eur()` fails closed on any unknown currency | `DATA.md` §19. The rates fix today's five markets; failing closed fixes the next one Vinted adds |
+| C7 | Ingestion monitoring is a liveness check | asserts a scrape *ran*, never that a row *landed*. **Partly addressed:** `sql/metrics/pipeline_lag_min.sql` now measures freshness from rows LANDING (`items_new > 0`), reading 1.5 min over 1,344 productive runs. The **alerting** is still liveness-based |
 
 ---
 
@@ -93,8 +93,12 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 2. **B9 — schedulers.** Nothing is autonomous until this exists; it is the difference between a
    company and a folder of documents.
 3. **B8 + B7 — commands and skills**, so the founder can drive this by name.
-4. **C6, C5, C4** — the three live data defects, in that order: wrong prices first, then the
-   honesty gate, then the promise with no machine behind it.
-5. **C2** — execute the ECC deletion I already recommended.
+4. ~~**C6, C5, C4**~~ — **ALL THREE DONE** on `claude/backend-eng/data-defects-c6-c5-c4`, 1173
+   tests, each with a negative control. They turned out to be **one bug wearing three hats: failing
+   open.** An unknown currency, an absent `comparable_n` and an unobserved sale were each treated as
+   "probably fine", and each published a confident number we had not earned. Not merged, not
+   deployed — `tech-lead` reviews, since I wrote them (OS §0 rule 7).
+5. **C2** — execute the ECC deletion I already recommended: 159 skills, 45 commands, 22 agents in
+   `demand-intel/.claude/`. Counted this session, still not done.
 
 Written down so it does not need to be asked for again.
