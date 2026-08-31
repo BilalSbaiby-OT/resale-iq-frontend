@@ -202,11 +202,16 @@ paid on every backend task for a harness with no evidence of ever running.
 
 Two directories could not be removed — both are PROTECTED in `guard.py`, and I did not self-unlock:
 
-- [ ] **`demand-intel/.claude/agents/` — 22 ECC agents.** Worth deciding rather than rubber-stamping:
-      the company's real roster is the 21 agents in `resale-iq/.claude/agents/`. It is worth
-      checking whether these 22 shadow that roster for anyone working in `demand-intel`, because
-      `GAPS.md` A1 was exactly this failure — a roster that existed where the company could not see
-      it. I have not verified the shadowing; it is a question, not a finding.
+- [ ] **`demand-intel/.claude/agents/` — 22 ECC agents.** Straightforward delete.
+
+      **I raised a shadowing concern here and then checked it — it was wrong, and the check is the
+      point.** I suggested these 22 might shadow the company's 21-agent roster, the `GAPS.md` A1
+      failure again. They do not: the two sets share **zero** names (`comm -12` on the two
+      directories returns nothing). The ECC set is `architect`, `code-reviewer`, `cs-*`,
+      `tdd-guide` — none of which the company roster uses. So they would only ADD 22 unrelated
+      agent types in `demand-intel`, never replace `backend-eng` or `tech-lead`.
+
+      That downgrades this from a correctness risk to housekeeping, which is why it is listed last.
 - [ ] **`demand-intel/.claude/hooks/`** — includes the no-op `pre:write:gate` whose entire body is
       `echo "[ECC] File write/edit detected" >/dev/null`.
 
