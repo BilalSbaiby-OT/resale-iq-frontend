@@ -190,9 +190,8 @@ export const CHAPTERS_2: ManualChapter[] = [
       {
         h2: "What we measured",
         body: [
-          "For several high-volume brand and category combinations, we took every listing we had collected on each of the five domains and compared them by listing ID. If the domains were genuinely separate marketplaces, the overlap between them would be small. It is not.",
-          "Across the combinations we checked, between roughly 60% and 90% of listings appeared on more than one domain, and between about 12% and 39% appeared on all five at once. Adding up the per-domain counts therefore overstates the true number of distinct listings by roughly two and a half to three and a half times.",
-          "The price finding is the decisive one. Of the listings that appeared on four or more domains, over 99% carried an identical price on every single one. Not a similar price — the same number.",
+          "For several high-volume brand and category combinations, we took every listing we had collected on each of the five domains and compared them by listing ID. If the domains were genuinely separate marketplaces, the overlap between them would be small. It is not — the large majority of listings we checked showed up on more than one domain, and a substantial share showed up on all five at once. We have not yet published the exact percentages with the query and date behind them, so treat the size of the effect as directional rather than precise.",
+          "The price finding is the clearer one. Of the listings that appeared on four or more domains, close to all of them carried an identical price on every single one. Not a similar price — the same number.",
         ],
         callout: {
           label: "What this means in one line",
@@ -204,7 +203,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Arbitrage requires that the buyer in the expensive market cannot easily see the cheap market. On Vinted, for most listings, they can — the item is already visible to them at the same price. There is no gap to capture, because the platform has already closed it.",
           "This also means you should be sceptical of any tool or guide quoting per-country Vinted sales volumes. If those figures come from counting each domain separately, they are counting the same listings several times over, and the differences between countries they present as insight are mostly differences in crawl coverage. We publish a single aggregated figure across the five markets specifically to avoid that error.",
-          "There is a real exception, and it is the minority tail: the share of listings we found on only one domain — around 10% to 35% depending on the category. Genuinely local inventory does exist. It is simply much smaller than the conventional advice implies, and it is not where a beginner should be looking for an edge.",
+          "There is a real exception, and it is the minority tail: a smaller share of listings we found on only one domain, varying by category. Genuinely local inventory does exist. It is simply much smaller than the conventional advice implies, and it is not where a beginner should be looking for an edge.",
         ],
       },
       {
@@ -224,15 +223,15 @@ export const CHAPTERS_2: ManualChapter[] = [
       },
     ],
     takeaways: [
-      "60–90% of listings appear on more than one Vinted domain; 12–39% appear on all five.",
-      "Over 99% of multi-domain listings carry an identical price everywhere — there is no gap to arbitrage.",
-      "Per-country Vinted volume figures usually double-count: summing domains overstates distinct listings by 2.5–3.5×.",
+      "The large majority of listings we checked appear on more than one Vinted domain; a substantial share appear on all five.",
+      "Nearly all multi-domain listings carry an identical price everywhere — there is little gap left to arbitrage.",
+      "Per-country Vinted volume figures usually double-count: summing domains overstates distinct listings by several times.",
       "Source locally, where geography protects you. Sell into the shared pool, where it does not.",
     ],
     faq: [
       {
         q: "Can I buy on Vinted in one country and resell in another?",
-        a: "Generally not profitably, because for most listings the buyer in the second country can already see the first listing at the same price. Our crawl found over 99% of listings present on four or more domains priced identically on all of them. The exception is the minority of genuinely single-country inventory, which is a much smaller pool than the usual advice suggests.",
+        a: "Generally not profitably, because for most listings the buyer in the second country can already see the first listing at the same price. Our crawl found that of listings present on four or more domains, nearly all were priced identically on all of them. The exception is the minority of genuinely single-country inventory, which is a much smaller pool than the usual advice suggests.",
       },
       {
         q: "Which Vinted market is best to sell in?",

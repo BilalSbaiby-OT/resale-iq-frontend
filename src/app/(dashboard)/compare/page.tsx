@@ -39,7 +39,7 @@ export default function ComparePage() {
       setResult(await comparePrices({ q, markets: selectedMarkets, limit: 10 }))
     } catch (e) {
       setError(isPaymentRequired(e)
-        ? "Price Compare is a Pro feature. Upgrade to unlock 26-market compare."
+        ? "Price Compare is a Pro feature. Upgrade to compare live asking prices across 26 markets."
         : "Comparison failed. Try again.")
     } finally { setLoading(false) }
   }
@@ -54,6 +54,12 @@ export default function ComparePage() {
   return (
     <AppShell title="Price Compare" subtitle="Compare prices for any product across Vinted markets — find the cheapest country to buy from">
       <div className="max-w-4xl">
+        <div className="text-[12px] text-[#8b99b8] mb-4 leading-relaxed">
+          Full buy-below intelligence (verdicts, sell-through, confidence) only exists for
+          Spain, France, Germany, Italy and Portugal — the markets Resale IQ tracks. The other
+          21 markets below are live Vinted asking-price search only: current prices, no
+          buy-below price and no verdict.
+        </div>
         {/* Search */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <input

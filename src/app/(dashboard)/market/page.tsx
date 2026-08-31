@@ -82,7 +82,7 @@ export default function MarketPage() {
       {loading ? (
         <div style={{ color: "#546380", fontSize: 13, padding: 40, textAlign: "center" }}>Loading market signals…</div>
       ) : rows.length === 0 ? (
-        <div style={{ color: "#546380", fontSize: 13, padding: 40, textAlign: "center" }}>No signals available yet — the analyzer refreshes hourly.</div>
+        <div style={{ color: "#546380", fontSize: 13, padding: 40, textAlign: "center" }}>No signals available yet — the analyzer refreshes roughly every 2 hours.</div>
       ) : (
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden">
           <div className="riq-scroll-x"><table className="w-full" style={{ minWidth: 720 }}>

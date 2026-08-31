@@ -45,7 +45,7 @@ export default async function MethodologyPage() {
   const faq = [
     {
       q: "How fresh is Resale IQ's Vinted data?",
-      a: "The scraper runs every 30 minutes across all five EU Vinted domains. Signals are recomputed hourly, and public pages revalidate every 15 minutes. So a figure you read is at most about an hour behind the market, and usually less.",
+      a: "The scraper runs about every 30 minutes across all five EU Vinted domains — measured on production, 97% of gaps land under an hour. Signals are recomputed on a slower cycle, roughly every 2 hours. Sold-item verification runs every 60 minutes, and public pages revalidate every 15 minutes. So a new listing is usually found within 30 minutes; the score built from it can lag up to about 2 hours behind that.",
     },
     {
       q: "How is sell-through rate calculated?",
@@ -143,15 +143,16 @@ export default async function MethodologyPage() {
 
         <Section title="How fresh it is">
           <Table rows={[
-            ["Listing collection", "every 30 minutes", "all 5 EU domains"],
-            ["Signal recomputation", "every 60 minutes", "scores, sell-through, buy-below"],
+            ["Listing collection", "about every 30 minutes", "all 5 EU domains — measured on production, 97% of gaps under an hour"],
+            ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection"],
             ["Sold-item verification", "every 60 minutes", "confirms items actually sold"],
             ["Public page refresh", "every 15 minutes", "ISR on this site"],
           ]} />
           <P>
-            So a figure you read is at most about an hour behind the market, usually less. We
-            publish the cadence rather than the word &ldquo;real-time&rdquo;, which is almost
-            always untrue and unverifiable.
+            So a new listing is usually in the dataset within 30 minutes; the signal computed
+            from it — buy-below, sell-through, confidence — can lag up to about 2 hours behind
+            that. We publish the measured cadence rather than a rounder number that sounds
+            better, and this table is the one we correct first if the schedule ever changes.
           </P>
         </Section>
 

@@ -1,12 +1,12 @@
-// Pricing ladder: Free -> Starter -> Pro -> Business.
+// Pricing ladder: Free -> Starter -> Pro.
 //
 // Free is a 7-day reverse trial, then 10 full checks per calendar month.
 // Anonymous visitors get 10 numbered views, then a sign-in wall.
 //
-// Business €99 is an enquiry-only anchor that makes Pro €49 read as obvious
-// value. It has no Stripe price on purpose: team seats and bulk features are
-// NOT built, and selling them self-serve would repeat this project's worst
-// habit of advertising things that do not exist.
+// Business €99 was cut 2026-08-31 (AMENDMENTS.md AM-3, founder-approved):
+// zero customers, no Stripe price ever existed for it, nothing to provide
+// behind it right now. Removed rather than parked so nobody re-adds a tier
+// with no built entitlements behind it.
 export interface Tier {
   id: string
   name: string
@@ -15,7 +15,6 @@ export interface Tier {
   tagline: string
   cta: string
   highlight?: boolean      // the recommended / most-popular tier
-  anchor?: boolean         // the high anchor tier (no checkout, enquiry only)
   /** Framed increment over the tier below — the "it is only X more" line. */
   stepUp?: string
   /** The one sentence that justifies that increment. */
@@ -26,25 +25,8 @@ export interface Tier {
   ceiling?: string
 }
 
-// Ordered high → low so the eye anchors on €99 first.
+// Ordered high → low so the eye anchors on Pro first.
 export const TIERS: Tier[] = [
-  {
-    id: "business",
-    name: "Business",
-    price: 99,
-    anchor: true,
-    tagline: "High volume or a team? Let's talk.",
-    cta: "Talk to us",
-    // Enquiry-only tier: no priceId, so it can never be self-served. We promise
-    // a conversation, NOT specific unbuilt features — anything scoped here is
-    // agreed case-by-case before any money changes hands.
-    features: [
-      "Everything in Pro",
-      "Custom scope, agreed with you directly",
-      "Priority support",
-      "Volume & multi-seat pricing on request",
-    ],
-  },
   {
     id: "power",
     name: "Pro",
@@ -61,15 +43,15 @@ export const TIERS: Tier[] = [
     cta: "Let it find the deals",
     stepUp: "+€30 over Starter — about €1 a day",
     stepUpWhy:
-      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: it scans all five EU markets every 30 minutes and shows you listings already priced under your buy-below number.",
+      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: on demand, it searches the five EU markets we track and shows you listings already priced under your buy-below number.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
-      "Live Deal Finder — current Vinted listings under your buy-below, scanned every 30 minutes",
+      "Live Deal Finder — current Vinted listings under your buy-below, on demand when you search",
       "3-week demand Order Planner",
       "Per-size sell-through when the watched sample supports it",
       "REST API access (your own API key)",
-      "26-market Price Compare",
+      "Price Compare — full buy-below intelligence on ES/FR/DE/IT/PT, plus live asking-price search across 26 markets total",
     ],
   },
   {
@@ -81,7 +63,7 @@ export const TIERS: Tier[] = [
     cta: "Get the numbers",
     features: [
       "Unlimited buy/sell verdicts",
-      "All 100 product signals, unblurred",
+      "Every product signal we compute, unblurred",
       "Deal Scanner — warehouse models already under buy-below",
       "Full market trends & brand rankings",
       "Watchlist & portfolio P&L",

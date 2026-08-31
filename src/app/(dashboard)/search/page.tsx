@@ -47,7 +47,7 @@ export default function SearchPage() {
   }
 
   return (
-    <AppShell title="Live Search" subtitle="Search Vinted listings across 26 European markets in real time">
+    <AppShell title="Live Search" subtitle="Search Vinted listings across 26 European markets in real time — live asking prices only outside ES/FR/DE/IT/PT, no buy-below or verdict">
       <div className="max-w-4xl">
         {/* Search bar */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4">

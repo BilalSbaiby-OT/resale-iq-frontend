@@ -102,7 +102,7 @@ const orgJsonLd = (tracked: string) => ({
     },
     {
       "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",
-      description: "Unlimited verdicts and all 100 product signals unblurred.",
+      description: "Unlimited verdicts and every product signal unblurred.",
     },
     {
       "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR",
