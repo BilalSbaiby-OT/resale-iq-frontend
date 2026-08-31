@@ -54,3 +54,4 @@ docs/audit/ACTIVITY.jsonl
 .claude/LOCK
 .claude/UNLOCK_HARNESS
 .claude/STOP_GATE_ON
+.claude/DEPLOY_APPROVED

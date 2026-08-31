@@ -36,8 +36,19 @@ for f in "${ENV_FILES[@]}"; do
     case "$line" in ''|'#'*) continue ;; esac
     case "$line" in *=*) NAMES+=("${line%%=*}") ;; esac
   done < "$f"
-  # shellcheck disable=SC1090
-  . "$f"
+  # Parse KEY=VALUE rather than dot-sourcing. Sourcing executes the file, so one
+  # malformed line runs as a shell command in the single sanctioned credential
+  # path — there was a live `line 21: by: command not found` on every run. That is
+  # arbitrary code execution from an unvalidated file, and nobody had read the
+  # output closely enough to notice.
+  while IFS= read -r line; do
+    case "$line" in ''|'#'*) continue ;; esac
+    key="${line%%=*}"; key="${key#export }"; key="${key#"${key%%[![:space:]]*}"}"
+    case "$key" in *[!A-Za-z0-9_]*|'') continue ;; esac
+    val="${line#*=}"
+    val="${val%\"}"; val="${val#\"}"; val="${val%\'}"; val="${val#\'}"
+    export "$key=$val"
+  done < "$f"
 done
 set +a
 

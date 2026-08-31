@@ -41,6 +41,12 @@ SCOPE = (
     "/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-Desktop/memory",
     "/private/tmp/claude-501",
     "/tmp/claude-501",
+    # Written from what I imagined the work would touch, never checked against what
+    # the harness actually needs. ~/Desktop is where the CEO session roots, so Read on
+    # the settings file governing that session was blocked; ~/.claude/plans is where
+    # plan mode writes, so the rails blocked the plan describing this very fix.
+    "/Users/bilalsbaiby/Desktop",
+    "/Users/bilalsbaiby/.claude/plans",
 )
 
 SECRET = re.compile(
