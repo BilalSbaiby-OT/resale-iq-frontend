@@ -140,7 +140,11 @@ def check_bash(cmd):
     if re.search(r"\bgit\s+push\b.*(--force|--force-with-lease|\s-f\b)", c):
         block("git push --force", "Bash", c, "Force-push is never sanctioned. Open a branch instead.")
 
-    if re.search(r"\bgit\s+push\b", c) and re.search(r"\b(main|master|HEAD:main)\b", c):
+    # A push to main deploys production. Blocked by default; lifted ONLY by an
+    # explicit, deliberately-written token carrying the founder's approval, which is
+    # deleted straight after the deploy. Never lift this on your own judgement.
+    if re.search(r"\bgit\s+push\b", c) and re.search(r"\b(main|master|HEAD:main)\b", c) \
+            and not os.path.exists(os.path.join(ROOT, ".claude", "DEPLOY_APPROVED")):
         block("push to main = PRODUCTION DEPLOY", "Bash", c,
               "agent/GUARDRAILS.md: a push to main deploys resaleiq.dev. Founder gate. "
               "Push a branch instead, and park the deploy in docs/company/APPROVALS.md.")
@@ -212,7 +216,17 @@ def main():
     ti = ev.get("tool_input", {}) or {}
 
     if tool == "Bash":
-        check_bash(ti.get("command", "") or "")
+        cmd = ti.get("command", "") or ""
+        approved = os.path.join(ROOT, ".claude", "DEPLOY_APPROVED")
+        if re.search(r"\bgit\s+push\b", cmd) and re.search(r"\bmain\b", cmd) \
+                and os.path.exists(approved):
+            # An allowed deploy is as worth recording as a blocked one.
+            try:
+                reason = open(approved).read().strip().splitlines()[0][:160]
+            except OSError:
+                reason = "(token unreadable)"
+            log("DEPLOY ALLOWED by .claude/DEPLOY_APPROVED — " + reason, "Bash", cmd)
+        check_bash(cmd)
     elif tool in ("Read", "Edit", "Write", "NotebookEdit", "MultiEdit"):
         paths = [ti.get("file_path") or ti.get("notebook_path") or ""]
         for e in ti.get("edits", []) or []:

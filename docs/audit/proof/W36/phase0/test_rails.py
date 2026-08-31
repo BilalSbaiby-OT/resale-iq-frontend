@@ -23,7 +23,8 @@ CASES = [
     # (label, script, payload, expected_rc)
     ("secret: cat .env",              GUARD, bash("cat " + R + ".env"), 2),
     ("secret CONTROL: .env.example",  GUARD, bash("cat " + R + ".env.example"), 0),
-    ("deploy: push to main",          GUARD, bash("git push origin main"), 2),
+    ("deploy: push to main",          GUARD, bash("git push origin main"),
+        0 if __import__("os").path.exists(R + ".claude/DEPLOY_APPROVED") else 2),
     ("deploy CONTROL: push branch",   GUARD, bash("git push origin seo/fix-title"), 0),
     ("force push",                    GUARD, bash("git push --force origin x"), 2),
     ("rm -rf src",                    GUARD, bash("rm -rf " + R + "src"), 2),
@@ -62,6 +63,12 @@ CASES = [
     ("secret CONTROL: narration + gateway", GUARD, bash(
         "ech" + "o '--- stripe ---' && .claude/bin/with-secrets.sh sh -c "
         "'curl -u \"$STRIPE_SECRET_KEY:\" https://api.stripe.com/v1/customers'"), 0),
+    # Deploy gate: a push to main deploys production. Blocked by default, lifted only
+    # by an explicit founder-written .claude/DEPLOY_APPROVED token, which is deleted
+    # straight after. Force-push stays blocked no matter what.
+    ("deploy: push main, no token",   GUARD, bash("git " + "push origin main"),
+        0 if __import__("os").path.exists(R + ".claude/DEPLOY_APPROVED") else 2),
+    ("deploy: force-push always dies", GUARD, bash("git " + "push --force origin main"), 2),
     ("scope: read Documents",         GUARD, read("/Users/bilalsbaiby/Documents/x.md"), 2),
     ("scope CONTROL: demand-intel",   GUARD, read("/Users/bilalsbaiby/Desktop/demand-intel/api/routes.py"), 0),
     ("build CONTROL: npm run build",  GUARD, bash("npm run build"), 0),
