@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-31T22:26:46Z",
-  "layer": "harness",
+  "generated_at": "2026-08-31T22:45:11Z",
+  "layer": "harness+credentials+production",
   "results": [
     {
       "id": "harness/settings-parse",
@@ -77,9 +77,52 @@
       "n": 1,
       "detail": "proof suite derives its subjects from the settings registry",
       "fix": null
+    },
+    {
+      "id": "credentials/values-not-just-names",
+      "ok": true,
+      "n": 3,
+      "detail": "3 required credentials have real values",
+      "fix": null
+    },
+    {
+      "id": "credentials/stripe-authenticates",
+      "ok": true,
+      "n": 1,
+      "detail": "GET /v1/balance -> 200 (TEST key)",
+      "fix": null
+    },
+    {
+      "id": "credentials/postiz-authenticates",
+      "ok": true,
+      "n": 1,
+      "detail": "GET /integrations -> 200",
+      "fix": null
+    },
+    {
+      "id": "credentials/production-ssh",
+      "ok": true,
+      "n": 1,
+      "detail": "backend container up: ph5clxk9hmghspv65pdkvak9-210437665794",
+      "fix": null
+    },
+    {
+      "id": "production/public-api-serves-data",
+      "ok": true,
+      "n": 1,
+      "detail": "listings_tracked = 3,806,042",
+      "fix": null
+    },
+    {
+      "id": "production/dashboard-data-fresh",
+      "ok": true,
+      "n": 1,
+      "detail": "generated 1.0h ago, prod_included=true",
+      "fix": null
     }
   ],
-  "passed": 11,
+  "passed": 17,
   "failed": 0,
-  "empty": 0
+  "empty": 0,
+  "skipped": 0
 }

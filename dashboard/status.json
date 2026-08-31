@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-31T22:36:37Z",
+  "generated_at": "2026-08-31T22:47:06Z",
   "layer": "harness+credentials+production",
   "results": [
     {
       "id": "harness/settings-parse",
       "ok": true,
-      "n": 3,
-      "detail": "desktop, resale-iq, user"
+      "n": 4,
+      "detail": "work, resale-iq, user, desktop"
     },
     {
       "id": "harness/hook-commands-exist",
@@ -53,8 +53,8 @@
     {
       "id": "harness/guard-scope-covers-session-roots",
       "ok": true,
-      "n": 9,
-      "detail": "9 entries cover every session root",
+      "n": 10,
+      "detail": "10 entries cover every session root",
       "fix": null
     },
     {
@@ -117,7 +117,7 @@
       "id": "production/dashboard-data-fresh",
       "ok": true,
       "n": 1,
-      "detail": "generated 0.9h ago, prod_included=true",
+      "detail": "generated 1.0h ago, prod_included=true",
       "fix": null
     }
   ],

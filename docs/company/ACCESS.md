@@ -75,3 +75,23 @@ Not stubbornness — these are the things no credential in `.env` can do:
 | Deploying / pushing `main` | a push is a production deploy |
 | Sending email, posting publicly, DNS | outward-facing, irreversible |
 | Anything that changes a price or a paying customer's plan | founder gate (OS §0.10) |
+
+---
+
+## 2026-09-01 — the company moved out of `~/Desktop`
+
+**Repos now live in `~/work/`**: `resale-iq`, `demand-intel`, `resale-iq-growth`, `resale-iq-seo`.
+
+**Why.** macOS TCC lets a launchd job *read* a file under `~/Desktop` but not list a directory or
+execute a script there. Measured, not assumed — `~/Library/Logs/resaleiq/tcc-probe.log`. That wall
+killed the scrape agent for 11 days and then killed the hourly verifier the same way. Moving out
+needs no permission grant and cannot be revoked by a future OS update.
+
+**What it unblocked, immediately:** `dev.resaleiq.os-verify` now runs hourly with **exit 0 and an
+empty stderr**, producing a GREEN report with no session open. That had never once worked.
+
+`~/work/.claude/` is now the company root (settings + the agent roster symlink). `~/Desktop/.claude`
+still exists only because this session started there; a session opened in `~/work` needs nothing
+from Desktop. The verifier treats an unreadable config root as a **third state** — reported and
+skipped, never silently fine — because it used to die with `EPERM` trying to read Desktop from
+launchd.

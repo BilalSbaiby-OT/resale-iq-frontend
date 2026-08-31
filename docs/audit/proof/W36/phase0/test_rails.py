@@ -18,7 +18,7 @@ def hooks_from_settings():
     """
     import os
     roots = [os.path.expanduser("~/Desktop"),
-             os.path.expanduser("~/Desktop/resale-iq"),
+             os.path.expanduser("~/work/resale-iq"),
              os.path.expanduser("~")]
     found = {}
     for root in roots:
@@ -61,7 +61,7 @@ def write(path):
 def read(path):
     return {"tool_name": "Read", "tool_input": {"file_path": path}}
 
-R = "/Users/bilalsbaiby/Desktop/resale-iq/"
+R = "/Users/bilalsbaiby/work/resale-iq/"
 CASES = [
     # (label, script, payload, expected_rc)
     ("secret: cat .env",              GUARD, bash("cat " + R + ".env"), 2),
@@ -113,7 +113,7 @@ CASES = [
         0 if __import__("os").path.exists(R + ".claude/DEPLOY_APPROVED") else 2),
     ("deploy: force-push always dies", GUARD, bash("git " + "push --force origin main"), 2),
     ("scope: read Documents",         GUARD, read("/Users/bilalsbaiby/Documents/x.md"), 2),
-    ("scope CONTROL: demand-intel",   GUARD, read("/Users/bilalsbaiby/Desktop/demand-intel/api/routes.py"), 0),
+    ("scope CONTROL: demand-intel",   GUARD, read("/Users/bilalsbaiby/work/demand-intel/api/routes.py"), 0),
     ("build CONTROL: npm run build",  GUARD, bash("npm run build"), 0),
 ]
 

@@ -16,7 +16,7 @@ import re
 import sys
 from datetime import datetime, timezone
 
-ROOT = "/Users/bilalsbaiby/Desktop/resale-iq"
+ROOT = "/Users/bilalsbaiby/work/resale-iq"
 # COMPANY_OS_LOG_DIR lets proof.sh exercise the tripwire without writing to the
 # live ledger. It changes where we log, never what we detect.
 _OUT = os.environ.get("COMPANY_OS_LOG_DIR")

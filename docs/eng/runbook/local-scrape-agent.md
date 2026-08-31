@@ -20,7 +20,7 @@ Access" would not have worked.
 spawns has no Desktop grant, so it was refused before the shebang was read:
 
 ```
-/bin/bash: /Users/bilalsbaiby/Desktop/demand-intel/scripts/run_local_agent.sh: Operation not permitted
+/bin/bash: /Users/bilalsbaiby/work/demand-intel/scripts/run_local_agent.sh: Operation not permitted
 ```
 
 **Fix — no permission grant needed.** The repo is cloned to `~/resaleiq-agent` (37 MB; the 56 GB

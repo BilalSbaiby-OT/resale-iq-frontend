@@ -7,7 +7,7 @@
       "Edit(./.env.*)",
       "Write(./.env)",
       "Write(./.env.*)",
-      "Read(//Users/bilalsbaiby/Desktop/demand-intel/.env)",
+      "Read(//Users/bilalsbaiby/work/demand-intel/.env)",
       "Read(//Users/bilalsbaiby/.ssh/**)",
       "Bash(rm -rf:*)",
       "Bash(rm -fr:*)",

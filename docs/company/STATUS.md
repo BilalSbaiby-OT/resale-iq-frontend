@@ -7,14 +7,6 @@ OS STATUS                                  checked 0m ago
 
   GREEN — nothing blocking
 
-WHAT CHANGED
-  credentials/values-not-just-names            new -> ✓
-  credentials/stripe-authenticates             new -> ✓
-  credentials/postiz-authenticates             new -> ✓
-  credentials/production-ssh                   new -> ✓
-  production/public-api-serves-data            new -> ✓
-  production/dashboard-data-fresh              new -> ✓
-
 UNKNOWN — asked, no answer (never rendered as zero)
   company.north_star_weekly_trusted_checks no sql/metrics/weekly_trusted_checks.sql yet
       -> Phase 2: write the metric and its counter

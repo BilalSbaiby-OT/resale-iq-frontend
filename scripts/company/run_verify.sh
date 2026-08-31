@@ -8,7 +8,7 @@
 # protected folder; if this ever reports "Operation not permitted", move it the same
 # way, to ~/resaleiq-agent. See docs/eng/runbook/local-scrape-agent.md.
 set -uo pipefail
-REPO="/Users/bilalsbaiby/Desktop/resale-iq"
+REPO="/Users/bilalsbaiby/work/resale-iq"
 cd "$REPO" || exit 1
 "$REPO/.claude/bin/with-secrets.sh" python3 "$REPO/scripts/company/status_report.py" 2>&1
 RC=$?

@@ -28,14 +28,19 @@ import {
 } from '../../../resale-iq-growth/skills/resale-iq-verify/scripts/wiring.mjs';
 
 const HOME = process.env.HOME;
-const REPO = join(HOME, 'Desktop/resale-iq');
+const REPO = join(HOME, 'work/resale-iq');
 const DESKTOP = join(HOME, 'Desktop');
 const JSON_OUT = process.argv.includes('--json');
 
+const WORK = join(HOME, 'work');
 const ROOTS = [
-  { label: 'desktop', dir: DESKTOP, settings: join(DESKTOP, '.claude/settings.json') },
+  { label: 'work', dir: WORK, settings: join(WORK, '.claude/settings.json') },
   { label: 'resale-iq', dir: REPO, settings: join(REPO, '.claude/settings.json') },
   { label: 'user', dir: HOME, settings: join(HOME, '.claude/settings.json') },
+  // ~/Desktop is only a config root while a session still starts there. A launchd
+  // job cannot read it at all (TCC), and the verifier used to die with EPERM trying.
+  // Unreadable is a THIRD state: not present, not fine — reported, and skipped.
+  { label: 'desktop', dir: DESKTOP, settings: join(DESKTOP, '.claude/settings.json'), optional: true },
 ];
 
 const results = [];
@@ -48,12 +53,16 @@ function check(id, fn) {
     results.push({ id, ok: false, n: 0, detail: `threw: ${e.message}` });
   }
 }
-const readJson = p => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null);
+const unreadable = [];
+const readJson = (p, label) => {
+  try { return existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : null; }
+  catch (e) { unreadable.push(`${label}: ${e.code || e.message}`); return null; }
+};
 
 // ---------------------------------------------------------------- harness layer
 const regsByRoot = {};
 for (const r of ROOTS) {
-  const s = readJson(r.settings);
+  const s = readJson(r.settings, r.label);
   regsByRoot[r.label] = s ? hookRegistrations(s, r.dir) : [];
 }
 const allRegs = Object.values(regsByRoot).flat();
@@ -92,8 +101,8 @@ check('harness/event-names-valid', () => {
 });
 
 check('harness/event-parity-across-roots', () => {
-  const gaps = eventParity(regsByRoot['desktop'], regsByRoot['resale-iq'], 'desktop', 'resale-iq');
-  const n = new Set([...regsByRoot['desktop'], ...regsByRoot['resale-iq']].map(r => r.event)).size;
+  const gaps = eventParity(regsByRoot['work'], regsByRoot['resale-iq'], 'work', 'resale-iq');
+  const n = new Set([...regsByRoot['work'], ...regsByRoot['resale-iq']].map(r => r.event)).size;
   return { ok: gaps.length === 0, n,
            detail: gaps.length ? gaps.map(g => `${g.event} in ${g.present} only`).join('; ')
                                : 'both roots wire identical events',
@@ -109,7 +118,7 @@ check('harness/hooks-not-ephemeral', () => {
 });
 
 check('harness/roster-resolves-from-session-root', () => {
-  const dir = join(DESKTOP, '.claude/agents');
+  const dir = existsSync(join(WORK, '.claude/agents')) ? join(WORK, '.claude/agents') : join(DESKTOP, '.claude/agents');
   if (!existsSync(dir)) return { ok: false, n: 0, detail: 'no agents dir at the session root — every spawn falls back to general-purpose',
                                  fix: 'symlink or copy the roster into the session root' };
   const entries = readdirSync(dir).filter(f => f.endsWith('.md'))
@@ -126,7 +135,7 @@ check('harness/guard-scope-covers-session-roots', () => {
   const src = readFileSync(join(REPO, '.claude/hooks/guard.py'), 'utf8');
   const m = /SCOPE = \(([\s\S]*?)\)/.exec(src);
   const scope = m ? [...m[1].matchAll(/"([^"]+)"/g)].map(x => x[1]) : [];
-  const required = [DESKTOP, REPO, join(HOME, '.claude/plans')];
+  const required = [WORK, REPO, join(HOME, '.claude/plans')];
   const gaps = scopeGaps(scope, required);
   return { ok: gaps.length === 0, n: scope.length,
            detail: gaps.length ? `not covered: ${gaps.join(', ')}` : `${scope.length} entries cover every session root`,

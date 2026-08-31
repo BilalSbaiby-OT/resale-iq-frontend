@@ -12,7 +12,7 @@ import re
 import sys
 from datetime import datetime, timezone
 
-ROOT = "/Users/bilalsbaiby/Desktop/resale-iq"
+ROOT = "/Users/bilalsbaiby/work/resale-iq"
 UNLOCK = os.path.join(ROOT, ".claude", "UNLOCK_HARNESS")
 # COMPANY_OS_LOG_DIR lets proof.sh exercise the rails without writing to the
 # live ledger. It changes where we log, never what we block.
@@ -39,10 +39,10 @@ PROTECTED = (
 
 # Anything outside these trees is out of scope for every agent.
 SCOPE = (
-    "/Users/bilalsbaiby/Desktop/resale-iq",
-    "/Users/bilalsbaiby/Desktop/demand-intel",
-    "/Users/bilalsbaiby/Desktop/resale-iq-growth",
-    "/Users/bilalsbaiby/Desktop/resale-iq-seo",
+    "/Users/bilalsbaiby/work/resale-iq",
+    "/Users/bilalsbaiby/work/demand-intel",
+    "/Users/bilalsbaiby/work/resale-iq-growth",
+    "/Users/bilalsbaiby/work/resale-iq-seo",
     "/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-Desktop/memory",
     "/private/tmp/claude-501",
     "/tmp/claude-501",
@@ -51,6 +51,7 @@ SCOPE = (
     # the settings file governing that session was blocked; ~/.claude/plans is where
     # plan mode writes, so the rails blocked the plan describing this very fix.
     "/Users/bilalsbaiby/Desktop",
+    "/Users/bilalsbaiby/work",
     "/Users/bilalsbaiby/.claude/plans",
 )
 
