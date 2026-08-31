@@ -5,6 +5,8 @@
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 
 echo "=== docs/company/OS.md governs this repo (read §0 CONSTITUTION) ==="
+echo "=== ...together with docs/company/AMENDMENTS.md — where they conflict, the AMENDMENT WINS ==="
+grep -E '^## AM-' "$REPO/docs/company/AMENDMENTS.md" 2>/dev/null | sed 's/^## /  /'
 echo
 echo "=== .claude/LOCK (WIP = 1) ==="
 cat "$REPO/.claude/LOCK" 2>/dev/null || echo "(free — claim it before your first edit)"
