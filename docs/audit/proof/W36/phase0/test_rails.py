@@ -2,8 +2,51 @@
 """Phase 0 rail tests: every rule gets a violation AND a negative control."""
 import json, subprocess, sys
 
-H = "/Users/bilalsbaiby/Desktop/resale-iq/.claude/hooks/"
-GUARD, ACT = H + "guard.py", H + "activity.py"
+def hooks_from_settings():
+    """The hook paths THIS MACHINE will actually run, read from the settings files.
+
+    This used to be `H = "/Users/.../hooks/"` and two names built from it. That made
+    every case here a test of a FILE, never of the WIRING — so 41/41 green was fully
+    compatible with a settings.json that registered none of them. Which is what
+    happened: the Stop gate reported armed and never fired through two production
+    deploys, because it was wired in one config root and the session ran from the
+    other. A suite that names its own subject cannot notice that.
+
+    Deriving the subjects from the registry makes "the component works" and "the
+    component is wired" one assertion. If a hook is unregistered, its cases vanish
+    and REGISTERED_HOOKS goes empty — which is a failure, not a pass.
+    """
+    import os
+    roots = [os.path.expanduser("~/Desktop"),
+             os.path.expanduser("~/Desktop/resale-iq"),
+             os.path.expanduser("~")]
+    found = {}
+    for root in roots:
+        sp = os.path.join(root, ".claude", "settings.json")
+        if not os.path.exists(sp):
+            continue
+        try:
+            cfg = json.load(open(sp))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for event, groups in (cfg.get("hooks") or {}).items():
+            for g in groups or []:
+                for h in g.get("hooks", []) or []:
+                    cmd = h.get("command", "")
+                    for tok in (t.strip("\"'") for t in cmd.split()):
+                        if tok.endswith((".py", ".sh", ".mjs")):
+                            tok = tok.replace("$CLAUDE_PROJECT_DIR", root)
+                            found.setdefault(os.path.basename(tok), tok)
+    return found
+
+
+REGISTERED_HOOKS = hooks_from_settings()
+# A registry that resolved nothing means the harness is unwired. Refuse to report
+# on rails that are not installed — the whole point of this rewire.
+assert REGISTERED_HOOKS, "no hooks registered in any settings.json — the rails are not installed"
+GUARD = REGISTERED_HOOKS.get("guard.py")
+ACT = REGISTERED_HOOKS.get("activity.py")
+assert GUARD and ACT, f"guard.py/activity.py not registered; found: {sorted(REGISTERED_HOOKS)}"
 
 def run(script, payload):
     p = subprocess.run([script], input=json.dumps(payload), capture_output=True, text=True)
