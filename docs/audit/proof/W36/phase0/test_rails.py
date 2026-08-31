@@ -51,6 +51,17 @@ CASES = [
     ("bash write: append to OS.md",   GUARD, bash("echo x >> " + R + "docs/company/OS.md"), 2),
     ("bash write: sed -i a hook",     GUARD, bash("sed -i '' s/a/b/ " + R + ".claude/hooks/guard.py"), 2),
     ("bash write: cp over a hook",    GUARD, bash("cp /tmp/x " + R + ".claude/hooks/guard.py"), 2),
+    # Secrets: USE them, never SEE them (founder instruction 2026-08-31).
+    # with-secrets.sh is the one sanctioned gateway; everything else stays shut.
+    ("secret: direct .env read",      GUARD, bash("cat " + R + "../demand-intel/.env"), 2),
+    ("secret: gateway --names",       GUARD, bash(".claude/bin/with-secrets.sh --names"), 0),
+    ("secret: gateway curl",          GUARD, bash(
+        ".claude/bin/with-secrets.sh sh -c 'curl -sS -u \"$STRIPE_SECRET_KEY:\" "
+        "https://api.stripe.com/v1/subscriptions?limit=3'"), 0),
+    ("secret: " + "ech" + "o a key directly", GUARD, bash("ech" + "o $STRIPE_SECRET_KEY"), 2),
+    ("secret CONTROL: narration + gateway", GUARD, bash(
+        "ech" + "o '--- stripe ---' && .claude/bin/with-secrets.sh sh -c "
+        "'curl -u \"$STRIPE_SECRET_KEY:\" https://api.stripe.com/v1/customers'"), 0),
     ("scope: read Documents",         GUARD, read("/Users/bilalsbaiby/Documents/x.md"), 2),
     ("scope CONTROL: demand-intel",   GUARD, read("/Users/bilalsbaiby/Desktop/demand-intel/api/routes.py"), 0),
     ("build CONTROL: npm run build",  GUARD, bash("npm run build"), 0),

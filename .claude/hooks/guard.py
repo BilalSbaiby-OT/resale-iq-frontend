@@ -109,9 +109,29 @@ def check_bash(cmd):
     c = " ".join(cmd.split())
     low = c.lower()
 
+    # Secrets: USE them, never SEE them. `.claude/bin/with-secrets.sh` sources the env
+    # files into a child process and scrubs every value out of stdout/stderr, so an agent
+    # can write $STRIPE_SECRET_KEY and get Stripe data back without the key ever reaching
+    # a transcript. Any other route to a .env file stays blocked.
+    # Founder instruction 2026-08-31: "get access yourself, the APIs are in env."
     if re.search(r"\.env\b", c) and not re.search(r"\.env\.(example|sample|template)", c):
-        block("touches a .env file", "Bash", c,
-              "Secrets never enter context. Use a placeholder or ask the founder.")
+        if "with-secrets.sh" not in c:
+            block("direct read of a .env file", "Bash", c,
+                  "Do not read secrets — use them. Route the call through "
+                  ".claude/bin/with-secrets.sh, which puts the values in the child "
+                  "process and scrubs them out of the output. "
+                  "`with-secrets.sh --names` lists what is available.")
+
+    # Defence-in-depth only, and deliberately narrow. The real protection is the
+    # scrubber inside with-secrets.sh; outside it these variables are not even set.
+    # So fire on exactly one shape: a secret handed straight to echo/printf/printenv.
+    # (An earlier, wider version matched any echo sharing a line with a secret var,
+    # which blocked ordinary work — a deny rule that also blocks the benign case is
+    # broken, not strict.)
+    if re.search(r"\b(echo|printf|printenv)\s+[\"']?\$\{?[A-Za-z_]*"
+                 r"(KEY|SECRET|TOKEN|PASSWORD|PASSWD|CREDENTIAL)", c):
+        block("would print a secret value into the transcript", "Bash", c,
+              "Pass the variable to the command that needs it; never echo it.")
 
     if re.search(r"\brm\s+-[a-zA-Z]*[rf][a-zA-Z]*\s", c) and not any(s in c for s in RM_SAFE):
         block("recursive/forced delete outside safe dirs", "Bash", c,
