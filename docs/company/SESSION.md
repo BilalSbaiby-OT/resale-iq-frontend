@@ -27,9 +27,24 @@ not create `.claude/UNLOCK_HARNESS` to get past it: an agent that unlocks its ow
 Four in ten people who ask us something are told we cannot price it. The North Star is **0** on
 n = 1 — a volume problem, not yet a retention one.
 
-**Next:** the three live data defects, in `GAPS.md` order — **C6** (FX: HUF/RON/BGN/SEK/DKK treated
-as EUR, on a paid feature), **C5** (the n ≥ 8 gate fails open, which is why the North Star is only
-an upper bound), then **C4** (the predictions resolver: 0 of 340 graded).
+**The three live data defects are FIXED**, on `demand-intel` branch
+`claude/backend-eng/data-defects-c6-c5-c4`, 1173 tests passing, **not merged and not deployed**:
+
+- **C6 — FX.** Five of Vinted's 26 markets (hu/ro/bg/se/dk) had no rate, so `\.get(cur, 1.0)`
+  published their prices as euros 1:1 — a 15,000 HUF item as €15,000. Rates added, and `to_eur()`
+  now **fails closed**: an unknown currency drops the row instead of guessing.
+- **C5 — the n ≥ 8 gate.** Now fails closed. Measured first: production `model_signals` is 100 rows
+  with `comparable_n` populated on **100** of them, so the fail-open protected nothing live. The
+  North Star is now a count, not an upper bound.
+- **C4 — the predictions resolver.** Was reading `is_sold = 1`. Ran the production query DATA.md
+  asked for and never got: **5,332,659 of 5,435,995 sold rows (98.1%) were never observed.** Now
+  reads `sold_observed = 1`. And the reason nothing was ever scored is *not* that it was broken —
+  **no prediction has ever been ripe.** The oldest is 27 days; the window is 30. The first become
+  eligible ~2026-09-04, which is why fixing this now mattered.
+
+**Next:** merge the data-defect branch after `tech-lead` review (OS §5 — I wrote it, so I must not
+review it), then **A9** (memory dir outside SCOPE) and **C2** (delete the dead ECC harness:
+159 skills, 45 commands, 22 agents, none ever run).
 
 ## Done this session
 - **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.
