@@ -51,3 +51,5 @@ git commit -q -m "os: settings deny on push-to-main is superseded by the guard t
 
 The blanket deny could not be lifted by the founder's approval token, so it only
 block`
+- `2026-08-31T21:27:03Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `cd /Users/bilalsbaiby/Desktop/resale-iq-growth git checkout -q -b claude/content-social/postiz-hosted-api 2>/dev/null || git checkout -q claude/content-social/postiz-hosted-api echo "=== removing self-host artefacts ===" for f in deploy/deploy-postiz.sh deploy/postiz-compose.yml docs/POSTIZ_DEPLOY.m`
+- `2026-08-31T21:29:02Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/Desktop/resale-iq cat >> docs/company/DECISIONS.md <<'EOF' --- ## 2026-08-31 — Postiz is the founder's paid hosted account, not something we deploy **Founder:** *"wdym bro i have postiz i payed its open on the chrome tap … i have it connected as well … i dont need postiz tbh on`

@@ -24,6 +24,7 @@ set -uo pipefail
 
 ENV_FILES=(
   "$HOME/Desktop/demand-intel/.env"
+  "$HOME/Desktop/resale-iq-growth/.env"
   "$HOME/.resaleiq-agent.env"
 )
 

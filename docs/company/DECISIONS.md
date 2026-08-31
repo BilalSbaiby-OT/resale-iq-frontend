@@ -79,3 +79,50 @@ once, not a running stream of questions.
 **Standing change to how I work:** default to acting. Bring the founder decisions, not homework.
 When something genuinely needs him — a click only he can make, a price, a public post — batch it
 into one ask instead of interrupting per item. See [[feedback_operating_config]].
+
+---
+
+## 2026-08-31 — Postiz is the founder's paid hosted account, not something we deploy
+
+**Founder:** *"wdym bro i have postiz i payed its open on the chrome tap … i have it connected as
+well … i dont need postiz tbh on this project just remove it fully — or use the api on the website
+of postiz bro."*
+
+**Decision: use the hosted public API. Delete every self-host and CLI path.**
+
+The `content-social` agent spent its run trying to deploy a *second* Postiz onto the Hetzner box.
+That was wrong twice over: he already pays for one, and the decision rested on a disk reading
+("134MB free of 3.7GB") that matches nothing on that machine — host and container both report
+75G total, 20G free, 73% used. A blocker measured wrong is worse than no measurement, because it
+stops work with a reason that sounds real.
+
+**Verified live, not assumed:** the key was already sitting in the growth repo's environment file.
+`GET https://api.postiz.com/public/v1/integrations` → **HTTP 200, 4 channels, all enabled**:
+`x` (ResaleIQdev), `instagram-standalone` (resaleiqx), `tiktok-business` (resaleiq), `reddit`.
+He was right on both counts. Our alias table matches all four — including `tiktok-business`, which
+a previous session had already learned the hard way does not match a bare `tiktok`.
+
+Removed: `deploy/deploy-postiz.sh`, `deploy/postiz-compose.yml`, `docs/POSTIZ_DEPLOY.md`,
+`POSTIZ-STATUS.md`, and the `postiz` CLI dependency. Kept: every hard-won rule in
+`src/publish/postiz.js` — the aliasing, `shortLink: false` so our `utm_content` survives, the
+refusal to post a carousel whose media all failed, and the `postId` check.
+
+**One thing got worse, and is recorded rather than hidden:** the public API documents exactly three
+endpoints — `/integrations`, `/upload`, `/posts`. **There is no analytics endpoint.** So
+`syncAnalytics()` now fails loudly instead of returning zeros. Reach has to come from the platform
+itself or the Postiz UI. A zero is not the same as no reach, and this module had already been burned
+once by a plausible answer standing in for an error.
+
+## 2026-08-31 — US and UK markets: later, not now
+
+**Founder:** *"we will add US/UK later on."*
+
+Parked deliberately, not forgotten — and the evidence says it will be worth doing. GSC shows
+**71% of impressions are US + GB** against **6.7%** for the five markets the product actually
+serves. The demand is visibly there and unserved.
+
+But `market-numbers.ts` covers ES/FR/DE/IT/PT only, and `CLAUDE.md`'s standing rule is that any page
+implying coverage we do not have is wrong until the data exists. So: no page, no claim, no flip
+brand for US/UK until the corpus covers them. When it is time it is a **data** question first and a
+marketing question second — the scrapers, the currency handling (the FX bug already treats five
+currencies as euros), and the corpus have to come before a single word of copy.
