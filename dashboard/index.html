@@ -120,8 +120,31 @@ fetch('data.json?' + Date.now()).then(r => r.json()).then(d => {
     kpi('Signups', f.signups_7d) + kpi('Attributed', f.attributed_signups) +
     '</div>'));
 
-  // 5 — departments
-  add(panel('5 · Departments', val(d.departments)));
+  // 5 — departments, one row per agent
+  const dep = d.departments;
+  add(panel('5 · Departments — ' + (dep.count||0) + ' agents', dep.agents ? `
+    <div class="scroll" style="max-height:460px"><table>
+      <tr><th>agent</th><th>model</th><th>tier</th><th>primary KPI</th><th>counter-KPI</th><th>branches</th><th>score</th></tr>
+      ${dep.agents.map(a => `<tr>
+        <td class="mono" style="white-space:nowrap"><strong>${esc(a.name)}</strong>
+            <div style="color:var(--unknown);font-size:10px">${esc(a.standing)}</div></td>
+        <td class="mono">${esc(a.model)}</td>
+        <td><span class="tag">${esc(a.tier)}</span></td>
+        <td style="min-width:190px">${esc(a.primary||'—')}</td>
+        <td style="color:var(--dim)">${esc(a.counter||'—')}</td>
+        <td class="mono" style="font-size:10.5px">${a.branches.length ? a.branches.map(b=>esc(b.split('/').pop())).join('<br>') : '<span class="unknown">none yet</span>'}</td>
+        <td>${a.score ? esc(a.score) : '<span class="unknown">UNSCORED</span>'}</td>
+      </tr>`).join('')}
+    </table></div>
+    <div class="why" style="margin-top:8px">${esc(dep.note||'')}</div>` : val(dep), true));
+
+  // 6 — design
+  const dz = d.design || {};
+  add(panel('6 · Design — ' + (dz.count||0) + ' files', dz.files ? `<table>${
+    dz.files.map(f => `<tr><td class="mono">${f.viewable
+        ? `<a href="${esc(f.href)}" target="_blank" style="color:var(--accent)">${esc(f.path)}</a>`
+        : esc(f.path)}</td><td style="color:var(--dim);white-space:nowrap">${(f.bytes/1024).toFixed(1)} kB</td></tr>`).join('')
+  }</table>` : val(dz), true));
 
   // 6 — work
   add(panel('6 · Work', `

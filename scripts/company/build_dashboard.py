@@ -104,7 +104,98 @@ def quality(prod):
     return d
 
 
-# ---------- panel 5/6: departments and work ----------
+# ---------- panel 5: departments, read from the agent roster ----------
+def departments():
+    """Parse .claude/agents/*.md into the roster panel.
+
+    Source of truth is the agent file itself, so the dashboard can never disagree
+    with what the agent is actually told to do — if someone edits a KPI card, this
+    moves with it.
+    """
+    adir = os.path.join(ROOT, ".claude", "agents")
+    if not os.path.isdir(adir):
+        return unknown("no .claude/agents directory", "OS §8 Phase 3")
+
+    # hours + last activity per agent, from the ledger the hooks write
+    seen = {}
+    for line in read(os.path.join(AUDIT, "ACTIVITY.jsonl")).splitlines():
+        try:
+            r = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        a = r.get("agent") or "ceo"
+        d = seen.setdefault(a, {"events": 0, "last": None})
+        d["events"] += 1
+        d["last"] = r.get("ts") or d["last"]
+
+    out = []
+    for fn in sorted(os.listdir(adir)):
+        if not fn.endswith(".md"):
+            continue
+        name = fn[:-3]
+        txt = read(os.path.join(adir, fn))
+
+        def field(key, default=""):
+            m = re.search(rf"^{key}:\s*(.+)$", txt, re.M)
+            return m.group(1).strip() if m else default
+
+        tier_line = field("tier")
+        tier = (re.search(r"(T\d)", tier_line).group(1) if re.search(r"(T\d)", tier_line) else "T1")
+        standing = "standing" if "standing: standing" in txt else "on-call"
+
+        # Branches this agent actually opened — the honest "did it do anything".
+        # The roster spans BOTH repos: backend-eng works in demand-intel, so
+        # looking only in resale-iq reported "none yet" for an agent that had
+        # already shipped a P0. Check every repo the company owns.
+        branches = []
+        for repo, label in ((ROOT, ""), (os.path.join(os.path.dirname(ROOT), "demand-intel"), "demand-intel:"),
+                            (os.path.join(os.path.dirname(ROOT), "resale-iq-growth"), "growth:")):
+            if not os.path.isdir(os.path.join(repo, ".git")):
+                continue
+            for b in sh(f"git branch --list 'claude/{name}/*'", cwd=repo).splitlines():
+                b = b.strip().lstrip("* ")
+                if b:
+                    branches.append(label + b.split("/")[-1])
+
+        act = seen.get(name, {})
+        out.append({
+            "name": name,
+            "model": field("model", "?"),
+            "tier": tier,
+            "standing": standing,
+            "primary": field("primary"),
+            "secondary": field("secondary"),
+            "counter": field("counter"),
+            "branches": branches,
+            "events": act.get("events", 0),
+            "last_active": act.get("last"),
+            # No verifier run yet, so there is no score. Say so rather than draw a dash.
+            "score": None,
+        })
+    return {"agents": out, "count": len(out),
+            "scored": False,
+            "note": "No SCOREBOARD.md yet — only `verifier` may write it (OS §7), and it "
+                    "has not run. HIT/MISS/FAKE stays UNKNOWN until it does."}
+
+
+# ---------- panel 6: design deliverables ----------
+def design():
+    ddir = os.path.join(ROOT, "design")
+    if not os.path.isdir(ddir):
+        return unknown("no design/ directory", "OS §6")
+    files = []
+    for base, _, names in os.walk(ddir):
+        for n in sorted(names):
+            fp = os.path.join(base, n)
+            rel = os.path.relpath(fp, ROOT)
+            files.append({"path": rel,
+                          "href": "design/" + os.path.relpath(fp, ddir),
+                          "bytes": os.path.getsize(fp),
+                          "viewable": n.endswith((".html", ".json"))})
+    return {"files": files, "count": len(files)}
+
+
+# ---------- panel 7: work ----------
 def work():
     branches = [b.strip().lstrip("* ") for b in sh("git branch --list 'claude/*'").splitlines()]
     return {
@@ -231,7 +322,8 @@ def main():
         "quality": quality(prod),
         "funnel": (prod or {}).get("funnel") or {
             "note": unknown("no funnel events table wired yet", "run with --prod")},
-        "departments": unknown("no agent roster yet", "OS §8 Phase 3"),
+        "departments": departments(),
+        "design": design(),
         "work": work(),
         "audits": audits(),
         "activity": activity(),
