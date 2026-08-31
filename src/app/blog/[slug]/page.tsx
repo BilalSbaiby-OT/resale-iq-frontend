@@ -6,6 +6,34 @@ import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 
+/**
+ * Translation pairs, keyed by slug, both directions.
+ *
+ * Deliberately a hand-kept map rather than a `lang` field on BlogPost: there is
+ * exactly one translated post today (the Spanish pricing test — see
+ * ~/Desktop/resale-iq-seo/briefs/2026-08-31-spanish-test-page.md), and inventing
+ * a schema for a single row before the test reports would be building for a
+ * future that may not arrive. If Spanish earns impressions, replace this with a
+ * real i18n model AND move the language off the <article> tag onto <html lang>.
+ */
+const TRANSLATIONS: Record<string, Record<string, string>> = {
+  "how-to-price-items-on-vinted": {
+    en: "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
+    "es-ES": "https://resaleiq.dev/blog/como-poner-precio-en-vinted",
+    "x-default": "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
+  },
+  "como-poner-precio-en-vinted": {
+    en: "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
+    "es-ES": "https://resaleiq.dev/blog/como-poner-precio-en-vinted",
+    "x-default": "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
+  },
+}
+
+/** Posts not written in the site's default language. */
+const POST_LANG: Record<string, string> = {
+  "como-poner-precio-en-vinted": "es",
+}
+
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }))
 }
@@ -19,7 +47,13 @@ export async function generateMetadata(
   return {
     title: `${p.title} — Resale IQ`,
     description: p.description,
-    alternates: { canonical: `/blog/${p.slug}` },
+    alternates: {
+      canonical: `/blog/${p.slug}`,
+      // hreflang must be RECIPROCAL or Google ignores it, so the pairing is
+      // declared once here and emitted on BOTH pages — each naming itself and
+      // its counterpart. A one-way annotation is silently discarded.
+      ...(TRANSLATIONS[p.slug] ? { languages: TRANSLATIONS[p.slug] } : {}),
+    },
     openGraph: { title: p.title, description: p.description, type: "article" },
   }
 }
@@ -73,7 +107,11 @@ export default async function BlogPostPage(
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <article style={{ maxWidth: 720, margin: "0 auto" }}>
+      {/* The root layout hardcodes <html lang="en">, and varying that per page
+          needs a route group. For a single test page, lang on <article> is the
+          honest, proportionate signal. Promote it to <html lang> if Spanish
+          works and a real /es/ tree gets built. */}
+      <article lang={POST_LANG[p.slug] ?? undefined} style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
           <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>

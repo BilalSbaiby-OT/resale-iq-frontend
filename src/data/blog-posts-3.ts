@@ -2,6 +2,7 @@
 // Honest claims only: listings-tracked via TRACKED + fillTracked, no earnings promises,
 // no tax/legal advice presented as professional advice.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 
 const BRAND = "Resale IQ"
@@ -420,6 +421,67 @@ export const POSTS_3: BlogPost[] = [
     faq: [
       { q: "Is profit margin or sell-through more important in reselling?", a: "Usually sell-through. €100 at 25% margin turning over every 15 days produces far more annual profit than €100 at 50% margin turning over every 90 days, because the capital keeps working." },
       { q: "What is capital turnover in reselling?", a: "How many times per year you can reinvest the same money. Faster-selling stock means more turns, which compounds profit and reduces exposure to trend and seasonal risk." },
+    ],
+  },
+  {
+    // Spanish-language test page. Rationale in
+    // ~/Desktop/resale-iq-seo/briefs/2026-08-31-spanish-test-page.md.
+    //
+    // The site publishes only in English, yet all five markets the product
+    // covers are non-English. Search Console can only report demand for content
+    // that exists, so "no Spanish impressions" was never evidence that Spanish
+    // demand is absent — every EU5 impression we do get is on an ENGLISH query.
+    // This one page tests that, cheaply, before anyone builds an /es/ tree.
+    //
+    // NO HARD PER-BRAND FIGURES ON PURPOSE. A first draft quoted "297 unidades
+    // semanales"; the snapshot read 246 the next day. Static copy cannot carry a
+    // number that moves daily — it points at /flip and /data, which render live.
+    slug: "como-poner-precio-en-vinted",
+    title: "Cómo poner precio en Vinted sin regalar tu margen",
+    description:
+      "El método que usan los revendedores para fijar precio en Vinted: parte del precio real de venta, no del de tienda, y calcula tu precio máximo de compra.",
+    date: "2026-08-31",
+    category: "Precios",
+    readMins: 6,
+    intro:
+      "La mayoría de vendedores en Vinted pone precio a ojo, y el resultado es siempre uno de dos: vendes demasiado barato y regalas margen, o pones un precio alto y el artículo se queda meses en el armario. El método que funciona no tiene misterio — se empieza por lo que el artículo se vende de verdad, y se trabaja hacia atrás.",
+    sections: [
+      {
+        h: "Olvida el precio de tienda",
+        p: [
+          "El precio original no dice casi nada sobre lo que puedes pedir hoy. Lo que importa es a cuánto se vende ese modelo concreto, en ese estado concreto, en tu mercado. Una sudadera de 90 € en tienda puede moverse a 25 €, y otra de 40 € puede irse en 35 € si la demanda acompaña.",
+          "Mira ventas recientes, no anuncios activos. Un anuncio activo te dice lo que alguien espera cobrar; una venta te dice lo que alguien pagó. Es la diferencia entre una opinión y un dato. Publicamos [los precios medios de venta por marca](/data) gratis, actualizados a diario.",
+        ],
+      },
+      {
+        h: "Tu precio máximo de compra",
+        p: [
+          "Si compras para revender, el número que decide si ganas dinero no es el precio de venta — es el máximo que puedes pagar y seguir teniendo margen.",
+          "La regla: precio máximo = precio medio de venta × 0,95 (la deducción del 5 % que modelamos para Vinted) × 0,70, que apunta a un margen aproximado del 30 %. Sustituye ese 5 % por tu comisión real si la tuya es distinta. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
+          "Ese cálculo lo hace [la calculadora de beneficio](/tools/vinted-profit-calculator), y [la metodología](/methodology) explica cada paso y, más útil todavía, lo que los datos no pueden decirte.",
+        ],
+      },
+      {
+        h: "La velocidad importa más que el último euro",
+        p: [
+          "Un artículo que se vende en nueve días a 40 € es mejor negocio que uno que tarda setenta a 50 €: el primero recicla tu dinero siete veces al año, el segundo cinco. El dinero parado en stock no gana nada.",
+          "Por eso conviene mirar cuánto se mueve cada marca antes de comprar, no después. Las diferencias son enormes, y volumen y precio tiran en direcciones opuestas: las marcas de mucho volumen venden rápido con margen fino, las de lujo dejan mucho más por unidad pero inmovilizan tu dinero durante semanas.",
+          "No te fíes de nuestra palabra ni de una cifra escrita en un artículo que envejece: [qué vende cada marca esta semana](/flip) y [qué categorías se mueven](/category) están publicados en abierto y se actualizan solos.",
+        ],
+      },
+      {
+        h: "Qué miden esas cifras, y qué no",
+        p: [
+          "Seguimos " + TRACKED + " anuncios en los cinco mercados principales de Vinted: España, Francia, Alemania, Italia y Portugal.",
+          "Las ventas semanales cuentan sólo los anuncios que vimos pasar de activos a vendidos durante esa semana. Es un mínimo, no el volumen total de Vinted — los artículos que ya estaban vendidos la primera vez que los vimos no entran en esa cifra. Y son el agregado de los cinco mercados, no de España en solitario. Lo decimos porque un número sin su límite es un número que engaña.",
+        ],
+      },
+    ],
+    faq: [
+      { q: "¿Cómo pongo precio a un artículo en Vinted?", a: "Parte del precio medio de las ventas recientes de ese modelo exacto y ese estado, y ponte ligeramente por debajo para vender antes. No uses el precio de tienda: en reventa sólo cuenta lo que el mercado paga hoy." },
+      { q: "¿Cuál es el precio máximo que debo pagar para revender con margen?", a: "Precio medio de venta × 0,95 (la deducción de plataforma que modelamos para Vinted) × 0,70, lo que apunta a un margen del 30 % aproximado. Ajusta el 0,95 a tu comisión real. Por encima de ese número dejas de comprar con margen y empiezas a especular." },
+      { q: "¿Es mejor vender rápido o esperar a sacar más?", a: "Para casi todo, vender rápido. Un artículo que rota en nueve días a 40 € rinde más al año que uno que tarda setenta a 50 €, porque el dinero vuelve antes a comprar el siguiente. Esperar sólo compensa en piezas realmente escasas." },
+      { q: "¿Qué marcas se venden más rápido en Vinted?", a: "Las zapatillas reconocibles y los básicos de marca dominan el volumen; las marcas de lujo mueven muchas menos unidades a precios mucho más altos. Cuál te conviene depende de cuánto tiempo puedes tener el dinero parado. Las cifras por marca se actualizan a diario en la página de datos de mercado." },
     ],
   },
 ]
