@@ -15,7 +15,7 @@ import { getPlans, isConflict } from "@/lib/api"
 // advertised everywhere and reachable nowhere.
 const PLAN_META = [
   { id: "power", pricePlan: "power", name: "Pro", tag: "Most popular", desc: "Live deals, Order Planner, API, per-size velocity" },
-  { id: "operator", pricePlan: "operator", name: "Starter", desc: "Unlimited verdicts, all 100 signals, watchlist & P&L" },
+  { id: "operator", pricePlan: "operator", name: "Starter", desc: "Unlimited verdicts, every signal, watchlist & P&L" },
   { id: "free", pricePlan: "free", name: "Free", desc: "7 days of Starter, 5 live finds and 1 order plan, then 10 checks/month. No card." },
 ]
 
@@ -82,7 +82,7 @@ function RegisterContent() {
       </div>
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">Create your account</h1>
-        <p className="text-[#8b99b8] text-[13px] mb-5">Start free, or pick a plan to unlock the full toolkit. Cancel anytime.</p>
+        <p className="text-[#8b99b8] text-[13px] mb-5">Start free, or pick a plan for the full toolkit. Cancel anytime.</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2.5">
             {PLANS.map(p => (

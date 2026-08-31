@@ -116,7 +116,7 @@ export function UnlockPanel({
       <div className="mb-4 rounded-lg border border-[#1c2333] bg-[#12151d] px-4 py-3">
         <div className="text-[12.5px] leading-5 text-[#a9b6d0]">
           <span className="font-semibold text-[#eef1f7]">Starter is €19/month.</span>{" "}
-          Unlimited verdicts, every one of the 100 product signals unblurred, brand
+          Unlimited verdicts, every product signal unblurred, brand
           rankings, watchlist and portfolio P&amp;L. One item you correctly skip usually
           covers it.
         </div>

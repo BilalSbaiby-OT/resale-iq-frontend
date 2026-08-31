@@ -47,9 +47,10 @@ small panel appears with:
 • What the item typically sells for, with sample size
 • Which model we matched, so you can see exactly what was priced
 
-The numbers come from live and sold listings across five EU markets, recomputed
-hourly. Every formula is published at resaleiq.dev/methodology, together with
-what the data cannot tell you — no accuracy claims we cannot back.
+The numbers come from live and sold listings across five EU markets, collected
+about every 30 minutes and recomputed roughly every 2 hours. Every formula is
+published at resaleiq.dev/methodology, together with what the data cannot
+tell you — no accuracy claims we cannot back.
 
 Works without an account. You get free checks every day, and the panel stays
 out of the way of the buy button. Sign in at resaleiq.dev (confirm your email)

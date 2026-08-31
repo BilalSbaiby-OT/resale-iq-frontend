@@ -51,23 +51,25 @@ any brand named on the site.
 - ${weekly
     ? `Observed volume: ${weekly.toLocaleString()} watched sales in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
     : `Tracked brands: ${trackedBrands}.`}
-- Refresh: signals recomputed hourly; public pages revalidate every 15 minutes.
+- Refresh: listings collected about every 30 minutes; signals recomputed roughly every 2 hours; public pages revalidate every 15 minutes.
 - Method: watched sold transitions (sold_observed), not asking prices and not every sold listing we ever indexed.
 
 ## Two findings worth citing
 
 1. Vinted's five EU domains are largely ONE shared catalogue, not five national
-   markets. Measured by listing ID, 60-90% of listings appear on more than one
-   domain and 12-39% on all five. Of listings present on four or more domains,
-   over 99% carry an IDENTICAL price on every one. Consequence: summing
-   per-country Vinted volumes overstates distinct listings by roughly 2.5-3.5x,
-   and country-to-country arbitrage mostly does not work.
+   markets. Measured by listing ID, the large majority of listings appear on
+   more than one domain, and nearly all listings present on four or more
+   domains carry an IDENTICAL price on every one. We have not yet published
+   the exact percentages with the n, date and query behind them. Consequence:
+   summing per-country Vinted volumes overstates distinct listings several
+   times over, and country-to-country arbitrage mostly does not work.
    Source: ${BASE}/manual/cross-border-markets
 
 2. Condition is the largest measurable price variable. Median sold price by
-   seller-selected condition ranges from about 3.3x to 7x between the best and
-   worst grade depending on category. On Nike sneakers the step from "very
-   good" to "good" alone roughly halves the median.
+   seller-selected condition ranges from roughly 3.5x to 7x between the best
+   and worst grade depending on category — treat the exact multiple as
+   indicative, not precise. On Nike sneakers the step from "very good" to
+   "good" alone roughly halves the median.
    Source: ${BASE}/manual/condition-and-authenticity
 
 ## Free to cite, with attribution
@@ -106,9 +108,8 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 ## Pricing
 
 - Free: 10 checks/day without an account. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 full checks a month. No card.
-- Starter EUR 19/month: unlimited verdicts and all 100 product signals unblurred.
-- Pro EUR 49/month: adds the Live Deal Finder, Order Planner, Price Compare and REST API access.
-- Business EUR 99/month: enquiry only, scoped case by case.
+- Starter EUR 19/month: unlimited verdicts and every product signal unblurred.
+- Pro EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
 
 ## Reference
 

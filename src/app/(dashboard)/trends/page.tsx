@@ -19,7 +19,7 @@ export default function TrendsPage() {
   }, [])
 
   return (
-    <AppShell title="Market Trends" subtitle="Category performance and trending models — updated hourly">
+    <AppShell title="Market Trends" subtitle="Category performance and trending models — recomputed roughly every 2 hours">
       <MomentumWarmupNotice warmingUp={data?.momentum_warming_up} />
       <div className="mb-5">
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl mb-4">

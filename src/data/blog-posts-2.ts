@@ -376,9 +376,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "The country-gap version does not survive the data",
         p: [
-          "We compared every listing we had collected on Vinted's Spanish, French, German, Italian and Portuguese domains by listing ID. If these were five separate marketplaces, the overlap would be small. Instead, depending on the brand and category, roughly 60% to 90% of listings appeared on more than one domain, and 12% to 39% appeared on all five at once.",
-          "The prices settle it. Of the listings present on four or more domains, over 99% carried an identical price on every one — not a similar price, the same number. A buyer browsing the German site can already see the Spanish listing, at the Spanish price. There is no gap left to capture.",
-          "A side effect worth knowing: because the same listing is counted once per domain, adding up per-country Vinted figures overstates the real number of distinct listings by roughly two and a half to three and a half times. Treat any per-country volume stat with suspicion unless the source says how it deduplicates.",
+          "We compared every listing we had collected on Vinted's Spanish, French, German, Italian and Portuguese domains by listing ID. If these were five separate marketplaces, the overlap would be small. Instead, depending on the brand and category, the large majority of listings appeared on more than one domain, and a substantial share appeared on all five at once. We haven't yet published the exact percentages with the query and date behind them, so read the size of the effect as directional.",
+          "The prices settle it. Of the listings present on four or more domains, nearly all carried an identical price on every one — not a similar price, the same number. A buyer browsing the German site can already see the Spanish listing, at the Spanish price. There is little gap left to capture.",
+          "A side effect worth knowing: because the same listing is counted once per domain, adding up per-country Vinted figures overstates the real number of distinct listings by several times. Treat any per-country volume stat with suspicion unless the source says how it deduplicates.",
         ],
       },
       {
@@ -405,7 +405,7 @@ export const POSTS_2: BlogPost[] = [
     ],
     faq: [
       { q: "What is retail arbitrage in reselling?", a: "Buying an item where it is cheap and selling it where it is worth more. In secondhand fashion the durable version is buying underpriced listings — items priced by sellers who do not know what they have — rather than moving stock between countries." },
-      { q: "Can you buy on Vinted in one country and resell in another?", a: "Generally not profitably. We found that most listings appear on several of Vinted's five EU domains, and over 99% of those present on four or more are priced identically on all of them. The buyer in the expensive country can already see the cheap listing at the same price." },
+      { q: "Can you buy on Vinted in one country and resell in another?", a: "Generally not profitably. We found that most listings appear on several of Vinted's five EU domains, and nearly all of those present on four or more are priced identically on all of them. The buyer in the expensive country can already see the cheap listing at the same price." },
       { q: "Can you make money buying on Vinted and reselling on Vinted?", a: "Yes, but from mispricing rather than geography. Underpriced listings appear constantly because most sellers guess at prices. The skill is knowing the item's real value and your maximum buy price before you commit, and acting faster than the people who have to look it up." },
     ],
   },

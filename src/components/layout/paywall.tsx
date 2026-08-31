@@ -58,7 +58,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
   useEffect(() => { getMe().then(u => setVerified(u.email_verified !== false)).catch(() => {}) }, [])
 
   const subscribe = async (placeholder?: string) => {
-    if (!placeholder) { window.location.href = "mailto:support@resaleiq.dev?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
+    if (!placeholder) return
     setBusy(placeholder)
     try {
       const priceId = resolvePriceId(placeholder, plans)
@@ -126,11 +126,11 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           <Lock size={13} /> {pro ? "Order Planner & Compare are Pro features" : "Upgrade for the full dashboard"}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
-          {pro ? "Source at volume. Arbitrage 26 markets." : "The data that pays for itself on your first flip."}
+          {pro ? "Source at volume. Track five markets, search 26." : "The data that pays for itself on your first flip."}
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
-            ? "The Order Planner, 26-market Price Compare and live deals are on Pro. Upgrade to unlock the scale toolkit — cancel anytime."
+            ? "The Order Planner, Price Compare and live deals are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime."
             : `${tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
         </p>
         {/* The one reframe that collapses price resistance. */}
@@ -156,7 +156,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             <button onClick={() => subscribe(t.priceId)} disabled={busy === t.priceId} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13, fontWeight: 700, cursor: "pointer",
               border: t.highlight ? "none" : "1px solid #263147",
-              background: t.highlight ? "#22c55e" : t.anchor ? "transparent" : "#1a2030",
+              background: t.highlight ? "#22c55e" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7",
             }}>{busy === t.priceId ? "…" : t.cta}</button>
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 9 }}>

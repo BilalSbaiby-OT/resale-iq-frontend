@@ -19,12 +19,7 @@ export function PricingSection() {
   const choose = async (tierId: string, placeholder?: string) => {
     // Free rung: no Stripe involved, just get them an account.
     if (tierId === "free") { router.push("/register?plan=free"); return }
-    // Enquiry-only tier (no Stripe price): open a real mailbox we actually own.
-    // Was hello@resaleiq.app (wrong domain, every Business lead lost), then a
-    // personal Outlook address. Now the company address, which sends AND
-    // receives: Resend SMTP out, Porkbun forwarding in. Verified round-trip
-    // 2026-08-14.
-    if (!placeholder) { window.location.href = "mailto:support@resaleiq.dev?subject=Resale%20IQ%20Business%20plan%20enquiry"; return }
+    if (!placeholder) return
     if (!getToken()) { router.push(`/register?plan=${tierId === "power" ? "power" : "operator"}`); return }
     setBusy(tierId)
     try {
@@ -84,7 +79,7 @@ export function PricingSection() {
             <button onClick={() => choose(t.id, t.priceId)} disabled={busy === t.id} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13.5, fontWeight: 700, cursor: "pointer",
               border: t.highlight ? "none" : "1px solid #263147",
-              background: t.highlight ? "#22c55e" : t.anchor ? "transparent" : "#1a2030",
+              background: t.highlight ? "#22c55e" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7", transition: "opacity .15s",
             }}>{busy === t.id ? "…" : t.cta}</button>
             {t.stepUp && (
