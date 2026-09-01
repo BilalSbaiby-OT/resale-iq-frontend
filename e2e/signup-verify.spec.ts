@@ -112,7 +112,12 @@ test.describe("signup verify session", () => {
     await fill()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     await fill()
-    await expect(page.getByText(/already have an account/i)).toBeVisible()
+    // Register now also has a static "Already have an account? Sign in"
+    // footer link, always on the page — the original broad regex matched
+    // both it AND the 409 error banner and failed Playwright's strict mode
+    // (2 elements). Scoped to the banner's actual copy, which is the thing
+    // this test exists to check.
+    await expect(page.getByText(/you already have an account/i)).toBeVisible()
     await expect(page.getByText("Unauthorized")).toHaveCount(0)
     await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
   })

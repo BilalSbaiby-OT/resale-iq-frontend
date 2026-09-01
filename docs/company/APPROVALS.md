@@ -250,3 +250,36 @@ This is worth deciding rather than patching, because the same limit applies to e
 
 **Recommendation: (c)**, and not for the scoreboard's sake. It is the same missing input twice; the
 third time will be a rule we trusted more.
+
+
+---
+
+### A12 — the secret rail can be defeated by a shell comment, and 3 of 4 repos have no rails
+
+**2026-09-01, found by `security-eng` in an independent sweep.** Both items are `guard.py` /
+settings changes, so both are PROTECTED-path founder gates. **Neither was tested by exploitation —
+found by reading, and deliberately left unproven rather than demonstrated.**
+
+- [ ] **CRITICAL — the `.env` block is a substring check.** `guard.py:131-137` skips the secret
+      block when the sanctioned script's filename appears **anywhere in the command text**,
+      including in a trailing comment. So a command that reads a live `.env` while merely mentioning
+      `with-secrets.sh` in a comment passes unblocked, and the live Stripe key lands in the
+      transcript. **Fix: match the invoked executable, not a substring of the command.**
+
+      This is the same defect class as A11: the rails repeatedly test a *string* where they mean a
+      *thing*. PROTECTED matches a path substring so it cannot tell your roster from dead ECC files;
+      the secret rule matches a command substring so it cannot tell an invocation from a comment.
+
+- [ ] **HIGH — the rails only exist in `resale-iq`.** `demand-intel/.claude/settings.json` is a
+      separate file that does not reference `guard.py` at all: no-op hooks, an explicit `cat*` allow,
+      no deny list. `resale-iq-growth` has no hooks. `resale-iq-seo` has no `.claude/` directory.
+      Each of those repos' own `CLAUDE.md` treats itself as a session home base, so the normal way
+      to work on the backend is **unprotected** — including against a push to `main`, which
+      `demand-intel/CLAUDE.md` says deploys production.
+
+      Every rail described in `OS-COMPLIANCE.md` §0 as DONE is DONE **in one repo of four.**
+
+- [ ] **MEDIUM, latent — `users.plan` DEFAULT `'operator'`** (`db/schema.py:565`). Two agents
+      independently confirmed no live path hits it (registration always writes `'free'`), so this is
+      not a current leak. It is a one-omitted-column landmine with no test protecting the invariant.
+      **Fix: `DEFAULT 'free'` plus a regression test on the default itself.**
