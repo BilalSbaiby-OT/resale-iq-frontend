@@ -63,3 +63,35 @@ exists. Same guarantee, real mechanism.
 **Approved by the founder 2026-08-31** (APPROVALS A1). The OS says "the repo root"; the company
 spans four repos. `docs/company/`, `docs/audit/`, `sql/metrics/`, `dashboard/` and the rails live
 in `resale-iq`. `demand-intel` keeps the backend and the database and is governed from here.
+
+
+---
+
+## AM-7 — A decision that touches another agent's surface, or the product as a whole, requires consulting the whole roster
+
+**Founder instruction, 2026-09-01, verbatim in substance:** *"in big decisions etc that touches other
+sub agents or the whole saas please consult all sub agents."*
+
+This is now standing, not per-request. It applies before — not after — a change that:
+
+- alters a surface another agent owns,
+- changes what a customer is shown or charged,
+- changes a KPI definition or the evidence behind a published number, or
+- deploys.
+
+**Why it is an amendment and not a preference.** Every material correction of 2026-09-01 came from an
+agent contradicting the CEO, and none of them would have surfaced from a solo pass:
+
+- `tech-lead` found the C6 fix was manufacturing fabricated sales into the column C4 had just made
+  authoritative — my own two commits fighting each other.
+- `data-scientist` found that `band_evidence_p50`, which I built to authorise A13, **falls** under
+  A13 and would have scored the honest change a MISS.
+- `verifier` found the Phase-0 proof certified one repo of four, then found my correction of that
+  was itself incomplete.
+- `monetization` resolved a contradiction against git while `ux-researcher` had inferred it from
+  documentation — and the documentation was mine, and wrong.
+
+The consultation is not ceremony. **It has never once returned unanimous agreement with the
+proposal put to it.**
+
+**The founder's own condition, kept:** deploy is authorised *only* after consulting the whole team.
