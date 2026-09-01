@@ -1142,3 +1142,54 @@ population.
 - [ ] **OS §7's 2 pp rule cannot be applied to supply-side proportions as written.** Either the rule
       takes a per-metric noise band, or the verifier will score MISSes the analyzer produced. Three or
       four readings across a day before freezing any baseline.
+
+
+---
+
+### A16 — **OPEN AM-8 VOTE: reposition from a pricing tool to a liquidity instrument?**
+
+Founder, 2026-09-01: *"big changes are allowed if it have been consultant between sub agents and
+reasonable."* So the decision I parked in `CLOSED-LOOP.md` as "not a 4am call" is on the table.
+
+**THE QUESTION.** `tech-lead`, corroborated independently by `data-eng`: we observe an **asking
+price** and a **disappearance from a shelf**, and infer a sale at that price. Both inferences bias
+the absolute level in the same direction by an unmeasured amount. **Ordering and rates survive**
+(errors are common-mode across models and largely cancel in a ranking); **absolute price levels do
+not.** So momentum, sell-through and days-to-sell are defensible — and `max_buy_price`, the thing we
+sell, is not.
+
+> *"It would be closer to **we watch what actually moves.** That claim is fully supported by the data
+> you have. The current claim is not."*
+
+**THE CASE AGAINST, which I put to every agent rather than burying:** `ux-researcher` traced the
+funnel and found **the paying moment IS the number.** `getTrialRecap` is the best worth-paying
+artefact in the product, and the extension puts `buy_below` beside Vinted's Buy button at the moment
+of decision. A reseller wants to know what to pay. **The repositioning may trade a claim we cannot
+support for a claim nobody wants.**
+
+**A third possibility nobody has argued yet, which I have put to the roster:** keep the number and
+fix the *claim* — publish `buy_below` described as what it is, a threshold derived from **asking
+prices at shelf departure**, not from sale prices. Honest relabelling rather than repositioning. Is
+that sufficient, or a cosmetic dodge?
+
+**And the measurement that pressures all three options:** the confident band is **6 models and 12.2 %
+of searches, 16 of 22 on a single SKU.** If a recommendation is only defensible on HIGH, there is
+barely a product — which is either an argument *for* liquidity, or evidence that **coverage is the
+only real problem and neither pitch works until it improves.**
+
+**Consulted:** `tech-lead` (origin), `ux-researcher` (holds the strongest objection), `monetization`
+(can it be priced), `content-social` (can it be said). Votes pending; dissent recorded either way per
+AM-8.
+
+**Not decided by me.** This is the largest decision available to this company and I have been wrong
+often enough tonight that my unaided judgement is not the right instrument for it.
+
+---
+
+### A17 — settled: the gate and A13 ship in ONE release
+
+`data-scientist` withdrew its own "gate first, or with" recommendation. Reason: every one of the 18
+ungated models whose price moves under A13 **stays below 8 and is gated by the combined release**, so
+shipping together means those prices never publish their swing at all. **Gating first reaches the
+same endpoint through a worse intermediate state** — it publishes the +160 % move to paying users and
+then removes it. `backend-eng` notified mid-task; its implementation is unchanged.
