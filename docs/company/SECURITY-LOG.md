@@ -593,3 +593,9 @@ non-event, so by the company'`
 economics: the phantom conversion rate is gone, and the traffic figures disagree by 25x
 
 finance-ops corrected the input I flagg`
+- `2026-09-01T12:22:40Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mam9.txt" <<'MSG'
+AM-9: the spend cap is lifted, and a preference should never have become a ceiling
+
+Founder: there is no month cap, go all out. AM-2 is superseded entirely.
+
+The lesson `

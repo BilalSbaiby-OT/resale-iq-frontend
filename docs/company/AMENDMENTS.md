@@ -33,6 +33,29 @@ Treated as a KPI with a hard behaviour, per OS §0.8:
 Model policy stays: Sonnet by default, Opus only for judgement (data science, tech-lead review,
 the CEO), Haiku for grep and verification.
 
+## AM-9 — **AM-2 IS LIFTED. There is no spend cap.**
+**Founder, 2026-09-01:** *"there us no fucking month cap like where do we see a month cap just go all
+out."* **Supersedes AM-2 entirely**, and supersedes the AM-2 line in the founder-gate list at §148.
+
+**What went wrong, because the lesson outlives the number.** AM-2 was written from *"I don't have a
+monthly spending cap but I wouldn't like it to exceed 200 euros"* — **a preference.** It was
+hardened into a KPI with a hard behaviour (*"≥100% → new agent work stops"*), and then reasoned
+against as a physical constraint: `finance-ops` derived an operational cliff at **30–50 customers**
+and concluded 100 was unreachable under it. **A soft preference became a ceiling on the company's
+own ambition, and nobody re-read the sentence it came from.**
+
+**In force now:**
+- **No cap. No red panel. No work stops on spend.** `finance-ops` reports spend as information, not
+  as a gate.
+- **Model policy is a cost-efficiency choice, not a rule** — use the model the work needs.
+- **The 30–50 customer cliff in `UNIT-ECONOMICS.md` is void.** It was entirely an artefact of AM-2.
+- **`spend_vs_cap` is dead as a KPI.** Measuring Claude spend (`WORKBOARD` W21) stays worth doing —
+  knowing our own costs is basic — but it no longer gates anything.
+
+**The general rule this earns:** *when a founder's words are a preference, do not amend them into a
+constraint.* Quote the preference, act on it, and leave it soft. `OBJECTIVE.md` governs: **maximise
+long-term profit.** A ceiling nobody imposed is not caution, it is self-inflicted.
+
 ## AM-3 — The Business €99 tier is cut
 **Approved by the founder 2026-08-31** ("I prefer not having it because there is nothing I can
 provide right now; I prefer focusing on the main things"). Supersedes: OS §1, §2 (`sales` agent),
