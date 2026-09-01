@@ -4,6 +4,42 @@
 
 ## Working on
 
+**THE LOCALE BUG EXISTED TWICE, AND I SHIPPED THE FIRST FIX AS IF IT WERE THE WHOLE ONE.**
+
+`detectLocale()` in `lib/i18n.ts` and `acceptLanguageLocale()` in `proxy.ts` are two copies of the
+same logic. Both scanned the visitor's **entire** `Accept-Language` list and returned the first
+non-English match anywhere in it, because neither checked English inside the loop. So `en-GB,es-ES` —
+an English speaker who merely has Spanish configured — got Spanish, and `NEXT_LOCALE` pinned it for
+a **year**.
+
+I fixed `i18n.ts` (`32508b8`), announced it, and **only caught the second copy by testing the
+deployed result** — `/` was still 307'ing to `/es`. Fixed in `49d36cc`.
+
+**Third time today for this exact shape.** The credential scrubber lived in `build_dashboard.py`
+while `org.py` had the same hole (froze the frontend twice). Four `capture_demo` copies differed by
+one line. Now two locale detectors. **Two copies of a rule means two places to be wrong, and fixing
+the one you are looking at feels exactly like fixing the bug.**
+
+**Why it survived so long:** the server renders English and the client hydrates to the wrong locale,
+so `curl` reported `lang="en"` and every non-browser check said healthy. `ux-researcher` found it by
+walking the funnel like a stranger. My own `curl` contradicted the report and I nearly dismissed it —
+**the contradiction was the evidence.**
+
+**Verified live, both directions:** `/register` renders English for an `en-GB,es-ES` browser (was
+*"Cree su cuenta"*), `es-ES` → `/es`, `fr-FR` → `/fr`, `en-US` stays English, `/es` still serves
+Spanish copy. The five markets are untouched — that was the risk, and it is why the regression tests
+assert both directions rather than only the broken one.
+
+**Still open:** anyone already carrying a wrong `NEXT_LOCALE` keeps it up to a year, and **there is
+still no language switcher anywhere on the site.**
+
+**Four Instagram posts scheduled**, staggered 2h apart — rows 148/150/152/153, four distinct findings
+from `CONTENT-FACTS.md`, all 1080×1920 with real voiceover and distinct md5s, `ffprobe`-verified on
+the output file. `content-social` caught a **same-day collision** — two findings it was told to use
+were already scheduled by a concurrent session writing to the same unlocked DB — and rebuilt against
+different findings rather than publish duplicates. It reported live URLs as UNKNOWN rather than
+invent them, because the posts are scheduled and not yet fired.
+
 **THE REGISTER BOUNCE IS EXPLAINED, and it is the most valuable find of the day.**
 `detectLocale()` tested only fr/es/de/it/pt inside its loop and fell through to `"en"` afterwards.
 That reads like "default to English" and is not — it walked the visitor's **entire** `Accept-Language`
