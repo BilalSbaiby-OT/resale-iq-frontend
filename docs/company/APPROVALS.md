@@ -432,3 +432,78 @@ Both agents converge, from different directions:
 - **A8-2 — RATIFY THE STRUCTURE ONLY.** Supply-side ships as its own named metric. The demand-side
   value is held at UNKNOWN pending the probe filter, and carries a series-break marker.
 - **A8-3 — RATIFY, GATED ON THE MERGE COMMIT.** Not on tonight's authorisation.
+
+
+#### `tech-lead` — REFUTES A8-3, and rewrites the A12 architecture
+
+**A8-3 is wrong as I stated it. C5 removes ONE over-count and leaves a second untouched.**
+
+`said_buy_below` records what was **computed**, not what was **delivered**:
+
+- `api/routes.py:1080` / `:1220` — `await _log_recap(result)` runs, then `return await _gate(result)`.
+  The recap is logged from the **pre-gate** payload.
+- `api/routes.py:916-923` → `db/queries.py:2742-2745` writes `said_buy_below` from that payload.
+- `api/routes.py:1006-1010` — for a logged-in **FREE** user, `_gate` returns a fresh dict with
+  `"locked": True` and `buy_below` among `locked_fields`. **The user never receives the band.**
+
+So every logged-in free check that *computed* a band writes a non-NULL `said_buy_below` and is
+counted by `weekly_trusted_checks.sql`. OS §3 says "checks that **returned** a band with n ≥ 8 **to
+a user**". A paywalled teaser did not return a band to that user.
+
+After C5 the metric means *"checks for which we computed an n≥8 band for a logged-in user, whether
+or not they were shown it."* Defensible; **not the §3 definition; still an upper bound.** Calling it
+exact would be the same over-confidence as the C6 blocker, one layer up.
+
+- [ ] **A THIRD A8 question nobody had asked:** log post-gate, or amend the SQL to exclude locked
+      deliveries. Either is a definition change, so it belongs in this gate.
+- [ ] **Do not write C5 up as a KPI improvement.** At n=1 it is a correctness fix with no measurable
+      effect. The honest line: "the fail-open caveat is removed; the number was and remains 0 at n=1."
+- [ ] **What is owed is a DISCONTINUITY MARKER, not a redefinition** — a dated entry carrying the
+      pre-C5 reading with its `n`, the merge SHA, and the first post-C5 reading with its `n`.
+      Nothing in the definition moves; the BASELINE moves. Filing a baseline discontinuity as a
+      definition change would corrupt the very property this gate protects.
+
+**A12 — one symptom, THREE causes, three different fixabilities.** Shipping them as one fix "will
+produce a SECURITY-LOG entry that overstates what was repaired."
+
+| # | Cause | Fixability |
+|---|---|---|
+| 1 | `PROTECTED` matches a relative path fragment (`guard.py:105-106`) when it means specific absolute files | **Mechanical.** Make it absolute, rooted at the `ROOT` guard.py already hardcodes |
+| 2 | The credential-file command rule | **Not soundly fixable here.** Shell is not decidable by substring |
+| 3 | No agent identity | **Not a matching bug at all** — a missing platform capability |
+
+**THE TRAP IN MY OWN PROPOSED FIX, which is exactly why this needed a reviewer:** today
+`demand-intel/.claude/settings.json` is protected *by accident*, through the same substring
+sloppiness. **Make `PROTECTED` absolute and you silently UNPROTECT it.** The other repos' settings
+files must be added explicitly in the same change or the fix is a net regression.
+
+**On (2):** the realistic bypass is worse than a trailing comment — a `--names` call chained with
+`&&` to a plain read defeats it too, and that is a shape an agent could type innocently. Tightening
+the match does not make it sound: `eval`, `$(...)`, base64, a variable holding the path.
+`guard.py:196-197` already confesses this for heredocs — *"KNOWN LIMIT … Recorded rather than
+pretended away"* — and it generalises. **The refined lesson, better than mine:** *the tool schema
+hands you a referent for structured tools and a string for Bash; enforce boundaries only where you
+get a referent.* `check_paths` reads `tool_input.file_path` and is genuinely sound. Fix the bypass
+by requiring the wrapper in **command position**, and write into STANDARDS that this rule is
+defence-in-depth, not a boundary.
+
+**On (3) — the fix is already in our own codebase, four lines above the bug.** `guard.py:33-37`:
+*"Generated from check output. A hand-written status is precisely the drift these files exist to
+prevent, so nobody gets to type into them."*
+
+**GENERATE, DON'T GATE.** Apply it to `SCOREBOARD.md`: block writes for **everyone including
+verifier**, have verifier emit a run artefact, generate the file, and fail a check if the committed
+file does not match a regeneration. That delivers what OS §7 actually wants — *"SCOREBOARD content
+is derived from verified runs"* — which is **stronger** than "verifier typed it", and it is
+enforceable with the capabilities we have. **A11 is re-scoped to this.**
+
+**Cross-repo:** do not copy guard.py four times; four copies drift, and demand-intel's settings file
+is what drift looks like. Each repo needs an absolute-path `PreToolUse` entry. That file is not
+merely a no-op — its `permissions.allow` grants broad `Bash` reads with **no deny list**, so a
+session rooted there is *worse than unguarded*. **Reduce it; do not augment it.** Scope note:
+sessions rooted in resale-iq (AM-6) never load it, so this is a latent hazard for manual sessions,
+not an active one for the roster.
+
+**Ordering, four separate commits, one PR each:** (1) absolute PROTECTED + explicitly add the other
+repos' settings files → (2) demand-intel settings reduced and pointed at guard.py → (3) wrapper
+match moved to command position + the honesty line in STANDARDS → (4) SCOREBOARD generated.
