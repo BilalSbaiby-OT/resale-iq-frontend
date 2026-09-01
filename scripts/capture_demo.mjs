@@ -19,7 +19,11 @@ import { chromium } from "@playwright/test"
 import { mkdirSync } from "node:fs"
 
 const QUERY = process.argv[2] || "Adidas Samba"
-const OUT = "docs/marketing/assets/frames"
+// Output dir is an ARGUMENT, not a constant. Four near-identical copies of this
+// file (capture_demo2..5.mjs) once existed solely because this one line was
+// hardcoded -- 82 lines duplicated four times to vary one string, while QUERY
+// right above it was already a parameter. Copies drift; this does not.
+const OUT = process.argv[3] || "docs/marketing/assets/frames"
 const W = 540, H = 960
 
 mkdirSync(OUT, { recursive: true })

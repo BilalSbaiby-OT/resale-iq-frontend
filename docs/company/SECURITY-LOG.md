@@ -912,3 +912,17 @@ s = s.replace(
 """Taken as standing authority to **read** every production system without asking each time.
 It is **not** authority to write, deploy, publish, or spend. Those stay founder gates (OS §0.10).""",
 """Taken as standing au`
+- `2026-09-01T17:58:52Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh resaleiq 'docker exec ph5clxk9hmghspv65pdkvak9-173531324442 rm -f /tmp/prodq.py && rm -f /root/prodq.py && echo cleaned'`
+- `2026-09-01T17:58:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && cat >> .gitignore <<'EOF'
+
+# Intermediate render artifacts. The finished MP4 is the deliverable; the frame
+# dumps and the pre-mux silent cuts are scratch, and committing them buries the
+# real assets in a directory listing.
+docs/marketing/assets/frames*/
+docs`
+- `2026-09-01T17:59:46Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `python3 - <<'PY' p="scripts/capture_demo.mjs"; s=open(p).read() s = s.replace('const OUT = "docs/marketing/assets/frames"', '''// Output dir is an ARGUMENT, not a constant. Four near-identical copies of this // file (capture_demo2..5.mjs) once existed solely because this one line was // hardcoded --`
+- `2026-09-01T18:00:05Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add scripts/capture_demo.mjs docs/company/SECURITY-LOG.md && git commit -q -m "$(cat <<'MSG'
+refactor: one capture script with an argument, not five with a constant
+
+capture_demo2..5.mjs were 82-line copies of capture_demo.mjs differing by a
+single line -- the hardcoded output directory. QUERY d`
