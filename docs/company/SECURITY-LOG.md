@@ -793,3 +793,8 @@ p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
 start = s.find("| **W50** |")
 end = s.find("\n", start) + 1
 new = ("| **W50** | **VOICEOVER WORKS — the blocker was never the `
+- `2026-09-01T15:43:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mstall.txt" <<'MSG'
+diagnose: of 27 "pending" rows, about 7 are actually pending
+
+The founder asked what causes work to sit -- whether agents overlook it, or do
+it and it is not really do`

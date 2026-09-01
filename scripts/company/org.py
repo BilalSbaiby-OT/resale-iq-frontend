@@ -126,6 +126,41 @@ def agent_activity(name):
     return {"merged_branches": len(out), "branches": len(allb)}
 
 
+ROSTER = {
+    "product-manager", "ux-researcher", "designer", "content-social", "seo",
+    "lifecycle", "tech-lead", "backend-eng", "frontend-eng", "extension-eng",
+    "data-eng", "qa-eng", "data-scientist", "finance-ops", "monetization",
+    "devops", "security-eng", "legal-compliance", "customer-success",
+    "chief-of-staff", "verifier", "founder",
+}
+
+
+def unassignable(rows):
+    """OPEN rows nobody can be spawned for.
+
+    Measured 2026-09-01: 12 of 27 open rows had a `doer` that was prose --
+    "CEO", "seo or analytics", "product-manager decides then backend-eng". None
+    of those can be handed to anybody, so they wait for a human to interpret
+    them, which means they wait for the CEO -- the exact bottleneck the board
+    exists to remove.
+
+    A doer must be ONE roster agent, or the literal word `founder`. If a
+    decision must precede the work, that is TWO rows, not one row with two
+    names.
+    """
+    out = []
+    for r in rows:
+        if r["status"] != "OPEN":
+            continue
+        d = r["doer"].lower()
+        named = sorted(a for a in ROSTER if a in d)
+        if len(named) != 1:
+            out.append({**r, "named_agents": named,
+                        "why": "no roster agent named" if not named
+                               else f"{len(named)} agents named — neither owns it"})
+    return out
+
+
 def stale_open_rows(rows):
     """Rows still marked OPEN whose work already shipped.
 
@@ -293,6 +328,7 @@ def published_posts():
 def main():
     rows = workboard_rows()
     stale = stale_open_rows(rows)
+    unassigned = unassignable(rows)
     bus = bus_state()
     posts = published_posts()
     stripe = stripe_state()
@@ -347,6 +383,7 @@ def main():
         "departments": depts,
         "workboard": rows,
         "stale_open": stale,
+        "unassignable": unassigned,
         "bus": bus,
         "stripe": stripe,
         "totals": {
@@ -356,6 +393,7 @@ def main():
             "rows_blocked": sum(1 for r in rows if r["status"] == "BLOCKED"),
             "bus_messages": len(bus["messages"]),
             "stale_open": len(stale),
+            "unassignable": len(unassigned),
         },
     }
 
@@ -391,6 +429,10 @@ def main():
             print(f"  {r['id']:<5} {r['finding'][:60]}")
             for e in r["shipped_evidence"][:2]:
                 print(f"        {e[:96]}")
+    if unassigned:
+        print(f"\n⚠ {len(unassigned)} OPEN rows have NO SPAWNABLE OWNER:")
+        for r in unassigned:
+            print(f"  {r['id']:<5} doer={r['doer'][:38]:<38} {r['why']}")
     print(f"\nwrote {OUT}")
     return 0
 
