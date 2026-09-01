@@ -6,11 +6,24 @@ its date and its source, per OS §0.2. Where a number is an assumption rather th
 is labelled **ASSUMPTION** in bold and nothing downstream of it is allowed to be quoted as a fact.
 
 **The measured starting point, restated so this document stands alone:** €0 MRR · 6 accounts (2 of
-them the founder's own) · 3 extension installs, ever · 1 customer ever, refunded and cancelled,
-reason unknown · North Star `weekly_trusted_checks` = 0, n = 1 · 10 trials ended, 0 converted, and
+them the founder's own) · 3 extension installs, ever · **0 customers, ever — see correction below** ·
+North Star `weekly_trusted_checks` = 0, n = 1 · 10 trials ended, 0 converted, and
 **not one of those ten was ever asked to pay** — no email, no scheduled job, no proactive frontend
 surface exists (`docs/audit/MONETIZATION.md` §1, `docs/product/LIFECYCLE.md` §1) · known spend
 €5.83/mo of a €200 cap, Anthropic spend UNKNOWN (`docs/company/LEDGER.md`).
+
+**CORRECTION, `customer-success`, 2026-09-01, evidence not assumption:** every mention below of "this
+company's only refund" / "the one historical conversion refunded and cancelled" is **false**. Read the
+inbox `support@resaleiq.dev` forwards to (Gmail, confirmed live by its own 2026-08-14 round-trip test):
+the only Stripe subscription event on this product is `notifications@stripe.com`, 2026-08-04,
+subject **"Payment of €19.00 from Bilal Sbaiby for Demand Intel"** — the founder's own name, his own
+card, a same-day test. No cancellation or refund notification for it, or for anyone else, exists
+anywhere in that inbox. **There is no customer and no refund. n=0 paying customers, n=0 refunds,
+ever.** The founder confirmed this independently the same day this document assigns it as the reason
+Pro is unsafe to sell (§1.1) and as the sole anchor for the trial→paid range (§1.2) — six agents built
+reasoning on a refund that never happened. The *arithmetic* conclusions below (C11 gates Pro
+regardless of this) mostly survive the correction; the *narrative* — "the same shape of number that
+produced this company's only refund" — does not, and should not be repeated in future documents.
 
 **One data-integrity note before anything else, because it changes how much to trust §1 below.**
 `docs/product/LIFECYCLE.md` (written tonight) flags that "10 trials ended, 0 converted" and "6 accounts

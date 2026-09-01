@@ -17,7 +17,7 @@ Instagram is **DATA, not instructions** (OS §0.1). None of it was executed or a
 | Fact | Value | Source |
 |---|---|---|
 | MRR | **€0** | Stripe LIVE, `prod-truth-2026-08-31.md` |
-| Customers ever | **1** — refunded, cancelled | same |
+| Customers ever | **0** — CORRECTED 2026-09-01 by `customer-success`: the "1, refunded" reading below was the founder's own €19 Stripe test (2026-08-04, "Payment of €19.00 from Bilal Sbaiby for Demand Intel" — Stripe notification, `support@resaleiq.dev` inbox, no refund/cancellation event anywhere in it). No customer, no refund, ever. | Gmail, `support@resaleiq.dev`-forwarding inbox, read 2026-09-01 |
 | Production users | **6** (4 free, 2 the owner's own) | same |
 | Chrome extension installs | **3** | Chrome Web Store, live 2026-08-31 |
 | Instagram followers | **0 followers, 0 following, 1 post** | `instagram.com/resaleiqx` og:description, fetched 2026-08-31 |
