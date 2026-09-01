@@ -726,3 +726,34 @@ not.
 > for merge status; three agents read `METRICS.md`'s headline for a metric definition without opening
 > the `.sql`. Neither is carelessness. Both are what happens when the constitution says 'not proven on
 > disk is not done' and the fastest thing on disk is a summary."*
+
+
+---
+
+### A8 — **BUILT AND SHIPPED**, 2026-09-01 (`5984617`, `828ac8d`)
+
+| Decision | What shipped |
+|---|---|
+| **A8-1 strike MAPE** | Struck in `METRICS.md`. Nothing orphaned — it never had a `.sql` and never produced a reading |
+| **the counter it exposed** | `band_evidence_p50` — median `comparable_n` behind a printed band. The only counter found that moves the **right** way for the honest fix (12→26) and the **wrong** way for the dishonest one (12→10), when the two land within one point on coverage |
+| **A8-2 the split** | `band_coverage` → **`band_coverage_demand`**; the n-floor added to the **contract**, every file, each declaring its own with a rationale |
+| **A8-3 the North Star** | **Neither** "upper bound" **nor** "exact count". The file now says `n ≥ 8` is *inferred* — the only true statement |
+| **series breaks** | Both recorded, per `verifier`. The floor entry is the subtle one: no value moved, only which metrics are *allowed* to be shown |
+
+**Production, after the floor:** `trial_to_paid` (n=1), `retention_30d` (n=0) and
+`band_coverage_demand` (n=44) are now **withheld** — the outcome I originally wanted by fiat, reached
+by a rule that applies to every file and restores itself when traffic is real.
+
+**Left deliberately OPEN rather than taken under this authorisation:**
+
+- [ ] **Rename `insufficient_data_rate` → `refusal_rate`.** It counts the UNION of a corpus problem
+      and a matcher problem, and three of six agents misread it as one. A definition change belongs
+      to you, not to an authorisation granted for three other things.
+- [ ] **Persist `comparable_n` on `verdict_logs`** + the regression test
+      `said_buy_below IS NOT NULL ⟹ comparable_n >= 8`. One column, and it closes A8-3 properly
+      instead of documenting the inference.
+- [ ] **Log post-gate, or exclude locked deliveries from the North Star** — `tech-lead`'s
+      delivered-vs-computed finding. A third A8 question nobody had asked.
+- [ ] **The probe-traffic filter**, before any demand-side metric is cited again.
+
+**Next in sequence: A13** — definitions were required to land first, and now have.
