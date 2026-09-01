@@ -4,7 +4,8 @@ import Link from "next/link"
 import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
 import { watchedSampleNote } from "@/lib/watched-sample"
-import { TRIAL_LIMITS_SHORT } from "@/lib/trial-copy"
+import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
+import { copy, type Locale } from "@/lib/i18n"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -80,35 +81,24 @@ function money(n: number | null | undefined) {
 // Never invent a fourth without the same grounding.
 const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
 
-// --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01) -------------------------
-// Named constants, not inline JSX literals, so a future i18n pass has a
-// single place to swap in translated strings. NOTE: this whole component is
-// still hardcoded English end to end (button label, placeholder, every
-// branch) — frontend-eng flagged this after landing de/it/pt in
-// src/lib/i18n.ts, and that gap is NOT fixed by this pass. Wiring
-// FreeChecker into the `copy` dictionary means threading a Locale prop
-// through every caller (page.tsx, tools/page.tsx, tools/[slug]/page.tsx) and
-// is a real structural change, not a copy edit — out of scope for "change
-// ONE thing." Flagged for frontend-eng/designer to scope separately rather
-// than done quietly here. The two strings below reuse language already
-// proven to translate cleanly: INSUFFICIENT_STATEMENT matches
-// extension/content.js's existing `thinSample` string verbatim, and
-// INSUFFICIENT_SUBTEXT echoes `t.heroHonesty` (src/lib/i18n.ts), which
-// already has fr/es equivalents.
-const INSUFFICIENT_STATEMENT = "Not enough watched departures to price this yet."
-const INSUFFICIENT_SUBTEXT = "We’d rather say that than guess."
-const INSUFFICIENT_N_LABEL = "watched, not enough"
+// --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01; localised 2026-09-01) ---
+// The English strings for this branch now live in src/lib/i18n.ts under
+// `copy[locale].checker.insufficient*`, keyed to match this branch's
+// designer-owned wording exactly (see the INSUFFICIENT_DATA render branch
+// below for the reasoning this branch does not touch: backend-owned
+// res.message/res.confidence_note still say "comparable sold items" and
+// that is a backend-eng fix, not a frontend string-replace).
 
 // Shared by the UNKNOWN (not covered) and INSUFFICIENT_DATA (not enough
 // evidence) branches below — both are refusals, both need a next step so
 // the screen is not a dead end. designer, 2026-09-01 (defect 3: the row
 // existed only on the UNKNOWN branch; INSUFFICIENT_DATA — the state 37 of
 // 100 board models land on — had none).
-function TryExamplesRow({ onPick, disabled }: { onPick: (ex: string) => void; disabled: boolean }) {
+function TryExamplesRow({ onPick, disabled, label }: { onPick: (ex: string) => void; disabled: boolean; label: string }) {
   return (
     <div style={{ marginTop: 12 }}>
       <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
-        Try one of these instead
+        {label}
       </div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         {TRY_EXAMPLES.map(ex => (
@@ -132,7 +122,9 @@ function TryExamplesRow({ onPick, disabled }: { onPick: (ex: string) => void; di
 // "Levi's 501" gestured at general vintage resale the catalogue does not
 // cover, which reads as a lie of omission to a casual flipper who tries it
 // and gets refused. ux-researcher, roster consult 2026-09-01.
-export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1, New Balance 530" }: { placeholder?: string }) {
+export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: string; locale?: Locale }) {
+  const t = copy[locale].checker
+  const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
   const [q, setQ] = useState("")
   const [res, setRes] = useState<FreeVerdict | null>(null)
   const [loading, setLoading] = useState(false)
@@ -150,20 +142,20 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
   // (which wouldn't have committed yet inside the same click handler).
   const run = async (override?: string) => {
     const query = (override ?? q).trim()
-    if (query.length < 2) { setErr("Enter a brand and model"); return }
+    if (query.length < 2) { setErr(t.enterBrandModel); return }
     if (override) setQ(override)
     setLoading(true); setErr(""); setRes(null); setTimedOut(false)
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS)
     try {
       const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal })
-      if (!r.ok) throw new Error("Could not check that item right now")
+      if (!r.ok) throw new Error(t.couldNotCheck)
       setRes(await r.json())
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") {
         setTimedOut(true)
       } else {
-        setErr(e instanceof Error ? e.message : "Something went wrong")
+        setErr(e instanceof Error ? e.message : t.somethingWrong)
       }
     } finally {
       clearTimeout(timer)
@@ -179,7 +171,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
   // that looks like a verdict.
-  const label = res?.verdict === "LIMIT_REACHED" ? "LIMIT REACHED"
+  const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
     : res?.verdict ?? "—"
 
   return (
@@ -189,18 +181,18 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
-          placeholder={placeholder}
-          aria-label="Item to check"
+          placeholder={resolvedPlaceholder}
+          aria-label={t.inputAriaLabel}
           style={{ flex: "1 1 240px", minWidth: 0, background: "#0f1218", border: "1px solid #232c42", borderRadius: 10, padding: "13px 15px", color: "#eef1f7", fontSize: 14.5, outline: "none" }}
         />
         <button
           onClick={() => run()}
           disabled={loading}
-          aria-label={loading ? "Checking item" : "Check it free"}
+          aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
           style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, border: "none", borderRadius: 10, padding: "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
-          {loading ? "Checking…" : "Check it free"}
+          {loading ? t.checking : t.checkFree}
         </button>
       </div>
 
@@ -213,16 +205,15 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               reserved quota server-side and then never answered), so its
               honest-about-the-spend wording applies verbatim. */}
           <p style={{ color: "#c4a574", fontSize: 13, lineHeight: 1.55 }}>
-            Something went wrong on our end finishing that check — it may still count
-            against today&rsquo;s free limit. If your count looks wrong, email{" "}
+            {t.timedOutPre}{" "}
             <a href="mailto:support@resaleiq.dev" style={{ color: "#8fa3c4" }}>support@resaleiq.dev</a>{" "}
-            and we&rsquo;ll fix it.
+            {t.timedOutPost}
           </p>
           <button
             onClick={() => run()}
             style={{ marginTop: 8, background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
           >
-            Try again
+            {t.tryAgain}
           </button>
         </div>
       )}
@@ -232,11 +223,11 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
           {res.verdict === "LIMIT_REACHED" ? (
             <div>
               <p style={{ fontSize: 13.5, color: "#8b99b8" }}>
-                {res.message ?? "Free checks used up for today. Sign in to continue."}
+                {res.message ?? t.limitReachedFallback}
               </p>
               {res.used_today != null && res.limit != null && (
                 <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 4 }}>
-                  {res.used_today} of {res.limit} free checks used today.
+                  {t.usedOfLimit(res.used_today, res.limit)}
                 </p>
               )}
               {/* Free account before paid tier, per docs/product/SUPPORT-VOICE.md
@@ -253,10 +244,10 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                   href="/register?plan=free"
                   style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}
                 >
-                  Create a free account →
+                  {t.createFreeAccount}
                 </Link>
                 <Link href="/#pricing" style={{ color: "#8fa3c4", fontSize: 13 }}>
-                  See plans
+                  {t.seePlans}
                 </Link>
               </div>
             </div>
@@ -264,12 +255,12 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
               <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
-                {res.message ?? "No data for that query. Use a brand and a real model."}
+                {res.message ?? t.unknownFallback}
               </p>
               {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
                   work" into "it works for THESE" — the narrowing is honest,
                   an empty refusal with no next step reads as broken. */}
-              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} />
+              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} />
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
             // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
@@ -303,10 +294,10 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
 
               <p style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", lineHeight: 1.4, margin: 0 }}>
-                {INSUFFICIENT_STATEMENT}
+                {t.insufficientStatement}
               </p>
               <p style={{ fontSize: 12.5, color: "#8fa3c4", marginTop: 6, lineHeight: 1.5 }}>
-                {INSUFFICIENT_SUBTEXT}
+                {t.insufficientSubtext}
               </p>
 
               {(res.n ?? res.sold_7d) != null && (
@@ -315,7 +306,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                     {fmtCount(res.n ?? res.sold_7d)}
                   </span>
                   <span style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                    {INSUFFICIENT_N_LABEL}
+                    {t.insufficientNLabel}
                   </span>
                 </div>
               )}
@@ -333,7 +324,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                 <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{res.category}</div>
               )}
 
-              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} />
+              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} />
             </div>
           ) : (
             <>
@@ -344,17 +335,17 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
 
               {hasPrices && (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
-                <Stat label="Buy-below" value={money(res.buy_below)} accent="#22c55e" />
-                <Stat label="Market price" value={money(res.sell_avg)} />
-                {sold != null ? <Stat label="Left shelf (watched)" value={fmtCount(sold)} /> : null}
-                {listed != null ? <Stat label="Still listed" value={fmtCount(listed)} /> : null}
+                <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
+                <Stat label={t.marketPrice} value={money(res.sell_avg)} />
+                {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
+                {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
                 {res.locked || res.sell_through_rate == null ? (
                   <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>
-                    <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>Sell-through</div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: "#5b6b8c" }}>{res.locked ? "Plan" : "—"}</div>
+                    <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.sellThrough}</div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: "#5b6b8c" }}>{res.locked ? t.planLabel : "—"}</div>
                   </div>
                 ) : (
-                  <Stat label="Sell-through" value={res.sell_through_rate} />
+                  <Stat label={t.sellThrough} value={res.sell_through_rate} />
                 )}
               </div>
               )}
@@ -365,7 +356,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                 </span>
                 <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
                   {res.category ? `${res.category} · ` : ""}
-                  {res.confidence ? `Confidence ${res.confidence}` : ""}
+                  {res.confidence ? `${t.confidenceLabel} ${res.confidence}` : ""}
                 </div>
               </div>
 
@@ -382,7 +373,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
                   account, not a refusal. */}
               {!hasPrices && (
                 <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
-                  Headline call only — market price and buy-below need an account. {TRIAL_LIMITS_SHORT}
+                  {t.headlineOnly} {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
                 </p>
               )}
             </>
@@ -392,9 +383,9 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#22c55e" />
-              Unlock sell-through, demand, sizes and history with a plan.
+              {t.unlockLine}
             </div>
-            <SmartCTA anonLabel="Unlock the rest →" authedLabel="See full numbers →" authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+            <SmartCTA anonLabel={t.unlockRest} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
           </div>
           )}
         </div>

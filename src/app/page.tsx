@@ -9,7 +9,7 @@ import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { copy, detectLocale } from "@/lib/i18n"
 import { FreeChecker } from "@/components/tools/free-checker"
-import { TRIAL_LIMITS_SHORT } from "@/lib/trial-copy"
+import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 
 import type { Metadata } from "next"
 
@@ -34,7 +34,8 @@ export default async function Landing() {
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
   const chrome = chromeStoreUrl()
-  const t = copy[detectLocale((await headers()).get("accept-language"))]
+  const locale = detectLocale((await headers()).get("accept-language"))
+  const t = copy[locale]
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -88,9 +89,9 @@ export default async function Landing() {
             {/* Checker is the job on every viewport. Chrome cannot run on a
                 phone, so it stays a desktop-only secondary link. */}
             <div id="check" style={{ marginTop: 28, maxWidth: 520 }}>
-              <FreeChecker />
+              <FreeChecker locale={locale} />
               <p style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 10, lineHeight: 1.5 }}>
-                {TRIAL_LIMITS_SHORT}
+                {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
               </p>
             </div>
             <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
@@ -133,11 +134,11 @@ export default async function Landing() {
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
           <span>Scraped every 30 min</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
-          <span>No accuracy claims until 30 outcomes scored</span>
+          <span>{t.noAccuracy}</span>
         </div>
       </section>
 
-      <PricingSection />
+      <PricingSection locale={locale} />
       </main>
 
       {/* Footer */}
