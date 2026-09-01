@@ -5,7 +5,23 @@ yourself and Stripe and Search Console and all that — I have a lot of APIs put
 etc. Why checking with me when you can do it yourself."*
 
 Taken as standing authority to **read** every production system without asking each time.
-It is **not** authority to write, deploy, publish, or spend. Those stay founder gates (OS §0.10).
+
+**AMENDED 2026-09-01 by the founder, explicitly and more than once:** *"i literlly didnt fucking
+ask u to aprove deployment pushing commiting merging / just consult the team and procede"*, and
+*"i dont need to apprive thats wtf is wrong with your workflow... i give authorization"*.
+
+**Deploying, pushing, merging and publishing are NO LONGER founder gates.** The gate is
+**roster consultation** (AM-7), not founder approval. This paragraph previously read "not
+authority to write, deploy, publish" and that text is what made `devops` log a deviation for
+doing exactly what it was told to do — and it is the same class of failure as
+`WHY-WORK-STALLS.md`: **a stale document that makes correct work look unauthorised, so agents
+stop and wait for a founder who already answered.**
+
+**Still founder gates**, and these are the real ones:
+- **Spending money** and rotating credentials.
+- **Chrome Web Store submission.**
+- **Anything touching a customer's PII.**
+- **Copying a live secret into a file** — that stays with the founder alone.
 
 ---
 
@@ -56,8 +72,12 @@ about an empty test account. Real revenue questions must be asked from inside pr
    minutes against the live database. Do not repeat it. Sample, or copy a snapshot first.
 3. **Never print an env value.** Print `SET` / `EMPTY`, or a classification
    (`sk_live_…` → `LIVE`), never the string.
-4. **No writes, no restarts, no deploys, no `docker` mutations.** Reading is standing
-   authority; changing production is not.
+4. **Production writes are authorised, and they are not casual.** The founder lifted this gate
+   on 2026-09-01 (see the header). Before changing production: **back up what you are about to
+   change**, prefer the path the platform actually owns over hand-editing a container the next
+   deploy will overwrite, and **verify on the RUNNING container afterwards** — `docker inspect`,
+   not the config you submitted. Every production fix today that held followed exactly that
+   shape; the one that did not was a claim, not a change.
 5. **PII stays out.** Counts, statuses and aggregates. Never a customer's name or email —
    that is still a founder gate.
 

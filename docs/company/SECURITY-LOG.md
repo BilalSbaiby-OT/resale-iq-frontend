@@ -904,3 +904,11 @@ new = '''# SECURITY-LOG.md is excluded because the guard hook APPENDS TO IT ON E
 s = open("docs/company/WORKBOARD.md").read().rstrip().split("\n")
 i = next(n for n,l in enumerate(s) if l.startswith("| **W55**"))
 s.insert(i, "| **W57** | **Every video published today is SILENT, and one file was posted 11 times.** `ffprob`
+- `2026-09-01T17:36:15Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `cd /Users/bilalsbaiby/work/resale-iq rm -rf docs/marketing/assets/frames2 mkdir -p docs/marketing/assets/frames2 sed 's#docs/marketing/assets/frames#docs/marketing/assets/frames2#' scripts/capture_demo.mjs > /tmp/capture_demo2.mjs 2>/dev/null || true node - <<'EOF' const fs = require('fs'); let s = `
+- `2026-09-01T17:49:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p = "docs/company/ACCESS.md"; s = open(p).read()
+
+s = s.replace(
+"""Taken as standing authority to **read** every production system without asking each time.
+It is **not** authority to write, deploy, publish, or spend. Those stay founder gates (OS §0.10).""",
+"""Taken as standing au`
