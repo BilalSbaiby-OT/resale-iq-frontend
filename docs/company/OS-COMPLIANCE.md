@@ -8,7 +8,7 @@ can open, **PARTIAL** with what is missing, or **OPEN** with an owner. The const
 applies to this file: a claim without evidence is UNKNOWN, so nothing here is marked done unless
 there is a file, a commit or a command behind it.
 
-**Headline: 41 of 63 checkable items are DONE, 12 PARTIAL, 10 OPEN.** The prompt is not finished.
+**Headline: 40 of 63 checkable items are DONE, 13 PARTIAL, 10 OPEN** — corrected 2026-09-01, downward. Phase 0 moved DONE → PARTIAL when `verifier` established that the rails, and the proof that certifies them, cover one repo of four. The prompt is not finished.
 What is finished is everything the company needed before it could safely act, plus the four lanes
 the founder named. What is open is mostly Phase 2 measurement scaffolding and Phase 4 automation —
 listed at the bottom with owners.
@@ -34,7 +34,7 @@ listed at the bottom with owners.
 | 7 | Doer ≠ reviewer ≠ scorer | **DONE** | `tech-lead` may never author what it reviews; `verifier` is sole writer of SCOREBOARD. Exercised for real: the CEO overturned a MARKETING-AUDIT finding that did not survive verification |
 | 8 | Spend is a KPI | **PARTIAL** | cap set at €200 (AM-2), model tiers assigned per agent; no spend ledger yet |
 | 9 | Never build the forbidden list | **DONE** | encoded in `seo` and `content-social` agent files; `sales` deliberately never created |
-| 10 | Founder gates | **DONE** | hook-enforced in `guard.py`: push-to-main, Stripe writes, `gh` deploy, harness edits, off-allowlist POST |
+| 10 | Founder gates | **PARTIAL** | hook-enforced in `guard.py`: push-to-main, Stripe writes, `gh` deploy, harness edits, off-allowlist POST — **enforced in `resale-iq` only**; the other three repos load no hook (A12). Also: the credential rule was a substring match until 2026-09-01, defeatable by a trailing shell comment — fixed, 15/15 proof |
 
 ## §1 — The live-site truth pass
 
@@ -116,7 +116,7 @@ listed at the bottom with owners.
 
 | Phase | Status |
 |---|---|
-| **Phase 0 — rails** | **DONE.** 5 hooks, `proof.sh` at **38/38**, every deny rule with a negative control |
+| **Phase 0 — rails** | **PARTIAL — corrected 2026-09-01.** 5 hooks, `proof.sh` at **40/40** with a negative control per deny rule — **in `resale-iq` only.** `demand-intel` (whose `main` deploys production), `resale-iq-growth` and `resale-iq-seo` have no `guard.py` wiring, and the proof never tested them. Found by `verifier` auditing its own scope: *"the proof passed while testing one quarter of its subject."* Rollout is APPROVALS **A12** |
 | **Phase 1 — study** | **DONE.** All 9 audit files: MAP, HARNESS, DATA (903 lines), CLAIMS, FUNNEL, MONEY, SECURITY-AUDIT, MARKETING-AUDIT, SUPPORT-AUDIT |
 | **Founder Gate #1** | **WAIVED by the founder**, recorded in `DECISIONS.md` |
 | **Phase 2 — harden** | **PARTIAL.** Done: truth pass, Business €99 cut, the P0 quota fix (`836e6d5`, 1,153 tests), the 20-point security sweep (running). Open: METRICS.md, the canary set of 60, the gates DATA.md found MISSING (replica filter, currency==TLD, seller blacklist), the predictions resolver |
