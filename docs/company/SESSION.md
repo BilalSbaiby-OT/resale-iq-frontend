@@ -4,6 +4,47 @@
 
 ## Working on
 
+**"Registering makes the product worse" — the CODE no longer does. The COPY still says it does.**
+Verified before briefing anyone, because I twice today briefed the roster off a sandbox key.
+`api/routes.py:755` grants a logged-in free user the **same 10/day** as anonymous, `claim_verdict_unlock`
+adds **10 full unlocks/month** anonymous never gets, plus a 7-day unlimited trial. W1's fix
+(`5019fa0`/`d170987`) landed today. **Registering is now strictly better in every dimension.**
+
+**Nobody reading our site would know that:**
+- `i18n.ts:223` — *"...then 10 full checks / month. **Anonymous visitors get 10 checks/day.**"*
+- `i18n.ts:292` — *"...then 10 checks/month."*
+- `free-checker.tsx:235` — *"(register — free, **raises the cap to 10/month**...)"*
+
+We tell visitors that signing up moves them from **10 a day to 10 a month** — a 30× downgrade, in our
+own words, on the conversion surface, in six languages. Line 223 volunteers that anonymous gets more.
+**417 of 432 checks were run by anonymous visitors; every registered user has run zero.** Our copy
+gives them the reason. `monetization` owns it; briefed explicitly that this is a **copy change, not a
+quota change** — changing numbers to fix a sentence is the wrong instinct.
+
+**SHIPPED: the language switcher** (`9659e70`). Verified in a real browser on the exact failure:
+`/register` with a stale `NEXT_LOCALE=es` renders *"Cree su cuenta"*, and picking English re-renders
+*"Create your account"* in place. **That is the only thing that reaches visitors already carrying a
+wrong cookie** — it lasts a year, so the detection fix protects new visitors only. Not mounted where
+it would be inert. The logo-home fix came back better than asked: one `Link` in the auth layout
+replacing five duplicated inert copies.
+
+**AM-10 recorded** — the founder authorised correcting any binding rule that blocks improvement.
+Four more stale gates found and fixed (`GTM.md` ×3, `OS.md`'s founder-only list). **Emails to
+individuals deliberately kept as a gate**, and four real users are waiting on exactly that.
+
+## Corrections I owe the record
+
+**A regression test I wrote tonight was wrong.** It asserted `/register` with a Spanish
+`Accept-Language` and no cookie returns `lang="es"`; `proxy.ts`'s W19 comment documents the opposite,
+deliberately. It failed on `main` from the moment I wrote it. `frontend-eng` flagged it as
+pre-existing rather than rewriting `proxy.ts` to make a bad test pass — **a green suite bought by
+bending code to a wrong assertion is how a documented decision gets reversed by accident.** Moved to
+`/`, where locale is actually decided.
+
+**I said we had no per-user usage telemetry. We do** — `verdict_logs`, 432 rows, `user_id` column. I
+searched four names, missed the real table by one character, and **asserted an absence**, which is
+the hardest claim to make and the one I had least evidence for. The founder pushed back and was right.
+
 **Production verified by me in the browser, not from a report.** Six locales 200 · `/api/health` 200 ·
 `/register` 200. `New Balance 530` → **SKIP**, buy_below **26.39** from sell_avg 39.69 at **n=548**
 (39.69 × 0.95 × 0.70 = 26.39 exactly) — the product tells people *not* to buy when the numbers say
