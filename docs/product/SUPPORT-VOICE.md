@@ -326,6 +326,123 @@ additions, same format as the file:
 
 ---
 
+## 7. ROSTER CONSULT (AM-7) — the `n ≥ 8` floor is not enforced on paid surfaces
+
+Asked 2026-09-01 by the coordinator, per AM-7 ("a decision that touches another agent's
+surface... requires consulting the whole roster"). Recorded here rather than in a new file,
+because it's a direct extension of §§1–4 above: the same evidence-floor problem, on surfaces
+this file hadn't looked at yet. **Recommendation only — no code, config or copy shipped from
+this section; the decision itself belongs to `tech-lead` and the founder.**
+
+**The finding, as given:** `/api/verdict` enforces `MIN_VERDICT_COMPARABLES = 8`
+(`engine/listing_identity.py:41`) before it will print `max_buy_price`. `api/resale_routes.py`
+— Deal Finder, watchlist, brand/model pages, opportunities, and the `&price_to=` sourcing link
+(`build_sourcing_links`, `resale_routes.py:202-224`) — has no such check anywhere in the file
+(confirmed: `grep comparable_n api/resale_routes.py` → 0 hits) and publishes `max_buy_price` on
+**paid** surfaces regardless of sample size. Real examples: Levi's Trucker, €12.10 from 5
+comparable sales; Jordan 1 Low, €78.47 from 3. Both are *below* the floor `/api/verdict` itself
+would require to print anything — on the verdict surface, these two exact items would return
+`INSUFFICIENT_DATA`, not a low-confidence number. The same brand+model gets a refusal on one
+surface and a full-strength-looking price with zero confidence marker on another.
+
+### 1. What a wrong buy-below actually costs, concretely
+
+A reseller pays a real seller €10–12 for a Levi's Trucker because Deal Finder or a watchlist
+alert said €12.10 was the most worth paying. If the honest number (rebuilt with more evidence)
+is closer to €4.65, they didn't get a deal — they overpaid by more than double relative to what
+the market can actually support, on a purchase decision our product specifically exists to make
+correct. They lose real money, on advice from the feature they are paying for, at the one moment
+the product is supposed to earn that payment.
+
+**How that person describes us afterward:** not "the checker didn't have data for my item" —
+that's legible as an honest boundary, the same as everything in §§1–2 above. It's "Resale IQ
+told me what to pay, I lost money, and there was nothing on the screen that said the number was
+a guess." That is the exact fake-confidence failure this company's own positioning claims to be
+different from, landing on a paying customer instead of a free one.
+
+**How many of the founder's first ten survive it:** we already have direct evidence, not a
+guess — n=1 real paying customer, ever, refunded and cancelled, reason unknown (§5 above). A
+wrong-buy-below story is disproportionately expensive at this scale: it isn't diluted by
+thousands of good experiences yet, and resale communities are small enough that one bad story
+travels. I would not expect a customer to stay through one of these, and I would not expect them
+to say why before they leave — see §4 below.
+
+### 2. Does the refusal thesis hold, or does it just make a worse product?
+
+The question as posed is a false binary. The real choice was never "confident number vs. blank
+surface" — it's "confident-looking number with no evidence marker vs. the same number shown
+*with* one," and the company has already designed and shipped that middle path for the verdict
+surface (`design/extension-panel/low-confidence.html`: MEDIUM band, n≥10, tan "honesty" colour
+token, n shown at a size that competes with the price, explicit copy — "Real data, thinner
+sample... the price is honest, just less precise"). Applying that same language to Deal Finder,
+watchlist and brand/model rows is not emptying the product. A row reading "€41 · LOW confidence,
+n=8" carries exactly as much information as it does today — it's honest about certainty, not
+less full.
+
+Where the thesis genuinely has to bend is *below* n=8. There is no honest "less certain" version
+of a number the evidence doesn't support at all — Levi's at n=5 and Jordan 1 Low at n=3 aren't
+"thinner," they're under the floor the product has already, publicly committed to
+(`/methodology`: "LOW always says how many comparables we have," itself gated at n≥8 by
+`verdict_allows_buy_below`). Below that floor the honest content is a refusal row, in the same
+voice as §§1–2's `thin_comparables` copy, not a disclosed price. A board that is honestly ~57%
+refusal rows (`band_coverage_supply` = 43%, `APPROVALS.md` A8) will look visibly thinner than it
+does today, and that is worth saying plainly rather than downplaying — but a thinner, honest
+board is recoverable as coverage grows. A bad-buy-below story from a paying customer is not.
+
+### 3. The string — and where no string is the honest answer
+
+**Yes, for in-app rows** (Deal Finder, watchlist, brand/model pages) — reusing the pattern
+already shipped for the verdict surface, at the n≥8 floor:
+
+| Band | Row copy |
+|---|---|
+| n ≥ 8, < 10 (LOW, at the floor) | "€41 buy-below · LOW confidence — 8 sold, right at our floor. Treat it as a range, not a target." |
+| n ≥ 10, < 30 (MEDIUM) | "€52 buy-below · MEDIUM confidence, n=14 — real data, thinner sample." *(already shipped copy, `low-confidence.html:121-123`; extend it to these surfaces rather than rewrite it)* |
+| n < 8 (below floor — Levi's Trucker, Jordan 1 Low) | "Not enough data to price yet — 5 sold, we need 8. [Watch this model →]" *(same voice as §1–2's `thin_comparables`, not a number at all)* |
+
+**No, for the `&price_to=` sourcing link specifically.** That number doesn't stay on our page —
+it becomes a hard numeric filter on a live Vinted search URL the moment someone clicks through
+(`build_sourcing_links`, `resale_routes.py:224`: `f"&price_to={int(max_buy_price)}"`). No row
+copy travels with a query parameter. A disclosure sentence next to €12.10 does nothing once the
+number is baked into a link and the sentence is three tabs back. **This is the one place I don't
+think copy can carry it, and I'd treat that as the finding, not try to word around it:** below
+the n=8 floor, don't build the `price_to=` param from that number at all — link to an unfiltered
+brand+model search instead. That's an engineering change to `build_sourcing_links`, not a copy
+fix, and I'm flagging it here because the copy question doesn't have a safe answer without it.
+
+### 4. The cancel-survey angle
+
+Entirely plausible, and worse than any category already in §5's taxonomy — "couldn't get a
+price" (`DATA_COVERAGE`) is a refusal a customer can read as honest; "the price was wrong and I
+lost money" is a broken promise, and someone who feels that is less likely to explain why on the
+way out than someone who was merely told no. Our only real customer's reason is unknown, on a
+refund, with no complaint on record anywhere this audit could reach (§5, `SUPPORT-AUDIT.md` §2).
+We cannot rule out that this exact gap already cost us that customer. **Adding a distinct
+`PRICE_ACCURACY` category to §5's taxonomy** — separate from `DATA_COVERAGE` — is now warranted
+on its own, whether or not this AM-7 decision ships anything: conflating "declined to price" with
+"priced wrong" in the survey would hide the one failure mode this consult exists to catch. This
+raises urgency past "log it and revisit" — it's a live, unmeasured risk on a paid, working
+feature, discovered by an audit rather than a complaint, which is exactly the shape of gap that
+produces silent churn.
+
+### Recommendation
+
+**Gate, don't disclose-without-limit, and don't let the number leave the page ungated.**
+
+1. Enforce `comparable_n ≥ 8` on `api/resale_routes.py`'s `max_buy_price` reads — the same floor
+   `/api/verdict` already uses, for one reason across the whole product rather than two.
+2. For n in [8, 30) (LOW/MEDIUM), show the disclosed row copy above instead of hiding the row —
+   the surfaces get thinner-looking in places, honestly, not emptier of real content.
+3. For n < 8, show the refusal row, not a number — same voice as §§1–2.
+4. Never build `&price_to=` from a `max_buy_price` under the floor — this is the one case in this
+   whole document where I don't think wording is a safe substitute for the underlying gate.
+5. Add `PRICE_ACCURACY` to the churn taxonomy in §5, distinct from `DATA_COVERAGE`.
+
+I'd rather ship a visibly thinner Deal Finder than risk a second version of the story we may have
+already lived once without knowing it.
+
+---
+
 ## Sources
 
 `demand-intel/api/routes.py` (lines cited inline), `demand-intel/engine/sufficiency.py`,

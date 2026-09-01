@@ -933,3 +933,64 @@ rather than the liability. **The founder's call, made with the cost named.**
 **Time-critical, already actioned:** `product-manager` warned that `designer` and `frontend-eng` —
 both mid-build right now — must not bake a live buy-below figure into the landing page or into test
 expectations, or the rebuilt page ships wrong on launch night. Both were messaged mid-task.
+
+
+#### `customer-success` and `legal-compliance` — they SPLIT the converged design, and they are right
+
+`product-manager` proposed three tiers with **3–7 shown as low-confidence**. Both of the roles closest
+to the user rejected that band.
+
+**`customer-success`:** below `n = 8` there is no honest "less certain" version to show — **only a
+refusal.** The disclosed middle band belongs at **8 ≤ n < 30** (the MEDIUM state, whose copy and
+colour token are already shipped in `design/extension-panel/low-confidence.html` and were simply
+never adopted by the paid surfaces). It also found the same brand+model gets an **honest refusal on
+the free surface and a full-strength number on the paid one** — which is the worst possible
+arrangement of the two.
+
+**And it identified one place where copy cannot be the answer at all:** the `&price_to=` sourcing
+link. `build_sourcing_links` (`resale_routes.py:202-227`) bakes `max_buy_price` into a live Vinted
+URL. **No disclosure sentence travels with a query parameter** — the moment it is clicked it is a
+hard filter on an external site. That is an engineering gate, not a wording problem: **do not emit
+the param below the floor.**
+
+**`legal-compliance` made the same call from the other end, and went further than I expected:**
+
+> *Matched disclosure can mitigate. **Thin disclosure chosen because it is cheaper than calling the
+> already-existing, already-fail-closed `verdict_allows_buy_below()` is not a defence — it can read
+> as evidence of knowledge, which is worse than silence** under UCPD's "knew or should have known".*
+
+Paying **strengthens** the exposure: it is a direct transactional decision under Art. 6, plus a
+separate breach-of-bargain theory, because `/methodology` describes exactly the confidence standard
+the code does not apply. A footer-linked page does not meet Art. 7's "clear, timely, at the point of
+decision" bar for a number rendered live in Deal Finder.
+
+**And it re-ranked its own earlier finding when asked the sharper question.** Its GDPR gap is worse
+for *total harm over time*; **this is worse for what must close before ten strangers pay tonight** —
+live on minute one of a new subscription, it breaks the promise actually sold, and the fix already
+exists and works on a sibling surface.
+
+**One thing it refused to do, correctly:** it could not verify the production figures relayed to it
+(no DB access) and reported them **as relayed, not confirmed**, while independently verifying every
+code claim by grep.
+
+---
+
+### THE ROSTER DECISION — gate at `n ≥ 8`, refuse below it, never emit `price_to` under the floor
+
+Four consultations, converged with one amendment to my own summary:
+
+| `comparable_n` | behaviour |
+|---|---|
+| ≥ 30 | full band, HIGH confidence |
+| 8–29 | price shown, **MEDIUM** — reuse the shipped low-confidence copy and token |
+| **< 8** | **honest refusal. No number, on any surface.** |
+| any `n < 8` | **`&price_to=` must not be emitted at all** |
+
+Plus: sort Deal Finder and opportunities by confidence tier, so the trustworthy subset is the first
+screen.
+
+**Sequencing, unanimous: gate BEFORE or WITH A13.** A13 alone swaps one under-evidenced price for a
+different under-evidenced price on the same 18 models.
+
+- [ ] **Implementation is `backend-eng`'s**, reviewed by `tech-lead`. One already-built function
+      extended to more call sites, one already-shipped label set adopted, one sort key.

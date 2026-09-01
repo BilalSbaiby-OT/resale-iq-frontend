@@ -261,3 +261,7 @@ block`
 - `2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`

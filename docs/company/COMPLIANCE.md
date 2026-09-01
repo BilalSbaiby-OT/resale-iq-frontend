@@ -32,6 +32,7 @@ them, not just the comment — see §1.1.
 | 8 | **The Chrome Web Store listing text still carries the false "collected about every 30 minutes" claim** that `CLAIMS.md` already found false on the main site (actual cadence ~2h, and broken entirely for 11 days per the runbook). | High (live in the store listing today) | Medium — store-policy risk (inaccurate listing) layered on top of the same consumer-claim risk as #6 | `extension/STORE-LISTING.md:50-51` ("collected about every 30 minutes and recomputed roughly every 2 hours") vs. `docs/audit/CLAIMS.md §3` and `docs/eng/runbook/local-scrape-agent.md` | Same fix as `CLAIMS.md` Top-10 #2, applied to this file too — it was missed because it's a different repo location, not because it's a different fact |
 | 9 | **`predictions` accuracy is not currently claimed anywhere (0 of 340 predictions graded), but nothing *enforces* that** — no visible counter, no code-level gate found tying "30 outcomes" specifically to a publish decision. | Low today (nothing false is currently published) | High if it slips — publishing an accuracy number before real grading is a textbook false-advertising claim | `docs/audit/CLAIMS.md §5` — found `EVAL_WINDOW_DAYS = 30` (a time window) but no `MIN_SCORED`/count gate | A one-line SQL check any agent proposing to publish an accuracy figure must run first: `SELECT COUNT(*) FROM predictions WHERE outcome_correct IS NOT NULL` — refuse the PR if it's below the number the copy claims |
 | 10 | Extension permissions and Stripe delivery — checked, no gap found | — | — | See §5 | None needed |
+| 11 | **NEW, 2026-09-01 — `resale_routes.py` publishes an actionable buy-below price on paid surfaces (Deal Finder, watchlist, brand/model pages, opportunities, sourcing links) with no evidence-floor check**, while the same underlying number is correctly fail-closed at `n<8` on `/api/verdict`. See §6 — this is now ranked ahead of everything except itself for anyone paying **tonight**; read §6.4 for why the ordering against #1 is not what you'd guess from this table's static ranking. | High (measured live: 18/41 shifted models are on ungated surfaces today) | High — this is the product's core paid promise, not a secondary right | `engine/listing_identity.py:39-74`, `api/resale_routes.py` (`publishable_opportunity`, `build_sourcing_links`) — full trace in §6 | §6.5 |
 
 ---
 
@@ -338,19 +339,196 @@ stale "every 30 minutes" line, which is a data-freshness claim, not a permission
 
 ---
 
-## Everything flagged NEEDS COUNSEL, gathered in one place
+## §6. ROSTER CONSULT, 2026-09-01 — the `resale_routes.py` evidence-floor gap
 
-1. Whether Vinted's ToS creates enforceable liability for this specific scraping pattern, and what EU
-   sui generis database-right exposure looks like for the derived statistics published on the site
-   (§4).
-2. Whether the `/privacy` page's Art. 13 gaps (controller identity on request rather than stated,
-   no legal-basis statement, no retention periods, no transfer disclosure for Stripe/Resend) amount
-   to actual non-compliance or are curable with the specific text additions proposed in §1.5/risk #4
-   (§1, risk #4).
-3. Whether the 14-day digital-content withdrawal waiver on `/legal` (line 37) is implemented in a way
-   that actually satisfies the "express consent + acknowledgment" requirement at the point of
-   checkout — this pass read the policy text only, not the actual checkout flow's consent UI.
-4. The functional cookie set for anonymous-visitor quota tracking (`ANON_VISITOR_COOKIE_NAME`,
-   `httponly`, `secure`, `samesite=lax` — `api/routes.py:776-784`) is not mentioned anywhere in
-   `/privacy` or a dedicated cookie notice. It's very likely "strictly necessary" and exempt from
-   ePrivacy consent, but that's a legal characterisation this pass can describe, not certify.
+Requested by the coordinator under the cited AM-7 process, alongside `tech-lead` and
+`data-scientist`'s independent finding. I did not take the finding on faith — I traced the code
+myself before answering. I could not independently verify the specific production numbers quoted to
+me (Levi's Trucker €12.10/n=5, Jordan 1 Low €78.47/n=3, the 41/100-models/20.3%-median/+160%-max A13
+result) — this role has no live DB access (`Read`/`Grep`/`Glob`/`Write` only, no `sqlite3`), so those
+figures are reported here as **relayed, not independently confirmed**. The underlying *code-level*
+claim — that `resale_routes.py` has no evidence-floor check while `/api/verdict` does — I traced
+myself and confirm below with exact line numbers.
+
+### 6.0 What I verified directly
+
+`engine/listing_identity.py:39-74`:
+```
+MIN_COMPARABLES = 3            # admission floor for a model_signals board row
+MIN_VERDICT_COMPARABLES = 8    # floor to print a buy-below on /api/verdict
+
+def verdict_allows_buy_below(row: dict) -> bool:
+    """... FAILS CLOSED. A row that cannot prove it has >= MIN_VERDICT_COMPARABLES
+    clean comps does not get a buy-below price."""
+    n = row.get("comparable_n") or row.get("n_fenced")
+    if n is None:
+        return False
+    return int(n) >= MIN_VERDICT_COMPARABLES   # (paraphrased; try/except in source)
+```
+So a row can sit in `model_signals` — with a populated, non-null `max_buy_price` — on as few as
+**3** comparable sales. `api/routes.py` (`/api/verdict`, lines 889-911) calls
+`verdict_allows_buy_below()` and returns `INSUFFICIENT_DATA` below 8. `api/resale_routes.py` never
+calls `verdict_allows_buy_below()` or `verdict_comparable_n()` anywhere — confirmed by grep, zero
+hits in that file. Its own gate, `publishable_opportunity()` (`engine/listing_identity.py:259-265`),
+checks only "not a junk model" and "`avg_price_eur`/`max_buy_price` are non-null" — **no count
+check at all**. That function feeds Deal Finder, the watchlist redaction logic
+(`resale_routes.py:1119-1122`), the deals redaction logic (`_DEALS_LOCKED_FIELDS`, line 685), and
+brand/model pages. `build_sourcing_links()` (`resale_routes.py:202-227`) then embeds whatever
+`max_buy_price` it's handed as a live `&price_to=` URL param on a one-click Vinted search — so a
+row admitted at n=3 doesn't just get *displayed*, it gets baked into a link the user clicks to go
+spend money. The comment at `verdict_allows_buy_below()` line 50-56 confirms the team already
+closed exactly this gap on the `/verdict` surface, dated **2026-09-01** — the same day this
+surface's gap was found. That timing is itself informative: this isn't a old, forgotten bug, it's a
+fix applied to one surface while an identical live gap sat on another, on the same day.
+
+### 6.1 EU consumer-law exposure — what I actually know vs. what needs counsel
+
+**What I can say without counsel, as a factual/structural matter:** the UCPD (2005/29/EC) reaches
+misleading actions (Art. 6) and misleading omissions (Art. 7) that distort the "average consumer"'s
+*transactional decision*. Publishing a specific, unqualified number labelled as the price a person
+"can pay... and still hit your margin" — the product's own tagline
+(`extension/manifest.json:5`) — off 3 comparable sales, with no visible qualifier, is a textbook
+fact pattern for a misleading-action claim about "the main characteristics of the... service" and
+"the results to be expected from its use" (Art. 6(1)(b)). The company's own `/methodology` page
+independently establishes what it considers a defensible sample size (the HIGH/MEDIUM/LOW bands
+`CLAIMS.md §10` already traced), which raises rather than lowers exposure: the claim isn't just
+unsubstantiated in the abstract, it's contradicted by the company's *own published standard*.
+
+**Does paying change it?** Yes, in two concrete ways I can state plainly:
+1. UCPD's trigger is *distortion of a transactional decision*. A paying subscriber acting on a
+   number to spend real money buying secondhand inventory is about as direct a transactional
+   decision as this framework contemplates — this is not a marginal or borderline case.
+2. Payment adds a second, independent theory beyond UCPD: **breach of the actual bargain.** The
+   customer paid specifically for the thing `/methodology` describes (a confidence-banded price).
+   If the code doesn't apply that standard uniformly, the gap between the contractual promise and
+   delivered service is a distinct claim from "was this commercial practice unfair," and doesn't
+   need the UCPD framework to exist at all.
+
+**Where `/methodology` disclosure helps, and where it doesn't:** it helps establish good faith
+*if the product actually follows it everywhere it applies*. It does **not** cure a specific surface
+that silently doesn't apply the standard it publishes — a generic page reachable from the footer is
+unlikely to satisfy Art. 7's requirement that material information be given in a way that's "clear,
+intelligible, unambiguous and timely" **at the point the transactional decision is made**. A
+reseller looking at a live Deal Finder card or clicking a sourcing link is not, at that moment,
+reading a separate methodology page — the disclosure has to travel with the number or it isn't
+doing the job Art. 7 requires of it.
+
+**NEEDS COUNSEL:** whether individual resellers using this as a side-income tool are "consumers"
+under the UCPD (likely yes for the SaaS purchase itself — a private individual paying €19-49/month
+for a tool is a fairly clean consumer transaction) or whether their downstream Vinted purchases
+change that characterisation; and what a Spanish court specifically would do with the
+methodology-contradicts-code fact pattern above. I'm confident in the *shape* of the exposure; I am
+not qualified to price it.
+
+### 6.2 Does gating vs. disclosure change the exposure — my actual view, not a punt
+
+The coordinator asked me not to dodge this, and I don't think it's as symmetric as "I don't know
+which way it cuts." **My view: matched disclosure can be a real mitigation; mismatched disclosure is
+not one, and can function as evidence of knowledge, which is worse than silence.**
+
+The distinction that matters is not "gate vs. disclose" as a binary — it's whether the treatment
+applied to a low-n row is the *same standard the company has already decided, in writing and in
+code, that it needs*:
+
+- `/api/verdict` already has the honest answer built and shipped: below the floor, return
+  `INSUFFICIENT_DATA` with an explicit `confidence_note` ("Only N comparable sold items... not
+  enough to name a buy-below" — `api/routes.py:897-900`). This is not a hypothetical design to
+  build; it is a working, tested pattern that a second surface can call into, not reinvent.
+- Applying that *same* floor (`MIN_VERDICT_COMPARABLES = 8`) inside `resale_routes.py` — most
+  simply, inside `publishable_opportunity()` or wherever `max_buy_price` is attached before
+  serialization — closes the gap for every downstream surface at once, **including the sourcing
+  links**, because `build_sourcing_links()` only adds `&price_to=` `if max_buy_price and
+  max_buy_price > 0` (`resale_routes.py:224`): null the upstream field and the link stops
+  embedding an unqualified price automatically. This is a genuinely small, single-function-call
+  fix, not a rewrite — I note this because it bears directly on the coordinator's ask in §6.4, even
+  though weighing effort is explicitly the coordinator's job, not mine.
+- A **disclosed low-confidence price** is only a defence if the disclosure (a) sits directly next
+  to the number at the same visual weight, not a tooltip or footnote, (b) appears on *every*
+  surface that renders the number, including the machine-readable use in a sourcing-link URL — which
+  is harder to attach a visible label to than a UI card, and (c) is the deliberate, considered
+  design chosen because it's honest, not the path chosen because it's cheaper than calling an
+  already-existing gate. If it's built as the cheaper option, and the company can be shown to know
+  (via the `/methodology` page, and via the 2026-09-01 fix on the sibling surface, both of which are
+  now on the record) that its own standard requires 8 comparables, showing a bare or thinly-labelled
+  number under that anyway reads as **choosing to publish something you know is unreliable**, which
+  under UCPD Art. 6(1)'s "knew or could reasonably have been expected to know" language is closer to
+  an aggravating fact than a mitigating one.
+
+Net: I'd reuse the existing, already-fail-closed pattern rather than design a new disclosed-low-
+confidence state under time pressure tonight. The `-57%` board-size cost the coordinator quotes is
+the real, accurate cost of enforcing the standard already on the record — not a new risk introduced
+by fixing this, and the founder should see that number stated plainly before deciding, since it's a
+product/business tradeoff sitting directly downstream of a legal one.
+
+### 6.3 Duty to correct already-published prices
+
+**What I can state as fact, not opinion:** `verdict_outcomes`
+(`schema.py:836-854`) already snapshots `said_buy_below`/`said_sell_avg` per user at the moment
+advice was given, specifically so it can be graded against what was actually said rather than
+today's number (the table's own header comment says this). `purchase_logs` separately records
+`bought_at` self-reported by the user via the extension's "I bought at €X" button. **Together these
+two tables are exactly the query needed to identify which specific users acted on a given
+now-corrected number, while it was live** — this is a `SELECT`, not a guess, and it should be run
+before deciding whether outreach is owed, rather than assuming either "nobody was affected" or
+"everybody was."
+
+**What needs counsel, genuinely:** whether there is an affirmative duty to proactively contact and
+remediate (refund/credit/notice) users who can be shown to have acted on a materially wrong number
+while it was live, versus a duty that's satisfied by fixing the number going forward. I'd flag two
+facts that make the "just fix it forward" position weaker, without asserting a legal conclusion: (1)
+the company continues to bill the same subscribers monthly, so staying silent about a known-bad
+number while continuing to collect payment for the surface that showed it is a worse fact pattern
+than a free product would present; (2) the data to identify affected users already exists and is
+cheap to query — declining to look is a choice, and "we didn't check" tends to read worse after the
+fact than "we checked and X people were affected, here's what we did."
+
+### 6.4 Ranking against the GDPR finding — and where I disagree with treating this as one ranked list
+
+The coordinator asked me to rank this against my own §1 finding and to say which must close before
+ten strangers pay tonight. **I want to flag directly that these are two different questions with two
+different answers, and my original risk-register ranking (§ risk table, item 1) answers the first
+one, not the second:**
+
+- **"Ranked by expected harm over the life of the company"** — the register's static ordering — is a
+  reasonable placement for the GDPR export/erasure gap at or near the top, because it's a *published,
+  false compliance statement* that will eventually be tested by a real DSAR, and false statements
+  about legal compliance carry their own distinct regulatory exposure (misrepresenting compliance is
+  its own problem, separate from the underlying gap).
+- **"What must close before taking money from ten strangers tonight"** is a narrower, sharper
+  question, and the answer is different: **the `resale_routes.py` evidence-floor gap (§6) is the one
+  that has to close first.** My reasoning:
+  1. It is live and actionable on **minute one** of a new paid subscription — a new Pro customer's
+     first click into Deal Finder or the watchlist can show them an unqualified, thin-evidence price
+     the moment they've paid. The GDPR gap only crystallizes if and when that same customer later
+     files a DSAR or deletes their account — a real risk, but not a day-one one for people signing
+     up tonight specifically.
+  2. It is a defect in **the thing being sold**, not a defect in a secondary right about the sold
+     thing. The product's entire pitch is "the highest price you can pay... and still hit your
+     margin" — that is the exact sentence this gap breaks, for the exact customers signing up
+     tonight. The GDPR gap is about what happens to their account data later, which matters, but
+     isn't the transaction's subject matter.
+  3. The blast radius the coordinator measured (18 of 41 shifted models, live today, on paid
+     surfaces) is wide, not a rare edge case — it is closer to "this happens routinely" than "this
+     happens occasionally," for a cohort about to be onboarded tonight specifically.
+  4. The fix is small and already exists in the codebase in working form (§6.2) — this isn't "we
+     found a hard problem," it's "a fix that shipped on one surface today needs to be applied to a
+     second surface before more customers see the unpatched one."
+
+  **So: close §6 before taking payment tonight.** The GDPR gap (§1) should be fixed this week, on its
+  own priority, but I do not think it is the one that blocks tonight, and I'd be giving the
+  coordinator a worse answer if I let my own register's static ranking stand in for a direct answer
+  to the specific question asked. Reconcile it this way: the register ranks *total expected harm*;
+  this section ranks *what's actionable tonight*; they're allowed to disagree, and here they do.
+
+### 6.5 What "closed" means before tonight, stated narrowly
+
+Not "gate everything to n≥8 with no exceptions decided by a legal role at midnight" — that's a
+product call about how thin a board the founder is willing to launch with, and it's the founder's
+or `product-manager`'s to make, not mine. What I'm asserting is narrower and is a legal-risk
+statement, not a product one: **whatever ships tonight must not let a `resale_routes.py`-served
+`max_buy_price` reach a paying customer, or a URL they can click, at a comparable count the company's
+own `/methodology` page and its own `/api/verdict` code have already stated is insufficient to name
+a price** — via the existing 8-comp floor, or via a disclosure design that genuinely meets the
+per-instance, same-prominence bar in §6.2, not a footnote. Whichever of those two the founder picks
+is a real decision with a real product cost either way, and that tradeoff is exactly what should
+reach the founder before tonight, not get decided silently by whichever fix is fastest to type.
