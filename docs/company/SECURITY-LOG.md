@@ -232,3 +232,9 @@ block`
 - `2026-09-01T00:16:28Z` **BLOCKED** Bash — direct read of a .env file — `for repo in resale-iq demand-intel resale-iq-growth resale-iq-seo; do echo "=== $repo .gitignore ===" cat /Users/bilalsbaiby/work/$repo/.gitignore 2>&1 | grep -i "env" echo "--- git ls-files for .env ---" cd /Users/bilalsbaiby/work/$repo && git ls-files | grep -i "\.env" echo done`
 - `2026-09-01T00:24:52Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `rm -rf /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W36/canary/__pycache__ /Users/bilalsbaiby/work/resale-iq/scripts/canary/__pycache__ find /Users/bilalsbaiby/work/resale-iq/data/quarantine /Users/bilalsbaiby/work/resale-iq/docs/audit/canary /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/`
 - `2026-09-01T00:24:52Z` **BLOCKED** Bash — git push --force — `cat > /Users/bilalsbaiby/work/resale-iq/docs/audit/SECURITY-SWEEP-2026-09-01.md << 'REPORT_EOF' # Security sweep — 2026-09-01 Author: security-eng. Scope: `resale-iq`, `demand-intel`, `resale-iq-growth`, `resale-iq-seo`. Method: static review only — read source, git history and config; ran `npm audi`
+- `2026-09-01T00:28:34Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-09-01T00:28:34Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-09-01T00:28:35Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
+- `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`

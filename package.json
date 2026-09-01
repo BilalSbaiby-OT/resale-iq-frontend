@@ -16,7 +16,8 @@
     "check:extension": "node scripts/check-extension.mjs",
     "seo:indexnow": "node scripts/indexnow.mjs",
     "test:e2e": "playwright test",
-    "test:e2e:prod": "playwright test e2e/prod.smoke.spec.ts"
+    "test:e2e:prod": "playwright test e2e/prod.smoke.spec.ts",
+    "test:e2e:required": "playwright test e2e/smoke.spec.ts e2e/customer-workflow.spec.ts e2e/signup-verify.spec.ts e2e/regression-p0.spec.ts e2e/market-coverage.spec.ts --workers=2"
   },
   "dependencies": {
     "clsx": "^2.1.1",
