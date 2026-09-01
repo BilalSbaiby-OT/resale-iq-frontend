@@ -161,6 +161,18 @@ def stripe_state():
     if not key:
         return {"available": False, "why": "STRIPE_SECRET_KEY not in env — "
                 "run through .claude/bin/with-secrets.sh"}
+    # WHICH ACCOUNT THIS IS READING MATTERS MORE THAN THE NUMBERS.
+    #
+    # On 2026-09-01 I read this key, saw livemode=false, and told the founder we
+    # could not take money. Wrong: the agent credentials file holds a SANDBOX
+    # key (acct_1TmFnX, "Demand Intel sandbox"), which is correct hygiene --
+    # agents should not hold a live key. PRODUCTION runs sk_live for
+    # acct_1TmFnC ("Demand Intel") and has always been able to charge.
+    #
+    # So a zero from here is a zero IN THE SANDBOX and says nothing about
+    # demand. The dashboard must show which account it read, or it will tell the
+    # same lie I did.
+    sandbox = key.startswith("sk_test")
     import urllib.request, base64, ssl
     try:
         import certifi
@@ -186,12 +198,18 @@ def stripe_state():
     return {
         "available": True,
         "livemode": livemode,
+        "account": prods[0].get("id", "")[:0] or None,
+        "reading": "SANDBOX (agent key) — NOT production" if sandbox
+                   else "production (live key)",
         "active_subscriptions": len(subs),
         "charges": len(charges),
         "refunded": sum(1 for c in charges if c.get("refunded")),
         # The whole point: say WHICH zero this is.
+        # Say plainly which kind of zero this is. Production is live and CAN
+        # charge; the agent key cannot see it.
         "zero_means": None if livemode else
-        "TEST MODE — no real charge can succeed, so 0 is not a demand signal",
+        "this is the SANDBOX account the agent key belongs to. Production runs a "
+        "live key and can charge — these figures are not production's.",
     }
 
 

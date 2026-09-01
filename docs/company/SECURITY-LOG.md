@@ -688,3 +688,10 @@ import io
 p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
 old = s[s.find("| **W25** |"):s.find("\n", s.find("| **W25** |"))+1]
 new = ("| **W25** | **🔴 STRIPE IS IN TEST MODE — WE CANNOT TAKE MONEY.** Both keys are `test`; `products.livemode = false`. Stripe repor`
+- `2026-09-01T14:08:05Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mretract.txt" <<'MSG'
+retract: Stripe is not in test mode, production is live, and the error was mine
+
+I told the founder we could not take money. Wrong, and he was about to act on
+it.
+
+I`

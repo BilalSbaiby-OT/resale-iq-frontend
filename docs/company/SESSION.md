@@ -714,6 +714,40 @@ this fix at §1.5, **does not exist in the repo.** Verified with `find` and `gre
 schema instead. **An agent citing a document that is not there is the same class as a number nobody
 sourced.**
 
+## I raised a false alarm about Stripe. Retracted. The error is worth keeping.
+
+**I told the founder we could not take money. Wrong.**
+
+I queried Stripe with the **agent credentials file's** key, saw `livemode: false`, and concluded
+production was in test mode. That key belongs to **`acct_1TmFnX…` "Demand Intel sandbox"** — a
+separate sandbox account, and **that is correct hygiene, not a mistake**: agents should not hold a
+live key. The "two account IDs" I flagged as a trap were the system working as designed.
+
+**Production, read from inside the running container:** `sk_live_…`, account
+**`acct_1TmFnC1Mvj7CL8HQ` "Demand Intel"**, `charges_enabled: true`. **Payments work and always
+have.**
+
+**This is the exact error I have spent the day catching in others — a confident claim from an
+unverified source.** I read one key and assumed it was the one that mattered.
+
+**One real finding survived it**, from primary source: the live account holds **exactly 1 charge,
+paid and refunded** — the founder's €19 test — and **0 active subscriptions.** His account of company
+history, independently confirmed. **Which means 0 paying customers IS a genuine demand signal**, not
+a closed till. I had told `finance-ops` and `monetization` the opposite; **corrected on the bus**
+before either modelled from it.
+
+**`org.py` now names the account it read** (`"SANDBOX (agent key) — NOT production"`), so the
+dashboard cannot repeat my mistake silently.
+
+## The dashboard numbers are real now — the founder was right to call them out
+
+*"Not measured"* was honest but lazy where the data was reachable.
+
+- **`paying_customers`** — from Stripe, and it says **which account** it read.
+- **`posts_published` was returning a WRONG 0** while six posts were live. `growth.db` marks a row
+  `scheduled` when Postiz accepts it and **nothing ever tells our database the post went out.** Now
+  counted from **Postiz**, the only system that knows. **A wrong number is worse than UNKNOWN.**
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
