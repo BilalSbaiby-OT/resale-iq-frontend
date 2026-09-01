@@ -637,3 +637,4 @@ session: a false CI alarm led to a real defect visitors were hitting
 
 The failing Deploy check was a symptom, not the problem. Chasing it found that
 stacked rebuilds were`
+- `2026-09-01T13:24:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `sqlite3 data/growth.db "UPDATE content SET status='deleted_by_founder', review_note=COALESCE(review_note,'')||' [2026-09-01: reel deleted from Instagram by the founder. Carried 5 per-model buy-below prices including a Balenciaga authenticity-adjacent claim, and sold language throughout. URL now 302s`
