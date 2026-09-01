@@ -682,6 +682,38 @@ panels with unread-mail counts, the bus visible, blocked rows unmistakable.
 that does not route through the CEO is precisely the transparency he asked for — he should see what
 they tell each other, not only what I summarise.
 
+## W41 CLOSED — and the real defect was worse than the reported one
+
+Deployed, `demand-intel@c2ac96a`, **1286 tests**.
+
+I briefed *"`delete_account` has no cascade."* It found that **`PRAGMA foreign_keys=ON` was never set**
+on those connections — so **every `ON DELETE CASCADE` in the schema has been inert.** The cascades
+were not missing; **they were never running.** Every child row of every deleted account has been
+orphaned, holding personal data, pointing at a user id that no longer exists.
+
+**Twelve user-linked tables, not eleven** — derived by grepping all 1301 lines of `db/schema.py`
+rather than trusting the audit, **with the re-derivation grep committed in a comment** so the next
+person can redo the count instead of trusting this one. **Two carry no FK constraint at all** and
+would have survived even a working cascade.
+
+**Stripe is cancelled FIRST, and a failure aborts the delete** — 502, database untouched, asserted by
+a test that seeds all twelve tables and checks every row survives. **Billing a deleted account is
+worse than the data problem it was meant to solve, and it is silent.**
+
+**One deliberate exception, stated on `/privacy` rather than left implicit:** `activity_logs` rows
+are kept with `user_id` NULL — a fraud/security trail with no personal content once unlinked.
+
+**It corrected two pre-existing false claims** its own change contradicted: *"90 days retention after
+deletion"* (always immediate, merely incomplete) and *"billing records retained by us"* (Stripe holds
+those). **And it refused to fix a third:** `/privacy` claims 12-month `activity_logs` retention and
+**no purge job exists anywhere** — flagged rather than inventing a window it had not built, which
+would have been the same failure in the other direction.
+
+**Correction for the record:** `COMPLIANCE.md`, cited by `legal-compliance` as already specifying
+this fix at §1.5, **does not exist in the repo.** Verified with `find` and `grep`; it worked from the
+schema instead. **An agent citing a document that is not there is the same class as a number nobody
+sourced.**
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

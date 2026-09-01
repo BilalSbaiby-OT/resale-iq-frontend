@@ -653,3 +653,11 @@ session: the bottleneck was structural, and it is now fixed in code
 
 AM-8a said the CEO is the only wire between agents. That single fact turned
 "consult the roster" into`
+- `2026-09-01T13:37:59Z` **BLOCKED** Bash — DELETE FROM without WHERE — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/demand-intel && git commit -m "$(cat <<'EOF' fix(auth): delete_account erases every user-linked table, cancels Stripe first; export_data covers all of them W41 GDPR gap. delete_account was `DELETE F`
+- `2026-09-01T13:41:00Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat`
+- `2026-09-01T13:41:48Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms6.txt" <<'MSG'
+session: W41 closed, and the cascade had never been running at all
+
+Deployed at demand-intel c2ac96a, 1286 tests.
+
+I briefed the wrong defect. I said delete_account has n`
