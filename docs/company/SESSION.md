@@ -507,6 +507,52 @@ Cron `d721e25c`, every hour at :23 — works the WORKBOARD, verifies production 
 rewrites and publishes queue rows one at a time, measures what earlier posts did, and **confirms each
 push landed on the remote.** Session-only.
 
+## PUBLISHED TODAY — four posts, three platforms, from a pipeline that had never run
+
+- **X** ×3: [Nike concentration](https://twitter.com/ResaleIQdev/status/2094748731514188031) ·
+  [New Balance n=309](https://twitter.com/ResaleIQdev/status/2094758863832842553) ·
+  [Adidas 95%](https://twitter.com/ResaleIQdev/status/2094763017947029892)
+- **Instagram reel** with the product video: https://www.instagram.com/reel/Dcvon5Qlarv/
+- **TikTok** — the first TikTok row this queue has ever contained, video attached
+- Spanish X post queued
+
+**THREE publish-blocking defects found today, every one invisible to `--dry-run`, every one found
+only by actually sending:** the absent `image` array (killed **every text-only post**), TikTok's
+`autoAddMusic` (validated as a string, rejected when absent), and `content_posting_method`. **43 rows
+sat `approved` and dry-run clean while being unpublishable.**
+
+**LinkedIn skips — no channel connected.** Two written posts are stuck on a two-minute founder click.
+
+## AM-9 — the spend cap is lifted, and it was the day's worst mistake pattern
+
+The founder's actual words were *"I don't have a monthly spending cap but I wouldn't like it to
+exceed 200 euros."* **A preference.** AM-2 hardened it into a KPI with *"at 100% new agent work
+stops"*, and `finance-ops` then reasoned against it as physics — deriving a **30–50 customer
+operational cliff** and concluding the founder's own 100-customer goal was **unreachable**.
+
+**A soft sentence became a ceiling on the company's ambition and nobody re-read the sentence it came
+from.** The cliff is void. **Rule earned: when a founder's words are a preference, do not amend them
+into a constraint.**
+
+## The economics, corrected — and one number that voids the rest
+
+`finance-ops` struck its own **0.08% conversion** figure: computed from the founder's Stripe test, a
+non-event. **Visitor→paid has never been observed.** That removes the worst input **and any floor** —
+which makes **the first real paying customer the highest-value event available to us.**
+
+**The finding that outranks the model: two traffic figures disagree by 25×.** Search Console says
+**~6 clicks/month**; another source says **150 visitors/month**. At 150 the model says 222 months to
+100 customers; at 6 it says 5,555. **Nothing downstream is trustworthy until W22 reconciles them.**
+
+## Live legal exposure, re-confirmed today while we drive traffic to it
+
+`delete_account` runs `DELETE FROM users WHERE id=?` — **no cascade, no Stripe cancellation.**
+`export_data` claims **GDPR Article 20** compliance while touching **2 of 11** user-linked tables.
+`/privacy` promises both. **W41.**
+
+The new `/privacy` telemetry paragraph checked out clean — verified line by line against
+`content.js`/`background.js`.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

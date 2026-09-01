@@ -599,3 +599,8 @@ AM-9: the spend cap is lifted, and a preference should never have become a ceili
 Founder: there is no month cap, go all out. AM-2 is superseded entirely.
 
 The lesson `
+- `2026-09-01T12:25:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/msess.txt" <<'MSG'
+session: four posts live, and the pipeline that had never once run
+
+X three times, an Instagram reel carrying the product video, and the first
+TikTok row this queue has`
