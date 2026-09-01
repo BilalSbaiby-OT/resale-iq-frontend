@@ -19,6 +19,12 @@ const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string;
   // Distinct from NO DATA on purpose: we found the product, we just will not
   // put a call on it. "NOT MEASURED" says the gap is ours, not the market's.
   INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
+  // A quota state, not a verdict about the item — was silently falling back
+  // to VERDICT_STYLE.UNKNOWN ("NO DATA") below, which reads as "we don't
+  // track this product" to a paying-eligible signed-in customer who just hit
+  // their own daily cap. Never amber (that's WATCH); same neutral as UNKNOWN.
+  // docs/audit/MONETIZATION.md #2.
+  LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "LIMIT REACHED" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -97,7 +103,7 @@ function VerdictInner() {
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Adidas Samba, Nike Air Force 1, Levi's 501"
+            placeholder="e.g. Adidas Samba, Nike Air Force 1, New Balance 530"
             className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
@@ -136,15 +142,23 @@ function VerdictInner() {
               </div>
             )}
 
-            {result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
-              // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
-              // The server withholds every number behind it, so the grid would
-              // render a row of em-dashes — the same thing the `locked` branch
-              // avoids for the same reason. The backend's own message explains
-              // WHY (thin sample, or a brand whose sales we cannot observe yet),
-              // and it is the only useful thing on the card.
+            {result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" || result.verdict === "LIMIT_REACHED" ? (
+              // INSUFFICIENT_DATA/LIMIT_REACHED belong here, NOT in the metrics
+              // branch below. The server withholds every number behind them, so
+              // the grid would render a row of em-dashes — the same thing the
+              // `locked` branch avoids for the same reason. Before this branch
+              // included LIMIT_REACHED, that verdict fell through to the metrics
+              // grid and rendered as four "—" tiles under a silent "NO DATA" —
+              // indistinguishable from a genuine coverage gap, and the server's
+              // own message ("Free tier: N verdicts/day...") was computed and
+              // sent but never shown anywhere. docs/audit/MONETIZATION.md #2.
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
+                {result.verdict === "LIMIT_REACHED" && (
+                  <div className="mt-3">
+                    <a href="/account" className="text-[12.5px] text-[#8fa3c4] underline decoration-[#2a3550] underline-offset-2">See plans →</a>
+                  </div>
+                )}
               </div>
             ) : result.locked ? (
               // Server withheld the paid numbers. Confidence + comparable count
