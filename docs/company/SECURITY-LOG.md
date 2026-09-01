@@ -712,3 +712,17 @@ workflow: the board audits itself, and two ways it was quietly lying
 The founder: rows already done that I never closed, make sure it never happens
 again, and design the`
 - `2026-09-01T14:28:19Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 scripts/company/bus.py send --from backend-eng --to finance-ops --subject "trial->paid is now measurable: lifecycle machine gap-filled, LIFECYCLE_EMAILS still OFF" --body "$(cat <<'EOF' Re: W23. The trial-expiry email machine (alerts/lifecycle_emails.py, api/email.py) merged into demand-inte`
+- `2026-09-01T14:29:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T14:29:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T14:29:50Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T14:29:51Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T14:30:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/demand-intel && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mlc.txt" <<'MSG'
+merge: prove the email gate holds, and that expiry cannot reintroduce W1
+
+backend-eng's most useful finding is that the trial m`
+- `2026-09-01T14:31:35Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat; git status --porcelain|wc -l`
+- `2026-09-01T14:32:27Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms7.txt" <<'MSG'
+session: agents made a decision without me, and a real leak came out of it
+
+product-manager consulted monetization, finance-ops and ux-researcher on the bus
+and recorded `

@@ -748,6 +748,46 @@ dashboard cannot repeat my mistake silently.
   `scheduled` when Postiz accepts it and **nothing ever tells our database the post went out.** Now
   counted from **Postiz**, the only system that knows. **A wrong number is worse than UNKNOWN.**
 
+## The bus did what it was built for
+
+**`product-manager` consulted `monetization`, `finance-ops` and `ux-researcher` directly and recorded
+A23 and A24 without routing through me.** First decision in this company's history made by agents
+consulting each other. `backend-eng` handed its trial-machine finding straight to `finance-ops` the
+same way.
+
+`bus.jsonl` now carries a **union merge strategy** — two agents appending concurrently was stopping
+merges, which is absurd for an append-only log.
+
+## A23 / A24 — two decisions that had sat unmade
+
+**W10: hold €19/€49, no €99, reposition the pitch.** `ux-researcher`'s finding is now a *ruling*:
+**`buy_below` and `sell_avg` are already free to anonymous visitors at 10/day**, so a pricing page
+implying you pay to see the price describes a product we do not sell. It **verified the proposal's
+premise instead of trusting it** — the proposal predates the gate merge; gate symbols now return 20
+where they returned 0.
+
+**W5: `market_avg_price` is a LEAK.** It bypasses the `n≥8` floor every other surface enforces **and**
+the free-unlock budget gating that exact number on `/api/verdict`. Manual mode needs no real listing,
+so **a verified unpaid account can harvest arbitrary brand and model prices today.** Score and label
+stay free; the raw number goes behind the paywall.
+
+**W43 opened:** two still-live false marketing claims — *"100 product signals"* and *"scraped every
+30 min"*. **The second is the claim a "truth pass" manufactured on 2026-08-31** — the same
+correcting-edit pattern, still live.
+
+## W23 — the trial machine was already built
+
+`backend-eng` **checked before building** and reported that the four-stage sequence, the injected-`now`
+windows, and the empty-recap branch I briefed as work-to-do had **already shipped**. The real gap:
+**nothing proved the founder gate.** Now two mutation-tested tests do — patching the condition to
+`if True` makes the unset case fail. **1291 tests, zero production code changed**, which is the right
+shape when the finding is *"it already works and nothing proved it."*
+
+**CORRECTION TO WHAT I TOLD THE FOUNDER:** I said two independent gates stood between us and emailing
+real users. **It is one.** `RESEND_API_KEY` is already live in production, so **`LIFECYCLE_EMAILS=1`
+is the entire switch.** Not flipped — founder's call, and an accidental blast to real trial users is
+the worst outcome available.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
