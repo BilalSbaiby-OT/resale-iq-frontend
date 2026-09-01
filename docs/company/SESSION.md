@@ -4,6 +4,42 @@
 
 ## Working on
 
+**THE POST-MORTEM IS DONE AND IT ANSWERS THE FOUNDER'S QUESTION.** `docs/company/POST-MORTEM.md`.
+
+**222 fix commits — 32.7% of everything since 2026-08-04. 52 bugs were fixed TWICE.** The evidence
+gate was fixed **6 times** across different endpoints; free-tier messaging **8+ times**; locale twice
+in one day, by me. **67% of all fixes repair a violation of a rule we had already written down.**
+
+**Cause, in one line: we have 57 rules in prose across 39 docs and 5 check scripts, of which CI
+enforced one. A rule that is not mechanised depends on an agent reading the right doc at the right
+moment and remembering — and nobody can tell it failed until production does.**
+
+**The proof arrived while we were writing the proof.** `monetization`, sent to fix free-tier copy,
+found that **the 10 monthly unlocks have no reachable entry point.** This morning's W1 fix made
+`_gate()` return `"locked": False` on every branch, and `UnlockPanel` opened with
+`if (!result.locked) return null`. An entitlement we advertise, unreachable all day, **no error and
+nothing in any log.** We broke it this morning while fixing something else. Fixed both call sites to
+ask the data instead of a flag that no longer varies — which `free-checker.tsx` was already doing.
+
+**Two rules are now machines, both in CI, both baselined so they fail only on NEW violations, and
+both proven to FAIL as well as pass:**
+- **`check:dupes`** — 8 real pairs found, including a check script duplicating the logic it checks.
+- **`check:silent`** — the largest class (34 of 222). **82 sites.** Accepts a `why:` comment inside
+  the handler, because sometimes swallowing IS correct; the bar is *say why, in writing*.
+
+**Correction to the audit:** it lists "invented sales" as LIVE. **It is not.** Both fixes deployed
+2026-08-21 and **all 109,076 production departures postdate them** — zero contaminated rows. Our
+published numbers are clean. Verified rather than relayed.
+
+**Also shipped:** the free-tier copy fix (12 files, 6 locales — PR #3 on the frontend repo), which
+found that two more surfaces claimed buy-below was unlock-gated when it is not.
+
+## The four warm users
+
+**The founder authorised emailing them tonight.** I have not sent yet, deliberately: the draft
+promises a **reset trial**, and sending that before actually resetting it would make us liars to the
+only four warm users we have. Order is: reset, verify, send, report exactly what went out.
+
 **"Registering makes the product worse" — the CODE no longer does. The COPY still says it does.**
 Verified before briefing anyone, because I twice today briefed the roster off a sandbox key.
 `api/routes.py:755` grants a logged-in free user the **same 10/day** as anonymous, `claim_verdict_unlock`
