@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T02:22:34Z",
+  "generated_at": "2026-09-01T02:49:19Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -117,8 +117,8 @@
       "fix": null
     },
     "band_evidence_p50": {
-      "value": 13.5,
-      "n": 40,
+      "value": 14.0,
+      "n": 37,
       "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
@@ -128,7 +128,7 @@
       "fix": null
     },
     "band_coverage_supply": {
-      "value": 40.0,
+      "value": 37.0,
       "n": 100,
       "source": "sql/metrics/band_coverage_supply.sql (production)"
     },
@@ -138,15 +138,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 5.1,
-      "n": 1332,
+      "value": 31.9,
+      "n": 1327,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12709297
+      "value": 12711090
     },
     "newest_sold_at": {
-      "value": "2026-09-01 02:17:01"
+      "value": "2026-09-01 02:48:27"
     },
     "predictions_total": {
       "value": 340
@@ -157,7 +157,7 @@
       "value": 78
     },
     "pageviews_7d": {
-      "value": 988
+      "value": 987
     },
     "signups_7d": {
       "value": 3
@@ -209,7 +209,7 @@
         "secondary": "install to first check",
         "counter": "posts published without a founder gate = 0",
         "branches": [
-          "sold-relabel  (merged)",
+          "sold-relabel",
           "growth:postiz-hosted-api",
           "growth:w1-queue-postiz"
         ],
@@ -625,6 +625,14 @@
     ],
     "recent_commits": [
       {
+        "sha": "486d050",
+        "msg": "chore: dashboard refresh and security log from the verifier run"
+      },
+      {
+        "sha": "3d54053",
+        "msg": "approvals: the sold relabel is done -- step 1 of four, owed since Phase 1"
+      },
+      {
         "sha": "dbaca5d",
         "msg": "session: the overnight record, and where the repositioning vote landed"
       },
@@ -663,14 +671,6 @@
       {
         "sha": "c84479d",
         "msg": "company: the closed loop -- six agents, asked what nobody asks, converged"
-      },
-      {
-        "sha": "a33aa58",
-        "msg": "amendments: pricing and tiers move from founder-reserved to roster-decidable"
-      },
-      {
-        "sha": "4e9b914",
-        "msg": "amendments: AM-8 -- the roster decides the gates, and evidence outranks headcount"
       }
     ],
     "dirty": false,
@@ -736,534 +736,540 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-01T02:22:35Z",
+      "ts": "2026-09-01T02:46:37Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n \"sold\\|comparable\" e2e/customer-workflow.spec.ts e2e/market-coverage.spec.ts e2",
+      "cmd": "git status --short; git add -A && git commit -q -m \"chore: dashboard refresh and security log from the verifier run\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\"; git status --short | wc -l ",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:22:22Z",
+      "ts": "2026-09-01T02:46:29Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rn \"comparable sold\\|comparable.*sold\\|sold item\" src/ e2e/ | grep -v node_module",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### Step 1 of `tech-lead`'s ordering is DONE — the \"so",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:22:13Z",
+      "ts": "2026-09-01T02:46:01Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 -m pytest tests/ -q 2>&1 | tail -6 && git status",
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel\necho \"=== is the false claim actually gone from the current file? ===\"\nif grep -q \"confirm",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:22:09Z",
+      "ts": "2026-09-01T02:45:45Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '90,140p' e2e/regression-p0.spec.ts",
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel\ncd /tmp && bash \"$WT/docs/audit/proof/W36/sold-relabel/proof.sh\" 2>&1 | tail -4\necho \"=== ",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:21:51Z",
+      "ts": "2026-09-01T02:45:02Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rn \"Sold (7 days)\\|Weekly market snapshot\" src/",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git status --short; echo \"clean=$?\"",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:21:47Z",
+      "ts": "2026-09-01T02:44:59Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "git status --short",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git diff HEAD~2 HEAD~1 --stat | tail -5; echo \"---\"; git log --oneline -5",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:21:40Z",
+      "ts": "2026-09-01T02:44:54Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1,60p' e2e/smoke.spec.ts",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git add docs/company/SESSION.md && git commit -m \"$(cat <<'EOF'\nsession: log claude/con",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:21:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n \"test:e2e\" package.json; echo ---; grep -n \"market-coverage\\|regression-p0\\|smo",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:32Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n -i \"sold\\|shelf\\|depart\" e2e/*.spec.ts",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:28Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A16 — the remaining votes, and the finding that reframes it\n\n**`content-social` found the ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/app/methodology/page.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1150,1320p' docs/company/APPROVALS.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:12Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n -i \"sold\\|relist\\|shelf depart\\|asking price at\" docs/company/APPROVALS.md | he",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:07Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/DATA.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && git add engine/listing_identity.py tests/test_evidence_gate_paid_surfaces.py && git commit",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:21:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && echo \"=== SOLD-VS-ASKING-CATALOG.md ===\" && cat docs/audit/proof/W36/truth/SOLD-VS-ASKI",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1,40p' package.json 2>/dev/null | head -5; echo ---; find . -path ./node_module",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && git diff --stat && git status",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 -m pytest tests/ -q 2>&1 | tail -15",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git status && git log --oneline -5 && git branch --show-current",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:42Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Agent",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngit -C /Users/bilalsbaiby/work/resale-iq worktree add \"$SB/wt-relabel\" -b claude/content-social/sold-",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat >> /Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md << 'MDEOF'\n\n---\n\n## ADDENDUM 3 — AM-8 consult, 2026-09-01: liquidity-instrument reframe\n\nChecked before answering: `docs/audit/DATA.",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A16 — `tech-lead` votes **DO NOT REPOSITION**, and corrects its own brainstorm first\n\n**It",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"^MIN_\\|^[A-Z_]* = \\|def customer_str_pct\\|def honest_sell_through\\|n < 30\\|>= 30\\|< 30\" engine/sufficiency.py | head -30; echo \"=== customer_str_pct",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:20:03Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n \"$(grep -n 'def _verdict_confidence' api/routes.py | cut -d: -f1),+45p\" api/routes.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"n >= 30\\|thirty\\|HIGH bar of 30\\|== \\\"HIGH\\\"\" tests/test_evidence_gate_paid_surfa",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:30Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 - << 'PYEOF'\np = \"tests/test_evidence_gate_paid_surfaces.py\"\ns = open(p).read()\n\no",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:21Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"def test_high_band_at_and_above_thirty\" -A 8 tests/test_evidence_gate_paid_surfac",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:18Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "SendMessage",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:18Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 - << 'PYEOF'\nimport re\np = \"tests/test_evidence_gate_paid_surfaces.py\"\ns = open(p)",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:13Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/demand-intel/engine/shelf.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && sed -n '1,20p' tests/test_evidence_gate_paid_surfaces.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -rn \"confident\\b\" /Users/bilalsbaiby/work/resale-iq/docs/company/PATH-TO-TEN.md /Users/bilalsbaiby/work/resale-iq/docs/company/DIGEST-2026-09-01.md /Users/bilalsbaiby/work/resale-iq/docs/company/",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:06Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"HIGH_CONFIDENCE\\|high_confidence_n\" tests/test_evidence_gate_paid_surfaces.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && grep -n \"no ground-truth\\|fabricated\\|is_sold\" docs/audit/DATA.md 2>/dev/null | head -20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"is_sold\\|def.*sold_price\\|asking.*price\\|disappear\" engine/*.py scrapers/*.py 2>/dev/null | grep -iv test | grep -i \"sold\\|disappear\\|shelf\" | head ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"confident band\\|6 models\\|12 %\\|12%\" /Users/bilalsbaiby/work/resale-iq/docs/company/PATH-TO-TEN.md /Users/bilalsbaiby/work/resale-iq/docs/company/DIGEST-2026-09-01.md 2>&1 | head -30",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:19:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -rn \"HIGH_CONFIDENCE_COMPARABLES\" api engine tests 2>/dev/null | grep -v \".pyc\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:18:59Z",
+      "ts": "2026-09-01T02:44:51Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Edit",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate/engine/listing_identity.py"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/company/SESSION.md"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:56Z",
+      "ts": "2026-09-01T02:44:43Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '90,140p' docs/company/SESSION.md",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '40,90p' docs/company/SESSION.md; echo \"TOTAL LINES:\"; wc -l docs/company/SESSIO",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1,40p' docs/company/SESSION.md",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git commit -m \"$(cat <<'EOF'\ncontent: relabel 'sold' claims as watched shelf-departures",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git add -A && git status --short",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:44:11Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/COVERAGE.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:52Z",
+      "ts": "2026-09-01T02:44:02Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A17 built — the evidence floor now reaches the pai",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rl -- \"sold_observed\" src/ extension/ 2>/dev/null; echo \"EXIT=$?\"; which grep; gr",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:49Z",
+      "ts": "2026-09-01T02:43:49Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && grep -rln \"confident band\\|12 %\\|12%\\|6 models\\|band_coverage\" docs/ sql/ dashboard/ 2>/dev/null | head -20",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rl -- \"sold_observed\" src/ extension/ --include=\"*.ts\" --include=\"*.tsx\" --includ",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:37Z",
+      "ts": "2026-09-01T02:43:42Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Read",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug5.sh; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:43:38Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate/engine/listing_identity.py"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug5.sh"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:28Z",
+      "ts": "2026-09-01T02:43:30Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && sed -n '1,60p' config.py 2>/dev/null | head -80",
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug4.sh 1>/tmp/o.txt 2>/tmp/e.txt; echo \"EXIT=$?\"; echo \"STDOUT:\"; cat /tmp/o.txt; echo \"STDERR:\"",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:27Z",
+      "ts": "2026-09-01T02:43:26Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate\ncd \"$WT\" && git log --oneline -1 && python3 -m pytest tests/test_evidence_gate_paid_surfaces.",
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug4.sh; echo \"EXIT=$?\"",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:18:15Z",
+      "ts": "2026-09-01T02:43:23Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"57\\|63\\|37\\|board.*blank\\|blank.*board\\|HIGH_CONFIDENCE_COMPARABLES\\|= 30\\|>= 30\\",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:18:11Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n---\n\n### A16 — **OPEN AM-8 VOTE: reposition from a pric",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:17:51Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "SendMessage",
-      "files": [],
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug4.sh"
+      ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T02:17:47Z",
+      "ts": "2026-09-01T02:43:19Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && echo \"=== buy_below / buy-below on the customer surface ===\" && grep -rln \"buy_below\\|buy-below\\|Buy-below\" src/ ../demand-intel/extension/ 2>/dev/null | head -",
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug3.sh; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:43:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug3.sh"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:43:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash -n /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug.sh; echo \"SYNTAX EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:43:06Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat -A /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug.sh | head -20",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:43:03Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo 'echo hello world' > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug2.sh\nbash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:59Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug.sh 2>&1; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:56Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug.sh; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/debug.sh"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:47Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash -euo pipefail -c 'echo hi'; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:44Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && bash -euo pipefail -c '\npass=0\nok() { echo \"OK $1\"; pass=$((pass+1)); }\nfor ident in so",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:34Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh > /tmp/proofout.txt 2>&1; echo \"EXIT=$?\"; tai",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash -x /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh 2>&1 | tail -8; echo \"EXIT=$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:21Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash -x /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh 2>&1 | tail -30",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:18Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rl -- \"sold_observed\" src/ extension/ --include=\"*.ts\" --include=\"*.tsx\" --includ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:42:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel/proof.sh"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:47Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "mkdir -p /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/proof/W36/sold-relabel",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && ls docs/audit/proof/W36/ | head -30",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:39Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && cat docs/audit/proof/W36/metrics/proof.sh",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && find . -iname \"proof.sh\" -not -path \"*/node_modules/*\" 2>/dev/null | head -5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:31Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git status --short && git branch --show-current",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:41:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npm run test:e2e:required 2>&1 | tail -40",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npm run check:isolation 2>&1 | tail -5 && npm run check:tracked 2>&1 | tail -5 && npm r",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:50Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npm run build 2>&1 | grep -i \"error\\|fail\" ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npm run build 2>&1 | tail -30",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:18Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npx tsc --noEmit 2>&1 | tail -60",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:07Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/components/layout/paywall.tsx"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:03Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '38,46p;80,90p' src/components/layout/paywall.tsx",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:40:00Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/app/tools/page.tsx"
+      ],
+      "cmd": "",
       "url": "",
       "ok": true
     }
   ],
   "security": {
-    "blocked": 242,
+    "blocked": 248,
     "tripwire": 0,
     "recent": [
+      "`2026-09-01T02:22:39Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T02:22:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T02:22:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T01:54:09Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cat > docs/company/ESCALATION.md <<'EOF' # ESCALATION — how the company reaches the f",
       "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
     ],
     "restore_test": {
       "value": null,
