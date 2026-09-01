@@ -43,8 +43,8 @@ export function brandNarrative(b: BrandSeo): string[] {
     )
   if (cats.length < 2) {
     return [
-      `${b.brand} moves about ${k(b.sold_7d)} items a week across the five EU Vinted ` +
-      `markets at an average of ${eur(b.avg_price_eur)}. With only one category deep ` +
+      `${b.brand} has about ${k(b.sold_7d)} watched departures a week across the five EU Vinted ` +
+      `markets at an average price at departure of ${eur(b.avg_price_eur)}. With only one category deep ` +
       `enough to report, the decision comes down to the specific model and size — ` +
       `check the exact piece before you buy rather than trusting the brand average.`,
     ]
@@ -61,7 +61,7 @@ export function brandNarrative(b: BrandSeo): string[] {
   if (dear && cheap && topVol.category !== dear.category) {
     paras.push(
       `On Vinted, ${b.brand}'s highest-volume category is ${topVol.category.toLowerCase()} ` +
-      `at about ${k(topVol.sold_7d)} sales a week (${eur(topVol.avg_price_eur)} average), ` +
+      `at about ${k(topVol.sold_7d)} watched departures a week (${eur(topVol.avg_price_eur)} average), ` +
       `while its priciest pieces are ${dear.category.toLowerCase()} at ${eur(dear.avg_price_eur)}. ` +
       `Those are two different games: one rewards turnover, the other rewards margin per ` +
       `item. Which one you play decides what you should be paying at the source.`,
@@ -69,7 +69,7 @@ export function brandNarrative(b: BrandSeo): string[] {
   } else {
     paras.push(
       `For ${b.brand}, ${topVol.category.toLowerCase()} leads on volume ` +
-      `(~${k(topVol.sold_7d)} sold a week at ${eur(topVol.avg_price_eur)}) — the obvious ` +
+      `(~${k(topVol.sold_7d)} left the shelf a week at ${eur(topVol.avg_price_eur)}) — the obvious ` +
       `place to start, and also the most crowded, so your buy-below discipline matters ` +
       `more here than anywhere else in the catalogue.`,
     )
@@ -100,13 +100,13 @@ export function brandNarrative(b: BrandSeo): string[] {
   //    brand's number, and directly actionable.
   if (b.sold_7d >= 25000) {
     paras.push(
-      `At ${k(b.sold_7d)} sales a week ${b.brand} is one of the highest-volume brands on ` +
+      `At ${k(b.sold_7d)} watched departures a week ${b.brand} is one of the highest-volume brands on ` +
       `the platform. High volume means high liquidity but also heavy competition, so the ` +
       `edge is not "can I sell it" — it is "did I buy it cheaply enough", every time.`,
     )
   } else if (b.sold_7d <= 6000) {
     paras.push(
-      `${b.brand} is a lower-volume brand here at roughly ${k(b.sold_7d)} sales a week, ` +
+      `${b.brand} is a lower-volume brand here at roughly ${k(b.sold_7d)} watched departures a week, ` +
       `which cuts both ways: less competition when you list, but you need the size and ` +
       `condition right or the piece can sit. Patience beats volume with a brand like this.`,
     )

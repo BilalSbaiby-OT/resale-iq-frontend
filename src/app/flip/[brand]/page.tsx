@@ -31,11 +31,11 @@ export async function generateMetadata(
   const sold = live?.sold_7d
   const avg = live?.avg_price_eur
   const title = sold != null
-    ? `Is ${b.brand} worth reselling on Vinted? (${fmtCount(sold)} sold/week)`
+    ? `Is ${b.brand} worth reselling on Vinted? (${fmtCount(sold)} left shelf/week)`
     : `Is ${b.brand} worth reselling on Vinted?`
   const description =
     sold != null
-      ? `${b.brand} sells about ${fmtCount(sold)} items a week across 5 EU Vinted markets` +
+      ? `${b.brand} has about ${fmtCount(sold)} watched departures a week across 5 EU Vinted markets` +
         (avg != null ? ` at an average of ${fmtEur(avg)}.` : ".") +
         ` See which ${b.brand} models are actually profitable to flip.`
       : `${b.brand} resale data across 5 EU Vinted markets. See which models are actually profitable to flip.`
@@ -93,9 +93,9 @@ export default async function BrandFlipPage(
           "@type": "Answer",
           text:
             sold != null
-              ? `${b.brand} sells roughly ${fmtCount(sold)} items per week across the five ` +
+              ? `${b.brand} has roughly ${fmtCount(sold)} watched departures per week across the five ` +
                 `main EU Vinted markets` +
-                (avg != null ? `, at an average sale price of ${fmtEur(avg)}.` : ".") +
+                (avg != null ? `, at an average price at departure of ${fmtEur(avg)}.` : ".") +
                 ` Whether it is profitable depends on the specific model and the price you source it at.`
               : `${b.brand} is tracked across the five main EU Vinted markets. Whether it is profitable depends on the specific model and the price you source it at.`,
         },
@@ -132,11 +132,11 @@ export default async function BrandFlipPage(
         {sold != null ? (
           <>
             Short answer: {b.brand} moves serious volume — about{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} items a week</strong>{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} watched departures a week</strong>{" "}
             across the five main EU Vinted markets
             {avg != null ? (
               <>
-                , at an average sale price of{" "}
+                , at an average price at departure of{" "}
                 <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
               </>
             ) : null}
@@ -162,8 +162,8 @@ export default async function BrandFlipPage(
       {/* Public aggregates */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 28 }}>
         {[
-          ["Sold per week", fmtCount(sold)],
-          ["Avg sale price", fmtEur(avg)],
+          ["Left shelf per week", fmtCount(sold)],
+          ["Avg price at exit", fmtEur(avg)],
           ["Models tracked", models != null ? String(models) : "—"],
         ].map(([label, value]) => (
           <div key={label} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 10, padding: "14px 16px" }}>
@@ -183,7 +183,7 @@ export default async function BrandFlipPage(
           reading. Keep per-brand data ABOVE the generic explanation. */}
       <div style={{ border: "1px solid #1c2333", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "#12151d", fontSize: 11, color: "#5b6b8c" }}>
-          <span>Category</span><span style={{ textAlign: "right" }}>Sold/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
+          <span>Category</span><span style={{ textAlign: "right" }}>Left shelf/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
         </div>
         {(cats.length ? cats : []).slice(0, 5).map(c => (
           <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid #1c2333", fontSize: 14, color: "#a9b6d0" }}>
@@ -198,9 +198,9 @@ export default async function BrandFlipPage(
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
         {cats[0] && cats[0].avg_price_eur != null && cats[0].sold_7d != null ? (
           <>
-            {b.brand} {cats[0].category.toLowerCase()} sell at about{" "}
+            {b.brand} {cats[0].category.toLowerCase()} leave the shelf at about{" "}
             <strong style={{ color: "#eef1f7" }}>{fmtEur(cats[0].avg_price_eur)}</strong>, on{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtCount(cats[0].sold_7d)}</strong> sales a week.
+            <strong style={{ color: "#eef1f7" }}>{fmtCount(cats[0].sold_7d)}</strong> watched departures a week.
             Work backwards from that price, not from what the seller is asking.
           </>
         ) : (
@@ -278,7 +278,7 @@ export default async function BrandFlipPage(
         How we get these numbers
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
-        We continuously track live and sold listings across Vinted ES, FR, DE, IT and PT —
+        We continuously track live listings across Vinted ES, FR, DE, IT and PT, and watch which ones leave the shelf —
         {tracked} unique listings — and recompute every signal roughly every 2 hours. The figures on this page are
         live aggregates, not estimates. Last calculated {market.stamp ?? "—"}.{" "}
         <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>Methodology</Link>

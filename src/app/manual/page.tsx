@@ -69,11 +69,11 @@ export default async function ManualIndex() {
           It is written from the same dataset that powers the product —{" "}
           {totalWeekly != null ? (
             <>
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items sold in the last seven days</strong>{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items we watched leave the shelf in the last seven days</strong>{" "}
               across {brandCount != null ? brandCount : "our"} tracked brands on Vinted ES, FR, DE, IT and PT
             </>
           ) : (
-            <>live sold-listing data across tracked brands on Vinted ES, FR, DE, IT and PT</>
+            <>live watched-departure data across tracked brands on Vinted ES, FR, DE, IT and PT</>
           )}
           {" "}— so the claims about how the market behaves are grounded in the dataset, with its limits named.
         </p>

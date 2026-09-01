@@ -4,7 +4,7 @@
 # DATA.md found that every "sold" claim on the site is a claim the data
 # cannot support: we observe an asking price and a listing's disappearance
 # from a Vinted search shelf, and infer a sale — never a confirmed
-# transaction. This proof asserts three things, cold, from source:
+# transaction. This proof asserts four things, cold, from source:
 #
 #   1. The specific offending strings named in the task are gone from the
 #      specific files named in the task.
@@ -14,6 +14,12 @@
 #   3. The three protected internal identifiers were NOT renamed —
 #      sold_observed, sold_7d, sold_at still appear in the source, proving
 #      this was a copy-only change.
+#   4. Self-verification pass (2026-09-01): the original commit's own audit
+#      (SOLD-VS-ASKING-CATALOG.md) missed the programmatic SEO estate —
+#      /category, /flip hub + brand pages, /flip/[brand]/[category], the
+#      manual index/chapter shell, flip-narrative.ts's per-brand prose, and
+#      one Spanish-language blog test page making the identical claim in
+#      Spanish. Section 4 asserts those are closed too.
 #
 # Deliberately does not re-run the full e2e suite (npm run test:e2e:required)
 # or `npm run build` — those are slow and already covered by the PR
@@ -99,6 +105,25 @@ for ident in sold_observed sold_7d sold_at; do
 done
 
 echo
+
+# ── 4. Self-verification pass: the programmatic SEO estate + Spanish page ──
+echo "4. Gaps the original catalog missed are closed (self-verification pass)"
+
+check_gone "src/app/category/[category]/page.tsx" 'Sold / week'
+check_gone "src/app/category/page.tsx" ' sold/week'
+check_gone "src/app/flip/page.tsx" ' sold/week'
+check_gone "src/app/flip/[brand]/page.tsx" 'Sold per week'
+check_gone "src/app/flip/[brand]/page.tsx" 'live and sold listings'
+check_gone "src/app/flip/[brand]/[category]/page.tsx" 'sold / week'
+check_gone "src/lib/flip-narrative.ts" 'sold a week'
+check_gone "src/app/manual/page.tsx" 'sold-listing data'
+check_gone "src/app/manual/[chapter]/page.tsx" 'tracks sold about'
+check_gone "src/data/manual.ts" 'is a count of what sold'
+check_gone "src/data/blog-posts-3.ts" 'una venta te dice lo que alguien pagó'
+check_gone "src/data/blog-posts-3.ts" 'pasar de activos a vendidos'
+
+echo
+
 echo "──────────────────────────────────────────────"
 echo "  $pass passed, $fail failed"
 if [ "$fail" -gt 0 ]; then

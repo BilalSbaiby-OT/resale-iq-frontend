@@ -175,8 +175,8 @@ export const CHAPTERS_1: ManualChapter[] = [
       {
         h2: "The two numbers and what each one hides",
         body: [
-          "Weekly sales volume is a count of what sold. It is the number every brand page and category ranking leads with, and it is genuinely useful — a category with almost no sales is a category you should not be sourcing in, full stop.",
-          "But volume says nothing about supply. A thousand sales a week against two thousand active listings is a healthy market. A thousand sales a week against forty thousand active listings is a graveyard where your item is buried on page nineteen. Sell-through — sales measured against the standing inventory — is what separates those two cases, and they look identical if you only read volume.",
+          "Weekly sales volume is a count of what we watched leave the shelf. It is the number every brand page and category ranking leads with, and it is genuinely useful — a category with almost no departures is a category you should not be sourcing in, full stop.",
+          "But volume says nothing about supply. A thousand departures a week against two thousand active listings is a healthy market. A thousand departures a week against forty thousand active listings is a graveyard where your item is buried on page nineteen. Sell-through — departures measured against the standing inventory — is what separates those two cases, and they look identical if you only read volume.",
         ],
         callout: {
           label: "Definition",

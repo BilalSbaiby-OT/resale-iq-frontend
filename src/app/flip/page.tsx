@@ -22,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `Which brands are worth reselling on Vinted? (${BRANDS.length} ranked)`
   // Kept under ~155 chars so Google does not truncate it in the SERP.
   const description =
-    `${BRANDS.length} brands ranked by what they actually sell each week on Vinted across ` +
-    `5 EU markets, with average sale prices and the categories that move.`
+    `${BRANDS.length} brands ranked by watched departures each week on Vinted across ` +
+    `5 EU markets, with average prices at departure and the categories that move.`
   return {
     title,
     description,
@@ -57,10 +57,10 @@ export default async function FlipHubPage() {
     .sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
 
   const answer = top
-    ? `${top.brand} sells the most of any brand Resale IQ tracks — about ${fmtCount(top.sold_7d)} ` +
+    ? `${top.brand} has the most watched departures of any brand Resale IQ tracks — about ${fmtCount(top.sold_7d)} ` +
       `items a week across ${MARKETS}.` +
       (dearest?.avg_price_eur != null
-        ? ` ${dearest.brand} carries the highest average sale price at ${fmtEur(dearest.avg_price_eur)}.`
+        ? ` ${dearest.brand} carries the highest average price at departure at ${fmtEur(dearest.avg_price_eur)}.`
         : "") +
       ` High volume and high price rarely sit in the same brand: the fast movers sell at thin ` +
       `margins, the expensive ones carry more margin per unit but tie up cash for longer.`
@@ -86,7 +86,7 @@ export default async function FlipHubPage() {
             "@type": "Answer",
             text:
               `The ${BRANDS.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
-              `items sold per week across ${MARKETS}. That is tracked-brand volume only — ` +
+              `items we watch leave the shelf per week across ${MARKETS}. That is tracked-brand volume only — ` +
               `unbranded listings and brands outside the tracked set are not counted, so it is ` +
               `not a measure of Vinted as a whole.`,
           },
@@ -141,7 +141,7 @@ export default async function FlipHubPage() {
           Every tracked brand, ranked by weekly sales
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
-          Sorted by items sold in the last 7 days. An em-dash means the current snapshot has no
+          Sorted by items watched leaving the shelf in the last 7 days. An em-dash means the current snapshot has no
           figure for that brand — not that it sells nothing.
         </p>
 
@@ -164,7 +164,7 @@ export default async function FlipHubPage() {
                   Is {r.brand} worth reselling on Vinted?
                 </Link>
                 <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap" }}>
-                  {fmtCount(r.sold_7d)}<span style={{ color: "#5b6b8c" }}> sold/week</span>
+                  {fmtCount(r.sold_7d)}<span style={{ color: "#5b6b8c" }}> left shelf/week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
                   {fmtEur(r.avg_price_eur)}<span style={{ color: "#5b6b8c" }}> avg</span>
                 </div>

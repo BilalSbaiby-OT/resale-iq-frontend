@@ -31,7 +31,7 @@ export async function generateMetadata(
   const top = entries.find(e => e.sold_7d != null)
   const title = `Best brands for reselling ${c.category} on Vinted (${c.entries.length} ranked)`
   const description = top && top.sold_7d != null
-    ? `${c.entries.length} brands ranked by how many ${c.category.toLowerCase()} they actually sell each week on Vinted across 5 EU markets. ${top.brand} leads with ${fmtCount(top.sold_7d)} a week.`
+    ? `${c.entries.length} brands ranked by how many ${c.category.toLowerCase()} listings we watched leave the shelf each week on Vinted across 5 EU markets. ${top.brand} leads with ${fmtCount(top.sold_7d)} a week.`
     : `${c.entries.length} brands ranked for ${c.category.toLowerCase()} on Vinted across 5 EU markets.`
   return {
     title,
@@ -84,10 +84,10 @@ export default async function CategoryPage(
 
   const answer =
     top && top.sold_7d != null
-      ? `Across the tracked brands, ${top.brand} sells the most ${lower} on Vinted — about ` +
+      ? `Across the tracked brands, ${top.brand} has the most ${lower} leave the shelf on Vinted — about ` +
         `${fmtCount(top.sold_7d)} a week across ${MARKETS}. ` +
         (dearest?.avg_price_eur != null
-          ? `${dearest.brand} carries the highest average sale price at ${fmtEur(dearest.avg_price_eur)}. `
+          ? `${dearest.brand} carries the highest average price at departure at ${fmtEur(dearest.avg_price_eur)}. `
           : "") +
         `Volume and price pull in opposite directions: the high-volume brands sell fast at thin margins, ` +
         `the expensive ones carry more margin per unit but sit longer.`
@@ -110,7 +110,7 @@ export default async function CategoryPage(
             "@type": "Answer",
             text:
               `The ${entries.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
-              `${lower} sold per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
+              `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
               `unbranded and untracked listings are not counted.`,
           },
         },
@@ -160,7 +160,7 @@ export default async function CategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 28 }}>
           {[
-            [fmtCount(total), `${lower} sold / week`],
+            [fmtCount(total), `${lower} left shelf / week`],
             [String(entries.length), "brands ranked"],
             [dearest ? `${fmtEur(dearest.avg_price_eur)}` : "—", dearest ? `highest avg (${dearest.brand})` : "highest avg"],
           ].map(([v, l]) => (
@@ -180,7 +180,7 @@ export default async function CategoryPage(
               <tr style={{ textAlign: "left", color: "#5b6b8c", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.4px" }}>
                 <th style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>#</th>
                 <th style={{ padding: "8px 10px", fontWeight: 600 }}>Brand</th>
-                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Sold / week</th>
+                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Left shelf / week</th>
                 <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Share</th>
                 <th style={{ padding: "8px 0 8px 10px", fontWeight: 600, textAlign: "right" }}>Avg price</th>
               </tr>
@@ -209,7 +209,8 @@ export default async function CategoryPage(
           </table>
         </div>
         <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginBottom: 28 }}>
-          Units sold in the last 7 days across Vinted ES, FR, DE, IT and PT, for the brands Resale IQ tracks.
+          Units we watched leave the shelf in the last 7 days across Vinted ES, FR, DE, IT and PT, for the brands Resale IQ tracks —
+          a departure, not a confirmed sale (see <Link href="/methodology" style={{ color: "#8fa3c4" }}>methodology</Link>).
           Average price is the brand&apos;s average across all its categories, not {lower} alone. Refreshed every 15 minutes.
         </p>
 
