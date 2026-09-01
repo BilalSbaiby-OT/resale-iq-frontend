@@ -832,3 +832,7 @@ The founder asked for the UNDERLYING issue, not another patch. It is one thing,
 not three.
 
 Every deploy check we `
+- `2026-09-01T16:30:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mloop3.txt" <<'MSG'
+loop: three more posts live in the markets we actually serve, board down to 2
+
+Published the Spanish TikTok and French Instagra`
