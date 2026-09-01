@@ -584,3 +584,12 @@ activation: the Spanish funnel ends at an English legal form
 customer-success answered the question I most wanted answered, and the answer is
 a conversion defect at the`
 - `2026-09-01T12:20:52Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git status --porcelain; git add -A && git commit -q -m "log: guard entries from the Reddit reachability checks" && git push origin main 2>&1|tail -1; git status --porcelain|wc -l`
+- `2026-09-01T12:21:32Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "economics: the phantom conversion rate is gone, and the traffic figures disagree by 25x
+
+finance-ops corrected the input I flagged. The 0.08% visitor-to-paid figure is
+struck: it was computed from the founder's own Stripe test, which is a
+non-event, so by the company'`
+- `2026-09-01T12:21:48Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mecon.txt" <<'MSG'
+economics: the phantom conversion rate is gone, and the traffic figures disagree by 25x
+
+finance-ops corrected the input I flagg`
