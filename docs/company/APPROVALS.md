@@ -1551,3 +1551,60 @@ not a reason to hold, **flagged so nobody is surprised.**
 **BOTH AM-7 CONSULTS ARE NOW CLEAR.** `tech-lead`: push all 127, do not split, merge nothing in
 `demand-intel`. `security-eng`: safe on every checkable dimension. **The only thing outstanding is
 `.claude/DEPLOY_APPROVED`, which is the founder's to create.**
+
+
+---
+
+### A20 — **MERGED to `demand-intel` main: C6, C5, C4.** Three reviewed changes, nothing else.
+
+`tech-lead` gave a full review and an explicit merge order. Executed exactly, nothing added.
+
+| # | | |
+|---|---|---|
+| 1 | **squash**-merge `fx-currency-v2` | `7942faf` |
+| 2 | cherry-pick `c1143d3` (C5) | `dafaa8d` |
+| 3 | cherry-pick `d3850d9` (C4) | `e771ea7` |
+
+**Verified after:** `1180 passed` · `docs/audit/proof/fx-currency/proof.sh` **16/16 cold** ·
+`git merge-base --is-ancestor af4042d main` → **ABSENT.**
+
+**Why squash, and it is not tidiness.** `fx-currency-v2` carries a rewritten copy of the rejected
+commit as its base. A normal merge would put a commit into `main` **whose tree still drops rows in
+`parse_item`** — `git bisect` could land on it and reproduce the fabricated-sales bug against a commit
+legitimately in `main`'s history. *"That is the difference between 'the bug is not in main' and 'the
+bug is not in main at any point.'"*
+
+**`claude/backend-eng/data-defects-c6-c5-c4` is deleted**, because it still carried the rejected
+`af4042d` — *"so nobody finds it later and finishes the job."* All three SHAs recoverable via reflog.
+
+**TWO INDEPENDENT CONFIRMATIONS OF THE SAME INTERACTION, and this is why the order matters.**
+
+`tech-lead` predicted by reading that **C5 must land before `gate-paid-surfaces`**: the gate branches
+from `main`, where `verdict_allows_buy_below({})` still returns `True`, and its legacy-row docstring
+*"becomes false the moment C5 lands."*
+
+**I found it independently by rehearsing the merge in a throwaway worktree: 11 failures on the
+combined tree** — 6 in `test_entitlement_redaction`, 3 in `test_deals_str`, plus the gate's own
+`test_legacy_row_with_no_n_at_all_is_not_reported_as_zero`. **Every branch passed alone. Together
+they did not.** Merging all six tonight would have shipped that.
+
+- [ ] The gate's legacy-row docstring must be corrected before it merges — it describes behaviour the
+      code cannot produce once C5 is in.
+
+**HELD, and named as UNREVIEWED rather than rejected** — `tech-lead` declined to approve on test
+counts, which is the right refusal: *"C6 passed 1173 tests. A13 passed everything and still moved 41
+published prices. A test count tells me the branch is internally consistent. It tells me nothing about
+what I actually check for."*
+
+`gate-paid-surfaces` + `a13` (one release, after the docstring fix, the call-site read, and confirming
+`Levi's Trucker` is inside the gated 18) · `pending-failsafe` · `delete-ecc-harness` ·
+`lifecycle/trial-emails` (**and I am partly its author, so I cannot review it either**) · all four
+`resale-iq` branches.
+
+**A15 ruled:** `frontend-eng/conversion-moments` **wins** the three overlapping files — it is verified
+24/24, `designer` is unverified for want of a shell. *"Merging unverified work over verified work on
+the same three files destroys the verification."* `designer` rebases on top and re-runs the specs.
+
+**A13 approved conditionally**, with a disclosure requirement: 18 of the 41 are suppressed by the
+gate, **but the other 23 cross 8 and publish their swing anyway — median 20.3 % on a paid field.**
+That must be **stated in the release note, not absorbed.**
