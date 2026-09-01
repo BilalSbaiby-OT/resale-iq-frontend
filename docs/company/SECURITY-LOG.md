@@ -627,3 +627,13 @@ session: the CI alarm was false, which is worse than it sounds
 
 Recorded with the fix, and flagged as NOT YET VERIFIED: Deploy triggers on
 workflow_run, so it only fires `
+- `2026-09-01T13:20:33Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mdep.txt" <<'MSG'
+ci: stop stacking rebuilds -- they were showing real visitors an error page
+
+W23. The concurrency group existed but with cancel-in-progress: false, which
+serialised depl`
+- `2026-09-01T13:21:25Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms4.txt" <<'MSG'
+session: a false CI alarm led to a real defect visitors were hitting
+
+The failing Deploy check was a symptom, not the problem. Chasing it found that
+stacked rebuilds were`

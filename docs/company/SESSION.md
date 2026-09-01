@@ -607,6 +607,42 @@ finishes. **Do not record this row as closed until a Deploy run goes green.**
 - **The deploy pipeline has no serialisation** — rapid pushes stack rebuilds on each other. Today it
   cost a false alarm; it is the same shape as last night's two-container incident. **W23.**
 
+## The CI email led somewhere real, and it was not CI
+
+The failing check was a symptom. **Stacked deploys were showing live visitors an error page**, and we
+started driving traffic today.
+
+The chain: `content-social`, capturing product footage from production, hit **"Could not check that
+item right now"** on *New Balance 530*. **It kept the failed capture as a flagged artefact rather
+than retrying until it looked clean.** I then tested that query against the live API — **`buy_below:
+26.42`, works perfectly.** It was asking during a rebuild window.
+
+**Cause:** the concurrency group had `cancel-in-progress: false`, which **serialised** deploys instead
+of collapsing them — five pushes became **five sequential Coolify rebuilds**, each with its own
+window where the site serves nothing. Now `true`: main is the deployable unit and the newest commit
+contains the older ones, so shipping N−2 once N is queued achieves nothing. **N rebuilds collapse to
+one; N−1 outage windows disappear.**
+
+**A silent retry would have produced a nicer video and buried a live defect.** Second time today an
+agent's refusal to tidy away a failure was worth more than the task it was doing.
+
+## W19 — the signup flow speaks the visitor's language. **73/73.**
+
+Rather than move four routes under `[locale]`, it reads the **`NEXT_LOCALE` cookie `src/proxy.ts` was
+already stamping** — `seo` built that proxy hours earlier for a different reason and it turned out to
+be the cheap answer.
+
+**The waiver stays English on every locale, deliberately**, flagged for legal review, with every e2e
+test asserting that exact English sentence is present **regardless of locale** — so a future
+translation cannot land silently. **A mistranslated consent may be unenforceable; an English one is
+merely bad UX.**
+
+## The aspirational lane is built
+
+10 hooks, **8 rows queued (ids 111–118)** across TikTok / Reels / X in **EN, ES and FR**, and **4
+finished videos**. Every hook is a **question or a demonstration, never a promise** — the line that
+keeps the accounts alive.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
