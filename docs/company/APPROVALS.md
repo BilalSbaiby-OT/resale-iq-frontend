@@ -1451,3 +1451,68 @@ search in three is not a repositioning; it is a narrower promise with the same u
       shelf band scored against the same 180-search population. **A batch job against a snapshot copy
       per AM-1.** Until it runs, **the shelf option's search coverage is UNKNOWN and must not be
       quoted.**
+
+
+---
+
+### A18 — **this repo may never be made public without a scrub pass**
+
+`tech-lead`, during the AM-7 deploy consult. **Standing constraint, not a task.**
+
+The diff being pushed carries **45 references to production topology** — Hetzner, Coolify,
+`/app/data/demand_intel.db`, the `ssh + docker exec` read path. Plus `CLOSED-LOOP.md` and
+`COVERAGE.md`, which state frankly that the central constant is unvalidated, that the labelling
+ceiling is 7 %, and that the price claim is defensible on **2 of 100 models**.
+
+**All of that is correct to keep in a private repo and would be a competitor's dossier and a
+customer's refund argument in a public one.** `BilalSbaiby-OT/resale-iq-frontend` is confirmed
+private (`gh repo view`, not assumed).
+
+> *"Nothing enforces that it stays private. Cheap now, unrecoverable later — history is forever."*
+
+- [ ] **Never flip this repository to public without a scrub pass** over production topology and the
+      candid audit files. Rewriting history after the fact does not undo a clone.
+
+**Also cleared in the same consult, and worth recording as verified rather than assumed:**
+- No credentials in the diff. Three apparent hits, all benign: an ssh **host alias** (no user, host or
+  key), a deliberate `"." + "env"` string-split in a proof script, and a `startsWith('sk_live_')`
+  **mode check** reading an env var rather than a literal key.
+- `.claude/hooks/` is **already** on `origin/main` — the rails are not new exposure.
+- `.gitignore` correctly excludes `DEPLOY_APPROVED`; no `LOCK`, `UNLOCK_HARNESS` or
+  `dashboard/status.json` is tracked in the tree being pushed.
+
+---
+
+### A19 — deploy consult CLEARED. **Push `resale-iq`. Merge nothing in `demand-intel`.**
+
+**`tech-lead` corrected my framing, and the correction is the point.** I called the push "low-risk
+because none of the work that matters is on main."
+
+> **"Low-risk, yes. A no-op, no."** `deploy.yml` triggers on `workflow_run` from Agent Isolation on
+> `main`. **Pushing these 83 commits IS a production deploy of the frontend**, unattended, at the end
+> of a long night.
+
+**Its two pre-flight checks, both now run and both clean:**
+
+| check | result |
+|---|---|
+| does `deploy.yml` gate on success? | **YES** — `:54`, `conclusion == 'success'`. A red CI does not ship |
+| is a lockfile committed? | **YES** — `package-lock.json` tracked, so the rebuild pins transitives and the caret ranges cannot drift |
+
+**Do not split the push.** Any push to `main` fires the same deploy chain, so holding back the `e2e/`
+files reduces deploy risk by nothing and only delays the CI changes. The `e2e` specs are the A15
+breach and carry its **needs-work** verdict — a mock merging two backend return paths, and the 40.9 %
+misattribution — but both are **test-fidelity defects with zero user-facing effect.** Push them, fix
+them on a branch.
+
+**The real argument for pushing tonight is one I had not made:** these 83 commits exist **on one
+laptop**, in a company `devops` found has **no verified offsite backup**. The push is a backup first
+and a redeploy second.
+
+**And the clear NO:** merge nothing in `demand-intel` tonight. Its `main` genuinely deploys the API,
+and A13 carries an open request-changes. *"Merging tonight to deliver the actual fixes would ship an
+unquantified change to a paid price field at 4am. That is precisely the shape of thing that produced
+C6."* FX v2 is approved and can go first thing.
+
+**Blocked only on `.claude/DEPLOY_APPROVED`**, which is the founder's to create. Attend the deploy;
+health check after; rollback ready.
