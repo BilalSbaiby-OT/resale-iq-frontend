@@ -4,6 +4,28 @@
 
 ## Working on
 
+**W56 IS DEPLOYED AND PROVEN ON THE REAL HOST — not in a mock.** Backend in sync at `0967123`. The
+very deploy that shipped the fix exercised it, and the container's own log says:
+
+> `[boot] demand_index 43m old, vinted data 24m old — both within schedule tolerance, skipping
+> forced boot pass`
+
+**The boot pass skipped.** No analyzer, no 5-market fan-out. The new container sits at **65.79 MiB
+and 0.15% CPU** against the pre-fix **1.04 GiB and 88.5%** — and `/api/health` returned 200 six for
+six straight through the deploy. **No new OOM kill:** the most recent is still 17:18:12, the one we
+diagnosed. (`dmesg`'s count fell 7→6 only because the ring buffer rotated — that is not an
+improvement and must not be read as one.)
+
+This is the host-level confirmation `backend-eng` correctly said it could not provide from its own
+machine.
+
+**W58 opened, and it may be W24's real cause.** An hour after being replaced, the OLD backend
+container is still running and holding **833 MiB — 22% of the host.** Coolify never reaped it. Two
+consequences: a third of our RAM is held by a container serving nothing, and **both containers
+publish the same Traefik router labels**, which is exactly the `Router defined multiple times with
+different configurations` condition behind W24's 103×404. We assumed that was a deploy-window race.
+It may be a container that never left.
+
 **W56's code half is CLOSED and merged** — `demand-intel@0967123`. Board is **16 closed / 2 open**,
 zero unassignable. Every deploy used to run the two heaviest jobs in the app concurrently and
 unconditionally: the **~90-minute** analyzer alongside a bare 5-way `gather` across every Vinted
