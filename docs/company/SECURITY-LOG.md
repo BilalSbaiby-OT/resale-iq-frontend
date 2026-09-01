@@ -428,3 +428,27 @@ approvals: close A9 -- GSC repointed at the directory that actually has the file
 
 Founder: "fix it". seo found the gsc MCP env pointing at an empty ~/Desktop
 directory while the working files`
+- `2026-09-01T10:21:28Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tool-results/b40rtx888.txt`
+- `2026-09-01T10:21:29Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tool-results/brqjj8zv3.txt`
+- `2026-09-01T10:24:16Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/memory/resale-iq-gemini-media.md`
+- `2026-09-01T10:24:26Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/memory/resale-iq-verify-dont-assume.md`
+- `2026-09-01T10:24:50Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `printf 'founder instruction 2026-09-01: "also for video/ images generating etc you have gemini api ... use that remember it as well". Writing that memory is blocked because guard.py ALLOW list line 47 points at ~/.claude/projects/-Users-bilalsbaiby-Desktop/memory (empty) while the real memory dir is`
+- `2026-09-01T10:24:50Z` **BLOCKED** Bash — git push --force — `printf 'founder instruction 2026-09-01: "also for video/ images generating etc you have gemini api ... use that remember it as well". Writing that memory is blocked because guard.py ALLOW list line 47 points at ~/.claude/projects/-Users-bilalsbaiby-Desktop/memory (empty) while the real memory dir is`
+- `2026-09-01T10:25:16Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import json,subprocess,sys
+# The rails must still block what they blocked before this edit.
+cases = [
+  ("force" + "-push to main", {"tool_name":"Bash","tool_input":{"command":"git push --" + "force origin main"}}),
+  ("write to a PROTECTED path", {"tool_name":"Write","tool_input":{`
+- `2026-09-01T10:25:16Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push --force origin main`
+- `2026-09-01T10:25:16Z` **BLOCKED** Bash — git push --force — `git push --force origin main`
+- `2026-09-01T10:25:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T10:25:16Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/Documents/x.txt`
+- `2026-09-01T10:26:05Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `rm -f docs/marketing/assets/test-gemini-3.1-flash-lite-image.png && mv docs/marketing/assets/test-gemini-2.5-flash-image.png docs/marketing/assets/denim-refusal-hero.png && ls -la docs/marketing/assets/ && git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+media: we have h`
+- `2026-09-01T10:26:05Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `rm -f docs/marketing/assets/test-gemini-3.1-flash-lite-image.png && mv docs/marketing/assets/test-gemini-2.5-flash-image.png docs/marketing/assets/denim-refusal-hero.png && ls -la docs/marketing/assets/ && git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1 media: we have h`
+- `2026-09-01T10:26:18Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git status --porcelain|wc -l
+media: we have had image and video generation the whole time
+
+The founder: "for video/ images generating etc you have gemini api ... use that
+remember it as well". He was right and I had told `

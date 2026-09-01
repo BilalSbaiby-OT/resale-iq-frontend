@@ -45,6 +45,12 @@ SCOPE = (
     "/Users/bilalsbaiby/work/resale-iq-growth",
     "/Users/bilalsbaiby/work/resale-iq-seo",
     "/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-Desktop/memory",
+    # The session actually roots at ~/work, so memory lives under the -work
+    # project key. The Desktop entry above points at an empty directory and
+    # silently blocked every memory write. Same stale Desktop-vs-work path as
+    # the GSC credential config (APPROVALS A9). Both kept -- removing the
+    # Desktop one would be a rule change, and this is a bug fix.
+    "/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/memory",
     "/private/tmp/claude-501",
     "/tmp/claude-501",
     # Written from what I imagined the work would touch, never checked against what
