@@ -4,6 +4,43 @@
 
 ## Working on
 
+**GREY AREA — the founder's question, and it is the right one.** WATCH is **68% of our actionable
+answers** and it is a NON-ANSWER: someone asks "should I buy this?" and is told "wait", with nothing
+to act on. A 12-agent design workflow is running; output lands in `docs/company/GREY-AREA.md`.
+
+**The thread: we already COMPUTE a price.** `buy_below` exists. WATCH may be discarding an answer we
+already have — *"not at €40, but yes at €22"* is actionable, *"wait"* is not.
+
+**One number decides it, and it is being measured now: the distribution of listed price vs
+`buy_below`.** If most WATCHes sit 10% away, a conditional answer is powerful. If they sit 200% away,
+telling someone to buy at €22 when it is listed at €70 is useless. **Do not build on this hypothesis
+until that distribution comes back.**
+
+**Workflow shape** (built so it cannot simply agree with me): 4 research lenses → 4 independent
+proposals argued at full strength (conditional buy · proximity signal · **kill WATCH entirely** ·
+change the question to "here are three that ARE buys") → 3 judges per proposal on deliberately
+different lenses (a stranger who ran one check and will not return · the honesty guardian · the tech
+lead asking what ships this week) → synthesis that grafts runners-up in rather than discarding them.
+**Any proposal requiring a rail to be broken is excluded automatically.**
+
+**The rails do not move.** `n ≥ 8` stays, UNKNOWN stays, per-model buy-below stays paid, no
+guaranteed returns. The temptation in a grey-area problem is to fix it by handing over certainty we
+do not have; that is the one route that costs us the channel permanently.
+
+**Marketing, copy and UX remain FROZEN** until a check returns something worth acting on.
+
+## Correction standing from the last hour
+
+**My "62% return no actionable answer" headline was wrong** — a true number about a false referent.
+All 165 PENDING rows are from **2026-08-23 to 08-29, 146 on a single day**; the fix merged earlier
+that same day and there have been **zero PENDING since**. `backend-eng` checked the claim instead of
+executing it, and refused to ship a redundant fix because that **would have been manufacturing
+proof**. Current rate is **68% actionable**.
+
+**What survives:** BUY has been returned **6 times ever, none in twelve days**; ~a third of checks
+still return UNKNOWN; **92% of anonymous visitors run exactly one check**; and my own **449 internal
+vs 76 customer-facing** file-touches today.
+
 # ⛔ MARKETING, COPY AND UX ARE FROZEN. READ `THE-REAL-PROBLEM.md` FIRST.
 
 **The product has said BUY six times in its life. The last one was 2026-08-20.**

@@ -1043,3 +1043,11 @@ audit: the product has said BUY six times ever, and not once in twelve days
 The founder said every department was useless and told me to audit myself. He
 was right. This is wha`
 - `2026-09-01T20:56:55Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session5.py && python3 scripts/company/embed_dashboard.py >/dev/null 2>&1; git add docs/company/SESSION.md dashboard/org.json dashboard/index.html docs/company/SECURITY-LOG.md docs/company/bus.jso`
+- `2026-09-01T21:04:08Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_correct.txt <<'MSG'
+correct: my headline was a true number about a false referent
+
+I published "62% of all checks return no actionable answer, PENDING is 38%" and
+froze marketing on it. backend-`
+- `2026-09-01T21:14:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session6.py && git add docs/company/SESSION.md docs/company/bus.jsonl docs/company/SECURITY-LOG.md && git commit -q -m "session: grey area is the product, and one number decides the answer
+
+The fo`
