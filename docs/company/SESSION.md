@@ -927,6 +927,47 @@ of its parts — after any unlock, verify it is gone rather than assume.**
 Second time today a guard false-positive nearly left something unsafe. The first blocked a commit
 message that merely *described* a rail.
 
+## THE DEPLOY WAS FROZEN FOR NINE COMMITS AND I DID NOT NOTICE
+
+**`frontend-eng` went to verify my register fix and found it was not live.** It fetched the
+**deployed bundle** rather than trusting the commit, and the pre-fix code was still there. **My commit
+said "Fixed and deployed" and the second word was false.**
+
+**Cause:** `Deploy` only runs after `Agent Isolation` passes, and that check failed on **every push
+since 14:38.** Nine commits — including the highest-value conversion fix on the board — sat unshipped
+while `Deploy` reported **`skipped`**, which reads like *nothing needed doing* rather than *blocked*.
+**I read past it nine times.**
+
+**The trigger was mine.** `dashboard/data.json` embeds the activity ledger verbatim, the ledger
+records each agent's command, and I ran one that legitimately passed `$COOLIFY_TOKEN` to a child
+process — so the credential **name** reached build output.
+
+**Fixed at the source, NOT by loosening the check.** That check is right and must stay strict:
+`data.json` ships to every visitor, and **a checker that decides "this looks like just the variable
+name" is one bad heuristic away from shipping a key.** `build_dashboard.py` now scrubs credential
+names before writing. The real defect was raw command text reaching a public artifact at all.
+
+**Verified live afterwards, in the deployed bundle:** `?plan=free` is present. **W53.**
+
+**Two lessons, both mine: a green Playwright run is not a deploy, and `skipped` in a CI list is not
+neutral.**
+
+## A24 + W42 shipped — 1319 tests
+
+**A24:** `market_avg_price` is no longer harvestable. It bypassed the `n≥8` floor *and* the
+free-unlock budget, and manual mode needs no listing. The key is now **omitted, not nulled** — an
+absent field is honest, **a zero is a claim we did not measure.** The floor applies to paid users
+too: **paying does not entitle anyone to a number computed from three observations.**
+
+**W42:** `/api/ext/error` exists — the extension had been calling it since this morning and every
+failed render 404'd. Keyed `(reason, market, day)`, UPSERT-incremented: **no per-event rows and no IP
+column at all.** Noticing Vinted broke our selectors is a **rate, not a list**, which also avoids a
+fourth table with the retention defect `COMPLIANCE.md` finds in three existing ones.
+
+**W48 closed:** `frontend-eng` retested the mobile checker in real Chrome at 375×812 — **4/4 succeeded.**
+Tooling artifact, not a product defect. **That does not overturn `ux-researcher`'s UNKNOWN** — it
+correctly refused to guess, and this simply did not reproduce.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
