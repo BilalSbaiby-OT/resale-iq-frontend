@@ -238,3 +238,4 @@ block`
 - `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-01T00:28:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T00:34:57Z` **BLOCKED** Bash — direct read of a .env file — `python3 - <<'PY' import io p="docs/company/APPROVALS.md"; s=io.open(p,encoding="utf-8").read() s += ''' --- ### A8 / A12 — CONSULTATION IN PROGRESS (founder authorised, conditional) **2026-09-01.** The founder authorised A8 and A12 **on the condition that every agent with an informed opinion is cons`
