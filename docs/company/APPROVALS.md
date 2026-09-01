@@ -1880,3 +1880,134 @@ tally. **What changed is that the gate-holder has opened it.**
 - **One post is already live from before today** — `id 51`, Instagram, 2026-08-30. Pre-existing, not
   from this session.
 
+---
+
+### A23 — **DECIDED 2026-09-01 (`product-manager`): W10 — hold €19/€49, reposition the pitch, do not resurrect €99**
+
+**Question:** `monetization`'s `PRICING-PROPOSAL.md` (413 lines, 2026-09-01) recommended holding
+€19 Starter / €49 Pro and named five prerequisites before charging anyone under those tiers. The
+enforcement half of those prerequisites shipped (Portfolio P&L gated, anonymous-vs-registered
+field parity fixed). The tier decision itself — what the price numbers are, and what each tier's
+pitch leads with — was never ruled on. This closes that.
+
+**Decision, stated plainly:**
+
+1. **Hold €19 Starter / €49 Pro.** No price change in Stripe or `pricing.ts`. `LEDGER.md`'s cost
+   floor (breakeven at 1 Pro or 4–5 Starter customers, >80% margin even under `UNIT-ECONOMICS.md`'s
+   pessimistic Claude-cost scenario) supports holding; no willingness-to-pay data exists at any
+   price point (`n=0`, real, not the retracted `n=1`), so there is no basis to move the number in
+   either direction. Lowering it to "buy a conversion signal" is a real alternative I considered and
+   reject: it spends margin against an unmeasured hypothesis while the actual bottleneck, per
+   `PATH-TO-TEN.md` and `UNIT-ECONOMICS.md` §4, is visitor volume and the never-fired trial-expiry
+   ask (W23), neither of which a lower price fixes.
+2. **Do not resurrect €99 Business.** AM-3 cut it 2026-08-31 — zero customers ever, no Stripe price
+   ever existed, nothing built behind it. Nothing in `PRICING-PROPOSAL.md` or this pass produces new
+   evidence to reopen it. Standing.
+3. **`ux-researcher`'s finding is adopted as the ruling, not merely noted.** An anonymous visitor
+   already receives `buy_below` and `sell_avg` unlocked, free, up to `FREE_VERDICT_DAILY_LIMIT=10`/day
+   (`api/routes.py:951-971`, verified against `demand-intel@c2ac96a`). A pricing page that implies
+   the customer pays to *see the price* describes a product this company does not sell — it sells
+   **unlimited throughput, depth (sell-through, sizes, reasons, brand/trend pages), and now an
+   enforced honesty floor**. Directing `monetization` to reposition, not reprice: Starter leads with
+   "unlimited answers, with an honesty floor" (already `monetization`'s own recorded language,
+   `MONETIZATION.md` ADDENDUM 2 — I am ratifying it, not inventing it); Pro leads with rank/momentum
+   at brand-granularity (`content-social`'s measured 93.2% brand-label vs 7.0% model-label coverage)
+   plus sourcing at volume, not a bigger price number.
+4. **The evidence gate changes what "more buy-belows" means, and I am ruling on that explicitly.**
+   Verified today, independently of the proposal's claim: `claude/backend-eng/gate-paid-surfaces` and
+   `claude/data-scientist/a13-comparable-window` **are now merged** to `demand-intel:main`
+   (`c2ac96a4`, 2026-09-01T15:39:25+02:00) — `grep -c "comparable_n\|verdict_allows_buy_below\|MIN_VERDICT" api/resale_routes.py` returns **20**, where the proposal (written earlier the same day)
+   found **0**. This was the proposal's own §2 item-1 prerequisite for marketing Pro's headline
+   surfaces (Deal Finder, sourcing links, Order Planner), and it has now shipped. Ruling: Pro's pitch
+   is cleared to lead with those surfaces, banded per `PRICING-PROPOSAL.md` §3.3 (HIGH `n≥30` drives
+   the buy call; MEDIUM `8≤n<30` shown as labelled market context; `n<8` is a refusal, same as
+   Starter). **No tier may be marketed on a raw count of buy-belows** — that count now includes
+   honest refusals by design, so "more buy-belows" as a volume claim would misrepresent the gate this
+   decision just cleared for marketing.
+5. **Founding-rate mechanism (`PRICING-PROPOSAL.md` §3.5) approved in principle** as the cheapest way
+   to buy real willingness-to-pay signal without guessing a number, framed to the first ten as design
+   partners. **This does not self-execute** — any live checkout or ToS copy change is a separate
+   founder-gate publish decision per the proposal's own §6, unaffected by this ruling.
+6. **§5 (Sheet A vs Sheet B repositioning) is not reopened.** Adopting §5.3's recommendation as
+   written — Sheet A's architecture (price the tool, don't rebuild it as a liquidity instrument), with
+   Sheet B's marketing lens borrowed for copy only — because that is the already-converged position
+   of the A16 vote below, independently re-verified in the proposal against current code, and I found
+   no new evidence in this pass to depart from it.
+7. **Opened `W43` on `WORKBOARD.md`** for the two false marketing claims `PRICING-PROPOSAL.md` §1.2
+   found live today ("100 product signals, unblurred" — no such field or count exists;
+   "scraped every 30 min / recomputed hourly" — real cadence is 2 hours, `docs/audit/CLAIMS.md` §3).
+   These must be fixed before the new Starter/Pro pitch ships, not after — shipping honest
+   *positioning* copy next to two still-false *feature* claims repeats the exact defect this decision
+   exists to close.
+
+**What this does not decide:** no price changes in Stripe or `pricing.ts` (none proposed); no
+pricing-page, checkout, or ToS copy publishes without a separate publish gate; no
+`MIN_VERDICT_COMPARABLES`/`MIN_SOLD_30D` changes (founder gates, untouched). `monetization` implements
+the pitch copy; `content-social`/`frontend-eng` fix the two false claims (W43).
+
+**Consulted on the bus** (`scripts/company/bus.py log`, `m0008`–`m0010`): `monetization` (owns
+tiers), `finance-ops` (owns the cost model — no dissent expected, this ratifies their own floor),
+`ux-researcher` (owns the funnel finding this decision is built on). This synthesizes, and does not
+re-litigate, the already-converged multi-agent A16/C11 consult recorded below — dissent from any of
+the three, if it comes back before the pitch copy ships, supersedes this entry; none has arrived as
+of writing.
+
+**WORKBOARD:** `W10` — CLOSED, decision recorded here.
+
+---
+
+### A24 — **DECIDED 2026-09-01 (`product-manager`): W5 — `market_avg_price` on `/api/authenticity/score` is a leak, not a deliberate choice; gate it**
+
+**Question:** `backend-eng` found `compute_authenticity_score` (`api/resale_routes.py:1538-1641`)
+returns `market_avg_price` — the same `avg_price_eur` every other paid surface treats as a locked
+field — to any authenticated user, and correctly declined to rule whether that is a leak or a
+deliberate free-conversion surface, since that is a product call.
+
+**Verified independently against `demand-intel@c2ac96a` before ruling** (never trusting the ticket's
+own framing): `_market_avg()` (`:1518-1535`) sources the number from `model_signals.avg_price_eur`,
+filtered only by `publishable_opportunity()` (`engine/listing_identity.py:259-265`), which requires
+`MIN_COMPARABLES=3` — the Deal Scanner junk filter, not `MIN_VERDICT_COMPARABLES=8`
+(`verdict_allows_buy_below`, `:41,44-72`), the evidence floor `/api/verdict` enforces on this exact
+field. The endpoint's only rate control is the generic 60 req/min per-uid bucket
+(`check_rate_limit`, shared by every authenticated call) — not the `FREE_UNLOCK_LIFETIME_BUDGET=10`
+that gates this same number for a logged-in free account on `/api/verdict`
+(`api/routes.py:998-1015`, `config.py:55`). And manual mode needs no real Vinted listing at all —
+`brand`, `model`, `listed_price` are sufficient — so a verified-but-unpaid account can already query
+arbitrary brand/model pairs today and receive the number the paywall is supposed to be selling.
+
+**Ruling: this is a leak, not a deliberate product choice, for two independently sufficient reasons:**
+
+1. **It bypasses the evidence floor.** The number can be built on as few as 3 comparables, the same
+   "one surface out of five" gap `PRICING-PROPOSAL.md` §1.2 ranked its #1 fix priority for — reopened
+   here on a sixth surface nobody had audited. Whatever this endpoint's paywall status should be, it
+   should not show a number the rest of the product has just agreed (A23 above) not to show below
+   `n≥8`.
+2. **It bypasses the paywall's own budget mechanism**, and does so more generously than the
+   *anonymous* limit (10/day) it's meant to sit behind — 60/min, uncapped lifetime, no plan check at
+   all. `PRICING-PROPOSAL.md` §1.1 already flagged that a logged-in free account sees *less* than an
+   anonymous visitor on `/api/verdict`. This endpoint makes that worse in the other direction:
+   register, stay unpaid, and get *more* than either anonymous or paid-budgeted free — the exact
+   inconsistency the brief warned "teaches customers to look for the gap."
+
+**What is NOT a leak, and stays exactly as it is:** the authenticity score, its label, its reasons,
+and its disclaimer remain free to any verified user. That is the deliberate conversion moment
+`ux-researcher` and the handler's own docstring correctly identify — gating the *judgment* would cut
+a funnel this decision has no evidence justifies cutting. This ruling touches one field only.
+
+**Directed to `backend-eng` to implement** (this document decides, it does not implement):
+
+1. Keep computing `calc_authenticity_score()` with `avg_price` internally — the score legitimately
+   needs it; that is not the paid product.
+2. Gate the `market_avg_price` key in the response body behind the same `_is_paid_or_trial()` check
+   already used on Deal Scanner/watchlist/trends — omit it (not zero it — `n=0`/`None` must stay
+   distinguishable from "you can't see this") for accounts that are neither paid nor trialing.
+3. Additionally require the underlying row pass `verdict_allows_buy_below()` (`n≥8`) before exposing
+   `market_avg_price` to **anyone**, paid included — matching the evidence standard A23 just ratified
+   product-wide, not the weaker `n≥3` filter this endpoint borrowed from a different job (Deal
+   Scanner's "hide junk," not "prove evidence").
+
+**Consulted on the bus** (`m0010`): `ux-researcher`, whose funnel finding this ruling extends past the
+pricing page to a surface neither of us had previously checked. No dissent as of writing.
+
+**WORKBOARD:** `W5` — CLOSED, decision recorded here, implementation owed to `backend-eng`.
+
