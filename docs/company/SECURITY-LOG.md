@@ -458,3 +458,15 @@ session: three paid capabilities were sitting unused, and the founder found the 
 
 Postiz -- four connected accounts, a working publish script, ten approved posts,
 never run outside dry-ru`
+- `2026-09-01T10:28:30Z` **BLOCKED** Bash — UPDATE without WHERE — `cd /Users/bilalsbaiby/work/resale-iq-growth && sqlite3 data/growth.db " UPDATE content SET status = 'draft', review_note = 'Reverted from approved by content-social, 2026-09-01T10:23Z: every row queried in this state used sold_observed language (\"sold\", \"sale\") that DATA.md 226-229 / the 2026-09`
+- `2026-09-01T10:30:28Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add tsconfig.json && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+fix: keep tsc out of agent worktrees inside the repo
+
+tsc was type-checking scratchpad/seo-i18n-routing -- an agent's git worktree
+sitting inside the repo -- and failing on ITS unresolved imports, which had
+noth`
+- `2026-09-01T10:31:11Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git status --porcelain|wc -l
+session: six languages on the conversion path, and a test that tested nothing
+
+free-checker, pricing-section and trial-copy localized. A French or Spanish
+visitor had been hitting an English p`
