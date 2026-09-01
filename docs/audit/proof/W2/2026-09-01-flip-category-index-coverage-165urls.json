@@ -1,0 +1,1652 @@
+[
+ {
+  "url": "https://resaleiq.dev/flip/nike",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-28T13:03:12Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T21:45:05Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:19:33Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:39:28Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T10:35:33Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-30T22:27:12Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T10:05:33Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:36:56Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T20:47:11Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T20:30:20Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:40:38Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T01:43:32Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T09:35:34Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T09:13:48Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T18:11:58Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T10:46:17Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T10:18:32Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T16:15:49Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:14:53Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-28T22:55:39Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/sneakers",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T09:51:17Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T21:21:36Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-09-01T09:41:02Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-28T23:34:10Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T07:52:23Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/bags",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T08:22:39Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/category/caps",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T16:53:52Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/nike/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/nike/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/nike/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/nike/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/nike/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T14:17:41Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas/tracksuits",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T08:54:05Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/adidas/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T19:42:18Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T05:54:00Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:29:09Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:44:37Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T14:23:47Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/levis/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:07:42Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear/jeans",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T05:07:50Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/pull-bear/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-30T22:41:17Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T13:55:38Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T08:36:17Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/tommy-hilfiger/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:44:56Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:55:36Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:24:04Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/lacoste/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-09-01T00:43:31Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma/sneakers",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-12T20:41:07Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T03:40:02Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T14:05:03Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/puma/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/new-balance/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-29T01:26:55Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/ralph-lauren/caps",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:04:48Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara/jeans",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/zara/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T01:44:20Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:48:33Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:50:21Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:23:05Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T06:47:41Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/bershka/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T10:56:02Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face/bags",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-29T07:40:39Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/the-north-face/tracksuits",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T23:49:58Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T18:12:00Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:08:26Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt/jeans",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T19:03:32Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/carhartt/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:41:25Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:38:10Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T13:53:05Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:31:49Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/mango/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T03:38:52Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T04:54:01Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:18:25Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T17:30:14Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-28T14:18:12Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/hugo-boss/jeans",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T16:14:47Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel/jeans",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T18:18:14Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:33:48Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/diesel/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-21T06:34:20Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T20:48:18Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T15:56:03Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T10:42:23Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein/jeans",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T19:42:18Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/calvin-klein/bags",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T14:14:25Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/reebok/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T05:26:34Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/fred-perry/sneakers",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T18:33:00Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-09-01T11:59:23Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-28T07:53:23Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T22:06:49Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/stone-island/tracksuits",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-21T06:38:49Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia/jackets",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T15:18:32Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia/bags",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:52:42Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T19:52:03Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/patagonia/caps",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T10:56:59Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan/sneakers",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-21T02:49:08Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan/tracksuits",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-09-01T01:08:30Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/jordan/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T11:47:20Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci/bags",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:43:42Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci/sneakers",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:39:44Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci/caps",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-19T23:41:10Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T15:00:48Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/gucci/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white/shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T02:46:00Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white/t-shirts",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:30:55Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white/hoodies",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/off-white/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T19:00:27Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-11T08:31:38Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme/caps",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-13T01:27:54Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/supreme/jackets",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-29T00:49:10Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga/sneakers",
+  "verdict": "NEUTRAL",
+  "coverageState": "URL is unknown to Google",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga/shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga/t-shirts",
+  "verdict": "NEUTRAL",
+  "coverageState": "Crawled - currently not indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": "2026-08-31T16:33:32Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga/hoodies",
+  "verdict": "PASS",
+  "coverageState": "Submitted and indexed",
+  "robotsTxtState": "ALLOWED",
+  "indexingState": "INDEXING_ALLOWED",
+  "lastCrawlTime": "2026-08-31T12:13:14Z",
+  "pageFetchState": "SUCCESSFUL",
+  "error": null
+ },
+ {
+  "url": "https://resaleiq.dev/flip/balenciaga/bags",
+  "verdict": "NEUTRAL",
+  "coverageState": "Discovered - currently not indexed",
+  "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+  "indexingState": "INDEXING_STATE_UNSPECIFIED",
+  "lastCrawlTime": null,
+  "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+  "error": null
+ }
+]
