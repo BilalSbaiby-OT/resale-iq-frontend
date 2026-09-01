@@ -105,6 +105,50 @@ or citing without checking the source could answer the question.** The dev DB ha
 `SUM(sold_observed) = 0` over 24.1M rows, so every gate measurement on it is a tautology that runs
 without error.
 
+## SECRET EXPOSED — founder decision, not acted on
+
+`devops`'s first `env | grep RESEND_API_KEY` matched the whole line and **put the key's value into a
+subagent transcript** before it switched to a value-safe check. It caught itself, did not repeat the
+value, and **disclosed it unprompted**. The value left our systems: **treat it as exposed.**
+
+**Rotation is the founder's call.** I have not touched it — entering or rotating a live credential is
+not mine to do.
+
+**The lesson, so it does not recur:** `grep` on an env dump is a secret-printing tool. Every future
+check uses `grep -c '^VAR=.'` — present/absent, never the value.
+
+## The two gates are one gate
+
+`qa-eng` verified by reading that the lifecycle send path had **two independent** closed gates. The
+machine says otherwise: `LIFECYCLE_EMAILS` is absent from the container `env` and the boot log reads
+`Lifecycle emails OFF... Scheduler started with 18 jobs`, `job_lifecycle_emails` unregistered — **but
+`RESEND_API_KEY` is present and non-empty.**
+
+So one unset variable is the only thing between us and live mail to real trial users. **Production is
+safe, by one flag, not two.** Record it that way; the difference matters next time someone reasons
+about merging email code.
+
+## RELEASED ~11:50 — `demand-intel` `7a86966..95cfc07`
+
+**The joint gate + A13 release, as one release**, per `APPROVALS.md:417-420` and AM-7. **1246 tests**,
+`/api/health` 14/14 pass after.
+
+`tech-lead` approved after requesting changes **twice** and tracing call sites rather than reading
+diffs — which is how both real defects surfaced, since neither appears in a diff.
+
+**Consultation (AM-8):** `tech-lead`, `verifier`, `qa-eng`, `data-scientist`, `product-manager`,
+`monetization`, `backend-eng`. **Per AM-8a: mediated by me, and I am partly author of the gate half.**
+
+## Production facts, from the machine
+
+- Container was `ph5clxk9hmghspv65pdkvak9-...` on `7a86966`, single container — **now `95cfc07`.**
+- `devops` caught a **brief two-container window on the frontend** during a rolling deploy. Resolved
+  in under a minute, but it is last night's exact shape — single-container is not guaranteed.
+- **ECC deletion is real but modest**: `.claude/skills` genuinely absent from the container, image
+  939MB → 920MB (−2%). I implied more; most of the image is Python deps.
+- **`api.resaleiq.dev` was never ours.** Not a broken cert — it resolves to Porkbun wildcard parking,
+  same as a made-up control subdomain. No code or docs point a customer at it.
+
 ## Blocked
 
 Nothing.

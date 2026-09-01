@@ -330,3 +330,11 @@ identical: 41/19/22 movers, Levi's Tru`
 
 tech-lead re-reviewed the gate branch, approved it (1246 green, three new tests
 bind under a cold negative control), and found the re`
+- `2026-09-01T09:22:57Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/work echo "=== grep resale-iq ===" grep -rn "api\.resaleiq\.dev" resale-iq --include="*.md" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.json" --include="*.env*" 2>/dev/null | grep -v node_modules | head -30 echo "=== grep demand-intel ===" grep -rln "api\.r`
+- `2026-09-01T09:25:51Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cat > /tmp/scoreboard_patch.txt <<'EOF' ## SUMMARY | Item | Status | Evidence | |------|--------|----------| | Commits in git tree | ✅ HIT | 5974fcc..6e146b2 and e771ea7..7a86966 present | | Deployed container SOURCE_COMMIT | ⚠️ UNKNOWN | Git push succeeded, but container's actual running commit not`
+- `2026-09-01T09:28:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1 | tail -2 && echo "--- health after" && sleep 20; curl -s -m 15 https://resaleiq.dev/api/health | python3 -c "import sys,json;d=json.load(sys.stdin);print('overall',d['overall'],'passed',d['passed'],'failed',d['failed'])" 2>&1`
+- `2026-09-01T09:29:53Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && git add -A && git commit -q -m "session: joint release live, a secret exposed, and the two gates are one
+
+demand-intel 7a86966..95cfc07. The gate and A13 shipped as ONE release, which
+is what APPROVALS.md:417-420 required and what tech-lead insisted on. 1246
+t`
