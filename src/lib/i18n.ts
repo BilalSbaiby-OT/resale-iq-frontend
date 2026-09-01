@@ -1,9 +1,18 @@
 /**
  * Smallest i18n that works: marketing + extension panel.
- * vinted.fr → French, vinted.es → Spanish, otherwise English.
+ * vinted.fr → French, vinted.es → Spanish, vinted.de → German,
+ * vinted.it → Italian, vinted.pt → Portuguese, otherwise English.
  * No i18n framework — dictionaries + Accept-Language / hostname.
+ *
+ * We serve ES/FR/DE/IT/PT (market-numbers.ts). Every one of those five needs
+ * a full dictionary, not a partial one — a page that falls back to English
+ * mid-paragraph reads as broken, not as "we tried." See copy.de/it/pt below
+ * for the two terms that must not drift in translation: "buy-below" and
+ * "watched departures" (never "sold" — a watched departure can be a
+ * delist, an edit or a reservation, and re-introducing "sold" in any
+ * language reopens the false claim removed from the English copy).
  */
-export type Locale = "en" | "fr" | "es"
+export type Locale = "en" | "fr" | "es" | "de" | "it" | "pt"
 
 export function detectLocale(acceptLanguage: string | null | undefined): Locale {
   const parts = (acceptLanguage || "")
@@ -12,6 +21,9 @@ export function detectLocale(acceptLanguage: string | null | undefined): Locale 
   for (const p of parts) {
     if (p.startsWith("fr")) return "fr"
     if (p.startsWith("es")) return "es"
+    if (p.startsWith("de")) return "de"
+    if (p.startsWith("it")) return "it"
+    if (p.startsWith("pt")) return "pt"
   }
   return "en"
 }

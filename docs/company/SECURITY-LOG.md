@@ -366,3 +366,11 @@ Stripe worked. Not a customer. Not a refund.
 
 Six agents independently converged last night on 'ask the one customer who
 refunded why' `
+- `2026-09-01T09:49:13Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && grep -n "registered-gates-actually-block" -A3 -B1 docs/company/STATUS.md | head -12; echo "=== live test: does the guard still block a push to main? ==="; echo '{"tool_name":"Bash","tool_input":{"command":"git push --force origin main"}}' | python3 .claude/hoo`
+- `2026-09-01T09:49:13Z` **BLOCKED** Bash — git push --force — `cd /Users/bilalsbaiby/work/resale-iq && grep -n "registered-gates-actually-block" -A3 -B1 docs/company/STATUS.md | head -12; echo "=== live test: does the guard still block a push to main? ==="; echo '{"tool_name":"Bash","tool_input":{"command":"git push --force origin main"}}' | python3 .claude/hoo`
+- `2026-09-01T09:50:36Z` **BLOCKED** Bash — direct read of a .env file — `for f in "$HOME/work/demand-intel/.env" "$HOME/work/resale-iq-growth/.env" "$HOME/.resaleiq-agent.env"; do echo "== $f ==" if [ -r "$f" ]; then grep -c "^POSTIZ_API_KEY=" "$f" 2>&1 grep -c "^POSTIZ_API_URL=" "$f" 2>&1 else echo "not readable / not present" fi done`
+- `2026-09-01T09:50:38Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "portfolio: gate it -- and the agent grant that blocked a funnel walk
+
+product-manager's decision, with monetization, ux-researcher and finance-ops
+reaching it from different directions. ux-researcher put it plainest: you cannot
+get 10 paying customers while the thing `
