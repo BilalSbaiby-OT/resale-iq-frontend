@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T16:55:51Z",
+  "generated_at": "2026-09-01T18:33:47Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -46,7 +46,7 @@
       "target": 0,
       "counter": "shipping velocity — zero defects by shipping nothing is not the goal",
       "source": "workboard",
-      "value": 2,
+      "value": 3,
       "note": null,
       "unknown": false,
       "why_unknown": null
@@ -88,9 +88,9 @@
           "agent": "content-social",
           "is_head": false,
           "merged_branches": 2,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 1,
-          "findings_raised": 1,
+          "findings_raised": 2,
           "unread_mail": 0
         },
         {
@@ -113,8 +113,8 @@
         }
       ],
       "rows_closed": 4,
-      "rows_open": 0,
-      "findings_raised": 3
+      "rows_open": 1,
+      "findings_raised": 4
     },
     "Engineering": {
       "head": "tech-lead",
@@ -133,7 +133,7 @@
           "agent": "backend-eng",
           "is_head": false,
           "merged_branches": 9,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 3,
           "findings_raised": 1,
           "unread_mail": 0
@@ -176,7 +176,7 @@
         }
       ],
       "rows_closed": 5,
-      "rows_open": 0,
+      "rows_open": 1,
       "findings_raised": 2
     },
     "Data & Money": {
@@ -224,8 +224,8 @@
           "is_head": true,
           "merged_branches": 1,
           "open_rows": 1,
-          "closed_rows": 1,
-          "findings_raised": 2,
+          "closed_rows": 2,
+          "findings_raised": 3,
           "unread_mail": 2
         },
         {
@@ -256,9 +256,9 @@
           "unread_mail": 0
         }
       ],
-      "rows_closed": 2,
+      "rows_closed": 3,
       "rows_open": 1,
-      "findings_raised": 4
+      "findings_raised": 5
     },
     "Office of the CEO": {
       "head": "chief-of-staff",
@@ -322,12 +322,20 @@
       "status": "CLOSED"
     },
     {
+      "id": "W57",
+      "duplicate_id": false,
+      "finding": "Every video published today is SILENT, and one file was posted 11 times. ffprobe -show_entries stream=codec_type returns video and nothing else for samba-demo-9x16.mp4, aspirational-double-100-es.mp4, aspirational-50-eur",
+      "found_by": "content-social",
+      "doer": "content-social",
+      "status": "OPEN"
+    },
+    {
       "id": "W55",
       "duplicate_id": false,
       "finding": "The backend's Traefik retry middleware is defined but never attached. ph5cl-retry exists; its only router http-0-ph5clxk9hmghspv65pdkvak9 carries .middlewares=gzip alone. The frontend is wired correctly (gzip,p6t87-retry",
       "found_by": "devops",
       "doer": "devops",
-      "status": "OPEN"
+      "status": "CLOSED"
     },
     {
       "id": "W24",
@@ -335,6 +343,14 @@
       "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
       "found_by": "CEO (measured live) → devops (root-caused + re-measured 2026-09-01)",
       "doer": "founder (Coolify UI, see fix below)",
+      "status": "OPEN"
+    },
+    {
+      "id": "W56",
+      "duplicate_id": false,
+      "finding": "Backend redeploys can hang for several minutes with NO Traefik error and NO label change — new, separate from W24/W55. Found testing W24's router-conflict hypothesis with a plain, label-unchanged redeploy (queued 17:11:3",
+      "found_by": "devops (found while testing W24's hypothesis)",
+      "doer": "devops/backend-eng",
       "status": "OPEN"
     },
     {
@@ -420,14 +436,14 @@
   ],
   "stale_open": [
     {
-      "id": "W55",
+      "id": "W57",
       "duplicate_id": false,
-      "finding": "The backend's Traefik retry middleware is defined but never attached. ph5cl-retry exists; its only router http-0-ph5clxk9hmghspv65pdkvak9 carries .middlewares=gzip alone. The frontend is wired correctly (gzip,p6t87-retry",
-      "found_by": "devops",
-      "doer": "devops",
+      "finding": "Every video published today is SILENT, and one file was posted 11 times. ffprobe -show_entries stream=codec_type returns video and nothing else for samba-demo-9x16.mp4, aspirational-double-100-es.mp4, aspirational-50-eur",
+      "found_by": "content-social",
+      "doer": "content-social",
       "status": "OPEN",
       "shipped_evidence": [
-        "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached"
+        "resale-iq: dad5882 W57: the videos uploaded fine and every one of them is silent"
       ]
     },
     {
@@ -438,14 +454,42 @@
       "doer": "founder (Coolify UI, see fix below)",
       "status": "OPEN",
       "shipped_evidence": [
+        "resale-iq: 6a663ef W56: the kernel OOM-killed the backend; deploys take the site down",
+        "resale-iq: b8646bc W55 closed; W24 worse than thought, and the cause may be our own label change",
         "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached",
         "resale-iq: d9297a7 loop: three more posts live in the markets we actually serve, board down to 2",
-        "resale-iq: 3e75ac0 workflow: the board audits itself, and two ways it was quietly lying",
-        "resale-iq: ce0ac1e loop: two more posts live, and a deploy window caught in the act"
+        "resale-iq: 3e75ac0 workflow: the board audits itself, and two ways it was quietly lying"
+      ]
+    },
+    {
+      "id": "W56",
+      "duplicate_id": false,
+      "finding": "Backend redeploys can hang for several minutes with NO Traefik error and NO label change — new, separate from W24/W55. Found testing W24's router-conflict hypothesis with a plain, label-unchanged redeploy (queued 17:11:3",
+      "found_by": "devops (found while testing W24's hypothesis)",
+      "doer": "devops/backend-eng",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: afb8399 W56 fixed and verified; ACCESS.md amended to match what the founder actually said",
+        "resale-iq: 8c14930 log: guard entries from the W56 investigation",
+        "resale-iq: 6a663ef W56: the kernel OOM-killed the backend; deploys take the site down"
       ]
     }
   ],
-  "unassignable": [],
+  "unassignable": [
+    {
+      "id": "W56",
+      "duplicate_id": false,
+      "finding": "Backend redeploys can hang for several minutes with NO Traefik error and NO label change — new, separate from W24/W55. Found testing W24's router-conflict hypothesis with a plain, label-unchanged redeploy (queued 17:11:3",
+      "found_by": "devops (found while testing W24's hypothesis)",
+      "doer": "devops/backend-eng",
+      "status": "OPEN",
+      "named_agents": [
+        "backend-eng",
+        "devops"
+      ],
+      "why": "2 agents named — neither owns it"
+    }
+  ],
   "bus": {
     "messages": [
       {
@@ -609,29 +653,34 @@
     "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
-    "drifted": false,
+    "drifted": true,
     "apps": [
       {
         "app": "frontend",
-        "status": "IN SYNC",
-        "commit": "6f35b245a6b0",
-        "container": "p6t87shftvl2455pd3gdgee1-164921186399"
+        "status": "DRIFTED",
+        "running": "4a352a599f52",
+        "merged": "ace9dfc07f68",
+        "commits_unshipped": 1,
+        "unshipped": [
+          "ace9dfc publish: six real posts live, and the stale gate that nearly stopped them"
+        ],
+        "container": "p6t87shftvl2455pd3gdgee1-181006846540"
       },
       {
         "app": "backend",
         "status": "IN SYNC",
         "commit": "22613ac97a87",
-        "container": "ph5clxk9hmghspv65pdkvak9-162106593072"
+        "container": "ph5clxk9hmghspv65pdkvak9-173531324442"
       }
     ]
   },
   "totals": {
-    "rows_total": 16,
-    "rows_open": 2,
-    "rows_closed": 14,
+    "rows_total": 18,
+    "rows_open": 3,
+    "rows_closed": 15,
     "rows_blocked": 0,
     "bus_messages": 16,
-    "stale_open": 2,
-    "unassignable": 0
+    "stale_open": 3,
+    "unassignable": 1
   }
 }
