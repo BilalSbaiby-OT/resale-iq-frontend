@@ -109,6 +109,22 @@ without error.
 
 Nothing.
 
+## The release numbers reproduced
+
+`verifier` re-ran `docs/audit/proof/W36/a13-gate-joint/proof.sh` cold against production at
+`09:13:32`, 17 minutes after `product-manager`'s run at `08:56:48`. **Every substantive figure came
+back identical** — Q1 41/19/22, Levi's Trucker withheld, Q3 median −3.04%, Q4 63/37, supply coverage,
+`min_comparable_n` over banded rows, and the counter-KPI. The only diff in the whole artifact is the
+timestamp and the corpus growing 106,514 → 106,543 rows.
+
+That is better than the "shelf life measured in hours" warning implied, and it is the first time a
+number in this company has been independently reproduced by a second agent against production on a
+different run. **The warning still stands for the reproduction control itself** (64/100 exact, down
+from 90/100 eight hours earlier) — the headline aggregates are stable, individual model rows are not.
+
+`backend-eng` corrected its `cost()` figure with full provenance and rebased: `8676efd`, **1238
+tests**, on top of `7a86966`. Back with `tech-lead` for re-review of its own three blockers.
+
 ## In flight
 
 `extension-eng` (last unmerged branch, `panel-states`), `backend-eng` (correcting the cost figure and

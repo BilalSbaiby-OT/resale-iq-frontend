@@ -321,3 +321,8 @@ work behind a foun`
 demand-intel 8d48176..7a86966, lifecycle/trial-emails merged, 1213 tests.
 Reviewed by qa-eng because I rewrote its window queries and am partly its
 author. Merged on one verified-by-reading condition:`
+- `2026-09-01T09:15:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "proof: the release numbers reproduced 17 minutes apart, on a different run
+
+verifier re-ran the joint A13+gate proof cold against production at 09:13:32,
+after product-manager's run at 08:56:48. Every substantive figure came back
+identical: 41/19/22 movers, Levi's Tru`
