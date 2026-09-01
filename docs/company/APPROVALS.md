@@ -994,3 +994,41 @@ different under-evidenced price on the same 18 models.
 
 - [ ] **Implementation is `backend-eng`'s**, reviewed by `tech-lead`. One already-built function
       extended to more call sites, one already-shipped label set adopted, one sort key.
+
+
+---
+
+### A15 — two branches fixed the same defect. **My coordination error, not theirs.**
+
+I briefed `frontend-eng` to fix the three conversion moments and `designer` to rebuild the landing
+page, and both scopes contained `LIMIT_REACHED`. They worked in separate worktrees so nothing
+collided at write time, and both did good work. **They will conflict at merge.**
+
+| | `claude/frontend-eng/conversion-moments` (`fea3221`) | `claude/designer/landing-truth` (`1fa24d3`) |
+|---|---|---|
+| verification | **VERIFIED** — tsc, build, 5 check scripts, **24/24 e2e**, eslint, own `proof.sh` | **UNVERIFIED** — the agent had no shell and said so |
+| overlap | `free-checker.tsx`, `verdict/page.tsx`, `extension/content.css` | same three |
+| unique | `extension/background.js`, `content.js`, `proof.sh` | `page.tsx`, `i18n.ts`, `extension-hero.tsx`, `design/*` |
+
+**Resolution, for `tech-lead` rather than for me at 4am:** take `frontend-eng` as the base for the
+three overlapping files — it is the verified one — then port `designer`'s distinct contributions into
+them, which are additive rather than competing:
+
+- the **token fix** (`WATCH` and `LIMIT_REACHED` no longer share a colour — a verdict and a quota
+  wall must not look alike),
+- the **placeholder change** (`Levi's 501` → `New Balance 530`, per `ux-researcher`: the catalogue is
+  sneaker/streetwear and the old example gestured at general vintage it cannot serve),
+- the **"try one of these instead" chip row** on `UNKNOWN`.
+
+`designer`'s six non-overlapping files apply cleanly and are not in dispute.
+
+**I am not doing this merge myself.** Reconciling two half-verified branches by hand, at this hour,
+having already made two over-claims tonight, is how the third one happens.
+
+- [ ] `tech-lead` reconciles, then the combined branch is re-verified end to end before merge.
+
+**And a process note worth more than the fix:** the failure was in the briefs, not the work. Two
+agents were given overlapping surfaces because I wrote the second brief without re-reading the first.
+`isolation: worktree` prevented them from corrupting each other's files — which is exactly what it is
+for — but **nothing prevented them from solving the same problem twice.** Worktrees protect the tree;
+they do not protect the plan.
