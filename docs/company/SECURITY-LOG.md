@@ -489,3 +489,8 @@ session: I claimed three deploys that had not happen`
 - `2026-09-01T10:41:26Z` **BLOCKED** Bash — DELETE FROM without WHERE — `git add -- docs/company/SESSION.md docs/company/SECURITY-LOG.md && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; echo "--- remote check:"; git fetch -q origin && git log --oneline -1 origin/main|cat; git status --porcelain|wc -l session: I claimed three deploys that had not happen`
 - `2026-09-01T10:41:38Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -- docs/company/SESSION.md docs/company/SECURITY-LOG.md && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; echo "--- remote check:"; git fetch -q origin && git log --oneline -1 origin/main|cat; git status --porcelain|wc -l
 session: I claimed three deploys that had not happen`
+- `2026-09-01T10:48:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat
+landing: take the stale failure rate off the hero
+
+The homepage read "About 4 in 10 lookups come back not enough data -- we'd
+rather say that than guess", above `

@@ -80,13 +80,25 @@ export function LandingContent({
             <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 12, maxWidth: 480 }}>
               {t.heroFrom(tracked)}
             </p>
-            {/* Additive, not a swap for the confident demo below — the demo
-                stays the "holy shit" moment, this states the product's real
-                answer rate before anyone has to discover it themselves.
-                docs/product/DESIGN-REVIEW.md §4. */}
-            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 6, maxWidth: 480 }}>
-              {t.heroHonesty}
-            </p>
+            {/* heroHonesty was here and is REMOVED, 2026-09-01.
+                Two reasons, and the first is that it was simply WRONG: it read
+                "about 4 in 10 lookups come back not enough data", measured
+                before A13 shipped. Replaying 180 real searches post-A13 gives
+                146 answered -- roughly 2 in 10 unanswered, not 4. We were
+                advertising a failure rate at double its real value, above the
+                fold, on the page that has to earn the click.
+
+                The second is policy we already wrote down and then broke.
+                CLAUDE.md: "Honesty lives on /methodology. The homepage sells
+                the number." A landing page leading with its own answer-rate is
+                not honesty, it is a conversion tax paid before the visitor has
+                seen the product work. The refusal is real, it is in the
+                product, and a visitor meets it at the moment it applies -- on
+                a result, with the reason -- which is where it reads as rigour
+                instead of as a warning label.
+
+                The dictionary key stays in i18n.ts for /methodology to use with
+                a CURRENT number. Do not put a stale rate back on the hero. */}
 
             {/* Checker is the job on every viewport. Chrome cannot run on a
                 phone, so it stays a desktop-only secondary link. */}
