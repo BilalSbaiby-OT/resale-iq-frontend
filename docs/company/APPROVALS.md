@@ -1032,3 +1032,49 @@ agents were given overlapping surfaces because I wrote the second brief without 
 `isolation: worktree` prevented them from corrupting each other's files — which is exactly what it is
 for — but **nothing prevented them from solving the same problem twice.** Worktrees protect the tree;
 they do not protect the plan.
+
+
+#### `product-manager` exercises right of reply — **retracts the 3–7 band, and corrects my arithmetic**
+
+Given the reply it was owed under AM-8a, it retracted rather than defended, **and supplied the
+argument that actually settles it** — one neither `customer-success` nor `legal-compliance` made:
+
+> **"Jordan 1 Low moved −39% between two samples of n=3. My 3–7 proposal treated that band as 'real
+> data, just less certain'. A number that swings 39% between two draws of the same population is not
+> a weaker signal, it is noise with a badge on it. A low-confidence label implies we have a weaker
+> version of the answer; at n=3–7 we do not have an answer, stable or otherwise. Labelling does not
+> fix instability — only sample size does."**
+
+That evidence was in the original finding and nobody weighed it, including me. **The strongest
+argument for the 8-floor came from the agent being overruled**, which is the whole case for having
+put the objection back to it.
+
+**And it corrected a number I have repeated all night.** The *"the gate blanks ~57% of the board"*
+figure is **pre-A13** — derived from supply coverage at 43%. A13 lifts that to 62%, so the honest
+cost is nearer **38%**. I briefed `designer` and others to scope around 57%. Cross-tab requested from
+`data-scientist`; **nobody should design against 57% until it comes back.**
+
+**A sequencing inversion falls out:** if the models A13 lifts are largely the ones the gate would
+otherwise silence, **A13 cushions the gate and the two belong in ONE release** — not gate-then-A13 as
+the roster agreed earlier. Contingent on the cross-tab.
+
+**What it did NOT retract, rightly:** the paid surface going thin is a real problem that does not
+disappear because the fix that would have papered over it was wrong.
+
+**Its answer — redefine the tier, do not reprice it**, which is exactly where `monetization` landed
+independently:
+
+| band | what Pro promises |
+|---|---|
+| `n ≥ 30` (HIGH) | the **only** band driving an actionable buy-below and the sourcing link |
+| `8 ≤ n < 30` (MEDIUM) | a real number as **market context, not a recommendation** — and **never wired into `build_sourcing_links`**, since a URL cannot carry a caveat once clicked |
+| `n < 8` | refusal |
+
+Plus **surface coverage in-product as a trust signal** — "X of Y tracked models have high-confidence
+pricing today" — rather than letting customers discover it after paying. And **reposition Pro from
+"comprehensive AI pricing" to "bulk tools and alerting on the confidently-priced subset, plus raw
+market data on the rest."** Asking-price-at-disappearance is honest value; a purchase recommendation
+on it is not.
+
+**Starter €19 is unaffected and is the safer product to push tonight** — the same conclusion
+`chief-of-staff` reached independently.
