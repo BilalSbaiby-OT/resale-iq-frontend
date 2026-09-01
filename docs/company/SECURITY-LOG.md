@@ -700,3 +700,9 @@ w24: the deploy window is a Traefik routing artifact, not a rebuild outage
 
 devops corrected my diagnosis, and the correction is the useful part. I said
 Coolify rebuilds in place with no healt`
+- `2026-09-01T14:17:19Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `bash .claude/bin/with-secrets.sh sh -c 'printf "%s\n" "$COOLIFY_TOKEN" | ssh -o ConnectTimeout=20 resaleiq "python3 /tmp/traefik_retry.py ph5clxk9hmghspv65pdkvak9"' 2>&1 | tail -7; ssh -o ConnectTimeout=15 resaleiq 'rm -f /tmp/traefik_retry.py' 2>&1|tail -1; echo "script removed from server"`
+- `2026-09-01T14:18:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mrule.txt" <<'MSG'
+rule: verify a claim against the thing it describes -- now in all 21 agents
+
+The founder: "make sure mistakes like this never happened, solve the underlying
+issue and a`
