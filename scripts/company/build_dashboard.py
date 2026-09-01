@@ -531,7 +531,7 @@ def main():
             "gsc_impressions_28d": {"value": 906, "source": "GSC MCP"},
             "extension_installs": {"value": 3, "source": "Chrome Web Store listing, 2026-08-31"},
             "posts_published_all_time": {"value": 1, "source": "MARKETING-AUDIT.md §6"},
-            "zero_model_urls": {"value": 36, "source": "MARKETING-AUDIT.md §2"},
+            "zero_model_urls": {"value": 0, "source": "src/data/seo-brands.json, 2026-09-01 — the 6 zero-models_tracked brands (pull-bear, zara, bershka, mango, hugo-boss, calvin-klein; 36 URLs total: 6 brand pages + 30 brand x category pages) were removed on branch claude/seo/w2-zero-model-cleanup. Verified live: brand count 26->20, remaining 9 categories still each served by >=1 real brand. sitemap.ts and generateStaticParams both derive from this same BRANDS list, so the 36 URLs 404 and drop from the sitemap by construction, not by a second edit."},
         },
         "session": read(os.path.join(COMPANY, "SESSION.md"))[:6000],
         "amendments": re.findall(r"^## (AM-\d+ — .+)$",
