@@ -385,7 +385,7 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
               <Lock size={14} color="#22c55e" />
               {t.unlockLine}
             </div>
-            <SmartCTA anonLabel={t.unlockRest} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+            <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
           </div>
           )}
         </div>
