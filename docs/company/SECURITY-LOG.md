@@ -981,3 +981,20 @@ after pushing.
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 MSG
 )" && git pus`
+- `2026-09-01T19:17:20Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tool-results/bwucqpzo4.txt`
+- `2026-09-01T19:18:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/FUNNEL-BASELINE.md"; s=open(p).read()
+s += """
+
+---
+
+# ADDENDUM — the channel nobody is working (7-day view)
+
+Measured 2026-09-01, production `pageviews`, 7 days, distinct visitors, bots excluded.
+
+| page | visitors |
+|---|---|
+| `/` | 61 |
+| **`/blog/vinted-disputes`
+- `2026-09-01T19:18:03Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 - <<'PY' p="docs/company/FUNNEL-BASELINE.md"; s=open(p).read() s += """ --- # ADDENDUM — the channel nobody is working (7-day view) Measured 2026-09-01, production `pageviews`, 7 days, distinct visitors, bots excluded. | page | visitors | |---|---| | `/` | 61 | | **`/blog/vinted-disputes-and`
+- `2026-09-01T19:18:36Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/FUNNEL-BASELINE.md docs/company/SECURITY-LOG.md && git commit -q -F /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_blog.txt && git push origin main 2>&1 | tail -1`

@@ -88,3 +88,45 @@ Three ratios we can now compute from our own data instead of assuming:
 
 **Do not quote any of these publicly.** They are ours to steer with, not to publish, and n is small
 enough that a real number today could be embarrassing next week.
+
+
+---
+
+# ADDENDUM — the channel nobody is working (7-day view)
+
+Measured 2026-09-01, production `pageviews`, 7 days, distinct visitors, bots excluded.
+
+| page | visitors |
+|---|---|
+| `/` | 61 |
+| **`/blog/vinted-disputes-and-returns-sellers`** | **11** |
+| `/tools/vinted-price-checker` | 10 |
+| `/blog/what-sells-best-on-vinted` | 7 |
+| `/blog/vinted-vs-depop-for-sellers` | 4 |
+
+**~36 blog visitors across 10 posts in 7 days.** 16 visitors came from search engines
+(Google 9 · Bing 6 · DuckDuckGo 1).
+
+**The comparison that should shape next week.** Social: **26 published posts → ~9 tagged visits**,
+all Instagram. Blog: **10 posts nobody has touched in a while → ~36 visitors**, continuously.
+
+Per-day the two are closer than that sounds, and the honest version matters: today's social push was
+a burst, the blog figure is a steady week. **The real difference is not volume, it is decay.** Social
+stops the moment we stop posting. The blog earned all week with zero effort from anyone.
+
+## Two things inside that data
+
+1. **The top post is a PROBLEM post, not a product post.** "Vinted disputes and returns" beats "what
+   sells best". We are winning the intent of someone stuck or burned — and that is *not* the intent
+   we have been writing for.
+2. **`?utm_source=chatgpt.com` appears twice.** AI assistants are citing us. Two visitors proves
+   nothing on its own, but it is a channel nobody planned and it costs nothing to watch.
+
+## Known broken — do not re-diagnose this
+
+**The GSC MCP is dead in this session.** The running server was started with a stale credentials path
+under `~/Desktop/`, from before the repos moved to `~/work/`. **The config on disk is already
+correct** — `.claude.json` under `mcpServers.gsc.env` points at the current location. The *process*
+is stale and needs a restart nobody in this session can perform. Nothing to fix in code; it resolves
+on the next session that starts the server fresh. Until then keyword and impression data is
+**UNKNOWN**, not estimated.
