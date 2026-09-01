@@ -53,35 +53,49 @@ personality, live sources, a dated goal and a real consequence.
 **C14** (`sold_at` stamped at labelling time) · **C15** (five exits, the bare `except` invisible by
 design) · **A12 HIGH** (rails in 1 repo of 4) · **the GDPR promise**.
 
-## Deploy — consulted, and waiting on one line from the founder
+## DEPLOYED 2026-09-01 — C6, C5, C4 are live
 
-Founder said "push and deploy." AM-7 requires the roster be consulted first; `tech-lead` and
-`security-eng` are answering now.
+**`demand-intel` `a8ac5bd..e771ea7` pushed. Tests green, Deploy green, container confirmed on our
+commit.** `resale-iq` pushed too (87 commits, docs/metrics/roster, no `src/`).
 
-**What I established before asking anyone, and it is the headline:**
-
-| | |
+| step | |
 |---|---|
-| `resale-iq` main ahead of origin | 83 commits, 127 files |
-| **user-facing changes in it** | **ZERO** — no `src/`, no `extension/`, no `public/` |
-| `demand-intel` ahead of origin | **0** — every product fix is on an unmerged branch |
-| remote visibility | **PRIVATE** (`BilalSbaiby-OT/resale-iq-frontend`) — verified, not assumed |
+| 1. squash-merge `fx-currency-v2` | `7942faf` |
+| 2. cherry-pick C5 | `dafaa8d` |
+| 3. cherry-pick C4 | `e771ea7` |
+| verification | 1180 tests · proof 16/16 cold · rejected `af4042d` **absent** from ancestry |
 
-**So pushing now delivers no customer value.** It is safe precisely because none of the work that
-matters has been merged. The push carries 48 docs, the agent roster, the metrics SQL, a Playwright CI
-workflow, and `dashboard/data.json`.
+**Merged exactly to `tech-lead`'s order and nothing else.** Everything unreviewed was held.
 
-**The private remote matters more than it looks:** `CLOSED-LOOP.md` and `COVERAGE.md` contain a frank
-account of the unvalidated `0.70`, the 7 % labelling ceiling, and the finding that the price claim
-holds on **2 of 100 models**. Correct to keep in a private repo; a competitor's dossier in a public
-one. **Confirmed private via `gh repo view` rather than assumed.**
+### The rehearsal earned its place
 
-**Blocked on `.claude/DEPLOY_APPROVED`**, which does not exist. `guard.py:248` refuses the push
-without it. **I will not create it** — a deploy token an agent mints for itself is not a deploy gate,
-the same reasoning as `UNLOCK_HARNESS`. One line from the founder releases it.
+Before touching `main` I merged **all six** branches into a throwaway worktree: **11 failures.** Every
+branch was green alone. `tech-lead` predicted the same interaction by reading — C5 changes what
+`gate-paid-surfaces`'s legacy-row code assumes. **Merging everything tonight would have shipped it.**
 
-**The more useful action than pushing** is merging the reviewed branches, which is blocked on
-`tech-lead`'s review and on **A15** — the `designer`/`frontend-eng` overlap I created.
+### OPEN — two containers served different commits at once
+
+Immediately after the deploy, **both were `running` and `healthy`**:
+
+```
+...-082213317483   started 08:23   e771ea7   (new)
+...-210437665794   started 04:14   a8ac5bd   (old)
+```
+
+**Deploy reported SUCCESS while the previous version was still serving.** Traffic could reach either,
+so C6's fix applied to only part of it. This is the same family as the incident already recorded in
+`db/schema.py` — *"Coolify kept the old one serving, and the deploy smoke test passed because it was
+talking to the OLD container."*
+
+It is probably a normal rolling-swap transient. **It is being watched rather than assumed.**
+
+- [ ] **`devops`:** does a Coolify deploy reliably reap the previous container, and how long is the
+      overlap? If the window is long, a deploy is a partial rollout and nobody knows it.
+- [ ] **`/api/health` is not a deploy check.** It returned `pass 14/14` with `checked_at` **hours
+      stale** — the results are cached by a 6-hourly job, so a green read says nothing about the
+      container that just started. **The real check is `SOURCE_COMMIT`.**
+
+**Rollback:** three clean commits; `git revert` any or all.
 
 ## Next
 1. `tech-lead` reviews and reconciles — **A15**: `designer` and `frontend-eng` overlap on three files.
