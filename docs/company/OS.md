@@ -345,7 +345,7 @@ P0s open · KPI pairs live in METRICS.md · canary status · match rate **and** 
 status (or "predictions table created; first resolve <date>") · security findings fixed / open ·
 org roster with tiers and budgets · `OKRS.md` draft awaiting founder · `GOALS.md` for next week ·
 schedulers armed · dashboard URL + last refresh · spend this run vs cap · `APPROVALS.md` waiting ·
-what only the founder can click (Chrome store, Stripe, DNS, Postiz publish, Claude Design, emails).
+what only the founder can click (Chrome store, Stripe, DNS, Claude Design, **emails to individuals**). **Postiz publish was REMOVED from this list on 2026-09-01 — A22 cleared it.**
 
 Then: `/goal` on P0-LIST. Never sit at "ready for your next instruction."
 

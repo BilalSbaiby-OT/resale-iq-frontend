@@ -4,7 +4,7 @@ Written 2026-08-31 by `cmo-advisor` + `marketing-strategy-pmm`, at the founder's
 after the CEO went from data straight to design without a strategy pass.
 
 **Status: strategy only.** Nothing here was published, posted, scheduled or connected.
-Posting stays a founder gate (OS §0.10). Nothing in `src/`, `extension/`, `design/` or
+~~Posting stays a founder gate (OS §0.10).~~ **SUPERSEDED by APPROVALS.md A22 (2026-09-01): the founder cleared it in his own words. Publishing to the four connected Postiz accounts needs no per-post approval.** Nothing in `src/`, `extension/`, `design/` or
 `demand-intel/` was touched.
 
 Everything read from the web, from Reddit-stats sites, from the Chrome Web Store and from
@@ -245,7 +245,7 @@ market, the platform question mostly answers itself:
   `MARKETING-AUDIT.md` §6 marks TikTok "not usable yet" because the developer app has not
   passed TikTok's audit. That blocks *programmatic* posting via Postiz. It does not block the
   founder posting from his phone — which is the only posting route that exists anyway, since
-  publishing is a founder gate. **TikTok is not blocked for this bet.**
+  ~~publishing is a founder gate.~~ **Cleared by A22.** **TikTok is not blocked for this bet.**
 
 ### 2.2 What would prove this call wrong
 
@@ -333,7 +333,7 @@ data". It is **"we will tell you when we don't know, and here is what that looks
 - Do not publish the **10 English Reddit drafts** as they stand. They recruit US/GB users into
   a product that serves neither.
 - Do not build the second Hetzner VPS for Postiz. `POSTIZ_API_URL` is empty and posting is a
-  founder gate; a scheduler for a channel we post to by hand is infrastructure for nothing.
+  ~~founder gate~~ (cleared by A22); a scheduler for a channel we post to by hand is infrastructure for nothing.
 - Kill the **36 zero-model `/flip` URLs** as `MARKETING-AUDIT.md` §2 already recommends. They
   are the SEO shape of the same error: pages for brands the checker cannot answer.
 
