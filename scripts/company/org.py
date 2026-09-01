@@ -18,6 +18,9 @@ import os
 import re
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import scrub  # noqa: E402
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -432,9 +435,10 @@ def main():
         },
     }
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    # Through scrub.write_json, never json.dump direct: bus messages quote
+    # credential NAMES when they explain a deploy failure, and this file is
+    # served to every visitor. That froze the frontend twice on 2026-09-01.
+    scrub.write_json(OUT, data)
 
     if "--json" in sys.argv:
         print(json.dumps(data, indent=2, ensure_ascii=False))

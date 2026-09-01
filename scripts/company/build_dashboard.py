@@ -19,6 +19,9 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import scrub  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 COMPANY = os.path.join(ROOT, "docs", "company")
 AUDIT = os.path.join(ROOT, "docs", "audit")
@@ -321,40 +324,10 @@ def audits():
     return out
 
 
-# Credential NAMES that must never appear in dashboard output. The name alone is
-# enough: `dashboard/data.json` is build output shipped to every visitor, and
-# check-agent-isolation.mjs correctly refuses any occurrence rather than trying
-# to judge whether a given one is a name or a value. That strictness is right --
-# a checker that decides "this looks like just the variable name" is one bad
-# heuristic away from shipping a key.
-_CRED_NAMES = re.compile(
-    r"\b(COOLIFY_TOKEN|STRIPE_SECRET_KEY|STRIPE_WEBHOOK_SECRET|RESEND_API_KEY|"
-    r"GEMINI_API_KEY|ELEVENLABS_API_KEY|POSTIZ_API_KEY|OPENROUTER_API_KEY|"
-    r"GROQ_API_KEY|REDDIT_CLIENT_SECRET|REDDIT_PASSWORD|JWT_SECRET|"
-    r"TELEGRAM_BOT_TOKEN|HERMES_TELEGRAM_BOT_TOKEN|ANTHROPIC_API_KEY|"
-    r"RIQ_API_KEY|RESALEIQ_API_KEY)\b")
-
-
-def _scrub(obj):
-    """Replace credential names anywhere in the activity payload.
-
-    The activity ledger records the COMMAND an agent ran, verbatim. A command
-    that legitimately passes `$COOLIFY_TOKEN` to a child process therefore puts
-    that name into build output -- which froze deploys for 9 commits on
-    2026-09-01, because Deploy only runs after Agent Isolation passes and the
-    isolation check flagged every build.
-
-    Scrubbing here rather than loosening the check: the check is protecting
-    something real, and the ledger is the wrong place for raw command text to
-    reach a public artifact.
-    """
-    if isinstance(obj, str):
-        return _CRED_NAMES.sub("<CREDENTIAL>", obj)
-    if isinstance(obj, list):
-        return [_scrub(x) for x in obj]
-    if isinstance(obj, dict):
-        return {k: _scrub(v) for k, v in obj.items()}
-    return obj
+# The credential-name scrubber now lives in `scrub.py` and is applied at the
+# WRITE BOUNDARY below, so every panel is covered -- including ones nobody has
+# written yet. Keeping a private copy here is what let org.json repeat this.
+_scrub = scrub.scrub
 
 
 # ---------- panel 7: activity ----------
@@ -576,7 +549,7 @@ def main():
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as fh:
-        json.dump(data, fh, indent=2, ensure_ascii=False)
+        json.dump(scrub.scrub(data), fh, indent=2, ensure_ascii=False)
     print(f"wrote {OUT}  ({os.path.getsize(OUT)} bytes, prod={bool(prod)})")
 
 
