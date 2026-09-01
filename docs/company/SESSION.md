@@ -26,6 +26,34 @@ place with `price_eur = NULL`). 1179 tests, proof 16/16 cold. **Not merged — n
 
 **Nothing was posted.** `docs/marketing/QUEUE.md` is publish-ready and waiting on the founder.
 
+## Process breach this session — recorded, not tidied away
+
+**My `git add -A` swept TWELVE agents' deliverables onto local `main` in one commit (`f634592`),
+with no per-agent branch and no review.** `qa-eng` reported it as an OS §5 branch violation on its
+own files. `tech-lead` widened it correctly: **the real breach is OS §0.7** — twelve agents' output
+reached `main` without a reviewer, because the staging step swallowed the review gate whole.
+
+`main` is **unpushed**, so nothing is deployed. That is mitigation, not absolution.
+
+**Not reconstructing the branch, and the reason is stronger than tidiness.** A retroactively built
+branch carrying a PR nobody reviewed at the time is not a cleaner record, it is a **forged** one.
+OS §7 grades a recorded violation as a MISS and fabricated evidence as **FAKE** — the outcome that
+triggers re-verification of every "done" in the last 14 days. Trading the lesser penalty for the
+greater one, deliberately, to look better, is not a trade worth making. The remediation would also
+mean rewriting 34 commits of eleven other agents' work for zero safety benefit.
+
+**Remediation, three parts, per `tech-lead`:**
+1. Recorded here at the correct scope — §0.7 across twelve agents, not §5 for one.
+2. **The review is being done now**, retroactively, as a review. The form is unrecoverable; the
+   substance — someone who did not write it reads it — is not.
+3. The cause gets fixed inside A12: block bulk-staging while `HEAD` is on `main`, with a remedy line
+   naming `git add <path>`.
+
+**And (3) is the one place a string-matching rail genuinely earns its keep.** By `tech-lead`'s own
+argument such rules are near-worthless against a prompt-injected agent — but this was not an
+adversary, it was a slip at 01:42. That distinction is worth writing into the design: it tells you
+which rails to keep advisory and which to stop pretending are boundaries.
+
 ## Next
 1. Re-review C6 v2, then merge C6, C5, C4 **separately**.
 2. A12 (both), A9, A11 — all `guard.py`, all founder gates. A11 and A12 are one root cause: the
