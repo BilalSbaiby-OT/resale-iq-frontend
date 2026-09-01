@@ -568,3 +568,18 @@ finance-o`
 import io
 p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
 row = ("| **W18** | **REDDIT IS UNREACHABLE FROM THIS ENVIRONMENT — the 10k-views plan has to change.** `legal-compliance` made eleven fetch attempts across five techniques (direct, `old.reddit.com`, `.jso`
+- `2026-09-01T12:20:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "activation: the Spanish funnel ends at an English legal form
+
+customer-success answered the question I most wanted answered, and the answer
+is a conversion defect at the worst possible point. The landing pages are fully
+translated in five languages and every link off `
+- `2026-09-01T12:20:25Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "activation: the Spanish funnel ends at an English legal form
+
+customer-success answered the question I most wanted answered, and the answer is
+a conversion defect at the worst possible point. The landing pages are fully
+translated in five languages and every link off `
+- `2026-09-01T12:20:40Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mact.txt" <<'MSG'
+activation: the Spanish funnel ends at an English legal form
+
+customer-success answered the question I most wanted answered, and the answer is
+a conversion defect at the`
