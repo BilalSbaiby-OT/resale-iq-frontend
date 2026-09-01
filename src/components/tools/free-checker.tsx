@@ -167,7 +167,7 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
   const sold = res?.sold_7d ?? res?.n
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
-  const sample = watchedSampleNote(sold, listed, res?.verdict)
+  const sample = watchedSampleNote(sold, listed, res?.verdict, locale)
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
   // that looks like a verdict.
