@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T02:49:19Z",
+  "generated_at": "2026-09-01T07:52:54Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -49,9 +49,10 @@
       "**Implementation is `backend-eng`'s**, reviewed by `tech-lead`. One already-built function",
       "`tech-lead` reconciles, then the combined branch is re-verified end to end before merge.",
       "**OS §7's 2 pp rule cannot be applied to supply-side proportions as written.** Either the rule",
-      "**`buy_below` should be a function of observed departure velocity, not a constant multiple of an"
+      "**`buy_below` should be a function of observed departure velocity, not a constant multiple of an",
+      "**Next, explicitly not guessed:** identity-filtered shelf count for all 100 models, and the"
     ],
-    "count": 47
+    "count": 48
   },
   "company": {
     "mrr": {
@@ -138,15 +139,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 31.9,
-      "n": 1327,
+      "value": 3.5,
+      "n": 1302,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12711090
+      "value": 12767281
     },
     "newest_sold_at": {
-      "value": "2026-09-01 02:48:27"
+      "value": "2026-09-01 07:50:48"
     },
     "predictions_total": {
       "value": 340
@@ -625,6 +626,14 @@
     ],
     "recent_commits": [
       {
+        "sha": "1459c00",
+        "msg": "chore: verifier run artefacts"
+      },
+      {
+        "sha": "48a286c",
+        "msg": "approvals: the shelf covers 100 of 100 models; price covers 2"
+      },
+      {
         "sha": "486d050",
         "msg": "chore: dashboard refresh and security log from the verifier run"
       },
@@ -663,17 +672,9 @@
       {
         "sha": "78b2d2f",
         "msg": "amendments: AM-8a -- the roster cannot consult each other, and I am the only wire"
-      },
-      {
-        "sha": "c0b3ba2",
-        "msg": "approvals: A15 -- two branches fixed the same defect, and the brief is why"
-      },
-      {
-        "sha": "c84479d",
-        "msg": "company: the closed loop -- six agents, asked what nobody asks, converged"
       }
     ],
-    "dirty": false,
+    "dirty": true,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-09-01T01:50:00Z\nWIP:     none - session complete. METRICS layer shipped; C6/C5/C4 fixed on\n         demand-intel branch claude/backend-eng/data-defects-c6-c5-c4 awaiting\n         tech-lead review; A8 (3 KPI definition decisions) and A9 (memory SCOPE)\n         open in APPROVALS.\nRELEASE: delete this file, or set HOLDER: none\n\nWIP = 1 per agent (OS 0.5). If "
   },
   "audits": [
@@ -735,6 +736,36 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-01T02:59:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "git add -A && git commit -q -m \"chore: verifier run artefacts\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\"; git status --short | wc -l | xargs echo \"dirty:\"; git log --oneline | wc -l | xar",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:59:41Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A16 — the measurement that reframes the vote. **Th",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:57:21Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/q24.py <<'PY'\nimport sqlite3, sys, json, statistics as st, time\nsys.path.insert(0,\"/app\")\nfrom eng",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-01T02:46:37Z",
       "session": "fb348ebc",
@@ -1218,58 +1249,24 @@
       "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && npx tsc --noEmit 2>&1 | tail -60",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:40:07Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/components/layout/paywall.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:40:03Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '38,46p;80,90p' src/components/layout/paywall.tsx",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T02:40:00Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/app/tools/page.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 248,
+    "blocked": 268,
     "tripwire": 0,
     "recent": [
-      "`2026-09-01T02:22:39Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T02:22:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T02:22:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T02:22:38Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:54:09Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cat > docs/company/ESCALATION.md <<'EOF' # ESCALATION — how the company reaches the f",
-      "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-09-01T06:52:26Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T06:52:25Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T06:52:25Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T06:52:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T05:51:40Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T05:51:40Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T05:51:39Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T05:51:39Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T04:51:06Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T04:51:06Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T04:51:05Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T04:51:05Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`"
     ],
     "restore_test": {
       "value": null,

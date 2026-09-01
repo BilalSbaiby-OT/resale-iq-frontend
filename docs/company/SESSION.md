@@ -53,6 +53,36 @@ personality, live sources, a dated goal and a real consequence.
 **C14** (`sold_at` stamped at labelling time) · **C15** (five exits, the bare `except` invisible by
 design) · **A12 HIGH** (rails in 1 repo of 4) · **the GDPR promise**.
 
+## Deploy — consulted, and waiting on one line from the founder
+
+Founder said "push and deploy." AM-7 requires the roster be consulted first; `tech-lead` and
+`security-eng` are answering now.
+
+**What I established before asking anyone, and it is the headline:**
+
+| | |
+|---|---|
+| `resale-iq` main ahead of origin | 83 commits, 127 files |
+| **user-facing changes in it** | **ZERO** — no `src/`, no `extension/`, no `public/` |
+| `demand-intel` ahead of origin | **0** — every product fix is on an unmerged branch |
+| remote visibility | **PRIVATE** (`BilalSbaiby-OT/resale-iq-frontend`) — verified, not assumed |
+
+**So pushing now delivers no customer value.** It is safe precisely because none of the work that
+matters has been merged. The push carries 48 docs, the agent roster, the metrics SQL, a Playwright CI
+workflow, and `dashboard/data.json`.
+
+**The private remote matters more than it looks:** `CLOSED-LOOP.md` and `COVERAGE.md` contain a frank
+account of the unvalidated `0.70`, the 7 % labelling ceiling, and the finding that the price claim
+holds on **2 of 100 models**. Correct to keep in a private repo; a competitor's dossier in a public
+one. **Confirmed private via `gh repo view` rather than assumed.**
+
+**Blocked on `.claude/DEPLOY_APPROVED`**, which does not exist. `guard.py:248` refuses the push
+without it. **I will not create it** — a deploy token an agent mints for itself is not a deploy gate,
+the same reasoning as `UNLOCK_HARNESS`. One line from the founder releases it.
+
+**The more useful action than pushing** is merging the reviewed branches, which is blocked on
+`tech-lead`'s review and on **A15** — the `designer`/`frontend-eng` overlap I created.
+
 ## Next
 1. `tech-lead` reviews and reconciles — **A15**: `designer` and `frontend-eng` overlap on three files.
 2. **Merge the gate and A13 in ONE release** (A17), never sequenced.
