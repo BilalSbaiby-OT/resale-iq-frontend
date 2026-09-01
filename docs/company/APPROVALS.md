@@ -385,3 +385,50 @@ So the defect has both faces:
 
 - [ ] Any fix must be verified against **both** directions. A tightened match that still fires on
       prose is only half repaired.
+
+
+#### `product-manager` — AGREES on all three, with one condition that changes A8-2
+
+| Item | Verdict |
+|---|---|
+| **A8-1 strike MAPE** | **AGREE, no reservation.** "There is no version of wait-and-see that makes this different later — the data simply is not collectable off Vinted's public surface" |
+| **A8-2 the split** | **AGREE the SHAPE. HOLD the demand-side VALUE.** Approve supply-side shipping as its own named metric; do **not** publish 59.1% / 40.9% as the demand-side's canonical first reading |
+| **A8-3 North Star exact** | **AGREE, strictly conditional.** Correct *by construction* the moment C5 merges. **Gate the copy change on the merge commit, not on tonight's authorisation** — "exact" applied before the merge is a false claim of precision, worse than the caveat it replaces |
+
+**The condition, and it is the right one:** formalising the demand-side definition tonight with a
+reading we now know is contaminated would mean *the founder's first act under this new authority is
+ratifying a number already known to be wrong at the moment of ratification.*
+
+**It then corrected its own roadmap, unprompted.** It had called 59.1% "the single most actionable
+number in the file" — quoting `METRICS.md`, i.e. quoting me. Its retraction:
+
+> *"It isn't a number yet; it's an instrument reading its own testing signal."*
+
+Its §4 conclusion survives on independent evidence — the 19% quota-wall rate is measured over ALL
+requests, and `DATA.md` §6.3's catalog ceiling is derived from production totals with no query-log
+dependency. The conclusion holds; the figure used to illustrate it does not.
+
+- [ ] **New, for `data-scientist`:** exclude known probe/internal IPs from every demand-side metric
+      before it is cited again, and report `n` as deduplicated real sessions rather than raw rows.
+- [ ] **ROADMAP.md baseline** for `band_coverage` / `insufficient_data_rate` becomes
+      **UNKNOWN-pending-probe-filter**, per OS §0 rule 2. A number known to be contaminated does not
+      get to stand as the baseline merely because it was measured first.
+
+**On A13 (the one-token fix):** does not displace the branch — both are P0, neither substitutes for
+the other (one is a wrong-*answer* bug, the other a wrong-*denominator* bug). But **review them in
+the SAME pass, not sequentially**: both touch "how many comparables justify a band", and someone must
+confirm the changed 30-day windowing does not interact with C5's `comparable_n` check before either
+is called done. And re-verify the 81.1% was not computed over the same contaminated population
+before anyone reports the ≥80% target as met.
+
+---
+
+### Where A8 stands after two independent consultations
+
+Both agents converge, from different directions:
+
+- **A8-1 — RATIFY.** Safe on both readings: no baseline exists to break, and no future data can
+  rescue it.
+- **A8-2 — RATIFY THE STRUCTURE ONLY.** Supply-side ships as its own named metric. The demand-side
+  value is held at UNKNOWN pending the probe filter, and carries a series-break marker.
+- **A8-3 — RATIFY, GATED ON THE MERGE COMMIT.** Not on tonight's authorisation.
