@@ -706,3 +706,101 @@ $ .claude/bin/with-secrets.sh npm run publish -- --dry-run --limit=100
 Reddit, in database `id` order — i.e., in the order the posts were originally generated, not
 prioritized by anything. Nothing here is scheduled now; `Approved and not yet scheduled: 0`
 means a bare `npm run publish` (no flags) would also send nothing today.
+
+---
+
+## J — `facts-batch-01`, 2026-09-01 evening — 6 posts, 5 distinct `CONTENT-FACTS.md` ideas, W57 fix
+
+**Context this responds to.** `docs/company/CONTENT-FACTS.md` (17 defensible findings, 3 THIN,
+committed `4a352a5`) exists because 24 live posts today carried only 11 distinct ideas, one
+silent video (`samba-demo-9x16.mp4`) was reused 10 times, and most Instagram/TikTok posts had no
+audio (`WORKBOARD.md` W57). Verified live via Postiz `GET /posts`
+(`2026-08-25`–`2026-09-02` window, read-only): **39 posts total, 33 `PUBLISHED` + 6 `ERROR`** (all
+6 errors are TikTok), built from roughly 8 recycled underlying claims (New Balance 309, Adidas
+95%, Nike 92%, Patagonia 124, "double €100", "no warehouse €1000", Fred Perry 28, Puma 29) — none
+of which come from `CONTENT-FACTS.md`. This batch is new ideas from that file, not a repeat.
+
+**6 rows inserted into `resale-iq-growth/data/growth.db`, ids 142–147, all `status='draft'`**
+(never `approved`/`scheduled` — publishing is a founder gate, AM-8, and
+`docs/eng/PUBLISHING.md` §5 names `--draft` itself as a founder action since it is still a real
+write against a real connected account). Pre-write drift check: `max(id)` was 141 before the
+insert, confirmed no collision on 142–147; `PRAGMA integrity_check` clean before and after;
+`npm run publish -- --check` still reports **"Approved and not yet scheduled: 0"** after the
+insert — nothing entered the send path.
+
+| id | platform | locale | `CONTENT-FACTS.md` finding | video file | dims | ffprobe (output file) |
+|---|---|---|---|---|---|---|
+| 142 | tiktok (reel) | fr | #1 — Adidas FR 410:1 vs Patagonia DE 14.8:1 | `renders/A-fr-vert.mp4` | 1080×1920 | `h264,video` / `aac,audio` |
+| 143 | tiktok (reel) | fr | #9 — Nike p90/p10 18.8× vs Patagonia 5.5× | `renders/D-fr-vert.mp4` | 1080×1920 | `h264,video` / `aac,audio` |
+| 144 | instagram (reel) | pt | #6 — price convergence, corrected angle (€40.00 in all 5 markets; Stone Island 2% spread) | `renders/B-pt-vert.mp4` | 1080×1920 | `h264,video` / `aac,audio` |
+| 145 | instagram (reel) | es | #2 — 3.6% of departures carried 37.4% of the money | `renders/C-es-vert.mp4` | 1080×1920 | `h264,video` / `aac,audio` |
+| 146 | x (short_text) | fr | #1, same source as 142, distinct 16:9 render, X's own asset per platform spec | `renders/A-fr-wide.mp4` | 1920×1080 | `h264,video` / `aac,audio` |
+| 147 | x (short_text) | de | #4 — EU 38 (n=959, €38 median) vs EU 46 (n=93, €80 median) | `renders/E-de-wide.mp4` | 1920×1080 | `h264,video` / `aac,audio` |
+
+**Every number in every caption traces to `CONTENT-FACTS.md`'s own SQL and its frozen window**
+(`sold_observed=1`, `2026-08-21 00:00:00` ≤ `sold_at` < `2026-09-01 17:00:00`, N=108,529) — no
+number was rounded, computed fresh, or dropped its `n`. No "sold" language (`grep -c "\bsold\b"`
+against all 6 captions returns 0; the source domain `resaleiq.dev` is excluded from that scan on
+purpose — see the file's own warning). No per-model buy-below, no Balenciaga, no guaranteed
+return, no UK/US claim, no day-of-week/ask-spread/subcategory/category-mix-by-market claim (the
+four axes `CONTENT-FACTS.md` reports UNKNOWN). Row 147 (sneaker size) carries forward
+`CONTENT-FACTS.md`'s own flag verbatim: size data is authenticated-tier per `DATA_CONTRACT.md`;
+category×size aggregate is inside rule 4's public exception, but the file says confirm with the
+coordinator before it becomes a recurring format — **not re-cleared here, flagged in the row's
+`review_note` for founder/`product-manager` sign-off before send.**
+
+**Production, real not simulated — every step run through this session's own shell, nothing
+asserted without the command that produced it:**
+1. One abstract backdrop generated once (`gen_image.py`, `gemini-3-pro-image`,
+   `docs/marketing/assets/renders/data-drop-backdrop.png`) and reused across all 6 videos — this
+   is legitimate per Template B's own design (abstract, textless, non-representational B-roll;
+   the actual figures are real HTML/CSS text, never asked of the image model). Reusing a
+   *backdrop* is not the W57 defect; reusing one *finished, claim-carrying* video across many
+   rows was.
+2. Per-idea caption card rendered to a transparent 1080×1920 (or 1920×1080 for the two X posts)
+   PNG via a new script, `scripts/make_data_drop_card.mjs` (Playwright/Chromium, same pattern as
+   the existing `make_cards.mjs`) — real numbers, real `n`, real source line burned into the
+   frame, inside the TikTok-safe zone (`x:90–990, y:200–1550`) `PLATFORM-CREATIVE.md` specifies.
+3. `ffmpeg` zoompan + overlay composites the card onto the backdrop → silent video.
+4. `gen_voice.py` (ElevenLabs `eleven_multilingual_v2`, voice `21m00Tcm4TlvDq8ikWAM`) generates
+   one voiceover per idea, in the post's own market language (FR ×2 scripts reused across the
+   142/146 pair since it's the same idea two ways, PT, ES, DE ×1 each) — 5 real API calls, 5 real
+   mp3s under `docs/marketing/assets/renders/vo/`.
+5. `ffmpeg -c:v copy -c:a aac -shortest` muxes video+voice into the final file.
+6. **`ffprobe -show_entries stream=codec_type -of csv=p=0` run against the OUTPUT file, not the
+   mux command's exit code, for all 6 finals** — every one prints both `video` and `audio` lines
+   (table above). This is the exact check W57 found nobody had run.
+7. All 6 output files hashed distinct (`md5`, six different digests) — no file reused across
+   rows, satisfying "one distinct video per post" literally, including across the 142/146 pair
+   that shares an underlying idea but not a file.
+
+**What this batch does NOT do, on purpose:**
+- **Does not touch Postiz.** No `--draft`, no `--schedule`, no bare `npm run publish`. Only
+  `--check` (read-only, before and after) was run against the live API.
+- **Does not fix the 6 `ERROR` TikTok posts already sitting in Postiz** (ids matching rows
+  131/133 and 4 others — `cmtiq5r8t...`, `cmtivty3r...`, `cmtix0iun...`, `cmtix0sx4...`,
+  `cmtix0p6s...`, `cmtix0apw...`). Investigated: Postiz's public API has exactly 3 endpoints
+  (`/integrations`, `/upload`, `/posts` — confirmed again live, `docs/eng/PUBLISHING.md` §3) and
+  **no per-post detail route** — `GET /posts/{id}` returns a bare 404. `GET /posts` itself
+  returns only `state: "ERROR"`, no error message field. **The actual error text the brief asked
+  for is not obtainable from this API; it would need the Postiz UI, which nobody on this session
+  has a login for.** This is reported as UNKNOWN, not guessed at. New draft rows here don't
+  retry those 6 — they're a different idea, different render, different id.
+- **Does not touch the previous session's unmerged `claude/content-social/teaser-model-and-vocab-fix`
+  branch/worktree** — different task, left alone, WIP=1.
+
+**Not done, flagged rather than padded:**
+- Only 5 of `CONTENT-FACTS.md`'s 17 defensible findings are in this batch (1, 2, 4, 6, 9). 12
+  remain unused and are not recycled from — the next batch should pull findings 3, 5, 7, 8, 10–17
+  before repeating any of these five.
+- Row 147's size-data flag (above) is a real open sign-off, not resolved by this file.
+- No Reddit piece in this batch — the brief this pass answers named only X/Instagram/TikTok.
+- French machine-translation quality (rows 142/143/146) has not been reviewed by a native
+  speaker; same caveat as `QUEUE.md` §E's existing ES/FR pieces.
+
+**Branch:** `claude/content-social/facts-batch-01` (`resale-iq`) carries the script + 6 finals +
+6 cards + backdrop + 5 VO files, not yet merged/PR'd from this pass. `growth.db` rows 142–147
+are already live in the shared, gitignored DB (same convention as `W4`'s direct-write pass) —
+they do not depend on the branch merging to exist as drafts, only the video *files* the assets
+table points at do, so **do not approve/schedule 142–147 until this branch is merged** or the
+asset paths 404 on upload.
