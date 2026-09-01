@@ -6,6 +6,12 @@
 // nothing about the API CORS policy has to change.
 const API = "https://resaleiq.dev";
 const CACHE_TTL_MS = 10 * 60 * 1000;
+// PENDING rows (docs/audit/MONETIZATION.md §4, docs/audit/FUNNEL-WALK.md
+// Break #2): the server claims the anon quota atomically before it computes
+// an answer, and nothing in this file used to bound how long we'd wait for
+// one — a request that died server-side left the content script's "checking…"
+// card spinning forever. Match the web widget's own budget (free-checker.tsx).
+const VERDICT_TIMEOUT_MS = 10000;
 const cache = new Map();
 
 async function getToken() {
@@ -38,7 +44,14 @@ function cached(q) {
 async function fetchVerdict(q, token, retried) {
   const headers = { Accept: "application/json" };
   if (token) headers.Authorization = `Bearer ${token}`;
-  const r = await fetch(`${API}/api/verdict?q=${encodeURIComponent(q)}`, { headers });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS);
+  let r;
+  try {
+    r = await fetch(`${API}/api/verdict?q=${encodeURIComponent(q)}`, { headers, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
   if (r.status === 401 && token && !retried) {
     await chrome.storage.local.remove("riq_token");
     cache.clear();
@@ -92,7 +105,8 @@ chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
       cache.set(msg.q, { at: Date.now(), data });
       respond({ ok: true, data });
     } catch (e) {
-      respond({ ok: false, down: true, error: String(e) });
+      const timedOut = e && e.name === "AbortError";
+      respond({ ok: false, down: !timedOut, timedOut, error: String(e) });
     }
   })();
 

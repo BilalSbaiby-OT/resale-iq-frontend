@@ -39,6 +39,13 @@
   display: inline-block; margin-top: 10px; font-size: 11px;
   color: #8fa3c4; text-decoration: none; border-bottom: 1px solid #2a3550;
 }
+/* .riq-retry reuses .riq-link's look but is a <button> (retries the fetch in
+   place, nothing to navigate to) — reset the button chrome Chrome/Vinted's
+   own stylesheet would otherwise add. */
+#riq-badge button.riq-link {
+  background: none; border: 0; border-bottom: 1px solid #2a3550;
+  padding: 0; font: inherit; cursor: pointer;
+}
 /* The match is shown so the user can see WHAT we priced. Silent mismatching is
    how a tool loses trust: a confident number against the wrong model is worse
    than no number. */
