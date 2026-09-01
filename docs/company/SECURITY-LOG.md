@@ -583,3 +583,4 @@ activation: the Spanish funnel ends at an English legal form
 
 customer-success answered the question I most wanted answered, and the answer is
 a conversion defect at the`
+- `2026-09-01T12:20:52Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git status --porcelain; git add -A && git commit -q -m "log: guard entries from the Reddit reachability checks" && git push origin main 2>&1|tail -1; git status --porcelain|wc -l`
