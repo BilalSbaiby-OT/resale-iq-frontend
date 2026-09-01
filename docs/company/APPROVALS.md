@@ -1516,3 +1516,38 @@ C6."* FX v2 is approved and can go first thing.
 
 **Blocked only on `.claude/DEPLOY_APPROVED`**, which is the founder's to create. Attend the deploy;
 health check after; rollback ready.
+
+
+#### A19 — `security-eng` clears the push, and checked the one thing that could have been a real leak
+
+**Remote verified against GitHub's API**, not inferred: `gh repo view --json visibility,isPrivate` →
+`{"isPrivate": true, "visibility": "PRIVATE"}`.
+
+**It went looking for the founder's phone number and confirmed it is not there.** `SECURITY-LOG.md`
+records a blocked heredoc that created `ESCALATION.md`; it pulled that entry, read the committed file
+in full, and confirmed the number is genuinely absent — routed through `with-secrets.sh` as
+`FOUNDER_PHONE` instead. **That was the one credible PII risk in the whole push and it is clean.**
+
+| item | result |
+|---|---|
+| `dashboard/data.json` (51 KB) | scanned for email, Stripe-prefix, JWT, bearer, IP and entropy patterns. **Two `@` hits total, both `noreply@anthropic.com` in a git trailer.** The 123 entropy candidates are all filenames. No PII, no credential |
+| `SECURITY-LOG.md` (298 lines) | every entry is a **blocked** call, so it records the attempted command and **never its output.** Zero secret shapes |
+| `CLOSED-LOOP.md`, `APPROVALS.md`, `COVERAGE.md` | zero secret/email matches. Business-sensitive, which is answered by "private repo", not a credential question |
+| `.gitignore` | **nothing gets dropped** — verified two ways: `git diff --diff-filter=D` is empty across all 83 commits, and a full `git ls-tree -r` comparison confirms nothing in the remote tree is absent from what ships |
+
+**What the log genuinely does reveal, stated rather than waved away:** local paths under
+`/Users/bilalsbaiby/…` (leaks a macOS username — trivial, and the repo already carries the owner's
+identity), an SSH host alias confirming the hosting provider (mildly useful to a competitor, not
+exploitable), and one entry exposing the secret-scan regex used to audit git history (shows
+methodology, not a credential).
+
+**And one item outside my five questions:** `guard.py` itself is in the push — 120 changed lines,
+including tonight's CRITICAL bypass fix. Normal for security tooling to live beside what it guards,
+not a reason to hold, **flagged so nobody is surprised.**
+
+**A correction to me:** I told the roster `COVERAGE.md` lives in `docs/company/`. It is
+`docs/audit/COVERAGE.md`.
+
+**BOTH AM-7 CONSULTS ARE NOW CLEAR.** `tech-lead`: push all 127, do not split, merge nothing in
+`demand-intel`. `security-eng`: safe on every checkable dimension. **The only thing outstanding is
+`.claude/DEPLOY_APPROVED`, which is the founder's to create.**
