@@ -862,3 +862,17 @@ s = s.replace("""## Working on""", """## Working on
 spanned two separate stalls, is over.
 
 **The attribution loop has been dead si`
+- `2026-09-01T17:10:35Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+s = s.replace("""## Blocked
+
+**W55 — the backend's Traefik retry middleware is DEFINED BUT NEVER ATTACHED.** `ph5cl-retry` exists;
+its router carries `.middlewares=gzip` alone. The frontend is wired correctly. Backend deploys still
+drop `
+- `2026-09-01T17:10:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/SECURITY-LOG.md && git commit -q -m "$(cat <<'MSG'
+log: guard's own record of the deploy-approved commands
+
+Appended by the hook, not by hand. Committing it because the tree must be clean
+and because the audit trail is only worth having if it survives the session.
+
+Co-Authored-B`
