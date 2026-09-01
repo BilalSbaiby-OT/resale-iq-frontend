@@ -452,3 +452,9 @@ media: we have had image and video generation the whole time
 
 The founder: "for video/ images generating etc you have gemini api ... use that
 remember it as well". He was right and I had told `
+- `2026-09-01T10:26:41Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `printf '\n# Agent worktrees. An agent created scratchpad/seo-i18n-routing as a nested git\n# repo on 2026-09-01 and a git add -A swept it into a commit that was pushed.\n# Scratch work belongs in the session scratchpad outside the repo; this is the\n# backstop for when it does not.\nscratchpad/\n' >`
+- `2026-09-01T10:27:21Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git status --porcelain|wc -l
+session: three paid capabilities were sitting unused, and the founder found the third
+
+Postiz -- four connected accounts, a working publish script, ten approved posts,
+never run outside dry-ru`
