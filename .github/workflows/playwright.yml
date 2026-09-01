@@ -1,0 +1,97 @@
+# Playwright — the required behavioural gate.
+#
+# WHY THIS EXISTS. Before this workflow, resale-iq shipped on typecheck +
+# build alone (Agent Isolation). The Playwright suite existed on disk
+# (playwright.config.ts, e2e/*.spec.ts) but ran in NO workflow, so a PR
+# could break the product's actual behaviour — not its types, its behaviour
+# — and still merge green. Four things shipped to 100% of users on
+# 2026-08-31 that a passing typecheck + build could not have caught:
+#
+#   1. A brand-new anonymous visitor's FIRST search returned LIMIT_REACHED.
+#      The opening click of every new visitor, broken, on day one.
+#   2. The paywall leaked paid fields (buy_below, sell_avg, top_sizes,
+#      reasons, data_quality...) to anonymous callers on THREE separate
+#      return paths at once.
+#   3. INSUFFICIENT_DATA — 40.9% of answered searches — had no render path
+#      that had ever been exercised in a browser.
+#   4. Nothing stopped the homepage from claiming a market (UK/US) the
+#      product does not serve.
+#
+# e2e/regression-p0.spec.ts and e2e/market-coverage.spec.ts are the specs
+# locked to exactly those four. See docs/eng/QA.md for what they do and do
+# not prove, and for the "sanity-checked" note on each: every one of them
+# was verified to FAIL when the real bug was reintroduced, before being
+# checked in green.
+#
+# SCOPE. This job runs `npm run test:e2e:required` — smoke,
+# customer-workflow, signup-verify, regression-p0, market-coverage. It
+# deliberately excludes e2e/prod.smoke.spec.ts: that suite hits
+# https://resaleiq.dev over the real network and belongs post-deploy, not on
+# every PR — a live-network dependency in a PR gate is itself a flakiness
+# risk, and this KPI's primary is flaky_tests = 0.
+#
+# TO ACTUALLY BLOCK A MERGE, this job's name below (e2e-required) must be
+# added as a required status check in the repo's branch protection settings
+# for `main` — a GitHub UI/API setting, not something a workflow file can
+# set on itself. Until that one-time admin step happens, this workflow
+# reports on every PR but does not yet block one. Tracked in
+# docs/eng/QA.md and docs/company/APPROVALS.md.
+name: Playwright
+
+# Quoted deliberately, same reason as deploy.yml in this repo: bare `on` is a
+# YAML 1.1 boolean, so a strict parser (e.g. PyYAML) reads this key as `true`.
+# GitHub tolerates it; local linters and this repo's own convention do not.
+"on":
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A newer commit on the same PR/branch should win — no point finishing a
+# Playwright run against a commit that is no longer at the tip.
+concurrency:
+  group: playwright-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e-required:
+    runs-on: ubuntu-latest
+    # Cold Chromium install + 24 tests measured at ~25s locally on 2 workers;
+    # this budget is generous for a shared CI runner, not a claim it needs
+    # this long. See docs/eng/QA.md "runtime cost" for the measured numbers
+    # and the plan if this job starts approaching it.
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Chromium only — playwright.config.ts defines exactly one project
+      # (chromium/Desktop Chrome). Installing Firefox/WebKit here would pay
+      # for browsers nothing in this repo ever launches.
+      - name: Install Playwright's Chromium
+        run: npx playwright install --with-deps chromium
+
+      # --workers=2, matching the setting baked into test:e2e:required.
+      # Measured directly: the "429 on /auth/me does not wipe the JWT" spec
+      # flaked at the default local worker count (4) from Next dev-server
+      # compile contention under parallel first-hits, and was reliably green
+      # at 2. See docs/eng/QA.md "flaky risks."
+      - name: Run the required Playwright suite
+        run: npm run test:e2e:required
+
+      - name: Upload trace/report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

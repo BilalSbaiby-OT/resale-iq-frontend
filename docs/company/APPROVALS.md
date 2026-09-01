@@ -283,3 +283,40 @@ found by reading, and deliberately left unproven rather than demonstrated.**
       independently confirmed no live path hits it (registration always writes `'free'`), so this is
       not a current leak. It is a one-omitted-column landmine with no test protecting the invariant.
       **Fix: `DEFAULT 'free'` plus a regression test on the default itself.**
+
+
+---
+
+### A13 — the one-token change that moves coverage 19 points
+
+**2026-09-01, `data-scientist`, measured against production read-only.** Not a founder gate — a
+**P0 for the next engineering session**, recorded here so it is the first thing seen.
+
+`demand-intel/db/queries.py:1986` gates on `MIN_COMPARABLES` (3) where it should gate on
+`MIN_VERDICT_COMPARABLES` (8). `prices_30d` is built thirty lines earlier in the same loop and then
+**discarded** for any model that found 3 comps in 7 days. So a model with 5 comps at 7d and 11 at
+30d is stored as `comparable_n = 5` and refused a price it has the evidence for.
+
+| | now | after |
+|---|---|---|
+| supply coverage (n=100 models) | 43.0 % | **62.0 %** |
+| demand `band_coverage`, all-time (n=180) | 62.8 % | **81.1 %** |
+| last 7 days (n=44) | 43.2 % | 65.9 % |
+
+The counterfactual reproduces today's 43.0 % to the decimal on 90/100 models, so it is a
+replication rather than a model. **Recommend the 14-day window, not 30**: identical gain today,
+half the future staleness, because `sold_observed = 1` only begins 2026-08-21 and the corpus is
+11 days deep.
+
+**It also raises honesty, which is the part that matters.** Median `comparable_n` behind a printed
+band goes **12 → 26**. Cutting the threshold from 8 to 5 would reach a similar coverage number and
+take that median **12 → 10** — same headline, opposite direction on the thing the number is for.
+**Do not cut the threshold. 8 is right.**
+
+**Two flags from the same analysis:**
+
+- **The real ceiling is the labeller, not the constants.** Only **7,247 of 103,993** observed sales
+  (7.0 %) carry a `model` label; 11.8M of 12.7M listings have a brand and no model. No constant
+  fixes that.
+- Coverage will drift upward on its own until ~2026-09-20 as the corpus deepens, so any goal set on
+  it needs a calendar control or it will score a win that time delivered.
