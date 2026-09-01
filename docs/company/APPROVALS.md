@@ -1391,3 +1391,63 @@ lines containing `sold_7d`/`sold_at`/`sold_observed`, got 10, and briefly read t
 was not: 9/1/3 removed and **exactly** 9/1/3 re-added — they sat on lines whose surrounding copy
 changed. **My check was crude in the same way two earlier checks of mine were tonight** — counting one
 side of a diff. The agent's claim was right and mine was wrong.
+
+
+#### A16 — the measurement that reframes the vote. **The shelf covers 100/100. Price covers 2.**
+
+`data-scientist`, board snapshot 2026-09-01 00:38:49, ±3 pp rebuild noise.
+
+**It corrected its own figure first, and the correction matters.** Last turn it reported the price
+HIGH band as 6 models / 12.2 % of searches. That was `n ≥ 30` **alone**. `_verdict_confidence` gates
+HIGH on **three** conditions — `comparable_n ≥ 30` **AND** `data_quality ≥ 70` **AND**
+`IQR/median ≤ 0.60`. **The real band is 2 models and 9.4 % of searches.** The tier design was being
+scoped against a band three times larger than the one the code actually produces.
+
+**THE HEADLINE:**
+
+| option | models | searches | **inference required** |
+|---|---:|---:|---|
+| price HIGH (today's actual gate) | **2 / 100** | 9.4 % | departure = sale, price stable |
+| price MEDIUM (`n ≥ 8`, post-A13) | 63 / 100 | 81.1 % | departure = sale |
+| liquidity HIGH (departures ≥ 30) | 19 / 100 | 30.0 % | departure = sale |
+| **shelf (active asking price)** | **100 / 100** at `active ≥ 30` | not yet scored | **NONE** |
+
+`active_listings`: min **31**, median **980**, p75 2,857, max 82,517. **Every model on the board has
+an observable shelf. Six have a defensible price claim, and only two survive the full gate.**
+
+**`ux-researcher`'s third option is the largest gap of the night** — the only option that covers the
+whole board while requiring **no sale inference at all**.
+
+**The dispersion hypothesis: confirmed, and NOT the constraint.** Removing the penalty entirely takes
+HIGH from 2 → 5 models. **94 of 100 never reach `n = 30` at all.** Count binds; dispersion is an order
+of magnitude smaller.
+
+**But the dispersion data is worth more than the hypothesis it tested:**
+
+> `IQR/median` across the board: n=93, **median 0.71**, p90 1.56, max 7.75. **59 of 93 models exceed
+> the 0.60 threshold.**
+
+**Wide price spread is the NORMAL state of this catalogue, not an exception.** The honest default
+output is a **range, not a point** — `ux-researcher`'s instinct, confirmed at a different layer.
+
+**Liquidity:** materially wider at HIGH (19 models / 30 % vs 2 / 9.4 %), **indistinguishable at
+MEDIUM** (83.3 % vs 81.1 %). Its own read: *"A tier whose confident claim fires on fewer than one
+search in three is not a repositioning; it is a narrower promise with the same underlying thinness."*
+
+**FOUR CAVEATS IT RAISED AGAINST ITS OWN RESULT — the third is it being wrong:**
+
+1. **Identity-filtered shelf coverage is UNKNOWN.** Three scans timed out. A 12-model sample gave a
+   **median identity pass-rate of 50.1 %** — about half of "active" is cases, kits and wrong models.
+   **It refused to extrapolate to the other 88.**
+2. It is an **asking price, not a value**. **It cannot support a buy-below and must never be labelled
+   one.**
+3. **Its own survivorship prediction was wrong.** It expected the shelf above the departure mean.
+   Measured: **median −12.9 %, shelf above in only 4 of 12.**
+4. **That disagreement is mostly evidence about the SOLD estimate.** `Nike Dunk`: departure mean
+   **€160.67 off 11 comps** vs shelf mean **€28.42 across 123 clean listings** — 10–40× more
+   observations. **Which is closer to a transaction price is UNKNOWN and unknowable.**
+
+- [ ] **Next, explicitly not guessed:** identity-filtered shelf count for all 100 models, and the
+      shelf band scored against the same 180-search population. **A batch job against a snapshot copy
+      per AM-1.** Until it runs, **the shelf option's search coverage is UNKNOWN and must not be
+      quoted.**
