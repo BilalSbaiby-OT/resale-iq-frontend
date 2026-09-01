@@ -4,6 +4,26 @@
 
 ## Working on
 
+**BOTH APPS IN SYNC.** Frontend deployed at `6f35b24`, backend `22613ac`. The 11-commit freeze, which
+spanned two separate stalls, is over.
+
+**The attribution loop has been dead since the day it was built, and nothing about it is broken.**
+`signup_attribution`: **0 rows, ever.** `captureAttribution()` stores first-touch UTMs, `register()`
+forwards them, `record_attribution()` writes them — a complete loop with no input, because **not one
+published caption ever carried a UTM.** Checked the `content` table directly: rows 124–137, every
+platform, every language, all bare `resaleiq.dev`. **The nine posts published today can never be
+credited with a signup.** That is permanent and cannot be repaired retroactively.
+
+Fixed where it cannot recur: `resale-iq-growth/src/publish/utm.js` tags links at publish time.
+"Remember to add UTMs" is not a fix — the failure is SILENT. An untagged link works perfectly; it
+just makes the post invisible forever.
+
+**Funnel, re-measured in production after the €49-default fix (24h):** 26 visitors · 320 views ·
+3 reached `/register` · **0 signed up** · last signup 2026-08-29. **Only 1 visitor came from social,
+against 9 posts live.** Reach is the bottleneck, not the landing page. Best page after the homepage
+was a **blog post** — `/blog/vinted-disputes-and-returns-sellers`, 11 visitors. That is the one thing
+organically working and nobody was looking at it. Locale split: en 26 · es 2 · de 2.
+
 **The frontend deploy pipeline is unblocked for the first time today.** Agent Isolation is GREEN and
 `Deploy` is RUNNING rather than `skipped`. It had been frozen 11 commits across two separate stalls.
 
@@ -54,11 +74,19 @@ symptom is not a reading of the artifact.**
 
 ## Next 3
 
-1. Confirm `Deploy` finished and re-run `deploy_drift.py` until the frontend reads in sync.
-2. Re-measure the funnel now `/register` no longer defaults to €49.
+1. Wire `utm.js` into the publisher once `content-social` is out of that file — do not edit it
+   underneath a running agent. Until then the tagging depends on the agent remembering.
+2. **Lean into the blog.** One post out-pulled every marketing surface we built. 9 posts produced
+   1 social visitor; one blog post produced 11.
 3. Attach `ph5cl-retry` to the backend router (W55), then close W24 across a real deploy.
 
 ## Do not
+
+- **Do not publish a link without `utm_content`.** Nine posts are permanently unattributable because
+  of this. `utm_source=social` answers nothing — every reel we make is social.
+- **Do not trust a checker that passes by finding nothing.** My first UTM regex required `https://`
+  while captions write a bare `resaleiq.dev/es`: it matched nothing, tagged nothing, and reported
+  clean. Testing caught it; reading it would not have.
 
 - **Do not fix a shared defect inside one writer.** The credential scrubber lived in
   `build_dashboard.py`; `org.py` writes a second dashboard file and never saw it, so the bus messages

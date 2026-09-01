@@ -851,3 +851,14 @@ board: retract W54, open W55 for the retry label that was never attached
 
 W54 said the deploy key still issued a GET. It did not. devops read the actual
 authorized_keys on`
+- `2026-09-01T16:54:26Z` **BLOCKED** Bash — UPDATE without WHERE — `cd /Users/bilalsbaiby/work/resale-iq-growth sqlite3 data/growth.db <<'SQL' UPDATE content SET caption = "309 paires de New Balance ont quitté l'étal sur Vinted la semaine dernière -- plus qu'aucune autre marque de sneakers que nous suivons. Prix moyen au départ : 42€. resaleiq.dev/fr", link = 'https`
+- `2026-09-01T16:59:56Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p = "docs/company/SESSION.md"
+s = open(p).read()
+
+s = s.replace("""## Working on""", """## Working on
+
+**BOTH APPS IN SYNC.** Frontend deployed at `6f35b24`, backend `22613ac`. The 11-commit freeze, which
+spanned two separate stalls, is over.
+
+**The attribution loop has been dead si`

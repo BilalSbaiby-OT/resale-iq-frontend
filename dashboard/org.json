@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T16:43:58Z",
+  "generated_at": "2026-09-01T16:55:51Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -46,7 +46,7 @@
       "target": 0,
       "counter": "shipping velocity — zero defects by shipping nothing is not the goal",
       "source": "workboard",
-      "value": 1,
+      "value": 2,
       "note": null,
       "unknown": false,
       "why_unknown": null
@@ -223,9 +223,9 @@
           "agent": "devops",
           "is_head": true,
           "merged_branches": 1,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 1,
-          "findings_raised": 1,
+          "findings_raised": 2,
           "unread_mail": 2
         },
         {
@@ -257,8 +257,8 @@
         }
       ],
       "rows_closed": 2,
-      "rows_open": 0,
-      "findings_raised": 3
+      "rows_open": 1,
+      "findings_raised": 4
     },
     "Office of the CEO": {
       "head": "chief-of-staff",
@@ -320,6 +320,14 @@
       "found_by": "CEO",
       "doer": "devops",
       "status": "CLOSED"
+    },
+    {
+      "id": "W55",
+      "duplicate_id": false,
+      "finding": "The backend's Traefik retry middleware is defined but never attached. ph5cl-retry exists; its only router http-0-ph5clxk9hmghspv65pdkvak9 carries .middlewares=gzip alone. The frontend is wired correctly (gzip,p6t87-retry",
+      "found_by": "devops",
+      "doer": "devops",
+      "status": "OPEN"
     },
     {
       "id": "W24",
@@ -412,6 +420,17 @@
   ],
   "stale_open": [
     {
+      "id": "W55",
+      "duplicate_id": false,
+      "finding": "The backend's Traefik retry middleware is defined but never attached. ph5cl-retry exists; its only router http-0-ph5clxk9hmghspv65pdkvak9 carries .middlewares=gzip alone. The frontend is wired correctly (gzip,p6t87-retry",
+      "found_by": "devops",
+      "doer": "devops",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached"
+      ]
+    },
+    {
       "id": "W24",
       "duplicate_id": false,
       "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
@@ -419,6 +438,7 @@
       "doer": "founder (Coolify UI, see fix below)",
       "status": "OPEN",
       "shipped_evidence": [
+        "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached",
         "resale-iq: d9297a7 loop: three more posts live in the markets we actually serve, board down to 2",
         "resale-iq: 3e75ac0 workflow: the board audits itself, and two ways it was quietly lying",
         "resale-iq: ce0ac1e loop: two more posts live, and a deploy window caught in the act"
@@ -589,19 +609,13 @@
     "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
-    "drifted": true,
+    "drifted": false,
     "apps": [
       {
         "app": "frontend",
-        "status": "DRIFTED",
-        "running": "3f995adac2d0",
-        "merged": "d9297a7d2ece",
-        "commits_unshipped": 2,
-        "unshipped": [
-          "d9297a7 loop: three more posts live in the markets we actually serve, board down to 2",
-          "fbbb839 deploy: ask the only question a no-op cannot answer"
-        ],
-        "container": "p6t87shftvl2455pd3gdgee1-162108191008"
+        "status": "IN SYNC",
+        "commit": "6f35b245a6b0",
+        "container": "p6t87shftvl2455pd3gdgee1-164921186399"
       },
       {
         "app": "backend",
@@ -612,12 +626,12 @@
     ]
   },
   "totals": {
-    "rows_total": 15,
-    "rows_open": 1,
+    "rows_total": 16,
+    "rows_open": 2,
     "rows_closed": 14,
     "rows_blocked": 0,
     "bus_messages": 16,
-    "stale_open": 1,
+    "stale_open": 2,
     "unassignable": 0
   }
 }
