@@ -67,6 +67,22 @@ function acceptLanguageLocale(header: string | null): (typeof PATH_LOCALES)[numb
     .split(",")
     .map((s) => s.trim().split(";")[0].toLowerCase())
   for (const p of parts) {
+    // ENGLISH SHORT-CIRCUITS. PATH_LOCALES holds fr/es/de/it/pt and no "en",
+    // so without this line the loop scans the visitor's ENTIRE preference list
+    // and redirects on the first non-English match anywhere in it. An
+    // `en-GB,es-ES` visitor -- English first, Spanish merely present -- was
+    // 307'd to /es and had NEXT_LOCALE=es pinned on them for a year.
+    //
+    // This is the SECOND copy of this defect. `detectLocale()` in lib/i18n.ts
+    // had the identical bug and was fixed first; this one kept redirecting
+    // anyway, because a fix that lives in one of two implementations is not a
+    // fix. Same lesson as scrub.py this morning: the credential scrubber lived
+    // in one writer while a second writer had the same hole, and it froze
+    // deploys twice. Two copies of a rule means two places to be wrong.
+    //
+    // Returning null means "no redirect" -- the visitor stays on the English
+    // site, which is what an English-first Accept-Language asked for.
+    if (p === "en" || p.startsWith("en-")) return null
     for (const l of PATH_LOCALES) {
       if (p === l || p.startsWith(`${l}-`)) return l
     }
