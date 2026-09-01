@@ -2,6 +2,15 @@
 
 # Resale IQ — unattended agent rules
 
+> **`docs/company/OBJECTIVE.md` sits above everything here. MAXIMIZE LONG-TERM PROFIT.**
+> Where any rule below reads as "hedge, disclaim, qualify" applied to MARKETING or a
+> LANDING SURFACE, the objective wins. The honesty rules in this repo were written for
+> **data integrity** — what a number means, whether it is sourced — and they are correct
+> there. They are not a marketing voice. **Do not let them leak into the sales surface.**
+> The one hard line is the founder's own: **never manufacture proof.** Not for morality —
+> our numbers are checkable, and one disproven statistic costs the channel permanently.
+
+
 **Disk is memory. Chat is disposable.** Nothing you remember survives. Only files do.
 
 ## Every session, in order

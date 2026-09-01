@@ -494,3 +494,10 @@ landing: take the stale failure rate off the hero
 
 The homepage read "About 4 in 10 lookups come back not enough data -- we'd
 rather say that than guess", above `
+- `2026-09-01T10:54:32Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+import io
+p="CLAUDE.md"; s=io.open(p,encoding="utf-8").read()
+anchor="# Resale IQ — unattended agent rules"
+add = """# Resale IQ — unattended agent rules
+
+> **`docs/company/OBJECTIVE.md` sits above everything here. MAXIMIZE LONG-TERM PROFIT.**`
