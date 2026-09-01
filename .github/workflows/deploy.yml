@@ -44,7 +44,21 @@ name: Deploy
 # rather than racing two builds onto the same container.
 concurrency:
   group: deploy-production
-  cancel-in-progress: false
+  # CANCEL superseded deploys. This was `false`, which serialised them: five
+  # pushes became five sequential Coolify rebuilds, each with its own window
+  # where the site serves nothing.
+  #
+  # That is not just CI noise. On 2026-09-01 an agent capturing product footage
+  # from production hit "Could not check that item right now" on a query that
+  # works perfectly -- it was simply asking during one of those windows. Real
+  # visitors get the same page, and we are driving traffic now.
+  #
+  # Cancelling is correct for a deploy specifically: you never need to ship
+  # commit N-2 once N is already queued, because main is the deployable unit
+  # and the newest commit contains the older ones. It collapses N rebuilds into
+  # one. `false` is right for migrations or anything where each run has its own
+  # side effect; this run has exactly one, and it is idempotent.
+  cancel-in-progress: true
 
 jobs:
   deploy:
