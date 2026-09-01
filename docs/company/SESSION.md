@@ -4,6 +4,54 @@
 
 ## Working on
 
+# 🔴 BUY IS UNREACHABLE BY CONSTRUCTION. `WHY-BUY-NEVER-FIRES.md`
+
+`api/routes.py:1177` needs `opportunity_score >= 65`. Production, all 100 models:
+**min 9.3 · avg 21.0 · MAX 59.2.** Momentum: STABLE 54 · FADING 20 · RISING 16 · DEAD 6 · HOT 4.
+
+**Models that can EVER return BUY: 0 of 100.** The bar sits above the ceiling of the data. That is
+the 6 BUYs in 434 and none in twelve days — arithmetic, never a market judgement.
+
+**Three of us were confidently wrong about this same symptom, in the same shape.** The founder: the
+free tier is too generous (92% run ONE check; the cap was never it). Me: `0.95 × 0.70` is too strict
+(**21.4% of departures already clear it** — re-tuning changes nothing). Everyone reasoned from a
+plausible mechanism instead of measuring what the gate could output.
+
+**Assigned to `data-scientist`, NOT `backend-eng`** — it is a calibration question. **Explicitly told
+not to lower the threshold** until someone can say what 65 meant. Moving a bar until the answer
+becomes "yes" is manufacturing proof with extra steps, and the customer who loses money on our
+first-ever BUY never comes back.
+
+## The other grey-area finding — `GREY-AREA-FINDING.md`
+
+**We answer "I don't know" while holding the answer.** Real UNKNOWN queries — `Carhartt jacket`
+(`model_too_vague`), `Nike Air Max`, `Fred Perry polo`, `jordan 3` — and at that exact moment
+`market_stats` held **Carhartt Jackets FR: 1,609 listed · 10 departures · €48.53**, **Nike Sneakers:
+54,587 · 282 · €107.98**, **Jordan Sneakers: 14,216 · 67 · €152.84**.
+
+`said_sell_avg` is NULL on all 86 UNKNOWN rows: **we do not compute and withhold — we never look.**
+The per-model match fails and the request stops without ever asking the brand+category question we
+can answer. **`DATA_CONTRACT.md` rule 4 already permits it** — aggregates are public. A rail we wrote
+and never used.
+
+**The founder's ruling, and he was right:** *"doesn't need to be exact as long as it works."* I had
+been treating **"never manufacture proof"** (sacred) and **"never give an approximate answer"** (never
+a rule) as the same thing. They are opposites in effect — silence protects nobody, it just sends
+them elsewhere. **The honest version of not knowing is a smaller claim, clearly labelled.**
+
+## From the 21-agent grey-area workflow
+
+Plan delivered. It **cut its own best-converting feature**: the price line sits at ~**8.9th percentile
+of live asks** and `condition` appears **nowhere** in the pricing path, so a cheapest-first deals list
+would point people at damaged goods. Also found `HIGH_DISPERSION_IQR_RATIO = 0.60` exists but only
+downgrades a *label* instead of refusing, and that `IQR == 0` at n≥8 (Stone Island: n=14, all €4.00)
+reads as *perfect* evidence.
+
+**Founder decisions pending:** the threshold, and whether to add an asking-price field so the answer
+becomes **"€20 over our line"** instead of **"wait"**.
+
+**Marketing, copy and UX remain FROZEN.**
+
 **GREY AREA — the founder's question, and it is the right one.** WATCH is **68% of our actionable
 answers** and it is a NON-ANSWER: someone asks "should I buy this?" and is told "wait", with nothing
 to act on. A 12-agent design workflow is running; output lands in `docs/company/GREY-AREA.md`.
