@@ -4,6 +4,56 @@
 
 ## Working on
 
+# 🔴 THE CRAWL IS DECAYING 1.8× AND IT IS OUR STORAGE, NOT VINTED
+
+```
+vinted      998.7s → 1814.2s     runs/day 237 → 123  (−48%)
+items/run   4,889  → 4,863       (−0.5%)  ← flat, so NOT a block
+errors      0 every single day            ← NOT a block
+google_trends 53.4s → 51.3s               ← same host+scheduler, FLAT (the control)
+tracker     33.4s → 192.3s        5.8×, monotonic, every day, no plateau
+```
+
+**The control settles it.** The two degrading jobs are exactly the two that read/write the
+**13.2M-row `listings` table in a ~21 GB SQLite file**. Rules out CPU, network, scheduler.
+**Three separate briefs had assumed a Vinted block. All three were backwards; none ran a control.**
+
+**Why it outranks everything:** the data IS the asset. Concurrency is near-constant, so decay is
+**hyperbolic, not linear** — we do not go dark, we lose **~half our coverage every 2–3 weeks**,
+indefinitely. Every monetisation idea is priced on a number falling while we discuss it.
+**`data-eng` has it**, production read-only, measure-before-touch, UNKNOWN allowed.
+
+## DOCTRINE.md is canonical as of today
+
+Replaced a **permission culture** measured across 48 docs: gates/approvals **812** · revenue **124** ·
+competition **19** · opportunity cost **2** · **customer value 0**. That corpus produced 1,342 tests,
+zero TODOs, **and €0 revenue with an unreachable BUY.** We were succeeding at caution.
+
+**48 inspected · 24 kept · 3 rewritten · 2 merged · 4 archived · 0 deleted.** Delivered, not stored —
+`bus.py brief` emits **329 lines** of doctrine + mission per agent.
+
+**NOT done, and it contradicts the doctrine on day one:** the **21 agent contracts are staged, not
+rewritten** — still citing lifted AM-2, still no definition of done. 15 docs unclassified; I did not
+guess.
+
+## Corrections I owe the record
+
+- **The €19 charge was NOT refunded.** I said "paid and refunded" repeatedly. One charge, no refund,
+  no cancellation event.
+- **`size_buy_below` is 59/100 populated, not 100/100** — the "#1 unearning asset" is 41% smaller
+  than the brief claimed.
+- **BUY is 10 all-time on the 271 real answers**, not 6. Actionable (BUY+SKIP) = **19.6%**;
+  UNKNOWN+INSUFFICIENT = **34.7%**. **Killing the "I don't know" is ~3.5× bigger than fixing the BUY
+  threshold.**
+
+## The commercial headline, when wanted
+
+Fastest credible euro: **the founder personally selling an invite-only price-cut channel** into
+existing EU reseller communities — ~128 verified deep markdowns/day. **The only thing we own that
+makes no claim we cannot back**: a price cut is directly observed, needs no model coverage or
+accuracy figure, and every row is verifiable in one click. Engineering ≈ 1 week; **finding the first
+buyer is the entire project** — `prospects` has 0 rows.
+
 # 🔴 THE DISK HIT 100%. NOTHING COULD DEPLOY. FIXED, AND NOW SELF-PRUNING.
 
 287 MB free. Coolify could not build an image, so **both** pipelines failed and **16 commits were
