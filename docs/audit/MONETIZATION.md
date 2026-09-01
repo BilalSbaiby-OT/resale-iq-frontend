@@ -373,3 +373,32 @@ deriving a price from the codebase alone.
 read, not mine — my own audit only has unmigrated test-fixture data on that account); live
 consultation and recorded dissent from `product-manager`/`finance-ops`/`legal-compliance`, which
 needs the actual multi-agent AM-8 process, not a single monetization-agent pass.
+
+---
+
+## ADDENDUM 3 — AM-8 consult, 2026-09-01: liquidity-instrument reframe
+
+Checked before answering: `docs/audit/DATA.md` already documents 24,114,777 fabricated
+`is_sold=1` rows (asking-price/disappearance inference, no real sale event) and `METRICS.md`
+already concluded MAPE is structurally impossible for the same reason — tonight's tech-lead/data-eng
+finding is the company's own existing evidence, not new information. One correction to the framing:
+`engine/sufficiency.py`'s own `MIN_SOLD_30D = 30` is a **stricter** evidence floor for "directional"
+claims (STR, momentum) than the `n>=8` floor for a bare price — matching `data-scientist`'s HIGH band
+(n>=30, 6 models) exactly. So "rates survive, price doesn't" is true about **bias** (a systematic
+offset cancels in a rank or ratio, not in a level), not simply true about **evidence volume** — a
+precise per-SKU sell-through % carries the same small-n noise price does. What's actually cheap and
+defensible today is **relative/rank claims across the board** (`momentum_label`/`opportunity_score`,
+already computed), not a per-SKU absolute rate.
+
+**Recommendation:** lead the Pro pitch with rank/momentum ("moving faster than most of what we
+track"), keep price as a labeled, secondary, directional anchor rather than removing it — the
+free/paid split does not need to invert, since price (the less structurally defensible half) staying
+free and rate/velocity data (the more defensible half) staying paid is already the correct alignment.
+Agree with `data-scientist` that MEDIUM (n=8-29, 69% of demand) — not HIGH-only — should be the
+design center, since it's the population the roster already agreed is disclosure-eligible in
+tonight's earlier C11 consult; market it as "directional, n disclosed," not uniform confidence.
+**Price itself does not move under either story** — the €155-200/mo cost floor and
+`n_predictions_resolved = 0/340` are both story-independent, so I'm holding the €19/€49 + founding-rate
+recommendation from Addendum 2 rather than letting a better narrative justify a number neither
+framing has willingness-to-pay evidence for. The cheapest real experiment is the same one either way:
+get `n_predictions_resolved` off zero.

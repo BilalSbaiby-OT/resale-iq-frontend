@@ -4,52 +4,62 @@
 
 ## Working on
 
-**Overnight: 17 roster agents, every department, plus A8 and A12 under the founder's conditional
-authorisation.** Founder's digest: `docs/company/DIGEST-2026-09-01.md`.
+**Overnight: 21 roster agents, a founder-delegated decision procedure, and the biggest question this
+company has.** Founder's digest: `docs/company/DIGEST-2026-09-01.md`. The synthesis that matters most:
+`docs/company/CLOSED-LOOP.md`.
 
-**The honest headline is unchanged: tonight found more than it fixed.** That is the result, not a
-complaint — the machinery that finds things now works. A review caught its own CEO twice, a proof
-surfaced a bug nobody was looking for, and the auditor audited its own scope.
+### The finding, from six agents asked what nobody asks
 
-### Shipped
+**The company is a closed loop.** Every P0 found tonight is a defect *inside* it, found by an agent
+reading code. None was found by a customer, a market, or an outcome. *"Rigor without a feedback
+channel converts uncertainty into misplaced certainty."*
 
-- **A12 CRITICAL** — the credential rail resolves **programs, not substrings**. 15/15 cold, both
-  directions: five bypass shapes blocked, six legitimate calls still allowed including the one the
-  hourly job depends on. Negative control fails 5/15.
-- **A8, in full** — MAPE struck; `band_coverage` → `band_coverage_demand`; an **n-floor on the
-  contract**, every file declaring its own with a rationale; `band_evidence_p50` as the counter that
-  can actually contradict its primary. Two series breaks recorded. Proof 10/10.
-- **C2** — the ECC harness, 1,156 files → 43.
-- **Five slash commands**, each backed by machinery that runs.
-- **`OS-COMPLIANCE.md` corrected DOWNWARD** — Phase 0 rails DONE → PARTIAL, headline 41 → 40. The
-  rails cover **one repo of four**.
+The concrete version: **`max_buy = avg × 0.95 × 0.70`, and the `0.70` does two jobs** — the reseller's
+margin, and a silent correction for the asking-vs-realized gap. Never decomposed, never validated.
+`tech-lead`'s synthesis: *margin requirement IS a function of liquidity*, and a flat 0.70 for every
+model **discards the one signal the product is best at measuring.**
 
-### Awaiting review (nothing merged, nothing pushed, nothing deployed)
+### A16 — the repositioning vote: NO reposition, and the reason
 
-| Branch | What |
-|---|---|
-| `claude/backend-eng/fx-currency-v2` | C6 second pass. `parse_item` keeps unpriceable rows so the shelf cannot read them as sales |
-| `claude/data-scientist/a13-comparable-window` | A13. One token: supply coverage 43→62%, median evidence 12→26 |
-| `claude/backend-eng/data-defects-c6-c5-c4` | C5 (approved standalone) + C4 (closes 1 of 8 paths) |
-| `claude/devops/delete-ecc-harness` | C2 |
+Three of four voted lead-with-velocity-keep-the-price; the fourth said keep-the-price-make-it-
+velocity-driven. **Same product from two directions.** A real reposition would break 20+ surfaces,
+**redefine the North Star** (defined on `said_buy_below`) and **orphan both feedback machines** —
+deepening the closed loop. The formal question stays open and is settled **on ten customer answers**,
+not argument.
 
-`tech-lead` is reviewing the first two **jointly** — `product-manager` required it, since both touch
-"how many comparables justify a band" and nobody has confirmed they do not compound.
+### Shipped tonight, all unmerged, nothing pushed, nothing deployed
+
+| branch | what | state |
+|---|---|---|
+| `backend-eng/gate-paid-surfaces` | the `n ≥ 8` floor reaches Deal Finder, watchlist, brand pages, trends, `&price_to=` | 1179 tests, 31 re-verified by me |
+| `backend-eng/pending-failsafe` | orphaned `PENDING` rows resolved; the visitor is told their attempt was spent | 1163 tests, negative control |
+| `data-scientist/a13-comparable-window` | the one-token fix: supply coverage 43 → 62 % | 1167 tests |
+| `backend-eng/fx-currency-v2` | C6 second pass — approved by review | 1179 tests, 16/16 proof |
+| `lifecycle/trial-emails` | the machine that asks 10 lapsed trials to pay — **gated OFF** | 1182 tests |
+| `frontend-eng/conversion-moments` | three conversion moments | 24/24 e2e |
+| `designer/landing-truth` | honest hero, token collision closed | **UNVERIFIED** — no shell |
+| `extension-eng/panel-states` | four states, errors no longer wear the verdict colour | 14/14 proof |
+| `devops/delete-ecc-harness` | C2 — 1,156 files → 43 | — |
+| `content-social/sold-relabel` | every "sold" the data cannot support | in flight |
+
+**In `resale-iq`:** the METRICS layer with an n-floor, five slash commands, `GOALS.md` pre-registered,
+`PATH-TO-TEN.md`, `CLOSED-LOOP.md`, `ESCALATION.md`, AM-7/AM-8/AM-8a, all 21 agent files rebuilt with
+personality, live sources, a dated goal and a real consequence.
 
 ### Live on `main` right now, unfixed
 
-- **C8** — `parse_item` drops rows with an empty `brand_title` and the shelf reads that as a **sale**.
-  Confirmed and measured; the fix is deferred only because it touches a function under review.
-- **A12 HIGH** — three repos of four load no rails at all, including the one whose `main` deploys.
-  `docs/audit/proof/W36/rails-coverage/proof.sh` fails at **1/4** on purpose, to hold that visible.
-- **The GDPR promise** — the live privacy page offers export and erasure the backend does not deliver.
+**C8** (`parse_item` drops assert sales) · **C11** (four paid surfaces ungated — fix awaits merge) ·
+**C12** (the undecomposed 0.70) · **C13** (a scraper block degrades confidence silently) ·
+**C14** (`sold_at` stamped at labelling time) · **C15** (five exits, the bare `except` invisible by
+design) · **A12 HIGH** (rails in 1 repo of 4) · **the GDPR promise**.
 
 ## Next
-1. `tech-lead`'s verdict on the joint review → merge C6 v2, C5, C4, A13 **separately**.
-2. **A12 rollout** — growth and seo, then `demand-intel` last and **additively** (its `PreToolUse`
-   array carries a memory-dir bootstrap a wholesale replace would drop).
-3. **C8 fix** — keep the row, null the field, once `parse_item` is out of review.
-4. A9, A11 (re-scoped to *generate, don't gate*), and the four A8 follow-ons.
+1. `tech-lead` reviews and reconciles — **A15**: `designer` and `frontend-eng` overlap on three files.
+2. **Merge the gate and A13 in ONE release** (A17), never sequenced.
+3. `tech-lead`'s ordering: **relabel** (running) → **narrow the board** → **`buy_below` as a function
+   of velocity**.
+4. **Ask the customer who refunded, why.** Unanimous across four agents. Founder-only.
+5. A9, A11, A12 rollout, and the four A8 follow-ons.
 
 ## Process breach this session — recorded, not tidied away
 
