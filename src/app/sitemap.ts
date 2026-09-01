@@ -3,6 +3,7 @@ import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 import { INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES, catSlug } from "@/lib/seo-categories"
+import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 
 const BASE = "https://resaleiq.dev"
 
@@ -86,11 +87,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 2026-07-30..08-26. They carry the snapshot's lastmod and a high priority
   // because they are entry points to the data-driven estate, not static copy.
   const dataDrivenHubs = new Set(["", "/data", "/flip", "/category"])
+  // Absolute-URL version of hreflangLanguages() — Next's own docs example for
+  // sitemap alternates uses full URLs ('https://nextjs.org/en-US'), not paths.
+  const homeAlternates: Record<string, string> = {}
+  for (const [code, path] of Object.entries(hreflangLanguages())) homeAlternates[code] = `${BASE}${path}`
   const staticPages = ["", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     priority: p === "" ? 1 : p === "/flip" || p === "/category" ? 0.9 : 0.6,
+    // Only "/" has translated siblings today (src/app/[locale]/page.tsx) — see
+    // locale-routes.ts for why the other pages are not in this set yet.
+    ...(p === "" ? { alternates: { languages: homeAlternates } } : {}),
+  }))
+
+  // The five translated homepages. Reciprocal by construction: every entry
+  // here and the "/" entry above point at the exact same homeAlternates map,
+  // so Google never sees a one-way hreflang (the failure mode a partial
+  // rollout would otherwise reproduce).
+  const localePages = PATH_LOCALES.map((locale) => ({
+    url: `${BASE}/${locale}`,
+    lastModified: dataFresh,
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+    alternates: { languages: homeAlternates },
   }))
 
   const brandPages = BRANDS.map((b) => ({
@@ -143,6 +163,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages,
+    ...localePages,
     ...toolPages,
     ...manualPages,
     ...blogPages,

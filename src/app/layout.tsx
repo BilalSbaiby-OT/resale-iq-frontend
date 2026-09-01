@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next"
+import { headers } from "next/headers"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 import { listingsTrackedLabel } from "@/lib/stats"
+import type { Locale } from "@/lib/i18n"
 
 // Self-hosted, NOT hot-linked.
 //
@@ -33,6 +35,7 @@ const desc = (tracked: string) =>
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
   const DESC = desc(tracked)
+  const locale = await requestLocale()
   return {
   metadataBase: new URL("https://resaleiq.dev"),
   title: { default: TITLE, template: "%s" },
@@ -44,7 +47,11 @@ export async function generateMetadata(): Promise<Metadata> {
     url: "https://resaleiq.dev",
     siteName: "Resale IQ",
     type: "website",
-    locale: "en",
+    // Page-level metadata (src/app/[locale]/page.tsx) overrides this per
+    // route; this default only matters for routes with no metadata of their
+    // own. Reads the same proxy-stamped header as <html lang> so the two
+    // never disagree.
+    locale,
   },
   twitter: {
     card: "summary_large_image",
@@ -114,10 +121,25 @@ const orgJsonLd = (tracked: string) => ({
   isAccessibleForFree: true,
 })
 
+/**
+ * There is exactly one <html> tag in the app (Next.js root layout), so it
+ * cannot itself live under `app/[locale]/`. Instead `src/proxy.ts` stamps
+ * every request with `x-resaleiq-locale` (URL-derived, not header-derived —
+ * "/de" always gets "de" even with no Accept-Language at all, which is what
+ * makes it crawlable), and this layout reads that header to set `lang` and
+ * the JSON-LD `inLanguage`. Before this, `lang="en"` was hardcoded and wrong
+ * on every non-English response.
+ */
+async function requestLocale(): Promise<Locale> {
+  const raw = (await headers()).get("x-resaleiq-locale")
+  return (raw as Locale) || "en"
+}
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const ORG_JSONLD = orgJsonLd(await listingsTrackedLabel())
+  const locale = await requestLocale()
+  const ORG_JSONLD = { ...orgJsonLd(await listingsTrackedLabel()), inLanguage: locale }
   return (
-    <html lang="en" className={`dark ${inter.variable} ${mono.variable}`}>
+    <html lang={locale} className={`dark ${inter.variable} ${mono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>

@@ -470,3 +470,11 @@ session: six languages on the conversion path, and a test that tested nothing
 
 free-checker, pricing-section and trial-copy localized. A French or Spanish
 visitor had been hitting an English p`
+- `2026-09-01T10:33:21Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/demand-intel && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/m8.txt" <<'MSG'
+merge: gate the P&L aggregate, and rate-limit the endpoint that costs us money
+
+Two holes backend-eng found while sweeping for E`
+- `2026-09-01T10:37:06Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `npx playwright test e2e/i18n-checker.spec.ts --reporter=line 2>&1|tail -3; git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+merge: locale routing + hreflang, and the wiring both branches left for the merger
+
+seo found this and fixed it: everything we translated was unrea`

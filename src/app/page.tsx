@@ -1,15 +1,8 @@
-import { headers } from "next/headers"
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { PricingSection } from "@/components/landing/pricing-section"
-import { RedirectIfAuthed } from "@/components/landing/redirect-if-authed"
-import { LiveMarketProof } from "@/components/landing/live-market-proof"
-import { ExtensionHero, chromeStoreUrl } from "@/components/landing/extension-hero"
+import { LandingContent } from "@/components/landing/landing-content"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
-import { copy, detectLocale } from "@/lib/i18n"
-import { FreeChecker } from "@/components/tools/free-checker"
-import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
+import { copy } from "@/lib/i18n"
+import { hreflangLanguages } from "@/lib/locale-routes"
 
 import type { Metadata } from "next"
 
@@ -18,8 +11,14 @@ import type { Metadata } from "next"
 // 200 duplicate rather than redirecting, so Google saw two identical
 // homepages and had nothing telling it which one to index. Deep pages were
 // already fine: metadataBase makes their canonicals absolute to the apex.
+//
+// alternates.languages now emits the reciprocal hreflang block for the five
+// translated homepages (src/app/[locale]/page.tsx), plus x-default -> "/".
+// Before this, the site had ZERO hreflang anywhere and no /es /fr /de /it /pt
+// paths existed at all — a translated page and a one-way (or missing) hreflang
+// is treated by Google as noise, not a signal.
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: hreflangLanguages() },
 }
 
 // Server Component ON PURPOSE. This is the site's most-linked page and its
@@ -27,151 +26,22 @@ export const metadata: Metadata = {
 // the full reasoning. Only the two genuinely interactive pieces (the signed-in
 // redirect and the pricing section) are Client Components. Do not add
 // "use client" here to get a hook; extract a child component instead.
+//
+// ALWAYS renders English. It used to read Accept-Language and silently swap
+// in another language's copy with no URL change and no Vary header — the
+// exact thing that made every translated page invisible to Google (a crawler
+// does not send a meaningful Accept-Language, so it only ever saw English
+// here regardless of what a browser saw). Language switching is now a URL
+// decision: src/proxy.ts redirects a first-time visitor whose browser prefers
+// a market we translate to "/<locale>"; "/" itself is the fixed English page
+// those locale pages point x-default at.
 export default async function Landing() {
   const tracked = await listingsTrackedLabel()
   // Exact in the proof band: it moves with every scrape, and a precise
   // figure is the harder claim. Anyone can write a round number.
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
-  const chrome = chromeStoreUrl()
-  const locale = detectLocale((await headers()).get("accept-language"))
-  const t = copy[locale]
   return (
-    <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
-      <RedirectIfAuthed />
-      {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
-        <Link href="/" aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", color: "inherit" }}>
-          <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
-          <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
-        </Link>
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>{t.signIn}</Link>
-          {/* Demoted from a green button. It was pulling the eye away from the
-              one action on the page, and put a second green element in the
-              top-right corner of a layout whose whole point is that green
-              means "click this". */}
-          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>{t.pricing}</a>
-        </div>
-      </nav>
-
-      <main id="main">
-      {/* Hero — ASYMMETRIC ON PURPOSE.
-          It was centred: pill badge, centred headline, centred paragraph, two
-          centred buttons, proof panel underneath. That stack is the default
-          shape of every generated landing page, which is most of why the site
-          "looked AI generated" — the words were only half of it.
-
-          Two columns instead: the claim on the left, the evidence beside it
-          rather than below it. A sceptical reseller reads "highest price to
-          pay" and sees real weekly departure counts in the same glance, with no
-          scroll between promise and proof. */}
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "64px 24px 48px" }}>
-        <div className="riq-hero">
-          <div>
-            <h1 style={{ fontSize: 52, fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.04, margin: 0 }}>
-              {t.heroTitle}
-            </h1>
-            <p style={{ fontSize: 17.5, color: "#93a1bd", marginTop: 22, lineHeight: 1.6, maxWidth: 480 }}>
-              {t.heroBody}
-            </p>
-            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 12, maxWidth: 480 }}>
-              {t.heroFrom(tracked)}
-            </p>
-            {/* Additive, not a swap for the confident demo below — the demo
-                stays the "holy shit" moment, this states the product's real
-                answer rate before anyone has to discover it themselves.
-                docs/product/DESIGN-REVIEW.md §4. */}
-            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 6, maxWidth: 480 }}>
-              {t.heroHonesty}
-            </p>
-
-            {/* Checker is the job on every viewport. Chrome cannot run on a
-                phone, so it stays a desktop-only secondary link. */}
-            <div id="check" style={{ marginTop: 28, maxWidth: 520 }}>
-              <FreeChecker locale={locale} />
-              <p style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 10, lineHeight: 1.5 }}>
-                {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
-              <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "10px 16px", borderRadius: 8 }}>
-                {t.addToChrome} <ArrowRight size={14} />
-              </a>
-              <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
-                {t.orCheck}
-              </Link>
-            </div>
-          </div>
-
-          <div className="hidden md:block">
-            <ExtensionHero />
-          </div>
-        </div>
-      </section>
-
-      {/* Features — 3×2 grid, balanced. */}
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "48px 24px 20px" }}>
-        <div className="riq-grid-features">
-          {[
-            ...t.features,
-          ].map(({ t: title, d }) => (
-            <div key={title} style={{ padding: "18px 0" }}>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{title}</div>
-              <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 28px" }}>
-        <LiveMarketProof />
-      </section>
-
-      {/* Trust signals — inline, no borders, no template. */}
-      <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
-        <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
-          <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
-          <span>Scraped every 30 min</span>
-          <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
-          <span>{t.noAccuracy}</span>
-        </div>
-      </section>
-
-      <PricingSection locale={locale} />
-      </main>
-
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#8b99b8", fontSize: 12 }}>
-        {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
-        <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-          <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>Free tools</Link>
-          {/* The HUBS, not just leaves. /flip/nike and /category/sneakers were
-              already here, but the indexes themselves sat at crawl depth 2 —
-              reachable only through a leaf. Linking the hubs from the homepage
-              puts them at depth 1 and gives every child page a shorter path to
-              authority. Requested by the SEO agent; page.tsx is the growth lane,
-              which is why it needed doing here. */}
-          <Link href="/flip" style={{ color: "#8b99b8", textDecoration: "none" }}>What to flip</Link>
-          <Link href="/category" style={{ color: "#8b99b8", textDecoration: "none" }}>Categories</Link>
-          <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>Nike resale</Link>
-          <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>Sneakers</Link>
-          <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
-          <Link href="/methodology" style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
-          <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>Market data</Link>
-          <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>API</Link>
-          <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>Blog</Link>
-          <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>Terms</Link>
-          <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>Privacy</Link>
-          <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>Legal notice</Link>
-          <Link href="/support" style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
-          <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
-        </div>
-        <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
-        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
-          Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
-        </div>
-      </footer>
-    </div>
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} />
   )
 }
