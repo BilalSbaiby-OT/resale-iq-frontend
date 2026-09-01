@@ -1108,3 +1108,10 @@ urgent: the crawl is decaying 1.8x and it is our storage layer, not Vinted
 
 The monetisation workflow found it while pricing six products on a volume figure
 and noticing the vo`
+- `2026-09-01T23:44:13Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session10.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s10.txt <<'MSG'
+session: the crawl decay outranks the doctrine work, and t`
+- `2026-09-01T23:44:23Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git status --porcelain | grep -v "^??"; git add docs/company/SECURITY-LOG.md 2>/dev/null && git commit -q -m "log: guard entries from the doctrine migration and decay verification
+
+Appended by the hook. Committed so the audit trail survives the session.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthro`
