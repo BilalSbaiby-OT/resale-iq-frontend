@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T00:45:40Z",
+  "generated_at": "2026-09-01T00:47:33Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -31,9 +31,14 @@
       "**Definitions land BEFORE A13**, and A13 registers against **`band_coverage_supply`** (n=100,",
       "**Calendar control required:** the observed-sales corpus is 11 days deep (`MIN(sold_at)` =",
       "**Delete the \"upper bound\" wording** (it names a bias that will no longer exist) and replace it",
-      "**Close it properly:** `ALTER TABLE verdict_logs ADD COLUMN comparable_n INTEGER`, written at"
+      "**Close it properly:** `ALTER TABLE verdict_logs ADD COLUMN comparable_n INTEGER`, written at",
+      "**The 19% `LIMIT_REACHED` figure is measured on a window ending at the moment the fix merged.**",
+      "**The 40.9% was misattributed by 3 of 6 artefacts.** `insufficient_data_rate.sql` counts",
+      "**A8 consequence:** C5 routes *more* traffic to `INSUFFICIENT_DATA`, so every 40.9% in that",
+      "**Consider renaming `insufficient_data_rate` → `refusal_rate`** in the A8 gate. A name that",
+      "**Label it a mechanism smoke run and exclude it from the 7-day strip.** OS §3 scores"
     ],
-    "count": 29
+    "count": 34
   },
   "company": {
     "mrr": {
@@ -112,15 +117,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 25.2,
-      "n": 1338,
+      "value": 27.1,
+      "n": 1337,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
       "value": 12698065
     },
     "newest_sold_at": {
-      "value": "2026-09-01 00:44:55"
+      "value": "2026-09-01 00:47:29"
     },
     "predictions_total": {
       "value": 340
@@ -580,6 +585,14 @@
     ],
     "recent_commits": [
       {
+        "sha": "08421ea",
+        "msg": "canary: mark the first run unscoreable -- 60/60 was arithmetically guaranteed"
+      },
+      {
+        "sha": "be0772f",
+        "msg": "dashboard: mark merged branches, and record the retroactive §0.7 review"
+      },
+      {
         "sha": "d067ad6",
         "msg": "marketing: correct the QUEUE provenance before the founder reads it at 08:30"
       },
@@ -618,17 +631,9 @@
       {
         "sha": "78fcf7c",
         "msg": "chore: security log records the rails blocking a commit that documented them"
-      },
-      {
-        "sha": "f3daf0d",
-        "msg": "approvals: verifier dissents on A8/A12 and turns the audit on itself"
-      },
-      {
-        "sha": "2d1bf27",
-        "msg": "gaps: C9 + C10 correct my own metrics; A13 is the 19-point one-token fix"
       }
     ],
-    "dirty": true,
+    "dirty": false,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-09-01T01:50:00Z\nWIP:     none - session complete. METRICS layer shipped; C6/C5/C4 fixed on\n         demand-intel branch claude/backend-eng/data-defects-c6-c5-c4 awaiting\n         tech-lead review; A8 (3 KPI definition decisions) and A9 (memory SCOPE)\n         open in APPROVALS.\nRELEASE: delete this file, or set HOLDER: none\n\nWIP = 1 per agent (OS 0.5). If "
   },
   "audits": [
@@ -686,6 +691,76 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-01T00:47:01Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io, json\np=\"docs/audit/canary/runs/log.jsonl\"\nrows=[json.loads(l) for l in io.open(p,encoding=\"utf-8\") if l.strip()]\nassert len(rows)==1, len(rows)\nr=rows[0]\n# tech-lead: froze",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:46:41Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 -c \"\nimport json\nd=json.loads(open('docs/audit/canary/runs/log.jsonl').readline())\nprint(sorted(d.keys()))\n\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:46:37Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 -c \"\nimport json\nfor line in open('docs/audit/canary/runs/log.jsonl'):\n    d=json.loads(line)\n    print(json.dumps({k:d.get(k) for k in ('run_at','frozen_at','result','unchanged','total','can_",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:46:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n---\n\n### The retroactive §0.7 review — done. 12 artefacts, 7 sound, 3 needs-work, **0 must-not-",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:45:48Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 -c \"\nimport json; d=json.load(open('dashboard/data.json'))\ndep=d['departments']\nrows = dep['agents'] if isinstance(dep, dict) else dep\nfor a in rows:\n    if isinstance(a, dict) and a.get('bran",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:45:48Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "until [ -s /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tasks/ben7qnqi0.output ]; do sleep 5; done; cat /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:45:43Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"scripts/company/build_dashboard.py\"; s=io.open(p,encoding=\"utf-8\").read()\nold = '''            for b in sh(f\"git branch --list 'claude/{name}/*'\", cwd=repo).splitlines():",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-01T00:45:05Z",
       "session": "fb348ebc",
@@ -1119,76 +1194,6 @@
       "tool": "Bash",
       "files": [],
       "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\npython3 - <<'PYEOF'\nimport re\nhtml = open(\"item1.html\", encoding=\"utf-8\", errors=\"ignore\").read()\nfor",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:17Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat e2e/regression-p0.spec.ts; echo \"=============== MARKET COVERAGE ===============\"; cat e2e/market-coverage.spec.ts",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/SESSION.md\"; s=io.open(p,encoding=\"utf-8\").read()\nmarker = \"## Next\"\nadd = '''## Process breach this session — recorded, not tidied away\n\n**My `git add -A` s",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:13Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -o 'data-testid=\\\\\"[a-z-]*buy[a-z-]*\\\\\"' item1.html | sort -u\ngrep -o 'data-testid=\\\\\"[a-z-]*sta",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:12Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git show f634592 --stat --format=\"\" | tail -30; echo \"=== TOTAL ===\"; git show f634592 --stat --format=\"\" | wc -l",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git show f634592 --stat | head -80",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:03Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\npython3 - <<'PYEOF'\nimport re\nhtml = open(\"item1.html\", encoding=\"utf-8\", errors=\"ignore\").read()\n# f",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:39:00Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -o '\"id\":9832876594[^}]*}' item1.html | head -3\necho ---\ngrep -o '\"itemId\":9832876594' item1.htm",
       "url": "",
       "ok": true
     }
