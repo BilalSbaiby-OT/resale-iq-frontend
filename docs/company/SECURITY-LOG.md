@@ -501,3 +501,8 @@ anchor="# Resale IQ — unattended agent rules"
 add = """# Resale IQ — unattended agent rules
 
 > **`docs/company/OBJECTIVE.md` sits above everything here. MAXIMIZE LONG-TERM PROFIT.**`
+- `2026-09-01T10:56:19Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+media: veo video generation works -- 720x1280, 8s, from our own key
+
+I said I would not claim veo worked until I ran it. Ran it: 4.5MB mp4, 720x1280
+vertical, 8 seconds, ~45s to generate on veo-3.1-fast-generate-preview. T`
