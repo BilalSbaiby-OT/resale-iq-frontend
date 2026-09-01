@@ -1078,3 +1078,67 @@ on it is not.
 
 **Starter €19 is unaffected and is the safer product to push tonight** — the same conclusion
 `chief-of-staff` reached independently.
+
+
+#### `data-scientist` re-measures — **and the tier design is not viable as stated**
+
+**1. The metric is not merely stale, it is UNSTABLE.** Its own pinned control failed:
+
+> **`band_coverage_supply` moved 43.0 % → 40.0 % in under two hours with no code change.** Nothing
+> shipped. The analyzer rebuilt the board and three models fell out of the priced set.
+
+Brief it as **"~37 %, ±3 pp of rebuild noise, measured 2026-09-01, drifting until ~2026-09-20"** —
+never as a fixed property.
+
+**2. The gate's cost, both arms on the same snapshot:** today **63 %** of the board goes blank;
+post-A13, **37 %**. My "57 %" was wrong and `product-manager`'s "~38 %" was right. **A13 cushions
+41 % of the gate's cost** (26 of the 63 silenced models are lifted back).
+
+**3. It withdrew its own sequencing, for a stronger reason than cushioning.** It had said "gate
+first, or in the same PR." It now says **one release only**:
+
+> Every one of the 18 ungated models whose price moves under A13 **stays below 8 and is therefore
+> gated by the combined release.** Shipping together means those prices never publish their swing on
+> a paid surface at all — they go dark instead. **Gating first and A13 second reaches the same
+> endpoint through a worse intermediate state**, publishing the +160 % `Levi's Trucker` move to
+> paying users and then removing it.
+
+**4. THE TIER DESIGN DOES NOT SURVIVE MEASUREMENT.** `product-manager` proposed that Pro promise a
+recommendation only on HIGH (`n ≥ 30`). Counted:
+
+| arm | HIGH `n ≥ 30` | MEDIUM `8–29` | hidden `< 8` |
+|---|---:|---:|---:|
+| models, today | 5 | 32 | 63 |
+| models, post-A13 | **6** | 57 | 37 |
+| **searches** (n=180), post-A13 | **22 (12.2 %)** | 124 | 11 |
+
+**A13 does essentially nothing for HIGH — 5→6 models, 22→22 searches.** All of its lift lands in
+MEDIUM. And the HIGH band is **16 of its 22 searches on a single model** (New Balance 530); three of
+the six have ≤2 searches ever; four of six are luxury resale, not the sneakers the demand log is full
+of.
+
+> *"A €49 tier whose core promise reaches one in eight searches, concentrated in a single SKU, is a
+> promise that will read as broken."*
+
+**MEDIUM is where the product is** — 57 models, 124 searches, 68.9 % of the answered population. If
+Pro's differentiator is a recommendation, **it has to fire on MEDIUM with its `n` visible.**
+
+**5. `n ≥ 30` is not derived from anything.** Unlike 8 (`MIN_VERDICT_COMPARABLES`, anchored in the
+North Star, `/methodology` and the four panel states), nothing depends on 30 yet — so it can
+legitimately be chosen, but **against a stated statistical criterion, or it is threshold-shopping
+wearing a tier name.** It offered to derive it from the drift-versus-`n` curve; requested.
+
+**6. It withdrew its own proposed counter.** *"No model's `comparable_n` may decrease"* is
+**unusable as a live monitor** — the 43→40 drift proves `comparable_n` decreases on its own between
+rebuilds, so it would fire on ordinary analyzer runs. Valid only as a **proof-time** assertion on one
+frozen snapshot. `MIN(comparable_n) = 8` survives, because it tracks the threshold rather than the
+population.
+
+**7. A governance-level finding, and the sharpest thing in the reply:**
+
+> **Any counter threshold tighter than ±3 pp on a supply-side proportion will fire on rebuild noise
+> alone. OS §7's "counter may not degrade > 2 pp" is INSIDE this metric's natural volatility.**
+
+- [ ] **OS §7's 2 pp rule cannot be applied to supply-side proportions as written.** Either the rule
+      takes a per-metric noise band, or the verifier will score MISSes the analyzer produced. Three or
+      four readings across a day before freezing any baseline.
