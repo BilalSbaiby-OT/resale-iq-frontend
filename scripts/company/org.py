@@ -74,7 +74,7 @@ def workboard_rows():
     p = os.path.join(ROOT, "docs", "company", "WORKBOARD.md")
     if not os.path.exists(p):
         return []
-    rows = []
+    rows, seen_ids = [], set()
     for line in open(p, encoding="utf-8"):
         m = re.match(r"^\|\s*\*\*(W\d+)\*\*\s*\|(.*)$", line.strip())
         if not m:
@@ -84,7 +84,14 @@ def workboard_rows():
             continue
         status = "CLOSED" if "**CLOSED**" in cells[3] else (
             "BLOCKED" if "BLOCKED" in cells[3] else "OPEN")
-        rows.append({"id": m.group(1),
+        # Duplicate ids happened for real: finance-ops added W21-W25 without
+        # checking the highest in use and collided with CEO-added rows, so the
+        # stale-check reported rows that did not exist as written. Flag rather
+        # than silently dedupe -- a board that quietly drops a row is worse than
+        # one that says it is confused.
+        dup = m.group(1) in seen_ids
+        seen_ids.add(m.group(1))
+        rows.append({"id": m.group(1), "duplicate_id": dup,
                      "finding": re.sub(r"\*\*|`", "", cells[0])[:220],
                      "found_by": re.sub(r"\*\*|`", "", cells[1]),
                      "doer": re.sub(r"\*\*|`", "", cells[2]),
@@ -117,6 +124,39 @@ def agent_activity(name):
         listing = sh("git branch --format='%(refname:short)'", cwd=repo)
         allb += [b for b in listing.splitlines() if b.strip().startswith(f"claude/{name}/")]
     return {"merged_branches": len(out), "branches": len(allb)}
+
+
+def stale_open_rows(rows):
+    """Rows still marked OPEN whose work already shipped.
+
+    THE BOARD MUST AUDIT ITSELF. "Remember to close the row" is not a process --
+    on 2026-09-01 the CEO listed a deleted Instagram reel as outstanding in three
+    consecutive summaries, and left W19 and W41 open after both had shipped and
+    deployed. A stale row spends the founder's attention on finished work and
+    makes every other row less believable.
+
+    Evidence of shipping = the row id appears in a commit message on main in
+    either repo. That is deliberately a loose test: it produces a SUSPECTED
+    list, not an automatic close. Closing a row is a judgement about whether the
+    finding is actually resolved, and a grep does not get to make it -- but a
+    grep is perfectly capable of asking the question.
+    """
+    out = []
+    for r in rows:
+        if r["status"] != "OPEN":
+            continue
+        hits = []
+        for repo, label in ((ROOT, "resale-iq"),
+                            (os.path.join(os.path.dirname(ROOT), "demand-intel"),
+                             "demand-intel")):
+            if not os.path.isdir(os.path.join(repo, ".git")):
+                continue
+            found = sh(f"git log --oneline --grep='\\b{r['id']}\\b' main | head -3", cwd=repo)
+            if found:
+                hits += [f"{label}: {l}" for l in found.splitlines()]
+        if hits:
+            out.append({**r, "shipped_evidence": hits})
+    return out
 
 
 def bus_state():
@@ -252,6 +292,7 @@ def published_posts():
 
 def main():
     rows = workboard_rows()
+    stale = stale_open_rows(rows)
     bus = bus_state()
     posts = published_posts()
     stripe = stripe_state()
@@ -305,6 +346,7 @@ def main():
         "company_kpis": kpis,
         "departments": depts,
         "workboard": rows,
+        "stale_open": stale,
         "bus": bus,
         "stripe": stripe,
         "totals": {
@@ -313,6 +355,7 @@ def main():
             "rows_closed": sum(1 for r in rows if r["status"] == "CLOSED"),
             "rows_blocked": sum(1 for r in rows if r["status"] == "BLOCKED"),
             "bus_messages": len(bus["messages"]),
+            "stale_open": len(stale),
         },
     }
 
@@ -342,6 +385,12 @@ def main():
         v = "UNKNOWN" if k["unknown"] else k["value"]
         tgt = "" if k["target"] is None else f" / {k['target']}"
         print(f"  {k['kpi']:<30} {v}{tgt}")
+    if stale:
+        print(f"\n⚠ {len(stale)} OPEN rows look SHIPPED — close or explain:")
+        for r in stale:
+            print(f"  {r['id']:<5} {r['finding'][:60]}")
+            for e in r["shipped_evidence"][:2]:
+                print(f"        {e[:96]}")
     print(f"\nwrote {OUT}")
     return 0
 

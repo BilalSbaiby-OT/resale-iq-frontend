@@ -706,3 +706,8 @@ rule: verify a claim against the thing it describes -- now in all 21 agents
 
 The founder: "make sure mistakes like this never happened, solve the underlying
 issue and a`
+- `2026-09-01T14:23:23Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mwf.txt" <<'MSG'
+workflow: the board audits itself, and two ways it was quietly lying
+
+The founder: rows already done that I never closed, make sure it never happens
+again, and design the`

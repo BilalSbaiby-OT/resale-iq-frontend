@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-09-01T14:07:30Z",
+  "generated_at": "2026-09-01T14:23:03Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
       "target": 100,
       "counter": "refund rate",
       "source": "stripe",
-      "value": 0,
-      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
-      "unknown": false,
-      "why_unknown": null
+      "value": null,
+      "note": null,
+      "unknown": true,
+      "why_unknown": "never measured — source is stripe"
     },
     {
       "kpi": "signups",
@@ -36,10 +36,10 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": 6,
+      "value": null,
       "note": null,
-      "unknown": false,
-      "why_unknown": null
+      "unknown": true,
+      "why_unknown": "never measured — source is growth.db"
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -60,7 +60,7 @@
         {
           "agent": "product-manager",
           "is_head": true,
-          "merged_branches": 0,
+          "merged_branches": 1,
           "open_rows": 3,
           "closed_rows": 0,
           "findings_raised": 0,
@@ -159,7 +159,7 @@
         {
           "agent": "data-eng",
           "is_head": false,
-          "merged_branches": 0,
+          "merged_branches": 1,
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
@@ -223,9 +223,9 @@
           "agent": "devops",
           "is_head": true,
           "merged_branches": 1,
-          "open_rows": 4,
+          "open_rows": 3,
           "closed_rows": 0,
-          "findings_raised": 1,
+          "findings_raised": 2,
           "unread_mail": 1
         },
         {
@@ -257,8 +257,8 @@
         }
       ],
       "rows_closed": 0,
-      "rows_open": 6,
-      "findings_raised": 8
+      "rows_open": 5,
+      "findings_raised": 9
     },
     "Office of the CEO": {
       "head": "chief-of-staff",
@@ -291,6 +291,7 @@
   "workboard": [
     {
       "id": "W1",
+      "duplicate_id": false,
       "finding": "E2 — registering makes the product WORSE. Anonymous sees buy_below + sell_avg; logged-in free sees less for the same query (routes.py:975-995 vs 1022-1039), while the only CTA on every result page is \"Unlock the rest →\" ",
       "found_by": "ux-researcher → monetization",
       "doer": "backend-eng",
@@ -298,6 +299,7 @@
     },
     {
       "id": "W2",
+      "duplicate_id": false,
       "finding": "/flip: 136 of 157 URLs, and all 10 /category, have never earned one Google impression",
       "found_by": "seo",
       "doer": "seo",
@@ -305,6 +307,7 @@
     },
     {
       "id": "W12",
+      "duplicate_id": false,
       "finding": "TWO POSTS PUBLISHED, aggregate-only, no per-model price. twitter.com/ResaleIQdev/status/2094748731514188031 (Nike concentration) and .../2094758863832842553 (New Balance demand, n=309). Spanish version queued. The pipeli",
       "found_by": "CEO",
       "doer": "CEO",
@@ -312,6 +315,7 @@
     },
     {
       "id": "W18",
+      "duplicate_id": false,
       "finding": "REDDIT IS UNREACHABLE FROM THIS ENVIRONMENT — the 10k-views plan has to change. legal-compliance made eleven fetch attempts across five techniques (direct, old.reddit.com, .json, .rss, a text-extraction proxy, two Redlib",
       "found_by": "legal-compliance → CEO",
       "doer": "CEO",
@@ -319,13 +323,15 @@
     },
     {
       "id": "W24",
-      "finding": "Every deploy still drops the site for a few seconds. Caught live during the hourly check: /, /es, /fr returned 000 while /de, /it, /pt served 200 — two minutes after my own push. All 200 on retest. The cancel-in-progress",
-      "found_by": "CEO (measured live)",
-      "doer": "devops",
+      "duplicate_id": false,
+      "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
+      "found_by": "CEO (measured live) → devops (root-caused + re-measured 2026-09-01)",
+      "doer": "founder (Coolify UI, see fix below)",
       "status": "OPEN"
     },
     {
       "id": "W25",
+      "duplicate_id": false,
       "finding": "~~STRIPE IS IN TEST MODE~~ — RETRACTED. I WAS WRONG.",
       "found_by": "CEO",
       "doer": "CEO",
@@ -333,6 +339,7 @@
     },
     {
       "id": "W3",
+      "duplicate_id": false,
       "finding": "resaleiq.com is not ours, returns 200, someone else owns it. Two queued posts pointed at it",
       "found_by": "CEO",
       "doer": "founder",
@@ -340,6 +347,7 @@
     },
     {
       "id": "W4",
+      "duplicate_id": false,
       "finding": "53 remaining queue drafts carry retracted vocabulary and/or per-model prices",
       "found_by": "content-social",
       "doer": "content-social",
@@ -347,6 +355,7 @@
     },
     {
       "id": "W5",
+      "duplicate_id": false,
       "finding": "compute_authenticity_score returns market_avg_price — a paid field — to any authenticated user",
       "found_by": "backend-eng",
       "doer": "product-manager decides, then backend-eng",
@@ -354,6 +363,7 @@
     },
     {
       "id": "W6",
+      "duplicate_id": false,
       "finding": "ELEVENLABS_API_KEY returns 401. Voiceover dead; ELEVENLABS_VOICE_ID already set",
       "found_by": "CEO",
       "doer": "founder",
@@ -361,6 +371,7 @@
     },
     {
       "id": "W7",
+      "duplicate_id": false,
       "finding": "Rotate RESEND_API_KEY — reached a transcript today",
       "found_by": "devops",
       "doer": "founder",
@@ -368,6 +379,7 @@
     },
     {
       "id": "W8",
+      "duplicate_id": false,
       "finding": "Video assets are B-roll, not marketing. Need product-in-frame: listing in, verdict out, hook text frame one",
       "found_by": "founder",
       "doer": "CEO",
@@ -375,6 +387,7 @@
     },
     {
       "id": "W9",
+      "duplicate_id": false,
       "finding": "live-market-proof.tsx, extension-hero.tsx, watchedSampleNote() still English in all 5 markets",
       "found_by": "frontend-eng",
       "doer": "frontend-eng",
@@ -382,6 +395,7 @@
     },
     {
       "id": "W10",
+      "duplicate_id": false,
       "finding": "Pricing proposal never implemented. Recommendation was hold €19/€49 — but the *enforcement* half shipped and the *tier* half was never decided",
       "found_by": "monetization",
       "doer": "product-manager",
@@ -389,6 +403,7 @@
     },
     {
       "id": "W11",
+      "duplicate_id": false,
       "finding": "A live Instagram reel (growth.db content id 51, published 2026-08-30, instagram.com/resaleiqx/reel/Dcq6Dq6tjGp/) is already carrying the exact defects W4 removed from the draft queue — per-model buy-ceiling prices for 5 ",
       "found_by": "content-social",
       "doer": "founder (takedown/edit needs Postiz/Instagram UI access) + legal-compliance (confirm the Balenciaga call)",
@@ -396,6 +411,7 @@
     },
     {
       "id": "W19",
+      "duplicate_id": false,
       "finding": "The entire post-click auth funnel is unlocalized. /es /fr /de /it /pt landing pages are genuinely translated (src/lib/i18n.ts, src/app/[locale]/page.tsx), but every CTA off them (landing-content.tsx) points at bare Engli",
       "found_by": "customer-success (code read, browser walk blocked — see W21)",
       "doer": "frontend-eng",
@@ -403,6 +419,7 @@
     },
     {
       "id": "W20",
+      "duplicate_id": false,
       "finding": "docs/company/GOALS.md:117 still states the false \"1 customer ever, refunded and cancelled.\" Corrected everywhere else it appeared (PATH-TO-TEN.md, GTM.md, MONETIZATION.md, DIGEST-2026-09-01.md — see ACTIVATION.md §4) wit",
       "found_by": "customer-success",
       "doer": "whoever holds the GOALS.md hash (CEO/product-manager)",
@@ -410,6 +427,7 @@
     },
     {
       "id": "W21",
+      "duplicate_id": false,
       "finding": "The Browser pane is unusable for customer-success this session. tab-1 is pinned to a local file preview; every navigate (including via browser_batch, resize_window) fails with \"Open a new tab with tabs_create\" — a tool n",
       "found_by": "customer-success",
       "doer": "devops/CEO (fix the tab state or grant tabs_create)",
@@ -417,6 +435,7 @@
     },
     {
       "id": "W22",
+      "duplicate_id": false,
       "finding": "Traffic source breakdown is CONFLICTING and affects all visitor-based models by 25×. GSC shows 6 clicks/month from organic search (2026-08-31 data, 906 impressions). Pageviews show ~150 visitors/month net of bots (2026-0",
       "found_by": "finance-ops (identified gap)",
       "doer": "seo or analytics",
@@ -424,6 +443,7 @@
     },
     {
       "id": "W23",
+      "duplicate_id": false,
       "finding": "Trial→paid rate is UNKNOWN (n=0); trial machine is 2–3× lever on timeline. Company has never measured trial→paid because trial-expiry machine does not exist. PATH-TO-TEN.md assumes 5–15% from industry SaaS. UNIT-ECONOMIC",
       "found_by": "finance-ops (identified lever)",
       "doer": "backend-eng (ready code) + founder (approval to ship email)",
@@ -431,20 +451,23 @@
     },
     {
       "id": "W15",
+      "duplicate_id": false,
       "finding": "PENDING and LIMIT_REACHED blockers hide 24% of traffic from conversion. 19 of 78 requests silently fail (PENDING); another set show \"NO DATA\" with no upgrade CTA (LIMIT_REACHED). These artificially depress funnel metrics",
       "found_by": "finance-ops",
       "doer": "backend-eng",
       "status": "OPEN"
     },
     {
-      "id": "W24",
+      "id": "W43",
+      "duplicate_id": false,
       "finding": "Organic CAC is estimated at €100–150 at current burn, breakeven with 6-month LTV. Paid CAC > €200 will not pay back. Decision framework: stay organic for next 6 months, measure LTV and churn, switch to paid only when LTV",
       "found_by": "finance-ops",
       "doer": "CEO (channel decision)",
       "status": "OPEN"
     },
     {
-      "id": "W25",
+      "id": "W44",
+      "duplicate_id": false,
       "finding": "100 customers timeline is 12–30 months on organic with trial machine + organic growth 2–3× + funnel fixes, NOT 4–6 months. Central estimate: 33k visitors at current 150/mo (all channels) or 6/mo (organic only) = 222 mont",
       "found_by": "finance-ops",
       "doer": "CEO (reset KPI expectations)",
@@ -452,6 +475,7 @@
     },
     {
       "id": "W40",
+      "duplicate_id": false,
       "finding": "Even setting the Reddit egress block (W18) aside, legal-compliance has no way to read resale-iq-growth/data/growth.db. growth.db is a binary SQLite file; this role's toolset (Read/Write/WebSearch/WebFetch/Grep/Glob + a b",
       "found_by": "legal-compliance",
       "doer": "devops/CEO — grant a read-only DB tool to legal-compliance, or route \"confirm this draft is compliant\" asks through an agent that already has DB access",
@@ -459,6 +483,7 @@
     },
     {
       "id": "W41",
+      "duplicate_id": false,
       "finding": "COMPLIANCE.md finding #1 — the GDPR export/erasure gap — re-confirmed live today, unchanged from this morning's audit. delete_account (demand-intel/api/auth.py:842-851) still issues only DELETE FROM users WHERE id=?, no ",
       "found_by": "legal-compliance (re-confirmed against current code, not on trust)",
       "doer": "backend-eng ships COMPLIANCE.md §1.5 steps 2-4",
@@ -466,10 +491,120 @@
     },
     {
       "id": "W42",
+      "duplicate_id": false,
       "finding": "New /privacy extension-telemetry paragraph (added today, \"Last updated: 1 September 2026\") checked against the actual extension code and the Chrome Web Store listing draft: accurate, consistent across all three surfaces,",
       "found_by": "legal-compliance",
       "doer": "backend-eng (when the route ships, it must store only reason+market, nothing more — a one-line check before merge, not after) + devops/founder (confirm the Chrome Web Store console's actual ticked data-use declarations match STORE-LISTING.md v1.3.0 — the *live* listing is still v1.2.0 per that file's own header)",
       "status": "OPEN"
+    }
+  ],
+  "stale_open": [
+    {
+      "id": "W24",
+      "duplicate_id": false,
+      "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
+      "found_by": "CEO (measured live) → devops (root-caused + re-measured 2026-09-01)",
+      "doer": "founder (Coolify UI, see fix below)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: c8d607f session: hourly loop -- six posts live, and a deploy window caught in the act",
+        "resale-iq: ce0ac1e loop: two more posts live, and a deploy window caught in the act"
+      ]
+    },
+    {
+      "id": "W25",
+      "duplicate_id": false,
+      "finding": "~~STRIPE IS IN TEST MODE~~ — RETRACTED. I WAS WRONG.",
+      "found_by": "CEO",
+      "doer": "CEO",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 5af9670 STRIPE IS IN TEST MODE -- we cannot take money, and that is why nobody has paid"
+      ]
+    },
+    {
+      "id": "W11",
+      "duplicate_id": false,
+      "finding": "A live Instagram reel (growth.db content id 51, published 2026-08-30, instagram.com/resaleiqx/reel/Dcq6Dq6tjGp/) is already carrying the exact defects W4 removed from the draft queue — per-model buy-ceiling prices for 5 ",
+      "found_by": "content-social",
+      "doer": "founder (takedown/edit needs Postiz/Instagram UI access) + legal-compliance (confirm the Balenciaga call)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 7eb5b81 workboard: W11 closed -- the founder deleted the reel hours ago and I kept asking"
+      ]
+    },
+    {
+      "id": "W19",
+      "duplicate_id": false,
+      "finding": "The entire post-click auth funnel is unlocalized. /es /fr /de /it /pt landing pages are genuinely translated (src/lib/i18n.ts, src/app/[locale]/page.tsx), but every CTA off them (landing-content.tsx) points at bare Engli",
+      "found_by": "customer-success (code read, browser walk blocked — see W21)",
+      "doer": "frontend-eng",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: ae8a6cf session: a false CI alarm led to a real defect visitors were hitting",
+        "resale-iq: d2e5a39 merge: the signup flow speaks the language the visitor was pitched in (W19)",
+        "resale-iq: 7d8fdbf i18n: W19 -- localize the post-signup funnel (register, check-email, verify-email, dashboard)"
+      ]
+    },
+    {
+      "id": "W20",
+      "duplicate_id": false,
+      "finding": "docs/company/GOALS.md:117 still states the false \"1 customer ever, refunded and cancelled.\" Corrected everywhere else it appeared (PATH-TO-TEN.md, GTM.md, MONETIZATION.md, DIGEST-2026-09-01.md — see ACTIVATION.md §4) wit",
+      "found_by": "customer-success",
+      "doer": "whoever holds the GOALS.md hash (CEO/product-manager)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: add0565 activation: the Spanish funnel ends at an English legal form"
+      ]
+    },
+    {
+      "id": "W21",
+      "duplicate_id": false,
+      "finding": "The Browser pane is unusable for customer-success this session. tab-1 is pinned to a local file preview; every navigate (including via browser_batch, resize_window) fails with \"Open a new tab with tabs_create\" — a tool n",
+      "found_by": "customer-success",
+      "doer": "devops/CEO (fix the tab state or grant tabs_create)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 994874f economics: the phantom conversion rate is gone, and the traffic figures disagree by 25x",
+        "resale-iq: add0565 activation: the Spanish funnel ends at an English legal form"
+      ]
+    },
+    {
+      "id": "W22",
+      "duplicate_id": false,
+      "finding": "Traffic source breakdown is CONFLICTING and affects all visitor-based models by 25×. GSC shows 6 clicks/month from organic search (2026-08-31 data, 906 impressions). Pageviews show ~150 visitors/month net of bots (2026-0",
+      "found_by": "finance-ops (identified gap)",
+      "doer": "seo or analytics",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: c8d607f session: hourly loop -- six posts live, and a deploy window caught in the act",
+        "resale-iq: 994874f economics: the phantom conversion rate is gone, and the traffic figures disagree by 25x"
+      ]
+    },
+    {
+      "id": "W23",
+      "duplicate_id": false,
+      "finding": "Trial→paid rate is UNKNOWN (n=0); trial machine is 2–3× lever on timeline. Company has never measured trial→paid because trial-expiry machine does not exist. PATH-TO-TEN.md assumes 5–15% from industry SaaS. UNIT-ECONOMIC",
+      "found_by": "finance-ops (identified lever)",
+      "doer": "backend-eng (ready code) + founder (approval to ship email)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 6baf07a ci: stop stacking rebuilds -- they were showing real visitors an error page",
+        "resale-iq: aa8741d session: the CI alarm was false, which is worse than it sounds"
+      ]
+    },
+    {
+      "id": "W41",
+      "duplicate_id": false,
+      "finding": "COMPLIANCE.md finding #1 — the GDPR export/erasure gap — re-confirmed live today, unchanged from this morning's audit. delete_account (demand-intel/api/auth.py:842-851) still issues only DELETE FROM users WHERE id=?, no ",
+      "found_by": "legal-compliance (re-confirmed against current code, not on trust)",
+      "doer": "backend-eng ships COMPLIANCE.md §1.5 steps 2-4",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 47f3497 session: W41 closed, and the cascade had never been running at all",
+        "demand-intel: c2ac96a merge: deletion now actually deletes, and the cascade was never on (W41)",
+        "demand-intel: 7d50639 fix(auth): delete_account erases every user-linked table, cancels Stripe first; export_data covers all of them"
+      ]
     }
   ],
   "bus": {
@@ -546,20 +681,15 @@
     }
   },
   "stripe": {
-    "available": true,
-    "livemode": false,
-    "account": null,
-    "reading": "SANDBOX (agent key) — NOT production",
-    "active_subscriptions": 0,
-    "charges": 0,
-    "refunded": 0,
-    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
+    "available": false,
+    "why": "STRIPE_SECRET_KEY not in env — run through .claude/bin/with-secrets.sh"
   },
   "totals": {
     "rows_total": 26,
     "rows_open": 20,
     "rows_closed": 5,
     "rows_blocked": 1,
-    "bus_messages": 7
+    "bus_messages": 7,
+    "stale_open": 9
   }
 }
