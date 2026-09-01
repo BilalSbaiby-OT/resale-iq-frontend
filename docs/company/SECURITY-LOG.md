@@ -675,3 +675,10 @@ row = ("| **W24** | **Every deploy still drops the site for a few seconds.** Cau
 session: hourly loop -- six posts live, and a deploy window caught in the act
 
 Production verified by me rather than relay`
+- `2026-09-01T13:56:59Z` **BLOCKED** Bash — would print a secret value into the transcript — `bash .claude/bin/with-secrets.sh sh -c ' # The publishable key is PUBLIC by design -- it ships in the browser bundle -- # so its prefix is safe to print and is the definitive test/live signal. echo "$STRIPE_PUBLISHABLE_KEY" | cut -c1-8 ' 2>&1 | tail -2; echo "--- what the live site ships:"; curl -s `
+- `2026-09-01T13:59:09Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mstripe.txt" <<'MSG'
+STRIPE IS IN TEST MODE -- we cannot take money, and that is why nobody has paid
+
+W25, and it is the highest-priority row on the board.
+
+Both the secret and publishabl`

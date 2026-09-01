@@ -148,25 +148,95 @@ def bus_state():
     return {"messages": msgs[-60:], "unread_by_agent": unread}
 
 
-def published_posts():
-    """Posts actually live, from growth.db. Nothing counts until it published."""
-    db = os.path.join(os.path.dirname(ROOT), "resale-iq-growth", "data", "growth.db")
-    if not os.path.exists(db):
-        return None
-    import sqlite3
+def stripe_state():
+    """Paying customers, from Stripe itself. Read-only, key never printed.
+
+    A MEASURED ZERO IS NOT UNKNOWN, and on 2026-09-01 that distinction turned
+    out to be the most important fact in the company: Stripe is in TEST MODE, so
+    0 customers does not mean nobody wanted to pay -- it means no real charge
+    could succeed. `livemode` is carried through so the dashboard can say which
+    kind of zero it is showing.
+    """
+    key = os.environ.get("STRIPE_SECRET_KEY", "").strip()
+    if not key:
+        return {"available": False, "why": "STRIPE_SECRET_KEY not in env — "
+                "run through .claude/bin/with-secrets.sh"}
+    import urllib.request, base64, ssl
     try:
-        c = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
-        n = c.execute("SELECT COUNT(*) FROM content WHERE status='published'").fetchone()[0]
-        c.close()
-        return n
+        import certifi
+        ctx = ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        ctx = ssl.create_default_context()
+    auth = base64.b64encode(f"{key}:".encode()).decode()
+
+    def get(path):
+        req = urllib.request.Request(f"https://api.stripe.com/v1/{path}",
+                                     headers={"Authorization": f"Basic {auth}"})
+        with urllib.request.urlopen(req, timeout=25, context=ctx) as r:
+            return json.load(r)
+
+    try:
+        subs = get("subscriptions?status=active&limit=100").get("data", [])
+        charges = get("charges?limit=100").get("data", [])
+        prods = get("products?limit=5").get("data", [])
+    except Exception as e:
+        return {"available": False, "why": f"{type(e).__name__}: {e}"}
+
+    livemode = prods[0].get("livemode") if prods else None
+    return {
+        "available": True,
+        "livemode": livemode,
+        "active_subscriptions": len(subs),
+        "charges": len(charges),
+        "refunded": sum(1 for c in charges if c.get("refunded")),
+        # The whole point: say WHICH zero this is.
+        "zero_means": None if livemode else
+        "TEST MODE — no real charge can succeed, so 0 is not a demand signal",
+    }
+
+
+def published_posts():
+    """Posts actually live, FROM POSTIZ — the only place that knows.
+
+    growth.db is not the source of truth here and reading it produced a WRONG
+    zero: the publish script marks a row `scheduled` when Postiz accepts it, and
+    Postiz publishes it later on its own cycle. Nothing ever tells our database
+    the post went live, so `status='published'` counted 0 while six posts were
+    on X, Instagram and TikTok.
+
+    A wrong number is worse than UNKNOWN, so this asks the system that knows.
+    """
+    key = os.environ.get("POSTIZ_API_KEY", "").strip()
+    if not key:
+        return None
+    import urllib.request, ssl
+    try:
+        import certifi
+        ctx = ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        ctx = ssl.create_default_context()
+    # POSTIZ_API_URL is empty in the environment -- a known defect -- so the
+    # host is named here rather than read from a variable that is not set.
+    req = urllib.request.Request(
+        "https://api.postiz.com/public/v1/posts"
+        "?startDate=2026-08-01T00:00:00Z&endDate=2026-12-31T00:00:00Z",
+        headers={"Authorization": key})
+    try:
+        with urllib.request.urlopen(req, timeout=25, context=ctx) as r:
+            d = json.load(r)
     except Exception:
         return None
+    posts = d.get("posts", d) if isinstance(d, dict) else d
+    if not isinstance(posts, list):
+        return None
+    return sum(1 for p in posts if p.get("state") == "PUBLISHED")
 
 
 def main():
     rows = workboard_rows()
     bus = bus_state()
     posts = published_posts()
+    stripe = stripe_state()
 
     depts = {}
     for dname, d in DEPARTMENTS.items():
@@ -199,11 +269,15 @@ def main():
     kpis = []
     for k in COMPANY_KPIS:
         v = None
+        note = None
         if k["kpi"] == "posts_published":
             v = posts
         elif k["kpi"] == "defects_reaching_a_customer":
             v = sum(1 for r in rows if r["status"] == "OPEN")
-        kpis.append({**k, "value": v,
+        elif k["kpi"] == "paying_customers" and stripe.get("available"):
+            v = stripe["active_subscriptions"]
+            note = stripe.get("zero_means")
+        kpis.append({**k, "value": v, "note": note,
                      "unknown": v is None,
                      "why_unknown": None if v is not None else
                      f"never measured — source is {k['source']}"})
@@ -214,6 +288,7 @@ def main():
         "departments": depts,
         "workboard": rows,
         "bus": bus,
+        "stripe": stripe,
         "totals": {
             "rows_total": len(rows),
             "rows_open": sum(1 for r in rows if r["status"] == "OPEN"),

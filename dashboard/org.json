@@ -1,14 +1,15 @@
 {
-  "generated_at": "2026-09-01T13:52:02Z",
+  "generated_at": "2026-09-01T13:58:51Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
       "target": 100,
       "counter": "refund rate",
       "source": "stripe",
-      "value": null,
-      "unknown": true,
-      "why_unknown": "never measured — source is stripe"
+      "value": 0,
+      "note": "TEST MODE — no real charge can succeed, so 0 is not a demand signal",
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "signups",
@@ -16,6 +17,7 @@
       "counter": "activation rate — a signup who never checks an item is not a user",
       "source": "db",
       "value": null,
+      "note": null,
       "unknown": true,
       "why_unknown": "never measured — source is db"
     },
@@ -25,6 +27,7 @@
       "counter": "qualified-click rate — a million wrong-market views is a failure wearing a success",
       "source": "platform analytics",
       "value": null,
+      "note": null,
       "unknown": true,
       "why_unknown": "never measured — source is platform analytics"
     },
@@ -33,7 +36,8 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": 0,
+      "value": 6,
+      "note": null,
       "unknown": false,
       "why_unknown": null
     },
@@ -42,7 +46,8 @@
       "target": 0,
       "counter": "shipping velocity — zero defects by shipping nothing is not the goal",
       "source": "workboard",
-      "value": 19,
+      "value": 20,
+      "note": null,
       "unknown": false,
       "why_unknown": null
     }
@@ -320,6 +325,13 @@
       "status": "OPEN"
     },
     {
+      "id": "W25",
+      "finding": "🔴 STRIPE IS IN TEST MODE. WE CANNOT TAKE MONEY. Both the secret and publishable keys are test; products.livemode = false. Stripe reports 0 customers, 0 charges, 0 subscriptions — not because nobody tried, but because no ",
+      "found_by": "CEO",
+      "doer": "founder",
+      "status": "OPEN"
+    },
+    {
       "id": "W3",
       "finding": "resaleiq.com is not ours, returns 200, someone else owns it. Two queued posts pointed at it",
       "found_by": "CEO",
@@ -497,20 +509,37 @@
         "kind": "handoff",
         "subject": "W24 is yours and it is costing clicks now",
         "body": "Every deploy still drops the site briefly. Measured live this hour: /, /es, /fr returned 000 while /de, /it, /pt served 200, two minutes after a push. All 200 on retest.\n\nSame root cause as two things you have already seen: the CI fingerprint failures, and the 'could not check that item right now' a capture hit on production.\n\nCheapest fix first -- if a Coolify health-check setting does it, that is the whole job. Do not build blue/green if a checkbox works. Measure the window before scoping a fix to it."
+      },
+      {
+        "id": "m0005",
+        "ts": "2026-09-01T13:57:32Z",
+        "from": "ceo",
+        "to": "all",
+        "kind": "finding",
+        "subject": "STRIPE IS IN TEST MODE — we cannot take money",
+        "body": "Both keys are test. products.livemode=false. Stripe reports 0 customers, 0 charges, 0 subscriptions -- not because nobody tried, but because no real charge CAN succeed.\n\nEverything we shipped today feeds a checkout that cannot charge. This is why paying_customers is 0, and it is not a conversion problem.\n\nFor monetization and finance-ops specifically: every model that treats 0 paying customers as a conversion signal is measuring a closed till, not a funnel. Do not draw conclusions about willingness to pay from it.\n\nFounder-only fix: live keys, live products, live webhook secret. W25."
       }
     ],
     "unread_by_agent": {
-      "all": 1,
+      "all": 2,
       "data-scientist": 1,
       "seo": 1,
       "devops": 1
     }
   },
+  "stripe": {
+    "available": true,
+    "livemode": false,
+    "active_subscriptions": 0,
+    "charges": 0,
+    "refunded": 0,
+    "zero_means": "TEST MODE — no real charge can succeed, so 0 is not a demand signal"
+  },
   "totals": {
-    "rows_total": 25,
-    "rows_open": 19,
+    "rows_total": 26,
+    "rows_open": 20,
     "rows_closed": 5,
     "rows_blocked": 1,
-    "bus_messages": 4
+    "bus_messages": 5
   }
 }
