@@ -12,10 +12,24 @@ soften it.
 
 ## PUBLISH CHECKLIST — read this before you copy-paste anything
 
-1. **Three P0 data-correctness fixes are real, done, and NOT merged.** Branch
-   `claude/backend-eng/data-defects-c6-c5-c4` in `demand-intel` (verified unmerged: not in
-   `git branch --merged main`, HEAD is currently on this branch, not on `main`) contains:
-   - `af4042d` — **FX bug**: 5 markets (HU/RO/BG/SE/DK) were publishing face-value prices as
+> **CEO CORRECTION, 2026-09-01, after `tech-lead` review — read this before the block below.**
+> The FX commit cited here as done, **`af4042d`, was REJECTED.** `tech-lead` returned REQUEST
+> CHANGES: dropping unconvertible rows also removed them from the shelf pass, and
+> `engine/shelf.py` reads an absent row as a listing that LEFT — i.e. **a sale**. It was
+> manufacturing `sold_observed = 1` for listings that merely failed to parse. It has been
+> reworked and split onto `claude/backend-eng/fx-currency-v2` (**`998ef72`**), which is itself
+> **awaiting re-review and is not merged**.
+>
+> The *substance* of the marketing claims below is unaffected — five markets, HU/RO/BG/SE/DK,
+> face-value prices, and none of it touches the ES/FR/DE/IT/PT product this queue talks about.
+> But "fixed" was premature and the SHA was wrong, so the risk assessment further down was made
+> against a branch that no longer exists in that form. **Nothing here needs to be pulled; the
+> provenance line needed to be true.**
+
+1. **Three P0 data-correctness fixes exist. One was rejected and reworked; NONE are merged.**
+   Branch `claude/backend-eng/data-defects-c6-c5-c4` in `demand-intel` contains:
+   - ~~`af4042d`~~ → **superseded by `998ef72` on `claude/backend-eng/fx-currency-v2`** —
+     **FX bug**: 5 markets (HU/RO/BG/SE/DK) were publishing face-value prices as
      EUR (a HUF 15,000 item showing as "EUR 15,000"). **Does not touch ES/FR/DE/IT/PT** — those
      five markets are natively EUR, so nothing in this queue's core claims is corrupted by this
      bug. Flagging it anyway because it's a real, unresolved correctness issue on a paid
@@ -37,8 +51,10 @@ soften it.
      stops one). This queue makes zero accuracy claims, so it isn't exposed by this bug. But if
      anyone — you, an agent, a dashboard — runs the resolver and publishes a number before this
      merges, that number is fabricated. Don't let that happen before merge.
-   - **The actual risk of publishing this queue before that branch merges: low for these
-     specific posts**, because I built every honesty claim around numbers that are already true
+   - **The actual risk of publishing this queue before those branches merge: still low for these
+     specific posts, and the CEO agrees after re-checking** — the reasoning below does not depend
+     on which SHA carries the FX fix, only on the fact that the affected markets are outside the
+     product this queue describes, because I built every honesty claim around numbers that are already true
      in production today (checked above), and made zero accuracy claims. The residual risk is
      edge-case drift the longer the branch sits unmerged, and the FX bug being a live paid-tier
      defect regardless of this content push. Your call whether "low risk today" is good enough
