@@ -667,3 +667,11 @@ I briefed the wrong defect. I said delete_account has n`
 Verified myself rather than relaying the agent's report: served it locally and
 screenshotted it headless, since the Browser pane could not composite. UNKNOWN
 renders, 21 agents ren`
+- `2026-09-01T13:51:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+row = ("| **W24** | **Every deploy still drops the site for a few seconds.** Caught live during the hourly check: `/`, `/es`, `/fr` returned **000** while `/de`, `/i`
+- `2026-09-01T13:51:57Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 scripts/company/org.py >/dev/null 2>&1; SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/msl.txt" <<'MSG'
+session: hourly loop -- six posts live, and a deploy window caught in the act
+
+Production verified by me rather than relay`
