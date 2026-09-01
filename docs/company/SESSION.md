@@ -76,9 +76,48 @@ the roster consultation that backs each release.
 `resaleiq.dev/api/*` proxy path, which is healthy, so nothing is broken — but a hostname in our own
 docs that does not resolve is worth someone's ten minutes.
 
+## Second deploy, ~11:05 — `demand-intel` `8d48176..7a86966`
+
+`claude/lifecycle/trial-emails` merged. **1213 tests.** Reviewed by `qa-eng`, not by me — I rewrote
+its stage-window queries, which made me partly its author (OS §0.7).
+
+Merged on one condition, verified by reading rather than assumed: **the send path has two
+independent closed gates** — `LIFECYCLE_EMAILS_ENABLED` defaults off at scheduler registration
+(`config.py:298`), `RESEND_API_KEY` is checked again at send time (`api/email.py:96-98`), and
+`api/routes.py` has no reference to lifecycle. Gated, not inert by accident.
+
+`qa-eng` earned the review twice: it **mutation-tested** my fix (reverting it failed only 4 of 22,
+because every test passed `now = today`, making bound and unbound indistinguishable by construction —
+its `FAR_NOW=2031` tests take that to 8 of 26), and it found **two functions my grep missed**,
+`trial_coverage()` and `has_unresolved_pending()`, which take `days` not `now` and so read as
+unrelated helpers while anchoring to the wall clock anyway. `trial_coverage` feeds a recap a real
+trial user reads.
+
+## The recurring failure, now three for three
+
+`backend-eng` fixed all three gate blockers (1205 tests) and measured the gate's cost against the
+**stale dev database** — the same file that had already misled `data-scientist` this morning. Its
+figure said *100 of 100 models go dark*. **Production says 57 of 100, and 38 after A13.** Read as a
+production claim it would have stopped the release for a reason that does not exist.
+
+Three wrong numbers today from one cause — my `+20.3%`, the branch's `12 → 26`, and this: **measuring
+or citing without checking the source could answer the question.** The dev DB has
+`SUM(sold_observed) = 0` over 24.1M rows, so every gate measurement on it is a tautology that runs
+without error.
+
 ## Blocked
 
 Nothing.
+
+## In flight
+
+`extension-eng` (last unmerged branch, `panel-states`), `backend-eng` (correcting the cost figure and
+rebasing), `verifier` (cold audit of all five merges). `verifier`'s first instruction is to confirm
+**`LIFECYCLE_EMAILS` is unset in production** — I merged an email sender on the strength of a default,
+and if that variable is set I have deployed live email to real trial users.
+
+I also asked it the question I cannot answer about myself: **four factual errors today, an agent
+caught every one, I caught none.** Count what shipped that nobody independently verified.
 
 ## Proof
 

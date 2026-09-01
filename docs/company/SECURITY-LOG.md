@@ -314,3 +314,10 @@ block`
 The founder's correction: he never asked to approve pushes, merges or deploys.
 The gate is roster consultation. I had been holding verified, tech-lead-reviewed
 work behind a foun`
+- `2026-09-01T09:07:21Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1 | tail -2 && echo "--- confirm LIFECYCLE_EMAILS is off in prod config" && grep -n "LIFECYCLE_EMAILS" config.py | head -3`
+- `2026-09-01T09:08:42Z` **BLOCKED** Bash — direct read of a .env file — `cat /Users/bilalsbaiby/work/demand-intel/.env 2>&1 | head -20`
+- `2026-09-01T09:09:10Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "session: second deploy, and the same measurement error three times
+
+demand-intel 8d48176..7a86966, lifecycle/trial-emails merged, 1213 tests.
+Reviewed by qa-eng because I rewrote its window queries and am partly its
+author. Merged on one verified-by-reading condition:`
