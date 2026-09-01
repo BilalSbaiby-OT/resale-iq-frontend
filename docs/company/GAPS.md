@@ -47,7 +47,7 @@ the file now carries a note that a stale lock is a bug rather than a formality.
 | ~~B1~~ **DONE 2026-09-01** (`9174d3c`) — `sql/metrics/` + runner + production path shipped; `METRICS.md` itself blocked at the founder gate, parked as APPROVALS **A8** | ~~**`docs/company/METRICS.md` + `sql/metrics/*.sql`**~~ | §3 | **The single biggest gap.** Every KPI in §3 is supposed to have one SQL file. Without it the North Star, retention, band coverage and match precision panels are permanently UNKNOWN, and "no KPI is ever computed ad hoc" is unenforceable |
 | B2 | `GOALS.md`, `SCOREBOARD.md` | §4, §7 | The whole reward/penalty loop is inert. Nothing is pre-registered, nothing is scored, tiers can never move |
 | B3 | `OKRS.md`, `ROADMAP.md` | §4 | Deliberately deferred — an OKR set written at €0 MRR and 6 users would be fiction. Still owed |
-| B4 | `docs/eng/STANDARDS.md` | §5 | The standards exist only as prose inside 21 agent files |
+| ~~B4~~ **DONE** | `docs/eng/STANDARDS.md` written, VERIFIED rules separated from INHERITED ones | §5 | Built from this session's incidents plus the 17 preserved `.claude/rules/` files. Found that ECC rule 0 already forbade relaxing the `sold_observed` predicate — the rule existed while the code violated it (C4) |
 | B5 | `docs/product/prd/`, `docs/eng/adr/`, `docs/product/releases/` | §4, §5 | "Nothing is built without a PRD" — and four things shipped today without one |
 | B6 | `data/quarantine/` | §2 | Untrusted (R-tier) agents are supposed to write structured JSON here and nowhere else |
 | B7 | **Skills** — `gates, canary, sanitize-untrusted, precision-audit, proof, chrome-walk, postiz-draft, stripe-read, prd, adr, code-review, release-notes, design-review` | §8 Ph3 | `.claude/skills/` does not exist |
