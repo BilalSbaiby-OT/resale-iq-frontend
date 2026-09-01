@@ -326,3 +326,7 @@ author. Merged on one verified-by-reading condition:`
 verifier re-ran the joint A13+gate proof cold against production at 09:13:32,
 after product-manager's run at 08:56:48. Every substantive figure came back
 identical: 41/19/22 movers, Levi's Tru`
+- `2026-09-01T09:22:36Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && git add -A && git commit -q -m "approvals: A13's floor argument, measured -- and the same board carried forward a fourth time
+
+tech-lead re-reviewed the gate branch, approved it (1246 green, three new tests
+bind under a cold negative control), and found the re`

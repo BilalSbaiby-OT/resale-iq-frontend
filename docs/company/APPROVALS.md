@@ -321,6 +321,32 @@ days), whereas cutting the threshold to 5 prints prices computed from as few as 
 coverage number, opposite mechanism.
 **Do not cut the threshold. 8 is right — on the floor argument.**
 
+**The floor argument is now measured, not asserted** (`tech-lead`, re-review 2026-09-01, from
+`docs/audit/proof/W36/a13-gate-joint/rerun-supply.json`, board snapshot `2026-09-01 07:51:40`):
+
+| counter | before | after | meaning |
+|---|---|---|---|
+| `min_comparable_n_over_banded_rows` | **8** | **8** | no row is ever priced below 8 comparables |
+| `counter_no_model_n_decreases` | — | **0** | no model's evidence count goes down |
+| `band_evidence_p50` | 14.0 | **12.0** | median evidence behind a printed band **FALLS** |
+
+**Those first two are the whole argument.** Cutting the threshold to 5 would put the floor at 5;
+A13 leaves it at 8 and finds evidence models already had. That is measured, and it is sufficient
+without the struck 12 → 26.
+
+**`band_evidence_p50` falling is expected and must not be scored a MISS.** It is a composition
+metric — it declines whenever coverage rises for good reasons, because a widening that admits
+weaker-but-sufficient evidence pulls a median down. `data-scientist` recorded this under AM-7
+before the measurement existed; it is now quantified at 14.0 → 12.0. **This is on the record ahead
+of scoring, deliberately** — a counter-KPI that penalises the honest change is a broken counter, and
+discovering that after it scores a MISS is how a company talks itself out of a correct decision.
+
+**Correction to the supply-coverage row above (43.0 % → 62.0 %):** that is the **2026-08-31
+22:43:02** board. At the `2026-09-01 07:51:40` snapshot the same measurement reads **37 priced /
+63 blank** under the gate alone, and **63 priced / 37 blank** after gate + A13. Nine hours moved it
+six points. The figures drift upward on their own as the corpus deepens — **re-run `proof.sh`
+rather than citing either pair.**
+
 **Two flags from the same analysis:**
 
 - **The real ceiling is the labeller, not the constants.** Only **7,247 of 103,993** observed sales

@@ -1,7 +1,7 @@
 {
  "meta": {
   "db": "/app/data/demand_intel.db (production, mode=ro)",
-  "now_utc": "2026-09-01 09:13:32",
+  "now_utc": "2026-09-01 09:22:23",
   "board_snapshot_updated_at": "2026-09-01 07:51:40",
   "board_rows": 100,
   "window_7d": [
@@ -14,8 +14,8 @@
   ],
   "sold_observed_corpus": {
    "min_sold_at": "2026-08-21 00:15:15",
-   "max_sold_at": "2026-09-01 09:06:13",
-   "n": 106543
+   "max_sold_at": "2026-09-01 09:21:55",
+   "n": 106556
   },
   "repro_control_exact_vs_stored": "64/100",
   "repro_control_pm1_vs_stored": "79/100",
