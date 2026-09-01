@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T22:09:09Z",
+  "generated_at": "2026-09-01T22:38:39Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -7,7 +7,7 @@
       "counter": "refund rate",
       "source": "stripe",
       "value": 0,
-      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
+      "note": "from production users.stripe_sub_id (Stripe API unreachable here)",
       "unknown": false,
       "why_unknown": null
     },
@@ -36,10 +36,10 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": 41,
+      "value": null,
       "note": null,
-      "unknown": false,
-      "why_unknown": null
+      "unknown": true,
+      "why_unknown": "<CREDENTIAL> not in this environment — run: bash .claude/bin/with-secrets.sh python3 scripts/company/org.py"
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -132,7 +132,7 @@
         {
           "agent": "backend-eng",
           "is_head": false,
-          "merged_branches": 10,
+          "merged_branches": 11,
           "open_rows": 1,
           "closed_rows": 5,
           "findings_raised": 3,
@@ -460,6 +460,19 @@
   ],
   "stale_open": [
     {
+      "id": "W60",
+      "duplicate_id": false,
+      "finding": "We answer \"I don't know\" while holding the answer. Real UNKNOWN queries — Carhartt jacket (model_too_vague), Nike Air Max, Fred Perry polo, jordan 3 — and at that moment market_stats held Carhartt Jackets FR: 1,609 liste",
+      "found_by": "backend-eng",
+      "doer": "backend-eng",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: 11195a8 loop: publishing stays frozen, and this hour's measurement is the reason",
+        "demand-intel: 6deebbe merge: W60 -- answer with the aggregate we already hold, instead of \"I don't know\"",
+        "demand-intel: f5a5594 feat(W60): fall back to the public brand+category aggregate when the per-model verdict can't answer"
+      ]
+    },
+    {
       "id": "W24",
       "duplicate_id": false,
       "finding": "Deploy-window Traefik router collision — mechanism now fully identified. Both the old and new container register the same router name (http-0-<app-uuid>), because the label is keyed to the app UUID, not the container id.",
@@ -761,14 +774,8 @@
     }
   },
   "stripe": {
-    "available": true,
-    "livemode": false,
-    "account": null,
-    "reading": "SANDBOX (agent key) — NOT production",
-    "active_subscriptions": 0,
-    "charges": 0,
-    "refunded": 0,
-    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
+    "available": false,
+    "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
     "drifted": true,
@@ -777,9 +784,11 @@
         "app": "frontend",
         "status": "DRIFTED",
         "running": "d7e89df7557a",
-        "merged": "8688b62ab804",
-        "commits_unshipped": 12,
+        "merged": "d8c75c58e221",
+        "commits_unshipped": 14,
         "unshipped": [
+          "d8c75c5 mission: 2k MRR by 31 Dec, and a delivery path so nobody has to remember it",
+          "11195a8 loop: publishing stays frozen, and this hour's measurement is the reason",
           "8688b62 session: BUY was never a market judgement, it was arithmetic",
           "3260d26 finding: BUY is unreachable by construction — 0 of 100 models can produce one",
           "79e8815 finding: we answer \"I don't know\" while holding the answer",
@@ -787,16 +796,20 @@
           "62f02cc correct: my headline was a true number about a false referent",
           "f133f0b session: everything else was a symptom; the product does not answer",
           "03da6df audit: the product has said BUY six times ever, and not once in twelve days",
-          "c72bd8b fix(dashboard): it never worked when opened as a file, and said so misleadingly",
-          "234dd6e refactor: the duplicate check caught its own author duplicating code",
-          "d614460 check: the last three failure classes are machines now, not documents"
+          "c72bd8b fix(dashboard): it never worked when opened as a file, and said so misleadingly"
         ],
         "container": "p6t87shftvl2455pd3gdgee1-203219809986"
       },
       {
         "app": "backend",
-        "status": "IN SYNC",
-        "commit": "0967123d5675",
+        "status": "DRIFTED",
+        "running": "0967123d5675",
+        "merged": "6deebbef4d78",
+        "commits_unshipped": 2,
+        "unshipped": [
+          "6deebbe merge: W60 -- answer with the aggregate we already hold, instead of \"I don't kno",
+          "f5a5594 feat(W60): fall back to the public brand+category aggregate when the per-model v"
+        ],
         "container": "ph5clxk9hmghspv65pdkvak9-185628563375"
       }
     ]
@@ -807,7 +820,7 @@
     "rows_closed": 19,
     "rows_blocked": 0,
     "bus_messages": 30,
-    "stale_open": 1,
+    "stale_open": 2,
     "unassignable": 0
   }
 }

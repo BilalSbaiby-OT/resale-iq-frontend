@@ -1070,3 +1070,23 @@ Production model_signals, all 100 models: min`
 SESSION.md now opens with the finding that 0 o`
 - `2026-09-01T22:05:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/SESSION.md dashboard/data.json docs/company/SECURITY-LOG.md && git commit -q -F /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_session7.txt && git push origin main 2>&1|tail -1; git fetch -q origin; test "$(git rev-parse main)`
 - `2026-09-01T22:08:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session8.py && bash .claude/bin/with-secrets.sh python3 scripts/company/org.py >/dev/null 2>&1; python3 scripts/company/embed_dashboard.py >/dev/null 2>&1; git add docs/company/SESSION.md docs/com`
+- `2026-09-01T22:16:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_mission.txt <<'MSG'
+mission: 2k MRR by 31 Dec, and a delivery path so nobody has to remember it
+
+The founder set the goal and named the real problem in the same message: "i see
+all of you agents`
+- `2026-09-01T22:35:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git checkout -q main && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_w60.txt <<'MSG'
+merge: W60 -- answer with the aggregate we already hold, instead of "I don't know"
+
+The founder's ruling, 2026-09-02: "shit dosnt need to be exact bro as `
+- `2026-09-01T22:36:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T22:36:16Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T22:36:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T22:36:17Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T22:40:45Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/work/demand-intel && echo "=== LLM refs ==="; grep -rniE "openai|anthropic|gemini|claude_|gpt-4|llm" --include="*.py" api/ engine/ db/ scrapers/ config.py main.py 2>/dev/null | head -25; echo "=== env keys ==="; grep -oE "^[A-Z_]+=" .env 2>/dev/null | head -40`
+- `2026-09-01T22:42:24Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_disk.txt <<'MSG'
+fix: the disk hit 100% and stopped every deploy; now it prunes itself
+
+Both pipelines were failing and the cause was not either pipeline.`
+- `2026-09-01T22:43:25Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session9.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s9.txt <<'MSG'
+session: the disk stopped every deploy, and the cause was my`
