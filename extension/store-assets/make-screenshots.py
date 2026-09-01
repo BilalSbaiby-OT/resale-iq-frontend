@@ -29,6 +29,18 @@ SHOTS = [
     ("screenshot-2-too-dear.png",
      "https://www.vinted.es/items/9435046902-jordan-4-bred-reimagined",
      {"product": "Jordan 4", "buy_below": 65.0, "sell_avg": 97.0}, 140.0),
+    # TODO — third shot, the "not tracked" state (INSUFFICIENT_DATA or
+    # UNKNOWN). card() now renders it correctly (matches content.js's
+    # paint() and content.css's .riq-info tone), but the listing depicts
+    # only confident BUY/SKIP outcomes while the honest refusal is the more
+    # common real result. Not added here because it would need a real
+    # observed URL + the backend's own `message`/`n` for that item, the same
+    # "not invented" bar the two shots above meet — that requires a live
+    # browser session against production, which this task did not have.
+    # Add one entry shaped like:
+    #   ("screenshot-3-not-tracked.png", "<real vinted.xx item url>",
+    #    {"product": "<matched model>", "verdict": "INSUFFICIENT_DATA",
+    #     "message": "<the API's own message field, verbatim>", "n": <int or None>}, <asking price>),
 ]
 
 def verdict(q):
@@ -43,7 +55,27 @@ import urllib.parse
 def card(d, asking):
     bb = d.get("buy_below")
     if bb is None:
-        return None
+        # Matches content.js's paint(): INSUFFICIENT_DATA/UNKNOWN render a
+        # statement (the backend's own `message`, never invented) instead of
+        # a number, in the neutral `.riq-info` tone — never `.riq-watch`'s
+        # amber, which is reserved for a real WATCH verdict. `n` is shown
+        # only if the API actually sent one.
+        verdict = str(d.get("verdict") or "UNKNOWN").upper()
+        shown = "THIN DATA" if verdict == "INSUFFICIENT_DATA" else "NOT COVERED"
+        message = d.get("message") or (
+            "Not enough sold data to price this yet." if verdict == "INSUFFICIENT_DATA"
+            else "We don't have model-level data for this brand yet.")
+        n = d.get("n")
+        fact_row = (f'<div class="riq-fact-row"><span class="riq-fact-n">{n}</span>'
+                    f'<span class="riq-fact-label">sold, watched</span></div>' if n is not None else "")
+        return f'''<div id="riq-badge"><div class="riq-card riq-info">
+      <div class="riq-head"><span class="riq-logo">R</span> Resale IQ
+        <span class="riq-verdict riq-info">{shown}</span></div>
+      <div class="riq-match">matched: {d.get("product","")}</div>
+      <div class="riq-statement">{message}</div>
+      {fact_row}
+      <a class="riq-link" href="#">how this is calculated</a>
+    </div></div>'''
     over = asking - bb
     tone = "skip" if over > 0 else "buy"
     label = "SKIP" if over > 0 else "BUY"

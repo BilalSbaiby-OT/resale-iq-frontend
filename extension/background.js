@@ -61,6 +61,24 @@ async function fetchVerdict(q, token, retried) {
 }
 
 chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
+  if (msg?.type === "ext_error") {
+    // Fire-and-forget failure signal from content.js: no listing content, no
+    // account data, just a reason code and a two-letter market — so a
+    // selector break is visible instead of a silent blank panel. Uses the
+    // API host_permission we already have; no new destination, no new
+    // permission. If the backend has no receiving route yet this 404s
+    // quietly and changes nothing for the user — see PR notes.
+    fetch(`${API}/api/ext/error`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reason: String(msg.reason || "unknown").slice(0, 40),
+        market: String(msg.market || "").slice(0, 2),
+      }),
+      keepalive: true,
+    }).catch(() => {});
+    return false;
+  }
   if (msg?.type === "bought") {
     (async () => {
       try {

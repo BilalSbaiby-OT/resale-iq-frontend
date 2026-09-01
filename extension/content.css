@@ -22,6 +22,22 @@
 #riq-badge .riq-buy   { border-left-color: #22c55e; }
 #riq-badge .riq-watch { border-left-color: #fbbf24; } /* --riq-watch-oncard */
 #riq-badge .riq-skip  { border-left-color: #f87171; } /* --riq-skip-oncard */
+/* INSUFFICIENT_DATA / UNKNOWN — an honest refusal, not a verdict. Explicit
+   rule (matching the base neutral) so this never silently inherits amber if
+   the base rule ever changes. Amber (.riq-watch) means one thing only: a
+   real WATCH call. */
+#riq-badge .riq-info  { border-left-color: #5b6b8c; }
+/* System status (network down, rate-limited, unverified email, quota) is
+   neither a verdict nor a data answer — this is also where LIMIT_REACHED
+   (A15, design/tokens.json color.system_state, #8b99b8 on the site) lands:
+   a quota wall must not wear a verdict colour. Self-serve states (rate
+   limit, email confirmation, quota) get the same neutral border as
+   .riq-info — nothing here is broken. A genuine failure (.riq-status-err:
+   can't reach the API, an uncaught exception) reuses SKIP's red rather than
+   inventing a fifth colour, so "we are actually broken" reads as clearly
+   different from every other state on the panel. */
+#riq-badge .riq-status     { border-left-color: #5b6b8c; }
+#riq-badge .riq-status-err { border-left-color: #f87171; }
 #riq-badge .riq-head {
   display: flex; align-items: center; gap: 7px;
   font-size: 11px; color: #8b99b8; margin-bottom: 9px;
@@ -36,9 +52,19 @@
 #riq-badge .riq-verdict.riq-buy   { color: #22c55e; }
 #riq-badge .riq-verdict.riq-watch { color: #fbbf24; } /* --riq-watch-oncard */
 #riq-badge .riq-verdict.riq-skip  { color: #f87171; } /* --riq-skip-oncard */
+#riq-badge .riq-verdict.riq-info  { color: #8b99b8; }
 #riq-badge .riq-num { font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
 #riq-badge .riq-num.riq-muted { font-size: 16px; color: #8b99b8; letter-spacing: 0; }
 #riq-badge .riq-sub { font-size: 11.5px; color: #7f8da9; margin-top: 3px; line-height: 1.45; }
+/* Statement slot for INSUFFICIENT_DATA/UNKNOWN and system-status cards — same
+   weight class as .riq-num so the card's layout rhythm holds; a plain
+   sentence instead of a number, never a dash pretending to be one. */
+#riq-badge .riq-statement { font-size: 15px; font-weight: 700; line-height: 1.4; color: #eef1f7; margin-top: 2px; }
+/* n is shown only when the backend actually sent it — never a fabricated
+   threshold or date range (neither exists on VerdictResult today). */
+#riq-badge .riq-fact-row { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; padding-top: 9px; border-top: 1px solid #1c2333; }
+#riq-badge .riq-fact-n { font-size: 18px; font-weight: 800; color: #eef1f7; letter-spacing: -0.5px; }
+#riq-badge .riq-fact-label { font-size: 10.5px; color: #8b99b8; text-transform: uppercase; letter-spacing: .4px; }
 #riq-badge .riq-row { font-size: 12px; color: #a9b6d0; margin-top: 8px; }
 #riq-badge .riq-link {
   display: inline-block; margin-top: 10px; font-size: 11px;
@@ -88,6 +114,7 @@
 #riq-badge .riq-pill-buy { border-color: #22c55e; }
 #riq-badge .riq-pill-watch { border-color: #fbbf24; } /* --riq-watch-oncard */
 #riq-badge .riq-pill-skip { border-color: #f87171; } /* --riq-skip-oncard */
+#riq-badge .riq-pill-info { border-color: #1c2333; }
 #riq-badge .riq-pill-v { font-size: 10px; letter-spacing: .4px; color: #8b99b8; }
 @media (max-width: 720px) {
   #riq-badge { left: 12px; bottom: 72px; }

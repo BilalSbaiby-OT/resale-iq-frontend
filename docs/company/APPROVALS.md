@@ -1636,3 +1636,30 @@ the same three files destroys the verification."* `designer` rebases on top and 
 **A13 approved conditionally**, with a disclosure requirement: 18 of the 41 are suppressed by the
 gate, **but the other 23 cross 8 and publish their swing anyway — median 20.3 % on a paid field.**
 That must be **stated in the release note, not absorbed.**
+
+---
+
+### A14 — proposed: `activeTab` permission, so the popup can name the site you're actually on
+
+**2026-09-01, `extension-eng`, branch `claude/extension-eng/panel-states`.** Not built. Parked here
+per OS §0.10 ("extension permissions" is a founder gate) rather than added unilaterally.
+
+**What shipped instead, no permission change:** `extension/options.html` now states plainly, every
+time the popup opens, that Resale IQ works on `vinted.{es,fr,de,it,pt}` only and does **not** work on
+`vinted.co.uk`, `vinted.com`, or any other Vinted site — a static line, true regardless of which tab
+is open. This closes the "user on an uncovered market sees nothing and no explanation" gap without
+touching `manifest.json`'s permission surface.
+
+**What is still missing, and needs this gate to build:** the popup cannot say "**you are** on
+vinted.co.uk right now" — only "we don't cover vinted.co.uk" in general — because reading the active
+tab's URL requires either `host_permissions` for that origin (explicitly out per the brief: "do not
+add host permissions for markets we cannot serve") or the `activeTab` permission, declared in
+`manifest.json`, scoped to only the tab the user just clicked the toolbar icon on. `extension/EXTENSION.md`'s
+own review called `activeTab` "one of the more benign, well-understood permissions" — true, but it is
+still a new line in `permissions: []`, which is a founder gate on its own terms, not a technical one.
+
+**If approved:** one line in `manifest.json` (`"permissions": ["storage", "activeTab"]`), one
+`chrome.tabs.query({active:true, currentWindow:true})` call in `options.js`, swap the static line for
+"You're on vinted.co.uk — Resale IQ covers ES/FR/DE/IT/PT only" when the hostname doesn't match.
+Store listing's permission-justification section (`STORE-LISTING.md`) gets one added bullet. No other
+change.

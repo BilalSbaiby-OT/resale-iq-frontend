@@ -22,6 +22,13 @@ const I18N = {
     most: "most you can pay for your margin",
     notTracked: "not tracked",
     noData: "we have no model-level data for this item yet",
+    // Fallbacks only — the backend's own `message` field (purpose-written per
+    // case) is preferred whenever it is present. INSUFFICIENT_DATA is a thin
+    // sample; UNKNOWN is a brand/model we don't track model-by-model. Two
+    // different situations, two different sentences.
+    thinSample: "Not enough watched departures to price this yet.",
+    notCovered: "We don't have model-level data for this brand yet.",
+    soldWatched: "watched departures",
     matched: "matched",
     listedOver: (ask, over) => `listed at ${ask} — ${over} over`,
     listedOk: (ask) => `listed at ${ask} — within your price`,
@@ -32,12 +39,12 @@ const I18N = {
     saved: "logged",
     limited: "Free checks used up for today. Sign in and the panel reconnects on its own.",
     verify: "Confirm your email, then this panel will show numbers again.",
-    down: "Could not reach Resale IQ. Try again in a moment.",
+    down: "Couldn't reach Resale IQ. This is on us, not your item.",
     signIn: "Sign in",
     confirm: "Confirm email",
     checking: "checking…",
     why: "why",
-    rate: "Too many lookups. Wait a minute.",
+    rate: "Too many lookups, too fast. Clears on its own in under a minute.",
     hide: "Hide",
     show: "Show Resale IQ",
     timeout: "That check took too long to finish — it may still count against today's free limit. Email us if your count looks wrong.",
@@ -47,6 +54,9 @@ const I18N = {
     most: "le maximum à payer pour votre marge",
     notTracked: "non suivi",
     noData: "pas encore de données modèle pour cet article",
+    thinSample: "Pas assez de départs observés pour chiffrer ceci.",
+    notCovered: "Pas encore de données modèle pour cette marque.",
+    soldWatched: "départs observés",
     matched: "associé",
     listedOver: (ask, over) => `affiché ${ask} — ${over} au-dessus`,
     listedOk: (ask) => `affiché ${ask} — dans votre prix`,
@@ -57,12 +67,12 @@ const I18N = {
     saved: "enregistré",
     limited: "Essais gratuits épuisés aujourd'hui. Connectez-vous et le panneau se reconnecte.",
     verify: "Confirmez votre e-mail, puis le panneau réaffichera les chiffres.",
-    down: "Resale IQ est injoignable. Réessayez dans un instant.",
+    down: "Resale IQ est injoignable. Le problème vient de nous, pas de cet article.",
     signIn: "Connexion",
     confirm: "Confirmer l'e-mail",
     checking: "vérification…",
     why: "pourquoi",
-    rate: "Trop de requêtes. Attendez une minute.",
+    rate: "Trop de requêtes, trop vite. Ça se rétablit seul en moins d'une minute.",
     hide: "Masquer",
     show: "Afficher Resale IQ",
     timeout: "Cette vérification a pris trop de temps — elle peut quand même compter dans votre limite du jour. Écrivez-nous si le compte semble faux.",
@@ -72,6 +82,9 @@ const I18N = {
     most: "lo máximo que puedes pagar para tu margen",
     notTracked: "sin datos",
     noData: "aún no hay datos de modelo para este artículo",
+    thinSample: "Aún no hay suficientes salidas observadas para calcular un precio.",
+    notCovered: "Todavía no tenemos datos de modelo para esta marca.",
+    soldWatched: "salidas observadas",
     matched: "asociado",
     listedOver: (ask, over) => `puesto a ${ask} — ${over} por encima`,
     listedOk: (ask) => `puesto a ${ask} — dentro de tu precio`,
@@ -82,12 +95,12 @@ const I18N = {
     saved: "guardado",
     limited: "Comprobaciones gratis agotadas hoy. Entra y el panel se reconecta solo.",
     verify: "Confirma tu email y el panel volverá a mostrar números.",
-    down: "No se pudo contactar con Resale IQ. Prueba en un momento.",
+    down: "No se pudo contactar con Resale IQ. El fallo es nuestro, no de este artículo.",
     signIn: "Entrar",
     confirm: "Confirmar email",
     checking: "comprobando…",
     why: "por qué",
-    rate: "Demasiadas consultas. Espera un minuto.",
+    rate: "Demasiadas consultas, demasiado rápido. Se soluciona solo en menos de un minuto.",
     hide: "Ocultar",
     show: "Mostrar Resale IQ",
     timeout: "Esa comprobación ha tardado demasiado — puede que cuente igualmente para tu límite de hoy. Escríbenos si el recuento no cuadra.",
@@ -97,6 +110,9 @@ const I18N = {
     most: "Höchstpreis für deine Marge",
     notTracked: "nicht erfasst",
     noData: "noch keine Modelldaten für diesen Artikel",
+    thinSample: "Noch nicht genug beobachtete Abgänge für einen Preis.",
+    notCovered: "Für diese Marke gibt es noch keine Modelldaten.",
+    soldWatched: "beobachtete Abgänge",
     matched: "zugeordnet",
     listedOver: (ask, over) => `inseriert ${ask} — ${over} darüber`,
     listedOk: (ask) => `inseriert ${ask} — innerhalb deines Preises`,
@@ -107,12 +123,12 @@ const I18N = {
     saved: "gespeichert",
     limited: "Kostenlose Checks für heute aufgebraucht. Anmelden, dann verbindet sich das Panel.",
     verify: "E-Mail bestätigen, dann zeigt das Panel wieder Zahlen.",
-    down: "Resale IQ nicht erreichbar. Gleich nochmal versuchen.",
+    down: "Resale IQ nicht erreichbar. Das liegt an uns, nicht an diesem Artikel.",
     signIn: "Anmelden",
     confirm: "E-Mail bestätigen",
     checking: "prüfe…",
     why: "warum",
-    rate: "Zu viele Anfragen. Eine Minute warten.",
+    rate: "Zu viele Anfragen, zu schnell. Löst sich in unter einer Minute von selbst.",
     hide: "Ausblenden",
     show: "Resale IQ zeigen",
     timeout: "Diese Prüfung hat zu lange gedauert — sie zählt möglicherweise trotzdem zu deinem Tageslimit. Schreib uns, wenn die Zahl nicht stimmt.",
@@ -122,6 +138,9 @@ const I18N = {
     most: "il massimo che puoi pagare per il margine",
     notTracked: "non tracciato",
     noData: "ancora nessun dato di modello per questo articolo",
+    thinSample: "Non ci sono ancora abbastanza partenze osservate per calcolare un prezzo.",
+    notCovered: "Non abbiamo ancora dati di modello per questo marchio.",
+    soldWatched: "partenze osservate",
     matched: "associato",
     listedOver: (ask, over) => `in vendita a ${ask} — ${over} in più`,
     listedOk: (ask) => `in vendita a ${ask} — nel tuo prezzo`,
@@ -132,12 +151,12 @@ const I18N = {
     saved: "salvato",
     limited: "Controlli gratuiti finiti per oggi. Accedi e il pannello si ricollega.",
     verify: "Conferma l'email, poi il pannello mostra di nuovo i numeri.",
-    down: "Resale IQ non raggiungibile. Riprova tra un attimo.",
+    down: "Resale IQ non raggiungibile. Il problema è nostro, non di questo articolo.",
     signIn: "Accedi",
     confirm: "Conferma email",
     checking: "controllo…",
     why: "perché",
-    rate: "Troppe richieste. Aspetta un minuto.",
+    rate: "Troppe richieste, troppo in fretta. Si risolve da sola in meno di un minuto.",
     hide: "Nascondi",
     show: "Mostra Resale IQ",
     timeout: "Questo controllo ha impiegato troppo tempo — potrebbe comunque contare nel limite di oggi. Scrivici se il conteggio non torna.",
@@ -147,6 +166,9 @@ const I18N = {
     most: "o máximo que podes pagar para a tua margem",
     notTracked: "sem dados",
     noData: "ainda sem dados de modelo para este artigo",
+    thinSample: "Ainda não há saídas observadas suficientes para calcular um preço.",
+    notCovered: "Ainda não temos dados de modelo para esta marca.",
+    soldWatched: "saídas observadas",
     matched: "associado",
     listedOver: (ask, over) => `anunciado a ${ask} — ${over} acima`,
     listedOk: (ask) => `anunciado a ${ask} — dentro do teu preço`,
@@ -157,12 +179,12 @@ const I18N = {
     saved: "guardado",
     limited: "Verificações grátis esgotadas hoje. Entra e o painel liga-se sozinho.",
     verify: "Confirma o email e o painel volta a mostrar números.",
-    down: "Não foi possível contactar a Resale IQ. Tenta daqui a pouco.",
+    down: "Não foi possível contactar a Resale IQ. O problema é nosso, não deste artigo.",
     signIn: "Entrar",
     confirm: "Confirmar email",
     checking: "a verificar…",
     why: "porquê",
-    rate: "Demasiados pedidos. Espera um minuto.",
+    rate: "Demasiados pedidos, demasiado depressa. Resolve-se sozinho em menos de um minuto.",
     hide: "Ocultar",
     show: "Mostrar Resale IQ",
     timeout: "Esta verificação demorou demasiado — pode ainda contar para o teu limite de hoje. Escreve-nos se a contagem parecer errada.",
@@ -231,11 +253,16 @@ function setCollapsed(v) {
   chrome.storage.local.set({ riq_collapsed: collapsed });
 }
 
-function paintStatus(sub, href, label) {
+// System status (network down, rate-limited, unverified email, quota) is not
+// a verdict and must never look like one. `err` distinguishes a genuine
+// failure (our fault, red — the same colour SKIP already uses, not a new
+// hue) from a self-serve state (neutral grey, nothing is broken). Neither
+// ever uses `.riq-watch` — that class means one thing: a real WATCH verdict.
+function paintStatus(sub, href, label, err) {
   render(`
-    <div class="riq-card riq-watch">
+    <div class="riq-card ${err ? "riq-status-err" : "riq-status"}">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
-      <div class="riq-sub">${esc(sub)}</div>
+      <div class="riq-statement">${esc(sub)}</div>
       ${href ? `<a class="riq-link" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>` : ""}
     </div>`);
 }
@@ -250,8 +277,11 @@ function paintStatus(sub, href, label) {
 // docs/audit/MONETIZATION.md §4 / docs/product/SUPPORT-VOICE.md §4.
 function paintTimeout() {
   const L = t();
+  // A stalled request is transient/self-serve (design/extension-panel/
+  // system-status.html: "stalled request" col, no `err` class) — never
+  // `.riq-watch`. Amber means one thing: a real WATCH verdict.
   render(`
-    <div class="riq-card riq-watch">
+    <div class="riq-card riq-status">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
       <div class="riq-sub">${esc(L.down)}</div>
       <div class="riq-note">${esc(L.timeout)}</div>
@@ -269,8 +299,13 @@ function paint(d, askingPrice) {
   const L = t();
   const buyBelow = d.buy_below ?? null;
   const verdict = (d.verdict || d.signal || "WATCH").toUpperCase();
-  const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : "watch";
-  const shown = (verdict === "INSUFFICIENT_DATA" || verdict === "UNKNOWN") ? "NO DATA" : verdict;
+  // A verdict tone (green/amber/red) is reserved for an actual BUY/WATCH/SKIP
+  // call. INSUFFICIENT_DATA and UNKNOWN are honest refusals, not a WATCH —
+  // they must not inherit WATCH's amber, or a user cannot tell "we don't
+  // know" from "it's a real band". `tone: "info"` has no colour override in
+  // content.css, so the card falls back to the neutral default border.
+  const tone = verdict === "BUY" ? "buy" : verdict === "SKIP" ? "skip" : verdict === "WATCH" ? "watch" : "info";
+  const shown = verdict === "INSUFFICIENT_DATA" ? "THIN DATA" : verdict === "UNKNOWN" ? "NOT COVERED" : verdict;
   let overBy = null;
   if (buyBelow != null && askingPrice != null && askingPrice > buyBelow) {
     overBy = askingPrice - buyBelow;
@@ -298,11 +333,19 @@ function paint(d, askingPrice) {
     return;
   }
 
+  // INSUFFICIENT_DATA ("thin sample, try again once it sells more") and
+  // UNKNOWN ("we don't track this brand model-by-model") are different
+  // situations and need different copy — the backend already writes a
+  // purpose-built explanation per case in `message` (src/types/index.ts,
+  // consumed the same way by the web dashboard's verdict card). Prefer it;
+  // fall back to a locale string that still distinguishes the two only when
+  // the backend didn't send one. Never invent a threshold or date range the
+  // API doesn't return — `n` is shown only when the backend actually sent it.
   const body = buyBelow != null
     ? `<div class="riq-num">${money(buyBelow)}</div>
        <div class="riq-sub">${esc(L.most)}</div>`
-    : `<div class="riq-num riq-muted">${esc(L.notTracked)}</div>
-       <div class="riq-sub">${esc(L.noData)}</div>`;
+    : `<div class="riq-statement">${esc(d.message || (verdict === "INSUFFICIENT_DATA" ? L.thinSample : L.notCovered))}</div>
+       ${n != null ? `<div class="riq-fact-row"><span class="riq-fact-n">${esc(n)}</span><span class="riq-fact-label">${esc(L.soldWatched)}</span></div>` : ""}`;
 
   render(`
     <div class="riq-card riq-${tone}">
@@ -341,6 +384,27 @@ let lastQuery = "";
 let lastPath = "";
 let lastData = null;
 
+// Best-effort failure signal only: no listing content, no account data, no
+// PII — a reason code and the two-letter market, so a Vinted DOM change that
+// breaks readListing()'s selectors (or any uncaught render exception) is
+// visible somewhere instead of producing a silent, unexplained blank panel.
+// Routed through background.js because content-script fetches are subject to
+// the HOST page's CORS policy (see background.js's own comment) — this sends
+// no request itself, it only relays via chrome.runtime.sendMessage, which
+// needs no permission at all. Uses the API host_permission already granted;
+// adds no new permission and no new destination.
+let lastErrorPath = "";
+function reportExtError(reason) {
+  if (location.pathname === lastErrorPath) return;
+  lastErrorPath = location.pathname;
+  try {
+    chrome.runtime.sendMessage(
+      { type: "ext_error", reason: String(reason).slice(0, 40), market: locale() },
+      () => void chrome.runtime.lastError // swallow "no receiver" — never surfaced to the user
+    );
+  } catch { /* messaging is best-effort and must never affect the panel */ }
+}
+
 function bindBought() {
   const root = document.getElementById(BADGE_ID);
   if (!root) return;
@@ -373,6 +437,10 @@ function run() {
     lastQuery = "";
     lastPath = location.pathname;
     document.getElementById(BADGE_ID)?.remove();
+    // This looks like a listing page (matched /items/\d+ above readListing's
+    // own early return) and we still couldn't read a title off it — that's a
+    // selector break, not "not a listing page". Report it.
+    if (/\/items\/\d+/.test(location.pathname)) reportExtError("selector_miss");
     return;
   }
   if (location.pathname !== lastPath) lastQuery = "";
@@ -384,14 +452,14 @@ function run() {
 
   chrome.runtime.sendMessage({ type: "verdict", q: listing.q }, (res) => {
     if (chrome.runtime.lastError) {
-      paintStatus(t().down);
+      paintStatus(t().down, null, null, true);
       return;
     }
     if (!res?.ok) {
-      if (res?.verify) paintStatus(t().verify, "https://resaleiq.dev/check-email", t().confirm);
-      else if (res?.limited) paintStatus(res.rate ? t().rate : t().limited, "https://resaleiq.dev/login", t().signIn);
+      if (res?.verify) paintStatus(t().verify, "https://resaleiq.dev/check-email", t().confirm, false);
+      else if (res?.limited) paintStatus(res.rate ? t().rate : t().limited, "https://resaleiq.dev/login", t().signIn, false);
       else if (res?.timedOut) paintTimeout();
-      else paintStatus(t().down);
+      else paintStatus(t().down, null, null, true);
       return;
     }
     lastData = res.data;
@@ -399,13 +467,16 @@ function run() {
       paint(res.data, listing.price);
       bindBought();
     } catch {
-      paintStatus(t().down);
+      paintStatus(t().down, null, null, true);
+      reportExtError("render_exception");
     }
   });
 }
 
 let timer;
-const debounced = () => { clearTimeout(timer); timer = setTimeout(run, 400); };
+const debounced = () => { clearTimeout(timer); timer = setTimeout(() => {
+  try { run(); } catch { reportExtError("run_exception"); }
+}, 400); };
 try {
   const root = document.body || document.documentElement;
   if (root) new MutationObserver(debounced).observe(root, { childList: true, subtree: true });
@@ -430,4 +501,4 @@ setInterval(() => {
   }
 }, 600);
 
-try { run(); } catch { /* same */ }
+try { run(); } catch { reportExtError("run_exception"); }
