@@ -4,6 +4,10 @@ Written by `customer-success`, 2026-09-01, the first session this role has had G
 a browser. Two X posts went live in the last hour; strangers may actually click through for the first
 time. This is what happens after the click.
 
+**§6 added by `ux-researcher`, same day, later session** — the first actual browser walk of this site
+this company has on record (see §6 for why the tooling blocker in §0 no longer applied). Sections 0-5
+are unchanged, kept as the historical record of what a code-only read could and couldn't establish.
+
 **Read `docs/company/GAPS.md`, `docs/audit/SUPPORT-AUDIT.md`, `docs/product/LIFECYCLE.md` and
 `docs/company/WORKBOARD.md` first — this file does not repeat what they already establish, it adds
 what this session found new.**
@@ -153,6 +157,87 @@ locale awareness to the auth/account/support route group itself. New row: **WORK
 
 ---
 
+## 6. The live walk — done 2026-09-01, replaces §0's blocker
+
+**Method changed from §0.** This session had `mcp__Claude_Browser__browser_batch` with a `tabs_create`
+action reachable through it even though `tabs_create` was not a standalone tool — the same wall §0 and
+`WORKBOARD` W21 hit is gone for this role today. Everything below is a **live browser walk**:
+real `navigate`/`computer`/`read_page`/`get_page_text` calls against `https://resaleiq.dev` in
+production, screenshots taken where the pane would composite, accessibility-tree and page-text reads
+where it wouldn't. Not a code read. Two fresh tabs used (`tab-8`, `tab-9`); mobile viewport tested via
+`resize_window` on `tab-9`.
+
+### 6.1 The homepage promise is kept — live, not a placeholder
+
+Typed **"Adidas Samba"** into the real search box and clicked **Check it free** on a brand-new tab.
+Live response: **BUY-BELOW €21 · MARKET PRICE €32 · LEFT SHELF (WATCHED) 63 · STILL LISTED 19,314 ·
+WATCH · Sneakers · Confidence MEDIUM**. Repeated with **"Nike Air Force 1"**: **BUY-BELOW €37 · MARKET
+PRICE €56 · LEFT SHELF (WATCHED) 103 · STILL LISTED 15,348**. Two different live numbers on two
+different models, both screenshot-confirmed against the search terms typed — this is not the stuck
+placeholder the brief described from prior weeks. **Brief's point 1, confirmed: the check works and the
+number is real.**
+
+### 6.2 `/es` is genuinely localized, with one line held back on purpose — and that line is the default state, not an edge case
+
+Navigated to `resaleiq.dev/es` (loads Spanish: *"Sabe qué pagar antes de comprar."*). The homepage,
+pricing section, and plan cards are fully translated — confirmed by reading the entire rendered page
+text, not sampling. One partial gap found and not previously recorded: the trust-strip micro-copy
+(*"Scraped every 30 min · Every formula on /methodology · No accuracy claims until 30 outcomes
+scored"*) stays English on the Spanish homepage — small, not urgent, noted for whoever next touches
+`i18n.ts`'s trust-strip keys.
+
+Clicked through to **`/register`** on a Spanish-locale session. Full page text, verbatim:
+
+> Cree su cuenta / ... / Correo electrónico / Contraseña / Acepto los Términos y la Política de
+> Privacidad / **I want access immediately and I understand that by starting the subscription now I
+> lose my 14-day right of withdrawal.** / Crear cuenta
+
+Every string on the page is Spanish except that one sentence, sitting directly above the submit
+button — screenshot-confirmed, not just text-extracted. This matches `WORKBOARD` W19's "by design,
+tests pinning it" exactly; **what W19 did not record, and this walk adds: the waiver only renders when
+Pro or Starter is selected, and Pro is the plan selected by default** (§6.3) — so a Spanish visitor who
+does nothing but land on `/register` and start typing their email sees this bilingual moment on first
+paint, not only if they go out of their way to pick a paid tier. Selecting **Free** makes the waiver
+disappear entirely and the page reads as coherent Spanish end to end (confirmed by re-reading the full
+page text after clicking the Free radio). **Brief's point 2, answered: it reads as one clause of legal
+English dropped into an otherwise fluent Spanish form, at the exact moment of signing up, and by
+default rather than by exception.**
+
+### 6.3 The actual candidate for "3 of 3 bounced" — found by walking the click-path, not by guessing
+
+The one CTA on every free-check result, **"Unlock the rest →"**, was clicked on both tabs after a real
+search. It goes to bare `/register` — no `?plan=` param, no reference to what was just searched or
+found. `register-form.tsx:27-29` defaults an unparented `/register` visit to the **Pro** plan (€49/mo,
+tagged "Most popular"), not Free: screenshot-confirmed on a fresh tab, straight off the homepage
+checker — the register page opened with the Pro radio filled and highlighted green, Free unselected
+third-of-three. **This is `WORKBOARD` W47.** It is the most direct, code-cited answer this session
+found to the brief's point 4 ("is `/register` even the right ask?") — a visitor who just got a free,
+honest answer, with no card and no commitment, is met by a paid-tier signup as the default state. The
+ask isn't just "register," it's implicitly "register for Pro" unless you notice and downgrade.
+
+### 6.4 Instagram / mobile — inconclusive, flagged honestly rather than asserted
+
+Resized to mobile (375×812, Android UA) and tried to repeat the same search 4 times (raw-coordinate
+click, ref-based click, Return key ×2). Every attempt left the page in its pre-search state — the
+typed text stayed in the input, no result card ever appeared — and every one of those four attempts
+was preceded by a tool-level error (`"Browser pane is currently hidden... timed out after 30s"`) that
+never happened once on desktop (2/2 clean). **I am not reporting a mobile product bug** — I cannot
+separate a real defect from this session's own rendering trouble, and asserting one on this evidence
+would be exactly the kind of unverified claim this file exists to avoid. Flagged as `WORKBOARD` W48,
+unconfirmed, for a clean retest — worth doing soon because Instagram is the one channel that has
+produced real strangers (`WORKBOARD` W45: 3 of 4 social arrivals from the reel), and that channel is
+mobile-first by default.
+
+### What this changes about §0 and §5 above
+
+§0's tooling blocker is resolved for this role as of today — `tabs_create` is reachable via
+`browser_batch` even though undocumented as a standalone tool; name this explicitly if a future session
+hits the same "pinned tab" error §0 and W21 describe. §5's claim that `(auth)/register/page.tsx` is
+"English-only" is **superseded by W19's shipped fix and this walk's live confirmation** — it was true
+when written, is no longer true, and I'm not silently editing §5 to hide that a static code read can go
+stale; this paragraph is the correction, and §5 stays as the historical record it was.
+
+
 ## Sources
 
 Gmail (`emmanuelbilal33@gmail.com`, the account `support@resaleiq.dev` forwards to): thread
@@ -164,3 +249,11 @@ Stripe payment notification), thread `1a0015cf304458bd` (the forwarding round-tr
 `resale-iq/src/app/(dashboard)/dashboard/page.tsx`, `resale-iq/src/components/landing/landing-content.tsx`,
 `resale-iq/src/lib/i18n.ts`, `resale-iq/src/app/[locale]/page.tsx` — all read 2026-09-01, `main` branch
 of each repo.
+
+**§6 (live walk) sources:** live browser session against `https://resaleiq.dev` production, 2026-09-01
+~15:00-15:15 UTC, `mcp__Claude_Browser__*` tools, tabs `tab-8`/`tab-9`, both desktop (1280×720) and
+mobile (375×812) viewports; screenshots and `get_page_text`/`read_page` captures taken during the walk,
+not retained as files (no download/save tool used) — the transcript of this session is the record.
+Code cross-references for §6.3: `resale-iq/src/components/tools/free-checker.tsx:388`,
+`resale-iq/src/components/smart-cta.tsx:18-47`, `resale-iq/src/app/(auth)/register/register-form.tsx:17-61`
+— all read 2026-09-01, `main` branch, to confirm what the browser showed, not in place of showing it.

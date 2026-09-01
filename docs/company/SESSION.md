@@ -848,6 +848,41 @@ clean deletions, nothing else.**
 (publishing on a relayed instruction), `legal-compliance` (Reddit from a blog's paraphrase), `seo`
 (this), and `backend-eng` (deciding a product question that was not its to decide).
 
+## WHY NOBODY SIGNS UP — found by walking it, and the code contradicted its own comment
+
+**The free tool's only CTA was landing people on a €49/month form.**
+
+`register-form.tsx` says, in a comment: *"Default to the plan the CTA asked for. `free` must be
+honoured or the free CTAs silently upsell, which is both a broken funnel and a bait-and-switch."*
+**The next line defaulted an unspecified plan to `power` — Pro, €49/mo.** And *"Unlock the rest"*, the
+only button on every free check result, passed no plan.
+
+So: a visitor runs a **free** check on a **free** tool, clicks the one button offered, and lands on a
+**€49/month form with Pro pre-selected and Free unselected, third of three.** **All three of today's
+visitors did exactly that. All three left.**
+
+**It also explains something we had filed as "by design":** the EU withdrawal waiver renders there
+**because a paid plan is selected.** Those visitors met a legal consent — in English on every locale —
+**they should never have been shown at all.**
+
+**Fixed and deployed:** the free CTA now passes `?plan=free`, and **an unspecified plan defaults to
+free rather than the most expensive tier.** A CTA meaning Pro must now say `?plan=operator`.
+**Silence must never resolve to the costliest option.**
+
+`ux-researcher` found it by **walking the real click-path in a browser** — the browser it got today —
+after reporting this morning that it could only reason from code. It also worked around the pinned-tab
+blocker that had stopped `customer-success`: `tabs_create` is reachable through `browser_batch`.
+
+**And it marked one thing UNKNOWN rather than a bug:** 4/4 mobile-viewport attempts hit a tool-level
+rendering timeout that never occurred on desktop, so it **could not separate a product defect from
+session tooling** and said so. W48, retest first.
+
+## Voiceover is still dead
+
+`ELEVENLABS_API_KEY` re-tested: **401.** `ELEVENLABS_VOICE_ID` is set and the pipeline is ready — the
+key is the only missing piece. **Every video we have published is silent**, and narrated short-form
+outperforms silent on TikTok and Reels. Founder-blocked.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

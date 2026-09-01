@@ -749,3 +749,13 @@ production`
 session: hourly loop -- the first real funnel numbers this company has ever had
 
 Measured live from production pageviews, 24h, no`
+- `2026-09-01T15:22:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mreg.txt" <<'MSG'
+fix: the free tool's CTA was landing people on a 49 EUR/month form
+
+This is why three of three visitors bounced at /register today, and the file
+already knew better than`
+- `2026-09-01T15:23:46Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms10.txt" <<'MSG'
+session: the free tool's only CTA was selling a 49 EUR plan
+
+ux-researcher walked the real click-path in a browser -- the one it got today,
+after telling me this morning`
