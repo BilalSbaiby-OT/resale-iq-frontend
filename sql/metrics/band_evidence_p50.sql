@@ -22,17 +22,47 @@
 -- never produced a row. So coverage -- about to move ~19pp under A13 -- has had
 -- no working honesty check at all.
 --
--- WHAT MAKES THIS ONE WORK: it moves in OPPOSITE directions for the two ways of
--- raising coverage, which is precisely what §0.4 asks a counter to do.
--- Measured against production, n=180 answered searches, 2026-08-12..2026-09-01:
+-- WHAT THIS ACTUALLY MEASURES -- corrected 2026-09-01 after `data-scientist`
+-- REJECTED the first version of this header. The SQL below is right; the
+-- justification written above it was not.
 --
---     today                                  113 bands printed, median evidence 12
---     A13 (use the 30d window already built) 146 bands printed, median evidence 26  UP
---     lower the threshold 8 -> 5             144 bands printed, median evidence 10  DOWN
+-- The header used to quote 113/12 -> 146/26 -> 144/10 and claim this metric
+-- RISES under A13. Those are DEMAND-side figures, weighted by what people
+-- actually search (n=180 searches). This query is SUPPLY-side (n~40 models).
+-- They are different populations and were never this file's output.
 --
--- The two interventions land within one point of each other on coverage (81.1%
--- vs 80.0%) and are opposite in honesty. Coverage alone cannot tell them apart.
--- This can.
+-- Recomputed on production, supply-side, which is what this query returns:
+--
+--     today   (7d window, threshold 8)     k=39   median 14
+--     A13     (widened window, threshold 8) k=62   median 13.0   <- FALLS
+--     cheat   (7d window, threshold 5)      k=62   median  9.0   <- falls further
+--
+-- IT FALLS UNDER THE HONEST INTERVENTION. Not because any model got worse --
+-- none did, and 19 got dramatically better -- but because the 19 models that
+-- cross enter at comparable_n 8-19, BELOW the existing median of 14. Adding
+-- members at the low end of a pool drags the median down. That is a COMPOSITION
+-- EFFECT, and this statistic is composition-sensitive: its population changes
+-- size under exactly the intervention it was built to police.
+--
+-- CONSEQUENCE, and the reason this correction had to happen before anything
+-- shipped: OS §7 says a counter may not degrade > 2pp. Registering A13 against
+-- this metric would have scored the honest change a MISS. The counter built to
+-- tell the honest intervention from the dishonest one would have blocked the
+-- honest one.
+--
+-- SO IT IS A ONE-SIDED COUNTER, not a broken one. It still catches the real
+-- gaming risk unambiguously -- lowering the threshold takes it 14 -> 9.0 -- and
+-- that is worth keeping. It simply must not be used as a gate on a change that
+-- widens the pool.
+--
+-- DO NOT pre-register a coverage-widening change against this metric. Use the
+-- two composition-immune assertions instead: MIN(comparable_n) over banded rows
+-- must equal 8 (moves only if the threshold moves), and no model's comparable_n
+-- may decrease (zero by construction when widening a window).
+--
+-- The two-sided version needs `verdict_logs.comparable_n`, which does not exist
+-- yet -- the same column A8-3 needs. When it lands, add the demand-weighted
+-- sibling; do not redefine this one.
 --
 -- SCOPE, stated because it is narrower than the name suggests: this is the
 -- SUPPLY side -- evidence behind models that COULD be priced. The demand-side
