@@ -515,3 +515,10 @@ session: the objective changed, and the diagnosis of how I got it wrong
 
 OBJECTIVE.md now sits above OS.md. Profit is the goal; the`
 - `2026-09-01T10:59:12Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && printf 'founder instruction 2026-09-01: "have this in all agents and you" -- referring to docs/company/OBJECTIVE.md, MAXIMIZE LONG-TERM PROFIT. Scope: prepend the objective pointer to every .claude/agents/*.md. No tool grant, hook or rule changed.\n' > .claude`
+- `2026-09-01T11:01:08Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "media: both platform formats generating on demand
+
+hook-wide.mp4, 16:9 for X and YouTube, alongside the 9:16 vertical for
+TikTok/Reels/Shorts. Roughly 45-60s per clip, ~4.8MB.
+
+Committing the assets rather than only the script because the whole point of
+today is that `
