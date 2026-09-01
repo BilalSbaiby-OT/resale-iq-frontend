@@ -32,6 +32,7 @@ surfaced a bug nobody was looking for, and the auditor audited its own scope.
 | `claude/data-scientist/a13-comparable-window` | A13. One token: supply coverage 43→62%, median evidence 12→26 |
 | `claude/backend-eng/data-defects-c6-c5-c4` | C5 (approved standalone) + C4 (closes 1 of 8 paths) |
 | `claude/devops/delete-ecc-harness` | C2 |
+| `claude/content-social/sold-relabel` | Step 1 of `tech-lead`'s A16 ordering (APPROVALS.md): relabels every "sold" claim as "asking price at departure" / "watched departures", methodology names the relist-bias mechanism. `sold_observed`/`sold_7d`/`sold_at` untouched. `docs/audit/proof/W36/sold-relabel/proof.sh` 14/14; `npx tsc --noEmit`, `npm run build`, all 5 `check:*`, all 24 required e2e green |
 
 `tech-lead` is reviewing the first two **jointly** — `product-manager` required it, since both touch
 "how many comparables justify a band" and nobody has confirmed they do not compound.
