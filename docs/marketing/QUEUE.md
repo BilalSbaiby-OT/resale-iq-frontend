@@ -4,7 +4,7 @@ Written by `content-social`, 2026-09-01, late morning. Every piece in the previo
 this file made a claim the product retracted **the same day** (`resale-iq` `816adeb`, "relabel
 'sold' claims as watched shelf-departures", 37 files, `docs/audit/DATA.md:226-229`). This is a
 full rewrite, not a find-and-replace. **Nothing below has been posted, scheduled, or sent to
-Postiz.** Publishing is a founder gate (OS §0.10) — press send yourself, or don't.
+Postiz.** ~~Publishing is a founder gate (OS §0.10)~~ — **CLEARED BY A22 (2026-09-01). `content-social` publishes to the four connected accounts without asking.** Still gated: a NEW platform or account, and emails to individuals.
 
 No fake hit rates, no fake users, no invented testimonials, no accuracy claims. Every number
 below cites `n`, a date range and a source. If a claim couldn't be sourced, it was cut, not

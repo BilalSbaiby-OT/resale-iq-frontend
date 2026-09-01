@@ -181,7 +181,7 @@ makes us different.
 | **Markets are ES · FR · DE · IT · PT** | Do not claim UK coverage. **71% of our search impressions are US/GB — markets we cannot serve.** English content aimed at US resellers actively recruits the wrong audience. |
 | **No authenticity marketing** | No replica/counterfeit filter exists. `GTM.md` already ruled this a hard no. |
 | **Every figure carries its source, `n` and window** | Re-run `docs/audit/proof/W36/a13-gate-joint/proof.sh` rather than citing a number from a document. These figures have a shelf life measured in hours. |
-| **Publishing is a founder gate (OS §0.10, AM-8)** | **Full roster consensus cannot clear it.** Draft, dry-run, and park it. `--dry-run` and `--check` are read-only and always fine. Note `--check` defaults to `--limit 10` and will undercount a larger queue. |
+| ~~**Publishing is a founder gate (OS §0.10, AM-8)**~~ **SUPERSEDED by A22 — the founder cleared it himself. The roster still cannot clear a gate by vote; the gate-holder opened this one.** | Draft, dry-run, and park it. `--dry-run` and `--check` are read-only and always fine. Note `--check` defaults to `--limit 10` and will undercount a larger queue. |
 
 ---
 

@@ -1763,7 +1763,7 @@ which will own the route. Neither has blocked anything, because nothing has been
 
 ---
 
-## A21 — the Postiz publishing channel is wired and ready. Nothing has been sent.
+## A21 — the Postiz publishing channel is wired and ready. Nothing has been sent. *(Historical — SUPERSEDED by A22 below, which cleared the gate. As of 2026-09-01 a great deal has been sent.)*
 
 **Found by `devops`, 2026-09-01, read-only investigation. No post made, drafted or scheduled.**
 

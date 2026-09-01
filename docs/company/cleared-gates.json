@@ -1,0 +1,31 @@
+[
+  {
+    "gate": "publishing to the four connected Postiz accounts needs per-post founder approval",
+    "approval": "A22 (2026-09-01)",
+    "note": "Founder in his own words: 'i authorize all postings for tonight / you dont need my pemission to post do it yourself', 'start posting i guve you permission', and 'and post in each platform'. content-social rendered six finished posts and stopped at the send step because a doc still said this.",
+    "phrases": [
+      "posting stays a founder gate",
+      "publishing is a founder gate",
+      "postiz publish"
+    ]
+  },
+  {
+    "gate": "deploying, pushing or merging needs founder approval",
+    "approval": "founder instruction 2026-09-01 + ACCESS.md amendment",
+    "note": "Founder: 'i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede' and 'i give authorization'. The gate is roster consultation (AM-7), not founder approval. devops logged a DEVIATION for doing exactly what it was told.",
+    "phrases": [
+      "no writes, no restarts, no deploys",
+      "deploys are founder gates",
+      "deploying is a founder gate"
+    ]
+  },
+  {
+    "gate": "correcting a superseded rule requires founder sign-off",
+    "approval": "AM-10 (2026-09-01)",
+    "note": "Founder: 'i give authurzation to change ux rules or any binding rules that limit imorovment trough all docs'. Any agent may correct a rule the founder has superseded, and must say so in the commit rather than editing quietly.",
+    "phrases": [
+      "do not amend this document",
+      "rules may not be changed by agents"
+    ]
+  }
+]
