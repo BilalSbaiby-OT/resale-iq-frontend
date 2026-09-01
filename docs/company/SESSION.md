@@ -788,6 +788,38 @@ real users. **It is one.** `RESEND_API_KEY` is already live in production, so **
 is the entire switch.** Not flipped — founder's call, and an accidental blast to real trial users is
 the worst outcome available.
 
+## The 24% was never a rate — and a 3× undersell was live on the quota wall
+
+`data-eng` **measured production instead of accepting the figure, and the figure did not survive.**
+
+All-time looks like 43% (165 of 384 `verdict_logs` PENDING). But **every one predates the fix**, and
+**146 sit in a single burst on 2026-08-23** across 139 distinct ip hashes, many in the same
+wall-clock second. **One systemic failure window, not steady organic loss.** Since the fix deployed:
+**24 rows, 0 PENDING, 0 ERROR.**
+
+It also stated what it could *not* claim: `n=24` is small, and **0 ERROR means the failsafe's
+`except` has never been exercised by a real exception.** Said plainly rather than smoothed into a
+cleaner result. `finance-ops` told directly on the bus — its model carries 24% as an assumption.
+
+**The residual orphan window is closed** — the one I merged as "known and accepted". Negative
+control: stash the fix and an **uncaught `RuntimeError` propagates through the whole ASGI stack.**
+Real, not theoretical.
+
+### And a live conversion defect it found in someone else's lane, and reported instead of fixing
+
+**`check.html` said "Free tier: 3 checks per day" while `config.py` has had `FREE_VERDICT_DAILY_LIMIT
+= 10` all along.** We were **underselling the free tier by 3×**, at the exact moment the most engaged
+anonymous visitor hits the wall and decides whether we are worth an account.
+
+**The fix was not 3 → 10.** The API has been returning `used_today` and `limit` (`routes.py:850-851`)
+the entire time and **nothing was reading them.** Both the counter and the subtitle now come from the
+response, so it cannot drift again.
+
+**What makes it sting: line 203 of that same file already did it correctly.** The page contained both
+the right pattern and the wrong one — and the wrong one was on the logged-out path.
+
+**1292 tests.** `demand-intel@f5a9c6d`.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

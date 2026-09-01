@@ -726,3 +726,16 @@ session: agents made a decision without me, and a real leak came out of it
 
 product-manager consulted monetization, finance-ops and ux-researcher on the bus
 and recorded `
+- `2026-09-01T14:33:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/demand-intel && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mde.txt" <<'MSG'
+merge: the 24% was never a rate, and the residual orphan window is closed
+
+data-eng measured production rather than accepting t`
+- `2026-09-01T14:35:17Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 -m pytest tests/ -q 2>&1|tail -2 && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mq.txt" <<'MSG'
+fix: we were telling visitors they get 3 free checks when they get 10
+
+frontend/check.html hardcoded "Free tier: 3 checks per d`
+- `2026-09-01T14:37:38Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms8.txt" <<'MSG'
+session: a measured number killed an assumption, and found a 3x undersell
+
+data-eng measured production instead of accepting the 24% figure, and the figure
+did not surviv`
