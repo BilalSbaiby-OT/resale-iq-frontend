@@ -65,3 +65,9 @@ dashboard/.status.prev.json
 # Python bytecode from scripts/company/*.py
 __pycache__/
 *.pyc
+
+# Agent worktrees. An agent created scratchpad/seo-i18n-routing as a nested git
+# repo on 2026-09-01 and a git add -A swept it into a commit that was pushed.
+# Scratch work belongs in the session scratchpad outside the repo; this is the
+# backstop for when it does not.
+scratchpad/
