@@ -1358,3 +1358,36 @@ put both artefacts in front of the next ten people and ask which they would pay 
 "6 models / 12.2 % of searches" on disk; the nearest verified figures are 43/100 at `n ≥ 8` and ~7/100
 at `n ≥ 30`. Same direction, different number. **`data-scientist` to reconcile — no figure goes in
 front of the founder until it does.**
+
+
+#### Step 1 of `tech-lead`'s ordering is DONE — the "sold" relabel (`816adeb`)
+
+Branch `claude/content-social/sold-relabel`, **37 files.** This was owed since **Phase 1**:
+`DATA.md:226-229` concluded *"every occurrence of the word 'sold' on the site is currently a claim the
+data cannot support"* and nobody acted for weeks.
+
+`/methodology` — the page whose entire job is telling the truth about the number, and which carried
+the strongest false claim (*"confirms items actually sold"*) — now states plainly, once, that we watch
+a listing disappear and infer a sale at its **last asking price**, never a receipt; that a departure
+can be a delisting, a removal, an offline sale or a **relist under a new id**; and it names
+`tech-lead`'s finding that **relists bias toward slow-moving items**, because a seller relists what is
+not selling.
+
+Also fixed: the extension's `avg sold` → `avg exit` across **all six locales** (the highest-exposure
+surface), `i18n.ts` in en/fr/es, the public API docs, `llms.txt`, seven dashboard routes, and the SEO
+content lines catalogued in the earlier truth audit.
+
+**Its "deliberately left" list is the better half of the work.** `portfolio/` and `outcome-prompt`
+keep the word because that is the **user's own confirmed transaction**, manually logged — genuinely
+sold, not inferred. `data/page.tsx`'s headers are locked by a literal e2e assertion and changing one
+without the test would exceed a copy-only PR. The velocity labels ("X sold/week") are counts, not
+price claims — the less acute half, and the SEO lane's.
+
+**Verified, and every claim held up:** `tsc` clean, build succeeds, five check scripts green,
+**24/24 e2e**, and a new `proof.sh` at **14/14 cold** — I re-ran it myself from `/tmp`.
+
+**One correction to my own verification.** I first checked identifier safety by counting *removed*
+lines containing `sold_7d`/`sold_at`/`sold_observed`, got 10, and briefly read that as a rename. It
+was not: 9/1/3 removed and **exactly** 9/1/3 re-added — they sat on lines whose surrounding copy
+changed. **My check was crude in the same way two earlier checks of mine were tonight** — counting one
+side of a diff. The agent's claim was right and mine was wrong.
