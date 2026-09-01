@@ -15,6 +15,26 @@ listed at the bottom with owners.
 
 ---
 
+## SCOPE — read this before any row below
+
+**This report covers the whole company: four repos.** `resale-iq`, `demand-intel`,
+`resale-iq-growth`, `resale-iq-seo`.
+
+**Every rule enforced by `.claude/hooks/guard.py` is enforced in `resale-iq` ONLY.** The other three
+load no hook — including `demand-intel`, whose `main` branch deploys production. Those rows are
+marked **PARTIAL** with the dependency named, rather than DONE, until APPROVALS **A12**'s rollout
+lands.
+
+Added 2026-09-01 on `verifier`'s finding. This file previously described one repo's rails in
+company-wide language, and the ambiguity was doing real work: it is how "Phase 0 rails DONE, 40/40"
+came to stand for a proof that only ever exercised a quarter of its subject.
+
+`docs/audit/proof/W36/rails-coverage/proof.sh` holds the gap visible and **fails at 1/4 by design**.
+It goes green only when all four repos are wired. **It is permanent infrastructure — do not retire it
+when demand-intel turns green.**
+
+---
+
 ## Step 0 — save the message verbatim
 
 | Item | Status | Evidence |
@@ -30,7 +50,7 @@ listed at the bottom with owners.
 | 3 | Derived data never becomes source data | **PARTIAL** | stated in agent files; not machine-enforced. `DATA.md` found 24.1M fabricated `is_sold=1` rows still readable by 8 code paths — the rule exists, the cleanup does not |
 | 4 | No KPI without its counter-KPI | **DONE** | every one of the 21 agent files carries primary + secondary + counter |
 | 5 | WIP = 1 per agent | **DONE** | `.claude/LOCK`, injected at every session start |
-| 6 | Not proven on disk is not done | **DONE** | `docs/audit/proof/W36/**`, each with a `proof.sh` runnable cold |
+| 6 | Not proven on disk is not done | **PARTIAL** | 5 `proof.sh` files, each runnable cold — **all in `resale-iq`**. No proof covers the other three repos, which is the gap `rails-coverage` now fails on |
 | 7 | Doer ≠ reviewer ≠ scorer | **DONE** | `tech-lead` may never author what it reviews; `verifier` is sole writer of SCOREBOARD. Exercised for real: the CEO overturned a MARKETING-AUDIT finding that did not survive verification |
 | 8 | Spend is a KPI | **PARTIAL** | cap set at €200 (AM-2), model tiers assigned per agent; no spend ledger yet |
 | 9 | Never build the forbidden list | **DONE** | encoded in `seo` and `content-social` agent files; `sales` deliberately never created |
@@ -56,7 +76,7 @@ listed at the bottom with owners.
 | Every agent in the chart | **DONE** | 21 files in `.claude/agents/`, each with the §2 template, KPI card, tier T1, minimum tools |
 | `sales` agent | **DONE (deleted)** | AM-3 — the founder cut Business €99, so the role that served it was never created |
 | Trust tiers R / W | **PARTIAL** | recorded per agent; `data/quarantine/` for untrusted writes not yet created |
-| Egress allowlist | **DONE** | `guard.py` blocks POST off the allowlist |
+| Egress allowlist | **PARTIAL** | `guard.py` blocks POST off the allowlist — **in `resale-iq` only** (SCOPE, A12). `demand-intel` additionally allows broad `Bash(curl*)` with no deny list |
 | Stripe key read-only | **DONE** | writes hook-blocked; live key never leaves the production container |
 | `.env` never in context | **DONE** | `.claude/bin/with-secrets.sh` — use a secret, never see one |
 
@@ -108,8 +128,8 @@ listed at the bottom with owners.
 | Item | Status |
 |---|---|
 | Tier ladder T0–T3, promote/demote rules | **DONE** — in every agent file |
-| Only `verifier` writes SCOREBOARD | **DONE** — hook-enforced |
-| Agents cannot edit their own file / OS / hooks | **DONE** — `guard.py`, with a negative control proving reads still pass |
+| Only `verifier` writes SCOREBOARD | **OPEN, and not achievable as written** — the hook cannot identify the caller, so the rule degrades to *nobody* writes it and the scoring loop has never run. Re-scoped to **generate, don't gate** (A11) |
+| Agents cannot edit their own file / OS / hooks | **PARTIAL** — `guard.py`, with a negative control proving reads still pass — **in `resale-iq` only** (SCOPE, A12). `PROTECTED` also matches a path *substring*, so it cannot tell this roster from unrelated files of the same name in another repo |
 | Pre-registered goals with holdout + sha256 | **OPEN** — needs `GOALS.md` first |
 
 ## §8 — Bootstrap
