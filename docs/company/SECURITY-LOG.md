@@ -695,3 +695,8 @@ I told the founder we could not take money. Wrong, and he was about to act on
 it.
 
 I`
+- `2026-09-01T14:10:44Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git status --porcelain|wc -l
+w24: the deploy window is a Traefik routing artifact, not a rebuild outage
+
+devops corrected my diagnosis, and the correction is the useful part. I said
+Coolify rebuilds in place with no healt`
