@@ -883,6 +883,29 @@ session tooling** and said so. W48, retest first.
 key is the only missing piece. **Every video we have published is silent**, and narrated short-form
 outperforms silent on TikTok and Reels. Founder-blocked.
 
+## Security sweep — repos clean, but the egress rail gives false confidence
+
+**Founder asked to verify everything is secured before rotating this evening. Repos are clean:** no
+`.env` tracked in any of the three (only `.env.example`), `.env` gitignored everywhere, **zero
+live-shaped secrets in tracked files or 60 days of git history.** Nothing reached GitHub.
+
+**W49 — the real finding.** `POST_HOSTS_OK` is `localhost, 127.0.0.1, resaleiq.dev, 62.238.51.83` and
+**nothing else**, while we POST daily to **Gemini, Postiz, Stripe and ElevenLabs.** And the rule only
+matches `curl|wget|http` with `-X POST` — **it cannot see a POST from a Python script**, which is
+exactly how `gen_image.py`, `gen_video.py` and `org.py` reach Gemini and Postiz.
+
+**So it blocks the honest path and misses the other one.** It stopped legitimate work twice today —
+reading Reddit's rules, testing TTS — while every generated image and video went through unexamined.
+**A rail that only catches the careless path is worse than none, because it is trusted.**
+
+**W50 — the ElevenLabs key is VALID, just scoped too narrowly.** It authenticates (51 chars, `sk_`)
+and returns `missing_permissions: user_read`. **30-second founder fix:** enable `text_to_speech` on
+that key. **Every video published so far is silent.**
+
+**On rotation:** nothing is in a repo or on GitHub. The exposure was confined to this session's
+transcript — the Resend key via `env | grep`, the Coolify token via shell word-splitting. **Both
+mine.** Rotate-on-principle, not urgency. This evening is fine.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

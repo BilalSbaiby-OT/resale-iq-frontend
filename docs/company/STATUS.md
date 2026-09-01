@@ -24,7 +24,7 @@ UNKNOWN — asked, no answer (never rendered as zero)
       -> Phase 2: 60 frozen labelled listings with auto-revert
   quality.match_precision            no 30-sample audit run yet
       -> Phase 2: /precision
-  quality.band_coverage_demand       population below floor (n = 66, floor = 100)
+  quality.band_coverage_demand       population below floor (n = 70, floor = 100)
 
   17 checks · 2 failed · 0 inspected nothing
 ```

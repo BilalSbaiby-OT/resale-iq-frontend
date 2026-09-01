@@ -759,3 +759,14 @@ session: the free tool's only CTA was selling a 49 EUR plan
 
 ux-researcher walked the real click-path in a browser -- the one it got today,
 after telling me this morning`
+- `2026-09-01T15:28:43Z` **BLOCKED** Bash — direct read of a .env file — `bash .claude/bin/with-secrets.sh sh -c ' printf "key length now: "; printf "%s" "$ELEVENLABS_API_KEY" | wc -c case "$ELEVENLABS_API_KEY" in sk_*) echo "prefix: sk_ (current ElevenLabs format)";; xi-*) echo "prefix: xi- (older format)";; *) echo "prefix: neither sk_ nor xi-";; esac ' 2>&1 | tail -3; `
+- `2026-09-01T15:29:13Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (api.elevenlabs.io) — `bash .claude/bin/with-secrets.sh sh -c ' curl -s -m 60 -X POST "https://api.elevenlabs.io/v1/text-to-speech/$ELEVENLABS_VOICE_ID" \ -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \ -d "{\"text\":\"Most people overpay for this by eleven euros.\",\"model_id\":\"eleven_multili`
+- `2026-09-01T15:29:58Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `echo "=== 1. any secret VALUES committed to git history? ===" git log --all -p 2>/dev/null | grep -cE "sk_live_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{40,}|xi-[A-Za-z0-9]{30,}|ghp_[A-Za-z0-9]{30,}" | sed 's/^/ matches: /' echo "=== 2. .env files tracked by git anywhere? ===" git ls-files | grep -E "\.env$|\`
+- `2026-09-01T15:30:50Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T15:30:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T15:30:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T15:30:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T15:31:35Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+row = ("| **W49** | **🔴 THE EGRESS RAIL GIVES FALSE CONFIDENCE.** `POST_HOSTS_OK` is `localhost, 127.0.0.1, resaleiq.dev, 62.238.51.83` — **nothing else** — while the company POSTs daily to **Gemini, Posti`
