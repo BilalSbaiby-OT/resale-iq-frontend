@@ -4,6 +4,30 @@
 
 ## Working on
 
+**Production verified by me in the browser, not from a report.** Six locales 200 · `/api/health` 200 ·
+`/register` 200. `New Balance 530` → **SKIP**, buy_below **26.39** from sell_avg 39.69 at **n=548**
+(39.69 × 0.95 × 0.70 = 26.39 exactly) — the product tells people *not* to buy when the numbers say
+so. `/fr` renders real French with the right vocabulary: *"disparitions observées"*, never "vendu".
+
+**Funnel, this hour:** 28 visitors · **4 reached `/register`** (was 3) · 7 users · **0 paying**.
+There is 1 signup in the last 24h and **it is our own QA probe, not a customer** — recording that
+here so nobody reads it as growth tomorrow.
+
+**Channel data is unchanged and still says one thing:** ~9 tagged visits, **every one Instagram**
+(`r122`, `r123`, `r126`, `r128`). TikTok and X: still zero. Four Instagram posts are queued to fire
+at 20:01 / 22:01 / 00:01 / 02:01 UTC — staggered deliberately, so no more Instagram tonight.
+
+**Localisation keeps compounding:** `en 26 · de 4 · fr 3 · es 3 · it 2`. This morning it was
+`en 26 · es 2 · de 2`.
+
+**W57 is with `content-social`** — every errored TikTok row points at a **silent, 540×960** asset,
+and the guards I shipped today now refuse exactly those. The row cannot close by retrying; the
+assets have to be real. It is also running the decisive TikTok test: publish **one** properly-made
+post and check whether it yields a real `/video/` id. Only 1 of 12 TikTok records ever has.
+
+**W59 opened** — we cannot tell whether any user ever used the product. That is what makes the
+trial→paid email guesswork.
+
 **THE LOCALE BUG EXISTED TWICE, AND I SHIPPED THE FIRST FIX AS IF IT WERE THE WHOLE ONE.**
 
 `detectLocale()` in `lib/i18n.ts` and `acceptLanguageLocale()` in `proxy.ts` are two copies of the
