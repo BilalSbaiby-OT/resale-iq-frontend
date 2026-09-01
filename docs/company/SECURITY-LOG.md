@@ -265,3 +265,4 @@ block`
 - `2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`
 - `2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T01:54:09Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cat > docs/company/ESCALATION.md <<'EOF' # ESCALATION — how the company reaches the founder when it must **Written 2026-09-01**, after the founder gave a mobile number and said *"find a way."* ## The number is NOT in this file, and that is deliberate A personal mobile number committed to a git repos`
