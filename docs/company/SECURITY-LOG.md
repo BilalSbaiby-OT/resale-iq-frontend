@@ -301,3 +301,7 @@ block`
 - `2026-09-01T08:46:13Z` **BLOCKED** Bash — DELETE FROM without WHERE — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && cat > tests/test_zz_probe_tl.py <<'PY' """tech-lead review probe — NOT for merge.""" import pytest from tests.test_entitlement_redaction import _make_user, _watch, _FakeRequest @pytest.mark.`
 - `2026-09-01T08:49:02Z` **BLOCKED** Bash — DELETE FROM without WHERE — `grep -n "DELETE FROM" .claude/hooks/guard.py | head -5`
 - `2026-09-01T08:49:42Z` **BLOCKED** Bash — DELETE FROM without WHERE — `python3 - <<'PY' import io p="docs/company/GAPS.md"; s=io.open(p,encoding="utf-8").read() anchor="Written down so it does not need to be asked for again." add = anchor + """ --- ## E. Found 2026-09-01 morning, while the merge queue ran | # | Thing | Why it matters | |---|---|---| | **E1** | **Portfo`
+- `2026-09-01T08:54:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder: merge C6/C5/C4, reviewed by tech-lead, 2026-09-01 — `git push origin main`
+- `2026-09-01T08:54:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder: merge C6/C5/C4, reviewed by tech-lead, 2026-09-01 — `git push origin main`
+- `2026-09-01T08:54:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T08:54:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`

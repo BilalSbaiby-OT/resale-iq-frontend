@@ -5,7 +5,15 @@
 ```
 OS STATUS                                  checked 0m ago
 
-  GREEN — nothing blocking
+  RED — 1 blocking
+
+WHAT CHANGED
+  harness/registered-gates-actually-block      ✓ -> ✗
+
+BLOCKING
+  ✗ harness/registered-gates-actually-block      n=4
+      /Users/bilalsbaiby/work/resale-iq/.claude/hooks/guard.py did not block a must-block payload; /Us
+      -> the hook is registered but not enforcing
 
 UNKNOWN — asked, no answer (never rendered as zero)
   company.retention_30d              population below floor (n = 0, floor = 100)
@@ -18,5 +26,5 @@ UNKNOWN — asked, no answer (never rendered as zero)
       -> Phase 2: /precision
   quality.band_coverage_demand       population below floor (n = 44, floor = 100)
 
-  17 checks · 0 failed · 0 inspected nothing
+  17 checks · 1 failed · 0 inspected nothing
 ```

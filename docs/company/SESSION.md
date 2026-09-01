@@ -25,6 +25,24 @@ cannot fail is worse than no test.**
 the gate's rebase — I authored that, OS §0.7 — but it has the untouched `resale_routes.py` call
 sites); `frontend-eng` executing the A15 ruling.
 
+## Revoked a stale deploy approval, 2026-09-01 ~10:20
+
+`.claude/DEPLOY_APPROVED` was **still armed** in `resale-iq`, carrying last night's text
+(*"founder: merge C6/C5/C4, reviewed by tech-lead"*). **That deploy already happened at 08:22.** The
+token was consumed and never removed, so it stood as a standing authorisation for any `git push
+origin main` in this repo — by me or by any agent holding `Bash(git *)`.
+
+`SECURITY-LOG.md` shows the rail logging **DEPLOY ALLOWED** for a bare `git push origin main` at
+`08:54:45`. **No push landed** — `origin/main..main` is 3 commits, all still local — but the rail
+would not have stopped one.
+
+**Deleted.** A founder approval is per-deploy, not a mode. It has to be re-issued for the A13 + gate
+release, which is correct: that release has not been consulted yet.
+
+Open question I could not answer from the log: **what issued that push attempt.** Four agents with
+`Bash(git *)` were running. The log records the command and the verdict, not the caller — which is a
+gap in the log, not in the rail.
+
 ## Blocked
 
 Nothing is blocked on the founder. Seven branches remain **UNREVIEWED — not rejected**:
