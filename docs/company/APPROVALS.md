@@ -1689,3 +1689,62 @@ still a new line in `permissions: []`, which is a founder gate on its own terms,
 "You're on vinted.co.uk — Resale IQ covers ES/FR/DE/IT/PT only" when the hostname doesn't match.
 Store listing's permission-justification section (`STORE-LISTING.md`) gets one added bullet. No other
 change.
+
+---
+
+## A14 — the extension's new outbound channel `/api/ext/error`
+
+**Merged 2026-09-01 (`9571e87`). NOT submitted to the Chrome Web Store — submission is publishing
+publicly, a founder gate under OS §0.10 that the roster may not decide.**
+
+**Found by `tech-lead` in review; my brief to that review missed it entirely.** `background.js` and
+`content.js` POST to `${API}/api/ext/error` on `selector_miss`, `render_exception`,
+`run_exception`. **The route does not exist**, so every failed render currently 404s.
+
+**`security-eng` verdict: SHIP WITH NAMED CHANGES — not revert.** It read all four call sites rather
+than accepting the description:
+
+- `reason` is a **literal string constant** at every call site, never built from `e.message`, DOM
+  text or the URL — the `catch` blocks discard the caught error. The 40-char truncation is
+  belt-and-braces, not the safety mechanism.
+- The POST is issued from the **service worker**, not the content script, so the browser attaches
+  **no Vinted referrer** and no `Authorization` header.
+- No listing, seller, query, account id or session token reaches the payload.
+
+### Correction to how this was first described — mine
+
+I recorded this as *"an unauthenticated POST reachable from any Vinted page."* **Both halves are
+wrong.** `manifest.json` scopes content scripts to exactly `www.vinted.{es,fr,de,it,pt}` — no
+wildcard, nothing on `vinted.co.uk` or `.com` — and the host page's own JS **cannot reach
+`chrome.runtime.sendMessage` at all.** The real exposure, once the route exists, is **any
+unauthenticated internet client** (curl, any server). That is a different threat model and the
+mitigations belong to it.
+
+### Required before the route is built
+
+1. **Pydantic closed enums, not free text** — `reason: Literal["selector_miss","render_exception","run_exception"]`, `market: Literal["es","fr","de","it","pt","en"]`. Anything else 422s. Stricter than truncation, and removes the field as an injection surface permanently.
+2. **Explicit body-size ceiling** (~256 bytes) at middleware level, so a huge body cannot be POSTed before schema validation runs.
+3. **IP-keyed rate limit, tighter than the general 60/min bucket** — follow `/api/verdict`'s existing pattern in `api/routes.py:699-700`, which **SHA-256-hashes the IP before using it as a key**. Precedent for a tighter budget already exists at `api/auth.py:267-268`.
+4. **Store AGGREGATE COUNTERS keyed `(reason, market, day)` — never per-event rows.** This is the design point. It delivers the actual goal (noticing Vinted broke our selectors is a **rate**, not a list) while never creating a fourth table with the retention defect `COMPLIANCE.md #3` already finds in `verdict_logs`, `purchase_logs` and `activity_logs`. It removes the objection rather than trading it against the value.
+5. Return `204`, echo nothing.
+
+### Disclosure — done, and it was a store-rejection risk
+
+The live `/privacy` page named **two** things sent to us; `STORE-LISTING.md:96-105` disclosed a
+third. **The published policy contradicted the store submission by omission** — a common Chrome Web
+Store rejection class, since Google compares the Data Use declaration against the linked policy
+text rather than probing the backend.
+
+Fixed on `main` by `frontend-eng`: `/privacy` now discloses the purpose, the two fixed values, what
+is **not** sent, and **why** it exists. It deliberately does **not** claim anonymity — the request
+carries the caller's IP, which under *Breyer* (CJEU C-582/14) is personal data where we can
+reasonably identify the person, and our own rate limiter already assumes exactly that.
+
+**Order is fixed: `/privacy` (done) → then submission (founder).**
+
+### Consultation
+
+`tech-lead` (found it), `security-eng` (design + manifest audit). **Not yet seen by
+`legal-compliance`**, which owns `/privacy` and has an open related finding, or by `backend-eng`,
+which will own the route. Neither has blocked anything, because nothing has been built.
+

@@ -349,3 +349,13 @@ add = s.rstrip() + """
 
 **Found 2026-09-01 by `tech-lead`, from three instances in a single day.** Recorded as a pattern
 rather than three fixed lin`
+- `2026-09-01T09:40:13Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+import io
+p="docs/company/APPROVALS.md"; s=io.open(p,encoding="utf-8").read()
+add = s.rstrip() + """
+
+---
+
+## A14 — the extension's new outbound channel `/api/ext/error`
+
+**Merged 2026-09-01 (`9571e87`). NOT submitted to the Chrome Web Store —`
