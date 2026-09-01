@@ -143,10 +143,24 @@ test("an English-first visitor with a second language gets English, not the seco
   expect(html).not.toContain("Cree su cuenta")
 })
 
-test("a genuine Spanish-first visitor still gets Spanish", async ({ request }) => {
-  const res = await request.get("/register", {
+// Asserted on "/" and NOT on "/register", which is where I first wrote it and
+// where it was WRONG. `src/proxy.ts`'s W19 comment documents that a cookie-less
+// direct visit to /register serves English deliberately -- the four unprefixed
+// auth routes read NEXT_LOCALE, and a visitor arriving from an email link or a
+// bookmark has no cookie to read. My original version asserted behaviour the
+// system does not have and never claimed to, so it failed on main from the
+// moment I wrote it. `frontend-eng` caught it rather than quietly rewriting
+// proxy.ts to satisfy a bad test, which is the failure this comment exists to
+// prevent next time.
+//
+// "/" is where locale is actually decided, so it is where the guarantee lives:
+// a Spanish speaker must still be sent to Spanish. This is the half that would
+// break if anyone "fixed" the English-first bug by serving English to everyone.
+test("a genuine Spanish-first visitor is still routed to Spanish", async ({ request }) => {
+  const res = await request.get("/", {
     headers: { "Accept-Language": "es-ES,es;q=0.9,en;q=0.8" },
+    maxRedirects: 0,
   })
-  expect(res.status()).toBe(200)
-  expect(await res.text()).toContain('lang="es"')
+  expect(res.status()).toBe(307)
+  expect(res.headers()["location"]).toContain("/es")
 })
