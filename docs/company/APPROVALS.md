@@ -820,3 +820,59 @@ is the same fact recurring, so real exposure is close to the full per-pass rate.
 12.68M rows against the live-serving database file. The legacy still-active population is left
 **UNKNOWN**, with the index that would make it safe written down. A number is not worth a production
 stall.
+
+
+---
+
+### The joint review came back — FX v2 **APPROVED**, A13 **REQUEST CHANGES**
+
+`tech-lead`, 2026-09-01. It traced the data flow end to end rather than reading diffs, "because the
+joint question can only be answered downstream of `model_signals`."
+
+**Q1 — do C5 and A13 compound? NO, and it verified the invariant rather than asserting it.** They act
+on **disjoint populations**: C5 changed behaviour only where `comparable_n` is *missing*; A13 acts only
+where it is *present and 3-7*. No row is in both, so there is no multiplicative term. It then checked
+the real risk — that A13 edits the code which *writes* `comparable_n`, on which C5's "100/100 rows"
+justification rests — and confirmed the if/elif/else is exhaustive, so **the 100/100 invariant
+survives A13.**
+
+**Q2 — my instinct was right, and worse than I guessed. A13 MOVES PUBLISHED PRICES.**
+
+`publishable_opportunity()` gates on the *presence* of `avg_price_eur` and `max_buy_price` — **no
+`comparable_n` check.** And `api/resale_routes.py` contains **zero** matches for `comparable_n`,
+`verdict_allows_buy_below` or `MIN_VERDICT`. So Deal Finder, the watchlist, the brand/model pages,
+the opportunities queries and the `&price_to=` sourcing-link param all read `max_buy_price`
+**directly, with no n ≥ 8 gate.**
+
+Those ~19 crossing models were **already publishing a buy-below** on four paid surfaces, computed
+from the 7-day sample. After A13 they publish one computed from the 30-day sample. **A real
+before/after numeric delta, to users already being shown a price, unquantified.**
+
+> *"`api/routes.py:889` being 'the only thing actually enforcing 8' is the correct observation. Its
+> consequence is the opposite of reassuring: it means A13's price shift is invisible to the one
+> surface that has a gate, and fully live on the four that do not."*
+
+- [ ] **Merge condition: report `max_buy_price` before/after for the crossing models** — n, median
+      absolute delta, median percent, worst case. Read-only, and `price_stats_map` already computes
+      both sides. ~2% is a footnote; 15% is a repricing that belongs in a release note.
+- [ ] **A13 also moves the CONFIDENCE BAND.** `api/routes.py:570-575` bands on `comparable_n`
+      (≥30 HIGH, ≥10 MEDIUM), so median evidence 12→26 pushes models across the HIGH boundary.
+      Defensible — more evidence genuinely is higher confidence — but it must be *stated*.
+- [ ] **A dated tripwire for 14d-vs-30d, not a note.** The measured 43→62 % holds only while
+      `30d == all available data`. Around **2026-09-19** the 30-day window starts genuinely excluding
+      comps and the gain partially unwinds. *"That is the definition of banking a stale default."*
+
+**Q4 — an over-claim of mine, now corrected in code (`6e2db92`).** I wrote that an unpriceable row is
+"KEPT with `price_eur = NULL`". `upsert_listing` (`db/queries.py:133`) **rejects** a falsy
+`price_eur`, so such a row never exists in `listings`. The blocker is still genuinely closed — `shelf`
+is built from `parse_item`'s return *before* the upsert loop — but the honest sentence is **"present
+to the shelf, absent from the table"**, and that asymmetry is the fix rather than a side effect.
+
+**And the closing observation, which is bigger than either branch:**
+
+> *"'The n ≥ 8 gate' is a property of ONE endpoint that the company has been discussing as a property
+> of the product, and the North Star SQL inherits the same assumption."*
+
+- [ ] **New GAPS row owed:** four paid surfaces publish `max_buy_price` with **no evidence floor at
+      all**. Every conversation tonight about coverage, the North Star and honesty has been about
+      `/api/verdict`. The product is wider than the gate.
