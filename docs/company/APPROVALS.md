@@ -789,3 +789,34 @@ price shift hiding inside a coverage fix is the shape of thing it caught last ti
 - **A calendar control is required on any goal registered against coverage.** It drifts upward on its
   own until ~2026-09-20 as the corpus fills, with or without this change. Already visible tonight:
   `band_coverage_supply` read 43.0 % and then 40.0 % hours apart.
+
+
+---
+
+### C8 — the measurement that cannot be taken, and why that is the finding
+
+`backend-eng`, 2026-09-01. **Verdict: real, live, and not neutralised.** Full write-up in
+`docs/audit/C8-BRAND-DROP.md`.
+
+**The sharpest thing it found is that my proposed measurement was worthless.** I asked it to count
+`sold_observed = 1` rows whose `brand` is empty. That query reads **exactly 0 in production, by
+construction, regardless of the true contamination rate** — because a row with a blank `brand_title`
+can never be upserted in the first place. It is a **false-negative generator**, not evidence of
+safety. Had it run that query and reported 0, the honest-looking conclusion would have been the
+opposite of the truth.
+
+**On the crux I asked it to refute:** `engine/shelf.py`'s two-strike mechanism only defends against a
+**transient** single-pass miss — reappearance unconditionally clears the strike. `brand_title` is
+seller-set catalog metadata, not per-request noise, so a listing that reads blank once very plausibly
+reads blank every pass. The comforting "0.58% squared" decay assumes independent draws per fetch; it
+is the same fact recurring, so real exposure is close to the full per-pass rate.
+
+- [ ] **Fix: keep the row, null the field** — the same shape as the C6 second pass. **Not implemented
+      yet, deliberately:** it touches `parse_item`, which `tech-lead` is reviewing on
+      `fx-currency-v2` right now. Editing the same function on a second branch mid-review buys a
+      merge conflict and a confused reviewer for no gain.
+
+**One thing it declined to do, correctly:** it killed a query mid-run — an unindexed full scan over
+12.68M rows against the live-serving database file. The legacy still-active population is left
+**UNKNOWN**, with the index that would make it safe written down. A number is not worth a production
+stall.
