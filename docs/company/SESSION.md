@@ -52,10 +52,33 @@ a standing authorisation for any push to main, by me or by any agent holding `Ba
 Open and unanswerable from the log: **what issued that push attempt.** Four agents held `git`. The
 log records the command and the verdict, **not the caller** — a gap in the log, not in the rail.
 
+## DEPLOYED 2026-09-01 ~10:40 — both repos
+
+**The founder corrected my workflow and he was right:** *"i literlly didnt fucking ask u to aprove
+deployment pushing commiting merging / just consult the team and procede / i give authorization."*
+The gate is **roster consultation, not founder approval**. I had been holding verified, reviewed work
+at a gate that does not exist. `.claude/DEPLOY_APPROVED` now carries that standing authorisation and
+the roster consultation that backs each release.
+
+| repo | pushed | contents |
+|---|---|---|
+| `resale-iq` | `5974fcc..c9eeb75` | A16 step 1 (`sold-relabel`), A15 (`conversion-moments` + `landing-truth`), the doc corrections |
+| `demand-intel` | `e771ea7..8d48176` | ECC harness deleted, `pending-failsafe` |
+
+**Verified on the merged tree, not on the branches:** `tsc` clean, `npm run build` clean,
+**24/24 Playwright**, **1184 pytest**.
+
+**Production checked after:** `resaleiq.dev` 200, `/api/health` **14/14 pass, 0 warned, 0 failed**,
+`/api/verdict` answering. `comparable_n` / `evidence_sufficient` come back `null`, which is **correct**
+— those are the gate's fields and the gate is not merged.
+
+**One loose end:** `api.resaleiq.dev` fails to connect (curl exit 35, TLS). The product uses the
+`resaleiq.dev/api/*` proxy path, which is healthy, so nothing is broken — but a hostname in our own
+docs that does not resolve is worth someone's ten minutes.
+
 ## Blocked
 
-Nothing is blocked on the founder except the next deploy approval, which is correct — the A13 + gate
-release has not been to the roster.
+Nothing.
 
 ## Proof
 
