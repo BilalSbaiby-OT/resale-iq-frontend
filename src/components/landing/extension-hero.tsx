@@ -1,9 +1,20 @@
+import { copy, type Locale } from "@/lib/i18n"
+
 /**
  * Homepage hero visual: the extension panel on a Vinted listing.
  *
  * Example panel for Adidas Samba — a model the live checker actually prices.
  * Numbers are rounded from a production verdict (buy-below €33, n 42, WATCH),
  * not a live feed and not a model we cannot look up.
+ *
+ * `locale` (W9, 2026-09-01): this mock panel was still 100% English on every
+ * translated homepage. "Adidas Samba", "Resale IQ" and "WATCH" stay
+ * untranslated on purpose — a brand/product name and the BUY/WATCH/SKIP verdict
+ * word, which i18n.ts already keeps as a product term across every locale
+ * (see `tiers` in i18n.ts). The domain in the top-left ("vinted.es · listing")
+ * now follows the served locale — we cover ES/FR/DE/IT/PT (market-numbers.ts),
+ * so a French visitor seeing "vinted.fr" is a real market we serve, not an
+ * invented one; the English root keeps the original "vinted.es" example.
  */
 const CHROME_STORE =
   process.env.NEXT_PUBLIC_CHROME_STORE_URL ||
@@ -13,7 +24,17 @@ export function chromeStoreUrl() {
   return CHROME_STORE
 }
 
-export function ExtensionHero() {
+const EXAMPLE_DOMAIN: Record<Locale, string> = {
+  en: "vinted.es",
+  es: "vinted.es",
+  fr: "vinted.fr",
+  de: "vinted.de",
+  it: "vinted.it",
+  pt: "vinted.pt",
+}
+
+export function ExtensionHero({ locale }: { locale: Locale }) {
+  const t = copy[locale].extensionHero
   return (
     <div style={{ width: "100%", maxWidth: 460, marginInline: "auto" }}>
       <div
@@ -29,12 +50,12 @@ export function ExtensionHero() {
         {/* Listing chrome — enough to read as a Vinted item page, not a data table. */}
         <div style={{ padding: "16px 16px 90px 16px" }}>
           <div style={{ fontSize: 11, color: "#5b6b8c", letterSpacing: "0.4px" }}>
-            vinted.es · listing
+            {EXAMPLE_DOMAIN[locale]} · {t.listingLabel}
           </div>
           <div style={{ fontSize: 18, fontWeight: 800, color: "#eef1f7", marginTop: 10, lineHeight: 1.25 }}>
             Adidas Samba
           </div>
-          <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 6 }}>Size 42 · Very good</div>
+          <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 6 }}>{t.size} 42 · {t.condition}</div>
           <div style={{ fontSize: 28, fontWeight: 800, color: "#eef1f7", marginTop: 14, letterSpacing: "-1px" }}>
             40,00 €
           </div>
@@ -78,23 +99,22 @@ export function ExtensionHero() {
                 WATCH
               </span>
             </div>
-            <div style={{ fontSize: 10.5, color: "#5b6b8c", marginBottom: 6 }}>matched: Adidas Samba</div>
+            <div style={{ fontSize: 10.5, color: "#5b6b8c", marginBottom: 6 }}>{t.matched} Adidas Samba</div>
             <div style={{ fontSize: 27, fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.1, color: "#eef1f7" }}>€33</div>
             <div style={{ fontSize: 11.5, color: "#7f8da9", marginTop: 3, lineHeight: 1.45 }}>
-              most you can pay for your margin
+              {t.payMargin}
             </div>
             <div style={{ fontSize: 12, color: "var(--color-watch)", fontWeight: 600, marginTop: 8 }}>
-              listed at €40 — above buy-below
+              {t.listedAbove("€40")}
             </div>
             <div style={{ fontSize: 12, color: "#a9b6d0", marginTop: 8 }}>
-              avg exit <b style={{ color: "#eef1f7" }}>€50</b> · n 42
+              {t.avgExit} <b style={{ color: "#eef1f7" }}>€50</b> · n 42
             </div>
           </div>
         </div>
       </div>
       <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 10, lineHeight: 1.5 }}>
-        Example of the Chrome panel on an Adidas Samba listing — not a live
-        quote. Check the model on this page to see today&apos;s number.
+        {t.caption}
       </p>
     </div>
   )

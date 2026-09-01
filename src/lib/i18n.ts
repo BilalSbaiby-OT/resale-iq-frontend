@@ -23,6 +23,29 @@
  * translating them client-side would either fork the sentence from the
  * number it describes or require a translation of a template the frontend
  * does not own. That gap is real and is backend-eng's, not papered over.
+ *
+ * 2026-09-01 (W9): `liveProof` (live-market-proof.tsx), `extensionHero`
+ * (extension-hero.tsx) and `watchedSample` (lib/watched-sample.ts) close the
+ * three surfaces that were still 100% English on every `/es /fr /de /it /pt`
+ * route — locale routing (seo/i18n-routing-hreflang) made this visible: a
+ * visitor now lands on a real translated URL and hits English proof content
+ * halfway down the page. Same "never sold" rule as the header above: these
+ * three surfaces describe watched departures (items leaving the shelf), and
+ * every translation below uses "for sale" / "exit price" / "left the shelf"
+ * framing rather than a past-tense "sold" verb in any language, exactly like
+ * the rest of this dictionary already does.
+ *
+ * FLAGGED FOR NATIVE REVIEW, NOT JUST GREP: two things below are functional
+ * (a wrong translation breaks a test, not a first impression) and two read as
+ * brand voice (a stiff or machine-translated line here is the visitor's first
+ * proof of the product, and costs more than leaving it English would have).
+ * Marked inline with FUNCTIONAL / BRAND-VOICE at each key. `extensionHero.
+ * condition` ("Very good") is a third, narrower risk: it mimics Vinted's own
+ * condition-picker label, and this pass could not open live Vinted in each
+ * market to confirm the exact wording Vinted itself uses there — the value
+ * chosen is a standard, defensible translation, not a verified copy of
+ * Vinted's UI string, and should be checked against the real listing flow in
+ * each market before this is treated as done.
  */
 export type Locale = "en" | "fr" | "es" | "de" | "it" | "pt"
 
@@ -164,6 +187,52 @@ export const copy = {
         ceiling: "10 checks each calendar month after the trial. Live Finder after the 5 trial searches is Pro.",
       },
     },
+    // live-market-proof.tsx — the "Selling on Vinted this week" band below
+    // the hero. FUNCTIONAL except watchedTotal/planAdds* (BRAND-VOICE: the
+    // sentence that makes the honesty posture legible, and the paid-tier
+    // pitch under it).
+    liveProof: {
+      heading: "Selling on Vinted this week",
+      perWeek: "/wk",
+      avg: "avg",
+      freshnessLastGood: "LAST GOOD",
+      freshnessSnapshot: "SNAPSHOT",
+      freshnessRecent: "UPDATED <1h",
+      freshnessHoursAgo: (h: number) => `UPDATED ${h}h AGO`,
+      // BRAND-VOICE
+      watchedTotal: (total: string) =>
+        `Watched departures across 5 EU markets — ${total} items left the shelf in the last 7 days.`,
+      seeHow: "See how we calculate it →",
+      // BRAND-VOICE
+      planAddsHeading: "What a plan adds, per model",
+      // BRAND-VOICE
+      planAddsBody:
+        "The most you can pay and still profit, the price it actually sells at, how fast it moves, and which sizes clear first — for the specific item in your hand, not the brand.",
+    },
+    // extension-hero.tsx — the mock Chrome panel on a Vinted listing.
+    // FUNCTIONAL except caption/payMargin (BRAND-VOICE: the sentence selling
+    // the panel itself).
+    extensionHero: {
+      listingLabel: "listing",
+      size: "Size",
+      condition: "Very good",
+      matched: "matched:",
+      // BRAND-VOICE
+      payMargin: "most you can pay for your margin",
+      listedAbove: (price: string) => `listed at ${price} — above buy-below`,
+      avgExit: "avg exit",
+      // BRAND-VOICE
+      caption:
+        "Example of the Chrome panel on an Adidas Samba listing — not a live quote. Check the model on this page to see today's number.",
+    },
+    // lib/watched-sample.ts — the honesty line under a BUY/WATCH/SKIP.
+    // FUNCTIONAL: this is a data-integrity sentence (the sample size behind a
+    // verdict), not a marketing line, and it must stay literal.
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `In the listings we watched, ${sold} left the shelf vs ${listed} still listed`,
+      skipSuffix: " — that is a supply glut in our sample, not a claim this model never sells.",
+    },
   },
   fr: {
     signIn: "Connexion",
@@ -276,6 +345,37 @@ export const copy = {
         ],
         ceiling: "10 vérifications par mois civil après l'essai. Le Deal Finder live après les 5 recherches d'essai est réservé à Pro.",
       },
+    },
+    liveProof: {
+      heading: "En vente sur Vinted cette semaine",
+      perWeek: "/sem",
+      avg: "moy.",
+      freshnessLastGood: "DERNIÈRE VALIDE",
+      freshnessSnapshot: "INSTANTANÉ",
+      freshnessRecent: "MIS À JOUR IL Y A <1h",
+      freshnessHoursAgo: (h: number) => `MIS À JOUR IL Y A ${h}h`,
+      watchedTotal: (total: string) =>
+        `Départs observés sur 5 marchés UE — ${total} articles ont quitté le rayon ces 7 derniers jours.`,
+      seeHow: "Voir comment on calcule ça →",
+      planAddsHeading: "Ce qu'un abonnement ajoute, par modèle",
+      planAddsBody:
+        "Le maximum à payer pour rester rentable, le prix de sortie réel, la vitesse d'écoulement, et les tailles qui partent en premier — pour l'article précis que vous avez en main, pas pour la marque.",
+    },
+    extensionHero: {
+      listingLabel: "annonce",
+      size: "Taille",
+      condition: "Très bon état",
+      matched: "correspondance :",
+      payMargin: "le maximum à payer pour votre marge",
+      listedAbove: (price: string) => `affiché à ${price} — au-dessus du prix d'achat max`,
+      avgExit: "prix moyen de sortie",
+      caption:
+        "Exemple du panneau Chrome sur une annonce Adidas Samba — pas un prix en direct. Vérifiez le modèle sur cette page pour voir le chiffre du jour.",
+    },
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `Sur les annonces observées, ${sold} ont quitté le rayon contre ${listed} encore en ligne`,
+      skipSuffix: " — c'est un excédent d'offre dans notre échantillon, pas une affirmation que ce modèle ne se vend jamais.",
     },
   },
   es: {
@@ -390,6 +490,37 @@ export const copy = {
         ceiling: "10 comprobaciones cada mes natural tras la prueba. El Deal Finder en vivo tras las 5 búsquedas de prueba es de Pro.",
       },
     },
+    liveProof: {
+      heading: "A la venta en Vinted esta semana",
+      perWeek: "/sem",
+      avg: "media",
+      freshnessLastGood: "ÚLTIMO VÁLIDO",
+      freshnessSnapshot: "INSTANTÁNEA",
+      freshnessRecent: "ACTUALIZADO HACE <1h",
+      freshnessHoursAgo: (h: number) => `ACTUALIZADO HACE ${h}h`,
+      watchedTotal: (total: string) =>
+        `Salidas observadas en 5 mercados de la UE — ${total} artículos salieron del catálogo en los últimos 7 días.`,
+      seeHow: "Ver cómo lo calculamos →",
+      planAddsHeading: "Lo que añade un plan, por modelo",
+      planAddsBody:
+        "El máximo que puedes pagar y seguir ganando margen, el precio real de salida, la velocidad de rotación, y qué tallas se agotan antes — para el artículo concreto que tienes en la mano, no para la marca.",
+    },
+    extensionHero: {
+      listingLabel: "anuncio",
+      size: "Talla",
+      condition: "Muy bueno",
+      matched: "coincide con:",
+      payMargin: "el máximo que puedes pagar para tu margen",
+      listedAbove: (price: string) => `publicado a ${price} — por encima del precio máximo de compra`,
+      avgExit: "precio medio de salida",
+      caption:
+        "Ejemplo del panel de Chrome en un anuncio de Adidas Samba — no es un precio en vivo. Comprueba el modelo en esta página para ver el número de hoy.",
+    },
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `En los anuncios que observamos, ${sold} salieron del catálogo frente a ${listed} que siguen en venta`,
+      skipSuffix: " — eso es un exceso de oferta en nuestra muestra, no una afirmación de que este modelo nunca se vende.",
+    },
   },
   de: {
     signIn: "Anmelden",
@@ -502,6 +633,37 @@ export const copy = {
         ],
         ceiling: "10 Prüfungen pro Kalendermonat nach der Testphase. Live Finder nach den 5 Testsuchen ist Pro.",
       },
+    },
+    liveProof: {
+      heading: "Diese Woche auf Vinted im Angebot",
+      perWeek: "/Wo",
+      avg: "Ø",
+      freshnessLastGood: "LETZTER GÜLTIGER STAND",
+      freshnessSnapshot: "MOMENTAUFNAHME",
+      freshnessRecent: "AKTUALISIERT VOR <1h",
+      freshnessHoursAgo: (h: number) => `AKTUALISIERT VOR ${h}h`,
+      watchedTotal: (total: string) =>
+        `Beobachtete Abgänge in 5 EU-Märkten — ${total} Artikel sind in den letzten 7 Tagen aus dem Bestand gegangen.`,
+      seeHow: "So berechnen wir das →",
+      planAddsHeading: "Was ein Tarif zusätzlich bringt, pro Modell",
+      planAddsBody:
+        "Die Kaufobergrenze, bei der du noch Marge machst, der tatsächliche Abgangspreis, wie schnell es sich bewegt, und welche Größen zuerst weggehen — für genau den Artikel in deiner Hand, nicht für die Marke.",
+    },
+    extensionHero: {
+      listingLabel: "Angebot",
+      size: "Größe",
+      condition: "Sehr gut",
+      matched: "gefunden:",
+      payMargin: "das Maximum, das du für deine Marge zahlen solltest",
+      listedAbove: (price: string) => `inseriert für ${price} — über der Kaufobergrenze`,
+      avgExit: "Ø Abgangspreis",
+      caption:
+        "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot — kein Live-Preis. Prüfe das Modell auf dieser Seite für die heutige Zahl.",
+    },
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `In den von uns beobachteten Angeboten sind ${sold} aus dem Bestand gegangen, ${listed} sind noch inseriert`,
+      skipSuffix: " — das ist ein Angebotsüberschuss in unserer Stichprobe, keine Aussage, dass dieses Modell nie läuft.",
     },
   },
   it: {
@@ -616,6 +778,37 @@ export const copy = {
         ceiling: "10 controlli per ogni mese solare dopo la prova. Il Live Finder dopo le 5 ricerche di prova è Pro.",
       },
     },
+    liveProof: {
+      heading: "In vendita su Vinted questa settimana",
+      perWeek: "/sett",
+      avg: "media",
+      freshnessLastGood: "ULTIMO VALIDO",
+      freshnessSnapshot: "ISTANTANEA",
+      freshnessRecent: "AGGIORNATO <1h FA",
+      freshnessHoursAgo: (h: number) => `AGGIORNATO ${h}h FA`,
+      watchedTotal: (total: string) =>
+        `Uscite osservate in 5 mercati UE — ${total} articoli sono usciti dallo scaffale negli ultimi 7 giorni.`,
+      seeHow: "Guarda come lo calcoliamo →",
+      planAddsHeading: "Cosa aggiunge un piano, per modello",
+      planAddsBody:
+        "Il massimo che puoi pagare restando in margine, il prezzo di uscita reale, la velocità di rotazione, e quali taglie finiscono per prime — per l'articolo specifico che hai in mano, non per il marchio.",
+    },
+    extensionHero: {
+      listingLabel: "annuncio",
+      size: "Taglia",
+      condition: "Molto buono",
+      matched: "corrispondenza:",
+      payMargin: "il massimo che puoi pagare per il tuo margine",
+      listedAbove: (price: string) => `in vendita a ${price} — sopra il prezzo massimo di acquisto`,
+      avgExit: "prezzo medio di uscita",
+      caption:
+        "Esempio del pannello Chrome su un annuncio Adidas Samba — non è un prezzo live. Controlla il modello su questa pagina per il numero di oggi.",
+    },
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `Negli annunci osservati, ${sold} sono usciti dallo scaffale contro ${listed} ancora in vendita`,
+      skipSuffix: " — è un eccesso di offerta nel nostro campione, non un'affermazione che questo modello non si muove mai.",
+    },
   },
   pt: {
     signIn: "Entrar",
@@ -728,6 +921,37 @@ export const copy = {
         ],
         ceiling: "10 verificações por mês de calendário após o período experimental. O Live Finder depois das 5 pesquisas de teste é Pro.",
       },
+    },
+    liveProof: {
+      heading: "À venda na Vinted esta semana",
+      perWeek: "/sem",
+      avg: "média",
+      freshnessLastGood: "ÚLTIMO VÁLIDO",
+      freshnessSnapshot: "INSTANTÂNEO",
+      freshnessRecent: "ATUALIZADO HÁ <1h",
+      freshnessHoursAgo: (h: number) => `ATUALIZADO HÁ ${h}h`,
+      watchedTotal: (total: string) =>
+        `Saídas observadas em 5 mercados da UE — ${total} artigos saíram da prateleira nos últimos 7 dias.`,
+      seeHow: "Vê como calculamos isto →",
+      planAddsHeading: "O que um plano acrescenta, por modelo",
+      planAddsBody:
+        "O máximo que podes pagar mantendo margem, o preço real de saída, a velocidade de rotação, e que tamanhos esgotam primeiro — para o artigo concreto que tens em mãos, não para a marca.",
+    },
+    extensionHero: {
+      listingLabel: "anúncio",
+      size: "Tamanho",
+      condition: "Muito bom",
+      matched: "correspondência:",
+      payMargin: "o máximo que podes pagar para a tua margem",
+      listedAbove: (price: string) => `anunciado a ${price} — acima do preço máximo de compra`,
+      avgExit: "preço médio de saída",
+      caption:
+        "Exemplo do painel Chrome num anúncio Adidas Samba — não é uma cotação em direto. Verifica o modelo nesta página para veres o número de hoje.",
+    },
+    watchedSample: {
+      head: (sold: string, listed: string) =>
+        `Nos anúncios que observámos, ${sold} saíram da prateleira contra ${listed} ainda anunciados`,
+      skipSuffix: " — isso é um excesso de oferta na nossa amostra, não uma afirmação de que este modelo nunca vende.",
     },
   },
 } as const

@@ -20,9 +20,11 @@ type Dict = (typeof copy)[keyof typeof copy]
  * `locale` is threaded to FreeChecker, PricingSection and the trial sentence
  * because frontend-eng's copy pass landed in the same merge that extracted this
  * component — the two branches were written in parallel and each left this
- * wiring for whoever merged them. LiveMarketProof, ExtensionHero and the footer
- * nav labels are still English on every locale: that is a REAL remaining gap,
- * named here rather than left to be rediscovered.
+ * wiring for whoever merged them. LiveMarketProof and ExtensionHero now take
+ * `locale` too (W9, 2026-09-01 — see i18n.ts `liveProof`/`extensionHero`).
+ * The footer nav labels ("Free tools", "Pricing", "Terms" etc.) are still
+ * English on every locale: that is a REAL remaining gap, out of W9's named
+ * scope, flagged here rather than left to be rediscovered.
  */
 export function LandingContent({
   t,
@@ -119,7 +121,7 @@ export function LandingContent({
           </div>
 
           <div className="hidden md:block">
-            <ExtensionHero />
+            <ExtensionHero locale={locale} />
           </div>
         </div>
       </section>
@@ -139,7 +141,7 @@ export function LandingContent({
       </section>
 
       <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 28px" }}>
-        <LiveMarketProof />
+        <LiveMarketProof locale={locale} />
       </section>
 
       {/* Trust signals — inline, no borders, no template. */}
