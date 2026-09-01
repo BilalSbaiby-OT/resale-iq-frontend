@@ -876,3 +876,8 @@ Appended by the hook, not by hand. Committing it because the tree must be clean
 and because the audit trail is only worth having if it survives the session.
 
 Co-Authored-B`
+- `2026-09-01T17:28:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+old_start = s.index("**W24 — OPEN, and the finding got worse.**")
+old_end = s.index("## Founder:") if "## Founder:" in s else s.index("**Founder:**")
+new = """**W56 — DEPLOYS TAKE THE SITE DOWN, AND THE CAUSE IS THE HOST RUNNING OUT OF M`
