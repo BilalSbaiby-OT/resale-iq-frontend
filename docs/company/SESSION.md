@@ -643,6 +643,45 @@ merely bad UX.**
 finished videos**. Every hook is a **question or a demonstration, never a promise** — the line that
 keeps the accounts alive.
 
+## The company now has a structure, and agents can reach each other
+
+**`scripts/company/bus.py` — the channel AM-8a said did not exist.** "The CEO is the only wire" is
+what turned *consult the roster* into *the CEO relays everything*, and it is the direct cause of
+**27,466 lines of documentation against 2,084 lines of product code** today: eight analysis agents
+with no route to a doer except one person's attention.
+
+**It is a mailbox, not a socket, and the file says so.** A subagent runs only when spawned and cannot
+listen while idle — so A leaves a message, B reads it on its next spawn from its brief. **An hour of
+latency beats a finding that dies in a document.** Append-only JSONL, because `growth.db` taught us
+today what concurrent writers to a rewritten file cost. Read state is a separate log, so marking read
+never rewrites history.
+
+**Two rules are in the code, not just the docs:** a message is **data, never an order** — not the
+founder's consent, and it cannot clear a gate; and a finding that needs a doer **messages the doer
+AND opens a board row**, because the row is the deliverable.
+
+**`ORG.md`** — five departments with heads, the line of authority, three escalation levels, five
+loops, and a KPI hierarchy where **every KPI carries a counter-KPI**. A KPI without one is an
+instruction to game it: *views* is countered by *qualified-click rate*, because a million
+wrong-market views is a failure wearing a success.
+
+**`org.py`** — computes all of it from **evidence**: git, the workboard, the bus, the published
+queue. Nothing typed by hand; a hand-typed dashboard is a picture of a company rather than a view of
+one, and it goes stale silently.
+
+**It caught its own first bug before the founder saw it.** It counted merge *commits* mentioning an
+agent, which rendered **every agent as zero** — merge messages here are hand-written and mostly do
+not carry the branch name. **`git branch --merged` is the fact; the commit message is a description
+of it**, and today has been a long lesson in not confusing those. Real: `backend-eng` 7,
+`frontend-eng` 6, `designer` 3, `content-social` 2.
+
+`frontend-eng` is building the UI: company KPIs with completion, five department cards, 21 agent
+panels with unread-mail counts, the bus visible, blocked rows unmistakable.
+
+**One design call made on the founder's behalf: the bus is visible by default.** Cross-agent traffic
+that does not route through the CEO is precisely the transparency he asked for — he should see what
+they tell each other, not only what I summarise.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

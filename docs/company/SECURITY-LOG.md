@@ -648,3 +648,8 @@ org: agents can reach each other now, and the company has a real structure
 Three pieces, and the first is the one AM-8a said was impossible.
 
 bus.py -- the channel agen`
+- `2026-09-01T13:36:20Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms5.txt" <<'MSG'
+session: the bottleneck was structural, and it is now fixed in code
+
+AM-8a said the CEO is the only wire between agents. That single fact turned
+"consult the roster" into`
