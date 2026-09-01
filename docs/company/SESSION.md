@@ -204,9 +204,43 @@ five-market product.
    of it — but by timing, not design. Its WIP is preserved in `stash@{0}` and in
    `scratchpad/designer-wip/`.
 
+## Search Console, seen for the first time — and it changes the acquisition plan
+
+`seo` had "GSC" in its description since it was written and **zero Search Console tools**. Granted
+today. First look:
+
+- **5 clicks. Total. Site-wide. Ever.** The 90-day pull is numerically identical to the 28-day pull —
+  Google has ~3 weeks of history for this domain. **903 impressions, 5 clicks, 0.55% CTR.**
+- **71% of impressions are for markets we do not serve.** USA 402, GB 241. **ES/FR/DE/IT/PT total 60
+  impressions — 6.6%.**
+- **Our localization is invisible to Google.** No `/es`, `/fr`, `/de` paths (all 404), zero hreflang,
+  and `Accept-Language: de-DE` returns the identical `<html lang="en">` page with **no `Vary`
+  header**. Everything shipped today in `de`/`it`/`pt`, and everything `frontend-eng` is building
+  now, **cannot be indexed in any language.** It is a routing gap, not a content gap — and it is now
+  the highest-value SEO fix available.
+- **136 of 157 `/flip` and all 10 `/category` pages have never earned one impression.** The
+  programmatic estate is not working. Adding more pages is the wrong move.
+- **The UK claim in `CLAUDE.md` is TRUE but weak.** GB is second at 241 impressions — and **1 click**,
+  on generic "vinted vs depop" queries. A real fact, thin evidence, and it has been steering product.
+
+`seo` found the GSC config in `~/.claude.json` points at an empty `~/Desktop/...` path while the
+working credentials are in `~/work/...`. It read from disk instead and **refused to edit a global
+config outside repo authority** — parked as A9. Correct call.
+
+## Marketing assets: no image model, but real design capability
+
+I told the founder I could not make images. **Half wrong, and he caught it.** There is no
+text-to-image model in this harness — verified by tool search, not assumed. But designed HTML/CSS
+rendered through the browser produces genuine shareable assets, and for data marketing that is
+*better*: `Balenciaga Le Cagole €348.65 → €119.37` traces to this morning's audit and nobody can
+accuse us of inventing it.
+
+First asset built: `scratchpad/resale-iq-price-correction.html`, 1200×675, from production figures.
+
 ## Blocked
 
-Nothing.
+**One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
+authority, so asked rather than done.
 
 ## The release numbers reproduced
 

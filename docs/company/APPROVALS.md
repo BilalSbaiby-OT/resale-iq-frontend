@@ -8,7 +8,20 @@ end of Phase 1 (OS §8).
 
 ## Open — waiting on the founder
 
-*(nothing. A1–A6 were answered on 2026-08-31. Founder Gate #1 lands here when the Phase 1 audit
+- [ ] **A9 — the `gsc` MCP server has been misconfigured since setup and no `mcp__gsc__*` tool call
+  has ever worked.** `~/.claude.json` (user scope, `mcpServers.gsc.env`) points
+  `GSC_OAUTH_CLIENT_SECRETS_FILE` and `GSC_CONFIG_DIR` at `~/Desktop/resale-iq-seo/.secrets/`,
+  which is empty. The real, working credentials are at `~/work/resale-iq-seo/.secrets/`
+  (`gsc-oauth-client.json` + `token.json`, confirmed live — the pull script authenticates against
+  them with no login prompt). This needs someone with authority over the user-scope
+  `~/.claude.json` to change two paths from `Desktop` to `work` and restart Claude Code. It's
+  outside every repo's write authority and reads as security-adjacent config (OAuth client path),
+  so it isn't something an agent should silently edit. Every "Search Console shows…" claim in this
+  company, including the UK-ban rationale in `resale-iq/CLAUDE.md` line 38, has so far been sourced
+  to manual runs of `resale-iq-seo/scripts/gsc-pull`, not the tool the roster is told it has.
+  Evidence and full read: `docs/company/SEO-STATE.md`.
+
+*(A1–A6 were answered on 2026-08-31. Founder Gate #1 lands here when the Phase 1 audit
 finishes: the CUT list, the P0 order, and anything the audit finds that only you can decide.)*
 
 ---

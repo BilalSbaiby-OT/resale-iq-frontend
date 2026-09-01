@@ -405,3 +405,9 @@ fix: a refusal should look like a decision, not a broken page
 
 Three defects I found by opening the live site in a browser, after a full day of
 code review found none of the`
+- `2026-09-01T10:14:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "seo: five clicks, the wrong continent, and localization Google cannot see
+
+seo had 'GSC' in its description since it was written and zero Search Console
+tools. Granted today. The first look changes the acquisition plan.
+
+Five clicks, total, site-wide, ever. The 90-day`
