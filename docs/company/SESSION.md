@@ -47,20 +47,32 @@ hreflang, free-tier quota showing the real number (was underselling 3×), 36 dea
 where Coolify owns it (the app's `custom_labels`, confirmed against Coolify's own PHP source on the
 box) rather than on a container the next deploy would overwrite. Backed up host-side and locally.
 
-**W24 — OPEN, and the finding got worse.** A probe that genuinely spanned a real deploy (459
-requests, window proven by a parallel container-churn tracker) returned **356×200 and 103×404** in one
-contiguous ~57s block. Traefik's own log names the cause at the same second: `Router defined multiple
-times with different configurations`. **Verified independently** — 3 occurrences in 6h, including the
-FRONTEND at 14:21:32Z. The retry middleware cannot help: when Traefik drops the router there is
-nothing to retry into.
+**W56 — DEPLOYS TAKE THE SITE DOWN, AND THE CAUSE IS THE HOST RUNNING OUT OF MEMORY.**
+The kernel **OOM-killed the backend at 17:18:12Z**, the exact second the outage ended. Not a hang —
+a kill, then Docker's `unless-stopped` restart. Bounded outage **4m54s on a deploy that changed
+nothing**.
 
-**Hypothesis under test, and it points at us.** Traefik only drops a router when the two configs
-DIFFER; identical ones merge into one service with two servers, which is normal rolling-deploy
-behaviour with no outage. During that deploy the old container carried `middlewares=gzip` and the new
-one `gzip,ph5cl-retry` — **different by construction, because of the fix being shipped.** If that is
-the cause, the real shape is "a label change costs ~57s, and we have already paid it", not "every
-deploy takes the site down". `devops` is running a no-label-change deploy under the same probe to
-settle it. **Do not report either version until that comes back.**
+**Why we were misled:** `docker inspect` said `OOMKilled=false` and that flag was ACCURATE — it only
+covers cgroup/container-limit kills. This was `constraint=CONSTRAINT_NONE`, a **host-global** OOM.
+The flag answered a different question than the one we were asking. **A false flag is not the same
+as no kill.**
+
+**Host state, read directly:** 3813 MB RAM · 224 MB free · **ZERO swap** · **7 `python3` OOM kills**
+in `dmesg`, not one · one at 16:22:51Z invoked by **`postgres`**, i.e. Coolify's own database — the
+whole host is at risk and the killer picks the biggest victim · 42–50% iowait (it thrashes before it
+kills) · backend at **1.04 GiB and 88.5% CPU** during the boot scrape.
+
+**The trigger is our own code.** `main.py:1055` fires `job_analyzer()` and `job_vinted()`
+concurrently on EVERY boot, fanning out across 5 markets at once — so it runs on every deploy.
+
+**W24 — the earlier hypothesis was half right and it did not matter.** An unchanged-label redeploy
+produced **no** `Router defined multiple times` error, so the 57s/103×404 block really was caused by
+the `gzip` → `gzip,ph5cl-retry` label change we were shipping. But that glitch was **hiding a
+five-minute outage underneath it.** Fixing the router would have fixed nothing.
+
+`devops` is adding swap, bounding container memory so the host never has to choose a victim, and
+taking the boot-scrape throttle to `backend-eng` (infra lane does not edit app logic). Also asked for
+its honest read on whether 3.8 GB is simply undersized — AM-9 lifted the spend cap.
 
 **Founder:** `LIFECYCLE_EMAILS=1` (trial→paid machine built + tested, one variable) · ElevenLabs
 `voices_read` or a voice id (the account has ZERO saved voices — that was the 404) · rotate Coolify +
