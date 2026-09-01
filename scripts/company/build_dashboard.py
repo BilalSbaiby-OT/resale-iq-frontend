@@ -164,6 +164,14 @@ def quality(prod):
         "insufficient_data_rate": M.get(
             "insufficient_data_rate",
             unknown("sql/metrics/insufficient_data_rate.sql did not run", None)),
+        # The SUPPLY side. band_coverage above is demand-side; a product can look
+        # well-covered there purely because the few models people search happen
+        # to be the deep ones. These two are NOT complements — unlike
+        # band_coverage/insufficient_data_rate, they answer different questions
+        # over different populations, so they genuinely do corroborate.
+        "band_coverage_supply": M.get(
+            "band_coverage_supply",
+            unknown("sql/metrics/band_coverage_supply.sql did not run", None)),
         "n_predictions_resolved": M.get(
             "n_predictions_resolved",
             unknown("sql/metrics/n_predictions_resolved.sql did not run", None)),

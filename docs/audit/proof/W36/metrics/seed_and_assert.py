@@ -90,10 +90,23 @@ SCRAPER_ROWS = [("vinted", "-10 days", 5),
                 ("vinted", "-2 days", 7),
                 ("vinted", "-60 minutes", 0)]
 
+# model_signals — the SUPPLY side. 4 tracked models, 2 with enough comparables
+# to be priced (n >= 8, MIN_VERDICT_COMPARABLES):
+#   comparable_n = 10  ok
+#   comparable_n =  8  ok, exactly on the threshold — the boundary case
+#   comparable_n =  5  too thin
+#   comparable_n =  2  too thin
+#   NULL               excluded by the query's WHERE, so it must NOT move n
+#   band_coverage_supply = 2/4 = 50.0%, n = 4
+SIGNAL_ROWS = [("Nike", "Air Force 1", 10), ("Adidas", "Samba", 8),
+               ("Jordan", "Jordan 4", 5), ("Puma", "Suede", 2),
+               ("NewBalance", "530", None)]
+
 EXPECT = {
     "weekly_trusted_checks":  {"value": 1,    "n": 2},
     "insufficient_data_rate": {"value": 28.6, "n": 7},
     "band_coverage":          {"value": 71.4, "n": 7},
+    "band_coverage_supply":   {"value": 50.0, "n": 4},
     "retention_30d":          {"value": 66.7, "n": 3},
     "trial_to_paid":          {"value": 50.0, "n": 2},
     "n_predictions_resolved": {"value": 1,    "n": 3},
@@ -125,6 +138,12 @@ def seed(db):
             "VALUES (?,?,?, datetime('now',?), "
             + ("datetime('now',?))" if graded else "NULL)"),
             ([q, prod, verdict, made] + ([graded] if graded else [])))
+
+    for brand, model, n in SIGNAL_ROWS:
+        c.execute(
+            "INSERT INTO model_signals (brand, model, category, comparable_n, updated_at) "
+            "VALUES (?,?, 'Sneakers', ?, datetime('now','-1 days'))",
+            (brand, model, n))
 
     for plat, age, new in SCRAPER_ROWS:
         c.execute(
