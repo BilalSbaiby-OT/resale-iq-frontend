@@ -1056,3 +1056,12 @@ finding: we answer "I don't know" while holding the answer
 
 Founder: "shit dosnt need to be exact bro as long as it works and fullfill what
 the customer need in that niche." He `
+- `2026-09-01T21:35:14Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T21:35:14Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T21:35:14Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T21:35:15Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T21:38:19Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'rm -f /tmp/q1.py /tmp/q2.py /tmp/q3.py /tmp/q4.py /tmp/q5.py /tmp/q6.py /tmp/q7.py /tmp/q8.py /tmp/q9.py /tmp/q10.py /tmp/q11.py /tmp/q12.py; docker exec ph5clxk9hmghspv65pdkvak9-185628563375 sh -c "rm -f /tmp/q*.py /tmp/q*.out"; echo CLEANED' 2>&1`
+- `2026-09-01T21:38:28Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'rm -f /tmp/q1.py /tmp/q2.py /tmp/q3.py /tmp/q4.py /tmp/q5.py /tmp/q6.py /tmp/q7.py /tmp/q8.py /tmp/q9.py /tmp/q10.py /tmp/q11.py /tmp/q12.py; docker exec ph5clxk9hmghspv65pdkvak9-185628563375 rm -f /tmp/q1.py /tmp/q2.py /tmp/q3.py /tmp/q4.py /tmp/q5.py /tmp/q6.py /tmp/`
+- `2026-09-01T22:04:24Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 scripts/company/bus.py send --from ceo --to data-scientist --subject "BUY is unreachable by construction — 0 of 100 models can produce it. This is yours." --body "api/routes.py:1177 requires opportunity_score >= 65 AND momentum in (HOT, RISING).
+
+Production model_signals, all 100 models: min`
