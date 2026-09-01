@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-01T16:06:05Z",
-  "prod_included": false,
+  "generated_at": "2026-09-01T16:31:21Z",
+  "prod_included": true,
   "founder_inbox": {
     "open": [
       "**A9 — the `gsc` MCP server has been misconfigured since setup and no `mcp__gsc__*` tool call",
@@ -59,34 +59,30 @@
   },
   "company": {
     "mrr": {
-      "value": null,
-      "unknown": true,
-      "why": "no Stripe read",
-      "fix": "run with --prod"
+      "value": 0.0,
+      "currency": "EUR",
+      "n": 1,
+      "source": "stripe live /v1/subscriptions"
     },
     "customers": {
-      "value": null,
-      "unknown": true,
-      "why": "no Stripe read",
-      "fix": "run with --prod"
+      "value": 1
     },
     "north_star_weekly_trusted_checks": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 1,
+      "n": 2,
+      "source": "sql/metrics/weekly_trusted_checks.sql (production)"
     },
     "retention_30d": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 4, floor = 100)",
-      "fix": "not enough evidence to publish this; the .sql header says why"
+      "why": "population below floor (n = 0, floor = 100)",
+      "fix": null
     },
     "trial_to_paid": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 10, floor = 100)",
-      "fix": "not enough evidence to publish this; the .sql header says why"
+      "why": "population below floor (n = 1, floor = 100)",
+      "fix": null
     },
     "spend_vs_cap": {
       "value": null,
@@ -94,7 +90,16 @@
       "why": "no spend ledger yet",
       "fix": "Phase 2: finance-ops writes docs/company/LEDGER.md"
     },
-    "spend_cap_eur": 200
+    "spend_cap_eur": 200,
+    "users_total": {
+      "value": 6
+    },
+    "users_paying": {
+      "value": 0
+    },
+    "charges_paid": {
+      "value": 0
+    }
   },
   "quality": {
     "canary": {
@@ -112,45 +117,57 @@
     "band_coverage_demand": {
       "value": null,
       "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "why": "population below floor (n = 94, floor = 100)",
+      "fix": null
     },
     "band_evidence_p50": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 13.5,
+      "n": 64,
+      "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
       "value": null,
       "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "why": "population below floor (n = 94, floor = 100)",
+      "fix": null
     },
     "band_coverage_supply": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 64.0,
+      "n": 100,
+      "source": "sql/metrics/band_coverage_supply.sql (production)"
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 38,
-      "source": "sql/metrics/n_predictions_resolved.sql"
+      "n": 380,
+      "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 50.0,
+      "n": 1266,
+      "source": "sql/metrics/pipeline_lag_min.sql (production)"
+    },
+    "listings_total": {
+      "value": 13065489
+    },
+    "newest_sold_at": {
+      "value": "2026-09-01 16:30:07"
+    },
+    "predictions_total": {
+      "value": 380
     }
   },
   "funnel": {
-    "note": {
-      "value": null,
-      "unknown": true,
-      "why": "no funnel events table wired yet",
-      "fix": "run with --prod"
+    "verdicts_7d": {
+      "value": 130
+    },
+    "pageviews_7d": {
+      "value": 1310
+    },
+    "signups_7d": {
+      "value": 3
+    },
+    "attributed_signups": {
+      "value": 0
     }
   },
   "departments": {
@@ -165,7 +182,7 @@
         "counter": "test_coverage_touched_files >= 80%",
         "branches": [
           "w1-close-workboard  (merged)",
-          "demand-intel:a24-market-avg-gate",
+          "demand-intel:a24-market-avg-gate  (merged)",
           "demand-intel:anon-quota-cookie  (merged)",
           "demand-intel:e1-portfolio-paywall  (merged)",
           "demand-intel:fx-currency-v2",
@@ -654,6 +671,26 @@
     ],
     "recent_commits": [
       {
+        "sha": "d9297a7",
+        "msg": "loop: three more posts live in the markets we actually serve, board down to 2"
+      },
+      {
+        "sha": "fbbb839",
+        "msg": "deploy: ask the only question a no-op cannot answer"
+      },
+      {
+        "sha": "3f995ad",
+        "msg": "loop: backend deploys were no-ops behind a green CI"
+      },
+      {
+        "sha": "30df603",
+        "msg": "session: the deploy was frozen for nine commits and I did not notice"
+      },
+      {
+        "sha": "96a95dc",
+        "msg": "fix: nine commits never deployed, and I told the founder otherwise"
+      },
+      {
         "sha": "7670514",
         "msg": "board: 27 \"pending\" rows were really 4 -- all three causes fixed"
       },
@@ -680,29 +717,9 @@
       {
         "sha": "ff626e7",
         "msg": "session: hourly loop -- the first real funnel numbers this company has ever had"
-      },
-      {
-        "sha": "36a66ee",
-        "msg": "session: the fourth refusal today, and my premise was the thing that was wrong"
-      },
-      {
-        "sha": "30e5542",
-        "msg": "merge: kill the 36 genuinely dead pages, keep the 129 the evidence defends (W2, W22)"
-      },
-      {
-        "sha": "bf9ce39",
-        "msg": "seo: proof.sh for W2 -- verifier can run this cold"
-      },
-      {
-        "sha": "a4cdd39",
-        "msg": "seo: W2 -- live Index Coverage, and the \"kill the estate\" premise doesn't hold"
-      },
-      {
-        "sha": "ac4d771",
-        "msg": "session: a measured number killed an assumption, and found a 3x undersell"
       }
     ],
-    "dirty": true,
+    "dirty": false,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-09-01T08:40:00Z\nWIP:     morning merge queue. Six agents fanned out in parallel:\n         tech-lead (3 demand-intel branches), frontend-eng (A15 reconcile),\n         data-scientist (A13+gate joint release measurement),\n         qa-eng (lifecycle/trial-emails review - CEO cannot review it, OS 0.7),\n         monetization (pricing proposal, founder-delegated)"
   },
   "audits": [
@@ -769,528 +786,508 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-01T16:05:47Z",
+      "ts": "2026-09-01T16:31:26Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "sed -n '324,344p' scripts/company/build_dashboard.py",
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && gh run view 33531248399 2>&1",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:43Z",
+      "ts": "2026-09-01T16:31:05Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -c \"import main\" && python3 -m pytest tests/test_ext_error_rou",
+      "cmd": "gh run list --workflow=deploy.yml --limit 8 2>&1",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:40Z",
+      "ts": "2026-09-01T16:31:03Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"ACTIVITY\\|activity\" scripts/company/build_dashboard.py | head -6",
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && gh run view 33531248399 --log-failed 2>&1 | tail -80",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:36Z",
+      "ts": "2026-09-01T16:30:55Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
-      ],
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"docker ps --format '{{.Names}}\\t{{.Status}}\\t{{.Image}}' | grep -E 'ph5clxk9|p6t87'\" 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:30:53Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && gh run list --workflow=deploy.yml --limit 10 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:30:11Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > \"$SB/mloop3.txt\" <<'MSG'\nloop: three more posts live",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:30:01Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "git fetch -q origin && git log -1 --oneline origin/main && git status -sb | head -5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:56Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && git fetch -q origin && git log -1 --oneline origin/main && git status -sb | head -5\necho \"---frontend---\"\ngit fetch -q origin && git log -1 --oneline origin/",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:49Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "bash /Users/bilalsbaiby/work/resale-iq/.claude/bin/with-secrets.sh sh -c 'curl -s -m 25 -H \"Authorization: $<CREDENTIAL>\" \"https://api.postiz.com/public/v1/posts?startDate=2026-08-25T00:00:00Z&endDa",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:49Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "which gh; gh --version 2>&1; echo \"---\"; cd /Users/bilalsbaiby/work/demand-intel && gh auth status 2>&1; echo \"---repo---\"; gh repo view --json nameWithOwner 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:39Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport sqlite3\nc = sqlite3.connect(\"data/growth.db\")\n# 669 chars -> X's 280. Same hook, same formula, same aggregate. Shortened by me\n# rather than auto-truncated: cutting a sentence ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:26Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "sqlite3 data/growth.db \"UPDATE content SET status='approved' WHERE id=117;\" && bash /Users/bilalsbaiby/work/resale-iq/.claude/bin/with-secrets.sh sh -c 'npm run publish -- --limit=1 2>&1' 2>&1 | tail ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:25Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"date -d @1788019334 -u 2>/dev/null || date -r 1788019334 -u; echo '---stat detail---'; stat ~/.ssh/authorized_keys ~/.ssh/authorized_keys.bak.premet",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:29:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "sqlite3 data/growth.db \"UPDATE content SET status='approved' WHERE id=115;\" && bash /Users/bilalsbaiby/work/resale-iq/.claude/bin/with-secrets.sh sh -c 'npm run publish -- --limit=1 2>&1' 2>&1 | tail ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:58Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport sqlite3, re\nc = sqlite3.connect(\"data/growth.db\")\nfor rid in (115, 117):\n    cap = c.execute(\"SELECT COALESCE(caption,hook) FROM content WHERE id=?\", (rid,)).fetchone()[0]\n    ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"echo '=== bak.premethod (Aug29 16:02, before backup naming) ==='; cat ~/.ssh/authorized_keys.bak.premethod; echo; echo '=== bak.20260829-160000 ==='",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:43Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport sqlite3\nc = sqlite3.connect(\"data/growth.db\")\nfor rid in (112, 115, 117):\n    r = c.execute(\"SELECT platform, caption, hook, link FROM content WHERE id=?\", (rid,)).fetchone()\n ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq-growth && sqlite3 -separator ' | ' data/growth.db \"SELECT c.id, c.platform, CASE WHEN a.id IS NULL THEN 'no-media' ELSE 'video' END, substr(c.hook,1,52) FROM conte",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"cat -A ~/.ssh/authorized_keys | head -0; echo '=== RAW ==='; cat ~/.ssh/authorized_keys\" 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:25Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io, re\np=\"docs/company/WORKBOARD.md\"; s=io.open(p,encoding=\"utf-8\").read()\nCLOSE = {\n \"W45\": \"**CLOSED — verified live in the deployed bundle** (`?plan=free` present), not from",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:25Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"ls -la ~/.ssh/ && echo '---BACKUP---' && cp -p ~/.ssh/authorized_keys ~/.ssh/authorized_keys.bak.\\$(date -u +%Y%m%dT%H%M%SZ) && ls -la ~/.ssh/author",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh -o ConnectTimeout=10 -o BatchMode=yes resaleiq \"whoami; hostname; date -u\" 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:12Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat /Users/bilalsbaiby/work/demand-intel/COOLIFY-DEPLOY.md 2>/dev/null",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:12Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "find /Users/bilalsbaiby/work/demand-intel/.github -type f 2>/dev/null | xargs -I{} echo {}; echo \"---\"; cat /Users/bilalsbaiby/work/demand-intel/.github/workflows/*.yml 2>/dev/null | head -200",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat /Users/bilalsbaiby/work/resale-iq/docs/audit/DEPLOY-VERIFY-2026-09-01.md 2>/dev/null",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ls -la /Users/bilalsbaiby/work/ 2>/dev/null; echo \"---\"; ls -la /Users/bilalsbaiby/work/demand-intel 2>/dev/null | head -50",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:03Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat /Users/bilalsbaiby/work/resale-iq/scripts/company/deploy_drift.py",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:28:02Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat /Users/bilalsbaiby/work/resale-iq/.github/workflows/deploy.yml",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:27:57Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ls -la && echo \"---\" && find . -maxdepth 3 -iname \"*deploy*\" 2>/dev/null",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:27:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Agent",
+      "files": [],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:32Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:05:29Z",
+      "ts": "2026-09-01T16:27:25Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^from typing import Optional\" \"$SP/wt-backend-a24-w42/api/routes.py\"\ngrep -n \"from typing im",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/deploy_drift.py 2>&1 | head -4; echo; python3 scripts/company/org.py >/dev/null 2>&1; python3 -c \"\nimport json;d=json.load(open('dashboa",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:28Z",
+      "ts": "2026-09-01T16:23:38Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"cmd\\|activity\" scripts/company/build_dashboard.py | grep -iE \"cmd|command\" | head -6",
+      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > \"$SB/mdrift.txt\" <<'MSG'\ndeploy: ask the only question a no-op cannot answer\n\nThe founder as",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:17Z",
+      "ts": "2026-09-01T16:23:14Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"<CREDENTIAL>\\|credential\" scripts/check-agent-isolation.mjs | head -8; echo \"--- what data.json actually contains:\"; python3 -c \"\nimport json,re\nd=json.load(open('dashboard/data.json'))\ns=js",
+      "cmd": "python3 scripts/company/org.py 2>&1 | tail -8; echo \"--- in org.json?\"; python3 -c \"\nimport json;d=json.load(open('dashboard/org.json'))\ndd=d.get('deploy_drift',{});print('  drifted:',dd.get('drifted'",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:16Z",
+      "ts": "2026-09-01T16:22:50Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git remote -v && git log --oneline -4 && echo --- && git diff --stat m",
+      "cmd": "python3 scripts/company/deploy_drift.py >/dev/null 2>&1; echo \"real exit code: $?\"; python3 - <<'PY'\nimport io\np=\"scripts/company/org.py\"; s=io.open(p,encoding=\"utf-8\").read()\ns = s.replace('''def bus",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:10Z",
+      "ts": "2026-09-01T16:21:38Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && gh run list --limit 5 2>&1 | head -6; echo \"=== why Agent Isolation fails ===\"; node scripts/check-agent-isolation.mjs 2>&1 | tail -8",
+      "cmd": "python3 scripts/company/deploy_drift.py 2>&1 | tail -12; echo \"exit=$?\"",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:05:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "find /Users/bilalsbaiby/work/resale-iq/docs/company -iname \"*WORKBOARD*\" -o -iname \"*SESSION*\" 2>/dev/null",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:57Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git commit -m \"$(cat <<'EOF'\nfeat(W42): build POST /api/ext/error (APP",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:46Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git add -A -- api/auth.py api/routes.py db/schema.py main.py tests/tes",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:35Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "diff /tmp/main_tests.txt /tmp/wt_tests.txt | head -60",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:29Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q 2>&1 | grep \"::test_\" | sort > /tm",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:28Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "gh run view 33529515716 --log-failed 2>&1 | tail -60",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:21Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\nsleep 5\ngh pr checks 2 2>&1 | head -20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:16Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && git status --short",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:12Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd /Users/bilalsbaiby/work/demand-intel && python3 -m pytest --collect-only -q 2>&1 | tail -3",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q tests/test_market_avg_price_gate.p",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:04:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest --collect-only -q 2>&1 | tail -3",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat /Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md 2>&1 | head -40",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest -q 2>&1 | tail -20",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\npython3 scripts/company/bus.py send --from frontend-eng --to devops --subject \"Deploy has been silently skipping since 14:38 UTC -- W53, 9 commits stuck on main\" -",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\npython3 scripts/company/bus.py send --from frontend-eng --to ceo --subject \"W47 fix is NOT live -- deploy stuck since 14:38 UTC, 9 commits unshipped (W53)\" --body ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:30Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit log -1 --oneline\ngit status\ngit diff --stat",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:23Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit checkout main 2>&1\ngit status",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngh pr create --title \"W45/W47/W48: live-verify the register-form fix, find it never deployed (W53)\" --body \"$(cat <<'EOF'\n## Summary\n- **W45/W47**: verified live a",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:03:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit push -u origin claude/frontend-eng/w45-w48-verify 2>&1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:44Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit commit -m \"$(cat <<'EOF'\nboard: W47's fix is not live -- deploy has been stuck since 14:38 UTC (W53); W48 mobile retested clean\n\nVerified W45/W47 live against ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:32Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq\ngit status\ngit add docs/company/WORKBOARD.md docs/audit/proof/W45 docs/audit/proof/W48\ngit status",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:27Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cp /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48/mobile-rete",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:27Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -m pytest tests/test_ext_error_route.py -q 2>&1 | tail -100",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^async def _fetchone\\|^def _fetchone\" \"$SP/wt-backend-a24-w42/db/queries.py\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:02:15Z",
+      "ts": "2026-09-01T16:21:01Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Write",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/tests/test_ext_error_route.py"
+        "/Users/bilalsbaiby/work/resale-iq/scripts/company/deploy_drift.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:40Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:01:37Z",
+      "ts": "2026-09-01T16:20:28Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ncd \"$SP/wt-backend-a24-w42\" && python3 -c \"import main\" 2>&1 | tail -40",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && echo \"=== can the FRONTEND report its commit? ===\"; curl -s -m 15 https://resaleiq.dev/api/health/version 2>/dev/null | head -c 200; echo; curl -s -o /dev/null ",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:29Z",
+      "ts": "2026-09-01T16:19:10Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt/resale-iq-w48/mobile-retest.mjs"
-      ],
-      "cmd": "",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/WORKBOARD.md\"; s=io.open(p,encoding=\"utf-8\").read()\nrow = (\"| **W54** | **🔴 THE DEPLOY KEY'S FORCED COMMAND STILL ISS",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:23Z",
+      "ts": "2026-09-01T16:18:35Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > \"$SB/mdep2.txt\" <<'MSG'\nci: backend deploys have been silently doing nothing, and CI called ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:18:11Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && python3 - <<'PY'\nimport io\np=\".github/workflows/deploy.yml\"; s=io.open(p,encoding=\"utf-8\").read()\nold = \"\"\"          echo \"Giving Coolify time to build and s",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:17:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "until ssh -o ConnectTimeout=15 resaleiq 'docker ps --format \"{{.Names}}\" | grep ph5clxk9 | head -1 | xargs -I{} docker inspect {} --format \"{{range .Config.Env}}{{println .}}{{end}}\"' 2>/dev/null | gr",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:17:44Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/coolify_deploy.py\"\ns=io.open(p,encoding=\"utf-8\").read()\ns=s.replace('''def",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:17:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\nscp -q -o ConnectTimeout=15 \"$SB/coolify_deploy.py\" resaleiq:/tmp/cdep.py && bash .claude/bin/with-se",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T16:17:05Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Write",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48/proof.sh"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/coolify_deploy.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:15Z",
+      "ts": "2026-09-01T16:16:47Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/main.py"
-      ],
-      "cmd": "",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\nscp -q -o ConnectTimeout=15 \"$SB/coolify_deploys.py\" resaleiq:/tmp/cd.py && bash .claude/bin/with-sec",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:04Z",
+      "ts": "2026-09-01T16:16:35Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Write",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W45/proof.sh"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/coolify_deploys.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:01:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:00:52Z",
+      "ts": "2026-09-01T16:16:23Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "mkdir -p /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W45 /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W48\nSP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && bash .claude/bin/with-secrets.sh sh -c 'printf \"%s\\n\" \"$<CREDENTIAL>\" | ssh -o ConnectTimeout=20 resaleiq \"read T; curl -s -m 25 -H \\\"Authorization: Bearer \\$T",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:00:52Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/routes.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:00:46Z",
+      "ts": "2026-09-01T16:16:06Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "ls /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/ 2>&1 | head -20",
+      "cmd": "sed -n '78,100p' .github/workflows/deploy.yml",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:00:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:00:36Z",
+      "ts": "2026-09-01T16:16:01Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "SP=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngrep -n \"^@public_router.post(\\\"/api/track\\\"\" -A 60 \"$SP/wt-backend-a24-w42/api/routes.py\" | sed -n '",
+      "cmd": "grep -n \"resaleiq.dev\\|curl\\|SOURCE_COMMIT\\|uuid\" .github/workflows/deploy.yml | head -10",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T16:00:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/auth.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:00:26Z",
+      "ts": "2026-09-01T16:15:50Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -n \"^| \\*\\*W51\\*\\* \" /Users/bilalsbaiby/work/resale-iq/docs/company/WORKBOARD.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T16:00:23Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-backend-a24-w42/api/auth.py"
-      ],
-      "cmd": "",
+      "cmd": "gh run list --limit 4 2>&1 | head -5",
       "url": "",
       "ok": true
     }

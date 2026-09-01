@@ -836,3 +836,18 @@ Every deploy check we `
 loop: three more posts live in the markets we actually serve, board down to 2
 
 Published the Spanish TikTok and French Instagra`
+- `2026-09-01T16:31:29Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T16:31:29Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T16:31:29Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T16:31:30Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T16:32:43Z` **BLOCKED** Bash — publish/deploy via gh — `cd /Users/bilalsbaiby/work/demand-intel && gh workflow run deploy.yml 2>&1 sleep 8 gh run list --workflow=deploy.yml --limit 3 2>&1`
+- `2026-09-01T16:44:16Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/m.txt" <<'MSG'
+fix: scrub credential names at the write boundary, not in one writer
+
+The frontend has been frozen AGAIN -- 2 more commits -- for the same reason it
+froze for 9 this mornin`
+- `2026-09-01T16:47:08Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/m2.txt" <<'MSG'
+board: retract W54, open W55 for the retry label that was never attached
+
+W54 said the deploy key still issued a GET. It did not. devops read the actual
+authorized_keys on`
