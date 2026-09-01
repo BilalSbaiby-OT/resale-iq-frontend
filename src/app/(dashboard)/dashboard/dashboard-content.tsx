@@ -10,6 +10,7 @@ import { SizePills } from "@/components/ui/size-pills"
 import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { OutcomePrompt } from "@/components/ui/outcome-prompt"
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
@@ -86,6 +87,15 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
   return (
     <AppShell title={t.title} subtitle={t.subtitle}>
+      {/* This route (only) reads its locale from NEXT_LOCALE via
+          requestLocale() — see src/proxy.ts's W19 note. The rest of the
+          dashboard's chrome (Topbar/Sidebar) is unlocalized and out of W19's
+          scope, so the switcher is scoped to this page rather than AppShell:
+          mounting it in shared chrome would show a control that silently
+          does nothing on every other dashboard route. */}
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+        <LocaleSwitcher locale={locale} />
+      </div>
       {/* Asks about one past verdict. Renders nothing when there is nothing to ask. */}
       <OutcomePrompt />
       {paywalled && (

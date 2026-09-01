@@ -5,6 +5,7 @@ import { Mail } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 
 export function CheckEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.checkEmail
@@ -38,9 +39,8 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
 
   return (
     <div className="w-full max-w-md">
-      <div className="flex items-center justify-center gap-2 mb-8">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-[#0B0D10] font-bold text-[14px]">R</div>
-        <span className="text-[15px] font-bold text-[#eef1f7]">Resale IQ</span>
+      <div className="flex justify-end mb-3">
+        <LocaleSwitcher locale={locale} />
       </div>
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8 text-center">
         <div className="flex justify-center mb-4"><Mail size={34} className="text-emerald-400" /></div>

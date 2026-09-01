@@ -30,10 +30,6 @@ export default function LoginPage() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="flex items-center justify-center gap-2 mb-8">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-[#0B0D10] font-bold text-[14px]">R</div>
-        <span className="text-[15px] font-bold text-[#eef1f7]">Resale IQ</span>
-      </div>
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">Welcome back</h1>
         <p className="text-[#8b99b8] text-[13px] mb-5">Sign in to access your dashboard.</p>
