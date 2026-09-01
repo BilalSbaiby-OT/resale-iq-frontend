@@ -5,6 +5,7 @@ import { RedirectIfAuthed } from "./redirect-if-authed"
 import { LiveMarketProof } from "./live-market-proof"
 import { ExtensionHero, chromeStoreUrl } from "./extension-hero"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
@@ -49,7 +50,13 @@ export function LandingContent({
           <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
           <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
         </Link>
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", rowGap: 8, justifyContent: "flex-end" }}>
+          {/* UX-RULES.md ticket 1: the switcher itself. Sets NEXT_LOCALE and
+              lands on the sibling locale route (see locale-switcher.tsx) —
+              the only fix that reaches a visitor already carrying a wrong
+              year-long cookie, since detectLocale()/proxy.ts only protect
+              new ones. */}
+          <LocaleSwitcher locale={locale} />
           <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>{t.signIn}</Link>
           {/* Demoted from a green button. It was pulling the eye away from the
               one action on the page, and put a second green element in the
