@@ -110,3 +110,16 @@ the file now carries a note that a stale lock is a bug rather than a formality.
    `demand-intel/.claude/`. Counted this session, still not done.
 
 Written down so it does not need to be asked for again.
+
+---
+
+## E. Found 2026-09-01 morning, while the merge queue ran
+
+| # | Thing | Why it matters |
+|---|---|---|
+| **E1** | **Portfolio endpoints enforce nothing.** `get_portfolio` / `add_portfolio_item` / `update_portfolio_item` / `delete_portfolio_item` (`demand-intel/api/resale_routes.py:1200-1338`) carry **no `_is_paid_or_trial` check**. Portfolio P&L is sold from Starter €19 and is free to any logged-in account today | `monetization` re-derived this from the handlers rather than citing `docs/audit/MONEY.md` on trust, which is why it counts. **We cannot charge for a feature that is not gated** — the first of the ten customers would be paying for something the free tier already has. This blocks the pricing decision rather than merely informing it |
+| **E2** | **The paywall is inverted for logged-in free users.** An anonymous visitor gets `buy_below` / `sell_avg` free (`api/routes.py:951-971`); a logged-in free account sees **less** for the same query | `ux-researcher` inferred it from the funnel; `monetization` confirmed it in code. **Registering makes the product worse.** That is a conversion defect pointing the wrong way |
+| **E3** | **The evidence gate covers one route.** `grep -c "comparable_n\|verdict_allows_buy_below\|MIN_VERDICT" api/resale_routes.py` → **0**. The gate is real on `/api/verdict` only — Deal Finder, watchlist, brand and trends pages sell the same numbers ungated | The gate about to ship protects the surface we tested and not the surfaces we sell. **Scope the release note to what is actually gated**, or it overclaims |
+| **E4** | **`guard.py`'s unbounded-write rule matches SQL-shaped *text*, not executable SQL.** It scans for the verb and looks 400 chars ahead for a `WHERE`. It fired on a heredoc `tech-lead` was writing during review, on my `grep` for the rule itself, and on the commit message describing it | A false positive that costs a review cycle teaches agents to route around the rail. The fix lives in a PROTECTED file and needs `UNLOCK_HARNESS`, **which I will not create for myself** — so this is recorded, not fixed |
+
+**E1–E3 share one shape, and it is the shape of C4/C5/C6:** *the check exists in the place we looked and nowhere else.* Failing open, once more — this time about money rather than data.
