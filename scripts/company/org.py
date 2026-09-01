@@ -82,8 +82,15 @@ def workboard_rows():
         cells = [c.strip() for c in m.group(2).split("|")]
         if len(cells) < 4:
             continue
-        status = "CLOSED" if "**CLOSED**" in cells[3] else (
-            "BLOCKED" if "BLOCKED" in cells[3] else "OPEN")
+        # Match the PREFIX, not the exact token. This required a literal
+        # "**CLOSED**", so a row closed as "**CLOSED — commit abc, 73/73**"
+        # still counted as OPEN. Ten reconciled rows stayed invisible to the
+        # board that was built to track them -- the same failure the board
+        # exists to catch, in the tool doing the catching.
+        cell = cells[3]
+        status = ("CLOSED" if "**CLOSED" in cell
+                  else "BLOCKED" if "BLOCKED" in cell
+                  else "OPEN")
         # Duplicate ids happened for real: finance-ops added W21-W25 without
         # checking the highest in use and collided with CEO-added rows, so the
         # stale-check reported rows that did not exist as written. Flag rather
@@ -186,9 +193,18 @@ def stale_open_rows(rows):
                              "demand-intel")):
             if not os.path.isdir(os.path.join(repo, ".git")):
                 continue
-            found = sh(f"git log --oneline --grep='\\b{r['id']}\\b' main | head -3", cwd=repo)
-            if found:
-                hits += [f"{label}: {l}" for l in found.splitlines()]
+            found = sh(f"git log --oneline --grep='\\b{r['id']}\\b' main | head -6", cwd=repo)
+            for l in found.splitlines():
+                # A commit that merely MENTIONS a row id is not evidence the row
+                # shipped. `session:` and `workboard:` commits are bookkeeping --
+                # they name rows constantly, which made this check report 19
+                # stale rows when most were simply discussed in a summary.
+                # Evidence of shipping is a commit that DID something: a merge,
+                # a fix, a feat. Narrow it, or the signal drowns in its own noise.
+                subj = l.split(" ", 1)[1] if " " in l else l
+                if subj.lower().startswith(("session:", "workboard:", "docs:", "gaps:")):
+                    continue
+                hits.append(f"{label}: {l}")
         if hits:
             out.append({**r, "shipped_evidence": hits})
     return out

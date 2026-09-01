@@ -798,3 +798,8 @@ diagnose: of 27 "pending" rows, about 7 are actually pending
 
 The founder asked what causes work to sit -- whether agents overlook it, or do
 it and it is not really do`
+- `2026-09-01T15:50:30Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mrec.txt" <<'MSG'
+board: 27 "pending" rows were really 4 -- all three causes fixed
+
+The founder asked for the causes to be fixed before proceeding. Done, and the
+board went from 27 open t`
