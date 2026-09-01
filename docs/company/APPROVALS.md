@@ -1748,3 +1748,42 @@ reasonably identify the person, and our own rate limiter already assumes exactly
 `legal-compliance`**, which owns `/privacy` and has an open related finding, or by `backend-eng`,
 which will own the route. Neither has blocked anything, because nothing has been built.
 
+---
+
+## A21 — the Postiz publishing channel is wired and ready. Nothing has been sent.
+
+**Found by `devops`, 2026-09-01, read-only investigation. No post made, drafted or scheduled.**
+
+`GAPS.md` D3 recorded `POSTIZ_API_KEY` sitting unused in env after an agent wasted a run trying to
+deploy a *second* Postiz. This closes the open question: **the channel works.**
+
+- Key confirmed live via presence checks only (`with-secrets.sh`, count/length, never the value) and
+  one authenticated `GET /integrations` against the real hosted API (`https://api.postiz.com`) →
+  HTTP 200. No self-hosted Postiz exists on `resaleiq` (`docker ps -a` on the box has no `postiz`
+  container) — this is the hosted plan the founder is already paying for.
+- **4 connected, enabled accounts**, all one brand identity, all English, no per-market split: X
+  (@ResaleIQdev), Instagram (@resaleiqx), TikTok (@resaleiq), Reddit (account name auto-redacted by
+  `with-secrets.sh`'s own scrubber — it matches a `REDDIT_*` value already in env, i.e. it's the
+  founder's known account).
+  **LinkedIn is not connected** — `resale-iq-growth` generates LinkedIn content with nowhere to go;
+  confirmed live, every queued LinkedIn piece skips with `no linkedin channel connected`.
+- **10 pieces already approved and queued**, unscheduled, confirmed via
+  `npm run publish -- --check` and `--dry-run` (both read-only, both safe to run any time).
+- The send command already exists (`resale-iq-growth/scripts/publish.js` / `npm run publish`,
+  routed through `with-secrets.sh`) and was **not run** beyond `--check`/`--dry-run`. Full detail,
+  exact commands and API surface: `docs/eng/PUBLISHING.md`.
+
+**What only the founder can click:** connect LinkedIn in the Postiz UI; press send (drop
+`--dry-run`/`--check` from `npm run publish`) on any of the 10 queued pieces — publishing is
+excluded from AM-8 delegation regardless of who or what proposes it. Recommend deciding which piece
+goes first and in what cadence across the 4 accounts once cleared.
+
+### Consultation
+
+None yet — this is a read-only infrastructure finding, not a decision. Publishing itself is a
+founder gate under AM-8 that the roster may not clear (`content-social` correctly declined to send
+anything today). Before the first real send, `legal-compliance` should read the queued Reddit pieces
+against subreddit self-promotion rules (`platformSettings()` in `postiz.js` already refuses to guess
+a subreddit target — it requires one explicit on the row) and `content-social` should confirm the 10
+approved pieces still reflect current facts.
+

@@ -374,3 +374,8 @@ refunded why' `
 product-manager's decision, with monetization, ux-researcher and finance-ops
 reaching it from different directions. ux-researcher put it plainest: you cannot
 get 10 paying customers while the thing `
+- `2026-09-01T09:52:11Z` **BLOCKED** Bash — direct read of a .env file — `cd "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-i18n" && (cat .env.local 2>/dev/null || cat /Users/bilalsbaiby/work/resale-iq/.env.local 2>/dev/null | wc -l); ls .env* /Users/bilalsbaiby/work/resale-iq/.env* 2>&1`
+- `2026-09-01T09:53:13Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `rm .claude/UNLOCK_HARNESS && ls .claude/UNLOCK_HARNESS 2>&1 | head -1; git add -A && git commit -q -m "agents: six roles could not do the job their own description names
+
+The founder: 'ux researcher why are you not using chrome tabs why not using
+browsers use them do human testing yourself', and 'al`

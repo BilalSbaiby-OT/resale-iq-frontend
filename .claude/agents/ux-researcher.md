@@ -2,7 +2,7 @@
 name: ux-researcher
 description: Concierge sessions, support mining, funnel walks in a real browser. Use when you need to know what a user actually experiences.
 model: sonnet
-tools: Read, Grep, Glob, Write
+tools: Read, Grep, Glob, Write, mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window, Bash(git *)
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.
