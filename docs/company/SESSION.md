@@ -580,6 +580,33 @@ is the moat and inventing it hands the moat away.**
 - **`content-social`** — building the aspirational beginner lane, 6+ rows across TikTok / Reels / X,
   ES and FR.
 
+## CI: the deploy check was racing the deploy it measures
+
+The founder got a Gmail alert that **all Deploy jobs failed**. Two runs, 13:04 and 13:05.
+**Nothing was actually broken.**
+
+`Fingerprint the running build` curls the **live site** and greps for Next.js chunk filenames. A push
+during a Coolify rebuild gets a page with no chunks, `grep` exits 1, `set -e` kills the job. **I
+pushed twice inside a minute**, so the step ran squarely inside the rebuild window — **the very
+window it exists to measure across.** Reproduced the exact command afterwards and it passes, which is
+what proves it was a race rather than a regression.
+
+**Fixed:** six retries over ~60s, and the **sha256 of empty input is treated as "nothing served yet"
+rather than as a fingerprint** — otherwise the after-deploy check compares one empty page against
+another and **passes**, which is worse than failing. Still nothing after six attempts is a real
+outage and the error says so. **A check that never fails is not a check.**
+
+The second fingerprint call (~line 116) was deliberately left alone — it runs *after* the deploy and
+polling is already its job.
+
+**VERIFICATION PENDING.** `Deploy` triggers on `workflow_run`, so it only fires once Playwright
+finishes. **Do not record this row as closed until a Deploy run goes green.**
+
+**Two things this exposed, worth more than the fix:**
+- **CI has been emailing failures that mean nothing.** That is how a real failure gets ignored.
+- **The deploy pipeline has no serialisation** — rapid pushes stack rebuilds on each other. Today it
+  cost a false alarm; it is the same shape as last night's two-container incident. **W23.**
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

@@ -617,3 +617,13 @@ session: the content doctrine, and the audience we were never targeting
 
 CONTENT-RULES.md is committed and in force. The part worth remembering is not
 the ten content typ`
+- `2026-09-01T13:08:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mci.txt" <<'MSG'
+ci: the deploy check was racing the deploy it measures
+
+The founder got a Gmail alert that all Deploy jobs failed. Two runs failed
+sixty seconds apart, 13:04 and 13:05, a`
+- `2026-09-01T13:09:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms3.txt" <<'MSG'
+session: the CI alarm was false, which is worse than it sounds
+
+Recorded with the fix, and flagged as NOT YET VERIFIED: Deploy triggers on
+workflow_run, so it only fires `
