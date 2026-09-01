@@ -507,3 +507,98 @@ not an active one for the roster.
 **Ordering, four separate commits, one PR each:** (1) absolute PROTECTED + explicitly add the other
 repos' settings files → (2) demand-intel settings reduced and pointed at guard.py → (3) wrapper
 match moved to command position + the honesty line in STANDARDS → (4) SCOREBOARD generated.
+
+
+#### `data-scientist` — the decisive verdict. Agrees on all three, and attaches a condition to each.
+
+**A8-1 MAPE — STRIKE, confirmed on production.** `is_sold=1` is 5,436,711 rows; only 104,052 are
+`sold_observed=1`. **98.09%** never observed departing. And `db/queries.py:285-292` is explicit that
+the honest column means *"we held this row as active and now it is gone"* — departure, not sale.
+Departure also covers delisting, seller removal, an offline sale at another price, and a relist.
+**There is no sale price in this system and no path to one.**
+
+**But striking MAPE exposes a hole I had not seen.** OS §0.4: no KPI without its counter. The
+Insight counter is `n_predictions_resolved` — **dead, 0 of 340**. And its own KPI card names
+`insufficient_data_rate` as the counter to `band_coverage`, which is **mathematically incapable of
+the job**: they are exact complements by construction. *"My counter-KPI cannot ever contradict my
+primary. That is a real defect in the card I was issued, and I would rather say so than carry it."*
+
+- [ ] **CONDITION: adopt `band_evidence_p50` in the SAME gate** — the median `comparable_n` behind a
+      band we actually printed. Measured tonight, n=180 answered searches:
+
+      | arm | bands printed | median evidence |
+      |---|---:|---:|
+      | today | 113 | **12** |
+      | A13 (widen the window) | 146 | **26** ⬆ |
+      | lower threshold to 5 | 144 | **10** ⬇ |
+
+      It is the only counter that moves the RIGHT way for the honest intervention and the WRONG way
+      for the dishonest one that lands on an almost identical coverage number. That is precisely
+      what §0.4 asks for. `band_coverage` is about to move 19pp with no working honesty counter at all.
+
+- [ ] Park **`band_asking_error_p50`** as a named candidate — median |published − outcome|/outcome
+      over a **strictly disjoint** forward window, median not mean, the word *asking* permanent, never
+      public. **Do not commission it this cycle:** building a second-order accuracy instrument before
+      the first-order one has produced a single row is out of order.
+
+**A8-2 — agree on the split; my removal mechanism was wrong.**
+
+- [ ] **Rename the survivor to `band_coverage_demand`.** With two metrics live, the bare name
+      silently resolves to one of them — a trap sprung by whoever reads the dashboard at speed. The
+      metrics layer shipped 2026-09-01, so there is no history to break. **Do it now or never.**
+- [ ] **Do NOT remove the demand-side panel.** *"Removing an instrument because its current reading
+      is unreliable is how you lose the instrument permanently, and how you stop noticing the day it
+      becomes reliable."* Instead add a **pre-registered minimum-`n` floor to the metric contract** —
+      an extension of the rule already in `sql/metrics/README.md` that `n=0` is UNKNOWN rather than
+      zero. A population of 44 with 4 probes in it has not measured a rate either.
+      **Floor = 100 for a proportion, derived not chosen:** at p≈0.8 the 95% half-width is
+      1.96·√(p(1−p)/n) — n=44 gives **±14.5pp**, which cannot distinguish 45% from 72%; n=100 gives
+      ±8pp. This produces exactly the outcome I wanted, **by a rule instead of by fiat.**
+- [ ] **The floor is a CONTRACT rule, not a `band_coverage` rule.** The dashboard currently publishes
+      `trial_to_paid = 0.0%` at **n=1** and `weekly_trusted_checks = 0` at **n=1**. *"Blanking a
+      metric at n=44 while publishing 0.0% at n=1 two panels above would look like we blank the
+      numbers we dislike."*
+- [ ] **Tag the probe traffic separately** — the floor does not fix contamination. At n=1000 the
+      metric is still wrong if our own probes are in the denominator.
+- [ ] **Definitions land BEFORE A13**, and A13 registers against **`band_coverage_supply`** (n=100,
+      above the floor, and the thing A13 mechanically moves) with `band_evidence_p50` as its counter.
+- [ ] **Calendar control required:** the observed-sales corpus is 11 days deep (`MIN(sold_at)` =
+      2026-08-21), so supply coverage drifts upward on its own until ~2026-09-20 with or without A13.
+      Without a control the verifier scores a HIT the clock produced.
+
+**A8-3 — "it does not answer itself." A THIRD independent reason, distinct from `tech-lead`'s.**
+
+`said_buy_below IS NOT NULL` is a **two-hop structural inference** held together by a comment. And
+the thread is thinner than the comment implies: `db/queries.py:2062` gates `max_buy_price` on
+`MIN_COMPARABLES` (**3**), not 8 — all 100 board rows have a non-null `max_buy_price`, including the
+24 at `comparable_n = 3`. **The only thing enforcing 8 is a single early return at
+`api/routes.py:889`.** Non-null `said_buy_below` is not evidence of n≥8; it is evidence that one
+`return` did not fire. That invariant class is *already broken twice in this same table* (C9), and
+`comparable_n` oscillates across 8 between analyzer runs.
+
+- [ ] **Delete the "upper bound" wording** (it names a bias that will no longer exist) and replace it
+      with one honest line: *"`n ≥ 8` is inferred from `said_buy_below`, not read from a stored
+      `comparable_n`."* **Do not write "exact count."**
+- [ ] **Close it properly:** `ALTER TABLE verdict_logs ADD COLUMN comparable_n INTEGER`, written at
+      `api/routes.py:891` where `n_comp` is already in a local variable, plus a regression test
+      asserting `said_buy_below IS NOT NULL ⟹ comparable_n >= 8`. Fold into the same migration as the
+      probe tag.
+- **Keep it in proportion:** exactly **one row** in the entire history of `verdict_logs` has
+  `said_buy_below IS NOT NULL`. This is a debate about a single row.
+
+**Explicit "do NOT" list:** do not report any successor against a sold price; do not strike MAPE
+without adopting `band_evidence_p50`; do not remove the demand panel; do not apply the floor to one
+metric only; do not put definitions and A13 in one PR; **do not touch `MIN_VERDICT_COMPARABLES`** —
+threshold 5 reaches 80.0% vs A13's 81.1% by dropping median evidence 12→10.
+
+---
+
+## A8 — RATIFIED. Four consultations, and the plan they produced is not the plan I proposed.
+
+| Item | Decision |
+|---|---|
+| **A8-1** | **STRIKE MAPE**, and adopt `band_evidence_p50` as the honesty counter in the same gate |
+| **A8-2** | Split confirmed. Rename to **`band_coverage_demand`**. Add an **n-floor to the contract, all metrics**. Tag probe traffic. Definitions before A13 |
+| **A8-3** | **Delete "upper bound". Do NOT write "exact."** Three independent over-counts remain: the delivered-vs-computed gap (`tech-lead`), the two-hop inference (`data-scientist`), and oscillation across the threshold |
+
+Every one of those differs from what I put to the agents. The consultation was not a formality.
