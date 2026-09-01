@@ -21,6 +21,11 @@ const PAID_ONLY_FIELDS = [
   "reasons", "months_supply", "data_quality", "str_pct",
 ]
 
+// The verdict palette — a refusal must never wear one of these (design/tokens.json
+// color.verdict, defect 2 in the 2026-09-01 designer pass). Checked as computed
+// `color` on every element inside the INSUFFICIENT_DATA panel, not just text.
+const VERDICT_COLORS = ["#22c55e", "#f59e0b", "#ef4444"]
+
 async function search(page: import("@playwright/test").Page, q: string) {
   await page.goto("/tools")
   await page.getByLabel(/Item to check/i).fill(q)
@@ -96,34 +101,77 @@ test.describe("P0 — paywall must not leak paid fields to anonymous callers", (
 
 test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
   // 40.9% of answered searches take this path in production — the
-  // most-seen non-answer in the product. It must render as an honest state,
-  // never a blank card or a zero that reads as "worthless."
-  test("shows NOT MEASURED, the real reason, and never a blank or a €0", async ({ page }) => {
-    await search(page, "Thin Sample Sneaker")
+  // most-seen non-answer in the product. It must render as an honest,
+  // DELIBERATE REFUSAL, never a blank card, a zero that reads as
+  // "worthless," or a state indistinguishable from a broken lookup.
+  //
+  // 2026-09-01 (defect 2/3 fix): this used to assert the literal sentence
+  // "Only 3 comparable sold items" and the label "NOT MEASURED". Both are
+  // now gone on purpose — the panel no longer renders a big verdict-style
+  // tag for a refusal, and the exact wording is backend copy
+  // (demand-intel/engine/listing_identity.py) that is expected to change
+  // once backend-eng sweeps the "sold" claim it was never swept for. A test
+  // pinned to that sentence would break on every copy pass and teach people
+  // to edit the test instead of reading it. Assert the PROPERTY instead:
+  // never blank, never €0, a real reason from the API is shown, the honest
+  // n is shown, a next step exists, and no verdict colour is used.
+  test("shows a deliberate refusal — real reason, honest n, no verdict colour, never blank or €0", async ({ page }) => {
+    const response = await search(page, "Thin Sample Sneaker")
+    const body = await response.json()
+    expect(body.verdict).toBe("INSUFFICIENT_DATA")
+    // Sanity on the fixture itself — if this ever stops holding, the
+    // assertions below are testing nothing.
+    expect(body.n ?? body.sold_7d).not.toBeNull()
+    expect(body.confidence_note || body.message).toBeTruthy()
 
-    // Scoped to the result panel itself: /tools also lists unrelated
-    // "Buy-below" copy in its search-intent links further down the page, so
-    // a page-wide text search would pass even if the checker leaked one.
-    // The confidence-note paragraph is a direct child of the result panel
-    // (see FreeChecker JSX), so its parent is exactly that scope.
-    const checker = page.locator("p", { hasText: /Only 3 comparable sold items/i }).locator("xpath=..")
+    const panel = page.getByTestId("riq-insufficient")
+    await expect(panel).toBeVisible()
 
-    await expect(checker.getByText("NOT MEASURED")).toBeVisible()
-    await expect(checker.getByText(/Only 3 comparable sold items/i)).toBeVisible()
-
-    const text = await checker.innerText()
+    // Never blank, never a zero that reads as "worthless."
+    const text = (await panel.innerText()).trim()
+    expect(text.length).toBeGreaterThan(0)
     expect(text).not.toMatch(/undefined|NaN/)
     expect(text).not.toMatch(/€0\b/)
 
-    // The priced-metrics grid (Buy-below / Market price / Sold / Listed)
+    // A real reason from the API is shown — not invented, not dropped. Uses
+    // whatever the server actually sent for this fixture, not a hardcoded
+    // sentence, so this does not re-pin the exact backend copy.
+    const reason = body.confidence_note || body.message
+    await expect(panel.getByText(reason, { exact: false })).toBeVisible()
+
+    // The honest n is shown, not hidden — the product's own rule (design/
+    // extension-panel/insufficient.html) is that a number without n is
+    // unknown, so the panel with no price still owns its n. Scoped to the
+    // dedicated testid, not a loose text search, since "3" alone would match
+    // too much.
+    const n = body.n ?? body.sold_7d
+    await expect(page.getByTestId("riq-insufficient-n")).toHaveText(String(n))
+
+    // No verdict colour: a refusal is not a call on the item. Checks the
+    // computed `color` of every element in the panel, not just text, so a
+    // colour reintroduced via a class or a parent style still fails this.
+    const verdictColored = await panel.evaluate((el, colors) => {
+      const hexToRgb = (hex: string) => {
+        const n = parseInt(hex.slice(1), 16)
+        return `rgb(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255})`
+      }
+      const bad = colors.map(hexToRgb)
+      const all = [el, ...el.querySelectorAll("*")]
+      return all.some((node) => bad.includes(getComputedStyle(node).color))
+    }, VERDICT_COLORS)
+    expect(verdictColored, "no element in the refusal panel may use a BUY/WATCH/SKIP colour").toBe(false)
+
+    // A next step exists — this is not a dead end (defect 3).
+    await expect(panel.getByText(/try one of these instead/i)).toBeVisible()
+    await expect(panel.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+
+    // The priced-metrics grid (Buy-below / Market price / Left shelf / Listed)
     // must not render at all — there is no price to show, and rendering the
-    // grid with dashes reads as "we have this and it is zero." Exact match:
-    // the honest message text itself legitimately says "...to name a
-    // buy-below" in a sentence, which a substring match would wrongly flag.
-    await expect(checker.getByText("Buy-below", { exact: true })).toHaveCount(0)
+    // grid with dashes reads as "we have this and it is zero."
+    await expect(panel.getByText("Buy-below", { exact: true })).toHaveCount(0)
     // The upsell CTA is for a verdict the free tier withheld numbers on, not
     // for "we do not have this" — showing it here reads as a paywall on
     // honesty rather than on data.
-    await expect(checker.getByText(/Unlock sell-through, demand, sizes and history/i)).toHaveCount(0)
+    await expect(page.getByText(/Unlock sell-through, demand, sizes and history/i)).toHaveCount(0)
   })
 })

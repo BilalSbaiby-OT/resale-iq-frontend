@@ -80,6 +80,53 @@ function money(n: number | null | undefined) {
 // Never invent a fourth without the same grounding.
 const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
 
+// --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01) -------------------------
+// Named constants, not inline JSX literals, so a future i18n pass has a
+// single place to swap in translated strings. NOTE: this whole component is
+// still hardcoded English end to end (button label, placeholder, every
+// branch) — frontend-eng flagged this after landing de/it/pt in
+// src/lib/i18n.ts, and that gap is NOT fixed by this pass. Wiring
+// FreeChecker into the `copy` dictionary means threading a Locale prop
+// through every caller (page.tsx, tools/page.tsx, tools/[slug]/page.tsx) and
+// is a real structural change, not a copy edit — out of scope for "change
+// ONE thing." Flagged for frontend-eng/designer to scope separately rather
+// than done quietly here. The two strings below reuse language already
+// proven to translate cleanly: INSUFFICIENT_STATEMENT matches
+// extension/content.js's existing `thinSample` string verbatim, and
+// INSUFFICIENT_SUBTEXT echoes `t.heroHonesty` (src/lib/i18n.ts), which
+// already has fr/es equivalents.
+const INSUFFICIENT_STATEMENT = "Not enough watched departures to price this yet."
+const INSUFFICIENT_SUBTEXT = "We’d rather say that than guess."
+const INSUFFICIENT_N_LABEL = "watched, not enough"
+
+// Shared by the UNKNOWN (not covered) and INSUFFICIENT_DATA (not enough
+// evidence) branches below — both are refusals, both need a next step so
+// the screen is not a dead end. designer, 2026-09-01 (defect 3: the row
+// existed only on the UNKNOWN branch; INSUFFICIENT_DATA — the state 37 of
+// 100 board models land on — had none).
+function TryExamplesRow({ onPick, disabled }: { onPick: (ex: string) => void; disabled: boolean }) {
+  return (
+    <div style={{ marginTop: 12 }}>
+      <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
+        Try one of these instead
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {TRY_EXAMPLES.map(ex => (
+          <button
+            key={ex}
+            type="button"
+            onClick={() => onPick(ex)}
+            disabled={disabled}
+            style={{ background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: disabled ? "wait" : "pointer" }}
+          >
+            {ex}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // Placeholder examples must be brands/models the catalogue actually prices —
 // 26 brands, sneaker/streetwear-coded (Nike, Adidas, Jordan, New Balance).
 // "Levi's 501" gestured at general vintage resale the catalogue does not
@@ -129,8 +176,10 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
   const sample = watchedSampleNote(sold, listed, res?.verdict)
-  const label = res?.verdict === "INSUFFICIENT_DATA" ? "NOT MEASURED"
-    : res?.verdict === "LIMIT_REACHED" ? "LIMIT REACHED"
+  // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
+  // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
+  // that looks like a verdict.
+  const label = res?.verdict === "LIMIT_REACHED" ? "LIMIT REACHED"
     : res?.verdict ?? "—"
 
   return (
@@ -220,25 +269,72 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
                   work" into "it works for THESE" — the narrowing is honest,
                   an empty refusal with no next step reads as broken. */}
-              <div style={{ marginTop: 12 }}>
-                <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
-                  Try one of these instead
-                </div>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  {TRY_EXAMPLES.map(ex => (
-                    <button
-                      key={ex}
-                      type="button"
-                      onClick={() => run(ex)}
-                      disabled={loading}
-                      style={{ background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: loading ? "wait" : "pointer" }}
-                    >
-                      {ex}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} />
             </>
+          ) : res.verdict === "INSUFFICIENT_DATA" ? (
+            // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
+            // is the reference: same card, no verdict-coloured tag, a plain
+            // sentence in the number's slot, honest n shown rather than hidden,
+            // and a next step so it isn't a dead end (defect 2 + defect 3,
+            // 2026-09-01 designer pass). This branch never reads VERDICT_COLOR —
+            // no green/amber/red, not even the neutral --color-unknown as a
+            // "verdict tag" — because this is not a call on the item at all,
+            // just text at the same weight the price copy would have used.
+            //
+            // NOTE on res.confidence_note / res.message below: these strings are
+            // backend-owned (demand-intel/engine/listing_identity.py:364-370,
+            // api/routes.py:538,595-597,922,1075). As of this pass they still say
+            // "comparable sold items", the exact claim swept from the rest of the
+            // site today ("watched departures" — a departure can be a delist, an
+            // edit or a reservation, not only a sale). That is a backend copy bug,
+            // not a frontend one: fixing it here would only hide it, and three
+            // test files (test_verdict_confidence.py, test_provisional_verdict.py,
+            // test_evidence_gate_paid_surfaces.py) assert the exact string, so the
+            // real fix is a backend-eng PR that updates the string AND its tests
+            // together. Flagged, not papered over — do not string-replace "sold"
+            // here.
+            //
+            // data-testid, not the copy, is what e2e/regression-p0.spec.ts pins to
+            // (defect 2/3 test update, 2026-09-01) — a test locked to this literal
+            // English sentence would break on the next copy pass or the i18n pass
+            // this branch still owes. Assert the PROPERTY (a statement is shown, n
+            // is honest, no verdict colour, a next step exists), not the wording.
+            <div data-testid="riq-insufficient">
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+
+              <p style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", lineHeight: 1.4, margin: 0 }}>
+                {INSUFFICIENT_STATEMENT}
+              </p>
+              <p style={{ fontSize: 12.5, color: "#8fa3c4", marginTop: 6, lineHeight: 1.5 }}>
+                {INSUFFICIENT_SUBTEXT}
+              </p>
+
+              {(res.n ?? res.sold_7d) != null && (
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid #1c2333" }}>
+                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.5px" }}>
+                    {fmtCount(res.n ?? res.sold_7d)}
+                  </span>
+                  <span style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                    {INSUFFICIENT_N_LABEL}
+                  </span>
+                </div>
+              )}
+
+              {(res.confidence_note || res.message) && (
+                <p style={{ marginTop: 10, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>
+                  {res.confidence_note ?? res.message}
+                </p>
+              )}
+              {res.confidence_note && res.message && res.message !== res.confidence_note && (
+                <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.message}</p>
+              )}
+
+              {res.category && (
+                <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{res.category}</div>
+              )}
+
+              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} />
+            </div>
           ) : (
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
@@ -279,11 +375,12 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               {!sample && res.confidence_note && (
                 <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
               )}
-              {res.verdict === "INSUFFICIENT_DATA" && res.message && (
-                <p style={{ marginTop: 10, fontSize: 13.5, color: "#8b99b8", lineHeight: 1.55 }}>{res.message}</p>
-              )}
 
-              {!hasPrices && res.verdict !== "INSUFFICIENT_DATA" && (
+              {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has
+                  its own branch above (defect 2/3, 2026-09-01) — so !hasPrices
+                  in this branch only ever means BUY/WATCH/SKIP without an
+                  account, not a refusal. */}
+              {!hasPrices && (
                 <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
                   Headline call only — market price and buy-below need an account. {TRIAL_LIMITS_SHORT}
                 </p>
