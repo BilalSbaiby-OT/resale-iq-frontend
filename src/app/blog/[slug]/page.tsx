@@ -193,7 +193,7 @@ export default async function BlogPostPage(
         <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Resale IQ turns {tracked} Vinted sales into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
+            Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
         </div>

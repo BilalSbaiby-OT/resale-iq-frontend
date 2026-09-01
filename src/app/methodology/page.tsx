@@ -45,19 +45,19 @@ export default async function MethodologyPage() {
   const faq = [
     {
       q: "How fresh is Resale IQ's Vinted data?",
-      a: "The scraper runs about every 30 minutes across all five EU Vinted domains — measured on production, 97% of gaps land under an hour. Signals are recomputed on a slower cycle, roughly every 2 hours. Sold-item verification runs every 60 minutes, and public pages revalidate every 15 minutes. So a new listing is usually found within 30 minutes; the score built from it can lag up to about 2 hours behind that.",
+      a: "The scraper runs about every 30 minutes across all five EU Vinted domains — measured on production, 97% of gaps land under an hour. Signals are recomputed on a slower cycle, roughly every 2 hours. Departure verification — checking which listings have left the shelf — runs every 60 minutes, and public pages revalidate every 15 minutes. So a new listing is usually found within 30 minutes; the score built from it can lag up to about 2 hours behind that.",
     },
     {
       q: "How is sell-through rate calculated?",
-      a: "Watched sales divided by watched sales plus still-listed items. Only transitions we observed (sold_observed). We withhold the percentage (null, not 0) when watched sales are below 30 or still-listed is 0 — that last case is the 100% hole, not a rate. Raw counts stay. We never label weekly turns as sell-through.",
+      a: "Watched departures divided by watched departures plus still-listed items. Only transitions we observed (sold_observed) — a listing leaving the shelf, not a confirmed sale. We withhold the percentage (null, not 0) when watched departures are below 30 or still-listed is 0 — that last case is the 100% hole, not a rate. Raw counts stay. We never label weekly turns as sell-through.",
     },
     {
       q: "How is the buy-below price calculated?",
-      a: "Recent average sale price for that specific model, minus the platform deduction we model for Vinted (5%), multiplied by 0.70 to target roughly a 30% margin. Substitute your own fee figure if yours differs — the arithmetic does not care what the number is, only that you use the real one.",
+      a: "Recent average asking price at the moment a listing left the shelf, for that specific model, minus the platform deduction we model for Vinted (5%), multiplied by 0.70 to target roughly a 30% margin. We do not observe the sale price itself — see \"What does 'left the shelf' mean\" below for why. Substitute your own fee figure if yours differs — the arithmetic does not care what the number is, only that you use the real one.",
     },
     {
       q: "What does HIGH / MEDIUM / LOW confidence mean?",
-      a: "It is a band from data-quality score, comparable watched sales and snapshot recency — not a model guessing. HIGH needs at least 30 comparable sold items. LOW always says how many comparables we have. LOW is not a SKIP.",
+      a: "It is a band from data-quality score, comparable watched departures and snapshot recency — not a model guessing. HIGH needs at least 30 comparable departures. LOW always says how many comparables we have. LOW is not a SKIP.",
     },
     {
       q: "Is the authenticity check a guarantee?",
@@ -79,7 +79,7 @@ export default async function MethodologyPage() {
       "@type": "Dataset",
       name: "Resale IQ Vinted market dataset",
       description:
-        "Live and sold Vinted listings across Spain, France, Germany, Italy and Portugal, aggregated into per-brand and per-model resale signals.",
+        "Live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf, aggregated into per-brand and per-model resale signals.",
       url: `${BASE}/methodology`,
       creator: { "@type": "Organization", name: "Resale IQ", url: BASE },
       spatialCoverage: "Spain, France, Germany, Italy, Portugal",
@@ -113,27 +113,43 @@ export default async function MethodologyPage() {
 
         <Section title="Where the data comes from">
           <P>
-            We continuously read public live and sold listings from all five main EU Vinted
-            domains — Spain, France, Germany, Italy and Portugal. Nothing is bought from a
-            third party. Prices and counts trace back to listings that actually existed;
-            momentum and sell-through are ratios computed from them, not predictions.
+            We continuously read public live listings, and watch which ones leave the shelf,
+            across all five main EU Vinted domains — Spain, France, Germany, Italy and Portugal.
+            Nothing is bought from a third party. Prices and counts trace back to listings that
+            actually existed; momentum and sell-through are ratios computed from them, not
+            predictions.
           </P>
           <P>
-            We anchor on <strong style={{ color: "#eef1f7" }}>sold</strong> listings, not active
-            ones. Active listings tell you what sellers hope to get. Sold listings tell you what
-            buyers agreed to pay. Most tools quote the former because it is far easier to collect.
+            We anchor on listings that{" "}
+            <strong style={{ color: "#eef1f7" }}>left the shelf</strong>, not active ones. Active
+            listings tell you what sellers hope to get. Here is the honest version of what a
+            departure tells you: <strong style={{ color: "#eef1f7" }}>we do not see a receipt</strong>.
+            We see a listing disappear from a Vinted search shelf, and we infer a sale at its last
+            asking price. A departure is also consistent with the seller delisting it, an account
+            ban, an offline sale at a different price, or the seller{" "}
+            <strong style={{ color: "#eef1f7" }}>relisting the same item under a new id</strong> —
+            which we cannot always tell apart from a genuine sale. That last case matters more
+            than it sounds: a seller relists what is <em>not</em> selling, so the items most likely
+            to generate a fabricated &ldquo;sale&rdquo; are exactly the slow-moving ones a reseller
+            most needs an honest warning about. We have not yet measured how often this happens.
+            The price shown is therefore an{" "}
+            <strong style={{ color: "#eef1f7" }}>asking price at the moment of departure</strong> —
+            a real, useful proxy, and the closest honest signal Vinted&apos;s public data supports
+            — but not an observed sale price. Most tools quote active-listing asking prices because
+            they are far easier to collect; we go one step further and track departures, but we do
+            not claim to have watched money change hands.
           </P>
           <P>
-            A sale on this site means we <strong style={{ color: "#eef1f7" }}>watched</strong> a
-            listing go from active to gone. Listings we first saw already sold are in the
-            catalogue count, not in weekly sold. That is why listings tracked can be millions
-            while weekly observed sales are in the hundreds or thousands — not because the
+            A departure on this site means we <strong style={{ color: "#eef1f7" }}>watched</strong>{" "}
+            a listing go from active to gone. Listings we first saw already gone are in the
+            catalogue count, not in weekly departures. That is why listings tracked can be millions
+            while weekly watched departures are in the hundreds or thousands — not because the
             market died, and not because a refresh zeroed the table.
           </P>
           {weekly > 0 && (
             <Callout label="Right now">
               {fmtCount(market.listingsTracked)} distinct listings tracked ·{" "}
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} watched sales in 7 days</strong>
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} watched departures in 7 days</strong>
               {" "}across {market.brandCount} brands on the public table
               {market.brandsTracked != null ? ` (${market.brandsTracked} brands in the catalogue)` : ""}.
               Last calculated {market.stamp ?? "—"}.
@@ -145,7 +161,7 @@ export default async function MethodologyPage() {
           <Table rows={[
             ["Listing collection", "about every 30 minutes", "all 5 EU domains — measured on production, 97% of gaps under an hour"],
             ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection"],
-            ["Sold-item verification", "every 60 minutes", "confirms items actually sold"],
+            ["Departure verification", "every 60 minutes", "confirms a listing left the shelf — not that it sold"],
             ["Public page refresh", "every 15 minutes", "ISR on this site"],
           ]} />
           <P>
@@ -159,32 +175,35 @@ export default async function MethodologyPage() {
         <Section title="Sell-through rate — the formula">
           <P>
             Sell-through is the share of the universe we actually watched: items we
-            saw listed and then saw sell, versus items still listed. It is not weekly
-            turns (sold ÷ active × 100), which can exceed 100% and must never be
+            saw listed and then saw leave the shelf, versus items still listed. It is not weekly
+            turns (departures ÷ active × 100), which can exceed 100% and must never be
             labelled sell-through.
           </P>
           <Code>str = sold_observed / (sold_observed + active_listings) × 100</Code>
           <P>
             The numerator is only transitions we watched
-            (<Code>sold_observed=1</Code>) — never a discovery-stamped <Code>sold_at</Code>.
-            Null, not 0 or 100, when watched sales are below 30 <em>or</em> still-listed
-            is 0 (active≤0 is the only way this share hits 100%). Raw sold and listed
-            counts still show.
+            (<Code>sold_observed=1</Code>) — a listing leaving the shelf, never a
+            discovery-stamped <Code>sold_at</Code>. Null, not 0 or 100, when watched departures
+            are below 30 <em>or</em> still-listed is 0 (active≤0 is the only way this share hits
+            100%). Raw departure and listed counts still show.
           </P>
           <Callout label="Why this matters">
             A tool showing you &ldquo;760% sell-through&rdquo; is not showing you a sell-through
             rate. It is showing you weekly turns and hoping you do not ask. 760 watched
-            sales against 100 still listed is 88.4% — a share.
+            departures against 100 still listed is 88.4% — a share.
           </Callout>
         </Section>
 
         <Section title="Buy-below price — the formula">
-          <Code>buy_below = avg_sale_price × 0.95 × 0.70</Code>
+          <Code>buy_below = avg_departure_price × 0.95 × 0.70</Code>
           <P>
-            The 0.95 is the 5% platform deduction we model for Vinted. The 0.70 targets roughly a
-            30% margin on the sale. Fee structures differ by platform, by market, and by whether
-            you sell privately or as a business — and they change — so substitute your own figure
-            if yours differs. The{" "}
+            <code style={{ color: "#8fe3b0" }}>avg_departure_price</code> is the average asking
+            price of comparable listings at the moment they left the shelf — the closest honest
+            proxy we have for a sale price, not an observed one (see &ldquo;Where the data comes
+            from&rdquo; above). The 0.95 is the 5% platform deduction we model for Vinted. The
+            0.70 targets roughly a 30% margin. Fee structures differ by platform, by market, and
+            by whether you sell privately or as a business — and they change — so substitute your
+            own figure if yours differs. The{" "}
             <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>profit calculator</Link>{" "}
             applies current per-platform rates across Vinted, Depop, eBay, Poshmark, StockX and GOAT.
           </P>
@@ -193,13 +212,13 @@ export default async function MethodologyPage() {
         <Section title="Verdict confidence — HIGH / MEDIUM / LOW">
           <P>
             Every BUY / WATCH / SKIP carries a confidence band from the data we actually have:
-            data-quality score, comparable watched sales, and snapshot recency. It is not a
+            data-quality score, comparable watched departures, and snapshot recency. It is not a
             model guessing how sure it is.
           </P>
           <Table rows={[
-            ["HIGH", "≥ 30 comparable sold items and quality ≥ 70", "snapshot younger than 48 hours"],
-            ["MEDIUM", "≥ 10 comparable sold items and quality ≥ 40", "or HIGH but the snapshot is stale"],
-            ["LOW", "thinner than that", "always paired with “Only N comparable sold items”"],
+            ["HIGH", "≥ 30 comparable departures and quality ≥ 70", "snapshot younger than 48 hours"],
+            ["MEDIUM", "≥ 10 comparable departures and quality ≥ 40", "or HIGH but the snapshot is stale"],
+            ["LOW", "thinner than that", "always paired with “Only N comparable departures”"],
           ]} />
           <Callout label="What LOW means">
             LOW is not a SKIP. It means we will not pretend precision we do not have.
@@ -237,8 +256,9 @@ export default async function MethodologyPage() {
             discover them after a bad buy.
           </P>
           <Bullets items={[
-            "Sale timestamps are when our tracker first saw an item marked sold, not the moment money changed hands. Vinted does not publish the transaction time.",
-            "Days-to-sell is only directly observed for a very small fraction of items, because most sold items are first seen already sold. Speed is therefore inferred from weekly momentum against a monthly baseline for nearly all models, not measured per item.",
+            "\"Sold\" timestamps are when our tracker first saw a listing leave the shelf — not a sale timestamp, and not necessarily a sale at all. Vinted does not publish transaction data, so a departure can also be a delisting, a removal, an offline sale at a different price, or a relist under a new id.",
+            "A seller who cannot sell an item tends to relist it, which reads to us as the old listing departing. We have not yet measured how often this happens, but the direction is not neutral: it means the slowest-moving items are the ones most likely to show a fabricated \"sale,\" not a random sample of all items.",
+            "Days-to-sell measures time to departure, not time to sale, and is only directly observed for a very small fraction of items, because most departed items are first seen already gone. Speed is therefore inferred from weekly momentum against a monthly baseline for nearly all models, not measured per item.",
             "Momentum needs roughly 30 days of history to rank models against each other. Before that the board collapses onto STABLE — and we now say so in the product rather than showing confident labels we cannot support.",
             "Around 30–45% of listings fall into an 'Other' category because our multilingual keyword matching did not hit a term. That is a real bucket, not a discard bin, but it means category volumes understate reality.",
             "We track a fixed set of brands. A brand we do not track has no data here — that is coverage, not a market signal.",

@@ -25,14 +25,14 @@ export const INTENTS: SearchIntent[] = [
     lede:
       `Check what any item genuinely sells for on Vinted before you buy or list it. Type a brand and model below to get an instant BUY / WATCH / SKIP call, computed from ${TRACKED} real listings across Spain, France, Germany, Italy and Portugal.`,
     bullets: [
-      { h: "Real sold prices, not asking prices", p: "Active listings show what people hope to get. We anchor on what actually sold, so your price reflects the real market." },
+      { h: "Real departure prices, not asking prices", p: "Active listings show what people hope to get. We anchor on the asking price at the moment a comparable listing left the shelf — a real signal, though not an observed sale." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
-      { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the watched sample supports it — otherwise the raw sold and listed counts." },
+      { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the watched sample supports it — otherwise the raw departure and listed counts." },
     ],
     faq: [
-      { q: "How do I check the price of an item on Vinted?", a: `Search the exact brand and model and look at recently SOLD listings, not active ones — active listings show asking prices, not real sale prices. Resale IQ automates this across ${TRACKED} listings in 5 EU markets and returns the typical sale price plus a buy-below price.` },
+      { q: "How do I check the price of an item on Vinted?", a: `Search the exact brand and model and look at listings that recently left the shelf, not active ones — active listings show asking prices, and departed listings show the price at the moment they disappeared, which is our closest honest proxy for what buyers actually paid. Resale IQ automates this across ${TRACKED} listings in 5 EU markets and returns the typical departure price plus a buy-below price.` },
       { q: "Is there a free Vinted price checker?", a: "Yes — the first anonymous checks (10/day) show market price, buy-below and a BUY/WATCH/SKIP call. Sell-through, demand, sizes and history need a plan. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 checks a month. Live Finder, Order Planner and Price Compare are Pro." },
-      { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average sale price × 0.95 (the 5% platform deduction we model for Vinted) × 0.70, which targets about a 30% margin. Substitute your own fee figure if yours differs." },
+      { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average asking price at departure × 0.95 (the 5% platform deduction we model for Vinted) × 0.70, which targets about a 30% margin. Substitute your own fee figure if yours differs." },
     ],
   },
   {
@@ -62,15 +62,15 @@ export const INTENTS: SearchIntent[] = [
       `Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across ${TRACKED} listings in 5 EU markets.`,
     h1: "Vinted Resale Analytics",
     lede:
-      "Analytics built specifically for secondhand resale. Resale IQ continuously analyses live and sold Vinted listings across five EU markets and turns them into the metrics that actually drive profit.",
+      "Analytics built specifically for secondhand resale. Resale IQ continuously analyses live Vinted listings across five EU markets, and watches which ones leave the shelf, and turns them into the metrics that actually drive profit.",
     bullets: [
       { h: "Sell-through rate", p: "The share of the market that sells each week — the metric that decides how fast your capital recycles." },
       { h: "Brand rankings", p: "Which brands are moving right now by weekly sales volume and average price, not by reputation." },
       { h: "Per-size demand", p: "Sell-through varies enormously by size. We break it down so you never buy a dead size again." },
     ],
     faq: [
-      { q: "What analytics matter for Vinted reselling?", a: "The three that decide profit are sell-through rate (how fast items sell), average sale price (margin room), and per-size demand (whether your specific stock will move). Volume alone is misleading." },
-      { q: "Where can I get Vinted market data?", a: `Vinted doesn't publish analytics. Resale IQ builds them from ${TRACKED} public live and sold listings across Spain, France, Germany, Italy and Portugal.` },
+      { q: "What analytics matter for Vinted reselling?", a: "The three that decide profit are sell-through rate (how fast items leave the shelf), average asking price at departure (margin room), and per-size demand (whether your specific stock will move). Volume alone is misleading." },
+      { q: "Where can I get Vinted market data?", a: `Vinted doesn't publish analytics. Resale IQ builds them from ${TRACKED} public live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf.` },
     ],
   },
   {
@@ -85,11 +85,11 @@ export const INTENTS: SearchIntent[] = [
     bullets: [
       { h: "Decisions, not dashboards", p: "Every signal resolves to one call: BUY, WATCH or SKIP. No interpretation required." },
       { h: "Margin protected at the buy", p: "Profit is decided when you buy, not when you sell. Our buy-below price enforces that discipline." },
-      { h: "Momentum, not history", p: "We rank what sold most this week against the past month." },
+      { h: "Momentum, not history", p: "We rank what left the shelf most this week against the past month." },
     ],
     faq: [
-      { q: "What is reselling intelligence?", a: "Reselling intelligence is the use of real market data — sell-through rates, sold prices, size demand and momentum — to decide what stock to buy, instead of relying on intuition. It reduces dead stock and protects margin." },
-      { q: "How is it different from just checking sold listings?", a: `Checking sold listings manually gives you a tiny sample from one market. Reselling intelligence aggregates ${TRACKED} listings across all five EU markets and converts them into a priced, sized, time-bound decision.` },
+      { q: "What is reselling intelligence?", a: "Reselling intelligence is the use of real market data — sell-through rates, departure prices, size demand and momentum — to decide what stock to buy, instead of relying on intuition. It reduces dead stock and protects margin." },
+      { q: "How is it different from just checking recently-departed listings?", a: `Checking departed listings manually gives you a tiny sample from one market. Reselling intelligence aggregates ${TRACKED} listings across all five EU markets and converts them into a priced, sized, time-bound decision.` },
     ],
   },
   {

@@ -3,7 +3,7 @@ import Link from "next/link"
 export const metadata = {
   title: "Vinted Resale API — Resale IQ Developer Docs",
   description:
-    "REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average sold prices, buy-below prices and demand signals for 26 brands. Included with the Pro plan.",
+    "REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average asking prices at departure, buy-below prices and demand signals for 26 brands. Included with the Pro plan.",
   alternates: { canonical: "/api-docs" },
 }
 
@@ -11,13 +11,13 @@ export const metadata = {
 // whether to subscribe needs to see the API BEFORE paying — and because this
 // page is an SEO surface for "vinted api" / "vinted resale data api" queries.
 const ENDPOINTS: Array<{ method: string; path: string; desc: string; params?: string }> = [
-  { method: "GET", path: "/api/model-signals", desc: "Top models ranked by 7-day sales: sold volume, average sold price, buy-below price, sell-through, best sizes.", params: "limit (default 100), brand" },
+  { method: "GET", path: "/api/model-signals", desc: "Top models ranked by 7-day watched departures: departure volume, average asking price at departure, buy-below price, sell-through, best sizes.", params: "limit (default 100), brand" },
   { method: "GET", path: "/api/deals", desc: "Current opportunities, filterable.", params: "brand, category, momentum, min_str, limit" },
   { method: "GET", path: "/api/kpis", desc: "Headline market figures: listings tracked, top category, active buy signals." },
   { method: "GET", path: "/api/brands/rankings", desc: "Brand leaderboard by demand.", params: "limit" },
   { method: "GET", path: "/api/brands/{slug}", desc: "One brand in detail, by slug." },
   { method: "GET", path: "/api/trends/summary", desc: "Market trend summary across the tracked markets." },
-  { method: "GET", path: "/api/recent-sold", desc: "Most recently detected sold listings.", params: "limit" },
+  { method: "GET", path: "/api/recent-sold", desc: "Most recently detected departures — listings that left the shelf, not confirmed sales.", params: "limit" },
   { method: "GET", path: "/api/watchlist", desc: "Your watchlist." },
   { method: "POST", path: "/api/watchlist", desc: "Add a model to your watchlist." },
   { method: "DELETE", path: "/api/watchlist/{id}", desc: "Remove a watchlist item." },
@@ -48,7 +48,7 @@ export default function ApiDocs() {
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Resale IQ API</h1>
         <p style={{ ...P, marginBottom: 6 }}>
           Query real Vinted resale data across ES, FR, DE, IT and PT — sell-through rates, average
-          sold prices, buy-below prices and demand signals for 26 brands.
+          asking prices at departure, buy-below prices and demand signals for 26 brands.
         </p>
         <p style={{ fontSize: 13, color: "#5b6b8c" }}>
           Included with <Link href="/register" style={{ color: "#22c55e" }}>Pro</Link>. Generate your

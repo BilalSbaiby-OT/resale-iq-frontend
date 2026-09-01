@@ -63,7 +63,7 @@ export default async function Landing() {
 
           Two columns instead: the claim on the left, the evidence beside it
           rather than below it. A sceptical reseller reads "highest price to
-          pay" and sees real weekly sold counts in the same glance, with no
+          pay" and sees real weekly departure counts in the same glance, with no
           scroll between promise and proof. */}
       <section style={{ maxWidth: 1080, margin: "0 auto", padding: "64px 24px 48px" }}>
         <div className="riq-hero">

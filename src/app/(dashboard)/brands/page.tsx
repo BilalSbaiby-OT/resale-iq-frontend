@@ -34,7 +34,7 @@ export default function BrandsPage() {
         <div className="riq-scroll-x"><table className="w-full" style={{ minWidth: 620 }}>
           <thead>
             <tr>
-              {[["#", "rank"], ["Brand", "brand"], ["Avg Price", "avg_price_eur"], ["7d Sold", "sold_7d"], ["Sell Speed", "speed_score"], ["Profit", "profit_label"], ["Score", "demand_score"], ["Categories", ""]].map(([h, col]) => (
+              {[["#", "rank"], ["Brand", "brand"], ["Avg Price", "avg_price_eur"], ["7d Left shelf", "sold_7d"], ["Sell Speed", "speed_score"], ["Profit", "profit_label"], ["Score", "demand_score"], ["Categories", ""]].map(([h, col]) => (
                 <th key={h} onClick={() => col && toggleSort(col as keyof BrandRanking)}
                   className={`text-[9px] font-mono text-[#546380] uppercase tracking-[1.5px] px-3 py-2.5 text-left bg-[#1a2030] border-b border-[#1e2535] ${col ? "cursor-pointer hover:text-[#e8ecf4]" : ""} ${sort === col ? "text-emerald-400" : ""}`}>
                   {h}{sort === col ? (dir === -1 ? " ↓" : " ↑") : ""}

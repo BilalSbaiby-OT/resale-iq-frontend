@@ -119,14 +119,14 @@ export const CHAPTERS_1: ManualChapter[] = [
       {
         h2: "The derivation",
         body: [
-          "Start from the price the item realistically sells for — the price similar items have actually sold at, not the price hopeful sellers are asking. Take off whatever the platform deducts from you. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
+          "Start from the price the item realistically sells for — the asking price similar items were last listed at before they left the shelf, not the price hopeful sellers are currently asking. Take off whatever the platform deducts from you. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
           "Concretely, using the 5% deduction Resale IQ models for Vinted: an item that reliably sells for €40 nets about €38. If you want a 30% margin on the sale, you can pay up to about €26.60. Pay €30 and you are working for roughly 21%. Pay €34 and you are working for free once one item in ten fails to sell.",
           "Substitute your own figure — fee structures differ by platform, by market and by whether you sell as a private individual or a business, and they change. The arithmetic does not care what the number is, only that you use the real one. The profit calculator applies the current per-platform rates so you are not working from a figure you memorised a year ago.",
           "The arithmetic is trivial. The hard part is the first input — the realistic sale price — and that is where almost every bad buy originates.",
         ],
         callout: {
           label: "Watch this",
-          text: "Active listings show what sellers hope to get. Sold listings show what buyers agreed to pay. Sourcing against active-listing prices is the most common way to overpay, because the unsold ones are unsold for a reason.",
+          text: "Active listings show what sellers hope to get. The asking price at the moment a listing left the shelf is our closest honest proxy for what a buyer actually paid — though we do not see a receipt; some departures are delistings or relists, not sales. Sourcing against active-listing prices is the most common way to overpay, because the ones still sitting are still sitting for a reason.",
         },
       },
       {
@@ -146,14 +146,14 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     takeaways: [
       "Max buy price = realistic sale price, minus platform fee, times (1 − target margin).",
-      "Use sold prices, never asking prices, as the input.",
-      "Adjust the sale price down for condition, edge sizes and out-of-season stock before you compute anything.",
+      "Use the asking price at departure, never a currently-active asking price, as the input.",
+      "Adjust that departure price down for condition, edge sizes and out-of-season stock before you compute anything.",
       "Fix the target margin before sourcing and refuse to renegotiate it item by item.",
     ],
     faq: [
       {
-        q: "Where do I find real sold prices on Vinted?",
-        a: "Vinted's search can be filtered to sold items, which gives you a rough distribution for a specific model. It is manual and slow across five markets, which is exactly the gap Resale IQ fills — the per-model figures it returns are computed from sold listings across ES, FR, DE, IT and PT rather than one country's active listings.",
+        q: "Where do I find real departure prices on Vinted?",
+        a: "Vinted's own search can be filtered to items sellers marked sold, which gives you a rough distribution for a specific model — though that is a seller's self-report, not a verified transaction. It is manual and slow across five markets, which is exactly the gap Resale IQ fills — the per-model figures it returns are computed from listings we watched leave the shelf across ES, FR, DE, IT and PT rather than one country's active listings.",
       },
       {
         q: "Should the target margin be the same for every item?",

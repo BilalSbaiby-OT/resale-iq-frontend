@@ -15,7 +15,7 @@ export function watchedSampleNote(
 ): string | null {
   if (sold == null || listed == null) return null
   if (!Number.isFinite(sold) || !Number.isFinite(listed)) return null
-  const head = `In the listings we watched, ${fmt(sold)} sold vs ${fmt(listed)} still listed`
+  const head = `In the listings we watched, ${fmt(sold)} left the shelf vs ${fmt(listed)} still listed`
   if (verdict === "SKIP") {
     return `${head} — that is a supply glut in our sample, not a claim this model never sells.`
   }

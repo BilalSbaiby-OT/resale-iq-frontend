@@ -51,7 +51,7 @@ function VerdictInner() {
       trackEvent("analysis_completed")
     } catch (e) {
       trackEvent("analysis_failed")
-      setError(e instanceof Error ? e.message : "We couldn't find enough comparable sales to finish that check. Try again, or a more specific model name.")
+      setError(e instanceof Error ? e.message : "We couldn't find enough comparable departures to finish that check. Try again, or a more specific model name.")
     } finally { setLoading(false) }
   }, [query])
 
@@ -85,11 +85,11 @@ function VerdictInner() {
   const honestyNote = sampleNote
     || result?.confidence_note
     || (result?.confidence === "LOW" && (result.n ?? result.sold_7d) != null
-      ? `Only ${result.n ?? result.sold_7d} comparable sold items`
+      ? `Only ${result.n ?? result.sold_7d} comparable departures`
       : null)
 
   return (
-    <AppShell title="Quick Verdict" subtitle="Type any product — BUY / WATCH / SKIP from watched sold listings">
+    <AppShell title="Quick Verdict" subtitle="Type any product — BUY / WATCH / SKIP from watched departures">
       <div className="max-w-2xl">
         {/* Search */}
         <div className="flex gap-2 mb-6">
@@ -101,7 +101,7 @@ function VerdictInner() {
             className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
-            <Zap size={15} />{loading ? "Looking up watched sales…" : "Check market"}
+            <Zap size={15} />{loading ? "Looking up watched departures…" : "Check market"}
           </button>
         </div>
 
@@ -153,7 +153,7 @@ function VerdictInner() {
                 <div className="text-[13px] leading-6 text-[#8b99b8]">
                   This is the headline call on{" "}
                   <span className="font-semibold text-[#eef1f7]">{result.product || query}</span>,
-                  computed from watched sold listings across 5 EU markets.
+                  computed from watched departures across 5 EU markets.
                 </div>
                 <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
               </div>
@@ -175,10 +175,10 @@ function VerdictInner() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
                   <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
-                  <Metric label="Avg sold" value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
+                  <Metric label="Avg at exit" value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
                   {result.sell_through_rate
                     ? <Metric label="Sell-through" value={result.sell_through_rate} />
-                    : <Metric label="Sold / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
+                    : <Metric label="Left shelf / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
                   {result.buy_below != null && result.sell_avg != null
                     ? <Metric label="Target net" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
                     : result.sell_through_rate
@@ -213,7 +213,7 @@ function VerdictInner() {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
-            Enter a brand and model. You get BUY, WATCH or SKIP plus the reason — from watched sold listings, not a model guessing.
+            Enter a brand and model. You get BUY, WATCH or SKIP plus the reason — from watched departures, not a model guessing.
           </div>
         )}
       </div>

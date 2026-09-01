@@ -48,7 +48,7 @@ export default function MarketPage() {
 
   const HEADERS: [string, keyof MarketSignal | ""][] = [
     ["Brand", "brand"], ["Category", "category"], ["Signal", "signal"],
-    ["Score", "investment_score"], ["7d Sold", "units_sold_all_7d"],
+    ["Score", "investment_score"], ["7d Left shelf", "units_sold_all_7d"],
     ["Demand", "overall_demand_score"], ["Speed", "overall_speed_score"],
     ["Sell For", "recommended_list_price"], ["Trend", "trend_direction"],
   ]

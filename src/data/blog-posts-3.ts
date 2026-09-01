@@ -163,13 +163,13 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Pricing without comparables",
         p: [
-          "True one-offs have thin comparable data, so anchor on the closest sold examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price.",
+          "True one-offs have thin comparable data, so anchor on the closest departed examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price.",
         ],
       },
     ],
     faq: [
       { q: "How do I know if vintage clothing is valuable?", a: "Check the tag for era markers (logo style, country of manufacture, care-label format), then the construction — single stitching, chain-stitched seams and metal zips suggest older production. Condition then swings the value more than anything else." },
-      { q: "How do I price vintage clothing to sell?", a: "Anchor on the closest recently-sold comparable items rather than asking prices, and adjust hard for condition. For rare one-offs expect a longer sale window and price for patience." },
+      { q: "How do I price vintage clothing to sell?", a: "Anchor on the closest recently-departed comparable items rather than active asking prices, and adjust hard for condition. For rare one-offs expect a longer sale window and price for patience." },
     ],
   },
   {

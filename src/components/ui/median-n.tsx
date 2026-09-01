@@ -29,8 +29,8 @@ export function SoldSamplePrice({
       ? `n ${Math.round(n).toLocaleString("en-GB")}`
       : null
   const title = kind === "median"
-    ? "Sample size of sold listings behind this median"
-    : "Sample size of sold listings behind this mean"
+    ? "Sample size of watched departures behind this median"
+    : "Sample size of watched departures behind this mean"
   return (
     <span className={className} title={title}>
       {shown}

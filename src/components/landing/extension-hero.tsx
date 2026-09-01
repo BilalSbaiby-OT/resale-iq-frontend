@@ -83,7 +83,7 @@ export function ExtensionHero() {
               listed at €40 — above buy-below
             </div>
             <div style={{ fontSize: 12, color: "#a9b6d0", marginTop: 8 }}>
-              avg sold <b style={{ color: "#eef1f7" }}>€50</b> · n 42
+              avg exit <b style={{ color: "#eef1f7" }}>€50</b> · n 42
             </div>
           </div>
         </div>

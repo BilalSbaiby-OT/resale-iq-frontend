@@ -108,9 +108,9 @@ export default function DashboardPage() {
 
       {/* KPI row */}
       <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
-        <KpiCard label={kpis?.avg_profit_margin?.label ?? "Sold / 7d"} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={kpis?.avg_profit_margin?.unit ?? ""} sublabel={kpis?.avg_profit_margin?.sublabel} />
+        <KpiCard label={kpis?.avg_profit_margin?.label ?? "Left shelf / 7d"} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={kpis?.avg_profit_margin?.unit ?? ""} sublabel={kpis?.avg_profit_margin?.sublabel} />
         <KpiCard label="Listings tracked" loading={!kpis} value={kpis?.items_analyzed?.formatted} sublabel="across 5 Vinted markets" />
-        <KpiCard label="Top category" loading={!kpis} value={kpis?.top_category?.value} sublabel={kpis?.top_category?.sublabel ?? "by 7-day sales volume"} />
+        <KpiCard label="Top category" loading={!kpis} value={kpis?.top_category?.value} sublabel={kpis?.top_category?.sublabel ?? "by 7-day departure volume"} />
         <KpiCard label={kpis?.market_opportunity?.label ?? "Buy signals"} loading={!kpis} value={kpis?.market_opportunity?.value} sublabel={kpis?.market_opportunity?.sublabel ?? (kpis?.market_opportunity?.top_signal ? `Top: ${kpis.market_opportunity.top_signal}` : "actionable now")} />
       </div>
 
@@ -136,7 +136,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
-                      <span>Avg sold {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
+                      <span>Avg at exit {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
                       <span style={{ color: "var(--color-watch)", fontWeight: 600 }} title="Gap at buy-below after fees — constructed ~30%, not a forecast">
                         {dealsLocked ? "—" : (d.est_profit_eur != null ? `Target net +${eur(d.est_profit_eur)}` : "—")}
                       </span>
@@ -145,7 +145,7 @@ export default function DashboardPage() {
                       <MomentumBadge momentum={d.momentum_label} />
                       {strLive
                         ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.str_pct != null ? `${d.str_pct.toFixed(1)}% STR` : "STR —"}</span>
-                        : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? `${d.sold_7d.toLocaleString()} sold / 7d` : ""}</span>}
+                        : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? `${d.sold_7d.toLocaleString()} left shelf / 7d` : ""}</span>}
                     </div>
                     <SizePills sizes={d.top_sizes ?? []} />
                     <div style={{ display: "flex", gap: 6, marginTop: "auto" }}>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
           )}
         </Section>
 
-        <Section title="Brand rankings" sub="By 7-day sales" action={{ href: "/brands", label: "All brands" }}>
+        <Section title="Brand rankings" sub="By 7-day watched departures" action={{ href: "/brands", label: "All brands" }}>
           {!brands ? <SkeletonRows rows={6} height={30} /> : (
             <div style={{ padding: "4px 0" }}>
               {brands.map(b => (
@@ -184,7 +184,7 @@ export default function DashboardPage() {
         </Section>
       </div>
 
-      {/* Trending + Recently sold */}
+      {/* Trending + Recently left the shelf */}
       <div className="riq-grid-2">
         <Section title="Trending this week" sub="Highest momentum models" action={{ href: "/trends", label: "Market trends" }}>
           {!trending ? <SkeletonRows rows={5} height={32} /> : (
@@ -204,7 +204,7 @@ export default function DashboardPage() {
           )}
         </Section>
 
-        <Section title="Recently sold" sub="Watched sold evidence — not asking prices">
+        <Section title="Recently left the shelf" sub="Watched departures, priced at the moment each left — not live asking prices">
           {!sold ? <SkeletonRows rows={5} height={28} /> : (
             <div style={{ padding: "4px 0" }}>
               {sold.map((s, i) => (

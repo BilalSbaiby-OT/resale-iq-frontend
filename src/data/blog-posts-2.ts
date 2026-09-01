@@ -228,7 +228,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Price and freshness",
         p: [
-          "Price above the typical sold range suppresses views badly. A modest reduction often restarts traffic — [check the typical sold price first](/tools/vinted-price-checker) so you cut to the right number rather than guessing.",
+          "Price above the typical departure range suppresses views badly. A modest reduction often restarts traffic — [check the typical departure price first](/tools/vinted-price-checker) so you cut to the right number rather than guessing.",
           "Vinted favours fresh activity. Regular small updates and consistent listing keep your closet visible.",
         ],
       },
@@ -240,8 +240,8 @@ export const POSTS_2: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "Why is nobody viewing my Vinted listings?", a: "Usually one of four causes: there's no real demand for the item, your title doesn't match what buyers search, your price is above the typical sold range, or the listing has gone stale. Check demand first." },
-      { q: "How do I get more views on Vinted?", a: "Use the exact brand and model wording buyers search, price within the typical sold range, keep photos clear, and grow your number of live listings — more listings means more ways to be found." },
+      { q: "Why is nobody viewing my Vinted listings?", a: "Usually one of four causes: there's no real demand for the item, your title doesn't match what buyers search, your price is above the typical departure range, or the listing has gone stale. Check demand first." },
+      { q: "How do I get more views on Vinted?", a: "Use the exact brand and model wording buyers search, price within the typical departure range, keep photos clear, and grow your number of live listings — more listings means more ways to be found." },
     ],
   },
   {
@@ -392,7 +392,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Turning it into a system",
         p: [
           "The workflow is: know the item's real value, know your buy-below price, then find listings underneath it before anyone else does. Speed matters — if verifying a find takes ten minutes, the good ones are gone and you systematically end up with only the listings nobody else wanted.",
-          BRAND + " computes the buy-below price per model from sold listings across all five EU domains, and on Pro surfaces live listings already beneath it. That is mispricing detection, not a geographic play — the edge is knowing the item, not knowing a border.",
+          BRAND + " computes the buy-below price per model from watched departures across all five EU domains, and on Pro surfaces live listings already beneath it. That is mispricing detection, not a geographic play — the edge is knowing the item, not knowing a border.",
         ],
       },
       {

@@ -93,8 +93,8 @@ export default async function BrandCategoryPage(
           acceptedAnswer: { "@type": "Answer", text: answer } },
         { "@type": "Question", name: `How much do ${b.brand} ${catName} sell for on Vinted?`,
           acceptedAnswer: { "@type": "Answer", text: avgPrice
-            ? `${b.brand} items average around €${avgPrice} per sale across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
-            : `Prices vary by model, condition and size. Check recently sold listings rather than active ones, since active listings show asking prices, not real sale prices.` } },
+            ? `${b.brand} items average around €${avgPrice} in asking price at the moment listings left the shelf, across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
+            : `Prices vary by model, condition and size. Check listings that recently left the shelf rather than active ones, since active listings show hopeful asking prices, not the price at departure.` } },
       ],
     },
     {
