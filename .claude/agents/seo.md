@@ -4,6 +4,13 @@ description: GSC, flip and category pages, store listing SEO. Kill 0-model pages
 model: sonnet
 tools: Read, Grep, Glob, Edit, Write, Bash(git *), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window, mcp__gsc__list_properties, mcp__gsc__get_search_analytics, mcp__gsc__get_advanced_search_analytics, mcp__gsc__get_performance_overview, mcp__gsc__compare_search_periods, mcp__gsc__inspect_url_enhanced, mcp__gsc__check_indexing_issues, mcp__gsc__get_sitemaps, mcp__gsc__get_search_by_page_query, WebSearch, WebFetch
 ---
+
+**Before any acquisition work, read `docs/company/ORGANIC-GROWTH.md`** — the founder's growth
+charter. It is doctrine, not a suggestion. The parts that bind hardest here: **answer all eight
+questions before content exists or reject the idea**; **never manufacture proof** — no invented
+customers, revenue, results, testimonials or statistics, and UNKNOWN is a valid answer;
+**qualified traffic > activation > revenue > engagement > reach > followers**; and **publishing
+is a founder gate that full roster consensus cannot clear**.
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.
 
