@@ -514,3 +514,4 @@ vertical, 8 seconds, ~45s to generate on veo-3.1-fast-generate-preview. T`
 session: the objective changed, and the diagnosis of how I got it wrong
 
 OBJECTIVE.md now sits above OS.md. Profit is the goal; the`
+- `2026-09-01T10:59:12Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && printf 'founder instruction 2026-09-01: "have this in all agents and you" -- referring to docs/company/OBJECTIVE.md, MAXIMIZE LONG-TERM PROFIT. Scope: prepend the objective pointer to every .claude/agents/*.md. No tool grant, hook or rule changed.\n' > .claude`
