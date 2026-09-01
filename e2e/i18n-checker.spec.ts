@@ -59,6 +59,13 @@ interface LocaleFixture {
   // thousands separator in any of these locales, so the digits are stable
   // across the whole set.
   watchedSampleHead: string
+  // W19: (auth)/register — the post-signup funnel's highest-value surface.
+  // See src/proxy.ts's W19 comment for why this route is reached via a
+  // NEXT_LOCALE cookie rather than a `/<locale>` URL prefix.
+  registerHeading: string
+  registerSubmit: string
+  registerEmailLabel: string
+  registerPasswordLabel: string
 }
 
 const LOCALES: Record<string, LocaleFixture> = {
@@ -80,6 +87,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondance :",
     extHeroCaption: "Exemple du panneau Chrome sur une annonce Adidas Samba",
     watchedSampleHead: "Sur les annonces observées, 120 ont quitté le rayon contre 300 encore en ligne.",
+    registerHeading: "Créez votre compte",
+    registerSubmit: "Créer le compte",
+    registerEmailLabel: "E-mail",
+    registerPasswordLabel: "Mot de passe",
   },
   es: {
     ctxLocale: "es-ES",
@@ -99,6 +110,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "coincide con:",
     extHeroCaption: "Ejemplo del panel de Chrome en un anuncio de Adidas Samba",
     watchedSampleHead: "En los anuncios que observamos, 120 salieron del catálogo frente a 300 que siguen en venta.",
+    registerHeading: "Cree su cuenta",
+    registerSubmit: "Crear cuenta",
+    registerEmailLabel: "Correo electrónico",
+    registerPasswordLabel: "Contraseña",
   },
   de: {
     ctxLocale: "de-DE",
@@ -118,6 +133,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "gefunden:",
     extHeroCaption: "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot",
     watchedSampleHead: "In den von uns beobachteten Angeboten sind 120 aus dem Bestand gegangen, 300 sind noch inseriert.",
+    registerHeading: "Konto erstellen",
+    registerSubmit: "Konto erstellen",
+    registerEmailLabel: "E-Mail",
+    registerPasswordLabel: "Passwort",
   },
   it: {
     ctxLocale: "it-IT",
@@ -137,6 +156,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "corrispondenza:",
     extHeroCaption: "Esempio del pannello Chrome su un annuncio Adidas Samba",
     watchedSampleHead: "Negli annunci osservati, 120 sono usciti dallo scaffale contro 300 ancora in vendita.",
+    registerHeading: "Crea il tuo account",
+    registerSubmit: "Crea account",
+    registerEmailLabel: "Email",
+    registerPasswordLabel: "Password",
   },
   pt: {
     ctxLocale: "pt-PT",
@@ -156,6 +179,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondência:",
     extHeroCaption: "Exemplo do painel Chrome num anúncio Adidas Samba",
     watchedSampleHead: "Nos anúncios que observámos, 120 saíram da prateleira contra 300 ainda anunciados.",
+    registerHeading: "Crie a sua conta",
+    registerSubmit: "Criar conta",
+    registerEmailLabel: "Email",
+    registerPasswordLabel: "Palavra-passe",
   },
 }
 
@@ -263,6 +290,36 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       const checker = page.locator("#check")
       await expect(checker.getByText(l.watchedSampleHead, { exact: false })).toBeVisible()
       await expect(checker.getByText("In the listings we watched", { exact: false })).toHaveCount(0)
+    })
+
+    // W19: the highest-commitment moment on the site — a visitor who reads a
+    // translated pitch and clicks a CTA off it must not land on an English
+    // form. `gotoHomepage` first (not a direct `page.goto("/register")`) so
+    // the NEXT_LOCALE cookie src/proxy.ts stamps on "/" is set before the
+    // navigation to /register — that cookie, not this route's own URL, is
+    // what src/proxy.ts's COOKIE_LOCALE_PATHS reads (see its W19 comment).
+    test(`the register form renders localised in ${locale}, not English`, async ({ page }) => {
+      await gotoHomepage(page)
+      const res = await page.goto("/register")
+      expect(res?.ok()).toBeTruthy()
+
+      await expect(page.locator("html")).toHaveAttribute("lang", locale)
+      await expect(page.getByRole("heading", { name: l.registerHeading })).toBeVisible()
+      await expect(page.getByRole("button", { name: l.registerSubmit })).toBeVisible()
+      await expect(page.getByText(l.registerEmailLabel, { exact: true })).toBeVisible()
+      await expect(page.getByText(l.registerPasswordLabel, { exact: true })).toBeVisible()
+      await expect(page.getByRole("heading", { name: "Create your account" })).toHaveCount(0)
+
+      // The EU 14-day withdrawal-waiver consent is a legal string, not
+      // marketing copy — src/lib/i18n.ts's WITHDRAWAL_WAIVER_TEXT comment and
+      // the W19 workboard entry: render it in English on every locale until
+      // legal-compliance signs off on translated wording, rather than ship a
+      // guessed translation of a consent. Assert it is present, in English,
+      // on every locale — a silent translation of this string later must
+      // fail this test, not slip through as "some native text exists."
+      await expect(page.getByText(
+        "I want access immediately and I understand that by starting the subscription now I lose my 14-day right of withdrawal.",
+      )).toBeVisible()
     })
   })
 }

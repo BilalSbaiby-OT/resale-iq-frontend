@@ -28,12 +28,36 @@ import { PATH_LOCALES, isPathLocale } from "@/lib/locale-routes"
  * Named `proxy` (not `middleware`) because this Next.js version renamed the
  * convention — verified against node_modules/next/dist/docs/01-app/03-api-
  * reference/03-file-conventions/proxy.md rather than assumed.
+ *
+ * W19: the post-signup funnel (`/register` → `/check-email` → `/verify-email`
+ * → `/dashboard`) is reached by clicking a CTA off a translated `/<locale>`
+ * page, but none of those four routes live under `/<locale>` themselves (see
+ * `docs/company/WORKBOARD.md` W19 for why: they're the highest-commitment
+ * moment on the site, including an EU legal consent, and re-platforming them
+ * under `[locale]` — rewriting every CTA in `landing-content.tsx` across five
+ * locales, duplicating auth routes per locale — was rejected as materially
+ * more surface than the bug needs. Instead this proxy already stamps a
+ * `NEXT_LOCALE` cookie on every `/<locale>` visit (below); `COOKIE_LOCALE_PATHS`
+ * reads that cookie back for exactly these four routes and serves them in
+ * the visitor's chosen language without changing the URL. Deliberately NOT
+ * widened to every unprefixed path — most of the site (`/methodology`,
+ * `/terms`, blog, etc.) has no translated content behind it yet, and
+ * stamping a foreign `x-resaleiq-locale` there would put a wrong `<html
+ * lang>` on an English-only page, which is a worse bug than the one this
+ * closes. Trade-off: a visitor who reaches `/register` directly (an email
+ * link, a bookmark) with no `/<locale>` visit and no cookie still gets
+ * English — same as before this change, not a regression.
  */
 
 // Only "/" has a translated route today (src/app/[locale]/page.tsx). Adding a
 // path here ahead of a real translated route would redirect a visitor into a
 // 404 or an English page wearing a foreign hreflang tag.
 const REDIRECT_ELIGIBLE_PATHS = new Set<string>(["/"])
+
+// See the W19 note above the file header comment: the four routes of the
+// post-signup funnel read the NEXT_LOCALE cookie instead of defaulting to
+// English, without moving under /<locale>.
+const COOKIE_LOCALE_PATHS = new Set<string>(["/register", "/check-email", "/verify-email", "/dashboard"])
 
 const COOKIE = "NEXT_LOCALE"
 const LOCALE_HEADER = "x-resaleiq-locale"
@@ -79,6 +103,11 @@ export function proxy(request: NextRequest) {
       res.cookies.set(COOKIE, preferred, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" })
       return res
     }
+  }
+
+  if (COOKIE_LOCALE_PATHS.has(pathname)) {
+    const stored = request.cookies.get(COOKIE)?.value
+    if (stored && isPathLocale(stored)) return withLocaleHeader(request, stored)
   }
 
   return withLocaleHeader(request, "en")
