@@ -95,3 +95,67 @@ The consultation is not ceremony. **It has never once returned unanimous agreeme
 proposal put to it.**
 
 **The founder's own condition, kept:** deploy is authorised *only* after consulting the whole team.
+
+
+---
+
+## AM-8 — The roster decides the open gates. Evidence outranks headcount.
+
+**Founder instruction, 2026-09-01:** *"decisions on the open gates always speak with it with all
+agents consult between each other and decide maybe some democracy system. okey no need for me for
+now."*
+
+The gates in `APPROVALS.md` are delegated to the roster. **This is how they get decided, and it is
+deliberately not one-agent-one-vote.**
+
+### Why not a simple majority
+
+A headcount would have produced the wrong answer tonight, on the biggest call of the night.
+
+`product-manager` proposed showing a price at `comparable_n` 3–7, labelled low-confidence.
+`customer-success` and `legal-compliance` rejected that band — one because below 8 there is no honest
+"less certain" version, only a refusal; the other because thin disclosure chosen over calling an
+existing gate reads as *evidence of knowledge*, which is worse than silence. **Both were right, and
+both were arguing against the roster's most senior planning role.**
+
+Nothing about counting votes would have surfaced that. What surfaced it was that each objection
+carried a specific, checkable reason.
+
+### The rule
+
+1. **Standing, not attendance.** A question is put to every agent whose surface it touches. An agent
+   with no standing on it does not vote; silence is not assent and is not counted either way.
+2. **A vote is a recommendation WITH its evidence.** A file:line, a query with its `n`, or a measured
+   result. **A preference with no evidence does not count as a vote.** It can still be recorded as a
+   concern.
+3. **A specific evidenced objection outranks an unevidenced majority.** If three agents prefer X and
+   one shows that X breaks something, X does not ship. The burden then moves to whoever wants X to
+   answer the objection on its own terms — not to out-vote it.
+4. **Dissent is recorded in `APPROVALS.md` whether or not it wins.** The minority view tonight was
+   right more often than the majority, and a record that keeps only the outcome loses the thing that
+   made the process work.
+5. **Ties, or two evidenced positions that genuinely conflict, go to the founder.** That is what he is
+   for. Do not resolve a real disagreement by seniority.
+6. **The CEO does not get a casting vote.** I have been wrong repeatedly and corrected by agents
+   every time; a tiebreak in my favour would be the single easiest way to undo the value of this.
+
+### What the roster may NOT decide, whatever the vote
+
+These stay with the founder because they are irreversible, cost money, or reach outside the company:
+
+- **Publishing anything publicly** — posts, store listings, public claims.
+- **Sending email to real users.** Every send stays gated.
+- **Spending beyond the AM-2 €200/month cap.**
+- **Anything `legal-compliance` marks NEEDS COUNSEL.** The roster can weigh legal risk; it cannot
+  clear it.
+- **Pricing and tier changes** that alter what an existing customer pays.
+- **Deleting production data.**
+
+**Deploy is delegated** — the founder's standing condition is that the whole roster is consulted
+first (AM-7), and that consultation must include `tech-lead`, `verifier`, `qa-eng` and `security-eng`.
+
+### The record
+
+Every gate decided this way gets its question, the agents consulted, each position with its
+evidence, the dissent, and the outcome written into `APPROVALS.md` before it is executed. A decision
+whose reasoning is not written down has not been made — it has only been done.
