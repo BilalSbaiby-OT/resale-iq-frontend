@@ -542,3 +542,8 @@ workboard: 13 lines of prose per line of product, and the reason why
 The founder: "we have 5 departments and 21 agents and the product didnt change
 much at all." He was right and th`
 - `2026-09-01T11:48:41Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 - <<'PY' import io p="scripts/capture_demo.mjs"; s=io.open(p,encoding="utf-8").read() s=s.replace('const browser = await chromium.launch()', """// This Playwright version wants a headless-shell build that is not installed, // while several full Chromium builds are cached. Pin the newest cach`
+- `2026-09-01T11:55:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/SESSION.md && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat; git status --porcelain|wc -l
+video: a marketing asset built from the live product, reproducible in one command
+
+The founder's verdict on th`
+- `2026-09-01T11:55:20Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git status --porcelain; git add docs/company/SECURITY-LOG.md && git commit -q -m "log: guard entries from the video build" && git push origin main 2>&1|tail -1; git status --porcelain|wc -l`
