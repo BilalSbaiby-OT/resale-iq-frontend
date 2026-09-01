@@ -4,27 +4,34 @@
 
 ## Working on
 
-**All three platforms are past 10 live posts, and the newest six are the first that are actually
-good.** TikTok ×2 · Instagram ×2 · X ×2, each with a **distinct** video (six different md5s) and
-**real voiceover**, `ffprobe`-verified on the OUTPUT file. Built from `CONTENT-FACTS.md`: **5
-distinct ideas across 6 posts**, against 11 ideas across 24 the round before.
+**Production verified by me, not from a report.** All six locales 200 · `/api/health` 200 · and a
+real search returns real numbers: `Nike Air Force 1` → buy_below **37.15** from sell_avg 55.86,
+n=103, and 55.86 × 0.95 × 0.70 = 37.15 exactly. `Carhartt jacket` correctly returns **UNKNOWN**
+rather than guessing below the comparables gate. The product is honest when it does not know.
 
-**The TikTok error text — "unobtainable" all night — is `"No video"`, and it comes back on the POST,
-not from `GET /posts`.** Cause was mundane: the renders lived in a git worktree while the `assets`
-rows pointed at the live repo, so nothing uploaded. Copied the files to where the rows point,
-republished, all four media posts went first try. Almost certainly explains the 6 stale TikTok
-ERRORs too.
+**FIRST REAL ATTRIBUTION DATA — see `FUNNEL-BASELINE.md`.** Tagging shipped today and tagged visits
+now arrive: **~9, every single one Instagram** (`r122`, `r123`, `r126`, `r128`). Until today every
+number in our funnel model was an industry average; these are ours.
 
-**One failure I do NOT understand and did not paper over:** X rejected a **271-char** post as "too
-long" — under 280, and under it even by X's own URL-shortening arithmetic. **X counts something we
-do not.** Rewrote by hand to 236 with both `n` values intact; it published. Did not shave one
-character to sneak under a boundary I cannot explain.
+**The finding that should change what we do: TikTok returned ZERO tagged visits from 10 posts.
+X returned ZERO from 10.** Instagram is the only channel returning anybody. Three explanations are
+still live and they have different fixes — the posts may not exist (only **1 of 8** TikTok records
+has a real `/video/` id), TikTok may suppress caption links by design, or W57's silent duplicates
+killed reach. **Not calling it yet.**
 
-**`CONTENT-FACTS.md` landed: 17 defensible findings, 3 marked THIN, 4 axes reported UNKNOWN.** It
-refused to pad to 20. It also proved the local DB is a trap — local `sold_observed=1` is **0**,
-production is **108,706** — and it corrected my brief: prices CONVERGE (€40.00 median sneaker
-departure in all five markets, to the cent) while VOLUMES diverge. Adidas trainers in France list
-**410 per one that leaves**; Patagonia jackets in Germany, **14.8**. I verified 410 myself.
+**I held publishing this cycle, deliberately.** Six posts went out 20 minutes ago and Postiz shows
+39 today across three accounts. Publishing again now risks a spam heuristic, and a suspended account
+costs more than a week of posts. The stronger reason is the measurement: **two of three channels
+return nothing we can see**, so more posts there is effort spent blind. The next batch goes
+Instagram-weighted, and the next TikTok post gets checked for a real `/video/` id before anything
+else is built on that channel.
+
+**Localisation is working:** non-English visitors roughly doubled after the localised posts —
+`en 26 · de 4 · es 3 · it 2 · fr 2`, from `en 26 · es 2 · de 2` this morning.
+
+**W56's code half is with `backend-eng`** — the boot scrape still fans across 5 markets on every
+boot, which is what turns a deploy into an outage. Swap and the 2 GB cap mitigate it; they do not
+remove it.
 
 ## Blocked
 

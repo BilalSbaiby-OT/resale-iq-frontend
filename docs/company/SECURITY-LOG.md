@@ -932,3 +932,22 @@ data: 17 defensible findings, 3 marked thin, 4 axes reported UNKNOWN
 
 The constraint on our marketing was never volume, it was material: six ideas
 stretched across twenty posts. This lifts it, and i`
+- `2026-09-01T18:31:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i = s.index("## Working on")
+j = s.index("## Blocked")
+s = s[:i] + """## Working on
+
+**All three platforms are past 10 live posts, and the newest six are the first that are actually
+good.** TikTok ×2 · Instagram ×2 · X ×2, each with a **`
+- `2026-09-01T18:32:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T18:32:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T18:32:37Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T18:32:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T18:35:38Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i = s.index("## Working on"); j = s.index("## Blocked")
+s = s[:i] + """## Working on
+
+**Production verified by me, not from a report.** All six locales 200 · `/api/health` 200 · and a
+real search r`
