@@ -35,24 +35,13 @@
  */
 import { readFileSync, readdirSync, statSync, existsSync, writeFileSync } from "node:fs"
 import { join, relative } from "node:path"
+import { walkFiles } from "./lib/walk.mjs"
 
 const ROOT = process.cwd()
-const SKIP = /node_modules|\.next|\.git|dist|build|coverage|__pycache__|\.venv|scratchpad|test|spec/
+// Tests and specs deliberately contain swallowed errors as fixtures.
+const EXTRA_SKIP = /test|spec/
 const BASELINE = join(ROOT, "scripts", "silent-failure-baseline.json")
 
-function walk(dir, out = []) {
-  let entries
-  try { entries = readdirSync(dir) } catch { return out }
-  for (const e of entries) {
-    const p = join(dir, e)
-    if (SKIP.test(p)) continue
-    let st
-    try { st = statSync(p) } catch { continue }
-    if (st.isDirectory()) walk(p, out)
-    else if (/\.(ts|tsx|mjs|js|py)$/.test(p)) out.push(p)
-  }
-  return out
-}
 
 /** Does this handler body do anything about the error? */
 function handled(body) {
@@ -67,7 +56,7 @@ function handled(body) {
 const findings = []
 
 for (const root of [ROOT, ...(process.argv.includes("--all") ? [join(ROOT, "..", "demand-intel")] : [])]) {
-  for (const file of walk(root)) {
+  for (const file of walkFiles(root, /\.(ts|tsx|mjs|js|py)$/, EXTRA_SKIP)) {
     const lines = readFileSync(file, "utf8").split("\n")
     for (let i = 0; i < lines.length; i++) {
       const l = lines[i]

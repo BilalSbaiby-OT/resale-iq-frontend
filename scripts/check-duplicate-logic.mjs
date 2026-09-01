@@ -33,11 +33,11 @@
  */
 import { readFileSync, readdirSync, statSync } from "node:fs"
 import { join, relative } from "node:path"
+import { walkFiles } from "./lib/walk.mjs"
 
 const ROOT = process.cwd()
 const MIN_LINES = 8          // shorter blocks collide innocently (imports, guards)
 const EXT = /\.(ts|tsx|mjs|js|py)$/
-const SKIP = /node_modules|\.next|\.git|dist|build|coverage|__pycache__|\.venv|scratchpad/
 
 // Blocks that are SUPPOSED to be identical. Each entry needs a reason, because
 // an allow-list with no reasons becomes the place where real duplicates hide.
@@ -45,19 +45,6 @@ const ALLOW = [
   // (none yet — add with a comment saying why the duplication is correct)
 ]
 
-function walk(dir, out = []) {
-  let entries
-  try { entries = readdirSync(dir) } catch { return out }
-  for (const e of entries) {
-    const p = join(dir, e)
-    if (SKIP.test(p)) continue
-    let st
-    try { st = statSync(p) } catch { continue }
-    if (st.isDirectory()) walk(p, out)
-    else if (EXT.test(p)) out.push(p)
-  }
-  return out
-}
 
 /** Strip comments, blank lines and indentation — compare logic, not layout. */
 function normalise(line) {
@@ -90,7 +77,7 @@ if (process.argv.includes("--all")) roots.push(join(ROOT, "..", "demand-intel"))
 
 const seen = new Map()
 for (const r of roots) {
-  for (const f of walk(r)) {
+  for (const f of walkFiles(r, EXT)) {
     for (const b of blocks(f)) {
       if (ALLOW.some(a => b.key.includes(a))) continue
       if (!seen.has(b.key)) seen.set(b.key, [])
