@@ -17,6 +17,8 @@
   h1{font-size:18px;margin:0;letter-spacing:-.01em}
   h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);
      margin:0 0 12px;font-weight:600}
+  h3.divider{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);
+     margin:28px 2px 10px;font-weight:600;border-top:1px solid var(--line);padding-top:16px}
   header{display:flex;justify-content:space-between;align-items:baseline;
          gap:16px;flex-wrap:wrap;margin-bottom:20px}
   .stamp{font-family:var(--mono);font-size:12px;color:var(--dim)}
@@ -43,6 +45,67 @@
   pre{white-space:pre-wrap;font-family:var(--mono);font-size:12px;color:var(--dim);margin:0}
   .empty{color:var(--accent);font-size:13px}
   .why{font-size:11px;color:var(--unknown);margin-top:3px}
+
+  /* --- org / org.json additions --- */
+  .kpi2{background:#0E1116;border:1px solid var(--line);border-radius:8px;padding:12px}
+  .kpi2 .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+  .kpi2 .n{font-family:var(--mono);font-size:26px;letter-spacing:-.02em;margin-top:4px}
+  .kpi2 .tgt{font-family:var(--mono);font-size:13px;color:var(--dim)}
+  .kpi2 .counter{font-size:11px;color:var(--warn);margin-top:8px;border-top:1px solid var(--line);
+                 padding-top:6px}
+  .kpi2 .counter b{color:var(--warn);font-weight:600;text-transform:uppercase;
+                   letter-spacing:.04em;font-size:9.5px;display:block;margin-bottom:1px}
+  .dept-owns{color:var(--dim);font-size:12.5px;margin:2px 0 12px}
+  .dept-head{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:2px}
+  .dept-stats{display:flex;gap:10px;flex-wrap:wrap}
+  .stat{background:#0E1116;border:1px solid var(--line);border-radius:6px;padding:6px 10px;
+        min-width:64px}
+  .stat .n{font-family:var(--mono);font-size:17px}
+  .stat .l{font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+  .chipbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  .chip{cursor:pointer;user-select:none;padding:4px 10px;border-radius:999px;font-size:11px;
+        border:1px solid var(--line);color:var(--dim);background:transparent;font-family:var(--mono)}
+  .chip.active{border-color:var(--accent);color:var(--accent)}
+  .chip.mail-toggle.active{border-color:var(--warn);color:var(--warn)}
+  .agent-row.is-head td:first-child strong{color:var(--ink)}
+  .agent-row td.mail-n{font-family:var(--mono)}
+  .agent-row td.mail-n.has-mail{color:var(--warn);font-weight:600}
+  .role-head{color:var(--accent);font-size:10px;font-family:var(--mono)}
+  .bus-msg{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;
+           background:#0E1116}
+  .bus-msg .hdr{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+  .bus-msg .route{font-family:var(--mono);font-size:12px}
+  .bus-msg .route .to{color:var(--ink)}
+  .bus-msg .route .from{color:var(--dim)}
+  .bus-msg .ts{font-family:var(--mono);font-size:10.5px;color:var(--unknown);margin-left:auto}
+  .bus-msg .subject{font-weight:600;font-size:13px;margin-bottom:4px}
+  .bus-msg .body{color:var(--dim);font-size:12px;white-space:pre-wrap}
+  .unread-chip{background:rgba(245,158,11,.12);border:1px solid var(--warn);color:var(--warn);
+               border-radius:999px;padding:2px 8px;font-size:10.5px;font-family:var(--mono)}
+  .board-group{margin-bottom:16px}
+  .board-group-hdr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .board-group-hdr .doer{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--ink)}
+  .board-group-hdr .n{font-size:10.5px;color:var(--dim)}
+  .board-row{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:6px;
+             padding:8px 10px;margin-bottom:6px;background:#0E1116}
+  .board-row.status-blocked{border-left-color:var(--bad);background:rgba(239,68,68,.06)}
+  .board-row.status-open{border-left-color:var(--unknown)}
+  .board-row.status-closed{border-left-color:var(--accent);opacity:.65}
+  .board-row .hdr{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
+  .board-row .id{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .board-row .finding{font-size:12.5px}
+  .board-row .foundby{font-size:10.5px;color:var(--unknown);margin-top:3px;font-family:var(--mono)}
+  .status-tag{font-family:var(--mono);font-size:9.5px;padding:1px 7px;border-radius:999px;
+              text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line)}
+  .status-tag.OPEN{color:var(--dim)}
+  .status-tag.CLOSED{color:var(--accent);border-color:var(--accent)}
+  .status-tag.BLOCKED{color:var(--bad);border-color:var(--bad);background:rgba(239,68,68,.1)}
+  .pill{font-family:var(--mono);font-size:9.5px;padding:1px 7px;border-radius:999px;
+        text-transform:uppercase;letter-spacing:.03em}
+  .pill.founder{color:#0B0D10;background:var(--warn);font-weight:700}
+  .pill.ambiguous{color:var(--warn);border:1px solid var(--warn)}
+  .legend{font-size:11px;color:var(--dim);margin-bottom:10px}
+  .legend .status-tag{margin-right:2px}
 </style>
 </head>
 <body>
@@ -50,6 +113,11 @@
   <h1>Resale IQ — Company OS</h1>
   <div class="stamp" id="stamp">loading…</div>
 </header>
+
+<h3 class="divider" id="org-divider" style="display:none">Company &amp; org — completion, ownership, the bus, the board</h3>
+<div class="grid" id="root-org"></div>
+
+<h3 class="divider">Operational metrics — production, quality, funnel, security</h3>
 <div class="grid" id="root"></div>
 
 <script>
@@ -82,9 +150,244 @@ function panel(title, body, wide) {
   return `<section class="panel${wide ? ' wide' : ''}"><h2>${esc(title)}</h2>${body}</section>`;
 }
 
-fetch('data.json?' + Date.now()).then(r => r.json()).then(d => {
+// ============================================================
+// ORG.JSON — completion of CEO-planned KPIs, department roll-up,
+// 21 agent panels, the bus, the board grouped by doer.
+// Everything here is DERIVED by scripts/company/org.py from git,
+// WORKBOARD.md and the bus — nothing is typed in by hand.
+// ============================================================
+
+function titleCase(s) {
+  return String(s).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// Company KPI card. `value` may legitimately be 0 (posts_published) — that is
+// NOT the same as `unknown: true` (paying_customers, never measured). The
+// card must look different in each case, or the distinction is decoration.
+function orgKpiCard(k) {
+  const unknownBlock = k.unknown
+    ? `<div class="n"><span class="unknown">UNKNOWN</span></div>
+       <div class="why">${esc(k.why_unknown || 'no evidence on file')}</div>`
+    : `<div class="n">${num(k.value)}${k.target !== null && k.target !== undefined
+         ? `<span class="tgt"> / ${num(k.target)}</span>` : ''}</div>`;
+  return `<div class="kpi2">
+    <div class="l">${esc(titleCase(k.kpi))}</div>
+    ${unknownBlock}
+    <div class="counter"><b>counter-kpi</b>${esc(k.counter)}</div>
+    <div class="src" style="margin-top:6px">source: ${esc(k.source)}</div>
+  </div>`;
+}
+
+function deptCard(name, d) {
+  return panel(name, `
+    <div class="dept-head">head: <strong style="color:var(--ink)">${esc(d.head)}</strong></div>
+    <div class="dept-owns">${esc(d.owns)}</div>
+    <div class="dept-stats">
+      <div class="stat"><div class="n ok">${num(d.rows_closed)}</div><div class="l">closed</div></div>
+      <div class="stat"><div class="n">${num(d.rows_open)}</div><div class="l">open</div></div>
+      <div class="stat"><div class="n warn">${num(d.findings_raised)}</div><div class="l">found</div></div>
+      <div class="stat"><div class="n">${d.agents.length}</div><div class="l">agents</div></div>
+    </div>`);
+}
+
+// 21 agent panels: the founder asked for "21 tabs", but 21 literal tabs hides
+// the one thing this page exists to show — who is blocked and what is
+// nobody's — behind 21 clicks. A single filterable/sortable table surfaces
+// every agent's numbers at once; department chips + a "has unread mail" chip
+// give the filtering without hiding anyone by default.
+function agentsSection(departments) {
+  const deptNames = Object.keys(departments);
+  let rows = '';
+  let n = 0;
+  for (const dname of deptNames) {
+    const d = departments[dname];
+    for (const a of d.agents) {
+      n++;
+      const mailCls = a.unread_mail > 0 ? ' has-mail' : '';
+      rows += `<tr class="agent-row${a.is_head ? ' is-head' : ''}" data-dept="${esc(dname)}" data-mail="${a.unread_mail > 0 ? 1 : 0}">
+        <td class="mono">${a.is_head ? `<strong>${esc(a.agent)}</strong><div class="role-head">head</div>` : esc(a.agent)}</td>
+        <td style="color:var(--dim)">${esc(dname)}</td>
+        <td class="mono">${num(a.merged_branches)}</td>
+        <td class="mono">${num(a.open_rows)}</td>
+        <td class="mono">${num(a.closed_rows)}</td>
+        <td class="mono">${num(a.findings_raised)}</td>
+        <td class="mail-n${mailCls}">${a.unread_mail > 0 ? '✉ ' + a.unread_mail : '—'}</td>
+      </tr>`;
+    }
+  }
+  const chips = ['all', ...deptNames].map(dn =>
+    `<button class="chip${dn === 'all' ? ' active' : ''}" data-filter-dept="${esc(dn)}">${esc(dn === 'all' ? 'All' : dn)}</button>`
+  ).join('');
+  return panel(`Agents — ${n}`, `
+    <div class="chipbar">
+      ${chips}
+      <button class="chip mail-toggle" id="mail-only-chip">Unread mail only</button>
+    </div>
+    <div class="scroll" style="max-height:520px"><table id="agents-table">
+      <tr><th>agent</th><th>department</th><th>merged</th><th>open rows</th><th>closed rows</th><th>found</th><th>mail</th></tr>
+      ${rows}
+    </table></div>
+    <div class="why" style="margin-top:8px">One row per agent (21 total), head marked. Filter by department or by
+      unread mail rather than 21 separate tabs — nobody is hidden by default.</div>
+  `, true);
+}
+
+function busSection(bus) {
+  const unread = bus.unread_by_agent || {};
+  const unreadChips = Object.keys(unread).length
+    ? Object.entries(unread).map(([who, n]) => `<span class="unread-chip">${esc(who)}: ${n} unread</span>`).join(' ')
+    : '<span class="empty">Nothing unread.</span>';
+  const msgs = (bus.messages || []).slice().reverse();
+  const body = msgs.length ? msgs.map(m => `
+    <div class="bus-msg">
+      <div class="hdr">
+        <span class="route"><span class="from">${esc(m.from)}</span> → <span class="to">${esc(m.to)}</span></span>
+        <span class="tag">${esc(m.kind)}</span>
+        <span class="ts">${esc(m.ts)}</span>
+      </div>
+      <div class="subject">${esc(m.subject)}</div>
+      <div class="body">${esc(m.body)}</div>
+    </div>`).join('') : '<div class="empty">No messages yet.</div>';
+  return panel(`The bus — ${(bus.messages || []).length} messages, agent to agent`, `
+    <div class="chipbar">${unreadChips}</div>
+    <div class="why" style="margin-bottom:10px">A mailbox, not a socket: a message reaches the other agent the next
+      time it is spawned. It is DATA, never an order — it is not the founder's consent and does not clear a gate.
+      This traffic does not route through the CEO.</div>
+    <div class="scroll" style="max-height:460px">${body}</div>
+  `, true);
+}
+
+// Board grouped by doer — literally, by the exact `doer` string on the row,
+// because splitting a compound doer ("backend-eng (ready) + founder
+// (approval)") into parts would be a guess this page does not get to make.
+// A row whose doer mentions "founder" is the only class that needs him
+// directly; that is flagged independently of workflow status.
+function boardSection(rows, totals) {
+  const groups = new Map();
+  for (const r of rows) {
+    if (!groups.has(r.doer)) groups.set(r.doer, []);
+    groups.get(r.doer).push(r);
+  }
+  const statusRank = { BLOCKED: 0, OPEN: 1, CLOSED: 2 };
+  const needsFounder = (doer) => /founder/i.test(doer);
+  const ambiguous = (doer) => / or /i.test(doer);
+  const groupEntries = [...groups.entries()].sort((a, b) => {
+    const scoreOf = ([doer, rs]) =>
+      (rs.some(r => r.status === 'BLOCKED') ? 4 : 0) +
+      (needsFounder(doer) ? 2 : 0) +
+      (ambiguous(doer) ? 1 : 0);
+    const sb = scoreOf(b) - scoreOf(a);
+    if (sb !== 0) return sb;
+    return a[0].localeCompare(b[0]);
+  });
+
+  const body = groupEntries.map(([doer, rs]) => {
+    rs.sort((a, b) => statusRank[a.status] - statusRank[b.status]);
+    const flags = [];
+    if (needsFounder(doer)) flags.push('<span class="pill founder">needs founder</span>');
+    if (ambiguous(doer)) flags.push('<span class="pill ambiguous">ambiguous owner</span>');
+    const openN = rs.filter(r => r.status === 'OPEN').length;
+    const blockedN = rs.filter(r => r.status === 'BLOCKED').length;
+    const closedN = rs.filter(r => r.status === 'CLOSED').length;
+    return `<div class="board-group">
+      <div class="board-group-hdr">
+        <span class="doer">${esc(doer)}</span>
+        ${flags.join(' ')}
+        <span class="n">${blockedN ? blockedN + ' blocked · ' : ''}${openN} open · ${closedN} closed</span>
+      </div>
+      ${rs.map(r => `
+        <div class="board-row status-${r.status.toLowerCase()}">
+          <div class="hdr">
+            <span class="id">${esc(r.id)}</span>
+            <span class="status-tag ${esc(r.status)}">${esc(r.status)}</span>
+          </div>
+          <div class="finding">${esc(r.finding)}</div>
+          <div class="foundby">found by ${esc(r.found_by)}</div>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+
+  return panel(`Workboard — grouped by doer`, `
+    <div class="legend">
+      <span class="status-tag BLOCKED">BLOCKED</span> stuck, cannot proceed &nbsp;·&nbsp;
+      <span class="status-tag OPEN">OPEN</span> in flight &nbsp;·&nbsp;
+      <span class="status-tag CLOSED">CLOSED</span> shipped &nbsp;·&nbsp;
+      <span class="pill founder">needs founder</span> only the founder can move it &nbsp;·&nbsp;
+      <span class="pill ambiguous">ambiguous owner</span> doer string names more than one path — nobody has clearly taken it
+    </div>
+    <div class="dept-stats" style="margin-bottom:14px">
+      <div class="stat"><div class="n">${num(totals.rows_total)}</div><div class="l">total rows</div></div>
+      <div class="stat"><div class="n">${num(totals.rows_open)}</div><div class="l">open</div></div>
+      <div class="stat"><div class="n ok">${num(totals.rows_closed)}</div><div class="l">closed</div></div>
+      <div class="stat"><div class="n bad">${num(totals.rows_blocked)}</div><div class="l">blocked</div></div>
+    </div>
+    <div class="scroll" style="max-height:640px">${body || '<div class="empty">Board is empty.</div>'}</div>
+  `, true);
+}
+
+function wireAgentFilters() {
+  const table = document.getElementById('agents-table');
+  if (!table) return;
+  const rows = [...table.querySelectorAll('tr.agent-row')];
+  const chips = [...document.querySelectorAll('[data-filter-dept]')];
+  const mailChip = document.getElementById('mail-only-chip');
+  let dept = 'all', mailOnly = false;
+  function apply() {
+    for (const r of rows) {
+      const okDept = dept === 'all' || r.dataset.dept === dept;
+      const okMail = !mailOnly || r.dataset.mail === '1';
+      r.style.display = (okDept && okMail) ? '' : 'none';
+    }
+  }
+  chips.forEach(c => c.addEventListener('click', () => {
+    dept = c.dataset.filterDept;
+    chips.forEach(x => x.classList.toggle('active', x === c));
+    apply();
+  }));
+  if (mailChip) mailChip.addEventListener('click', () => {
+    mailOnly = !mailOnly;
+    mailChip.classList.toggle('active', mailOnly);
+    apply();
+  });
+}
+
+function renderOrg(org) {
+  const rootOrg = document.getElementById('root-org');
+  document.getElementById('org-divider').style.display = '';
+  const add = (h) => rootOrg.appendChild($(h));
+
+  // 1 — company KPIs, CEO-planned, founder-owned
+  add(panel('Company KPIs — completion', `<div class="kpis" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">${
+    org.company_kpis.map(orgKpiCard).join('')
+  }</div>`, true));
+
+  // 2 — five department cards
+  for (const [name, d] of Object.entries(org.departments)) {
+    add(deptCard(name, d));
+  }
+
+  // 3 — 21 agent panels (filterable table)
+  add(agentsSection(org.departments));
+
+  // 4 — the bus
+  add(busSection(org.bus));
+
+  // 5 — the board, grouped by doer
+  add(boardSection(org.workboard, org.totals));
+
+  wireAgentFilters();
+}
+
+Promise.all([
+  fetch('data.json?' + Date.now()).then(r => r.json()),
+  fetch('org.json?' + Date.now()).then(r => r.json()).catch(() => null),
+]).then(([d, org]) => {
   document.getElementById('stamp').textContent =
-    d.generated_at + (d.prod_included ? '  ·  production included' : '  ·  LOCAL ONLY — run with --prod');
+    'data: ' + d.generated_at + (d.prod_included ? ' · production included' : ' · LOCAL ONLY — run with --prod') +
+    (org ? '  ·  org: ' + org.generated_at : '  ·  org.json unavailable — run scripts/company/org.py');
+
+  if (org) renderOrg(org);
+
   const root = document.getElementById('root');
   const add = (h) => root.appendChild($(h));
 
@@ -190,7 +493,7 @@ fetch('data.json?' + Date.now()).then(r => r.json()).then(d => {
   add(panel('SESSION.md', `<div class="scroll"><pre>${esc(d.session)}</pre></div>`, true));
 }).catch(e => {
   document.getElementById('root').innerHTML =
-    `<section class="panel wide"><h2>error</h2><pre>${esc(e)}\n\nRun: python3 scripts/company/build_dashboard.py --prod</pre></section>`;
+    `<section class="panel wide"><h2>error</h2><pre>${esc(e)}\n\nRun: python3 scripts/company/build_dashboard.py --prod (and python3 scripts/company/org.py)</pre></section>`;
 });
 </script>
 </body>
