@@ -166,3 +166,38 @@ first (AM-7), and that consultation must include `tech-lead`, `verifier`, `qa-en
 Every gate decided this way gets its question, the agents consulted, each position with its
 evidence, the dissent, and the outcome written into `APPROVALS.md` before it is executed. A decision
 whose reasoning is not written down has not been made — it has only been done.
+
+
+### AM-8a — correction: the roster cannot consult each other. I am the only wire.
+
+**Found by `monetization`, 2026-09-01, when it was handed a delegated decision and told to consult
+four peers:** *"I have no tool to message the other agents AM-8 requires be consulted, so a real AM-8
+decision — with their evidence and any dissent — cannot be produced from this session alone."*
+
+It is right, and I wrote AM-8 without checking it. **No agent has a messaging tool. Every consultation
+tonight went CEO → agent → CEO.** The roster has never spoken to each other; it has spoken to me,
+separately, and I have relayed.
+
+**This does not break AM-8, but it moves where the risk sits.** A hub-and-spoke consultation is only
+as honest as its hub, and the hub is the party with the most interest in the outcome. Concretely, I
+can — without ever intending to — decide which agents get asked, how the question is framed, which
+parts of an answer get relayed, and which dissent reaches the record.
+
+**Three obligations follow, and they are on me, not on them:**
+
+1. **Relay verbatim where it matters.** A dissent gets quoted, not summarised. Tonight's record does
+   this — `verifier`'s *"the proof passed while testing one quarter of its subject"* and
+   `data-scientist`'s rejection of its own recommendation are in `APPROVALS.md` in their words.
+2. **Put the objection to the agent it contradicts.** When `customer-success` and `legal-compliance`
+   rejected `product-manager`'s 3–7 band, the right move was to put that back to
+   `product-manager` — and I recorded the outcome without doing so. **That is the gap this
+   correction exists to name.**
+3. **When an agent says it cannot do something because of a missing tool, that is a finding about
+   the company, not a failure by the agent.** Two agents tonight could not run tests or commit
+   because they had no shell; both said so plainly rather than claiming done. **That honesty is
+   worth more than the work would have been**, and the roster files should say so.
+
+**What would actually fix it:** give the roles that arbitrate — `tech-lead`, `verifier`,
+`chief-of-staff` — a messaging tool, so a disagreement can be resolved between the parties rather
+than through me. Until then, every AM-8 decision carries the caveat that **it was mediated by an
+interested party**, and that caveat belongs in the record beside the decision.

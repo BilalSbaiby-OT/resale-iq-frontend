@@ -331,3 +331,45 @@ still-ungated surfaces just replaces one confidently-wrong number with a differe
 study from the consult but no production `model_signals` access to confirm the board-wide
 `comparable_n < 8` share myself; flagging per this file's own rule (no number without `n`, dates, a
 query) rather than repeating it as fact.
+
+---
+
+## ADDENDUM 2 — pricing delegated under AM-8, 2026-09-01: recommendation, not an executed decision
+
+Verified before responding: `docs/company/AMENDMENTS.md:102-169` (AM-8) is real, on disk, and the
+founder quote delegating pricing ("i give permission to change this specially bcz prices we have
+and tiers are bad asf") matches. **I did not create `docs/company/PRICING.md`** — my task-level hard
+rule this session is one file (`docs/audit/MONETIZATION.md`), and AM-8's own recording mechanism is
+`APPROVALS.md`, not a new file, neither of which I'm authorized to write beyond this one. I also have
+no tool to message `product-manager`/`customer-success`/`finance-ops`/`legal-compliance` live, so a
+full AM-8 roster decision — which requires their evidence and any dissent recorded — cannot be
+produced by this session alone. What follows is a recommendation for that process, not its output.
+
+**Free (anon):** unchanged. The already-free `buy_below`/`sell_avg` (`_gate`, `api/routes.py:951-971`)
+is a legitimate demo/loss-leader, not the wrong half of the split — sell-through, sizes, reasons and
+throughput remain the genuinely paid value for the sourcing-at-volume buyer the roster identified.
+Fix the marketing (stop courting the casual-flipper audience that hits "not covered" 2-in-5), not the
+gate.
+
+**Starter — hold €19/mo.** No evidence exists to move it (`n_predictions_resolved = 0/340`,
+METRICS.md); `finance-ops`'s €190/mo-at-10-customers breakeven is a cost floor, not a demand signal —
+agree with `tech-lead`'s framing of it as "hand-sold, not funnel." Reposition copy toward
+sell-through/sizes for volume sourcing.
+
+**Pro — hold €49/mo, but do not market it until the C11 `comparable_n>=8` relabel (this session's
+earlier consult) ships.** Selling Deal Finder/Order Planner/Price Compare/API today sells surfaces
+that can publish a number like Levi's Trucker's +160% swing undisclosed — a direct failure of the
+counter-KPI ("no entitlement promised that is not enforced"), not a pricing question.
+
+**Business €99 — do not resurrect (AM-3 stands).**
+
+**Provisional-pricing mechanism:** publish current numbers as a locked founding rate ("price holds
+for as long as you stay subscribed") in checkout/ToS copy — pre-satisfies AM-8's own consumer-law
+limit rather than needing to honor it defensively later — then instrument real willingness-to-pay
+(get `n_predictions_resolved` off zero; watch first-cohort churn/upgrade requests at €19) instead of
+deriving a price from the codebase alone.
+
+**Open, not resolved by this session:** what the one refunder plausibly wanted (`customer-success`'s
+read, not mine — my own audit only has unmigrated test-fixture data on that account); live
+consultation and recorded dissent from `product-manager`/`finance-ops`/`legal-compliance`, which
+needs the actual multi-agent AM-8 process, not a single monetization-agent pass.
