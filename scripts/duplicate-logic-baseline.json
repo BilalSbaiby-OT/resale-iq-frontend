@@ -1,0 +1,10 @@
+[
+  "scripts/check-market-proof-grain.mjs | src/lib/market-proof.ts",
+  "src/app/(auth)/reset-password/page.tsx | src/app/(auth)/verify-email/verify-email-content.tsx",
+  "src/app/category/[category]/page.tsx | src/app/category/page.tsx",
+  "src/app/category/[category]/page.tsx | src/app/category/page.tsx | src/app/flip/page.tsx",
+  "src/app/category/page.tsx | src/app/flip/page.tsx",
+  "src/app/data/page.tsx | src/app/manual/page.tsx",
+  "src/app/flip/[brand]/[category]/page.tsx | src/app/flip/[brand]/page.tsx",
+  "src/lib/i18n.ts | src/lib/pricing.ts"
+]

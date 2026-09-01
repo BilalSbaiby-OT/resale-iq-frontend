@@ -39,7 +39,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Warehouse honesty
-        run: npm run check:tracked && npm run check:warehouse && npm run check:market-proof
+        run: npm run check:tracked && npm run check:warehouse && npm run check:market-proof && npm run check:dupes
 
       - name: Build
         run: npm run build
