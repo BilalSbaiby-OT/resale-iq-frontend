@@ -757,3 +757,35 @@ by a rule that applies to every file and restores itself when traffic is real.
 - [ ] **The probe-traffic filter**, before any demand-side metric is cited again.
 
 **Next in sequence: A13** — definitions were required to land first, and now have.
+
+
+---
+
+### A13 — **BUILT**, awaiting joint review (`eba6021`, branch `claude/data-scientist/a13-comparable-window`)
+
+One token at `db/queries.py:1986`. The 7d/30d window choice was gated on `MIN_COMPARABLES` (3, the
+**admission** floor) where it meant `MIN_VERDICT_COMPARABLES` (8, the floor to **print a price**), so
+`prices_30d` was built thirty lines earlier and discarded for any model that found 3 comps in a week.
+
+| | before | after |
+|---|---:|---:|
+| supply coverage | 43.0 % | **62.0 %** |
+| demand coverage (n=180) | 62.8 % | **81.1 %** |
+| median evidence behind a printed band | 12 | **26** |
+
+Tests: 8 cases, negative control passes. Full suite 1167. **Branched off `main`, not off the
+data-defects branch, so each stays independently revertible.**
+
+**Sent to `tech-lead` for a JOINT review with the C6 rework**, per `product-manager`: both touch "how
+many comparables justify a band" and nobody has confirmed they do not compound. The specific thing I
+asked it to hunt for is whether A13 moves **prices** and not merely evidence counts — switching a
+model from the 7d to the 30d window changes `avg_price_eur` and `max_buy_price` too, and a quiet
+price shift hiding inside a coverage fix is the shape of thing it caught last time.
+
+**Deferred with reasons, not forgotten:**
+- The **14-day** window `data-scientist` preferred. Today every window ≥ 14d returns identical rows —
+  `sold_observed = 1` begins 2026-08-21, so the corpus is 11 days deep. Adding a third bucket is
+  unmeasured surface for a difference that does not yet exist.
+- **A calendar control is required on any goal registered against coverage.** It drifts upward on its
+  own until ~2026-09-20 as the corpus fills, with or without this change. Already visible tonight:
+  `band_coverage_supply` read 43.0 % and then 40.0 % hours apart.
