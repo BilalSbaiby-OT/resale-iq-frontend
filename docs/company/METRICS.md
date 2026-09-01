@@ -24,6 +24,26 @@ bash docs/audit/proof/W36/metrics/proof.sh    # prove they mean what this file s
 
 ---
 
+## SERIES BREAKS — 2026-09-01 (APPROVALS A8, founder-authorised)
+
+A definition change breaks comparability with its own history, which is worse than not having the
+number. `verifier` required these markers before ratifying, because it is the thing that scores
+against these definitions and a silent redefinition would read to it as performance.
+
+| Metric | What changed | Read before/after together at your peril |
+|---|---|---|
+| `band_coverage` → **`band_coverage_demand`** | Renamed. A supply-side sibling now exists, and the bare name silently resolved to one of two different questions | Same query, same population — only the name moved |
+| **All metrics** | An `n`-floor was added to the contract. Below it, a metric renders UNKNOWN | Values did not change. **What changed is which ones are allowed to be shown.** `trial_to_paid`, `retention_30d` and `band_coverage_demand` went from published to withheld without their underlying numbers moving at all |
+| **`MAPE`** | **STRUCK** (below) | Never had a `.sql` file, never produced a reading, so nothing is orphaned |
+| **`band_evidence_p50`** | New | No history. First reading 2026-09-01 |
+
+**Not a series break, and the distinction matters:** merging C5 will move the North Star's *baseline*
+without changing its *definition*. That gets a dated discontinuity marker — pre-C5 reading with its
+`n`, the merge SHA, first post-C5 reading with its `n` — **not** an entry in this table. Filing a
+baseline discontinuity as a definition change would corrupt the very property this gate protects.
+
+---
+
 ## The contract, and why the result shape is the rule
 
 Every `.sql` file returns exactly one row of `metric, value, n, window_start, window_end`.
@@ -32,6 +52,14 @@ OS §0 rule 2 says a number without its `n`, its dates and its query is UNKNOWN.
 everyone to remember that, the result shape makes the violation **inexpressible**: you cannot return
 a value from `sql/metrics/` without also returning the population it came from and the window it
 covers. `value = NULL` and `n = 0` both render as UNKNOWN, never as `0`.
+
+**Every file also declares `-- floor: N`.** Below that population the metric renders UNKNOWN with
+`population below floor`. It extends the same rule: `n = 0` is UNKNOWN because a query that inspected
+nothing has not measured a rate — and **a population of 44, four of whose rows are our own probe
+traffic, has not measured one either.** Proportions take 100 (at p≈0.8, n=44 gives a 95% half-width
+of ±14.5pp and cannot distinguish 45% from 72%); counts take 1, because a count reported with its `n`
+cannot mislead about precision — the `n` *is* the claim. Full derivation in
+[`sql/metrics/README.md`](../../sql/metrics/README.md).
 
 The runner enforces the shape. `proof.sh` includes a negative control — an off-contract query is fed
 in and must come back UNKNOWN — because a rule that has never been observed failing is not known to
@@ -44,10 +72,11 @@ work.
 | KPI | File | Status | **Production, 2026-09-01** |
 |---|---|---|---|
 | **`weekly_trusted_checks`** (North Star) | [`weekly_trusted_checks.sql`](../../sql/metrics/weekly_trusted_checks.sql) | **LIVE**, one caveat | **0**, n = 1 |
-| **`insufficient_data_rate`** (its counter) | [`insufficient_data_rate.sql`](../../sql/metrics/insufficient_data_rate.sql) | **LIVE** | **40.9 %**, n = 44 |
-| `band_coverage` | [`band_coverage.sql`](../../sql/metrics/band_coverage.sql) | **LIVE**, demand-side only | **59.1 %**, n = 44 — target is ≥ 80 % |
-| `retention_30d` | [`retention_30d.sql`](../../sql/metrics/retention_30d.sql) | **LIVE** | UNKNOWN, n = 0 — see below |
-| `trial_to_paid` | [`trial_to_paid.sql`](../../sql/metrics/trial_to_paid.sql) | **LIVE** | **0.0 %**, n = 1 |
+| **`insufficient_data_rate`** | [`insufficient_data_rate.sql`](../../sql/metrics/insufficient_data_rate.sql) | **LIVE** — but see the naming note below | **WITHHELD** — n = 44, below floor |
+| `band_coverage_demand` | [`band_coverage_demand.sql`](../../sql/metrics/band_coverage_demand.sql) | **LIVE**, demand-side | **WITHHELD** — n = 44, below the floor of 100 |
+| **`band_evidence_p50`** (its honesty counter) | [`band_evidence_p50.sql`](../../sql/metrics/band_evidence_p50.sql) | **NEW 2026-09-01** | **13.5**, n = 40 |
+| `retention_30d` | [`retention_30d.sql`](../../sql/metrics/retention_30d.sql) | **LIVE** | UNKNOWN — n = 0, oldest account is 28 days old |
+| `trial_to_paid` | [`trial_to_paid.sql`](../../sql/metrics/trial_to_paid.sql) | **LIVE** | **WITHHELD** — n = 1, below floor |
 | `n_predictions_resolved` | [`n_predictions_resolved.sql`](../../sql/metrics/n_predictions_resolved.sql) | **LIVE** | **0**, n = 340 |
 | `pipeline_lag_min` | [`pipeline_lag_min.sql`](../../sql/metrics/pipeline_lag_min.sql) | **LIVE** | **1.5 min**, n = 1344 |
 
@@ -94,15 +123,63 @@ from the local database, and the reason is in "Where these actually run" below.
 emitted through `verdict_allows_buy_below()`, which requires `comparable_n >= MIN_VERDICT_COMPARABLES`
 (= 8). A non-null `said_buy_below` **is** that gate having passed.
 
-**The caveat, and it is not cosmetic:** `engine/listing_identity.py:50-58` **fails open** — when
-`comparable_n` is absent it returns `True` and the band prints anyway. That is `GAPS.md` **C5**. So
-the North Star as computed today is an **upper bound** on trusted checks, not an exact count.
-Fixing C5 tightens this number without touching the query. Until then, every place this metric is
-shown must carry the word *upper bound*.
+**The caveat, rewritten 2026-09-01 after `tech-lead` and `data-scientist` both refuted the earlier
+version of this paragraph.** It used to say the number was an *upper bound* that C5 would make
+*exact*. C5 removes one over-count. **It does not make this a count of the thing it names**, and
+there are three independent reasons — found separately, by two agents, neither of which I had seen:
+
+1. **`said_buy_below` records what was COMPUTED, not what was DELIVERED** (`tech-lead`).
+   `_log_recap` runs on the **pre-gate** payload (`api/routes.py:1080`, `:1220`), and for a logged-in
+   **free** user `_gate` locks `buy_below` (`:1006-1010`) — the band is never shown. Those rows still
+   write `said_buy_below` and this query still counts them. §3 says *"returned a band … to a user"*.
+   **A paywalled teaser was not returned.**
+2. **The `n ≥ 8` inference is two hops held together by a comment** (`data-scientist`).
+   `db/queries.py:2062` gates `max_buy_price` on `MIN_COMPARABLES` (**3**), not 8 — all 100 board
+   rows carry one, including the 24 sitting at `comparable_n = 3`. **The only thing enforcing 8 is a
+   single early return at `api/routes.py:889`.** A non-null `said_buy_below` is not evidence of
+   n ≥ 8; it is evidence that one `return` did not fire.
+3. **`comparable_n` oscillates across 8 between analyzer runs.** Nine `Nike Tech Fleece` searches in
+   the last 7 days logged `WATCH`; that model now sits at 7.
+
+**So: do not write "upper bound" — the bias it names disappears with C5. Do not write "exact count"
+either.** The honest line, and the only one this file should carry:
+
+> `n ≥ 8` is **inferred** from `said_buy_below`, not read from a stored `comparable_n`.
+
+**The fix that would close it properly** is one column and one test:
+`ALTER TABLE verdict_logs ADD COLUMN comparable_n INTEGER`, written at `api/routes.py:891` where
+`n_comp` already sits in a local variable, plus a regression test asserting
+`said_buy_below IS NOT NULL ⟹ comparable_n >= 8` — so the invariant is machine-checked rather than
+commented. Queued as the third A8 item.
+
+**And keep it in proportion: exactly one row** in the entire history of `verdict_logs` has
+`said_buy_below IS NOT NULL`. Upper bound versus exact count is, today, a debate about a single row.
 
 Scope note: the North Star is a **logged-in** metric. Anonymous checks resolve through
 `resolve_anon_verdict()`, which sets `verdict` but never `said_buy_below`, and an anonymous visitor
 has no identity that could "come back". That matches the definition rather than working around it.
+
+### `insufficient_data_rate` is misnamed, and it has already misled three agents
+
+**It counts `verdict IN ('INSUFFICIENT_DATA', 'UNKNOWN')` — the UNION of two different refusals.**
+`INSUFFICIENT_DATA` means *we know the model and cannot price it*; `UNKNOWN` means *we could not
+identify what you asked for*. Those have completely different fixes — one is a corpus problem, the
+other a matcher problem — and this metric adds them together.
+
+On 2026-09-01, six agent artefacts cited this number. **Three attributed all of it to
+`INSUFFICIENT_DATA` alone**, and those three were the ones building UI copy, e2e tests and design
+priorities on it. The `INSUFFICIENT_DATA`-only share is **UNKNOWN and ≤ 40.9 %** — nobody has run the
+segmented query.
+
+Nothing was fabricated: the `.sql` says exactly what it counts, in its own header. **The name is what
+misled them**, and a name that denotes one of the two things it counts will keep doing so.
+
+- **OPEN, deliberately not decided tonight:** rename to `refusal_rate`, with `refusal_reason` split
+  out as its own breakdown. That is a definition change, so it goes to the founder rather than being
+  taken under an authorisation granted for three other things.
+- **It is also about to move.** C5 routes *more* traffic to `INSUFFICIENT_DATA`, so every "40.9 %"
+  written before that merge goes stale — six known downstream consumers. An argument for writing the
+  discontinuity marker **before** C5 lands, not after.
 
 ### Two honest asterisks on the rest
 
@@ -168,7 +245,7 @@ Grouped by what is actually in the way, because "OPEN" is not an action.
 
 | KPI | Why |
 |---|---|
-| **`MAPE ≤ 15 %`** | **Not "open" — impossible on this architecture.** `docs/audit/DATA.md`: no ground-truth sold price exists or can be obtained. Vinted does not publish sale prices; the `is_sold = 1` rows in the corpus are **fabricated** (24.1M of them, `GAPS.md` C4/C5). Computing MAPE against those would grade our predictions against fiction and report a precision we do not have. **This KPI must be struck from §3 or redefined against a real outcome source** — a founder gate, since §3 says changing a definition is one. The honest partial substitute already shipped: `n_predictions_resolved`, which counts how often we ever found out at all |
+| **`MAPE ≤ 15 %`** | **STRUCK 2026-09-01, founder-authorised (A8).** Impossible, not open. `docs/audit/DATA.md`: no ground-truth sold price exists or can be obtained. Vinted does not publish sale prices; the `is_sold = 1` rows in the corpus are **fabricated** (24.1M of them, `GAPS.md` C4/C5). Computing MAPE against those would grade our predictions against fiction and report a precision we do not have. **This KPI must be struck from §3 or redefined against a real outcome source** — a founder gate, since §3 says changing a definition is one. The honest partial substitute already shipped: `n_predictions_resolved`, which counts how often we ever found out at all |
 
 ---
 

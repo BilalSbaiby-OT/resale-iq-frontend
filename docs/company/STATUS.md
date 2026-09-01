@@ -8,15 +8,15 @@ OS STATUS                                  checked 0m ago
   GREEN — nothing blocking
 
 UNKNOWN — asked, no answer (never rendered as zero)
-  company.retention_30d              inspected nothing (n = 0)
+  company.retention_30d              population below floor (n = 0, floor = 100)
+  company.trial_to_paid              population below floor (n = 1, floor = 100)
   company.spend_vs_cap               no spend ledger yet
       -> Phase 2: finance-ops writes docs/company/LEDGER.md
   quality.canary                     no canary set yet
       -> Phase 2: 60 frozen labelled listings with auto-revert
   quality.match_precision            no 30-sample audit run yet
       -> Phase 2: /precision
-  security.restore_test              no restore drill recorded
-      -> SECURITY-AUDIT.md finding #2
+  quality.band_coverage_demand       population below floor (n = 44, floor = 100)
 
   17 checks · 0 failed · 0 inspected nothing
 ```

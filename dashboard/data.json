@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T00:53:01Z",
+  "generated_at": "2026-09-01T00:56:20Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -125,15 +125,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 32.5,
+      "value": 35.8,
       "n": 1337,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12698996
+      "value": 12699642
     },
     "newest_sold_at": {
-      "value": "2026-09-01 00:52:39"
+      "value": "2026-09-01 00:55:50"
     },
     "predictions_total": {
       "value": 340
@@ -593,6 +593,10 @@
     ],
     "recent_commits": [
       {
+        "sha": "5984617",
+        "msg": "metrics: the n-floor, band_coverage_demand, and a counter that can actually contradict"
+      },
+      {
         "sha": "298cbb7",
         "msg": "chore: dashboard refresh + security log from the verifier run"
       },
@@ -635,10 +639,6 @@
       {
         "sha": "c66e542",
         "msg": "company: GOALS.md pre-registered under OS §7, and the founder's digest"
-      },
-      {
-        "sha": "05ded9e",
-        "msg": "approvals: product-manager's A8 verdict, and it retracts its own headline number"
       }
     ],
     "dirty": true,
@@ -703,6 +703,76 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-01T00:55:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\nanchor = \"### Two honest asterisks on the rest\"\nnote = '''### `insufficient_data_rate` is misnamed, and it ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:55:18Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\n\nold = \"\"\"**The caveat, and it is not cosmetic:** `engine/listing_identity.py:50-58` **fails open** — when\n",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:54:49Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\n\n# 1. series-break banner\nanchor = \"---\\n\\n## The contract, and why the result shape is the rule\"\nbanner = ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:54:29Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "printf 'Founder authorised A8 in chat 2026-09-01, conditional on consulting all related agents.\\nConsulted: verifier, product-manager, tech-lead, data-scientist (all dissented or conditioned).\\nScope:",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:54:19Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && git add -A sql/metrics scripts/company dashboard docs/audit/proof/W36/metrics && git commit -q -F - <<'MSG'\nmetrics: the n-floor, band_coverage_demand, and a co",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:53:58Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"sql/metrics/README.md\"; s=io.open(p,encoding=\"utf-8\").read()\nold = \"Two consequences that are deliberate:\"\nnew = '''### Every file declares a floor\n\nEach `.sql` carries `",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T00:53:06Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"scripts/company/build_dashboard.py\"; s=io.open(p,encoding=\"utf-8\").read()\nold = '''        \"band_coverage\": M.get(\n            \"band_coverage\", unknown(\"sql/metrics/band_",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-01T00:52:25Z",
       "session": "fb348ebc",
@@ -1144,76 +1214,6 @@
         "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W36/secret-rail/test_secret_rail.py"
       ],
       "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:42:00Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== content-social publish gate ===\"; grep -n \"POSTED\\|publish\\|Postiz\\|draft\\|GATE\\|founder\" docs/marketing/QUEUE.md | head -12; echo; echo \"=== quarantine README data-not-instructions ===\"; gr",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:58Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== does test:e2e:required exist? ===\"; grep -n \"test:e2e\" package.json; echo; echo \"=== QA.md sanity-check record ===\"; grep -n \"sanity-check\\|verified to FAIL\\|reintroduc\" docs/eng/QA.md 2>/de",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\".claude/hooks/guard.py\"; s=io.open(p,encoding=\"utf-8\").read()\ns = s.replace(\"import json\\nimport os\\nimport re\\nimport sys\",\n              \"import json\\nimport os\\nimport",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:48Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== playwright workflow (in 2d1bf27, not f634592) ===\"; sed -n '1,60p' .github/workflows/playwright.yml 2>/dev/null; echo \"=== does it run the new specs? ===\"; grep -n \"testMatch\\|testDir\\|spec\\",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:32Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "for f in docs/product/ROADMAP.md docs/product/EXTENSION.md docs/product/DESIGN-REVIEW.md docs/product/SUPPORT-VOICE.md docs/audit/FUNNEL-WALK.md; do echo \"### $f\"; grep -n \"40\\.9%\" \"$f\" | head -4; don",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:32Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "printf 'Founder authorised A12 in chat 2026-09-01, conditional on consulting all related agents.\\nConsulted: security-eng (patch design), devops (rollout+risk), tech-lead (architecture), verifier.\\nSc",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:41:27Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "sed -n '125,150p' .claude/hooks/guard.py; echo \"=== imports ===\"; sed -n '1,14p' .claude/hooks/guard.py | grep -n \"import\"",
       "url": "",
       "ok": true
     }
