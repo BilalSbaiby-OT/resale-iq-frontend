@@ -194,3 +194,22 @@ seven green days.** `canary green 7/7 days` as an OS §3 KPI requires this to ac
 week, which needs GAPS.md B9 (a scheduler — none exists) before it can be true rather than asserted.
 Until then, the honest state of this KPI is: **the mechanism exists and is proven; the 7-day track
 record does not exist yet.**
+
+
+---
+
+## Scoreability — added 2026-09-01 after `tech-lead`'s review
+
+A run only counts toward OS §3's `canary green 7/7 days` if **the source table could have changed
+between the freeze and the run**. The first logged run could not: it was frozen at 00:18:21 and run
+at 00:22:17, and `model_signals_max_updated_at` is identical in both corpus fingerprints. `60/60
+UNCHANGED` was arithmetically guaranteed.
+
+That run is now marked `"scoreable": false` in `runs/log.jsonl`. It proves the **mechanism** works.
+It observes **no drift**, because no drift was possible.
+
+**The general rule, and the reason this needed a field rather than a note:** this file already said
+the honest thing in `cannot_conclude` — but that is prose, and **the scorer reads fields**. An
+honesty caveat the scoring path cannot see is not a control. Any future run whose two fingerprints
+share a `max_updated_at` must be written with `scoreable: false` by the runner itself, not left for
+a reader to notice.
