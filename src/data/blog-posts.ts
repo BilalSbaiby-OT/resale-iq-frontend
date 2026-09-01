@@ -441,43 +441,6 @@ export const POSTS: BlogPost[] = [
       { q: "Why is buy-below price important?", a: "It protects your margin before you list. Profit in reselling is mostly decided at the buy, not the sale — buying under your buy-below price is what makes an item profitable." },
     ],
   },
-  {
-    slug: "how-to-spot-fake-items-vinted",
-    title: "How to Spot Fake Items When Sourcing on Vinted",
-    description:
-      "Practical checks to avoid buying counterfeits when sourcing to resell on Vinted — tags, stitching, pricing red flags, and when to walk away.",
-    date: "2026-08-05",
-    category: "Sourcing",
-    readMins: 5,
-    intro:
-      "Buying a counterfeit to resell is a double loss — wasted cash and a hit to your reputation. These checks reduce the risk before you commit. (Authenticity checks are probabilistic — when in doubt, don't buy.)",
-    sections: [
-      {
-        h: "Price and listing red flags",
-        p: [
-          "A price far below the typical sale price for that model is the most common red flag — if it looks too good, it often is. Knowing the real number first is the whole defence: [check what the model actually sells for](/tools/vinted-price-checker).",
-          "Vague descriptions, stock photos instead of real ones, and refusal to send extra photos of tags/labels are warning signs. Our [weekly market data](/data) shows the normal price band by brand, so an outlier is easy to spot.",
-        ],
-      },
-      {
-        h: "Physical checks",
-        p: [
-          "Compare tags, fonts, stitching, and logos against verified references for that exact model. Counterfeits usually slip on small details.",
-          "Check serial numbers/style codes where applicable, and the quality of materials and hardware.",
-        ],
-      },
-      {
-        h: "When in doubt",
-        p: [
-          "If you can't confirm authenticity, walk away — the downside outweighs the deal. " + BRAND + " does not certify items as authentic. A human check of tags, photos and provenance always wins.",
-        ],
-      },
-    ],
-    faq: [
-      { q: "How do I spot fake items on Vinted?", a: "Watch for prices far below the model's typical sale price — [check what it really sells for](/tools/vinted-price-checker) — plus stock photos and vague descriptions. Compare tags, fonts, stitching and style codes to verified references. When in doubt, don't buy." },
-      { q: "Is it risky to resell items bought on Vinted?", a: "The main risk is counterfeits. Verify authenticity before buying, keep evidence, and walk away from anything you can't confirm — reselling a fake costs you money and reputation." },
-    ],
-  },
 ]
 
 // Batch 2 lives in its own file for readability; ALL_POSTS is what pages consume.

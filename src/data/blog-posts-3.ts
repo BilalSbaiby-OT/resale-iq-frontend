@@ -88,7 +88,7 @@ export const POSTS_3: BlogPost[] = [
     slug: "sneaker-reselling-guide-vinted",
     title: "Sneaker Reselling on Vinted: A Practical Guide",
     description:
-      "How sneaker reselling works on Vinted — which models move, why sizes decide profit, condition grading, and how to avoid fakes.",
+      "How sneaker reselling works on Vinted — which models move, why sizes decide profit, and how condition changes what an item is worth.",
     date: "2026-08-07",
     category: "Sourcing",
     readMins: 6,
@@ -109,13 +109,7 @@ export const POSTS_3: BlogPost[] = [
           "This is why per-size sell-through matters more in sneakers than almost any other category.",
         ],
       },
-      {
-        h: "Condition and authenticity",
-        p: [
-          "Grade honestly: sole wear, creasing, heel drag, yellowing, and whether you have the box. Each materially moves the price.",
-          "Sneakers are the most counterfeited category. If the price is far below the model's normal range, treat it as a warning, not a bargain.",
-        ],
-      },
+      
       {
         h: "Check before you buy",
         p: [
@@ -125,7 +119,6 @@ export const POSTS_3: BlogPost[] = [
     ],
     faq: [
       { q: "Are sneakers good to resell on Vinted?", a: "Sneakers are the most liquid category on Vinted, but profit depends on the specific model, the size, and condition — not the brand alone. Mid sizes sell fastest; outlier sizes can sit for months." },
-      { q: "How do I know if sneakers are fake?", a: "A price far below the model's normal range is the biggest warning sign. Compare stitching, tongue tags, sole patterns and box labels against verified references, and walk away if you can't confirm." },
     ],
   },
   {
@@ -378,49 +371,6 @@ export const POSTS_3: BlogPost[] = [
     faq: [
       { q: "How much money do I need to start reselling?", a: "You can start with nothing by selling clothes you already own, then reinvest that into low-cost local sourcing. With a small budget, avoiding items that don't sell matters more than chasing big margins." },
       { q: "What should a beginner reseller buy first?", a: "Low-cost, in-season items from recognisable brands with proven demand and common sizes. Stay near the current season so your limited cash isn't frozen waiting months for a sale." },
-    ],
-  },
-  {
-    slug: "days-to-sell-vs-profit-margin",
-    title: "Days to Sell vs Profit Margin: Which Should You Optimise?",
-    description:
-      "Why fast-selling stock usually beats high-margin stock for resellers, with the simple maths of capital turnover.",
-    date: "2026-08-07",
-    category: "Metrics",
-    readMins: 4,
-    intro:
-      "Given a choice between a 50% margin that sells in 90 days and a 25% margin that sells in 15, most beginners take the 50%. The maths says otherwise, and it's not close.",
-    sections: [
-      {
-        h: "The turnover maths",
-        p: [
-          "€100 at 25% margin selling every 15 days recycles roughly 24 times a year. €100 at 50% margin selling every 90 days recycles about 4 times.",
-          "The lower margin generates far more annual profit from the same capital, because the money keeps working.",
-        ],
-      },
-      {
-        h: "Speed also reduces risk",
-        p: [
-          "Fast stock is exposed to less: fewer trend shifts, less seasonal risk, less chance of a price collapse while you hold.",
-          "Slow stock quietly ties up the capital you need for the next opportunity.",
-        ],
-      },
-      {
-        h: "When margin wins",
-        p: [
-          "High-margin slow items make sense when you have spare capital that isn't needed elsewhere, or the item is genuinely scarce. They shouldn't be the core of a small operation.",
-        ],
-      },
-      {
-        h: "Track both",
-        p: [
-          "Judge every purchase on margin AND expected days to sell. " + BRAND + " surfaces sell-through alongside the buy-below price for exactly this reason.",
-        ],
-      },
-    ],
-    faq: [
-      { q: "Is profit margin or sell-through more important in reselling?", a: "Usually sell-through. €100 at 25% margin turning over every 15 days produces far more annual profit than €100 at 50% margin turning over every 90 days, because the capital keeps working." },
-      { q: "What is capital turnover in reselling?", a: "How many times per year you can reinvest the same money. Faster-selling stock means more turns, which compounds profit and reduces exposure to trend and seasonal risk." },
     ],
   },
   {

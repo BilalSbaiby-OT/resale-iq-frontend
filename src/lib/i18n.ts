@@ -53,7 +53,27 @@ export function detectLocale(acceptLanguage: string | null | undefined): Locale 
   const parts = (acceptLanguage || "")
     .split(",")
     .map(s => s.trim().split(";")[0].toLowerCase())
+  // ENGLISH IS CHECKED INSIDE THE LOOP, NOT AFTER IT.
+  //
+  // This loop used to test only fr/es/de/it/pt and fall through to "en" at the
+  // end. That is not "prefer English by default" -- it walks the visitor's
+  // ENTIRE preference list and returns the first non-English match anywhere in
+  // it. So `Accept-Language: en-GB,es-ES` -- an English speaker who merely has
+  // Spanish configured as a second language -- was served Spanish. English was
+  // reachable only by a visitor who listed no other language we support.
+  //
+  // Measured 2026-09-01: three visitors reached /register and none signed up.
+  // /register reads the NEXT_LOCALE cookie this function seeds, so an English
+  // reader arriving from an English page met a fully Spanish signup form --
+  // "Cree su cuenta", "Correo electronico", "Crear cuenta" -- with no language
+  // switcher and no way back. No error, no console warning, nothing to report:
+  // just a form they could not read. 26 of our 28 visitors that day were
+  // English, and the cookie persists for a year.
+  //
+  // Preference ORDER is the whole point of Accept-Language. Honour it: the
+  // first supported language wins, and English is a supported language.
   for (const p of parts) {
+    if (p.startsWith("en")) return "en"
     if (p.startsWith("fr")) return "fr"
     if (p.startsWith("es")) return "es"
     if (p.startsWith("de")) return "de"
