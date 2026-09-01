@@ -232,10 +232,23 @@ def departments():
                             (os.path.join(os.path.dirname(ROOT), "resale-iq-growth"), "growth:")):
             if not os.path.isdir(os.path.join(repo, ".git")):
                 continue
+            # MERGED branches are marked, not silently listed as if outstanding.
+            #
+            # This panel enumerated refs and stopped there, so a branch that had
+            # already shipped still read as open work — a ref surviving its merge
+            # is the normal state of git, not a signal. On 2026-09-01 an agent
+            # read this panel, concluded the anon-quota fix was unmerged, and
+            # made "merge it" its #1 P0 against code that was already live in
+            # production. It had the right instinct (check the machine, not the
+            # prose) and this panel was the wrong machine.
+            merged = {b.strip().lstrip("* ")
+                      for b in sh("git branch --merged main --list 'claude/*'",
+                                  cwd=repo).splitlines() if b.strip()}
             for b in sh(f"git branch --list 'claude/{name}/*'", cwd=repo).splitlines():
                 b = b.strip().lstrip("* ")
                 if b:
-                    branches.append(label + b.split("/")[-1])
+                    suffix = "  (merged)" if b in merged else ""
+                    branches.append(label + b.split("/")[-1] + suffix)
 
         act = seen.get(name, {})
         out.append({

@@ -659,3 +659,70 @@ Desktop remnants are in `SCOPE`, which is A9.
 distributing flawed matching logic and patching it twice. (2) growth and seo next, lowest blast
 radius. (3) demand-intel **last and additively** — append to its `PreToolUse` array, never replace
 it, since its existing entries include a memory-dir bootstrap other tooling may depend on.
+
+
+---
+
+### The retroactive §0.7 review — done. 12 artefacts, 7 sound, 3 needs-work, **0 must-not-ship.**
+
+`tech-lead`, on `f634592`. It stated its own depth honestly ("I did **not** read `scripts/canary/*.py`
+line by line — flagging that as a gap in this review, not a pass"), which is the right posture for a
+review that is itself remediation.
+
+**It resolved the contradiction with git rather than prose: `monetization` was right.** The
+anon-quota fix (`96f8fec`) **is** an ancestor of `origin/main`, merged 22:58, live in production.
+`ux-researcher` made *"merge `anon-quota-cookie`"* its **#1 P0 against already-merged code**.
+
+**The root cause matters more than the correction, and it is mine.** `ux-researcher` inferred merge
+status from **documentation** — `SESSION.md`, and `dashboard/data.json`'s branch list. That is
+derived state read as source state, OS §0 rule 3, in an artefact whose own opening line is *"main is
+what a real visitor gets today."* It had the right principle and consulted the wrong instrument,
+**and I built the wrong instrument**: `build_dashboard.py` enumerated branch refs without checking
+merge status, so a merged branch whose ref still existed read as outstanding work. **Fixed** — the
+panel now marks `(merged)`, and `demand-intel:anon-quota-cookie  (merged)` is what it says today.
+
+**Two stale numbers propagated across artefacts, and both are about to move again:**
+
+- [ ] **The 19% `LIMIT_REACHED` figure is measured on a window ending at the moment the fix merged.**
+      It is a true measurement of a bug that no longer exists. It drove `FUNNEL-WALK.md`'s break #1,
+      `DESIGN-REVIEW.md`'s state ranking #4, and the Playwright workflow header. **Re-measure on a
+      post-`96f8fec` window before anything is prioritised from it.**
+- [ ] **The 40.9% was misattributed by 3 of 6 artefacts.** `insufficient_data_rate.sql` counts
+      `verdict IN ('INSUFFICIENT_DATA', 'UNKNOWN')` — the **union of two different refusals**.
+      `customer-success`, `product-manager` and `extension-eng` cited it correctly; `ux-researcher`,
+      `designer` and `qa-eng` attributed all of it to `INSUFFICIENT_DATA` alone. The
+      `INSUFFICIENT_DATA`-only share is **UNKNOWN and ≤ 40.9%**; nobody has run the segmented query.
+      **The three that got it wrong are the three building UI, tests and design priorities on it.**
+- [ ] **A8 consequence:** C5 routes *more* traffic to `INSUFFICIENT_DATA`, so every 40.9% in that
+      commit goes stale on merge. Six downstream consumers — an argument for writing the
+      discontinuity marker **before** C5 lands, not after.
+- [ ] **Consider renaming `insufficient_data_rate` → `refusal_rate`** in the A8 gate. A name that
+      denotes one of the two things it counts is what invited three independent misreadings.
+
+**`qa-eng` — needs-work, and it is the artefact that actually executes.** `e2e/mock-backend.mjs`
+fabricates a response shape the backend never emits: there are **two** distinct `INSUFFICIENT_DATA`
+returns (`api/routes.py:892-911` and `:1046-1063`) and the fixture wears the first one's strings with
+the second one's `data_quality` plan-gating, while omitting `match_note` which the real path returns.
+So the spec for **the most-seen non-answer in the product** validates the frontend against a payload
+the server does not send. The leak assertions are unaffected — both paths redact for anon — so this
+is a fidelity defect, not a false green on the paywall.
+
+**`data-eng` canary — sound, with a caveat that would have become a false HIT.** The single logged
+run was frozen at 00:18:21 and run at 00:22:17, four minutes later, with an identical
+`model_signals_max_updated_at` in both fingerprints. **`60/60 UNCHANGED` was arithmetically
+guaranteed.** The mechanism is proven; the run proves nothing about drift.
+- [ ] **Label it a mechanism smoke run and exclude it from the 7-day strip.** OS §3 scores
+      `canary green 7/7 days`; counting this as day 1 would be a HIT built on a vacuous observation.
+      The file's own honesty makes this recoverable — but the honesty sits in `cannot_conclude`, a
+      field the scorer does not read.
+
+**Bookkeeping against my own commit message:** it credited twelve agents. **Ten artefacts are in that
+diff** — `finance-ops` was flagged as an earlier commit, `seo`'s brief lives in another repo and was
+not.
+
+**The meta-finding, which is the one worth keeping:**
+
+> *"Agents reading company documentation as if it were the machine. `ux-researcher` read `SESSION.md`
+> for merge status; three agents read `METRICS.md`'s headline for a metric definition without opening
+> the `.sql`. Neither is carelessness. Both are what happens when the constitution says 'not proven on
+> disk is not done' and the fastest thing on disk is a summary."*
