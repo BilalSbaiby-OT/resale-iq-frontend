@@ -739,3 +739,9 @@ session: a measured number killed an assumption, and found a 3x undersell
 
 data-eng measured production instead of accepting the 24% figure, and the figure
 did not surviv`
+- `2026-09-01T14:51:36Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `npm run test:e2e:required 2>&1|tail -2 && git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat`
+- `2026-09-01T14:53:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/ms9.txt" <<'MSG'
+session: the fourth refusal today, and my premise was the thing that was wrong
+
+W22 settled without a code change: GSC's 5 clicks is organic search only, while
+production`

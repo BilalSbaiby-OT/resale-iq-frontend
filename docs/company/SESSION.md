@@ -820,6 +820,34 @@ the right pattern and the wrong one — and the wrong one was on the logged-out 
 
 **1292 tests.** `demand-intel@f5a9c6d`.
 
+## W22 settled, W2 half-refused — and the refusal was right
+
+**W22: both numbers were right about different things.** GSC's **5 clicks / 903 impressions** is
+**organic search only**. Production `pageviews`, read **live from the container** (not the stale dev
+copy), shows **198 distinct non-bot visitors over 25 days — all channels**. **75% unattributed
+direct, ~12% our own `/admin` paths.** So GSC for organic-specific work, pageviews as a loose
+all-channel ceiling. Answered to `finance-ops` and `monetization` **directly on the bus.**
+
+**W2: it killed the 36 genuinely dead URLs** (6 brands at `models_tracked = 0`) — week's goal closed,
+counter at 0 — **and refused the rest of the kill I asked for.**
+
+It pulled **live Index Coverage for the first time in company history** (165 URLs via the URL
+Inspection API, working around a GSC MCP broken all session) and found that of the remaining 129,
+**half are already indexed** and only **9.3% carry Google's actual rejection signal.**
+
+**My premise was wrong, and the error is worth naming: indexed ≠ earning impressions.** A page can be
+indexed and never surface, so both my figure and its figure are true at once — but **its** measurement
+is the one that decides whether killing helps. **Killing 129 indexed pages would have destroyed real
+assets.**
+
+It also **caught its own mistake before review**: the first edit reformatted the whole JSON file (879
+insertions / 1697 deletions) instead of removing six brands. Reset and redone — **final diff 234
+clean deletions, nothing else.**
+
+**That is four agents today whose refusal was worth more than compliance:** `content-social`
+(publishing on a relayed instruction), `legal-compliance` (Reddit from a blog's paraphrase), `seo`
+(this), and `backend-eng` (deciding a product question that was not its to decide).
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
