@@ -4,6 +4,21 @@
 
 ## Working on
 
+**W56's code half is CLOSED and merged** — `demand-intel@0967123`. Board is **16 closed / 2 open**,
+zero unassignable. Every deploy used to run the two heaviest jobs in the app concurrently and
+unconditionally: the **~90-minute** analyzer alongside a bare 5-way `gather` across every Vinted
+market. Three changes — a **staleness gate** (a redeploy minutes after a real pass now does nothing
+at all), **sequencing** instead of concurrency, and **market concurrency 5→2** applied to every
+scrape rather than just boot, because `dmesg` showed host-wide risk.
+
+**1329 pytest, up from 1319, zero regressions — I ran them myself before merging.** The concurrency
+bound is **measured, not asserted**: mocked inside the real `scrape_all_vinted`, the old path hit
+**5 in flight**, the new one caps at **2**, wall time 0.10s→0.30s exactly as a 5/2 factor predicts.
+
+**What is NOT proven, and `backend-eng` said so rather than claiming it:** that this brings the
+3813 MB host under its ceiling. The mechanism is proven in isolation; host-level confirmation needs
+the live-deploy probe that produced the original 1.04 GiB figure. That is the remaining half.
+
 **Production verified by me, not from a report.** All six locales 200 · `/api/health` 200 · and a
 real search returns real numbers: `Nike Air Force 1` → buy_below **37.15** from sell_avg 55.86,
 n=103, and 55.86 × 0.95 × 0.70 = 37.15 exactly. `Carhartt jacket` correctly returns **UNKNOWN**
