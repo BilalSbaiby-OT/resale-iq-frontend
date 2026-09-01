@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useCallback, Suspense, type ReactNode } from "react"
 import { useSearchParams } from "next/navigation"
+import Link from "next/link"
 import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict } from "@/lib/api"
 import { eur } from "@/lib/utils"
@@ -19,6 +20,16 @@ const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string;
   // Distinct from NO DATA on purpose: we found the product, we just will not
   // put a call on it. "NOT MEASURED" says the gap is ours, not the market's.
   INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
+  // Also distinct from NO DATA: this account has a real number, it just spent
+  // its daily quota getting it. Falling back to VERDICT_STYLE.UNKNOWN here is
+  // the bug docs/audit/MONETIZATION.md §3 flagged — a paying-eligible user who
+  // hits their cap was told "NO DATA", which reads as a broken product.
+  // Colour: a quota state, not a verdict about the item, so it must not wear
+  // WATCH's amber (#f59e0b) — that would make a "you hit your daily cap"
+  // message visually indistinguishable from a real BUY-adjacent call on the
+  // item itself. Same neutral as UNKNOWN/INSUFFICIENT_DATA instead.
+  // docs/product/DESIGN-REVIEW.md §2, roster consult 2026-09-01.
+  LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "LIMIT REACHED" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -97,7 +108,7 @@ function VerdictInner() {
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Adidas Samba, Nike Air Force 1, Levi's 501"
+            placeholder="e.g. Adidas Samba, Nike Air Force 1, New Balance 530"
             className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
@@ -136,7 +147,34 @@ function VerdictInner() {
               </div>
             )}
 
-            {result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
+            {result.verdict === "LIMIT_REACHED" ? (
+              // The one paywall moment aimed at someone who already made an
+              // account — docs/audit/MONETIZATION.md §3. Must not fall into the
+              // UNKNOWN/INSUFFICIENT_DATA branch (wrong reason) or the metrics
+              // grid below (every field is undefined on this payload, which
+              // renders as a row of "—" and reads as "we have no data").
+              <div className="p-6 text-[13px] text-[#8b99b8] leading-6">
+                <p>{result.message || "Free tier: 10 verdicts/day. Starter or Pro for unlimited."}</p>
+                {result.used_today != null && result.limit != null && (
+                  <p className="mt-1.5 text-[12px] text-[#5b6b8c]">
+                    {result.used_today} of {result.limit} verdicts used today.
+                  </p>
+                )}
+                {/* NOT result.upgrade_url directly: the API sends "/stripe/plans",
+                    which is the JSON GET the pricing section calls via getPlans()
+                    (src/lib/api.ts:212), not a page — next.config.ts rewrites
+                    /stripe/:path* straight to the backend, so a real <a> there
+                    would navigate to raw JSON. /account is the actual page with
+                    working upgrade buttons wired to Stripe Checkout. Flagging this
+                    rather than linking upgrade_url verbatim as the brief asked. */}
+                <Link
+                  href="/account"
+                  className="mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors"
+                >
+                  See plans →
+                </Link>
+              </div>
+            ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
               // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
               // The server withholds every number behind it, so the grid would
               // render a row of em-dashes — the same thing the `locked` branch

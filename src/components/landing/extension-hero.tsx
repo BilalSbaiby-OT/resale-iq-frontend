@@ -70,7 +70,11 @@ export function ExtensionHero() {
                 R
               </span>
               Resale IQ
-              <span style={{ marginLeft: "auto", fontWeight: 800, fontSize: 10.5, letterSpacing: ".4px", color: "#eab308" }}>
+              {/* --color-watch (globals.css). Was hardcoded #eab308 — a third,
+                  drifted amber that duplicated the WATCH token instead of
+                  using it. See design/tokens.json known_splits and
+                  docs/product/DESIGN-REVIEW.md §2. */}
+              <span style={{ marginLeft: "auto", fontWeight: 800, fontSize: 10.5, letterSpacing: ".4px", color: "var(--color-watch)" }}>
                 WATCH
               </span>
             </div>
@@ -79,7 +83,7 @@ export function ExtensionHero() {
             <div style={{ fontSize: 11.5, color: "#7f8da9", marginTop: 3, lineHeight: 1.45 }}>
               most you can pay for your margin
             </div>
-            <div style={{ fontSize: 12, color: "#eab308", fontWeight: 600, marginTop: 8 }}>
+            <div style={{ fontSize: 12, color: "var(--color-watch)", fontWeight: 600, marginTop: 8 }}>
               listed at €40 — above buy-below
             </div>
             <div style={{ fontSize: 12, color: "#a9b6d0", marginTop: 8 }}>

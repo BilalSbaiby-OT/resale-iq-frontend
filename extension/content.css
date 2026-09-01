@@ -14,9 +14,14 @@
   border-left: 3px solid #5b6b8c; border-radius: 12px; padding: 13px 15px;
   color: #eef1f7; box-shadow: 0 8px 28px rgba(0,0,0,.45);
 }
+/* #fbbf24 is --riq-watch-oncard: a deliberate, higher-contrast variant of
+   the site's WATCH token (#f59e0b) for THIS dark card surface — not a third,
+   independent amber. Same relationship tokens.json already documents for
+   SKIP's two values below. Never use this hex for a non-verdict state (e.g.
+   a quota/system message) — see docs/product/DESIGN-REVIEW.md §2. */
 #riq-badge .riq-buy   { border-left-color: #22c55e; }
-#riq-badge .riq-watch { border-left-color: #fbbf24; }
-#riq-badge .riq-skip  { border-left-color: #f87171; }
+#riq-badge .riq-watch { border-left-color: #fbbf24; } /* --riq-watch-oncard */
+#riq-badge .riq-skip  { border-left-color: #f87171; } /* --riq-skip-oncard */
 #riq-badge .riq-head {
   display: flex; align-items: center; gap: 7px;
   font-size: 11px; color: #8b99b8; margin-bottom: 9px;
@@ -29,8 +34,8 @@
 }
 #riq-badge .riq-verdict { margin-left: auto; font-weight: 800; font-size: 10.5px; letter-spacing: .4px; }
 #riq-badge .riq-verdict.riq-buy   { color: #22c55e; }
-#riq-badge .riq-verdict.riq-watch { color: #fbbf24; }
-#riq-badge .riq-verdict.riq-skip  { color: #f87171; }
+#riq-badge .riq-verdict.riq-watch { color: #fbbf24; } /* --riq-watch-oncard */
+#riq-badge .riq-verdict.riq-skip  { color: #f87171; } /* --riq-skip-oncard */
 #riq-badge .riq-num { font-size: 27px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
 #riq-badge .riq-num.riq-muted { font-size: 16px; color: #8b99b8; letter-spacing: 0; }
 #riq-badge .riq-sub { font-size: 11.5px; color: #7f8da9; margin-top: 3px; line-height: 1.45; }
@@ -38,6 +43,13 @@
 #riq-badge .riq-link {
   display: inline-block; margin-top: 10px; font-size: 11px;
   color: #8fa3c4; text-decoration: none; border-bottom: 1px solid #2a3550;
+}
+/* .riq-retry reuses .riq-link's look but is a <button> (retries the fetch in
+   place, nothing to navigate to) — reset the button chrome Chrome/Vinted's
+   own stylesheet would otherwise add. */
+#riq-badge button.riq-link {
+  background: none; border: 0; border-bottom: 1px solid #2a3550;
+  padding: 0; font: inherit; cursor: pointer;
 }
 /* The match is shown so the user can see WHAT we priced. Silent mismatching is
    how a tool loses trust: a confident number against the wrong model is worse
@@ -74,8 +86,8 @@
   font-size: 12px; font-weight: 700; box-shadow: 0 8px 28px rgba(0,0,0,.45);
 }
 #riq-badge .riq-pill-buy { border-color: #22c55e; }
-#riq-badge .riq-pill-watch { border-color: #fbbf24; }
-#riq-badge .riq-pill-skip { border-color: #f87171; }
+#riq-badge .riq-pill-watch { border-color: #fbbf24; } /* --riq-watch-oncard */
+#riq-badge .riq-pill-skip { border-color: #f87171; } /* --riq-skip-oncard */
 #riq-badge .riq-pill-v { font-size: 10px; letter-spacing: .4px; color: #8b99b8; }
 @media (max-width: 720px) {
   #riq-badge { left: 12px; bottom: 72px; }

@@ -77,6 +77,13 @@ export default async function Landing() {
             <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 12, maxWidth: 480 }}>
               {t.heroFrom(tracked)}
             </p>
+            {/* Additive, not a swap for the confident demo below — the demo
+                stays the "holy shit" moment, this states the product's real
+                answer rate before anyone has to discover it themselves.
+                docs/product/DESIGN-REVIEW.md §4. */}
+            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 6, maxWidth: 480 }}>
+              {t.heroHonesty}
+            </p>
 
             {/* Checker is the job on every viewport. Chrome cannot run on a
                 phone, so it stays a desktop-only secondary link. */}

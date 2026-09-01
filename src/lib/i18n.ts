@@ -25,6 +25,12 @@ export const copy = {
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
       `From ${tracked} live listings and watched departures across five EU markets.`,
+    // Additive, not a replacement for the confident demo above it — see
+    // docs/product/DESIGN-REVIEW.md §4. Same number the counter-KPI already
+    // tracks (insufficient_data_rate, docs/company/METRICS.md), stated once,
+    // in the open, before a visitor hits it themselves on their own search.
+    heroHonesty:
+      "About 4 in 10 lookups come back “not enough data” — we'd rather say that than guess.",
     addToChrome: "Add to Chrome",
     checkItem: "Check an item",
     orCheck: "Start 7-day Starter trial",
@@ -47,6 +53,8 @@ export const copy = {
       "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis BUY, WATCH ou SKIP. Vinted d'abord.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
+    heroHonesty:
+      "Environ 4 recherches sur 10 reçoivent « pas assez de données » — on préfère le dire plutôt que deviner.",
     addToChrome: "Ajouter à Chrome",
     checkItem: "Vérifier un article",
     orCheck: "Essai Starter 7 jours",
@@ -69,6 +77,8 @@ export const copy = {
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
+    heroHonesty:
+      "Alrededor de 4 de cada 10 búsquedas reciben «no hay suficientes datos» — preferimos decirlo antes que adivinar.",
     addToChrome: "Añadir a Chrome",
     checkItem: "Comprobar un artículo",
     orCheck: "Prueba Starter 7 días",

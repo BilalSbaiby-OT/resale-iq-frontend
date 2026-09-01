@@ -40,6 +40,8 @@ const I18N = {
     rate: "Too many lookups. Wait a minute.",
     hide: "Hide",
     show: "Show Resale IQ",
+    timeout: "That check took too long to finish — it may still count against today's free limit. Email us if your count looks wrong.",
+    retry: "Try again",
   },
   fr: {
     most: "le maximum à payer pour votre marge",
@@ -63,6 +65,8 @@ const I18N = {
     rate: "Trop de requêtes. Attendez une minute.",
     hide: "Masquer",
     show: "Afficher Resale IQ",
+    timeout: "Cette vérification a pris trop de temps — elle peut quand même compter dans votre limite du jour. Écrivez-nous si le compte semble faux.",
+    retry: "Réessayer",
   },
   es: {
     most: "lo máximo que puedes pagar para tu margen",
@@ -86,6 +90,8 @@ const I18N = {
     rate: "Demasiadas consultas. Espera un minuto.",
     hide: "Ocultar",
     show: "Mostrar Resale IQ",
+    timeout: "Esa comprobación ha tardado demasiado — puede que cuente igualmente para tu límite de hoy. Escríbenos si el recuento no cuadra.",
+    retry: "Intentar de nuevo",
   },
   de: {
     most: "Höchstpreis für deine Marge",
@@ -109,6 +115,8 @@ const I18N = {
     rate: "Zu viele Anfragen. Eine Minute warten.",
     hide: "Ausblenden",
     show: "Resale IQ zeigen",
+    timeout: "Diese Prüfung hat zu lange gedauert — sie zählt möglicherweise trotzdem zu deinem Tageslimit. Schreib uns, wenn die Zahl nicht stimmt.",
+    retry: "Erneut versuchen",
   },
   it: {
     most: "il massimo che puoi pagare per il margine",
@@ -132,6 +140,8 @@ const I18N = {
     rate: "Troppe richieste. Aspetta un minuto.",
     hide: "Nascondi",
     show: "Mostra Resale IQ",
+    timeout: "Questo controllo ha impiegato troppo tempo — potrebbe comunque contare nel limite di oggi. Scrivici se il conteggio non torna.",
+    retry: "Riprova",
   },
   pt: {
     most: "o máximo que podes pagar para a tua margem",
@@ -155,6 +165,8 @@ const I18N = {
     rate: "Demasiados pedidos. Espera um minuto.",
     hide: "Ocultar",
     show: "Mostrar Resale IQ",
+    timeout: "Esta verificação demorou demasiado — pode ainda contar para o teu limite de hoje. Escreve-nos se a contagem parecer errada.",
+    retry: "Tentar novamente",
   },
 };
 
@@ -226,6 +238,31 @@ function paintStatus(sub, href, label) {
       <div class="riq-sub">${esc(sub)}</div>
       ${href ? `<a class="riq-link" href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>` : ""}
     </div>`);
+}
+
+// A client-side timeout on the verdict fetch (extension/background.js).
+// The reason this differs from paintStatus(t().down): a plain network
+// failure never reached the server, but a timeout might have — the anon
+// quota is claimed atomically before the answer is computed
+// (demand-intel/db/queries.py:2652), so a request that dies mid-flight can
+// still have spent one of the day's free checks. Says so, and offers a real
+// retry instead of leaving the "checking…" card spinning forever.
+// docs/audit/MONETIZATION.md §4 / docs/product/SUPPORT-VOICE.md §4.
+function paintTimeout() {
+  const L = t();
+  render(`
+    <div class="riq-card riq-watch">
+      <div class="riq-head"><span class="riq-logo">R</span> Resale IQ</div>
+      <div class="riq-sub">${esc(L.down)}</div>
+      <div class="riq-note">${esc(L.timeout)}</div>
+      <button type="button" class="riq-link riq-retry">${esc(L.retry)}</button>
+    </div>`);
+  panel().querySelector(".riq-retry")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    lastQuery = "";
+    run();
+  });
 }
 
 function paint(d, askingPrice) {
@@ -353,6 +390,7 @@ function run() {
     if (!res?.ok) {
       if (res?.verify) paintStatus(t().verify, "https://resaleiq.dev/check-email", t().confirm);
       else if (res?.limited) paintStatus(res.rate ? t().rate : t().limited, "https://resaleiq.dev/login", t().signIn);
+      else if (res?.timedOut) paintTimeout();
       else paintStatus(t().down);
       return;
     }
