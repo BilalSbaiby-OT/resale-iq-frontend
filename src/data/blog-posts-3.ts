@@ -484,4 +484,66 @@ export const POSTS_3: BlogPost[] = [
       { q: "¿Qué marcas se venden más rápido en Vinted?", a: "Las zapatillas reconocibles y los básicos de marca dominan el volumen; las marcas de lujo mueven muchas menos unidades a precios mucho más altos. Cuál te conviene depende de cuánto tiempo puedes tener el dinero parado. Las cifras por marca se actualizan a diario en la página de datos de mercado." },
     ],
   },
+  {
+    slug: "vinted-item-not-selling",
+    title: "Why Isn't My Vinted Item Selling? A Diagnostic, Not a Guess",
+    description:
+      "The four things that actually stop a Vinted listing from moving — price, condition description, brand demand and size — checked in the order that fixes the most items fastest.",
+    date: "2026-09-01",
+    category: "Selling",
+    readMins: 6,
+    intro:
+      "Something in your closet has been sitting for a while and you don't know why. Before you assume the item is a bad buy, check it in order: most 'nobody wants this' items are actually 'this is priced or described wrong' items, and that's fixable in minutes, not months.",
+    sections: [
+      {
+        h: "Start with price — it fixes more listings than anything else",
+        p: [
+          "The most common reason a fine item doesn't move is that it's priced against the original retail tag, or against hope, rather than against what that exact model in that condition has actually been leaving the shelf at recently. Active listings show you what other sellers are hoping for, not what buyers are paying.",
+          "Check the real number before touching anything else: the [free Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](/data) both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
+          "One pattern worth knowing before you price: in our own tracking across Spain, France, Germany, Italy and Portugal (21 Aug – 1 Sep 2026, n = 108,529 watched departures), items priced €250 and over were only 3.6% of everything that left the shelf but carried 37.4% of the total money — while 57.5% of departures were under €30. Most of what actually moves, moves cheap. If you've priced a mid-range item like it belongs in the rare, expensive minority, that's very likely the whole problem.",
+        ],
+      },
+      {
+        h: "Then the listing itself: is the condition description doing its job",
+        p: [
+          "Condition isn't decoration copy, it's a price signal buyers read before they read anything else. 'Good condition' with no detail reads as a hedge, and cautious buyers skip hedges rather than risk a dispute later.",
+          "It also isn't a small difference in what buyers will pay. In the same window, items marked new-with-tags left the shelf at a median of €37, against €22 for 'very good' condition — a real premium, worth roughly 68%, but nowhere near the multiple people assume. If you're describing a genuinely excellent item as merely 'good' to be safe, you may be pricing yourself into the wrong band without meaning to. If you're describing a worn item generously, buyers are pausing on the mismatch, not the price.",
+          "Say exactly what's true — specific flaws, specific measurements, specific wear — and price to that condition, not to the aspiration. [How pricing and condition interact](/blog/how-to-price-items-on-vinted) covers the mechanics if you haven't set your anchor yet.",
+        ],
+      },
+      {
+        h: "Check whether the demand exists at all",
+        p: [
+          "Some items are priced and described perfectly and still don't move, because the model or category itself has thin demand right now. That's not a listing problem, it's a sourcing signal for next time — but it's worth ruling out before you keep adjusting a listing that was never going to sell fast.",
+          "[Which brands are actually moving this week](/flip) and [which categories are moving](/category) are both published free and update on their own, so you can check your specific item against real current demand rather than a brand's general reputation.",
+          "Size plays the same role inside a single model. In the same tracking window, EU 38 was the single most common sneaker size to leave the shelf (959 times) at a median €38, while EU 46 left the shelf only 93 times, at a median €80. The common size isn't more valuable — it's just where most of the buyers are. An uncommon size sitting a while is not necessarily mispriced; it may just be waiting for the smaller pool of buyers who wear it.",
+        ],
+      },
+      {
+        h: "The order that fixes the most, fastest",
+        p: [
+          "1. Re-check the price against real recent departures for that exact model and condition, not retail and not hope.",
+          "2. Rewrite the description to say precisely what condition the item is in — specific, not aspirational.",
+          "3. Confirm demand actually exists for the model and size using current market data, not brand reputation.",
+          "4. If it's genuinely a slow mover in a slow size, consider [a bundle or a reasonable offer](/blog/vinted-bundles-and-offers-strategy) rather than holding out — cash that recycles beats a listing that sits.",
+        ],
+        table: {
+          caption: "A quick read on what the symptom usually means. Check price first — it explains most cases.",
+          head: ["What you're seeing", "Likely cause", "Fastest check"],
+          rows: [
+            ["No views at all", "Price far above recent departures, or poor photos/title", "Compare against real departure prices, not retail"],
+            ["Views but no offers", "Price close but description vague or condition overstated", "Rewrite condition specifically; re-anchor price"],
+            ["Views, honest listing, still nothing", "Thin demand for this exact model or size right now", "Check current brand and category demand before assuming it's you"],
+            ["Sold similar items fast before, this one is stuck", "Likely condition or size outlier, not a pricing mistake", "Compare this item's specific condition/size against the ones that moved"],
+          ],
+        },
+      },
+    ],
+    faq: [
+      { q: "Why isn't my Vinted item selling?", a: "Usually one of three things, in order of likelihood: it's priced against retail or hope rather than what that exact model recently left the shelf at, the condition description is too vague for a cautious buyer to trust, or the specific model and size just has thin demand right now. Check price first — it explains the majority of stuck listings." },
+      { q: "Should I lower the price if nothing is happening?", a: "Check it against real recent departures for that model and condition first — if you're already priced fairly and nothing has happened since you listed it, a modest price cut and a rewritten, more specific condition description together do more than either alone." },
+      { q: "Does a vague condition description actually stop sales?", a: "Yes — cautious buyers treat a vague 'good condition' as a hedge and move on rather than risk a dispute. In our own tracking, items marked new-with-tags left the shelf at a real premium over 'very good' condition (68% higher median), which shows condition tier genuinely moves price — so describing it accurately matters both ways: overstating invites a dispute, understating leaves money on the table." },
+      { q: "Is a slow-selling item always mispriced?", a: "No. Some models and some sizes simply have less demand at a given moment — that's a sourcing signal, not a pricing mistake. Checking current brand, category and size demand before repeatedly discounting avoids chasing a price that was never the actual problem." },
+    ],
+  },
 ]
