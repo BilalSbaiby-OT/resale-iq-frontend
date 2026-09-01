@@ -104,3 +104,50 @@ turn. No percentage — a score invites optimising the score, which is how "41/6
 **Claims register:** a `Check` column in `OS-COMPLIANCE.md`. `DONE` requires a named check that
 passed. Founder-approved consequence: the headline drops from **41 DONE to roughly 8**. If the
 number does not fall, nothing is bound.
+
+---
+
+# THE CORRECTING EDIT IS THE ONE NOBODY RE-CHECKS
+
+**Found 2026-09-01 by `tech-lead`, from three instances in a single day.** Recorded as a pattern
+rather than three fixed lines, because all three were caught by an agent and none by the person
+making the correction.
+
+| # | The correction | What it introduced |
+|---|---|---|
+| 1 | **C6** — the FX fix, so unpriceable rows stopped being dropped | `parse_item` returning `None` was read by `shelf.py:222` as a shelf departure → `mark_listing_sold` → **fabricated sales**. A fix for fabricated data that fabricated data |
+| 2 | **`34a795a`, titled "Truth pass: fix marketing cadence/scale/signal-count claims"** | It corrected *"recomputed hourly"* and **manufactured *"collected about every 30 minutes"* in the same edit.** `COMPLIANCE.md #8` flagged it live and false the next day. It has been in the store listing since 2026-08-31 |
+| 3 | **The corrected `cost()` figure**, itself a correction of a figure measured against a stale DB | Re-stamped **the previous night's 43/57 board** with the new snapshot's provenance. The artifact said 37/63. The message even flagged the gap and then assigned it backwards — treating the carried-forward number as sourced and the artifact as the cross-check |
+
+## Why this class survives review
+
+**A correction arrives with its own justification already attached.** The reviewer's attention goes
+to *"is the old thing actually wrong?"* — which it is — and the answer feels like the whole question.
+Nobody re-asks *"and is the replacement true?"*, because the edit is framed as the answer rather than
+as a new claim.
+
+It is worse in a commit titled "fix", "truth pass", or "correction". **The title is a
+credential**, and this company has now shipped three defects wearing one.
+
+## The rule
+
+**A correcting edit is a new claim and gets the same scrutiny as the claim it replaces.** Concretely:
+
+1. **Name the source of the replacement, not just the error in the original.** *"12 → 26 does not
+   reproduce"* is half a correction. *"On the documented definition it is 12 → 13, from
+   `rerun-supply.json`, board snapshot `2026-09-01 07:51:40`"* is the whole one.
+2. **When the artifact disagrees with your number, the artifact is the source.** Instance 3 had the
+   right file open, saw the mismatch, and explained it away. **A disagreement between your figure and
+   the artifact it cites is the signal, never the noise.**
+3. **A fix's negative control must cover what the fix touches, not what it was aimed at.** C6's
+   tests proved unpriceable rows survived. Nothing asked what the shelf then did with them.
+4. **`grep` the correction the way you grepped the error.** Instances 1 and 2 were both findable by
+   searching the new text with the same query that found the old.
+
+## What already enforces part of this
+
+`sql/metrics/` requires every value to arrive with its `n`, its window and its query — a shape that
+makes an unsourced number impossible to express. **That contract exists for metrics and nothing
+else.** Corrections in prose, commit messages and code comments have no equivalent, and all three
+instances above lived in exactly those places.
+

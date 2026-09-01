@@ -338,3 +338,14 @@ bind under a cold negative control), and found the re`
 demand-intel 7a86966..95cfc07. The gate and A13 shipped as ONE release, which
 is what APPROVALS.md:417-420 required and what tech-lead insisted on. 1246
 t`
+- `2026-09-01T09:32:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import io
+p="docs/company/ROOT-CAUSE.md"; s=io.open(p,encoding="utf-8").read()
+add = s.rstrip() + """
+
+---
+
+# THE CORRECTING EDIT IS THE ONE NOBODY RE-CHECKS
+
+**Found 2026-09-01 by `tech-lead`, from three instances in a single day.** Recorded as a pattern
+rather than three fixed lin`
