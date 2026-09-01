@@ -313,6 +313,54 @@ typechecked all day against ordinary Next.js APIs with no issue. **The claim doe
 
 The block is in the founder's own repo. **Surfaced to him; not acted on either way.**
 
+## FOUNDER ACTION NEEDED: two posts are sitting in Postiz right now
+
+`content-social` queried the Postiz API directly and found post ids
+**`cmthf4m3l09hfoc0y7bp3ikhd`** and **`cmthf69e509huoc0ypvt0stdw`** already in the Instagram account
+as **DRAFT** — content worse than the database showed: **five brands' per-model buy-below prices in
+one post** (paid-tier data) plus a Balenciaga buy-ceiling. **Not scheduled to fire, but releasable by
+anyone with Postiz access.** It did not delete them — no delete endpoint in our client, and Postiz is
+a live third-party service. **Founder: Postiz → Instagram → Drafts → discard both.**
+
+It also found the queue was **43 approved rows, not 10** — `--check` defaults to `--limit 10`, so
+every reading I took was an undercount. **41 would have sent today.** It reverted all 43 to `draft`
+and re-ran the dry-run to prove zero remained. Root cause traced: `resale-iq-growth/src/copy.js` maps
+`sold → "Sold in 7 days"`, so the generator manufactures the retracted claim **at source**. Not fixed
+— separate PR, shared file.
+
+## I claimed three deploys that had not happened
+
+`content-social` had checked out `claude/content-social/queue-rewrite` **in the shared main
+checkout**. I committed the locale-routing merge, the growth charter and a log commit onto that
+branch without noticing, ran `git push origin main`, and got **"Everything up-to-date"** — because
+`main` genuinely was up to date. **I read that as success three times.**
+
+Caught only by checking whether the file existed **on the remote** instead of trusting the push
+output — the same discipline I have spent all day demanding of agents. Fast-forwarded `main`,
+re-verified (`tsc` clean, **35/35**), pushed: `a6100bd..22a3483`, **confirmed on the remote.**
+
+**This is the fourth incident today from agents sharing my checkout**, and the fourth where the
+unsafe part was mine: `git add -A` swept a nested worktree into a pushed commit, then a `tsc` failure
+pointed at a git-ignored directory, then it bundled `content-social`'s queue rewrite into an
+unrelated merge commit, and now this. **`scratchpad/` being gitignored and tsconfig-excluded are
+backstops. The fix is that agents must not work in the tree I push from, and I must verify the remote
+rather than the command.**
+
+## The growth charter is doctrine now
+
+`docs/company/ORGANIC-GROWTH.md` — founder-written. `content-social` and `seo` load it before any
+acquisition work.
+
+I added the company-specific section it implies but cannot know: **`sold_observed` is a watched
+departure, never "sold"**; **12.7M listings and 26 markets are two facts** and gluing them is a lie;
+**ES/FR/DE/IT/PT, not the UK** — and 71% of our impressions are US/GB, exactly the irrelevant-views
+failure the charter names; **no authenticity marketing** (no counterfeit filter exists); **re-run
+`proof.sh` rather than citing a figure**; and **`--check` defaults to `--limit 10`.**
+
+Its hardest line is already our product: **never manufacture proof.** We sell a tool that refuses to
+name a price below 8 comparables. Marketing that invents a number destroys the only thing that makes
+us different.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
