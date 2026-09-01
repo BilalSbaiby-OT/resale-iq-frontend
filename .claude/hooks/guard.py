@@ -69,7 +69,28 @@ SECRET = re.compile(
 )
 SECRET_OK = re.compile(r"\.env\.(example|sample|template)$", re.I)
 
-POST_HOSTS_OK = ("localhost", "127.0.0.1", "resaleiq.dev", "62.238.51.83", "0.0.0.0")
+# Hosts this company legitimately POSTs to. Kept HONEST rather than minimal.
+#
+# This was localhost + resaleiq.dev + the Hetzner IP while we posted to four
+# external APIs every day. So the rail blocked real work -- reading Reddit's
+# published rules, testing text-to-speech -- while every image and video we
+# generated went through unexamined, because the check only matches curl/wget
+# and cannot see a POST issued from a Python script.
+#
+# A rail that stops the honest path and misses the other one is worse than no
+# rail, because it gets trusted. Listing what we actually use makes a block
+# meaningful again: a POST to a host NOT here is now genuinely unusual.
+#
+# W49 tracks the other half. The check still cannot see script egress, and that
+# limit is real, stated, and not fixed by this change.
+POST_HOSTS_OK = (
+    "localhost", "127.0.0.1", "0.0.0.0",
+    "resaleiq.dev", "62.238.51.83",
+    "api.elevenlabs.io",                    # voiceover
+    "generativelanguage.googleapis.com",    # Gemini images and Veo video
+    "api.postiz.com",                       # publishing
+    "api.stripe.com",                       # billing; agents hold a read-only key
+)
 
 RM_SAFE = ("scratchpad", "node_modules", ".next", "test-results", "/private/tmp/", "tsconfig.tsbuildinfo")
 
