@@ -1,122 +1,118 @@
-# FIRST REVENUE — four real people, and nobody has ever asked them for money
+# FIRST REVENUE — they didn't ignore us. We broke it for them.
 
-**Written 2026-09-01 by the CEO after a roster consultation (`product-manager`, `monetization`).
-Every figure below was re-queried against production, not taken from a doc.**
+**Rewritten 2026-09-01 after the founder pushed back on "we can't tell whether anyone used it."
+He was right. We can, and the answer changes everything below.**
 
 ---
 
-## The finding
+## The correction that started this
 
-Production `users`, queried live:
+I claimed no per-user usage telemetry existed. **It does.** `verdict_logs` — **432 rows, with a
+`user_id` column.** I had searched for `query_log`, `api_requests`, `usage_log` and `verdict_log`
+**singular**, missed the real table by one character, and asserted the data did not exist rather than
+listing the tables. Production has **50 tables**; listing them took one query.
 
-| domain | joined | trial ends | email verified |
-|---|---|---|---|
-| gmail.com | 2026-08-23 | **2026-08-30 — ALREADY EXPIRED** | yes |
-| icloud.com | 2026-08-26 | **2026-09-02 — tomorrow** | yes |
-| gmail.com | 2026-08-26 | **2026-09-02 — tomorrow** | yes |
-| gmail.com | 2026-08-29 | 2026-09-05 | yes |
-| mailinator.com | 2026-09-01 | 2026-09-08 | (internal QA probe — not a person) |
+**Verify, don't assume — and I asserted an absence, which is the hardest claim to make and the one I
+had least evidence for.**
 
-**7 users total. 0 have ever had a Stripe subscription.** Four are real people who signed up *and
-confirmed their email* — which is the one act that separates curiosity from intent.
+## The answer
 
-**Nobody has ever asked any of them to pay.** `LIFECYCLE_EMAILS` is **unset in the production
-container** — verified with `grep -c`, not assumed. The trial→paid machine exists, is merged, is
-tested (`alerts/lifecycle_emails.py`, `demand-intel@df9268b`) and has never been switched on.
+```
+user  1   gmail      power   checks=11   last 2026-09-01
+user 47   gmail      power   checks=0
+user 68   gmail      free    trial ended 2026-08-30   checks=0
+user 69   icloud     free    trial ends  2026-09-02   checks=0
+user 70   gmail      free    trial ends  2026-09-02   checks=0
+user 79   gmail      free    trial ends  2026-09-05   checks=0
+user 80   mailinator free    (internal QA probe)      checks=0
+```
 
-**This is the only lever we have with a concrete, warm, non-zero n.** Everything else — TikTok, SEO,
-the register funnel — is infrastructure for customers two through ten.
+**417 of 432 checks were run by ANONYMOUS visitors. 11 of the remaining 15 are the founder's own.**
 
-## What we cannot say, and must not guess
+**Every real registered user has run exactly zero checks.** Not few. Zero.
 
-**We do not know whether any of them ever used the product.** `unlocks_used_total` is `0` for every
-user *including the founder's own power accounts*, and `verdict_count_today` is `0` for everyone —
-these fields are not written to. There is **no per-user request log** in production (`query_log`,
-`api_requests`, `usage_log` do not exist).
+## Why — and this is not speculation, the dates line up exactly
 
-So "they signed up and never came back" is **UNKNOWN**, not a finding. It matters, because it changes
-what the email should say: an ask aimed at someone who loved the product and an ask aimed at someone
-who never opened it are different emails. **A CRM cannot fix this. Telemetry can.**
+**W1: "registering makes the product WORSE."** An anonymous visitor saw `buy_below` and `sell_avg`.
+The moment they registered, a free logged-in account saw **less** for the same query — while the only
+CTA on every result page read *"Unlock the rest →"* and pointed at `/register`, a page they had just
+completed.
 
-## The gate
+**The fix landed TODAY** — `demand-intel@5019fa0`, merged `d170987`, **2026-09-01**.
 
-**Emailing users is a standing founder gate** (`APPROVALS.md`). A22 cleared *publishing to social*,
-not writing to individuals. **I have not contacted anyone and will not without the founder saying so.**
+**Our four real users registered on 2026-08-23, 08-26, 08-26 and 08-29 — every one of them before
+the fix.**
 
-Two ways to act, and they are not the same:
+So the full story, end to end, with a number behind each step:
 
-1. **Send to these four by hand.** Warm, specific, and it can go tonight. Drafts below.
-2. **Flip `LIFECYCLE_EMAILS=1`.** One variable. **It only catches FUTURE cohorts** — it will not
-   reach the four above, three of whom expire within days. Do both, or do (1) first.
+1. The free anonymous checker works. **417 anonymous checks** prove people use it and it delivers.
+2. They liked it enough to **create an account and confirm their email** — the strongest intent
+   signal a stranger can give us.
+3. **Registering took the numbers away.** The product they had just chosen got worse the moment they
+   committed to it.
+4. **They never ran another check. Zero, all four.**
+5. Their trials expired, and **nobody ever asked them to pay** — `LIFECYCLE_EMAILS` is still unset in
+   production.
 
-## Drafts — for the founder to send, edit or bin
+**They did not lose interest. We punished them for signing up, and then went quiet.**
 
-Deliberately not a discount and not a countdown. Four people is a conversation, not a campaign, and
-we have never spoken to a user. The most valuable thing they can give us this week is a sentence
-about why they stopped — which is worth more than €19.
+**Tomorrow is the first day in this company's history that registering does not make the product
+worse.**
 
-**To the two expiring tomorrow, and the one already expired:**
+## What to say to them — rewritten, because the old draft was wrong
 
-> Subject: your Resale IQ trial (and a genuine question)
+My earlier draft asked "did it tell you anything useful?" That question is now answered: **they never
+got to find out.** Asking it would look like we had not looked.
+
+> Subject: we broke it, and I fixed it
 >
 > Hi — I'm Bilal, I built Resale IQ.
 >
-> Your trial ends tomorrow and I noticed we never actually spoke. Before it lapses I wanted to ask
-> you something directly, because you're one of the first people who ever signed up.
+> You signed up a few days ago and I owe you an apology, because I've just found out what happened.
 >
-> Did it tell you anything useful? If it didn't, I'd genuinely rather know that than have you drift
-> off quietly — you'd be doing me a bigger favour than paying would.
+> Before you registered, the site showed you a price and a buy-below number. After you registered, a
+> bug took those away and showed you *less* than you'd seen as a stranger. You created an account and
+> the product got worse. I'm not surprised you didn't come back.
 >
-> If it did, Starter is €19/month and keeps the unlimited checks. If you want it, reply and I'll
-> extend your trial another two weeks first, no card, so you can decide properly.
+> That's fixed as of today. Your account now gets everything the anonymous page showed you, and more.
 >
-> Either way, thank you for trying it.
+> Your trial's expired (or is about to) — but you never actually got to use it, so I've reset it.
+> Fourteen days from now, no card, nothing to cancel. If you try one search and it's useless, tell me
+> and I'll stop emailing you. If it's useful, Starter is €19/month.
+>
+> Either way, sorry. You were one of the first people who ever trusted this thing.
 >
 > — Bilal
 
-**Why it is shaped like that:** we have no idea whether they used it (see above), so an email that
-*assumes* they loved it would read as spam to someone who never opened it. Asking the question works
-in both cases. Offering the extension costs nothing at zero revenue and buys the one thing we
-actually lack: a real user's sentence about why the product did not stick.
+**Why this shape:** it is true, it is checkable, and it is the single most persuasive thing we can
+say — we know exactly what went wrong and we fixed it. **This is only sendable because it is honest.**
+Manufacturing this story would be fatal; having actually lived it is an asset.
 
-## Corrections this consultation forced on me
+**Recipients:** users 68, 69, 70, 79. **Not** 80 (our own QA probe) and **not** 47.
 
-**1. The Stripe product-name problem does not exist.** I briefed the roster that products were still
-named "Demand Intel" on live checkout. `monetization` read the **production** key and found
-**"Resale IQ Starter"** and **"Resale IQ Pro"**. The "Demand Intel" name is in the **local sandbox**
-`.env`. **This is the second time in one day I read a sandbox key and reported it as production** —
-the first was declaring Stripe in test mode. Anyone about to "fix" this: do not, it is not broken.
+## The gate
 
-**2. We have 7 users, not 6.** `FUNNEL-BASELINE.md` says 6; production says 7. The artifact and the
-doc disagreed and the artifact wins.
+**Emailing users is a standing founder gate** (`APPROVALS.md`). A22 cleared publishing to social, not
+writing to individuals. **I have contacted nobody.**
 
-**3. `signup_attribution` has 1 row, not 0** — from today's QA signup. My earlier claim that it
-"finally produces data" was loose: what started working today is **UTM tagging on `pageviews`**.
-Attribution itself has one row, and it is ours.
+Resetting those four trials is a **database write against real user accounts** — also the founder's
+call, and it should happen before the email goes out, not after, or the email promises something that
+is not true yet.
 
-**4. Two defects the older docs still list as open are already fixed** — Portfolio P&L gating
-(`ae6c708`) and the evidence-floor gate on `market_avg_price` (`6c3552d`), both confirmed running in
-production. A session spent "fixing" either would be wasted.
+## What this reframes
 
-## The CRM question, answered
+- **The `/register` funnel is not our worst problem. Activation is.** People sign up. They then hit a
+  product that had been made worse by signing up.
+- **A CRM was never the answer** — both `product-manager` and `monetization` said so independently,
+  and this is why: the problem was never tracking these four people. It was what happened to them.
+- **`LIFECYCLE_EMAILS=1` is worth more tomorrow than it was yesterday**, because for the first time
+  the product a trial email points at is not broken.
 
-**Both `product-manager` and `monetization` said no, independently.** A CRM manages relationships
-with customers; we have four warm trials and zero customers. RICE makes it mechanical rather than
-rhetorical: **CRM's reach is hard-capped at 7 people**, while the funnel fix, lifecycle email and the
-blog are each bounded by 28 visitors/day or every future trial — a strictly larger ceiling.
+## Corrections still standing from the earlier version
 
-**Build the cheap version anyway, because it costs a day:** production already has **`prospects`
-(16 columns) and `customer_insights` (5 columns)** tables — built, empty, unused. That is closer to
-"CRM for the first ten" than anything worth designing. Notion is connected to the founder's own
-session, so a Notion database fed from production is the shortest path if he wants a view he can
-open on a phone. **Note:** an unattended agent cannot reach Notion the way this session can — it
-would need a REST token, which is a founder-only step.
-
-## What NOT to do this week
-
-- **Do not expect the fixed `/register` page to produce a customer by itself.** At 3 people/day
-  reaching it, tomorrow being the first unbroken day buys a cleaner *measurement*, not volume.
-  Closing the visitor gap is a multi-month problem and saying so is worth more than a plan that
-  quietly assumes Friday.
-- **Do not change the price.** No willingness-to-pay data exists at any price. Change the pitch.
-- **Do not build the CRM system.** Build the tracker.
+- **Stripe products are correctly named** "Resale IQ Starter"/"Resale IQ Pro" in production. The
+  "Demand Intel" name is in the **local sandbox** `.env`. That was my second sandbox-key misread in
+  one day.
+- **7 users, not 6.**
+- Portfolio P&L gating (`ae6c708`) and the `market_avg_price` evidence floor (`6c3552d`) are already
+  fixed in production, whatever the older docs say.
