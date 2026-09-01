@@ -4,8 +4,8 @@
  * a mean, a snapshot, or a constructed 30% gap.
  */
 export const METRIC = {
-  avgSold: "Avg sold",
-  medianSold: "Median sold",
+  avgSold: "Avg at exit",
+  medianSold: "Median at exit",
   buyBelow: "Buy-below",
   sellThrough: "Sell-through",
   targetNet: "Target net",

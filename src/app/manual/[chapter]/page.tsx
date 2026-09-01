@@ -155,8 +155,8 @@ export default async function ChapterPage(
               Live, while you read this
             </div>
             <div style={{ fontSize: 14.5, lineHeight: 1.7, color: "#c3cde0" }}>
-              The {market.brandCount} brands Resale IQ tracks sold about{" "}
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items</strong> in the last
+              The {market.brandCount} brands Resale IQ tracks had about{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items leave the shelf</strong> in the last
               seven days across Vinted ES, FR, DE, IT and PT. Every figure in this manual&apos;s data pages comes
               from that same feed —{" "}
               <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>see the full market data</Link>.

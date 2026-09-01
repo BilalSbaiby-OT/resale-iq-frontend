@@ -20,7 +20,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         h2: "The opening price",
         body: [
           "Open slightly above your target, not dramatically above it. A modest premium leaves room to accept an offer and lets a price drop register as a genuine reduction later. A large premium gets you filtered out of the searches where buyers set a maximum, which means nobody sees the listing at all and you learn nothing from the silence.",
-          "Anchor the number to sold prices for the same model in similar condition. Where the item is at the edge of the distribution — worn, edge size, off-season — start closer to your floor, because the extra premium is not going to be paid and all it buys you is weeks of invisibility.",
+          "Anchor the number to the asking price at departure for the same model in similar condition. Where the item is at the edge of the distribution — worn, edge size, off-season — start closer to your floor, because the extra premium is not going to be paid and all it buys you is weeks of invisibility.",
         ],
         callout: {
           label: "Price-filter awareness",

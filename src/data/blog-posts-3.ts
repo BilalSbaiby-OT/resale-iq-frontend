@@ -163,13 +163,13 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Pricing without comparables",
         p: [
-          "True one-offs have thin comparable data, so anchor on the closest sold examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price.",
+          "True one-offs have thin comparable data, so anchor on the closest departed examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price.",
         ],
       },
     ],
     faq: [
       { q: "How do I know if vintage clothing is valuable?", a: "Check the tag for era markers (logo style, country of manufacture, care-label format), then the construction — single stitching, chain-stitched seams and metal zips suggest older production. Condition then swings the value more than anything else." },
-      { q: "How do I price vintage clothing to sell?", a: "Anchor on the closest recently-sold comparable items rather than asking prices, and adjust hard for condition. For rare one-offs expect a longer sale window and price for patience." },
+      { q: "How do I price vintage clothing to sell?", a: "Anchor on the closest recently-departed comparable items rather than active asking prices, and adjust hard for condition. For rare one-offs expect a longer sale window and price for patience." },
     ],
   },
   {
@@ -439,25 +439,25 @@ export const POSTS_3: BlogPost[] = [
     slug: "como-poner-precio-en-vinted",
     title: "Cómo poner precio en Vinted sin regalar tu margen",
     description:
-      "El método que usan los revendedores para fijar precio en Vinted: parte del precio real de venta, no del de tienda, y calcula tu precio máximo de compra.",
+      "El método que usan los revendedores para fijar precio en Vinted: parte del precio real al desaparecer el anuncio, no del de tienda, y calcula tu precio máximo de compra.",
     date: "2026-08-31",
     category: "Precios",
     readMins: 6,
     intro:
-      "La mayoría de vendedores en Vinted pone precio a ojo, y el resultado es siempre uno de dos: vendes demasiado barato y regalas margen, o pones un precio alto y el artículo se queda meses en el armario. El método que funciona no tiene misterio — se empieza por lo que el artículo se vende de verdad, y se trabaja hacia atrás.",
+      "La mayoría de vendedores en Vinted pone precio a ojo, y el resultado es siempre uno de dos: vendes demasiado barato y regalas margen, o pones un precio alto y el artículo se queda meses en el armario. El método que funciona no tiene misterio — se empieza por el precio al que el anuncio desaparece de verdad, y se trabaja hacia atrás.",
     sections: [
       {
         h: "Olvida el precio de tienda",
         p: [
-          "El precio original no dice casi nada sobre lo que puedes pedir hoy. Lo que importa es a cuánto se vende ese modelo concreto, en ese estado concreto, en tu mercado. Una sudadera de 90 € en tienda puede moverse a 25 €, y otra de 40 € puede irse en 35 € si la demanda acompaña.",
-          "Mira ventas recientes, no anuncios activos. Un anuncio activo te dice lo que alguien espera cobrar; una venta te dice lo que alguien pagó. Es la diferencia entre una opinión y un dato. Publicamos [los precios medios de venta por marca](/data) gratis, actualizados a diario.",
+          "El precio original no dice casi nada sobre lo que puedes pedir hoy. Lo que importa es a qué precio desaparecen los anuncios de ese modelo concreto, en ese estado concreto, en tu mercado. Una sudadera de 90 € en tienda puede moverse a 25 €, y otra de 40 € puede irse en 35 € si la demanda acompaña.",
+          "Mira anuncios que han desaparecido recientemente, no anuncios activos. Un anuncio activo te dice lo que alguien espera cobrar; uno que desaparece te dice el precio de salida — no vemos el pago (Vinted no lo publica), pero es la señal más honesta que tenemos, más cercana a lo que el mercado realmente paga que un precio pedido. Publicamos [los precios medios al desaparecer el anuncio por marca](/data) gratis, actualizados a diario.",
         ],
       },
       {
         h: "Tu precio máximo de compra",
         p: [
-          "Si compras para revender, el número que decide si ganas dinero no es el precio de venta — es el máximo que puedes pagar y seguir teniendo margen.",
-          "La regla: precio máximo = precio medio de venta × 0,95 (la deducción del 5 % que modelamos para Vinted) × 0,70, que apunta a un margen aproximado del 30 %. Sustituye ese 5 % por tu comisión real si la tuya es distinta. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
+          "Si compras para revender, el número que decide si ganas dinero no es el precio al desaparecer el anuncio — es el máximo que puedes pagar y seguir teniendo margen.",
+          "La regla: precio máximo = precio medio al desaparecer el anuncio × 0,95 (la deducción del 5 % que modelamos para Vinted) × 0,70, que apunta a un margen aproximado del 30 %. Sustituye ese 5 % por tu comisión real si la tuya es distinta. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
           "Ese cálculo lo hace [la calculadora de beneficio](/tools/vinted-profit-calculator), y [la metodología](/methodology) explica cada paso y, más útil todavía, lo que los datos no pueden decirte.",
         ],
       },
@@ -473,13 +473,13 @@ export const POSTS_3: BlogPost[] = [
         h: "Qué miden esas cifras, y qué no",
         p: [
           "Seguimos " + TRACKED + " anuncios en los cinco mercados principales de Vinted: España, Francia, Alemania, Italia y Portugal.",
-          "Las ventas semanales cuentan sólo los anuncios que vimos pasar de activos a vendidos durante esa semana. Es un mínimo, no el volumen total de Vinted — los artículos que ya estaban vendidos la primera vez que los vimos no entran en esa cifra. Y son el agregado de los cinco mercados, no de España en solitario. Lo decimos porque un número sin su límite es un número que engaña.",
+          "Las bajas semanales cuentan sólo los anuncios que vimos pasar de activos a desaparecidos durante esa semana — no vemos un recibo, y una desaparición también puede ser una retirada o una reserva, no sólo una venta. Es un mínimo, no el volumen total de Vinted — los artículos que ya habían desaparecido la primera vez que los vimos no entran en esa cifra. Y son el agregado de los cinco mercados, no de España en solitario. Lo decimos porque un número sin su límite es un número que engaña.",
         ],
       },
     ],
     faq: [
-      { q: "¿Cómo pongo precio a un artículo en Vinted?", a: "Parte del precio medio de las ventas recientes de ese modelo exacto y ese estado, y ponte ligeramente por debajo para vender antes. No uses el precio de tienda: en reventa sólo cuenta lo que el mercado paga hoy." },
-      { q: "¿Cuál es el precio máximo que debo pagar para revender con margen?", a: "Precio medio de venta × 0,95 (la deducción de plataforma que modelamos para Vinted) × 0,70, lo que apunta a un margen del 30 % aproximado. Ajusta el 0,95 a tu comisión real. Por encima de ese número dejas de comprar con margen y empiezas a especular." },
+      { q: "¿Cómo pongo precio a un artículo en Vinted?", a: "Parte del precio medio al que desaparecen los anuncios recientes de ese modelo exacto y ese estado, y ponte ligeramente por debajo para vender antes. No uses el precio de tienda: en reventa sólo cuenta lo que el mercado paga hoy." },
+      { q: "¿Cuál es el precio máximo que debo pagar para revender con margen?", a: "Precio medio al desaparecer el anuncio × 0,95 (la deducción de plataforma que modelamos para Vinted) × 0,70, lo que apunta a un margen del 30 % aproximado. Ajusta el 0,95 a tu comisión real. Por encima de ese número dejas de comprar con margen y empiezas a especular." },
       { q: "¿Es mejor vender rápido o esperar a sacar más?", a: "Para casi todo, vender rápido. Un artículo que rota en nueve días a 40 € rinde más al año que uno que tarda setenta a 50 €, porque el dinero vuelve antes a comprar el siguiente. Esperar sólo compensa en piezas realmente escasas." },
       { q: "¿Qué marcas se venden más rápido en Vinted?", a: "Las zapatillas reconocibles y los básicos de marca dominan el volumen; las marcas de lujo mueven muchas menos unidades a precios mucho más altos. Cuál te conviene depende de cuánto tiempo puedes tener el dinero parado. Las cifras por marca se actualizan a diario en la página de datos de mercado." },
     ],

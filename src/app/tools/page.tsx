@@ -25,7 +25,7 @@ export default async function ToolsIndex() {
         <Link href="/" style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 28, fontWeight: 800, color: "var(--color-text-primary)", margin: "16px 0 10px", letterSpacing: "-0.4px" }}>Check the market before you buy</h1>
         <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.65, marginBottom: 20, maxWidth: 620 }}>
-          Type the item in your hand. You get BUY, WATCH or SKIP, the most you should pay, and how many watched sales sit behind the number.
+          Type the item in your hand. You get BUY, WATCH or SKIP, the most you should pay, and how many watched departures sit behind the number.
           Sell-through and sizes stay on a plan. Null is not zero.
         </p>
 

@@ -86,31 +86,31 @@ export const POSTS: BlogPost[] = [
       "Most Vinted sellers price by feel, then either undersell (leaving money on the table) or overprice (and watch it sit). The fix is to anchor to what the item actually sells for, then work backwards.",
     sections: [
       {
-        h: "Start from the real sale price, not the retail price",
+        h: "Start from the real departure price, not the retail price",
         p: [
-          "Retail price is almost irrelevant on resale. What matters is the current typical sale price for that exact model, in that condition, in your market. Our [weekly Vinted market data](/data) publishes those averages by brand, free.",
-          "Look at recently sold listings (not active ones — active listings show hopes, not sales). The median sold price is your anchor, and the [free Vinted price checker](/tools/vinted-price-checker) works it out across five markets for you.",
+          "Retail price is almost irrelevant on resale. What matters is the current typical asking price for that exact model, in that condition, in your market, at the moment comparable listings left the shelf. Our [weekly Vinted market data](/data) publishes those averages by brand, free.",
+          "Look at listings that recently left the shelf (not active ones — active listings show hopes, not outcomes). The median departure price is your anchor — we do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price — and the [free Vinted price checker](/tools/vinted-price-checker) works it out across five markets for you.",
         ],
       },
       {
         h: "Work backwards to your buy-below price",
         p: [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
-          "A common rule: buy-below = average sale price × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
+          "A common rule: buy-below = average asking price at departure × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
       },
       {
         h: "Price to sell in a reasonable window",
         p: [
-          "Pricing slightly below the median sold price sells faster and frees your cash to reinvest. Pricing above it can work for rare items but slows everything down.",
-          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item sells — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually sells per week](/flip).",
+          "Pricing slightly below the median departure price sells faster and frees your cash to reinvest. Pricing above it can work for rare items but slows everything down.",
+          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item leaves the shelf — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually moves per week](/flip).",
         ],
       },
     ],
     faq: [
-      { q: "How should I price items on Vinted?", a: "Anchor to the median recently-sold price for that exact model and condition, then price slightly below it to sell faster. Don't price off retail — resale value is what matters." },
-      { q: "What is a buy-below price?", a: "The maximum you should pay when sourcing an item to resell it profitably. A common formula is average sale price × 0.95 (after fees) × 0.70, which targets about a 30% margin." },
-      { q: "Should I price high and negotiate, or price to sell?", a: "For most items, pricing near or slightly below the median sold price sells faster and keeps your cash moving. Hold-for-more only makes sense for genuinely scarce items." },
+      { q: "How should I price items on Vinted?", a: "Anchor to the median recently-departed asking price for that exact model and condition, then price slightly below it to sell faster. Don't price off retail — resale value is what matters." },
+      { q: "What is a buy-below price?", a: "The maximum you should pay when sourcing an item to resell it profitably. A common formula is average asking price at departure × 0.95 (after fees) × 0.70, which targets about a 30% margin." },
+      { q: "Should I price high and negotiate, or price to sell?", a: "For most items, pricing near or slightly below the median departure price sells faster and keeps your cash moving. Hold-for-more only makes sense for genuinely scarce items." },
     ],
   },
   {

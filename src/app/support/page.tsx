@@ -19,7 +19,7 @@ const SUPPORT_EMAIL = "support@resaleiq.dev"
 // "${tracked}" to the customer — which is what check:tracked:built now catches.
 const faq = (tracked: string): [string, string][] => [
   ["What is Resale IQ?",
-   "A market-analytics tool for secondhand resellers. We continuously track live and sold listings across Vinted's five main EU markets and turn them into signals to help you decide what to buy, at what price, and in which sizes."],
+   "A market-analytics tool for secondhand resellers. We continuously track live listings across Vinted's five main EU markets, and which ones leave the shelf, and turn them into signals to help you decide what to buy, at what price, and in which sizes."],
   ["Do you guarantee I'll make money?",
    "No. Every signal, score and verdict is informational and probabilistic, based on public market data. Outcomes depend on what you pay, condition, timing and factors outside our control. It's a decision tool, not financial advice or a guarantee."],
   ["What's the difference between Starter and Pro?",
@@ -33,7 +33,7 @@ const faq = (tracked: string): [string, string][] => [
   ["Can I get my data / delete my account?",
    "Yes. From your account page you can export all your data (GDPR) as JSON, or permanently delete your account and its data."],
   ["Where does the data come from?",
-   `Public live and sold listings across Vinted ES, FR, DE, IT and PT — ${tracked} items, collected about every 30 minutes and recomputed roughly every 2 hours. The figures shown are live aggregates, not estimates.`],
+   `Public live Vinted listings across ES, FR, DE, IT and PT, plus which ones leave the shelf — ${tracked} items, collected about every 30 minutes and recomputed roughly every 2 hours. The figures shown are live aggregates, not estimates.`],
   ["Is my payment secure?",
    "Payments are handled entirely by Stripe. We never see or store your card details."],
 ]

@@ -141,8 +141,8 @@ function DealsContent() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { label: "Buy Below", value: eur(d.max_buy_price), color: "text-emerald-400" },
-                  { label: "Avg sold", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
-                  { label: "Target net", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400", title: "Buy-below is 70% of the fee-adjusted sold price. This is that gap, not a forecast." },
+                  { label: "Avg at exit", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
+                  { label: "Target net", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400", title: "Buy-below is 70% of the fee-adjusted asking price at departure. This is that gap, not a forecast." },
                   d.str_pct != null
                     ? { label: "Sell-through", value: pct(d.str_pct), color: "" }
                     : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },

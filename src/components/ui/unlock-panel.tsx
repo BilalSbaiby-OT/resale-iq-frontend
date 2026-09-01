@@ -41,8 +41,8 @@ export function UnlockPanel({
           The call is free. The numbers need an account.
         </Title>
         <Body>
-          You just saw the verdict on a real item, computed from live sold listings.
-          A free account unlocks the buy-below price, typical sale price, sell-through
+          You just saw the verdict on a real item, computed from watched departures.
+          A free account unlocks the buy-below price, typical exit price, sell-through
           and best sizes on {limit ?? 10} items a month after a 7-day trial — no card.
         </Body>
         <Row>

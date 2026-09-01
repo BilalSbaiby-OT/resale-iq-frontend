@@ -48,7 +48,7 @@ export async function generateMetadata(
   if (!r) return { title: "Not found — Resale IQ" }
   const title = `Are ${r.b.brand} ${r.category} worth reselling on Vinted?`
   const description =
-    `${r.b.brand} ${r.category} resale data from ${await listingsTrackedLabel()} Vinted listings across 5 EU markets — weekly sales volume, average sale price and how to judge whether to buy.`
+    `${r.b.brand} ${r.category} resale data from ${await listingsTrackedLabel()} Vinted listings across 5 EU markets — weekly watched departures, average asking price at departure and how to judge whether to buy.`
   return {
     title, description,
     alternates: { canonical: `/flip/${r.b.slug}/${category}` },
@@ -80,8 +80,8 @@ export default async function BrandCategoryPage(
   const share = catSold && brandSold ? Math.round((catSold / brandSold) * 100) : null
 
   const answer = catSold
-    ? `${b.brand} ${catName} sell roughly ${catSold.toLocaleString()} units a week across the five main EU Vinted markets` +
-      (avgPrice ? `, with ${b.brand} averaging about €${avgPrice} per sale` : "") +
+    ? `${b.brand} ${catName} see roughly ${catSold.toLocaleString()} watched departures a week across the five main EU Vinted markets` +
+      (avgPrice ? `, with ${b.brand} averaging about €${avgPrice} in asking price at departure` : "") +
       `. That is real, current demand — whether an individual item is worth buying depends on its condition, size and the price you pay.`
     : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Live weekly volume is not on this snapshot — check a specific model rather than trusting a frozen category average.`
 
@@ -93,8 +93,8 @@ export default async function BrandCategoryPage(
           acceptedAnswer: { "@type": "Answer", text: answer } },
         { "@type": "Question", name: `How much do ${b.brand} ${catName} sell for on Vinted?`,
           acceptedAnswer: { "@type": "Answer", text: avgPrice
-            ? `${b.brand} items average around €${avgPrice} per sale across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
-            : `Prices vary by model, condition and size. Check recently sold listings rather than active ones, since active listings show asking prices, not real sale prices.` } },
+            ? `${b.brand} items average around €${avgPrice} in asking price at the moment listings left the shelf, across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
+            : `Prices vary by model, condition and size. Check listings that recently left the shelf rather than active ones, since active listings show hopeful asking prices, not the price at departure.` } },
       ],
     },
     {
@@ -130,8 +130,8 @@ export default async function BrandCategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 26 }}>
           {[
-            [fmtCount(catSold), `${catName} sold / week`],
-            [fmtEur(avgPrice), `avg ${b.brand} sale price`],
+            [fmtCount(catSold), `${catName} left shelf / week`],
+            [fmtEur(avgPrice), `avg ${b.brand} price at exit`],
             [share != null ? `${share}%` : "—", `of ${b.brand} volume`],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
@@ -157,7 +157,7 @@ export default async function BrandCategoryPage(
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>How to check before you buy</h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             Look up the exact model rather than the category. Resale IQ returns a BUY / WATCH / SKIP verdict with the buy-below
-            price, typical sale price, sales momentum and the sizes that sell fastest — computed from {tracked} listings across
+            price, typical price at departure, departure momentum and the sizes that move fastest — computed from {tracked} listings across
             Spain, France, Germany, Italy and Portugal.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>

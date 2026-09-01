@@ -23,13 +23,24 @@ sample whenever that sample has ≥ `MIN_COMPARABLES` (3), so a model with 5 com
 30 is recorded at `comparable_n = 5` and is refused a price, with the 11 already computed two lines
 away and thrown out. Changing that one constant to `MIN_VERDICT_COMPARABLES` takes supply coverage
 from **43 % to 62 %** (`n = 100` models) and demand-side `band_coverage` from **62.8 % to 81.1 %**
-on the all-time answered population (`n = 180`) — and it does so while the median evidence behind a
-printed band goes **up**, from 12 comps to 26. Lowering the threshold from 8 to 5 reaches almost the
-same coverage (80.0 %) with median evidence going **down**, from 12 to 10. Those two options are
-numerically similar and morally opposite. **The distribution does not justify lowering the
-threshold, and this document recommends against it.** It does not reach 80 % on the last-7-days
-window either — that window has a hard ceiling of **65.9 %** (`n = 44`) because 15 of 44 searches
-match nothing at all, and that is a separate, more expensive problem.
+on the all-time answered population (`n = 180`).
+
+> **Correction, 2026-09-01 (`data-scientist`, `docs/company/RELEASE-A13-GATE.md`):** this paragraph
+> originally claimed the median evidence behind a printed band goes "12 comps to 26." **That does
+> not reproduce.** Re-measured against production under seven population definitions, none returns
+> 26; on this section's own definition (demand-weighted, all answered searches, `n = 180`) it is
+> **12 → 13**, and supply-weighted it **falls**, 14 → 12. It is also arithmetically unreachable — the
+> 22 models this change admits have a median `comparable_n` of 10, and adding them to a 113-search
+> population with median 12 cannot produce 26. A widening that admits weaker-but-sufficient evidence
+> pulls the median down; that is what a median does. **The real argument for widening the window over
+> lowering the threshold is the floor, not the median**: widening crosses the `≥ 8` floor by finding
+> more evidence for a model that already sat close (e.g. a model at 5 comps on the 7-day read clears
+> 11 on 30 days), while lowering the threshold to 5 prints prices computed from as few as 5
+> comparables. Same coverage number, opposite mechanism. **The distribution does not justify lowering
+> the threshold, and this document recommends against it** — on the floor argument, not the retracted
+> median claim. It does not reach 80 % on the last-7-days window either — that window has a hard
+> ceiling of **65.9 %** (`n = 44`) because 15 of 44 searches match nothing at all, and that is a
+> separate, more expensive problem.
 
 ---
 
@@ -614,19 +625,31 @@ that can is **the evidence behind a printed band**:
 
 | arm | bands printed | min `n` | p25 | **median `n` behind a band** | mean |
 |---|---:|---:|---:|---:|---:|
-| **A — today: 7d window, threshold 8** | 113 | 8 | 10 | **12** | 33.9 |
-| **B — widened window, threshold 8** | **146** | 8 | 16 | **26** ⬆ | 64.9 |
-| **C — 7d window, threshold 5** | 144 | **5** | 8 | **10** ⬇ | 27.9 |
+| **A — today: 7d window, threshold 8** | 113 | 8 | — | **12** | — |
+| **B — widened window, threshold 8** | **146** | 8 | — | **13** (corrected) | — |
+| **C — 7d window, threshold 5** | 144 | **5** | — | UNKNOWN (unverified) | — |
 
-Arms B and C land one percentage point apart on `band_coverage` (81.1 % vs 80.0 %) and are
-**opposite in every way that matters**:
+> **Correction, 2026-09-01 (`data-scientist`, `docs/company/RELEASE-A13-GATE.md`):** this table
+> originally read median `n` = **26** for arm B and **10** for arm C, with p25/mean columns derived
+> from the same computation. **26 does not reproduce under any of seven re-measured population
+> definitions.** Re-run against production on this section's own definition (demand-weighted, all
+> answered searches, `n = 180`): arm A (before) = **12**, arm B (after) = **13**. Supply-weighted, the
+> median **falls**, 14 → 12. p25 and mean are struck rather than corrected — they were not
+> independently re-measured and should not be cited until they are. Arm C's "10" is likewise
+> unverified and shown as UNKNOWN rather than repeated. **26 was also arithmetically unreachable**:
+> the 22 models this widening admits have a median `comparable_n` of 10, and adding a 33-search
+> population with median ≈10 to a 113-search population with median 12 cannot produce 26 — a
+> widening that admits weaker-but-sufficient evidence pulls the median down, not up.
 
-- **B prints 33 more bands and doubles the median evidence behind every band it prints** (12 → 26).
-  It also raises the floor of the *worst* band we print, because the models that cross are crossing
-  with 8–19 real comps rather than sitting at 7.
-- **C prints 31 more bands by lowering the floor to 5 comps** and drags the median down from 12 to
-  10. Every extra band is bought by weakening the promise, and it weakens the promise on the bands
-  we were already printing correctly.
+Arms B and C land one percentage point apart on `band_coverage` (81.1 % vs 80.0 %). The honest
+comparison is not the retracted median, it is the floor each arm crosses on:
+
+- **B prints 33 more bands by widening the window, not lowering the bar** — the models that cross do
+  so because more of their existing sales history (30 days, not 7) becomes visible, e.g. a model
+  sitting at 5 comps on the 7-day read clearing 11 on 30 days. The floor stays `≥ 8` throughout.
+- **C prints 31 more bands by lowering the floor itself to 5 comps** — every extra band it prints is
+  computed from as few as 5 comparables, weakening the promise on bands we were already printing
+  correctly, not just the new ones.
 
 ### 4.3 The recommendation on the threshold, stated plainly
 
@@ -667,7 +690,9 @@ plus widening `thirty_days_ago` for the *price* pool to 14 days (see risk below)
 - demand `band_coverage`, last 7 days: **43.2 % → 65.9 %**, +22.7 pp, `n = 44` — **the 80 % target
   is not reachable on this window**, ceiling 65.9 %
 - 19 of the 57 models at 3–7 cross; 29 of 57 thin searches convert
-- counter (evidence behind a band): median `comparable_n` **12 → 26** — improves
+- counter (evidence behind a band): median `comparable_n` **12 → 13** — improves slightly
+  (corrected 2026-09-01; an earlier reading of 12 → 26 does not reproduce under any of seven
+  re-measured population definitions and was arithmetically unreachable — see §4.2)
 
 **(b) Cost**
 One line in one function, plus the label. No migration, no schema change, no new dependency, no
@@ -819,8 +844,10 @@ constants would be hiding the actual ceiling.
 ### Explicitly NOT recommended
 
 **Lowering `MIN_VERDICT_COMPARABLES` from 8 to 5 or 6.** It reaches 80.0 % on `n = 180` — one point
-below I-1 — and it gets there by dropping the median evidence behind a printed band from 12 to 10
-and the floor from 8 to 5. §4.1 shows the pile of models at 3–5 is a left-truncation artefact of the
+below I-1 — and it gets there by dropping the floor itself from 8 to 5, printing prices off as few
+as 5 comparables (the "median evidence 12 → 10" figure previously cited here was not independently
+re-verified when the paired "12 → 26" claim for I-1 was struck 2026-09-01 and should not be cited
+until it is — see §4.2). §4.1 shows the pile of models at 3–5 is a left-truncation artefact of the
 `MIN_COMPARABLES = 3` admission gate, and §2.3 shows those same models carry 8–19 comps once the
 right window is used. **The distribution does not justify it.** It is also a founder gate (OS §0.10,
 "KPI definition change") because `n ≥ 8` is written into the North Star, `/methodology` and the four

@@ -25,7 +25,7 @@ const I18N = {
     matched: "matched",
     listedOver: (ask, over) => `listed at ${ask} — ${over} over`,
     listedOk: (ask) => `listed at ${ask} — within your price`,
-    median: "avg sold",
+    median: "avg exit",
     n: "n",
     how: "how this is calculated",
     bought: "I bought at €",
@@ -48,7 +48,7 @@ const I18N = {
     matched: "associé",
     listedOver: (ask, over) => `affiché ${ask} — ${over} au-dessus`,
     listedOk: (ask) => `affiché ${ask} — dans votre prix`,
-    median: "moy. vendue",
+    median: "moy. sortie",
     n: "n",
     how: "comment c'est calculé",
     bought: "J'ai acheté à €",
@@ -71,7 +71,7 @@ const I18N = {
     matched: "asociado",
     listedOver: (ask, over) => `puesto a ${ask} — ${over} por encima`,
     listedOk: (ask) => `puesto a ${ask} — dentro de tu precio`,
-    median: "media vendida",
+    median: "media salida",
     n: "n",
     how: "cómo se calcula",
     bought: "Lo compré a €",
@@ -94,7 +94,7 @@ const I18N = {
     matched: "zugeordnet",
     listedOver: (ask, over) => `inseriert ${ask} — ${over} darüber`,
     listedOk: (ask) => `inseriert ${ask} — innerhalb deines Preises`,
-    median: "Ø verkauft",
+    median: "Ø Abgang",
     n: "n",
     how: "so wird gerechnet",
     bought: "Gekauft für €",
@@ -117,7 +117,7 @@ const I18N = {
     matched: "associato",
     listedOver: (ask, over) => `in vendita a ${ask} — ${over} in più`,
     listedOk: (ask) => `in vendita a ${ask} — nel tuo prezzo`,
-    median: "media venduta",
+    median: "media uscita",
     n: "n",
     how: "come si calcola",
     bought: "L'ho comprato a €",
@@ -140,7 +140,7 @@ const I18N = {
     matched: "associado",
     listedOver: (ask, over) => `anunciado a ${ask} — ${over} acima`,
     listedOk: (ask) => `anunciado a ${ask} — dentro do teu preço`,
-    median: "média vendida",
+    median: "média saída",
     n: "n",
     how: "como se calcula",
     bought: "Comprei a €",
@@ -241,7 +241,7 @@ function paint(d, askingPrice) {
   const n = d.n ?? d.sold_7d ?? null;
   const conf = (d.confidence || "").toUpperCase();
   const note = d.confidence_note
-    || (conf === "LOW" && n != null ? `Only ${n} comparable sold items` : "");
+    || (conf === "LOW" && n != null ? `Only ${n} comparable departures` : "");
   const why = Array.isArray(d.reasons) && d.reasons[0] ? d.reasons[0] : "";
 
   if (collapsed) {

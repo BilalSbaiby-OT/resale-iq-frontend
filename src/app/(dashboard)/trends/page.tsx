@@ -23,7 +23,7 @@ export default function TrendsPage() {
       <MomentumWarmupNotice warmingUp={data?.momentum_warming_up} />
       <div className="mb-5">
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl mb-4">
-          <div className="px-4 py-3 border-b border-[#1e2535] font-bold text-[13px]">Top Categories by 7-Day Sales Volume</div>
+          <div className="px-4 py-3 border-b border-[#1e2535] font-bold text-[13px]">Top Categories by 7-Day Departure Volume</div>
           <div className="p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {loading ? Array(5).fill(0).map((_, i) => <div key={i} className="h-20 bg-[#1a2030] rounded-xl animate-pulse" />) :
               data?.categories?.slice(0, 10).map(c => (

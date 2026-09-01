@@ -308,10 +308,18 @@ replication rather than a model. **Recommend the 14-day window, not 30**: identi
 half the future staleness, because `sold_observed = 1` only begins 2026-08-21 and the corpus is
 11 days deep.
 
-**It also raises honesty, which is the part that matters.** Median `comparable_n` behind a printed
-band goes **12 → 26**. Cutting the threshold from 8 to 5 would reach a similar coverage number and
-take that median **12 → 10** — same headline, opposite direction on the thing the number is for.
-**Do not cut the threshold. 8 is right.**
+**It also raises honesty, which is the part that matters — but not by the figure first recorded
+here.** This entry originally read "median `comparable_n` behind a printed band goes 12 → 26." **That
+does not reproduce.** Re-measured against production 2026-09-01 by `data-scientist`
+(`docs/company/RELEASE-A13-GATE.md`) under seven population definitions: on this entry's own
+definition (demand-weighted, all answered searches, n=180) it is **12 → 13**; supply-weighted it
+**falls**, 14 → 12. It is also arithmetically unreachable — the 22 models this change admits have a
+median `comparable_n` of 10, so adding them to a 113-search population with median 12 cannot produce
+26. **The right argument is the floor, not the median:** widening the window crosses the `≥ 8` floor
+by finding evidence a model already had (e.g. a model at 5 comps on the 7-day read clears 11 on 30
+days), whereas cutting the threshold to 5 prints prices computed from as few as 5 comparables. Same
+coverage number, opposite mechanism.
+**Do not cut the threshold. 8 is right — on the floor argument.**
 
 **Two flags from the same analysis:**
 
@@ -529,12 +537,25 @@ primary. That is a real defect in the card I was issued, and I would rather say 
       | arm | bands printed | median evidence |
       |---|---:|---:|
       | today | 113 | **12** |
-      | A13 (widen the window) | 146 | **26** ⬆ |
-      | lower threshold to 5 | 144 | **10** ⬇ |
+      | A13 (widen the window) | 146 | **13** (corrected) |
+      | lower threshold to 5 | 144 | UNKNOWN (unverified) |
 
-      It is the only counter that moves the RIGHT way for the honest intervention and the WRONG way
-      for the dishonest one that lands on an almost identical coverage number. That is precisely
-      what §0.4 asks for. `band_coverage` is about to move 19pp with no working honesty counter at all.
+      > **Correction, 2026-09-01 (`data-scientist`, `docs/company/RELEASE-A13-GATE.md`):** this table
+      > originally read **26** for the A13 row and **10** for the lower-threshold row. **26 does not
+      > reproduce** under any of seven re-measured population definitions against production; on this
+      > table's own definition it is **12 → 13**, and supply-weighted the median **falls**, 14 → 12.
+      > It was also arithmetically unreachable (A13's 22 newly-admitted models have median
+      > `comparable_n` = 10; adding them to a 113-search population with median 12 cannot produce 26).
+      > **`band_evidence_p50` therefore does NOT move the right way for A13** — it is a descriptive
+      > statistic that falls under an honest widening, and per the corrected KPI card it must never be
+      > registered as A13's counter (superseded below, A8-3 revision). The lower-threshold row's "10"
+      > was not independently re-verified and is shown as UNKNOWN rather than repeated.
+
+      **This paragraph's original claim — that the counter moves the RIGHT way for A13 and the WRONG
+      way for the threshold-5 alternative — is retracted along with the numbers it was built on.**
+      `band_coverage` moved 19pp with no working honesty counter validated behind it; the real
+      argument for A13 over the threshold cut is the evidence **floor** each one crosses or lowers,
+      not this median (see A13 entry above and `docs/audit/COVERAGE.md` §4.2).
 
 - [ ] Park **`band_asking_error_p50`** as a named candidate — median |published − outcome|/outcome
       over a **strictly disjoint** forward window, median not mean, the word *asking* permanent, never
@@ -589,7 +610,10 @@ the thread is thinner than the comment implies: `db/queries.py:2062` gates `max_
 **Explicit "do NOT" list:** do not report any successor against a sold price; do not strike MAPE
 without adopting `band_evidence_p50`; do not remove the demand panel; do not apply the floor to one
 metric only; do not put definitions and A13 in one PR; **do not touch `MIN_VERDICT_COMPARABLES`** —
-threshold 5 reaches 80.0% vs A13's 81.1% by dropping median evidence 12→10.
+threshold 5 reaches 80.0% vs A13's 81.1% by dropping the floor to 5 comparables (not, as recorded
+here 2026-08-31, "by dropping median evidence 12→10" — that figure was never independently verified
+and the paired 12→26 claim it was built alongside does not reproduce; struck 2026-09-01, see A13
+entry above).
 
 ---
 
@@ -735,7 +759,7 @@ not.
 | Decision | What shipped |
 |---|---|
 | **A8-1 strike MAPE** | Struck in `METRICS.md`. Nothing orphaned — it never had a `.sql` and never produced a reading |
-| **the counter it exposed** | `band_evidence_p50` — median `comparable_n` behind a printed band. The only counter found that moves the **right** way for the honest fix (12→26) and the **wrong** way for the dishonest one (12→10), when the two land within one point on coverage |
+| **the counter it exposed** | `band_evidence_p50` — median `comparable_n` behind a printed band. Recorded here as the counter that moves the **right** way for the honest fix (12→26) and **wrong** for the dishonest one (12→10); **retracted 2026-09-01**: re-measured against production, the honest fix (A13) reads **12→13** on this definition and **14→12 (falls)** supply-weighted — `band_evidence_p50` in fact moves the wrong way under an honest widening and must NOT be registered as A13's counter (see A13 entry below and `docs/company/RELEASE-A13-GATE.md`) |
 | **A8-2 the split** | `band_coverage` → **`band_coverage_demand`**; the n-floor added to the **contract**, every file, each declaring its own with a rationale |
 | **A8-3 the North Star** | **Neither** "upper bound" **nor** "exact count". The file now says `n ≥ 8` is *inferred* — the only true statement |
 | **series breaks** | Both recorded, per `verifier`. The floor entry is the subtle one: no value moved, only which metrics are *allowed* to be shown |
@@ -771,7 +795,7 @@ One token at `db/queries.py:1986`. The 7d/30d window choice was gated on `MIN_CO
 |---|---:|---:|
 | supply coverage | 43.0 % | **62.0 %** |
 | demand coverage (n=180) | 62.8 % | **81.1 %** |
-| median evidence behind a printed band | 12 | **26** |
+| median evidence behind a printed band | 12 | **13** (corrected 2026-09-01; was recorded as 26, does not reproduce — see `docs/company/RELEASE-A13-GATE.md`) |
 
 Tests: 8 cases, negative control passes. Full suite 1167. **Branched off `main`, not off the
 data-defects branch, so each stays independently revertible.**
@@ -856,8 +880,12 @@ before/after numeric delta, to users already being shown a price, unquantified.*
       absolute delta, median percent, worst case. Read-only, and `price_stats_map` already computes
       both sides. ~2% is a footnote; 15% is a repricing that belongs in a release note.
 - [ ] **A13 also moves the CONFIDENCE BAND.** `api/routes.py:570-575` bands on `comparable_n`
-      (≥30 HIGH, ≥10 MEDIUM), so median evidence 12→26 pushes models across the HIGH boundary.
-      Defensible — more evidence genuinely is higher confidence — but it must be *stated*.
+      (≥30 HIGH, ≥10 MEDIUM). The median crossing HIGH was previously stated as "12→26"; that figure
+      does not reproduce (corrected 2026-09-01: the median demand-weighted reading is 12→13, and it
+      falls supply-weighted, 14→12 — see A13 entry above). Some individual models still cross into
+      HIGH on their own `comparable_n` (a per-model fact, not a median fact) — Defensible, more
+      evidence genuinely is higher confidence for those models — but it must be *stated per-model*,
+      not claimed via the retracted median.
 - [ ] **A dated tripwire for 14d-vs-30d, not a note.** The measured 43→62 % holds only while
       `30d == all available data`. Around **2026-09-19** the 30-day window starts genuinely excluding
       comps and the gain partially unwinds. *"That is the definition of banking a stale default."*

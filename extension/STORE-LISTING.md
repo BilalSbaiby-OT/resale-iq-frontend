@@ -44,13 +44,15 @@ Open any item on Vinted in Spain, France, Germany, Italy or Portugal and a
 small panel appears with:
 • Buy-below price — the most you can pay for that model and still hit your target margin after fees
 • BUY, WATCH or SKIP
-• What the item typically sells for, with sample size
+• The average asking price of comparable listings when they left the shelf, with sample size
 • Which model we matched, so you can see exactly what was priced
 
-The numbers come from live and sold listings across five EU markets, collected
-about every 30 minutes and recomputed roughly every 2 hours. Every formula is
-published at resaleiq.dev/methodology, together with what the data cannot
-tell you — no accuracy claims we cannot back.
+The numbers come from live Vinted listings across five EU markets, plus which
+ones leave the shelf, collected about every 30 minutes and recomputed roughly
+every 2 hours. We do not observe sale prices — a departure can be a sale, a
+delisting or a relist, and we say so plainly. Every formula, and what the data
+cannot tell you, is published at resaleiq.dev/methodology — no accuracy
+claims we cannot back.
 
 Works without an account. You get free checks every day, and the panel stays
 out of the way of the buy button. Sign in at resaleiq.dev (confirm your email)

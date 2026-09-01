@@ -125,7 +125,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label="Buy-below" value={money(res.buy_below)} accent="#22c55e" />
                 <Stat label="Market price" value={money(res.sell_avg)} />
-                {sold != null ? <Stat label="Sold (watched)" value={fmtCount(sold)} /> : null}
+                {sold != null ? <Stat label="Left shelf (watched)" value={fmtCount(sold)} /> : null}
                 {listed != null ? <Stat label="Still listed" value={fmtCount(listed)} /> : null}
                 {res.locked || res.sell_through_rate == null ? (
                   <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>

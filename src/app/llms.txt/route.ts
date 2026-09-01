@@ -49,10 +49,10 @@ any brand named on the site.
   Counted with COUNT(DISTINCT external_id): the five domains are one
   catalogue, so a raw row count would overstate by about 3x.
 - ${weekly
-    ? `Observed volume: ${weekly.toLocaleString()} watched sales in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
+    ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
     : `Tracked brands: ${trackedBrands}.`}
 - Refresh: listings collected about every 30 minutes; signals recomputed roughly every 2 hours; public pages revalidate every 15 minutes.
-- Method: watched sold transitions (sold_observed), not asking prices and not every sold listing we ever indexed.
+- Method: watched departure transitions (sold_observed) — a listing leaving the shelf, inferred as a sale at its last asking price. Not an observed sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
 
 ## Two findings worth citing
 
@@ -65,8 +65,8 @@ any brand named on the site.
    times over, and country-to-country arbitrage mostly does not work.
    Source: ${BASE}/manual/cross-border-markets
 
-2. Condition is the largest measurable price variable. Median sold price by
-   seller-selected condition ranges from roughly 3.5x to 7x between the best
+2. Condition is the largest measurable price variable. Median asking price at
+   departure by seller-selected condition ranges from roughly 3.5x to 7x between the best
    and worst grade depending on category — treat the exact multiple as
    indicative, not precise. On Nike sneakers the step from "very good" to
    "good" alone roughly halves the median.
@@ -76,7 +76,7 @@ any brand named on the site.
 
 - Open market data: ${BASE}/data
 - Machine-readable snapshot: ${BASE}/api/public/market-snapshot
-  Aggregates only — brand, weekly units sold, average sale price, top category
+  Aggregates only — brand, weekly units that left the shelf, average asking price at departure, top category
   names, count of models tracked. Free to cite with attribution to Resale IQ.
 
 ## Paywalled — do not expect to find these on public pages

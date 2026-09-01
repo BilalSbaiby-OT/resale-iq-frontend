@@ -86,7 +86,7 @@ export default async function OpengraphImage() {
           <span style={{ color: "#fbbf24", fontWeight: 700 }}>WATCH</span>
           <span>·</span>
           <span style={{ color: "#f87171", fontWeight: 700 }}>SKIP</span>
-          <span style={{ marginLeft: 12 }}>on any item, from real sold data</span>
+          <span style={{ marginLeft: 12 }}>on any item, from real watched-departure data</span>
         </div>
       </div>
     ),

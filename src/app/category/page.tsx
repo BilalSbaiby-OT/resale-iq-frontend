@@ -19,7 +19,7 @@ const MARKETS = "Spain, France, Germany, Italy and Portugal"
 export async function generateMetadata(): Promise<Metadata> {
   const title = `What sells best on Vinted? ${CATEGORIES.length} categories ranked`
   const description =
-    `The ${CATEGORIES.length} categories Resale IQ tracks, ranked by how many items actually sell ` +
+    `The ${CATEGORIES.length} categories Resale IQ tracks, ranked by how many items we watch leave the shelf ` +
     `each week on Vinted across 5 EU markets — and which brand leads each one.`
   return {
     title,
@@ -64,7 +64,7 @@ export default async function CategoryHubPage() {
 
   const answer = busiest?.leader
     ? `${busiest.category} is the busiest category Resale IQ tracks — roughly ` +
-      `${fmtCount(busiest.total)} items a week across ${MARKETS}, led by ${busiest.leader.brand} ` +
+      `${fmtCount(busiest.total)} watched departures a week across ${MARKETS}, led by ${busiest.leader.brand} ` +
       `at about ${fmtCount(busiest.leader.sold_7d)} a week. Busiest is not the same as most ` +
       `profitable: high-volume categories sell quickly but competitively, so the margin per ` +
       `item is usually thinner than in slower, higher-priced ones.`
@@ -87,7 +87,7 @@ export default async function CategoryHubPage() {
             "@type": "Answer",
             text:
               `Across the ${CATEGORIES.length} tracked categories, the brands Resale IQ follows ` +
-              `account for roughly ${fmtCount(grandTotal)} items sold per week in ${MARKETS}. ` +
+              `account for roughly ${fmtCount(grandTotal)} items we watch leave the shelf per week in ${MARKETS}. ` +
               `That is tracked-brand volume only — unbranded listings and untracked brands are ` +
               `not counted, so it is not the size of these categories on Vinted overall.`,
           },
@@ -165,7 +165,7 @@ export default async function CategoryHubPage() {
                 </Link>
                 <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap" }}>
                   {r.total > 0 ? fmtCount(r.total) : "—"}
-                  <span style={{ color: "#5b6b8c" }}> sold/week</span>
+                  <span style={{ color: "#5b6b8c" }}> left shelf/week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
                   {r.brandCount}<span style={{ color: "#5b6b8c" }}> brands</span>
                 </div>
@@ -174,7 +174,7 @@ export default async function CategoryHubPage() {
               {r.leader && (
                 <p style={{ fontSize: 13, color: "#8b99b8", margin: "7px 0 0", lineHeight: 1.6 }}>
                   {r.leader.brand} leads at {fmtCount(r.leader.sold_7d)} a week
-                  {r.leader.avg_price_eur != null ? `, averaging ${fmtEur(r.leader.avg_price_eur)} a sale` : ""}.
+                  {r.leader.avg_price_eur != null ? `, averaging ${fmtEur(r.leader.avg_price_eur)} at departure` : ""}.
                 </p>
               )}
 

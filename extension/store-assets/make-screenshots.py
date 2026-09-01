@@ -50,7 +50,7 @@ def card(d, asking):
     line = (f'<div class="riq-row riq-warn">listed at €{asking:.0f} — €{over:.0f} over</div>'
             if over > 0 else
             f'<div class="riq-row riq-good">listed at €{asking:.0f} — within your price</div>')
-    sells = (f'<div class="riq-row">avg sold <b>€{d["sell_avg"]:.0f}</b></div>'
+    sells = (f'<div class="riq-row">avg exit <b>€{d["sell_avg"]:.0f}</b></div>'
              if d.get("sell_avg") else "")
     return f'''<div id="riq-badge"><div class="riq-card riq-{tone}">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ

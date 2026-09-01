@@ -86,7 +86,7 @@ export async function LiveMarketProof() {
 
         <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--color-border-ui)", fontSize: 11.5, color: "var(--color-text-muted)", lineHeight: 1.5 }}>
           {total > 0 && (
-            <>Watched sold counts across 5 EU markets — {fmtCount(total)} items in the last 7 days.{" "}</>
+            <>Watched departures across 5 EU markets — {fmtCount(total)} items left the shelf in the last 7 days.{" "}</>
           )}
           <Link href="/methodology" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>See how we calculate it →</Link>
         </div>
