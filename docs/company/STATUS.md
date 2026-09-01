@@ -5,10 +5,10 @@
 ```
 OS STATUS                                  checked 0m ago
 
-  RED — 2 blocking
+  RED — 3 blocking
 
 WHAT CHANGED
-  harness/guard-scope-covers-session-roots     ✓ -> ✗
+  production/dashboard-data-fresh              ✓ -> ✗
 
 BLOCKING
   ✗ harness/guard-scope-covers-session-roots     n=5
@@ -17,17 +17,23 @@ BLOCKING
   ✗ harness/registered-gates-actually-block      n=4
       /Users/bilalsbaiby/work/resale-iq/.claude/hooks/guard.py did not block a must-block payload; /Us
       -> the hook is registered but not enforcing
+  ✗ production/dashboard-data-fresh              n=1
+      generated 0.1h ago, prod_included=false
+      -> with-secrets.sh python3 scripts/company/build_dashboard.py --prod
 
 UNKNOWN — asked, no answer (never rendered as zero)
-  company.retention_30d              population below floor (n = 0, floor = 100)
-  company.trial_to_paid              population below floor (n = 1, floor = 100)
+  company.mrr                        no Stripe read
+      -> run with --prod
+  company.customers                  no Stripe read
+      -> run with --prod
+  company.north_star_weekly_trusted_checks inspected nothing (n = 0)
+      -> no rows in the measurement window yet
+  company.retention_30d              population below floor (n = 4, floor = 100)
+      -> not enough evidence to publish this; the .sql header says why
+  company.trial_to_paid              population below floor (n = 10, floor = 100)
+      -> not enough evidence to publish this; the .sql header says why
   company.spend_vs_cap               no spend ledger yet
       -> Phase 2: finance-ops writes docs/company/LEDGER.md
-  quality.canary                     no canary set yet
-      -> Phase 2: 60 frozen labelled listings with auto-revert
-  quality.match_precision            no 30-sample audit run yet
-      -> Phase 2: /precision
-  quality.band_coverage_demand       population below floor (n = 49, floor = 100)
 
-  17 checks · 2 failed · 0 inspected nothing
+  17 checks · 3 failed · 0 inspected nothing
 ```

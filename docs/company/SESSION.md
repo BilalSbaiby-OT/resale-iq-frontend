@@ -553,6 +553,33 @@ which makes **the first real paying customer the highest-value event available t
 The new `/privacy` telemetry paragraph checked out clean — verified line by line against
 `content.js`/`background.js`.
 
+## CONTENT-RULES.md — and the market expansion buried inside it
+
+Founder-written doctrine: ten content types, the weekly mix (35% pain+verdict / 25% data+deals /
+20% educational / 15% proof+build-in-public / 5% engagement), ten producer lanes.
+
+**The strategically largest part deserves calling out rather than filing as one bullet:** every post
+this company has made targets **people who already resell** — a small, hard-to-reach audience where
+zero followers means zero reach. **The aspirational lane targets people who want income and have not
+picked a method**, and teaches them that reselling is the method with our tool making it work. That
+audience is orders of magnitude larger and is exactly what TikTok, Reels and Shorts distribute to.
+**The difference between fighting for a niche and riding a category.**
+
+**One line keeps it profitable rather than fatal, and it is commercial not moral:** never state or
+imply a **guaranteed return**. *"Double your money in a week"* as a **promise** is a financial claim;
+as a **question or demonstration** it is a hook. **Guaranteed-income claims get permanent bans on
+every platform we are on and attract EU consumer-protection enforcement — one dead TikTok costs more
+than every post it would ever carry.** The hook survives; the promise does not. Same reasoning on
+fabricated results: our numbers are checkable by any reseller with a Vinted account, so **real data
+is the moat and inventing it hands the moat away.**
+
+## In flight
+
+- **`frontend-eng` — W19 restarted.** Its first run died mid-task on a rate limit, not on anything it
+  did. This is the **Spanish-pitch → English-legal-form** defect and it is taking live traffic now.
+- **`content-social`** — building the aspirational beginner lane, 6+ rows across TikTok / Reels / X,
+  ES and FR.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo
