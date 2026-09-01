@@ -1,2 +1,8 @@
 docs/company/SECURITY-LOG.md merge=union
 docs/audit/ACTIVITY.jsonl merge=union
+# The bus is APPEND-ONLY. Two agents appending concurrently is normal, not a
+# conflict -- git just cannot know that. `union` keeps both sides, and bus.py
+# dedupes by id when it reads. Without this every parallel pair of messages
+# stops a merge for no reason.
+docs/company/bus.jsonl merge=union
+docs/company/bus-read.jsonl merge=union
