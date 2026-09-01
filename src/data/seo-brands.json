@@ -118,45 +118,6 @@
    "models_tracked": 15
   },
   {
-   "brand": "Pull&Bear",
-   "slug": "pull-bear",
-   "sold_7d": 24386,
-   "avg_price_eur": 23,
-   "top_categories": [
-    "Hoodies",
-    "Jeans",
-    "Jackets"
-   ],
-   "categories": [
-    {
-     "category": "Hoodies",
-     "sold_7d": 15092,
-     "avg_price_eur": 8
-    },
-    {
-     "category": "Jeans",
-     "sold_7d": 2767,
-     "avg_price_eur": 8
-    },
-    {
-     "category": "Jackets",
-     "sold_7d": 2065,
-     "avg_price_eur": 12
-    },
-    {
-     "category": "T-Shirts",
-     "sold_7d": 1625,
-     "avg_price_eur": 5
-    },
-    {
-     "category": "Tracksuits",
-     "sold_7d": 1097,
-     "avg_price_eur": 7
-    }
-   ],
-   "models_tracked": 0
-  },
-  {
    "brand": "Tommy Hilfiger",
    "slug": "tommy-hilfiger",
    "sold_7d": 22817,
@@ -352,84 +313,6 @@
    "models_tracked": 13
   },
   {
-   "brand": "Zara",
-   "slug": "zara",
-   "sold_7d": 17251,
-   "avg_price_eur": 13,
-   "top_categories": [
-    "Jeans",
-    "Jackets",
-    "Shirts"
-   ],
-   "categories": [
-    {
-     "category": "Jeans",
-     "sold_7d": 3878,
-     "avg_price_eur": 11
-    },
-    {
-     "category": "Jackets",
-     "sold_7d": 3663,
-     "avg_price_eur": 18
-    },
-    {
-     "category": "Shirts",
-     "sold_7d": 2662,
-     "avg_price_eur": 9
-    },
-    {
-     "category": "T-Shirts",
-     "sold_7d": 2244,
-     "avg_price_eur": 6
-    },
-    {
-     "category": "Hoodies",
-     "sold_7d": 2177,
-     "avg_price_eur": 8
-    }
-   ],
-   "models_tracked": 0
-  },
-  {
-   "brand": "Bershka",
-   "slug": "bershka",
-   "sold_7d": 15448,
-   "avg_price_eur": 9,
-   "top_categories": [
-    "Jeans",
-    "T-Shirts",
-    "Jackets"
-   ],
-   "categories": [
-    {
-     "category": "Jeans",
-     "sold_7d": 5556,
-     "avg_price_eur": 9
-    },
-    {
-     "category": "T-Shirts",
-     "sold_7d": 2399,
-     "avg_price_eur": 6
-    },
-    {
-     "category": "Jackets",
-     "sold_7d": 2287,
-     "avg_price_eur": 11
-    },
-    {
-     "category": "Hoodies",
-     "sold_7d": 1849,
-     "avg_price_eur": 7
-    },
-    {
-     "category": "Tracksuits",
-     "sold_7d": 1247,
-     "avg_price_eur": 8
-    }
-   ],
-   "models_tracked": 0
-  },
-  {
    "brand": "The North Face",
    "slug": "the-north-face",
    "sold_7d": 14621,
@@ -508,84 +391,6 @@
    "models_tracked": 8
   },
   {
-   "brand": "Mango",
-   "slug": "mango",
-   "sold_7d": 10531,
-   "avg_price_eur": 12,
-   "top_categories": [
-    "Jeans",
-    "Jackets",
-    "Shirts"
-   ],
-   "categories": [
-    {
-     "category": "Jeans",
-     "sold_7d": 2661,
-     "avg_price_eur": 9
-    },
-    {
-     "category": "Jackets",
-     "sold_7d": 2156,
-     "avg_price_eur": 15
-    },
-    {
-     "category": "Shirts",
-     "sold_7d": 1469,
-     "avg_price_eur": 8
-    },
-    {
-     "category": "T-Shirts",
-     "sold_7d": 1385,
-     "avg_price_eur": 5
-    },
-    {
-     "category": "Hoodies",
-     "sold_7d": 1249,
-     "avg_price_eur": 8
-    }
-   ],
-   "models_tracked": 0
-  },
-  {
-   "brand": "Hugo Boss",
-   "slug": "hugo-boss",
-   "sold_7d": 8521,
-   "avg_price_eur": 34,
-   "top_categories": [
-    "Shirts",
-    "T-Shirts",
-    "Hoodies"
-   ],
-   "categories": [
-    {
-     "category": "Shirts",
-     "sold_7d": 3430,
-     "avg_price_eur": 17
-    },
-    {
-     "category": "T-Shirts",
-     "sold_7d": 1421,
-     "avg_price_eur": 15
-    },
-    {
-     "category": "Hoodies",
-     "sold_7d": 1007,
-     "avg_price_eur": 22
-    },
-    {
-     "category": "Jackets",
-     "sold_7d": 926,
-     "avg_price_eur": 44
-    },
-    {
-     "category": "Jeans",
-     "sold_7d": 598,
-     "avg_price_eur": 22
-    }
-   ],
-   "models_tracked": 0
-  },
-  {
    "brand": "Diesel",
    "slug": "diesel",
    "sold_7d": 8468,
@@ -623,45 +428,6 @@
     }
    ],
    "models_tracked": 13
-  },
-  {
-   "brand": "Calvin Klein",
-   "slug": "calvin-klein",
-   "sold_7d": 8349,
-   "avg_price_eur": 23,
-   "top_categories": [
-    "T-Shirts",
-    "Hoodies",
-    "Shirts"
-   ],
-   "categories": [
-    {
-     "category": "T-Shirts",
-     "sold_7d": 1912,
-     "avg_price_eur": 10
-    },
-    {
-     "category": "Hoodies",
-     "sold_7d": 1537,
-     "avg_price_eur": 17
-    },
-    {
-     "category": "Shirts",
-     "sold_7d": 1534,
-     "avg_price_eur": 13
-    },
-    {
-     "category": "Jeans",
-     "sold_7d": 866,
-     "avg_price_eur": 17
-    },
-    {
-     "category": "Bags",
-     "sold_7d": 693,
-     "avg_price_eur": 30
-    }
-   ],
-   "models_tracked": 0
   },
   {
    "brand": "Reebok",
