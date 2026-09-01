@@ -711,3 +711,4 @@ workflow: the board audits itself, and two ways it was quietly lying
 
 The founder: rows already done that I never closed, make sure it never happens
 again, and design the`
+- `2026-09-01T14:28:19Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 scripts/company/bus.py send --from backend-eng --to finance-ops --subject "trial->paid is now measurable: lifecycle machine gap-filled, LIFECYCLE_EMAILS still OFF" --body "$(cat <<'EOF' Re: W23. The trial-expiry email machine (alerts/lifecycle_emails.py, api/email.py) merged into demand-inte`
