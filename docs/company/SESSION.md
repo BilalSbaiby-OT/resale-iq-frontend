@@ -4,27 +4,52 @@
 
 ## Working on
 
-**Overnight fan-out: 17 roster agents, every department. Founder asleep until 08:30.**
-The digest for him is `docs/company/DIGEST-2026-09-01.md` (chief-of-staff).
+**Overnight: 17 roster agents, every department, plus A8 and A12 under the founder's conditional
+authorisation.** Founder's digest: `docs/company/DIGEST-2026-09-01.md`.
 
-**The honest headline: tonight found more defects than it fixed.** That is the useful sentence, and
-the machinery that found them is the actual result — a review that caught its own CEO, and a proof
-that surfaced a bug nobody was looking for.
+**The honest headline is unchanged: tonight found more than it fixed.** That is the result, not a
+complaint — the machinery that finds things now works. A review caught its own CEO twice, a proof
+surfaced a bug nobody was looking for, and the auditor audited its own scope.
 
-**C6 was wrong and `tech-lead` caught it.** Making `parse_item` drop unconvertible rows fails OPEN
-for sale detection: `engine/shelf.py` reads an absent row as *left the shelf* → `mark_listing_sold`
-→ `sold_observed = 1`, the exact column C4 promoted to ground truth. Reworked on
-`claude/backend-eng/fx-currency-v2` (TLD is the authority on currency; unpriceable rows keep their
-place with `price_eur = NULL`). 1179 tests, proof 16/16 cold. **Not merged — needs re-review.**
+### Shipped
 
-**Three findings that are live on `main` right now:**
-- **C8** — `parse_item` drops rows with an empty `brand_title` (0.58%) by the same mechanism, so it
-  has been asserting sales all along. `backend-eng` is measuring it.
-- **A12 CRITICAL** — the `.env` rail is a substring check, defeatable by a trailing shell comment.
-- **A12 HIGH** — the rails exist in `resale-iq` only. 3 of 4 repos are unprotected, including the
-  one whose `main` deploys production.
+- **A12 CRITICAL** — the credential rail resolves **programs, not substrings**. 15/15 cold, both
+  directions: five bypass shapes blocked, six legitimate calls still allowed including the one the
+  hourly job depends on. Negative control fails 5/15.
+- **A8, in full** — MAPE struck; `band_coverage` → `band_coverage_demand`; an **n-floor on the
+  contract**, every file declaring its own with a rationale; `band_evidence_p50` as the counter that
+  can actually contradict its primary. Two series breaks recorded. Proof 10/10.
+- **C2** — the ECC harness, 1,156 files → 43.
+- **Five slash commands**, each backed by machinery that runs.
+- **`OS-COMPLIANCE.md` corrected DOWNWARD** — Phase 0 rails DONE → PARTIAL, headline 41 → 40. The
+  rails cover **one repo of four**.
 
-**Nothing was posted.** `docs/marketing/QUEUE.md` is publish-ready and waiting on the founder.
+### Awaiting review (nothing merged, nothing pushed, nothing deployed)
+
+| Branch | What |
+|---|---|
+| `claude/backend-eng/fx-currency-v2` | C6 second pass. `parse_item` keeps unpriceable rows so the shelf cannot read them as sales |
+| `claude/data-scientist/a13-comparable-window` | A13. One token: supply coverage 43→62%, median evidence 12→26 |
+| `claude/backend-eng/data-defects-c6-c5-c4` | C5 (approved standalone) + C4 (closes 1 of 8 paths) |
+| `claude/devops/delete-ecc-harness` | C2 |
+
+`tech-lead` is reviewing the first two **jointly** — `product-manager` required it, since both touch
+"how many comparables justify a band" and nobody has confirmed they do not compound.
+
+### Live on `main` right now, unfixed
+
+- **C8** — `parse_item` drops rows with an empty `brand_title` and the shelf reads that as a **sale**.
+  Confirmed and measured; the fix is deferred only because it touches a function under review.
+- **A12 HIGH** — three repos of four load no rails at all, including the one whose `main` deploys.
+  `docs/audit/proof/W36/rails-coverage/proof.sh` fails at **1/4** on purpose, to hold that visible.
+- **The GDPR promise** — the live privacy page offers export and erasure the backend does not deliver.
+
+## Next
+1. `tech-lead`'s verdict on the joint review → merge C6 v2, C5, C4, A13 **separately**.
+2. **A12 rollout** — growth and seo, then `demand-intel` last and **additively** (its `PreToolUse`
+   array carries a memory-dir bootstrap a wholesale replace would drop).
+3. **C8 fix** — keep the row, null the field, once `parse_item` is out of review.
+4. A9, A11 (re-scoped to *generate, don't gate*), and the four A8 follow-ons.
 
 ## Process breach this session — recorded, not tidied away
 
