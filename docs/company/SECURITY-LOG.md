@@ -411,3 +411,20 @@ seo had 'GSC' in its description since it was written and zero Search Console
 tools. Granted today. The first look changes the acquisition plan.
 
 Five clicks, total, site-wide, ever. The 90-day`
+- `2026-09-01T10:16:20Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+import io
+p="docs/company/APPROVALS.md"; s=io.open(p,encoding="utf-8").read()
+add = s.rstrip() + """
+
+---
+
+## A9 — GSC OAuth path — **CLOSED 2026-09-01, founder said "fix it"**
+
+`seo` found `~/.claude.json`'s `mcpServers.gsc.env` pointing at
+``
+- `2026-09-01T10:16:20Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY' import io p="docs/company/APPROVALS.md"; s=io.open(p,encoding="utf-8").read() add = s.rstrip() + """ --- ## A9 — GSC OAuth path — **CLOSED 2026-09-01, founder said "fix it"** `seo` found `~/.claude.json`'s `mcpServers.gsc.env` pointing at `/Us`
+- `2026-09-01T10:16:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git status --porcelain|wc -l
+approvals: close A9 -- GSC repointed at the directory that actually has the files
+
+Founder: "fix it". seo found the gsc MCP env pointing at an empty ~/Desktop
+directory while the working files`

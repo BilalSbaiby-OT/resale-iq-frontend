@@ -1800,3 +1800,31 @@ against subreddit self-promotion rules (`platformSettings()` in `postiz.js` alre
 a subreddit target — it requires one explicit on the row) and `content-social` should confirm the 10
 approved pieces still reflect current facts.
 
+---
+
+## A9 — GSC credential path — **CLOSED 2026-09-01, founder said "fix it"**
+
+`seo` found `~/.claude.json`'s `mcpServers.gsc.env` pointing at a **`~/Desktop/...` directory that is
+empty**, while the working credentials live under `~/work/...`. Every `mcp__gsc__*` call failed as a
+result, so `seo` read today's pulls off disk instead and **parked this rather than editing a global
+config outside repo authority.** That was the right call, and it is why there was an item to close.
+
+**Fixed:** both keys repointed `Desktop` → `work`. Verified after the write — the client file, the
+config directory and the cached token all resolve, and the token was refreshed at 12:08 today, so
+access is live rather than stale.
+
+**Verified nothing else moved**, because editing a 67-key global config to change two strings is
+exactly where something gets quietly destroyed: backup written first
+(`~/.claude.json.bak-2026-09-01-gsc`), key count identical before and after, and a deep comparison
+with the two paths blanked shows the files are **otherwise byte-identical**. `gsc` is the only entry
+under `mcpServers`; the other connectors come from elsewhere and were never at risk.
+
+**Not in effect this session** — MCP servers read their environment at startup. A new session gets
+live GSC.
+
+**What it unlocks, and why it matters before any more SEO work:** `seo` could not reach **Index
+Coverage** from disk pulls, so *"how many pages are indexed versus excluded as thin content"* remains
+**UNKNOWN**. That number decides whether the `/flip` estate — **136 of 157 URLs with zero impressions
+ever** — is fixable or should be killed. Adding pages before knowing is what `seo`'s own standing
+rule already forbids.
+
