@@ -536,3 +536,8 @@ relayed through me is not found`
 session: first post published, and the two bugs only a real send could find
 
 Live on X, Pos`
+- `2026-09-01T11:40:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+workboard: 13 lines of prose per line of product, and the reason why
+
+The founder: "we have 5 departments and 21 agents and the product didnt change
+much at all." He was right and th`
