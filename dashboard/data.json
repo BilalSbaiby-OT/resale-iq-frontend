@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:48:43Z",
+  "generated_at": "2026-09-01T02:22:34Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -45,9 +45,13 @@
       "**Merge condition: report `max_buy_price` before/after for the crossing models** — n, median",
       "**A13 also moves the CONFIDENCE BAND.** `api/routes.py:570-575` bands on `comparable_n`",
       "**A dated tripwire for 14d-vs-30d, not a note.** The measured 43→62 % holds only while",
-      "**New GAPS row owed:** four paid surfaces publish `max_buy_price` with **no evidence floor at"
+      "**New GAPS row owed:** four paid surfaces publish `max_buy_price` with **no evidence floor at",
+      "**Implementation is `backend-eng`'s**, reviewed by `tech-lead`. One already-built function",
+      "`tech-lead` reconciles, then the combined branch is re-verified end to end before merge.",
+      "**OS §7's 2 pp rule cannot be applied to supply-side proportions as written.** Either the rule",
+      "**`buy_below` should be a function of observed departure velocity, not a constant multiple of an"
     ],
-    "count": 43
+    "count": 47
   },
   "company": {
     "mrr": {
@@ -134,15 +138,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 30.0,
+      "value": 5.1,
       "n": 1332,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12706178
+      "value": 12709297
     },
     "newest_sold_at": {
-      "value": "2026-09-01 01:47:56"
+      "value": "2026-09-01 02:17:01"
     },
     "predictions_total": {
       "value": 340
@@ -153,7 +157,7 @@
       "value": 78
     },
     "pageviews_7d": {
-      "value": 986
+      "value": 988
     },
     "signups_7d": {
       "value": 3
@@ -175,7 +179,9 @@
         "branches": [
           "demand-intel:anon-quota-cookie  (merged)",
           "demand-intel:data-defects-c6-c5-c4",
-          "demand-intel:fx-currency-v2"
+          "demand-intel:fx-currency-v2",
+          "demand-intel:gate-paid-surfaces",
+          "demand-intel:pending-failsafe"
         ],
         "events": null,
         "last_active": null,
@@ -203,6 +209,7 @@
         "secondary": "install to first check",
         "counter": "posts published without a founder gate = 0",
         "branches": [
+          "sold-relabel  (merged)",
           "growth:postiz-hosted-api",
           "growth:w1-queue-postiz"
         ],
@@ -241,9 +248,9 @@
         "model": "opus",
         "tier": "T1",
         "standing": "standing",
-        "primary": "match_precision >= 90%",
+        "primary": "match_precision >= 90% -- UNMEASURABLE TODAY: no match_audit table and no",
         "secondary": "band_coverage >= 80%",
-        "counter": "insufficient_data_rate must not fall to inflate coverage",
+        "counter": "MIN(comparable_n) over banded rows == 8, AND no model's comparable_n may decrease",
         "branches": [
           "demand-intel:a13-comparable-window"
         ],
@@ -260,7 +267,7 @@
         "secondary": "accessibility: contrast, keyboard, labels checked",
         "counter": "no design work for anything on the CUT list",
         "branches": [
-          "landing-truth  (merged)"
+          "landing-truth"
         ],
         "events": null,
         "last_active": null,
@@ -291,7 +298,7 @@
         "secondary": "store rating >= 4.3",
         "counter": "permissions requested = permissions used",
         "branches": [
-          "panel-states  (merged)"
+          "panel-states"
         ],
         "events": null,
         "last_active": null,
@@ -319,7 +326,7 @@
         "secondary": "tsc + build + the four check:* honesty scripts green",
         "counter": "no new dependency without a founder gate",
         "branches": [
-          "conversion-moments  (merged)",
+          "conversion-moments",
           "truth-pass-and-cut-business  (merged)"
         ],
         "events": null,
@@ -348,7 +355,7 @@
         "secondary": "unsubscribe rate",
         "counter": "emails sent without a founder gate = 0",
         "branches": [
-          "demand-intel:trial-emails  (merged)"
+          "demand-intel:trial-emails"
         ],
         "events": null,
         "last_active": null,
@@ -607,6 +614,7 @@
   },
   "work": {
     "branches": [
+      "+ claude/content-social/sold-relabel",
       "claude/content/humanize-frontend",
       "+ claude/designer/landing-truth",
       "+ claude/extension-eng/panel-states",
@@ -617,55 +625,55 @@
     ],
     "recent_commits": [
       {
-        "sha": "bc9351b",
-        "msg": "amendments: AM-7 -- consult the whole roster before product-wide decisions"
+        "sha": "dbaca5d",
+        "msg": "session: the overnight record, and where the repositioning vote landed"
       },
       {
-        "sha": "6f57069",
-        "msg": "metrics: correct band_evidence_p50 -- it FALLS under the change it was built to authorise"
+        "sha": "e5b9164",
+        "msg": "approvals: A16 converges -- lead with velocity, keep the price, make it velocity-driven"
       },
       {
-        "sha": "bd98883",
-        "msg": "gaps: C11 -- the n>=8 gate guards one endpoint, not the product"
+        "sha": "f80bcb9",
+        "msg": "approvals: tech-lead votes do not reposition -- and corrects its own brainstorm first"
       },
       {
-        "sha": "8ba3bb9",
-        "msg": "os-compliance: add a SCOPE header and correct four more rows downward"
+        "sha": "dc4160b",
+        "msg": "approvals: the evidence floor reaches the paid surfaces, verified independently"
       },
       {
-        "sha": "cce4f12",
-        "msg": "chore: verifier run"
+        "sha": "fbaf5e4",
+        "msg": "approvals: A16 opens the repositioning vote; A17 settles one release"
       },
       {
-        "sha": "ac37c76",
-        "msg": "session: bring the record current after A8, A12 and the joint review request"
+        "sha": "2d38e98",
+        "msg": "approvals: the tier design does not survive measurement, and OS 7's 2pp rule is inside the noise"
       },
       {
-        "sha": "7bc37c4",
-        "msg": "gaps: C8 confirmed real and live, and my proposed measurement was worthless"
+        "sha": "c851d89",
+        "msg": "approvals: product-manager retracts the 3-7 band and corrects my arithmetic"
       },
       {
-        "sha": "89fb224",
-        "msg": "proof: a rails-coverage suite that FAILS at 1/4, on purpose"
+        "sha": "78b2d2f",
+        "msg": "amendments: AM-8a -- the roster cannot consult each other, and I am the only wire"
       },
       {
-        "sha": "a28ba44",
-        "msg": "os-compliance: Phase 0 rails DONE -> PARTIAL, and the headline down one"
+        "sha": "c0b3ba2",
+        "msg": "approvals: A15 -- two branches fixed the same defect, and the brief is why"
       },
       {
-        "sha": "b3e8b2f",
-        "msg": "approvals: A13 built, sent for joint review with the C6 rework"
+        "sha": "c84479d",
+        "msg": "company: the closed loop -- six agents, asked what nobody asks, converged"
       },
       {
-        "sha": "e13b5a5",
-        "msg": "approvals: A8 built and shipped; four follow-ons left open on purpose"
+        "sha": "a33aa58",
+        "msg": "amendments: pricing and tiers move from founder-reserved to roster-decidable"
       },
       {
-        "sha": "828ac8d",
-        "msg": "metrics: strike MAPE, mark two series breaks, and stop claiming the North Star is exact"
+        "sha": "4e9b914",
+        "msg": "amendments: AM-8 -- the roster decides the gates, and evidence outranks headcount"
       }
     ],
-    "dirty": true,
+    "dirty": false,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-09-01T01:50:00Z\nWIP:     none - session complete. METRICS layer shipped; C6/C5/C4 fixed on\n         demand-intel branch claude/backend-eng/data-defects-c6-c5-c4 awaiting\n         tech-lead review; A8 (3 KPI definition decisions) and A9 (memory SCOPE)\n         open in APPROVALS.\nRELEASE: delete this file, or set HOLDER: none\n\nWIP = 1 per agent (OS 0.5). If "
   },
   "audits": [
@@ -707,7 +715,7 @@
     },
     {
       "file": "MONETIZATION.md",
-      "lines": 333
+      "lines": 404
     },
     {
       "file": "MONEY.md",
@@ -728,183 +736,415 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-01T01:48:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:44Z",
+      "ts": "2026-09-01T02:22:35Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cat >> /Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md << 'MDEOF'\n\n---\n\n## ADDENDUM — roster consult, 2026-09-01: gate `api/resale_routes.py`'s ungated `max_buy_price` reads?\n\nConsulted b",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n \"sold\\|comparable\" e2e/customer-workflow.spec.ts e2e/market-coverage.spec.ts e2",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:41Z",
+      "ts": "2026-09-01T02:22:22Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && wc -l .claude/agents/*.md | tail -3; echo \"=== data-scientist.md, in full ===\"; cat .claude/agents/data-scientist.md",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rn \"comparable sold\\|comparable.*sold\\|sold item\" src/ e2e/ | grep -v node_module",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/components/landing/pricing-section.tsx"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/design/landing/pricing.html"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/GTM.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/product/LIFECYCLE.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/lib/pricing.ts"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:20Z",
+      "ts": "2026-09-01T02:22:13Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -rln \"trial_ends_at\\|10 trials\\|trials ended\" /Users/bilalsbaiby/work/resale-iq/docs/ 2>/dev/null | head -20; echo \"---\"; grep -rn \"SESSION.md\" -l /Users/bilalsbaiby/work/resale-iq/docs/company/ ",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 -m pytest tests/ -q 2>&1 | tail -6 && git status",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:20Z",
+      "ts": "2026-09-01T02:22:09Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "grep -rn \"impressions\" /Users/bilalsbaiby/work/resale-iq/docs/ 2>/dev/null | grep -v node_modules | head -30",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '90,140p' e2e/regression-p0.spec.ts",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:19Z",
+      "ts": "2026-09-01T02:21:51Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -rn \"Sold (7 days)\\|Weekly market snapshot\" src/",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:47Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "git status --short",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:40Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1,60p' e2e/smoke.spec.ts",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n \"test:e2e\" package.json; echo ---; grep -n \"market-coverage\\|regression-p0\\|smo",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:32Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n -i \"sold\\|shelf\\|depart\" e2e/*.spec.ts",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:28Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A16 — the remaining votes, and the finding that reframes it\n\n**`content-social` found the ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:20Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Read",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/components/smart-cta.tsx"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/src/app/methodology/page.tsx"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:15Z",
+      "ts": "2026-09-01T02:21:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1150,1320p' docs/company/APPROVALS.md",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:12Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && grep -n -i \"sold\\|relist\\|shelf depart\\|asking price at\" docs/company/APPROVALS.md | he",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:07Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel/docs/audit/DATA.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && git add engine/listing_identity.py tests/test_evidence_gate_paid_surfaces.py && git commit",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:21:01Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && echo \"=== SOLD-VS-ASKING-CATALOG.md ===\" && cat docs/audit/proof/W36/truth/SOLD-VS-ASKI",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && sed -n '1,40p' package.json 2>/dev/null | head -5; echo ---; find . -path ./node_module",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && git diff --stat && git status",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 -m pytest tests/ -q 2>&1 | tail -15",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-relabel && git status && git log --oneline -5 && git branch --show-current",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:42Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Agent",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad\ngit -C /Users/bilalsbaiby/work/resale-iq worktree add \"$SB/wt-relabel\" -b claude/content-social/sold-",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:19Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat >> /Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md << 'MDEOF'\n\n---\n\n## ADDENDUM 3 — AM-8 consult, 2026-09-01: liquidity-instrument reframe\n\nChecked before answering: `docs/audit/DATA.",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A16 — `tech-lead` votes **DO NOT REPOSITION**, and corrects its own brainstorm first\n\n**It",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"^MIN_\\|^[A-Z_]* = \\|def customer_str_pct\\|def honest_sell_through\\|n < 30\\|>= 30\\|< 30\" engine/sufficiency.py | head -30; echo \"=== customer_str_pct",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:20:03Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n \"$(grep -n 'def _verdict_confidence' api/routes.py | cut -d: -f1),+45p\" api/routes.py",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"n >= 30\\|thirty\\|HIGH bar of 30\\|== \\\"HIGH\\\"\" tests/test_evidence_gate_paid_surfa",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 - << 'PYEOF'\np = \"tests/test_evidence_gate_paid_surfaces.py\"\ns = open(p).read()\n\no",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:21Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"def test_high_band_at_and_above_thirty\" -A 8 tests/test_evidence_gate_paid_surfac",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:18Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "SendMessage",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:18Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && python3 - << 'PYEOF'\nimport re\np = \"tests/test_evidence_gate_paid_surfaces.py\"\ns = open(p)",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:13Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/demand-intel/engine/shelf.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && sed -n '1,20p' tests/test_evidence_gate_paid_surfaces.py",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -rn \"confident\\b\" /Users/bilalsbaiby/work/resale-iq/docs/company/PATH-TO-TEN.md /Users/bilalsbaiby/work/resale-iq/docs/company/DIGEST-2026-09-01.md /Users/bilalsbaiby/work/resale-iq/docs/company/",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:06Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"HIGH_CONFIDENCE\\|high_confidence_n\" tests/test_evidence_gate_paid_surfaces.py",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && grep -n \"no ground-truth\\|fabricated\\|is_sold\" docs/audit/DATA.md 2>/dev/null | head -20",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"is_sold\\|def.*sold_price\\|asking.*price\\|disappear\" engine/*.py scrapers/*.py 2>/dev/null | grep -iv test | grep -i \"sold\\|disappear\\|shelf\" | head ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -n \"confident band\\|6 models\\|12 %\\|12%\" /Users/bilalsbaiby/work/resale-iq/docs/company/PATH-TO-TEN.md /Users/bilalsbaiby/work/resale-iq/docs/company/DIGEST-2026-09-01.md 2>&1 | head -30",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:19:02Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -rn \"HIGH_CONFIDENCE_COMPARABLES\" api engine tests 2>/dev/null | grep -v \".pyc\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:18:59Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Edit",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate/engine/listing_identity.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"§7\" -A 40 /Users/bilalsbaiby/work/resale-iq/docs/company/OS.md | head -80",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ls /Users/bilalsbaiby/work/resale-iq/sql/metrics/ 2>/dev/null; echo \"---\"; ls /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W36/ 2>/dev/null; echo \"---pricing---\"; sed -n '1,80p' /Users/bilalsbai",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/LEDGER.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:09Z",
+      "ts": "2026-09-01T02:18:56Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Read",
@@ -916,333 +1156,79 @@
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:48:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/FUNNEL-WALK.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/product/ROADMAP.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:06Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/AMENDMENTS.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/APPROVALS.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/GAPS.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:48:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:59Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/design/extension-panel/low-confidence.html"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:57Z",
+      "ts": "2026-09-01T02:18:52Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "find /Users/bilalsbaiby/work/resale-iq -maxdepth 3 -type d | head -50",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n#### A17 built — the evidence floor now reaches the pai",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:57Z",
+      "ts": "2026-09-01T02:18:49Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && grep -rln \"confident band\\|12 %\\|12%\\|6 models\\|band_coverage\" docs/ sql/ dashboard/ 2>/dev/null | head -20",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T02:18:37Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Read",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/GOALS.md"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate/engine/listing_identity.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:57Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Glob",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:53Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Agent",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:52Z",
+      "ts": "2026-09-01T02:18:28Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '1,70p' extension/content.css",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && sed -n '1,60p' config.py 2>/dev/null | head -80",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:52Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:50Z",
+      "ts": "2026-09-01T02:18:27Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && find extension -iname \"*.css\" && grep -n \"riq-link\\|riq-note\\|riq-watch\\|riq-card\" ext",
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate\ncd \"$WT\" && git log --oneline -1 && python3 -m pytest tests/test_evidence_gate_paid_surfaces.",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:46Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/demand-intel/api/routes.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/company/AMENDMENTS.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:44Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:41Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:41Z",
+      "ts": "2026-09-01T02:18:15Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '170,346p' extension/content.js",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-gate && grep -n \"57\\|63\\|37\\|board.*blank\\|blank.*board\\|HIGH_CONFIDENCE_COMPARABLES\\|= 30\\|>= 30\\",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:38Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:37Z",
+      "ts": "2026-09-01T02:18:11Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && wc -l extension/content.js && sed -n '1,170p' extension/content.js",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n---\n\n### A16 — **OPEN AM-8 VOTE: reposition from a pric",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/docs/product/SUPPORT-VOICE.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:31Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:30Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:29Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Grep",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:28Z",
+      "ts": "2026-09-01T02:17:51Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "SendMessage",
@@ -1252,44 +1238,32 @@
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:47:23Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/lib/trial-copy.ts"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:47:21Z",
+      "ts": "2026-09-01T02:17:47Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '1,40p' src/components/landing/pricing-section.tsx 2>/dev/null | head -40; grep",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && echo \"=== buy_below / buy-below on the customer surface ===\" && grep -rln \"buy_below\\|buy-below\\|Buy-below\" src/ ../demand-intel/extension/ 2>/dev/null | head -",
       "url": "",
       "ok": true
     }
   ],
   "security": {
-    "blocked": 237,
+    "blocked": 242,
     "tripwire": 0,
     "recent": [
+      "`2026-09-01T01:54:09Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cat > docs/company/ESCALATION.md <<'EOF' # ESCALATION — how the company reaches the f",
+      "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T01:48:52Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T01:48:51Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`"
+      "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
     ],
     "restore_test": {
       "value": null,
@@ -1321,7 +1295,7 @@
       "source": "MARKETING-AUDIT.md §2"
     }
   },
-  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, overnight run)\n\n## Working on\n\n**Overnight: 17 roster agents, every department, plus A8 and A12 under the founder's conditional\nauthorisation.** Founder's digest: `docs/company/DIGEST-2026-09-01.md`.\n\n**The honest headline is unchanged: tonight found more than it fixed.** That is the result, not a\ncomplaint — the machinery that finds things now works. A review caught its own CEO twice, a proof\nsurfaced a bug nobody was looking for, and the auditor audited its own scope.\n\n### Shipped\n\n- **A12 CRITICAL** — the credential rail resolves **programs, not substrings**. 15/15 cold, both\n  directions: five bypass shapes blocked, six legitimate calls still allowed including the one the\n  hourly job depends on. Negative control fails 5/15.\n- **A8, in full** — MAPE struck; `band_coverage` → `band_coverage_demand`; an **n-floor on the\n  contract**, every file declaring its own with a rationale; `band_evidence_p50` as the counter that\n  can actually contradict its primary. Two series breaks recorded. Proof 10/10.\n- **C2** — the ECC harness, 1,156 files → 43.\n- **Five slash commands**, each backed by machinery that runs.\n- **`OS-COMPLIANCE.md` corrected DOWNWARD** — Phase 0 rails DONE → PARTIAL, headline 41 → 40. The\n  rails cover **one repo of four**.\n\n### Awaiting review (nothing merged, nothing pushed, nothing deployed)\n\n| Branch | What |\n|---|---|\n| `claude/backend-eng/fx-currency-v2` | C6 second pass. `parse_item` keeps unpriceable rows so the shelf cannot read them as sales |\n| `claude/data-scientist/a13-comparable-window` | A13. One token: supply coverage 43→62%, median evidence 12→26 |\n| `claude/backend-eng/data-defects-c6-c5-c4` | C5 (approved standalone) + C4 (closes 1 of 8 paths) |\n| `claude/devops/delete-ecc-harness` | C2 |\n\n`tech-lead` is reviewing the first two **jointly** — `product-manager` required it, since both touch\n\"how many comparables justify a band\" and nobody has confirmed they do not compound.\n\n### Live on `main` right now, unfixed\n\n- **C8** — `parse_item` drops rows with an empty `brand_title` and the shelf reads that as a **sale**.\n  Confirmed and measured; the fix is deferred only because it touches a function under review.\n- **A12 HIGH** — three repos of four load no rails at all, including the one whose `main` deploys.\n  `docs/audit/proof/W36/rails-coverage/proof.sh` fails at **1/4** on purpose, to hold that visible.\n- **The GDPR promise** — the live privacy page offers export and erasure the backend does not deliver.\n\n## Next\n1. `tech-lead`'s verdict on the joint review → merge C6 v2, C5, C4, A13 **separately**.\n2. **A12 rollout** — growth and seo, then `demand-intel` last and **additively** (its `PreToolUse`\n   array carries a memory-dir bootstrap a wholesale replace would drop).\n3. **C8 fix** — keep the row, null the field, once `parse_item` is out of review.\n4. A9, A11 (re-scoped to *generate, don't gate*), and the four A8 follow-ons.\n\n## Process breach this session — recorded, not tidied away\n\n**My `git add -A` swept TWELVE agents' deliverables onto local `main` in one commit (`f634592`),\nwith no per-agent branch and no review.** `qa-eng` reported it as an OS §5 branch violation on its\nown files. `tech-lead` widened it correctly: **the real breach is OS §0.7** — twelve agents' output\nreached `main` without a reviewer, because the staging step swallowed the review gate whole.\n\n`main` is **unpushed**, so nothing is deployed. That is mitigation, not absolution.\n\n**Not reconstructing the branch, and the reason is stronger than tidiness.** A retroactively built\nbranch carrying a PR nobody reviewed at the time is not a cleaner record, it is a **forged** one.\nOS §7 grades a recorded violation as a MISS and fabricated evidence as **FAKE** — the outcome that\ntriggers re-verification of every \"done\" in the last 14 days. Trading the lesser penalty for the\ngreater one, deliberately, to look better, is not a trade worth making. The remediation would also\nmean rewriting 34 commits of eleven other agents' work for zero safety benefit.\n\n**Remediation, three parts, per `tech-lead`:**\n1. Recorded here at the correct scope — §0.7 across twelve agents, not §5 for one.\n2. **The review is being done now**, retroactively, as a review. The form is unrecoverable; the\n   substance — someone who did not write it reads it — is not.\n3. The cause gets fixed inside A12: block bulk-staging while `HEAD` is on `main`, with a remedy line\n   naming `git add <path>`.\n\n**And (3) is the one place a string-matching rail genuinely earns its keep.** By `tech-lead`'s own\nargument such rules are near-worthless against a prompt-injected agent — but this was not an\nadversary, it was a slip at 01:42. That distinction is worth writing into the design: it tells you\nwhich rails to keep advisory and which to stop pretending are boundaries.\n\n## Next\n1. Re-review C6 v2, then merge C6, C5, C4 **separately**.\n2. A12 (both), A9, A11 — all `guard.py`, all founder gates. A11 and A12 are one root cause: the\n   rails test strings where they mean things.\n3. C8 measurement → fix.\n\n## Done this session\n- **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.\n- **Phase 0 rails** — installed and tested, 26/26 with a negative control on every rule.\n  - `.claude/hooks/guard.py` (PreToolUse) — secrets, `rm -rf`, force-push, **push to main = deploy**,\n    pipe-to-shell, `DROP`/`TRUNCATE`, `DELETE`/`UPDATE` without `WHERE`, Stripe writes,\n    `gh` publish/deploy, egress allowlist, protected harness paths, out-of-scope paths.\n  - `.claude/hooks/activity.py` (PostToolUse) — `docs/audit/ACTIVITY.jsonl` ledger + injection\n    tripwire on untrusted surfaces only (web/browser/curl/quarantine, never our own repo files).\n  - `session-start.sh` (LOCK + SESSION + GOALS + APPROVALS + lane HANDOFF), `precompact.sh`,\n    `stop-gate.sh`.\n  - `.claude/settings.json` deny rules; `~/Desktop/.claude/settings.json` wires the same hooks so a\n    session started from Desktop is g",
+  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, overnight run)\n\n## Working on\n\n**Overnight: 21 roster agents, a founder-delegated decision procedure, and the biggest question this\ncompany has.** Founder's digest: `docs/company/DIGEST-2026-09-01.md`. The synthesis that matters most:\n`docs/company/CLOSED-LOOP.md`.\n\n### The finding, from six agents asked what nobody asks\n\n**The company is a closed loop.** Every P0 found tonight is a defect *inside* it, found by an agent\nreading code. None was found by a customer, a market, or an outcome. *\"Rigor without a feedback\nchannel converts uncertainty into misplaced certainty.\"*\n\nThe concrete version: **`max_buy = avg × 0.95 × 0.70`, and the `0.70` does two jobs** — the reseller's\nmargin, and a silent correction for the asking-vs-realized gap. Never decomposed, never validated.\n`tech-lead`'s synthesis: *margin requirement IS a function of liquidity*, and a flat 0.70 for every\nmodel **discards the one signal the product is best at measuring.**\n\n### A16 — the repositioning vote: NO reposition, and the reason\n\nThree of four voted lead-with-velocity-keep-the-price; the fourth said keep-the-price-make-it-\nvelocity-driven. **Same product from two directions.** A real reposition would break 20+ surfaces,\n**redefine the North Star** (defined on `said_buy_below`) and **orphan both feedback machines** —\ndeepening the closed loop. The formal question stays open and is settled **on ten customer answers**,\nnot argument.\n\n### Shipped tonight, all unmerged, nothing pushed, nothing deployed\n\n| branch | what | state |\n|---|---|---|\n| `backend-eng/gate-paid-surfaces` | the `n ≥ 8` floor reaches Deal Finder, watchlist, brand pages, trends, `&price_to=` | 1179 tests, 31 re-verified by me |\n| `backend-eng/pending-failsafe` | orphaned `PENDING` rows resolved; the visitor is told their attempt was spent | 1163 tests, negative control |\n| `data-scientist/a13-comparable-window` | the one-token fix: supply coverage 43 → 62 % | 1167 tests |\n| `backend-eng/fx-currency-v2` | C6 second pass — approved by review | 1179 tests, 16/16 proof |\n| `lifecycle/trial-emails` | the machine that asks 10 lapsed trials to pay — **gated OFF** | 1182 tests |\n| `frontend-eng/conversion-moments` | three conversion moments | 24/24 e2e |\n| `designer/landing-truth` | honest hero, token collision closed | **UNVERIFIED** — no shell |\n| `extension-eng/panel-states` | four states, errors no longer wear the verdict colour | 14/14 proof |\n| `devops/delete-ecc-harness` | C2 — 1,156 files → 43 | — |\n| `content-social/sold-relabel` | every \"sold\" the data cannot support | in flight |\n\n**In `resale-iq`:** the METRICS layer with an n-floor, five slash commands, `GOALS.md` pre-registered,\n`PATH-TO-TEN.md`, `CLOSED-LOOP.md`, `ESCALATION.md`, AM-7/AM-8/AM-8a, all 21 agent files rebuilt with\npersonality, live sources, a dated goal and a real consequence.\n\n### Live on `main` right now, unfixed\n\n**C8** (`parse_item` drops assert sales) · **C11** (four paid surfaces ungated — fix awaits merge) ·\n**C12** (the undecomposed 0.70) · **C13** (a scraper block degrades confidence silently) ·\n**C14** (`sold_at` stamped at labelling time) · **C15** (five exits, the bare `except` invisible by\ndesign) · **A12 HIGH** (rails in 1 repo of 4) · **the GDPR promise**.\n\n## Next\n1. `tech-lead` reviews and reconciles — **A15**: `designer` and `frontend-eng` overlap on three files.\n2. **Merge the gate and A13 in ONE release** (A17), never sequenced.\n3. `tech-lead`'s ordering: **relabel** (running) → **narrow the board** → **`buy_below` as a function\n   of velocity**.\n4. **Ask the customer who refunded, why.** Unanimous across four agents. Founder-only.\n5. A9, A11, A12 rollout, and the four A8 follow-ons.\n\n## Process breach this session — recorded, not tidied away\n\n**My `git add -A` swept TWELVE agents' deliverables onto local `main` in one commit (`f634592`),\nwith no per-agent branch and no review.** `qa-eng` reported it as an OS §5 branch violation on its\nown files. `tech-lead` widened it correctly: **the real breach is OS §0.7** — twelve agents' output\nreached `main` without a reviewer, because the staging step swallowed the review gate whole.\n\n`main` is **unpushed**, so nothing is deployed. That is mitigation, not absolution.\n\n**Not reconstructing the branch, and the reason is stronger than tidiness.** A retroactively built\nbranch carrying a PR nobody reviewed at the time is not a cleaner record, it is a **forged** one.\nOS §7 grades a recorded violation as a MISS and fabricated evidence as **FAKE** — the outcome that\ntriggers re-verification of every \"done\" in the last 14 days. Trading the lesser penalty for the\ngreater one, deliberately, to look better, is not a trade worth making. The remediation would also\nmean rewriting 34 commits of eleven other agents' work for zero safety benefit.\n\n**Remediation, three parts, per `tech-lead`:**\n1. Recorded here at the correct scope — §0.7 across twelve agents, not §5 for one.\n2. **The review is being done now**, retroactively, as a review. The form is unrecoverable; the\n   substance — someone who did not write it reads it — is not.\n3. The cause gets fixed inside A12: block bulk-staging while `HEAD` is on `main`, with a remedy line\n   naming `git add <path>`.\n\n**And (3) is the one place a string-matching rail genuinely earns its keep.** By `tech-lead`'s own\nargument such rules are near-worthless against a prompt-injected agent — but this was not an\nadversary, it was a slip at 01:42. That distinction is worth writing into the design: it tells you\nwhich rails to keep advisory and which to stop pretending are boundaries.\n\n## Next\n1. Re-review C6 v2, then merge C6, C5, C4 **separately**.\n2. A12 (both), A9, A11 — all `guard.py`, all founder gates. A11 and A12 are one root cause: the\n   rails test strings where they mean things.\n3. C8 measurement → fix.\n\n## Done this session\n- **Step 0** — `docs/company/OS.md` written verbatim. It outranks everything else in the repo.\n- **Phase 0 rails** — installed and teste",
   "amendments": [
     "AM-1 — The stack is FastAPI + SQLite, not Next.js + Supabase",
     "AM-2 — Spend cap: €200/month, all-in",
@@ -1329,6 +1303,7 @@
     "AM-4 — The Stop gate is armed",
     "AM-5 — There is no `ConfigChange` hook event",
     "AM-6 — Company root is `resale-iq/`",
-    "AM-7 — A decision that touches another agent's surface, or the product as a whole, requires consulting the whole roster"
+    "AM-7 — A decision that touches another agent's surface, or the product as a whole, requires consulting the whole roster",
+    "AM-8 — The roster decides the open gates. Evidence outranks headcount."
   ]
 }
