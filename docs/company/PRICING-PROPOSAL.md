@@ -1,5 +1,18 @@
 # PRICING PROPOSAL — tiers and prices, under AM-8's delegation
 
+> **RETRACTED 2026-09-01 by the founder.** The "one customer who refunded" was **the founder himself
+> testing whether Stripe worked.** There was never a real customer and never a real refund.
+> **n was 0, not 1.** Every recommendation below that rests on "ask the refunded customer why" is
+> **dead** — there is nobody to ask. Six agents converged on it independently and all six were
+> reasoning from a fact that was not a fact.
+>
+> **What survives:** the loop is still closed, and it is *more* closed than we thought. What dies is
+> the cheap way to open it. There is no n=1 to learn from; the only way to get outside information
+> is to **acquire customers**, which makes acquisition the whole job rather than one priority
+> among several.
+
+
+
 **Written** 2026-09-01. Tools available: read-only + `git`. **This is a proposal, not an
 implementation.** No price changed in code or Stripe; no page edited. Goes to the roster under AM-7,
 then to the founder.

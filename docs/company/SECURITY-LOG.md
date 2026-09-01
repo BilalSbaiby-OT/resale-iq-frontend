@@ -359,3 +359,10 @@ add = s.rstrip() + """
 ## A14 — the extension's new outbound channel `/api/ext/error`
 
 **Merged 2026-09-01 (`9571e87`). NOT submitted to the Chrome Web Store —`
+- `2026-09-01T09:46:19Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "retract: there was never a customer, and never a refund
+
+The founder: the single purchase in company history was him testing whether
+Stripe worked. Not a customer. Not a refund.
+
+Six agents independently converged last night on 'ask the one customer who
+refunded why' `

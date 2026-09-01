@@ -1,5 +1,18 @@
 # THE CLOSED LOOP — what six agents said when asked what nobody had asked
 
+> **RETRACTED 2026-09-01 by the founder.** The "one customer who refunded" was **the founder himself
+> testing whether Stripe worked.** There was never a real customer and never a real refund.
+> **n was 0, not 1.** Every recommendation below that rests on "ask the refunded customer why" is
+> **dead** — there is nobody to ask. Six agents converged on it independently and all six were
+> reasoning from a fact that was not a fact.
+>
+> **What survives:** the loop is still closed, and it is *more* closed than we thought. What dies is
+> the cheap way to open it. There is no n=1 to learn from; the only way to get outside information
+> is to **acquire customers**, which makes acquisition the whole job rather than one priority
+> among several.
+
+
+
 **2026-09-01.** The founder asked me to stop assigning work and actually talk to the roster. I asked
 each agent the same shape of question: *what do you see that nobody has asked about?*
 
