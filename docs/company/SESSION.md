@@ -4,6 +4,44 @@
 
 ## Working on
 
+**Production verified by me, 2026-09-02.** Six locales + `/api/health` all 200. `Adidas Samba` →
+WATCH, buy_below **20.97** at n=63. **`Carhartt jacket` → still UNKNOWN** — W60 is live and unfixed.
+
+**What the product answered in the last 24h (76 checks):**
+
+```
+WATCH               48        63%
+UNKNOWN             15        20%
+SKIP                 8
+INSUFFICIENT_DATA    3
+LIMIT_REACHED        2
+BUY                  0        ← the threshold is unreachable, see WHY-BUY-NEVER-FIRES.md
+                    ── actionable 56/76 (74%) · dead-end 18/76 (24%)
+```
+
+**Funnel 24h:** 28 visitors · 4 reached `/register` · 1 signup (**our own QA, not a customer**) ·
+**0 paying**. Tagged social: instagram 3, **chatgpt.com 2** — AI referrals doubled and remain the
+channel nobody planned.
+
+**PUBLISHING STAYS FROZEN, and the measurement is why.** Every visitor we send today is told "wait"
+63% of the time and "I don't know" 20%, and **never "yes"** — the BUY gate cannot fire. Spending
+reach on that is spending visitors we cannot replace. **The freeze lifts when W60 ships**, because
+that converts the dead-end fifth into a real answer.
+
+**W60 opened and assigned to `backend-eng`** — fall back to the brand+category aggregate when the
+per-model match fails, with the limitation stated in the same breath. Permitted by `DATA_CONTRACT.md`
+rule 4 already; a rail we wrote and never used.
+
+**W59 closed as premise-wrong.** I opened it claiming we had no per-user telemetry. `verdict_logs`
+had 432 rows and a `user_id` column all along — I missed it by one character. It answered the
+question immediately: **every registered user has run ZERO checks** while 417 of 432 came from
+anonymous visitors. Nothing to build. **Board: 19 closed / 2 open.**
+
+**Founder-blocked and visible:** `resaleiq.com` · ElevenLabs `voices_read` · Resend rotation ·
+pricing tiers · W24 (Coolify UI) · **the BUY threshold** (`data-scientist` must say what 65 meant
+before anyone moves it) · **the four warm-trial emails** (authorised; the reset must happen first or
+the email is a lie).
+
 # 🔴 BUY IS UNREACHABLE BY CONSTRUCTION. `WHY-BUY-NEVER-FIRES.md`
 
 `api/routes.py:1177` needs `opportunity_score >= 65`. Production, all 100 models:

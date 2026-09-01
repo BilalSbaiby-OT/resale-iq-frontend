@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T20:52:46Z",
+  "generated_at": "2026-09-01T22:09:09Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -7,7 +7,7 @@
       "counter": "refund rate",
       "source": "stripe",
       "value": 0,
-      "note": "from production users.stripe_sub_id (Stripe API unreachable here)",
+      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
       "unknown": false,
       "why_unknown": null
     },
@@ -36,10 +36,10 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": null,
+      "value": 41,
       "note": null,
-      "unknown": true,
-      "why_unknown": "<CREDENTIAL> not in this environment — run: bash .claude/bin/with-secrets.sh python3 scripts/company/org.py"
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -64,7 +64,7 @@
           "open_rows": 0,
           "closed_rows": 1,
           "findings_raised": 0,
-          "unread_mail": 0
+          "unread_mail": 2
         },
         {
           "agent": "ux-researcher",
@@ -82,7 +82,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
-          "unread_mail": 0
+          "unread_mail": 1
         },
         {
           "agent": "content-social",
@@ -127,15 +127,15 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
-          "unread_mail": 0
+          "unread_mail": 2
         },
         {
           "agent": "backend-eng",
           "is_head": false,
           "merged_branches": 10,
           "open_rows": 1,
-          "closed_rows": 4,
-          "findings_raised": 2,
+          "closed_rows": 5,
+          "findings_raised": 3,
           "unread_mail": 0
         },
         {
@@ -145,7 +145,7 @@
           "open_rows": 0,
           "closed_rows": 2,
           "findings_raised": 1,
-          "unread_mail": 0
+          "unread_mail": 1
         },
         {
           "agent": "extension-eng",
@@ -175,9 +175,9 @@
           "unread_mail": 0
         }
       ],
-      "rows_closed": 6,
+      "rows_closed": 7,
       "rows_open": 1,
-      "findings_raised": 3
+      "findings_raised": 4
     },
     "Data & Money": {
       "head": "data-scientist",
@@ -190,7 +190,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
-          "unread_mail": 0
+          "unread_mail": 3
         },
         {
           "agent": "finance-ops",
@@ -208,7 +208,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 2,
-          "unread_mail": 0
+          "unread_mail": 1
         }
       ],
       "rows_closed": 0,
@@ -327,7 +327,7 @@
       "finding": "We cannot tell whether a user ever used the product. unlocks_used_total is 0 for EVERY user including the founder's own power accounts, verdict_count_today is 0 for everyone, and no per-user request log exists in product",
       "found_by": "backend-eng",
       "doer": "backend-eng",
-      "status": "OPEN"
+      "status": "CLOSED"
     },
     {
       "id": "W57",
@@ -344,6 +344,14 @@
       "found_by": "devops",
       "doer": "devops",
       "status": "CLOSED"
+    },
+    {
+      "id": "W60",
+      "duplicate_id": false,
+      "finding": "We answer \"I don't know\" while holding the answer. Real UNKNOWN queries — Carhartt jacket (model_too_vague), Nike Air Max, Fred Perry polo, jordan 3 — and at that moment market_stats held Carhartt Jackets FR: 1,609 liste",
+      "found_by": "backend-eng",
+      "doer": "backend-eng",
+      "status": "OPEN"
     },
     {
       "id": "W24",
@@ -451,17 +459,6 @@
     }
   ],
   "stale_open": [
-    {
-      "id": "W59",
-      "duplicate_id": false,
-      "finding": "We cannot tell whether a user ever used the product. unlocks_used_total is 0 for EVERY user including the founder's own power accounts, verdict_count_today is 0 for everyone, and no per-user request log exists in product",
-      "found_by": "backend-eng",
-      "doer": "backend-eng",
-      "status": "OPEN",
-      "shipped_evidence": [
-        "resale-iq: 751d534 loop: production verified, W59 opened for the telemetry we do not have"
-      ]
-    },
     {
       "id": "W24",
       "duplicate_id": false,
@@ -643,15 +640,135 @@
         "kind": "message",
         "subject": "'Registering makes the product worse' — the code no longer does this. The COPY still says it does.",
         "body": "Founder asked for solutions on 'registering makes the product worse'. I verified the code before briefing anyone, because I have twice today briefed the roster on a false premise.\n\nTHE CODE IS FIXED. api/routes.py:755 grants a logged-in free user FREE_VERDICT_DAILY_LIMIT -- the SAME 10/day as anonymous -- and claim_verdict_unlock adds 10 FULL unlocks per month on top, which anonymous gets none of, plus a 7-day unlimited trial. Registering is now strictly better. W1's field-redaction fix (5019fa0, merged d170987) landed today.\n\nTHE COPY STILL SELLS AGAINST US, and this is now the actual bug:\n\n  i18n.ts:223  '...then 10 full checks / month. Anonymous visitors get 10 checks/day.'\n  i18n.ts:292  '...then 10 checks/month. No card.'\n  free-checker.tsx:235  '(register -- free, raises the cap to 10/month...)'\n\nRead those as a stranger. We are telling visitors that signing up moves them from 10 A DAY to 10 A MONTH. That is a 30x downgrade in their head, stated by us, on the conversion surface, in six languages. Line 223 goes further and explicitly points out that anonymous visitors get more. And free-checker.tsx calls 10/month a RAISE, which only makes sense against a cap the reader does not have.\n\nWhy this matters more than it looks: 417 of 432 verdict checks were run by ANONYMOUS visitors. Every real registered user has run ZERO. People use the free checker and do not register, or register and never return -- and our own copy gives them a reason not to.\n\nThe daily allowance does not go away on registration. The copy implies it does. Nobody reading it would guess they keep 10/day AND gain 10 unlocks/month.\n\nConsulting monetization (owns plans, entitlements, trial logic) and designer (owns the conversion surface). Engineering will implement once the words are agreed -- this is a copy change across six locales, not a quota change. Do not change the quota numbers to fix a sentence.\n\nTwo constraints on any answer: never imply a guaranteed return, and per-model buy-below stays behind the gate -- that gate IS the paid product and the temptation here is to give away more to fix a copy problem."
+      },
+      {
+        "id": "m0019",
+        "ts": "2026-09-01T20:55:46Z",
+        "from": "ceo",
+        "to": "backend-eng",
+        "kind": "message",
+        "subject": "PENDING is 38% of every check we have ever served — this outranks everything",
+        "body": "434 verdicts all time: PENDING 165, WATCH 118, INSUFFICIENT_DATA 55, SKIP 42, UNKNOWN 31, LIMIT_REACHED 17, BUY 6. Last BUY was 2026-08-20.\n\n62% of every check ever run returns no actionable answer. PENDING alone is 38%. See docs/company/THE-REAL-PROBLEM.md.\n\nThis is why nobody registers and nobody returns. Not copy, not quota, not UX -- I spent today fixing all three and they were symptoms. 92% of anonymous visitors run exactly ONE check. If that one check returns PENDING, we have spent a visitor and got nothing.\n\nMarketing, copy and UX are frozen until this is fixed."
+      },
+      {
+        "id": "m0020",
+        "ts": "2026-09-01T21:13:53Z",
+        "from": "ceo",
+        "to": "product-manager",
+        "kind": "message",
+        "subject": "GREY AREA: WATCH is 68% of our answers and tells the user nothing — design work is running",
+        "body": "Founder's question tonight: what is the grey-area solution?\n\nThe numbers. Since the latest fix, 22 checks: WATCH 10, UNKNOWN 7, SKIP 5, BUY 0. All time, 434 checks: BUY 6, last one 2026-08-20. The product has effectively never said yes, and WATCH -- the modal answer -- is a NON-ANSWER. Someone asks 'should I buy this' and is told 'wait', with nothing to act on.\n\nMeanwhile 92% of anonymous visitors run exactly ONE check. Median 1. Only 2 of 60 ever reached the 10/day cap. They try once, get 'wait', and never come back. That is the funnel, and the cap was never the reason -- I had that wrong earlier and so did the founder's first framing.\n\nThe thread worth pulling: we already COMPUTE a price. buy_below exists. WATCH may be throwing away an answer we already have -- 'not at 40 EUR, but yes at 22' is actionable; 'wait' is not. That is a hypothesis, not a conclusion, and the decisive number is the DISTRIBUTION of listed price vs buy_below. If most WATCHes are 10% away, a conditional answer is powerful. If they are 200% away, it is useless. That measurement is running now.\n\nA 12-agent design workflow is underway: four research lenses, four independent proposals, three judges per proposal on distinct lenses, then synthesis. Output lands in docs/company/GREY-AREA.md.\n\nThe rails do not move: the n>=8 floor stays, we say UNKNOWN rather than guess, per-model buy-below stays paid, no guaranteed returns. If a proposal needs a rail broken it is excluded automatically.\n\nMarketing, copy and UX stay frozen until a check returns something worth acting on."
+      },
+      {
+        "id": "m0021",
+        "ts": "2026-09-01T21:13:53Z",
+        "from": "ceo",
+        "to": "data-scientist",
+        "kind": "message",
+        "subject": "GREY AREA: WATCH is 68% of our answers and tells the user nothing — design work is running",
+        "body": "Founder's question tonight: what is the grey-area solution?\n\nThe numbers. Since the latest fix, 22 checks: WATCH 10, UNKNOWN 7, SKIP 5, BUY 0. All time, 434 checks: BUY 6, last one 2026-08-20. The product has effectively never said yes, and WATCH -- the modal answer -- is a NON-ANSWER. Someone asks 'should I buy this' and is told 'wait', with nothing to act on.\n\nMeanwhile 92% of anonymous visitors run exactly ONE check. Median 1. Only 2 of 60 ever reached the 10/day cap. They try once, get 'wait', and never come back. That is the funnel, and the cap was never the reason -- I had that wrong earlier and so did the founder's first framing.\n\nThe thread worth pulling: we already COMPUTE a price. buy_below exists. WATCH may be throwing away an answer we already have -- 'not at 40 EUR, but yes at 22' is actionable; 'wait' is not. That is a hypothesis, not a conclusion, and the decisive number is the DISTRIBUTION of listed price vs buy_below. If most WATCHes are 10% away, a conditional answer is powerful. If they are 200% away, it is useless. That measurement is running now.\n\nA 12-agent design workflow is underway: four research lenses, four independent proposals, three judges per proposal on distinct lenses, then synthesis. Output lands in docs/company/GREY-AREA.md.\n\nThe rails do not move: the n>=8 floor stays, we say UNKNOWN rather than guess, per-model buy-below stays paid, no guaranteed returns. If a proposal needs a rail broken it is excluded automatically.\n\nMarketing, copy and UX stay frozen until a check returns something worth acting on."
+      },
+      {
+        "id": "m0022",
+        "ts": "2026-09-01T21:13:53Z",
+        "from": "ceo",
+        "to": "tech-lead",
+        "kind": "message",
+        "subject": "GREY AREA: WATCH is 68% of our answers and tells the user nothing — design work is running",
+        "body": "Founder's question tonight: what is the grey-area solution?\n\nThe numbers. Since the latest fix, 22 checks: WATCH 10, UNKNOWN 7, SKIP 5, BUY 0. All time, 434 checks: BUY 6, last one 2026-08-20. The product has effectively never said yes, and WATCH -- the modal answer -- is a NON-ANSWER. Someone asks 'should I buy this' and is told 'wait', with nothing to act on.\n\nMeanwhile 92% of anonymous visitors run exactly ONE check. Median 1. Only 2 of 60 ever reached the 10/day cap. They try once, get 'wait', and never come back. That is the funnel, and the cap was never the reason -- I had that wrong earlier and so did the founder's first framing.\n\nThe thread worth pulling: we already COMPUTE a price. buy_below exists. WATCH may be throwing away an answer we already have -- 'not at 40 EUR, but yes at 22' is actionable; 'wait' is not. That is a hypothesis, not a conclusion, and the decisive number is the DISTRIBUTION of listed price vs buy_below. If most WATCHes are 10% away, a conditional answer is powerful. If they are 200% away, it is useless. That measurement is running now.\n\nA 12-agent design workflow is underway: four research lenses, four independent proposals, three judges per proposal on distinct lenses, then synthesis. Output lands in docs/company/GREY-AREA.md.\n\nThe rails do not move: the n>=8 floor stays, we say UNKNOWN rather than guess, per-model buy-below stays paid, no guaranteed returns. If a proposal needs a rail broken it is excluded automatically.\n\nMarketing, copy and UX stay frozen until a check returns something worth acting on."
+      },
+      {
+        "id": "m0023",
+        "ts": "2026-09-01T21:20:25Z",
+        "from": "ceo",
+        "to": "product-manager",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0024",
+        "ts": "2026-09-01T21:20:25Z",
+        "from": "ceo",
+        "to": "data-scientist",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0025",
+        "ts": "2026-09-01T21:20:26Z",
+        "from": "ceo",
+        "to": "tech-lead",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0026",
+        "ts": "2026-09-01T21:20:26Z",
+        "from": "ceo",
+        "to": "backend-eng",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0027",
+        "ts": "2026-09-01T21:20:26Z",
+        "from": "ceo",
+        "to": "frontend-eng",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0028",
+        "ts": "2026-09-01T21:20:26Z",
+        "from": "ceo",
+        "to": "designer",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0029",
+        "ts": "2026-09-01T21:20:26Z",
+        "from": "ceo",
+        "to": "monetization",
+        "kind": "message",
+        "subject": "FOUNDER RULING: approximate and useful beats exact and silent — and we already hold the answer",
+        "body": "Founder tonight: 'shit dosnt need to be exact bro as long as it works and fullfill what the customer need in that niche.'\n\nHe is right, and here is the evidence. Full write-up in docs/company/GREY-AREA-FINDING.md.\n\nReal UNKNOWN rows from verdict_logs -- what people actually typed: 'Carhartt jacket' (model_too_vague), 'Nike Air Max', 'Fred Perry polo' (model_too_vague), 'Puma Suede', 'jordan 3'. That is how a reseller talks. Nobody types a canonical model id.\n\nWhat we were holding at that exact moment, from market_stats: Carhartt Jackets FR 1,609 listed / 10 departures / 48.53 EUR avg. Nike Sneakers 54,587 / 282 / 107.98. Puma Sneakers 12,236 / 128 / 49.17. Fred Perry Shirts 1,648 / 65 / 22.04. Jordan Sneakers 14,216 / 67 / 152.84.\n\nEvery single one. We answered 'I don't know' while holding a real number with a real sample size. said_sell_avg is NULL on all 86 UNKNOWN rows -- we do not compute and withhold, we never look. The match fails against the per-model catalogue and the request stops, without ever asking the brand+category question we can answer.\n\nAnd DATA_CONTRACT.md rule 4 already permits it: brand and category aggregates are PUBLIC, per-model buy-below is paid. This is not a rail to break. It is a rail we wrote and never used.\n\nThe distinction I had been conflating and the founder had not: 'never manufacture proof' is sacred and does not move. 'Never give an approximate answer' was never a rule -- I inherited it from the first and enforced it as if it were the same thing. They are opposites in effect. Silence does not protect anyone from a bad number; it leaves them with nothing.\n\nThe honest version of not knowing is not silence. It is a smaller claim, clearly labelled, with the limitation stated in the same breath as the number.\n\nThis outranks the conditional-buy idea: it converts UNKNOWN -- about a third of all current checks -- into a real answer, it needs no threshold change and no new data, and it fixes the exact moment that loses people. 92% of anonymous visitors run ONE check. If that one says 'I don't know', we spent a visitor and gave them nothing.\n\nUnchanged: no invented numbers, per-model buy-below stays paid, the limitation sentence is part of the answer not a footnote, no guaranteed returns, watched departures never 'sold'."
+      },
+      {
+        "id": "m0030",
+        "ts": "2026-09-01T22:04:25Z",
+        "from": "ceo",
+        "to": "data-scientist",
+        "kind": "message",
+        "subject": "BUY is unreachable by construction — 0 of 100 models can produce it. This is yours.",
+        "body": "api/routes.py:1177 requires opportunity_score >= 65 AND momentum in (HOT, RISING).\n\nProduction model_signals, all 100 models: min 9.3, avg 21.0, MAX 59.2. Momentum: STABLE 54, FADING 20, RISING 16, DEAD 6, HOT 4. Models that can ever return BUY: ZERO.\n\nThe bar sits above the ceiling of the data. That is why the product has said BUY six times in its life and not once in twelve days. Not a market judgement -- arithmetic. Full write-up in docs/company/WHY-BUY-NEVER-FIRES.md.\n\nThree of us were confidently wrong about this same symptom tonight. The founder thought the free tier was too generous (92% of visitors run ONE check; the cap was never it). I thought 0.95*0.70 was too strict (21.4% of departures already clear it). Both of us reasoned from a plausible mechanism instead of measuring the gate.\n\nTHE ASK, and it is a calibration question, not a code fix, which is why it is yours: what was 65 supposed to mean? Either opportunity_score was rescaled and 65 is a fossil, or it was set for a market with better opportunities than this one.\n\nDO NOT lower it until you can say which. Moving a threshold until the answer becomes yes is manufacturing proof with extra steps. A BUY that exists because we lowered the bar is a lie with a number attached, and it is worse than never saying BUY -- the customer who loses money on our first-ever yes never comes back and tells people.\n\nWhat I want: what the score measures, its live distribution, and a threshold justified against that distribution rather than against the desire to see a BUY. If the honest answer is that this market genuinely has almost no buys, say that -- it is a real finding and the founder needs it more than he needs a green light."
       }
     ],
     "unread_by_agent": {
-      "ceo": 2
+      "ceo": 2,
+      "product-manager": 2,
+      "data-scientist": 3,
+      "tech-lead": 2,
+      "frontend-eng": 1,
+      "designer": 1,
+      "monetization": 1
     }
   },
   "stripe": {
-    "available": false,
-    "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
+    "available": true,
+    "livemode": false,
+    "account": null,
+    "reading": "SANDBOX (agent key) — NOT production",
+    "active_subscriptions": 0,
+    "charges": 0,
+    "refunded": 0,
+    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
   },
   "deploy_drift": {
     "drifted": true,
@@ -660,14 +777,19 @@
         "app": "frontend",
         "status": "DRIFTED",
         "running": "d7e89df7557a",
-        "merged": "c72bd8bc292c",
-        "commits_unshipped": 5,
+        "merged": "8688b62ab804",
+        "commits_unshipped": 12,
         "unshipped": [
+          "8688b62 session: BUY was never a market judgement, it was arithmetic",
+          "3260d26 finding: BUY is unreachable by construction — 0 of 100 models can produce one",
+          "79e8815 finding: we answer \"I don't know\" while holding the answer",
+          "e580e67 session: grey area is the product, and one number decides the answer",
+          "62f02cc correct: my headline was a true number about a false referent",
+          "f133f0b session: everything else was a symptom; the product does not answer",
+          "03da6df audit: the product has said BUY six times ever, and not once in twelve days",
           "c72bd8b fix(dashboard): it never worked when opened as a file, and said so misleadingly",
           "234dd6e refactor: the duplicate check caught its own author duplicating code",
-          "d614460 check: the last three failure classes are machines now, not documents",
-          "93ac843 session: 52 bugs fixed twice, and the cause is that rules do not run",
-          "4b3b17a fix: the 10 monthly unlocks had no entry point, and today's own fix caused it"
+          "d614460 check: the last three failure classes are machines now, not documents"
         ],
         "container": "p6t87shftvl2455pd3gdgee1-203219809986"
       },
@@ -680,12 +802,12 @@
     ]
   },
   "totals": {
-    "rows_total": 20,
+    "rows_total": 21,
     "rows_open": 2,
-    "rows_closed": 18,
+    "rows_closed": 19,
     "rows_blocked": 0,
-    "bus_messages": 18,
-    "stale_open": 2,
+    "bus_messages": 30,
+    "stale_open": 1,
     "unassignable": 0
   }
 }
