@@ -876,3 +876,60 @@ to the shelf, absent from the table"**, and that asymmetry is the fix rather tha
 - [ ] **New GAPS row owed:** four paid surfaces publish `max_buy_price` with **no evidence floor at
       all**. Every conversation tonight about coverage, the North Star and honesty has been about
       `/api/verdict`. The product is wider than the gate.
+
+
+---
+
+### AM-7 roster consult — **gate the ungated paid surfaces.** Two verdicts in, converging.
+
+**`product-manager`: gate it tonight, TRUE pile, top priority — and not close.**
+
+> *"An honest refusal costs you a conversion; a wrong number costs you a customer, and we have
+> already watched that happen once."*
+
+It identified this as **the same bug shape as C5, one call site over**: C5 was `comparable_n` absent →
+assume the gate passed, on `/api/verdict`. Here the gate was **never wired at all**, on the **paid**
+surfaces. `STANDARDS.md` §0 already names the family — *"a default value in a lookup is a decision."*
+
+The distinction that decides it: the funnel bugs being fixed in parallel cost a **visitor** who never
+converts — bad, recoverable, they can come back. This costs a **customer** who paid €49, acted, and
+lost money. *"It converts and then breaks, rather than failing to convert at all."* That is the
+mechanism behind the one refund this company has ever had.
+
+**`monetization`: gate means RELABEL, not delete the row.** Verified the claim itself
+(`grep -c` for the evidence-gate functions in `resale_routes.py` → **0**) rather than taking it from
+me. Keep the row, the model and its `n`; withhold or flag only the price. `engine/sufficiency.py`'s
+existing `WITHHELD` mechanism **already names `max_buy_price`**, so this is reuse, not new work.
+
+**Both independently say: gate BEFORE or WITH A13**, because A13 alone swaps one under-evidenced
+price for a different under-evidenced price on those same 18 models.
+
+**The converged design — three tiers, not binary**, reusing the four extension panel states that
+already exist:
+
+| `comparable_n` | behaviour |
+|---|---|
+| ≥ 8 | full band |
+| 3–7 | **price still shows, labelled low-confidence with its `n`** |
+| < 3 | honest refusal |
+
+Plus: **sort Deal Finder and opportunities by confidence tier**, so a paying customer's first screen
+is the trustworthy subset and the weaker rows sit below it, marked — rather than mixed in
+indistinguishably as they are today.
+
+That answers my worry that gating guts the paid product: it does not go blank on 57% of the board.
+**One gate function extended to more call sites, one existing label set reused, one sort key added.**
+
+**On the ten-customer goal, `product-manager` gave the uncomfortable version I asked for:**
+
+> *"Selling ten hard 'trust this price' commitments into this risks not ten customers but ten repeats
+> of the one refund we have already had."*
+
+Its recommendation is to **reframe rather than cancel**: ship the gate, then sell the first ten as
+**founding / early-access** with the calibration state told straight — *"pricing confidence shown per
+item, still being calibrated."* Once the tiers ship, honesty about confidence becomes the pitch
+rather than the liability. **The founder's call, made with the cost named.**
+
+**Time-critical, already actioned:** `product-manager` warned that `designer` and `frontend-eng` —
+both mid-build right now — must not bake a live buy-below figure into the landing page or into test
+expectations, or the rebuilt page ships wrong on launch night. Both were messaged mid-task.

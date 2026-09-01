@@ -291,3 +291,43 @@ browser walk, F-1/F-2), `docs/audit/FUNNEL-WALK.md` (full code-derived funnel wa
 `docs/company/AMENDMENTS.md` AM-3 (Business €99 cut — confirmed not re-opened by anything found
 here), `docs/company/DECISIONS.md` A5 (REST API/Order Planner vs. `CLAUDE.md` — confirmed
 docs-vs-reality only, not an entitlement bug).
+
+---
+
+## ADDENDUM — roster consult, 2026-09-01: gate `api/resale_routes.py`'s ungated `max_buy_price` reads?
+
+Consulted by the coordinator alongside `tech-lead`/`data-scientist` on AM-7. Verified before opining
+(their claim, not taken on trust): `grep -c "comparable_n\|verdict_allows_buy_below\|MIN_VERDICT"
+demand-intel/api/resale_routes.py` → **0**. Confirmed directly: the watchlist query
+(`resale_routes.py` ~1104, `SELECT ... ms.max_buy_price FROM model_signals ms`, no join/filter on
+evidence depth) and the sourcing-link builder (`&price_to=` param built from raw `max_buy_price`)
+both read the paid-tier number with no sufficiency check.
+
+**Recommendation: gate, but "gate" should mean *relabel*, not *delete* — reuse the pattern
+`/api/verdict` already ships, not a new one.** `verdict_allows_buy_below()` doesn't remove a row
+from a response, it swaps the confident number for `INSUFFICIENT_DATA` with the model name, `n`,
+and honest copy still attached (`engine/listing_identity.py:44-72`); `engine/sufficiency.py`'s
+`WITHHELD` tuple already names `max_buy_price` for exactly this at-read-time treatment, and
+`comparable_n` already exists as a real column on `model_signals` (`db/schema.py:971`). Wiring this
+into Deal Finder/watchlist/brand pages is a small, additive change — not a new feature competing
+with A13 for roadmap space — because the column and the pure function both already exist.
+
+**Revenue reasoning, not principle:** at ~10 target customers with zero testimonials banked, one
+customer acting on a false-confident buy-below (Levi's Trucker €4.65→€12.10 on 5 comps, still
+ungated after A13) and saying so publicly costs more in acquisition than a thinner-looking board
+ever could — there is no base of good stories yet to dilute a bad one against. But a **hard delete**
+of 57%-of-board rows would gut Deal Finder's core pitch and could genuinely make Pro look mispriced
+for what it shows; a **relabel** (keep the row, model, `n`; withhold or flag only the price) avoids
+that trade entirely and reuses the extension's own four-state vocabulary
+(Confident/Insufficient/Not-covered/Limited), which `FUNNEL-WALK.md` already found tests as one of
+the product's strengths, not a weakness.
+
+**Sequencing: gate with or before A13**, per data-scientist — shipping A13's corrected prices onto
+still-ungated surfaces just replaces one confidently-wrong number with a different one on the same
+18 models, burning trust twice instead of once. Given the fix reuses existing columns/functions, the
+"gating first costs more than it protects" concern doesn't hold on cost.
+
+**Not independently verified this session:** the "57% of board" figure — I have the 41/100-model A13
+study from the consult but no production `model_signals` access to confirm the board-wide
+`comparable_n < 8` share myself; flagging per this file's own rule (no number without `n`, dates, a
+query) rather than repeating it as fact.
