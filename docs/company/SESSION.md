@@ -43,11 +43,24 @@ hreflang, free-tier quota showing the real number (was underselling 3×), 36 dea
 
 ## Blocked
 
-**W55 — the backend's Traefik retry middleware is DEFINED BUT NEVER ATTACHED.** `ph5cl-retry` exists;
-its router carries `.middlewares=gzip` alone. The frontend is wired correctly. Backend deploys still
-drop in-flight requests. Found via `docker inspect` on the running container, not from the plan.
-**W24 cannot close before it** — the clean 0/138 probe proved nothing, because no deploy happened in
-the probe window.
+**W55 — CLOSED.** `ph5cl-retry` is attached and verified on the running post-deploy container. Fixed
+where Coolify owns it (the app's `custom_labels`, confirmed against Coolify's own PHP source on the
+box) rather than on a container the next deploy would overwrite. Backed up host-side and locally.
+
+**W24 — OPEN, and the finding got worse.** A probe that genuinely spanned a real deploy (459
+requests, window proven by a parallel container-churn tracker) returned **356×200 and 103×404** in one
+contiguous ~57s block. Traefik's own log names the cause at the same second: `Router defined multiple
+times with different configurations`. **Verified independently** — 3 occurrences in 6h, including the
+FRONTEND at 14:21:32Z. The retry middleware cannot help: when Traefik drops the router there is
+nothing to retry into.
+
+**Hypothesis under test, and it points at us.** Traefik only drops a router when the two configs
+DIFFER; identical ones merge into one service with two servers, which is normal rolling-deploy
+behaviour with no outage. During that deploy the old container carried `middlewares=gzip` and the new
+one `gzip,ph5cl-retry` — **different by construction, because of the fix being shipped.** If that is
+the cause, the real shape is "a label change costs ~57s, and we have already paid it", not "every
+deploy takes the site down". `devops` is running a no-label-change deploy under the same probe to
+settle it. **Do not report either version until that comes back.**
 
 **Founder:** `LIFECYCLE_EMAILS=1` (trial→paid machine built + tested, one variable) · ElevenLabs
 `voices_read` or a voice id (the account has ZERO saved voices — that was the 404) · rotate Coolify +
