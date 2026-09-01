@@ -76,3 +76,9 @@ scratchpad/
 # scripts/capture_demo.mjs. The mp4 and the text cards are committed; the raw
 # frames are not -- they are build output, not an asset.
 docs/marketing/assets/frames/
+
+# Intermediate render artifacts. The finished MP4 is the deliverable; the frame
+# dumps and the pre-mux silent cuts are scratch, and committing them buries the
+# real assets in a directory listing.
+docs/marketing/assets/frames*/
+docs/marketing/assets/*-silent.mp4
