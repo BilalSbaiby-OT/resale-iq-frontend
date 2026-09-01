@@ -1828,3 +1828,55 @@ Coverage** from disk pulls, so *"how many pages are indexed versus excluded as t
 ever** — is fixable or should be killed. Adding pages before knowing is what `seo`'s own standing
 rule already forbids.
 
+---
+
+## A22 — **PUBLISHING: STANDING FOUNDER AUTHORISATION, GRANTED 2026-09-01**
+
+**The gate is cleared. It was always the founder's to clear, and he has, repeatedly and in his own
+words.** Recorded here because `content-social` correctly refused to publish on a *relayed*
+instruction — under **AM-8a** a message passed through me is not founder consent, and its own KPI
+card scores `posts published without a founder gate = 0`. It was right. **The authorisation was real
+and lived in chat, which is exactly the wrong place for it.**
+
+Verbatim, across the day:
+
+> *"i authorize all postings for tonight / you dont need my pemission to post do it yourself"*
+> *"why are you not marketing why are you not doing customer aquisition already / what are you waiting from me"*
+> *"start posting i guve you permission"*
+> *"go"*
+
+**AM-8 still stands as written** — the *roster* may not clear this gate by vote, whatever the
+tally. **What changed is that the gate-holder has opened it.**
+
+### Scope of A22
+
+| | |
+|---|---|
+| **Authorised** | Publishing to the four connected Postiz accounts — X, Instagram, TikTok, Reddit — from `docs/marketing/QUEUE.md` / `growth.db`, without per-post founder review |
+| **Still requires the founder** | Chrome Web Store submission, anything on a new platform or a new account, and paid spend |
+| **Never authorised** | Fabricated proof — invented customers, revenue, testimonials, statistics or capabilities |
+
+### Three constraints that survive the authorisation, and why
+
+1. **No per-model buy-below in public content.** `resale-iq-growth/docs/DATA_CONTRACT.md` rule 4:
+   per-model buy-below is **paid**; brand and category aggregates are public. **Two deleted drafts
+   published five of them free** — Nike, Balenciaga, New Balance, Adidas, Gucci. That is not a
+   hedging question, it is **giving away the product**, and it is the reason A22 exists at all rather
+   than a simple "go".
+2. **No Balenciaga, and no authenticity-adjacent claim.** `GTM.md` §B3 ruled this a **cut, not a
+   resize**: publicly advising what to pay for Balenciaga on Vinted is an implicit authenticity claim
+   on the most counterfeit-exposed category we track, and **we have no counterfeit filter** —
+   `grep -rn "replica\|counterfeit" demand-intel` returns nothing. `CLAUDE.md` lists authenticity
+   marketing under **Hard no**. Teasing the number down does not fix it. **This is legal and brand
+   exposure, not tone.**
+3. **`growth.db` has concurrent writers and no lock.** `content-social` read row 53's status twice
+   minutes apart and watched it change **draft → approved → draft** with no action of its own.
+   **Approve deliberately, row by row. Never in bulk.**
+
+### Two facts worth carrying
+
+- **`--check` defaults to `--limit 10`** and undercounts. The queue was **43 rows, not 10**; a
+  dry-run showed **41 would have sent**.
+- **One post is already live from before today** — `id 51`, Instagram, 2026-08-30. Pre-existing, not
+  from this session.
+

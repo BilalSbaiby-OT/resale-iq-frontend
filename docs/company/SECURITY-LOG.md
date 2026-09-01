@@ -522,3 +522,10 @@ TikTok/Reels/Shorts. Roughly 45-60s per clip, ~4.8MB.
 
 Committing the assets rather than only the script because the whole point of
 today is that `
+- `2026-09-01T11:06:35Z` **BLOCKED** Bash — UPDATE without WHERE — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/worktrees/growth cp data/growth.db /tmp/growth.db.bak 2>/dev/null sqlite3 data/growth.db <<'SQL' UPDATE content SET hook = 'We track 3.2M Vinted listings across ES/FR/DE/IT/PT. In the trailing 7 days t`
+- `2026-09-01T11:10:32Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `npm test 2>&1 | grep -E "^ℹ (pass|fail)" ; git push origin main 2>&1|tail -1`
+- `2026-09-01T11:11:27Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+approvals: A22, the publishing gate is open and now says so in a file
+
+content-social refused to publish today and was right to. Under AM-8a a message
+relayed through me is not found`
