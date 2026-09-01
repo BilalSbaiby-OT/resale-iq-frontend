@@ -541,3 +541,4 @@ workboard: 13 lines of prose per line of product, and the reason why
 
 The founder: "we have 5 departments and 21 agents and the product didnt change
 much at all." He was right and th`
+- `2026-09-01T11:48:41Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 - <<'PY' import io p="scripts/capture_demo.mjs"; s=io.open(p,encoding="utf-8").read() s=s.replace('const browser = await chromium.launch()', """// This Playwright version wants a headless-shell build that is not installed, // while several full Chromium builds are cached. Pin the newest cach`

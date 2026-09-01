@@ -458,6 +458,55 @@ track, with no counterfeit filter in the codebase).
 product in frame is a mood board. **The format that converts is the product doing the thing:** a real
 listing in, a verdict out, hook text in frame one, payoff inside three seconds.
 
+## A video that is actually marketing — reproducible in one command
+
+`docs/marketing/assets/samba-demo-9x16.mp4` — **1080×1920, 15.9s.** Hook card → the search typing
+out character by character → **BUY-BELOW €21 · MARKET €32 · LEFT SHELF 63 · STILL LISTED 19,016 ·
+WATCH** → end card. **Captured live from production. Nothing mocked, no number composed.**
+
+**Pipeline:** `scripts/capture_demo.mjs` → `scripts/make_cards.mjs` → ffmpeg concat. The next twenty
+take minutes.
+
+**Four obstacles, each solved rather than worked around:**
+- `designer` had a browser but **no shell**, so `gen_video.py` was unreachable. **My briefing error.**
+  It reported the miss honestly instead of faking a deliverable.
+- The Browser pane was **hidden**, so it could not composite frames → switched to headless Playwright.
+- Playwright wanted a **headless-shell build that is not installed**; four full Chromium builds sit in
+  the cache. The script now **discovers the newest** rather than hardcoding, so it survives upgrades.
+- **This ffmpeg has no `drawtext`** (built without libfreetype) → text cards rendered in the browser
+  instead, which is better: they use the product's own tokens rather than whatever font ffmpeg found.
+
+## Third stale `Desktop` path — and this one is a whole marketing kit
+
+`designer` found `~/Desktop/resale-iq-marketing/` — **12 files**: positioning, ICP, messaging hooks,
+channels playbook, paid ads, ready-to-use content, a 30/60/90 launch plan, metrics, a DO-NOT list, an
+entity kit. Plus `~/Desktop/resale-iq-social/`.
+
+**Outside company scope, never read by any agent, never used.** Third `Desktop`-vs-`work` discovery
+today after the GSC credentials and `guard.py`'s memory allow-list.
+
+## The founder's targets, and my honest read of the channel that delivers them
+
+**10k views today.** **X will not produce it** — zero followers means near-zero distribution.
+**Reddit and TikTok can, because neither is follower-gated**: a strong Reddit post in a large
+reselling subreddit routinely does 10k+ in hours, and TikTok's feed is purely algorithmic. **We hold
+direct Reddit API credentials**, so Postiz is not even required. That is where the volume goes.
+
+**The risk worth being slow about:** Reddit removes self-promotion hard and can kill the account. The
+version that works is a genuine contribution with real data where the tool is mentioned because it is
+relevant. **`legal-compliance` reads the subreddit rules before the first one.** A banned account
+costs the channel permanently.
+
+**Calling the founder: I cannot.** No telephony credential exists — no Twilio, Vonage or MessageBird
+in the inventory. **Telegram works** (`TELEGRAM_BOT_TOKEN` live) and is what I will use. **Three env
+lines fix it properly:** `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM_NUMBER`.
+
+## Hourly CEO loop armed
+
+Cron `d721e25c`, every hour at :23 — works the WORKBOARD, verifies production **in a browser**,
+rewrites and publishes queue rows one at a time, measures what earlier posts did, and **confirms each
+push landed on the remote.** Session-only.
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

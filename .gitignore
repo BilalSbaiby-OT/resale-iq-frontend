@@ -71,3 +71,8 @@ __pycache__/
 # Scratch work belongs in the session scratchpad outside the repo; this is the
 # backstop for when it does not.
 scratchpad/
+
+# Video capture intermediates. 134 PNGs per run, regenerated in seconds by
+# scripts/capture_demo.mjs. The mp4 and the text cards are committed; the raw
+# frames are not -- they are build output, not an asset.
+docs/marketing/assets/frames/
