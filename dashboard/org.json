@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T20:51:34Z",
+  "generated_at": "2026-09-01T20:52:46Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -7,7 +7,7 @@
       "counter": "refund rate",
       "source": "stripe",
       "value": 0,
-      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
+      "note": "from production users.stripe_sub_id (Stripe API unreachable here)",
       "unknown": false,
       "why_unknown": null
     },
@@ -36,10 +36,10 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": 40,
+      "value": null,
       "note": null,
-      "unknown": false,
-      "why_unknown": null
+      "unknown": true,
+      "why_unknown": "<CREDENTIAL> not in this environment — run: bash .claude/bin/with-secrets.sh python3 scripts/company/org.py"
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -650,14 +650,8 @@
     }
   },
   "stripe": {
-    "available": true,
-    "livemode": false,
-    "account": null,
-    "reading": "SANDBOX (agent key) — NOT production",
-    "active_subscriptions": 0,
-    "charges": 0,
-    "refunded": 0,
-    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
+    "available": false,
+    "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
     "drifted": true,
@@ -666,9 +660,10 @@
         "app": "frontend",
         "status": "DRIFTED",
         "running": "d7e89df7557a",
-        "merged": "234dd6e631a9",
-        "commits_unshipped": 4,
+        "merged": "c72bd8bc292c",
+        "commits_unshipped": 5,
         "unshipped": [
+          "c72bd8b fix(dashboard): it never worked when opened as a file, and said so misleadingly",
           "234dd6e refactor: the duplicate check caught its own author duplicating code",
           "d614460 check: the last three failure classes are machines now, not documents",
           "93ac843 session: 52 bugs fixed twice, and the cause is that rules do not run",

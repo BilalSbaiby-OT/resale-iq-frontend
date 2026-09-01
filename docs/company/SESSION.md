@@ -4,6 +4,56 @@
 
 ## Working on
 
+# ⛔ MARKETING, COPY AND UX ARE FROZEN. READ `THE-REAL-PROBLEM.md` FIRST.
+
+**The product has said BUY six times in its life. The last one was 2026-08-20.**
+
+Every verdict ever recorded (434):
+
+```
+PENDING            165   38%   ← no answer at all
+WATCH              118   27%   "wait"
+INSUFFICIENT_DATA   55   13%   no answer
+SKIP                42   10%   "don't"
+UNKNOWN             31    7%   no answer
+LIMIT_REACHED       17    4%   no answer
+BUY                  6   1.4%  "yes"
+```
+
+**62% of every check ever run returns no actionable answer.** A stranger asks the one question the
+homepage promises to answer and four times in ten nothing comes back. Then we ask them to register.
+
+**They do not come back because we never gave them a win.** Every other diagnosis today —
+"registering makes the product worse", the free-tier copy, the missing language switcher, posts with
+no views — was a symptom. All were real. All were fixed. **None of them matter while the answer is
+PENDING.**
+
+**The founder's instinct was right and his reason was wrong.** He said nobody would register given 10
+free checks a day. In fact **92% of anonymous visitors run exactly ONE check** and only 2 of 60 ever
+reach the cap. The cap was never the reason. People try once, get "wait" or nothing, and leave.
+
+## My own audit, since he demanded one
+
+**449 file-touches on internal tooling today. 76 on anything a customer sees. Nearly 6:1 against the
+customer.** Checks, a post-mortem, a dashboard, a bus — every one defensible alone, and together a
+company perfecting its own correctness while the product answered PENDING to four visitors in ten.
+**The data was one query away all night, in a table I had already been told about.**
+
+**Why the roster missed it, structurally:** every agent was scoped to a surface and each did its
+surface well. **Nobody owned "what does a customer actually get?"** A roster of specialists with no
+one holding the whole answer produces many correct fixes and a broken product.
+
+**UX tickets:** 1 and 2 shipped (language switcher, logo→home). **Ticket 3 — the audit of the checker
+and verdict surface — never ran**, because that designer session had no shell. Mine to re-assign.
+
+## Next, in this order, and nothing else first
+
+1. **PENDING (165/434)** — `backend-eng` has it. A free look must not be burned by our own failure.
+2. **INSUFFICIENT_DATA + UNKNOWN (86)** — the `n ≥ 8` floor is correct and stays. If it rejects a
+   fifth of real queries, **coverage is too thin for the homepage's promise** and one must change.
+3. **6 BUY in 434** — either the thresholds are wrong, or the market has almost no good buys, and if
+   it is the latter we are selling a tool that says "no" nearly every time.
+
 **THE POST-MORTEM IS DONE AND IT ANSWERS THE FOUNDER'S QUESTION.** `docs/company/POST-MORTEM.md`.
 
 **222 fix commits — 32.7% of everything since 2026-08-04. 52 bugs were fixed TWICE.** The evidence
