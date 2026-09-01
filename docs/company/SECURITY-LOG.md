@@ -926,3 +926,9 @@ refactor: one capture script with an argument, not five with a constant
 
 capture_demo2..5.mjs were 82-line copies of capture_demo.mjs differing by a
 single line -- the hardcoded output directory. QUERY d`
+- `2026-09-01T18:03:54Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cd /Users/bilalsbaiby/work/resale-iq-growth && python3 - <<'PY' p="src/publish/postiz.js"; s=open(p).read() old = """ return { post_type: row.format === 'story' ? 'story' : 'post' };""" new = """ // post_type 'post' is correct for BOTH reels and feed posts: Instagram // picks by media type, and it d`
+- `2026-09-01T18:08:19Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/CONTENT-FACTS.md docs/company/SECURITY-LOG.md && git commit -q -m "$(cat <<'MSG'
+data: 17 defensible findings, 3 marked thin, 4 axes reported UNKNOWN
+
+The constraint on our marketing was never volume, it was material: six ideas
+stretched across twenty posts. This lifts it, and i`
