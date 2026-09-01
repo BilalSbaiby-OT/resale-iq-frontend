@@ -148,8 +148,15 @@ These stay with the founder because they are irreversible, cost money, or reach 
 - **Spending beyond the AM-2 €200/month cap.**
 - **Anything `legal-compliance` marks NEEDS COUNSEL.** The roster can weigh legal risk; it cannot
   clear it.
-- **Pricing and tier changes** that alter what an existing customer pays.
 - **Deleting production data.**
+
+**Pricing and tiers are DELEGATED** — founder instruction 2026-09-01: *"i give permission to change
+this specially bcz prices we have and tiers are bad asf. consult is as well."* The roster may
+restructure tiers and prices under AM-8, with two limits that are not the founder's preference but
+consumer law: **no change may alter what an EXISTING customer already pays without their consent**,
+and any change must survive `legal-compliance`'s read. There is one paying customer's worth of
+history to protect and it is currently zero, which makes now the cheapest moment this decision will
+ever have.
 
 **Deploy is delegated** — the founder's standing condition is that the whole roster is consulted
 first (AM-7), and that consultation must include `tech-lead`, `verifier`, `qa-eng` and `security-eng`.
