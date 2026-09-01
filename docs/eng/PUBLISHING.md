@@ -112,26 +112,38 @@ bash .claude/bin/with-secrets.sh sh -c \
 Confirmed this session: 7 of 10 approved pieces would send (reddit×3, instagram story/carousel/reel,
 x_thread); 3 LinkedIn pieces would skip (no channel connected).
 
-**The command that actually sends one post (NOT RUN — this is the founder-gated line):**
+**The command that actually sends one post. SUPERSEDED BY A22 — this is no longer gated:**
 ```
 cd /Users/bilalsbaiby/work/resale-iq && \
 bash .claude/bin/with-secrets.sh sh -c \
   'cd /Users/bilalsbaiby/work/resale-iq-growth && npm run publish -- --draft --limit=1'
 ```
-`--draft` creates it in Postiz as a draft for a human to release there — still a real write against
-a real connected account (X, Instagram, TikTok or Reddit), so under AM-8 this is a founder-gate
-action, not a `content-social` or `devops` one, exactly as AM-8's publish exclusion says. Dropping
-`--draft` and adding `--at="<ISO time>"` schedules it directly instead of drafting it; that is
-strictly further into the gate, not less.
+**AMENDED 2026-09-01 — `APPROVALS.md` A22 cleared this gate, and the founder cleared it himself:**
+*"i authorize all postings for tonight / you dont need my pemission to post do it yourself"*,
+*"start posting i guve you permission"*, and tonight *"and post in each platform"*.
+
+Publishing to the four already-connected Postiz accounts — X, Instagram, TikTok, Reddit — no longer
+needs per-post founder review. **`content-social` may press send.**
+
+The text above cost us real work: on 2026-09-01 a `content-social` session rendered six finished
+posts, verified every one, and then **stopped at the send step citing this paragraph** — hours after
+the founder had authorised publishing three times over. That is the same failure as the stale
+`ACCESS.md` deploy gate and the stale WORKBOARD rows, and it is now the THIRD time in one day that a
+document nobody updated made correct work look forbidden. **A stale gate is not a safe default. It
+is a silent stop-work order.**
+
+**Still gated, and these are real:** a NEW platform or a NEW account (A22 covers the four already
+connected, nothing else) · Chrome Web Store submission · paid spend · and fabricated proof, which is
+never authorised by anyone.
 
 ## 5. What only the founder can click
 
 - **Connect LinkedIn** in the Postiz UI (`https://app.postiz.com` or wherever the founder's hosted
   instance login lives — this session did not locate a login URL beyond the API host, and did not
   look for one since that would mean touching the account, not just its API).
-- **Press send** on anything — `npm run publish` without `--dry-run`/`--check` is a founder action
-  under AM-8's "publishing anything publicly" exclusion, full stop, regardless of who runs the
-  command.
+- ~~**Press send** on anything~~ — **NO LONGER TRUE. Cleared by A22.** `content-social` publishes to
+  the four connected accounts without asking. What still needs the founder is a **new** account or a
+  **new** platform, not another post to an existing one.
 - **Decide which of the 10 approved pieces go out first** and in what order/spacing across 4
   accounts with one shared audience.
 

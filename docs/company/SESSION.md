@@ -4,42 +4,27 @@
 
 ## Working on
 
-**BOTH APPS IN SYNC.** Frontend deployed at `6f35b24`, backend `22613ac`. The 11-commit freeze, which
-spanned two separate stalls, is over.
+**All three platforms are past 10 live posts, and the newest six are the first that are actually
+good.** TikTok ×2 · Instagram ×2 · X ×2, each with a **distinct** video (six different md5s) and
+**real voiceover**, `ffprobe`-verified on the OUTPUT file. Built from `CONTENT-FACTS.md`: **5
+distinct ideas across 6 posts**, against 11 ideas across 24 the round before.
 
-**The attribution loop has been dead since the day it was built, and nothing about it is broken.**
-`signup_attribution`: **0 rows, ever.** `captureAttribution()` stores first-touch UTMs, `register()`
-forwards them, `record_attribution()` writes them — a complete loop with no input, because **not one
-published caption ever carried a UTM.** Checked the `content` table directly: rows 124–137, every
-platform, every language, all bare `resaleiq.dev`. **The nine posts published today can never be
-credited with a signup.** That is permanent and cannot be repaired retroactively.
+**The TikTok error text — "unobtainable" all night — is `"No video"`, and it comes back on the POST,
+not from `GET /posts`.** Cause was mundane: the renders lived in a git worktree while the `assets`
+rows pointed at the live repo, so nothing uploaded. Copied the files to where the rows point,
+republished, all four media posts went first try. Almost certainly explains the 6 stale TikTok
+ERRORs too.
 
-Fixed where it cannot recur: `resale-iq-growth/src/publish/utm.js` tags links at publish time.
-"Remember to add UTMs" is not a fix — the failure is SILENT. An untagged link works perfectly; it
-just makes the post invisible forever.
+**One failure I do NOT understand and did not paper over:** X rejected a **271-char** post as "too
+long" — under 280, and under it even by X's own URL-shortening arithmetic. **X counts something we
+do not.** Rewrote by hand to 236 with both `n` values intact; it published. Did not shave one
+character to sneak under a boundary I cannot explain.
 
-**Funnel, re-measured in production after the €49-default fix (24h):** 26 visitors · 320 views ·
-3 reached `/register` · **0 signed up** · last signup 2026-08-29. **Only 1 visitor came from social,
-against 9 posts live.** Reach is the bottleneck, not the landing page. Best page after the homepage
-was a **blog post** — `/blog/vinted-disputes-and-returns-sellers`, 11 visitors. That is the one thing
-organically working and nobody was looking at it. Locale split: en 26 · es 2 · de 2.
-
-**The frontend deploy pipeline is unblocked for the first time today.** Agent Isolation is GREEN and
-`Deploy` is RUNNING rather than `skipped`. It had been frozen 11 commits across two separate stalls.
-
-`content-social` is running now, driving each platform to **10 published posts**, weighted toward
-**ES/FR/DE/IT/PT**. Most posts so far were English aimed at US/GB traffic that cannot buy anything —
-the site now serves all six locales, so posts link to the matching one.
-
-**Published so far: 9, three platforms.** X ×6, Instagram reel ×2 (incl. French), TikTok ×2 (incl.
-Spanish). The Spanish X post was shortened 669→213 chars **by hand**; the publisher refuses to
-auto-truncate, and cutting a sentence mid-thought publishes something nobody wrote.
-
-**Deployed and live:** GDPR delete/export (the cascade had never run — `PRAGMA foreign_keys=ON` was
-never set), registration no longer strips fields, Portfolio + P&L gated, `market_avg_price` leak
-closed (A24), `/api/ext/error` (W42), six languages across landing AND signup, locale routing +
-hreflang, free-tier quota showing the real number (was underselling 3×), 36 dead SEO pages killed.
-**1319 pytest · 35/35 e2e.** All six locales verified 200 live; `/es` really is Spanish.
+**`CONTENT-FACTS.md` landed: 17 defensible findings, 3 marked THIN, 4 axes reported UNKNOWN.** It
+refused to pad to 20. It also proved the local DB is a trap — local `sold_observed=1` is **0**,
+production is **108,706** — and it corrected my brief: prices CONVERGE (€40.00 median sneaker
+departure in all five markets, to the cent) while VOLUMES diverge. Adidas trainers in France list
+**410 per one that leaves**; Patagonia jackets in Germany, **14.8**. I verified 410 myself.
 
 ## Blocked
 
