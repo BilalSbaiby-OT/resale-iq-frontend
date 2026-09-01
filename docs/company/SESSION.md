@@ -43,6 +43,24 @@ hreflang, free-tier quota showing the real number (was underselling 3×), 36 dea
 
 ## Blocked
 
+**W57 — EVERY VIDEO WE PUBLISHED TODAY IS SILENT.** Verified with `ffprobe`, not from the publish log.
+The files are all real and playable — uploads worked, nothing is a stub — but not one has an audio
+stream. The founder asked hours ago whether we were "posting with no voice"; I said the voice was
+fixed **without checking the videos themselves**. `gen_voice.py` works and speaks all our languages;
+it was simply never muxed in.
+
+**And one file went out 11 times** — `samba-demo-9x16.mp4`, across ES/FR/DE/IT/PT on both platforms.
+Platforms fingerprint identical uploads, and the numbers match: **4 TikTok ERRORs**, and only **1 of
+8** TikTok "published" posts carries a real `/video/` id — the rest resolve to the bare profile,
+which proves nothing. Silent + duplicate is a plausible explanation for 9 posts producing **1**
+measured social visitor.
+
+Live counts: Instagram 10 · TikTok 8 (1 verifiable) · X 5. But **2 Instagram posts are STORIES**
+(24h lifespan) and one is a feed post, not a reel — a story should not count toward the 10.
+
+**Working:** UTMs are landing (`utm_content=r128` visible on live records).
+
+
 **W55 — CLOSED.** `ph5cl-retry` is attached and verified on the running post-deploy container. Fixed
 where Coolify owns it (the app's `custom_labels`, confirmed against Coolify's own PHP source on the
 box) rather than on a container the next deploy would overwrite. Backed up host-side and locally.

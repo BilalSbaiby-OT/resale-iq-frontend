@@ -895,3 +895,12 @@ old = '''if [ -n "$(git -C "$REPO" status --porcelain --untracked-files=no 2>/de
   MISSING="$MISSING uncommitted-tracked-changes"
 fi'''
 new = '''# SECURITY-LOG.md is excluded because the guard hook APPENDS TO IT ON EVE`
+- `2026-09-01T17:32:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T17:32:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T17:32:05Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T17:32:05Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T17:32:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+# W57 — the video defect. Board row first.
+s = open("docs/company/WORKBOARD.md").read().rstrip().split("\n")
+i = next(n for n,l in enumerate(s) if l.startswith("| **W55**"))
+s.insert(i, "| **W57** | **Every video published today is SILENT, and one file was posted 11 times.** `ffprob`
