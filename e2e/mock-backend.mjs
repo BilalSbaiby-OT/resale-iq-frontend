@@ -44,6 +44,142 @@ let nextWatchId = 1
 const users = new Map()
 const watchlists = new Map()
 
+// ── /api/verdict — mirrors demand-intel's documented contract, not its code.
+//
+// Real implementation: api/routes.py (`_gate`, `_provisional_verdict`, the
+// `data_sufficient` branch) and the P0 fixes it now carries:
+//   - tests/test_anon_quota_cookie.py — a visitor with NO cookie must always
+//     get their first check (mint-on-first-contact), never LIMIT_REACHED.
+//     Cookie name/limit below are copied from config.py so a drift between
+//     the two shows up as a failing assertion, not a silent divergence.
+//   - tests/test_verdict_leak.py — anonymous callers get an ALLOWLIST, never
+//     `res` minus keys. PAID_FIELDS there is reproduced below as
+//     PAID_ONLY_FIELDS so this mock cannot leak what the backend does not.
+// This file is QA-owned and cannot import Python, so it is a hand-kept
+// mirror. See docs/eng/QA.md "Fidelity of the mock" for what that costs.
+export const VERDICT_COOKIE = "riq_vid" // config.ANON_VISITOR_COOKIE_NAME
+export const FREE_VERDICT_DAILY_LIMIT = 10 // config.FREE_VERDICT_DAILY_LIMIT
+export const PAID_ONLY_FIELDS = [
+  "sell_through_rate", "top_sizes", "size_velocity", "opportunity_score",
+  "reasons", "months_supply", "data_quality", "str_pct",
+]
+let nextVisitorId = 1
+const anonQuota = new Map() // visitorId -> checks used today
+
+const VERDICT_CATALOG = {
+  "nike air force 1": {
+    verdict: "BUY",
+    product: "Nike Air Force 1",
+    category: "Sneakers",
+    confidence: "HIGH",
+    n: 120,
+    sold_7d: 120,
+    active_listings: 300,
+    buy_below: 39.9,
+    sell_avg: 60,
+    sell_median: 58,
+    sell_through_rate: "62%",
+    top_sizes: ["42", "43"],
+    size_velocity: [{ size: "42", sold_30d: 40, pct: 0.33 }],
+    opportunity_score: 72,
+    reasons: ["Momentum HOT", "Thin resale gap vs comparable sales"],
+    momentum: "HOT",
+    months_supply: 0.6,
+    data_quality: 80,
+  },
+  "provisional momentum item": {
+    // Shape of api/routes.py _provisional_verdict(): a call resting on
+    // momentum/price alone because str_pct is withheld. This was the FIRST
+    // of the three paths that bypassed the paywall gate — it used to return
+    // before the gate ran at all. sell_through_rate/top_sizes/months_supply
+    // are simply absent here, matching the real function (never computed,
+    // not redacted), so a leak would only show up if this mock started
+    // inventing them.
+    verdict: "WATCH",
+    product: "Provisional Momentum Item",
+    category: "Sneakers",
+    confidence: "MEDIUM",
+    n: 45,
+    sold_7d: 45,
+    active_listings: 90,
+    buy_below: 22,
+    sell_avg: 34,
+    sell_median: 33,
+    provisional: true,
+    momentum: "RISING",
+  },
+  "thin sample sneaker": {
+    verdict: "INSUFFICIENT_DATA",
+    product: "Thin Sample Sneaker",
+    category: "Sneakers",
+    confidence: "LOW",
+    n: 3,
+    sold_7d: 3,
+    confidence_note:
+      "Only 3 comparable sold items — not enough to name a buy-below. The model is tracked; the price is not.",
+    message:
+      "We know 'Thin Sample Sneaker', but 3 watched comps is too few to print a buy-below.",
+    reason: "thin_comparables",
+    // A real INSUFFICIENT_DATA row CAN carry data_quality for a paid caller
+    // (api/routes.py `if not is_free: result["data_quality"] = ...`). It
+    // must never reach a free/anon caller — that is the exact leak
+    // tests/test_verdict_leak.py exists to catch. Kept here so the anon view
+    // has something to prove it drops.
+    data_quality: 41,
+  },
+}
+
+function parseCookies(header) {
+  const out = {}
+  for (const part of (header || "").split(";")) {
+    const i = part.indexOf("=")
+    if (i === -1) continue
+    out[part.slice(0, i).trim()] = decodeURIComponent(part.slice(i + 1).trim())
+  }
+  return out
+}
+
+// Fresh allowlisted object, never `full` minus keys — same rule the backend
+// comment insists on, for the same reason: a field added to the catalog
+// entry later must not leak by omission.
+function anonVerdictView(full) {
+  return {
+    verdict: full.verdict,
+    product: full.product,
+    category: full.category,
+    confidence: full.confidence,
+    confidence_note: full.confidence_note ?? null,
+    n: full.n,
+    sold_7d: full.sold_7d,
+    active_listings: full.active_listings ?? null,
+    buy_below: full.buy_below ?? null,
+    sell_avg: full.sell_avg ?? null,
+    sell_median: full.sell_median ?? null,
+    provisional: full.provisional ?? null,
+    locked: false,
+    locked_fields: [
+      "sell_through_rate", "top_sizes", "size_velocity",
+      "opportunity_score", "reasons", "months_supply",
+    ],
+  }
+}
+
+function insufficientDataView(full, { includeDataQuality }) {
+  const out = {
+    verdict: "INSUFFICIENT_DATA",
+    product: full.product,
+    category: full.category,
+    confidence: full.confidence,
+    confidence_note: full.confidence_note,
+    n: full.n,
+    sold_7d: full.sold_7d,
+    message: full.message,
+    reason: full.reason,
+  }
+  if (includeDataQuality) out.data_quality = full.data_quality
+  return out
+}
+
 function seed(id, email, password, plan = "operator", { verified = true } = {}) {
   const token = `tok-${id}`
   users.set(token, {
@@ -103,6 +239,82 @@ const server = http.createServer(async (req, res) => {
   }
   if (url.startsWith("/stripe/plans")) {
     json(res, 200, { publishable_key: null, stripe_enabled: false, plans: [] })
+    return
+  }
+
+  if (url === "/api/verdict" && method === "GET") {
+    const q = new URL(raw, "http://mock").searchParams.get("q") || ""
+    const key = q.trim().toLowerCase()
+    const caller_ = caller(req)
+
+    let setCookie = null
+    if (!caller_) {
+      const cookies = parseCookies(req.headers.cookie)
+      let visitorId = cookies[VERDICT_COOKIE]
+      const mint = !visitorId
+      if (mint) {
+        // P0 #1 regression net: a visitor with NO cookie is minted one and
+        // is judged on THIS request under a fresh, empty quota — never
+        // rejected for a bucket they were never able to carry.
+        visitorId = `v${nextVisitorId++}`
+        setCookie = `${VERDICT_COOKIE}=${visitorId}; Path=/; HttpOnly; SameSite=Lax; Max-Age=34560000`
+      }
+      const used = anonQuota.get(visitorId) || 0
+      if (used >= FREE_VERDICT_DAILY_LIMIT) {
+        if (setCookie) res.setHeader("Set-Cookie", setCookie)
+        json(res, 200, {
+          verdict: "LIMIT_REACHED",
+          message: `Free tier: ${FREE_VERDICT_DAILY_LIMIT} verdicts/day. Starter or Pro for unlimited.`,
+          upgrade_url: "/stripe/plans",
+          used_today: used,
+          limit: FREE_VERDICT_DAILY_LIMIT,
+        })
+        return
+      }
+      anonQuota.set(visitorId, used + 1)
+      if (setCookie) res.setHeader("Set-Cookie", setCookie)
+    }
+
+    const entry = VERDICT_CATALOG[key]
+    if (!entry) {
+      json(res, 200, {
+        verdict: "UNKNOWN",
+        reason: "no_data",
+        message: `No data found for '${q}'. Try a brand + model name (e.g. 'Jordan 3' or 'Nike Air Max').`,
+      })
+      return
+    }
+
+    if (entry.verdict === "INSUFFICIENT_DATA") {
+      const isPaid = !!caller_ && caller_.plan !== "free"
+      json(res, 200, insufficientDataView(entry, { includeDataQuality: isPaid }))
+      return
+    }
+
+    if (!caller_) {
+      json(res, 200, anonVerdictView(entry))
+      return
+    }
+    if (caller_.plan === "free") {
+      json(res, 200, {
+        verdict: entry.verdict,
+        product: entry.product,
+        category: entry.category,
+        confidence: entry.confidence,
+        confidence_note: entry.confidence_note ?? null,
+        n: entry.n,
+        sold_7d: entry.sold_7d,
+        locked: true,
+        locked_fields: [
+          "buy_below", "sell_avg", "sell_median", "sell_through_rate",
+          "top_sizes", "size_velocity", "opportunity_score", "reasons",
+        ],
+        message: "This is the headline call. Unlock the buy-below price, sell price, best sizes and sell-through with a plan.",
+        upgrade_url: "/register",
+      })
+      return
+    }
+    json(res, 200, entry)
     return
   }
 

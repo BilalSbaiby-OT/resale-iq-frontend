@@ -35,6 +35,16 @@ not defensive programming — it is an assertion that 1.0 is right for every key
 
 ---
 
+**On an ingest path, an early `return None` is never neutral.** If a parser's
+output feeds a presence detector, dropping a row is not "losing data" — it is
+asserting the thing is GONE. In this codebase `parse_item` feeds
+`engine.shelf.detect_ended`, so every early return in it claims a listing left
+the shelf and can end in `sold_observed = 1`. Fail closed on the FIELD, never on
+the ROW'S EXISTENCE. **VERIFIED — this is exactly how the C6 fix went wrong, and
+`parse_item`'s brand-drop still does it today (GAPS C8).**
+
+---
+
 ## 1. Data
 
 **Derived data never becomes source data.** (OS §0 rule 3.) `is_sold` is computed; `sold_observed`
