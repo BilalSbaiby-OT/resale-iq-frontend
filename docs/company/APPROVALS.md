@@ -320,3 +320,68 @@ take that median **12 → 10** — same headline, opposite direction on the thin
   fixes that.
 - Coverage will drift upward on its own until ~2026-09-20 as the corpus deepens, so any goal set on
   it needs a calendar control or it will score a win that time delivered.
+
+
+---
+
+### A8 / A12 — CONSULTATION IN PROGRESS (founder authorised, conditional)
+
+**2026-09-01.** The founder authorised A8 and A12 **on the condition that every agent with an
+informed opinion is consulted first**. Consultation is open with data-scientist, security-eng,
+tech-lead, product-manager, devops and verifier. Recorded as it lands, dissent included.
+
+#### `verifier` — DISSENTS on proceeding tonight as stated
+
+| Item | Verdict |
+|---|---|
+| **A8-1 strike MAPE** | **SAFE.** No `sql/metrics/mape.sql` was ever written, so there is no baseline to break. Removing a KPI that was never measured costs nothing |
+| **A8-2 `band_coverage` split** | **SERIES BREAK REQUIRED.** `band_coverage.sql` is live and will be scored; redefining it makes before/after incomparable |
+| **A8-3 North Star exact after C5** | **SERIES BREAK REQUIRED**, same reason |
+| **A12** | **Do not ratify as stated — it overstates what the proof verified** |
+
+**It corrected my unifying diagnosis, and it is right.** I claimed the SCOREBOARD block and the
+credential-file bypass were one root cause ("the rails match strings where they mean things"). They
+are not:
+
+- SCOREBOARD is a **missing-information** problem — guard.py identifies the path perfectly well and
+  simply has no caller identity with which to apply an exception.
+- The credential-file bypass is an **encoding** problem — the match is too loose.
+
+They share an architecture (policy by string-matching on external facts, with no context-dependent
+rules) but need **different fixes**, and treating them as one would produce a fix for neither.
+
+**Then it turned the audit on itself, which is the finding of the night.** Its own cold run searched
+`resale-iq/docs/audit/proof` and nowhere else:
+
+> *"The proof passed while testing one quarter of its subject. That is exactly the failure mode I
+> exist to catch."*
+
+- [ ] **Correct `OS-COMPLIANCE.md`**: Phase 0 rails go from **DONE (40/40)** to **PARTIAL —
+      resale-iq only (40/40); demand-intel, growth, seo unverified.**
+- [ ] **Extend the Phase-0 proof to all four repos** — assert guard.py is present and wired, that
+      each PROTECTED tuple covers the critical paths, and that the deny rules and their negative
+      controls fire identically in each. Then re-run: it either still passes, or it fails and
+      surfaces the missing rails. Both outcomes are useful; the current state is not.
+- [ ] **A new suite asserting `demand-intel` cannot push `main` without hitting a rail**, because
+      that push is the production deploy.
+
+**Following its recommendation rather than my original plan:** ratify A8 *with* the two series-break
+markers; do **not** ratify A12 until the rail audit covers all four repos and OS-COMPLIANCE is
+corrected.
+
+---
+
+#### A NEW DEFECT, found by trying to write this file
+
+Committing the paragraph above was **blocked by the rails**, because the commit message contained
+the literal name of the credential file while explaining the bug. The secret rule matches that
+string anywhere in a command and cannot tell *reading* a secret from *writing about the rule*.
+
+So the defect has both faces:
+- **false negative** — a trailing shell comment naming the sanctioned wrapper defeats the block
+  (security-eng, CRITICAL);
+- **false positive** — documenting the rule trips it, which is how a rail teaches people to route
+  around it.
+
+- [ ] Any fix must be verified against **both** directions. A tightened match that still fires on
+      prose is only half repaired.
