@@ -47,3 +47,20 @@ CEO-blocked and that is my failure, not the finder's.
 3. **If a row has no doer, the CEO is the blocker.** Say so in the row rather than leaving it to look
    like the finder's problem.
 4. **Documents are evidence, not deliverables.** 27,466 lines of prose shipped nothing on their own.
+
+## Agents must not work in this checkout
+
+Five incidents in one day traced to agents creating branches and worktrees inside
+`/Users/bilalsbaiby/work/resale-iq` — the tree the CEO pushes from:
+
+1. `git add -A` swept a nested worktree into a **pushed commit** as a gitlink.
+2. `tsc` type-checked that worktree and failed on **its** unresolved imports — a broken signal
+   that nearly read as a merge regression.
+3. `designer`'s half-finished work sat in the tree and survived only on timing.
+4. Three commits landed on `claude/content-social/queue-rewrite` while `git push origin main`
+   reported **"Everything up-to-date"** — three deploys announced that had not happened.
+5. Two more landed on `claude/backend-eng/w1-close-workboard`, same way.
+
+**Rule: every agent works in a worktree under the session scratchpad, never in this repo.**
+**And the CEO verifies `git rev-parse --abbrev-ref HEAD` before every push, and confirms the
+remote moved afterward** — `git push` reporting success is not evidence that anything shipped.
