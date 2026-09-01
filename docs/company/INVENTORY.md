@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `d614460`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `d8c75c5`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
@@ -102,7 +102,7 @@ telling the founder we had no telemetry at all.
 - `.github/workflows/deploy.yml`
 - `.github/workflows/playwright.yml`
 
-## Company docs (42)
+## Company docs (46)
 
 - `docs/company/ACCESS.md`
 - `docs/company/ACTIVATION.md`
@@ -120,9 +120,11 @@ telling the founder we had no telemetry at all.
 - `docs/company/FUNNEL-BASELINE.md`
 - `docs/company/GAPS.md`
 - `docs/company/GOALS.md`
+- `docs/company/GREY-AREA-FINDING.md`
 - `docs/company/GTM.md`
 - `docs/company/LEDGER.md`
 - `docs/company/METRICS.md`
+- `docs/company/MISSION.md`
 - `docs/company/OBJECTIVE.md`
 - `docs/company/ORG.md`
 - `docs/company/ORGANIC-GROWTH.md`
@@ -141,8 +143,10 @@ telling the founder we had no telemetry at all.
 - `docs/company/SEO-STATE.md`
 - `docs/company/SESSION.md`
 - `docs/company/STATUS.md`
+- `docs/company/THE-REAL-PROBLEM.md`
 - `docs/company/UNIT-ECONOMICS.md`
 - `docs/company/UX-RULES.md`
+- `docs/company/WHY-BUY-NEVER-FIRES.md`
 - `docs/company/WHY-WORK-STALLS.md`
 - `docs/company/WORKBOARD.md`
 - `docs/company/WORKFLOW.md`
