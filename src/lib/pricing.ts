@@ -1,7 +1,8 @@
 // Pricing ladder: Free -> Starter -> Pro.
 //
-// Free is a 7-day reverse trial, then 10 full checks per calendar month.
-// Anonymous visitors get 10 numbered views, then a sign-in wall.
+// Free is a 7-day full-access reverse trial, then 10 checks/day (same as
+// anonymous) plus 10 full unlocks/month for the deep numbers. Anonymous
+// visitors get 10 numbered views/day, then a sign-in wall.
 //
 // Business €99 was cut 2026-08-31 (AMENDMENTS.md AM-3, founder-approved):
 // zero customers, no Stripe price ever existed for it, nothing to provide
@@ -79,12 +80,12 @@ export const TIERS: Tier[] = [
     tagline: "See that the data is real before you pay",
     cta: "Create a free account",
     features: [
-      "7 days of Starter (verdicts + Deal Scanner), 5 live finds and 1 order plan, then 10 full checks / month. Anonymous visitors get 10 checks/day.",
+      "7 days of full Starter access (verdicts + Deal Scanner), 5 live finds and 1 order plan. After that: 10 checks a day forever — same as anonymous — plus 10 full unlocks a month for sell-through, sizes and the reasons why.",
       "BUY / WATCH / SKIP on every lookup",
       "The whole reselling manual and market data",
       "No card required",
     ],
-    ceiling: "10 checks each calendar month after the trial. Live Finder after the 5 trial searches is Pro.",
+    ceiling: "The 10 checks a day never run out. After the trial, only 10 a month show the full numbers — Live Finder is Pro.",
   },
 ]
 

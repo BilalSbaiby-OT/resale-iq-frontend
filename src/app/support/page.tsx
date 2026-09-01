@@ -25,7 +25,7 @@ const faq = (tracked: string): [string, string][] => [
   ["What's the difference between Starter and Pro?",
    "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price Compare (full intelligence on those 5, live asking-price search on 26 markets total), per-size velocity, and REST API access."],
   ["Is there a free plan or trial?",
-   "No account: 10 checks/day. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 full checks/month. Live Finder, Order Planner and Price Compare are Pro. No card required; you just verify your email. Paid plans remove the monthly cap."],
+   "No account: 10 checks/day. Sign up: you keep the 10/day, plus 7 days of full Starter access, then 10 full unlocks a month for the deep numbers. Live Finder, Order Planner and Price Compare are Pro. No card required; you just verify your email. Paid plans remove the monthly unlock cap."],
   ["How do I cancel?",
    "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
   ["How do I reset my password?",

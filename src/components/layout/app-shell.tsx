@@ -14,8 +14,9 @@ interface AppShellProps {
 }
 
 // Pages that require a PAID subscription. Everything not listed here is
-// accessible to free-tier users — the backend enforces the real limits (7-day
-// trial, then 10 checks/month), so the frontend no longer blanket-blocks
+// accessible to free-tier users — the backend enforces the real limits (10
+// checks/day always, 7-day full trial, then 10 full unlocks/month), so the
+// frontend no longer blanket-blocks
 // the dashboard. The old approach showed the Paywall on every single route,
 // which meant a free user could never actually use their entitlements.
 const PAID_ONLY = ["/deals", "/order-planner", "/calculator", "/compare", "/market", "/search"]
