@@ -1,5 +1,10 @@
 -- band_coverage_supply — the SUPPLY side of Insight coverage (OS §3)
 --
+-- floor: 100
+--   PROPORTION over the tracked-model board, which is exactly 100 rows today, so this floor is met
+--   and not by luck: the board size IS the population. If the board shrinks below 100 this goes
+--   UNKNOWN, which is correct -- a coverage rate over 40 models is not the same measurement.
+--
 -- Of the models we track, how many have enough clean comparables to be priced
 -- at all. This is the question `band_coverage` does NOT answer.
 --

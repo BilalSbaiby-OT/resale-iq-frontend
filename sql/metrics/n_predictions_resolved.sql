@@ -1,5 +1,9 @@
 -- n_predictions_resolved — COUNTER-KPI to band_coverage / MAPE (OS §3)
 --
+-- floor: 1
+--   COUNT. Same reasoning as weekly_trusted_checks. '0 of 340 graded' is precise and damning; there
+--   is no small-sample illusion to guard against.
+--
 -- The site promises outcomes. This counts how many predictions have actually
 -- been graded — `evaluated_at IS NOT NULL`.
 --

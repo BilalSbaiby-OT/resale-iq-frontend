@@ -110,7 +110,8 @@ fetch('data.json?' + Date.now()).then(r => r.json()).then(d => {
     kpi('Predictions', d.quality.predictions_total) +
     kpi('Canary', d.quality.canary) +
     kpi('Match precision', d.quality.match_precision) +
-    kpi('Band coverage', d.quality.band_coverage) +
+    kpi('Band coverage (demand)', d.quality.band_coverage_demand) +
+    kpi('Band evidence p50', d.quality.band_evidence_p50) +
     '</div>'));
 
   // 4 — funnel

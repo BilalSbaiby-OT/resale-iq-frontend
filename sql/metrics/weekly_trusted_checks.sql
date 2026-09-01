@@ -1,5 +1,11 @@
 -- weekly_trusted_checks — THE NORTH STAR (OS §3)
 --
+-- floor: 1
+--   COUNT, not a rate -- and this is the distinction the floor exists to make visible rather than
+--   paper over. 'We served 1 trusted check and 0 returned' is a true and useful statement; '0.0%
+--   conversion, n=1' is not. A count reported WITH its n cannot mislead about precision, because
+--   the n is the whole claim. Rates hide their own uncertainty; counts do not.
+--
 -- Definition, verbatim from OS §3: "checks that returned a band with n >= 8 to a
 -- user who came back within 7 days."
 --

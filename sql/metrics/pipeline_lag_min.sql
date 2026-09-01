@@ -1,5 +1,9 @@
 -- pipeline_lag_min — COUNTER-KPI to canary green (OS §3), owner data-eng
 --
+-- floor: 1
+--   DURATION, not a rate. One productive run is a real observation of freshness. n here counts
+--   productive runs in the window and exists to prove the clock had something to anchor to.
+--
 -- Minutes since the pipeline last DELIVERED DATA.
 --
 -- The word "delivered" is the entire point of this file. GAPS C7: the existing

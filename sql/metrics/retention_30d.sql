@@ -1,5 +1,9 @@
 -- retention_30d — Company KPI, owner product-manager (OS §3)
 --
+-- floor: 100
+--   PROPORTION. Currently n=0 (the oldest account is 28 days old), so this is UNKNOWN on its own
+--   terms already. The floor is what stops it publishing a rate over the first three cohort members.
+--
 -- "Still here 30 days after signing up."
 --
 -- Cohort (n): every user who signed up at least 30 days ago, so they have

@@ -98,17 +98,33 @@ SCRAPER_ROWS = [("vinted", "-10 days", 5),
 #   comparable_n =  2  too thin
 #   NULL               excluded by the query's WHERE, so it must NOT move n
 #   band_coverage_supply = 2/4 = 50.0%, n = 4
-SIGNAL_ROWS = [("Nike", "Air Force 1", 10), ("Adidas", "Samba", 8),
-               ("Jordan", "Jordan 4", 5), ("Puma", "Suede", 2),
-               ("NewBalance", "530", None)]
+# 100 tracked models, sized to clear band_coverage_supply's floor of 100:
+#   40 banded, comparable_n = 10..49  -> sorted, k=40 (even), median = (29+30)/2 = 29.5
+#   60 thin,   comparable_n = 3..7    -> admitted to the board, never priced
+#   plus 1 NULL, excluded by the query's WHERE so it must NOT move n
+# band_coverage_supply = 40/100 = 40.0%, n=100
+# band_evidence_p50    = 29.5,           n=40   (clears its floor of 20)
+SIGNAL_ROWS = ([("Brand%02d" % i, "Model%02d" % i, 10 + i) for i in range(40)]
+               + [("Thin%02d" % i, "TModel%02d" % i, 3 + (i % 5)) for i in range(60)]
+               + [("NullBrand", "NullModel", None)])
+
+# The 9 hand-checked rows above give 7 ANSWERED (5 covered, 2 refusals). Add 93
+# more to clear the demand-side floor of 100 while keeping the ratio hand-checkable:
+#   covered  = 5 + 75 = 80
+#   refusals = 2 + 18 = 20
+#   answered = 100  ->  band_coverage_demand 80.0%, insufficient_data_rate 20.0%
+BULK_ANSWERED = ([("WATCH", None)] * 75) + ([("UNKNOWN", "no_data")] * 18)
 
 EXPECT = {
     "weekly_trusted_checks":  {"value": 1,    "n": 2},
-    "insufficient_data_rate": {"value": 28.6, "n": 7},
-    "band_coverage":          {"value": 71.4, "n": 7},
-    "band_coverage_supply":   {"value": 50.0, "n": 4},
-    "retention_30d":          {"value": 66.7, "n": 3},
-    "trial_to_paid":          {"value": 50.0, "n": 2},
+    "insufficient_data_rate": {"value": 20.0, "n": 100},
+    "band_coverage_demand":   {"value": 80.0, "n": 100},
+    "band_coverage_supply":   {"value": 40.0, "n": 100},
+    "band_evidence_p50":      {"value": 29.5, "n": 40},
+    # Deliberately below floor 100. Asserting the FLOOR FIRES is worth more than
+    # asserting the rate: a rate over 3 cohort members is the thing it prevents.
+    "retention_30d":          {"below_floor": True},
+    "trial_to_paid":          {"below_floor": True},
     "n_predictions_resolved": {"value": 1,    "n": 3},
     # Time-dependent: assert the band, not the instant.
     "pipeline_lag_min":       {"between": (2860, 2900), "n": 1},
@@ -124,6 +140,12 @@ def seed(db):
             + ("datetime('now',?)" if trial else "NULL") + ")",
             ([uid, f"u{uid}@example.test", "x", plan, sub, signup]
              + ([trial] if trial else [])))
+
+    for i, (verdict, reason) in enumerate(BULK_ANSWERED):
+        c.execute(
+            "INSERT INTO verdict_logs (ip_hash, query, q_norm, verdict, reason, created_at) "
+            "VALUES ('bulk', 'q', 'q', ?, ?, datetime('now', '-2 days'))",
+            (verdict, reason))
 
     for uid, verdict, reason, bb, age in VERDICT_ROWS:
         c.execute(
@@ -177,6 +199,15 @@ def main():
         if r is None:
             print(f"FAIL  {name}: no result (is the .sql file missing?)")
             failed += 1
+            continue
+        if exp.get("below_floor"):
+            why = r.get("why") or ""
+            if r.get("unknown") and "below floor" in why:
+                print(f"PASS  {name:<24} correctly withheld — {why}")
+                passed += 1
+            else:
+                print(f"FAIL  {name}: expected a below-floor UNKNOWN, got {r}")
+                failed += 1
             continue
         if r.get("unknown"):
             print(f"FAIL  {name}: UNKNOWN — {r.get('why')}")

@@ -31,6 +31,7 @@ Design rules, each inherited from something that already went wrong here:
 import argparse
 import json
 import os
+import re
 import sqlite3
 import sys
 from datetime import datetime, timezone
@@ -44,6 +45,21 @@ SQL_DIR = os.path.join(ROOT, "sql", "metrics")
 DEFAULT_DB = os.path.join(os.path.dirname(ROOT), "demand-intel", "demand_intel.db")
 
 CONTRACT = ("metric", "value", "n", "window_start", "window_end")
+
+# Every .sql must declare `-- floor: N` in its header, with a rationale.
+#
+# The rule already here is that n = 0 is UNKNOWN, not zero -- a query that
+# inspected nothing has not measured a rate of 0%. The floor is the same
+# argument continued: a population of 44, four of whose rows are our own probe
+# traffic, has not measured a rate either. At p~0.8 the 95% half-width is
+# 1.96*sqrt(p(1-p)/n), so n=44 gives +/-14.5pp and cannot tell 45% from 72%.
+#
+# It is declared PER FILE and REQUIRED, not defaulted, because the honest floor
+# for a rate and for a count are different numbers and the difference has to be
+# argued in the file rather than assumed by the runner. A missing declaration is
+# a contract violation, not a free pass -- the whole point is that nobody gets to
+# publish a rate without having thought about its denominator.
+FLOOR_RE = re.compile(r"^--\s*floor:\s*(\d+)\s*$", re.M)
 
 
 def sql_files(sql_dir=SQL_DIR):
@@ -97,6 +113,13 @@ def run_one(conn, path):
     if len(rows) != 1:
         return unknown(stem, f"contract violation: returned {len(rows)} rows, expected exactly 1")
 
+    m = FLOOR_RE.search(sql)
+    if not m:
+        return unknown(stem, "contract violation: no `-- floor: N` declared",
+                       "declare a floor and its rationale in the .sql header — "
+                       "see sql/metrics/README.md")
+    floor = int(m.group(1))
+
     metric, value, n, w0, w1 = rows[0]
     n = int(n or 0)
 
@@ -106,6 +129,10 @@ def run_one(conn, path):
     if n == 0:
         return unknown(metric or stem, "inspected nothing (n = 0)",
                        "no rows in the measurement window yet")
+    if n < floor:
+        return unknown(metric or stem,
+                       "population below floor (n = %d, floor = %d)" % (n, floor),
+                       "not enough evidence to publish this; the .sql header says why")
     if value is None:
         return unknown(metric or stem, "query returned NULL over a non-empty population",
                        "check the metric's own notes in its .sql file")

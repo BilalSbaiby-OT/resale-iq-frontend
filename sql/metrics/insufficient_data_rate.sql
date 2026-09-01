@@ -1,5 +1,9 @@
 -- insufficient_data_rate — COUNTER-KPI to the North Star (OS §3)
 --
+-- floor: 100
+--   PROPORTION, over the same population as band_coverage, so it takes the same floor. If one of a
+--   complementary pair renders and the other does not, the pair is lying by omission.
+--
 -- "Honesty must not fall to inflate it." The North Star counts checks that
 -- printed a band. The cheapest way to raise it is to print bands we have no
 -- business printing, so this measures the opposite face: of the searches we

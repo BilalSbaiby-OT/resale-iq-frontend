@@ -1,5 +1,9 @@
 -- trial_to_paid — Revenue KPI, owner monetization (OS §3)
 --
+-- floor: 100
+--   PROPORTION. n=1 in production. A conversion rate over one ended trial is not a rate, it is that
+--   trial's outcome wearing a percent sign.
+--
 -- Of the trials that have ENDED, what share is now paying.
 --
 -- THE TRAP IN THIS TABLE, and the reason this file exists rather than a

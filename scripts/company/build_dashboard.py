@@ -159,8 +159,15 @@ def quality(prod):
         # 100 - insufficient_data_rate, by construction). They are one
         # measurement from two sides and must never be read as corroborating
         # each other — see METRICS.md.
-        "band_coverage": M.get(
-            "band_coverage", unknown("sql/metrics/band_coverage.sql did not run", None)),
+        "band_coverage_demand": M.get(
+            "band_coverage_demand",
+            unknown("sql/metrics/band_coverage_demand.sql did not run", None)),
+        # The honesty counter (OS §0.4). The previous counter,
+        # insufficient_data_rate, is band_coverage's exact arithmetic complement
+        # and so could never contradict it.
+        "band_evidence_p50": M.get(
+            "band_evidence_p50",
+            unknown("sql/metrics/band_evidence_p50.sql did not run", None)),
         "insufficient_data_rate": M.get(
             "insufficient_data_rate",
             unknown("sql/metrics/insufficient_data_rate.sql did not run", None)),
@@ -405,9 +412,10 @@ print(json.dumps(out))
 # compute against it. Reading the North Star from the local db would report
 # UNKNOWN forever while production had the answer all along.
 PROD_METRICS_SCRIPT = r"""
-import json, sqlite3
+import json, re, sqlite3
 FILES = __FILES__
 CONTRACT = ("metric", "value", "n", "window_start", "window_end")
+FLOOR_RE = re.compile(r"^--\s*floor:\s*(\d+)\s*$", re.M)
 out = []
 try:
     con = sqlite3.connect("file:/app/data/demand_intel.db?mode=ro", uri=True, timeout=20)
@@ -425,6 +433,15 @@ try:
             continue
         m, v, n, w0, w1 = rows[0]
         n = int(n or 0)
+        fm = FLOOR_RE.search(sql)
+        if not fm:
+            out.append({"metric": name, "unknown": True,
+                        "why": "contract violation: no floor declared"})
+            continue
+        if n < int(fm.group(1)):
+            out.append({"metric": m or name, "unknown": True,
+                        "why": "population below floor (n = %d, floor = %s)" % (n, fm.group(1))})
+            continue
         if n == 0:
             out.append({"metric": m or name, "unknown": True, "why": "inspected nothing (n = 0)"})
         elif v is None:

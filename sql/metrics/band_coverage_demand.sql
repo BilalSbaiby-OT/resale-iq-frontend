@@ -1,4 +1,13 @@
--- band_coverage — Insight KPI (OS §3), target >= 80%
+-- band_coverage_demand — Insight KPI (OS §3), target >= 80%
+--
+-- RENAMED from `band_coverage` on 2026-09-01 (APPROVALS A8). With a supply-side
+-- sibling live, the bare name silently resolved to one of two different
+-- questions -- a trap sprung by whoever reads the dashboard at speed. Renamed
+-- while there was no history to break: the metrics layer shipped the same day.
+--
+-- floor: 100
+--   PROPORTION. At p~0.8 the 95% half-width is 1.96*sqrt(p(1-p)/n): n=44 gives +/-14.5pp, which
+--   cannot distinguish 45% from 72% against an 80% target. n=100 gives +/-8pp. Derived, not chosen.
 --
 -- Of the searches we answered, what share got an actionable band rather than an
 -- honest refusal.
@@ -30,7 +39,7 @@ answered AS (
        AND v.verdict IS NOT NULL
        AND v.verdict NOT IN ('LIMIT_REACHED', 'PENDING')
 )
-SELECT 'band_coverage' AS metric,
+SELECT 'band_coverage_demand' AS metric,
        ROUND(
            100.0 * SUM(CASE WHEN verdict NOT IN ('INSUFFICIENT_DATA', 'UNKNOWN')
                             THEN 1 ELSE 0 END) / COUNT(*)
