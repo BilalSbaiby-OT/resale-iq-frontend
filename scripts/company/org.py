@@ -398,21 +398,71 @@ def main():
             "findings_raised": sum(a["findings_raised"] for a in agents),
         }
 
+    # Numbers build_dashboard.py already read from PRODUCTION. Read them back
+    # rather than re-querying: a second copy of that query is exactly the
+    # duplicate-logic defect `scripts/check-duplicate-logic.mjs` exists to catch,
+    # and two queries drifting apart is how two "traffic" figures ended up
+    # disagreeing by 25x earlier today.
+    prod = {}
+    try:
+        with open(os.path.join(ROOT, "dashboard", "data.json"), encoding="utf-8") as fh:
+            prod = json.load(fh)
+    except Exception as e:  # why: the dashboard must still render without it
+        prod = {"_error": str(e)[:120]}
+
+    def dig(*path):
+        """Walk data.json, returning None rather than raising on a missing key."""
+        cur = prod
+        for key in path:
+            if not isinstance(cur, dict) or key not in cur:
+                return None
+            cur = cur[key]
+        return cur
+
     kpis = []
     for k in COMPANY_KPIS:
         v = None
         note = None
+        why = None
+
         if k["kpi"] == "posts_published":
             v = posts
+            if v is None:
+                # The old text blamed growth.db, which is not where this comes
+                # from at all -- a misleading error sends the reader to fix the
+                # wrong thing, which is how the dashboard spent the day telling
+                # the founder to rebuild data that was already correct.
+                why = ("POSTIZ_API_KEY not in this environment — run: "
+                       "bash .claude/bin/with-secrets.sh python3 scripts/company/org.py")
         elif k["kpi"] == "defects_reaching_a_customer":
             v = sum(1 for r in rows if r["status"] == "OPEN")
-        elif k["kpi"] == "paying_customers" and stripe.get("available"):
-            v = stripe["active_subscriptions"]
-            note = stripe.get("zero_means")
+        elif k["kpi"] == "paying_customers":
+            if stripe.get("available"):
+                v = stripe["active_subscriptions"]
+                note = stripe.get("zero_means")
+            else:
+                # Fall back to production `users`. A subscription id on a user IS
+                # a paying customer; Stripe being unreachable from this machine
+                # is not evidence that nobody pays.
+                v = dig("company", "users_paying", "value")
+                note = "from production users.stripe_sub_id (Stripe API unreachable here)"
+        elif k["kpi"] == "signups":
+            v = dig("funnel", "signups_7d", "value")
+            note = "last 7 days"
+            if v is None:
+                why = "build_dashboard.py has not run with --prod yet"
+        elif k["kpi"] == "views_across_platforms":
+            # Genuinely not measured, and the honest reason is worth more than
+            # the phrase "never measured": Postiz's public API exposes exactly
+            # three endpoints and none of them is analytics. Reading this needs
+            # each platform's own dashboard.
+            why = ("Postiz's public API has no analytics endpoint (only /integrations, "
+                   "/upload, /posts) — needs each platform's own dashboard")
+
         kpis.append({**k, "value": v, "note": note,
                      "unknown": v is None,
                      "why_unknown": None if v is not None else
-                     f"never measured — source is {k['source']}"})
+                     (why or f"never measured — source is {k['source']}")})
 
     data = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

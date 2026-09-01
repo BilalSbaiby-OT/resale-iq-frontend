@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-01T19:24:42Z",
+  "generated_at": "2026-09-01T20:51:34Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
       "target": 100,
       "counter": "refund rate",
       "source": "stripe",
-      "value": null,
-      "note": null,
-      "unknown": true,
-      "why_unknown": "never measured — source is stripe"
+      "value": 0,
+      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "signups",
       "target": 1000,
       "counter": "activation rate — a signup who never checks an item is not a user",
       "source": "db",
-      "value": null,
-      "note": null,
-      "unknown": true,
-      "why_unknown": "never measured — source is db"
+      "value": 4,
+      "note": "last 7 days",
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "views_across_platforms",
@@ -29,17 +29,17 @@
       "value": null,
       "note": null,
       "unknown": true,
-      "why_unknown": "never measured — source is platform analytics"
+      "why_unknown": "Postiz's public API has no analytics endpoint (only /integrations, /upload, /posts) — needs each platform's own dashboard"
     },
     {
       "kpi": "posts_published",
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": null,
+      "value": 40,
       "note": null,
-      "unknown": true,
-      "why_unknown": "never measured — source is growth.db"
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -88,19 +88,19 @@
           "agent": "content-social",
           "is_head": false,
           "merged_branches": 2,
-          "open_rows": 1,
-          "closed_rows": 1,
+          "open_rows": 0,
+          "closed_rows": 2,
           "findings_raised": 2,
           "unread_mail": 0
         },
         {
           "agent": "seo",
           "is_head": false,
-          "merged_branches": 2,
+          "merged_branches": 3,
           "open_rows": 0,
           "closed_rows": 2,
           "findings_raised": 1,
-          "unread_mail": 1
+          "unread_mail": 0
         },
         {
           "agent": "lifecycle",
@@ -112,8 +112,8 @@
           "unread_mail": 0
         }
       ],
-      "rows_closed": 4,
-      "rows_open": 1,
+      "rows_closed": 5,
+      "rows_open": 0,
       "findings_raised": 4
     },
     "Engineering": {
@@ -133,19 +133,19 @@
           "agent": "backend-eng",
           "is_head": false,
           "merged_branches": 10,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 4,
-          "findings_raised": 1,
+          "findings_raised": 2,
           "unread_mail": 0
         },
         {
           "agent": "frontend-eng",
           "is_head": false,
-          "merged_branches": 7,
+          "merged_branches": 8,
           "open_rows": 0,
           "closed_rows": 2,
           "findings_raised": 1,
-          "unread_mail": 1
+          "unread_mail": 0
         },
         {
           "agent": "extension-eng",
@@ -176,8 +176,8 @@
         }
       ],
       "rows_closed": 6,
-      "rows_open": 0,
-      "findings_raised": 2
+      "rows_open": 1,
+      "findings_raised": 3
     },
     "Data & Money": {
       "head": "data-scientist",
@@ -190,7 +190,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
-          "unread_mail": 1
+          "unread_mail": 0
         },
         {
           "agent": "finance-ops",
@@ -199,7 +199,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 1,
-          "unread_mail": 3
+          "unread_mail": 0
         },
         {
           "agent": "monetization",
@@ -208,7 +208,7 @@
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 2,
-          "unread_mail": 1
+          "unread_mail": 0
         }
       ],
       "rows_closed": 0,
@@ -226,7 +226,7 @@
           "open_rows": 0,
           "closed_rows": 4,
           "findings_raised": 4,
-          "unread_mail": 2
+          "unread_mail": 0
         },
         {
           "agent": "security-eng",
@@ -322,12 +322,20 @@
       "status": "CLOSED"
     },
     {
+      "id": "W59",
+      "duplicate_id": false,
+      "finding": "We cannot tell whether a user ever used the product. unlocks_used_total is 0 for EVERY user including the founder's own power accounts, verdict_count_today is 0 for everyone, and no per-user request log exists in product",
+      "found_by": "backend-eng",
+      "doer": "backend-eng",
+      "status": "OPEN"
+    },
+    {
       "id": "W57",
       "duplicate_id": false,
       "finding": "Every video published today is SILENT, and one file was posted 11 times. ffprobe -show_entries stream=codec_type returns video and nothing else for samba-demo-9x16.mp4, aspirational-double-100-es.mp4, aspirational-50-eur",
       "found_by": "content-social",
       "doer": "content-social",
-      "status": "OPEN"
+      "status": "CLOSED"
     },
     {
       "id": "W55",
@@ -444,15 +452,14 @@
   ],
   "stale_open": [
     {
-      "id": "W57",
+      "id": "W59",
       "duplicate_id": false,
-      "finding": "Every video published today is SILENT, and one file was posted 11 times. ffprobe -show_entries stream=codec_type returns video and nothing else for samba-demo-9x16.mp4, aspirational-double-100-es.mp4, aspirational-50-eur",
-      "found_by": "content-social",
-      "doer": "content-social",
+      "finding": "We cannot tell whether a user ever used the product. unlocks_used_total is 0 for EVERY user including the founder's own power accounts, verdict_count_today is 0 for everyone, and no per-user request log exists in product",
+      "found_by": "backend-eng",
+      "doer": "backend-eng",
       "status": "OPEN",
       "shipped_evidence": [
-        "resale-iq: 4d8fd5f measure: our own funnel numbers, and one channel is carrying all of it",
-        "resale-iq: dad5882 W57: the videos uploaded fine and every one of them is silent"
+        "resale-iq: 751d534 loop: production verified, W59 opened for the telemetry we do not have"
       ]
     },
     {
@@ -463,12 +470,12 @@
       "doer": "founder (Coolify UI)",
       "status": "OPEN",
       "shipped_evidence": [
+        "resale-iq: de31cac W58 closed INVALID -- it was my misread; W24's mechanism is now fully explained",
         "resale-iq: edb2233 W56 proven on the real host; W58 opened, and it may be what W24 actually is",
         "resale-iq: 6a663ef W56: the kernel OOM-killed the backend; deploys take the site down",
         "resale-iq: b8646bc W55 closed; W24 worse than thought, and the cause may be our own label change",
         "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached",
-        "resale-iq: d9297a7 loop: three more posts live in the markets we actually serve, board down to 2",
-        "resale-iq: 3e75ac0 workflow: the board audits itself, and two ways it was quietly lying"
+        "resale-iq: d9297a7 loop: three more posts live in the markets we actually serve, board down to 2"
       ]
     }
   ],
@@ -618,31 +625,56 @@
         "kind": "message",
         "subject": "Deploy has been silently skipping since 14:38 UTC -- W53, 9 commits stuck on main",
         "body": "Found while verifying W45/W47 live: gh run list shows every Deploy run since commit ac4d7713 (14:38 UTC today) reports 'completed / skipped', because Deploy only fires on Agent Isolation success and Agent Isolation has failed 9 straight times. Last commit that actually reached production: ae8a6cfc at 13:22 UTC. Nothing since -- including the W47 register-form fix -- is live.\n\nThe isolation failure itself: scripts/check-agent-isolation.mjs flags dashboard/data.json for containing the literal string <CREDENTIAL>. It's quoting an env-var NAME inside an ACTIVITY.jsonl-derived audit-log line about a blocked command, not the secret's value -- but the checker (correctly, conservatively) doesn't distinguish and refuses to ship it. Whatever regenerates dashboard/data.json (scripts/build_dashboard.py, not my lane) needs to stop embedding agent-credential names in it, or the check needs an allowlist for audit-log lines that only quote a blocked command.\n\nSeparately: Deploy's 'skipped' conclusion looks identical to 'nothing changed' everywhere a human or agent would check, so a ~2.5h+ production freeze produced zero visible alarms. Worth making that loud (e.g. fail the job, or post a status somewhere) rather than quiet.\n\nFull account: docs/company/WORKBOARD.md row W53, PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/2 (docs/proof only, no app code -- did not attempt to fix this myself, it's outside my lane and touches a shared ops file)."
+      },
+      {
+        "id": "m0017",
+        "ts": "2026-09-01T20:04:57Z",
+        "from": "ceo",
+        "to": "product-manager",
+        "kind": "message",
+        "subject": "Jakob's Law now governs UX — founder instruction, binding on Product & Growth",
+        "body": "Founder, tonight: 'tell product growth department to use jakobs law for the UX'. Written up in docs/company/UX-RULES.md and binding on your department plus frontend-eng for anything customer-facing.\n\nThe short version: users spend most of their time on other sites and expect ours to work the same way. We get no credit for originality on the plumbing. Where we SHOULD be different is the verdict itself -- BUY/WATCH/SKIP, the buy-below number, saying UNKNOWN when evidence is thin. Everywhere else, be boring. Originality in a signup form is a bug.\n\nThree violations are already live and measured, not hypothetical:\n\n1. NO LANGUAGE SWITCHER ANYWHERE, on a six-language site. grep finds zero. When /register was serving Spanish to English speakers the page was not just wrong, it was inescapable. And a switcher is the ONLY thing that reaches visitors already carrying a wrong NEXT_LOCALE cookie -- that cookie lasts a year, so the detection fix protects new visitors only.\n\n2. /register has no link back to /. It links to terms, privacy and login. On every signup page anyone has ever used, the logo goes home. We get 3-4 people a day on that page and all of them left.\n\n3. Clicking an English CTA landed you on a Spanish form. Fixed today, recorded because it is the purest form of this failure: nobody expects a link to change the language.\n\nThree tickets, one named doer each -- prose doers do not get spawned and the row just sits: language switcher (frontend-eng), logo-to-home on register (frontend-eng), Jakob's Law audit of the free checker and verdict surface (designer). Ticket 1 has measured cost behind it; do it first.\n\nOne thing this does NOT license: copying competitors' dishonesty because it is conventional. Everyone in resale shows confident numbers on thin data. We show UNKNOWN below 8 comparables and that stays."
+      },
+      {
+        "id": "m0018",
+        "ts": "2026-09-01T20:18:33Z",
+        "from": "ceo",
+        "to": "product-manager",
+        "kind": "message",
+        "subject": "'Registering makes the product worse' — the code no longer does this. The COPY still says it does.",
+        "body": "Founder asked for solutions on 'registering makes the product worse'. I verified the code before briefing anyone, because I have twice today briefed the roster on a false premise.\n\nTHE CODE IS FIXED. api/routes.py:755 grants a logged-in free user FREE_VERDICT_DAILY_LIMIT -- the SAME 10/day as anonymous -- and claim_verdict_unlock adds 10 FULL unlocks per month on top, which anonymous gets none of, plus a 7-day unlimited trial. Registering is now strictly better. W1's field-redaction fix (5019fa0, merged d170987) landed today.\n\nTHE COPY STILL SELLS AGAINST US, and this is now the actual bug:\n\n  i18n.ts:223  '...then 10 full checks / month. Anonymous visitors get 10 checks/day.'\n  i18n.ts:292  '...then 10 checks/month. No card.'\n  free-checker.tsx:235  '(register -- free, raises the cap to 10/month...)'\n\nRead those as a stranger. We are telling visitors that signing up moves them from 10 A DAY to 10 A MONTH. That is a 30x downgrade in their head, stated by us, on the conversion surface, in six languages. Line 223 goes further and explicitly points out that anonymous visitors get more. And free-checker.tsx calls 10/month a RAISE, which only makes sense against a cap the reader does not have.\n\nWhy this matters more than it looks: 417 of 432 verdict checks were run by ANONYMOUS visitors. Every real registered user has run ZERO. People use the free checker and do not register, or register and never return -- and our own copy gives them a reason not to.\n\nThe daily allowance does not go away on registration. The copy implies it does. Nobody reading it would guess they keep 10/day AND gain 10 unlocks/month.\n\nConsulting monetization (owns plans, entitlements, trial logic) and designer (owns the conversion surface). Engineering will implement once the words are agreed -- this is a copy change across six locales, not a quota change. Do not change the quota numbers to fix a sentence.\n\nTwo constraints on any answer: never imply a guaranteed return, and per-model buy-below stays behind the gate -- that gate IS the paid product and the temptation here is to give away more to fix a copy problem."
       }
     ],
     "unread_by_agent": {
-      "all": 5,
-      "data-scientist": 1,
-      "seo": 1,
-      "devops": 2,
-      "finance-ops": 3,
-      "monetization": 1,
-      "ceo": 2,
-      "frontend-eng": 1
+      "ceo": 2
     }
   },
   "stripe": {
-    "available": false,
-    "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
+    "available": true,
+    "livemode": false,
+    "account": null,
+    "reading": "SANDBOX (agent key) — NOT production",
+    "active_subscriptions": 0,
+    "charges": 0,
+    "refunded": 0,
+    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
   },
   "deploy_drift": {
-    "drifted": false,
+    "drifted": true,
     "apps": [
       {
         "app": "frontend",
-        "status": "IN SYNC",
-        "commit": "521c88272584",
-        "container": "p6t87shftvl2455pd3gdgee1-192006532363"
+        "status": "DRIFTED",
+        "running": "d7e89df7557a",
+        "merged": "234dd6e631a9",
+        "commits_unshipped": 4,
+        "unshipped": [
+          "234dd6e refactor: the duplicate check caught its own author duplicating code",
+          "d614460 check: the last three failure classes are machines now, not documents",
+          "93ac843 session: 52 bugs fixed twice, and the cause is that rules do not run",
+          "4b3b17a fix: the 10 monthly unlocks had no entry point, and today's own fix caused it"
+        ],
+        "container": "p6t87shftvl2455pd3gdgee1-203219809986"
       },
       {
         "app": "backend",
@@ -653,11 +685,11 @@
     ]
   },
   "totals": {
-    "rows_total": 19,
+    "rows_total": 20,
     "rows_open": 2,
-    "rows_closed": 17,
+    "rows_closed": 18,
     "rows_blocked": 0,
-    "bus_messages": 16,
+    "bus_messages": 18,
     "stale_open": 2,
     "unassignable": 0
   }
