@@ -105,4 +105,76 @@ export const copy = {
     footerTag: "Resale IQ — inteligencia de mercado para el comercio de segunda mano.",
     noAccuracy: "Sin cifras de precisión hasta 30 resultados puntuados",
   },
+  de: {
+    signIn: "Anmelden",
+    pricing: "Preise",
+    heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
+    heroBody:
+      "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann BUY, WATCH oder SKIP. Vinted ist der erste Marktplatz, den wir abdecken.",
+    heroFrom: (tracked: string) =>
+      `Basierend auf ${tracked} aktiven Angeboten und beobachteten Abgängen in fünf EU-Märkten.`,
+    heroHonesty:
+      "Etwa 4 von 10 Anfragen enden mit „nicht genug Daten“ — das sagen wir lieber, als zu raten.",
+    addToChrome: "Zu Chrome hinzufügen",
+    checkItem: "Artikel prüfen",
+    orCheck: "7-tägige Starter-Testphase starten",
+    features: [
+      { t: "Entscheiden, bevor du kaufst", d: "DATEN → ANALYSE → ENTSCHEIDUNG. BUY, WATCH oder SKIP auf Basis beobachteter Abgänge — kein Modell, das rät." },
+      { t: "Live-Suche", d: "Durchsuche aktive Vinted-Angebote über Länderseiten hinweg. Die Analyse basiert auf 5 EU-Märkten." },
+      { t: "Preisvergleich", d: "Vergleiche Angebotspreise für dasselbe Produkt über Vinted-Länderseiten hinweg. Kaufe, wo es günstiger ist." },
+      { t: "Deal Finder", d: "Angebote, die jetzt schon unter deiner Kaufobergrenze liegen." },
+      { t: "Order Planner", d: "Was du jetzt bestellen solltest für Ware in drei Wochen — berechnet aus den beobachteten Abgängen dieser Woche." },
+      { t: "Watchlist", d: "Merke dir Modelle und sieh Kaufobergrenze, Abgangspreis und Größen, ohne erneut zu suchen." },
+    ],
+    footerTag: "Resale IQ — Marktanalyse für den Wiederverkauf aus zweiter Hand.",
+    noAccuracy: "Keine Genauigkeitsangaben vor 30 ausgewerteten Ergebnissen",
+  },
+  it: {
+    signIn: "Accedi",
+    pricing: "Prezzi",
+    heroTitle: "Sappi quanto pagare prima di comprare.",
+    heroBody:
+      "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi BUY, WATCH o SKIP. Vinted è il primo marketplace che copriamo.",
+    heroFrom: (tracked: string) =>
+      `Basato su ${tracked} annunci attivi e uscite osservate in cinque mercati UE.`,
+    heroHonesty:
+      "Circa 4 ricerche su 10 restituiscono «dati insufficienti» — preferiamo dirlo piuttosto che indovinare.",
+    addToChrome: "Aggiungi a Chrome",
+    checkItem: "Controlla un articolo",
+    orCheck: "Inizia la prova Starter di 7 giorni",
+    features: [
+      { t: "Decidi prima di comprare", d: "DATI → ANALISI → DECISIONE. BUY, WATCH o SKIP in base alle uscite osservate — non un modello che indovina." },
+      { t: "Ricerca live", d: "Cerca annunci Vinted attivi tra i siti nazionali. L'analisi si basa su 5 mercati UE." },
+      { t: "Confronto prezzi", d: "Confronta i prezzi dello stesso articolo tra i siti Vinted. Compra dove costa meno." },
+      { t: "Deal Finder", d: "Annunci già sotto il tuo prezzo massimo di acquisto, in questo momento." },
+      { t: "Order Planner", d: "Cosa ordinare ora per la merce tra tre settimane, calcolato sulle uscite osservate di questa settimana." },
+      { t: "Watchlist", d: "Salva i modelli che cerchi e vedi prezzo massimo di acquisto, prezzo di uscita e taglie senza rifare la ricerca." },
+    ],
+    footerTag: "Resale IQ — intelligence di mercato per il commercio dell'usato.",
+    noAccuracy: "Nessun dato di accuratezza finché non si raggiungono 30 esiti verificati",
+  },
+  pt: {
+    signIn: "Entrar",
+    pricing: "Preços",
+    heroTitle: "Saiba quanto pagar antes de comprar.",
+    heroBody:
+      "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois BUY, WATCH ou SKIP. A Vinted é o primeiro marketplace que cobrimos.",
+    heroFrom: (tracked: string) =>
+      `A partir de ${tracked} anúncios ativos e saídas observadas em cinco mercados da UE.`,
+    heroHonesty:
+      "Cerca de 4 em cada 10 pesquisas voltam com «dados insuficientes» — preferimos dizer isso a adivinhar.",
+    addToChrome: "Adicionar ao Chrome",
+    checkItem: "Verificar um artigo",
+    orCheck: "Iniciar o período experimental Starter de 7 dias",
+    features: [
+      { t: "Decida antes de comprar", d: "DADOS → ANÁLISE → DECISÃO. BUY, WATCH ou SKIP com base em saídas observadas — não um modelo a adivinhar." },
+      { t: "Pesquisa em direto", d: "Pesquise anúncios ativos da Vinted entre sites de vários países. A análise assenta em 5 mercados da UE." },
+      { t: "Comparar preços", d: "Compare os preços do mesmo artigo entre sites da Vinted. Compre onde for mais barato." },
+      { t: "Deal Finder", d: "Anúncios já abaixo do seu preço máximo de compra, agora mesmo." },
+      { t: "Order Planner", d: "O que encomendar agora para stock daqui a três semanas, calculado a partir das saídas observadas desta semana." },
+      { t: "Watchlist", d: "Marque os modelos que procura e veja o preço máximo de compra, o preço de saída e os tamanhos sem repetir a pesquisa." },
+    ],
+    footerTag: "Resale IQ — inteligência de mercado para o comércio em segunda mão.",
+    noAccuracy: "Sem dados de precisão até 30 resultados avaliados",
+  },
 } as const
