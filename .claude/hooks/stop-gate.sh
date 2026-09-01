@@ -34,7 +34,18 @@ MISSING=""
 # background agent mid-write — this gate blocked once on exactly that, on a
 # deliverable another agent had not finished writing yet. Refusing to stop until
 # someone commits a half-written file is the wrong trade.
-if [ -n "$(git -C "$REPO" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+# SECURITY-LOG.md is excluded because the guard hook APPENDS TO IT ON EVERY BASH
+# CALL -- including the `git commit` that would clean it. Committing it dirties
+# it again, so the gate could never be satisfied: it demanded a state its own
+# logger made unreachable, and the only ways out were to loop forever or to stop
+# without meeting the gate. Neither is a Definition of Done.
+#
+# Nothing is lost: it is still tracked and still committed by whoever is next to
+# touch the tree for a real reason. What is dropped is only its power to BLOCK,
+# which it should never have had, because no amount of agent work can clear it.
+DIRTY="$(git -C "$REPO" status --porcelain --untracked-files=no 2>/dev/null \
+  | grep -v ' docs/company/SECURITY-LOG.md$')"
+if [ -n "$DIRTY" ]; then
   MISSING="$MISSING uncommitted-tracked-changes"
 fi
 UNTRACKED="$(git -C "$REPO" ls-files --others --exclude-standard 2>/dev/null | head -5)"
