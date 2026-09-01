@@ -1292,3 +1292,69 @@ Relabelling costs days. Repositioning is *"not a repositioning, that is a rebuil
 4. **Then resolve A16 on ten customer answers**, not on argument — put both artefacts in front of the
    next ten people and ask which they would pay for. **A free byproduct of work the founder needs
    anyway.**
+
+
+#### A16 — the remaining votes, and the finding that reframes it
+
+**`content-social` found the number that changes the shape of the question.** The model-label ceiling
+is **7.0 %** (7,247 of 103,993 observed sales carry a model label). But a **brand** label is present
+on **93.2 %**.
+
+> *"'New Balance sneakers: 309 sold this week' rests on data an order of magnitude deeper than 'New
+> Balance 530: pay no more than €26.88.' Liquidity is the claim shape that happens to match where the
+> data is actually deep."*
+
+And it re-ran the demand log: **only 151 of 360 logged searches (41.9 %) ever get a price at all**,
+even at the loose `n ≥ 8` bar. **A price-led pitch is structurally answerable for well under half of
+real demand today.**
+
+It also corrected my framing of its earlier answer: the honesty caveat "attaches to nothing" because
+it was an *abstract* claim. **A per-item volume number has a decision moment** — *is this worth
+sourcing at all* — and it can answer that for far more visitors than the price claim can answer its
+own question for.
+
+**`monetization` supplied the counterweight, verified against `engine/sufficiency.py` before
+accepting the premise:** sell-through and momentum require a **stricter** evidence floor
+(`MIN_SOLD_30D = 30`) than price does (`n ≥ 8`). So *"rates survive, levels do not"* holds for
+**bias** — a systematic offset cancels in a ratio — **but not for evidence volume.**
+
+**THE UNRESOLVED TENSION, stated rather than smoothed over:** brand-level volume is deep (93 %
+labels) while per-model rate claims need `MIN_SOLD_30D = 30`, which is *stricter* than the price bar.
+Both can be true — they are claims at different granularities — but **nobody has measured how many
+models clear 30 observed departures.** That number decides whether a per-model velocity claim is
+wider or narrower than the price claim it would replace. **Requested from `data-scientist`.**
+
+---
+
+### A16 — WHERE THE VOTE ACTUALLY LANDS
+
+Four positions, and read together they converge far more than they conflict:
+
+| | position |
+|---|---|
+| `tech-lead` | **Do not reposition.** Relabel, narrow the board, and make `buy_below` **a function of measured velocity** rather than a flat 0.70 |
+| `ux-researcher` | Not a straight swap — the extension answers a transactional question. But a **fully observable anchor** (asking vs live shelf average) needs no sale inference at all |
+| `content-social` | **Lead with volume/velocity now**, at brand granularity where the data is deep; keep price secondary and hedged with its `n` |
+| `monetization` | **Lead Pro's pitch with rank/momentum**, keep price as a labelled secondary anchor, do not invert the free/paid line, hold €19/€49 |
+
+**Three of four say lead with velocity and keep the price. The fourth says keep the price and make it
+velocity-driven.** Those are the same product from two directions.
+
+**THE SYNTHESIS — no reposition, no rebuild, and it is what all four are describing:**
+
+1. **Lead with what moves.** Brand/category volume, where 93 % label coverage supports it.
+2. **Keep `buy_below`** — it is the paying moment and the extension's reason to exist.
+3. **Make it a function of measured velocity** instead of a flat 0.70, so the risk term stops being a
+   guess (`tech-lead`) and the number gets *more* defensible.
+4. **Never show it without its `n`**, and never above `comparable_n < 8`.
+5. **Relabel every "sold"** — in flight now.
+
+**Nothing here requires the rebuild `tech-lead` costed** (20+ surfaces, the North Star's definition,
+both feedback machines). **And A16's formal question stays OPEN**, to be settled where `tech-lead`
+said it should be: **on ten customer answers, as a byproduct of work the founder needs anyway** —
+put both artefacts in front of the next ten people and ask which they would pay for.
+
+**One citation to reconcile before this reaches the founder:** `content-social` could not locate
+"6 models / 12.2 % of searches" on disk; the nearest verified figures are 43/100 at `n ≥ 8` and ~7/100
+at `n ≥ 30`. Same direction, different number. **`data-scientist` to reconcile — no figure goes in
+front of the founder until it does.**
