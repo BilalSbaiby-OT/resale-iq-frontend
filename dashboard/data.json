@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:33:49Z",
+  "generated_at": "2026-09-01T01:48:43Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -41,9 +41,13 @@
       "**Persist `comparable_n` on `verdict_logs`** + the regression test",
       "**Log post-gate, or exclude locked deliveries from the North Star** — `tech-lead`'s",
       "**The probe-traffic filter**, before any demand-side metric is cited again.",
-      "**Fix: keep the row, null the field** — the same shape as the C6 second pass. **Not implemented"
+      "**Fix: keep the row, null the field** — the same shape as the C6 second pass. **Not implemented",
+      "**Merge condition: report `max_buy_price` before/after for the crossing models** — n, median",
+      "**A13 also moves the CONFIDENCE BAND.** `api/routes.py:570-575` bands on `comparable_n`",
+      "**A dated tripwire for 14d-vs-30d, not a note.** The measured 43→62 % holds only while",
+      "**New GAPS row owed:** four paid surfaces publish `max_buy_price` with **no evidence floor at"
     ],
-    "count": 39
+    "count": 43
   },
   "company": {
     "mrr": {
@@ -130,15 +134,15 @@
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 15.1,
-      "n": 1337,
+      "value": 30.0,
+      "n": 1332,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 12703559
+      "value": 12706178
     },
     "newest_sold_at": {
-      "value": "2026-09-01 01:15:16"
+      "value": "2026-09-01 01:47:56"
     },
     "predictions_total": {
       "value": 340
@@ -255,7 +259,9 @@
         "primary": "every UI PR reviewed against design/ with a screenshot diff",
         "secondary": "accessibility: contrast, keyboard, labels checked",
         "counter": "no design work for anything on the CUT list",
-        "branches": [],
+        "branches": [
+          "landing-truth  (merged)"
+        ],
         "events": null,
         "last_active": null,
         "score": null
@@ -284,7 +290,9 @@
         "primary": "panel renders a band or an honest state on 100% of sampled listings",
         "secondary": "store rating >= 4.3",
         "counter": "permissions requested = permissions used",
-        "branches": [],
+        "branches": [
+          "panel-states  (merged)"
+        ],
         "events": null,
         "last_active": null,
         "score": null
@@ -311,6 +319,7 @@
         "secondary": "tsc + build + the four check:* honesty scripts green",
         "counter": "no new dependency without a founder gate",
         "branches": [
+          "conversion-moments  (merged)",
           "truth-pass-and-cut-business  (merged)"
         ],
         "events": null,
@@ -338,7 +347,9 @@
         "primary": "onboarding sequence drafted and measurable",
         "secondary": "unsubscribe rate",
         "counter": "emails sent without a founder gate = 0",
-        "branches": [],
+        "branches": [
+          "demand-intel:trial-emails  (merged)"
+        ],
         "events": null,
         "last_active": null,
         "score": null
@@ -406,7 +417,9 @@
         "primary": "GSC clicks on pages with >= 1 model",
         "secondary": "bounce rate",
         "counter": "pages_with_zero_models = 0",
-        "branches": [],
+        "branches": [
+          "kill-zero-model-pages  (merged)"
+        ],
         "events": null,
         "last_active": null,
         "score": null
@@ -595,10 +608,34 @@
   "work": {
     "branches": [
       "claude/content/humanize-frontend",
+      "+ claude/designer/landing-truth",
+      "+ claude/extension-eng/panel-states",
+      "+ claude/frontend-eng/conversion-moments",
       "claude/frontend-eng/truth-pass-and-cut-business",
-      "claude/security-eng/hardening-20"
+      "claude/security-eng/hardening-20",
+      "+ claude/seo/kill-zero-model-pages"
     ],
     "recent_commits": [
+      {
+        "sha": "bc9351b",
+        "msg": "amendments: AM-7 -- consult the whole roster before product-wide decisions"
+      },
+      {
+        "sha": "6f57069",
+        "msg": "metrics: correct band_evidence_p50 -- it FALLS under the change it was built to authorise"
+      },
+      {
+        "sha": "bd98883",
+        "msg": "gaps: C11 -- the n>=8 gate guards one endpoint, not the product"
+      },
+      {
+        "sha": "8ba3bb9",
+        "msg": "os-compliance: add a SCOPE header and correct four more rows downward"
+      },
+      {
+        "sha": "cce4f12",
+        "msg": "chore: verifier run"
+      },
       {
         "sha": "ac37c76",
         "msg": "session: bring the record current after A8, A12 and the joint review request"
@@ -626,29 +663,9 @@
       {
         "sha": "828ac8d",
         "msg": "metrics: strike MAPE, mark two series breaks, and stop claiming the North Star is exact"
-      },
-      {
-        "sha": "5984617",
-        "msg": "metrics: the n-floor, band_coverage_demand, and a counter that can actually contradict"
-      },
-      {
-        "sha": "298cbb7",
-        "msg": "chore: dashboard refresh + security log from the verifier run"
-      },
-      {
-        "sha": "08421ea",
-        "msg": "canary: mark the first run unscoreable -- 60/60 was arithmetically guaranteed"
-      },
-      {
-        "sha": "be0772f",
-        "msg": "dashboard: mark merged branches, and record the retroactive §0.7 review"
-      },
-      {
-        "sha": "d067ad6",
-        "msg": "marketing: correct the QUEUE provenance before the founder reads it at 08:30"
       }
     ],
-    "dirty": false,
+    "dirty": true,
     "lock": "HOLDER:  ceo (main session)\nSINCE:   2026-09-01T01:50:00Z\nWIP:     none - session complete. METRICS layer shipped; C6/C5/C4 fixed on\n         demand-intel branch claude/backend-eng/data-defects-c6-c5-c4 awaiting\n         tech-lead review; A8 (3 KPI definition decisions) and A9 (memory SCOPE)\n         open in APPROVALS.\nRELEASE: delete this file, or set HOLDER: none\n\nWIP = 1 per agent (OS 0.5). If "
   },
   "audits": [
@@ -690,7 +707,7 @@
     },
     {
       "file": "MONETIZATION.md",
-      "lines": 293
+      "lines": 333
     },
     {
       "file": "MONEY.md",
@@ -711,87 +728,521 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-01T01:33:51Z",
+      "ts": "2026-09-01T01:48:49Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "Grep",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '1108,1135p' scrapers/vinted.py; echo \"=== new FX tests: names only ===\"; git show claude/backend-eng/fx-currency-v2:tests/test_fx_currency.py | grep ",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:33:50Z",
+      "ts": "2026-09-01T01:48:45Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "Grep",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"=== does the update path overwrite price_eur? ===\" && grep -n \"price_eur\" db/queries.py | sed -n '1,12p'; echo \"--- upsert_listing body ---\"; sed -n '1",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:33:06Z",
+      "ts": "2026-09-01T01:48:44Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/GAPS.md\"; s=io.open(p,encoding=\"utf-8\").read()\nlines=s.split(\"\\n\")\nfor i,l in enumerate(lines):\n    if l.startswith(\"| **C8** — NEW\"):\n        lines[i] = (\"|",
+      "cmd": "cat >> /Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md << 'MDEOF'\n\n---\n\n## ADDENDUM — roster consult, 2026-09-01: gate `api/resale_routes.py`'s ungated `max_buy_price` reads?\n\nConsulted b",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:47Z",
+      "ts": "2026-09-01T01:48:41Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -rn \"def publishable_opportunity\" -A 20 engine/*.py | head -30; echo \"=== deals endpoint gate ===\"; sed -n '740,760p' api/resale_routes.py",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && wc -l .claude/agents/*.md | tail -3; echo \"=== data-scientist.md, in full ===\"; cat .claude/agents/data-scientist.md",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:43Z",
+      "ts": "2026-09-01T01:48:39Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/components/landing/pricing-section.tsx"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/design/landing/pricing.html"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:24Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/GTM.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:24Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/product/LIFECYCLE.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:24Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/lib/pricing.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:20Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"=== does publishable_opportunity gate on comparable_n? ===\" && grep -rn \"def publishable_opportunity\" -A 25 engine/sufficiency.py | head -35; echo; ech",
+      "cmd": "grep -rln \"trial_ends_at\\|10 trials\\|trials ended\" /Users/bilalsbaiby/work/resale-iq/docs/ 2>/dev/null | head -20; echo \"---\"; grep -rn \"SESSION.md\" -l /Users/bilalsbaiby/work/resale-iq/docs/company/ ",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:35Z",
+      "ts": "2026-09-01T01:48:20Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && git diff main...claude/backend-eng/fx-currency-v2 -- config.py scrapers/vinted.py api/routes.py",
+      "cmd": "grep -rn \"impressions\" /Users/bilalsbaiby/work/resale-iq/docs/ 2>/dev/null | grep -v node_modules | head -30",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:34Z",
+      "ts": "2026-09-01T01:48:19Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/components/smart-cta.tsx"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:15Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:14Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "git log --oneline --since=\"1 hour ago\" | head -12; echo \"=== is C8's measurement committed? ===\"; git log --oneline -1 -- docs/audit/C8-BRAND-DROP.md 2>/dev/null || echo \"not committed\"; ls docs/audit",
+      "cmd": "grep -n \"§7\" -A 40 /Users/bilalsbaiby/work/resale-iq/docs/company/OS.md | head -80",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:34Z",
+      "ts": "2026-09-01T01:48:14Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"=== max_buy_price consumers, NON-test ===\" && grep -rn \"max_buy_price\" --include=\"*.py\" api/ db/ engine/ main.py | grep -v test | head -30",
+      "cmd": "ls /Users/bilalsbaiby/work/resale-iq/sql/metrics/ 2>/dev/null; echo \"---\"; ls /Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W36/ 2>/dev/null; echo \"---pricing---\"; sed -n '1,80p' /Users/bilalsbai",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:32:18Z",
+      "ts": "2026-09-01T01:48:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/LEDGER.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/audit/COVERAGE.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/audit/FUNNEL-WALK.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/audit/MONETIZATION.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/product/ROADMAP.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:06Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/AMENDMENTS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/APPROVALS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:04Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/GAPS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:48:02Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-lifecycle/api/email.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:59Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/design/extension-panel/low-confidence.html"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:57Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "find /Users/bilalsbaiby/work/resale-iq -maxdepth 3 -type d | head -50",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:57Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/GOALS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:57Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Glob",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:53Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Agent",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:52Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '1,70p' extension/content.css",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:52Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:50Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && find extension -iname \"*.css\" && grep -n \"riq-link\\|riq-note\\|riq-watch\\|riq-card\" ext",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/demand-intel/api/routes.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/docs/company/AMENDMENTS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:44Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:41Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:41Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '170,346p' extension/content.js",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:38Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:37Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && wc -l extension/content.js && sed -n '1,170p' extension/content.js",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/docs/product/SUPPORT-VOICE.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:31Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:29Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Grep",
+      "files": [],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-01T01:47:28Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "SendMessage",
@@ -801,436 +1252,44 @@
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:31:59Z",
+      "ts": "2026-09-01T01:47:23Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && git status --short && git add docs/audit/proof/W36/rails-coverage/ && git commit -q -F - <<'MSG'\nproof: a rails-coverage suite that FAILS at 1/4, on purpose\n\nve",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:57Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat > docs/audit/proof/W36/rails-coverage/proof.sh <<'EOF'\n#!/usr/bin/env bash\n# PROOF — do the rails fire in every repo, or only in the one that was tested?\n#\n# EXPECTED TO FAIL until APPROVALS A12's",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:57Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '180,220p' engine/metrics.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"=== is price_window ever stored/read? ===\" && grep -rn \"price_window\" --include=\"*.py\" . | grep -v \"^./tests\"; echo; echo \"=== max_buy_price consumers ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
+      "tool": "Read",
       "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/proof/W36/rails-coverage/check_rails_coverage.py"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-designer/src/lib/trial-copy.ts"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-01T01:05:23Z",
+      "ts": "2026-09-01T01:47:21Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '2010,2110p' /tmp/a13_queries.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:22Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && git show claude/data-scientist/a13-comparable-window:db/queries.py > /tmp/a13_queries.py 2>/dev/null; sed -n '1930,2010p' /tmp/a13_queries.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:05:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/OS-COMPLIANCE.md\"; s=io.open(p,encoding=\"utf-8\").read()\nold = \"| **Phase 0 — rails** | **DONE.** 5 hooks, `proof.sh` at **38/38**, every deny rule with a neg",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"Phase 0 — rails\" docs/company/OS-COMPLIANCE.md; grep -n \"38/38\\|40/40\\|26/26\" docs/company/OS-COMPLIANCE.md | head",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n---\n\n### A13 — **BUILT**, awaiting joint review (`eba60",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:35Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && git diff main...claude/data-scientist/a13-comparable-window",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:35Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && echo \"=== FX v2 stat ===\" && git diff main...claude/backend-eng/fx-currency-v2 --stat && echo && echo \"=== A13 stat ===\" && git diff main...claude/data-scien",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:28Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "SendMessage",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:04:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && git add -A && git commit -q -F - <<'MSG'\nfix: stop discarding the 30-day com",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:03:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && python3 - <<'PY'\nimport io\np=\"tests/test_comparable_window.py\"; s=io.open(p,",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:02:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && python3 -c \"\nimport inspect\nfrom db import queries as q\nsrc = inspect.getsou",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:02:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && python3 - <<'PY'\nimport io\np=\"tests/test_comparable_window.py\"; s=io.open(p,",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:01:40Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && python3 - <<'PY'\nimport io\np=\"tests/test_comparable_window.py\"; s=io.open(p,",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:01:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncat > \"$WT/tests/test_comparable_window.py\" <<'EOF'\n\"\"\"The 30-day comparables window mus",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:00:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && sed -n '98,118p' tests/test_verdict_confidence.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:00:48Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && grep -rln \"refresh_model_signals\" tests/ | head -5; echo \"--- an example har",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T01:00:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && python3 - <<'PY'\nimport io\np=\"db/queries.py\"; s=io.open(p,encoding=\"utf-8\").",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:59:25Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ncd \"$WT\" && sed -n '1815,1825p' db/queries.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:59:18Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/a13-worktree\ngit -C /Users/bilalsbaiby/work/demand-intel worktree add \"$WT\" -b claude/data-scientist/",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:58:42Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '1975,2010p' db/queries.py; echo \"=== constants ===\"; grep -n \"MIN_COMPARABLES\\|MIN_VERDICT_COMPARABLES\" db/queries.py | head -5",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:57:06Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/APPROVALS.md\"; s=io.open(p,encoding=\"utf-8\").read()\ns += '''\n\n---\n\n### A8 — **BUILT AND SHIPPED**, 2026-09-01 (`5984617`, `828ac8d`)\n\n| Decision | What shipp",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:56:45Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git add -A && git commit -q -F - <<'MSG'\nmetrics: strike MAPE, mark two series breaks, and stop claiming the North Star is exact\n\nA8 landed in METRICS.md. UNLOCK_HARNESS opened for this single write a",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:55:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\nanchor = \"### Two honest asterisks on the rest\"\nnote = '''### `insufficient_data_rate` is misnamed, and it ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:55:18Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\n\nold = \"\"\"**The caveat, and it is not cosmetic:** `engine/listing_identity.py:50-58` **fails open** — when\n",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:54:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"docs/company/METRICS.md\"; s=io.open(p,encoding=\"utf-8\").read()\n\n# 1. series-break banner\nanchor = \"---\\n\\n## The contract, and why the result shape is the rule\"\nbanner = ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:54:29Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "printf 'Founder authorised A8 in chat 2026-09-01, conditional on consulting all related agents.\\nConsulted: verifier, product-manager, tech-lead, data-scientist (all dissented or conditioned).\\nScope:",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:54:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && git add -A sql/metrics scripts/company dashboard docs/audit/proof/W36/metrics && git commit -q -F - <<'MSG'\nmetrics: the n-floor, band_coverage_demand, and a co",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:53:58Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"sql/metrics/README.md\"; s=io.open(p,encoding=\"utf-8\").read()\nold = \"Two consequences that are deliberate:\"\nnew = '''### Every file declares a floor\n\nEach `.sql` carries `",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:53:06Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"scripts/company/build_dashboard.py\"; s=io.open(p,encoding=\"utf-8\").read()\nold = '''        \"band_coverage\": M.get(\n            \"band_coverage\", unknown(\"sql/metrics/band_",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:52:25Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git mv sql/metrics/band_coverage.sql sql/metrics/band_coverage_demand.sql\npython3 - <<'PY'\nimport io\np=\"sql/metrics/band_coverage_demand.sql\"; s=io.open(p,encoding=\"utf-8\").read()\ns = s.replace(\"-- ba",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:52:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/docs/audit/C8-BRAND-DROP.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:51:50Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io\np=\"scripts/company/metrics.py\"; s=io.open(p,encoding=\"utf-8\").read()\n\ns = s.replace('CONTRACT = (\"metric\", \"value\", \"n\", \"window_start\", \"window_end\")',\n'''CONTRACT = (\"metr",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:51:27Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport io, os\nD=\"sql/metrics\"\n# (file, floor, rationale)\nFLOORS = [\n (\"band_coverage.sql\", 100,\n  \"PROPORTION. At p~0.8 the 95% half-width is 1.96*sqrt(p(1-p)/n): n=44 gives +/-14.5pp",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:51:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && head -3 sql/metrics/*.sql | head -20; echo \"=== value types ===\"; grep -l \"ROUND(\" sql/metrics/*.sql | xargs -n1 basename",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:50:50Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ls -la /Users/bilalsbaiby/work/resale-iq/docs/audit/ 2>&1 | head -30; cat /Users/bilalsbaiby/work/resale-iq/.claude/LOCK 2>&1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-01T00:50:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && git show 998ef72:docs/audit/proof/fx-currency/README.md 2>/dev/null | sed -n '1,140p'",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-frontend && sed -n '1,40p' src/components/landing/pricing-section.tsx 2>/dev/null | head -40; grep",
       "url": "",
       "ok": true
     }
   ],
   "security": {
-    "blocked": 231,
+    "blocked": 237,
     "tripwire": 0,
     "recent": [
+      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T01:33:53Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
+      "`2026-09-01T01:33:53Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T00:56:24Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
       "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:48:18Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:48:17Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:48:17Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:48:16Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`",
-      "`2026-09-01T00:47:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T00:47:38Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-09-01T00:56:24Z` **BLOCKED** Bash — push to main = PRODUCTION DEPLOY — `git push origin main`"
     ],
     "restore_test": {
       "value": null,
@@ -1269,6 +1328,7 @@
     "AM-3 — The Business €99 tier is cut",
     "AM-4 — The Stop gate is armed",
     "AM-5 — There is no `ConfigChange` hook event",
-    "AM-6 — Company root is `resale-iq/`"
+    "AM-6 — Company root is `resale-iq/`",
+    "AM-7 — A decision that touches another agent's surface, or the product as a whole, requires consulting the whole roster"
   ]
 }
