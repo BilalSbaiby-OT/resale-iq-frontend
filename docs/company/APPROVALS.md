@@ -1193,3 +1193,29 @@ ungated models whose price moves under A13 **stays below 8 and is gated by the c
 shipping together means those prices never publish their swing at all. **Gating first reaches the
 same endpoint through a worse intermediate state** — it publishes the +160 % move to paying users and
 then removes it. `backend-eng` notified mid-task; its implementation is unchanged.
+
+
+#### A17 built — the evidence floor now reaches the paid surfaces (`bce6c47`)
+
+`backend-eng`, branch `claude/backend-eng/gate-paid-surfaces`. **1179 tests pass**; I re-ran the two
+new files independently — **31 pass** — rather than take the report on trust.
+
+New `apply_verdict_evidence_gate()` **reuses** `verdict_allows_buy_below`, `verdict_comparable_n` and
+`sufficiency.WITHHELD` instead of reimplementing any of them, which is what three agents asked for.
+Wired into all five surfaces: Deal Finder, brand detail, trends, watchlist, KPIs. Deals now sort
+`evidence_sufficient` first, so a paying customer's first screen is the trustworthy subset.
+
+**`&price_to=` is guarded twice** — the value is gated at every call site *and* `build_sourcing_links`
+re-checks the floor itself, so the param cannot escape even if a future caller forgets. That was the
+one item marked non-negotiable, because no disclosure travels with a query parameter once clicked.
+
+**Five decisions it flagged rather than made silently** — the right instinct, and one of them is a
+genuine judgement call: a legacy row with **neither** `comparable_n` nor `n_fenced` keeps the existing
+fail-open rather than being reported as a fabricated `n = 0`. That is defensible (inventing a zero
+would be its own fabrication) and it is the one place the gate is still open. **Flagged for
+`tech-lead`.**
+
+**And it found an unrelated live bug without fixing it:** `get_kpis`'s `top_model_rows` never selects
+`avg_price_eur`/`max_buy_price`, so `publishable_opportunity(top_model)` always evaluates False and
+the "top signal" sublabel **is silently blank in production today.** Correctly left out of scope and
+raised separately.
