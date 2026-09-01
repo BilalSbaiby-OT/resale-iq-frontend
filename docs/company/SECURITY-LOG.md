@@ -951,3 +951,33 @@ s = s[:i] + """## Working on
 
 **Production verified by me, not from a report.** All six locales 200 · `/api/health` 200 · and a
 real search r`
+- `2026-09-01T18:36:17Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add dashboard/data.json dashboard/org.json docs/company/STATUS.md && git commit -q -m "$(cat <<'MSG'
+chore(dashboard): regenerate after the loop
+
+Both generated files pass check:isolation and contain zero credential names --
+the write-boundary scrubber in scrub.py is holding across both writers,`
+- `2026-09-01T18:54:20Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git checkout -q main && git merge --no-ff claude/backend-eng/w56-boot-scrape-oom -m "$(cat <<'MSG'
+merge: W56 -- the boot scrape can no longer take the API down
+
+Every deploy ran the two heaviest jobs in the app concurrently and
+unconditionally, including redeploys that changed nothing: job_analyzer`
+- `2026-09-01T18:55:40Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+s = s[:i] + """## Working on
+
+**W56's code half is CLOSED and merged** — `demand-intel@0967123`. Board is **16 closed / 2 open**,
+zero unassignable. Every deploy used to run the two heaviest jobs in the app con`
+- `2026-09-01T18:59:14Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+s=open("docs/company/WORKBOARD.md").read().rstrip().split("\n")
+i=next(n for n,l in enumerate(s) if l.startswith("| **W56**"))
+s.insert(i, "| **W58** | **A superseded backend container is still running an hour after its replacement, holding 833 MiB — 22% of a 3813 MB host.** After t`
+- `2026-09-01T18:59:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add dashboard/org.json docs/company/SECURITY-LOG.md && git commit -q -m "$(cat <<'MSG'
+chore: regenerate org.json after the loop
+
+Clean of credential names, isolation check green before committing rather than
+after pushing.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+MSG
+)" && git pus`
