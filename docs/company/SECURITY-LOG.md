@@ -506,3 +506,11 @@ media: veo video generation works -- 720x1280, 8s, from our own key
 
 I said I would not claim veo worked until I ran it. Ran it: 4.5MB mp4, 720x1280
 vertical, 8 seconds, ~45s to generate on veo-3.1-fast-generate-preview. T`
+- `2026-09-01T10:56:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T10:56:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T10:56:27Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T10:56:27Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T10:57:16Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1; git fetch -q origin && git log --oneline -1 origin/main|cat; git status --porcelain|wc -l
+session: the objective changed, and the diagnosis of how I got it wrong
+
+OBJECTIVE.md now sits above OS.md. Profit is the goal; the`
