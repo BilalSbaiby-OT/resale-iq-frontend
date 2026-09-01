@@ -45,14 +45,16 @@ small panel appears with:
 • Buy-below price — the most you can pay for that model and still hit your target margin after fees
 • BUY, WATCH or SKIP
 • The average asking price of comparable listings when they left the shelf, with sample size
+• When we don't have enough evidence — a thin sample, or a brand we don't track model-by-model yet
+  — the panel says so plainly instead of guessing. That happens on a meaningful share of items;
+  we'd rather tell you than invent a number.
 • Which model we matched, so you can see exactly what was priced
 
 The numbers come from live Vinted listings across five EU markets, plus which
-ones leave the shelf, collected about every 30 minutes and recomputed roughly
-every 2 hours. We do not observe sale prices — a departure can be a sale, a
-delisting or a relist, and we say so plainly. Every formula, and what the data
-cannot tell you, is published at resaleiq.dev/methodology — no accuracy
-claims we cannot back.
+ones leave the shelf, collected roughly every 2 hours. We do not observe sale
+prices — a departure can be a sale, a delisting or a relist, and we say so
+plainly. Every formula, and what the data cannot tell you, is published at
+resaleiq.dev/methodology — no accuracy claims we cannot back.
 
 Works without an account. You get free checks every day, and the panel stays
 out of the way of the buy button. Sign in at resaleiq.dev (confirm your email)
@@ -81,7 +83,10 @@ Show Resale IQ pricing data on Vinted listing pages.
   and (2) whether they hid the panel. Nothing else is stored. Token is
   chrome.storage.local — this device only, not Chrome sync.
 - `host_permissions: https://resaleiq.dev/*` — the extension asks our own API
-  for the buy-below price. This is the only host it contacts.
+  for the buy-below price. This is the only host it contacts. It also uses
+  this same host to report, best-effort, that a Vinted page could not be read
+  (a reason code and the two-letter market only — no listing content, no
+  account data) so a broken selector doesn't fail silently.
 - Content script on `vinted.es/fr/de/it/pt` — reads the public product title,
   brand and asking price already rendered on the page, to look that product up.
 - Content script on `resaleiq.dev` — reads the session our own site already
@@ -94,6 +99,10 @@ DO collect, only as needed for the single purpose:
   look up the buy-below price.
 - Authentication information — optional session token, stored locally after
   sign-in at resaleiq.dev, sent only to resaleiq.dev as a Bearer token.
+- Diagnostic/technical data — a fixed reason code (e.g. "couldn't read this
+  page") and the two-letter market, sent only when the panel fails to render,
+  to catch a broken selector before a user notices and gives up. No listing
+  text, no URL, no account identifier in this signal.
 
 Do NOT collect: personal communications, location, web history, health,
 financial/card data, or anything from the Vinted account.
@@ -114,6 +123,13 @@ Certify:
   **BUY** and **SKIP**, not the old IN RANGE / TOO DEAR labels. Upload at
   least those two. Do not submit 1.3.0 with the old screenshots — Google
   compares screenshots to the running UI.
+  **A third shot, showing the "not tracked" panel, is scoped but not
+  captured** — `make-screenshots.py`'s `card()` now renders that state, but
+  a real observed not-tracked listing (URL + `message`) has to be added to
+  `SHOTS` by someone running the script against a live page; see the file's
+  own `# TODO` for what's needed. It matters because that state — not a
+  priced BUY/SKIP — is the more common outcome of a real lookup, and the
+  listing currently depicts only the confident minority.
 
 ## Review
 Usually a few days. A narrow host permission and a matching privacy policy
