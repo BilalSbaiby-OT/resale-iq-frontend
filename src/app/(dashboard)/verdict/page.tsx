@@ -184,7 +184,10 @@ function VerdictInner() {
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
               </div>
-            ) : result.locked ? (
+            ) : result.sell_through_rate == null ? (
+              // Was `result.locked`, which the backend has returned as False on
+              // every branch since W1. Ask whether the paid fields are actually
+              // absent rather than trusting a flag that no longer varies.
               // Server withheld the paid numbers. Confidence + comparable count
               // stay visible so the headline does not look like magical AI.
               <div className="p-6 pt-5">

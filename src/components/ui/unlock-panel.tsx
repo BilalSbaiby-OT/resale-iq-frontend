@@ -25,7 +25,27 @@ export function UnlockPanel({
   onUnlock: () => void
   unlocking: boolean
 }) {
-  if (!result.locked) return null
+  // GATE ON THE DATA, NOT ON THE FLAG.
+  //
+  // This used to read `if (!result.locked) return null`. W1's fix (2026-09-01,
+  // demand-intel 5019fa0) stopped the backend redacting fields from free
+  // logged-in accounts — and to do that it made `_gate()` return
+  // `"locked": False` on EVERY branch. It never returns True any more.
+  //
+  // So this panel returned null every single time, and the 10 monthly unlocks
+  // had no entry point on the authenticated /verdict page at all. An
+  // entitlement customers are told they have, unreachable, with no error and
+  // nothing in any log.
+  //
+  // Nobody broke it on purpose: one fix made a flag constant, and a second
+  // component still depended on that flag varying. That is the shape the
+  // 2026-09-01 post-mortem named as our most expensive habit, and it happened
+  // WHILE we were writing the post-mortem.
+  //
+  // `free-checker.tsx` already had it right — it asks whether the deep field is
+  // actually there (`res.sell_through_rate == null`). Same question here.
+  const deepFieldsMissing = result.sell_through_rate == null
+  if (!deepFieldsMissing) return null
 
   const limit = result.unlocks_limit
   const remaining = result.unlocks_remaining
