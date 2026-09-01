@@ -67,11 +67,35 @@ jobs:
         id: before
         run: |
           set -uo pipefail
-          fp=$(curl -sL -m 20 https://resaleiq.dev/ \
-               | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
-               | sort -u | sha256sum | cut -d' ' -f1)
+          # RETRY, because this step races the very thing it measures. It curls
+          # the LIVE site, and a push during a Coolify rebuild gets a page with
+          # no chunks in it -- grep then exits 1 and `set -e` kills the job.
+          # That is exactly how two Deploy runs failed on 2026-09-01, sixty
+          # seconds apart, from two pushes in the same minute. Nothing was
+          # broken; the check was simply asking during the window it exists to
+          # measure across.
+          fp=""
+          for attempt in 1 2 3 4 5 6; do
+            fp=$(curl -sL -m 20 https://resaleiq.dev/ \
+                 | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
+                 | sort -u | sha256sum | cut -d' ' -f1) || true
+            # sha256sum of empty input is a fixed, known string. Treat it as
+            # "nothing served yet" rather than as a fingerprint, otherwise the
+            # after-check compares one empty page against another and passes.
+            if [ -n "${fp}" ] && [ "${fp}" != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" ]; then
+              echo "Serving build fingerprint ${fp} (attempt ${attempt})"
+              break
+            fi
+            echo "No chunks served yet (attempt ${attempt}/6) — site is probably mid-rebuild; retrying in 10s"
+            fp=""
+            sleep 10
+          done
+          if [ -z "${fp}" ]; then
+            echo "::error::resaleiq.dev served no build chunks after 6 attempts over ~60s. \
+          That is a real outage, not a rebuild window — investigate before deploying over it."
+            exit 1
+          fi
           echo "fingerprint=${fp}" >> "$GITHUB_OUTPUT"
-          echo "Serving build fingerprint ${fp}"
 
       - name: Trigger Coolify deploy over SSH
         env:
