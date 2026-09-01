@@ -682,3 +682,9 @@ STRIPE IS IN TEST MODE -- we cannot take money, and that is why nobody has paid
 W25, and it is the highest-priority row on the board.
 
 Both the secret and publishabl`
+- `2026-09-01T13:59:31Z` **BLOCKED** Read — path outside company scope — `/dev/null`
+- `2026-09-01T14:02:24Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+old = s[s.find("| **W25** |"):s.find("\n", s.find("| **W25** |"))+1]
+new = ("| **W25** | **🔴 STRIPE IS IN TEST MODE — WE CANNOT TAKE MONEY.** Both keys are `test`; `products.livemode = false`. Stripe repor`
