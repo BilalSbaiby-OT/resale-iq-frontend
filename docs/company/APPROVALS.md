@@ -1219,3 +1219,76 @@ would be its own fabrication) and it is the one place the gate is still open. **
 `avg_price_eur`/`max_buy_price`, so `publishable_opportunity(top_model)` always evaluates False and
 the "top signal" sublabel **is silently blank in production today.** Correctly left out of scope and
 raised separately.
+
+
+#### A16 — `tech-lead` votes **DO NOT REPOSITION**, and corrects its own brainstorm first
+
+**It withdrew the sentence I was building the decision on.** I quoted its "the two errors are
+common-mode and largely cancel in a ranking." Its correction:
+
+> A seller who cannot sell an item **relists** it — which kills the old listing id and reads as a
+> departure. So the **false-departure rate is negatively correlated with true velocity**: the least
+> liquid items generate the most fabricated sales, because slow items are exactly the ones sellers
+> refresh. **That is not common-mode error.** It compresses the ranking toward the middle and
+> **inflates the apparent liquidity of precisely the items a reseller most needs warning about.**
+
+The distinction that actually holds, and it is stronger:
+
+> **The ordering error is measurable and correctable with data we already have** — build a labelled
+> sample of 200 departures, hand-check how many were relists by searching the same title/photo hash
+> for a reappearance. A bounded afternoon, and it yields a correction factor. **The level error is
+> not measurable from Vinted's public surface at all. Not with more scraping, not ever.**
+>
+> It is not "one claim is true and the other false." It is **one claim has a path to verification and
+> the other has none.**
+
+**THE SYNTHESIS — and it dissolves the dilemma from a different side than `ux-researcher` did:**
+
+> *"What should I pay?" is not a price question. It is a **liquidity question wearing a price mask.**
+> `max_buy = avg × 0.95 × 0.70`. The 0.95 is Vinted's fee — a fact. **The 0.70 is a margin
+> requirement, and margin requirement is a function of liquidity.** Every reseller alive pays 85 % of
+> resale for something that turns in five days and 50 % for something that sits six months. That is
+> the entire craft. **The formula uses a flat 0.70 for every model on the board** — so the product's
+> central number, the paywalled field, the thing beside Vinted's Buy button, **discards the one signal
+> the product is best at measuring.**
+
+- [ ] **`buy_below` should be a function of observed departure velocity, not a constant multiple of an
+      unobservable sale price.** It keeps the paying moment, the extension surface and
+      `getTrialRecap`, and makes the number **more** defensible — the risk term stops being a guess
+      and becomes the measured quantity. *"At €35, items like this have historically left the shelf
+      within 6–11 days (n=14)."*
+
+**WHAT BREAKS — nobody had counted it, and two entries are decisive:**
+
+20+ customer surfaces carry `buy_below`. **And:** (1) **the North Star is DEFINED on
+`said_buy_below`** — reposition and `weekly_trusted_checks` does not degrade, it **goes to zero
+permanently** and the top-line KPI needs redefining in the same quarter we are proving ten customers.
+(2) **The only two feedback machines that exist are price-shaped** — `outcome_calibration.py:81-82`
+and `prediction_eval.py` both grade price calls. **Repositioning would orphan the only channels
+through which reality could ever contradict us — deepening the closed loop, not opening it.**
+
+Relabelling costs days. Repositioning is *"not a repositioning, that is a rebuild."*
+
+**AND IT RE-READ `data-scientist`'s MEASUREMENT — 16 of 22 HIGH searches on one SKU:**
+
+> **"The catalogue is not too thin. It is too WIDE."** Evidence spread across 26 brands × 10
+> categories × 5 markets is thin everywhere, and demand is concentrated on roughly one product
+> anyway. **Narrowing the board makes BOTH claims stronger simultaneously** — more comps *and* more
+> departures. No positioning decision, no metric redefinition, nothing breaks. **Strictly dominant.**
+
+**ITS VERDICT: do not reposition, and not on the strength of a brainstorm.**
+
+> *"The case for repositioning is 'nobody has evidence the price claim is true.' The case against is
+> 'nobody has evidence anyone will pay for a velocity signal.' **Both are appeals to absent
+> evidence.** Choosing between two unfalsified hypotheses by argument — however good the argument —
+> is precisely the failure mode I spent the brainstorm warning about. I would be doing the thing I
+> criticised, one level up, with the whole company as the stake."*
+
+**Its ordering, which I am adopting:**
+1. **Relabel now.** Every "sold" on the site is a claim the data cannot support. `DATA.md:226-229`
+   concluded this in **Phase 1 and nobody acted.** Owed under OS §0.2 regardless of AM-8.
+2. **Narrow the board** to models with real depth.
+3. **Make `buy_below` a function of measured velocity** instead of a flat 0.70.
+4. **Then resolve A16 on ten customer answers**, not on argument — put both artefacts in front of the
+   next ten people and ask which they would pay for. **A free byproduct of work the founder needs
+   anyway.**
