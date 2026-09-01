@@ -210,6 +210,23 @@ def stale_open_rows(rows):
     return out
 
 
+def deploy_drift():
+    """Is what is RUNNING what was MERGED? The one check a no-op cannot pass.
+
+    Every deploy check we had was a PROXY -- is CI green, did the push succeed,
+    does the API answer -- and on 2026-09-01 two different deploy failures hid
+    behind green ones in two repos on the same day. A proxy can be green while
+    the thing it stands for is false.
+    """
+    out = sh(f"python3 {os.path.join(ROOT, 'scripts', 'company', 'deploy_drift.py')} --json",
+             cwd=ROOT)
+    try:
+        return json.loads(out)
+    except Exception:
+        return {"drifted": None, "apps": [],
+                "why": "drift check could not run — treat as UNKNOWN, never as in-sync"}
+
+
 def bus_state():
     p = os.path.join(ROOT, "docs", "company", "bus.jsonl")
     rp = os.path.join(ROOT, "docs", "company", "bus-read.jsonl")
@@ -346,6 +363,7 @@ def main():
     stale = stale_open_rows(rows)
     unassigned = unassignable(rows)
     bus = bus_state()
+    drift = deploy_drift()
     posts = published_posts()
     stripe = stripe_state()
 
@@ -402,6 +420,7 @@ def main():
         "unassignable": unassigned,
         "bus": bus,
         "stripe": stripe,
+        "deploy_drift": drift,
         "totals": {
             "rows_total": len(rows),
             "rows_open": sum(1 for r in rows if r["status"] == "OPEN"),
@@ -445,6 +464,16 @@ def main():
             print(f"  {r['id']:<5} {r['finding'][:60]}")
             for e in r["shipped_evidence"][:2]:
                 print(f"        {e[:96]}")
+    d = data["deploy_drift"]
+    if d.get("drifted"):
+        print("\n\u26a0 DEPLOY DRIFT — running code is not merged code:")
+        for a in d.get("apps", []):
+            if a["status"] == "DRIFTED":
+                print(f"  {a['app']}: running {a['running']}, merged {a['merged']} "
+                      f"({a['commits_unshipped']} unshipped)")
+            elif a["status"] == "UNKNOWN":
+                print(f"  {a['app']}: UNKNOWN — {a['why']}")
+
     if unassigned:
         print(f"\n⚠ {len(unassigned)} OPEN rows have NO SPAWNABLE OWNER:")
         for r in unassigned:
