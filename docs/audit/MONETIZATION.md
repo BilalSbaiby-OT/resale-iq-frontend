@@ -4,8 +4,15 @@
 = refund rate, counter = "no entitlement promised that is not enforced."
 
 **The number this file explains:** `trial_to_paid = 0.0%`, n = 1 (`sql/metrics/trial_to_paid.sql`,
-`docs/company/METRICS.md`). MRR = €0.00 (Stripe, live, read-only). One customer, ever — refunded and
-cancelled. Six accounts total.
+`docs/company/METRICS.md`). MRR = €0.00 (Stripe, live, read-only). Six accounts total.
+
+**CORRECTION, `customer-success`, 2026-09-01:** "One customer, ever — refunded and cancelled" is
+false and should be read as **zero customers, ever, zero refunds**. The only Stripe subscription
+event this product has ever generated is the founder's own €19 test (2026-08-04, "Payment of €19.00
+from Bilal Sbaiby for Demand Intel" — Stripe notification, read live in the `support@resaleiq.dev`
+inbox); no refund or cancellation notification for it or anyone else exists anywhere in that inbox.
+The founder confirmed independently the same day this was him testing Stripe, not a customer. Every
+downstream reference below to "the one refunder" describes a person who does not exist.
 
 **On the statistics: do not trust any percentage in this file.** n=1 for the KPI itself, and the
 production `verdict_logs` sample this audit reasons from (78 rows/7d) is two orders of magnitude too
@@ -369,10 +376,11 @@ limit rather than needing to honor it defensively later — then instrument real
 (get `n_predictions_resolved` off zero; watch first-cohort churn/upgrade requests at €19) instead of
 deriving a price from the codebase alone.
 
-**Open, not resolved by this session:** what the one refunder plausibly wanted (`customer-success`'s
-read, not mine — my own audit only has unmigrated test-fixture data on that account); live
-consultation and recorded dissent from `product-manager`/`finance-ops`/`legal-compliance`, which
-needs the actual multi-agent AM-8 process, not a single monetization-agent pass.
+**Open, not resolved by this session:** ~~what the one refunder plausibly wanted~~ — moot, see the
+2026-09-01 `customer-success` correction above: there was no refunder, and `customer-success` never
+produced a "read" on one. What remains open: live consultation and recorded dissent from
+`product-manager`/`finance-ops`/`legal-compliance`, which needs the actual multi-agent AM-8 process,
+not a single monetization-agent pass.
 
 ---
 

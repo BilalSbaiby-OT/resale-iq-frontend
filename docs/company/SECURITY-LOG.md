@@ -563,3 +563,8 @@ old="| **W8** | **Video assets are B-roll, not marketing.** Need product-in-fram
 W9's merge commit carries the detail. Also sweeping in the WORKBOARD edit
 frontend-eng left uncommitted (subagents correctly do not commit to main) and
 finance-o`
+- `2026-09-01T12:18:11Z` **BLOCKED** Bash — POST/PUT/DELETE to a non-allowlisted host (www.reddit.com) — `bash .claude/bin/with-secrets.sh sh -c ' TOK=$(curl -s -m 25 -X POST -u "$REDDIT_CLIENT_ID:$REDDIT_CLIENT_SECRET" \ -d "grant_type=password&username=$REDDIT_USERNAME&password=$REDDIT_PASSWORD" \ -A "resaleiq/0.1 by resaleiq" https://www.reddit.com/api/v1/access_token \ | python3 -c "import sys,json;`
+- `2026-09-01T12:18:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+row = ("| **W18** | **REDDIT IS UNREACHABLE FROM THIS ENVIRONMENT — the 10k-views plan has to change.** `legal-compliance` made eleven fetch attempts across five techniques (direct, `old.reddit.com`, `.jso`
