@@ -149,6 +149,61 @@ diffs — which is how both real defects surfaced, since neither appears in a di
 - **`api.resaleiq.dev` was never ours.** Not a broken cert — it resolves to Porkbun wildcard parking,
   same as a made-up control subdomain. No code or docs point a customer at it.
 
+## What a browser found in ten minutes that a day of reading code did not
+
+The founder: *"why are you not using chrome tabs why not using browsers use? use them do human
+testing yourself."* He was right. I walked `resaleiq.dev` and found **four defects on the primary
+conversion path**, none of them findable by reading code:
+
+1. The withheld-price screen says **"Only 3 comparable SOLD items"** — the exact claim removed from
+   every other surface today. It shipped this morning inside the evidence gate and was never swept.
+   **37 of 100 board models land there.**
+2. **"NOT MEASURED"** in grey caps reads as *broken*, not as a deliberate refusal. Refusal is now the
+   brand; the screen does not look like one.
+3. The **"try one of these instead" chips** built this morning **do not render** there. Dead end.
+4. **Enter does nothing** in the hero search box. You must click.
+
+## Agent capability audit — 18 roles could not do what their own description promises
+
+Founder: *"each sub agent give them plug in skill mcp and tool that improves its work."*
+
+| role | its description says | it had |
+|---|---|---|
+| `seo` | **"GSC"**, flip and category pages | **zero** Search Console tools |
+| `customer-success` | **"Support inbox"**, churn and refund reasons | **no email access** |
+| `legal-compliance` | GDPR, DSAR, ToS, **store policies** | **no way to fetch any external document** |
+| `ux-researcher` | **"funnel walks in a real browser"** | `Read, Grep, Glob, Write` |
+| `content-social` | **"Postiz drafts"** | no way to reach Postiz |
+| `extension-eng` | the **four panel states** | no browser |
+| `lifecycle` | owns email code | no way to run a test |
+
+**Fixed, additive only.** `customer-success` got Gmail **read-only** — never send; an outbound
+message to a real person stays a founder gate.
+
+## Marketing was fully built and nobody pressed send — then the queue turned out to be wrong
+
+`POSTIZ_API_KEY` live, **4 accounts connected** (X, Instagram, TikTok, Reddit), 10 approved pieces,
+a working `npm run publish`. **Never run outside dry-run.**
+
+**Held, and this is why it matters that I looked:** every queued post says *"619 Vinted **sales**",
+"96 Gucci caps **sell**", "340 New Balance **sold**"*. **The queue would have published the exact
+false claim the product spent today removing**, to four live accounts. Written before this morning;
+nobody would have caught it until a customer did.
+
+Accounts are also **English-only, one brand identity** — no per-market split, against a
+five-market product.
+
+## Two process failures of mine, recorded
+
+1. **`npm test | tail -2 && git push`** — `tail` always exits 0, so the push could not be blocked by
+   a failing test. I have spent the day demanding agents verify rather than assume, and wrote a
+   verification that structurally could not fail.
+2. **`designer` was editing the shared main checkout**, not a worktree. I ran the suite against a
+   tree being mutated underneath me (23/24, from its half-finished work) and **one `git add -A`
+   would have deployed it.** Production was unaffected — verified, the pushed commit contains none
+   of it — but by timing, not design. Its WIP is preserved in `stash@{0}` and in
+   `scratchpad/designer-wip/`.
+
 ## Blocked
 
 Nothing.

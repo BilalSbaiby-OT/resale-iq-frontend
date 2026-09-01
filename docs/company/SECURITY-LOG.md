@@ -386,3 +386,16 @@ have but not have / fix that / each sub agent give them plug in skill mcp and
 tool that improves its work'.
 
 The au`
+- `2026-09-01T09:55:44Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T09:55:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-01T09:55:45Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T09:55:46Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-01T09:56:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/m4.txt" <<'MSG'
+merge: three of five markets were being served English (i18n de/it/pt)
+
+The founder caught this while I was briefing acquisition co`
+- `2026-09-01T10:00:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "session: the browser found in ten minutes what a day of reading did not
+
+Four defects on the primary conversion path, none findable from code. The
+withheld-price screen -- the one screen whose entire purpose is honesty, and
+where 37 of 100 board models now land -- say`
