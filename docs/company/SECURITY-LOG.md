@@ -661,3 +661,9 @@ session: W41 closed, and the cascade had never been running at all
 Deployed at demand-intel c2ac96a, 1286 tests.
 
 I briefed the wrong defect. I said delete_account has n`
+- `2026-09-01T13:43:46Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `cd /Users/bilalsbaiby/work/resale-iq && cat > /tmp/shot.mjs <<'EOF' import { chromium } from "@playwright/test" import { existsSync, readdirSync } from "node:fs" const C = `${process.env.HOME}/Library/Caches/ms-playwright` const b = readdirSync(C).filter(d=>/^chromium-\d+$/.test(d)) .map(d=>({d,n:+d`
+- `2026-09-01T13:45:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `rm scripts/shot-dashboard.mjs && git add -A && git commit -q -m "dashboard: refresh org.json and land the company view
+
+Verified myself rather than relaying the agent's report: served it locally and
+screenshotted it headless, since the Browser pane could not composite. UNKNOWN
+renders, 21 agents ren`

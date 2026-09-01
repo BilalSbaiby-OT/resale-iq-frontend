@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T13:35:34Z",
+  "generated_at": "2026-09-01T13:42:58Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -136,7 +136,7 @@
         {
           "agent": "frontend-eng",
           "is_head": false,
-          "merged_branches": 6,
+          "merged_branches": 7,
           "open_rows": 1,
           "closed_rows": 1,
           "findings_raised": 1,
