@@ -478,3 +478,8 @@ Two holes backend-eng found while sweeping for E`
 merge: locale routing + hreflang, and the wiring both branches left for the merger
 
 seo found this and fixed it: everything we translated was unrea`
+- `2026-09-01T10:39:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/ORGANIC-GROWTH.md .claude/agents/content-social.md .claude/agents/seo.md && git commit -q -F - <<'MSG' && git push origin main 2>&1|tail -1
+growth: install the founder's organic growth charter as doctrine
+
+Founder-written, verbatim in substance: "this prompt for who it might con`
+- `2026-09-01T10:39:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1|tail -1 && git add docs/company/SECURITY-LOG.md && git commit -q -m "log: guard entries from the charter install and the locale merge" && git push origin main 2>&1|tail -1; git status --porcelain|wc -l`
