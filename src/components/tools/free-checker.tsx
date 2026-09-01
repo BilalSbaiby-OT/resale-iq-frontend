@@ -48,21 +48,44 @@ interface FreeVerdict {
   limit?: number
 }
 
+// Verdict colour vs. system/quota colour are two different channels — see
+// design/tokens.json known_splits and docs/product/DESIGN-REVIEW.md §2.
+// WATCH was hardcoded to a drifted #eab308 instead of the real --color-watch
+// token (#f59e0b), and LIMIT_REACHED — a quota state with nothing to do with
+// the item — was wearing that same amber. Amber must mean one thing: the
+// WATCH verdict. LIMIT_REACHED gets the neutral --color-unknown grey instead.
+// roster consult 2026-09-01.
 const VERDICT_COLOR: Record<string, string> = {
   BUY: "#22c55e",
-  WATCH: "#eab308",
+  WATCH: "#f59e0b",
   SKIP: "#ef4444",
   LOCKED: "#8b99b8",
   INSUFFICIENT_DATA: "#8b99b8",
   UNKNOWN: "#8b99b8",
-  LIMIT_REACHED: "#f59e0b",
+  LIMIT_REACHED: "#8b99b8",
 }
 
 function money(n: number | null | undefined) {
   return n != null && Number.isFinite(n) ? `€${Math.round(n)}` : "—"
 }
 
-export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1, Levi's 501" }: { placeholder?: string }) {
+// The catalogue is 26 brands, model-level, sneaker/streetwear-coded — not
+// "any Vinted item." A refusal is the right answer for most typed-in queries
+// (insufficient_data_rate = 40.9% of answered searches, METRICS.md), but the
+// UI should turn that into "it works for THESE" rather than an empty box.
+// Each of these is a query independently confirmed elsewhere as covered and
+// well-priced: Nike Air Force 1 (e2e/mock-backend.mjs catalogue, HIGH/BUY),
+// Adidas Samba (extension-hero.tsx's own production-verdict example),
+// New Balance 530 (design/social — a worked post with real n=174 sold data).
+// Never invent a fourth without the same grounding.
+const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+
+// Placeholder examples must be brands/models the catalogue actually prices —
+// 26 brands, sneaker/streetwear-coded (Nike, Adidas, Jordan, New Balance).
+// "Levi's 501" gestured at general vintage resale the catalogue does not
+// cover, which reads as a lie of omission to a casual flipper who tries it
+// and gets refused. ux-researcher, roster consult 2026-09-01.
+export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1, New Balance 530" }: { placeholder?: string }) {
   const [q, setQ] = useState("")
   const [res, setRes] = useState<FreeVerdict | null>(null)
   const [loading, setLoading] = useState(false)
@@ -75,13 +98,18 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
   // might not be. See docs/product/SUPPORT-VOICE.md §4.
   const [timedOut, setTimedOut] = useState(false)
 
-  const run = async () => {
-    if (q.trim().length < 2) { setErr("Enter a brand and model"); return }
+  // override: set by the "try one of these instead" chips below, which pass
+  // a known-good query directly rather than relying on state set via onChange
+  // (which wouldn't have committed yet inside the same click handler).
+  const run = async (override?: string) => {
+    const query = (override ?? q).trim()
+    if (query.length < 2) { setErr("Enter a brand and model"); return }
+    if (override) setQ(override)
     setLoading(true); setErr(""); setRes(null); setTimedOut(false)
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS)
     try {
-      const r = await fetch(`/api/verdict?q=${encodeURIComponent(q.trim())}`, { signal: controller.signal })
+      const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal })
       if (!r.ok) throw new Error("Could not check that item right now")
       setRes(await r.json())
     } catch (e) {
@@ -117,7 +145,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
           style={{ flex: "1 1 240px", minWidth: 0, background: "#0f1218", border: "1px solid #232c42", borderRadius: 10, padding: "13px 15px", color: "#eef1f7", fontSize: 14.5, outline: "none" }}
         />
         <button
-          onClick={run}
+          onClick={() => run()}
           disabled={loading}
           aria-label={loading ? "Checking item" : "Check it free"}
           style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, border: "none", borderRadius: 10, padding: "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
@@ -142,7 +170,7 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
             and we&rsquo;ll fix it.
           </p>
           <button
-            onClick={run}
+            onClick={() => run()}
             style={{ marginTop: 8, background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
           >
             Try again
@@ -189,6 +217,27 @@ export function FreeChecker({ placeholder = "e.g. Adidas Samba, Nike Air Force 1
               <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
                 {res.message ?? "No data for that query. Use a brand and a real model."}
               </p>
+              {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
+                  work" into "it works for THESE" — the narrowing is honest,
+                  an empty refusal with no next step reads as broken. */}
+              <div style={{ marginTop: 12 }}>
+                <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
+                  Try one of these instead
+                </div>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {TRY_EXAMPLES.map(ex => (
+                    <button
+                      key={ex}
+                      type="button"
+                      onClick={() => run(ex)}
+                      disabled={loading}
+                      style={{ background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: loading ? "wait" : "pointer" }}
+                    >
+                      {ex}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </>
           ) : (
             <>

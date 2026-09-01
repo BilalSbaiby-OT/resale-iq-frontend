@@ -24,7 +24,12 @@ const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string;
   // its daily quota getting it. Falling back to VERDICT_STYLE.UNKNOWN here is
   // the bug docs/audit/MONETIZATION.md §3 flagged — a paying-eligible user who
   // hits their cap was told "NO DATA", which reads as a broken product.
-  LIMIT_REACHED: { color: "#f59e0b", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: "LIMIT REACHED" },
+  // Colour: a quota state, not a verdict about the item, so it must not wear
+  // WATCH's amber (#f59e0b) — that would make a "you hit your daily cap"
+  // message visually indistinguishable from a real BUY-adjacent call on the
+  // item itself. Same neutral as UNKNOWN/INSUFFICIENT_DATA instead.
+  // docs/product/DESIGN-REVIEW.md §2, roster consult 2026-09-01.
+  LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "LIMIT REACHED" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -103,7 +108,7 @@ function VerdictInner() {
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Adidas Samba, Nike Air Force 1, Levi's 501"
+            placeholder="e.g. Adidas Samba, Nike Air Force 1, New Balance 530"
             className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
