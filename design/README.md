@@ -12,7 +12,7 @@ implement from them.
 | `design/tokens.json` | `src/app/globals.css`, `tailwind.config.ts`, `extension/content.css` | Every value cites its `path:line` source. Read `known_splits` before "fixing" a colour that looks inconsistent — WATCH's drifted third value was closed 2026-09-01 (`docs/product/DESIGN-REVIEW.md` §2, executed in `src/`); SKIP's site/extension split is deliberate (dark-card contrast) and stays. See `system_state` for the new quota/system colour role. |
 | `design/extension-panel/confident.html` | `extension/content.js` `paint()` — the branch where `d.buy_below != null` and `d.confidence === "HIGH"`. Card chrome maps 1:1 to `extension/content.css` `.riq-card`/`.riq-buy`. | HIGH band: n ≥ 30, quality ≥ 70, snapshot < 48h (methodology.tsx). |
 | `design/extension-panel/low-confidence.html` | Same `paint()` function, `d.confidence === "MEDIUM"` branch. | MEDIUM band: n ≥ 10, quality ≥ 40 (or HIGH but stale). Introduces a new visual element not yet in `content.css`: a dedicated "confidence pill" in the honesty tan (`#c4a574`) — currently the extension only shows confidence as a small uppercase label (`.riq-conf`), no pill. `extension-eng` needs new CSS for `.riq-conf-pill` / `.riq-honesty-note`; see the file's inline styles for exact values. |
-| `design/extension-panel/insufficient.html` | `src/app/(dashboard)/verdict/page.tsx:139-148` (INSUFFICIENT_DATA branch, "NOT MEASURED" label) and the equivalent `extension/content.js` path where `d.buy_below == null` with no verdict. | No BUY/WATCH/SKIP tag rendered — the current extension code still shows `body` with `.riq-num.riq-muted` "not tracked" for this case (content.js `paint()`, `body` const), which reads as a broken lookup. This design replaces that with a full sentence in the number's slot plus an honest `n` and threshold line. This is the one state where implementation requires a real code change, not just a style pass — flagging for `extension-eng`. |
+| `design/extension-panel/insufficient.html` | **Implemented 2026-09-01** in `src/components/tools/free-checker.tsx` (dedicated `res.verdict === "INSUFFICIENT_DATA"` branch, `data-testid="riq-insufficient"`) — the hero checker previously fell through to the same big coloured-tag layout as BUY/WATCH/SKIP, so "NOT MEASURED" read as an error, not a refusal (this week's goal, defect 2). Also `src/app/(dashboard)/verdict/page.tsx:139-148` (still the older combined UNKNOWN/INSUFFICIENT_DATA branch, not touched this pass — see Known gaps) and the equivalent `extension/content.js` path where `d.buy_below == null`. | No BUY/WATCH/SKIP tag rendered. `free-checker.tsx` now shows a plain sentence ("Not enough watched departures to price this yet.") at the price's type weight, the honest `n` in a fact row (never hidden), the backend's `confidence_note`/`message` as supporting text, and a "try one of these instead" chip row (defect 3 — that row previously existed only on the `UNKNOWN` branch, extracted into a shared `TryExamplesRow`). **Not done:** `res.confidence_note` from the backend still reads "Only N comparable sold items" — `demand-intel/engine/listing_identity.py:364-370` and `demand-intel/api/routes.py:538,595-597,922,1075` were never swept when the rest of the site moved to "watched departures" language, and three test files pin the old string. Flagged for `backend-eng`, not papered over client-side. `verdict/page.tsx`'s own INSUFFICIENT_DATA branch and the extension's `content.js` are the same defect, not yet touched — see Known gaps. Also not done: `free-checker.tsx` is still entirely hardcoded English (this branch's two new sentences included) — flagged for `frontend-eng`, out of scope for this pass, see Known gaps. |
 | `design/extension-panel/not-covered.html` | `src/app/(dashboard)/verdict/page.tsx:18` (UNKNOWN, "NO DATA") and `src/components/tools/free-checker.tsx:110-116`. | Distinct copy from `insufficient.html` on purpose — "not tracked" (coverage gap) vs "not enough data yet" (sample-size gap) are different failures and the current UI collapses both into similar grey "no data" text. This file names the six zero-model brands explicitly (`src/data/seo-brands.json` slugs: pull-bear, zara, bershka, mango, hugo-boss, calvin-klein) and says what happens next. |
 | `design/landing/hero.html` | `src/app/page.tsx` hero section (~lines 57-103), `src/components/tools/free-checker.tsx`, `src/components/landing/extension-hero.tsx`. | This file's own headline (*"...that tells you when it doesn't know"*) was never landed in `t.heroTitle` — `docs/product/DESIGN-REVIEW.md` §4 explicitly recommends against the swap (a confident demo is still the right first "holy shit" moment) in favour of an **additive** honest-stat line. That line shipped 2026-09-01: `t.heroHonesty` in `src/lib/i18n.ts`, rendered under `t.heroFrom` in `page.tsx`. Headline stays `t.heroTitle` as-is. |
 | `design/landing/pricing.html` | `src/components/landing/pricing-section.tsx`, `src/lib/pricing.ts` `TIERS`. | **Three tiers, not four** — confirmed landed (AM-3, Business €99 removed). `docs/audit/MONETIZATION.md` #0 independently verified the Pro-tier feature list matches backend entitlement gates exactly (REST API, Live Deal Finder, Order Planner, Price Compare all gate correctly). The Pro tier still *sells* Order Planner/REST API, which `demand-intel/CLAUDE.md`'s Hard-no list still names — `DECISIONS.md` A5 has this open as a docs-vs-reality reconciliation for the founder, not an entitlement bug; changing the tier copy is gated behind that decision, not a `design/` or `frontend-eng` call. |
@@ -80,3 +80,46 @@ and ≤560px (mobile breakpoint already in `globals.css` `.riq-hero`).
   never borrow a verdict colour, particularly not amber — `free-checker.tsx:44`
   was the one line that did, wearing WATCH's exact hex for an unrelated quota
   wall. Fixed in the same pass.
+- **2026-09-01, three defects found walking the live hero checker with the
+  brief "Levi's Trucker":** (1) the anon `INSUFFICIENT_DATA`/"NOT MEASURED"
+  branch of `free-checker.tsx` fell through to the same big-coloured-tag
+  layout as BUY/WATCH/SKIP, so a deliberate refusal read as a broken lookup —
+  **fixed**, dedicated branch per `insufficient.html` above; (2) that branch
+  had no "try one of these instead" row — the row existed only on `UNKNOWN` —
+  **fixed**, extracted to `TryExamplesRow`, used by both; (3) the branch's
+  `confidence_note`/`message` text still says "comparable sold items" — this
+  is a **backend string** (`demand-intel/engine/listing_identity.py:364-370`,
+  `demand-intel/api/routes.py:538,595-597,922,1075`), not a frontend one, and
+  it is locked in by three backend test files
+  (`tests/test_verdict_confidence.py`, `tests/test_provisional_verdict.py`,
+  `tests/test_evidence_gate_paid_surfaces.py`) that assert the exact string —
+  **not fixed here**, flagged for `backend-eng` rather than string-replaced
+  client-side. The equivalent branch in
+  `src/app/(dashboard)/verdict/page.tsx:177-186` (paid dashboard) still
+  combines UNKNOWN and INSUFFICIENT_DATA into one generic message with no chip
+  row either — same shape of defect, **not touched this pass**, scoped out to
+  keep this PR to one surface (the hero checker the brief actually walked).
+  `e2e/regression-p0.spec.ts`'s INSUFFICIENT_DATA spec was rewritten in the
+  same pass to assert the property (real reason shown, honest n shown, no
+  verdict colour, a next step exists, never blank/€0) via `data-testid`
+  rather than pinning the literal "NOT MEASURED" / "Only 3 comparable sold
+  items" strings — the old test would have broken on this fix and on
+  backend-eng's eventual string fix alike.
+  Also reported, not a design/frontend defect: pressing Enter in the hero
+  input already calls `run()` via `onKeyDown` in this checkout
+  (`free-checker.tsx:172`) and `verdict/page.tsx:110` has the same handler —
+  if it truly does nothing on the live site, the deployed build has diverged
+  from this branch, which is a `devops`/deploy question, not a copy or layout
+  one. Not verified against production — no browser tool was available in
+  this session.
+  Also flagged, not fixed: `free-checker.tsx` is entirely hardcoded English
+  (button label, placeholder, every branch, including this pass's own two new
+  sentences) — `frontend-eng` reported this after landing `de`/`it`/`pt` in
+  `src/lib/i18n.ts`. Wiring the component into the `copy` dictionary means
+  threading a `Locale` prop through every caller (`page.tsx`, `tools/page.tsx`,
+  `tools/[slug]/page.tsx`); that is a structural change, not a copy edit, and
+  was scoped out of this pass. The two new strings are named constants
+  (`INSUFFICIENT_STATEMENT`, `INSUFFICIENT_SUBTEXT`) at the top of the file so
+  a future i18n pass has one place to change them, and both reuse phrasing
+  already proven to translate (matches `extension/content.js`'s `thinSample`
+  string and `t.heroHonesty` respectively).

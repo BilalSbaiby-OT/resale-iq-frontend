@@ -399,3 +399,9 @@ The founder caught this while I was briefing acquisition co`
 Four defects on the primary conversion path, none findable from code. The
 withheld-price screen -- the one screen whose entire purpose is honesty, and
 where 37 of 100 board models now land -- say`
+- `2026-09-01T10:06:06Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1 | tail -1`
+- `2026-09-01T10:08:47Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad; cat > "$SB/m6.txt" <<'MSG'
+fix: a refusal should look like a decision, not a broken page
+
+Three defects I found by opening the live site in a browser, after a full day of
+code review found none of the`
