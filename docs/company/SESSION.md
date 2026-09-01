@@ -4,6 +4,43 @@
 
 ## Working on
 
+**THE REGISTER BOUNCE IS EXPLAINED, and it is the most valuable find of the day.**
+`detectLocale()` tested only fr/es/de/it/pt inside its loop and fell through to `"en"` afterwards.
+That reads like "default to English" and is not — it walked the visitor's **entire** `Accept-Language`
+list and returned the first non-English match anywhere in it. `en-GB,es-ES` — an English speaker who
+merely has Spanish configured — resolved to **Spanish**.
+
+`/register` reads the `NEXT_LOCALE` cookie that function seeds, and it lasts a **year**. So an English
+reader arriving from the English homepage met a fully Spanish signup form — *"Cree su cuenta"*,
+*"Crear cuenta"* — with **no language switcher and no way back.** No error, no console warning,
+nothing in any log. **26 of our 28 visitors that day were English. Three reached `/register`. None
+signed up.**
+
+**I nearly dismissed the report.** `ux-researcher` saw Spanish in a browser; my `curl` returned
+`lang="en"` and looked like a contradiction. It was not — the server sends English and the client
+hydrates to Spanish, so **every check that did not run a browser reported healthy.** The
+contradiction *was* the evidence. Fixed in `32508b8` with two regression tests asserting **both**
+directions: serving English to everyone would pass the first test and destroy the five markets we
+sell to. 7/7 cases, clean tsc, clean build.
+
+**Still open, not papered over:** anyone already carrying a wrong `NEXT_LOCALE` keeps it up to a
+year, and **there is still no language switcher anywhere on the site.** This stops new visitors being
+mislocalised; it cannot reach those already affected.
+
+**Three live blog posts broke the founder's own hard rules** — two on authenticity/counterfeits, one
+built on days-to-sell that publicly claimed we surface a metric we deliberately withhold. All three
+had **zero visitors in 30 days**, checked before deleting. Removed. The payment-scam post was
+deliberately KEPT: it contains the word "fake" but it is fraud advice, not counterfeit detection, and
+cutting it would have been a keyword sweep rather than a judgement.
+
+**W58 was my error.** I claimed an orphan container was leaking 833 MiB. `devops` refused to execute
+it and disproved it: Coolify reaped it 91s after healthcheck, 21 minutes before anyone looked. I read
+the container's **service age** as time-since-replacement. **An age column answers "how long has this
+existed", not "how long has this been redundant."** The useful half: **W24's mechanism is now fully
+explained** — both containers register the same Traefik router name because the label is keyed to the
+app UUID, not the container id, so every deploy's ~60–90s overlap is the precondition. That is
+exactly why the retry middleware could never help: there is no router left to retry into.
+
 **W56 IS DEPLOYED AND PROVEN ON THE REAL HOST — not in a mock.** Backend in sync at `0967123`. The
 very deploy that shipped the fix exercised it, and the container's own log says:
 

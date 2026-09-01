@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T18:55:22Z",
+  "generated_at": "2026-09-01T19:24:42Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -224,8 +224,8 @@
           "is_head": true,
           "merged_branches": 1,
           "open_rows": 0,
-          "closed_rows": 3,
-          "findings_raised": 3,
+          "closed_rows": 4,
+          "findings_raised": 4,
           "unread_mail": 2
         },
         {
@@ -256,9 +256,9 @@
           "unread_mail": 0
         }
       ],
-      "rows_closed": 4,
+      "rows_closed": 5,
       "rows_open": 0,
-      "findings_raised": 5
+      "findings_raised": 6
     },
     "Office of the CEO": {
       "head": "chief-of-staff",
@@ -340,10 +340,18 @@
     {
       "id": "W24",
       "duplicate_id": false,
-      "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
-      "found_by": "CEO (measured live) → devops (root-caused + re-measured 2026-09-01)",
-      "doer": "founder (Coolify UI, see fix below)",
+      "finding": "Deploy-window Traefik router collision — mechanism now fully identified. Both the old and new container register the same router name (http-0-<app-uuid>), because the label is keyed to the app UUID, not the container id.",
+      "found_by": "devops",
+      "doer": "founder (Coolify UI)",
       "status": "OPEN"
+    },
+    {
+      "id": "W58",
+      "duplicate_id": false,
+      "finding": "~~A superseded backend container is still running an hour after its replacement~~ — INVALID. This was the CEO's misreading, not a defect.",
+      "found_by": "devops",
+      "doer": "devops",
+      "status": "CLOSED"
     },
     {
       "id": "W56",
@@ -450,11 +458,12 @@
     {
       "id": "W24",
       "duplicate_id": false,
-      "finding": "Every deploy still drops SOME requests for under ~2s — root-caused, not a full outage. Read-only ssh+docker+Postgres investigation on the live Hetzner box (nothing restarted/reconfigured), then measured live across 2 rea",
-      "found_by": "CEO (measured live) → devops (root-caused + re-measured 2026-09-01)",
-      "doer": "founder (Coolify UI, see fix below)",
+      "finding": "Deploy-window Traefik router collision — mechanism now fully identified. Both the old and new container register the same router name (http-0-<app-uuid>), because the label is keyed to the app UUID, not the container id.",
+      "found_by": "devops",
+      "doer": "founder (Coolify UI)",
       "status": "OPEN",
       "shipped_evidence": [
+        "resale-iq: edb2233 W56 proven on the real host; W58 opened, and it may be what W24 actually is",
         "resale-iq: 6a663ef W56: the kernel OOM-killed the backend; deploys take the site down",
         "resale-iq: b8646bc W55 closed; W24 worse than thought, and the cause may be our own label change",
         "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached",
@@ -627,32 +636,26 @@
     "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
-    "drifted": true,
+    "drifted": false,
     "apps": [
       {
         "app": "frontend",
         "status": "IN SYNC",
-        "commit": "7907e715d4a2",
-        "container": "p6t87shftvl2455pd3gdgee1-183815707378"
+        "commit": "521c88272584",
+        "container": "p6t87shftvl2455pd3gdgee1-192006532363"
       },
       {
         "app": "backend",
-        "status": "DRIFTED",
-        "running": "22613ac97a87",
-        "merged": "0967123d5675",
-        "commits_unshipped": 2,
-        "unshipped": [
-          "0967123 merge: W56 -- the boot scrape can no longer take the API down",
-          "49bd12a fix(W56): stop the boot scrape from being able to OOM the API"
-        ],
-        "container": "ph5clxk9hmghspv65pdkvak9-173531324442"
+        "status": "IN SYNC",
+        "commit": "0967123d5675",
+        "container": "ph5clxk9hmghspv65pdkvak9-185628563375"
       }
     ]
   },
   "totals": {
-    "rows_total": 18,
+    "rows_total": 19,
     "rows_open": 2,
-    "rows_closed": 16,
+    "rows_closed": 17,
     "rows_blocked": 0,
     "bus_messages": 16,
     "stale_open": 2,

@@ -82,3 +82,6 @@ docs/marketing/assets/frames/
 # real assets in a directory listing.
 docs/marketing/assets/frames*/
 docs/marketing/assets/*-silent.mp4
+
+# Pre-mux silent cuts under renders/ are intermediates too.
+docs/marketing/assets/renders/*-silent.mp4
