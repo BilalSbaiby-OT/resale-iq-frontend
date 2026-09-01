@@ -968,6 +968,37 @@ fourth table with the retention defect `COMPLIANCE.md` finds in three existing o
 Tooling artifact, not a product defect. **That does not overturn `ux-researcher`'s UNKNOWN** — it
 correctly refused to guess, and this simply did not reproduce.
 
+## Hourly loop — backend deploys have been doing NOTHING, and CI called it green
+
+**Found by verifying production rather than reading a report.** The backend container was **2 hours
+old**, serving `f5a9c6d` while main was `d44aae2` — so four merged fixes were not running, including
+**A24, a live paid-field leak** letting any verified unpaid account harvest brand and model prices.
+
+**Root cause: Coolify changed `/api/v1/deploy` to require POST.** The deploy key's forced command
+still issues a **GET**, so every trigger returned **405 and queued nothing.** Confirmed two ways: the
+GET returns *"This endpoint has changed to a POST request"*, and Coolify's deployment history for the
+app had **zero rows.**
+
+**CI passed throughout because the check only asked "is the API up" — and the OLD container was up.**
+The step's own comment admitted it *"cannot tell an old container from a new one."* That honesty made
+it easy to find, and is exactly why it should never have been the only check.
+
+**Deployed manually via POST — backend now on `d44aae2`, verdict endpoint 200/200/200.** The workflow
+now **verifies the commit** against `GITHUB_SHA`, and when the build commit is unavailable it **warns
+instead of quietly passing** — an unverifiable deploy must not look like a verified one.
+
+**W54 left open deliberately:** the forced command in `authorized_keys` still issues a GET, so pushes
+will keep no-opping until `devops` changes it. That file is security-sensitive and not a CEO's to
+edit mid-sweep.
+
+**Second deploy-blindness of the day, in a different repo.** `Deploy: skipped` hid nine frontend
+commits; `Deploy: success` hid four backend ones. **A check that cannot distinguish success from
+no-op will eventually certify a no-op — that is the only outcome it can produce.**
+
+Also confirmed: **18/18 clean locale probes** across three passes — the Traefik retry labels are
+holding. And `/api/verdict` dropped only while the **frontend** was redeploying, which means
+`/api/*` is proxied through it: **frontend deploys take the API path down.**
+
 ## Blocked
 
 **One thing needs the founder, and it is one line:** `~/.claude.json`'s GSC OAuth path. Outside repo

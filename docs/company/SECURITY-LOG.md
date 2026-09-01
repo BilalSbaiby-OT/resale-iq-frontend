@@ -816,3 +816,12 @@ add = '''## THE DEPLOY WAS FROZEN FOR NINE COMMITS AND I DID NOT NOTICE
 
 **`frontend-eng` went to verify my register fix and found it was not live.** It fetched the
 **deployed bundle** rather than trusting t`
+- `2026-09-01T16:18:31Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `SB=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad && cat > "$SB/mdep2.txt" <<'MSG'
+ci: backend deploys have been silently doing nothing, and CI called it green
+
+Found while verifying production in the hourly loop. The backend container was
+2 hours old`
+- `2026-09-01T16:19:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+import io
+p="docs/company/WORKBOARD.md"; s=io.open(p,encoding="utf-8").read()
+row = ("| **W54** | **🔴 THE DEPLOY KEY'S FORCED COMMAND STILL ISSUES A GET.** Coolify changed `/api/v1/deploy` to require **POST**; the `authorized_keys` forced comm`
