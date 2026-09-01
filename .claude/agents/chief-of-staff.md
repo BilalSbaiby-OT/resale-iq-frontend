@@ -2,7 +2,7 @@
 name: chief-of-staff
 description: Planning cadence, OKRs to sprints, SESSION/GOALS/APPROVALS bookkeeping, the founder digest. Use for weekly planning and company bookkeeping.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *)
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), mcp__visualize__read_me, mcp__visualize__show_widget
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

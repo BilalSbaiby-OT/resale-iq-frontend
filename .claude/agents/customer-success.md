@@ -2,7 +2,7 @@
 name: customer-success
 description: Support inbox, churn and refund reasons, FAQ, cancel survey.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window
+tools: Read, Grep, Glob, Edit, Write, mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window, mcp__46a5c9f6-0233-4f0f-9eb2-5807f6fac623__search_threads, mcp__46a5c9f6-0233-4f0f-9eb2-5807f6fac623__get_thread, mcp__46a5c9f6-0233-4f0f-9eb2-5807f6fac623__get_message, mcp__46a5c9f6-0233-4f0f-9eb2-5807f6fac623__list_labels
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

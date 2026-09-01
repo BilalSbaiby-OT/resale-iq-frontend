@@ -2,7 +2,7 @@
 name: data-scientist
 description: Comps statistics, matching precision, calibration, the opportunity score. Use for anything that produces a number a customer sees.
 model: opus
-tools: Read, Grep, Glob, Bash(sqlite3 *), Write
+tools: Read, Grep, Glob, Bash(sqlite3 *), Write, mcp__visualize__read_me, mcp__visualize__show_widget, Bash(python3 *)
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

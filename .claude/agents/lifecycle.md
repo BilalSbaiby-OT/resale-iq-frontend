@@ -2,7 +2,7 @@
 name: lifecycle
 description: Onboarding and retention email. Every send is gated.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(python3 -m pytest*)
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

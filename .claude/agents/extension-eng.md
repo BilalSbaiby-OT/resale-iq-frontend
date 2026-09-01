@@ -2,7 +2,7 @@
 name: extension-eng
 description: Chrome MV3 overlay, selectors, store listing, permissions. Use for anything under extension/.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *)
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, Bash(npm *), Bash(npx *)
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

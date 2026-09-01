@@ -2,7 +2,7 @@
 name: data-eng
 description: Scraper, the L0-L3 pipeline, gates, quarantine, canary. Use for ingestion and data-quality work.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(sqlite3 *), Bash(python3 *)
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(sqlite3 *), Bash(python3 *), WebSearch, WebFetch
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

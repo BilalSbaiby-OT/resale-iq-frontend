@@ -2,7 +2,7 @@
 name: frontend-eng
 description: Next.js UI, landing, account, pricing, the product dashboard. Use for resale-iq/src changes.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(npm *), Bash(npx *)
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(npm *), Bash(npx *), mcp__7af8dea3-1978-4eb8-b301-54462339133c__resolve-library-id, mcp__7af8dea3-1978-4eb8-b301-54462339133c__query-docs
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

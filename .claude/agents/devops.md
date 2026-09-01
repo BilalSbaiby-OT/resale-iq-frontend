@@ -2,7 +2,7 @@
 name: devops
 description: CI, deploy, rollback, monitoring, backups and restore tests, infra cost. Use for pipeline and reliability work.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(ssh resaleiq *), Bash(docker *)
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(ssh resaleiq *), Bash(docker *), WebSearch, WebFetch
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

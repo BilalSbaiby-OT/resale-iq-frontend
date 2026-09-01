@@ -2,7 +2,7 @@
 name: qa-eng
 description: Unit, integration and Playwright tests, browser QA on real pages, flakiness. Use before any release.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(npm *), Bash(npx playwright*), Bash(python3 -m pytest*), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), Bash(npm *), Bash(npx playwright*), Bash(python3 -m pytest*), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window, mcp__7af8dea3-1978-4eb8-b301-54462339133c__resolve-library-id, mcp__7af8dea3-1978-4eb8-b301-54462339133c__query-docs
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

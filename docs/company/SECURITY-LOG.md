@@ -379,3 +379,10 @@ get 10 paying customers while the thing `
 
 The founder: 'ux researcher why are you not using chrome tabs why not using
 browsers use them do human testing yourself', and 'al`
+- `2026-09-01T09:54:53Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add -A && git commit -q -m "agents: give every role the access its own description already promised
+
+Founder: 'check sub agents also tools that they musst have or access they musst
+have but not have / fix that / each sub agent give them plug in skill mcp and
+tool that improves its work'.
+
+The au`

@@ -2,7 +2,7 @@
 name: seo
 description: GSC, flip and category pages, store listing SEO. Kill 0-model pages; never add brands.
 model: sonnet
-tools: Read, Grep, Glob, Edit, Write, Bash(git *), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window
+tools: Read, Grep, Glob, Edit, Write, Bash(git *), mcp__Claude_Browser__navigate, mcp__Claude_Browser__computer, mcp__Claude_Browser__read_page, mcp__Claude_Browser__get_page_text, mcp__Claude_Browser__find, mcp__Claude_Browser__browser_batch, mcp__Claude_Browser__read_console_messages, mcp__Claude_Browser__resize_window, mcp__gsc__list_properties, mcp__gsc__get_search_analytics, mcp__gsc__get_advanced_search_analytics, mcp__gsc__get_performance_overview, mcp__gsc__compare_search_periods, mcp__gsc__inspect_url_enhanced, mcp__gsc__check_indexing_issues, mcp__gsc__get_sitemaps, mcp__gsc__get_search_by_page_query, WebSearch, WebFetch
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

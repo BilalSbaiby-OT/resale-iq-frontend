@@ -2,7 +2,7 @@
 name: finance-ops
 description: MRR, churn, CAC, unit economics, infra and Claude spend against the cap.
 model: haiku
-tools: Read, Grep, Glob, Bash(sqlite3 *)
+tools: Read, Grep, Glob, Bash(sqlite3 *), mcp__visualize__read_me, mcp__visualize__show_widget, Bash(python3 *)
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

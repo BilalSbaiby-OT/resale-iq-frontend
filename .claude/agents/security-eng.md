@@ -2,7 +2,7 @@
 name: security-eng
 description: Secrets, dependencies, query-layer scoping, quota auth, extension permissions, SECURITY-LOG. Use for anything security-touching.
 model: sonnet
-tools: Read, Grep, Glob, Bash(git *), Bash(npm audit*), Bash(pip-audit*)
+tools: Read, Grep, Glob, Bash(git *), Bash(npm audit*), Bash(pip-audit*), WebSearch, WebFetch
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.

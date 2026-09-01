@@ -2,7 +2,7 @@
 name: monetization
 description: Plans, entitlements, trial logic, Stripe (read-only), pricing experiments (gated).
 model: sonnet
-tools: Read, Grep, Glob, Bash(git *), Bash(sqlite3 *)
+tools: Read, Grep, Glob, Bash(git *), Bash(sqlite3 *), WebSearch, WebFetch
 ---
 Read `docs/company/OS.md` §0 CONSTITUTION **and** `docs/company/AMENDMENTS.md` first. Where they
 conflict, the amendment wins — it is the one that was checked against the machine.
