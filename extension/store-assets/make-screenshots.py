@@ -63,11 +63,11 @@ def card(d, asking):
         verdict = str(d.get("verdict") or "UNKNOWN").upper()
         shown = "THIN DATA" if verdict == "INSUFFICIENT_DATA" else "NOT COVERED"
         message = d.get("message") or (
-            "Not enough sold data to price this yet." if verdict == "INSUFFICIENT_DATA"
+            "Not enough watched departures to price this yet." if verdict == "INSUFFICIENT_DATA"
             else "We don't have model-level data for this brand yet.")
         n = d.get("n")
         fact_row = (f'<div class="riq-fact-row"><span class="riq-fact-n">{n}</span>'
-                    f'<span class="riq-fact-label">sold, watched</span></div>' if n is not None else "")
+                    f'<span class="riq-fact-label">watched departures</span></div>' if n is not None else "")
         return f'''<div id="riq-badge"><div class="riq-card riq-info">
       <div class="riq-head"><span class="riq-logo">R</span> Resale IQ
         <span class="riq-verdict riq-info">{shown}</span></div>
