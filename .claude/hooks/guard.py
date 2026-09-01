@@ -9,6 +9,7 @@ This file is protected: editing it requires .claude/UNLOCK_HARNESS (founder gate
 import json
 import os
 import re
+import shlex
 import sys
 from datetime import datetime, timezone
 
@@ -65,6 +66,84 @@ SECRET_OK = re.compile(r"\.env\.(example|sample|template)$", re.I)
 POST_HOSTS_OK = ("localhost", "127.0.0.1", "resaleiq.dev", "62.238.51.83", "0.0.0.0")
 
 RM_SAFE = ("scratchpad", "node_modules", ".next", "test-results", "/private/tmp/", "tsconfig.tsbuildinfo")
+
+
+# ── Is the sanctioned wrapper the program being RUN, or just text in the line? ──
+#
+# The old check asked "does the wrapper's filename appear anywhere in the command?"
+# when it meant "is the wrapper the program being executed". Those are different
+# questions, and the gap between them was a CRITICAL bypass: a trailing shell
+# comment naming the wrapper satisfied the first without ever satisfying the
+# second. So did chaining -- a benign wrapper call, `&&`, then a plain read.
+#
+# Found by security-eng, 2026-09-01, by reading. Never demonstrated against a
+# real credential, and it must not be.
+#
+# The honest ceiling, recorded rather than pretended away (same spirit as the
+# heredoc note further down): no text tokenizer catches a path assembled at
+# runtime, because the pre-filter never fires on a string that is never
+# contiguous. This closes the demonstrated hole and its structural siblings. It
+# is defence-in-depth, NOT a boundary. The boundary is that nothing outside the
+# wrapper needs these files at all.
+SANCTIONED = os.path.realpath(os.path.join(ROOT, ".claude", "bin", "with-secrets.sh"))
+INTERPRETERS = {"bash", "sh", "zsh", "dash", "env"}
+CONTROL_OPS = {"&&", "||", "|", ";", "&", "(", ")", "{", "}"}
+
+
+def _resolve_program(token):
+    """A token's real identity on disk, not its spelling."""
+    if token == os.path.basename(SANCTIONED):
+        return SANCTIONED          # the bare name means OUR script, never $PATH
+    p = token if os.path.isabs(token) else os.path.join(ROOT, token)
+    return os.path.realpath(p)
+
+
+def _segments(c):
+    """Split a command into top-level segments, or None if we cannot be sure.
+
+    shlex's default `commenters='#'` drops comments during tokenising, so the
+    comment bypass stops existing rather than being special-cased.
+
+    Returns None for command substitution and heredocs: shlex SILENTLY
+    MIS-SPLITS those rather than raising, and acting on a mangled parse is worse
+    than refusing to answer.
+    """
+    if "$(" in c or "`" in c or "<<" in c:
+        return None
+    try:
+        lex = shlex.shlex(c, posix=True, punctuation_chars=True)
+        lex.whitespace_split = True
+        tokens = list(lex)
+    except ValueError:
+        return None
+    out, cur = [], []
+    for tok in tokens:
+        if tok in CONTROL_OPS:
+            if cur:
+                out.append(cur)
+            cur = []
+        else:
+            cur.append(tok)
+    if cur:
+        out.append(cur)
+    return out
+
+
+def _runs_sanctioned(seg):
+    """Does THIS segment execute the wrapper as its program?"""
+    if not seg:
+        return False
+    i = 0
+    if os.path.basename(seg[0]).lower() in INTERPRETERS:
+        i = 1
+        while i < len(seg) and (re.match(r"^[A-Za-z_]\w*=", seg[i]) or seg[i].startswith("-")):
+            i += 1
+    return i < len(seg) and _resolve_program(seg[i]) == SANCTIONED
+
+
+def _touches_secret(seg):
+    return any(re.search(r"\.env\b", t) and not re.search(r"\.env\.(example|sample|template)", t)
+               for t in seg)
 
 
 def log(reason, tool, detail, label="BLOCKED"):
@@ -129,7 +208,15 @@ def check_bash(cmd):
     # a transcript. Any other route to a .env file stays blocked.
     # Founder instruction 2026-08-31: "get access yourself, the APIs are in env."
     if re.search(r"\.env\b", c) and not re.search(r"\.env\.(example|sample|template)", c):
-        if "with-secrets.sh" not in c:
+        segs = _segments(c)
+        if segs is None:
+            block("secret reference in a command this hook cannot parse safely", "Bash", c,
+                  "Command substitution and heredocs cannot be checked reliably. "
+                  "Rewrite it as a plain command, or route it through "
+                  ".claude/bin/with-secrets.sh.")
+        # PER SEGMENT: the wrapper appearing earlier in the line does not sanction
+        # a later plain read.
+        if any(_touches_secret(seg) and not _runs_sanctioned(seg) for seg in segs):
             block("direct read of a .env file", "Bash", c,
                   "Do not read secrets — use them. Route the call through "
                   ".claude/bin/with-secrets.sh, which puts the values in the child "
