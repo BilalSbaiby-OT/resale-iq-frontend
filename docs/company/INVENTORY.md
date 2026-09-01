@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `d8c75c5`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `a3c3a78`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
@@ -102,7 +102,7 @@ telling the founder we had no telemetry at all.
 - `.github/workflows/deploy.yml`
 - `.github/workflows/playwright.yml`
 
-## Company docs (46)
+## Company docs (50)
 
 - `docs/company/ACCESS.md`
 - `docs/company/ACTIVATION.md`
@@ -114,9 +114,10 @@ telling the founder we had no telemetry at all.
 - `docs/company/CONTENT-FACTS.md`
 - `docs/company/CONTENT-RULES.md`
 - `docs/company/DECISIONS.md`
-- `docs/company/DIGEST-2026-09-01.md`
+- `docs/company/DOCTRINE.md`
 - `docs/company/ESCALATION.md`
 - `docs/company/FIRST-REVENUE.md`
+- `docs/company/FORENSIC-AUDIT.md`
 - `docs/company/FUNNEL-BASELINE.md`
 - `docs/company/GAPS.md`
 - `docs/company/GOALS.md`
@@ -124,11 +125,11 @@ telling the founder we had no telemetry at all.
 - `docs/company/GTM.md`
 - `docs/company/LEDGER.md`
 - `docs/company/METRICS.md`
+- `docs/company/MIGRATION-REPORT.md`
 - `docs/company/MISSION.md`
 - `docs/company/OBJECTIVE.md`
 - `docs/company/ORG.md`
 - `docs/company/ORGANIC-GROWTH.md`
-- `docs/company/OS-COMPLIANCE.md`
 - `docs/company/OS.md`
 - `docs/company/PATH-TO-TEN.md`
 - `docs/company/PLATFORM-CREATIVE.md`
@@ -136,8 +137,6 @@ telling the founder we had no telemetry at all.
 - `docs/company/POST-MORTEM.md`
 - `docs/company/PRICING-PROPOSAL.md`
 - `docs/company/REDDIT-CLEARANCE.md`
-- `docs/company/RELEASE-A13-GATE.md`
-- `docs/company/RELEASE-NOTE-A13-GATE.md`
 - `docs/company/ROOT-CAUSE.md`
 - `docs/company/SECURITY-LOG.md`
 - `docs/company/SEO-STATE.md`
@@ -150,3 +149,8 @@ telling the founder we had no telemetry at all.
 - `docs/company/WHY-WORK-STALLS.md`
 - `docs/company/WORKBOARD.md`
 - `docs/company/WORKFLOW.md`
+- `docs/company/archive/DIGEST-2026-09-01.md`
+- `docs/company/archive/OS-COMPLIANCE.md`
+- `docs/company/archive/README.md`
+- `docs/company/archive/RELEASE-A13-GATE.md`
+- `docs/company/archive/RELEASE-NOTE-A13-GATE.md`

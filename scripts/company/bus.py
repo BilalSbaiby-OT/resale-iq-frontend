@@ -110,12 +110,20 @@ def standing_orders():
     point, not two. A second mechanism is a second place to be wrong, which is
     the defect check-duplicate-logic.mjs exists to catch.
     """
-    path = os.path.join(ROOT, "docs", "company", "MISSION.md")
-    try:
-        with open(path, encoding="utf-8") as fh:
-            return fh.read().strip()
-    except Exception as e:  # why: a missing mission must not break mail delivery
-        return f"(MISSION.md unreadable: {str(e)[:80]})"
+    # DOCTRINE first, MISSION second. The doctrine is the canonical operating
+    # system; the mission is the current number it is aimed at. Both ride the
+    # same delivery path because that path is the only thing that reaches an
+    # agent's context -- and "written but not delivered" is the measured root
+    # cause of 52 bugs fixed twice.
+    parts = []
+    for name in ("DOCTRINE.md", "MISSION.md"):
+        path = os.path.join(ROOT, "docs", "company", name)
+        try:
+            with open(path, encoding="utf-8") as fh:
+                parts.append(fh.read().strip())
+        except Exception as e:  # why: a missing file must not break mail delivery
+            parts.append(f"({name} unreadable: {str(e)[:80]})")
+    return "\n\n".join(parts)
 
 
 def brief(agent):

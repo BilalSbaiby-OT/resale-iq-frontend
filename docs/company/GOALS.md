@@ -1,3 +1,11 @@
+> # ⚠️ SUPERSEDED BY `MISSION.md` and `DOCTRINE.md` (2026-09-02)
+> **The current target is €2,000 MRR by 2026-12-31 — see `MISSION.md`, which carries the
+> arithmetic (80 customers, 2.56% visitor→paying at today's traffic).**
+>
+> Kept readable for the history of what was aimed at before.
+
+---
+
 # GOALS — week of 2026-09-01
 
 Written off-cycle (Tuesday, not the usual Monday) because `GOALS.md` has never existed until now —

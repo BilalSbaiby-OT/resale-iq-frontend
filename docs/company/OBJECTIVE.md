@@ -1,3 +1,15 @@
+> # ⚠️ SUPERSEDED BY `DOCTRINE.md` (2026-09-02)
+> **`DOCTRINE.md` is canonical. Where this file conflicts with it, this file is wrong.**
+>
+> Its content became **DOCTRINE §1 (why the company exists)** and **§3 (the line that does
+> not move)**. The substance survived; what changed is that profit is now stated as the
+> evidence of value created rather than something to be justified.
+>
+> Kept readable because it is the origin of the "never manufacture proof" rule, which is
+> unchanged and absolute.
+
+---
+
 # THE OBJECTIVE
 
 **Founder-written, 2026-09-01. This sits ABOVE every other document in `docs/company/`.** Where
