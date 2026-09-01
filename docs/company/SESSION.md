@@ -27,7 +27,7 @@ not create `.claude/UNLOCK_HARNESS` to get past it: an agent that unlocks its ow
 Four in ten people who ask us something are told we cannot price it. The North Star is **0** on
 n = 1 — a volume problem, not yet a retention one.
 
-**The three live data defects are FIXED**, on `demand-intel` branch
+**The three live data defects are NOT all fixed. `tech-lead` reviewed and returned REQUEST CHANGES.** C5 is approved standalone; **C6 must not merge** (its row-drop is read as a sale by the shelf detector, manufacturing `sold_observed=1` into the column C4 just made authoritative); C4 closes 1 of 8 `is_sold` paths, two of the survivors customer-facing. Full review findings are being worked now. Branch
 `claude/backend-eng/data-defects-c6-c5-c4`, 1173 tests passing, **not merged and not deployed**:
 
 - **C6 — FX.** Five of Vinted's 26 markets (hu/ro/bg/se/dk) had no rate, so `\.get(cur, 1.0)`
