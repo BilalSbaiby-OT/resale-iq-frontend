@@ -139,6 +139,31 @@ check("a self-serve status is not flagged as an error",
 check("a self-serve status does not use riq-watch",
   !html.includes("riq-watch"));
 
+// 6. A priced verdict (BUY/WATCH with buy_below) still surfaces the
+//    backend's confidence_note — the field that is about to carry the
+//    reason on far more listings once the n<8 evidence gate reaches the
+//    extension (57/100 board models today, 38/100 after A13). This must
+//    never fall back to a fabricated "0 comparables" — only the backend's
+//    own text, or nothing.
+html = render(() => sandbox.paint(
+  { verdict: "WATCH", buy_below: 26, n: 5, confidence: "LOW",
+    confidence_note: "Only 5 comparable departures — below our 8 floor, shown as low-confidence." },
+  null
+));
+check("a priced verdict's confidence_note reaches the rendered panel",
+  html.includes("Only 5 comparable departures — below our 8 floor, shown as low-confidence."));
+
+// 7. A stalled/timed-out request is a system state, not a verdict —
+//    regression test for a bug found on `main`'s own tip before this rebase:
+//    paintTimeout() rendered `riq-card riq-watch` (real-WATCH amber) for a
+//    client-side timeout. It must render the neutral `riq-status` card,
+//    same family as paintStatus()'s self-serve states, never amber.
+html = render(() => sandbox.paintTimeout());
+check("a stalled/timed-out request uses the neutral riq-status card",
+  html.includes('riq-card riq-status"'));
+check("a stalled/timed-out request does not use riq-watch",
+  !html.includes("riq-watch"));
+
 console.log(failures === 0
   ? "\nALL PANEL-STATE ASSERTIONS PASSED"
   : `\n${failures} ASSERTION(S) FAILED`);
