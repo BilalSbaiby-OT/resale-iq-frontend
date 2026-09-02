@@ -1286,3 +1286,21 @@ Audited every marketing video by **pulling its last frame and looking at it**. T
 detail:
 
 | `
+- `2026-09-02T05:40:35Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T05:40:36Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T05:40:36Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T05:40:36Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T05:52:34Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_brandlabel.txt <<'MSG'
+fix: we were showing customers a database constant
+
+Re-shot the Carhartt capture to prove W60 turned a dead demo into a working one.
+It did -- the same query that used to `
+- `2026-09-02T05:53:00Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# 🔎 THE FRAME-CHECK RULE CAUGHT A LIVE CUSTOMER-FACING DEFECT ON ITS FIRST USE
+
+Re-shot the Carhartt capture to prove W60 turned a dead demo into a working one. **It did** — the
+query th`

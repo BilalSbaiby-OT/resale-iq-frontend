@@ -4,6 +4,34 @@
 
 ## Working on
 
+# 🔎 THE FRAME-CHECK RULE CAUGHT A LIVE CUSTOMER-FACING DEFECT ON ITS FIRST USE
+
+Re-shot the Carhartt capture to prove W60 turned a dead demo into a working one. **It did** — the
+query that used to say *"not a product in the catalog"* now shows **Carhartt Jackets · market €50 ·
+33 left shelf vs 7,625 listed**.
+
+**But the same frame showed the verdict rendered as `BRAND_AVERAGE`** — 26px caps, underscore and
+all. **A database constant on a customer's screen, live since W60 shipped.** And `VERDICT_COLOR` had
+no entry for it, so it fell through to the grey used by UNKNOWN and INSUFFICIENT_DATA — **a real
+answer painted the colour of a refusal.**
+
+Fixed in `233dae8`: human label, and blue rather than grey. **Deliberately not the green of BUY** — a
+brand-level average is not a per-item call and must not look like one.
+
+**How it was found matters more than the fix.** `ffprobe` called that video valid. Every automated
+check passed it. **Only pulling the last frame and looking at it** surfaced this — which is the rule
+I wrote into `CONTENT-RULES.md` an hour ago, **earning its keep on first use.**
+
+## Measured this loop
+
+- **Production**: six locales + health 200. `New Balance 530` → SKIP, buy_below **26.55**, n=542.
+- **Actionable 70.3%**, brand-average **12** — still climbing as W60 converts dead ends.
+- **The four emailed users: 0 checks, 0 paying, 0 unsubscribes.** ~6am their time.
+- **Crawl 1742.9s** — drifting down slightly, still no better than the 1,814s baseline. **The
+  tracker half is fixed; the crawl half remains a sizing question.**
+- **Did not publish.** The re-shot Carhartt frames are captured but not yet cut to video; publishing
+  the old assets would ship the product failing.
+
 # 🎥 THE VIDEO LIBRARY IS PART BROKEN — and `ffprobe` could never have told us
 
 Audited every marketing video by **pulling its last frame and looking at it**. Three checked in
