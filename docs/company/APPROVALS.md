@@ -61,6 +61,47 @@ end of Phase 1 (OS §8).
   necessary, not sufficient. `resale-iq-frontend#7` is open, not merged, per the standing rule
   never to push `main`.
 
+  **Update, 2026-09-02 19:xxZ (engineering lane) — status check + a third option + a recommendation.**
+
+  `resale-iq-frontend#7` **is now merged** (confirmed via `gh pr view 7`: `MERGED`, `13:52:09Z` —
+  the paragraphs above were written before that landed and are stale on that one point). It does
+  not change the outcome: `demand-intel/api/auth.py:_client_ip` still does not read
+  `x-resaleiq-verified-ip` anywhere (grepped the whole repo — the only occurrence is a comment in
+  `config.py`), so production is still served by `ANON_IP_DAILY_CEILING` at 20,000, a backstop, not
+  a fix, until one of the options below ships.
+
+  A third option exists and belongs in this comparison — `demand-intel/config.py:64-69` names it
+  independently of this file: give the backend a **stable Docker network alias** so the frontend
+  calls it over the internal network instead of its public `sslip.io` hostname, which removes the
+  hairpin instead of routing an identity around it. Confirmed live (`docker inspect` on the running
+  backend container): its only network alias today is its own container name, which Coolify
+  regenerates every deploy — that instability is why `BACKEND_URL` is public in the first place.
+
+  | | 1. Stable network alias | 2. Shared-secret header | 3. Traefik `trustedIPs` |
+  |---|---|---|---|
+  | What changes | Coolify: give the backend service a persistent network alias; point `BACKEND_URL` at it | `_client_ip` reads `x-resaleiq-verified-ip` **and checks a real shared secret** | `coolify-proxy` static config: trust the Docker bridge gateway as a forwarder |
+  | Where it lives | Coolify config + one env var | `demand-intel` app code | The one Traefik instance shared by every app on the host |
+  | Removes the hairpin, or routes around it? | **Removes it** — frontend→backend traffic never leaves the host or touches Traefik twice | Routes around it — still two hops, but identity travels on a header Traefik doesn't touch | Routes around it — still two hops, but Traefik now appends instead of overwriting, so the already-merged `_client_ip` (today's PR #2, walks XFF from the right skipping internal hops) resolves correctly with **no further app changes** |
+  | New attack surface | None — nothing to trust, no header to validate | **The gap in the plan above:** the backend's public URL stays reachable on purpose (paid REST-API customers authenticate with `x-api-key` at `routes.py:44,1788`), so anyone who calls it directly can set their own `x-resaleiq-verified-ip` and pick any IP identity **unless the backend checks a real secret** — proxy.ts stripping the header only protects requests that go through `resaleiq.dev`, not the backend's own public endpoint | Widens trust for **every app** on the host, not just this one |
+  | Blast radius if wrong | Contained to this one service's Coolify config | Contained to `demand-intel` | Host-wide — every app behind `coolify-proxy` |
+  | Effort | Coolify network config + one env var, isolated test | Small, same shape as the `_client_ip` fix shipped today, plus a secret to provision and rotate | One static-config edit + a restart of the shared proxy — brief interruption for every app on the host |
+  | Durable? | Yes — independent of container names, which already churn every deploy | Yes, wherever the secret is provisioned | Depends on the bridge gateway staying `10.0.1.1` and nobody adding another untrusted hop later |
+
+  **Recommendation: option 1.** It is the only one that removes the double-hop instead of routing an
+  identity around it — nothing to forge, nothing to rotate, no change to a Traefik instance every
+  other app on the host also depends on. It is also the easiest to verify: a `tcpdump` on the
+  backend's own interface after the change should show one hop, ending the argument outright, versus
+  arguing a header can't be spoofed.
+
+  If a Coolify spike shows option 1 isn't supported for this app's shape, **option 2 is the
+  fallback — but only with a real secret check added**, not the header-presence check the
+  paragraphs above describe. **Avoid option 3** unless 1 and 2 are both ruled out: it is real
+  downtime for every app on the host to fix a bug in one, and its safety rests on an infra detail
+  this app doesn't control.
+
+  Once any option ships: `ANON_IP_DAILY_CEILING` back to 300 (`config.py:70`, currently 20,000) —
+  already called out in the code comment, a one-line PR.
+
 *(A1–A6 were answered on 2026-08-31. Founder Gate #1 lands here when the Phase 1 audit
 finishes: the CUT list, the P0 order, and anything the audit finds that only you can decide.)*
 
