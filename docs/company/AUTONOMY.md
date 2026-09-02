@@ -129,3 +129,35 @@ deploy is worse than no heartbeat.** That property is tested above.
 - **What does not happen?** No work is chosen, executed or verified. The board does not move.
 - **Is that autonomous?** **No. It is an instrumented company, not a self-driving one.** The
   difference is one API key.
+
+
+---
+
+## Second headless job: the disk guard (added 2026-09-02)
+
+`/usr/local/bin/riq-disk-guard`, **hourly at :37**. Prunes **only above 80%**.
+
+**Why it exists:** the daily prune was not enough. Measured across three heartbeats:
+**75.5% → 80.1% → 82.4% → 85% in about two hours**, because each build adds cache and cleanup ran
+once a day. On 2026-09-01 the disk reached **100% with 287 MB free and stopped EVERY deploy** — 16
+commits stuck, including a language switcher a visitor needed.
+
+**A bug in my first version, worth recording.** It used `--filter until=24h`, and **all the cache on
+this host is from today's builds**, so the filter matched nothing and the guard reclaimed **0 bytes
+at 85%** while reporting that it had run. Removed the filter: above the threshold, the rebuild cost
+is worth paying. **Build cache costs time; a full disk costs every deploy.**
+
+**Tested both directions, on the host:**
+
+| condition | result |
+|---|---|
+| at 85% (above threshold) | ✅ **85% → 77%**, 17 GB free |
+| at 77% (below threshold) | ✅ **did nothing** — log unchanged, no wasted rebuild |
+
+**Tagged images are never touched.** They are rollback targets, and trading rollback speed for disk
+is not a decision a cron job should make.
+
+**The structural number underneath:** `/var/lib/docker/volumes` is **40 GB** of the 75 GB disk, and
+the database alone is ~21 GB. Pruning buys headroom; it does not change that a 21 GB database sits on
+a 75 GB disk with 3.7 GB of RAM. **That is the same sizing question as the crawl decay** — 8 GB /
+4 vCPU — and it is the founder's spend decision.
