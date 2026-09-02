@@ -37,6 +37,29 @@ without anyone noticing.**
 
 ---
 
+## 0.5 THE FIRST THING ANY SESSION DOES
+
+```
+python3 scripts/company/wake.py
+```
+
+**Run it before anything else. Before reading this file's principles, before touching the board,
+before answering the founder.**
+
+The company's architecture is now explicit: **between sessions the heartbeat observes** (hourly cron
+on the production host, `AUTONOMY.md`); **during a session, the session IS the reasoning layer** —
+the founder's decision, 2026-09-02, until a funded model key exists at 100 users.
+
+That split only works if a session starting from **zero context** can reconstruct the company in one
+command. `wake.py` reads what the heartbeat recorded while nobody was watching, diffs it against the
+last wake, and states the highest-value next action **with its evidence attached.**
+
+**It assembles; it does not decide.** Disagree with it when the evidence says so — that is the
+session's job, and `FORENSIC-AUDIT.md` measured what happens without it: every agent starts cold, and
+everything of substance arrived through a prompt the founder typed.
+
+---
+
 ## 1. WHY THE COMPANY EXISTS
 
 **Resale IQ tells someone what an item is worth before they buy it, and charges for being right.**
