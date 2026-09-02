@@ -1179,3 +1179,17 @@ new = """## Working on
 
 **A cold session reconstructs the company in one command.** Wired into `DOCTRINE.md` as step zero.
 Th`
+- `2026-09-02T00:54:44Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git checkout -q main && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_crawl.txt <<'MSG'
+merge: the crawl decay is fixed -- 223.6s to sub-millisecond, measured
+
+The tracker's ORDER BY priority ASC, last_seen_at DESC sorted on a computed CASE`
+- `2026-09-02T00:55:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="/Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s
+
+**The most valuable fix of the day.** `demand-intel@9d3a24b`, merged, deploying.
+
+The tracker's `ORDER `

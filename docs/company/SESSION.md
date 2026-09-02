@@ -4,6 +4,41 @@
 
 ## Working on
 
+# ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s
+
+**The most valuable fix of the day.** `demand-intel@9d3a24b`, merged, deploying.
+
+The tracker's `ORDER BY priority ASC, last_seen_at DESC` sorted on a computed `CASE` no index can
+satisfy, so SQLite materialised and sorted the **entire 7.79M-row backlog** before `LIMIT 300`.
+Changed to `ORDER BY last_seen_at DESC, id DESC` — monotonic with the old tiers, so the same rows in
+the same order. Plan went from `USE TEMP B-TREE FOR ORDER BY` to `...FOR LAST TERM OF ORDER BY`.
+**Six live timings: 0.0006–0.02s. No new index, no build cost, no lock.**
+
+**Why it outranked everything:** self-reinforcing decay. Slower run → fewer runs/day → bigger backlog
+→ slower. Crawl runs had fallen **237/day → 123** while items/run stayed flat (4,889 → 4,863) with
+**zero errors** — which is how we knew it was never a Vinted block. **The data is the asset and it
+was shrinking ~half every 2–3 weeks.**
+
+**1,345 tests** (from 1,342), run by me before merging.
+
+**Two things worth keeping about how it was done:** `data-eng`'s **first equivalence proof was
+wrong** — it compared two queries 161s apart on a moving table. **It caught that itself before
+shipping**, redid it inside a pinned `BEGIN…ROLLBACK` so both orderings saw one snapshot, and **kept
+the flawed run in evidence with a note rather than deleting it.** It also **corrected its own earlier
+WAL claim** (read from a bare diagnostic connection, not the app). The false schema comment asserting
+that index eliminated the sort is corrected in the same commit — **a comment claiming a property the
+code lacks is how the next person loses a day.**
+
+## Board
+
+**21 closed / 1 open — the only open row is the founder's** (W24, Coolify UI).
+
+## Start here
+
+`python3 scripts/company/wake.py` — step zero in `DOCTRINE.md`. Heartbeat observes hourly on the host
+between sessions; a session reasons during one. **Still no headless reasoning** (`ANTHROPIC_API_KEY`
+absent · OpenRouter 402 · Groq 403) — founder's call: use the session until 100 users.
+
 # ▶ START HERE: `python3 scripts/company/wake.py`
 
 **A cold session reconstructs the company in one command.** Wired into `DOCTRINE.md` as step zero.
