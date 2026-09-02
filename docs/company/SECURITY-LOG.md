@@ -1234,3 +1234,8 @@ new = """## Working on
 # 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING
 
 Rows **149** and **151** were the only Instagram drafts with UTMs *a`
+- `2026-09-02T02:53:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git status --porcelain | grep -v "^??"; git add docs/company/SECURITY-LOG.md 2>/dev/null && git commit -q -m "log: guard entries from the publish check and disk guard
+
+Appended by the hook. Committed so the audit trail survives the session.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && `
