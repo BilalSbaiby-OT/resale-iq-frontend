@@ -49,6 +49,15 @@ function handled(body) {
   if (/\b(raise|throw)\b/.test(body)) return true              // re-raised
   if (/logger?\.(error|warning|warn|critical|exception)/.test(body)) return true
   if (/console\.(error|warn)/.test(body)) return true
+  // print(..., file=sys.stderr) IS reporting. Missing this produced a FALSE
+  // POSITIVE on observe.py's telegram handler, which does print the failure --
+  // and a checker that cries wolf is a checker somebody disables. The bar is
+  // "does this failure reach a human", not "does it use a logger".
+  // Deliberately just `sys.stderr`, not a print(...) shape: the first attempt
+  // used /print\([^)]*file=sys\.stderr/ and failed on
+  // `print(f"...{str(e)[:120]}", file=sys.stderr)` because [^)]* stopped at the
+  // paren inside str(e). A regex that is clever about syntax breaks on real code.
+  if (/sys\.stderr/.test(body)) return true
   if (/\b(sys\.exit|process\.exit)\b/.test(body)) return true
   return false
 }
