@@ -1199,3 +1199,15 @@ The tracker's `ORDER `
 - `2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
 - `2026-09-02T02:01:32Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session14.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s14.txt <<'MSG'
 session: tracker proven at 5.6s live; the crawl did NOT re`
+- `2026-09-02T02:06:10Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+p="docs/company/FIRST-REVENUE.md"; s=open(p).read()
+s = s.replace("# We say \"I don't know\" while holding the answer", "# We say \"I don't know\" while holding the answer", 1)
+add = """
+
+---
+
+# SENT — 2026-09-02 02:05 UTC
+
+**The four reactiva`
+- `2026-09-02T02:07:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session15.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s15.txt <<'MSG'
+session: the four emails are sent, and the near-miss is wo`

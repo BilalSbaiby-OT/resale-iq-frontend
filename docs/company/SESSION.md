@@ -4,6 +4,51 @@
 
 ## Working on
 
+# 📧 THE FOUR REACTIVATION EMAILS ARE SENT
+
+**The last thing standing between us and a first customer.** Founder authorisation: *"i allow you to
+email"*. Full record in `FIRST-REVENUE.md`.
+
+| id | trial before | trial after | email |
+|---|---|---|---|
+| 68 | expired 2026-08-30 | **2026-09-16** | SENT |
+| 69 | **expired today** | **2026-09-16** | SENT |
+| 70 | **expired today** | **2026-09-16** | SENT |
+| 79 | 2026-09-05 | **2026-09-16** | SENT |
+
+**Order was reset → verify → send.** The email says *"I've already reset it"*; sending that first
+would have made us liars to the only four warm users we have. Backed up before the write, **verified
+by reading back from the database**, not from the write's return value.
+
+## Two things caught before they reached a real person
+
+**1. `403` / Cloudflare `1010`** — I called Resend with `urllib`, whose default User-Agent is blocked.
+The app has used `httpx` successfully every day. **Reimplementing a working path is how you end up
+debugging someone else's solved problem.**
+
+**2. NO UNSUBSCRIBE HEADER — the serious one.** `api/email.py` documents that marketing sends must
+carry `List-Unsubscribe` per **RFC 8058 and EU marketing opt-out rules**. **This is a marketing
+send.** I was one command from emailing four real people without a legal opt-out, **from a codebase
+that already knew better.** Fixed: header + footer link + honours `marketing_opt_out`.
+
+**Every claim in the email is checkable** — `verdict_logs` shows **0 checks** for all four, all four
+registered **before** the W1 fix, and the reset happened **before** the send. No manufactured
+urgency, no discount, and the first ask is *why it didn't stick*, not money.
+
+## This loop
+
+- **Production verified**: six locales + health + register all 200. `New Balance 530` → SKIP,
+  buy_below **26.39**, n=553. `Carhartt jacket` → **BRAND_AVERAGE** n=45.
+- **Board 21 closed / 1 open** — the only open row is the founder's (W24).
+- **Did not publish.** Instagram is the only channel returning anyone and it is the middle of the
+  night in ES/FR/DE/IT/PT. Posting into a dead hour spends reach for nothing.
+
+## Watch next
+
+**Any reply to those four emails is the most valuable input this company has ever had** — it would be
+the first time a real user told us what is wrong. The heartbeat will fire `first_sale` if one
+converts.
+
 # ✅ TRACKER FIXED AND PROVEN LIVE — 203.2s → 5.6s (36×)
 
 ```
