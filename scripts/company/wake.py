@@ -141,6 +141,10 @@ def main():
             if str(r.get("status", "")).upper().startswith("OPEN"):
                 print(f"    OPEN {r.get('id')} -> {str(r.get('doer'))[:22]}")
     except Exception:
+        # why: the board is one section of a brief. An unreadable board must not
+        # stop a cold session learning the money and product numbers, which are
+        # the ones that decide what to do next. The failure IS reported, in the
+        # brief itself, where the reader is already looking.
         print("  board UNREADABLE — run org.py directly")
 
     print("\n-- DEPLOY " + "-" * 57)
