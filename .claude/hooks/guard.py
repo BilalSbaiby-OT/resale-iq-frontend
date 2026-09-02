@@ -90,6 +90,16 @@ POST_HOSTS_OK = (
     "generativelanguage.googleapis.com",    # Gemini images and Veo video
     "api.postiz.com",                       # publishing
     "api.stripe.com",                       # billing; agents hold a read-only key
+    # The reasoning layer. Added 2026-09-02 under .claude/UNLOCK_HARNESS, on the
+    # founder's explicit instruction to make autonomy actually work.
+    #
+    # This rail was the ENTIRE autonomy blocker and nobody noticed for a day. The
+    # docs said "OpenRouter 402 / Groq 403 — blocked on a credential the founder
+    # must buy". Both were 200 the whole time, with EUR 29.78 of funded balance.
+    # The company was never blocked on money; it was blocked on this tuple, and
+    # on the key not existing on the production host.
+    "openrouter.ai",                        # reasoning; funded, EUR 29.78 remaining
+    "api.groq.com",                         # reasoning fallback
 )
 
 RM_SAFE = ("scratchpad", "node_modules", ".next", "test-results", "/private/tmp/", "tsconfig.tsbuildinfo")
