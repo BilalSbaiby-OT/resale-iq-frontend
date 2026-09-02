@@ -1410,3 +1410,6 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin mai
 
 The next operator is OpenClaw, not a Claude Code session, so this file is now
 written for it. Points at OPEN-ITEMS.md, OPENCLA`
+- `2026-09-02T10:52:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git commit -q -m "ledger: guard blocks from the handover session
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | xargs echo "dirty:"`
