@@ -38,6 +38,7 @@ def one(sql):
     try:
         return c.execute(sql).fetchone()[0]
     except Exception:
+        # why: one unreadable metric must not kill the brief; the caller prints UNKNOWN.
         return None
 W = "viewed_at > datetime('now','-24 hours') AND COALESCE(is_bot,0)=0"
 V = "created_at > datetime('now','-24 hours')"
@@ -64,6 +65,8 @@ def prod():
         raw = bd.ssh_py(PROD_QUERY, timeout=180)
         return json.loads(raw) if raw else None
     except Exception:
+        # why: if production is unreachable the brief still sends, with the UNKNOWN banner,
+        # rather than silently reporting zeros as if they were measurements.
         return None
 
 
@@ -78,6 +81,8 @@ def board():
                 if str(r.get("status", "")).upper().startswith("OPEN")]
         return t, rows
     except Exception:
+        # why: the board is secondary to the money numbers; a broken board omits a section
+        # rather than stopping the founder's daily message.
         return None, []
 
 
@@ -87,6 +92,8 @@ def shipped_today():
                            capture_output=True, text=True, timeout=120, cwd=ROOT).stdout
         return len([l for l in n.splitlines() if l.strip()])
     except Exception:
+        # why: commit count is decoration. None omits the line; a zero would read as
+        # 'we shipped nothing today', which is a different claim.
         return None
 
 
