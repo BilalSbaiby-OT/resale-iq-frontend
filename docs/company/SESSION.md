@@ -1,5 +1,79 @@
 # SESSION
 
+**Updated** 2026-09-02 08:4xZ (CEO hourly loop)
+
+## THE PRODUCT INTERMITTENTLY 500s, AND IT IS THE TOP PRIORITY
+
+**Measured in a real browser, then by curl.** A visitor searching "New Balance 530" on the
+homepage gets: *"Something went wrong on our end finishing that check."*
+
+```
+GET /api/verdict?q=Adidas%20Samba   -> 500 after 30.6s   (x3 consecutive)
+same request, minutes later          -> 200 in 0.6s
+```
+
+The 500s landed during the analyzer's late write phase (Step 7 `model_signals`, Step 8
+`listing_images` prune). The analyzer runs every 2h at `:57` for 92–104 minutes.
+`/api/health` said `pass 14/14` throughout — the stale-health defect, still unfixed.
+
+**CORRECTION, same loop: I first told the founder the product was down "78% of the day."
+That is NOT established and I should not have said it.** I reasoned from the analyzer's duty
+cycle instead of measuring availability. `verdict_logs` shows successful checks at 07:26,
+07:32–07:37 and 07:47–07:55 — all *inside* an analyzer run. The failures cluster near the
+heavy write steps, not across the whole run. **A continuous availability probe is running
+across the full 08:57 cycle to get the real number.** First 12 samples: 100%, p50 0.59s —
+but the analyzer was idle, so that window proves nothing yet.
+
+`backend-eng` and `devops` are on the mechanism. Container is capped at **2 GiB and sits at
+77% while idle**; DB is **21.26 GB with an 875 MB WAL that never checkpoints**; host is 2 vCPU.
+
+## CHATGPT IS SENDING US REAL PEOPLE AND NOBODY IS WORKING IT
+
+All-time UTM traffic, `is_bot=0`:
+
+| source | pageviews | distinct visitors | landing pages |
+|---|---|---|---|
+| `chatgpt.com` | 20 | **9** | `/`, `/blog/what-sells-best-on-vinted`, `/tools/vinted-price-checker`, `/api-docs`, `/category/sneakers`, `/flip/gucci` |
+| `instagram` + `ig` | 71 | 10 | **`/dashboard` 19, `/admin` 10, `/admin/traffic` 5** — operator browsing with sticky UTMs |
+
+**44 published posts across X, Instagram and TikTok produced ~5 genuine homepage visitors.
+Zero marketing effort on LLM referral produced 9 humans landing on real content pages.**
+And `/api-docs` + `/flip/gucci` means they are reaching deep pages, not just bouncing.
+
+**0 UTM visitors have ever reached `/register`. `signup_attribution` has 0 rows, ever.
+6 users all time.** The conversion number for every channel is currently zero, which is why
+the outage outranks all of it — driving traffic into an intermittently broken product is
+how you burn a channel you cannot yet measure.
+
+## PUBLISHED, with its number corrected first
+
+Row **111** → X, scheduled `09:41:46Z`, `utm_content=r111`. It claimed *"New Balance left the
+shelf 309 times."* **Production says 1,223.** The claim's *direction* was right — New Balance
+does lead every sneaker brand — but 309 is unreproducible, and publishing a number nobody can
+reproduce is how a channel dies. Verified replacements, 7d, ES/FR/DE/IT/PT:
+
+```
+sneakers still listed   1,633,410
+sneakers departed 7d        4,555     -> 358 listed for every one that moves
+New Balance 1,223 · Nike 478 · Reebok 401 · Adidas 334 · Puma 198
+```
+
+The publisher also **refused the first attempt** — 818 chars against X's 280 — and explicitly
+declined to auto-truncate because cutting a sentence could change its meaning. Good rail.
+
+## Reasoning layer is live and now has three free providers
+
+`riq-decide` hourly at `:47`, daily brief at `08:05`. Chain: **Gemini → Groq → OpenRouter free**.
+The founder was right that OpenRouter has free tokens — **18 `:free` models, zero credit cost**;
+`minimax/minimax-m3:free` answers correctly. So the 402 never blocked us either: it only blocked
+*paid* models. Three wrong conclusions came out of that one status code, all because nobody ran
+a completion.
+
+
+---
+
+## Previous state
+
 **Updated** 2026-09-02 08:1xZ (CEO) — after a 15-agent audit of the window since the founder left
 
 ## The four corrections that matter most
