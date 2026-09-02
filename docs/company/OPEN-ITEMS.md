@@ -66,7 +66,21 @@ now, so the last entry is our own container.
 **Do not "fix" it by taking the first XFF entry** — that is spoofable and was a real security bug the
 current code deliberately closed. Take the last entry that is not one of our own internal hops.
 
-Assigned to `backend-eng` with tests required. **This is the surface every marketing click lands on.**
+**THREE BACKEND FIXES MERGED AND DEPLOYED** (2026-09-02 ~11:55Z): `#3` cutoff separator, `#2` XFF
+double-hop, `#1` analyzer lock contention. Verified live in the container: `_client_ip` with header
+`"203.0.113.9, 10.0.1.1"` correctly returns `203.0.113.9`, and a direct backend call with a realistic
+XFF returns **`verdict=WATCH, n=58`** and mints the visitor cookie. **The backend is fixed.**
+
+**IT IS STILL DOWN, because of a fourth link I had not found:** the frontend has **no
+`src/middleware.ts`** and the `/api/*` rewrite (`next.config.ts:115-121`) forwards no client-IP
+header. So the backend receives neither `x-forwarded-for` nor `x-real-ip`, falls back to the raw
+socket peer (`10.0.1.1`), and every visitor lands in one bucket — the one at exactly 300.
+
+Proof it is the socket-peer fallback and not the unknown path: `sha256("10.0.1.1")` = `d66e6eaf9400d271`
+has **300 rows today**; the "no real client found" bucket has **0**.
+
+Assigned to `frontend-eng`. **This is the surface every marketing click lands on, and it has been
+refusing everyone since 09:10.**
 
 ---
 

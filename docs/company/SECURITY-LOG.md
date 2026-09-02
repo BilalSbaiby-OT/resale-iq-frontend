@@ -1424,3 +1424,10 @@ A ~4-week production defect, a`
 - `2026-09-02T11:21:54Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
 p="docs/company/OPEN-ITEMS.md"; s=open(p,encoding="utf-8").read()
 old = "| 2 | **Tracker cutoff defect, ~4 weeks live** | `.isoformat()` writes `T`, production stores a space; space < `T`, so same-date rows read stale. **300 of 300 queue rows`
+- `2026-09-02T11:46:40Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/analyzer-contention/wt
+cd "$WT" && git push -q origin claude/backend-eng/analyzer-contention 2>&1 | tail -1 && echo "  #1 pushed"
+X=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-87`
+- `2026-09-02T12:05:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git status --porcelain | head -3; python3 - <<'PYEOF'
+p="docs/company/OPEN-ITEMS.md"; s=open(p,encoding="utf-8").read()
+old="Assigned to `backend-eng` with tests required. **This is the surface every marketing click lands on.**"
+new="""**THREE BACKEND FIXES MERG`
