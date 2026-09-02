@@ -1128,3 +1128,11 @@ new = """## Working on
 
 **⛔ 23 COMMITS WERE BLOCKED BY MY OWN CHECK.** `check:silent` flagged four bare handlers in
 `daily_brief.py` — the script I wrote to report honestly. **`
+- `2026-09-02T00:13:59Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'docker exec ph5clxk9hmghspv65pdkvak9-185628563375 sh -c "rm -f /tmp/diag1_schema.py /tmp/diag2_plans.py /tmp/diag3_incremental.py /tmp/diag3_out.log /tmp/diag4_history.py /tmp/diag4_out.log /tmp/diag5_count.log; ls /tmp"; rm -f /tmp/diag1_schema.py /tmp/diag2_plans.py `
+- `2026-09-02T00:14:56Z` **BLOCKED** Write — protected harness path (.claude/hooks/) — `/Users/bilalsbaiby/work/resale-iq/.claude/hooks/pre-commit-checks.sh`
+- `2026-09-02T00:15:24Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `chmod +x githooks/pre-commit && git config core.hooksPath githooks && echo "hooksPath = $(git config core.hooksPath)"; echo "=== prove it FIRES: temporarily add a silent failure ==="; printf 'try:\n x = 1\nexcept Exception:\n pass\n' > scripts/company/_tmp_silent_test.py && git add scripts/company/_`
+- `2026-09-02T00:16:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_hook.txt <<'MSG'
+fix: catch the check at the keyboard, not after it blocks 23 commits
+
+check:silent failed on daily_brief.py, a file written minutes earlier, and CI
+held 23 commits behind it -- `

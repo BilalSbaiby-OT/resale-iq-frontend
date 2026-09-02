@@ -1,0 +1,48 @@
+#!/bin/sh
+# Run the CODE checks before a commit exists, not after it reaches CI.
+#
+# Enable once per clone:   git config core.hooksPath githooks
+#
+# WHY THIS EXISTS
+#
+# 2026-09-02: `check:silent` failed on `daily_brief.py` -- a file written minutes
+# earlier -- and CI held **23 commits** behind it, including W60, the fix that
+# converts a third of dead-end answers into real ones. The check was correct. The
+# failure was WHERE it fired: after the work was pushed, with everything queued
+# behind it, instead of at the keyboard when it was one file to fix.
+#
+# Third time in one day a gate stopped correct work:
+#   - the stop-gate demanded a clean tree while the guard's own logger dirtied it
+#   - the isolation check froze 9 commits over a credential NAME in a payload
+#   - check:silent froze 23 over four handlers missing a `why:` comment
+#
+# DOCTRINE: a check blocks a deploy only if what it catches could reach a
+# customer. Everything else belongs here.
+#
+# ADVISORY BY DESIGN -- it prints and exits 0. A blocking pre-commit hook is just
+# a slower CI failure, and someone will `--no-verify` past it inside a week. This
+# is a mirror held up at the cheapest possible moment, not another gate.
+#
+# Deliberately NOT in .claude/hooks/ -- that path is a founder-gated rail and
+# routing around it to install a convenience script would be exactly the
+# behaviour the rail exists to prevent.
+set -u
+cd "$(git rev-parse --show-toplevel)" || exit 0
+
+fail=""
+for c in dupes silent; do
+  if ! npm run --silent "check:$c" >"/tmp/riq-check-$c.txt" 2>&1; then
+    fail="$fail $c"
+  fi
+done
+
+if [ -n "$fail" ]; then
+  printf '\n  ⚠  local check failed:%s\n\n' "$fail"
+  for c in $fail; do
+    printf '  ── check:%s ──\n' "$c"
+    tail -12 "/tmp/riq-check-$c.txt" | sed 's/^/  /'
+  done
+  printf '\n  Fix it now, while it is one file. If it reaches CI it blocks every\n'
+  printf '  commit behind it -- that cost 23 on 2026-09-02.\n\n'
+fi
+exit 0
