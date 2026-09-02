@@ -1,10 +1,10 @@
 # OPEN ITEMS — one list, honest status
 
-**Updated 2026-09-02 09:4xZ.** Founder: *"everyissue i tell you about you never finish / everything
+**Updated 2026-09-02 16:2xZ.** Founder: *"everyissue i tell you about you never finish / everything
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 12 shipped · 3 in flight · 12 open · 6 founder.**
+**Scoreboard, today: 12 shipped · 3 in flight · 13 open · 6 founder.**
 
 **Heartbeat 15:07Z:** health 200 `overall=warn` (1 warn: disk 12.3% free of 74GB, `age_minutes 3.9`)
 · anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
@@ -121,7 +121,7 @@ refusing everyone since 09:10.**
 | # | what | measured | why it is still open |
 |---|---|---|---|
 | 1 | **Localisation: 7 page families still English** | `/blog`, `/manual`, `/tools`, `/check`, `/terms`, `/support`, `/data` all 307 to English | methodology proves the pipeline; the rest is repetition nobody has done |
-| 2 | ~~Tracker cutoff defect~~ **FIXED, PR open** | root cause was 23 `.isoformat()` cutoffs vs space-separated storage. Falsified: revert and 9 tests fail. Suite **1345 passed, 0 failed** — green for the first time | [backend#3](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/3) awaiting merge. **The 'flaky' test blocking backend#1 and #2 was a TRUE POSITIVE all along** |
+| 2 | ~~Tracker cutoff defect~~ **FIXED, MERGED** | root cause was 23 `.isoformat()` cutoffs vs space-separated storage. Falsified: revert and 9 tests fail. Suite **1345 passed, 0 failed** — green for the first time | [backend#3](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/3) merged `4431368` at **11:44:01Z**; `gh pr list` on the backend returns no open PRs. **The 'flaky' test blocking backend#1 and #2 was a TRUE POSITIVE all along** |
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
 | 5 | ~~Health monitoring **stale for 27h52m** while reporting `pass 14/14`~~ **FIXED** | [backend#5](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/5) `1617343` *"/api/health said pass on 8h-old rows during a live outage"*. Live now: `age_minutes: 3.9`, `stale_after_minutes: 420` in the payload | closed. **Note the residual:** health still reported `overall` from db-checks that pass while `/api/verdict` refuses everyone — a body assertion on the verdict itself is still not one of the 14 checks |
@@ -133,6 +133,7 @@ refusing everyone since 09:10.**
 | 11 | Brand coverage **20 of 322 defensible** | 322 brands clear n≥8 departures/7d | `gen_seo_brands.py` written; production probe timed out, not yet run to completion |
 | 12 | 5 videos ending on our own product failing are **LIVE** | last frames decoded and read | removal is a public action on founder accounts → see FOUNDER |
 | 13 | **5** trials now, and the first expiry moved **forward to 2026-09-09** | user 81 registered today 10:17:02Z (`trial_ends_at 2026-09-09T10:17:33Z`); the other four still 2026-09-16 02:03:50. Users all time: **7**, paying: **0**, Stripe ids: **0** | `LIFECYCLE_EMAILS` unset in production → nothing contacts any of them. Founder gate on sends, and the deadline it has to clear is now **09-09, not 09-16** |
+| 14 | **Departure-verification path has no pacing; Vinted threw 288 × 429 in one 5s burst** | every 429 the box saw in 24h landed `15:53:39`→`15:53:44`: 288 refusals of 1,120 outbound that hour, all item-detail `GET`s, 183 `vinted.es` · 105 `vinted.fr`. Ingestion did not stall (`seen=4963 new=4078 errors=0`) | the verifier fires its batch concurrently with no spacing and no backoff. **UNKNOWN** whether those 288 were re-resolved on a later pass or their departures silently dropped — the `verify_attempts` scan on 34.7M rows did not return inside the ssh timeout. Tracked as O-005 in `COMMITMENTS.md` |
 
 ---
 
