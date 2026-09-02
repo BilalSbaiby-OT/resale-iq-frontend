@@ -6,6 +6,7 @@ import { Lock, Search, Loader2 } from "lucide-react"
 import { watchedSampleNote } from "@/lib/watched-sample"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
+import { canonicalPath } from "@/lib/locale-routes"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -246,7 +247,15 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
                 >
                   {t.createFreeAccount}
                 </Link>
-                <Link href="/#pricing" style={{ color: "#8fa3c4", fontSize: 13 }}>
+                {/* W61: was the absolute path "/#pricing" -- on a translated
+                    route (FreeChecker is mounted on both "/" and "/<locale>",
+                    see landing-content.tsx) that sent a Spanish/French/German/
+                    Italian/Portuguese visitor who had just hit their daily
+                    limit back to the ENGLISH homepage's pricing section, mid
+                    funnel, with no warning. canonicalPath keeps them on their
+                    own locale root; the section itself is already translated
+                    (pricing-section.tsx reads copy[locale]). */}
+                <Link href={`${canonicalPath(locale)}#pricing`} style={{ color: "#8fa3c4", fontSize: 13 }}>
                   {t.seePlans}
                 </Link>
               </div>
