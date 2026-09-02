@@ -1211,3 +1211,26 @@ add = """
 **The four reactiva`
 - `2026-09-02T02:07:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session15.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s15.txt <<'MSG'
 session: the four emails are sent, and the near-miss is wo`
+- `2026-09-02T02:38:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T02:38:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T02:38:44Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T02:38:44Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T02:51:18Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/AUTONOMY.md"; s=open(p).read()
+add = """
+
+---
+
+## Second headless job: the disk guard (added 2026-09-02)
+
+`/usr/local/bin/riq-disk-guard`, **hourly at :37**. Prunes **only above 80%**.
+
+**Why it exists:** the daily prune was not enough. Measured across three heartbea`
+- `2026-09-02T02:52:53Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING
+
+Rows **149** and **151** were the only Instagram drafts with UTMs *a`

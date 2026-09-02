@@ -4,6 +4,39 @@
 
 ## Working on
 
+# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING
+
+Rows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to
+publish this loop. I pulled the **last frame** before approving:
+
+> **"No data found for 'Zara blazer'. Try a brand + model name."**
+
+**The video ends on our product saying it doesn't know.** Shot against a query it couldn't answer.
+Both rows are now `blocked_broken_asset` with the reason in `review_note`. **Nothing published this
+loop, and that is the right outcome** — `ffprobe` said video+audio+1080, and it would have passed
+every automated check we have. **Only looking at the picture caught it.**
+
+Note: W60 means that same shot would land *better* today — a vague query now returns `BRAND_AVERAGE`
+instead of nothing. Re-shoot, don't discard.
+
+# 🔧 DISK GUARD — prune when it matters, not on a calendar
+
+Disk climbed **75.5 → 80.1 → 82.4 → 85%** across three heartbeats (~2h). The daily prune could not
+keep up. `/usr/local/bin/riq-disk-guard` now runs hourly and acts **only above 80%**.
+
+**My first version reclaimed 0 bytes at 85%** — it filtered cache to `until=24h` and all the cache is
+from *today's* builds, so nothing matched while it reported success. **A check that passes by finding
+nothing**, the same shape as the UTM regex that matched no links. Fixed; **85% → 77%, 17 GB free**,
+and verified it does **nothing** at 77%.
+
+## Measured this loop
+
+- **Production**: six locales + health 200. `Adidas Samba` → WATCH, buy_below **20.97**, n=63.
+- **Tracker fix holding**: `01:57 → 5.59s` against 203.17s and 205.66s before it.
+- **The four emails**: sent 02:05, **0 checks since** — expected, it is ~3am in their timezones.
+  **Not a failure; too early to be data.**
+- **Board 21 closed / 1 open** (founder's).
+
 # 📧 THE FOUR REACTIVATION EMAILS ARE SENT
 
 **The last thing standing between us and a first customer.** Founder authorisation: *"i allow you to

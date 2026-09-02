@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T01:38:01Z",
+  "generated_at": "2026-09-02T02:38:36Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -81,7 +81,7 @@
     "trial_to_paid": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 1, floor = 100)",
+      "why": "population below floor (n = 0, floor = 100)",
       "fix": null
     },
     "spend_vs_cap": {
@@ -115,8 +115,8 @@
       "fix": "Phase 2: /precision"
     },
     "band_coverage_demand": {
-      "value": 66.9,
-      "n": 154,
+      "value": 67.3,
+      "n": 156,
       "source": "sql/metrics/band_coverage_demand.sql (production)"
     },
     "band_evidence_p50": {
@@ -125,8 +125,8 @@
       "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
-      "value": 33.1,
-      "n": 154,
+      "value": 32.7,
+      "n": 156,
       "source": "sql/metrics/insufficient_data_rate.sql (production)"
     },
     "band_coverage_supply": {
@@ -136,27 +136,27 @@
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 403,
+      "n": 404,
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 12.0,
-      "n": 1215,
+      "value": 4.6,
+      "n": 1212,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 13253162
+      "value": 13259478
     },
     "newest_sold_at": {
-      "value": "2026-09-02 01:36:44"
+      "value": "2026-09-02 02:38:24"
     },
     "predictions_total": {
-      "value": 403
+      "value": 404
     }
   },
   "funnel": {
     "verdicts_7d": {
-      "value": 190
+      "value": 192
     },
     "pageviews_7d": {
       "value": 1408
@@ -686,6 +686,18 @@
     ],
     "recent_commits": [
       {
+        "sha": "a730ba1",
+        "msg": "session: the four emails are sent, and the near-miss is worth more than the send"
+      },
+      {
+        "sha": "eb9d2dc",
+        "msg": "sent: the four reactivation emails, with the legal opt-out I nearly omitted"
+      },
+      {
+        "sha": "4df3773",
+        "msg": "session: tracker proven at 5.6s live; the crawl did NOT recover"
+      },
+      {
         "sha": "131a41f",
         "msg": "session: the crawl decay is fixed and the board is down to the founder's row"
       },
@@ -720,18 +732,6 @@
       {
         "sha": "4781794",
         "msg": "fix: locale-prefixed deep paths 404'd, and the checker's own pricing link broke locale"
-      },
-      {
-        "sha": "d24a08b",
-        "msg": "fix: catch the check at the keyboard, not after it blocks 23 commits"
-      },
-      {
-        "sha": "3c25cc7",
-        "msg": "session: my own check blocked 23 commits, and my priority order was wrong"
-      },
-      {
-        "sha": "118cbcc",
-        "msg": "fix: my own daily brief failed my own check and blocked 21 commits"
       }
     ],
     "dirty": true,
@@ -800,6 +800,228 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-02T02:07:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session15.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:06:50Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session15.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:06:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "git status --porcelain | grep -v \"^??\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:06:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\np=\"docs/company/FIRST-REVENUE.md\"; s=open(p).read()\ns = s.replace(\"# We say \\\"I don't know\\\" while holding the answer\", \"# We say \\\"I don't kno",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:05:40Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_v2.py resaleiq:/root/send_v2.py >/dev/null 2>&1 && ssh -o",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:05:24Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_v2.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:05:00Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -n \"def unsubscribe_url\\|def unsubscribe_token\\|unsubscribe_token(\" api/email.py db/queries.py 2>/dev/null | head -5; echo \"--- how lifecycle builds it ---\"; grep -rn \"unsubscribe_token\" alerts/l",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:04:47Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"resend\\|User-Agent\\|httpx\\|requests\" api/email.py 2>/dev/null | head -10; echo \"--- send function ---\"; sed -n \"$(grep -n 'def send_email' api/email",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:04:36Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py resaleiq:/root/send_reactivation.py >/dev",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:04:24Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\np=\"/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py\"\ns=open(p).read()\nassert \"£19\" in s\nopen(p,\"w\").write(s.replace",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:04:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:03:50Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/reset_trials.py resaleiq:/root/reset_trials.py >/dev/null 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:03:38Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/reset_trials.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:03:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport sys; sys.path.insert(0,\"scripts/company\")\nimport build_dashboard as bd\nprint(bd.ssh_py(r'''\nimport sqlite3\nc = sqlite3.connect(\"file:/app/data/demand_intel.db?mode=ro\", uri=Tru",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:02:56Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "for u in / /es /fr /de /it /pt /api/health /register; do printf \"%-12s %s\\n\" \"$u\" \"$(curl -s -o /dev/null -w '%{http_code}' -m 15 \"https://resaleiq.dev$u\")\"; done; echo \"=== real searches ===\"; for q ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:02:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/wake.py 2>&1 | tail -32",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:01:39Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session14.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:01:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session14.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:01:00Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "git status --porcelain | grep -v \"^??\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:00:38Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\nimport sys; sys.path.insert(0,\"scripts/company\")\nimport build_dashboard as bd\nprint(bd.ssh_py(r'''\nimport sqlite3\nc = sqlite3.connect(\"file:/ap",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T02:00:22Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tasks/b4qi76gfs.output"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-02T01:23:43Z",
       "session": "fb348ebc",
@@ -1097,226 +1319,14 @@
       "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '138,162p' docs/audit/proof/crawl-decay-storage-layer/README.md",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:49:13Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && python3 - <<'PYEOF'\nimport pathlib\np = pathlib.Path(\"docs/audit/proof/crawl-decay-storage-layer/README.md\")\nsrc = p.read_text()\n\nold = \"\"\"- **The DB (21.2 GB",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:49:08Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\np=\"/Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md\"; s=open(p).read()\ni=s.index(\"## Working on\")\nnew = \"\"\"## Working on\n\n# ▶ START HERE: `python3 scripts/company/wake.py`\n\n*",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:49:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && sed -n '138,150p' docs/audit/proof/crawl-decay-storage-layer/README.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:59Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"cache_size = -2000\" docs/audit/proof/crawl-decay-storage-layer/README.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:53Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && python3 - <<'PYEOF'\nimport pathlib\np = pathlib.Path(\"docs/audit/proof/crawl-decay-storage-layer/README.md\")\nsrc = p.read_text()\nold = \"**Status: CAUSE FOUND ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:48Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"^\\*\\*Status:\" docs/audit/proof/crawl-decay-storage-layer/README.md",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:44Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat > /Users/bilalsbaiby/work/demand-intel/docs/audit/proof/crawl-decay-storage-layer/FIX.md <<'EOF'\n# The fix, measured the same way the cause was diagnosed\n\nContinuation of `README.md` (the diagnosi",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --porcelain | grep -v \"^??\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:48:18Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\np=\"/Users/bilalsbaiby/work/resale-iq/scripts/company/wake.py\"; s=open(p).read()\nold = '''    except Exception:\n        print(\"  board UNREADABLE — run org.py directly\")'''\nnew = '''  ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cp /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/diag9_tie_check.py /Users/bilalsbaiby/work/demand-intel/docs/audit/proof/crawl-decay-storage-layer/sc",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:31Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat > /Users/bilalsbaiby/work/demand-intel/docs/audit/proof/crawl-decay-storage-layer/evidence/6_tie_confinement_check.jsonl <<'EOF'\n{\"label\": \"txn_started\"}\n{\"label\": \"OLD_done\", \"dt\": 190.0970814470",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:29Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\np=\"/Users/bilalsbaiby/work/resale-iq/docs/company/DOCTRINE.md\"; s=open(p).read()\nanchor = \"## 1. WHY THE COMPANY EXISTS\"\nnew = \"\"\"## 0.5 THE FIRST THING ANY SESSION DOES\n\n```\npython3 ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:16Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat > /Users/bilalsbaiby/work/demand-intel/docs/audit/proof/crawl-decay-storage-layer/evidence/5_equivalence_first_attempt_FLAWED.jsonl <<'EOF'\n{\"label\": \"cutoffs\", \"cutoff_stale\": \"2026-09-01T21:20:1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:04Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/close_rows.py && python3 scripts/company/org.py --json 2>/dev/null | python3 -c \"\nimport json,sy",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:47:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cat > /Users/bilalsbaiby/work/demand-intel/docs/audit/proof/crawl-decay-storage-layer/evidence/4_app_connection_pragmas.json <<'EOF'\n{\n  \"note\": \"CORRECTION to evidence/1_schema_and_indexes.json. That",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:46:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/close_rows.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:46:40Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && python3 -m pytest tests/ -q 2>&1 | tail -15",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:46:26Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== W61 live: do locale deep paths still 404? ===\"; for p in /es/pricing /fr/pricing /de/methodology /it/blog /pt/deals; do printf \"  %-18s %s\\n\" \"$p\" \"$(curl -s -o /dev/null -w '%{http_code}' -",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:46:13Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/wake.py 2>&1 | head -50",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:45:40Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 scripts/company/wake.py 2>&1 | head -48",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:45:35Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/scripts/company/wake.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 367,
+    "blocked": 369,
     "tripwire": 0,
     "recent": [
+      "`2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T00:38:20Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes -o ConnectTimeout=25 resaleiq \"C=\\$(docker ps --format '{{.Names}}'|grep ph5cl|hea",
       "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
@@ -1326,9 +1336,7 @@
       "`2026-09-01T23:37:00Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T23:37:00Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-01T22:40:45Z` **BLOCKED** Bash — direct read of a .env file — `cd /Users/bilalsbaiby/work/demand-intel && echo \"=== LLM refs ===\"; grep -rniE \"openai|anthropic|gemini|claude_|gpt-4|",
-      "`2026-09-01T22:36:17Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T22:36:16Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T21:38:28Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'rm -f /tmp/q1.py /tmp/q2.py /tmp/q3.py /tmp/q4.py /tmp/q5.py /tmp/q6.py "
+      "`2026-09-01T22:36:17Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
     ],
     "restore_test": {
       "value": null,
@@ -1360,7 +1368,7 @@
       "source": "src/data/seo-brands.json, 2026-09-01 — the 6 zero-models_tracked brands (pull-bear, zara, bershka, mango, hugo-boss, calvin-klein; 36 URLs total: 6 brand pages + 30 brand x category pages) were removed on branch claude/seo/w2-zero-model-cleanup. Verified live: brand count 26->20, remaining 9 categories still each served by >=1 real brand. sitemap.ts and generateStaticParams both derive from this same BRANDS list, so the 36 URLs 404 and drop from the sitemap by construction, not by a second edit."
     }
   },
-  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s\n\n**The most valuable fix of the day.** `demand-intel@9d3a24b`, merged, deploying.\n\nThe tracker's `ORDER BY priority ASC, last_seen_at DESC` sorted on a computed `CASE` no index can\nsatisfy, so SQLite materialised and sorted the **entire 7.79M-row backlog** before `LIMIT 300`.\nChanged to `ORDER BY last_seen_at DESC, id DESC` — monotonic with the old tiers, so the same rows in\nthe same order. Plan went from `USE TEMP B-TREE FOR ORDER BY` to `...FOR LAST TERM OF ORDER BY`.\n**Six live timings: 0.0006–0.02s. No new index, no build cost, no lock.**\n\n**Why it outranked everything:** self-reinforcing decay. Slower run → fewer runs/day → bigger backlog\n→ slower. Crawl runs had fallen **237/day → 123** while items/run stayed flat (4,889 → 4,863) with\n**zero errors** — which is how we knew it was never a Vinted block. **The data is the asset and it\nwas shrinking ~half every 2–3 weeks.**\n\n**1,345 tests** (from 1,342), run by me before merging.\n\n**Two things worth keeping about how it was done:** `data-eng`'s **first equivalence proof was\nwrong** — it compared two queries 161s apart on a moving table. **It caught that itself before\nshipping**, redid it inside a pinned `BEGIN…ROLLBACK` so both orderings saw one snapshot, and **kept\nthe flawed run in evidence with a note rather than deleting it.** It also **corrected its own earlier\nWAL claim** (read from a bare diagnostic connection, not the app). The false schema comment asserting\nthat index eliminated the sort is corrected in the same commit — **a comment claiming a property the\ncode lacks is how the next person loses a day.**\n\n## Board\n\n**21 closed / 1 open — the only open row is the founder's** (W24, Coolify UI).\n\n## Start here\n\n`python3 scripts/company/wake.py` — step zero in `DOCTRINE.md`. Heartbeat observes hourly on the host\nbetween sessions; a session reasons during one. **Still no headless reasoning** (`<CREDENTIAL>`\nabsent · OpenRouter 402 · Groq 403) — founder's call: use the session until 100 users.\n\n# ▶ START HERE: `python3 scripts/company/wake.py`\n\n**A cold session reconstructs the company in one command.** Wired into `DOCTRINE.md` as step zero.\nThe architecture is now explicit, per the founder (2026-09-02): **between sessions the heartbeat\nobserves** (hourly host cron, `AUTONOMY.md`); **during a session, the session IS the reasoning layer**\n— until a funded model key at 100 users.\n\n**Live wake output:**\n```\npaying 0 · users 7 · signups 1\nchecks 111 · actionable 68.5% · brand-average 8   ← W60 answering real visitors\ncrawl 120 runs @ 1798s · listings 13,247,558 · disk 75.8%\nboard 21 closed / 1 open · frontend + backend BOTH IN SYNC\n→ STILL ZERO PAYING. Not a traffic problem: 28/day is enough for 2.56% → 80 customers.\n```\n\n**BOARD: 21 closed / 1 open — and the only open row is the founder's** (W24, Coolify UI).\n\n**W60 and W61 closed on LIVE evidence, not on the merge** — both sat merged-but-not-live for hours,\nW60 behind a full disk and a pipeline my own check was blocking.\n- **W60:** `Carhartt jacket` → `BRAND_AVERAGE n=45 €50.42`, limitation inside the message.\n  **8 such answers to real visitors in 24h.**\n- **W61:** every locale deep path **307s instead of 404ing**. Also fixed the free-checker CTA that\n  bounced a Spanish visitor to the English homepage **at the moment they had used all ten checks**.\n\n## The machinery is now catching its own author\n\n`githooks/pre-commit` fired on **two consecutive commits**, both at the keyboard rather than in CI:\n- `observe.py` — a **false positive**; the handler reports via `sys.stderr`. **Fixed the checker, not\n  the code** — a check that cries wolf gets disabled inside a week. (My first fix was also wrong: a\n  regex that broke on `str(e)`.)\n- `wake.py` — real. It prints to stdout, which is legitimate for a CLI whose output IS the report.\n  **I did NOT loosen the checker to accept every print** — in a library a bare print is exactly the\n  silent failure it exists to catch. Used the escape hatch and wrote the reason down.\n\n## Still true, still blocking real autonomy\n\n**No reasoning model runs headless.** `<CREDENTIAL>` absent · OpenRouter **402** · Groq **403** ·\n`CronCreate` \"gone when Claude exits\" · scheduled tasks need the app open · GH Actions has no DB\nroute. **The founder's call: use the session until 100 users.** So the company observes without him\nand reasons with him — and `wake.py` is the handover.\n\n# ⚙️ THE COMPANY NOW HAS A HEARTBEAT THAT RUNS WITHOUT ANY SESSION\n\n`/usr/local/bin/riq-heartbeat`, **hourly cron on the production host** (`17 * * * *`). Reads\nproduction, computes company state, persists `/app/state/company_state.json`, evaluates five alert\nrules, messages the founder on Telegram. **See `AUTONOMY.md`.**\n\nFirst live run: `paying 0 · users 7 · checks 111 · actionable 68.5% · brand_average 8 · crawl 120\nruns @ 1798s · disk 75.5%`. **`brand_average 8` = W60 answering real visitors in production.**\n\n**Tested on the real host, not simulated:** alert path proven by forcing `disk_pct=99` → rule fired →\n**Telegram delivered** · state persists with a previous baseline · **survives a deploy** (deleted\n`/app/observe.py`, cron restored it, state intact) · unreadable metric writes **null, never zero**.\n\n# 🔴 AUTONOMY IS BLOCKED ON ONE CREDENTIAL — NOT DONE\n\n```\n<CREDENTIAL>   absent: local, host, GitHub secrets\n<CREDENTIAL>  valid, authenticates → 402 Payment Required\n<CREDENTIAL>        403 Forbidden\nCronCreate          \"gone when Claude exits\" (its own docs)\nScheduled tasks     only fire while the app is open\nGitHub Actions      durable, but NO route to the production DB\n```\n\n**No reasoning model is reachable from any runtime that outlives a session.** So the company observes,\nremembers, detects and escalates without the founder — but **cannot decide or execute**.\n**6 of 10 autonomy capabilities live; the 4 missing all reduce to one funded key.** Nothing b",
+  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# 📧 THE FOUR REACTIVATION EMAILS ARE SENT\n\n**The last thing standing between us and a first customer.** Founder authorisation: *\"i allow you to\nemail\"*. Full record in `FIRST-REVENUE.md`.\n\n| id | trial before | trial after | email |\n|---|---|---|---|\n| 68 | expired 2026-08-30 | **2026-09-16** | SENT |\n| 69 | **expired today** | **2026-09-16** | SENT |\n| 70 | **expired today** | **2026-09-16** | SENT |\n| 79 | 2026-09-05 | **2026-09-16** | SENT |\n\n**Order was reset → verify → send.** The email says *\"I've already reset it\"*; sending that first\nwould have made us liars to the only four warm users we have. Backed up before the write, **verified\nby reading back from the database**, not from the write's return value.\n\n## Two things caught before they reached a real person\n\n**1. `403` / Cloudflare `1010`** — I called Resend with `urllib`, whose default User-Agent is blocked.\nThe app has used `httpx` successfully every day. **Reimplementing a working path is how you end up\ndebugging someone else's solved problem.**\n\n**2. NO UNSUBSCRIBE HEADER — the serious one.** `api/email.py` documents that marketing sends must\ncarry `List-Unsubscribe` per **RFC 8058 and EU marketing opt-out rules**. **This is a marketing\nsend.** I was one command from emailing four real people without a legal opt-out, **from a codebase\nthat already knew better.** Fixed: header + footer link + honours `marketing_opt_out`.\n\n**Every claim in the email is checkable** — `verdict_logs` shows **0 checks** for all four, all four\nregistered **before** the W1 fix, and the reset happened **before** the send. No manufactured\nurgency, no discount, and the first ask is *why it didn't stick*, not money.\n\n## This loop\n\n- **Production verified**: six locales + health + register all 200. `New Balance 530` → SKIP,\n  buy_below **26.39**, n=553. `Carhartt jacket` → **BRAND_AVERAGE** n=45.\n- **Board 21 closed / 1 open** — the only open row is the founder's (W24).\n- **Did not publish.** Instagram is the only channel returning anyone and it is the middle of the\n  night in ES/FR/DE/IT/PT. Posting into a dead hour spends reach for nothing.\n\n## Watch next\n\n**Any reply to those four emails is the most valuable input this company has ever had** — it would be\nthe first time a real user told us what is wrong. The heartbeat will fire `first_sale` if one\nconverts.\n\n# ✅ TRACKER FIXED AND PROVEN LIVE — 203.2s → 5.6s (36×)\n\n```\nTRACKER\n  2026-09-02 01:57      5.6s   ← POST-FIX, on production\n  2026-09-02 00:00    203.2s\n  2026-09-01 23:00    205.7s\n```\n\nThe **system-level** number, not the query benchmark. The query alone measured **223.6s → 0.0085s**;\nthe job it lives in went **203.2s → 5.6s**. `demand-intel@9d3a24b`, 1,345 tests.\n\n**This was the COMPOUNDING half.** The tracker verifies 300 rows per run; at 203s the backlog grew\nfaster than it drained, which produced the monotonic no-plateau curve. **At 5.6s that loop is\nbroken** — the backlog now drains.\n\n# ⚠️ THE VINTED CRAWL DID NOT RECOVER — and that is the honest half\n\n```\n02:00 1984s · 01:48 1300s · 01:39 2525s · 01:25 1721s   (all post-deploy)\n```\n\nAveraging ~1,880s against a 1,814s baseline. **No improvement.** The tracker's `ORDER BY` was one of\ntwo problems, not both.\n\n**Remaining hypothesis, named but NOT proven:** a **21 GB SQLite database on a 3.7 GB host** — the\npage cache cannot hold the working set. That is a **capacity** problem, not a query one, and it has\nno one-line fix. **It is now the strongest argument for `devops`'s 8 GB / 4 vCPU recommendation**,\nwhich is a founder spend decision.\n\n**Do not claim the crawl decay is fixed.** Half is fixed and proven; half is open.\n\n## A watcher of mine reported a non-result as proof\n\nMy first tracker watcher compared timestamp **strings** against a baseline truncated to minutes, so\n`\"2026-09-02 00:00:56\" > \"2026-09-02 00:00\"` matched **the very row it was meant to exclude** and\nprinted \"before 203.2s, after 203.166s\" as a result. Rewritten against the monotonic **row id**,\nwhich cannot do that. **Caught before it reached the founder — but only just.**\n\n## Board\n\n**21 closed / 1 open — the only open row is the founder's** (W24, Coolify UI).\n\n## Start here\n\n`python3 scripts/company/wake.py` — step zero in `DOCTRINE.md`.\n\n# ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s\n\n**The most valuable fix of the day.** `demand-intel@9d3a24b`, merged, deploying.\n\nThe tracker's `ORDER BY priority ASC, last_seen_at DESC` sorted on a computed `CASE` no index can\nsatisfy, so SQLite materialised and sorted the **entire 7.79M-row backlog** before `LIMIT 300`.\nChanged to `ORDER BY last_seen_at DESC, id DESC` — monotonic with the old tiers, so the same rows in\nthe same order. Plan went from `USE TEMP B-TREE FOR ORDER BY` to `...FOR LAST TERM OF ORDER BY`.\n**Six live timings: 0.0006–0.02s. No new index, no build cost, no lock.**\n\n**Why it outranked everything:** self-reinforcing decay. Slower run → fewer runs/day → bigger backlog\n→ slower. Crawl runs had fallen **237/day → 123** while items/run stayed flat (4,889 → 4,863) with\n**zero errors** — which is how we knew it was never a Vinted block. **The data is the asset and it\nwas shrinking ~half every 2–3 weeks.**\n\n**1,345 tests** (from 1,342), run by me before merging.\n\n**Two things worth keeping about how it was done:** `data-eng`'s **first equivalence proof was\nwrong** — it compared two queries 161s apart on a moving table. **It caught that itself before\nshipping**, redid it inside a pinned `BEGIN…ROLLBACK` so both orderings saw one snapshot, and **kept\nthe flawed run in evidence with a note rather than deleting it.** It also **corrected its own earlier\nWAL claim** (read from a bare diagnostic connection, not the app). The false schema comment asserting\nthat index eliminated the sort is corrected in the same commit — **a comment claiming a property the\ncode lacks is how the next person loses a day.**\n\n## Board\n\n**21 closed / 1 open — the only open row is the foun",
   "amendments": [
     "AM-1 — The stack is FastAPI + SQLite, not Next.js + Supabase",
     "AM-2 — Spend cap: €200/month, all-in",

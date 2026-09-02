@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T02:02:22Z",
+  "generated_at": "2026-09-02T02:48:56Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -817,18 +817,13 @@
     "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
-    "drifted": true,
+    "drifted": false,
     "apps": [
       {
         "app": "frontend",
-        "status": "DRIFTED",
-        "running": "131a41f58795",
-        "merged": "4df37731688a",
-        "commits_unshipped": 1,
-        "unshipped": [
-          "4df3773 session: tracker proven at 5.6s live; the crawl did NOT recover"
-        ],
-        "container": "p6t87shftvl2455pd3gdgee1-005709849273"
+        "status": "IN SYNC",
+        "commit": "a730ba1e625c",
+        "container": "p6t87shftvl2455pd3gdgee1-020926433274"
       },
       {
         "app": "backend",
