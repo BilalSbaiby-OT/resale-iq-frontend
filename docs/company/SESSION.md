@@ -1,71 +1,51 @@
 # SESSION
 
-**Updated** 2026-09-02 10:5xZ — **the orchestrator is now OpenClaw, not Claude Code.**
+**Updated** 2026-09-02 ~12:45Z — **final Claude Code session. OpenClaw is the orchestrator now.**
 
-## Read these first
+## Start here
 
-1. `docs/company/OPEN-ITEMS.md` — the one honest status list.
-2. `docs/company/OPENCLAW.md` — what runs where, and what is NOT built.
-3. `~/.openclaw/workspaces/resaleiq/AGENTS.md` — the operating contract OpenClaw runs under.
+1. `~/.openclaw/workspaces/resaleiq/knowledge/CURRENT-STATE.md` — the handover, written for you.
+2. `~/.openclaw/workspaces/resaleiq/AGENTS.md` — your operating contract.
+3. `docs/company/OPEN-ITEMS.md` — the honest status list.
+4. `docs/company/OPENCLAW.md` — what runs where, and what is NOT built.
 
-## Handover state
+## The product went down today and is MITIGATED, not fixed
 
-**Telegram routes to the `resaleiq` agent** (`openclaw agents bindings`). It has its own workspace
-with the operating contract, the founder gates, the publishing traps and who the founder is. Verified
-answering unprompted: *"€0.00 MRR and has never had a paying customer... never manufacture proof."*
+Every anonymous visitor got `LIMIT_REACHED` with `used_today: 0` from 09:10Z. Proven with `tcpdump`
+on both Traefik hops: the frontend calls the backend over a **public** hostname, so the request
+hairpins back through the same Traefik, NAT rewrites the source to the bridge gateway, and Traefik
+overwrites `x-forwarded-for` — every visitor on earth in one quota bucket.
 
-The gateway is a LaunchAgent (`RunAtLoad`, `KeepAlive`) on the founder's MacBook — **it survives the
-terminal closing, Claude Code exiting, and a reboot. It stops when the Mac sleeps.** That is why the
-four Hetzner cron jobs stay: `riq-heartbeat` :17, `riq-disk-guard` :37, `riq-decide` :47, brief 08:05.
-Mac orchestrates; Hetzner keeps watch. **Do not delete the host cron.**
+Mitigated by raising the wide IP backstop (backend #4, deployed). **Verified on the body, not the
+status:** `Adidas Samba -> WATCH n=58`, `New Balance 530 -> SKIP n=543`, `Nike Air Force 1 -> WATCH n=87`.
 
-Previous OpenClaw content (a car-scraping project and an assistant persona) is archived to
-`~/.openclaw/_archived-pre-resaleiq`, plus a 421 MB full backup in the session scratchpad.
+**The permanent fix is a founder decision — APPROVALS A25.** Put the ceiling back to 300 after it ships.
 
-`~/.openclaw` was added to `SCOPE` in `guard.py` on the founder's explicit instruction — the list
-predated OpenClaw and was blocking setup of the thing meant to run the company.
+## Four backend PRs merged and deployed today
 
-## Localisation — actually done this time, verified on the live site
+`#3` cutoff separator (~4 weeks live; merging it turned a "flaky" test green and unblocked the rest) ·
+`#2` XFF double-hop · `#1` analyzer lock contention · `#4` ceiling mitigation.
+Frontend `#7` is OPEN and **insufficient alone** — do not merge expecting it to fix the outage.
 
-`/methodology` now serves **all six locales, 200, with zero English leakage**, checked against
-production and not a build log:
+## Three corrections I made to my own claims today
 
-```
-es native ✓ english 0 · fr ✓ 0 · de ✓ 0 · it ✓ 0 · pt ✓ 0 · /methodology unchanged
-```
+Kept because the pattern matters more than any single error.
 
-113 keys × 6 locales, full parity, **zero figure drops**. Every sale-word that survives is a correct
-translation of the page's own retraction ("not a confirmed sale"), checked in context.
-
-**Earlier I called this done when W61 had only turned 404s into redirects** — its own code comment
-says it does not translate. That was the founder catching me by using the site.
-
-**Still English behind the same redirect:** `/blog`, `/manual`, `/tools`, `/check`, `/terms`,
-`/support`, `/data`. The pipeline is reusable; the work is repetition and it is NOT done.
-
-## I froze the deploy pipeline for most of today
-
-`Agent Isolation` failed from 10:13, and `Deploy` only runs after it passes — so **every commit sat
-unshipped**, including the merged locale routes. Cause: `dashboard/data.json` embeds SESSION.md
-excerpts verbatim, and a SESSION.md line named an agent-infrastructure endpoint that
-`check-agent-isolation.mjs` refuses anywhere in the repo.
-
-**Third instance of one class of bug**, and the first two are already in `scrub.py`'s docstring: a
-credential NAME in a recorded command (9 commits frozen), the same names in bus messages (2 more),
-and now an ENDPOINT in a doc excerpt. The scrubber covered names, not endpoints. Now mirrored from
-the checker's `INFRA_PATTERNS`, unit-tested per pattern, with a docstring saying the two lists must
-grow together.
-
-**Rule: do not name agent infrastructure in any doc the dashboard embeds.** The scrubber is a net,
-not a licence.
+1. **"78% down"** → **"100.00% availability"** → **both wrong.** The first was a duty cycle. The
+   second counted HTTP 200s — and `LIMIT_REACHED` returns 200, so I reported perfect health while the
+   product refused everyone. My probing also helped exhaust the ceiling I was measuring.
+2. **"nothing forwards x-forwarded-for on the rewrite"** — factually wrong. `frontend-eng` refuted it
+   with packet captures: Traefik sets it, Next forwards it, and it dies at a *third* hop I had not
+   looked for.
+3. **"localisation is done"** — W61 had only turned 404s into redirects. Now genuinely done for
+   `/methodology`, verified live in five languages; seven page families are still English.
 
 ## Do not
 
-- **Do not call a redirect a translation**, or a 200 a translated page. Grep the body.
-- **Do not report a fix without the artifact.** Production, not CI, not a build log.
-- **Do not assert the result of an operation nobody performed.** A `GET` is not a completion.
-- **Do not repeat "78% down"** — 182 probe samples across a full analyzer cycle were 100.00%.
-- **Do not trust `ffprobe`.** Decode the last frame and look at it.
-- **Do not delete the Hetzner cron.** It is the only thing running while the Mac sleeps.
+- **Do not assert on an HTTP status.** Check the response body. This cost the most today.
+- **Do not trust the Deploy workflow's verdict** — it reported `failure` on a deploy that succeeded.
+- **Do not query the local `demand-intel` DB.** ~53 GB, stale, `sold_observed = 0`, answers wrongly.
+- **Do not name agent infrastructure in any doc** — this file ships to visitors inside `data.json`.
+- **Do not call a redirect a translation, or a 200 a working page.**
 - **Do not `git add -A`**; stage explicit paths. **Do not `grep` an env dump** — `grep -c '^VAR=.'`.
 

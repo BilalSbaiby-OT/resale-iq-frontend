@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T12:05:27Z",
+  "generated_at": "2026-09-02T12:40:44Z",
   "prod_included": false,
   "founder_inbox": {
     "open": [
@@ -349,7 +349,8 @@
           "w45-w48-verify",
           "w47-free-cta  (merged)",
           "w61-locale-deep-links  (merged)",
-          "w9-i18n-surfaces  (merged)"
+          "w9-i18n-surfaces  (merged)",
+          "xff-hairpin-fix"
         ],
         "events": null,
         "last_active": null,
@@ -669,6 +670,7 @@
       "+ claude/frontend-eng/w47-free-cta",
       "+ claude/frontend-eng/w61-locale-deep-links",
       "+ claude/frontend-eng/w9-i18n-surfaces",
+      "+ claude/frontend-eng/xff-hairpin-fix",
       "+ claude/monetization/entitlement-copy-fix",
       "+ claude/product-manager/w10-w5-pricing-decisions",
       "claude/security-eng/hardening-20",
@@ -678,6 +680,10 @@
       "+ claude/seo/w2-zero-model-cleanup"
     ],
     "recent_commits": [
+      {
+        "sha": "f0da3aa",
+        "msg": "deploy: three backend fixes live; the outage has a fourth cause in the frontend proxy"
+      },
       {
         "sha": "be2e461",
         "msg": "track: the 4-week tracker cutoff defect is fixed, and the 'flaky' test was real"
@@ -721,10 +727,6 @@
       {
         "sha": "73fd670",
         "msg": "openclaw: local orchestrator live on the Mac — steps 1-2 of 7, not the migration"
-      },
-      {
-        "sha": "1367812",
-        "msg": "track: one honest list of open items — 10 shipped, 13 open"
       }
     ],
     "dirty": true,
@@ -794,506 +796,524 @@
   ],
   "activity": [
     {
-      "ts": "2026-09-02T12:05:26Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "sed -n '1,200p' next.config.ts",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:05:26Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status && git log --oneline -10 && git branch -a",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:05:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "find /Users/bilalsbaiby/work -maxdepth 2 -type d 2>&1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:05:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ls -la /Users/bilalsbaiby/work/resale-iq 2>&1 | head -50",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:05:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Agent",
-      "files": [],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:04:22Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; grep -rn \"x-real-ip\\|X-Real-Ip\" api/*.py | head -3; echo \"=== any header-echo/debug route? ===\"; grep -rn \"def .*whoami\\|/debug\\|echo_headers\" api/routes.py | ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:03:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1); docker exec \"$C\" sed -n \"421,470p\" /app/api/auth.py' 2>&1 | tail -32",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:03:22Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1)\ndocker exec \"$C\" python3 -c \"\nimport urllib.request,urllib.parse,json\nreq=urllib.request.Request(\n  \\\"http://127.0.0.1:8080/api/verdict?q=\\\"+url",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:02:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1)\ndocker exec \"$C\" python3 -c \"\nimport sqlite3\nc=sqlite3.connect(\\\"file:/app/data/demand_intel.db?mode=ro\\\",uri=True)\nfor h in (\\\"b23a6a8439c0dde5",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:02:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1)\ndocker exec \"$C\" python3 -c \"\nimport sys,hashlib; sys.path.insert(0,\\\"/app\\\")\nfrom api.auth import _client_ip\nclass R:\n    def __init__(s,xff): ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:02:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sed -n '818,860p' api/routes.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:02:02Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; grep -rn \"create_visitor_token\\|set_cookie\" api/*.py | head -8; echo \"=== how ip_hash is derived in the verdict path ===\"; grep -n \"ip_hash = \\|visitor_token\\|",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:01:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "J=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cj2.txt; rm -f \"$J\"\ncurl -s -m 30 -c \"$J\" -b \"$J\" \"https://resaleiq.dev/\" -o /dev/null\ncurl -s -m 40 -",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:01:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sed -n '870,910p' api/routes.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:01:23Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; git pull -q origin main 2>&1|tail -1; grep -n \"LIMIT_REACHED\" api/routes.py | head -5; echo \"=== the anon quota claim ===\"; grep -n \"def claim_anon_verdict_quo",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:01:13Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "J=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cj.txt; rm -f \"$J\" 2>/dev/null\necho \"=== a fresh visitor WITH a cookie jar (what a browser does) ===\"\n",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:00:54Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1)\ndocker exec \"$C\" python3 -c \"\nimport sqlite3\nc=sqlite3.connect(\\\"file:/app/data/demand_intel.db?mode=ro\\\",uri=True)\nprint(\\\"=== verdict_logs, la",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:00:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "ssh resaleiq 'C=$(docker ps -q -f name=ph5cl | head -1)\necho \"=== is the XFF fix in the running container? ===\"\ndocker exec \"$C\" grep -c \"_INTERNAL_CIDRS\\|is_internal\\|internal_cidr\" /app/api/auth.py ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:00:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "echo \"=== THE TEST THAT MATTERS: does the product answer a real visitor? ===\"\nfor i in 1 2 3; do\n  r=$(curl -s -m 30 \"https://resaleiq.dev/api/verdict?q=Adidas%20Samba\")\n  echo \"  $i: $(echo \"$r\" | py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:00:12Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sleep 240; gh run list --repo BilalSbaiby-OT/resale-iq-backend --workflow=deploy.yml --limit 3 2>&1 | head -4; echo \"=== backend container age ===\"; ssh resale",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:55:58Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sleep 180; echo \"=== Tests on main ===\"; gh run list --repo BilalSbaiby-OT/resale-iq-backend --workflow=backend-tests.yml --limit 2 2>&1 | head -3; echo \"=== D",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:52:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; echo \"=== does main deploy automatically here? ===\"; ls .github/workflows/ 2>/dev/null; grep -l \"deploy\" .github/workflows/*.yml 2>/dev/null | head -2; echo \"=",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:52:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; gh pr merge 2 --repo BilalSbaiby-OT/resale-iq-backend --squash 2>&1 | tail -2; sleep 10; gh pr merge 1 --repo BilalSbaiby-OT/resale-iq-backend --squash 2>&1 | ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:52:05Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sleep 120; for n in 1 2; do printf \"  PR #%s: \" $n; gh pr view $n --repo BilalSbaiby-OT/resale-iq-backend --json mergeStateStatus,statusCheckRollup --jq '.merg",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:49:57Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "X=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ncd \"$X\" && git push -q origin claude/backend-eng/xff-double-hop-fix 2>&1 | tail -",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:48:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/analyzer-contention/wt\ncd \"$WT\" && git push -q origin claude/backend-eng/analyzer-contention 2>&1 | t",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:46:31Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/analyzer-contention/wt\ncd \"$WT\" && git fetch -q origin main && git merge -q origin/main -m \"merge mai",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:44:51Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; git worktree list | head -5",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:44:41Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; echo \"=== rebase #1 and #2 onto the fix so their CI re-runs ===\"\nfor b in claude/backend-eng/analyzer-contention claude/backend-eng/xff-double-hop-fix; do\n  gh",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:44:09Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; gh pr merge 3 --repo BilalSbaiby-OT/resale-iq-backend --squash 2>&1 | tail -3; sleep 5; git fetch -q origin main && git log --oneline origin/main -1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:43:49Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; for n in 3 1 2; do echo \"--- PR #$n ---\"; gh pr view $n --repo BilalSbaiby-OT/resale-iq-backend --json title,mergeable,mergeStateStatus,statusCheckRollup --jq ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:22:03Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'\np=\"docs/company/OPEN-ITEMS.md\"; s=open(p,encoding=\"utf-8\").read()\nold = \"| 2 | **Tracker cutoff defect, ~4 weeks live** | `.isoformat()` write",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:21:37Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; gh pr create --repo BilalSbaiby-OT/resale-iq-backend --base main --head claude/ceo/cutoff",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:21:17Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; git add db/queries.py tests/test_cutoff_separator.py && git commit -q -F /dev/stdin <<'MS",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:20:58Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; python3 -m pytest tests/test_cutoff_separator.py -q 2>&1 | tail -4\necho \"=== prove these ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:20:43Z",
+      "ts": "2026-09-02T12:40:29Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Write",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix/tests/test_cutoff_separator.py"
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/final_session.py"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:20:16Z",
+      "ts": "2026-09-02T12:40:05Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; python3 - <<'PYEOF'\np=\"db/queries.py\"; s=open(p,encoding=\"utf-8\").read()\nold = '         ",
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq; git status --porcelain | head -5\npython3 scripts/company/build_dashboard.py >/dev/null 2>&1\nnpm run check:isolation 2>&1 | tail -1\ngit add -- docs/company/OPEN-IT",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:18:27Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; sed -n '830,850p' db/queries.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:18:15Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; echo \"=== remaining .isoformat() — confirm each is date-only or safe ===\"; grep -n \"isofo",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:18:07Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_cutoff.py",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T11:17:50Z",
+      "ts": "2026-09-02T12:39:49Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Write",
       "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_cutoff.py"
+        "/Users/bilalsbaiby/.openclaw/workspaces/resaleiq/knowledge/CURRENT-STATE.md"
       ],
       "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:17:25Z",
+      "ts": "2026-09-02T12:39:05Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "mcp__Claude_Browser__browser_batch",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix\ngit worktree add -q \"$WT\" -b claude/ceo/cutoff-se",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:17:20Z",
+      "ts": "2026-09-02T12:38:51Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "mcp__Claude_Browser__browser_batch",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ngit rev-parse HEAD\ngh pr view 2 --json url,state,headRefName,baseRefName 2>&1",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:17:15Z",
+      "ts": "2026-09-02T12:38:36Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "mcp__Claude_Browser__browser_batch",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ngh pr create --title \"fix: outage — _client_ip trusted the last XFF hop, now our",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:17:09Z",
+      "ts": "2026-09-02T12:38:26Z",
       "session": "fb348ebc",
       "agent": "unattributed",
-      "tool": "Bash",
+      "tool": "mcp__Claude_Browser__browser_batch",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; python3 -c \"\nimport re\ns=open('db/queries.py',encoding='utf-8').read().splitlines()\nhits=[]\nfor i,l in enumerate(s,1):\n    if '.isoformat()' in l and '.date()'",
+      "cmd": "",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:16:55Z",
+      "ts": "2026-09-02T12:38:08Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ngit push -u origin claude/backend-eng/xff-double-hop-fix 2>&1",
+      "cmd": "echo \"=== a real anonymous visitor, on the public URL ===\"\nfor q in \"Adidas%20Samba\" \"New%20Balance%20530\" \"Nike%20Air%20Force%201\"; do\n  curl -s -m 40 \"https://resaleiq.dev/api/verdict?q=$q\" | python",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:16:51Z",
+      "ts": "2026-09-02T12:37:55Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; git status --porcelain | head -3; echo \"--- how are timestamps actually stored? ---\"; ssh resaleiq 'docker exec $(docker ps -q -f name=ph5cl | head -1) python3",
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; gh pr merge 4 --repo BilalSbaiby-OT/resale-iq-backend --squash 2>&1|tail -1; echo \"  waiting for deploy...\"; sleep 300; ssh resaleiq 'docker ps --format \"{{.Na",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:16:48Z",
+      "ts": "2026-09-02T12:32:42Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ngit add api/auth.py api/routes.py tests/test_anon_quota_cookie.py\ngit status --s",
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sleep 120; gh pr view 4 --repo BilalSbaiby-OT/resale-iq-backend --json mergeStateStatus,statusCheckRollup --jq '.mergeStateStatus + \" | \" + ([.statusCheckRollu",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:16:28Z",
+      "ts": "2026-09-02T12:30:32Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/demand-intel-xff-fix\ngit status --short\necho \"---\"\ngh auth status 2>&1 | head -5",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/ceiling-mitigation; git add config.py && git commit -q -F /dev/stdin <<'MSGEOF'\nmitigation: raise the",
       "url": "",
       "ok": true
     },
     {
-      "ts": "2026-09-02T11:16:28Z",
+      "ts": "2026-09-02T12:30:09Z",
       "session": "fb348ebc",
       "agent": "unattributed",
       "tool": "Bash",
       "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; grep -n \"isoformat\" db/queries.py | head -8; echo \"=== the cutoff construction ===\"; sed -n '400,425p' db/queries.py",
+      "cmd": "cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/ceiling-mitigation; python3 -m pytest -q 2>&1 | tail -3",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:28:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; git fetch -q origin main; WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/ceiling-mitigation\ngit worktree ad",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:27:41Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/demand-intel; sed -n '38,52p' config.py",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:27:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh resaleiq 'F=$(docker ps -q -f name=p6t87 | head -1); B=$(docker ps -q -f name=ph5cl | head -1)\necho \"  shared env var NAMES present in both (values never printed):\"\ndocker exec \"$F\" printenv | cut",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:26:39Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh resaleiq 'F=$(docker ps -q -f name=p6t87 | head -1); B=$(docker ps -q -f name=ph5cl | head -1)\necho \"=== network aliases on the backend (stable names) ===\"\ndocker inspect \"$B\" --format \"{{range \\$",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:26:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh resaleiq 'F=$(docker ps -q -f name=p6t87 | head -1)\ndocker exec \"$F\" node -e \"\nfetch(\\\"http://10.0.1.9:8080/api/verdict?q=Adidas%20Samba\\\",{headers:{\\\"X-Forwarded-For\\\":\\\"203.0.113.222\\\"}})\n .then",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:26:07Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh resaleiq 'F=$(docker ps -q -f name=p6t87 | head -1)\necho \"=== from INSIDE the frontend, call the backend DIRECTLY on the docker network ===\"\ndocker exec \"$F\" sh -c \"wget -qO- --header=\\\"X-Forwarde",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:25:51Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "ssh resaleiq 'F=$(docker ps -q -f name=p6t87 | head -1); B=$(docker ps -q -f name=ph5cl | head -1)\necho \"=== what BACKEND_URL does the frontend use? ===\"\ndocker exec \"$F\" printenv | grep -iE \"^BACKEND",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:24:48Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "curl -s \"https://resaleiq.dev/api/verdict?q=Adidas%20Samba\"; echo\ngh pr view 7 --repo BilalSbaiby-OT/resale-iq-frontend --json url,number,headRefName,commits --jq '{url, number, headRefName, commit_co",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:24:43Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngit add docs/company/APPROVALS.md\ngit commit -m \"$(cat <<'EOF'\napprovals: A25",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:24:35Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/docs/company/APPROVALS.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:24:14Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ngrep -n \"^### A[0-9]\" \"$WT/docs/company/APPROVALS.md\" | tail -10\nwc -l \"$WT/docs/compa",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:24:09Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ntail -60 \"$WT/docs/company/APPROVALS.md\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:23:51Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngh pr create --title \"fix(proxy): stamp verified client IP for /api,/auth,/st",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:23:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngit remote -v\ngit push -u origin claude/frontend-eng/xff-hairpin-fix 2>&1",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:23:10Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngit add src/proxy.ts\ngit status\ngit commit -m \"$(cat <<'EOF'\nfix(proxy): stam",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:22:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngit status\ngit diff --stat",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:22:52Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ngit stash\nnpx playwright test e2e/locale-routing.spec.ts -g \"a locale-prefixe",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:22:33Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nnpx playwright test e2e/regression-p0.spec.ts e2e/locale-routing.spec.ts --re",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:51Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\ntimeout 150 npx playwright test e2e/regression-p0.spec.ts e2e/locale-routing.",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nnpx playwright install-deps chromium 2>&1 | tail -5\nnpx playwright install ch",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:38Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncat \"$WT/playwright.config.ts\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:35Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ngrep -rln \"proxy\\.ts\\|x-forwarded-for\\|x-resaleiq-verified-ip\\|LIMIT_REACHED\" \"$WT/e2e",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:32Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nnpx eslint src/proxy.ts 2>&1 | tail -40",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:21:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nBACKEND_URL=\"http://localhost:8080\" npx next build 2>&1 | tail -100",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:20:34Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nnpx tsc --noEmit 2>&1 | tail -60\necho \"TSC_EXIT:$?\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:20:21Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nrm node_modules\nnpm ci --no-audit --no-fund 2>&1 | tail -30",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:20:04Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nBACKEND_URL=\"http://localhost:8080\" npx next build 2>&1 | tail -80",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:58Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\ncd \"$WT\"\nif [ ! -d node_modules ]; then\n  echo \"linking node_modules from main tree (r",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:45Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:42Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:34Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:31Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:26Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:23Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:19:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Edit",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:18:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\nsed -n '1,20p' \"$WT/src/proxy.ts\"",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:18:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/Users/bilalsbaiby/work/resale-iq/node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:18:43Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "find /Users/bilalsbaiby/work/resale-iq/node_modules/next/dist/docs -iname \"*proxy*\" -o -iname \"*middleware*\" 2>&1 | head -20\ncat /Users/bilalsbaiby/work/resale-iq/node_modules/next/package.json 2>&1 |",
       "url": "",
       "ok": true
     }
@@ -1345,7 +1365,7 @@
       "source": "src/data/seo-brands.json, 2026-09-01 — the 6 zero-models_tracked brands (pull-bear, zara, bershka, mango, hugo-boss, calvin-klein; 36 URLs total: 6 brand pages + 30 brand x category pages) were removed on branch claude/seo/w2-zero-model-cleanup. Verified live: brand count 26->20, remaining 9 categories still each served by >=1 real brand. sitemap.ts and generateStaticParams both derive from this same BRANDS list, so the 36 URLs 404 and drop from the sitemap by construction, not by a second edit."
     }
   },
-  "session": "# SESSION\n\n**Updated** 2026-09-02 10:5xZ — **the orchestrator is now OpenClaw, not Claude Code.**\n\n## Read these first\n\n1. `docs/company/OPEN-ITEMS.md` — the one honest status list.\n2. `docs/company/OPENCLAW.md` — what runs where, and what is NOT built.\n3. `~/.openclaw/workspaces/resaleiq/AGENTS.md` — the operating contract OpenClaw runs under.\n\n## Handover state\n\n**Telegram routes to the `resaleiq` agent** (`openclaw agents bindings`). It has its own workspace\nwith the operating contract, the founder gates, the publishing traps and who the founder is. Verified\nanswering unprompted: *\"€0.00 MRR and has never had a paying customer... never manufacture proof.\"*\n\nThe gateway is a LaunchAgent (`RunAtLoad`, `KeepAlive`) on the founder's MacBook — **it survives the\nterminal closing, Claude Code exiting, and a reboot. It stops when the Mac sleeps.** That is why the\nfour Hetzner cron jobs stay: `riq-heartbeat` :17, `riq-disk-guard` :37, `riq-decide` :47, brief 08:05.\nMac orchestrates; Hetzner keeps watch. **Do not delete the host cron.**\n\nPrevious OpenClaw content (a car-scraping project and an assistant persona) is archived to\n`~/.openclaw/_archived-pre-resaleiq`, plus a 421 MB full backup in the session scratchpad.\n\n`~/.openclaw` was added to `SCOPE` in `guard.py` on the founder's explicit instruction — the list\npredated OpenClaw and was blocking setup of the thing meant to run the company.\n\n## Localisation — actually done this time, verified on the live site\n\n`/methodology` now serves **all six locales, 200, with zero English leakage**, checked against\nproduction and not a build log:\n\n```\nes native ✓ english 0 · fr ✓ 0 · de ✓ 0 · it ✓ 0 · pt ✓ 0 · /methodology unchanged\n```\n\n113 keys × 6 locales, full parity, **zero figure drops**. Every sale-word that survives is a correct\ntranslation of the page's own retraction (\"not a confirmed sale\"), checked in context.\n\n**Earlier I called this done when W61 had only turned 404s into redirects** — its own code comment\nsays it does not translate. That was the founder catching me by using the site.\n\n**Still English behind the same redirect:** `/blog`, `/manual`, `/tools`, `/check`, `/terms`,\n`/support`, `/data`. The pipeline is reusable; the work is repetition and it is NOT done.\n\n## I froze the deploy pipeline for most of today\n\n`Agent Isolation` failed from 10:13, and `Deploy` only runs after it passes — so **every commit sat\nunshipped**, including the merged locale routes. Cause: `dashboard/data.json` embeds SESSION.md\nexcerpts verbatim, and a SESSION.md line named an agent-infrastructure endpoint that\n`check-agent-isolation.mjs` refuses anywhere in the repo.\n\n**Third instance of one class of bug**, and the first two are already in `scrub.py`'s docstring: a\ncredential NAME in a recorded command (9 commits frozen), the same names in bus messages (2 more),\nand now an ENDPOINT in a doc excerpt. The scrubber covered names, not endpoints. Now mirrored from\nthe checker's `INFRA_PATTERNS`, unit-tested per pattern, with a docstring saying the two lists must\ngrow together.\n\n**Rule: do not name agent infrastructure in any doc the dashboard embeds.** The scrubber is a net,\nnot a licence.\n\n## Do not\n\n- **Do not call a redirect a translation**, or a 200 a translated page. Grep the body.\n- **Do not report a fix without the artifact.** Production, not CI, not a build log.\n- **Do not assert the result of an operation nobody performed.** A `GET` is not a completion.\n- **Do not repeat \"78% down\"** — 182 probe samples across a full analyzer cycle were 100.00%.\n- **Do not trust `ffprobe`.** Decode the last frame and look at it.\n- **Do not delete the Hetzner cron.** It is the only thing running while the Mac sleeps.\n- **Do not `git add -A`**; stage explicit paths. **Do not `grep` an env dump** — `grep -c '^VAR=.'`.\n\n",
+  "session": "# SESSION\n\n**Updated** 2026-09-02 ~12:45Z — **final Claude Code session. OpenClaw is the orchestrator now.**\n\n## Start here\n\n1. `~/.openclaw/workspaces/resaleiq/knowledge/CURRENT-STATE.md` — the handover, written for you.\n2. `~/.openclaw/workspaces/resaleiq/AGENTS.md` — your operating contract.\n3. `docs/company/OPEN-ITEMS.md` — the honest status list.\n4. `docs/company/OPENCLAW.md` — what runs where, and what is NOT built.\n\n## The product went down today and is MITIGATED, not fixed\n\nEvery anonymous visitor got `LIMIT_REACHED` with `used_today: 0` from 09:10Z. Proven with `tcpdump`\non both Traefik hops: the frontend calls the backend over a **public** hostname, so the request\nhairpins back through the same Traefik, NAT rewrites the source to the bridge gateway, and Traefik\noverwrites `x-forwarded-for` — every visitor on earth in one quota bucket.\n\nMitigated by raising the wide IP backstop (backend #4, deployed). **Verified on the body, not the\nstatus:** `Adidas Samba -> WATCH n=58`, `New Balance 530 -> SKIP n=543`, `Nike Air Force 1 -> WATCH n=87`.\n\n**The permanent fix is a founder decision — APPROVALS A25.** Put the ceiling back to 300 after it ships.\n\n## Four backend PRs merged and deployed today\n\n`#3` cutoff separator (~4 weeks live; merging it turned a \"flaky\" test green and unblocked the rest) ·\n`#2` XFF double-hop · `#1` analyzer lock contention · `#4` ceiling mitigation.\nFrontend `#7` is OPEN and **insufficient alone** — do not merge expecting it to fix the outage.\n\n## Three corrections I made to my own claims today\n\nKept because the pattern matters more than any single error.\n\n1. **\"78% down\"** → **\"100.00% availability\"** → **both wrong.** The first was a duty cycle. The\n   second counted HTTP 200s — and `LIMIT_REACHED` returns 200, so I reported perfect health while the\n   product refused everyone. My probing also helped exhaust the ceiling I was measuring.\n2. **\"nothing forwards x-forwarded-for on the rewrite\"** — factually wrong. `frontend-eng` refuted it\n   with packet captures: Traefik sets it, Next forwards it, and it dies at a *third* hop I had not\n   looked for.\n3. **\"localisation is done\"** — W61 had only turned 404s into redirects. Now genuinely done for\n   `/methodology`, verified live in five languages; seven page families are still English.\n\n## Do not\n\n- **Do not assert on an HTTP status.** Check the response body. This cost the most today.\n- **Do not trust the Deploy workflow's verdict** — it reported `failure` on a deploy that succeeded.\n- **Do not query the local `demand-intel` DB.** ~53 GB, stale, `sold_observed = 0`, answers wrongly.\n- **Do not name agent infrastructure in any doc** — this file ships to visitors inside `data.json`.\n- **Do not call a redirect a translation, or a 200 a working page.**\n- **Do not `git add -A`**; stage explicit paths. **Do not `grep` an env dump** — `grep -c '^VAR=.'`.\n\n",
   "amendments": [
     "AM-1 — The stack is FastAPI + SQLite, not Next.js + Supabase",
     "AM-2 — Spend cap: €200/month, all-in",

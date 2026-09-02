@@ -1431,3 +1431,9 @@ X=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-87`
 p="docs/company/OPEN-ITEMS.md"; s=open(p,encoding="utf-8").read()
 old="Assigned to `backend-eng` with tests required. **This is the surface every marketing click lands on.**"
 new="""**THREE BACKEND FIXES MERG`
+- `2026-09-02T12:30:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/ceiling-mitigation; git add config.py && git commit -q -F /dev/stdin <<'MSGEOF'
+mitigation: raise the anon IP backstop so visitors can use the product again
+
+REVERSIBLE MITIGATION, NOT THE FIX. Put thi`
+- `2026-09-02T12:40:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/final_session.py && python3 scripts/company/build_dashboard.py >/dev/null 2>&1 && npm run check:isolation 2>&1 | tail -1
+git add docs/company/SESSION.md dashb`
