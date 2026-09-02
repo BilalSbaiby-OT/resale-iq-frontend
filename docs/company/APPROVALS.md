@@ -21,6 +21,46 @@ end of Phase 1 (OS §8).
   to manual runs of `resale-iq-seo/scripts/gsc-pull`, not the tool the roster is told it has.
   Evidence and full read: `docs/company/SEO-STATE.md`.
 
+- [ ] **A25 — the anonymous-visitor outage needs ONE of two changes outside `resale-iq`, and I
+  should not pick unilaterally.** Full evidence and the frontend-side half of the fix:
+  `resale-iq-frontend#7` (`claude/frontend-eng/xff-hairpin-fix`, not merged).
+
+  **Confirmed live, by `tcpdump` on both Traefik hops on the Hetzner box, not assumed:** Traefik's
+  edge hop already sets a genuine, unspoofable `x-forwarded-for`/`x-real-ip` on every request this
+  app receives, and Next's rewrite already forwards it — the original diagnosis ("nothing forwards
+  the header") was wrong on the mechanism. The header is lost one hop *later*: `BACKEND_URL` is a
+  public `sslip.io` hostname that round-trips the frontend's outbound `/api/*` request back through
+  the SAME shared Traefik instance as an unrelated second hop. Linux hairpin NAT rewrites that
+  connection's source to the Docker bridge gateway (`10.0.1.1` — exactly the value behind the
+  "300 rows = `ANON_IP_DAILY_CEILING`" bucket in the original incident report) before Traefik's
+  process ever sees a packet, and Traefik — no `forwardedHeaders.trustedIPs`/`insecure` configured
+  on either entrypoint (confirmed via `docker inspect coolify-proxy`) — treats that as untrusted and
+  overwrites `x-forwarded-for`/`x-real-ip` to `10.0.1.1` again, identically for every visitor,
+  discarding whatever was already there. No change inside the `resale-iq` (frontend) repo can
+  prevent this — proven directly: an explicit `X-Forwarded-For` sent from *inside* the running
+  frontend container to the backend's public URL still arrived at the backend as `10.0.1.1`.
+
+  **Two ways to actually close it, pick one:**
+  1. `demand-intel/api/auth.py:_client_ip` reads a new header, `x-resaleiq-verified-ip`, before
+     falling through to `x-forwarded-for`/`x-real-ip`. `resale-iq-frontend#7` already sets this
+     header correctly (sourced from the trusted hop-1 value, stripped of any client-supplied copy
+     first, so it can't be spoofed by a caller hitting `resaleiq.dev` directly). Small, same shape
+     as the fix `demand-intel` already shipped today, different repo — I did not make this change
+     myself since the task said backend was done for today and touching it again without being
+     asked is scope creep on someone else's just-merged work.
+  2. Configure `coolify-proxy`'s entrypoints to trust the Docker bridge gateway
+     (`forwardedHeaders.trustedIPs`), so the already-merged backend code (which already walks a
+     2-entry XFF chain correctly) works with **no further app changes anywhere**. I did not make
+     this change myself: it is a static-config change to the ONE Traefik instance shared by every
+     app on this host, requires restarting that container (brief interruption for every app, not
+     just this one), and is security-relevant (which peers get trusted). Higher blast radius than
+     anything the constitution's "smallest correct fix" language contemplated for an app-repo PR.
+
+  **Until one of these ships, `https://resaleiq.dev/api/verdict` keeps returning `LIMIT_REACHED`
+  for every anonymous visitor even after `resale-iq-frontend#7` merges and deploys** — that PR is
+  necessary, not sufficient. `resale-iq-frontend#7` is open, not merged, per the standing rule
+  never to push `main`.
+
 *(A1–A6 were answered on 2026-08-31. Founder Gate #1 lands here when the Phase 1 audit
 finishes: the CUT list, the P0 order, and anything the audit finds that only you can decide.)*
 
