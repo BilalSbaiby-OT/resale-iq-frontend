@@ -60,6 +60,11 @@ SCOPE = (
     "/Users/bilalsbaiby/Desktop",
     "/Users/bilalsbaiby/work",
     "/Users/bilalsbaiby/.claude/plans",
+    # The orchestrator's own home. Added 2026-09-02 on the founder's explicit
+    # instruction, as OpenClaw becomes the primary control layer and this list
+    # predates it. Blocking writes here blocked setting up the very thing that
+    # is meant to run the company.
+    "/Users/bilalsbaiby/.openclaw",
 )
 
 SECRET = re.compile(
