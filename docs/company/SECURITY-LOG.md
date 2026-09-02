@@ -1406,3 +1406,7 @@ Agent Isolation fails, an`
 - `2026-09-02T10:43:33Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: guard blocks from the OpenClaw handover
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | x`
+- `2026-09-02T10:52:43Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SESSION.md dashboard/data.json && git commit -q -m "SESSION: handover to OpenClaw, and the deploy freeze I caused
+
+The next operator is OpenClaw, not a Claude Code session, so this file is now
+written for it. Points at OPEN-ITEMS.md, OPENCLA`
