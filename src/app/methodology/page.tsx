@@ -2,7 +2,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
-import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
+import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "@/lib/trial-copy"
 import { methodology } from "@/lib/methodology-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
@@ -65,10 +65,10 @@ function decodeCopyEntities<T extends Record<string, string>>(obj: T): T {
 // file) is unchanged; src/app/[locale]/methodology/page.tsx imports this
 // same function and passes the path locale. Every string below that comes
 // from `t` (methodology(locale)) is verified translated in all 6 locales —
-// see methodology-copy.ts's own header. A handful of short fragments have
-// no key yet (no key exists for them in any locale) and are left as literal
-// English on purpose, identically in every locale, rather than guessed at
-// here — grep this file for "no key yet" to find them.
+// see methodology-copy.ts's own header, both the original 58 keys and the
+// g_*/fresh*/conf*/auth* keys added to close the fragments that were still
+// English on first ship of locale routing (all closed as of this commit;
+// see methodology-copy.ts's changelog note for the source of each batch).
 export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {}) {
   const t = decodeCopyEntities(methodology(locale))
   const tracked = await listingsTrackedLabel()
@@ -126,7 +126,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           {t.text1}
         </p>
         <p style={{ fontSize: 15, color: "#8b99b8", lineHeight: 1.7, marginBottom: 32 }}>
-          {t.text2} <Link href="/support" style={{ color: "#22c55e", textDecoration: "none" }}>support</Link>.
+          {t.text2} <Link href="/support" style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_support_link}</Link>.
         </p>
 
         <Section title={t.section0}>
@@ -134,48 +134,35 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             {t.text3}
           </P>
           <P>
-            {/* no key yet: "left the shelf" has no translation key, left English in every locale */}
-            We anchor on listings that{" "}
-            <strong style={{ color: "#eef1f7" }}>left the shelf</strong>{t.text4}{" "}
+            {t.g_anchor_prefix}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.g_leftshelf}</strong>{t.text4}{" "}
             <strong style={{ color: "#eef1f7" }}>{t.text5}</strong>.
-            {/* no key yet: this sentence has no translation key, left English in every locale */}
-            {" "}We see a listing disappear from a Vinted search shelf, and we infer a sale at its last
-            asking price. A departure is also consistent with the seller delisting it, an account
-            ban, an offline sale at a different price, or the seller{" "}
+            {" "}{t.g_disappear}{" "}
             <strong style={{ color: "#eef1f7" }}>{t.text6}</strong> {t.text7}{" "}
-            {/* no key yet: this clause has no translation key, left English in every locale */}
-            <em>not</em> selling, so the items most likely
-            to generate a fabricated &ldquo;sale&rdquo; are exactly the slow-moving ones a reseller
-            most needs an honest warning about. We have not yet measured how often this happens.
-            The price shown is therefore an{" "}
+            {t.g_notselling}{" "}
             <strong style={{ color: "#eef1f7" }}>{t.text8}</strong> {t.text9}
           </P>
           <P>
-            {t.text10} <strong style={{ color: "#eef1f7" }}>watched</strong>{" "}
-            {/* no key yet: the rest of this sentence has no translation key, left English in every locale */}
-            a listing go from active to gone. Listings we first saw already gone are in the
-            catalogue count, not in weekly departures. That is why listings tracked can be millions
-            while weekly watched departures are in the hundreds or thousands — not because the
-            market died, and not because a refresh zeroed the table.
+            {t.text10} <strong style={{ color: "#eef1f7" }}>{t.g_watched}</strong>{" "}
+            {t.g_departure_tail}
           </P>
           {weekly > 0 && (
-            <Callout label="Right now">
-              {fmtCount(market.listingsTracked)} distinct listings tracked ·{" "}
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} watched departures in 7 days</strong>
-              {" "}across {market.brandCount} brands on the public table
-              {market.brandsTracked != null ? ` (${market.brandsTracked} brands in the catalogue)` : ""}.
-              Last calculated {market.stamp ?? "—"}.
+            <Callout label={t.g_rightnow_label}>
+              {fmtCount(market.listingsTracked)} {t.g_tracked_suffix} ·{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} {t.g_departures_7d}</strong>
+              {" "}{t.g_across} {market.brandCount} {t.g_brands_table}
+              {market.brandsTracked != null ? ` (${market.brandsTracked} ${t.g_brands_catalogue})` : ""}.
+              {" "}{t.g_last_calculated} {market.stamp ?? "—"}.
             </Callout>
           )}
         </Section>
 
         <Section title={t.section1}>
-          {/* no key yet: this table's cells have no translation keys, left English in every locale */}
           <Table rows={[
-            ["Listing collection", "scheduled every 30 min/market, skips if busy", "measured 2026-09-02 from the scraper run log: 83% of gaps under 1h over the trailing 7 days (n=1,157); 58% under 1h over the last 48h during a current backlog"],
-            ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection; 0 skips observed in the same window"],
-            ["Departure verification", "every 60 minutes", "confirms a listing left the shelf — not that it sold; 0 skips observed"],
-            ["Public page refresh", "no page cache — live per request", "each request renders from the current database; not a 15-minute cache"],
+            [t.fresh0_0, t.fresh0_1, t.fresh0_2],
+            [t.fresh1_0, t.fresh1_1, t.fresh1_2],
+            [t.fresh2_0, t.fresh2_1, t.fresh2_2],
+            [t.fresh3_0, t.fresh3_1, t.fresh3_2],
           ]} />
           <P>
             {t.text12}
@@ -192,24 +179,18 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             <Code>sold_observed=1</Code>{t.text16} <Code>sold_at</Code>{t.text17} <em>or</em>{" "}
             {t.text18}
           </P>
-          <Callout label="Why this matters">
+          <Callout label={t.g_whyitmatters_label}>
             {t.text19}
           </Callout>
         </Section>
 
         <Section title={t.section3}>
           <Code>{t.text20}</Code>
-          {/* no key yet: this whole paragraph has no translation key, left English in every locale */}
           <P>
-            <code style={{ color: "#8fe3b0" }}>avg_departure_price</code> is the average asking
-            price of comparable listings at the moment they left the shelf — the closest honest
-            proxy we have for a sale price, not an observed one (see &ldquo;Where the data comes
-            from&rdquo; above). The 0.95 is the 5% platform deduction we model for Vinted. The
-            0.70 targets roughly a 30% margin. Fee structures differ by platform, by market, and
-            by whether you sell privately or as a business — and they change — so substitute your
-            own figure if yours differs. The{" "}
-            <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>profit calculator</Link>{" "}
-            applies current per-platform rates across Vinted, Depop, eBay, Poshmark, StockX and GOAT.
+            <code style={{ color: "#8fe3b0" }}>avg_departure_price</code> {t.g_buybelow_a}{" "}
+            &ldquo;{t.section0}&rdquo; {t.g_buybelow_b}{" "}
+            <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_profit_calc}</Link>{" "}
+            {t.g_buybelow_c}
           </P>
         </Section>
 
@@ -217,13 +198,12 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           <P>
             {t.text21}
           </P>
-          {/* no key yet: this table's cells have no translation keys, left English in every locale */}
           <Table rows={[
-            ["HIGH", "≥ 30 comparable departures and quality ≥ 70", "snapshot younger than 48 hours"],
-            ["MEDIUM", "≥ 10 comparable departures and quality ≥ 40", "or HIGH but the snapshot is stale"],
-            ["LOW", "thinner than that", "always paired with “Only N comparable departures”"],
+            ["HIGH", t.conf0_1, t.conf0_2],
+            ["MEDIUM", t.conf1_1, t.conf1_2],
+            ["LOW", t.conf2_1, t.conf2_2],
           ]} />
-          <Callout label="What LOW means">
+          <Callout label={t.g_lowmeans_label}>
             {t.text22}
           </Callout>
         </Section>
@@ -233,17 +213,15 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             {t.text23} <strong style={{ color: "#eef1f7" }}>{t.text24}</strong>
             {t.text25}
           </P>
-          {/* no key yet: this table's cells have no translation keys, left English in every locale */}
           <Table rows={[
-            ["75–100", "High confidence", "nothing unusual found"],
-            ["50–74", "Moderate — verify", "some signals worth checking"],
-            ["25–49", "Low confidence", "several unusual signals"],
-            ["0–24", "Very low", "multiple red flags"],
+            ["75–100", t.auth0_1, t.auth0_2],
+            ["50–74", t.auth1_1, t.auth1_2],
+            ["25–49", t.auth2_1, t.auth2_2],
+            ["0–24", t.auth3_1, t.auth3_2],
           ]} />
-          {/* no key yet: the opening clause has no translation key, left English in every locale */}
-          <Callout label="What it is not" warm>
-            It is <strong style={{ color: "#eef1f7" }}>not</strong> an authentication service and{" "}
-            <strong style={{ color: "#eef1f7" }}>not</strong> {t.text26}
+          <Callout label={t.g_whatnot_label} warm>
+            {t.g_notauth_a} <strong style={{ color: "#eef1f7" }}>{t.g_not}</strong> {t.g_notauth_mid}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.g_not}</strong> {t.text26}
           </Callout>
         </Section>
 
@@ -265,10 +243,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
         <Section title={t.section7}>
           <Bullets items={[
             t.bullet1_0,
-            // no key yet: this sentence is figure-interpolated (${tracked}) and has
-            // no translation key, left English in every locale on purpose — the
-            // page's own edit rule is every figure here must be traceable to code.
-            `Overstate the dataset. The site says ${tracked} because that is what COUNT(DISTINCT external_id) returns — the five Vinted domains are one catalogue, so a raw row count would say 2.8M and overstate by about 3x. We previously said 30M+, which came from a development database that does not serve this site. Both were corrected.`,
+            `${t.g_overstate_a} ${tracked} ${t.g_overstate_b}`,
             t.bullet1_1,
           ]} />
         </Section>
@@ -277,10 +252,8 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           <div style={{ fontSize: 16.5, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>
             {t.text28}
           </div>
-          {/* no key yet: this sentence is figure-interpolated (TRIAL_LIMITS_SENTENCE) and
-              has no translation key, left English in every locale */}
           <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.65, marginBottom: 16 }}>
-            The aggregate market data is public and free to cite with attribution. {TRIAL_LIMITS_SENTENCE} No card.
+            {t.g_cta_a} {TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]} {t.g_cta_b}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
@@ -295,9 +268,8 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           </div>
         </div>
 
-        {/* no key yet: "Questions" heading has no translation key, left English in every locale */}
         <section style={{ marginTop: 36 }}>
-          <h2 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7", marginBottom: 14 }}>Questions</h2>
+          <h2 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7", marginBottom: 14 }}>{t.g_questions}</h2>
           {faq.map((f) => (
             <div key={f.q} style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</div>
