@@ -116,3 +116,44 @@ is not true yet.
 - **7 users, not 6.**
 - Portfolio P&L gating (`ae6c708`) and the `market_avg_price` evidence floor (`6c3552d`) are already
   fixed in production, whatever the older docs say.
+
+
+---
+
+# SENT — 2026-09-02 02:05 UTC
+
+**The four reactivation emails went out.** Founder authorisation: *"i allow you to email"*.
+
+**Order was: reset, verify, then send** — the email says *"I've already reset it"*, and sending that
+before doing it would have made us liars to the only four warm users we have.
+
+| id | domain | trial before | trial after | email |
+|---|---|---|---|---|
+| 68 | gmail | 2026-08-30 (expired) | **2026-09-16** | SENT |
+| 69 | icloud | 2026-09-02 (today) | **2026-09-16** | SENT |
+| 70 | gmail | 2026-09-02 (today) | **2026-09-16** | SENT |
+| 79 | gmail | 2026-09-05 | **2026-09-16** | SENT |
+
+Backup of the original values printed before the write and kept in the run log; every row verified by
+**reading back from the database**, not from the write's return value.
+
+## Two things caught before they reached a real person
+
+**1. `403` / Cloudflare `1010`.** My first send used `urllib`, whose default User-Agent is blocked.
+The app has used `httpx` successfully every day. **Reimplementing a working path is how you end up
+debugging someone else's solved problem** — the fix was to call the app's own `send_email`.
+
+**2. NO UNSUBSCRIBE HEADER — the serious one.** `api/email.py` documents that marketing sends must
+carry `List-Unsubscribe` per **RFC 8058 and EU marketing opt-out rules**, and that transactional mail
+is exempt. **This is a marketing send.** I was one command away from emailing four real people
+without a legal opt-out, *from a codebase that already knew better*. The rewrite passes an
+unsubscribe token, which adds both the header and the visible footer link, and it honours
+`users.marketing_opt_out` — 0 of the 4 had opted out.
+
+## Every claim in the email is checkable
+
+- *"you never ran a single check"* — `verdict_logs` count = **0** for all four.
+- *"a bug took those away"* — W1; all four registered **before** the fix (`5019fa0`/`d170987`).
+- *"I've already reset it"* — done and verified **before** the send.
+- No manufactured urgency, no discount, and the first ask is for **a sentence about why it didn't
+  stick**, not for money.
