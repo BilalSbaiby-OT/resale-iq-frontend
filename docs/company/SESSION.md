@@ -29,6 +29,15 @@ wrote on 2026-09-01 ("i give authorization"). **The check called the founder's o
 failure.** Probes now declare their lift flag: absent → must block, present → must ALLOW. 4 probes → 9,
 and the lift path is verified for the first time. **17 checks, 0 failed.**
 
+**The security ledger was full of drills.** `os_verify.mjs` fires real payloads at the real guard to
+prove the gates enforce — and never set `COMPANY_OS_LOG_DIR`, so every SessionStart appended fake
+force-pushes and fake OS.md writes to `SECURITY-LOG.md`. **52 in one morning.** The guard exposes that
+variable for exactly this ("changes where we log, never what we block"); the checker just never used it.
+Fixed at the source, and the 52 synthetic entries removed surgically — the same window held three REAL
+`DEPLOY ALLOWED` records for the actual commit and push, and those are history. Criterion: exact match
+against a probe payload; anything unrecognised was kept. Removal is noted in the ledger, not silent.
+**Proof: 1329 lines before two verify runs, 1329 after.**
+
 ## Blocked
 
 **Vinted crawl still ~1880s vs 1814s baseline.** Tracker half FIXED (203.2s → 5.6s live). Remaining

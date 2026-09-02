@@ -20,7 +20,8 @@
  *   node scripts/company/os_verify.mjs --json     machine output for status_report
  */
 import { execFileSync } from 'node:child_process';
-import { accessSync, constants, readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { accessSync, constants, readFileSync, readdirSync, existsSync, statSync, mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
   hookRegistrations, invalidEvents, eventParity, ephemeralHooks,
@@ -66,6 +67,13 @@ for (const r of ROOTS) {
   regsByRoot[r.label] = s ? hookRegistrations(s, r.dir) : [];
 }
 const allRegs = Object.values(regsByRoot).flat();
+
+// Probes fire the REAL guard. Without redirecting its log, proving the gates
+// enforce appends fake force-pushes and fake OS.md writes to the live ledger --
+// 52 of them in one morning, at every SessionStart. A ledger salted with drills
+// is unreadable on the one day it matters.
+const PROBE_ENV = { ...process.env,
+                    COMPANY_OS_LOG_DIR: mkdtempSync(join(tmpdir(), 'os-verify-probe-')) };
 
 check('harness/settings-parse', () => {
   const found = ROOTS.filter(r => existsSync(r.settings));
@@ -145,7 +153,7 @@ check('harness/guard-scope-covers-session-roots', () => {
     try {
       execFileSync(guard, {
         input: JSON.stringify({ tool_name: 'Read', tool_input: { file_path: join(dir, 'scope-probe.txt') } }),
-        stdio: ['pipe', 'pipe', 'pipe'],
+        stdio: ['pipe', 'pipe', 'pipe'], env: PROBE_ENV,
       });
       return 0;
     } catch (e) { return e.status ?? -1; }
@@ -204,7 +212,7 @@ check('harness/registered-gates-actually-block', () => {
     for (const r of regs) {
       ran++;
       const run = payload => {
-        try { execFileSync(r.resolvedPath, { input: JSON.stringify(payload), stdio: ['pipe','pipe','pipe'] }); return 0; }
+        try { execFileSync(r.resolvedPath, { input: JSON.stringify(payload), stdio: ['pipe','pipe','pipe'], env: PROBE_ENV }); return 0; }
         catch (e) { return e.status ?? -1; }
       };
       const got = run(p.block);

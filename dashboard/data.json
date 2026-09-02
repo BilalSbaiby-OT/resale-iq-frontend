@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T05:40:28Z",
+  "generated_at": "2026-09-02T06:41:04Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -115,18 +115,18 @@
       "fix": "Phase 2: /precision"
     },
     "band_coverage_demand": {
-      "value": 68.1,
-      "n": 160,
+      "value": 68.5,
+      "n": 162,
       "source": "sql/metrics/band_coverage_demand.sql (production)"
     },
     "band_evidence_p50": {
-      "value": 13.0,
+      "value": 12.5,
       "n": 68,
       "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
-      "value": 31.9,
-      "n": 160,
+      "value": 31.5,
+      "n": 162,
       "source": "sql/metrics/insufficient_data_rate.sql (production)"
     },
     "band_coverage_supply": {
@@ -136,30 +136,30 @@
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 406,
+      "n": 407,
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 7.3,
-      "n": 1194,
+      "value": 12.7,
+      "n": 1186,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 13269188
+      "value": 13281436
     },
     "newest_sold_at": {
-      "value": "2026-09-02 05:37:09"
+      "value": "2026-09-02 06:36:50"
     },
     "predictions_total": {
-      "value": 406
+      "value": 407
     }
   },
   "funnel": {
     "verdicts_7d": {
-      "value": 196
+      "value": 198
     },
     "pageviews_7d": {
-      "value": 1409
+      "value": 1411
     },
     "signups_7d": {
       "value": 4
@@ -686,6 +686,14 @@
     ],
     "recent_commits": [
       {
+        "sha": "f222d87",
+        "msg": "loop: the frame-check rule caught a live customer-facing defect on first use"
+      },
+      {
+        "sha": "233dae8",
+        "msg": "fix: we were showing customers a database constant"
+      },
+      {
         "sha": "cdbe3cc",
         "msg": "loop: audited the video library by looking at it, not by trusting ffprobe"
       },
@@ -724,14 +732,6 @@
       {
         "sha": "a730ba1",
         "msg": "session: the four emails are sent, and the near-miss is worth more than the send"
-      },
-      {
-        "sha": "eb9d2dc",
-        "msg": "sent: the four reactivation emails, with the legal opt-out I nearly omitted"
-      },
-      {
-        "sha": "4df3773",
-        "msg": "session: tracker proven at 5.6s live; the crawl did NOT recover"
       }
     ],
     "dirty": false,
@@ -800,6 +800,160 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-02T05:53:05Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\np=\"docs/company/SESSION.md\"; s=open(p).read()\ni=s.index(\"## Working on\")\nnew = \"\"\"## Working on\n\n# 🔎 THE FRAME-CHECK RULE CAUGHT A LIVE CUSTOMER-FACING DEFECT ON ITS FIRST USE\n\nRe-sho",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:52:37Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_brandlabel.txt <<'MSG'\nfix: we were showing customers a database constant\n\nRe-shot the Carhart",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:52:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_brand_label.py && npx tsc --noEmit 2>&1 | tail -3; npm run build 2>&1 | grep -iE \"compiled s",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:51:46Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_brand_label.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:51:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -n \"const label\" -B 2 -A 4 src/components/tools/free-checker.tsx | head -10",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:51:22Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "sed -n '360,370p' src/components/tools/free-checker.tsx | cut -c1-140",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:51:17Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -n \"verdict}\" src/components/tools/free-checker.tsx | head -4; grep -n \"fontSize: 3[0-9]\\|fontSize: 2[4-9]\" src/components/tools/free-checker.tsx | head -4",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:51:06Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -n \"VERDICT_COLOR\" -A 8 src/components/tools/free-checker.tsx | head -12; echo \"--- where the verdict text renders ---\"; sed -n '376,392p' src/components/tools/free-checker.tsx | cut -c1-130",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:58Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && grep -rln \"verdict\" src/components/tools/ 2>/dev/null | head -3; grep -rn \"BRAND_AVERAGE\\|res\\.verdict\" src/ 2>/dev/null | head -6",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:50Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -rn \"res.verdict\\|verdict}\" src/components/tools/free-checker.tsx | head -6; echo \"--- the verdict render block ---\"; sed -n \"$(grep -n 'verdict' src/components/tools/free-checker.tsx | grep -iE ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:42Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "grep -rn \"BRAND_AVERAGE\" src/ 2>/dev/null | head -6; echo \"--- how other verdicts are labelled ---\"; grep -rn \"verdict === \\|verdictLabel\\|VERDICT_LABEL\" src/components/tools/free-checker.tsx 2>/dev/n",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Read",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/carhartt-v2-last.png"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:20Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd docs/marketing/assets/frames-carhartt-v2 && ls *.png | tail -1 | xargs -I{} cp {} /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/carhartt-v2-last.pn",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:50:11Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "node scripts/capture_demo.mjs \"Carhartt jacket\" docs/marketing/assets/frames-carhartt-v2 2>&1 | tail -4; ls docs/marketing/assets/frames-carhartt-v2/*.png 2>/dev/null | wc -l | xargs echo \"  frames ca",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T05:49:22Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/wake.py 2>&1 | sed -n '5,20p'; echo \"=== production ===\"; for u in / /es /fr /de /it /pt /api/health; do printf \"%s \" \"$(curl -s -o /dev",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-02T04:51:51Z",
       "session": "fb348ebc",
@@ -1159,168 +1313,14 @@
       "cmd": "",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:06:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "git status --porcelain | grep -v \"^??\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:06:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'\np=\"docs/company/FIRST-REVENUE.md\"; s=open(p).read()\ns = s.replace(\"# We say \\\"I don't know\\\" while holding the answer\", \"# We say \\\"I don't kno",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:05:40Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_v2.py resaleiq:/root/send_v2.py >/dev/null 2>&1 && ssh -o",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:05:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_v2.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:05:00Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "grep -n \"def unsubscribe_url\\|def unsubscribe_token\\|unsubscribe_token(\" api/email.py db/queries.py 2>/dev/null | head -5; echo \"--- how lifecycle builds it ---\"; grep -rn \"unsubscribe_token\" alerts/l",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:04:47Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/demand-intel && grep -n \"resend\\|User-Agent\\|httpx\\|requests\" api/email.py 2>/dev/null | head -10; echo \"--- send function ---\"; sed -n \"$(grep -n 'def send_email' api/email",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:04:36Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py resaleiq:/root/send_reactivation.py >/dev",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:04:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\np=\"/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py\"\ns=open(p).read()\nassert \"£19\" in s\nopen(p,\"w\").write(s.replace",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:04:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/send_reactivation.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:03:50Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "scp -o BatchMode=yes -o ConnectTimeout=25 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/reset_trials.py resaleiq:/root/reset_trials.py >/dev/null 2>&1",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:03:38Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/reset_trials.py"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:03:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\nimport sys; sys.path.insert(0,\"scripts/company\")\nimport build_dashboard as bd\nprint(bd.ssh_py(r'''\nimport sqlite3\nc = sqlite3.connect(\"file:/app/data/demand_intel.db?mode=ro\", uri=Tru",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:02:56Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "for u in / /es /fr /de /it /pt /api/health /register; do printf \"%-12s %s\\n\" \"$u\" \"$(curl -s -o /dev/null -w '%{http_code}' -m 15 \"https://resaleiq.dev$u\")\"; done; echo \"=== real searches ===\"; for q ",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:02:33Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/wake.py 2>&1 | tail -32",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T02:01:39Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session14.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 375,
+    "blocked": 377,
     "tripwire": 0,
     "recent": [
+      "`2026-09-02T05:40:36Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-02T05:40:36Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T04:40:04Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T04:40:04Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T03:39:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
@@ -1330,9 +1330,7 @@
       "`2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T00:38:20Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes -o ConnectTimeout=25 resaleiq \"C=\\$(docker ps --format '{{.Names}}'|grep ph5cl|hea",
-      "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-02T00:15:24Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `chmod +x githooks/pre-commit && git config core.hooksPath githooks && echo \"hooksPath = $(git config co"
+      "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
     ],
     "restore_test": {
       "value": null,
@@ -1364,7 +1362,7 @@
       "source": "src/data/seo-brands.json, 2026-09-01 — the 6 zero-models_tracked brands (pull-bear, zara, bershka, mango, hugo-boss, calvin-klein; 36 URLs total: 6 brand pages + 30 brand x category pages) were removed on branch claude/seo/w2-zero-model-cleanup. Verified live: brand count 26->20, remaining 9 categories still each served by >=1 real brand. sitemap.ts and generateStaticParams both derive from this same BRANDS list, so the 36 URLs 404 and drop from the sitemap by construction, not by a second edit."
     }
   },
-  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# 🎥 THE VIDEO LIBRARY IS PART BROKEN — and `ffprobe` could never have told us\n\nAudited every marketing video by **pulling its last frame and looking at it**. Three checked in\ndetail:\n\n| asset | last frame shows |\n|---|---|\n| `batch2-es-final` | ❌ *\"No data found for 'Zara blazer'\"* |\n| `carhartt-demo-9x16` | ❌ *\"'Carhartt jacket' is not a product in the catalog\"* |\n| `r131-pt-final` | ✅ **buy-below €21 · market €32 · 63 left shelf vs 19,700 listed · WATCH** |\n\n**All three pass `ffprobe`** — video+audio+1080, distinct md5, correct duration. `carhartt-demo` was\npreviously reported to me as **verified good**. It ends on our product failing.\n\n**The cause, which makes the fix obvious:** videos shot against a **vague** query produce failure\nscreens; videos shot against a **specific model** produce real results. And **W60 has since changed\nthat** — a vague query now returns a brand average instead of nothing, so **the same shot would work\ntoday. Re-shoot, do not discard.**\n\nRule written into `CONTENT-RULES.md`: **pull the last frame before publishing. `ffprobe` is not\nverification.**\n\nAlso flagged: **row 131's caption is New Balance in Portuguese while its video shows Adidas Samba.**\nBoth real, nothing false published — but a viewer notices that before we do.\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `Carhartt jacket` → **BRAND_AVERAGE n=32**.\n- **Actionable crossed 70%** for the first time: 68.5 → 68.8 → 69.3 → 69.6 → **70.1%** across five\n  wakes, with **11 brand-average** answers. W60 is doing exactly what it was built to do.\n- **The four emailed users: still 0 checks, 0 paying, 0 unsubscribes.** ~5am their time.\n- **Disk guard holding** at 76.9% after pruning from 85%.\n- **Did not publish.** Every ready row is either already live or blocked for showing the product\n  failing. **Nothing publishable exists that is not already out.**\n\n# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE\n\nThe two defects that were **identical in all 21** are closed. `d95bbdb`.\n\n- **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in the founder's own words**. Every agent\n  had been operating under a rule he deleted. **Now 0/21.**\n- **0/21 defined DONE.** DOCTRINE §6 makes it binding, so the day the doctrine shipped **every agent\n  contradicted it**. Now all 21 carry CLAIMED / EXECUTED / VERIFIED / PROVEN, *\"a row closes on a\n  commit, a URL, a test count or a measurement — never on a claim\"*, and **UNKNOWN as a respected\n  deliverable**.\n- **21/21 now state the right to refuse.** Deliberate, not decorative: three agents refused wrong\n  instructions from me on 2026-09-01 — the W54 deploy key, the phantom orphan container, a redundant\n  PENDING fix — **and each was right.** Writing it into the contract is how that survives the next\n  prompt that pushes against it.\n\n**What this does NOT do:** differentiate them. They remain largely boilerplate, and that needs\nindividual work per role. **Mechanically generating 21 personalities is exactly what produced the\ndefect the audit measured**, so it stays open rather than faked in one pass.\n\nVerified: frontmatter intact on all 21, and the DoD lands **before** the Loop section so it is read\nbefore work starts.\n\n## Measured this loop\n\n- **Production**: six locales + health + register 200. `Nike Air Force 1` → WATCH n=103.\n  `Fred Perry polo` → **BRAND_AVERAGE n=51**.\n- **The four emailed users: 0 checks, 0 paying, and 0 opt-outs.** Sent 02:05; it is ~4am in their\n  timezones. **Too early to be data — and nobody has unsubscribed, which is the only signal available\n  this soon.**\n- **Disk guard working**: 85% → 76.8% and holding.\n- **Actionable trend**: 68.5% → 68.8% → 69.3% → 69.6% across five wakes. Slow, real, and moving the\n  right way as W60 converts dead ends (**10 brand-average answers**).\n- **Did not publish.** ~4am across all five markets, and the only two ready drafts are the ones I\n  blocked for ending on the product failing.\n\n# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING\n\nRows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to\npublish this loop. I pulled the **last frame** before approving:\n\n> **\"No data found for 'Zara blazer'. Try a brand + model name.\"**\n\n**The video ends on our product saying it doesn't know.** Shot against a query it couldn't answer.\nBoth rows are now `blocked_broken_asset` with the reason in `review_note`. **Nothing published this\nloop, and that is the right outcome** — `ffprobe` said video+audio+1080, and it would have passed\nevery automated check we have. **Only looking at the picture caught it.**\n\nNote: W60 means that same shot would land *better* today — a vague query now returns `BRAND_AVERAGE`\ninstead of nothing. Re-shoot, don't discard.\n\n# 🔧 DISK GUARD — prune when it matters, not on a calendar\n\nDisk climbed **75.5 → 80.1 → 82.4 → 85%** across three heartbeats (~2h). The daily prune could not\nkeep up. `/usr/local/bin/riq-disk-guard` now runs hourly and acts **only above 80%**.\n\n**My first version reclaimed 0 bytes at 85%** — it filtered cache to `until=24h` and all the cache is\nfrom *today's* builds, so nothing matched while it reported success. **A check that passes by finding\nnothing**, the same shape as the UTM regex that matched no links. Fixed; **85% → 77%, 17 GB free**,\nand verified it does **nothing** at 77%.\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `Adidas Samba` → WATCH, buy_below **20.97**, n=63.\n- **Tracker fix holding**: `01:57 → 5.59s` against 203.17s and 205.66s before it.\n- **The four emails**: sent 02:05, **0 checks since** — expected, it is ~3am in their timezones.\n  **Not a failure; too early to be data.**\n- **Board 21 closed / 1 open** (founder's).\n\n# 📧 THE FOUR REACTIVATION EMAILS ARE SENT\n\n**The last thing standing between us and a first customer.** Founder authorisation: *\"i allow you to\nemail\"*. Full record in `FIRST-REV",
+  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# 🔎 THE FRAME-CHECK RULE CAUGHT A LIVE CUSTOMER-FACING DEFECT ON ITS FIRST USE\n\nRe-shot the Carhartt capture to prove W60 turned a dead demo into a working one. **It did** — the\nquery that used to say *\"not a product in the catalog\"* now shows **Carhartt Jackets · market €50 ·\n33 left shelf vs 7,625 listed**.\n\n**But the same frame showed the verdict rendered as `BRAND_AVERAGE`** — 26px caps, underscore and\nall. **A database constant on a customer's screen, live since W60 shipped.** And `VERDICT_COLOR` had\nno entry for it, so it fell through to the grey used by UNKNOWN and INSUFFICIENT_DATA — **a real\nanswer painted the colour of a refusal.**\n\nFixed in `233dae8`: human label, and blue rather than grey. **Deliberately not the green of BUY** — a\nbrand-level average is not a per-item call and must not look like one.\n\n**How it was found matters more than the fix.** `ffprobe` called that video valid. Every automated\ncheck passed it. **Only pulling the last frame and looking at it** surfaced this — which is the rule\nI wrote into `CONTENT-RULES.md` an hour ago, **earning its keep on first use.**\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `New Balance 530` → SKIP, buy_below **26.55**, n=542.\n- **Actionable 70.3%**, brand-average **12** — still climbing as W60 converts dead ends.\n- **The four emailed users: 0 checks, 0 paying, 0 unsubscribes.** ~6am their time.\n- **Crawl 1742.9s** — drifting down slightly, still no better than the 1,814s baseline. **The\n  tracker half is fixed; the crawl half remains a sizing question.**\n- **Did not publish.** The re-shot Carhartt frames are captured but not yet cut to video; publishing\n  the old assets would ship the product failing.\n\n# 🎥 THE VIDEO LIBRARY IS PART BROKEN — and `ffprobe` could never have told us\n\nAudited every marketing video by **pulling its last frame and looking at it**. Three checked in\ndetail:\n\n| asset | last frame shows |\n|---|---|\n| `batch2-es-final` | ❌ *\"No data found for 'Zara blazer'\"* |\n| `carhartt-demo-9x16` | ❌ *\"'Carhartt jacket' is not a product in the catalog\"* |\n| `r131-pt-final` | ✅ **buy-below €21 · market €32 · 63 left shelf vs 19,700 listed · WATCH** |\n\n**All three pass `ffprobe`** — video+audio+1080, distinct md5, correct duration. `carhartt-demo` was\npreviously reported to me as **verified good**. It ends on our product failing.\n\n**The cause, which makes the fix obvious:** videos shot against a **vague** query produce failure\nscreens; videos shot against a **specific model** produce real results. And **W60 has since changed\nthat** — a vague query now returns a brand average instead of nothing, so **the same shot would work\ntoday. Re-shoot, do not discard.**\n\nRule written into `CONTENT-RULES.md`: **pull the last frame before publishing. `ffprobe` is not\nverification.**\n\nAlso flagged: **row 131's caption is New Balance in Portuguese while its video shows Adidas Samba.**\nBoth real, nothing false published — but a viewer notices that before we do.\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `Carhartt jacket` → **BRAND_AVERAGE n=32**.\n- **Actionable crossed 70%** for the first time: 68.5 → 68.8 → 69.3 → 69.6 → **70.1%** across five\n  wakes, with **11 brand-average** answers. W60 is doing exactly what it was built to do.\n- **The four emailed users: still 0 checks, 0 paying, 0 unsubscribes.** ~5am their time.\n- **Disk guard holding** at 76.9% after pruning from 85%.\n- **Did not publish.** Every ready row is either already live or blocked for showing the product\n  failing. **Nothing publishable exists that is not already out.**\n\n# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE\n\nThe two defects that were **identical in all 21** are closed. `d95bbdb`.\n\n- **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in the founder's own words**. Every agent\n  had been operating under a rule he deleted. **Now 0/21.**\n- **0/21 defined DONE.** DOCTRINE §6 makes it binding, so the day the doctrine shipped **every agent\n  contradicted it**. Now all 21 carry CLAIMED / EXECUTED / VERIFIED / PROVEN, *\"a row closes on a\n  commit, a URL, a test count or a measurement — never on a claim\"*, and **UNKNOWN as a respected\n  deliverable**.\n- **21/21 now state the right to refuse.** Deliberate, not decorative: three agents refused wrong\n  instructions from me on 2026-09-01 — the W54 deploy key, the phantom orphan container, a redundant\n  PENDING fix — **and each was right.** Writing it into the contract is how that survives the next\n  prompt that pushes against it.\n\n**What this does NOT do:** differentiate them. They remain largely boilerplate, and that needs\nindividual work per role. **Mechanically generating 21 personalities is exactly what produced the\ndefect the audit measured**, so it stays open rather than faked in one pass.\n\nVerified: frontmatter intact on all 21, and the DoD lands **before** the Loop section so it is read\nbefore work starts.\n\n## Measured this loop\n\n- **Production**: six locales + health + register 200. `Nike Air Force 1` → WATCH n=103.\n  `Fred Perry polo` → **BRAND_AVERAGE n=51**.\n- **The four emailed users: 0 checks, 0 paying, and 0 opt-outs.** Sent 02:05; it is ~4am in their\n  timezones. **Too early to be data — and nobody has unsubscribed, which is the only signal available\n  this soon.**\n- **Disk guard working**: 85% → 76.8% and holding.\n- **Actionable trend**: 68.5% → 68.8% → 69.3% → 69.6% across five wakes. Slow, real, and moving the\n  right way as W60 converts dead ends (**10 brand-average answers**).\n- **Did not publish.** ~4am across all five markets, and the only two ready drafts are the ones I\n  blocked for ending on the product failing.\n\n# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING\n\nRows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to\npublish this loop. I pulled the **last frame** before approving:\n\n> **\"No data found for 'Zara",
   "amendments": [
     "AM-1 — The stack is FastAPI + SQLite, not Next.js + Supabase",
     "AM-2 — Spend cap: €200/month, all-in",

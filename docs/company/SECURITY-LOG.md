@@ -1304,3 +1304,26 @@ new = """## Working on
 
 Re-shot the Carhartt capture to prove W60 turned a dead demo into a working one. **It did** — the
 query th`
+
+- `2026-09-02T06:57:41Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq
+echo "=== executable bit ==="; ls -l .claude/hooks/*.py | awk '{print $1, $NF}'
+echo "=== reproduce the check exactly: exec the file directly, no cwd ==="
+cd /
+echo '{"tool_name":"Bash","tool_input":{"command":"git push origin main"}}' | /Users/bilalsbaiby/work/r`
+- `2026-09-02T07:00:46Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add scripts/company/os_verify.mjs && git commit -q -m "$(cat <<'EOF'
+harness: fix the two checks that held the board RED for 22 hours
+
+Neither the guard nor the founder's authorization was wrong. Both checks were.
+
+guard-scope-covers-session-roots regex'd the SCOPE tuple out of guard.py with a
+n`
+- `2026-09-02T07:01:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main 2>&1 | tail -3; echo "=== confirm the fix survives a cold run, as the next session will see it ==="; node scripts/company/os_verify.mjs 2>&1 | tail -3`
+
+> **52 synthetic entries removed 2026-09-02.** They were probe payloads fired by
+> `scripts/company/os_verify.mjs` to prove the gates enforce, not attempted actions. The checker
+> executed the guard without `COMPANY_OS_LOG_DIR`, so every SessionStart wrote fake force-pushes
+> and fake OS.md writes into this file. Fixed at the source in the same commit. Real entries from
+> the same window — the actual commit and push — were kept. Removal criterion: the command matched
+> an os_verify probe payload exactly; anything unrecognised was kept.
+- `2026-09-02T07:03:10Z` **BLOCKED** Bash — secret reference in a command this hook cannot parse safely — `python3 - <<'PY' P="scripts/company/os_verify.mjs"; s=open(P,encoding="utf-8").read() # The guard exposes COMPANY_OS_LOG_DIR so rails can be exercised without writing # to the live ledger. Every probe below must use it, or proving the gates work # corrupts the record of them working. probe_env = """`
+- `2026-09-02T07:03:41Z` **BLOCKED** Bash — git push --force — `cd /Users/bilalsbaiby/work/resale-iq; echo "=== probe signatures remaining anywhere in the ledger ==="; grep -c "git push --force origin feature" docs/company/SECURITY-LOG.md 2>/dev/null | xargs echo " force-push probes:"; grep -c "scope-probe.txt" docs/company/SECURITY-LOG.md 2>/dev/null | xargs ec`
