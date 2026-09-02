@@ -47,6 +47,29 @@ same shape: **asserting the result of an operation nobody performed.**
 
 ---
 
+## 🔴 LIVE NOW — the product refuses every anonymous visitor
+
+```
+curl -s "https://resaleiq.dev/api/verdict?q=Adidas%20Samba"
+{"verdict":"LIMIT_REACHED","message":"Free tier: 10 verdicts/day. Starter or Pro for unlimited."}
+```
+
+`verdict_logs` today: hash `d66e6eaf9400d271` = **300 rows** (the `ANON_IP_DAILY_CEILING`, exhausted
+at 09:10), then **660 consecutive `LIMIT_REACHED`** rows. That hash is `sha256('10.0.1.1')` — the
+Docker bridge gateway — so **every visitor on the internet shares one 300/day bucket.**
+
+Root cause: `demand-intel/api/auth.py:382` `_client_ip()` takes the LAST `X-Forwarded-For` entry.
+Its docstring reasons "exactly one proxy sits in front of this app", which was true when written and
+became false when `next.config.ts:115-121` started rewriting `/api/*` through the frontend. Two hops
+now, so the last entry is our own container.
+
+**Do not "fix" it by taking the first XFF entry** — that is spoofable and was a real security bug the
+current code deliberately closed. Take the last entry that is not one of our own internal hops.
+
+Assigned to `backend-eng` with tests required. **This is the surface every marketing click lands on.**
+
+---
+
 ## OPEN — found, nobody on it. This is the list that matters.
 
 | # | what | measured | why it is still open |
@@ -84,11 +107,13 @@ same shape: **asserting the result of an operation nobody performed.**
 
 Kept deliberately, because the pattern matters more than any single error.
 
-1. **"Product is down 78% of the day"** — retracted, and now settled with data. That figure was the
-   analyzer's duty cycle, not an availability measurement. The probe has since completed:
-   **182 samples at 30s intervals over 1h32m spanning a full analyzer cycle — 100.00% availability,
-   p50 0.50s, p99 1.44s, zero non-200s.** The three 500s I hit were real and are still worth root-
-   causing, but the product is not broadly down, and my original number was wrong by a wide margin.
+1. **"Product is down 78% of the day"** → **"100.00% availability"** → **BOTH WRONG.** The first was
+   a duty cycle dressed as an outage rate. The second was worse: I probed 182 times and counted HTTP
+   200s — but **`LIMIT_REACHED` returns HTTP 200.** `verdict_logs` shows the endpoint was refusing
+   every anonymous visitor for most of that window, while my probe reported perfect health. **An HTTP
+   status is a proxy for "the product works", and I wrote the rule against exactly this before
+   breaking it.** My 182 requests also helped exhaust the shared ceiling I was measuring. Correct
+   method: assert on the response BODY (`verdict` field), never the status code.
 2. **"Autonomy blocked on a credential"** → **"never blocked"** → both wrong. See item 3 above.
 3. **"llms.txt's 998 figure is suspect"** — refuted by `seo`, which summed the live endpoint and got
    exactly 998. It refused to change the line because that would have *introduced* a false claim.

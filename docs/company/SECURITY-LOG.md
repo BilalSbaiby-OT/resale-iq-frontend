@@ -1413,3 +1413,7 @@ written for it. Points at OPEN-ITEMS.md, OPENCLA`
 - `2026-09-02T10:52:59Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git commit -q -m "ledger: guard blocks from the handover session
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | xargs echo "dirty:"`
+- `2026-09-02T11:02:18Z` **BLOCKED** Read — path outside company scope — `/private/tmp/nonexistent`
+- `2026-09-02T11:03:01Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/OPEN-ITEMS.md dashboard/data.json docs/company/SECURITY-LOG.md 2>/dev/null; git commit -q -m "LIVE OUTAGE: the product refuses every anonymous visitor, and my availability claim was wrong
+
+Production returns LIMIT_REACHED to every anonymous `
