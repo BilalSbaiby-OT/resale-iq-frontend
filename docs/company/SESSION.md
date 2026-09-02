@@ -4,6 +4,53 @@
 
 ## Working on
 
+# ✅ TRACKER FIXED AND PROVEN LIVE — 203.2s → 5.6s (36×)
+
+```
+TRACKER
+  2026-09-02 01:57      5.6s   ← POST-FIX, on production
+  2026-09-02 00:00    203.2s
+  2026-09-01 23:00    205.7s
+```
+
+The **system-level** number, not the query benchmark. The query alone measured **223.6s → 0.0085s**;
+the job it lives in went **203.2s → 5.6s**. `demand-intel@9d3a24b`, 1,345 tests.
+
+**This was the COMPOUNDING half.** The tracker verifies 300 rows per run; at 203s the backlog grew
+faster than it drained, which produced the monotonic no-plateau curve. **At 5.6s that loop is
+broken** — the backlog now drains.
+
+# ⚠️ THE VINTED CRAWL DID NOT RECOVER — and that is the honest half
+
+```
+02:00 1984s · 01:48 1300s · 01:39 2525s · 01:25 1721s   (all post-deploy)
+```
+
+Averaging ~1,880s against a 1,814s baseline. **No improvement.** The tracker's `ORDER BY` was one of
+two problems, not both.
+
+**Remaining hypothesis, named but NOT proven:** a **21 GB SQLite database on a 3.7 GB host** — the
+page cache cannot hold the working set. That is a **capacity** problem, not a query one, and it has
+no one-line fix. **It is now the strongest argument for `devops`'s 8 GB / 4 vCPU recommendation**,
+which is a founder spend decision.
+
+**Do not claim the crawl decay is fixed.** Half is fixed and proven; half is open.
+
+## A watcher of mine reported a non-result as proof
+
+My first tracker watcher compared timestamp **strings** against a baseline truncated to minutes, so
+`"2026-09-02 00:00:56" > "2026-09-02 00:00"` matched **the very row it was meant to exclude** and
+printed "before 203.2s, after 203.166s" as a result. Rewritten against the monotonic **row id**,
+which cannot do that. **Caught before it reached the founder — but only just.**
+
+## Board
+
+**21 closed / 1 open — the only open row is the founder's** (W24, Coolify UI).
+
+## Start here
+
+`python3 scripts/company/wake.py` — step zero in `DOCTRINE.md`.
+
 # ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s
 
 **The most valuable fix of the day.** `demand-intel@9d3a24b`, merged, deploying.
