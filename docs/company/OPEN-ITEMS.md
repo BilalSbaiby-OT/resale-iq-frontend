@@ -75,7 +75,7 @@ Assigned to `backend-eng` with tests required. **This is the surface every marke
 | # | what | measured | why it is still open |
 |---|---|---|---|
 | 1 | **Localisation: 7 page families still English** | `/blog`, `/manual`, `/tools`, `/check`, `/terms`, `/support`, `/data` all 307 to English | methodology proves the pipeline; the rest is repetition nobody has done |
-| 2 | **Tracker cutoff defect, ~4 weeks live** | `.isoformat()` writes `T`, production stores a space; space < `T`, so same-date rows read stale. **300 of 300 queue rows last seen ~2 min earlier** | assigned once, never verified fixed |
+| 2 | ~~Tracker cutoff defect~~ **FIXED, PR open** | root cause was 23 `.isoformat()` cutoffs vs space-separated storage. Falsified: revert and 9 tests fail. Suite **1345 passed, 0 failed** — green for the first time | [backend#3](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/3) awaiting merge. **The 'flaky' test blocking backend#1 and #2 was a TRUE POSITIVE all along** |
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
 | 5 | Health monitoring **stale for 27h52m** while reporting `pass 14/14` | batches 09-01 03:05 → 09-02 06:57 | nothing caps verdict age |

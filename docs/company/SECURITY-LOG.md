@@ -1417,3 +1417,10 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin mai
 - `2026-09-02T11:03:01Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/OPEN-ITEMS.md dashboard/data.json docs/company/SECURITY-LOG.md 2>/dev/null; git commit -q -m "LIVE OUTAGE: the product refuses every anonymous visitor, and my availability claim was wrong
 
 Production returns LIMIT_REACHED to every anonymous `
+- `2026-09-02T11:21:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/cutoff-fix; git add db/queries.py tests/test_cutoff_separator.py && git commit -q -F /dev/stdin <<'MSGEOF'
+fix: format timestamp cutoffs the way the database stores them
+
+A ~4-week production defect, a`
+- `2026-09-02T11:21:54Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
+p="docs/company/OPEN-ITEMS.md"; s=open(p,encoding="utf-8").read()
+old = "| 2 | **Tracker cutoff defect, ~4 weeks live** | `.isoformat()` writes `T`, production stores a space; space < `T`, so same-date rows read stale. **300 of 300 queue rows`
