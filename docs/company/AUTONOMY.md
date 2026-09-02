@@ -15,9 +15,9 @@ assumed:
 
 | credential | where | result |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | local · production host · GitHub secrets | **absent everywhere** |
-| `OPENROUTER_API_KEY` | local only | **valid, authenticates, `402 Payment Required`** |
-| `GROQ_API_KEY` | local only | **`403 Forbidden`** |
+| `ANTHROPIC_API_KEY` | local · production host · GitHub secrets | **absent everywhere** (declared but empty locally — length 0, so `[ -n "$VAR" ]` reads it as configured) |
+| `OPENROUTER_API_KEY` | local only | **200 OK — FUNDED. limit 50, remaining €29.78, used €20.22** (measured 2026-09-02 07:5xZ) |
+| `GROQ_API_KEY` | local only | **200 OK — authenticates**, full model list returned (measured 2026-09-02 07:5xZ) |
 | GitHub Actions secrets | repo | only `COOLIFY_DEPLOY_KEY` |
 
 And the schedulers, in their own words:
@@ -161,3 +161,37 @@ is not a decision a cron job should make.
 the database alone is ~21 GB. Pruning buys headroom; it does not change that a 21 GB database sits on
 a 75 GB disk with 3.7 GB of RAM. **That is the same sizing question as the crawl decay** — 8 GB /
 4 vCPU — and it is the founder's spend decision.
+
+---
+
+## CORRECTION 2026-09-02 — THE 402/403 BLOCKER WAS STALE FOR AT LEAST A DAY
+
+**This document said OpenRouter returned `402` and Groq returned `403`. Both are false.**
+Re-measured 2026-09-02 under `.claude/bin/with-secrets.sh`:
+
+```
+GET https://openrouter.ai/api/v1/key       -> 200   limit 50, remaining 29.78, usage 20.22
+GET https://api.groq.com/openai/v1/models  -> 200   full model list
+```
+
+**There is ~€29.78 of funded inference the company has not been using**, while every session that
+read this file was told it was blocked on the founder's money. This document and `SESSION.md` were
+both rewritten on 2026-09-02 and **both re-asserted the blocker without re-testing it.** The gap
+between the documented state and the measured state widened during the very window in which the
+docs were updated. That is the exact failure the founder keeps catching: an inference copied
+forward until it reads as history.
+
+### What actually blocks autonomy, measured
+
+| # | blocker | who can clear it |
+|---|---|---|
+| 1 | `openrouter.ai` and `api.groq.com` are **not in `POST_HOSTS_OK`** (`.claude/hooks/guard.py:86-93`), so the inference POST is refused | **FOUNDER** — `guard.py` is a protected path (needs `.claude/UNLOCK_HARNESS`) |
+| 2 | **No model key on the production host or in the backend container** (all three grep to 0) | **FOUNDER** — placing a credential on a production box is a security decision |
+| 3 | The hourly cadence is a **session-only `CronCreate` job** that dies with the session, and has never once fired at its advertised `:23` | follows from 1 and 2 |
+
+**None of these is "buy a credential." The credential is bought and working.** Two of the three are
+founder approvals of specific, named changes.
+
+**Still UNKNOWN:** whether the funded key can complete an actual inference. Only `GET` was tested —
+the `POST /chat/completions` is refused by blocker 1, and I did not route around a founder gate to
+try it. Authentication and balance are proven; **completion is not.**

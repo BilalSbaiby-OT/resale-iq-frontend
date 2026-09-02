@@ -6,7 +6,7 @@
 
 **Board 21 closed / 1 open — the only open row is the founder's (W24, Coolify UI).**
 
-**A publishable video exists and IS PUBLISHED.** `carhartt-v3-final.mp4` — 1080×1920, 11.4s,
+**A publishable video exists and is now live** — https://www.instagram.com/reel/DcxvxA9gcLG/ (published 07:53:26Z). **Note the order: that sentence was first written at 07:01Z, and a commit title said "row 154 published", while Postiz still had it in `QUEUE` with `releaseURL: null`. It became true 52 minutes later. Do not write a claim and let the event catch up to it.** `carhartt-v3-final.mp4` — 1080×1920, 11.4s,
 video+audio, last frame VISUALLY verified showing `Carhartt Jackets · MARKET €50 · 33 left shelf vs
 7,625 listed · **BRAND AVERAGE**` in blue. Row **154**, tagged `utm_content=r154`, approved row by row
 (that DB has concurrent writers and no lock), queued to Instagram at 07:53Z — the only channel that
@@ -43,9 +43,14 @@ against a probe payload; anything unrecognised was kept. Removal is noted in the
 **Vinted crawl still ~1880s vs 1814s baseline.** Tracker half FIXED (203.2s → 5.6s live). Remaining
 hypothesis UNPROVEN: 21 GB DB on a 3.7 GB host. **Sizing = founder spend decision (8 GB / 4 vCPU).**
 
-**AUTONOMY BLOCKED ON ONE CREDENTIAL.** `ANTHROPIC_API_KEY` absent everywhere · OpenRouter **402** ·
-Groq **403** · `CronCreate` "gone when Claude exits" · scheduled tasks need the app open · GH Actions
-has no DB route. **6 of 10 capabilities live.** Do NOT build an orchestrator on a 402.
+**AUTONOMY IS NOT BLOCKED ON A CREDENTIAL — that was wrong for at least a day.** Measured
+2026-09-02: OpenRouter **200, €29.78 remaining of €50**; Groq **200**. The funded key was sitting
+unused while this file told every session it was blocked on money. What actually blocks it:
+(1) `openrouter.ai` is not in `POST_HOSTS_OK` (`guard.py:86-93`) — **founder-gated protected path**;
+(2) no model key on the production host or in the container — **founder security decision**;
+(3) the hourly loop is a session-only `CronCreate` job that dies with the session and has never
+fired at its advertised `:23`. **UNKNOWN: whether the key can complete an inference** — only `GET`
+was tested; the `POST` is refused by (1) and I did not route around a founder gate. See AUTONOMY.md.
 
 **Founder:** BUY threshold (65 vs data ceiling 59.2 — do NOT lower until someone says what 65 meant) ·
 `LIFECYCLE_EMAILS=1` · host sizing · W24 · `resaleiq.com` · ElevenLabs · Resend rotation · pricing.
