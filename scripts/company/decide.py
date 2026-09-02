@@ -191,6 +191,9 @@ def unsupported_numbers(text, state):
         try:
             present.add(str(int(float(v.replace(",", ".")))))
         except ValueError:
+            # why: v came from a regex over JSON, so a token like "1.2.3" is not a
+            # number at all. It simply contributes no integer form to compare
+            # against. Nothing failed and there is nothing to report.
             pass
     bad = []
     for tok in NUM.findall(text):
@@ -200,6 +203,9 @@ def unsupported_numbers(text, state):
         try:
             f = float(t)
         except ValueError:
+            # why: an unparseable token cannot be a fabricated FIGURE, which is the
+            # only thing this function looks for. Skipping it is the correct answer,
+            # not a swallowed failure. Erring here would block honest briefs.
             continue
         # Years, small ordinals and percentages-of-100 are rhetoric, not evidence.
         if f in (0, 1, 2, 3, 100) or 2020 <= f <= 2100:
@@ -262,6 +268,10 @@ def main():
     try:
         d = json.loads(raw)
     except json.JSONDecodeError:
+        # why: this IS logged, loudly, with the offending text -- and then the run
+        # ends deliberately. A model that returned prose instead of JSON must not
+        # be guessed at; inventing structure over it is exactly the fabrication
+        # this whole file exists to prevent.
         log(f"provider {provider} returned unparseable output; discarded. "
             f"first 160 chars: {raw[:160]!r}")
         return 0
