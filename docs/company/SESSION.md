@@ -4,6 +4,50 @@
 
 ## Working on
 
+# ⚙️ THE COMPANY NOW HAS A HEARTBEAT THAT RUNS WITHOUT ANY SESSION
+
+`/usr/local/bin/riq-heartbeat`, **hourly cron on the production host** (`17 * * * *`). Reads
+production, computes company state, persists `/app/state/company_state.json`, evaluates five alert
+rules, messages the founder on Telegram. **See `AUTONOMY.md`.**
+
+First live run: `paying 0 · users 7 · checks 111 · actionable 68.5% · brand_average 8 · crawl 120
+runs @ 1798s · disk 75.5%`. **`brand_average 8` = W60 answering real visitors in production.**
+
+**Tested on the real host, not simulated:** alert path proven by forcing `disk_pct=99` → rule fired →
+**Telegram delivered** · state persists with a previous baseline · **survives a deploy** (deleted
+`/app/observe.py`, cron restored it, state intact) · unreadable metric writes **null, never zero**.
+
+# 🔴 AUTONOMY IS BLOCKED ON ONE CREDENTIAL — NOT DONE
+
+```
+ANTHROPIC_API_KEY   absent: local, host, GitHub secrets
+OPENROUTER_API_KEY  valid, authenticates → 402 Payment Required
+GROQ_API_KEY        403 Forbidden
+CronCreate          "gone when Claude exits" (its own docs)
+Scheduled tasks     only fire while the app is open
+GitHub Actions      durable, but NO route to the production DB
+```
+
+**No reasoning model is reachable from any runtime that outlives a session.** So the company observes,
+remembers, detects and escalates without the founder — but **cannot decide or execute**.
+**6 of 10 autonomy capabilities live; the 4 missing all reduce to one funded key.** Nothing built has
+to change when it arrives.
+
+**Do NOT build an orchestrator on top of a 402.** That is a framework that looks autonomous and
+silently does nothing — the exact failure `POST-MORTEM.md` documents.
+
+## Also shipped this stretch
+
+- **W61 merged** — a locale prefix no longer 404s, and the free-checker's limit-reached CTA no longer
+  bounced a Spanish visitor to the English homepage **at the exact moment we ask them to pay**.
+- **`githooks/pre-commit`** — code checks at the keyboard, not in CI where one failure blocked 23
+  commits. **Advisory by design**; a blocking pre-commit hook is a slower CI failure someone
+  `--no-verify`s past.
+- **`check-silent-failure` false positive fixed.** The hook fired on its first real commit and was
+  **wrong** — it flagged a handler that reports via `sys.stderr`. Fixed the checker, not the code:
+  **a check that cries wolf gets disabled inside a week.** My first fix was also wrong (a regex that
+  broke on `str(e)`); caught at the keyboard in two minutes.
+
 **⛔ 23 COMMITS WERE BLOCKED BY MY OWN CHECK.** `check:silent` flagged four bare handlers in
 `daily_brief.py` — the script I wrote to report honestly. **The check was right; I was sloppy.**
 Each swallow is correct (the brief must send even when a source is unreadable, and print UNKNOWN

@@ -1136,3 +1136,21 @@ fix: catch the check at the keyboard, not after it blocks 23 commits
 
 check:silent failed on daily_brief.py, a file written minutes earlier, and CI
 held 23 commits behind it -- `
+- `2026-09-02T00:36:30Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git merge --no-ff claude/frontend-eng/w61-locale-deep-links -m "$(printf '%s\n' 'merge: W61 -- a locale prefix must never 404' '' 'The founder: "the languages shit isnt working fully on all pages." He was right.' '/es/pricing, /es/blog, /es/methodology, /es/deals, /es/terms all 404d, and the' 'same `
+- `2026-09-02T00:37:34Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T00:37:34Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T00:38:20Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes -o ConnectTimeout=25 resaleiq "C=\$(docker ps --format '{{.Names}}'|grep ph5cl|head -1); echo '=== TEST 2: does state PERSIST and produce a delta? ==='; docker exec \$C python3 -c \" import json d = json.load(open('/app/state/company_state.json')) print(' now.paying =', d['now']`
+- `2026-09-02T00:39:56Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_auto.txt <<'MSG'
+autonomy: the nervous system runs headless; the brain needs one credential
+
+The founder asked to be told when it is done so he can leave. It is NOT done,
+and this commit says so`
+- `2026-09-02T00:41:01Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_fp.txt <<'MSG'
+fix: my silent-failure check was crying wolf on code that does report
+
+The pre-commit hook fired on observe.py:137 during a real commit -- exactly what
+it was built for -- but the`
+- `2026-09-02T00:41:57Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session11.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s11.txt <<'MSG'
+session: the company has a heartbeat, and autonomy is bloc`
