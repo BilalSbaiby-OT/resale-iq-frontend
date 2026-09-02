@@ -96,3 +96,52 @@ costs the channel permanently. **Real data is the moat; inventing it hands the m
 - **Never glue "12.7M listings" to "26 markets."** 12.7M is the tracked corpus on 5 EU markets; the
   26 are live pass-through search.
 - **Platform-native.** One insight, adapted — never one post reposted five ways.
+
+
+---
+
+## ASSET VERIFICATION — added 2026-09-02 after two broken videos reached the queue
+
+**`ffprobe` is not verification. It reports codec, resolution and audio. It cannot see that the video
+shows our product failing.**
+
+Two drafts (rows 149, 151) were the only Instagram content with UTMs *and* assets — the obvious
+things to publish — and both **ended on a failure screen**:
+
+> *"No data found for 'Zara blazer'. Try a brand + model name."*
+
+They passed every automated check we have: `video+audio+1080`, distinct md5, correct duration. A
+third asset previously reported as verified-good, `carhartt-demo-9x16.mp4`, ends on
+*"'Carhartt jacket' is not a product in the catalog."*
+
+### The rule
+
+**Before any video is published, pull its last frame and look at it.**
+
+```
+ffmpeg -v error -sseof -0.5 -i VIDEO.mp4 -frames:v 1 -y /tmp/last.png
+```
+
+**If the frame shows an error, a "no data" message, or an empty result, the asset is dead.** Mark the
+row `blocked_broken_asset` with the reason. Do not publish and do not quietly delete — a broken asset
+kept with its reason teaches more than a note saying one existed.
+
+### The cause, so it stops recurring
+
+**Videos shot against a VAGUE query produce failure screens. Videos shot against a SPECIFIC MODEL
+produce real results.**
+
+| shot against | outcome |
+|---|---|
+| `Zara blazer`, `Carhartt jacket` | ❌ "no data found" — unusable |
+| `Adidas Samba` (r131) | ✅ buy-below €21 · market €32 · 63 left shelf vs 19,700 listed · WATCH |
+
+**Shoot against a model the catalogue actually holds.** Note that W60 has since changed this: a vague
+query now returns a **brand average** instead of nothing, so re-shooting the same query today would
+work. **Re-shoot; do not discard.**
+
+### Also check the caption matches the video
+
+Row 131's caption is about **New Balance in Portuguese**; its video shows **Adidas Samba**. Both are
+real, so nothing false was published — but a caption promising one thing over footage showing another
+is the kind of sloppiness a viewer notices before we do.
