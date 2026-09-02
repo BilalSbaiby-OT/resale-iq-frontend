@@ -3,19 +3,25 @@ import { isPathLocale } from "@/lib/locale-routes"
 
 /**
  * W61 (docs/company/WORKBOARD.md). Verified live 2026-09-02: only the
- * homepage is translated (see [locale]/page.tsx, [locale]/layout.tsx) --
- * every deeper locale path (/es/pricing, /es/blog, /es/methodology,
- * /es/deals, /es/terms, and the same for fr/de/it/pt) had no route at all
- * and 404'd. A 404 reads as a broken site, and this is the only five markets
- * we sell to.
+ * homepage was translated (see [locale]/page.tsx, [locale]/layout.tsx) --
+ * every deeper locale path (/es/pricing, /es/blog, /es/deals, /es/terms,
+ * and the same for fr/de/it/pt) had no route at all and 404'd. A 404 reads
+ * as a broken site, and this is the only five markets we sell to.
  *
- * This does NOT translate those pages -- that is a real, separate content
- * task (blog, methodology and terms are hundreds of lines each and deserve
+ * /methodology is no longer in that list: it has its own translated route
+ * at src/app/[locale]/methodology/page.tsx (58 keys verified in all 6
+ * locales, src/lib/methodology-copy.ts), added after this file was written.
+ * No change was needed here for that -- a literal `[locale]/<path>/page.tsx`
+ * always wins over this `[...rest]` catch-all in Next's router, so it
+ * simply stops firing for /methodology on its own; see the note below.
+ *
+ * This does NOT translate the remaining pages -- that is a real, separate
+ * content task (blog and terms are hundreds of lines each and deserve
  * native review, not a rushed machine pass, per W9's own flagged gaps in
- * i18n.ts). What it does is stop the 404: a locale-prefixed deep path now
- * redirects to the real, English page at the same path rather than a dead
- * end. Per the founder's ranking on W61, "linking a Spanish reader to an
- * English page is survivable; linking them to a 404 is not."
+ * i18n.ts). What it does for those is stop the 404: a locale-prefixed deep
+ * path redirects to the real, English page at the same path rather than a
+ * dead end. Per the founder's ranking on W61, "linking a Spanish reader to
+ * an English page is survivable; linking them to a 404 is not."
  *
  * "pricing" is special-cased because it is not a page -- it is the
  * #pricing anchor on the homepage (pricing-section.tsx). "/pricing" itself
