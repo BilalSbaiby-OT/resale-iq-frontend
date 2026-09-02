@@ -795,3 +795,49 @@ wrong.** Bring the disagreement back rather than reconciling it quietly.
 **17 findings I will defend without qualification (1–17), 3 labelled THIN in place (18–20), and 6
 axes explicitly reported UNKNOWN or REJECTED rather than padded.** If you would rather have 17 than
 20, drop 19 and 20 first — 18 is a real finding and the only true market-difference asset we have.
+
+---
+
+## RE-VERIFIED 2026-09-02 08:4xZ — and why 17 queued posts were wrong
+
+**A number is only true on the day it was measured.** 17 unpublished rows (EN/ES/FR/PT) all
+carried the same templated pair of claims:
+
+> *"New Balance sneakers alone left the shelf **309** times last week across ES/FR/DE/IT/PT,
+> averaging **€42** at departure."*
+
+Re-read from production today, same query shape, read-only from inside the container:
+
+| claim | as queued | **production today** |
+|---|---|---|
+| New Balance sneaker departures, 7d | 309 | **1,223** |
+| average departure price | €42 | **€38.15** |
+
+**The direction was right and the magnitude was stale.** New Balance genuinely leads every
+sneaker brand we track. All 17 rows were corrected rather than blocked — killing 17 true posts
+over a stale integer is the wrong trade.
+
+### Verified sneaker figures, 2026-09-02, 7-day window, ES/FR/DE/IT/PT
+
+```
+sneakers still listed      1,633,410
+sneakers departed, 7d          4,555      -> 358 listed for every one that moves
+
+departures by brand:   New Balance 1,223  ·  Nike 478  ·  Reebok 401
+                       Adidas 334  ·  Puma 198
+New Balance departures:  n=1,223   avg €38.15   min €1   max €145
+```
+
+*(Balenciaga sits second at 667 and is deliberately never named in marketing, along with Gucci.)*
+
+### The rule this produced
+
+**Re-verify every hard number at publish time, not at write time.** A figure templated into a
+queue that sits for days will drift, and the post ships a number nobody can reproduce. One
+disproven statistic costs the channel permanently — that is the whole reason this file exists.
+
+**Corollary, learned the expensive way today:** when you bulk-correct a figure, `\b309\b` also
+matches inside `8.309`. A regex word boundary is not a number boundary. That substitution
+corrupted an Italian row into `8.1,223` before it was caught and restored. **Diff every row you
+touch and re-scan for malformed output afterwards** — the correction is a new claim and earns
+the same scrutiny as the claim it replaces.
