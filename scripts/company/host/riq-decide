@@ -1,0 +1,28 @@
+#!/bin/sh
+# Resale IQ reasoning layer. Hourly from cron on this host.
+#
+# observe.py measures and fires fixed thresholds; it cannot notice anything nobody
+# wrote a rule for. This reads the same state and reasons about it, then escalates
+# only when the reasoning says it cannot wait.
+#
+# Copies the script INTO the container on every run, exactly like riq-heartbeat:
+# Coolify replaces the container on every deploy, and a reasoning layer that dies
+# silently on the next deploy is worse than none.
+#
+# Keys live in /root/.riq-secrets (mode 600) and are passed per-exec. They are
+# never baked into the image and never written to a log.
+set -u
+
+[ -f /root/.riq-secrets ] || { logger -t riq-decide 'no secrets file'; exit 0; }
+. /root/.riq-secrets
+
+C=$(docker ps --format '{{.Names}}' | grep ph5cl | head -1)
+[ -z "$C" ] && { logger -t riq-decide 'no backend container'; exit 0; }
+
+docker cp /root/decide.py "$C":/app/decide.py 2>/dev/null || exit 0
+docker exec "$C" mkdir -p /app/state 2>/dev/null
+
+docker exec \
+  -e GEMINI_API_KEY="$GEMINI_API_KEY" \
+  -e GROQ_API_KEY="$GROQ_API_KEY" \
+  "$C" python3 /app/decide.py "$@" >>/var/log/riq-decide.log 2>&1
