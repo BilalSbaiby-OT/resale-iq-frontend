@@ -5,15 +5,11 @@
 ```
 OS STATUS                                  checked 0m ago
 
-  RED — 2 blocking
+  GREEN — nothing blocking
 
-BLOCKING
-  ✗ harness/guard-scope-covers-session-roots     n=5
-      not covered: /Users/bilalsbaiby/work, /Users/bilalsbaiby/.claude/plans
-      -> add the root to guard.py SCOPE
-  ✗ harness/registered-gates-actually-block      n=4
-      /Users/bilalsbaiby/work/resale-iq/.claude/hooks/guard.py did not block a must-block payload; /Us
-      -> the hook is registered but not enforcing
+WHAT CHANGED
+  harness/guard-scope-covers-session-roots     ✗ -> ✓
+  harness/registered-gates-actually-block      ✗ -> ✓
 
 UNKNOWN — asked, no answer (never rendered as zero)
   company.retention_30d              population below floor (n = 0, floor = 100)
@@ -27,5 +23,5 @@ UNKNOWN — asked, no answer (never rendered as zero)
   security.restore_test              no restore drill recorded
       -> SECURITY-AUDIT.md finding #2
 
-  17 checks · 2 failed · 0 inspected nothing
+  17 checks · 0 failed · 0 inspected nothing
 ```

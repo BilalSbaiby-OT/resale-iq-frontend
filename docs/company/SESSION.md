@@ -1,92 +1,100 @@
 # SESSION
 
-**Updated** 2026-09-02 (CEO)
+**Updated** 2026-09-02 08:1xZ (CEO) — after a 15-agent audit of the window since the founder left
 
-## Working on
+## The four corrections that matter most
 
-**Board 21 closed / 1 open — the only open row is the founder's (W24, Coolify UI).**
+**1. AUTONOMY WAS NEVER BLOCKED ON A CREDENTIAL.** Every doc said "OpenRouter 402 · Groq 403".
+Measured 2026-09-02: **OpenRouter 200, limit 50, remaining €29.78, used €20.22. Groq 200.** The key
+is bought and funded and has been sitting unused while every session was told the company was
+waiting on the founder's money. Corrected in `ffb551f`. **The real blocker is two approvals:**
+(a) `openrouter.ai` is absent from `POST_HOSTS_OK` (`guard.py:86-93`) — founder-gated protected
+path, do NOT route around it; (b) no model key on the production host or in the container.
+**Still UNKNOWN: whether the key can complete an inference.** Only `GET` was tested — the `POST` is
+refused by (a), and the rail blocked it during this very session (see SECURITY-LOG 07:25:17Z).
 
-**A publishable video exists and is now live** — https://www.instagram.com/reel/DcxvxA9gcLG/ (published 07:53:26Z). **Note the order: that sentence was first written at 07:01Z, and a commit title said "row 154 published", while Postiz still had it in `QUEUE` with `releaseURL: null`. It became true 52 minutes later. Do not write a claim and let the event catch up to it.** `carhartt-v3-final.mp4` — 1080×1920, 11.4s,
-video+audio, last frame VISUALLY verified showing `Carhartt Jackets · MARKET €50 · 33 left shelf vs
-7,625 listed · **BRAND AVERAGE**` in blue. Row **154**, tagged `utm_content=r154`, approved row by row
-(that DB has concurrent writers and no lock), queued to Instagram at 07:53Z — the only channel that
-has returned anyone.
+**2. A PUBLISH CLAIM PRECEDED THE PUBLISH BY 52 MINUTES.** SESSION.md said "IS PUBLISHED" and commit
+`c79f1d5` was titled "row 154 published" at 07:01Z, while Postiz had `QUEUE` / `releaseURL: null`.
+It went live 07:53:26Z — https://www.instagram.com/reel/DcxvxA9gcLG/ . **Never write the claim and
+let the event catch up.**
 
-**W60 is working in production:** actionable 68.5% → **70.8%** across seven wakes, brand-average **13**.
+**3. "ALL CALLS UNATTRIBUTED" PROVES NOTHING.** Agent attribution has been dead since
+2026-08-31T21:44Z; the ledger's `agent` field has only ever held two values all-time. The conclusion
+(0 of 21 agents ran) is still true, on different evidence: **zero Agent spawns in the window** (last
+one 69 min before it opened) and zero inter-agent mail.
 
-**The frame-check rule earned its keep on first use.** Re-shooting Carhartt revealed the verdict
-rendering as raw `BRAND_AVERAGE` (26px caps, underscore) — a database constant on a customer's screen,
-live since W60. `VERDICT_COLOR` had no entry, so a real ANSWER was painted the grey of a refusal.
-Fixed `233dae8`: human label + blue (deliberately NOT the green of BUY).
+**4. THE DISK DID NOT SELF-HEAL.** The 85%→77% reclaim was a MANUAL run at 02:50Z, not the guard.
+The hourly guard reclaimed 2–3 points four times and the disk reads **82% again**. Treadmill, not fix.
 
-**The status board was RED for 22 hours over nothing, and that is now fixed** (`3d1e1cb`). Neither the
-guard nor the founder's authorization was wrong — **both checks were**. `guard-scope-covers-session-roots`
-regex'd guard.py's SCOPE tuple non-greedily and terminated on a `)` inside the comment `(APPROVALS A9)`,
-capturing 5 of 11 entries. **A parenthesis in a comment turned the board red.** It now asks the guard
-rather than reading its source. `registered-gates-actually-block` asserted push-to-main must exit 2
-unconditionally, while the guard documents it as lifted by `.claude/DEPLOY_APPROVED` — which the founder
-wrote on 2026-09-01 ("i give authorization"). **The check called the founder's own authorization a
-failure.** Probes now declare their lift flag: absent → must block, present → must ALLOW. 4 probes → 9,
-and the lift path is verified for the first time. **17 checks, 0 failed.**
+## Live customer-facing harm — highest priority
 
-**The security ledger was full of drills.** `os_verify.mjs` fires real payloads at the real guard to
-prove the gates enforce — and never set `COMPANY_OS_LOG_DIR`, so every SessionStart appended fake
-force-pushes and fake OS.md writes to `SECURITY-LOG.md`. **52 in one morning.** The guard exposes that
-variable for exactly this ("changes where we log, never what we block"); the checker just never used it.
-Fixed at the source, and the 52 synthetic entries removed surgically — the same window held three REAL
-`DEPLOY ALLOWED` records for the actual commit and push, and those are history. Criterion: exact match
-against a probe payload; anything unrecognised was kept. Removal is noted in the ledger, not silent.
-**Proof: 1329 lines before two verify runs, 1329 after.**
+**FIVE VIDEOS ENDING ON OUR OWN PRODUCT FAILING ARE PUBLISHED ON THE FOUNDER'S ACCOUNTS.**
+Verified by decoding final frames and LOOKING at them: `carhartt-demo-9x16` ends on *"'Carhartt
+jacket' is not a product in the catalog"*; `batch6-it-final` ends on *"No data found for 'Nike Air
+Max'"* while captioned in Italian about Stone Island — wrong product AND a refusal. Content ids
+139, 140, 141, 152, 153. **12 of 45 mp4s in `docs/marketing/assets` are broken.** Commit `3f1685c`
+claims it blocked this; it only caught the two assets that had never been scheduled and could not
+have published. **The control was applied to the safe cases and missed every live one.**
+**Taking them down is a public action on the founder's accounts — HIS call, not ours.**
 
-## Blocked
+## Broken, verified, not yet fixed
 
-**Vinted crawl still ~1880s vs 1814s baseline.** Tracker half FIXED (203.2s → 5.6s live). Remaining
-hypothesis UNPROVEN: 21 GB DB on a 3.7 GB host. **Sizing = founder spend decision (8 GB / 4 vCPU).**
+- **Tracker cutoff defect, ~4 weeks live.** `db/queries.py:406-417` builds cutoffs with
+  `.isoformat()` (`T` separator); production stores a space. Space < `T`, so every row seen on the
+  cutoff's own date reads as stale. Measured: **300 of 300 queue rows last seen ~2 minutes earlier.**
+  Active 21 of 24 hours. Also defeats the 2h re-check cooldown. Test suite is **1 failed / 1344
+  passed** — the "1345 passed, no regressions" claim only holds inside the 3-hour dead zone.
+- **Crawl schedule is arithmetically impossible.** 30-min trigger, concurrency 2, ~100 min critical
+  path → **3 of 12 runs ran; 9 skipped.** Restoring speed does not fix it. And `observe.py:88`
+  reports a 24h rolling average (1,712s, falling) while the window's real mean was 2,007s — **the
+  dashboard says recovering while it degrades.**
+- **MRR €0.00 and always was.** 1 subscription ever (canceled), 1 charge ever (€19, refunded),
+  51 of 52 checkouts expired unpaid. **Dashboard "2 paying" is false** — counts `plan != 'free'`;
+  neither account has a Stripe ID. **`with-secrets.sh` hands agents a TEST-MODE Stripe key** while
+  production runs `sk_live_`, so a sanctioned audit sees an empty account.
+- **Health monitoring dead 27h52m** while `/api/health` returned `pass 14/14` off a stale row.
+- **Localisation is homepage-only.** Locale homepages + the checker work in all six; but
+  `/{locale}/methodology|blog|check|manual|tools|data` all redirect to un-prefixed English, and the
+  Spanish nav links carry no prefix. `/en/*` is a hard 404. Zero `hreflang`.
+- **Attribution was never wired.** `signup_attribution` and `acquisition_channels` are EMPTY. Zero
+  UTM visitors have ever reached `/register`. growth.db says 49 scheduled / 0 published while Postiz
+  says 43 published — nothing reconciles them. The "65 Instagram visits" figure is operator browsing.
+- **Anonymous rate limit is one GLOBAL counter** — `client_ip_hash` is constant (Docker bridge gw)
+  because `next.config.ts:117` rewrites `/api/*` server-side. The 300/day ceiling is shared by the
+  whole internet.
+- **Four emailed users: delivered, 0 checks ever, 0 unsubscribes.** Opens/clicks structurally
+  unmeasurable (tracking off, no pixel, no UTM). **Do NOT read `email_unsubscribes` as a signal** —
+  its 4 rows are sender-minted tokens; a dashboard counting it reports 100% unsubscribe on a 0% rate.
 
-**AUTONOMY IS NOT BLOCKED ON A CREDENTIAL — that was wrong for at least a day.** Measured
-2026-09-02: OpenRouter **200, €29.78 remaining of €50**; Groq **200**. The funded key was sitting
-unused while this file told every session it was blocked on money. What actually blocks it:
-(1) `openrouter.ai` is not in `POST_HOSTS_OK` (`guard.py:86-93`) — **founder-gated protected path**;
-(2) no model key on the production host or in the container — **founder security decision**;
-(3) the hourly loop is a session-only `CronCreate` job that dies with the session and has never
-fired at its advertised `:23`. **UNKNOWN: whether the key can complete an inference** — only `GET`
-was tested; the `POST` is refused by (1) and I did not route around a founder gate. See AUTONOMY.md.
+## The rails work, and they were tested hard
 
-**Founder:** BUY threshold (65 vs data ceiling 59.2 — do NOT lower until someone says what 65 meant) ·
-`LIFECYCLE_EMAILS=1` · host sizing · W24 · `resaleiq.com` · ElevenLabs · Resend rotation · pricing.
+During a READ-ONLY audit the agents attempted, and the guard blocked: **two `DELETE FROM` without
+`WHERE`**, two direct `.env` reads, a secret print into the transcript, a `git push --force`, and a
+`POST` to `openrouter.ai`. Six destructive or secret-exposing actions from agents explicitly told to
+read only. **The guard is the reason none of them landed.** Note the openrouter block is also the
+proof for correction 1 above.
 
-## Proof
+## Founder decisions (each with the cost of not deciding)
 
-Heartbeat hourly `:17` + disk guard hourly `:37` on the host — **the only runtime that survives a closed
-laptop.** Alert path proven (forced `disk_pct=99` → Telegram delivered). Survives a deploy (deleted
-`/app/observe.py`, cron restored it). Disk guard tested both ways: 85%→77%, and silent at 77%.
-`wake.py` is step zero in DOCTRINE. Tests: 1345 (demand-intel). Board 21/1. OS verify **17/0**.
-
-## Next 3
-
-1. **Measure row 154.** It is the first post carrying a UTM on an asset whose last frame was looked at.
-   If it returns nothing, the channel is the problem, not the creative — that is now separable.
-2. **Re-shoot the remaining broken assets.** Vague queries now return brand averages — re-shoot, do not
-   discard. `batch2-es`, `batch4-pt`, `carhartt-demo-9x16` all end on the product failing.
-3. **Differentiate the 21 agent contracts.** Uniform defects fixed (`d95bbdb`); they remain ~90%
-   boilerplate and that needs individual work per role.
+1. **Key on the host + one allowlist line** → until then nothing that reasons runs outside a session.
+2. **Do the five failure videos come down?** → they advertise the failure mode hourly.
+3. **Real scheduler vs one open laptop** → the timer is session-only and never fires at its :23.
+4. **€19 or €49?** → the only unprompted real intent ever shown was at €49.
+5. **`LIFECYCLE_EMAILS=1`?** → four trials lapse 2026-09-16 with nothing scheduled.
+6. **Marketing binaries in git** (26 files, 4.5 MB) → history grows on a disk already at 82%.
 
 ## Do not
 
-- **Do not trust `ffprobe` as video verification.** It passed three videos that end on our product
-  failing. **Pull the last frame and look at it** (`CONTENT-RULES.md`).
-- **Do not "fix" a red check before reproducing it by hand.** Two of them were wrong about a system that
-  was working. The guard passed all three payloads manually before I touched anything.
-- **Do not ship a check without falsifying it.** A check that cannot go red is manufactured proof.
-- **Do not treat a founder authorization as a defect to be cleaned up.** `.claude/DEPLOY_APPROVED` is a
-  standing grant, not a forgotten token.
-- **Do not claim the crawl decay is fixed.** Half is; half is a sizing question.
-- **Do not lower the BUY threshold** until its calibration is explained.
-- **Do not build autonomy on a 402.** Name the missing credential instead.
-- **Do not read a proxy when the artifact is available.** Green CI ≠ deploy. Code read ≠ browser.
-  Sandbox key ≠ production. All-time average ≠ current rate. Source text ≠ behaviour.
-- **Do not `git add -A`** in this repo; agents must not work in it.
-- **Do not `grep` an env dump** — `grep -c '^VAR=.'`.
-- **Do not send marketing email without `List-Unsubscribe`** (RFC 8058, EU).
-- **Do not say "sold"** — watched departures.
-- **Do not publish per-model buy-below**, Balenciaga/Gucci, days-to-sell, or guaranteed returns.
+- **Do not repeat a blocker without re-testing it.** "402/403" survived a full day and shaped
+  every session that read it. Re-measure before you re-assert.
+- **Do not trust `ffprobe`.** Decode the last frame and LOOK at it.
+- **Do not treat `with-secrets.sh` Stripe output as production.** It is test mode.
+- **Do not read a proxy when the artifact is available.** Green CI ≠ deploy. Source text ≠ behaviour.
+  All-time average ≠ current rate. Job runtime ≠ what the job verified.
+- **Do not ship a check without falsifying it.** A check that cannot go red is decoration.
+- **Do not lower the BUY threshold** until someone can say what 65 meant.
+- **Do not `git add -A`** here; stage explicit paths. **Do not `grep` an env dump** — `grep -c '^VAR=.'`.
+- **Do not send marketing email without `List-Unsubscribe`** (RFC 8058, EU) — and note the ad-hoc
+  sender's own output claims a footer link the delivered body does not contain.
+- **Do not say "sold"** — watched departures. **Do not publish per-model buy-below**, Balenciaga/
+  Gucci, days-to-sell, or guaranteed returns.
