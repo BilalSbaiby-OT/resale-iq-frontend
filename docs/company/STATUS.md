@@ -17,7 +17,7 @@ BLOCKING
 
 UNKNOWN — asked, no answer (never rendered as zero)
   company.retention_30d              population below floor (n = 0, floor = 100)
-  company.trial_to_paid              population below floor (n = 1, floor = 100)
+  company.trial_to_paid              population below floor (n = 0, floor = 100)
   company.spend_vs_cap               no spend ledger yet
       -> Phase 2: finance-ops writes docs/company/LEDGER.md
   quality.canary                     no canary set yet
