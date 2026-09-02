@@ -1396,3 +1396,13 @@ old = """1. **\"Product is down 78% of the day\"** — retracted. That was the a
 
 Founder 2026-09-02: 'i guve permission to remove guardrail and all docus from
 `
+- `2026-09-02T10:38:11Z` **BLOCKED** Bash — direct read of a .env file — `grep -c '^ZZZ_NONEXISTENT=.' /Users/bilalsbaiby/work/demand-intel/.env`
+- `2026-09-02T10:43:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add scripts/company/scrub.py dashboard/data.json dashboard/org.json && git commit -q -m "scrub: strip agent-infrastructure endpoints, not just credential names
+
+THE DEPLOY PIPELINE HAS BEEN FROZEN SINCE 10:13 TODAY AND I CAUSED IT.
+
+Agent Isolation fails, an`
+- `2026-09-02T10:43:15Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git log --oneline -1; git log --oneline origin/main -1; git pull --rebase -q origin main 2>&1 | tail -3; git log --oneline -2; git push -q origin main && git log --oneline origin/main -1`
+- `2026-09-02T10:43:33Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: guard blocks from the OpenClaw handover
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | x`
