@@ -37,11 +37,23 @@ _CRED_NAMES = re.compile(
     r"TELEGRAM_BOT_TOKEN|HERMES_TELEGRAM_BOT_TOKEN|ANTHROPIC_API_KEY|"
     r"RIQ_API_KEY|RESALEIQ_API_KEY)\b")
 
+# Agent INFRASTRUCTURE, not credentials. `check-agent-isolation.mjs` refuses these
+# anywhere in the repo because everything here is served to visitors, and the
+# dashboard payloads embed doc excerpts and agent messages verbatim.
+#
+# This list MIRRORS INFRA_PATTERNS in scripts/check-agent-isolation.mjs.
+# IF YOU ADD ONE THERE, ADD IT HERE. Names were covered and endpoints were not,
+# which froze the deploy pipeline for every commit on 2026-09-02 after an
+# "openrouter.ai" mention landed in an embedded SESSION.md excerpt.
+_INFRA = re.compile(
+    r"openrouter\.ai|62\.238\.51\.83:8000|(?<![\w.])/opt/data\b|(?<![\w])\.hermes\b")
+
 
 def scrub(obj):
-    """Replace credential names anywhere in a JSON-shaped structure."""
+    """Replace credential names and agent-infrastructure endpoints anywhere in a
+    JSON-shaped structure."""
     if isinstance(obj, str):
-        return _CRED_NAMES.sub("<CREDENTIAL>", obj)
+        return _INFRA.sub("<AGENT-INFRA>", _CRED_NAMES.sub("<CREDENTIAL>", obj))
     if isinstance(obj, list):
         return [scrub(x) for x in obj]
     if isinstance(obj, dict):

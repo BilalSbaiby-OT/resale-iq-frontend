@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-02T06:49:09Z",
+  "generated_at": "2026-09-02T10:42:54Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
       "target": 100,
       "counter": "refund rate",
       "source": "stripe",
-      "value": 0,
+      "value": null,
       "note": "from production users.stripe_sub_id (Stripe API unreachable here)",
-      "unknown": false,
-      "why_unknown": null
+      "unknown": true,
+      "why_unknown": "never measured — source is stripe"
     },
     {
       "kpi": "signups",
       "target": 1000,
       "counter": "activation rate — a signup who never checks an item is not a user",
       "source": "db",
-      "value": 4,
+      "value": null,
       "note": "last 7 days",
-      "unknown": false,
-      "why_unknown": null
+      "unknown": true,
+      "why_unknown": "build_dashboard.py has not run with --prod yet"
     },
     {
       "kpi": "views_across_platforms",
@@ -46,7 +46,7 @@
       "target": 0,
       "counter": "shipping velocity — zero defects by shipping nothing is not the goal",
       "source": "workboard",
-      "value": 1,
+      "value": 3,
       "note": null,
       "unknown": false,
       "why_unknown": null
@@ -97,7 +97,7 @@
           "agent": "seo",
           "is_head": false,
           "merged_branches": 3,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 2,
           "findings_raised": 1,
           "unread_mail": 0
@@ -113,7 +113,7 @@
         }
       ],
       "rows_closed": 5,
-      "rows_open": 0,
+      "rows_open": 1,
       "findings_raised": 4
     },
     "Engineering": {
@@ -133,7 +133,7 @@
           "agent": "backend-eng",
           "is_head": false,
           "merged_branches": 11,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 6,
           "findings_raised": 3,
           "unread_mail": 0
@@ -176,7 +176,7 @@
         }
       ],
       "rows_closed": 9,
-      "rows_open": 0,
+      "rows_open": 1,
       "findings_raised": 5
     },
     "Data & Money": {
@@ -223,7 +223,7 @@
           "agent": "devops",
           "is_head": true,
           "merged_branches": 1,
-          "open_rows": 0,
+          "open_rows": 1,
           "closed_rows": 4,
           "findings_raised": 4,
           "unread_mail": 0
@@ -257,7 +257,7 @@
         }
       ],
       "rows_closed": 5,
-      "rows_open": 0,
+      "rows_open": 1,
       "findings_raised": 6
     },
     "Office of the CEO": {
@@ -464,6 +464,22 @@
       "found_by": "legal-compliance",
       "doer": "backend-eng",
       "status": "CLOSED"
+    },
+    {
+      "id": "W62",
+      "duplicate_id": false,
+      "finding": "🔴 THE PRODUCT INTERMITTENTLY 500s ON THE CUSTOMER-FACING CHECK — verified in a real browser, not from a report. A visitor searching \"New Balance 530\" on resaleiq.dev sees *\"Something went wrong on our end finishing that ",
+      "found_by": "CEO (browser + curl)",
+      "doer": "backend-eng (mechanism) + devops (capacity)",
+      "status": "OPEN"
+    },
+    {
+      "id": "W63",
+      "duplicate_id": false,
+      "finding": "CHATGPT IS SENDING US REAL PEOPLE AND NOBODY IS WORKING IT — the best-converting channel we have is one we never touched. All-time UTM traffic, is_bot=0, from production pageviews: chatgpt.com = 20 pageviews, 9 DISTINCT ",
+      "found_by": "CEO (production query)",
+      "doer": "seo",
+      "status": "OPEN"
     }
   ],
   "stale_open": [
@@ -482,9 +498,45 @@
         "resale-iq: 6f35b24 board: retract W54, open W55 for the retry label that was never attached",
         "resale-iq: d9297a7 loop: three more posts live in the markets we actually serve, board down to 2"
       ]
+    },
+    {
+      "id": "W62",
+      "duplicate_id": false,
+      "finding": "🔴 THE PRODUCT INTERMITTENTLY 500s ON THE CUSTOMER-FACING CHECK — verified in a real browser, not from a report. A visitor searching \"New Balance 530\" on resaleiq.dev sees *\"Something went wrong on our end finishing that ",
+      "found_by": "CEO (browser + curl)",
+      "doer": "backend-eng (mechanism) + devops (capacity)",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: e7cee13 board: W62 the intermittent 500 on the customer check, W63 the LLM referral channel"
+      ]
+    },
+    {
+      "id": "W63",
+      "duplicate_id": false,
+      "finding": "CHATGPT IS SENDING US REAL PEOPLE AND NOBODY IS WORKING IT — the best-converting channel we have is one we never touched. All-time UTM traffic, is_bot=0, from production pageviews: chatgpt.com = 20 pageviews, 9 DISTINCT ",
+      "found_by": "CEO (production query)",
+      "doer": "seo",
+      "status": "OPEN",
+      "shipped_evidence": [
+        "resale-iq: e7cee13 board: W62 the intermittent 500 on the customer check, W63 the LLM referral channel"
+      ]
     }
   ],
-  "unassignable": [],
+  "unassignable": [
+    {
+      "id": "W62",
+      "duplicate_id": false,
+      "finding": "🔴 THE PRODUCT INTERMITTENTLY 500s ON THE CUSTOMER-FACING CHECK — verified in a real browser, not from a report. A visitor searching \"New Balance 530\" on resaleiq.dev sees *\"Something went wrong on our end finishing that ",
+      "found_by": "CEO (browser + curl)",
+      "doer": "backend-eng (mechanism) + devops (capacity)",
+      "status": "OPEN",
+      "named_agents": [
+        "backend-eng",
+        "devops"
+      ],
+      "why": "2 agents named — neither owns it"
+    }
+  ],
   "bus": {
     "messages": [
       {
@@ -817,13 +869,27 @@
     "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
   },
   "deploy_drift": {
-    "drifted": false,
+    "drifted": true,
     "apps": [
       {
         "app": "frontend",
-        "status": "IN SYNC",
-        "commit": "f222d874c9be",
-        "container": "p6t87shftvl2455pd3gdgee1-055555730238"
+        "status": "DRIFTED",
+        "running": "94fe21c11293",
+        "merged": "309fc8a46bcc",
+        "commits_unshipped": 21,
+        "unshipped": [
+          "309fc8a i18n: wire /methodology to translated copy, add locale routes (#5)",
+          "7f69887 guard: add ~/.openclaw to SCOPE, on founder instruction",
+          "0a946f8 probe: the 78% claim settled with 182 samples — 100.00% availability",
+          "73fd670 openclaw: local orchestrator live on the Mac — steps 1-2 of 7, not the migration",
+          "1367812 track: one honest list of open items — 10 shipped, 13 open",
+          "621e25f i18n: methodology copy in all six locales, verified",
+          "c0a48c9 fix: correct false refresh-cadence claims on llms.txt, methodology, support, cat",
+          "d7a6988 state: dashboard, status and ledger refresh from this loop",
+          "6af2816 CONTENT-FACTS: re-verify hard numbers at publish time, not write time",
+          "e7cee13 board: W62 the intermittent 500 on the customer check, W63 the LLM referral chan"
+        ],
+        "container": "p6t87shftvl2455pd3gdgee1-070700771102"
       },
       {
         "app": "backend",
@@ -834,12 +900,12 @@
     ]
   },
   "totals": {
-    "rows_total": 22,
-    "rows_open": 1,
+    "rows_total": 24,
+    "rows_open": 3,
     "rows_closed": 21,
     "rows_blocked": 0,
     "bus_messages": 35,
-    "stale_open": 1,
-    "unassignable": 0
+    "stale_open": 3,
+    "unassignable": 1
   }
 }
