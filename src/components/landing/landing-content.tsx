@@ -155,7 +155,7 @@ export function LandingContent({
       <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
-          <span>Scraped every 30 min</span>
+          <span>Signals recomputed every 2 hours</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
           <span>No accuracy claims until 30 outcomes scored</span>
         </div>
