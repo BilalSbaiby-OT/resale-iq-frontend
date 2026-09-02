@@ -4,7 +4,12 @@
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 10 shipped · 3 in flight · 13 open · 6 founder.**
+**Scoreboard, today: 12 shipped · 3 in flight · 12 open · 6 founder.**
+
+**Heartbeat 15:07Z:** health 200 `overall=warn` (1 warn: disk 12.3% free of 74GB, `age_minutes 3.9`)
+· anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
+succeeded 14:48:45Z · all 5 markets crawled inside 35 min · **first attributed signup in company
+history: `perplexity` → `/register`, 10:17:02Z** · first trial expiry moved forward to **09-09**.
 Finding is not fixing. That ratio is the problem this file exists to make visible.
 
 Status vocabulary: **SHIPPED** = commit + verification anyone could re-run · **IN FLIGHT** = an agent
@@ -47,7 +52,32 @@ same shape: **asserting the result of an operation nobody performed.**
 
 ---
 
-## 🔴 LIVE NOW — the product refuses every anonymous visitor
+## 🟠 MITIGATED 12:24Z, NOT FIXED — the anonymous-visitor outage
+
+**Heartbeat 2026-09-02 15:07Z.** The product serves anonymous visitors again, asserted on the
+response BODY and not the status code: `GET /api/verdict?q=Nike Air Force 1` from the public
+internet returned `verdict=WATCH, n=87`. `verdict_logs` today: **676 `LIMIT_REACHED`, the last at
+12:24:48Z**, none since.
+
+What cleared it is `066d29f` — **a reversible mitigation, not the fix**: `ANON_IP_DAILY_CEILING`
+300 → 20000, and its own commit message says *"PUT THIS BACK TO 300 once the real fix ships"*.
+
+**The root cause is untouched, measured this hour.** Bucket counts before and after one probe from
+the public internet: `d66e6eaf9400d271` (= `sha256("10.0.1.1")`, the docker bridge gateway) went
+**310 → 311**, and the newest row is `('d66e6eaf9400d271','WATCH','2026-09-02 15:07:14')`. Distinct
+hashes today: **4**. A request from the open internet still lands in the gateway bucket, so every
+visitor still shares one counter — see OPEN #7. Cause per `066d29f`, proven by frontend-eng with
+`tcpdump` on both Traefik hops: the frontend reaches the backend over a public hostname, the request
+hairpins through the same Traefik, Linux NAT rewrites the source to `10.0.1.1`, and Traefik
+overwrites `x-forwarded-for` with it.
+
+**Read the current state as: anonymous rate limiting is effectively disabled, not repaired.** At
+~311 verdicts/day the 20000 backstop will not trip, so visitors are safe today; a single abusive
+client is no longer limited by anything, and reverting the ceiling without fixing the hairpin
+re-opens the outage immediately. Real fix is Traefik `forwardedHeaders.trustedIPs` or an internal
+hostname for the frontend→backend hop — host ingress config, not shipped.
+
+<details><summary>Original 09:10Z outage entry, kept for the record</summary>
 
 ```
 curl -s "https://resaleiq.dev/api/verdict?q=Adidas%20Samba"
@@ -82,6 +112,8 @@ has **300 rows today**; the "no real client found" bucket has **0**.
 Assigned to `frontend-eng`. **This is the surface every marketing click lands on, and it has been
 refusing everyone since 09:10.**
 
+</details>
+
 ---
 
 ## OPEN — found, nobody on it. This is the list that matters.
@@ -92,15 +124,15 @@ refusing everyone since 09:10.**
 | 2 | ~~Tracker cutoff defect~~ **FIXED, PR open** | root cause was 23 `.isoformat()` cutoffs vs space-separated storage. Falsified: revert and 9 tests fail. Suite **1345 passed, 0 failed** — green for the first time | [backend#3](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/3) awaiting merge. **The 'flaky' test blocking backend#1 and #2 was a TRUE POSITIVE all along** |
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
-| 5 | Health monitoring **stale for 27h52m** while reporting `pass 14/14` | batches 09-01 03:05 → 09-02 06:57 | nothing caps verdict age |
-| 6 | Attribution **never wired** | `signup_attribution` 0 rows ever; 0 UTM visitors have EVER reached `/register` | no channel can be judged until this exists |
-| 7 | Anonymous rate limit is **one global counter** | `client_ip_hash` constant = Docker bridge gw; `next.config.ts:117` rewrites server-side | 300/day shared by the whole internet |
+| 5 | ~~Health monitoring **stale for 27h52m** while reporting `pass 14/14`~~ **FIXED** | [backend#5](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/5) `1617343` *"/api/health said pass on 8h-old rows during a live outage"*. Live now: `age_minutes: 3.9`, `stale_after_minutes: 420` in the payload | closed. **Note the residual:** health still reported `overall` from db-checks that pass while `/api/verdict` refuses everyone — a body assertion on the verdict itself is still not one of the 14 checks |
+| 6 | ~~Attribution **never wired**~~ **FIRST ROW EVER, 2026-09-02 10:17:02Z** | `signup_attribution` = `(81, 'perplexity', None, '/register', '2026-09-02 10:17:02', None)`. One row, one user, `campaign`/`content` null — a referrer-derived source, not a UTM campaign | the table records signups now. **Still open:** no UTM campaign has ever produced one, so paid/social channels remain unjudgeable |
+| 7 | Anonymous rate limit is **one global counter** | **re-measured 15:07Z:** public probe still lands in `sha256("10.0.1.1")`, bucket 310→311, 4 distinct hashes all day | root cause (Traefik hairpin) unfixed; ceiling raised to 20000 as a backstop, so it no longer refuses anyone — and no longer limits anyone |
 | 8 | Dashboard says **"2 paying"**; there are none | counts `plan != 'free'`; neither account has a Stripe id | false number on a live dashboard |
 | 9 | `with-secrets.sh` hands agents a **test-mode** Stripe key | production runs `sk_live_` | any sanctioned Stripe audit sees an empty account |
 | 10 | Agent contracts **~88% identical** | 99 of 112 lines shared across all 21; 17 differ by 13 lines | founder: *"not very much qualified to find a job"* — correct |
 | 11 | Brand coverage **20 of 322 defensible** | 322 brands clear n≥8 departures/7d | `gen_seo_brands.py` written; production probe timed out, not yet run to completion |
 | 12 | 5 videos ending on our own product failing are **LIVE** | last frames decoded and read | removal is a public action on founder accounts → see FOUNDER |
-| 13 | 4 trials expire **2026-09-16**, nothing will contact them | `LIFECYCLE_EMAILS` unset in production | founder gate on sends |
+| 13 | **5** trials now, and the first expiry moved **forward to 2026-09-09** | user 81 registered today 10:17:02Z (`trial_ends_at 2026-09-09T10:17:33Z`); the other four still 2026-09-16 02:03:50. Users all time: **7**, paying: **0**, Stripe ids: **0** | `LIFECYCLE_EMAILS` unset in production → nothing contacts any of them. Founder gate on sends, and the deadline it has to clear is now **09-09, not 09-16** |
 
 ---
 
