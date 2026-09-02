@@ -164,34 +164,69 @@ a 75 GB disk with 3.7 GB of RAM. **That is the same sizing question as the crawl
 
 ---
 
-## CORRECTION 2026-09-02 — THE 402/403 BLOCKER WAS STALE FOR AT LEAST A DAY
+## RESOLVED 2026-09-02 — AUTONOMY IS RUNNING. Three corrections to get there.
 
-**This document said OpenRouter returned `402` and Groq returned `403`. Both are false.**
-Re-measured 2026-09-02 under `.claude/bin/with-secrets.sh`:
+**A reasoning layer now runs hourly on the production host with no session open.**
+`/usr/local/bin/riq-decide`, cron `47 * * * *`, plus one daily brief at `5 8 * * *`.
 
-```
-GET https://openrouter.ai/api/v1/key       -> 200   limit 50, remaining 29.78, usage 20.22
-GET https://api.groq.com/openai/v1/models  -> 200   full model list
-```
+### The blocker, finally measured properly
 
-**There is ~€29.78 of funded inference the company has not been using**, while every session that
-read this file was told it was blocked on the founder's money. This document and `SESSION.md` were
-both rewritten on 2026-09-02 and **both re-asserted the blocker without re-testing it.** The gap
-between the documented state and the measured state widened during the very window in which the
-docs were updated. That is the exact failure the founder keeps catching: an inference copied
-forward until it reads as history.
+Everything before today asserted this without ever running a completion:
 
-### What actually blocks autonomy, measured
+| call | result |
+|---|---|
+| `openrouter GET /api/v1/key` | `200`, `limit_remaining 29.78` — **a per-key SPEND CAP, not a balance** |
+| `openrouter GET /api/v1/credits` | `total_credits 20`, `total_usage 20.221` — **overdrawn by €0.22** |
+| `openrouter POST /chat/completions` | **`402`. The documented 402 was REAL.** |
+| `groq POST`, default urllib agent | **`403`** — the documented "Groq 403" |
+| `groq POST`, with a real `User-Agent` | **`200`** — it was a MISSING HEADER, never a credential |
+| `gemini POST 3.7-flash` | **`200`**, and `generativelanguage.googleapis.com` was **already allowlisted** |
 
-| # | blocker | who can clear it |
-|---|---|---|
-| 1 | `openrouter.ai` and `api.groq.com` are **not in `POST_HOSTS_OK`** (`.claude/hooks/guard.py:86-93`), so the inference POST is refused | **FOUNDER** — `guard.py` is a protected path (needs `.claude/UNLOCK_HARNESS`) |
-| 2 | **No model key on the production host or in the backend container** (all three grep to 0) | **FOUNDER** — placing a credential on a production box is a security decision |
-| 3 | The hourly cadence is a **session-only `CronCreate` job** that dies with the session, and has never once fired at its advertised `:23` | follows from 1 and 2 |
+**I got this wrong twice in one day and the second time is worse than the first.**
+This morning I told the founder the 402 was stale and €29.78 was sitting unused. I had read a
+per-key spend cap as an account balance and had not run a completion. The original documentation was
+right about OpenRouter; my correction was not. Both errors have the same shape: **asserting the
+result of an operation nobody performed.**
 
-**None of these is "buy a credential." The credential is bought and working.** Two of the three are
-founder approvals of specific, named changes.
+The Groq 403 is the same shape again, and this company had already paid for that exact lesson — a
+marketing email got a Cloudflare 403 from `urllib` while the app's own `httpx` path worked fine.
+**Cloudflare refuses `Python-urllib/3.x`.** One header.
 
-**Still UNKNOWN:** whether the funded key can complete an actual inference. Only `GET` was tested —
-the `POST /chat/completions` is refused by blocker 1, and I did not route around a founder gate to
-try it. Authentication and balance are proven; **completion is not.**
+### What actually blocked autonomy
+
+1. `openrouter.ai` / `api.groq.com` were not on the egress allowlist — cleared under
+   `.claude/UNLOCK_HARNESS` on the founder's instruction, token removed straight after.
+2. No model key on the production host — now at `/root/.riq-secrets`, mode 600, passed per-exec,
+   never baked into the image, never logged.
+3. **Nobody had tried a completion.** This was the largest blocker and it cost days.
+
+### What it does, and deliberately does not
+
+Reads the state `observe.py` already writes, and reasons about it — where `observe.py` can only fire
+thresholds someone thought to write in advance. **On its first live run it surfaced something no rule
+covers: 4 visitors reached register, 0 signed up, and total users fell 7 → 6.**
+
+It **decides and escalates. It does not write to production.** Unattended writes to a live system are
+a separate decision the founder has not been asked for.
+
+### Proven on the host, not simulated
+
+| test | result |
+|---|---|
+| Invented figure `412` planted against real state | ✅ caught; escalation **suppressed** |
+| No state file | ✅ "Deciding nothing" — silent, invents nothing |
+| `/app/decide.py` deleted (what a deploy does) | ✅ wrapper restored it on next run |
+| Gemini forced to fail | ✅ **Groq took over** and answered |
+| Both providers forced to fail | ✅ silent — no fabricated brief |
+| Telegram | ✅ **`delivered: True`** — the first time this path has ever succeeded |
+
+**Every figure the model emits is checked against the measured state before anything is sent.** A
+number that is not in the input gets the escalation suppressed. It may reason; it may not
+manufacture evidence.
+
+### Still open
+
+- **OpenRouter stays 402** until credits are added. Gemini is primary and Groq is a proven fallback,
+  so nothing depends on it.
+- **The model does not act.** Going from "decides and escalates" to "executes unattended" is the
+  founder's call, not an engineering step.
