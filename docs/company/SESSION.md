@@ -4,6 +4,31 @@
 
 ## Working on
 
+**⛔ 23 COMMITS WERE BLOCKED BY MY OWN CHECK.** `check:silent` flagged four bare handlers in
+`daily_brief.py` — the script I wrote to report honestly. **The check was right; I was sloppy.**
+Each swallow is correct (the brief must send even when a source is unreadable, and print UNKNOWN
+rather than zero) but none said *why*. Fixed and pushed; the pipeline should drain.
+**Backend is 2 behind, so W60's fallback is still NOT live — `Carhartt jacket` still returns UNKNOWN
+in production.**
+
+**PENDING, in priority order:**
+
+1. **🔴 The crawl decay** — `data-eng` running. 1.8× slower, ~half our coverage lost every 2–3 weeks,
+   our storage layer not Vinted. **The data is the asset.**
+2. **🔴 W60 verified live** — closes on the endpoint, not the merge.
+3. **🟡 The 21 agent contracts** — staged, still cite lifted AM-2, still no definition of done.
+   **They contradict DOCTRINE on its first day.**
+4. **🟡 15 unclassified docs** — I did not guess.
+5. **🔵 Founder-only:** the BUY threshold (nobody moves it until someone can say what 65 meant) ·
+   the four trial emails (reset must precede the email or it is a lie) · `LIFECYCLE_EMAILS=1` ·
+   host sizing 8 GB/4 vCPU · W24 · `resaleiq.com` · ElevenLabs · Resend rotation · pricing tiers.
+6. **🔵 Frozen by me:** marketing, copy, UX — until a check returns something worth acting on.
+
+**Correcting my own priority order:** I have been calling the BUY threshold the headline. **It is
+not.** Actionable answers are **19.6%**; UNKNOWN+INSUFFICIENT is **34.7%**. **Killing the unknowns is
+~3.5× bigger than fixing BUY** — and that fix (W60) is built, merged, and sitting undeployed behind a
+pipeline my own check was blocking.
+
 # 🔴 THE CRAWL IS DECAYING 1.8× AND IT IS OUR STORAGE, NOT VINTED
 
 ```
