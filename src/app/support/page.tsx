@@ -33,7 +33,7 @@ const faq = (tracked: string): [string, string][] => [
   ["Can I get my data / delete my account?",
    "Yes. From your account page you can export all your data (GDPR) as JSON, or permanently delete your account and its data."],
   ["Where does the data come from?",
-   `Public live Vinted listings across ES, FR, DE, IT and PT, plus which ones leave the shelf — ${tracked} items, collected about every 30 minutes and recomputed roughly every 2 hours. The figures shown are live aggregates, not estimates.`],
+   `Public live Vinted listings across ES, FR, DE, IT and PT, plus which ones leave the shelf — ${tracked} items, scheduled for collection every 30 minutes per market and recomputed roughly every 2 hours. The figures shown are live aggregates, not estimates. Measured collection cadence: /methodology.`],
   ["Is my payment secure?",
    "Payments are handled entirely by Stripe. We never see or store your card details."],
 ]

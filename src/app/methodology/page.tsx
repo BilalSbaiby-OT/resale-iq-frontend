@@ -45,7 +45,7 @@ export default async function MethodologyPage() {
   const faq = [
     {
       q: "How fresh is Resale IQ's Vinted data?",
-      a: "The scraper runs about every 30 minutes across all five EU Vinted domains — measured on production, 97% of gaps land under an hour. Signals are recomputed on a slower cycle, roughly every 2 hours. Departure verification — checking which listings have left the shelf — runs every 60 minutes, and public pages revalidate every 15 minutes. So a new listing is usually found within 30 minutes; the score built from it can lag up to about 2 hours behind that.",
+      a: "The scraper is scheduled every 30 minutes per market across all five EU Vinted domains, but a run is skipped if the previous one is still in progress. Measured on production over the trailing 7 days (2026-08-26 to 2026-09-02, from the scraper run log): 83% of gaps land under an hour — median 34 minutes, mean 43 minutes, n=1,157 gaps across the 5 domains. The most recent 48 hours ran slower, 58% under an hour (n=242), while a backlog of skipped runs clears. Signals are recomputed on a slower cycle, roughly every 2 hours, and that cycle has run on schedule with no skips in the same window. Departure verification — checking which listings have left the shelf — runs every 60 minutes, also with no skips observed. Public pages carry no page-level cache; each one renders from the live database on every request. So right now a new listing is usually in the dataset within an hour, worse than our 30-minute target while the backlog clears; the score built from it can lag up to about 2 hours behind that.",
     },
     {
       q: "How is sell-through rate calculated?",
@@ -159,16 +159,17 @@ export default async function MethodologyPage() {
 
         <Section title="How fresh it is">
           <Table rows={[
-            ["Listing collection", "about every 30 minutes", "all 5 EU domains — measured on production, 97% of gaps under an hour"],
-            ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection"],
-            ["Departure verification", "every 60 minutes", "confirms a listing left the shelf — not that it sold"],
-            ["Public page refresh", "every 15 minutes", "ISR on this site"],
+            ["Listing collection", "scheduled every 30 min/market, skips if busy", "measured 2026-09-02 from the scraper run log: 83% of gaps under 1h over the trailing 7 days (n=1,157); 58% under 1h over the last 48h during a current backlog"],
+            ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection; 0 skips observed in the same window"],
+            ["Departure verification", "every 60 minutes", "confirms a listing left the shelf — not that it sold; 0 skips observed"],
+            ["Public page refresh", "no page cache — live per request", "each request renders from the current database; not a 15-minute cache"],
           ]} />
           <P>
-            So a new listing is usually in the dataset within 30 minutes; the signal computed
-            from it — buy-below, sell-through, confidence — can lag up to about 2 hours behind
-            that. We publish the measured cadence rather than a rounder number that sounds
-            better, and this table is the one we correct first if the schedule ever changes.
+            So right now a new listing is usually in the dataset within an hour — worse than our
+            30-minute target while a scraper backlog clears (see the measured cadence above). The
+            signal computed from it — buy-below, sell-through, confidence — can lag up to about 2
+            hours behind that. We publish the measured cadence rather than a rounder number that
+            sounds better, and this table is the one we correct first if the schedule changes.
           </P>
         </Section>
 
