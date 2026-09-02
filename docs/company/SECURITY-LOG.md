@@ -1239,3 +1239,7 @@ Rows **149** and **151** were the only Instagram drafts with UTMs *a`
 Appended by the hook. Committed so the audit trail survives the session.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && `
+- `2026-09-02T02:53:18Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/STATUS.md && git commit -q -m "chore: regenerate STATUS after the loop
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push origin main 2>&1|tail -1; git fetch -q origin; test "$(git rev-parse main)" = "$(git rev-parse origin/main)" && echo "✓ confirmed on remote:`
+- `2026-09-02T02:53:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/marketing/assets/renders docs/marketing/assets/vo docs/company/SECURITY-LOG.md && git commit -q -m "$(printf '%s\n' 'assets: land the render batch, broken ones included as evidence' '' 'Twelve videos with voiceover from the content work. Committed together rather' 'than cherry-picked, b`
