@@ -49,8 +49,16 @@ STATE = "/app/state/company_state.json"      # on the host; git copy is the audi
 RULES = [
     ("paying_dropped",   lambda s, p: p and s["paying"] < p.get("paying", 0),
      "A paying customer disappeared. Nothing matters more than this."),
-    ("no_answers",       lambda s, p: s["checks_24h"] >= 20 and s["actionable_pct"] is not None and s["actionable_pct"] < 40,
-     "The product stopped answering: under 40% actionable on 20+ checks."),
+    # "stopped answering" is a claim about NOW, so it is measured on a recent
+    # window, never on the 24h average. On 2026-09-02 the anonymous outage ran
+    # 07:00-12:24Z; by 22:17 CEST the product had answered cleanly for 8 hours
+    # (last 6h: 83.9% actionable) while the trailing-24h figure still read 35.8%
+    # and fired this rule hourly. It would have kept firing until ~12:24Z the
+    # next day — ~16 more identical alerts for an incident that was over. That
+    # is the "an all-time average is not a current rate" trap in AGENTS.md, and
+    # it is how a real alert gets ignored.
+    ("no_answers",       lambda s, p: s["checks_recent"] >= 20 and s["actionable_recent_pct"] is not None and s["actionable_recent_pct"] < 40,
+     "The product stopped answering: under 40% actionable on 20+ recent checks."),
     ("crawl_stalled",    lambda s, p: s["crawl_runs_24h"] is not None and s["crawl_runs_24h"] < 40,
      "The crawl has nearly stopped. The data is the asset."),
     ("disk_critical",    lambda s, p: s["disk_pct"] is not None and s["disk_pct"] >= 92,
@@ -73,6 +81,10 @@ def measure():
     con = sqlite3.connect(DB, uri=True, timeout=60)
     W = "viewed_at > datetime('now','-24 hours') AND COALESCE(is_bot,0)=0"
     V = "created_at > datetime('now','-24 hours')"
+    # Availability window. 3h, not 1h: at current volume one hour carries ~8
+    # checks, far under the 20-check floor, so an hourly window would silence
+    # the rule entirely rather than sharpen it.
+    R = "created_at > datetime('now','-3 hours')"
     s = {
         "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "paying": q(con, "SELECT COUNT(*) FROM users WHERE stripe_sub_id IS NOT NULL AND stripe_sub_id<>''", 0),
@@ -83,6 +95,8 @@ def measure():
         "checks_24h": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {V}", 0),
         "actionable_24h": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {V} AND verdict IN ('BUY','WATCH','SKIP','BRAND_AVERAGE')", 0),
         "deadend_24h": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {V} AND verdict IN ('UNKNOWN','INSUFFICIENT_DATA','PENDING')", 0),
+        "checks_recent": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {R}", 0),
+        "actionable_recent": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {R} AND verdict IN ('BUY','WATCH','SKIP','BRAND_AVERAGE')", 0),
         "brand_average_24h": q(con, f"SELECT COUNT(*) FROM verdict_logs WHERE {V} AND verdict='BRAND_AVERAGE'", 0),
         "crawl_runs_24h": q(con, "SELECT COUNT(*) FROM scraper_log WHERE platform LIKE 'vinted%' AND run_at > datetime('now','-24 hours')"),
         "crawl_avg_seconds": q(con, "SELECT ROUND(AVG(duration_seconds),1) FROM scraper_log WHERE platform LIKE 'vinted%' AND run_at > datetime('now','-24 hours')"),
@@ -92,6 +106,9 @@ def measure():
 
     c, a = s["checks_24h"], s["actionable_24h"]
     s["actionable_pct"] = round(100.0 * a / c, 1) if c else None
+
+    cr, ar = s["checks_recent"], s["actionable_recent"]
+    s["actionable_recent_pct"] = round(100.0 * ar / cr, 1) if cr else None
 
     try:
         st = os.statvfs("/")
@@ -160,7 +177,8 @@ def main():
             lines.append(f"• {why}")
         lines += ["",
                   f"paying *{s['paying']}* · users {s['users']} · visitors {s['visitors_24h']}",
-                  f"checks {s['checks_24h']} · answered {s['actionable_pct']}%",
+                  f"checks 3h {s['checks_recent']} · answered {s['actionable_recent_pct']}%",
+                  f"checks 24h {s['checks_24h']} · answered {s['actionable_pct']}%",
                   f"crawl {s['crawl_runs_24h']} runs @ {s['crawl_avg_seconds']}s · disk {s['disk_pct']}%",
                   "", "_Measured on the host. No session was open._"]
         print("telegram sent:", telegram("\n".join(lines)))
