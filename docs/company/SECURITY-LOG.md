@@ -1344,3 +1344,12 @@ n`
 
 Three steps, all recorded:
   1. docs sai`
+- `2026-09-02T08:34:40Z` **BLOCKED** Read — path outside company scope — `/Users/bilalsbaiby/.claude/projects/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tool-results/b9lnvwvmc.txt`
+- `2026-09-02T08:43:07Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SESSION.md && git commit -q -m "SESSION: the product intermittently 500s; chatgpt is a real unworked channel
+
+Measured in a browser, then curl: /api/verdict returns 500 after 30.6s during the
+analyzer's late write phase, and 200 in 0.6s minu`
+- `2026-09-02T08:49:53Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git status --porcelain | head; git push origin main 2>&1 | tail -2; echo "--- remote head ---"; git log --oneline origin/main -1`
+- `2026-09-02T08:50:02Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add dashboard/data.json docs/company/SECURITY-LOG.md docs/company/STATUS.md && git commit -q -m "state: dashboard, status and ledger refresh from this loop
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push origin main 2>&1 | tail -1 && git `

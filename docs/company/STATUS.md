@@ -7,10 +7,6 @@ OS STATUS                                  checked 0m ago
 
   GREEN — nothing blocking
 
-WHAT CHANGED
-  harness/guard-scope-covers-session-roots     ✗ -> ✓
-  harness/registered-gates-actually-block      ✗ -> ✓
-
 UNKNOWN — asked, no answer (never rendered as zero)
   company.retention_30d              population below floor (n = 0, floor = 100)
   company.trial_to_paid              population below floor (n = 0, floor = 100)
