@@ -49,6 +49,8 @@ TIMEOUT = 90
 
 GEMINI_MODEL = "gemini-3.7-flash"
 GROQ_MODEL = "qwen/qwen3.8-27b"
+# Zero credit cost -- ":free" models do not bill against the (overdrawn) balance.
+OPENROUTER_MODEL = "minimax/minimax-m3:free"
 
 
 def now():
@@ -109,9 +111,34 @@ def ask_groq(prompt):
         return None, f"groq: {type(e).__name__} {str(e)[:120]}"
 
 
+def ask_openrouter(prompt):
+    """OpenRouter's FREE tier. The paid account is overdrawn (total_credits 20,
+    total_usage 20.221) so ordinary models return 402 -- but 18 models carry a
+    ':free' suffix and cost nothing against credits. The founder was right that
+    "openrouter have a lot of free tokens"; nobody had looked.
+    """
+    key = os.environ.get("OPENROUTER_API_KEY", "")
+    if not key:
+        return None, "OPENROUTER_API_KEY absent"
+    try:
+        d = _post("https://openrouter.ai/api/v1/chat/completions",
+                  {"model": OPENROUTER_MODEL, "temperature": 0.2, "max_tokens": 1400,
+                   "messages": [{"role": "user", "content": prompt}]},
+                  {"Authorization": f"Bearer {key}"})
+        return d["choices"][0]["message"]["content"], None
+    except Exception as e:  # noqa: BLE001
+        return None, f"openrouter: {type(e).__name__} {str(e)[:120]}"
+
+
 def reason(prompt):
-    """Gemini, then Groq. Returns (text, provider). Never raises."""
-    for name, fn in (("gemini", ask_gemini), ("groq", ask_groq)):
+    """Gemini, then Groq, then OpenRouter's free tier. Returns (text, provider).
+
+    Three independent vendors, none of which bills us: Gemini on the founder's
+    existing key, Groq's free tier, and OpenRouter ':free' models. Never raises --
+    if all three are unreachable the caller stays silent rather than inventing.
+    """
+    for name, fn in (("gemini", ask_gemini), ("groq", ask_groq),
+                     ("openrouter-free", ask_openrouter)):
         text, err = fn(prompt)
         if text:
             return text, name
