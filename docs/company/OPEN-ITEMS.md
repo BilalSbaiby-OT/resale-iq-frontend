@@ -10,6 +10,25 @@ third part is this file: every item found, with what actually shipped, in one pl
 · anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
 succeeded 14:48:45Z · all 5 markets crawled inside 35 min · **first attributed signup in company
 history: `perplexity` → `/register`, 10:17:02Z** · first trial expiry moved forward to **09-09**.
+
+**Heartbeat 19:04Z:** all five §1 checks re-run cold, nothing regressed. Anonymous `/api/verdict`
+asserted on the **body** from outside: `verdict=WATCH, n=58` (Adidas Samba) and `BRAND_AVERAGE,
+n=262` (Nike) — last `LIMIT_REACHED` anywhere in `verdict_logs` is still **12:24:48Z, 6h40m ago**,
+and `d66e6eaf9400d271` now carries **370 rows today with 0 refusals**, past the old 300 ceiling,
+which is the raised-backstop mitigation behaving as described below and not a repair. Health
+`overall=warn`, `age_minutes 66.1`, 13/14 pass, the one warn still `disk-headroom`. CI green on both
+repos, backend Deploy 17:55:37Z, frontend Deploy 17:15:27Z, **0 open backend PRs**. **Trials expiring
+in <48h: none** — nearest is 09-09 (users 81, 82), then the four on 09-16. Disk **86% used, 11G
+avail**, under the 90% alert line. `#7` re-confirmed unfixed a third time: a request sent with
+`X-Forwarded-For: 203.0.113.77` still logged under `d66e6eaf9400d271`, so the hairpin drops it.
+
+**Disk headroom improved between the two readings** — 12.3% free at 15:01:50Z, **14.0% free at
+17:58:35Z** — and `demand_intel.db-wal` is now **0 bytes** against the 875 MB quoted in FOUNDER
+below. Nothing was reclaimed on disk; the WAL was checkpointed. Item #15 asked for hourly size
+recording so the trend exists: `docs/company/DISK-TREND.md` now holds it, with the first exact byte
+measurement (`21788954624`) and an explicit warning that the older 21.69/21.26 GB figures come from
+different tools on an unstated base and **must not be differenced** against it. Days-to-full stays
+**UNKNOWN** until a second comparable row exists.
 Finding is not fixing. That ratio is the problem this file exists to make visible.
 
 Status vocabulary: **SHIPPED** = commit + verification anyone could re-run · **IN FLIGHT** = an agent
@@ -135,7 +154,7 @@ refusing everyone since 09:10.**
 | 13 | **5** trials now, and the first expiry moved **forward to 2026-09-09** | user 81 registered today 10:17:02Z (`trial_ends_at 2026-09-09T10:17:33Z`); the other four still 2026-09-16 02:03:50. Users all time: **7**, paying: **0**, Stripe ids: **0** | `LIFECYCLE_EMAILS` unset in production → nothing contacts any of them. Founder gate on sends, and the deadline it has to clear is now **09-09, not 09-16** |
 | 14 | **Departure-verification path has no pacing; Vinted threw 288 × 429 in one 5s burst** | every 429 the box saw in 24h landed `15:53:39`→`15:53:44`: 288 refusals of 1,120 outbound that hour, all item-detail `GET`s, 183 `vinted.es` · 105 `vinted.fr`. Ingestion did not stall (`seen=4963 new=4078 errors=0`) | the verifier fires its batch concurrently with no spacing and no backoff. **UNKNOWN** whether those 288 were re-resolved on a later pass or their departures silently dropped — the `verify_attempts` scan on 34.7M rows did not return inside the ssh timeout. Tracked as O-005 in `COMMITMENTS.md` |
 
-| 15 | **Production disk crossed into warn today: 11 GB free of 75 GB (86% used)** | `disk-headroom` first failed at **15:01:50Z**; every prior run back to 2026-08-29 passed with `error=None`. Box: `62G used / 11G avail`. `/var/lib/docker` = **43G**, of which volumes 42.86GB (the 21.69GB DB plus its journal/backups) and images 17.27GB. `/var/log` 368M | **Growth rate is UNKNOWN** — no prior DB-size measurement is recorded anywhere, so "how many days until full" cannot be answered, only guessed. `docker system df` reports **11.99GB reclaimable**, but `docker images -f dangling=true` returns **0**: it is all *tagged, unused* images, i.e. Coolify's rollback targets. `docker image prune -a` would free ~12GB and cost the ability to roll back a bad deploy — a trade nobody has been asked about. Not taken unilaterally. **Cheapest real fix is to start recording DB size hourly so the trend exists**, then decide with a number |
+| 15 | **Production disk crossed into warn today: 11 GB free of 75 GB (86% used)** | `disk-headroom` first failed at **15:01:50Z**; every prior run back to 2026-08-29 passed with `error=None`. Box: `62G used / 11G avail`. `/var/lib/docker` = **43G**, of which volumes 42.86GB (the 21.69GB DB plus its journal/backups) and images 17.27GB. `/var/log` 368M | **Growth rate is UNKNOWN** — no prior DB-size measurement is recorded anywhere, so "how many days until full" cannot be answered, only guessed. `docker system df` reports **11.99GB reclaimable**, but `docker images -f dangling=true` returns **0**: it is all *tagged, unused* images, i.e. Coolify's rollback targets. `docker image prune -a` would free ~12GB and cost the ability to roll back a bad deploy — a trade nobody has been asked about. Not taken unilaterally. **Cheapest real fix is to start recording DB size hourly so the trend exists**, then decide with a number. **Started 19:04Z: `docs/company/DISK-TREND.md`**, first exact row `DB 21788954624 bytes, WAL 0, df 62G used / 11G avail / 86%`. One row is not a trend — days-to-full is still UNKNOWN and stays UNKNOWN until a second comparable row lands |
 
 ---
 
