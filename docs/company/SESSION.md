@@ -4,6 +4,41 @@
 
 ## Working on
 
+# 🎥 THE VIDEO LIBRARY IS PART BROKEN — and `ffprobe` could never have told us
+
+Audited every marketing video by **pulling its last frame and looking at it**. Three checked in
+detail:
+
+| asset | last frame shows |
+|---|---|
+| `batch2-es-final` | ❌ *"No data found for 'Zara blazer'"* |
+| `carhartt-demo-9x16` | ❌ *"'Carhartt jacket' is not a product in the catalog"* |
+| `r131-pt-final` | ✅ **buy-below €21 · market €32 · 63 left shelf vs 19,700 listed · WATCH** |
+
+**All three pass `ffprobe`** — video+audio+1080, distinct md5, correct duration. `carhartt-demo` was
+previously reported to me as **verified good**. It ends on our product failing.
+
+**The cause, which makes the fix obvious:** videos shot against a **vague** query produce failure
+screens; videos shot against a **specific model** produce real results. And **W60 has since changed
+that** — a vague query now returns a brand average instead of nothing, so **the same shot would work
+today. Re-shoot, do not discard.**
+
+Rule written into `CONTENT-RULES.md`: **pull the last frame before publishing. `ffprobe` is not
+verification.**
+
+Also flagged: **row 131's caption is New Balance in Portuguese while its video shows Adidas Samba.**
+Both real, nothing false published — but a viewer notices that before we do.
+
+## Measured this loop
+
+- **Production**: six locales + health 200. `Carhartt jacket` → **BRAND_AVERAGE n=32**.
+- **Actionable crossed 70%** for the first time: 68.5 → 68.8 → 69.3 → 69.6 → **70.1%** across five
+  wakes, with **11 brand-average** answers. W60 is doing exactly what it was built to do.
+- **The four emailed users: still 0 checks, 0 paying, 0 unsubscribes.** ~5am their time.
+- **Disk guard holding** at 76.9% after pruning from 85%.
+- **Did not publish.** Every ready row is either already live or blocked for showing the product
+  failing. **Nothing publishable exists that is not already out.**
+
 # ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE
 
 The two defects that were **identical in all 21** are closed. `d95bbdb`.

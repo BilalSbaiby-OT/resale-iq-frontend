@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T03:39:13Z",
+  "generated_at": "2026-09-02T04:39:56Z",
   "prod_included": true,
   "founder_inbox": {
     "open": [
@@ -115,48 +115,48 @@
       "fix": "Phase 2: /precision"
     },
     "band_coverage_demand": {
-      "value": 67.5,
-      "n": 157,
+      "value": 67.9,
+      "n": 159,
       "source": "sql/metrics/band_coverage_demand.sql (production)"
     },
     "band_evidence_p50": {
       "value": 13.0,
-      "n": 67,
+      "n": 68,
       "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
-      "value": 32.5,
-      "n": 157,
+      "value": 32.1,
+      "n": 159,
       "source": "sql/metrics/insufficient_data_rate.sql (production)"
     },
     "band_coverage_supply": {
-      "value": 67.0,
+      "value": 68.0,
       "n": 100,
       "source": "sql/metrics/band_coverage_supply.sql (production)"
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 405,
+      "n": 406,
       "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": 33.1,
-      "n": 1204,
+      "value": 27.4,
+      "n": 1201,
       "source": "sql/metrics/pipeline_lag_min.sql (production)"
     },
     "listings_total": {
-      "value": 13260864
+      "value": 13264637
     },
     "newest_sold_at": {
-      "value": "2026-09-02 03:38:54"
+      "value": "2026-09-02 04:38:44"
     },
     "predictions_total": {
-      "value": 405
+      "value": 406
     }
   },
   "funnel": {
     "verdicts_7d": {
-      "value": 193
+      "value": 195
     },
     "pageviews_7d": {
       "value": 1408
@@ -333,7 +333,7 @@
         "model": "haiku",
         "tier": "T1",
         "standing": "standing",
-        "primary": "spend vs the EUR 200/month cap (AM-2), red at EUR 160",
+        "primary": "spend vs the EUR 200/month cap (~~AM-2~~ — LIFTED by AM-9), red at EUR 160",
         "secondary": "gross margin per plan",
         "counter": "scrape cost per trusted check",
         "branches": [],
@@ -686,6 +686,14 @@
     ],
     "recent_commits": [
       {
+        "sha": "26a9ea3",
+        "msg": "loop: the 21 contracts now match the doctrine, and nobody unsubscribed"
+      },
+      {
+        "sha": "d95bbdb",
+        "msg": "agents: close the two defects that were identical in all 21 contracts"
+      },
+      {
         "sha": "761db47",
         "msg": "assets: land the render batch, broken ones included as evidence"
       },
@@ -724,14 +732,6 @@
       {
         "sha": "7adbbe1",
         "msg": "session: wake is step zero, and the board is down to the founder's own row"
-      },
-      {
-        "sha": "559d7cb",
-        "msg": "fix: wake.py swallow now states its reason"
-      },
-      {
-        "sha": "b36143d",
-        "msg": "wake: a cold session reconstructs the company in one command"
       }
     ],
     "dirty": false,
@@ -800,6 +800,88 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-02T03:51:28Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\np=\"docs/company/SESSION.md\"; s=open(p).read()\ni=s.index(\"## Working on\")\nnew = \"\"\"## Working on\n\n# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE\n\nThe two defects that were **identic",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:50:54Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "for u in / /es /fr /de /it /pt /api/health /register; do printf \"%-12s %s\\n\" \"$u\" \"$(curl -s -o /dev/null -w '%{http_code}' -m 15 \"https://resaleiq.dev$u\")\"; done; echo \"=== searches ===\"; for q in \"N",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:50:30Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_agents.txt <<'MSG'\nagents: close the two defects that ",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:50:08Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 - <<'PY'\nimport os, re\nD = \"/Users/bilalsbaiby/work/resale-iq/.claude/agents/\"\nbad = []\nfor f in sorted(os.listdir(D)):\n    if not f.endswith(\".md\"): continue\n    s = open(D+f, encoding=\"utf-8",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:49:58Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_agents.py && echo \"=== verify BOTH defects are closed ===\"; grep -c \"EUR 200/month company c",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:49:48Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Write",
+      "files": [
+        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/fix_agents.py"
+      ],
+      "cmd": "",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:49:27Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd .claude/agents && echo \"=== the two uniform defects ===\"; grep -c \"AM-2\" *.md | awk -F: '$2>0{n++} END {print \"  cite lifted AM-2: \"n\"/21\"}'; grep -cli \"definition of done\" *.md 2>/dev/null | wc -l",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T03:49:10Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/wake.py 2>&1 | sed -n '5,30p'",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-02T02:54:00Z",
       "session": "fb348ebc",
@@ -1233,100 +1315,14 @@
       "cmd": "sh /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/watch_tracker2.sh",
       "url": "",
       "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:59:01Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/watch_tracker2.sh"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:58:42Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tasks/bdvzw2saw.output"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:58:24Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "sh /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/watch_tracker.sh",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:58:19Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Write",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/watch_tracker.sh"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:58:06Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "until [ \"$(python3 -c \"\nimport sys; sys.path.insert(0,'scripts/company')\nimport build_dashboard as bd\nr = bd.ssh_py('''\nimport sqlite3\nc=sqlite3.connect(\\\"file:/app/data/demand_intel.db?mode=ro\\\",uri=",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:57:48Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "cd /Users/bilalsbaiby/work/resale-iq && python3 scripts/company/deploy_drift.py 2>&1 | head -3; python3 - <<'PY'\nimport sys; sys.path.insert(0,\"scripts/company\")\nimport build_dashboard as bd\nprint(bd.",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:57:14Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/tasks/bb9eexaft.output"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T00:55:42Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "python3 - <<'PY'\np=\"/Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md\"; s=open(p).read()\ni=s.index(\"## Working on\")\nnew = \"\"\"## Working on\n\n# ✅ THE CRAWL DECAY IS FIXED — 223.6s → 0.0006s\n\n**T",
-      "url": "",
-      "ok": true
     }
   ],
   "security": {
-    "blocked": 371,
+    "blocked": 373,
     "tripwire": 0,
     "recent": [
+      "`2026-09-02T03:39:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
+      "`2026-09-02T03:39:21Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T02:38:44Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T02:38:44Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T01:38:09Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
@@ -1336,9 +1332,7 @@
       "`2026-09-02T00:37:35Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
       "`2026-09-02T00:15:24Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `chmod +x githooks/pre-commit && git config core.hooksPath githooks && echo \"hooksPath = $(git config co",
       "`2026-09-02T00:14:56Z` **BLOCKED** Write — protected harness path (.claude/hooks/) — `/Users/bilalsbaiby/work/resale-iq/.claude/hooks/pre-commit-checks.sh`",
-      "`2026-09-02T00:13:59Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'docker exec ph5clxk9hmghspv65pdkvak9-185628563375 sh -c \"rm -f /tmp/diag",
-      "`2026-09-01T23:37:00Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`",
-      "`2026-09-01T23:37:00Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`"
+      "`2026-09-02T00:13:59Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `ssh -o BatchMode=yes resaleiq 'docker exec ph5clxk9hmghspv65pdkvak9-185628563375 sh -c \"rm -f /tmp/diag"
     ],
     "restore_test": {
       "value": null,
@@ -1370,7 +1364,7 @@
       "source": "src/data/seo-brands.json, 2026-09-01 — the 6 zero-models_tracked brands (pull-bear, zara, bershka, mango, hugo-boss, calvin-klein; 36 URLs total: 6 brand pages + 30 brand x category pages) were removed on branch claude/seo/w2-zero-model-cleanup. Verified live: brand count 26->20, remaining 9 categories still each served by >=1 real brand. sitemap.ts and generateStaticParams both derive from this same BRANDS list, so the 36 URLs 404 and drop from the sitemap by construction, not by a second edit."
     }
   },
-  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING\n\nRows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to\npublish this loop. I pulled the **last frame** before approving:\n\n> **\"No data found for 'Zara blazer'. Try a brand + model name.\"**\n\n**The video ends on our product saying it doesn't know.** Shot against a query it couldn't answer.\nBoth rows are now `blocked_broken_asset` with the reason in `review_note`. **Nothing published this\nloop, and that is the right outcome** — `ffprobe` said video+audio+1080, and it would have passed\nevery automated check we have. **Only looking at the picture caught it.**\n\nNote: W60 means that same shot would land *better* today — a vague query now returns `BRAND_AVERAGE`\ninstead of nothing. Re-shoot, don't discard.\n\n# 🔧 DISK GUARD — prune when it matters, not on a calendar\n\nDisk climbed **75.5 → 80.1 → 82.4 → 85%** across three heartbeats (~2h). The daily prune could not\nkeep up. `/usr/local/bin/riq-disk-guard` now runs hourly and acts **only above 80%**.\n\n**My first version reclaimed 0 bytes at 85%** — it filtered cache to `until=24h` and all the cache is\nfrom *today's* builds, so nothing matched while it reported success. **A check that passes by finding\nnothing**, the same shape as the UTM regex that matched no links. Fixed; **85% → 77%, 17 GB free**,\nand verified it does **nothing** at 77%.\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `Adidas Samba` → WATCH, buy_below **20.97**, n=63.\n- **Tracker fix holding**: `01:57 → 5.59s` against 203.17s and 205.66s before it.\n- **The four emails**: sent 02:05, **0 checks since** — expected, it is ~3am in their timezones.\n  **Not a failure; too early to be data.**\n- **Board 21 closed / 1 open** (founder's).\n\n# 📧 THE FOUR REACTIVATION EMAILS ARE SENT\n\n**The last thing standing between us and a first customer.** Founder authorisation: *\"i allow you to\nemail\"*. Full record in `FIRST-REVENUE.md`.\n\n| id | trial before | trial after | email |\n|---|---|---|---|\n| 68 | expired 2026-08-30 | **2026-09-16** | SENT |\n| 69 | **expired today** | **2026-09-16** | SENT |\n| 70 | **expired today** | **2026-09-16** | SENT |\n| 79 | 2026-09-05 | **2026-09-16** | SENT |\n\n**Order was reset → verify → send.** The email says *\"I've already reset it\"*; sending that first\nwould have made us liars to the only four warm users we have. Backed up before the write, **verified\nby reading back from the database**, not from the write's return value.\n\n## Two things caught before they reached a real person\n\n**1. `403` / Cloudflare `1010`** — I called Resend with `urllib`, whose default User-Agent is blocked.\nThe app has used `httpx` successfully every day. **Reimplementing a working path is how you end up\ndebugging someone else's solved problem.**\n\n**2. NO UNSUBSCRIBE HEADER — the serious one.** `api/email.py` documents that marketing sends must\ncarry `List-Unsubscribe` per **RFC 8058 and EU marketing opt-out rules**. **This is a marketing\nsend.** I was one command from emailing four real people without a legal opt-out, **from a codebase\nthat already knew better.** Fixed: header + footer link + honours `marketing_opt_out`.\n\n**Every claim in the email is checkable** — `verdict_logs` shows **0 checks** for all four, all four\nregistered **before** the W1 fix, and the reset happened **before** the send. No manufactured\nurgency, no discount, and the first ask is *why it didn't stick*, not money.\n\n## This loop\n\n- **Production verified**: six locales + health + register all 200. `New Balance 530` → SKIP,\n  buy_below **26.39**, n=553. `Carhartt jacket` → **BRAND_AVERAGE** n=45.\n- **Board 21 closed / 1 open** — the only open row is the founder's (W24).\n- **Did not publish.** Instagram is the only channel returning anyone and it is the middle of the\n  night in ES/FR/DE/IT/PT. Posting into a dead hour spends reach for nothing.\n\n## Watch next\n\n**Any reply to those four emails is the most valuable input this company has ever had** — it would be\nthe first time a real user told us what is wrong. The heartbeat will fire `first_sale` if one\nconverts.\n\n# ✅ TRACKER FIXED AND PROVEN LIVE — 203.2s → 5.6s (36×)\n\n```\nTRACKER\n  2026-09-02 01:57      5.6s   ← POST-FIX, on production\n  2026-09-02 00:00    203.2s\n  2026-09-01 23:00    205.7s\n```\n\nThe **system-level** number, not the query benchmark. The query alone measured **223.6s → 0.0085s**;\nthe job it lives in went **203.2s → 5.6s**. `demand-intel@9d3a24b`, 1,345 tests.\n\n**This was the COMPOUNDING half.** The tracker verifies 300 rows per run; at 203s the backlog grew\nfaster than it drained, which produced the monotonic no-plateau curve. **At 5.6s that loop is\nbroken** — the backlog now drains.\n\n# ⚠️ THE VINTED CRAWL DID NOT RECOVER — and that is the honest half\n\n```\n02:00 1984s · 01:48 1300s · 01:39 2525s · 01:25 1721s   (all post-deploy)\n```\n\nAveraging ~1,880s against a 1,814s baseline. **No improvement.** The tracker's `ORDER BY` was one of\ntwo problems, not both.\n\n**Remaining hypothesis, named but NOT proven:** a **21 GB SQLite database on a 3.7 GB host** — the\npage cache cannot hold the working set. That is a **capacity** problem, not a query one, and it has\nno one-line fix. **It is now the strongest argument for `devops`'s 8 GB / 4 vCPU recommendation**,\nwhich is a founder spend decision.\n\n**Do not claim the crawl decay is fixed.** Half is fixed and proven; half is open.\n\n## A watcher of mine reported a non-result as proof\n\nMy first tracker watcher compared timestamp **strings** against a baseline truncated to minutes, so\n`\"2026-09-02 00:00:56\" > \"2026-09-02 00:00\"` matched **the very row it was meant to exclude** and\nprinted \"before 203.2s, after 203.166s\" as a result. Rewritten against the monotonic **row id**,\nwhich cannot do that. **Caught before it reached the founder — but only just.**\n\n## Board\n\n**21 closed / 1 open — the only open row is the found",
+  "session": "# SESSION\n\n**Updated** 2026-09-01 (CEO, evening)\n\n## Working on\n\n# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE\n\nThe two defects that were **identical in all 21** are closed. `d95bbdb`.\n\n- **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in the founder's own words**. Every agent\n  had been operating under a rule he deleted. **Now 0/21.**\n- **0/21 defined DONE.** DOCTRINE §6 makes it binding, so the day the doctrine shipped **every agent\n  contradicted it**. Now all 21 carry CLAIMED / EXECUTED / VERIFIED / PROVEN, *\"a row closes on a\n  commit, a URL, a test count or a measurement — never on a claim\"*, and **UNKNOWN as a respected\n  deliverable**.\n- **21/21 now state the right to refuse.** Deliberate, not decorative: three agents refused wrong\n  instructions from me on 2026-09-01 — the W54 deploy key, the phantom orphan container, a redundant\n  PENDING fix — **and each was right.** Writing it into the contract is how that survives the next\n  prompt that pushes against it.\n\n**What this does NOT do:** differentiate them. They remain largely boilerplate, and that needs\nindividual work per role. **Mechanically generating 21 personalities is exactly what produced the\ndefect the audit measured**, so it stays open rather than faked in one pass.\n\nVerified: frontmatter intact on all 21, and the DoD lands **before** the Loop section so it is read\nbefore work starts.\n\n## Measured this loop\n\n- **Production**: six locales + health + register 200. `Nike Air Force 1` → WATCH n=103.\n  `Fred Perry polo` → **BRAND_AVERAGE n=51**.\n- **The four emailed users: 0 checks, 0 paying, and 0 opt-outs.** Sent 02:05; it is ~4am in their\n  timezones. **Too early to be data — and nobody has unsubscribed, which is the only signal available\n  this soon.**\n- **Disk guard working**: 85% → 76.8% and holding.\n- **Actionable trend**: 68.5% → 68.8% → 69.3% → 69.6% across five wakes. Slow, real, and moving the\n  right way as W60 converts dead ends (**10 brand-average answers**).\n- **Did not publish.** ~4am across all five markets, and the only two ready drafts are the ones I\n  blocked for ending on the product failing.\n\n# 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING\n\nRows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to\npublish this loop. I pulled the **last frame** before approving:\n\n> **\"No data found for 'Zara blazer'. Try a brand + model name.\"**\n\n**The video ends on our product saying it doesn't know.** Shot against a query it couldn't answer.\nBoth rows are now `blocked_broken_asset` with the reason in `review_note`. **Nothing published this\nloop, and that is the right outcome** — `ffprobe` said video+audio+1080, and it would have passed\nevery automated check we have. **Only looking at the picture caught it.**\n\nNote: W60 means that same shot would land *better* today — a vague query now returns `BRAND_AVERAGE`\ninstead of nothing. Re-shoot, don't discard.\n\n# 🔧 DISK GUARD — prune when it matters, not on a calendar\n\nDisk climbed **75.5 → 80.1 → 82.4 → 85%** across three heartbeats (~2h). The daily prune could not\nkeep up. `/usr/local/bin/riq-disk-guard` now runs hourly and acts **only above 80%**.\n\n**My first version reclaimed 0 bytes at 85%** — it filtered cache to `until=24h` and all the cache is\nfrom *today's* builds, so nothing matched while it reported success. **A check that passes by finding\nnothing**, the same shape as the UTM regex that matched no links. Fixed; **85% → 77%, 17 GB free**,\nand verified it does **nothing** at 77%.\n\n## Measured this loop\n\n- **Production**: six locales + health 200. `Adidas Samba` → WATCH, buy_below **20.97**, n=63.\n- **Tracker fix holding**: `01:57 → 5.59s` against 203.17s and 205.66s before it.\n- **The four emails**: sent 02:05, **0 checks since** — expected, it is ~3am in their timezones.\n  **Not a failure; too early to be data.**\n- **Board 21 closed / 1 open** (founder's).\n\n# 📧 THE FOUR REACTIVATION EMAILS ARE SENT\n\n**The last thing standing between us and a first customer.** Founder authorisation: *\"i allow you to\nemail\"*. Full record in `FIRST-REVENUE.md`.\n\n| id | trial before | trial after | email |\n|---|---|---|---|\n| 68 | expired 2026-08-30 | **2026-09-16** | SENT |\n| 69 | **expired today** | **2026-09-16** | SENT |\n| 70 | **expired today** | **2026-09-16** | SENT |\n| 79 | 2026-09-05 | **2026-09-16** | SENT |\n\n**Order was reset → verify → send.** The email says *\"I've already reset it\"*; sending that first\nwould have made us liars to the only four warm users we have. Backed up before the write, **verified\nby reading back from the database**, not from the write's return value.\n\n## Two things caught before they reached a real person\n\n**1. `403` / Cloudflare `1010`** — I called Resend with `urllib`, whose default User-Agent is blocked.\nThe app has used `httpx` successfully every day. **Reimplementing a working path is how you end up\ndebugging someone else's solved problem.**\n\n**2. NO UNSUBSCRIBE HEADER — the serious one.** `api/email.py` documents that marketing sends must\ncarry `List-Unsubscribe` per **RFC 8058 and EU marketing opt-out rules**. **This is a marketing\nsend.** I was one command from emailing four real people without a legal opt-out, **from a codebase\nthat already knew better.** Fixed: header + footer link + honours `marketing_opt_out`.\n\n**Every claim in the email is checkable** — `verdict_logs` shows **0 checks** for all four, all four\nregistered **before** the W1 fix, and the reset happened **before** the send. No manufactured\nurgency, no discount, and the first ask is *why it didn't stick*, not money.\n\n## This loop\n\n- **Production verified**: six locales + health + register all 200. `New Balance 530` → SKIP,\n  buy_below **26.39**, n=553. `Carhartt jacket` → **BRAND_AVERAGE** n=45.\n- **Board 21 closed / 1 open** — the only open row is the founder's (W24).\n- **Did not publish.** Instagram is the only channel returning anyone and it is the middle of the\n  night in ES/FR/DE/IT/PT. Po",
   "amendments": [
     "AM-1 — The stack is FastAPI + SQLite, not Next.js + Supabase",
     "AM-2 — Spend cap: €200/month, all-in",

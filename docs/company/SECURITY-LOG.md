@@ -1261,3 +1261,28 @@ new = """## Working on
 The two defects that were **identical in all 21** are closed. `d95bbdb`.
 
 - **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in `
+- `2026-09-02T04:40:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T04:40:04Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T04:40:04Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T04:40:04Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T04:51:19Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && python3 - <<'PY'
+p="docs/company/CONTENT-RULES.md"
+add = """
+
+---
+
+## ASSET VERIFICATION — added 2026-09-02 after two broken videos reached the queue
+
+**`ffprobe` is not verification. It reports codec, resolution and audio. It cannot see that the video
+shows o`
+- `2026-09-02T04:51:46Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# 🎥 THE VIDEO LIBRARY IS PART BROKEN — and `ffprobe` could never have told us
+
+Audited every marketing video by **pulling its last frame and looking at it**. Three checked in
+detail:
+
+| `
