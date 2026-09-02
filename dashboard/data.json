@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-02T12:40:44Z",
-  "prod_included": false,
+  "generated_at": "2026-09-02T14:51:45Z",
+  "prod_included": true,
   "founder_inbox": {
     "open": [
       "**A9 — the `gsc` MCP server has been misconfigured since setup and no `mcp__gsc__*` tool call",
@@ -59,34 +59,30 @@
   },
   "company": {
     "mrr": {
-      "value": null,
-      "unknown": true,
-      "why": "no Stripe read",
-      "fix": "run with --prod"
+      "value": 0.0,
+      "currency": "EUR",
+      "n": 1,
+      "source": "stripe live /v1/subscriptions"
     },
     "customers": {
-      "value": null,
-      "unknown": true,
-      "why": "no Stripe read",
-      "fix": "run with --prod"
+      "value": 1
     },
     "north_star_weekly_trusted_checks": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 1,
+      "n": 2,
+      "source": "sql/metrics/weekly_trusted_checks.sql (production)"
     },
     "retention_30d": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 4, floor = 100)",
-      "fix": "not enough evidence to publish this; the .sql header says why"
+      "why": "population below floor (n = 0, floor = 100)",
+      "fix": null
     },
     "trial_to_paid": {
       "value": null,
       "unknown": true,
-      "why": "population below floor (n = 10, floor = 100)",
-      "fix": "not enough evidence to publish this; the .sql header says why"
+      "why": "population below floor (n = 0, floor = 100)",
+      "fix": null
     },
     "spend_vs_cap": {
       "value": null,
@@ -94,7 +90,16 @@
       "why": "no spend ledger yet",
       "fix": "Phase 2: finance-ops writes docs/company/LEDGER.md"
     },
-    "spend_cap_eur": 200
+    "spend_cap_eur": 200,
+    "users_total": {
+      "value": 7
+    },
+    "users_paying": {
+      "value": 0
+    },
+    "charges_paid": {
+      "value": 0
+    }
   },
   "quality": {
     "canary": {
@@ -110,47 +115,57 @@
       "fix": "Phase 2: /precision"
     },
     "band_coverage_demand": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 87.4,
+      "n": 459,
+      "source": "sql/metrics/band_coverage_demand.sql (production)"
     },
     "band_evidence_p50": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 13.5,
+      "n": 68,
+      "source": "sql/metrics/band_evidence_p50.sql (production)"
     },
     "insufficient_data_rate": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 12.6,
+      "n": 459,
+      "source": "sql/metrics/insufficient_data_rate.sql (production)"
     },
     "band_coverage_supply": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 68.0,
+      "n": 100,
+      "source": "sql/metrics/band_coverage_supply.sql (production)"
     },
     "n_predictions_resolved": {
       "value": 0,
-      "n": 38,
-      "source": "sql/metrics/n_predictions_resolved.sql"
+      "n": 678,
+      "source": "sql/metrics/n_predictions_resolved.sql (production)"
     },
     "pipeline_lag_min": {
-      "value": null,
-      "unknown": true,
-      "why": "inspected nothing (n = 0)",
-      "fix": "no rows in the measurement window yet"
+      "value": 7.1,
+      "n": 1144,
+      "source": "sql/metrics/pipeline_lag_min.sql (production)"
+    },
+    "listings_total": {
+      "value": 13479876
+    },
+    "newest_sold_at": {
+      "value": "2026-09-02 14:50:32"
+    },
+    "predictions_total": {
+      "value": 678
     }
   },
   "funnel": {
-    "note": {
-      "value": null,
-      "unknown": true,
-      "why": "no funnel events table wired yet",
-      "fix": "run with --prod"
+    "verdicts_7d": {
+      "value": 1171
+    },
+    "pageviews_7d": {
+      "value": 1478
+    },
+    "signups_7d": {
+      "value": 4
+    },
+    "attributed_signups": {
+      "value": 1
     }
   },
   "departments": {
@@ -681,6 +696,10 @@
     ],
     "recent_commits": [
       {
+        "sha": "f927b2e",
+        "msg": "SESSION: final handover to OpenClaw"
+      },
+      {
         "sha": "f0da3aa",
         "msg": "deploy: three backend fixes live; the outage has a fourth cause in the frontend proxy"
       },
@@ -723,10 +742,6 @@
       {
         "sha": "0a946f8",
         "msg": "probe: the 78% claim settled with 182 samples — 100.00% availability"
-      },
-      {
-        "sha": "73fd670",
-        "msg": "openclaw: local orchestrator live on the Mac — steps 1-2 of 7, not the migration"
       }
     ],
     "dirty": true,
@@ -795,6 +810,56 @@
     }
   ],
   "activity": [
+    {
+      "ts": "2026-09-02T12:43:52Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq; echo \"=== final state check ===\"\necho -n \"  product answers a real visitor: \"; curl -s -m 30 \"https://resaleiq.dev/api/verdict?q=Adidas%20Samba\" | python3 -c \"imp",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:43:28Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "sleep 5; openclaw agent --agent resaleiq -m \"Read knowledge/CURRENT-STATE.md in your workspace. In three sentences: what is the state of the production outage, what is the one thing that needs the fou",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:41:49Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "openclaw gateway restart 2>&1 | tail -3; sleep 10; curl -s -m 8 -o /dev/null -w \"  gateway http %{http_code}\\n\" http://127.0.0.1:18789/ 2>&1; openclaw gateway status 2>&1 | head -2",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:41:10Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "echo \"=== does the resaleiq agent read the handover? ===\"\nopenclaw agent --agent resaleiq -m \"Read knowledge/CURRENT-STATE.md in your workspace. In three sentences: what is the state of the production",
+      "url": "",
+      "ok": true
+    },
+    {
+      "ts": "2026-09-02T12:40:55Z",
+      "session": "fb348ebc",
+      "agent": "unattributed",
+      "tool": "Bash",
+      "files": [],
+      "cmd": "cd /Users/bilalsbaiby/work/resale-iq; python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/final_session.py && python3 scripts/company/build_dashboar",
+      "url": "",
+      "ok": true
+    },
     {
       "ts": "2026-09-02T12:40:29Z",
       "session": "fb348ebc",
@@ -1258,62 +1323,6 @@
         "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
       ],
       "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:19:23Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:19:20Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Edit",
-      "files": [
-        "/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin/src/proxy.ts"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:18:55Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "WT=/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/wt-xff-hairpin\nsed -n '1,20p' \"$WT/src/proxy.ts\"",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:18:46Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Read",
-      "files": [
-        "/Users/bilalsbaiby/work/resale-iq/node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md"
-      ],
-      "cmd": "",
-      "url": "",
-      "ok": true
-    },
-    {
-      "ts": "2026-09-02T12:18:43Z",
-      "session": "fb348ebc",
-      "agent": "unattributed",
-      "tool": "Bash",
-      "files": [],
-      "cmd": "find /Users/bilalsbaiby/work/resale-iq/node_modules/next/dist/docs -iname \"*proxy*\" -o -iname \"*middleware*\" 2>&1 | head -20\ncat /Users/bilalsbaiby/work/resale-iq/node_modules/next/package.json 2>&1 |",
       "url": "",
       "ok": true
     }
