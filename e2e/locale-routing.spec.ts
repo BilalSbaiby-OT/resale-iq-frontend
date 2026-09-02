@@ -164,3 +164,79 @@ test("a genuine Spanish-first visitor is still routed to Spanish", async ({ requ
   expect(res.status()).toBe(307)
   expect(res.headers()["location"]).toContain("/es")
 })
+
+// ---------------------------------------------------------------------------
+// W61: only the homepage is translated. Verified live 2026-09-02 that every
+// deeper locale path -- /es/pricing, /es/blog, /es/methodology, /es/deals,
+// /es/terms, same for fr/de/it/pt -- 404'd, on the only five markets we
+// sell to. src/app/[locale]/[...rest]/page.tsx closes it: a locale-prefixed
+// deep path now redirects to its real page instead of a dead end. Asserted
+// per-status, not just "not 404" -- a 200 here would mean the catch-all
+// swallowed the request instead of redirecting it.
+// ---------------------------------------------------------------------------
+test("a locale-prefixed deep path that has no translation redirects to the real page instead of 404ing", async ({ request }) => {
+  for (const path of ["/es/blog", "/es/methodology", "/es/terms", "/es/deals", "/fr/blog", "/de/methodology"]) {
+    const res = await request.get(path, { maxRedirects: 0 })
+    expect(res.status(), path).toBe(307)
+    const location = res.headers()["location"]
+    expect(location, path).not.toMatch(/^\/[a-z]{2}\//) // must have shed the locale prefix
+  }
+})
+
+test("/es/pricing goes straight to the Spanish pricing section, not the English one", async ({ request }) => {
+  const res = await request.get("/es/pricing", { maxRedirects: 0 })
+  expect(res.status()).toBe(307)
+  expect(res.headers()["location"]).toMatch(/\/es#pricing$/)
+})
+
+test("/fr/pricing goes straight to the French pricing section, not the English one", async ({ request }) => {
+  const res = await request.get("/fr/pricing", { maxRedirects: 0 })
+  expect(res.status()).toBe(307)
+  expect(res.headers()["location"]).toMatch(/\/fr#pricing$/)
+})
+
+test("a deep path under an unsupported locale segment still 404s -- the catch-all does not widen PATH_LOCALES", async ({ request }) => {
+  const res = await request.get("/en/pricing")
+  expect(res.status()).toBe(404)
+})
+
+// ---------------------------------------------------------------------------
+// W61, second half of the same finding: the free checker's own LIMIT_REACHED
+// CTA linked "/#pricing" -- an ABSOLUTE path to the ENGLISH root. A Spanish
+// visitor who ran out of daily free checks and clicked "Ver planes" was sent
+// to the English homepage mid-funnel, exactly the failure the founder named
+// ("clicks anything, and the entire rest of the site is English"). Fixed in
+// free-checker.tsx with canonicalPath(locale). Proven end to end here, not
+// just read from source: exhaust the real quota through the mock backend,
+// trigger the real LIMIT_REACHED render, and check the real href.
+// ---------------------------------------------------------------------------
+async function exhaustQuotaAndReachLimit(page: import("@playwright/test").Page, homePath: string) {
+  const res = await page.goto(homePath)
+  expect(res?.ok()).toBeTruthy()
+  for (let i = 0; i < 10; i++) {
+    await page.request.get(`/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}`)
+  }
+  const responsePromise = page.waitForResponse((r) => r.url().includes("/api/verdict"))
+  await page.locator("#check").getByRole("textbox").fill("Nike Air Force 1")
+  await page.locator("#check").getByRole("button").first().click()
+  const body = await (await responsePromise).json()
+  expect(body.verdict).toBe("LIMIT_REACHED")
+}
+
+test("an exhausted Spanish visitor's 'Ver planes' link stays on /es, not the English homepage", async ({ page }) => {
+  await exhaustQuotaAndReachLimit(page, "/es")
+  const comparePlans = page.getByRole("link", { name: "Ver planes" })
+  await expect(comparePlans).toHaveAttribute("href", "/es#pricing")
+})
+
+test("an exhausted French visitor's 'Voir les tarifs' link stays on /fr, not the English homepage", async ({ page }) => {
+  await exhaustQuotaAndReachLimit(page, "/fr")
+  const comparePlans = page.getByRole("link", { name: "Voir les tarifs" })
+  await expect(comparePlans).toHaveAttribute("href", "/fr#pricing")
+})
+
+test("an exhausted English visitor's 'See plans' link is still the bare anchor -- no regression", async ({ page }) => {
+  await exhaustQuotaAndReachLimit(page, "/")
+  const comparePlans = page.getByRole("link", { name: "See plans" })
+  await expect(comparePlans).toHaveAttribute("href", "/#pricing")
+})
