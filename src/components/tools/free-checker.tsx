@@ -91,8 +91,9 @@ const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
 // `copy[locale].checker.insufficient*`, keyed to match this branch's
 // designer-owned wording exactly (see the INSUFFICIENT_DATA render branch
 // below for the reasoning this branch does not touch: backend-owned
-// res.message/res.confidence_note still say "comparable sold items" and
-// that is a backend-eng fix, not a frontend string-replace).
+// res.message/res.confidence_note said "comparable sold items" until
+// backend `8e48684` swept them to "watched departures" -- that was always a
+// backend-eng fix, never a frontend string-replace).
 
 // Shared by the UNKNOWN (not covered) and INSUFFICIENT_DATA (not enough
 // evidence) branches below — both are refusals, both need a next step so
@@ -293,17 +294,17 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
             // just text at the same weight the price copy would have used.
             //
             // NOTE on res.confidence_note / res.message below: these strings are
-            // backend-owned (demand-intel/engine/listing_identity.py:364-370,
-            // api/routes.py:538,595-597,922,1075). As of this pass they still say
-            // "comparable sold items", the exact claim swept from the rest of the
-            // site today ("watched departures" — a departure can be a delist, an
-            // edit or a reservation, not only a sale). That is a backend copy bug,
-            // not a frontend one: fixing it here would only hide it, and three
-            // test files (test_verdict_confidence.py, test_provisional_verdict.py,
-            // test_evidence_gate_paid_surfaces.py) assert the exact string, so the
-            // real fix is a backend-eng PR that updates the string AND its tests
-            // together. Flagged, not papered over — do not string-replace "sold"
-            // here.
+            // backend-owned (demand-intel/engine/listing_identity.py:368,
+            // api/routes.py:569,571). They said "comparable sold items" until
+            // backend `8e48684` (2026-09-02) swept them to "watched departures" —
+            // a departure can be a delist, an edit or a reservation, not only a
+            // sale, so claiming a sale was the one thing the product retracts.
+            // That fix landed in the backend WITH its three test files updated in
+            // the same commit (test_verdict_confidence.py,
+            // test_provisional_verdict.py, test_evidence_gate_paid_surfaces.py),
+            // which is what this note asked for. Still do not string-replace
+            // backend copy here: these strings remain backend-owned, and patching
+            // them in the frontend would hide the next drift rather than fix it.
             //
             // data-testid, not the copy, is what e2e/regression-p0.spec.ts pins to
             // (defect 2/3 test update, 2026-09-01) — a test locked to this literal

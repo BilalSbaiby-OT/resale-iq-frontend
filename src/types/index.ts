@@ -206,7 +206,7 @@ export interface VerdictResult {
   data_quality?: number
   /** HIGH | MEDIUM | LOW — data-quality band, never invented precision. */
   confidence?: string
-  /** e.g. "Only 4 comparable sold items" when the sample is thin. */
+  /** e.g. "Only 4 watched departures" when the sample is thin. */
   confidence_note?: string
   /** True when the call rests on momentum/price because STR is withheld. */
   provisional?: boolean

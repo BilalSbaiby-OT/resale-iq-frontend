@@ -116,7 +116,7 @@ const VERDICT_CATALOG = {
     n: 3,
     sold_7d: 3,
     confidence_note:
-      "Only 3 comparable sold items — not enough to name a buy-below. The model is tracked; the price is not.",
+      "Only 3 watched departures — not enough to name a buy-below. The model is tracked; the price is not.",
     message:
       "We know 'Thin Sample Sneaker', but 3 watched comps is too few to print a buy-below.",
     reason: "thin_comparables",
