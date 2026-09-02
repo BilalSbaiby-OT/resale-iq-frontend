@@ -4,6 +4,48 @@
 
 ## Working on
 
+# ▶ START HERE: `python3 scripts/company/wake.py`
+
+**A cold session reconstructs the company in one command.** Wired into `DOCTRINE.md` as step zero.
+The architecture is now explicit, per the founder (2026-09-02): **between sessions the heartbeat
+observes** (hourly host cron, `AUTONOMY.md`); **during a session, the session IS the reasoning layer**
+— until a funded model key at 100 users.
+
+**Live wake output:**
+```
+paying 0 · users 7 · signups 1
+checks 111 · actionable 68.5% · brand-average 8   ← W60 answering real visitors
+crawl 120 runs @ 1798s · listings 13,247,558 · disk 75.8%
+board 21 closed / 1 open · frontend + backend BOTH IN SYNC
+→ STILL ZERO PAYING. Not a traffic problem: 28/day is enough for 2.56% → 80 customers.
+```
+
+**BOARD: 21 closed / 1 open — and the only open row is the founder's** (W24, Coolify UI).
+
+**W60 and W61 closed on LIVE evidence, not on the merge** — both sat merged-but-not-live for hours,
+W60 behind a full disk and a pipeline my own check was blocking.
+- **W60:** `Carhartt jacket` → `BRAND_AVERAGE n=45 €50.42`, limitation inside the message.
+  **8 such answers to real visitors in 24h.**
+- **W61:** every locale deep path **307s instead of 404ing**. Also fixed the free-checker CTA that
+  bounced a Spanish visitor to the English homepage **at the moment they had used all ten checks**.
+
+## The machinery is now catching its own author
+
+`githooks/pre-commit` fired on **two consecutive commits**, both at the keyboard rather than in CI:
+- `observe.py` — a **false positive**; the handler reports via `sys.stderr`. **Fixed the checker, not
+  the code** — a check that cries wolf gets disabled inside a week. (My first fix was also wrong: a
+  regex that broke on `str(e)`.)
+- `wake.py` — real. It prints to stdout, which is legitimate for a CLI whose output IS the report.
+  **I did NOT loosen the checker to accept every print** — in a library a bare print is exactly the
+  silent failure it exists to catch. Used the escape hatch and wrote the reason down.
+
+## Still true, still blocking real autonomy
+
+**No reasoning model runs headless.** `ANTHROPIC_API_KEY` absent · OpenRouter **402** · Groq **403** ·
+`CronCreate` "gone when Claude exits" · scheduled tasks need the app open · GH Actions has no DB
+route. **The founder's call: use the session until 100 users.** So the company observes without him
+and reasons with him — and `wake.py` is the handover.
+
 # ⚙️ THE COMPANY NOW HAS A HEARTBEAT THAT RUNS WITHOUT ANY SESSION
 
 `/usr/local/bin/riq-heartbeat`, **hourly cron on the production host** (`17 * * * *`). Reads

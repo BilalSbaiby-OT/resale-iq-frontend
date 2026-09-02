@@ -1154,3 +1154,28 @@ The pre-commit hook fired on observe.py:137 during a real commit -- exactly what
 it was built for -- but the`
 - `2026-09-02T00:41:57Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/session11.py && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_s11.txt <<'MSG'
 session: the company has a heartbeat, and autonomy is bloc`
+- `2026-09-02T00:47:25Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="/Users/bilalsbaiby/work/resale-iq/docs/company/DOCTRINE.md"; s=open(p).read()
+anchor = "## 1. WHY THE COMPANY EXISTS"
+new = """## 0.5 THE FIRST THING ANY SESSION DOES
+
+```
+python3 scripts/company/wake.py
+```
+
+**Run it before anything else. Before reading this file's principles, b`
+- `2026-09-02T00:47:47Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="/Users/bilalsbaiby/work/resale-iq/scripts/company/wake.py"; s=open(p).read()
+old = '''    except Exception:
+        print("  board UNREADABLE — run org.py directly")'''
+new = '''    except Exception:
+        # why: the board is one section of a brief. An unreadable board must not`
+- `2026-09-02T00:49:03Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="/Users/bilalsbaiby/work/resale-iq/docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# ▶ START HERE: `python3 scripts/company/wake.py`
+
+**A cold session reconstructs the company in one command.** Wired into `DOCTRINE.md` as step zero.
+Th`
