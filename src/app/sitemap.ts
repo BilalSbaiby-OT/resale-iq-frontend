@@ -91,14 +91,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // sitemap alternates uses full URLs ('https://nextjs.org/en-US'), not paths.
   const homeAlternates: Record<string, string> = {}
   for (const [code, path] of Object.entries(hreflangLanguages())) homeAlternates[code] = `${BASE}${path}`
+  // Same construction for /methodology, now that it has real locale routes
+  // too (src/app/[locale]/methodology/page.tsx, src/lib/methodology-copy.ts).
+  const methodologyAlternates: Record<string, string> = {}
+  for (const [code, path] of Object.entries(hreflangLanguages("/methodology"))) methodologyAlternates[code] = `${BASE}${path}`
   const staticPages = ["", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     priority: p === "" ? 1 : p === "/flip" || p === "/category" ? 0.9 : 0.6,
-    // Only "/" has translated siblings today (src/app/[locale]/page.tsx) — see
-    // locale-routes.ts for why the other pages are not in this set yet.
-    ...(p === "" ? { alternates: { languages: homeAlternates } } : {}),
+    // "/" and "/methodology" have translated siblings today (src/app/[locale]/page.tsx,
+    // src/app/[locale]/methodology/page.tsx) — see locale-routes.ts for why the
+    // other pages are not in this set yet.
+    ...(p === "" ? { alternates: { languages: homeAlternates } } : p === "/methodology" ? { alternates: { languages: methodologyAlternates } } : {}),
   }))
 
   // The five translated homepages. Reciprocal by construction: every entry
@@ -111,6 +116,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly" as const,
     priority: 0.9,
     alternates: { languages: homeAlternates },
+  }))
+
+  // The five translated methodology pages, same reciprocal-hreflang
+  // construction as localePages above, and the same STATIC_CONTENT_DATE
+  // class as the English "/methodology" entry (it is not in dataDrivenHubs
+  // either — the page shows live figures inline but its copy only changes
+  // when someone edits it).
+  const methodologyLocalePages = PATH_LOCALES.map((locale) => ({
+    url: `${BASE}/${locale}/methodology`,
+    lastModified: STATIC_CONTENT_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+    alternates: { languages: methodologyAlternates },
   }))
 
   const brandPages = BRANDS.map((b) => ({
@@ -164,6 +182,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticPages,
     ...localePages,
+    ...methodologyLocalePages,
     ...toolPages,
     ...manualPages,
     ...blogPages,

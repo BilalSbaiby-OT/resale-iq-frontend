@@ -2,7 +2,10 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
-import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
+import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "@/lib/trial-copy"
+import { methodology } from "@/lib/methodology-copy"
+import type { Locale } from "@/lib/i18n"
+import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
@@ -25,7 +28,7 @@ export const metadata: Metadata = {
   title: "Methodology — how Resale IQ calculates every number",
   description:
     "Exactly where our Vinted data comes from, how often it refreshes, how sell-through and buy-below prices are calculated, and what the data cannot tell you.",
-  alternates: { canonical: "/methodology" },
+  alternates: { canonical: "/methodology", languages: hreflangLanguages("/methodology") },
   openGraph: {
     title: "Methodology — how Resale IQ calculates every number",
     description:
@@ -34,7 +37,40 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function MethodologyPage() {
+// methodology-copy.ts stores its 58 values as plain TS string literals. Three
+// of them (verified across all 6 locales) contain an HTML named entity --
+// &apos; in "en" text9, &ldquo;/&rdquo; and &ndash; in text19/text25 in every
+// locale -- because they were extracted from JSX where that same entity sat
+// as literal text and the JSX compiler decodes entities written that way.
+// A TS string literal never does that decoding, and neither does a JSX
+// *expression* ({t.textN}) the way literal JSX text does, so piping these
+// straight through would render the literal characters "&apos;" on the page
+// instead of an apostrophe. Decode the handful the copy file actually uses
+// rather than pull in a dependency for three named entities.
+const COPY_ENTITIES: Record<string, string> = {
+  "&apos;": "'", // U+0027 -- matches what JSX's own &apos; decode produces
+  "&ldquo;": "“",
+  "&rdquo;": "”",
+  "&ndash;": "–",
+}
+function decodeCopyEntities<T extends Record<string, string>>(obj: T): T {
+  const out = {} as T
+  for (const k of Object.keys(obj) as (keyof T)[]) {
+    out[k] = (obj[k] as string).replace(/&(?:apos|ldquo|rdquo|ndash);/g, (m) => COPY_ENTITIES[m]) as T[typeof k]
+  }
+  return out
+}
+
+// `locale` defaults to "en" so the un-prefixed /methodology route (this
+// file) is unchanged; src/app/[locale]/methodology/page.tsx imports this
+// same function and passes the path locale. Every string below that comes
+// from `t` (methodology(locale)) is verified translated in all 6 locales —
+// see methodology-copy.ts's own header, both the original 58 keys and the
+// g_*/fresh*/conf*/auth* keys added to close the fragments that were still
+// English on first ship of locale routing (all closed as of this commit;
+// see methodology-copy.ts's changelog note for the source of each batch).
+export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {}) {
+  const t = decodeCopyEntities(methodology(locale))
   const tracked = await listingsTrackedLabel()
   const market = await getMarketNumbers()
   const weekly = market.brandNames.reduce((s, name) => {
@@ -43,26 +79,11 @@ export default async function MethodologyPage() {
   }, 0)
 
   const faq = [
-    {
-      q: "How fresh is Resale IQ's Vinted data?",
-      a: "The scraper is scheduled every 30 minutes per market across all five EU Vinted domains, but a run is skipped if the previous one is still in progress. Measured on production over the trailing 7 days (2026-08-26 to 2026-09-02, from the scraper run log): 83% of gaps land under an hour — median 34 minutes, mean 43 minutes, n=1,157 gaps across the 5 domains. The most recent 48 hours ran slower, 58% under an hour (n=242), while a backlog of skipped runs clears. Signals are recomputed on a slower cycle, roughly every 2 hours, and that cycle has run on schedule with no skips in the same window. Departure verification — checking which listings have left the shelf — runs every 60 minutes, also with no skips observed. Public pages carry no page-level cache; each one renders from the live database on every request. So right now a new listing is usually in the dataset within an hour, worse than our 30-minute target while the backlog clears; the score built from it can lag up to about 2 hours behind that.",
-    },
-    {
-      q: "How is sell-through rate calculated?",
-      a: "Watched departures divided by watched departures plus still-listed items. Only transitions we observed (sold_observed) — a listing leaving the shelf, not a confirmed sale. We withhold the percentage (null, not 0) when watched departures are below 30 or still-listed is 0 — that last case is the 100% hole, not a rate. Raw counts stay. We never label weekly turns as sell-through.",
-    },
-    {
-      q: "How is the buy-below price calculated?",
-      a: "Recent average asking price at the moment a listing left the shelf, for that specific model, minus the platform deduction we model for Vinted (5%), multiplied by 0.70 to target roughly a 30% margin. We do not observe the sale price itself — see \"What does 'left the shelf' mean\" below for why. Substitute your own fee figure if yours differs — the arithmetic does not care what the number is, only that you use the real one.",
-    },
-    {
-      q: "What does HIGH / MEDIUM / LOW confidence mean?",
-      a: "It is a band from data-quality score, comparable watched departures and snapshot recency — not a model guessing. HIGH needs at least 30 comparable departures. LOW always says how many comparables we have. LOW is not a SKIP.",
-    },
-    {
-      q: "Is the authenticity check a guarantee?",
-      a: "No. It is a confidence score, not a verification, and it never sees the physical item. It weighs how far the price sits below market, seller trust signals and listing patterns, then returns a 0-100 score with a band. It cannot authenticate anything and must not be treated as a guarantee. For anything valuable, use a professional authentication service.",
-    },
+    { q: t.faq0_q, a: t.faq0_a },
+    { q: t.faq1_q, a: t.faq1_a },
+    { q: t.faq2_q, a: t.faq2_a },
+    { q: t.faq3_q, a: t.faq3_a },
+    { q: t.faq4_q, a: t.faq4_a },
   ]
 
   const jsonLd = [
@@ -80,7 +101,7 @@ export default async function MethodologyPage() {
       name: "Resale IQ Vinted market dataset",
       description:
         "Live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf, aggregated into per-brand and per-model resale signals.",
-      url: `${BASE}/methodology`,
+      url: `${BASE}${canonicalPath(locale, "/methodology")}`,
       creator: { "@type": "Organization", name: "Resale IQ", url: BASE },
       spatialCoverage: "Spain, France, Germany, Italy, Portugal",
       isAccessibleForFree: true,
@@ -99,204 +120,156 @@ export default async function MethodologyPage() {
         <Link href="/" style={{ color: "#22c55e", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", lineHeight: 1.16, margin: "22px 0 14px" }}>
-          How every number on this site is calculated
+          {t.text0}
         </h1>
         <p style={{ fontSize: 16.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
-          You are being asked to make buying decisions with our data. That is only reasonable if
-          you can check how it is produced — so here is the whole method, including the parts
-          that are unflattering.
+          {t.text1}
         </p>
         <p style={{ fontSize: 15, color: "#8b99b8", lineHeight: 1.7, marginBottom: 32 }}>
-          If a figure on this page ever disagrees with the product, the product is wrong and we
-          want to hear about it: <Link href="/support" style={{ color: "#22c55e", textDecoration: "none" }}>support</Link>.
+          {t.text2} <Link href="/support" style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_support_link}</Link>.
         </p>
 
-        <Section title="Where the data comes from">
+        <Section title={t.section0}>
           <P>
-            We continuously read public live listings, and watch which ones leave the shelf,
-            across all five main EU Vinted domains — Spain, France, Germany, Italy and Portugal.
-            Nothing is bought from a third party. Prices and counts trace back to listings that
-            actually existed; momentum and sell-through are ratios computed from them, not
-            predictions.
+            {t.text3}
           </P>
           <P>
-            We anchor on listings that{" "}
-            <strong style={{ color: "#eef1f7" }}>left the shelf</strong>, not active ones. Active
-            listings tell you what sellers hope to get. Here is the honest version of what a
-            departure tells you: <strong style={{ color: "#eef1f7" }}>we do not see a receipt</strong>.
-            We see a listing disappear from a Vinted search shelf, and we infer a sale at its last
-            asking price. A departure is also consistent with the seller delisting it, an account
-            ban, an offline sale at a different price, or the seller{" "}
-            <strong style={{ color: "#eef1f7" }}>relisting the same item under a new id</strong> —
-            which we cannot always tell apart from a genuine sale. That last case matters more
-            than it sounds: a seller relists what is <em>not</em> selling, so the items most likely
-            to generate a fabricated &ldquo;sale&rdquo; are exactly the slow-moving ones a reseller
-            most needs an honest warning about. We have not yet measured how often this happens.
-            The price shown is therefore an{" "}
-            <strong style={{ color: "#eef1f7" }}>asking price at the moment of departure</strong> —
-            a real, useful proxy, and the closest honest signal Vinted&apos;s public data supports
-            — but not an observed sale price. Most tools quote active-listing asking prices because
-            they are far easier to collect; we go one step further and track departures, but we do
-            not claim to have watched money change hands.
+            {t.g_anchor_prefix}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.g_leftshelf}</strong>{t.text4}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.text5}</strong>.
+            {" "}{t.g_disappear}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.text6}</strong> {t.text7}{" "}
+            {t.g_notselling}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.text8}</strong> {t.text9}
           </P>
           <P>
-            A departure on this site means we <strong style={{ color: "#eef1f7" }}>watched</strong>{" "}
-            a listing go from active to gone. Listings we first saw already gone are in the
-            catalogue count, not in weekly departures. That is why listings tracked can be millions
-            while weekly watched departures are in the hundreds or thousands — not because the
-            market died, and not because a refresh zeroed the table.
+            {t.text10} <strong style={{ color: "#eef1f7" }}>{t.g_watched}</strong>{" "}
+            {t.g_departure_tail}
           </P>
           {weekly > 0 && (
-            <Callout label="Right now">
-              {fmtCount(market.listingsTracked)} distinct listings tracked ·{" "}
-              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} watched departures in 7 days</strong>
-              {" "}across {market.brandCount} brands on the public table
-              {market.brandsTracked != null ? ` (${market.brandsTracked} brands in the catalogue)` : ""}.
-              Last calculated {market.stamp ?? "—"}.
+            <Callout label={t.g_rightnow_label}>
+              {fmtCount(market.listingsTracked)} {t.g_tracked_suffix} ·{" "}
+              <strong style={{ color: "#eef1f7" }}>{fmtCount(weekly)} {t.g_departures_7d}</strong>
+              {" "}{t.g_across} {market.brandCount} {t.g_brands_table}
+              {market.brandsTracked != null ? ` (${market.brandsTracked} ${t.g_brands_catalogue})` : ""}.
+              {" "}{t.g_last_calculated} {market.stamp ?? "—"}.
             </Callout>
           )}
         </Section>
 
-        <Section title="How fresh it is">
+        <Section title={t.section1}>
           <Table rows={[
-            ["Listing collection", "scheduled every 30 min/market, skips if busy", "measured 2026-09-02 from the scraper run log: 83% of gaps under 1h over the trailing 7 days (n=1,157); 58% under 1h over the last 48h during a current backlog"],
-            ["Signal recomputation", "~every 2 hours", "scores, sell-through, buy-below — a slower cycle than collection; 0 skips observed in the same window"],
-            ["Departure verification", "every 60 minutes", "confirms a listing left the shelf — not that it sold; 0 skips observed"],
-            ["Public page refresh", "no page cache — live per request", "each request renders from the current database; not a 15-minute cache"],
+            [t.fresh0_0, t.fresh0_1, t.fresh0_2],
+            [t.fresh1_0, t.fresh1_1, t.fresh1_2],
+            [t.fresh2_0, t.fresh2_1, t.fresh2_2],
+            [t.fresh3_0, t.fresh3_1, t.fresh3_2],
           ]} />
           <P>
-            So right now a new listing is usually in the dataset within an hour — worse than our
-            30-minute target while a scraper backlog clears (see the measured cadence above). The
-            signal computed from it — buy-below, sell-through, confidence — can lag up to about 2
-            hours behind that. We publish the measured cadence rather than a rounder number that
-            sounds better, and this table is the one we correct first if the schedule changes.
+            {t.text12}
           </P>
         </Section>
 
-        <Section title="Sell-through rate — the formula">
+        <Section title={t.section2}>
           <P>
-            Sell-through is the share of the universe we actually watched: items we
-            saw listed and then saw leave the shelf, versus items still listed. It is not weekly
-            turns (departures ÷ active × 100), which can exceed 100% and must never be
-            labelled sell-through.
+            {t.text13}
           </P>
-          <Code>str = sold_observed / (sold_observed + active_listings) × 100</Code>
+          <Code>{t.text14}</Code>
           <P>
-            The numerator is only transitions we watched
-            (<Code>sold_observed=1</Code>) — a listing leaving the shelf, never a
-            discovery-stamped <Code>sold_at</Code>. Null, not 0 or 100, when watched departures
-            are below 30 <em>or</em> still-listed is 0 (active≤0 is the only way this share hits
-            100%). Raw departure and listed counts still show.
+            {t.text15}
+            <Code>sold_observed=1</Code>{t.text16} <Code>sold_at</Code>{t.text17} <em>or</em>{" "}
+            {t.text18}
           </P>
-          <Callout label="Why this matters">
-            A tool showing you &ldquo;760% sell-through&rdquo; is not showing you a sell-through
-            rate. It is showing you weekly turns and hoping you do not ask. 760 watched
-            departures against 100 still listed is 88.4% — a share.
+          <Callout label={t.g_whyitmatters_label}>
+            {t.text19}
           </Callout>
         </Section>
 
-        <Section title="Buy-below price — the formula">
-          <Code>buy_below = avg_departure_price × 0.95 × 0.70</Code>
+        <Section title={t.section3}>
+          <Code>{t.text20}</Code>
           <P>
-            <code style={{ color: "#8fe3b0" }}>avg_departure_price</code> is the average asking
-            price of comparable listings at the moment they left the shelf — the closest honest
-            proxy we have for a sale price, not an observed one (see &ldquo;Where the data comes
-            from&rdquo; above). The 0.95 is the 5% platform deduction we model for Vinted. The
-            0.70 targets roughly a 30% margin. Fee structures differ by platform, by market, and
-            by whether you sell privately or as a business — and they change — so substitute your
-            own figure if yours differs. The{" "}
-            <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>profit calculator</Link>{" "}
-            applies current per-platform rates across Vinted, Depop, eBay, Poshmark, StockX and GOAT.
+            <code style={{ color: "#8fe3b0" }}>avg_departure_price</code> {t.g_buybelow_a}{" "}
+            &ldquo;{t.section0}&rdquo; {t.g_buybelow_b}{" "}
+            <Link href="/tools/vinted-profit-calculator" style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_profit_calc}</Link>{" "}
+            {t.g_buybelow_c}
           </P>
         </Section>
 
-        <Section title="Verdict confidence — HIGH / MEDIUM / LOW">
+        <Section title={t.section4}>
           <P>
-            Every BUY / WATCH / SKIP carries a confidence band from the data we actually have:
-            data-quality score, comparable watched departures, and snapshot recency. It is not a
-            model guessing how sure it is.
+            {t.text21}
           </P>
           <Table rows={[
-            ["HIGH", "≥ 30 comparable departures and quality ≥ 70", "snapshot younger than 48 hours"],
-            ["MEDIUM", "≥ 10 comparable departures and quality ≥ 40", "or HIGH but the snapshot is stale"],
-            ["LOW", "thinner than that", "always paired with “Only N comparable departures”"],
+            ["HIGH", t.conf0_1, t.conf0_2],
+            ["MEDIUM", t.conf1_1, t.conf1_2],
+            ["LOW", t.conf2_1, t.conf2_2],
           ]} />
-          <Callout label="What LOW means">
-            LOW is not a SKIP. It means we will not pretend precision we do not have.
-            A call from four watched sales is labelled LOW on purpose.
+          <Callout label={t.g_lowmeans_label}>
+            {t.text22}
           </Callout>
         </Section>
 
-        <Section title="The authenticity check is a confidence score, not a verdict">
+        <Section title={t.section5}>
           <P>
-            This one needs stating plainly because the downside of a misunderstanding is someone
-            buying a fake. The check <strong style={{ color: "#eef1f7" }}>never sees the physical
-            item</strong>. It reads a listing and weighs three things: how far the price sits below
-            the real market for that model, seller trust signals, and patterns in how the listing
-            is written and photographed. It returns a 0&ndash;100 confidence score in one of four bands.
+            {t.text23} <strong style={{ color: "#eef1f7" }}>{t.text24}</strong>
+            {t.text25}
           </P>
           <Table rows={[
-            ["75–100", "High confidence", "nothing unusual found"],
-            ["50–74", "Moderate — verify", "some signals worth checking"],
-            ["25–49", "Low confidence", "several unusual signals"],
-            ["0–24", "Very low", "multiple red flags"],
+            ["75–100", t.auth0_1, t.auth0_2],
+            ["50–74", t.auth1_1, t.auth1_2],
+            ["25–49", t.auth2_1, t.auth2_2],
+            ["0–24", t.auth3_1, t.auth3_2],
           ]} />
-          <Callout label="What it is not" warm>
-            It is <strong style={{ color: "#eef1f7" }}>not</strong> an authentication service and{" "}
-            <strong style={{ color: "#eef1f7" }}>not</strong> a guarantee. A high score means we
-            found nothing unusual in the listing — not that the item is genuine. A low score means
-            the listing looks odd, which is sometimes just an unusual seller. For anything
-            valuable, use a professional authentication service and your own inspection. We will
-            not reimburse a purchase on the strength of this score.
+          <Callout label={t.g_whatnot_label} warm>
+            {t.g_notauth_a} <strong style={{ color: "#eef1f7" }}>{t.g_not}</strong> {t.g_notauth_mid}{" "}
+            <strong style={{ color: "#eef1f7" }}>{t.g_not}</strong> {t.text26}
           </Callout>
         </Section>
 
-        <Section title="What this data cannot tell you">
+        <Section title={t.section6}>
           <P>
-            Every dataset has edges. Ours are these, and we would rather you learn them here than
-            discover them after a bad buy.
+            {t.text27}
           </P>
           <Bullets items={[
-            "\"Sold\" timestamps are when our tracker first saw a listing leave the shelf — not a sale timestamp, and not necessarily a sale at all. Vinted does not publish transaction data, so a departure can also be a delisting, a removal, an offline sale at a different price, or a relist under a new id.",
-            "A seller who cannot sell an item tends to relist it, which reads to us as the old listing departing. We have not yet measured how often this happens, but the direction is not neutral: it means the slowest-moving items are the ones most likely to show a fabricated \"sale,\" not a random sample of all items.",
-            "Days-to-sell measures time to departure, not time to sale, and is only directly observed for a very small fraction of items, because most departed items are first seen already gone. Speed is therefore inferred from weekly momentum against a monthly baseline for nearly all models, not measured per item.",
-            "Momentum needs roughly 30 days of history to rank models against each other. Before that the board collapses onto STABLE — and we now say so in the product rather than showing confident labels we cannot support.",
-            "Around 30–45% of listings fall into an 'Other' category because our multilingual keyword matching did not hit a term. That is a real bucket, not a discard bin, but it means category volumes understate reality.",
-            "We track a fixed set of brands. A brand we do not track has no data here — that is coverage, not a market signal.",
-            "For 11 of the tracked brands we have no per-model breakdown, either because the brand genuinely does not name its products (Zara, Pull&Bear, Bershka, Mango) or because our model catalogue has not been extended to them yet.",
+            t.bullet0_0,
+            t.bullet0_1,
+            t.bullet0_2,
+            t.bullet0_3,
+            t.bullet0_4,
+            t.bullet0_5,
+            t.bullet0_6,
           ]} />
         </Section>
 
-        <Section title="What we will not do">
+        <Section title={t.section7}>
           <Bullets items={[
-            "Quote an accuracy figure. We log every verdict to a prediction ledger so accuracy can be measured honestly later. Until enough of those have been scored against real outcomes, any number we published would be invented — so there isn't one.",
-            `Overstate the dataset. The site says ${tracked} because that is what COUNT(DISTINCT external_id) returns — the five Vinted domains are one catalogue, so a raw row count would say 2.8M and overstate by about 3x. We previously said 30M+, which came from a development database that does not serve this site. Both were corrected.`,
-            "Count the same listing five times. Vinted's five domains are largely one shared catalogue — most listings appear on several at an identical price. Summing per-country volumes inflates the total by roughly 2.5–3.5×. We publish one aggregated figure.",
+            t.bullet1_0,
+            `${t.g_overstate_a} ${tracked} ${t.g_overstate_b}`,
+            t.bullet1_1,
           ]} />
         </Section>
 
         <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginTop: 32 }}>
           <div style={{ fontSize: 16.5, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>
-            Check the data yourself
+            {t.text28}
           </div>
           <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.65, marginBottom: 16 }}>
-            The aggregate market data is public and free to cite with attribution. {TRIAL_LIMITS_SENTENCE} No card.
+            {t.g_cta_a} {TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]} {t.g_cta_b}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              Create a free account
+              {t.text29}
             </Link>
             <Link href="/data" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              Open market data
+              {t.text30}
             </Link>
             <Link href="/manual" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              The reselling manual
+              {t.text31}
             </Link>
           </div>
         </div>
 
         <section style={{ marginTop: 36 }}>
-          <h2 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7", marginBottom: 14 }}>Questions</h2>
+          <h2 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7", marginBottom: 14 }}>{t.g_questions}</h2>
           {faq.map((f) => (
             <div key={f.q} style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</div>
@@ -308,6 +281,8 @@ export default async function MethodologyPage() {
     </div>
   )
 }
+
+export default MethodologyPage
 
 /* ── presentational helpers ──────────────────────────────────────────────── */
 

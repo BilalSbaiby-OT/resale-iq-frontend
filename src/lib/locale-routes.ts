@@ -6,11 +6,25 @@
  * behind it reproduces the exact bug this file exists to close: a URL that
  * promises a language it does not serve.
  *
- * Scope, on purpose: only the homepage is fully translated today (it already
- * reads `copy[locale]` from i18n.ts for every string that matters). Deep
- * pages (`/methodology`, `/check`) are not in PATH_LOCALES yet because their
- * copy is still 100% English — see the SEO session notes for why routing
- * ahead of translated content was rejected rather than shipped.
+ * Scope, on purpose: PATH_LOCALES gates which pages get a locale-prefixed
+ * route at all, so a URL never promises a language it does not serve.
+ *
+ * The homepage is fully translated (it reads `copy[locale]` from i18n.ts for
+ * every string that matters). /methodology is now translated too (58 keys
+ * verified in all 6 locales, src/lib/methodology-copy.ts) and has its own
+ * route at src/app/[locale]/methodology/page.tsx — a handful of short,
+ * mostly figure-adjacent prose fragments on that page still have no
+ * translation key and render in English on every locale (grep
+ * src/app/methodology/page.tsx for "no key yet"); that is a real, smaller
+ * gap, not the old "page is 100% English" state.
+ *
+ * Every other deep page (`/check`, `/blog`, `/terms`, ...) is still 100%
+ * English and deliberately NOT in PATH_LOCALES — see the SEO session notes
+ * for why routing ahead of translated content was rejected rather than
+ * shipped, and src/app/[locale]/[...rest]/page.tsx for what happens when a
+ * locale-prefixed URL hits one of those paths today (a redirect to the
+ * English page, not a 404 and not a silently-English render under a foreign
+ * URL).
  */
 import type { Locale } from "./i18n"
 
