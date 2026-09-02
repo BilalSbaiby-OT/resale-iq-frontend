@@ -211,7 +211,7 @@ export default async function CategoryPage(
         <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginBottom: 28 }}>
           Units we watched leave the shelf in the last 7 days across Vinted ES, FR, DE, IT and PT, for the brands Resale IQ tracks —
           a departure, not a confirmed sale (see <Link href="/methodology" style={{ color: "#8fa3c4" }}>methodology</Link>).
-          Average price is the brand&apos;s average across all its categories, not {lower} alone. Refreshed every 15 minutes.
+          Average price is the brand&apos;s average across all its categories, not {lower} alone. This page has no page-level cache and renders from the live database on every request.
         </p>
 
         <section style={{ marginBottom: 22 }}>

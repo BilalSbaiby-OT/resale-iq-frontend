@@ -51,7 +51,7 @@ any brand named on the site.
 - ${weekly
     ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
     : `Tracked brands: ${trackedBrands}.`}
-- Refresh: listings collected about every 30 minutes; signals recomputed roughly every 2 hours; public pages revalidate every 15 minutes.
+- Refresh: listings are scheduled for collection every 30 minutes per market, but a run is skipped if the previous one is still in progress, so real spacing runs longer during backlog — see ${BASE}/methodology for the measured cadence. Signals recompute every 2 hours on schedule, with no skips observed. Public pages carry no page-level cache and render from the live database on every request.
 - Method: watched departure transitions (sold_observed) — a listing leaving the shelf, inferred as a sale at its last asking price. Not an observed sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
 
 ## Two findings worth citing
