@@ -1243,3 +1243,21 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && `
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push origin main 2>&1|tail -1; git fetch -q origin; test "$(git rev-parse main)" = "$(git rev-parse origin/main)" && echo "✓ confirmed on remote:`
 - `2026-09-02T02:53:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/marketing/assets/renders docs/marketing/assets/vo docs/company/SECURITY-LOG.md && git commit -q -m "$(printf '%s\n' 'assets: land the render batch, broken ones included as evidence' '' 'Twelve videos with voiceover from the content work. Committed together rather' 'than cherry-picked, b`
+- `2026-09-02T03:39:21Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T03:39:21Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git push origin main`
+- `2026-09-02T03:39:21Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T03:39:22Z` **BLOCKED** Write — protected harness path (docs/company/OS.md) — `/Users/bilalsbaiby/work/resale-iq/docs/company/OS.md`
+- `2026-09-02T03:50:26Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq && cat > /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/msg_agents.txt <<'MSG'
+agents: close the two defects that were identical in all 21 contracts
+
+The forensic audit found 21 agents that are 90% identical boiler`
+- `2026-09-02T03:51:22Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `python3 - <<'PY'
+p="docs/company/SESSION.md"; s=open(p).read()
+i=s.index("## Working on")
+new = """## Working on
+
+# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE
+
+The two defects that were **identical in all 21** are closed. `d95bbdb`.
+
+- **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in `

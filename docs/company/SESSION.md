@@ -4,6 +4,41 @@
 
 ## Working on
 
+# ✅ ALL 21 AGENT CONTRACTS NOW MATCH THE DOCTRINE
+
+The two defects that were **identical in all 21** are closed. `d95bbdb`.
+
+- **21/21 cited AM-2** — the €200/month cap **AM-9 lifted in the founder's own words**. Every agent
+  had been operating under a rule he deleted. **Now 0/21.**
+- **0/21 defined DONE.** DOCTRINE §6 makes it binding, so the day the doctrine shipped **every agent
+  contradicted it**. Now all 21 carry CLAIMED / EXECUTED / VERIFIED / PROVEN, *"a row closes on a
+  commit, a URL, a test count or a measurement — never on a claim"*, and **UNKNOWN as a respected
+  deliverable**.
+- **21/21 now state the right to refuse.** Deliberate, not decorative: three agents refused wrong
+  instructions from me on 2026-09-01 — the W54 deploy key, the phantom orphan container, a redundant
+  PENDING fix — **and each was right.** Writing it into the contract is how that survives the next
+  prompt that pushes against it.
+
+**What this does NOT do:** differentiate them. They remain largely boilerplate, and that needs
+individual work per role. **Mechanically generating 21 personalities is exactly what produced the
+defect the audit measured**, so it stays open rather than faked in one pass.
+
+Verified: frontmatter intact on all 21, and the DoD lands **before** the Loop section so it is read
+before work starts.
+
+## Measured this loop
+
+- **Production**: six locales + health + register 200. `Nike Air Force 1` → WATCH n=103.
+  `Fred Perry polo` → **BRAND_AVERAGE n=51**.
+- **The four emailed users: 0 checks, 0 paying, and 0 opt-outs.** Sent 02:05; it is ~4am in their
+  timezones. **Too early to be data — and nobody has unsubscribed, which is the only signal available
+  this soon.**
+- **Disk guard working**: 85% → 76.8% and holding.
+- **Actionable trend**: 68.5% → 68.8% → 69.3% → 69.6% across five wakes. Slow, real, and moving the
+  right way as W60 converts dead ends (**10 brand-average answers**).
+- **Did not publish.** ~4am across all five markets, and the only two ready drafts are the ones I
+  blocked for ending on the product failing.
+
 # 🛑 CAUGHT A VIDEO OF OUR OWN PRODUCT FAILING, ONE COMMAND BEFORE PUBLISHING
 
 Rows **149** and **151** were the only Instagram drafts with UTMs *and* assets — the obvious things to

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T02:48:56Z",
+  "generated_at": "2026-09-02T03:48:59Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -822,8 +822,8 @@
       {
         "app": "frontend",
         "status": "IN SYNC",
-        "commit": "a730ba1e625c",
-        "container": "p6t87shftvl2455pd3gdgee1-020926433274"
+        "commit": "761db47a5c53",
+        "container": "p6t87shftvl2455pd3gdgee1-025612562267"
       },
       {
         "app": "backend",
