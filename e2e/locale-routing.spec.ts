@@ -173,13 +173,34 @@ test("a genuine Spanish-first visitor is still routed to Spanish", async ({ requ
 // deep path now redirects to its real page instead of a dead end. Asserted
 // per-status, not just "not 404" -- a 200 here would mean the catch-all
 // swallowed the request instead of redirecting it.
+//
+// 2026-09-02, 621e25f: /methodology stopped being an untranslated path. It now
+// has a real page in all six locales, so /es/methodology and /de/methodology
+// legitimately serve 200 with Spanish and German bodies and this test kept
+// asserting the redirect they no longer do -- it failed on main from the merge
+// onward. The list below is now only paths that genuinely have no translation.
+// The translated ones moved to their own test rather than being deleted: the
+// case that matters is that a 200 here is the *right* answer for a translated
+// path and the *wrong* answer for an untranslated one, and only asserting both
+// keeps that distinction.
 // ---------------------------------------------------------------------------
 test("a locale-prefixed deep path that has no translation redirects to the real page instead of 404ing", async ({ request }) => {
-  for (const path of ["/es/blog", "/es/methodology", "/es/terms", "/es/deals", "/fr/blog", "/de/methodology"]) {
+  for (const path of ["/es/blog", "/es/terms", "/es/deals", "/fr/blog", "/de/terms"]) {
     const res = await request.get(path, { maxRedirects: 0 })
     expect(res.status(), path).toBe(307)
     const location = res.headers()["location"]
     expect(location, path).not.toMatch(/^\/[a-z]{2}\//) // must have shed the locale prefix
+  }
+})
+
+// A translated path must NOT be swallowed by the catch-all redirect. If this
+// starts 307ing again it means the locale page was lost and Spanish visitors
+// are being handed the English methodology, which is the regression 621e25f
+// shipped to end.
+test("a locale-prefixed path that IS translated serves its own page, not a redirect", async ({ request }) => {
+  for (const path of ["/es/methodology", "/fr/methodology", "/de/methodology", "/it/methodology", "/pt/methodology"]) {
+    const res = await request.get(path, { maxRedirects: 0 })
+    expect(res.status(), path).toBe(200)
   }
 })
 
