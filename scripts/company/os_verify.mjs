@@ -132,14 +132,30 @@ check('harness/roster-resolves-from-session-root', () => {
 });
 
 check('harness/guard-scope-covers-session-roots', () => {
-  const src = readFileSync(join(REPO, '.claude/hooks/guard.py'), 'utf8');
-  const m = /SCOPE = \(([\s\S]*?)\)/.exec(src);
-  const scope = m ? [...m[1].matchAll(/"([^"]+)"/g)].map(x => x[1]) : [];
+  // Was: regex the SCOPE tuple out of guard.py. The regex was non-greedy and
+  // guard.py has "(APPROVALS A9)" in a comment mid-tuple, so it captured 5 of 11
+  // entries and reported the rest as uncovered -- red board, nothing wrong.
+  // A parenthesis in a comment is not a security finding.
+  //
+  // Now: ask the guard. Hand it a real path in each root and see whether it
+  // refuses. Behaviour, not spelling -- survives comments, reordering, refactors.
+  const guard = join(REPO, '.claude/hooks/guard.py');
+  if (!existsSync(guard)) return { ok: false, n: 0, detail: 'guard.py missing' };
+  const probe = dir => {
+    try {
+      execFileSync(guard, {
+        input: JSON.stringify({ tool_name: 'Read', tool_input: { file_path: join(dir, 'scope-probe.txt') } }),
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+      return 0;
+    } catch (e) { return e.status ?? -1; }
+  };
   const required = [WORK, REPO, join(HOME, '.claude/plans')];
-  const gaps = scopeGaps(scope, required);
-  return { ok: gaps.length === 0, n: scope.length,
-           detail: gaps.length ? `not covered: ${gaps.join(', ')}` : `${scope.length} entries cover every session root`,
-           fix: gaps.length ? 'add the root to guard.py SCOPE' : null };
+  const gaps = required.filter(d => probe(d) !== 0);
+  return { ok: gaps.length === 0, n: required.length,
+           detail: gaps.length ? `guard refuses in-scope roots: ${gaps.join(', ')}`
+                               : `guard accepts all ${required.length} session roots`,
+           fix: gaps.length ? 'add the root to guard.py SCOPE (founder-gated: needs .claude/UNLOCK_HARNESS)' : null };
 });
 
 check('harness/gate-flags-gitignored', () => {
@@ -161,14 +177,29 @@ check('harness/gate-flags-gitignored', () => {
  * component works" and "the component is wired" one assertion instead of two.
  */
 check('harness/registered-gates-actually-block', () => {
+  // Each probe names the founder flag that LIFTS it. Flag absent -> the payload
+  // must be refused. Flag present -> it must be ALLOWED, because a gate the
+  // founder has deliberately lifted and which still blocks is also broken.
+  //
+  // Before this, the push-to-main probe asserted exit 2 unconditionally. The
+  // founder wrote .claude/DEPLOY_APPROVED on 2026-09-01 ("i give authorization"),
+  // the guard honoured it correctly, and the check called that "not enforcing" --
+  // holding the board RED for 22 hours over the system working as designed.
+  // A board that is red for a non-reason is a board nobody reads.
   const probes = [
-    { event: 'PreToolUse', block: { tool_name: 'Bash', tool_input: { command: 'git ' + 'push origin main' } },
+    { event: 'PreToolUse', liftFlag: '.claude/DEPLOY_APPROVED',
+      block: { tool_name: 'Bash', tool_input: { command: 'git ' + 'push origin main' } },
       allow: { tool_name: 'Bash', tool_input: { command: 'npm run build' } } },
-    { event: 'PreToolUse', block: { tool_name: 'Write', tool_input: { file_path: join(REPO, 'docs/company/OS.md') } },
+    { event: 'PreToolUse', liftFlag: null,   // force-push is never sanctioned, by any flag
+      block: { tool_name: 'Bash', tool_input: { command: 'git ' + 'push --force origin feature' } },
+      allow: { tool_name: 'Bash', tool_input: { command: 'git status' } } },
+    { event: 'PreToolUse', liftFlag: '.claude/UNLOCK_HARNESS',
+      block: { tool_name: 'Write', tool_input: { file_path: join(REPO, 'docs/company/OS.md') } },
       allow: { tool_name: 'Write', tool_input: { file_path: join(REPO, 'src/app/page.tsx') } } },
   ];
-  let ran = 0; const bad = [];
+  let ran = 0; const bad = []; const lifted = [];
   for (const p of probes) {
+    const isLifted = !!p.liftFlag && existsSync(join(REPO, p.liftFlag));
     const regs = allRegs.filter(r => r.event === p.event && r.resolvedPath && existsSync(r.resolvedPath));
     for (const r of regs) {
       ran++;
@@ -176,12 +207,20 @@ check('harness/registered-gates-actually-block', () => {
         try { execFileSync(r.resolvedPath, { input: JSON.stringify(payload), stdio: ['pipe','pipe','pipe'] }); return 0; }
         catch (e) { return e.status ?? -1; }
       };
-      if (run(p.block) !== 2) bad.push(`${r.resolvedPath} did not block a must-block payload`);
+      const got = run(p.block);
+      if (isLifted) {
+        // The founder lifted it. Honouring that IS the correct behaviour.
+        if (got !== 0) bad.push(`${p.liftFlag} is present but the gate still blocked — the founder's lift does not work`);
+        else lifted.push(p.liftFlag);
+      } else if (got !== 2) {
+        bad.push(`${r.resolvedPath} did not block a must-block payload`);
+      }
       if (run(p.allow) !== 0) bad.push(`${r.resolvedPath} blocked its negative control`);
     }
   }
+  const note = lifted.length ? ` · LIFTED BY FOUNDER: ${[...new Set(lifted)].join(', ')}` : '';
   return { ok: bad.length === 0 && ran > 0, n: ran,
-           detail: bad.length ? bad.join('; ') : `${ran} registered gate probes behaved correctly`,
+           detail: bad.length ? bad.join('; ') : `${ran} registered gate probes behaved correctly${note}`,
            fix: bad.length ? 'the hook is registered but not enforcing' : null };
 });
 
