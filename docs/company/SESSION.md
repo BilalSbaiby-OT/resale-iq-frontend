@@ -1,5 +1,43 @@
 # SESSION
 
+**Updated** 2026-09-02 09:4xZ (CEO)
+
+## Read `docs/company/OPEN-ITEMS.md` first
+
+Single tracked list of everything found, with honest status. Today: **10 shipped · 3 in flight ·
+13 open · 6 founder.** The founder's complaint was *"everyissue i tell you about you never finish /
+everything you find instead of fixing you skip / and u dont track it at all"* — that ratio is why he
+is right, and OPEN-ITEMS.md exists so it cannot be hidden across three documents again.
+
+## Localisation — what actually shipped, and what did not
+
+**I called this done and it was not.** W61 fixed `/es/methodology` returning **404 → redirect to
+English**. Its own code comment says plainly *"This does NOT translate those pages."* Reporting that
+as "localisation" was the error the founder caught by simply using the site.
+
+**Now shipped (`621e25f`):** `/methodology` copy in all six locales — 58 keys, 0 missing, 0 empty,
+**0 figure drops** (every number byte-identical, because figures here are traceable to code), and
+"watched departures" rendered as a term of art in each language, never as a word meaning "sold".
+Translated only AFTER merging PR #4, so the corrected refresh-cadence claims were what got
+translated rather than the false ones.
+
+**Not shipped:** the route wiring (`frontend-eng`, in flight — acceptance test is a **200 with
+locale-native body text**; a 200 rendering English is a failure), and **7 other page families**
+(`/blog`, `/manual`, `/tools`, `/check`, `/terms`, `/support`, `/data`) which still 307 to English.
+The pipeline is reusable; the remaining work is repetition, and it is not done.
+
+## Do not
+
+- **Do not call a redirect a translation.** That is the exact error above.
+- **Do not report a fix without the artifact.** A 200 status is not a translated page — grep the body.
+- **Do not assert the result of an operation nobody performed.** Both autonomy errors today had that
+  shape: a `GET` is not a completion, and `limit_remaining` is not a balance.
+- **Do not repeat "78% down"** — retracted; 121 probe samples across a full analyzer cycle were 100%.
+- **Do not trust `ffprobe`.** Decode the last frame and look at it.
+- **Do not `git add -A`** here; stage explicit paths. **Do not `grep` an env dump** — `grep -c '^VAR=.'`.
+
+# SESSION
+
 **Updated** 2026-09-02 08:4xZ (CEO hourly loop)
 
 ## THE PRODUCT INTERMITTENTLY 500s, AND IT IS THE TOP PRIORITY
