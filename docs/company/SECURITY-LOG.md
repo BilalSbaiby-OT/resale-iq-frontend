@@ -1373,3 +1373,15 @@ add = """# SESSION
 ## Read `docs/company/OPEN-ITEMS.md` first
 
 Single tracked list of everything found, with honest status. Today: **10 shipp`
+- `2026-09-02T09:58:00Z` **BLOCKED** Bash — direct read of a .env file — `WT="/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/methodology-i18n" cd "$WT" && cat .env.local 2>/dev/null | grep -v '^#' | sed 's/=.*/=<redacted>/' echo "---next.config---" ls next.config*`
+- `2026-09-02T09:59:33Z` **BLOCKED** Bash — recursive/forced delete outside safe dirs — `for path in "/methodology" "/es/methodology" "/fr/methodology" "/de/methodology" "/it/methodology" "/pt/methodology"; do echo "=== $path ===" curl -s -o /tmp/resp_$$.html -w "HTTP %{http_code}\n" "http://localhost:3971$path" --max-time 15 wc -c /tmp/resp_$$.html rm -f /tmp/resp_$$.html done`
+- `2026-09-02T10:12:35Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/OPENCLAW.md && git commit -q -m "openclaw: local orchestrator live on the Mac — steps 1-2 of 7, not the migration
+
+Founder: run it locally not on Hetzner, Gemini now, his existing Telegram bot.
+
+Turned out OpenClaw was ALREADY installed with`
+- `2026-09-02T10:12:56Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/OPENCLAW.md && git commit -q -F /private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-1570-4948-8767-a5ddb1b5aee5/scratchpad/oc_commit.txt && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | `
+- `2026-09-02T10:15:12Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
+p="docs/company/OPEN-ITEMS.md"; s=open(p,encoding="utf-8").read()
+old = """1. **\"Product is down 78% of the day\"** — retracted. That was the analyzer's duty cycle, not an
+   availability measurement. A probe then ran **121 samples straight `

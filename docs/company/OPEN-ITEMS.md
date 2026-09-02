@@ -84,9 +84,11 @@ same shape: **asserting the result of an operation nobody performed.**
 
 Kept deliberately, because the pattern matters more than any single error.
 
-1. **"Product is down 78% of the day"** — retracted. That was the analyzer's duty cycle, not an
-   availability measurement. A probe then ran **121 samples straight through a full analyzer cycle at
-   100%**. The 500s are real (I hit three) but far rarer than I implied.
+1. **"Product is down 78% of the day"** — retracted, and now settled with data. That figure was the
+   analyzer's duty cycle, not an availability measurement. The probe has since completed:
+   **182 samples at 30s intervals over 1h32m spanning a full analyzer cycle — 100.00% availability,
+   p50 0.50s, p99 1.44s, zero non-200s.** The three 500s I hit were real and are still worth root-
+   causing, but the product is not broadly down, and my original number was wrong by a wide margin.
 2. **"Autonomy blocked on a credential"** → **"never blocked"** → both wrong. See item 3 above.
 3. **"llms.txt's 998 figure is suspect"** — refuted by `seo`, which summed the live endpoint and got
    exactly 998. It refused to change the line because that would have *introduced* a false claim.
