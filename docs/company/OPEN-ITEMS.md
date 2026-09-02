@@ -47,7 +47,27 @@ same shape: **asserting the result of an operation nobody performed.**
 
 ---
 
-## 🔴 LIVE NOW — the product refuses every anonymous visitor
+## ✅ RESOLVED 2026-09-02 17:04Z — the anon refusal is measurably over
+
+Measured on production, not claimed:
+
+```
+curl -s "https://resaleiq.dev/api/verdict?q=Adidas%20Samba"
+{"verdict":"WATCH","n":58,"buy_below":20.28,...}
+curl -s "https://resaleiq.dev/api/verdict?q=Nike%20Air%20Force%201"
+{"verdict":"WATCH","n":87,"buy_below":43.8,...}
+```
+
+`verdict_logs` today: **1,031 distinct `ip_hash` values** (was 1 shared bucket). Last
+`LIMIT_REACHED` row anywhere: **12:24:48Z**. Last 2 hours: 41 `WATCH` · 2 `BRAND_AVERAGE` ·
+1 `UNKNOWN` · **0 `LIMIT_REACHED`**. Day total 1,047 verdicts, 676 of them `LIMIT_REACHED` — all
+from the morning window, none after 12:24Z.
+
+The per-visitor bucketing works. The section below is kept as the incident record.
+
+---
+
+## Incident record — the product refused every anonymous visitor (09:10Z–12:24Z)
 
 ```
 curl -s "https://resaleiq.dev/api/verdict?q=Adidas%20Samba"
@@ -71,7 +91,7 @@ double-hop, `#1` analyzer lock contention. Verified live in the container: `_cli
 `"203.0.113.9, 10.0.1.1"` correctly returns `203.0.113.9`, and a direct backend call with a realistic
 XFF returns **`verdict=WATCH, n=58`** and mints the visitor cookie. **The backend is fixed.**
 
-**IT IS STILL DOWN, because of a fourth link I had not found:** the frontend has **no
+**It was still down at the time of writing, because of a fourth link:** the frontend had **no
 `src/middleware.ts`** and the `/api/*` rewrite (`next.config.ts:115-121`) forwards no client-IP
 header. So the backend receives neither `x-forwarded-for` nor `x-real-ip`, falls back to the raw
 socket peer (`10.0.1.1`), and every visitor lands in one bucket — the one at exactly 300.
@@ -79,8 +99,9 @@ socket peer (`10.0.1.1`), and every visitor lands in one bucket — the one at e
 Proof it is the socket-peer fallback and not the unknown path: `sha256("10.0.1.1")` = `d66e6eaf9400d271`
 has **300 rows today**; the "no real client found" bucket has **0**.
 
-Assigned to `frontend-eng`. **This is the surface every marketing click lands on, and it has been
-refusing everyone since 09:10.**
+Assigned to `frontend-eng`. **Closed** — the 17:04Z measurement above shows 1,031 distinct buckets
+and no `LIMIT_REACHED` since 12:24:48Z. What is NOT verified here: which commit carried the
+frontend-side fix. The behaviour is confirmed; the attribution is UNKNOWN.
 
 ---
 
@@ -93,14 +114,14 @@ refusing everyone since 09:10.**
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
 | 5 | Health monitoring **stale for 27h52m** while reporting `pass 14/14` | batches 09-01 03:05 → 09-02 06:57 | nothing caps verdict age |
-| 6 | Attribution **never wired** | `signup_attribution` 0 rows ever; 0 UTM visitors have EVER reached `/register` | no channel can be judged until this exists |
-| 7 | Anonymous rate limit is **one global counter** | `client_ip_hash` constant = Docker bridge gw; `next.config.ts:117` rewrites server-side | 300/day shared by the whole internet |
+| 6 | ~~Attribution never wired~~ | **1 row**: user 81, `source=perplexity`, `landing_path=/register`, 10:17:02Z — the first attributed signup this company has ever had | n=1. One row is a wired pipe, not a measurable channel |
+| 7 | ~~Anonymous rate limit is one global counter~~ | **CLOSED 17:04Z** — 1,031 distinct `ip_hash` today, 0 `LIMIT_REACHED` since 12:24:48Z | see the resolved section above |
 | 8 | Dashboard says **"2 paying"**; there are none | counts `plan != 'free'`; neither account has a Stripe id | false number on a live dashboard |
 | 9 | `with-secrets.sh` hands agents a **test-mode** Stripe key | production runs `sk_live_` | any sanctioned Stripe audit sees an empty account |
 | 10 | Agent contracts **~88% identical** | 99 of 112 lines shared across all 21; 17 differ by 13 lines | founder: *"not very much qualified to find a job"* — correct |
 | 11 | Brand coverage **20 of 322 defensible** | 322 brands clear n≥8 departures/7d | `gen_seo_brands.py` written; production probe timed out, not yet run to completion |
 | 12 | 5 videos ending on our own product failing are **LIVE** | last frames decoded and read | removal is a public action on founder accounts → see FOUNDER |
-| 13 | 4 trials expire **2026-09-16**, nothing will contact them | `LIFECYCLE_EMAILS` unset in production | founder gate on sends |
+| 13 | **5** trials now, and the earliest expires **2026-09-09**, not 09-16 | user 81 `trial_ends_at=2026-09-09T10:17:33Z`; users 68/69/70/79 `2026-09-16 02:03:50`. `LIFECYCLE_EMAILS` unset in production (`env \| grep -c '^LIFECYCLE_EMAILS=.'` → `0`) | **7 days to the first expiry**, and nothing will contact them. AGENTS.md delegates lifecycle email; this OPEN-ITEMS row says founder-gated. The two disagree — needs one answer before 09-09 |
 
 ---
 
