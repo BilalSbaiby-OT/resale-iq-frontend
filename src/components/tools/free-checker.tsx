@@ -65,6 +65,10 @@ const VERDICT_COLOR: Record<string, string> = {
   INSUFFICIENT_DATA: "#8b99b8",
   UNKNOWN: "#8b99b8",
   LIMIT_REACHED: "#8b99b8",
+  // BRAND_AVERAGE is a real ANSWER, not a refusal, so it must not share the grey
+  // used for UNKNOWN and INSUFFICIENT_DATA. Blue: informative, deliberately not
+  // the green of BUY -- it is a brand-level average, not a per-item call.
+  BRAND_AVERAGE: "#60a5fa",
 }
 
 function money(n: number | null | undefined) {
@@ -172,8 +176,15 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
   // that looks like a verdict.
+  // A verdict is a WORD WE SHOW A STRANGER, not a database constant. Found by
+  // pulling the last frame out of a marketing video: it rendered
+  // "BRAND_AVERAGE" in 26px caps, underscore and all. ffprobe called that video
+  // valid; only looking at the picture caught it.
+  const VERDICT_LABEL: Record<string, string> = {
+    BRAND_AVERAGE: "BRAND AVERAGE",
+  }
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
-    : res?.verdict ?? "—"
+    : (res?.verdict ? (VERDICT_LABEL[res.verdict] ?? res.verdict) : "—")
 
   return (
     <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
