@@ -25,6 +25,23 @@ ssh resaleiq "df -h / | tail -1; \
 | taken (UTC) | df size | df used | df avail | df use% | DB bytes | WAL bytes | by |
 |---|---|---|---|---|---|---|---|
 | 2026-09-02 19:04 | 75G | 62G | 11G | 86% | 21788954624 | 0 | hourly heartbeat |
+| 2026-09-02 21:29 | 75G | 56G | 17G | 78% | 21862096896 | 9925112 | data agent, live |
+
+**First real rate (2 rows, thin — do not treat as confirmed):** DB grew 73,142,272 bytes in 145
+minutes → ≈30.3 MB/h ≈ 0.73 GB/day on the DB file alone. That is in the same range as the ~0.65
+GB/day corpus-growth figure `config.py` records from 2026-08-18, so it is plausible, not yet
+trusted — two points cannot show whether growth is linear.
+
+**df use% moved the OTHER direction from the DB (86%→78%, used 62G→56G) while the DB file grew.**
+Do not read this as the corpus shrinking: `df` measures the whole disk, and something else on it
+fell by more than the DB gained in the same window. The two known movers named in O-003
+(`~/work/COMMITMENTS.md`) are a WAL checkpoint and the `riq-disk-guard` prune that fires at :37 —
+between 19:04 and 21:29 two such :37 windows (19:37, 20:37) would have run. WAL itself moved from 0
+to 9,925,112 bytes here, i.e. *up*, not down, so the checkpoint explanation alone does not account
+for all of it — which mover(s) actually fired and by how much is UNKNOWN from this reading alone;
+neither was checked directly (no guard log was read this pass). Days-to-full is still not
+computable from this: two points, a rate confounded by an unrelated prune process, and a use% that
+moved opposite the metric the rate is based on.
 
 ## Readings recorded before this file existed — context only, NOT comparable
 
