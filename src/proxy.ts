@@ -3,6 +3,96 @@ import type { NextRequest } from "next/server"
 import { PATH_LOCALES, isPathLocale } from "@/lib/locale-routes"
 
 /**
+ * 2026-09-02 OUTAGE — every anonymous visitor got LIMIT_REACHED with
+ * used_today:0. Root cause measured live (tcpdump on the Hetzner box, both
+ * hops, both before and after this file's change — see PR description for
+ * the full capture), NOT assumed:
+ *
+ *   client -> Traefik entry (resaleiq.dev, terminates TLS directly, no CDN
+ *   in front) -> this Next.js container -> next.config.ts `/api/:path*`
+ *   rewrite -> BACKEND_URL, which is a PUBLIC sslip.io hostname that
+ *   resolves back to this SAME host's public IP -> Traefik AGAIN (the
+ *   backend's own router) -> the backend.
+ *
+ * Two things were checked, not guessed:
+ *
+ * 1. Does Traefik set x-forwarded-for/x-real-ip on the inbound request to
+ *    THIS container? Yes — confirmed by capturing real traffic on the
+ *    container's bridge interface: Traefik overwrites whatever a client
+ *    sends for these two headers with the real observed peer. A spoofed
+ *    `X-Forwarded-For: 9.9.9.9` from outside arrived here as the caller's
+ *    real IP. So the value this proxy reads from the incoming request is
+ *    trustworthy — a client cannot forge it.
+ *
+ * 2. Does Next's OWN rewrite already forward that header to the backend?
+ *    Yes, already, with zero code here — a custom header set by an
+ *    external curl survived the entire round trip untouched. The founder's
+ *    original diagnosis ("nothing forwards x-forwarded-for on the
+ *    rewrite") does not hold; the header leaves this container fine.
+ *
+ * It is lost one hop later, and NO change in this file can prevent that:
+ * the outbound request to BACKEND_URL leaves this container, round-trips
+ * out to the public internet and back in through Traefik as a SECOND,
+ * unrelated hop. Linux hairpin NAT rewrites the source of that connection
+ * to the Docker bridge gateway (10.0.1.1) before Traefik's process ever
+ * sees a packet, so that hop is *also* an untrusted connection from
+ * Traefik's point of view, and Traefik overwrites x-forwarded-for/x-real-ip
+ * AGAIN — to "10.0.1.1", identically for every visitor on earth, no matter
+ * what value was already there. Verified with a direct node fetch from
+ * inside this container carrying an explicit `X-Forwarded-For:
+ * 203.0.113.222`: the backend received "10.0.1.1" regardless. A proxy.ts
+ * (or middleware.ts) that sets x-forwarded-for/x-real-ip on the rewritten
+ * request, as originally proposed, would build, deploy, and change nothing
+ * live — the exact "code-correct is not live-correct" trap this repo's own
+ * docs warn about.
+ *
+ * What DOES survive that second hop unmodified — same capture, same
+ * request — is any header name Traefik does not itself manage. So instead
+ * of fighting Traefik's forwarded-header handling, this proxy mints its
+ * own: `x-resaleiq-verified-ip`, set here from the ALREADY-TRUSTED
+ * x-forwarded-for/x-real-ip this container received on hop 1, and stripped
+ * first so a client hitting resaleiq.dev directly cannot set it themselves.
+ *
+ * NOTE — this is necessary but, on its own, NOT sufficient. The backend
+ * (`demand-intel/api/auth.py:_client_ip`) does not read this header yet; it
+ * still falls through to x-forwarded-for/x-real-ip, which are the ones
+ * Traefik's second hop clobbers. Production will keep returning
+ * LIMIT_REACHED for anonymous visitors until the backend also checks
+ * `x-resaleiq-verified-ip` first (a demand-intel change, out of scope for
+ * this repo/PR) — OR until Traefik's second hop is told to trust the
+ * bridge gateway as a proxy (an infra change to the shared Traefik
+ * instance, also out of scope here: it fronts every app on the host, not
+ * just this one). See the PR description / docs/company/APPROVALS.md for
+ * both options; this file only does the half that belongs to this repo.
+ */
+function withVerifiedClientIp(request: NextRequest): NextResponse {
+  const headers = new Headers(request.headers)
+
+  // Hop-1 Traefik overwrites (never appends to) these two on an untrusted
+  // connection, so a single value — never a spoofed multi-entry chain — is
+  // what a genuine request looks like here. Still split on "," defensively:
+  // if that behavior ever changes upstream, the first entry is the one
+  // closest to the real client, same convention as the backend's own
+  // _client_ip.
+  const trusted =
+    headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    headers.get("x-real-ip")?.trim() ||
+    ""
+
+  // Never trust a client-supplied value for OUR OWN header name — a caller
+  // hitting resaleiq.dev directly could otherwise set
+  // `x-resaleiq-verified-ip` themselves and pick their own quota bucket.
+  headers.delete("x-resaleiq-verified-ip")
+  if (trusted) headers.set("x-resaleiq-verified-ip", trusted)
+
+  return NextResponse.next({ request: { headers } })
+}
+
+// Paths next.config.ts rewrites straight to the backend. No locale logic
+// applies to any of these — they are not pages.
+const BACKEND_PROXIED_PREFIXES = ["/api/", "/auth/", "/stripe/", "/admin/"]
+
+/**
  * Makes the URL, not the Accept-Language header, the source of truth for
  * which language a page is served in.
  *
@@ -98,6 +188,15 @@ function withLocaleHeader(request: NextRequest, locale: string) {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // Backend-proxied paths: stamp the verified client IP and stop. None of
+  // the locale logic below applies — these are API calls, not page visits,
+  // and running it (cookie reads/writes, an Accept-Language scan) on every
+  // /api/* request would be pure waste at best.
+  if (BACKEND_PROXIED_PREFIXES.some((p) => pathname.startsWith(p))) {
+    return withVerifiedClientIp(request)
+  }
+
   const segments = pathname.split("/").filter(Boolean)
   const first = segments[0]
 
@@ -130,11 +229,23 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
+  // Next.js runs the proxy if a request matches ANY entry in this array —
+  // this is two independent concerns living in one file because this Next.js
+  // version supports exactly one proxy.ts, not "the locale matcher, edited
+  // to also cover /api/*". The original locale pattern below is UNCHANGED
+  // (still excludes api/auth/stripe/admin/static/files — the function
+  // branches on path itself now, so that exclusion is redundant but leaving
+  // it alone keeps this diff to "add", not "rewrite one regex by hand").
   matcher: [
     // Skip static assets, API/backend rewrites, and anything with a file
     // extension (images, robots.txt, sitemap.xml, llms.txt, etc). Running the
     // proxy on those would not break them (redirect logic only fires on "/"
     // and locale-prefixed paths) but there is no reason to pay the cost.
     "/((?!_next/static|_next/image|api/|auth/|stripe/|admin/|favicon.ico|.*\\..*).*)",
+    // The backend-proxied paths, added for the client-IP stamping above.
+    "/api/:path*",
+    "/auth/:path*",
+    "/stripe/:path*",
+    "/admin/:path*",
   ],
 }
