@@ -140,27 +140,84 @@ jobs:
 
           echo "Deploy queued in Coolify."
 
-      - name: Wait for the NEW build to serve
+      - name: Verify the deployed commit is actually serving
+        env:
+          # workflow_run carries the sha of the commit that triggered Agent
+          # Isolation; github.sha on that event is the default-branch tip of the
+          # workflow file, which is NOT what shipped. workflow_dispatch has no
+          # workflow_run context, so fall back to github.sha there.
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          BEFORE: ${{ steps.before.outputs.fingerprint }}
         run: |
           set -uo pipefail
-          BEFORE="${{ steps.before.outputs.fingerprint }}"
-          # Coolify returns as soon as the deploy is QUEUED. Polling for HTTP 200
-          # would pass instantly against the OLD container and prove nothing —
-          # it did exactly that on the first run of this workflow. Wait for the
-          # bundle fingerprint to actually change.
-          for i in $(seq 1 60); do
-            sleep 15
-            now=$(curl -sL -m 20 https://resaleiq.dev/ \
-                  | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
-                  | sort -u | sha256sum | cut -d' ' -f1)
-            if [ -n "${now}" ] && [ "${now}" != "${BEFORE}" ]; then
-              echo "New build is live after ~$((i*15))s (fingerprint ${now})."
+
+          # WHY THE BUNDLE FINGERPRINT WAS NOT ENOUGH.
+          #
+          # This step used to wait for the sha256 of the homepage's chunk
+          # filenames to change. That is strictly better than polling for HTTP
+          # 200 — a never-replaced container answers 200 perfectly well, which
+          # is how this workflow passed on its own first run while proving
+          # nothing — but it still cannot answer the question the job claims to
+          # answer: is the commit this run pushed the commit that is running?
+          #
+          # A fingerprint change proves *a* new build is live, not *ours*. A
+          # concurrent deploy, a second push a minute later, or someone else's
+          # redeploy all move it. And when a build FAILS the hash does not move
+          # at all — indistinguishable from redeploying an identical commit — so
+          # the old code logged a warning and `exit 0`. A deploy job whose
+          # failure mode is a green tick with a warning nobody reads is the same
+          # class of defect as the 200 check it replaced.
+          #
+          # The backend was bitten by exactly this on 2026-09-02: a plaintext
+          # value in Coolify's ENCRYPTED environment_variables table killed
+          # deployments 427 and 430 inside decrypt(); the old container kept
+          # answering and CI went green twice. Fixed in demand-intel ee7681c by
+          # serving SOURCE_COMMIT and asserting it. That commit's message notes
+          # the frontend still had the same blindness. This closes it.
+          #
+          # /build-info reads SOURCE_COMMIT, which Coolify injects at deploy
+          # time — verified on production 2026-09-03, the frontend container's
+          # SOURCE_COMMIT matched its image tag and origin/main. So the endpoint
+          # cannot return this run's sha until the container carrying this run's
+          # build is the one answering. That is what makes this check able to go
+          # red.
+
+          if [ -z "${EXPECTED_SHA}" ]; then
+            echo "::error::No commit sha to verify against — refusing to claim a deploy."
+            exit 1
+          fi
+          echo "Expecting production to serve commit ${EXPECTED_SHA}"
+
+          echo "Giving Coolify time to build and swap the container..."
+          sleep 120
+
+          served=""
+          for i in $(seq 1 50); do
+            body=$(curl -s -m 15 https://resaleiq.dev/build-info || true)
+            served=$(printf '%s' "${body}" \
+                     | python3 -c 'import sys,json;print((json.load(sys.stdin).get("commit") or ""))' \
+                     2>/dev/null || true)
+
+            if [ "${served}" = "${EXPECTED_SHA}" ]; then
+              echo "Production is serving ${served} (attempt ${i}). Deploy verified."
+              # Secondary, non-fatal: the bundle should also have moved. If the
+              # sha matches but the fingerprint did not change, this commit
+              # touched nothing the client bundle contains — which is normal for
+              # a workflow- or docs-only change, so it is reported, not failed.
+              now=$(curl -sL -m 20 https://resaleiq.dev/ \
+                    | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
+                    | sort -u | sha256sum | cut -d' ' -f1)
+              if [ -n "${BEFORE}" ] && [ "${now}" = "${BEFORE}" ]; then
+                echo "Note: correct commit is serving but the client bundle is byte-identical (${now}) — expected for a change that does not touch the bundle."
+              fi
               code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://resaleiq.dev/flip || true)
-              [ "$code" = "200" ] || echo "::warning::New build is live but /flip returned ${code}."
+              [ "$code" = "200" ] || echo "::warning::Correct commit is live but /flip returned ${code}."
               exit 0
             fi
+
+            echo "attempt ${i}: serving '${served:-<no /build-info yet>}', want ${EXPECTED_SHA}"
+            sleep 15
           done
-          # Not a failure. A redeploy of an unchanged commit produces an
-          # identical bundle, so the fingerprint legitimately never moves.
-          echo "::warning::Bundle unchanged after 15 min. Either the commit was already deployed, or the build failed — check Coolify's deployment log."
-          exit 0
+
+          echo "::error::Deploy NOT verified. Production is serving '${served:-unknown}' but this run shipped ${EXPECTED_SHA}. The container was not replaced — check Coolify's deployment log (application_deployment_queues) before trusting any green deploy."
+          exit 1
