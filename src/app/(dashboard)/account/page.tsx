@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { getMe, changePassword, deleteAccount, getActivity, exportData, getBillingPortal, issueApiKey, resendVerification, getPlans, createCheckout, connectTelegram, disconnectTelegram, testTelegramAlert } from "@/lib/api"
 import { resolvePriceId } from "@/lib/pricing"
+import { trackEvent } from "@/lib/analytics"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
@@ -57,6 +58,7 @@ export default function AccountPage() {
       const priceId = resolvePriceId(placeholder, plansList)
       if (!priceId) { alert("Plans are still loading — try again in a moment."); return }
       const { checkout_url } = await createCheckout(priceId)
+      trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch (e: unknown) {
       alert(e instanceof Error ? e.message : "Could not start checkout")

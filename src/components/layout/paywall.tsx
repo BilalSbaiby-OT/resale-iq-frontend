@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Lock, Check, Unlock } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { getPlans, createCheckout, getMe, getTrialRecap } from "@/lib/api"
+import { trackEvent } from "@/lib/analytics"
 import { useAuthStore } from "@/lib/auth-store"
 import { floorTo10k } from "@/lib/floor-to-10k"
 import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
@@ -65,6 +66,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       const priceId = resolvePriceId(placeholder, plans)
       if (!priceId) return
       const { checkout_url } = await createCheckout(priceId)
+      trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch { /* stay */ } finally { setBusy(null) }
   }
