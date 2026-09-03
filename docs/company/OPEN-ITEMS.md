@@ -4,8 +4,20 @@
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 15 shipped · 3 in flight · 12 open · 7 founder.** (#8 "2 paying" closed; #6
-attribution and the anon-bucket MITIGATED section both re-measured and corrected — see below.)
+**Scoreboard, today: 16 shipped · 3 in flight · 12 open · 7 founder.** (#8 "2 paying" closed; #6
+attribution and the anon-bucket MITIGATED section both re-measured and corrected — see below. #16
+added: footer/trust-signal i18n + the Deploy workflow's own missing-checkout bug.)
+
+**Update 2026-09-03, LOCALE department pass** — founder flagged "pages still have issues with
+languages" today. Live-fetched `/fr`, `/es`, `/de`, `/it`, `/pt` and their register/pricing/
+methodology/support routes; found the homepage footer (15 nav labels + disclaimer) and the
+"Most items refresh…" / "No accuracy claims…" trust-signal spans hardcoded English on every
+locale, plus two footer links (`/methodology`, `/support`) dropping the locale prefix even
+though both have translated routes. Fixed, deployed, re-verified live post-deploy — see SHIPPED
+#16. `/register`, `/support`, `/methodology` were already correctly localised (prior session,
+`ef5aa97`) and re-confirmed still correct. The remaining 6 English page families (#1) are
+unchanged in scope — translating their content, not just the chrome around them, is a separate,
+larger job nobody has picked up.
 
 **Heartbeat 2026-09-03 10:2xZ — P0-3 data-trust pass.** Four corrections, all re-verified against
 production or the live public API directly, none taken on anyone's word:
@@ -237,7 +249,7 @@ refusing everyone since 09:10.**
 
 | # | what | measured | why it is still open |
 |---|---|---|---|
-| 1 | **Localisation: 7 page families still English** | `/blog`, `/manual`, `/tools`, `/check`, `/terms`, `/support`, `/data` all 307 to English | methodology proves the pipeline; the rest is repetition nobody has done |
+| 1 | **Localisation: 6 page families still English** (`/support` moved to SHIPPED — see #16 and `ef5aa97`) | `/blog`, `/manual`, `/tools`, `/check`, `/terms`, `/data` all 307 to English, deliberately (`src/lib/locale-routes.ts` PATH_LOCALES gates routing to translated content only). Site-wide chrome (footer, trust-signal row) is now translated on every locale even where it links to these — see #16 | methodology and support prove the pipeline; the rest is repetition nobody has done |
 | 2 | ~~Tracker cutoff defect~~ **FIXED, MERGED** | root cause was 23 `.isoformat()` cutoffs vs space-separated storage. Falsified: revert and 9 tests fail. Suite **1345 passed, 0 failed** — green for the first time | [backend#3](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/3) merged `4431368` at **11:44:01Z**; `gh pr list` on the backend returns no open PRs. **The 'flaky' test blocking backend#1 and #2 was a TRUE POSITIVE all along** |
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
@@ -253,6 +265,7 @@ refusing everyone since 09:10.**
 | 14 | **Departure-verification path has no pacing; Vinted threw 288 × 429 in one 5s burst** | every 429 the box saw in 24h landed `15:53:39`→`15:53:44`: 288 refusals of 1,120 outbound that hour, all item-detail `GET`s, 183 `vinted.es` · 105 `vinted.fr`. Ingestion did not stall (`seen=4963 new=4078 errors=0`) | the verifier fires its batch concurrently with no spacing and no backoff. **UNKNOWN** whether those 288 were re-resolved on a later pass or their departures silently dropped — the `verify_attempts` scan on 34.7M rows did not return inside the ssh timeout. Tracked as O-005 in `COMMITMENTS.md` |
 
 | 15 | **Production disk crossed into warn today: 11 GB free of 75 GB (86% used)** | `disk-headroom` first failed at **15:01:50Z**; every prior run back to 2026-08-29 passed with `error=None`. Box: `62G used / 11G avail`. `/var/lib/docker` = **43G**, of which volumes 42.86GB (the 21.69GB DB plus its journal/backups) and images 17.27GB. `/var/log` 368M | **Growth rate is UNKNOWN** — no prior DB-size measurement is recorded anywhere, so "how many days until full" cannot be answered, only guessed. `docker system df` reports **11.99GB reclaimable**, but `docker images -f dangling=true` returns **0**: it is all *tagged, unused* images, i.e. Coolify's rollback targets. `docker image prune -a` would free ~12GB and cost the ability to roll back a bad deploy — a trade nobody has been asked about. Not taken unilaterally. **Cheapest real fix is to start recording DB size hourly so the trend exists**, then decide with a number. **Started 19:04Z: `docs/company/DISK-TREND.md`**, first exact row `DB 21788954624 bytes, WAL 0, df 62G used / 11G avail / 86%`. One row is not a trend — days-to-full is still UNKNOWN and stays UNKNOWN until a second comparable row lands |
+| 16 | **Homepage footer (15 nav labels + the legal disclaimer) and the trust-signal row were 100% hardcoded English on every locale** | flagged as a known gap in a `landing-content.tsx` comment since 2026-09-01 (W9), never closed until now. Founder reported "pages still have issues with languages" 2026-09-03. Fixed in [frontend#30](https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/30), merged `28f3ac0`, deployed and re-verified live post-deploy in all 5 locales (FR/ES/DE/IT/PT): footer nav, disclaimer paragraph, and "Most items refresh…" / "No accuracy claims…" spans all render translated; `/methodology` and `/support` footer links now go through `canonicalPath()` instead of dropping locale | closed. **Side finding, also fixed:** the Deploy workflow's own "Wait for the NEW build to serve" step never ran `actions/checkout`, so `scripts/check-deploy-identity.sh` (added same day in #29) failed with "No such file or directory" on every retry and reported the #30 deploy as **failed** while `/deploy-id` was already serving it correctly — the workflow's verdict was wrong, not the deploy. Fixed in [frontend#31](https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/31), merged `7ab9e32`; the next Deploy run (33776869030) completed green end-to-end and `/deploy-id` confirmed `7ab9e32` live |
 
 ---
 
