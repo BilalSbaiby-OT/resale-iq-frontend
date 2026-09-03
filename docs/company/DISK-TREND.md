@@ -28,6 +28,43 @@ ssh resaleiq "df -h / | tail -1; \
 | 2026-09-02 21:29 | 75G | 56G | 17G | 78% | 21862096896 | 9925112 | data agent, live |
 | 2026-09-03 15:21 | 75G | 55G | 18G | 76% | 22243946496 | 243112 | PRODUCT/OPS, live |
 | 2026-09-03 15:32 | 75G | 57G | 16G | 79% | 22243946496 | 276072 | data agent, live |
+| 2026-09-03 20:04 | 75G | 56G | 17G | 78% | 22415376384 | 329002632 | main, heartbeat (WAL spike) |
+| 2026-09-03 21:34 | 75G | 59G | 13G | 83% | 22453497856 | 24159712 | data agent, live |
+
+**WAL question (D-13): NOT a failing checkpoint — correlates with a container restart, not the
+scheduled job, and that distinction matters.** WAL went 243,112 (row 3/4) → 329,002,632 (row 5,
++1,354x) → 24,159,712 (row 6, −93%) across two reads 90 minutes apart. `job_wal_checkpoint`
+(`main.py:310-324`) runs `PRAGMA wal_checkpoint(TRUNCATE)` every 3 hours (`IntervalTrigger(hours=3)`,
+`main.py:911-913`) — its own comment says it exists because *"the audit found a 600MB+ WAL"*, so
+329MB sitting mid-cycle is inside the range this job was built to handle, not proof it broke.
+Checked the container directly for row 6: `docker ps` shows it was **created 2026-09-03 21:20:39Z**
+— 14 minutes before this reading, and after row 5 (20:04Z). SQLite checkpoints WAL back into the
+main file when the last connection to a database closes (a default of the WAL mode itself, not this
+job) — a clean container shutdown during redeploy plausibly explains the 329MB→24MB drop on its
+own, independent of whether the scheduled job ever got to fire. And `IntervalTrigger(hours=3)` with
+no explicit first-run counts from scheduler start, so in a container only 14 minutes old,
+`job_wal_checkpoint` has not yet had its first chance to run this container's life — **the drop
+observed here cannot be credited to the scheduled job; it is much more likely a restart-driven
+checkpoint.** Verdict: not "the checkpoint is failing," but "WAL is being kept bounded by deploy
+frequency, which happens to be high, rather than confirmed to be bounded by its own dedicated
+3-hourly job" — nobody has yet seen `"[wal] checkpoint(TRUNCATE) ->"` actually logged on its own
+schedule this session. That is the next thing that would settle it, not asserted here.
+
+**`df` swung the same direction as the WAL-restart correlation, adding a second independent line of
+evidence for "container restarts move this file's residual mover," not the `:37` prune alone.**
+78%→83% (avail 17G→13G, used 56G→59G) in the same 90-minute window the DB itself grew only
+~36MB (row5→row6: 38,121,472 bytes, 20:04→21:34, ≈25.4 MB/h — in the same range as prior segments,
+nothing alarming there). A 4-5GB `df` swing against a 36MB DB gain, landing across a **confirmed**
+container recreation (21:20:39Z), is the first time this file has a real restart timestamp to
+correlate against instead of guessing between the WAL checkpoint and the `:37` prune. Still not
+proof — new image layers, log rotation and the prune could all move at redeploy time too — but it
+reframes the open question from "which of two mechanisms" to "how much of this file's whole
+residual-mover puzzle is just deploy churn," which the next few readings should try to timestamp
+against `docker ps --format '{{.CreatedAt}}'` the way this one did, not skip.
+
+**Days-to-full: still not published.** Segment rates now span 21–37 MB/h across four segments —
+the spread has not narrowed with a fourth point, if anything it's wider. Row 3's 5+-point bar and
+the ~2h-apart schedule proposed in row 4's note both still stand.
 
 **Fourth point (2026-09-03 15:32, 11 min after the third) — not used for a rate, and that is itself
 informative.** `DB bytes` is byte-for-byte identical to the previous row (22243946496); only `WAL`
