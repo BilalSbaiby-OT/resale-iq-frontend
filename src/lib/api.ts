@@ -215,9 +215,19 @@ export const createCheckout = (price_id: string) =>
     method: "POST",
     body: JSON.stringify({
       price_id,
+      // Hand Stripe Checkout the language the visitor is actually reading.
+      // All 22 real sessions on the live account had locale=null, so someone
+      // who read the Spanish pricing page met an English card form at the one
+      // step where 21 of 22 stopped. layout.tsx already sets <html lang> from
+      // the route locale, so reading it here means the three call sites
+      // (pricing section, paywall, account) need no change. The backend
+      // allow-lists this value and falls back to "auto".
+      locale: typeof document !== "undefined" ? document.documentElement.lang : undefined,
       // Land on our success page, which verifies the session server-side and
       // applies the upgrade without depending on webhook delivery.
-      success_url: `${window.location.origin}/billing/success?`,
+      // No trailing "?" — it produced a literal "?&session_id=" in the URL of
+      // 10 live sessions once the backend appended its separator.
+      success_url: `${window.location.origin}/billing/success`,
       // Flag the abandoned-checkout return so /account can acknowledge it.
       // Bouncing the user back to a page that looks exactly as they left it
       // gives no signal whether the cancel registered or the payment silently
