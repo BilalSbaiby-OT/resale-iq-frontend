@@ -42,7 +42,17 @@ const EXT = /\.(ts|tsx|mjs|js|py)$/
 // Blocks that are SUPPOSED to be identical. Each entry needs a reason, because
 // an allow-list with no reasons becomes the place where real duplicates hide.
 const ALLOW = [
-  // (none yet — add with a comment saying why the duplication is correct)
+  // The generateMetadata({params}: {params: Promise<{locale:string}>}) shape
+  // + `if (!isPathLocale(locale)) ...` guard repeats verbatim across every
+  // src/app/[locale]/<root>/page.tsx route (methodology, register, support,
+  // ...) because Next.js's App Router requires that exact function signature
+  // per route file -- there is no shared function to extract it into, the
+  // framework's file-based routing IS the extraction point. The one piece
+  // that WAS real shared logic (building the locale param list) is already
+  // pulled out as localeStaticParams() in locale-routes.ts; this allows only
+  // the remaining framework-mandated boilerplate, not a business rule that
+  // could silently drift the way detectLocale()/acceptLanguageLocale() did.
+  "params: Promise<{ locale: string }>\n}): Promise<Metadata> {",
 ]
 
 

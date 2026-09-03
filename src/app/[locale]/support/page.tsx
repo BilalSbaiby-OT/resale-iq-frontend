@@ -2,11 +2,9 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { SupportPage } from "@/app/support/page"
 import { support } from "@/lib/support-copy"
-import { isPathLocale, hreflangLanguages, canonicalPath, PATH_LOCALES } from "@/lib/locale-routes"
+import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 
-export function generateStaticParams() {
-  return PATH_LOCALES.map((locale) => ({ locale }))
-}
+export const generateStaticParams = localeStaticParams
 
 export async function generateMetadata({
   params,

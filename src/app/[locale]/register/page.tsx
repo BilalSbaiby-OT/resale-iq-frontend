@@ -3,11 +3,9 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { RegisterForm } from "@/app/(auth)/register/register-form"
 import { copy } from "@/lib/i18n"
-import { isPathLocale, hreflangLanguages, canonicalPath, PATH_LOCALES } from "@/lib/locale-routes"
+import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 
-export function generateStaticParams() {
-  return PATH_LOCALES.map((locale) => ({ locale }))
-}
+export const generateStaticParams = localeStaticParams
 
 export async function generateMetadata({
   params,
