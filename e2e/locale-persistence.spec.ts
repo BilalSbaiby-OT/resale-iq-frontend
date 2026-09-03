@@ -166,3 +166,60 @@ test("switching language from inside the app sticks on the next page", async ({ 
   await page.waitForURL(/\/watchlist/, { timeout: 20_000 })
   expect(await page.locator("html").getAttribute("lang")).toBe("es")
 })
+
+// ---------------------------------------------------------------------------
+// A SWITCHER ON EVERY LOCALISED ROUTE.
+//
+// The control existed and worked, but was rendered on only 5 surfaces
+// (landing, register, check-email, verify-email, dashboard). Every other
+// route — including all 14 the dashboard side panel navigates to — had no way
+// to change language at all. It is now mounted once in the sidebar (app) and
+// once in (auth)/layout.tsx, so a new route in either group cannot ship
+// without one.
+//
+// Asserted per-route rather than "it exists somewhere", because per-route is
+// exactly the distinction that was wrong: /dashboard HAD a switcher while
+// /deals, one click away in the same side panel, did not.
+// ---------------------------------------------------------------------------
+const AUTH_ROUTES_WITH_SWITCHER = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/check-email",
+]
+
+for (const path of AUTH_ROUTES_WITH_SWITCHER) {
+  test(`${path} offers a language switcher`, async ({ page }) => {
+    await page.goto(path)
+    await expect(page.locator('select[aria-label="Language"]')).toBeVisible({ timeout: 20_000 })
+  })
+}
+
+test("the auth switcher actually changes the language, it is not inert", async ({ page }) => {
+  await page.goto("/login")
+  await expect(page.getByRole("heading", { name: "Welcome back" })).toBeVisible()
+
+  await page.locator('select[aria-label="Language"]').selectOption("fr")
+
+  // A full navigation, so the proxy re-reads the cookie — asserting the
+  // rendered heading, not just the dropdown value, because the bug this
+  // guards against is a control that updates itself and nothing else.
+  await expect(page.getByRole("heading", { name: "Bon retour" })).toBeVisible({ timeout: 20_000 })
+  expect(await page.locator("html").getAttribute("lang")).toBe("fr")
+})
+
+test("every side-panel destination offers a switcher, not just /dashboard", async ({ page, context }) => {
+  await context.addCookies([
+    { name: "NEXT_LOCALE", value: "fr", url: "http://localhost:3100" },
+  ])
+  await login(page)
+
+  for (const path of ["/dashboard", "/watchlist", "/brands", "/trends", "/portfolio", "/verdict"]) {
+    await page.goto(path)
+    await expect(
+      page.locator('aside select[aria-label="Language"]'),
+      `${path} has no language switcher`,
+    ).toBeVisible({ timeout: 20_000 })
+  }
+})

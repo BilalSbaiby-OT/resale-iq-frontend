@@ -6,7 +6,6 @@ import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict } from "@/lib/api"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
-import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -104,7 +103,6 @@ function RegisterContent({ locale }: { locale: Locale }) {
   return (
     <div className="w-full max-w-md">
       <div className="flex justify-end mb-3">
-        <LocaleSwitcher locale={locale} />
       </div>
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
