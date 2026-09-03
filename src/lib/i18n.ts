@@ -167,6 +167,16 @@ export const copy = {
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
       confidenceLabel: "Confidence",
+      // BRAND_CATEGORIES (api/routes.py): a brand-only query with no garment
+      // named. Category names (Jackets, Hoodies, ...) stay untranslated —
+      // same convention as BRAND_AVERAGE's "Carhartt Jackets" card, which
+      // never translates category names either; they are catalogue taxonomy,
+      // not prose.
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `We track ${brand} in ${categories}. Add the garment and we can price it.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Try "${nextStep}". For a buy-below on one item, name the model too.`,
+      brandAverageLabel: "BRAND AVERAGE",
       headlineOnly: "Headline call only — market price and buy-below need an account.",
       unlockLine: "Unlock sell-through, demand, sizes and history with a plan.",
       unlockRest: "Unlock the rest →",
@@ -485,6 +495,11 @@ export const copy = {
       planLabel: "Abonnement",
       limitReachedLabel: "LIMITE ATTEINTE",
       confidenceLabel: "Confiance",
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `On suit ${brand} dans ${categories}. Précisez la pièce pour qu'on puisse l'estimer.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Essayez « ${nextStep} ». Pour un prix d'achat max sur un article précis, indiquez aussi le modèle.`,
+      brandAverageLabel: "MOYENNE DE LA MARQUE",
       headlineOnly: "Verdict seul — le prix de marché et le prix d'achat max nécessitent un compte.",
       unlockLine: "Débloquez le taux d'écoulement, la demande, les tailles et l'historique avec un abonnement.",
       unlockRest: "Débloquer le reste →",
@@ -769,6 +784,11 @@ export const copy = {
       planLabel: "Plan",
       limitReachedLabel: "LÍMITE ALCANZADO",
       confidenceLabel: "Confianza",
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `Seguimos ${brand} en ${categories}. Añade la prenda para poder valorarla.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Prueba «${nextStep}». Para un precio máximo de compra en un artículo concreto, indica también el modelo.`,
+      brandAverageLabel: "MEDIA DE LA MARCA",
       headlineOnly: "Solo el veredicto — el precio de mercado y el precio máximo de compra necesitan una cuenta.",
       unlockLine: "Desbloquea la tasa de venta, la demanda, las tallas y el historial con un plan.",
       unlockRest: "Desbloquear el resto →",
@@ -1053,6 +1073,11 @@ export const copy = {
       planLabel: "Tarif",
       limitReachedLabel: "LIMIT ERREICHT",
       confidenceLabel: "Konfidenz",
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `Wir erfassen ${brand} in ${categories}. Gib das Kleidungsstück an, dann können wir es bewerten.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Versuch's mit „${nextStep}“. Für eine Kaufobergrenze auf ein bestimmtes Produkt nenne zusätzlich das Modell.`,
+      brandAverageLabel: "MARKENDURCHSCHNITT",
       headlineOnly: "Nur die Kurzentscheidung — Marktpreis und Kaufobergrenze brauchen ein Konto.",
       unlockLine: "Schalte Verkaufsrate, Nachfrage, Größen und Verlauf mit einem Tarif frei.",
       unlockRest: "Rest freischalten →",
@@ -1339,6 +1364,11 @@ export const copy = {
       planLabel: "Piano",
       limitReachedLabel: "LIMITE RAGGIUNTO",
       confidenceLabel: "Affidabilità",
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `Monitoriamo ${brand} in ${categories}. Aggiungi il capo per poterlo valutare.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Prova con "${nextStep}". Per un prezzo massimo di acquisto su un articolo preciso, indica anche il modello.`,
+      brandAverageLabel: "MEDIA DEL MARCHIO",
       headlineOnly: "Solo il verdetto — prezzo di mercato e prezzo massimo di acquisto richiedono un account.",
       unlockLine: "Sblocca tasso di vendita, domanda, taglie e storico con un piano.",
       unlockRest: "Sblocca il resto →",
@@ -1623,6 +1653,11 @@ export const copy = {
       planLabel: "Plano",
       limitReachedLabel: "LIMITE ATINGIDO",
       confidenceLabel: "Confiança",
+      brandCategoriesIntro: (brand: string, categories: string) =>
+        `Acompanhamos a ${brand} em ${categories}. Acrescenta a peça para podermos avaliá-la.`,
+      brandCategoriesModelHint: (nextStep: string) =>
+        `Experimenta "${nextStep}". Para um preço máximo de compra num artigo específico, indica também o modelo.`,
+      brandAverageLabel: "MÉDIA DA MARCA",
       headlineOnly: "Apenas o veredito — preço de mercado e preço máximo de compra precisam de uma conta.",
       unlockLine: "Desbloqueia taxa de venda, procura, tamanhos e histórico com um plano.",
       unlockRest: "Desbloquear o resto →",

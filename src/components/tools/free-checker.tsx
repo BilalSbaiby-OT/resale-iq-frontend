@@ -48,6 +48,14 @@ interface FreeVerdict {
   upgrade_url?: string
   used_today?: number
   limit?: number
+  // Only populated on BRAND_CATEGORIES (api/routes.py) — a brand-only query
+  // with no garment named. brand/categories/next_step are structured, so the
+  // frontend builds its own translated sentence instead of trusting
+  // res.message (English-only prose), same reasoning as LIMIT_REACHED/
+  // UNKNOWN above.
+  brand?: string
+  categories?: string[]
+  next_step?: string
 }
 
 // Verdict colour vs. system/quota colour are two different channels — see
@@ -179,9 +187,15 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
   // A verdict is a WORD WE SHOW A STRANGER, not a database constant. Found by
   // pulling the last frame out of a marketing video: it rendered
   // "BRAND_AVERAGE" in 26px caps, underscore and all. ffprobe called that video
-  // valid; only looking at the picture caught it.
+  // valid; only looking at the picture caught it. That fix only replaced the
+  // underscore-and-caps constant with a human phrase — it stayed hardcoded
+  // English in all 6 locales until this pass (a French/ES/DE/IT/PT stranger
+  // is still a stranger). LIVE-VERIFIED via CDP-driven Chrome, production,
+  // 2026-09-03: q="chaqueta/veste/Jacke/giacca/casaco Carhartt" on
+  // /es /fr /de /it /pt all rendered the literal English "BRAND AVERAGE"
+  // mid-sentence in an otherwise fully-translated card.
   const VERDICT_LABEL: Record<string, string> = {
-    BRAND_AVERAGE: "BRAND AVERAGE",
+    BRAND_AVERAGE: t.brandAverageLabel,
   }
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
     : (res?.verdict ? (VERDICT_LABEL[res.verdict] ?? res.verdict) : "—")
@@ -291,6 +305,33 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
                   work" into "it works for THESE" — the narrowing is honest,
                   an empty refusal with no next step reads as broken. */}
               <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} />
+            </>
+          ) : res.verdict === "BRAND_CATEGORIES" ? (
+            // A brand-only query — the backend recognises the brand but has no
+            // garment to price. Previously fell through to the default
+            // BUY/WATCH/SKIP/BRAND_AVERAGE branch below, which rendered the raw
+            // enum string "BRAND_CATEGORIES" as a coloured verdict tag (same
+            // class of bug the VERDICT_LABEL comment above already fixed once
+            // for BRAND_AVERAGE) and a misleading "unlock the market price"
+            // upsell for a query that was never priced at all. This branch
+            // builds a real translated sentence from the structured fields
+            // instead of trusting res.message (English-only prose). Category
+            // names (Jackets, Hoodies, ...) stay untranslated, same convention
+            // as the BRAND_AVERAGE card's "Carhartt Jackets" — catalogue
+            // taxonomy, not prose.
+            <>
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.brand ?? res.product ?? q}</div>
+              <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
+                {t.brandCategoriesIntro(
+                  res.brand ?? q,
+                  new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(res.categories ?? [])
+                )}
+              </p>
+              {res.next_step && (
+                <p style={{ fontSize: 13, color: "#8b99b8", marginTop: 6, lineHeight: 1.55 }}>
+                  {t.brandCategoriesModelHint(res.next_step)}
+                </p>
+              )}
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
             // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
