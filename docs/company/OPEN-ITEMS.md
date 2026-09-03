@@ -123,15 +123,23 @@ bucket. Supporting counts from the same DB:
 The gateway bucket's most recent day in `verdict_logs` is **2026-08-31** (23 rows). So the NAT
 hairpin described above is not happening on live traffic any more.
 
-**Two things I did not establish, marked UNVERIFIED rather than guessed:**
+**What fixed it — found, not guessed.** `42e8242` *"fix(proxy): stamp verified client IP for the
+api/auth/stripe/admin rewrite"*, merged to `main` as PR #7 (`07facf7`, 2026-09-02 15:52 +0200).
+Confirmed an ancestor of `origin/main` via `git merge-base --is-ancestor`. It was **not**
+`src/middleware.ts` — that file still does not exist in `origin/main` or in the running container,
+so this entry's predicted fix was the wrong shape. Its commit message also records that the
+founder's stated cause #3 ("nothing forwards the header") did not hold: measured with `tcpdump` on
+both Traefik hops, the edge hop already sets a trustworthy `x-forwarded-for`/`x-real-ip`.
 
-1. **Which change fixed it.** There is still no `src/middleware.ts` in `origin/main` *or* in the
-   running container (`ls` returns No such file), so it was not the fix this entry predicted.
-   Host ingress config is outside the repo and I did not inspect Traefik.
-2. **Why the 15:07Z measurement does not reproduce.** That entry recorded the gateway bucket going
+**One thing still UNVERIFIED, marked rather than guessed:**
+
+1. **Why the 15:07Z measurement does not reproduce.** That entry recorded the gateway bucket going
    310 → 311 on 09-02 and "distinct hashes today: 4"; the same DB now returns 1,125 distinct for
    09-02 and no gateway-bucket rows that day at all. Both readings cannot be right. Not resolved —
-   do not cite either number as settled until someone reconciles them.
+   do not cite either number as settled until someone reconciles them. Note the ordering: PR #7
+   merged at 13:52Z, **before** the 15:07Z heartbeat that reported the cause untouched. A Coolify
+   build lag between merge and deploy would explain the heartbeat still seeing the old behaviour;
+   that is a hypothesis, not a measurement, and nobody has checked the deploy timestamp.
 
 **What is actually still open:** `ANON_IP_DAILY_CEILING` is **still 20000**, read live from the
 container (`config.ANON_IP_DAILY_CEILING = 20000`; the env var is unset, so this is the code
