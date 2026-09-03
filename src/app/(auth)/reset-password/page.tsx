@@ -8,6 +8,7 @@ import Link from "next/link"
 import { CheckCircle2, AlertCircle } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
+import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
 
 export default function ResetPasswordPage() {
   // Read the token from the URL on the client rather than via useSearchParams:
@@ -88,22 +89,11 @@ export default function ResetPasswordPage() {
           </div>
         ) : (
           <>
-            <h1 className="text-[21px] font-bold mb-1">{tr.heading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-5">{tr.subheading}</p>
+            <AuthHeading heading={tr.heading} subheading={tr.subheading} />
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <div>
-                <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{tr.newLabel}</label>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} required minLength={8}
-                  className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]"
-                  placeholder={tr.newPlaceholder} />
-              </div>
-              <div>
-                <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{tr.confirmLabel}</label>
-                <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)} required minLength={8}
-                  className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]"
-                  placeholder={tr.confirmPlaceholder} />
-              </div>
+              <AuthField label={tr.newLabel} type="password" value={password} onChange={setPassword} placeholder={tr.newPlaceholder} minLength={8} />
+              <AuthField label={tr.confirmLabel} type="password" value={confirm} onChange={setConfirm} placeholder={tr.confirmPlaceholder} minLength={8} />
 
               {error && (
                 <div className="bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2.5 text-[12.5px] text-red-300">
@@ -111,10 +101,7 @@ export default function ResetPasswordPage() {
                 </div>
               )}
 
-              <button type="submit" disabled={loading}
-                className="w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 mt-1">
-                {loading ? tr.submitting : tr.submit}
-              </button>
+              <AuthSubmit loading={loading} submitting={tr.submitting} submit={tr.submit} />
             </form>
 
             <div className="text-center mt-5">

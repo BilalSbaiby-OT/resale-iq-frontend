@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Mail } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
+import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -34,18 +35,10 @@ export default function ForgotPasswordPage() {
           </div>
         ) : (
           <>
-            <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-5">{t.subheading}</p>
+            <AuthHeading heading={t.heading} subheading={t.subheading} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <div>
-                <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{t.emailLabel}</label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]" placeholder="you@example.com" />
-              </div>
-              <button type="submit" disabled={loading}
-                className="w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 mt-1">
-                {loading ? t.submitting : t.submit}
-              </button>
+              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
+              <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
             </form>
             <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">{t.backToSignIn}</Link></div>
           </>
