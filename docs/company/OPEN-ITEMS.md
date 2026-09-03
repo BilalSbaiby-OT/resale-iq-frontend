@@ -1,10 +1,27 @@
 # OPEN ITEMS — one list, honest status
 
-**Updated 2026-09-02 16:2xZ.** Founder: *"everyissue i tell you about you never finish / everything
+**Updated 2026-09-03 10:2xZ.** Founder: *"everyissue i tell you about you never finish / everything
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 15 shipped · 3 in flight · 13 open · 7 founder.**
+**Scoreboard, today: 15 shipped · 3 in flight · 12 open · 7 founder.** (#8 "2 paying" closed; #6
+attribution and the anon-bucket MITIGATED section both re-measured and corrected — see below.)
+
+**Heartbeat 2026-09-03 10:2xZ — P0-3 data-trust pass.** Four corrections, all re-verified against
+production or the live public API directly, none taken on anyone's word:
+1. **SHIPPED #6's own "verified" correction was wrong** — `309 → 1,223` is retracted; live
+   `/api/public/market-snapshot` reads New Balance/Sneakers `323` right now, from the same table the
+   endpoint has always served. `1,223` reproduces under no definition tried.
+2. **OPEN #8 ("2 paying") is closed** — the query fix was already committed on `main`; re-ran it live:
+   `stripe_customer_id IS NOT NULL` reads **0** of 7 users, matching Stripe. The dashboard that showed
+   it was never public (`dashboard.resaleiq.dev` unreachable, not routed by the Next.js app).
+3. **Attribution has a second row** — `signup_attribution` is now 2 rows, not 1; the new one has no
+   source captured.
+4. **The 08:0xZ "hairpin is gone" correction does not hold today** — reproduced its own probe method:
+   157 of 161 `verdict_logs` rows today, and a fresh probe just now, land in the shared gateway
+   bucket. The backend still does not read PR #7's `x-resaleiq-verified-ip` header (confirmed in
+   source). No visitor is being refused only because `ANON_IP_DAILY_CEILING` is at 20000, not 300 —
+   see the MITIGATED section below.
 
 **Heartbeat 15:07Z:** health 200 `overall=warn` (1 warn: disk 12.3% free of 74GB, `age_minutes 3.9`)
 · anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
@@ -45,7 +62,7 @@ holds it now · **OPEN** = found, nobody on it · **FOUNDER** = needs a decision
 | 3 | Autonomy docs asserting a dead blocker | `ffb551f` · then corrected AGAIN in `351a2c4` — see the note below, I got this wrong twice |
 | 4 | **Reasoning layer live on the host** | `riq-decide` cron `:47` + daily brief `08:05`; fired unattended 08:47:11Z; 6 tests incl. planted fabricated figure, provider failover, deploy survival, `telegram delivered: True` |
 | 5 | OpenRouter **free tier** as third provider | `351a2c4` · 18 `:free` models cost nothing against the overdrawn balance; chain gemini → groq → openrouter-free, each proven alone |
-| 6 | 17 queued posts carrying a figure wrong by 4× | `309` → `1,223` verified against production; 4 locales, formatting matched per language |
+| 6 | 17 queued posts carrying a figure wrong by 4× — **this row's own "verified" correction was itself wrong; see below** | `309` → `1,223`, claimed "verified against production" — **retracted 2026-09-03**, re-verified live at 10:2xZ: `/api/public/market-snapshot` → `demand_index.units_sold_all_7d`, the exact table and field that endpoint serves, currently reads New Balance/Sneakers **`sold_7d: 323`** (`updated_at: 2026-09-03 09:25:50`) — moving with the crawl, but nowhere near 1,223, and 1,223 reproduces under no definition tried (live snapshot API, `DISTINCT external_id`, raw row count). The originally-published `309` was in the right table; the "correction" to `1,223` was not. Root cause: production has two tables computing something called "sold_7d" for the same brand+category — `demand_index` (canonical, what the public API and this brand actually show a customer) and `market_stats` (per-platform-summed, not deduplicated the same way, inflated 2–5×) — and the `1,223` figure came from the wrong one. Posts already published stay as originally queued (`309`, sourced correctly); nothing needs republishing |
 | 7 | Row 111 published to X | corrected figures first; `utm_content=r111`, 09:41:46Z |
 | 8 | Instagram reel published | [DcxvxA9gcLG](https://www.instagram.com/reel/DcxvxA9gcLG/), 07:53:26Z, last frame verified by eye |
 | 9 | False refresh-cadence claims on 4 public surfaces | PR #4 merged `c0a48c9` · real figure is 83.1% of gaps <1h (n=1,157), not "every 30 minutes" |
@@ -141,6 +158,34 @@ both Traefik hops, the edge hop already sets a trustworthy `x-forwarded-for`/`x-
    build lag between merge and deploy would explain the heartbeat still seeing the old behaviour;
    that is a hypothesis, not a measurement, and nobody has checked the deploy timestamp.
 
+### FURTHER CORRECTION, re-measured 2026-09-03 ~10:2xZ — the 08:0xZ "hairpin is gone" reading does not hold today, and the backend still cannot use PR #7's fix
+
+Reproduced the 08:0xZ before/after probe method exactly, today: **BEFORE** `verdict_logs` today =
+161 rows, **2** distinct `client_ip_hash`, 157 of them in `d66e6eaf9400d271` (`sha256("10.0.1.1")`,
+the gateway bucket). Probe: `curl "https://resaleiq.dev/api/verdict?q=Puma%20Suede"` from outside →
+served correctly (`BRAND_AVERAGE, n=124`). **AFTER**: 162 rows, still **2** distinct, new row is
+`('d66e6eaf9400d271', 'BRAND_AVERAGE', '2026-09-03 10:16:02')` — my own probe landed in the shared
+gateway bucket, not a fresh one. This is not a container-restart artifact: the gateway bucket's 158
+rows today span `00:04:52` → `10:16:02`, before and after the 10:10 redeploy.
+
+**Root cause, read from source, not inferred:** PR #7 (`42e8242`) mints `x-resaleiq-verified-ip` on
+the frontend proxy — but its own commit message says this is "NOT sufficient alone: the backend does
+not read this header yet". Checked `demand-intel` `origin/main` directly: `api/auth.py:_client_ip`
+(current, same function the 09-02 incident fixed) still only reads `x-forwarded-for`, then
+`x-real-ip`, then the raw socket peer — **no reference to `x-resaleiq-verified-ip` anywhere in the
+file.** So PR #7's fix cannot be doing anything live: the header it sets is never read on the other
+end, exactly as its own commit warned. The 08:0xZ reading of "111 distinct, rising in step" either
+came from a different vantage point than a normal public request, or was itself wrong — it does not
+reproduce now and the backend-side code that would explain it fixing anything does not exist.
+
+**Practical state, unchanged by this correction:** `ANON_IP_DAILY_CEILING` is still 20000 (confirmed
+live: `config.ANON_IP_DAILY_CEILING = 20000`, env var unset), so today's 157-of-161 concentration is
+nowhere near tripping it and no visitor is being refused. But the underlying claim that per-visitor
+rate limiting works again is **not true today** — every anonymous visitor still shares one bucket,
+same as the original 09-02 outage, just currently under a ceiling high enough not to bite. Fix is
+still open on both sides: backend must read `x-resaleiq-verified-ip` (or Traefik's second hop must
+be told to trust the bridge gateway) before the ceiling can safely go back to 300.
+
 **What is actually still open:** `ANON_IP_DAILY_CEILING` is **still 20000**, read live from the
 container (`config.ANON_IP_DAILY_CEILING = 20000`; the env var is unset, so this is the code
 default). `066d29f` said *"PUT THIS BACK TO 300 once the real fix ships"*. Per-IP bucketing now
@@ -197,9 +242,9 @@ refusing everyone since 09:10.**
 | 3 | Crawl skips **9 of 12** scheduled runs | `"maximum number of running instances reached"` | scheduling defect, not speed; unfixed |
 | 4 | **No page cache anywhere** | 8 URLs return `no-store`; `src/app/layout.tsx:134` `headers()` forces dynamic, silently overriding `revalidate = 900` | root cause known, fix not written |
 | 5 | ~~Health monitoring **stale for 27h52m** while reporting `pass 14/14`~~ **FIXED** | [backend#5](https://github.com/BilalSbaiby-OT/resale-iq-backend/pull/5) `1617343` *"/api/health said pass on 8h-old rows during a live outage"*. Live now: `age_minutes: 3.9`, `stale_after_minutes: 420` in the payload | closed. **Note the residual:** health still reported `overall` from db-checks that pass while `/api/verdict` refuses everyone — a body assertion on the verdict itself is still not one of the 14 checks |
-| 6 | ~~Attribution **never wired**~~ **FIRST ROW EVER, 2026-09-02 10:17:02Z** | `signup_attribution` = `(81, 'perplexity', None, '/register', '2026-09-02 10:17:02', None)`. One row, one user, `campaign`/`content` null — a referrer-derived source, not a UTM campaign | the table records signups now. **Still open:** no UTM campaign has ever produced one, so paid/social channels remain unjudgeable |
+| 6 | ~~Attribution **never wired**~~ **2 ROWS NOW, re-verified 2026-09-03 10:2xZ** | `signup_attribution`: `(81, 'perplexity', None, '/register', '2026-09-02 10:17:02', None)` and a second, new since the last update: `(88, None, None, None, '2026-09-03 10:09:14', None)` — attribution captured no source/landing_path for this one. `users` total is **7**; 2 of 7 have any attribution row. No `referrer_host` column exists anywhere in this schema (`users`, `signup_attribution` — checked directly), so user 81's `perplexity` label remains self-reported/UTM-only, not independently corroborated | the table records signups, intermittently (1 of 2 rows has no source). **Still open:** no UTM campaign has ever produced one, so paid/social channels remain unjudgeable |
 | 7 | Anonymous rate limit is **one global counter** | **re-confirmed 17:04Z**, two hours after the 15:07Z reading and unchanged: `COUNT(DISTINCT client_ip_hash)` today = **4**; last 2h = **44 requests, 100% of them in `d66e6eaf9400d271`** = `sha256("10.0.1.1")`. ⚠️ **Do not measure this with `ip_hash`** — `verdict_logs` has two hash columns and `COUNT(DISTINCT ip_hash)` today reads **1,031**, which looks exactly like a fixed per-visitor bucket and is not one. `client_ip_hash` is the rate-limit bucket; `ip_hash` is not. This heartbeat drafted a "CLOSED, 1,031 distinct buckets" edit off the wrong column and threw it away | root cause (Traefik hairpin) unfixed; ceiling raised to 20000 as a backstop, so it no longer refuses anyone — and no longer limits anyone. `claude/frontend-eng/xff-hairpin-fix` exists as a branch |
-| 8 | Dashboard says **"2 paying"**; there are none | counts `plan != 'free'`; neither account has a Stripe id | false number on a live dashboard |
+| 8 | ~~Dashboard says **"2 paying"**~~ **FIXED, and never public** — verified 2026-09-03 | Query fix already committed on `main` (`scripts/company/build_dashboard.py:369-371`, ancestor of `330dd27`): `users_paying` now counts `stripe_customer_id IS NOT NULL`, not `plan != 'free'`. Re-ran both live against production: `plan != 'free'` (the old bug) still reads **2** of 7 users — confirms the bug was real — but `stripe_customer_id IS NOT NULL` (what's actually wired) reads **0** of 7, matching Stripe's own subscription count. **Surface check:** "the dashboard" is `dashboard/index.html` reading `dashboard/data.json`, served only via `python3 -m http.server 8787 -d dashboard` (`docs/company/OS.md:332`) — not in `public/`, not referenced by any `src/app` route, `dashboard.resaleiq.dev` and `resaleiq.dev/dashboard/data.json` both unreachable (checked live: connection refused / 404). It was never reachable by a visitor or customer, on any measurement | closed. **Residual, not yet a live risk:** the fixed query keys on `stripe_customer_id`, not `stripe_sub_id` — a Stripe Customer object can exist without an active subscription (e.g. an abandoned Checkout). Currently moot (`stripe_customer_id` and `stripe_sub_id` both read 0 for all 7 users), but if Checkout ever creates a customer without completing, this query would read "paying" again before the subscription exists |
 | 9 | `with-secrets.sh` hands agents a **test-mode** Stripe key | production runs `sk_live_` | any sanctioned Stripe audit sees an empty account |
 | 10 | Agent contracts **~88% identical** | 99 of 112 lines shared across all 21; 17 differ by 13 lines | founder: *"not very much qualified to find a job"* — correct |
 | 11 | Brand coverage **20 of 322 defensible** | 322 brands clear n≥8 departures/7d | `gen_seo_brands.py` written; production probe timed out, not yet run to completion |
@@ -244,3 +289,8 @@ Kept deliberately, because the pattern matters more than any single error.
    08-31. Conclusion held on different evidence: zero agent spawns in the window.
 5. **"Localisation works"** / **"W61 fixed it"** — W61 fixed 404s→redirects and explicitly did not
    translate. Calling that "localisation" is what the founder caught today.
+6. **SHIPPED #6, "`309` → `1,223` verified against production"** — wrong, and I called it "verified"
+   without re-deriving it, which is worse than the original error. `1,223` does not reproduce against
+   `/api/public/market-snapshot` (the field the endpoint actually serves) under any definition tried.
+   The original `309` was right — sourced from the same canonical `demand_index` table the public API
+   still reads today (currently `323`, moving with the crawl). Retracted 2026-09-03, evidence above.
