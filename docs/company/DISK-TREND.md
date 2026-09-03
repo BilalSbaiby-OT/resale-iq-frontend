@@ -27,6 +27,23 @@ ssh resaleiq "df -h / | tail -1; \
 | 2026-09-02 19:04 | 75G | 62G | 11G | 86% | 21788954624 | 0 | hourly heartbeat |
 | 2026-09-02 21:29 | 75G | 56G | 17G | 78% | 21862096896 | 9925112 | data agent, live |
 | 2026-09-03 15:21 | 75G | 55G | 18G | 76% | 22243946496 | 243112 | PRODUCT/OPS, live |
+| 2026-09-03 15:32 | 75G | 57G | 16G | 79% | 22243946496 | 276072 | data agent, live |
+
+**Fourth point (2026-09-03 15:32, 11 min after the third) — not used for a rate, and that is itself
+informative.** `DB bytes` is byte-for-byte identical to the previous row (22243946496); only `WAL`
+grew (243,112→276,072). The DB file itself is written in bursts (checkpoint-driven), not
+continuously — an 11-minute gap can land entirely inside one burst-free interval, so computing a
+segment rate from this pair would produce a false ≈0 MB/h, not a true one. Recorded as evidence of
+that burstiness, not as a trend point. `df use%` moved a third direction this time (76%→79%, avail
+18G→16G, used 55G→57G) with the DB unchanged — confirms the residual mover (still unidentified) can
+push `df` in either direction independent of DB writes; this table cannot explain it without reading
+the `riq-disk-guard`/checkpoint logs directly, which no reading here has done yet.
+
+**Still no days-to-full — restating row 3's bar with a concrete target.** Need 5+ points spread
+across several `:37` prune cycles, not clustered like this one. At roughly hourly-to-multi-hourly
+cadence, spacing future reads at least ~2h apart (next targets: ~18:00Z, ~21:00Z today, ~00:00Z and
+~04:00Z 2026-09-04) would give 5 well-spaced points by tomorrow morning — enough to test whether the
+DB-bytes rate is actually linear instead of computing one across the confound.
 
 **First real rate (2 rows, thin — do not treat as confirmed):** DB grew 73,142,272 bytes in 145
 minutes → ≈30.3 MB/h ≈ 0.73 GB/day on the DB file alone. That is in the same range as the ~0.65
