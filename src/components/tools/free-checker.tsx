@@ -274,7 +274,7 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
                   real pages that exist today. */}
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
                 <Link
-                  href="/register?plan=free"
+                  href={`${canonicalPath(locale, "/register")}?plan=free`}
                   style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}
                 >
                   {t.createFreeAccount}

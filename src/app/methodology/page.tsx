@@ -117,7 +117,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 780, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
+        <Link href={canonicalPath(locale)} style={{ color: "#22c55e", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", lineHeight: 1.16, margin: "22px 0 14px" }}>
           {t.text0}
@@ -126,7 +126,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           {t.text1}
         </p>
         <p style={{ fontSize: 15, color: "#8b99b8", lineHeight: 1.7, marginBottom: 32 }}>
-          {t.text2} <Link href="/support" style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_support_link}</Link>.
+          {t.text2} <Link href={canonicalPath(locale, "/support")} style={{ color: "#22c55e", textDecoration: "none" }}>{t.g_support_link}</Link>.
         </p>
 
         <Section title={t.section0}>
@@ -256,7 +256,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             {t.g_cta_a} {TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]} {t.g_cta_b}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            <Link href="/register?plan=free" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href={`${canonicalPath(locale, "/register")}?plan=free`} style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text29}
             </Link>
             <Link href="/data" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>

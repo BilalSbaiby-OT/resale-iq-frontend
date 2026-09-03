@@ -10,6 +10,7 @@ import { SocialLinks } from "@/components/layout/social-links"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
+import { canonicalPath } from "@/lib/locale-routes"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -47,7 +48,7 @@ export function LandingContent({
       <RedirectIfAuthed />
       {/* Nav */}
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
-        <Link href="/" aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", color: "inherit" }}>
+        <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", color: "inherit" }}>
           <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
           <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
         </Link>
@@ -122,7 +123,7 @@ export function LandingContent({
               <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "10px 16px", borderRadius: 8 }}>
                 {t.addToChrome} <ArrowRight size={14} />
               </a>
-              <Link href="/register?plan=free" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
+              <Link href={`${canonicalPath(locale, "/register")}?plan=free`} style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
                 {t.orCheck}
               </Link>
             </div>
@@ -166,7 +167,7 @@ export function LandingContent({
               "Most" carries that without pinning a figure that rots in place —
               /methodology holds the number and its source. */}
           <span>Most items refresh within the hour</span>
-          <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
+          <span>Every formula on <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
           <span>No accuracy claims until 30 outcomes scored</span>
         </div>
       </section>
@@ -190,14 +191,14 @@ export function LandingContent({
           <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>Nike resale</Link>
           <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>Sneakers</Link>
           <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
-          <Link href="/methodology" style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
+          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
           <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>Market data</Link>
           <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>API</Link>
           <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>Blog</Link>
           <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>Terms</Link>
           <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>Privacy</Link>
           <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>Legal notice</Link>
-          <Link href="/support" style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
+          <Link href={canonicalPath(locale, "/support")} style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
           <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
         </div>
         {/* The four accounts we actually post from. Here rather than only in
