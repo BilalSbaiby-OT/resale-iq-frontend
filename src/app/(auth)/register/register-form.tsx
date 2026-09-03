@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict } from "@/lib/api"
+import { trackEvent } from "@/lib/analytics"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
@@ -84,6 +85,9 @@ function RegisterContent({ locale }: { locale: Locale }) {
     setError(""); setLoading(true)
     try {
       await register(email, password)
+      // Fires only after the account actually exists — a submit that throws
+      // (email already taken, network error) hits the catch below instead.
+      trackEvent("signup_completed")
       router.push("/check-email")
       return
     } catch (err: unknown) {
