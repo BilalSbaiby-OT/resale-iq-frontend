@@ -99,6 +99,48 @@ client is no longer limited by anything, and reverting the ceiling without fixin
 re-opens the outage immediately. Real fix is Traefik `forwardedHeaders.trustedIPs` or an internal
 hostname for the frontend→backend hop — host ingress config, not shipped.
 
+### CORRECTION, heartbeat 2026-09-03 08:0xZ — the hairpin is gone, the ceiling is not
+
+The paragraph above is **no longer true** and is superseded. Per-visitor bucketing works. Measured
+cold this hour with the same before/after probe method the 15:07Z entry used:
+
+```
+BEFORE  total_today (123 rows, 110 distinct ip_hash)
+probe   GET /api/verdict?q=Carhartt Detroit Jacket  ->  verdict=BRAND_AVERAGE, n=37
+AFTER   total_today (124 rows, 111 distinct ip_hash)
+        newest row = ('27d6c0a5027fd440','2026-09-03 08:09:07','BRAND_AVERAGE')
+```
+
+The probe minted a **new** hash and distinct rose in step with total. It did not land in a shared
+bucket. Supporting counts from the same DB:
+
+| measure | 2026-09-02 | 2026-09-03 (08:0xZ) |
+|---|---|---|
+| verdict_logs rows / distinct `ip_hash` | 1,146 / 1,125 | 124 / 111 |
+| `LIMIT_REACHED` rows | 676 | **0** |
+| rows on `d66e6eaf9400d271` (= `sha256("10.0.1.1")`) | none returned | none returned |
+
+The gateway bucket's most recent day in `verdict_logs` is **2026-08-31** (23 rows). So the NAT
+hairpin described above is not happening on live traffic any more.
+
+**Two things I did not establish, marked UNVERIFIED rather than guessed:**
+
+1. **Which change fixed it.** There is still no `src/middleware.ts` in `origin/main` *or* in the
+   running container (`ls` returns No such file), so it was not the fix this entry predicted.
+   Host ingress config is outside the repo and I did not inspect Traefik.
+2. **Why the 15:07Z measurement does not reproduce.** That entry recorded the gateway bucket going
+   310 → 311 on 09-02 and "distinct hashes today: 4"; the same DB now returns 1,125 distinct for
+   09-02 and no gateway-bucket rows that day at all. Both readings cannot be right. Not resolved —
+   do not cite either number as settled until someone reconciles them.
+
+**What is actually still open:** `ANON_IP_DAILY_CEILING` is **still 20000**, read live from the
+container (`config.ANON_IP_DAILY_CEILING = 20000`; the env var is unset, so this is the code
+default). `066d29f` said *"PUT THIS BACK TO 300 once the real fix ships"*. Per-IP bucketing now
+works, so the precondition is met and the revert is the remaining task — until it lands there is no
+abuse backstop at any realistic traffic level. `/app/scripts/health_check.py:266` still describes
+A25 as "currently mitigated by ANON_IP_DAILY_CEILING at 20000", so that comment needs updating with
+the revert.
+
 <details><summary>Original 09:10Z outage entry, kept for the record</summary>
 
 ```
