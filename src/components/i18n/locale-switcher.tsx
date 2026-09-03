@@ -15,13 +15,13 @@ import type { Locale } from "@/lib/i18n"
  * Two different mechanisms depending on where it is mounted, because the
  * site has two different ways of being multilingual (see src/proxy.ts):
  *
- * 1. The homepage family — "/" and "/es /fr /de /it /pt" — is the ONLY
- *    place with real translated ROUTES (locale-routes.ts). Picking a
- *    language there navigates to the sibling URL; the proxy stamps the
- *    NEXT_LOCALE cookie itself on that request, same as a visitor typing
- *    the URL directly, so this component does not need to.
+ * 1. Page families with a REAL translated ROUTE (`LOCALE_ROUTED_ROOTS`
+ *    below: the homepage, /methodology, /register, /support). Picking a
+ *    language there navigates to the sibling `/<locale>/<root>` URL; the
+ *    proxy stamps the NEXT_LOCALE cookie itself on that request, same as a
+ *    visitor typing the URL directly, so this component does not need to.
  *
- * 2. The four unprefixed post-signup routes (/register, /check-email,
+ * 2. The remaining unprefixed post-signup routes (/check-email,
  *    /verify-email, /dashboard — see proxy.ts's W19 note) have no
  *    per-locale URL. They read the language back OUT of the NEXT_LOCALE
  *    cookie via requestLocale(). Picking a language there cannot change
@@ -34,10 +34,10 @@ import type { Locale } from "@/lib/i18n"
  *    which would show the picked language in the dropdown while the page
  *    underneath stayed in the old one — worse than not having a switcher.
  *
- * Do not mount this on a page outside those two families (e.g. /login,
- * /methodology): neither has translated content or a cookie-reading
- * server component behind it, so the control would be visible but inert
- * — indistinguishable from broken.
+ * Do not mount this on a page outside those two families (e.g. /login):
+ * it has neither translated content nor a cookie-reading server component
+ * behind it, so the control would be visible but inert — indistinguishable
+ * from broken.
  */
 
 const COOKIE = "NEXT_LOCALE"
@@ -52,10 +52,27 @@ const NATIVE_NAME: Record<Locale, string> = {
   pt: "Português",
 }
 
-function isHomeFamily(pathname: string): boolean {
+// Page roots that now have a REAL `[locale]/<root>` route (register, support
+// — added alongside this fix; methodology already had one), as opposed to
+// the post-signup routes that only fake it via the NEXT_LOCALE cookie
+// (check-email, verify-email, dashboard — see the file header). "" is the
+// homepage itself.
+//
+// Without this, the switcher's only two branches were "home family" and
+// "reload the same URL after setting a cookie" — for a route like
+// /fr/register that now HAS a translated URL, the cookie branch reloaded
+// /fr/register itself, which reads its locale from the URL segment, not the
+// cookie, so picking a language there visibly did nothing. Extend this set
+// whenever another `[locale]/<root>/page.tsx` route is added.
+const LOCALE_ROUTED_ROOTS = new Set(["", "methodology", "register", "support"])
+
+function localizedDestination(pathname: string, locale: Locale): string | null {
   const seg = pathname.split("/").filter(Boolean)
-  if (seg.length === 0) return true
-  return seg.length === 1 && isPathLocale(seg[0])
+  if (seg.length > 0 && isPathLocale(seg[0])) seg.shift()
+  const root = seg[0] ?? ""
+  if (!LOCALE_ROUTED_ROOTS.has(root)) return null
+  const rest = seg.join("/")
+  return canonicalPath(locale, rest ? `/${rest}` : "")
 }
 
 export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: React.CSSProperties }) {
@@ -65,8 +82,9 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
   function onChange(next: Locale) {
     if (next === locale) return
     document.cookie = `${COOKIE}=${next}; path=/; max-age=${ONE_YEAR}; samesite=lax`
-    if (isHomeFamily(pathname)) {
-      router.push(canonicalPath(next))
+    const dest = localizedDestination(pathname, next)
+    if (dest !== null) {
+      router.push(dest)
       return
     }
     // Cookie-driven page (see file header) — same URL, but the server must
@@ -114,8 +132,3 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
     </label>
   )
 }
-
-// Re-exported so callers that only need the eligible-path check (e.g. to
-// decide whether to render this component at all) do not have to import
-// PATH_LOCALES separately.
-export { isHomeFamily }

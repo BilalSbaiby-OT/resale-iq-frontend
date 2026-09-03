@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import Link from "next/link"
+import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 
 /**
@@ -214,7 +215,7 @@ export function PaybackCalculator({
 
       <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginTop: 14 }}>
         {c.disclaimer}
-        <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>{c.methodology}</Link>.
+        <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#22c55e", textDecoration: "none" }}>{c.methodology}</Link>.
       </p>
     </div>
   )

@@ -6,6 +6,7 @@ import { buildSellingThisWeekRows } from "@/lib/market-proof"
 import { hoursSince } from "@/lib/snapshot-freshness"
 import { BRANDS, catSlug } from "@/lib/seo-categories"
 import { copy, type Locale } from "@/lib/i18n"
+import { canonicalPath } from "@/lib/locale-routes"
 
 /**
  * Proof band — REAL numbers from the one warehouse.
@@ -96,7 +97,7 @@ export async function LiveMarketProof({ locale }: { locale: Locale }) {
           {total > 0 && (
             <>{t.watchedTotal(fmtCount(total))}{" "}</>
           )}
-          <Link href="/methodology" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>{t.seeHow}</Link>
+          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>{t.seeHow}</Link>
         </div>
       </div>
 

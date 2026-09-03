@@ -36,6 +36,17 @@ export function isPathLocale(v: string): v is PathLocale {
   return (PATH_LOCALES as readonly string[]).includes(v)
 }
 
+/**
+ * Shared `generateStaticParams` for every `[locale]/<root>/page.tsx` route
+ * (methodology, register, support, ...). Extracted because the identical
+ * three-line body was about to exist in three separate files — the exact
+ * "same rule in two places" shape check-duplicate-logic.mjs exists to catch,
+ * having already cost this repo three incidents (see that script's header).
+ */
+export function localeStaticParams() {
+  return PATH_LOCALES.map((locale) => ({ locale }))
+}
+
 /** Full locale set including English, for hreflang and <html lang>. */
 export const ALL_LOCALES: Locale[] = ["en", ...PATH_LOCALES]
 

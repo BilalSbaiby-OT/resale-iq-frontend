@@ -2,16 +2,14 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { MethodologyPage } from "@/app/methodology/page"
 import { methodology } from "@/lib/methodology-copy"
-import { isPathLocale, hreflangLanguages, canonicalPath, PATH_LOCALES } from "@/lib/locale-routes"
+import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 
 // Same live figures as "/methodology" (tracked count, weekly departures) —
 // same revalidate window so a locale reader is not looking at a staler
 // snapshot than an English one.
 export const revalidate = 900
 
-export function generateStaticParams() {
-  return PATH_LOCALES.map((locale) => ({ locale }))
-}
+export const generateStaticParams = localeStaticParams
 
 export async function generateMetadata({
   params,
