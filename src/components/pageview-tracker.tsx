@@ -1,7 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
-import { captureAttribution, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
+import { captureAttribution, captureLandingPath, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
 
 const PATH_EVENTS: Record<string, FunnelEvent> = {
   "/": "landing_view",
@@ -26,6 +26,7 @@ export function PageviewTracker() {
     // Store the campaign that brought them here before anything else runs, so
     // it survives even if this is the only page they ever load.
     captureAttribution()
+    captureLandingPath()
 
     trackPageview(full)
 

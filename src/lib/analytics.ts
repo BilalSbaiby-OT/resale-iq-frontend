@@ -62,6 +62,33 @@ export function captureAttribution(): Attribution {
   }
 }
 
+const LANDING_PATH_KEY = "riq_landing_path"
+
+/**
+ * FIRST TOUCH WINS, same rule as captureAttribution above — the first page of
+ * the session is the one that earned the visit, not whatever page they
+ * happen to be on when they finally register.
+ */
+export function captureLandingPath(): void {
+  if (typeof window === "undefined") return
+  try {
+    if (window.localStorage.getItem(LANDING_PATH_KEY)) return
+    window.localStorage.setItem(LANDING_PATH_KEY, window.location.pathname.slice(0, 300))
+  } catch {
+    // Private mode, disabled storage, quota. Attribution is never worth an error.
+  }
+}
+
+/** The first page this visitor's session landed on, if we captured one. */
+export function getLandingPath(): string | undefined {
+  if (typeof window === "undefined") return undefined
+  try {
+    return window.localStorage.getItem(LANDING_PATH_KEY) || undefined
+  } catch {
+    return undefined
+  }
+}
+
 /** What we know about where this visitor came from. */
 export function getAttribution(): Attribution {
   if (typeof window === "undefined") return {}

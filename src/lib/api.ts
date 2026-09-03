@@ -1,4 +1,4 @@
-import { getAttribution } from "@/lib/analytics"
+import { getAttribution, getLandingPath } from "@/lib/analytics"
 import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
@@ -120,8 +120,13 @@ export const register = (email: string, password: string) => {
   } catch {
     attribution = {}
   }
+  // getLandingPath() is the first page THIS SESSION visited, captured by
+  // PageviewTracker on load. Falls back to the live path only for a session
+  // with no prior pageview (e.g. a bookmarked /register link) — reading
+  // window.location.pathname here unconditionally always read "/register",
+  // since register() has exactly one call site and it's on this page.
   const landing_path =
-    typeof window !== "undefined" ? window.location.pathname.slice(0, 300) : undefined
+    getLandingPath() ?? (typeof window !== "undefined" ? window.location.pathname.slice(0, 300) : undefined)
 
   return request<{ access_token: string; plan: string; email_sent?: boolean }>("/auth/register", {
     method: "POST",
