@@ -107,7 +107,7 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 
 ## Pricing
 
-- Free: 10 checks/day without an account. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 full checks a month. No card.
+- Free: 10 checks/day without an account. Sign up: keep the 10/day, plus 7 days of full Starter access, then 10 full unlocks a month. No card.
 - Starter EUR 19/month: unlimited verdicts and every product signal unblurred.
 - Pro EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
 

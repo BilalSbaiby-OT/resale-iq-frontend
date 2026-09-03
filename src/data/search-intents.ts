@@ -31,7 +31,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "How do I check the price of an item on Vinted?", a: `Search the exact brand and model and look at listings that recently left the shelf, not active ones — active listings show asking prices, and departed listings show the price at the moment they disappeared, which is our closest honest proxy for what buyers actually paid. Resale IQ automates this across ${TRACKED} listings in 5 EU markets and returns the typical departure price plus a buy-below price.` },
-      { q: "Is there a free Vinted price checker?", a: "Yes — the first anonymous checks (10/day) show market price, buy-below and a BUY/WATCH/SKIP call. Sell-through, demand, sizes and history need a plan. Sign up: 7 days of Starter, 5 live finds and 1 order plan, then 10 checks a month. Live Finder, Order Planner and Price Compare are Pro." },
+      { q: "Is there a free Vinted price checker?", a: "Yes — anonymous checks (10/day) show market price, buy-below and a BUY/WATCH/SKIP call. Sell-through, demand, sizes and history need a plan. Sign up and you keep the 10/day, plus 7 days of full Starter access, then 10 full unlocks a month for the deep numbers. Live Finder, Order Planner and Price Compare are Pro." },
       { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average asking price at departure × 0.95 (the 5% platform deduction we model for Vinted) × 0.70, which targets about a 30% margin. Substitute your own fee figure if yours differs." },
     ],
   },

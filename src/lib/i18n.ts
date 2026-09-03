@@ -220,12 +220,12 @@ export const copy = {
         tagline: "See that the data is real before you pay",
         cta: "Create a free account",
         features: [
-          "7 days of Starter (verdicts + Deal Scanner), 5 live finds and 1 order plan, then 10 full checks / month. Anonymous visitors get 10 checks/day.",
+          "7 days of full Starter access (verdicts + Deal Scanner), 5 live finds and 1 order plan. After that: 10 checks a day forever — same as anonymous — plus 10 full unlocks a month for sell-through, sizes and the reasons why.",
           "BUY / WATCH / SKIP on every lookup",
           "The whole reselling manual and market data",
           "No card required",
         ],
-        ceiling: "10 checks each calendar month after the trial. Live Finder after the 5 trial searches is Pro.",
+        ceiling: "The 10 checks a day never run out. After the trial, only 10 a month show the full numbers — Live Finder is Pro.",
       },
     },
     // live-market-proof.tsx — the "Selling on Vinted this week" band below
@@ -335,7 +335,7 @@ export const copy = {
         planDesc: {
           power: "Live deals, Order Planner, API, per-size velocity",
           operator: "Unlimited verdicts, every signal, watchlist & P&L",
-          free: "7 days of Starter, 5 live finds and 1 order plan, then 10 checks/month. No card.",
+          free: "7 days of Starter, then 10 checks a day plus 10 full unlocks a month. No card.",
         },
         forever: "forever",
         perMonth: "/month",
@@ -535,12 +535,12 @@ export const copy = {
         tagline: "Vérifiez que les données sont réelles avant de payer",
         cta: "Créer un compte gratuit",
         features: [
-          "7 jours de Starter (verdicts + Deal Scanner), 5 recherches live et 1 plan de commande, puis 10 vérifications complètes / mois. Les visiteurs anonymes ont 10 vérifications/jour.",
+          "7 jours d’accès Starter complet (verdicts + Deal Scanner), 5 recherches live et 1 plan de commande. Ensuite : 10 vérifications par jour à vie — comme les visiteurs anonymes — plus 10 déblocages complets par mois pour le taux d’écoulement, les tailles et les raisons du verdict.",
           "BUY / WATCH / SKIP à chaque recherche",
           "Tout le manuel de revente et les données de marché",
           "Sans carte bancaire",
         ],
-        ceiling: "10 vérifications par mois civil après l'essai. Le Deal Finder live après les 5 recherches d'essai est réservé à Pro.",
+        ceiling: "Les 10 vérifications par jour ne s'épuisent jamais. Après l'essai, seules 10 par mois montrent les chiffres complets — le Deal Finder live est réservé à Pro.",
       },
     },
     liveProof: {
@@ -629,7 +629,7 @@ export const copy = {
         planDesc: {
           power: "Bons plans en direct, Order Planner, API, vitesse par taille",
           operator: "Verdicts illimités, tous les signaux, watchlist et P&L",
-          free: "7 jours de Starter, 5 recherches live et 1 plan de commande, puis 10 vérifications/mois. Sans carte.",
+          free: "7 jours de Starter, puis 10 vérifications par jour plus 10 déblocages complets par mois. Sans carte.",
         },
         forever: "à vie",
         perMonth: "/mois",
@@ -819,12 +819,12 @@ export const copy = {
         tagline: "Comprueba que los datos son reales antes de pagar",
         cta: "Crear una cuenta gratis",
         features: [
-          "7 días de Starter (veredictos + Deal Scanner), 5 búsquedas en vivo y 1 plan de pedido, luego 10 comprobaciones completas / mes. Los visitantes anónimos tienen 10 comprobaciones/día.",
+          "7 días de acceso Starter completo (veredictos + Deal Scanner), 5 búsquedas en vivo y 1 plan de pedido. Después: 10 comprobaciones al día para siempre — igual que un visitante anónimo — más 10 desbloqueos completos al mes para el sell-through, las tallas y los motivos del veredicto.",
           "BUY / WATCH / SKIP en cada búsqueda",
           "Todo el manual de reventa y los datos de mercado",
           "Sin tarjeta",
         ],
-        ceiling: "10 comprobaciones cada mes natural tras la prueba. El Deal Finder en vivo tras las 5 búsquedas de prueba es de Pro.",
+        ceiling: "Las 10 comprobaciones al día nunca se agotan. Tras la prueba, solo 10 al mes muestran los números completos — el Deal Finder en vivo es de Pro.",
       },
     },
     liveProof: {
@@ -913,7 +913,7 @@ export const copy = {
         planDesc: {
           power: "Chollos en vivo, Order Planner, API, velocidad por talla",
           operator: "Veredictos ilimitados, todas las señales, watchlist y P&L",
-          free: "7 días de Starter, 5 búsquedas en vivo y 1 plan de pedido, luego 10 verificaciones/mes. Sin tarjeta.",
+          free: "7 días de Starter, luego 10 comprobaciones al día más 10 desbloqueos completos al mes. Sin tarjeta.",
         },
         forever: "para siempre",
         perMonth: "/mes",
@@ -1103,12 +1103,12 @@ export const copy = {
         tagline: "Sieh, dass die Daten echt sind, bevor du zahlst",
         cta: "Kostenloses Konto erstellen",
         features: [
-          "7 Tage Starter (Entscheidungen + Deal Scanner), 5 Live-Suchen und 1 Bestellplan, danach 10 volle Prüfungen / Monat. Anonyme Besucher erhalten 10 Prüfungen/Tag.",
+          "7 Tage vollständiger Starter-Zugang (Entscheidungen + Deal Scanner), 5 Live-Suchen und 1 Bestellplan. Danach: 10 Prüfungen pro Tag, dauerhaft — genau wie anonyme Besucher — plus 10 vollständige Freischaltungen im Monat für Verkaufsrate, Größen und die Gründe hinter dem Aufruf.",
           "BUY / WATCH / SKIP bei jeder Suche",
           "Das gesamte Wiederverkaufs-Handbuch und Marktdaten",
           "Keine Kreditkarte nötig",
         ],
-        ceiling: "10 Prüfungen pro Kalendermonat nach der Testphase. Live Finder nach den 5 Testsuchen ist Pro.",
+        ceiling: "Die 10 Prüfungen pro Tag laufen nie ab. Nach der Testphase zeigen nur noch 10 im Monat die vollen Zahlen — Live Finder ist Pro.",
       },
     },
     liveProof: {
@@ -1197,7 +1197,7 @@ export const copy = {
         planDesc: {
           power: "Live-Deals, Order Planner, API, Geschwindigkeit pro Größe",
           operator: "Unbegrenzte Verdikte, alle Signale, Watchlist und P&L",
-          free: "7 Tage Starter, 5 Live-Suchen und 1 Bestellplan, danach 10 Prüfungen/Monat. Ohne Karte.",
+          free: "7 Tage Starter, danach 10 Prüfungen pro Tag plus 10 vollständige Freischaltungen im Monat. Ohne Karte.",
         },
         forever: "dauerhaft",
         perMonth: "/Monat",
@@ -1389,12 +1389,12 @@ export const copy = {
         tagline: "Verifica che i dati siano reali prima di pagare",
         cta: "Crea un account gratuito",
         features: [
-          "7 giorni di Starter (verdetti + Deal Scanner), 5 ricerche live e 1 piano d'ordine, poi 10 controlli completi / mese. I visitatori anonimi hanno 10 controlli/giorno.",
+          "7 giorni di accesso Starter completo (verdetti + Deal Scanner), 5 ricerche live e 1 piano d'ordine. Poi: 10 controlli al giorno per sempre — come i visitatori anonimi — più 10 sblocchi completi al mese per sell-through, taglie e le ragioni del verdetto.",
           "BUY / WATCH / SKIP a ogni ricerca",
           "Tutto il manuale di rivendita e i dati di mercato",
           "Nessuna carta richiesta",
         ],
-        ceiling: "10 controlli per ogni mese solare dopo la prova. Il Live Finder dopo le 5 ricerche di prova è Pro.",
+        ceiling: "I 10 controlli al giorno non scadono mai. Dopo la prova, solo 10 al mese mostrano i numeri completi — il Live Finder è Pro.",
       },
     },
     liveProof: {
@@ -1483,7 +1483,7 @@ export const copy = {
         planDesc: {
           power: "Offerte live, Order Planner, API, velocità per taglia",
           operator: "Verdetti illimitati, tutti i segnali, watchlist e P&L",
-          free: "7 giorni di Starter, 5 ricerche live e 1 piano d'ordine, poi 10 verifiche/mese. Senza carta.",
+          free: "7 giorni di Starter, poi 10 controlli al giorno più 10 sblocchi completi al mese. Senza carta.",
         },
         forever: "per sempre",
         perMonth: "/mese",
@@ -1673,12 +1673,12 @@ export const copy = {
         tagline: "Vê que os dados são reais antes de pagares",
         cta: "Criar uma conta grátis",
         features: [
-          "7 dias de Starter (veredictos + Deal Scanner), 5 pesquisas em direto e 1 plano de encomenda, depois 10 verificações completas / mês. Visitantes anónimos têm 10 verificações/dia.",
+          "7 dias de acesso Starter completo (veredictos + Deal Scanner), 5 pesquisas em direto e 1 plano de encomenda. Depois: 10 verificações por dia para sempre — como um visitante anónimo — mais 10 desbloqueios completos por mês para o sell-through, os tamanhos e as razões do veredicto.",
           "BUY / WATCH / SKIP em cada pesquisa",
           "Todo o manual de revenda e os dados de mercado",
           "Sem cartão necessário",
         ],
-        ceiling: "10 verificações por mês de calendário após o período experimental. O Live Finder depois das 5 pesquisas de teste é Pro.",
+        ceiling: "As 10 verificações por dia nunca se esgotam. Depois do período experimental, só 10 por mês mostram os números completos — o Live Finder é Pro.",
       },
     },
     liveProof: {
@@ -1767,7 +1767,7 @@ export const copy = {
         planDesc: {
           power: "Ofertas em direto, Order Planner, API, velocidade por tamanho",
           operator: "Veredictos ilimitados, todos os sinais, watchlist e P&L",
-          free: "7 dias de Starter, 5 pesquisas em direto e 1 plano de encomenda, depois 10 verificações/mês. Sem cartão.",
+          free: "7 dias de Starter, depois 10 verificações por dia mais 10 desbloqueios completos por mês. Sem cartão.",
         },
         forever: "para sempre",
         perMonth: "/mês",

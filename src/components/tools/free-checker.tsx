@@ -244,8 +244,8 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
               )}
               {/* Free account before paid tier, per docs/product/SUPPORT-VOICE.md
                   §3: an anon visitor has no account yet, so the smaller ask
-                  (register — free, raises the cap to 10/month with no daily
-                  wait) comes before the sale. NOT res.upgrade_url: the API
+                  (register — free, keeps the same 10/day and adds 10 full
+                  unlocks/month, no card) comes before the sale. NOT res.upgrade_url: the API
                   sends "/stripe/plans", the JSON GET getPlans() calls
                   (src/lib/api.ts:212) via next.config.ts's /stripe/:path*
                   rewrite — not a page. Linking it directly would navigate to

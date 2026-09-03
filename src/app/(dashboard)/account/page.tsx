@@ -151,7 +151,7 @@ export default function AccountPage() {
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>
           <div className="p-5">
             <div className={`flex items-center justify-between p-4 rounded-xl border ${user ? PLAN_STYLES[user.plan] : "border-[#263147]"} mb-4`}>
-              <div><div className="font-extrabold text-[20px]">{user?.plan === "operator" ? "Starter" : user?.plan === "power" ? "Pro" : user?.plan === "free" ? (user.trial_active ? "Free trial" : "Free") : "—"}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{user?.plan === "free" ? (user.trial_active ? `${user.trial_days_left ?? "?"} days of unlimited left, then 10 checks/month` : "7-day trial ended — 10 full checks each calendar month") : "Unlimited verdicts · every signal"}</div></div>
+              <div><div className="font-extrabold text-[20px]">{user?.plan === "operator" ? "Starter" : user?.plan === "power" ? "Pro" : user?.plan === "free" ? (user.trial_active ? "Free trial" : "Free") : "—"}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{user?.plan === "free" ? (user.trial_active ? `${user.trial_days_left ?? "?"} days of unlimited left, then 10 checks/day + 10 full unlocks/month` : "7-day trial ended — 10 checks/day, 10 full unlocks/month") : "Unlimited verdicts · every signal"}</div></div>
               <div className="font-mono font-bold text-[22px]">{user?.plan === "operator" ? "€19/mo" : user?.plan === "power" ? "€49/mo" : "—"}</div>
             </div>
             {user?.plan === "free" ? (
@@ -191,7 +191,7 @@ export default function AccountPage() {
             <div className="font-bold text-[14px] text-amber-400 mb-1">Confirm your email</div>
             <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
               {user.plan === "free"
-                ? "Your 10 free checks each month — buy-below price, sell price, sell-through and best sizes — need a confirmed address."
+                ? "Your 10 full unlocks each month — sell-through, best sizes and the reasons why — need a confirmed address."
                 : "Alerts and account mail go to this address."}
               {" "}<b className="text-[#eef1f7]">Look in spam or junk first</b> — mail from{" "}
               <b className="text-[#eef1f7]">noreply@resaleiq.dev</b> often lands there, and
