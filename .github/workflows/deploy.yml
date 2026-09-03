@@ -73,6 +73,31 @@ jobs:
     timeout-minutes: 25
 
     steps:
+      - name: Resolve expected commit
+        id: expected
+        run: |
+          # workflow_run carries the SHA of the commit that produced the green
+          # "Agent Isolation" run, NOT github.sha (which on a workflow_run
+          # event is this workflow file's own ref). workflow_dispatch has no
+          # workflow_run context, so it falls back to github.sha.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            sha="${{ github.sha }}"
+          else
+            sha="${{ github.event.workflow_run.head_sha }}"
+          fi
+          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
+          echo "Expecting commit ${sha} to be live."
+
+      # Needed for scripts/check-deploy-identity.sh below. This job ran with
+      # no checkout at all until now — nothing before it touched a repo file,
+      # only curl/ssh against the live site. Checking out the exact commit
+      # being deployed (not just "whatever main is now") keeps the script
+      # that decides pass/fail in sync with the commit that decision is about.
+      - name: Checkout the commit being deployed
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.expected.outputs.sha }}
+
       # Fingerprint the CURRENTLY served build first. Next.js names its chunks
       # by content hash, so this string changes whenever the bundle changes —
       # which is what lets the check below prove a NEW build is live rather
@@ -139,21 +164,6 @@ jobs:
               -i ~/.ssh/id_ed25519 "root@${DEPLOY_HOST}"
 
           echo "Deploy queued in Coolify."
-
-      - name: Resolve expected commit
-        id: expected
-        run: |
-          # workflow_run carries the SHA of the commit that produced the green
-          # "Agent Isolation" run, NOT github.sha (which on a workflow_run
-          # event is this workflow file's own ref). workflow_dispatch has no
-          # workflow_run context, so it falls back to github.sha.
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            sha="${{ github.sha }}"
-          else
-            sha="${{ github.event.workflow_run.head_sha }}"
-          fi
-          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
-          echo "Expecting commit ${sha} to be live."
 
       - name: Wait for the NEW build to serve
         run: |
