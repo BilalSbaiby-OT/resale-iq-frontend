@@ -7,7 +7,6 @@ import { useAuthStore } from "@/lib/auth-store"
 import Link from "next/link"
 import { CheckCircle2, AlertCircle } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
-import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -54,7 +53,6 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   return (
     <div className="w-full max-w-md">
       <div className="flex justify-end mb-3">
-        <LocaleSwitcher locale={locale} />
       </div>
 
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8 text-center">

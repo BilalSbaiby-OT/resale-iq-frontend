@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next"
-import { headers } from "next/headers"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
+import { LocaleProvider } from "@/components/i18n/locale-provider"
 import { listingsTrackedLabel } from "@/lib/stats"
-import type { Locale } from "@/lib/i18n"
+import { requestLocale } from "@/lib/request-locale"
 
 // Self-hosted, NOT hot-linked.
 //
@@ -129,12 +129,16 @@ const orgJsonLd = (tracked: string) => ({
  * makes it crawlable), and this layout reads that header to set `lang` and
  * the JSON-LD `inLanguage`. Before this, `lang="en"` was hardcoded and wrong
  * on every non-English response.
+ *
+ * The local copy of `requestLocale()` that used to live here was deleted in
+ * favour of the shared one in `@/lib/request-locale` — it was byte-identical
+ * to it, i.e. exactly the "two copies of a rule means two places to be wrong"
+ * defect proxy.ts's own acceptLanguageLocale comment was written about.
+ *
+ * `LocaleProvider` hands the same resolved value to client components (the
+ * sidebar, topbar and app-shell chrome), which have no other way to reach the
+ * proxy header. Server and client therefore agree on first paint.
  */
-async function requestLocale(): Promise<Locale> {
-  const raw = (await headers()).get("x-resaleiq-locale")
-  return (raw as Locale) || "en"
-}
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
   const ORG_JSONLD = { ...orgJsonLd(await listingsTrackedLabel()), inLanguage: locale }
@@ -145,7 +149,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
         <PageviewTracker />
-        {children}
+        <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
     </html>
   )

@@ -3,11 +3,15 @@ import { useState } from "react"
 import { forgotPassword } from "@/lib/api"
 import Link from "next/link"
 import { Mail } from "lucide-react"
+import { copy } from "@/lib/i18n"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const t = copy[useLocale()].auth.forgotPassword
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setLoading(true)
@@ -21,30 +25,22 @@ export default function ForgotPasswordPage() {
         {sent ? (
           <div className="text-center">
             <div className="flex justify-center mb-4"><Mail size={34} className="text-emerald-400" /></div>
-            <h1 className="text-[18px] font-bold mb-2">Check your inbox</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-3">If that email exists, a reset link has been sent.</p>
+            <h1 className="text-[18px] font-bold mb-2">{t.sentHeading}</h1>
+            <p className="text-[#8b99b8] text-[13px] mb-3">{t.sentBody}</p>
             <p className="text-[#8b99b8] text-[13px] mb-6">
-              <b className="text-[#eef1f7]">Check spam or junk</b> — our mail often
-              lands there. Search for <b className="text-[#eef1f7]">noreply@resaleiq.dev</b>.
+              <b className="text-[#eef1f7]">{t.spamBold}</b>{t.spamRest}
+              <b className="text-[#eef1f7]">noreply@resaleiq.dev</b>.
             </p>
-            <Link href="/login" className="text-emerald-400 hover:underline text-[13px]">← Back to sign in</Link>
+            <Link href="/login" className="text-emerald-400 hover:underline text-[13px]">{t.backToSignIn}</Link>
           </div>
         ) : (
           <>
-            <h1 className="text-[21px] font-bold mb-1">Forgot password</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-5">Enter your email and we&apos;ll send a reset link.</p>
+            <AuthHeading heading={t.heading} subheading={t.subheading} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <div>
-                <label className="text-[11px] text-[#5b6b8c] block mb-1.5">Email</label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                  className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]" placeholder="you@example.com" />
-              </div>
-              <button type="submit" disabled={loading}
-                className="w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 mt-1">
-                {loading ? "Sending…" : "Send reset link →"}
-              </button>
+              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
+              <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
             </form>
-            <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">← Back to sign in</Link></div>
+            <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">{t.backToSignIn}</Link></div>
           </>
         )}
       </div>
