@@ -73,6 +73,13 @@ jobs:
     timeout-minutes: 25
 
     steps:
+      # scripts/check-deploy-identity.sh (below) is a repo file — without this
+      # the job has no working tree and the identity check fails every run
+      # with "No such file or directory", regardless of whether the deploy
+      # itself succeeded. Found 2026-09-03: run 33774559333 reported failure
+      # on a deploy that had, in fact, shipped (confirmed live on /deploy-id).
+      - uses: actions/checkout@v4
+
       # Fingerprint the CURRENTLY served build first. Next.js names its chunks
       # by content hash, so this string changes whenever the bundle changes —
       # which is what lets the check below prove a NEW build is live rather
