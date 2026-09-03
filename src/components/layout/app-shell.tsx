@@ -5,7 +5,9 @@ import { Sidebar } from "./sidebar"
 import { Topbar } from "./topbar"
 import { Paywall } from "./paywall"
 import { useAuthStore } from "@/lib/auth-store"
-import { TRIAL_BANNER } from "@/lib/trial-copy"
+import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { navCopy } from "@/lib/nav-copy"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -28,6 +30,8 @@ const OWNER_ONLY_PREFIX = "/admin"
 
 export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
+  const locale = useLocale()
+  const t = navCopy[locale].shell
   const router = useRouter()
   const pathname = usePathname()
   const [checked, setChecked] = useState(false)
@@ -93,9 +97,9 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
     return (
       <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#8b99b8", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
         <div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>Owner access required</div>
-          <div style={{ fontSize: 13, maxWidth: 360, lineHeight: 1.5 }}>This area is limited to the site owner. Paying Pro does not include it.</div>
-          <a href="/dashboard" style={{ display: "inline-block", marginTop: 16, color: "#22c55e", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>Back to dashboard</a>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>{t.ownerRequired}</div>
+          <div style={{ fontSize: 13, maxWidth: 360, lineHeight: 1.5 }}>{t.ownerBody}</div>
+          <a href="/dashboard" style={{ display: "inline-block", marginTop: 16, color: "#22c55e", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>{t.backToDashboard}</a>
         </div>
       </div>
     )
@@ -113,11 +117,11 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
           {isTrial && !isPaid && (
             <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
               <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
-                <span style={{ fontWeight: 650 }}>Free trial</span>
-                <span style={{ color: "#8b99b8" }}> — {user?.trial_days_left ?? 0} day{(user?.trial_days_left ?? 0) !== 1 ? "s" : ""} left. {TRIAL_BANNER}</span>
+                <span style={{ fontWeight: 650 }}>{t.freeTrial}</span>
+                <span style={{ color: "#8b99b8" }}> — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
               </div>
               <a href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
-                Upgrade now
+                {t.upgradeNow}
               </a>
             </div>
           )}

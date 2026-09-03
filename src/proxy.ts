@@ -144,10 +144,82 @@ const BACKEND_PROXIED_PREFIXES = ["/api/", "/auth/", "/stripe/", "/admin/"]
 // 404 or an English page wearing a foreign hreflang tag.
 const REDIRECT_ELIGIBLE_PATHS = new Set<string>(["/"])
 
-// See the W19 note above the file header comment: the four routes of the
-// post-signup funnel read the NEXT_LOCALE cookie instead of defaulting to
-// English, without moving under /<locale>.
-const COOKIE_LOCALE_PATHS = new Set<string>(["/register", "/check-email", "/verify-email", "/dashboard"])
+/**
+ * PERSISTENCE, and the reason the founder saw the language reset on every
+ * click. Measured live against production on 2026-09-03, before any change:
+ *
+ *   $ curl -sD- -b 'NEXT_LOCALE=fr' https://resaleiq.dev/deals | grep '<html lang'
+ *   <html lang="en" ...
+ *
+ * The cookie was set correctly, sent correctly, and read correctly — and then
+ * DISCARDED, because the allowlist this constant replaced held exactly four
+ * paths ("/register", "/check-email", "/verify-email", "/dashboard"). Every
+ * other route fell through to the `withLocaleHeader(request, "en")` at the end
+ * of `proxy()` and was stamped English no matter what the visitor had chosen.
+ * Locale was never "lost": it was stored and then deliberately ignored on read
+ * for 34 of the site's 38 routes.
+ *
+ * Widened to PREFIXES covering the whole authenticated app. The original
+ * four-path limit was justified by a real concern — "stamping a foreign
+ * `x-resaleiq-locale` there would put a wrong `<html lang>` on an English-only
+ * page" — and that concern is why this list is prefixes of the APP and not
+ * simply every path. It does not apply to anything below, because every route
+ * here sits under `src/app/(dashboard)/layout.tsx` or `src/app/(auth)/
+ * layout.tsx`, and BOTH set `robots: { index: false, follow: false }` (read,
+ * not assumed). There is no crawler to mislead and no canonical URL to split:
+ * these pages are the product, seen only by a signed-in customer who has
+ * already told us which language they want.
+ *
+ * The public, indexable surface (`/blog`, `/terms`, `/privacy`, `/manual`,
+ * `/data`, `/category`, `/flip`, `/legal`, `/api-docs`) is deliberately still
+ * absent, and stays English until it has translated content behind it. That is
+ * the same rule as before, applied where it actually earns its keep.
+ */
+const APP_LOCALE_PREFIXES = [
+  // Post-signup funnel (the original four) plus the rest of (auth).
+  "/register",
+  "/check-email",
+  "/verify-email",
+  "/login",
+  "/forgot-password",
+  "/reset-password",
+  // (dashboard) — the tools a paying customer actually uses. These are the
+  // "other taps"/"features from side pannel" in the founder's report.
+  "/dashboard",
+  "/account",
+  "/admin",
+  "/authenticity",
+  "/billing",
+  "/brands",
+  "/calculator",
+  "/compare",
+  "/deals",
+  "/market",
+  "/order-planner",
+  "/portfolio",
+  "/search",
+  "/trends",
+  "/verdict",
+  "/watchlist",
+]
+
+function isAppLocalePath(pathname: string): boolean {
+  return APP_LOCALE_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+}
+
+/**
+ * Unprefixed paths that DO have a real translated route at "/<locale><path>",
+ * so a cookie-carrying visitor should be sent to it rather than served the
+ * English one. Only /methodology qualifies today (113 keys in six locales,
+ * src/lib/methodology-copy.ts, route at src/app/[locale]/methodology/page.tsx)
+ * — it was translated and routed, but nothing ever pointed a French visitor
+ * AT it: /methodology with NEXT_LOCALE=fr served English, measured live.
+ *
+ * Add a path here only once "/<locale><path>" actually renders translated
+ * content, for the reason locale-routes.ts states: a URL must never promise a
+ * language it does not serve.
+ */
+const LOCALE_ROUTED_PATHS = new Set<string>(["/methodology"])
 
 const COOKIE = "NEXT_LOCALE"
 const LOCALE_HEADER = "x-resaleiq-locale"
@@ -220,9 +292,24 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  if (COOKIE_LOCALE_PATHS.has(pathname)) {
-    const stored = request.cookies.get(COOKIE)?.value
-    if (stored && isPathLocale(stored)) return withLocaleHeader(request, stored)
+  const stored = request.cookies.get(COOKIE)?.value
+  const chosen = stored && isPathLocale(stored) ? stored : null
+
+  if (chosen) {
+    // A path that has a real translated route of its own: send the visitor to
+    // it, so the URL names the language it serves and the page is shareable,
+    // bookmarkable and indexable as that language. 307, matching this file's
+    // convention for a preference redirect rather than a permanent move.
+    if (LOCALE_ROUTED_PATHS.has(pathname)) {
+      const url = request.nextUrl.clone()
+      url.pathname = `/${chosen}${pathname}`
+      return NextResponse.redirect(url, 307)
+    }
+
+    // The authenticated app: no locale-prefixed URL exists and none is wanted
+    // (noindex, and duplicating 20 routes per locale was rejected in W19).
+    // Serve the chosen language in place, same URL.
+    if (isAppLocalePath(pathname)) return withLocaleHeader(request, chosen)
   }
 
   return withLocaleHeader(request, "en")
