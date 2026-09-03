@@ -11,10 +11,23 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # BACKEND_URL is baked into the Next rewrites at build time (required-server-files.json),
 # so it MUST be present during `npm run build`. Pass it explicitly.
-# Production today still uses the Coolify sslip.io hostname (public HTTP — see
-# docs/OVERHAUL_2026-08-27.md). Prefer the docker-internal container hostname
-# on the next deploy: http://<backend-container>:8080
-ARG BACKEND_URL=http://ph5clxk9hmghspv65pdkvak9.62.238.51.83.sslip.io
+#
+# This is the docker-internal address, and it has to stay that way. The public
+# sslip.io hostname used until 2026-09-03 sent every /api/* rewrite out of the
+# box and back in through Traefik, which NATs it: the backend then saw source
+# 10.0.1.1 (the coolify bridge gateway) on every request and overwrote the
+# forwarded-for header, so all anonymous traffic on the internet shared ONE
+# rate-limit bucket — sha256('10.0.1.1')[:16] = d66e6eaf9400d271, 95% of rows.
+# That is what took the product down for everyone on 2026-09-02.
+#
+# `resale-iq-backend` is a Coolify *custom network alias* on the backend app,
+# not a container name. The container name carries a per-deployment suffix
+# (ph5clxk9hmghspv65pdkvak9-104657053096) that changes on EVERY redeploy, and
+# the unsuffixed name does not resolve. Coolify re-applies the custom alias from
+# its own database on each deploy (ApplicationDeploymentJob: the compose service
+# gets `aliases: [container_name, ...custom_network_aliases]`), so this name
+# survives backend redeploys. Do not replace it with an IP or a suffixed name.
+ARG BACKEND_URL=http://resale-iq-backend:8080
 ENV BACKEND_URL=$BACKEND_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
@@ -28,7 +41,8 @@ WORKDIR /app
 # count from the backend during SSR. Without it, the SSR falls back to
 # http://localhost:8080, which doesn't resolve inside the container, and the
 # landing page shows the stale "900,000+" fallback instead of the live count.
-ARG BACKEND_URL=http://ph5clxk9hmghspv65pdkvak9.62.238.51.83.sslip.io
+# Same internal alias as the build stage — see the note there before changing it.
+ARG BACKEND_URL=http://resale-iq-backend:8080
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 BACKEND_URL=$BACKEND_URL
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/.next/static ./.next/static
