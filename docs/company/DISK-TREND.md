@@ -26,11 +26,26 @@ ssh resaleiq "df -h / | tail -1; \
 |---|---|---|---|---|---|---|---|
 | 2026-09-02 19:04 | 75G | 62G | 11G | 86% | 21788954624 | 0 | hourly heartbeat |
 | 2026-09-02 21:29 | 75G | 56G | 17G | 78% | 21862096896 | 9925112 | data agent, live |
+| 2026-09-03 15:21 | 75G | 55G | 18G | 76% | 22243946496 | 243112 | PRODUCT/OPS, live |
 
 **First real rate (2 rows, thin — do not treat as confirmed):** DB grew 73,142,272 bytes in 145
 minutes → ≈30.3 MB/h ≈ 0.73 GB/day on the DB file alone. That is in the same range as the ~0.65
 GB/day corpus-growth figure `config.py` records from 2026-08-18, so it is plausible, not yet
 trusted — two points cannot show whether growth is linear.
+
+**Third point added (2026-09-03 15:21) — the rate is NOT constant, so still no days-to-full.**
+Segment rates: A→B (09-02 19:04→21:29, 145 min) ≈30.27 MB/h; B→C (09-02 21:29→09-03 15:21, ~17h53m)
+≈21.35 MB/h; A→C (full ~20h17m span) ≈22.41 MB/h ≈0.54 GB/day. The three points disagree by ~40%
+(30.3 vs 21.4 MB/h) — not proof of nonlinearity, but three points is not enough to call the DB's
+growth linear either, so **no days-to-full estimate is published here.** `df use%` again moved
+*opposite* the DB (78%→76%, avail 17G→18G, used 56G→55G) while the DB file grew ~365MB — the same
+confound as A→B: something else on the disk (WAL checkpoint, the `riq-disk-guard` :37 prune) is
+moving faster and in the other direction than the metric this file is trying to trend. WAL itself
+shrank 9,925,112→243,112 bytes between B and C, consistent with a checkpoint, but that alone doesn't
+explain df's ~1-2GB net swing against a ~365MB DB gain — the residual mover is still UNKNOWN, same
+as it was at row 2. **Next honest milestone: enough same-direction points (ideally 5+, spanning
+several :37 prune cycles) that a rate can be trusted against the confound instead of merely computed
+across it.**
 
 **df use% moved the OTHER direction from the DB (86%→78%, used 62G→56G) while the DB file grew.**
 Do not read this as the corpus shrinking: `df` measures the whole disk, and something else on it

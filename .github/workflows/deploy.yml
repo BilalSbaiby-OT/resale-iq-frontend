@@ -140,27 +140,58 @@ jobs:
 
           echo "Deploy queued in Coolify."
 
+      - name: Resolve expected commit
+        id: expected
+        run: |
+          # workflow_run carries the SHA of the commit that produced the green
+          # "Agent Isolation" run, NOT github.sha (which on a workflow_run
+          # event is this workflow file's own ref). workflow_dispatch has no
+          # workflow_run context, so it falls back to github.sha.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            sha="${{ github.sha }}"
+          else
+            sha="${{ github.event.workflow_run.head_sha }}"
+          fi
+          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
+          echo "Expecting commit ${sha} to be live."
+
       - name: Wait for the NEW build to serve
         run: |
           set -uo pipefail
           BEFORE="${{ steps.before.outputs.fingerprint }}"
-          # Coolify returns as soon as the deploy is QUEUED. Polling for HTTP 200
-          # would pass instantly against the OLD container and prove nothing —
-          # it did exactly that on the first run of this workflow. Wait for the
-          # bundle fingerprint to actually change.
+          EXPECTED="${{ steps.expected.outputs.sha }}"
+          # The chunk-hash fingerprint only proves SOMETHING new shipped — it
+          # is structurally blind to server-only changes (middleware,
+          # rewrites, route handlers, env vars), since those never move a
+          # client chunk hash. Run 33746779363 hit exactly this: a
+          # next.config.ts rewrite change reported "Bundle unchanged after 15
+          # min" and exited success, on a deploy that had in fact shipped.
+          #
+          # The actual gate is scripts/check-deploy-identity.sh, which asserts
+          # /deploy-id's SOURCE_COMMIT (Coolify-stamped, confirmed live to
+          # match the container that's actually running) against the commit
+          # THIS run means to ship. scripts/test-check-deploy-identity.sh
+          # falsifies that script against fixtures — see it for proof this
+          # can fail red, not just pass green.
           for i in $(seq 1 60); do
             sleep 15
             now=$(curl -sL -m 20 https://resaleiq.dev/ \
                   | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
-                  | sort -u | sha256sum | cut -d' ' -f1)
-            if [ -n "${now}" ] && [ "${now}" != "${BEFORE}" ]; then
-              echo "New build is live after ~$((i*15))s (fingerprint ${now})."
+                  | sort -u | sha256sum | cut -d' ' -f1) || true
+            if scripts/check-deploy-identity.sh "${EXPECTED}" 2>/tmp/identity.log; then
+              cat /tmp/identity.log
+              echo "Confirmed after ~$((i*15))s."
+              [ -n "${now}" ] && [ "${now}" != "${BEFORE}" ] && echo "Client bundle also changed (fingerprint ${now})." \
+                || echo "Client bundle fingerprint unchanged — expected for a server-only change, now proven safe by commit identity instead."
               code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://resaleiq.dev/flip || true)
               [ "$code" = "200" ] || echo "::warning::New build is live but /flip returned ${code}."
               exit 0
             fi
+            echo "Not yet (attempt ${i}/60): $(cat /tmp/identity.log)"
           done
-          # Not a failure. A redeploy of an unchanged commit produces an
-          # identical bundle, so the fingerprint legitimately never moves.
-          echo "::warning::Bundle unchanged after 15 min. Either the commit was already deployed, or the build failed — check Coolify's deployment log."
-          exit 0
+          # A real failure, not a warning: 15 minutes is well past this app's
+          # normal deploy time (~1m25s baseline), and unlike the old bundle
+          # check, "the wrong commit is being served" is never the expected
+          # outcome of a successful run.
+          echo "::error::resaleiq.dev is still not serving ${EXPECTED} after 15 min. Either the deploy failed, or /deploy-id is misreporting — check Coolify's deployment log before assuming success."
+          exit 1
