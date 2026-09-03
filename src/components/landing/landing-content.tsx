@@ -6,6 +6,7 @@ import { LiveMarketProof } from "./live-market-proof"
 import { ExtensionHero, chromeStoreUrl } from "./extension-hero"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
+import { SocialLinks } from "@/components/layout/social-links"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
@@ -155,7 +156,16 @@ export function LandingContent({
       <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
-          <span>Scraped every 30 min</span>
+          {/* NOT "Scraped every 30 min". PR #4 (c0a48c9) removed that claim
+              from llms.txt, /methodology, /support and /category on 2026-09-02
+              after measuring it false; this homepage badge was a fifth surface
+              the sweep missed, and it sits directly above the pricing block.
+              The scraper is *scheduled* every 30 min per market but skips a run
+              while the previous one is still going: measured 83% of gaps under
+              an hour (median 34 min, n=1,157, trailing 7 days to 2026-09-02).
+              "Most" carries that without pinning a figure that rots in place —
+              /methodology holds the number and its source. */}
+          <span>Most items refresh within the hour</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
           <span>No accuracy claims until 30 outcomes scored</span>
         </div>
@@ -189,6 +199,13 @@ export function LandingContent({
           <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>Legal notice</Link>
           <Link href="/support" style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
           <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
+        </div>
+        {/* The four accounts we actually post from. Here rather than only in
+            the nav because this component is the site's single <footer> and is
+            shared verbatim by "/" and every /[locale] route, so one copy
+            reaches all six locales. */}
+        <div style={{ marginBottom: 14 }}>
+          <SocialLinks />
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
         <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
