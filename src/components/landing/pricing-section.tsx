@@ -59,7 +59,14 @@ export function PricingSection({ locale = "en" }: { locale?: Locale }) {
         <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginTop: 10 }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
       </div>
 
-      <PaybackCalculator />
+      {/* locale: this block rendered in English on all five translated
+          homepages. starterPrice: taken from TIERS rather than the
+          calculator's own constant, so the break-even sum can never quote a
+          price the cards directly below it have stopped charging. */}
+      <PaybackCalculator
+        locale={locale}
+        starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
+      />
 
       {/* 4 tiers. At 1080px wide with a 260px minimum this resolved to 3
           columns, orphaning Free alone on a second row, left-aligned against a

@@ -15,7 +15,8 @@ import type { VerdictResult } from "@/types"
  *  - The ask escalates with evidence. Someone who has spent nothing sees a
  *    quiet unlock button; someone who has spent the whole budget has actually
  *    felt the ceiling, and only then do we make the case for paying.
- *  - The budget is 10 full checks per calendar month after the 7-day trial.
+ *  - The budget is 10 full unlocks per calendar month after the 7-day trial,
+ *    on top of the 10/day headline checks every free account already keeps.
  *    Copy must not imply a lifetime cap.
  */
 export function UnlockPanel({
@@ -62,8 +63,8 @@ export function UnlockPanel({
         </Title>
         <Body>
           You just saw the verdict on a real item, computed from watched departures.
-          A free account unlocks the buy-below price, typical exit price, sell-through
-          and best sizes on {limit ?? 10} items a month after a 7-day trial — no card.
+          A free account adds sell-through, best sizes and the reasons why on
+          {limit ?? 10} items a month, after a 7-day trial with full access — no card.
         </Body>
         <Row>
           <Primary href="/register?plan=free">Create a free account</Primary>
@@ -83,8 +84,8 @@ export function UnlockPanel({
         </Title>
         <Body>
           We sent a confirmation link when you signed up. One click and your{" "}
-          {limit} unlocks are live — buy-below price, sell price, sell-through and
-          best sizes on any {limit} items you choose.
+          {limit} unlocks are live — sell-through, best sizes and the reasons why
+          on any {limit} items you choose.
         </Body>
         <Row>
           <Secondary href="/account">Resend the link</Secondary>
@@ -101,8 +102,8 @@ export function UnlockPanel({
           Unlock the full numbers
         </Title>
         <Body>
-          Buy-below price, typical sale price, sell-through rate and the sizes that move
-          fastest for this exact model.
+          Sell-through rate, the sizes that move fastest and the reasons behind this
+          call, for this exact model.
         </Body>
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -113,7 +114,7 @@ export function UnlockPanel({
             {unlocking ? "Unlocking…" : "Unlock this item"}
           </button>
           <span className="text-[12.5px] text-[#8b99b8]">
-            {remaining} of {limit} free checks left this month
+            {remaining} of {limit} unlocks left this month
           </span>
         </div>
       </Shell>
@@ -126,7 +127,7 @@ export function UnlockPanel({
   return (
     <Shell tone="warm">
       <Title icon={<Lock size={15} className="text-amber-400" />}>
-        You&apos;ve used all {limit} free checks this month
+        You&apos;ve used all {limit} unlocks this month
       </Title>
       <Body>
         That is this month&apos;s free allowance — it refills next calendar month.
