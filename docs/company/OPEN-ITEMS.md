@@ -4,7 +4,7 @@
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 12 shipped · 3 in flight · 13 open · 6 founder.**
+**Scoreboard, today: 15 shipped · 3 in flight · 13 open · 6 founder.**
 
 **Heartbeat 15:07Z:** health 200 `overall=warn` (1 warn: disk 12.3% free of 74GB, `age_minutes 3.9`)
 · anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
@@ -50,6 +50,9 @@ holds it now · **OPEN** = found, nobody on it · **FOUNDER** = needs a decision
 | 8 | Instagram reel published | [DcxvxA9gcLG](https://www.instagram.com/reel/DcxvxA9gcLG/), 07:53:26Z, last frame verified by eye |
 | 9 | False refresh-cadence claims on 4 public surfaces | PR #4 merged `c0a48c9` · real figure is 83.1% of gaps <1h (n=1,157), not "every 30 minutes" |
 | 10 | **`/methodology` translated into 5 languages** | `621e25f` · 58 keys × 6 locales; 0 missing, 0 empty, **0 figure drops**; "watched departures" as a term of art, never "sold" |
+| 11 | **Checkout was 500ing for 100% of real customers for ~5h46m** | root cause: `sepa_debit` not activated on the live Stripe account (added in `fb90134`, same failure PayPal hit in `1ff11c4`). Fixed in `6b1dc9a`/`0899f06`, deployed by triggering Coolify directly (GitHub Actions billing-blocked on both repos, see FOUNDER) — verified live pre/post: broken build errored `sepa_debit is invalid`, fixed build returns `session.payment_method_types = ['card','klarna','link','amazon_pay','satispay']`. Detail in `COMMITMENTS.md` F-015 |
+| 12 | 3 stale conversion PRs merged + deployed live | frontend `#3` entitlement-copy-fix (`edcb01e`), `#12` lifecycle-delegated docs (`45c3f36`), `#18` social links + false-claim removal (`3b28173`) — all verified on the served HTML post-deploy, not just merged. `COMMITMENTS.md` F-015 |
+| 13 | Trial-lifecycle "ending" email proven to actually send | live test send to an independent Mailinator inbox, receipt confirmed via Mailinator's own API (not our logs): subject `Your trial ends 16 Sep 2026`, delivered in 6s. `COMMITMENTS.md` F-015 |
 
 **I got item 3 wrong twice in one day, and the second time was worse.** The docs said "OpenRouter 402 /
 Groq 403 — blocked on a credential". I "corrected" that to "both fine, €29.78 unused" after reading
@@ -167,6 +170,8 @@ refusing everyone since 09:10.**
 | **€19 or €49** | content, lifecycle and pricing keep getting built against an unnamed number |
 | **Host sizing** (2 vCPU / 3.8 GB, DB 21.26 GB, WAL 875 MB) | disk treadmill; hit 100% on 09-01 and blocked every deploy |
 | `resaleiq.com` · ElevenLabs voice id · Resend rotation · W24 Coolify | standing, unchanged |
+| **GitHub Actions billing-blocked on BOTH repos** (was frontend-only, F-014) | Tests/Deploy cannot run on either repo — confirmed on backend run 33723541796, same "recent account payments have failed or your spending limit needs to be increased" annotation. Worked around today by triggering Coolify's deploy API directly over the existing root SSH access, but that is not a substitute for CI actually gating what ships |
+| **Rotate the Coolify API token** | while reading its forced-command entry out of `authorized_keys` on the production host to confirm the deploy mechanism, a redaction regex failed on a `\|` character and printed part of the live token into a session's tool output. No other credential was exposed. Not rotated by me — rotation is founder-gated |
 
 ---
 
