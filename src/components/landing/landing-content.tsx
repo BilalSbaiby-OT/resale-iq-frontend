@@ -25,9 +25,12 @@ type Dict = (typeof copy)[keyof typeof copy]
  * component — the two branches were written in parallel and each left this
  * wiring for whoever merged them. LiveMarketProof and ExtensionHero now take
  * `locale` too (W9, 2026-09-01 — see i18n.ts `liveProof`/`extensionHero`).
- * The footer nav labels ("Free tools", "Pricing", "Terms" etc.) are still
- * English on every locale: that is a REAL remaining gap, out of W9's named
- * scope, flagged here rather than left to be rediscovered.
+ * Footer nav labels, the disclaimer paragraph, and the trust-signal row
+ * (`mostItemsRefresh`/`noAccuracy`) now read from `copy[locale].siteFooter`
+ * (2026-09-03) — the destination pages linked from the footer (`/blog`,
+ * `/manual`, `/tools`, `/terms`, `/privacy`, `/legal`, `/data`, `/api-docs`)
+ * are still English-only content; only `/methodology` and `/support` have a
+ * translated route, so only those two hrefs go through `canonicalPath`.
  */
 export function LandingContent({
   t,
@@ -166,9 +169,9 @@ export function LandingContent({
               an hour (median 34 min, n=1,157, trailing 7 days to 2026-09-02).
               "Most" carries that without pinning a figure that rots in place —
               /methodology holds the number and its source. */}
-          <span>Most items refresh within the hour</span>
+          <span>{t.mostItemsRefresh}</span>
           <span>Every formula on <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
-          <span>No accuracy claims until 30 outcomes scored</span>
+          <span>{t.noAccuracy}</span>
         </div>
       </section>
 
@@ -179,27 +182,27 @@ export function LandingContent({
       <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#8b99b8", fontSize: 12 }}>
         {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
         <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-          <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>Free tools</Link>
+          <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
           {/* The HUBS, not just leaves. /flip/nike and /category/sneakers were
               already here, but the indexes themselves sat at crawl depth 2 —
               reachable only through a leaf. Linking the hubs from the homepage
               puts them at depth 1 and gives every child page a shorter path to
               authority. Requested by the SEO agent; page.tsx is the growth lane,
               which is why it needed doing here. */}
-          <Link href="/flip" style={{ color: "#8b99b8", textDecoration: "none" }}>What to flip</Link>
-          <Link href="/category" style={{ color: "#8b99b8", textDecoration: "none" }}>Categories</Link>
-          <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>Nike resale</Link>
-          <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>Sneakers</Link>
-          <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>Reselling manual</Link>
-          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#8b99b8", textDecoration: "none" }}>Methodology</Link>
-          <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>Market data</Link>
-          <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>API</Link>
-          <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>Blog</Link>
-          <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>Terms</Link>
-          <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>Privacy</Link>
-          <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>Legal notice</Link>
-          <Link href={canonicalPath(locale, "/support")} style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
-          <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
+          <Link href="/flip" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
+          <Link href="/category" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
+          <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
+          <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
+          <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
+          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.methodologyLink}</Link>
+          <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.marketData}</Link>
+          <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.api}</Link>
+          <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.blog}</Link>
+          <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
+          <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
+          <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
+          <Link href={canonicalPath(locale, "/support")} style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.support}</Link>
+          <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.signIn}</Link>
         </div>
         {/* The four accounts we actually post from. Here rather than only in
             the nav because this component is the site's single <footer> and is
@@ -210,7 +213,7 @@ export function LandingContent({
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
         <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
-          Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
+          {t.siteFooter.disclaimer}
         </div>
       </footer>
     </div>
