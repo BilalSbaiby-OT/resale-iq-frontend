@@ -234,8 +234,15 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
         <div style={{ marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}>
           {res.verdict === "LIMIT_REACHED" ? (
             <div>
+              {/* res.message is backend-owned English prose (api/routes.py) with
+                  no locale awareness — always show the translated fallback
+                  instead of trusting it, never as an ?? default. A French/ES/
+                  DE/IT/PT visitor hitting their daily limit is the single most
+                  common way to reach this branch, and res.message previously
+                  overrode the fallback whenever the backend sent one, which is
+                  always. */}
               <p style={{ fontSize: 13.5, color: "#8b99b8" }}>
-                {res.message ?? t.limitReachedFallback}
+                {t.limitReachedFallback}
               </p>
               {res.used_today != null && res.limit != null && (
                 <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 4 }}>
@@ -274,8 +281,11 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
           ) : res.verdict === "UNKNOWN" ? (
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              {/* Same reasoning as the LIMIT_REACHED branch above: res.message
+                  is backend-owned English prose, never localised. Always show
+                  the translated fallback. */}
               <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
-                {res.message ?? t.unknownFallback}
+                {t.unknownFallback}
               </p>
               {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
                   work" into "it works for THESE" — the narrowing is honest,
