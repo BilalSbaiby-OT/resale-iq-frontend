@@ -4,7 +4,7 @@
 you find instead of fixing you skip / and u dont track it at all"*. He is right, and the fix for the
 third part is this file: every item found, with what actually shipped, in one place.
 
-**Scoreboard, today: 15 shipped · 3 in flight · 13 open · 6 founder.**
+**Scoreboard, today: 15 shipped · 3 in flight · 13 open · 7 founder.**
 
 **Heartbeat 15:07Z:** health 200 `overall=warn` (1 warn: disk 12.3% free of 74GB, `age_minutes 3.9`)
 · anonymous `/api/verdict` serving again, **mitigated not fixed** (see below) · CI green, Deploy
@@ -168,7 +168,8 @@ refusing everyone since 09:10.**
 | **Take the 5 failure videos down** | they advertise the failure mode on his accounts, hourly |
 | **Model key on the host + allowlist line** (done for Gemini/Groq; OpenRouter needs credit) | nothing that reasons runs outside a session |
 | **€19 or €49** | content, lifecycle and pricing keep getting built against an unnamed number |
-| **Host sizing** (2 vCPU / 3.8 GB, DB 21.26 GB, WAL 875 MB) | disk treadmill; hit 100% on 09-01 and blocked every deploy |
+| **GitHub Actions billing** — every job refused repo-wide since 2026-09-03 05:22:20Z | no test gate. Last green run `04:52:11Z`; 34 failed runs since. Coolify still auto-deploys on push (frontend container image tag == `origin/main` HEAD `d242e17`), so **code reaches production having run zero tests**. Annotation: *"the job was not started because recent account payments have failed or your spending limit needs to be increased"* |
+| **Host sizing** (2 vCPU / 3.8 GB, DB 21.26 GB, WAL 875 MB) | disk treadmill; hit 100% on 09-01 and blocked every deploy. `df /` 2026-09-03 07:0xZ: **80%** (57G/75G) |
 | `resaleiq.com` · ElevenLabs voice id · Resend rotation · W24 Coolify | standing, unchanged |
 | **GitHub Actions billing-blocked on BOTH repos** (was frontend-only, F-014) | Tests/Deploy cannot run on either repo — confirmed on backend run 33723541796, same "recent account payments have failed or your spending limit needs to be increased" annotation. Worked around today by triggering Coolify's deploy API directly over the existing root SSH access, but that is not a substitute for CI actually gating what ships |
 | **Rotate the Coolify API token** | while reading its forced-command entry out of `authorized_keys` on the production host to confirm the deploy mechanism, a redaction regex failed on a `\|` character and printed part of the live token into a session's tool output. No other credential was exposed. Not rotated by me — rotation is founder-gated |
