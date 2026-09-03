@@ -181,7 +181,7 @@ export const copy = {
       perMonth: "/month",
       whereItStops: "Where it stops:",
       footer:
-        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription.",
+        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
     },
     // Keyed by Tier.id (lib/pricing.ts). Names ("Free"/"Starter"/"Pro") stay
     // as product/plan names across locales — same choice already made for
@@ -453,7 +453,7 @@ export const copy = {
       perMonth: "/mois",
       whereItStops: "Où ça s'arrête :",
       footer:
-        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement.",
+        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
     },
     tiers: {
       power: {
@@ -691,7 +691,7 @@ export const copy = {
       perMonth: "/mes",
       whereItStops: "Dónde se detiene:",
       footer:
-        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción.",
+        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
     },
     tiers: {
       power: {
@@ -929,7 +929,7 @@ export const copy = {
       perMonth: "/Monat",
       whereItStops: "Wo es endet:",
       footer:
-        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten.",
+        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
     },
     tiers: {
       power: {
@@ -1169,7 +1169,7 @@ export const copy = {
       perMonth: "/mese",
       whereItStops: "Dove si ferma:",
       footer:
-        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento.",
+        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
     },
     tiers: {
       power: {
@@ -1407,7 +1407,7 @@ export const copy = {
       perMonth: "/mês",
       whereItStops: "Onde para:",
       footer:
-        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição.",
+        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
     },
     tiers: {
       power: {

@@ -4,6 +4,7 @@ import { PricingSection } from "./pricing-section"
 import { RedirectIfAuthed } from "./redirect-if-authed"
 import { LiveMarketProof } from "./live-market-proof"
 import { ExtensionHero, chromeStoreUrl } from "./extension-hero"
+import { SocialLinks } from "./social-links"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
@@ -155,7 +156,13 @@ export function LandingContent({
       <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
           <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
-          <span>Scraped every 30 min</span>
+          {/* Was "Scraped every 30 min" — false (OPEN-ITEMS #9, PR #4/c0a48c9):
+              collection is only SCHEDULED every 30 min/market and skips when a
+              prior run is still in flight. Same verified figure PR #4 already
+              put on /methodology and llms.txt: trailing 7d, n=1,157 gaps across
+              the 5 domains, 83% land under an hour. Do not invent a new number
+              here — reuse that one until it's re-measured. */}
+          <span>83% of updates land within an hour (n=1,157)</span>
           <span>Every formula on <Link href="/methodology" style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
           <span>No accuracy claims until 30 outcomes scored</span>
         </div>
@@ -190,6 +197,7 @@ export function LandingContent({
           <Link href="/support" style={{ color: "#8b99b8", textDecoration: "none" }}>Support</Link>
           <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>Sign in</Link>
         </div>
+        <SocialLinks />
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
         <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
           Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.
