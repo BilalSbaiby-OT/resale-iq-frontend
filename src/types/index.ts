@@ -188,9 +188,24 @@ export interface VerdictResult {
   // for months — so every render path that switched on `verdict` type-checked
   // without ever handling it. It is the answer whenever the sufficiency gate or
   // the shelf-observability gate withholds the numbers.
-  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED"
+  // BRAND_CATEGORIES: a bare-brand query ("Nike") — no garment named yet.
+  // BRAND_AVERAGE: brand + category named but no specific model — a real
+  // priced aggregate (api/routes.py _brand_categories_next_step /
+  // _brand_average_verdict), never a per-model buy-below.
+  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE"
   product?: string
   category?: string
+  /** BRAND_CATEGORIES only: the brand named, categories we hold data for. */
+  brand?: string
+  categories?: string[]
+  /** BRAND_CATEGORIES only: per-category aggregate, most departures first. */
+  category_aggregates?: { category: string; sold_7d: number; avg_price_eur: number | null }[]
+  /** Suggested next query that will resolve to a priced result. */
+  next_step?: string
+  /** BRAND_AVERAGE only: the honesty sentence explaining this is an aggregate. */
+  limitation?: string
+  /** True on BRAND_CATEGORIES/BRAND_AVERAGE — a public aggregate, not a per-model verdict. */
+  is_aggregate?: boolean
   opportunity_score?: number
   sell_through_rate?: string | null
   sold_7d?: number | null

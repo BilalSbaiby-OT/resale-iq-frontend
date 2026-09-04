@@ -30,6 +30,14 @@ const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string;
   // item itself. Same neutral as UNKNOWN/INSUFFICIENT_DATA instead.
   // docs/product/DESIGN-REVIEW.md §2, roster consult 2026-09-01.
   LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "LIMIT REACHED" },
+  // BRAND_CATEGORIES / BRAND_AVERAGE are real priced aggregates (api/routes.py
+  // _brand_categories_next_step / the brand-average verdict just above it) —
+  // not a verdict about a specific item, so they must not wear BUY/WATCH/SKIP,
+  // but they are not "NO DATA" either: falling through to VERDICT_STYLE.UNKNOWN
+  // (the old behaviour before this fix) told a user who got a real €111 avg
+  // and 217 watched departures that we had nothing.
+  BRAND_CATEGORIES: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "MARKET DATA" },
+  BRAND_AVERAGE:     { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "BRAND AVERAGE" },
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -174,6 +182,59 @@ function VerdictInner() {
                   See plans →
                 </Link>
               </div>
+            ) : result.verdict === "BRAND_CATEGORIES" ? (
+              // A bare-brand query ("Nike") — no garment named. Before this
+              // fix this fell into the generic sell_through_rate==null branch
+              // below, which shows a locked-headline/UnlockPanel card and
+              // never reads category_aggregates or message: production
+              // measured a real trial user (95) getting a departure count
+              // with no price and leaving. category_aggregates is the same
+              // public aggregate class as BRAND_AVERAGE's sell_avg (never a
+              // per-model buy-below), already public per DATA_CONTRACT.md
+              // rule 4 — no UnlockPanel/paywall belongs here.
+              <div className="p-6">
+                <div className="text-[13px] leading-6 text-[#8b99b8] mb-4">{result.message}</div>
+                {result.category_aggregates && result.category_aggregates.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    {result.category_aggregates.map(a => (
+                      <button
+                        key={a.category}
+                        onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq) }}
+                        className="flex items-center justify-between bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
+                      >
+                        <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
+                        <span className="text-[12.5px] text-[#8b99b8]">
+                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} avg · {a.sold_7d.toLocaleString()} left shelf / 7d
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {result.next_step && (
+                  <button
+                    onClick={() => { setQuery(result.next_step!); run(result.next_step!) }}
+                    className="mt-4 text-[12.5px] text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    Try &quot;{result.next_step}&quot; for a priced verdict on one item →
+                  </button>
+                )}
+              </div>
+            ) : result.verdict === "BRAND_AVERAGE" ? (
+              // Brand + category named, no specific model — a real priced
+              // aggregate (sell_avg / sold_7d / active_listings are all
+              // present here), never gated behind UnlockPanel: it is public
+              // per DATA_CONTRACT.md rule 4, the same number
+              // /api/public/market-snapshot already serves for free.
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-[#1e2535] border-b border-[#1e2535]">
+                  <Metric label="Avg at exit" value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
+                  <Metric label="Left shelf / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
+                  <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
+                </div>
+                <div className="p-6 text-[13px] leading-6 text-[#8b99b8]">
+                  {result.limitation || result.message}
+                </div>
+              </>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
               // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
               // The server withholds every number behind it, so the grid would
