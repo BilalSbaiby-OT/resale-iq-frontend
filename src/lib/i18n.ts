@@ -151,6 +151,15 @@ export const copy = {
       disclaimer:
         "Resale IQ is an independent tool and is not affiliated with, endorsed by, or connected to Vinted or any brand mentioned on this site. All product names, logos, and brands are the property of their respective owners and are used for identification only. All signals are informational, based on public market data, and are not financial advice or a guarantee of results.",
     },
+    // /tools — the top-of-funnel page a first-time French/ES/DE/IT/PT visitor
+    // actually lands on. Only the hero (h1/lede) is translated here; the
+    // search-intent cards below it (data/search-intents.ts) are a separate,
+    // larger content task and stay English on every locale for now — same
+    // "hero + conversion moment first" split as the rest of this file.
+    toolsPage: {
+      h1: "Check the market before you buy",
+      lede: "Type the item in your hand. You get BUY, WATCH or SKIP, the most you should pay, and how many watched departures sit behind the number. Sell-through and sizes stay on a plan. Null is not zero.",
+    },
     // The free checker — the conversion moment. Everything a visitor sees
     // between typing a query and hitting the paywall.
     checker: {
@@ -502,6 +511,10 @@ export const copy = {
       disclaimer:
         "Resale IQ est un outil indépendant, non affilié à Vinted ni à aucune marque mentionnée sur ce site, et n'est ni approuvé ni cautionné par eux. Tous les noms de produits, logos et marques appartiennent à leurs propriétaires respectifs et ne sont utilisés qu'à des fins d'identification. Tous les signaux sont informatifs, basés sur des données de marché publiques, et ne constituent ni un conseil financier ni une garantie de résultat.",
     },
+    toolsPage: {
+      h1: "Vérifiez le marché avant d'acheter",
+      lede: "Tapez l'article que vous avez en main. Vous obtenez BUY, WATCH ou SKIP, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
+    },
     checker: {
       inputAriaLabel: "Article à vérifier",
       checkingAriaLabel: "Vérification en cours",
@@ -810,6 +823,10 @@ export const copy = {
       disclaimer:
         "Resale IQ es una herramienta independiente y no está afiliada, respaldada ni conectada con Vinted ni con ninguna marca mencionada en este sitio. Todos los nombres de producto, logotipos y marcas son propiedad de sus respectivos dueños y se usan solo con fines de identificación. Todas las señales son informativas, se basan en datos públicos de mercado, y no constituyen asesoramiento financiero ni garantía de resultados.",
     },
+    toolsPage: {
+      h1: "Comprueba el mercado antes de comprar",
+      lede: "Escribe el artículo que tienes en la mano. Obtienes BUY, WATCH o SKIP, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás de la cifra. La rotación de ventas y las tallas quedan reservadas a un plan de pago. Un valor nulo no es un cero.",
+    },
     checker: {
       inputAriaLabel: "Artículo a comprobar",
       checkingAriaLabel: "Comprobando artículo",
@@ -1117,6 +1134,10 @@ export const copy = {
       support: "Support",
       disclaimer:
         "Resale IQ ist ein unabhängiges Tool und steht in keiner Verbindung zu Vinted oder einer auf dieser Seite genannten Marke, ist von diesen weder unterstützt noch anerkannt. Alle Produktnamen, Logos und Marken sind Eigentum ihrer jeweiligen Inhaber und dienen nur der Identifikation. Alle Signale sind informativ, beruhen auf öffentlichen Marktdaten und stellen weder eine Finanzberatung noch eine Erfolgsgarantie dar.",
+    },
+    toolsPage: {
+      h1: "Prüfe den Markt, bevor du kaufst",
+      lede: "Gib den Artikel ein, den du in der Hand hast. Du erhältst BUY, WATCH oder SKIP, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
     },
     checker: {
       inputAriaLabel: "Artikel zum Prüfen",
@@ -1428,6 +1449,10 @@ export const copy = {
       disclaimer:
         "Resale IQ è uno strumento indipendente e non è affiliato, approvato o collegato a Vinted o a qualsiasi marchio citato su questo sito. Tutti i nomi di prodotto, i loghi e i marchi sono di proprietà dei rispettivi titolari e sono usati solo a scopo identificativo. Tutti i segnali sono informativi, basati su dati di mercato pubblici, e non costituiscono consulenza finanziaria né garanzia di risultati.",
     },
+    toolsPage: {
+      h1: "Controlla il mercato prima di comprare",
+      lede: "Digita l'articolo che hai in mano. Ottieni BUY, WATCH o SKIP, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
+    },
     checker: {
       inputAriaLabel: "Articolo da controllare",
       checkingAriaLabel: "Controllo dell'articolo",
@@ -1735,6 +1760,10 @@ export const copy = {
       support: "Suporte",
       disclaimer:
         "A Resale IQ é uma ferramenta independente e não é afiliada, endossada ou associada à Vinted ou a qualquer marca mencionada neste site. Todos os nomes de produtos, logótipos e marcas são propriedade dos respetivos titulares e são usados apenas para fins de identificação. Todos os sinais são informativos, baseados em dados públicos de mercado, e não constituem aconselhamento financeiro nem garantia de resultados.",
+    },
+    toolsPage: {
+      h1: "Verifique o mercado antes de comprar",
+      lede: "Digite o artigo que tem em mãos. Você recebe BUY, WATCH ou SKIP, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
     },
     checker: {
       inputAriaLabel: "Artigo a verificar",
