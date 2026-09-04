@@ -56,6 +56,16 @@ interface FreeVerdict {
   brand?: string
   categories?: string[]
   next_step?: string
+  // Added alongside BRAND_CATEGORIES (2026-09-04, conversion fix): a
+  // category-level aggregate — same public class as BRAND_AVERAGE's
+  // sell_avg, never per-model — for each category named above, most
+  // departures first. Lets the bare-brand screen show a real price instead
+  // of only a list of garment words to retype.
+  category_aggregates?: {
+    category: string
+    sold_7d: number
+    avg_price_eur: number | null
+  }[]
 }
 
 // Verdict colour vs. system/quota colour are two different channels — see
@@ -327,6 +337,30 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
                   new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(res.categories ?? [])
                 )}
               </p>
+              {/* The conversion fix: category_aggregates turns the bare-brand
+                  screen from a list of garment words into real prices, most
+                  departures first (backend already ranks it). Aggregate only
+                  — same public class as BRAND_AVERAGE's sell_avg, never a
+                  per-model buy-below. Category names stay untranslated, same
+                  convention as the intro sentence above. */}
+              {res.category_aggregates && res.category_aggregates.length > 0 && (
+                <div style={{ display: "grid", gap: 6, marginTop: 10 }}>
+                  {res.category_aggregates.map(a => (
+                    <div
+                      key={a.category}
+                      style={{
+                        display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                        background: "#1a2030", borderRadius: 9, padding: "9px 12px",
+                      }}
+                    >
+                      <span style={{ fontSize: 13, color: "#eef1f7" }}>{a.category}</span>
+                      <span style={{ fontSize: 12.5, color: "#8b99b8" }}>
+                        {money(a.avg_price_eur)} {t.avg} · {t.leftShelfCount(fmtCount(a.sold_7d))}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
               {res.next_step && (
                 <p style={{ fontSize: 13, color: "#8b99b8", marginTop: 6, lineHeight: 1.55 }}>
                   {t.brandCategoriesModelHint(res.next_step)}
