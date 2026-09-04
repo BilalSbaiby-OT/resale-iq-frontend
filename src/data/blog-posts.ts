@@ -76,9 +76,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price on Vinted: Sell Fast, Keep Margin",
+    title: "How to Price Items on Vinted (Buy-Below Formula)",
     description:
-      "The buy-below rule resellers use to price Vinted items: sell fast without underselling. Worked from real sale prices across 5 EU markets.",
+      "The buy-below formula Vinted resellers use to price for a fast sale without underselling — anchored to real departure prices across 5 EU markets, not retail.",
     date: "2026-08-05",
     category: "Pricing",
     readMins: 5,
@@ -298,9 +298,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Profitable Items to Flip on Vinted",
+    title: "How to Find Items to Flip on Vinted (Sourcing Process)",
     description:
-      "A repeatable sourcing process for finding underpriced, fast-selling items to flip on Vinted — without scrolling for hours or guessing.",
+      "A repeatable 3-step process to find underpriced, fast-selling Vinted items to flip — built from real demand data across 5 EU markets, not guesswork.",
     date: "2026-08-05",
     category: "Sourcing",
     readMins: 5,
