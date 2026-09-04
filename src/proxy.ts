@@ -208,6 +208,27 @@ function isAppLocalePath(pathname: string): boolean {
 }
 
 /**
+ * Public, INDEXABLE pages with a real but PARTIAL translation: the hero and
+ * the free-checker widget (the actual conversion moment) read copy[locale]
+ * and FreeChecker's own `locale` prop; the deeper content below them
+ * (data/search-intents.ts) does not and stays English on every locale — see
+ * the comment in src/app/tools/page.tsx. Unlike APP_LOCALE_PREFIXES (justified
+ * by `robots: noindex`), these pages ARE crawled and indexed — but that is
+ * still safe to key off the cookie: Googlebot does not carry a NEXT_LOCALE
+ * cookie between requests, so the crawled/indexed version of these URLs is
+ * always English regardless of this list. This only changes what a visitor's
+ * OWN browser sees after they have already chosen a language elsewhere on
+ * the site.
+ *
+ * "/check" has no content of its own (src/app/check/page.tsx is a client
+ * redirect to /verdict or /tools, renders nothing) so there is nothing here
+ * that can be mistranslated — it is included purely so `<html lang>` does
+ * not flash back to English for the instant it is on screen while a visitor
+ * clicks through / -> /check -> /tools.
+ */
+const PUBLIC_PARTIAL_LOCALE_PATHS = new Set<string>(["/tools", "/check"])
+
+/**
  * Unprefixed paths that DO have a real translated route at "/<locale><path>",
  * so a cookie-carrying visitor should be sent to it rather than served the
  * English one. Only /methodology qualifies today (113 keys in six locales,
@@ -296,6 +317,24 @@ export function proxy(request: NextRequest) {
   const chosen = stored && isPathLocale(stored) ? stored : null
 
   if (chosen) {
+    // THE ROOT ITSELF. Measured live, 2026-09-04: a visitor with
+    // NEXT_LOCALE=fr requesting "/" got `<html lang="en">` and English hero
+    // copy, reproduced 3x, not a cache artifact -- src/app/page.tsx always
+    // renders English (by design, see the file header above) and "/" was
+    // simply never on any list that redirects a returning cookie-holder to
+    // the real translated homepage at "/<locale>" (src/app/[locale]/page.tsx).
+    // A visitor who picked French, then later clicked the logo or "home",
+    // was bounced straight back to English -- the worst instance of this bug
+    // because "/" is the page every other page links "home" to. Handled as
+    // its own case (not folded into LOCALE_ROUTED_PATHS) because the target
+    // is "/<locale>", not "/<locale><pathname>" -- pathname is "/" here, and
+    // "/<locale>/" is not the canonical route.
+    if (pathname === "/") {
+      const url = request.nextUrl.clone()
+      url.pathname = `/${chosen}`
+      return NextResponse.redirect(url, 307)
+    }
+
     // A path that has a real translated route of its own: send the visitor to
     // it, so the URL names the language it serves and the page is shareable,
     // bookmarkable and indexable as that language. 307, matching this file's
@@ -310,6 +349,12 @@ export function proxy(request: NextRequest) {
     // (noindex, and duplicating 20 routes per locale was rejected in W19).
     // Serve the chosen language in place, same URL.
     if (isAppLocalePath(pathname)) return withLocaleHeader(request, chosen)
+
+    // Public top-of-funnel pages with a real, partial translation (see
+    // PUBLIC_PARTIAL_LOCALE_PATHS above). Same URL, same in-place serving as
+    // the authenticated app -- these are not on PATH_LOCALES so there is no
+    // "/<locale>/tools" to redirect to.
+    if (PUBLIC_PARTIAL_LOCALE_PATHS.has(pathname)) return withLocaleHeader(request, chosen)
   }
 
   return withLocaleHeader(request, "en")
