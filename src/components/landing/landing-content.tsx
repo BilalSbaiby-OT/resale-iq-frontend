@@ -14,7 +14,7 @@ type Dict = (typeof copy)[keyof typeof copy]
 /**
  * Landing v2 — the product is the object of desire, not a SaaS brochure.
  * First screen: live Adidas Samba WATCH (real /api/verdict) + search.
- * One short line. Pricing calculator and tiers sit below the fold, smaller.
+ * Kicker always names Resale IQ. One short line (heroTitle). Pricing below the fold.
  * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).
  */
 export function LandingContent({
@@ -52,9 +52,15 @@ export function LandingContent({
 
       <main id="main">
         <section className="riq-apple-hero" style={{ maxWidth: 560, margin: "0 auto", padding: "28px 16px 48px" }}>
-          <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.8px", lineHeight: 1.15, margin: "0 0 16px" }}>
-            {heroResult?.product ?? "Resale IQ"}
+          <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.4px", color: "#8b99b8", margin: "0 0 8px" }}>
+            Resale IQ
+          </p>
+          <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.8px", lineHeight: 1.15, margin: "0 0 8px" }}>
+            {heroResult?.product ?? t.heroTitle}
           </h1>
+          <p style={{ fontSize: 15, color: "#8b99b8", margin: "0 0 20px", lineHeight: 1.45 }}>
+            {t.heroTitle}
+          </p>
           <div id="check" style={{ textAlign: "left" }}>
             <FreeChecker
               locale={locale}
