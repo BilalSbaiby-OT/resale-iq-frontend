@@ -3,21 +3,21 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
 import Link from "next/link"
-import { copy } from "@/lib/i18n"
+import { copy, type Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import {
   AuthCard, AuthHeading, AuthField, AuthSubmit,
   AUTH_ACCENT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
 
-export default function LoginPage() {
+export default function LoginPage({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const { login } = useAuthStore()
   const router = useRouter()
-  const t = copy[useLocale()].auth.login
+  const t = copy[localeProp ?? useLocale()].auth.login
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
