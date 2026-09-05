@@ -108,6 +108,60 @@ const VERDICT_CATALOG = {
     provisional: true,
     momentum: "RISING",
   },
+  "adidas samba": {
+    verdict: "WATCH",
+    product: "Adidas Samba",
+    category: "Sneakers",
+    confidence: "MEDIUM",
+    n: 20,
+    sold_7d: 48,
+    active_listings: 22142,
+    buy_below: 20.28,
+    sell_avg: 30.5,
+    sell_median: 30.49,
+    momentum: "STABLE",
+  },
+  nike: {
+    verdict: "BRAND_CATEGORIES",
+    brand: "Nike",
+    categories: ["Sneakers", "Jackets"],
+    category_aggregates: [
+      { brand: "Nike", category: "Sneakers", sold_7d: 206, avg_price_eur: 112.14 },
+      { brand: "Nike", category: "Jackets", sold_7d: 11, avg_price_eur: 37.15 },
+    ],
+    confidence: "AGGREGATE",
+    is_aggregate: true,
+    next_step: "Nike sneaker",
+    message: "Nike: Sneakers — around €112.14 (206 watched leaving the shelf recently).",
+    reason: "model_too_vague",
+  },
+  "ralph lauren": {
+    verdict: "BRAND_CATEGORIES",
+    brand: "Ralph Lauren",
+    categories: ["Shirts", "Hoodies"],
+    category_aggregates: [
+      { brand: "Ralph Lauren", category: "Shirts", sold_7d: 9, avg_price_eur: 46.81 },
+      { brand: "Ralph Lauren", category: "Hoodies", sold_7d: 6, avg_price_eur: 51.9 },
+    ],
+    confidence: "AGGREGATE",
+    is_aggregate: true,
+    next_step: "Ralph Lauren shirt",
+    message: "Ralph Lauren: Shirts — around €46.81 (9 watched leaving the shelf recently).",
+    reason: "model_too_vague",
+  },
+  "nike nocta": {
+    verdict: "BRAND_CATEGORIES",
+    brand: "Nike",
+    categories: ["Sneakers", "Jackets"],
+    category_aggregates: [
+      { brand: "Nike", category: "Sneakers", sold_7d: 206, avg_price_eur: 112.14 },
+    ],
+    confidence: "AGGREGATE",
+    is_aggregate: true,
+    next_step: "Nike sneaker",
+    message: "Nike: Sneakers — around €112.14 (206 watched leaving the shelf recently).",
+    reason: "unknown",
+  },
   "thin sample sneaker": {
     verdict: "INSUFFICIENT_DATA",
     product: "Thin Sample Sneaker",
@@ -282,6 +336,11 @@ const server = http.createServer(async (req, res) => {
         reason: "no_data",
         message: `No data found for '${q}'. Try a brand + model name (e.g. 'Jordan 3' or 'Nike Air Max').`,
       })
+      return
+    }
+
+    if (entry.verdict === "BRAND_CATEGORIES" || entry.verdict === "BRAND_AVERAGE") {
+      json(res, 200, entry)
       return
     }
 

@@ -175,3 +175,25 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     await expect(page.getByText(/Unlock sell-through, demand, sizes and history/i)).toHaveCount(0)
   })
 })
+
+test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", () => {
+  for (const q of ["Nike", "Ralph Lauren", "Nike Nocta"] as const) {
+    test(`${q} is not NO DATA / create-account, and offers Air Force 1 + Samba`, async ({ page }) => {
+      await search(page, q)
+      await expect(page.getByText("NO DATA")).toHaveCount(0)
+      await expect(page.getByText(/create a free account/i)).toHaveCount(0)
+      await expect(page.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+      await expect(page.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
+    })
+  }
+
+  test("Nike → Nike Air Force 1 is a live item-level call with buy-below", async ({ page }) => {
+    await search(page, "Nike")
+    const next = page.waitForResponse((r) => r.url().includes("/api/verdict") && r.url().includes("Air"))
+    await page.getByRole("button", { name: "Nike Air Force 1" }).click()
+    const body = await (await next).json()
+    expect(["BUY", "WATCH", "SKIP"]).toContain(body.verdict)
+    expect(body.buy_below).toEqual(expect.any(Number))
+    await expect(page.getByText("BUY", { exact: true })).toBeVisible()
+  })
+})
