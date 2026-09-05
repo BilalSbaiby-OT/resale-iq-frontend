@@ -518,7 +518,7 @@ export const copy = {
     heroHeadline: "Sachez quoi payer — et si ça se vendra.",
     heroSub: "Une recherche vous donne le prix à ne pas dépasser — et la solidité des données derrière.",
     heroBody:
-      "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis BUY, WATCH ou SKIP. Vinted d'abord.",
+      "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis ACHETER, SURVEILLER ou ÉCARTER. Vinted d'abord.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -666,7 +666,7 @@ export const copy = {
         cta: "Créer un compte gratuit",
         features: [
           "7 jours d’accès Starter complet (verdicts + Deal Scanner), 5 recherches live et 1 plan de commande. Ensuite : 10 vérifications par jour à vie — comme les visiteurs anonymes — plus 10 déblocages complets par mois pour le taux d’écoulement, les tailles et les raisons du verdict.",
-          "BUY / WATCH / SKIP à chaque recherche",
+          "ACHETER / SURVEILLER / ÉCARTER à chaque recherche",
           "Tout le manuel de revente et les données de marché",
           "Sans carte bancaire",
         ],
@@ -856,7 +856,7 @@ export const copy = {
     heroHeadline: "Sepa qué pagar — y si se venderá.",
     heroSub: "Una búsqueda le da el precio máximo a pagar — y qué tan sólidos son los datos detrás.",
     heroBody:
-      "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
+      "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
@@ -865,7 +865,7 @@ export const copy = {
     checkItem: "Comprobar un artículo",
     orCheck: "Prueba Starter 7 días",
     features: [
-      { t: "Decide antes de comprar", d: "DATOS → ANÁLISIS → DECISIÓN. BUY, WATCH o SKIP a partir de desapariciones observadas — no un modelo que adivina." },
+      { t: "Decide antes de comprar", d: "DATOS → ANÁLISIS → DECISIÓN. COMPRA, OBSERVA o DESCARTA a partir de desapariciones observadas — no un modelo que adivina." },
       { t: "Búsqueda en vivo", d: "Busca anuncios de Vinted en vivo. La inteligencia se construye sobre 5 mercados de la UE." },
       { t: "Comparar precios", d: "Compara el mismo artículo entre sitios de Vinted. Compra donde sea más barato." },
       { t: "Chollos", d: "Anuncios ya por debajo de tu precio máximo de compra, ahora." },
@@ -895,7 +895,7 @@ export const copy = {
     },
     toolsPage: {
       h1: "Comprueba el mercado antes de comprar",
-      lede: "Escribe el artículo que tienes en la mano. Obtienes BUY, WATCH o SKIP, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás de la cifra. La rotación de ventas y las tallas quedan reservadas a un plan de pago. Un valor nulo no es un cero.",
+      lede: "Escribe el artículo que tienes en la mano. Obtienes COMPRA, OBSERVA o DESCARTA, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás de la cifra. La rotación de ventas y las tallas quedan reservadas a un plan de pago. Un valor nulo no es un cero.",
       moreTools: "Más herramientas",
       breadcrumbTools: "Herramientas",
       faqHeading: "Preguntas frecuentes",
@@ -1003,8 +1003,8 @@ export const copy = {
         tagline: "Comprueba que los datos son reales antes de pagar",
         cta: "Crear una cuenta gratis",
         features: [
-          "7 días de acceso Starter completo (veredictos + Deal Scanner), 5 búsquedas en vivo y 1 plan de pedido. Después: 10 comprobaciones al día para siempre — igual que un visitante anónimo — más 10 desbloqueos completos al mes para el sell-through, las tallas y los motivos del veredicto.",
-          "BUY / WATCH / SKIP en cada búsqueda",
+          "7 días de acceso Starter completo (veredictos + Deal Scanner), 5 búsquedas en vivo y 1 plan de pedido. Después: 10 comprobaciones al día para siempre — igual que un visitante anónimo — más 10 desbloqueos completos al mes para la tasa de venta, las tallas y los motivos del veredicto.",
+          "COMPRA / OBSERVA / DESCARTA en cada búsqueda",
           "Todo el manual de reventa y los datos de mercado",
           "Sin tarjeta",
         ],
@@ -1194,7 +1194,7 @@ export const copy = {
     heroHeadline: "Wissen, was du zahlen solltest — und ob es sich verkauft.",
     heroSub: "Eine Suche zeigt dir den Höchstpreis — und wie belastbar die Daten dahinter sind.",
     heroBody:
-      "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann BUY, WATCH oder SKIP. Vinted ist der erste Marktplatz, den wir abdecken.",
+      "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz, den wir abdecken.",
     heroFrom: (tracked: string) =>
       `Basierend auf ${tracked} aktiven Angeboten und beobachteten Abgängen in fünf EU-Märkten.`,
     heroHonesty:
@@ -1342,7 +1342,7 @@ export const copy = {
         cta: "Kostenloses Konto erstellen",
         features: [
           "7 Tage vollständiger Starter-Zugang (Entscheidungen + Deal Scanner), 5 Live-Suchen und 1 Bestellplan. Danach: 10 Prüfungen pro Tag, dauerhaft — genau wie anonyme Besucher — plus 10 vollständige Freischaltungen im Monat für Verkaufsrate, Größen und die Gründe hinter dem Aufruf.",
-          "BUY / WATCH / SKIP bei jeder Suche",
+          "KAUFEN / BEOBACHTEN / VERWERFEN bei jeder Suche",
           "Das gesamte Wiederverkaufs-Handbuch und Marktdaten",
           "Keine Kreditkarte nötig",
         ],
@@ -1534,7 +1534,7 @@ export const copy = {
     heroHeadline: "Sappi quanto pagare — e se si venderà.",
     heroSub: "Una ricerca ti dà il prezzo da non superare — e quanto sono solidi i dati dietro.",
     heroBody:
-      "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi BUY, WATCH o SKIP. Vinted è il primo marketplace che copriamo.",
+      "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace che copriamo.",
     heroFrom: (tracked: string) =>
       `Basato su ${tracked} annunci attivi e uscite osservate in cinque mercati UE.`,
     heroHonesty:
@@ -1682,7 +1682,7 @@ export const copy = {
         cta: "Crea un account gratuito",
         features: [
           "7 giorni di accesso Starter completo (verdetti + Deal Scanner), 5 ricerche live e 1 piano d'ordine. Poi: 10 controlli al giorno per sempre — come i visitatori anonimi — più 10 sblocchi completi al mese per sell-through, taglie e le ragioni del verdetto.",
-          "BUY / WATCH / SKIP a ogni ricerca",
+          "COMPRA / OSSERVA / SCARTA a ogni ricerca",
           "Tutto il manuale di rivendita e i dati di mercato",
           "Nessuna carta richiesta",
         ],
@@ -1872,7 +1872,7 @@ export const copy = {
     heroHeadline: "Saiba quanto pagar — e se vai vender.",
     heroSub: "Uma pesquisa dá-lhe o preço máximo a pagar — e quão sólidos são os dados por trás.",
     heroBody:
-      "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois BUY, WATCH ou SKIP. A Vinted é o primeiro marketplace que cobrimos.",
+      "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace que cobrimos.",
     heroFrom: (tracked: string) =>
       `A partir de ${tracked} anúncios ativos e saídas observadas em cinco mercados da UE.`,
     heroHonesty:
@@ -2020,7 +2020,7 @@ export const copy = {
         cta: "Criar uma conta grátis",
         features: [
           "7 dias de acesso Starter completo (veredictos + Deal Scanner), 5 pesquisas em direto e 1 plano de encomenda. Depois: 10 verificações por dia para sempre — como um visitante anónimo — mais 10 desbloqueios completos por mês para o sell-through, os tamanhos e as razões do veredicto.",
-          "BUY / WATCH / SKIP em cada pesquisa",
+          "COMPRAR / OBSERVAR / DESCARTAR em cada pesquisa",
           "Todo o manual de revenda e os dados de mercado",
           "Sem cartão necessário",
         ],
