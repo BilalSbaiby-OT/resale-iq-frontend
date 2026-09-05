@@ -26,9 +26,12 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
 
   test("?plan=starter selects Starter (alias of operator)", async ({ page }) => {
     await page.goto("/register?plan=starter")
-    // Free's description also contains the word "Starter" — match the radio label only.
-    await expect(page.getByRole("radio", { name: /^Starter$/ })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /^Free$/ })).not.toBeChecked()
+    // Accessible name is the whole label (title + description). Free's copy also
+    // contains "Starter", so match the radio that *starts* with Starter.
+    const radios = page.locator('input[type="radio"]')
+    await expect(radios).toHaveCount(3)
+    await expect(radios.nth(1)).toBeChecked()
+    await expect(radios.nth(0)).not.toBeChecked()
   })
 
   test("?plan=garbage stays Free", async ({ page }) => {
