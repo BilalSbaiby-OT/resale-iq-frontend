@@ -12,7 +12,7 @@ async function login(page, email: string, password: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill(password)
   await page.getByRole("button", { name: /Sign in/i }).click()
-  await expect(page.getByRole("link", { name: "Watchlist" })).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByRole("link", { name: "Check" })).toBeVisible({ timeout: 20_000 })
 }
 
 test.describe("customer watchlist workflow", () => {

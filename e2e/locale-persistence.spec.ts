@@ -98,25 +98,22 @@ async function login(page: import("@playwright/test").Page) {
   await page.locator('input[type="email"]').fill("alice@example.com")
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in|Se connecter/i }).click()
-  await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
 }
 
-test("the side panel renders in French, including the Watchlist item", async ({ page, context }) => {
+test("the side panel renders in French, collapsed to Check / Finds / Account", async ({ page, context }) => {
   await context.addCookies([
     { name: "NEXT_LOCALE", value: "fr", url: "http://localhost:3100" },
   ])
   await login(page)
 
-  // The exact item the founder named, plus a section heading and the plan box
-  // — one label passing could be a coincidence, the set could not.
-  await expect(page.getByRole("link", { name: "Liste de suivi" })).toBeVisible({ timeout: 20_000 })
-  await expect(page.getByRole("link", { name: "Scanner d'affaires" })).toBeVisible()
-  await expect(page.getByRole("link", { name: "Tableau de bord" })).toBeVisible()
-  await expect(page.getByText("Espace de travail")).toBeVisible()
+  await expect(page.getByRole("link", { name: "Vérifier" })).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByRole("link", { name: "Offres" })).toBeVisible()
+  await expect(page.locator("aside").getByRole("link", { name: "Compte" })).toBeVisible()
 
-  // And no English survivor from the old hardcoded array.
   await expect(page.getByRole("link", { name: "Watchlist" })).toHaveCount(0)
   await expect(page.getByRole("link", { name: "Deal Scanner" })).toHaveCount(0)
+  await expect(page.getByRole("link", { name: "Check" })).toHaveCount(0)
 })
 
 // ---------------------------------------------------------------------------
@@ -131,23 +128,25 @@ test("French survives five in-app navigations without ever dropping to English",
   await login(page)
 
   const hops: Array<{ link: string; url: RegExp }> = [
-    { link: "Liste de suivi", url: /\/watchlist/ },
-    { link: "Classement des marques", url: /\/brands/ },
-    { link: "Tendances du marché", url: /\/trends/ },
-    { link: "Portefeuille", url: /\/portfolio/ },
-    { link: "Verdict rapide", url: /\/verdict/ },
+    { link: "Offres", url: /\/deals/ },
+    { link: "Compte", url: /\/account/ },
+    { link: "Vérifier", url: /\/verdict/ },
   ]
 
   for (const { link, url } of hops) {
-    await page.getByRole("link", { name: link }).click()
+    await page.locator("aside").getByRole("link", { name: link }).click()
     await page.waitForURL(url, { timeout: 20_000 })
 
-    // The document must still declare French AND the chrome must still be
-    // French. Asserting only <html lang> would pass on a page whose visible
-    // text had reverted, which is exactly what the founder was looking at.
     expect(await page.locator("html").getAttribute("lang"), `${link}: <html lang>`).toBe("fr")
-    await expect(page.getByRole("link", { name: "Liste de suivi" }), `${link}: sidebar`).toBeVisible()
+    await expect(page.locator("aside").getByRole("link", { name: "Vérifier" }), `${link}: sidebar`).toBeVisible()
   }
+
+  await page.goto("/watchlist")
+  expect(await page.locator("html").getAttribute("lang")).toBe("fr")
+  await expect(page.locator("aside").getByRole("link", { name: "Vérifier" })).toBeVisible()
+  await page.goto("/brands")
+  expect(await page.locator("html").getAttribute("lang")).toBe("fr")
+  await expect(page.locator("aside").getByRole("link", { name: "Vérifier" })).toBeVisible()
 })
 
 test("switching language from inside the app sticks on the next page", async ({ page, context }) => {
@@ -160,8 +159,10 @@ test("switching language from inside the app sticks on the next page", async ({ 
   // post-signup routes, so a customer inside the app had no way to change
   // language at all. It now lives in the sidebar on every app page.
   await page.locator("aside select").selectOption("es")
-  await expect(page.getByRole("link", { name: "Lista de seguimiento" })).toBeVisible({ timeout: 20_000 })
+  await expect(page.locator("aside").getByRole("link", { name: "Consultar" })).toBeVisible({ timeout: 20_000 })
 
+  await page.locator("aside").getByRole("link", { name: "Cuenta" }).click()
+  await page.waitForURL(/\/account/, { timeout: 20_000 })
   await page.getByRole("link", { name: "Lista de seguimiento" }).click()
   await page.waitForURL(/\/watchlist/, { timeout: 20_000 })
   expect(await page.locator("html").getAttribute("lang")).toBe("es")

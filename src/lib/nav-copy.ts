@@ -42,6 +42,8 @@ export type NavCopy = {
     owner: string
   }
   items: {
+    check: string
+    finds: string
     dashboard: string
     deals: string
     orderPlanner: string
@@ -100,6 +102,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Owner",
     },
     items: {
+      check: "Check",
+      finds: "Finds",
       dashboard: "Dashboard",
       deals: "Deal Scanner",
       orderPlanner: "Order Planner",
@@ -157,6 +161,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Propriétaire",
     },
     items: {
+      check: "Vérifier",
+      finds: "Offres",
       dashboard: "Tableau de bord",
       deals: "Scanner d'affaires",
       orderPlanner: "Planificateur de commandes",
@@ -215,6 +221,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Propietario",
     },
     items: {
+      check: "Consultar",
+      finds: "Ofertas",
       dashboard: "Panel",
       deals: "Escáner de oportunidades",
       orderPlanner: "Planificador de pedidos",
@@ -273,6 +281,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Inhaber",
     },
     items: {
+      check: "Prüfen",
+      finds: "Funde",
       dashboard: "Dashboard",
       deals: "Deal-Scanner",
       orderPlanner: "Bestellplaner",
@@ -331,6 +341,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Proprietario",
     },
     items: {
+      check: "Verifica",
+      finds: "Offerte",
       dashboard: "Dashboard",
       deals: "Scanner affari",
       orderPlanner: "Pianificatore ordini",
@@ -389,6 +401,8 @@ export const navCopy: Record<Locale, NavCopy> = {
       owner: "Proprietário",
     },
     items: {
+      check: "Verificar",
+      finds: "Ofertas",
       dashboard: "Painel",
       deals: "Scanner de oportunidades",
       orderPlanner: "Planeador de encomendas",

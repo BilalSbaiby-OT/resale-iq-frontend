@@ -35,7 +35,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             useAuthStore.setState({ isAuthenticated: true, isLoading: false })
           }
           setState("signed-in")
-          router.replace("/dashboard")
+          router.replace("/verdict")
           return
         }
         // Backend-owned string stays in whatever language the API sent it —

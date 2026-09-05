@@ -145,7 +145,7 @@ function TryExamplesRow({ onPick, disabled, label }: { onPick: (ex: string) => v
 // "Levi's 501" gestured at general vintage resale the catalogue does not
 // cover, which reads as a lie of omission to a casual flipper who tries it
 // and gets refused. ux-researcher, roster consult 2026-09-01.
-export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: string; locale?: Locale }) {
+export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { placeholder?: string; locale?: Locale; variant?: "card" | "hero" }) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
   const [q, setQ] = useState("")
@@ -210,8 +210,9 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
     : (res?.verdict ? (VERDICT_LABEL[res.verdict] ?? res.verdict) : "—")
 
+  const hero = variant === "hero"
   return (
-    <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
+    <div style={hero ? { background: "transparent", padding: 0 } : { background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         <input
           value={q}
@@ -219,13 +220,13 @@ export function FreeChecker({ placeholder, locale = "en" }: { placeholder?: stri
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
-          style={{ flex: "1 1 240px", minWidth: 0, background: "#0f1218", border: "1px solid #232c42", borderRadius: 10, padding: "13px 15px", color: "#eef1f7", fontSize: 14.5, outline: "none" }}
+          style={{ flex: "1 1 240px", minWidth: 0, background: hero ? "#0f1218" : "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 14 : 10, padding: hero ? "18px 20px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 18 : 14.5, outline: "none" }}
         />
         <button
           onClick={() => run()}
           disabled={loading}
           aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
-          style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14.5, border: "none", borderRadius: 10, padding: "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
+          style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: hero ? 17 : 14.5, border: "none", borderRadius: hero ? 14 : 10, padding: hero ? "18px 26px" : "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
           {loading ? t.checking : t.checkFree}

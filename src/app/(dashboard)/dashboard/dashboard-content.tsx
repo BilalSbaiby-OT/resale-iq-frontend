@@ -17,6 +17,16 @@ import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
+/** Customer-facing strings must never say "sold". API labels still do. */
+function noSold(s?: string | null): string | undefined {
+  if (s == null || s === "") return undefined
+  if (!/sold/i.test(s)) return s
+  return s
+    .replace(/units sold\s*\/\s*7d/gi, "left the shelf / 7d")
+    .replace(/units sold/gi, "left the shelf")
+    .replace(/\bsold\b/gi, "left the shelf")
+}
+
 /* Section shell: uniform card with header + optional action link */
 function Section({ title, sub, action, children }: {
   title: string; sub?: string; action?: { href: string; label: string }; children: React.ReactNode
@@ -116,7 +126,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 13, fontWeight: 650, color: "#eef1f7" }}>{t.freeBannerHeading}</div>
             <div style={{ fontSize: 11.5, color: "#8b99b8" }}>{t.freeBannerBody}</div>
           </div>
-          <Link href="/verdict" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "8px 16px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+          <Link href="/verdict" style={{ color: "#c3cde0", fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
             {t.freeBannerAction}
           </Link>
         </div>
@@ -124,10 +134,15 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
       {/* KPI row */}
       <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
-        <KpiCard label={kpis?.avg_profit_margin?.label ?? t.kpiLeftShelf} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={kpis?.avg_profit_margin?.unit ?? ""} sublabel={kpis?.avg_profit_margin?.sublabel} />
+        <KpiCard label={noSold(kpis?.avg_profit_margin?.label) ?? t.kpiLeftShelf} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={noSold(kpis?.avg_profit_margin?.unit) ?? ""} sublabel={noSold(kpis?.avg_profit_margin?.sublabel)} />
         <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpis?.items_analyzed?.formatted} sublabel={t.kpiAcrossMarkets} />
-        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={kpis?.top_category?.value} sublabel={kpis?.top_category?.sublabel ?? t.kpiByVolume} />
-        <KpiCard label={kpis?.market_opportunity?.label ?? t.kpiBuySignals} loading={!kpis} value={kpis?.market_opportunity?.value} sublabel={kpis?.market_opportunity?.sublabel ?? (kpis?.market_opportunity?.top_signal ? t.kpiTopSignal(kpis.market_opportunity.top_signal) : t.kpiActionableNow)} />
+        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={kpis?.top_category?.value} sublabel={noSold(kpis?.top_category?.sublabel) ?? t.kpiByVolume} />
+        <KpiCard
+          label={t.kpiBuySignals}
+          loading={!kpis}
+          value={kpis?.market_opportunity?.top_signal?.trim() ? kpis.market_opportunity.value : "—"}
+          sublabel={kpis?.market_opportunity?.top_signal?.trim() ? t.kpiTopSignal(kpis.market_opportunity.top_signal.trim()) : t.kpiNoneYet}
+        />
       </div>
 
       {/* Opportunities + Brands */}

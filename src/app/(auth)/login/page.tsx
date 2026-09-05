@@ -26,7 +26,7 @@ export default function LoginPage() {
         router.push("/check-email")
         return
       }
-      router.push("/dashboard")
+      router.push("/verdict")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
