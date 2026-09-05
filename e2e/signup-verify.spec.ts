@@ -17,6 +17,29 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await expect(radios.nth(0)).toBeChecked()
   })
 
+  test("?plan=pro selects Pro (alias of power)", async ({ page }) => {
+    await page.goto("/register?plan=pro")
+    await expect(page.getByRole("radio", { name: /Pro/i })).toBeChecked()
+    await expect(page.getByRole("radio", { name: /Free/i })).not.toBeChecked()
+    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+  })
+
+  test("?plan=starter selects Starter (alias of operator)", async ({ page }) => {
+    await page.goto("/register?plan=starter")
+    // Accessible name is the whole label (title + description). Free's copy also
+    // contains "Starter", so match the radio that *starts* with Starter.
+    const radios = page.locator('input[type="radio"]')
+    await expect(radios).toHaveCount(3)
+    await expect(radios.nth(1)).toBeChecked()
+    await expect(radios.nth(0)).not.toBeChecked()
+  })
+
+  test("?plan=garbage stays Free", async ({ page }) => {
+    await page.goto("/register?plan=garbage")
+    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
+    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
+  })
+
   test("submit without TOS shows error and does not call register", async ({ page }) => {
     let registerCalled = false
     await page.route("**/auth/register", async (route) => {
