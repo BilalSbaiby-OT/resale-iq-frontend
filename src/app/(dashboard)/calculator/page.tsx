@@ -15,26 +15,60 @@ export default function CalculatorPage() {
   const [result, setResult] = useState<CalcResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [maxBuy, setMaxBuy] = useState<number | null>(null)
+  const [error, setError] = useState("")
 
   const calculate = async () => {
-    if (!buyPrice) return
+    const n = Number.parseFloat(buyPrice)
+    if (!Number.isFinite(n) || n < 0.01) {
+      setResult(null)
+      setMaxBuy(null)
+      setError("Enter a buy price greater than 0.")
+      return
+    }
+    setError("")
     setLoading(true)
     try {
-      const r = await getCalc(brand || "Item", model || brand, parseFloat(buyPrice))
+      const r = await getCalc(brand || "Item", model || brand || "Item", n)
+      const usable = Array.isArray(r.platforms) && r.platforms.some(p => typeof p.sell_price === "number")
+      if (!usable) {
+        setResult(null)
+        setError("No price data for this product. Try a brand and model we track.")
+        return
+      }
       setResult(r)
-    } catch (e) { alert("Calculation failed") }
+    } catch (e) {
+      // why: surfaced in the form alert — a silent catch was the original bug
+      setResult(null)
+      setError(e instanceof Error ? e.message : "Calculation failed")
+    }
     finally { setLoading(false) }
   }
 
   const calculateReverse = async () => {
-    if (!targetProfit) return
+    const n = Number.parseFloat(targetProfit)
+    if (!Number.isFinite(n) || n < 0.01) {
+      setMaxBuy(null)
+      setResult(null)
+      setError("Enter a target profit greater than 0.")
+      return
+    }
+    setError("")
     setLoading(true)
     try {
-      const r = await getCalc(brand || "Item", model || brand, 1)
-      const sp = r.platforms?.[0]?.sell_price ?? 0
+      const r = await getCalc(brand || "Item", model || brand || "Item", 1)
+      const sp = r.platforms?.[0]?.sell_price
+      if (typeof sp !== "number") {
+        setMaxBuy(null)
+        setError("No price data for this product. Try a brand and model we track.")
+        return
+      }
       const net = sp * 0.95
-      setMaxBuy(net - parseFloat(targetProfit))
-    } catch { alert("Calculation failed") }
+      setMaxBuy(net - n)
+    } catch (e) {
+      // why: surfaced in the form alert — a silent catch was the original bug
+      setMaxBuy(null)
+      setError(e instanceof Error ? e.message : "Calculation failed")
+    }
     finally { setLoading(false) }
   }
 
@@ -43,7 +77,7 @@ export default function CalculatorPage() {
       <div className="max-w-3xl">
         <div className="flex gap-2 mb-5">
           {(["single", "reverse"] as const).map(m => (
-            <button key={m} onClick={() => { setMode(m); setResult(null); setMaxBuy(null) }}
+            <button key={m} onClick={() => { setMode(m); setResult(null); setMaxBuy(null); setError("") }}
               className={`px-4 py-2 rounded-lg text-[12px] font-semibold border transition-all ${mode === m ? "bg-emerald-500/10 border-emerald-500 text-emerald-400" : "bg-[#141820] border-[#263147] text-[#8fa3c4]"}`}>
               {m === "single" ? "Single Item" : "Reverse Mode"}
             </button>
@@ -77,6 +111,9 @@ export default function CalculatorPage() {
             className="w-full bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[13px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
             {loading ? "Calculating…" : mode === "single" ? "Calculate profit" : "Find max buy price"}
           </button>
+          {error && (
+            <p role="alert" style={{ color: "#ef4444", fontSize: 13, marginTop: 12, marginBottom: 0 }}>{error}</p>
+          )}
         </div>
 
         {maxBuy !== null && (

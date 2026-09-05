@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { INTENTS, getIntent } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { PublicProfitCalculator } from "@/components/tools/public-profit-calculator"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 
 export function generateStaticParams() {
@@ -72,8 +73,9 @@ export default async function IntentPage(
         <h1 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15, marginBottom: 14 }}>{i.h1}</h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 26 }}>{i.lede}</p>
 
-        {/* The free tool — real value, numbers locked */}
-        <FreeChecker />
+        {/* Profit-calculator intent: a buy-price Calculate, never the checker.
+            Other slugs keep the free checker (holy-shit verdict). */}
+        {slug === "vinted-profit-calculator" ? <PublicProfitCalculator /> : <FreeChecker />}
 
         <section style={{ marginTop: 34, display: "grid", gap: 14 }}>
           {i.bullets.map((b) => (
