@@ -55,7 +55,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(locked).not.toContainText(/Unlock/i)
   await expect(locked).not.toContainText("—")
   await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
-}
+})
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
