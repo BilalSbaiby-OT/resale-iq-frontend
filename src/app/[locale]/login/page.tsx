@@ -28,12 +28,8 @@ export async function generateMetadata({
  * to English /login. Cookie-less curl (and a shared URL) then saw
  * "Welcome back" / "Sign in". A literal route wins over the catch-all.
  */
-export default async function LocaleLoginPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
-  const { locale } = await params
+export default async function LocaleLoginPage(props: { params: Promise<{ locale: string }> }) {
+  const { locale } = await props.params
   if (!isPathLocale(locale)) notFound()
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "#0B0D10" }}>
