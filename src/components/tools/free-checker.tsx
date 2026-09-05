@@ -9,6 +9,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { ModelChips } from "@/components/tools/model-chips"
 import { WORKING_MODELS } from "@/lib/working-models"
+import { fieldState } from "@/lib/locked-fields"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -32,6 +33,10 @@ interface FreeVerdict {
   product?: string
   category?: string
   locked?: boolean
+  // The list of fields the server actually withheld. `locked` is a constant
+  // false and cannot be used to detect gating — see src/lib/locked-fields.ts
+  // for the production curl that proves it. This is the field to branch on.
+  locked_fields?: string[]
   message?: string
   buy_below?: number | null
   sell_avg?: number | null
@@ -178,6 +183,21 @@ export function FreeChecker({
   const sold = res?.sold_7d ?? res?.n
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
+  // Gated / present / genuinely unmeasured — three states, never collapsed
+  // into one dash. See src/lib/locked-fields.ts.
+  const strState = fieldState(res?.sell_through_rate, res?.locked_fields, "sell_through_rate")
+  // Scope note: `top_sizes`, `size_velocity`, `months_supply`, `reasons` and
+  // `opportunity_score` are also in this payload's locked_fields, but this hero
+  // has never rendered them at all — there is no dash to fix. Surfacing them
+  // as new gated tiles is an upsell change, not this rendering fix, so it stays
+  // out. The authenticated /verdict card DOES render two of them; those are
+  // fixed there.
+  // Same destination the unlock CTA at the foot of this card already uses for
+  // an anonymous visitor (SmartCTA anonHref below): the job here is an account,
+  // not a plan — the deep fields are inside the free tier's monthly unlocks.
+  // canonicalPath keeps a /es /fr /de /it /pt visitor on their own locale
+  // instead of dropping them on the English register page mid-funnel (W61).
+  const unlockHref = `${canonicalPath(locale, "/register")}?plan=free`
   const sample = watchedSampleNote(sold, listed, res?.verdict, locale)
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
@@ -429,14 +449,27 @@ export function FreeChecker({
                 <Stat label={t.marketPrice} value={money(res.sell_avg)} />
                 {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
                 {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
-                {res.locked || res.sell_through_rate == null ? (
-                  <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>
-                    <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.sellThrough}</div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: "#5b6b8c" }}>{res.locked ? t.planLabel : "—"}</div>
-                  </div>
-                ) : (
-                  <Stat label={t.sellThrough} value={res.sell_through_rate} />
-                )}
+                {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
+                    `res.locked || res.sell_through_rate == null`, and the value
+                    was `res.locked ? t.planLabel : "—"`. Because `res.locked`
+                    is the constant false on every backend branch (see
+                    src/lib/locked-fields.ts for the production curl), the FIRST
+                    half only ever matched via the null check and the SECOND
+                    half only ever chose "—". The gated-copy path was
+                    unreachable: every visitor to the homepage hero saw a bare
+                    dash over the sell-through slot, which reads as "this
+                    product is broken" rather than "this is behind a plan".
+                    The API had been naming the withheld fields in
+                    `locked_fields` the whole time; the UI just never read it.
+
+                    Now: gated -> a lock and a route that unlocks it; genuinely
+                    unmeasured -> no tile at all, because an empty slot is
+                    honest and a dash pretending to be a number is not. */}
+                {strState === "value" ? (
+                  <Stat label={t.sellThrough} value={res.sell_through_rate!} />
+                ) : strState === "locked" ? (
+                  <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
+                ) : null}
               </div>
               )}
 
@@ -490,5 +523,46 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
       <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
       <div style={{ fontSize: 18, fontWeight: 800, color: accent || "#eef1f7" }}>{value}</div>
     </div>
+  )
+}
+
+/**
+ * A withheld field, wearing the same tile as a real one so the row does not
+ * develop a hole — but unmistakably a lock, and clickable.
+ *
+ * Three things this must keep doing:
+ *  - Say WHICH field is gated. The label stays ("Sell-through"), so the visitor
+ *    learns the product measures it. A tile that hid the label too would just
+ *    be a smaller absence.
+ *  - Never imply a value. There is no number here, blurred or otherwise — the
+ *    server omitted it (docs: src/lib/locked-fields.ts). No "62%" behind a
+ *    filter, no fake bar, no placeholder digits.
+ *  - Be a route, not a sign. The whole tile is the link; a lock with no way
+ *    through is the same dead end as the dash it replaced, just prettier.
+ *
+ * Copy is reused, not invented: `sellThrough`, `planLabel` and `unlockRest`
+ * already ship in all six locales (src/lib/i18n.ts) — `planLabel` was written
+ * for exactly this slot and had been unreachable since the gate flag went
+ * constant.
+ */
+function LockedStat({ label, value, cta, href }: { label: string; value: string; cta: string; href: string }) {
+  return (
+    <Link
+      href={href}
+      data-testid="riq-locked-stat"
+      data-locked-field="sell_through_rate"
+      title={cta}
+      style={{
+        background: "#1a2030", borderRadius: 9, padding: "11px 13px",
+        border: "1px solid #263147", textDecoration: "none", display: "block",
+      }}
+    >
+      <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
+        <Lock size={14} color="#f59e0b" aria-hidden />
+        <span style={{ fontSize: 15, fontWeight: 700, color: "#c3cde0" }}>{value}</span>
+      </div>
+      <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
+    </Link>
   )
 }

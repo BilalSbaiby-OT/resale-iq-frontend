@@ -176,6 +176,74 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
   })
 })
 
+test.describe("P0 — a withheld field reads as gated, never as a broken dash", () => {
+  // Incident (2026-09-05): the homepage hero rendered the sell-through slot as
+  // a bare "—" for every anonymous visitor. Nothing was broken and no data was
+  // missing — the field is deliberately gated, and the API had been naming it
+  // in `locked_fields` all along:
+  //
+  //   curl -s "https://resaleiq.dev/api/verdict?q=Adidas%20Samba"
+  //   → "locked": false,
+  //     "locked_fields": ["sell_through_rate","top_sizes", ...]
+  //
+  // The UI branched on the `locked` BOOLEAN, which W1 (demand-intel 5019fa0)
+  // had made a constant false on every backend branch. So the gated-copy path
+  // was dead code and the dash always won. The first thing a stranger saw of
+  // the product was a metric that looked broken instead of one worth paying
+  // for.
+  //
+  // These assert the PROPERTY, not the wording — copy is localised in six
+  // locales and will change. What must not change: the API said this field was
+  // withheld, so the screen says so too, and offers a way through.
+  test("the gated sell-through slot shows a lock and a route, not a dash", async ({ page }) => {
+    const body = await (await search(page, "Adidas Samba")).json()
+
+    // Guard the premise. If the backend ever stops gating this field these
+    // assertions are testing nothing, and the test should fail loudly rather
+    // than pass vacuously.
+    expect(body.locked_fields, "the mock must still gate this field").toContain("sell_through_rate")
+    expect(body.sell_through_rate, "a gated field is ABSENT, never blurred").toBeUndefined()
+
+    const locked = page.getByTestId("riq-locked-stat")
+    await expect(locked).toBeVisible()
+
+    // The field is named, so the visitor learns the product measures it.
+    await expect(locked).toContainText(/sell-through|taux d'écoulement|tasa de venta|verkaufsrate|tasso di vendita|taxa de venda/i)
+
+    // The regression itself: not a dash, not "N/A", not empty.
+    await expect(locked).not.toHaveText(/^\s*$/)
+    const shown = (await locked.innerText()).trim()
+    expect(shown, "a gated field must never render as a bare dash or N/A").not.toMatch(/^(—|-|N\/A)$/i)
+
+    // A lock with no way through is the same dead end as the dash it replaced.
+    await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
+
+    // ABSENT, NOT BLURRED: the withheld values must not be anywhere in the DOM
+    // for CSS to reveal. This is the rule tests/test_verdict_leak.py enforces
+    // server-side; the lock affordance must not be the thing that breaks it.
+    //
+    // Matched as `"field":` — the shape a serialised payload takes — and NOT as
+    // a bare `"field"`, which also matches an HTML attribute like
+    // data-locked-field="sell_through_rate". The lock tile names the field it
+    // is standing in for, on purpose; naming a withheld field is the fix, and
+    // only shipping its VALUE would be the leak.
+    const html = await page.content()
+    for (const field of PAID_ONLY_FIELDS) {
+      expect(html, `${field} must not be serialised into the DOM`).not.toContain(`"${field}":`)
+    }
+  })
+
+  test("no bare dash is left standing in the hero's metric grid", async ({ page }) => {
+    await search(page, "Adidas Samba")
+    // Every tile either carries a real value or is the lock above. An element
+    // whose entire text is "—" is the bug, in whatever slot it appears.
+    await expect(
+      page.getByText("—", { exact: true }),
+      "no metric may render its value as a bare dash",
+    ).toHaveCount(0)
+  })
+})
+
 test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", () => {
   for (const q of ["Nike", "Ralph Lauren", "Nike Nocta"] as const) {
     test(`${q} is not NO DATA / create-account, and offers Air Force 1 + Samba`, async ({ page }) => {

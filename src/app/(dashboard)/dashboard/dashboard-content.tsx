@@ -15,6 +15,7 @@ import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, a
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
+import { isFieldLocked } from "@/lib/locked-fields"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /** Customer-facing strings must never say "sold". API labels still do. */
@@ -28,6 +29,33 @@ function noSold(s?: string | null): string | undefined {
 }
 
 /* Section shell: uniform card with header + optional action link */
+/**
+ * A withheld value inside a dense card row.
+ *
+ * The opportunity cards give each figure a few characters, so the lock has to
+ * be the whole affordance — there is no room for a sentence and no room for a
+ * second CTA. The route out is the card's own buy-below lock (which links to
+ * /account) and the paywall banner at the top of the page, both already on
+ * screen whenever this renders; adding a third link per figure would turn one
+ * upgrade ask into eight.
+ *
+ * `aria-label` carries the meaning for a screen reader, because a bare icon
+ * would otherwise read as nothing at all — which is exactly the failure this
+ * change exists to remove, just in another modality.
+ */
+function LockedInline() {
+  return (
+    <span
+      data-testid="riq-locked-inline"
+      aria-label="Locked — included in a plan"
+      title="Locked — included in a plan"
+      style={{ display: "inline-flex", alignItems: "center", verticalAlign: "-2px" }}
+    >
+      <Lock size={12} color="#fbbf24" aria-hidden />
+    </span>
+  )
+}
+
 function Section({ title, sub, action, children }: {
   title: string; sub?: string; action?: { href: string; label: string }; children: React.ReactNode
 }) {
@@ -77,7 +105,18 @@ export function DashboardContent({ locale }: { locale: Locale }) {
     }
     getKPIs().then(setKpis).catch(onFail(setKpis, null))
     getDeals({ limit: 8 })
-      .then(d => { setDeals(d.deals); setDealsLocked(d.locked) })
+      // `d.locked` alone is not enough and never was: the flag is a constant
+      // false on every backend branch (src/lib/locked-fields.ts has the
+      // production curl). So `dealsLocked` was permanently false, the lock
+      // affordance below was unreachable, and a withheld max_buy_price fell
+      // through to `eur(undefined)` — which returns "—". The opportunity board
+      // rendered a column of dashes where the buy-below price should be, and
+      // called it data. Ask the server's own list of withheld fields instead;
+      // keep the flag in the OR so an older payload cannot regress.
+      .then(d => {
+        setDeals(d.deals)
+        setDealsLocked(d.locked || isFieldLocked(d.locked_fields, "max_buy_price"))
+      })
       .catch(onFail(setDeals, [] as Deal[]))
     getBrandRankings(8).then(d => setBrands(d.brands)).catch(onFail(setBrands, [] as BrandRanking[]))
     getTrendsSummary()
@@ -167,9 +206,14 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                       </div>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
-                      <span>{t.avgAtExit} {dealsLocked ? "—" : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
+                      {/* Withheld is not unknown. These two used to print a
+                          bare "—" on the gated branch, which is the same
+                          string `eur(null)` returns for "we have no number" —
+                          so a paying decision and a plan boundary looked
+                          identical on screen. A lock says which it is. */}
+                      <span>{t.avgAtExit} {dealsLocked ? <LockedInline /> : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
                       <span style={{ color: "var(--color-watch)", fontWeight: 600 }} title="Gap at buy-below after fees — constructed ~30%, not a forecast">
-                        {dealsLocked ? "—" : (d.est_profit_eur != null ? t.targetNet(eur(d.est_profit_eur)) : "—")}
+                        {dealsLocked ? <LockedInline /> : (d.est_profit_eur != null ? t.targetNet(eur(d.est_profit_eur)) : "—")}
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
