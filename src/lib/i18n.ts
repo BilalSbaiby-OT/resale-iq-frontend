@@ -110,6 +110,10 @@ export const copy = {
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
     heroAudience: "For EU Vinted resellers.",
+    // H1 on `/`. Not heroTitle: that string is <title>/OG. Kept to ~20-28ch
+    // so it breaks in two at 56px. Em-dash is a sentence break, not a gated value.
+    heroHeadline: "Know what to pay — and whether it'll sell.",
+    heroSub: "One search tells you the price to stay under — and how good the evidence behind it is.",
     heroBody:
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
@@ -239,6 +243,13 @@ export const copy = {
     },
     pricingSection: {
       heading: "Know what to pay. Skip what you shouldn’t.",
+      // Page <title>/<meta description> for the standalone /pricing route.
+      // Deliberately price-free: the amounts live in TIERS (lib/pricing.ts) and
+      // reload live from Stripe on the page itself, so a number written here
+      // would be a second source of truth that goes stale silently.
+      metaTitle: "Pricing — what each plan costs and what it unlocks",
+      metaDescription:
+        "Every Resale IQ plan side by side: what it costs a month, what it unlocks, and where it stops. Free forever with no card. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",
@@ -504,6 +515,8 @@ export const copy = {
     pricing: "Tarifs",
     heroTitle: "Sachez quoi payer avant d'acheter.",
     heroAudience: "Pour les revendeurs Vinted en UE.",
+    heroHeadline: "Sachez quoi payer — et si ça se vendra.",
+    heroSub: "Une recherche vous donne le prix à ne pas dépasser — et la solidité des données derrière.",
     heroBody:
       "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis BUY, WATCH ou SKIP. Vinted d'abord.",
     heroFrom: (tracked: string) =>
@@ -606,6 +619,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sachez quoi payer. Ignorez le reste.",
+      metaTitle: "Tarifs — ce que coûte chaque offre et ce qu’elle débloque",
+      metaDescription:
+        "Toutes les offres Resale IQ côte à côte : le prix par mois, ce que chacune débloque et où elle s’arrête. Gratuit pour toujours, sans carte. Annulable à tout moment.",
       noCardRequired: "Sans carte bancaire",
       perDay: (amount: string) => `environ €${amount} par jour`,
       mostPopular: "LE PLUS POPULAIRE",
@@ -837,6 +853,8 @@ export const copy = {
     pricing: "Precios",
     heroTitle: "Sabe qué pagar antes de comprar.",
     heroAudience: "Para revendedores de Vinted en la UE.",
+    heroHeadline: "Sepa qué pagar — y si se venderá.",
+    heroSub: "Una búsqueda le da el precio máximo a pagar — y qué tan sólidos son los datos detrás.",
     heroBody:
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
@@ -939,6 +957,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sabe qué pagar. Sáltate lo que no debes.",
+      metaTitle: "Precios — cuánto cuesta cada plan y qué desbloquea",
+      metaDescription:
+        "Todos los planes de Resale IQ uno al lado del otro: cuánto cuestan al mes, qué desbloquean y dónde se quedan. Gratis para siempre, sin tarjeta. Cancela cuando quieras.",
       noCardRequired: "Sin tarjeta",
       perDay: (amount: string) => `unos €${amount} al día`,
       mostPopular: "MÁS POPULAR",
@@ -1170,6 +1191,8 @@ export const copy = {
     pricing: "Preise",
     heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
     heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
+    heroHeadline: "Wissen, was du zahlen solltest — und ob es sich verkauft.",
+    heroSub: "Eine Suche zeigt dir den Höchstpreis — und wie belastbar die Daten dahinter sind.",
     heroBody:
       "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann BUY, WATCH oder SKIP. Vinted ist der erste Marktplatz, den wir abdecken.",
     heroFrom: (tracked: string) =>
@@ -1272,6 +1295,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Wissen, was du zahlen solltest. Lass aus, was sich nicht lohnt.",
+      metaTitle: "Preise — was jeder Tarif kostet und was er freischaltet",
+      metaDescription:
+        "Alle Resale-IQ-Tarife nebeneinander: was sie im Monat kosten, was sie freischalten und wo sie aufhören. Dauerhaft kostenlos, ohne Karte. Jederzeit kündbar.",
       noCardRequired: "Keine Kreditkarte nötig",
       perDay: (amount: string) => `etwa €${amount} am Tag`,
       mostPopular: "AM BELIEBTESTEN",
@@ -1505,6 +1531,8 @@ export const copy = {
     pricing: "Prezzi",
     heroTitle: "Sappi quanto pagare prima di comprare.",
     heroAudience: "Per i rivenditori Vinted in UE.",
+    heroHeadline: "Sappi quanto pagare — e se si venderà.",
+    heroSub: "Una ricerca ti dà il prezzo da non superare — e quanto sono solidi i dati dietro.",
     heroBody:
       "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi BUY, WATCH o SKIP. Vinted è il primo marketplace che copriamo.",
     heroFrom: (tracked: string) =>
@@ -1607,6 +1635,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sappi quanto pagare. Salta il resto.",
+      metaTitle: "Prezzi — quanto costa ogni piano e cosa sblocca",
+      metaDescription:
+        "Tutti i piani Resale IQ a confronto: quanto costano al mese, cosa sbloccano e dove si fermano. Gratis per sempre, senza carta. Disdici quando vuoi.",
       noCardRequired: "Nessuna carta richiesta",
       perDay: (amount: string) => `circa €${amount} al giorno`,
       mostPopular: "IL PIÙ POPOLARE",
@@ -1838,6 +1869,8 @@ export const copy = {
     pricing: "Preços",
     heroTitle: "Saiba quanto pagar antes de comprar.",
     heroAudience: "Para revendedores Vinted na UE.",
+    heroHeadline: "Saiba quanto pagar — e se vai vender.",
+    heroSub: "Uma pesquisa dá-lhe o preço máximo a pagar — e quão sólidos são os dados por trás.",
     heroBody:
       "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois BUY, WATCH ou SKIP. A Vinted é o primeiro marketplace que cobrimos.",
     heroFrom: (tracked: string) =>
@@ -1940,6 +1973,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Saiba quanto pagar. Ignore o resto.",
+      metaTitle: "Preços — quanto custa cada plano e o que desbloqueia",
+      metaDescription:
+        "Todos os planos Resale IQ lado a lado: quanto custam por mês, o que desbloqueiam e onde param. Grátis para sempre, sem cartão. Cancele quando quiser.",
       noCardRequired: "Sem cartão necessário",
       perDay: (amount: string) => `cerca de €${amount} por dia`,
       mostPopular: "MAIS POPULAR",

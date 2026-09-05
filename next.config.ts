@@ -62,14 +62,18 @@ const nextConfig: NextConfig = {
         destination: "https://resaleiq.dev/:path*",
         permanent: true,
       },
-      // /pricing 404'd. Nothing internal links to it — every CTA uses the
-      // #pricing anchor — but it is the URL people TYPE, what an external
-      // link or an ad would point at, and what a "resaleiq pricing" search
-      // expects. A 404 there loses a visitor who was already looking for the
-      // price. 307 rather than 308: the pricing section lives on the landing
-      // page today, and a permanent redirect would be cached by browsers long
-      // after a real /pricing page exists.
-      { source: "/pricing", destination: "/#pricing", permanent: false },
+      // "/pricing" used to 307 to "/#pricing" — a stopgap for the 404, with the
+      // note "a permanent redirect would be cached long after a real /pricing
+      // page exists". That page exists now (src/app/pricing/page.tsx, plus
+      // src/app/[locale]/pricing/page.tsx for the five translated markets), so
+      // the redirect is deleted rather than pointed somewhere new.
+      //
+      // Why a route and not an anchor: an anchor cannot be measured. Landing on
+      // "/#pricing" fires pricing_view only if the browser kept the fragment,
+      // and it shares its pageview with landing_view, so the funnel step
+      // between landing and checkout was never independently countable. A path
+      // is countable, linkable from an ad, and shareable without dragging the
+      // whole homepage along.
       { source: "/sign-in", destination: "/login", permanent: false },
 
       // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,

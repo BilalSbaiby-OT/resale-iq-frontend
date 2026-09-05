@@ -285,7 +285,19 @@ export function FreeChecker({
           onClick={() => run()}
           disabled={loading}
           aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
-          style={{ background: "#22c55e", color: "#06090c", fontWeight: hero ? 600 : 700, fontSize: hero ? 15 : 14.5, border: "none", borderRadius: hero ? 12 : 10, padding: hero ? "15px 22px" : "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
+          style={{
+            background: hero ? "var(--color-on-graphite)" : "#22c55e",
+            color: hero ? "var(--color-graphite)" : "#06090c",
+            fontWeight: hero ? 600 : 700,
+            fontSize: hero ? 15 : 14.5,
+            border: "none",
+            borderRadius: hero ? "var(--radius-control)" : 10,
+            padding: hero ? "15px 22px" : "13px 22px",
+            cursor: loading ? "wait" : "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+          }}
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
           {loading ? t.checking : t.checkFree}
@@ -315,7 +327,11 @@ export function FreeChecker({
       )}
 
       {res && (
-        <div style={{ marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}>
+        <div
+          style={hero
+            ? { marginTop: "var(--space-3)", background: "var(--color-surface)", border: "1px solid var(--color-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-card-pad)" }
+            : { marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}
+        >
           {res.verdict === "LIMIT_REACHED" ? (
             <div>
               {/* res.message is backend-owned English prose (api/routes.py) with
@@ -461,10 +477,10 @@ export function FreeChecker({
                 {t.insufficientSubtext}
               </p>
 
-              {(res.n ?? res.sold_7d) != null && (
+              {res.n != null && (
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid #1c2333" }}>
                   <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.5px" }}>
-                    {fmtCount(res.n ?? res.sold_7d)}
+                    {fmtCount(res.n)}
                   </span>
                   <span style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px" }}>
                     {t.insufficientNLabel}
@@ -489,25 +505,21 @@ export function FreeChecker({
             </div>
           ) : (
             <>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              <div style={{ fontSize: hero ? 16 : 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
               {res.match_note && (
                 <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12 }}>{res.match_note}</p>
               )}
 
               {hasPrices && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
+              <div style={{ display: "grid", gridTemplateColumns: hero ? "repeat(auto-fit,minmax(150px,1fr))" : "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
-                <Stat label={t.marketPrice} value={money(res.sell_avg)} />
-                {/* HERO CARRIES THE VALUE STORY ONLY: buy-below vs market. The
-                    departures/still-listed pair stays on the /tools card and
-                    the authenticated /verdict, and is NOT lost here — the
-                    `sample` sentence below prints both counts in prose, in the
-                    page's own locale ("…562 salieron del catálogo frente a
-                    100.695 que siguen en venta"). Five chips above the fold on
-                    a 390px screen read as a dashboard; two numbers and a
-                    sentence read as an answer. Nothing is hidden to flatter
-                    the verdict — the supply side is still on screen, just in
-                    the sentence rather than in its own tile. */}
+                {/* SLIM FOLD. Metric bingo is a failure mode: buy-below,
+                    market, left-shelf, still-listed, plus the sample sentence
+                    restating two of them. The fold keeps the two that answer
+                    the headline: what to pay (buy-below) and whether it sells
+                    (sell-through, gated). Market price and the departure
+                    counts live on /tools. */}
+                {!hero && <Stat label={t.marketPrice} value={money(res.sell_avg)} />}
                 {!hero && sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
                 {!hero && listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
                 {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
@@ -535,7 +547,7 @@ export function FreeChecker({
               )}
 
               <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: hasPrices ? 16 : 4 }}>
-                <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
+                <span style={{ fontSize: hero ? 22 : 26, fontWeight: hero ? 700 : 800, color, letterSpacing: hero ? "0.3px" : "0.5px" }}>
                   {label}
                 </span>
                 {/* PROVISIONAL IS PART OF THE CALL, NOT A FOOTNOTE. A provisional
@@ -576,7 +588,11 @@ export function FreeChecker({
               {shownNote && (
                 <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{shownNote}</p>
               )}
-              {sample && (
+              {/* XOR on the hero: "left the shelf" is sold_7d, never also n.
+                  The fold already dropped the sample sentence (it restated
+                  two counts as a fifth and sixth figure). /tools keeps it,
+                  built from sold_7d + active_listings only. */}
+              {sample && !hero && (
                 <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
               )}
 

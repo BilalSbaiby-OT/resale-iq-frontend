@@ -89,21 +89,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataDrivenHubs = new Set(["", "/data", "/flip", "/category"])
   // Absolute-URL version of hreflangLanguages() — Next's own docs example for
   // sitemap alternates uses full URLs ('https://nextjs.org/en-US'), not paths.
-  const homeAlternates: Record<string, string> = {}
-  for (const [code, path] of Object.entries(hreflangLanguages())) homeAlternates[code] = `${BASE}${path}`
+  const absolute = (suffix: string) => {
+    const out: Record<string, string> = {}
+    for (const [code, path] of Object.entries(hreflangLanguages(suffix))) out[code] = `${BASE}${path}`
+    return out
+  }
+  const homeAlternates = absolute("")
   // Same construction for /methodology, now that it has real locale routes
-  // too (src/app/[locale]/methodology/page.tsx, src/lib/methodology-copy.ts).
-  const methodologyAlternates: Record<string, string> = {}
-  for (const [code, path] of Object.entries(hreflangLanguages("/methodology"))) methodologyAlternates[code] = `${BASE}${path}`
-  const staticPages = ["", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  // too (src/app/[locale]/methodology/page.tsx, src/lib/methodology-copy.ts),
+  // and for /pricing (src/app/[locale]/pricing/page.tsx). Keyed by path so a
+  // sixth translated page is one entry, not a longer ternary chain.
+  const methodologyAlternates = absolute("/methodology")
+  const pricingAlternates = absolute("/pricing")
+  const LOCALIZED: Record<string, Record<string, string>> = {
+    "": homeAlternates,
+    "/methodology": methodologyAlternates,
+    "/pricing": pricingAlternates,
+  }
+  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
-    priority: p === "" ? 1 : p === "/flip" || p === "/category" ? 0.9 : 0.6,
-    // "/" and "/methodology" have translated siblings today (src/app/[locale]/page.tsx,
-    // src/app/[locale]/methodology/page.tsx) — see locale-routes.ts for why the
-    // other pages are not in this set yet.
-    ...(p === "" ? { alternates: { languages: homeAlternates } } : p === "/methodology" ? { alternates: { languages: methodologyAlternates } } : {}),
+    // /pricing above the 0.6 static-copy shelf: it is the last page before
+    // checkout, and the one an ad or a "resaleiq pricing" search lands on.
+    priority: p === "" ? 1 : p === "/flip" || p === "/category" ? 0.9 : p === "/pricing" ? 0.8 : 0.6,
+    // "/", "/methodology" and "/pricing" have translated siblings today — see
+    // locale-routes.ts for why the other pages are not in this set yet.
+    ...(LOCALIZED[p] ? { alternates: { languages: LOCALIZED[p] } } : {}),
   }))
 
   // The five translated homepages. Reciprocal by construction: every entry
@@ -129,6 +141,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly" as const,
     priority: 0.6,
     alternates: { languages: methodologyAlternates },
+  }))
+
+  // The five translated pricing pages, same reciprocal construction. Same
+  // priority as the English "/pricing" entry — a Spanish visitor's route to
+  // checkout is not worth less than an English one.
+  const pricingLocalePages = PATH_LOCALES.map((locale) => ({
+    url: `${BASE}/${locale}/pricing`,
+    lastModified: STATIC_CONTENT_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+    alternates: { languages: pricingAlternates },
   }))
 
   const brandPages = BRANDS.map((b) => ({
@@ -183,6 +206,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticPages,
     ...localePages,
     ...methodologyLocalePages,
+    ...pricingLocalePages,
     ...toolPages,
     ...manualPages,
     ...blogPages,

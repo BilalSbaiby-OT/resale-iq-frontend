@@ -58,21 +58,38 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await expect(radios.nth(0)).toBeChecked()
   })
 
-  test("?plan=pro selects Pro (alias of power)", async ({ page }) => {
+  // The display-name aliases added by #50 are GONE. They resolved no CTA we
+  // ship (every link emits plan=free / plan=operator / plan=power), and the one
+  // thing they did resolve — a typed or third-party "?plan=pro" — silently
+  // opened the EUR 49 form with Free unselected, which is the 2026-09-01
+  // incident that bounced all three visitors who reached this page.
+  test("?plan=pro is not a plan id and stays Free — no bait into the EUR 49 tier", async ({ page }) => {
     await page.goto("/register?plan=pro")
-    await expect(page.getByRole("radio", { name: /Pro/i })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /Free/i })).not.toBeChecked()
-    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
+    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
+    // The waiver only renders on a paid selection, so its absence is a second,
+    // independent witness that nothing paid got selected.
+    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
   })
 
-  test("?plan=starter selects Starter (alias of operator)", async ({ page }) => {
+  test("?plan=starter is not a plan id and stays Free", async ({ page }) => {
     await page.goto("/register?plan=starter")
-    // Accessible name is the whole label (title + description). Free's copy also
-    // contains "Starter", so match the radio that *starts* with Starter.
     const radios = page.locator('input[type="radio"]')
     await expect(radios).toHaveCount(3)
+    await expect(radios.nth(0)).toBeChecked()
+    await expect(radios.nth(1)).not.toBeChecked()
+    await expect(radios.nth(2)).not.toBeChecked()
+  })
+
+  // The real ids still work — this is an alias removal, not a plan-picker
+  // removal. pricing-section.tsx routes paid CTAs through exactly these.
+  test("?plan=power selects Pro and ?plan=operator selects Starter", async ({ page }) => {
+    await page.goto("/register?plan=power")
+    let radios = page.locator('input[type="radio"]')
+    await expect(radios.nth(2)).toBeChecked()
+    await page.goto("/register?plan=operator")
+    radios = page.locator('input[type="radio"]')
     await expect(radios.nth(1)).toBeChecked()
-    await expect(radios.nth(0)).not.toBeChecked()
   })
 
   test("?plan=garbage stays Free", async ({ page }) => {

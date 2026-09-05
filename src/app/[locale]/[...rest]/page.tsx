@@ -23,16 +23,15 @@ import { isPathLocale } from "@/lib/locale-routes"
  * dead end. Per the founder's ranking on W61, "linking a Spanish reader to
  * an English page is survivable; linking them to a 404 is not."
  *
- * "pricing" is special-cased because it is not a page -- it is the
- * #pricing anchor on the homepage (pricing-section.tsx). "/pricing" itself
- * is only a redirect too (next.config.ts: "/pricing" -> "/#pricing", added
- * for the identical English-only version of this bug -- "a 404 there loses
- * a visitor who was already looking for the price"). Without this
- * special case, stripping the locale prefix from "/es/pricing" would still
- * work (a double redirect through "/pricing" to "/#pricing"), but it would
- * land a Spanish visitor on the ENGLISH pricing section when a Spanish one
- * already exists. This goes straight to "/<locale>#pricing" instead, which
- * IS a real, translated destination, in one hop.
+ * "pricing" USED to be special-cased here, redirecting "/es/pricing" to
+ * "/es#pricing", because it was not a page -- it was the #pricing anchor on
+ * the homepage, and "/pricing" itself was only a redirect (next.config.ts).
+ * Both of those are now real routes (src/app/pricing/page.tsx,
+ * src/app/[locale]/pricing/page.tsx), so the special case has been removed
+ * rather than left as dead code: a literal "[locale]/pricing/page.tsx" wins
+ * over this catch-all in Next's router, exactly as the paragraph above
+ * describes for /methodology, so this file stops firing for /pricing on its
+ * own and the branch could never have run again.
  *
  * Deliberately a redirect, not a render-English-in-place: the URL must stop
  * promising a language the page does not have. 307 (next/navigation's
@@ -53,10 +52,6 @@ export default async function LocaleDeepPathFallback({
   // renders (src/app/[locale]/layout.tsx); this mirrors [locale]/page.tsx's
   // own defensive re-check rather than assuming that invariant silently.
   if (!isPathLocale(locale)) notFound()
-
-  if (rest.length === 1 && rest[0] === "pricing") {
-    redirect(`/${locale}#pricing`)
-  }
 
   redirect(`/${rest.join("/")}`)
 }

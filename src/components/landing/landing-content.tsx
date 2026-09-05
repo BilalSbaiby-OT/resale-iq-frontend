@@ -13,11 +13,10 @@ type Dict = (typeof copy)[keyof typeof copy]
 
 /**
  * Landing v2 — the product is the object of desire, not a SaaS brochure.
- * First screen: the live verdict for the best-evidenced catalogue row (real
- * /api/verdict — New Balance 530 today, see lib/hero-verdict.ts) + one primary
- * Check CTA. The seed is never chosen for the word it produces.
- * Who-it's-for sits above the fold. Pricing below the fold.
- * Sign in lives in the footer, not as a competing hero CTA.
+ * First screen: H1 is the job, one graphite Check CTA, slim proof card.
+ * Seed stays New Balance 530 WATCH until Data names a better-evidenced row
+ * (lib/hero-verdict.ts). Never a fake BUY.
+ * Sign in is text in the nav, not a second filled button. Footer keeps it too.
  * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).
  */
 export function LandingContent({
@@ -43,25 +42,49 @@ export function LandingContent({
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
-      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 24px 8px", maxWidth: 720, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
+      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--space-3) var(--space-3) 0", maxWidth: "var(--width-marketing)", margin: "0 auto", gap: "var(--space-2)", flexWrap: "wrap" }}>
         <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
           <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: "-0.2px" }}>Resale IQ</span>
         </Link>
-        <LocaleSwitcher locale={locale} />
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
+          <LocaleSwitcher locale={locale} />
+          {/* TEXT, never a filled button. The graphite Check is the only
+              filled control above the fold. Footer still has Sign in too. */}
+          <Link
+            href="/login"
+            style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)", textDecoration: "none", whiteSpace: "nowrap" }}
+          >
+            {t.signIn}
+          </Link>
+        </div>
       </nav>
 
       <main id="main">
-        <section className="riq-apple-hero" style={{ maxWidth: 560, margin: "0 auto", padding: "56px 24px 88px" }}>
-          <p style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.15px", color: "#8b99b8", margin: "0 0 22px", lineHeight: 1.5 }}>
+        <section
+          className="riq-apple-hero"
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-10) var(--space-3) var(--space-12)", textAlign: "center" }}
+        >
+          <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
             {t.heroAudience}
           </p>
-          <h1 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.35px", lineHeight: 1.3, margin: "0 0 12px" }}>
-            {heroResult?.product ?? t.heroTitle}
+          <h1
+            style={{
+              fontSize: "var(--text-h1-marketing)",
+              fontWeight: 600,
+              letterSpacing: "var(--tracking-h1)",
+              lineHeight: "var(--leading-h1)",
+              maxWidth: "var(--measure-h1)",
+              margin: "0 auto var(--space-3)",
+              color: "var(--color-text-primary)",
+              textWrap: "balance",
+            }}
+          >
+            {t.heroHeadline}
           </h1>
-          <p style={{ fontSize: 15, fontWeight: 400, color: "#8b99b8", margin: "0 0 36px", lineHeight: 1.55 }}>
-            {t.heroTitle}
+          <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 auto var(--space-5)", lineHeight: 1.5, maxWidth: "52ch" }}>
+            {t.heroSub}
           </p>
-          <div id="check" style={{ textAlign: "left" }}>
+          <div id="check" style={{ textAlign: "left", maxWidth: 620, margin: "0 auto" }}>
             <FreeChecker
               locale={locale}
               variant="hero"
