@@ -1448,3 +1448,15 @@ Resale IQ operations and hit `
 - `2026-09-05T14:27:48Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: guard blocks from the 2026-09-05 check
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | grep -v "^`
+- `2026-09-05T15:00:40Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
+p="docs/company/SESSION.md"; s=open(p,encoding="utf-8").read()
+HEAD = """# SESSION
+
+**Updated** 2026-09-05 ~17:00Z
+
+## Why OpenClaw kept reverting to Grok
+
+Not a config problem. **Two cron jobs had `xai/grok-4.6` PINNED as their model** — `CE`
+- `2026-09-05T15:01:08Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; npm run check:isolation 2>&1 | tail -1; git add dashboard/data.json docs/company/SECURITY-LOG.md && git commit -q -m "state: dashboard payload and guard ledger from the OpenClaw fixes
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin `
