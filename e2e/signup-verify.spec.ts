@@ -1,13 +1,61 @@
-import { expect, test } from "@playwright/test"
+import { expect, test, type Page } from "@playwright/test"
+
+async function fillFreeRegister(page: Page, email: string) {
+  await page.locator('input[type="email"]').fill(email)
+  await page.locator('input[type="password"]').fill("goodpass123")
+  await page.locator('input[type="checkbox"]').first().check()
+}
+
+test.describe("register leak — free default, TOS gate, signup_completed", () => {
+  test("unspecified plan defaults to free and does not show the waiver", async ({ page }) => {
+    await page.goto("/register")
+    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
+    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
+    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
+    const radios = page.locator('input[type="radio"]')
+    await expect(radios).toHaveCount(3)
+    await expect(radios.nth(0)).toBeChecked()
+  })
+
+  test("submit without TOS shows error and does not call register", async ({ page }) => {
+    let registerCalled = false
+    await page.route("**/auth/register", async (route) => {
+      registerCalled = true
+      await route.abort()
+    })
+    await page.goto("/register")
+    await page.locator('input[type="email"]').fill("leak-tos@example.com")
+    await page.locator('input[type="password"]').fill("goodpass123")
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await expect(page.getByText(/Please accept the Terms of Service/i)).toBeVisible()
+    expect(registerCalled).toBe(false)
+  })
+
+  test("successful free submit fires signup_completed", async ({ page }) => {
+    const events: string[] = []
+    await page.route("**/api/track", async (route) => {
+      try {
+        const body = route.request().postDataJSON() as { event?: string } | null
+        if (body?.event) events.push(body.event)
+      } catch {
+        // why: a malformed track body must not fail the signup path under test
+      }
+      await route.fulfill({ status: 204, body: "" })
+    })
+    const email = `e2e-completed-${Date.now()}@example.com`
+    await page.goto("/register")
+    await fillFreeRegister(page, email)
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    expect(events).toContain("signup_completed")
+  })
+})
 
 test.describe("signup verify session", () => {
   test("register lands on check-email, not the dashboard", async ({ page }) => {
     const email = `e2e-reg-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
-    await page.locator('input[type="radio"]').last().check()
-    await page.locator('input[type="email"]').fill(email)
-    await page.locator('input[type="password"]').fill("goodpass123")
-    await page.locator('input[type="checkbox"]').first().check()
+    await fillFreeRegister(page, email)
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     await expect(page.locator("h1")).toContainText(/Check your email/i)
@@ -17,10 +65,7 @@ test.describe("signup verify session", () => {
   test("verify with token signs in to the dashboard", async ({ page }) => {
     const email = `e2e-ver-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
-    await page.locator('input[type="radio"]').last().check()
-    await page.locator('input[type="email"]').fill(email)
-    await page.locator('input[type="password"]').fill("goodpass123")
-    await page.locator('input[type="checkbox"]').first().check()
+    await fillFreeRegister(page, email)
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
 
@@ -42,10 +87,7 @@ test.describe("signup verify session", () => {
   test("used verify token does not mint a second session", async ({ page }) => {
     const email = `e2e-used-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
-    await page.locator('input[type="radio"]').last().check()
-    await page.locator('input[type="email"]').fill(email)
-    await page.locator('input[type="password"]').fill("goodpass123")
-    await page.locator('input[type="checkbox"]').first().check()
+    await fillFreeRegister(page, email)
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     const id = await page.evaluate(async () => {
@@ -103,10 +145,7 @@ test.describe("signup verify session", () => {
     const email = `e2e-dup-${Date.now()}@example.com`
     const fill = async () => {
       await page.goto("/register?plan=free")
-      await page.locator('input[type="radio"]').last().check()
-      await page.locator('input[type="email"]').fill(email)
-      await page.locator('input[type="password"]').fill("goodpass123")
-      await page.locator('input[type="checkbox"]').first().check()
+      await fillFreeRegister(page, email)
       await page.getByRole("button", { name: /Create account/i }).click()
     }
     await fill()

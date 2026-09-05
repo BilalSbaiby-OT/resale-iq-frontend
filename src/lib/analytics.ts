@@ -16,6 +16,19 @@ export type FunnelEvent =
   | "pricing_view"
   | "checkout_started"
   | "analysis_failed"
+  | "register_form_focused"
+  | "register_submit_attempted"
+  | "register_submit_failed"
+
+/** Client-side reasons for register_submit_failed. Encoded into path so the
+ *  existing /api/track sink stores them (TrackEvent has no extra column). */
+export type RegisterFailReason =
+  | "tos"
+  | "waiver"
+  | "password_length"
+  | "conflict"
+  | "network"
+  | "generic"
 
 export type Attribution = {
   utm_source?: string
@@ -114,10 +127,21 @@ function send(body: Record<string, unknown>) {
   }
 }
 
-export function trackEvent(event: FunnelEvent, path?: string) {
+export function trackEvent(
+  event: FunnelEvent,
+  path?: string,
+  extra?: { reason?: RegisterFailReason },
+) {
   if (typeof window === "undefined") return
+  let outPath = path || window.location.pathname || "/"
+  // reason is stored on path, not as a body field: the track sink's Pydantic
+  // model only persists event/path/utm_*, and extra JSON keys are dropped.
+  if (extra?.reason) {
+    const join = outPath.includes("?") ? "&" : "?"
+    outPath = `${outPath}${join}reason=${extra.reason}`
+  }
   send({
-    path: path || window.location.pathname || "/",
+    path: outPath,
     referrer: document.referrer || "",
     event,
     ...captureAttribution(),
