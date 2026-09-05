@@ -25,32 +25,45 @@ export default async function ToolsIndex() {
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   return (
-    <div style={{ background: "var(--color-bg)", color: "#c3cde0", minHeight: "100vh", padding: "32px 16px 80px" }}>
-      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <main id="main">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-          <Link href={canonicalPath(locale)} style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+          {/* Muted, not accent-green: the checker's "Check it free" is the one
+              CTA on this view and a green back-link competed with it. */}
+          <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
           <LocaleSwitcher locale={locale} />
         </div>
-        <h1 style={{ fontSize: 28, fontWeight: 800, color: "var(--color-text-primary)", margin: "16px 0 10px", letterSpacing: "-0.4px" }}>{t.h1}</h1>
-        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.65, marginBottom: 20, maxWidth: 620 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 800, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>{t.h1}</h1>
+        <p style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 28, maxWidth: 620 }}>
           {t.lede}
         </p>
 
         <WelcomeBanner />
         <FreeChecker locale={locale} />
 
-        {/* Search-intent cards below stay English on every locale — real
-            content translation (data/search-intents.ts), out of scope here,
-            same as blog/terms per src/app/[locale]/[...rest]/page.tsx. */}
-        <div style={{ marginTop: 36, display: "grid", gap: 12 }}>
+        {/* Search-intent titles/descriptions stay English on every locale —
+            real content translation (data/search-intents.ts), out of scope
+            here, same as blog/terms per src/app/[locale]/[...rest]/page.tsx.
+            The section label around them is translated.
+
+            These were five filled, bordered cards stacked straight under the
+            checker, each with the same visual weight as the checker itself, so
+            the index read as the main event. Same five links; a hairline and
+            whitespace separate them now. */}
+        <nav style={{ marginTop: 56 }}>
+          <h2 style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-muted)", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.moreTools}</h2>
           {INTENTS.map((i) => (
-            <Link key={i.slug} href={`/tools/${i.slug}`} style={{ display: "block", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px", textDecoration: "none" }}>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--color-text-primary)" }}>{i.h1}</div>
-              <div style={{ fontSize: 13.5, color: "var(--color-text-secondary)", marginTop: 4, lineHeight: 1.55 }}>{i.description}</div>
+            <Link
+              key={i.slug}
+              href={`/tools/${i.slug}`}
+              style={{ display: "block", padding: "20px 0", borderTop: "1px solid var(--color-border-ui)", textDecoration: "none" }}
+            >
+              <div style={{ fontSize: 16.5, fontWeight: 700, color: "var(--color-text-primary)" }}>{i.h1}</div>
+              <div style={{ fontSize: 14.5, color: "var(--color-text-secondary)", marginTop: 5, lineHeight: 1.6 }}>{i.description}</div>
             </Link>
           ))}
-        </div>
+        </nav>
         </main>
       </div>
     </div>
