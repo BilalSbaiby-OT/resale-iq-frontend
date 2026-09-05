@@ -1,6 +1,7 @@
 import { LandingContent } from "@/components/landing/landing-content"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { getHeroVerdict } from "@/lib/hero-verdict"
 import { copy } from "@/lib/i18n"
 import { hreflangLanguages } from "@/lib/locale-routes"
 
@@ -41,7 +42,8 @@ export default async function Landing() {
   // figure is the harder claim. Anyone can write a round number.
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
+  const hero = await getHeroVerdict()
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} />
   )
 }

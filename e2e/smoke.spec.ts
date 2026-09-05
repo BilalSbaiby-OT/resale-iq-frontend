@@ -3,7 +3,8 @@ import { expect, test } from "@playwright/test"
 test("landing page loads and is not empty", async ({ page }) => {
   const res = await page.goto("/")
   expect(res?.ok()).toBeTruthy()
-  await expect(page.locator("h1")).toContainText(/Know what to pay/i)
+  await expect(page.getByRole("link", { name: "Resale IQ home" })).toBeVisible()
+  await expect(page.locator("h1")).toBeVisible()
   await expect(page.locator("#check").getByRole("textbox")).toBeVisible()
   await expect(page.locator("#check").getByRole("button").first()).toBeVisible()
   const text = await page.locator("body").innerText()

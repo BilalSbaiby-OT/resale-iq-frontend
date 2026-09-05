@@ -125,11 +125,19 @@ const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
 // "Levi's 501" gestured at general vintage resale the catalogue does not
 // cover, which reads as a lie of omission to a casual flipper who tries it
 // and gets refused. ux-researcher, roster consult 2026-09-01.
-export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { placeholder?: string; locale?: Locale; variant?: "card" | "hero" }) {
+export function FreeChecker({
+  placeholder, locale = "en", variant = "card", initialQuery, initialResult,
+}: {
+  placeholder?: string
+  locale?: Locale
+  variant?: "card" | "hero"
+  initialQuery?: string
+  initialResult?: FreeVerdict | null
+}) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
-  const [q, setQ] = useState("")
-  const [res, setRes] = useState<FreeVerdict | null>(null)
+  const [q, setQ] = useState(initialQuery ?? "")
+  const [res, setRes] = useState<FreeVerdict | null>(initialResult ?? null)
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState("")
   // Distinct from `err`: a plain fetch failure never reached the server, but
@@ -193,14 +201,14 @@ export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { 
   const hero = variant === "hero"
   return (
     <div style={hero ? { background: "transparent", padding: 0 } : { background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
-      <div className="riq-checker-row" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div className="riq-checker-row">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
-          style={{ flex: "1 1 240px", minWidth: 0, background: hero ? "#0f1218" : "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 14 : 10, padding: hero ? "18px 20px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 18 : 14.5, outline: "none" }}
+          style={{ background: "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 14 : 10, padding: hero ? "18px 20px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 18 : 14.5, outline: "none" }}
         />
         <button
           onClick={() => run()}

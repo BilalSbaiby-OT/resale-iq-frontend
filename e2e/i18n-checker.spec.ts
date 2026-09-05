@@ -209,8 +209,9 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(button).toHaveText(l.checkFree)
       await expect(button).not.toHaveText(/Check it free/)
 
-      // Empty-input validation message — a real conversion-path error state,
-      // not a network round trip.
+      // Landing v2 prefills Adidas Samba. Empty-input is still the conversion
+      // error state — clear the field first so we are testing that, not the hero.
+      await page.locator("#check").getByRole("textbox").fill("")
       await button.click()
       await expect(page.locator("#check")).toContainText(l.enterBrandModel)
       await expect(page.locator("#check")).not.toContainText("Enter a brand and model")

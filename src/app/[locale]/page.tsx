@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { LandingContent } from "@/components/landing/landing-content"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { getHeroVerdict } from "@/lib/hero-verdict"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath } from "@/lib/locale-routes"
 
@@ -49,7 +50,8 @@ export default async function LocaleLanding({
   const tracked = await listingsTrackedLabel()
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
+  const hero = await getHeroVerdict()
   return (
-    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} />
+    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} />
   )
 }

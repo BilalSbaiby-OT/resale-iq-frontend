@@ -183,15 +183,42 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,.45);
 }
 
-/* Apple landing v1 overflowed phones: 84px clamp headline, 32px nav, hero
-   checker on one row. Keep the desktop look; stack on small screens. */
+/* Checker is COLUMN by default. #41 used max-width:639px; live iPhone still
+   kept input+button on one row because inline flex:1 1 240px + minWidth:0 let
+   the field shrink beside the CTA. Mobile-first: stack unless the viewport is
+   at least 640px. */
+.riq-checker-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+.riq-checker-row input,
+.riq-checker-row button {
+  width: 100%;
+  box-sizing: border-box;
+  flex: none;
+  justify-content: center;
+}
+@media (min-width: 640px) {
+  .riq-checker-row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .riq-checker-row input {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+  .riq-checker-row button {
+    width: auto;
+    white-space: nowrap;
+  }
+}
 @media (max-width: 639px) {
   .riq-apple-nav { padding: 16px !important; }
   .riq-apple-hero { padding: 40px 16px 36px !important; }
   .riq-apple-hero h1 { font-size: 34px !important; letter-spacing: -1px !important; }
-  .riq-checker-row { flex-direction: column !important; flex-wrap: nowrap !important; }
-  .riq-checker-row input,
-  .riq-checker-row button { width: 100% !important; flex: none !important; justify-content: center; }
   .riq-pricing { padding: 40px 16px !important; }
   .riq-pricing h2 { font-size: 26px !important; letter-spacing: -0.4px !important; }
 }
