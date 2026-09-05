@@ -239,6 +239,13 @@ export const copy = {
     },
     pricingSection: {
       heading: "Know what to pay. Skip what you shouldn’t.",
+      // Page <title>/<meta description> for the standalone /pricing route.
+      // Deliberately price-free: the amounts live in TIERS (lib/pricing.ts) and
+      // reload live from Stripe on the page itself, so a number written here
+      // would be a second source of truth that goes stale silently.
+      metaTitle: "Pricing — what each plan costs and what it unlocks",
+      metaDescription:
+        "Every Resale IQ plan side by side: what it costs a month, what it unlocks, and where it stops. Free forever with no card. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",
@@ -606,6 +613,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sachez quoi payer. Ignorez le reste.",
+      metaTitle: "Tarifs — ce que coûte chaque offre et ce qu’elle débloque",
+      metaDescription:
+        "Toutes les offres Resale IQ côte à côte : le prix par mois, ce que chacune débloque et où elle s’arrête. Gratuit pour toujours, sans carte. Annulable à tout moment.",
       noCardRequired: "Sans carte bancaire",
       perDay: (amount: string) => `environ €${amount} par jour`,
       mostPopular: "LE PLUS POPULAIRE",
@@ -939,6 +949,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sabe qué pagar. Sáltate lo que no debes.",
+      metaTitle: "Precios — cuánto cuesta cada plan y qué desbloquea",
+      metaDescription:
+        "Todos los planes de Resale IQ uno al lado del otro: cuánto cuestan al mes, qué desbloquean y dónde se quedan. Gratis para siempre, sin tarjeta. Cancela cuando quieras.",
       noCardRequired: "Sin tarjeta",
       perDay: (amount: string) => `unos €${amount} al día`,
       mostPopular: "MÁS POPULAR",
@@ -1272,6 +1285,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Wissen, was du zahlen solltest. Lass aus, was sich nicht lohnt.",
+      metaTitle: "Preise — was jeder Tarif kostet und was er freischaltet",
+      metaDescription:
+        "Alle Resale-IQ-Tarife nebeneinander: was sie im Monat kosten, was sie freischalten und wo sie aufhören. Dauerhaft kostenlos, ohne Karte. Jederzeit kündbar.",
       noCardRequired: "Keine Kreditkarte nötig",
       perDay: (amount: string) => `etwa €${amount} am Tag`,
       mostPopular: "AM BELIEBTESTEN",
@@ -1607,6 +1623,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sappi quanto pagare. Salta il resto.",
+      metaTitle: "Prezzi — quanto costa ogni piano e cosa sblocca",
+      metaDescription:
+        "Tutti i piani Resale IQ a confronto: quanto costano al mese, cosa sbloccano e dove si fermano. Gratis per sempre, senza carta. Disdici quando vuoi.",
       noCardRequired: "Nessuna carta richiesta",
       perDay: (amount: string) => `circa €${amount} al giorno`,
       mostPopular: "IL PIÙ POPOLARE",
@@ -1940,6 +1959,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Saiba quanto pagar. Ignore o resto.",
+      metaTitle: "Preços — quanto custa cada plano e o que desbloqueia",
+      metaDescription:
+        "Todos os planos Resale IQ lado a lado: quanto custam por mês, o que desbloqueiam e onde param. Grátis para sempre, sem cartão. Cancele quando quiser.",
       noCardRequired: "Sem cartão necessário",
       perDay: (amount: string) => `cerca de €${amount} por dia`,
       mostPopular: "MAIS POPULAR",

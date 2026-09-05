@@ -205,16 +205,32 @@ test("a locale-prefixed path that IS translated serves its own page, not a redir
   }
 })
 
-test("/es/pricing goes straight to the Spanish pricing section, not the English one", async ({ request }) => {
-  const res = await request.get("/es/pricing", { maxRedirects: 0 })
-  expect(res.status()).toBe(307)
-  expect(res.headers()["location"]).toMatch(/\/es#pricing$/)
+// These two asserted a 307 to "/<locale>#pricing", which was correct while
+// /pricing was itself only a redirect to an anchor. It is a real page now
+// (src/app/pricing/page.tsx + src/app/[locale]/pricing/page.tsx), so the five
+// translated markets get the real page rather than a locale-flavoured anchor.
+// The thing worth guarding is unchanged and still asserted: a Spanish visitor
+// must not be handed English.
+test("/es/pricing serves the Spanish pricing page, not a redirect and not English", async ({ page }) => {
+  const res = await page.goto("/es/pricing")
+  expect(res?.status()).toBe(200)
+  expect(page.url()).toMatch(/\/es\/pricing$/)
+  await expect(page.locator("h1")).toContainText(/Sabe qué pagar/i)
+  await expect(page.locator("html")).toHaveAttribute("lang", "es")
 })
 
-test("/fr/pricing goes straight to the French pricing section, not the English one", async ({ request }) => {
-  const res = await request.get("/fr/pricing", { maxRedirects: 0 })
-  expect(res.status()).toBe(307)
-  expect(res.headers()["location"]).toMatch(/\/fr#pricing$/)
+test("/fr/pricing serves the French pricing page, not a redirect and not English", async ({ page }) => {
+  const res = await page.goto("/fr/pricing")
+  expect(res?.status()).toBe(200)
+  expect(page.url()).toMatch(/\/fr\/pricing$/)
+  await expect(page.locator("h1")).toContainText(/Sachez quoi payer/i)
+})
+
+test("all five locale pricing routes serve their own page", async ({ request }) => {
+  for (const path of ["/es/pricing", "/fr/pricing", "/de/pricing", "/it/pricing", "/pt/pricing"]) {
+    const res = await request.get(path, { maxRedirects: 0 })
+    expect(res.status(), path).toBe(200)
+  }
 })
 
 test("a deep path under an unsupported locale segment still 404s -- the catch-all does not widen PATH_LOCALES", async ({ request }) => {

@@ -161,18 +161,23 @@ export function PaybackCalculator({
   const costAsPctOfSpend = spendPerMonth > 0 ? (STARTER / spendPerMonth) * 100 : 0
 
   return (
+    // Literal hexes replaced by the tokens that already hold those values
+    // (@theme, src/app/globals.css), continuing the convergence e1c540a did
+    // across the (auth) group and pricing-section. Two greys had no exact
+    // token and take the nearest committed one, same rule that commit used:
+    // #8b99b8 -> --color-text-secondary, #a9b6d0 -> --color-text-body.
     <div style={{
-      maxWidth: 720, margin: "0 auto 44px", background: "#12151d",
-      border: "1px solid #1c2333", borderRadius: 16, padding: "26px 24px",
+      maxWidth: 720, margin: "0 auto 44px", background: "var(--color-surface)",
+      border: "1px solid var(--color-border-ui)", borderRadius: 16, padding: "24px",
     }}>
-      <div style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>
+      <div style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>
         {c.heading}
       </div>
-      <p style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.6, marginBottom: 20 }}>
+      <p style={{ fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6, marginBottom: 20 }}>
         {c.sub}
       </p>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20, marginBottom: 22 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20, marginBottom: 24 }}>
         <Slider
           label={c.itemsLabel} value={itemsPerMonth} min={5} max={200} step={5}
           onChange={setItems} display={`${itemsPerMonth}`}
@@ -186,24 +191,31 @@ export function PaybackCalculator({
       {/* ONE number, stated in the unit the reader thinks in — items, not
           percentages. The earlier version led with "you have covered 79% of
           it", which is ambiguous (79% of what?) and made the reader do the
-          translation themselves. Break-even in bad buys needs no explaining. */}
+          translation themselves. Break-even in bad buys needs no explaining.
+
+          It is no longer PRINTED in the accent, and its panel no longer has a
+          green-tinted border. On /pricing this block shares a page with the one
+          filled accent CTA, and a 40px green numeral beside a green button is
+          two things claiming to be the single most important element. The
+          number keeps its size and weight — the hierarchy is intact, it is just
+          not competing for the accent. */}
       <div style={{
-        background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12,
-        padding: "22px 20px", textAlign: "center",
+        background: "var(--color-bg-3)", border: "1px solid var(--color-border-ui)", borderRadius: 12,
+        padding: "24px 20px", textAlign: "center",
       }}>
-        <div style={{ fontSize: 13, color: "#8b99b8", marginBottom: 6 }}>
+        <div style={{ fontSize: 13, color: "var(--color-text-secondary)", marginBottom: 6 }}>
           {c.costsSameAs}
         </div>
-        <div style={{ fontSize: 40, fontWeight: 800, color: "#22c55e", lineHeight: 1.1, letterSpacing: "-1px" }}>
+        <div style={{ fontSize: 40, fontWeight: 800, color: "var(--color-text-primary)", lineHeight: 1.1, letterSpacing: "-1px" }}>
           {breakEvenItems} {breakEvenItems === 1 ? c.badItem : c.badItems}
         </div>
-        <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 6 }}>
+        <div style={{ fontSize: 13, color: "var(--color-text-secondary)", marginTop: 6 }}>
           {c.perMonth}
         </div>
 
         <div style={{
-          marginTop: 18, paddingTop: 16, borderTop: "1px solid #1c2333",
-          fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7,
+          marginTop: 20, paddingTop: 16, borderTop: "1px solid var(--color-border-ui)",
+          fontSize: 13.5, color: "var(--color-text-body)", lineHeight: 1.7,
         }}>
           {renderSpend(c.spend, {
             spend: spendPerMonth.toLocaleString(locale),
@@ -213,9 +225,9 @@ export function PaybackCalculator({
         </div>
       </div>
 
-      <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginTop: 14 }}>
+      <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", lineHeight: 1.6, marginTop: 16 }}>
         {c.disclaimer}
-        <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#22c55e", textDecoration: "none" }}>{c.methodology}</Link>.
+        <Link href={canonicalPath(locale, "/methodology")} style={{ color: "var(--color-buy)", textDecoration: "none" }}>{c.methodology}</Link>.
       </p>
     </div>
   )
@@ -231,7 +243,7 @@ function renderSpend(template: string, values: Record<string, string>) {
     const key = part.startsWith("{") ? part.slice(1, -1) : null
     if (!key) return <span key={i}>{part}</span>
     return (
-      <strong key={i} style={{ color: key === "pct" ? "#22c55e" : "#eef1f7" }}>
+      <strong key={i} style={{ color: "var(--color-text-primary)" }}>
         {values[key]}
       </strong>
     )
@@ -247,8 +259,8 @@ function Slider({
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
-        <label htmlFor={label} style={{ fontSize: 12.5, color: "#8b99b8" }}>{label}</label>
-        <span style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7" }}>{display}</span>
+        <label htmlFor={label} style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>{label}</label>
+        <span style={{ fontSize: 16, fontWeight: 700, color: "var(--color-text-primary)" }}>{display}</span>
       </div>
       <input
         id={label} type="range" min={min} max={max} step={step} value={value}

@@ -19,20 +19,24 @@ import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 const PLAN_IDS = ["power", "operator", "free"] as const
 type PlanId = (typeof PLAN_IDS)[number]
 
-/** Display names (Pro / Starter) are not the Stripe ids (power / operator).
- *  Unknown and missing still resolve to free — never to the expensive tier.
- *  2026-09-01: three visitors bounced off a default-Pro form. */
-const PLAN_ALIASES: Record<string, PlanId> = {
-  free: "free",
-  operator: "operator",
-  starter: "operator",
-  power: "power",
-  pro: "power",
-}
-
+/** ONLY the real plan ids select a plan. Everything else — missing, unknown,
+ *  or a display name — resolves to free.
+ *
+ *  #50 added a display-name alias map (pro -> power, starter -> operator) so a
+ *  hand-typed "?plan=pro" would land on the tier a human calls Pro. Removed:
+ *  it re-created the incident documented above it. Every CTA in this codebase
+ *  emits an id, never a display name — `grep -rn "plan=" src/` returns only
+ *  plan=free, plan=operator and plan=power — so the alias resolved no link we
+ *  actually ship. What it did resolve was a typed or third-party URL, silently
+ *  upgrading it into the EUR 49 tier: exactly the "landed on a EUR 49 form
+ *  with Free unselected" path that bounced all three visitors on 2026-09-01.
+ *
+ *  The rule is one-directional on purpose. Selecting a cheaper plan than asked
+ *  costs a visitor one click; selecting a dearer one costs us the visitor. */
 function planFromQuery(raw: string | null): PlanId {
   if (!raw) return "free"
-  return PLAN_ALIASES[raw.trim().toLowerCase()] ?? "free"
+  const id = raw.trim().toLowerCase()
+  return (PLAN_IDS as readonly string[]).includes(id) ? (id as PlanId) : "free"
 }
 
 function RegisterContent({ locale }: { locale: Locale }) {

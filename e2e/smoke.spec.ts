@@ -89,10 +89,39 @@ test("login page loads", async ({ page }) => {
   await expect(page.locator('input[type="email"]')).toBeVisible()
 })
 
-test("/pricing redirects to /#pricing", async ({ page }) => {
+// Was "/pricing redirects to /#pricing". That redirect was a stopgap for a
+// 404 and it is gone: /pricing is a real, landable, measurable page now. This
+// test is inverted rather than deleted so the redirect cannot quietly come
+// back — a 307 here is the regression, not the expectation.
+test("/pricing is a real page, not a redirect to the homepage anchor", async ({ request }) => {
+  const res = await request.get("/pricing", { maxRedirects: 0 })
+  expect(res.status()).toBe(200)
+  expect(res.headers()["location"]).toBeUndefined()
+})
+
+test("/pricing renders the tiers with one h1 and exactly one filled accent CTA", async ({ page }) => {
   const res = await page.goto("/pricing")
-  expect(res?.status()).toBeLessThan(400)
-  await expect(page).toHaveURL(/\/#pricing$/)
+  expect(res?.ok()).toBeTruthy()
+  expect(page.url()).toMatch(/\/pricing$/)
+  // The section heading is the document h1 here, not an h2 under the landing
+  // page's own h1.
+  await expect(page.locator("h1")).toHaveCount(1)
+  await expect(page.locator("h1")).toContainText(/Know what to pay/i)
+  // All three tiers and their prices, from the same TIERS source of truth.
+  for (const name of ["Free", "Starter", "Pro"]) {
+    await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
+  }
+  await expect(page.getByText("€49", { exact: true })).toBeVisible()
+  await expect(page.getByText("€19", { exact: true })).toBeVisible()
+  // One filled accent CTA on the page; the other tier buttons are ghosts.
+  const buttons = page.locator("section.riq-pricing button")
+  const filled: string[] = []
+  for (let i = 0; i < (await buttons.count()); i++) {
+    const bg = await buttons.nth(i).evaluate((el) => getComputedStyle(el).backgroundColor)
+    if (bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") filled.push(bg)
+  }
+  expect(filled).toHaveLength(1)
+  expect(filled[0]).toBe("rgb(34, 197, 94)")
 })
 
 test("methodology explains sell-through, buy-below and confidence", async ({ page }) => {
