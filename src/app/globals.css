@@ -33,6 +33,72 @@
   --color-cyan: #06b6d4;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* ── Design tokens: the scales this file never had ──────────────────────────
+     The colour layer above predates these and is NOT restated here — extend it,
+     do not fork it. What follows is the type / space / measure / radius / motion
+     scale from the design source of truth, so every lane sizes and spaces from
+     the same numbers instead of re-guessing a font-size per component.
+
+     Naming: `--text-*` and `--radius-*` are Tailwind v4 namespaces, so these
+     also become `text-h1-marketing` / `rounded-card` utilities. `--space-*`,
+     `--measure-*`, `--width-*` and `--motion-*` are deliberately NOT the
+     `--spacing-*` namespace: redefining that would silently resize every
+     existing `p-4`/`gap-2` in the app. They are emitted as plain custom
+     properties and read with `var()`, which is how this codebase styles. */
+
+  /* TYPE — system-ui/SF/Inter. Tight tracking on the marketing H1 only. */
+  --text-h1-marketing: 56px;          /* 40–64 desktop */
+  --text-h1-marketing-sm: 38px;       /* 36–40 mobile */
+  --text-h1-app: 30px;                /* 28–34 */
+  --text-title: 22px;                 /* 20–24 */
+  --text-body-marketing: 18px;        /* 17–21 */
+  --text-body-app: 16px;              /* 15–17 */
+  --text-meta: 13px;                  /* 12–14, medium, muted */
+  --tracking-h1: -0.022em;
+  --leading-h1: 1.06;
+
+  /* MEASURE — a line length is a design constraint, not a side effect. */
+  --measure-h1: 24ch;                 /* 20–28ch */
+  --measure-body: 65ch;
+
+  /* SPACE — 8pt grid. */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+  --space-12: 96px;
+  --space-16: 128px;
+  --space-section-y: 96px;            /* marketing section Y: 80–128 */
+  --space-card-pad: 20px;             /* card padding: 16–24 */
+  --space-gutter: 20px;               /* mobile gutter: 16–20 */
+
+  /* WIDTH */
+  --width-marketing: 1040px;          /* 980–1080 */
+  --width-hero: 1120px;               /* hero <= 1120 */
+
+  /* RADIUS */
+  --radius-card: 14px;                /* 12–16 */
+  --radius-control: 12px;             /* buttons 10–12 */
+  --radius-pill: 980px;
+
+  /* MOTION — opacity and transform only, never layout. */
+  --motion-fast: 150ms;
+  --motion-base: 200ms;
+  --motion-slow: 250ms;
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* COLOUR — additions only. The hairline and the ONE accent had no name, so
+     every component hardcoded them; `--color-accent` aliases the existing
+     green rather than introducing a second one. */
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-accent: #22c55e;
+  --color-on-accent: #06090c;
+  --color-text-dim: rgba(232, 236, 244, 0.62);   /* muted body: 56–64% */
 }
 
 /* This reset MUST live in @layer base. Left unlayered it outranks every Tailwind
