@@ -265,3 +265,58 @@ test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", 
     await expect(page.getByText("BUY", { exact: true })).toBeVisible()
   })
 })
+
+test.describe("P0 — DATA TRUTH on the public verdict card", () => {
+  // Incident: every BUY the live catalogue issues comes from
+  // api/routes.py `_provisional_verdict` — a call resting on momentum, speed
+  // and sold prices alone, with sell-through still maturing. The server has
+  // always sent `provisional: true` on the anonymous payload, and this card
+  // was the one verdict surface that dropped it, printing a bare
+  // "BUY · Confidence MEDIUM" over a call the API never settled. The
+  // authenticated /verdict card has shown it since it shipped.
+  test("a provisional call says so — the public card never presents it as settled", async ({ page }) => {
+    const body = await (await search(page, "Nike Air Force 1 Low")).json()
+    expect(body.provisional, "fixture must exercise the provisional path").toBe(true)
+    expect(body.verdict).toBe("BUY")
+
+    await expect(page.getByText("BUY", { exact: true })).toBeVisible()
+    await expect(
+      page.getByText(/provisional/i),
+      "a provisional verdict must be labelled provisional on the public card",
+    ).toBeVisible()
+  })
+
+  // Incident: `sold_7d ?? n`. `n` is comparable_n — the fenced subset of clean
+  // comps the price and confidence band are computed from — NOT a departure
+  // count. The fallback put it under the "Left shelf (watched)" label and into
+  // "N left the shelf vs M still listed", answering a different question than
+  // the label asks. Live Samba is 43 departures against 20 comparables; the
+  // fixture keeps them distinct (48 vs 20) so a swap cannot pass.
+  test("the departures count is sold_7d, never the comparable count n", async ({ page }) => {
+    const body = await (await search(page, "Adidas Samba")).json()
+    expect(body.sold_7d).not.toEqual(body.n) // the fixture must be able to tell them apart
+
+    const departures = String(body.sold_7d)
+    const comparables = String(body.n)
+
+    await expect(
+      page.getByText(new RegExp(`${departures} left the shelf`, "i")),
+      "the sample sentence must count watched departures (sold_7d)",
+    ).toBeVisible()
+    await expect(
+      page.getByText(new RegExp(`\\b${comparables} left the shelf`, "i")),
+      "comparable_n must never be rendered as a departures count",
+    ).toHaveCount(0)
+  })
+
+  // Incident: a real non-zero sell-through printing as "0%". Anonymous callers
+  // get the rate withheld entirely, so the assertion the PUBLIC card can carry
+  // is the stronger one — a withheld rate is a lock, and "0%" appears nowhere
+  // on the card at all. The formatter's own boundaries are pinned as a unit
+  // spec in src/lib/str-pct.test.ts (npm run test:unit).
+  test("no sell-through slot ever reads 0%", async ({ page }) => {
+    await search(page, "Adidas Samba")
+    await expect(page.getByTestId("riq-locked-stat")).toBeVisible()
+    await expect(page.getByText(/\b0(\.0)?%/)).toHaveCount(0)
+  })
+})

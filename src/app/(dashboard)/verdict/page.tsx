@@ -93,12 +93,23 @@ function VerdictInner() {
   const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
   const opportunityState = fieldState(result?.opportunity_score, result?.locked_fields, "opportunity_score")
   const MomIcon = result?.momentum ? (MOMENTUM_ICON[result.momentum] ?? Minus) : Minus
+  // TWO REAL COUNTS, NEVER INTERCHANGEABLE — and this card shows both, so each
+  // has to be the right one under its own label:
+  //   sold_7d — every watched departure in the window (Samba: 43). What the
+  //             sample sentence below counts.
+  //   n       — `comparable_n`, the fenced subset of clean comps the price and
+  //             the confidence band are computed from (Samba: 20). What the
+  //             "n" beside the exit price counts, and what confidence_note
+  //             quotes ("Only 20 watched departures").
+  // The `??` fallbacks that used to be on both lines let each render the other
+  // one under its own label. Nothing substitutes for a missing count now: the
+  // line just does not render.
   const sampleNote = result
-    ? watchedSampleNote(result.sold_7d ?? result.n, result.active_listings, result.verdict, locale)
+    ? watchedSampleNote(result.sold_7d, result.active_listings, result.verdict, locale)
     : null
   const honestyNote = sampleNote
-    || (result?.confidence === "LOW" && (result.n ?? result.sold_7d) != null
-      ? `Only ${result.n ?? result.sold_7d} comparable departures`
+    || (result?.confidence === "LOW" && result.n != null
+      ? `Only ${result.n} comparable departures`
       : null)
 
   return (
@@ -232,7 +243,10 @@ function VerdictInner() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
                   <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
-                  <Metric label={t.avgAtExit} value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
+                  {/* n here is comparable_n, not sold_7d — see the sampleNote
+                      comment above. nKind makes the tooltip say which, because
+                      the sample sentence on this same card quotes the other. */}
+                  <Metric label={t.avgAtExit} value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n} nKind="comparable" />} />
                   {result.sell_through_rate
                     ? <Metric label={t.sellThrough} value={result.sell_through_rate} />
                     : <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
