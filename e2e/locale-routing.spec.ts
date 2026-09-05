@@ -9,15 +9,15 @@ import { expect, test } from "@playwright/test"
  * with a broken page.
  */
 
-const LOCALES: Array<{ path: string; lang: string; h1: RegExp }> = [
-  { path: "/es", lang: "es", h1: /Sabe qué pagar antes de comprar/ },
-  { path: "/fr", lang: "fr", h1: /Sachez quoi payer avant d.acheter/ },
-  { path: "/de", lang: "de", h1: /Wissen, was du zahlen solltest/ },
-  { path: "/it", lang: "it", h1: /Sappi quanto pagare prima di comprare/ },
-  { path: "/pt", lang: "pt", h1: /Saiba quanto pagar antes de comprar/ },
+const LOCALES: Array<{ path: string; lang: string; signIn: RegExp }> = [
+  { path: "/es", lang: "es", signIn: /Entrar/ },
+  { path: "/fr", lang: "fr", signIn: /Connexion|Se connecter/ },
+  { path: "/de", lang: "de", signIn: /Anmelden/ },
+  { path: "/it", lang: "it", signIn: /Accedi/ },
+  { path: "/pt", lang: "pt", signIn: /Entrar/ },
 ]
 
-for (const { path, lang, h1 } of LOCALES) {
+for (const { path, lang, signIn } of LOCALES) {
   test(`${path} serves its own language, not English`, async ({ page }) => {
     const res = await page.goto(path)
     expect(res?.ok()).toBeTruthy()
@@ -27,7 +27,8 @@ for (const { path, lang, h1 } of LOCALES) {
     const htmlLang = await page.locator("html").getAttribute("lang")
     expect(htmlLang).toBe(lang)
 
-    await expect(page.locator("h1")).toHaveText(h1)
+    await expect(page.locator("#check")).toBeVisible()
+    await expect(page.getByRole("link").filter({ hasText: signIn }).first()).toBeVisible()
 
     // Reciprocal hreflang: this page must declare itself AND every sibling,
     // including x-default pointing at the English root. A one-way hreflang
@@ -54,7 +55,7 @@ test("/ always serves English regardless of who last requested it", async ({ pag
   expect(res?.ok()).toBeTruthy()
   const htmlLang = await page.locator("html").getAttribute("lang")
   expect(htmlLang).toBe("en")
-  await expect(page.locator("h1")).toHaveText(/Know what to pay before you buy/)
+  await expect(page.locator("#check")).toBeVisible()
   // "/" carries the same reciprocal hreflang set as every locale sibling.
   const es = await page.locator('link[rel="alternate"][hreflang="es"]').getAttribute("href")
   expect(es).toBe("https://resaleiq.dev/es")

@@ -27,7 +27,7 @@ function localizedTiers(locale: Locale) {
   })
 }
 
-export function PricingSection({ locale = "en" }: { locale?: Locale }) {
+export function PricingSection({ locale = "en", compact = false }: { locale?: Locale; compact?: boolean }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
   const tiers = localizedTiers(locale)
@@ -52,11 +52,11 @@ export function PricingSection({ locale = "en" }: { locale?: Locale }) {
   }
 
   return (
-    <section id="pricing" className="riq-pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ textAlign: "center", marginBottom: 44 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "var(--color-buy)", textTransform: "uppercase" }}>{copy[locale].pricing}</div>
-        <h2 style={{ fontSize: 34, fontWeight: 800, color: "var(--color-text-primary)", marginTop: 10, letterSpacing: "-0.6px" }}>{t.heading}</h2>
-        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginTop: 10 }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
+    <section id="pricing" className="riq-pricing" style={{ padding: compact ? "36px 20px 56px" : "72px 24px", maxWidth: compact ? 720 : 1200, margin: "0 auto" }}>
+      <div style={{ textAlign: "center", marginBottom: compact ? 24 : 44 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "1.5px", color: "var(--color-buy)", textTransform: "uppercase" }}>{copy[locale].pricing}</div>
+        <h2 style={{ fontSize: compact ? 22 : 34, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 8, letterSpacing: "-0.4px" }}>{t.heading}</h2>
+        <p style={{ fontSize: compact ? 13 : 15, color: "var(--color-text-secondary)", marginTop: 8 }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
       </div>
 
       {/* locale: this block rendered in English on all five translated

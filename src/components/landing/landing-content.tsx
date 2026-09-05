@@ -4,18 +4,18 @@ import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { SocialLinks } from "@/components/layout/social-links"
-import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
+import type { HeroVerdict } from "@/lib/hero-verdict"
 import { canonicalPath } from "@/lib/locale-routes"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
 /**
- * Apple-style v1 landing: one job, huge type, whitespace, one primary action.
- * Feature grids, extension hero and the two-column "generated SaaS" stack are
- * gone. Pricing stays below the fold so /pricing → /#pricing still resolves.
- * #check is the e2e hook for the free checker (i18n-checker, locale-routing).
+ * Landing v2 — the product is the object of desire, not a SaaS brochure.
+ * First screen: live Adidas Samba WATCH (real /api/verdict) + search.
+ * One short line. Pricing calculator and tiers sit below the fold, smaller.
+ * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).
  */
 export function LandingContent({
   t,
@@ -23,12 +23,16 @@ export function LandingContent({
   tracked,
   trackedExact,
   market,
+  heroQuery,
+  heroResult,
 }: {
   t: Dict
   locale: Locale
   tracked: string
   trackedExact: string | null
   market: MarketNumbers
+  heroQuery: string
+  heroResult: HeroVerdict | null
 }) {
   void tracked
   void trackedExact
@@ -36,9 +40,9 @@ export function LandingContent({
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
-      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 32px", maxWidth: 980, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
+      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", maxWidth: 720, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
         <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
-          <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.3px" }}>Resale IQ</span>
+          <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.3px" }}>Resale IQ</span>
         </Link>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <LocaleSwitcher locale={locale} />
@@ -47,22 +51,21 @@ export function LandingContent({
       </nav>
 
       <main id="main">
-        <section className="riq-apple-hero" style={{ maxWidth: 720, margin: "0 auto", padding: "96px 24px 80px", textAlign: "center" }}>
-          <h1 style={{ fontSize: "clamp(42px, 8vw, 84px)", fontWeight: 700, letterSpacing: "-2.8px", lineHeight: 1.02, margin: 0 }}>
-            {t.heroTitle}
+        <section className="riq-apple-hero" style={{ maxWidth: 560, margin: "0 auto", padding: "28px 16px 48px" }}>
+          <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.8px", lineHeight: 1.15, margin: "0 0 16px" }}>
+            {heroResult?.product ?? "Resale IQ"}
           </h1>
-          <p style={{ fontSize: 19, color: "#8b99b8", margin: "22px auto 0", lineHeight: 1.45, maxWidth: 520 }}>
-            {t.heroBody}
-          </p>
-          <div id="check" style={{ marginTop: 48, textAlign: "left" }}>
-            <FreeChecker locale={locale} variant="hero" />
+          <div id="check" style={{ textAlign: "left" }}>
+            <FreeChecker
+              locale={locale}
+              variant="hero"
+              initialQuery={heroQuery}
+              initialResult={heroResult}
+            />
           </div>
-          <p style={{ fontSize: 13, color: "#5b6b8c", marginTop: 18, lineHeight: 1.5 }}>
-            {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
-          </p>
         </section>
 
-        <PricingSection locale={locale} />
+        <PricingSection locale={locale} compact />
       </main>
 
       <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "#5b6b8c", fontSize: 12 }}>
