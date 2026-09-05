@@ -18,29 +18,32 @@ import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 const PLAN_IDS = ["power", "operator", "free"] as const
 type PlanId = (typeof PLAN_IDS)[number]
 
+/** Display names (Pro / Starter) are not the Stripe ids (power / operator).
+ *  Unknown and missing still resolve to free — never to the expensive tier.
+ *  2026-09-01: three visitors bounced off a default-Pro form. */
+const PLAN_ALIASES: Record<string, PlanId> = {
+  free: "free",
+  operator: "operator",
+  starter: "operator",
+  power: "power",
+  pro: "power",
+}
+
+function planFromQuery(raw: string | null): PlanId {
+  if (!raw) return "free"
+  return PLAN_ALIASES[raw.trim().toLowerCase()] ?? "free"
+}
+
 function RegisterContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.register
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const searchParams = useSearchParams()
-  // Default to the plan the CTA asked for. "free" must be honoured or the free
-  // CTAs silently upsell, which is both a broken funnel and a bait-and-switch.
   const requested = searchParams.get("plan")
-  // An UNSPECIFIED plan now defaults to FREE, not to the most expensive tier.
-  //
-  // It defaulted to "power" (Pro, EUR 49/mo), which made this file contradict
-  // its own comment above. Measured consequence, 2026-09-01: the only CTA on
-  // every free check result passed no plan, so three real visitors who clicked
-  // "Unlock the rest" from a FREE tool landed on a 49 EUR/mo form with Pro
-  // pre-selected and Free unselected third of three. All three bounced; zero
-  // signups. It also surfaced the EU withdrawal waiver by default, because that
-  // only shows for a paid plan.
-  //
-  // A CTA that means Pro must now say so with ?plan=operator. Silence must
-  // never resolve to the most expensive option -- that is the bait-and-switch
-  // this file already named and then implemented.
-  const [plan, setPlan] = useState<PlanId>(
-    requested === "operator" || requested === "power" ? requested : "free")
+  const [plan, setPlan] = useState<PlanId>(() => planFromQuery(requested))
+  useEffect(() => {
+    setPlan(planFromQuery(searchParams.get("plan")))
+  }, [searchParams])
   const [tos, setTos] = useState(false)
   // Separate from `tos` on purpose — EU law requires express, standalone consent
   // to waive the 14-day withdrawal right for immediately-delivered digital goods.
