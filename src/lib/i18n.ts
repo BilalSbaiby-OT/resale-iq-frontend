@@ -940,7 +940,7 @@ export const copy = {
       leftShelf: "Salidas (observadas)",
       stillListed: "Aún en venta",
       sellThrough: "Tasa de venta",
-      planLabel: "Plan",
+      planLabel: "Tarifa",
       limitReachedLabel: "LÍMITE ALCANZADO",
       confidenceLabel: "Confianza",
       brandCategoriesIntro: (brand: string, categories: string) =>

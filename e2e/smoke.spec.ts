@@ -44,27 +44,18 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
   await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)
   await expect(hero.getByRole("link", { name: /sign in/i })).toHaveCount(0)
-  // Remaining unlock (gated sell-through tile) still registers Free, never Pro bait.
+  // E-13: gated sell-through on the fold is lock + field name, NOT a Plan/
+  // Unlock CTA. The register route lives on /tools, not in this grid.
   const locked = hero.getByTestId("riq-locked-stat")
   await expect(locked).toBeVisible()
-  await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
+  await expect(locked).not.toHaveAttribute("href")
   await expect(hero.getByText(/Sell-through/i)).toBeVisible()
   await expect(hero.locator("[data-locked-field=sell_through_rate]")).not.toContainText("0%")
-  // QUIET, BUT STILL UNMISTAKABLY GATED. The tile keeps its label and its
-  // plan word so it reads as locked rather than as a bare dash (the P0 in
-  // src/lib/locked-fields.ts), and it keeps routing ?plan=free — but the
-  // green inline "Unlock the rest →" line is gone from above the fold.
-  await expect(locked).toContainText(/Plan/i)
+  await expect(locked).not.toContainText(/Plan/i)
+  await expect(locked).not.toContainText(/Unlock/i)
   await expect(locked).not.toContainText("—")
-  await expect(locked).not.toContainText(/Unlock the rest/i)
-  const unlocks = hero.locator('a[href*="/register"]')
-  const n = await unlocks.count()
-  expect(n).toBeGreaterThan(0)
-  for (let i = 0; i < n; i++) {
-    await expect(unlocks.nth(i)).toHaveAttribute("href", /plan=free/)
-    await expect(unlocks.nth(i)).not.toHaveAttribute("href", /plan=pro/)
-  }
-})
+  await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
+}
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
