@@ -9,6 +9,7 @@ import type { WatchlistItem } from "@/types"
 import Link from "next/link"
 import { Lock } from "lucide-react"
 import { MedianN } from "@/components/ui/median-n"
+import { formatStrPct } from "@/lib/str-pct"
 
 export default function WatchlistPage() {
   const [items, setItems] = useState<WatchlistItem[]>([])
@@ -97,7 +98,12 @@ export default function WatchlistPage() {
                 <div className="bg-[#1a2030] rounded-lg p-2">
                   <div className="text-[9px] font-mono text-[#546380] uppercase">STR</div>
                   <div className="font-mono font-bold text-[13px] mt-0.5 text-amber-400">
-                    {locked ? <Lock size={11} className="text-[#546380]" /> : (item.str_pct != null ? `${item.str_pct.toFixed(0)}%` : "—")}
+                    {/* WAS toFixed(0), which printed "0%" for every rate under
+                        0.5 — 4 of the 24 models with a publishable rate in
+                        production (Samba 0.19%, AF1 0.38%, NB 9060 0.39%,
+                        501 0.10%). "0%" reads as "no demand" on an item that
+                        had 43 departures that week. src/lib/str-pct.ts. */}
+                    {locked ? <Lock size={11} className="text-[#546380]" /> : (formatStrPct(item.str_pct) ?? "—")}
                   </div>
                 </div>
               </div>

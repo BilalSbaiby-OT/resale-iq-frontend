@@ -16,6 +16,7 @@ import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
 import { isFieldLocked } from "@/lib/locked-fields"
+import { formatStrPct } from "@/lib/str-pct"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /** Customer-facing strings must never say "sold". API labels still do. */
@@ -219,7 +220,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                       <MomentumBadge momentum={d.momentum_label} />
                       {strLive
-                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.str_pct != null ? `${d.str_pct.toFixed(1)}% STR` : t.strDash}</span>
+                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{formatStrPct(d.str_pct) ? `${formatStrPct(d.str_pct)} STR` : t.strDash}</span>
                         : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? t.leftShelfCount(d.sold_7d.toLocaleString()) : ""}</span>}
                     </div>
                     <SizePills sizes={d.top_sizes ?? []} />

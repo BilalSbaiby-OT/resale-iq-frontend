@@ -6,10 +6,12 @@ import { Lock, Search, Loader2 } from "lucide-react"
 import { watchedSampleNote } from "@/lib/watched-sample"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
+import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
 import { ModelChips } from "@/components/tools/model-chips"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
+import { formatStrPct } from "@/lib/str-pct"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -45,6 +47,10 @@ interface FreeVerdict {
   active_listings?: number | null
   confidence?: string
   confidence_note?: string
+  // True when the call rests on momentum, speed and sold prices alone because
+  // sell-through history is still maturing (api/routes.py `_provisional_verdict`).
+  // The server has always sent this on the anonymous payload (`_gate` passes it
+  // through); this card was the one verdict surface that never rendered it.
   provisional?: boolean | null
   sell_through_rate?: string | null
   top_sizes?: string[]
@@ -101,14 +107,25 @@ function money(n: number | null | undefined) {
   return n != null && Number.isFinite(n) ? `€${Math.round(n)}` : "—"
 }
 
-/** Sell-through copy. Null is not 0%. A non-zero rate must never round to "0%". */
+/**
+ * The server sends sell-through as an already-formatted STRING, so this card
+ * re-derives the number and re-applies the one shared rule (src/lib/str-pct.ts)
+ * rather than trusting the spelling it arrived in.
+ *
+ * This replaces a local formatter that could not fix the bug it was written
+ * for: it returned `raw` unchanged when the parsed value was 0, so the two
+ * spellings that actually reach a customer as a falsehood — "0%" and "0.0%" —
+ * were the exact two it passed straight through. It also duplicated a rule
+ * that has to hold identically on five other surfaces.
+ *
+ * A string that is not a percentage at all (already "<0.1%", or copy the
+ * backend changed) is passed through untouched — inventing a number from an
+ * unparseable string would be worse than showing what the server said.
+ */
 function formatSellThrough(raw: string): string {
   const m = raw.trim().match(/^(-?[\d.]+)\s*%$/)
   if (!m) return raw
-  const v = Number(m[1])
-  if (!Number.isFinite(v) || v === 0) return raw
-  if (Math.abs(v) < 1) return `${v.toFixed(1)}%`
-  return raw
+  return formatStrPct(Number(m[1])) ?? raw
 }
 
 // The catalogue is 26 brands, model-level, sneaker/streetwear-coded — not
@@ -191,7 +208,20 @@ export function FreeChecker({
   }
 
   const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "#8b99b8") : "#8b99b8"
-  const sold = res?.sold_7d ?? res?.n
+  // WATCHED DEPARTURES ONLY. This was `res.sold_7d ?? res.n`, and `n` is NOT a
+  // departure count — it is `comparable_n`, the fenced subset of clean comps the
+  // confidence band and the price stats are computed from (api/routes.py
+  // `_verdict_display_n`). Production, Adidas Samba: sold_7d 43, n 20. The
+  // fallback therefore put the comparable count under the "Left shelf (watched)"
+  // label and inside "N left the shelf vs M still listed" — a real number
+  // answering a different question than the label asks.
+  //
+  // No substitute is honest here, so there is none: when sold_7d is absent the
+  // tile and the sample sentence simply do not render. (Live check 2026-09-05:
+  // 0 of 100 catalogue rows have a null/0 sold_7d with a positive comparable_n,
+  // so this fallback was never firing in production — it was a latent mislabel,
+  // removed before it could.)
+  const sold = res?.sold_7d
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
   // Gated / present / genuinely unmeasured — three states, never collapsed
@@ -488,10 +518,33 @@ export function FreeChecker({
                 <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
                   {label}
                 </span>
+                {/* PROVISIONAL IS PART OF THE CALL, NOT A FOOTNOTE. A provisional
+                    verdict rests on momentum and price only, with sell-through
+                    still maturing (api/routes.py `_provisional_verdict`), and it
+                    is what the public checker returns for every BUY in the
+                    catalogue today — production 2026-09-05: Nike Air Force 1 Low,
+                    Gucci Rhyton/Ace/Dionysus, Levi's 512 all `provisional: true`.
+                    The authenticated /verdict card has always shown this
+                    ((dashboard)/verdict/page.tsx); this one printed a bare "BUY ·
+                    Confidence MEDIUM" over the same payload, which claims a
+                    settled verdict the API did not issue.
+                    Copy is reused from verdictCopy, already translated in all six
+                    locales — not re-invented in i18n.ts's checker dictionary.
+
+                    NO BARE "· n=11" CHIP HERE. #53 added one to keep a thin
+                    sample visible next to BUY — right goal, wrong instrument.
+                    `n` is comparable_n; `sold_7d` is watched departures; on
+                    AF1 Low they are 11 and 20. The chip put the first, with no
+                    label, two lines above "20 left the shelf" — two departure
+                    counts to a reseller, one of which is unexplained, and a
+                    silent restatement of the confidence_note directly beneath
+                    it ("Only 11 watched departures"). That note is rendered
+                    unconditionally below and says the same thing WITH a label,
+                    so #53's intent survives and the ambiguity does not. */}
                 <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
                   {res.category ? `${res.category} · ` : ""}
                   {res.confidence ? `${t.confidenceLabel} ${res.confidence}` : ""}
-                  {res.n != null && Number.isFinite(res.n) ? ` · n=${res.n}` : ""}
+                  {res.provisional ? `${res.confidence ? " · " : ""}${verdictCopy[locale].provisional}` : ""}
                 </div>
               </div>
 

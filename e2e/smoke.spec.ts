@@ -20,8 +20,12 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Air Force 1 Low/)
   await expect(hero).not.toContainText(/Adidas Samba/)
   await expect(hero.getByText("BUY", { exact: true })).toBeVisible()
-  await expect(hero.getByText(/Only 11 watched departures/i)).toBeVisible()
-  await expect(hero.getByText(/n=11/)).toBeVisible()
+  // The thin sample stays visible next to BUY (#53's point), but as the LABELLED
+  // note rather than a bare "n=11" chip: 11 is comparable_n, 20 is sold_7d, and
+  // the card prints "20 left the shelf" two lines further down. An unlabelled 11
+  // beside a labelled 20 reads as one departure count contradicting itself.
+  await expect(hero.getByText(/Only 11 comparable departures/i)).toBeVisible()
+  await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
   await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)

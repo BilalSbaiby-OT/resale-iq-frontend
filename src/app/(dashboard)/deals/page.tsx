@@ -10,7 +10,8 @@ import { LiveDealsModal } from "@/components/ui/live-deals-modal"
 import { MedianN } from "@/components/ui/median-n"
 import { getDeals, addToWatchlist, getBatchPriceHistory } from "@/lib/api"
 import type { PricePoint } from "@/lib/api"
-import { eur, pct } from "@/lib/utils"
+import { eur } from "@/lib/utils"
+import { formatStrPct } from "@/lib/str-pct"
 import type { Deal } from "@/types"
 import { Star } from "lucide-react"
 import type { ReactNode } from "react"
@@ -144,7 +145,9 @@ function DealsContent() {
                   { label: "Avg at exit", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
                   { label: "Target net", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400", title: "Buy-below is 70% of the fee-adjusted asking price at departure. This is that gap, not a forecast." },
                   d.str_pct != null
-                    ? { label: "Sell-through", value: pct(d.str_pct), color: "" }
+                    // pct() is the generic 1dp formatter (ROI, margins). Sell-through
+                    // has its own floor rule so a sub-0.1pp share never reads "0.0%".
+                    ? { label: "Sell-through", value: formatStrPct(d.str_pct) ?? "—", color: "" }
                     : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
                 ].map((cell: { label: string; value: ReactNode; color: string; title?: string }) => (
                   <div key={cell.label} className="bg-[#1a2030] rounded-lg p-2" title={cell.title}>

@@ -95,7 +95,10 @@ const VERDICT_CATALOG = {
     product: "Nike Air Force 1 Low",
     category: "Sneakers",
     confidence: "MEDIUM",
-    confidence_note: "Only 11 watched departures",
+    // "comparable", not "watched": the note describes comparable_n (11), while
+    // sold_7d (20) is the watched-departure count the card renders separately.
+    // Mirrors api/routes.py `_verdict_confidence` — keep the two in step.
+    confidence_note: "Only 11 comparable departures",
     n: 11,
     sold_7d: 20,
     active_listings: 1167,
