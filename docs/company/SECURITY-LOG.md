@@ -1441,3 +1441,10 @@ git add docs/company/SESSION.md dashb`
 - `2026-09-05T14:07:45Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: guard blocks from the post-rebuild check
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | wc -l | `
+- `2026-09-05T14:27:29Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SESSION.md docs/company/heartbeat-history.jsonl && git commit -q -m "check: the dashboard claims the goal is achieved at EUR 0 MRR
+
+The OpenClaw Control UI shows in green with a tick: 'Goal achieved -- Take over
+Resale IQ operations and hit `
+- `2026-09-05T14:27:48Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: guard blocks from the 2026-09-05 check
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | grep -v "^`
