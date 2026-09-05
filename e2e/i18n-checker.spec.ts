@@ -66,6 +66,15 @@ interface LocaleFixture {
   registerSubmit: string
   registerEmailLabel: string
   registerPasswordLabel: string
+  // src/lib/verdict-words.ts — the three English orphans caught on the live
+  // /es hero at 390px on 2026-09-05: the verdict word itself ("BUY"), the
+  // confidence band beside an already-translated label ("Confianza MEDIUM"),
+  // and the catalogue category ("Sneakers"). Plus the backend-owned
+  // confidence note, which is English prose the frontend re-states itself.
+  verdictBuy: string
+  confidenceMedium: string
+  categorySneakers: string
+  confidenceNoteFew: RegExp
 }
 
 const LOCALES: Record<string, LocaleFixture> = {
@@ -91,6 +100,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     registerSubmit: "Créer le compte",
     registerEmailLabel: "E-mail",
     registerPasswordLabel: "Mot de passe",
+    verdictBuy: "ACHETER",
+    confidenceMedium: "MOYENNE",
+    categorySneakers: "Sneakers",
+    confidenceNoteFew: /Seulement 11 départs comparables/,
   },
   es: {
     ctxLocale: "es-ES",
@@ -114,6 +127,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     registerSubmit: "Crear cuenta",
     registerEmailLabel: "Correo electrónico",
     registerPasswordLabel: "Contraseña",
+    verdictBuy: "COMPRA",
+    confidenceMedium: "MEDIA",
+    categorySneakers: "Zapatillas",
+    confidenceNoteFew: /Solo 11 salidas comparables/,
   },
   de: {
     ctxLocale: "de-DE",
@@ -137,6 +154,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     registerSubmit: "Konto erstellen",
     registerEmailLabel: "E-Mail",
     registerPasswordLabel: "Passwort",
+    verdictBuy: "KAUFEN",
+    confidenceMedium: "MITTEL",
+    categorySneakers: "Sneaker",
+    confidenceNoteFew: /Nur 11 vergleichbare Abgänge/,
   },
   it: {
     ctxLocale: "it-IT",
@@ -160,6 +181,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     registerSubmit: "Crea account",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Password",
+    verdictBuy: "COMPRA",
+    confidenceMedium: "MEDIA",
+    categorySneakers: "Sneakers",
+    confidenceNoteFew: /Solo 11 uscite comparabili/,
   },
   pt: {
     ctxLocale: "pt-PT",
@@ -183,6 +208,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     registerSubmit: "Criar conta",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Palavra-passe",
+    verdictBuy: "COMPRAR",
+    confidenceMedium: "MÉDIA",
+    categorySneakers: "Ténis",
+    confidenceNoteFew: /Apenas 11 saídas comparáveis/,
   },
 }
 
@@ -228,6 +257,39 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(checker.getByText(l.marketPrice, { exact: true })).toBeVisible()
       await expect(checker.getByText("Buy-below", { exact: true })).toHaveCount(0)
       await expect(checker.getByText("Market price", { exact: true })).toHaveCount(0)
+    })
+
+    // The three orphans an external review found on the live /es hero at 390px,
+    // 2026-09-05: a 26px green "BUY", "Confianza MEDIUM" and "Sneakers", all
+    // English inside a fully translated Spanish card — plus the amber
+    // "Only 11 watched departures" underneath it. "Nike Air Force 1 Low" is
+    // the fixture that reproduces all four at once (BUY / MEDIUM / Sneakers /
+    // an "Only N" note), which is why it stayed in the mock catalogue after
+    // being retired as the hero seed.
+    test(`the verdict word, confidence band, category and note render in ${locale}, not English`, async ({ page }) => {
+      await gotoHomepage(page)
+      const response = await search(page, "Nike Air Force 1 Low")
+      const body = await response.json()
+      expect(body.verdict).toBe("BUY")
+      expect(body.confidence).toBe("MEDIUM")
+
+      const checker = page.locator("#check")
+      await expect(checker.getByText(l.verdictBuy, { exact: true })).toBeVisible()
+      await expect(checker).toContainText(l.confidenceMedium)
+      await expect(checker).toContainText(l.categorySneakers)
+      await expect(checker).toContainText(l.confidenceNoteFew)
+
+      // ...and the English source strings are gone. A new untranslated verdict
+      // word goes red here instead of shipping onto the homepage quietly.
+      await expect(checker.getByText("BUY", { exact: true })).toHaveCount(0)
+      await expect(checker).not.toContainText("Confidence MEDIUM")
+      await expect(checker).not.toContainText("Only 11 comparable departures")
+      await expect(checker).not.toContainText("Only 11 watched departures")
+      // fr and it genuinely use "Sneakers" as the native word, so an absence
+      // assertion there would be asserting a translation we did not make.
+      if (l.categorySneakers !== "Sneakers") {
+        await expect(checker).not.toContainText(/\bSneakers\b/)
+      }
     })
 
     test(`the INSUFFICIENT_DATA refusal renders in ${locale}, not the English default`, async ({ page }) => {

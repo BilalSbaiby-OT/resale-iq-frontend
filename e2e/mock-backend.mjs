@@ -87,9 +87,31 @@ const VERDICT_CATALOG = {
     months_supply: 0.6,
     data_quality: 80,
   },
-  // Homepage hero seed. Mirrors production 2026-09-05: BUY / MEDIUM /
-  // provisional / n=11 / buy-below €56.95. No sell-through — anon ST is
-  // locked/null. Do not copy a fake rate onto this row.
+  // Homepage hero seed. Mirrors production 2026-09-05 19:2xZ exactly:
+  // WATCH / HIGH / NOT provisional / comparable n=153 / sold_7d 562 /
+  // buy-below €26.59 against a €39.98 market. `confidence_note` is genuinely
+  // null on this row — n=153 clears the 30-comparable band, so there is no
+  // "only N" caveat to render. No sell-through: anon ST is locked/null. Do not
+  // copy a fake rate onto this row, and do not "upgrade" the verdict to BUY —
+  // src/lib/hero-verdict.ts has the enumeration showing no honest BUY exists.
+  "new balance 530": {
+    verdict: "WATCH",
+    product: "New Balance 530",
+    category: "Sneakers",
+    confidence: "HIGH",
+    confidence_note: null,
+    n: 153,
+    sold_7d: 562,
+    active_listings: 100695,
+    buy_below: 26.59,
+    sell_avg: 39.98,
+    sell_median: 40.0,
+    provisional: null,
+  },
+  // The PREVIOUS hero seed, kept as an ordinary row: it is still the fixture
+  // that exercises the thin-provisional-BUY rendering path (provisional flag,
+  // an "Only N" confidence note, and a comparable count that differs from
+  // sold_7d — 11 vs 20).
   "nike air force 1 low": {
     verdict: "BUY",
     product: "Nike Air Force 1 Low",

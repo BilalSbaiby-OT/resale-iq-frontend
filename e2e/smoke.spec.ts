@@ -15,17 +15,32 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
   await expect(hero.getByText(/EU Vinted resellers/i)).toBeVisible()
-  // Seed is the live BUY SKU, not Adidas Samba WATCH.
-  await expect(hero.getByRole("textbox")).toHaveValue("Nike Air Force 1 Low")
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Air Force 1 Low/)
-  await expect(hero).not.toContainText(/Adidas Samba/)
-  await expect(hero.getByText("BUY", { exact: true })).toBeVisible()
-  // The thin sample stays visible next to BUY (#53's point), but as the LABELLED
-  // note rather than a bare "n=11" chip: 11 is comparable_n, 20 is sold_7d, and
-  // the card prints "20 left the shelf" two lines further down. An unlabelled 11
-  // beside a labelled 20 reads as one departure count contradicting itself.
-  await expect(hero.getByText(/Only 11 comparable departures/i)).toBeVisible()
+  // Seed is the best-EVIDENCED live row, not the best-sounding word. It was
+  // Nike Air Force 1 Low (#53) — a BUY, but a provisional one on n=11
+  // comparables. No non-provisional BUY exists anywhere in the catalogue, so
+  // the hero shows a HIGH-confidence WATCH on n=153 instead. The enumeration
+  // that establishes that is in src/lib/hero-verdict.ts.
+  await expect(hero.getByRole("textbox")).toHaveValue("New Balance 530")
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/New Balance 530/)
+  await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
+  // The seed must never be a provisional call again. #54 renders the
+  // provisional badge honestly wherever it applies; the point here is that
+  // the FACE of the product is not a call the API hedged.
+  await expect(hero).not.toContainText(/provisional/i)
+  // #54 removed the bare "n=" chip card-wide; the hero must stay clean of it.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
+  await expect(hero.getByText(/562 left the shelf vs 100,695 still listed/i)).toBeVisible()
+  // Two value tiles, not five chips: buy-below and market price, plus the
+  // quiet gated sell-through affordance asserted below.
+  await expect(hero.getByText(/Buy-below/i)).toBeVisible()
+  await expect(hero.getByText(/Market price/i)).toBeVisible()
+  // `exact` matters here: the two TILES are gone, but their counts are still
+  // on screen inside the sample sentence ("…562 left the shelf vs 100,695
+  // still listed") — which is the point. The numbers moved into prose, they
+  // were not suppressed to flatter the card. A loose regex matches that
+  // sentence and would assert something untrue.
+  await expect(hero.getByText("Left shelf (watched)", { exact: true })).toHaveCount(0)
+  await expect(hero.getByText("Still listed", { exact: true })).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
   await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)
@@ -36,6 +51,13 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
   await expect(hero.getByText(/Sell-through/i)).toBeVisible()
   await expect(hero.locator("[data-locked-field=sell_through_rate]")).not.toContainText("0%")
+  // QUIET, BUT STILL UNMISTAKABLY GATED. The tile keeps its label and its
+  // plan word so it reads as locked rather than as a bare dash (the P0 in
+  // src/lib/locked-fields.ts), and it keeps routing ?plan=free — but the
+  // green inline "Unlock the rest →" line is gone from above the fold.
+  await expect(locked).toContainText(/Plan/i)
+  await expect(locked).not.toContainText("—")
+  await expect(locked).not.toContainText(/Unlock the rest/i)
   const unlocks = hero.locator('a[href*="/register"]')
   const n = await unlocks.count()
   expect(n).toBeGreaterThan(0)
