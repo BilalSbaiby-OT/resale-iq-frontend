@@ -880,7 +880,7 @@ export const copy = {
       whatToFlip: "Qué revender",
       categories: "Categorías",
       nikeResale: "Reventa Nike",
-      sneakers: "Sneakers",
+      sneakers: "Zapatillas",
       resellingManual: "Manual de reventa",
       methodologyLink: "Metodología",
       marketData: "Datos de mercado",
