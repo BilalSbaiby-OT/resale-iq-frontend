@@ -13,8 +13,9 @@ type Dict = (typeof copy)[keyof typeof copy]
 
 /**
  * Landing v2 — the product is the object of desire, not a SaaS brochure.
- * First screen: live Adidas Samba WATCH (real /api/verdict) + search.
- * Kicker always names Resale IQ. One short line (heroTitle). Pricing below the fold.
+ * First screen: live demo SKU (real /api/verdict) + one primary Check CTA.
+ * Who-it's-for sits above the fold. Pricing below the fold.
+ * Sign in lives in the footer, not as a competing hero CTA.
  * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).
  */
 export function LandingContent({
@@ -40,25 +41,22 @@ export function LandingContent({
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
-      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", maxWidth: 720, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
+      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 24px 8px", maxWidth: 720, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
         <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
-          <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.3px" }}>Resale IQ</span>
+          <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: "-0.2px" }}>Resale IQ</span>
         </Link>
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <LocaleSwitcher locale={locale} />
-          <Link href="/login" style={{ fontSize: 14, color: "#8b99b8", textDecoration: "none", padding: "8px 4px" }}>{t.signIn}</Link>
-        </div>
+        <LocaleSwitcher locale={locale} />
       </nav>
 
       <main id="main">
-        <section className="riq-apple-hero" style={{ maxWidth: 560, margin: "0 auto", padding: "28px 16px 48px" }}>
-          <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.4px", color: "#8b99b8", margin: "0 0 8px" }}>
-            Resale IQ
+        <section className="riq-apple-hero" style={{ maxWidth: 560, margin: "0 auto", padding: "56px 24px 88px" }}>
+          <p style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.15px", color: "#8b99b8", margin: "0 0 22px", lineHeight: 1.5 }}>
+            {t.heroAudience}
           </p>
-          <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.8px", lineHeight: 1.15, margin: "0 0 8px" }}>
+          <h1 style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.35px", lineHeight: 1.3, margin: "0 0 12px" }}>
             {heroResult?.product ?? t.heroTitle}
           </h1>
-          <p style={{ fontSize: 15, color: "#8b99b8", margin: "0 0 20px", lineHeight: 1.45 }}>
+          <p style={{ fontSize: 15, fontWeight: 400, color: "#8b99b8", margin: "0 0 36px", lineHeight: 1.55 }}>
             {t.heroTitle}
           </p>
           <div id="check" style={{ textAlign: "left" }}>

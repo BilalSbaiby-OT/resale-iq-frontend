@@ -228,13 +228,13 @@ export function FreeChecker({
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
-          style={{ background: "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 14 : 10, padding: hero ? "18px 20px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 18 : 14.5, outline: "none" }}
+          style={{ background: "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 14.5, fontWeight: 400, outline: "none" }}
         />
         <button
           onClick={() => run()}
           disabled={loading}
           aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
-          style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: hero ? 17 : 14.5, border: "none", borderRadius: hero ? 14 : 10, padding: hero ? "18px 26px" : "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
+          style={{ background: "#22c55e", color: "#06090c", fontWeight: hero ? 600 : 700, fontSize: hero ? 15 : 14.5, border: "none", borderRadius: hero ? 12 : 10, padding: hero ? "15px 22px" : "13px 22px", cursor: loading ? "wait" : "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
           {loading ? t.checking : t.checkFree}
@@ -502,7 +502,11 @@ export function FreeChecker({
             </>
           )}
 
-          {res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && (
+          {/* Hero keeps a single primary CTA (Check). The green Unlock /
+              Open-dashboard bar competes with it above the fold, so it stays
+              on the /tools card only. The gated sell-through tile below is
+              the remaining unlock and still routes ?plan=free. */}
+          {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && (
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#22c55e" />

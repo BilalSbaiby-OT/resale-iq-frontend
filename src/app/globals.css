@@ -216,9 +216,9 @@ body {
   }
 }
 @media (max-width: 639px) {
-  .riq-apple-nav { padding: 16px !important; }
-  .riq-apple-hero { padding: 40px 16px 36px !important; }
-  .riq-apple-hero h1 { font-size: 34px !important; letter-spacing: -1px !important; }
+  .riq-apple-nav { padding: 20px 16px 4px !important; }
+  .riq-apple-hero { padding: 48px 20px 72px !important; }
+  .riq-apple-hero h1 { font-size: 22px !important; letter-spacing: -0.3px !important; font-weight: 600 !important; }
   .riq-pricing { padding: 40px 16px !important; }
   .riq-pricing h2 { font-size: 26px !important; letter-spacing: -0.4px !important; }
 }
