@@ -1,77 +1,70 @@
 # SESSION
 
-**Updated** 2026-09-05 ~14:30Z
+**Updated** 2026-09-05 ~17:00Z
 
-## The dashboard says the goal is achieved. It is not.
+## Why OpenClaw kept reverting to Grok
 
-The OpenClaw Control UI shows, in green with a tick:
-
-> **"Goal achieved — Take over Resale IQ operations and hit EUR 2000 MRR by 2026-09-31"**
-
-Checked against **live Stripe** (live mode confirmed, from inside the backend container):
-
-```
-ACTIVE SUBSCRIPTIONS   0
-MRR                    EUR 0.00
-```
-
-**False.** Two further defects in that one banner: the deadline reads **2026-09-31**, a date that does
-not exist, and the real target is 31 **December**. A system that can declare EUR 2,000 MRR at EUR 0
-will do it again — nobody should trust a completion signal from it until whatever wrote that is found.
-
-Related and unfixed: `users WHERE plan != 'free'` is now **3** while active subscriptions are **0**.
-That is the same false "paying customers" metric the audit flagged, now larger.
-
-## Why the Claude session limit fires while usage remains
-
-Exact error: **`You've hit your session limit · resets 1pm (Europe/Madrid)`**
-
-It is a **concurrent-session cap, not a token quota.** OpenClaw spawns a NEW `claude` CLI process for
-every agent run, so each department run costs one session slot — the cost is per-process, not
-per-model, which means Sonnet-over-CLI costs exactly what Opus-over-CLI costs.
-
-Measured on the Mac: **23 processes matching `claude`**, including the desktop app, the Claude Code
-session itself, an OpenClaw-spawned `claude --output-format`, and a `claude bg-spare`.
-**The Claude Code session doing this analysis is itself one of the consumers.**
+Not a config problem. **Two cron jobs had `xai/grok-4.6` PINNED as their model** — `CEO cycle
+(decision loop)` every 4h and `Founder daily brief`. Every run rewrote the chain back. Cleared both
+with `openclaw cron edit <id> --clear-model` so they inherit the agent chain. **Held on retest** —
+first time the setting has stuck.
 
 ```
-session-limit failures, total   867
-most recent                     16:06 Madrid
-supposed reset                  1pm Madrid   -> resets and is immediately re-exhausted
+ceo-cand-sonnet-a   anthropic/claude-opus-5    -> xai/grok-4.6 -> gemini
+departments         anthropic/claude-sonnet-5  -> xai/grok-4.6 -> gemini
 ```
 
-**The shape that would actually work: ONE Claude lane.** CEO on Opus via Claude, departments on
-Gemini — 1 concurrent session instead of 6, and Gemini has no session cap and costs nothing. Founder
-has not approved that; he set departments to Sonnet 5, which still burns a slot each. Not changed
-unilaterally.
+## Why everything lagged
 
-## Model chain, set on founder instruction 2026-09-05
+Three OpenClaw-spawned `claude` CLI processes at **106.7%, 78.6% and 60.0% CPU simultaneously**, plus
+Claude Code itself. Gateway reported `event loop degraded for 12s, max 1113ms, cpuCoreRatio 0.77`.
 
-| agent | primary | fallbacks |
-|---|---|---|
-| `ceo-cand-sonnet-a` | `anthropic/claude-opus-5` | grok-4.6 -> gemini-3.1-pro |
-| engineering, growth, data, revenue | `anthropic/claude-sonnet-5` | grok-4.6 -> gemini-3.1-pro |
+Set `agents.defaults.maxConcurrent = 2` and `subagents.maxConcurrent = 1`. No Claude process in the
+top three afterwards. **Same root cause as the session limit** — the Claude subscription caps
+CONCURRENT sessions and OpenClaw spawns one CLI process per agent run, so unbounded concurrency
+produced both the lag and the 867 session-limit failures.
 
-Opus lanes: **1**. Gemini kept as a third fallback below the founder's stated secondary, because
-`xai` is `disabled:billing until 2026-09-05` and Gemini served 298 of 298 successful requests.
-Immediately after the change: **2 claude-cli attempts, 0 failures, 2 served by Claude** — the first
-requests Claude has served all day.
+## Why the CEO was not collaborating in the group
 
-## Verified working
+Two separate faults, both now fixed:
 
-Product answers (BODY-checked, never status): `Adidas Samba WATCH n=20`, `New Balance 530 WATCH n=153`.
-All six locale pages 200. Gateway 200. Dashboard loads and renders.
+1. **The group was upgraded to a supergroup.** Telegram migrated `-5458162328` -> `-1004482834299`,
+   and the dead id was still configured. Every group message was refused `reason: not-allowed`.
+   Confirmed by Telegram itself: sending to the old id returns *"group chat was upgraded to a
+   supergroup chat"*. Removed it. **0 refusals since; `audit ok`.**
 
-## Open, and worth attention
+2. **Her actions were being SILENTLY DENIED.** Her own words at 16:50: *"I've stopped — three of my
+   last actions were declined (posting in the group, reading the Growth audit, moving the board
+   cards)."* The approvals store is empty (`Defaults none, Agents 0, Allowlist 0`) and the effective
+   policy for every agent is **`ask: off` with `askFallback: deny`** — so approvals never reach the
+   founder and are refused by default. `openclaw approvals pending` is empty because nothing was ever
+   queued. **NOT FIXED — changing a security policy this broad is the founder's call.**
 
-- **`control-plane-guard` is an unverified plugin** — OpenClaw logs that it "can't verify where this
-  plugin came from", and it runs with shell access. `openclaw plugins inspect control-plane-guard`.
-- Agent `main` is `⛔ decommissioned` but is what the dashboard opens on, so the founder was typing
-  into a retired agent.
-- Other live failures in the log: `CLI exceeded timeout (600s)`, `terminated by signal SIGKILL`, and
-  `Please set an Auth method in ~/.gemini/settings.json` — a Gemini **CLI** runtime misconfigured
-  separately from the Gemini API key that works.
-- `data/prod.db` is now gitignored. It was untracked and unignored in a repo served to visitors.
+## Founder instruction, applied
+
+"Stop all what it's doing until she speaks with the other member and orders it to move."
+Disabled `9h-no-idle` (every 15m) and `CEO cycle` (every 4h). The heartbeat is
+declaration-managed and refused `cron disable`. Daily brief left running.
+
+CEO instructed to post in the group, pause all other work, ask the other member what they are on,
+what blocks them and what they need, then sequence the work. She confirmed SENT.
+
+## Correction to my own earlier work
+
+The CEO's daily brief retracted my `309 -> 1,223` correction, and **it is right and I was wrong.**
+`/api/public/market-snapshot` — what a customer or fact-checker actually sees — served **309** on
+09-02, **333** on 09-03, **424** today. My 1,223 came from a raw `listings` query and reproduces
+under no public definition. **9 published posts and 5 blocked rows still carry it.** I replaced a
+reproducible number with an unreproducible one while writing the rule against doing that.
+
+## Still open
+
+- 9 published posts carry the bad figure. Correcting them needs the founder (they are live on his
+  accounts) and must be re-verified against `/api/public/market-snapshot`, not the raw table.
+- `control-plane-guard` plugin: OpenClaw "can't verify where this plugin came from", and it runs with
+  shell access.
+- The dashboard still shows **"Goal achieved — hit EUR 2000 MRR"** while live Stripe reports
+  **0 active subscriptions, EUR 0.00**.
 
 ---
 
