@@ -99,6 +99,9 @@
   --color-accent: #22c55e;
   --color-on-accent: #06090c;
   --color-text-dim: rgba(232, 236, 244, 0.62);   /* muted body: 56–64% */
+  /* Apple graphite — the Check CTA on `/` is this, not a second green. */
+  --color-graphite: #1d1d1f;
+  --color-on-graphite: #f5f5f7;
 }
 
 /* This reset MUST live in @layer base. Left unlayered it outranks every Tailwind
@@ -282,9 +285,24 @@ body {
   }
 }
 @media (max-width: 639px) {
-  .riq-apple-nav { padding: 20px 16px 4px !important; }
-  .riq-apple-hero { padding: 48px 20px 72px !important; }
-  .riq-apple-hero h1 { font-size: 22px !important; letter-spacing: -0.3px !important; font-weight: 600 !important; }
+  .riq-apple-nav { padding: 20px var(--space-gutter) 0 !important; }
+  .riq-apple-hero { padding: var(--space-6) var(--space-gutter) var(--space-10) !important; }
+  /* 22px was a settings-page heading — smaller than the verdict word in the
+     card, which inverted the hierarchy. Mobile marketing H1 token is 38px. */
+  .riq-apple-hero h1 {
+    font-size: var(--text-h1-marketing-sm) !important;
+    letter-spacing: var(--tracking-h1) !important;
+    line-height: 1.1 !important;
+    font-weight: 600 !important;
+    max-width: none !important;
+    text-wrap: pretty;
+  }
   .riq-pricing { padding: 40px 16px !important; }
   .riq-pricing h2 { font-size: 26px !important; letter-spacing: -0.4px !important; }
+}
+
+/* Between phone and desktop the 56px H1 is too big for the column but 38px is
+   too small for the viewport. One step in between, from the same scale. */
+@media (min-width: 640px) and (max-width: 899px) {
+  .riq-apple-hero h1 { font-size: 44px !important; line-height: 1.08 !important; }
 }

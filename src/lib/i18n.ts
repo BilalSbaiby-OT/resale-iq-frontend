@@ -110,6 +110,10 @@ export const copy = {
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
     heroAudience: "For EU Vinted resellers.",
+    // H1 on `/`. Not heroTitle: that string is <title>/OG. Kept to ~20-28ch
+    // so it breaks in two at 56px. Em-dash is a sentence break, not a gated value.
+    heroHeadline: "Know what to pay — and whether it'll sell.",
+    heroSub: "One search tells you the price to stay under — and how good the evidence behind it is.",
     heroBody:
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
@@ -511,6 +515,8 @@ export const copy = {
     pricing: "Tarifs",
     heroTitle: "Sachez quoi payer avant d'acheter.",
     heroAudience: "Pour les revendeurs Vinted en UE.",
+    heroHeadline: "Sachez quoi payer — et si ça se vendra.",
+    heroSub: "Une recherche vous donne le prix à ne pas dépasser — et la solidité des données derrière.",
     heroBody:
       "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis BUY, WATCH ou SKIP. Vinted d'abord.",
     heroFrom: (tracked: string) =>
@@ -847,6 +853,8 @@ export const copy = {
     pricing: "Precios",
     heroTitle: "Sabe qué pagar antes de comprar.",
     heroAudience: "Para revendedores de Vinted en la UE.",
+    heroHeadline: "Sepa qué pagar — y si se venderá.",
+    heroSub: "Una búsqueda le da el precio máximo a pagar — y qué tan sólidos son los datos detrás.",
     heroBody:
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
@@ -1183,6 +1191,8 @@ export const copy = {
     pricing: "Preise",
     heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
     heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
+    heroHeadline: "Wissen, was du zahlen solltest — und ob es sich verkauft.",
+    heroSub: "Eine Suche zeigt dir den Höchstpreis — und wie belastbar die Daten dahinter sind.",
     heroBody:
       "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann BUY, WATCH oder SKIP. Vinted ist der erste Marktplatz, den wir abdecken.",
     heroFrom: (tracked: string) =>
@@ -1521,6 +1531,8 @@ export const copy = {
     pricing: "Prezzi",
     heroTitle: "Sappi quanto pagare prima di comprare.",
     heroAudience: "Per i rivenditori Vinted in UE.",
+    heroHeadline: "Sappi quanto pagare — e se si venderà.",
+    heroSub: "Una ricerca ti dà il prezzo da non superare — e quanto sono solidi i dati dietro.",
     heroBody:
       "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi BUY, WATCH o SKIP. Vinted è il primo marketplace che copriamo.",
     heroFrom: (tracked: string) =>
@@ -1857,6 +1869,8 @@ export const copy = {
     pricing: "Preços",
     heroTitle: "Saiba quanto pagar antes de comprar.",
     heroAudience: "Para revendedores Vinted na UE.",
+    heroHeadline: "Saiba quanto pagar — e se vai vender.",
+    heroSub: "Uma pesquisa dá-lhe o preço máximo a pagar — e quão sólidos são os dados por trás.",
     heroBody:
       "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois BUY, WATCH ou SKIP. A Vinted é o primeiro marketplace que cobrimos.",
     heroFrom: (tracked: string) =>

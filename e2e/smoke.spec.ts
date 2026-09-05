@@ -21,24 +21,23 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // the hero shows a HIGH-confidence WATCH on n=153 instead. The enumeration
   // that establishes that is in src/lib/hero-verdict.ts.
   await expect(hero.getByRole("textbox")).toHaveValue("New Balance 530")
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/New Balance 530/)
+  // H1 is the JOB, not the SKU. The SKU stays as the caption on the evidence card.
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/what to pay/i)
+  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/New Balance 530/)
+  await expect(hero.getByText("New Balance 530", { exact: true }).first()).toBeVisible()
   await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
   // The seed must never be a provisional call again. #54 renders the
   // provisional badge honestly wherever it applies; the point here is that
   // the FACE of the product is not a call the API hedged.
   await expect(hero).not.toContainText(/provisional/i)
-  // #54 removed the bare "n=" chip card-wide; the hero must stay clean of it.
+  // #54 removed the bare "n=" chip card-wide; XOR: left-the-shelf is sold_7d
+  // only, and the slim fold does not print n at all.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
-  await expect(hero.getByText(/562 left the shelf vs 100,695 still listed/i)).toBeVisible()
-  // Two value tiles, not five chips: buy-below and market price, plus the
-  // quiet gated sell-through affordance asserted below.
+  // Slim proof card: one figure (buy-below) + quiet gated sell-through.
+  // Market price / left-the-shelf / still-listed live on /tools, not the fold.
   await expect(hero.getByText(/Buy-below/i)).toBeVisible()
-  await expect(hero.getByText(/Market price/i)).toBeVisible()
-  // `exact` matters here: the two TILES are gone, but their counts are still
-  // on screen inside the sample sentence ("…562 left the shelf vs 100,695
-  // still listed") — which is the point. The numbers moved into prose, they
-  // were not suppressed to flatter the card. A loose regex matches that
-  // sentence and would assert something untrue.
+  await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
+  await expect(hero.getByText(/left the shelf/i)).toHaveCount(0)
   await expect(hero.getByText("Left shelf (watched)", { exact: true })).toHaveCount(0)
   await expect(hero.getByText("Still listed", { exact: true })).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
