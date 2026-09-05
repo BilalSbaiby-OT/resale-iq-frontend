@@ -1470,3 +1470,9 @@ HEAD = """# SESSION
 
 ```
 xai:  oauth token EXPIRED 2026-09-05T08:31 · disabled:billi`
+- `2026-09-05T15:29:37Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git commit -q -m "ledger: guard blocks from the OpenClaw cleanup
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && git log --oneline origin/main -1 && git status --porcelain | grep -v "^??" | wc -l | xargs echo "tracked-dirty:`
+- `2026-09-05T15:29:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: final guard entries
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && echo "pushed: $(git log --oneline -1)"`
