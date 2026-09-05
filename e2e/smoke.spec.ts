@@ -55,6 +55,18 @@ test("/tools checker is the free holy-shit moment, not a register wall", async (
   await expect(page.getByLabel(/Item to check/i)).toBeVisible()
 })
 
+test("public profit calculator shows a result or a visible error after Calculate", async ({ page }) => {
+  await page.goto("/tools/vinted-profit-calculator")
+  await page.getByLabel(/buy price/i).fill("45")
+  await page.getByLabel(/expected sale price/i).fill("70")
+  await page.getByRole("button", { name: /^Calculate$/i }).click()
+  const result = page.getByTestId("riq-calc-result")
+  const error = page.locator("#riq-calc-error")
+  await expect(result.or(error)).toBeVisible()
+  await expect(result).toBeVisible()
+  await expect(result).toContainText(/€/)
+})
+
 test("unauthenticated /dashboard redirects to auth", async ({ page }) => {
   await page.goto("/dashboard")
   await page.waitForURL(/\/login/, { timeout: 20_000 })
