@@ -1,11 +1,18 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Link from "next/link"
 import { AppShell } from "@/components/layout/app-shell"
+import { PublicProfitCalculator } from "@/components/tools/public-profit-calculator"
 import { getCalc } from "@/lib/api"
 import { eur } from "@/lib/utils"
+import { useAuthStore } from "@/lib/auth-store"
+import { useLocale } from "@/components/i18n/locale-provider"
 import type { CalcResult } from "@/types"
 
 export default function CalculatorPage() {
+  const { isAuthenticated, isLoading: authLoading, checkAuth } = useAuthStore()
+  const locale = useLocale()
+  const [authChecked, setAuthChecked] = useState(false)
   const [mode, setMode] = useState<"single" | "reverse">("single")
   const [brand, setBrand] = useState("")
   const [model, setModel] = useState("")
@@ -15,6 +22,12 @@ export default function CalculatorPage() {
   const [loading, setLoading] = useState(false)
   const [maxBuy, setMaxBuy] = useState<number | null>(null)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    checkAuth().then(() => setAuthChecked(true))
+    // why: same mount-once auth probe as AppShell; checkAuth is a stable store action.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const calculate = async () => {
     const n = Number.parseFloat(buyPrice)
@@ -69,6 +82,29 @@ export default function CalculatorPage() {
       setError(e instanceof Error ? e.message : "Calculation failed")
     }
     finally { setLoading(false) }
+  }
+
+  if (!authChecked || authLoading) {
+    return (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "var(--color-bg)" }}>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "5px", color: "var(--color-buy)" }}>RESALE·IQ</div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ minHeight: "100vh", background: "var(--color-bg)", color: "var(--color-text-primary)" }}>
+        <div style={{ maxWidth: 640, margin: "0 auto", padding: "28px 24px 80px" }}>
+          <Link href="/" style={{ color: "inherit", textDecoration: "none", fontSize: 15, fontWeight: 500 }}>Resale IQ</Link>
+          <h1 style={{ fontSize: 28, fontWeight: 600, letterSpacing: "-0.4px", margin: "32px 0 8px" }}>Profit calculator</h1>
+          <p style={{ fontSize: 15, color: "var(--color-text-secondary)", margin: "0 0 28px", lineHeight: 1.5 }}>
+            Net profit after Vinted fees. No account required.
+          </p>
+          <PublicProfitCalculator locale={locale} />
+        </div>
+      </div>
+    )
   }
 
   return (
