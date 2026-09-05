@@ -13,7 +13,9 @@ type Dict = (typeof copy)[keyof typeof copy]
 
 /**
  * Landing v2 — the product is the object of desire, not a SaaS brochure.
- * First screen: live Nike Air Force 1 Low BUY (real /api/verdict) + one primary Check CTA.
+ * First screen: the live verdict for the best-evidenced catalogue row (real
+ * /api/verdict — New Balance 530 today, see lib/hero-verdict.ts) + one primary
+ * Check CTA. The seed is never chosen for the word it produces.
  * Who-it's-for sits above the fold. Pricing below the fold.
  * Sign in lives in the footer, not as a competing hero CTA.
  * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).

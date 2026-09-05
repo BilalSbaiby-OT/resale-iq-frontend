@@ -12,6 +12,7 @@ import { ModelChips } from "@/components/tools/model-chips"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
+import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -256,8 +257,17 @@ export function FreeChecker({
   const VERDICT_LABEL: Record<string, string> = {
     BRAND_AVERAGE: t.brandAverageLabel,
   }
+  // ...and BUY/WATCH/SKIP were the last three constants still falling through
+  // to the raw enum. Live /es, 2026-09-05: a 26px green "BUY" over an
+  // otherwise Spanish card. verdict-words.ts translates the three; everything
+  // else (BRAND_AVERAGE above, LIMIT_REACHED below) keeps its existing branch.
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
-    : (res?.verdict ? (VERDICT_LABEL[res.verdict] ?? res.verdict) : "—")
+    : (res?.verdict
+        ? (VERDICT_LABEL[res.verdict] ?? verdictWord(res.verdict, locale) ?? res.verdict)
+        : "—")
+  const shownCategory = categoryName(res?.category, locale)
+  const shownConfidence = confidenceBand(res?.confidence, locale)
+  const shownNote = localizeConfidenceNote(res?.confidence_note, locale)
 
   const hero = variant === "hero"
   return (
@@ -471,8 +481,8 @@ export function FreeChecker({
                 <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.message}</p>
               )}
 
-              {res.category && (
-                <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{res.category}</div>
+              {shownCategory && (
+                <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{shownCategory}</div>
               )}
 
               <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
@@ -488,8 +498,18 @@ export function FreeChecker({
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
                 <Stat label={t.marketPrice} value={money(res.sell_avg)} />
-                {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
-                {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
+                {/* HERO CARRIES THE VALUE STORY ONLY: buy-below vs market. The
+                    departures/still-listed pair stays on the /tools card and
+                    the authenticated /verdict, and is NOT lost here — the
+                    `sample` sentence below prints both counts in prose, in the
+                    page's own locale ("…562 salieron del catálogo frente a
+                    100.695 que siguen en venta"). Five chips above the fold on
+                    a 390px screen read as a dashboard; two numbers and a
+                    sentence read as an answer. Nothing is hidden to flatter
+                    the verdict — the supply side is still on screen, just in
+                    the sentence rather than in its own tile. */}
+                {!hero && sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
+                {!hero && listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
                 {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
                     `res.locked || res.sell_through_rate == null`, and the value
                     was `res.locked ? t.planLabel : "—"`. Because `res.locked`
@@ -509,7 +529,7 @@ export function FreeChecker({
                 {strState === "value" ? (
                   <Stat label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                 ) : strState === "locked" ? (
-                  <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
+                  <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} quiet={hero} />
                 ) : null}
               </div>
               )}
@@ -538,18 +558,23 @@ export function FreeChecker({
                     label, two lines above "20 left the shelf" — two departure
                     counts to a reseller, one of which is unexplained, and a
                     silent restatement of the confidence_note directly beneath
-                    it ("Only 11 watched departures"). That note is rendered
-                    unconditionally below and says the same thing WITH a label,
-                    so #53's intent survives and the ambiguity does not. */}
+                    it. That note is rendered unconditionally below and says the
+                    same thing WITH a label, so #53's intent survives and the
+                    ambiguity does not.
+
+                    The category and the band are read through verdict-words.ts
+                    rather than printed raw: on /es this line rendered
+                    "Sneakers · Confianza MEDIUM", an English noun and an
+                    English band either side of a translated label. */}
                 <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
-                  {res.category ? `${res.category} · ` : ""}
-                  {res.confidence ? `${t.confidenceLabel} ${res.confidence}` : ""}
+                  {shownCategory ? `${shownCategory} · ` : ""}
+                  {shownConfidence ? `${t.confidenceLabel} ${shownConfidence}` : ""}
                   {res.provisional ? `${res.confidence ? " · " : ""}${verdictCopy[locale].provisional}` : ""}
                 </div>
               </div>
 
-              {res.confidence_note && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
+              {shownNote && (
+                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{shownNote}</p>
               )}
               {sample && (
                 <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
@@ -613,25 +638,44 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
  * already ship in all six locales (src/lib/i18n.ts) — `planLabel` was written
  * for exactly this slot and had been unreachable since the gate flag went
  * constant.
+ *
+ * `quiet` — the hero variant. Sell-through IS the product story, and on the
+ * landing page it was being told by a padlock, the word "Plan" at 15px/700 and
+ * a green "Unlock the rest →" sitting inline among the core metrics, above the
+ * fold on a 390px screen. Three unlock signals in one 140px tile, louder than
+ * the buy-below beside it: the first thing a stranger read about our best
+ * metric was that they could not have it.
+ *
+ * Quiet keeps all three obligations above and drops only the volume: the label
+ * stays, the lock glyph stays (grey, at text size, not amber), the whole tile
+ * stays a link to the same ?plan=free route, and `cta` moves into the tooltip
+ * and the accessible name instead of a green line. It must never become a bare
+ * dash — that was the P0 this component exists to fix (src/lib/locked-fields.ts),
+ * and `strState === "locked"` still renders a tile, not nothing.
  */
-function LockedStat({ label, value, cta, href }: { label: string; value: string; cta: string; href: string }) {
+function LockedStat({ label, value, cta, href, quiet = false }: {
+  label: string; value: string; cta: string; href: string; quiet?: boolean
+}) {
   return (
     <Link
       href={href}
       data-testid="riq-locked-stat"
       data-locked-field="sell_through_rate"
       title={cta}
+      aria-label={`${label} — ${value}. ${cta}`}
       style={{
-        background: "#1a2030", borderRadius: 9, padding: "11px 13px",
-        border: "1px solid #263147", textDecoration: "none", display: "block",
+        background: quiet ? "transparent" : "#1a2030", borderRadius: 9, padding: "11px 13px",
+        border: `1px solid ${quiet ? "#1c2333" : "#263147"}`, textDecoration: "none", display: "block",
       }}
     >
       <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
-        <Lock size={14} color="#f59e0b" aria-hidden />
-        <span style={{ fontSize: 15, fontWeight: 700, color: "#c3cde0" }}>{value}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: quiet ? 3 : 1 }}>
+        <Lock size={quiet ? 12 : 14} color={quiet ? "#5b6b8c" : "#f59e0b"} aria-hidden />
+        <span style={{ fontSize: quiet ? 13 : 15, fontWeight: quiet ? 500 : 700, color: quiet ? "#8b99b8" : "#c3cde0" }}>{value}</span>
       </div>
-      <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
+      {!quiet && (
+        <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
+      )}
     </Link>
   )
 }
