@@ -30,6 +30,11 @@ ssh resaleiq "df -h / | tail -1; \
 | 2026-09-03 15:32 | 75G | 57G | 16G | 79% | 22243946496 | 276072 | data agent, live |
 | 2026-09-03 20:04 | 75G | 56G | 17G | 78% | 22415376384 | 329002632 | main, heartbeat (WAL spike) |
 | 2026-09-03 21:34 | 75G | 59G | 13G | 83% | 22453497856 | 24159712 | data agent, live |
+| 2026-09-04 11:29 | 75G | 39G | 33G | 54% | 22680285184 | 391432 | data agent, live |
+
+**WAL scheduled checkpoint NEVER fires — bounding is entirely luck/deploy-driven (D-17).** Checked all container logs (`sudo grep -ira "\[wal\] checkpoint" /var/lib/docker/containers/`); the job has never printed its output. Containers are redeploying so frequently (e.g., observed one up for 15 mins, another for 1 min at 11:29Z) that the 3-hour `job_wal_checkpoint` interval trigger never gets to fire before the container is killed. The observed WAL drops are purely SQLite's default last-connection-close behavior during these redeployments. 
+
+**Days-to-full: CANNOT be computed from DB growth, because deploy churn dominates the disk.** `df used` just swung from 59G down to 39G (-20GB) since yesterday, while the DB grew at a slow, stable ~21 MB/h (~0.5 GB/day). The 20GB drop means a massive image/volume prune occurred. Because the DB uses less than 1 GB every two days and image churn swings by 20GB arbitrarily, any days-to-full math based on the DB's ~21 MB/h would be a false precision that ignores the actual residual mover. The disk fills or empties based on Coolify's image retention policy, not the DB.
 
 **WAL question (D-13): NOT a failing checkpoint — correlates with a container restart, not the
 scheduled job, and that distinction matters.** WAL went 243,112 (row 3/4) → 329,002,632 (row 5,

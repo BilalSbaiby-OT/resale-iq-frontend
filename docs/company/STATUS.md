@@ -8,7 +8,7 @@ OS STATUS                                  checked 0m ago
   GREEN — nothing blocking
 
 UNKNOWN — asked, no answer (never rendered as zero)
-  company.retention_30d              population below floor (n = 0, floor = 100)
+  company.retention_30d              population below floor (n = 1, floor = 100)
   company.trial_to_paid              population below floor (n = 0, floor = 100)
   company.spend_vs_cap               no spend ledger yet
       -> Phase 2: finance-ops writes docs/company/LEDGER.md

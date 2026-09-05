@@ -1,5 +1,62 @@
 # SESSION
 
+**Updated** 2026-09-02 ~16:10Z — health check after the founder rebuilt OpenClaw.
+
+## The Claude subscription is wired and doing nothing
+
+Measured across the gateway logs:
+
+```
+claude-cli attempts        385
+        failures           265   (69%)
+   of which session limit  215
+
+actually served (HTTP 200)   google/gemini  298
+                             anthropic        0
+```
+
+**Zero requests have ever been served by Claude.** Four departments plus a CEO candidate run
+concurrently against one subscription; Claude's session limit refuses them and Gemini silently
+carries the company while the config reads `anthropic/claude-sonnet-5`.
+
+`setup-token` auth would persist better than `claude-cli` (which the docs say OpenClaw "does not
+persist or refresh") but draws on the SAME subscription limits — it converts 69% failures into 69%
+failures. **The fix is concurrency, not credentials:** one Claude lane for the hardest work, the rest
+explicitly on Gemini. Or an Anthropic API key, which does not exist.
+
+This is the third time this pattern has been recorded. See the memory note
+`subagent-concurrency-session-limit`.
+
+## Working, verified on the artifact
+
+| | |
+|---|---|
+| product (BODY-checked, never status) | `Adidas Samba WATCH n=20` · `New Balance 530 WATCH n=153` |
+| locale pages | en/es/fr/de/it/pt all 200 |
+| OpenClaw gateway | 200, healthy |
+| departments | `engineering` and `data` both answer |
+
+## Changed by the rebuild, worth knowing
+
+- **Telegram routes to `ceo-cand-sonnet-a`**, not a department. Founder messages reach a candidate
+  whose workspace is `~/work/candidates/`.
+- **The `resaleiq` workspace was deleted**, taking the 221 KB fact-checked knowledge pack with it.
+  **Recoverable** — the source is the workflow output at
+  `/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-.../tasks/weh18808l.output` (280 KB).
+- **`guard.py` now lets `DEPLOY_APPROVED` lift Stripe writes and `gh secret set`**, not only deploys.
+  That token is permanent, so those paths are permanently open. Founder-authorised; stated once.
+- **`data/prod.db` is untracked and NOT gitignored.** 0 bytes today. If it ever fills and gets
+  committed, a production database ships to every visitor. Now ignored.
+
+## UNKNOWN
+
+Comparable counts fell (`n=58 → 20`, `543 → 153`). Consistent with the cutoff fix correctly
+excluding stale rows, but **not proven** — do not repeat it as the cause without measuring.
+
+---
+
+## Previous state
+
 **Updated** 2026-09-02 ~12:45Z — **final Claude Code session. OpenClaw is the orchestrator now.**
 
 ## Start here

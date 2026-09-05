@@ -85,3 +85,7 @@ docs/marketing/assets/*-silent.mp4
 
 # Pre-mux silent cuts under renders/ are intermediates too.
 docs/marketing/assets/renders/*-silent.mp4
+
+# A production DB copy must never ship to visitors — this repo is served.
+data/prod.db
+data/*.db

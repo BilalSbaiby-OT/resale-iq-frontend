@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-02T10:42:54Z",
+  "generated_at": "2026-09-05T13:25:44Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
       "target": 100,
       "counter": "refund rate",
       "source": "stripe",
-      "value": null,
-      "note": "from production users.stripe_sub_id (Stripe API unreachable here)",
-      "unknown": true,
-      "why_unknown": "never measured — source is stripe"
+      "value": 0,
+      "note": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's.",
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "signups",
       "target": 1000,
       "counter": "activation rate — a signup who never checks an item is not a user",
       "source": "db",
-      "value": null,
+      "value": 2,
       "note": "last 7 days",
-      "unknown": true,
-      "why_unknown": "build_dashboard.py has not run with --prod yet"
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "views_across_platforms",
@@ -36,10 +36,10 @@
       "target": null,
       "counter": "account health — one banned account costs more than a month of posts",
       "source": "growth.db",
-      "value": null,
+      "value": 69,
       "note": null,
-      "unknown": true,
-      "why_unknown": "<CREDENTIAL> not in this environment — run: bash .claude/bin/with-secrets.sh python3 scripts/company/org.py"
+      "unknown": false,
+      "why_unknown": null
     },
     {
       "kpi": "defects_reaching_a_customer",
@@ -141,7 +141,7 @@
         {
           "agent": "frontend-eng",
           "is_head": false,
-          "merged_branches": 9,
+          "merged_branches": 11,
           "open_rows": 0,
           "closed_rows": 3,
           "findings_raised": 2,
@@ -159,7 +159,7 @@
         {
           "agent": "data-eng",
           "is_head": false,
-          "merged_branches": 2,
+          "merged_branches": 3,
           "open_rows": 0,
           "closed_rows": 0,
           "findings_raised": 0,
@@ -865,37 +865,29 @@
     }
   },
   "stripe": {
-    "available": false,
-    "why": "<CREDENTIAL> not in env — run through .claude/bin/with-secrets.sh"
+    "available": true,
+    "livemode": false,
+    "account": null,
+    "reading": "SANDBOX (agent key) — NOT production",
+    "active_subscriptions": 0,
+    "charges": 0,
+    "refunded": 0,
+    "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
   },
   "deploy_drift": {
-    "drifted": true,
+    "drifted": false,
     "apps": [
       {
         "app": "frontend",
-        "status": "DRIFTED",
-        "running": "94fe21c11293",
-        "merged": "309fc8a46bcc",
-        "commits_unshipped": 21,
-        "unshipped": [
-          "309fc8a i18n: wire /methodology to translated copy, add locale routes (#5)",
-          "7f69887 guard: add ~/.openclaw to SCOPE, on founder instruction",
-          "0a946f8 probe: the 78% claim settled with 182 samples — 100.00% availability",
-          "73fd670 openclaw: local orchestrator live on the Mac — steps 1-2 of 7, not the migration",
-          "1367812 track: one honest list of open items — 10 shipped, 13 open",
-          "621e25f i18n: methodology copy in all six locales, verified",
-          "c0a48c9 fix: correct false refresh-cadence claims on llms.txt, methodology, support, cat",
-          "d7a6988 state: dashboard, status and ledger refresh from this loop",
-          "6af2816 CONTENT-FACTS: re-verify hard numbers at publish time, not write time",
-          "e7cee13 board: W62 the intermittent 500 on the customer check, W63 the LLM referral chan"
-        ],
-        "container": "p6t87shftvl2455pd3gdgee1-070700771102"
+        "status": "IN SYNC",
+        "commit": "ff6e7477451f",
+        "container": "p6t87shftvl2455pd3gdgee1-063118165917"
       },
       {
         "app": "backend",
         "status": "IN SYNC",
-        "commit": "9d3a24b3f915",
-        "container": "ph5clxk9hmghspv65pdkvak9-005644706039"
+        "commit": "3cef3ee90132",
+        "container": "ph5clxk9hmghspv65pdkvak9-063419791626"
       }
     ]
   },
