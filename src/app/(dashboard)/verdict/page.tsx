@@ -168,26 +168,25 @@ function VerdictInner() {
                 <div className="text-[13px] leading-6 text-[#8b99b8] mb-4">
                   {checker.brandCategoriesIntro(
                     result.brand ?? query,
-                    new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(result.categories ?? []),
+                    (result.categories ?? []).join(", ") || "—",
                   )}
                 </div>
-                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 {result.category_aggregates && result.category_aggregates.length > 0 && (
-                  <div className="flex flex-col gap-2 mt-4">
+                  <div className="flex flex-col gap-2 mb-4">
                     {result.category_aggregates.map(a => (
-                      <button
+                      <div
                         key={a.category}
-                        onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq) }}
-                        className="flex items-center justify-between bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
+                        className="flex items-center justify-between bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3"
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
                           {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {t.leftShelfCount(a.sold_7d.toLocaleString())}
                         </span>
-                      </button>
+                      </div>
                     ))}
                   </div>
                 )}
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : result.verdict === "BRAND_AVERAGE" ? (
               <>

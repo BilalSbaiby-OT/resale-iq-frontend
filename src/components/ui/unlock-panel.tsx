@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { Lock, Unlock } from "lucide-react"
 import type { VerdictResult } from "@/types"
+import { useAuthStore } from "@/lib/auth-store"
 
 /**
  * The free tier's upgrade moment.
@@ -45,14 +46,24 @@ export function UnlockPanel({
   //
   // `free-checker.tsx` already had it right — it asks whether the deep field is
   // actually there (`res.sell_through_rate == null`). Same question here.
+  // Aggregates are public priced answers, not a locked per-model verdict.
+  // Showing UnlockPanel here is how user 95 (trial, just verified) got
+  // "create a free account" on Nike / Ralph Lauren / Nike Nocta.
+  if (result.is_aggregate || result.verdict === "BRAND_CATEGORIES" || result.verdict === "BRAND_AVERAGE") {
+    return null
+  }
+
   const deepFieldsMissing = result.sell_through_rate == null
   if (!deepFieldsMissing) return null
 
+  const { isAuthenticated, user } = useAuthStore()
   const limit = result.unlocks_limit
   const remaining = result.unlocks_remaining
-  const isAnonymous = remaining === undefined
+  // remaining===undefined used to mean "anon". Logged-in trial verdicts often
+  // omit that field, so a verified user was offered "Create a free account".
+  const isAnonymous = !isAuthenticated
   const exhausted = remaining === 0
-  const needsVerification = result.verification_required === true
+  const needsVerification = result.verification_required === true || user?.email_verified === false
 
   // Anonymous: the job is to get an account, not to sell a plan.
   if (isAnonymous) {
