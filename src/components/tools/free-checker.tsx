@@ -541,7 +541,14 @@ export function FreeChecker({
                 {strState === "value" ? (
                   <Stat label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                 ) : strState === "locked" ? (
-                  <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} quiet={hero} />
+                  hero ? (
+                    // E-13: a lock/Plan/Unlock LINK in this grid is a second
+                    // CTA above the fold. Quiet lock + the field name is the
+                    // honest gated state; the route lives on /tools.
+                    <QuietLockedHint label={t.sellThrough} />
+                  ) : (
+                    <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
+                  )
                 ) : null}
               </div>
               )}
@@ -669,8 +676,28 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
  * dash — that was the P0 this component exists to fix (src/lib/locked-fields.ts),
  * and `strState === "locked"` still renders a tile, not nothing.
  */
-function LockedStat({ label, value, cta, href, quiet = false }: {
-  label: string; value: string; cta: string; href: string; quiet?: boolean
+function QuietLockedHint({ label }: { label: string }) {
+  return (
+    <div
+      data-testid="riq-locked-stat"
+      data-locked-field="sell_through_rate"
+      style={{
+        background: "transparent",
+        borderRadius: 9,
+        padding: "11px 13px",
+        border: "1px solid var(--color-hairline)",
+      }}
+    >
+      <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 3 }}>
+        <Lock size={12} color="#5b6b8c" aria-hidden />
+      </div>
+    </div>
+  )
+}
+
+function LockedStat({ label, value, cta, href }: {
+  label: string; value: string; cta: string; href: string
 }) {
   return (
     <Link
@@ -680,18 +707,16 @@ function LockedStat({ label, value, cta, href, quiet = false }: {
       title={cta}
       aria-label={`${label} — ${value}. ${cta}`}
       style={{
-        background: quiet ? "transparent" : "#1a2030", borderRadius: 9, padding: "11px 13px",
-        border: `1px solid ${quiet ? "#1c2333" : "#263147"}`, textDecoration: "none", display: "block",
+        background: "#1a2030", borderRadius: 9, padding: "11px 13px",
+        border: "1px solid #263147", textDecoration: "none", display: "block",
       }}
     >
       <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: quiet ? 3 : 1 }}>
-        <Lock size={quiet ? 12 : 14} color={quiet ? "#5b6b8c" : "#f59e0b"} aria-hidden />
-        <span style={{ fontSize: quiet ? 13 : 15, fontWeight: quiet ? 500 : 700, color: quiet ? "#8b99b8" : "#c3cde0" }}>{value}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
+        <Lock size={14} color="#f59e0b" aria-hidden />
+        <span style={{ fontSize: 15, fontWeight: 700, color: "#c3cde0" }}>{value}</span>
       </div>
-      {!quiet && (
-        <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
-      )}
+      <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
     </Link>
   )
 }
