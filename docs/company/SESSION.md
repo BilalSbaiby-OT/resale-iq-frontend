@@ -1,57 +1,77 @@
 # SESSION
 
-**Updated** 2026-09-02 ~16:10Z — health check after the founder rebuilt OpenClaw.
+**Updated** 2026-09-05 ~14:30Z
 
-## The Claude subscription is wired and doing nothing
+## The dashboard says the goal is achieved. It is not.
 
-Measured across the gateway logs:
+The OpenClaw Control UI shows, in green with a tick:
+
+> **"Goal achieved — Take over Resale IQ operations and hit EUR 2000 MRR by 2026-09-31"**
+
+Checked against **live Stripe** (live mode confirmed, from inside the backend container):
 
 ```
-claude-cli attempts        385
-        failures           265   (69%)
-   of which session limit  215
-
-actually served (HTTP 200)   google/gemini  298
-                             anthropic        0
+ACTIVE SUBSCRIPTIONS   0
+MRR                    EUR 0.00
 ```
 
-**Zero requests have ever been served by Claude.** Four departments plus a CEO candidate run
-concurrently against one subscription; Claude's session limit refuses them and Gemini silently
-carries the company while the config reads `anthropic/claude-sonnet-5`.
+**False.** Two further defects in that one banner: the deadline reads **2026-09-31**, a date that does
+not exist, and the real target is 31 **December**. A system that can declare EUR 2,000 MRR at EUR 0
+will do it again — nobody should trust a completion signal from it until whatever wrote that is found.
 
-`setup-token` auth would persist better than `claude-cli` (which the docs say OpenClaw "does not
-persist or refresh") but draws on the SAME subscription limits — it converts 69% failures into 69%
-failures. **The fix is concurrency, not credentials:** one Claude lane for the hardest work, the rest
-explicitly on Gemini. Or an Anthropic API key, which does not exist.
+Related and unfixed: `users WHERE plan != 'free'` is now **3** while active subscriptions are **0**.
+That is the same false "paying customers" metric the audit flagged, now larger.
 
-This is the third time this pattern has been recorded. See the memory note
-`subagent-concurrency-session-limit`.
+## Why the Claude session limit fires while usage remains
 
-## Working, verified on the artifact
+Exact error: **`You've hit your session limit · resets 1pm (Europe/Madrid)`**
 
-| | |
-|---|---|
-| product (BODY-checked, never status) | `Adidas Samba WATCH n=20` · `New Balance 530 WATCH n=153` |
-| locale pages | en/es/fr/de/it/pt all 200 |
-| OpenClaw gateway | 200, healthy |
-| departments | `engineering` and `data` both answer |
+It is a **concurrent-session cap, not a token quota.** OpenClaw spawns a NEW `claude` CLI process for
+every agent run, so each department run costs one session slot — the cost is per-process, not
+per-model, which means Sonnet-over-CLI costs exactly what Opus-over-CLI costs.
 
-## Changed by the rebuild, worth knowing
+Measured on the Mac: **23 processes matching `claude`**, including the desktop app, the Claude Code
+session itself, an OpenClaw-spawned `claude --output-format`, and a `claude bg-spare`.
+**The Claude Code session doing this analysis is itself one of the consumers.**
 
-- **Telegram routes to `ceo-cand-sonnet-a`**, not a department. Founder messages reach a candidate
-  whose workspace is `~/work/candidates/`.
-- **The `resaleiq` workspace was deleted**, taking the 221 KB fact-checked knowledge pack with it.
-  **Recoverable** — the source is the workflow output at
-  `/private/tmp/claude-501/-Users-bilalsbaiby-work/fb348ebc-.../tasks/weh18808l.output` (280 KB).
-- **`guard.py` now lets `DEPLOY_APPROVED` lift Stripe writes and `gh secret set`**, not only deploys.
-  That token is permanent, so those paths are permanently open. Founder-authorised; stated once.
-- **`data/prod.db` is untracked and NOT gitignored.** 0 bytes today. If it ever fills and gets
-  committed, a production database ships to every visitor. Now ignored.
+```
+session-limit failures, total   867
+most recent                     16:06 Madrid
+supposed reset                  1pm Madrid   -> resets and is immediately re-exhausted
+```
 
-## UNKNOWN
+**The shape that would actually work: ONE Claude lane.** CEO on Opus via Claude, departments on
+Gemini — 1 concurrent session instead of 6, and Gemini has no session cap and costs nothing. Founder
+has not approved that; he set departments to Sonnet 5, which still burns a slot each. Not changed
+unilaterally.
 
-Comparable counts fell (`n=58 → 20`, `543 → 153`). Consistent with the cutoff fix correctly
-excluding stale rows, but **not proven** — do not repeat it as the cause without measuring.
+## Model chain, set on founder instruction 2026-09-05
+
+| agent | primary | fallbacks |
+|---|---|---|
+| `ceo-cand-sonnet-a` | `anthropic/claude-opus-5` | grok-4.6 -> gemini-3.1-pro |
+| engineering, growth, data, revenue | `anthropic/claude-sonnet-5` | grok-4.6 -> gemini-3.1-pro |
+
+Opus lanes: **1**. Gemini kept as a third fallback below the founder's stated secondary, because
+`xai` is `disabled:billing until 2026-09-05` and Gemini served 298 of 298 successful requests.
+Immediately after the change: **2 claude-cli attempts, 0 failures, 2 served by Claude** — the first
+requests Claude has served all day.
+
+## Verified working
+
+Product answers (BODY-checked, never status): `Adidas Samba WATCH n=20`, `New Balance 530 WATCH n=153`.
+All six locale pages 200. Gateway 200. Dashboard loads and renders.
+
+## Open, and worth attention
+
+- **`control-plane-guard` is an unverified plugin** — OpenClaw logs that it "can't verify where this
+  plugin came from", and it runs with shell access. `openclaw plugins inspect control-plane-guard`.
+- Agent `main` is `⛔ decommissioned` but is what the dashboard opens on, so the founder was typing
+  into a retired agent.
+- Other live failures in the log: `CLI exceeded timeout (600s)`, `terminated by signal SIGKILL`, and
+  `Please set an Auth method in ~/.gemini/settings.json` — a Gemini **CLI** runtime misconfigured
+  separately from the Gemini API key that works.
+- `data/prod.db` is now gitignored. It was untracked and unignored in a repo served to visitors.
 
 ---
 
