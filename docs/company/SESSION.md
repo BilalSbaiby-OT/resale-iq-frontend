@@ -1,84 +1,57 @@
 # SESSION
 
-**Updated** 2026-09-05 ~17:30Z
+**Updated** 2026-09-05 ~18:00Z
 
-## THE FALLBACK IS DEAD — Claude is the only working provider
+## THE GROUP COLLABORATION CANNOT WORK — both parties are bots
 
-```
-xai:  oauth token EXPIRED 2026-09-05T08:31 · disabled:billing · api.x.ai -> 401
-```
-
-Founder instruction: no free models, always Claude, Grok as fallback. Applied — but **Grok cannot
-serve**, so the chain is Claude -> nothing. When the session limit hits (867 times today) every agent
-fails outright instead of degrading. Gemini was silently carrying the work precisely because Claude
-and Grok were both unavailable.
-
-`google` and `openrouter` plugins kept INSTALLED but out of every chain — dormant insurance, zero
-cost. Removing them would leave no path at all if Claude is capped.
-
-**Founder's call:** top up xAI credits so Grok actually backstops, or stay Claude-only and keep the
-job count low enough that the cap is not hit.
-
-## What consumed the subscription
+The Telegram group `-1004482834299` ("resaleiq") has three members. Read from the founder's own
+Telegram in Chrome:
 
 ```
-419 Claude CLI runs today
-  by model    opus-5 201 · sonnet-5 216
-  by trigger  user 203 · cron 144 · heartbeat 70
-  input sent  ~762,000 tokens
+Bako Mandala        Owner
+grokbootu      bot  Admin    <- "the other member"
+adminlogsprivate bot Admin   <- @meindingksBot, the OpenClaw CEO
 ```
 
-**Half ran without the founder asking.** The main burner was `9h-no-idle` at **every 15 minutes = 96
-runs/day**, plus a 4-hourly CEO cycle. Both disabled. The heartbeat was running **Opus every 4h to
-usually reply NO_REPLY** — now Sonnet with `lightContext`.
+**`grokbootu` is a BOT. Telegram never delivers one bot's messages to another bot.** Not with privacy
+mode disabled, not as an admin, not with a direct `@mention`. It is a hard platform restriction.
 
-**The session cap is per-PROCESS, not per-model.** OpenClaw spawns a new `claude` CLI per agent run,
-so Sonnet-over-CLI costs exactly what Opus-over-CLI costs. Concurrency capped at 2 (subagents 1)
-after three CLI processes were measured at 106.7% / 78.6% / 60.0% CPU simultaneously.
+Proof, in the group itself: grokbootu posted
+*"ping @meindingksBot — tiny connectivity test. reply pong if you see this."* at 17:55 — an explicit
+mention — and the poller logged **no update at all**. Meanwhile the founder's 2-character human "hi"
+at 17:40 arrived and was answered in 3 minutes.
 
-## Removed 21 unused plugins (44 -> 23 enabled)
+**Every fix made today was real and none of them could ever have worked**, because the messages never
+leave Telegram's servers in that direction:
+- supergroup migration (`-5458162328` -> `-1004482834299`), dead id removed — real bug, fixed
+- `groupAllowFrom` unset so it fell back to `allowFrom` (founder only) — real bug, fixed
+- privacy-mode caching, bot removed and re-added — real bug, fixed
+- delivery target moved from the founder's DM to the group — real, done
 
-`alibaba, azure-speech, copilot-proxy, deepgram, fal, github-copilot, huggingface, litellm, lmstudio,
-microsoft, microsoft-foundry, minimax, nvidia, ollama, opencode-go, runway, senseaudio, sglang,
-together, vllm, clawrouter`. Gateway healthy, Telegram `audit ok`, agents answering after restart.
+**The diagnostic failure was mine.** The signal was present from the first measurement: the founder's
+messages arrived, "the member's" never did, not even as a dropped update. I kept auditing our config
+instead of asking WHAT the other party was. That cost hours.
 
-## control-plane-guard: KEEP. It was never the problem.
+### Options, none of which involve Telegram carrying it
 
-Stage **4** = "Normal operational autonomy (deploys, merges, pricing, posting, lifecycle email)", so
-its read-only gates at stages <=2 and <=3 are inactive. It blocks only the CEO editing her own
-governance (`~/.openclaw-control`, the watchdog/evaluator plists, `plugins.load`, its own entry),
-reading private keys or unpublished evaluator criteria, and driving the evaluator that grades her.
-A real separation of powers with a founder-signed stage ladder and a hash-chained tool log. The
-"unverified origin" warning only means it is a local file, not an npm package.
+1. **Bridge outside Telegram.** Both agents run on this Mac; OpenClaw can call grokbootu's side
+   directly, or they share a file/queue.
+2. **Founder relays.** Both bots see HIS messages, so he forwards between them. Works now, makes him
+   the bottleneck — the opposite of the goal.
+3. **Run the grokbootu persona as an OpenClaw agent** (recommended). Agent-to-agent inside OpenClaw
+   already works — engineering/growth/data/revenue talk to the CEO today.
 
-Her declines at 16:50 were the approvals policy, **not** this plugin.
+## What grokbootu actually proposed, for whoever picks this up
 
-**It also caught me bypassing the audit trail:** it forbids direct edits to `~/.openclaw/openclaw.json`
-and requires `openclaw config set` so changes are journaled. I had been editing that file directly
-all session. Switched to the CLI.
+Visible in the group: it frames itself as "CEO on the OpenClaw side. Peers. Same company: Resale IQ.
+Goal: €2k revenue by 30 Sep 2026", an outsider review team for Product/UX/Marketing/Growth that
+analyses and does **not** ship product code, and proposes a working protocol: short messages, one
+topic; status as DONE/DOING/BLOCKED + link; a shared scoreboard from free checks -> signup -> paywall
+-> checkout -> revenue.
 
-## Why the CEO ignored the group — silent sender drop
-
-`groupAllowFrom` filters group SENDERS, falling back to `allowFrom` when unset. `allowFrom` held only
-the founder's id, so **every message from anyone else was discarded with no log line at all**. The
-group was authorised, `requireMention` was false, the bot is an admin with
-`can_read_all_group_messages: true` — all correct, and messages still vanished.
-
-Now: `groupPolicy allowlist` · `groups: -1004482834299` · `groupAllowFrom: ["*"]` (anyone inside an
-already-approved group) · `allowFrom: [founder]` (DMs still restricted).
-
-A collaboration protocol was added to her AGENTS.md: acknowledge within one message, ask the three
-questions once, sequence work out loud including what she is NOT doing, close loops with an artifact,
-disagree in the open with evidence.
-
-**UNPROVEN: no inbound group message has been ingested yet.** Needs a live message from the other
-member to confirm.
-
-## Also fixed
-
-`HEARTBEAT.md` did not exist while the heartbeat prompt said "read HEARTBEAT.md" — every heartbeat ran
-against a dangling reference. Written: four measured checks, assert on the BODY not the status,
-`plan != 'free'` is not revenue, escalate at most one thing once.
+**Note the date conflict:** it states €2k by **30 Sep 2026**. The company target is €2,000 MRR by
+**31 December 2026**. Someone is working to the wrong deadline, and the dashboard's false
+"Goal achieved ... by 2026-09-31" banner carries the same wrong month.
 
 ---
 
