@@ -45,6 +45,7 @@ interface FreeVerdict {
   active_listings?: number | null
   confidence?: string
   confidence_note?: string
+  provisional?: boolean | null
   sell_through_rate?: string | null
   top_sizes?: string[]
   match_note?: string | null
@@ -98,6 +99,16 @@ const VERDICT_COLOR: Record<string, string> = {
 
 function money(n: number | null | undefined) {
   return n != null && Number.isFinite(n) ? `€${Math.round(n)}` : "—"
+}
+
+/** Sell-through copy. Null is not 0%. A non-zero rate must never round to "0%". */
+function formatSellThrough(raw: string): string {
+  const m = raw.trim().match(/^(-?[\d.]+)\s*%$/)
+  if (!m) return raw
+  const v = Number(m[1])
+  if (!Number.isFinite(v) || v === 0) return raw
+  if (Math.abs(v) < 1) return `${v.toFixed(1)}%`
+  return raw
 }
 
 // The catalogue is 26 brands, model-level, sneaker/streetwear-coded — not
@@ -466,7 +477,7 @@ export function FreeChecker({
                     unmeasured -> no tile at all, because an empty slot is
                     honest and a dash pretending to be a number is not. */}
                 {strState === "value" ? (
-                  <Stat label={t.sellThrough} value={res.sell_through_rate!} />
+                  <Stat label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                 ) : strState === "locked" ? (
                   <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
                 ) : null}
@@ -480,14 +491,15 @@ export function FreeChecker({
                 <div style={{ fontSize: 12.5, color: "#5b6b8c" }}>
                   {res.category ? `${res.category} · ` : ""}
                   {res.confidence ? `${t.confidenceLabel} ${res.confidence}` : ""}
+                  {res.n != null && Number.isFinite(res.n) ? ` · n=${res.n}` : ""}
                 </div>
               </div>
 
+              {res.confidence_note && (
+                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
+              )}
               {sample && (
                 <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
-              )}
-              {!sample && res.confidence_note && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{res.confidence_note}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has

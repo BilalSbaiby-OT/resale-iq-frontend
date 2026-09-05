@@ -209,7 +209,7 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(button).toHaveText(l.checkFree)
       await expect(button).not.toHaveText(/Check it free/)
 
-      // Landing v2 prefills Adidas Samba. Empty-input is still the conversion
+      // Landing prefills Nike Air Force 1 Low. Empty-input is still the conversion
       // error state — clear the field first so we are testing that, not the hero.
       await page.locator("#check").getByRole("textbox").fill("")
       await button.click()

@@ -1,11 +1,10 @@
 /**
  * Live demo-SKU verdict for the landing hero.
  *
- * Prefill is Adidas Samba unless production /api/verdict returns a real BUY
- * for a public query. Probed 2026-09-05: Air Force 1, NB 530/550/2002R,
- * Spezial, 501, Dunk Low, Gazelle, Retro-X, Tech Fleece, Campus, Cortez,
- * Jordan 1, Nuptse, M3600 — item-level results were WATCH or SKIP, never BUY.
- * Do not fake a BUY to make the hero look hotter.
+ * Prefill is Nike Air Force 1 Low — production 2026-09-05: BUY / MEDIUM /
+ * provisional / n=11 / buy-below €56.95. Anonymous sell-through is locked
+ * (null), not 0%. Do not invent a sell-through number. Do not swap back to
+ * Adidas Samba WATCH to make the card look busier.
  *
  * MUST NOT call /api/verdict on every homepage hit: that endpoint claims
  * anonymous quota, writes verdict_logs, and counts against
@@ -14,6 +13,7 @@
  *
  * Disk last-good + 30 min freshness: at most ~48 backend calls/day, and a
  * LIMIT_REACHED / outage still shows the last real BUY/WATCH/SKIP.
+ * Cache is keyed by query so a seed change cannot serve yesterday's SKU.
  */
 import { promises as fs } from "node:fs"
 import os from "node:os"
@@ -31,15 +31,18 @@ export type HeroVerdict = {
   confidence?: string
   confidence_note?: string
   locked?: boolean
+  locked_fields?: string[]
+  provisional?: boolean | null
+  sell_through_rate?: string | null
 }
 
-const QUERY = "Adidas Samba" // live WATCH/MEDIUM; no honest public BUY found
+const QUERY = "Nike Air Force 1 Low"
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_PATH =
   process.env.HERO_VERDICT_CACHE_PATH ||
   path.join(os.tmpdir(), "resaleiq-last-good-hero-verdict.json")
 
-type Cached = { fetchedAt: number; result: HeroVerdict }
+type Cached = { fetchedAt: number; query: string; result: HeroVerdict }
 
 function backendUrl(): string {
   return process.env.BACKEND_URL || "http://localhost:8080"
@@ -57,7 +60,14 @@ function isUsable(r: HeroVerdict | null | undefined): r is HeroVerdict {
 async function readLastGood(): Promise<Cached | null> {
   try {
     const parsed = JSON.parse(await fs.readFile(CACHE_PATH, "utf8")) as Cached
-    if (parsed && typeof parsed.fetchedAt === "number" && isUsable(parsed.result)) return parsed
+    if (
+      parsed &&
+      typeof parsed.fetchedAt === "number" &&
+      parsed.query === QUERY &&
+      isUsable(parsed.result)
+    ) {
+      return parsed
+    }
     return null
   } catch {
     // why: missing/unreadable cache is a cold start, not a homepage outage.
@@ -67,7 +77,11 @@ async function readLastGood(): Promise<Cached | null> {
 
 async function writeLastGood(result: HeroVerdict): Promise<void> {
   try {
-    await fs.writeFile(CACHE_PATH, JSON.stringify({ fetchedAt: Date.now(), result }), "utf8")
+    await fs.writeFile(
+      CACHE_PATH,
+      JSON.stringify({ fetchedAt: Date.now(), query: QUERY, result }),
+      "utf8",
+    )
   } catch {
     // why: a cache that cannot be written must never 500 the homepage.
   }
