@@ -131,10 +131,18 @@ async function writeLastGood(result: HeroVerdict): Promise<void> {
   }
 }
 
+/** D-28: comparable_n must not ride the homepage RSC payload. Display XOR
+ *  already dropped it from the card; this omits the field from initialResult
+ *  only. /api/verdict is untouched — this helper never serves that route. */
+function withoutComparableN(r: HeroVerdict): HeroVerdict {
+  const { n: _omit, ...rest } = r
+  return rest
+}
+
 export async function getHeroVerdict(): Promise<{ query: string; result: HeroVerdict | null }> {
   const cached = await readLastGood()
   if (cached && Date.now() - cached.fetchedAt < MAX_AGE_MS) {
-    return { query: QUERY, result: cached.result }
+    return { query: QUERY, result: withoutComparableN(cached.result) }
   }
   try {
     const r = await fetch(`${backendUrl()}/api/verdict?q=${encodeURIComponent(QUERY)}`, {
@@ -144,11 +152,11 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
       const result = (await r.json()) as HeroVerdict
       if (isUsable(result)) {
         await writeLastGood(result)
-        return { query: QUERY, result }
+        return { query: QUERY, result: withoutComparableN(result) }
       }
     }
   } catch {
     // why: homepage must still render if the analyzer is down; last-good or empty checker.
   }
-  return { query: QUERY, result: cached?.result ?? null }
+  return { query: QUERY, result: cached?.result ? withoutComparableN(cached.result) : null }
 }
