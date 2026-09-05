@@ -38,12 +38,12 @@ export const POSTS: BlogPost[] = [
     title: "What Sells Best on Vinted in 2026 (Data-Backed)",
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
-    date: "2026-08-05",
+    date: "2026-09-05",
     category: "Sourcing",
     readMins: 6,
     intro:
-      "The items that sell best on Vinted aren't always the ones that look most valuable. What actually moves is a mix of brand demand, the right size, condition, and price. Based on " +
-      DATA + ", here's what consistently sells — and how to check any item before you spend.",
+      "As of 5 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,800 hoodie listings left the shelf in the trailing 7 days across the 26 brands we track — ahead of Jackets (1,450) and Shirts (1,282). The single busiest brand/category pair is Stone Island Hoodies: 697 watched departures in 7 days, averaging €53. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
     sections: [
       {
         h: "The categories that move fastest",
@@ -118,11 +118,11 @@ export const POSTS: BlogPost[] = [
     title: "The Best Brands to Resell on Vinted (and How to Judge Any Brand)",
     description:
       `Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from ${TRACKED} analyzed sales.`,
-    date: "2026-08-05",
+    date: "2026-09-05",
     category: "Sourcing",
     readMins: 6,
     intro:
-      "Everyone wants a list of 'best brands to resell', but demand shifts and lists go stale. The brands below are consistently liquid on Vinted, and just as importantly, here's how to judge any brand yourself.",
+      "As of 5 September 2026, the highest-volume brands leaving Vinted's shelf right now are Patagonia (1,295 listings/7d, Jackets averaging €50), Stone Island (1,259/7d, Hoodies averaging €53) and Fred Perry (1,137/7d, Shirts averaging €15). For margin instead of turnover: Gucci Bags average €229 on 204 watched departures/7d, and Balenciaga Sneakers average €131 on 200/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
     sections: [
       {
         h: "Consistently liquid brands",
@@ -338,11 +338,11 @@ export const POSTS: BlogPost[] = [
     title: "How Much Money Can You Realistically Make Reselling on Vinted?",
     description:
       "An honest look at reselling income on Vinted — what drives it, realistic ranges, and why sourcing decisions matter more than volume.",
-    date: "2026-08-05",
+    date: "2026-09-05",
     category: "Business",
     readMins: 5,
     intro:
-      "Reselling income on Vinted ranges from pocket money to a full-time living. The difference is rarely luck — it's sourcing discipline, sell-through, and reinvestment. Here's an honest breakdown. (This is general information, not a promise of earnings.)",
+      "There's no single number — it depends entirely on which brand and category you source. As of 5 September 2026, category prices we track range from €9 (Pull&Bear Hoodies) to €229 (Gucci Bags) across the 26 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 603 watched departures in 7 days at €15 avg, versus Jordan Sneakers at 35/7d and €116 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
     sections: [
       {
         h: "What actually drives income",
