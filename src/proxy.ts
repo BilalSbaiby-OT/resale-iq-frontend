@@ -229,6 +229,31 @@ function isAppLocalePath(pathname: string): boolean {
 const PUBLIC_PARTIAL_LOCALE_PATHS = new Set<string>(["/tools", "/check"])
 
 /**
+ * Prefix match, not exact — so "/tools/vinted-price-checker" and the other
+ * four search-intent pages get the same treatment as "/tools" itself.
+ *
+ * This was an exact-match `Set.has(pathname)`, and the intent pages fell
+ * through to the English default at the bottom of `proxy()`. That was correct
+ * when it was written: those pages passed no `locale` prop at all, so
+ * FreeChecker rendered English whatever header it got, and stamping
+ * `<html lang="es">` on an entirely English page is the "URL promising a
+ * language it does not serve" bug this file exists to prevent.
+ *
+ * src/app/tools/[slug]/page.tsx now reads `requestLocale()` and passes it to
+ * FreeChecker and PublicProfitCalculator, which puts those pages in exactly
+ * the state the comment above describes for "/tools": conversion widget
+ * translated, `data/search-intents.ts` body still English. The indexing
+ * argument carries over unchanged — Googlebot sends no NEXT_LOCALE cookie, so
+ * the crawled version of every one of these URLs is still English.
+ */
+function isPublicPartialLocalePath(pathname: string): boolean {
+  for (const p of PUBLIC_PARTIAL_LOCALE_PATHS) {
+    if (pathname === p || pathname.startsWith(`${p}/`)) return true
+  }
+  return false
+}
+
+/**
  * Unprefixed paths that DO have a real translated route at "/<locale><path>",
  * so a cookie-carrying visitor should be sent to it rather than served the
  * English one. Only /methodology qualifies today (113 keys in six locales,
@@ -354,7 +379,7 @@ export function proxy(request: NextRequest) {
     // PUBLIC_PARTIAL_LOCALE_PATHS above). Same URL, same in-place serving as
     // the authenticated app -- these are not on PATH_LOCALES so there is no
     // "/<locale>/tools" to redirect to.
-    if (PUBLIC_PARTIAL_LOCALE_PATHS.has(pathname)) return withLocaleHeader(request, chosen)
+    if (isPublicPartialLocalePath(pathname)) return withLocaleHeader(request, chosen)
   }
 
   return withLocaleHeader(request, "en")

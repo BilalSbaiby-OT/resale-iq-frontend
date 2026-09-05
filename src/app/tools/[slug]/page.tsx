@@ -5,6 +5,8 @@ import { INTENTS, getIntent } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { PublicProfitCalculator } from "@/components/tools/public-profit-calculator"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { requestLocale } from "@/lib/request-locale"
+import { copy } from "@/lib/i18n"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -29,6 +31,23 @@ export default async function IntentPage(
 ) {
   const { slug } = await params
   const tracked = await listingsTrackedLabel()
+  // What a visitor OPERATES is translated; the editorial body is not.
+  //
+  // The intent bodies (h1, lede, bullets, FAQ) live in data/search-intents.ts
+  // and are English in every locale — that is the deliberate content split
+  // documented in src/lib/locale-routes.ts and src/lib/i18n.ts, not an
+  // oversight, and machine-translating SEO landing prose is a separate task.
+  // But the checker and the profit calculator embedded here are CONTROLS. A
+  // Spanish visitor could not read the field labels, the button or the
+  // validation errors on their own free tool until this pass — FreeChecker
+  // takes a `locale` prop and this page simply never passed it. Same for the
+  // breadcrumb and the "See plans" CTA, which is the paid path.
+  //
+  // This page is already `ƒ` (dynamic) in the build output because
+  // listingsTrackedLabel() fetches the warehouse, so reading the request
+  // locale costs no static generation that we had.
+  const locale = await requestLocale()
+  const t = copy[locale].toolsPage
   const i = fillTracked(getIntent(slug), tracked)
   if (!i) notFound()
   const others = fillTracked(INTENTS.filter((x) => x.slug !== i.slug), tracked)
@@ -61,60 +80,90 @@ export default async function IntentPage(
   ]
 
   return (
-    <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
+    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "40px 20px 96px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div style={{ maxWidth: 760, margin: "0 auto" }}>
-        <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
-          <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href="/tools" style={{ color: "#22c55e", textDecoration: "none" }}>Tools</Link>
-        </div>
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        {/* Breadcrumbs were accent-green, which put two more green links above
+            the fold competing with the tool's own CTA. Navigation is not the
+            action on this page. */}
+        <nav style={{ fontSize: 13, marginBottom: 28, color: "var(--color-text-muted)" }}>
+          <Link href="/" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>Resale IQ</Link>
+          <span> / </span>
+          <Link href="/tools" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>{t.breadcrumbTools}</Link>
+        </nav>
 
-        <h1 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15, marginBottom: 14 }}>{i.h1}</h1>
-        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 26 }}>{i.lede}</p>
+        <h1 style={{ fontSize: 34, fontWeight: 800, color: "var(--color-text-primary)", lineHeight: 1.15, letterSpacing: "-0.6px", marginBottom: 16 }}>{i.h1}</h1>
+        <p style={{ fontSize: 16.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 36, maxWidth: 620 }}>{i.lede}</p>
 
         {/* Profit-calculator intent: a buy-price Calculate, never the checker.
             Other slugs keep the free checker (holy-shit verdict). */}
-        {slug === "vinted-profit-calculator" ? <PublicProfitCalculator /> : <FreeChecker />}
+        {slug === "vinted-profit-calculator"
+          ? <PublicProfitCalculator locale={locale} />
+          : <FreeChecker locale={locale} />}
 
-        <section style={{ marginTop: 34, display: "grid", gap: 14 }}>
-          {i.bullets.map((b) => (
-            <div key={b.h} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 5 }}>{b.h}</div>
-              <div style={{ fontSize: 14, color: "#8b99b8", lineHeight: 1.6 }}>{b.p}</div>
+        {/* Was three filled, bordered cards stacked under the tool, each with
+            the same visual weight as the tool itself. Same three points, but
+            whitespace and type weight separate them now. */}
+        <section style={{ marginTop: 56 }}>
+          {i.bullets.map((b, n) => (
+            <div
+              key={b.h}
+              style={{
+                paddingTop: n === 0 ? 0 : 24,
+                marginTop: n === 0 ? 0 : 24,
+                borderTop: n === 0 ? "none" : "1px solid var(--color-border-ui)",
+              }}
+            >
+              <h2 style={{ fontSize: 16.5, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 7 }}>{b.h}</h2>
+              <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>{b.p}</p>
             </div>
           ))}
         </section>
 
-        <section style={{ marginTop: 34 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", marginBottom: 16 }}>Frequently asked questions</h2>
-          {i.faq.map((f) => (
-            <div key={f.q} style={{ marginBottom: 18, borderBottom: "1px solid #161b26", paddingBottom: 16 }}>
-              <h3 style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.65 }}>{f.a}</p>
+        <section style={{ marginTop: 56 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 24 }}>{t.faqHeading}</h2>
+          {i.faq.map((f, n) => (
+            <div
+              key={f.q}
+              style={{
+                paddingTop: n === 0 ? 0 : 22,
+                marginTop: n === 0 ? 0 : 22,
+                borderTop: n === 0 ? "none" : "1px solid var(--color-border-ui)",
+              }}
+            >
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>{f.q}</h3>
+              <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>{f.a}</p>
             </div>
           ))}
         </section>
 
-        <div style={{ marginTop: 30, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Get the full numbers.</div>
-          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
+        {/* The paid path. Deliberately a text link, not a second filled green
+            button: the tool's own CTA above is the one accent on this view.
+            The sentence stays English with the rest of the editorial body —
+            it is a data claim about coverage and gating, and translating it
+            belongs with the intent copy, not with the chrome. */}
+        <section style={{ marginTop: 56, paddingTop: 28, borderTop: "1px solid var(--color-border-ui)" }}>
+          <h2 style={{ fontSize: 19, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>{t.upsellTitle}</h2>
+          <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
             Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            See plans →
+          <Link
+            href="/register"
+            style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
+          >
+            {t.upsellCta} →
           </Link>
-        </div>
+        </section>
 
-        <div style={{ marginTop: 32 }}>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>More tools</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <nav style={{ marginTop: 56 }}>
+          <h2 style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-muted)", marginBottom: 14, textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.moreTools}</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {others.map((o) => (
-              <Link key={o.slug} href={`/tools/${o.slug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ {o.h1}</Link>
+              <Link key={o.slug} href={`/tools/${o.slug}`} style={{ color: "var(--color-text-secondary)", fontSize: 15, textDecoration: "none" }}>{o.h1}</Link>
             ))}
-            <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Reselling guides &amp; data</Link>
+            <Link href="/blog" style={{ color: "var(--color-text-secondary)", fontSize: 15, textDecoration: "none" }}>Reselling guides &amp; data</Link>
           </div>
-        </div>
+        </nav>
       </div>
     </div>
   )

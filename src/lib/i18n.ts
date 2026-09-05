@@ -160,6 +160,30 @@ export const copy = {
     toolsPage: {
       h1: "Check the market before you buy",
       lede: "Type the item in your hand. You get BUY, WATCH or SKIP, the most you should pay, and how many watched departures sit behind the number. Sell-through and sizes stay on a plan. Null is not zero.",
+      // Chrome for /tools and /tools/<slug>. The intent BODIES
+      // (data/search-intents.ts: h1, lede, bullets, faq) are still English on
+      // every locale — that is the documented content split noted above. What
+      // is translated here is what a visitor has to OPERATE: the nav around
+      // the tool and the calculator itself.
+      moreTools: "More tools",
+      breadcrumbTools: "Tools",
+      faqHeading: "Frequently asked questions",
+      upsellTitle: "Get the full numbers.",
+      upsellCta: "See plans",
+      // English strings below are pinned by e2e/smoke.spec.ts ("public profit
+      // calculator shows a result or a visible error after Calculate"), which
+      // finds the fields by label and the button by its exact accessible name.
+      // Change the EN wording and that test goes red — on purpose.
+      calc: {
+        buyLabel: "Buy price (€)",
+        sellLabel: "Expected sale price (€)",
+        submit: "Calculate",
+        errBuy: "Enter a buy price greater than 0.",
+        errSell: "Enter an expected sale price greater than 0.",
+        netLabel: "Net after Vinted 5% fee",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Sale ${sale} − fee ${fee} − buy ${buy}. Arithmetic on your figures — the 5% is the published Vinted seller-side rate, not a hit-rate claim.`,
+      },
     },
     // The free checker — the conversion moment. Everything a visitor sees
     // between typing a query and hitting the paywall.
@@ -521,6 +545,21 @@ export const copy = {
     toolsPage: {
       h1: "Vérifiez le marché avant d'acheter",
       lede: "Tapez l'article que vous avez en main. Vous obtenez BUY, WATCH ou SKIP, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
+      moreTools: "Autres outils",
+      breadcrumbTools: "Outils",
+      faqHeading: "Questions fréquentes",
+      upsellTitle: "Obtenez tous les chiffres.",
+      upsellCta: "Voir les offres",
+      calc: {
+        buyLabel: "Prix d'achat (€)",
+        sellLabel: "Prix de vente estimé (€)",
+        submit: "Calculer",
+        errBuy: "Saisissez un prix d'achat supérieur à 0.",
+        errSell: "Saisissez un prix de vente estimé supérieur à 0.",
+        netLabel: "Net après la commission Vinted de 5 %",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Vente ${sale} − commission ${fee} − achat ${buy}. Un calcul sur vos propres chiffres — les 5 % sont le taux vendeur publié par Vinted, pas une promesse de résultat.`,
+      },
     },
     checker: {
       inputAriaLabel: "Article à vérifier",
@@ -839,6 +878,21 @@ export const copy = {
     toolsPage: {
       h1: "Comprueba el mercado antes de comprar",
       lede: "Escribe el artículo que tienes en la mano. Obtienes BUY, WATCH o SKIP, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás de la cifra. La rotación de ventas y las tallas quedan reservadas a un plan de pago. Un valor nulo no es un cero.",
+      moreTools: "Más herramientas",
+      breadcrumbTools: "Herramientas",
+      faqHeading: "Preguntas frecuentes",
+      upsellTitle: "Consigue las cifras completas.",
+      upsellCta: "Ver planes",
+      calc: {
+        buyLabel: "Precio de compra (€)",
+        sellLabel: "Precio de venta estimado (€)",
+        submit: "Calcular",
+        errBuy: "Introduce un precio de compra mayor que 0.",
+        errSell: "Introduce un precio de venta estimado mayor que 0.",
+        netLabel: "Neto tras la comisión del 5 % de Vinted",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Venta ${sale} − comisión ${fee} − compra ${buy}. Aritmética sobre tus cifras: el 5 % es la tarifa de vendedor publicada por Vinted, no una promesa de resultados.`,
+      },
     },
     checker: {
       inputAriaLabel: "Artículo a comprobar",
@@ -1157,6 +1211,21 @@ export const copy = {
     toolsPage: {
       h1: "Prüfe den Markt, bevor du kaufst",
       lede: "Gib den Artikel ein, den du in der Hand hast. Du erhältst BUY, WATCH oder SKIP, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
+      moreTools: "Weitere Tools",
+      breadcrumbTools: "Tools",
+      faqHeading: "Häufige Fragen",
+      upsellTitle: "Hol dir die vollständigen Zahlen.",
+      upsellCta: "Pläne ansehen",
+      calc: {
+        buyLabel: "Einkaufspreis (€)",
+        sellLabel: "Erwarteter Verkaufspreis (€)",
+        submit: "Berechnen",
+        errBuy: "Gib einen Einkaufspreis größer als 0 ein.",
+        errSell: "Gib einen erwarteten Verkaufspreis größer als 0 ein.",
+        netLabel: "Netto nach 5 % Vinted-Gebühr",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Verkauf ${sale} − Gebühr ${fee} − Einkauf ${buy}. Rechnung auf deinen eigenen Zahlen — die 5 % sind der von Vinted veröffentlichte Verkäufersatz, keine Erfolgszusage.`,
+      },
     },
     checker: {
       inputAriaLabel: "Artikel zum Prüfen",
@@ -1477,6 +1546,21 @@ export const copy = {
     toolsPage: {
       h1: "Controlla il mercato prima di comprare",
       lede: "Digita l'articolo che hai in mano. Ottieni BUY, WATCH o SKIP, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
+      moreTools: "Altri strumenti",
+      breadcrumbTools: "Strumenti",
+      faqHeading: "Domande frequenti",
+      upsellTitle: "Ottieni i numeri completi.",
+      upsellCta: "Vedi i piani",
+      calc: {
+        buyLabel: "Prezzo di acquisto (€)",
+        sellLabel: "Prezzo di vendita previsto (€)",
+        submit: "Calcola",
+        errBuy: "Inserisci un prezzo di acquisto maggiore di 0.",
+        errSell: "Inserisci un prezzo di vendita previsto maggiore di 0.",
+        netLabel: "Netto dopo la commissione Vinted del 5%",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Vendita ${sale} − commissione ${fee} − acquisto ${buy}. Aritmetica sui tuoi numeri: il 5% è la tariffa venditore pubblicata da Vinted, non una promessa di risultato.`,
+      },
     },
     checker: {
       inputAriaLabel: "Articolo da controllare",
@@ -1795,6 +1879,21 @@ export const copy = {
     toolsPage: {
       h1: "Verifique o mercado antes de comprar",
       lede: "Digite o artigo que tem em mãos. Você recebe BUY, WATCH ou SKIP, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
+      moreTools: "Mais ferramentas",
+      breadcrumbTools: "Ferramentas",
+      faqHeading: "Perguntas frequentes",
+      upsellTitle: "Obtenha os números completos.",
+      upsellCta: "Ver planos",
+      calc: {
+        buyLabel: "Preço de compra (€)",
+        sellLabel: "Preço de venda previsto (€)",
+        submit: "Calcular",
+        errBuy: "Introduza um preço de compra superior a 0.",
+        errSell: "Introduza um preço de venda previsto superior a 0.",
+        netLabel: "Líquido após a comissão de 5% da Vinted",
+        breakdown: (sale: string, fee: string, buy: string) =>
+          `Venda ${sale} − comissão ${fee} − compra ${buy}. Aritmética sobre os seus números: os 5% são a taxa de vendedor publicada pela Vinted, não uma promessa de resultado.`,
+      },
     },
     checker: {
       inputAriaLabel: "Artigo a verificar",
