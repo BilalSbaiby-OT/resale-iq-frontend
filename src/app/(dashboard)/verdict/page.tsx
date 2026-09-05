@@ -46,7 +46,7 @@ const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
 
 export default function VerdictPage() {
   return (
-    <Suspense fallback={<AppShell title="Quick Verdict" subtitle="Type any product — get an instant buy / skip call from live market data"><div /></AppShell>}>
+    <Suspense fallback={<AppShell title="Check"><div /></AppShell>}>
       <VerdictInner />
     </Suspense>
   )
@@ -108,19 +108,21 @@ function VerdictInner() {
       : null)
 
   return (
-    <AppShell title="Quick Verdict" subtitle="Type any product — BUY / WATCH / SKIP from watched departures">
-      <div className="max-w-2xl">
-        {/* Search */}
-        <div className="flex gap-2 mb-6">
+    <AppShell title="Check">
+      <div className="max-w-xl mx-auto pt-8">
+        <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-1.6px", lineHeight: 1.05, margin: "0 0 28px" }}>
+          What should you pay?
+        </h1>
+        <div className="flex gap-2 mb-8">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder="e.g. Adidas Samba, Nike Air Force 1, New Balance 530"
-            className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="flex-1 bg-[#0f1218] border border-[#2a3348] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
-            className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
-            <Zap size={15} />{loading ? "Looking up watched departures…" : "Check market"}
+            className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
+            <Zap size={16} />{loading ? "Looking up watched departures…" : "Check"}
           </button>
         </div>
 

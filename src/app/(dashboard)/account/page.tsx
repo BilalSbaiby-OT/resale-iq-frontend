@@ -8,6 +8,8 @@ import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
 import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell } from "lucide-react"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { navCopy } from "@/lib/nav-copy"
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -28,6 +30,7 @@ export default function AccountPage() {
     () => typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("checkout") === "cancelled")
   const { logout } = useAuthStore()
+  const nav = navCopy[useLocale()]
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
 
@@ -148,6 +151,30 @@ export default function AccountPage() {
             <span>Checkout cancelled — you haven&rsquo;t been charged. Your plan is unchanged.</span>
           </div>
         )}
+        <div className="bg-[#141820] border border-[#1e2535] rounded-xl p-5">
+          <div className="font-bold text-[13px] mb-3">{nav.sections.resources}</div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">
+            {([
+              ["/watchlist", nav.items.watchlist],
+              ["/portfolio", nav.items.portfolio],
+              ["/dashboard", nav.items.dashboard],
+              ["/brands", nav.items.brands],
+              ["/trends", nav.items.trends],
+              ["/search", nav.items.search],
+              ["/compare", nav.items.compare],
+              ["/market", nav.items.market],
+              ["/order-planner", nav.items.orderPlanner],
+              ["/calculator", nav.items.calculator],
+              ["/manual", nav.items.manual],
+              ["/blog", nav.items.blog],
+              ["/tools", nav.items.tools],
+              ["/data", nav.items.data],
+              ["/support", nav.items.support],
+            ] as const).map(([href, label]) => (
+              <Link key={href} href={href} style={{ color: "#8fa3c4", textDecoration: "none" }}>{label}</Link>
+            ))}
+          </div>
+        </div>
         {/* Plan */}
         <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>

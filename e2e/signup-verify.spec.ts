@@ -33,8 +33,8 @@ test.describe("signup verify session", () => {
     expect(id).toBeTruthy()
 
     await page.goto(`/verify-email?token=vtok-${id}`)
-    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
-    await expect(page.getByRole("link", { name: "Watchlist" })).toBeVisible({ timeout: 20_000 })
+    await page.waitForURL(/\/verdict/, { timeout: 20_000 })
+    await expect(page.getByRole("link", { name: "Check" })).toBeVisible({ timeout: 20_000 })
     const jwt = await page.evaluate(() => localStorage.getItem("di_jwt"))
     expect(jwt).toBeTruthy()
   })
@@ -54,7 +54,7 @@ test.describe("signup verify session", () => {
       return (await r.json()).id
     })
     await page.goto(`/verify-email?token=vtok-${id}`)
-    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+    await page.waitForURL(/\/verdict/, { timeout: 20_000 })
     await page.evaluate(() => localStorage.removeItem("di_jwt"))
     await page.goto(`/verify-email?token=vtok-${id}`)
     await expect(page.locator("h1")).toContainText(/confirmed/i)
@@ -76,7 +76,7 @@ test.describe("signup verify session", () => {
     await page.locator('input[type="email"]').fill("alice@example.com")
     await page.locator('input[type="password"]').fill("password12345")
     await page.getByRole("button", { name: /Sign in/i }).click()
-    await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
+    await page.waitForURL(/\/verdict/, { timeout: 20_000 })
     const before = await page.evaluate(() => localStorage.getItem("di_jwt"))
     expect(before).toBeTruthy()
 

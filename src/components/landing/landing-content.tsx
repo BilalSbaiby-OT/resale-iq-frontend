@@ -1,9 +1,6 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
 import { PricingSection } from "./pricing-section"
 import { RedirectIfAuthed } from "./redirect-if-authed"
-import { LiveMarketProof } from "./live-market-proof"
-import { ExtensionHero, chromeStoreUrl } from "./extension-hero"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { SocialLinks } from "@/components/layout/social-links"
@@ -15,22 +12,10 @@ import { canonicalPath } from "@/lib/locale-routes"
 type Dict = (typeof copy)[keyof typeof copy]
 
 /**
- * The homepage body, extracted verbatim from src/app/page.tsx so the English
- * root ("/") and every translated route (src/app/[locale]/page.tsx) render
- * the identical layout and never drift into two different homepages. Only
- * the dictionary (`t`) and the `locale` change between callers.
- *
- * `locale` is threaded to FreeChecker, PricingSection and the trial sentence
- * because frontend-eng's copy pass landed in the same merge that extracted this
- * component — the two branches were written in parallel and each left this
- * wiring for whoever merged them. LiveMarketProof and ExtensionHero now take
- * `locale` too (W9, 2026-09-01 — see i18n.ts `liveProof`/`extensionHero`).
- * Footer nav labels, the disclaimer paragraph, and the trust-signal row
- * (`mostItemsRefresh`/`noAccuracy`) now read from `copy[locale].siteFooter`
- * (2026-09-03) — the destination pages linked from the footer (`/blog`,
- * `/manual`, `/tools`, `/terms`, `/privacy`, `/legal`, `/data`, `/api-docs`)
- * are still English-only content; only `/methodology` and `/support` have a
- * translated route, so only those two hrefs go through `canonicalPath`.
+ * Apple-style v1 landing: one job, huge type, whitespace, one primary action.
+ * Feature grids, extension hero and the two-column "generated SaaS" stack are
+ * gone. Pricing stays below the fold so /pricing → /#pricing still resolves.
+ * #check is the e2e hook for the free checker (i18n-checker, locale-routing).
  */
 export function LandingContent({
   t,
@@ -45,174 +30,64 @@ export function LandingContent({
   trackedExact: string | null
   market: MarketNumbers
 }) {
-  const chrome = chromeStoreUrl()
+  void tracked
+  void trackedExact
+  void market
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
-      {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", maxWidth: 1080, margin: "0 auto" }}>
-        <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none", color: "inherit" }}>
-          <div aria-hidden="true" style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
-          <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
+      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 32px", maxWidth: 980, margin: "0 auto" }}>
+        <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
+          <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.3px" }}>Resale IQ</span>
         </Link>
-        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", rowGap: 8, justifyContent: "flex-end" }}>
-          {/* UX-RULES.md ticket 1: the switcher itself. Sets NEXT_LOCALE and
-              lands on the sibling locale route (see locale-switcher.tsx) —
-              the only fix that reaches a visitor already carrying a wrong
-              year-long cookie, since detectLocale()/proxy.ts only protect
-              new ones. */}
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <LocaleSwitcher locale={locale} />
-          <Link href="/login" style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none", padding: "8px 14px" }}>{t.signIn}</Link>
-          {/* Demoted from a green button. It was pulling the eye away from the
-              one action on the page, and put a second green element in the
-              top-right corner of a layout whose whole point is that green
-              means "click this". */}
-          <a href="#pricing" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "8px 16px", borderRadius: 8 }}>{t.pricing}</a>
+          <Link href="/login" style={{ fontSize: 14, color: "#8b99b8", textDecoration: "none", padding: "8px 4px" }}>{t.signIn}</Link>
         </div>
       </nav>
 
       <main id="main">
-      {/* Hero — ASYMMETRIC ON PURPOSE.
-          It was centred: pill badge, centred headline, centred paragraph, two
-          centred buttons, proof panel underneath. That stack is the default
-          shape of every generated landing page, which is most of why the site
-          "looked AI generated" — the words were only half of it.
-
-          Two columns instead: the claim on the left, the evidence beside it
-          rather than below it. A sceptical reseller reads "highest price to
-          pay" and sees real weekly departure counts in the same glance, with no
-          scroll between promise and proof. */}
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "64px 24px 48px" }}>
-        <div className="riq-hero">
-          <div>
-            <h1 style={{ fontSize: 52, fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.04, margin: 0 }}>
-              {t.heroTitle}
-            </h1>
-            <p style={{ fontSize: 17.5, color: "#93a1bd", marginTop: 22, lineHeight: 1.6, maxWidth: 480 }}>
-              {t.heroBody}
-            </p>
-            <p style={{ fontSize: 13.5, color: "#8b99b8", marginTop: 12, maxWidth: 480 }}>
-              {t.heroFrom(tracked)}
-            </p>
-            {/* heroHonesty was here and is REMOVED, 2026-09-01.
-                Two reasons, and the first is that it was simply WRONG: it read
-                "about 4 in 10 lookups come back not enough data", measured
-                before A13 shipped. Replaying 180 real searches post-A13 gives
-                146 answered -- roughly 2 in 10 unanswered, not 4. We were
-                advertising a failure rate at double its real value, above the
-                fold, on the page that has to earn the click.
-
-                The second is policy we already wrote down and then broke.
-                CLAUDE.md: "Honesty lives on /methodology. The homepage sells
-                the number." A landing page leading with its own answer-rate is
-                not honesty, it is a conversion tax paid before the visitor has
-                seen the product work. The refusal is real, it is in the
-                product, and a visitor meets it at the moment it applies -- on
-                a result, with the reason -- which is where it reads as rigour
-                instead of as a warning label.
-
-                The dictionary key stays in i18n.ts for /methodology to use with
-                a CURRENT number. Do not put a stale rate back on the hero. */}
-
-            {/* Checker is the job on every viewport. Chrome cannot run on a
-                phone, so it stays a desktop-only secondary link. */}
-            <div id="check" style={{ marginTop: 28, maxWidth: 520 }}>
-              <FreeChecker locale={locale} />
-              <p style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 10, lineHeight: 1.5 }}>
-                {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: 20, alignItems: "center", marginTop: 18, flexWrap: "wrap" }}>
-              <a href={chrome} className="hidden md:inline-flex items-center gap-2" style={{ fontSize: 13.5, fontWeight: 600, color: "#c3cde0", border: "1px solid #232c42", textDecoration: "none", padding: "10px 16px", borderRadius: 8 }}>
-                {t.addToChrome} <ArrowRight size={14} />
-              </a>
-              <Link href={`${canonicalPath(locale, "/register")}?plan=free`} style={{ fontSize: 13.5, color: "#8b99b8", textDecoration: "none" }}>
-                {t.orCheck}
-              </Link>
-            </div>
+        <section style={{ maxWidth: 720, margin: "0 auto", padding: "96px 24px 80px", textAlign: "center" }}>
+          <h1 style={{ fontSize: "clamp(42px, 8vw, 84px)", fontWeight: 700, letterSpacing: "-2.8px", lineHeight: 1.02, margin: 0 }}>
+            {t.heroTitle}
+          </h1>
+          <p style={{ fontSize: 19, color: "#8b99b8", margin: "22px auto 0", lineHeight: 1.45, maxWidth: 520 }}>
+            {t.heroBody}
+          </p>
+          <div id="check" style={{ marginTop: 48, textAlign: "left" }}>
+            <FreeChecker locale={locale} variant="hero" />
           </div>
+          <p style={{ fontSize: 13, color: "#5b6b8c", marginTop: 18, lineHeight: 1.5 }}>
+            {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
+          </p>
+        </section>
 
-          <div className="hidden md:block">
-            <ExtensionHero locale={locale} />
-          </div>
-        </div>
-      </section>
-
-      {/* Features — 3×2 grid, balanced. */}
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "48px 24px 20px" }}>
-        <div className="riq-grid-features">
-          {[
-            ...t.features,
-          ].map(({ t: title, d }) => (
-            <div key={title} style={{ padding: "18px 0" }}>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.3px" }}>{title}</div>
-              <div style={{ fontSize: 13, color: "#8b99b8", marginTop: 8, lineHeight: 1.6 }}>{d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "8px 24px 28px" }}>
-        <LiveMarketProof locale={locale} />
-      </section>
-
-      {/* Trust signals — inline, no borders, no template. */}
-      <section style={{ maxWidth: 1080, margin: "12px auto 0", padding: "0 24px" }}>
-        <div style={{ display: "flex", gap: 28, flexWrap: "wrap", padding: "16px 0", color: "#8b99b8", fontSize: 12.5, lineHeight: 1.5 }}>
-          <span><strong style={{ color: "#93a1bd", fontWeight: 600 }}>{trackedExact ?? tracked}</strong> unique items tracked{market.stamp ? ` · ${market.stamp}` : ""}</span>
-          {/* NOT "Scraped every 30 min". PR #4 (c0a48c9) removed that claim
-              from llms.txt, /methodology, /support and /category on 2026-09-02
-              after measuring it false; this homepage badge was a fifth surface
-              the sweep missed, and it sits directly above the pricing block.
-              The scraper is *scheduled* every 30 min per market but skips a run
-              while the previous one is still going: measured 83% of gaps under
-              an hour (median 34 min, n=1,157, trailing 7 days to 2026-09-02).
-              "Most" carries that without pinning a figure that rots in place —
-              /methodology holds the number and its source. */}
-          <span>{t.mostItemsRefresh}</span>
-          <span>Every formula on <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#93a1bd", textDecoration: "none" }}>/methodology</Link></span>
-          <span>{t.noAccuracy}</span>
-        </div>
-      </section>
-
-      <PricingSection locale={locale} />
+        <PricingSection locale={locale} />
       </main>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid #1c2333", padding: "28px 24px", textAlign: "center", color: "#8b99b8", fontSize: 12 }}>
-        {/* wrap + row-gap: 8 links in a fixed row overflowed the viewport on phones */}
-        <div style={{ display: "flex", gap: 18, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-          <Link href="/tools" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
-          {/* The HUBS, not just leaves. /flip/nike and /category/sneakers were
-              already here, but the indexes themselves sat at crawl depth 2 —
-              reachable only through a leaf. Linking the hubs from the homepage
-              puts them at depth 1 and gives every child page a shorter path to
-              authority. Requested by the SEO agent; page.tsx is the growth lane,
-              which is why it needed doing here. */}
-          <Link href="/flip" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
-          <Link href="/category" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
-          <Link href="/flip/nike" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
-          <Link href="/category/sneakers" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
-          <Link href="/manual" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
-          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.methodologyLink}</Link>
-          <Link href="/data" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.marketData}</Link>
-          <Link href="/api-docs" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.api}</Link>
-          <Link href="/blog" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.blog}</Link>
-          <Link href="/terms" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
-          <Link href="/privacy" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
-          <Link href="/legal" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
-          <Link href={canonicalPath(locale, "/support")} style={{ color: "#8b99b8", textDecoration: "none" }}>{t.siteFooter.support}</Link>
-          <Link href="/login" style={{ color: "#8b99b8", textDecoration: "none" }}>{t.signIn}</Link>
+      <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "#5b6b8c", fontSize: 12 }}>
+        <div style={{ display: "flex", gap: 16, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 16 }}>
+          <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
+          <Link href="/flip" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
+          <Link href="/category" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
+          <Link href="/flip/nike" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
+          <Link href="/category/sneakers" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
+          <Link href="/manual" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
+          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.methodologyLink}</Link>
+          <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.marketData}</Link>
+          <Link href="/api-docs" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.api}</Link>
+          <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.blog}</Link>
+          <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
+          <Link href="/privacy" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
+          <Link href="/legal" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
+          <Link href={canonicalPath(locale, "/support")} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.support}</Link>
+          <Link href="/login" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.signIn}</Link>
         </div>
-        {/* The four accounts we actually post from. Here rather than only in
-            the nav because this component is the site's single <footer> and is
-            shared verbatim by "/" and every /[locale] route, so one copy
-            reaches all six locales. */}
         <div style={{ marginBottom: 14 }}>
           <SocialLinks />
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
-        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#8b99b8", lineHeight: 1.6 }}>
+        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#5b6b8c", lineHeight: 1.6 }}>
           {t.siteFooter.disclaimer}
         </div>
       </footer>

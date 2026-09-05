@@ -22,7 +22,7 @@ export function RedirectIfAuthed() {
   const router = useRouter()
 
   useEffect(() => {
-    if (getToken()) router.replace("/dashboard")
+    if (getToken()) router.replace("/verdict")
   }, [router])
 
   return null

@@ -116,12 +116,9 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: 20, background: "#0B0D10" }}>
           {isTrial && !isPaid && (
-            <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
-              <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
-                <span style={{ fontWeight: 650 }}>{t.freeTrial}</span>
-                <span style={{ color: "#8b99b8" }}> — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
-              </div>
-              <a href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "4px 2px 16px", fontSize: 13, color: "#8b99b8" }}>
+              <span>{t.freeTrial} — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
+              <a href="/account" style={{ color: "#c3cde0", fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
                 {t.upgradeNow}
               </a>
             </div>

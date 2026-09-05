@@ -48,7 +48,7 @@ export default function ResetPasswordPage() {
         } catch {
           useAuthStore.setState({ isAuthenticated: true, isLoading: false })
         }
-        router.replace("/dashboard")
+        router.replace("/verdict")
         return
       }
       setDone(true)
