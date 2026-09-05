@@ -87,6 +87,23 @@ const VERDICT_CATALOG = {
     months_supply: 0.6,
     data_quality: 80,
   },
+  // Homepage hero seed. Mirrors production 2026-09-05: BUY / MEDIUM /
+  // provisional / n=11 / buy-below €56.95. No sell-through — anon ST is
+  // locked/null. Do not copy a fake rate onto this row.
+  "nike air force 1 low": {
+    verdict: "BUY",
+    product: "Nike Air Force 1 Low",
+    category: "Sneakers",
+    confidence: "MEDIUM",
+    confidence_note: "Only 11 watched departures",
+    n: 11,
+    sold_7d: 20,
+    active_listings: 1167,
+    buy_below: 56.95,
+    sell_avg: 85.64,
+    sell_median: 75.0,
+    provisional: true,
+  },
   "provisional momentum item": {
     // Shape of api/routes.py _provisional_verdict(): a call resting on
     // momentum/price alone because str_pct is withheld. This was the FIRST

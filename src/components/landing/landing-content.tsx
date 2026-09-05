@@ -13,7 +13,7 @@ type Dict = (typeof copy)[keyof typeof copy]
 
 /**
  * Landing v2 — the product is the object of desire, not a SaaS brochure.
- * First screen: live demo SKU (real /api/verdict) + one primary Check CTA.
+ * First screen: live Nike Air Force 1 Low BUY (real /api/verdict) + one primary Check CTA.
  * Who-it's-for sits above the fold. Pricing below the fold.
  * Sign in lives in the footer, not as a competing hero CTA.
  * Does not delete Deal Scanner / sidebar features (CHARTER UX gate).

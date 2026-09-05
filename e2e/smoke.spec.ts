@@ -15,6 +15,13 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
   await expect(hero.getByText(/EU Vinted resellers/i)).toBeVisible()
+  // Seed is the live BUY SKU, not Adidas Samba WATCH.
+  await expect(hero.getByRole("textbox")).toHaveValue("Nike Air Force 1 Low")
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Air Force 1 Low/)
+  await expect(hero).not.toContainText(/Adidas Samba/)
+  await expect(hero.getByText("BUY", { exact: true })).toBeVisible()
+  await expect(hero.getByText(/Only 11 watched departures/i)).toBeVisible()
+  await expect(hero.getByText(/n=11/)).toBeVisible()
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
   await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)
@@ -23,6 +30,8 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   const locked = hero.getByTestId("riq-locked-stat")
   await expect(locked).toBeVisible()
   await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
+  await expect(hero.getByText(/Sell-through/i)).toBeVisible()
+  await expect(hero.locator("[data-locked-field=sell_through_rate]")).not.toContainText("0%")
   const unlocks = hero.locator('a[href*="/register"]')
   const n = await unlocks.count()
   expect(n).toBeGreaterThan(0)
