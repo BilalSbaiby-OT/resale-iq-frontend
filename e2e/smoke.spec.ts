@@ -33,12 +33,11 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // #54 removed the bare "n=" chip card-wide; XOR: left-the-shelf is sold_7d
   // only, and the slim fold does not print n at all.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
-  // Slim proof card: one figure (buy-below) + quiet gated sell-through.
-  // Market price / left-the-shelf / still-listed live on /tools, not the fold.
+  // Public demand on the fold is sold_7d. Mock 530 is 562. ST stays locked.
   await expect(hero.getByText(/Buy-below/i)).toBeVisible()
   await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
-  await expect(hero.getByText(/left the shelf/i)).toHaveCount(0)
-  await expect(hero.getByText("Left shelf (watched)", { exact: true })).toHaveCount(0)
+  await expect(hero.getByText("562", { exact: true })).toBeVisible()
+  await expect(hero.getByText("Left shelf (watched)", { exact: true })).toBeVisible()
   await expect(hero.getByText("Still listed", { exact: true })).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)

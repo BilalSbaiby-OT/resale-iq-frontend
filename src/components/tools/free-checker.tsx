@@ -513,14 +513,11 @@ export function FreeChecker({
               {hasPrices && (
               <div style={{ display: "grid", gridTemplateColumns: hero ? "repeat(auto-fit,minmax(150px,1fr))" : "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
-                {/* SLIM FOLD. Metric bingo is a failure mode: buy-below,
-                    market, left-shelf, still-listed, plus the sample sentence
-                    restating two of them. The fold keeps the two that answer
-                    the headline: what to pay (buy-below) and whether it sells
-                    (sell-through, gated). Market price and the departure
-                    counts live on /tools. */}
+                {/* Public demand on the fold is sold_7d (watched departures),
+                    never comparable_n. ST stays gated. Market price and still-
+                    listed stay on /tools. */}
                 {!hero && <Stat label={t.marketPrice} value={money(res.sell_avg)} />}
-                {!hero && sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
+                {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
                 {!hero && listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
                 {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
                     `res.locked || res.sell_through_rate == null`, and the value
