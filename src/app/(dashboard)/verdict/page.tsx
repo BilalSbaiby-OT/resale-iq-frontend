@@ -6,7 +6,8 @@ import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
-import { Zap, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Zap, TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
+import { fieldState } from "@/lib/locked-fields"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
 import { MedianN } from "@/components/ui/median-n"
 import { watchedSampleNote } from "@/lib/watched-sample"
@@ -90,6 +91,7 @@ function VerdictInner() {
   }, [])
 
   const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
+  const opportunityState = fieldState(result?.opportunity_score, result?.locked_fields, "opportunity_score")
   const MomIcon = result?.momentum ? (MOMENTUM_ICON[result.momentum] ?? Minus) : Minus
   const sampleNote = result
     ? watchedSampleNote(result.sold_7d ?? result.n, result.active_listings, result.verdict, locale)
@@ -237,7 +239,21 @@ function VerdictInner() {
                   {result.buy_below != null && result.sell_avg != null
                     ? <Metric label={t.targetNet} value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
                     : result.sell_through_rate
-                    ? <Metric label={t.opportunity} value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
+                    /* opportunity_score is a locked_fields member. When the
+                       server withheld it, "—" claimed we had nothing to say
+                       about an item we had simply declined to rate for this
+                       plan — the same lie score-bar.tsx already refuses to
+                       tell with `score ?? 0`. Show the lock and the way past
+                       it instead; only a genuinely unrated item keeps a dash. */
+                    ? <Metric
+                        label={t.opportunity}
+                        value={
+                          opportunityState === "value"
+                            ? `${Math.round(result.opportunity_score!)}/100`
+                            : opportunityState === "locked"
+                            ? <LockedMetricValue label={checker.planLabel} cta={checker.unlockRest} />
+                            : "—"
+                        } />
                     : <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
                 </div>
 
@@ -274,6 +290,30 @@ function VerdictInner() {
         )}
       </div>
     </AppShell>
+  )
+}
+
+/**
+ * The value half of a Metric when the server withheld the number.
+ *
+ * Sits inside the existing Metric shell rather than replacing it, so the
+ * four-column grid keeps its shape and the field's own label stays visible —
+ * the visitor should learn that we measure opportunity, not that a column
+ * vanished. No number, blurred or otherwise: the value is absent from the
+ * payload, never redacted client-side.
+ *
+ * The unlock route for this card is the UnlockPanel above, which is already
+ * mounted on the gated branch and carries the account-aware ask (anonymous /
+ * unverified / budget left / exhausted). Repeating a competing CTA in a
+ * 5-line-tall grid cell would be a second, worse version of that panel, so
+ * this points at it in words and lets it do the selling.
+ */
+function LockedMetricValue({ label, cta }: { label: string; cta: string }) {
+  return (
+    <span data-testid="riq-locked-metric" title={cta} className="inline-flex items-center gap-1.5">
+      <Lock size={14} className="text-amber-400" aria-hidden />
+      <span className="text-[15px] font-bold text-[#c3cde0]">{label}</span>
+    </span>
   )
 }
 
