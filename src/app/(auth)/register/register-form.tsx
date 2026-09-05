@@ -1,11 +1,11 @@
 "use client"
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict } from "@/lib/api"
-import { trackEvent } from "@/lib/analytics"
+import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
@@ -60,10 +60,16 @@ function RegisterContent({ locale }: { locale: Locale }) {
     }).catch(() => {})
   }, [])
 
+  // Free first. Measured 2026-09-01: Pro-as-Most-Popular sat above an
+  // unselected Free and the three visitors who reached this page bounced.
+  // Default plan is already free (see requested/setPlan above); the picker
+  // still listed Pro first with the Most Popular tag, so a cold visitor from
+  // "Create a free account" saw a paid form. Order now matches the default.
+  // Do not preselect paid plans — unspecified stays free.
   const PLAN_META: { id: PlanId; tag?: string }[] = [
-    { id: "power", tag: t.mostPopular },
-    { id: "operator" },
     { id: "free" },
+    { id: "operator" },
+    { id: "power", tag: t.mostPopular },
   ]
   const PLANS = PLAN_META.map(p => ({
     ...p,
@@ -73,27 +79,58 @@ function RegisterContent({ locale }: { locale: Locale }) {
   }))
 
   const isFree = plan === "free"
+  const formFocused = useRef(false)
+
+  const track = (event: FunnelEvent, extra?: { reason?: RegisterFailReason }) => {
+    try {
+      trackEvent(event, undefined, extra)
+    } catch {
+      // why: analytics must never block registration
+    }
+  }
+
+  const onFormFocus = () => {
+    if (formFocused.current) return
+    formFocused.current = true
+    track("register_form_focused")
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!tos) { setError(t.errorAcceptTos); return }
+    track("register_submit_attempted")
+    if (!tos) {
+      track("register_submit_failed", { reason: "tos" })
+      setError(t.errorAcceptTos); return
+    }
     // The withdrawal waiver only applies to a paid subscription. Demanding it
     // for a free signup would be asking someone to waive a right they are not
     // exercising, which is friction with no legal purpose.
-    if (!isFree && !waiver) { setError(t.errorAcceptWaiver); return }
-    if (password.length < 8) { setError(t.errorPasswordLength); return }
+    if (!isFree && !waiver) {
+      track("register_submit_failed", { reason: "waiver" })
+      setError(t.errorAcceptWaiver); return
+    }
+    if (password.length < 8) {
+      track("register_submit_failed", { reason: "password_length" })
+      setError(t.errorPasswordLength); return
+    }
     setError(""); setLoading(true)
     try {
       await register(email, password)
       // Fires only after the account actually exists — a submit that throws
       // (email already taken, network error) hits the catch below instead.
-      trackEvent("signup_completed")
+      track("signup_completed")
       router.push("/check-email")
       return
     } catch (err: unknown) {
       if (isConflict(err)) {
+        track("register_submit_failed", { reason: "conflict" })
         setError(t.errorAlreadyExists)
       } else {
+        const reason: RegisterFailReason =
+          err instanceof Error && err.message.startsWith("Network error")
+            ? "network"
+            : "generic"
+        track("register_submit_failed", { reason })
         // A backend-returned err.message is backend-owned and stays in
         // whatever language the API sent it in (same rule as the free
         // checker's res.message — see src/lib/i18n.ts header comment). Only
@@ -111,7 +148,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
       <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
         <p className="text-[#8b99b8] text-[13px] mb-5">{t.subheading}</p>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2.5">
             {PLANS.map(p => (
               <label key={p.id} className={`relative flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer transition-all ${plan === p.id ? "border-emerald-500 bg-emerald-500/[0.07]" : "border-[#232c42] hover:bg-[#161b26]"}`}>
