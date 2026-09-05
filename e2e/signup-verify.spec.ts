@@ -6,6 +6,47 @@ async function fillFreeRegister(page: Page, email: string) {
   await page.locator('input[type="checkbox"]').first().check()
 }
 
+async function fillPaidRegister(page: Page, email: string) {
+  await page.locator('input[type="email"]').fill(email)
+  await page.locator('input[type="password"]').fill("goodpass123")
+  await page.locator('input[type="checkbox"]').first().check()
+  await page.locator('input[type="checkbox"]').nth(1).check()
+}
+
+const PAID_CHECKOUT_URL = "https://checkout.stripe.com/c/pay/cs_test_paid_register"
+
+async function mockPaidCheckout(page: Page, checkoutUrl = PAID_CHECKOUT_URL) {
+  await page.route("**/stripe/plans", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        publishable_key: null,
+        stripe_enabled: true,
+        plans: [
+          { id: "operator", price_eur: 19, price_id: "price_operator_test" },
+          { id: "power", price_eur: 49, price_id: "price_power_test" },
+          { id: "free", price_eur: 0 },
+        ],
+      }),
+    })
+  })
+  await page.route("**/stripe/checkout", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ checkout_url: checkoutUrl }),
+    })
+  })
+  await page.route("https://checkout.stripe.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/html",
+      body: "<html><body>stripe checkout</body></html>",
+    })
+  })
+}
+
 test.describe("register leak — free default, TOS gate, signup_completed", () => {
   test("unspecified plan defaults to free and does not show the waiver", async ({ page }) => {
     await page.goto("/register")
@@ -38,6 +79,60 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await page.goto("/register?plan=garbage")
     await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
     await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
+  })
+
+  test("paid Starter submit redirects to Stripe Checkout, not only /check-email", async ({ page }) => {
+    const events: string[] = []
+    await page.route("**/api/track", async (route) => {
+      try {
+        const body = route.request().postDataJSON() as { event?: string } | null
+        if (body?.event) events.push(body.event)
+      } catch {
+        // why: a malformed track body must not fail the checkout path under test
+      }
+      await route.fulfill({ status: 204, body: "" })
+    })
+    await mockPaidCheckout(page)
+    await page.goto("/register?plan=operator")
+    const radios = page.locator('input[type="radio"]')
+    await expect(radios.nth(1)).toBeChecked()
+    await fillPaidRegister(page, `e2e-paid-${Date.now()}@example.com`)
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
+    expect(page.url()).toContain("cs_test_paid_register")
+    await expect(page).not.toHaveURL(/check-email/)
+    expect(events).toContain("signup_completed")
+    expect(events).toContain("checkout_started")
+  })
+
+  test("paid checkout failure shows retry and stays off /check-email", async ({ page }) => {
+    await page.route("**/stripe/plans", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          publishable_key: null,
+          stripe_enabled: true,
+          plans: [
+            { id: "operator", price_eur: 19, price_id: "price_operator_test" },
+            { id: "power", price_eur: 49, price_id: "price_power_test" },
+          ],
+        }),
+      })
+    })
+    await page.route("**/stripe/checkout", async (route) => {
+      await route.fulfill({
+        status: 403,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Confirm your email" }),
+      })
+    })
+    await page.goto("/register?plan=operator")
+    await fillPaidRegister(page, `e2e-paid-fail-${Date.now()}@example.com`)
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await expect(page.getByText(/Could not start Stripe checkout/i)).toBeVisible({ timeout: 20_000 })
+    await expect(page.getByRole("button", { name: /Continue to checkout/i })).toBeVisible()
+    await expect(page).not.toHaveURL(/check-email/)
   })
 
   test("submit without TOS shows error and does not call register", async ({ page }) => {

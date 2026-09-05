@@ -4,8 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
-import { getPlans, isConflict } from "@/lib/api"
+import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
+import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
@@ -50,13 +51,19 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  // After a paid register succeeds but Stripe Checkout does not, stay here with
+  // a retry — never dump them on /check-email as the only next step.
+  const [checkoutRetry, setCheckoutRetry] = useState(false)
   // Real prices from Stripe, keyed by plan id. Falls back to null → "…" until loaded.
   const [prices, setPrices] = useState<Record<string, number>>({})
+  const stripePlans = useRef<{ id: string; price_id?: string }[]>([])
+  const registeredRef = useRef(false)
   const { register } = useAuthStore()
   const router = useRouter()
 
   useEffect(() => {
     getPlans().then(d => {
+      stripePlans.current = d.plans
       const m: Record<string, number> = {}
       d.plans.forEach(p => { m[p.id] = p.price_eur })
       setPrices(m)
@@ -98,6 +105,31 @@ function RegisterContent({ locale }: { locale: Locale }) {
     track("register_form_focused")
   }
 
+  // Same price_id resolution as pricing-section: placeholder → live Stripe id.
+  const startPaidCheckout = async (paidPlan: "operator" | "power") => {
+    const placeholder = paidPlan === "power" ? "__POWER__" : "__OPERATOR__"
+    const priceId = resolvePriceId(placeholder, stripePlans.current)
+    if (!priceId) throw new Error("no_price_id")
+    const { checkout_url } = await createCheckout(priceId)
+    if (!checkout_url) throw new Error("no_checkout_url")
+    track("checkout_started")
+    window.location.assign(checkout_url)
+  }
+
+  const retryPaidCheckout = async () => {
+    if (plan !== "operator" && plan !== "power") return
+    setError("")
+    setLoading(true)
+    try {
+      await startPaidCheckout(plan)
+    } catch {
+      setCheckoutRetry(true)
+      setError("Could not start Stripe checkout. Your account is created — try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     track("register_submit_attempted")
@@ -118,10 +150,23 @@ function RegisterContent({ locale }: { locale: Locale }) {
     }
     setError(""); setLoading(true)
     try {
-      await register(email, password)
-      // Fires only after the account actually exists — a submit that throws
-      // (email already taken, network error) hits the catch below instead.
-      track("signup_completed")
+      if (!registeredRef.current) {
+        await register(email, password)
+        registeredRef.current = true
+        // Fires only after the account actually exists — a submit that throws
+        // (email already taken, network error) hits the catch below instead.
+        track("signup_completed")
+      }
+      if (plan === "operator" || plan === "power") {
+        try {
+          await startPaidCheckout(plan)
+          return
+        } catch {
+          setCheckoutRetry(true)
+          setError("Could not start Stripe checkout. Your account is created — try again.")
+          return
+        }
+      }
       router.push("/check-email")
       return
     } catch (err: unknown) {
@@ -206,6 +251,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
             </label>
           )}
           {error && <div className="text-[12px] text-red-400 text-center">{error}</div>}
+          {checkoutRetry && (
+            <button type="button" onClick={retryPaidCheckout} disabled={loading}
+              className="w-full border border-emerald-400 text-emerald-400 font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-400/10 transition-colors disabled:opacity-50">
+              Continue to checkout
+            </button>
+          )}
           <button type="submit" disabled={loading}
             className="w-full bg-emerald-400 text-[#06090c] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : <>{t.submit} <Check size={15} /></>}

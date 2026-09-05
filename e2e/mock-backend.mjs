@@ -292,7 +292,21 @@ const server = http.createServer(async (req, res) => {
     return
   }
   if (url.startsWith("/stripe/plans")) {
-    json(res, 200, { publishable_key: null, stripe_enabled: false, plans: [] })
+    json(res, 200, {
+      publishable_key: null,
+      stripe_enabled: true,
+      plans: [
+        { id: "operator", name: "Starter", price_eur: 19, price_id: "price_operator_test" },
+        { id: "power", name: "Pro", price_eur: 49, price_id: "price_power_test" },
+        { id: "free", name: "Free", price_eur: 0 },
+      ],
+    })
+    return
+  }
+  if (method === "POST" && url === "/stripe/checkout") {
+    const user = caller(req)
+    if (!user) { json(res, 401, { detail: "Not authenticated" }); return }
+    json(res, 200, { checkout_url: "https://checkout.stripe.com/c/pay/cs_test_mock" })
     return
   }
 
