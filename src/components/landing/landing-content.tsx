@@ -36,7 +36,7 @@ export function LandingContent({
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 32px", maxWidth: 980, margin: "0 auto" }}>
+      <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "28px 32px", maxWidth: 980, margin: "0 auto", gap: 12, flexWrap: "wrap" }}>
         <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
           <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.3px" }}>Resale IQ</span>
         </Link>
@@ -47,7 +47,7 @@ export function LandingContent({
       </nav>
 
       <main id="main">
-        <section style={{ maxWidth: 720, margin: "0 auto", padding: "96px 24px 80px", textAlign: "center" }}>
+        <section className="riq-apple-hero" style={{ maxWidth: 720, margin: "0 auto", padding: "96px 24px 80px", textAlign: "center" }}>
           <h1 style={{ fontSize: "clamp(42px, 8vw, 84px)", fontWeight: 700, letterSpacing: "-2.8px", lineHeight: 1.02, margin: 0 }}>
             {t.heroTitle}
           </h1>

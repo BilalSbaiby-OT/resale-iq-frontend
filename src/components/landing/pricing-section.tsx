@@ -52,7 +52,7 @@ export function PricingSection({ locale = "en" }: { locale?: Locale }) {
   }
 
   return (
-    <section id="pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
+    <section id="pricing" className="riq-pricing" style={{ padding: "72px 24px", maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 44 }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.5px", color: "var(--color-buy)", textTransform: "uppercase" }}>{copy[locale].pricing}</div>
         <h2 style={{ fontSize: 34, fontWeight: 800, color: "var(--color-text-primary)", marginTop: 10, letterSpacing: "-0.6px" }}>{t.heading}</h2>

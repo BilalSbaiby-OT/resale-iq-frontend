@@ -213,7 +213,7 @@ export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { 
   const hero = variant === "hero"
   return (
     <div style={hero ? { background: "transparent", padding: 0 } : { background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      <div className="riq-checker-row" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}

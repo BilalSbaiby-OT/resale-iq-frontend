@@ -1,6 +1,7 @@
 "use client"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { LogOut, CircleUser, Menu } from "lucide-react"
+import { Search, LogOut, CircleUser, Menu } from "lucide-react"
 import { getEmailFromToken } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { useLocale } from "@/components/i18n/locale-provider"
@@ -9,10 +10,18 @@ import { navCopy } from "@/lib/nav-copy"
 interface TopbarProps { title: string; subtitle?: string; onMenu?: () => void }
 
 export function Topbar({ title, subtitle, onMenu }: TopbarProps) {
+  const [q, setQ] = useState("")
   const router = useRouter()
   const { logout } = useAuthStore()
   const email = getEmailFromToken()
   const t = navCopy[useLocale()].topbar
+
+  const onSearch = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && q.trim()) {
+      router.push(`/deals?q=${encodeURIComponent(q.trim())}`)
+      setQ("")
+    }
+  }
 
   return (
     <header className="riq-topbar" style={{ height: 54, flexShrink: 0, background: "#0D0F13", borderBottom: "1px solid #1c2333", display: "flex", alignItems: "center", padding: "0 20px", gap: 18 }}>
@@ -25,8 +34,22 @@ export function Topbar({ title, subtitle, onMenu }: TopbarProps) {
         {subtitle && <div className="riq-topbar-sub" style={{ fontSize: 11, color: "#4d5a75", marginTop: 1 }}>{subtitle}</div>}
       </div>
 
+      <div className="riq-topbar-search" style={{ flex: 1, maxWidth: 340, display: "flex", alignItems: "center", gap: 8, background: "#12151d", border: "1px solid #232c42", borderRadius: 8, padding: "0 11px", height: 34 }}>
+        <Search size={14} color="#4d5a75" />
+        <input
+          value={q} onChange={e => setQ(e.target.value)} onKeyDown={onSearch}
+          placeholder={t.searchPlaceholder}
+          style={{ flex: 1, background: "none", border: "none", color: "#eef1f7", fontSize: 12.5, outline: "none", minWidth: 0 }}
+        />
+        <kbd style={{ fontSize: 9.5, color: "#4d5a75", border: "1px solid #232c42", borderRadius: 4, padding: "1px 5px" }}>↵</kbd>
+      </div>
+
       <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 14 }}>
-        <button onClick={() => router.push("/account")} style={{ display: "flex", alignItems: "center", gap: 7, background: "transparent", border: "none", padding: "6px 4px", fontSize: 12, color: "#8b99b8", cursor: "pointer" }}>
+        <span className="riq-live" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, color: "#8b99b8" }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e" }} />
+          {t.liveData}
+        </span>
+        <button onClick={() => router.push("/account")} style={{ display: "flex", alignItems: "center", gap: 7, background: "transparent", border: "1px solid #232c42", borderRadius: 8, padding: "6px 11px", fontSize: 12, color: "#8b99b8", cursor: "pointer" }}>
           <CircleUser size={14} />
           <span className="riq-topbar-email" style={{ maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{email || t.account}</span>
         </button>
