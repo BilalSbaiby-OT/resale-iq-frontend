@@ -141,6 +141,15 @@ test("public profit calculator shows a result or a visible error after Calculate
   await expect(result).toContainText(/€/)
 })
 
+test("/calculator is a public tool when signed out, not a login shell", async ({ page }) => {
+  const res = await page.goto("/calculator")
+  expect(res?.ok()).toBeTruthy()
+  await expect(page).not.toHaveURL(/\/login/, { timeout: 15_000 })
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/profit calculator/i)
+  await expect(page.getByRole("button", { name: /^Calculate$/i })).toBeVisible()
+  await expect(page.getByLabel(/buy price/i)).toBeVisible()
+})
+
 test("unauthenticated /dashboard redirects to auth", async ({ page }) => {
   await page.goto("/dashboard")
   await page.waitForURL(/\/login/, { timeout: 20_000 })
