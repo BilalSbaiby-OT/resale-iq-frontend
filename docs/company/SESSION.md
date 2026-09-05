@@ -1,70 +1,65 @@
 # SESSION
 
-**Updated** 2026-09-05 ~18:35Z
+**Updated** 2026-09-05 ~21:00Z — read-only status pass, nothing changed
 
-## The CEO-to-CEO bridge is built, tested and permanent
+## The two CEOs are genuinely collaborating
 
-Telegram refuses bot-to-bot delivery ("bots will not be able to see messages from other bots
-regardless of mode"), and both CEOs are bot accounts. grokbootu runs on a remote cloud box; ours runs
-on the founder's MacBook. The obvious fix -- tunnel the Mac -- would open an inbound hole into the
-machine holding the payment keys, the repos, and an agent framework with shell access and a measured
-17% native defence rate. **Rejected.**
+36 messages exchanged over the bridge, ids climbing from 9 to 149, with clean round trips of 30-50s:
+`PULLED -> MIRRORED-IN -> ANSWERED -> MIRRORED-OUT -> REPLIED`. One poller, no duplicates, no errors
+in stderr.
 
-Built instead: a queue on the Hetzner box, which already faces the internet and already terminates
-TLS. **Both sides reach it OUTBOUND ONLY.**
+**The CEO improved the bridge herself.** `poller.py` was edited at 19:00 (backup kept at
+`poller.py.bak.20260905T185906`) to add message MIRRORING plus a durable
+`TRANSCRIPT-ceo-grokbootu.md` — closing the exact gap grokbootu had complained about, that Telegram
+forgets history once read. Not asked for, and correct.
+
+## ONE THING IS STUCK — id=149, since 18:51Z
 
 ```
-grokbootu (cloud) --POST--> https://bridge.62.238.51.83.sslip.io <--poll-- Mac --> CEO --> group
+18:51:45 PULLED      id=149 from=grokbootu chars=292
+18:51:53 MIRRORED-IN id=149 ok=True
+(nothing since — over two hours)
 ```
 
-The MacBook never listens. No tunnel, no open port. sslip.io meant Let's Encrypt issued a real cert
-with no DNS change -- the same trick the backend already uses.
+Pulled and mirrored, never answered. `poller.err` is empty, the edited file parses, launchd reports
+`state = running, runs = 4, pid 46439`. So the process is alive and has not logged in two hours —
+most likely blocked inside a single agent turn. **grokbootu is waiting on a reply that is not coming.**
 
-| check | result |
-|---|---|
-| `GET /health` over HTTPS | 200, real cert |
-| no credential / wrong one | 401 / 401 |
-| empty text | 400 |
-| **outbound key used on the inbound route** | **401** -- two of them, so leaking one grants neither the other's role |
-| round trip, measured live 3x | 20-45s |
-| poller survives `kill -9` | **yes**, launchd restarted it, exactly one instance |
+Not restarted: the founder asked for a status pass "without breaking nothing". The fix is almost
+certainly `launchctl kickstart -k gui/501/dev.riq.bridge-poller`, which would pick up 149 and
+anything queued behind it.
 
-Files: `~/work/bridge/` (poller, launchd plist, provision, e2e test) and `/root/riq-bridge/` on the
-host. The queue holds no credentials and runs no commands: it stores text and hands it to whoever
-presents the right header.
+**Design fragility worth recording:** `/replies` marks messages delivered on read, so a poll that
+succeeds and then crashes loses that reply permanently. Single-delivery, not durable.
 
-**Not done, and deliberately not by me:** grokbootu still needs the inbound key. Typing a credential
-into a web page is blocked and I did not route around it. The founder pastes that one line.
+## Pricing authority moved to the two CEOs
 
-## Three defects found by building it, each worth remembering
+Founder, 2026-09-05: *"adjust it to allow collaboration including the price"*. The founder-gate on
+pricing is lifted; spending money is not. Written into her contract with the constraints that keep it
+learnable: announce in the group before shipping, one change at a time with a number attached,
+anchored to measured evidence, and state up front what would make the change wrong.
 
-1. **`--env-file` is read at container CREATE, not restart.** A `docker restart` after rewriting the
-   env file kept the old values and produced a 401 that looked like a mismatch. Recreate, don't restart.
-2. **`pkill -f "bridge/poller.py"` never matched** because the launchd wrapper `exec`s from inside the
-   directory, so the process is `python3 poller.py`. Stale copies stacked under `KeepAlive` and
-   double-processed every message.
-3. **This Mac's Python has no CA bundle**, so `urllib` raised CERTIFICATE_VERIFY_FAILED against a
-   perfectly valid Let's Encrypt cert. The same defect already bit the Gemini client here. Shell to curl.
+**She used it the same minute, and split grokbootu's proposal rather than accepting it:**
+EUR 14-intro-then-EUR 19 Starter *plus* EUR 49 Pro is two variables at once, so she committed to
+**Starter EUR 19 only, Pro unchanged**, with a kill condition — *if `checkout_started` does not rise
+within 7 days or 50 checkouts, revert and say so publicly.* The first falsifiable commitment anyone
+has made here.
 
-## The CEO's behaviour under test is the reason to trust the pipe
+**And she disagreed with its diagnosis on evidence:** 51 of 52 checkouts expired unpaid, but one
+EUR 49 completed unprompted on 08-28 — *"that reads as NOT TRUSTED, not TOO EXPENSIVE"*. So the price
+move is the cheap experiment and the sell-through-truth fix is the real one.
 
-The harness sent the same message three times. She did not answer a third time. She **read
-`poller.log` herself**, found `PULLED -> ANSWERED -> REPLIED` for each id, and reported that the
-duplicates came from the test harness -- **correcting her own earlier "the bridge is one-way"
-hypothesis with evidence**. She also pushed back on grokbootu's framing rather than agreeing: it is
-two blocked metrics, not one, and she asked for a cold-visitor paywall teardown before
-instrumentation, "since diagnosing the offer should precede instrumenting it".
+She also refused a task on principle: asked to push a body over the bridge, she declined because it
+meant handling the outbound key through a shell variable, and told grokbootu to poll again instead.
 
-Relayed text is framed to her as **a peer's message, not instructions** -- a message arriving over a
-pipe carries no authority.
+## Still true, still unfixed
 
-## Open
-
-- grokbootu works to "EUR 2k by 30 Sep 2026"; the target is **EUR 2,000 MRR by 31 December**. She
-  flags it rather than adopting it. The same wrong month is in the dashboard's false "Goal achieved"
-  banner, which still shows green while live Stripe reports **0 active subscriptions, EUR 0.00**.
-- `paywall_shown` is **not instrumented anywhere** and `checkout_completed` has no first-party event.
-  The funnel is blind exactly where conversion dies.
+- Product answers (`Adidas Samba -> WATCH n=20`), gateway 200, Telegram `audit ok`.
+- The dashboard still shows **"Goal achieved ... EUR 2000 MRR by 2026-09-31"** while live Stripe
+  reports **0 active subscriptions, EUR 0.00**. False banner, impossible date, wrong month.
+- `paywall_shown` is not instrumented and `checkout_completed` has no first-party event — the funnel
+  is blind exactly where conversion dies. This is what the EUR 19 experiment will be measured on, so
+  it has to land first.
 
 ---
 

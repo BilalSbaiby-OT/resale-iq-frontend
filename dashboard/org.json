@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T13:25:44Z",
+  "generated_at": "2026-09-05T17:29:15Z",
   "company_kpis": [
     {
       "kpi": "paying_customers",
@@ -16,7 +16,7 @@
       "target": 1000,
       "counter": "activation rate — a signup who never checks an item is not a user",
       "source": "db",
-      "value": 2,
+      "value": 3,
       "note": "last 7 days",
       "unknown": false,
       "why_unknown": null
@@ -500,17 +500,6 @@
       ]
     },
     {
-      "id": "W62",
-      "duplicate_id": false,
-      "finding": "🔴 THE PRODUCT INTERMITTENTLY 500s ON THE CUSTOMER-FACING CHECK — verified in a real browser, not from a report. A visitor searching \"New Balance 530\" on resaleiq.dev sees *\"Something went wrong on our end finishing that ",
-      "found_by": "CEO (browser + curl)",
-      "doer": "backend-eng (mechanism) + devops (capacity)",
-      "status": "OPEN",
-      "shipped_evidence": [
-        "resale-iq: e7cee13 board: W62 the intermittent 500 on the customer check, W63 the LLM referral channel"
-      ]
-    },
-    {
       "id": "W63",
       "duplicate_id": false,
       "finding": "CHATGPT IS SENDING US REAL PEOPLE AND NOBODY IS WORKING IT — the best-converting channel we have is one we never touched. All-time UTM traffic, is_bot=0, from production pageviews: chatgpt.com = 20 pageviews, 9 DISTINCT ",
@@ -875,21 +864,9 @@
     "zero_means": "this is the SANDBOX account the agent key belongs to. Production runs a live key and can charge — these figures are not production's."
   },
   "deploy_drift": {
-    "drifted": false,
-    "apps": [
-      {
-        "app": "frontend",
-        "status": "IN SYNC",
-        "commit": "ff6e7477451f",
-        "container": "p6t87shftvl2455pd3gdgee1-063118165917"
-      },
-      {
-        "app": "backend",
-        "status": "IN SYNC",
-        "commit": "3cef3ee90132",
-        "container": "ph5clxk9hmghspv65pdkvak9-063419791626"
-      }
-    ]
+    "drifted": null,
+    "apps": [],
+    "why": "drift check could not run — treat as UNKNOWN, never as in-sync"
   },
   "totals": {
     "rows_total": 24,
@@ -897,7 +874,7 @@
     "rows_closed": 21,
     "rows_blocked": 0,
     "bus_messages": 35,
-    "stale_open": 3,
+    "stale_open": 2,
     "unassignable": 1
   }
 }
