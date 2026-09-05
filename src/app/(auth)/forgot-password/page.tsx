@@ -21,17 +21,17 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         {sent ? (
           <div className="text-center">
-            <div className="flex justify-center mb-4"><Mail size={34} className="text-emerald-400" /></div>
+            <div className="flex justify-center mb-4"><Mail size={34} className="text-[var(--color-buy)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.sentHeading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-3">{t.sentBody}</p>
-            <p className="text-[#8b99b8] text-[13px] mb-6">
-              <b className="text-[#eef1f7]">{t.spamBold}</b>{t.spamRest}
-              <b className="text-[#eef1f7]">noreply@resaleiq.dev</b>.
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-3">{t.sentBody}</p>
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">
+              <b className="text-[var(--color-text-primary)]">{t.spamBold}</b>{t.spamRest}
+              <b className="text-[var(--color-text-primary)]">noreply@resaleiq.dev</b>.
             </p>
-            <Link href="/login" className="text-emerald-400 hover:underline text-[13px]">{t.backToSignIn}</Link>
+            <Link href="/login" className="text-[var(--color-buy)] hover:underline text-[13px]">{t.backToSignIn}</Link>
           </div>
         ) : (
           <>
@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
               <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
               <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
             </form>
-            <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">{t.backToSignIn}</Link></div>
+            <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]">{t.backToSignIn}</Link></div>
           </>
         )}
       </div>

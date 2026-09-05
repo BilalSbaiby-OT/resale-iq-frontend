@@ -76,10 +76,16 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // still listed Pro first with the Most Popular tag, so a cold visitor from
   // "Create a free account" saw a paid form. Order now matches the default.
   // Do not preselect paid plans — unspecified stays free.
-  const PLAN_META: { id: PlanId; tag?: string }[] = [
+  //
+  // The "Most popular" tag on Pro is gone (same removal as pricing-section.tsx).
+  // Not a style call: this company has 0 paying customers and EUR 0.00 MRR, so
+  // no tier is the popular one and the badge asserted a fact we do not have.
+  // The dictionary keys (auth.register.mostPopular, pricingSection.mostPopular)
+  // are left in all six locales for the day the claim is true and measured.
+  const PLAN_META: { id: PlanId }[] = [
     { id: "free" },
     { id: "operator" },
-    { id: "power", tag: t.mostPopular },
+    { id: "power" },
   ]
   const PLANS = PLAN_META.map(p => ({
     ...p,
@@ -124,7 +130,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
       await startPaidCheckout(plan)
     } catch {
       setCheckoutRetry(true)
-      setError("Could not start Stripe checkout. Your account is created — try again.")
+      setError(t.errorCheckoutStart)
     } finally {
       setLoading(false)
     }
@@ -163,7 +169,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
           return
         } catch {
           setCheckoutRetry(true)
-          setError("Could not start Stripe checkout. Your account is created — try again.")
+          setError(t.errorCheckoutStart)
           return
         }
       }
@@ -193,46 +199,43 @@ function RegisterContent({ locale }: { locale: Locale }) {
     <div className="w-full max-w-md">
       <div className="flex justify-end mb-3">
       </div>
-      <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
-        <p className="text-[#8b99b8] text-[13px] mb-5">{t.subheading}</p>
+        <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">{t.subheading}</p>
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2.5">
             {PLANS.map(p => (
-              <label key={p.id} className={`relative flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer transition-all ${plan === p.id ? "border-emerald-500 bg-emerald-500/[0.07]" : "border-[#232c42] hover:bg-[#161b26]"}`}>
-                <input type="radio" name="plan" checked={plan === p.id} onChange={() => setPlan(p.id)} className="accent-emerald-400" />
+              <label key={p.id} className={`relative flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer transition-colors ${plan === p.id ? "border-[var(--color-buy)] bg-[var(--color-buy)]/[0.07]" : "border-[var(--color-border-2)] hover:bg-[var(--color-bg-3)]"}`}>
+                <input type="radio" name="plan" checked={plan === p.id} onChange={() => setPlan(p.id)} className="accent-[var(--color-buy)]" />
                 <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-[14px] text-[#eef1f7]">{p.name}</span>
-                    {p.tag && <span className="text-[9px] font-bold uppercase tracking-wide bg-emerald-500/15 text-emerald-400 px-1.5 py-0.5 rounded">{p.tag}</span>}
-                  </div>
-                  <div className="text-[11.5px] text-[#8b99b8] mt-0.5">{p.desc}</div>
+                  <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{p.name}</span>
+                  <div className="text-[11.5px] text-[var(--color-text-secondary)] mt-0.5">{p.desc}</div>
                 </div>
                 <div className="text-right">
-                  <div className="font-bold text-[15px] text-[#eef1f7]">
+                  <div className="font-bold text-[15px] text-[var(--color-text-primary)]">
                     {p.id === "free" ? "€0" : p.price != null ? `€${p.price}` : "…"}
                   </div>
-                  <div className="text-[10px] text-[#5b6b8c]">{p.id === "free" ? t.forever : t.perMonth}</div>
+                  <div className="text-[10px] text-[var(--color-text-muted)]">{p.id === "free" ? t.forever : t.perMonth}</div>
                 </div>
               </label>
             ))}
           </div>
 
           <div>
-            <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{t.emailLabel}</label>
+            <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.emailLabel}</label>
             <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
-              className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]" />
+              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[13.5px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
           <div>
-            <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{t.passwordLabel}</label>
+            <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.passwordLabel}</label>
             <input type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder={t.passwordPlaceholder}
-              className="w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]" />
+              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[13.5px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
 
-          <label className="flex items-start gap-2.5 text-[12px] text-[#8b99b8]">
-            <input type="checkbox" checked={tos} onChange={e => setTos(e.target.checked)} className="mt-0.5 accent-emerald-400" />
+          <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]">
+            <input type="checkbox" checked={tos} onChange={e => setTos(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
             <span>
-              {t.tosPrefix} <Link href="/terms" target="_blank" className="text-emerald-400 hover:underline">{t.termsLabel}</Link> {t.tosAnd} <Link href="/privacy" target="_blank" className="text-emerald-400 hover:underline">{t.privacyLabel}</Link>{t.tosSuffix ? ` ${t.tosSuffix}` : ""}
+              {t.tosPrefix} <Link href="/terms" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.termsLabel}</Link> {t.tosAnd} <Link href="/privacy" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.privacyLabel}</Link>{t.tosSuffix ? ` ${t.tosSuffix}` : ""}
             </span>
           </label>
 
@@ -245,28 +248,28 @@ function RegisterContent({ locale }: { locale: Locale }) {
               English on every locale until legal-compliance signs off on a
               translated version — see that constant's comment for why. */}
           {!isFree && (
-            <label className="flex items-start gap-2.5 text-[12px] text-[#8b99b8]" data-i18n-pending="waiver-legal-review">
-              <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 accent-emerald-400" />
+            <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]" data-i18n-pending="waiver-legal-review">
+              <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
               <span>{WITHDRAWAL_WAIVER_TEXT}</span>
             </label>
           )}
-          {error && <div className="text-[12px] text-red-400 text-center">{error}</div>}
+          {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
           {checkoutRetry && (
             <button type="button" onClick={retryPaidCheckout} disabled={loading}
-              className="w-full border border-emerald-400 text-emerald-400 font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-400/10 transition-colors disabled:opacity-50">
-              Continue to checkout
+              className="w-full border border-[var(--color-buy)] text-[var(--color-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:bg-[var(--color-buy)]/10 transition-colors disabled:opacity-50">
+              {t.continueToCheckout}
             </button>
           )}
           <button type="submit" disabled={loading}
-            className="w-full bg-emerald-400 text-[#06090c] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+            className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : <>{t.submit} <Check size={15} /></>}
           </button>
-          <p className="text-[10.5px] text-[#4d5a75] text-center">
+          <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
             {isFree ? t.freeNote : t.paidNote}
           </p>
         </form>
-        <div className="text-center mt-4 text-[13px] text-[#5b6b8c]">
-          {t.alreadyHaveAccount} <Link href="/login" className="text-emerald-400 hover:underline">{t.signIn}</Link>
+        <div className="text-center mt-4 text-[13px] text-[var(--color-text-muted)]">
+          {t.alreadyHaveAccount} <Link href="/login" className="text-[var(--color-buy)] hover:underline">{t.signIn}</Link>
         </div>
       </div>
     </div>

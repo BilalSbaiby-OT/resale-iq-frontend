@@ -17,15 +17,60 @@
  * become the place where an unrelated auth behaviour quietly diverges.
  */
 
+/**
+ * ── Token mapping ───────────────────────────────────────────────────────────
+ * These strings MAP onto the `@theme` block in src/app/globals.css. They do not
+ * define a palette; every value below is a `var(--color-*)` that already exists
+ * there. Written as arbitrary values rather than the generated `bg-surface`
+ * utilities on purpose: an arbitrary `var()` emits the declaration literally, so
+ * a typo'd token name renders an obviously-broken colour instead of silently
+ * emitting no CSS at all.
+ *
+ * Why this exists at all: before this pass the (auth) group used FIVE different
+ * greens for one accent — `emerald-400` (#34d399) on buttons, `emerald-300` on
+ * their hover, `emerald-500/60` on focus rings, `#22c55e` in pricing-section,
+ * and a `to-teal-500` gradient on the wordmark — against a `--color-buy` token
+ * of #22c55e that nothing in this group referenced. Same class of bug the file
+ * header already describes: the accent had no single source, so it drifted.
+ *
+ * Hover is `opacity`, not a second green. There is no hover token in @theme and
+ * inventing a hex here is exactly what this lane exists to prevent.
+ */
+export const AUTH_CARD =
+  "bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8"
+export const AUTH_ACCENT = "text-[var(--color-buy)]"
+export const AUTH_ACCENT_BUTTON =
+  "w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] " +
+  "py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+export const AUTH_TEXT = "text-[var(--color-text-primary)]"
+export const AUTH_TEXT_SECONDARY = "text-[var(--color-text-secondary)]"
+export const AUTH_TEXT_MUTED = "text-[var(--color-text-muted)]"
+
 const FIELD_CLASS =
-  "w-full bg-[#1a2030] border border-[#232c42] rounded-lg px-3 py-2.5 text-[13.5px] " +
-  "text-[#eef1f7] outline-none focus:border-emerald-500/60 placeholder:text-[#4d5a75]"
+  "w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 " +
+  "text-[13.5px] text-[var(--color-text-primary)] outline-none " +
+  "focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]"
+
+/** The card every (auth) route sits in. One shape, one place to change it. */
+export function AuthCard({
+  children,
+  center = false,
+}: {
+  children: React.ReactNode
+  center?: boolean
+}) {
+  return (
+    <div className="w-full max-w-md">
+      <div className={`${AUTH_CARD}${center ? " text-center" : ""}`}>{children}</div>
+    </div>
+  )
+}
 
 export function AuthHeading({ heading, subheading }: { heading: string; subheading: string }) {
   return (
     <>
       <h1 className="text-[21px] font-bold mb-1">{heading}</h1>
-      <p className="text-[#8b99b8] text-[13px] mb-5">{subheading}</p>
+      <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-5`}>{subheading}</p>
     </>
   )
 }
@@ -47,7 +92,7 @@ export function AuthField({
 }) {
   return (
     <div>
-      <label className="text-[11px] text-[#5b6b8c] block mb-1.5">{label}</label>
+      <label className={`text-[11px] ${AUTH_TEXT_MUTED} block mb-1.5`}>{label}</label>
       <input
         type={type}
         value={value}
@@ -74,7 +119,7 @@ export function AuthSubmit({
     <button
       type="submit"
       disabled={loading}
-      className="w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 mt-1"
+      className={`${AUTH_ACCENT_BUTTON} mt-1`}
     >
       {loading ? submitting : submit}
     </button>

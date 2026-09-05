@@ -62,28 +62,28 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="w-full max-w-md">
-      <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8">
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         {done ? (
           <div className="text-center">
-            <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-emerald-400" /></div>
+            <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-[var(--color-buy)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{tr.doneHeading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-6">{tr.doneBody}</p>
-            <Link href="/login" className="inline-block w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors">
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{tr.doneBody}</p>
+            <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
               {tr.signIn}
             </Link>
           </div>
         ) : token === undefined ? (
           <div className="text-center py-6">
-            <p className="text-[#8b99b8] text-[13px]">{tr.checking}</p>
+            <p className="text-[var(--color-text-secondary)] text-[13px]">{tr.checking}</p>
           </div>
         ) : token === null ? (
           <div className="text-center">
-            <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-amber-400" /></div>
+            <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-[var(--color-watch)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{tr.invalidHeading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-6">
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">
               {tr.invalidBody}
             </p>
-            <Link href="/forgot-password" className="inline-block w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors">
+            <Link href="/forgot-password" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
               {tr.requestNew}
             </Link>
           </div>
@@ -96,7 +96,7 @@ export default function ResetPasswordPage() {
               <AuthField label={tr.confirmLabel} type="password" value={confirm} onChange={setConfirm} placeholder={tr.confirmPlaceholder} minLength={8} />
 
               {error && (
-                <div className="bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2.5 text-[12.5px] text-red-300">
+                <div className="bg-[var(--color-skip)]/10 border border-[var(--color-skip)]/30 rounded-lg px-3 py-2.5 text-[12.5px] text-[var(--color-skip)]">
                   {error}
                 </div>
               )}
@@ -105,7 +105,7 @@ export default function ResetPasswordPage() {
             </form>
 
             <div className="text-center mt-5">
-              <Link href="/login" className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">{tr.backToSignIn}</Link>
+              <Link href="/login" className="text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]">{tr.backToSignIn}</Link>
             </div>
           </>
         )}

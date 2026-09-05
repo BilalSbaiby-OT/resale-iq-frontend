@@ -55,21 +55,21 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
       <div className="flex justify-end mb-3">
       </div>
 
-      <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8 text-center">
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8 text-center">
         {state === "checking" && (
-          <p className="text-[#8b99b8] text-[13px] py-6">{t.checking}</p>
+          <p className="text-[var(--color-text-secondary)] text-[13px] py-6">{t.checking}</p>
         )}
 
         {state === "signed-in" && (
-          <p className="text-[#8b99b8] text-[13px] py-6">{t.signedIn}</p>
+          <p className="text-[var(--color-text-secondary)] text-[13px] py-6">{t.signedIn}</p>
         )}
 
         {state === "already" && (
           <>
-            <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-emerald-400" /></div>
+            <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-[var(--color-buy)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.confirmedHeading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-6">{message}</p>
-            <Link href="/login" className="inline-block w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors">
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{message}</p>
+            <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
               {t.signIn}
             </Link>
           </>
@@ -77,10 +77,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
 
         {state === "bad" && (
           <>
-            <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-amber-400" /></div>
+            <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-[var(--color-watch)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.badHeading}</h1>
-            <p className="text-[#8b99b8] text-[13px] mb-6">{message}</p>
-            <Link href="/login" className="inline-block w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors">
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{message}</p>
+            <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
               {t.signIn}
             </Link>
           </>

@@ -5,6 +5,10 @@ import { Mail } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
+import {
+  AuthCard, AUTH_ACCENT, AUTH_ACCENT_BUTTON,
+  AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
+} from "@/components/auth/auth-form-parts"
 
 export function CheckEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.checkEmail
@@ -37,39 +41,35 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="w-full max-w-md">
-      <div className="flex justify-end mb-3">
-      </div>
-      <div className="bg-[#12151d] border border-[#1c2333] rounded-2xl p-8 text-center">
-        <div className="flex justify-center mb-4"><Mail size={34} className="text-emerald-400" /></div>
-        <h1 className="text-[18px] font-bold mb-2">{t.heading}</h1>
-        <p className="text-[#8b99b8] text-[13px] mb-4 leading-relaxed">
-          {t.bodyPrefix}{user?.email ? <> <span className="text-[#eef1f7]">{user.email}</span></> : ` ${t.bodyNoEmail}`}.
-          {" "}{t.bodyMiddle} <strong className="text-[#eef1f7] font-semibold">{t.spam}</strong> {t.bodySuffix} <span className="text-[#eef1f7]">noreply@resaleiq.dev</span>.
-        </p>
-        <p className="text-[#5b6b8c] text-[12px] mb-6">
-          {t.cantFind} <a href="mailto:support@resaleiq.dev" className="text-emerald-400 hover:underline">support@resaleiq.dev</a>.
-        </p>
+    <AuthCard center>
+      <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
+      <h1 className="text-[18px] font-bold mb-2">{t.heading}</h1>
+      <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-4 leading-relaxed`}>
+        {t.bodyPrefix}{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
+        {" "}{t.bodyMiddle} <strong className={`${AUTH_TEXT} font-semibold`}>{t.spam}</strong> {t.bodySuffix} <span className={AUTH_TEXT}>noreply@resaleiq.dev</span>.
+      </p>
+      <p className={`${AUTH_TEXT_MUTED} text-[12px] mb-6`}>
+        {t.cantFind} <a href="mailto:support@resaleiq.dev" className={`${AUTH_ACCENT} hover:underline`}>support@resaleiq.dev</a>.
+      </p>
 
-        {msg && <div className="text-[12.5px] text-emerald-400 mb-4">{msg}</div>}
-        {error && <div className="text-[12.5px] text-red-400 mb-4">{error}</div>}
+      {msg && <div className={`text-[12.5px] ${AUTH_ACCENT} mb-4`}>{msg}</div>}
+      {error && <div className="text-[12.5px] text-[var(--color-skip)] mb-4">{error}</div>}
 
-        {isAuthenticated && (
-          <button type="button" onClick={handleResend} disabled={loading}
-            className="w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 mb-3">
-            {loading ? t.sending : t.resend}
-          </button>
-        )}
-        {!isAuthenticated && (
-          <Link href="/login" className="inline-block w-full bg-emerald-400 text-[#0B0D10] font-bold text-[13.5px] py-3 rounded-lg hover:bg-emerald-300 transition-colors mb-3">
-            {t.signInToResend}
-          </Link>
-        )}
-        <button type="button" onClick={() => logout()}
-          className="text-[12px] text-[#5b6b8c] hover:text-[#eef1f7]">
-          {t.signOut}
+      {isAuthenticated && (
+        <button type="button" onClick={handleResend} disabled={loading}
+          className={`${AUTH_ACCENT_BUTTON} mb-3`}>
+          {loading ? t.sending : t.resend}
         </button>
-      </div>
-    </div>
+      )}
+      {!isAuthenticated && (
+        <Link href="/login" className={`inline-block ${AUTH_ACCENT_BUTTON} mb-3`}>
+          {t.signInToResend}
+        </Link>
+      )}
+      <button type="button" onClick={() => logout()}
+        className={`text-[12px] ${AUTH_TEXT_MUTED} hover:text-[var(--color-text-primary)]`}>
+        {t.signOut}
+      </button>
+    </AuthCard>
   )
 }

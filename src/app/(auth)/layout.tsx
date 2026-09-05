@@ -38,10 +38,14 @@ export const metadata: Metadata = {
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
   return (
-    <div className="min-h-screen bg-[#0B0D10] flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-[var(--color-bg)] flex flex-col items-center justify-center p-6">
+      {/* Flat --color-buy, not the old emerald-400 → teal-500 gradient. That
+          gradient put a second and third green on a surface whose only accent
+          is the submit button, so the wordmark competed with the one action on
+          the page. One accent, one token. */}
       <Link href="/" aria-label="Resale IQ home" className="flex items-center gap-2 mb-8">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-[#0B0D10] font-bold text-[14px]">R</div>
-        <span className="text-[15px] font-bold text-[#eef1f7]">Resale IQ</span>
+        <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
+        <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>
       </Link>
       {children}
       <div className="mt-6">

@@ -59,83 +59,104 @@ export function PricingSection({ locale = "en", compact = false }: { locale?: Lo
         <p style={{ fontSize: compact ? 13 : 15, color: "var(--color-text-secondary)", marginTop: 8 }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
       </div>
 
-      {/* locale: this block rendered in English on all five translated
-          homepages. starterPrice: taken from TIERS rather than the
-          calculator's own constant, so the break-even sum can never quote a
-          price the cards directly below it have stopped charging. */}
-      <PaybackCalculator
-        locale={locale}
-        starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
-      />
-
-      {/* 4 tiers. At 1080px wide with a 260px minimum this resolved to 3
+      {/* 3 tiers. At 1080px wide with a 260px minimum this resolved to 3
           columns, orphaning Free alone on a second row, left-aligned against a
           full-width row above — it read as a mistake. Widened the section and
-          dropped the minimum so all four sit on one row at desktop, and added
+          dropped the minimum so all sit on one row at desktop, and added
           justifyContent so any wrapped row centres instead of hanging left. */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(232px, 1fr))",
         gap: 18, alignItems: "stretch", justifyContent: "center",
       }}>
+        {/* One card shape for every tier. The recommended tier is marked by its
+            FILLED CTA and nothing else — previously it also carried a green
+            border, a green drop-shadow, a green gradient background, a floating
+            "MOST POPULAR" pill and green feature ticks, which is five signals
+            for one idea and the multi-green this pass exists to remove.
+
+            The pill is gone on a truth basis, not a taste one: Resale IQ has 0
+            paying customers and EUR 0.00 MRR, so no tier is the most popular
+            and the badge stated a fact we have not measured. Same standard the
+            payback calculator already holds itself to two blocks down ("we do
+            not claim a hit rate, because we have not measured one"). The
+            pricingSection.mostPopular key stays translated in all six locales
+            for when the claim is earned. */}
         {tiers.map(tier => (
           <div key={tier.id} style={{
             position: "relative",
-            background: tier.highlight ? "linear-gradient(180deg,#141a24,#10141c)" : "#12151d",
-            border: `1px solid ${tier.highlight ? "#22c55e" : "#1c2333"}`,
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border-ui)",
             borderRadius: 16, padding: "28px 24px",
-            boxShadow: tier.highlight ? "0 12px 40px rgba(34,197,94,.12)" : "none",
           }}>
-            {tier.highlight && (
-              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "#22c55e", color: "#06090c", fontSize: 11, fontWeight: 800, letterSpacing: "0.5px", padding: "4px 14px", borderRadius: 20 }}>{t.mostPopular}</div>
-            )}
-            <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7" }}>{tier.name}</div>
-            <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 4, minHeight: 34 }}>{tier.tagline}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "var(--color-text-primary)" }}>{tier.name}</div>
+            <div style={{ fontSize: 12.5, color: "var(--color-text-secondary)", marginTop: 4, minHeight: 34 }}>{tier.tagline}</div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "18px 0 4px" }}>
-              <span style={{ fontSize: 40, fontWeight: 800, color: "#eef1f7", letterSpacing: "-1px" }}>
+              <span style={{ fontSize: 40, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-1px" }}>
                 {tier.free ? "€0" : `€${tier.price}`}
               </span>
-              <span style={{ fontSize: 14, color: "#5b6b8c" }}>{tier.free ? t.forever : t.perMonth}</span>
+              <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>{tier.free ? t.forever : t.perMonth}</span>
             </div>
             {/* Per-day price. A monthly figure is compared against other
                 subscriptions; a daily one is compared against a coffee, and
                 against the margin on a single flip. Same number, honest framing. */}
-            <div style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 14, minHeight: 17 }}>
+            <div style={{ fontSize: 12, color: "var(--color-text-muted)", marginBottom: 14, minHeight: 17 }}>
               {tier.free ? t.noCardRequired : t.perDay((tier.price / 30).toFixed(2))}
             </div>
             <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13.5, fontWeight: 700, cursor: "pointer",
-              border: tier.highlight ? "none" : "1px solid #263147",
-              background: tier.highlight ? "#22c55e" : "#1a2030",
-              color: tier.highlight ? "#06090c" : "#eef1f7", transition: "opacity .15s",
+              border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
+              background: tier.highlight ? "var(--color-buy)" : "var(--color-bg-4)",
+              color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",
+              transition: "opacity .15s",
             }}>{busy === tier.id ? "…" : tier.cta}</button>
+            {/* stepUp / ceiling keep every word — only their boxes are gone.
+                Both were tinted, bordered panels stacked inside an already
+                bordered card; spacing and weight carry the same hierarchy
+                without three nested rectangles. */}
             {tier.stepUp && (
-              <div style={{ marginBottom: 16, background: "rgba(34,197,94,.07)", border: "1px solid rgba(34,197,94,.25)", borderRadius: 10, padding: "12px 14px" }}>
-                <div style={{ fontSize: 12.5, fontWeight: 700, color: "#22c55e", marginBottom: 5 }}>{tier.stepUp}</div>
+              <div style={{ marginTop: 18 }}>
+                <div style={{ fontSize: 12.5, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 5 }}>{tier.stepUp}</div>
                 {tier.stepUpWhy && (
-                  <div style={{ fontSize: 12, color: "#a9b6d0", lineHeight: 1.55 }}>{tier.stepUpWhy}</div>
+                  <div style={{ fontSize: 12, color: "var(--color-text-body)", lineHeight: 1.55 }}>{tier.stepUpWhy}</div>
                 )}
               </div>
             )}
             {tier.ceiling && (
-              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid #1c2333", fontSize: 12, color: "#5b6b8c", lineHeight: 1.5 }}>
-                <span style={{ color: "#8b99b8", fontWeight: 600 }}>{t.whereItStops} </span>{tier.ceiling}
+              <div style={{ marginTop: 18, fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5 }}>
+                <span style={{ color: "var(--color-text-secondary)", fontWeight: 600 }}>{t.whereItStops} </span>{tier.ceiling}
               </div>
             )}
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 11 }}>
               {tier.features.map(f => (
                 <div key={f} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
-                  <Check size={15} color={tier.highlight ? "#22c55e" : "#5b6b8c"} strokeWidth={2.5} style={{ marginTop: 1, flexShrink: 0 }} />
-                  <span style={{ fontSize: 12.5, color: "#c3cde0", lineHeight: 1.4 }}>{f}</span>
+                  <Check size={15} color="var(--color-text-muted)" strokeWidth={2.5} style={{ marginTop: 1, flexShrink: 0 }} />
+                  <span style={{ fontSize: 12.5, color: "var(--color-text-body)", lineHeight: 1.4 }}>{f}</span>
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
-      <p style={{ textAlign: "center", fontSize: 12, color: "#4d5a75", marginTop: 26 }}>
+      <p style={{ textAlign: "center", fontSize: 12, color: "var(--color-text-muted)", marginTop: 26 }}>
         {t.footer}
       </p>
+
+      {/* Moved BELOW the tiers (was between the heading and the prices).
+          Measured at 390px: the calculator is 758px — a full phone viewport of
+          sliders standing between "Know what to pay" and the first price. A
+          visitor who came to see the price had to scroll past an interactive
+          widget to reach one. It is a good argument FOR the price, so it now
+          runs after the prices it argues about, not in front of them.
+
+          locale: this block rendered in English on all five translated
+          homepages. starterPrice: taken from TIERS rather than the
+          calculator's own constant, so the break-even sum can never quote a
+          price the cards above it have stopped charging. */}
+      <PaybackCalculator
+        locale={locale}
+        starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
+      />
     </section>
   )
 }

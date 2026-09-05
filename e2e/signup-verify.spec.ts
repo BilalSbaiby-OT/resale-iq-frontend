@@ -130,7 +130,11 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await page.goto("/register?plan=operator")
     await fillPaidRegister(page, `e2e-paid-fail-${Date.now()}@example.com`)
     await page.getByRole("button", { name: /Create account/i }).click()
-    await expect(page.getByText(/Could not start Stripe checkout/i)).toBeVisible({ timeout: 20_000 })
+    // Both of these strings were hardcoded English literals in the component
+    // until this pass — the retry button and this error rendered untranslated on
+    // all six locales. They now come from copy[locale].auth.register
+    // (errorCheckoutStart / continueToCheckout); asserted here in EN.
+    await expect(page.getByText(/could not open Stripe Checkout/i)).toBeVisible({ timeout: 20_000 })
     await expect(page.getByRole("button", { name: /Continue to checkout/i })).toBeVisible()
     await expect(page).not.toHaveURL(/check-email/)
   })
