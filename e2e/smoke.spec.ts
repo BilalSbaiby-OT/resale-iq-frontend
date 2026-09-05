@@ -11,6 +11,27 @@ test("landing page loads and is not empty", async ({ page }) => {
   expect(text.trim().length).toBeGreaterThan(80)
 })
 
+test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
+  await page.goto("/")
+  const hero = page.locator("section.riq-apple-hero")
+  await expect(hero.getByText(/EU Vinted resellers/i)).toBeVisible()
+  // One Check control in the hero — do not count nav/footer chrome.
+  await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
+  await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)
+  await expect(hero.getByRole("link", { name: /sign in/i })).toHaveCount(0)
+  // Remaining unlock (gated sell-through tile) still registers Free, never Pro bait.
+  const locked = hero.getByTestId("riq-locked-stat")
+  await expect(locked).toBeVisible()
+  await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
+  const unlocks = hero.locator('a[href*="/register"]')
+  const n = await unlocks.count()
+  expect(n).toBeGreaterThan(0)
+  for (let i = 0; i < n; i++) {
+    await expect(unlocks.nth(i)).toHaveAttribute("href", /plan=free/)
+    await expect(unlocks.nth(i)).not.toHaveAttribute("href", /plan=pro/)
+  }
+})
+
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
   expect(res?.ok()).toBeTruthy()

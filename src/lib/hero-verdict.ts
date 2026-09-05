@@ -1,5 +1,11 @@
 /**
- * Live Adidas Samba verdict for the landing hero.
+ * Live demo-SKU verdict for the landing hero.
+ *
+ * Prefill is Adidas Samba unless production /api/verdict returns a real BUY
+ * for a public query. Probed 2026-09-05: Air Force 1, NB 530/550/2002R,
+ * Spezial, 501, Dunk Low, Gazelle, Retro-X, Tech Fleece, Campus, Cortez,
+ * Jordan 1, Nuptse, M3600 — item-level results were WATCH or SKIP, never BUY.
+ * Do not fake a BUY to make the hero look hotter.
  *
  * MUST NOT call /api/verdict on every homepage hit: that endpoint claims
  * anonymous quota, writes verdict_logs, and counts against
@@ -27,7 +33,7 @@ export type HeroVerdict = {
   locked?: boolean
 }
 
-const QUERY = "Adidas Samba"
+const QUERY = "Adidas Samba" // live WATCH/MEDIUM; no honest public BUY found
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_PATH =
   process.env.HERO_VERDICT_CACHE_PATH ||

@@ -109,6 +109,7 @@ export const copy = {
     signIn: "Sign in",
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
+    heroAudience: "For EU Vinted resellers.",
     heroBody:
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
@@ -476,6 +477,7 @@ export const copy = {
     signIn: "Connexion",
     pricing: "Tarifs",
     heroTitle: "Sachez quoi payer avant d'acheter.",
+    heroAudience: "Pour les revendeurs Vinted en UE.",
     heroBody:
       "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis BUY, WATCH ou SKIP. Vinted d'abord.",
     heroFrom: (tracked: string) =>
@@ -791,6 +793,7 @@ export const copy = {
     signIn: "Entrar",
     pricing: "Precios",
     heroTitle: "Sabe qué pagar antes de comprar.",
+    heroAudience: "Para revendedores de Vinted en la UE.",
     heroBody:
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
@@ -1106,6 +1109,7 @@ export const copy = {
     signIn: "Anmelden",
     pricing: "Preise",
     heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
+    heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
     heroBody:
       "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann BUY, WATCH oder SKIP. Vinted ist der erste Marktplatz, den wir abdecken.",
     heroFrom: (tracked: string) =>
@@ -1423,6 +1427,7 @@ export const copy = {
     signIn: "Accedi",
     pricing: "Prezzi",
     heroTitle: "Sappi quanto pagare prima di comprare.",
+    heroAudience: "Per i rivenditori Vinted in UE.",
     heroBody:
       "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi BUY, WATCH o SKIP. Vinted è il primo marketplace che copriamo.",
     heroFrom: (tracked: string) =>
@@ -1738,6 +1743,7 @@ export const copy = {
     signIn: "Entrar",
     pricing: "Preços",
     heroTitle: "Saiba quanto pagar antes de comprar.",
+    heroAudience: "Para revendedores Vinted na UE.",
     heroBody:
       "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois BUY, WATCH ou SKIP. A Vinted é o primeiro marketplace que cobrimos.",
     heroFrom: (tracked: string) =>
