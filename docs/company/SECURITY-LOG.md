@@ -1476,3 +1476,15 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin mai
 - `2026-09-05T15:29:51Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `git add docs/company/SECURITY-LOG.md && git commit -q -m "ledger: final guard entries
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && echo "pushed: $(git log --oneline -1)"`
+- `2026-09-05T15:59:49Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
+p="docs/company/SESSION.md"; s=open(p,encoding="utf-8").read()
+HEAD = """# SESSION
+
+**Updated** 2026-09-05 ~18:00Z
+
+## THE GROUP COLLABORATION CANNOT WORK — both parties are bots
+
+The Telegram group `-1004482834299` ("resaleiq") has three mem`
+- `2026-09-05T15:59:58Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; git add docs/company/SECURITY-LOG.md 2>/dev/null; git commit -q -m "ledger: guard entries from the Telegram diagnosis
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin main && echo "pushed: $(git log --oneline -1)"`
