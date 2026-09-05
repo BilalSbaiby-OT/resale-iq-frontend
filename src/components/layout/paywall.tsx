@@ -143,7 +143,10 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>
-        {TIERS.map(t => (
+        {/* This screen only ever renders to an already-authenticated account
+            (see the component comment above) — the Free tier's "Create a
+            free account" CTA is a dead end for someone who already has one. */}
+        {TIERS.filter(t => !t.free).map(t => (
           <div key={t.id} style={{
             position: "relative", background: t.highlight ? "linear-gradient(180deg,#141a24,#10141c)" : "#12151d",
             border: `1px solid ${t.highlight ? "#22c55e" : "#1c2333"}`, borderRadius: 16, padding: "26px 22px",

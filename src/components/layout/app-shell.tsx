@@ -91,9 +91,14 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
   const needsProPaid = PRO_PAID_ONLY.some(p => pathname.startsWith(p))
   const needsProOrTrial = PRO_OR_TRIAL.some(p => pathname.startsWith(p))
-  if (!isPaid && !isTrial && needsPaid) return <Paywall />
-  if (needsProPaid && !isPower) return <Paywall pro />
-  if (needsProOrTrial && !isPower && !isTrial) return <Paywall pro />
+  // Entitlement gates render INSIDE the shell below (same Sidebar/Topbar every
+  // other workspace page gets) rather than as a standalone full-page swap —
+  // a standalone return here is how a route loses its nav entirely
+  // (see memory/APPLE-V1-MISS.md; reproduced live on /compare, E-9).
+  let gated: React.ReactNode = null
+  if (!isPaid && !isTrial && needsPaid) gated = <Paywall />
+  else if (needsProPaid && !isPower) gated = <Paywall pro />
+  else if (needsProOrTrial && !isPower && !isTrial) gated = <Paywall pro />
   if (pathname.startsWith(OWNER_ONLY_PREFIX) && user?.is_owner !== true) {
     return (
       <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#8b99b8", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
@@ -115,7 +120,7 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: 20, background: "#0B0D10" }}>
-          {isTrial && !isPaid && (
+          {!gated && isTrial && !isPaid && (
             <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
               <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
                 <span style={{ fontWeight: 650 }}>{t.freeTrial}</span>
@@ -126,7 +131,7 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
               </a>
             </div>
           )}
-          {children}
+          {gated ?? children}
         </main>
       </div>
     </div>
