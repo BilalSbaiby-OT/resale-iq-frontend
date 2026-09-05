@@ -62,14 +62,6 @@ const nextConfig: NextConfig = {
         destination: "https://resaleiq.dev/:path*",
         permanent: true,
       },
-      // /pricing 404'd. Nothing internal links to it — every CTA uses the
-      // #pricing anchor — but it is the URL people TYPE, what an external
-      // link or an ad would point at, and what a "resaleiq pricing" search
-      // expects. A 404 there loses a visitor who was already looking for the
-      // price. 307 rather than 308: the pricing section lives on the landing
-      // page today, and a permanent redirect would be cached by browsers long
-      // after a real /pricing page exists.
-      { source: "/pricing", destination: "/#pricing", permanent: false },
       { source: "/sign-in", destination: "/login", permanent: false },
 
       // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,

@@ -27,7 +27,8 @@ const PLAN_ALIASES: Record<string, PlanId> = {
   operator: "operator",
   starter: "operator",
   power: "power",
-  pro: "power",
+  // `pro` is NOT an alias of power. Mapping it to the €49 tier recreated the
+  // 2026-09-01 bait-and-switch. Unknown names (including pro) stay free.
 }
 
 function planFromQuery(raw: string | null): PlanId {

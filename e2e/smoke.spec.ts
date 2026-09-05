@@ -89,10 +89,11 @@ test("login page loads", async ({ page }) => {
   await expect(page.locator('input[type="email"]')).toBeVisible()
 })
 
-test("/pricing redirects to /#pricing", async ({ page }) => {
+test("/pricing is a real page, not a hash redirect", async ({ page }) => {
   const res = await page.goto("/pricing")
-  expect(res?.status()).toBeLessThan(400)
-  await expect(page).toHaveURL(/\/#pricing$/)
+  expect(res?.ok()).toBeTruthy()
+  await expect(page).toHaveURL(/\/pricing\/?$/)
+  await expect(page).not.toHaveURL(/#pricing/)
 })
 
 test("methodology explains sell-through, buy-below and confidence", async ({ page }) => {

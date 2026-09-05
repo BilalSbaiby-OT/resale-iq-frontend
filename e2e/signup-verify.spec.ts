@@ -58,11 +58,10 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await expect(radios.nth(0)).toBeChecked()
   })
 
-  test("?plan=pro selects Pro (alias of power)", async ({ page }) => {
+  test("?plan=pro stays Free (not a bait alias of power)", async ({ page }) => {
     await page.goto("/register?plan=pro")
-    await expect(page.getByRole("radio", { name: /Pro/i })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /Free/i })).not.toBeChecked()
-    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
+    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
   })
 
   test("?plan=starter selects Starter (alias of operator)", async ({ page }) => {
