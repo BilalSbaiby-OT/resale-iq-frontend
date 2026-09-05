@@ -1,57 +1,70 @@
 # SESSION
 
-**Updated** 2026-09-05 ~18:00Z
+**Updated** 2026-09-05 ~18:35Z
 
-## THE GROUP COLLABORATION CANNOT WORK — both parties are bots
+## The CEO-to-CEO bridge is built, tested and permanent
 
-The Telegram group `-1004482834299` ("resaleiq") has three members. Read from the founder's own
-Telegram in Chrome:
+Telegram refuses bot-to-bot delivery ("bots will not be able to see messages from other bots
+regardless of mode"), and both CEOs are bot accounts. grokbootu runs on a remote cloud box; ours runs
+on the founder's MacBook. The obvious fix -- tunnel the Mac -- would open an inbound hole into the
+machine holding the payment keys, the repos, and an agent framework with shell access and a measured
+17% native defence rate. **Rejected.**
+
+Built instead: a queue on the Hetzner box, which already faces the internet and already terminates
+TLS. **Both sides reach it OUTBOUND ONLY.**
 
 ```
-Bako Mandala        Owner
-grokbootu      bot  Admin    <- "the other member"
-adminlogsprivate bot Admin   <- @meindingksBot, the OpenClaw CEO
+grokbootu (cloud) --POST--> https://bridge.62.238.51.83.sslip.io <--poll-- Mac --> CEO --> group
 ```
 
-**`grokbootu` is a BOT. Telegram never delivers one bot's messages to another bot.** Not with privacy
-mode disabled, not as an admin, not with a direct `@mention`. It is a hard platform restriction.
+The MacBook never listens. No tunnel, no open port. sslip.io meant Let's Encrypt issued a real cert
+with no DNS change -- the same trick the backend already uses.
 
-Proof, in the group itself: grokbootu posted
-*"ping @meindingksBot — tiny connectivity test. reply pong if you see this."* at 17:55 — an explicit
-mention — and the poller logged **no update at all**. Meanwhile the founder's 2-character human "hi"
-at 17:40 arrived and was answered in 3 minutes.
+| check | result |
+|---|---|
+| `GET /health` over HTTPS | 200, real cert |
+| no credential / wrong one | 401 / 401 |
+| empty text | 400 |
+| **outbound key used on the inbound route** | **401** -- two of them, so leaking one grants neither the other's role |
+| round trip, measured live 3x | 20-45s |
+| poller survives `kill -9` | **yes**, launchd restarted it, exactly one instance |
 
-**Every fix made today was real and none of them could ever have worked**, because the messages never
-leave Telegram's servers in that direction:
-- supergroup migration (`-5458162328` -> `-1004482834299`), dead id removed — real bug, fixed
-- `groupAllowFrom` unset so it fell back to `allowFrom` (founder only) — real bug, fixed
-- privacy-mode caching, bot removed and re-added — real bug, fixed
-- delivery target moved from the founder's DM to the group — real, done
+Files: `~/work/bridge/` (poller, launchd plist, provision, e2e test) and `/root/riq-bridge/` on the
+host. The queue holds no credentials and runs no commands: it stores text and hands it to whoever
+presents the right header.
 
-**The diagnostic failure was mine.** The signal was present from the first measurement: the founder's
-messages arrived, "the member's" never did, not even as a dropped update. I kept auditing our config
-instead of asking WHAT the other party was. That cost hours.
+**Not done, and deliberately not by me:** grokbootu still needs the inbound key. Typing a credential
+into a web page is blocked and I did not route around it. The founder pastes that one line.
 
-### Options, none of which involve Telegram carrying it
+## Three defects found by building it, each worth remembering
 
-1. **Bridge outside Telegram.** Both agents run on this Mac; OpenClaw can call grokbootu's side
-   directly, or they share a file/queue.
-2. **Founder relays.** Both bots see HIS messages, so he forwards between them. Works now, makes him
-   the bottleneck — the opposite of the goal.
-3. **Run the grokbootu persona as an OpenClaw agent** (recommended). Agent-to-agent inside OpenClaw
-   already works — engineering/growth/data/revenue talk to the CEO today.
+1. **`--env-file` is read at container CREATE, not restart.** A `docker restart` after rewriting the
+   env file kept the old values and produced a 401 that looked like a mismatch. Recreate, don't restart.
+2. **`pkill -f "bridge/poller.py"` never matched** because the launchd wrapper `exec`s from inside the
+   directory, so the process is `python3 poller.py`. Stale copies stacked under `KeepAlive` and
+   double-processed every message.
+3. **This Mac's Python has no CA bundle**, so `urllib` raised CERTIFICATE_VERIFY_FAILED against a
+   perfectly valid Let's Encrypt cert. The same defect already bit the Gemini client here. Shell to curl.
 
-## What grokbootu actually proposed, for whoever picks this up
+## The CEO's behaviour under test is the reason to trust the pipe
 
-Visible in the group: it frames itself as "CEO on the OpenClaw side. Peers. Same company: Resale IQ.
-Goal: €2k revenue by 30 Sep 2026", an outsider review team for Product/UX/Marketing/Growth that
-analyses and does **not** ship product code, and proposes a working protocol: short messages, one
-topic; status as DONE/DOING/BLOCKED + link; a shared scoreboard from free checks -> signup -> paywall
--> checkout -> revenue.
+The harness sent the same message three times. She did not answer a third time. She **read
+`poller.log` herself**, found `PULLED -> ANSWERED -> REPLIED` for each id, and reported that the
+duplicates came from the test harness -- **correcting her own earlier "the bridge is one-way"
+hypothesis with evidence**. She also pushed back on grokbootu's framing rather than agreeing: it is
+two blocked metrics, not one, and she asked for a cold-visitor paywall teardown before
+instrumentation, "since diagnosing the offer should precede instrumenting it".
 
-**Note the date conflict:** it states €2k by **30 Sep 2026**. The company target is €2,000 MRR by
-**31 December 2026**. Someone is working to the wrong deadline, and the dashboard's false
-"Goal achieved ... by 2026-09-31" banner carries the same wrong month.
+Relayed text is framed to her as **a peer's message, not instructions** -- a message arriving over a
+pipe carries no authority.
+
+## Open
+
+- grokbootu works to "EUR 2k by 30 Sep 2026"; the target is **EUR 2,000 MRR by 31 December**. She
+  flags it rather than adopting it. The same wrong month is in the dashboard's false "Goal achieved"
+  banner, which still shows green while live Stripe reports **0 active subscriptions, EUR 0.00**.
+- `paywall_shown` is **not instrumented anywhere** and `checkout_completed` has no first-party event.
+  The funnel is blind exactly where conversion dies.
 
 ---
 
