@@ -994,7 +994,7 @@ export const copy = {
           "Cada señal de producto que calculamos, sin difuminar",
           "Deal Scanner — modelos del almacén ya por debajo del precio máximo de compra",
           "Tendencias de mercado y rankings de marcas completos",
-          "Watchlist y P&L de cartera",
+          "Lista de seguimiento y P&L de cartera",
           "Calculadora de comisiones multiplataforma",
         ],
         ceiling: "Sin Deal Finder en vivo, Order Planner, Price Compare ni API — eso es Pro.",
