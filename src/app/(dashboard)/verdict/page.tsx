@@ -16,6 +16,7 @@ import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy } from "@/lib/i18n"
 import { WORKING_MODELS } from "@/lib/working-models"
+import { ModelChips } from "@/components/tools/model-chips"
 
 function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">) {
   return {
@@ -32,33 +33,6 @@ function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limit
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
   HOT: TrendingUp, RISING: TrendingUp, STABLE: Minus, FADING: TrendingDown, DEAD: TrendingDown,
-}
-
-function WorkingModelsRow({
-  onPick, disabled, label,
-}: {
-  onPick: (q: string) => void
-  disabled: boolean
-  label: string
-}) {
-  return (
-    <div className="mt-4" data-testid="riq-working-models">
-      <div className="text-[11px] text-[#5b6b8c] uppercase tracking-wide mb-2">{label}</div>
-      <div className="flex flex-wrap gap-2">
-        {WORKING_MODELS.map(ex => (
-          <button
-            key={ex}
-            type="button"
-            onClick={() => onPick(ex)}
-            disabled={disabled}
-            className="bg-[#1a2030] border border-[#263147] text-[#c3cde0] text-[12.5px] px-3 py-1.5 rounded-full hover:border-emerald-500/60 disabled:opacity-50"
-          >
-            {ex}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
 }
 
 export default function VerdictPage() {
@@ -197,7 +171,7 @@ function VerdictInner() {
                     new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(result.categories ?? []),
                   )}
                 </div>
-                <WorkingModelsRow onPick={pickModel} disabled={loading} label={t.tryTheseInstead} />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 {result.category_aggregates && result.category_aggregates.length > 0 && (
                   <div className="flex flex-col gap-2 mt-4">
                     {result.category_aggregates.map(a => (
@@ -223,13 +197,13 @@ function VerdictInner() {
                   <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
                 </div>
                 <div className="p-6">
-                  <WorkingModelsRow onPick={pickModel} disabled={loading} label={t.tryTheseInstead} />
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 </div>
               </>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 <p>{t.unknownBody}</p>
-                <WorkingModelsRow onPick={pickModel} disabled={loading} label={t.tryTheseInstead} />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : result.sell_through_rate == null ? (
               <div className="p-6 pt-5">
@@ -237,7 +211,7 @@ function VerdictInner() {
                   {t.headlineCall(result.product || query)}
                 </div>
                 <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
-                <WorkingModelsRow onPick={pickModel} disabled={loading} label={t.tryTheseInstead} />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : (
               <>
@@ -295,7 +269,7 @@ function VerdictInner() {
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
             <p>{t.empty}</p>
-            <WorkingModelsRow onPick={pickModel} disabled={loading} label={t.tryTheseInstead} />
+            <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
           </div>
         )}
       </div>

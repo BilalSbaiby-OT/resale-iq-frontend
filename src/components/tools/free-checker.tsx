@@ -7,6 +7,7 @@ import { watchedSampleNote } from "@/lib/watched-sample"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
+import { ModelChips } from "@/components/tools/model-chips"
 import { WORKING_MODELS } from "@/lib/working-models"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
@@ -118,28 +119,6 @@ const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
 // the screen is not a dead end. designer, 2026-09-01 (defect 3: the row
 // existed only on the UNKNOWN branch; INSUFFICIENT_DATA — the state 37 of
 // 100 board models land on — had none).
-function TryExamplesRow({ onPick, disabled, label, examples = TRY_EXAMPLES }: { onPick: (ex: string) => void; disabled: boolean; label: string; examples?: readonly string[] }) {
-  return (
-    <div style={{ marginTop: 12 }}>
-      <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
-        {label}
-      </div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {examples.map(ex => (
-          <button
-            key={ex}
-            type="button"
-            onClick={() => onPick(ex)}
-            disabled={disabled}
-            style={{ background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: disabled ? "wait" : "pointer" }}
-          >
-            {ex}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 // Placeholder examples must be brands/models the catalogue actually prices —
 // 26 brands, sneaker/streetwear-coded (Nike, Adidas, Jordan, New Balance).
@@ -316,7 +295,7 @@ export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { 
               {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
                   work" into "it works for THESE" — the narrowing is honest,
                   an empty refusal with no next step reads as broken. */}
-              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} />
+              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
             </>
           ) : res.verdict === "BRAND_CATEGORIES" ? (
             // A brand-only query — the backend recognises the brand but has no
@@ -363,7 +342,7 @@ export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { 
                   ))}
                 </div>
               )}
-              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} />
+              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} />
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
             // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
@@ -427,7 +406,7 @@ export function FreeChecker({ placeholder, locale = "en", variant = "card" }: { 
                 <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{res.category}</div>
               )}
 
-              <TryExamplesRow onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} />
+              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
             </div>
           ) : (
             <>
