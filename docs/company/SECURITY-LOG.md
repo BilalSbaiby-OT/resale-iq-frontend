@@ -1460,3 +1460,13 @@ Not a config problem. **Two cron jobs had `xai/grok-4.6` PINNED as their model**
 - `2026-09-05T15:01:08Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; npm run check:isolation 2>&1 | tail -1; git add dashboard/data.json docs/company/SECURITY-LOG.md && git commit -q -m "state: dashboard payload and guard ledger from the OpenClaw fixes
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>" && git push -q origin `
+- `2026-09-05T15:29:24Z` **DEPLOY ALLOWED** Bash — authorised by .claude/DEPLOY_APPROVED — founder standing authorization 2026-09-01: "i literlly didnt fucking ask u to aprove deployment pushing commiting merging / just consult the team and procede /  — `cd /Users/bilalsbaiby/work/resale-iq; python3 - <<'PYEOF'
+p="docs/company/SESSION.md"; s=open(p,encoding="utf-8").read()
+HEAD = """# SESSION
+
+**Updated** 2026-09-05 ~17:30Z
+
+## THE FALLBACK IS DEAD — Claude is the only working provider
+
+```
+xai:  oauth token EXPIRED 2026-09-05T08:31 · disabled:billi`
