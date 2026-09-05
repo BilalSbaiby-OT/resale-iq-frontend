@@ -11,33 +11,24 @@ import { UnlockPanel } from "@/components/ui/unlock-panel"
 import { MedianN } from "@/components/ui/median-n"
 import { watchedSampleNote } from "@/lib/watched-sample"
 import { trackEvent } from "@/lib/analytics"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { navCopy } from "@/lib/nav-copy"
+import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
+import { copy } from "@/lib/i18n"
+import { WORKING_MODELS } from "@/lib/working-models"
+import { ModelChips } from "@/components/tools/model-chips"
 
-const VERDICT_STYLE: Record<string, { color: string; bg: string; border: string; label: string }> = {
-  BUY:     { color: "var(--color-buy)", bg: "rgba(34,197,94,.10)", border: "rgba(34,197,94,.35)", label: "BUY" },
-  WATCH:   { color: "var(--color-watch)", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: "WATCH" },
-  SKIP:    { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: "SKIP" },
-  UNKNOWN: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NO DATA" },
-  // Distinct from NO DATA on purpose: we found the product, we just will not
-  // put a call on it. "NOT MEASURED" says the gap is ours, not the market's.
-  INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "NOT MEASURED" },
-  // Also distinct from NO DATA: this account has a real number, it just spent
-  // its daily quota getting it. Falling back to VERDICT_STYLE.UNKNOWN here is
-  // the bug docs/audit/MONETIZATION.md §3 flagged — a paying-eligible user who
-  // hits their cap was told "NO DATA", which reads as a broken product.
-  // Colour: a quota state, not a verdict about the item, so it must not wear
-  // WATCH's amber (#f59e0b) — that would make a "you hit your daily cap"
-  // message visually indistinguishable from a real BUY-adjacent call on the
-  // item itself. Same neutral as UNKNOWN/INSUFFICIENT_DATA instead.
-  // docs/product/DESIGN-REVIEW.md §2, roster consult 2026-09-01.
-  LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "LIMIT REACHED" },
-  // BRAND_CATEGORIES / BRAND_AVERAGE are real priced aggregates (api/routes.py
-  // _brand_categories_next_step / the brand-average verdict just above it) —
-  // not a verdict about a specific item, so they must not wear BUY/WATCH/SKIP,
-  // but they are not "NO DATA" either: falling through to VERDICT_STYLE.UNKNOWN
-  // (the old behaviour before this fix) told a user who got a real €111 avg
-  // and 217 watched departures that we had nothing.
-  BRAND_CATEGORIES: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "MARKET DATA" },
-  BRAND_AVERAGE:     { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: "BRAND AVERAGE" },
+function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">) {
+  return {
+    BUY:     { color: "var(--color-buy)", bg: "rgba(34,197,94,.10)", border: "rgba(34,197,94,.35)", label: "BUY" },
+    WATCH:   { color: "var(--color-watch)", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: "WATCH" },
+    SKIP:    { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: "SKIP" },
+    UNKNOWN: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.noData },
+    INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.notMeasured },
+    LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.limitReached },
+    BRAND_CATEGORIES: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.marketData },
+    BRAND_AVERAGE:     { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.brandAverage },
+  }
 }
 
 const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
@@ -53,6 +44,11 @@ export default function VerdictPage() {
 }
 
 function VerdictInner() {
+  const locale = useLocale()
+  const t = verdictCopy[locale]
+  const checker = copy[locale].checker
+  const checkLabel = navCopy[locale].items.check
+  const styles = verdictStyle(t)
   const params = useSearchParams()
   const [query, setQuery] = useState("")
   const [result, setResult] = useState<VerdictResult | null>(null)
@@ -70,13 +66,12 @@ function VerdictInner() {
       trackEvent("analysis_completed")
     } catch (e) {
       trackEvent("analysis_failed")
-      setError(e instanceof Error ? e.message : "We couldn't find enough comparable departures to finish that check. Try again, or a more specific model name.")
+      setError(e instanceof Error ? e.message : t.errorGeneric)
     } finally { setLoading(false) }
-  }, [query])
+  }, [query, t.errorGeneric])
 
-  // Spends one of the free tier's daily unlocks. The server decides whether the
-  // claim succeeds and only then sends the paid fields — this just re-asks with
-  // unlock=true and swaps in whatever comes back.
+  const pickModel = (q: string) => { setQuery(q); run(q) }
+
   const unlock = useCallback(async () => {
     const q = (result?.product || query).trim()
     if (!q) return
@@ -84,45 +79,42 @@ function VerdictInner() {
     try {
       setResult(await getVerdict(q, true))
     } catch {
-      setError("Couldn't unlock that one. Try again.")
+      setError(t.unlockError)
     } finally { setUnlocking(false) }
-  }, [result, query])
+  }, [result, query, t.unlockError])
 
-  // Deep-link: /verdict?q=Adidas Samba (e.g. the watchlist VERDICT button) —
-  // prefill and run automatically.
   useEffect(() => {
     const q = params.get("q")
     if (q) { setQuery(q); run(q) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const vs = result ? (VERDICT_STYLE[result.verdict] ?? VERDICT_STYLE.UNKNOWN) : null
+  const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
   const MomIcon = result?.momentum ? (MOMENTUM_ICON[result.momentum] ?? Minus) : Minus
   const sampleNote = result
-    ? watchedSampleNote(result.sold_7d ?? result.n, result.active_listings, result.verdict)
+    ? watchedSampleNote(result.sold_7d ?? result.n, result.active_listings, result.verdict, locale)
     : null
   const honestyNote = sampleNote
-    || result?.confidence_note
     || (result?.confidence === "LOW" && (result.n ?? result.sold_7d) != null
       ? `Only ${result.n ?? result.sold_7d} comparable departures`
       : null)
 
   return (
-    <AppShell title="Check">
+    <AppShell title={checkLabel}>
       <div className="max-w-xl mx-auto pt-8">
         <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-1.6px", lineHeight: 1.05, margin: "0 0 28px" }}>
-          What should you pay?
+          {t.heading}
         </h1>
         <div className="flex gap-2 mb-8">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Adidas Samba, Nike Air Force 1, New Balance 530"
+            placeholder={t.placeholder}
             className="flex-1 bg-[#0f1218] border border-[#2a3348] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
-            <Zap size={16} />{loading ? "Looking up watched departures…" : "Check"}
+            <Zap size={16} />{loading ? t.checking : t.check}
           </button>
         </div>
 
@@ -130,10 +122,9 @@ function VerdictInner() {
 
         {result && vs && (
           <div className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden">
-            {/* Verdict header */}
             <div className="p-6 flex items-center justify-between border-b border-[#1e2535]">
               <div>
-                <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">Decision</div>
+                <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
                 {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
               </div>
@@ -144,60 +135,45 @@ function VerdictInner() {
                 </div>
                 {result.confidence && (
                   <div className="text-[10px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
-                    Confidence {result.confidence}
-                    {result.provisional ? " · provisional" : ""}
+                    {t.confidence} {result.confidence}
+                    {result.provisional ? ` · ${t.provisional}` : ""}
                   </div>
                 )}
               </div>
             </div>
 
-            {honestyNote && (
+            {honestyNote && result.verdict !== "BRAND_CATEGORIES" && (
               <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#c4a574] bg-[#16140f]">
                 {honestyNote}
               </div>
             )}
 
             {result.verdict === "LIMIT_REACHED" ? (
-              // The one paywall moment aimed at someone who already made an
-              // account — docs/audit/MONETIZATION.md §3. Must not fall into the
-              // UNKNOWN/INSUFFICIENT_DATA branch (wrong reason) or the metrics
-              // grid below (every field is undefined on this payload, which
-              // renders as a row of "—" and reads as "we have no data").
               <div className="p-6 text-[13px] text-[#8b99b8] leading-6">
-                <p>{result.message || "Free tier: 10 verdicts/day. Starter or Pro for unlimited."}</p>
+                <p>{t.limitReachedBody}</p>
                 {result.used_today != null && result.limit != null && (
                   <p className="mt-1.5 text-[12px] text-[#5b6b8c]">
-                    {result.used_today} of {result.limit} verdicts used today.
+                    {t.usedOfLimit(result.used_today, result.limit)}
                   </p>
                 )}
-                {/* NOT result.upgrade_url directly: the API sends "/stripe/plans",
-                    which is the JSON GET the pricing section calls via getPlans()
-                    (src/lib/api.ts:212), not a page — next.config.ts rewrites
-                    /stripe/:path* straight to the backend, so a real <a> there
-                    would navigate to raw JSON. /account is the actual page with
-                    working upgrade buttons wired to Stripe Checkout. Flagging this
-                    rather than linking upgrade_url verbatim as the brief asked. */}
                 <Link
                   href="/account"
                   className="mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors"
                 >
-                  See plans →
+                  {t.seePlans}
                 </Link>
               </div>
             ) : result.verdict === "BRAND_CATEGORIES" ? (
-              // A bare-brand query ("Nike") — no garment named. Before this
-              // fix this fell into the generic sell_through_rate==null branch
-              // below, which shows a locked-headline/UnlockPanel card and
-              // never reads category_aggregates or message: production
-              // measured a real trial user (95) getting a departure count
-              // with no price and leaving. category_aggregates is the same
-              // public aggregate class as BRAND_AVERAGE's sell_avg (never a
-              // per-model buy-below), already public per DATA_CONTRACT.md
-              // rule 4 — no UnlockPanel/paywall belongs here.
               <div className="p-6">
-                <div className="text-[13px] leading-6 text-[#8b99b8] mb-4">{result.message}</div>
+                <div className="text-[13px] leading-6 text-[#8b99b8] mb-4">
+                  {checker.brandCategoriesIntro(
+                    result.brand ?? query,
+                    new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(result.categories ?? []),
+                  )}
+                </div>
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 {result.category_aggregates && result.category_aggregates.length > 0 && (
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 mt-4">
                     {result.category_aggregates.map(a => (
                       <button
                         key={a.category}
@@ -206,67 +182,42 @@ function VerdictInner() {
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
-                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} avg · {a.sold_7d.toLocaleString()} left shelf / 7d
+                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {t.leftShelfCount(a.sold_7d.toLocaleString())}
                         </span>
                       </button>
                     ))}
                   </div>
                 )}
-                {result.next_step && (
-                  <button
-                    onClick={() => { setQuery(result.next_step!); run(result.next_step!) }}
-                    className="mt-4 text-[12.5px] text-emerald-400 hover:text-emerald-300 transition-colors"
-                  >
-                    Try &quot;{result.next_step}&quot; for a priced verdict on one item →
-                  </button>
-                )}
               </div>
             ) : result.verdict === "BRAND_AVERAGE" ? (
-              // Brand + category named, no specific model — a real priced
-              // aggregate (sell_avg / sold_7d / active_listings are all
-              // present here), never gated behind UnlockPanel: it is public
-              // per DATA_CONTRACT.md rule 4, the same number
-              // /api/public/market-snapshot already serves for free.
               <>
                 <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-[#1e2535] border-b border-[#1e2535]">
-                  <Metric label="Avg at exit" value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
-                  <Metric label="Left shelf / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
-                  <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
+                  <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
+                  <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
+                  <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
                 </div>
-                <div className="p-6 text-[13px] leading-6 text-[#8b99b8]">
-                  {result.limitation || result.message}
+                <div className="p-6">
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 </div>
               </>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
-              // INSUFFICIENT_DATA belongs here, NOT in the metrics branch below.
-              // The server withholds every number behind it, so the grid would
-              // render a row of em-dashes — the same thing the `locked` branch
-              // avoids for the same reason. The backend's own message explains
-              // WHY (thin sample, or a brand whose sales we cannot observe yet),
-              // and it is the only useful thing on the card.
               <div className="p-6 text-[13px] text-[#8b99b8]">
-                {result.message || "Not enough market data on this product yet. Try a more common brand + model."}
+                <p>{t.unknownBody}</p>
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : result.sell_through_rate == null ? (
-              // Was `result.locked`, which the backend has returned as False on
-              // every branch since W1. Ask whether the paid fields are actually
-              // absent rather than trusting a flag that no longer varies.
-              // Server withheld the paid numbers. Confidence + comparable count
-              // stay visible so the headline does not look like magical AI.
               <div className="p-6 pt-5">
                 <div className="text-[13px] leading-6 text-[#8b99b8]">
-                  This is the headline call on{" "}
-                  <span className="font-semibold text-[#eef1f7]">{result.product || query}</span>,
-                  computed from watched departures across 5 EU markets.
+                  {t.headlineCall(result.product || query)}
                 </div>
                 <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : (
               <>
-                {/* WHY before numbers — DECISION → REASON → NUMBER → EVIDENCE */}
                 {result.reasons && result.reasons.length > 0 && (
                   <div className="p-6 border-b border-[#1e2535]">
-                    <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">Why</div>
+                    <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">{t.why}</div>
                     <ul className="flex flex-col gap-2">
                       {result.reasons.map((r, i) => (
                         <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
@@ -278,22 +229,22 @@ function VerdictInner() {
                 )}
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
-                  <Metric label="Buy below" value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
-                  <Metric label="Avg at exit" value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
+                  <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
+                  <Metric label={t.avgAtExit} value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n ?? result.sold_7d} />} />
                   {result.sell_through_rate
-                    ? <Metric label="Sell-through" value={result.sell_through_rate} />
-                    : <Metric label="Left shelf / 7d" value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
+                    ? <Metric label={t.sellThrough} value={result.sell_through_rate} />
+                    : <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
                   {result.buy_below != null && result.sell_avg != null
-                    ? <Metric label="Target net" value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
+                    ? <Metric label={t.targetNet} value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
                     : result.sell_through_rate
-                    ? <Metric label="Opportunity" value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
-                    : <Metric label="Listed now" value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
+                    ? <Metric label={t.opportunity} value={result.opportunity_score != null ? `${Math.round(result.opportunity_score)}/100` : "—"} />
+                    : <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
                 </div>
 
                 <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3">
                   {result.momentum && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">Demand</span>
+                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.demand}</span>
                       <span className="flex items-center gap-1 text-[13px] font-semibold text-[#e8ecf4]">
                         <MomIcon size={14} /> {result.momentum}
                       </span>
@@ -301,7 +252,7 @@ function VerdictInner() {
                   )}
                   {result.top_sizes && result.top_sizes.length > 0 && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">Hot sizes</span>
+                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.hotSizes}</span>
                       <span className="flex gap-1">
                         {result.top_sizes.slice(0, 5).map(s => (
                           <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[#263147] text-[11px] text-[#a9b6d0]">{s}</span>
@@ -317,7 +268,8 @@ function VerdictInner() {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
-            Enter a brand and model. You get BUY, WATCH or SKIP plus the reason — from watched departures, not a model guessing.
+            <p>{t.empty}</p>
+            <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
           </div>
         )}
       </div>
