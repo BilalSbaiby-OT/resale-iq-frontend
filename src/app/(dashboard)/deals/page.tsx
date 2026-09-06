@@ -274,7 +274,7 @@ function DealsContent() {
                     same slot, because they answer the same question with
                     whichever evidence exists. */}
                 <div style={{ display: "flex", gap: 24 }}>
-                  <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.sold_7d} />} />
+                  <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.comparable_n} nKind="comparable" />} />
                   {/* THREE STATES, never two: we have the rate / the server
                       withheld it / nobody measured it. Collapsing "withheld"
                       into "not measured" hides an upgrade path; collapsing
@@ -292,7 +292,9 @@ function DealsContent() {
                 </div>
 
                 {/* Provisional ranking stays provisional. */}
-                {d.str_pct == null && (
+                {d.confidence_note ? (
+                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{d.confidence_note}</div>
+                ) : d.str_pct == null && (
                   <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{t.deals.thinSample}</div>
                 )}
 

@@ -27,6 +27,11 @@ export interface ModelSignal {
   sold_30d: number
   avg_price_eur: number | null
   max_buy_price: number | null
+  /** Sample behind avg_price_eur: n_fenced comps, NEVER sold_7d. */
+  comparable_n?: number | null
+  confidence_tier?: "HIGH" | "MEDIUM" | "LOW"
+  confidence_note?: string | null
+  evidence_sufficient?: boolean
   str_pct: number | null
   str_unavailable_reason?: string
   active_listings?: number | null
@@ -124,6 +129,7 @@ export interface WatchlistItem {
   avg_price_eur: number | null
   max_buy_price: number | null
   sold_7d: number | null
+  comparable_n?: number | null
   str_pct: number | null
   str_unavailable_reason?: string
   top_sizes: string[]
