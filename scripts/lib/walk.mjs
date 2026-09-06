@@ -13,7 +13,12 @@
 import { readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
 
-export const SKIP = /node_modules|\.next|\.git|dist|build|coverage|__pycache__|\.venv|scratchpad/
+// `.evidence` joins `scratchpad` for the same reason: it is untracked per-lane
+// scratch (verification walkers, screenshot drivers) that never ships. On
+// 2026-09-06 a throwaway `.evidence/prod-walk.mjs` written by one lane failed
+// check:silent for a different lane's commit — a guard firing on a file that is
+// not in the repo and cannot reach a customer. Shipped code is the subject.
+export const SKIP = /node_modules|\.next|\.git|dist|build|coverage|__pycache__|\.venv|scratchpad|\.evidence/
 
 /**
  * @param {string} dir      directory to walk
