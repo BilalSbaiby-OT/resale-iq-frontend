@@ -2,7 +2,9 @@
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
 import { captureAttribution, captureLandingPath, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
+import { stripLocalePrefix } from "@/lib/locale-routes"
 
+/** Keyed on the LOCALE-STRIPPED path — see the lookup below for why. */
 const PATH_EVENTS: Record<string, FunnelEvent> = {
   "/": "landing_view",
   "/register": "signup_started",
@@ -37,14 +39,27 @@ export function PageviewTracker() {
 
     trackPageview(full)
 
-    const ev = PATH_EVENTS[pathname]
-    if (ev) trackEvent(ev, pathname)
+    // "/es/register" IS a register page view and has to count as one. This
+    // lookup was against the raw pathname, so signup_started only ever fired
+    // for English: every /es, /fr, /de, /it, /pt register visit landed in
+    // production's `pageviews` with a NULL event and was invisible to the
+    // funnel. 7 such rows exist for /es/register alone (read 2026-09-06), and
+    // "/es" had the same hole against landing_view. PRICING_PATH below already
+    // handled its own prefix; these two never did.
+    const ev = PATH_EVENTS[stripLocalePrefix(pathname)]
+    // Sent WITH the query string. "?plan=power" and "?plan=free" are two
+    // different offers arriving at one route, and this event threw that away —
+    // all 123 signup_started rows on production read a bare "/register" with
+    // no way to tell which offer the visitor was shown. Consequence for
+    // analysis: historical rows are bare, so query this event with
+    // LIKE '/register%', never equality.
+    if (ev) trackEvent(ev, full)
     // The anchor still counts — the landing page keeps its embedded pricing
     // strip and people still reach it by clicking a "#pricing" CTA — but the
     // route is now the primary, reliable witness.
     const hash = typeof window !== "undefined" ? window.location.hash : ""
     if (PRICING_PATH.test(pathname) || hash === "#pricing") {
-      trackEvent("pricing_view", pathname)
+      trackEvent("pricing_view", full)
     }
   }, [pathname])
 

@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect, useRef, Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
@@ -44,14 +44,17 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const searchParams = useSearchParams()
-  const requested = searchParams.get("plan")
-  const [plan, setPlan] = useState<PlanId>(() => planFromQuery(requested))
-  useEffect(() => {
-    setPlan(planFromQuery(searchParams.get("plan")))
-  }, [searchParams])
-  const [tos, setTos] = useState(false)
-  // Separate from `tos` on purpose — EU law requires express, standalone consent
-  // to waive the 14-day withdrawal right for immediately-delivered digital goods.
+  const pathname = usePathname()
+  // Derived, not state. It was useState + a useEffect that re-set it whenever
+  // searchParams changed, because the radio group also wrote to it. With the
+  // radios gone the URL is the only writer, so the effect was a cascading
+  // re-render for nothing (and the react-hooks/set-state-in-effect error this
+  // file used to carry).
+  const plan: PlanId = planFromQuery(searchParams.get("plan"))
+  // The last remaining tick, and the reason it survived a pass whose whole
+  // point was removing ticks: EU law requires express, standalone consent to
+  // waive the 14-day withdrawal right for immediately-delivered digital goods.
+  // Legality is a constraint, not a conversion input. Paid path only.
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -73,30 +76,6 @@ function RegisterContent({ locale }: { locale: Locale }) {
       setPrices(m)
     }).catch(() => {})
   }, [])
-
-  // Free first. Measured 2026-09-01: Pro-as-Most-Popular sat above an
-  // unselected Free and the three visitors who reached this page bounced.
-  // Default plan is already free (see requested/setPlan above); the picker
-  // still listed Pro first with the Most Popular tag, so a cold visitor from
-  // "Create a free account" saw a paid form. Order now matches the default.
-  // Do not preselect paid plans — unspecified stays free.
-  //
-  // The "Most popular" tag on Pro is gone (same removal as pricing-section.tsx).
-  // Not a style call: this company has 0 paying customers and EUR 0.00 MRR, so
-  // no tier is the popular one and the badge asserted a fact we do not have.
-  // The dictionary keys (auth.register.mostPopular, pricingSection.mostPopular)
-  // are left in all six locales for the day the claim is true and measured.
-  const PLAN_META: { id: PlanId }[] = [
-    { id: "free" },
-    { id: "operator" },
-    { id: "power" },
-  ]
-  const PLANS = PLAN_META.map(p => ({
-    ...p,
-    name: t.planNames[p.id],
-    desc: t.planDesc[p.id],
-    price: prices[p.id],
-  }))
 
   const isFree = plan === "free"
   const formFocused = useRef(false)
@@ -143,10 +122,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     track("register_submit_attempted")
-    if (!tos) {
-      track("register_submit_failed", { reason: "tos" })
-      setError(t.errorAcceptTos); return
-    }
+    // No terms gate here any more: pressing this button IS the acceptance, and
+    // the sentence saying so sits directly under it. The withdrawal waiver
+    // below is a different thing and still gates — see its comment.
+    //
     // The withdrawal waiver only applies to a paid subscription. Demanding it
     // for a free signup would be asking someone to waive a right they are not
     // exercising, which is friction with no legal purpose.
@@ -207,23 +186,37 @@ function RegisterContent({ locale }: { locale: Locale }) {
         <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">{t.subheading}</p>
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2.5">
-            {PLANS.map(p => (
-              <label key={p.id} className={`relative flex items-center gap-3 border rounded-xl p-3.5 cursor-pointer transition-colors ${plan === p.id ? "border-[var(--color-buy)] bg-[var(--color-buy)]/[0.07]" : "border-[var(--color-border-2)] hover:bg-[var(--color-bg-3)]"}`}>
-                <input type="radio" name="plan" checked={plan === p.id} onChange={() => setPlan(p.id)} className="accent-[var(--color-buy)]" />
-                <div className="flex-1">
-                  <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{p.name}</span>
-                  <div className="text-[11.5px] text-[var(--color-text-secondary)] mt-0.5">{p.desc}</div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold text-[15px] text-[var(--color-text-primary)]">
-                    {p.id === "free" ? "€0" : p.price != null ? `€${p.price}` : "…"}
-                  </div>
-                  <div className="text-[10px] text-[var(--color-text-muted)]">{p.id === "free" ? t.forever : t.perMonth}</div>
-                </div>
-              </label>
-            ))}
-          </div>
+          {/* NOT a control. The three-way plan radio that used to sit here is
+              gone; `plan` still comes from ?plan= exactly as before, so every
+              paid CTA on the site keeps working and lands in the same Stripe
+              checkout. What changed is that choosing is no longer something a
+              visitor has to DO before they can type an email.
+
+              Measured, production `pageviews`, non-bot, over the window in
+              which register_form_focused has existed (2026-09-05 17:43Z ->
+              2026-09-06 01:53Z): 31 people reached /register, 6 focused any
+              field. 25 of 31 (81%) left without touching the form. The radio
+              was the first thing on it and the only one that made "create an
+              account" start with "decide what to pay". Plan choice loses
+              nothing by moving after the account exists — /account already
+              ships working Upgrade to Starter / Upgrade to Pro buttons through
+              the same createCheckout call (see account/page.tsx).
+
+              A paid arrival still has to SEE the price before a submit sends
+              them to Stripe, hence this summary. It reads the live Stripe
+              amount, same source as before, so "€49 shown / €79 charged"
+              stays impossible. */}
+          {!isFree && (
+            <div className="flex items-center justify-between border border-[var(--color-border-2)] rounded-xl p-3.5">
+              <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
+              <span className="text-right">
+                <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
+                  {prices[plan] != null ? `€${prices[plan]}` : "…"}
+                </span>
+                <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
+              </span>
+            </div>
+          )}
 
           <div>
             <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.emailLabel}</label>
@@ -236,17 +229,18 @@ function RegisterContent({ locale }: { locale: Locale }) {
               className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[13.5px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
 
-          <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]">
-            <input type="checkbox" checked={tos} onChange={e => setTos(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
-            <span>
-              {t.tosPrefix} <Link href="/terms" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.termsLabel}</Link> {t.tosAnd} <Link href="/privacy" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.privacyLabel}</Link>{t.tosSuffix ? ` ${t.tosSuffix}` : ""}
-            </span>
-          </label>
-
           {/* EU consumer law: for digital content delivered immediately, the
               14-day withdrawal right only ends if the customer gives EXPRESS,
-              separately-ticked consent. Bundling it into the Terms checkbox
-              does not count — it must be its own affirmative action.
+              separately-ticked consent. Bundling it into a Terms checkbox does
+              not count — it must be its own affirmative action.
+
+              This is now the ONLY checkbox on the page, and that is a feature
+              rather than an accident of the diff. Two identical grey
+              checkboxes stacked together read as one boilerplate block, which
+              is precisely what "express, separate consent" is not. Directive
+              2011/83/EU Art. 16(m) is untouched here and was never on the
+              table — the control removed above it is the terms tick, for which
+              consent by submission is standard and binding.
 
               W19: this text is WITHDRAWAL_WAIVER_TEXT (src/lib/i18n.ts),
               English on every locale until legal-compliance signs off on a
@@ -268,9 +262,31 @@ function RegisterContent({ locale }: { locale: Locale }) {
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : <>{t.submit} <Check size={15} /></>}
           </button>
+
+          {/* Consent by submission, replacing the tick that used to sit above
+              the button. Standard, binding, and directly adjacent to the act
+              it describes — both documents are still one click away and still
+              open in a new tab, so nothing is hidden, it just costs no click
+              to proceed. Deliberately NOT applied to the withdrawal waiver
+              above, which the law requires as a separate affirmative act. */}
+          <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
+            {t.tosInlinePrefix} <Link href="/terms" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.termsLabel}</Link> {t.tosAnd} <Link href="/privacy" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.privacyLabel}</Link>{t.tosSuffix ? ` ${t.tosSuffix}` : ""}
+          </p>
+
           <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
             {isFree ? t.freeNote : t.paidNote}
           </p>
+
+          {/* The only way off the paid path now that the Free radio is gone.
+              Keeps the current pathname so /es/register stays Spanish. Worth
+              the extra line: 51 of the 52 checkouts this company has ever
+              started expired unpaid and it has never had a paying customer, so
+              an account we keep is worth more than a paid intent we lose. */}
+          {!isFree && (
+            <Link href={`${pathname}?plan=free`} className="text-[10.5px] text-[var(--color-buy)] hover:underline text-center">
+              {t.switchToFree}
+            </Link>
+          )}
         </form>
         <div className="text-center mt-4 text-[13px] text-[var(--color-text-muted)]">
           {t.alreadyHaveAccount} <Link href="/login" className="text-[var(--color-buy)] hover:underline">{t.signIn}</Link>

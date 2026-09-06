@@ -23,7 +23,12 @@ export type FunnelEvent =
 /** Client-side reasons for register_submit_failed. Encoded into path so the
  *  existing /api/track sink stores them (TrackEvent has no extra column). */
 export type RegisterFailReason =
-  | "tos"
+  // "tos" lived here until the terms checkbox was removed. Dropped rather than
+  // kept-for-decoding because there is nothing to decode: production has ZERO
+  // register_submit_failed rows of any reason, ever — no row in `pageviews`
+  // has a path containing "reason=" (read 2026-09-06). Which is also the
+  // measured reason the checkbox was safe to remove: in the 4 non-bot submit
+  // attempts on record, it blocked none of them.
   | "waiver"
   | "password_length"
   | "conflict"

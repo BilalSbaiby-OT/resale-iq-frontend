@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test"
+import { captureTrackEvents } from "./track-events"
 
 /**
  * The bug this file exists to close: localized routes with no test coverage
@@ -322,4 +323,34 @@ test("an exhausted English visitor's 'See plans' link is still the bare anchor -
   await exhaustQuotaAndReachLimit(page, "/")
   const comparePlans = page.getByRole("link", { name: "See plans" })
   await expect(comparePlans).toHaveAttribute("href", "/#pricing")
+})
+
+// Funnel events were keyed on the raw pathname, so every locale-prefixed visit
+// was invisible to the funnel. Measured on production 2026-09-06: the
+// `pageviews` table holds 7 rows for "/es/register" and every one has
+// `event IS NULL` -- signup_started never once fired for a Spanish visitor,
+// and "/es" had the same hole against landing_view. That silently understated
+// the top of the funnel by every non-English visit, which is exactly the
+// measurement the register-form change depends on.
+async function funnelEvents(page: import("@playwright/test").Page, url: string) {
+  const events = captureTrackEvents(page)
+  await page.goto(url)
+  await expect.poll(() => events.length, { timeout: 10_000 }).toBeGreaterThan(0)
+  return events
+}
+
+for (const prefix of ["", "/es", "/fr", "/de", "/it", "/pt"]) {
+  test(`signup_started fires on ${prefix || ""}/register`, async ({ page }) => {
+    expect(await funnelEvents(page, `${prefix}/register`)).toContain("signup_started")
+  })
+}
+
+test("landing_view fires on /es, not only on /", async ({ page }) => {
+  expect(await funnelEvents(page, "/es")).toContain("landing_view")
+})
+
+// The guard on stripLocalePrefix: a two-letter segment that is not a locale
+// must not be eaten. /pt is Portuguese; a page named /pricing is not.
+test("signup_started does not fire on a non-register page", async ({ page }) => {
+  expect(await funnelEvents(page, "/es/pricing")).not.toContain("signup_started")
 })

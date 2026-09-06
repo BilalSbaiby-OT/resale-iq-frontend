@@ -74,3 +74,22 @@ export function canonicalPath(locale: Locale, suffix = ""): string {
 export function absoluteUrl(path: string): string {
   return `${BASE}${path}`
 }
+
+/**
+ * "/es/register" -> "/register", "/es" -> "/", "/register" -> "/register".
+ *
+ * Exists because funnel events were keyed on the raw pathname, so every
+ * locale-prefixed visit was invisible to the funnel. Measured on production
+ * 2026-09-06: the `pageviews` table holds 7 rows for "/es/register" and every
+ * one of them has `event IS NULL` — `signup_started` never fired for a Spanish
+ * visitor, and the same hole existed for /fr, /de, /it, /pt and for "/es" vs
+ * "/" on the landing page.
+ *
+ * Only strips a segment that is a real PATH_LOCALE, so a future "/esim" or a
+ * page literally named "/deals" is untouched.
+ */
+export function stripLocalePrefix(pathname: string): string {
+  const m = /^\/([^/]+)(\/.*)?$/.exec(pathname)
+  if (!m || !isPathLocale(m[1])) return pathname
+  return m[2] || "/"
+}
