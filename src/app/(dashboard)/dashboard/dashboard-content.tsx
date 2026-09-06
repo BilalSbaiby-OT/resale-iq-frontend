@@ -252,7 +252,13 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                       <div style={{ minWidth: 0 }}>
                         <div>{t.avgAtExit}</div>
                         <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
-                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}
+                          {/* n is comparable_n — the IQR-fenced, identity-filtered comp
+                              set the mean is actually taken over — never sold_7d. Track
+                              renders €92 over 98 comps, not over its 344 departures;
+                              the two answer different questions and the tooltip used to
+                              call both "watched departures". Same /api/deals payload as
+                              the Deal Scanner; see src/types/index.ts. */}
+                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.comparable_n} nKind="comparable" />}
                         </div>
                       </div>
                       <div style={{ minWidth: 0 }}>

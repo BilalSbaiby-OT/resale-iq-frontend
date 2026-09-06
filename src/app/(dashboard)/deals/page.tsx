@@ -274,7 +274,16 @@ function DealsContent() {
                     same slot, because they answer the same question with
                     whichever evidence exists. */}
                 <div style={{ display: "flex", gap: 24 }}>
-                  <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.sold_7d} />} />
+                  {/* n is comparable_n — the IQR-fenced, identity-filtered comp set
+                      the mean is actually taken over — never sold_7d. Production
+                      2026-09-06, Balenciaga Track: this card read "€92 · n 344"
+                      for a mean of €92.22 taken over 98 comparables, under a
+                      tooltip calling 344 "the sample behind this mean". Both are
+                      true numbers answering different questions; only the shared
+                      slot made one impersonate the other. Same collision #54 fixed
+                      on /verdict, on the surface it did not cover. sold_7d is not
+                      replaced here — it is not a substitute sample size. */}
+                  <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.comparable_n} nKind="comparable" />} />
                   {/* THREE STATES, never two: we have the rate / the server
                       withheld it / nobody measured it. Collapsing "withheld"
                       into "not measured" hides an upgrade path; collapsing

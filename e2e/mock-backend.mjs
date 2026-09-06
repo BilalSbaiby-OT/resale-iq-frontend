@@ -290,6 +290,62 @@ function seed(id, email, password, plan = "operator", { verified = true } = {}) 
 seed(1, "alice@example.com", "password12345", "operator")
 seed(2, "bob@example.com", "password12345", "operator")
 
+// ── /api/deals — three rows copied from the LIVE board, 2026-09-06 ──────────
+//
+// Taken from `_build_deals(limit=200)` run inside the production API container
+// during the Deal Scanner number audit, so the fixture cannot drift into
+// shapes the backend does not actually produce. Each row is here for one
+// contract that surface got wrong:
+//
+//  Balenciaga Track — comparable_n (98) and sold_7d (344) differ by 3.5x, so a
+//    card that renders sold_7d in the "n" slot is visibly distinguishable from
+//    one that renders comparable_n. Also HIGH tier: no qualifier expected.
+//  Adidas Samba — str_pct 0.2, the #54 model. A real share that must never
+//    print as "0%".
+//  Jordan Jordan 1 — LOW tier, below the n>=8 floor: every money field null,
+//    opportunity_score null, momentum null, and a confidence_note that names
+//    its COMPARABLE count (7) while sold_7d (13) sits in the same object.
+//
+// Derived fields hold to the published formulas: max_buy = avg*0.95*0.70,
+// est_profit = avg*0.95 - max_buy, str_pct = sold/(sold+active)*100.
+const DEALS = [
+  {
+    brand: "Balenciaga", model: "Track", category: "Other",
+    sold_7d: 344, sold_30d: 651, avg_price_eur: 92.22, max_buy_price: 61.33,
+    comparable_n: 98, str_pct: 8.7, active_listings: 3615,
+    opportunity_score: 57.5, momentum_label: "RISING", months_supply: 5.55,
+    est_profit_eur: 26.28, profit_margin_pct: 30.0, speed_score: 100.0,
+    data_quality_score: 85, evidence_sufficient: true, confidence_tier: "HIGH",
+    confidence_note: null, sell_speed: "Very Fast", risk_level: "Medium",
+    top_sizes: ["43", "44", "38"], size_velocity: [], sourcing_links: [],
+    updated_at: "2026-09-05 23:43:41",
+  },
+  {
+    brand: "Adidas", model: "Samba", category: "Sneakers",
+    sold_7d: 43, sold_30d: 120, avg_price_eur: 30.5, max_buy_price: 20.28,
+    comparable_n: 20, str_pct: 0.2, active_listings: 22720,
+    opportunity_score: 24.2, momentum_label: "STABLE", months_supply: 189.33,
+    est_profit_eur: 8.7, profit_margin_pct: 30.0, speed_score: 71.7,
+    data_quality_score: 70, evidence_sufficient: true, confidence_tier: "MEDIUM",
+    confidence_note: "Real data, thinner sample. 20 sold comparables is below our HIGH bar of 30 — the price is honest, just less precise.",
+    sell_speed: "Fast", risk_level: "High",
+    top_sizes: ["38", "39"], size_velocity: [], sourcing_links: [],
+    updated_at: "2026-09-05 23:43:41",
+  },
+  {
+    brand: "Jordan", model: "Jordan 1", category: "Sneakers",
+    sold_7d: 13, sold_30d: 44, avg_price_eur: null, max_buy_price: null,
+    comparable_n: 7, str_pct: null, active_listings: 3807,
+    opportunity_score: null, momentum_label: null, months_supply: null,
+    est_profit_eur: null, profit_margin_pct: null, speed_score: null,
+    data_quality_score: 52, evidence_sufficient: false, confidence_tier: "LOW",
+    confidence_note: "Only 7 comparable departures — not enough to name a buy-below. The model is tracked; the price is not.",
+    sell_speed: "Medium", risk_level: null,
+    top_sizes: [], size_velocity: [], sourcing_links: [],
+    updated_at: "2026-09-05 23:43:41",
+  },
+]
+
 function json(res, status, body) {
   const headers = { "Content-Type": "application/json", ...res.getHeaders() }
   res.writeHead(status, headers)
@@ -564,11 +620,18 @@ const server = http.createServer(async (req, res) => {
     //     must NEVER round to "0%".
     //   - the second row has `str_pct: null` so the provisional / thin-sample
     //     branch renders too.
+    //   - EVERY row carries `comparable_n` DIFFERENT from its `sold_7d`. The
+    //     two are separate quantities and the card slots them separately; a
+    //     fixture where they happened to be equal would let a regression back
+    //     to `n={d.sold_7d}` pass green. The last row is Balenciaga Track with
+    //     production's own pair — comparable_n 98 against sold_7d 344 — so the
+    //     collision is visible in a rendered string, not just in a type.
     json(res, 200, {
       deals: [
         {
           brand: "Adidas", model: "Samba OG", category: "Sneakers",
           sold_7d: 43, sold_30d: 180, avg_price_eur: 78, max_buy_price: 41,
+          comparable_n: 20,
           str_pct: 0.1898, active_listings: 22607, opportunity_score: 72,
           momentum_label: "RISING", months_supply: 4.1, speed_score: 61,
           size_velocity: [], top_sizes: ["42", "43"], data_quality_score: 0.9,
@@ -579,6 +642,7 @@ const server = http.createServer(async (req, res) => {
         {
           brand: "Nike", model: "Air Force 1 Low", category: "Sneakers",
           sold_7d: 69, sold_30d: 260, avg_price_eur: 62, max_buy_price: 33,
+          comparable_n: 31,
           str_pct: null, active_listings: 18293, opportunity_score: 64,
           momentum_label: "HOT", months_supply: 5.2, speed_score: 55,
           size_velocity: [], top_sizes: ["41"], data_quality_score: 0.8,
@@ -593,14 +657,30 @@ const server = http.createServer(async (req, res) => {
           // proves the bound: it must render "<0.1%" and must never be
           // rounded down into a "0%" that tells a reseller there is no
           // demand for an item with 47 departures in a week.
+          comparable_n: 12,
           str_pct: 0.04, active_listings: 45238, opportunity_score: 51,
           momentum_label: "STABLE", months_supply: 8.0, speed_score: 40,
           size_velocity: [], top_sizes: ["32"], data_quality_score: 0.7,
           est_profit_eur: 6, profit_margin_pct: 25,
           sell_speed: "Slow", risk_level: "Medium", sourcing_links: [],
         },
+        {
+          // Production's own numbers, recomputed from `listings` inside the API
+          // container 2026-09-06: mean €92.22 over 98 fenced comparables, against
+          // 344 watched departures in the same week. The card printed "n 344" in
+          // the slot the €92 mean is taken over. Both figures stay on this
+          // fixture precisely so the two can never be confused again silently.
+          brand: "Balenciaga", model: "Track", category: "Other",
+          sold_7d: 344, sold_30d: 651, avg_price_eur: 92.22, max_buy_price: 61.33,
+          comparable_n: 98,
+          str_pct: 8.7, active_listings: 3615, opportunity_score: 57.5,
+          momentum_label: "RISING", months_supply: 5.55, speed_score: 100,
+          size_velocity: [], top_sizes: ["43", "44", "38"], data_quality_score: 0.85,
+          est_profit_eur: 26.28, profit_margin_pct: 30,
+          sell_speed: "Very Fast", risk_level: "Medium", sourcing_links: [],
+        },
       ],
-      count: 3, locked: false, locked_fields: [],
+      count: 4, locked: false, locked_fields: [],
     })
     return
   }

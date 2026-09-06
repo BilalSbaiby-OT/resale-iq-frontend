@@ -92,7 +92,9 @@ export default function WatchlistPage() {
                 <div className="bg-[#1a2030] rounded-lg p-2">
                   <div className="text-[9px] font-mono text-[#546380] uppercase">Avg at exit</div>
                   <div className="font-mono font-bold text-[13px] mt-0.5">
-                    {locked ? <Lock size={11} className="text-[#546380]" /> : <MedianN median={item.avg_price_eur} n={item.sold_7d} />}
+                    {/* n is comparable_n, not sold_7d — /api/watchlist selects
+                        ms.comparable_n for exactly this. See types/index.ts. */}
+                    {locked ? <Lock size={11} className="text-[#546380]" /> : <MedianN median={item.avg_price_eur} n={item.comparable_n} nKind="comparable" />}
                   </div>
                 </div>
                 <div className="bg-[#1a2030] rounded-lg p-2">
