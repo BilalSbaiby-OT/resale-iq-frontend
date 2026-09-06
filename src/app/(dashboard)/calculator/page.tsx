@@ -7,11 +7,13 @@ import { getCalc } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { useLocale } from "@/components/i18n/locale-provider"
+import { copy } from "@/lib/i18n"
 import type { CalcResult } from "@/types"
 
 export default function CalculatorPage() {
   const { isAuthenticated, isLoading: authLoading, checkAuth } = useAuthStore()
   const locale = useLocale()
+  const tCalc = copy[locale].toolsPage.calc
   const [authChecked, setAuthChecked] = useState(false)
   const [mode, setMode] = useState<"single" | "reverse">("single")
   const [brand, setBrand] = useState("")
@@ -97,9 +99,13 @@ export default function CalculatorPage() {
       <div style={{ minHeight: "100vh", background: "var(--color-bg)", color: "var(--color-text-primary)" }}>
         <div style={{ maxWidth: 640, margin: "0 auto", padding: "28px 24px 80px" }}>
           <Link href="/" style={{ color: "inherit", textDecoration: "none", fontSize: 15, fontWeight: 500 }}>Resale IQ</Link>
-          <h1 style={{ fontSize: 28, fontWeight: 600, letterSpacing: "-0.4px", margin: "32px 0 8px" }}>Profit calculator</h1>
+          {/* Copy comes from the same dictionary the calculator body already
+              uses. #65 passed `locale` into PublicProfitCalculator but left
+              this heading and subtitle as English literals, so /es|fr|de|it|pt
+              /calculator served a translated form under an English title. */}
+          <h1 style={{ fontSize: 28, fontWeight: 600, letterSpacing: "-0.4px", margin: "32px 0 8px" }}>{tCalc.pageTitle}</h1>
           <p style={{ fontSize: 15, color: "var(--color-text-secondary)", margin: "0 0 28px", lineHeight: 1.5 }}>
-            Net profit after Vinted fees. No account required.
+            {tCalc.pageSubtitle}
           </p>
           <PublicProfitCalculator locale={locale} />
         </div>

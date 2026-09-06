@@ -179,6 +179,8 @@ export const copy = {
       // finds the fields by label and the button by its exact accessible name.
       // Change the EN wording and that test goes red — on purpose.
       calc: {
+        pageTitle: "Profit calculator",
+        pageSubtitle: "Net profit after Vinted fees. No account required.",
         buyLabel: "Buy price (€)",
         sellLabel: "Expected sale price (€)",
         submit: "Calculate",
@@ -564,6 +566,8 @@ export const copy = {
       upsellTitle: "Obtenez tous les chiffres.",
       upsellCta: "Voir les offres",
       calc: {
+        pageTitle: "Calculateur de profit",
+        pageSubtitle: "Profit net après commission Vinted. Sans compte.",
         buyLabel: "Prix d'achat (€)",
         sellLabel: "Prix de vente estimé (€)",
         submit: "Calculer",
@@ -902,6 +906,8 @@ export const copy = {
       upsellTitle: "Consigue las cifras completas.",
       upsellCta: "Ver planes",
       calc: {
+        pageTitle: "Calculadora de beneficios",
+        pageSubtitle: "Beneficio neto tras las comisiones de Vinted. Sin cuenta.",
         buyLabel: "Precio de compra (€)",
         sellLabel: "Precio de venta estimado (€)",
         submit: "Calcular",
@@ -1240,6 +1246,8 @@ export const copy = {
       upsellTitle: "Hol dir die vollständigen Zahlen.",
       upsellCta: "Pläne ansehen",
       calc: {
+        pageTitle: "Gewinnrechner",
+        pageSubtitle: "Nettogewinn nach Vinted-Gebühren. Ohne Konto.",
         buyLabel: "Einkaufspreis (€)",
         sellLabel: "Erwarteter Verkaufspreis (€)",
         submit: "Berechnen",
@@ -1580,6 +1588,8 @@ export const copy = {
       upsellTitle: "Ottieni i numeri completi.",
       upsellCta: "Vedi i piani",
       calc: {
+        pageTitle: "Calcolatore di profitto",
+        pageSubtitle: "Profitto netto dopo le commissioni Vinted. Senza account.",
         buyLabel: "Prezzo di acquisto (€)",
         sellLabel: "Prezzo di vendita previsto (€)",
         submit: "Calcola",
@@ -1918,6 +1928,8 @@ export const copy = {
       upsellTitle: "Obtenha os números completos.",
       upsellCta: "Ver planos",
       calc: {
+        pageTitle: "Calculadora de lucro",
+        pageSubtitle: "Lucro líquido após as comissões da Vinted. Sem conta.",
         buyLabel: "Preço de compra (€)",
         sellLabel: "Preço de venda previsto (€)",
         submit: "Calcular",

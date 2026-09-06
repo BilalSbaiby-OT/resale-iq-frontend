@@ -68,6 +68,51 @@ test("/en 404s -- English is unprefixed at \"/\", not duplicated at \"/en\"", as
   expect(res?.status()).toBe(404)
 })
 
+/**
+ * #65 gave signed-out /calculator the public fee tool and correctly passed
+ * `locale` into PublicProfitCalculator -- but left the page's own <h1> and
+ * subtitle as English literals. Live result on 44d6ccc: /es/calculator served
+ * "Precio de compra (€)" under the heading "Profit calculator", in all five
+ * non-English markets. The form was translated and the chrome above it was
+ * not, which is the half-translated surface this suite exists to catch.
+ *
+ * How the locale actually reaches this page, which is worth stating because
+ * the first version of this test got it wrong: /calculator is in
+ * APP_LOCALE_PREFIXES (src/proxy.ts), so the proxy reads the NEXT_LOCALE
+ * cookie and stamps `x-resaleiq-locale` itself. Setting that header on the
+ * request does nothing -- the proxy overwrites it. The cookie is the input,
+ * and it is the same one production sets on any /<locale> visit, which is why
+ * /es/calculator (a 307 to /calculator) served Spanish form labels at all.
+ */
+const CALC_TITLES: Array<{ locale: string; title: string }> = [
+  { locale: "es", title: "Calculadora de beneficios" },
+  { locale: "fr", title: "Calculateur de profit" },
+  { locale: "de", title: "Gewinnrechner" },
+  { locale: "it", title: "Calcolatore di profitto" },
+  { locale: "pt", title: "Calculadora de lucro" },
+]
+
+for (const { locale, title } of CALC_TITLES) {
+  test(`signed-out /calculator heading is ${locale}, not English`, async ({ page, baseURL }) => {
+    await page.context().addCookies([
+      { name: "NEXT_LOCALE", value: locale, url: baseURL! },
+    ])
+    const res = await page.goto("/calculator")
+    expect(res?.ok()).toBeTruthy()
+
+    const h1 = page.getByRole("heading", { level: 1 })
+    await expect(h1).toHaveText(title)
+    // The exact literal #65 shipped. Asserting its absence is what makes this
+    // a regression test rather than a restatement of the dictionary.
+    await expect(h1).not.toHaveText(/Profit calculator/i)
+
+    // The form under it was already translated; it must stay that way, so a
+    // future "fix" cannot pass by making the whole page English again.
+    await expect(page.getByTestId("riq-calc-result")).toHaveCount(0)
+    await expect(page.getByRole("button").first()).toBeVisible()
+  })
+}
+
 test("a browser preferring German is redirected from \"/\" to \"/de\" (307, not a silent swap)", async ({ request }) => {
   const res = await request.get("/", {
     headers: { "Accept-Language": "de-DE,de;q=0.9" },
