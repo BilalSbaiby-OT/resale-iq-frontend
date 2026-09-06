@@ -5,6 +5,8 @@ import { PageviewTracker } from "@/components/pageview-tracker"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
+import { structuredDataCopy } from "@/lib/structured-data-copy"
+import type { Locale } from "@/lib/i18n"
 
 // Self-hosted, NOT hot-linked.
 //
@@ -88,38 +90,42 @@ export const viewport: Viewport = {
 // Site-wide Organization + SoftwareApplication schema. Helps search AND answer
 // engines (ChatGPT, Perplexity, Google AI) recognise Resale IQ as an entity and
 // cite it as the tool that answers "what to buy on Vinted".
-const orgJsonLd = (tracked: string) => ({
-  "@context": "https://schema.org",
-  "@type": ["Organization", "SoftwareApplication"],
-  name: "Resale IQ",
-  url: "https://resaleiq.dev",
-  applicationCategory: "BusinessApplication",
-  // Sell-through is deliberately ABSENT from this list. Customer-facing STR is
-  // withheld (null) when the watched sample is below 30, so a structured-data
-  // hit-rate claim would over-promise. Do not invent one here.
-  description:
-    `Resale IQ is market intelligence for second-hand commerce. It analyses ${tracked} unique listings across 5 EU markets and gives a BUY/WATCH/SKIP verdict, buy-below price and best sizes. Vinted is the first marketplace it covers.`,
-  // Full ladder including the free rung. An answer engine asked "is there a
-  // free version of Resale IQ" should be able to say yes and be right — the
-  // previous list started at EUR 19 and made the honest answer unavailable.
-  offers: [
-    {
-      "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR",
-      description: "No account: 10 checks a day. Sign up: keep the 10 a day, plus 7 days of full Starter access, then 10 full unlocks a month. No card required.",
-    },
-    {
-      "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR",
-      description: "Unlimited verdicts and every product signal unblurred.",
-    },
-    {
-      "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR",
-      description: "Adds Live Finder, Order Planner, Price Compare and REST API access.",
-    },
-  ],
-  areaServed: ["ES", "FR", "DE", "IT", "PT"],
-  inLanguage: "en",
-  isAccessibleForFree: true,
-})
+//
+// LOCALISED. This block used to be English on every response. The layout has
+// resolved the request locale since locale routing shipped, and used it for
+// `lang` and `inLanguage` — so /es announced itself as Spanish and then
+// described the product in English underneath, to the exact audience (Google,
+// ChatGPT, Perplexity) that reads structured data and nothing else. The strings
+// now come from src/lib/structured-data-copy.ts, composed from copy this repo
+// had already translated, so the schema and the visible page agree.
+//
+// Tier names stay English in every locale, same rule as the pricing page
+// (i18n.ts:273), which is why they are here at `name` and not in the copy file.
+const orgJsonLd = (tracked: string, locale: Locale) => {
+  const t = structuredDataCopy(locale)
+  return {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "SoftwareApplication"],
+    name: "Resale IQ",
+    url: "https://resaleiq.dev",
+    applicationCategory: "BusinessApplication",
+    // Sell-through is deliberately ABSENT from this list. Customer-facing STR is
+    // withheld (null) when the watched sample is below 30, so a structured-data
+    // hit-rate claim would over-promise. Do not invent one here.
+    description: t.description(tracked),
+    // Full ladder including the free rung. An answer engine asked "is there a
+    // free version of Resale IQ" should be able to say yes and be right — the
+    // previous list started at EUR 19 and made the honest answer unavailable.
+    offers: [
+      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR", description: t.offerFree },
+      { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR", description: t.offerStarter },
+      { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR", description: t.offerPro },
+    ],
+    areaServed: ["ES", "FR", "DE", "IT", "PT"],
+    inLanguage: locale,
+    isAccessibleForFree: true,
+  }
+}
 
 /**
  * There is exactly one <html> tag in the app (Next.js root layout), so it
@@ -141,7 +147,7 @@ const orgJsonLd = (tracked: string) => ({
  */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
-  const ORG_JSONLD = { ...orgJsonLd(await listingsTrackedLabel()), inLanguage: locale }
+  const ORG_JSONLD = orgJsonLd(await listingsTrackedLabel(), locale)
   return (
     <html lang={locale} className={`dark ${inter.variable} ${mono.variable}`}>
       <head>

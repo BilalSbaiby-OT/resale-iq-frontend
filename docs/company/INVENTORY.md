@@ -64,18 +64,19 @@ telling the founder we had no telemetry at all.
 - `watchlist_items`
 - `will`
 
-## Check scripts (8)
+## Check scripts (9)
 
 - `scripts/check-agent-isolation.mjs`
 - `scripts/check-duplicate-logic.mjs`
 - `scripts/check-extension.mjs`
+- `scripts/check-locale-english.mjs`
 - `scripts/check-market-proof-grain.mjs`
 - `scripts/check-silent-failure.mjs`
 - `scripts/check-stale-gates.mjs`
 - `scripts/check-tracked-figure.mjs`
 - `scripts/check-warehouse.mjs`
 
-## npm scripts (20)
+## npm scripts (21)
 
 - `build`
 - `check:dupes`
@@ -84,6 +85,7 @@ telling the founder we had no telemetry at all.
 - `check:inventory`
 - `check:isolation`
 - `check:isolation:built`
+- `check:locale-english`
 - `check:market-proof`
 - `check:silent`
 - `check:tracked`
