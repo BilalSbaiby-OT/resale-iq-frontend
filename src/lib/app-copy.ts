@@ -51,12 +51,70 @@ import type { Locale } from "./i18n"
  * stays the canonical English term.
  */
 
-/** The catalogue's momentum enum, as the backend sends it. */
+/**
+ * The catalogue's momentum enum, as the backend sends it.
+ *
+ * THE ENUM NAMES A DIRECTION. THE COMPUTATION BEHIND IT DOES NOT. Everything
+ * below turns on that sentence, so here is the measurement.
+ *
+ * `demand-intel/db/queries.py` labels a model in two steps:
+ *
+ *     rel_i = (sold_7d_i / sold_30d_i) / (Σ sold_7d / Σ sold_30d)
+ *     label = percentile bucket of rel_i within the board
+ *             p>=.90 HOT · p>=.70 RISING · p>=.30 STABLE · p>=.10 FADING · else DEAD
+ *
+ * Two properties of that, both verified against the live production board on
+ * 2026-09-06 (100 models, `listings.sold_at` spanning 2026-08-04 → 2026-09-06):
+ *
+ * 1. THE BUCKETS ARE A QUOTA. Production read STABLE 50 · RISING 20 · FADING 18
+ *    · DEAD 9 · HOT 3 — the split the percentile bands hand out by construction,
+ *    every run. Roughly twenty models are labelled RISING whether or not
+ *    anything is rising.
+ *
+ * 2. THE STATISTIC CANNOT SEE DIRECTION. `rel` divides by the board's own 7d/30d
+ *    ratio, so scaling every model's `sold_7d` by k scales the denominator by k
+ *    and cancels exactly. Replaying the real board with every model's weekly
+ *    sales cut by 50%, 90% and 99% returned an IDENTICAL label for all 100
+ *    models at every scale. A board in total collapse still prints eighteen
+ *    RISING and nine HOT.
+ *
+ * So "Rising"/"Subiendo"/"En hausse"/"Steigend" asserted a time-derivative the
+ * method never computes, to a paying customer, on the strength of a quota. The
+ * percentile machinery itself is right and stays — the comments in queries.py
+ * record why fixed bands collapsed the board to 96% STABLE and later 90% FADING.
+ * The rank is real information. Only the vocabulary was the lie, and only the
+ * vocabulary changed.
+ *
+ * `methodology-copy.ts` already told customers the truth — momentum needs "30
+ * days of history to RANK models against each other" — and already promised we
+ * would stop "showing confident labels we cannot support". These strings are
+ * what makes the badge keep that promise.
+ *
+ * THE RULE FOR ANYONE EDITING THE TABLE BELOW: a momentum string may state
+ * where a model sits among the others. It may not state which way its sales are
+ * going. `app-copy.test.ts` fails the build if one does.
+ */
 export type MomentumWord = "HOT" | "RISING" | "STABLE" | "FADING" | "DEAD"
 
 export interface AppCopy {
-  /** Momentum status chips. Raw API enum in, reader's language out. */
+  /**
+   * Momentum status chips. Raw API enum in, reader's language out.
+   *
+   * Every value states a POSITION IN A RANKING and none states a DIRECTION,
+   * because a direction is not what the backend computes. See `MomentumWord`.
+   */
   momentum: Record<MomentumWord, string>
+
+  /** What the rank is, for the customer who asks "top of what?". */
+  momentumTip: {
+    /** The rank itself: what it ranks over, and that it is not a trend. */
+    rank: string
+    /**
+     * The share underneath the rank, carrying the bias that makes it unsafe to
+     * read as a trend. Every argument arrives already locale-formatted.
+     */
+    share: (sold7: string, sold30: string, pct: string, flat: string) => string
+  }
 
   /** Shared metric labels. One spelling per metric, across every card. */
   metric: {
@@ -92,6 +150,12 @@ export interface AppCopy {
     allBrands: string
     /** The "no momentum filter" chip. */
     allMomentum: string
+    /**
+     * Standing caption under the momentum filter. The tooltip cannot carry this
+     * on touch, where there is no hover, and the whole point is that a customer
+     * should not have to hunt for what the chip means.
+     */
+    momentumCaption: string
     count: (n: string) => string
     clear: string
     empty: string
@@ -154,7 +218,12 @@ export interface AppCopy {
  */
 export const appCopy: Record<Locale, AppCopy> = {
   en: {
-    momentum: { HOT: "Hot", RISING: "Rising", STABLE: "Stable", FADING: "Fading", DEAD: "Dead" },
+    momentum: { HOT: "Top 10%", RISING: "Top 30%", STABLE: "Mid 40%", FADING: "Bottom 30%", DEAD: "Bottom 10%" },
+    momentumTip: {
+      rank: "A rank, not a trend. Where this model sits among the models we track, by the share of its own 30-day watched departures that fell in the last 7 days.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} of ${sold30} watched departures fell in the last 7 days (${pct}%; an even rate over 30 days would be ${flat}%). A departure is stamped when we detect it, which inflates recent counts — so a high share is elevated recent activity, not proof of a rise.`,
+    },
     metric: {
       buyBelow: "Buy below",
       avgAtExit: "Avg at exit",
@@ -178,6 +247,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "All categories",
       allBrands: "All brands",
       allMomentum: "All",
+      momentumCaption: "Momentum ranks each model against the rest of the board by its recent share of its own departures. It is a rank, not a trend.",
       count: (n) => `${n} shown`,
       clear: "Clear",
       empty: "No deals match these filters. Try removing one.",
@@ -210,7 +280,12 @@ export const appCopy: Record<Locale, AppCopy> = {
   },
 
   es: {
-    momentum: { HOT: "Al rojo", RISING: "Subiendo", STABLE: "Estable", FADING: "Enfriándose", DEAD: "Parado" },
+    momentum: { HOT: "10% superior", RISING: "30% superior", STABLE: "40% medio", FADING: "30% inferior", DEAD: "10% inferior" },
+    momentumTip: {
+      rank: "Una clasificación, no una tendencia. El puesto de este modelo entre los que seguimos, según la parte de sus propias salidas observadas en 30 días que ocurrió en los últimos 7.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} de ${sold30} salidas observadas ocurrieron en los últimos 7 días (${pct}%; un ritmo constante durante 30 días daría ${flat}%). Una salida se fecha cuando la detectamos, lo que infla los recuentos recientes: una parte alta es actividad reciente elevada, no la prueba de una subida.`,
+    },
     metric: {
       buyBelow: "Compra por debajo de",
       avgAtExit: "Media a la salida",
@@ -234,6 +309,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "Todas las categorías",
       allBrands: "Todas las marcas",
       allMomentum: "Todo",
+      momentumCaption: "El momentum clasifica cada modelo frente al resto del panel por la parte reciente de sus propias salidas. Es una clasificación, no una tendencia.",
       count: (n) => `${n} a la vista`,
       clear: "Limpiar",
       empty: "Ningún artículo coincide con estos filtros. Prueba a quitar uno.",
@@ -266,7 +342,12 @@ export const appCopy: Record<Locale, AppCopy> = {
   },
 
   fr: {
-    momentum: { HOT: "Très demandé", RISING: "En hausse", STABLE: "Stable", FADING: "En baisse", DEAD: "À l’arrêt" },
+    momentum: { HOT: "Top 10 %", RISING: "Top 30 %", STABLE: "40 % médian", FADING: "30 % inférieur", DEAD: "10 % inférieur" },
+    momentumTip: {
+      rank: "Un classement, pas une tendance. La place de ce modèle parmi ceux que nous suivons, selon la part de ses propres départs observés sur 30 jours survenus ces 7 derniers jours.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} départs observés sur ${sold30} sont survenus ces 7 derniers jours (${pct} % ; un rythme régulier sur 30 jours donnerait ${flat} %). Un départ est horodaté au moment où nous le détectons, ce qui gonfle les comptes récents : une part élevée est une activité récente élevée, pas la preuve d’une hausse.`,
+    },
     metric: {
       buyBelow: "Acheter en dessous de",
       avgAtExit: "Moyenne à la sortie",
@@ -290,6 +371,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "Toutes les catégories",
       allBrands: "Toutes les marques",
       allMomentum: "Tout",
+      momentumCaption: "Le momentum classe chaque modèle face au reste du tableau selon la part récente de ses propres départs. C’est un classement, pas une tendance.",
       count: (n) => `${n} affichées`,
       clear: "Effacer",
       empty: "Aucun article ne correspond à ces filtres. Essayez d’en retirer un.",
@@ -322,7 +404,12 @@ export const appCopy: Record<Locale, AppCopy> = {
   },
 
   de: {
-    momentum: { HOT: "Stark gefragt", RISING: "Steigend", STABLE: "Stabil", FADING: "Nachlassend", DEAD: "Stillstand" },
+    momentum: { HOT: "Top 10 %", RISING: "Top 30 %", STABLE: "Mittlere 40 %", FADING: "Untere 30 %", DEAD: "Untere 10 %" },
+    momentumTip: {
+      rank: "Eine Rangfolge, kein Trend. Der Platz dieses Modells unter den von uns verfolgten Modellen, gemessen am Anteil seiner eigenen beobachteten Abgänge aus 30 Tagen, der auf die letzten 7 Tage entfiel.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} von ${sold30} beobachteten Abgängen entfielen auf die letzten 7 Tage (${pct} %; bei gleichmäßigem Tempo über 30 Tage wären es ${flat} %). Ein Abgang wird zum Zeitpunkt der Erkennung gestempelt, was jüngste Zahlen aufbläht — ein hoher Anteil ist erhöhte jüngste Aktivität, kein Beleg für einen Anstieg.`,
+    },
     metric: {
       buyBelow: "Kaufen unter",
       avgAtExit: "Schnitt beim Abgang",
@@ -346,6 +433,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "Alle Kategorien",
       allBrands: "Alle Marken",
       allMomentum: "Alle",
+      momentumCaption: "Momentum ordnet jedes Modell nach dem jüngsten Anteil seiner eigenen Abgänge gegen den Rest der Übersicht ein. Es ist eine Rangfolge, kein Trend.",
       count: (n) => `${n} angezeigt`,
       clear: "Zurücksetzen",
       empty: "Kein Artikel passt zu diesen Filtern. Nimm einen weg.",
@@ -378,7 +466,12 @@ export const appCopy: Record<Locale, AppCopy> = {
   },
 
   it: {
-    momentum: { HOT: "Molto richiesto", RISING: "In crescita", STABLE: "Stabile", FADING: "In calo", DEAD: "Fermo" },
+    momentum: { HOT: "Top 10%", RISING: "Top 30%", STABLE: "40% centrale", FADING: "30% inferiore", DEAD: "10% inferiore" },
+    momentumTip: {
+      rank: "Una classifica, non una tendenza. La posizione di questo modello tra quelli che seguiamo, in base alla quota delle sue uscite osservate su 30 giorni avvenuta negli ultimi 7.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} uscite osservate su ${sold30} sono avvenute negli ultimi 7 giorni (${pct}%; un ritmo costante su 30 giorni darebbe ${flat}%). Un’uscita viene datata quando la rileviamo, il che gonfia i conteggi recenti: una quota alta è attività recente elevata, non la prova di un aumento.`,
+    },
     metric: {
       buyBelow: "Compra sotto",
       avgAtExit: "Media all’uscita",
@@ -402,6 +495,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "Tutte le categorie",
       allBrands: "Tutte le marche",
       allMomentum: "Tutto",
+      momentumCaption: "Il momentum classifica ogni modello rispetto al resto della lista in base alla quota recente delle sue uscite. È una classifica, non una tendenza.",
       count: (n) => `${n} mostrate`,
       clear: "Azzera",
       empty: "Nessun articolo corrisponde a questi filtri. Prova a toglierne uno.",
@@ -434,7 +528,12 @@ export const appCopy: Record<Locale, AppCopy> = {
   },
 
   pt: {
-    momentum: { HOT: "Muito procurado", RISING: "A subir", STABLE: "Estável", FADING: "A abrandar", DEAD: "Parado" },
+    momentum: { HOT: "Top 10%", RISING: "Top 30%", STABLE: "40% médio", FADING: "30% inferior", DEAD: "10% inferior" },
+    momentumTip: {
+      rank: "Uma classificação, não uma tendência. A posição deste modelo entre os que acompanhamos, pela parte das suas próprias saídas observadas em 30 dias que ocorreu nos últimos 7.",
+      share: (sold7, sold30, pct, flat) =>
+        `${sold7} de ${sold30} saídas observadas ocorreram nos últimos 7 dias (${pct}%; um ritmo constante em 30 dias daria ${flat}%). Uma saída é datada quando a detetamos, o que inflaciona as contagens recentes: uma parte alta é atividade recente elevada, não a prova de uma subida.`,
+    },
     metric: {
       buyBelow: "Comprar abaixo de",
       avgAtExit: "Média à saída",
@@ -458,6 +557,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       allCategories: "Todas as categorias",
       allBrands: "Todas as marcas",
       allMomentum: "Tudo",
+      momentumCaption: "O momentum classifica cada modelo face ao resto do quadro pela parte recente das suas próprias saídas. É uma classificação, não uma tendência.",
       count: (n) => `${n} à vista`,
       clear: "Limpar",
       empty: "Nenhum artigo corresponde a estes filtros. Tenta retirar um.",
@@ -500,4 +600,35 @@ export function momentumWord(momentum: string | null | undefined, locale: Locale
   if (!momentum) return null
   const table = appCopy[locale].momentum as Record<string, string>
   return table[momentum] ?? momentum
+}
+
+/**
+ * Hover text for a momentum chip: what the rank is, then — when we have the
+ * counts — the share it was computed from, carrying its own caveat.
+ *
+ * The counts are surfaced because they are the one genuinely measured thing
+ * here and withholding them would be its own small dishonesty: Balenciaga Track
+ * really did have 338 of its 657 watched departures land in the last 7 days
+ * (51%, against 23% for an even rate). What that number is NOT is proof of a
+ * rise — `sold_at` is stamped when the scraper first notices an item is gone,
+ * so a model we started watching recently books a burst of "recent" departures
+ * that never happened recently. The sentence states both halves or neither.
+ *
+ * Below `sold_30d` 10 the backend refuses to rank at all (`rel_momentum`
+ * returns None), so we do not print a share it would not stand behind either.
+ */
+export function momentumHint(
+  locale: Locale,
+  sold7?: number | null,
+  sold30?: number | null,
+): string {
+  const t = appCopy[locale].momentumTip
+  if (sold7 == null || sold30 == null || sold30 < 10) return t.rank
+  const share = t.share(
+    sold7.toLocaleString(locale),
+    sold30.toLocaleString(locale),
+    Math.round((sold7 / sold30) * 100).toLocaleString(locale),
+    Math.round((7 / 30) * 100).toLocaleString(locale),
+  )
+  return `${t.rank} ${share}`
 }

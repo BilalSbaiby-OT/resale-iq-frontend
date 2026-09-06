@@ -204,6 +204,11 @@ function DealsContent() {
             >{m ? t.momentum[m as keyof typeof t.momentum] : t.deals.allMomentum}</button>
           ))}
         </div>
+        {/* The chips are rank buckets, so say so where a touch device — which
+            never gets the badge's hover — can still read it. */}
+        <div style={{ flexBasis: "100%", fontSize: 13, lineHeight: 1.45, color: "var(--color-graphite-muted)" }}>
+          {t.deals.momentumCaption}
+        </div>
         {(q || category || brand || momentum) && (
           <button
             onClick={() => { setQ(""); setCategory(""); setBrand(""); setMomentum("") }}
@@ -299,7 +304,7 @@ function DealsContent() {
                 )}
 
                 <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 13, color: "var(--color-graphite-muted)", flexWrap: "wrap" }}>
-                  <MomentumBadge momentum={d.momentum_label} />
+                  <MomentumBadge momentum={d.momentum_label} sold7={d.sold_7d} sold30={d.sold_30d} />
                   {d.est_profit_eur != null && (
                     <span title={t.tip.targetNet} style={{ fontVariantNumeric: "tabular-nums" }}>
                       {t.metric.targetNet} +{eur(d.est_profit_eur)}

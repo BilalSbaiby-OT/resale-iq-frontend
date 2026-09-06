@@ -275,7 +275,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                     </div>
 
                     <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", fontSize: 13, color: "var(--color-graphite-muted)" }}>
-                      <MomentumBadge momentum={d.momentum_label} />
+                      <MomentumBadge momentum={d.momentum_label} sold7={d.sold_7d} sold30={d.sold_30d} />
                       {!dealsLocked && d.est_profit_eur != null && (
                         <span title={a.tip.targetNet} style={{ fontVariantNumeric: "tabular-nums" }}>{t.targetNet(eur(d.est_profit_eur))}</span>
                       )}
@@ -337,7 +337,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                       <div style={{ fontSize: 15, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.model}</div>
                       <div style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{r.brand}</div>
                     </div>
-                    <MomentumBadge momentum={r.momentum_label} />
+                    <MomentumBadge momentum={r.momentum_label} sold7={r.sold_7d} sold30={r.sold_30d} />
                   </div>
                 ))}
               </div>

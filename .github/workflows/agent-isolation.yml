@@ -38,6 +38,14 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      # `npm run test:unit` existed but nothing ran it — not this workflow, not
+      # playwright.yml. Both things it guards are claims a customer reads off
+      # the screen: a real sell-through rate printing as "0%", and a momentum
+      # chip asserting a direction the percentile method cannot compute. A test
+      # no pipeline executes is a comment.
+      - name: Unit tests
+        run: npm run test:unit
+
       - name: Warehouse honesty
         # A check blocks the DEPLOY only if what it catches could reach a
         # customer. Duplicate logic and swallowed errors can. A stale document
