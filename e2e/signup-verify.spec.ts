@@ -1,16 +1,23 @@
 import { expect, test, type Page } from "@playwright/test"
+import { captureTrackEvents } from "./track-events"
 
+// Free register is TWO controls now: email and password. The terms checkbox
+// these helpers used to tick is gone -- consent is given by submitting, with
+// the sentence saying so under the button. See register-form.tsx.
 async function fillFreeRegister(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill("goodpass123")
-  await page.locator('input[type="checkbox"]').first().check()
 }
 
+// Paid adds exactly one: the EU withdrawal waiver, which is now the only
+// checkbox on the page. `.first()` is therefore the waiver, not the terms tick
+// it used to be -- if this ever selects something else, a second checkbox has
+// appeared and that is the regression worth failing on.
 async function fillPaidRegister(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill("goodpass123")
+  await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
   await page.locator('input[type="checkbox"]').first().check()
-  await page.locator('input[type="checkbox"]').nth(1).check()
 }
 
 const PAID_CHECKOUT_URL = "https://checkout.stripe.com/c/pay/cs_test_paid_register"
@@ -47,79 +54,131 @@ async function mockPaidCheckout(page: Page, checkoutUrl = PAID_CHECKOUT_URL) {
   })
 }
 
-test.describe("register leak — free default, TOS gate, signup_completed", () => {
-  test("unspecified plan defaults to free and does not show the waiver", async ({ page }) => {
+// The register form is now 2 controls on free (email, password) and 3 on paid
+// (+ the EU withdrawal waiver). The plan radio group and the terms checkbox
+// were removed 2026-09-06 -- see register-form.tsx for the measured reason.
+//
+// The radios were this suite's witness for "which plan did ?plan= resolve to".
+// They are gone, so the witness is now the paid-only pair that renders in their
+// place: the price summary and the waiver. Both are absent on free and present
+// on paid, which is a stricter test than the radios ever were -- a radio could
+// be checked without the visitor being charged anything, whereas the waiver
+// rendering means handleSubmit will route this submit to Stripe.
+test.describe("register: 3 controls, free default, waiver kept, signup_completed", () => {
+  test("free path has NO plan radios and NO checkbox — email and password only", async ({ page }) => {
     await page.goto("/register")
-    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
-    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
-    const radios = page.locator('input[type="radio"]')
-    await expect(radios).toHaveCount(3)
-    await expect(radios.nth(0)).toBeChecked()
-  })
-
-  // The display-name aliases added by #50 are GONE. They resolved no CTA we
-  // ship (every link emits plan=free / plan=operator / plan=power), and the one
-  // thing they did resolve — a typed or third-party "?plan=pro" — silently
-  // opened the EUR 49 form with Free unselected, which is the 2026-09-01
-  // incident that bounced all three visitors who reached this page.
-  test("?plan=pro is not a plan id and stays Free — no bait into the EUR 49 tier", async ({ page }) => {
-    await page.goto("/register?plan=pro")
-    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
-    // The waiver only renders on a paid selection, so its absence is a second,
-    // independent witness that nothing paid got selected.
+    await expect(page.locator('input[type="radio"]')).toHaveCount(0)
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
+    await expect(page.locator('input[type="email"]')).toHaveCount(1)
+    await expect(page.locator('input[type="password"]')).toHaveCount(1)
     await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
   })
 
-  test("?plan=starter is not a plan id and stays Free", async ({ page }) => {
-    await page.goto("/register?plan=starter")
-    const radios = page.locator('input[type="radio"]')
-    await expect(radios).toHaveCount(3)
-    await expect(radios.nth(0)).toBeChecked()
-    await expect(radios.nth(1)).not.toBeChecked()
-    await expect(radios.nth(2)).not.toBeChecked()
+  // The terms did not stop being binding, they stopped costing a click. If this
+  // sentence or either link ever disappears, consent-by-submission has no
+  // notice behind it and the removal stops being defensible.
+  test("terms and privacy are stated inline and still linked", async ({ page }) => {
+    await page.goto("/register")
+    await expect(page.getByText(/By creating an account you agree to the/i)).toBeVisible()
+    await expect(page.locator('form a[href="/terms"]')).toBeVisible()
+    await expect(page.locator('form a[href="/privacy"]')).toBeVisible()
   })
 
-  // The real ids still work — this is an alias removal, not a plan-picker
-  // removal. pricing-section.tsx routes paid CTAs through exactly these.
-  test("?plan=power selects Pro and ?plan=operator selects Starter", async ({ page }) => {
+  // Was "submit without TOS shows error and does not call register". Inverted
+  // on purpose: the gate is deliberately gone, so reaching /auth/register with
+  // nothing ticked is now the CORRECT behaviour and this test exists to prove
+  // the removal actually took effect rather than being merely invisible.
+  test("free submit reaches /auth/register with nothing ticked", async ({ page }) => {
+    let registerCalled = false
+    await page.route("**/auth/register", async (route) => {
+      registerCalled = true
+      await route.continue()
+    })
+    await page.goto("/register")
+    await fillFreeRegister(page, `e2e-noticks-${Date.now()}@example.com`)
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    expect(registerCalled).toBe(true)
+  })
+
+  // The alias removal documented in planFromQuery still holds. Without radios,
+  // the witness is the absence of the paid summary + waiver.
+  // NB "POWER" is NOT in this list: planFromQuery lowercases before the
+  // PLAN_IDS check, so a real id in the wrong case still resolves. Only
+  // things that are not ids at all fall back to free.
+  for (const bad of ["pro", "starter", "garbage", "enterprise", "%20pro%20"]) {
+    test(`?plan=${bad} is not a plan id and stays Free`, async ({ page }) => {
+      await mockPaidCheckout(page)
+      await page.goto(`/register?plan=${bad}`)
+      await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
+      await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
+      await expect(page.getByText(/€19|€49/)).toHaveCount(0)
+    })
+  }
+
+  // The real ids still work — this is a picker removal, not a paid-path
+  // removal. pricing-section.tsx routes every paid CTA through exactly these.
+  test("?plan=power shows Pro at its live price; ?plan=operator shows Starter", async ({ page }) => {
+    await mockPaidCheckout(page)
     await page.goto("/register?plan=power")
-    let radios = page.locator('input[type="radio"]')
-    await expect(radios.nth(2)).toBeChecked()
+    await expect(page.getByText("Pro", { exact: true })).toBeVisible()
+    await expect(page.getByText("€49")).toBeVisible()
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
+
     await page.goto("/register?plan=operator")
-    radios = page.locator('input[type="radio"]')
-    await expect(radios.nth(1)).toBeChecked()
+    await expect(page.getByText("Starter", { exact: true })).toBeVisible()
+    await expect(page.getByText("€19")).toBeVisible()
   })
 
-  test("?plan=garbage stays Free", async ({ page }) => {
-    await page.goto("/register?plan=garbage")
-    await expect(page.getByRole("radio", { name: /Free/i })).toBeChecked()
-    await expect(page.getByRole("radio", { name: /Pro/i })).not.toBeChecked()
+  // The escape hatch the Free radio used to be. Without it a paid arrival has
+  // no way to take the free tier without editing the URL by hand.
+  test("paid path offers a free account instead, and taking it drops to 0 controls", async ({ page }) => {
+    await mockPaidCheckout(page)
+    await page.goto("/register?plan=operator")
+    await page.getByRole("link", { name: /free account instead/i }).click()
+    await expect(page).toHaveURL(/plan=free/)
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
+    await expect(page.getByText(/€19|€49/)).toHaveCount(0)
   })
 
-  test("paid Starter submit redirects to Stripe Checkout, not only /check-email", async ({ page }) => {
-    const events: string[] = []
-    await page.route("**/api/track", async (route) => {
-      try {
-        const body = route.request().postDataJSON() as { event?: string } | null
-        if (body?.event) events.push(body.event)
-      } catch {
-        // why: a malformed track body must not fail the checkout path under test
-      }
-      await route.fulfill({ status: 204, body: "" })
+  // The one control this pass was NOT allowed to remove. Art. 16(m) of
+  // Directive 2011/83/EU: express, separate consent or the 14-day withdrawal
+  // right survives. It must still block a paid submit.
+  test("paid submit without the withdrawal waiver is still blocked", async ({ page }) => {
+    let registerCalled = false
+    await page.route("**/auth/register", async (route) => {
+      registerCalled = true
+      await route.abort()
     })
     await mockPaidCheckout(page)
     await page.goto("/register?plan=operator")
-    const radios = page.locator('input[type="radio"]')
-    await expect(radios.nth(1)).toBeChecked()
+    await page.locator('input[type="email"]').fill("e2e-nowaiver@example.com")
+    await page.locator('input[type="password"]').fill("goodpass123")
+    await page.getByRole("button", { name: /Create account/i }).click()
+    await expect(page.getByText(/immediate access/i)).toBeVisible()
+    expect(registerCalled).toBe(false)
+  })
+
+  test("paid Starter submit redirects to Stripe Checkout, not only /check-email", async ({ page }) => {
+    const events = captureTrackEvents(page)
+    await mockPaidCheckout(page)
+    await page.goto("/register?plan=operator")
+    await expect(page.getByText("€19")).toBeVisible()
     await fillPaidRegister(page, `e2e-paid-${Date.now()}@example.com`)
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
     expect(page.url()).toContain("cs_test_paid_register")
     await expect(page).not.toHaveURL(/check-email/)
-    expect(events).toContain("signup_completed")
-    expect(events).toContain("checkout_started")
+    // POLLED, not asserted once. trackEvent() is fire-and-forget
+    // (fetch keepalive, .catch() swallowed) and the navigation it precedes does
+    // not wait for it, so the route handler can record the POST after the URL
+    // has already changed. The synchronous form that used to be here passed
+    // alone and failed roughly 1 run in 3 inside the full 98-test suite, where
+    // two workers make the browser slow enough to lose the race — a flake that
+    // reads as "signup_completed stopped firing", which is the single event
+    // this company's funnel depends on.
+    await expect.poll(() => events, { timeout: 10_000 }).toContain("signup_completed")
+    await expect.poll(() => events, { timeout: 10_000 }).toContain("checkout_started")
   })
 
   test("paid checkout failure shows retry and stays off /check-email", async ({ page }) => {
@@ -156,37 +215,15 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
     await expect(page).not.toHaveURL(/check-email/)
   })
 
-  test("submit without TOS shows error and does not call register", async ({ page }) => {
-    let registerCalled = false
-    await page.route("**/auth/register", async (route) => {
-      registerCalled = true
-      await route.abort()
-    })
-    await page.goto("/register")
-    await page.locator('input[type="email"]').fill("leak-tos@example.com")
-    await page.locator('input[type="password"]').fill("goodpass123")
-    await page.getByRole("button", { name: /Create account/i }).click()
-    await expect(page.getByText(/Please accept the Terms of Service/i)).toBeVisible()
-    expect(registerCalled).toBe(false)
-  })
-
   test("successful free submit fires signup_completed", async ({ page }) => {
-    const events: string[] = []
-    await page.route("**/api/track", async (route) => {
-      try {
-        const body = route.request().postDataJSON() as { event?: string } | null
-        if (body?.event) events.push(body.event)
-      } catch {
-        // why: a malformed track body must not fail the signup path under test
-      }
-      await route.fulfill({ status: 204, body: "" })
-    })
+    const events = captureTrackEvents(page)
     const email = `e2e-completed-${Date.now()}@example.com`
     await page.goto("/register")
     await fillFreeRegister(page, email)
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
-    expect(events).toContain("signup_completed")
+    // Polled for the same reason as the paid case above.
+    await expect.poll(() => events, { timeout: 10_000 }).toContain("signup_completed")
   })
 })
 

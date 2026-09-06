@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `efdc4af`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `0826a2d`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
@@ -9,9 +9,60 @@ telling the founder we had no telemetry at all.
 
 **Before writing "there is no ...", look here. A grep that finds nothing proves you did not find it.**
 
-## Production tables (1) — from `demand-intel/db/schema.py`
+## Production tables (52) — from `demand-intel/db/schema.py`
 
-- `(demand-intel/db/schema.py not readable from here)`
+- `acquisition_channels`
+- `activity_logs`
+- `agent_audit_log`
+- `agent_heartbeats`
+- `agent_learnings`
+- `agent_tasks`
+- `app_meta`
+- `authenticity_scores`
+- `catalog_suggestions`
+- `customer_insights`
+- `cycle_purchases`
+- `demand_index`
+- `deploys`
+- `email_unsubscribes`
+- `email_verifications`
+- `experiments`
+- `ext_error_counts`
+- `health_checks`
+- `image_embeddings`
+- `investment_cycles`
+- `is`
+- `listing_images`
+- `listings`
+- `market_stats`
+- `metric_snapshots`
+- `model_signals`
+- `model_stats`
+- `opportunities`
+- `pageviews`
+- `password_resets`
+- `portfolio_items`
+- `predictions`
+- `price_changes`
+- `price_history`
+- `prospects`
+- `public_brand_stats`
+- `purchase_logs`
+- `rank_snapshots`
+- `reddit_queue`
+- `saved_searches`
+- `scraper_log`
+- `shelf_passes`
+- `signup_attribution`
+- `so`
+- `supplier_catalog`
+- `trends`
+- `user_alerts`
+- `users`
+- `verdict_logs`
+- `verdict_outcomes`
+- `watchlist_items`
+- `will`
 
 ## Check scripts (8)
 

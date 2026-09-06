@@ -431,11 +431,30 @@ export const copy = {
         passwordPlaceholder: "At least 8 characters",
         // Split so a right-to-left-verb language (German) can put a word
         // after the second link — see tosSuffix.
+        //
+        // tosPrefix ("I agree…", first person, active) was written for a
+        // CHECKBOX. The checkbox is gone (#R3C); consent is now given by the
+        // act of submitting, so the sentence has to be second person and
+        // describe what the button does. tosInlinePrefix is that sentence's
+        // opening; termsLabel / tosAnd / privacyLabel / tosSuffix are shared by
+        // both and unchanged, including German's trailing "zu", which still
+        // lands last: "Mit der Erstellung eines Kontos stimmen Sie den … zu."
+        //
+        // tosPrefix and errorAcceptTos are deliberately KEPT although nothing
+        // renders them today — same rule as `mostPopular`. If the checkbox has
+        // to come back (a jurisdiction that wants an explicit tick for terms,
+        // not just for the withdrawal waiver), the six translations should
+        // already be here rather than needing a re-translation pass.
         tosPrefix: "I agree to the",
+        tosInlinePrefix: "By creating an account you agree to the",
         termsLabel: "Terms",
         tosAnd: "and",
         privacyLabel: "Privacy Policy",
         tosSuffix: "",
+        // The paid form no longer has a Free radio to fall back to, so this is
+        // the only way off the paid path without leaving the page. It is a
+        // link, not a form control: it costs no click to ignore.
+        switchToFree: "Or create a free account instead",
         submitting: "Setting up…",
         submit: "Create account",
         freeNote: "No card required. Confirm your email, then you’re in.",
@@ -781,10 +800,12 @@ export const copy = {
         passwordLabel: "Mot de passe",
         passwordPlaceholder: "Au moins 8 caractères",
         tosPrefix: "J'accepte les",
+        tosInlinePrefix: "En créant un compte, vous acceptez les",
         termsLabel: "Conditions d'utilisation",
         tosAnd: "et la",
         privacyLabel: "Politique de confidentialité",
         tosSuffix: "",
+        switchToFree: "Ou créez plutôt un compte gratuit",
         submitting: "Création en cours…",
         submit: "Créer le compte",
         freeNote: "Sans carte bancaire. Confirmez votre e-mail, et c'est parti.",
@@ -1122,10 +1143,12 @@ export const copy = {
         passwordLabel: "Contraseña",
         passwordPlaceholder: "Al menos 8 caracteres",
         tosPrefix: "Acepto los",
+        tosInlinePrefix: "Al crear una cuenta, acepta los",
         termsLabel: "Términos",
         tosAnd: "y la",
         privacyLabel: "Política de Privacidad",
         tosSuffix: "",
+        switchToFree: "O cree una cuenta gratuita en su lugar",
         submitting: "Preparando…",
         submit: "Crear cuenta",
         freeNote: "Sin tarjeta. Confirme su correo y ya está.",
@@ -1465,10 +1488,12 @@ export const copy = {
         // German's verb goes last ("zu"), so it lives in tosSuffix rather
         // than tosPrefix — see the `en` block's comment on this shape.
         tosPrefix: "Ich stimme den",
+        tosInlinePrefix: "Mit der Erstellung eines Kontos stimmen Sie den",
         termsLabel: "Nutzungsbedingungen",
         tosAnd: "und der",
         privacyLabel: "Datenschutzerklärung",
         tosSuffix: "zu",
+        switchToFree: "Oder erstellen Sie stattdessen ein kostenloses Konto",
         submitting: "Wird eingerichtet…",
         submit: "Konto erstellen",
         freeNote: "Keine Karte nötig. E-Mail bestätigen, dann sind Sie startklar.",
@@ -1806,10 +1831,12 @@ export const copy = {
         passwordLabel: "Password",
         passwordPlaceholder: "Almeno 8 caratteri",
         tosPrefix: "Accetto i",
+        tosInlinePrefix: "Creando un account accetti i",
         termsLabel: "Termini",
         tosAnd: "e l'",
         privacyLabel: "Informativa sulla privacy",
         tosSuffix: "",
+        switchToFree: "Oppure crea un account gratuito",
         submitting: "Configurazione…",
         submit: "Crea account",
         freeNote: "Nessuna carta richiesta. Conferma la tua email e sei dentro.",
@@ -2147,10 +2174,12 @@ export const copy = {
         passwordLabel: "Palavra-passe",
         passwordPlaceholder: "Pelo menos 8 caracteres",
         tosPrefix: "Aceito os",
+        tosInlinePrefix: "Ao criar uma conta, aceita os",
         termsLabel: "Termos",
         tosAnd: "e a",
         privacyLabel: "Política de Privacidade",
         tosSuffix: "",
+        switchToFree: "Ou crie antes uma conta gratuita",
         submitting: "A preparar…",
         submit: "Criar conta",
         freeNote: "Sem cartão necessário. Confirme o seu email e está dentro.",
