@@ -71,6 +71,15 @@ test("/data shows a number or last-good snapshot, never crashes on null", async 
   await expect(weekly).toContainText(/Freshness/)
 })
 
+test("/es/login is Spanish and is not a 307 to English Welcome back", async ({ page }) => {
+  const res = await page.goto("/es/login")
+  expect(res?.ok()).toBeTruthy()
+  expect(page.url()).toMatch(/\/es\/login/)
+  await expect(page.locator("h1")).toContainText(/Bienvenido/i)
+  await expect(page.locator("body")).not.toContainText("Welcome back")
+  await expect(page.locator("body")).not.toContainText("Sign in to access")
+})
+
 test("login page loads", async ({ page }) => {
   const res = await page.goto("/login")
   expect(res?.ok()).toBeTruthy()
