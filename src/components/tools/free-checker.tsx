@@ -328,8 +328,16 @@ export function FreeChecker({
 
       {res && (
         <div
+          className={hero ? "animate-fade-in" : undefined}
+          data-testid={hero ? "riq-result-card" : undefined}
           style={hero
-            ? { marginTop: "var(--space-3)", background: "var(--color-surface)", border: "1px solid var(--color-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-card-pad)" }
+            // Graphite, not the navy --color-surface. The fold above this card
+            // was redesigned to the graphite scale; the result face is the
+            // first thing a stranger sees AFTER using the product, and it was
+            // still wearing the dashboard's blue. --color-graphite is the
+            // existing token for that surface — no new colour is authored here.
+            ? { marginTop: "var(--space-3)", background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-card-pad)" }
+
             : { marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}
         >
           {res.verdict === "LIMIT_REACHED" ? (
@@ -503,22 +511,97 @@ export function FreeChecker({
 
               <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
             </div>
+          ) : hero ? (
+            // THE PUBLIC RESULT FACE (homepage `/` only — /tools keeps the card
+            // branch below unchanged).
+            //
+            // What this replaced and why: a row of raised #1a2030 tiles, each
+            // with a micro-caps label, a green €-figure in one and an amber
+            // 26px verdict beneath — the dashboard aesthetic, directly under a
+            // hero that had just been rebuilt on the graphite scale. A stranger
+            // met a calm page, pressed the one button on it, and landed on a
+            // telemetry board. That inconsistency is the whole defect.
+            //
+            // The shape now answers the question the search asked, in the order
+            // a person asks it: WHICH item (caption) → WHAT is the call
+            // (the verdict, the largest thing on the card) → ON WHAT EVIDENCE
+            // (category, confidence, provisional) → THE NUMBERS (a short list,
+            // not a grid of boxes) → the caveat.
+            //
+            // Constraints this deliberately keeps:
+            //  - Two figures, never more: buy-below and sold_7d. `n` is not a
+            //    departure count and never appears beside them (#54).
+            //  - sell_through_rate stays gated, named, and never substituted.
+            //  - The provisional qualifier rides on the verdict line, not in a
+            //    footnote.
+            //  - No CTA. e2e/smoke pins E-13 (#59): no /register link, no
+            //    "Plan"/"Unlock" in the gated slot, one Check control in the
+            //    fold. See docs note in the report — the "one filled accent
+            //    CTA" this pass was briefed to leave behind is the Check
+            //    button itself; adding a second would reopen #59.
+            <>
+              <div style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)" }}>
+                {res.product ?? q}
+              </div>
+              <div style={{ marginTop: 2, fontSize: "var(--text-title)", fontWeight: 600, color, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
+                {label}
+              </div>
+              <div style={{ marginTop: 4, fontSize: "var(--text-meta)", color: "var(--color-text-dim)" }}>
+                {shownCategory ? `${shownCategory} · ` : ""}
+                {shownConfidence ? `${t.confidenceLabel} ${shownConfidence}` : ""}
+                {res.provisional ? `${res.confidence ? " · " : ""}${verdictCopy[locale].provisional}` : ""}
+              </div>
+              {res.match_note && (
+                <p style={{ marginTop: "var(--space-1)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>{res.match_note}</p>
+              )}
+
+              {hasPrices && (
+                // Capped, not full-bleed. Left to itself the list spans the
+                // whole 620px card and the eye travels the width of the fold to
+                // pair "Buy-below" with "€20" — which is what made the old tile
+                // grid feel like a readout. 420px is wide enough for the
+                // longest label in the six locales ("Precio máximo de compra")
+                // and short enough that a label and its number read as one
+                // line. `min()` so 390px keeps its gutter.
+                <div data-testid="riq-answer-rows" style={{ marginTop: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--color-hairline)", display: "grid", gap: "var(--space-1)", maxWidth: "min(100%, 420px)" }}>
+                  <AnswerRow label={t.buyBelow} value={money(res.buy_below)} />
+                  {/* Public demand on the fold is sold_7d (watched departures),
+                      never comparable_n. Market price and still-listed stay on
+                      /tools. */}
+                  {sold != null && <AnswerRow label={t.leftShelf} value={fmtCount(sold)} />}
+                  {strState === "value" ? (
+                    <AnswerRow label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
+                  ) : strState === "locked" ? (
+                    <GatedRow label={t.sellThrough} note={t.gatedFreeAccount} />
+                  ) : null}
+                </div>
+              )}
+
+              {shownNote && (
+                <p style={{ marginTop: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--color-hairline)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>
+                  {shownNote}
+                </p>
+              )}
+
+              {!hasPrices && (
+                <p style={{ marginTop: "var(--space-2)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>
+                  {t.headlineOnly} {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
+                </p>
+              )}
+            </>
           ) : (
             <>
-              <div style={{ fontSize: hero ? 16 : 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
               {res.match_note && (
                 <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12 }}>{res.match_note}</p>
               )}
 
               {hasPrices && (
-              <div style={{ display: "grid", gridTemplateColumns: hero ? "repeat(auto-fit,minmax(150px,1fr))" : "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
                 <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
-                {/* Public demand on the fold is sold_7d (watched departures),
-                    never comparable_n. ST stays gated. Market price and still-
-                    listed stay on /tools. */}
-                {!hero && <Stat label={t.marketPrice} value={money(res.sell_avg)} />}
+                <Stat label={t.marketPrice} value={money(res.sell_avg)} />
                 {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
-                {!hero && listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
+                {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
                 {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
                     `res.locked || res.sell_through_rate == null`, and the value
                     was `res.locked ? t.planLabel : "—"`. Because `res.locked`
@@ -538,20 +621,13 @@ export function FreeChecker({
                 {strState === "value" ? (
                   <Stat label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                 ) : strState === "locked" ? (
-                  hero ? (
-                    // E-13: a lock/Plan/Unlock LINK in this grid is a second
-                    // CTA above the fold. Quiet lock + the field name is the
-                    // honest gated state; the route lives on /tools.
-                    <QuietLockedHint label={t.sellThrough} />
-                  ) : (
-                    <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
-                  )
+                  <LockedStat label={t.sellThrough} href={unlockHref} value={t.planLabel} cta={t.unlockRest} />
                 ) : null}
               </div>
               )}
 
               <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: hasPrices ? 16 : 4 }}>
-                <span style={{ fontSize: hero ? 22 : 26, fontWeight: hero ? 700 : 800, color, letterSpacing: hero ? "0.3px" : "0.5px" }}>
+                <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
                   {label}
                 </span>
                 {/* PROVISIONAL IS PART OF THE CALL, NOT A FOOTNOTE. A provisional
@@ -592,11 +668,12 @@ export function FreeChecker({
               {shownNote && (
                 <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{shownNote}</p>
               )}
-              {/* XOR on the hero: "left the shelf" is sold_7d, never also n.
-                  The fold already dropped the sample sentence (it restated
-                  two counts as a fifth and sixth figure). /tools keeps it,
-                  built from sold_7d + active_listings only. */}
-              {sample && !hero && (
+              {/* XOR: "left the shelf" is sold_7d, never also n. The homepage
+                  fold does not render this sentence at all (it has its own
+                  branch above and restating two counts there would be a third
+                  and fourth figure); /tools keeps it, built from sold_7d +
+                  active_listings only. */}
+              {sample && (
                 <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
               )}
 
@@ -673,22 +750,58 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
  * dash — that was the P0 this component exists to fix (src/lib/locked-fields.ts),
  * and `strState === "locked"` still renders a tile, not nothing.
  */
-function QuietLockedHint({ label }: { label: string }) {
+
+/**
+ * One line of the homepage answer: what we measured, and the number.
+ *
+ * Not a tile. The five raised boxes this replaced were the "bingo board" an
+ * outside look flagged — each one drew a border around a single number, which
+ * on a card holding two numbers is four more edges than there is information.
+ * A label and a value on one baseline says the same thing and lets the verdict
+ * above it stay the loudest object on the card.
+ *
+ * No accent colour on the value. The graphite scale spends its one accent on a
+ * single filled CTA; a green buy-below and an amber verdict on the same card is
+ * two accents arguing. The verdict word keeps its BUY/WATCH/SKIP colour because
+ * that is a semantic channel (design/tokens.json known_splits), not decoration.
+ */
+function AnswerRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-2)" }}>
+      <span style={{ fontSize: "var(--text-body-app)", color: "var(--color-text-dim)" }}>{label}</span>
+      <span style={{ fontSize: "var(--text-body-app)", fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums" }}>{value}</span>
+    </div>
+  )
+}
+
+/**
+ * The same line, for a field the server withheld.
+ *
+ * Keeps every obligation the tile version documents above — name the field,
+ * never imply a value, never a bare dash — and adds back the one it had lost.
+ * E-13 (#59) removed the Plan/Unlock LINK from the fold for a good reason (a
+ * second CTA competing with Check), but what shipped was a labelled box
+ * containing a padlock and nothing else: `innerText` on production, 2026-09-06,
+ * was literally "SELL-THROUGH" followed by an empty line. That reads as a
+ * broken tile, which is the exact impression src/lib/locked-fields.ts exists to
+ * prevent — it just swapped one wordless state ("—") for another.
+ *
+ * So: the condition is stated in words, in all six locales, and it is still not
+ * a CTA. No href, no accent, no "Unlock"/"Plan" verb — e2e/smoke.spec.ts pins
+ * all three, and those assertions are E-13's and stay green.
+ */
+function GatedRow({ label, note }: { label: string; note: string }) {
   return (
     <div
       data-testid="riq-locked-stat"
       data-locked-field="sell_through_rate"
-      style={{
-        background: "transparent",
-        borderRadius: 9,
-        padding: "11px 13px",
-        border: "1px solid var(--color-hairline)",
-      }}
+      style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-2)" }}
     >
-      <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 3 }}>
-        <Lock size={12} color="#5b6b8c" aria-hidden />
-      </div>
+      <span style={{ fontSize: "var(--text-body-app)", color: "var(--color-text-dim)" }}>{label}</span>
+      <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "var(--text-meta)", color: "var(--color-text-dim)" }}>
+        <Lock size={12} aria-hidden />
+        {note}
+      </span>
     </div>
   )
 }

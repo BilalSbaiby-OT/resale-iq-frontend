@@ -223,6 +223,15 @@ export const copy = {
       leftShelf: "Left shelf (watched)",
       stillListed: "Still listed",
       sellThrough: "Sell-through",
+      // The homepage fold's gated state, in WORDS. E-13 (#59) correctly removed
+      // the Plan/Unlock CTA from this grid — it was a second CTA competing with
+      // Check above the fold — but what it left behind was a labelled box
+      // containing nothing but a padlock glyph, which reads as a hole rather
+      // than a field we deliberately withhold. This names the condition without
+      // becoming a CTA: no link, no accent, and none of the verbs e2e/smoke
+      // forbids here ("Plan", "Unlock"). The route itself still lives on
+      // /tools, per E-13.
+      gatedFreeAccount: "with a free account",
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
       confidenceLabel: "Confidence",
@@ -606,6 +615,7 @@ export const copy = {
       leftShelf: "Départs (observés)",
       stillListed: "Encore en ligne",
       sellThrough: "Taux d'écoulement",
+      gatedFreeAccount: "avec un compte gratuit",
       planLabel: "Abonnement",
       limitReachedLabel: "LIMITE ATTEINTE",
       confidenceLabel: "Confiance",
@@ -946,6 +956,7 @@ export const copy = {
       leftShelf: "Salidas (observadas)",
       stillListed: "Aún en venta",
       sellThrough: "Tasa de venta",
+      gatedFreeAccount: "con una cuenta gratuita",
       planLabel: "Tarifa",
       limitReachedLabel: "LÍMITE ALCANZADO",
       confidenceLabel: "Confianza",
@@ -1286,6 +1297,7 @@ export const copy = {
       leftShelf: "Abgänge (beobachtet)",
       stillListed: "Noch inseriert",
       sellThrough: "Verkaufsrate",
+      gatedFreeAccount: "mit einem kostenlosen Konto",
       planLabel: "Tarif",
       limitReachedLabel: "LIMIT ERREICHT",
       confidenceLabel: "Konfidenz",
@@ -1628,6 +1640,7 @@ export const copy = {
       leftShelf: "Uscite (osservate)",
       stillListed: "Ancora in vendita",
       sellThrough: "Tasso di vendita",
+      gatedFreeAccount: "con un account gratuito",
       planLabel: "Piano",
       limitReachedLabel: "LIMITE RAGGIUNTO",
       confidenceLabel: "Affidabilità",
@@ -1968,6 +1981,7 @@ export const copy = {
       leftShelf: "Saídas (observadas)",
       stillListed: "Ainda anunciado",
       sellThrough: "Taxa de venda",
+      gatedFreeAccount: "com uma conta grátis",
       planLabel: "Plano",
       limitReachedLabel: "LIMITE ATINGIDO",
       confidenceLabel: "Confiança",
