@@ -15,6 +15,21 @@ export type FunnelEvent =
   | "deal_opened"
   | "pricing_view"
   | "checkout_started"
+  // A LOGGED-OUT visitor pressed a paid tier's button on the marketing pricing
+  // section and was bounced to /register. `checkout_started` structurally
+  // CANNOT fire for that person: pricing-section.tsx returns at the auth
+  // redirect, and the only other emitters (account, paywall, register-form)
+  // all sit behind a session. Measured 2026-09-06 against production: of 15
+  // `checkout_started` rows ever recorded, 8 are post-signup e2e walkers, 6 are
+  // /account and 1 is /dashboard — not one came from a stranger, while 8
+  // distinct visitors fired `pricing_view`. Everyone who wanted to buy before
+  // having an account was invisible.
+  //
+  // Deliberately NOT named checkout_* beyond the prefix and never merged with
+  // `checkout_started`: this is intent at the paywall door, not a Stripe
+  // session, and conflating the two would inflate the only number we have that
+  // is supposed to mean "reached Stripe".
+  | "checkout_intent_guest"
   | "analysis_failed"
   | "register_form_focused"
   | "register_submit_attempted"
@@ -43,24 +58,195 @@ export type Attribution = {
   utm_term?: string
 }
 
-const KEY = "riq_attribution"
+const KEY = "riq_attribution_v2"
 const FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const
 
 /**
- * FIRST TOUCH WINS.
+ * v1 stored a bare `Attribution` under this key with NO timestamp, so a first
+ * touch never expired and could not be aged out.
+ *
+ * That is not a hypothetical. On 2026-09-05 18:46:14Z someone loaded
+ * `/es?utm_source=producthunt&utm_medium=listing&utm_campaign=tier1_launch`
+ * once, to eyeball the ProductHunt listing link. v1 wrote that tag to
+ * localStorage permanently, and it was then stamped onto 53 pageviews across
+ * 11 visitor hashes over the following 8 hours — /admin, /dashboard, /panel,
+ * internal QA traffic, all of it reported as ProductHunt acquisition. The
+ * campaign has never had a single real click; `producthunt` has never once
+ * appeared as a referrer host.
+ *
+ * So v2 is a new key and v1 is deleted rather than migrated. Migrating would
+ * carry the poisoned rows forward, and the honest cost is tiny: production has
+ * exactly one genuine UTM-attributed visitor in the last seven days.
+ */
+const LEGACY_KEY = "riq_attribution"
+
+/**
+ * A first touch is worth crediting for 30 days. Past that, "they saw a reel
+ * last spring" is not why they came back today, and an unbounded window turns
+ * one stale tag into permanent misattribution (see LEGACY_KEY above).
+ */
+const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000
+
+type StoredAttribution = { at: number; a: Attribution }
+
+/**
+ * Marks attribution we DERIVED from `document.referrer` rather than read from a
+ * tagged link, so the two can be told apart in SQL (`where utm_term='referrer'`)
+ * and a derived channel is never mistaken for a click on a campaign we built.
+ *
+ * `utm_term` is the carrier because it is the one attribution column the
+ * pageviews table already has that nothing writes and nothing reads — verified
+ * against production 2026-09-06. Using it needs no backend change, which
+ * matters because the ingest side (api/routes.py:3682-3719) is a separate repo
+ * and a separate deploy.
+ */
+export const DERIVED_MARKER = "referrer"
+
+/**
+ * Hosts that tell us something about the channel, most specific first.
+ *
+ * Order is load-bearing: `gemini.google.com` has to be matched as an LLM before
+ * the generic `google.` search rule claims it, and `l.instagram.com` before any
+ * broader instagram rule.
+ *
+ * `medium` follows the meaning of the channel, not the shape of the host:
+ * social / organic / llm / email. Anything unrecognised is still kept as a
+ * `referral` under its bare host — a referrer we have not seen before is
+ * information, and dropping it into `(null)` is how we ended up unable to tell
+ * "nobody came" apart from "we did not look".
+ */
+const REFERRER_CHANNELS: ReadonlyArray<{ hosts: readonly string[]; source: string; medium: string }> = [
+  // LLM answer engines. These now out-refer every social platform we post to:
+  // chatgpt.com has sent 30 pageviews and perplexity.ai 6, against ONE t.co
+  // click ever and zero from tiktok.com (production, all time, 2026-09-06).
+  { hosts: ["chatgpt.com", "chat.openai.com"], source: "chatgpt", medium: "llm" },
+  { hosts: ["perplexity.ai"], source: "perplexity", medium: "llm" },
+  { hosts: ["claude.ai"], source: "claude", medium: "llm" },
+  { hosts: ["gemini.google.com"], source: "gemini", medium: "llm" },
+  { hosts: ["copilot.microsoft.com"], source: "copilot", medium: "llm" },
+  // Social. t.co is X's link wrapper and is the ONLY host an X click can
+  // arrive as — x.com itself is almost never sent, which is why an X post that
+  // loses its utm_content (Postiz strips it on live tweets, STATE.md) was
+  // previously unattributable in both directions at once.
+  { hosts: ["t.co", "x.com", "twitter.com"], source: "x", medium: "social" },
+  { hosts: ["tiktok.com"], source: "tiktok", medium: "social" },
+  { hosts: ["instagram.com"], source: "instagram", medium: "social" },
+  { hosts: ["facebook.com", "fb.me"], source: "facebook", medium: "social" },
+  { hosts: ["reddit.com", "redd.it", "com.reddit.frontpage"], source: "reddit", medium: "social" },
+  { hosts: ["linkedin.com", "lnkd.in"], source: "linkedin", medium: "social" },
+  { hosts: ["youtube.com", "youtu.be"], source: "youtube", medium: "social" },
+  { hosts: ["pinterest.com", "pin.it"], source: "pinterest", medium: "social" },
+  // Search.
+  { hosts: ["google.com", "google."], source: "google", medium: "organic" },
+  { hosts: ["bing.com"], source: "bing", medium: "organic" },
+  { hosts: ["duckduckgo.com"], source: "duckduckgo", medium: "organic" },
+  { hosts: ["search.brave.com"], source: "brave", medium: "organic" },
+  { hosts: ["ecosia.org"], source: "ecosia", medium: "organic" },
+  { hosts: ["search.yahoo.com"], source: "yahoo", medium: "organic" },
+  { hosts: ["yandex."], source: "yandex", medium: "organic" },
+  { hosts: ["baidu.com"], source: "baidu", medium: "organic" },
+  // Mail clients. A click out of an email is not "direct", and
+  // com.google.android.gm (the Gmail Android app) has already sent 29.
+  { hosts: ["com.google.android.gm", "mail.google.com", "outlook.live.com", "outlook.office.com", "mail.yahoo.com"], source: "email", medium: "email" },
+]
+
+function hostMatches(host: string, pattern: string): boolean {
+  // "google." is a prefix pattern for the country TLDs (google.es, google.co.uk);
+  // everything else is an exact host or a subdomain of it.
+  if (pattern.endsWith(".")) return host === pattern.slice(0, -1) || host.startsWith(pattern) || host.includes("." + pattern)
+  return host === pattern || host.endsWith("." + pattern)
+}
+
+/**
+ * Channel for a referring URL, or `null` when there is nothing to attribute.
+ *
+ * Pure and exported for the tests — it takes the referrer and the current host
+ * rather than reading globals, because the same-origin case is the one that
+ * matters most and is the easiest to get wrong.
+ *
+ * Returns null for: no referrer (a direct/typed visit, which is real and must
+ * not be invented into a channel), a same-site referrer (this is a Next SPA —
+ * `document.referrer` is fixed at document load and does not change on client
+ * navigation, so a same-site value only ever means a full reload within our own
+ * site), and anything unparseable.
+ */
+export function channelFromReferrer(
+  referrer: string | undefined,
+  currentHost: string | undefined,
+): { utm_source: string; utm_medium: string } | null {
+  if (!referrer) return null
+  let host: string
+  try {
+    host = new URL(referrer).hostname.toLowerCase()
+  } catch {
+    return null
+  }
+  if (!host) return null
+
+  const self = (currentHost || "").toLowerCase().replace(/^www\./, "")
+  const bare = host.replace(/^www\./, "")
+  if (self && (bare === self || bare.endsWith("." + self))) return null
+
+  for (const c of REFERRER_CHANNELS) {
+    if (c.hosts.some((h) => hostMatches(host, h))) {
+      return { utm_source: c.source, utm_medium: c.medium }
+    }
+  }
+  // Unknown but external. Keep the host — see the comment on REFERRER_CHANNELS.
+  return { utm_source: bare.slice(0, 120), utm_medium: "referral" }
+}
+
+function readStored(): Attribution | null {
+  const raw = window.localStorage.getItem(KEY)
+  if (!raw) return null
+  try {
+    const parsed = JSON.parse(raw) as StoredAttribution
+    if (!parsed || typeof parsed.at !== "number" || !parsed.a) return null
+    if (Date.now() - parsed.at > MAX_AGE_MS) {
+      window.localStorage.removeItem(KEY)
+      return null
+    }
+    return parsed.a
+  } catch {
+    return null
+  }
+}
+
+/**
+ * FIRST TOUCH WINS, for 30 days.
  *
  * If someone arrives from a reel, bookmarks the site, and signs up three days
  * later from a direct visit, the reel earned that user. Overwriting on the last
  * visit would credit "direct" for everything and quietly make the whole
  * attribution loop useless — every piece of content would look worthless.
  *
- * So we store the first UTM set we ever see and never overwrite it.
+ * So we store the first attribution we see and do not overwrite it while it is
+ * fresh. Two things feed it, in strict order of trust:
+ *
+ *   1. UTM parameters on the URL — a link we tagged ourselves.
+ *   2. `document.referrer` — the channel the browser tells us, used ONLY when
+ *      there is no UTM at all.
+ *
+ * (2) exists because (1) is not reliable on the platforms we actually post to.
+ * X/Postiz strips `utm_content` from live tweets, so a correctly tagged link
+ * arrives bare; a bare arrival used to be recorded as `(null)` and became
+ * indistinguishable from someone typing the domain. Production, 2026-09-06:
+ * 367 non-bot rows, 1 with a referrer host, and every social platform we
+ * publish to reporting thousands of impressions. We could not tell whether
+ * that meant nobody clicked or we failed to look. Now we can.
+ *
+ * UTM always wins when present, and never blends: a tagged link keeps its own
+ * medium rather than being overwritten by whatever host referred it.
  */
 export function captureAttribution(): Attribution {
   if (typeof window === "undefined") return {}
   try {
-    const existing = window.localStorage.getItem(KEY)
-    if (existing) return JSON.parse(existing) as Attribution
+    // Retire v1 unconditionally, including for browsers that never revisit a
+    // tagged link — otherwise the poisoned tag simply sits there.
+    window.localStorage.removeItem(LEGACY_KEY)
+
+    const existing = readStored()
+    if (existing) return existing
 
     const params = new URLSearchParams(window.location.search)
     const found: Attribution = {}
@@ -70,9 +256,20 @@ export function captureAttribution(): Attribution {
       // column is bounded and a junk querystring should not reach the database.
       if (v) found[f] = v.slice(0, 120)
     }
-    if (!Object.keys(found).length) return {}
 
-    window.localStorage.setItem(KEY, JSON.stringify(found))
+    if (!Object.keys(found).length) {
+      const derived = channelFromReferrer(
+        typeof document === "undefined" ? "" : document.referrer,
+        window.location.hostname,
+      )
+      if (!derived) return {}
+      found.utm_source = derived.utm_source
+      found.utm_medium = derived.utm_medium
+      found.utm_term = DERIVED_MARKER
+    }
+
+    const payload: StoredAttribution = { at: Date.now(), a: found }
+    window.localStorage.setItem(KEY, JSON.stringify(payload))
     return found
   } catch {
     // Private mode, disabled storage, quota. Attribution is never worth an error.
@@ -107,12 +304,13 @@ export function getLandingPath(): string | undefined {
   }
 }
 
-/** What we know about where this visitor came from. */
+/** What we know about where this visitor came from. Expiry applies here too —
+ *  a reader must never see a first touch that `captureAttribution` would have
+ *  aged out, or the signup form and the pageview would disagree. */
 export function getAttribution(): Attribution {
   if (typeof window === "undefined") return {}
   try {
-    const raw = window.localStorage.getItem(KEY)
-    return raw ? (JSON.parse(raw) as Attribution) : {}
+    return readStored() || {}
   } catch {
     return {}
   }

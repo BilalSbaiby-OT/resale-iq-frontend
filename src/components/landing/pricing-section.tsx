@@ -80,7 +80,27 @@ export function PricingSection({
     // Free rung: no Stripe involved, just get them an account.
     if (tierId === "free") { router.push("/register?plan=free"); return }
     if (!placeholder) return
-    if (!getToken()) { router.push(`/register?plan=${tierId === "power" ? "power" : "operator"}`); return }
+    if (!getToken()) {
+      const plan = tierId === "power" ? "power" : "operator"
+      // BEFORE the redirect, and before the `return` that used to end the
+      // function here. This branch is the only path by which a logged-out
+      // visitor can press a paid button, and it left no trace: `checkout_started`
+      // on line ~95 is unreachable without a token, so every stranger who
+      // wanted to buy and gave up at the register wall was invisible. Production
+      // 2026-09-06: 8 distinct visitors reached `pricing_view`, 0 logged-out
+      // visitors ever reached `checkout_started`.
+      //
+      // The plan rides on the path because /api/track persists no extra body
+      // fields (api/routes.py:3682) — same encoding the register failure
+      // reasons already use in trackEvent. It is the tier a stranger actually
+      // pressed, which is the closest thing to a willingness-to-pay signal this
+      // company has had since the single unprompted EUR 49 checkout on
+      // 2026-08-28.
+      const here = typeof window !== "undefined" ? window.location.pathname : "/pricing"
+      trackEvent("checkout_intent_guest", `${here}?plan=${plan}`)
+      router.push(`/register?plan=${plan}`)
+      return
+    }
     setBusy(tierId)
     try {
       const priceId = resolvePriceId(placeholder, plans)
