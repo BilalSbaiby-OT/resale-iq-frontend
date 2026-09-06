@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Link from "next/link"
-import LoginPage from "@/app/(auth)/login/page"
+import { LoginForm } from "@/components/auth/login-form"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
@@ -37,7 +37,7 @@ export default async function LocaleLoginPage(props: { params: Promise<{ locale:
         <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
         <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>
       </Link>
-      <LoginPage locale={locale} />
+      <LoginForm locale={locale} />
       <div className="mt-6">
         <LocaleSwitcher locale={locale} />
       </div>
