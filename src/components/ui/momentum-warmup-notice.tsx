@@ -22,7 +22,7 @@ export function MomentumWarmupNotice({ warmingUp }: { warmingUp?: boolean }) {
       <div className="text-[12.5px] leading-5 text-[#c3cde0]">
         <span className="font-semibold text-amber-400">Momentum is still warming up.</span>{" "}
         There isn&apos;t enough history yet to rank models against each other, so most are
-        showing <span className="font-mono">STABLE</span>. Judge these on sell-through and
+        showing <span className="font-mono">Mid 40%</span>. Judge these on sell-through and
         volume until roughly 30 days of history has built up.
       </div>
     </div>

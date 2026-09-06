@@ -42,7 +42,9 @@ export default function TrendsPage() {
           <div className="bg-[#141820] border border-[#1e2535] rounded-xl">
             <div className="px-4 py-3 border-b border-[#1e2535]">
               <div className="font-bold text-[13px] flex items-center gap-1.5"><Flame size={14} className="text-amber-400" /> Trending Right Now</div>
-              <div className="text-[10px] text-[#8fa3c4]">HOT + RISING momentum</div>
+              {/* HOT ∪ RISING is p>=.70, i.e. the top 30% of the rank. Name the
+                  rank, not the two bucket keys the chip no longer displays. */}
+              <div className="text-[10px] text-[#8fa3c4]">Top 30% by departure rank</div>
             </div>
             <div className="divide-y divide-[#1e2535]">
               {loading ? <div className="text-center py-8 text-[#546380] text-[12px]">Loading…</div> :
