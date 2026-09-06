@@ -75,6 +75,7 @@ const nextConfig: NextConfig = {
       // is countable, linkable from an ad, and shareable without dragging the
       // whole homepage along.
       { source: "/sign-in", destination: "/login", permanent: false },
+      { source: "/panel", destination: "/dashboard", permanent: false },
 
       // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,
       // and Instagram allows exactly one — so a lot of people arrive by TYPING

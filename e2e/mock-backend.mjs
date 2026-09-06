@@ -567,6 +567,37 @@ const server = http.createServer(async (req, res) => {
     json(res, 200, {
       deals: [
         {
+          brand: "Balenciaga", model: "Track", category: "Other",
+          sold_7d: 344, sold_30d: 651, avg_price_eur: 92.22, max_buy_price: 61.33,
+          comparable_n: 98, str_pct: 8.7, active_listings: 3615,
+          opportunity_score: 57.5, momentum_label: "RISING", months_supply: 5.55,
+          est_profit_eur: 26.28, profit_margin_pct: 30.0, speed_score: 100.0,
+          data_quality_score: 85, evidence_sufficient: true, confidence_tier: "HIGH",
+          confidence_note: null, sell_speed: "Very Fast", risk_level: "Medium",
+          top_sizes: ["43", "44", "38", "41"], size_velocity: [], sourcing_links: [],
+        },
+        {
+          brand: "Adidas", model: "Samba", category: "Sneakers",
+          sold_7d: 43, sold_30d: 120, avg_price_eur: 30.5, max_buy_price: 20.28,
+          comparable_n: 20, str_pct: 0.2, active_listings: 22720,
+          opportunity_score: 24.2, momentum_label: "STABLE", months_supply: 189.33,
+          est_profit_eur: 8.7, profit_margin_pct: 30.0, speed_score: 71.7,
+          data_quality_score: 70, evidence_sufficient: true, confidence_tier: "MEDIUM",
+          confidence_note: null, sell_speed: "Fast", risk_level: "High",
+          top_sizes: ["38", "39"], size_velocity: [], sourcing_links: [],
+        },
+        {
+          brand: "Jordan", model: "Jordan 1", category: "Sneakers",
+          sold_7d: 13, sold_30d: 44, avg_price_eur: null, max_buy_price: null,
+          comparable_n: 7, str_pct: null, active_listings: 3807,
+          opportunity_score: null, momentum_label: null, months_supply: null,
+          est_profit_eur: null, profit_margin_pct: null, speed_score: null,
+          data_quality_score: 52, evidence_sufficient: false, confidence_tier: "LOW",
+          confidence_note: "Only 7 comparable departures — not enough to name a buy-below. The model is tracked; the price is not.",
+          sell_speed: "Medium", risk_level: null,
+          top_sizes: [], size_velocity: [], sourcing_links: [],
+        },
+        {
           brand: "Adidas", model: "Samba OG", category: "Sneakers",
           sold_7d: 43, sold_30d: 180, avg_price_eur: 78, max_buy_price: 41,
           str_pct: 0.1898, active_listings: 22607, opportunity_score: 72,

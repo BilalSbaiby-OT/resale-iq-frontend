@@ -205,12 +205,10 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           laundering "sold" out of an English label cannot make it Spanish.
           The category VALUE is catalogue data ("Sneakers"), translated with
           the same `categoryName()` the verdict card already uses. */}
+      {/* Three KPIs. The fourth used to be labeled left-shelf/Salidas but
+          wired to avg_profit_margin (a 0–1 share). Spanish then printed
+          "0,6" under "Salidas / 7d" — a rate wearing a count's name. */}
       <div className="riq-grid-kpi" style={{ marginBottom: 32 }}>
-        <KpiCard label={t.kpiLeftShelf} loading={!kpis} value={kpiNumber(kpis?.avg_profit_margin?.value)} sublabel={a.kpi.watched} />
-        {/* `items_analyzed.formatted` is grouped by the BACKEND, which groups
-            in English — so a Spanish panel printed "966,236" where Spanish
-            writes "966.236". The raw `value` is in the same payload, so group
-            it here instead of trusting a pre-rendered string. */}
         <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpiNumber(kpis?.items_analyzed?.value)} sublabel={t.kpiAcrossMarkets} />
         <KpiCard label={t.kpiTopCategory} loading={!kpis} value={categoryName(kpis?.top_category?.value, locale)} sublabel={t.kpiByVolume} />
         <KpiCard
@@ -252,7 +250,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                       <div style={{ minWidth: 0 }}>
                         <div>{t.avgAtExit}</div>
                         <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
-                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}
+                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.comparable_n} nKind="comparable" />}
                         </div>
                       </div>
                       <div style={{ minWidth: 0 }}>
@@ -314,7 +312,13 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                   <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", width: 20, fontVariantNumeric: "tabular-nums" }}>{b.rank}</span>
                   <span style={{ flex: 1, fontSize: 15, color: "var(--color-on-graphite)" }}>{b.brand}</span>
                   <span style={{ fontSize: 15, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
-                    <MedianN median={b.avg_price_eur} n={b.sold_7d} />
+                    {/* n={null}, deliberately. This row was passing b.sold_7d
+                        — a departure count sitting in the sample slot beside a
+                        price, the same collision #54 fixed on /verdict. A brand
+                        aggregates many models, so it has no single comp set to
+                        report; the honest render is the mean with no n at all,
+                        not a plausible-looking wrong one. See types/index.ts. */}
+                    <MedianN median={b.avg_price_eur} n={null} />
                   </span>
                 </Link>
               ))}

@@ -27,6 +27,29 @@ export interface ModelSignal {
   sold_30d: number
   avg_price_eur: number | null
   max_buy_price: number | null
+  /**
+   * THE SAMPLE BEHIND `avg_price_eur`, and nothing else. `comparable_n` is
+   * `n_fenced` — the IQR-fenced, identity-filtered, de-duplicated set of sold
+   * comps the mean and the buy-below are computed from (db/queries.py
+   * `summarise_sold_prices`). It is NOT `sold_7d`.
+   *
+   * Verified against production 2026-09-06 by recomputing the fenced mean from
+   * `listings` inside the API container: Balenciaga Track avg €92.22 over
+   * n_fenced 98, from 335 watched departures in the window; Balenciaga Runner
+   * €147.26 over 46, from 147. Both means reproduce to the cent, and both
+   * sample sizes are a third of the departure count.
+   *
+   * So anything rendering "n" beside a price must pass THIS, not sold_7d —
+   * see src/components/ui/median-n.tsx. Where a row has no comparable set at
+   * all (the brand leaderboard aggregates across models), pass null and show
+   * no n. A departure count in the sample slot is the bug, not a fallback.
+   */
+  comparable_n?: number | null
+  /** LOW = below the n>=8 floor: every money field is null, on purpose. */
+  confidence_tier?: "HIGH" | "MEDIUM" | "LOW"
+  /** Server-written qualifier for a thin sample. Never invent a substitute. */
+  confidence_note?: string | null
+  evidence_sufficient?: boolean
   str_pct: number | null
   str_unavailable_reason?: string
   active_listings?: number | null
@@ -124,6 +147,8 @@ export interface WatchlistItem {
   avg_price_eur: number | null
   max_buy_price: number | null
   sold_7d: number | null
+  /** Sample behind avg_price_eur — ms.comparable_n, never sold_7d. */
+  comparable_n?: number | null
   str_pct: number | null
   str_unavailable_reason?: string
   top_sizes: string[]
