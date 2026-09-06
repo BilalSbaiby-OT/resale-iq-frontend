@@ -149,8 +149,21 @@ const NOTES: Record<Locale, {
   },
 }
 
-const NUMBER_LOCALE: Record<Locale, string> = {
+/**
+ * Exported because a thousands separator is part of the translation. `1,234`
+ * is wrong in five of our six locales (es/de/it/pt group with ".", fr with a
+ * narrow space), and `median-n.tsx` had `toLocaleString("en-GB")` hardcoded —
+ * printing an English-formatted count under a Spanish label. One map, not two:
+ * a second copy of this table is exactly the drift this file's own docblock
+ * warns about.
+ */
+export const NUMBER_LOCALE: Record<Locale, string> = {
   en: "en-GB", fr: "fr-FR", es: "es-ES", de: "de-DE", it: "it-IT", pt: "pt-PT",
+}
+
+/** A count in `locale`'s digit grouping. */
+export function formatCount(n: number, locale: Locale): string {
+  return n.toLocaleString(NUMBER_LOCALE[locale])
 }
 
 /** BUY/WATCH/SKIP in `locale`. Any other verdict string is returned untouched —

@@ -90,77 +90,95 @@ function adminItems(t: NavCopy) {
   ]
 }
 
-const PLAN_STYLE: Record<string, { color: string; bg: string; border: string }> = {
-  free:     { color: "#60a5fa", bg: "rgba(59,130,246,.10)", border: "rgba(59,130,246,.25)" },
-  operator: { color: "#34d399", bg: "rgba(52,211,153,.10)", border: "rgba(52,211,153,.25)" },
-  power:    { color: "#fbbf24", bg: "rgba(251,191,36,.10)", border: "rgba(251,191,36,.25)" },
-}
-
 export function Sidebar({ className = "" }: { className?: string }) {
   const pathname = usePathname()
   const { user } = useAuthStore()
   const locale = useLocale()
   const t = navCopy[locale]
   const plan = (user?.plan || "free") as "free" | "operator" | "power"
-  const ps = PLAN_STYLE[plan] ?? PLAN_STYLE.free
 
   const sections = user?.is_owner
     ? [...navSections(t), { label: t.sections.owner, items: adminItems(t) }]
     : navSections(t)
 
+  const renderItem = ({ href, icon: Icon, label: itemLabel }: { href: string; icon: typeof Lock; label: string }) => {
+    const active = href === "/admin"
+      ? pathname === "/admin"
+      : pathname === href || (href !== "/dashboard" && pathname.startsWith(href + "/"))
+    const locked = (plan === "free" && !user?.trial_active && PAID_ROUTES.has(href))
+      || (plan === "operator" && PRO_ROUTES.has(href))
+      || (plan === "free" && user?.trial_active && href === "/compare")
+    return (
+      <Link key={href} href={href} style={{
+        display: "flex", alignItems: "center", gap: 10,
+        padding: "8px 10px", marginBottom: 1, borderRadius: 8,
+        textDecoration: "none", fontSize: 15, fontWeight: active ? 500 : 400,
+        color: active ? "var(--color-on-graphite)" : "var(--color-graphite-muted)",
+        background: active ? "rgba(255,255,255,.06)" : "transparent",
+        opacity: locked ? 0.6 : 1,
+        transition: "background var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease)",
+      }}>
+        {/* The active accent rail is gone. The one accent belongs to the single
+            filled CTA on the page; spending it on a nav marker meant every
+            screen had two things claiming to be the primary action. Weight and
+            a raised background mark "active" instead. */}
+        <Icon size={16} strokeWidth={1.8} color="var(--color-graphite-muted)" />
+        {itemLabel}
+        {locked && <Lock size={11} style={{ marginLeft: "auto", color: "var(--color-graphite-muted)" }} />}
+      </Link>
+    )
+  }
+
   return (
-    <aside className={className} style={{ width: 216, flexShrink: 0, background: "#0D0F13", borderRight: "1px solid #1c2333", display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+    <aside className={className} style={{ width: 232, flexShrink: 0, background: "var(--color-graphite)", borderRight: "1px solid var(--color-hairline)", display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
       {/* Wordmark */}
-      <div style={{ padding: "18px 16px", borderBottom: "1px solid #1c2333", display: "flex", alignItems: "center", gap: 9 }}>
-        <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, color: "#06090c" }}>R</div>
-        <div>
-          <div style={{ fontSize: 13.5, fontWeight: 700, letterSpacing: "0.2px", color: "#eef1f7", lineHeight: 1.1 }}>Resale IQ</div>
-          <div style={{ fontSize: 9.5, color: "#4d5a75", letterSpacing: "0.5px" }}>{t.sidebar.tagline}</div>
-        </div>
+      <div style={{ padding: "16px 16px", display: "flex", alignItems: "center", gap: 10, height: 56, boxSizing: "border-box" }}>
+        <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--color-on-graphite)" }}>Resale IQ</div>
       </div>
 
-      {/* Nav */}
-      <nav style={{ flex: 1, overflowY: "auto", padding: "10px 8px" }}>
-        {sections.map(({ label, items }) => (
-          <div key={label} style={{ marginBottom: 14 }}>
-            <div style={{ padding: "4px 10px 6px", fontSize: 9.5, fontWeight: 600, color: "#4d5a75", letterSpacing: "1.2px", textTransform: "uppercase" }}>{label}</div>
-            {items.map(({ href, icon: Icon, label: itemLabel }) => {
-              const active = href === "/admin"
-                ? pathname === "/admin"
-                : pathname === href || (href !== "/dashboard" && pathname.startsWith(href + "/"))
-              const locked = (plan === "free" && !user?.trial_active && PAID_ROUTES.has(href))
-                || (plan === "operator" && PRO_ROUTES.has(href))
-                || (plan === "free" && user?.trial_active && href === "/compare")
-              return (
-                <Link key={href} href={href} style={{
-                  position: "relative", display: "flex", alignItems: "center", gap: 10,
-                  padding: "7.5px 10px", marginBottom: 1, borderRadius: 7,
-                  textDecoration: "none", fontSize: 13, fontWeight: active ? 600 : 450,
-                  color: active ? "#eef1f7" : locked ? "#4d5a75" : "#8b99b8",
-                  background: active ? "rgba(255,255,255,.05)" : "transparent",
-                  transition: "background .12s,color .12s",
-                }}>
-                  {active && <span style={{ position: "absolute", left: -8, top: 8, bottom: 8, width: 2.5, borderRadius: 2, background: "#22c55e" }} />}
-                  <Icon size={15.5} strokeWidth={active ? 2.1 : 1.8} color={active ? "#22c55e" : locked ? "#3d4a62" : "#5b6b8c"} />
-                  {itemLabel}
-                  {locked && <Lock size={10} style={{ marginLeft: "auto", color: "#3d4a62" }} />}
-                </Link>
-              )
-            })}
-          </div>
-        ))}
+      {/* Nav. Order is fixed by the design brief: Overview → Intelligence →
+          Workspace → Resources (collapsed) → Account. Resources is five links
+          of reference material that a working session never touches, so it
+          ships closed — it was pushing Account and the plan footer below the
+          fold on a 390px viewport. `<details>` rather than React state so it
+          costs no hydration and keeps working with JS disabled. */}
+      <nav style={{ flex: 1, overflowY: "auto", padding: "4px 8px 8px" }}>
+        {sections.map(({ label, items }) => {
+          const collapsed = label === t.sections.resources
+          const heading = (
+            <div style={{ padding: "6px 10px", fontSize: 12, fontWeight: 500, color: "var(--color-graphite-muted)" }}>{label}</div>
+          )
+          if (collapsed) {
+            return (
+              <details key={label} style={{ marginBottom: 16 }}>
+                <summary style={{ listStyle: "none", cursor: "pointer" }}>{heading}</summary>
+                {items.map(renderItem)}
+              </details>
+            )
+          }
+          return (
+            <div key={label} style={{ marginBottom: 16 }}>
+              {heading}
+              {items.map(renderItem)}
+            </div>
+          )
+        })}
       </nav>
 
-      {/* Plan */}
-      <div style={{ borderTop: "1px solid #1c2333", padding: 12 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "9px 11px", borderRadius: 8, background: "#12151d", border: "1px solid #1c2333" }}>
-          <span style={{ fontSize: 11.5, color: "#8b99b8", fontWeight: 500 }}>{t.sidebar.currentPlan}</span>
-          <span style={{ fontSize: 9.5, fontWeight: 700, letterSpacing: "0.8px", padding: "2.5px 8px", borderRadius: 5, color: ps.color, background: ps.bg, border: `1px solid ${ps.border}` }}>
+      {/* Footer: plan, ONE quiet upgrade, ONE language control. The upgrade was
+          a filled green button here, which competed with the filled CTA on
+          every page it rendered beside — two primary actions on one screen.
+          It is now text; the plan badge lost its tinted pill for the same
+          reason. */}
+      <div style={{ borderTop: "1px solid var(--color-hairline)", padding: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px" }}>
+          <span style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{t.sidebar.currentPlan}</span>
+          <span style={{ fontSize: 13, fontWeight: 500, color: "var(--color-on-graphite)" }}>
             {planDisplayName(plan)}
           </span>
         </div>
         {plan === "free" && (
-          <Link href="/account" style={{ display: "block", textAlign: "center", marginTop: 8, padding: "8px 0", background: "#22c55e", color: "#06090c", borderRadius: 7, textDecoration: "none", fontSize: 12, fontWeight: 700 }}>
+          <Link href="/account" style={{ padding: "0 10px", color: "var(--color-graphite-muted)", textDecoration: "none", fontSize: 13 }}>
             {t.sidebar.upgrade}
           </Link>
         )}
@@ -168,10 +186,10 @@ export function Sidebar({ className = "" }: { className?: string }) {
             the four post-signup routes — so a customer INSIDE the app had no
             way to change language at all. Every route the sidebar renders on
             is now cookie-localised by src/proxy.ts, which is the condition
-            locale-switcher.tsx's own header sets for mounting it. */}
-        <div style={{ marginTop: 10, display: "flex", justifyContent: "center" }}>
-          <LocaleSwitcher locale={locale} style={{ fontSize: 11.5, padding: "5px 8px", width: "100%", justifyContent: "center" }} />
-        </div>
+            locale-switcher.tsx's own header sets for mounting it.
+            This is the app's ONE language control: /dashboard used to mount a
+            second one of its own, which is now removed. */}
+        <LocaleSwitcher locale={locale} style={{ fontSize: 13, padding: "6px 10px", width: "100%" }} />
       </div>
     </aside>
   )

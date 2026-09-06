@@ -1,6 +1,9 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getPendingOutcomes, reportOutcome, type PendingOutcome } from "@/lib/api"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { appCopy } from "@/lib/app-copy"
+import { verdictWord, formatCount } from "@/lib/verdict-words"
 
 /**
  * "You checked this three weeks ago — what actually happened?"
@@ -21,8 +24,20 @@ import { getPendingOutcomes, reportOutcome, type PendingOutcome } from "@/lib/ap
  *    page without a conditional at the call site.
  *  - Never blocks anything. A failure here is silent — this is a question, not
  *    a feature the customer is paying for.
+ *
+ * LOCALISED 2026-09-06. Every string here was an English literal, including
+ * the two the founder screenshotted on an /es session ("Quick one." and "Not
+ * now"). This is the one component on the panel that ASKS the customer for
+ * something, so it was the worst possible place to be speaking the wrong
+ * language — a question a reader cannot parse is not a question.
+ *
+ * The verdict is rendered through `verdictWord()`, not `item.verdict`. The raw
+ * field is the API enum, so a Spanish reader was being reminded that we said
+ * "BUY" about their shoes. Same fix, same helper, as the verdict card.
  */
 export function OutcomePrompt() {
+  const locale = useLocale()
+  const t = appCopy[locale].outcome
   const [item, setItem] = useState<PendingOutcome | null>(null)
   const [step, setStep] = useState<"ask" | "bought" | "done">("ask")
   const [buyPrice, setBuyPrice] = useState("")
@@ -30,7 +45,10 @@ export function OutcomePrompt() {
   const [busy, setBusy] = useState(false)
   // Rendered text only. Date.now() during render is impure and would produce
   // a different string on every re-render, so it is computed once on load.
-  const [when, setWhen] = useState("recently")
+  // Days are stored as a NUMBER, not a pre-built sentence: the string has to
+  // be rebuilt when the locale changes, and baking it at fetch time would
+  // freeze whichever language happened to be active then.
+  const [days, setDays] = useState<number | null>(null)
 
   useEffect(() => {
     let alive = true
@@ -39,15 +57,21 @@ export function OutcomePrompt() {
         if (!alive || !r.pending?.length) return
         const p = r.pending[0]
         setItem(p)
-        const days = Math.round(
+        const d = Math.round(
           (Date.now() - new Date(p.created_at.replace(" ", "T") + "Z").getTime()) / 864e5)
-        setWhen(Number.isFinite(days) && days <= 60 ? `${days} days ago` : "a while back")
+        setDays(Number.isFinite(d) && d <= 60 ? d : null)
       })
       .catch(() => { /* not logged in, or offline — stay silent */ })
     return () => { alive = false }
   }, [])
 
   if (!item || step === "done") return null
+
+  const when = days == null ? t.aWhileBack : t.daysAgo(formatCount(days, locale))
+  // An unrecognised verdict (BRAND_AVERAGE, LIMIT_REACHED) has no translation
+  // and falls back to the raw value rather than vanishing — the reader still
+  // needs to know which call we are asking about.
+  const said = verdictWord(item.verdict, locale) ?? item.verdict
 
   const send = async (body: Parameters<typeof reportOutcome>[0]) => {
     setBusy(true)
@@ -66,47 +90,51 @@ export function OutcomePrompt() {
   }
 
   return (
-    <div className="mb-4 rounded-xl border border-sky-500/30 bg-sky-500/[0.06] px-4 py-3">
-      <div className="text-[12.5px] leading-5 text-[#c3cde0]">
-        <span className="font-semibold text-sky-400">Quick one.</span>{" "}
-        You checked <span className="font-mono">{item.query}</span> {when} and we said{" "}
-        <span className="font-mono">{item.verdict}</span>. What happened?
+    <div
+      data-testid="riq-outcome-prompt"
+      className="mb-4 rounded-[14px] border border-white/[0.08] bg-white/[0.03] px-5 py-4"
+    >
+      <div className="text-[15px] leading-6 text-[#f5f5f7]">
+        {t.lead}{" "}
+        <span className="font-medium">{item.query}</span>{" "}
+        {t.mid(when)}{" "}
+        <span className="font-medium">{said}</span>{t.tail}
       </div>
 
       {step === "ask" && (
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <button
             type="button" disabled={busy} onClick={() => setStep("bought")}
-            className="rounded-lg border border-sky-500/40 bg-sky-500/10 px-3 py-1.5 text-[12.5px] font-semibold text-sky-300 disabled:opacity-50"
-          >I bought it</button>
+            className="rounded-[12px] bg-[var(--color-accent)] px-4 py-2 text-[15px] font-semibold text-[var(--color-on-accent)] transition-opacity duration-150 disabled:opacity-50"
+          >{t.didBuy}</button>
           <button
             type="button" disabled={busy}
             onClick={() => send({ verdict_log_id: item.id, did_buy: false })}
-            className="rounded-lg border border-white/10 px-3 py-1.5 text-[12.5px] text-[#9aa8bd] disabled:opacity-50"
-          >I didn&apos;t buy it</button>
+            className="rounded-[12px] px-4 py-2 text-[15px] text-[#f5f5f7]/70 transition-opacity duration-150 hover:text-[#f5f5f7] disabled:opacity-50"
+          >{t.didNotBuy}</button>
           <button
             type="button" onClick={() => setStep("done")}
-            className="ml-auto px-2 py-1.5 text-[12px] text-[#6b7789] hover:text-[#9aa8bd]"
-          >Not now</button>
+            className="ml-auto px-2 py-2 text-[13px] text-[#f5f5f7]/45 transition-opacity duration-150 hover:text-[#f5f5f7]/70"
+          >{t.notNow}</button>
         </div>
       )}
 
       {step === "bought" && (
-        <div className="mt-3 flex flex-wrap items-end gap-2">
-          <label className="text-[11.5px] text-[#9aa8bd]">
-            Paid
+        <div className="mt-4 flex flex-wrap items-end gap-3">
+          <label className="text-[13px] text-[#f5f5f7]/60">
+            {t.paid}
             <input
               inputMode="decimal" value={buyPrice} onChange={(e) => setBuyPrice(e.target.value)}
-              placeholder="€" aria-label="What you paid"
-              className="mt-1 block w-24 rounded-lg border border-white/10 bg-black/20 px-2 py-1.5 font-mono text-[12.5px] text-[#e6edf7]"
+              placeholder="€" aria-label={t.ariaPaid}
+              className="mt-1.5 block w-28 rounded-[12px] border border-white/[0.08] bg-black/20 px-3 py-2 text-[15px] text-[#f5f5f7]"
             />
           </label>
-          <label className="text-[11.5px] text-[#9aa8bd]">
-            Sold for <span className="text-[#6b7789]">(blank if unsold)</span>
+          <label className="text-[13px] text-[#f5f5f7]/60">
+            {t.soldFor} <span className="text-[#f5f5f7]/40">{t.blankIfUnsold}</span>
             <input
               inputMode="decimal" value={sellPrice} onChange={(e) => setSellPrice(e.target.value)}
-              placeholder="€" aria-label="What it sold for"
-              className="mt-1 block w-24 rounded-lg border border-white/10 bg-black/20 px-2 py-1.5 font-mono text-[12.5px] text-[#e6edf7]"
+              placeholder="€" aria-label={t.ariaSold}
+              className="mt-1.5 block w-28 rounded-[12px] border border-white/[0.08] bg-black/20 px-3 py-2 text-[15px] text-[#f5f5f7]"
             />
           </label>
           <button
@@ -119,12 +147,12 @@ export function OutcomePrompt() {
               did_sell: num(sellPrice) !== null,
               sell_price_eur: num(sellPrice),
             })}
-            className="rounded-lg border border-sky-500/40 bg-sky-500/10 px-3 py-1.5 text-[12.5px] font-semibold text-sky-300 disabled:opacity-50"
-          >{busy ? "Saving…" : "Save"}</button>
+            className="rounded-[12px] bg-[var(--color-accent)] px-4 py-2 text-[15px] font-semibold text-[var(--color-on-accent)] transition-opacity duration-150 disabled:opacity-50"
+          >{busy ? t.saving : t.save}</button>
           <button
             type="button" onClick={() => setStep("done")}
-            className="ml-auto px-2 py-1.5 text-[12px] text-[#6b7789] hover:text-[#9aa8bd]"
-          >Not now</button>
+            className="ml-auto px-2 py-2 text-[13px] text-[#f5f5f7]/45 transition-opacity duration-150 hover:text-[#f5f5f7]/70"
+          >{t.notNow}</button>
         </div>
       )}
     </div>

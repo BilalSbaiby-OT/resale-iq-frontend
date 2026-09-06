@@ -1,6 +1,9 @@
 "use client"
 
 import { METRIC } from "@/lib/metrics"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { appCopy } from "@/lib/app-copy"
+import { formatCount } from "@/lib/verdict-words"
 
 /**
  * Sold price + sample size. A thin n cannot look like a certain price.
@@ -8,6 +11,12 @@ import { METRIC } from "@/lib/metrics"
  *
  * Default label is Avg sold: the warehouse stores a mean. Pass kind="median"
  * only when the value is actually a median.
+ *
+ * TWO ENGLISH LEAKS FIXED. The `title` tooltip ("Sample size — watched
+ * departures behind this mean") was an English literal on a component that
+ * renders on every authenticated surface, and the count was formatted with a
+ * hardcoded `toLocaleString("en-GB")` — so a Spanish card showed "n 22,607"
+ * where Spanish writes "n 22.607". Both now follow the reader's locale.
  */
 export function SoldSamplePrice({
   price,
@@ -35,24 +44,25 @@ export function SoldSamplePrice({
   nKind?: "watched" | "comparable"
   className?: string
 }) {
+  const locale = useLocale()
+  const tip = appCopy[locale].tip
   const shown =
     typeof price === "number" && Number.isFinite(price)
       ? `€${Math.round(price)}`
       : "—"
   const sample =
     typeof n === "number" && Number.isFinite(n) && n > 0
-      ? `n ${Math.round(n).toLocaleString("en-GB")}`
+      ? `n ${formatCount(Math.round(n), locale)}`
       : null
-  const counted = nKind === "comparable" ? "comparable departures" : "watched departures"
   const title = kind === "median"
-    ? `Sample size — ${counted} behind this median`
-    : `Sample size — ${counted} behind this mean`
+    ? (nKind === "comparable" ? tip.sampleMedianComparable : tip.sampleMedianWatched)
+    : (nKind === "comparable" ? tip.sampleAvgComparable : tip.sampleAvgWatched)
   return (
     <span className={className} title={title}>
       {shown}
       {sample ? (
         <span
-          style={{ color: "#5b6b8c", fontWeight: 500, fontSize: "0.72em", marginLeft: 4 }}
+          style={{ color: "var(--color-text-muted)", fontWeight: 500, fontSize: "0.72em", marginLeft: 4 }}
         >
           · {sample}
         </span>

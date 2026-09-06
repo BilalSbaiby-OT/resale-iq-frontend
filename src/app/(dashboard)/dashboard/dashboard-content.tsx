@@ -5,16 +5,16 @@ import { ArrowRight, Lock } from "lucide-react"
 import { AppShell } from "@/components/layout/app-shell"
 import { KpiCard } from "@/components/ui/kpi-card"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
-import { ScoreBar } from "@/components/ui/score-bar"
 import { SizePills } from "@/components/ui/size-pills"
 import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { OutcomePrompt } from "@/components/ui/outcome-prompt"
-import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
+import { appCopy } from "@/lib/app-copy"
+import { categoryName, formatCount } from "@/lib/verdict-words"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
@@ -29,7 +29,6 @@ function noSold(s?: string | null): string | undefined {
     .replace(/\bsold\b/gi, "left the shelf")
 }
 
-/* Section shell: uniform card with header + optional action link */
 /**
  * A withheld value inside a dense card row.
  *
@@ -42,44 +41,61 @@ function noSold(s?: string | null): string | undefined {
  *
  * `aria-label` carries the meaning for a screen reader, because a bare icon
  * would otherwise read as nothing at all — which is exactly the failure this
- * change exists to remove, just in another modality.
+ * change exists to remove, just in another modality. It was ALSO an English
+ * literal, so the screen reader was announcing English inside a Spanish app —
+ * the same failure a third time, in a third modality.
  */
-function LockedInline() {
+function LockedInline({ label }: { label: string }) {
   return (
     <span
       data-testid="riq-locked-inline"
-      aria-label="Locked — included in a plan"
-      title="Locked — included in a plan"
+      aria-label={label}
+      title={label}
       style={{ display: "inline-flex", alignItems: "center", verticalAlign: "-2px" }}
     >
-      <Lock size={12} color="#fbbf24" aria-hidden />
+      <Lock size={12} color="var(--color-graphite-muted)" aria-hidden />
     </span>
   )
 }
 
+/**
+ * Section shell. Hairline + whitespace, no filled panel and no inner border —
+ * the page was a stack of bordered boxes inside bordered boxes, which is what
+ * made a dashboard of five sections read as thirty compartments.
+ */
 function Section({ title, sub, action, children }: {
   title: string; sub?: string; action?: { href: string; label: string }; children: React.ReactNode
 }) {
   return (
-    <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 10, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 16px", borderBottom: "1px solid #1c2333" }}>
+    <section style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
         <div>
-          <div style={{ fontSize: 13.5, fontWeight: 650, color: "#eef1f7" }}>{title}</div>
-          {sub && <div style={{ fontSize: 11, color: "#4d5a75", marginTop: 1 }}>{sub}</div>}
+          <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>{title}</h2>
+          {sub && <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginTop: 4, maxWidth: "65ch" }}>{sub}</div>}
         </div>
         {action && (
-          <Link href={action.href} style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, color: "#22c55e", textDecoration: "none", fontWeight: 550 }}>
-            {action.label} <ArrowRight size={13} />
+          <Link
+            href={action.href}
+            style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 15, color: "var(--color-on-graphite)", textDecoration: "none", whiteSpace: "nowrap" }}
+          >
+            {action.label} <ArrowRight size={14} />
           </Link>
         )}
       </div>
       <div className="riq-scroll-x">{children}</div>
-    </div>
+    </section>
   )
+}
+
+const CARD: React.CSSProperties = {
+  background: "var(--color-graphite-elevated)",
+  borderRadius: 14,
+  padding: 20,
 }
 
 export function DashboardContent({ locale }: { locale: Locale }) {
   const t = copy[locale].dashboard
+  const a = appCopy[locale]
   // Reuses the free checker's own "buy-below" term rather than a fresh
   // translation — this file's header comment: "the two terms that must not
   // drift in translation: buy-below and watched departures".
@@ -126,9 +142,19 @@ export function DashboardContent({ locale }: { locale: Locale }) {
     getRecentSold(7).then(d => setSold(d.data)).catch(onFail(setSold, [] as RecentSold[]))
   }, [])
 
+  // `alert()` was an English literal in a browser chrome dialog — untranslatable
+  // and unstyleable. An inline status line says the same thing in the reader's
+  // language and does not seize the tab.
+  const [notice, setNotice] = useState<string | null>(null)
+  useEffect(() => {
+    if (!notice) return
+    const id = setTimeout(() => setNotice(null), 2600)
+    return () => clearTimeout(id)
+  }, [notice])
+
   const watch = async (b: string, m: string) => {
-    try { await addToWatchlist(b, m); alert(`Added ${b} ${m} to watchlist`) }
-    catch { alert("Already in watchlist") }
+    try { await addToWatchlist(b, m); setNotice(a.deals.watchlistAdded) }
+    catch { setNotice(a.deals.watchlistAlready) }
   }
 
   // Sell-through is withheld product-wide right now. Rather than render a
@@ -137,46 +163,51 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
   return (
     <AppShell title={t.title} subtitle={t.subtitle}>
-      {/* This route (only) reads its locale from NEXT_LOCALE via
-          requestLocale() — see src/proxy.ts's W19 note. The rest of the
-          dashboard's chrome (Topbar/Sidebar) is unlocalized and out of W19's
-          scope, so the switcher is scoped to this page rather than AppShell:
-          mounting it in shared chrome would show a control that silently
-          does nothing on every other dashboard route. */}
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
-        <LocaleSwitcher locale={locale} />
-      </div>
+      {/* The LocaleSwitcher that used to sit here is gone, and its comment
+          ("the rest of the dashboard's chrome is unlocalized, so the switcher
+          is scoped to this page") is stale: sidebar.tsx reads `useLocale()`
+          and mounts a switcher on every authenticated route. Keeping this one
+          gave the panel — and only the panel — TWO language controls, which
+          the design brief allows exactly one of. */}
+
       {/* Asks about one past verdict. Renders nothing when there is nothing to ask. */}
       <OutcomePrompt />
+
+      {notice && (
+        <div role="status" style={{ marginBottom: 16, fontSize: 15, color: "var(--color-graphite-muted)" }}>{notice}</div>
+      )}
+
       {paywalled && (
-        <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.25)", borderRadius: 10, padding: "12px 16px", marginBottom: 14 }}>
-          <Lock size={15} color="#fbbf24" style={{ flexShrink: 0 }} />
-          <div style={{ flex: 1, fontSize: 12.5, color: "#eef1f7" }}>
-            {t.paywalledBanner}
-          </div>
-          <Link href="/account" style={{ background: "#fbbf24", color: "#0B0D10", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
-            {t.seePlansAction}
-          </Link>
+        <div style={{ ...CARD, display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+          <div style={{ flex: 1, fontSize: 15, color: "var(--color-on-graphite)" }}>{t.paywalledBanner}</div>
+          <Link
+            href="/account"
+            style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}
+          >{t.seePlansAction}</Link>
         </div>
       )}
 
-      {plan === "free" && (
-        <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#12151d", border: "1px solid #1c3327", borderRadius: 10, padding: "13px 16px", marginBottom: 18 }}>
+      {plan === "free" && !paywalled && (
+        <div style={{ ...CARD, display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 650, color: "#eef1f7" }}>{t.freeBannerHeading}</div>
-            <div style={{ fontSize: 11.5, color: "#8b99b8" }}>{t.freeBannerBody}</div>
+            <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)" }}>{t.freeBannerHeading}</div>
+            <div style={{ fontSize: 15, color: "var(--color-graphite-muted)", marginTop: 4, maxWidth: "65ch" }}>{t.freeBannerBody}</div>
           </div>
-          <Link href="/verdict" style={{ color: "#c3cde0", fontSize: 13, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
-            {t.freeBannerAction}
-          </Link>
+          <Link
+            href="/verdict"
+            style={{ color: "var(--color-on-graphite)", fontSize: 15, fontWeight: 500, textDecoration: "none", whiteSpace: "nowrap" }}
+          >{t.freeBannerAction}</Link>
         </div>
       )}
 
-      {/* KPI row */}
-      <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
+      {/* KPI row — the category VALUE is catalogue data ("Sneakers"), which is
+          why it read English on a Spanish panel. `categoryName()` is the same
+          helper the verdict card already uses; the label beside it was
+          translated all along, so the two disagreed on screen. */}
+      <div className="riq-grid-kpi" style={{ marginBottom: 32 }}>
         <KpiCard label={noSold(kpis?.avg_profit_margin?.label) ?? t.kpiLeftShelf} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={noSold(kpis?.avg_profit_margin?.unit) ?? ""} sublabel={noSold(kpis?.avg_profit_margin?.sublabel)} />
         <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpis?.items_analyzed?.formatted} sublabel={t.kpiAcrossMarkets} />
-        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={kpis?.top_category?.value} sublabel={noSold(kpis?.top_category?.sublabel) ?? t.kpiByVolume} />
+        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={categoryName(kpis?.top_category?.value, locale)} sublabel={noSold(kpis?.top_category?.sublabel) ?? t.kpiByVolume} />
         <KpiCard
           label={t.kpiBuySignals}
           loading={!kpis}
@@ -185,54 +216,73 @@ export function DashboardContent({ locale }: { locale: Locale }) {
         />
       </div>
 
-      {/* Opportunities + Brands */}
-      <div className="riq-grid-main" style={{ marginBottom: 14 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
         <Section title={t.secOpportunitiesTitle} sub={t.secOpportunitiesSub} action={{ href: "/deals", label: t.secOpportunitiesAction }}>
-          {!deals ? <SkeletonRows rows={6} height={72} /> : (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: 10, padding: 12 }}>
+          {!deals ? <SkeletonRows rows={4} height={72} /> : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
               {deals.map((d, i) => {
                 const q = `${d.brand} ${d.model}`
+                const str = formatStrPct(d.str_pct)
                 return (
-                  <div key={i} style={{ background: "#0f1218", border: "1px solid #1c2333", borderRadius: 10, padding: "14px 14px 12px", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div key={i} style={{ ...CARD, display: "flex", flexDirection: "column", gap: 16 }}>
                     <div>
-                      <div style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", lineHeight: 1.25 }}>{d.model}</div>
-                      <div style={{ fontSize: 11, color: "#4d5a75", marginTop: 3 }}>{d.brand}{d.category ? ` · ${d.category}` : ""}</div>
+                      <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)", lineHeight: 1.3 }}>{d.model}</div>
+                      <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginTop: 2 }}>
+                        {d.brand}{d.category ? ` · ${categoryName(d.category, locale)}` : ""}
+                      </div>
                     </div>
+
+                    {/* Figure 1 of at most 3. */}
                     <div>
-                      <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.6px", textTransform: "uppercase", color: "#4d5a75" }}>{buyBelow}</div>
-                      <div style={{ fontSize: 22, fontWeight: 800, color: "#34d399", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.4px" }}>
+                      <div style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{buyBelow}</div>
+                      <div style={{ fontSize: 30, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.022em", lineHeight: 1.1, marginTop: 2 }}>
                         {dealsLocked
-                          ? <Link href="/account" style={{ color: "#4d5a75", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}><Lock size={14} /></Link>
+                          ? <Link href="/account" aria-label={a.locked.label} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 17, fontWeight: 500, color: "var(--color-graphite-muted)", textDecoration: "none" }}><Lock size={15} aria-hidden />{a.locked.label}</Link>
                           : eur(d.max_buy_price)}
                       </div>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
-                      {/* Withheld is not unknown. These two used to print a
-                          bare "—" on the gated branch, which is the same
-                          string `eur(null)` returns for "we have no number" —
-                          so a paying decision and a plan boundary looked
-                          identical on screen. A lock says which it is. */}
-                      <span>{t.avgAtExit} {dealsLocked ? <LockedInline /> : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}</span>
-                      <span style={{ color: "var(--color-watch)", fontWeight: 600 }} title="Gap at buy-below after fees — constructed ~30%, not a forecast">
-                        {dealsLocked ? <LockedInline /> : (d.est_profit_eur != null ? t.targetNet(eur(d.est_profit_eur)) : "—")}
-                      </span>
+
+                    {/* Figures 2 and 3. */}
+                    <div style={{ display: "flex", gap: 24, fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
+                      <div style={{ minWidth: 0 }}>
+                        <div>{t.avgAtExit}</div>
+                        <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
+                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.sold_7d} />}
+                        </div>
+                      </div>
+                      <div style={{ minWidth: 0 }}>
+                        {/* STR POLICY: the abbreviation is retired. This slot
+                            used to print "8.7% STR" here and "Sell-through" on
+                            the scanner — one metric, two spellings, one of them
+                            an untranslatable English initialism. */}
+                        <div>{strLive ? a.metric.sellThrough : t.kpiLeftShelf}</div>
+                        <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
+                          {strLive
+                            ? (str ?? <LockedInline label={a.locked.label} />)
+                            : (d.sold_7d != null ? formatCount(d.sold_7d, locale) : "—")}
+                        </div>
+                      </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", fontSize: 13, color: "var(--color-graphite-muted)" }}>
                       <MomentumBadge momentum={d.momentum_label} />
-                      {strLive
-                        ? <span style={{ fontSize: 11, color: "#8b99b8" }}>{formatStrPct(d.str_pct) ? `${formatStrPct(d.str_pct)} STR` : t.strDash}</span>
-                        : <span style={{ fontSize: 11, color: "#8b99b8" }}>{d.sold_7d != null ? t.leftShelfCount(d.sold_7d.toLocaleString()) : ""}</span>}
+                      {!dealsLocked && d.est_profit_eur != null && (
+                        <span title={a.tip.targetNet} style={{ fontVariantNumeric: "tabular-nums" }}>{t.targetNet(eur(d.est_profit_eur))}</span>
+                      )}
                     </div>
+
                     <SizePills sizes={d.top_sizes ?? []} />
-                    <div style={{ display: "flex", gap: 6, marginTop: "auto" }}>
-                      <Link href={`/verdict?q=${encodeURIComponent(q)}`}
-                        style={{ flex: 1, textAlign: "center", background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "7px 8px", fontSize: 11.5, fontWeight: 700, textDecoration: "none" }}>
-                        {t.analyze}
-                      </Link>
-                      <button onClick={() => watch(d.brand, d.model)} title="Add to watchlist"
-                        style={{ background: "transparent", border: "1px solid #232c42", borderRadius: 7, color: "#8b99b8", fontSize: 11, padding: "7px 10px", cursor: "pointer" }}>
-                        {t.watchAction}
-                      </button>
+
+                    {/* One filled control per card; Watch is text. */}
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: "auto" }}>
+                      <Link
+                        href={`/verdict?q=${encodeURIComponent(q)}`}
+                        style={{ flex: 1, textAlign: "center", background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
+                      >{t.analyze}</Link>
+                      <button
+                        onClick={() => watch(d.brand, d.model)} title={a.deals.watchlistAdd}
+                        style={{ background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12, color: "var(--color-graphite-muted)", fontSize: 15, padding: "10px 14px", cursor: "pointer" }}
+                      >{t.watchAction}</button>
                     </div>
                   </div>
                 )
@@ -243,59 +293,58 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
         <Section title={t.secBrandsTitle} sub={t.secBrandsSub} action={{ href: "/brands", label: t.secBrandsAction }}>
           {!brands ? <SkeletonRows rows={6} height={30} /> : (
-            <div style={{ padding: "4px 0" }}>
+            <div>
               {brands.map(b => (
-                <Link key={b.brand} href={`/deals?brand=${encodeURIComponent(b.brand)}`}
-                  style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 16px", textDecoration: "none", borderBottom: "1px solid #181e2d" }}>
-                  <span style={{ fontSize: 11, color: "#4d5a75", width: 20, fontVariantNumeric: "tabular-nums" }}>{b.rank}</span>
-                  <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "#eef1f7" }}>{b.brand}</span>
-                  <span style={{ fontSize: 12, color: "#8b99b8", fontVariantNumeric: "tabular-nums" }}>
+                <Link
+                  key={b.brand} href={`/deals?brand=${encodeURIComponent(b.brand)}`}
+                  style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 0", textDecoration: "none", borderBottom: "1px solid var(--color-hairline)" }}
+                >
+                  <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", width: 20, fontVariantNumeric: "tabular-nums" }}>{b.rank}</span>
+                  <span style={{ flex: 1, fontSize: 15, color: "var(--color-on-graphite)" }}>{b.brand}</span>
+                  <span style={{ fontSize: 15, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
                     <MedianN median={b.avg_price_eur} n={b.sold_7d} />
                   </span>
-                  <span style={{ fontSize: 10, fontWeight: 600, color: b.speed_label?.includes("Fast") ? "#34d399" : "#fbbf24" }}>{b.speed_label}</span>
                 </Link>
               ))}
             </div>
           )}
         </Section>
-      </div>
 
-      {/* Trending + Recently left the shelf */}
-      <div className="riq-grid-2">
-        <Section title={t.secTrendingTitle} sub={t.secTrendingSub} action={{ href: "/trends", label: t.secTrendingAction }}>
-          {!trending ? <SkeletonRows rows={5} height={32} /> : (
-            <div style={{ padding: "4px 0" }}>
-              {trending.map((r, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 16px", borderBottom: "1px solid #181e2d" }}>
-                  <span style={{ fontSize: 11, color: "#4d5a75", width: 16, fontVariantNumeric: "tabular-nums" }}>{i + 1}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "#eef1f7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.model}</div>
-                    <div style={{ fontSize: 10.5, color: "#4d5a75" }}>{r.brand}</div>
+        <div className="riq-grid-2">
+          <Section title={t.secTrendingTitle} sub={t.secTrendingSub} action={{ href: "/trends", label: t.secTrendingAction }}>
+            {!trending ? <SkeletonRows rows={5} height={32} /> : (
+              <div>
+                {trending.map((r, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 0", borderBottom: "1px solid var(--color-hairline)" }}>
+                    <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", width: 16, fontVariantNumeric: "tabular-nums" }}>{i + 1}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 15, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.model}</div>
+                      <div style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{r.brand}</div>
+                    </div>
+                    <MomentumBadge momentum={r.momentum_label} />
                   </div>
-                  <MomentumBadge momentum={r.momentum_label} />
-                  <ScoreBar score={r.opportunity_score} width={46} />
-                </div>
-              ))}
-            </div>
-          )}
-        </Section>
+                ))}
+              </div>
+            )}
+          </Section>
 
-        <Section title={t.secRecentTitle} sub={t.secRecentSub}>
-          {!sold ? <SkeletonRows rows={5} height={28} /> : (
-            <div style={{ padding: "4px 0" }}>
-              {sold.map((s, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 16px", borderBottom: "1px solid #181e2d" }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "#eef1f7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.brand}</div>
-                    <div style={{ fontSize: 10.5, color: "#4d5a75", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.model || s.title}{s.size ? ` · ${s.size}` : ""}</div>
+          <Section title={t.secRecentTitle} sub={t.secRecentSub}>
+            {!sold ? <SkeletonRows rows={5} height={28} /> : (
+              <div>
+                {sold.map((s, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 0", borderBottom: "1px solid var(--color-hairline)" }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 15, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.brand}</div>
+                      <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.model || s.title}{s.size ? ` · ${s.size}` : ""}</div>
+                    </div>
+                    <span style={{ fontSize: 15, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums" }}>{eur(s.price_eur)}</span>
+                    <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums", width: 64, textAlign: "right" }}>{ago(s.sold_at)}</span>
                   </div>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#34d399", fontVariantNumeric: "tabular-nums" }}>{eur(s.price_eur)}</span>
-                  <span style={{ fontSize: 11, color: "#4d5a75", fontVariantNumeric: "tabular-nums", width: 64, textAlign: "right" }}>{ago(s.sold_at)}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </Section>
+                ))}
+              </div>
+            )}
+          </Section>
+        </div>
       </div>
     </AppShell>
   )

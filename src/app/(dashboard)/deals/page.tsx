@@ -1,10 +1,14 @@
 "use client"
-import { useEffect, useState, useCallback, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useEffect, useState, useCallback, useMemo, Suspense } from "react"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { AppShell } from "@/components/layout/app-shell"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
 import { MomentumWarmupNotice } from "@/components/ui/momentum-warmup-notice"
-import { ScoreBar } from "@/components/ui/score-bar"
+// ScoreBar is deliberately gone from this card. It was a fourth figure — a
+// decorative 0-100 gauge nobody acts on — competing with the buy-below price,
+// and `opportunity_score` is a gated field, so on a free account it rendered
+// an empty bar that looked like a score of zero. It still lives on /trends.
 import { SizePills } from "@/components/ui/size-pills"
 import { LiveDealsModal } from "@/components/ui/live-deals-modal"
 import { MedianN } from "@/components/ui/median-n"
@@ -12,11 +16,36 @@ import { getDeals, addToWatchlist, getBatchPriceHistory } from "@/lib/api"
 import type { PricePoint } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import { formatStrPct } from "@/lib/str-pct"
+import { isFieldLocked } from "@/lib/locked-fields"
+import { useLocale } from "@/components/i18n/locale-provider"
+import { appCopy } from "@/lib/app-copy"
+import { categoryName, formatCount } from "@/lib/verdict-words"
 import type { Deal } from "@/types"
-import { Star } from "lucide-react"
-import type { ReactNode } from "react"
+import { Star, Lock } from "lucide-react"
 
-function Sparkline({ points, width = 80, height = 28 }: { points: PricePoint[]; width?: number; height?: number }) {
+/**
+ * THE DEAL SCANNER — and the reason this file was rewritten.
+ *
+ * Live on production 2026-09-06, authenticated, locale=Español: "Deal
+ * Scanner", "Find live deals", "BUY BELOW", "SELL-THROUGH", "HOT", "RISING",
+ * "All Categories", "Search model or brand…". Every one of them an English
+ * literal typed straight into JSX. This component never called `useLocale()`
+ * once — not a dictionary miss, not a provider that failed to reach it (the
+ * provider has been mounted in the root layout the whole time and the sidebar
+ * beside this page renders in Spanish correctly). There was simply nothing
+ * here to translate. See src/lib/app-copy.ts for the full diagnosis.
+ *
+ * THE VISUAL PASS. It was four metric tiles per card, each a filled box with a
+ * mono uppercase micro-label, plus a coloured 4px left border, plus a tinted
+ * momentum chip, plus a coloured score bar — on a three-across grid. Every
+ * element was competing and none was winning. Now: ONE figure is large (the
+ * buy-below price, which is the only number the customer acts on), at most
+ * three figures total, no tiles, no left border, hairlines instead of boxes,
+ * and exactly one filled accent control per card. Target net moved to the
+ * quiet meta line — it is derived from buy-below, so it was never a peer of it.
+ */
+
+function Sparkline({ points, width = 72, height = 24 }: { points: PricePoint[]; width?: number; height?: number }) {
   if (points.length < 2) return null
   const prices = points.map(p => p.avg_price)
   const min = Math.min(...prices)
@@ -27,35 +56,62 @@ function Sparkline({ points, width = 80, height = 28 }: { points: PricePoint[]; 
     y: height - ((p - min) / range) * (height - 4) - 2,
   }))
   const d = coords.map((c, i) => `${i === 0 ? "M" : "L"}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ")
+  // The trend line is not a verdict. It was full-strength #22c55e / #ef4444 —
+  // the same green as the primary CTA — so a sparkline read as an
+  // instruction. Muted to a hairline-weight mark that says direction only.
   const trending = prices[prices.length - 1] >= prices[0]
-  const color = trending ? "#22c55e" : "#ef4444"
+  const color = trending ? "rgba(52,211,153,.55)" : "rgba(248,113,113,.55)"
   return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: "block" }}>
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ display: "block" }} aria-hidden>
       <path d={d} fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={coords[coords.length - 1].x} cy={coords[coords.length - 1].y} r={2} fill={color} />
     </svg>
   )
 }
 
+/** A secondary figure: quiet label above, value below. No box. */
+function Figure({ label, value, title }: { label: string; value: React.ReactNode; title?: string }) {
+  return (
+    <div title={title} style={{ minWidth: 0 }}>
+      <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", fontWeight: 400 }}>{label}</div>
+      <div style={{ fontSize: 16, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums", marginTop: 2 }}>{value}</div>
+    </div>
+  )
+}
+
 function DealsContent() {
+  const locale = useLocale()
+  const t = appCopy[locale]
   const [liveDeal, setLiveDeal] = useState<Deal | null>(null)
   const searchParams = useSearchParams()
-  const router = useRouter()
   const [all, setAll] = useState<Deal[]>([])
   const [warmingUp, setWarmingUp] = useState(false)
-  const [filtered, setFiltered] = useState<Deal[]>([])
+  const [buyLocked, setBuyLocked] = useState(false)
   const [loading, setLoading] = useState(true)
   const [sparklines, setSparklines] = useState<Record<string, PricePoint[]>>({})
   const [q, setQ] = useState(searchParams.get("q") || "")
   const [category, setCategory] = useState(searchParams.get("category") || "")
   const [brand, setBrand] = useState(searchParams.get("brand") || "")
   const [momentum, setMomentum] = useState(searchParams.get("momentum") || "")
-  const categories = [...new Set(all.map(d => d.category).filter(Boolean))].sort()
-  const brands = [...new Set(all.map(d => d.brand).filter(Boolean))].sort()
+  // Sorted by the TRANSLATED label, otherwise a Spanish list reads
+  // alphabetised by its English original. `localeCompare` also gets accents
+  // right, which a raw `.sort()` does not.
+  const categories = [...new Set(all.map(d => d.category).filter(Boolean))]
+    .sort((a, b) => (categoryName(a, locale) ?? "").localeCompare(categoryName(b, locale) ?? "", locale))
+  const brands = [...new Set(all.map(d => d.brand).filter(Boolean))].sort((a, b) => a.localeCompare(b, locale))
 
   const load = useCallback(async () => {
     setLoading(true)
-    try { const d = await getDeals({ limit: 200 }); setAll(d.deals); setWarmingUp(!!d.momentum_warming_up) }
+    try {
+      const d = await getDeals({ limit: 200 })
+      setAll(d.deals)
+      setWarmingUp(!!d.momentum_warming_up)
+      // Same rule the panel already applies: `locked` is a constant false on
+      // every backend branch, so the server's own `locked_fields` list is the
+      // only trustworthy signal. Without this a withheld buy-below fell
+      // through to `eur(undefined)` and printed a bare "—" — a plan boundary
+      // rendered as missing data. See src/lib/locked-fields.ts.
+      setBuyLocked(d.locked || isFieldLocked(d.locked_fields, "max_buy_price"))
+    }
     catch (e) { console.error(e) }
     finally { setLoading(false) }
   }, [])
@@ -69,125 +125,210 @@ function DealsContent() {
       .then(r => setSparklines(r.data))
       .catch(() => {})
   }, [all])
-  useEffect(() => {
+
+  // Derived, not stored. This was `useState` + a `useEffect` that called
+  // `setFiltered` on every keystroke — an extra render per character and the
+  // cascading-render pattern react-hooks/set-state-in-effect flags. Filtering
+  // is a pure function of the four inputs, so it belongs in render.
+  const filtered = useMemo(() => {
     let f = all
     if (q) f = f.filter(d => d.model.toLowerCase().includes(q.toLowerCase()) || d.brand.toLowerCase().includes(q.toLowerCase()))
     if (category) f = f.filter(d => d.category === category)
     if (brand) f = f.filter(d => d.brand === brand)
     if (momentum) f = f.filter(d => d.momentum_label === momentum)
-    setFiltered(f)
+    return f
   }, [all, q, category, brand, momentum])
 
+  const [notice, setNotice] = useState<string | null>(null)
   const handleWatchlist = async (deal: Deal) => {
-    try { await addToWatchlist(deal.brand, deal.model); alert(`Added to watchlist`) }
-    catch { alert("Already in watchlist") }
+    try { await addToWatchlist(deal.brand, deal.model); setNotice(t.deals.watchlistAdded) }
+    catch { setNotice(t.deals.watchlistAlready) }
   }
+  useEffect(() => {
+    if (!notice) return
+    const id = setTimeout(() => setNotice(null), 2600)
+    return () => clearTimeout(id)
+  }, [notice])
 
-  const BORDER: Record<string, string> = { HOT: "border-l-red-500", RISING: "border-l-amber-500" }
+  const control = {
+    background: "transparent",
+    border: "1px solid var(--color-hairline)",
+    borderRadius: 12,
+    padding: "8px 12px",
+    fontSize: 15,
+    color: "var(--color-on-graphite)",
+    outline: "none",
+  } as const
 
   return (
-    <AppShell title="Deal Scanner" subtitle={`${filtered.length} opportunities`}>
+    <AppShell title={t.deals.title} subtitle={t.deals.subtitle(formatCount(filtered.length, locale))}>
       <MomentumWarmupNotice warmingUp={warmingUp} />
-      {/* Filters */}
-      <div className="bg-[#141820] border border-[#1e2535] rounded-xl p-4 mb-5 flex flex-wrap gap-3 items-center">
-        <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search model or brand…"
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] w-52 outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
-        <select value={category} onChange={e => setCategory(e.target.value)}
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] outline-none">
-          <option value="">All Categories</option>
-          {categories.map(c => <option key={c}>{c}</option>)}
+
+      {/* Filters — hairline controls on the page background, not a boxed
+          toolbar. The toolbar used to be a filled panel with its own border,
+          which made the filters look heavier than the results. */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginBottom: 24 }}>
+        <input
+          value={q} onChange={e => setQ(e.target.value)} placeholder={t.deals.searchPlaceholder}
+          aria-label={t.deals.searchPlaceholder}
+          style={{ ...control, width: 220 }}
+        />
+        <select value={category} onChange={e => setCategory(e.target.value)} aria-label={t.deals.allCategories} style={control}>
+          <option value="">{t.deals.allCategories}</option>
+          {/* The VALUE stays the catalogue's English key — it is what the
+              filter compares against and what the URL carries. Only the label
+              is translated. Translating the value would silently break every
+              /deals?category=… link. */}
+          {categories.map(c => <option key={c} value={c}>{categoryName(c, locale)}</option>)}
         </select>
-        <select value={brand} onChange={e => setBrand(e.target.value)}
-          className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-2 text-[12px] text-[#e8ecf4] outline-none">
-          <option value="">All Brands</option>
-          {brands.map(b => <option key={b}>{b}</option>)}
+        <select value={brand} onChange={e => setBrand(e.target.value)} aria-label={t.deals.allBrands} style={control}>
+          <option value="">{t.deals.allBrands}</option>
+          {brands.map(b => <option key={b} value={b}>{b}</option>)}
         </select>
-        <div className="flex gap-1.5">
+        <div style={{ display: "flex", gap: 4 }}>
           {["", "HOT", "RISING", "STABLE"].map(m => (
-            <button key={m} onClick={() => setMomentum(m)} className={`px-3 py-1.5 rounded-full text-[10.5px] font-semibold border transition-all ${
-              momentum === m ? "bg-emerald-500/15 border-emerald-500 text-emerald-400" : "bg-[#1a2030] border-[#263147] text-[#8fa3c4] hover:bg-[#222d42]"
-            }`}>{m || "All"}</button>
+            <button
+              key={m} onClick={() => setMomentum(m)}
+              aria-pressed={momentum === m}
+              style={{
+                padding: "8px 12px", borderRadius: 12, fontSize: 15, cursor: "pointer",
+                border: "1px solid transparent",
+                background: momentum === m ? "rgba(255,255,255,.08)" : "transparent",
+                color: momentum === m ? "var(--color-on-graphite)" : "var(--color-graphite-muted)",
+                transition: "background var(--motion-fast) var(--motion-ease), color var(--motion-fast) var(--motion-ease)",
+              }}
+            >{m ? t.momentum[m as keyof typeof t.momentum] : t.deals.allMomentum}</button>
           ))}
         </div>
-        <span className="text-[10px] text-[#546380] tabular-nums ml-1">{filtered.length} deals</span>
         {(q || category || brand || momentum) && (
-          <button onClick={() => { setQ(""); setCategory(""); setBrand(""); setMomentum("") }}
-            className="text-[10px] text-[#546380] hover:text-[#e8ecf4]">× Clear</button>
+          <button
+            onClick={() => { setQ(""); setCategory(""); setBrand(""); setMomentum("") }}
+            style={{ background: "none", border: "none", cursor: "pointer", fontSize: 15, color: "var(--color-graphite-muted)", padding: "8px 4px" }}
+          >{t.deals.clear}</button>
         )}
+        <span style={{ marginLeft: "auto", fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
+          {t.deals.count(formatCount(filtered.length, locale))}
+        </span>
       </div>
 
-      {/* Grid */}
+      {notice && (
+        <div role="status" style={{ marginBottom: 16, fontSize: 15, color: "var(--color-graphite-muted)" }}>{notice}</div>
+      )}
+
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
           {Array(6).fill(0).map((_, i) => (
-            <div key={i} className="bg-[#141820] border border-[#1e2535] rounded-xl h-48 animate-pulse" />
+            <div key={i} style={{ background: "var(--color-graphite-elevated)", borderRadius: 14, height: 184 }} className="animate-pulse" />
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 text-[#546380] text-[13px]">No deals match filters. Try removing some.</div>
+        <div style={{ padding: "80px 0", textAlign: "center", fontSize: 17, color: "var(--color-graphite-muted)" }}>{t.deals.empty}</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {filtered.map((d, i) => (
-            <div key={i} className={`bg-[#141820] border border-[#1e2535] border-l-4 rounded-xl p-4 flex flex-col gap-3 hover:border-[#263147] transition-colors ${BORDER[d.momentum_label ?? ""] ?? "border-l-transparent"}`}>
-              <div className="flex justify-between items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
+          {filtered.map((d, i) => {
+            const str = formatStrPct(d.str_pct)
+            return (
+              <div
+                key={i}
+                data-testid="riq-deal-card"
+                style={{
+                  background: "var(--color-graphite-elevated)",
+                  borderRadius: 14,
+                  padding: 20,
+                  display: "flex", flexDirection: "column", gap: 16,
+                }}
+              >
                 <div>
-                  <div className="font-semibold text-[15px]">{d.model}</div>
-                  <div className="text-[11px] text-[#546380] mt-0.5">{d.brand} · {d.category}</div>
-                </div>
-                <ScoreBar score={d.opportunity_score} />
-              </div>
-              {d.str_pct == null && (
-                <div className="text-[11px] text-[#c4a574] -mt-1">Ranked on volume — sell-through sample still thin. Target net is the constructed 30% gap, not a forecast.</div>
-              )}
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { label: "Buy Below", value: eur(d.max_buy_price), color: "text-emerald-400" },
-                  { label: "Avg at exit", value: <MedianN median={d.avg_price_eur} n={d.sold_7d} />, color: "" },
-                  { label: "Target net", value: d.est_profit_eur != null ? `+${eur(d.est_profit_eur)}` : "—", color: "text-amber-400", title: "Buy-below is 70% of the fee-adjusted asking price at departure. This is that gap, not a forecast." },
-                  d.str_pct != null
-                    // pct() is the generic 1dp formatter (ROI, margins). Sell-through
-                    // has its own floor rule so a sub-0.1pp share never reads "0.0%".
-                    ? { label: "Sell-through", value: formatStrPct(d.str_pct) ?? "—", color: "" }
-                    : { label: "Listed now", value: d.active_listings != null ? d.active_listings.toLocaleString() : "—", color: "" },
-                ].map((cell: { label: string; value: ReactNode; color: string; title?: string }) => (
-                  <div key={cell.label} className="bg-[#1a2030] rounded-lg p-2" title={cell.title}>
-                    <div className="text-[9px] font-mono uppercase tracking-wide text-[#546380]">{cell.label}</div>
-                    <div className={`font-mono font-bold text-base mt-1 ${cell.color}`}>{cell.value}</div>
+                  <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)", lineHeight: 1.3 }}>{d.model}</div>
+                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginTop: 2 }}>
+                    {d.brand}{d.category ? ` · ${categoryName(d.category, locale)}` : ""}
                   </div>
-                ))}
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  {d.momentum_label && <MomentumBadge momentum={d.momentum_label} />}
+                </div>
+
+                {/* FIGURE 1 — the only number the customer acts on. */}
+                <div>
+                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{t.metric.buyBelow}</div>
+                  <div style={{ fontSize: 30, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.022em", lineHeight: 1.1, marginTop: 2 }}>
+                    {buyLocked
+                      ? (
+                        // Withheld is not unknown. A bare em-dash here reads as
+                        // "this product has no answer"; the lock plus a route to
+                        // /account reads as "this answer is in a plan".
+                        <Link
+                          href="/account" data-testid="riq-locked-buy"
+                          aria-label={t.locked.label}
+                          style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 17, fontWeight: 500, color: "var(--color-graphite-muted)", textDecoration: "none" }}
+                        >
+                          <Lock size={15} aria-hidden />{t.locked.label}
+                        </Link>
+                      )
+                      : eur(d.max_buy_price)}
+                  </div>
+                </div>
+
+                {/* FIGURES 2 and 3. Never more — `str` and `listedNow` are the
+                    same slot, because they answer the same question with
+                    whichever evidence exists. */}
+                <div style={{ display: "flex", gap: 24 }}>
+                  <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.sold_7d} />} />
+                  {str != null
+                    ? <Figure label={t.metric.sellThrough} value={str} />
+                    : <Figure label={t.metric.listedNow} value={d.active_listings != null ? formatCount(d.active_listings, locale) : "—"} />}
+                </div>
+
+                {/* Provisional ranking stays provisional. */}
+                {d.str_pct == null && (
+                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{t.deals.thinSample}</div>
+                )}
+
+                <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 13, color: "var(--color-graphite-muted)", flexWrap: "wrap" }}>
+                  <MomentumBadge momentum={d.momentum_label} />
+                  {d.est_profit_eur != null && (
+                    <span title={t.tip.targetNet} style={{ fontVariantNumeric: "tabular-nums" }}>
+                      {t.metric.targetNet} +{eur(d.est_profit_eur)}
+                    </span>
+                  )}
                   {sparklines[`${d.brand}::${d.model}`] && (
-                    <div title="30-day price trend">
+                    <span title={t.tip.priceTrend} style={{ marginLeft: "auto" }}>
                       <Sparkline points={sparklines[`${d.brand}::${d.model}`]} />
-                    </div>
+                    </span>
                   )}
                 </div>
+
                 <SizePills sizes={d.top_sizes ?? []} />
-                <button onClick={() => handleWatchlist(d)} className="opacity-40 hover:opacity-100 transition-opacity text-amber-400" title="Add to watchlist"><Star size={16} /></button>
+
+                {/* ONE filled control per card. Watchlist is a ghost icon. */}
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: "auto" }}>
+                  <button
+                    onClick={() => setLiveDeal(d)}
+                    style={{
+                      flex: 1, padding: "10px 16px", borderRadius: 12, border: "none", cursor: "pointer",
+                      background: "var(--color-accent)", color: "var(--color-on-accent)",
+                      fontSize: 15, fontWeight: 600,
+                      transition: "opacity var(--motion-fast) var(--motion-ease)",
+                    }}
+                  >{t.deals.findLive}</button>
+                  <button
+                    onClick={() => handleWatchlist(d)}
+                    aria-label={t.deals.watchlistAdd} title={t.deals.watchlistAdd}
+                    style={{
+                      background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12,
+                      padding: "10px 12px", cursor: "pointer", color: "var(--color-graphite-muted)",
+                      display: "inline-flex", alignItems: "center",
+                      transition: "color var(--motion-fast) var(--motion-ease)",
+                    }}
+                  ><Star size={16} /></button>
+                  {d.sourcing_links && d.sourcing_links.length > 0 && d.sourcing_links.map((l) => (
+                    <a
+                      key={l.market} href={l.url} target="_blank" rel="noopener noreferrer"
+                      title={t.tip.openMarket(l.market)}
+                      style={{ fontSize: 13, padding: "10px 8px", color: "var(--color-graphite-muted)", textDecoration: "none" }}
+                    >{l.market}</a>
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-2 pt-2 border-t border-[#1e2535]">
-                <button onClick={() => setLiveDeal(d)}
-                  className="flex-1 text-[11.5px] font-semibold py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/50 text-emerald-400 hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors"
-                  title="Find live buyable listings under your buy-price, right now">
-                  Find live deals
-                </button>
-                {d.sourcing_links && d.sourcing_links.length > 0 && (
-                  <div className="flex items-center gap-1">
-                    {d.sourcing_links.map((l) => (
-                      <a key={l.market} href={l.url} target="_blank" rel="noopener noreferrer"
-                        title={`Open ${l.market} search`}
-                        className="text-[9px] font-mono font-semibold px-1.5 py-1 rounded-md bg-[#1a2030] border border-[#263147] text-[#60a5fa] hover:bg-[#222d42] transition-colors">
-                        {l.market}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
       {liveDeal && <LiveDealsModal deal={liveDeal} onClose={() => setLiveDeal(null)} />}

@@ -70,10 +70,10 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
 
   if (!checked || isLoading) {
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "#0B0D10" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "var(--color-graphite)" }}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "5px", color: "#22c55e", marginBottom: 16, animation: "pulse-dot 2s ease-in-out infinite" }}>RESALE·IQ</div>
-          <div style={{ width: 32, height: 32, border: "2px solid #263147", borderTopColor: "#22c55e", borderRadius: "50%", animation: "shimmer 0.8s linear infinite", margin: "0 auto" }} />
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, letterSpacing: "5px", color: "var(--color-graphite-muted)", marginBottom: 16, animation: "pulse-dot 2s ease-in-out infinite" }}>RESALE·IQ</div>
+          <div style={{ width: 32, height: 32, border: "2px solid var(--color-hairline)", borderTopColor: "var(--color-accent)", borderRadius: "50%", animation: "shimmer 0.8s linear infinite", margin: "0 auto" }} />
         </div>
       </div>
     )
@@ -101,11 +101,11 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   else if (needsProOrTrial && !isPower && !isTrial) gated = <Paywall pro />
   if (pathname.startsWith(OWNER_ONLY_PREFIX) && user?.is_owner !== true) {
     return (
-      <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#8b99b8", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
+      <div style={{ minHeight: "100vh", background: "var(--color-graphite)", color: "var(--color-graphite-muted)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
         <div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>{t.ownerRequired}</div>
-          <div style={{ fontSize: 13, maxWidth: 360, lineHeight: 1.5 }}>{t.ownerBody}</div>
-          <a href="/dashboard" style={{ display: "inline-block", marginTop: 16, color: "#22c55e", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>{t.backToDashboard}</a>
+          <div style={{ fontSize: 22, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>{t.ownerRequired}</div>
+          <div style={{ fontSize: 15, maxWidth: "65ch", lineHeight: 1.5 }}>{t.ownerBody}</div>
+          <a href="/dashboard" style={{ display: "inline-block", marginTop: 24, color: "var(--color-on-graphite)", fontSize: 15, fontWeight: 500, textDecoration: "none" }}>{t.backToDashboard}</a>
         </div>
       </div>
     )
@@ -113,20 +113,20 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
 
 
   return (
-    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "#0B0D10" }}>
+    <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "var(--color-graphite)" }}>
       <Sidebar className={`riq-sidebar${navOpen ? " open" : ""}`} />
       {/* Scrim behind the drawer on mobile */}
       <div className={`riq-scrim${navOpen ? " open" : ""}`} onClick={() => setNavOpen(false)} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
-        <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: 20, background: "#0B0D10" }}>
+        <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: "24px var(--space-gutter)", background: "var(--color-graphite)" }}>
           {!gated && isTrial && !isPaid && (
-            <div style={{ display: "flex", alignItems: "center", gap: 12, background: "linear-gradient(90deg,rgba(34,197,94,.08),rgba(14,165,233,.06))", border: "1px solid rgba(34,197,94,.2)", borderRadius: 10, padding: "10px 16px", marginBottom: 16 }}>
-              <div style={{ fontSize: 13, color: "#eef1f7", flex: 1 }}>
-                <span style={{ fontWeight: 650 }}>{t.freeTrial}</span>
-                <span style={{ color: "#8b99b8" }}> — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
+              <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: 1 }}>
+                <span style={{ fontWeight: 600 }}>{t.freeTrial}</span>
+                <span style={{ color: "var(--color-graphite-muted)" }}> — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
               </div>
-              <a href="/account" style={{ background: "#22c55e", color: "#06090c", borderRadius: 7, padding: "6px 14px", fontSize: 12, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+              <a href="/account" style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>
                 {t.upgradeNow}
               </a>
             </div>
