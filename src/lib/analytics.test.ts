@@ -101,6 +101,22 @@ test("answer engines are their own medium, and gemini is an LLM before it is a g
   })
 })
 
+test("a click out of an email is email, not organic search", () => {
+  // Same ordering defect as gemini above, one block lower down, and it ran the
+  // wrong way for four weeks: "com.google.android.gm" and "mail.google.com"
+  // both contain ".google.", so the country-TLD rule claimed them and every
+  // click out of our own lifecycle email was booked as SEO we had earned.
+  // The Gmail Android app alone had sent 29 by 2026-09-06.
+  assert.deepEqual(channelFromReferrer("android-app://com.google.android.gm/", "resaleiq.dev"), {
+    utm_source: "email",
+    utm_medium: "email",
+  })
+  assert.deepEqual(channelFromReferrer("https://mail.google.com/mail/u/0/", "resaleiq.dev"), {
+    utm_source: "email",
+    utm_medium: "email",
+  })
+})
+
 test("a same-site referrer is never a channel", () => {
   // This is a Next SPA: document.referrer is fixed at document load, so a
   // same-site value only means a full reload inside our own site. Treating it
