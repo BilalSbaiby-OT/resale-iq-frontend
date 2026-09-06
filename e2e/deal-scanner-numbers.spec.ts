@@ -72,8 +72,12 @@ test.describe("Deal Scanner — the numbers on the card", () => {
     const track = card(page, "Track")
     // avg 92.22 -> 92.22 * 0.95 * 0.70 = 61.33, rendered to whole euros.
     await expect(track.getByText("€61", { exact: true })).toBeVisible()
-    // 92.22 * 0.95 - 61.33 = 26.28
-    await expect(track.getByText("+€26", { exact: true })).toBeVisible()
+    // 92.22 * 0.95 - 61.33 = 26.28. Target net is derived from buy-below, so
+    // it sits inline on the quiet meta line rather than in a figure of its
+    // own — there is no element whose whole text is "+€26" and there should
+    // not be. Pin the label to the value instead: a number in the wrong slot
+    // is the exact class of bug this file exists to catch.
+    await expect(track.getByText(/^Target net \+€26$/)).toBeVisible()
   })
 
   test("a real sub-1% sell-through never prints as 0%", async ({ page }) => {
@@ -105,7 +109,20 @@ test.describe("Deal Scanner — the numbers on the card", () => {
 
   test("a withheld sell-through says so instead of showing a zero share", async ({ page }) => {
     await loginAndOpenDeals(page)
+
+    // Jordan 1 carries its own note — comparable_n is 7, below the evidence
+    // floor — and a specific true sentence outranks the generic one, so that
+    // is the sentence the card must show. Either way: no zero share.
     const jordan = card(page, "Jordan 1")
-    await expect(jordan.getByText(/sell-through sample still thin/i)).toBeVisible()
+    await expect(jordan.getByText("0%", { exact: true })).toHaveCount(0)
+    await expect(jordan.getByText("0.0%", { exact: true })).toHaveCount(0)
+    await expect(jordan.getByText(/not enough to name a buy-below/i)).toBeVisible()
+
+    // The generic sentence is the fallback for a row with str_pct null and no
+    // note of its own. Air Force 1 Low is that row, and it is the only place
+    // the fallback branch is actually reachable.
+    const af1 = card(page, "Air Force 1 Low")
+    await expect(af1.getByText("0%", { exact: true })).toHaveCount(0)
+    await expect(af1.getByText(/sell-through sample is still thin/i)).toBeVisible()
   })
 })
