@@ -10,6 +10,7 @@ import Link from "next/link"
 import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell } from "lucide-react"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
+import { planChip, planEntitlement } from "@/lib/entitlement"
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -30,7 +31,8 @@ export default function AccountPage() {
     () => typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("checkout") === "cancelled")
   const { logout } = useAuthStore()
-  const nav = navCopy[useLocale()]
+  const locale = useLocale()
+  const nav = navCopy[locale]
   const ACTIVITY_ICON: Record<string, typeof KeyRound> = { login: LogIn, register: UserPlus, password_change: Lock, forgot_password: Mail, account_delete: Trash2, plan_change: CreditCard }
   const PLAN_STYLES = { free: "bg-blue-500/10 border-blue-500/30 text-blue-400", operator: "bg-emerald-500/12 border-emerald-500/30 text-emerald-400", power: "bg-amber-500/12 border-amber-500/30 text-amber-400" }
 
@@ -180,7 +182,11 @@ export default function AccountPage() {
           <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e2535]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>
           <div className="p-5">
             <div className={`flex items-center justify-between p-4 rounded-xl border ${user ? PLAN_STYLES[user.plan] : "border-[#263147]"} mb-4`}>
-              <div><div className="font-extrabold text-[20px]">{user?.plan === "operator" ? "Starter" : user?.plan === "power" ? "Pro" : user?.plan === "free" ? (user.trial_active ? "Free trial" : "Free") : "—"}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{user?.plan === "free" ? (user.trial_active ? `${user.trial_days_left ?? "?"} days of unlimited left, then 10 checks/day + 10 full unlocks/month` : "7-day trial ended — 10 checks/day, 10 full unlocks/month") : "Unlimited verdicts · every signal"}</div></div>
+              {/* Plan name and entitlement both come from src/lib/entitlement.ts,
+                  the same module the sidebar chip reads. Inlining either one here
+                  is how this card ended up promising "days of unlimited left" in
+                  English to every locale while the sidebar said "Free". */}
+              <div><div className="font-extrabold text-[20px]">{planChip(user, locale)}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{planEntitlement(user, locale)}</div></div>
               <div className="font-mono font-bold text-[22px]">{user?.plan === "operator" ? "€19/mo" : user?.plan === "power" ? "€49/mo" : "—"}</div>
             </div>
             {user?.plan === "free" ? (

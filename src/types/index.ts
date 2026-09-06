@@ -9,6 +9,15 @@ export interface User {
   email_verified?: boolean | number | null
   trial_active?: boolean
   trial_days_left?: number
+  /**
+   * Raw ISO timestamp from /auth/me. Stays NULL until the user confirms their
+   * email (demand-intel api/auth.py:630 _start_trial_if_unset), and that is the
+   * only thing separating a LAPSED trial from one that has never started —
+   * both are plan=free with trial_active=false. The backend has been sending
+   * it for exactly this reason; the type simply never declared it. Read it
+   * through src/lib/entitlement.ts; nothing else should branch on it.
+   */
+  trial_ends_at?: string | null
   telegram_chat_id?: string | null
   is_owner?: boolean
 }
