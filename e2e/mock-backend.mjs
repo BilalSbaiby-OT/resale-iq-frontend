@@ -552,7 +552,56 @@ const server = http.createServer(async (req, res) => {
     return
   }
   if (url.startsWith("/api/deals")) {
-    json(res, 200, { deals: [], count: 0, locked: false, locked_fields: [] })
+    // A deal board with zero deals renders zero cards, which means every
+    // assertion about what a CARD says passes vacuously. These two fixtures
+    // exist to make the i18n and truth rules actually testable:
+    //   - `category: "Sneakers"` is the exact English orphan the founder
+    //     screenshotted on an /es panel; it must render "Zapatillas".
+    //   - `momentum_label: "RISING"` is the raw API enum MomentumBadge used
+    //     to print verbatim.
+    //   - `str_pct: 0.1898` is Adidas Samba's real production rate
+    //     (43 / 22,607, see src/lib/str-pct.ts). It must print "<0.1%" and
+    //     must NEVER round to "0%".
+    //   - the second row has `str_pct: null` so the provisional / thin-sample
+    //     branch renders too.
+    json(res, 200, {
+      deals: [
+        {
+          brand: "Adidas", model: "Samba OG", category: "Sneakers",
+          sold_7d: 43, sold_30d: 180, avg_price_eur: 78, max_buy_price: 41,
+          str_pct: 0.1898, active_listings: 22607, opportunity_score: 72,
+          momentum_label: "RISING", months_supply: 4.1, speed_score: 61,
+          size_velocity: [], top_sizes: ["42", "43"], data_quality_score: 0.9,
+          est_profit_eur: 17, profit_margin_pct: 30,
+          sell_speed: "Fast", risk_level: "Low",
+          sourcing_links: [{ market: "Vinted", domain: "vinted.es", url: "https://vinted.es/catalog?search_text=Samba" }],
+        },
+        {
+          brand: "Nike", model: "Air Force 1 Low", category: "Sneakers",
+          sold_7d: 69, sold_30d: 260, avg_price_eur: 62, max_buy_price: 33,
+          str_pct: null, active_listings: 18293, opportunity_score: 64,
+          momentum_label: "HOT", months_supply: 5.2, speed_score: 55,
+          size_velocity: [], top_sizes: ["41"], data_quality_score: 0.8,
+          est_profit_eur: 12, profit_margin_pct: 28,
+          sell_speed: "Medium", risk_level: "Low",
+          sourcing_links: [],
+        },
+        {
+          brand: "Levi's", model: "501 Original", category: "Jeans",
+          sold_7d: 47, sold_30d: 190, avg_price_eur: 34, max_buy_price: 18,
+          // Deliberately BELOW STR_PCT_FLOOR (0.1). This is the row that
+          // proves the bound: it must render "<0.1%" and must never be
+          // rounded down into a "0%" that tells a reseller there is no
+          // demand for an item with 47 departures in a week.
+          str_pct: 0.04, active_listings: 45238, opportunity_score: 51,
+          momentum_label: "STABLE", months_supply: 8.0, speed_score: 40,
+          size_velocity: [], top_sizes: ["32"], data_quality_score: 0.7,
+          est_profit_eur: 6, profit_margin_pct: 25,
+          sell_speed: "Slow", risk_level: "Medium", sourcing_links: [],
+        },
+      ],
+      count: 3, locked: false, locked_fields: [],
+    })
     return
   }
   if (url.startsWith("/api/brands/rankings")) {

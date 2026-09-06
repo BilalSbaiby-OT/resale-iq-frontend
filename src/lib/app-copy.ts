@@ -128,6 +128,24 @@ export interface AppCopy {
     /** Icon-only affordance: this is the whole accessible name. */
     label: string
   }
+
+  kpi: {
+    /**
+     * The qualifier under the departures figure. The API sends
+     * `sublabel: "watched"` and the panel printed it verbatim, so a Spanish
+     * panel read "left the shelf / 7d · watched" — backend English straight
+     * onto the screen, the same class of leak as the raw momentum enum.
+     */
+    watched: string
+  }
+  a11y: {
+    /**
+     * The language control's accessible name. It was the literal "Language" —
+     * so the one control a lost Spanish speaker needs to find announced itself
+     * in the language they could not read.
+     */
+    language: string
+  }
 }
 
 /**
@@ -187,6 +205,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "What it sold for",
     },
     locked: { label: "Locked — included in a plan" },
+    kpi: { watched: "watched departures" },
+    a11y: { language: "Language" },
   },
 
   es: {
@@ -241,6 +261,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "Por cuánto se vendió",
     },
     locked: { label: "Bloqueado — incluido en un plan" },
+    kpi: { watched: "salidas observadas" },
+    a11y: { language: "Idioma" },
   },
 
   fr: {
@@ -295,6 +317,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "Le prix de revente",
     },
     locked: { label: "Verrouillé — inclus dans un forfait" },
+    kpi: { watched: "départs suivis" },
+    a11y: { language: "Langue" },
   },
 
   de: {
@@ -349,6 +373,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "Wofür es verkauft wurde",
     },
     locked: { label: "Gesperrt — in einem Tarif enthalten" },
+    kpi: { watched: "beobachtete Abgänge" },
+    a11y: { language: "Sprache" },
   },
 
   it: {
@@ -403,6 +429,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "A quanto è stato venduto",
     },
     locked: { label: "Bloccato — incluso in un piano" },
+    kpi: { watched: "uscite osservate" },
+    a11y: { language: "Lingua" },
   },
 
   pt: {
@@ -457,6 +485,8 @@ export const appCopy: Record<Locale, AppCopy> = {
       ariaSold: "Por quanto foi vendido",
     },
     locked: { label: "Bloqueado — incluído num plano" },
+    kpi: { watched: "saídas observadas" },
+    a11y: { language: "Idioma" },
   },
 }
 

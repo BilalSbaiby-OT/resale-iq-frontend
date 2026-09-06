@@ -19,16 +19,6 @@ import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
-/** Customer-facing strings must never say "sold". API labels still do. */
-function noSold(s?: string | null): string | undefined {
-  if (s == null || s === "") return undefined
-  if (!/sold/i.test(s)) return s
-  return s
-    .replace(/units sold\s*\/\s*7d/gi, "left the shelf / 7d")
-    .replace(/units sold/gi, "left the shelf")
-    .replace(/\bsold\b/gi, "left the shelf")
-}
-
 /**
  * A withheld value inside a dense card row.
  *
@@ -104,6 +94,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   const [kpis, setKpis] = useState<KPIs | null>(null)
   const [deals, setDeals] = useState<Deal[] | null>(null)
   const [dealsLocked, setDealsLocked] = useState(false)
+  const [strLocked, setStrLocked] = useState(false)
   const [paywalled, setPaywalled] = useState(false)
   const [brands, setBrands] = useState<BrandRanking[] | null>(null)
   const [trending, setTrending] = useState<ModelSignal[] | null>(null)
@@ -133,6 +124,9 @@ export function DashboardContent({ locale }: { locale: Locale }) {
       .then(d => {
         setDeals(d.deals)
         setDealsLocked(d.locked || isFieldLocked(d.locked_fields, "max_buy_price"))
+        // Both spellings: /api/deals gates the rate as `str_pct`, the verdict
+        // payload as `sell_through_rate` (src/lib/locked-fields.ts).
+        setStrLocked(isFieldLocked(d.locked_fields, "str_pct") || isFieldLocked(d.locked_fields, "sell_through_rate"))
       })
       .catch(onFail(setDeals, [] as Deal[]))
     getBrandRankings(8).then(d => setBrands(d.brands)).catch(onFail(setBrands, [] as BrandRanking[]))
@@ -152,14 +146,15 @@ export function DashboardContent({ locale }: { locale: Locale }) {
     return () => clearTimeout(id)
   }, [notice])
 
+  /** A KPI figure in the reader's digit grouping; strings pass through. */
+  const kpiNumber = (v: number | string | null | undefined) =>
+    typeof v === "number" && Number.isFinite(v) ? formatCount(v, locale) : v
+
   const watch = async (b: string, m: string) => {
     try { await addToWatchlist(b, m); setNotice(a.deals.watchlistAdded) }
     catch { setNotice(a.deals.watchlistAlready) }
   }
 
-  // Sell-through is withheld product-wide right now. Rather than render a
-  // column of dashes, drop it until at least one row carries a real value.
-  const strLive = (deals ?? []).some(d => d.str_pct != null)
 
   return (
     <AppShell title={t.title} subtitle={t.subtitle}>
@@ -200,14 +195,24 @@ export function DashboardContent({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* KPI row — the category VALUE is catalogue data ("Sneakers"), which is
-          why it read English on a Spanish panel. `categoryName()` is the same
-          helper the verdict card already uses; the label beside it was
-          translated all along, so the two disagreed on screen. */}
+      {/* KPI row.
+          THE VALUE is API data; THE WORDS ARE OURS. This row used to prefer
+          the API's own `label` and `sublabel` and fall back to the dictionary
+          only when they were missing — so on production, where the payload
+          always carries them, the dictionary never won and the panel printed
+          backend English ("left the shelf / 7d", "watched", "by 7-day sales
+          volume") beside correctly-translated Spanish headings. `noSold()`
+          laundering "sold" out of an English label cannot make it Spanish.
+          The category VALUE is catalogue data ("Sneakers"), translated with
+          the same `categoryName()` the verdict card already uses. */}
       <div className="riq-grid-kpi" style={{ marginBottom: 32 }}>
-        <KpiCard label={noSold(kpis?.avg_profit_margin?.label) ?? t.kpiLeftShelf} loading={!kpis} value={kpis?.avg_profit_margin?.value} unit={noSold(kpis?.avg_profit_margin?.unit) ?? ""} sublabel={noSold(kpis?.avg_profit_margin?.sublabel)} />
-        <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpis?.items_analyzed?.formatted} sublabel={t.kpiAcrossMarkets} />
-        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={categoryName(kpis?.top_category?.value, locale)} sublabel={noSold(kpis?.top_category?.sublabel) ?? t.kpiByVolume} />
+        <KpiCard label={t.kpiLeftShelf} loading={!kpis} value={kpiNumber(kpis?.avg_profit_margin?.value)} sublabel={a.kpi.watched} />
+        {/* `items_analyzed.formatted` is grouped by the BACKEND, which groups
+            in English — so a Spanish panel printed "966,236" where Spanish
+            writes "966.236". The raw `value` is in the same payload, so group
+            it here instead of trusting a pre-rendered string. */}
+        <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpiNumber(kpis?.items_analyzed?.value)} sublabel={t.kpiAcrossMarkets} />
+        <KpiCard label={t.kpiTopCategory} loading={!kpis} value={categoryName(kpis?.top_category?.value, locale)} sublabel={t.kpiByVolume} />
         <KpiCard
           label={t.kpiBuySignals}
           loading={!kpis}
@@ -254,12 +259,19 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                         {/* STR POLICY: the abbreviation is retired. This slot
                             used to print "8.7% STR" here and "Sell-through" on
                             the scanner — one metric, two spellings, one of them
-                            an untranslatable English initialism. */}
-                        <div>{strLive ? a.metric.sellThrough : t.kpiLeftShelf}</div>
+                            an untranslatable English initialism.
+                            THREE STATES, per card, never board-wide: we have a
+                            rate / the server withheld it / nobody measured it.
+                            A board-wide `strLive` flag showed the LOCK on a
+                            card whose rate was merely thin, which claims a plan
+                            boundary that does not exist. See locked-fields.ts. */}
+                        <div>{str != null || strLocked ? a.metric.sellThrough : t.kpiLeftShelf}</div>
                         <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
-                          {strLive
-                            ? (str ?? <LockedInline label={a.locked.label} />)
-                            : (d.sold_7d != null ? formatCount(d.sold_7d, locale) : "—")}
+                          {str != null
+                            ? str
+                            : strLocked
+                              ? <LockedInline label={a.locked.label} />
+                              : (d.sold_7d != null ? formatCount(d.sold_7d, locale) : "—")}
                         </div>
                       </div>
                     </div>

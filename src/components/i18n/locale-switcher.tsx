@@ -3,6 +3,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { Globe } from "lucide-react"
 import { isPathLocale, canonicalPath, ALL_LOCALES } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
+import { appCopy } from "@/lib/app-copy"
 
 /**
  * UX-RULES.md ticket 1: the switcher the site never had. `grep`-able zero
@@ -93,9 +94,12 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
     window.location.assign(pathname)
   }
 
+  const languageLabel = appCopy[locale].a11y.language
+
   return (
     <label
-      aria-label="Language"
+      data-testid="riq-locale-switcher"
+      aria-label={languageLabel}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -111,7 +115,7 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
     >
       <Globe size={14} aria-hidden="true" />
       <select
-        aria-label="Language"
+        aria-label={languageLabel}
         value={locale}
         onChange={(e) => onChange(e.target.value as Locale)}
         style={{

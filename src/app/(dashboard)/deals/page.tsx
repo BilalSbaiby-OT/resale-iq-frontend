@@ -86,6 +86,7 @@ function DealsContent() {
   const [all, setAll] = useState<Deal[]>([])
   const [warmingUp, setWarmingUp] = useState(false)
   const [buyLocked, setBuyLocked] = useState(false)
+  const [strLocked, setStrLocked] = useState(false)
   const [loading, setLoading] = useState(true)
   const [sparklines, setSparklines] = useState<Record<string, PricePoint[]>>({})
   const [q, setQ] = useState(searchParams.get("q") || "")
@@ -111,6 +112,9 @@ function DealsContent() {
       // through to `eur(undefined)` and printed a bare "—" — a plan boundary
       // rendered as missing data. See src/lib/locked-fields.ts.
       setBuyLocked(d.locked || isFieldLocked(d.locked_fields, "max_buy_price"))
+      // Both spellings: /api/deals gates the rate as `str_pct`, the verdict
+      // payload as `sell_through_rate` (src/lib/locked-fields.ts).
+      setStrLocked(isFieldLocked(d.locked_fields, "str_pct") || isFieldLocked(d.locked_fields, "sell_through_rate"))
     }
     catch (e) { console.error(e) }
     finally { setLoading(false) }
@@ -271,9 +275,20 @@ function DealsContent() {
                     whichever evidence exists. */}
                 <div style={{ display: "flex", gap: 24 }}>
                   <Figure label={t.metric.avgAtExit} value={<MedianN median={d.avg_price_eur} n={d.sold_7d} />} />
+                  {/* THREE STATES, never two: we have the rate / the server
+                      withheld it / nobody measured it. Collapsing "withheld"
+                      into "not measured" hides an upgrade path; collapsing
+                      "not measured" into "withheld" claims a plan boundary
+                      that does not exist. See src/lib/locked-fields.ts. */}
                   {str != null
                     ? <Figure label={t.metric.sellThrough} value={str} />
-                    : <Figure label={t.metric.listedNow} value={d.active_listings != null ? formatCount(d.active_listings, locale) : "—"} />}
+                    : strLocked
+                      ? <Figure label={t.metric.sellThrough} value={
+                          <Link href="/account" aria-label={t.locked.label} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 15, color: "var(--color-graphite-muted)", textDecoration: "none" }}>
+                            <Lock size={13} aria-hidden />{t.locked.label}
+                          </Link>
+                        } />
+                      : <Figure label={t.metric.listedNow} value={d.active_listings != null ? formatCount(d.active_listings, locale) : "—"} />}
                 </div>
 
                 {/* Provisional ranking stays provisional. */}
