@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test"
+import { mockPaidCheckout, mockStripePlans } from "./helpers/stripe-mocks"
 
 async function fillFreeRegister(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
@@ -13,39 +14,8 @@ async function fillPaidRegister(page: Page, email: string) {
   await page.locator('input[type="checkbox"]').nth(1).check()
 }
 
-const PAID_CHECKOUT_URL = "https://checkout.stripe.com/c/pay/cs_test_paid_register"
-
-async function mockPaidCheckout(page: Page, checkoutUrl = PAID_CHECKOUT_URL) {
-  await page.route("**/stripe/plans", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        publishable_key: null,
-        stripe_enabled: true,
-        plans: [
-          { id: "operator", price_eur: 19, price_id: "price_operator_test" },
-          { id: "power", price_eur: 49, price_id: "price_power_test" },
-          { id: "free", price_eur: 0 },
-        ],
-      }),
-    })
-  })
-  await page.route("**/stripe/checkout", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({ checkout_url: checkoutUrl }),
-    })
-  })
-  await page.route("https://checkout.stripe.com/**", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "text/html",
-      body: "<html><body>stripe checkout</body></html>",
-    })
-  })
-}
+// mockPaidCheckout / mockStripePlans now live in ./helpers/stripe-mocks so the
+// tier→price_id table has exactly one definition (see that file for why).
 
 test.describe("register leak — free default, TOS gate, signup_completed", () => {
   test("unspecified plan defaults to free and does not show the waiver", async ({ page }) => {
@@ -106,20 +76,7 @@ test.describe("register leak — free default, TOS gate, signup_completed", () =
   })
 
   test("paid checkout failure shows retry and stays off /check-email", async ({ page }) => {
-    await page.route("**/stripe/plans", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          publishable_key: null,
-          stripe_enabled: true,
-          plans: [
-            { id: "operator", price_eur: 19, price_id: "price_operator_test" },
-            { id: "power", price_eur: 49, price_id: "price_power_test" },
-          ],
-        }),
-      })
-    })
+    await mockStripePlans(page)
     await page.route("**/stripe/checkout", async (route) => {
       await route.fulfill({
         status: 403,
