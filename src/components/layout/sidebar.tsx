@@ -8,7 +8,7 @@ import {
   Search, Globe, Radar,
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
-import { planDisplayName } from "@/lib/pricing"
+import { planChip } from "@/lib/entitlement"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { navCopy, type NavCopy } from "@/lib/nav-copy"
@@ -174,7 +174,11 @@ export function Sidebar({ className = "" }: { className?: string }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 10px" }}>
           <span style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{t.sidebar.currentPlan}</span>
           <span style={{ fontSize: 13, fontWeight: 500, color: "var(--color-on-graphite)" }}>
-            {planDisplayName(plan)}
+            {/* Same module the account page reads. planDisplayName() used to be
+                called here and it ignores trial_active entirely, so a trialling
+                user was told "Free" in the sidebar and "Free trial" on /account
+                at the same moment — and neither string was translated. */}
+            {planChip(user, locale)}
           </span>
         </div>
         {plan === "free" && (

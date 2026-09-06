@@ -81,7 +81,6 @@ export type NavCopy = {
     openMenu: string
   }
   shell: {
-    freeTrial: string
     daysLeft: (n: number) => string
     upgradeNow: string
     ownerRequired: string
@@ -141,7 +140,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Open menu",
     },
     shell: {
-      freeTrial: "Free trial",
       daysLeft: (n) => `${n} day${n !== 1 ? "s" : ""} left.`,
       upgradeNow: "Upgrade now",
       ownerRequired: "Owner access required",
@@ -200,7 +198,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Ouvrir le menu",
     },
     shell: {
-      freeTrial: "Essai gratuit",
       daysLeft: (n) => (n === 1 ? "1 jour restant." : `${n} jours restants.`),
       upgradeNow: "Mettre à niveau",
       ownerRequired: "Accès propriétaire requis",
@@ -260,7 +257,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Abrir menú",
     },
     shell: {
-      freeTrial: "Prueba gratuita",
       daysLeft: (n) => (n === 1 ? "Queda 1 día." : `Quedan ${n} días.`),
       upgradeNow: "Mejorar plan",
       ownerRequired: "Acceso de propietario requerido",
@@ -320,7 +316,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Menü öffnen",
     },
     shell: {
-      freeTrial: "Kostenlose Testphase",
       daysLeft: (n) => (n === 1 ? "Noch 1 Tag." : `Noch ${n} Tage.`),
       upgradeNow: "Jetzt upgraden",
       ownerRequired: "Inhaberzugang erforderlich",
@@ -380,7 +375,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Apri menu",
     },
     shell: {
-      freeTrial: "Prova gratuita",
       daysLeft: (n) => (n === 1 ? "1 giorno rimanente." : `${n} giorni rimanenti.`),
       upgradeNow: "Aggiorna ora",
       ownerRequired: "Accesso proprietario richiesto",
@@ -440,7 +434,6 @@ export const navCopy: Record<Locale, NavCopy> = {
       openMenu: "Abrir menu",
     },
     shell: {
-      freeTrial: "Teste gratuito",
       daysLeft: (n) => (n === 1 ? "Falta 1 dia." : `Faltam ${n} dias.`),
       upgradeNow: "Melhorar plano",
       ownerRequired: "Acesso de proprietário necessário",

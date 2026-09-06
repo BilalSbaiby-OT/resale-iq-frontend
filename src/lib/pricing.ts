@@ -89,15 +89,14 @@ export const TIERS: Tier[] = [
   },
 ]
 
-// Resolve the display placeholders to the live Stripe price ids from /stripe/plans.
-/** Internal plan ids stay operator/power. Customers see Starter/Pro. */
-export function planDisplayName(plan: string | undefined | null): string {
-  if (plan === "operator") return "Starter"
-  if (plan === "power") return "Pro"
-  if (plan === "free") return "Free"
-  return plan ? plan : "Free"
-}
+// planDisplayName() lived here and mapped operator/power/free to Starter/Pro/
+// Free. It was deleted on 2026-09-06: it took a plan STRING, so it could not
+// see trial_active and rendered "Free" to a user mid-trial while /account said
+// "Free trial", and it returned English to all six locales. Plan naming is now
+// src/lib/entitlement.ts planChip(user, locale), which takes the whole user.
+// Do not reintroduce a plan-name helper here.
 
+// Resolve the display placeholders to the live Stripe price ids from /stripe/plans.
 export function resolvePriceId(placeholder: string | undefined, plans: { id: string; price_id?: string }[]): string | undefined {
   if (!placeholder) return undefined
   const map: Record<string, string> = { "__OPERATOR__": "operator", "__POWER__": "power" }

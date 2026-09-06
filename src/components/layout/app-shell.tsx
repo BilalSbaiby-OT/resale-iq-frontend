@@ -8,6 +8,7 @@ import { useAuthStore } from "@/lib/auth-store"
 import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
+import { planChip } from "@/lib/entitlement"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -123,7 +124,9 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
           {!gated && isTrial && !isPaid && (
             <div style={{ display: "flex", alignItems: "center", gap: 16, background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
               <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: 1 }}>
-                <span style={{ fontWeight: 600 }}>{t.freeTrial}</span>
+                {/* Third surface naming this same state, so it reads the same
+                    module as the sidebar chip and the account card. */}
+                <span style={{ fontWeight: 600 }}>{planChip(user, locale)}</span>
                 <span style={{ color: "var(--color-graphite-muted)" }}> — {t.daysLeft(user?.trial_days_left ?? 0)} {TRIAL_BANNER_BY_LOCALE[locale]}</span>
               </div>
               <a href="/account" style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>

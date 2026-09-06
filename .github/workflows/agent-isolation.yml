@@ -38,6 +38,13 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      # These existed but ran nowhere, so the guarantees they encode could be
+      # broken by any merge without a red light. src/lib/entitlement.test.ts in
+      # particular is the only thing stopping the trial copy from drifting back
+      # to "unlimited" or back into hardcoded English.
+      - name: Unit tests
+        run: npm run test:unit
+
       - name: Warehouse honesty
         # A check blocks the DEPLOY only if what it catches could reach a
         # customer. Duplicate logic and swallowed errors can. A stale document
