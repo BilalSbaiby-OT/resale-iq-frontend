@@ -6,10 +6,11 @@ import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
-import { Zap, TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
+import { Zap, Lock } from "lucide-react"
 import { fieldState } from "@/lib/locked-fields"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
 import { MedianN } from "@/components/ui/median-n"
+import { MomentumBadge } from "@/components/ui/momentum-badge"
 import { watchedSampleNote } from "@/lib/watched-sample"
 import { trackEvent } from "@/lib/analytics"
 import { useLocale } from "@/components/i18n/locale-provider"
@@ -32,9 +33,20 @@ function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limit
   }
 }
 
-const MOMENTUM_ICON: Record<string, typeof TrendingUp> = {
-  HOT: TrendingUp, RISING: TrendingUp, STABLE: Minus, FADING: TrendingDown, DEAD: TrendingDown,
-}
+/*
+ * The momentum arrows are gone, and so is the raw enum they sat beside.
+ *
+ * `↑ RISING` made the same claim twice — once in English the reader may not
+ * speak, once in a glyph that needs no translation at all — and the backend
+ * measures neither. `momentum_label` is a percentile bucket
+ * (`momentum_label_from_percentile`), invariant to whether sales are climbing
+ * or collapsing: replayed on the live board with every model's weekly sales cut
+ * 99%, all 100 labels came back identical. A trend arrow is the least
+ * defensible way to render a number that cannot see a trend.
+ *
+ * This card now shows the same `MomentumBadge` as /deals, /dashboard, /trends
+ * and /watchlist, so the rank reads identically wherever a customer meets it.
+ */
 
 export default function VerdictPage() {
   return (
@@ -92,7 +104,6 @@ function VerdictInner() {
 
   const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
   const opportunityState = fieldState(result?.opportunity_score, result?.locked_fields, "opportunity_score")
-  const MomIcon = result?.momentum ? (MOMENTUM_ICON[result.momentum] ?? Minus) : Minus
   // TWO REAL COUNTS, NEVER INTERCHANGEABLE — and this card shows both, so each
   // has to be the right one under its own label:
   //   sold_7d — every watched departure in the window (Samba: 43). What the
@@ -275,9 +286,9 @@ function VerdictInner() {
                   {result.momentum && (
                     <div className="flex items-center gap-2">
                       <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.demand}</span>
-                      <span className="flex items-center gap-1 text-[13px] font-semibold text-[#e8ecf4]">
-                        <MomIcon size={14} /> {result.momentum}
-                      </span>
+                      {/* No sold_30d on the verdict payload, so the hover states
+                          the rank without a share it cannot compute. */}
+                      <MomentumBadge momentum={result.momentum} size="md" />
                     </div>
                   )}
                   {result.top_sizes && result.top_sizes.length > 0 && (

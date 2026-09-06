@@ -50,7 +50,7 @@ export default function TrendsPage() {
                   <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#1a2030]">
                     <span className="font-mono text-[11px] text-[#546380] w-4">{i + 1}</span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-[11px] text-[#546380]">{m.brand} {m.momentum_label && <MomentumBadge momentum={m.momentum_label} />}</div>
+                      <div className="text-[11px] text-[#546380]">{m.brand} {m.momentum_label && <MomentumBadge momentum={m.momentum_label} sold7={m.sold_7d} sold30={m.sold_30d} />}</div>
                       <div className="font-semibold text-[13px] truncate">{m.model}</div>
                     </div>
                     <ScoreBar score={m.opportunity_score} />

@@ -38,10 +38,12 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
-      # These existed but ran nowhere, so the guarantees they encode could be
-      # broken by any merge without a red light. src/lib/entitlement.test.ts in
-      # particular is the only thing stopping the trial copy from drifting back
-      # to "unlimited" or back into hardcoded English.
+      # `npm run test:unit` existed but nothing ran it — not this workflow, not
+      # playwright.yml. A test no pipeline executes is a comment, and every
+      # guarantee here is a claim a customer reads off the screen: a real
+      # sell-through rate printing as "0%", a momentum chip asserting a
+      # direction the percentile method cannot compute, and trial copy drifting
+      # back to "unlimited" or back into hardcoded English.
       - name: Unit tests
         run: npm run test:unit
 

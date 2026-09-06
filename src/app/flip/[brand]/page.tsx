@@ -247,7 +247,10 @@ export default async function BrandFlipPage(
           {[
             "Max buy price per model — the number that targets a healthy margin after fees",
             "Sell-through rate — how fast each model actually moves",
-            "Momentum — which models are heating up right now, not last month",
+            // "which models are heating up" was a trend claim. Momentum is a
+            // percentile rank of each model's recent share of its own watched
+            // departures against the rest of the board — see app-copy.ts.
+            "Momentum — where each model ranks against the rest of the board on recent sales share",
             "The exact sizes that sell fastest",
           ].map(t => (
             <li key={t} style={{ display: "flex", gap: 8, color: "#a9b6d0", fontSize: 13.5, lineHeight: 1.5 }}>
