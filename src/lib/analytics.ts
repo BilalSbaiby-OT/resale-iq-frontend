@@ -136,6 +136,15 @@ const REFERRER_CHANNELS: ReadonlyArray<{ hosts: readonly string[]; source: strin
   { hosts: ["linkedin.com", "lnkd.in"], source: "linkedin", medium: "social" },
   { hosts: ["youtube.com", "youtu.be"], source: "youtube", medium: "social" },
   { hosts: ["pinterest.com", "pin.it"], source: "pinterest", medium: "social" },
+  // Mail clients, and they MUST sit above Search. A click out of an email is
+  // not "direct" — but `com.google.android.gm` (the Gmail Android app, 29
+  // referrals) and `mail.google.com` both contain ".google.", so the `google.`
+  // country-TLD rule below matched them first and every click out of our own
+  // lifecycle email was recorded as organic search. That is the worst possible
+  // direction for the error to run in: it reports email we sent as SEO we
+  // earned. Caught 2026-09-06 by the server-side port of this table
+  // (demand-intel/engine/attribution.py), which has the same ordering.
+  { hosts: ["com.google.android.gm", "mail.google.com", "outlook.live.com", "outlook.office.com", "mail.yahoo.com"], source: "email", medium: "email" },
   // Search.
   { hosts: ["google.com", "google."], source: "google", medium: "organic" },
   { hosts: ["bing.com"], source: "bing", medium: "organic" },
@@ -145,9 +154,6 @@ const REFERRER_CHANNELS: ReadonlyArray<{ hosts: readonly string[]; source: strin
   { hosts: ["search.yahoo.com"], source: "yahoo", medium: "organic" },
   { hosts: ["yandex."], source: "yandex", medium: "organic" },
   { hosts: ["baidu.com"], source: "baidu", medium: "organic" },
-  // Mail clients. A click out of an email is not "direct", and
-  // com.google.android.gm (the Gmail Android app) has already sent 29.
-  { hosts: ["com.google.android.gm", "mail.google.com", "outlook.live.com", "outlook.office.com", "mail.yahoo.com"], source: "email", medium: "email" },
 ]
 
 function hostMatches(host: string, pattern: string): boolean {
