@@ -13,6 +13,7 @@
     "check:tracked": "node scripts/check-tracked-figure.mjs",
     "check:dupes": "node scripts/check-duplicate-logic.mjs",
     "check:silent": "node scripts/check-silent-failure.mjs",
+    "check:locale-english": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-locale-english.mjs",
     "check:gates": "node scripts/check-stale-gates.mjs",
     "check:inventory": "node scripts/build-inventory.mjs --check",
     "check:tracked:built": "node scripts/check-tracked-figure.mjs --built",
