@@ -1,4 +1,5 @@
-import { test, expect, type Page } from "@playwright/test"
+import { test, expect } from "@playwright/test"
+import { loginAs } from "./app-session"
 
 /**
  * THE LOGGED-IN APP IN SPANISH, AT PHONE AND DESKTOP WIDTH.
@@ -21,26 +22,13 @@ const VIEWPORTS = [
   { name: "1280", width: 1280, height: 900 },
 ]
 
-async function login(page: Page, locale: string) {
-  await page.context().addCookies([{
-    name: "NEXT_LOCALE", value: locale, domain: "localhost", path: "/",
-  }])
-  await page.goto("/login")
-  await page.locator('input[type="email"]').fill("alice@example.com")
-  await page.locator('input[type="password"]').fill("password12345")
-  await page.locator('button[type="submit"]').click()
-  // Login lands on /verdict, not /dashboard (src/app/(auth)/login/page.tsx).
-  // Wait for the redirect to actually leave /login before navigating on, so a
-  // slow auth round-trip cannot race the goto below.
-  await page.waitForURL((u) => !u.pathname.startsWith("/login"), { timeout: 30_000 })
-}
 
 for (const vp of VIEWPORTS) {
   test.describe(`es @ ${vp.name}`, () => {
     test.use({ viewport: { width: vp.width, height: vp.height } })
 
     test("Deal Scanner renders no English chrome", async ({ page }) => {
-      await login(page, "es")
+      await loginAs(page, "es")
       await page.goto("/deals")
       await expect(page.getByTestId("riq-deal-card").first()).toBeVisible({ timeout: 30_000 })
       const body = await page.locator("main").innerText()
@@ -66,7 +54,7 @@ for (const vp of VIEWPORTS) {
     })
 
     test("Panel renders no English chrome", async ({ page }) => {
-      await login(page, "es")
+      await loginAs(page, "es")
       await page.goto("/dashboard")
       await expect(page.getByText("Zapatillas").first()).toBeVisible({ timeout: 30_000 })
       const body = await page.locator("main").innerText()
@@ -79,7 +67,7 @@ for (const vp of VIEWPORTS) {
     })
 
     test("one language control, not two", async ({ page }) => {
-      await login(page, "es")
+      await loginAs(page, "es")
       await page.goto("/dashboard")
       // The panel used to mount its own switcher on top of the sidebar's.
       await expect(page.getByTestId("riq-locale-switcher")).toHaveCount(1)
@@ -90,7 +78,7 @@ for (const vp of VIEWPORTS) {
     test.use({ viewport: { width: vp.width, height: vp.height } })
 
     test("English is unchanged and the truth rules hold", async ({ page }) => {
-      await login(page, "en")
+      await loginAs(page, "en")
       await page.goto("/deals")
       await expect(page.getByTestId("riq-deal-card").first()).toBeVisible({ timeout: 30_000 })
       const body = await page.locator("main").innerText()
@@ -140,7 +128,7 @@ test("gated buy-below reads as gated, never a bare em-dash", async ({ page }) =>
       }),
     })
   })
-  await login(page, "en")
+  await loginAs(page, "en")
   await page.goto("/deals")
   await expect(page.getByTestId("riq-locked-buy")).toBeVisible({ timeout: 30_000 })
   // It is a route out, not a dead dash.
