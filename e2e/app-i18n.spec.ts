@@ -48,7 +48,16 @@ for (const vp of VIEWPORTS) {
       // And the Spanish that must be there instead.
       expect(body).toContain("Compra por debajo de")
       expect(body).toContain("Media a la salida")
-      expect(body).toContain("Subiendo")
+      // "Subiendo" USED TO BE ASSERTED HERE and the assertion is gone, not
+      // relaxed. The momentum chip states a percentile RANK now, because the
+      // label is computed by `momentum_label_from_percentile` and is invariant
+      // to whether sales are climbing or collapsing — see momentum-badge.tsx.
+      // "Subiendo" is on the BANNED list in momentum-vocabulary.spec.ts, which
+      // asserts the rank vocabulary on this exact page in this exact locale and
+      // is in the required suite. So this line was demanding the one word the
+      // company had just finished removing: a test that could only go green by
+      // reintroducing the defect. Deleted rather than rewritten, because the
+      // coverage already exists somewhere better.
       expect(body).toContain("Zapatillas")   // category, not "Sneakers"
       expect(body).toContain("Buscar anuncios ahora")
     })
@@ -84,7 +93,7 @@ for (const vp of VIEWPORTS) {
       const body = await page.locator("main").innerText()
 
       expect(body).toContain("Buy below")
-      expect(body).toContain("Rising")
+      // "Rising" deleted for the same reason as "Subiendo" above — see there.
 
       // PART 3, and the two ends of the rule in src/lib/str-pct.ts.
       // Adidas Samba's real production rate is 43/22,607 = 0.1898%. It is

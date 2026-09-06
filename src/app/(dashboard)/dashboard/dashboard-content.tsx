@@ -5,7 +5,6 @@ import { ArrowRight, Lock } from "lucide-react"
 import { AppShell } from "@/components/layout/app-shell"
 import { KpiCard } from "@/components/ui/kpi-card"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
-import { SizePills } from "@/components/ui/size-pills"
 import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { OutcomePrompt } from "@/components/ui/outcome-prompt"
@@ -54,7 +53,11 @@ function LockedInline({ label }: { label: string }) {
  * made a dashboard of five sections read as thirty compartments.
  */
 function Section({ title, sub, action, children }: {
-  title: string; sub?: string; action?: { href: string; label: string }; children: React.ReactNode
+  title: string
+  sub?: string
+  /** `primary` promotes the link to THE filled control of the page. At most one. */
+  action?: { href: string; label: string; primary?: boolean }
+  children: React.ReactNode
 }) {
   return (
     <section style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -66,7 +69,10 @@ function Section({ title, sub, action, children }: {
         {action && (
           <Link
             href={action.href}
-            style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 15, color: "var(--color-on-graphite)", textDecoration: "none", whiteSpace: "nowrap" }}
+            data-testid={action.primary ? "riq-primary-path" : undefined}
+            style={action.primary
+              ? { display: "inline-flex", alignItems: "center", gap: 6, background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", alignSelf: "center" }
+              : { display: "inline-flex", alignItems: "center", gap: 4, fontSize: 15, color: "var(--color-on-graphite)", textDecoration: "none", whiteSpace: "nowrap" }}
           >
             {action.label} <ArrowRight size={14} />
           </Link>
@@ -150,6 +156,14 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   const kpiNumber = (v: number | string | null | undefined) =>
     typeof v === "number" && Number.isFinite(v) ? formatCount(v, locale) : v
 
+  // The buy-signal COUNT and the leading model's NAME are two independent
+  // facts from two independent columns. Read separately so one being absent
+  // can never blank the other.
+  const signalCount = typeof kpis?.market_opportunity?.value === "number" && Number.isFinite(kpis.market_opportunity.value)
+    ? kpis.market_opportunity.value
+    : null
+  const topSignal = kpis?.market_opportunity?.top_signal?.trim() || null
+
   const watch = async (b: string, m: string) => {
     try { await addToWatchlist(b, m); setNotice(a.deals.watchlistAdded) }
     catch { setNotice(a.deals.watchlistAlready) }
@@ -211,16 +225,40 @@ export function DashboardContent({ locale }: { locale: Locale }) {
       <div className="riq-grid-kpi" style={{ marginBottom: 32 }}>
         <KpiCard label={t.kpiListingsTracked} loading={!kpis} value={kpiNumber(kpis?.items_analyzed?.value)} sublabel={t.kpiAcrossMarkets} />
         <KpiCard label={t.kpiTopCategory} loading={!kpis} value={categoryName(kpis?.top_category?.value, locale)} sublabel={t.kpiByVolume} />
+        {/* THREE FACTS, THREE STATES — see i18n.ts `kpiNoSignalsBody`.
+            This card used to collapse all three into a bare "—" plus "None
+            yet", keyed off `top_signal` alone. On production at 14:38Z on
+            2026-09-06 /api/kpis answered {"value":2,"top_signal":" "}: two
+            models HAD cleared the threshold and the panel showed a dash,
+            because the leading model's NAME was missing — a different fact
+            about a different field. The count is a measurement and is now
+            always printed; only the sublabel varies. */}
         <KpiCard
           label={t.kpiBuySignals}
           loading={!kpis}
-          value={kpis?.market_opportunity?.top_signal?.trim() ? kpis.market_opportunity.value : "—"}
-          sublabel={kpis?.market_opportunity?.top_signal?.trim() ? t.kpiTopSignal(kpis.market_opportunity.top_signal.trim()) : t.kpiNoneYet}
+          value={signalCount != null ? formatCount(signalCount, locale) : t.kpiNotMeasured}
+          sublabel={
+            signalCount == null || signalCount === 0
+              ? t.kpiNoSignalsBody
+              : topSignal
+                ? t.kpiTopSignal(topSignal)
+                : t.kpiTopUnavailable
+          }
         />
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <Section title={t.secOpportunitiesTitle} sub={t.secOpportunitiesSub} action={{ href: "/deals", label: t.secOpportunitiesAction }}>
+        {/* THE ONE PRIMARY PATH.
+            An outside reviewer walked this board logged in and reported three
+            solid accent "Analyze" buttons stacked down the page, each on its
+            own card. Three equal primary actions is no primary action: the eye
+            has nothing to land on and every card argues for itself. The page
+            now has exactly ONE filled control — Deal Scanner, the route that
+            actually leads somewhere with filters and the full board — and the
+            per-card action below is a hairline ghost. Compare /deals, whose
+            cards have said "ONE filled control per card" since they were
+            written; the panel simply never applied its own rule. */}
+        <Section title={t.secOpportunitiesTitle} sub={t.secOpportunitiesSub} action={{ href: "/deals", label: t.secOpportunitiesAction, primary: true }}>
           {!deals ? <SkeletonRows rows={4} height={72} /> : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
               {deals.map((d, i) => {
@@ -235,34 +273,56 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                       </div>
                     </div>
 
-                    {/* Figure 1 of at most 3. */}
+                    {/* METRIC 1 OF 2: buy-below.
+                        The only figure on the card the customer acts on — it
+                        is the whole decision "do I pay this or walk away", and
+                        it is the number the paywall withholds. */}
                     <div>
                       <div style={{ fontSize: 13, color: "var(--color-graphite-muted)" }}>{buyBelow}</div>
                       <div style={{ fontSize: 30, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.022em", lineHeight: 1.1, marginTop: 2 }}>
+                        {/* THREE STATES, and the third one is new. `eur(null)`
+                            returns "—", so a row that arrives without a
+                            buy-below printed a bare em-dash at 30px where the
+                            headline number goes — the same "working product
+                            looks broken" failure as the Buy signals card, on
+                            the same wall, and visible on the local board at
+                            16:47 today. Withheld is not unknown and unknown is
+                            not zero: the lock says "this is in a plan", the
+                            sentence says "we cannot price this one yet, and
+                            here is why". /api/deals filters unpriced rows
+                            server-side (`publishable_opportunity`), so this
+                            should be unreachable in production — which is
+                            exactly why it must not be a dash if that filter
+                            ever changes. */}
                         {dealsLocked
                           ? <Link href="/account" aria-label={a.locked.label} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 17, fontWeight: 500, color: "var(--color-graphite-muted)", textDecoration: "none" }}><Lock size={15} aria-hidden />{a.locked.label}</Link>
-                          : eur(d.max_buy_price)}
+                          : d.max_buy_price == null
+                            ? <span style={{ display: "inline-block", fontSize: 15, fontWeight: 400, color: "var(--color-graphite-muted)", lineHeight: 1.4, letterSpacing: 0 }}>{t.buyBelowUnpriced}</span>
+                            : eur(d.max_buy_price)}
                       </div>
                     </div>
 
-                    {/* Figures 2 and 3. */}
-                    <div style={{ display: "flex", gap: 24, fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
+                    {/* METRIC 2 OF 2: does it actually move.
+                        TWO METRICS, NOT FOUR. This card carried buy-below, avg
+                        at exit, sell-through AND target net, and the reviewer
+                        counted them before reading any of them. The two that
+                        survive are the two that decide the purchase: what you
+                        may pay, and whether the thing sells. The two that went
+                        are both restatements of those — avg-at-exit is the
+                        INPUT buy-below is computed from, and target net is
+                        arithmetic on the pair of them, so a card showing all
+                        four shows the same trade three times. Both are still
+                        one click away on /verdict (the Analyze destination)
+                        and on the full /deals board.
+                        THREE STATES, per card, never board-wide: we have a
+                        rate / the server withheld it / nobody measured it. A
+                        board-wide flag showed the LOCK on a card whose rate was
+                        merely thin, claiming a plan boundary that does not
+                        exist. See locked-fields.ts. The abbreviation "STR" is
+                        retired — it was an untranslatable English initialism
+                        beside a fully translated label. */}
+                    <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
                       <div style={{ minWidth: 0 }}>
-                        <div>{t.avgAtExit}</div>
-                        <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
-                          {dealsLocked ? <LockedInline label={a.locked.label} /> : <MedianN median={d.avg_price_eur} n={d.comparable_n} nKind="comparable" />}
-                        </div>
-                      </div>
-                      <div style={{ minWidth: 0 }}>
-                        {/* STR POLICY: the abbreviation is retired. This slot
-                            used to print "8.7% STR" here and "Sell-through" on
-                            the scanner — one metric, two spellings, one of them
-                            an untranslatable English initialism.
-                            THREE STATES, per card, never board-wide: we have a
-                            rate / the server withheld it / nobody measured it.
-                            A board-wide `strLive` flag showed the LOCK on a
-                            card whose rate was merely thin, which claims a plan
-                            boundary that does not exist. See locked-fields.ts. */}
                         <div>{str != null || strLocked ? a.metric.sellThrough : t.kpiLeftShelf}</div>
                         <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
                           {str != null
@@ -272,26 +332,27 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                               : (d.sold_7d != null ? formatCount(d.sold_7d, locale) : "—")}
                         </div>
                       </div>
-                    </div>
-
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", fontSize: 13, color: "var(--color-graphite-muted)" }}>
+                      {/* Not a third metric: an ordinal rank chip, one word and
+                          a dot, and the only thing on the card that lets a grid
+                          be scanned rather than read. */}
                       <MomentumBadge momentum={d.momentum_label} sold7={d.sold_7d} sold30={d.sold_30d} />
-                      {!dealsLocked && d.est_profit_eur != null && (
-                        <span title={a.tip.targetNet} style={{ fontVariantNumeric: "tabular-nums" }}>{t.targetNet(eur(d.est_profit_eur))}</span>
-                      )}
                     </div>
 
-                    <SizePills sizes={d.top_sizes ?? []} />
-
-                    {/* One filled control per card; Watch is text. */}
+                    {/* NO FILLED CONTROL HERE. The page's one primary path is
+                        the Deal Scanner button in the section header above;
+                        Analyze is a ghost, still obviously a button, and Watch
+                        stays quieter still. Repeating an accent-filled Analyze
+                        on every card is what made three cards read as three
+                        competing primaries. */}
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: "auto" }}>
                       <Link
                         href={`/verdict?q=${encodeURIComponent(q)}`}
-                        style={{ flex: 1, textAlign: "center", background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
+                        data-testid="riq-card-analyze"
+                        style={{ flex: 1, textAlign: "center", background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 500, textDecoration: "none" }}
                       >{t.analyze}</Link>
                       <button
                         onClick={() => watch(d.brand, d.model)} title={a.deals.watchlistAdd}
-                        style={{ background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12, color: "var(--color-graphite-muted)", fontSize: 15, padding: "10px 14px", cursor: "pointer" }}
+                        style={{ background: "transparent", border: "none", borderRadius: 12, color: "var(--color-graphite-muted)", fontSize: 15, padding: "10px 8px", cursor: "pointer" }}
                       >{t.watchAction}</button>
                     </div>
                   </div>

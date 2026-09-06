@@ -516,6 +516,23 @@ export const copy = {
       kpiActionableNow: "actionable now",
       kpiTopSignal: (s: string) => `Top: ${s}`,
       kpiNoneYet: "None yet",
+      // THE EMPTY STATE THAT USED TO BE A BARE EM-DASH.
+      //
+      // The card printed "—" whenever `top_signal` was blank, and "None yet"
+      // under it. Both were false on 2026-09-06: production
+      // /api/kpis returned {"value":2,"top_signal":" "} — two models really had
+      // cleared the buy threshold (Balenciaga Track 57.2, Balenciaga Runner
+      // 53.0, both non-junk, verified against model_signals on the production
+      // DB). The COUNT was correct and the frontend threw it away because a
+      // DIFFERENT field — the leading model's name — was empty.
+      //
+      // So the three states are now separate, because they are three different
+      // facts: we have a count and a name / we have a count and no name / the
+      // count itself is genuinely zero. A dash said none of them.
+      kpiNoSignalsBody: "Nothing cleared the buy threshold in this refresh. A model appears here once its resale median sits far enough above what it costs to buy now.",
+      kpiTopUnavailable: "Counted, but no leading model could be named in this refresh.",
+      kpiNotMeasured: "Not measured",
+      buyBelowUnpriced: "Not priced yet — too few comparable departures",
       secOpportunitiesTitle: "Top opportunities",
       secOpportunitiesSub: "Pay no more than buy-below. Analyze before you spend.",
       secOpportunitiesAction: "Deal scanner",
@@ -864,6 +881,10 @@ export const copy = {
       kpiActionableNow: "exploitables maintenant",
       kpiTopSignal: (s: string) => `Top : ${s}`,
       kpiNoneYet: "Aucun pour l'instant",
+      kpiNoSignalsBody: "Rien n'a franchi le seuil d'achat lors de cette actualisation. Un modèle apparaît ici dès que sa médiane de revente dépasse suffisamment son prix d'achat actuel.",
+      kpiTopUnavailable: "Comptés, mais aucun modèle en tête n'a pu être nommé lors de cette actualisation.",
+      kpiNotMeasured: "Non mesuré",
+      buyBelowUnpriced: "Pas encore de prix — trop peu de sorties comparables",
       secOpportunitiesTitle: "Meilleures opportunités",
       secOpportunitiesSub: "Ne payez pas plus que le prix d'achat max. Analysez avant de dépenser.",
       secOpportunitiesAction: "Scanner de bons plans",
@@ -1207,6 +1228,10 @@ export const copy = {
       kpiActionableNow: "aprovechables ahora",
       kpiTopSignal: (s: string) => `Top: ${s}`,
       kpiNoneYet: "Ninguna de momento",
+      kpiNoSignalsBody: "Nada superó el umbral de compra en esta actualización. Un modelo aparece aquí cuando su mediana de reventa queda lo bastante por encima de lo que cuesta comprarlo ahora.",
+      kpiTopUnavailable: "Contadas, pero en esta actualización no se pudo nombrar el modelo líder.",
+      kpiNotMeasured: "Sin medir",
+      buyBelowUnpriced: "Aún sin precio — muy pocas salidas comparables",
       secOpportunitiesTitle: "Mejores oportunidades",
       secOpportunitiesSub: "No pague más del precio máximo de compra. Analice antes de gastar.",
       secOpportunitiesAction: "Escáner de chollos",
@@ -1552,6 +1577,10 @@ export const copy = {
       kpiActionableNow: "sofort nutzbar",
       kpiTopSignal: (s: string) => `Top: ${s}`,
       kpiNoneYet: "Noch keine",
+      kpiNoSignalsBody: "In dieser Aktualisierung hat nichts die Kaufschwelle überschritten. Ein Modell erscheint hier, sobald sein Wiederverkaufs-Median weit genug über dem aktuellen Einkaufspreis liegt.",
+      kpiTopUnavailable: "Gezählt, aber in dieser Aktualisierung ließ sich kein führendes Modell benennen.",
+      kpiNotMeasured: "Nicht gemessen",
+      buyBelowUnpriced: "Noch kein Preis — zu wenige vergleichbare Abgänge",
       secOpportunitiesTitle: "Top-Gelegenheiten",
       secOpportunitiesSub: "Zahlen Sie nicht mehr als die Kaufobergrenze. Prüfen Sie, bevor Sie ausgeben.",
       secOpportunitiesAction: "Deal-Scanner",
@@ -1895,6 +1924,10 @@ export const copy = {
       kpiActionableNow: "sfruttabili ora",
       kpiTopSignal: (s: string) => `Top: ${s}`,
       kpiNoneYet: "Nessuno per ora",
+      kpiNoSignalsBody: "Niente ha superato la soglia d'acquisto in questo aggiornamento. Un modello compare qui quando la sua mediana di rivendita supera abbastanza il prezzo d'acquisto attuale.",
+      kpiTopUnavailable: "Contati, ma in questo aggiornamento non è stato possibile indicare il modello di testa.",
+      kpiNotMeasured: "Non misurato",
+      buyBelowUnpriced: "Ancora senza prezzo — troppo poche uscite comparabili",
       secOpportunitiesTitle: "Migliori opportunità",
       secOpportunitiesSub: "Non pagare più del prezzo massimo di acquisto. Analizza prima di spendere.",
       secOpportunitiesAction: "Scanner offerte",
@@ -2238,6 +2271,10 @@ export const copy = {
       kpiActionableNow: "acionáveis agora",
       kpiTopSignal: (s: string) => `Top: ${s}`,
       kpiNoneYet: "Nenhuma ainda",
+      kpiNoSignalsBody: "Nada ultrapassou o limiar de compra nesta atualização. Um modelo aparece aqui quando a sua mediana de revenda fica suficientemente acima do que custa comprá-lo agora.",
+      kpiTopUnavailable: "Contados, mas nesta atualização não foi possível nomear o modelo líder.",
+      kpiNotMeasured: "Sem medição",
+      buyBelowUnpriced: "Ainda sem preço — poucas saídas comparáveis",
       secOpportunitiesTitle: "Melhores oportunidades",
       secOpportunitiesSub: "Não pague mais do que o preço máximo de compra. Analise antes de gastar.",
       secOpportunitiesAction: "Scanner de ofertas",

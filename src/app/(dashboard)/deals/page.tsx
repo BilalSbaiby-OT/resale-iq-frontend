@@ -19,7 +19,7 @@ import { formatStrPct } from "@/lib/str-pct"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { appCopy } from "@/lib/app-copy"
-import { categoryName, formatCount } from "@/lib/verdict-words"
+import { categoryName, formatCount, localizeConfidenceNote } from "@/lib/verdict-words"
 import type { Deal } from "@/types"
 import { Star, Lock } from "lucide-react"
 
@@ -236,6 +236,7 @@ function DealsContent() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
           {filtered.map((d, i) => {
             const str = formatStrPct(d.str_pct)
+            const note = localizeConfidenceNote(d.confidence_note, locale)
             return (
               <div
                 key={i}
@@ -296,9 +297,24 @@ function DealsContent() {
                       : <Figure label={t.metric.listedNow} value={d.active_listings != null ? formatCount(d.active_listings, locale) : "—"} />}
                 </div>
 
-                {/* Provisional ranking stays provisional. */}
-                {d.confidence_note ? (
-                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{d.confidence_note}</div>
+                {/* Provisional ranking stays provisional — IN THE READER'S
+                    LANGUAGE. This rendered `{d.confidence_note}` raw: a
+                    backend English sentence dropped into a Spanish card with
+                    nothing between the payload and the JSX, which is the exact
+                    defect `localizeConfidenceNote` exists to close and which
+                    the free checker has routed through it since #56.
+                    KNOWN GAP, and it is in the helper, not here: production
+                    /api/deals currently sends "Real data, thinner sample. 19
+                    sold comparables is below our HIGH bar of 30 — the price is
+                    honest, just less precise." (verified 14:38Z 2026-09-06, 4
+                    of 8 board rows). None of the helper's five patterns match
+                    that shape, so it falls through to the documented
+                    pass-the-original branch and this note is still English in
+                    /es until a sixth pattern is added to verdict-words.ts —
+                    owned by another lane, reported rather than forked here. A
+                    second copy of the matcher would be worse than the leak. */}
+                {note ? (
+                  <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{note}</div>
                 ) : d.str_pct == null && (
                   <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", lineHeight: 1.45 }}>{t.deals.thinSample}</div>
                 )}
