@@ -37,7 +37,10 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByText(/Buy-below/i)).toBeVisible()
   await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
   await expect(hero.getByText("562", { exact: true })).toBeVisible()
-  await expect(hero.getByText("Left shelf (watched)", { exact: true })).toBeVisible()
+  // The label carries the window because the number is sold_7d and nothing on
+  // the fold said so — "497" alone is unreadable to a first-time visitor.
+  // Same exact-match strictness, new string.
+  await expect(hero.getByText("Left shelf / 7d", { exact: true })).toBeVisible()
   await expect(hero.getByText("Still listed", { exact: true })).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
