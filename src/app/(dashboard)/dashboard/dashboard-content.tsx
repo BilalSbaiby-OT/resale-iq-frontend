@@ -312,6 +312,12 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                   <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", width: 20, fontVariantNumeric: "tabular-nums" }}>{b.rank}</span>
                   <span style={{ flex: 1, fontSize: 15, color: "var(--color-on-graphite)" }}>{b.brand}</span>
                   <span style={{ fontSize: 15, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
+                    {/* n={null}, deliberately. This row was passing b.sold_7d
+                        — a departure count sitting in the sample slot beside a
+                        price, the same collision #54 fixed on /verdict. A brand
+                        aggregates many models, so it has no single comp set to
+                        report; the honest render is the mean with no n at all,
+                        not a plausible-looking wrong one. See types/index.ts. */}
                     <MedianN median={b.avg_price_eur} n={null} />
                   </span>
                 </Link>
