@@ -94,15 +94,6 @@ export default async function BlogIndex() {
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
           <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
-          {/* Same reasoning as the article template: /pricing had no inbound
-              link anywhere on the public site, so no external visitor has ever
-              loaded it. Primary CTA unchanged so the running signup experiment
-              stays readable. */}
-          <div style={{ marginTop: 14 }}>
-            <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans and pricing — free tier included
-            </Link>
-          </div>
         </div>
       </div>
     </div>
