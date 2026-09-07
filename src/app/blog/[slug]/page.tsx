@@ -196,23 +196,6 @@ export default async function BlogPostPage(
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
-          {/* Secondary and deliberately muted. The primary CTA above is
-              byte-identical to what shipped before, so the /register inflow
-              that experiment x-f753ead9cc measures is not disturbed.
-              Measured 2026-09-07 on production: 55 distinct non-bot visitors
-              read a blog post in 30d — the site's largest genuine audience —
-              and the rendered page carried exactly one conversion link
-              (/register) and ZERO links to /pricing. Of the 69 distinct
-              search/LLM-referred visitors in the same window, not one ever
-              fired pricing_view, checkout_intent_guest or checkout_started.
-              This is the first route from that audience to the price.
-              No new instrumentation is needed or added: /pricing fires
-              `pricing_view` through PageviewTracker's PRICING_PATH, and
-              pressing a paid tier while logged out fires
-              `checkout_intent_guest` in pricing-section.tsx. */}
-          <div style={{ marginTop: 12 }}>
-            <Link href="/pricing" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "none" }}>See plans and prices →</Link>
-          </div>
         </div>
 
         {/* Internal links help SEO + crawl depth */}
