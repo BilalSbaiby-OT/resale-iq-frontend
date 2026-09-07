@@ -189,13 +189,41 @@ export default async function BlogPostPage(
           ))}
         </section>
 
-        {/* CTA */}
+        {/* CTA — plus, below it, the only link on this site to the offer.
+
+            OBSERVATION (production `pageviews`, is_bot=0, 30d to 2026-09-07):
+            99 visitors arrived from an external referrer (Google, ChatGPT,
+            Reddit, Instagram, Perplexity, Bing...). 24 of them read a /blog
+            page. ZERO of them ever loaded /pricing. That zero is a property of
+            this site's link graph, not of reader interest: on 2026-09-07 a
+            fetch of /, /blog, /blog/*, /tools, /deals, /calculator and
+            /methodology found href="/pricing" on none of them. /pricing is a
+            live, indexed route that nothing links to. `checkout_intent_guest`
+            -- the event that exists precisely to catch a logged-out stranger
+            pressing a paid tier -- has fired ONCE in the whole of recorded
+            history (2026-08-07 onward).
+
+            The primary CTA below is deliberately BYTE-UNCHANGED (same label,
+            same /register target, same emphasis): experiments x-f753ead9cc
+            (signup completion) and x-50338c7326 (activation) are both running
+            on that path and have to stay interpretable. This adds a second,
+            lower-emphasis door for the reader who wants to know what it costs,
+            and takes nothing away from the first one.
+
+            ?src=blog is not decoration: /api/track persists the query string
+            (pageview-tracker sends `pathname + search`), so arrivals here are
+            attributable to this link rather than guessed at. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <div style={{ marginTop: 14 }}>
+            <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+              See plans and pricing — free tier included
+            </Link>
+          </div>
         </div>
 
         {/* Internal links help SEO + crawl depth */}
