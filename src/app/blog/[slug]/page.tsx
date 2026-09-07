@@ -196,21 +196,6 @@ export default async function BlogPostPage(
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
-
-          {/* The two exits this article never had.
-              OBSERVATION (production DB, read-only, non-bot, 30d to 2026-09-08):
-              68 distinct people read a /blog page. Two of them ever loaded a
-              pricing page and none ever started checkout. The live article HTML
-              contained the string "pricing" zero times, and its only exit was
-              the /register wall above — so "content readers do not buy" was
-              never a measured fact, only a question nobody asked them.
-              Additive on purpose: the primary CTA is untouched, so the
-              /register funnel currently under measurement keeps its input. */}
-          <div style={{ marginTop: 14, fontSize: 13 }}>
-            <Link href="/tools/vinted-price-checker" style={{ color: "#8fa3c4", textDecoration: "underline" }}>Check one item free — no account</Link>
-            <span style={{ color: "#3f4a63" }}> · </span>
-            <Link href="/pricing" style={{ color: "#8fa3c4", textDecoration: "underline" }}>See plans and prices</Link>
-          </div>
         </div>
 
         {/* Internal links help SEO + crawl depth */}
