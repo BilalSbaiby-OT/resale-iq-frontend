@@ -112,6 +112,40 @@ const nextConfig: NextConfig = {
         destination: "/check?utm_source=linkedin&utm_medium=bio&utm_campaign=growth-0-500&utm_content=li-bio",
         permanent: false,
       },
+
+      // GSC-INDEXED URLS NOW 404ING, measured live 2026-09-08 against a fresh
+      // GSC pull (data/gsc/2026-09-08-35d-*.json, 35d to 2026-09-05) in
+      // ~/work/resale-iq-seo: 7 URLs that Google has indexed and is actively
+      // showing in search results (89 impressions / 935 site-wide = 9.5% of
+      // all organic search impressions this period) currently return a live
+      // HTTP 404 (curl-verified this session, not inferred). Two are blog
+      // posts removed from src/data/blog-posts*.ts with no replacement link;
+      // one of them (how-to-spot-fake-items-vinted) ranks position 9.9 with
+      // 74 impressions/35d — the edge of page one — and sends every searcher
+      // who clicks it to a dead page. The other five are /flip/{brand} pages
+      // for brands no longer in the live catalog (bershka, calvin-klein,
+      // mango, pull-bear) — src/lib/seo-categories.ts confirms they are not
+      // in the current brand list. Redirecting preserves whatever ranking
+      // signal these URLs already earned and gives anyone who clicks through
+      // a real page instead of a dead end, rather than leaving indexed URLs
+      // 404ing (which both loses current searchers and erodes Google's trust
+      // in the rest of the indexed estate over time).
+      {
+        source: "/blog/how-to-spot-fake-items-vinted",
+        destination: "/manual/condition-and-authenticity",
+        permanent: true,
+      },
+      {
+        source: "/blog/days-to-sell-vs-profit-margin",
+        destination: "/manual/the-cost-of-time",
+        permanent: true,
+      },
+      { source: "/flip/bershka", destination: "/flip", permanent: true },
+      { source: "/flip/calvin-klein", destination: "/flip", permanent: true },
+      { source: "/flip/calvin-klein/jeans", destination: "/flip", permanent: true },
+      { source: "/flip/calvin-klein/shirts", destination: "/flip", permanent: true },
+      { source: "/flip/mango", destination: "/flip", permanent: true },
+      { source: "/flip/pull-bear", destination: "/flip", permanent: true },
     ]
   },
   async headers() {
