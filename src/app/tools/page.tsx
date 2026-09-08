@@ -64,17 +64,6 @@ export default async function ToolsIndex() {
             </Link>
           ))}
         </nav>
-
-        {/* This hub had no route to the paid product at all: neither /pricing
-            nor /register appeared anywhere on it, while all five tool pages it
-            links to carry a plans link (493337e). One quiet line, kept below
-            the free checker so it does not compete with "Check it free". */}
-        <p style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid var(--color-border-ui)", fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-          The free tools answer one item at a time.{" "}
-          <Link href="/pricing?src=tools_index" style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
-            See the plans →
-          </Link>
-        </p>
         </main>
       </div>
     </div>
