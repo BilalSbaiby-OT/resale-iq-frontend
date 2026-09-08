@@ -17,8 +17,22 @@ import { getMarketNumbers } from "@/lib/market-numbers"
 // from an old page.
 //
 // Generated from the same modules the pages use, so it cannot drift out of sync.
-export const revalidate = 900
-export const dynamic = "force-static"
+//
+// RENDERING MODE — WHY force-dynamic AND NOT force-static.
+// Measured on production 2026-09-08: this route served
+// "- Coverage: — unique Vinted listings ..." and fell through to
+// "Tracked brands: 20", while https://resaleiq.dev/ rendered "5,190,000+"
+// from the SAME helpers at the same moment. The only difference between the
+// two routes was this export. `force-static` pre-renders the body during
+// `next build`, which runs inside the Docker image build where the warehouse
+// is unreachable, so `listingsTrackedLabel()` took its documented "—"
+// fallback and `weekly` came back 0 — and that build-time answer was then
+// served to every crawler for the life of the image. /data, which renders the
+// same warehouse numbers correctly, uses `force-dynamic`; this route mirrors
+// it. `revalidate` is dropped because it is meaningless under force-dynamic.
+// The response below still carries s-maxage=3600, so an answer engine
+// re-crawling this file does not reach the warehouse more than hourly.
+export const dynamic = "force-dynamic"
 
 const BASE = "https://resaleiq.dev"
 
