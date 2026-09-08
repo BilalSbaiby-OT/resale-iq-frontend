@@ -147,12 +147,36 @@ export default async function IntentPage(
           <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
             Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
+          {/* t.upsellCta reads "See plans" / "Ver planes" / "Voir les offres" /
+              "Pläne ansehen" / "Vedi i piani" in the five locales, and this href
+              was "/register": the control that says "see the plans" produced a
+              signup form and no price. Measured 2026-09-08 on production: of 96
+              non-bot visitors in 30d carrying a search- or answer-engine signal
+              (referrer_host or utm_source), ZERO have ever loaded any /pricing
+              path, and /pricing has 3 distinct non-bot visitors in the product's
+              entire lifetime. This page's own JSON-LD already publishes Offer
+              price 19/49 EUR to crawlers on the same render.
+              src=tool keeps this attributable separately from the /blog
+              (src=blog) and home (src=nav) placements already under test, so
+              neither of those readouts is contaminated. */}
           <Link
-            href="/register"
+            href="/pricing?src=tool"
             style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
           >
             {t.upsellCta} →
           </Link>
+          {/* The free-account route this section used to be the only path to is
+              kept, not replaced. It produced 3 of the 9 completed registrations
+              in 30d and feeds the running activation/registration experiments;
+              removing it would buy a pricing view at the cost of a signup. */}
+          <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.7, marginTop: 12 }}>
+            <Link
+              href="/register?plan=free"
+              style={{ color: "var(--color-text-secondary)", textDecoration: "underline", textUnderlineOffset: 3 }}
+            >
+              Or create a free account
+            </Link>
+          </p>
         </section>
 
         <nav style={{ marginTop: 56 }}>
