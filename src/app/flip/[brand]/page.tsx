@@ -273,7 +273,7 @@ export default async function BrandFlipPage(
           or check one free
         </Link>
         <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 10 }}>
-          From €19/month. Cancel anytime.
+          <Link href="/pricing?src=flip" style={{ color: "#5b6b8c", textDecoration: "underline" }}>From €19/month. Cancel anytime.</Link>
         </p>
       </div>
 

@@ -192,6 +192,7 @@ export default async function BrandCategoryPage(
             <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ How these numbers are calculated</Link>
             <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Analyze an item</Link>
             <Link href="/data" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Full Vinted market data</Link>
+            <Link href="/pricing?src=flip" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ See plans and pricing</Link>
           </div>
         </div>
       </div>

@@ -206,7 +206,11 @@ export default async function FlipHubPage() {
           <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>
             the methodology
           </Link>{" "}
-          explains exactly how every number here is calculated.
+          explains exactly how every number here is calculated. See{" "}
+          <Link href="/pricing?src=flip" style={{ color: "#22c55e", textDecoration: "none" }}>
+            plans and pricing
+          </Link>{" "}
+          for the full per-model verdicts.
         </p>
       </main>
     </div>
