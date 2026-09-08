@@ -17,9 +17,32 @@ const PATH_EVENTS: Record<string, FunnelEvent> = {
  *  visit, from an ad or a shared link, with nothing to preserve. */
 const PRICING_PATH = /^\/(?:[a-z]{2}\/)?pricing\/?$/
 
+/**
+ * Suffix marking the SECOND way a person can meet the price: not by visiting
+ * the /pricing route, but by scrolling the embedded strip on the page they
+ * already landed on. Measured 2026-09-08 against production: `pricing_view`
+ * had 3 distinct non-bot visitors for the product's entire lifetime, all on
+ * the route — while `/`, which server-renders the whole pricing section
+ * (id="pricing", EUR 19 / EUR 49, live checkout buttons), had 157 distinct
+ * non-bot visitors in 30 days. The gap is not visitor behaviour; it is that
+ * this file never looked.
+ *
+ * Encoded into the path because /api/track stores no extra body fields
+ * (api/routes.py:3686). Query the route-only series — the one every prior
+ * decision used — with `path NOT LIKE '%#seen'`; it is unchanged.
+ */
+const PRICE_SEEN_SUFFIX = "#seen"
+
+/** How long to keep looking for the strip before giving up. The section is
+ *  rendered by a client component, so it is not in the DOM on the first tick
+ *  of this effect. 20 tries x 500ms; if it never appears, the page simply has
+ *  no pricing strip (blog, tools, dashboard) and nothing should fire. */
+const ATTACH_TRIES = 20
+
 export function PageviewTracker() {
   const pathname = usePathname()
   const lastSent = useRef<string | null>(null)
+  const priceSeenFor = useRef<string | null>(null)
 
   useEffect(() => {
     if (!pathname) return
@@ -63,5 +86,61 @@ export function PageviewTracker() {
     }
   }, [pathname])
 
-  return null
+  // The embedded strip, watched. Separate effect so a throw here can never
+  // cost us the pageview above, and so the cleanup is scoped to just this.
+  useEffect(() => {
+    if (!pathname) return
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return
+    // The route already counts itself, once, in the effect above.
+    if (PRICING_PATH.test(pathname)) return
+    if (priceSeenFor.current === pathname) return
+
+    let timer = 0
+    let observer: IntersectionObserver | null = null
+    let tries = 0
+
+    const fire = () => {
+      if (priceSeenFor.current === pathname) return
+      priceSeenFor.current = pathname
+      trackEvent("pricing_view", pathname + PRICE_SEEN_SUFFIX)
+    }
+
+    const attach = () => {
+      const el = document.getElementById("pricing")
+      if (!el) {
+        if (tries++ < ATTACH_TRIES) timer = window.setTimeout(attach, 500)
+        return
+      }
+      observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          // 0.4, not 0.01: a strip that clips the top of the viewport for a
+          // moment during a fast scroll to the footer is not someone reading
+          // a price. Deliberately conservative — this number is meant to be
+          // an under-count we can trust, not the biggest number available.
+          if (entry.isIntersecting) {
+            fire()
+            if (observer) { observer.disconnect(); observer = null }
+            break
+          }
+        }
+      }, { threshold: 0.4 })
+      observer.observe(el)
+    }
+
+    timer = window.setTimeout(attach, 0)
+    return () => {
+      window.clearTimeout(timer)
+      if (observer) observer.disconnect()
+    }
+  }, [pathname])
+
+  // Deploy witness. This component used to `return null`, which made a
+  // client-only change to it unprovable from outside the browser: the JS
+  // chunks referenced by `/` were checked live on 2026-09-08 and contain no
+  // event-name strings, so grepping the bundle proves nothing. A
+  // server-rendered attribute unique to this version does — `curl -s
+  // https://resaleiq.dev/ | grep data-riq-price-observer` is now a one-line
+  // answer to "is the instrumentation that browsers execute this file?".
+  // Hidden, no layout box, no text, first child of <body>.
+  return <span data-riq-price-observer="v1" hidden />
 }
