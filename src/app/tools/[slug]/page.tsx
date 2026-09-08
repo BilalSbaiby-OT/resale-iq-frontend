@@ -141,42 +141,29 @@ export default async function IntentPage(
             button: the tool's own CTA above is the one accent on this view.
             The sentence stays English with the rest of the editorial body —
             it is a data claim about coverage and gating, and translating it
-            belongs with the intent copy, not with the chrome. */}
+            belongs with the intent copy, not with the chrome.
+
+            This link said "See plans" / "Ver planes" / "Voir les offres" in
+            every locale and went to /register, which shows a signup form and
+            no price. The tools family is the highest commercial-intent surface
+            on the site (33 distinct non-bot visitors/30d, from queries like
+            "vinted price checker") and the JSON-LD above already declares
+            €19/€49 Offers to search and answer engines — so the page promises
+            a price to crawlers and to the reader, then withholds it. /pricing
+            is live (HTTP 200, Starter €19 / Pro €49, "Create a free account"),
+            so registration stays one click away. src=tools keeps this
+            separable from the src=blog and src=nav doors. */}
         <section style={{ marginTop: 56, paddingTop: 28, borderTop: "1px solid var(--color-border-ui)" }}>
           <h2 style={{ fontSize: 19, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>{t.upsellTitle}</h2>
           <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
             Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
-          {/* t.upsellCta reads "See plans" / "Ver planes" / "Voir les offres" /
-              "Pläne ansehen" / "Vedi i piani" in the five locales, and this href
-              was "/register": the control that says "see the plans" produced a
-              signup form and no price. Measured 2026-09-08 on production: of 96
-              non-bot visitors in 30d carrying a search- or answer-engine signal
-              (referrer_host or utm_source), ZERO have ever loaded any /pricing
-              path, and /pricing has 3 distinct non-bot visitors in the product's
-              entire lifetime. This page's own JSON-LD already publishes Offer
-              price 19/49 EUR to crawlers on the same render.
-              src=tool keeps this attributable separately from the /blog
-              (src=blog) and home (src=nav) placements already under test, so
-              neither of those readouts is contaminated. */}
           <Link
-            href="/pricing?src=tool"
+            href="/pricing?src=tools"
             style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
           >
             {t.upsellCta} →
           </Link>
-          {/* The free-account route this section used to be the only path to is
-              kept, not replaced. It produced 3 of the 9 completed registrations
-              in 30d and feeds the running activation/registration experiments;
-              removing it would buy a pricing view at the cost of a signup. */}
-          <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.7, marginTop: 12 }}>
-            <Link
-              href="/register?plan=free"
-              style={{ color: "var(--color-text-secondary)", textDecoration: "underline", textUnderlineOffset: 3 }}
-            >
-              Or create a free account
-            </Link>
-          </p>
         </section>
 
         <nav style={{ marginTop: 56 }}>
