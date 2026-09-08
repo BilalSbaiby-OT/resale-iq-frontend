@@ -77,22 +77,6 @@ const nextConfig: NextConfig = {
       { source: "/sign-in", destination: "/login", permanent: false },
       { source: "/panel", destination: "/dashboard", permanent: false },
 
-      // "/blog/how-to-spot-fake-items-vinted" was deleted 2026-09-01 (commit
-      // 32508b8) as an incidental part of an unrelated locale-detection fix.
-      // Google Search Console still had it indexed as of the 2026-09-06 pull:
-      // 74 impressions/30d at average position 9.9, our 6th-highest-impression
-      // page and better-ranked than most of the site. Since then it has been a
-      // live 404 for anyone Google sends there. /manual/condition-and-authenticity
-      // already covers the same intent (fakes/authenticity checks when sourcing)
-      // and is live, so this sends both crawlers and any visitor to real content
-      // instead of a dead end, and consolidates the existing ranking signal onto
-      // the surviving page instead of losing it to a 404.
-      {
-        source: "/blog/how-to-spot-fake-items-vinted",
-        destination: "/manual/condition-and-authenticity",
-        permanent: true,
-      },
-
       // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,
       // and Instagram allows exactly one — so a lot of people arrive by TYPING
       // the address, and typed traffic carries no campaign tag at all. The
@@ -128,6 +112,36 @@ const nextConfig: NextConfig = {
         destination: "/check?utm_source=linkedin&utm_medium=bio&utm_campaign=growth-0-500&utm_content=li-bio",
         permanent: false,
       },
+
+      // DEAD LINKS GOOGLE IS STILL SENDING TRAFFIC TO. Read-only Search Console
+      // data pulled today (resale-iq-seo/data/gsc/2026-09-08-35d-page.json, page
+      // dimension, 2026-08-02..2026-09-05, siteOwner access the company already
+      // holds) shows 74 pages Google tracked impressions for; I curl-verified
+      // every one of them live and 8 return 404. Those 8 carry 89 of the
+      // window's 1,147 tracked impressions and 0 clicks each. The largest is
+      // /blog/how-to-spot-fake-items-vinted: position 9.85 (page 1), 74
+      // impressions in 35 days for real buyer-intent queries, currently a dead
+      // end on every click. The other four dead URLs are brand pages for
+      // brands no longer on the /flip roster (calvin-klein, bershka, mango,
+      // pull-bear) — redirected to the /flip hub rather than re-created, since
+      // the brand itself isn't supported today. Permanent (301/308): none of
+      // this content is coming back, and a soft-404 leaves Google no reason to
+      // keep crawling a ranking the company already earned.
+      {
+        source: "/blog/how-to-spot-fake-items-vinted",
+        destination: "/manual/condition-and-authenticity",
+        permanent: true,
+      },
+      {
+        source: "/blog/days-to-sell-vs-profit-margin",
+        destination: "/blog/what-is-a-good-sell-through-rate",
+        permanent: true,
+      },
+      { source: "/flip/calvin-klein", destination: "/flip", permanent: true },
+      { source: "/flip/calvin-klein/:path*", destination: "/flip", permanent: true },
+      { source: "/flip/bershka", destination: "/flip", permanent: true },
+      { source: "/flip/mango", destination: "/flip", permanent: true },
+      { source: "/flip/pull-bear", destination: "/flip", permanent: true },
     ]
   },
   async headers() {
