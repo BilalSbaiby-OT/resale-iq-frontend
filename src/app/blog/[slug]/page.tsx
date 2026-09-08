@@ -189,28 +189,33 @@ export default async function BlogPostPage(
           ))}
         </section>
 
-        {/* CTA — plus, below it, the only link on this site to the offer.
+        {/* CTA — plus, below it, a link to /pricing.
 
-            OBSERVATION (production pageviews, is_bot=0, measured 2026-09-08):
-            101 visitors arrived from an external referrer in 30d; 24 of them
-            read a /blog page. Exactly 3 distinct visitors have EVER loaded
-            /pricing (the 30d count equals the lifetime count), and none of
-            those 3 came from an external referrer. That zero is a property of
-            the link graph, not of reader interest: a live fetch of /, /blog,
-            /pricing, /tools and /methodology on 2026-09-08 found href="/pricing"
-            zero times. /pricing is a live, indexed 200 route that nothing
-            links to.
+            OBSERVATION (production `pageviews`, is_bot=0, re-measured against
+            the read-only prod DB on 2026-09-08): 101 distinct visitors arrived
+            from an external referrer in 30d. 69 distinct non-bot visitors read
+            a /blog page (236 views) — the largest public audience on this site
+            after `/`. ZERO of those 101 external-referrer visitors have ever
+            loaded /pricing, in 30d or lifetime; only 3 distinct visitors have
+            loaded it at all, ever (38 views).
+
+            INTERPRETATION: that zero is a property of the link graph, not a
+            measurement of reader interest. A live fetch of /blog and /blog/*
+            on 2026-09-08 found href="/pricing" zero times and no price string
+            at all: the article template's only conversion exit is /register.
+            (`/` is different — it embeds PricingSection inline, so homepage
+            visitors do see the price. Blog readers never have.)
 
             The primary CTA below is deliberately BYTE-UNCHANGED (same label,
             same /register target, same emphasis): experiments x-f753ead9cc
-            (signup completion) and x-50338c7326 (activation) are both running
-            on that path and have to stay interpretable. This adds a second,
+            (signup completion) and x-50338c7326 (activation) both run on that
+            path and have to stay interpretable. This adds a second,
             lower-emphasis door for the reader who wants to know what it costs,
             and takes nothing away from the first one.
 
-            ?src=blog is not decoration: pageviews.path already persists query
-            strings in production (227 rows contain '?'), so arrivals through
-            this link are attributable rather than guessed at. */}
+            ?src=blog is not decoration: /api/track persists the query string
+            (pageview-tracker sends `pathname + search`), so arrivals here are
+            attributable to this link rather than guessed at. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>

@@ -94,10 +94,11 @@ export default async function BlogIndex() {
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
           <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
-          {/* Measured 2026-09-08: /pricing is a live 200 route that no public
-              page links to, and 3 visitors have ever loaded it — none of them
-              from an external referrer. Primary CTA above is byte-unchanged so
-              the running signup experiment stays readable. */}
+          {/* Same reasoning as the article template, re-measured 2026-09-08:
+              /blog and /blog/* carry no link to /pricing and no price, and not
+              one of the 101 external-referrer visitors in the last 30d has ever
+              loaded /pricing. Primary CTA byte-unchanged so the running signup
+              experiment (x-f753ead9cc) stays readable. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans and pricing — free tier included
