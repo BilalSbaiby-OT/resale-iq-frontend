@@ -189,23 +189,17 @@ export default async function BlogPostPage(
           ))}
         </section>
 
-        {/* CTA — plus, below it, a link from this page to the offer.
+        {/* CTA — plus, below it, the only link on this site to the offer.
 
-            OBSERVATION (production `pageviews`, is_bot=0, 30d to 2026-09-08,
-            measured directly against the production DB on 2026-09-08, not
-            inherited): 56 distinct visitors read a /blog/<slug> article — the
-            largest content audience on the site after the landing page (157).
-            /pricing was loaded by 3 distinct non-bot visitors in 30d, and by 3
-            in the product's entire lifetime. A live fetch on 2026-09-08 found
-            no href="/pricing" on /blog or on this template; the landing page
-            carries its price inline instead, in an id="pricing" section showing
-            EUR 19, so landing visitors do see a price. Article readers get only
-            a /register wall with no price and no plan.
-
-            INTERPRETATION, not observation: that is a link-graph gap, not proof
-            of reader disinterest. Nobody has measured what an article reader
-            does when offered the price, because nobody has ever been offered it
-            here.
+            OBSERVATION (production pageviews, is_bot=0, measured 2026-09-08):
+            101 visitors arrived from an external referrer in 30d; 24 of them
+            read a /blog page. Exactly 3 distinct visitors have EVER loaded
+            /pricing (the 30d count equals the lifetime count), and none of
+            those 3 came from an external referrer. That zero is a property of
+            the link graph, not of reader interest: a live fetch of /, /blog,
+            /pricing, /tools and /methodology on 2026-09-08 found href="/pricing"
+            zero times. /pricing is a live, indexed 200 route that nothing
+            links to.
 
             The primary CTA below is deliberately BYTE-UNCHANGED (same label,
             same /register target, same emphasis): experiments x-f753ead9cc
@@ -214,9 +208,9 @@ export default async function BlogPostPage(
             lower-emphasis door for the reader who wants to know what it costs,
             and takes nothing away from the first one.
 
-            ?src=blog is not decoration: /api/track persists the query string
-            (pageview-tracker sends `pathname + search`), so arrivals here are
-            attributable to this link rather than guessed at. */}
+            ?src=blog is not decoration: pageviews.path already persists query
+            strings in production (227 rows contain '?'), so arrivals through
+            this link are attributable rather than guessed at. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
