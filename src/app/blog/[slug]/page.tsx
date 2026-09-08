@@ -189,13 +189,45 @@ export default async function BlogPostPage(
           ))}
         </section>
 
-        {/* CTA */}
+        {/* CTA — plus, below it, a link from this page to the offer.
+
+            OBSERVATION (production `pageviews`, is_bot=0, 30d to 2026-09-08,
+            measured directly against the production DB on 2026-09-08, not
+            inherited): 56 distinct visitors read a /blog/<slug> article — the
+            largest content audience on the site after the landing page (157).
+            /pricing was loaded by 3 distinct non-bot visitors in 30d, and by 3
+            in the product's entire lifetime. A live fetch on 2026-09-08 found
+            no href="/pricing" on /blog or on this template; the landing page
+            carries its price inline instead, in an id="pricing" section showing
+            EUR 19, so landing visitors do see a price. Article readers get only
+            a /register wall with no price and no plan.
+
+            INTERPRETATION, not observation: that is a link-graph gap, not proof
+            of reader disinterest. Nobody has measured what an article reader
+            does when offered the price, because nobody has ever been offered it
+            here.
+
+            The primary CTA below is deliberately BYTE-UNCHANGED (same label,
+            same /register target, same emphasis): experiments x-f753ead9cc
+            (signup completion) and x-50338c7326 (activation) are both running
+            on that path and have to stay interpretable. This adds a second,
+            lower-emphasis door for the reader who wants to know what it costs,
+            and takes nothing away from the first one.
+
+            ?src=blog is not decoration: /api/track persists the query string
+            (pageview-tracker sends `pathname + search`), so arrivals here are
+            attributable to this link rather than guessed at. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <div style={{ marginTop: 14 }}>
+            <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+              See plans and pricing — free tier included
+            </Link>
+          </div>
         </div>
 
         {/* Internal links help SEO + crawl depth */}
