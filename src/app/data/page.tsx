@@ -182,7 +182,11 @@ export default async function DataPage() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Buy-below price, sell-through and best sizes for any item — plus live deals under your price.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          {/* This button says "See plans". It pointed at /register, a signup form
+              carrying no prices, so the label was not true. Same defect fixed on
+              /tools/[slug] in 493337e; /data is the largest organic entry page on
+              the site (41 distinct non-bot visitors in 30d) and was missed. */}
+          <Link href="/pricing?src=data" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans →
           </Link>
           <Link href="/tools" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
