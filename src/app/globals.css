@@ -130,16 +130,52 @@ body {
   background: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #263147; border-radius: 4px; }
 ::selection { background: rgba(52,199,89,.2); }
 *:focus-visible { outline: 2px solid #0A84FF; outline-offset: 2px; }
+
+/* Press states — Apple: "without a press state a button feels unresponsive."
+   Applies to real buttons, links styled as buttons, and role=button. Uses a
+   spring-ish ease and a subtle scale, transform-only so it never reflows. */
+button:not(:disabled),
+a[role="button"],
+[role="button"]:not([aria-disabled="true"]),
+input[type="submit"]:not(:disabled),
+.riq-pressable {
+  transition: transform var(--motion-fast, 150ms) var(--motion-ease, cubic-bezier(0.2,0,0,1)),
+              opacity var(--motion-fast, 150ms) ease,
+              background-color var(--motion-base, 200ms) ease,
+              border-color var(--motion-base, 200ms) ease;
+}
+button:not(:disabled):active,
+a[role="button"]:active,
+[role="button"]:not([aria-disabled="true"]):active,
+input[type="submit"]:not(:disabled):active,
+.riq-pressable:active {
+  transform: scale(0.97);
+}
+
+/* Honor reduced-motion everywhere — kill transforms/animations for those users. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  button:active, a[role="button"]:active, [role="button"]:active, .riq-pressable:active {
+    transform: none !important;
+  }
+}
 
 @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
 @keyframes shimmer { from{background-position:-400px 0} to{background-position:calc(400px + 100%) 0} }
@@ -246,7 +282,7 @@ body {
   background: transparent;
   cursor: pointer;
 }
-.riq-range:focus-visible { outline: 2px solid #22c55e; outline-offset: 4px; border-radius: 6px; }
+.riq-range:focus-visible { outline: 2px solid #34C759; outline-offset: 4px; border-radius: 6px; }
 
 .riq-range::-webkit-slider-runnable-track {
   height: 6px; border-radius: 999px; background: #263147;
@@ -254,7 +290,7 @@ body {
 .riq-range::-webkit-slider-thumb {
   -webkit-appearance: none; appearance: none;
   width: 26px; height: 26px; border-radius: 50%;
-  background: #22c55e; border: 3px solid #0B0D10;
+  background: #34C759; border: 3px solid #0B0D10;
   margin-top: -10px;         /* centre the thumb on a 6px track */
   box-shadow: 0 2px 8px rgba(0,0,0,.45);
 }
@@ -263,7 +299,7 @@ body {
 }
 .riq-range::-moz-range-thumb {
   width: 26px; height: 26px; border-radius: 50%;
-  background: #22c55e; border: 3px solid #0B0D10;
+  background: #34C759; border: 3px solid #0B0D10;
   box-shadow: 0 2px 8px rgba(0,0,0,.45);
 }
 
