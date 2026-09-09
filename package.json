@@ -18,7 +18,6 @@
     "check:inventory": "node scripts/build-inventory.mjs --check",
     "check:tracked:built": "node scripts/check-tracked-figure.mjs --built",
     "check:warehouse": "node scripts/check-warehouse.mjs",
-    "check:market-proof": "node scripts/check-market-proof-grain.mjs",
     "check:extension": "node scripts/check-extension.mjs",
     "seo:indexnow": "node scripts/indexnow.mjs",
     "test:e2e": "playwright test",
