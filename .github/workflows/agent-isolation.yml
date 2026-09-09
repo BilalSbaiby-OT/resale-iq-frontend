@@ -25,7 +25,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Node 24 to match .nvmrc and local dev. The TS unit tests
+          # (node --test src/lib/*.test.ts) need >=22.6 for type-stripping AND
+          # glob support; on Node 20 they failed with "Could not find
+          # src/lib/*.test.ts", which failed this whole workflow and — because
+          # Deploy waits on its success — silently blocked every auto-deploy.
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
