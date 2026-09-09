@@ -161,9 +161,12 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     }, VERDICT_COLORS)
     expect(verdictColored, "no element in the refusal panel may use a BUY/WATCH/SKIP colour").toBe(false)
 
-    // A next step exists — this is not a dead end (defect 3).
+    // A next step exists — this is not a dead end (defect 3). The rescue chips
+    // are WORKING_MODELS / TRY_EXAMPLES, which now lead with New Balance 530
+    // (a live WATCH). The old assertion looked for Nike Air Force 1, which
+    // returns SKIP live — a stuck user was sent to a second dead end.
     await expect(panel.getByText(/try one of these instead/i)).toBeVisible()
-    await expect(panel.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+    await expect(panel.getByRole("button", { name: "New Balance 530" })).toBeVisible()
 
     // The priced-metrics grid (Buy-below / Market price / Left shelf / Listed)
     // must not render at all — there is no price to show, and rendering the
@@ -246,23 +249,24 @@ test.describe("P0 — a withheld field reads as gated, never as a broken dash", 
 
 test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", () => {
   for (const q of ["Nike", "Ralph Lauren", "Nike Nocta"] as const) {
-    test(`${q} is not NO DATA / create-account, and offers Air Force 1 + Samba`, async ({ page }) => {
+    test(`${q} is not NO DATA / create-account, and offers a live WATCH chip`, async ({ page }) => {
       await search(page, q)
       await expect(page.getByText("NO DATA")).toHaveCount(0)
       await expect(page.getByText(/create a free account/i)).toHaveCount(0)
-      await expect(page.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
-      await expect(page.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
+      // Rescue chips lead with New Balance 530 (live WATCH). Old assertion
+      // wanted Air Force 1 + Samba, both SKIP live — a second dead end.
+      await expect(page.getByRole("button", { name: "New Balance 530" })).toBeVisible()
     })
   }
 
-  test("Nike → Nike Air Force 1 is a live item-level call with buy-below", async ({ page }) => {
+  test("Nike → New Balance 530 chip is a live item-level call with buy-below", async ({ page }) => {
     await search(page, "Nike")
-    const next = page.waitForResponse((r) => r.url().includes("/api/verdict") && r.url().includes("Air"))
-    await page.getByRole("button", { name: "Nike Air Force 1" }).click()
+    const next = page.waitForResponse((r) => r.url().includes("/api/verdict") && r.url().includes("Balance"))
+    await page.getByRole("button", { name: "New Balance 530" }).click()
     const body = await (await next).json()
     expect(["BUY", "WATCH", "SKIP"]).toContain(body.verdict)
     expect(body.buy_below).toEqual(expect.any(Number))
-    await expect(page.getByText("BUY", { exact: true })).toBeVisible()
+    await expect(page.getByText("WATCH", { exact: true })).toBeVisible()
   })
 })
 

@@ -305,10 +305,10 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(panel).not.toContainText("Not enough watched departures to price this yet.")
 
       // The "try one of these instead" row is a next step, not just text —
-      // localised label, same three product names (brand/model names do not
-      // translate).
+      // localised label; chips lead with New Balance 530 (live WATCH). Brand/
+      // model names do not translate.
       await expect(panel.getByText(l.tryTheseInstead)).toBeVisible()
-      await expect(panel.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+      await expect(panel.getByRole("button", { name: "New Balance 530" })).toBeVisible()
     })
 
     // W9: live-market-proof.tsx — the "Selling on Vinted this week" band.

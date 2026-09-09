@@ -14,8 +14,24 @@ name: Agent Isolation
 on:
   push:
     branches: [main]
+    # Scope to code that affects the bundle/behaviour. This is ALSO the deploy
+    # gate (deploy.yml waits on this workflow's success), so a docs-only push
+    # correctly skips both the firewall run and the deploy — nothing shippable
+    # changed. Keep this list in step with playwright.yml's code_paths.
+    paths: &code_paths
+      - "src/**"
+      - "e2e/**"
+      - "public/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "next.config.ts"
+      - "tsconfig.json"
+      - ".nvmrc"
+      - ".github/workflows/agent-isolation.yml"
   pull_request:
     branches: [main]
+    paths: *code_paths
 
 jobs:
   firewall:

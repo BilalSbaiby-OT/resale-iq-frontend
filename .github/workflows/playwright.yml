@@ -44,8 +44,24 @@ name: Playwright
 "on":
   pull_request:
     branches: [main]
+    paths: &code_paths
+      - "src/**"
+      - "e2e/**"
+      - "public/**"
+      - "package.json"
+      - "package-lock.json"
+      - "playwright.config.ts"
+      - "next.config.ts"
+      - "tsconfig.json"
+      - ".nvmrc"
+      - ".github/workflows/playwright.yml"
   push:
     branches: [main]
+    # Only run the behavioural gate when code that can change behaviour moves.
+    # A docs/marketing/*.md or company-state change used to trigger the full
+    # ~5-min suite for nothing — pure Actions-minute waste. YAML anchor reuses
+    # the pull_request list so the two never drift.
+    paths: *code_paths
 
 # A newer commit on the same PR/branch should win — no point finishing a
 # Playwright run against a commit that is no longer at the tip.
