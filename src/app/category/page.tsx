@@ -213,6 +213,20 @@ export default async function CategoryHubPage() {
           </Link>{" "}
           sets out how every figure is calculated and what it cannot tell you.
         </p>
+
+        {/* CTA — this hub and its 9 category pages carried zero route to
+            /pricing (measured live 2026-09-09). Same pattern already kept on
+            /flip and /blog: a boxed secondary door, distinct ?src so arrivals
+            are attributable, nothing removed from the existing content. */}
+        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>See what&apos;s behind the free numbers.</div>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
+            Category and brand volume are free. The buy-below price and unlock limits are part of the paid plans.
+          </p>
+          <Link href="/pricing?src=category_index" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            See plans and pricing →
+          </Link>
+        </div>
       </main>
     </div>
   )

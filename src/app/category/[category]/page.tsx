@@ -239,6 +239,14 @@ export default async function CategoryPage(
           <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             Free price checker →
           </Link>
+          {/* Second, lower-emphasis door — this page and its 8 siblings had
+              zero route to /pricing (measured live 2026-09-09). Primary CTA
+              above is unchanged; this adds the offer without competing with it. */}
+          <div style={{ marginTop: 14 }}>
+            <Link href="/pricing?src=category" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+              See plans and pricing — free tier included
+            </Link>
+          </div>
         </div>
 
         <div>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_CHAPTERS, getChapter } from "@/data/manual"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
+import { SmartCTA } from "@/components/smart-cta"
 
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
@@ -148,6 +149,25 @@ export default async function ChapterPage(
             </div>
           ))}
         </section>
+
+        {/* CTA — the manual's 24 chapter pages carried zero route to /pricing
+            (measured live 2026-09-09: curl found no href="/pricing" on any of
+            them, despite a stale crawler snapshot marking a few as having one).
+            Same proven pattern as /blog and /flip: primary CTA to the free
+            tool stays unchanged, this adds a lower-emphasis second door with
+            a distinct ?src=manual so arrivals are attributable. */}
+        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center", marginBottom: 26 }}>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Put this chapter to work.</div>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
+            Resale IQ turns a Vinted listing into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
+          </p>
+          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <div style={{ marginTop: 14 }}>
+            <Link href="/pricing?src=manual" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+              See plans and pricing — free tier included
+            </Link>
+          </div>
+        </div>
 
         {totalWeekly != null && market.brandCount > 0 && (
           <div style={{ padding: "18px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginBottom: 26 }}>

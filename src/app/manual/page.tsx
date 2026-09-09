@@ -124,6 +124,9 @@ export default async function ManualIndex() {
             <Link href="/data" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid #1c2333", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Market data
             </Link>
+            <Link href="/pricing?src=manual_index" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid #1c2333", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+              See plans & pricing
+            </Link>
           </div>
         </div>
 
