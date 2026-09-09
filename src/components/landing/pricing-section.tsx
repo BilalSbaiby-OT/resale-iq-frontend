@@ -128,7 +128,7 @@ export function PricingSection({
           filled CTA. On the standalone page that made two things compete to be
           the one green thing; muted here, the CTA is alone again. */}
       <div style={{ textAlign: "center", marginBottom: s.headMargin }}>
-        <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "1.2px", color: "var(--color-text-muted)", textTransform: "uppercase" }}>{copy[locale].pricing}</div>
+        <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.4px", color: "var(--color-text-muted)" }}>{copy[locale].pricing}</div>
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
       </div>
@@ -159,8 +159,8 @@ export function PricingSection({
         {tiers.map(tier => (
           <div key={tier.id} style={{
             position: "relative",
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border-ui)",
+            background: tier.highlight ? "var(--color-surface-elevated)" : "var(--color-surface)",
+            border: tier.highlight ? "1px solid var(--color-border-2)" : "1px solid var(--color-border-ui)",
             borderRadius: 16, padding: s.cardPad,
           }}>
             <div style={{ fontSize: s.tierName, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.2px" }}>{tier.name}</div>

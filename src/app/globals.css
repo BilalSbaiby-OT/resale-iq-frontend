@@ -13,9 +13,15 @@
   --color-bg-5: #1f2840;
   --color-surface: #12151d;
   --color-surface-elevated: #1a2030;
-  --color-border: #1e2535;
-  --color-border-2: #263147;
-  --color-border-ui: #1c2333;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-2: rgba(255, 255, 255, 0.12);
+  --color-border-ui: rgba(255, 255, 255, 0.06);
+  /* Hairline borders (Linear/Supabase premium-dark move): semi-transparent
+     WHITE, not solid slate. On a dark canvas, solid #1e2535/#263147 slate
+     reads cheap; a whisper-thin white hairline is what reads as engineered.
+     Was: border #1e2535, border-2 #263147, border-ui #1c2333. Kept near the
+     old luminance so it refines rather than jars. Only ever used as
+     borders/dividers (verified), so translucency is safe. */
   --color-text-primary: #e8ecf4;
   --color-text-secondary: #8fa3c4;
   --color-text-muted: #546380;
