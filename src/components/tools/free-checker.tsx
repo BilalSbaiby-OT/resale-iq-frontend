@@ -133,12 +133,14 @@ function formatSellThrough(raw: string): string {
 // "any Vinted item." A refusal is the right answer for most typed-in queries
 // (insufficient_data_rate = 40.9% of answered searches, METRICS.md), but the
 // UI should turn that into "it works for THESE" rather than an empty box.
-// Each of these is a query independently confirmed elsewhere as covered and
-// well-priced: Nike Air Force 1 (e2e/mock-backend.mjs catalogue, HIGH/BUY),
-// Adidas Samba (extension-hero.tsx's own production-verdict example),
-// New Balance 530 (design/social — a worked post with real n=174 sold data).
-// Never invent a fourth without the same grounding.
-const TRY_EXAMPLES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+// Each of these is a query independently confirmed LIVE (2026-09-09) as
+// returning WATCH with a real buy-below — so a dead-ended user who clicks a
+// rescue chip lands on a compelling YES, not another SKIP. Re-verify against
+// /api/verdict before changing (never-manufacture-proof): New Balance 530
+// (WATCH, buy_below €24, sold_7d 378), Levi's 501 (WATCH, €13), New Balance
+// 550 (WATCH, €28). The old list (Nike Air Force 1 / Adidas Samba) both
+// return SKIP live and sent stuck users to a second dead end.
+const TRY_EXAMPLES = ["New Balance 530", "Levi's 501", "New Balance 550"]
 
 // --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01; localised 2026-09-01) ---
 // The English strings for this branch now live in src/lib/i18n.ts under
