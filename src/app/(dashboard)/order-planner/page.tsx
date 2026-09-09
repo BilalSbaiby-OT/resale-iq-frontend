@@ -20,18 +20,18 @@ interface Plan {
 }
 
 const TREND_STYLE: Record<string, { color: string; icon: string }> = {
-  GROWING: { color: "#22c55e", icon: "▲" },
-  HOLDING: { color: "#3b82f6", icon: "■" },
-  COOLING: { color: "#f59e0b", icon: "▼" },
-  FADING: { color: "#ef4444", icon: "▼" },
+  GROWING: { color: "#34C759", icon: "▲" },
+  HOLDING: { color: "#0A84FF", icon: "■" },
+  COOLING: { color: "#FF9F0A", icon: "▼" },
+  FADING: { color: "#FF453A", icon: "▼" },
   UNKNOWN: { color: "#546380", icon: "?" },
 }
 
 function scoreColor(s: number) {
-  if (s >= 85) return "#22c55e"
-  if (s >= 70) return "#06b6d4"
-  if (s >= 50) return "#f59e0b"
-  return "#ef4444"
+  if (s >= 85) return "#34C759"
+  if (s >= 70) return "#64D2FF"
+  if (s >= 50) return "#FF9F0A"
+  return "#FF453A"
 }
 
 export default function OrderPlannerPage() {
@@ -71,15 +71,15 @@ export default function OrderPlannerPage() {
               <button key={w} onClick={() => setWeeks(w)} style={{
                 padding: "9px 14px", borderRadius: 8, fontFamily: "monospace", fontSize: 12, fontWeight: 700, cursor: "pointer",
                 background: weeks === w ? "rgba(34,197,94,.12)" : "#1a2030",
-                border: `1px solid ${weeks === w ? "#22c55e" : "#263147"}`,
-                color: weeks === w ? "#22c55e" : "#8fa3c4",
+                border: `1px solid ${weeks === w ? "#34C759" : "#263147"}`,
+                color: weeks === w ? "#34C759" : "#8fa3c4",
               }}>{w} wks</button>
             ))}
           </div>
         </div>
         <button onClick={load} disabled={loading} style={{
           padding: "10px 22px", borderRadius: 8, fontSize: 13, fontWeight: 600,
-          background: "#22c55e", color: "#0B0D10", border: "none", cursor: "pointer", opacity: loading ? 0.6 : 1,
+          background: "#34C759", color: "#0B0D10", border: "none", cursor: "pointer", opacity: loading ? 0.6 : 1,
         }}>{loading ? "Forecasting…" : "Build order plan"}</button>
       </div>
 
@@ -96,8 +96,8 @@ export default function OrderPlannerPage() {
         <div className="riq-grid-3" style={{ marginBottom: 16 }}>
           {[
             ["BUDGET ALLOCATED", `€${plan.allocated_eur.toFixed(0)}`, "#e8ecf4", plan.budget_eur ? `of €${plan.budget_eur.toFixed(0)}` : "no budget set"],
-            ["EXPECTED WEEK-1 PROFIT", `€${plan.expected_week1_profit.toFixed(0)}`, "#22c55e", "probability-weighted"],
-            ["FORECAST HORIZON", `${plan.horizon_weeks} weeks`, "#3b82f6", "damped-momentum model"],
+            ["EXPECTED WEEK-1 PROFIT", `€${plan.expected_week1_profit.toFixed(0)}`, "#34C759", "probability-weighted"],
+            ["FORECAST HORIZON", `${plan.horizon_weeks} weeks`, "#0A84FF", "damped-momentum model"],
           ].map(([l, v, c, sub]) => (
             <div key={l as string} style={{ background: "#141820", border: "1px solid #1e2535", borderRadius: 12, padding: 16 }}>
               <div style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: 1.5, color: "#546380" }}>{l}</div>
@@ -139,12 +139,12 @@ export default function OrderPlannerPage() {
                   <td title={e.str_withheld ? "Sell-through withheld — this is a 0.25 prior, not a measured rate" : undefined} style={{ padding: "11px 12px", fontFamily: "monospace", fontSize: 13, color: e.week1_sell_probability >= 0.7 ? "var(--color-buy)" : e.week1_sell_probability >= 0.5 ? "var(--color-watch)" : "var(--color-skip)" }}>
                     {(e.week1_sell_probability * 100).toFixed(0)}%{e.str_withheld ? <span style={{ fontSize: 9, color: "var(--color-watch)", marginLeft: 4 }}>prior</span> : null}
                   </td>
-                  <td style={{ padding: "11px 12px", fontFamily: "monospace", fontWeight: 700, color: "#22c55e" }}>€{e.target_unit_cost.toFixed(0)}</td>
+                  <td style={{ padding: "11px 12px", fontFamily: "monospace", fontWeight: 700, color: "#34C759" }}>€{e.target_unit_cost.toFixed(0)}</td>
                   <td style={{ padding: "11px 12px", fontFamily: "monospace" }}>€{e.fast_sale_price?.toFixed(0) ?? "—"}</td>
-                  <td style={{ padding: "11px 12px", fontFamily: "monospace", color: "#f59e0b", fontWeight: 700 }}>+€{e.unit_profit?.toFixed(2) ?? "—"}</td>
+                  <td style={{ padding: "11px 12px", fontFamily: "monospace", color: "#FF9F0A", fontWeight: 700 }}>+€{e.unit_profit?.toFixed(2) ?? "—"}</td>
                   <td style={{ padding: "11px 12px" }}>
                     {e.suggested_units > 0 ? (
-                      <span style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 13, padding: "3px 10px", borderRadius: 12, background: "rgba(34,197,94,.15)", border: "1px solid rgba(34,197,94,.4)", color: "#22c55e" }}>×{e.suggested_units}</span>
+                      <span style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 13, padding: "3px 10px", borderRadius: 12, background: "rgba(34,197,94,.15)", border: "1px solid rgba(34,197,94,.4)", color: "#34C759" }}>×{e.suggested_units}</span>
                     ) : <span style={{ color: "#546380", fontSize: 11 }}>—</span>}
                   </td>
                   <td style={{ padding: "11px 12px" }}>
@@ -161,7 +161,7 @@ export default function OrderPlannerPage() {
 
       {plan && (
         <div style={{ marginTop: 12, fontSize: 10, color: "#546380", lineHeight: 1.6 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><AlertTriangle size={11} style={{ color: "#f59e0b" }} /> {plan.disclaimer}</span><br />
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><AlertTriangle size={11} style={{ color: "#FF9F0A" }} /> {plan.disclaimer}</span><br />
           <b style={{ color: "#8fa3c4" }}>How to read it:</b> Cost ≤ is the max you should pay your supplier per unit ·
           List @ is the fast-sale price (5% under market) · P(sell 7d) assumes you list at that price in the shown sizes.
         </div>

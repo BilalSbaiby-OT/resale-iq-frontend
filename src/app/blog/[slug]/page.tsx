@@ -113,12 +113,12 @@ export default async function BlogPostPage(
           works and a real /es/ tree gets built. */}
       <article lang={POST_LANG[p.slug] ?? undefined} style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href="/blog" style={{ color: "#22c55e", textDecoration: "none" }}>Blog</Link>
+          <Link href="/blog" style={{ color: "#34C759", textDecoration: "none" }}>Blog</Link>
         </div>
 
-        <div style={{ fontSize: 11, color: "#22c55e", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
+        <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
           {p.category} · {p.readMins} min read
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
@@ -221,7 +221,7 @@ export default async function BlogPostPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans and pricing — free tier included

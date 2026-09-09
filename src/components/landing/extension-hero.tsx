@@ -67,7 +67,7 @@ export function ExtensionHero({ locale }: { locale: Locale }) {
             style={{
               background: "#12151d",
               border: "1px solid #1c2333",
-              borderLeft: "3px solid #22c55e",
+              borderLeft: "3px solid #34C759",
               borderRadius: 12,
               padding: "13px 15px",
               boxShadow: "0 8px 28px rgba(0,0,0,.45)",
@@ -80,7 +80,7 @@ export function ExtensionHero({ locale }: { locale: Locale }) {
                   height: 17,
                   borderRadius: 5,
                   color: "#06090c",
-                  background: "linear-gradient(135deg,#22c55e,#0ea5e9)",
+                  background: "linear-gradient(135deg,#34C759,#0ea5e9)",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -91,7 +91,7 @@ export function ExtensionHero({ locale }: { locale: Locale }) {
                 R
               </span>
               Resale IQ
-              {/* --color-watch (globals.css). Was hardcoded #eab308 — a third,
+              {/* --color-watch (globals.css). Was hardcoded #FF9F0A — a third,
                   drifted amber that duplicated the WATCH token instead of
                   using it. See design/tokens.json known_splits and
                   docs/product/DESIGN-REVIEW.md §2. */}

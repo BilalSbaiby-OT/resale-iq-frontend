@@ -60,7 +60,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
         {/* Header */}
         <div style={{ padding: "16px 20px", borderBottom: "1px solid #1e2535", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#f59e0b" }} /> Live Deals — {deal.brand} {deal.model}</div>
+            <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#FF9F0A" }} /> Live Deals — {deal.brand} {deal.model}</div>
             <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>
               Buyable now · {deal.max_buy_price != null ? `under €${Math.floor(deal.max_buy_price)}` : "buy-below withheld"} · sizes {(deal.top_sizes ?? []).slice(0,4).join(", ") || "all"}
               {markets.length > 0 && ` · ${markets.join(" ")}`}
@@ -82,13 +82,13 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                 : "No listings that match this brand and model under buy-below right now.")}
               {error.includes("Pro feature") && (
                 <div style={{ marginTop: 14 }}>
-                  <a href="/account" style={{ color: "#22c55e", fontWeight: 700, textDecoration: "none" }}>Upgrade to Pro →</a>
+                  <a href="/account" style={{ color: "#34C759", fontWeight: 700, textDecoration: "none" }}>Upgrade to Pro →</a>
                 </div>
               )}
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {error && <div style={{ fontSize: 11, color: "#f59e0b", padding: "4px 8px" }}>{error}</div>}
+              {error && <div style={{ fontSize: 11, color: "#FF9F0A", padding: "4px 8px" }}>{error}</div>}
               {deals.map((d, i) => {
                 const net = targetNet(d.price_eur)
                 return (
@@ -107,12 +107,12 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                       </div>
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
-                      <div style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 16, color: "#22c55e" }}>€{d.price_eur.toFixed(0)}</div>
+                      <div style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 16, color: "#34C759" }}>€{d.price_eur.toFixed(0)}</div>
                       {net != null && net > 0 && (
-                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#f59e0b" }} title="Fee-adjusted warehouse avg minus this ask — constructed, not a forecast">Target net €{net.toFixed(0)}</div>
+                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#FF9F0A" }} title="Fee-adjusted warehouse avg minus this ask — constructed, not a forecast">Target net €{net.toFixed(0)}</div>
                       )}
                     </div>
-                    <span style={{ color: "#3b82f6", fontSize: 13 }}>↗</span>
+                    <span style={{ color: "#0A84FF", fontSize: 13 }}>↗</span>
                   </a>
                 )
               })}

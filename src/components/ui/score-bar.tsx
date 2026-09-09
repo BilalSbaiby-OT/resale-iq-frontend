@@ -1,10 +1,10 @@
 "use client"
 
 function getScoreStyle(s: number) {
-  if (s >= 70) return { color: "#22c55e", bar: "#22c55e" }
-  if (s >= 50) return { color: "#06b6d4", bar: "#06b6d4" }
-  if (s >= 30) return { color: "#f59e0b", bar: "#f59e0b" }
-  return { color: "#ef4444", bar: "#ef4444" }
+  if (s >= 70) return { color: "#34C759", bar: "#34C759" }
+  if (s >= 50) return { color: "#64D2FF", bar: "#64D2FF" }
+  if (s >= 30) return { color: "#FF9F0A", bar: "#FF9F0A" }
+  return { color: "#FF453A", bar: "#FF453A" }
 }
 
 interface ScoreBarProps { score: number | null; showNumber?: boolean; width?: number }

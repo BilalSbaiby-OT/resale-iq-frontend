@@ -39,7 +39,7 @@ function Panel({ icon: Icon, title, sub, children }: {
   return (
     <section style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 18, marginBottom: 16 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-        <Icon size={15} color="#22c55e" />
+        <Icon size={15} color="#34C759" />
         <h2 style={{ fontSize: 14.5, fontWeight: 700, color: "#eef1f7" }}>{title}</h2>
       </div>
       <p style={{ fontSize: 11.5, color: "#5b6b8c", marginBottom: 12 }}>{sub}</p>
@@ -77,7 +77,7 @@ function OpsDashboard() {
       <div style={{ maxWidth: 900 }}>
         <AdminNav />
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-          <Activity size={18} color="#22c55e" />
+          <Activity size={18} color="#34C759" />
           <h1 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7" }}>Operations</h1>
         </div>
         <p style={{ color: "#8b99b8", fontSize: 13, marginBottom: 18 }}>

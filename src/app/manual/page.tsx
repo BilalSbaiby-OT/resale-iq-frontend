@@ -55,7 +55,7 @@ export default async function ManualIndex() {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 36, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15, margin: "22px 0 14px" }}>
           The Vinted Reselling Manual
@@ -95,7 +95,7 @@ export default async function ManualIndex() {
                     borderRadius: 11, padding: "15px 18px",
                   }}>
                     <div style={{ display: "flex", gap: 12, alignItems: "baseline", flexWrap: "wrap" }}>
-                      <span style={{ fontSize: 13, color: "#22c55e", fontWeight: 700, flexShrink: 0 }}>
+                      <span style={{ fontSize: 13, color: "#34C759", fontWeight: 700, flexShrink: 0 }}>
                         {String(c.number).padStart(2, "0")}
                       </span>
                       <span style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7" }}>{c.title}</span>
@@ -118,7 +118,7 @@ export default async function ManualIndex() {
             five markets is the part that does not scale — that is what Resale IQ computes for you.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Free price checker →
             </Link>
             <Link href="/data" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid #1c2333", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>

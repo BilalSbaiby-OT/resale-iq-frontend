@@ -85,15 +85,15 @@ interface FreeVerdict {
 
 // Verdict colour vs. system/quota colour are two different channels — see
 // design/tokens.json known_splits and docs/product/DESIGN-REVIEW.md §2.
-// WATCH was hardcoded to a drifted #eab308 instead of the real --color-watch
-// token (#f59e0b), and LIMIT_REACHED — a quota state with nothing to do with
+// WATCH was hardcoded to a drifted #FF9F0A instead of the real --color-watch
+// token (#FF9F0A), and LIMIT_REACHED — a quota state with nothing to do with
 // the item — was wearing that same amber. Amber must mean one thing: the
 // WATCH verdict. LIMIT_REACHED gets the neutral --color-unknown grey instead.
 // roster consult 2026-09-01.
 const VERDICT_COLOR: Record<string, string> = {
-  BUY: "#22c55e",
-  WATCH: "#f59e0b",
-  SKIP: "#ef4444",
+  BUY: "#34C759",
+  WATCH: "#FF9F0A",
+  SKIP: "#FF453A",
   LOCKED: "#8b99b8",
   INSUFFICIENT_DATA: "#8b99b8",
   UNKNOWN: "#8b99b8",
@@ -288,7 +288,7 @@ export function FreeChecker({
           disabled={loading}
           aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
           style={{
-            background: hero ? "var(--color-on-graphite)" : "#22c55e",
+            background: hero ? "var(--color-on-graphite)" : "#34C759",
             color: hero ? "var(--color-graphite)" : "#06090c",
             fontWeight: hero ? 600 : 700,
             fontSize: hero ? 15 : 14.5,
@@ -306,7 +306,7 @@ export function FreeChecker({
         </button>
       </div>
 
-      {err && <p style={{ color: "#ef4444", fontSize: 13, marginTop: 12 }}>{err}</p>}
+      {err && <p style={{ color: "#FF453A", fontSize: 13, marginTop: 12 }}>{err}</p>}
 
       {timedOut && (
         <div style={{ marginTop: 12 }}>
@@ -371,7 +371,7 @@ export function FreeChecker({
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
                 <Link
                   href={`${canonicalPath(locale, "/register")}?plan=free`}
-                  style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}
+                  style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}
                 >
                   {t.createFreeAccount}
                 </Link>
@@ -600,7 +600,7 @@ export function FreeChecker({
 
               {hasPrices && (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
-                <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#22c55e" />
+                <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#34C759" />
                 <Stat label={t.marketPrice} value={money(res.sell_avg)} />
                 {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
                 {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
@@ -698,10 +698,10 @@ export function FreeChecker({
           {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && (
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
-              <Lock size={14} color="#22c55e" />
+              <Lock size={14} color="#34C759" />
               {t.unlockLine}
             </div>
-            <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+            <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
           </div>
           )}
         </div>
@@ -825,10 +825,10 @@ function LockedStat({ label, value, cta, href }: {
     >
       <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
-        <Lock size={14} color="#f59e0b" aria-hidden />
+        <Lock size={14} color="#FF9F0A" aria-hidden />
         <span style={{ fontSize: 15, fontWeight: 700, color: "#c3cde0" }}>{value}</span>
       </div>
-      <div style={{ fontSize: 10.5, color: "#22c55e", fontWeight: 600, marginTop: 3 }}>{cta}</div>
+      <div style={{ fontSize: 10.5, color: "#34C759", fontWeight: 600, marginTop: 3 }}>{cta}</div>
     </Link>
   )
 }

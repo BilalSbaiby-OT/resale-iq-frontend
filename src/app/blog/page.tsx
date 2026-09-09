@@ -37,7 +37,7 @@ export default async function BlogIndex() {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
@@ -55,7 +55,7 @@ export default async function BlogIndex() {
               href={`/blog/${p.slug}`}
               style={{ display: "block", background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "18px 20px", textDecoration: "none" }}
             >
-              <div style={{ fontSize: 11, color: "#22c55e", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
+              <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
                 {p.category} · {p.readMins} min read
               </div>
               <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7", margin: "6px 0" }}>{p.title}</div>
@@ -74,15 +74,15 @@ export default async function BlogIndex() {
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 14 }}>
           The guides explain the method. The data pages apply it to live listings:{" "}
-          <Link href="/flip" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/flip" style={{ color: "#34C759", textDecoration: "none" }}>
             every tracked brand ranked by what it sells each week
           </Link>
           ,{" "}
-          <Link href="/category" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/category" style={{ color: "#34C759", textDecoration: "none" }}>
             every category ranked by which brands move in it
           </Link>
           , and the{" "}
-          <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>
             full weekly market data
           </Link>
           , published free.
@@ -93,7 +93,7 @@ export default async function BlogIndex() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
-          <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           {/* Same reasoning as the article template, re-measured 2026-09-08:
               /blog and /blog/* carry no link to /pricing and no price, and not
               one of the 101 external-referrer visitors in the last 30d has ever

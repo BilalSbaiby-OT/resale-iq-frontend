@@ -61,7 +61,7 @@ export default function MarketPage() {
       {/* Summary strip */}
       <div className="riq-grid-3" style={{ marginBottom: 16 }}>
         {[
-          ["STRONG BUY", totals.strong, "#22c55e", "high-conviction combos"],
+          ["STRONG BUY", totals.strong, "#34C759", "high-conviction combos"],
           ["BUY", totals.buy, "#38bdf8", "worth sourcing now"],
           ["SHOWING", rows.length, "#e8ecf4", "top signals by investment score"],
         ].map(([l, v, c, sub]) => (
@@ -76,7 +76,7 @@ export default function MarketPage() {
       <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12, lineHeight: 1.6 }}>
         Each row is a brand + category the market is moving on, scored by investment potential
         (demand velocity × liquidity × momentum). Use it to decide <em>what kind</em> of stock to
-        hunt for — then jump to the <Link href="/deals" style={{ color: "#22c55e", textDecoration: "none" }}>Deal Scanner</Link> for the exact models.
+        hunt for — then jump to the <Link href="/deals" style={{ color: "#34C759", textDecoration: "none" }}>Deal Scanner</Link> for the exact models.
       </p>
 
       {loading ? (

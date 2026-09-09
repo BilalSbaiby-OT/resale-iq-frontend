@@ -122,7 +122,9 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
     if (bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") filled.push(bg)
   }
   expect(filled).toHaveLength(1)
-  expect(filled[0]).toBe("rgb(34, 197, 94)")
+  // Apple system green #34C759 (was Tailwind #22c55e / rgb(34,197,94) before the
+  // 2026-09 Apple-palette token change).
+  expect(filled[0]).toBe("rgb(52, 199, 89)")
 })
 
 test("methodology explains sell-through, buy-below and confidence", async ({ page }) => {

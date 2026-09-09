@@ -19,7 +19,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           A temporary error stopped this page from loading. Trying again usually fixes it.
         </p>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-          <button onClick={reset} style={{ background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, border: "none", cursor: "pointer" }}>
+          <button onClick={reset} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, border: "none", cursor: "pointer" }}>
             Try again
           </button>
           <Link href="/dashboard" style={{ background: "#12151d", border: "1px solid #1c2333", color: "#a9b6d0", fontWeight: 600, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}>

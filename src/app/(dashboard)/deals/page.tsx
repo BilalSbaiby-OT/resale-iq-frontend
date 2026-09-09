@@ -56,7 +56,7 @@ function Sparkline({ points, width = 72, height = 24 }: { points: PricePoint[]; 
     y: height - ((p - min) / range) * (height - 4) - 2,
   }))
   const d = coords.map((c, i) => `${i === 0 ? "M" : "L"}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ")
-  // The trend line is not a verdict. It was full-strength #22c55e / #ef4444 —
+  // The trend line is not a verdict. It was full-strength #34C759 / #FF453A —
   // the same green as the primary CTA — so a sparkline read as an
   // instruction. Muted to a hairline-weight mark that says direction only.
   const trending = prices[prices.length - 1] >= prices[0]

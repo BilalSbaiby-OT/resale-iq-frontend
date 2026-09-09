@@ -24,7 +24,10 @@ const PAID_ONLY_FIELDS = [
 // The verdict palette — a refusal must never wear one of these (design/tokens.json
 // color.verdict, defect 2 in the 2026-09-01 designer pass). Checked as computed
 // `color` on every element inside the INSUFFICIENT_DATA panel, not just text.
-const VERDICT_COLORS = ["#22c55e", "#f59e0b", "#ef4444"]
+// Apple system palette (dark) — buy #34C759, watch #FF9F0A, skip #FF453A.
+// Was Tailwind #22c55e/#f59e0b/#ef4444 before the 2026-09 token change. The
+// refusal panel must use NONE of these, so the list must track the live tokens.
+const VERDICT_COLORS = ["#34C759", "#FF9F0A", "#FF453A"]
 
 async function search(page: import("@playwright/test").Page, q: string) {
   await page.goto("/tools")

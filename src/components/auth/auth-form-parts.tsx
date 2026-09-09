@@ -28,9 +28,9 @@
  *
  * Why this exists at all: before this pass the (auth) group used FIVE different
  * greens for one accent — `emerald-400` (#34d399) on buttons, `emerald-300` on
- * their hover, `emerald-500/60` on focus rings, `#22c55e` in pricing-section,
+ * their hover, `emerald-500/60` on focus rings, `#34C759` in pricing-section,
  * and a `to-teal-500` gradient on the wordmark — against a `--color-buy` token
- * of #22c55e that nothing in this group referenced. Same class of bug the file
+ * of #34C759 that nothing in this group referenced. Same class of bug the file
  * header already describes: the accent had no single source, so it drifted.
  *
  * Hover is `opacity`, not a second green. There is no hover token in @theme and

@@ -147,9 +147,9 @@ export default async function CategoryPage(
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>Market data</Link>
+          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>Market data</Link>
         </div>
 
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
@@ -236,7 +236,7 @@ export default async function CategoryPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category volume tells you demand exists. The verdict tells you whether this item, at this price, makes money.
           </p>
-          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             Free price checker →
           </Link>
           {/* Second, lower-emphasis door — this page and its 8 siblings had

@@ -29,7 +29,7 @@ const ENDPOINTS: Array<{ method: string; path: string; desc: string; params?: st
 ]
 
 const METHOD_COLOR: Record<string, string> = {
-  GET: "#22c55e", POST: "#3b82f6", PUT: "#f59e0b", DELETE: "#ef4444",
+  GET: "#34C759", POST: "#0A84FF", PUT: "#FF9F0A", DELETE: "#FF453A",
 }
 
 const H2: React.CSSProperties = { fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "30px 0 10px" }
@@ -43,7 +43,7 @@ export default function ApiDocs() {
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Resale IQ API</h1>
         <p style={{ ...P, marginBottom: 6 }}>
@@ -51,8 +51,8 @@ export default function ApiDocs() {
           asking prices at departure, buy-below prices and demand signals for 26 brands.
         </p>
         <p style={{ fontSize: 13, color: "#5b6b8c" }}>
-          Included with <Link href="/register" style={{ color: "#22c55e" }}>Pro</Link>. Generate your
-          key from <Link href="/account" style={{ color: "#22c55e" }}>your account page</Link>.
+          Included with <Link href="/register" style={{ color: "#34C759" }}>Pro</Link>. Generate your
+          key from <Link href="/account" style={{ color: "#34C759" }}>your account page</Link>.
         </p>
 
         <h2 style={H2}>Authentication</h2>
@@ -124,7 +124,7 @@ export default function ApiDocs() {
         <h2 style={H2}>Fair use</h2>
         <p style={P}>
           The API is for your own sourcing decisions. Redistributing the data or using it to build a
-          competing dataset is not permitted — see the <Link href="/terms" style={{ color: "#22c55e" }}>Terms</Link>.
+          competing dataset is not permitted — see the <Link href="/terms" style={{ color: "#34C759" }}>Terms</Link>.
         </p>
 
         <div style={{ marginTop: 34, padding: "20px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12 }}>
@@ -132,15 +132,15 @@ export default function ApiDocs() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "7px 0 14px" }}>
             The API is included with Pro. Generate your key from your account page.
           </p>
-          <Link href="/register" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/register" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
             Get Pro →
           </Link>
         </div>
 
         <div style={{ marginTop: 26, fontSize: 13 }}>
-          <Link href="/support" style={{ color: "#22c55e" }}>Support</Link>
+          <Link href="/support" style={{ color: "#34C759" }}>Support</Link>
           <span style={{ color: "#2b3550", margin: "0 8px" }}>·</span>
-          <Link href="/terms" style={{ color: "#22c55e" }}>Terms</Link>
+          <Link href="/terms" style={{ color: "#34C759" }}>Terms</Link>
         </div>
       </div>
     </div>

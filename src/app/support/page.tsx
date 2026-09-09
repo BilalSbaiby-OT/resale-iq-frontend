@@ -29,7 +29,7 @@ export async function SupportPage({ locale = "en" }: { locale?: Locale } = {}) {
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <Link href={home} style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href={home} style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>{t.heading}</h1>
         <p style={{ fontSize: 14, color: "#8b99b8", marginBottom: 24, lineHeight: 1.6 }}>
           {t.intro}
@@ -37,7 +37,7 @@ export async function SupportPage({ locale = "en" }: { locale?: Locale } = {}) {
 
         {/* Contact */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 34 }}>
-          <a href={`mailto:${SUPPORT_EMAIL}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
+          <a href={`mailto:${SUPPORT_EMAIL}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
             <Mail size={16} /> {t.emailSupport}
           </a>
           <a href={`mailto:${SUPPORT_EMAIL}?subject=Bug%20report`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#12151d", border: "1px solid #1c2333", color: "#a9b6d0", fontWeight: 600, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
@@ -59,9 +59,9 @@ export async function SupportPage({ locale = "en" }: { locale?: Locale } = {}) {
             already calls out. Translating the label without the destination
             would promise a language the click does not deliver. */}
         <div style={{ display: "flex", gap: 16, marginTop: 8 }}>
-          <Link href="/terms" style={{ color: "#22c55e", fontSize: 13 }}>Terms</Link>
-          <Link href="/privacy" style={{ color: "#22c55e", fontSize: 13 }}>Privacy</Link>
-          <Link href="/legal" style={{ color: "#22c55e", fontSize: 13 }}>Legal notice</Link>
+          <Link href="/terms" style={{ color: "#34C759", fontSize: 13 }}>Terms</Link>
+          <Link href="/privacy" style={{ color: "#34C759", fontSize: 13 }}>Privacy</Link>
+          <Link href="/legal" style={{ color: "#34C759", fontSize: 13 }}>Legal notice</Link>
         </div>
       </div>
     </div>

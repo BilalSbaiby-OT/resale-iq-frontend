@@ -116,9 +116,9 @@ export default async function BrandCategoryPage(
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href={`/flip/${b.slug}`} style={{ color: "#22c55e", textDecoration: "none" }}>{b.brand}</Link>
+          <Link href={`/flip/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>{b.brand}</Link>
         </div>
 
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
@@ -162,7 +162,7 @@ export default async function BrandCategoryPage(
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
             If you are new to this, the{" "}
-            <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>reselling manual</Link>{" "}
+            <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>reselling manual</Link>{" "}
             walks through the margin maths, the fee structure and the sourcing rules that decide whether a
             category like this is actually worth your money.
           </p>
@@ -173,7 +173,7 @@ export default async function BrandCategoryPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get the headline verdict on any item — no signup needed.
           </p>
-          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             Free price checker →
           </Link>
         </div>

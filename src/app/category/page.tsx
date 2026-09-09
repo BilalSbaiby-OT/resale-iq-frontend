@@ -122,7 +122,7 @@ export default async function CategoryHubPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main style={{ maxWidth: 860, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
           <span style={{ color: "#5b6b8c" }}>Categories</span>
         </div>
@@ -200,15 +200,15 @@ export default async function CategoryHubPage() {
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
           If you already have a brand in mind, the{" "}
-          <Link href="/flip" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/flip" style={{ color: "#34C759", textDecoration: "none" }}>
             brand rankings
           </Link>{" "}
           answer whether it is worth reselling and which of its categories move. The{" "}
-          <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>
             weekly market data
           </Link>{" "}
           is published free, and{" "}
-          <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/methodology" style={{ color: "#34C759", textDecoration: "none" }}>
             the methodology
           </Link>{" "}
           sets out how every figure is calculated and what it cannot tell you.
@@ -223,7 +223,7 @@ export default async function CategoryHubPage() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category and brand volume are free. The buy-below price and unlock limits are part of the paid plans.
           </p>
-          <Link href="/pricing?src=category_index" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/pricing?src=category_index" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             See plans and pricing →
           </Link>
         </div>

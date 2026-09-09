@@ -34,7 +34,7 @@ export default async function OpengraphImage() {
               width: 54,
               height: 54,
               borderRadius: 14,
-              background: "linear-gradient(135deg,#22c55e,#0ea5e9)",
+              background: "linear-gradient(135deg,#34C759,#0ea5e9)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -60,7 +60,7 @@ export default async function OpengraphImage() {
           }}
         >
           <span>Stop guessing what sells.</span>
-          <span style={{ color: "#22c55e" }}>Know before you buy.</span>
+          <span style={{ color: "#34C759" }}>Know before you buy.</span>
         </div>
 
         {/* ONE text child, deliberately. Satori throws "Expected <div> to have
@@ -81,7 +81,7 @@ export default async function OpengraphImage() {
             color: "#5b6b8c",
           }}
         >
-          <span style={{ color: "#22c55e", fontWeight: 700 }}>BUY</span>
+          <span style={{ color: "#34C759", fontWeight: 700 }}>BUY</span>
           <span>·</span>
           <span style={{ color: "#fbbf24", fontWeight: 700 }}>WATCH</span>
           <span>·</span>

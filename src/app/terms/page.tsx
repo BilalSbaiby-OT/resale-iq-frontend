@@ -11,7 +11,7 @@ export default function Terms() {
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#22c55e", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Terms of Service</h1>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 28 }}>Last updated: 22 August 2026</p>
         {[
@@ -27,7 +27,7 @@ export default function Terms() {
             <p style={{ fontSize: 13.5, lineHeight: 1.65 }}>{b}</p>
           </div>
         ))}
-        <Link href="/privacy" style={{ color: "#22c55e", fontSize: 13 }}>Privacy Policy →</Link>
+        <Link href="/privacy" style={{ color: "#34C759", fontSize: 13 }}>Privacy Policy →</Link>
       </div>
     </div>
   )

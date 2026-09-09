@@ -74,14 +74,14 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
   return (
     <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#eef1f7", display: "flex", flexDirection: "column", alignItems: "center", padding: "40px 20px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 28 }}>
-        <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#22c55e,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
+        <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#34C759,#0ea5e9)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#06090c" }}>R</div>
         <span style={{ fontSize: 16, fontWeight: 700 }}>Resale IQ</span>
       </div>
 
       {!pro && (
       <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-          <Unlock size={15} style={{ color: "#22c55e" }} />
+          <Unlock size={15} style={{ color: "#34C759" }} />
           <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Your free account is active</span>
         </div>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
@@ -96,11 +96,11 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
               <b style={{ color: "#eef1f7" }}>It often lands in spam or junk</b> — search
               for <b style={{ color: "#eef1f7" }}>noreply@resaleiq.dev</b> and mark it
               &ldquo;not junk&rdquo; so later emails reach you.{" "}
-              <Link href="/account" style={{ color: "#22c55e", textDecoration: "none" }}>Resend it</Link>.
+              <Link href="/account" style={{ color: "#34C759", textDecoration: "none" }}>Resend it</Link>.
             </div>
           </div>
         )}
-        <Link href="/verdict" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
+        <Link href="/verdict" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
           Check your first item →
         </Link>
       </div>
@@ -108,7 +108,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       {pro && (
         <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <Lock size={15} style={{ color: "#22c55e" }} />
+            <Lock size={15} style={{ color: "#34C759" }} />
             <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>This is a Pro feature</span>
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>
@@ -125,7 +125,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       )}
 
       <div style={{ textAlign: "center", maxWidth: 560, marginBottom: 20 }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#22c55e", marginBottom: 18 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#34C759", marginBottom: 18 }}>
           <Lock size={13} /> {pro ? "Order Planner & Compare are Pro features" : "Upgrade for the full dashboard"}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
@@ -137,7 +137,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             : `${tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
         </p>
         {/* The one reframe that collapses price resistance. */}
-        <p style={{ fontSize: 14, color: "#22c55e", fontWeight: 650, marginTop: 12 }}>
+        <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>
           One good flip pays for the whole month.
         </p>
       </div>
@@ -149,10 +149,10 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         {TIERS.filter(t => !t.free).map(t => (
           <div key={t.id} style={{
             position: "relative", background: t.highlight ? "linear-gradient(180deg,#141a24,#10141c)" : "#12151d",
-            border: `1px solid ${t.highlight ? "#22c55e" : "#1c2333"}`, borderRadius: 16, padding: "26px 22px",
+            border: `1px solid ${t.highlight ? "#34C759" : "#1c2333"}`, borderRadius: 16, padding: "26px 22px",
             boxShadow: t.highlight ? "0 12px 40px rgba(34,197,94,.12)" : "none",
           }}>
-            {t.highlight && <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", background: "#22c55e", color: "#06090c", fontSize: 10.5, fontWeight: 800, padding: "4px 12px", borderRadius: 20 }}>MOST POPULAR</div>}
+            {t.highlight && <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", background: "#34C759", color: "#06090c", fontSize: 10.5, fontWeight: 800, padding: "4px 12px", borderRadius: 20 }}>MOST POPULAR</div>}
             <div style={{ fontSize: 15, fontWeight: 700 }}>{t.name}</div>
             <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 3, minHeight: 32 }}>{t.tagline}</div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "16px 0" }}>
@@ -162,13 +162,13 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             <button onClick={() => subscribe(t.priceId)} disabled={busy === t.priceId} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13, fontWeight: 700, cursor: "pointer",
               border: t.highlight ? "none" : "1px solid #263147",
-              background: t.highlight ? "#22c55e" : "#1a2030",
+              background: t.highlight ? "#34C759" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7",
             }}>{busy === t.priceId ? "…" : t.cta}</button>
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 9 }}>
               {t.features.slice(0, 5).map(f => (
                 <div key={f} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                  <Check size={14} color={t.highlight ? "#22c55e" : "#5b6b8c"} strokeWidth={2.5} style={{ marginTop: 1, flexShrink: 0 }} />
+                  <Check size={14} color={t.highlight ? "#34C759" : "#5b6b8c"} strokeWidth={2.5} style={{ marginTop: 1, flexShrink: 0 }} />
                   <span style={{ fontSize: 12, color: "#c3cde0", lineHeight: 1.4 }}>{f}</span>
                 </div>
               ))}
@@ -179,7 +179,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
 
       {/* Risk reversal — removes the last objection for an ROI-driven buyer. */}
       <div style={{ marginTop: 22, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(34,197,94,.06)", border: "1px solid rgba(34,197,94,.25)", borderRadius: 20, padding: "7px 16px" }}>
-        <Check size={14} color="#22c55e" strokeWidth={2.5} />
+        <Check size={14} color="#34C759" strokeWidth={2.5} />
         <span style={{ fontSize: 13, color: "#c3cde0" }}>30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.</span>
       </div>
 

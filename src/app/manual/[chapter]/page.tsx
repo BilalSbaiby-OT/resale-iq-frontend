@@ -86,9 +86,9 @@ export default async function ChapterPage(
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 20 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>Reselling manual</Link>
+          <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>Reselling manual</Link>
         </div>
 
         <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 10 }}>
@@ -109,15 +109,15 @@ export default async function ChapterPage(
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 9, margin: "4px 0 14px" }}>
                 {s.list.map((li) => (
                   <li key={li} style={{ display: "flex", gap: 10, fontSize: 14.5, lineHeight: 1.6, color: "#a9b6d0" }}>
-                    <span style={{ color: "#22c55e", flexShrink: 0 }}>—</span>
+                    <span style={{ color: "#34C759", flexShrink: 0 }}>—</span>
                     <span>{li}</span>
                   </li>
                 ))}
               </ul>
             )}
             {s.callout && (
-              <div style={{ background: "#12151d", borderLeft: "3px solid #22c55e", borderRadius: "0 10px 10px 0", padding: "14px 18px", margin: "6px 0 4px" }}>
-                <div style={{ fontSize: 11.5, color: "#22c55e", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 6 }}>
+              <div style={{ background: "#12151d", borderLeft: "3px solid #34C759", borderRadius: "0 10px 10px 0", padding: "14px 18px", margin: "6px 0 4px" }}>
+                <div style={{ fontSize: 11.5, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 6 }}>
                   {s.callout.label}
                 </div>
                 <div style={{ fontSize: 14.5, lineHeight: 1.65, color: "#c3cde0" }}>{s.callout.text}</div>
@@ -133,7 +133,7 @@ export default async function ChapterPage(
           <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
             {c.takeaways.map((t) => (
               <li key={t} style={{ display: "flex", gap: 10, fontSize: 14.5, lineHeight: 1.6, color: "#c3cde0" }}>
-                <span style={{ color: "#22c55e", flexShrink: 0, fontWeight: 700 }}>✓</span>
+                <span style={{ color: "#34C759", flexShrink: 0, fontWeight: 700 }}>✓</span>
                 <span>{t}</span>
               </li>
             ))}
@@ -161,7 +161,7 @@ export default async function ChapterPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns a Vinted listing into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#22c55e", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=manual" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans and pricing — free tier included
@@ -179,7 +179,7 @@ export default async function ChapterPage(
               <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items leave the shelf</strong> in the last
               seven days across Vinted ES, FR, DE, IT and PT. Every figure in this manual&apos;s data pages comes
               from that same feed —{" "}
-              <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>see the full market data</Link>.
+              <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>see the full market data</Link>.
             </div>
           </div>
         )}
@@ -198,7 +198,7 @@ export default async function ChapterPage(
         </div>
 
         <div style={{ marginTop: 22 }}>
-          <Link href="/manual" style={{ color: "#22c55e", fontSize: 14, textDecoration: "none" }}>
+          <Link href="/manual" style={{ color: "#34C759", fontSize: 14, textDecoration: "none" }}>
             ← All {ALL_CHAPTERS.length} chapters
           </Link>
         </div>

@@ -119,7 +119,7 @@ export default async function BrandFlipPage(
       <script type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <Link href="/" style={{ color: "#22c55e", textDecoration: "none", fontSize: 13 }}>
+      <Link href="/" style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>
         ← Resale IQ
       </Link>
 
@@ -254,13 +254,13 @@ export default async function BrandFlipPage(
             "The exact sizes that sell fastest",
           ].map(t => (
             <li key={t} style={{ display: "flex", gap: 8, color: "#a9b6d0", fontSize: 13.5, lineHeight: 1.5 }}>
-              <TrendingUp size={14} style={{ color: "#22c55e", flexShrink: 0, marginTop: 3 }} />
+              <TrendingUp size={14} style={{ color: "#34C759", flexShrink: 0, marginTop: 3 }} />
               {t}
             </li>
           ))}
         </ul>
           <Link href="/register" style={{
-          display: "inline-flex", alignItems: "center", gap: 7, background: "#22c55e",
+          display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",
         }}>
@@ -284,15 +284,15 @@ export default async function BrandFlipPage(
         We continuously track live listings across Vinted ES, FR, DE, IT and PT, and watch which ones leave the shelf —
         {tracked} unique listings — and recompute every signal roughly every 2 hours. The figures on this page are
         live aggregates, not estimates. Last calculated {market.stamp ?? "—"}.{" "}
-        <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>Methodology</Link>
+        <Link href="/methodology" style={{ color: "#34C759", textDecoration: "none" }}>Methodology</Link>
         {" · "}
-        <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>Market data</Link>
+        <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>Market data</Link>
         {" · "}
-        <Link href="/tools" style={{ color: "#22c55e", textDecoration: "none" }}>Analyze an item</Link>.
+        <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Analyze an item</Link>.
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         For how to turn figures like these into a buy decision, the{" "}
-        <Link href="/manual" style={{ color: "#22c55e", textDecoration: "none" }}>reselling manual</Link>{" "}
+        <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>reselling manual</Link>{" "}
         covers the margin maths, the maximum buy price and why sell-through matters more than volume.
       </p>
 

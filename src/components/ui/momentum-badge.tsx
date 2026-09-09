@@ -38,9 +38,9 @@ import { momentumHint, momentumWord } from "@/lib/app-copy"
  */
 
 const DOT: Record<string, string> = {
-  HOT: "#ef4444",
-  RISING: "#f59e0b",
-  STABLE: "#3b82f6",
+  HOT: "#FF453A",
+  RISING: "#FF9F0A",
+  STABLE: "#0A84FF",
   FADING: "#64748b",
   DEAD: "#4b5563",
 }

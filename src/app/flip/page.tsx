@@ -121,7 +121,7 @@ export default async function FlipHubPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main style={{ maxWidth: 860, margin: "0 auto" }}>
         <div style={{ fontSize: 13, marginBottom: 18 }}>
-          <Link href="/" style={{ color: "#22c55e", textDecoration: "none" }}>Resale IQ</Link>
+          <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
           <span style={{ color: "#5b6b8c" }}>Brands</span>
         </div>
@@ -195,19 +195,19 @@ export default async function FlipHubPage() {
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
           If you already know you want to flip sneakers or jeans and need to know which brand to
           buy, the{" "}
-          <Link href="/category" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/category" style={{ color: "#34C759", textDecoration: "none" }}>
             category rankings
           </Link>{" "}
           answer it from the other direction. The{" "}
-          <Link href="/data" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>
             full weekly market data
           </Link>{" "}
           is published free, and{" "}
-          <Link href="/methodology" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/methodology" style={{ color: "#34C759", textDecoration: "none" }}>
             the methodology
           </Link>{" "}
           explains exactly how every number here is calculated. See{" "}
-          <Link href="/pricing?src=flip" style={{ color: "#22c55e", textDecoration: "none" }}>
+          <Link href="/pricing?src=flip" style={{ color: "#34C759", textDecoration: "none" }}>
             plans and pricing
           </Link>{" "}
           for the full per-model verdicts.

@@ -21,17 +21,21 @@
   --color-text-muted: #546380;
   --color-text-body: #c3cde0;
   --color-on-buy: #06090c;
-  --color-green: #22c55e;
-  --color-buy: #22c55e;
-  --color-watch: #f59e0b;
-  --color-skip: #ef4444;
+  --color-green: #34C759;
+  --color-buy: #34C759;
+  --color-watch: #FF9F0A;
+  --color-skip: #FF453A;
   --color-unknown: #8b99b8;
-  --color-amber: #f59e0b;
-  --color-red: #ef4444;
-  --color-blue: #3b82f6;
-  --color-purple: #a855f7;
-  --color-cyan: #06b6d4;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --color-amber: #FF9F0A;
+  --color-red: #FF453A;
+  --color-blue: #0A84FF;
+  --color-purple: #BF5AF3;
+  --color-cyan: #64D2FF;
+  /* Apple system palette (dark-mode values) — was generic Tailwind hues
+     (#22c55e/#f59e0b/#ef4444). Apple's greens/oranges/reds read as native on a
+     dark surface. Semantic meaning (BUY green / WATCH orange / SKIP red)
+     unchanged; only the exact hue moved toward the HIG palette. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   /* ── Design tokens: the scales this file never had ──────────────────────────
@@ -96,7 +100,7 @@
      every component hardcoded them; `--color-accent` aliases the existing
      green rather than introducing a second one. */
   --color-hairline: rgba(255, 255, 255, 0.08);
-  --color-accent: #22c55e;
+  --color-accent: #34C759;
   --color-on-accent: #06090c;
   --color-text-dim: rgba(232, 236, 244, 0.62);   /* muted body: 56–64% */
   /* Apple graphite — the Check CTA on `/` is this, not a second green. */
@@ -134,8 +138,8 @@ body {
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #263147; border-radius: 4px; }
-::selection { background: rgba(34,197,94,.2); }
-*:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+::selection { background: rgba(52,199,89,.2); }
+*:focus-visible { outline: 2px solid #0A84FF; outline-offset: 2px; }
 
 @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
 @keyframes shimmer { from{background-position:-400px 0} to{background-position:calc(400px + 100%) 0} }

@@ -1,0 +1,366 @@
+[
+  {
+    "tag": "en-operator",
+    "locale": "en",
+    "planId": "operator",
+    "steps": [
+      {
+        "t": "2026-09-06T00:28:49.399Z",
+        "name": "1-land",
+        "url": "https://resaleiq.dev/",
+        "status": 200
+      },
+      {
+        "t": "2026-09-06T00:28:51.964Z",
+        "name": "2-pricing",
+        "url": "https://resaleiq.dev/",
+        "shows19": true,
+        "shows49": true
+      },
+      {
+        "t": "2026-09-06T00:28:52.080Z",
+        "name": "2b-cta",
+        "clicked": true,
+        "tier": "operator"
+      },
+      {
+        "t": "2026-09-06T00:28:54.583Z",
+        "name": "3-register-page",
+        "url": "https://resaleiq.dev/register?plan=operator"
+      },
+      {
+        "t": "2026-09-06T00:28:54.590Z",
+        "name": "3b-selected-plan",
+        "selected": "Starter Unlimited verdicts, every signal, watchlist & P&L €19 /month",
+        "expectLabel": "Starter"
+      },
+      {
+        "t": "2026-09-06T00:28:54.719Z",
+        "name": "3c-form",
+        "email": "e2e-walk-en-operator-1788654534590@example.com",
+        "checkboxes": 2
+      },
+      {
+        "t": "2026-09-06T00:29:01.605Z",
+        "name": "4-after-submit",
+        "url": "https://checkout.stripe.com/c/pay/cs_live_a1MeGvI1dRfAWHBGJat2czDQazUNcFPT3tMR1AFHECqpaZbRBzDGbzw9p2#fidnandhYHdWcXxpYCc",
+        "reachedStripe": true,
+        "onCheckEmail": false,
+        "visibleError": ""
+      },
+      {
+        "t": "2026-09-06T00:29:09.055Z",
+        "name": "5-stripe",
+        "url": "https://checkout.stripe.com/c/pay/cs_live_a1MeGvI1dRfAWHBGJat2czDQazUNcFPT3tMR1AFHECqpaZbR",
+        "amountsSeen": [
+          "19.00",
+          "0.00"
+        ],
+        "correctPriceShown": true,
+        "wrongTierPriceShown": false,
+        "productLine": "Resale IQ Starter",
+        "trialMentioned": true,
+        "stripeHtmlLang": "en",
+        "spanishChrome": false,
+        "englishChrome": true
+      }
+    ],
+    "apiCalls": [
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/auth/register",
+        "status": 201
+      },
+      {
+        "url": "/auth/me",
+        "status": 200
+      },
+      {
+        "url": "/stripe/checkout",
+        "status": 200
+      }
+    ],
+    "netErrors": [],
+    "verdict": "REACHED Stripe Checkout at the CORRECT price (€19)"
+  },
+  {
+    "tag": "en-power",
+    "locale": "en",
+    "planId": "power",
+    "steps": [
+      {
+        "t": "2026-09-06T00:29:14.484Z",
+        "name": "1-land",
+        "url": "https://resaleiq.dev/",
+        "status": 200
+      },
+      {
+        "t": "2026-09-06T00:29:17.025Z",
+        "name": "2-pricing",
+        "url": "https://resaleiq.dev/",
+        "shows19": true,
+        "shows49": true
+      },
+      {
+        "t": "2026-09-06T00:29:17.069Z",
+        "name": "2b-cta",
+        "clicked": true,
+        "tier": "power"
+      },
+      {
+        "t": "2026-09-06T00:29:19.570Z",
+        "name": "3-register-page",
+        "url": "https://resaleiq.dev/register?plan=power"
+      },
+      {
+        "t": "2026-09-06T00:29:19.576Z",
+        "name": "3b-selected-plan",
+        "selected": "Pro Live deals, Order Planner, API, per-size velocity €49 /month",
+        "expectLabel": "Pro"
+      },
+      {
+        "t": "2026-09-06T00:29:19.701Z",
+        "name": "3c-form",
+        "email": "e2e-walk-en-power-1788654559576@example.com",
+        "checkboxes": 2
+      },
+      {
+        "t": "2026-09-06T00:29:26.454Z",
+        "name": "4-after-submit",
+        "url": "https://checkout.stripe.com/c/pay/cs_live_a1fDog406vUB2hzqmGDh5Wv9AmKwPJvr2jo2i8LecobYkjClupUbwwVsog#fidnandhYHdWcXxpYCc",
+        "reachedStripe": true,
+        "onCheckEmail": false,
+        "visibleError": ""
+      },
+      {
+        "t": "2026-09-06T00:29:33.639Z",
+        "name": "5-stripe",
+        "url": "https://checkout.stripe.com/c/pay/cs_live_a1fDog406vUB2hzqmGDh5Wv9AmKwPJvr2jo2i8LecobYkjCl",
+        "amountsSeen": [
+          "49.00",
+          "0.00"
+        ],
+        "correctPriceShown": true,
+        "wrongTierPriceShown": false,
+        "productLine": "Resale IQ Pro",
+        "trialMentioned": false,
+        "stripeHtmlLang": "en",
+        "spanishChrome": false,
+        "englishChrome": true
+      }
+    ],
+    "apiCalls": [
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/auth/register",
+        "status": 201
+      },
+      {
+        "url": "/auth/me",
+        "status": 200
+      },
+      {
+        "url": "/stripe/checkout",
+        "status": 200
+      }
+    ],
+    "netErrors": [],
+    "verdict": "REACHED Stripe Checkout at the CORRECT price (€49)"
+  },
+  {
+    "tag": "es-operator",
+    "locale": "es",
+    "planId": "operator",
+    "steps": [
+      {
+        "t": "2026-09-06T00:29:39.107Z",
+        "name": "1-land",
+        "url": "https://resaleiq.dev/es",
+        "status": 200
+      },
+      {
+        "t": "2026-09-06T00:29:41.645Z",
+        "name": "2-pricing",
+        "url": "https://resaleiq.dev/es",
+        "shows19": true,
+        "shows49": true
+      },
+      {
+        "t": "2026-09-06T00:29:41.699Z",
+        "name": "2b-cta",
+        "clicked": true,
+        "tier": "operator"
+      },
+      {
+        "t": "2026-09-06T00:29:44.200Z",
+        "name": "3-register-page",
+        "url": "https://resaleiq.dev/register?plan=operator"
+      },
+      {
+        "t": "2026-09-06T00:29:44.211Z",
+        "name": "3b-selected-plan",
+        "selected": "Starter Veredictos ilimitados, todas las señales, watchlist y P&L €19 /mes",
+        "expectLabel": "Starter"
+      },
+      {
+        "t": "2026-09-06T00:29:44.361Z",
+        "name": "3c-form",
+        "email": "e2e-walk-es-operator-1788654584211@example.com",
+        "checkboxes": 2
+      },
+      {
+        "t": "2026-09-06T00:29:51.303Z",
+        "name": "4-after-submit",
+        "url": "https://checkout.stripe.com/f/pay/cs_live_a1xoNFe2xjTd3LqLYmVZNI6oSkQcN9Pi3RCXRigdyS60rDa1SdOxUJIg6m#fidnandhYHdWcXxpYCc",
+        "reachedStripe": true,
+        "onCheckEmail": false,
+        "visibleError": ""
+      },
+      {
+        "t": "2026-09-06T00:29:57.121Z",
+        "name": "5-stripe",
+        "url": "https://checkout.stripe.com/f/pay/cs_live_a1xoNFe2xjTd3LqLYmVZNI6oSkQcN9Pi3RCXRigdyS60rDa1",
+        "amountsSeen": [
+          "19,00",
+          "0,00"
+        ],
+        "correctPriceShown": true,
+        "wrongTierPriceShown": false,
+        "productLine": "Resale IQ Starter",
+        "trialMentioned": true,
+        "stripeHtmlLang": "es",
+        "spanishChrome": true,
+        "englishChrome": false
+      }
+    ],
+    "apiCalls": [
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/auth/register",
+        "status": 201
+      },
+      {
+        "url": "/auth/me",
+        "status": 200
+      },
+      {
+        "url": "/stripe/checkout",
+        "status": 200
+      }
+    ],
+    "netErrors": [],
+    "verdict": "REACHED Stripe Checkout at the CORRECT price (€19)"
+  },
+  {
+    "tag": "es-power",
+    "locale": "es",
+    "planId": "power",
+    "steps": [
+      {
+        "t": "2026-09-06T00:30:02.498Z",
+        "name": "1-land",
+        "url": "https://resaleiq.dev/es",
+        "status": 200
+      },
+      {
+        "t": "2026-09-06T00:30:05.040Z",
+        "name": "2-pricing",
+        "url": "https://resaleiq.dev/es",
+        "shows19": true,
+        "shows49": true
+      },
+      {
+        "t": "2026-09-06T00:30:05.087Z",
+        "name": "2b-cta",
+        "clicked": true,
+        "tier": "power"
+      },
+      {
+        "t": "2026-09-06T00:30:07.588Z",
+        "name": "3-register-page",
+        "url": "https://resaleiq.dev/register?plan=power"
+      },
+      {
+        "t": "2026-09-06T00:30:07.593Z",
+        "name": "3b-selected-plan",
+        "selected": "Pro Chollos en vivo, Order Planner, API, velocidad por talla €49 /mes",
+        "expectLabel": "Pro"
+      },
+      {
+        "t": "2026-09-06T00:30:07.693Z",
+        "name": "3c-form",
+        "email": "e2e-walk-es-power-1788654607593@example.com",
+        "checkboxes": 2
+      },
+      {
+        "t": "2026-09-06T00:30:16.258Z",
+        "name": "4-after-submit",
+        "url": "https://checkout.stripe.com/f/pay/cs_live_a1NzorweADEfdCMP6QGURpRF1R3M7bzTmtJ1O8mm0XH3If1jIttcn5ZNv7#fidnandhYHdWcXxpYCc",
+        "reachedStripe": true,
+        "onCheckEmail": false,
+        "visibleError": ""
+      },
+      {
+        "t": "2026-09-06T00:30:21.442Z",
+        "name": "5-stripe",
+        "url": "https://checkout.stripe.com/f/pay/cs_live_a1NzorweADEfdCMP6QGURpRF1R3M7bzTmtJ1O8mm0XH3If1j",
+        "amountsSeen": [
+          "49,00",
+          "0,00"
+        ],
+        "correctPriceShown": true,
+        "wrongTierPriceShown": false,
+        "productLine": "Resale IQ Pro",
+        "trialMentioned": false,
+        "stripeHtmlLang": "es",
+        "spanishChrome": true,
+        "englishChrome": false
+      }
+    ],
+    "apiCalls": [
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/stripe/plans",
+        "status": 200
+      },
+      {
+        "url": "/auth/register",
+        "status": 201
+      },
+      {
+        "url": "/auth/me",
+        "status": 200
+      },
+      {
+        "url": "/stripe/checkout",
+        "status": 200
+      }
+    ],
+    "netErrors": [],
+    "verdict": "REACHED Stripe Checkout at the CORRECT price (€49)"
+  }
+]
