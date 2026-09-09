@@ -181,6 +181,21 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await expect.poll(() => events, { timeout: 10_000 }).toContain("checkout_started")
   })
 
+  test("GUEST: logged-out paid click goes straight to Stripe, not the register wall", async ({ page }) => {
+    // The register wall was the #1 measured drop. A logged-out visitor who
+    // clicks a paid plan on the pricing page must now reach Stripe Checkout
+    // directly — no /register detour — and fire checkout_started.
+    const events = captureTrackEvents(page)
+    await mockPaidCheckout(page)
+    await page.goto("/pricing")
+    // Press a paid-plan CTA as a stranger (no token in storage).
+    await page.getByRole("button", { name: /Get the numbers/i }).first().click()
+    // Lands on Stripe, never bounced to /register.
+    await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
+    expect(page.url()).not.toContain("/register")
+    await expect.poll(() => events, { timeout: 10_000 }).toContain("checkout_started")
+  })
+
   test("paid checkout failure shows retry and stays off /check-email", async ({ page }) => {
     await page.route("**/stripe/plans", async (route) => {
       await route.fulfill({

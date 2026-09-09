@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { setToken } from "@/lib/utils"
+import { setToken, getToken } from "@/lib/utils"
 import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { CheckCircle2, Clock, AlertTriangle, Loader2 } from "lucide-react"
@@ -20,6 +20,9 @@ function BillingSuccessContent() {
   useEffect(() => {
     const sessionId = params.get("session_id")
     if (!sessionId) { setState("error"); return }
+    // A guest is someone who reached this page with no stored token — they paid
+    // without registering. Captured BEFORE verify-session mints one.
+    const wasGuest = !getToken()
     ;(async () => {
       try {
         const d = await verifyCheckoutSession(sessionId)
@@ -34,7 +37,11 @@ function BillingSuccessContent() {
             }
           }
           setPlan(d.plan); setState("ok")
-          setTimeout(() => { window.location.href = "/dashboard" }, 2500)
+          // A guest who paid without registering now has a real account with a
+          // random password they never chose. Send them to set one so they can
+          // log back in later; already-registered users just go to the dashboard.
+          const dest = wasGuest && d.access_token ? "/account?welcome=1" : "/dashboard"
+          setTimeout(() => { window.location.href = dest }, 2500)
         } else {
           setState("unpaid")
         }

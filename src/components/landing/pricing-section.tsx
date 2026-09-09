@@ -82,23 +82,30 @@ export function PricingSection({
     if (!placeholder) return
     if (!getToken()) {
       const plan = tierId === "power" ? "power" : "operator"
-      // BEFORE the redirect, and before the `return` that used to end the
-      // function here. This branch is the only path by which a logged-out
-      // visitor can press a paid button, and it left no trace: `checkout_started`
-      // on line ~95 is unreachable without a token, so every stranger who
-      // wanted to buy and gave up at the register wall was invisible. Production
-      // 2026-09-06: 8 distinct visitors reached `pricing_view`, 0 logged-out
-      // visitors ever reached `checkout_started`.
-      //
-      // The plan rides on the path because /api/track persists no extra body
-      // fields (api/routes.py:3682) — same encoding the register failure
-      // reasons already use in trackEvent. It is the tier a stranger actually
-      // pressed, which is the closest thing to a willingness-to-pay signal this
-      // company has had since the single unprompted EUR 49 checkout on
-      // 2026-08-28.
+      // GUEST CHECKOUT (2026-09-09): a logged-out visitor who clicks a paid
+      // plan now goes STRAIGHT TO STRIPE, no /register wall first. That wall
+      // was the single biggest measured drop — 81% abandoned /register, 0
+      // logged-out visitors ever reached checkout_started. The backend accepts
+      // an unauthenticated /stripe/checkout and provisions the account from the
+      // Stripe-verified payer email at /billing/success (verify-session). We
+      // keep the checkout_intent_guest signal, and now checkout_started is
+      // finally reachable for strangers.
       const here = typeof window !== "undefined" ? window.location.pathname : "/pricing"
       trackEvent("checkout_intent_guest", `${here}?plan=${plan}`)
-      router.push(`/register?plan=${plan}`)
+      setBusy(tierId)
+      try {
+        const priceId = resolvePriceId(placeholder, plans)
+        if (!priceId) { router.push(`/register?plan=${plan}`); return }
+        const { checkout_url } = await createCheckout(priceId)
+        trackEvent("checkout_started")
+        window.location.href = checkout_url
+      } catch {
+        // Fall back to the register path if guest checkout errors, so a
+        // stranger is never left on a dead button.
+        router.push(`/register?plan=${plan}`)
+      } finally {
+        setBusy(null)
+      }
       return
     }
     setBusy(tierId)
