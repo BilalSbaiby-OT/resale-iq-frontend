@@ -99,9 +99,13 @@ export function PricingSection({
         const { checkout_url } = await createCheckout(priceId)
         trackEvent("checkout_started")
         window.location.href = checkout_url
-      } catch {
-        // Fall back to the register path if guest checkout errors, so a
-        // stranger is never left on a dead button.
+      } catch (e) {
+        // why: guest checkout can fail for benign, non-actionable reasons
+        // (Stripe hiccup, plans not yet loaded). Rather than leave a stranger
+        // on a dead button, fall back to the register path — which still
+        // reaches Stripe via the authed flow. Logged so the fallback is not
+        // invisible if it starts happening often.
+        console.warn("[pricing] guest checkout failed, falling back to /register:", e)
         router.push(`/register?plan=${plan}`)
       } finally {
         setBusy(null)
