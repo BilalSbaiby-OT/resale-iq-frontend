@@ -145,7 +145,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
   return (
     <AppShell title={checkLabel}>
-      <div className="max-w-xl mx-auto pt-8">
+      <div className="max-w-3xl mx-auto pt-8">
         <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-1.6px", lineHeight: 1.05, margin: "0 0 28px" }}>
           {t.heading}
         </h1>
@@ -155,7 +155,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder={t.placeholder}
-            className="flex-1 bg-[#0f1218] border border-[#2a3348] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="flex-1 bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
             <Zap size={16} />{loading ? t.checking : t.check}
@@ -165,8 +165,8 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
 
         {result && vs && (
-          <div className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden">
-            <div className="p-6 flex items-center justify-between border-b border-[#1e2535]">
+          <div className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
+            <div className="p-6 flex items-center justify-between border-b border-[rgba(255,255,255,0.07)]">
               <div>
                 <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
@@ -187,7 +187,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
             </div>
 
             {honestyNote && result.verdict !== "BRAND_CATEGORIES" && (
-              <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
+              <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
                 {honestyNote}
               </div>
             )}
@@ -222,7 +222,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       <button
                         key={a.category}
                         onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq) }}
-                        className="flex items-center justify-between bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
+                        className="flex items-center justify-between bg-[#1a2030] border border-[rgba(255,255,255,0.12)] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
@@ -235,7 +235,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             ) : result.verdict === "BRAND_AVERAGE" ? (
               <>
-                <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-[#1e2535] border-b border-[#1e2535]">
+                <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-[rgba(255,255,255,0.07)] border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
                   <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
                   <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
@@ -260,7 +260,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
             ) : (
               <>
                 {result.reasons && result.reasons.length > 0 && (
-                  <div className="p-6 border-b border-[#1e2535]">
+                  <div className="p-6 border-b border-[rgba(255,255,255,0.07)]">
                     <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">{t.why}</div>
                     <ul className="flex flex-col gap-2">
                       {result.reasons.map((r, i) => (
@@ -272,7 +272,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535] border-b border-[#1e2535]">
+                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)] border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
                   {/* n here is comparable_n, not sold_7d — see the sampleNote
                       comment above. nKind makes the tooltip say which, because
@@ -316,7 +316,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.hotSizes}</span>
                       <span className="flex gap-1">
                         {result.top_sizes.slice(0, 5).map(s => (
-                          <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[#263147] text-[11px] text-[#a9b6d0]">{s}</span>
+                          <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[rgba(255,255,255,0.12)] text-[11px] text-[#a9b6d0]">{s}</span>
                         ))}
                       </span>
                     </div>
@@ -377,13 +377,13 @@ function SeedVerdictCard({
   const product = result.product || query
   const sample = watchedSampleNote(result.sold_7d, result.active_listings, result.verdict, locale)
   return (
-    <div data-testid="riq-seed-verdict" className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden">
-      <div className="px-6 py-4 border-b border-[#1e2535] bg-[#12151d]">
+    <div data-testid="riq-seed-verdict" className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
+      <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] bg-[#12151d]">
         <div className="text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{t.seedLabel}</div>
         <div className="text-[12.5px] text-[#8b99b8] leading-5">{t.seedIntro(product)}</div>
       </div>
 
-      <div className="p-6 flex items-center justify-between border-b border-[#1e2535]">
+      <div className="p-6 flex items-center justify-between border-b border-[rgba(255,255,255,0.07)]">
         <div>
           <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
           <div className="text-[15px] font-semibold text-[#eef1f7]">{product}</div>
@@ -403,12 +403,12 @@ function SeedVerdictCard({
       </div>
 
       {sample && (
-        <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
+        <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
           {sample}
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#1e2535]">
+      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)]">
         <Metric label={t.buyBelow} value={eur(result.buy_below)} accent="var(--color-buy)" />
         <Metric label={t.avgAtExit} value={eur(result.sell_avg)} />
         <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString(locale) : "—"} />
