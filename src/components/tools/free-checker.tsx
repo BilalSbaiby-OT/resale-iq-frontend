@@ -273,7 +273,7 @@ export function FreeChecker({
 
   const hero = variant === "hero"
   return (
-    <div style={hero ? { background: "transparent", padding: 0 } : { background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 20 }}>
+    <div style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
       <div className="riq-checker-row">
         <input
           value={q}
@@ -281,7 +281,7 @@ export function FreeChecker({
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
-          style={{ background: "#0f1218", border: hero ? "1px solid #2a3348" : "1px solid #232c42", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 14.5, fontWeight: 400, outline: "none" }}
+          style={{ background: "#0f1218", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 15, fontWeight: 400, outline: "none" }}
         />
         <button
           onClick={() => run()}
@@ -340,7 +340,7 @@ export function FreeChecker({
             // existing token for that surface — no new colour is authored here.
             ? { marginTop: "var(--space-3)", background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: "var(--radius-card)", padding: "var(--space-card-pad)" }
 
-            : { marginTop: 18, borderTop: "1px solid #1c2333", paddingTop: 18 }}
+            : { marginTop: 18, borderTop: "1px solid var(--color-border-ui)", paddingTop: 18 }}
         >
           {res.verdict === "LIMIT_REACHED" ? (
             <div>
@@ -488,11 +488,11 @@ export function FreeChecker({
               </p>
 
               {res.n != null && (
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid #1c2333" }}>
-                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.5px" }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid var(--color-border-ui)" }}>
+                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.5px" }}>
                     {fmtCount(res.n)}
                   </span>
-                  <span style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                  <span style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>
                     {t.insufficientNLabel}
                   </span>
                 </div>
@@ -712,9 +712,9 @@ export function FreeChecker({
 
 function Stat({ label, value, accent }: { label: string; value: string; accent?: string }) {
   return (
-    <div style={{ background: "#1a2030", borderRadius: 9, padding: "11px 13px" }}>
-      <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
-      <div style={{ fontSize: 18, fontWeight: 800, color: accent || "#eef1f7" }}>{value}</div>
+    <div style={{ background: "var(--color-surface-elevated)", borderRadius: 10, padding: "12px 14px", border: "1px solid var(--color-border-ui)" }}>
+      <div style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>{label}</div>
+      <div style={{ fontSize: 19, fontWeight: 700, color: accent || "#eef1f7", marginTop: 3, letterSpacing: "-0.3px", fontVariantNumeric: "tabular-nums" }}>{value}</div>
     </div>
   )
 }
@@ -819,11 +819,11 @@ function LockedStat({ label, value, cta, href }: {
       title={cta}
       aria-label={`${label} — ${value}. ${cta}`}
       style={{
-        background: "#1a2030", borderRadius: 9, padding: "11px 13px",
-        border: "1px solid #263147", textDecoration: "none", display: "block",
+        background: "var(--color-surface-elevated)", borderRadius: 10, padding: "12px 14px",
+        border: "1px solid var(--color-border-ui)", textDecoration: "none", display: "block",
       }}
     >
-      <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px" }}>{label}</div>
+      <div style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>{label}</div>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
         <Lock size={14} color="#FF9F0A" aria-hidden />
         <span style={{ fontSize: 15, fontWeight: 700, color: "#c3cde0" }}>{value}</span>

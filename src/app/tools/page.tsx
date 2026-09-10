@@ -34,7 +34,7 @@ export default async function ToolsIndex() {
           <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
           <LocaleSwitcher locale={locale} />
         </div>
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.5px", lineHeight: 1.15 }}>{t.h1}</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 600, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.h1}</h1>
         <p style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 28, maxWidth: 620 }}>
           {t.lede}
         </p>
@@ -52,7 +52,7 @@ export default async function ToolsIndex() {
             the index read as the main event. Same five links; a hairline and
             whitespace separate them now. */}
         <nav style={{ marginTop: 56 }}>
-          <h2 style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-muted)", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.moreTools}</h2>
+          <h2 style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-muted)", marginBottom: 4, letterSpacing: "0.2px" }}>{t.moreTools}</h2>
           {INTENTS.map((i) => (
             <Link
               key={i.slug}
