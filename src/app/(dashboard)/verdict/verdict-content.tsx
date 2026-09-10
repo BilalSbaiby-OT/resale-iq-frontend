@@ -322,6 +322,19 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     </div>
                   )}
                 </div>
+
+                {/* EXP-5 activation nudge. A priced verdict used to end here with
+                    no next step, so the visitor's first real answer was also
+                    their last action — 0 of 7 signups ever ran a check on a
+                    second day (measured 2026-09-06). This reuses the SAME
+                    one-click ModelChips path the cold/UNKNOWN/brand branches
+                    already use, so a 2nd analysis is one tap away the moment the
+                    first one lands. Frontend only — the in-session 2nd check.
+                    The cross-day return (the strict activation metric) needs a
+                    day-2 email trigger, specced for Eng on the BOARD. */}
+                <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={WORKING_MODELS} testId="riq-check-another" />
+                </div>
               </>
             )}
           </div>

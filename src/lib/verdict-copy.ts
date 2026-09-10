@@ -47,6 +47,12 @@ export type VerdictCopy = {
      for why it is an example and not a check run on the visitor's behalf. */
   seedLabel: string
   seedIntro: (product: string) => string
+  /* Post-verdict nudge toward a 2nd check — the activation event. Measured
+     2026-09-06: 0 of 7 signups ever ran a check on a second day, so activation
+     is 0%. A priced verdict currently ends with no next step; the other
+     branches already offer ModelChips. This label reuses that same one-click
+     path to keep the visitor going after their first real answer. */
+  checkAnother: string
 }
 
 export const verdictCopy: Record<Locale, VerdictCopy> = {
@@ -87,6 +93,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Try one of these instead",
     seedLabel: "Live example — not your check",
     seedIntro: (product) => `Today's real answer for ${product}, from watched departures. It cost you nothing — type an item you are looking at above to get yours.`,
+    checkAnother: "Got another item in front of you? Check it while you're here.",
   },
   fr: {
     heading: "Combien payer ?",
@@ -125,6 +132,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
     seedLabel: "Exemple réel — ce n'est pas votre analyse",
     seedIntro: (product) => `La vraie réponse du jour pour ${product}, d'après les départs observés. Elle ne vous a rien coûté — saisissez ci-dessus un article qui vous intéresse pour obtenir la vôtre.`,
+    checkAnother: "Un autre article sous les yeux ? Vérifiez-le tant que vous y êtes.",
   },
   es: {
     heading: "¿Cuánto pagar?",
@@ -163,6 +171,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Prueba con uno de estos",
     seedLabel: "Ejemplo real — no es su consulta",
     seedIntro: (product) => `La respuesta real de hoy para ${product}, a partir de salidas observadas. No le ha costado nada: escriba arriba un artículo que esté mirando para obtener la suya.`,
+    checkAnother: "¿Tienes otro artículo delante? Compruébalo ya que estás aquí.",
   },
   de: {
     heading: "Was sollen Sie zahlen?",
@@ -201,6 +210,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Probier stattdessen eines davon",
     seedLabel: "Echtes Beispiel — nicht Ihre Prüfung",
     seedIntro: (product) => `Die heutige echte Antwort für ${product}, aus beobachteten Abgängen. Sie hat Sie nichts gekostet — geben Sie oben einen Artikel ein, den Sie sich ansehen, und Sie erhalten Ihre eigene.`,
+    checkAnother: "Noch ein Artikel vor dir? Prüf ihn gleich mit.",
   },
   it: {
     heading: "Quanto pagare?",
@@ -239,6 +249,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Prova uno di questi",
     seedLabel: "Esempio reale — non è il tuo controllo",
     seedIntro: (product) => `La risposta reale di oggi per ${product}, dalle uscite osservate. Non ti è costata nulla: scrivi sopra un articolo che stai valutando per avere la tua.`,
+    checkAnother: "Hai un altro articolo davanti? Controllalo già che ci sei.",
   },
   pt: {
     heading: "Quanto deve pagar?",
@@ -277,5 +288,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     tryTheseInstead: "Experimente um destes",
     seedLabel: "Exemplo real — não é a sua consulta",
     seedIntro: (product) => `A resposta real de hoje para ${product}, a partir de saídas observadas. Não lhe custou nada — escreva acima um artigo que esteja a ver para obter a sua.`,
+    checkAnother: "Tens outro artigo à frente? Verifica-o já que estás aqui.",
   },
 }
