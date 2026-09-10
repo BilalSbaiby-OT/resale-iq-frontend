@@ -259,7 +259,7 @@ export default async function BrandFlipPage(
             </li>
           ))}
         </ul>
-          <Link href="/register" style={{
+          <Link href="/register?src=flip" style={{
           display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",

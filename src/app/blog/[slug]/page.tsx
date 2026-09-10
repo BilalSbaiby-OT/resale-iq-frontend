@@ -221,7 +221,7 @@ export default async function BlogPostPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans and pricing — free tier included

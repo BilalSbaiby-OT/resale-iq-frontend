@@ -233,3 +233,47 @@ test("storage that throws never breaks the page", () => {
   assert.deepEqual(getAttribution(), {})
   clearEnv()
 })
+
+// ---------------------------------------------------------------------------
+// EXP-3 — the internal ?src= bridge (closes the 95% (none) attribution gap)
+// ---------------------------------------------------------------------------
+
+test("EXP-3: an internal ?src= fills utm_content so an internal-link signup is attributable", () => {
+  withEnv({ search: "?src=blog", referrer: "" })
+  const a = captureAttribution()
+  assert.equal(a.utm_content, "blog", "the src slug lands in utm_content, the field the funnel buckets by")
+  assert.equal(a.utm_source, "internal")
+  assert.equal(a.utm_medium, "internal", "stamped internal so it is never counted as an external acquisition")
+  clearEnv()
+})
+
+test("EXP-3: a real utm_content on the same link wins — src never overwrites a tagged campaign", () => {
+  withEnv({ search: "?utm_source=tiktok&utm_medium=bio&utm_content=r191&src=blog", referrer: "" })
+  const a = captureAttribution()
+  assert.equal(a.utm_content, "r191", "the tagged campaign is kept")
+  assert.equal(a.utm_source, "tiktok", "and src does not clobber a real source")
+  assert.equal(a.utm_medium, "bio")
+  clearEnv()
+})
+
+test("EXP-3: first touch still wins — an internal hop never overwrites an external channel", () => {
+  // Arrive from ChatGPT (the one channel that has produced a signup), stored first.
+  const s = withEnv({ search: "", referrer: "https://chatgpt.com/" })
+  assert.equal(captureAttribution().utm_source, "chatgpt")
+
+  // Same browser later clicks an internal ?src=blog link. The external first
+  // touch must survive — this is the producthunt lesson applied to our own hops.
+  const g = globalThis as unknown as Record<string, unknown>
+  g.window = { localStorage: s, location: { search: "?src=blog", hostname: "resaleiq.dev", pathname: "/pricing" } }
+  g.document = { referrer: "https://resaleiq.dev/blog/x" }
+  const a = captureAttribution()
+  assert.equal(a.utm_source, "chatgpt", "the external channel that earned the visit is not overwritten by an internal src")
+  assert.equal(a.utm_content, undefined, "and no internal src is grafted onto it")
+  clearEnv()
+})
+
+test("EXP-3: a bare src= with no value does not manufacture an empty attribution", () => {
+  withEnv({ search: "?src=", referrer: "" })
+  assert.deepEqual(captureAttribution(), {}, "an empty src is not a channel")
+  clearEnv()
+})

@@ -263,6 +263,30 @@ export function captureAttribution(): Attribution {
       if (v) found[f] = v.slice(0, 120)
     }
 
+    // Bridge the internal `?src=` convention to attribution. Internal money-page
+    // links (blog→/pricing, nav→/pricing, footer, /data, /flip, the content
+    // register CTAs) have carried `?src=blog|nav|data|…` for a while — but only
+    // onto the pageview PATH, never into utm_content, which is the one field the
+    // funnel endpoint and attribution.py bucket a SIGNUP by. So a dark-social or
+    // typed-in reader who found value on a post and signed up was filed as
+    // `(none)`: 376/394 visitors and all 7 signups (2026-09-11). This is the 95%
+    // unattributed gap, and it is a client tagging gap, not a server one —
+    // register() already forwards getAttribution() untouched.
+    //
+    // `src` fills utm_content ONLY when a tagged utm_content is absent (a real
+    // campaign link always wins) and ONLY as first touch (readStored above
+    // returns early, so an external channel like chatgpt.com is never overwritten
+    // by an internal hop). utm_medium is stamped `internal` so an internal-link
+    // touch is never miscounted as an external acquisition in by-channel reports.
+    if (!found.utm_content) {
+      const src = params.get("src")
+      if (src) {
+        found.utm_content = src.slice(0, 120)
+        if (!found.utm_source) found.utm_source = "internal"
+        if (!found.utm_medium) found.utm_medium = "internal"
+      }
+    }
+
     if (!Object.keys(found).length) {
       const derived = channelFromReferrer(
         typeof document === "undefined" ? "" : document.referrer,

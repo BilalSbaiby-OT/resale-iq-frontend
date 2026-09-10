@@ -67,7 +67,7 @@ export function UnlockPanel({
           {limit ?? 10} items a month, after a 7-day trial with full access — no card.
         </Body>
         <Row>
-          <Primary href="/register?plan=free">Create a free account</Primary>
+          <Primary href="/register?plan=free&src=verdict">Create a free account</Primary>
           <Secondary href="/login">Sign in</Secondary>
         </Row>
       </Shell>
