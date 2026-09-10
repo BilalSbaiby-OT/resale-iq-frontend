@@ -109,20 +109,17 @@
   --color-accent: #34C759;
   --color-on-accent: #06090c;
   --color-text-dim: rgba(232, 236, 244, 0.62);   /* muted body: 56–64% */
-  /* Apple graphite — the Check CTA on `/` is this, not a second green. */
-  --color-graphite: #1d1d1f;
-  --color-on-graphite: #f5f5f7;
-  /* The graphite scale had exactly two rungs — a surface and its text — which
-     is enough for one button on the landing page and not enough for an app
-     made of cards on cards. These two COMPLETE that existing scale rather
-     than starting a second one: `-elevated` is the card sitting on
-     `--color-graphite`, `-muted` is the 56–64% secondary text the type scale
-     already calls for (`--color-text-dim` is the same rule expressed against
-     the older blue-grey `#e8ecf4`, not against `#f5f5f7`).
-     Do not add a third surface here — depth beyond one step is what the
-     redesign is removing. */
-  --color-graphite-elevated: #2c2c2e;
-  --color-graphite-muted: rgba(245, 247, 250, 0.60);
+  /* Graphite tokens UNIFIED to the cool navy base (2026-09-10, founder call:
+     "yes unify"). Was a separate warm-graphite world (#1d1d1f/#f5f5f7) for the
+     authed app + landing product surfaces, which made the site read as two
+     different "darks" next to the cool-navy marketing pages. These now resolve
+     to the navy surface ladder so there is ONE background system site-wide.
+     Kept the token NAMES (149 call sites) — only what they resolve to changed. */
+  --color-graphite: #0B0D10;
+  --color-on-graphite: #e8ecf4;
+  /* elevated card sitting on the canvas; muted = 60% secondary text, cool-tinted */
+  --color-graphite-elevated: #12151d;
+  --color-graphite-muted: rgba(232, 236, 244, 0.60);
 }
 
 /* This reset MUST live in @layer base. Left unlayered it outranks every Tailwind
