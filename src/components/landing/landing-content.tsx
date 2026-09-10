@@ -39,6 +39,7 @@ export function LandingContent({
   void tracked
   void trackedExact
   void market
+  void heroQuery
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -113,7 +114,13 @@ export function LandingContent({
             <FreeChecker
               locale={locale}
               variant="hero"
-              initialQuery={heroQuery}
+              /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
+                 the seed SKU made the hero read as a finished demo — 30d funnel
+                 showed only 3.8% of visitors ever ran a check (395→15). An empty
+                 field + placeholder is the universal "type here" signal; the seed
+                 verdict still renders below, now labelled "Example" so it reads as
+                 a sample, not the whole product. heroQuery kept for SSR/other use. */
+              initialQuery=""
               initialResult={heroResult}
             />
           </div>

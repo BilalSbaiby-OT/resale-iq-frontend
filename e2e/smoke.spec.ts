@@ -20,7 +20,12 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // comparables. No non-provisional BUY exists anywhere in the catalogue, so
   // the hero shows a HIGH-confidence WATCH on n=153 instead. The enumeration
   // that establishes that is in src/lib/hero-verdict.ts.
-  await expect(hero.getByRole("textbox")).toHaveValue("New Balance 530")
+  // Hero input now starts EMPTY on purpose (2026-09-10 funnel fix): the
+  // prefilled SKU made the hero read as a finished demo — only 3.8% of
+  // visitors ran a check. Empty field + placeholder invites a real search;
+  // the seed verdict still renders below, labelled "Example".
+  await expect(hero.getByRole("textbox")).toHaveValue("")
+  await expect(hero.getByText("Example", { exact: true })).toBeVisible()
   // H1 is the JOB, not the SKU. The SKU stays as the caption on the evidence card.
   await expect(hero.getByRole("heading", { level: 1 })).toContainText(/what to pay/i)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/New Balance 530/)

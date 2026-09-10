@@ -195,6 +195,8 @@ export const copy = {
     // between typing a query and hitting the paywall.
     checker: {
       inputAriaLabel: "Item to check",
+      exampleLabel: "Example",
+      exampleNudge: "Type any brand + model above to run your own.",
       checkingAriaLabel: "Checking item",
       checkAriaLabel: "Check it free",
       checking: "Checking…",
@@ -625,6 +627,8 @@ export const copy = {
     },
     checker: {
       inputAriaLabel: "Article à vérifier",
+      exampleLabel: "Exemple",
+      exampleNudge: "Saisissez une marque + un modèle ci-dessus pour lancer le vôtre.",
       checkingAriaLabel: "Vérification en cours",
       checkAriaLabel: "Vérifier gratuitement",
       checking: "Vérification…",
@@ -972,6 +976,8 @@ export const copy = {
     },
     checker: {
       inputAriaLabel: "Artículo a comprobar",
+      exampleLabel: "Ejemplo",
+      exampleNudge: "Escribe una marca + modelo arriba para probar el tuyo.",
       checkingAriaLabel: "Comprobando artículo",
       checkAriaLabel: "Comprobar gratis",
       checking: "Comprobando…",
@@ -1319,6 +1325,8 @@ export const copy = {
     },
     checker: {
       inputAriaLabel: "Artikel zum Prüfen",
+      exampleLabel: "Beispiel",
+      exampleNudge: "Marke + Modell oben eingeben, um dein eigenes zu prüfen.",
       checkingAriaLabel: "Artikel wird geprüft",
       checkAriaLabel: "Kostenlos prüfen",
       checking: "Prüfe…",
@@ -1668,6 +1676,8 @@ export const copy = {
     },
     checker: {
       inputAriaLabel: "Articolo da controllare",
+      exampleLabel: "Esempio",
+      exampleNudge: "Digita una marca + modello sopra per provare il tuo.",
       checkingAriaLabel: "Controllo dell'articolo",
       checkAriaLabel: "Controlla gratis",
       checking: "Controllo…",
@@ -2015,6 +2025,8 @@ export const copy = {
     },
     checker: {
       inputAriaLabel: "Artigo a verificar",
+      exampleLabel: "Exemplo",
+      exampleNudge: "Escreve uma marca + modelo acima para testar o teu.",
       checkingAriaLabel: "A verificar artigo",
       checkAriaLabel: "Verificar grátis",
       checking: "A verificar…",

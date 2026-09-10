@@ -174,6 +174,11 @@ export function FreeChecker({
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
   const [q, setQ] = useState(initialQuery ?? "")
   const [res, setRes] = useState<FreeVerdict | null>(initialResult ?? null)
+  // True while the card is showing the seeded sample (not a visitor's own
+  // search). Drives the "Example" eyebrow so the pre-rendered verdict reads as
+  // a sample, not the finished product — the hero input is now empty to invite
+  // a real search (2026-09-10 funnel fix).
+  const [isExample, setIsExample] = useState<boolean>(!!initialResult)
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState("")
   // Distinct from `err`: a plain fetch failure never reached the server, but
@@ -191,7 +196,7 @@ export function FreeChecker({
     const query = (override ?? q).trim()
     if (query.length < 2) { setErr(t.enterBrandModel); return }
     if (override) setQ(override)
-    setLoading(true); setErr(""); setRes(null); setTimedOut(false)
+    setLoading(true); setErr(""); setRes(null); setTimedOut(false); setIsExample(false)
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS)
     try {
@@ -342,6 +347,17 @@ export function FreeChecker({
 
             : { marginTop: 18, borderTop: "1px solid var(--color-border-ui)", paddingTop: 18 }}
         >
+          {hero && isExample && (
+            // Eyebrow so a stranger reads the pre-rendered verdict as a SAMPLE,
+            // not the whole product — the fix that pairs with the now-empty
+            // input. Points them back to the box to run their own.
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "#8b99b8", background: "var(--color-surface-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 6, padding: "3px 8px" }}>
+                {t.exampleLabel}
+              </span>
+              <span style={{ fontSize: 12.5, color: "#8b99b8" }}>{t.exampleNudge}</span>
+            </div>
+          )}
           {res.verdict === "LIMIT_REACHED" ? (
             <div>
               {/* res.message is backend-owned English prose (api/routes.py) with
