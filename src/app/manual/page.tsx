@@ -131,7 +131,7 @@ export default async function ManualIndex() {
         </div>
 
         <div>
-          <h2 style={{ fontSize: 12.5, color: "#5b6b8c", margin: "0 0 10px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+          <h2 style={{ fontSize: 13, color: "#5b6b8c", margin: "0 0 10px", letterSpacing: "0.1px" }}>
             Category rankings
           </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
