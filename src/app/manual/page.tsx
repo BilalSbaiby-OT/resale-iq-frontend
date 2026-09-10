@@ -91,7 +91,7 @@ export default async function ManualIndex() {
                 {chapters.map((c) => (
                   <Link key={c.slug} href={`/manual/${c.slug}`} style={{
                     display: "block", textDecoration: "none",
-                    background: "#12151d", border: "1px solid #1c2333",
+                    background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
                     borderRadius: 11, padding: "15px 18px",
                   }}>
                     <div style={{ display: "flex", gap: 12, alignItems: "baseline", flexWrap: "wrap" }}>
@@ -109,7 +109,7 @@ export default async function ManualIndex() {
           )
         })}
 
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginBottom: 30 }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, marginBottom: 30 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>
             The manual gives you the method. The data gives you a signal.
           </div>
@@ -121,10 +121,10 @@ export default async function ManualIndex() {
             <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Free price checker →
             </Link>
-            <Link href="/data" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid #1c2333", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/data" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid var(--color-border-ui)", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Market data
             </Link>
-            <Link href="/pricing?src=manual_index" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid #1c2333", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/pricing?src=manual_index" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid var(--color-border-ui)", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               See plans & pricing
             </Link>
           </div>
@@ -138,7 +138,7 @@ export default async function ManualIndex() {
             {CATEGORIES.map((c) => (
               <Link key={c.slug} href={`/category/${c.slug}`} style={{
                 fontSize: 13, color: "#a9b6d0", textDecoration: "none",
-                background: "#12151d", border: "1px solid #1c2333",
+                background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
                 borderRadius: 8, padding: "7px 12px",
               }}>
                 Best brands for {c.category.toLowerCase()}

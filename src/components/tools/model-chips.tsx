@@ -23,7 +23,7 @@ export function ModelChips({
             type="button"
             onClick={() => onPick(ex)}
             disabled={disabled}
-            style={{ background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: disabled ? "wait" : "pointer" }}
+            style={{ background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: disabled ? "wait" : "pointer" }}
           >
             {ex}
           </button>

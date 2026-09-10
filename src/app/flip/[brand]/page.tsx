@@ -166,7 +166,7 @@ export default async function BrandFlipPage(
           ["Avg price at exit", fmtEur(avg)],
           ["Models tracked", models != null ? String(models) : "—"],
         ].map(([label, value]) => (
-          <div key={label} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 10, padding: "14px 16px" }}>
+          <div key={label} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 4 }}>{label}</div>
             <div style={{ fontSize: 22, fontWeight: 700, color: "#eef1f7" }}>{value}</div>
           </div>
@@ -181,12 +181,12 @@ export default async function BrandFlipPage(
           and the rest was prose shared by all 156 brands. Numbers a reader can
           only get here are what makes the page worth indexing — and worth
           reading. Keep per-brand data ABOVE the generic explanation. */}
-      <div style={{ border: "1px solid #1c2333", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "#12151d", fontSize: 11, color: "#5b6b8c" }}>
+      <div style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "var(--color-surface)", fontSize: 11, color: "#5b6b8c" }}>
           <span>Category</span><span style={{ textAlign: "right" }}>Left shelf/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
         </div>
         {(cats.length ? cats : []).slice(0, 5).map(c => (
-          <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid #1c2333", fontSize: 14, color: "#a9b6d0" }}>
+          <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid var(--color-border-ui)", fontSize: 14, color: "#a9b6d0" }}>
             <span style={{ color: "#eef1f7" }}>{c.category}</span>
             <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtCount(c.sold_7d)}</span>
             <span style={{ textAlign: "right", minWidth: 62, fontVariantNumeric: "tabular-nums", color: c.avg_price_eur ? "#34d399" : "#5b6b8c" }}>
@@ -218,7 +218,7 @@ export default async function BrandFlipPage(
           <Link key={c.category} href={`/flip/${b.slug}/${catSlug(c.category)}`} style={{
             display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline",
             fontSize: 14, color: "#8fa3c4", textDecoration: "none",
-            background: "#12151d", border: "1px solid #1c2333",
+            background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
             borderRadius: 9, padding: "10px 14px",
           }}>
             <span>Are {b.brand} {c.category} worth reselling?</span>
@@ -230,7 +230,7 @@ export default async function BrandFlipPage(
       </div>
 
       {/* The gate — this is the paid product */}
-      <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 22, margin: "26px 0" }}>
+      <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 22, margin: "26px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Lock size={15} style={{ color: "#fbbf24" }} />
           <span style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7" }}>
@@ -322,7 +322,7 @@ export default async function BrandFlipPage(
         {others.map(o => (
           <Link key={o.slug} href={`/flip/${o.slug}`} style={{
             fontSize: 13, color: "#a9b6d0", textDecoration: "none",
-            background: "#12151d", border: "1px solid #1c2333",
+            background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
             borderRadius: 8, padding: "7px 12px",
           }}>
             {o.brand}

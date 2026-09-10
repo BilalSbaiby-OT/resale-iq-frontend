@@ -56,9 +56,9 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
 
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-      <div onClick={e => e.stopPropagation()} style={{ background: "#0F1115", border: "1px solid #263147", borderRadius: 16, width: "100%", maxWidth: 640, maxHeight: "85vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "#0F1115", border: "1px solid var(--color-border-2)", borderRadius: 16, width: "100%", maxWidth: 640, maxHeight: "85vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
         {/* Header */}
-        <div style={{ padding: "16px 20px", borderBottom: "1px solid #1e2535", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--color-border-ui)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
             <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#FF9F0A" }} /> Live Deals — {deal.brand} {deal.model}</div>
             <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>
@@ -93,11 +93,11 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                 const net = targetNet(d.price_eur)
                 return (
                   <a key={i} href={d.url} target="_blank" rel="noopener noreferrer"
-                    style={{ display: "flex", alignItems: "center", gap: 12, background: "#141820", border: "1px solid #1e2535", borderRadius: 10, padding: 10, textDecoration: "none", color: "#e8ecf4", transition: "border-color .12s" }}>
+                    style={{ display: "flex", alignItems: "center", gap: 12, background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: 10, textDecoration: "none", color: "#e8ecf4", transition: "border-color .12s" }}>
                     {d.photo ? (
                       <img src={d.photo} alt="" style={{ width: 52, height: 52, borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
                     ) : (
-                      <div style={{ width: 52, height: 52, borderRadius: 8, background: "#1a2030", flexShrink: 0 }} />
+                      <div style={{ width: 52, height: 52, borderRadius: 8, background: "var(--color-surface-elevated)", flexShrink: 0 }} />
                     )}
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{d.title}</div>
@@ -121,7 +121,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
         </div>
 
         {/* Footer */}
-        <div style={{ padding: "10px 20px", borderTop: "1px solid #1e2535", fontSize: 10, color: "#546380", textAlign: "center" }}>
+        <div style={{ padding: "10px 20px", borderTop: "1px solid var(--color-border-ui)", fontSize: 10, color: "#546380", textAlign: "center" }}>
           Live from Vinted · deduped across markets · cheapest first. Verify condition & authenticity before buying.
         </div>
       </div>

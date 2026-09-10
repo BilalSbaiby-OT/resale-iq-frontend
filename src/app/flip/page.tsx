@@ -126,7 +126,7 @@ export default async function FlipHubPage() {
           <span style={{ color: "#5b6b8c" }}>Brands</span>
         </div>
 
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2, letterSpacing: "-0.6px" }}>
           Which brands are worth reselling on Vinted?
         </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{answer}</p>
@@ -137,7 +137,7 @@ export default async function FlipHubPage() {
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
 
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "30px 0 4px" }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "30px 0 4px", letterSpacing: "-0.4px" }}>
           Every tracked brand, ranked by weekly sales
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
@@ -145,25 +145,23 @@ export default async function FlipHubPage() {
           figure for that brand — not that it sells nothing.
         </p>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {rows.map((r) => (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {rows.map((r, ri) => (
             <div
               key={r.slug}
               style={{
-                border: "1px solid #161b26",
-                borderRadius: 10,
-                padding: "14px 16px",
-                background: "#0f1218",
+                borderTop: ri === 0 ? "none" : "1px solid var(--color-border-ui)",
+                padding: "16px 4px",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
                 <Link
                   href={`/flip/${r.slug}`}
-                  style={{ color: "#eef1f7", fontSize: 16, fontWeight: 700, textDecoration: "none" }}
+                  style={{ color: "#eef1f7", fontSize: 16, fontWeight: 600, textDecoration: "none", letterSpacing: "-0.2px" }}
                 >
                   Is {r.brand} worth reselling on Vinted?
                 </Link>
-                <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap" }}>
+                <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
                   {fmtCount(r.sold_7d)}<span style={{ color: "#5b6b8c" }}> left shelf/week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
                   {fmtEur(r.avg_price_eur)}<span style={{ color: "#5b6b8c" }}> avg</span>
@@ -189,7 +187,7 @@ export default async function FlipHubPage() {
           ))}
         </div>
 
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "34px 0 10px" }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "34px 0 10px", letterSpacing: "-0.4px" }}>
           Looking for a category instead of a brand?
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>

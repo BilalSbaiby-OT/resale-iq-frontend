@@ -164,7 +164,7 @@ export default async function CategoryPage(
             [String(entries.length), "brands ranked"],
             [dearest ? `${fmtEur(dearest.avg_price_eur)}` : "—", dearest ? `highest avg (${dearest.brand})` : "highest avg"],
           ].map(([v, l]) => (
-            <div key={l} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
+            <div key={l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>
               <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 3 }}>{l}</div>
             </div>
@@ -187,7 +187,7 @@ export default async function CategoryPage(
             </thead>
             <tbody>
               {entries.map((e, i) => (
-                <tr key={e.slug} style={{ borderTop: "1px solid #1c2333" }}>
+                <tr key={e.slug} style={{ borderTop: "1px solid var(--color-border-ui)" }}>
                   <td style={{ padding: "10px 10px 10px 0", color: "#5b6b8c" }}>{i + 1}</td>
                   <td style={{ padding: "10px" }}>
                     <Link href={`/flip/${e.slug}/${catSlug(c.category)}`} style={{ color: "#8fa3c4", textDecoration: "none", fontWeight: 600 }}>
@@ -231,7 +231,7 @@ export default async function CategoryPage(
           </p>
         </section>
 
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center", marginBottom: 30 }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginBottom: 30 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item free</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category volume tells you demand exists. The verdict tells you whether this item, at this price, makes money.
@@ -255,7 +255,7 @@ export default async function CategoryPage(
             {others.map((o) => (
               <Link key={o.slug} href={`/category/${o.slug}`} style={{
                 fontSize: 13, color: "#a9b6d0", textDecoration: "none",
-                background: "#12151d", border: "1px solid #1c2333",
+                background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
                 borderRadius: 8, padding: "7px 12px",
               }}>
                 {o.category}

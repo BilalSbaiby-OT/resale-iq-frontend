@@ -49,7 +49,7 @@ function BillingSuccessContent() {
     })()
   }, [params])
 
-  const box: React.CSSProperties = { maxWidth: 420, margin: "120px auto", background: "#12151d", border: "1px solid #1c2333", borderRadius: 14, padding: 36, textAlign: "center" }
+  const box: React.CSSProperties = { maxWidth: 420, margin: "120px auto", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 36, textAlign: "center" }
 
   return (
     <div style={{ minHeight: "100vh", background: "#0B0D10", color: "#eef1f7" }}>
@@ -74,7 +74,7 @@ function BillingSuccessContent() {
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><AlertTriangle size={34} style={{ color: "#FF9F0A" }} /></div>
           <div style={{ fontSize: 17, fontWeight: 700 }}>Couldn&apos;t verify the session</div>
           <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your payment is safe. Contact support or retry from your account page.</div>
-          <button onClick={() => router.push("/account")} style={{ marginTop: 16, padding: "9px 20px", borderRadius: 8, background: "#1a2030", color: "#eef1f7", border: "1px solid #263147", fontWeight: 600, cursor: "pointer" }}>Go to account</button>
+          <button onClick={() => router.push("/account")} style={{ marginTop: 16, padding: "9px 20px", borderRadius: 8, background: "var(--color-surface-elevated)", color: "#eef1f7", border: "1px solid var(--color-border-2)", fontWeight: 600, cursor: "pointer" }}>Go to account</button>
         </>)}
       </div>
     </div>

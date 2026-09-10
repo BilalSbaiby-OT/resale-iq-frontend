@@ -40,14 +40,14 @@ export async function SupportPage({ locale = "en" }: { locale?: Locale } = {}) {
           <a href={`mailto:${SUPPORT_EMAIL}`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
             <Mail size={16} /> {t.emailSupport}
           </a>
-          <a href={`mailto:${SUPPORT_EMAIL}?subject=Bug%20report`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#12151d", border: "1px solid #1c2333", color: "#a9b6d0", fontWeight: 600, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
+          <a href={`mailto:${SUPPORT_EMAIL}?subject=Bug%20report`} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", color: "#a9b6d0", fontWeight: 600, fontSize: 13.5, padding: "11px 18px", borderRadius: 9, textDecoration: "none" }}>
             <MessageCircle size={16} /> {t.reportBug}
           </a>
         </div>
 
         <h2 style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7", marginBottom: 16 }}>{t.faqHeading}</h2>
         {FAQ.map(([q, a]) => (
-          <div key={q} style={{ marginBottom: 20, borderBottom: "1px solid #161b26", paddingBottom: 18 }}>
+          <div key={q} style={{ marginBottom: 20, borderBottom: "1px solid var(--color-border-ui)", paddingBottom: 18 }}>
             <h3 style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{q}</h3>
             <p style={{ fontSize: 13.5, lineHeight: 1.65 }}>{a}</p>
           </div>

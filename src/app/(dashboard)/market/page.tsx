@@ -65,7 +65,7 @@ export default function MarketPage() {
           ["BUY", totals.buy, "#38bdf8", "worth sourcing now"],
           ["SHOWING", rows.length, "#e8ecf4", "top signals by investment score"],
         ].map(([l, v, c, sub]) => (
-          <div key={l as string} style={{ background: "#141820", border: "1px solid #1e2535", borderRadius: 12, padding: 16 }}>
+          <div key={l as string} style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16 }}>
             <div style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: 1.5, color: "#546380" }}>{l}</div>
             <div style={{ fontFamily: "monospace", fontSize: 26, fontWeight: 800, color: c as string, marginTop: 4 }}>{v as number}</div>
             <div style={{ fontSize: 10, color: "#546380", marginTop: 2 }}>{sub}</div>

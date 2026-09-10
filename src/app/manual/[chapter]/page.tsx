@@ -116,7 +116,7 @@ export default async function ChapterPage(
               </ul>
             )}
             {s.callout && (
-              <div style={{ background: "#12151d", borderLeft: "3px solid #34C759", borderRadius: "0 10px 10px 0", padding: "14px 18px", margin: "6px 0 4px" }}>
+              <div style={{ background: "var(--color-surface)", borderLeft: "3px solid #34C759", borderRadius: "0 10px 10px 0", padding: "14px 18px", margin: "6px 0 4px" }}>
                 <div style={{ fontSize: 11.5, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 6 }}>
                   {s.callout.label}
                 </div>
@@ -126,7 +126,7 @@ export default async function ChapterPage(
           </section>
         ))}
 
-        <div style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "20px 22px", marginBottom: 28 }}>
+        <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "20px 22px", marginBottom: 28 }}>
           <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 12 }}>
             Key points
           </div>
@@ -156,7 +156,7 @@ export default async function ChapterPage(
             Same proven pattern as /blog and /flip: primary CTA to the free
             tool stays unchanged, this adds a lower-emphasis second door with
             a distinct ?src=manual so arrivals are attributable. */}
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center", marginBottom: 26 }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginBottom: 26 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Put this chapter to work.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns a Vinted listing into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
@@ -170,7 +170,7 @@ export default async function ChapterPage(
         </div>
 
         {totalWeekly != null && market.brandCount > 0 && (
-          <div style={{ padding: "18px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginBottom: 26 }}>
+          <div style={{ padding: "18px 22px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, marginBottom: 26 }}>
             <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 8 }}>
               Live, while you read this
             </div>
@@ -184,7 +184,7 @@ export default async function ChapterPage(
           </div>
         )}
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", borderTop: "1px solid #1c2333", paddingTop: 20 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", borderTop: "1px solid var(--color-border-ui)", paddingTop: 20 }}>
           {prev ? (
             <Link href={`/manual/${prev.slug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none", maxWidth: 300 }}>
               ← {prev.number}. {prev.title}

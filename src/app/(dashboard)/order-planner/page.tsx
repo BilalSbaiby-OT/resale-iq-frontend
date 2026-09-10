@@ -58,11 +58,11 @@ export default function OrderPlannerPage() {
   return (
     <AppShell title="Order Planner" subtitle={`What to order today for stock arriving in ~${weeks} weeks`}>
       {/* Controls */}
-      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", background: "#141820", border: "1px solid #1e2535", borderRadius: 12, padding: 16, marginBottom: 16, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16, marginBottom: 16, flexWrap: "wrap" }}>
         <div>
           <label style={{ fontSize: 10, color: "#546380", display: "block", marginBottom: 6, letterSpacing: 1 }}>ORDER BUDGET (€)</label>
           <input value={budget} onChange={e => setBudget(e.target.value)} type="number" min="0"
-            style={{ background: "#1a2030", border: "1px solid #263147", borderRadius: 8, padding: "9px 12px", fontFamily: "monospace", fontSize: 14, color: "#e8ecf4", width: 130, outline: "none" }} />
+            style={{ background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", borderRadius: 8, padding: "9px 12px", fontFamily: "monospace", fontSize: 14, color: "#e8ecf4", width: 130, outline: "none" }} />
         </div>
         <div>
           <label style={{ fontSize: 10, color: "#546380", display: "block", marginBottom: 6, letterSpacing: 1 }}>ARRIVES IN</label>
@@ -99,7 +99,7 @@ export default function OrderPlannerPage() {
             ["EXPECTED WEEK-1 PROFIT", `€${plan.expected_week1_profit.toFixed(0)}`, "#34C759", "probability-weighted"],
             ["FORECAST HORIZON", `${plan.horizon_weeks} weeks`, "#0A84FF", "damped-momentum model"],
           ].map(([l, v, c, sub]) => (
-            <div key={l as string} style={{ background: "#141820", border: "1px solid #1e2535", borderRadius: 12, padding: 16 }}>
+            <div key={l as string} style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16 }}>
               <div style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: 1.5, color: "#546380" }}>{l}</div>
               <div style={{ fontFamily: "monospace", fontSize: 26, fontWeight: 800, color: c as string, marginTop: 4 }}>{v}</div>
               <div style={{ fontSize: 10, color: "#546380", marginTop: 2 }}>{sub}</div>
@@ -109,12 +109,12 @@ export default function OrderPlannerPage() {
       )}
 
       {/* Plan table */}
-      <div style={{ background: "#141820", border: "1px solid #1e2535", borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, overflow: "hidden" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
               {["Product", "Score", "Demand wk" + weeks, "Trend", "P(sell 7d)", "Cost ≤", "List @", "Profit/unit", "Order", "Sizes"].map(h => (
-                <th key={h} style={{ fontSize: 9, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 1.5, color: "#546380", textAlign: "left", padding: "10px 12px", background: "#1a2030", borderBottom: "1px solid #1e2535" }}>{h}</th>
+                <th key={h} style={{ fontSize: 9, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 1.5, color: "#546380", textAlign: "left", padding: "10px 12px", background: "var(--color-surface-elevated)", borderBottom: "1px solid var(--color-border-ui)" }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -125,7 +125,7 @@ export default function OrderPlannerPage() {
             ) : plan.items.map((e, i) => {
               const t = TREND_STYLE[e.trend] ?? TREND_STYLE.UNKNOWN
               return (
-                <tr key={i} style={{ borderBottom: "1px solid #1e2535", background: e.suggested_units > 0 ? "rgba(34,197,94,.04)" : "transparent" }}>
+                <tr key={i} style={{ borderBottom: "1px solid var(--color-border-ui)", background: e.suggested_units > 0 ? "rgba(34,197,94,.04)" : "transparent" }}>
                   <td style={{ padding: "11px 12px" }}>
                     <div style={{ fontWeight: 700, fontSize: 13 }}>{e.brand} {e.model}</div>
                     <div style={{ fontSize: 10, color: "#546380" }}>{e.category}</div>

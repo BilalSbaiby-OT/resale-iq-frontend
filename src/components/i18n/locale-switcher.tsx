@@ -104,7 +104,7 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
         display: "inline-flex",
         alignItems: "center",
         gap: 6,
-        border: "1px solid #232c42",
+        border: "1px solid var(--color-border)",
         borderRadius: 8,
         padding: "6px 10px",
         color: "#8b99b8",
@@ -128,7 +128,7 @@ export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: Reac
         }}
       >
         {ALL_LOCALES.map((l) => (
-          <option key={l} value={l} style={{ background: "#12151d", color: "#eef1f7" }}>
+          <option key={l} value={l} style={{ background: "var(--color-surface)", color: "#eef1f7" }}>
             {NATIVE_NAME[l]}
           </option>
         ))}

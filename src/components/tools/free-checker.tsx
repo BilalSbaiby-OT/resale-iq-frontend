@@ -281,7 +281,7 @@ export function FreeChecker({
           onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
-          style={{ background: "#0f1218", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 15, fontWeight: 400, outline: "none" }}
+          style={{ background: "var(--color-bg-2)", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 15, fontWeight: 400, outline: "none" }}
         />
         <button
           onClick={() => run()}
@@ -321,7 +321,7 @@ export function FreeChecker({
           </p>
           <button
             onClick={() => run()}
-            style={{ marginTop: 8, background: "#1a2030", border: "1px solid #263147", color: "#c3cde0", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
+            style={{ marginTop: 8, background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", color: "#c3cde0", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
           >
             {t.tryAgain}
           </button>
@@ -436,7 +436,7 @@ export function FreeChecker({
                       key={a.category}
                       style={{
                         display: "flex", justifyContent: "space-between", alignItems: "baseline",
-                        background: "#1a2030", borderRadius: 9, padding: "9px 12px",
+                        background: "var(--color-surface-elevated)", borderRadius: 9, padding: "9px 12px",
                       }}
                     >
                       <span style={{ fontSize: 13, color: "#eef1f7" }}>{a.category}</span>
@@ -696,7 +696,7 @@ export function FreeChecker({
               on the /tools card only. The gated sell-through tile below is
               the remaining unlock and still routes ?plan=free. */}
           {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && (
-          <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 10, padding: "14px 16px" }}>
+          <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#34C759" />
               {t.unlockLine}

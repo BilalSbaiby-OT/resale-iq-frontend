@@ -145,7 +145,7 @@ export default async function BlogPostPage(
                   <thead>
                     <tr>
                       {s.table.head.map((th) => (
-                        <th key={th} scope="col" style={{ textAlign: "left", padding: "9px 12px", color: "#eef1f7", fontWeight: 700, borderBottom: "1px solid #263042", background: "#12151d" }}>
+                        <th key={th} scope="col" style={{ textAlign: "left", padding: "9px 12px", color: "#eef1f7", fontWeight: 700, borderBottom: "1px solid #263042", background: "var(--color-surface)" }}>
                           {th}
                         </th>
                       ))}
@@ -159,7 +159,7 @@ export default async function BlogPostPage(
                             key={ci}
                             style={{
                               padding: "9px 12px",
-                              borderBottom: "1px solid #161b26",
+                              borderBottom: "1px solid var(--color-border-ui)",
                               color: ci === 0 ? "#c3cde0" : "#a9b6d0",
                               fontWeight: ci === 0 ? 600 : 400,
                               verticalAlign: "top",
@@ -182,7 +182,7 @@ export default async function BlogPostPage(
         <section style={{ marginTop: 34 }}>
           <h2 style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", marginBottom: 16 }}>Frequently asked questions</h2>
           {p.faq.map((f) => (
-            <div key={f.q} style={{ marginBottom: 18, borderBottom: "1px solid #161b26", paddingBottom: 16 }}>
+            <div key={f.q} style={{ marginBottom: 18, borderBottom: "1px solid var(--color-border-ui)", paddingBottom: 16 }}>
               <h3 style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</h3>
               <p style={{ fontSize: 14, lineHeight: 1.65 }}>{renderRichText(f.a)}</p>
             </div>
@@ -216,7 +216,7 @@ export default async function BlogPostPage(
             ?src=blog is not decoration: /api/track persists the query string
             (pageview-tracker sends `pathname + search`), so arrivals here are
             attributable to this link rather than guessed at. */}
-        <div style={{ marginTop: 34, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
+        <div style={{ marginTop: 34, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.

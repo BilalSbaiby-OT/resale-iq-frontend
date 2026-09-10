@@ -150,10 +150,10 @@ export default async function CategoryHubPage() {
             <div
               key={r.slug}
               style={{
-                border: "1px solid #161b26",
+                border: "1px solid var(--color-border-ui)",
                 borderRadius: 10,
                 padding: "14px 16px",
-                background: "#0f1218",
+                background: "var(--color-bg-2)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
@@ -218,7 +218,7 @@ export default async function CategoryHubPage() {
             /pricing (measured live 2026-09-09). Same pattern already kept on
             /flip and /blog: a boxed secondary door, distinct ?src so arrivals
             are attributable, nothing removed from the existing content. */}
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>See what&apos;s behind the free numbers.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category and brand volume are free. The buy-below price and unlock limits are part of the paid plans.

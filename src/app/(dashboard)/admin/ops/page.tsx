@@ -37,7 +37,7 @@ function Panel({ icon: Icon, title, sub, children }: {
   icon: typeof Bot; title: string; sub: string; children: React.ReactNode
 }) {
   return (
-    <section style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: 18, marginBottom: 16 }}>
+    <section style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 18, marginBottom: 16 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
         <Icon size={15} color="#34C759" />
         <h2 style={{ fontSize: 14.5, fontWeight: 700, color: "#eef1f7" }}>{title}</h2>
@@ -98,7 +98,7 @@ function OpsDashboard() {
             <Panel icon={Database} title="Ingestion" sub="Vinted runs every 30 minutes; over 3 hours means stopped. Trends runs daily and is non-fatal.">
               {data.scrapers.length === 0 && <div style={{ color: "#5b6b8c", fontSize: 13 }}>No scraper runs recorded.</div>}
               {data.scrapers.map(s => (
-                <div key={s.platform} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid #1c2333", fontSize: 13 }}>
+                <div key={s.platform} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid var(--color-border-ui)", fontSize: 13 }}>
                   <Dot status={s.platform.startsWith("vinted") && s.hours_ago >= 3 ? "fail" : "pass"} />
                   <span style={{ color: "#eef1f7", minWidth: 110 }}>{s.platform}</span>
                   <span style={{ color: "#8b99b8", flex: 1 }}>{s.hours_ago}h ago</span>
@@ -112,7 +112,7 @@ function OpsDashboard() {
             <Panel icon={HeartPulse} title="Health checks" sub={`Overall: ${data.health.overall ?? "unknown"}`}>
               {data.health.checks.length === 0 && <div style={{ color: "#5b6b8c", fontSize: 13 }}>No checks reported.</div>}
               {data.health.checks.map(c => (
-                <div key={c.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid #1c2333", fontSize: 13 }}>
+                <div key={c.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid var(--color-border-ui)", fontSize: 13 }}>
                   <Dot status={c.status} />
                   <span style={{ color: "#eef1f7", minWidth: 190 }}>{c.name}</span>
                   <span style={{ color: "#8b99b8" }}>{c.detail}</span>
@@ -128,7 +128,7 @@ function OpsDashboard() {
                 </div>
               )}
               {data.agents.map((a, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid #1c2333", fontSize: 13 }}>
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 0", borderTop: "1px solid var(--color-border-ui)", fontSize: 13 }}>
                   <Dot status={a.status} />
                   <span style={{ color: "#eef1f7", minWidth: 90 }}>{a.agent}</span>
                   <span style={{ color: "#8b99b8", minWidth: 130 }}>{a.job ?? "—"}</span>

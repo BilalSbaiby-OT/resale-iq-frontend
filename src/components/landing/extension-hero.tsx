@@ -40,8 +40,8 @@ export function ExtensionHero({ locale }: { locale: Locale }) {
       <div
         style={{
           position: "relative",
-          background: "#12151d",
-          border: "1px solid #1c2333",
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-border-ui)",
           borderRadius: 14,
           minHeight: 300,
           overflow: "hidden",
@@ -65,8 +65,8 @@ export function ExtensionHero({ locale }: { locale: Locale }) {
         <div style={{ position: "absolute", left: 14, bottom: 14, width: 232 }}>
           <div
             style={{
-              background: "#12151d",
-              border: "1px solid #1c2333",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border-ui)",
               borderLeft: "3px solid #34C759",
               borderRadius: 12,
               padding: "13px 15px",

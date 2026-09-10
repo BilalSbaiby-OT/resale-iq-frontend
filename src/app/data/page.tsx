@@ -61,7 +61,7 @@ export default async function DataPage() {
           Vinted market data
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
-          Weekly units we **watched sell** and average observed sale price by brand across Vinted&apos;s five main EU markets
+          Weekly units we <strong style={{ color: "#c3cde0", fontWeight: 600 }}>watched sell</strong> and average observed sale price by brand across Vinted&apos;s five main EU markets
           (Spain, France, Germany, Italy, Portugal), from {tracked} analyzed listings.
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
         </p>
@@ -177,7 +177,7 @@ export default async function DataPage() {
           Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
         </div>
 
-        <div style={{ marginTop: 28, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
+        <div style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Want the numbers that make you money?</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Buy-below price, sell-through and best sizes for any item — plus live deals under your price.

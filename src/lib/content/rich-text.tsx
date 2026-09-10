@@ -40,7 +40,7 @@ export function renderRichText(text: string): ReactNode {
       <Link
         key={`${href}-${m.index}`}
         href={href}
-        style={{ color: "#34C759", textDecoration: "none", borderBottom: "1px solid #1c3327" }}
+        style={{ color: "#34C759", textDecoration: "none", borderBottom: "1px solid var(--color-border-2)" }}
       >
         {label}
       </Link>,

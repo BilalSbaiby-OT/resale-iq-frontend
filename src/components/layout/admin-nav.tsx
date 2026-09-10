@@ -11,7 +11,7 @@ const TABS = [
 export function AdminNav() {
   const pathname = usePathname()
   return (
-    <div style={{ display: "flex", gap: 2, marginBottom: 18, borderBottom: "1px solid #1c2333" }}>
+    <div style={{ display: "flex", gap: 2, marginBottom: 18, borderBottom: "1px solid var(--color-border-ui)" }}>
       {TABS.map(t => {
         const on = pathname === t.href
         return (

@@ -248,7 +248,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           ]} />
         </Section>
 
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, marginTop: 32 }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, marginTop: 32 }}>
           <div style={{ fontSize: 16.5, fontWeight: 700, color: "#eef1f7", marginBottom: 8 }}>
             {t.text28}
           </div>
@@ -259,10 +259,10 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             <Link href={`${canonicalPath(locale, "/register")}?plan=free`} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text29}
             </Link>
-            <Link href="/data" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/data" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text30}
             </Link>
-            <Link href="/manual" style={{ border: "1px solid #263147", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/manual" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text31}
             </Link>
           </div>
@@ -302,7 +302,7 @@ function P({ children }: { children: React.ReactNode }) {
 function Code({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ overflowX: "auto", margin: "4px 0 16px" }}>
-      <pre style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 10, padding: "13px 16px", fontSize: 13.5, color: "#8fe3b0", fontFamily: "ui-monospace, monospace", margin: 0 }}>
+      <pre style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "13px 16px", fontSize: 13.5, color: "#8fe3b0", fontFamily: "ui-monospace, monospace", margin: 0 }}>
         {children}
       </pre>
     </div>
@@ -330,7 +330,7 @@ function Table({ rows }: { rows: string[][] }) {
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14, minWidth: 420 }}>
         <tbody>
           {rows.map(([a, b, c]) => (
-            <tr key={a} style={{ borderTop: "1px solid #1c2333" }}>
+            <tr key={a} style={{ borderTop: "1px solid var(--color-border-ui)" }}>
               <td style={{ padding: "10px 12px 10px 0", color: "#eef1f7", fontWeight: 600, whiteSpace: "nowrap" }}>{a}</td>
               <td style={{ padding: "10px 12px", color: "#34C759", whiteSpace: "nowrap" }}>{b}</td>
               <td style={{ padding: "10px 0 10px 12px", color: "#8b99b8" }}>{c}</td>

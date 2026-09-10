@@ -134,7 +134,7 @@ export default async function BrandCategoryPage(
             [fmtEur(avgPrice), `avg ${b.brand} price at exit`],
             [share != null ? `${share}%` : "—", `of ${b.brand} volume`],
           ].map(([v, l]) => (
-            <div key={l} style={{ background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "16px 18px" }}>
+            <div key={l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>
               <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 3 }}>{l}</div>
             </div>
@@ -168,7 +168,7 @@ export default async function BrandCategoryPage(
           </p>
         </section>
 
-        <div style={{ padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
+        <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a {b.brand} item free</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get the headline verdict on any item — no signup needed.

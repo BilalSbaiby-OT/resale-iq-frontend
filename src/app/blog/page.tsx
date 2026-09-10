@@ -53,7 +53,7 @@ export default async function BlogIndex() {
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              style={{ display: "block", background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, padding: "18px 20px", textDecoration: "none" }}
+              style={{ display: "block", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "18px 20px", textDecoration: "none" }}
             >
               <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
                 {p.category} · {p.readMins} min read
@@ -88,7 +88,7 @@ export default async function BlogIndex() {
           , published free.
         </p>
 
-        <div style={{ marginTop: 40, padding: "22px 24px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12, textAlign: "center" }}>
+        <div style={{ marginTop: 40, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Stop guessing what sells.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.

@@ -35,7 +35,7 @@ const METHOD_COLOR: Record<string, string> = {
 const H2: React.CSSProperties = { fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "30px 0 10px" }
 const P: React.CSSProperties = { fontSize: 13.5, lineHeight: 1.65, color: "#c3cde0" }
 const PRE: React.CSSProperties = {
-  background: "#0e1118", border: "1px solid #232c42", borderRadius: 9,
+  background: "#0e1118", border: "1px solid var(--color-border)", borderRadius: 9,
   padding: "13px 15px", fontSize: 12.5, color: "#8fe3b0", overflowX: "auto", margin: "10px 0",
 }
 
@@ -86,7 +86,7 @@ export default function ApiDocs() {
 
         <h2 style={H2}>Endpoints</h2>
         {ENDPOINTS.map(e => (
-          <div key={e.method + e.path} style={{ border: "1px solid #1c2333", borderRadius: 10, padding: "12px 14px", marginBottom: 9, background: "#12151d" }}>
+          <div key={e.method + e.path} style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "12px 14px", marginBottom: 9, background: "var(--color-surface)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
               <span style={{ color: METHOD_COLOR[e.method], fontWeight: 700, fontSize: 11.5, minWidth: 52 }}>{e.method}</span>
               <code style={{ fontSize: 13, color: "#eef1f7" }}>{e.path}</code>
@@ -127,7 +127,7 @@ export default function ApiDocs() {
           competing dataset is not permitted — see the <Link href="/terms" style={{ color: "#34C759" }}>Terms</Link>.
         </p>
 
-        <div style={{ marginTop: 34, padding: "20px 22px", background: "#0f1720", border: "1px solid #1c3327", borderRadius: 12 }}>
+        <div style={{ marginTop: 34, padding: "20px 22px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7" }}>Get an API key</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "7px 0 14px" }}>
             The API is included with Pro. Generate your key from your account page.

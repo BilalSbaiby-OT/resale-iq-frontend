@@ -79,7 +79,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       </div>
 
       {!pro && (
-      <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
+      <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Unlock size={15} style={{ color: "#34C759" }} />
           <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Your free account is active</span>
@@ -106,7 +106,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       </div>
       )}
       {pro && (
-        <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "#0f1720", border: "1px solid #1c3327", borderRadius: 14, padding: "20px 22px" }}>
+        <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <Lock size={15} style={{ color: "#34C759" }} />
             <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>This is a Pro feature</span>
