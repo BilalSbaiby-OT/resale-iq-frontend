@@ -153,7 +153,7 @@ export default async function CategoryPage(
         </div>
 
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
-        <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", lineHeight: 1.18, marginBottom: 14 }}>
+        <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.18, marginBottom: 14 }}>
           Best brands for reselling {lower} on Vinted
         </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 24 }}>{answer}</p>

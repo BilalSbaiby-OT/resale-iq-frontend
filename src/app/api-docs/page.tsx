@@ -45,7 +45,7 @@ export default function ApiDocs() {
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
 
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>Resale IQ API</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "24px 0 8px", letterSpacing: "-0.6px" }}>Resale IQ API</h1>
         <p style={{ ...P, marginBottom: 6 }}>
           Query real Vinted resale data across ES, FR, DE, IT and PT — sell-through rates, average
           asking prices at departure, buy-below prices and demand signals for 26 brands.

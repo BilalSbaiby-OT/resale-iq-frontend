@@ -92,7 +92,7 @@ export default async function IntentPage(
           <Link href="/tools" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>{t.breadcrumbTools}</Link>
         </nav>
 
-        <h1 style={{ fontSize: 34, fontWeight: 800, color: "var(--color-text-primary)", lineHeight: 1.15, letterSpacing: "-0.6px", marginBottom: 16 }}>{i.h1}</h1>
+        <h1 style={{ fontSize: 34, fontWeight: 600, color: "var(--color-text-primary)", lineHeight: 1.15, letterSpacing: "-0.6px", marginBottom: 16 }}>{i.h1}</h1>
         <p style={{ fontSize: 16.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 36, maxWidth: 620 }}>{i.lede}</p>
 
         {/* Profit-calculator intent: a buy-price Calculate, never the checker.
@@ -121,7 +121,7 @@ export default async function IntentPage(
         </section>
 
         <section style={{ marginTop: 56 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 24 }}>{t.faqHeading}</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 24 }}>{t.faqHeading}</h2>
           {i.faq.map((f, n) => (
             <div
               key={f.q}

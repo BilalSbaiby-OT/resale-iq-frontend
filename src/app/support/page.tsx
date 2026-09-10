@@ -30,7 +30,7 @@ export async function SupportPage({ locale = "en" }: { locale?: Locale } = {}) {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <Link href={home} style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "24px 0 8px" }}>{t.heading}</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "24px 0 8px", letterSpacing: "-0.6px" }}>{t.heading}</h1>
         <p style={{ fontSize: 14, color: "#8b99b8", marginBottom: 24, lineHeight: 1.6 }}>
           {t.intro}
         </p>

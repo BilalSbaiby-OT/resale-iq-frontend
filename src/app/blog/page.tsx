@@ -38,7 +38,7 @@ export default async function BlogIndex() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
-        <h1 style={{ fontSize: 32, fontWeight: 800, color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
+        <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
           Built on {tracked} analyzed listings across 5 EU markets.

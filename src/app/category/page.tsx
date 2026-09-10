@@ -127,7 +127,7 @@ export default async function CategoryHubPage() {
           <span style={{ color: "#5b6b8c" }}>Categories</span>
         </div>
 
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2 }}>
           What sells best on Vinted?
         </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{answer}</p>

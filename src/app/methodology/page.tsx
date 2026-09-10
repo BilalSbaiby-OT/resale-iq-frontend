@@ -119,7 +119,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
       <div style={{ maxWidth: 780, margin: "0 auto" }}>
         <Link href={canonicalPath(locale)} style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
 
-        <h1 style={{ fontSize: 34, fontWeight: 800, color: "#eef1f7", lineHeight: 1.16, margin: "22px 0 14px" }}>
+        <h1 style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.16, margin: "22px 0 14px" }}>
           {t.text0}
         </h1>
         <p style={{ fontSize: 16.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>

@@ -121,7 +121,7 @@ export default async function BlogPostPage(
         <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
           {p.category} · {p.readMins} min read
         </div>
-        <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
 
         {p.sections.map((s) => (
@@ -180,7 +180,7 @@ export default async function BlogPostPage(
 
         {/* FAQ — visible + mirrored in FAQPage schema for answer engines */}
         <section style={{ marginTop: 34 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", marginBottom: 16 }}>Frequently asked questions</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", marginBottom: 16 }}>Frequently asked questions</h2>
           {p.faq.map((f) => (
             <div key={f.q} style={{ marginBottom: 18, borderBottom: "1px solid var(--color-border-ui)", paddingBottom: 16 }}>
               <h3 style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>{f.q}</h3>

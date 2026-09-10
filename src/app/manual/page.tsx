@@ -57,7 +57,7 @@ export default async function ManualIndex() {
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <Link href="/" style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
 
-        <h1 style={{ fontSize: 36, fontWeight: 800, color: "#eef1f7", lineHeight: 1.15, margin: "22px 0 14px" }}>
+        <h1 style={{ fontSize: 36, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.15, margin: "22px 0 14px" }}>
           The Vinted Reselling Manual
         </h1>
         <p style={{ fontSize: 17, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 16 }}>

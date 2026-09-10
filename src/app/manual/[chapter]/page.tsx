@@ -94,7 +94,7 @@ export default async function ChapterPage(
         <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px", marginBottom: 10 }}>
           Chapter {c.number} · {c.part} · {c.minutes} min read
         </div>
-        <h1 style={{ fontSize: 33, fontWeight: 800, color: "#eef1f7", lineHeight: 1.18, marginBottom: 16 }}>
+        <h1 style={{ fontSize: 33, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.18, marginBottom: 16 }}>
           {c.title}
         </h1>
         <p style={{ fontSize: 17, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 30 }}>{c.intro}</p>

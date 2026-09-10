@@ -125,7 +125,7 @@ export default async function BrandFlipPage(
 
       <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />
 
-      <h1 style={{ fontSize: 30, fontWeight: 800, color: "#eef1f7", margin: "22px 0 10px", lineHeight: 1.2 }}>
+      <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "22px 0 10px", lineHeight: 1.2 }}>
         Is {b.brand} worth reselling on Vinted in 2026?
       </h1>
       <p style={{ color: "#8b99b8", fontSize: 15, lineHeight: 1.6, marginBottom: 26 }}>
