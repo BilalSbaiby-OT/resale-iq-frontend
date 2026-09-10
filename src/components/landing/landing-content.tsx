@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { PricingSection } from "./pricing-section"
+import { LiveMarketPulse } from "./live-market-pulse"
 import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
@@ -38,7 +39,6 @@ export function LandingContent({
 }) {
   void tracked
   void trackedExact
-  void market
   void heroQuery
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
@@ -125,6 +125,8 @@ export function LandingContent({
             />
           </div>
         </section>
+
+        <LiveMarketPulse locale={locale} market={market} />
 
         <PricingSection locale={locale} compact />
       </main>

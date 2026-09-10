@@ -43,9 +43,11 @@ interface LocaleFixture {
   insufficientNLabel: string
   enterBrandModel: string
   // live-market-proof.tsx (W9)
-  liveProofHeading: string
-  liveProofSeeHow: string
-  liveProofPlanAddsHeading: string
+  liveProofHeading?: string
+  liveProofSeeHow?: string
+  liveProofPlanAddsHeading?: string
+  pulseHeading: string
+  pulseLiveLabel: string
   // extension-hero.tsx (W9) — "Nike Air Force 1" panel is Adidas Samba
   // regardless of query; this is the static hero mock, not a search result.
   extHeroDomain: string
@@ -90,6 +92,8 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "En vente sur Vinted cette semaine",
     liveProofSeeHow: "Voir comment on calcule ça →",
     liveProofPlanAddsHeading: "Ce qu'un abonnement ajoute, par modèle",
+    pulseHeading: "Voici ce qui se vend vraiment en ce moment.",
+    pulseLiveLabel: "Marché en direct",
     extHeroDomain: "vinted.fr",
     extHeroSize: "Taille",
     extHeroCondition: "Très bon état",
@@ -117,6 +121,8 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "A la venta en Vinted esta semana",
     liveProofSeeHow: "Ver cómo lo calculamos →",
     liveProofPlanAddsHeading: "Lo que añade un plan, por modelo",
+    pulseHeading: "Esto es lo que se está vendiendo ahora mismo.",
+    pulseLiveLabel: "Mercado en vivo",
     extHeroDomain: "vinted.es",
     extHeroSize: "Talla",
     extHeroCondition: "Muy bueno",
@@ -144,6 +150,8 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "Diese Woche auf Vinted im Angebot",
     liveProofSeeHow: "So berechnen wir das →",
     liveProofPlanAddsHeading: "Was ein Tarif zusätzlich bringt, pro Modell",
+    pulseHeading: "Das verkauft sich gerade wirklich.",
+    pulseLiveLabel: "Live-Markt",
     extHeroDomain: "vinted.de",
     extHeroSize: "Größe",
     extHeroCondition: "Sehr gut",
@@ -171,6 +179,8 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "In vendita su Vinted questa settimana",
     liveProofSeeHow: "Guarda come lo calcoliamo →",
     liveProofPlanAddsHeading: "Cosa aggiunge un piano, per modello",
+    pulseHeading: "Ecco cosa si sta vendendo davvero adesso.",
+    pulseLiveLabel: "Mercato dal vivo",
     extHeroDomain: "vinted.it",
     extHeroSize: "Taglia",
     extHeroCondition: "Molto buono",
@@ -198,6 +208,8 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "À venda na Vinted esta semana",
     liveProofSeeHow: "Vê como calculamos isto →",
     liveProofPlanAddsHeading: "O que um plano acrescenta, por modelo",
+    pulseHeading: "Isto é o que está mesmo a vender agora.",
+    pulseLiveLabel: "Mercado ao vivo",
     extHeroDomain: "vinted.pt",
     extHeroSize: "Tamanho",
     extHeroCondition: "Muito bom",
@@ -311,17 +323,18 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(panel.getByRole("button", { name: "New Balance 530" })).toBeVisible()
     })
 
-    // W9: live-market-proof.tsx — the "Selling on Vinted this week" band.
-    test(`the live market proof band renders localised copy in ${locale}, not English`, async ({ page }) => {
+    // The live market pulse — replaces the removed live-market-proof band.
+    // Renders the real snapshot (mock: Nike/Adidas) as a data-dense list with
+    // localised heading + column labels. See components/landing/live-market-pulse.tsx.
+    test(`the live market pulse renders localised copy in ${locale}, not English`, async ({ page }) => {
       await gotoHomepage(page)
 
-      await expect(page.getByText(l.liveProofHeading, { exact: true })).toBeVisible()
-      await expect(page.getByText(l.liveProofPlanAddsHeading, { exact: true })).toBeVisible()
-      await expect(page.getByRole("link", { name: l.liveProofSeeHow })).toBeVisible()
+      await expect(page.getByText(l.pulseHeading, { exact: true })).toBeVisible()
+      await expect(page.getByText(l.pulseLiveLabel, { exact: true })).toBeVisible()
+      // The brand rows come from the live snapshot (mock serves Nike + Adidas).
+      await expect(page.getByText("Nike", { exact: true }).first()).toBeVisible()
 
-      await expect(page.getByText("Selling on Vinted this week", { exact: true })).toHaveCount(0)
-      await expect(page.getByText("What a plan adds, per model", { exact: true })).toHaveCount(0)
-      await expect(page.getByRole("link", { name: "See how we calculate it →" })).toHaveCount(0)
+      await expect(page.getByText("This is what's actually selling right now.", { exact: true })).toHaveCount(0)
     })
 
     // W9: extension-hero.tsx — the mock Chrome panel on the hero. Desktop
