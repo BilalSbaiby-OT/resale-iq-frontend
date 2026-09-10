@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `0826a2d`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `d25991b`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
@@ -64,19 +64,18 @@ telling the founder we had no telemetry at all.
 - `watchlist_items`
 - `will`
 
-## Check scripts (9)
+## Check scripts (8)
 
 - `scripts/check-agent-isolation.mjs`
 - `scripts/check-duplicate-logic.mjs`
 - `scripts/check-extension.mjs`
 - `scripts/check-locale-english.mjs`
-- `scripts/check-market-proof-grain.mjs`
 - `scripts/check-silent-failure.mjs`
 - `scripts/check-stale-gates.mjs`
 - `scripts/check-tracked-figure.mjs`
 - `scripts/check-warehouse.mjs`
 
-## npm scripts (21)
+## npm scripts (20)
 
 - `build`
 - `check:dupes`
@@ -86,7 +85,6 @@ telling the founder we had no telemetry at all.
 - `check:isolation`
 - `check:isolation:built`
 - `check:locale-english`
-- `check:market-proof`
 - `check:silent`
 - `check:tracked`
 - `check:tracked:built`

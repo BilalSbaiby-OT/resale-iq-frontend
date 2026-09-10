@@ -7,7 +7,6 @@ import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
-import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
@@ -17,14 +16,22 @@ import { copy, type Locale } from "@/lib/i18n"
 // copy[locale].tiers, keyed by Tier.id. Falls back to the English TIERS
 // text for any locale/id the dictionary does not cover, so a partial
 // dictionary degrades to English rather than to `undefined`.
+// Conventional card order for the marketing page: cheapest on the left, the
+// recommended (highlighted) tier on the right. TIERS itself stays high→low
+// because paywall.tsx (the authed upsell) reads that array directly and wants
+// Pro first; only this marketing surface reorders, and only for display.
+const DISPLAY_ORDER: Record<string, number> = { free: 0, operator: 1, power: 2 }
+
 function localizedTiers(locale: Locale) {
   const dict = copy[locale].tiers as Record<string, {
     tagline: string; cta: string; stepUp?: string; stepUpWhy?: string; ceiling?: string; features: readonly string[]
   }>
-  return TIERS.map((tier) => {
-    const l = dict[tier.id]
-    return l ? { ...tier, ...l } : tier
-  })
+  return TIERS
+    .map((tier) => {
+      const l = dict[tier.id]
+      return l ? { ...tier, ...l } : tier
+    })
+    .sort((a, b) => (DISPLAY_ORDER[a.id] ?? 99) - (DISPLAY_ORDER[b.id] ?? 99))
 }
 
 /**
@@ -144,7 +151,7 @@ export function PricingSection({
       <div style={{ textAlign: "center", marginBottom: s.headMargin }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.4px", color: "var(--color-text-muted)" }}>{copy[locale].pricing}</div>
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
-        <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]}</p>
+        <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
 
       {/* 3 tiers. At 1080px wide with a 260px minimum this resolved to 3
@@ -256,6 +263,46 @@ export function PricingSection({
         locale={locale}
         starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
       />
+
+      {/* Objection-handling row (CRO #4). Standalone /pricing only — the compact
+          strip on the homepage already sits under a full page of proof, so the
+          same six questions there would be noise. Native <details> is the whole
+          accordion: keyboard-operable and open-by-search with no JS to ship, and
+          the answers are honest-data proof (aggregates, watched departures,
+          UNKNOWN) placed next to the doubt they resolve, never a testimonial we
+          cannot back with 0 customers. Also emitted as FAQPage JSON-LD, which is
+          the schema AI answer engines cite — the one channel that has produced a
+          signup. */}
+      {!compact && (
+        <div style={{ maxWidth: 760, margin: "56px auto 0" }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.4px", textAlign: "center", marginBottom: 24 }}>{t.faqHeading}</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {t.faq.map((item) => (
+              <details key={item.q} style={{ border: "1px solid var(--color-border-ui)", borderRadius: 12, background: "var(--color-surface)", padding: "0 16px" }}>
+                <summary style={{ cursor: "pointer", listStyle: "none", padding: "14px 0", fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                  {item.q}
+                  <span aria-hidden style={{ color: "var(--color-text-muted)", fontSize: 18, lineHeight: 1, flexShrink: 0 }}>+</span>
+                </summary>
+                <p style={{ fontSize: 14.5, color: "var(--color-text-body)", lineHeight: 1.6, margin: "0 0 16px", paddingRight: 28 }}>{item.a}</p>
+              </details>
+            ))}
+          </div>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: t.faq.map((item) => ({
+                  "@type": "Question",
+                  name: item.q,
+                  acceptedAnswer: { "@type": "Answer", text: item.a },
+                })),
+              }),
+            }}
+          />
+        </div>
+      )}
     </section>
   )
 }

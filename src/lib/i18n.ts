@@ -285,6 +285,16 @@ export const copy = {
       whereItStops: "Where it stops:",
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
+      subhead: "Start free, no card. Move up when the numbers are paying for the subscription.",
+      faqHeading: "Before you pick a plan",
+      faq: [
+        { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
+        { q: "Is it worth €19 a month?", a: "One flip you skip on a SKIP, or one you take on a BUY, usually covers the month. The payback calculator above works it out for the volume you actually do." },
+        { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
+        { q: "What if the data isn't there for my item?", a: "You still see the check, and where the sample is thin we say so instead of inventing a number. We report watched departures, meaning items leaving the shelf, not sales we didn't witness." },
+        { q: "Can I trust the numbers, and can I cancel?", a: "Every figure comes from listings we watch across the five markets, shown as aggregates you can check yourself on the public data page. The free account needs no card, and you cancel from Account in one click; access runs to the end of the month you paid for, with no email to chase." },
+        { q: "How do the free limits work?", a: "No account gets you 10 checks a day. A free account keeps those 10 a day for life and adds 7 days of full Starter access, then 10 full unlocks a month for the deep numbers. Live Deal Finder, Order Planner and Price Compare are Pro." },
+      ],
     },
     // Keyed by Tier.id (lib/pricing.ts). Names ("Free"/"Starter"/"Pro") stay
     // as product/plan names across locales — same choice already made for
@@ -712,6 +722,16 @@ export const copy = {
       whereItStops: "Où ça s'arrête :",
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
+      subhead: "Commencez gratuitement, sans carte. Montez en gamme quand les chiffres paient l'abonnement.",
+      faqHeading: "Avant de choisir une offre",
+      faq: [
+        { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance." },
+        { q: "Est-ce que ça vaut €19 par mois ?", a: "Un achat que vous évitez sur un SKIP, ou un que vous saisissez sur un BUY, couvre en général le mois. Le calculateur de rentabilité ci-dessus le calcule pour le volume que vous faites réellement." },
+        { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez un BUY, WATCH ou SKIP avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
+        { q: "Et si les données manquent pour mon article ?", a: "Vous voyez quand même la vérification, et là où l'échantillon est mince nous le disons plutôt que d'inventer un chiffre. Nous rapportons les départs observés, c'est-à-dire les articles qui quittent l'étagère, pas des ventes que nous n'avons pas vues." },
+        { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier vous-même sur la page de données publique. Le compte gratuit ne demande pas de carte, et vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé, sans e-mail à relancer." },
+        { q: "Comment fonctionnent les limites gratuites ?", a: "Sans compte : 10 vérifications par jour. Un compte gratuit conserve ces 10 par jour à vie et ajoute 7 jours d'accès Starter complet, puis 10 déblocages complets par mois pour les chiffres détaillés. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro." },
+      ],
     },
     tiers: {
       power: {
@@ -1075,6 +1095,16 @@ export const copy = {
       whereItStops: "Dónde se detiene:",
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
+      subhead: "Empieza gratis, sin tarjeta. Sube de plan cuando los números paguen la suscripción.",
+      faqHeading: "Antes de elegir un plan",
+      faq: [
+        { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },
+        { q: "¿Merece la pena €19 al mes?", a: "Una compra que evitas en un SKIP, o una que aprovechas en un BUY, suele cubrir el mes. La calculadora de amortización de arriba lo calcula para el volumen que realmente haces." },
+        { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes un BUY, WATCH o SKIP con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
+        { q: "¿Y si no hay datos para mi artículo?", a: "Sigues viendo la comprobación, y donde la muestra es escasa lo decimos en lugar de inventar un número. Informamos de salidas observadas, es decir, artículos que dejan el estante, no de ventas que no hemos visto." },
+        { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar tú mismo en la página de datos pública. La cuenta gratuita no pide tarjeta, y cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado, sin correos que perseguir." },
+        { q: "¿Cómo funcionan los límites gratuitos?", a: "Sin cuenta: 10 comprobaciones al día. Una cuenta gratuita conserva esas 10 al día de por vida y añade 7 días de acceso Starter completo, luego 10 desbloqueos completos al mes para los números detallados. Deal Finder en vivo, Order Planner y Price Compare son de Pro." },
+      ],
     },
     tiers: {
       power: {
@@ -1438,6 +1468,16 @@ export const copy = {
       whereItStops: "Wo es endet:",
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
+      subhead: "Kostenlos starten, ohne Karte. Wechsle höher, wenn die Zahlen das Abo bezahlen.",
+      faqHeading: "Bevor du einen Tarif wählst",
+      faq: [
+        { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl." },
+        { q: "Sind €19 im Monat es wert?", a: "Ein Kauf, den du bei einem SKIP auslässt, oder einer, den du bei einem BUY mitnimmst, deckt meist den Monat. Der Amortisationsrechner oben rechnet es für dein tatsächliches Volumen aus." },
+        { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst ein BUY, WATCH oder SKIP mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
+        { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Du siehst die Prüfung trotzdem, und wo die Stichprobe dünn ist, sagen wir es, statt eine Zahl zu erfinden. Wir berichten beobachtete Abgänge, also Artikel, die das Regal verlassen, nicht Verkäufe, die wir nicht gesehen haben." },
+        { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Das kostenlose Konto braucht keine Karte, und du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats, ohne einer E-Mail hinterherzujagen." },
+        { q: "Wie funktionieren die kostenlosen Limits?", a: "Ohne Konto: 10 Prüfungen pro Tag. Ein kostenloses Konto behält diese 10 pro Tag dauerhaft und fügt 7 Tage vollständigen Starter-Zugang hinzu, danach 10 vollständige Freischaltungen im Monat für die detaillierten Zahlen. Live Deal Finder, Order Planner und Price Compare sind Pro." },
+      ],
     },
     tiers: {
       power: {
@@ -1803,6 +1843,16 @@ export const copy = {
       whereItStops: "Dove si ferma:",
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
+      subhead: "Inizia gratis, senza carta. Sali di piano quando i numeri pagano l'abbonamento.",
+      faqHeading: "Prima di scegliere un piano",
+      faq: [
+        { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza." },
+        { q: "Vale €19 al mese?", a: "Un acquisto che eviti su uno SKIP, o uno che cogli su un BUY, di solito copre il mese. Il calcolatore di rientro qui sopra lo calcola per il volume che fai davvero." },
+        { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni un BUY, WATCH o SKIP con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
+        { q: "E se non ci sono dati per il mio articolo?", a: "Vedi comunque il controllo, e dove il campione è scarso lo diciamo invece di inventare un numero. Riportiamo le uscite osservate, cioè gli articoli che lasciano lo scaffale, non vendite che non abbiamo visto." },
+        { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare tu stesso sulla pagina dati pubblica. L'account gratuito non chiede la carta, e disdici da Account con un clic; l'accesso arriva alla fine del mese pagato, senza email da rincorrere." },
+        { q: "Come funzionano i limiti gratuiti?", a: "Senza account: 10 controlli al giorno. Un account gratuito mantiene quei 10 al giorno per sempre e aggiunge 7 giorni di accesso Starter completo, poi 10 sblocchi completi al mese per i numeri dettagliati. Deal Finder live, Order Planner e Price Compare sono Pro." },
+      ],
     },
     tiers: {
       power: {
@@ -2166,6 +2216,16 @@ export const copy = {
       whereItStops: "Onde para:",
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
+      subhead: "Começa grátis, sem cartão. Sobe de plano quando os números pagam a subscrição.",
+      faqHeading: "Antes de escolheres um plano",
+      faq: [
+        { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança." },
+        { q: "Vale €19 por mês?", a: "Uma compra que evitas num SKIP, ou uma que aproveitas num BUY, costuma cobrir o mês. A calculadora de retorno acima calcula-o para o volume que realmente fazes." },
+        { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes um BUY, WATCH ou SKIP com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
+        { q: "E se não houver dados para o meu artigo?", a: "Continuas a ver a verificação, e onde a amostra é reduzida dizemos isso em vez de inventar um número. Reportamos saídas observadas, ou seja, artigos que deixam a prateleira, não vendas que não vimos." },
+        { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar tu próprio na página de dados pública. A conta gratuita não pede cartão, e cancelas em Conta com um clique; o acesso vai até ao fim do mês pago, sem e-mail a perseguir." },
+        { q: "Como funcionam os limites gratuitos?", a: "Sem conta: 10 verificações por dia. Uma conta gratuita mantém essas 10 por dia para sempre e adiciona 7 dias de acesso Starter completo, depois 10 desbloqueios completos por mês para os números detalhados. Live Deal Finder, Order Planner e Price Compare são Pro." },
+      ],
     },
     tiers: {
       power: {
