@@ -57,7 +57,7 @@ export default async function DataPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <Link href="/" style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
-        <h1 style={{ fontSize: 32, fontWeight: 800, color: "var(--color-text-primary)", margin: "20px 0 10px" }}>
+        <h1 style={{ fontSize: 32, fontWeight: 600, color: "var(--color-text-primary)", margin: "20px 0 10px", letterSpacing: "-0.6px" }}>
           Vinted market data
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
@@ -73,7 +73,7 @@ export default async function DataPage() {
             role="status"
             style={{
               fontSize: 13, lineHeight: 1.65, color: "#c3cde0", marginTop: 14,
-              padding: "12px 14px", background: "#12151d", border: "1px solid #1c2333", borderRadius: 10,
+              padding: "12px 14px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10,
             }}
           >
             <strong style={{ color: "#eef1f7" }}>Observed sales, not catalogue size.</strong>{" "}
@@ -91,16 +91,16 @@ export default async function DataPage() {
           </p>
         )}
 
-        <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "26px 0 0" }}>
+        <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "26px 0 0", letterSpacing: "-0.3px" }}>
           This week&apos;s snapshot
         </h2>
 
         <table
           aria-label="Weekly market snapshot"
-          style={{ width: "100%", borderCollapse: "collapse", marginTop: 22, fontSize: 13.5, background: "#12151d", border: "1px solid #1c2333", borderRadius: 12, overflow: "hidden" }}
+          style={{ width: "100%", borderCollapse: "collapse", marginTop: 22, fontSize: 13.5, background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, overflow: "hidden" }}
         >
           <thead>
-            <tr style={{ background: "#151924", color: "#8b99b8", textAlign: "left" }}>
+            <tr style={{ background: "var(--color-surface-elevated)", color: "#8b99b8", textAlign: "left" }}>
               <th style={{ padding: "11px 14px", fontWeight: 600 }}>Sold (7 days)</th>
               <th style={{ padding: "11px 14px", fontWeight: 600 }}>Listings tracked</th>
               <th style={{ padding: "11px 14px", fontWeight: 600 }}>Freshness</th>
@@ -131,13 +131,13 @@ export default async function DataPage() {
           <p style={{ marginTop: 28, color: "#8b99b8" }}>Market data is being refreshed — check back shortly.</p>
         ) : (
           <>
-          <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "30px 0 0" }}>
+          <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "30px 0 0", letterSpacing: "-0.3px" }}>
             Weekly sales and average price by brand
           </h2>
-          <div style={{ marginTop: 18, overflowX: "auto", border: "1px solid #1c2333", borderRadius: 12 }}>
+          <div style={{ marginTop: 18, overflowX: "auto", border: "1px solid var(--color-border-ui)", borderRadius: 12 }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5, minWidth: 620 }}>
               <thead>
-                <tr style={{ background: "#12151d", color: "#8b99b8", textAlign: "left" }}>
+                <tr style={{ background: "var(--color-surface)", color: "#8b99b8", textAlign: "left" }}>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>#</th>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>Brand</th>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>Sold / 7 days</th>
@@ -147,7 +147,7 @@ export default async function DataPage() {
               </thead>
               <tbody>
                 {brands.map((b, i) => (
-                  <tr key={b.brand} style={{ borderTop: "1px solid #161b26" }}>
+                  <tr key={b.brand} style={{ borderTop: "1px solid var(--color-border-ui)" }}>
                     <td style={{ padding: "11px 14px", color: "#5b6b8c" }}>{i + 1}</td>
                     <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>
                       {(() => {
@@ -204,7 +204,7 @@ export default async function DataPage() {
             {CATEGORIES.map((c) => (
               <Link key={c.slug} href={`/category/${c.slug}`} style={{
                 fontSize: 13, color: "#a9b6d0", textDecoration: "none",
-                background: "#12151d", border: "1px solid #1c2333",
+                background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
                 borderRadius: 8, padding: "7px 12px",
               }}>
                 {c.category}
