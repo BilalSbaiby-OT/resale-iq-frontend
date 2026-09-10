@@ -73,8 +73,22 @@ export function PricingSection({
   const Heading = (headingLevel === 1 ? "h1" : "h2") as "h1" | "h2"
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
+  // Settles true when the plans fetch resolves OR fails — not only on success.
+  // A paid CTA that fires before this lands has no price id to resolve, so
+  // `choose` sends the visitor to /register: the exact register wall that was
+  // the #1 measured drop, hit here by nothing but a fast click on a cold page.
+  // So paid CTAs stay disabled while the fetch is IN FLIGHT (the button auto-
+  // waits, no misfire), then enable. On a real /stripe/plans OUTAGE the fetch
+  // still settles, the button still enables, and choose()'s existing catch
+  // routes to /register — no worse than today, and never a permanently dead CTA.
+  const [plansReady, setPlansReady] = useState(false)
 
-  useEffect(() => { getPlans().then(d => setPlans(d.plans)).catch(() => {}) }, [])
+  useEffect(() => {
+    getPlans()
+      .then(d => setPlans(d.plans))
+      .catch(() => {})
+      .finally(() => setPlansReady(true))
+  }, [])
 
   const choose = async (tierId: string, placeholder?: string) => {
     // Free rung: no Stripe involved, just get them an account.
@@ -183,12 +197,13 @@ export function PricingSection({
                 the eye has no primary to find and the recommendation the card
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
-            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
+            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id || (!tier.free && !plansReady)} style={{
               width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,
-              fontSize: 13.5, fontWeight: 700, cursor: "pointer",
+              fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id || (!tier.free && !plansReady)) ? "wait" : "pointer",
               border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
               background: tier.highlight ? "var(--color-buy)" : "transparent",
               color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",
+              opacity: (!tier.free && !plansReady) ? 0.6 : 1,
               transition: "opacity .18s, border-color .18s",
             }}>{busy === tier.id ? "…" : tier.cta}</button>
             {/* stepUp / ceiling keep every word — only their boxes are gone.
