@@ -179,7 +179,7 @@ export default async function BrandCategoryPage(
         </div>
 
         <div style={{ marginTop: 30 }}>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>Keep reading</div>
+          <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10, letterSpacing: "0.1px" }}>Keep reading</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <Link href={`/category/${category}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
               → Which brands sell best in {catName}?

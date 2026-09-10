@@ -231,7 +231,7 @@ export default async function BlogPostPage(
 
         {/* Internal links help SEO + crawl depth */}
         <div style={{ marginTop: 34 }}>
-          <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>Keep reading</div>
+          <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10, letterSpacing: "0.1px" }}>Keep reading</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {others.map((o) => (
               <Link key={o.slug} href={`/blog/${o.slug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>

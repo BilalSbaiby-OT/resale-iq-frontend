@@ -250,7 +250,7 @@ export default async function CategoryPage(
         </div>
 
         <div>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>Other categories</div>
+          <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10, letterSpacing: "0.1px" }}>Other categories</div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
             {others.map((o) => (
               <Link key={o.slug} href={`/category/${o.slug}`} style={{
