@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { BRANDS, catSlug } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
+import { WeeklyBrief } from "@/components/ui/weekly-brief"
 
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
 // the 26 brand pages + 130 brand x category pages had no index anywhere on the
@@ -136,6 +137,8 @@ export default async function FlipHubPage() {
           across {MARKETS}; they are not the size of Vinted as a whole.
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
+
+        <WeeklyBrief market={market} />
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "30px 0 4px", letterSpacing: "-0.4px" }}>
           Every tracked brand, ranked by weekly sales

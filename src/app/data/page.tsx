@@ -4,6 +4,7 @@ import { CATEGORIES, BRANDS } from "@/lib/seo-categories"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
+import { WeeklyBrief } from "@/components/ui/weekly-brief"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -67,6 +68,8 @@ export default async function DataPage() {
         </p>
 
         <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />
+
+        <WeeklyBrief market={market} />
 
         {market.listingsTracked != null && market.brandCount < (market.brandsTracked ?? 26) ? (
           <p
