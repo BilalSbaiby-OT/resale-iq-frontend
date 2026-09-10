@@ -90,7 +90,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         </p>
         {verified === false && (
           <div style={{ background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 9, padding: "11px 13px", marginBottom: 14 }}>
-            <div style={{ fontSize: 12.5, color: "#fbbf24", fontWeight: 700, marginBottom: 3 }}>One step first</div>
+            <div style={{ fontSize: 12.5, color: "#FF9F0A", fontWeight: 700, marginBottom: 3 }}>One step first</div>
             <div style={{ fontSize: 12.5, color: "#a9b6d0", lineHeight: 1.55 }}>
               Confirm your email to switch the unlocks on — we sent a link when you signed up.{" "}
               <b style={{ color: "#eef1f7" }}>It often lands in spam or junk</b> — search

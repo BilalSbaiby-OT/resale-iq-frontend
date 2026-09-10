@@ -314,7 +314,7 @@ export function FreeChecker({
               path" row — this IS that failure path (a request that may have
               reserved quota server-side and then never answered), so its
               honest-about-the-spend wording applies verbatim. */}
-          <p style={{ color: "#c4a574", fontSize: 13, lineHeight: 1.55 }}>
+          <p style={{ color: "#FF9F0A", fontSize: 13, lineHeight: 1.55 }}>
             {t.timedOutPre}{" "}
             <a href="mailto:support@resaleiq.dev" style={{ color: "#8fa3c4" }}>support@resaleiq.dev</a>{" "}
             {t.timedOutPost}
@@ -394,7 +394,7 @@ export function FreeChecker({
               {/* Same reasoning as the LIMIT_REACHED branch above: res.message
                   is backend-owned English prose, never localised. Always show
                   the translated fallback. */}
-              <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
+              <p style={{ fontSize: 14, color: "#FF9F0A", lineHeight: 1.55 }}>
                 {t.unknownFallback}
               </p>
               {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
@@ -417,7 +417,7 @@ export function FreeChecker({
             // taxonomy, not prose.
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.brand ?? res.product ?? q}</div>
-              <p style={{ fontSize: 14, color: "#c4a574", lineHeight: 1.55 }}>
+              <p style={{ fontSize: 14, color: "#FF9F0A", lineHeight: 1.55 }}>
                 {t.brandCategoriesIntro(
                   res.brand ?? q,
                   new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(res.categories ?? [])
@@ -668,7 +668,7 @@ export function FreeChecker({
               </div>
 
               {shownNote && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "#c4a574" }}>{shownNote}</p>
+                <p style={{ marginTop: 10, fontSize: 13, color: "#FF9F0A" }}>{shownNote}</p>
               )}
               {/* XOR: "left the shelf" is sold_7d, never also n. The homepage
                   fold does not render this sentence at all (it has its own
@@ -676,7 +676,7 @@ export function FreeChecker({
                   and fourth figure); /tools keeps it, built from sold_7d +
                   active_listings only. */}
               {sample && (
-                <p style={{ marginTop: 10, fontSize: 13.5, color: "#c4a574", lineHeight: 1.55 }}>{sample}</p>
+                <p style={{ marginTop: 10, fontSize: 13.5, color: "#FF9F0A", lineHeight: 1.55 }}>{sample}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has

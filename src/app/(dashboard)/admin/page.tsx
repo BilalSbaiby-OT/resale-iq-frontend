@@ -10,7 +10,7 @@ import {
 import { ago } from "@/lib/utils"
 import { Lock } from "lucide-react"
 
-const PLAN_COLOR: Record<string, string> = { free: "#60a5fa", operator: "#34d399", power: "#fbbf24" }
+const PLAN_COLOR: Record<string, string> = { free: "#60a5fa", operator: "#34d399", power: "#FF9F0A" }
 const TH: React.CSSProperties = { fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.8px", color: "#4d5a75", textAlign: "left", padding: "10px 14px", background: "var(--color-surface-elevated)", borderBottom: "1px solid var(--color-border-ui)" }
 const TD: React.CSSProperties = { padding: "12px 14px", borderBottom: "1px solid #181e2d", fontSize: 13, verticalAlign: "middle" }
 
@@ -138,7 +138,7 @@ function AdminInner() {
           {[
             { l: "Customers", v: String(metrics.verified_users), c: "#eef1f7", h: "Verified accounts, excluding internal" },
             { l: "Paying", v: String(metrics.paying_total), c: "#34d399", h: "Active Stripe subscriptions" },
-            { l: "MRR", v: `€${metrics.mrr_eur}`, c: "#fbbf24", h: "Starter €19 · Pro €49. Gifted plans excluded." },
+            { l: "MRR", v: `€${metrics.mrr_eur}`, c: "#FF9F0A", h: "Starter €19 · Pro €49. Gifted plans excluded." },
             { l: "Comped", v: String(compedCount), c: "#60a5fa", h: "Paid plan, no Stripe — not revenue" },
           ].map(k => (
             <div key={k.l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "16px 18px" }}>
@@ -188,7 +188,7 @@ function AdminInner() {
                     <div style={{ color: "#eef1f7", fontWeight: 600 }}>{u.email}</div>
                     <div style={{ fontSize: 11, color: "#4d5a75", marginTop: 3, display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
                       <span>#{u.id}</span>
-                      {u.is_owner && <Badge label="Owner" color="#fbbf24" />}
+                      {u.is_owner && <Badge label="Owner" color="#FF9F0A" />}
                       {u.protected && !u.is_owner && <Badge label="Keep" color="#34d399" />}
                       <span>{u.email_verified ? "Verified" : "Unverified"}</span>
                     </div>

@@ -25,7 +25,7 @@ export function FreshnessNotice({
       style={{
         fontSize: 12.5,
         lineHeight: 1.6,
-        color: "#fbbf24",
+        color: "#FF9F0A",
         marginTop: 12,
         padding: "9px 12px",
         background: "rgba(251,191,36,.07)",

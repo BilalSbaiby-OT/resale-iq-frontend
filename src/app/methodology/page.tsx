@@ -313,10 +313,10 @@ function Callout({ label, warm, children }: { label: string; warm?: boolean; chi
   return (
     <div style={{
       background: warm ? "rgba(251,191,36,.06)" : "#12151d",
-      borderLeft: `3px solid ${warm ? "#fbbf24" : "#34C759"}`,
+      borderLeft: `3px solid ${warm ? "#FF9F0A" : "#34C759"}`,
       borderRadius: "0 10px 10px 0", padding: "14px 18px", margin: "6px 0 16px",
     }}>
-      <div style={{ fontSize: 11.5, color: warm ? "#fbbf24" : "#34C759", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 6 }}>
+      <div style={{ fontSize: 11.5, color: warm ? "#FF9F0A" : "#34C759", textTransform: "uppercase", letterSpacing: "0.6px", fontWeight: 700, marginBottom: 6 }}>
         {label}
       </div>
       <div style={{ fontSize: 14.5, lineHeight: 1.65, color: "#c3cde0" }}>{children}</div>

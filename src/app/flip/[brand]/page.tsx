@@ -232,7 +232,7 @@ export default async function BrandFlipPage(
       {/* The gate — this is the paid product */}
       <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 22, margin: "26px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-          <Lock size={15} style={{ color: "#fbbf24" }} />
+          <Lock size={15} style={{ color: "#FF9F0A" }} />
           <span style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7" }}>
             The part that makes you money
           </span>

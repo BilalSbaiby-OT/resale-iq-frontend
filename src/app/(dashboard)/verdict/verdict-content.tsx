@@ -187,7 +187,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
             </div>
 
             {honestyNote && result.verdict !== "BRAND_CATEGORIES" && (
-              <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#c4a574] bg-[#16140f]">
+              <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
                 {honestyNote}
               </div>
             )}
@@ -403,7 +403,7 @@ function SeedVerdictCard({
       </div>
 
       {sample && (
-        <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#c4a574] bg-[#16140f]">
+        <div className="px-6 py-3 border-b border-[#1e2535] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
           {sample}
         </div>
       )}

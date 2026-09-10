@@ -110,7 +110,7 @@ export default async function DataPage() {
             <tr>
               <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(totalWeekly)}</td>
               <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(market.listingsTracked)}</td>
-              <td style={{ padding: "12px 14px", color: market.stale ? "#fbbf24" : "#8b99b8" }}>
+              <td style={{ padding: "12px 14px", color: market.stale ? "#FF9F0A" : "#8b99b8" }}>
                 {stamp ?? "—"}
                 {market.stale ? " · last-good" : ""}
               </td>

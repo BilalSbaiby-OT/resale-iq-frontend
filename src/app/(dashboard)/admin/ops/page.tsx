@@ -19,7 +19,7 @@ import { Activity, Bot, Database, HeartPulse } from "lucide-react"
 
 const TONE: Record<string, string> = {
   pass: "#34d399", ok: "#34d399",
-  warn: "#fbbf24",
+  warn: "#FF9F0A",
   fail: "#f87171", error: "#f87171",
 }
 

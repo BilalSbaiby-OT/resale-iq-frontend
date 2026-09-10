@@ -86,7 +86,7 @@ export default function OrderPlannerPage() {
       {/* Hero stats */}
       {plan?.provisional && (
         <div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
-          <span style={{ fontSize: 13, color: "#fbbf24", fontWeight: 700 }}>Provisional</span>
+          <span style={{ fontSize: 13, color: "#FF9F0A", fontWeight: 700 }}>Provisional</span>
           <span style={{ fontSize: 12.5, color: "#c3cde0", lineHeight: 1.5 }}>
             Sell-through is still being measured, so week-1 sell probabilities use a conservative prior and suggested units cap at 1 per model. Cost and demand are live — do not treat P(sell) as measured sell-through.
           </span>
