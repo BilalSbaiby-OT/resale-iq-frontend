@@ -76,14 +76,14 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price Items on Vinted (Buy-Below Formula)",
+    title: "How to Price Items on Vinted to Sell Fast",
     description:
-      "The buy-below formula Vinted resellers use to price for a fast sale without underselling — anchored to real departure prices across 5 EU markets, not retail.",
+      "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells fast, anchored to real departure prices across 5 EU markets, not retail.",
     date: "2026-08-05",
     category: "Pricing",
     readMins: 5,
     intro:
-      "Most Vinted sellers price by feel, then either undersell (leaving money on the table) or overprice (and watch it sit). The fix is to anchor to what the item actually sells for, then work backwards.",
+      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen.",
     sections: [
       {
         h: "Start from the real departure price, not the retail price",
@@ -298,14 +298,14 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Items to Flip on Vinted (Sourcing Process)",
+    title: "How to Find Profitable Items to Flip on Vinted",
     description:
-      "A repeatable 3-step process to find underpriced, fast-selling Vinted items to flip — built from real demand data across 5 EU markets, not guesswork.",
+      "Stop scrolling at random. A repeatable 3-step method to find underpriced, fast-selling items to flip on Vinted, built from real demand data across 5 EU markets.",
     date: "2026-08-05",
     category: "Sourcing",
     readMins: 5,
     intro:
-      "The hardest part of reselling isn't listing — it's finding stock that's both underpriced and in demand. Here's a process that replaces endless scrolling with a repeatable filter.",
+      "To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick models that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
     sections: [
       {
         h: "Start from demand, not from what's cheap",

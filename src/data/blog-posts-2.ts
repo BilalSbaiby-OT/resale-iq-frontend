@@ -204,14 +204,14 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "how-to-get-more-views-on-vinted",
-    title: "How to Get More Views on Vinted (4 Real Causes)",
+    title: "How to Get More Views on Vinted: 4 Causes and Fixes",
     description:
-      "Why your Vinted listings aren't getting seen, and the practical fixes — search wording, photos, pricing, freshness and closet size.",
+      "No views on Vinted usually comes down to four things: search wording, photos, price, or a stale listing. How to spot which one is throttling your views, and fix it.",
     date: "2026-08-06",
     category: "Selling",
     readMins: 5,
     intro:
-      "No views usually means one of four things: nobody is searching for the item, your wording doesn't match what they search, your price is off, or your listing has gone stale. Here's how to tell which.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm.",
     sections: [
       {
         h: "First: is there demand at all?",

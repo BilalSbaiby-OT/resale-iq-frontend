@@ -10,9 +10,9 @@ const BRAND = "Resale IQ"
 export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-bundles-and-offers-strategy",
-    title: "Vinted Bundles and Offers: When to Say Yes",
+    title: "Vinted Bundles and Offers: When to Accept a Lower Price",
     description:
-      "How bundles and offers work on Vinted, when accepting a lower price is still profitable, and the floor you should never go below.",
+      "When a Vinted offer is still worth accepting, when a bundle beats holding out for full price, and the floor you should never sell below. A simple rule that keeps your cash moving.",
     date: "2026-08-07",
     category: "Selling",
     readMins: 4,
