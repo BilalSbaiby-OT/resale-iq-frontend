@@ -221,6 +221,21 @@ export default async function BlogPostPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
+          {/* Primary door: the no-wall free checker. The blog is our largest
+              external audience (ChatGPT lands readers on /blog/what-sells-best),
+              yet the article template linked ONLY to /register (a signup wall)
+              and /pricing — never to the free tool that produces the aha. A
+              reader who just read "what sells best" wants to check ONE item, not
+              open an account first; check->signup already converts at ~44%, so
+              putting the low-friction action first should widen the top of the
+              funnel without touching the register experiments below. Distinct
+              target (/tools/vinted-price-checker) and its own attribution
+              (?src=blog-check) so this door is measured separately from the
+              byte-unchanged /register SmartCTA. */}
+          <Link href="/tools/vinted-price-checker?src=blog-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            Check an item free — no signup →
+          </Link>
+          <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Paste a listing, get the verdict. No card, no account. &nbsp;·&nbsp; or</div>
           <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
