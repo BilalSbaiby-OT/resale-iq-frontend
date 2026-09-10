@@ -88,41 +88,73 @@ export function LandingContent({
       <main id="main">
         <section
           className="riq-apple-hero"
-          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-10) var(--space-3) var(--space-12)", textAlign: "center" }}
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-10) var(--space-3) var(--space-12)" }}
         >
-          <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
-            {t.heroAudience}
-          </p>
-          <h1
-            style={{
-              fontSize: "var(--text-h1-marketing)",
-              fontWeight: 600,
-              letterSpacing: "var(--tracking-h1)",
-              lineHeight: "var(--leading-h1)",
-              maxWidth: "var(--measure-h1)",
-              margin: "0 auto var(--space-3)",
-              color: "var(--color-text-primary)",
-              textWrap: "balance",
-            }}
-          >
-            {t.heroHeadline}
-          </h1>
-          <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 auto var(--space-5)", lineHeight: 1.5, maxWidth: "52ch" }}>
-            {t.heroSub}
-          </p>
-          <div id="check" style={{ textAlign: "left", maxWidth: 620, margin: "0 auto" }}>
-            <FreeChecker
-              locale={locale}
-              variant="hero"
-              /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
-                 the seed SKU made the hero read as a finished demo — 30d funnel
-                 showed only 3.8% of visitors ever ran a check (395→15). An empty
-                 field + placeholder is the universal "type here" signal; the seed
-                 verdict still renders below, now labelled "Example" so it reads as
-                 a sample, not the whole product. heroQuery kept for SSR/other use. */
-              initialQuery=""
-              initialResult={heroResult}
-            />
+          <div className="riq-hero">
+            {/* LEFT: the claim + the tool. Left-aligned (was centered) so it reads
+                as a working product, not a splash screen. */}
+            <div className="riq-hero-copy">
+              <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
+                {t.heroAudience}
+              </p>
+              <h1
+                style={{
+                  fontSize: "var(--text-h1-marketing)",
+                  fontWeight: 600,
+                  letterSpacing: "var(--tracking-h1)",
+                  lineHeight: "var(--leading-h1)",
+                  margin: "0 0 var(--space-3)",
+                  color: "var(--color-text-primary)",
+                  textWrap: "balance",
+                }}
+              >
+                {t.heroHeadline}
+              </h1>
+              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 0 var(--space-5)", lineHeight: 1.5, maxWidth: "48ch" }}>
+                {t.heroSub}
+              </p>
+              <div id="check">
+                <FreeChecker
+                  locale={locale}
+                  variant="hero"
+                  /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
+                     the seed SKU made the hero read as a finished demo — 30d funnel
+                     showed only 3.8% of visitors ever ran a check (395→15). An empty
+                     field + placeholder is the universal "type here" signal; the seed
+                     verdict still renders below, now labelled "Example" so it reads as
+                     a sample, not the whole product. heroQuery kept for SSR/other use. */
+                  initialQuery=""
+                  initialResult={heroResult}
+                />
+              </div>
+              <p style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "var(--space-3) 0 0", lineHeight: 1.5 }}>
+                {t.heroTrust}
+              </p>
+            </div>
+
+            {/* RIGHT: the real product. A screenshot of the live verdict screen in
+                a browser frame — a stranger SEES what they get, not just reads it.
+                Static <img> (no next/image config); decorative, so alt is concise
+                and it's aria-hidden from the a11y tree (the copy carries meaning).
+                Hidden on narrow screens where the checker must lead. */}
+            <div className="riq-hero-shot" aria-hidden="true">
+              <div className="riq-browser-frame">
+                <div className="riq-browser-bar">
+                  <span className="riq-browser-dot" style={{ background: "#FF5F57" }} />
+                  <span className="riq-browser-dot" style={{ background: "#FEBC2E" }} />
+                  <span className="riq-browser-dot" style={{ background: "#28C840" }} />
+                  <span className="riq-browser-url">resaleiq.dev/verdict</span>
+                </div>
+                <img
+                  src="/product/verdict-preview.png"
+                  alt="Resale IQ verdict screen showing a WATCH decision with buy-below, average exit price and sell-through for New Balance 530"
+                  width={1440}
+                  height={1000}
+                  loading="eager"
+                  style={{ display: "block", width: "100%", height: "auto" }}
+                />
+              </div>
+            </div>
           </div>
         </section>
 

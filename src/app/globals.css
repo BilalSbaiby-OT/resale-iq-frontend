@@ -259,11 +259,37 @@ input[type="submit"]:not(:disabled):active,
 
 /* Landing hero: claim left, live evidence right. Collapses to one column on
    tablet, where side-by-side would squeeze both to unreadable widths. */
-.riq-hero { display: grid; grid-template-columns: 1fr 0.95fr; gap: 48px; align-items: center; }
+.riq-hero { display: grid; grid-template-columns: 1fr 0.95fr; gap: 48px; align-items: start; }
+.riq-hero-copy { text-align: left; }
+.riq-hero-shot { margin-top: 64px; }
+/* Browser-chrome frame around the real product screenshot — the Linear/Vercel
+   "show the product" move. Surface-ladder + hairline, not a drop shadow. */
+.riq-browser-frame {
+  border: 1px solid var(--color-hairline);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-surface-elevated);
+  box-shadow: 0 40px 80px -32px rgba(0,0,0,0.6);
+}
+.riq-browser-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 14px;
+  background: var(--color-bg-3);
+  border-bottom: 1px solid var(--color-hairline);
+}
+.riq-browser-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.riq-browser-url {
+  margin-left: 12px; font-size: 12px; color: var(--color-text-muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .riq-grid-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 40px; }
 @media (max-width: 899px) {
   .riq-grid-main { grid-template-columns: 1fr; }
   .riq-hero { grid-template-columns: 1fr; gap: 36px; }
+  /* On one column the checker must lead; the product shot is supporting
+     evidence, so drop it rather than push the checker below the fold. */
+  .riq-hero-shot { display: none; }
   .riq-grid-features { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 @media (max-width: 520px) {

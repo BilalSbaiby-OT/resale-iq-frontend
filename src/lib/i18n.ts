@@ -110,6 +110,7 @@ export const copy = {
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
     heroAudience: "For EU Vinted resellers.",
+    heroTrust: "Free — 10 checks a day, no account, no card. Live EU market data.",
     // H1 on `/`. Not heroTitle: that string is <title>/OG. Kept to ~20-28ch
     // so it breaks in two at 56px. Em-dash is a sentence break, not a gated value.
     marketPulse: {
@@ -577,6 +578,7 @@ export const copy = {
     pricing: "Tarifs",
     heroTitle: "Sachez quoi payer avant d'acheter.",
     heroAudience: "Pour les revendeurs Vinted en UE.",
+    heroTrust: "Gratuit — 10 vérifications par jour, sans compte, sans carte. Données de marché UE en direct.",
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui se vend vraiment en ce moment.",
@@ -939,6 +941,7 @@ export const copy = {
     pricing: "Precios",
     heroTitle: "Sabe qué pagar antes de comprar.",
     heroAudience: "Para revendedores de Vinted en la UE.",
+    heroTrust: "Gratis — 10 comprobaciones al día, sin cuenta, sin tarjeta. Datos de mercado UE en vivo.",
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que se está vendiendo ahora mismo.",
@@ -1301,6 +1304,7 @@ export const copy = {
     pricing: "Preise",
     heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
     heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
+    heroTrust: "Kostenlos — 10 Prüfungen pro Tag, ohne Konto, ohne Karte. Live-EU-Marktdaten.",
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verkauft sich gerade wirklich.",
@@ -1665,6 +1669,7 @@ export const copy = {
     pricing: "Prezzi",
     heroTitle: "Sappi quanto pagare prima di comprare.",
     heroAudience: "Per i rivenditori Vinted in UE.",
+    heroTrust: "Gratis — 10 controlli al giorno, senza account, senza carta. Dati di mercato UE dal vivo.",
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa si sta vendendo davvero adesso.",
@@ -2027,6 +2032,7 @@ export const copy = {
     pricing: "Preços",
     heroTitle: "Saiba quanto pagar antes de comprar.",
     heroAudience: "Para revendedores Vinted na UE.",
+    heroTrust: "Grátis — 10 verificações por dia, sem conta, sem cartão. Dados de mercado UE ao vivo.",
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está mesmo a vender agora.",
