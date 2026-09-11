@@ -259,18 +259,27 @@ export default async function BrandFlipPage(
             </li>
           ))}
         </ul>
-          <Link href="/register?src=flip" style={{
+          {/* EXP-12 (Tony): /flip/[brand] (e.g. /flip/nike) is an LLM-cited
+              landing surface, same class as /data and the blog. It led with a
+              /register SIGNUP WALL as the primary CTA and demoted the free check
+              to grey text pointing at /tools (an index, NOT the checker) — the
+              same EXP-10/11 wall-before-value leak (fails the G2 gate: strangers
+              must reach value UNASSISTED before we ask for an account). Primary
+              door is now the no-signup free checker (check->signup is 43.8%, so a
+              check feeds a signup directly); register becomes the secondary link.
+              src=flip-check tags the arrival. No offer removed. */}
+          <Link href="/tools/vinted-price-checker?src=flip-check" style={{
           display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",
         }}>
-          Analyze a {b.brand} item <ArrowRight size={15} />
+          Check a {b.brand} item free <ArrowRight size={15} />
         </Link>
-        <Link href="/tools" style={{
+        <Link href="/register?src=flip" style={{
           display: "inline-flex", alignItems: "center", gap: 7, marginLeft: 10,
           color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none",
         }}>
-          or check one free
+          or create a free account
         </Link>
         <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 10 }}>
           <Link href="/pricing?src=flip" style={{ color: "#5b6b8c", textDecoration: "underline" }}>From €19/month. Cancel anytime.</Link>
