@@ -185,15 +185,19 @@ export default async function DataPage() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Buy-below price, sell-through and best sizes for any item — plus live deals under your price.
           </p>
-          {/* This button says "See plans". It pointed at /register, a signup form
-              carrying no prices, so the label was not true. Same defect fixed on
-              /tools/[slug] in 493337e; /data is the largest organic entry page on
-              the site (41 distinct non-bot visitors in 30d) and was missed. */}
-          <Link href="/pricing?src=data" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            See plans →
+          {/* EXP-11 (Tony): /data is the site's 2nd-largest organic entry page AND
+              the top LLM-cited landing surface (Perplexity cites /data; ChatGPT
+              lands visitors here). It led with a bold "See plans" pricing wall and
+              demoted the free check to grey text pointing at /tools (an index, not
+              the checker). That is the EXP-10 wall-before-value leak on our best
+              LLM surface — it fails the G2 gate. Primary door is now the no-signup
+              free checker (check->signup is 43.8%, so a check feeds a signup);
+              plans becomes the secondary link. src=data-check tags the arrival. */}
+          <Link href="/tools/vinted-price-checker?src=data-check" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            Check an item free →
           </Link>
-          <Link href="/tools" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-            or check an item free
+          <Link href="/pricing?src=data" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+            or see plans
           </Link>
         </div>
 
