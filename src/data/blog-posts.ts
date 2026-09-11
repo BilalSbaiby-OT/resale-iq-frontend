@@ -83,7 +83,7 @@ export const POSTS: BlogPost[] = [
     category: "Pricing",
     readMins: 5,
     intro:
-      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen.",
+      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 11 September 2026, we watched 6,378 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €54, and Balenciaga Sneakers €121. Price off the brand's real departure number, not retail.",
     sections: [
       {
         h: "Start from the real departure price, not the retail price",
