@@ -42,8 +42,8 @@ export const POSTS: BlogPost[] = [
     category: "Sourcing",
     readMins: 6,
     intro:
-      "As of 10 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,800 hoodie listings left the shelf in the trailing 7 days across the 26 brands we track — ahead of Jackets (1,450) and Shirts (1,282). The single busiest brand/category pair is Stone Island Hoodies: 697 watched departures in 7 days, averaging €53. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
+      "As of 11 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,400 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (1,076) and Shirts (993). The single busiest brand/category pair is Stone Island Hoodies: 577 watched departures in 7 days, averaging €54. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
     sections: [
       {
         h: "The categories that move fastest",
@@ -122,7 +122,7 @@ export const POSTS: BlogPost[] = [
     category: "Sourcing",
     readMins: 6,
     intro:
-      "As of 10 September 2026, the highest-volume brands leaving Vinted's shelf right now are Patagonia (1,295 listings/7d, Jackets averaging €50), Stone Island (1,259/7d, Hoodies averaging €53) and Fred Perry (1,137/7d, Shirts averaging €15). For margin instead of turnover: Gucci Bags average €229 on 204 watched departures/7d, and Balenciaga Sneakers average €131 on 200/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
+      "As of 11 September 2026, the highest-volume brands leaving Vinted's shelf right now are Fred Perry (1,115 listings/7d, Shirts averaging €14), Stone Island (1,051/7d, Hoodies averaging €54) and Patagonia (938/7d, Jackets averaging €49). For margin instead of turnover: Gucci Bags average €301 on 96 watched departures/7d, and Balenciaga Sneakers average €121 on 172/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
     sections: [
       {
         h: "Consistently liquid brands",
@@ -342,7 +342,7 @@ export const POSTS: BlogPost[] = [
     category: "Business",
     readMins: 5,
     intro:
-      "There's no single number — it depends entirely on which brand and category you source. As of 10 September 2026, category prices we track range from €9 (Pull&Bear Hoodies) to €229 (Gucci Bags) across the 26 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 603 watched departures in 7 days at €15 avg, versus Jordan Sneakers at 35/7d and €116 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
+      "There's no single number — it depends entirely on which brand and category you source. As of 11 September 2026, category prices we track range from €11 (Pull&Bear Hoodies) to €301 (Gucci Bags) across the 28 brands on resaleiq.dev — a 27x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 560 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 11/7d and €158 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
     sections: [
       {
         h: "What actually drives income",
