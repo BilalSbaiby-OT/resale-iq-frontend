@@ -214,17 +214,23 @@ export default async function CategoryHubPage() {
           sets out how every figure is calculated and what it cannot tell you.
         </p>
 
-        {/* CTA — this hub and its 9 category pages carried zero route to
-            /pricing (measured live 2026-09-09). Same pattern already kept on
-            /flip and /blog: a boxed secondary door, distinct ?src so arrivals
-            are attributable, nothing removed from the existing content. */}
+        {/* EXP-13 (Tony): the /category INDEX led with a bare "See plans and
+            pricing" wall as its ONLY CTA — the last public data surface still
+            failing G2 (its 9 /category/[category] slug pages already lead with the
+            free checker; this index was missed). Same wall-before-value fix as
+            EXP-10/11/12: the no-signup free checker is the primary door
+            (check->signup is ~44%, so a check feeds a signup), plans demoted to
+            the secondary link. src=category-check tags the arrival. Nothing removed. */}
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>See what&apos;s behind the free numbers.</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item free.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Category and brand volume are free. The buy-below price and unlock limits are part of the paid plans.
+            Category and brand volume are free. Get the buy-below price on any item — no signup needed.
           </p>
-          <Link href="/pricing?src=category_index" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            See plans and pricing →
+          <Link href="/tools/vinted-price-checker?src=category-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            Check an item free →
+          </Link>
+          <Link href="/pricing?src=category_index" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+            or see plans
           </Link>
         </div>
       </main>
