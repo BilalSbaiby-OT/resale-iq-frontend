@@ -119,7 +119,7 @@ export default async function ManualIndex() {
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              Free price checker →
+              Check this item →
             </Link>
             <Link href="/data" style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", border: "1px solid var(--color-border-ui)", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               Market data

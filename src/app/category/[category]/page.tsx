@@ -232,19 +232,19 @@ export default async function CategoryPage(
         </section>
 
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginBottom: 30 }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item free</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category volume tells you demand exists. The verdict tells you whether this item, at this price, makes money.
           </p>
           <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Free price checker →
+            Check this item →
           </Link>
           {/* Second, lower-emphasis door — this page and its 8 siblings had
               zero route to /pricing (measured live 2026-09-09). Primary CTA
               above is unchanged; this adds the offer without competing with it. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=category" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans and pricing — free tier included
+              See plans — from €19/mo
             </Link>
           </div>
         </div>

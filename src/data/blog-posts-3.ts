@@ -452,7 +452,7 @@ export const POSTS_3: BlogPost[] = [
         h: "Start with price — it fixes more listings than anything else",
         p: [
           "The most common reason a fine item doesn't move is that it's priced against the original retail tag, or against hope, rather than against what that exact model in that condition has actually been leaving the shelf at recently. Active listings show you what other sellers are hoping for, not what buyers are paying.",
-          "Check the real number before touching anything else: the [free Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](/data) both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
+          "Check the real number before touching anything else: the [Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](/data) both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
           "One pattern worth knowing before you price: in our own tracking across Spain, France, Germany, Italy and Portugal (21 Aug – 1 Sep 2026, n = 108,529 watched departures), items priced €250 and over were only 3.6% of everything that left the shelf but carried 37.4% of the total money — while 57.5% of departures were under €30. Most of what actually moves, moves cheap. If you've priced a mid-range item like it belongs in the rare, expensive minority, that's very likely the whole problem.",
         ],
       },

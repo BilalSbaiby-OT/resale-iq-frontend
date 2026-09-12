@@ -13,9 +13,9 @@ import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
   return {
-    title: "Free Vinted Reseller Tools — Resale IQ",
+    title: "Vinted Reseller Tools — Price Checker | Resale IQ",
     description:
-      `Free tools for Vinted resellers: price checker, sourcing tool, resale analytics and profit calculator, built on ${tracked} unique listings across 5 EU markets.`,
+      `Vinted price checker, sourcing tool, resale analytics and profit calculator, built on ${tracked} unique listings across 5 EU markets.`,
     alternates: { canonical: "/tools" },
   }
 }
@@ -70,7 +70,7 @@ export default async function ToolsIndex() {
             links to carry a plans link (493337e). One quiet line, kept below
             the free checker so it does not compete with "Check it free". */}
         <p style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid var(--color-border-ui)", fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-          The free tools answer one item at a time.{" "}
+          The checker answers one item at a time.{" "}
           <Link href="/pricing?src=tools_index" style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
             See the plans →
           </Link>

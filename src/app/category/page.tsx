@@ -222,12 +222,12 @@ export default async function CategoryHubPage() {
             (check->signup is ~44%, so a check feeds a signup), plans demoted to
             the secondary link. src=category-check tags the arrival. Nothing removed. */}
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item free.</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Category and brand volume are free. Get the buy-below price on any item — no signup needed.
+            Category and brand volume are free. Buy-below on a specific item is on a plan.
           </p>
           <Link href="/tools/vinted-price-checker?src=category-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check an item free →
+            Check this item →
           </Link>
           <Link href="/pricing?src=category_index" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
             or see plans

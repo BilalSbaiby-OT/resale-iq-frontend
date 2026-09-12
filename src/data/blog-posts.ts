@@ -84,11 +84,11 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price Items on Vinted to Sell Fast",
+    title: "How to Price on Vinted: Match Departure Prices",
     description:
-      "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells fast, anchored to real departure prices across 5 EU markets, not retail.",
+      "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells, anchored to real departure prices across 5 EU markets, not retail.",
     date: "2026-08-05",
-    updated: "2026-09-11",
+    updated: "2026-09-12",
     category: "Pricing",
     readMins: 5,
     intro:
@@ -98,7 +98,7 @@ export const POSTS: BlogPost[] = [
         h: "Start from the real departure price, not the retail price",
         p: [
           "Retail price is almost irrelevant on resale. What matters is the current typical asking price for that exact model, in that condition, in your market, at the moment comparable listings left the shelf. Our [weekly Vinted market data](/data) publishes those averages by brand, free.",
-          "Look at listings that recently left the shelf (not active ones — active listings show hopes, not outcomes). The median departure price is your anchor — we do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price — and the [free Vinted price checker](/tools/vinted-price-checker) works it out across five markets for you.",
+          "Look at listings that recently left the shelf (not active ones — active listings show hopes, not outcomes). The median departure price is your anchor — we do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price — and the [Vinted price checker](/tools/vinted-price-checker) works it out across five markets.",
         ],
       },
       {
@@ -256,7 +256,7 @@ export const POSTS: BlogPost[] = [
         p: [
           "Resale IQ covers Vinted only, across five markets: Spain, France, Germany, Italy and Portugal. It does not cover Depop, and it does not cover the UK or the US. If you sell on Depop, or you sell in Britain, it will not price your stock — worth saying plainly rather than letting you find out after signing up.",
           "For those five Vinted markets it answers the sourcing question directly: what an item genuinely sells for, the most you can pay and still profit, and how fast it moves. The buy-below price is calculated as the average sale price × 0.95 for the platform deduction we model, × 0.70 to target roughly a 30% margin — [the methodology](/methodology) sets out every step and, more usefully, what the data cannot tell you.",
-          "You can check a specific item free with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator).",
+          "You can check a specific item with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator). Buy-below is on a plan; weekly brand volumes stay public on [/data](/data).",
         ],
       },
     ],

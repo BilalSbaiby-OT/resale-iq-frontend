@@ -194,7 +194,7 @@ export default async function DataPage() {
               free checker (check->signup is 43.8%, so a check feeds a signup);
               plans becomes the secondary link. src=data-check tags the arrival. */}
           <Link href="/tools/vinted-price-checker?src=data-check" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check an item free →
+            Check this item →
           </Link>
           <Link href="/pricing?src=data" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
             or see plans

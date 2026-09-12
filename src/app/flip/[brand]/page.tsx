@@ -273,13 +273,13 @@ export default async function BrandFlipPage(
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",
         }}>
-          Check a {b.brand} item free <ArrowRight size={15} />
+          Check a {b.brand} item <ArrowRight size={15} />
         </Link>
-        <Link href="/register?src=flip" style={{
+        <Link href="/pricing?src=flip" style={{
           display: "inline-flex", alignItems: "center", gap: 7, marginLeft: 10,
           color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none",
         }}>
-          or create a free account
+          or see plans
         </Link>
         <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 10 }}>
           <Link href="/pricing?src=flip" style={{ color: "#5b6b8c", textDecoration: "underline" }}>From €19/month. Cancel anytime.</Link>

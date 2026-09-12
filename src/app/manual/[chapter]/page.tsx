@@ -164,7 +164,7 @@ export default async function ChapterPage(
           <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=manual" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans and pricing — free tier included
+              See plans — from €19/mo
             </Link>
           </div>
         </div>

@@ -101,7 +101,7 @@ export default async function BlogIndex() {
               experiment (x-f753ead9cc) stays readable. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans and pricing — free tier included
+              See plans — from €19/mo
             </Link>
           </div>
         </div>

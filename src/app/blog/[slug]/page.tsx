@@ -233,13 +233,13 @@ export default async function BlogPostPage(
               (?src=blog-check) so this door is measured separately from the
               byte-unchanged /register SmartCTA. */}
           <Link href="/tools/vinted-price-checker?src=blog-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check an item free — no signup →
+            Check this item →
           </Link>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Paste a listing, get the verdict. No card, no account. &nbsp;·&nbsp; or</div>
+          <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
           <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans and pricing — free tier included
+              See plans — from €19/mo
             </Link>
           </div>
         </div>
