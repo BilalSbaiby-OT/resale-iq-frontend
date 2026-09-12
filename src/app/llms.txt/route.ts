@@ -121,8 +121,8 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 
 ## Pricing
 
-- Operator EUR 19/month: item-level BUY / WATCH / SKIP, buy-below, sell-through and sizes.
-- Power EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
+- Starter EUR 19/month: item-level BUY / WATCH / SKIP, buy-below, sell-through and sizes.
+- Pro EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
 - There is no anonymous item-level check and no free tier. Weekly brand volumes on /data stay public.
 
 ## Reference

@@ -64,8 +64,8 @@ export default async function IntentPage(
       operatingSystem: "Web",
       description: i.description,
       offers: [
-        { "@type": "Offer", name: "Operator", price: "19", priceCurrency: "EUR" },
-        { "@type": "Offer", name: "Power", price: "49", priceCurrency: "EUR" },
+        { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR" },
+        { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR" },
       ],
     },
     {
