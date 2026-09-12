@@ -211,6 +211,7 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Why closet size, consistency and coherence drive sales on Vinted, and how to build one that compounds.",
     date: "2026-08-07",
+    updated: "2026-09-12",
     category: "Selling",
     readMins: 5,
     intro:
@@ -226,7 +227,7 @@ export const POSTS_3: BlogPost[] = [
         h: "Coherence increases basket size",
         p: [
           "A closet with a clear focus (streetwear, workwear, vintage denim) converts better than a random mix, because one interested buyer often buys several items.",
-          "Focus also compounds your knowledge — you get better at sourcing the things you already understand.",
+          "Focus also compounds your knowledge — you get better at sourcing the things you already understand. That is the same move as [narrowing the brand range before you scale](/manual/scaling-past-the-hobby): depth is what keeps pricing accurate once volume goes up.",
         ],
       },
       {

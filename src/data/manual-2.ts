@@ -359,6 +359,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "scaling-past-the-hobby",
     number: 15,
     part: "Running it as a business",
+    updated: "2026-09-12",
     title: "Scaling past the hobby",
     description:
       "What breaks between 20 and 200 listings, why the constraint is throughput rather than capital, and the systems that have to exist before volume goes up.",
@@ -392,6 +393,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Volume without focus multiplies the number of things you have to be knowledgeable about. Two hundred listings across forty brands means you cannot know any of them well, and your pricing becomes guesswork at exactly the point where guesswork gets expensive.",
           "Narrowing to a handful of brands and categories you understand deeply makes sourcing faster, pricing more accurate and mistakes rarer. Nearly every reseller who scales successfully narrows first, and nearly every one who stalls tried to do it the other way around.",
+          "As of 12 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (541 watched departures in seven days) and a Gucci Bag at €288 (97). Photographing and listing either one takes the same ten to fifteen minutes. When listing time is the constraint, twenty times the departure price is twenty times the return on that hour, which is why narrowing the range before raising volume is a throughput decision, not a taste one.",
         ],
         callout: {
           label: "The real ceiling",

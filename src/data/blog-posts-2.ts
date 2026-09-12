@@ -327,6 +327,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "What actually changes when you scale a reselling business — sourcing systems, cash flow, inventory limits and the bottlenecks that stop most people.",
     date: "2026-08-06",
+    updated: "2026-09-12",
     category: "Business",
     readMins: 6,
     intro:
@@ -349,7 +350,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Bottleneck 3: listing throughput",
         p: [
-          "Batch your work — photograph many items in one session, write listings in another. Context-switching is what makes reselling feel endless.",
+          "Batch your work — photograph many items in one session, write listings in another. Context-switching is what makes reselling feel endless. The longer version of what actually breaks between twenty and two hundred listings, and the systems that have to exist first, is in [scaling past the hobby](/manual/scaling-past-the-hobby).",
         ],
       },
       {
