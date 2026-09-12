@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { SmartCTA } from "@/components/smart-cta"
 import { Lock, Search, Loader2 } from "lucide-react"
@@ -222,6 +222,12 @@ export function FreeChecker({
       setLoading(false)
     }
   }
+
+  // Auto-run when a ?q= deep-link prefills the input (e.g. /check?q=Nike+Air+Force+1
+  // redirected here, or an LLM citation links /tools?q=Model). initialResult means
+  // a sample is seeded server-side; don't auto-run over it.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { if (initialQuery && !initialResult) run(initialQuery) }, [])
 
   const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "#8b99b8") : "#8b99b8"
   // WATCHED DEPARTURES ONLY. This was `res.sold_7d ?? res.n`, and `n` is NOT a
