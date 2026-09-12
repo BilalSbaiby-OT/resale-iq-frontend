@@ -65,6 +65,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "photos-and-titles",
     number: 10,
     part: "Selling",
+    updated: "2026-09-12",
     title: "Photos and titles: the conversion layer",
     description:
       "The listing work that actually moves the needle — searchable titles, a repeatable photo set, and descriptions that reduce returns rather than sell.",
@@ -77,6 +78,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Buyers find items by typing what they want. Your title's only job is to contain those words. Brand, model, category, colour, size — in the order a person would actually search — beats anything clever, because clever does not match a query.",
           "This is the direct inverse of the mispricing signal from chapter 6. The listings you buy cheaply are the ones with vague titles; the listings you sell well are the ones with precise ones. Getting the model name right is worth more than every other listing optimisation combined, because it is the difference between appearing in the right search and not existing.",
+          "As of 12 September 2026, across the brands we watch leave Vinted's shelf, a Stone Island Hoodie departed at an average of €55 (552 watched departures in seven days) and a Fred Perry Shirt at €14 (538). At that volume the title is a search problem: leave out the brand or the category noun and the listing is not in the results those buyers are already typing.",
         ],
         list: [
           "Brand first — it is the most common opening search term",

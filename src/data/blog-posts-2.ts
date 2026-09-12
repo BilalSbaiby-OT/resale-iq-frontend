@@ -14,6 +14,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "How to photograph items for Vinted so they sell faster — lighting, background, angles, flaws, and the shots buyers actually look for.",
     date: "2026-08-06",
+    updated: "2026-09-12",
     category: "Selling",
     readMins: 5,
     intro:
@@ -29,7 +30,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "The shots buyers want",
         p: [
-          "Front, back, brand label, care/size label, and a close-up of any flaw. That's the minimum set.",
+          "Front, back, brand label, care/size label, and a close-up of any flaw. That's the minimum set. How to run that set as a two-minute routine is in [photos and titles](/manual/photos-and-titles).",
           "Add one shot showing shape — hung up, laid flat neatly, or worn. Flat crumpled photos suppress sales more than most sellers realise.",
         ],
       },
@@ -95,6 +96,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "A simple formula for Vinted listing titles and descriptions that get found in search and convert browsers into buyers.",
     date: "2026-08-06",
+    updated: "2026-09-12",
     category: "Selling",
     readMins: 4,
     intro:
@@ -103,7 +105,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Title: the words buyers actually type",
         p: [
-          "Lead with brand + item + key attribute: 'Nike Tech Fleece hoodie grey M'. That's exactly what people search.",
+          "Lead with brand + item + key attribute: 'Nike Tech Fleece hoodie grey M'. That's exactly what people search. Why the title is a search problem rather than a copywriting one is in [photos and titles](/manual/photos-and-titles).",
           "Skip filler like 'gorgeous', 'rare' and emojis in the title — they crowd out searchable words and add nothing.",
         ],
       },
