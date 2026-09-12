@@ -190,7 +190,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPages = POSTS.map((p) => ({
     url: `${BASE}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    // Prefer the content-refresh date over the publish date: a post whose dated
+    // data block was rewritten genuinely changed, and advertising the old
+    // publish date told crawlers it hadn't — recrawling it "slowly and blindly"
+    // (see header note) exactly when re-crawl cadence is the binding constraint.
+    lastModified: toDay(new Date(p.updated ?? p.date)),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }))

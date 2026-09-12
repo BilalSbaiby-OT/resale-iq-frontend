@@ -208,6 +208,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "No views on Vinted usually comes down to four things: search wording, photos, price, or a stale listing. How to spot which one is throttling your views, and fix it.",
     date: "2026-08-06",
+    updated: "2026-09-12",
     category: "Selling",
     readMins: 5,
     intro:
@@ -250,6 +251,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "A month-by-month guide to what to source and what to list on Vinted, so your cash isn't frozen in off-season stock.",
     date: "2026-08-06",
+    updated: "2026-09-12",
     category: "Sourcing",
     readMins: 5,
     intro:

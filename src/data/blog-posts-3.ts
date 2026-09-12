@@ -14,6 +14,7 @@ export const POSTS_3: BlogPost[] = [
     description:
       "When a Vinted offer is still worth accepting, when a bundle beats holding out for full price, and the floor you should never sell below. A simple rule that keeps your cash moving.",
     date: "2026-08-07",
+    updated: "2026-09-12",
     category: "Selling",
     readMins: 4,
     intro:

@@ -9,7 +9,14 @@ export interface BlogPost {
   slug: string
   title: string           // <title> + H1
   description: string     // meta description (also the AEO summary)
-  date: string            // ISO
+  date: string            // ISO — original publish date (never rewritten)
+  /**
+   * ISO date the post's body was last materially rewritten (e.g. a refreshed
+   * dated data block). Optional. The sitemap advertises this as lastmod when
+   * present, so a content refresh actually signals freshness to crawlers —
+   * without falsifying the publish `date`. Omit for never-updated posts.
+   */
+  updated?: string
   category: string
   readMins: number
   intro: string
@@ -39,6 +46,7 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
+    updated: "2026-09-11",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -80,6 +88,7 @@ export const POSTS: BlogPost[] = [
     description:
       "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells fast, anchored to real departure prices across 5 EU markets, not retail.",
     date: "2026-08-05",
+    updated: "2026-09-11",
     category: "Pricing",
     readMins: 5,
     intro:
@@ -119,6 +128,7 @@ export const POSTS: BlogPost[] = [
     description:
       `Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from ${TRACKED} analyzed sales.`,
     date: "2026-09-05",
+    updated: "2026-09-11",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -302,6 +312,7 @@ export const POSTS: BlogPost[] = [
     description:
       "Stop scrolling at random. A repeatable 3-step method to find underpriced, fast-selling items to flip on Vinted, built from real demand data across 5 EU markets.",
     date: "2026-08-05",
+    updated: "2026-09-12",
     category: "Sourcing",
     readMins: 5,
     intro:
@@ -339,6 +350,7 @@ export const POSTS: BlogPost[] = [
     description:
       "An honest look at reselling income on Vinted — what drives it, realistic ranges, and why sourcing decisions matter more than volume.",
     date: "2026-09-05",
+    updated: "2026-09-11",
     category: "Business",
     readMins: 5,
     intro:
