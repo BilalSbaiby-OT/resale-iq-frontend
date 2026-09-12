@@ -3,7 +3,8 @@ import { useState, useEffect, useCallback, Suspense, type ReactNode } from "reac
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { AppShell } from "@/components/layout/app-shell"
-import { getVerdict } from "@/lib/api"
+import { getVerdict, isPaymentRequired } from "@/lib/api"
+import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { eur, getToken } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
 import { Zap, Lock } from "lucide-react"
@@ -72,16 +73,24 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   const [loading, setLoading] = useState(false)
   const [unlocking, setUnlocking] = useState(false)
   const [error, setError] = useState("")
+  const [paywalled, setPaywalled] = useState(false)
 
   const run = useCallback(async (raw?: string) => {
     const q = (raw ?? query).trim()
     if (!q) return
-    setLoading(true); setError(""); setResult(null)
+    setLoading(true); setError(""); setResult(null); setPaywalled(false)
     try {
       setResult(await getVerdict(q))
       trackEvent("verdict_seen")
       trackEvent("analysis_completed")
     } catch (e) {
+      if (isPaymentRequired(e)) {
+        // why: 402 is the product under HARD_PAYWALL, not a failed check —
+        // render the checkout card. Logging it as analysis_failed would
+        // count the conversion face as a drop-off.
+        setPaywalled(true)
+        return
+      }
       // why: not swallowed — the failure is counted (analysis_failed, the
       // funnel's own drop-off signal) and shown to the customer verbatim when
       // the API gave a reason. Rethrowing here would replace a readable
@@ -163,6 +172,11 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         </div>
 
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
+        {paywalled && (
+          <div style={{ background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, marginBottom: 24 }}>
+            <HardPaywallCard locale={locale} />
+          </div>
+        )}
 
         {result && vs && (
           <div className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">

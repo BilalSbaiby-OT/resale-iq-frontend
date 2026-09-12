@@ -327,3 +327,28 @@ test.describe("P0 — DATA TRUTH on the public verdict card", () => {
     await expect(page.getByText(/\b0(\.0)?%/)).toHaveCount(0)
   })
 })
+
+test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a leaked teaser", () => {
+  // Live 2026-09-12: anon /api/verdict → 402 PAYWALL, no buy_below.
+  // The public checker used to throw "Could not check that item" on any !ok,
+  // so the conversion face was a red error. This pins the replacement: a
+  // Start — €19/mo CTA and zero teaser fields.
+  test("402 PAYWALL shows Start €19 and never a buy-below", async ({ page }) => {
+    await page.route("**/api/verdict**", async route => {
+      await route.fulfill({
+        status: 402,
+        contentType: "application/json",
+        body: JSON.stringify({ verdict: "PAYWALL", locked: true, message: "A Resale IQ subscription is required to check items.", upgrade_url: "/register", plans: [{ tier: "operator", label: "Starter", price_eur: 19 }, { tier: "power", label: "Pro", price_eur: 49 }], buy_below: 32.01, sell_avg: 48.14 }),
+      })
+    })
+    await page.goto("/tools")
+    await page.getByLabel(/Item to check/i).fill("Adidas Samba")
+    await page.getByRole("button", { name: /Check it free/i }).click()
+    const wall = page.getByTestId("riq-hard-paywall")
+    await expect(wall).toBeVisible()
+    await expect(wall).toContainText(/Start — €19/)
+    await expect(wall).not.toContainText(/32/)
+    await expect(wall).not.toContainText(/buy-below/i)
+    await expect(page.getByText(/Could not check that item/i)).toHaveCount(0)
+  })
+})

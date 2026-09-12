@@ -9,8 +9,10 @@ import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
 import { ModelChips } from "@/components/tools/model-chips"
+import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
+import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { formatStrPct } from "@/lib/str-pct"
 import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 
@@ -63,6 +65,7 @@ interface FreeVerdict {
   upgrade_url?: string
   used_today?: number
   limit?: number
+  plans?: PaywallPlan[]
   // Only populated on BRAND_CATEGORIES (api/routes.py) — a brand-only query
   // with no garment named. brand/categories/next_step are structured, so the
   // frontend builds its own translated sentence instead of trusting
@@ -98,6 +101,7 @@ const VERDICT_COLOR: Record<string, string> = {
   INSUFFICIENT_DATA: "#8b99b8",
   UNKNOWN: "#8b99b8",
   LIMIT_REACHED: "#8b99b8",
+  PAYWALL: "#8b99b8",
   // BRAND_AVERAGE is a real ANSWER, not a refusal, so it must not share the grey
   // used for UNKNOWN and INSUFFICIENT_DATA. Blue: informative, deliberately not
   // the green of BUY -- it is a brand-level average, not a per-item call.
@@ -201,8 +205,12 @@ export function FreeChecker({
     const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS)
     try {
       const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal })
+      let body: unknown = null
+      try { body = await r.json() } catch { /* non-JSON error page */ }
+      const wall = parsePaywallBody(r.status, body)
+      if (wall) { setRes(wall); return }
       if (!r.ok) throw new Error(t.couldNotCheck)
-      setRes(await r.json())
+      setRes(body as FreeVerdict)
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") {
         setTimedOut(true)
@@ -358,7 +366,9 @@ export function FreeChecker({
               <span style={{ fontSize: 12.5, color: "#8b99b8" }}>{t.exampleNudge}</span>
             </div>
           )}
-          {res.verdict === "LIMIT_REACHED" ? (
+          {res.verdict === "PAYWALL" ? (
+            <HardPaywallCard locale={locale} plans={res.plans} />
+          ) : res.verdict === "LIMIT_REACHED" ? (
             <div>
               {/* res.message is backend-owned English prose (api/routes.py) with
                   no locale awareness — always show the translated fallback

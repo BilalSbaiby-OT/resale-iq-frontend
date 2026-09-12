@@ -250,6 +250,10 @@ export const copy = {
       gatedFreeAccount: "with a free account",
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
+      paywallHeadline: "Pay to see what to pay",
+      paywallBody: "A subscription is required to check items.",
+      paywallCta: (price: number) => `Start — €${price}/mo`,
+      paywallLogin: "Already have an account? Log in",
       confidenceLabel: "Confidence",
       // BRAND_CATEGORIES (api/routes.py): a brand-only query with no garment
       // named. Category names (Jackets, Hoodies, ...) stay untranslated —
@@ -696,6 +700,10 @@ export const copy = {
       gatedFreeAccount: "avec un compte gratuit",
       planLabel: "Abonnement",
       limitReachedLabel: "LIMITE ATTEINTE",
+      paywallHeadline: "Payez pour voir le prix d'achat",
+      paywallBody: "Un abonnement est requis pour vérifier un article.",
+      paywallCta: (price: number) => `Commencer — ${price} €/mois`,
+      paywallLogin: "Déjà un compte ? Connexion",
       confidenceLabel: "Confiance",
       brandCategoriesIntro: (brand: string, categories: string) =>
         `On suit ${brand} dans ${categories}. Précisez la pièce pour qu'on puisse l'estimer.`,
@@ -1069,6 +1077,10 @@ export const copy = {
       gatedFreeAccount: "con una cuenta gratuita",
       planLabel: "Tarifa",
       limitReachedLabel: "LÍMITE ALCANZADO",
+      paywallHeadline: "Paga para ver qué pagar",
+      paywallBody: "Se necesita una suscripción para comprobar artículos.",
+      paywallCta: (price: number) => `Empezar — ${price} €/mes`,
+      paywallLogin: "¿Ya tienes cuenta? Entra",
       confidenceLabel: "Confianza",
       brandCategoriesIntro: (brand: string, categories: string) =>
         `Seguimos ${brand} en ${categories}. Añade la prenda para poder valorarla.`,
@@ -1442,6 +1454,10 @@ export const copy = {
       gatedFreeAccount: "mit einem kostenlosen Konto",
       planLabel: "Tarif",
       limitReachedLabel: "LIMIT ERREICHT",
+      paywallHeadline: "Zahlen, um den Kaufpreis zu sehen",
+      paywallBody: "Für die Prüfung brauchst du ein Abo.",
+      paywallCta: (price: number) => `Loslegen — ${price} €/Monat`,
+      paywallLogin: "Schon ein Konto? Anmelden",
       confidenceLabel: "Konfidenz",
       brandCategoriesIntro: (brand: string, categories: string) =>
         `Wir erfassen ${brand} in ${categories}. Gib das Kleidungsstück an, dann können wir es bewerten.`,
@@ -1817,6 +1833,10 @@ export const copy = {
       gatedFreeAccount: "con un account gratuito",
       planLabel: "Piano",
       limitReachedLabel: "LIMITE RAGGIUNTO",
+      paywallHeadline: "Paga per vedere quanto offrire",
+      paywallBody: "Serve un abbonamento per controllare gli articoli.",
+      paywallCta: (price: number) => `Inizia — ${price} €/mese`,
+      paywallLogin: "Hai già un account? Accedi",
       confidenceLabel: "Affidabilità",
       brandCategoriesIntro: (brand: string, categories: string) =>
         `Monitoriamo ${brand} in ${categories}. Aggiungi il capo per poterlo valutare.`,
@@ -2190,6 +2210,10 @@ export const copy = {
       gatedFreeAccount: "com uma conta grátis",
       planLabel: "Plano",
       limitReachedLabel: "LIMITE ATINGIDO",
+      paywallHeadline: "Paga para ver quanto oferecer",
+      paywallBody: "É preciso uma subscrição para verificar artigos.",
+      paywallCta: (price: number) => `Começar — ${price} €/mês`,
+      paywallLogin: "Já tens conta? Entra",
       confidenceLabel: "Confiança",
       brandCategoriesIntro: (brand: string, categories: string) =>
         `Acompanhamos a ${brand} em ${categories}. Acrescenta a peça para podermos avaliá-la.`,
