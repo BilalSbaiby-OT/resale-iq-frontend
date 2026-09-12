@@ -20,10 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ToolsIndex() {
+export default async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
+  const { q: initialQuery } = await searchParams
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -40,7 +41,7 @@ export default async function ToolsIndex() {
         </p>
 
         <WelcomeBanner />
-        <FreeChecker locale={locale} />
+        <FreeChecker locale={locale} initialQuery={initialQuery} />
 
         {/* Search-intent titles/descriptions stay English on every locale —
             real content translation (data/search-intents.ts), out of scope
