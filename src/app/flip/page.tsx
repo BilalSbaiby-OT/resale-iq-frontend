@@ -20,11 +20,11 @@ export const revalidate = 900
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = `Which brands are worth reselling on Vinted? (${BRANDS.length} ranked)`
+  const title = `What sells best on Vinted in 2026? ${BRANDS.length} brands ranked`
   // Kept under ~155 chars so Google does not truncate it in the SERP.
   const description =
-    `${BRANDS.length} brands ranked by watched departures each week on Vinted across ` +
-    `5 EU markets, with average prices at departure and the categories that move.`
+    `What sells best on Vinted in 2026 among ${BRANDS.length} tracked brands: weekly watched ` +
+    `departures across 5 EU markets, average prices at departure, and the categories that move.`
   return {
     title,
     description,
@@ -53,6 +53,8 @@ export default async function FlipHubPage() {
   const ranked = rows.filter((r) => r.sold_7d != null)
   const total = ranked.reduce((sum, r) => sum + (r.sold_7d ?? 0), 0)
   const top = ranked[0]
+  const second = ranked[1]
+  const third = ranked[2]
   const dearest = [...rows]
     .filter((r) => r.avg_price_eur != null)
     .sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
@@ -67,11 +69,33 @@ export default async function FlipHubPage() {
       `margins, the expensive ones carry more margin per unit but tie up cash for longer.`
     : `Weekly volume is not available for the tracked brands in this snapshot.`
 
+  // 134–167 word self-contained block for "what sells best on Vinted 2026".
+  // Live numbers only. Coverage bias stated in the same passage so a citation
+  // cannot quote the ranking as Vinted-wide.
+  const sellsBest2026 = top
+    ? `What sells best on Vinted in 2026, among the brands Resale IQ tracks, is ${top.brand}: about ${fmtCount(top.sold_7d)} watched departures in the last 7 days across ${MARKETS}` +
+      (top.avg_price_eur != null ? `, at an average asking price at departure of ${fmtEur(top.avg_price_eur)}` : "") +
+      `.` +
+      (second && third
+        ? ` ${second.brand} (${fmtCount(second.sold_7d)}/week) and ${third.brand} (${fmtCount(third.sold_7d)}/week) follow.`
+        : "") +
+      ` These are listings we watched leave the shelf, not confirmed sale receipts, and they cover ${BRANDS.length} tracked brands on Vinted's five EU domains — not the whole catalogue, and not unbranded listings.` +
+      (dearest?.avg_price_eur != null
+        ? ` Volume and ticket size rarely sit in the same brand: ${dearest.brand} has the highest average asking price at departure at ${fmtEur(dearest.avg_price_eur)}.`
+        : "") +
+      ` Fast movers recycle cash; expensive ones carry more margin per unit but sit longer. A reseller who wants volume should start with the top of this list; a reseller who wants ticket size should start with the dearest. Neither ranking is Vinted as a whole. Weekly brand volumes stay public on /data. Item-level buy-below, sizes and BUY/WATCH/SKIP are not published on this page.`
+    : `Weekly volume is not available for the tracked brands in this snapshot.`
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: [
+        {
+          "@type": "Question",
+          name: "What sells best on Vinted in 2026?",
+          acceptedAnswer: { "@type": "Answer", text: sellsBest2026 },
+        },
         {
           "@type": "Question",
           name: "Which brand sells the most on Vinted?",
@@ -130,7 +154,10 @@ export default async function FlipHubPage() {
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2, letterSpacing: "-0.6px" }}>
           Which brands are worth reselling on Vinted?
         </h1>
-        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{answer}</p>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "0 0 10px", letterSpacing: "-0.4px" }}>
+          What sells best on Vinted in 2026?
+        </h2>
+        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{sellsBest2026}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
           Every brand below links to its own page — weekly volume, average sale price and the
           categories that actually move. Volumes are what the {BRANDS.length} tracked brands sell
