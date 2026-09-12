@@ -46,7 +46,7 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
-    updated: "2026-09-11",
+    updated: "2026-09-12",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -72,7 +72,7 @@ export const POSTS: BlogPost[] = [
         h: "How to know before you buy",
         p: [
           "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + ` — it turns ${TRACKED} real listings into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.`,
-          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months.",
+          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
         ],
       },
     ],
@@ -128,7 +128,7 @@ export const POSTS: BlogPost[] = [
     description:
       `Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from ${TRACKED} analyzed sales.`,
     date: "2026-09-05",
-    updated: "2026-09-11",
+    updated: "2026-09-12",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -145,7 +145,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Why demand matters more than prestige",
         p: [
-          "A premium brand that rarely sells ties up your cash. A mid-tier brand that sells every week compounds your profit faster. Liquidity often beats prestige for a working reseller.",
+          "A premium brand that rarely sells ties up your cash. A mid-tier brand that sells every week compounds your profit faster. Liquidity often beats prestige for a working reseller. That split is the one in [what actually makes money in reselling](/manual/what-actually-makes-money): volume and premium are different businesses, not better and worse versions of the same one.",
           "The best brand for YOU is the one that sells fast at a margin, in sizes you can source. That's a data question, not an opinion.",
         ],
       },
