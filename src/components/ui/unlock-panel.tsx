@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { Lock, Unlock } from "lucide-react"
 import type { VerdictResult } from "@/types"
+import { unlockPanelBranch } from "@/lib/unlock-panel-state"
 
 /**
  * The free tier's upgrade moment.
@@ -20,42 +21,30 @@ import type { VerdictResult } from "@/types"
  *    Copy must not imply a lifetime cap.
  */
 export function UnlockPanel({
-  result, onUnlock, unlocking,
+  result, onUnlock, unlocking, isAuthenticated,
 }: {
   result: VerdictResult
   onUnlock: () => void
   unlocking: boolean
+  isAuthenticated: boolean
 }) {
-  // GATE ON THE DATA, NOT ON THE FLAG.
+  // WHICH BRANCH — decided in one pure, unit-tested place (unlock-panel-state.ts).
   //
-  // This used to read `if (!result.locked) return null`. W1's fix (2026-09-01,
-  // demand-intel 5019fa0) stopped the backend redacting fields from free
-  // logged-in accounts — and to do that it made `_gate()` return
-  // `"locked": False` on EVERY branch. It never returns True any more.
-  //
-  // So this panel returned null every single time, and the 10 monthly unlocks
-  // had no entry point on the authenticated /verdict page at all. An
-  // entitlement customers are told they have, unreachable, with no error and
-  // nothing in any log.
-  //
-  // Nobody broke it on purpose: one fix made a flag constant, and a second
-  // component still depended on that flag varying. That is the shape the
-  // 2026-09-01 post-mortem named as our most expensive habit, and it happened
-  // WHILE we were writing the post-mortem.
-  //
-  // `free-checker.tsx` already had it right — it asks whether the deep field is
-  // actually there (`res.sell_through_rate == null`). Same question here.
-  const deepFieldsMissing = result.sell_through_rate == null
-  if (!deepFieldsMissing) return null
+  // History: this used to key "anonymous" off `unlocks_remaining === undefined`.
+  // But that field is absent for anonymous callers AND for paid plans, so every
+  // PAYING customer looked anonymous and was shown "create a free account" on a
+  // provisional verdict (founder-reported 2026-09-11). Anonymity is an AUTH fact,
+  // not a data fact — so the branch now takes `isAuthenticated` (a real session
+  // token), and a logged-in account with no free-unlock quota is treated as
+  // entitled (data maturing), never walled.
+  const branch = unlockPanelBranch(result, isAuthenticated)
+  if (branch === "hidden") return null
 
   const limit = result.unlocks_limit
   const remaining = result.unlocks_remaining
-  const isAnonymous = remaining === undefined
-  const exhausted = remaining === 0
-  const needsVerification = result.verification_required === true
 
   // Anonymous: the job is to get an account, not to sell a plan.
-  if (isAnonymous) {
+  if (branch === "register") {
     return (
       <Shell tone="neutral">
         <Title icon={<Lock size={15} className="text-amber-400" />}>
@@ -74,9 +63,26 @@ export function UnlockPanel({
     )
   }
 
+  // Logged in, paid/entitled — the deep numbers are simply still maturing for
+  // this exact item. NEVER a wall: the account already has access.
+  if (branch === "entitled") {
+    return (
+      <Shell tone="neutral">
+        <Title icon={<Unlock size={15} className="text-emerald-400" />}>
+          Full numbers for this item are still maturing
+        </Title>
+        <Body>
+          The call above is live. Sell-through, best sizes and the reasons why
+          land as soon as we&apos;ve watched enough departures for this exact
+          model — your plan already includes them, nothing to unlock.
+        </Body>
+      </Shell>
+    )
+  }
+
   // Email not verified yet. Not a paywall — a one-click step they already have
   // in their inbox — so it must not read like one.
-  if (needsVerification) {
+  if (branch === "verify") {
     return (
       <Shell tone="neutral">
         <Title icon={<Unlock size={15} className="text-emerald-400" />}>
@@ -95,7 +101,7 @@ export function UnlockPanel({
   }
 
   // Budget left: keep it quiet and let the product do the talking.
-  if (!exhausted) {
+  if (branch === "unlock") {
     return (
       <Shell tone="neutral">
         <Title icon={<Unlock size={15} className="text-emerald-400" />}>

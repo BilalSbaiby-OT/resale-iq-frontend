@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict } from "@/lib/api"
-import { eur } from "@/lib/utils"
+import { eur, getToken } from "@/lib/utils"
 import type { VerdictResult } from "@/types"
 import { Zap, Lock } from "lucide-react"
 import { fieldState } from "@/lib/locked-fields"
@@ -254,7 +254,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 <div className="text-[13px] leading-6 text-[#8b99b8]">
                   {t.headlineCall(result.product || query)}
                 </div>
-                <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} />
+                <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} isAuthenticated={getToken() != null} />
                 <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
               </div>
             ) : (
