@@ -141,7 +141,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Have a target list before you go",
         p: [
           "Walking in and 'seeing what's there' is how you buy junk. Go in knowing the brands and models that actually sell, and what you can pay for each.",
-          "A short list of 10–15 target brands turns a two-hour rummage into a fast, focused scan.",
+          "A short list of 10–15 target brands turns a two-hour rummage into a fast, focused scan. If your list leans older or one-off pieces, [spotting genuinely valuable vintage](/blog/vintage-clothing-reselling-guide) is a separate skill worth learning before you buy.",
         ],
       },
       {
@@ -305,7 +305,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Audience and item fit",
         p: [
           "Vinted is fashion-focused with a large, mobile, everyday-brand EU audience — ideal for mid-market clothing volume.",
-          "eBay reaches a wider, more international and often older buyer base, and does better on collectables, rare sizes, technical gear and vintage with a story.",
+          "eBay reaches a wider, more international and often older buyer base, and does better on collectables, rare sizes, technical gear and [vintage with a story](/blog/vintage-clothing-reselling-guide). If you're weighing a third option for that curated end, [Vinted vs Depop for sellers](/blog/vinted-vs-depop-for-sellers) covers where each one pays more.",
         ],
       },
       {

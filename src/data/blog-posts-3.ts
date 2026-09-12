@@ -128,10 +128,11 @@ export const POSTS_3: BlogPost[] = [
     description:
       "How to identify and price genuinely valuable vintage clothing — tags, construction, era markers, and why condition rules everything.",
     date: "2026-08-07",
+    updated: "2026-09-12",
     category: "Sourcing",
     readMins: 6,
     intro:
-      "Vintage is where the biggest margins hide, because value depends on knowledge rather than brand recognition. Two identical-looking jackets can differ tenfold in price based on details most people never check.",
+      "Vintage is where the biggest margins hide, because value depends on knowledge rather than brand recognition. Two identical-looking jackets can differ tenfold in price based on details most people never check. As of 12 September 2026, the vintage-adjacent categories we watch carry exactly that spread on Vinted: a Stone Island Jacket left the shelf at an average €134 (197 watched departures in 7 days) while a Fred Perry Shirt averaged €14 (547) — same 'sell a garment' motion, roughly ten times the price, decided entirely by what the piece is rather than how new it looks.",
     sections: [
       {
         h: "Read the tag first",

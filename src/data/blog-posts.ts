@@ -169,6 +169,7 @@ export const POSTS: BlogPost[] = [
     description:
       "Vinted vs Depop on fees, audience and speed. Where you sell from decides it: Depop's 0% commission does not apply outside the US and UK.",
     date: "2026-08-29",
+    updated: "2026-09-12",
     category: "Platforms",
     readMins: 9,
     intro:
@@ -209,6 +210,7 @@ export const POSTS: BlogPost[] = [
           "Vinted's centre of gravity is everyday branded fashion across large EU markets — recognisable mid-market brands, basics, sneakers, denim, outerwear. Volume is its advantage. Items that are easy to search for by brand and model sell reliably, and they sell at a fair rather than a remarkable price.",
           "Depop skews younger and more trend-led, with real strength in curated vintage, Y2K, streetwear and anything with a story attached to it. A well-styled, well-photographed piece can command a price on Depop that the same item would never reach on Vinted, because the buyer is shopping a look rather than a brand name.",
           "The practical translation: Vinted rewards recognisability and price discipline, Depop rewards curation and presentation. If your sourcing edge is spotting underpriced known brands, Vinted's volume is hard to beat. If your edge is taste — finding pieces other people cannot name but want — Depop pays for that in a way Vinted does not.",
+          "The split shows up in the numbers. As of 12 September 2026, the highest-ticket categories we watch leave Vinted's shelf are Gucci Bags (an average €288 across 97 watched departures in 7 days) and Stone Island Jackets (€134 across 197) — the curated, premium end where Depop's styling-and-story premium competes hardest. At the volume end, Fred Perry Shirts moved 547 watched departures at an average €14 the same week: recognisable, cheap, fast, and exactly what Vinted's scale is built for.",
         ],
         table: {
           caption: "Which platform tends to suit which stock. Generalisations, not rules — test your own categories.",
