@@ -17,7 +17,7 @@ export const POSTS_3: BlogPost[] = [
     category: "Selling",
     readMins: 4,
     intro:
-      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months?",
+      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 11 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (1,409 watched departures/7d) and Shirts (971/7d) — they clear at full price on their own — while a slow, higher-ticket item like a Bag (362/7d at an average €145) is exactly the kind of stock a bundle discount should free up. Speed, not sentiment, decides.",
     sections: [
       {
         h: "Know your floor before you negotiate",

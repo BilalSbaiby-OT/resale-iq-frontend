@@ -211,7 +211,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Selling",
     readMins: 5,
     intro:
-      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 11 September 2026, the busiest categories leaving Vinted's shelf across 28 tracked brands were Hoodies (1,409 watched departures/7d), Jackets (1,045) and Sneakers (809) — so if your item sits in a category showing thin weekly volume, low views is a demand problem no photo or title will fix. Check that first.",
     sections: [
       {
         h: "First: is there demand at all?",
@@ -253,7 +253,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Sourcing",
     readMins: 5,
     intro:
-      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. Here's the rhythm.",
+      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 11 September 2026, Jackets were the highest-value fast-moving category we track (1,045 watched departures/7d at an average €68), well ahead of Hoodies (1,409/7d at €44) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
     sections: [
       {
         h: "Buy low season, sell high season",
