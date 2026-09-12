@@ -721,7 +721,7 @@ export function FreeChecker({
               Open-dashboard bar competes with it above the fold, so it stays
               on the /tools card only. The gated sell-through tile below is
               the remaining unlock and still routes ?plan=free. */}
-          {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && (
+          {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && res.verdict !== "PAYWALL" && (
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#34C759" />

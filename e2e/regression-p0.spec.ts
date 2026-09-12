@@ -350,5 +350,6 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     await expect(wall).not.toContainText(/32/)
     await expect(wall).not.toContainText(/buy-below/i)
     await expect(page.getByText(/Could not check that item/i)).toHaveCount(0)
+    await expect(page.getByText(/Unlock the rest/i)).toHaveCount(0)
   })
 })
