@@ -37,12 +37,8 @@ function useTracked(): string {
 
 // Shown to any authenticated account without an active PAID plan.
 //
-// It is no longer a hard wall. A free account keeps the same 10 checks/day
-// an anonymous visitor gets, has a 7-day full-access trial, then 10 full
-// unlocks/month for the deep numbers — so leading with "choose a plan"
-// and nothing else told someone who had just deliberately chosen Free that
-// their account was worthless. They signed up and immediately hit a sales
-// page. What they actually have now comes first; the plans stay underneath.
+// HARD_PAYWALL: unpaid item checks 402. This screen is the paid ladder.
+// TRIAL_LIMITS_SENTENCE is the same public sentence as JSON-LD / methodology.
 export function Paywall({ pro = false }: { pro?: boolean }) {
   const tracked = useTracked()
   const router = useRouter()
@@ -82,11 +78,11 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Unlock size={15} style={{ color: "#34C759" }} />
-          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Your free account is active</span>
+          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Item checks need a plan</span>
         </div>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
           {TRIAL_LIMITS_SENTENCE} Buy-below, typical departure price, sell-through and best
-          sizes. No card required.
+          sizes sit on Starter.
         </p>
         {verified === false && (
           <div style={{ background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 9, padding: "11px 13px", marginBottom: 14 }}>

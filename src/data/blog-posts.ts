@@ -310,7 +310,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Profitable Items to Flip on Vinted",
+    title: "How to Find Vinted Flips: Start From Demand",
     description:
       "Stop scrolling at random. A repeatable 3-step method to find underpriced, fast-selling items to flip on Vinted, built from real demand data across 5 EU markets.",
     date: "2026-08-05",

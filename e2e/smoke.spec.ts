@@ -113,7 +113,7 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   // page's own h1.
   await expect(page.locator("h1")).toHaveCount(1)
   await expect(page.locator("h1")).toContainText(/Know what to pay/i)
-  // All three tiers and their prices, from the same TIERS source of truth.
+  // Paid ladder from TIERS. The Free card is public /data, not a €0 item-check plan.
   for (const name of ["Free", "Starter", "Pro"]) {
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
   }

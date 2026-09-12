@@ -98,8 +98,8 @@ export function PricingSection({
   }, [])
 
   const choose = async (tierId: string, placeholder?: string) => {
-    // Free rung: no Stripe involved, just get them an account.
-    if (tierId === "free") { router.push("/register?plan=free"); return }
+    // HARD_PAYWALL: the Free card is public /data, not a free item-check plan.
+    if (tierId === "free") { router.push("/data"); return }
     if (!placeholder) return
     if (!getToken()) {
       const plan = tierId === "power" ? "power" : "operator"

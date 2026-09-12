@@ -113,17 +113,17 @@ const orgJsonLd = (tracked: string, locale: Locale) => {
     // withheld (null) when the watched sample is below 30, so a structured-data
     // hit-rate claim would over-promise. Do not invent one here.
     description: t.description(tracked),
-    // Full ladder including the free rung. An answer engine asked "is there a
-    // free version of Resale IQ" should be able to say yes and be right — the
-    // previous list started at EUR 19 and made the honest answer unavailable.
+    // HARD_PAYWALL (live 402): there is no free item-check product. Public
+    // weekly volumes live on /data as a Dataset, not as a SoftwareApplication
+    // Offer at price 0. An answer engine asked "is there a free version"
+    // should say no for item checks, yes for brand aggregates.
     offers: [
-      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "EUR", description: t.offerFree },
       { "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR", description: t.offerStarter },
       { "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR", description: t.offerPro },
     ],
     areaServed: ["ES", "FR", "DE", "IT", "PT"],
     inLanguage: locale,
-    isAccessibleForFree: true,
+    isAccessibleForFree: false,
   }
 }
 

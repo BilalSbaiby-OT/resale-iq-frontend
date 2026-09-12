@@ -4,8 +4,7 @@
  * src/app/methodology/page.tsx).
  *
  * Verified: 9 FAQ pairs x 5 locales, 0 empty, 0 figure drops (€19/mo,
- * €49/mo, 10 checks/day, 7 days, 5 live finds, 1 order plan, 10 full
- * checks/month, 26 markets, 2 business days, 30 minutes, 2 hours all appear
+ * €49/mo, €19/€49, no anonymous item check, 26 markets, 2 business days, 30 minutes, 2 hours all appear
  * byte-identical to the English source in every translation). "leave the
  * shelf" / "watched departures" framing preserved as a term of art in every
  * locale (quittent la vitrine / salen del escaparate / aus dem Regal
@@ -55,7 +54,7 @@ const en: SupportCopy = {
     ["What's the difference between Starter and Pro?",
      "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price Compare (full intelligence on those 5, live asking-price search on 26 markets total), per-size velocity, and REST API access."],
     ["Is there a free plan or trial?",
-     "No account: 10 checks/day. Sign up: you keep the 10/day, plus 7 days of full Starter access, then 10 full unlocks a month for the deep numbers. Live Finder, Order Planner and Price Compare are Pro. No card required; you just verify your email. Paid plans remove the monthly unlock cap."],
+     "Weekly brand volumes and average departure prices are public on /data with no account. Item-level BUY, WATCH or SKIP, buy-below and sizes need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access. There is no anonymous item check and no free tier."],
     ["How do I cancel?",
      "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
     ["How do I reset my password?",
@@ -85,7 +84,7 @@ const fr: SupportCopy = {
     ["Quelle est la différence entre Starter et Pro ?",
      "Starter (19 €/mois) vous donne des verdicts illimités, tous les signaux produit, le Deal Scanner, les tendances du marché, les classements de marques, ainsi que la watchlist et le P&L de portefeuille. Pro (49 €/mois) ajoute le chercheur de deals en direct (à la demande) sur 5 marchés, l'Order Planner sur 3 semaines, le Price Compare (intelligence complète sur ces 5 marchés, recherche de prix demandés en direct sur 26 marchés au total), la vélocité par taille, et l'accès à l'API REST."],
     ["Y a-t-il un plan gratuit ou un essai ?",
-     "Sans compte : 10 vérifications/jour. En vous inscrivant : vous gardez les 10/jour, plus 7 jours d'accès complet à Starter, puis 10 déblocages complets par mois pour les données détaillées. Live Finder, Order Planner et Price Compare sont réservés à Pro. Aucune carte requise ; il suffit de vérifier votre e-mail. Les plans payants suppriment le plafond mensuel de déblocages."],
+     "Les volumes hebdo par marque et les prix moyens de départ sont publics sur /data sans compte. BUY, WATCH ou SKIP au niveau article, le prix max et les tailles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API. Pas de vérification anonyme, pas d'offre gratuite."],
     ["Comment annuler ?",
      "Depuis votre page de compte, ouvrez le portail de facturation — vous pouvez y annuler, changer de plan, ou mettre à jour votre carte. L'annulation arrête le prochain renouvellement ; vous gardez l'accès jusqu'à la fin de la période en cours."],
     ["Comment réinitialiser mon mot de passe ?",
@@ -115,7 +114,7 @@ const es: SupportCopy = {
     ["¿Cuál es la diferencia entre Starter y Pro?",
      "Starter (19 €/mes) te da veredictos ilimitados, todas las señales de producto, Deal Scanner, tendencias de mercado, rankings de marcas, y watchlist + P&L de cartera. Pro (49 €/mes) añade el buscador de ofertas en vivo (bajo demanda) en 5 mercados, el Order Planner de 3 semanas, Price Compare (inteligencia completa en esos 5, búsqueda de precios de venta en vivo en 26 mercados en total), velocidad por talla, y acceso a la API REST."],
     ["¿Hay un plan gratuito o una prueba?",
-     "Sin cuenta: 10 comprobaciones/día. Al registrarte: conservas las 10/día, más 7 días de acceso completo a Starter, luego 10 desbloqueos completos al mes para los datos detallados. Live Finder, Order Planner y Price Compare son de Pro. No se requiere tarjeta; solo verificas tu email. Los planes de pago eliminan el límite mensual de desbloqueos."],
+     "Los volúmenes semanales por marca y los precios medios de salida son públicos en /data sin cuenta. BUY, WATCH o SKIP a nivel de artículo, el precio máximo y las tallas necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API. No hay comprobación anónima ni plan gratuito."],
     ["¿Cómo cancelo?",
      "Desde tu página de cuenta, abre el portal de facturación — ahí puedes cancelar, cambiar de plan o actualizar tu tarjeta. La cancelación detiene la próxima renovación; conservas el acceso hasta que termine el período actual."],
     ["¿Cómo restablezco mi contraseña?",
@@ -145,7 +144,7 @@ const de: SupportCopy = {
     ["Was ist der Unterschied zwischen Starter und Pro?",
      "Starter (19 €/Monat) bietet unbegrenzte Verdikte, jedes Produktsignal, den Deal Scanner, Markttrends, Markenrankings sowie Watchlist + Portfolio-P&L. Pro (49 €/Monat) fügt den Live-Deal-Finder (auf Abruf) über 5 Märkte hinweg hinzu, den 3-Wochen-Order-Planner, Price Compare (volle Intelligenz auf diesen 5 Märkten, Live-Angebotspreissuche auf insgesamt 26 Märkten), Geschwindigkeit pro Größe und REST-API-Zugriff."],
     ["Gibt es einen kostenlosen Plan oder eine Testversion?",
-     "Ohne Konto: 10 Prüfungen/Tag. Nach der Anmeldung: du behältst die 10/Tag, plus 7 Tage vollen Starter-Zugang, danach 10 vollständige Freischaltungen pro Monat für die detaillierten Zahlen. Live Finder, Order Planner und Price Compare sind Pro-Funktionen. Keine Kreditkarte nötig; du bestätigst nur deine E-Mail. Bezahlpläne entfernen die monatliche Freischaltungsgrenze."],
+     "Wöchentliche Markenvolumen und durchschnittliche Abgangspreise sind ohne Konto öffentlich auf /data. BUY, WATCH oder SKIP auf Artikelebene, Kaufobergrenze und Größen brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API. Keine anonyme Prüfung, kein Gratis-Tarif."],
     ["Wie kündige ich?",
      "Öffne auf deiner Kontoseite das Abrechnungsportal — dort kannst du kündigen, den Plan wechseln oder deine Karte aktualisieren. Die Kündigung stoppt die nächste Verlängerung; der Zugriff bleibt bis zum Ende der aktuellen Periode bestehen."],
     ["Wie setze ich mein Passwort zurück?",
@@ -175,7 +174,7 @@ const it: SupportCopy = {
     ["Qual è la differenza tra Starter e Pro?",
      "Starter (19 €/mese) offre verdetti illimitati, ogni segnale di prodotto, Deal Scanner, trend di mercato, classifiche dei brand, e watchlist + P&L del portafoglio. Pro (49 €/mese) aggiunge il ricercatore di offerte live (su richiesta) su 5 mercati, l'Order Planner di 3 settimane, Price Compare (intelligence completa su quei 5 mercati, ricerca live dei prezzi richiesti su 26 mercati in totale), velocità per taglia e accesso alle API REST."],
     ["C'è un piano gratuito o una prova?",
-     "Senza account: 10 verifiche/giorno. Registrandoti: mantieni le 10/giorno, più 7 giorni di accesso completo a Starter, poi 10 sblocchi completi al mese per i dati dettagliati. Live Finder, Order Planner e Price Compare sono funzioni Pro. Nessuna carta richiesta; basta verificare l'email. I piani a pagamento rimuovono il limite mensile di sblocchi."],
+     "I volumi settimanali per marca e i prezzi medi di uscita sono pubblici su /data senza account. BUY, WATCH o SKIP a livello di articolo, il prezzo massimo e le taglie richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API. Nessun controllo anonimo, nessun piano gratuito."],
     ["Come faccio a disdire?",
      "Dalla pagina del tuo account, apri il portale di fatturazione — da lì puoi disdire, cambiare piano o aggiornare la carta. La disdetta ferma il prossimo rinnovo; mantieni l'accesso fino alla fine del periodo in corso."],
     ["Come reimposto la password?",
@@ -205,7 +204,7 @@ const pt: SupportCopy = {
     ["Qual é a diferença entre Starter e Pro?",
      "O Starter (19 €/mês) dá-lhe veredictos ilimitados, todos os sinais de produto, Deal Scanner, tendências de mercado, rankings de marcas, e watchlist + P&L da carteira. O Pro (49 €/mês) acrescenta o localizador de ofertas em direto (a pedido) em 5 mercados, o Order Planner de 3 semanas, o Price Compare (inteligência completa nesses 5 mercados, pesquisa de preços pedidos em direto em 26 mercados no total), velocidade por tamanho, e acesso à API REST."],
     ["Existe um plano gratuito ou período de teste?",
-     "Sem conta: 10 verificações/dia. Ao registar-se: mantém as 10/dia, mais 7 dias de acesso completo ao Starter, depois 10 desbloqueios completos por mês para os dados detalhados. Live Finder, Order Planner e Price Compare são do Pro. Não é necessário cartão; basta verificar o seu email. Os planos pagos removem o limite mensal de desbloqueios."],
+     "Os volumes semanais por marca e os preços médios de saída são públicos em /data sem conta. BUY, WATCH ou SKIP ao nível do artigo, o preço máximo e os tamanhos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API. Não há verificação anónima nem plano grátis."],
     ["Como cancelo?",
      "Na sua página de conta, abra o portal de faturação — aí pode cancelar, mudar de plano ou atualizar o cartão. O cancelamento interrompe a próxima renovação; mantém o acesso até ao fim do período atual."],
     ["Como redefino a minha palavra-passe?",

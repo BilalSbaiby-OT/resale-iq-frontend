@@ -110,7 +110,7 @@ export const copy = {
     pricing: "Pricing",
     heroTitle: "Know what to pay before you buy.",
     heroAudience: "For EU Vinted resellers.",
-    heroTrust: "Free — 10 checks a day, no account, no card. Live EU market data.",
+    heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     // H1 on `/`. Not heroTitle: that string is <title>/OG. Kept to ~20-28ch
     // so it breaks in two at 56px. Em-dash is a sentence break, not a gated value.
     marketPulse: {
@@ -153,7 +153,7 @@ export const copy = {
     noAccuracy: "No accuracy claims until 30 outcomes scored",
     mostItemsRefresh: "Most items refresh within the hour",
     siteFooter: {
-      toolsLink: "Free tools",
+      toolsLink: "Tools",
       whatToFlip: "What to flip",
       categories: "Categories",
       nikeResale: "Nike resale",
@@ -280,7 +280,7 @@ export const copy = {
       // would be a second source of truth that goes stale silently.
       metaTitle: "Pricing — what each plan costs and what it unlocks",
       metaDescription:
-        "Every Resale IQ plan side by side: what it costs a month, what it unlocks, and where it stops. Free forever with no card. Cancel anytime.",
+        "Every Resale IQ plan side by side: Starter €19 and Pro €49, what each unlocks, and where it stops. Weekly brand volumes on /data stay public. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",
@@ -289,15 +289,15 @@ export const copy = {
       whereItStops: "Where it stops:",
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
-      subhead: "Start free, no card. Move up when the numbers are paying for the subscription.",
+      subhead: "Start at €19 a month. Weekly brand volumes on /data stay public.",
       faqHeading: "Before you pick a plan",
       faq: [
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
         { q: "Is it worth €19 a month?", a: "One flip you skip on a SKIP, or one you take on a BUY, usually covers the month. The payback calculator above works it out for the volume you actually do." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
         { q: "What if the data isn't there for my item?", a: "You still see the check, and where the sample is thin we say so instead of inventing a number. We report watched departures, meaning items leaving the shelf, not sales we didn't witness." },
-        { q: "Can I trust the numbers, and can I cancel?", a: "Every figure comes from listings we watch across the five markets, shown as aggregates you can check yourself on the public data page. The free account needs no card, and you cancel from Account in one click; access runs to the end of the month you paid for, with no email to chase." },
-        { q: "How do the free limits work?", a: "No account gets you 10 checks a day. A free account keeps those 10 a day for life and adds 7 days of full Starter access, then 10 full unlocks a month for the deep numbers. Live Deal Finder, Order Planner and Price Compare are Pro." },
+        { q: "Can I trust the numbers, and can I cancel?", a: "Every figure comes from listings we watch across the five markets, shown as aggregates you can check yourself on the public data page. Cancel from Account in one click; access runs to the end of the month you paid for, with no email to chase." },
+        { q: "Is there a free item checker?", a: "No. Weekly brand volumes and average departure prices are public on /data with no account. Item-level BUY, WATCH or SKIP, buy-below and sizes need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
       ],
     },
     // Keyed by Tier.id (lib/pricing.ts). Names ("Free"/"Starter"/"Pro") stay
@@ -334,15 +334,15 @@ export const copy = {
         ceiling: "No Live Deal Finder, Order Planner, Price Compare or API — that's Pro.",
       },
       free: {
-        tagline: "See that the data is real before you pay",
-        cta: "Create a free account",
+        tagline: "Weekly brand volumes stay public",
+        cta: "See public data",
         features: [
-          "7 days of full Starter access (verdicts + Deal Scanner), 5 live finds and 1 order plan. After that: 10 checks a day forever — same as anonymous — plus 10 full unlocks a month for sell-through, sizes and the reasons why.",
-          "BUY / WATCH / SKIP on every lookup",
-          "The whole reselling manual and market data",
-          "No card required",
+          "Weekly brand volumes and average departure prices on /data, no account.",
+          "The reselling manual, no signup.",
+          "No anonymous item-level buy-below.",
+          "Item checks are Starter at €19 a month.",
         ],
-        ceiling: "The 10 checks a day never run out. After the trial, only 10 a month show the full numbers — Live Finder is Pro.",
+        ceiling: "There is no free item-check tier. Live Finder is Pro.",
       },
     },
     // live-market-proof.tsx — the "Selling on Vinted this week" band below
@@ -446,13 +446,13 @@ export const copy = {
       },
       register: {
         heading: "Create your account",
-        subheading: "Start free, or pick a plan for the full toolkit. Cancel anytime.",
+        subheading: "Weekly brand volumes on /data stay public. Item checks need a paid plan. Cancel anytime.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Most popular",
         planDesc: {
           power: "Live deals, Order Planner, API, per-size velocity",
           operator: "Unlimited verdicts, every signal, watchlist & P&L",
-          free: "7 days of Starter, then 10 checks a day plus 10 full unlocks a month. No card.",
+          free: "Public weekly volumes on /data. No anonymous item check.",
         },
         forever: "forever",
         perMonth: "/month",
@@ -592,7 +592,7 @@ export const copy = {
     pricing: "Tarifs",
     heroTitle: "Sachez quoi payer avant d'acheter.",
     heroAudience: "Pour les revendeurs Vinted en UE.",
-    heroTrust: "Gratuit — 10 vérifications par jour, sans compte, sans carte. Données de marché UE en direct.",
+    heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui se vend vraiment en ce moment.",
@@ -629,7 +629,7 @@ export const copy = {
     noAccuracy: "Aucun chiffre d'exactitude avant 30 résultats notés",
     mostItemsRefresh: "La plupart des articles sont actualisés en moins d'une heure",
     siteFooter: {
-      toolsLink: "Outils gratuits",
+      toolsLink: "Outils",
       whatToFlip: "Quoi revendre",
       categories: "Catégories",
       nikeResale: "Revente Nike",
@@ -721,7 +721,7 @@ export const copy = {
       heading: "Sachez quoi payer. Ignorez le reste.",
       metaTitle: "Tarifs — ce que coûte chaque offre et ce qu’elle débloque",
       metaDescription:
-        "Toutes les offres Resale IQ côte à côte : le prix par mois, ce que chacune débloque et où elle s’arrête. Gratuit pour toujours, sans carte. Annulable à tout moment.",
+        "Toutes les offres Resale IQ côte à côte : Starter 19 € et Pro 49 €, ce que chacune débloque et où elle s’arrête. Les volumes hebdo par marque restent publics sur /data. Annulable à tout moment.",
       noCardRequired: "Sans carte bancaire",
       perDay: (amount: string) => `environ €${amount} par jour`,
       mostPopular: "LE PLUS POPULAIRE",
@@ -730,15 +730,15 @@ export const copy = {
       whereItStops: "Où ça s'arrête :",
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
-      subhead: "Commencez gratuitement, sans carte. Montez en gamme quand les chiffres paient l'abonnement.",
+      subhead: "À partir de 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
       faqHeading: "Avant de choisir une offre",
       faq: [
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance." },
         { q: "Est-ce que ça vaut €19 par mois ?", a: "Un achat que vous évitez sur un SKIP, ou un que vous saisissez sur un BUY, couvre en général le mois. Le calculateur de rentabilité ci-dessus le calcule pour le volume que vous faites réellement." },
         { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez un BUY, WATCH ou SKIP avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
         { q: "Et si les données manquent pour mon article ?", a: "Vous voyez quand même la vérification, et là où l'échantillon est mince nous le disons plutôt que d'inventer un chiffre. Nous rapportons les départs observés, c'est-à-dire les articles qui quittent l'étagère, pas des ventes que nous n'avons pas vues." },
-        { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier vous-même sur la page de données publique. Le compte gratuit ne demande pas de carte, et vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé, sans e-mail à relancer." },
-        { q: "Comment fonctionnent les limites gratuites ?", a: "Sans compte : 10 vérifications par jour. Un compte gratuit conserve ces 10 par jour à vie et ajoute 7 jours d'accès Starter complet, puis 10 déblocages complets par mois pour les chiffres détaillés. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro." },
+        { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier vous-même sur la page de données publique. Vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé, sans e-mail à relancer." },
+        { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Non. Les volumes hebdo par marque et les prix moyens de départ sont publics sur /data sans compte. BUY, WATCH ou SKIP au niveau article, le prix max et les tailles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API." },
       ],
     },
     tiers: {
@@ -772,15 +772,15 @@ export const copy = {
         ceiling: "Pas de Deal Finder en direct, Order Planner, Price Compare ni API — c'est Pro.",
       },
       free: {
-        tagline: "Vérifiez que les données sont réelles avant de payer",
-        cta: "Créer un compte gratuit",
+        tagline: "Les volumes hebdo par marque restent publics",
+        cta: "Voir les données publiques",
         features: [
-          "7 jours d’accès Starter complet (verdicts + Deal Scanner), 5 recherches live et 1 plan de commande. Ensuite : 10 vérifications par jour à vie — comme les visiteurs anonymes — plus 10 déblocages complets par mois pour le taux d’écoulement, les tailles et les raisons du verdict.",
-          "ACHETER / SURVEILLER / ÉCARTER à chaque recherche",
-          "Tout le manuel de revente et les données de marché",
-          "Sans carte bancaire",
+          "Volumes hebdo par marque et prix moyens de départ sur /data, sans compte.",
+          "Le manuel de revente, sans inscription.",
+          "Pas de buy-below anonyme au niveau article.",
+          "Les vérifications d'articles, c'est Starter à 19 € par mois.",
         ],
-        ceiling: "Les 10 vérifications par jour ne s'épuisent jamais. Après l'essai, seules 10 par mois montrent les chiffres complets — le Deal Finder live est réservé à Pro.",
+        ceiling: "Pas d'offre gratuite de vérification d'articles. Live Finder est Pro.",
       },
     },
     liveProof: {
@@ -863,13 +863,13 @@ export const copy = {
       },
       register: {
         heading: "Créez votre compte",
-        subheading: "Commencez gratuitement, ou choisissez un abonnement pour la boîte à outils complète. Résiliable à tout moment.",
+        subheading: "Les volumes hebdo par marque restent publics sur /data. Les vérifications d'articles demandent un plan payant. Résiliable à tout moment.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Le plus populaire",
         planDesc: {
           power: "Bons plans en direct, Order Planner, API, vitesse par taille",
           operator: "Verdicts illimités, tous les signaux, watchlist et P&L",
-          free: "7 jours de Starter, puis 10 vérifications par jour plus 10 déblocages complets par mois. Sans carte.",
+          free: "Volumes hebdo publics sur /data. Pas de vérification anonyme d'article.",
         },
         forever: "à vie",
         perMonth: "/mois",
@@ -969,7 +969,7 @@ export const copy = {
     pricing: "Precios",
     heroTitle: "Sabe qué pagar antes de comprar.",
     heroAudience: "Para revendedores de Vinted en la UE.",
-    heroTrust: "Gratis — 10 comprobaciones al día, sin cuenta, sin tarjeta. Datos de mercado UE en vivo.",
+    heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que se está vendiendo ahora mismo.",
@@ -1006,7 +1006,7 @@ export const copy = {
     noAccuracy: "Sin cifras de precisión hasta 30 resultados puntuados",
     mostItemsRefresh: "La mayoría de los artículos se actualizan en menos de una hora",
     siteFooter: {
-      toolsLink: "Herramientas gratuitas",
+      toolsLink: "Herramientas",
       whatToFlip: "Qué revender",
       categories: "Categorías",
       nikeResale: "Reventa Nike",
@@ -1098,7 +1098,7 @@ export const copy = {
       heading: "Sabe qué pagar. Sáltate lo que no debes.",
       metaTitle: "Precios — cuánto cuesta cada plan y qué desbloquea",
       metaDescription:
-        "Todos los planes de Resale IQ uno al lado del otro: cuánto cuestan al mes, qué desbloquean y dónde se quedan. Gratis para siempre, sin tarjeta. Cancela cuando quieras.",
+        "Todos los planes de Resale IQ uno al lado del otro: Starter 19 € y Pro 49 €, qué desbloquean y dónde se quedan. Los volúmenes semanales por marca siguen públicos en /data. Cancela cuando quieras.",
       noCardRequired: "Sin tarjeta",
       perDay: (amount: string) => `unos €${amount} al día`,
       mostPopular: "MÁS POPULAR",
@@ -1107,15 +1107,15 @@ export const copy = {
       whereItStops: "Dónde se detiene:",
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
-      subhead: "Empieza gratis, sin tarjeta. Sube de plan cuando los números paguen la suscripción.",
+      subhead: "Desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
       faqHeading: "Antes de elegir un plan",
       faq: [
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },
         { q: "¿Merece la pena €19 al mes?", a: "Una compra que evitas en un SKIP, o una que aprovechas en un BUY, suele cubrir el mes. La calculadora de amortización de arriba lo calcula para el volumen que realmente haces." },
         { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes un BUY, WATCH o SKIP con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
         { q: "¿Y si no hay datos para mi artículo?", a: "Sigues viendo la comprobación, y donde la muestra es escasa lo decimos en lugar de inventar un número. Informamos de salidas observadas, es decir, artículos que dejan el estante, no de ventas que no hemos visto." },
-        { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar tú mismo en la página de datos pública. La cuenta gratuita no pide tarjeta, y cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado, sin correos que perseguir." },
-        { q: "¿Cómo funcionan los límites gratuitos?", a: "Sin cuenta: 10 comprobaciones al día. Una cuenta gratuita conserva esas 10 al día de por vida y añade 7 días de acceso Starter completo, luego 10 desbloqueos completos al mes para los números detallados. Deal Finder en vivo, Order Planner y Price Compare son de Pro." },
+        { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar tú mismo en la página de datos pública. Cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado, sin correos que perseguir." },
+        { q: "¿Hay un comprobador de artículos gratis?", a: "No. Los volúmenes semanales por marca y los precios medios de salida son públicos en /data sin cuenta. BUY, WATCH o SKIP a nivel de artículo, el precio máximo y las tallas necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API." },
       ],
     },
     tiers: {
@@ -1149,15 +1149,15 @@ export const copy = {
         ceiling: "Sin Deal Finder en vivo, Order Planner, Price Compare ni API — eso es Pro.",
       },
       free: {
-        tagline: "Comprueba que los datos son reales antes de pagar",
-        cta: "Crear una cuenta gratis",
+        tagline: "Los volúmenes semanales por marca siguen públicos",
+        cta: "Ver datos públicos",
         features: [
-          "7 días de acceso Starter completo (veredictos + Deal Scanner), 5 búsquedas en vivo y 1 plan de pedido. Después: 10 comprobaciones al día para siempre — igual que un visitante anónimo — más 10 desbloqueos completos al mes para la tasa de venta, las tallas y los motivos del veredicto.",
-          "COMPRA / OBSERVA / DESCARTA en cada búsqueda",
-          "Todo el manual de reventa y los datos de mercado",
-          "Sin tarjeta",
+          "Volúmenes semanales por marca y precios medios de salida en /data, sin cuenta.",
+          "El manual de reventa, sin registro.",
+          "No hay buy-below anónimo a nivel de artículo.",
+          "Las comprobaciones de artículos son Starter a 19 € al mes.",
         ],
-        ceiling: "Las 10 comprobaciones al día nunca se agotan. Tras la prueba, solo 10 al mes muestran los números completos — el Deal Finder en vivo es de Pro.",
+        ceiling: "No hay plan gratuito de comprobación de artículos. Live Finder es Pro.",
       },
     },
     liveProof: {
@@ -1240,13 +1240,13 @@ export const copy = {
       },
       register: {
         heading: "Cree su cuenta",
-        subheading: "Empiece gratis o elija un plan para el conjunto completo de herramientas. Cancele cuando quiera.",
+        subheading: "Los volúmenes semanales por marca siguen públicos en /data. Las comprobaciones de artículos necesitan un plan de pago. Cancele cuando quiera.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Más popular",
         planDesc: {
           power: "Chollos en vivo, Order Planner, API, velocidad por talla",
           operator: "Veredictos ilimitados, todas las señales, watchlist y P&L",
-          free: "7 días de Starter, luego 10 comprobaciones al día más 10 desbloqueos completos al mes. Sin tarjeta.",
+          free: "Volúmenes semanales públicos en /data. No hay comprobación anónima de artículo.",
         },
         forever: "para siempre",
         perMonth: "/mes",
@@ -1346,7 +1346,7 @@ export const copy = {
     pricing: "Preise",
     heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
     heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
-    heroTrust: "Kostenlos — 10 Prüfungen pro Tag, ohne Konto, ohne Karte. Live-EU-Marktdaten.",
+    heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verkauft sich gerade wirklich.",
@@ -1383,7 +1383,7 @@ export const copy = {
     noAccuracy: "Keine Genauigkeitsangaben vor 30 ausgewerteten Ergebnissen",
     mostItemsRefresh: "Die meisten Artikel werden innerhalb einer Stunde aktualisiert",
     siteFooter: {
-      toolsLink: "Kostenlose Tools",
+      toolsLink: "Tools",
       whatToFlip: "Was sich lohnt",
       categories: "Kategorien",
       nikeResale: "Nike-Wiederverkauf",
@@ -1475,7 +1475,7 @@ export const copy = {
       heading: "Wissen, was du zahlen solltest. Lass aus, was sich nicht lohnt.",
       metaTitle: "Preise — was jeder Tarif kostet und was er freischaltet",
       metaDescription:
-        "Alle Resale-IQ-Tarife nebeneinander: was sie im Monat kosten, was sie freischalten und wo sie aufhören. Dauerhaft kostenlos, ohne Karte. Jederzeit kündbar.",
+        "Alle Resale-IQ-Tarife nebeneinander: Starter 19 € und Pro 49 €, was sie freischalten und wo sie aufhören. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Jederzeit kündbar.",
       noCardRequired: "Keine Kreditkarte nötig",
       perDay: (amount: string) => `etwa €${amount} am Tag`,
       mostPopular: "AM BELIEBTESTEN",
@@ -1484,15 +1484,15 @@ export const copy = {
       whereItStops: "Wo es endet:",
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
-      subhead: "Kostenlos starten, ohne Karte. Wechsle höher, wenn die Zahlen das Abo bezahlen.",
+      subhead: "Ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
       faqHeading: "Bevor du einen Tarif wählst",
       faq: [
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl." },
         { q: "Sind €19 im Monat es wert?", a: "Ein Kauf, den du bei einem SKIP auslässt, oder einer, den du bei einem BUY mitnimmst, deckt meist den Monat. Der Amortisationsrechner oben rechnet es für dein tatsächliches Volumen aus." },
         { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst ein BUY, WATCH oder SKIP mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
         { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Du siehst die Prüfung trotzdem, und wo die Stichprobe dünn ist, sagen wir es, statt eine Zahl zu erfinden. Wir berichten beobachtete Abgänge, also Artikel, die das Regal verlassen, nicht Verkäufe, die wir nicht gesehen haben." },
-        { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Das kostenlose Konto braucht keine Karte, und du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats, ohne einer E-Mail hinterherzujagen." },
-        { q: "Wie funktionieren die kostenlosen Limits?", a: "Ohne Konto: 10 Prüfungen pro Tag. Ein kostenloses Konto behält diese 10 pro Tag dauerhaft und fügt 7 Tage vollständigen Starter-Zugang hinzu, danach 10 vollständige Freischaltungen im Monat für die detaillierten Zahlen. Live Deal Finder, Order Planner und Price Compare sind Pro." },
+        { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats, ohne einer E-Mail hinterherzujagen." },
+        { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Nein. Wöchentliche Markenvolumen und durchschnittliche Abgangspreise sind ohne Konto öffentlich auf /data. BUY, WATCH oder SKIP auf Artikelebene, Kaufobergrenze und Größen brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API." },
       ],
     },
     tiers: {
@@ -1526,15 +1526,15 @@ export const copy = {
         ceiling: "Kein Live Deal Finder, Order Planner, Price Compare oder API — das ist Pro.",
       },
       free: {
-        tagline: "Sieh, dass die Daten echt sind, bevor du zahlst",
-        cta: "Kostenloses Konto erstellen",
+        tagline: "Wöchentliche Markenvolumen bleiben öffentlich",
+        cta: "Öffentliche Daten ansehen",
         features: [
-          "7 Tage vollständiger Starter-Zugang (Entscheidungen + Deal Scanner), 5 Live-Suchen und 1 Bestellplan. Danach: 10 Prüfungen pro Tag, dauerhaft — genau wie anonyme Besucher — plus 10 vollständige Freischaltungen im Monat für Verkaufsrate, Größen und die Gründe hinter dem Aufruf.",
-          "KAUFEN / BEOBACHTEN / VERWERFEN bei jeder Suche",
-          "Das gesamte Wiederverkaufs-Handbuch und Marktdaten",
-          "Keine Kreditkarte nötig",
+          "Wöchentliche Markenvolumen und durchschnittliche Abgangspreise auf /data, ohne Konto.",
+          "Das Wiederverkaufs-Handbuch, ohne Anmeldung.",
+          "Kein anonymes buy-below auf Artikelebene.",
+          "Artikelprüfungen sind Starter für 19 € im Monat.",
         ],
-        ceiling: "Die 10 Prüfungen pro Tag laufen nie ab. Nach der Testphase zeigen nur noch 10 im Monat die vollen Zahlen — Live Finder ist Pro.",
+        ceiling: "Kein Gratis-Tarif für Artikelprüfungen. Live Finder ist Pro.",
       },
     },
     liveProof: {
@@ -1617,13 +1617,13 @@ export const copy = {
       },
       register: {
         heading: "Konto erstellen",
-        subheading: "Starten Sie kostenlos oder wählen Sie einen Tarif für das komplette Toolkit. Jederzeit kündbar.",
+        subheading: "Wöchentliche Markenvolumen bleiben öffentlich auf /data. Artikelprüfungen brauchen einen bezahlten Tarif. Jederzeit kündbar.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Am beliebtesten",
         planDesc: {
           power: "Live-Deals, Order Planner, API, Geschwindigkeit pro Größe",
           operator: "Unbegrenzte Verdikte, alle Signale, Watchlist und P&L",
-          free: "7 Tage Starter, danach 10 Prüfungen pro Tag plus 10 vollständige Freischaltungen im Monat. Ohne Karte.",
+          free: "Wöchentliche Volumen öffentlich auf /data. Keine anonyme Artikelprüfung.",
         },
         forever: "dauerhaft",
         perMonth: "/Monat",
@@ -1725,7 +1725,7 @@ export const copy = {
     pricing: "Prezzi",
     heroTitle: "Sappi quanto pagare prima di comprare.",
     heroAudience: "Per i rivenditori Vinted in UE.",
-    heroTrust: "Gratis — 10 controlli al giorno, senza account, senza carta. Dati di mercato UE dal vivo.",
+    heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa si sta vendendo davvero adesso.",
@@ -1762,7 +1762,7 @@ export const copy = {
     noAccuracy: "Nessun dato di accuratezza finché non si raggiungono 30 esiti verificati",
     mostItemsRefresh: "La maggior parte degli articoli si aggiorna entro un'ora",
     siteFooter: {
-      toolsLink: "Strumenti gratuiti",
+      toolsLink: "Strumenti",
       whatToFlip: "Cosa rivendere",
       categories: "Categorie",
       nikeResale: "Rivendita Nike",
@@ -1854,7 +1854,7 @@ export const copy = {
       heading: "Sappi quanto pagare. Salta il resto.",
       metaTitle: "Prezzi — quanto costa ogni piano e cosa sblocca",
       metaDescription:
-        "Tutti i piani Resale IQ a confronto: quanto costano al mese, cosa sbloccano e dove si fermano. Gratis per sempre, senza carta. Disdici quando vuoi.",
+        "Tutti i piani Resale IQ a confronto: Starter 19 € e Pro 49 €, cosa sbloccano e dove si fermano. I volumi settimanali per marca restano pubblici su /data. Disdici quando vuoi.",
       noCardRequired: "Nessuna carta richiesta",
       perDay: (amount: string) => `circa €${amount} al giorno`,
       mostPopular: "IL PIÙ POPOLARE",
@@ -1863,15 +1863,15 @@ export const copy = {
       whereItStops: "Dove si ferma:",
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
-      subhead: "Inizia gratis, senza carta. Sali di piano quando i numeri pagano l'abbonamento.",
+      subhead: "Da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
       faqHeading: "Prima di scegliere un piano",
       faq: [
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza." },
         { q: "Vale €19 al mese?", a: "Un acquisto che eviti su uno SKIP, o uno che cogli su un BUY, di solito copre il mese. Il calcolatore di rientro qui sopra lo calcola per il volume che fai davvero." },
         { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni un BUY, WATCH o SKIP con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
         { q: "E se non ci sono dati per il mio articolo?", a: "Vedi comunque il controllo, e dove il campione è scarso lo diciamo invece di inventare un numero. Riportiamo le uscite osservate, cioè gli articoli che lasciano lo scaffale, non vendite che non abbiamo visto." },
-        { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare tu stesso sulla pagina dati pubblica. L'account gratuito non chiede la carta, e disdici da Account con un clic; l'accesso arriva alla fine del mese pagato, senza email da rincorrere." },
-        { q: "Come funzionano i limiti gratuiti?", a: "Senza account: 10 controlli al giorno. Un account gratuito mantiene quei 10 al giorno per sempre e aggiunge 7 giorni di accesso Starter completo, poi 10 sblocchi completi al mese per i numeri dettagliati. Deal Finder live, Order Planner e Price Compare sono Pro." },
+        { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare tu stesso sulla pagina dati pubblica. Disdici da Account con un clic; l'accesso arriva alla fine del mese pagato, senza email da rincorrere." },
+        { q: "C'è un controllo articoli gratuito?", a: "No. I volumi settimanali per marca e i prezzi medi di uscita sono pubblici su /data senza account. BUY, WATCH o SKIP a livello di articolo, il prezzo massimo e le taglie richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API." },
       ],
     },
     tiers: {
@@ -1905,15 +1905,15 @@ export const copy = {
         ceiling: "Niente Deal Finder live, Order Planner, Price Compare o API — quello è Pro.",
       },
       free: {
-        tagline: "Verifica che i dati siano reali prima di pagare",
-        cta: "Crea un account gratuito",
+        tagline: "I volumi settimanali per marca restano pubblici",
+        cta: "Vedi i dati pubblici",
         features: [
-          "7 giorni di accesso Starter completo (verdetti + Deal Scanner), 5 ricerche live e 1 piano d'ordine. Poi: 10 controlli al giorno per sempre — come i visitatori anonimi — più 10 sblocchi completi al mese per sell-through, taglie e le ragioni del verdetto.",
-          "COMPRA / OSSERVA / SCARTA a ogni ricerca",
-          "Tutto il manuale di rivendita e i dati di mercato",
-          "Nessuna carta richiesta",
+          "Volumi settimanali per marca e prezzi medi di uscita su /data, senza account.",
+          "Il manuale di rivendita, senza registrazione.",
+          "Nessun buy-below anonimo a livello di articolo.",
+          "I controlli articolo sono Starter a 19 € al mese.",
         ],
-        ceiling: "I 10 controlli al giorno non scadono mai. Dopo la prova, solo 10 al mese mostrano i numeri completi — il Live Finder è Pro.",
+        ceiling: "Nessun piano gratuito per i controlli articolo. Live Finder è Pro.",
       },
     },
     liveProof: {
@@ -1996,13 +1996,13 @@ export const copy = {
       },
       register: {
         heading: "Crea il tuo account",
-        subheading: "Inizia gratis, oppure scegli un piano per il set completo di strumenti. Annullabile in qualsiasi momento.",
+        subheading: "I volumi settimanali per marca restano pubblici su /data. I controlli articolo richiedono un piano a pagamento. Annullabile in qualsiasi momento.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Più popolare",
         planDesc: {
           power: "Offerte live, Order Planner, API, velocità per taglia",
           operator: "Verdetti illimitati, tutti i segnali, watchlist e P&L",
-          free: "7 giorni di Starter, poi 10 controlli al giorno più 10 sblocchi completi al mese. Senza carta.",
+          free: "Volumi settimanali pubblici su /data. Nessun controllo articolo anonimo.",
         },
         forever: "per sempre",
         perMonth: "/mese",
@@ -2102,7 +2102,7 @@ export const copy = {
     pricing: "Preços",
     heroTitle: "Saiba quanto pagar antes de comprar.",
     heroAudience: "Para revendedores Vinted na UE.",
-    heroTrust: "Grátis — 10 verificações por dia, sem conta, sem cartão. Dados de mercado UE ao vivo.",
+    heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está mesmo a vender agora.",
@@ -2139,7 +2139,7 @@ export const copy = {
     noAccuracy: "Sem dados de precisão até 30 resultados avaliados",
     mostItemsRefresh: "A maioria dos artigos é atualizada em menos de uma hora",
     siteFooter: {
-      toolsLink: "Ferramentas gratuitas",
+      toolsLink: "Ferramentas",
       whatToFlip: "O que revender",
       categories: "Categorias",
       nikeResale: "Revenda Nike",
@@ -2231,7 +2231,7 @@ export const copy = {
       heading: "Saiba quanto pagar. Ignore o resto.",
       metaTitle: "Preços — quanto custa cada plano e o que desbloqueia",
       metaDescription:
-        "Todos os planos Resale IQ lado a lado: quanto custam por mês, o que desbloqueiam e onde param. Grátis para sempre, sem cartão. Cancele quando quiser.",
+        "Todos os planos Resale IQ lado a lado: Starter 19 € e Pro 49 €, o que desbloqueiam e onde param. Os volumes semanais por marca continuam públicos em /data. Cancele quando quiser.",
       noCardRequired: "Sem cartão necessário",
       perDay: (amount: string) => `cerca de €${amount} por dia`,
       mostPopular: "MAIS POPULAR",
@@ -2240,15 +2240,15 @@ export const copy = {
       whereItStops: "Onde para:",
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
-      subhead: "Começa grátis, sem cartão. Sobe de plano quando os números pagam a subscrição.",
+      subhead: "A partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
       faqHeading: "Antes de escolheres um plano",
       faq: [
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança." },
         { q: "Vale €19 por mês?", a: "Uma compra que evitas num SKIP, ou uma que aproveitas num BUY, costuma cobrir o mês. A calculadora de retorno acima calcula-o para o volume que realmente fazes." },
         { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes um BUY, WATCH ou SKIP com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
         { q: "E se não houver dados para o meu artigo?", a: "Continuas a ver a verificação, e onde a amostra é reduzida dizemos isso em vez de inventar um número. Reportamos saídas observadas, ou seja, artigos que deixam a prateleira, não vendas que não vimos." },
-        { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar tu próprio na página de dados pública. A conta gratuita não pede cartão, e cancelas em Conta com um clique; o acesso vai até ao fim do mês pago, sem e-mail a perseguir." },
-        { q: "Como funcionam os limites gratuitos?", a: "Sem conta: 10 verificações por dia. Uma conta gratuita mantém essas 10 por dia para sempre e adiciona 7 dias de acesso Starter completo, depois 10 desbloqueios completos por mês para os números detalhados. Live Deal Finder, Order Planner e Price Compare são Pro." },
+        { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar tu próprio na página de dados pública. Cancelas em Conta com um clique; o acesso vai até ao fim do mês pago, sem e-mail a perseguir." },
+        { q: "Há um verificador de artigos grátis?", a: "Não. Os volumes semanais por marca e os preços médios de saída são públicos em /data sem conta. BUY, WATCH ou SKIP ao nível do artigo, o preço máximo e os tamanhos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API." },
       ],
     },
     tiers: {
@@ -2282,15 +2282,15 @@ export const copy = {
         ceiling: "Sem Live Deal Finder, Order Planner, Price Compare ou API — isso é Pro.",
       },
       free: {
-        tagline: "Vê que os dados são reais antes de pagares",
-        cta: "Criar uma conta grátis",
+        tagline: "Os volumes semanais por marca continuam públicos",
+        cta: "Ver dados públicos",
         features: [
-          "7 dias de acesso Starter completo (veredictos + Deal Scanner), 5 pesquisas em direto e 1 plano de encomenda. Depois: 10 verificações por dia para sempre — como um visitante anónimo — mais 10 desbloqueios completos por mês para o sell-through, os tamanhos e as razões do veredicto.",
-          "COMPRAR / OBSERVAR / DESCARTAR em cada pesquisa",
-          "Todo o manual de revenda e os dados de mercado",
-          "Sem cartão necessário",
+          "Volumes semanais por marca e preços médios de saída em /data, sem conta.",
+          "O manual de revenda, sem registo.",
+          "Não há buy-below anónimo ao nível do artigo.",
+          "As verificações de artigos são Starter a 19 € por mês.",
         ],
-        ceiling: "As 10 verificações por dia nunca se esgotam. Depois do período experimental, só 10 por mês mostram os números completos — o Live Finder é Pro.",
+        ceiling: "Não há plano grátis de verificação de artigos. Live Finder é Pro.",
       },
     },
     liveProof: {
@@ -2373,13 +2373,13 @@ export const copy = {
       },
       register: {
         heading: "Crie a sua conta",
-        subheading: "Comece grátis ou escolha um plano para o conjunto completo de ferramentas. Cancele quando quiser.",
+        subheading: "Os volumes semanais por marca continuam públicos em /data. As verificações de artigos precisam de um plano pago. Cancele quando quiser.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Mais popular",
         planDesc: {
           power: "Ofertas em direto, Order Planner, API, velocidade por tamanho",
           operator: "Veredictos ilimitados, todos os sinais, watchlist e P&L",
-          free: "7 dias de Starter, depois 10 verificações por dia mais 10 desbloqueios completos por mês. Sem cartão.",
+          free: "Volumes semanais públicos em /data. Não há verificação anónima de artigo.",
         },
         forever: "para sempre",
         perMonth: "/mês",
