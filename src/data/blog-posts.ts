@@ -112,7 +112,7 @@ export const POSTS: BlogPost[] = [
         h: "Price to sell in a reasonable window",
         p: [
           "Pricing slightly below the median departure price sells faster and frees your cash to reinvest. Pricing above it can work for rare items but slows everything down.",
-          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item leaves the shelf — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually moves per week](/flip).",
+          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item leaves the shelf — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually moves per week](/flip). And the opening price is only half the decision — [a pre-committed markdown schedule](/manual/pricing-your-listing) is where the money is actually made or lost.",
         ],
       },
     ],

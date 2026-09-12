@@ -183,7 +183,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // signal this file was fixed to remove.
   const manualPages = ALL_CHAPTERS.map((c) => ({
     url: `${BASE}/manual/${c.slug}`,
-    lastModified: STATIC_CONTENT_DATE,
+    // Prefer a chapter's content-refresh date over the static build date, same
+    // reason as blogPages below: a chapter whose dated data callout was
+    // rewritten genuinely changed, and advertising the old static date told
+    // crawlers it hadn't (the EXP-20 stale-lastmod trap).
+    lastModified: c.updated ? toDay(new Date(c.updated)) : STATIC_CONTENT_DATE,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }))

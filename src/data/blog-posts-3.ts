@@ -477,7 +477,7 @@ export const POSTS_3: BlogPost[] = [
           "1. Re-check the price against real recent departures for that exact model and condition, not retail and not hope.",
           "2. Rewrite the description to say precisely what condition the item is in — specific, not aspirational.",
           "3. Confirm demand actually exists for the model and size using current market data, not brand reputation.",
-          "4. If it's genuinely a slow mover in a slow size, consider [a bundle or a reasonable offer](/blog/vinted-bundles-and-offers-strategy) rather than holding out — cash that recycles beats a listing that sits.",
+          "4. If it's genuinely a slow mover in a slow size, consider [a bundle or a reasonable offer](/blog/vinted-bundles-and-offers-strategy) rather than holding out — cash that recycles beats a listing that sits. For the discipline behind that call — when a price cut is cheaper than another month of waiting — see [pricing a listing and when to cut](/manual/pricing-your-listing).",
         ],
         table: {
           caption: "A quick read on what the symptom usually means. Check price first — it explains most cases.",

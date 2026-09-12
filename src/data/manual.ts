@@ -34,6 +34,11 @@ export interface ManualChapter {
   sections: ManualSection[]
   takeaways: string[]
   faq: { q: string; a: string }[]
+  // Optional content-refresh date (YYYY-MM-DD). When a chapter carries a dated
+  // live-data callout, set this so the sitemap advertises the real refresh day
+  // instead of the static build date — otherwise a genuinely-changed page tells
+  // crawlers it hasn't (the EXP-20 stale-lastmod trap, manual half).
+  updated?: string
 }
 
 export const PARTS = [

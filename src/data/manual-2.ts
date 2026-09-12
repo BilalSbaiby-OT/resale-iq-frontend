@@ -9,6 +9,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "pricing-your-listing",
     number: 9,
     part: "Selling",
+    updated: "2026-09-12",
     title: "Pricing a listing, and when to cut",
     description:
       "Setting an opening price that leaves room to negotiate, running a disciplined markdown schedule, and knowing when a price cut is cheaper than waiting.",
@@ -21,6 +22,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Open slightly above your target, not dramatically above it. A modest premium leaves room to accept an offer and lets a price drop register as a genuine reduction later. A large premium gets you filtered out of the searches where buyers set a maximum, which means nobody sees the listing at all and you learn nothing from the silence.",
           "Anchor the number to the asking price at departure for the same model in similar condition. Where the item is at the edge of the distribution — worn, edge size, off-season — start closer to your floor, because the extra premium is not going to be paid and all it buys you is weeks of invisibility.",
+          "How far apart those anchors sit is easy to underestimate until you see the spread. As of 12 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (547 watched departures in seven days), a Stone Island Jacket at €134 (197), and a Gucci Bag at €288 (97) — the same \"sell one garment\" motion spanning roughly twenty times the price. A number that is right for one is nonsense for another, which is exactly why the anchor has to come from your model's own departures rather than a category feel or a round figure that looks sensible.",
         ],
         callout: {
           label: "Price-filter awareness",
