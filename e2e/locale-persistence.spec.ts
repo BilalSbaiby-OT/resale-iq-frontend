@@ -275,7 +275,7 @@ test("/tools carries the stored language into both the chrome and the free check
   const html = await res.text()
   expect(html).toContain('lang="fr"')
   expect(html).toContain("Vérifiez le marché avant d'acheter")
-  expect(html).toContain("Vérifier gratuitement")
+  expect(html).toContain("Vérifier cet article")
   expect(html).not.toContain("Check the market before you buy")
 })
 

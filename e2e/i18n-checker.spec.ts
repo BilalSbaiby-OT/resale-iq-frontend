@@ -82,7 +82,7 @@ interface LocaleFixture {
 const LOCALES: Record<string, LocaleFixture> = {
   fr: {
     ctxLocale: "fr-FR",
-    checkFree: /Vérifier gratuitement/,
+    checkFree: /Vérifier cet article/,
     buyBelow: "Prix d'achat max",
     marketPrice: "Prix de marché",
     tryTheseInstead: /Essayez plutôt/i,
@@ -111,7 +111,7 @@ const LOCALES: Record<string, LocaleFixture> = {
   },
   es: {
     ctxLocale: "es-ES",
-    checkFree: /Comprobar gratis/,
+    checkFree: /Comprobar este artículo/,
     buyBelow: "Precio máximo de compra",
     marketPrice: "Precio de mercado",
     tryTheseInstead: /Prueba con uno de estos/i,
@@ -140,7 +140,7 @@ const LOCALES: Record<string, LocaleFixture> = {
   },
   de: {
     ctxLocale: "de-DE",
-    checkFree: /Kostenlos prüfen/,
+    checkFree: /Diesen Artikel prüfen/,
     buyBelow: "Kaufobergrenze",
     marketPrice: "Marktpreis",
     tryTheseInstead: /Probier stattdessen/i,
@@ -169,7 +169,7 @@ const LOCALES: Record<string, LocaleFixture> = {
   },
   it: {
     ctxLocale: "it-IT",
-    checkFree: /Controlla gratis/,
+    checkFree: /Controlla questo articolo/,
     buyBelow: "Prezzo massimo di acquisto",
     marketPrice: "Prezzo di mercato",
     tryTheseInstead: /Prova uno di questi/i,
@@ -198,7 +198,7 @@ const LOCALES: Record<string, LocaleFixture> = {
   },
   pt: {
     ctxLocale: "pt-PT",
-    checkFree: /Verificar grátis/,
+    checkFree: /Verificar este artigo/,
     buyBelow: "Preço máximo de compra",
     marketPrice: "Preço de mercado",
     tryTheseInstead: /Experimenta um destes/i,
@@ -248,7 +248,7 @@ for (const [locale, l] of Object.entries(LOCALES)) {
 
       const button = page.locator("#check").getByRole("button").first()
       await expect(button).toHaveText(l.checkFree)
-      await expect(button).not.toHaveText(/Check it free/)
+      await expect(button).not.toHaveText(/Check this item/)
 
       // Landing prefills Nike Air Force 1 Low. Empty-input is still the conversion
       // error state — clear the field first so we are testing that, not the hero.

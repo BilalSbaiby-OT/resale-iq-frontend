@@ -33,7 +33,7 @@ async function search(page: import("@playwright/test").Page, q: string) {
   await page.goto("/tools")
   await page.getByLabel(/Item to check/i).fill(q)
   const responsePromise = page.waitForResponse((r) => r.url().includes("/api/verdict"))
-  await page.getByRole("button", { name: /Check it free/i }).click()
+  await page.getByRole("button", { name: /Check this item/i }).click()
   return responsePromise
 }
 
@@ -343,7 +343,7 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     })
     await page.goto("/tools")
     await page.getByLabel(/Item to check/i).fill("Adidas Samba")
-    await page.getByRole("button", { name: /Check it free/i }).click()
+    await page.getByRole("button", { name: /Check this item/i }).click()
     const wall = page.getByTestId("riq-hard-paywall")
     await expect(wall).toBeVisible()
     await expect(wall).toContainText(/Start — €19/)
