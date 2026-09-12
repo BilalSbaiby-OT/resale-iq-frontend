@@ -305,7 +305,7 @@ export const POSTS: BlogPost[] = [
     category: "Sourcing",
     readMins: 5,
     intro:
-      "To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick models that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
+      "As of 11 September 2026, we watched 6,333 listings leave the shelf across 28 tracked brands this week, and the fastest-moving categories point straight at what's worth flipping: Stone Island Hoodies (566 watched departures at €55), Patagonia Jackets (346 at €50) and New Balance Sneakers (283 at €51). To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick categories that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
     sections: [
       {
         h: "Start from demand, not from what's cheap",
