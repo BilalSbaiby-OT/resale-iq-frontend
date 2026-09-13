@@ -276,6 +276,22 @@ NEXT (once unblocked): P0-1.
 - CI: definition assertions live in `faq-schema.test.ts` (a standalone
   test file cloned the hub-social read helper and tripped check:dupes).
   `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".
+- MERGED #98 as 7915b90. Live after Coolify. Cache-busted curl 5/5 PASS.
+
+## 2026-09-13 — BODY-VIEWS-002 demand section on views post
+- `/blog/how-to-get-more-views-on-vinted` only. Body insert after
+  “First: is there demand at all?”, before “Match the words buyers type”.
+- New H2: “Demand is the other half of the views”. Week-to-13-Sep
+  figures: 5,746 / Fred Perry 1,027 / Stone Island 892 / Gucci 230 @ €197.
+- Soft cite `/data?...utm_campaign=body_views_deepen_002_20260913`
+  (anchor “Vinted market data”). Paid CTA Get the numbers →
+  `/pricing?...utm_campaign=body_views_deepen_002_20260913`.
+- Existing `pricingMidCta("body_views_20260913")` kept. Footer still
+  first-CTA `body_views_20260913`. Title / seoTitle / H1 / meta unchanged.
+- No `/register`. HowTo expected headings include the new H2.
+- MERGED #102 as 45e1979. Live after Coolify. Cache-busted curl PASS:
+  heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
+  + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.
 
 ## 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
 - `/manual` hub: answer-first title + FAQPage/HubFaq (5 Qs: what it

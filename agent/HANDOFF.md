@@ -12,6 +12,34 @@ SEO LANE, 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
   Authenticity title/meta/H1/body_fake untouched. No /register in
   FAQ. Paid CTAs stay /pricing. Branch cursor/seo-ex-manual-aeo-30fe.
 
+SEO LANE, 2026-09-13 — BODY-VIEWS-002 LIVE (merged #102)
+  MERGED | 45e1979 | live PASS
+  `/deploy-id` SOURCE_COMMIT 45e197980d252b0e3d0037954117744d6ec7046d
+  Cache-busted curl of /blog/how-to-get-more-views-on-vinted:
+  heading “Demand is the other half of the views” present.
+  Paid href `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913`
+  Button “Get the numbers”. Zero `/register?src=blog`.
+  Title + H1 unchanged: “How to Get More Views on Vinted — 4 Causes and Fixes”.
+  Agent Isolation green; Deploy green. Playwright still running —
+  ignore /data H1 flake if it is the sole failure.
+
+SEO LANE, 2026-09-13 — BODY-VIEWS-002 / EX-CONTENT-BODY-005 (this session)
+  Body insert only on `/blog/how-to-get-more-views-on-vinted`.
+  New H2 after “First: is there demand at all?”, before listing tips:
+  “Demand is the other half of the views”. Soft cite
+  `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913`
+  (anchor “Vinted market data”). Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913`.
+  Subline: Buy-below + demand before cash sticks. Existing mid-CTA
+  `body_views_20260913` kept. Title / seoTitle / H1 / meta untouched.
+  No `/register?src=blog`. HowTo heading lock updated so the new H2
+  is a real on-page step. Branch cursor/body-views-deepen-002-2e92.
+
+SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS LIVE (merged #98)
+  /deploy-id 7915b90. Cache-busted curl: 5/5 PASS (buy-below,
+  sell-through, what-sells-best, /data, /flip). DefinedTerm + FAQ
+  present. No /register. Playwright /data H1 ignored per owner.
+
 SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
   Visible H2 + 1–2 sentence leads (above the fold on the three blogs via
   `definedTerm`). FAQ answers match. DefinedTerm JSON-LD added beside
