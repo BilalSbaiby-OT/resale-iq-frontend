@@ -3,6 +3,13 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-001 exact Content insert on how-to-price
+  Section after buy-below: "Demand is the other half of the price" —
+  Content's wording (5,746 / Fred Perry 1,027 @ €19 / Stone Island 892
+  @ €66 / Gucci 230 @ €197). Cite + CTA campaign `body_price_20260913`
+  (`utm_source=blog&utm_medium=organic`). ctr_price mid-CTA kept.
+  Footer still `ctr_price_20260913` + `footer_see_plans`. No ES page.
+
 SEO LANE, 2026-09-13 — BODY-001 on how-to-price-items-on-vinted
   New section after buy-below: "Demand is the other half of the price".
   Soft /data cite `body_price_20260913` / `data_cite`. Paid CTA

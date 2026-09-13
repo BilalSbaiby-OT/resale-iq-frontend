@@ -126,13 +126,21 @@ export const POSTS: BlogPost[] = [
       {
         h: "Demand is the other half of the price",
         p: [
-          "A departure price without demand is a trap. Pair two numbers before you pay: (1) the exit price comparable listings actually left at, and (2) how many watched departures that brand moved in the same week.",
-          "Week to 13 September 2026, across the brands we watch: Fred Perry 1,027 watched departures at €19 · Stone Island 892 at €66 · Gucci 230 at €197. Those are counts and averages, not a hit rate — volume is what tells you whether cash comes back.",
-          "Buy-below is the most you can pay after fees and still have a margin. Demand is whether the item will leave before that cash sticks. [Weekly market data](" +
+          "A departure price without demand is a trap. The item can look cheap and still sit — or look expensive and still leave the shelf the same week.",
+          "Use two numbers together:",
+          "1. What it exited at — average asking price when comparable listings left the shelf (brand/category averages are free on our weekly table).",
+          "2. Whether anything like it is moving — watched departures for that brand this week. High volume + sane exit price = cash can turn. Low volume at a “deal” price = dead stock risk.",
+          "Week to 13 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,746 departures across 28 brands. Examples of the gap:",
+          "Fred Perry — 1,027 left the shelf · avg €19 (volume play)",
+          "Stone Island — 892 · avg €66",
+          "Gucci — 230 · avg €197 (price play, thinner volume)",
+          "Same week, same markets. Price-alone math would treat a Gucci “deal” and a Fred Perry tee as the same kind of decision. They aren’t.",
+          "Buy-below answers “what’s the most I can pay and still margin after fees.” Demand answers “will it leave the shelf before my cash is stuck.” Skip either and you’re guessing.",
+          "Full weekly table (free to cite): [weekly market data](" +
             dataCiteHref("body_price_20260913") +
-            ") publishes both, free.",
+            ").",
         ],
-        // BODY-001. Keep the ctr_price mid-CTA above. This block is body_price.
+        // BODY-001 exact Content insert. Keep the ctr_price mid-CTA above.
         cta: pricingBodyCta("body_price_20260913"),
       },
       {
