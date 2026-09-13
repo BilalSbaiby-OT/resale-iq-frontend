@@ -225,3 +225,5 @@ NEXT (once unblocked): P0-1.
   not-selling / thrift / seasonal.
 - No mid-CTA or body CTA changes. No `/register?src=blog` left to retarget.
 - seoTitle carries " — Resale IQ". Soft caps: title ≤60, meta ≤155.
+- Merged #94 (c564075). Playwright /data H1 flake ignored. All 8 live
+  after Coolify; cache-busted curl 17:08Z matched new titles/metas.
