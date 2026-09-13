@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { ALL_CHAPTERS, PARTS } from "@/data/manual"
 import { CATEGORIES } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd } from "@/lib/faq-schema"
 
 // Manual index. Deliberately a real table of contents rather than a landing
 // page — this is the hub every chapter and every programmatic SEO page links
@@ -11,18 +13,52 @@ export const revalidate = 900
 
 const BASE = "https://resaleiq.dev"
 
+const TITLE = "How to Resell on Vinted — The Vinted Reselling Manual"
+const DESCRIPTION =
+  "Free 16-chapter Vinted reselling manual: buy-below price, sourcing, sizes, cashflow and the five numbers to track. Written from watched ES/FR/DE/IT/PT listings. No signup."
+
 export const metadata: Metadata = {
-  title: "The Vinted Reselling Manual — 16 chapters, free",
-  description:
-    "The operator's manual for reselling on Vinted: margin maths, buy-below pricing, sourcing, sizes, cashflow and the metrics that matter. Free, no signup.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/manual" },
   openGraph: {
-    title: "The Vinted Reselling Manual — 16 chapters, free",
-    description:
-      "Margin maths, sourcing, pricing, sizes, cashflow and measurement — the full method, written from our own Vinted dataset.",
+    title: TITLE,
+    description: DESCRIPTION,
     type: "article",
   },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 }
+
+// Visible FAQ and FAQPage JSON-LD share this array. Answers stay qualitative
+// except where this page already prints a live figure. Signup walls and
+// campaign tags stay off the schema answers.
+const MANUAL_HUB_FAQS = [
+  {
+    q: "What is the Vinted Reselling Manual?",
+    a:
+      "Sixteen chapters on how resale actually works on Vinted: the margin equation, how to derive a maximum buy price, why fast stock beats fat margins, where stock comes from, how sizes quietly kill portfolios, and how to measure whether any of it is working. The method is public at https://resaleiq.dev/manual.",
+  },
+  {
+    q: "Who is the Vinted Reselling Manual for?",
+    a:
+      "Operators who resell secondhand clothing on Vinted and want the method before the tool — margin maths, buy-below discipline, sourcing channels, listing work and cashflow. It is not tax, legal or financial advice.",
+  },
+  {
+    q: "Is the Vinted Reselling Manual free?",
+    a:
+      "Yes. All sixteen chapters are free, with no signup and no email. The method is public. Item-level buy-below prices, per-model stats and BUY/WATCH/SKIP are the paid product at https://resaleiq.dev/pricing.",
+  },
+  {
+    q: "How does the manual tie to buy-below and the market data?",
+    a:
+      "Chapter 2 shows how to derive a maximum buy price from a realistic sale price, the platform fee and a target margin: https://resaleiq.dev/manual/the-buy-below-price. Doing that by hand for every model across five markets is what does not scale — Resale IQ computes it. Weekly brand volumes stay public at https://resaleiq.dev/data. Per-model buy-below numbers are not published in the manual.",
+  },
+  {
+    q: "Which Vinted markets does this manual cover?",
+    a:
+      "Data claims are grounded in listings we watched leave the shelf on Vinted Spain, France, Germany, Italy and Portugal. The method — fees, turns, sizes, cashflow — applies wherever you sell; the figures do not cover the UK or other Vinted domains.",
+  },
+]
 
 export default async function ManualIndex() {
   const market = await getMarketNumbers()
@@ -49,6 +85,7 @@ export default async function ManualIndex() {
         abstract: c.description,
       })),
     },
+    faqPageJsonLd(MANUAL_HUB_FAQS),
   ]
 
   return (
@@ -129,6 +166,8 @@ export default async function ManualIndex() {
             </Link>
           </div>
         </div>
+
+        <HubFaq items={MANUAL_HUB_FAQS} />
 
         <div>
           <h2 style={{ fontSize: 13, color: "#5b6b8c", margin: "0 0 10px", letterSpacing: "0.1px" }}>

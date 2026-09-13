@@ -11,6 +11,15 @@ SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
   cursor/seo-ex-ctr-batch-4-5b34. Merging now per owner; ignore
   /data H1 Playwright flake (expected "Vinted market data").
 
+SEO LANE, 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
+  /manual hub now has FAQPage + HubFaq (what it is, who for, free?,
+  buy-below/data, markets). Title: "How to Resell on Vinted — The
+  Vinted Reselling Manual". 15 chapters expanded 2 → 4 FAQs from
+  chapter copy. /manual/the-buy-below-price citeable DefinedTerm
+  matches the blog twin. Soft seoTitles keep Manual suffix.
+  Authenticity title/meta/H1/body_fake untouched. No /register in
+  FAQ. Paid CTAs stay /pricing. Branch cursor/seo-ex-manual-aeo-30fe.
+
 SEO LANE, 2026-09-13 — BODY-VIEWS-002 LIVE (merged #102)
   MERGED | 45e1979 | live PASS
   `/deploy-id` SOURCE_COMMIT 45e197980d252b0e3d0037954117744d6ec7046d

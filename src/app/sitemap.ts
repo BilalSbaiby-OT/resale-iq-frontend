@@ -73,6 +73,8 @@ async function snapshotUpdatedAt(): Promise<Date> {
  * requires a human edit is exactly the point.
  */
 const STATIC_CONTENT_DATE = new Date("2026-08-29T00:00:00.000Z")
+/** /manual hub copy last changed (FAQPage + answer-first title). Do not reuse for /terms. */
+const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()
@@ -108,7 +110,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
+    lastModified: p === "/manual" ? MANUAL_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     // /pricing above the 0.6 static-copy shelf: it is the last page before
     // checkout, and the one an ad or a "resaleiq pricing" search lands on.
