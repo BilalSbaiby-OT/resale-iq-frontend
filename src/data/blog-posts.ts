@@ -169,6 +169,11 @@ export const POSTS: BlogPost[] = [
     readMins: 6,
     intro:
       "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 11 September 2026, we watched 6,378 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €54, and Balenciaga Sneakers €121. Price off the brand's real departure number, not retail.",
+    definedTerm: {
+      name: "What is a buy-below price?",
+      description:
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+    },
     sections: [
       {
         h: "Start from the real departure price, not the retail price",
@@ -220,7 +225,7 @@ export const POSTS: BlogPost[] = [
     ],
     faq: [
       { q: "How should I price items on Vinted?", a: "Anchor to the median recently-departed asking price for that exact model and condition, then price slightly below it to sell faster. Don't price off retail — resale value is what matters." },
-      { q: "What is a buy-below price?", a: "The maximum you should pay when sourcing an item to resell it profitably. A common formula is average asking price at departure × 0.95 (after fees) × 0.70, which targets about a 30% margin." },
+      { q: "What is a buy-below price?", a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
       { q: "Should I price high and negotiate, or price to sell?", a: "For most items, pricing near or slightly below the median departure price sells faster and keeps your cash moving. Hold-for-more only makes sense for genuinely scarce items." },
     ],
   },
@@ -593,7 +598,7 @@ export const POSTS: BlogPost[] = [
     definedTerm: {
       name: "Buy-below price",
       description:
-        "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
@@ -637,7 +642,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "What is a buy-below price?", a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70." },
+      { q: "What is a buy-below price?", a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
       { q: "How do you calculate a buy-below price?", a: "Buy-below price = average sale price × 0.95 × 0.70. The 0.95 covers the 5% platform deduction Resale IQ models for Vinted, and the 0.70 targets about a 30% margin. Fee structures differ by platform and by whether you sell privately or as a business, so substitute your own figure. Never pay more than the result when sourcing." },
       { q: "Why is buy-below price important?", a: "It protects your margin before you list. Profit in reselling is mostly decided at the buy, not the sale — buying under your buy-below price is what makes an item profitable." },
     ],

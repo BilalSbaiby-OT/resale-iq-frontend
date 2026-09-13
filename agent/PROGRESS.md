@@ -449,3 +449,17 @@ NEXT (once unblocked): P0-1.
 - Existing `pricingMidCta("body_flips_20260913")` kept. Footer still
   first-CTA `body_flips_20260913`. Title / seoTitle / H1 / meta unchanged.
 - No `/register`. HowTo expected headings include the new H2.
+
+## 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF citeable definition
+- `/manual/the-buy-below-price` only as the primary URL. Title / H1 /
+  seoTitle untouched (“How to work out the most you can pay”).
+- DefinedTerm H2 is now “What is a buy-below price?”. Lead + matching
+  FAQ: leave room after fees; Resale IQ models avg departure ask ×
+  0.95 × 0.70; departure = watched listings leaving the shelf; 0.95 =
+  5% platform deduction; 0.70 ≈ 30% margin; sourcing ceiling, not a
+  promised profit — adjust for condition, size, market, sample.
+- Reinforced the same block on `/blog/how-to-price-items-on-vinted`
+  (was a short FAQ, no DefinedTerm) and the blog twin
+  `/blog/buy-below-price-explained` (description only; H2 stays
+  “Buy-below price”).
+- Tests: `manual-aeo.test.ts` + `faq-schema.test.ts`.

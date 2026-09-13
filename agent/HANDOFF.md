@@ -3,6 +3,15 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF (this session)
+  Strengthen citeable definition on /manual/the-buy-below-price.
+  Visible H2 “What is a buy-below price?” + longer lead: formula
+  (avg departure ask × 0.95 × 0.70), what each factor means, and
+  “sourcing ceiling, not a promised profit”. FAQ answer matches.
+  Title / H1 untouched. Optional reinforce on how-to-price blog
+  if that FAQ is still the short one. Branch
+  cursor/aeo-manual-buybelow-def-a923.
+
 SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   HowTo JSON-LD + visible numbered steps on
   /tools/vinted-profit-calculator and /tools/vinted-price-checker.

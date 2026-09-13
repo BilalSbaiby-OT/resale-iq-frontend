@@ -149,9 +149,9 @@ export const CHAPTERS_1: ManualChapter[] = [
     intro:
       "You compute the number before you go sourcing, not as a feeling while standing in front of a rail. Pay under it and the flip is set up to profit; pay over it and you are speculating.",
     definedTerm: {
-      name: "Buy-below price",
+      name: "What is a buy-below price?",
       description:
-        "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
@@ -191,7 +191,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     faq: [
       {
         q: "What is a buy-below price?",
-        a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+        a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
       },
       {
         q: "How do you calculate a buy-below price?",

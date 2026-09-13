@@ -136,12 +136,32 @@ test("buy-below-price-explained ships a Buy-below price lead and FAQ", () => {
   assert.match(post, /name: "Buy-below price"/)
   assert.match(
     post,
-    /Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees/,
+    /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
   )
+  assert.match(post, /sourcing ceiling, not a promised profit/)
   assert.match(post, /average asking price at departure × 0\.95 × 0\.70/)
   assert.match(post, /q: "What is a buy-below price\?"/)
   assert.doesNotMatch(post, /register\?plan=/)
   assert.doesNotMatch(post, /Start free/i)
+})
+
+test("how-to-price ships the citeable buy-below definition and matching FAQ", () => {
+  const post = postSlice(
+    read("data/blog-posts.ts"),
+    "how-to-price-items-on-vinted",
+    "best-brands-to-resell-on-vinted",
+  )
+  assert.match(post, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
+  assert.match(post, /name: "What is a buy-below price\?"/)
+  assert.match(
+    post,
+    /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
+  )
+  assert.match(post, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(post, /sourcing ceiling, not a promised profit/)
+  assert.match(post, /q: "What is a buy-below price\?"/)
+  assert.doesNotMatch(post, /The maximum you should pay when sourcing/)
+  assert.doesNotMatch(post, /register\?plan=/)
 })
 
 test("sell-through post ships an answer-first Sell-through rate lead and FAQ", () => {

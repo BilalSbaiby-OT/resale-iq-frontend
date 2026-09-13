@@ -69,14 +69,19 @@ test("expanded chapters ship 3–5 FAQ answers with no /register or UTM", () => 
 
 test("buy-below chapter matches the blog twin definition lead", () => {
   const chunk = chapterSlice(manual1, "the-buy-below-price", "sell-through-vs-volume")
-  assert.match(chunk, /name: "Buy-below price"/)
+  assert.match(chunk, /name: "What is a buy-below price\?"/)
   assert.match(
     chunk,
-    /Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees/,
+    /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
   )
   assert.match(chunk, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(chunk, /departure-price input reflects watched listings leaving the shelf/)
+  assert.match(chunk, /0\.95 models a 5% platform deduction/)
+  assert.match(chunk, /0\.70 targets roughly a 30% margin/)
+  assert.match(chunk, /sourcing ceiling, not a promised profit/)
   assert.match(chunk, /q: "What is a buy-below price\?"/)
   assert.match(chunk, /seoTitle: "What Is a Buy-Below Price on Vinted\? — The Vinted Reselling Manual"/)
+  assert.match(chunk, /title: "How to work out the most you can pay"/)
   assert.doesNotMatch(chunk, /\/register/)
 })
 
