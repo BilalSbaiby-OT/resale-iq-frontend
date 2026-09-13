@@ -123,3 +123,9 @@ NEXT (once unblocked): P0-1.
 - How-to-price: same QC copy via shared helper; campaign `ctr_price_20260913`.
 - Stretch: `/data` title/meta + H1 toward weekly brand volumes; `/flip` H1
   aligned to “what sells best on Vinted in 2026?”.
+
+## 2026-09-13 — blog footer See plans UTMs
+- Shared article footer "See plans — from €19/mo" no longer `/pricing?src=blog`.
+- How-to-price: `ctr_price_20260913` + `utm_content=footer_see_plans`.
+- Other how-tos: their mid-CTA campaign + `footer_see_plans`.
+- Copy lock unchanged: Get the numbers / Buy-below + demand before cash sticks.
