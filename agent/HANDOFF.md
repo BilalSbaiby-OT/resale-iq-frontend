@@ -3,6 +3,11 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — smoke /data H1 aligned to live copy
+  e2e-required failed on PR #87: stale `/Vinted market data/i` vs live
+  "Weekly brand volumes on Vinted" (CTR pack, already on main). Unrelated
+  to BODY-ES-001. Assertion updated so the ES PR can merge.
+
 FRONTEND, 2026-09-13 — blog signup-wall CTAs → /pricing
   Shared SmartCTA now `/pricing` + `utm_content=legacy_signup_kill`.
   How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.

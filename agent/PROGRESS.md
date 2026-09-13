@@ -162,3 +162,7 @@ NEXT (once unblocked): P0-1.
 - Shared article footer SmartCTA is `/pricing` + `utm_content=legacy_signup_kill`.
 - How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
 - Button: Get the numbers. ES BODY-ES-001 copy not rewritten.
+
+## 2026-09-13 — e2e smoke /data H1 (PR #87 unblock)
+- `e2e/smoke.spec.ts` expected `/Vinted market data/i`; live H1 is
+  "Weekly brand volumes on Vinted". Inherited from main, not BODY-ES-001.
