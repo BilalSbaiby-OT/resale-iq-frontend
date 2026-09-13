@@ -289,3 +289,6 @@ NEXT (once unblocked): P0-1.
 - Existing `pricingMidCta("body_views_20260913")` kept. Footer still
   first-CTA `body_views_20260913`. Title / seoTitle / H1 / meta unchanged.
 - No `/register`. HowTo expected headings include the new H2.
+- MERGED #102 as 45e1979. Live after Coolify. Cache-busted curl PASS:
+  heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
+  + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.

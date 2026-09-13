@@ -3,6 +3,17 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-VIEWS-002 LIVE (merged #102)
+  MERGED | 45e1979 | live PASS
+  `/deploy-id` SOURCE_COMMIT 45e197980d252b0e3d0037954117744d6ec7046d
+  Cache-busted curl of /blog/how-to-get-more-views-on-vinted:
+  heading “Demand is the other half of the views” present.
+  Paid href `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913`
+  Button “Get the numbers”. Zero `/register?src=blog`.
+  Title + H1 unchanged: “How to Get More Views on Vinted — 4 Causes and Fixes”.
+  Agent Isolation green; Deploy green. Playwright still running —
+  ignore /data H1 flake if it is the sole failure.
+
 SEO LANE, 2026-09-13 — BODY-VIEWS-002 / EX-CONTENT-BODY-005 (this session)
   Body insert only on `/blog/how-to-get-more-views-on-vinted`.
   New H2 after “First: is there demand at all?”, before listing tips:
