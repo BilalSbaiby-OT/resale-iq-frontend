@@ -10,47 +10,21 @@ import { copy } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { HubFaq } from "@/components/seo/hub-faq"
-import { faqPageJsonLd } from "@/lib/faq-schema"
+import { MoneyCta } from "@/components/money-cta"
+import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
+import {
+  BUY_BELOW_TERM,
+  BUY_BELOW_TERM_NAME,
+  TOOLS_HUB_BODY,
+  TOOLS_HUB_DEFINED_TERM,
+  TOOLS_HUB_FAQS,
+} from "@/lib/tools-hub-aeo"
+import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_MONEY_HREF } from "@/lib/money-cta"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
 const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"
-
-const faqs = [
-  {
-    q: "What Vinted reseller tools are on this page?",
-    a:
-      "A free price checker plus five tool pages: Vinted price checker, sourcing tool, resale analytics, " +
-      "reselling intelligence, and a Vinted profit calculator. Type an item to get BUY, WATCH or SKIP, " +
-      "the most you should pay, and how many watched departures sit behind that number. Sell-through and sizes stay on a plan.",
-  },
-  {
-    q: "What is a buy-below price?",
-    a:
-      "Buy-below is the most you should pay for a Vinted item and still leave room after fees. " +
-      "The checker on this page returns that number with a BUY, WATCH or SKIP verdict and the watched-departure sample behind it. " +
-      "Item-level sizes and sell-through stay on a plan at https://resaleiq.dev/pricing.",
-  },
-  {
-    q: "Is the Vinted price checker free?",
-    a:
-      "Weekly brand volumes stay public at https://resaleiq.dev/data. This page starts a check: BUY, WATCH or SKIP, " +
-      "the most you should pay, and the watched-departure sample. Sell-through and sizes stay on a plan. " +
-      "The checker answers one item at a time.",
-  },
-  {
-    q: "Which Vinted markets do these tools cover?",
-    a:
-      "Spain, France, Germany, Italy and Portugal (ES/FR/DE/IT/PT). The tools do not cover the UK or other Vinted domains.",
-  },
-  {
-    q: "Where can I see weekly volumes and brand rankings?",
-    a:
-      "Weekly brand volumes stay public at https://resaleiq.dev/data. Brands ranked by watched departures this week live at https://resaleiq.dev/flip. " +
-      "This hub is the free checker and the five tool pages above.",
-  },
-]
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
@@ -70,7 +44,7 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   const { q: initialQuery } = await searchParams
-  const jsonLd = [faqPageJsonLd(faqs)]
+  const jsonLd = [faqPageJsonLd(TOOLS_HUB_FAQS), definedTermJsonLd(TOOLS_HUB_DEFINED_TERM)]
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -83,8 +57,20 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
           <LocaleSwitcher locale={locale} />
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.h1}</h1>
-        <p style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 28, maxWidth: 620 }}>
+        <p style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 20, maxWidth: 620 }}>
           {t.lede}
+        </p>
+
+        <MoneyCta href={TOOLS_MONEY_HREF} />
+
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", margin: "8px 0 8px", letterSpacing: "-0.4px" }}>
+          {BUY_BELOW_TERM_NAME}
+        </h2>
+        <p style={{ fontSize: 15.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 12, maxWidth: 620 }}>
+          {BUY_BELOW_TERM}
+        </p>
+        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 28, maxWidth: 620 }}>
+          {TOOLS_HUB_BODY}
         </p>
 
         <WelcomeBanner />
@@ -120,14 +106,19 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
           <Link href="/flip" style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>brand flips</Link>.
         </p>
 
-        <HubFaq items={faqs} />
+        <HubFaq items={TOOLS_HUB_FAQS} />
 
-        {/* One quiet paid path, kept below the free checker so it does not
-            compete with "Check it free". Child tool pages already carry a
-            plans link (493337e). */}
+        <p style={{ marginTop: 8, fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
+          <Link href={TOOLS_FAQ_CTA_HREF} style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
+            {MONEY_CTA_LABEL}
+          </Link>
+        </p>
+
+        {/* Secondary paid path. Primary door is the google_search_test CTA
+            above the fold. src=tools_index stays measurable as a footer. */}
         <p style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid var(--color-border-ui)", fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
           The checker answers one item at a time.{" "}
-          <Link href="/pricing?src=tools_index" style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
+          <Link href={TOOLS_INDEX_SECONDARY_HREF} style={{ color: "var(--color-text-secondary)", fontWeight: 600, textDecoration: "underline" }}>
             See the plans →
           </Link>
         </p>

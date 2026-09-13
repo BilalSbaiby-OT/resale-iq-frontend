@@ -5,6 +5,8 @@ import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
+import { MoneyCta } from "@/components/money-cta"
+import { CATEGORY_INDEX_SECONDARY_HREF, CATEGORY_MONEY_HREF } from "@/lib/money-cta"
 
 // The hub for the /category estate, and the more urgent of the two: Search
 // Console for 2026-07-30..08-26 recorded ZERO impressions across all nine
@@ -22,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `What Sells Best on Vinted by Category — ${CATEGORIES.length} Ranked`
   const description =
     `The ${CATEGORIES.length} categories we track, ranked by weekly watched departures on Vinted ` +
-    `across ES/FR/DE/IT/PT. Demand is free; buy-below on an item is on a plan.`
+    `across ES/FR/DE/IT/PT. Demand is free; a one-item check (BUY/WATCH/SKIP + buy-below) is free on /tools.`
   return {
     title,
     description,
@@ -96,8 +98,9 @@ export default async function CategoryHubPage() {
       a:
         "Category volume tells you demand exists — the busiest categories recycle cash; slower, higher-priced ones usually carry more margin per item. " +
         "Buy-below is the most you should pay for a specific listing after fees. Rankings on this page are not a buy-below. " +
+        "The free one-item checker at https://resaleiq.dev/tools returns BUY, WATCH or SKIP plus buy-below. Sell-through and sizes stay on a plan. " +
         "Weekly brand volumes stay public at https://resaleiq.dev/data. Brand rankings are at https://resaleiq.dev/flip. " +
-        "Item-level buy-below, sizes and BUY/WATCH/SKIP are on a paid plan at https://resaleiq.dev/pricing.",
+        "Unlimited checks and Deal Scanner start on Starter at https://resaleiq.dev/pricing.",
     },
     {
       q: "Which Vinted markets do these category rankings cover?",
@@ -152,6 +155,8 @@ export default async function CategoryHubPage() {
           on Vinted as a whole.
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
+
+        <MoneyCta href={CATEGORY_MONEY_HREF} />
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "30px 0 4px" }}>
           Categories ranked by weekly sales
@@ -228,7 +233,7 @@ export default async function CategoryHubPage() {
           >
             brand rankings
           </Link>{" "}
-          for the other cut. Item-level buy-below is on a plan —{" "}
+          for the other cut. A one-item check is free on /tools —{" "}
           <Link
             href="/pricing?utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913"
             style={{ color: "#34C759", textDecoration: "none" }}
@@ -259,22 +264,17 @@ export default async function CategoryHubPage() {
           sets out how every figure is calculated and what it cannot tell you.
         </p>
 
-        {/* EXP-13 (Tony): the /category INDEX led with a bare "See plans and
-            pricing" wall as its ONLY CTA — the last public data surface still
-            failing G2 (its 9 /category/[category] slug pages already lead with the
-            free checker; this index was missed). Same wall-before-value fix as
-            EXP-10/11/12: the no-signup free checker is the primary door
-            (check->signup is ~44%, so a check feeds a signup), plans demoted to
-            the secondary link. src=category-check tags the arrival. Nothing removed. */}
+        {/* Primary paid door is the google_search_test MoneyCta above.
+            Footer keeps the free one-item checker path plus src=category_index. */}
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Category and brand volume are free. Buy-below on a specific item is on a plan.
+            Category volume is free. This hub&apos;s one-item checker is free for BUY, WATCH or SKIP plus buy-below. Sell-through and sizes stay on a plan.
           </p>
-          <Link href="/tools/vinted-price-checker?src=category-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/tools/vinted-price-checker?src=category-check" style={{ display: "inline-block", color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "underline" }}>
             Check this item →
           </Link>
-          <Link href="/pricing?src=category_index" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          <Link href={CATEGORY_INDEX_SECONDARY_HREF} style={{ display: "inline-block", marginLeft: 14, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "underline" }}>
             or see plans
           </Link>
         </div>

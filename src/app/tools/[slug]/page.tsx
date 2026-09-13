@@ -7,6 +7,7 @@ import { PublicProfitCalculator } from "@/components/tools/public-profit-calcula
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
+import { PRICE_CHECKER_MONEY_HREF, PROFIT_CALC_MONEY_HREF } from "@/lib/money-cta"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -168,7 +169,13 @@ export default async function IntentPage(
             Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
           <Link
-            href="/pricing?src=tools"
+            href={
+              slug === "vinted-profit-calculator"
+                ? PROFIT_CALC_MONEY_HREF
+                : slug === "vinted-price-checker"
+                  ? PRICE_CHECKER_MONEY_HREF
+                  : "/pricing?src=tools"
+            }
             style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
           >
             {t.upsellCta} →
