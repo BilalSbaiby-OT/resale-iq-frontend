@@ -4,8 +4,30 @@ import { getMarketNumbers } from "@/lib/market-numbers"
 import { getHeroVerdict } from "@/lib/hero-verdict"
 import { copy } from "@/lib/i18n"
 import { hreflangLanguages } from "@/lib/locale-routes"
+import type { FaqItem } from "@/lib/faq-schema"
 
 import type { Metadata } from "next"
+
+// Visible FAQ + FAQPage on English `/` only (3 Qs max). Compact pricing
+// hides the /pricing FAQ, so this is the homepage’s own block — answers
+// match hero copy, no invented stats, no /register, no UTM.
+const HOME_FAQS: FaqItem[] = [
+  {
+    q: "What is Resale IQ?",
+    a:
+      "Resale IQ tells EU Vinted resellers what to pay before they buy — the price to stay under, and how good the evidence is. Item checks start at €19 a month. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+  },
+  {
+    q: "Which Vinted markets does Resale IQ cover?",
+    a:
+      "Spain, France, Germany, Italy and Portugal. Those five markets are what the live market pulse and the public weekly volumes describe. The product does not cover the UK or other Vinted domains.",
+  },
+  {
+    q: "What is a buy-below price?",
+    a:
+      "The most you can pay for an item and still keep a healthy margin after fees. One search gives you that price to stay under, and whether the item is likely to sell. Item-level buy-below numbers are on a paid plan at https://resaleiq.dev/pricing.",
+  },
+]
 
 // The landing had NO metadata export, so "/" was the only page on the site
 // without a self-referencing canonical — and www.resaleiq.dev serves a full
@@ -44,6 +66,6 @@ export default async function Landing() {
   const market = await getMarketNumbers()
   const hero = await getHeroVerdict()
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} faqs={HOME_FAQS} />
   )
 }

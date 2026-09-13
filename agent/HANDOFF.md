@@ -1,7 +1,14 @@
 STATUS: IN_PROGRESS
 OWNER: seo
-PUSH: yes
+PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
+  English `/` only. Answer-first title/og/twitter (brand suffix).
+  Conservative: keeps “know what to pay” + adds EU Vinted.
+  Visible HubFaq (3 Qs) + FAQPage. H1/CTAs/pricing funnel untouched.
+  Locale heroTitles unchanged. Org/SoftwareApplication JSON-LD verified.
+  Branch cursor/seo-ex-homepage-aeo-c372.
 
 SEO LANE, 2026-09-13 — EX-LOCALE-CTR-ES (this session)
   Only ES blog: /blog/como-poner-precio-en-vinted (/es/blog/* 307s here).

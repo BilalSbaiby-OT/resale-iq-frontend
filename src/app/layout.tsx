@@ -22,7 +22,10 @@ import type { Locale } from "@/lib/i18n"
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" })
 
-const TITLE = "Resale IQ — Know what to pay before you buy"
+// EX-HOMEPAGE-AEO — answer-first, brand suffix. Keeps the conversion line
+// (“know what to pay”) and adds EU Vinted so SERP/AEO is not generic.
+// Soft cap 60. H1 on `/` stays t.heroHeadline. Locale `heroTitle`s unchanged.
+const TITLE = "Know what to pay on EU Vinted — Resale IQ"
 
 // The dataset size is FETCHED, never typed. Two literal "900,000+" strings
 // lived here — one in the meta description, one in the JSON-LD — and by
@@ -32,7 +35,7 @@ const TITLE = "Resale IQ — Know what to pay before you buy"
 // simply never migrated. Floored to 10k, so the "+" stays true between the
 // hourly refreshes.
 const desc = (tracked: string) =>
-  `Know exactly what to buy, at what price, in which sizes. ${tracked} Vinted listings analysed across 5 EU markets.`
+  `Buy-below price and demand before you buy on EU Vinted. ${tracked} listings across Spain, France, Germany, Italy and Portugal.`
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()

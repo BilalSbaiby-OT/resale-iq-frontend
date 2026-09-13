@@ -193,6 +193,34 @@ test("what-sells-best ships a Watched departure lead with hub links", () => {
   assert.doesNotMatch(faq, /\/register/)
 })
 
+test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => {
+  const home = read("app/page.tsx")
+  const landing = read("components/landing/landing-content.tsx")
+  assert.match(home, /const HOME_FAQS/)
+  assert.match(home, /faqs=\{HOME_FAQS\}/)
+  assert.match(landing, /faqPageJsonLd\(faqs\)/)
+  assert.match(landing, /<HubFaq items=\{faqs\}/)
+  assert.match(home, /What is Resale IQ\?/)
+  assert.match(home, /Which Vinted markets does Resale IQ cover\?/)
+  assert.match(home, /What is a buy-below price\?/)
+  assert.match(home, /Spain, France, Germany, Italy and Portugal/)
+  assert.match(home, /https:\/\/resaleiq\.dev\/data/)
+  assert.match(home, /https:\/\/resaleiq\.dev\/pricing/)
+  assert.match(home, /does not cover the UK/)
+  assert.match(home, /Item checks start at €19/)
+  const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
+  const questions = faqBlock.match(/\bq: "/g) ?? []
+  assert.equal(questions.length, 3)
+  assert.ok(faqAnswerIsClean(faqBlock))
+  assert.doesNotMatch(faqBlock, /\/register/)
+  assert.doesNotMatch(faqBlock, /utm_/)
+  assert.doesNotMatch(home, /Start free/i)
+  // Locale landings must not inherit English FAQ.
+  const localeHome = read("app/[locale]/page.tsx")
+  assert.doesNotMatch(localeHome, /faqs=/)
+  assert.doesNotMatch(localeHome, /HOME_FAQS/)
+})
+
 test("/manual hub ships FAQPage + HubFaq with no /register", () => {
   const src = read("app/manual/page.tsx")
   assert.match(src, /faqPageJsonLd\(MANUAL_HUB_FAQS\)/)
