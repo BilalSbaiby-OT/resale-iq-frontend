@@ -4,7 +4,7 @@ import { TRACKED } from "@/lib/stats"
 // Claims honest: `the live tracked-listings figure listings across 5 EU markets`; no earnings promises.
 
 import type { BlogPost } from "./blog-posts"
-import { pricingMidCta } from "@/lib/blog-mid-cta"
+import { dataCiteHref, pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
 
 const BRAND = "Resale IQ"
@@ -254,6 +254,22 @@ export const POSTS_2: BlogPost[] = [
             ") answers it in one look.",
         ],
         cta: pricingMidCta("body_views_20260913"),
+      },
+      {
+        h: "Demand is the other half of the views",
+        p: [
+          "More views are useful only when the item has a chance of leaving the shelf. Before spending time on photos, titles, or relisting, use demand to choose what is worth pushing — then use buy-below to decide what is worth buying.",
+          "Week to 13 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,746 departures across 28 brands. Fred Perry: 1,027 departures. Stone Island: 892. Gucci: 230 departures at an average €197. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
+          "The filter is simple:",
+          "1. Demand: is this brand/model moving enough this week that extra views could become a sale?",
+          "2. Buy-below: what is the most you can pay after fees and still keep your margin?",
+          "Do not buy a cheap item just because it can attract views, and do not optimise a listing whose demand is too thin to clear stock. Use both numbers in the tool before you commit cash: demand selects the opportunity; buy-below caps the risk.",
+          "Full weekly table (free to cite): [Vinted market data](" +
+            dataCiteHref("body_views_deepen_002_20260913") +
+            ").",
+        ],
+        // BODY-VIEWS-002 / EX-CONTENT-BODY-005. Keep the body_views mid-CTA above.
+        cta: pricingBodyCta("body_views_deepen_002_20260913"),
       },
       {
         h: "Match the words buyers type",
