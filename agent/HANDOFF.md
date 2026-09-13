@@ -16,6 +16,8 @@ SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
   4. /data — “What is a watched departure?”
   5. /flip — “How we rank what sells best”
   Branch: cursor/seo-ex-aeo-definitions-5496
+  Also aligned e2e/smoke /data H1 to "Weekly brand volumes on Vinted"
+  (was stale "Vinted market data" — the flake that blocked #94).
 
 SEO LANE, 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
   Production gaps: `/blog/common-vinted-scams-sellers` and
