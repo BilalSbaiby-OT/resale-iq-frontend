@@ -93,7 +93,8 @@ NEXT (once unblocked): P0-1.
 
 ## 2026-09-13 — SEO CTR pack (views + how-to titles, PR only)
 - `/blog/how-to-get-more-views-on-vinted`: title/meta/H1 + mid-CTA
-  `ctr_views_20260913` → `/pricing` (not `/register?plan=`).
+  `body_views_20260913` → `/pricing` (not `/register`).
+  QC copy: button "Get the numbers", subline "Buy-below + demand before cash sticks."
 - Other high-impression how-tos: find-flips, bundles, seasonal, list-time,
   descriptions, start-no-money, closet, not-selling, thrift, photos — title
   and/or mid-CTA. How-to-price mid-CTA left as shipped in #79.

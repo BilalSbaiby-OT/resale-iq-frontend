@@ -232,7 +232,7 @@ export const POSTS_2: BlogPost[] = [
         p: [
           "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip. [What each brand sells per week](/flip) answers it in one look.",
         ],
-        cta: pricingMidCta("ctr_views_20260913"),
+        cta: pricingMidCta("body_views_20260913"),
       },
       {
         h: "Match the words buyers type",

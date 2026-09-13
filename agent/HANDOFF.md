@@ -1,14 +1,12 @@
-STATUS: READY
-OWNER: none
-PUSH: no
+STATUS: IN_PROGRESS
+OWNER: seo
+PUSH: yes
 UPDATED: 2026-09-13
 
 SEO LANE, 2026-09-13 — CTR pack on branch `cursor/seo-blog-ctr-pack-56aa`.
-  Do NOT merge to main. Price mid-CTA (`ctr_price_20260913` → `/pricing`) already
-  shipped in #79; this branch does not rewrite that block.
-  Views post + other how-to title/meta/H1 + mid-CTAs to `/pricing` UTMs.
-  Stretch: `/data` title/meta + `/flip` H1 toward "what sells best 2026 /
-  weekly brand volumes".
+  Mid-CTAs: button "Get the numbers", subline "Buy-below + demand before cash
+  sticks.", dest `/pricing?utm_…` (never /register). Views campaign
+  `body_views_20260913`. Price post included — main still had old button copy.
 
 
 SEO LANE, 2026-08-31 (after the growth release below):

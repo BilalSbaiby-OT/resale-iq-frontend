@@ -1,8 +1,8 @@
 /**
  * Mid-article paid CTA for how-to blog posts.
  *
- * Conversion is greenlit to /pricing (Stripe). Do not send these
- * blocks to /register?plan= — register still mentions Free.
+ * Conversion QC passed the /pricing path. Do not send these
+ * blocks to /register — register still mentions Free.
  * Soft /data cite is the secondary link. No free-check door.
  * No invented hit rates.
  */
@@ -13,9 +13,8 @@ export function pricingMidCtaHref(campaign: string): string {
 export function pricingMidCta(campaign: string) {
   return {
     headline: "Know what to pay before you buy",
-    body:
-      "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
-    label: "Get buy-below on any item",
+    body: "Buy-below + demand before cash sticks.",
+    label: "Get the numbers",
     href: pricingMidCtaHref(campaign),
     secondaryLabel: "Or browse weekly brand volumes on /data",
     secondaryHref: "/data",

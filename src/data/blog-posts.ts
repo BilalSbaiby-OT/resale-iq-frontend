@@ -1,7 +1,7 @@
 import { TRACKED } from "@/lib/stats"
 import { pricingMidCta } from "@/lib/blog-mid-cta"
-// Programmatic SEO + AEO content. The how-to-price mid-CTA (ctr_price_20260913)
-// is already live on main via #79 — do not rewrite that block. Each post targets a real reseller search query
+// Programmatic SEO + AEO content. How-to-price mid-CTA keeps campaign
+// ctr_price_20260913; button/subline come from pricingMidCta (QC copy). Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
 // Claims kept honest: `the live tracked-listings figure listings across 5 EU markets` is true; no fabricated
@@ -128,18 +128,9 @@ export const POSTS: BlogPost[] = [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
           "A common rule: buy-below = average asking price at departure × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
-        // EX-CTR-PRICE-001 mid-CTA. €54 is this post's own Stone Island
-        // Hoodies intro figure; €36 is 54 × 0.95 × 0.70. Illustrative.
-        cta: {
-          headline: "Know what to pay before you buy",
-          body: "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
-          example:
-            "Example: Stone Island hoodie · median departure ~€54 → buy-below ~€36 for ~30% target margin (illustrative; real models vary).",
-          label: "Get buy-below on any item",
-          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
-          secondaryLabel: "Or browse weekly brand volumes on /data",
-          secondaryHref: "/data",
-        },
+        // EX-CTR-PRICE-001 mid-CTA. UTM campaign stays ctr_price_20260913.
+        // Button/subline match Conversion QC (Get the numbers).
+        cta: pricingMidCta("ctr_price_20260913"),
       },
       {
         h: "Price to sell in a reasonable window",
