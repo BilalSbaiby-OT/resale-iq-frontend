@@ -1,7 +1,15 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: yes
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-LOCALE-CTR-ES (this session)
+  Only ES blog: /blog/como-poner-precio-en-vinted (/es/blog/* 307s here).
+  Answer-first title + meta. H1 aligned (old H1 mismatched). EN titles
+  untouched. og/twitter now use the document title (same /data bug).
+  Locale /es/pricing + /es/methodology twitter/og match document title.
+  Bodies/CTAs untouched. No /register?src=blog.
+  Branch cursor/seo-ex-locale-ctr-es-dd59.
 
 SEO LANE, 2026-09-13 — EX-TOOLS-AEO LIVE (merged #99)
   MERGED | 7e968e5 | live PASS

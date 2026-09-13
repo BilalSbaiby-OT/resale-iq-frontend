@@ -50,8 +50,9 @@ export async function generateMetadata(
   if (!p) return { title: "Not found — Resale IQ" }
   // seoTitle is the exact document title (CTR experiments). Otherwise keep
   // the historical "H1 — Resale IQ" suffix so other posts stay unchanged.
+  // Same string for <title>, og:title and twitter:title — a shorter og title
+  // (or omitting twitter) still shares as the generic homepage, the /data bug.
   const seoTitle = p.seoTitle ?? `${p.title} — Resale IQ`
-  const ogTitle = p.seoTitle ?? p.title
   return {
     title: seoTitle,
     description: p.description,
@@ -62,8 +63,8 @@ export async function generateMetadata(
       // its counterpart. A one-way annotation is silently discarded.
       ...(TRANSLATIONS[p.slug] ? { languages: TRANSLATIONS[p.slug] } : {}),
     },
-    openGraph: { title: ogTitle, description: p.description, type: "article" },
-    twitter: { card: "summary_large_image", title: ogTitle, description: p.description },
+    openGraph: { title: seoTitle, description: p.description, type: "article" },
+    twitter: { card: "summary_large_image", title: seoTitle, description: p.description },
   }
 }
 

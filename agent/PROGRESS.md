@@ -329,3 +329,13 @@ NEXT (once unblocked): P0-1.
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
 - MERGED #100 as 0bcee93. Live after Coolify on SOURCE_COMMIT 7e968e5.
   Cache-busted curl 6/6 PASS. Playwright /data H1 flake ignored.
+
+## 2026-09-13 — EX-LOCALE-CTR-ES answer-first titles
+- Only ES blog URL in data: `/blog/como-poner-precio-en-vinted`.
+  `/es/blog/*` 307s to the unprefixed post. No other ES twins.
+- Title + meta + H1 (old H1 mismatched). EN how-to-price untouched.
+  Bodies/CTAs untouched. Zero `/register?src=blog`.
+- Blog `generateMetadata` now uses one string for `<title>` / og / twitter
+  (same /data bug: shorter og title, or missing twitter, inherits homepage).
+- `/es/pricing` and `/es/methodology` social titles now match document title.
+- Soft caps: seoTitle 58, meta 139. Brand suffix on seoTitle.
