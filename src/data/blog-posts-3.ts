@@ -70,7 +70,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Prevention beats resolution",
         p: [
           "Photograph every flaw and state measurements. The overwhelming majority of 'not as described' claims trace back to a detail the seller left out.",
-          "Describe condition honestly and specifically. 'Good condition' means nothing; 'slight bobbling on the left cuff, no holes' means everything.",
+          "Describe condition honestly and specifically. 'Good condition' means nothing; 'slight bobbling on the left cuff, no holes' means everything. Price against [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") rather than the retail tag — a buyer who feels overcharged is the one who looks for a way out.",
         ],
       },
       {
@@ -84,7 +86,9 @@ export const POSTS_3: BlogPost[] = [
         h: "If a dispute opens",
         p: [
           "Respond quickly, factually and politely. Reference your listing photos and description rather than arguing about intent.",
-          "If you genuinely got it wrong, resolving fast costs less than a drawn-out dispute and a damaged rating.",
+          "If you genuinely got it wrong, resolving fast costs less than a drawn-out dispute and a damaged rating. Then check [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") before you replace the stock — don't buy the same slow model twice.",
         ],
       },
     ],
@@ -293,7 +297,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Never go off-platform",
         p: [
           "Any request to pay or communicate outside Vinted — bank transfer, PayPal friends-and-family, WhatsApp — removes every protection you have. There is no legitimate reason for it.",
-          "Fake 'payment sent' screenshots are trivial to produce. Only money actually showing in your Vinted balance is real.",
+          "Fake 'payment sent' screenshots are trivial to produce. Only money actually showing in your Vinted balance is real. A buyer offering 'more' off-platform is not a deal — [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the public price.",
         ],
       },
       {
@@ -311,7 +317,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Trust the pattern, not the story",
         p: [
-          "Urgency, an emotional story and pressure to hurry are the common thread in nearly every scam. Slow down and keep everything on-platform.",
+          "Urgency, an emotional story and pressure to hurry are the common thread in nearly every scam. Slow down and keep everything on-platform. Urgency around a 'rare' find is the same tell — [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") shows what's actually moving, and volume is the opposite of rare.",
         ],
       },
     ],

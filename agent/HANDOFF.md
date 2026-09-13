@@ -3,10 +3,25 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
+  Production gaps: `/blog/common-vinted-scams-sellers` and
+  `/blog/vinted-disputes-and-returns-sellers` had no `ilink_20260913`.
+  Scan of EN posts in `src/data/blog-posts*.ts`: only those two were
+  missing. 1–2 body anchors each → `/data` and `/flip` via `ilinkHref()`,
+  same campaign. Titles/metas/H1s and `blog-mid-cta.ts` untouched
+  (scams title/meta from EX-CTR-BATCH-2 kept). No /register. No new campaigns.
+
 SEO LANE, 2026-09-13 — EX-CTR-BATCH-2 LIVE on production (merged #94)
   All 8 EN titles/metas verified live via cache-busted curl after Coolify.
   Playwright /data H1 flake ignored (expected "Vinted market data",
   live H1 is "Weekly brand volumes"). Agent Isolation was the deploy gate.
+
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-2 title/meta pack (8 EN posts)
+  Title + meta only (H1 on sneaker / thrift / seasonal — old H1 mismatched).
+  No mid-CTA / body CTA edits. No /register?src=blog in these posts.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Branch cursor/seo-ex-ctr-batch-2-e4dc. Merging despite /data H1 Playwright
+  flake (expected "Vinted market data", live H1 is "Weekly brand volumes").
 
 SEO LANE, 2026-09-13 — EX-FAQ-SCHEMA-HUBS (this session)
   FAQPage JSON-LD on /flip (expanded), /data (new, Dataset kept),
