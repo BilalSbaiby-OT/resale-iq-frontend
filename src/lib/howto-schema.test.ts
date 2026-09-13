@@ -3,8 +3,6 @@
  * FAQPage stays. No invented tools/supplies. No /register. No UTM.
  */
 import { readFileSync } from "node:fs"
-import { dirname, join } from "node:path"
-import { fileURLToPath } from "node:url"
 import { test } from "node:test"
 import assert from "node:assert/strict"
 import {
@@ -14,24 +12,17 @@ import {
   type HowToSource,
 } from "./howto-schema.ts"
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..")
-
-function read(rel: string): string {
-  return readFileSync(join(root, rel), "utf8")
+function readBeside(rel: string): string {
+  return readFileSync(new URL(rel, import.meta.url), "utf8")
 }
 
-const POST_FILES = [
-  "data/blog-posts.ts",
-  "data/blog-posts-2.ts",
-  "data/blog-posts-3.ts",
-] as const
-
 function postChunk(slug: string): string {
-  for (const file of POST_FILES) {
-    const src = read(file)
-    const start = src.indexOf(`slug: "${slug}"`)
+  const needle = `slug: "${slug}"`
+  for (const rel of ["../data/blog-posts.ts", "../data/blog-posts-2.ts", "../data/blog-posts-3.ts"]) {
+    const src = readBeside(rel)
+    const start = src.indexOf(needle)
     if (start < 0) continue
-    const next = src.indexOf('slug: "', start + 10)
+    const next = src.indexOf('slug: "', start + needle.length)
     return src.slice(start, next < 0 ? src.length : next)
   }
   throw new Error(`post not found: ${slug}`)
@@ -244,7 +235,7 @@ test("allowlisted process posts have matching on-page steps in the body", () => 
 })
 
 test("blog post page emits HowTo beside FAQPage and does not drop FAQ", () => {
-  const src = read("app/blog/[slug]/page.tsx")
+  const src = readBeside("../app/blog/[slug]/page.tsx")
   assert.match(src, /howToJsonLd/)
   assert.match(src, /"@type": "FAQPage"/)
   assert.match(src, /stripRichText\(f\.a\)/)
