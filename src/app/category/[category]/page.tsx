@@ -3,6 +3,11 @@ import { notFound, redirect } from "next/navigation"
 import type { Metadata } from "next"
 import { CATEGORIES, getCategory, catSlug, type CategoryEntry } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import {
+  categoryLeafTitle,
+  categoryLeafDescription,
+  articleSocialMeta,
+} from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO, cross-brand cut: one page per category, ranking every
@@ -29,16 +34,14 @@ export async function generateMetadata(
   const market = await getMarketNumbers()
   const entries = withLiveVolumes(c.entries, c.category, market)
   const top = entries.find(e => e.sold_7d != null)
-  const title = `Best brands for reselling ${c.category} on Vinted (${c.entries.length} ranked)`
-  const description = top && top.sold_7d != null
-    ? `${c.entries.length} brands ranked by how many ${c.category.toLowerCase()} listings we watched leave the shelf each week on Vinted across 5 EU markets. ${top.brand} leads with ${fmtCount(top.sold_7d)} a week.`
-    : `${c.entries.length} brands ranked for ${c.category.toLowerCase()} on Vinted across 5 EU markets.`
-  return {
-    title,
-    description,
-    alternates: { canonical: `/category/${c.slug}` },
-    openGraph: { title, description, type: "article" },
-  }
+  const title = categoryLeafTitle(c.category)
+  const description = categoryLeafDescription({
+    category: c.category,
+    brandCount: c.entries.length,
+    topBrand: top && top.sold_7d != null ? top.brand : null,
+    topSold: top?.sold_7d,
+  })
+  return articleSocialMeta(title, description, `/category/${c.slug}`)
 }
 
 interface LiveEntry {

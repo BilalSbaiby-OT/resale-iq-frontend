@@ -4,6 +4,11 @@ import type { Metadata } from "next"
 import seo from "@/data/seo-brands.json"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, categoryFigure, fmtCount, fmtEur } from "@/lib/market-numbers"
+import {
+  flipBrandCategoryTitle,
+  flipBrandCategoryDescription,
+  articleSocialMeta,
+} from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO: one page per brand x top-category, targeting
@@ -46,14 +51,13 @@ export async function generateMetadata(
   const { brand, category } = await params
   const r = resolve(brand, category)
   if (!r) return { title: "Not found — Resale IQ" }
-  const title = `Are ${r.b.brand} ${r.category} worth reselling on Vinted?`
-  const description =
-    `${r.b.brand} ${r.category} resale data from ${await listingsTrackedLabel()} Vinted listings across 5 EU markets — weekly watched departures, average asking price at departure and how to judge whether to buy.`
-  return {
-    title, description,
-    alternates: { canonical: `/flip/${r.b.slug}/${category}` },
-    openGraph: { title, description, type: "article" },
-  }
+  const title = flipBrandCategoryTitle(r.b.brand, r.category)
+  const description = flipBrandCategoryDescription({
+    brand: r.b.brand,
+    category: r.category,
+    tracked: await listingsTrackedLabel(),
+  })
+  return articleSocialMeta(title, description, `/flip/${r.b.slug}/${category}`)
 }
 
 export default async function BrandCategoryPage(
