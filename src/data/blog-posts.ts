@@ -361,15 +361,12 @@ export const POSTS: BlogPost[] = [
           "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](/flip) before committing cash.",
         ],
         // EX-CTR-002 mid-CTA after the first how-to section.
-        // €55 is this post's own Stone Island Hoodies intro figure;
-        // €37 is 55 × 0.95 × 0.70, rounded. Illustrative.
+        // Campaign body_flips_20260913 matches Content. Soft /data only.
         cta: {
           headline: "Know what to pay before you buy",
-          body: "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
-          example:
-            "Example: Stone Island hoodie · watched departure ~€55 → buy-below ~€37 for ~30% target margin (illustrative; real models vary).",
-          label: "Get buy-below on any item",
-          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_flip_20260913&utm_content=mid_cta",
+          body: "Buy-below + demand before cash sticks.",
+          label: "Get the numbers",
+          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_flips_20260913&utm_content=mid_cta",
           secondaryLabel: "Or browse weekly brand volumes on /data",
           secondaryHref: "/data",
         },
