@@ -274,13 +274,12 @@ export const copy = {
     },
     pricingSection: {
       heading: "Know what to pay. Skip what you shouldn’t.",
-      // Page <title>/<meta description> for the standalone /pricing route.
-      // Deliberately price-free: the amounts live in TIERS (lib/pricing.ts) and
-      // reload live from Stripe on the page itself, so a number written here
-      // would be a second source of truth that goes stale silently.
-      metaTitle: "Pricing — what each plan costs and what it unlocks",
+      // EX-PRICING-CTR — SERP title leads with list prices + buy-below.
+      // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
+      // Not a live Stripe quote; checkout still resolves price ids on the page.
+      metaTitle: "Starter €19 / Pro €49 — Vinted Buy-Below",
       metaDescription:
-        "Every Resale IQ plan side by side: Starter €19 and Pro €49, what each unlocks, and where it stops. Weekly brand volumes on /data stay public. Cancel anytime.",
+        "Starter €19 / Pro €49 for Vinted buy-below prices. Verdicts and sizes on paid plans. Weekly brand volumes on /data stay public. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",
@@ -719,9 +718,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sachez quoi payer. Ignorez le reste.",
-      metaTitle: "Tarifs — ce que coûte chaque offre et ce qu’elle débloque",
+      metaTitle: "Starter 19 € / Pro 49 € — prix d'achat max",
       metaDescription:
-        "Toutes les offres Resale IQ côte à côte : Starter 19 € et Pro 49 €, ce que chacune débloque et où elle s’arrête. Les volumes hebdo par marque restent publics sur /data. Annulable à tout moment.",
+        "Starter 19 € / Pro 49 € : prix d'achat max Vinted. Verdicts et tailles en offre payante. Volumes hebdo publics sur /data. Annulable à tout moment.",
       noCardRequired: "Sans carte bancaire",
       perDay: (amount: string) => `environ €${amount} par jour`,
       mostPopular: "LE PLUS POPULAIRE",
@@ -1096,9 +1095,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sabe qué pagar. Sáltate lo que no debes.",
-      metaTitle: "Precios — cuánto cuesta cada plan y qué desbloquea",
+      metaTitle: "Starter 19 € / Pro 49 € — precio de compra máx.",
       metaDescription:
-        "Todos los planes de Resale IQ uno al lado del otro: Starter 19 € y Pro 49 €, qué desbloquean y dónde se quedan. Los volúmenes semanales por marca siguen públicos en /data. Cancela cuando quieras.",
+        "Starter 19 € / Pro 49 €: precio máximo de compra en Vinted. Veredictos y tallas en planes de pago. Volúmenes públicos en /data. Cancela cuando quieras.",
       noCardRequired: "Sin tarjeta",
       perDay: (amount: string) => `unos €${amount} al día`,
       mostPopular: "MÁS POPULAR",
@@ -1473,9 +1472,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Wissen, was du zahlen solltest. Lass aus, was sich nicht lohnt.",
-      metaTitle: "Preise — was jeder Tarif kostet und was er freischaltet",
+      metaTitle: "Starter 19 € / Pro 49 € — Kaufobergrenze",
       metaDescription:
-        "Alle Resale-IQ-Tarife nebeneinander: Starter 19 € und Pro 49 €, was sie freischalten und wo sie aufhören. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Jederzeit kündbar.",
+        "Starter 19 € / Pro 49 €: Vinted-Kaufobergrenze. Entscheidungen und Größen im bezahlten Tarif. Markenvolumen öffentlich auf /data. Jederzeit kündbar.",
       noCardRequired: "Keine Kreditkarte nötig",
       perDay: (amount: string) => `etwa €${amount} am Tag`,
       mostPopular: "AM BELIEBTESTEN",
@@ -1852,9 +1851,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Sappi quanto pagare. Salta il resto.",
-      metaTitle: "Prezzi — quanto costa ogni piano e cosa sblocca",
+      metaTitle: "Starter 19 € / Pro 49 € — prezzo d'acquisto",
       metaDescription:
-        "Tutti i piani Resale IQ a confronto: Starter 19 € e Pro 49 €, cosa sbloccano e dove si fermano. I volumi settimanali per marca restano pubblici su /data. Disdici quando vuoi.",
+        "Starter 19 € / Pro 49 €: prezzo massimo di acquisto su Vinted. Verdetti e taglie nei piani a pagamento. Volumi pubblici su /data. Disdici quando vuoi.",
       noCardRequired: "Nessuna carta richiesta",
       perDay: (amount: string) => `circa €${amount} al giorno`,
       mostPopular: "IL PIÙ POPOLARE",
@@ -2229,9 +2228,9 @@ export const copy = {
     },
     pricingSection: {
       heading: "Saiba quanto pagar. Ignore o resto.",
-      metaTitle: "Preços — quanto custa cada plano e o que desbloqueia",
+      metaTitle: "Starter 19 € / Pro 49 € — preço máximo de compra",
       metaDescription:
-        "Todos os planos Resale IQ lado a lado: Starter 19 € e Pro 49 €, o que desbloqueiam e onde param. Os volumes semanais por marca continuam públicos em /data. Cancele quando quiser.",
+        "Starter 19 € / Pro 49 €: preço máximo de compra na Vinted. Veredictos e tamanhos nos planos pagos. Volumes públicos em /data. Cancele quando quiser.",
       noCardRequired: "Sem cartão necessário",
       perDay: (amount: string) => `cerca de €${amount} por dia`,
       mostPopular: "MAIS POPULAR",

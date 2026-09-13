@@ -21,7 +21,7 @@ export async function generateMetadata({
   const t = methodology(locale)
   // Same string for <title>, og:title and twitter:title — omitting twitter
   // still inherits the homepage social title (the /data bug).
-  const title = t.text0
+  const title = `${t.text0} — Resale IQ`
   const description = t.text1
   return {
     title,

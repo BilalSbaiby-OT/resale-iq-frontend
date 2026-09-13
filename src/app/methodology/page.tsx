@@ -24,17 +24,17 @@ export const revalidate = 900
 
 const BASE = "https://resaleiq.dev"
 
+// EX-PRICING-CTR — AEO title (how numbers are calculated). H1 stays text0.
+const TITLE = "How Buy-Below and Every Number Are Calculated — Resale IQ"
+const DESCRIPTION =
+  "How buy-below and sell-through are calculated from watched Vinted listings, how often data refreshes, and what the numbers cannot tell you."
+
 export const metadata: Metadata = {
-  title: "Methodology — how Resale IQ calculates every number",
-  description:
-    "Exactly where our Vinted data comes from, how often it refreshes, how sell-through and buy-below prices are calculated, and what the data cannot tell you.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/methodology", languages: hreflangLanguages("/methodology") },
-  openGraph: {
-    title: "Methodology — how Resale IQ calculates every number",
-    description:
-      "The formulas, the refresh cadence, and an honest list of what our data cannot do.",
-    type: "article",
-  },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "article" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 }
 
 // methodology-copy.ts stores its 58 values as plain TS string literals. Three
