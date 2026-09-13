@@ -44,8 +44,12 @@ export async function generateMetadata(
   const { slug } = await params
   const p = fillTracked(getPost(slug), await listingsTrackedLabel())
   if (!p) return { title: "Not found — Resale IQ" }
+  // seoTitle is the exact document title (CTR experiments). Otherwise keep
+  // the historical "H1 — Resale IQ" suffix so other posts stay unchanged.
+  const seoTitle = p.seoTitle ?? `${p.title} — Resale IQ`
+  const ogTitle = p.seoTitle ?? p.title
   return {
-    title: `${p.title} — Resale IQ`,
+    title: seoTitle,
     description: p.description,
     alternates: {
       canonical: `/blog/${p.slug}`,
@@ -54,7 +58,8 @@ export async function generateMetadata(
       // its counterpart. A one-way annotation is silently discarded.
       ...(TRANSLATIONS[p.slug] ? { languages: TRANSLATIONS[p.slug] } : {}),
     },
-    openGraph: { title: p.title, description: p.description, type: "article" },
+    openGraph: { title: ogTitle, description: p.description, type: "article" },
+    twitter: { card: "summary_large_image", title: ogTitle, description: p.description },
   }
 }
 

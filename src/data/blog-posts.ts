@@ -7,7 +7,12 @@ import { TRACKED } from "@/lib/stats"
 
 export interface BlogPost {
   slug: string
-  title: string           // <title> + H1
+  title: string           // H1 (+ <title> unless seoTitle is set)
+  /**
+   * Document <title> + OG title when it must differ from the H1.
+   * Use the exact string — generateMetadata will not append " — Resale IQ".
+   */
+  seoTitle?: string
   description: string     // meta description (also the AEO summary)
   date: string            // ISO — original publish date (never rewritten)
   /**
@@ -84,11 +89,12 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price on Vinted: Match Departure Prices",
+    title: "How to Price Items on Vinted: Buy-Below from Departure Prices",
+    seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically",
     description:
-      "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells, anchored to real departure prices across 5 EU markets, not retail.",
+      "Price off real Vinted departure prices, then work backwards to buy-below. Resale IQ computes it from watched EU listings. Starter €19/mo.",
     date: "2026-08-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Pricing",
     readMins: 5,
     intro:
