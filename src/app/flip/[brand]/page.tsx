@@ -6,6 +6,11 @@ import { Lock, TrendingUp, ArrowRight } from "lucide-react"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { brandNarrative } from "@/lib/flip-narrative"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import {
+  flipBrandTitle,
+  flipBrandDescription,
+  articleSocialMeta,
+} from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
@@ -28,23 +33,13 @@ export async function generateMetadata(
   const b = getBrand(slug)
   if (!b) return { title: "Brand not found — Resale IQ" }
   const live = (await getMarketNumbers()).get(b.brand)
-  const sold = live?.sold_7d
-  const avg = live?.avg_price_eur
-  const title = sold != null
-    ? `Is ${b.brand} worth reselling on Vinted? (${fmtCount(sold)} left shelf/week)`
-    : `Is ${b.brand} worth reselling on Vinted?`
-  const description =
-    sold != null
-      ? `${b.brand} has about ${fmtCount(sold)} watched departures a week across 5 EU Vinted markets` +
-        (avg != null ? ` at an average of ${fmtEur(avg)}.` : ".") +
-        ` See which ${b.brand} models are actually profitable to flip.`
-      : `${b.brand} resale data across 5 EU Vinted markets. See which models are actually profitable to flip.`
-  return {
-    title,
-    description,
-    alternates: { canonical: `/flip/${b.slug}` },
-    openGraph: { title, description, type: "article" },
-  }
+  const title = flipBrandTitle(b.brand)
+  const description = flipBrandDescription({
+    brand: b.brand,
+    sold: live?.sold_7d,
+    avg: live?.avg_price_eur,
+  })
+  return articleSocialMeta(title, description, `/flip/${b.slug}`)
 }
 
 export default async function BrandFlipPage(

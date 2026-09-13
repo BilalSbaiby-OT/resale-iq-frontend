@@ -3,6 +3,14 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-FLIP-CATEGORY-META (this session)
+  Answer-first titles on /flip/{brand}, /flip/{brand}/{cat},
+  /category/{cat}. No live figures in <title>. og/twitter match.
+  FAQPage already on category children — left in place.
+  H1s and page data rendering untouched. Kill: no GSC impr/CTR
+  movement on /flip/* in 30d (assumption flagged).
+  Branch cursor/seo-ex-flip-category-meta-d82d.
+
 SEO LANE, 2026-09-13 — homepage FAQ UK word (hotfix)
   e2e/market-coverage.spec.ts failed: FAQ said “does not cover the UK”.
   Rephrased to name ES/FR/DE/IT/PT + “five EU markets” only. No UK/US.

@@ -358,3 +358,16 @@ NEXT (once unblocked): P0-1.
   (same /data bug: shorter og title, or missing twitter, inherits homepage).
 - `/es/pricing` and `/es/methodology` social titles now match document title.
 - Soft caps: seoTitle 58, meta 139. Brand suffix on seoTitle.
+
+## 2026-09-13 — EX-FLIP-CATEGORY-META answer-first templates
+- Programmatic titles on the three leaf templates only:
+  `/flip/{brand}` → “Does {Brand} sell on Vinted? Weekly departures — Resale IQ”
+  `/flip/{brand}/{cat}` → “{Brand} {cat} on Vinted: demand & buy-below — Resale IQ”
+  `/category/{cat}` → “Do {cat} sell on Vinted? Category demand — Resale IQ”
+- No live or invented figures in `<title>` (removed sold_7d from brand titles).
+  Metas may cite warehouse watched-departures / avg when present.
+- og:title + twitter:title match the document title (root layout pin).
+- Category child FAQPage already existed — left in place. No new HubFaq.
+  H1s, tables, and page data rendering untouched.
+- Kill: no GSC impr/CTR movement on /flip/* in 30d (assumption flagged).
+- Helper: `src/lib/flip-category-meta.ts`. Tests: `flip-category-meta.test.ts`.
