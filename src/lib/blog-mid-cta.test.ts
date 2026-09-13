@@ -52,11 +52,11 @@ test("footer See plans uses the post campaign + footer_see_plans", () => {
   assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /src=blog/)
 })
 
-test("BODY-001 paid CTA uses blog/organic + body_cta", () => {
+test("BODY-001 paid CTA uses blog/organic + body_price campaign", () => {
   const href = pricingBodyCtaHref("body_price_20260913")
   assert.equal(
     href,
-    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta",
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913",
   )
   const cta = pricingBodyCta("body_price_20260913")
   assert.equal(cta.label, "Get the numbers")
@@ -65,10 +65,10 @@ test("BODY-001 paid CTA uses blog/organic + body_cta", () => {
   assert.doesNotMatch(href, /register/)
 })
 
-test("BODY-001 soft cite is /data with data_cite UTM", () => {
+test("BODY-001 soft cite is /data with body_price campaign", () => {
   assert.equal(
     dataCiteHref("body_price_20260913"),
-    "/data?utm_source=organic&utm_medium=blog&utm_campaign=body_price_20260913&utm_content=data_cite",
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913",
   )
 })
 
@@ -92,9 +92,12 @@ test("how-to-price post ships BODY-001 demand section and keeps ctr_price mid-CT
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
   assert.match(post, /Demand is the other half of the price/)
-  assert.match(post, /Fred Perry 1,027 watched departures at €19/)
-  assert.match(post, /Stone Island 892 at €66/)
-  assert.match(post, /Gucci 230 at €197/)
+  assert.match(post, /A departure price without demand is a trap\. The item can look cheap and still sit/)
+  assert.match(post, /we watched 5,746 departures across 28 brands/)
+  assert.match(post, /Fred Perry — 1,027 left the shelf · avg €19 \(volume play\)/)
+  assert.match(post, /Stone Island — 892 · avg €66/)
+  assert.match(post, /Gucci — 230 · avg €197 \(price play, thinner volume\)/)
+  assert.match(post, /Skip either and you’re guessing/)
   assert.match(post, /pricingMidCta\("ctr_price_20260913"\)/)
   assert.match(post, /pricingBodyCta\("body_price_20260913"\)/)
   assert.match(post, /dataCiteHref\("body_price_20260913"\)/)

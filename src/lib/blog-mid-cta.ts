@@ -47,13 +47,13 @@ export function pricingMidCta(campaign: string): SectionCtaContent {
   }
 }
 
-/** BODY-001 paid CTA — source/medium swapped vs mid-CTA so the body block is separable. */
+/** BODY-001 paid CTA — Content brief: blog/organic, campaign only. */
 export function pricingBodyCtaHref(campaign: string): string {
-  return `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}&utm_content=body_cta`
+  return `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
 }
 
 export function dataCiteHref(campaign: string): string {
-  return `/data?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=data_cite`
+  return `/data?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
 }
 
 export function pricingBodyCta(campaign: string): SectionCtaContent {

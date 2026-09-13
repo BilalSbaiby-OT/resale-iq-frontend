@@ -139,3 +139,10 @@ NEXT (once unblocked): P0-1.
 - Paid CTA Get the numbers → `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta`.
 - Existing `ctr_price_20260913` mid-CTA kept. Footer still
   `ctr_price_20260913` + `footer_see_plans`.
+
+## 2026-09-13 — BODY-001 exact Content copy (follow-up)
+- Replaced paraphrased demand section with Content's insert:
+  trap/sit/leave, two numbers, 5,746 / 28 brands, Fred Perry / Stone
+  Island / Gucci lines, buy-below vs demand close.
+- Cite + CTA: `utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913`.
+- Title/meta/H1 and `ctr_price_20260913` mid-CTA unchanged. No ES page.
