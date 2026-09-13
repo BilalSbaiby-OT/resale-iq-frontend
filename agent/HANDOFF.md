@@ -1,16 +1,18 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF (this session)
-  Strengthen citeable definition on /manual/the-buy-below-price.
-  Visible H2 “What is a buy-below price?” + longer lead: formula
-  (avg departure ask × 0.95 × 0.70), what each factor means, and
-  “sourcing ceiling, not a promised profit”. FAQ answer matches.
-  Title / H1 untouched. Optional reinforce on how-to-price blog
-  if that FAQ is still the short one. Branch
-  cursor/aeo-manual-buybelow-def-a923.
+SEO LANE, 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF LIVE (merged #115)
+  MERGED | 0c0e57e | live PASS
+  `/deploy-id` SOURCE_COMMIT 0c0e57e53f29d5fb1dd6255bc966aae5bebf73e1
+  Cache-busted curl of /manual/the-buy-below-price:
+  H2 “What is a buy-below price?” + lead (leave room after fees;
+  avg departure ask × 0.95 × 0.70; watched-listing input; 5% fee;
+  ~30% margin; sourcing ceiling, not promised profit). FAQ +
+  DefinedTerm match. Title / H1 unchanged. how-to-price reinforced.
+  DONE URL: https://resaleiq.dev/manual/the-buy-below-price
+  Branch cursor/aeo-manual-buybelow-def-a923. PR #115.
 
 SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   HowTo JSON-LD + visible numbered steps on
