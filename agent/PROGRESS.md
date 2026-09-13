@@ -162,3 +162,14 @@ NEXT (once unblocked): P0-1.
 - Shared article footer SmartCTA is `/pricing` + `utm_content=legacy_signup_kill`.
 - How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
 - Button: Get the numbers. ES BODY-ES-001 copy not rewritten.
+
+## 2026-09-13 — BODY-BUYBELOW-001 demand section on buy-below-price-explained
+- `/blog/buy-below-price-explained`: new section after the formula,
+  before FAQ — "Demand is the other half of buy-below". Week-to-13-Sep
+  counts (5,746 in 28 brands; Fred Perry 1,027 @ €19 · Stone Island 892
+  @ €66 · Gucci 230 @ €197). No invented hit rates.
+- Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.
+- Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.
+- Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
+- No existing ctr_blog mid-CTA on this post.

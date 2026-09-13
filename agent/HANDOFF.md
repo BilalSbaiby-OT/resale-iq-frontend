@@ -3,6 +3,13 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-BUYBELOW-001 on buy-below-price-explained
+  New section after the formula, before FAQ: "Demand is the other half
+  of buy-below". Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.
+  Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.
+  No existing ctr_blog mid-CTA on this post.
+
 FRONTEND, 2026-09-13 — blog signup-wall CTAs → /pricing
   Shared SmartCTA now `/pricing` + `utm_content=legacy_signup_kill`.
   How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
