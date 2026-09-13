@@ -1,4 +1,5 @@
 import { TRACKED } from "@/lib/stats"
+import type { SectionCtaContent } from "@/lib/section-cta"
 // Programmatic SEO + AEO content. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
@@ -41,20 +42,9 @@ export interface BlogPost {
      * Optional mid-article conversion block, rendered after this section.
      * Paid CTAs go to /pricing — not /register (register still mentions Free).
      */
-    cta?: BlogSectionCta
+    cta?: SectionCtaContent
   }[]
   faq: { q: string; a: string }[]
-}
-
-/** Shared so the article renderer cannot drift from the post data shape. */
-export interface BlogSectionCta {
-  headline: string
-  body: string
-  example?: string
-  label: string
-  href: string
-  secondaryLabel?: string
-  secondaryHref?: string
 }
 
 const BRAND = "Resale IQ"
@@ -133,10 +123,10 @@ export const POSTS: BlogPost[] = [
         // Hoodies intro figure; €36 is 54 × 0.95 × 0.70. Illustrative.
         cta: {
           headline: "Know what to pay before you buy",
-          body: "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
+          body: "Buy-below + demand before cash sticks.",
           example:
             "Example: Stone Island hoodie · median departure ~€54 → buy-below ~€36 for ~30% target margin (illustrative; real models vary).",
-          label: "Get buy-below on any item",
+          label: "Get the numbers",
           href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
           secondaryLabel: "Or browse weekly brand volumes on /data",
           secondaryHref: "/data",

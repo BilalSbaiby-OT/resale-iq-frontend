@@ -15,6 +15,7 @@
 //  4. No tax, legal or financial advice — describe the rules, point at a pro.
 
 import { CHAPTERS_2 } from "./manual-2"
+import type { SectionCtaContent } from "@/lib/section-cta"
 
 export interface ManualSection {
   h2: string
@@ -25,15 +26,7 @@ export interface ManualSection {
    * Optional mid-article conversion block, rendered after this section.
    * Paid CTAs go to /pricing — not /register (register still mentions Free).
    */
-  cta?: {
-    headline: string
-    body: string
-    example?: string
-    label: string
-    href: string
-    secondaryLabel?: string
-    secondaryHref?: string
-  }
+  cta?: SectionCtaContent
 }
 
 export interface ManualChapter {

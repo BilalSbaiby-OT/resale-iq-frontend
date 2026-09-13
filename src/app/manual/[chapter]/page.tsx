@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { ALL_CHAPTERS, getChapter } from "@/data/manual"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 import { SmartCTA } from "@/components/smart-cta"
+import { SectionCta } from "@/components/section-cta"
 
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
@@ -204,44 +205,6 @@ export default async function ChapterPage(
           </Link>
         </div>
       </div>
-    </div>
-  )
-}
-
-/** Mid-article conversion block. Visual match for the blog SectionCta. */
-function SectionCta({
-  cta,
-}: {
-  cta: {
-    headline: string
-    body: string
-    example?: string
-    label: string
-    href: string
-    secondaryLabel?: string
-    secondaryHref?: string
-  }
-}) {
-  return (
-    <div style={{ margin: "18px 0 4px", padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-      <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>{cta.headline}</div>
-      <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 0", lineHeight: 1.6 }}>{cta.body}</p>
-      {cta.example && (
-        <p style={{ fontSize: 13, color: "#a9b6d0", margin: "10px 0 0", lineHeight: 1.6 }}>{cta.example}</p>
-      )}
-      <Link
-        href={cta.href}
-        style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none", marginTop: 16 }}
-      >
-        {cta.label} →
-      </Link>
-      {cta.secondaryHref && cta.secondaryLabel && (
-        <div style={{ marginTop: 12 }}>
-          <Link href={cta.secondaryHref} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-            {cta.secondaryLabel}
-          </Link>
-        </div>
-      )}
     </div>
   )
 }
