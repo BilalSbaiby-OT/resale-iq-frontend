@@ -329,3 +329,17 @@ NEXT (once unblocked): P0-1.
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
 - MERGED #100 as 0bcee93. Live after Coolify on SOURCE_COMMIT 7e968e5.
   Cache-busted curl 6/6 PASS. Playwright /data H1 flake ignored.
+
+## 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
+- English `/` document title / og / twitter:
+  before `Resale IQ — Know what to pay before you buy`
+  after  `Know what to pay on EU Vinted — Resale IQ` (41ch).
+- Meta: buy-below + demand + five named EU markets; tracked label stays live.
+- Conservative on purpose: keeps “know what to pay”, adds Vinted/EU,
+  brand suffix. H1 `heroHeadline` and hero Check CTA unchanged.
+  `/pricing` funnel and locale `heroTitle`s untouched.
+- Homepage had no visible FAQ (compact PricingSection hides the six
+  pricing questions). Added 3 visible HubFaq + FAQPage on English `/`
+  only: what it is, which markets, what buy-below is. No /register, no UTM.
+- Organization + SoftwareApplication JSON-LD fields unchanged; tests lock
+  @type, offers €19/€49, ES/FR/DE/IT/PT, isAccessibleForFree false.

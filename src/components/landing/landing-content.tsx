@@ -5,6 +5,8 @@ import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { SocialLinks } from "@/components/layout/social-links"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd, type FaqItem } from "@/lib/faq-schema"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
@@ -28,6 +30,7 @@ export function LandingContent({
   market,
   heroQuery,
   heroResult,
+  faqs,
 }: {
   t: Dict
   locale: Locale
@@ -36,6 +39,8 @@ export function LandingContent({
   market: MarketNumbers
   heroQuery: string
   heroResult: HeroVerdict | null
+  /** English `/` only. Locale landings omit this so FAQ stays untranslated. */
+  faqs?: FaqItem[]
 }) {
   void tracked
   void trackedExact
@@ -161,6 +166,16 @@ export function LandingContent({
         <LiveMarketPulse locale={locale} market={market} />
 
         <PricingSection locale={locale} compact />
+
+        {faqs && faqs.length > 0 ? (
+          <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 var(--space-3) var(--space-10)" }}>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd(faqs)) }}
+            />
+            <HubFaq items={faqs} />
+          </div>
+        ) : null}
       </main>
 
       <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "#5b6b8c", fontSize: 12 }}>

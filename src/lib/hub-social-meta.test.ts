@@ -52,12 +52,44 @@ test("/tools child pages pin og/twitter titles to the suffixed document title", 
   assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description \}/)
 })
 
-test("homepage layout still owns the generic social title — not rewritten", () => {
+test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE-AEO)", () => {
   const layout = read("app/layout.tsx")
-  assert.match(layout, /const TITLE = "Resale IQ — Know what to pay before you buy"/)
+  const titleMatch = layout.match(/const TITLE = "([^"]+)"/)
+  assert.ok(titleMatch)
+  const title = titleMatch[1]
+  assert.equal(title, "Know what to pay on EU Vinted — Resale IQ")
+  assert.ok(title.length <= 60)
+  assert.match(title, /Resale IQ/)
+  assert.match(title, /EU Vinted/)
+  assert.match(title, /Know what to pay/)
+  assert.match(
+    layout,
+    /Buy-below price and demand before you buy on EU Vinted\. \$\{tracked\} listings across Spain, France, Germany, Italy and Portugal\./,
+  )
   assert.match(layout, /openGraph: \{[\s\S]*title: TITLE/)
   assert.match(layout, /twitter: \{[\s\S]*title: TITLE/)
   const home = read("app/page.tsx")
   assert.doesNotMatch(home, /openGraph:/)
   assert.doesNotMatch(home, /twitter:/)
+  // Conversion H1 stays on the landing copy, not the document title.
+  const i18n = read("lib/i18n.ts")
+  assert.match(i18n, /heroHeadline: "Know what to pay — and whether it'll sell\."/)
+})
+
+test("layout Organization + SoftwareApplication JSON-LD stays valid", () => {
+  const layout = read("app/layout.tsx")
+  assert.match(layout, /"@type": \["Organization", "SoftwareApplication"\]/)
+  assert.match(layout, /name: "Resale IQ"/)
+  assert.match(layout, /url: "https:\/\/resaleiq\.dev"/)
+  assert.match(layout, /applicationCategory: "BusinessApplication"/)
+  assert.match(layout, /areaServed: \["ES", "FR", "DE", "IT", "PT"\]/)
+  assert.match(layout, /isAccessibleForFree: false/)
+  assert.match(layout, /\{ "@type": "Offer", name: "Starter", price: "19", priceCurrency: "EUR"/)
+  assert.match(layout, /\{ "@type": "Offer", name: "Pro", price: "49", priceCurrency: "EUR"/)
+  assert.match(layout, /structuredDataCopy\(locale\)/)
+  const orgStart = layout.indexOf("const orgJsonLd")
+  assert.ok(orgStart >= 0)
+  const start = layout.indexOf("return {", orgStart)
+  const emitted = layout.slice(start, layout.indexOf("export default", start))
+  assert.doesNotMatch(emitted, /sell_through|featureList/)
 })
