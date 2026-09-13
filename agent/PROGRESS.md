@@ -249,6 +249,8 @@ NEXT (once unblocked): P0-1.
 - Schema is plain text (link labels only). No `/register`. No UTM.
   HowTo.url is `https://resaleiq.dev/blog/{slug}`.
 - Helper: `src/lib/howto-schema.ts`. Wired in `src/app/blog/[slug]/page.tsx`.
+- MERGED #97 as 3853d29. Live after Coolify on SOURCE_COMMIT 8297fd9
+  (main also includes #96). Cache-busted curl: 6/6 PASS HowTo+FAQPage.
 
 ## 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
 - Ten EN posts: title + meta only. H1s left as-is (already matched).

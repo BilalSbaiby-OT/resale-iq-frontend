@@ -17,9 +17,11 @@ SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
   Branch cursor/seo-ex-ctr-batch-3-b6b6. Merged #96 despite /data H1
   Playwright flake (expected "Vinted market data").
 
-SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA (this session)
-  HowTo JSON-LD on genuine process posts only. FAQPage stays.
-  Extract steps from visible H2s / numbered checks — do not invent.
+SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA LIVE (merged #97)
+  HowTo + FAQPage both present on all 6 process URLs after Coolify.
+  Live SOURCE_COMMIT 8297fd9 (contains merge 3853d29). Cache-busted
+  curl. Steps from on-page H2s / 4 numbered checks. No /register, no
+  UTM, no invented tools. Mid-CTAs/ilinks untouched.
 
 SEO LANE, 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
   Production gaps: `/blog/common-vinted-scams-sellers` and
