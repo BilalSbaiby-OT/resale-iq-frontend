@@ -38,7 +38,7 @@ function intentChunk(slug: string): string {
 
 function field(chunk: string, key: string): string {
   const tmpl = chunk.match(new RegExp(`${key}:\\s*\`([\\s\\S]*?)\``))
-  if (tmpl) return tmpl[1].replace(/\$\{TRACKED\}/g, "900,000+")
+  if (tmpl) return tmpl[1].replace(/\$\{TRACKED\}/g, "N")
   const str = chunk.match(new RegExp(`${key}:\\s*"([^"]*)"`))
   if (str) return str[1]
   throw new Error(`missing ${key}`)
@@ -50,7 +50,7 @@ function parseFaq(chunk: string): { q: string; a: string }[] {
   const re = /q: "([^"]+)", a: (?:`([\s\S]*?)`|"([^"]*)")/g
   let m: RegExpExecArray | null
   while ((m = re.exec(faq))) {
-    pairs.push({ q: m[1], a: (m[2] ?? m[3]).replace(/\$\{TRACKED\}/g, "900,000+") })
+    pairs.push({ q: m[1], a: (m[2] ?? m[3]).replace(/\$\{TRACKED\}/g, "N") })
   }
   return pairs
 }
