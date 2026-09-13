@@ -3,6 +3,11 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — blog footer See plans now carries UTMs
+  (`utm_content=footer_see_plans`, campaign from the post mid-CTA).
+  Copy lock: button "Get the numbers", subline "Buy-below + demand before
+  cash sticks." Dest `/pricing?utm_…` only.
+
 SEO LANE, 2026-09-13 — CTR pack merged (#82). Button "Get the numbers",
   subline "Buy-below + demand before cash sticks.", dest `/pricing?utm_…`
   (never /register). Views campaign `body_views_20260913`. Price uses

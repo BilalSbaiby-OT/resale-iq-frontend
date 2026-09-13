@@ -3,6 +3,7 @@ import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
+import { footerSeePlansHrefForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
@@ -220,9 +221,9 @@ export default async function BlogPostPage(
             lower-emphasis door for the reader who wants to know what it costs,
             and takes nothing away from the first one.
 
-            ?src=blog is not decoration: /api/track persists the query string
-            (pageview-tracker sends `pathname + search`), so arrivals here are
-            attributable to this link rather than guessed at. */}
+            Footer "See plans" uses the post's mid-CTA campaign +
+            utm_content=footer_see_plans so how-to-price, views, and the rest
+            are attributable. Never /register. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
@@ -245,7 +246,7 @@ export default async function BlogPostPage(
           <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
           <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
-            <Link href="/pricing?src=blog" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+            <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo
             </Link>
           </div>

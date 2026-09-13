@@ -3,7 +3,12 @@
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { pricingMidCta, pricingMidCtaHref } from "./blog-mid-cta.ts"
+import {
+  pricingMidCta,
+  pricingMidCtaHref,
+  pricingFooterSeePlansHref,
+  footerSeePlansHrefForPost,
+} from "./blog-mid-cta.ts"
 
 test("pricing mid-CTA href is /pricing with organic blog UTMs", () => {
   const href = pricingMidCtaHref("body_views_20260913")
@@ -26,4 +31,17 @@ test("pricing mid-CTA copy is the QC-passed conversion block", () => {
     cta.href,
     "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
   )
+})
+
+test("footer See plans uses the post campaign + footer_see_plans", () => {
+  assert.equal(
+    pricingFooterSeePlansHref("ctr_price_20260913"),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=footer_see_plans",
+  )
+  assert.equal(
+    footerSeePlansHrefForPost([{ cta: pricingMidCta("body_views_20260913") }]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_views_20260913&utm_content=footer_see_plans",
+  )
+  assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /register/)
+  assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /src=blog/)
 })

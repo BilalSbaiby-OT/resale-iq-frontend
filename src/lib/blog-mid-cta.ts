@@ -8,8 +8,32 @@
  */
 import type { SectionCtaContent } from "./section-cta"
 
+export function pricingUtmHref(campaign: string, content: string): string {
+  return `/pricing?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=${content}`
+}
+
 export function pricingMidCtaHref(campaign: string): string {
-  return `/pricing?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=mid_cta`
+  return pricingUtmHref(campaign, "mid_cta")
+}
+
+export function pricingFooterSeePlansHref(campaign: string): string {
+  return pricingUtmHref(campaign, "footer_see_plans")
+}
+
+export function campaignFromPricingHref(href: string): string | null {
+  const m = href.match(/[?&]utm_campaign=([^&]+)/)
+  return m ? decodeURIComponent(m[1]) : null
+}
+
+/** Footer "See plans" on a blog article — same campaign as the mid-CTA when one exists. */
+export function footerSeePlansHrefForPost(
+  sections: ReadonlyArray<{ cta?: { href: string } }>,
+): string {
+  for (const s of sections) {
+    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
+    if (campaign) return pricingFooterSeePlansHref(campaign)
+  }
+  return pricingFooterSeePlansHref("ctr_blog_20260913")
 }
 
 export function pricingMidCta(campaign: string): SectionCtaContent {
