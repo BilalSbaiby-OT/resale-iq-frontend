@@ -238,3 +238,11 @@ NEXT (once unblocked): P0-1.
   Same campaign. No title/meta/H1 edits in this PR (scams CTR title/meta
   from EX-CTR-BATCH-2 kept). Mid-CTA file untouched.
   No `/register`. No new campaigns.
+
+## 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
+- Ten EN posts: title + meta only. H1s left as-is (already matched).
+- depop / ebay / start-no-money / grow-closet / descriptions /
+  photos / shipping / bundles / pallets / scale-full-time.
+- No mid-CTA, body, or JSON-LD structure edits. No `/register`.
+  No Free pitch. seoTitle carries " — Resale IQ".
+- Soft caps: title ≤60, meta ≤155. Question/answer-first.

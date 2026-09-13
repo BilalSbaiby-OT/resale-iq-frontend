@@ -255,8 +255,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "vinted-vs-depop-for-sellers",
     title: "Vinted vs Depop for Sellers: Who Pays More?",
+    seoTitle: "Is Vinted or Depop Better? Your Country — Resale IQ",
     description:
-      "Vinted vs Depop on fees, audience and speed. Where you sell from decides it: Depop's 0% commission does not apply outside the US and UK.",
+      "Depop's 0% seller fee is US and UK only. From ES, FR, DE, IT or PT, Vinted pays you more — no seller commission versus Depop's 10%.",
     date: "2026-08-29",
     updated: "2026-09-12",
     category: "Platforms",
