@@ -114,4 +114,12 @@ NEXT (once unblocked): P0-1.
 - Flip campaign `body_flips_20260913`. Fake campaign `body_fake_20260913`.
 - Soft /data kept. No /register.
 
-
+## 2026-09-13 — SEO CTR pack (views + how-to titles, #82)
+- `/blog/how-to-get-more-views-on-vinted`: title/meta/H1 + mid-CTA
+  `body_views_20260913` → `/pricing` (not `/register`).
+  QC copy: button "Get the numbers", subline "Buy-below + demand before cash sticks."
+- Other high-impression how-tos: bundles, seasonal, list-time, descriptions,
+  start-no-money, closet, not-selling, thrift, photos — title and/or mid-CTA.
+- How-to-price: same QC copy via shared helper; campaign `ctr_price_20260913`.
+- Stretch: `/data` title/meta + H1 toward weekly brand volumes; `/flip` H1
+  aligned to “what sells best on Vinted in 2026?”.

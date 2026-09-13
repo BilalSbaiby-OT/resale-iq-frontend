@@ -3,15 +3,18 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — EX-CTR-002/003 CTA copy aligned to Content:
-  #78 already merged (affa559). Follow-up: button "Get the numbers",
-  subline "Buy-below + demand before cash sticks.", campaigns
-  body_flips_20260913 / body_fake_20260913. Soft /data. No register.
+SEO LANE, 2026-09-13 — CTR pack merged (#82). Button "Get the numbers",
+  subline "Buy-below + demand before cash sticks.", dest `/pricing?utm_…`
+  (never /register). Views campaign `body_views_20260913`. Price uses
+  `ctr_price_20260913` with the same QC copy.
 
+SEO LANE, 2026-09-13 — EX-CTR-002/003 CTA copy aligned to Content:
+  #78 already merged (affa559). Campaigns body_flips_20260913 /
+  body_fake_20260913. Soft /data. No register.
 
 SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 (title/meta/H1):
-  Title + meta + H1 on the two 0-click page-1 posts. Mid-CTAs added in the
-  follow-up above after Conversion greenlit /pricing. PR #78.
+  Title + meta + H1 on the two 0-click page-1 posts. Mid-CTAs added after
+  Conversion greenlit /pricing. PR #78.
 
 SEO LANE, 2026-08-31 (after the growth release below):
   [x] Sitemap lastmod was LYING and is fixed (94bc5ef). It advertised that 174

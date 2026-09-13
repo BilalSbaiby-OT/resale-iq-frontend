@@ -4,17 +4,19 @@
 
 import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
+import { pricingMidCta } from "@/lib/blog-mid-cta"
 
 const BRAND = "Resale IQ"
 
 export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-bundles-and-offers-strategy",
-    title: "Vinted Bundles and Offers: When to Accept a Lower Price",
+    title: "Vinted Bundles and Offers — When a Lower Price Still Wins",
+    seoTitle: "Vinted Bundles and Offers — When a Lower Price Still Wins",
     description:
-      "When a Vinted offer is still worth accepting, when a bundle beats holding out for full price, and the floor you should never sell below. A simple rule that keeps your cash moving.",
+      "When a Vinted offer is still worth taking, when a bundle beats waiting, and the floor you should never sell below — so cash keeps moving.",
     date: "2026-08-07",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
     intro:
@@ -26,6 +28,7 @@ export const POSTS_3: BlogPost[] = [
           "Your floor is your cost plus fees plus the minimum margin you'll accept. Work it out before you list, not while a buyer is waiting — the [Vinted profit calculator](/tools/vinted-profit-calculator) gives you the after-fees number in one step.",
           "Without a floor you negotiate emotionally — and you'll accept offers that quietly lose money once shipping and fees come out.",
         ],
+        cta: pricingMidCta("ctr_bundles_20260913"),
       },
       {
         h: "Bundles are a volume tool",
@@ -207,11 +210,12 @@ export const POSTS_3: BlogPost[] = [
   },
   {
     slug: "how-to-grow-a-vinted-closet",
-    title: "How to Grow a Vinted Closet That Sells Itself",
+    title: "How to Grow a Vinted Closet — Volume, Focus, Consistency",
+    seoTitle: "How to Grow a Vinted Closet — Volume, Focus, Consistency",
     description:
-      "Why closet size, consistency and coherence drive sales on Vinted, and how to build one that compounds.",
+      "Why closet size, focus and consistency drive Vinted sales — and why volume only helps if the stock has real demand.",
     date: "2026-08-07",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 5,
     intro:
@@ -222,6 +226,7 @@ export const POSTS_3: BlogPost[] = [
         p: [
           "Every live listing is another entry point into your closet. Sellers with 50+ listings get found far more often than sellers with five — the same item gets more exposure simply because the closet is bigger.",
         ],
+        cta: pricingMidCta("ctr_closet_20260913"),
       },
       {
         h: "Coherence increases basket size",
@@ -336,10 +341,12 @@ export const POSTS_3: BlogPost[] = [
   },
   {
     slug: "how-to-start-reselling-with-little-money",
-    title: "How to Start Reselling With Very Little Money",
+    title: "How to Start Reselling With No Money — A Realistic Path",
+    seoTitle: "How to Start Reselling With No Money — A Realistic Path",
     description:
-      "A realistic path to starting a reselling side hustle on a small budget — where to source, what to avoid, and how to compound early.",
+      "Start reselling with no money: sell what you own, then source cheap and local. Every wrong buy costs more when the budget is small.",
     date: "2026-08-07",
+    updated: "2026-09-13",
     category: "Business",
     readMins: 5,
     intro:
@@ -350,6 +357,7 @@ export const POSTS_3: BlogPost[] = [
         p: [
           "Selling your own unworn clothes costs nothing, teaches you the platform, listing, shipping and buyer communication, and produces your first working capital.",
         ],
+        cta: pricingMidCta("ctr_start_20260913"),
       },
       {
         h: "Then source cheap and local",
@@ -439,10 +447,12 @@ export const POSTS_3: BlogPost[] = [
   },
   {
     slug: "vinted-item-not-selling",
-    title: "Why Isn't My Vinted Item Selling? A Diagnostic, Not a Guess",
+    title: "Why Isn't My Vinted Item Selling — 4 Checks in Order",
+    seoTitle: "Why Isn't My Vinted Item Selling — 4 Checks in Order",
     description:
-      "The four things that actually stop a Vinted listing from moving — price, condition description, brand demand and size — checked in the order that fixes the most items fastest.",
+      "Four things that stop a Vinted listing: price, condition, brand demand and size. Check them in the order that fixes the most items.",
     date: "2026-09-01",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 6,
     intro:
@@ -455,6 +465,7 @@ export const POSTS_3: BlogPost[] = [
           "Check the real number before touching anything else: the [Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](/data) both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
           "One pattern worth knowing before you price: in our own tracking across Spain, France, Germany, Italy and Portugal (21 Aug – 1 Sep 2026, n = 108,529 watched departures), items priced €250 and over were only 3.6% of everything that left the shelf but carried 37.4% of the total money — while 57.5% of departures were under €30. Most of what actually moves, moves cheap. If you've priced a mid-range item like it belongs in the rare, expensive minority, that's very likely the whole problem.",
         ],
+        cta: pricingMidCta("ctr_notselling_20260913"),
       },
       {
         h: "Then the listing itself: is the condition description doing its job",

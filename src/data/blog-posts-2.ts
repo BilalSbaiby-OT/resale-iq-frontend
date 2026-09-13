@@ -4,6 +4,7 @@ import { TRACKED } from "@/lib/stats"
 // Claims honest: `the live tracked-listings figure listings across 5 EU markets`; no earnings promises.
 
 import type { BlogPost } from "./blog-posts"
+import { pricingMidCta } from "@/lib/blog-mid-cta"
 
 const BRAND = "Resale IQ"
 
@@ -14,7 +15,7 @@ export const POSTS_2: BlogPost[] = [
     description:
       "How to photograph items for Vinted so they sell faster — lighting, background, angles, flaws, and the shots buyers actually look for.",
     date: "2026-08-06",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 5,
     intro:
@@ -26,6 +27,7 @@ export const POSTS_2: BlogPost[] = [
           "Natural daylight near a window beats any indoor bulb. Avoid direct sun — it blows out detail and distorts colour, which causes returns.",
           "Use a plain, uncluttered background. A neutral wall, a bed with a plain sheet, or a door. Anything busy makes the item look cheaper than it is.",
         ],
+        cta: pricingMidCta("ctr_photos_20260913"),
       },
       {
         h: "The shots buyers want",
@@ -55,10 +57,12 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "best-time-to-list-on-vinted",
-    title: "The Best Time to List on Vinted (and Why It Matters)",
+    title: "Best Time to List on Vinted — Day, Hour, Season",
+    seoTitle: "Best Time to List on Vinted — Day, Hour, Season",
     description:
-      "When to post listings on Vinted for maximum visibility — daily timing, day of week, and why seasonality matters far more than the hour.",
+      "When to post on Vinted for visibility — hour, day, and why seasonality beats the clock. Fresh listings still need the right price.",
     date: "2026-08-06",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
     intro:
@@ -70,6 +74,7 @@ export const POSTS_2: BlogPost[] = [
           "The usual advice is to list in the evening, on the reasoning that casual browsing peaks after work. We have not measured Vinted's traffic by hour and cannot — so treat that as a plausible default rather than a finding, and test it on your own account by splitting listings between two times of day and comparing.",
           "Weekends, particularly Sunday evening, tend to be busy as people plan the week ahead.",
         ],
+        cta: pricingMidCta("ctr_listtime_20260913"),
       },
       {
         h: "Why season beats hour",
@@ -92,11 +97,12 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "vinted-listing-description-guide",
-    title: "How to Write Vinted Descriptions That Convert",
+    title: "How to Write Vinted Descriptions — Titles Buyers Search",
+    seoTitle: "How to Write Vinted Descriptions — Titles Buyers Search",
     description:
-      "A simple formula for Vinted listing titles and descriptions that get found in search and convert browsers into buyers.",
+      "Vinted titles and descriptions that get found in search and remove the doubts that stop a buy. Lead with the words buyers type.",
     date: "2026-08-06",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
     intro:
@@ -108,6 +114,7 @@ export const POSTS_2: BlogPost[] = [
           "Lead with brand + item + key attribute: 'Nike Tech Fleece hoodie grey M'. That's exactly what people search. Why the title is a search problem rather than a copywriting one is in [photos and titles](/manual/photos-and-titles).",
           "Skip filler like 'gorgeous', 'rare' and emojis in the title — they crowd out searchable words and add nothing.",
         ],
+        cta: pricingMidCta("ctr_desc_20260913"),
       },
       {
         h: "Description: answer the doubts",
@@ -130,10 +137,12 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "thrift-store-flipping-guide",
-    title: "Thrift Store Flipping: How to Source Profitably",
+    title: "Thrift Store Flipping — How to Source Profitably",
+    seoTitle: "Thrift Store Flipping — How to Source Profitably",
     description:
-      "A practical guide to sourcing from charity shops, car boots and thrift stores — what to look for, what to skip, and how to check value before you buy.",
+      "How to source from charity shops and car boots without filling your home with dead stock. Check demand and buy-below before you pay.",
     date: "2026-08-06",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -145,6 +154,7 @@ export const POSTS_2: BlogPost[] = [
           "Walking in and 'seeing what's there' is how you buy junk. Go in knowing the brands and models that actually sell, and what you can pay for each.",
           "A short list of 10–15 target brands turns a two-hour rummage into a fast, focused scan. If your list leans older or one-off pieces, [spotting genuinely valuable vintage](/blog/vintage-clothing-reselling-guide) is a separate skill worth learning before you buy.",
         ],
+        cta: pricingMidCta("ctr_thrift_20260913"),
       },
       {
         h: "The 30-second check",
@@ -206,11 +216,12 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "how-to-get-more-views-on-vinted",
-    title: "How to Get More Views on Vinted: 4 Causes and Fixes",
+    title: "How to Get More Views on Vinted — 4 Causes and Fixes",
+    seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes",
     description:
-      "No views on Vinted usually comes down to four things: search wording, photos, price, or a stale listing. How to spot which one is throttling your views, and fix it.",
+      "No views on Vinted usually means search wording, photos, price, or a stale listing. Fix the real cause — then buy smarter with buy-below.",
     date: "2026-08-06",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 5,
     intro:
@@ -221,6 +232,7 @@ export const POSTS_2: BlogPost[] = [
         p: [
           "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip. [What each brand sells per week](/flip) answers it in one look.",
         ],
+        cta: pricingMidCta("body_views_20260913"),
       },
       {
         h: "Match the words buyers type",
@@ -249,11 +261,12 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "seasonal-reselling-calendar",
-    title: "Reseller's Seasonal Calendar: What to Buy, When",
+    title: "Seasonal Reselling Calendar — What to Buy and When",
+    seoTitle: "Seasonal Reselling Calendar — What to Buy and When",
     description:
-      "A month-by-month guide to what to source and what to list on Vinted, so your cash isn't frozen in off-season stock.",
+      "What to source and list each month on Vinted so your cash isn't frozen in off-season stock. Buy low season, sell into demand.",
     date: "2026-08-06",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 5,
     intro:
@@ -265,6 +278,7 @@ export const POSTS_2: BlogPost[] = [
           "Coats, knitwear and boots are cheapest in spring and summer, and sell best from October to January.",
           "Shorts, dresses, swimwear and light trainers are cheapest in autumn/winter and sell from April to July.",
         ],
+        cta: pricingMidCta("ctr_seasonal_20260913"),
       },
       {
         h: "The cash-flow trap",

@@ -1,5 +1,6 @@
 import { TRACKED } from "@/lib/stats"
 import type { SectionCtaContent } from "@/lib/section-cta"
+import { pricingMidCta } from "@/lib/blog-mid-cta"
 // Programmatic SEO + AEO content. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
@@ -119,18 +120,8 @@ export const POSTS: BlogPost[] = [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
           "A common rule: buy-below = average asking price at departure × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
-        // EX-CTR-PRICE-001 mid-CTA. €54 is this post's own Stone Island
-        // Hoodies intro figure; €36 is 54 × 0.95 × 0.70. Illustrative.
-        cta: {
-          headline: "Know what to pay before you buy",
-          body: "Buy-below + demand before cash sticks.",
-          example:
-            "Example: Stone Island hoodie · median departure ~€54 → buy-below ~€36 for ~30% target margin (illustrative; real models vary).",
-          label: "Get the numbers",
-          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
-          secondaryLabel: "Or browse weekly brand volumes on /data",
-          secondaryHref: "/data",
-        },
+        // EX-CTR-PRICE-001. Campaign ctr_price_20260913. QC button/subline.
+        cta: pricingMidCta("ctr_price_20260913"),
       },
       {
         h: "Price to sell in a reasonable window",
@@ -335,6 +326,7 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-find-items-to-flip-on-vinted",
     title: "How to Find Vinted Flips — Start From Demand, Not Scroll",
+    seoTitle: "How to Find Items to Flip on Vinted — Start From Demand",
     description:
       "Stop random scrolling. Find underpriced Vinted items from real demand across ES/FR/DE/IT/PT. Free weekly brand data on Resale IQ.",
     date: "2026-08-05",
@@ -350,16 +342,7 @@ export const POSTS: BlogPost[] = [
           "Cheap doesn't mean profitable. Start with items that have proven demand and margin room, then look for them below their buy-below price. [Which categories actually move](/category) is the place to start.",
           "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](/flip) before committing cash.",
         ],
-        // EX-CTR-002 mid-CTA after the first how-to section.
-        // Campaign body_flips_20260913 matches Content. Soft /data only.
-        cta: {
-          headline: "Know what to pay before you buy",
-          body: "Buy-below + demand before cash sticks.",
-          label: "Get the numbers",
-          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_flips_20260913&utm_content=mid_cta",
-          secondaryLabel: "Or browse weekly brand volumes on /data",
-          secondaryHref: "/data",
-        },
+        cta: pricingMidCta("body_flips_20260913"),
       },
       {
         h: "Use the buy-below filter",
