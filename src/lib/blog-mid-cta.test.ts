@@ -303,6 +303,84 @@ test("what-sells-best-on-vinted ships BODY-SELLSBEST-001 after ranking and befor
   assert.ok(ranking < buyBelow && buyBelow < faq)
 })
 
+test("BODY-VIEWS-002 paid CTA uses blog/organic + body_views_deepen campaign", () => {
+  const href = pricingBodyCtaHref("body_views_deepen_002_20260913")
+  assert.equal(
+    href,
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913",
+  )
+  const cta = pricingBodyCta("body_views_deepen_002_20260913")
+  assert.equal(cta.label, "Get the numbers")
+  assert.equal(cta.body, "Buy-below + demand before cash sticks.")
+  assert.equal(cta.href, href)
+  assert.doesNotMatch(href, /register/)
+  assert.doesNotMatch(href, /plan=/)
+  assert.doesNotMatch(href, /start free/i)
+})
+
+test("BODY-VIEWS-002 soft cite is /data with body_views_deepen campaign", () => {
+  assert.equal(
+    dataCiteHref("body_views_deepen_002_20260913"),
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_views_deepen_002_20260913",
+  )
+})
+
+test("how-to-get-more-views footer stays on body_views when BODY-VIEWS-002 CTA is also present", () => {
+  assert.equal(
+    footerSeePlansHrefForPost([
+      { cta: pricingMidCta("body_views_20260913") },
+      { cta: pricingBodyCta("body_views_deepen_002_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_views_20260913&utm_content=footer_see_plans",
+  )
+  assert.equal(
+    legacySignupKillHrefForPost([
+      { cta: pricingMidCta("body_views_20260913") },
+      { cta: pricingBodyCta("body_views_deepen_002_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_views_20260913&utm_content=legacy_signup_kill",
+  )
+})
+
+test("how-to-get-more-views-on-vinted ships BODY-VIEWS-002 after demand and before listing tips", () => {
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts-2.ts"),
+    "utf8",
+  )
+  const start = posts.indexOf('slug: "how-to-get-more-views-on-vinted"')
+  const end = posts.indexOf('slug: "seasonal-reselling-calendar"')
+  assert.ok(start >= 0 && end > start)
+  const post = posts.slice(start, end)
+  assert.match(post, /title: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
+  assert.match(post, /seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
+  assert.match(
+    post,
+    /No views on Vinted usually means search wording, photos, price, or a stale listing/,
+  )
+  assert.match(post, /Demand is the other half of the views/)
+  assert.match(
+    post,
+    /More views are useful only when the item has a chance of leaving the shelf/,
+  )
+  assert.match(post, /we watched 5,746 departures across 28 brands/)
+  assert.match(post, /Fred Perry: 1,027 departures/)
+  assert.match(post, /Stone Island: 892/)
+  assert.match(post, /Gucci: 230 departures at an average €197/)
+  assert.match(post, /1\. Demand: is this brand\/model moving enough this week/)
+  assert.match(post, /2\. Buy-below: what is the most you can pay after fees/)
+  assert.match(post, /pricingMidCta\("body_views_20260913"\)/)
+  assert.match(post, /pricingBodyCta\("body_views_deepen_002_20260913"\)/)
+  assert.match(post, /dataCiteHref\("body_views_deepen_002_20260913"\)/)
+  assert.match(post, /\[Vinted market data\]\(/)
+  assert.doesNotMatch(post, /register\?plan=/)
+  assert.doesNotMatch(post, /register\?src=blog/)
+  assert.doesNotMatch(post, /Start free/i)
+  const demandFirst = post.indexOf("First: is there demand at all?")
+  const demandHalf = post.indexOf("Demand is the other half of the views")
+  const listingTips = post.indexOf("Match the words buyers type")
+  assert.ok(demandFirst < demandHalf && demandHalf < listingTips)
+})
+
 test("buy-below-price-explained ships BODY-BUYBELOW-001 after the formula and before FAQ", () => {
   const posts = readFileSync(
     join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),

@@ -140,6 +140,8 @@ test("EX-ILINK does not touch mid-CTA campaigns or blog-mid-cta.ts", () => {
 
   const posts2 = read("data/blog-posts-2.ts")
   assert.match(posts2, /pricingMidCta\("body_views_20260913"\)/)
+  assert.match(posts2, /pricingBodyCta\("body_views_deepen_002_20260913"\)/)
+  assert.match(posts2, /dataCiteHref\("body_views_deepen_002_20260913"\)/)
 
   const posts3 = read("data/blog-posts-3.ts")
   assert.match(posts3, /pricingBodyCtaEs\("body_price_es_20260913"\)/)
