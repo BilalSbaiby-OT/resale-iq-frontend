@@ -3,6 +3,12 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-OG-HUBS /data /flip social titles
+  /data now sets openGraph + twitter title/description to the page
+  title ("Weekly Brand Volumes on Vinted — What Sells Best in 2026").
+  /flip already had og:title; twitter:title/description now match.
+  Homepage layout strings untouched. No UTMs.
+
 SEO LANE, 2026-09-13 — BODY-SELLSBEST-001 on what-sells-best-on-vinted
   New section after ranking, before FAQ: "Buy-below still decides the flip".
   Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913`.

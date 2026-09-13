@@ -185,6 +185,16 @@ NEXT (once unblocked): P0-1.
 - Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
 - Existing EX-ILINK flip/data anchors kept.
 
+## 2026-09-13 — EX-OG-HUBS /data /flip social titles
+- Root layout pinned homepage og:title / twitter:title. Child `title`
+  does not override those tags.
+- /data: document title was page-specific; og + twitter were the
+  homepage string. Now all three + descriptions share TITLE/DESCRIPTION.
+- /flip: og:title already matched; twitter:title + twitter:description
+  now use the same `title` / `description` as the document.
+- Homepage `src/app/layout.tsx` and `src/app/page.tsx` unchanged.
+- Guard: `src/lib/hub-social-meta.test.ts`.
+
 ## 2026-09-13 — EX-ILINK blog → flip/data/pricing
 - Campaign `ilink_20260913` (`utm_source=blog&utm_medium=ilink`).
 - Body-only `[label](/path)` links via `ilinkHref()` in `src/lib/blog-ilink.ts`.

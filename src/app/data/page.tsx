@@ -11,11 +11,19 @@ import { WeeklyBrief } from "@/components/ui/weekly-brief"
 // no brands. Runtime BACKEND_URL can. Crawlers still see the numbers in HTML.
 export const dynamic = "force-dynamic"
 
+// Shared so <title>, og:title and twitter:title cannot drift. Root layout
+// pins homepage openGraph/twitter strings; Next.js does not copy a child
+// `title` into those tags, so /data used to share as the generic homepage.
+const TITLE = "Weekly Brand Volumes on Vinted — What Sells Best in 2026"
+const DESCRIPTION =
+  "Weekly Vinted brand volumes: watched departures and average asking prices at departure across Spain, France, Germany, Italy and Portugal. Updated from live listings."
+
 export const metadata: Metadata = {
-  title: "Weekly Brand Volumes on Vinted — What Sells Best in 2026",
-  description:
-    "Weekly Vinted brand volumes: watched departures and average asking prices at departure across Spain, France, Germany, Italy and Portugal. Updated from live listings.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/data" },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 }
 
 export default async function DataPage() {
