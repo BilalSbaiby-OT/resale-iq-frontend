@@ -59,7 +59,7 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -91,6 +91,18 @@ export const POSTS: BlogPost[] = [
             ilinkHref("data") +
             ") are the free weekly tables. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
         ],
+      },
+      {
+        h: "Buy-below still decides the flip",
+        p: [
+          "Knowing what sells best is half the job. The other half is not overpaying for movers.",
+          "Week to 13 September 2026 (EU5): Fred Perry 1,027 watched departures @ €19 · Stone Island 892 @ €66 · Patagonia 843 @ €36 · Gucci 230 @ €197. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
+          "[Weekly market data](" +
+            dataCiteHref("body_sellsbest_20260913") +
+            ").",
+        ],
+        // BODY-SELLSBEST-001. Keep the EX-ILINK flip/data anchors above.
+        cta: pricingBodyCta("body_sellsbest_20260913"),
       },
     ],
     faq: [

@@ -113,6 +113,8 @@ test("EX-ILINK does not touch mid-CTA campaigns or blog-mid-cta.ts", () => {
   assert.match(posts3, /dataCiteHrefEs\("body_price_es_20260913"\)/)
   assert.match(posts, /pricingBodyCta\("body_buybelow_20260913"\)/)
   assert.match(posts, /dataCiteHref\("body_buybelow_20260913"\)/)
+  assert.match(posts, /pricingBodyCta\("body_sellsbest_20260913"\)/)
+  assert.match(posts, /dataCiteHref\("body_sellsbest_20260913"\)/)
   const buyStart = posts.indexOf('slug: "buy-below-price-explained"')
   const buy = posts.slice(buyStart)
   assert.doesNotMatch(buy, /ilinkHref\("pricing"\)/)
