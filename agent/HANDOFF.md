@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-TOOLS-AEO (this session)
+  PR #99 cursor/seo-ex-tools-aeo-fc7b. /tools title is now
+  "Vinted Tools: Price Check & Buy-Below — Resale IQ" with matching
+  og/twitter. FAQPage + HubFaq (5 Qs). Child tool social titles match
+  `${i.title} — Resale IQ`. HowTo skipped (no numbered steps). Soft
+  /data /flip. Existing /pricing?src=tools_index kept. Merged latest
+  main (#100/#101/#102). Live-verify after Coolify.
+
 SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
   Title + meta only on 6 remaining soft EN posts. H1s unchanged.
   No mid-CTA / body / schema edits. No /register. No Free pitch.

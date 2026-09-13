@@ -228,6 +228,16 @@ NEXT (once unblocked): P0-1.
 - Merged #94 (c564075). Playwright /data H1 flake ignored. All 8 live
   after Coolify; cache-busted curl 17:08Z matched new titles/metas.
 
+## 2026-09-13 — EX-TOOLS-AEO hub FAQ + titles
+- `/tools` title is now answer-first: "Vinted Tools: Price Check & Buy-Below — Resale IQ"
+  (was "Vinted Reseller Tools — Price Checker | Resale IQ").
+- og:title + twitter:title match the document title (same /data bug).
+- FAQPage JSON-LD + visible HubFaq, 5 questions, no /register, no UTM in schema.
+- Soft on-page links to /data and /flip. Existing /pricing?src=tools_index kept
+  (no new paid CTA, so no tools_aeo_20260913).
+- Child /tools/[slug] og/twitter titles now use `${i.title} — Resale IQ`.
+- HowTo skipped: profit calculator and price checker have no numbered steps.
+
 ## 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
 - Production gaps: `/blog/common-vinted-scams-sellers` and
   `/blog/vinted-disputes-and-returns-sellers` had no `ilink_20260913`.

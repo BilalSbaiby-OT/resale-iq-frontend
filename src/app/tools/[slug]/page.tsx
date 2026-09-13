@@ -18,11 +18,16 @@ export async function generateMetadata(
   const { slug } = await params
   const i = fillTracked(getIntent(slug), await listingsTrackedLabel())
   if (!i) return { title: "Not found — Resale IQ" }
+  // Same string for <title>, og:title and twitter:title. Root layout pins
+  // homepage social tags; a child that sets only `title` (or a shorter
+  // openGraph title) still shares as the generic homepage on X/Slack.
+  const title = `${i.title} — Resale IQ`
   return {
-    title: `${i.title} — Resale IQ`,
+    title,
     description: i.description,
     alternates: { canonical: `/tools/${i.slug}` },
-    openGraph: { title: i.title, description: i.description, type: "website" },
+    openGraph: { title, description: i.description, type: "website" },
+    twitter: { card: "summary_large_image", title, description: i.description },
   }
 }
 
@@ -54,6 +59,10 @@ export default async function IntentPage(
 
   // WebApplication + FAQPage schema: tells search AND answer engines exactly what
   // this tool is and lets them lift a citable answer for the target query.
+  // HowTo is omitted: neither the profit calculator (two fields + Calculate)
+  // nor the price checker (a search box) renders a numbered step list.
+  // Emitting HowTo without visible steps is the same schema/page mismatch
+  // FAQPage forbids — do not invent steps to satisfy a brief.
   const jsonLd = [
     {
       "@context": "https://schema.org",

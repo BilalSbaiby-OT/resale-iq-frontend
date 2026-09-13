@@ -82,6 +82,38 @@ test("definedTermJsonLd emits a parseable DefinedTerm", () => {
   assert.doesNotMatch(schema.description, /\/register/)
 })
 
+test("/tools hub has FAQPage, answer-first title, and matching social titles", () => {
+  const src = read("app/tools/page.tsx")
+  assert.match(src, /faqPageJsonLd\(faqs\)/)
+  assert.match(src, /<HubFaq items=\{faqs\}/)
+  assert.match(src, /Vinted Tools: Price Check & Buy-Below — Resale IQ/)
+  assert.match(src, /openGraph: \{ title: TITLE/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE/)
+  assert.match(src, /What Vinted reseller tools are on this page\?/)
+  assert.match(src, /What is a buy-below price\?/)
+  assert.match(src, /Is the Vinted price checker free\?/)
+  assert.match(src, /Which Vinted markets do these tools cover\?/)
+  assert.match(src, /Where can I see weekly volumes and brand rankings\?/)
+  assert.match(src, /ES\/FR\/DE\/IT\/PT/)
+  assert.match(src, /https:\/\/resaleiq\.dev\/data/)
+  assert.match(src, /https:\/\/resaleiq\.dev\/flip/)
+  assert.match(src, /href="\/data"/)
+  assert.match(src, /href="\/flip"/)
+  assert.doesNotMatch(src, /\/register/)
+  assert.doesNotMatch(src, /utm_/)
+  assert.doesNotMatch(src, /HowTo/)
+  assert.doesNotMatch(src, /Vinted Reseller Tools — Price Checker/)
+})
+
+test("/tools child pages pin og and twitter titles to the document title", () => {
+  const src = read("app/tools/[slug]/page.tsx")
+  assert.match(src, /const title = `\$\{i\.title\} — Resale IQ`/)
+  assert.match(src, /openGraph: \{ title, description: i\.description/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description/)
+  assert.match(src, /"@type": "FAQPage"/)
+  assert.doesNotMatch(src, /"@type": "HowTo"/)
+})
+
 test("what-sells-best FAQ cites absolute /data and /flip with no UTM", () => {
   const posts = read("data/blog-posts.ts")
   const start = posts.indexOf('slug: "what-sells-best-on-vinted"')
