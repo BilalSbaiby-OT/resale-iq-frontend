@@ -261,7 +261,10 @@ test("/es/pricing serves the Spanish pricing page, not a redirect and not Englis
   const res = await page.goto("/es/pricing")
   expect(res?.status()).toBe(200)
   expect(page.url()).toMatch(/\/es\/pricing$/)
-  await expect(page.locator("h1")).toContainText(/Sabe qué pagar/i)
+  // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
+  await expect(page.locator("h1")).toContainText(/Encuentra flips rentables/i)
+  await expect(page.locator("section.riq-pricing")).toContainText(/BUY \/ WATCH \/ SKIP/)
+  await expect(page.locator("section.riq-pricing")).toContainText(/19 €/)
   await expect(page.locator("html")).toHaveAttribute("lang", "es")
 })
 

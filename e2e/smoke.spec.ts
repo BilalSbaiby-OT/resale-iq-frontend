@@ -112,13 +112,19 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   // The section heading is the document h1 here, not an h2 under the landing
   // page's own h1.
   await expect(page.locator("h1")).toHaveCount(1)
-  await expect(page.locator("h1")).toContainText(/Know what to pay/i)
+  // EX-PRICING-OFFER — locked flips hero, not the soft “Know what to pay” line.
+  await expect(page.locator("h1")).toContainText(/Find profitable Vinted flips/i)
+  const hero = page.locator("section.riq-pricing")
+  await expect(hero).toContainText(/BUY \/ WATCH \/ SKIP/)
+  await expect(hero).toContainText(/€19/)
   // Paid ladder from TIERS. The Free card is public /data, not a €0 item-check plan.
   for (const name of ["Free", "Starter", "Pro"]) {
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
   }
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
+  // Free forever must not lead — first CTA is Starter.
+  await expect(page.locator("section.riq-pricing button").first()).toHaveText(/Get the numbers/i)
   // One filled accent CTA on the page; the other tier buttons are ghosts.
   const buttons = page.locator("section.riq-pricing button")
   const filled: string[] = []

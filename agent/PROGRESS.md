@@ -479,3 +479,15 @@ NEXT (once unblocked): P0-1.
   not do) and corrects the free one-item checker boundary. No Free-forever
   invent. Get the numbers / google_search_test UTMs untouched.
 - Branch cursor/seo-ex-webmcp-tools-43e2. Rebased onto main after #115.
+
+## 2026-09-13 — EX-PRICING-OFFER locked Bilal flips offer
+- `/pricing` EN H1: “Find profitable Vinted flips before buying them.”
+  Subhead: ResaleIQ analyzes listings and tells you BUY / WATCH / SKIP,
+  with the target buy price and expected resale. Starter €19/mo.
+- `/es/pricing` Spanish mirror: “Encuentra flips rentables en Vinted
+  antes de comprarlos.” + BUY / WATCH / SKIP + Starter 19 €/mes.
+- Soft “Know what to pay…” / “Sabe qué pagar…” dropped from the pricing
+  hero only. Title/meta stay EX-PRICING-CTR (Starter €19 / Pro €49).
+- Marketing cards: Starter, Pro, Free. Free forever does not lead.
+  Filled accent CTA is Starter. Stripe placeholders unchanged.
+- Tests: `src/lib/pricing-offer.test.ts`, e2e smoke + locale-routing H1.
