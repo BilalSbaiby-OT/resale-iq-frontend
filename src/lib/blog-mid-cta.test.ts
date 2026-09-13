@@ -14,6 +14,8 @@ import {
   dataCiteHref,
   pricingFooterSeePlansHref,
   footerSeePlansHrefForPost,
+  pricingInlineRegisterKillHref,
+  inlineRegisterKillHrefForPost,
 } from "./blog-mid-cta.ts"
 
 test("pricing mid-CTA href is /pricing with organic blog UTMs", () => {
@@ -70,6 +72,54 @@ test("BODY-001 soft cite is /data with body_price campaign", () => {
     dataCiteHref("body_price_20260913"),
     "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913",
   )
+})
+
+test("inline register-kill href is /pricing with organic blog UTMs — never /register", () => {
+  assert.equal(
+    pricingInlineRegisterKillHref("ctr_price_20260913"),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=inline_register_kill",
+  )
+  assert.equal(
+    inlineRegisterKillHrefForPost([{ cta: pricingMidCta("ctr_price_20260913") }]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=inline_register_kill",
+  )
+  assert.equal(
+    inlineRegisterKillHrefForPost([]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_blog_20260913&utm_content=inline_register_kill",
+  )
+  assert.doesNotMatch(pricingInlineRegisterKillHref("ctr_price_20260913"), /\/register/)
+  assert.doesNotMatch(pricingInlineRegisterKillHref("ctr_price_20260913"), /src=blog/)
+})
+
+test("how-to-price register-kill stays on ctr_price when BODY-001 CTA is also present", () => {
+  assert.equal(
+    inlineRegisterKillHrefForPost([
+      { cta: pricingMidCta("ctr_price_20260913") },
+      { cta: pricingBodyCta("body_price_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=inline_register_kill",
+  )
+})
+
+test("blog article template no longer points the paid footer at /register", () => {
+  const page = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../app/blog/[slug]/page.tsx"),
+    "utf8",
+  )
+  assert.doesNotMatch(page, /\/register\?src=blog/)
+  assert.doesNotMatch(page, /\/register\?plan=/)
+  assert.match(page, /inlineRegisterKillHrefForPost/)
+  assert.match(page, /Get the numbers/)
+})
+
+test("blog index paid CTA no longer defaults SmartCTA to /register", () => {
+  const page = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../app/blog/page.tsx"),
+    "utf8",
+  )
+  assert.doesNotMatch(page, /\/register/)
+  assert.match(page, /pricingInlineRegisterKillHref\("ctr_blog_20260913"\)/)
+  assert.match(page, /Get the numbers/)
 })
 
 test("how-to-price footer stays on ctr_price when BODY-001 CTA is also present", () => {
