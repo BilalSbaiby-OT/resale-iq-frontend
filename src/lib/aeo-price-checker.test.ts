@@ -28,10 +28,10 @@ const page = read("app/tools/[slug]/page.tsx")
 const checker = intentSlice(intents)
 
 test("price-checker title and H1 stay owned by the existing page", () => {
-  assert.match(checker, /title: "Vinted Price Checker — What Any Item Really Sells For"/)
+  assert.match(checker, /title: "Vinted Price Checker — Typical Departure Price"/)
   assert.match(checker, /h1: "Vinted Price Checker"/)
-  assert.match(checker, /Vinted price checker from/)
-  assert.doesNotMatch(checker, /Typical Departure Price/)
+  assert.match(checker, /Typical Vinted departure price and buy-below/)
+  assert.doesNotMatch(checker, /What Any Item Really Sells For/)
 })
 
 test("price-checker body walks departure → buy-below → BUY/WATCH/SKIP", () => {
