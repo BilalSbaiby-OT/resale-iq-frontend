@@ -11,6 +11,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     part: "Selling",
     updated: "2026-09-12",
     title: "Pricing a listing, and when to cut",
+    seoTitle: "How to Price a Vinted Listing (and When to Cut) — The Vinted Reselling Manual",
     description:
       "Setting an opening price that leaves room to negotiate, running a disciplined markdown schedule, and knowing when a price cut is cheaper than waiting.",
     minutes: 7,
@@ -52,6 +53,14 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "How should I set the opening price on Vinted?",
+        a: "Open slightly above your target, anchored to the asking price at departure for the same model in similar condition. A large premium gets you filtered out of max-price searches, so you learn nothing from the silence.",
+      },
+      {
+        q: "When should I cut the price on a Vinted listing?",
+        a: "Decide the schedule when you list. Hold the opening price about two weeks, cut modestly at three, again at six, and make a hard call at ten weeks. Sixty days of no sale is the market answering.",
+      },
+      {
         q: "Should I accept low offers?",
         a: "Compare the offer against your buy price and the realistic outcome of waiting, not against your asking price. An offer that clears a thin profit on week two is frequently better than the same money on week ten, because the capital comes back sooner.",
       },
@@ -67,6 +76,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     part: "Selling",
     updated: "2026-09-12",
     title: "Photos and titles: the conversion layer",
+    seoTitle: "How to Write Vinted Titles and Photos That Sell — The Vinted Reselling Manual",
     description:
       "The listing work that actually moves the needle — searchable titles, a repeatable photo set, and descriptions that reduce returns rather than sell.",
     minutes: 6,
@@ -115,8 +125,16 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What should a Vinted title include?",
+        a: "Brand, model, category, colour, size — in the order a buyer would search. Filler like \"rare\" or \"must have\" matches nothing anyone types.",
+      },
+      {
         q: "How many photos should a listing have?",
         a: "Five to seven covers it: full front, back, brand label, size label, fabric close-up, and any flaw. More than that adds effort without adding conversion; fewer than four leaves the buyer guessing about something.",
+      },
+      {
+        q: "Do descriptions sell the item?",
+        a: "No. They prevent returns. Measurements, exact condition, fabric, and a photo of any flaw — stated plainly — is the whole job. Persuasive adjectives add nothing and set expectations the item then has to meet.",
       },
       {
         q: "Should I write listings in the local language of each market?",
@@ -128,7 +146,9 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "vinted-mechanics",
     number: 11,
     part: "Selling",
+    updated: "2026-09-13",
     title: "Vinted mechanics you can actually control",
+    seoTitle: "Vinted Bumps, Offers and Visibility That Work — The Vinted Reselling Manual",
     description:
       "How visibility, bumps, offers and buyer messaging work in practice, and which of the levers are worth paying for.",
     minutes: 6,
@@ -171,8 +191,16 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Does listing everything on Sunday night work?",
+        a: "Spreading listings across the week should beat posting them all on Sunday evening, because each gets its own moment in a recency-weighted feed. We have not measured Vinted's ranking directly — test it on your own account rather than treating it as fact.",
+      },
+      {
         q: "Are Vinted bumps worth the money?",
         a: "Sometimes, on correctly-priced items that have gone stale in the feed. Track the outcome per item rather than trusting a general impression — the honest answer varies by price tier and category, and most sellers who have strong opinions about it have never measured.",
+      },
+      {
+        q: "Are bundles worth using on Vinted?",
+        a: "Yes. A buyer taking three items is one shipment and three items off the shelf. Suggesting a bundle to someone browsing several of your listings converts better than waiting for them to propose it.",
       },
       {
         q: "How fast should I reply to buyers?",
@@ -184,6 +212,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "cross-border-markets",
     number: 12,
     part: "Selling",
+    updated: "2026-09-13",
     title: "The five EU markets are mostly one market",
     description:
       "We measured how much Vinted's ES, FR, DE, IT and PT catalogues overlap. Most listings appear on several domains at an identical price — which means the country-arbitrage playbook does not work the way it is usually described.",
@@ -234,6 +263,10 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Are Vinted ES, FR, DE, IT and PT separate marketplaces?",
+        a: "No. The large majority of listings we checked appear on more than one domain, and nearly all multi-domain listings carry an identical price. It is largely one catalogue under five domains, not five national marketplaces.",
+      },
+      {
         q: "Can I buy on Vinted in one country and resell in another?",
         a: "Generally not profitably, because for most listings the buyer in the second country can already see the first listing at the same price. Our crawl found that of listings present on four or more domains, nearly all were priced identically on all of them. The exception is the minority of genuinely single-country inventory, which is a much smaller pool than the usual advice suggests.",
       },
@@ -241,13 +274,19 @@ export const CHAPTERS_2: ManualChapter[] = [
         q: "Which Vinted market is best to sell in?",
         a: "For most listings the question does not apply the way it is usually asked, because the item surfaces across several domains regardless. That is why Resale IQ reports one aggregated figure across ES, FR, DE, IT and PT rather than five national ones — presenting them separately would mean counting the same listings several times.",
       },
+      {
+        q: "Where is local advantage real on Vinted?",
+        a: "On the sourcing side: charity shops, car boots, local classifieds and wholesale contacts are bounded by geography. Source locally, where distance protects you, and sell into the shared pool, where it does not.",
+      },
     ],
   },
   {
     slug: "inventory-and-cashflow",
     number: 13,
     part: "Running it as a business",
+    updated: "2026-09-13",
     title: "Inventory and cashflow",
+    seoTitle: "Why Profitable Resellers Still Run Out of Cash — The Vinted Reselling Manual",
     description:
       "How much stock to hold, why profitable resellers still run out of money, and the simple discipline that prevents it.",
     minutes: 6,
@@ -288,8 +327,16 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Why do profitable Vinted resellers run out of cash?",
+        a: "Profit is recognised when an item sells; cash is what is in the account today. A month where you bought eighty and sold sixty can be highly profitable and still leave you with less money — the difference is sitting on the rail.",
+      },
+      {
         q: "How much stock should I hold?",
         a: "As much as you can list, photograph and manage properly, which is usually less than you can afford. Work backwards from your listing throughput per week and the time it takes stock to sell, rather than from your available cash.",
+      },
+      {
+        q: "Should I cap inventory in euros or in units?",
+        a: "Units. A euro cap drifts as you move into more expensive stock. A unit cap asks whether you can photograph, list and manage this many items — and that constraint binds first.",
       },
       {
         q: "What do I do with stock that will not sell at any price?",
@@ -301,6 +348,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "metrics-that-matter",
     number: 14,
     part: "Running it as a business",
+    updated: "2026-09-13",
     title: "The five numbers to track weekly",
     description:
       "A minimal measurement routine — sell-through, days to sell, realised margin, cash conversion and unlisted backlog — and what each one tells you to change.",
@@ -348,6 +396,14 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What five numbers should I track weekly as a Vinted reseller?",
+        a: "Sell-through, median days to sell, realised margin, cash conversion, and unlisted backlog. Each answers a different question and each has a specific corrective action when it moves the wrong way.",
+      },
+      {
+        q: "Why use the median instead of the average for days to sell?",
+        a: "Resale data is skewed. One four-hour sale and one eleven-month sit produce an average that describes neither. The median is the honest summary.",
+      },
+      {
         q: "Do I need a spreadsheet for this?",
         a: "A spreadsheet is plenty. Five columns and one row per week beats any tool you will not actually maintain. The failure mode is never insufficient sophistication — it is abandoning the routine after three weeks.",
       },
@@ -363,6 +419,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     part: "Running it as a business",
     updated: "2026-09-12",
     title: "Scaling past the hobby",
+    seoTitle: "How to Scale Vinted Reselling Past 20 Listings — The Vinted Reselling Manual",
     description:
       "What breaks between 20 and 200 listings, why the constraint is throughput rather than capital, and the systems that have to exist before volume goes up.",
     minutes: 6,
@@ -411,8 +468,16 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What breaks first when you scale a Vinted closet?",
+        a: "Memory first — at eighty items you no longer know what everything cost. Physical retrieval next. Listing throughput last and hardest: sourcing a hundred items in an afternoon is easy; listing them properly is not.",
+      },
+      {
         q: "When should I stop sourcing and just list?",
         a: "When the unlisted backlog exceeds roughly one week of your listing throughput. Beyond that, more stock is not an asset — it is capital doing nothing while you fall further behind.",
+      },
+      {
+        q: "Why specialise before you scale?",
+        a: "Volume without focus multiplies the brands you have to price well. Narrowing to a handful you understand makes sourcing faster, pricing more accurate and mistakes rarer.",
       },
       {
         q: "Is it better to sell many cheap items or few expensive ones?",
@@ -424,7 +489,9 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "tax-and-the-rules",
     number: 16,
     part: "Running it as a business",
+    updated: "2026-09-13",
     title: "Tax, platform reporting and knowing when it is a business",
+    seoTitle: "Do You Pay Tax on Vinted Sales? DAC7 Basics — The Vinted Reselling Manual",
     description:
       "A plain-language overview of DAC7 platform reporting in the EU, the hobby-versus-business distinction, and what records to keep. Not tax advice.",
     minutes: 6,
@@ -465,8 +532,16 @@ export const CHAPTERS_2: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What is DAC7?",
+        a: "EU rules that require online marketplaces to collect seller information and report it to tax authorities once a seller passes activity thresholds in a calendar year. The practical point is the direction of travel: assume volume selling is visible.",
+      },
+      {
         q: "Do I have to declare Vinted income?",
         a: "That depends on your country, your total income and whether the activity counts as trading rather than selling personal possessions. Because it varies so much, the only responsible answer is to ask a qualified accountant in your jurisdiction — and to have kept the records that let you answer their questions.",
+      },
+      {
+        q: "Is selling my own clothes the same as trading?",
+        a: "Most tax systems distinguish disposing of your own possessions from buying with intent to resell. The second is generally trading from the first item. This chapter is not tax advice — ask an accountant where you live.",
       },
       {
         q: "What records will I be asked for?",

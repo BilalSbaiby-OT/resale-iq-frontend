@@ -292,3 +292,14 @@ NEXT (once unblocked): P0-1.
 - MERGED #102 as 45e1979. Live after Coolify. Cache-busted curl PASS:
   heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
   + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.
+
+## 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
+- `/manual` hub: answer-first title + FAQPage/HubFaq (5 Qs: what it
+  is, who for, free?, buy-below/data, markets). Book schema kept.
+- 15 chapters that already had 2 FAQs expanded to 4 from chapter
+  copy. Authenticity left at 2 so body_fake CTR is untouched.
+- `/manual/the-buy-below-price`: DefinedTerm lead matches the blog
+  twin (`average asking price at departure × 0.95 × 0.70`).
+- Soft `seoTitle`s keep " — The Vinted Reselling Manual". H1s stay.
+- No `/register` in FAQ. Paid CTAs stay `/pricing`.
+- Tests: `faq-schema.test.ts` hub assertions + `manual-aeo.test.ts`.

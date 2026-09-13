@@ -34,9 +34,19 @@ export interface ManualChapter {
   number: number
   part: string
   title: string
+  /**
+   * Document <title> when the H1 is too soft for a query. H1 stays `title`.
+   * Keep the Manual suffix: "… — The Vinted Reselling Manual".
+   */
+  seoTitle?: string
   description: string
   minutes: number
   intro: string
+  /**
+   * Citeable definition lead (EX-AEO-DEFINITIONS). Visible H2 + schema must
+   * use the same strings. FAQ answers that define the term should match.
+   */
+  definedTerm?: { name: string; description: string }
   sections: ManualSection[]
   takeaways: string[]
   faq: { q: string; a: string }[]
@@ -59,7 +69,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "what-actually-makes-money",
     number: 1,
     part: "The economics",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     title: "What actually makes money in reselling",
     description:
       "The full margin equation for Vinted resale — buy price, platform fee, shipping, returns and time — and why most resellers only track the first two.",
@@ -109,8 +119,16 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What actually makes money in reselling on Vinted?",
+        a: "Profit on a single item is the sale price, minus the platform's cut, minus shipping you absorbed, minus the buy price, minus the share of losses that item has to carry. Most resellers stop at sale minus buy. Track euros of profit per euro of capital per week — margin and speed together, never margin alone.",
+      },
+      {
         q: "What margin should I target on Vinted?",
         a: "There is no universal figure, because it depends on how fast the item turns. As a working rule, price-tier stock that sells in under three weeks can justify a thinner margin than stock that takes two months. Resale IQ's buy-below price targets a healthy margin after fees for the specific model rather than applying one blanket percentage.",
+      },
+      {
+        q: "Why is the buy price the number that matters?",
+        a: "You control exactly one number in the equation. You do not set the platform fee and you cannot make a buyer pay above market. Every other mistake — wrong size, worse condition, softer demand — is survivable if you bought low enough.",
       },
       {
         q: "Do I need to account for my own time?",
@@ -122,12 +140,19 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "the-buy-below-price",
     number: 2,
     part: "The economics",
+    updated: "2026-09-13",
     title: "How to work out the most you can pay",
+    seoTitle: "What Is a Buy-Below Price on Vinted? — The Vinted Reselling Manual",
     description:
-      "Deriving a maximum buy price from the expected sale price, the platform fee and your target margin — the single calculation that separates sourcing from shopping.",
+      "Buy-below is the most you can pay and still profit after Vinted fees: average departure ask × 0.95 × 0.70. How to calculate it before you source.",
     minutes: 6,
     intro:
-      "A buy-below price is the maximum you can pay for an item and still hit your target margin after fees. It is a number you compute before you go sourcing, not a feeling you have while standing in front of a rail.",
+      "You compute the number before you go sourcing, not as a feeling while standing in front of a rail. Pay under it and the flip is set up to profit; pay over it and you are speculating.",
+    definedTerm: {
+      name: "Buy-below price",
+      description:
+        "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+    },
     sections: [
       {
         h2: "The derivation",
@@ -165,6 +190,14 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What is a buy-below price?",
+        a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+      },
+      {
+        q: "How do you calculate a buy-below price?",
+        a: "Buy-below price = average asking price at departure × 0.95 × 0.70. The 0.95 is the 5% platform deduction Resale IQ models for Vinted; the 0.70 targets about a 30% margin. On a €40 departure that is about €26.60. Substitute your own fee if yours differs.",
+      },
+      {
         q: "Where do I find real departure prices on Vinted?",
         a: "Vinted's own search can be filtered to items sellers marked sold, which gives you a rough distribution for a specific model — though that is a seller's self-report, not a verified transaction. It is manual and slow across five markets, which is exactly the gap Resale IQ fills — the per-model figures it returns are computed from listings we watched leave the shelf across ES, FR, DE, IT and PT rather than one country's active listings.",
       },
@@ -178,6 +211,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "sell-through-vs-volume",
     number: 3,
     part: "The economics",
+    updated: "2026-09-13",
     title: "Sell-through rate versus volume: reading demand properly",
     description:
       "Why a category selling thousands of units a week can still be a bad place to put your money, and how to tell demand from saturation.",
@@ -219,8 +253,16 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What is the difference between volume and sell-through?",
+        a: "Volume is a count of what we watched leave the shelf. Sell-through is those departures measured against standing inventory. A thousand departures against two thousand listings is healthy; the same thousand against forty thousand is a graveyard where your item sits on page nineteen.",
+      },
+      {
         q: "Is a high sell-through rate always good?",
         a: "It is good for speed and it is a warning about pricing. Extremely fast sell-through often means the market is telling you the item was underpriced. If everything you list sells within 48 hours, raise your prices until it does not.",
+      },
+      {
+        q: "Why is the top of a volume ranking often a bad place to start?",
+        a: "The leading brand in a category is the default choice for everyone, so the price is efficient and the margin has already been competed away. The interesting rows are usually two to five places down, where demand is still solid and fewer people are looking.",
       },
       {
         q: "How do I estimate sell-through without a tool?",
@@ -232,6 +274,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "the-cost-of-time",
     number: 4,
     part: "The economics",
+    updated: "2026-09-13",
     title: "The cost of time: why fast stock beats fat margins",
     description:
       "Capital turns explained — how a 20% margin that clears in three weeks outperforms a 60% margin that takes six months, and what that means for what you buy.",
@@ -273,8 +316,16 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Why does fast stock beat fat margins?",
+        a: "Annual return is roughly margin per turn compounded across however many turns you complete. A 20% margin that clears every three weeks compounds many more times than a 60% margin that takes six months. Same capital, different businesses.",
+      },
+      {
         q: "How many turns per year is realistic on Vinted?",
         a: "It depends entirely on price tier. Cheap, high-volume clothing can turn in two to four weeks when priced correctly. Premium outerwear and designer pieces routinely take months. Measure your own by tracking days-from-listing-to-sale for thirty items — the answer is usually slower than the one you would guess.",
+      },
+      {
+        q: "What makes stock slow?",
+        a: "Buying out of season, buying edge sizes because they were cheap, and buying premium items whose buyer pool is small. The wide margin on paper is compensation for the wait, not free money.",
       },
       {
         q: "Should I cut the price on something that has not sold?",
@@ -286,7 +337,9 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "where-to-source",
     number: 5,
     part: "Sourcing",
+    updated: "2026-09-13",
     title: "Where stock actually comes from",
+    seoTitle: "Where to Source Stock for Vinted Reselling — The Vinted Reselling Manual",
     description:
       "The four supply channels for resale stock — charity and thrift, wholesale and bales, retail clearance, and platform-to-platform — with the real cost and risk of each.",
     minutes: 8,
@@ -334,6 +387,10 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Where does Vinted resale stock actually come from?",
+        a: "Four channels: charity and thrift (time, low capital), wholesale lots and bales (cheap per item, hidden risk), retail clearance (predictable, thin margin), and platform-to-platform (information edge, very competitive). Picking the wrong channel for your capital is more expensive than picking the wrong brand.",
+      },
+      {
         q: "Which channel should a beginner start with?",
         a: "Charity and secondhand, almost always. The capital at risk per mistake is a few euros, you see every item before paying, and the fast feedback teaches you what sells far quicker than reading about it. Move to bales or clearance once you can predict sale prices without looking them up.",
       },
@@ -341,12 +398,17 @@ export const CHAPTERS_1: ManualChapter[] = [
         q: "Are wholesale bales worth it?",
         a: "They can be, once you have both the storage and the pattern recognition to sort quickly. They are a bad first move because you cannot yet tell a good lot from a bad one, and the loss on a bad first pallet is large enough to end the experiment.",
       },
+      {
+        q: "Does buying in one Vinted country to sell in another work?",
+        a: "Mostly not. Most listings appear on several of the five EU domains at an identical price, so geography is not the edge. Chapter 12 has the measurement.",
+      },
     ],
   },
   {
     slug: "reading-a-listing",
     number: 6,
     part: "Sourcing",
+    updated: "2026-09-13",
     title: "Reading a listing: spotting mispriced stock",
     description:
       "What underpriced listings have in common, which signals are real and which are traps, and how to check a find in under a minute.",
@@ -395,6 +457,14 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "What does an underpriced Vinted listing look like?",
+        a: "Vague titles with no brand or model name, casual photos, a round-number price that was guessed, and a low-listing-count profile. The item is cheap because it is invisible, not because it is worthless.",
+      },
+      {
+        q: "How do I check a find in under a minute?",
+        a: "Label photo, condition close-up, and a sold-price sanity check against your buy-below number. If all three pass, act quickly. If any fails, the discount was not a discount.",
+      },
+      {
         q: "Is it worth messaging sellers to negotiate?",
         a: "On already-underpriced stock, usually not — the delay is a bigger risk than the few euros. Negotiate on items that have been sitting for weeks, where the seller has already learned the price is wrong and nobody else is competing for it.",
       },
@@ -408,7 +478,9 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "sizes-and-dead-stock",
     number: 7,
     part: "Sourcing",
+    updated: "2026-09-13",
     title: "Sizes: the quiet way portfolios die",
+    seoTitle: "Why Edge Sizes Kill Vinted Resale Profit — The Vinted Reselling Manual",
     description:
       "Why size distribution matters as much as brand demand, how edge sizes turn good buys into dead stock, and the sourcing rule that follows from it.",
     minutes: 6,
@@ -449,8 +521,16 @@ export const CHAPTERS_1: ManualChapter[] = [
     ],
     faq: [
       {
+        q: "Why do edge sizes sit longer on Vinted?",
+        a: "Demand follows the population: the middle of the run does most of the volume. An expensive item in an edge size can sit indefinitely because the people who wear that size and the people who will spend that much barely overlap.",
+      },
+      {
         q: "Which sizes sell fastest on Vinted?",
         a: "It varies by brand, category and market, which is why a single answer would be misleading. The pattern is consistent — demand concentrates in the middle of each size run — but where exactly the peak sits differs between, say, women's denim and men's outerwear. Resale IQ reports the fastest-selling sizes per model rather than a generic rule.",
+      },
+      {
+        q: "Should I pick a core size over a better item in an edge size?",
+        a: "When two buys look equal, take the core size. A middling item in a common size converts into cash; an excellent item in an edge size converts into shelf space.",
       },
       {
         q: "Should I ever buy edge sizes?",

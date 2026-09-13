@@ -161,6 +161,23 @@ test("what-sells-best ships a Watched departure lead with hub links", () => {
   assert.doesNotMatch(faq, /\/register/)
 })
 
+test("/manual hub ships FAQPage + HubFaq with no /register", () => {
+  const src = read("app/manual/page.tsx")
+  assert.match(src, /faqPageJsonLd\(MANUAL_HUB_FAQS\)/)
+  assert.match(src, /<HubFaq items=\{MANUAL_HUB_FAQS\}/)
+  assert.match(src, /What is the Vinted Reselling Manual\?/)
+  assert.match(src, /Who is the Vinted Reselling Manual for\?/)
+  assert.match(src, /Is the Vinted Reselling Manual free\?/)
+  assert.match(src, /How does the manual tie to buy-below and the market data\?/)
+  assert.match(src, /Which Vinted markets does this manual cover\?/)
+  assert.match(src, /How to Resell on Vinted — The Vinted Reselling Manual/)
+  assert.match(src, /https:\/\/resaleiq\.dev\/data/)
+  assert.match(src, /https:\/\/resaleiq\.dev\/pricing/)
+  assert.match(src, /https:\/\/resaleiq\.dev\/manual\/the-buy-below-price/)
+  assert.doesNotMatch(src, /\/register/)
+  assert.doesNotMatch(src, /utm_/)
+})
+
 test("blog post renderer prints definedTerm above the intro", () => {
   const src = read("app/blog/[slug]/page.tsx")
   const term = src.indexOf("p.definedTerm")
