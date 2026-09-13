@@ -2,7 +2,7 @@ import Link from "next/link"
 import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
+import { ALL_POSTS as POSTS, getPost, type BlogSectionCta } from "@/data/blog-posts"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 
@@ -267,19 +267,7 @@ export default async function BlogPostPage(
 }
 
 /** Mid-article conversion block. Visual match for the article-footer CTA. */
-function SectionCta({
-  cta,
-}: {
-  cta: {
-    headline: string
-    body: string
-    example?: string
-    label: string
-    href: string
-    secondaryLabel?: string
-    secondaryHref?: string
-  }
-}) {
+function SectionCta({ cta }: { cta: BlogSectionCta }) {
   return (
     <div style={{ margin: "18px 0 4px", padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
       <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>{cta.headline}</div>

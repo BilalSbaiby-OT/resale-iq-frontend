@@ -41,17 +41,20 @@ export interface BlogPost {
      * Optional mid-article conversion block, rendered after this section.
      * Paid CTAs go to /pricing — not /register (register still mentions Free).
      */
-    cta?: {
-      headline: string
-      body: string
-      example?: string
-      label: string
-      href: string
-      secondaryLabel?: string
-      secondaryHref?: string
-    }
+    cta?: BlogSectionCta
   }[]
   faq: { q: string; a: string }[]
+}
+
+/** Shared so the article renderer cannot drift from the post data shape. */
+export interface BlogSectionCta {
+  headline: string
+  body: string
+  example?: string
+  label: string
+  href: string
+  secondaryLabel?: string
+  secondaryHref?: string
 }
 
 const BRAND = "Resale IQ"
