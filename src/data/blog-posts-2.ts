@@ -64,9 +64,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "best-time-to-list-on-vinted",
     title: "Best Time to List on Vinted — Day, Hour, Season",
-    seoTitle: "Best Time to List on Vinted — Day, Hour, Season",
+    seoTitle: "When to List on Vinted? Season Beats Hour — Resale IQ",
     description:
-      "When to post on Vinted for visibility — hour, day, and why seasonality beats the clock. Fresh listings still need the right price.",
+      "In-season beats the hour. Evening and Sunday are the usual default — we have not measured hourly traffic. Fresh listings still need the right price.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Selling",
@@ -439,8 +439,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "what-is-retail-arbitrage-secondhand",
     title: "Retail Arbitrage in Secondhand Fashion, Explained",
+    seoTitle: "What Is Retail Arbitrage? Not Countries — Resale IQ",
     description:
-      "What arbitrage actually means for clothing resellers — and why the popular 'buy in a cheap country, sell in an expensive one' version does not work on Vinted. We measured it.",
+      "Buy cheap, sell dear — but on Vinted that is mispricing, not countries. The same listing often shows on several EU domains at the same price.",
     date: "2026-08-07",
     category: "Business",
     readMins: 5,

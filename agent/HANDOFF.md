@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
+  Title + meta only on 6 remaining soft EN posts. H1s unchanged.
+  No mid-CTA / body / schema edits. No /register. No Free pitch.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Question/answer-first for AEO + SERP. Branch
+  cursor/seo-ex-ctr-batch-4-5b34. Merging now per owner; ignore
+  /data H1 Playwright flake (expected "Vinted market data").
+
 SEO LANE, 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
   /manual hub now has FAQPage + HubFaq (what it is, who for, free?,
   buy-below/data, markets). Title: "How to Resell on Vinted — The

@@ -58,8 +58,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-disputes-and-returns-sellers",
     title: "Vinted Disputes and Returns: A Seller's Guide",
+    seoTitle: "How to Avoid Vinted Disputes? Photos First — Resale IQ",
     description:
-      "How to prevent Vinted disputes, what to do when a buyer opens one, and the evidence that protects you as a seller.",
+      "Photograph every flaw, state measurements, keep chats on Vinted, use the tracked label. Most disputes are preventable; evidence decides the rest.",
     date: "2026-08-07",
     category: "Selling",
     readMins: 5,
@@ -143,8 +144,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "vintage-clothing-reselling-guide",
     title: "Vintage Clothing Reselling: How to Spot Value",
+    seoTitle: "How to Spot Valuable Vintage? Tag First — Resale IQ",
     description:
-      "How to identify and price genuinely valuable vintage clothing — tags, construction, era markers, and why condition rules everything.",
+      "Read the tag and construction first. Era markers date the piece; condition then swings value more than anything else. Price from departed comps.",
     date: "2026-08-07",
     updated: "2026-09-12",
     category: "Sourcing",
@@ -332,8 +334,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "reseller-record-keeping-basics",
     title: "Record Keeping for Resellers: What to Track",
+    seoTitle: "What Should Resellers Track? Six Fields — Resale IQ",
     description:
-      "The minimum records a reseller should keep — costs, sale prices, fees and dates — and why tracking them changes your decisions.",
+      "Six fields per item: purchase price, dates, sale price, fees and shipping. That is enough to see real profit. Tax: ask an accountant where you live.",
     date: "2026-08-07",
     category: "Business",
     readMins: 5,
