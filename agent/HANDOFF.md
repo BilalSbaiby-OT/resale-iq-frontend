@@ -3,6 +3,15 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-CATEGORY-AEO LIVE (merged #103)
+  MERGED | d27d432 | live PASS
+  `/deploy-id` SOURCE_COMMIT d27d432bd616bb72adb782bebcef32db2c5ecaf1
+  Cache-busted curl: title + og + twitter =
+  "What Sells Best on Vinted by Category — 10 Ranked". FAQPage 4/4
+  + visible HubFaq. 3 UTM hrefs category_aeo_20260913. No /register.
+  /category/sneakers twitter matches leaf title (not homepage).
+  Playwright /data H1 ignored if it is the sole flake.
+
 SEO LANE, 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
   SHIPPED. /category is a real hub (10 live categories). Not a stub.
   Answer-first title: "What Sells Best on Vinted by Category — N Ranked"
