@@ -4,6 +4,10 @@ import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import {
+  CALCULATE_VINTED_PROFIT_NAME,
+  CHECK_VINTED_ITEM_NAME,
+} from "@/lib/webmcp-tools"
 
 // /llms.txt — the emerging convention (llmstxt.org) for telling language models
 // what a site is and which URLs are worth reading, in markdown rather than
@@ -56,6 +60,33 @@ export async function GET() {
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
 any brand named on the site.
+
+## For agents
+
+Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU
+Vinted. Tracked markets are ES, FR, DE, IT and PT.
+
+Key URLs:
+- ${BASE}/
+- ${BASE}/tools
+- ${BASE}/tools/vinted-price-checker
+- ${BASE}/tools/vinted-profit-calculator
+- ${BASE}/data
+- ${BASE}/flip
+- ${BASE}/pricing
+- ${BASE}/manual
+
+Agents can:
+- Call the ${CHECK_VINTED_ITEM_NAME} WebMCP tool on /tools (same FreeChecker
+  form on /tools/vinted-price-checker) to check one Vinted item query.
+- Call ${CALCULATE_VINTED_PROFIT_NAME} on /tools/vinted-profit-calculator
+  (buy_price + sell_price; published ~5% seller fee).
+- Read public weekly volumes on /data and ${BASE}/api/public/market-snapshot.
+
+Agents must not:
+- Automate checkout or payment.
+- Invent a Free-forever unlimited tier. /tools has a free one-item checker;
+  sell-through and sizes stay on a plan.
 
 ## What the data is
 
@@ -123,7 +154,7 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 
 - Starter EUR 19/month: item-level BUY / WATCH / SKIP, buy-below, sell-through and sizes.
 - Pro EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
-- There is no anonymous item-level check and no free tier. Weekly brand volumes on /data stay public.
+- /tools has a free one-item checker. There is no Free-forever unlimited tier. Weekly brand volumes on /data stay public.
 
 ## Reference
 

@@ -1,7 +1,22 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, CI firewall fix + live attrs)
+  Production /tools still on 0c0e57e (no toolname). Firewall failed on
+  silent catch in registerTool. Fixing swallows + SSR HTML beacon so
+  curl sees toolname=/tooldescription= even if React filters client attrs.
+
+SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, local PASS)
+  Declarative WebMCP on FreeChecker (`check_vinted_item`, name=query)
+  and PublicProfitCalculator (`calculate_vinted_profit`). Shared checker
+  tool for /tools + /tools/vinted-price-checker. No toolautosubmit.
+  Optional imperative registerTool, feature-detect only. No checkout
+  tools. /llms.txt For agents section + free one-item checker boundary.
+  Local: /tools + /llms.txt 200, attrs in HTML, Playwright + browser
+  green. Live Coolify verify still owed after merge.
+  Branch cursor/seo-ex-webmcp-tools-43e2. Rebased onto main after #115.
 
 SEO LANE, 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF LIVE (merged #115)
   MERGED | 0c0e57e | live PASS
@@ -14,7 +29,7 @@ SEO LANE, 2026-09-13 — AEO-MANUAL-BUYBELOW-DEF LIVE (merged #115)
   DONE URL: https://resaleiq.dev/manual/the-buy-below-price
   Branch cursor/aeo-manual-buybelow-def-a923. PR #115.
 
-SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
+SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (merged #107/#114)
   HowTo JSON-LD + visible numbered steps on
   /tools/vinted-profit-calculator and /tools/vinted-price-checker.
   Steps from UI labels + lede/FAQ copy only. FAQPage kept.

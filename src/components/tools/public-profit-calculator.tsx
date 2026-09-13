@@ -1,6 +1,13 @@
 "use client"
 import { useState, type FormEvent } from "react"
 import { copy, type Locale } from "@/lib/i18n"
+import {
+  CALCULATE_VINTED_PROFIT_BUY_DESCRIPTION,
+  CALCULATE_VINTED_PROFIT_DESCRIPTION,
+  CALCULATE_VINTED_PROFIT_NAME,
+  CALCULATE_VINTED_PROFIT_SELL_DESCRIPTION,
+} from "@/lib/webmcp-tools"
+import "@/types/webmcp-jsx"
 
 /**
  * Public Vinted profit calculator. Visitor supplies both prices; we only
@@ -81,6 +88,9 @@ export function PublicProfitCalculator({ locale = "en" }: { locale?: Locale }) {
 
   return (
     <form
+      noValidate
+      toolname={CALCULATE_VINTED_PROFIT_NAME}
+      tooldescription={CALCULATE_VINTED_PROFIT_DESCRIPTION}
       onSubmit={onCalculate}
       style={{
         background: "var(--color-surface)",
@@ -101,9 +111,11 @@ export function PublicProfitCalculator({ locale = "en" }: { locale?: Locale }) {
             min="0.01"
             step="0.01"
             inputMode="decimal"
+            required
             value={buyPrice}
             onChange={(e) => setBuyPrice(e.target.value)}
             placeholder="45"
+            toolparamdescription={CALCULATE_VINTED_PROFIT_BUY_DESCRIPTION}
             style={fieldStyle}
           />
         </div>
@@ -118,9 +130,11 @@ export function PublicProfitCalculator({ locale = "en" }: { locale?: Locale }) {
             min="0.01"
             step="0.01"
             inputMode="decimal"
+            required
             value={sellPrice}
             onChange={(e) => setSellPrice(e.target.value)}
             placeholder="70"
+            toolparamdescription={CALCULATE_VINTED_PROFIT_SELL_DESCRIPTION}
             style={fieldStyle}
           />
         </div>

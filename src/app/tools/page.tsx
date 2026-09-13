@@ -20,6 +20,8 @@ import {
   TOOLS_HUB_FAQS,
 } from "@/lib/tools-hub-aeo"
 import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_MONEY_HREF } from "@/lib/money-cta"
+import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
+import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
@@ -74,6 +76,7 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
         </p>
 
         <WelcomeBanner />
+        <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         <FreeChecker locale={locale} initialQuery={initialQuery} />
 
         {/* Search-intent titles/descriptions stay English on every locale —
