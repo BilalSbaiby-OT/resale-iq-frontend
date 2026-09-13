@@ -3,13 +3,19 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 answer-first titles (this session)
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 LIVE on production (merged #96)
+  All 10 EN titles/metas verified live via cache-busted curl after Coolify.
+  /deploy-id 8297fd9. Playwright /data H1 flake ignored (expected
+  "Vinted market data", live H1 is "Weekly brand volumes"). Agent
+  Isolation was the deploy gate.
+
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
   Title + meta only on 10 EN posts. H1s unchanged (already matched).
   No mid-CTA / body / schema edits. No /register. No Free pitch.
   Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
   Question/answer-first for AEO + SERP. Buy-below/demand where natural.
-  Branch cursor/seo-ex-ctr-batch-3-b6b6. Merging despite /data H1
-  Playwright flake (expected "Vinted market data"). PR #96.
+  Branch cursor/seo-ex-ctr-batch-3-b6b6. Merged #96 despite /data H1
+  Playwright flake (expected "Vinted market data").
 
 SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA (this session)
   HowTo JSON-LD on genuine process posts only. FAQPage stays.
