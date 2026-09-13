@@ -3,6 +3,7 @@ import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
+import { definedTermJsonLd } from "@/lib/faq-schema"
 import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, legacySignupKillHrefForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
@@ -78,6 +79,14 @@ export default async function BlogPostPage(
 
   // Article + FAQPage JSON-LD — this is what lets Google rich results AND answer
   // engines (ChatGPT, Perplexity, Google AI, Claude) lift clean, citable answers.
+  const definedTerm = p.definedTerm
+    ? {
+        name: p.definedTerm.name,
+        description: stripRichText(p.definedTerm.description),
+        url: `https://resaleiq.dev/blog/${p.slug}`,
+      }
+    : null
+
   // EX-HOWTO-SCHEMA: process posts also emit HowTo from on-page steps. FAQ stays.
   const howto = howToJsonLd(p)
   const jsonLd = [
@@ -91,7 +100,11 @@ export default async function BlogPostPage(
       author: { "@type": "Organization", name: "Resale IQ" },
       publisher: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
       mainEntityOfPage: `https://resaleiq.dev/blog/${p.slug}`,
+      ...(definedTerm
+        ? { about: { "@type": "DefinedTerm", name: definedTerm.name, description: definedTerm.description } }
+        : {}),
     },
+    ...(definedTerm ? [definedTermJsonLd(definedTerm)] : []),
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -133,6 +146,12 @@ export default async function BlogPostPage(
           {p.category} · {p.readMins} min read
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
+        {p.definedTerm && (
+          <section style={{ marginBottom: 24 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>
+            <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, margin: 0 }}>{renderRichText(p.definedTerm.description)}</p>
+          </section>
+        )}
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
 
         {p.sections.map((s) => (

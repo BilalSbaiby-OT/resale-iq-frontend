@@ -6,7 +6,7 @@ import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
-import { faqPageJsonLd } from "@/lib/faq-schema"
+import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -41,7 +41,14 @@ export default async function DataPage() {
     .filter((n): n is number => typeof n === "number" && Number.isFinite(n))
   const totalWeekly = solds.length ? solds.reduce((s, n) => s + n, 0) : null
 
+  const watchedDeparture =
+    'A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. "Sold / 7 days" on this table counts those transitions in the trailing week, not every sold listing on Vinted.'
+
   const faqs = [
+    {
+      q: "What is a watched departure?",
+      a: watchedDeparture,
+    },
     {
       q: "What are weekly brand volumes on Vinted?",
       a:
@@ -108,6 +115,11 @@ export default async function DataPage() {
       ],
     },
     faqPageJsonLd(faqs),
+    definedTermJsonLd({
+      name: "Watched departure",
+      description: watchedDeparture,
+      url: "https://resaleiq.dev/data",
+    }),
   ]
 
   return (
@@ -122,6 +134,13 @@ export default async function DataPage() {
           Weekly units we <strong style={{ color: "#c3cde0", fontWeight: 600 }}>watched sell</strong> and average observed sale price by brand across Vinted&apos;s five main EU markets
           (Spain, France, Germany, Italy, Portugal), from {tracked} analyzed listings.
           <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
+        </p>
+
+        <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "22px 0 8px", letterSpacing: "-0.3px" }}>
+          What is a watched departure?
+        </h2>
+        <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660, margin: "0 0 6px" }}>
+          {watchedDeparture}
         </p>
 
         <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />

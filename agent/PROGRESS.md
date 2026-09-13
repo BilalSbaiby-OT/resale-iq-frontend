@@ -261,3 +261,18 @@ NEXT (once unblocked): P0-1.
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
 - Merged #96 (8297fd9). Playwright /data H1 flake ignored. All 10 live
   after Coolify; cache-busted curl matched new titles/metas.
+
+## 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
+- Visible H2 + 1–2 sentence definition leads on five pages:
+  `/blog/buy-below-price-explained` (Buy-below price),
+  `/blog/what-is-a-good-sell-through-rate` (Sell-through rate),
+  `/blog/what-sells-best-on-vinted` (Watched departure + ilink /data /flip),
+  `/data` (What is a watched departure?),
+  `/flip` (How we rank what sells best).
+- Blog renderer prints `definedTerm` after the H1. FAQ answers match
+  the visible lead. DefinedTerm JSON-LD beside existing FAQPage.
+- Titles, metas, H1s untouched. No invented stats. No /register.
+  Paid CTA stays /pricing. ES `como-poner` not edited.
+- CI: definition assertions live in `faq-schema.test.ts` (a standalone
+  test file cloned the hub-social read helper and tripped check:dupes).
+  `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".

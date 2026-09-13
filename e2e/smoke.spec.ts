@@ -67,7 +67,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
   expect(res?.ok()).toBeTruthy()
-  await expect(page.locator("h1")).toContainText(/Vinted market data/i)
+  await expect(page.locator("h1")).toContainText(/Weekly brand volumes on Vinted/i)
   const body = await page.locator("body").innerText()
   expect(body).not.toMatch(/undefined|NaN/)
   // Either live/last-good figures or the honest empty state — not a 500.

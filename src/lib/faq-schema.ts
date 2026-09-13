@@ -25,3 +25,20 @@ export function faqPageJsonLd(items: FaqItem[]) {
 export function faqAnswerIsClean(text: string): boolean {
   return !/\/register/i.test(text) && !/[?&]utm_/i.test(text)
 }
+
+export type DefinedTermItem = {
+  name: string
+  description: string
+  url: string
+}
+
+/** Visible HTML is the source of truth — description must match the on-page lead. (EX-AEO-DEFINITIONS) */
+export function definedTermJsonLd(term: DefinedTermItem) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name: term.name,
+    description: term.description,
+    url: term.url,
+  }
+}

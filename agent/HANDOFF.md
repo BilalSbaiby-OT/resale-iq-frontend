@@ -3,6 +3,22 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
+  Visible H2 + 1–2 sentence leads (above the fold on the three blogs via
+  `definedTerm`). FAQ answers match. DefinedTerm JSON-LD added beside
+  existing FAQPage. Titles/metas/H1s untouched. No invented stats.
+  No Free /register. Paid CTA stays /pricing.
+  1. /blog/buy-below-price-explained — “Buy-below price”
+  2. /blog/what-is-a-good-sell-through-rate — “Sell-through rate”
+  3. /blog/what-sells-best-on-vinted — “Watched departure” + ilink
+     to /data and /flip (moved existing ilink_20260913 anchors into
+     the lead; later body links stay untracked /flip /data)
+  4. /data — “What is a watched departure?”
+  5. /flip — “How we rank what sells best”
+  Branch: cursor/seo-ex-aeo-definitions-5496
+  Also aligned e2e/smoke /data H1 to "Weekly brand volumes on Vinted"
+  (was stale "Vinted market data" — the flake that blocked #94).
+
 SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 LIVE on production (merged #96)
   All 10 EN titles/metas verified live via cache-busted curl after Coolify.
   /deploy-id 8297fd9. Playwright /data H1 flake ignored (expected
