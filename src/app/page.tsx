@@ -20,7 +20,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "Which Vinted markets does Resale IQ cover?",
     a:
-      "Spain, France, Germany, Italy and Portugal. Those five markets are what the live market pulse and the public weekly volumes describe. The product does not cover the UK or other Vinted domains.",
+      "Spain, France, Germany, Italy and Portugal. Those five EU markets are what the live market pulse and the public weekly volumes describe.",
   },
   {
     q: "What is a buy-below price?",
