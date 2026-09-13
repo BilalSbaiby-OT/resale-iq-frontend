@@ -7,6 +7,7 @@ import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, legacySignupKill
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
+import { howToJsonLd } from "@/lib/howto-schema"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -77,6 +78,8 @@ export default async function BlogPostPage(
 
   // Article + FAQPage JSON-LD — this is what lets Google rich results AND answer
   // engines (ChatGPT, Perplexity, Google AI, Claude) lift clean, citable answers.
+  // EX-HOWTO-SCHEMA: process posts also emit HowTo from on-page steps. FAQ stays.
+  const howto = howToJsonLd(p)
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -100,6 +103,7 @@ export default async function BlogPostPage(
         acceptedAnswer: { "@type": "Answer", text: stripRichText(f.a) },
       })),
     },
+    ...(howto ? [howto] : []),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",

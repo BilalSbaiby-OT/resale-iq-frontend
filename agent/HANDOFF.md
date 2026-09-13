@@ -1,7 +1,11 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: yes
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA (this session)
+  HowTo JSON-LD on genuine process posts only. FAQPage stays.
+  Extract steps from visible H2s / numbered checks — do not invent.
 
 SEO LANE, 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
   Production gaps: `/blog/common-vinted-scams-sellers` and
