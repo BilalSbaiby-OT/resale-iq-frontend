@@ -3,7 +3,19 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — EX-PRICING-CTR money-intent titles
+SEO LANE, 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
+  SHIPPED. /category is a real hub (10 live categories). Not a stub.
+  Answer-first title: "What Sells Best on Vinted by Category — N Ranked"
+  (49 chars @ N=10). twitter title/desc aligned (was homepage leak).
+  FAQPage via faqPageJsonLd + visible HubFaq: what sells by category,
+  weekly volume, buy-below pairing, markets. New body anchors → /data
+  /flip /pricing with utm_campaign=category_aeo_20260913. FAQ answers
+  cite absolute /data /flip /pricing with no UTM. No invented inventory.
+  /category/[category] keeps EX-FLIP-CATEGORY-META titles + HubFaq +
+  buy-below FAQ. Tests: faq-schema.test.ts + hub-social-meta.test.ts.
+  Branch cursor/seo-ex-category-aeo-c85e. Rebased onto main after #106/#108.
+
+SEO LANE, 2026-09-13 — EX-PRICING-CTR money-intent titles (merged #108)
   /pricing EN + FR/ES/DE/IT/PT: Starter €19 / Pro €49 + buy-below in
   title+meta. Matching og/twitter (EN was missing twitter / shorter og).
   No Free pitch. H1, FAQ, Conversion CTAs, Stripe paths untouched.
@@ -12,7 +24,7 @@ SEO LANE, 2026-09-13 — EX-PRICING-CTR money-intent titles
   brand suffix. Kill: GSC 14d CTR on /pricing; secondary =
   organic sessions → checkout. Branch cursor/seo-ex-pricing-ctr-b6c4.
 
-SEO LANE, 2026-09-13 — EX-FLIP-CATEGORY-META (this session)
+SEO LANE, 2026-09-13 — EX-FLIP-CATEGORY-META (merged #106)
   Answer-first titles on /flip/{brand}, /flip/{brand}/{cat},
   /category/{cat}. No live figures in <title>. og/twitter match.
   FAQPage already on category children — left in place.
@@ -20,19 +32,19 @@ SEO LANE, 2026-09-13 — EX-FLIP-CATEGORY-META (this session)
   movement on /flip/* in 30d (assumption flagged).
   Branch cursor/seo-ex-flip-category-meta-d82d.
 
-SEO LANE, 2026-09-13 — homepage FAQ UK word (hotfix)
+SEO LANE, 2026-09-13 — homepage FAQ UK word (hotfix) (merged #109)
   e2e/market-coverage.spec.ts failed: FAQ said “does not cover the UK”.
   Rephrased to name ES/FR/DE/IT/PT + “five EU markets” only. No UK/US.
   Branch cursor/fix-homepage-faq-uk-c372.
 
-SEO LANE, 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
+SEO LANE, 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ) (merged #105)
   English `/` only. Answer-first title/og/twitter (brand suffix).
   Conservative: keeps “know what to pay” + adds EU Vinted.
   Visible HubFaq (3 Qs) + FAQPage. H1/CTAs/pricing funnel untouched.
   Locale heroTitles unchanged. Org/SoftwareApplication JSON-LD verified.
   Branch cursor/seo-ex-homepage-aeo-c372.
 
-SEO LANE, 2026-09-13 — EX-LOCALE-CTR-ES (this session)
+SEO LANE, 2026-09-13 — EX-LOCALE-CTR-ES (merged #104)
   Only ES blog: /blog/como-poner-precio-en-vinted (/es/blog/* 307s here).
   Answer-first title + meta. H1 aligned (old H1 mismatched). EN titles
   untouched. og/twitter now use the document title (same /data bug).

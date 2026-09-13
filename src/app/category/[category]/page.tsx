@@ -9,6 +9,8 @@ import {
   articleSocialMeta,
 } from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd } from "@/lib/faq-schema"
 
 // Programmatic SEO, cross-brand cut: one page per category, ranking every
 // tracked brand by that category's own weekly sales volume. This is the axis
@@ -96,29 +98,30 @@ export default async function CategoryPage(
         `the expensive ones carry more margin per unit but sit longer.`
       : `${c.category} demand across ${MARKETS} is tracked live. Weekly volume for this snapshot is not yet available for ranked brands.`
 
-  const jsonLd = [
+  const faqs = [
     {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: `Which brand sells the most ${lower} on Vinted?`,
-          acceptedAnswer: { "@type": "Answer", text: answer },
-        },
-        {
-          "@type": "Question",
-          name: `How many ${lower} sell on Vinted each week?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text:
-              `The ${entries.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
-              `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
-              `unbranded and untracked listings are not counted.`,
-          },
-        },
-      ],
+      q: `Which brand sells the most ${lower} on Vinted?`,
+      a: answer,
     },
+    {
+      q: `How many ${lower} sell on Vinted each week?`,
+      a:
+        `The ${entries.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
+        `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
+        `unbranded and untracked listings are not counted.`,
+    },
+    {
+      q: `How do I use this ${lower} ranking with buy-below?`,
+      a:
+        `Volume tells you ${lower} demand exists among tracked brands — it is not a buy-below. ` +
+        `Buy-below is the most you should pay for a specific listing after fees. ` +
+        `Weekly brand volumes stay public at https://resaleiq.dev/data. ` +
+        `Item-level buy-below, sizes and BUY/WATCH/SKIP are on a paid plan at https://resaleiq.dev/pricing.`,
+    },
+  ]
+
+  const jsonLd = [
+    faqPageJsonLd(faqs),
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -233,6 +236,8 @@ export default async function CategoryPage(
             below everyone else, and a trap if you cannot.
           </p>
         </section>
+
+        <HubFaq items={faqs} />
 
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginBottom: 30 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item</div>
