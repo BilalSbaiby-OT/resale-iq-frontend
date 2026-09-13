@@ -5,7 +5,7 @@ import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
-import { faqPageJsonLd } from "@/lib/faq-schema"
+import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
 // the 26 brand pages + 130 brand x category pages had no index anywhere on the
@@ -81,12 +81,25 @@ export default async function FlipHubPage() {
       ` Fast movers recycle cash; expensive ones carry more margin per unit but sit longer. A reseller who wants volume should start with the top of this list; a reseller who wants ticket size should start with the dearest. Neither ranking is Vinted as a whole. Weekly brand volumes stay public on /data. Item-level buy-below, sizes and BUY/WATCH/SKIP are not published on this page.`
     : `Weekly volume is not available for the tracked brands in this snapshot.`
 
+  const howWeRank =
+    `We rank the tracked brands by watched departures in the last 7 days across ${MARKETS}. ` +
+    "A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt — and the ranking is tracked-brand volume, not Vinted as a whole."
+
+  const watchedDeparture =
+    "A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. " +
+    `Volumes on this page are items watched leaving the shelf in the last 7 days across ${MARKETS}. ` +
+    "They cover the tracked brands only, not the whole Vinted catalogue."
+
   // Visible FAQ and FAQPage JSON-LD share this array. New questions stay
   // qualitative except where this page already prints a live figure.
   const faqs = [
     {
       q: "What sells best on Vinted?",
       a: sellsBest2026,
+    },
+    {
+      q: "How do you rank what sells best?",
+      a: howWeRank,
     },
     {
       q: "How often does this data update?",
@@ -97,10 +110,7 @@ export default async function FlipHubPage() {
     },
     {
       q: "What is a watched departure?",
-      a:
-        "A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. " +
-        `Volumes on this page are items watched leaving the shelf in the last 7 days across ${MARKETS}. ` +
-        "They cover the tracked brands only, not the whole Vinted catalogue.",
+      a: watchedDeparture,
     },
     {
       q: "How do I use this ranking for buy-below?",
@@ -123,6 +133,11 @@ export default async function FlipHubPage() {
 
   const jsonLd = [
     faqPageJsonLd(faqs),
+    definedTermJsonLd({
+      name: "Watched departure",
+      description: watchedDeparture,
+      url: "https://resaleiq.dev/flip",
+    }),
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -159,6 +174,10 @@ export default async function FlipHubPage() {
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2, letterSpacing: "-0.6px" }}>
           What sells best on Vinted in 2026?
         </h1>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "0 0 8px", letterSpacing: "-0.4px" }}>
+          How we rank what sells best
+        </h2>
+        <p style={{ fontSize: 15.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 16 }}>{howWeRank}</p>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{sellsBest2026}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
           Every brand below links to its own page — weekly volume, average sale price and the

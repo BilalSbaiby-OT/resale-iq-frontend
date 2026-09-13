@@ -195,6 +195,7 @@ test("allowlisted process posts have matching on-page steps in the body", () => 
     ],
     "how-to-get-more-views-on-vinted": [
       "First: is there demand at all?",
+      "Demand is the other half of the views",
       "Match the words buyers type",
       "Price and freshness",
       "A bigger closet compounds",

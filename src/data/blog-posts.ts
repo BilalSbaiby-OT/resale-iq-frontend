@@ -28,6 +28,12 @@ export interface BlogPost {
   category: string
   readMins: number
   intro: string
+  /**
+   * EX-AEO-DEFINITIONS — citeable term lead rendered as H2 + 1–2 sentences
+   * immediately after the H1 (above the fold). Visible HTML is the source;
+   * FAQ / DefinedTerm schema must quote the same wording.
+   */
+  definedTerm?: { name: string; description: string }
   sections: {
     h: string
     p: string[]
@@ -65,6 +71,15 @@ export const POSTS: BlogPost[] = [
     intro:
       "As of 11 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
       BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,400 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (1,076) and Shirts (993). The single busiest brand/category pair is Stone Island Hoodies: 577 watched departures in 7 days, averaging €54. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
+    definedTerm: {
+      name: "Watched departure",
+      description:
+        "A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. [Weekly volumes](" +
+        ilinkHref("data") +
+        ") and [brands ranked by those departures](" +
+        ilinkHref("flip") +
+        ") count that figure for tracked brands across Spain, France, Germany, Italy and Portugal.",
+    },
     sections: [
       {
         h: "The categories that move fastest",
@@ -85,11 +100,7 @@ export const POSTS: BlogPost[] = [
         h: "How to know before you buy",
         p: [
           "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + ` — it turns ${TRACKED} real listings into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.`,
-          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. [Brands clearing fastest right now](" +
-            ilinkHref("flip") +
-            ") and [what actually left the shelf this week](" +
-            ilinkHref("data") +
-            ") are the free weekly tables. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
+          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. [Brands clearing fastest right now](/flip) and [what actually left the shelf this week](/data) are the free weekly tables. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
         ],
       },
       {
@@ -106,6 +117,13 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
+      {
+        q: "What is a watched departure?",
+        a:
+          "A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. " +
+          "Weekly volumes on [https://resaleiq.dev/data](/data) and the brand ranking on [https://resaleiq.dev/flip](/flip) " +
+          "count those transitions for tracked brands across Spain, France, Germany, Italy and Portugal.",
+      },
       {
         q: "What sells best on Vinted?",
         a:
@@ -376,6 +394,11 @@ export const POSTS: BlogPost[] = [
     readMins: 4,
     intro:
       "Sell-through rate is the metric most new resellers ignore and most pros obsess over. It measures how quickly your stock actually sells — and it decides how fast your money compounds.",
+    definedTerm: {
+      name: "Sell-through rate",
+      description:
+        "Sell-through rate is the share of listings that sold in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate.",
+    },
     sections: [
       {
         h: "What sell-through rate means",
@@ -404,6 +427,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
+      { q: "What is a sell-through rate?", a: "Sell-through rate is the share of listings that sold in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate." },
       { q: "What is a good sell-through rate for reselling?", a: "Higher is better — it means your stock sells quickly and your cash recycles fast. Prioritise items with proven fast sell-through in the sizes you can source, rather than chasing high margins on slow movers." },
       { q: "Is sell-through rate more important than profit margin?", a: "Often, yes. A moderate margin that sells every week compounds faster than a big margin that sells once a year. Speed of sale keeps your capital working." },
     ],
@@ -545,6 +569,11 @@ export const POSTS: BlogPost[] = [
     readMins: 5,
     intro:
       "Ask a struggling reseller their sale price and they'll know it. Ask their buy-below price and they'll pause. That gap is where profit leaks. Here's the number that fixes it.",
+    definedTerm: {
+      name: "Buy-below price",
+      description:
+        "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+    },
     sections: [
       {
         h: "What buy-below price means",
@@ -587,6 +616,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
+      { q: "What is a buy-below price?", a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70." },
       { q: "How do you calculate a buy-below price?", a: "Buy-below price = average sale price × 0.95 × 0.70. The 0.95 covers the 5% platform deduction Resale IQ models for Vinted, and the 0.70 targets about a 30% margin. Fee structures differ by platform and by whether you sell privately or as a business, so substitute your own figure. Never pay more than the result when sourcing." },
       { q: "Why is buy-below price important?", a: "It protects your margin before you list. Profit in reselling is mostly decided at the buy, not the sale — buying under your buy-below price is what makes an item profitable." },
     ],

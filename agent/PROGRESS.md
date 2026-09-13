@@ -259,6 +259,39 @@ NEXT (once unblocked): P0-1.
 - No mid-CTA, body, or JSON-LD structure edits. No `/register`.
   No Free pitch. seoTitle carries " — Resale IQ".
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
+- Merged #96 (8297fd9). Playwright /data H1 flake ignored. All 10 live
+  after Coolify; cache-busted curl matched new titles/metas.
+
+## 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
+- Visible H2 + 1–2 sentence definition leads on five pages:
+  `/blog/buy-below-price-explained` (Buy-below price),
+  `/blog/what-is-a-good-sell-through-rate` (Sell-through rate),
+  `/blog/what-sells-best-on-vinted` (Watched departure + ilink /data /flip),
+  `/data` (What is a watched departure?),
+  `/flip` (How we rank what sells best).
+- Blog renderer prints `definedTerm` after the H1. FAQ answers match
+  the visible lead. DefinedTerm JSON-LD beside existing FAQPage.
+- Titles, metas, H1s untouched. No invented stats. No /register.
+  Paid CTA stays /pricing. ES `como-poner` not edited.
+- CI: definition assertions live in `faq-schema.test.ts` (a standalone
+  test file cloned the hub-social read helper and tripped check:dupes).
+  `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".
+- MERGED #98 as 7915b90. Live after Coolify. Cache-busted curl 5/5 PASS.
+
+## 2026-09-13 — BODY-VIEWS-002 demand section on views post
+- `/blog/how-to-get-more-views-on-vinted` only. Body insert after
+  “First: is there demand at all?”, before “Match the words buyers type”.
+- New H2: “Demand is the other half of the views”. Week-to-13-Sep
+  figures: 5,746 / Fred Perry 1,027 / Stone Island 892 / Gucci 230 @ €197.
+- Soft cite `/data?...utm_campaign=body_views_deepen_002_20260913`
+  (anchor “Vinted market data”). Paid CTA Get the numbers →
+  `/pricing?...utm_campaign=body_views_deepen_002_20260913`.
+- Existing `pricingMidCta("body_views_20260913")` kept. Footer still
+  first-CTA `body_views_20260913`. Title / seoTitle / H1 / meta unchanged.
+- No `/register`. HowTo expected headings include the new H2.
+- MERGED #102 as 45e1979. Live after Coolify. Cache-busted curl PASS:
+  heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
+  + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.
 
 ## 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
 - Six remaining soft EN posts: title + meta only. H1s left as-is.
@@ -267,5 +300,3 @@ NEXT (once unblocked): P0-1.
 - No mid-CTA, body, or JSON-LD structure edits. No `/register`.
   No Free pitch. seoTitle carries " — Resale IQ".
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
-- Merged #96 (8297fd9). Playwright /data H1 flake ignored. All 10 live
-  after Coolify; cache-busted curl matched new titles/metas.
