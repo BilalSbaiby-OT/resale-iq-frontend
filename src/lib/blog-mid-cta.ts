@@ -2,7 +2,7 @@
  * Mid-article paid CTA for how-to blog posts.
  *
  * Conversion QC passed the /pricing path. Do not send these
- * blocks to /register — register still mentions Free.
+ * blocks to the signup wall — that page still mentions Free.
  * Soft /data cite is the secondary link. No free-check door.
  * No invented hit rates.
  */
@@ -18,6 +18,11 @@ export function pricingMidCtaHref(campaign: string): string {
 
 export function pricingFooterSeePlansHref(campaign: string): string {
   return pricingUtmHref(campaign, "footer_see_plans")
+}
+
+/** Former blog signup-wall paid door. Never `?plan=` on that path. */
+export function pricingLegacySignupKillHref(campaign: string): string {
+  return pricingUtmHref(campaign, "legacy_signup_kill")
 }
 
 export function campaignFromPricingHref(href: string): string | null {
@@ -40,6 +45,21 @@ export function footerSeePlansHrefForPost(
   return pricingFooterSeePlansHref("ctr_blog_20260913")
 }
 
+/** Paid footer button that used to hit the blog signup wall. */
+export function legacySignupKillHrefForPost(
+  sections: ReadonlyArray<{ cta?: { href: string } }>,
+): string {
+  for (const s of sections) {
+    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
+    if (!campaign || !s.cta) continue
+    if (isEsPricingHref(s.cta.href)) {
+      return `/es/pricing?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=legacy_signup_kill`
+    }
+    return pricingLegacySignupKillHref(campaign)
+  }
+  return pricingLegacySignupKillHref("ctr_blog_20260913")
+}
+
 export function footerSeePlansLabelForPost(
   sections: ReadonlyArray<{ cta?: { href: string; label?: string } }>,
 ): string {
@@ -60,13 +80,13 @@ export function pricingMidCta(campaign: string): SectionCtaContent {
   }
 }
 
-/** BODY-001 paid CTA — source/medium swapped vs mid-CTA so the body block is separable. */
+/** BODY-001 paid CTA — Content brief: blog/organic, campaign only. */
 export function pricingBodyCtaHref(campaign: string): string {
-  return `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}&utm_content=body_cta`
+  return `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
 }
 
 export function dataCiteHref(campaign: string): string {
-  return `/data?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=data_cite`
+  return `/data?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
 }
 
 export function pricingBodyCta(campaign: string): SectionCtaContent {

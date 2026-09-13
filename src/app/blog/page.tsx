@@ -2,6 +2,7 @@ import Link from "next/link"
 import { SmartCTA } from "@/components/smart-cta"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS } from "@/data/blog-posts"
+import { pricingLegacySignupKillHref } from "@/lib/blog-mid-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -93,12 +94,8 @@ export default async function BlogIndex() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
-          <SmartCTA anonLabel="Get started →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
-          {/* Same reasoning as the article template, re-measured 2026-09-08:
-              /blog and /blog/* carry no link to /pricing and no price, and not
-              one of the 101 external-referrer visitors in the last 30d has ever
-              loaded /pricing. Primary CTA byte-unchanged so the running signup
-              experiment (x-f753ead9cc) stays readable. */}
+          <SmartCTA anonLabel="Get the numbers" anonHref={pricingLegacySignupKillHref("ctr_blog_20260913")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          {/* Paid door is /pricing with organic/blog UTMs, not the signup wall. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo

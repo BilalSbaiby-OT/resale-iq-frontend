@@ -140,6 +140,13 @@ NEXT (once unblocked): P0-1.
 - Existing `ctr_price_20260913` mid-CTA kept. Footer still
   `ctr_price_20260913` + `footer_see_plans`.
 
+## 2026-09-13 — BODY-001 exact Content copy (follow-up)
+- Replaced paraphrased demand section with Content's insert:
+  trap/sit/leave, two numbers, 5,746 / 28 brands, Fred Perry / Stone
+  Island / Gucci lines, buy-below vs demand close.
+- Cite + CTA: `utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913`.
+- Title/meta/H1 and `ctr_price_20260913` mid-CTA unchanged. No ES page.
+
 ## 2026-09-13 — BODY-ES-001 demand section on como-poner-precio
 - `/blog/como-poner-precio-en-vinted`: new section after buy-below,
   "La demanda es la otra mitad del precio". Week-to-13-Sep counts
@@ -150,3 +157,8 @@ NEXT (once unblocked): P0-1.
   `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
 - English `/pricing` never emitted for this post. English how-to-price
   not edited (BODY-001 is PR #85).
+
+## 2026-09-13 — blog signup-wall CTAs → /pricing
+- Shared article footer SmartCTA is `/pricing` + `utm_content=legacy_signup_kill`.
+- How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
+- Button: Get the numbers. ES BODY-ES-001 copy not rewritten.

@@ -18,6 +18,8 @@ import {
   pricingFooterSeePlansHref,
   footerSeePlansHrefForPost,
   footerSeePlansLabelForPost,
+  pricingLegacySignupKillHref,
+  legacySignupKillHrefForPost,
 } from "./blog-mid-cta.ts"
 
 test("pricing mid-CTA href is /pricing with organic blog UTMs", () => {
@@ -60,11 +62,11 @@ test("footer See plans uses the post campaign + footer_see_plans", () => {
   assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /src=blog/)
 })
 
-test("BODY-001 paid CTA uses blog/organic + body_cta", () => {
+test("BODY-001 paid CTA uses blog/organic + body_price campaign", () => {
   const href = pricingBodyCtaHref("body_price_20260913")
   assert.equal(
     href,
-    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta",
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913",
   )
   const cta = pricingBodyCta("body_price_20260913")
   assert.equal(cta.label, "Get the numbers")
@@ -73,11 +75,59 @@ test("BODY-001 paid CTA uses blog/organic + body_cta", () => {
   assert.doesNotMatch(href, /register/)
 })
 
-test("BODY-001 soft cite is /data with data_cite UTM", () => {
+test("BODY-001 soft cite is /data with body_price campaign", () => {
   assert.equal(
     dataCiteHref("body_price_20260913"),
-    "/data?utm_source=organic&utm_medium=blog&utm_campaign=body_price_20260913&utm_content=data_cite",
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913",
   )
+})
+
+test("legacy signup-kill href is /pricing with organic blog UTMs", () => {
+  assert.equal(
+    pricingLegacySignupKillHref("ctr_price_20260913"),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=legacy_signup_kill",
+  )
+  assert.equal(
+    legacySignupKillHrefForPost([{ cta: pricingMidCta("ctr_price_20260913") }]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=legacy_signup_kill",
+  )
+  assert.equal(
+    legacySignupKillHrefForPost([]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_blog_20260913&utm_content=legacy_signup_kill",
+  )
+  assert.doesNotMatch(pricingLegacySignupKillHref("ctr_price_20260913"), /register/)
+  assert.doesNotMatch(pricingLegacySignupKillHref("ctr_price_20260913"), /src=blog/)
+})
+
+test("how-to-price signup-kill stays on ctr_price when BODY-001 CTA is also present", () => {
+  assert.equal(
+    legacySignupKillHrefForPost([
+      { cta: pricingMidCta("ctr_price_20260913") },
+      { cta: pricingBodyCta("body_price_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=legacy_signup_kill",
+  )
+})
+
+test("blog article template no longer points the paid footer at the signup wall", () => {
+  const page = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../app/blog/[slug]/page.tsx"),
+    "utf8",
+  )
+  assert.doesNotMatch(page, /\/register\?src=blog/)
+  assert.doesNotMatch(page, /\/register\?plan=/)
+  assert.match(page, /legacySignupKillHrefForPost/)
+  assert.match(page, /Get the numbers/)
+})
+
+test("blog index paid CTA no longer defaults SmartCTA to the signup wall", () => {
+  const page = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../app/blog/page.tsx"),
+    "utf8",
+  )
+  assert.doesNotMatch(page, /\/register/)
+  assert.match(page, /pricingLegacySignupKillHref\("ctr_blog_20260913"\)/)
+  assert.match(page, /Get the numbers/)
 })
 
 test("how-to-price footer stays on ctr_price when BODY-001 CTA is also present", () => {
@@ -100,9 +150,12 @@ test("how-to-price post ships BODY-001 demand section and keeps ctr_price mid-CT
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
   assert.match(post, /Demand is the other half of the price/)
-  assert.match(post, /Fred Perry 1,027 watched departures at €19/)
-  assert.match(post, /Stone Island 892 at €66/)
-  assert.match(post, /Gucci 230 at €197/)
+  assert.match(post, /A departure price without demand is a trap\. The item can look cheap and still sit/)
+  assert.match(post, /we watched 5,746 departures across 28 brands/)
+  assert.match(post, /Fred Perry — 1,027 left the shelf · avg €19 \(volume play\)/)
+  assert.match(post, /Stone Island — 892 · avg €66/)
+  assert.match(post, /Gucci — 230 · avg €197 \(price play, thinner volume\)/)
+  assert.match(post, /Skip either and you’re guessing/)
   assert.match(post, /pricingMidCta\("ctr_price_20260913"\)/)
   assert.match(post, /pricingBodyCta\("body_price_20260913"\)/)
   assert.match(post, /dataCiteHref\("body_price_20260913"\)/)
@@ -131,6 +184,13 @@ test("BODY-ES-001 soft cite is /es/data — never English /data", () => {
   assert.equal(
     dataCiteHrefEs("body_price_es_20260913"),
     "/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913",
+  )
+})
+
+test("Spanish post signup-kill stays on /es/pricing with legacy_signup_kill", () => {
+  assert.equal(
+    legacySignupKillHrefForPost([{ cta: pricingBodyCtaEs("body_price_es_20260913") }]),
+    "/es/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_price_es_20260913&utm_content=legacy_signup_kill",
   )
 })
 
