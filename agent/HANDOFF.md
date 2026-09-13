@@ -1,7 +1,15 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 answer-first titles (this session)
+  Title + meta only on 10 EN posts. H1s unchanged (already matched).
+  No mid-CTA / body / schema edits. No /register. No Free pitch.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Question/answer-first for AEO + SERP. Buy-below/demand where natural.
+  Branch cursor/seo-ex-ctr-batch-3-b6b6. Merging despite /data H1
+  Playwright flake (expected "Vinted market data"). PR #96.
 
 SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA (this session)
   HowTo JSON-LD on genuine process posts only. FAQPage stays.

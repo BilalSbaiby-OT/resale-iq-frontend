@@ -13,8 +13,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "vinted-photo-tips-that-sell",
     title: "Vinted Photos That Actually Sell (7 Rules)",
+    seoTitle: "How Do You Take Vinted Photos That Sell? — Resale IQ",
     description:
-      "How to photograph items for Vinted so they sell faster — lighting, background, angles, flaws, and the shots buyers actually look for.",
+      "Daylight, a plain background, and the shots buyers check: front, back, labels and flaws. Honest photos speed a sale — they cannot create demand.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Selling",
@@ -107,9 +108,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "vinted-listing-description-guide",
     title: "How to Write Vinted Descriptions — Titles Buyers Search",
-    seoTitle: "How to Write Vinted Descriptions — Titles Buyers Search",
+    seoTitle: "How to Write Vinted Descriptions That Sell? — Resale IQ",
     description:
-      "Vinted titles and descriptions that get found in search and remove the doubts that stop a buy. Lead with the words buyers type.",
+      "Lead the title with brand, item and size — the words buyers type. The description clears doubts: measurements, material, condition and flaws.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Selling",
@@ -194,8 +195,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "vinted-shipping-guide-sellers",
     title: "Vinted Shipping for Sellers: Costs, Packing and Speed",
+    seoTitle: "Who Pays Vinted Shipping? Usually the Buyer — Resale IQ",
     description:
-      "How Vinted shipping works for sellers — who pays, how to pack cheaply and safely, and how fast dispatch protects your ratings.",
+      "The buyer usually pays Vinted shipping. Pack cheaply, waterproof the item, and dispatch fast — speed protects your ratings more than new packaging.",
     date: "2026-08-06",
     category: "Selling",
     readMins: 4,
@@ -327,8 +329,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "vinted-vs-ebay-for-sellers",
     title: "Vinted vs eBay for Sellers: Which Makes More Profit?",
+    seoTitle: "Is Vinted or eBay Better? Pick Per Item — Resale IQ",
     description:
-      "Fees, audience and effort compared for resellers deciding between Vinted and eBay — and how to pick per item.",
+      "Vinted usually nets more on everyday fashion: no seller commission. eBay wins on rare or collectable items. Pick per listing, not per shop.",
     date: "2026-08-06",
     category: "Platforms",
     readMins: 5,
@@ -371,8 +374,9 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "scale-reselling-side-hustle-to-full-time",
     title: "Scaling Reselling From Side Hustle to Full-Time",
+    seoTitle: "Can You Go Full-Time Reselling? Kill Bottlenecks — Resale IQ",
     description:
-      "What actually changes when you scale a reselling business — sourcing systems, cash flow, inventory limits and the bottlenecks that stop most people.",
+      "Most resellers run out of hours, not deals. Filter buys to known demand and buy-below — then cash flow and inventory become the bottlenecks.",
     date: "2026-08-06",
     updated: "2026-09-12",
     category: "Business",

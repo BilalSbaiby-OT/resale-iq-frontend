@@ -249,3 +249,11 @@ NEXT (once unblocked): P0-1.
 - Schema is plain text (link labels only). No `/register`. No UTM.
   HowTo.url is `https://resaleiq.dev/blog/{slug}`.
 - Helper: `src/lib/howto-schema.ts`. Wired in `src/app/blog/[slug]/page.tsx`.
+
+## 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
+- Ten EN posts: title + meta only. H1s left as-is (already matched).
+- depop / ebay / start-no-money / grow-closet / descriptions /
+  photos / shipping / bundles / pallets / scale-full-time.
+- No mid-CTA, body, or JSON-LD structure edits. No `/register`.
+  No Free pitch. seoTitle carries " — Resale IQ".
+- Soft caps: title ≤60, meta ≤155. Question/answer-first.
