@@ -3,6 +3,13 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-001 on how-to-price-items-on-vinted
+  New section after buy-below: "Demand is the other half of the price".
+  Soft /data cite `body_price_20260913` / `data_cite`. Paid CTA
+  `utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta`.
+  Existing mid-CTA `ctr_price_20260913` kept. Footer See plans still
+  `ctr_price_20260913` + `footer_see_plans`.
+
 SEO LANE, 2026-09-13 — blog footer See plans now carries UTMs
   (`utm_content=footer_see_plans`, campaign from the post mid-CTA).
   Copy lock: button "Get the numbers", subline "Buy-below + demand before

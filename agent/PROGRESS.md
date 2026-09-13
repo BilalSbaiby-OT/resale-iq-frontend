@@ -129,3 +129,13 @@ NEXT (once unblocked): P0-1.
 - How-to-price: `ctr_price_20260913` + `utm_content=footer_see_plans`.
 - Other how-tos: their mid-CTA campaign + `footer_see_plans`.
 - Copy lock unchanged: Get the numbers / Buy-below + demand before cash sticks.
+
+## 2026-09-13 — BODY-001 demand section on how-to-price
+- `/blog/how-to-price-items-on-vinted`: new section after buy-below,
+  "Demand is the other half of the price". Week-to-13-Sep counts
+  (Fred Perry 1,027 @ €19 · Stone Island 892 @ €66 · Gucci 230 @ €197).
+  No invented hit rates.
+- Soft cite `/data?...utm_campaign=body_price_20260913&utm_content=data_cite`.
+- Paid CTA Get the numbers → `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta`.
+- Existing `ctr_price_20260913` mid-CTA kept. Footer still
+  `ctr_price_20260913` + `footer_see_plans`.
