@@ -239,6 +239,29 @@ NEXT (once unblocked): P0-1.
   from EX-CTR-BATCH-2 kept). Mid-CTA file untouched.
   No `/register`. No new campaigns.
 
+## 2026-09-13 — EX-HOWTO-SCHEMA process blog HowTo JSON-LD
+- HowTo JSON-LD on 6 process posts whose body already has steps:
+  how-to-price, how-to-find-flips, how-to-get-more-views, thrift-store
+  flipping, vinted-item-not-selling (4 numbered checks),
+  como-poner-precio-en-vinted (Spanish names; skip methodology heading).
+- Steps extracted from visible H2s / numbered checks. No invented
+  tools/supplies/times. FAQPage + mid-CTAs + ilinks untouched.
+- Schema is plain text (link labels only). No `/register`. No UTM.
+  HowTo.url is `https://resaleiq.dev/blog/{slug}`.
+- Helper: `src/lib/howto-schema.ts`. Wired in `src/app/blog/[slug]/page.tsx`.
+- MERGED #97 as 3853d29. Live after Coolify on SOURCE_COMMIT 8297fd9
+  (main also includes #96). Cache-busted curl: 6/6 PASS HowTo+FAQPage.
+
+## 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
+- Ten EN posts: title + meta only. H1s left as-is (already matched).
+- depop / ebay / start-no-money / grow-closet / descriptions /
+  photos / shipping / bundles / pallets / scale-full-time.
+- No mid-CTA, body, or JSON-LD structure edits. No `/register`.
+  No Free pitch. seoTitle carries " — Resale IQ".
+- Soft caps: title ≤60, meta ≤155. Question/answer-first.
+- Merged #96 (8297fd9). Playwright /data H1 flake ignored. All 10 live
+  after Coolify; cache-busted curl matched new titles/metas.
+
 ## 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
 - Visible H2 + 1–2 sentence definition leads on five pages:
   `/blog/buy-below-price-explained` (Buy-below price),

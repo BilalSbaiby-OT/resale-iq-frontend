@@ -13,9 +13,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-bundles-and-offers-strategy",
     title: "Vinted Bundles and Offers — When a Lower Price Still Wins",
-    seoTitle: "Vinted Bundles and Offers — When a Lower Price Still Wins",
+    seoTitle: "Should You Accept a Vinted Offer or Bundle? — Resale IQ",
     description:
-      "When a Vinted offer is still worth taking, when a bundle beats waiting, and the floor you should never sell below — so cash keeps moving.",
+      "Take a Vinted offer if it still clears your floor — cost, fees, minimum margin. Bundle slow stock to free cash; don't discount items that already sell.",
     date: "2026-08-07",
     updated: "2026-09-13",
     category: "Selling",
@@ -192,8 +192,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "buying-wholesale-pallets-reselling",
     title: "Buying Wholesale and Pallets for Reselling: Worth It?",
+    seoTitle: "Are Clothing Pallets Worth Buying? Do the Math — Resale IQ",
     description:
-      "How wholesale lots and clothing pallets work, the real risks, and how to judge whether a lot is worth buying.",
+      "A pallet pays only if cost divided by items you will actually sell sits under buy-below. Add shipping, storage, sorting time and unsellable stock.",
     date: "2026-08-07",
     category: "Sourcing",
     readMins: 5,
@@ -234,9 +235,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "how-to-grow-a-vinted-closet",
     title: "How to Grow a Vinted Closet — Volume, Focus, Consistency",
-    seoTitle: "How to Grow a Vinted Closet — Volume, Focus, Consistency",
+    seoTitle: "How to Grow a Vinted Closet? Demand First — Resale IQ",
     description:
-      "Why closet size, focus and consistency drive Vinted sales — and why volume only helps if the stock has real demand.",
+      "More listings help only if the stock has demand. Focus the closet, list consistently, and grow volume around items that already clear.",
     date: "2026-08-07",
     updated: "2026-09-13",
     category: "Selling",
@@ -379,9 +380,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "how-to-start-reselling-with-little-money",
     title: "How to Start Reselling With No Money — A Realistic Path",
-    seoTitle: "How to Start Reselling With No Money — A Realistic Path",
+    seoTitle: "How to Start Reselling With No Money? Sell First — Resale IQ",
     description:
-      "Start reselling with no money: sell what you own, then source cheap and local. Every wrong buy costs more when the budget is small.",
+      "Sell clothes you already own, then source cheap and local. Stay under buy-below — a small budget makes every wrong purchase cost more.",
     date: "2026-08-07",
     updated: "2026-09-13",
     category: "Business",

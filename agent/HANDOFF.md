@@ -19,6 +19,26 @@ SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
   Also aligned e2e/smoke /data H1 to "Weekly brand volumes on Vinted"
   (was stale "Vinted market data" — the flake that blocked #94).
 
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 LIVE on production (merged #96)
+  All 10 EN titles/metas verified live via cache-busted curl after Coolify.
+  /deploy-id 8297fd9. Playwright /data H1 flake ignored (expected
+  "Vinted market data", live H1 is "Weekly brand volumes"). Agent
+  Isolation was the deploy gate.
+
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 answer-first titles
+  Title + meta only on 10 EN posts. H1s unchanged (already matched).
+  No mid-CTA / body / schema edits. No /register. No Free pitch.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Question/answer-first for AEO + SERP. Buy-below/demand where natural.
+  Branch cursor/seo-ex-ctr-batch-3-b6b6. Merged #96 despite /data H1
+  Playwright flake (expected "Vinted market data").
+
+SEO LANE, 2026-09-13 — EX-HOWTO-SCHEMA LIVE (merged #97)
+  HowTo + FAQPage both present on all 6 process URLs after Coolify.
+  Live SOURCE_COMMIT 8297fd9 (contains merge 3853d29). Cache-busted
+  curl. Steps from on-page H2s / 4 numbered checks. No /register, no
+  UTM, no invented tools. Mid-CTAs/ilinks untouched.
+
 SEO LANE, 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
   Production gaps: `/blog/common-vinted-scams-sellers` and
   `/blog/vinted-disputes-and-returns-sellers` had no `ilink_20260913`.
