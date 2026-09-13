@@ -205,3 +205,16 @@ NEXT (once unblocked): P0-1.
   on main. Existing `ctr_*` / `body_price_*` / `body_buybelow_*` /
   `legacy_signup_kill` untouched.
 - Titles, metas, H1s, `blog-mid-cta.ts` unchanged. No `/register` links.
+
+## 2026-09-13 — EX-FAQ-SCHEMA-HUBS
+- `/flip`: FAQPage expanded to 5 questions (what sells best, update cadence,
+  watched departure, buy-below use, coverage-bias volume). Visible HubFaq
+  matches schema. Live numbers only where the hub already prints them.
+- `/data`: FAQPage added beside existing Dataset (not replacing it). 5
+  questions on weekly volumes, ES/FR/DE/IT/PT coverage, how to read the
+  table, freshness, tracked-brand scope. Visible HubFaq matches schema.
+- `/blog/what-sells-best-on-vinted`: FAQ aligned to the article (Hoodies /
+  Stone Island / week-to-13-Sep brand split). Cites
+  `https://resaleiq.dev/data` and `https://resaleiq.dev/flip` as plaintext
+  labels (JSON-LD has the absolute URLs, no UTM). No `/register`.
+- Metadata / Dataset / ItemList / breadcrumbs untouched.

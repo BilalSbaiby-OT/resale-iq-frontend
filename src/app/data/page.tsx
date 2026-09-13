@@ -5,6 +5,8 @@ import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd } from "@/lib/faq-schema"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -39,27 +41,74 @@ export default async function DataPage() {
     .filter((n): n is number => typeof n === "number" && Number.isFinite(n))
   const totalWeekly = solds.length ? solds.reduce((s, n) => s + n, 0) : null
 
+  const faqs = [
+    {
+      q: "What are weekly brand volumes on Vinted?",
+      a:
+        `"Sold / 7 days" counts units we watched sell in the trailing week (sold_observed) — ` +
+        `listings that went from active to sold — not every sold listing in the catalogue. ` +
+        `Average sale price is the mean of those observed sales.` +
+        (totalWeekly != null
+          ? ` This snapshot sums to ${fmtCount(totalWeekly)} watched departures across ${market.brandCount} brands.`
+          : "") +
+        ` Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.`,
+    },
+    {
+      q: "Which Vinted markets does this table cover?",
+      a:
+        "Spain, France, Germany, Italy and Portugal (ES/FR/DE/IT/PT). Figures are aggregated from public Vinted listings " +
+        "on those five domains, deduplicated by listing ID. The table does not cover the UK or other Vinted domains.",
+    },
+    {
+      q: "How do I read this table?",
+      a:
+        "Each row is one tracked brand. Sold / 7 days is watched departures that week. Avg sale price is the mean " +
+        "asking price at those departures, in euros. Top categories are the busiest categories for that brand in the snapshot. " +
+        "An em-dash means this snapshot has no figure for that cell — not that the brand sold nothing. " +
+        "Brands are ordered by weekly watched sales." +
+        (market.publishFloorSold7d != null
+          ? ` A brand needs at least ${market.publishFloorSold7d} watched sales to appear in this table.`
+          : ""),
+    },
+    {
+      q: "How often is this table updated?",
+      a:
+        "The table renders from the live snapshot. A freshness stamp shows when the figures were last calculated. " +
+        "If the live feed is unavailable, the last complete snapshot is shown and labelled. " +
+        "Volumes are always a trailing 7-day window, not a calendar week.",
+    },
+    {
+      q: "Is this the size of Vinted as a whole?",
+      a:
+        "No. This is tracked-brand volume only. Unbranded listings and brands outside the tracked set are not counted, " +
+        "so the weekly total is much smaller than listings tracked — a measurement limit, not a refresh failure.",
+    },
+  ]
+
   // Dataset schema — makes the DATA ITSELF indexable and citable, and eligible
-  // for Google Dataset Search.
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Dataset",
-    name: "Vinted Resale Market Snapshot",
-    description:
-      `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
-    url: "https://resaleiq.dev/data",
-    creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
-    license: "https://resaleiq.dev/legal",
-    isAccessibleForFree: true,
-    temporalCoverage: "P7D",
-    spatialCoverage: "Spain, France, Germany, Italy, Portugal",
-    ...(market.updatedAt ? { dateModified: new Date(market.updatedAt).toISOString() } : {}),
-    variableMeasured: [
-      { "@type": "PropertyValue", name: "units sold (7 days)" },
-      { "@type": "PropertyValue", name: "average sale price (EUR)" },
-      { "@type": "PropertyValue", name: "top categories" },
-    ],
-  }
+  // for Google Dataset Search. FAQPage sits beside it; do not replace it.
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      name: "Vinted Resale Market Snapshot",
+      description:
+        `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
+      url: "https://resaleiq.dev/data",
+      creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
+      license: "https://resaleiq.dev/legal",
+      isAccessibleForFree: true,
+      temporalCoverage: "P7D",
+      spatialCoverage: "Spain, France, Germany, Italy, Portugal",
+      ...(market.updatedAt ? { dateModified: new Date(market.updatedAt).toISOString() } : {}),
+      variableMeasured: [
+        { "@type": "PropertyValue", name: "units sold (7 days)" },
+        { "@type": "PropertyValue", name: "average sale price (EUR)" },
+        { "@type": "PropertyValue", name: "top categories" },
+      ],
+    },
+    faqPageJsonLd(faqs),
+  ]
 
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "44px 24px" }}>
@@ -187,6 +236,8 @@ export default async function DataPage() {
         <div style={{ fontSize: 13, color: "#5b6b8c", lineHeight: 1.7 }}>
           Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
         </div>
+
+        <HubFaq items={faqs} />
 
         <div style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Want the numbers that make you money?</div>
