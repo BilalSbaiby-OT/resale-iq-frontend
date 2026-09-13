@@ -12,6 +12,18 @@ SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   match `${i.title} — Resale IQ`. Paid CTAs already on both pages.
   Branch cursor/seo-ex-tools-howto-97af.
 
+SEO LANE, 2026-09-13 — BODY-FLIPS-002 / how-to-find-items-to-flip (this session)
+  Body insert only on `/blog/how-to-find-items-to-flip-on-vinted`.
+  New H2 after “Start from demand, not from what's cheap”, before
+  “Use the buy-below filter”: “Demand is the other half”. Soft cite
+  `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_flips_deepen_002_20260913`
+  (anchor “Weekly market data”). Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_flips_deepen_002_20260913`.
+  Subline: Buy-below + demand before cash sticks. Existing mid-CTA
+  `body_flips_20260913` kept. Title / seoTitle / H1 / meta untouched.
+  No `/register?src=blog`. HowTo heading lock updated so the new H2
+  is a real on-page step. Branch cursor/body-flips-deepen-002-52b7.
+
 SEO LANE, 2026-09-13 — AEO-PRICE-CHECKER-001 (merging)
   Fold Content deepen into /tools/vinted-price-checker.
   Title / H1 / WebApplication schema untouched. FAQ JSON-LD

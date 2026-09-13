@@ -190,6 +190,7 @@ test("allowlisted process posts have matching on-page steps in the body", () => 
     ],
     "how-to-find-items-to-flip-on-vinted": [
       "Start from demand, not from what's cheap",
+      "Demand is the other half",
       "Use the buy-below filter",
       "Automate the boring part",
     ],
