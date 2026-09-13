@@ -313,6 +313,9 @@ NEXT (once unblocked): P0-1.
 - Soft `seoTitle`s keep " — The Vinted Reselling Manual". H1s stay.
 - No `/register` in FAQ. Paid CTAs stay `/pricing`.
 - Tests: `faq-schema.test.ts` hub assertions + `manual-aeo.test.ts`.
+- MERGED #101 as d69e7fa. Live after Coolify (`/deploy-id` 0bcee93).
+  Cache-busted curl PASS: /manual FAQPage 5 Qs; 15 chapters at 4 FAQs;
+  buy-below DefinedTerm; authenticity CTR lock intact.
 
 ## 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
 - Six remaining soft EN posts: title + meta only. H1s left as-is.

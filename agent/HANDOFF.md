@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-MANUAL-AEO LIVE (merged #101)
+  MERGED | d69e7fa | live PASS
+  `/deploy-id` SOURCE_COMMIT 0bcee93 (includes #101; #100 merged after).
+  Cache-busted curl: /manual FAQPage 5/5 + visible HubFaq.
+  15 chapters 4 FAQPage each. Buy-below DefinedTerm PASS.
+  Authenticity title + body_fake + 2 FAQs untouched. Playwright
+  /data H1 ignored per owner.
+
 SEO LANE, 2026-09-13 — EX-TOOLS-AEO (this session)
   PR #99 cursor/seo-ex-tools-aeo-fc7b. /tools title is now
   "Vinted Tools: Price Check & Buy-Below — Resale IQ" with matching
