@@ -230,3 +230,51 @@ test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () =
   const faq = post.indexOf("faq:")
   assert.ok(buyBelow < demand && demand < faq)
 })
+
+test("BODY-BUYBELOW-001 paid CTA uses blog/organic + body_buybelow campaign", () => {
+  const href = pricingBodyCtaHref("body_buybelow_20260913")
+  assert.equal(
+    href,
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913",
+  )
+  const cta = pricingBodyCta("body_buybelow_20260913")
+  assert.equal(cta.label, "Get the numbers")
+  assert.equal(cta.body, "Buy-below + demand before cash sticks.")
+  assert.equal(cta.href, href)
+  assert.doesNotMatch(href, /register/)
+  assert.doesNotMatch(href, /plan=/)
+  assert.doesNotMatch(href, /start free/i)
+})
+
+test("BODY-BUYBELOW-001 soft cite is /data with body_buybelow campaign", () => {
+  assert.equal(
+    dataCiteHref("body_buybelow_20260913"),
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913",
+  )
+})
+
+test("buy-below-price-explained ships BODY-BUYBELOW-001 after the formula and before FAQ", () => {
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),
+    "utf8",
+  )
+  const start = posts.indexOf('slug: "buy-below-price-explained"')
+  const end = posts.indexOf("export const ALL_POSTS")
+  assert.ok(start >= 0 && end > start)
+  const post = posts.slice(start, end)
+  assert.match(post, /Demand is the other half of buy-below/)
+  assert.match(post, /A buy-below number without demand still burns cash/)
+  assert.match(post, /Pair \(1\) max pay after fees with \(2\) whether that brand is leaving the shelf this week/)
+  assert.match(post, /Week to 13 September 2026 \(EU5\): we watched 5,746 departures across 28 brands/)
+  assert.match(post, /Fred Perry 1,027 @ €19/)
+  assert.match(post, /Stone Island 892 @ €66/)
+  assert.match(post, /Gucci 230 @ €197/)
+  assert.match(post, /pricingBodyCta\("body_buybelow_20260913"\)/)
+  assert.match(post, /dataCiteHref\("body_buybelow_20260913"\)/)
+  assert.doesNotMatch(post, /register\?plan=/)
+  assert.doesNotMatch(post, /Start free/i)
+  const formula = post.indexOf("The formula")
+  const demand = post.indexOf("Demand is the other half of buy-below")
+  const faq = post.indexOf("faq:")
+  assert.ok(formula < demand && demand < faq)
+})

@@ -461,8 +461,9 @@ export const POSTS: BlogPost[] = [
     description:
       "What a buy-below price is, how to calculate it, and why it's the single most important number in reselling — with the exact formula.",
     date: "2026-08-05",
+    updated: "2026-09-13",
     category: "Pricing",
-    readMins: 4,
+    readMins: 5,
     intro:
       "Ask a struggling reseller their sale price and they'll know it. Ask their buy-below price and they'll pause. That gap is where profit leaks. Here's the number that fixes it.",
     sections: [
@@ -485,6 +486,17 @@ export const POSTS: BlogPost[] = [
         p: [
           "With a buy-below price for every target item, sourcing becomes a fast yes/no scan and your margins are protected before you ever list. " + BRAND + " calculates it automatically for any item from " + DATA + ".",
         ],
+      },
+      {
+        h: "Demand is the other half of buy-below",
+        p: [
+          "A buy-below number without demand still burns cash. Pair (1) max pay after fees with (2) whether that brand is leaving the shelf this week.",
+          "Week to 13 September 2026 (EU5): we watched 5,746 departures across 28 brands — Fred Perry 1,027 @ €19 · Stone Island 892 @ €66 · Gucci 230 @ €197. [Weekly market data](" +
+            dataCiteHref("body_buybelow_20260913") +
+            ").",
+        ],
+        // BODY-BUYBELOW-001. No ctr_blog mid-CTA on this post to keep.
+        cta: pricingBodyCta("body_buybelow_20260913"),
       },
     ],
     faq: [
