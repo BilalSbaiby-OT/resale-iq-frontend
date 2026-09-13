@@ -3,6 +3,16 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — AEO-PRICE-CHECKER-001 (merging)
+  Fold Content deepen into /tools/vinted-price-checker.
+  Title / H1 / WebApplication schema untouched. FAQ JSON-LD
+  matches new visible FAQs. Free one-item check on /tools hub;
+  sell-through/sizes on plan. CTA Get the numbers →
+  /pricing?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001
+  Secondary uses PRICE_CHECKER_MONEY_HREF (google_search_test +
+  utm_content=price_checker). Branch cursor/aeo-price-checker-001-899c.
+  PR #112. Rebased onto #110.
+
 SEO LANE, 2026-09-13 — EX-CATEGORY-AEO LIVE (merged #103)
   MERGED | d27d432 | live PASS
   `/deploy-id` SOURCE_COMMIT d27d432bd616bb72adb782bebcef32db2c5ecaf1

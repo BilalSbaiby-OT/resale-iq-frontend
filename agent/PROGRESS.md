@@ -1,5 +1,6 @@
 # PROGRESS — append only, newest at the bottom
 
+
 ## 2026-08-21T11:10Z — session 1 (bootstrap + P0-0)
 - Built the unattended system: CLAUDE.md, agent/{TASKS,HANDOFF,PROGRESS,GUARDRAILS}.md,
   scripts/{unattended.sh,resume-prompt.md}, .claude/settings.json + 3 hooks.
@@ -402,3 +403,19 @@ NEXT (once unblocked): P0-1.
   H1s, tables, and page data rendering untouched.
 - Kill: no GSC impr/CTR movement on /flip/* in 30d (assumption flagged).
 - Helper: `src/lib/flip-category-meta.ts`. Tests: `flip-category-meta.test.ts`.
+
+## 2026-09-13 — AEO-PRICE-CHECKER-001 Content deepen
+- `/tools/vinted-price-checker` only. Title / H1 / description /
+  WebApplication schema unchanged.
+- New body H2: “From departure price to BUY, WATCH or SKIP”
+  (departure → ×0.95×0.70 buy-below → BUY/WATCH/SKIP).
+- FAQs replaced: what it does / buy-below / why departure / is it
+  free? Yes one-item on the tools hub; sell-through/sizes on a plan.
+  FAQ JSON-LD maps the same strings. No `/register`. No UTM in FAQ.
+- Lede no longer says the paywall is the next step / there is no
+  free number.
+- Paid CTA Get the numbers →
+  `/pricing?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001`
+  plus secondary `google_search_test` + `utm_content=price_checker`.
+- Other tool slugs keep See plans + `src=tools`.
+- Tests: `src/lib/aeo-price-checker.test.ts`.
