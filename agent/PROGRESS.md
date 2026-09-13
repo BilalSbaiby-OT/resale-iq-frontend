@@ -306,6 +306,20 @@ NEXT (once unblocked): P0-1.
   heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
   + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.
 
+## 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
+- /category is a real hub (10 live categories, live volumes). Not SKIP.
+- Title: "What Sells Best on Vinted by Category — N Ranked" (49 @ N=10).
+  Meta ≤155: demand free; buy-below on an item is on a plan.
+- twitter title/desc now match title + og (was homepage string).
+- FAQPage via faqPageJsonLd + visible HubFaq (4 Qs): what sells by
+  category, weekly volume, how to use with buy-below, markets.
+- New body anchors → /data /flip /pricing
+  `utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913`.
+  Existing /flip /data /methodology /pricing?src= links left untracked.
+- /category/[category]: twitter aligned + HubFaq + buy-below FAQ.
+  No fake category inventory. No /register. FAQ answers have no UTM.
+- Tests in faq-schema.test.ts + hub-social-meta.test.ts. 136 unit pass.
+
 ## 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
 - `/manual` hub: answer-first title + FAQPage/HubFaq (5 Qs: what it
   is, who for, free?, buy-below/data, markets). Book schema kept.

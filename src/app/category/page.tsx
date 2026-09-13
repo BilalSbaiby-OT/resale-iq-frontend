@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { CATEGORIES, catSlug } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd } from "@/lib/faq-schema"
 
 // The hub for the /category estate, and the more urgent of the two: Search
 // Console for 2026-07-30..08-26 recorded ZERO impressions across all nine
@@ -17,15 +19,18 @@ export const revalidate = 900
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = `What sells best on Vinted? ${CATEGORIES.length} categories ranked`
+  const title = `What Sells Best on Vinted by Category — ${CATEGORIES.length} Ranked`
   const description =
-    `The ${CATEGORIES.length} categories Resale IQ tracks, ranked by how many items we watch leave the shelf ` +
-    `each week on Vinted across 5 EU markets — and which brand leads each one.`
+    `The ${CATEGORIES.length} categories we track, ranked by weekly watched departures on Vinted ` +
+    `across ES/FR/DE/IT/PT. Demand is free; buy-below on an item is on a plan.`
   return {
     title,
     description,
     alternates: { canonical: "/category" },
     openGraph: { title, description, type: "website" },
+    // Root layout pins twitter.title to the homepage string. og:title was
+    // already set here; twitter was not, so X/Slack still showed the generic.
+    twitter: { card: "summary_large_image", title, description },
   }
 }
 
@@ -70,30 +75,40 @@ export default async function CategoryHubPage() {
       `item is usually thinner than in slower, higher-priced ones.`
     : `Category volume is not available in the current snapshot.`
 
-  const jsonLd = [
+  // Visible FAQ and FAQPage JSON-LD share this array. Answers stay qualitative
+  // except where this page already prints a live figure. Campaign tags stay
+  // off the schema — they belong on the new body anchors below.
+  const faqs = [
     {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What sells best on Vinted?",
-          acceptedAnswer: { "@type": "Answer", text: answer },
-        },
-        {
-          "@type": "Question",
-          name: "How many items sell on Vinted each week in these categories?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text:
-              `Across the ${CATEGORIES.length} tracked categories, the brands Resale IQ follows ` +
-              `account for roughly ${fmtCount(grandTotal)} items we watch leave the shelf per week in ${MARKETS}. ` +
-              `That is tracked-brand volume only — unbranded listings and untracked brands are ` +
-              `not counted, so it is not the size of these categories on Vinted overall.`,
-          },
-        },
-      ],
+      q: "What sells best on Vinted by category?",
+      a: answer,
     },
+    {
+      q: "How many items sell on Vinted each week in these categories?",
+      a:
+        `Across the ${CATEGORIES.length} tracked categories, the brands Resale IQ follows ` +
+        `account for roughly ${fmtCount(grandTotal)} items we watch leave the shelf per week in ${MARKETS}. ` +
+        `That is tracked-brand volume only — unbranded listings and untracked brands are ` +
+        `not counted, so it is not the size of these categories on Vinted overall.`,
+    },
+    {
+      q: "How do I use category rankings with buy-below?",
+      a:
+        "Category volume tells you demand exists — the busiest categories recycle cash; slower, higher-priced ones usually carry more margin per item. " +
+        "Buy-below is the most you should pay for a specific listing after fees. Rankings on this page are not a buy-below. " +
+        "Weekly brand volumes stay public at https://resaleiq.dev/data. Brand rankings are at https://resaleiq.dev/flip. " +
+        "Item-level buy-below, sizes and BUY/WATCH/SKIP are on a paid plan at https://resaleiq.dev/pricing.",
+    },
+    {
+      q: "Which Vinted markets do these category rankings cover?",
+      a:
+        "Spain, France, Germany, Italy and Portugal (ES/FR/DE/IT/PT). Figures are aggregated from public Vinted listings " +
+        "on those five domains. The rankings do not cover the UK or other Vinted domains.",
+    },
+  ]
+
+  const jsonLd = [
+    faqPageJsonLd(faqs),
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -128,7 +143,7 @@ export default async function CategoryHubPage() {
         </div>
 
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2 }}>
-          What sells best on Vinted?
+          What sells best on Vinted by category?
         </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{answer}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
@@ -194,6 +209,36 @@ export default async function CategoryHubPage() {
             </div>
           ))}
         </div>
+
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "34px 0 10px" }}>
+          How this ranking pairs with buy-below
+        </h2>
+        <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
+          These rankings are demand, not a buy price. Check{" "}
+          <Link
+            href="/data?utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913"
+            style={{ color: "#34C759", textDecoration: "none" }}
+          >
+            weekly brand volumes
+          </Link>{" "}
+          or the{" "}
+          <Link
+            href="/flip?utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913"
+            style={{ color: "#34C759", textDecoration: "none" }}
+          >
+            brand rankings
+          </Link>{" "}
+          for the other cut. Item-level buy-below is on a plan —{" "}
+          <Link
+            href="/pricing?utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913"
+            style={{ color: "#34C759", textDecoration: "none" }}
+          >
+            see pricing
+          </Link>
+          .
+        </p>
+
+        <HubFaq items={faqs} />
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "34px 0 10px" }}>
           Looking for a brand instead of a category?

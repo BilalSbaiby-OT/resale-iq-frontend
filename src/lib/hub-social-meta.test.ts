@@ -1,7 +1,7 @@
 /**
- * EX-OG-HUBS — /data and /flip social titles must match the document title.
- * Root layout pins homepage og:title / twitter:title; a child `title` alone
- * does not override those tags.
+ * EX-OG-HUBS / EX-CATEGORY-AEO — hub social titles must match the document
+ * title. Root layout pins homepage og:title / twitter:title; a child `title`
+ * alone does not override those tags.
  */
 import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
@@ -136,6 +136,20 @@ test("locale methodology titles stay AEO and capped with brand suffix", () => {
     assert.ok(title.length <= 60, `${locale} methodology title ${title.length}: ${title}`)
     assert.match(methodologyCopy[locale].text0, /calcul|berechnet|calcolato/i)
   }
+})
+
+// EX-CATEGORY-AEO — same homepage-twitter leak /data and /flip already closed.
+test("/category hub sets twitter title/description to the same strings as title + og", () => {
+  const src = read("app/category/page.tsx")
+  assert.match(src, /What Sells Best on Vinted by Category/)
+  assert.match(src, /openGraph: \{ title, description, type: "website" \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+})
+
+test("/category slug pages pin social titles via articleSocialMeta", () => {
+  const src = read("app/category/[category]/page.tsx")
+  assert.match(src, /articleSocialMeta\(/)
+  assert.match(src, /categoryLeafTitle\(/)
 })
 
 test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE-AEO)", () => {
