@@ -108,3 +108,10 @@ NEXT (once unblocked): P0-1.
 - Rebased onto main after #77. CTA commit `97e0099` on PR #78.
 - Verified on next dev: CTA sits between first and second h2; hrefs exact.
 
+## 2026-09-13 — Content-aligned mid-CTA copy (follow-up to #78)
+- #78 merged as affa559 with old "Get buy-below on any item" / ctr_* UTMs.
+- Button → "Get the numbers". Subline → "Buy-below + demand before cash sticks."
+- Flip campaign `body_flips_20260913`. Fake campaign `body_fake_20260913`.
+- Soft /data kept. No /register.
+
+

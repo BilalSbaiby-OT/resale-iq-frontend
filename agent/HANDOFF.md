@@ -3,12 +3,10 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 mid-CTAs:
-  Title/meta/H1 already on PR #78. Conversion greenlit paid mid-CTAs to /pricing
-  after the first how-to section. Flip: ctr_flip_20260913. Authenticity chapter
-  (308 target of /blog/how-to-spot-fake-items-vinted): ctr_fake_20260913.
-  Commit 97e0099. HOLD merge of #78 — commander: how-to-price mid-CTA
-  UTM must be visible on production first. Do not merge until told.
+SEO LANE, 2026-09-13 — EX-CTR-002/003 CTA copy aligned to Content:
+  #78 already merged (affa559). Follow-up: button "Get the numbers",
+  subline "Buy-below + demand before cash sticks.", campaigns
+  body_flips_20260913 / body_fake_20260913. Soft /data. No register.
 
 
 SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 (title/meta/H1):
