@@ -3,6 +3,11 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — homepage FAQ UK word (hotfix)
+  e2e/market-coverage.spec.ts failed: FAQ said “does not cover the UK”.
+  Rephrased to name ES/FR/DE/IT/PT + “five EU markets” only. No UK/US.
+  Branch cursor/fix-homepage-faq-uk-c372.
+
 SEO LANE, 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
   English `/` only. Answer-first title/og/twitter (brand suffix).
   Conservative: keeps “know what to pay” + adds EU Vinted.
