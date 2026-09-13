@@ -7,7 +7,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { faqPageJsonLd, faqAnswerIsClean } from "./faq-schema.ts"
+import { faqPageJsonLd, faqAnswerIsClean, definedTermJsonLd } from "./faq-schema.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -48,6 +48,9 @@ test("/flip hub builds FAQPage from the same items it renders", () => {
   assert.match(src, /How often does this data update\?/)
   assert.match(src, /What is a watched departure\?/)
   assert.match(src, /How do I use this ranking for buy-below\?/)
+  assert.match(src, /How do you rank what sells best\?/)
+  assert.match(src, /How we rank what sells best/)
+  assert.match(src, /definedTermJsonLd/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /utm_/)
 })
@@ -60,8 +63,23 @@ test("/data keeps Dataset schema and adds FAQPage", () => {
   assert.match(src, /Which Vinted markets does this table cover\?/)
   assert.match(src, /How do I read this table\?/)
   assert.match(src, /ES\/FR\/DE\/IT\/PT/)
+  assert.match(src, /What is a watched departure\?/)
+  assert.match(src, /definedTermJsonLd/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /utm_/)
+})
+
+test("definedTermJsonLd emits a parseable DefinedTerm", () => {
+  const schema = definedTermJsonLd({
+    name: "Buy-below price",
+    description: "The most you can pay and still keep a healthy margin after fees.",
+    url: "https://resaleiq.dev/blog/buy-below-price-explained",
+  })
+  assert.equal(schema["@type"], "DefinedTerm")
+  assert.equal(schema.name, "Buy-below price")
+  assert.equal(schema.url, "https://resaleiq.dev/blog/buy-below-price-explained")
+  assert.doesNotMatch(schema.description, /utm_/)
+  assert.doesNotMatch(schema.description, /\/register/)
 })
 
 test("what-sells-best FAQ cites absolute /data and /flip with no UTM", () => {

@@ -238,3 +238,15 @@ NEXT (once unblocked): P0-1.
   Same campaign. No title/meta/H1 edits in this PR (scams CTR title/meta
   from EX-CTR-BATCH-2 kept). Mid-CTA file untouched.
   No `/register`. No new campaigns.
+
+## 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
+- Visible H2 + 1–2 sentence definition leads on five pages:
+  `/blog/buy-below-price-explained` (Buy-below price),
+  `/blog/what-is-a-good-sell-through-rate` (Sell-through rate),
+  `/blog/what-sells-best-on-vinted` (Watched departure + ilink /data /flip),
+  `/data` (What is a watched departure?),
+  `/flip` (How we rank what sells best).
+- Blog renderer prints `definedTerm` after the H1. FAQ answers match
+  the visible lead. DefinedTerm JSON-LD beside existing FAQPage.
+- Titles, metas, H1s untouched. No invented stats. No /register.
+  Paid CTA stays /pricing. ES `como-poner` not edited.
