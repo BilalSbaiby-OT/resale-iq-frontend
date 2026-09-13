@@ -147,9 +147,18 @@ NEXT (once unblocked): P0-1.
 - Cite + CTA: `utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913`.
 - Title/meta/H1 and `ctr_price_20260913` mid-CTA unchanged. No ES page.
 
-## 2026-09-13 — kill blog /register paid CTAs
-- Shared article footer SmartCTA was `/register?src=blog` ("Try Resale IQ →").
-- Now `/pricing?utm_source=organic&utm_medium=blog&utm_campaign=<post>&utm_content=inline_register_kill`,
-  button "Get the numbers". How-to-price campaign `ctr_price_20260913`.
-- Fallback campaign `ctr_blog_20260913` (index + posts with no mid-CTA).
-- ES `/blog/como-poner-precio-en-vinted` body not edited (BODY-ES-001).
+## 2026-09-13 — BODY-ES-001 demand section on como-poner-precio
+- `/blog/como-poner-precio-en-vinted`: new section after buy-below,
+  "La demanda es la otra mitad del precio". Week-to-13-Sep counts
+  (5.746 in 28 brands; Fred Perry 1.027 @ €19 · Stone Island 892 @ €66 ·
+  Gucci 230 @ €197). No invented hit rates.
+- Soft cite `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+- Paid CTA + footer Consigue los números →
+  `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+- English `/pricing` never emitted for this post. English how-to-price
+  not edited (BODY-001 is PR #85).
+
+## 2026-09-13 — blog signup-wall CTAs → /pricing
+- Shared article footer SmartCTA is `/pricing` + `utm_content=legacy_signup_kill`.
+- How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
+- Button: Get the numbers. ES BODY-ES-001 copy not rewritten.

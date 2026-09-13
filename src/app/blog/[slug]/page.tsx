@@ -3,7 +3,7 @@ import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
-import { footerSeePlansHrefForPost, inlineRegisterKillHrefForPost } from "@/lib/blog-mid-cta"
+import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, legacySignupKillHrefForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
@@ -201,7 +201,7 @@ export default async function BlogPostPage(
 
             Paid door is /pricing, never /register (register still mentions Free).
             Campaign comes from the post mid-CTA when one exists, else
-            ctr_blog_20260913. utm_content=inline_register_kill on the button,
+            ctr_blog_20260913. utm_content=legacy_signup_kill on the button,
             footer_see_plans on the text link. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
@@ -217,10 +217,10 @@ export default async function BlogPostPage(
             Check this item →
           </Link>
           <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
-          <SmartCTA anonLabel="Get the numbers" anonHref={inlineRegisterKillHrefForPost(p.sections)} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Get the numbers" anonHref={legacySignupKillHrefForPost(p.sections)} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans — from €19/mo
+              {footerSeePlansLabelForPost(p.sections)}
             </Link>
           </div>
         </div>

@@ -3,11 +3,16 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-FRONTEND, 2026-09-13 — killed blog /register paid CTAs.
-  Shared article SmartCTA `/register?src=blog` → `/pricing` + UTMs
-  (`utm_content=inline_register_kill`). How-to-price uses
-  `ctr_price_20260913`. Posts without a mid-CTA fall back to
-  `ctr_blog_20260913`. Blog index same. ES BODY-ES-001 content not touched.
+FRONTEND, 2026-09-13 — blog signup-wall CTAs → /pricing
+  Shared SmartCTA now `/pricing` + `utm_content=legacy_signup_kill`.
+  How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.
+
+SEO LANE, 2026-09-13 — BODY-ES-001 on como-poner-precio-en-vinted
+  New section after buy-below: "La demanda es la otra mitad del precio".
+  Soft cite `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+  Paid CTA + footer: Consigue los números →
+  `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+  Never English `/pricing` on this post. English BODY-001 left to PR #85.
 
 SEO LANE, 2026-09-13 — BODY-001 exact Content insert on how-to-price
   Section after buy-below: "Demand is the other half of the price" —

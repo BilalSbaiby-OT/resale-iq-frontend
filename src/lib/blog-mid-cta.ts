@@ -2,7 +2,7 @@
  * Mid-article paid CTA for how-to blog posts.
  *
  * Conversion QC passed the /pricing path. Do not send these
- * blocks to /register — register still mentions Free.
+ * blocks to the signup wall — that page still mentions Free.
  * Soft /data cite is the secondary link. No free-check door.
  * No invented hit rates.
  */
@@ -20,9 +20,9 @@ export function pricingFooterSeePlansHref(campaign: string): string {
   return pricingUtmHref(campaign, "footer_see_plans")
 }
 
-/** Former `/register?src=blog` paid door. Never `/register?plan=`. */
-export function pricingInlineRegisterKillHref(campaign: string): string {
-  return pricingUtmHref(campaign, "inline_register_kill")
+/** Former blog signup-wall paid door. Never `?plan=` on that path. */
+export function pricingLegacySignupKillHref(campaign: string): string {
+  return pricingUtmHref(campaign, "legacy_signup_kill")
 }
 
 export function campaignFromPricingHref(href: string): string | null {
@@ -30,28 +30,43 @@ export function campaignFromPricingHref(href: string): string | null {
   return m ? decodeURIComponent(m[1]) : null
 }
 
-function campaignForPost(
-  sections: ReadonlyArray<{ cta?: { href: string } }>,
-): string {
-  for (const s of sections) {
-    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
-    if (campaign) return campaign
-  }
-  return "ctr_blog_20260913"
-}
-
 /** Footer "See plans" on a blog article — same campaign as the mid-CTA when one exists. */
 export function footerSeePlansHrefForPost(
   sections: ReadonlyArray<{ cta?: { href: string } }>,
 ): string {
-  return pricingFooterSeePlansHref(campaignForPost(sections))
+  for (const s of sections) {
+    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
+    if (!campaign || !s.cta) continue
+    // BODY-ES-001: a Spanish paid CTA must keep the footer on /es/pricing.
+    // Remapping through pricingFooterSeePlansHref would emit English /pricing.
+    if (isEsPricingHref(s.cta.href)) return pricingBodyCtaHrefEs(campaign)
+    return pricingFooterSeePlansHref(campaign)
+  }
+  return pricingFooterSeePlansHref("ctr_blog_20260913")
 }
 
-/** Paid footer button that used to be `/register?src=blog`. */
-export function inlineRegisterKillHrefForPost(
+/** Paid footer button that used to hit the blog signup wall. */
+export function legacySignupKillHrefForPost(
   sections: ReadonlyArray<{ cta?: { href: string } }>,
 ): string {
-  return pricingInlineRegisterKillHref(campaignForPost(sections))
+  for (const s of sections) {
+    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
+    if (!campaign || !s.cta) continue
+    if (isEsPricingHref(s.cta.href)) {
+      return `/es/pricing?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=legacy_signup_kill`
+    }
+    return pricingLegacySignupKillHref(campaign)
+  }
+  return pricingLegacySignupKillHref("ctr_blog_20260913")
+}
+
+export function footerSeePlansLabelForPost(
+  sections: ReadonlyArray<{ cta?: { href: string; label?: string } }>,
+): string {
+  for (const s of sections) {
+    if (s.cta && isEsPricingHref(s.cta.href)) return s.cta.label ?? "Consigue los números"
+  }
+  return "See plans — from €19/mo"
 }
 
 export function pricingMidCta(campaign: string): SectionCtaContent {
@@ -80,5 +95,27 @@ export function pricingBodyCta(campaign: string): SectionCtaContent {
     body: "Buy-below + demand before cash sticks.",
     label: "Get the numbers",
     href: pricingBodyCtaHref(campaign),
+  }
+}
+
+/** BODY-ES-001. Paid path is /es/pricing only — never English /pricing. */
+export function pricingBodyCtaHrefEs(campaign: string): string {
+  return `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
+}
+
+export function dataCiteHrefEs(campaign: string): string {
+  return `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
+}
+
+export function isEsPricingHref(href: string): boolean {
+  return href.startsWith("/es/pricing")
+}
+
+export function pricingBodyCtaEs(campaign: string): SectionCtaContent {
+  return {
+    headline: "Sabe qué pagar antes de comprar",
+    body: "Buy-below + demanda antes de inmovilizar cash.",
+    label: "Consigue los números",
+    href: pricingBodyCtaHrefEs(campaign),
   }
 }
