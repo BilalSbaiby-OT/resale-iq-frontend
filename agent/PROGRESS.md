@@ -237,6 +237,9 @@ NEXT (once unblocked): P0-1.
   (no new paid CTA, so no tools_aeo_20260913).
 - Child /tools/[slug] og/twitter titles now use `${i.title} — Resale IQ`.
 - HowTo skipped: profit calculator and price checker have no numbered steps.
+- MERGED #99 as 7e968e5. Live PASS after Coolify (`/deploy-id` 7e968e5).
+  Cache-busted curl: hub title/og/twitter + FAQPage 5/5; child social
+  titles match. First post-swap curl was stale; second matched.
 
 ## 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
 - Production gaps: `/blog/common-vinted-scams-sellers` and

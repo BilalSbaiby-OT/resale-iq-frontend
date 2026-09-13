@@ -3,6 +3,17 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-TOOLS-AEO LIVE (merged #99)
+  MERGED | 7e968e5 | live PASS
+  `/deploy-id` SOURCE_COMMIT 7e968e5cd0e1e91e8a30f39fc130ba8e6d194f3d
+  Cache-busted curl: /tools title + og + twitter =
+  "Vinted Tools: Price Check & Buy-Below — Resale IQ". FAQPage 5/5
+  + visible HubFaq. Child price-checker / profit-calculator /
+  sourcing-tool social titles match document title. HowTo absent
+  (no numbered steps). Soft /data /flip. No /register. First curl
+  after Coolify swap was stale; second curl matched. Playwright
+  /data H1 ignored per owner.
+
 SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 LIVE on production (merged #100)
   MERGED | 0bcee93 | live PASS on SOURCE_COMMIT 7e968e5 (main after
   #99; includes #100). Cache-busted curl: 6/6 titles + metas match.
