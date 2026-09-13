@@ -19,15 +19,16 @@ export async function generateMetadata({
   const { locale } = await params
   if (!isPathLocale(locale)) return {}
   const t = methodology(locale)
+  // Same string for <title>, og:title and twitter:title — omitting twitter
+  // still inherits the homepage social title (the /data bug).
+  const title = t.text0
+  const description = t.text1
   return {
-    title: t.text0,
-    description: t.text1,
+    title,
+    description,
     alternates: { canonical: canonicalPath(locale, "/methodology"), languages: hreflangLanguages("/methodology") },
-    openGraph: {
-      title: t.text0,
-      description: t.text1,
-      type: "article",
-    },
+    openGraph: { title, description, type: "article" },
+    twitter: { card: "summary_large_image", title, description },
   }
 }
 

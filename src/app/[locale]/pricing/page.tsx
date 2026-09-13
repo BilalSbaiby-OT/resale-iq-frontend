@@ -14,11 +14,16 @@ export async function generateMetadata({
   const { locale } = await params
   if (!isPathLocale(locale)) return {}
   const t = copy[locale].pricingSection
+  // Same string for <title>, og:title and twitter:title. Root layout pins
+  // homepage social tags; a child that sets only `title` (or a shorter
+  // openGraph title) still shares as the generic homepage on X/Slack.
+  const title = `${t.metaTitle} — Resale IQ`
   return {
-    title: `${t.metaTitle} — Resale IQ`,
+    title,
     description: t.metaDescription,
     alternates: { canonical: canonicalPath(locale, "/pricing"), languages: hreflangLanguages("/pricing") },
-    openGraph: { title: t.metaTitle, description: t.metaDescription, type: "website" },
+    openGraph: { title, description: t.metaDescription, type: "website" },
+    twitter: { card: "summary_large_image", title, description: t.metaDescription },
   }
 }
 
