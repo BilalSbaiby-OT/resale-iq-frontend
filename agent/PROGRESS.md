@@ -259,5 +259,13 @@ NEXT (once unblocked): P0-1.
 - No mid-CTA, body, or JSON-LD structure edits. No `/register`.
   No Free pitch. seoTitle carries " — Resale IQ".
 - Soft caps: title ≤60, meta ≤155. Question/answer-first.
+
+## 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
+- Six remaining soft EN posts: title + meta only. H1s left as-is.
+- list-time / record-keeping / mistakes / vintage / disputes /
+  retail-arbitrage.
+- No mid-CTA, body, or JSON-LD structure edits. No `/register`.
+  No Free pitch. seoTitle carries " — Resale IQ".
+- Soft caps: title ≤60, meta ≤155. Question/answer-first.
 - Merged #96 (8297fd9). Playwright /data H1 flake ignored. All 10 live
   after Coolify; cache-busted curl matched new titles/metas.

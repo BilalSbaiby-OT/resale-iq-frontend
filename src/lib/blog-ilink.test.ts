@@ -176,9 +176,10 @@ test("target post titles, metas and H1s are unchanged", () => {
   assert.match(posts2, /title: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
   assert.match(posts2, /seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
   assert.match(posts3, /title: "Vinted Disputes and Returns: A Seller's Guide"/)
+  assert.match(posts3, /seoTitle: "How to Avoid Vinted Disputes\? Photos First — Resale IQ"/)
   assert.match(
     posts3,
-    /How to prevent Vinted disputes, what to do when a buyer opens one, and the evidence that protects you as a seller\./,
+    /Photograph every flaw, state measurements, keep chats on Vinted, use the tracked label\. Most disputes are preventable; evidence decides the rest\./,
   )
   assert.match(posts3, /title: "Common Vinted Scams and How Sellers Avoid Them"/)
   assert.match(posts3, /seoTitle: "Vinted Seller Scams: Stay On-Platform — Resale IQ"/)

@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
+  Title + meta only on 6 remaining soft EN posts. H1s unchanged.
+  No mid-CTA / body / schema edits. No /register. No Free pitch.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Question/answer-first for AEO + SERP. Branch
+  cursor/seo-ex-ctr-batch-4-5b34. Merge when green; ignore /data H1
+  Playwright flake (expected "Vinted market data").
+
 SEO LANE, 2026-09-13 — EX-CTR-BATCH-3 LIVE on production (merged #96)
   All 10 EN titles/metas verified live via cache-busted curl after Coolify.
   /deploy-id 8297fd9. Playwright /data H1 flake ignored (expected
