@@ -158,6 +158,17 @@ NEXT (once unblocked): P0-1.
 - English `/pricing` never emitted for this post. English how-to-price
   not edited (BODY-001 is PR #85).
 
+## 2026-09-13 — EX-ILINK blog → flip/data/pricing
+- Campaign `ilink_20260913` (`utm_source=blog&utm_medium=ilink`).
+- Body-only `[label](/path)` links via `ilinkHref()` in `src/lib/blog-ilink.ts`.
+- High-impression: how-to-price, how-to-find-flips, how-to-get-more-views,
+  buy-below-price-explained, plus other posts that had no /flip or /data.
+- ES: `como-poner-precio-en-vinted` → `/es/data` + `/es/flip` (same UTM).
+- Pricing ilink skipped on buy-below after BODY-BUYBELOW-001 mid-CTA landed
+  on main. Existing `ctr_*` / `body_price_*` / `body_buybelow_*` /
+  `legacy_signup_kill` untouched.
+- Titles, metas, H1s, `blog-mid-cta.ts` unchanged. No `/register` links.
+
 ## 2026-09-13 — blog signup-wall CTAs → /pricing
 - Shared article footer SmartCTA is `/pricing` + `utm_content=legacy_signup_kill`.
 - How-to-price campaign `ctr_price_20260913`. Fallback `ctr_blog_20260913`.

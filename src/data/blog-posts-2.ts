@@ -5,6 +5,7 @@ import { TRACKED } from "@/lib/stats"
 
 import type { BlogPost } from "./blog-posts"
 import { pricingMidCta } from "@/lib/blog-mid-cta"
+import { ilinkHref } from "@/lib/blog-ilink"
 
 const BRAND = "Resale IQ"
 
@@ -46,7 +47,11 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Photos can't fix the wrong item",
         p: [
-          "Great photos accelerate a sale that was going to happen. They don't create demand that isn't there. If a model has no sell-through, better pictures won't save it — that's a sourcing problem, and it's what " + BRAND + " checks before you buy.",
+          "Great photos accelerate a sale that was going to happen. They don't create demand that isn't there. If a model has no sell-through, better pictures won't save it — that's a sourcing problem. Check [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") before you photograph a dead one. " +
+            BRAND +
+            " checks demand before you buy.",
         ],
       },
     ],
@@ -79,8 +84,12 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Why season beats hour",
         p: [
-          "Listing a winter coat in July at the perfect hour still means months of waiting. Listing it in October at a mediocre hour sells it in days.",
-          "Buy off-season if you can hold stock cheaply, but list in-season. Cash tied up waiting for a season is the most common reseller cash-flow mistake.",
+          "Listing a winter coat in July at the perfect hour still means months of waiting. Listing it in October at a mediocre hour sells it in days. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") shows which season you're actually in.",
+          "Buy off-season if you can hold stock cheaply, but list in-season. Cash tied up waiting for a season is the most common reseller cash-flow mistake. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is the in-season list.",
         ],
       },
       {
@@ -111,7 +120,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Title: the words buyers actually type",
         p: [
-          "Lead with brand + item + key attribute: 'Nike Tech Fleece hoodie grey M'. That's exactly what people search. Why the title is a search problem rather than a copywriting one is in [photos and titles](/manual/photos-and-titles).",
+          "Lead with brand + item + key attribute: 'Nike Tech Fleece hoodie grey M'. That's exactly what people search. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is a live list of the names buyers actually type. Why the title is a search problem rather than a copywriting one is in [photos and titles](/manual/photos-and-titles).",
           "Skip filler like 'gorgeous', 'rare' and emojis in the title — they crowd out searchable words and add nothing.",
         ],
         cta: pricingMidCta("ctr_desc_20260913"),
@@ -151,7 +162,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Have a target list before you go",
         p: [
-          "Walking in and 'seeing what's there' is how you buy junk. Go in knowing the brands and models that actually sell, and what you can pay for each.",
+          "Walking in and 'seeing what's there' is how you buy junk. Go in knowing the brands and models that actually sell, and what you can pay for each. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is that list.",
           "A short list of 10–15 target brands turns a two-hour rummage into a fast, focused scan. If your list leans older or one-off pieces, [spotting genuinely valuable vintage](/blog/vintage-clothing-reselling-guide) is a separate skill worth learning before you buy.",
         ],
         cta: pricingMidCta("ctr_thrift_20260913"),
@@ -166,7 +179,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Know your number before you queue",
         p: [
-          "The buy-below price decides everything. If the tag is above it, walking away IS the profitable decision.",
+          "The buy-below price decides everything. If the tag is above it, walking away IS the profitable decision. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the public average.",
           BRAND + " gives you that number per item from " + `${TRACKED} listings across 5 EU markets, so you can check on your phone in the aisle instead of guessing.`,
         ],
       },
@@ -191,7 +206,9 @@ export const POSTS_2: BlogPost[] = [
         h: "Who pays",
         p: [
           "On Vinted the buyer normally pays shipping, chosen at checkout. Your job is to dispatch quickly using the label provided.",
-          "Because the buyer sees shipping added to your price, keeping the item price competitive matters more than it first appears.",
+          "Because the buyer sees shipping added to your price, keeping the item price competitive matters more than it first appears — competitive against [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "), not against retail.",
         ],
       },
       {
@@ -230,7 +247,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "First: is there demand at all?",
         p: [
-          "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip. [What each brand sells per week](/flip) answers it in one look.",
+          "If an item genuinely has low sell-through, no amount of optimisation will fix it. Check demand before blaming the listing — this is the step most sellers skip. [What each brand sells per week](" +
+            ilinkHref("flip") +
+            ") answers it in one look.",
         ],
         cta: pricingMidCta("body_views_20260913"),
       },
@@ -243,7 +262,9 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Price and freshness",
         p: [
-          "Price above the typical departure range suppresses views badly. A modest reduction often restarts traffic — [check the typical departure price first](/tools/vinted-price-checker) so you cut to the right number rather than guessing.",
+          "Price above the typical departure range suppresses views badly. A modest reduction often restarts traffic — compare against [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "), then [check the typical departure price first](/tools/vinted-price-checker) so you cut to the right number rather than guessing.",
           "Vinted favours fresh activity. Regular small updates and consistent listing keep your closet visible.",
         ],
       },
@@ -283,14 +304,18 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "The cash-flow trap",
         p: [
-          "Holding stock for six months means your money earns nothing while you wait. Only buy far off-season when the discount is genuinely large — large relative to [the brand's actual average sale price](/data), not to retail.",
+          "Holding stock for six months means your money earns nothing while you wait. Only buy far off-season when the discount is genuinely large — large relative to [the brand's actual average sale price](" +
+            ilinkHref("data") +
+            "), not to retail.",
           "Beginners should stay closer to the current season until cash flow is comfortable.",
         ],
       },
       {
         h: "Year-round movers",
         p: [
-          "Sneakers, denim, branded T-shirts and hoodies sell all year with milder seasonal swings — they're the backbone of a stable closet. Weekly volumes for [sneakers](/category/sneakers), [jeans](/category/jeans) and [hoodies](/category/hoodies) are published free.",
+          "Sneakers, denim, branded T-shirts and hoodies sell all year with milder seasonal swings — they're the backbone of a stable closet. Check [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") if you're building that year-round base. Weekly volumes for [sneakers](/category/sneakers), [jeans](/category/jeans) and [hoodies](/category/hoodies) are published free.",
         ],
       },
     ],
@@ -327,8 +352,14 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "How to choose per item",
         p: [
-          "High-volume everyday fashion → Vinted. Rare, collectable or niche technical items where a global buyer pool matters → eBay.",
-          "Whichever you choose, the profit is set at the buy. " + BRAND + "'s fee calculator shows the net payout per platform so you can list where you keep the most.",
+          "High-volume everyday fashion → Vinted. Rare, collectable or niche technical items where a global buyer pool matters → eBay. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") are almost all that everyday-fashion set.",
+          "Whichever you choose, the profit is set at the buy. Anchor to [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "). " +
+            BRAND +
+            "'s fee calculator shows the net payout per platform so you can list where you keep the most.",
         ],
       },
     ],
@@ -352,7 +383,11 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Bottleneck 1: sourcing time",
         p: [
-          "Early on, sourcing is browsing. At scale it has to become a filter: known targets, known buy-below prices, fast yes/no decisions.",
+          "Early on, sourcing is browsing. At scale it has to become a filter: known targets from [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            "), known buy-below prices from [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "), fast yes/no decisions.",
           "Anything that makes the buy decision faster and more accurate multiplies everything downstream.",
         ],
       },
@@ -403,14 +438,18 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "The version that does work: mispricing, not geography",
         p: [
-          "Real arbitrage on Vinted is not between places, it is between what a seller thinks an item is worth and what it actually sells for. Those gaps appear constantly, because most sellers are clearing a wardrobe rather than trading, and they price by guessing.",
+          "Real arbitrage on Vinted is not between places, it is between what a seller thinks an item is worth and what it actually sells for. Those gaps appear constantly, because most sellers are clearing a wardrobe rather than trading, and they price by guessing. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") are where mispricing is worth hunting.",
           "The tells are consistent: a vague title with no model name, so the listing never surfaces in the searches that would price it correctly; casual photos; and a round-number price that was chosen rather than researched. The item is cheap because it is invisible, not because it is worthless.",
         ],
       },
       {
         h: "Turning it into a system",
         p: [
-          "The workflow is: know the item's real value, know your buy-below price, then find listings underneath it before anyone else does. Speed matters — if verifying a find takes ten minutes, the good ones are gone and you systematically end up with only the listings nobody else wanted.",
+          "The workflow is: know the item's real value from [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "), know your buy-below price, then find listings underneath it before anyone else does. Speed matters — if verifying a find takes ten minutes, the good ones are gone and you systematically end up with only the listings nobody else wanted.",
           BRAND + " computes the buy-below price per model from watched departures across all five EU domains, and on Pro surfaces live listings already beneath it. That is mispricing detection, not a geographic play — the edge is knowing the item, not knowing a border.",
         ],
       },
