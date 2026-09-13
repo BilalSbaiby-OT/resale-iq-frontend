@@ -456,6 +456,27 @@ export const POSTS: BlogPost[] = [
         cta: pricingMidCta("body_flips_20260913"),
       },
       {
+        h: "Demand is the other half",
+        p: [
+          "A buy-below price protects the margin on paper. Demand is the other half: it tells you whether that margin has a realistic path back to cash.",
+          "A cheap listing is not automatically a flip. If the model is slow, the size is weak, or buyers are not moving at the expected price, your money is still tied up. The real sourcing test is two-part:",
+          "1. Can you buy below your ceiling?",
+          "2. Is there evidence that this brand, model, size, and condition can move?",
+          "The tracked week in this guide shows why the second question matters. Stone Island Hoodies recorded 566 watched departures at €55, Patagonia Jackets 346 at €50, and New Balance Sneakers 283 at €51. Those numbers do not guarantee a sale, but they give you a demand signal to compare with the listing in front of you. A cheap item in a thin category does not offer the same cash-turn probability. [Weekly market data](" +
+            dataCiteHref("body_flips_deepen_002_20260913") +
+            ").",
+          "Use a two-gate decision before you source. Start with the exit: the likely sale price and how quickly comparable items are leaving the shelf. Then work backwards to the maximum buy price. A practical buy-below estimate is average sale price × 0.95 × 0.70.",
+          "The exact result depends on condition, size, postage, time, and your target profit. Treat it as a ceiling, not a promise. If the seller's ask is above that ceiling, the answer is not \"maybe it will get more likes.\" The answer is to negotiate lower or skip.",
+          "Next, check demand against the item itself. Brand-level volume is a starting point; model, size, condition, and current competition decide whether one listing is worth your cash. A good filter therefore looks for both signals at once:",
+          "1. Under buy-below: enough room for fees, friction, and your minimum profit.",
+          "2. Demand present: comparable items are moving, not merely accumulating views.",
+          "3. Exit quality: the size and condition are plausible for the observed market.",
+          "This changes sourcing from \"find something cheap\" to \"find a buyable item with a likely exit.\" It also gives you a clean SKIP decision. Passing on a weak deal protects the budget for the next listing with better demand and more margin room.",
+        ],
+        // BODY-FLIPS-002. Keep the body_flips mid-CTA above.
+        cta: pricingBodyCta("body_flips_deepen_002_20260913"),
+      },
+      {
         h: "Use the buy-below filter",
         p: [
           "For each target model, know its average sale price and buy-below price. Our [free weekly market data](" +

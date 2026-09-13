@@ -419,3 +419,17 @@ NEXT (once unblocked): P0-1.
   plus secondary `google_search_test` + `utm_content=price_checker`.
 - Other tool slugs keep See plans + `src=tools`.
 - Tests: `src/lib/aeo-price-checker.test.ts`.
+
+## 2026-09-13 — BODY-FLIPS-002 demand deepen on flip-sourcing post
+- `/blog/how-to-find-items-to-flip-on-vinted` only. Body insert after
+  “Start from demand, not from what's cheap”, before “Use the buy-below filter”.
+- New H2: “Demand is the other half”. Two-gate sourcing: buy-below
+  ceiling + demand evidence. Tracked-week cites already in the intro:
+  Stone Island Hoodies 566 @ €55 / Patagonia Jackets 346 @ €50 /
+  New Balance Sneakers 283 @ €51.
+- Soft cite `/data?...utm_campaign=body_flips_deepen_002_20260913`
+  (anchor “Weekly market data”). Paid CTA Get the numbers →
+  `/pricing?...utm_campaign=body_flips_deepen_002_20260913`.
+- Existing `pricingMidCta("body_flips_20260913")` kept. Footer still
+  first-CTA `body_flips_20260913`. Title / seoTitle / H1 / meta unchanged.
+- No `/register`. HowTo expected headings include the new H2.

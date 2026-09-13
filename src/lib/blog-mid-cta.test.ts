@@ -436,3 +436,82 @@ test("buy-below-price-explained ships BODY-BUYBELOW-001 after the formula and be
   const faq = post.indexOf("faq:")
   assert.ok(formula < demand && demand < faq)
 })
+
+test("BODY-FLIPS-002 paid CTA uses blog/organic + body_flips_deepen campaign", () => {
+  const href = pricingBodyCtaHref("body_flips_deepen_002_20260913")
+  assert.equal(
+    href,
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_flips_deepen_002_20260913",
+  )
+  const cta = pricingBodyCta("body_flips_deepen_002_20260913")
+  assert.equal(cta.label, "Get the numbers")
+  assert.equal(cta.body, "Buy-below + demand before cash sticks.")
+  assert.equal(cta.href, href)
+  assert.doesNotMatch(href, /register/)
+  assert.doesNotMatch(href, /plan=/)
+  assert.doesNotMatch(href, /start free/i)
+})
+
+test("BODY-FLIPS-002 soft cite is /data with body_flips_deepen campaign", () => {
+  assert.equal(
+    dataCiteHref("body_flips_deepen_002_20260913"),
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_flips_deepen_002_20260913",
+  )
+})
+
+test("how-to-find-items-to-flip footer stays on body_flips when BODY-FLIPS-002 CTA is also present", () => {
+  assert.equal(
+    footerSeePlansHrefForPost([
+      { cta: pricingMidCta("body_flips_20260913") },
+      { cta: pricingBodyCta("body_flips_deepen_002_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_flips_20260913&utm_content=footer_see_plans",
+  )
+  assert.equal(
+    legacySignupKillHrefForPost([
+      { cta: pricingMidCta("body_flips_20260913") },
+      { cta: pricingBodyCta("body_flips_deepen_002_20260913") },
+    ]),
+    "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_flips_20260913&utm_content=legacy_signup_kill",
+  )
+})
+
+test("how-to-find-items-to-flip-on-vinted ships BODY-FLIPS-002 after demand and before buy-below", () => {
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),
+    "utf8",
+  )
+  const start = posts.indexOf('slug: "how-to-find-items-to-flip-on-vinted"')
+  const end = posts.indexOf('slug: "how-much-money-reselling-vinted"')
+  assert.ok(start >= 0 && end > start)
+  const post = posts.slice(start, end)
+  assert.match(post, /title: "How to Find Vinted Flips — Start From Demand, Not Scroll"/)
+  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted — Start From Demand"/)
+  assert.match(
+    post,
+    /Stop random scrolling\. Find underpriced Vinted items from real demand/,
+  )
+  assert.match(post, /Demand is the other half/)
+  assert.match(post, /A buy-below price protects the margin on paper/)
+  assert.match(post, /Stone Island Hoodies recorded 566 watched departures at €55/)
+  assert.match(post, /Patagonia Jackets 346 at €50/)
+  assert.match(post, /New Balance Sneakers 283 at €51/)
+  assert.match(post, /1\. Can you buy below your ceiling\?/)
+  assert.match(post, /2\. Is there evidence that this brand, model, size, and condition can move\?/)
+  assert.match(post, /Use a two-gate decision before you source/)
+  assert.match(post, /average sale price × 0\.95 × 0\.70/)
+  assert.match(post, /1\. Under buy-below: enough room for fees/)
+  assert.match(post, /2\. Demand present: comparable items are moving/)
+  assert.match(post, /3\. Exit quality: the size and condition are plausible/)
+  assert.match(post, /pricingMidCta\("body_flips_20260913"\)/)
+  assert.match(post, /pricingBodyCta\("body_flips_deepen_002_20260913"\)/)
+  assert.match(post, /dataCiteHref\("body_flips_deepen_002_20260913"\)/)
+  assert.match(post, /\[Weekly market data\]\(/)
+  assert.doesNotMatch(post, /register\?plan=/)
+  assert.doesNotMatch(post, /register\?src=blog/)
+  assert.doesNotMatch(post, /Start free/i)
+  const demandFirst = post.indexOf("Start from demand, not from what's cheap")
+  const demandHalf = post.indexOf("Demand is the other half")
+  const buyBelow = post.indexOf("Use the buy-below filter")
+  assert.ok(demandFirst < demandHalf && demandHalf < buyBelow)
+})
