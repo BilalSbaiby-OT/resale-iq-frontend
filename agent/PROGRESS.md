@@ -330,6 +330,11 @@ NEXT (once unblocked): P0-1.
 - MERGED #100 as 0bcee93. Live after Coolify on SOURCE_COMMIT 7e968e5.
   Cache-busted curl 6/6 PASS. Playwright /data H1 flake ignored.
 
+## 2026-09-13 — homepage FAQ UK word (hotfix)
+- `e2e/market-coverage.spec.ts` failed on `/` after #105: FAQ named UK
+  (“does not cover the UK”). Test forbids `\bUK\b` on the homepage.
+- Answer now names ES/FR/DE/IT/PT and “five EU markets” only.
+
 ## 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
 - English `/` document title / og / twitter:
   before `Resale IQ — Know what to pay before you buy`
