@@ -1,7 +1,15 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: DONE
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS LIVE (merged #116)
+  MERGED | 5b3c0e7 | live PASS
+  `/deploy-id` SOURCE_COMMIT 5b3c0e749a0c0518e2e5e7e8b0d1f129404b97c6
+  Cache-busted curl /tools: toolname="check_vinted_item" + tooldescription=
+  DONE URL: https://resaleiq.dev/tools
+  Price-checker check_vinted_price; profit calculate_vinted_profit.
+  SSR beacon + visible form. No checkout tools.
 
 SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, CI firewall fix + live attrs)
   Production /tools still on 0c0e57e (no toolname). Firewall failed on
