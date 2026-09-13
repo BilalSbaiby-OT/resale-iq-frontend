@@ -1,7 +1,14 @@
 STATUS: READY
 OWNER: none
 PUSH: yes
-UPDATED: 2026-08-31
+UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 (title/meta/H1 only):
+  Title + meta + H1 on the two 0-click page-1 posts. No paid/Starter mid-CTAs.
+  Flip: src/data/blog-posts.ts slug how-to-find-items-to-flip-on-vinted.
+  Fake-items URL 301s to /manual/condition-and-authenticity — that chapter
+  is the live title/meta surface (src/data/manual.ts). PR #78.
+  Verified on next dev: both <title>, meta description, og:*, and <h1> match.
 
 SEO LANE, 2026-08-31 (after the growth release below):
   [x] Sitemap lastmod was LYING and is fixed (94bc5ef). It advertised that 174

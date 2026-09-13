@@ -90,3 +90,13 @@ NEXT (once unblocked): P0-1.
 - VERIFIED against the real CLI: preflight reports `(credits)` with the real
   message, sets BLOCKED_REASON: credits, and re-checks rather than spinning.
 - NEXT: P0-2.
+
+## 2026-09-13 — EX-CTR-002 + EX-CTR-003 title/meta/H1
+- `/blog/how-to-find-items-to-flip-on-vinted`: title+meta+H1 in `src/data/blog-posts.ts`.
+- `/blog/how-to-spot-fake-items-vinted` 301s to `/manual/condition-and-authenticity`;
+  title+meta+H1 updated on that chapter in `src/data/manual.ts`. Closest live slug.
+- No paid/Starter mid-CTAs added. Soft /data links left as they were.
+- Verified on `next dev`: title, meta description, og tags, and H1 match on both
+  pages; blog index lists the new flip title; 308 redirect still in place.
+- PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/78
+
