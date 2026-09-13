@@ -3,6 +3,7 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
+<<<<<<< HEAD
 SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   HowTo JSON-LD + visible numbered steps on
   /tools/vinted-profit-calculator and /tools/vinted-price-checker.
@@ -12,6 +13,16 @@ SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   match `${i.title} — Resale IQ`. Existing /pricing?src=tools kept
   (no extra UTM — page already has a paid CTA).
   Branch cursor/seo-ex-tools-howto-97af.
+=======
+SEO LANE, 2026-09-13 — EX-CATEGORY-AEO LIVE (merged #103)
+  MERGED | d27d432 | live PASS
+  `/deploy-id` SOURCE_COMMIT d27d432bd616bb72adb782bebcef32db2c5ecaf1
+  Cache-busted curl: title + og + twitter =
+  "What Sells Best on Vinted by Category — 10 Ranked". FAQPage 4/4
+  + visible HubFaq. 3 UTM hrefs category_aeo_20260913. No /register.
+  /category/sneakers twitter matches leaf title (not homepage).
+  Playwright /data H1 ignored if it is the sole flake.
+>>>>>>> origin/main
 
 SEO LANE, 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
   SHIPPED. /category is a real hub (10 live categories). Not a stub.

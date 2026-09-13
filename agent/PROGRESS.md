@@ -306,6 +306,12 @@ NEXT (once unblocked): P0-1.
   heading + `/pricing?...utm_campaign=body_views_deepen_002_20260913`
   + “Get the numbers”. Zero `/register?src=blog`. Title/H1 unchanged.
 
+## 2026-09-13 — EX-CATEGORY-AEO LIVE on production
+- MERGED #103 as d27d432. Live after Coolify. Cache-busted curl PASS:
+  title/og/twitter "What Sells Best on Vinted by Category — 10 Ranked";
+  FAQPage 4 Qs; HubFaq visible; 3 UTM anchors; no /register.
+  /category/sneakers twitter = leaf title from EX-FLIP-CATEGORY-META.
+
 ## 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
 - /category is a real hub (10 live categories, live volumes). Not SKIP.
 - Title: "What Sells Best on Vinted by Category — N Ranked" (49 @ N=10).
