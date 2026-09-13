@@ -148,10 +148,10 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "thrift-store-flipping-guide",
-    title: "Thrift Store Flipping — How to Source Profitably",
-    seoTitle: "Thrift Store Flipping — How to Source Profitably",
+    title: "Thrift Store Flipping — Buy-Below Before You Fill the Boot",
+    seoTitle: "Thrift Flipping: Buy-Below Before the Boot — Resale IQ",
     description:
-      "How to source from charity shops and car boots without filling your home with dead stock. Check demand and buy-below before you pay.",
+      "Know buy-below before you fill the boot. Charity shops and car boots pay — if you check demand and walk away above the number.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Sourcing",
@@ -282,10 +282,10 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "seasonal-reselling-calendar",
-    title: "Seasonal Reselling Calendar — What to Buy and When",
-    seoTitle: "Seasonal Reselling Calendar — What to Buy and When",
+    title: "Seasonal Reselling Calendar — Don't Freeze Your Cash",
+    seoTitle: "Seasonal Reselling Calendar — Don't Freeze Cash — Resale IQ",
     description:
-      "What to source and list each month on Vinted so your cash isn't frozen in off-season stock. Buy low season, sell into demand.",
+      "Month-by-month on Vinted: buy so cash isn't frozen in off-season stock. What to source each month — only hold if you can afford the wait.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Sourcing",

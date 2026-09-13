@@ -95,10 +95,12 @@ export const POSTS_3: BlogPost[] = [
   },
   {
     slug: "sneaker-reselling-guide-vinted",
-    title: "Sneaker Reselling on Vinted: A Practical Guide",
+    title: "Sneaker Reselling on Vinted: Demand, Size, Buy-Below",
+    seoTitle: "Sneaker Reselling: Demand, Size, Buy-Below — Resale IQ",
     description:
-      "How sneaker reselling works on Vinted — which models move, why sizes decide profit, and how condition changes what an item is worth.",
+      "Sneaker profit on Vinted is model demand, mid-size sell-through and buy-below — not the brand name. Which silhouettes move and which sizes sit.",
     date: "2026-08-07",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -277,9 +279,11 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "common-vinted-scams-sellers",
     title: "Common Vinted Scams and How Sellers Avoid Them",
+    seoTitle: "Vinted Seller Scams: Stay On-Platform — Resale IQ",
     description:
-      "The scams that target Vinted sellers — off-platform payment, fake screenshots, item swaps — and the simple rules that prevent them.",
+      "Off-platform pay, fake screenshots and item swaps hit Vinted sellers. Stay on-platform, use the tracked label, photograph the parcel.",
     date: "2026-08-07",
+    updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
     intro:
@@ -497,9 +501,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-item-not-selling",
     title: "Why Isn't My Vinted Item Selling — 4 Checks in Order",
-    seoTitle: "Why Isn't My Vinted Item Selling — 4 Checks in Order",
+    seoTitle: "Vinted Item Not Selling? Do These 4 Checks — Resale IQ",
     description:
-      "Four things that stop a Vinted listing: price, condition, brand demand and size. Check them in the order that fixes the most items.",
+      "Price, condition, demand, size — in that order. Most silent Vinted listings are mispriced, not unwanted. Four checks that fix the most, fastest.",
     date: "2026-09-01",
     updated: "2026-09-13",
     category: "Selling",

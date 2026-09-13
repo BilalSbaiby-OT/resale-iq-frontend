@@ -3,6 +3,13 @@ OWNER: seo
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-2 title/meta pack (8 EN posts)
+  Title + meta only (H1 on sneaker / thrift / seasonal — old H1 mismatched).
+  No mid-CTA / body CTA edits. No /register?src=blog in these posts.
+  Brand suffix " — Resale IQ" on every seoTitle. Titles ≤60, metas ≤155.
+  Branch cursor/seo-ex-ctr-batch-2-e4dc. Merging despite /data H1 Playwright
+  flake (expected "Vinted market data", live H1 is "Weekly brand volumes").
+
 SEO LANE, 2026-09-13 — EX-FAQ-SCHEMA-HUBS (this session)
   FAQPage JSON-LD on /flip (expanded), /data (new, Dataset kept),
   /blog/what-sells-best-on-vinted (aligned; cites

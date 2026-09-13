@@ -209,10 +209,11 @@ export const POSTS: BlogPost[] = [
   {
     slug: "best-brands-to-resell-on-vinted",
     title: "The Best Brands to Resell on Vinted (and How to Judge Any Brand)",
+    seoTitle: "Best Vinted Brands: Departed vs Still Listed — Resale IQ",
     description:
-      `Which brands hold resale value on Vinted, why demand beats hype, and a repeatable way to judge whether any brand is worth flipping — from ${TRACKED} analyzed sales.`,
+      "Best Vinted brands by weekly volume — departed vs still listed, not prestige. How to judge any brand on demand, price and size before you buy.",
     date: "2026-09-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -365,9 +366,11 @@ export const POSTS: BlogPost[] = [
 {
     slug: "what-is-a-good-sell-through-rate",
     title: "What Is a Good Sell-Through Rate for Reselling?",
+    seoTitle: "Good Sell-Through Is Weekly — Here's the Floor — Resale IQ",
     description:
-      "Sell-through rate explained for resellers — what it means, what counts as good, and why it matters more than profit margin on any single item.",
+      "Good sell-through means stock that sells every week — that's the floor. Why speed beats a fat margin, and why weekly turns over 100% are not a share.",
     date: "2026-08-05",
+    updated: "2026-09-13",
     category: "Metrics",
     readMins: 4,
     intro:
@@ -451,10 +454,11 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-much-money-reselling-vinted",
     title: "How Much Money Can You Realistically Make Reselling on Vinted?",
+    seoTitle: "Vinted Resale Income: Ranges, Fees, Buy-Below — Resale IQ",
     description:
-      "An honest look at reselling income on Vinted — what drives it, realistic ranges, and why sourcing decisions matter more than volume.",
+      "Realistic Vinted income ranges after fees. Buy-below and sell-through decide it — not listing volume. What drives earnings and why dead stock kills profit.",
     date: "2026-09-05",
-    updated: "2026-09-11",
+    updated: "2026-09-13",
     category: "Business",
     readMins: 5,
     intro:

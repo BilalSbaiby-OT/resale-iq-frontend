@@ -218,3 +218,10 @@ NEXT (once unblocked): P0-1.
   `https://resaleiq.dev/data` and `https://resaleiq.dev/flip` as plaintext
   labels (JSON-LD has the absolute URLs, no UTM). No `/register`.
 - Metadata / Dataset / ItemList / breadcrumbs untouched.
+
+## 2026-09-13 — EX-CTR-BATCH-2 weak title/meta pack
+- Eight EN posts: title + meta (H1 only where it mismatched the new title).
+- how-much-money / sell-through / sneaker / best-brands / scams /
+  not-selling / thrift / seasonal.
+- No mid-CTA or body CTA changes. No `/register?src=blog` left to retarget.
+- seoTitle carries " — Resale IQ". Soft caps: title ≤60, meta ≤155.
