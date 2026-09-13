@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-SELLSBEST-001 on what-sells-best-on-vinted
+  New section after ranking, before FAQ: "Buy-below still decides the flip".
+  Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913`.
+  Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913`.
+  Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
+  Existing EX-ILINK flip/data anchors kept.
+
 SEO LANE, 2026-09-13 — EX-ILINK blog → /flip /data /pricing
   Contextual body anchors only. Campaign `ilink_20260913`
   (`utm_source=blog&utm_medium=ilink&utm_content=to_{hub}`).

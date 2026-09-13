@@ -253,6 +253,56 @@ test("BODY-BUYBELOW-001 soft cite is /data with body_buybelow campaign", () => {
   )
 })
 
+test("BODY-SELLSBEST-001 paid CTA uses blog/organic + body_sellsbest campaign", () => {
+  const href = pricingBodyCtaHref("body_sellsbest_20260913")
+  assert.equal(
+    href,
+    "/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913",
+  )
+  const cta = pricingBodyCta("body_sellsbest_20260913")
+  assert.equal(cta.label, "Get the numbers")
+  assert.equal(cta.body, "Buy-below + demand before cash sticks.")
+  assert.equal(cta.href, href)
+  assert.doesNotMatch(href, /register/)
+  assert.doesNotMatch(href, /plan=/)
+  assert.doesNotMatch(href, /start free/i)
+})
+
+test("BODY-SELLSBEST-001 soft cite is /data with body_sellsbest campaign", () => {
+  assert.equal(
+    dataCiteHref("body_sellsbest_20260913"),
+    "/data?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913",
+  )
+})
+
+test("what-sells-best-on-vinted ships BODY-SELLSBEST-001 after ranking and before FAQ", () => {
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),
+    "utf8",
+  )
+  const start = posts.indexOf('slug: "what-sells-best-on-vinted"')
+  const end = posts.indexOf('slug: "how-to-price-items-on-vinted"')
+  assert.ok(start >= 0 && end > start)
+  const post = posts.slice(start, end)
+  assert.match(post, /Buy-below still decides the flip/)
+  assert.match(post, /Knowing what sells best is half the job\. The other half is not overpaying for movers/)
+  assert.match(post, /Week to 13 September 2026 \(EU5\): Fred Perry 1,027 watched departures @ €19/)
+  assert.match(post, /Stone Island 892 @ €66/)
+  assert.match(post, /Patagonia 843 @ €36/)
+  assert.match(post, /Gucci 230 @ €197/)
+  assert.match(post, /Volume ≠ margin — pair demand with buy-below before you tie up cash/)
+  assert.match(post, /pricingBodyCta\("body_sellsbest_20260913"\)/)
+  assert.match(post, /dataCiteHref\("body_sellsbest_20260913"\)/)
+  assert.match(post, /ilinkHref\("flip"\)/)
+  assert.match(post, /ilinkHref\("data"\)/)
+  assert.doesNotMatch(post, /register\?plan=/)
+  assert.doesNotMatch(post, /Start free/i)
+  const ranking = post.indexOf("How to know before you buy")
+  const buyBelow = post.indexOf("Buy-below still decides the flip")
+  const faq = post.indexOf("faq:")
+  assert.ok(ranking < buyBelow && buyBelow < faq)
+})
+
 test("buy-below-price-explained ships BODY-BUYBELOW-001 after the formula and before FAQ", () => {
   const posts = readFileSync(
     join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),

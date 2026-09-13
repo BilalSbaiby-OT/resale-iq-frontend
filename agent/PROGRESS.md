@@ -174,6 +174,17 @@ NEXT (once unblocked): P0-1.
 - Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
 - No existing ctr_blog mid-CTA on this post.
 
+## 2026-09-13 — BODY-SELLSBEST-001 on what-sells-best-on-vinted
+- `/blog/what-sells-best-on-vinted`: new section after ranking,
+  before FAQ — "Buy-below still decides the flip". Week-to-13-Sep
+  counts (Fred Perry 1,027 @ €19 · Stone Island 892 @ €66 ·
+  Patagonia 843 @ €36 · Gucci 230 @ €197). No invented hit rates.
+- Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913`.
+- Paid CTA Get the numbers →
+  `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_sellsbest_20260913`.
+- Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
+- Existing EX-ILINK flip/data anchors kept.
+
 ## 2026-09-13 — EX-ILINK blog → flip/data/pricing
 - Campaign `ilink_20260913` (`utm_source=blog&utm_medium=ilink`).
 - Body-only `[label](/path)` links via `ilinkHref()` in `src/lib/blog-ilink.ts`.
