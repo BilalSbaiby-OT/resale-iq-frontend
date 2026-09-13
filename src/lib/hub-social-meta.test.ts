@@ -37,6 +37,21 @@ test("/flip sets twitter title/description to the same strings as title + og", (
   assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
 })
 
+test("/tools hub pins og/twitter titles to the document title", () => {
+  const src = read("app/tools/page.tsx")
+  assert.match(src, /const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"/)
+  assert.match(src, /title: TITLE/)
+  assert.match(src, /openGraph: \{ title: TITLE, description, type: "website" \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE, description \}/)
+})
+
+test("/tools child pages pin og/twitter titles to the suffixed document title", () => {
+  const src = read("app/tools/[slug]/page.tsx")
+  assert.match(src, /const title = `\$\{i\.title\} — Resale IQ`/)
+  assert.match(src, /openGraph: \{ title, description: i\.description, type: "website" \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description \}/)
+})
+
 test("homepage layout still owns the generic social title — not rewritten", () => {
   const layout = read("app/layout.tsx")
   assert.match(layout, /const TITLE = "Resale IQ — Know what to pay before you buy"/)

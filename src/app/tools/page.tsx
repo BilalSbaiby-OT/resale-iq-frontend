@@ -122,10 +122,9 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
 
         <HubFaq items={faqs} />
 
-        {/* This hub had no route to the paid product at all: neither /pricing
-            nor /register appeared anywhere on it, while all five tool pages it
-            links to carry a plans link (493337e). One quiet line, kept below
-            the free checker so it does not compete with "Check it free". */}
+        {/* One quiet paid path, kept below the free checker so it does not
+            compete with "Check it free". Child tool pages already carry a
+            plans link (493337e). */}
         <p style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid var(--color-border-ui)", fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
           The checker answers one item at a time.{" "}
           <Link href="/pricing?src=tools_index" style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
