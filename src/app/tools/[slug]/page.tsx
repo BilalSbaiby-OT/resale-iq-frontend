@@ -1,7 +1,11 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { INTENTS, getIntent } from "@/data/search-intents"
+import {
+  INTENTS,
+  getIntent,
+  AEO_PRICE_CHECKER_CTA,
+} from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { PublicProfitCalculator } from "@/components/tools/public-profit-calculator"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
@@ -130,6 +134,15 @@ export default async function IntentPage(
           ))}
         </section>
 
+        {i.deepen && (
+          <section style={{ marginTop: 56 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 16 }}>{i.deepen.h}</h2>
+            {i.deepen.p.map((para) => (
+              <p key={para.slice(0, 48)} style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 14, maxWidth: 620 }}>{para}</p>
+            ))}
+          </section>
+        )}
+
         <section style={{ marginTop: 56 }}>
           <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 24 }}>{t.faqHeading}</h2>
           {i.faq.map((f, n) => (
@@ -162,24 +175,44 @@ export default async function IntentPage(
             a price to crawlers and to the reader, then withholds it. /pricing
             is live (HTTP 200, Starter €19 / Pro €49, "Create a free account"),
             so registration stays one click away. src=tools keeps this
-            separable from the src=blog and src=nav doors. */}
+            separable from the src=blog and src=nav doors.
+
+            AEO-PRICE-CHECKER-001: this slug's primary door is Get the
+            numbers with tools/organic/aeo_price_checker_001. Secondary
+            keeps the #110 google_search_test door (utm_content=price_checker).
+            Profit calc keeps PROFIT_CALC_MONEY_HREF. Other slugs keep
+            See plans + src=tools. */}
         <section style={{ marginTop: 56, paddingTop: 28, borderTop: "1px solid var(--color-border-ui)" }}>
           <h2 style={{ fontSize: 19, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>{t.upsellTitle}</h2>
           <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
             Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
           </p>
-          <Link
-            href={
-              slug === "vinted-profit-calculator"
-                ? PROFIT_CALC_MONEY_HREF
-                : slug === "vinted-price-checker"
-                  ? PRICE_CHECKER_MONEY_HREF
-                  : "/pricing?src=tools"
-            }
-            style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
-          >
-            {t.upsellCta} →
-          </Link>
+          {slug === "vinted-price-checker" ? (
+            <div>
+              <Link
+                href={AEO_PRICE_CHECKER_CTA}
+                style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
+              >
+                Get the numbers →
+              </Link>
+              <div style={{ marginTop: 10 }}>
+                <Link
+                  href={PRICE_CHECKER_MONEY_HREF}
+                  aria-label="Get the numbers from search"
+                  style={{ color: "var(--color-text-secondary)", fontWeight: 500, fontSize: 14, textDecoration: "underline", textUnderlineOffset: 4 }}
+                >
+                  Get the numbers →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <Link
+              href={slug === "vinted-profit-calculator" ? PROFIT_CALC_MONEY_HREF : "/pricing?src=tools"}
+              style={{ color: "var(--color-text-primary)", fontWeight: 600, fontSize: 15, textDecoration: "underline", textUnderlineOffset: 4 }}
+            >
+              {t.upsellCta} →
+            </Link>
+          )}
         </section>
 
         <nav style={{ marginTop: 56 }}>
