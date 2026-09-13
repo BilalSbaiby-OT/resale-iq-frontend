@@ -3,17 +3,25 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
-<<<<<<< HEAD
 SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
   HowTo JSON-LD + visible numbered steps on
   /tools/vinted-profit-calculator and /tools/vinted-price-checker.
   Steps from UI labels + lede/FAQ copy only. FAQPage kept.
   Price-checker title: "Vinted Price Checker — Typical Departure Price".
   Profit title already "Net Profit After Fees". og/twitter already
-  match `${i.title} — Resale IQ`. Existing /pricing?src=tools kept
-  (no extra UTM — page already has a paid CTA).
+  match `${i.title} — Resale IQ`. Paid CTAs already on both pages.
   Branch cursor/seo-ex-tools-howto-97af.
-=======
+
+SEO LANE, 2026-09-13 — AEO-PRICE-CHECKER-001 (merging)
+  Fold Content deepen into /tools/vinted-price-checker.
+  Title / H1 / WebApplication schema untouched. FAQ JSON-LD
+  matches new visible FAQs. Free one-item check on /tools hub;
+  sell-through/sizes on plan. CTA Get the numbers →
+  /pricing?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001
+  Secondary uses PRICE_CHECKER_MONEY_HREF (google_search_test +
+  utm_content=price_checker). Branch cursor/aeo-price-checker-001-899c.
+  PR #112. Rebased onto #110.
+
 SEO LANE, 2026-09-13 — EX-CATEGORY-AEO LIVE (merged #103)
   MERGED | d27d432 | live PASS
   `/deploy-id` SOURCE_COMMIT d27d432bd616bb72adb782bebcef32db2c5ecaf1
@@ -22,7 +30,6 @@ SEO LANE, 2026-09-13 — EX-CATEGORY-AEO LIVE (merged #103)
   + visible HubFaq. 3 UTM hrefs category_aeo_20260913. No /register.
   /category/sneakers twitter matches leaf title (not homepage).
   Playwright /data H1 ignored if it is the sole flake.
->>>>>>> origin/main
 
 SEO LANE, 2026-09-13 — EX-CATEGORY-AEO hub metadata + FAQ
   SHIPPED. /category is a real hub (10 live categories). Not a stub.

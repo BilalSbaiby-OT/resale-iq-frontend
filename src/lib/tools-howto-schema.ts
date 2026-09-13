@@ -40,7 +40,7 @@ export type ToolHowToStep = { name: string; text: string }
 /** FAQ question already on the page — reused as the visible HowTo heading. */
 export function toolHowToHeading(intent: ToolHowToIntent): string | null {
   if (intent.slug === "vinted-price-checker") {
-    return faqQuestion(intent, "How do I check the price of an item on Vinted?")
+    return faqQuestion(intent, "What does a Vinted price checker do?")
   }
   if (intent.slug === "vinted-profit-calculator") {
     return faqQuestion(intent, "How do I calculate profit on Vinted?")
@@ -87,22 +87,22 @@ function sentences(text: string): string[] {
 }
 
 function priceCheckerSteps(intent: ToolHowToIntent): ToolHowToStep[] | null {
-  const typeLine = "Type a brand and model below to start a check"
+  const typeLine = "Type a brand and model below to run a one-item check"
   const typeFull =
-    "Type a brand and model below to start a check; the paywall is the next step, not a hidden free number."
+    "Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan."
   if (!intent.lede.includes(typeFull)) return null
 
-  const how = faqAnswer(intent, "How do I check the price of an item on Vinted?")
+  const how = faqAnswer(intent, "What does a Vinted price checker do?")
   if (!how) return null
   const parts = sentences(how)
   if (parts.length < 2) return null
-  if (!parts[1].includes("typical departure price plus a buy-below price")) return null
+  if (!parts[1].includes("buy-below price and a BUY, WATCH or SKIP")) return null
 
   return [
     { name: typeLine, text: typeFull },
     { name: CHECK_THIS_ITEM, text: parts[0] },
     {
-      name: "Typical departure price plus a buy-below price",
+      name: "buy-below price and a BUY, WATCH or SKIP",
       text: parts[1],
     },
   ]

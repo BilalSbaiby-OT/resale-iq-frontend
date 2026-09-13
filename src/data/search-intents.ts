@@ -11,8 +11,14 @@ export interface SearchIntent {
   h1: string
   lede: string
   bullets: { h: string; p: string }[]
+  /** AEO-PRICE-CHECKER-001 — Content deepen. Optional sequential body. */
+  deepen?: { h: string; p: string[] }
   faq: { q: string; a: string }[]
 }
+
+/** Paid door on /tools/vinted-price-checker. Never /register. */
+export const AEO_PRICE_CHECKER_CTA =
+  "/pricing?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"
 
 export const INTENTS: SearchIntent[] = [
   {
@@ -23,16 +29,25 @@ export const INTENTS: SearchIntent[] = [
       `Typical Vinted departure price and buy-below from ${TRACKED} listings across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
     h1: "Vinted Price Checker",
     lede:
-      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% buyer-side fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Item-level buy-below, sell-through and sizes are on Starter at €19 a month. Type a brand and model below to start a check; the paywall is the next step, not a hidden free number.`,
+      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% buyer-side fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan.`,
     bullets: [
       { h: "Real departure prices, not asking prices", p: "Active listings show what people hope to get. We anchor on the asking price at the moment a comparable listing left the shelf — a real signal, though not an observed sale." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
       { h: "Speed, not just price", p: "An item with no demand is dead stock. We show sell-through when the watched sample supports it — otherwise the raw departure and listed counts." },
     ],
+    deepen: {
+      h: "From departure price to BUY, WATCH or SKIP",
+      p: [
+        "Asking prices are hopes. A departure price is the last ask when a comparable listing left the shelf — the closest public proxy for what buyers paid, not a confirmed receipt.",
+        "From that average departure ask we work backwards to a buy-below price: average × 0.95 × 0.70. The 0.95 is the 5% platform deduction we model for Vinted. The 0.70 targets about a 30% margin. Pay under that number and the flip has room; pay over it and you are speculating.",
+        "The check then returns BUY, WATCH or SKIP against that number. A one-item check is free on the tools hub. Sell-through and sizes stay on a plan.",
+      ],
+    },
     faq: [
-      { q: "How do I check the price of an item on Vinted?", a: `Search the exact brand and model and look at listings that recently left the shelf, not active ones — active listings show asking prices, and departed listings show the price at the moment they disappeared, which is our closest honest proxy for what buyers actually paid. Resale IQ automates this across ${TRACKED} listings in 5 EU markets and returns the typical departure price plus a buy-below price.` },
-      { q: "Is there a free Vinted price checker?", a: "Weekly brand volumes and average departure prices are free on the market data page. There is no anonymous item-level buy-below. Starting a check on this page leads to Starter at €19 a month before BUY, WATCH or SKIP, the max you should pay, or sizes appear. Category demand without a plan lives on /data and /category." },
-      { q: "What is a fair price to pay for an item to resell on Vinted?", a: "Pay no more than the buy-below price: roughly the average asking price at departure × 0.95 (the 5% platform deduction we model for Vinted) × 0.70, which targets about a 30% margin. Substitute your own fee figure if yours differs." },
+      { q: "What does a Vinted price checker do?", a: "A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Resale IQ returns a buy-below price and a BUY, WATCH or SKIP call across Spain, France, Germany, Italy and Portugal." },
+      { q: "What is a buy-below price?", a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70. The 0.95 covers the 5% platform deduction we model for Vinted, and the 0.70 targets about a 30% margin." },
+      { q: "Why departure prices?", a: "Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. We do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price." },
+      { q: "Is the Vinted price checker free?", a: "Yes. You can run a one-item check on the tools hub (/tools) with no account. Sell-through and sizes stay on a plan. Weekly brand volumes and average departure prices stay public on /data." },
     ],
   },
   {
