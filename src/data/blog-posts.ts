@@ -1,6 +1,6 @@
 import { TRACKED } from "@/lib/stats"
 import type { SectionCtaContent } from "@/lib/section-cta"
-import { pricingMidCta } from "@/lib/blog-mid-cta"
+import { dataCiteHref, pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 // Programmatic SEO + AEO content. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
@@ -103,7 +103,7 @@ export const POSTS: BlogPost[] = [
     date: "2026-08-05",
     updated: "2026-09-13",
     category: "Pricing",
-    readMins: 5,
+    readMins: 6,
     intro:
       "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 11 September 2026, we watched 6,378 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €54, and Balenciaga Sneakers €121. Price off the brand's real departure number, not retail.",
     sections: [
@@ -122,6 +122,18 @@ export const POSTS: BlogPost[] = [
         ],
         // EX-CTR-PRICE-001. Campaign ctr_price_20260913. QC button/subline.
         cta: pricingMidCta("ctr_price_20260913"),
+      },
+      {
+        h: "Demand is the other half of the price",
+        p: [
+          "A departure price without demand is a trap. Pair two numbers before you pay: (1) the exit price comparable listings actually left at, and (2) how many watched departures that brand moved in the same week.",
+          "Week to 13 September 2026, across the brands we watch: Fred Perry 1,027 watched departures at €19 · Stone Island 892 at €66 · Gucci 230 at €197. Those are counts and averages, not a hit rate — volume is what tells you whether cash comes back.",
+          "Buy-below is the most you can pay after fees and still have a margin. Demand is whether the item will leave before that cash sticks. [Weekly market data](" +
+            dataCiteHref("body_price_20260913") +
+            ") publishes both, free.",
+        ],
+        // BODY-001. Keep the ctr_price mid-CTA above. This block is body_price.
+        cta: pricingBodyCta("body_price_20260913"),
       },
       {
         h: "Price to sell in a reasonable window",

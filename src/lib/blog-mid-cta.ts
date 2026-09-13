@@ -46,3 +46,21 @@ export function pricingMidCta(campaign: string): SectionCtaContent {
     secondaryHref: "/data",
   }
 }
+
+/** BODY-001 paid CTA — source/medium swapped vs mid-CTA so the body block is separable. */
+export function pricingBodyCtaHref(campaign: string): string {
+  return `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}&utm_content=body_cta`
+}
+
+export function dataCiteHref(campaign: string): string {
+  return `/data?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=data_cite`
+}
+
+export function pricingBodyCta(campaign: string): SectionCtaContent {
+  return {
+    headline: "Know what to pay before you buy",
+    body: "Buy-below + demand before cash sticks.",
+    label: "Get the numbers",
+    href: pricingBodyCtaHref(campaign),
+  }
+}
