@@ -21,6 +21,19 @@ export interface ManualSection {
   body: string[]
   list?: string[]
   callout?: { label: string; text: string }
+  /**
+   * Optional mid-article conversion block, rendered after this section.
+   * Paid CTAs go to /pricing — not /register (register still mentions Free).
+   */
+  cta?: {
+    headline: string
+    body: string
+    example?: string
+    label: string
+    href: string
+    secondaryLabel?: string
+    secondaryHref?: string
+  }
 }
 
 export interface ManualChapter {
@@ -474,6 +487,16 @@ export const CHAPTERS_1: ManualChapter[] = [
         callout: {
           label: "Read this honestly",
           text: "These grades are seller-selected and confounded — an item listed new-with-tags is also more likely to be a newer, more desirable model, so not all of the gap is condition alone. The direction and the rough scale are solid; treat the exact multiples as indicative.",
+        },
+        // EX-CTR-003 mid-CTA after the first how-to section.
+        // Proof is the chapter's own condition-price gap, not a hit rate.
+        cta: {
+          headline: "Know what to pay before you buy",
+          body: "Condition swings the departure price. Buy-below is average sale × 0.95 × 0.70 on ES/FR/DE/IT/PT — so you do not pay a good-grade price for a worse item.",
+          label: "Get buy-below on any item",
+          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_fake_20260913&utm_content=mid_cta",
+          secondaryLabel: "Or browse weekly brand volumes on /data",
+          secondaryHref: "/data",
         },
       },
       {
