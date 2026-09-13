@@ -344,11 +344,11 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Vinted Flips: Start From Demand",
+    title: "How to Find Vinted Flips — Start From Demand, Not Scroll",
     description:
-      "Stop scrolling at random. A repeatable 3-step method to find underpriced, fast-selling items to flip on Vinted, built from real demand data across 5 EU markets.",
+      "Stop random scrolling. Find underpriced Vinted items from real demand across ES/FR/DE/IT/PT. Free weekly brand data on Resale IQ.",
     date: "2026-08-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 5,
     intro:

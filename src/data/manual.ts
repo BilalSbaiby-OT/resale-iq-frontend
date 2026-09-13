@@ -456,9 +456,10 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "condition-and-authenticity",
     number: 8,
     part: "Sourcing",
-    title: "How to Spot Fake Items on Vinted (and Grade Condition)",
+    updated: "2026-09-13",
+    title: "How to Spot Fake Items on Vinted — Fast Checks That Matter",
     description:
-      "How to spot fakes on Vinted without becoming an expert authenticator, plus a practical way to grade condition and which defects quietly kill your margin.",
+      "Practical authenticity checks for Vinted sellers and buyers. Skip guesswork; protect margin before you buy or ship.",
     minutes: 7,
     intro:
       "Condition is the single largest price variable we can measure, and it is bigger than almost anyone assumes. Grading consistently is not perfectionism — it is how you avoid paying good-condition prices for stock you will have to describe honestly later.",
