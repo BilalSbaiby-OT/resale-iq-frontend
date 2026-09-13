@@ -3,6 +3,11 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS LIVE (merged #98)
+  /deploy-id 7915b90. Cache-busted curl: 5/5 PASS (buy-below,
+  sell-through, what-sells-best, /data, /flip). DefinedTerm + FAQ
+  present. No /register. Playwright /data H1 ignored per owner.
+
 SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
   Visible H2 + 1–2 sentence leads (above the fold on the three blogs via
   `definedTerm`). FAQ answers match. DefinedTerm JSON-LD added beside

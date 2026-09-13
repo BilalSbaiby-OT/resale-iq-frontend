@@ -276,3 +276,4 @@ NEXT (once unblocked): P0-1.
 - CI: definition assertions live in `faq-schema.test.ts` (a standalone
   test file cloned the hub-social read helper and tripped check:dupes).
   `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".
+- MERGED #98 as 7915b90. Live after Coolify. Cache-busted curl 5/5 PASS.
