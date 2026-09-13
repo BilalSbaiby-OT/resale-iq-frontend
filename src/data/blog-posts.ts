@@ -37,6 +37,19 @@ export interface BlogPost {
      * as paragraphs. Every row must have the same length as `head`.
      */
     table?: { caption?: string; head: string[]; rows: string[][] }
+    /**
+     * Optional mid-article conversion block, rendered after this section.
+     * Paid CTAs go to /pricing — not /register (register still mentions Free).
+     */
+    cta?: {
+      headline: string
+      body: string
+      example?: string
+      label: string
+      href: string
+      secondaryLabel?: string
+      secondaryHref?: string
+    }
   }[]
   faq: { q: string; a: string }[]
 }
@@ -113,6 +126,18 @@ export const POSTS: BlogPost[] = [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
           "A common rule: buy-below = average asking price at departure × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
+        // EX-CTR-PRICE-001 mid-CTA. €54 is this post's own Stone Island
+        // Hoodies intro figure; €36 is 54 × 0.95 × 0.70. Illustrative.
+        cta: {
+          headline: "Know what to pay before you buy",
+          body: "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
+          example:
+            "Example: Stone Island hoodie · median departure ~€54 → buy-below ~€36 for ~30% target margin (illustrative; real models vary).",
+          label: "Get buy-below on any item",
+          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
+          secondaryLabel: "Or browse weekly brand volumes on /data",
+          secondaryHref: "/data",
+        },
       },
       {
         h: "Price to sell in a reasonable window",
