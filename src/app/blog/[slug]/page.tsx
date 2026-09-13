@@ -44,8 +44,12 @@ export async function generateMetadata(
   const { slug } = await params
   const p = fillTracked(getPost(slug), await listingsTrackedLabel())
   if (!p) return { title: "Not found — Resale IQ" }
+  // seoTitle is the exact document title (CTR experiments). Otherwise keep
+  // the historical "H1 — Resale IQ" suffix so other posts stay unchanged.
+  const seoTitle = p.seoTitle ?? `${p.title} — Resale IQ`
+  const ogTitle = p.seoTitle ?? p.title
   return {
-    title: `${p.title} — Resale IQ`,
+    title: seoTitle,
     description: p.description,
     alternates: {
       canonical: `/blog/${p.slug}`,
@@ -54,7 +58,8 @@ export async function generateMetadata(
       // its counterpart. A one-way annotation is silently discarded.
       ...(TRANSLATIONS[p.slug] ? { languages: TRANSLATIONS[p.slug] } : {}),
     },
-    openGraph: { title: p.title, description: p.description, type: "article" },
+    openGraph: { title: ogTitle, description: p.description, type: "article" },
+    twitter: { title: ogTitle, description: p.description },
   }
 }
 
@@ -175,6 +180,7 @@ export default async function BlogPostPage(
                 </table>
               </figure>
             )}
+            {s.cta && <SectionCta cta={s.cta} />}
           </section>
         ))}
 
@@ -256,6 +262,29 @@ export default async function BlogPostPage(
           </div>
         </div>
       </article>
+    </div>
+  )
+}
+
+/** Mid-article conversion block. Visual match for the article-footer CTA. */
+function SectionCta({
+  cta,
+}: {
+  cta: { headline: string; body: string; example?: string; label: string; href: string }
+}) {
+  return (
+    <div style={{ margin: "18px 0 4px", padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
+      <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>{cta.headline}</div>
+      <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 0", lineHeight: 1.6 }}>{cta.body}</p>
+      {cta.example && (
+        <p style={{ fontSize: 13, color: "#a9b6d0", margin: "10px 0 0", lineHeight: 1.6 }}>{cta.example}</p>
+      )}
+      <Link
+        href={cta.href}
+        style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none", marginTop: 16 }}
+      >
+        {cta.label} →
+      </Link>
     </div>
   )
 }

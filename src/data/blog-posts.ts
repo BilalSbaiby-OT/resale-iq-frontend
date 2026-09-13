@@ -7,7 +7,12 @@ import { TRACKED } from "@/lib/stats"
 
 export interface BlogPost {
   slug: string
-  title: string           // <title> + H1
+  title: string           // H1 (+ <title> unless seoTitle is set)
+  /**
+   * Document <title> + OG title when it must differ from the H1.
+   * Use the exact string — generateMetadata will not append " — Resale IQ".
+   */
+  seoTitle?: string
   description: string     // meta description (also the AEO summary)
   date: string            // ISO — original publish date (never rewritten)
   /**
@@ -32,6 +37,12 @@ export interface BlogPost {
      * as paragraphs. Every row must have the same length as `head`.
      */
     table?: { caption?: string; head: string[]; rows: string[][] }
+    /**
+     * Optional mid-article conversion block, rendered after this section.
+     * Used for CTR experiments (e.g. EX-CTR-PRICE-001). Do not promise a
+     * free item check — Starter is €19/mo.
+     */
+    cta?: { headline: string; body: string; example?: string; label: string; href: string }
   }[]
   faq: { q: string; a: string }[]
 }
@@ -84,11 +95,12 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price on Vinted: Match Departure Prices",
+    title: "How to Price Items on Vinted: Buy-Below from Departure Prices",
+    seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically",
     description:
-      "Price too high and it sits; price too low and you leave money on the table. How to set a Vinted price that sells, anchored to real departure prices across 5 EU markets, not retail.",
+      "Price off real Vinted departure prices, then work backwards to buy-below. Resale IQ computes it from watched EU listings. Starter €19/mo.",
     date: "2026-08-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Pricing",
     readMins: 5,
     intro:
@@ -107,6 +119,17 @@ export const POSTS: BlogPost[] = [
           "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay and still make a healthy margin after fees.",
           "A common rule: buy-below = average asking price at departure × 0.95 (the 5% platform deduction Resale IQ models for Vinted) × 0.70, which targets roughly a 30% margin. Substitute your own fee figure if yours differs — the [Vinted profit calculator](/tools/vinted-profit-calculator) does it after fees. Pay more than that and you're gambling on price appreciation.",
         ],
+        // EX-CTR-PRICE-001 — mid-article CTA after the buy-below section.
+        // Demo numbers come from this post's own intro (Stone Island Hoodies
+        // €54) and the formula above: 54 × 0.95 × 0.70 ≈ €36. Illustrative.
+        cta: {
+          headline: "Know what to pay before you buy",
+          body: "Resale IQ returns BUY, WATCH or SKIP plus the buy-below from watched Vinted departures across ES, FR, DE, IT and PT.",
+          example:
+            "Example: Stone Island hoodie · median departure ~€54 → fee-adjusted → buy-below ~€36 for ~30% margin (illustrative; real models vary).",
+          label: "Get buy-below on any item",
+          href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=ctr_price_20260913&utm_content=mid_cta",
+        },
       },
       {
         h: "Price to sell in a reasonable window",
