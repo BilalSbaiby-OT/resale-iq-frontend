@@ -463,3 +463,5 @@ NEXT (once unblocked): P0-1.
   `/blog/buy-below-price-explained` (description only; H2 stays
   “Buy-below price”).
 - Tests: `manual-aeo.test.ts` + `faq-schema.test.ts`.
+- MERGED #115 as 0c0e57e. Live PASS on SOURCE_COMMIT 0c0e57e.
+  Cache-busted curl: definition H2 + full lead + DefinedTerm + FAQ.
