@@ -1,7 +1,13 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: yes
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-FAQ-SCHEMA-HUBS (this session)
+  FAQPage JSON-LD on /flip (expanded), /data (new, Dataset kept),
+  /blog/what-sells-best-on-vinted (aligned; cites
+  https://resaleiq.dev/data and https://resaleiq.dev/flip, no UTM).
+  Visible HubFaq matches schema. No /register. No invented stats.
 
 SEO LANE, 2026-09-13 — EX-OG-HUBS /data /flip social titles
   /data now sets openGraph + twitter title/description to the page

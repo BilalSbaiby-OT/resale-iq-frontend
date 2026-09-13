@@ -106,9 +106,37 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "What sells fastest on Vinted?", a: "Recognisable sneakers (Nike, Adidas, New Balance) and everyday branded basics (Levi's, Carhartt, The North Face) in common sizes sell fastest, provided they're priced fairly for their condition. Sell-through drops sharply for outlier sizes and off-season items." },
-      { q: "What should I avoid buying to resell on Vinted?", a: "Avoid off-season stock you'll hold for months, unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical sale price after fees." },
-      { q: "How do I know if an item will sell before I buy it?", a: `Check the item's real sell-through rate, average sale price, and best-selling sizes. Tools like Resale IQ compute this from ${TRACKED} real Vinted listings so you get a BUY / WATCH / SKIP call instead of guessing.` },
+      {
+        q: "What sells best on Vinted?",
+        a:
+          "As of 11 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
+          "Hoodies were the busiest category: at least 1,400 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (1,076) and Shirts (993). " +
+          "The busiest brand/category pair was Stone Island Hoodies: 577 watched departures in 7 days, averaging €54. " +
+          "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip).",
+      },
+      {
+        q: "What sells fastest on Vinted?",
+        a:
+          "Recognisable sneakers (Nike, Adidas, New Balance) and everyday branded basics (Levi's, Carhartt, The North Face, Stone Island) in common sizes sell fastest, provided they're priced fairly for their condition. " +
+          "Sell-through drops sharply for outlier sizes and off-season items. See the live brand ranking on [https://resaleiq.dev/flip](/flip).",
+      },
+      {
+        q: "Does high volume mean a good flip?",
+        a:
+          "No. Volume and ticket size rarely sit together. Week to 13 September 2026 (EU5): Fred Perry 1,027 watched departures at €19, Stone Island 892 at €66, Patagonia 843 at €36, Gucci 230 at €197. " +
+          "Pair demand with buy-below before you tie up cash. Weekly table: [https://resaleiq.dev/data](/data).",
+      },
+      {
+        q: "What should I avoid buying to resell on Vinted?",
+        a:
+          "Avoid off-season stock you'll hold for months, unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical sale price after fees.",
+      },
+      {
+        q: "How do I know if an item will sell before I buy it?",
+        a:
+          `Check how fast comparable listings leave the shelf, at what asking price, and in which sizes. The free weekly tables are [https://resaleiq.dev/flip](/flip) (brands ranked by watched departures) and [https://resaleiq.dev/data](/data) (volumes and average prices at departure across ES/FR/DE/IT/PT). ` +
+          `Resale IQ turns ${TRACKED} real listings into a BUY / WATCH / SKIP call with a buy-below price — that item-level verdict is the paid product.`,
+      },
     ],
   },
   {
