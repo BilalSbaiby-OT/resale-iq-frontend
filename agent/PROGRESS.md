@@ -491,3 +491,7 @@ NEXT (once unblocked): P0-1.
 - Marketing cards: Starter, Pro, Free. Free forever does not lead.
   Filled accent CTA is Starter. Stripe placeholders unchanged.
 - Tests: `src/lib/pricing-offer.test.ts`, e2e smoke + locale-routing H1.
+- MERGED #117 as c35b6ba. Live PASS on SOURCE_COMMIT c35b6ba.
+  Cache-busted curl: EN H1 “Find profitable Vinted flips before buying them.”
+  ES H1 “Encuentra flips rentables en Vinted antes de comprarlos.”
+  Both heroes have BUY / WATCH / SKIP + €19 / 19 €. Free CTA last.

@@ -1,7 +1,20 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-PRICING-OFFER LIVE (merged #117)
+  MERGED | c35b6ba | live PASS
+  `/deploy-id` SOURCE_COMMIT c35b6ba7e97d597ffb3b301cacea60ce884f7e2c
+  Cache-busted curl:
+  https://resaleiq.dev/pricing H1 =
+    "Find profitable Vinted flips before buying them."
+    + BUY / WATCH / SKIP + Starter €19/mo. First CTA Get the numbers.
+  https://resaleiq.dev/es/pricing H1 =
+    "Encuentra flips rentables en Vinted antes de comprarlos."
+    + BUY / WATCH / SKIP + 19 €/mes. First CTA Consigue los números.
+  Old "Know what to pay. Skip…" absent from both pricing URLs.
+  First curl after Coolify can be stale; second matched SOURCE_COMMIT.
 
 SEO LANE, 2026-09-13 — EX-PRICING-OFFER locked Bilal flips offer (this session)
   /pricing EN H1: "Find profitable Vinted flips before buying them."
