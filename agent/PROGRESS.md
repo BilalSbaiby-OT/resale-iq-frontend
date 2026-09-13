@@ -250,3 +250,6 @@ NEXT (once unblocked): P0-1.
   the visible lead. DefinedTerm JSON-LD beside existing FAQPage.
 - Titles, metas, H1s untouched. No invented stats. No /register.
   Paid CTA stays /pricing. ES `como-poner` not edited.
+- CI: definition assertions live in `faq-schema.test.ts` (a standalone
+  test file cloned the hub-social read helper and tripped check:dupes).
+  `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".

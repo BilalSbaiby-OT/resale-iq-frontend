@@ -32,7 +32,7 @@ export type DefinedTermItem = {
   url: string
 }
 
-/** Visible HTML is the source of truth — description must match the on-page lead. */
+/** Visible HTML is the source of truth — description must match the on-page lead. (EX-AEO-DEFINITIONS) */
 export function definedTermJsonLd(term: DefinedTermItem) {
   return {
     "@context": "https://schema.org",
