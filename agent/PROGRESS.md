@@ -465,3 +465,17 @@ NEXT (once unblocked): P0-1.
 - Tests: `manual-aeo.test.ts` + `faq-schema.test.ts`.
 - MERGED #115 as 0c0e57e. Live PASS on SOURCE_COMMIT 0c0e57e.
   Cache-busted curl: definition H2 + full lead + DefinedTerm + FAQ.
+
+## 2026-09-13 — EX-WEBMCP-TOOLS check_vinted_item + llms.txt
+- FreeChecker is now a native `<form>` with `toolname="check_vinted_item"`,
+  `tooldescription`, and `name="query"` + `toolparamdescription`. Shared
+  with /tools/vinted-price-checker (same component). No `toolautosubmit`.
+- Profit calculator: `toolname="calculate_vinted_profit"` on existing
+  `buy_price` / `sell_price` fields. No checkout/payment forms annotated.
+- Optional `RegisterCheckVintedItemTool` calls
+  `document.modelContext ?? navigator.modelContext.registerTool` when
+  present; no-op otherwise. inputSchema `{ query: string }`.
+- /llms.txt adds a For agents section (key URLs, what agents can / must
+  not do) and corrects the free one-item checker boundary. No Free-forever
+  invent. Get the numbers / google_search_test UTMs untouched.
+- Branch cursor/seo-ex-webmcp-tools-43e2. Rebased onto main after #115.

@@ -9,7 +9,14 @@ import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
 import { ModelChips } from "@/components/tools/model-chips"
+import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
+import {
+  CHECK_VINTED_ITEM_DESCRIPTION,
+  CHECK_VINTED_ITEM_NAME,
+  CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
+} from "@/lib/webmcp-tools"
+import "@/types/webmcp-jsx"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
@@ -293,17 +300,31 @@ export function FreeChecker({
   const hero = variant === "hero"
   return (
     <div style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
-      <div className="riq-checker-row">
+      {/* WebMCP: one shared money tool for /tools and /tools/vinted-price-checker
+          (same FreeChecker). Field name is `query`. No toolautosubmit. */}
+      <form
+        className="riq-checker-row"
+        noValidate
+        toolname={CHECK_VINTED_ITEM_NAME}
+        tooldescription={CHECK_VINTED_ITEM_DESCRIPTION}
+        onSubmit={(e) => {
+          e.preventDefault()
+          if (loading) return
+          void run()
+        }}
+      >
         <input
+          name="query"
+          required
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") run() }}
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
+          toolparamdescription={CHECK_VINTED_ITEM_QUERY_DESCRIPTION}
           style={{ background: "var(--color-bg-2)", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 15, fontWeight: 400, outline: "none" }}
         />
         <button
-          onClick={() => run()}
+          type="submit"
           disabled={loading}
           aria-label={loading ? t.checkingAriaLabel : t.checkAriaLabel}
           style={{
@@ -323,7 +344,8 @@ export function FreeChecker({
           {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
           {loading ? t.checking : t.checkFree}
         </button>
-      </div>
+      </form>
+      <RegisterCheckVintedItemTool />
 
       {err && <p style={{ color: "#FF453A", fontSize: 13, marginTop: 12 }}>{err}</p>}
 
