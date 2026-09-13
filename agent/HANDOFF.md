@@ -3,6 +3,11 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-CTR-BATCH-4 LIVE on production (merged #100)
+  MERGED | 0bcee93 | live PASS on SOURCE_COMMIT 7e968e5 (main after
+  #99; includes #100). Cache-busted curl: 6/6 titles + metas match.
+  H1s unchanged. Playwright /data H1 flake ignored (Isolation green).
+
 SEO LANE, 2026-09-13 — EX-MANUAL-AEO LIVE (merged #101)
   MERGED | d69e7fa | live PASS
   `/deploy-id` SOURCE_COMMIT 0bcee93 (includes #101; #100 merged after).
