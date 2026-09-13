@@ -313,3 +313,11 @@ NEXT (once unblocked): P0-1.
 - Soft `seoTitle`s keep " — The Vinted Reselling Manual". H1s stay.
 - No `/register` in FAQ. Paid CTAs stay `/pricing`.
 - Tests: `faq-schema.test.ts` hub assertions + `manual-aeo.test.ts`.
+
+## 2026-09-13 — EX-CTR-BATCH-4 remaining answer-first titles
+- Six remaining soft EN posts: title + meta only. H1s left as-is.
+- list-time / record-keeping / mistakes / vintage / disputes /
+  retail-arbitrage.
+- No mid-CTA, body, or JSON-LD structure edits. No `/register`.
+  No Free pitch. seoTitle carries " — Resale IQ".
+- Soft caps: title ≤60, meta ≤155. Question/answer-first.

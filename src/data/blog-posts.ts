@@ -522,8 +522,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "reselling-mistakes-that-lose-money",
     title: "7 Reselling Mistakes That Quietly Lose You Money",
+    seoTitle: "Biggest Reselling Mistake? Buying Dead Stock — Resale IQ",
     description:
-      "The common reselling mistakes that drain profit on Vinted — dead stock, wrong sizes, emotional buying — and how to avoid each one.",
+      "Buying dead stock — items with no demand — is the expensive mistake. Then size, emotion, overpaying, mispricing, off-season holds and no tracking.",
     date: "2026-08-05",
     category: "Business",
     readMins: 5,
