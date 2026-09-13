@@ -152,11 +152,8 @@ export default async function FlipHubPage() {
         </div>
 
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "0 0 14px", lineHeight: 1.2, letterSpacing: "-0.6px" }}>
-          Which brands are worth reselling on Vinted?
-        </h1>
-        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "0 0 10px", letterSpacing: "-0.4px" }}>
           What sells best on Vinted in 2026?
-        </h2>
+        </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{sellsBest2026}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
           Every brand below links to its own page — weekly volume, average sale price and the

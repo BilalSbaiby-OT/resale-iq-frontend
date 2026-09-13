@@ -90,3 +90,13 @@ NEXT (once unblocked): P0-1.
 - VERIFIED against the real CLI: preflight reports `(credits)` with the real
   message, sets BLOCKED_REASON: credits, and re-checks rather than spinning.
 - NEXT: P0-2.
+
+## 2026-09-13 — SEO CTR pack (views + how-to titles, PR only)
+- `/blog/how-to-get-more-views-on-vinted`: title/meta/H1 + mid-CTA
+  `ctr_views_20260913` → `/pricing` (not `/register?plan=`).
+- Other high-impression how-tos: find-flips, bundles, seasonal, list-time,
+  descriptions, start-no-money, closet, not-selling, thrift, photos — title
+  and/or mid-CTA. How-to-price mid-CTA left as shipped in #79.
+- Stretch: `/data` title/meta + H1 toward weekly brand volumes; `/flip` H1
+  aligned to “what sells best on Vinted in 2026?”.
+- HOLD merge. PR only.

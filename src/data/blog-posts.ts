@@ -1,5 +1,7 @@
 import { TRACKED } from "@/lib/stats"
-// Programmatic SEO + AEO content. Each post targets a real reseller search query
+import { pricingMidCta } from "@/lib/blog-mid-cta"
+// Programmatic SEO + AEO content. The how-to-price mid-CTA (ctr_price_20260913)
+// is already live on main via #79 — do not rewrite that block. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
 // Claims kept honest: `the live tracked-listings figure listings across 5 EU markets` is true; no fabricated
@@ -341,11 +343,12 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Vinted Flips: Start From Demand",
+    title: "How to Find Items to Flip on Vinted — Start From Demand",
+    seoTitle: "How to Find Items to Flip on Vinted — Start From Demand",
     description:
-      "Stop scrolling at random. A repeatable 3-step method to find underpriced, fast-selling items to flip on Vinted, built from real demand data across 5 EU markets.",
+      "Stop scrolling at random. Pick what already sells, know the buy-below, then hunt listings under it. Weekly brand volumes are on /data.",
     date: "2026-08-05",
-    updated: "2026-09-12",
+    updated: "2026-09-13",
     category: "Sourcing",
     readMins: 5,
     intro:
@@ -357,6 +360,7 @@ export const POSTS: BlogPost[] = [
           "Cheap doesn't mean profitable. Start with items that have proven demand and margin room, then look for them below their buy-below price. [Which categories actually move](/category) is the place to start.",
           "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](/flip) before committing cash.",
         ],
+        cta: pricingMidCta("ctr_find_20260913"),
       },
       {
         h: "Use the buy-below filter",

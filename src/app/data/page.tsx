@@ -12,9 +12,9 @@ import { WeeklyBrief } from "@/components/ui/weekly-brief"
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Vinted Market Data — Weekly Resale Statistics by Brand",
+  title: "Weekly Brand Volumes on Vinted — What Sells Best in 2026",
   description:
-    "Free Vinted market data: weekly units sold and average sale price by brand across Spain, France, Germany, Italy and Portugal. Updated daily by Resale IQ.",
+    "Weekly Vinted brand volumes: watched departures and average asking prices at departure across Spain, France, Germany, Italy and Portugal. Updated from live listings.",
   alternates: { canonical: "/data" },
 }
 
@@ -59,7 +59,7 @@ export default async function DataPage() {
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <Link href="/" style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
         <h1 style={{ fontSize: 32, fontWeight: 600, color: "var(--color-text-primary)", margin: "20px 0 10px", letterSpacing: "-0.6px" }}>
-          Vinted market data
+          Weekly brand volumes on Vinted
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
           Weekly units we <strong style={{ color: "#c3cde0", fontWeight: 600 }}>watched sell</strong> and average observed sale price by brand across Vinted&apos;s five main EU markets

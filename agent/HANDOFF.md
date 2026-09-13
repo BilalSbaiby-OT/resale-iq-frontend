@@ -1,7 +1,15 @@
 STATUS: READY
 OWNER: none
-PUSH: yes
-UPDATED: 2026-08-31
+PUSH: no
+UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — CTR pack on branch `cursor/seo-blog-ctr-pack-56aa`.
+  Do NOT merge to main. Price mid-CTA (`ctr_price_20260913` → `/pricing`) already
+  shipped in #79; this branch does not rewrite that block.
+  Views post + other how-to title/meta/H1 + mid-CTAs to `/pricing` UTMs.
+  Stretch: `/data` title/meta + `/flip` H1 toward "what sells best 2026 /
+  weekly brand volumes".
+
 
 SEO LANE, 2026-08-31 (after the growth release below):
   [x] Sitemap lastmod was LYING and is fixed (94bc5ef). It advertised that 174
