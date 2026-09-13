@@ -52,6 +52,35 @@ test("/tools child pages pin og/twitter titles to the suffixed document title", 
   assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description \}/)
 })
 
+test("blog generateMetadata uses one string for title, og and twitter", () => {
+  const src = read("app/blog/[slug]/page.tsx")
+  assert.match(src, /const seoTitle = p\.seoTitle \?\? `\$\{p\.title\} — Resale IQ`/)
+  assert.match(src, /openGraph: \{ title: seoTitle, description: p\.description, type: "article" \}/)
+  assert.match(
+    src,
+    /twitter: \{ card: "summary_large_image", title: seoTitle, description: p\.description \}/,
+  )
+  assert.doesNotMatch(src, /const ogTitle/)
+  assert.doesNotMatch(src, /p\.seoTitle \?\? p\.title/)
+})
+
+test("locale pricing uses one string for title, og and twitter", () => {
+  const src = read("app/[locale]/pricing/page.tsx")
+  assert.match(src, /const title = `\$\{t\.metaTitle\} — Resale IQ`/)
+  assert.match(src, /openGraph: \{ title, description: t\.metaDescription, type: "website" \}/)
+  assert.match(
+    src,
+    /twitter: \{ card: "summary_large_image", title, description: t\.metaDescription \}/,
+  )
+})
+
+test("locale methodology sets twitter to the same title as the document", () => {
+  const src = read("app/[locale]/methodology/page.tsx")
+  assert.match(src, /const title = t\.text0/)
+  assert.match(src, /openGraph: \{ title, description, type: "article" \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+})
+
 test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE-AEO)", () => {
   const layout = read("app/layout.tsx")
   const titleMatch = layout.match(/const TITLE = "([^"]+)"/)

@@ -204,6 +204,36 @@ test("Spanish post footer stays on /es/pricing with Consigue los números", () =
   assert.ok(footerSeePlansHrefForPost(sections).startsWith("/es/pricing?"))
 })
 
+test("EX-LOCALE-CTR-ES: Spanish post is answer-first; EN twin titles stay", () => {
+  const posts3 = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts-3.ts"),
+    "utf8",
+  )
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts.ts"),
+    "utf8",
+  )
+  const start = posts3.indexOf('slug: "como-poner-precio-en-vinted"')
+  const end = posts3.indexOf('slug: "vinted-item-not-selling"')
+  assert.ok(start >= 0 && end > start)
+  const post = posts3.slice(start, end)
+  const seoTitle = "¿Cómo poner precio en Vinted? Precio de salida — Resale IQ"
+  const h1 = "Cómo poner precio en Vinted: desde el precio de salida"
+  const meta =
+    "Parte del precio de salida real, no del de tienda, y calcula tu buy-below. Resale IQ lo saca de listados vistos en la UE. Starter 19 €/mes."
+  assert.match(post, /title: "Cómo poner precio en Vinted: desde el precio de salida"/)
+  assert.match(post, /seoTitle: "¿Cómo poner precio en Vinted\? Precio de salida — Resale IQ"/)
+  assert.match(post, /Parte del precio de salida real, no del de tienda, y calcula tu buy-below/)
+  assert.ok(seoTitle.length <= 60, `ES seoTitle ${seoTitle.length} > 60`)
+  assert.ok(meta.length <= 155, `ES meta ${meta.length} > 155`)
+  assert.ok(h1.length <= 70, `ES H1 ${h1.length} > 70`)
+  assert.doesNotMatch(post, /sin regalar tu margen/)
+  assert.doesNotMatch(post, /register\?src=blog/)
+  // EN twin — do not rewrite English titles in this lane.
+  assert.match(posts, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically"/)
+})
+
 test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {
   const posts = readFileSync(
     join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts-3.ts"),

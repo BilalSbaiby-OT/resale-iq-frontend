@@ -10,6 +10,14 @@ SEO LANE, 2026-09-13 — EX-HOMEPAGE-AEO title+meta(+FAQ)
   Locale heroTitles unchanged. Org/SoftwareApplication JSON-LD verified.
   Branch cursor/seo-ex-homepage-aeo-c372.
 
+SEO LANE, 2026-09-13 — EX-LOCALE-CTR-ES (this session)
+  Only ES blog: /blog/como-poner-precio-en-vinted (/es/blog/* 307s here).
+  Answer-first title + meta. H1 aligned (old H1 mismatched). EN titles
+  untouched. og/twitter now use the document title (same /data bug).
+  Locale /es/pricing + /es/methodology twitter/og match document title.
+  Bodies/CTAs untouched. No /register?src=blog.
+  Branch cursor/seo-ex-locale-ctr-es-dd59.
+
 SEO LANE, 2026-09-13 — EX-TOOLS-AEO LIVE (merged #99)
   MERGED | 7e968e5 | live PASS
   `/deploy-id` SOURCE_COMMIT 7e968e5cd0e1e91e8a30f39fc130ba8e6d194f3d

@@ -343,3 +343,13 @@ NEXT (once unblocked): P0-1.
   only: what it is, which markets, what buy-below is. No /register, no UTM.
 - Organization + SoftwareApplication JSON-LD fields unchanged; tests lock
   @type, offers €19/€49, ES/FR/DE/IT/PT, isAccessibleForFree false.
+
+## 2026-09-13 — EX-LOCALE-CTR-ES answer-first titles
+- Only ES blog URL in data: `/blog/como-poner-precio-en-vinted`.
+  `/es/blog/*` 307s to the unprefixed post. No other ES twins.
+- Title + meta + H1 (old H1 mismatched). EN how-to-price untouched.
+  Bodies/CTAs untouched. Zero `/register?src=blog`.
+- Blog `generateMetadata` now uses one string for `<title>` / og / twitter
+  (same /data bug: shorter og title, or missing twitter, inherits homepage).
+- `/es/pricing` and `/es/methodology` social titles now match document title.
+- Soft caps: seoTitle 58, meta 139. Brand suffix on seoTitle.

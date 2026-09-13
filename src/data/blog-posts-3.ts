@@ -445,9 +445,10 @@ export const POSTS_3: BlogPost[] = [
     // week snapshot (13 Sep 2026), same figures as English BODY-001 — not a
     // standing count that pretends to update itself.
     slug: "como-poner-precio-en-vinted",
-    title: "Cómo poner precio en Vinted sin regalar tu margen",
+    title: "Cómo poner precio en Vinted: desde el precio de salida",
+    seoTitle: "¿Cómo poner precio en Vinted? Precio de salida — Resale IQ",
     description:
-      "El método que usan los revendedores para fijar precio en Vinted: parte del precio real al desaparecer el anuncio, no del de tienda, y calcula tu precio máximo de compra.",
+      "Parte del precio de salida real, no del de tienda, y calcula tu buy-below. Resale IQ lo saca de listados vistos en la UE. Starter 19 €/mes.",
     date: "2026-08-31",
     updated: "2026-09-13",
     category: "Precios",
