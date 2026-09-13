@@ -95,8 +95,16 @@ NEXT (once unblocked): P0-1.
 - `/blog/how-to-find-items-to-flip-on-vinted`: title+meta+H1 in `src/data/blog-posts.ts`.
 - `/blog/how-to-spot-fake-items-vinted` 301s to `/manual/condition-and-authenticity`;
   title+meta+H1 updated on that chapter in `src/data/manual.ts`. Closest live slug.
-- No paid/Starter mid-CTAs added. Soft /data links left as they were.
+- Title/meta/H1 only in the first commit; paid mid-CTAs added after Conversion greenlit.
 - Verified on `next dev`: title, meta description, og tags, and H1 match on both
   pages; blog index lists the new flip title; 308 redirect still in place.
 - PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/78
+
+## 2026-09-13 — EX-CTR-002/003 mid-article /pricing CTAs
+- Conversion greenlit paid CTAs. After first how-to section on both pages.
+- Flip: `ctr_flip_20260913` → `/pricing?...&utm_content=mid_cta`
+- Authenticity chapter: `ctr_fake_20260913` → same pattern.
+- Soft `/data` secondary. No free signup. Demo math from each page's own figures.
+- Rebased onto main after #77. CTA commit `97e0099` on PR #78.
+- Verified on next dev: CTA sits between first and second h2; hrefs exact.
 

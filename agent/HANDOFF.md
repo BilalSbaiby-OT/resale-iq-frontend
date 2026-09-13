@@ -3,12 +3,16 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
-SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 (title/meta/H1 only):
-  Title + meta + H1 on the two 0-click page-1 posts. No paid/Starter mid-CTAs.
-  Flip: src/data/blog-posts.ts slug how-to-find-items-to-flip-on-vinted.
-  Fake-items URL 301s to /manual/condition-and-authenticity — that chapter
-  is the live title/meta surface (src/data/manual.ts). PR #78.
-  Verified on next dev: both <title>, meta description, og:*, and <h1> match.
+SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 mid-CTAs:
+  Title/meta/H1 already on PR #78. Conversion greenlit paid mid-CTAs to /pricing
+  after the first how-to section. Flip: ctr_flip_20260913. Authenticity chapter
+  (308 target of /blog/how-to-spot-fake-items-vinted): ctr_fake_20260913.
+  Commit 97e0099. #77 already merged; #78 next.
+
+
+SEO LANE, 2026-09-13 — EX-CTR-002 + EX-CTR-003 (title/meta/H1):
+  Title + meta + H1 on the two 0-click page-1 posts. Mid-CTAs added in the
+  follow-up above after Conversion greenlit /pricing. PR #78.
 
 SEO LANE, 2026-08-31 (after the growth release below):
   [x] Sitemap lastmod was LYING and is fixed (94bc5ef). It advertised that 174
