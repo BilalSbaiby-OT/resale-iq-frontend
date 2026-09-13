@@ -9,10 +9,14 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import {
   CALCULATE_VINTED_PROFIT_DESCRIPTION,
+  CALCULATE_VINTED_PROFIT_FORM_HTML,
   CALCULATE_VINTED_PROFIT_NAME,
   CHECK_VINTED_ITEM_DESCRIPTION,
+  CHECK_VINTED_ITEM_FORM_HTML,
   CHECK_VINTED_ITEM_NAME,
   CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
+  CHECK_VINTED_PRICE_FORM_HTML,
+  CHECK_VINTED_PRICE_NAME,
 } from "./webmcp-tools.ts"
 import {
   GOOGLE_SEARCH_TEST_CAMPAIGN,
@@ -37,8 +41,8 @@ const pricing = read("components/landing/pricing-section.tsx")
 
 test("FreeChecker is a native form with check_vinted_item WebMCP attrs", () => {
   assert.match(checker, /<form/)
-  assert.match(checker, /toolname=\{CHECK_VINTED_ITEM_NAME\}/)
-  assert.match(checker, /tooldescription=\{CHECK_VINTED_ITEM_DESCRIPTION\}/)
+  assert.match(checker, /toolname=\{webmcpName\}/)
+  assert.match(checker, /tooldescription=\{webmcpDescription\}/)
   assert.match(checker, /name="query"/)
   assert.match(checker, /toolparamdescription=\{CHECK_VINTED_ITEM_QUERY_DESCRIPTION\}/)
   assert.match(checker, /<RegisterCheckVintedItemTool/)
@@ -46,19 +50,27 @@ test("FreeChecker is a native form with check_vinted_item WebMCP attrs", () => {
   assert.equal(CHECK_VINTED_ITEM_NAME, "check_vinted_item")
   assert.match(CHECK_VINTED_ITEM_DESCRIPTION, /BUY, WATCH or SKIP/)
   assert.match(CHECK_VINTED_ITEM_DESCRIPTION, /buy-below/)
-  assert.match(CHECK_VINTED_ITEM_DESCRIPTION, /ES, FR, DE, IT and PT/)
+  assert.match(CHECK_VINTED_ITEM_DESCRIPTION, /Spain, France, Germany, Italy and Portugal/)
   assert.match(CHECK_VINTED_ITEM_DESCRIPTION, /Does not process payments/)
   assert.equal(
     CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
-    "Vinted item URL, title, or search query to check.",
+    "Vinted item URL, title, or search query to check",
   )
+  assert.match(CHECK_VINTED_ITEM_FORM_HTML, /toolname="check_vinted_item"/)
+  assert.match(CHECK_VINTED_ITEM_FORM_HTML, /tooldescription="/)
 })
 
-test("price-checker reuses FreeChecker (one shared check_vinted_item tool)", () => {
+test("price-checker uses check_vinted_price; profit uses calculate_vinted_profit", () => {
   const page = read("app/tools/[slug]/page.tsx")
-  assert.match(page, /slug === "vinted-profit-calculator"/)
-  assert.match(page, /<FreeChecker locale=\{locale\} \/>/)
-  assert.match(page, /<PublicProfitCalculator locale=\{locale\} \/>/)
+  const hub = read("app/tools/page.tsx")
+  assert.match(hub, /CHECK_VINTED_ITEM_FORM_HTML/)
+  assert.match(hub, /<WebmcpDeclarativeForm/)
+  assert.match(page, /CHECK_VINTED_PRICE_FORM_HTML/)
+  assert.match(page, /CALCULATE_VINTED_PROFIT_FORM_HTML/)
+  assert.match(page, /webmcpName=\{CHECK_VINTED_PRICE_NAME\}/)
+  assert.equal(CHECK_VINTED_PRICE_NAME, "check_vinted_price")
+  assert.match(CHECK_VINTED_PRICE_FORM_HTML, /toolname="check_vinted_price"/)
+  assert.match(CALCULATE_VINTED_PROFIT_FORM_HTML, /toolname="calculate_vinted_profit"/)
 })
 
 test("profit calculator form is calculate_vinted_profit with real field names", () => {

@@ -13,6 +13,13 @@ import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
 import { toolHowToHeading, toolsHowToJsonLd } from "@/lib/tools-howto-schema"
 import { PRICE_CHECKER_MONEY_HREF, PROFIT_CALC_MONEY_HREF } from "@/lib/money-cta"
+import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
+import {
+  CALCULATE_VINTED_PROFIT_FORM_HTML,
+  CHECK_VINTED_PRICE_DESCRIPTION,
+  CHECK_VINTED_PRICE_FORM_HTML,
+  CHECK_VINTED_PRICE_NAME,
+} from "@/lib/webmcp-tools"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -114,9 +121,23 @@ export default async function IntentPage(
 
         {/* Profit-calculator intent: a buy-price Calculate, never the checker.
             Other slugs keep the free checker (holy-shit verdict). */}
-        {slug === "vinted-profit-calculator"
-          ? <PublicProfitCalculator locale={locale} />
-          : <FreeChecker locale={locale} />}
+        {slug === "vinted-profit-calculator" ? (
+          <>
+            <WebmcpDeclarativeForm html={CALCULATE_VINTED_PROFIT_FORM_HTML} />
+            <PublicProfitCalculator locale={locale} />
+          </>
+        ) : slug === "vinted-price-checker" ? (
+          <>
+            <WebmcpDeclarativeForm html={CHECK_VINTED_PRICE_FORM_HTML} />
+            <FreeChecker
+              locale={locale}
+              webmcpName={CHECK_VINTED_PRICE_NAME}
+              webmcpDescription={CHECK_VINTED_PRICE_DESCRIPTION}
+            />
+          </>
+        ) : (
+          <FreeChecker locale={locale} />
+        )}
 
         {/* Visible numbered steps for the two money tools. Same strings as
             HowTo JSON-LD — schema that is not on the page is a rich-result

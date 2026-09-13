@@ -174,12 +174,16 @@ const TRY_EXAMPLES = ["New Balance 530", "Levi's 501", "New Balance 550"]
 // and gets refused. ux-researcher, roster consult 2026-09-01.
 export function FreeChecker({
   placeholder, locale = "en", variant = "card", initialQuery, initialResult,
+  webmcpName = CHECK_VINTED_ITEM_NAME,
+  webmcpDescription = CHECK_VINTED_ITEM_DESCRIPTION,
 }: {
   placeholder?: string
   locale?: Locale
   variant?: "card" | "hero"
   initialQuery?: string
   initialResult?: FreeVerdict | null
+  webmcpName?: string
+  webmcpDescription?: string
 }) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
@@ -305,8 +309,8 @@ export function FreeChecker({
       <form
         className="riq-checker-row"
         noValidate
-        toolname={CHECK_VINTED_ITEM_NAME}
-        tooldescription={CHECK_VINTED_ITEM_DESCRIPTION}
+        toolname={webmcpName}
+        tooldescription={webmcpDescription}
         onSubmit={(e) => {
           e.preventDefault()
           if (loading) return
@@ -345,7 +349,7 @@ export function FreeChecker({
           {loading ? t.checking : t.checkFree}
         </button>
       </form>
-      <RegisterCheckVintedItemTool />
+      <RegisterCheckVintedItemTool name={webmcpName} description={webmcpDescription} />
 
       {err && <p style={{ color: "#FF453A", fontSize: 13, marginTop: 12 }}>{err}</p>}
 

@@ -47,11 +47,19 @@ async function executeCheck({ query }: CheckInput): Promise<unknown> {
   try {
     return await r.json()
   } catch {
+    // why: non-JSON /api/verdict is a transport miss, not a product crash.
+    // Return a structured error so the agent sees a failed check, not a throw.
     return { error: "could not check" }
   }
 }
 
-export function RegisterCheckVintedItemTool() {
+export function RegisterCheckVintedItemTool({
+  name = CHECK_VINTED_ITEM_NAME,
+  description = CHECK_VINTED_ITEM_DESCRIPTION,
+}: {
+  name?: string
+  description?: string
+} = {}) {
   useEffect(() => {
     const ctx = getModelContext()
     if (!ctx) return
@@ -59,8 +67,8 @@ export function RegisterCheckVintedItemTool() {
     try {
       const registered = ctx.registerTool(
         {
-          name: CHECK_VINTED_ITEM_NAME,
-          description: CHECK_VINTED_ITEM_DESCRIPTION,
+          name,
+          description,
           inputSchema: {
             type: "object",
             properties: {
@@ -73,12 +81,14 @@ export function RegisterCheckVintedItemTool() {
         { signal: controller.signal },
       )
       if (registered && typeof (registered as Promise<unknown>).catch === "function") {
+        // why: registerTool rejecting (already registered) must not break the page.
         void (registered as Promise<unknown>).catch(() => undefined)
       }
     } catch {
-      // Already registered by the declarative form, or API rejected the call.
+      // why: declarative <form toolname> already registered this tool, or the
+      // browser rejected a second registerTool. Feature-detect no-op is correct.
     }
     return () => controller.abort()
-  }, [])
+  }, [name, description])
   return null
 }

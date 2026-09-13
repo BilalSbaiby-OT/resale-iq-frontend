@@ -1,7 +1,12 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, CI firewall fix + live attrs)
+  Production /tools still on 0c0e57e (no toolname). Firewall failed on
+  silent catch in registerTool. Fixing swallows + SSR HTML beacon so
+  curl sees toolname=/tooldescription= even if React filters client attrs.
 
 SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, local PASS)
   Declarative WebMCP on FreeChecker (`check_vinted_item`, name=query)
