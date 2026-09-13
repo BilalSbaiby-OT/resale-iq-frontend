@@ -16,11 +16,11 @@ import { copy, type Locale } from "@/lib/i18n"
 // copy[locale].tiers, keyed by Tier.id. Falls back to the English TIERS
 // text for any locale/id the dictionary does not cover, so a partial
 // dictionary degrades to English rather than to `undefined`.
-// Conventional card order for the marketing page: cheapest on the left, the
-// recommended (highlighted) tier on the right. TIERS itself stays high→low
-// because paywall.tsx (the authed upsell) reads that array directly and wants
-// Pro first; only this marketing surface reorders, and only for display.
-const DISPLAY_ORDER: Record<string, number> = { free: 0, operator: 1, power: 2 }
+// EX-PRICING-OFFER: Starter (€19) leads as the paid outcome. Free forever
+// must not lead. TIERS itself stays high→low because paywall.tsx (the authed
+// upsell) reads that array directly and wants Pro first; only this marketing
+// surface reorders, and only for display.
+const DISPLAY_ORDER: Record<string, number> = { operator: 0, power: 1, free: 2 }
 
 function localizedTiers(locale: Locale) {
   const dict = copy[locale].tiers as Record<string, {
@@ -29,7 +29,9 @@ function localizedTiers(locale: Locale) {
   return TIERS
     .map((tier) => {
       const l = dict[tier.id]
-      return l ? { ...tier, ...l } : tier
+      const mapped = l ? { ...tier, ...l } : { ...tier }
+      // Filled CTA is Starter (€19), not Pro. Checkout ids are unchanged.
+      return { ...mapped, highlight: mapped.id === "operator" }
     })
     .sort((a, b) => (DISPLAY_ORDER[a.id] ?? 99) - (DISPLAY_ORDER[b.id] ?? 99))
 }

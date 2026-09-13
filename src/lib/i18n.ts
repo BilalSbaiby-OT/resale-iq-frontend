@@ -273,7 +273,8 @@ export const copy = {
       seeFullNumbers: "See full numbers →",
     },
     pricingSection: {
-      heading: "Know what to pay. Skip what you shouldn’t.",
+      // EX-PRICING-OFFER — Bilal locked flips offer. H1 + subhead are the hero.
+      heading: "Find profitable Vinted flips before buying them.",
       // EX-PRICING-CTR — SERP title leads with list prices + buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
       // Not a live Stripe quote; checkout still resolves price ids on the page.
@@ -288,7 +289,8 @@ export const copy = {
       whereItStops: "Where it stops:",
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
-      subhead: "Start at €19 a month. Weekly brand volumes on /data stay public.",
+      subhead:
+        "ResaleIQ analyzes listings and tells you BUY / WATCH / SKIP, with the target buy price and expected resale. Starter €19/mo.",
       faqHeading: "Before you pick a plan",
       faq: [
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
@@ -1094,7 +1096,8 @@ export const copy = {
       seeFullNumbers: "Ver todos los números →",
     },
     pricingSection: {
-      heading: "Sabe qué pagar. Sáltate lo que no debes.",
+      // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
+      heading: "Encuentra flips rentables en Vinted antes de comprarlos.",
       metaTitle: "Starter 19 € / Pro 49 € — precio de compra máx.",
       metaDescription:
         "Starter 19 € / Pro 49 €: precio máximo de compra en Vinted. Veredictos y tallas en planes de pago. Volúmenes públicos en /data. Cancela cuando quieras.",
@@ -1106,7 +1109,8 @@ export const copy = {
       whereItStops: "Dónde se detiene:",
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
-      subhead: "Desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
+      subhead:
+        "ResaleIQ analiza anuncios y te dice BUY / WATCH / SKIP, con el precio máximo de compra y la reventa esperada. Starter: 19 €/mes.",
       faqHeading: "Antes de elegir un plan",
       faq: [
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },

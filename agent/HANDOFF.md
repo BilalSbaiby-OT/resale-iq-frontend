@@ -3,6 +3,14 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-PRICING-OFFER locked Bilal flips offer (this session)
+  /pricing EN H1: "Find profitable Vinted flips before buying them."
+  Subhead: BUY / WATCH / SKIP + target buy price + expected resale + Starter €19/mo.
+  /es/pricing Spanish mirror (flips rentables + 19 €/mes). Title/meta stay
+  EX-PRICING-CTR (Starter €19 / Pro €49). Marketing ladder: Starter, Pro, Free.
+  Filled CTA is Starter. Stripe __OPERATOR__ / __POWER__ untouched.
+  Branch cursor/seo-ex-pricing-offer-c223.
+
 SEO LANE, 2026-09-13 — EX-WEBMCP-TOOLS (PR #116, CI firewall fix + live attrs)
   Production /tools still on 0c0e57e (no toolname). Firewall failed on
   silent catch in registerTool. Fixing swallows + SSR HTML beacon so
