@@ -171,6 +171,7 @@ test("money-tool titles name departure price / net profit after fees", () => {
 
 test("tool pages emit HowTo beside FAQPage and render the same steps", () => {
   const src = read("app/tools/[slug]/page.tsx")
+  assert.match(read("lib/tools-howto-schema.ts"), /toHowToJsonLd/)
   assert.match(src, /toolsHowToJsonLd/)
   assert.match(src, /toolHowToHeading/)
   assert.match(src, /"@type": "FAQPage"/)

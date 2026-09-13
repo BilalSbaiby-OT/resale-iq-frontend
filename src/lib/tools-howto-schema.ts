@@ -9,7 +9,7 @@
  * URLs only on the HowTo itself (the tool URL).
  */
 
-import type { HowToJsonLd, HowToStepJsonLd } from "./howto-schema"
+import { toHowToJsonLd, type HowToJsonLd } from "./howto-schema.ts"
 
 const SITE = "https://resaleiq.dev"
 
@@ -62,22 +62,13 @@ export function toolsHowToJsonLd(intent: ToolHowToIntent): HowToJsonLd | null {
   const raw = toolHowToSteps(intent)
   if (!raw || raw.length < 2) return null
 
-  const step: HowToStepJsonLd[] = raw.map((s, i) => ({
-    "@type": "HowToStep",
-    position: i + 1,
-    name: s.name,
-    text: s.text,
-  }))
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
+  return toHowToJsonLd({
     name: intent.title,
     description: intent.description,
     inLanguage: "en",
     url: `${SITE}/tools/${intent.slug}`,
-    step,
-  }
+    steps: raw,
+  })
 }
 
 function faqQuestion(intent: ToolHowToIntent, q: string): string | null {
