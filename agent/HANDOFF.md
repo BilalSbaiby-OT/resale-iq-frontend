@@ -1,7 +1,16 @@
-STATUS: IN_PROGRESS
-OWNER: seo
-PUSH: no
+STATUS: READY
+OWNER: none
+PUSH: yes
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-PRICING-CTR money-intent titles
+  /pricing EN + FR/ES/DE/IT/PT: Starter €19 / Pro €49 + buy-below in
+  title+meta. Matching og/twitter (EN was missing twitter / shorter og).
+  No Free pitch. H1, FAQ, Conversion CTAs, Stripe paths untouched.
+  /methodology EN title AEO: "How Buy-Below and Every Number Are
+  Calculated — Resale IQ". Locale methodology titles keep text0 +
+  brand suffix. Kill: GSC 14d CTR on /pricing; secondary =
+  organic sessions → checkout. Branch cursor/seo-ex-pricing-ctr-b6c4.
 
 SEO LANE, 2026-09-13 — EX-FLIP-CATEGORY-META (this session)
   Answer-first titles on /flip/{brand}, /flip/{brand}/{cat},

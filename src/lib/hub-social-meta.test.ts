@@ -8,6 +8,8 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
 import assert from "node:assert/strict"
+import { copy, type Locale } from "./i18n.ts"
+import { methodologyCopy } from "./methodology-copy.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -74,11 +76,66 @@ test("locale pricing uses one string for title, og and twitter", () => {
   )
 })
 
+test("/pricing pins og/twitter to the document title (EX-PRICING-CTR)", () => {
+  const src = read("app/pricing/page.tsx")
+  assert.match(src, /const TITLE = `\$\{copy\.en\.pricingSection\.metaTitle\} — Resale IQ`/)
+  assert.match(src, /title: TITLE/)
+  assert.match(src, /openGraph: \{ title: TITLE, description: DESCRIPTION, type: "website" \}/)
+  assert.match(
+    src,
+    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION \}/,
+  )
+})
+
 test("locale methodology sets twitter to the same title as the document", () => {
   const src = read("app/[locale]/methodology/page.tsx")
-  assert.match(src, /const title = t\.text0/)
+  assert.match(src, /const title = `\$\{t\.text0\} — Resale IQ`/)
   assert.match(src, /openGraph: \{ title, description, type: "article" \}/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+})
+
+test("pricing titles are money-intent and capped in every locale (EX-PRICING-CTR)", () => {
+  const locales: Locale[] = ["en", "fr", "es", "de", "it", "pt"]
+  for (const locale of locales) {
+    const t = copy[locale].pricingSection
+    const title = `${t.metaTitle} — Resale IQ`
+    assert.ok(title.length <= 60, `${locale} title ${title.length}: ${title}`)
+    assert.ok(
+      t.metaDescription.length <= 155,
+      `${locale} meta ${t.metaDescription.length}: ${t.metaDescription}`,
+    )
+    assert.match(t.metaTitle, /Starter/)
+    assert.match(t.metaTitle, /Pro/)
+    assert.match(t.metaTitle, /19/)
+    assert.match(t.metaTitle, /49/)
+    assert.doesNotMatch(title, /what each plan costs|ce que coûte|cuánto cuesta|was jeder Tarif|quanto costa|quanto custa/i)
+    assert.doesNotMatch(t.metaTitle, /Free|Gratuit|Gratis|Kostenlos/i)
+    assert.doesNotMatch(t.metaDescription, /7 days unlimited|essai gratuit|prueba gratis/i)
+  }
+  assert.match(copy.en.pricingSection.metaTitle, /Buy-Below/)
+  assert.match(copy.en.pricingSection.metaDescription, /buy-below/)
+})
+
+test("/methodology uses an AEO title and matching og/twitter (EX-PRICING-CTR)", () => {
+  const src = read("app/methodology/page.tsx")
+  assert.match(src, /const TITLE = "How Buy-Below and Every Number Are Calculated — Resale IQ"/)
+  assert.ok("How Buy-Below and Every Number Are Calculated — Resale IQ".length <= 60)
+  assert.match(src, /title: TITLE/)
+  assert.match(src, /openGraph: \{ title: TITLE, description: DESCRIPTION, type: "article" \}/)
+  assert.match(
+    src,
+    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION \}/,
+  )
+  assert.doesNotMatch(src, /Methodology — how Resale IQ calculates/)
+})
+
+test("locale methodology titles stay AEO and capped with brand suffix", () => {
+  const locales: Locale[] = ["en", "fr", "es", "de", "it", "pt"]
+  for (const locale of locales) {
+    const title = `${methodologyCopy[locale].text0} — Resale IQ`
+    assert.ok(title.length <= 60, `${locale} methodology title ${title.length}: ${title}`)
+    assert.match(methodologyCopy[locale].text0, /calcul|berechnet|calcolato/i)
+  }
 })
 
 test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE-AEO)", () => {

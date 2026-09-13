@@ -349,6 +349,17 @@ NEXT (once unblocked): P0-1.
 - Organization + SoftwareApplication JSON-LD fields unchanged; tests lock
   @type, offers €19/€49, ES/FR/DE/IT/PT, isAccessibleForFree false.
 
+## 2026-09-13 — EX-PRICING-CTR money-intent titles
+- `/pricing` title+meta in EN + FR/ES/DE/IT/PT. Answer-first money
+  intent: Starter €19 / Pro €49 + buy-below. No Free pitch.
+- EN `/pricing` now uses one TITLE for `<title>` / og / twitter
+  (locale pages already did after EX-LOCALE-CTR-ES).
+- `/methodology` EN title was soft ("Methodology — how Resale IQ
+  calculates every number"). Now AEO + matching og/twitter.
+  Locale methodology: `text0 — Resale IQ` (H1 stays text0).
+- Caps: title ≤60, meta ≤155. CTAs, Stripe, FAQ, H1s untouched.
+- Kill: GSC 14d CTR on `/pricing`. Secondary: organic sessions → checkout.
+
 ## 2026-09-13 — EX-LOCALE-CTR-ES answer-first titles
 - Only ES blog URL in data: `/blog/como-poner-precio-en-vinted`.
   `/es/blog/*` 307s to the unprefixed post. No other ES twins.

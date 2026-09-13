@@ -25,15 +25,18 @@ import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
  * only difference here is density: `compact` is off, so it gets the roomy
  * scale, and the section heading is the document's h1.
  */
+// Same string for <title>, og:title and twitter:title. Root layout pins
+// homepage social tags; a child that sets only `title` (or a shorter
+// openGraph title) still shares as the generic homepage on X/Slack.
+const TITLE = `${copy.en.pricingSection.metaTitle} — Resale IQ`
+const DESCRIPTION = copy.en.pricingSection.metaDescription
+
 export const metadata: Metadata = {
-  title: `${copy.en.pricingSection.metaTitle} — Resale IQ`,
-  description: copy.en.pricingSection.metaDescription,
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/pricing", languages: hreflangLanguages("/pricing") },
-  openGraph: {
-    title: copy.en.pricingSection.metaTitle,
-    description: copy.en.pricingSection.metaDescription,
-    type: "website",
-  },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 }
 
 // `locale` defaults to "en" so this un-prefixed route is the English page;
