@@ -24,9 +24,9 @@ export const INTENTS: SearchIntent[] = [
   {
     slug: "vinted-price-checker",
     keyword: "vinted price checker",
-    title: "Vinted Price Checker — What Any Item Really Sells For",
+    title: "Vinted Price Checker — Typical Departure Price",
     description:
-      `Vinted price checker from ${TRACKED} listings across 5 EU markets. Weekly brand volumes are public. Item-level buy-below, sell-through and sizes are on Starter at €19/mo.`,
+      `Typical Vinted departure price and buy-below from ${TRACKED} listings across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
     h1: "Vinted Price Checker",
     lede:
       `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% buyer-side fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan.`,

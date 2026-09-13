@@ -120,20 +120,35 @@ export function howToJsonLd(post: HowToSource): HowToJsonLd | null {
 
   if (raw.length < 2) return null
 
-  const step: HowToStepJsonLd[] = raw.map((s, i) => ({
-    "@type": "HowToStep",
-    position: i + 1,
-    name: s.name,
-    text: s.text,
-  }))
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
+  return toHowToJsonLd({
     name: post.title,
     description: post.description,
     inLanguage: cfg.inLanguage,
     url: `${SITE}/blog/${post.slug}`,
-    step,
+    steps: raw,
+  })
+}
+
+/** Shared HowTo envelope — blog process posts and the two money tools. */
+export function toHowToJsonLd(input: {
+  name: string
+  description: string
+  inLanguage: string
+  url: string
+  steps: { name: string; text: string }[]
+}): HowToJsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    inLanguage: input.inLanguage,
+    url: input.url,
+    step: input.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
   }
 }

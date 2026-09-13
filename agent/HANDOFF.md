@@ -1,7 +1,16 @@
 STATUS: IN_PROGRESS
 OWNER: seo
-PUSH: yes
+PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo (this session)
+  HowTo JSON-LD + visible numbered steps on
+  /tools/vinted-profit-calculator and /tools/vinted-price-checker.
+  Steps from UI labels + lede/FAQ copy only. FAQPage kept.
+  Price-checker title: "Vinted Price Checker — Typical Departure Price".
+  Profit title already "Net Profit After Fees". og/twitter already
+  match `${i.title} — Resale IQ`. Paid CTAs already on both pages.
+  Branch cursor/seo-ex-tools-howto-97af.
 
 SEO LANE, 2026-09-13 — BODY-FLIPS-002 / how-to-find-items-to-flip (this session)
   Body insert only on `/blog/how-to-find-items-to-flip-on-vinted`.

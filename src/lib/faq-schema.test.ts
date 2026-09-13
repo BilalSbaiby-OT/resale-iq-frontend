@@ -102,7 +102,7 @@ test("/tools child pages pin og and twitter titles to the document title", () =>
   assert.match(src, /openGraph: \{ title, description: i\.description/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description/)
   assert.match(src, /"@type": "FAQPage"/)
-  assert.doesNotMatch(src, /"@type": "HowTo"/)
+  assert.match(src, /toolsHowToJsonLd/)
 })
 
 test("what-sells-best FAQ cites absolute /data and /flip with no UTM", () => {
