@@ -4,7 +4,7 @@
 
 import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
-import { pricingMidCta } from "@/lib/blog-mid-cta"
+import { dataCiteHrefEs, pricingBodyCtaEs, pricingMidCta } from "@/lib/blog-mid-cta"
 
 const BRAND = "Resale IQ"
 
@@ -394,14 +394,15 @@ export const POSTS_3: BlogPost[] = [
     // demand is absent — every EU5 impression we do get is on an ENGLISH query.
     // This one page tests that, cheaply, before anyone builds an /es/ tree.
     //
-    // NO HARD PER-BRAND FIGURES ON PURPOSE. A first draft quoted "297 unidades
-    // semanales"; the snapshot read 246 the next day. Static copy cannot carry a
-    // number that moves daily — it points at /flip and /data, which render live.
+    // Live brand volumes still live on /es/data. BODY-ES-001 below is a dated
+    // week snapshot (13 Sep 2026), same figures as English BODY-001 — not a
+    // standing count that pretends to update itself.
     slug: "como-poner-precio-en-vinted",
     title: "Cómo poner precio en Vinted sin regalar tu margen",
     description:
       "El método que usan los revendedores para fijar precio en Vinted: parte del precio real al desaparecer el anuncio, no del de tienda, y calcula tu precio máximo de compra.",
     date: "2026-08-31",
+    updated: "2026-09-13",
     category: "Precios",
     readMins: 6,
     intro:
@@ -421,6 +422,19 @@ export const POSTS_3: BlogPost[] = [
           "La regla: precio máximo = precio medio al desaparecer el anuncio × 0,95 (la deducción del 5 % que modelamos para Vinted) × 0,70, que apunta a un margen aproximado del 30 %. Sustituye ese 5 % por tu comisión real si la tuya es distinta. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
           "Ese cálculo lo hace [la calculadora de beneficio](/tools/vinted-profit-calculator), y [la metodología](/methodology) explica cada paso y, más útil todavía, lo que los datos no pueden decirte.",
         ],
+      },
+      {
+        h: "La demanda es la otra mitad del precio",
+        p: [
+          "Un precio de salida sin demanda es una trampa. El artículo puede parecer barato y quedarse parado — o caro y salir la misma semana.",
+          "Usa dos números juntos: a qué salió (precio medio de salida de listados comparables) y si se mueve (salidas observadas esa semana para esa marca).",
+          "Semana al 13 de septiembre de 2026 (EU5: ES/FR/DE/IT/PT), observamos 5.746 salidas en 28 marcas: Fred Perry — 1.027 · media €19 (volumen); Stone Island — 892 · media €66; Gucci — 230 · media €197 (precio, menos volumen).",
+          "Buy-below es el máximo a pagar tras fees con margen. Demanda es si sale antes de que el cash se quede atascado. [Tabla semanal](" +
+            dataCiteHrefEs("body_price_es_20260913") +
+            ").",
+        ],
+        // BODY-ES-001. Paid door is the Spanish pricing path only.
+        cta: pricingBodyCtaEs("body_price_es_20260913"),
       },
       {
         h: "La velocidad importa más que el último euro",

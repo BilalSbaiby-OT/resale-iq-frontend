@@ -3,6 +3,13 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — BODY-ES-001 on como-poner-precio-en-vinted
+  New section after buy-below: "La demanda es la otra mitad del precio".
+  Soft cite `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+  Paid CTA + footer: Consigue los números →
+  `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+  Never English `/pricing` on this post. English BODY-001 left to PR #85.
+
 SEO LANE, 2026-09-13 — BODY-001 on how-to-price-items-on-vinted
   New section after buy-below: "Demand is the other half of the price".
   Soft /data cite `body_price_20260913` / `data_cite`. Paid CTA

@@ -31,9 +31,22 @@ export function footerSeePlansHrefForPost(
 ): string {
   for (const s of sections) {
     const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
-    if (campaign) return pricingFooterSeePlansHref(campaign)
+    if (!campaign || !s.cta) continue
+    // BODY-ES-001: a Spanish paid CTA must keep the footer on /es/pricing.
+    // Remapping through pricingFooterSeePlansHref would emit English /pricing.
+    if (isEsPricingHref(s.cta.href)) return pricingBodyCtaHrefEs(campaign)
+    return pricingFooterSeePlansHref(campaign)
   }
   return pricingFooterSeePlansHref("ctr_blog_20260913")
+}
+
+export function footerSeePlansLabelForPost(
+  sections: ReadonlyArray<{ cta?: { href: string; label?: string } }>,
+): string {
+  for (const s of sections) {
+    if (s.cta && isEsPricingHref(s.cta.href)) return s.cta.label ?? "Consigue los números"
+  }
+  return "See plans — from €19/mo"
 }
 
 export function pricingMidCta(campaign: string): SectionCtaContent {
@@ -62,5 +75,27 @@ export function pricingBodyCta(campaign: string): SectionCtaContent {
     body: "Buy-below + demand before cash sticks.",
     label: "Get the numbers",
     href: pricingBodyCtaHref(campaign),
+  }
+}
+
+/** BODY-ES-001. Paid path is /es/pricing only — never English /pricing. */
+export function pricingBodyCtaHrefEs(campaign: string): string {
+  return `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
+}
+
+export function dataCiteHrefEs(campaign: string): string {
+  return `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=${campaign}`
+}
+
+export function isEsPricingHref(href: string): boolean {
+  return href.startsWith("/es/pricing")
+}
+
+export function pricingBodyCtaEs(campaign: string): SectionCtaContent {
+  return {
+    headline: "Sabe qué pagar antes de comprar",
+    body: "Buy-below + demanda antes de inmovilizar cash.",
+    label: "Consigue los números",
+    href: pricingBodyCtaHrefEs(campaign),
   }
 }

@@ -139,3 +139,14 @@ NEXT (once unblocked): P0-1.
 - Paid CTA Get the numbers → `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913&utm_content=body_cta`.
 - Existing `ctr_price_20260913` mid-CTA kept. Footer still
   `ctr_price_20260913` + `footer_see_plans`.
+
+## 2026-09-13 — BODY-ES-001 demand section on como-poner-precio
+- `/blog/como-poner-precio-en-vinted`: new section after buy-below,
+  "La demanda es la otra mitad del precio". Week-to-13-Sep counts
+  (5.746 in 28 brands; Fred Perry 1.027 @ €19 · Stone Island 892 @ €66 ·
+  Gucci 230 @ €197). No invented hit rates.
+- Soft cite `/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+- Paid CTA + footer Consigue los números →
+  `/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913`.
+- English `/pricing` never emitted for this post. English how-to-price
+  not edited (BODY-001 is PR #85).

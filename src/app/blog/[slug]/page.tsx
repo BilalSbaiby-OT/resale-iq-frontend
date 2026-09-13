@@ -3,7 +3,7 @@ import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
-import { footerSeePlansHrefForPost } from "@/lib/blog-mid-cta"
+import { footerSeePlansHrefForPost, footerSeePlansLabelForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
@@ -247,7 +247,7 @@ export default async function BlogPostPage(
           <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
-              See plans — from €19/mo
+              {footerSeePlansLabelForPost(p.sections)}
             </Link>
           </div>
         </div>

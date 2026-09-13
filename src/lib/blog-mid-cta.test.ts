@@ -11,9 +11,13 @@ import {
   pricingMidCtaHref,
   pricingBodyCta,
   pricingBodyCtaHref,
+  pricingBodyCtaEs,
+  pricingBodyCtaHrefEs,
   dataCiteHref,
+  dataCiteHrefEs,
   pricingFooterSeePlansHref,
   footerSeePlansHrefForPost,
+  footerSeePlansLabelForPost,
 } from "./blog-mid-cta.ts"
 
 test("pricing mid-CTA href is /pricing with organic blog UTMs", () => {
@@ -47,6 +51,10 @@ test("footer See plans uses the post campaign + footer_see_plans", () => {
   assert.equal(
     footerSeePlansHrefForPost([{ cta: pricingMidCta("body_views_20260913") }]),
     "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_views_20260913&utm_content=footer_see_plans",
+  )
+  assert.equal(
+    footerSeePlansLabelForPost([{ cta: pricingMidCta("body_views_20260913") }]),
+    "See plans — from €19/mo",
   )
   assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /register/)
   assert.doesNotMatch(pricingFooterSeePlansHref("ctr_price_20260913"), /src=blog/)
@@ -103,4 +111,62 @@ test("how-to-price post ships BODY-001 demand section and keeps ctr_price mid-CT
   const demand = post.indexOf("Demand is the other half of the price")
   const priceToSell = post.indexOf("Price to sell in a reasonable window")
   assert.ok(buyBelow < demand && demand < priceToSell)
+})
+
+test("BODY-ES-001 paid CTA is /es/pricing with blog/organic UTMs — never English /pricing", () => {
+  const href = pricingBodyCtaHrefEs("body_price_es_20260913")
+  assert.equal(
+    href,
+    "/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913",
+  )
+  assert.ok(href.startsWith("/es/pricing?"))
+  assert.doesNotMatch(href, /register/)
+  const cta = pricingBodyCtaEs("body_price_es_20260913")
+  assert.equal(cta.label, "Consigue los números")
+  assert.equal(cta.body, "Buy-below + demanda antes de inmovilizar cash.")
+  assert.equal(cta.href, href)
+})
+
+test("BODY-ES-001 soft cite is /es/data — never English /data", () => {
+  assert.equal(
+    dataCiteHrefEs("body_price_es_20260913"),
+    "/es/data?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913",
+  )
+})
+
+test("Spanish post footer stays on /es/pricing with Consigue los números", () => {
+  const sections = [{ cta: pricingBodyCtaEs("body_price_es_20260913") }]
+  assert.equal(
+    footerSeePlansHrefForPost(sections),
+    "/es/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_price_es_20260913",
+  )
+  assert.equal(footerSeePlansLabelForPost(sections), "Consigue los números")
+  assert.ok(footerSeePlansHrefForPost(sections).startsWith("/es/pricing?"))
+})
+
+test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {
+  const posts = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "../data/blog-posts-3.ts"),
+    "utf8",
+  )
+  const start = posts.indexOf('slug: "como-poner-precio-en-vinted"')
+  const end = posts.indexOf('slug: "vinted-item-not-selling"')
+  assert.ok(start >= 0 && end > start)
+  const post = posts.slice(start, end)
+  assert.match(post, /La demanda es la otra mitad del precio/)
+  assert.match(post, /5\.746/)
+  assert.match(post, /Fred Perry — 1\.027/)
+  assert.match(post, /Stone Island — 892/)
+  assert.match(post, /Gucci — 230/)
+  assert.match(post, /pricingBodyCtaEs\("body_price_es_20260913"\)/)
+  assert.match(post, /dataCiteHrefEs\("body_price_es_20260913"\)/)
+  assert.doesNotMatch(post, /pricingBodyCta\(/)
+  assert.doesNotMatch(post, /pricingMidCta\(/)
+  assert.doesNotMatch(post, /dataCiteHref\(/)
+  assert.doesNotMatch(post, /["'`]\/pricing/)
+  assert.doesNotMatch(post, /register\?plan=/)
+  const buyBelow = post.indexOf("Tu precio máximo de compra")
+  const demand = post.indexOf("La demanda es la otra mitad del precio")
+  const faq = post.indexOf("faq:")
+  assert.ok(buyBelow < demand && demand < faq)
 })
