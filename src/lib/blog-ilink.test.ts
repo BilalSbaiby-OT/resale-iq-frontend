@@ -89,9 +89,42 @@ test("EX-ILINK pack: ≥4 anchors on ≥3 posts, max 3 per post, no /register", 
     "how-to-find-items-to-flip-on-vinted",
     "how-to-get-more-views-on-vinted",
     "buy-below-price-explained",
+    "common-vinted-scams-sellers",
+    "vinted-disputes-and-returns-sellers",
   ]) {
     assert.ok(postsWithIlink.includes(required), `missing ilink on ${required}`)
   }
+})
+
+test("EX-ILINK-REST: every EN post has 1-2 hub anchors, campaign unchanged", () => {
+  const missing: string[] = []
+  for (const rel of POST_FILES) {
+    const src = read(rel)
+    for (const { slug, body } of postChunks(src)) {
+      if (slug === "como-poner-precio-en-vinted") continue
+      const n = (body.match(/ilinkHref\(/g) ?? []).length
+      if (n === 0) missing.push(slug)
+      assert.ok(n <= 2, `${slug} has ${n} ilink anchors (REST max 2)`)
+      assert.doesNotMatch(body, /ilinkHref\("pricing"\)/)
+      assert.doesNotMatch(body, /\/register/)
+    }
+  }
+  assert.deepEqual(missing, [], `EN posts missing ilink_20260913: ${missing.join(",")}`)
+
+  const posts3 = read("data/blog-posts-3.ts")
+  const disputesStart = posts3.indexOf('slug: "vinted-disputes-and-returns-sellers"')
+  const disputesEnd = posts3.indexOf('slug: "sneaker-reselling-guide-vinted"')
+  const disputes = posts3.slice(disputesStart, disputesEnd)
+  assert.match(disputes, /ilinkHref\("data"\)/)
+  assert.match(disputes, /ilinkHref\("flip"\)/)
+  assert.equal((disputes.match(/ilinkHref\(/g) ?? []).length, 2)
+
+  const scamsStart = posts3.indexOf('slug: "common-vinted-scams-sellers"')
+  const scamsEnd = posts3.indexOf('slug: "reseller-record-keeping-basics"')
+  const scams = posts3.slice(scamsStart, scamsEnd)
+  assert.match(scams, /ilinkHref\("data"\)/)
+  assert.match(scams, /ilinkHref\("flip"\)/)
+  assert.equal((scams.match(/ilinkHref\(/g) ?? []).length, 2)
 })
 
 test("EX-ILINK does not touch mid-CTA campaigns or blog-mid-cta.ts", () => {
@@ -130,6 +163,7 @@ test("EX-ILINK does not touch mid-CTA campaigns or blog-mid-cta.ts", () => {
 test("target post titles, metas and H1s are unchanged", () => {
   const posts = read("data/blog-posts.ts")
   const posts2 = read("data/blog-posts-2.ts")
+  const posts3 = read("data/blog-posts-3.ts")
   assert.match(posts, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
   assert.match(posts, /seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically"/)
   assert.match(
@@ -141,4 +175,15 @@ test("target post titles, metas and H1s are unchanged", () => {
   assert.match(posts, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)
   assert.match(posts2, /title: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
   assert.match(posts2, /seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
+  assert.match(posts3, /title: "Vinted Disputes and Returns: A Seller's Guide"/)
+  assert.match(
+    posts3,
+    /How to prevent Vinted disputes, what to do when a buyer opens one, and the evidence that protects you as a seller\./,
+  )
+  assert.match(posts3, /title: "Common Vinted Scams and How Sellers Avoid Them"/)
+  assert.match(posts3, /seoTitle: "Vinted Seller Scams: Stay On-Platform — Resale IQ"/)
+  assert.match(
+    posts3,
+    /Off-platform pay, fake screenshots and item swaps hit Vinted sellers\. Stay on-platform, use the tracked label, photograph the parcel\./,
+  )
 })

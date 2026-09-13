@@ -227,3 +227,14 @@ NEXT (once unblocked): P0-1.
 - seoTitle carries " — Resale IQ". Soft caps: title ≤60, meta ≤155.
 - Merged #94 (c564075). Playwright /data H1 flake ignored. All 8 live
   after Coolify; cache-busted curl 17:08Z matched new titles/metas.
+
+## 2026-09-13 — EX-ILINK-REST remaining EN blog hubs
+- Production gaps: `/blog/common-vinted-scams-sellers` and
+  `/blog/vinted-disputes-and-returns-sellers` had no `ilink_20260913`.
+- Scan of every EN post in `src/data/blog-posts*.ts`: only those two
+  were missing. ES `como-poner-precio-en-vinted` already had the
+  campaign via `/es/data` + `/es/flip`.
+- 2 body anchors each (`ilinkHref("data")` + `ilinkHref("flip")`).
+  Same campaign. No title/meta/H1 edits in this PR (scams CTR title/meta
+  from EX-CTR-BATCH-2 kept). Mid-CTA file untouched.
+  No `/register`. No new campaigns.
