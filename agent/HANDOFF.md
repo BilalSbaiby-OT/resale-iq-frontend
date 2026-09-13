@@ -3,6 +3,14 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-ILINK blog → /flip /data /pricing
+  Contextual body anchors only. Campaign `ilink_20260913`
+  (`utm_source=blog&utm_medium=ilink&utm_content=to_{hub}`).
+  Titles/metas/H1s and `blog-mid-cta.ts` untouched. No new /register.
+  ES post uses `/es/data` + `/es/flip`. Pricing ilink skipped on
+  buy-below — BODY-BUYBELOW-001 already has a mid-CTA. Helper:
+  `src/lib/blog-ilink.ts`.
+
 SEO LANE, 2026-09-13 — BODY-BUYBELOW-001 on buy-below-price-explained
   New section after the formula, before FAQ: "Demand is the other half
   of buy-below". Soft cite `/data?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.

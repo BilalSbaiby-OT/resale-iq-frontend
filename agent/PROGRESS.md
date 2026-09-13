@@ -173,3 +173,14 @@ NEXT (once unblocked): P0-1.
   `/pricing?utm_source=blog&utm_medium=organic&utm_campaign=body_buybelow_20260913`.
 - Subline: Buy-below + demand before cash sticks. No `/register?plan=`.
 - No existing ctr_blog mid-CTA on this post.
+
+## 2026-09-13 — EX-ILINK blog → flip/data/pricing
+- Campaign `ilink_20260913` (`utm_source=blog&utm_medium=ilink`).
+- Body-only `[label](/path)` links via `ilinkHref()` in `src/lib/blog-ilink.ts`.
+- High-impression: how-to-price, how-to-find-flips, how-to-get-more-views,
+  buy-below-price-explained, plus other posts that had no /flip or /data.
+- ES: `como-poner-precio-en-vinted` → `/es/data` + `/es/flip` (same UTM).
+- Pricing ilink skipped on buy-below after BODY-BUYBELOW-001 mid-CTA landed
+  on main. Existing `ctr_*` / `body_price_*` / `body_buybelow_*` /
+  `legacy_signup_kill` untouched.
+- Titles, metas, H1s, `blog-mid-cta.ts` unchanged. No `/register` links.

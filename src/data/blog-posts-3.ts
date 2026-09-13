@@ -5,6 +5,7 @@
 import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { dataCiteHrefEs, pricingBodyCtaEs, pricingMidCta } from "@/lib/blog-mid-cta"
+import { ilinkHref } from "@/lib/blog-ilink"
 
 const BRAND = "Resale IQ"
 
@@ -25,7 +26,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Know your floor before you negotiate",
         p: [
-          "Your floor is your cost plus fees plus the minimum margin you'll accept. Work it out before you list, not while a buyer is waiting — the [Vinted profit calculator](/tools/vinted-profit-calculator) gives you the after-fees number in one step.",
+          "Your floor is your cost plus fees plus the minimum margin you'll accept. Work it out before you list, not while a buyer is waiting — the [Vinted profit calculator](/tools/vinted-profit-calculator) gives you the after-fees number in one step, and [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the public average.",
           "Without a floor you negotiate emotionally — and you'll accept offers that quietly lose money once shipping and fees come out.",
         ],
         cta: pricingMidCta("ctr_bundles_20260913"),
@@ -40,7 +43,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Let sell-through decide",
         p: [
-          "Items with strong sell-through: hold the price. Items sitting with low sell-through: take the reasonable offer and free the cash. Sell-through differs sharply by brand — [see which brands move](/flip) before you decide which of yours is genuinely slow.",
+          "Items with strong sell-through: hold the price. Items sitting with low sell-through: take the reasonable offer and free the cash. Sell-through differs sharply by brand — [see which brands move](" +
+            ilinkHref("flip") +
+            ") before you decide which of yours is genuinely slow.",
           BRAND + " shows the sell-through for the specific model, so the decision stops being a guess.",
         ],
       },
@@ -102,8 +107,12 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Models beat brands",
         p: [
-          "'Nike' isn't a strategy. Specific models carry the demand — the difference in sell-through between two models from the same brand is often enormous.",
-          "Recognisable silhouettes with steady demand outperform hyped releases for consistent, repeatable profit.",
+          "'Nike' isn't a strategy. Specific models carry the demand — the difference in sell-through between two models from the same brand is often enormous. Check [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") for the names that actually leave the shelf.",
+          "Recognisable silhouettes with steady demand outperform hyped releases for consistent, repeatable profit. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the volume side of that.",
         ],
       },
       {
@@ -141,7 +150,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Read the tag first",
         p: [
           "Tags date a garment. Logo styles, country of manufacture, union labels, care-symbol formats and fabric-content wording all shifted over the decades.",
-          "Learning a handful of era markers for the brands you handle is the single highest-return skill in vintage.",
+          "Learning a handful of era markers for the brands you handle is the single highest-return skill in vintage. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") tells you which of those brands are worth the homework.",
         ],
       },
       {
@@ -161,7 +172,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Pricing without comparables",
         p: [
-          "True one-offs have thin comparable data, so anchor on the closest departed examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price.",
+          "True one-offs have thin comparable data, so anchor on the closest departed examples and be patient. For everything more common, the same rule applies as anywhere: don't pay above your buy-below price. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is still the starting point.",
         ],
       },
     ],
@@ -185,7 +198,9 @@ export const POSTS_3: BlogPost[] = [
         h: "The arithmetic that matters",
         p: [
           "Divide the total cost by the number of items you realistically expect to SELL — not the number of items in the lot. Assume a meaningful share is unsellable.",
-          "If your effective cost per sellable item isn't comfortably below your buy-below price for that category, the lot is not a deal.",
+          "If your effective cost per sellable item isn't comfortably below your buy-below price for that category, the lot is not a deal. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is that buy-below input.",
         ],
       },
       {
@@ -199,7 +214,9 @@ export const POSTS_3: BlogPost[] = [
         h: "How to reduce risk",
         p: [
           "Start with a small lot from a supplier before committing to volume. Ask for grading definitions in writing and photos of an actual lot.",
-          "Prefer categorised lots (e.g. branded outerwear) over unsorted mixed clothing — unsorted is where dead stock hides.",
+          "Prefer categorised lots (e.g. branded outerwear) over unsorted mixed clothing — unsorted is where dead stock hides. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") tells you which categories are even worth a lot.",
         ],
       },
     ],
@@ -231,7 +248,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Coherence increases basket size",
         p: [
-          "A closet with a clear focus (streetwear, workwear, vintage denim) converts better than a random mix, because one interested buyer often buys several items.",
+          "A closet with a clear focus (streetwear, workwear, vintage denim) converts better than a random mix, because one interested buyer often buys several items. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is a useful focus list.",
           "Focus also compounds your knowledge — you get better at sourcing the things you already understand. That is the same move as [narrowing the brand range before you scale](/manual/scaling-past-the-hobby): depth is what keeps pricing accurate once volume goes up.",
         ],
       },
@@ -244,7 +263,9 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Quality of stock still decides",
         p: [
-          "A big closet full of items nobody wants is just a big problem. Volume amplifies your sourcing quality in both directions — which is why the buy decision comes first.",
+          "A big closet full of items nobody wants is just a big problem. Volume amplifies your sourcing quality in both directions — which is why the buy decision comes first. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the filter.",
         ],
       },
     ],
@@ -316,14 +337,18 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "The numbers it unlocks",
         p: [
-          "Real profit per item after fees, average days to sell, and the share of purchases that never sold — the metric almost nobody tracks and everybody needs.",
+          "Real profit per item after fees, average days to sell, and the share of purchases that never sold — the metric almost nobody tracks and everybody needs. Compare your own numbers against [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ").",
           "You'll quickly see which categories genuinely earn and which just feel productive — then compare your own numbers against [what each category does market-wide](/category).",
         ],
       },
       {
         h: "Why it changes behaviour",
         p: [
-          "Once you can see that a category averages 90 days to sell, you stop buying it. Records don't just report the past — they correct your sourcing, especially read against [how fast each brand actually moves](/flip).",
+          "Once you can see that a category averages 90 days to sell, you stop buying it. Records don't just report the past — they correct your sourcing, especially read against [how fast each brand actually moves](" +
+            ilinkHref("flip") +
+            ").",
           BRAND + "'s portfolio tracking does this alongside the market data, so your own results sit next to the market's.",
         ],
       },
@@ -363,7 +388,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Then source cheap and local",
         p: [
           "Charity shops, car boots and local marketplace listings keep per-item cost low, so a mistake costs a few euros instead of a few hundred.",
-          "Stay close to the current season at first — you can't afford to have cash frozen for months.",
+          "Stay close to the current season at first — you can't afford to have cash frozen for months. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") tells you what's actually moving now.",
         ],
       },
       {
@@ -375,7 +402,11 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Protect the downside",
         p: [
-          "With a small budget, avoiding dead stock is more valuable than finding a home run. Checking demand before you buy is the cheapest insurance available — that's the whole point of " + BRAND + ".",
+          "With a small budget, avoiding dead stock is more valuable than finding a home run. Checking demand before you buy is the cheapest insurance available — [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is the weekly list, and that's the whole point of " +
+            BRAND +
+            ".",
         ],
       },
     ],
@@ -412,7 +443,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Olvida el precio de tienda",
         p: [
           "El precio original no dice casi nada sobre lo que puedes pedir hoy. Lo que importa es a qué precio desaparecen los anuncios de ese modelo concreto, en ese estado concreto, en tu mercado. Una sudadera de 90 € en tienda puede moverse a 25 €, y otra de 40 € puede irse en 35 € si la demanda acompaña.",
-          "Mira anuncios que han desaparecido recientemente, no anuncios activos. Un anuncio activo te dice lo que alguien espera cobrar; uno que desaparece te dice el precio de salida — no vemos el pago (Vinted no lo publica), pero es la señal más honesta que tenemos, más cercana a lo que el mercado realmente paga que un precio pedido. Publicamos [los precios medios al desaparecer el anuncio por marca](/data) gratis, actualizados a diario.",
+          "Mira anuncios que han desaparecido recientemente, no anuncios activos. Un anuncio activo te dice lo que alguien espera cobrar; uno que desaparece te dice el precio de salida — no vemos el pago (Vinted no lo publica), pero es la señal más honesta que tenemos, más cercana a lo que el mercado realmente paga que un precio pedido. Publicamos [los precios medios al desaparecer el anuncio por marca](" +
+            ilinkHref("data", "es") +
+            ") gratis, actualizados a diario.",
         ],
       },
       {
@@ -441,7 +474,9 @@ export const POSTS_3: BlogPost[] = [
         p: [
           "Un artículo que se vende en nueve días a 40 € es mejor negocio que uno que tarda setenta a 50 €: el primero recicla tu dinero siete veces al año, el segundo cinco. El dinero parado en stock no gana nada.",
           "Por eso conviene mirar cuánto se mueve cada marca antes de comprar, no después. Las diferencias son enormes, y volumen y precio tiran en direcciones opuestas: las marcas de mucho volumen venden rápido con margen fino, las de lujo dejan mucho más por unidad pero inmovilizan tu dinero durante semanas.",
-          "No te fíes de nuestra palabra ni de una cifra escrita en un artículo que envejece: [qué vende cada marca esta semana](/flip) y [qué categorías se mueven](/category) están publicados en abierto y se actualizan solos.",
+          "No te fíes de nuestra palabra ni de una cifra escrita en un artículo que envejece: [qué vende cada marca esta semana](" +
+            ilinkHref("flip", "es") +
+            ") y [qué categorías se mueven](/category) están publicados en abierto y se actualizan solos.",
         ],
       },
       {
@@ -476,7 +511,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Start with price — it fixes more listings than anything else",
         p: [
           "The most common reason a fine item doesn't move is that it's priced against the original retail tag, or against hope, rather than against what that exact model in that condition has actually been leaving the shelf at recently. Active listings show you what other sellers are hoping for, not what buyers are paying.",
-          "Check the real number before touching anything else: the [Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](/data) both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
+          "Check the real number before touching anything else: the [Vinted price checker](/tools/vinted-price-checker) and the [weekly market data](" +
+            ilinkHref("data") +
+            ") both work from recent departures, not asking prices. If your price is meaningfully above that, that alone explains the silence.",
           "One pattern worth knowing before you price: in our own tracking across Spain, France, Germany, Italy and Portugal (21 Aug – 1 Sep 2026, n = 108,529 watched departures), items priced €250 and over were only 3.6% of everything that left the shelf but carried 37.4% of the total money — while 57.5% of departures were under €30. Most of what actually moves, moves cheap. If you've priced a mid-range item like it belongs in the rare, expensive minority, that's very likely the whole problem.",
         ],
         cta: pricingMidCta("ctr_notselling_20260913"),
@@ -493,7 +530,9 @@ export const POSTS_3: BlogPost[] = [
         h: "Check whether the demand exists at all",
         p: [
           "Some items are priced and described perfectly and still don't move, because the model or category itself has thin demand right now. That's not a listing problem, it's a sourcing signal for next time — but it's worth ruling out before you keep adjusting a listing that was never going to sell fast.",
-          "[Which brands are actually moving this week](/flip) and [which categories are moving](/category) are both published free and update on their own, so you can check your specific item against real current demand rather than a brand's general reputation.",
+          "[Which brands are actually moving this week](" +
+            ilinkHref("flip") +
+            ") and [which categories are moving](/category) are both published free and update on their own, so you can check your specific item against real current demand rather than a brand's general reputation.",
           "Size plays the same role inside a single model. In the same tracking window, EU 38 was the single most common sneaker size to leave the shelf (959 times) at a median €38, while EU 46 left the shelf only 93 times, at a median €80. The common size isn't more valuable — it's just where most of the buyers are. An uncommon size sitting a while is not necessarily mispriced; it may just be waiting for the smaller pool of buyers who wear it.",
         ],
       },

@@ -1,6 +1,7 @@
 import { TRACKED } from "@/lib/stats"
 import type { SectionCtaContent } from "@/lib/section-cta"
 import { dataCiteHref, pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
+import { ilinkHref } from "@/lib/blog-ilink"
 // Programmatic SEO + AEO content. Each post targets a real reseller search query
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
@@ -84,7 +85,11 @@ export const POSTS: BlogPost[] = [
         h: "How to know before you buy",
         p: [
           "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + ` — it turns ${TRACKED} real listings into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.`,
-          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
+          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") and [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") are the free weekly tables. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
         ],
       },
     ],
@@ -110,7 +115,9 @@ export const POSTS: BlogPost[] = [
       {
         h: "Start from the real departure price, not the retail price",
         p: [
-          "Retail price is almost irrelevant on resale. What matters is the current typical asking price for that exact model, in that condition, in your market, at the moment comparable listings left the shelf. Our [weekly Vinted market data](/data) publishes those averages by brand, free.",
+          "Retail price is almost irrelevant on resale. What matters is the current typical asking price for that exact model, in that condition, in your market, at the moment comparable listings left the shelf. Our [weekly Vinted market data](" +
+            ilinkHref("data") +
+            ") publishes those averages by brand, free.",
           "Look at listings that recently left the shelf (not active ones — active listings show hopes, not outcomes). The median departure price is your anchor — we do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price — and the [Vinted price checker](/tools/vinted-price-checker) works it out across five markets.",
         ],
       },
@@ -147,7 +154,9 @@ export const POSTS: BlogPost[] = [
         h: "Price to sell in a reasonable window",
         p: [
           "Pricing slightly below the median departure price sells faster and frees your cash to reinvest. Pricing above it can work for rare items but slows everything down.",
-          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item leaves the shelf — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually moves per week](/flip). And the opening price is only half the decision — [a pre-committed markdown schedule](/manual/pricing-your-listing) is where the money is actually made or lost.",
+          "Speed matters more than squeezing the last euro: money stuck in unsold stock earns nothing. Sell-through rate — how fast an item leaves the shelf — should drive your pricing as much as the price itself, and it varies enormously by brand: see [what each brand actually moves per week](" +
+            ilinkHref("flip") +
+            "). And the opening price is only half the decision — [a pre-committed markdown schedule](/manual/pricing-your-listing) is where the money is actually made or lost.",
         ],
       },
     ],
@@ -181,13 +190,17 @@ export const POSTS: BlogPost[] = [
         h: "Why demand matters more than prestige",
         p: [
           "A premium brand that rarely sells ties up your cash. A mid-tier brand that sells every week compounds your profit faster. Liquidity often beats prestige for a working reseller. That split is the one in [what actually makes money in reselling](/manual/what-actually-makes-money): volume and premium are different businesses, not better and worse versions of the same one.",
-          "The best brand for YOU is the one that sells fast at a margin, in sizes you can source. That's a data question, not an opinion.",
+          "The best brand for YOU is the one that sells fast at a margin, in sizes you can source. That's a data question, not an opinion — [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is the weekly list.",
         ],
       },
       {
         h: "How to judge any brand in 30 seconds",
         p: [
-          "Three numbers tell you almost everything: weekly sales volume (is there demand?), average sale price (is there margin room?), and sell-through by size (will YOUR stock move?).",
+          "Three numbers tell you almost everything: weekly sales volume (is there demand?), average sale price (is there margin room?), and sell-through by size (will YOUR stock move?). [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") publishes the first two for free.",
           BRAND + " ranks brands on exactly these signals across " + DATA + ", so you can check a brand before you commit a haul to it.",
         ],
       },
@@ -266,7 +279,9 @@ export const POSTS: BlogPost[] = [
           "The comparison people usually make is \'which platform pays more per item\'. The one that matters to a working reseller is \'which platform returns my cash faster at an acceptable price\'.",
           "Money sitting in unsold stock earns nothing. An item that clears in nine days at €40 is generally a better business than one that clears in seventy days at €50 — you can recycle the first one seven times a year and the second one five. Sell-through, not sale price, is what compounds.",
           "This is where Vinted's volume tends to win for anyone running stock at scale, and where Depop tends to win for someone selling a small, curated, high-margin selection. Neither is the better platform in the abstract. They reward different businesses.",
-          "Before you commit to either, it is worth knowing what your specific stock actually does: [which brands sell fastest each week](/flip) and [which categories move](/category) are both published free, and [what counts as a good sell-through rate](/blog/what-is-a-good-sell-through-rate) explains how to read them.",
+          "Before you commit to either, it is worth knowing what your specific stock actually does: [which brands sell fastest each week](" +
+            ilinkHref("flip") +
+            ") and [which categories move](/category) are both published free, and [what counts as a good sell-through rate](/blog/what-is-a-good-sell-through-rate) explains how to read them.",
         ],
       },
       {
@@ -291,7 +306,9 @@ export const POSTS: BlogPost[] = [
         p: [
           "Resale IQ covers Vinted only, across five markets: Spain, France, Germany, Italy and Portugal. It does not cover Depop, and it does not cover the UK or the US. If you sell on Depop, or you sell in Britain, it will not price your stock — worth saying plainly rather than letting you find out after signing up.",
           "For those five Vinted markets it answers the sourcing question directly: what an item genuinely sells for, the most you can pay and still profit, and how fast it moves. The buy-below price is calculated as the average sale price × 0.95 for the platform deduction we model, × 0.70 to target roughly a 30% margin — [the methodology](/methodology) sets out every step and, more usefully, what the data cannot tell you.",
-          "You can check a specific item with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator). Buy-below is on a plan; weekly brand volumes stay public on [/data](/data).",
+          "You can check a specific item with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator). Buy-below is on a plan; weekly brand volumes stay public on [/data](" +
+            ilinkHref("data") +
+            ").",
         ],
       },
     ],
@@ -320,7 +337,9 @@ export const POSTS: BlogPost[] = [
         h: "What sell-through rate means",
         p: [
           "Sell-through rate is the share of listings that end in a sale over a period — a measure of demand relative to supply. A high rate means items sell quickly and reliably.",
-          "It's the difference between money that recycles into new stock and money frozen in a wardrobe of unsold items.",
+          "It's the difference between money that recycles into new stock and money frozen in a wardrobe of unsold items. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the public table of that split.",
         ],
       },
       {
@@ -333,7 +352,9 @@ export const POSTS: BlogPost[] = [
       {
         h: "How to use it",
         p: [
-          "Favour items with proven, fast sell-through in the sizes you can source. Be cautious with slow movers even if the potential profit looks big.",
+          "Favour items with proven, fast sell-through in the sizes you can source. Be cautious with slow movers even if the potential profit looks big. Check [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") before you restock a slow one.",
           BRAND + " shows per-model and per-size sell-through from " + DATA + " so you can prioritise fast, reliable stock.",
         ],
       },
@@ -360,14 +381,18 @@ export const POSTS: BlogPost[] = [
         h: "Start from demand, not from what's cheap",
         p: [
           "Cheap doesn't mean profitable. Start with items that have proven demand and margin room, then look for them below their buy-below price. [Which categories actually move](/category) is the place to start.",
-          "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](/flip) before committing cash.",
+          "Working backwards from demand means you only spend time on items that will actually sell — and demand is brand-specific, so check [what each brand sells per week](" +
+            ilinkHref("flip") +
+            ") before committing cash.",
         ],
         cta: pricingMidCta("body_flips_20260913"),
       },
       {
         h: "Use the buy-below filter",
         p: [
-          "For each target model, know its average sale price and buy-below price. Our [free weekly market data](/data) publishes average sale prices by brand. Any listing under that number, in a good size and condition, is a candidate deal.",
+          "For each target model, know its average sale price and buy-below price. Our [free weekly market data](" +
+            ilinkHref("data") +
+            ") publishes average sale prices by brand. Any listing under that number, in a good size and condition, is a candidate deal.",
           "This turns sourcing into a scan for numbers rather than a gut call — which is exactly what a [Vinted sourcing tool](/tools/vinted-sourcing-tool) automates.",
         ],
       },
@@ -398,14 +423,18 @@ export const POSTS: BlogPost[] = [
       {
         h: "What actually drives income",
         p: [
-          "Income = number of items sold × average margin per item × how many times you can recycle your capital. Sell-through and margin matter more than how many hours you scroll.",
+          "Income = number of items sold × average margin per item × how many times you can recycle your capital. Sell-through and margin matter more than how many hours you scroll — [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") shows both.",
           "Most resellers lose money on a chunk of their stock — dead inventory that never sells. Cutting that share is the biggest lever on profit.",
         ],
       },
       {
         h: "Why sourcing beats volume",
         p: [
-          "Buying more isn't the answer if 40% of it doesn't sell. Buying better — items with proven demand and margin — raises income without raising risk.",
+          "Buying more isn't the answer if 40% of it doesn't sell. Buying better — items with proven demand and margin — raises income without raising risk. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is the short list.",
           "A disciplined part-timer who only buys winners often out-earns a busy reseller drowning in dead stock.",
         ],
       },
@@ -435,7 +464,9 @@ export const POSTS: BlogPost[] = [
       {
         h: "The big three",
         p: [
-          "1. Buying dead stock — items with no real demand. This is the single most expensive mistake, and it happens at the buy, not the sale.",
+          "1. Buying dead stock — items with no real demand. This is the single most expensive mistake, and it happens at the buy, not the sale. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") is the check that prevents it.",
           "2. Ignoring size demand — buying a great brand in a size that barely sells.",
           "3. Emotional buying — 'I love this' instead of 'this sells'. Buy what sells, not what you'd wear.",
         ],
@@ -444,7 +475,9 @@ export const POSTS: BlogPost[] = [
         h: "The quiet four",
         p: [
           "4. Overpaying at source — no buy-below discipline, so margins are thin from the start.",
-          "5. Mispricing — pricing off retail, or too high to move.",
+          "5. Mispricing — pricing off retail, or too high to move. [What actually left the shelf this week](" +
+            ilinkHref("data") +
+            ") is the honest anchor.",
           "6. Off-season buying — cash frozen for months waiting for the season.",
           "7. No tracking — not knowing which items actually make money, so mistakes repeat.",
         ],
@@ -477,14 +510,22 @@ export const POSTS: BlogPost[] = [
       {
         h: "The formula",
         p: [
-          "A widely used rule: buy-below = average sale price × 0.95 × 0.70.",
+          "A widely used rule: buy-below = average sale price × 0.95 × 0.70. The average is [what actually left the shelf this week](" +
+            ilinkHref("data") +
+            "), not the retail tag.",
           "The 0.95 accounts for the 5% platform deduction we model for Vinted; the 0.70 targets roughly a 30% margin. Adjust both to your own fee structure and goals, but keep the discipline.",
         ],
       },
       {
         h: "Why it changes everything",
         p: [
-          "With a buy-below price for every target item, sourcing becomes a fast yes/no scan and your margins are protected before you ever list. " + BRAND + " calculates it automatically for any item from " + DATA + ".",
+          "With a buy-below price for every target item, sourcing becomes a fast yes/no scan and your margins are protected before you ever list. Use it on [brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            "). " +
+            BRAND +
+            " calculates it automatically for any item from " +
+            DATA +
+            ".",
         ],
       },
       {
