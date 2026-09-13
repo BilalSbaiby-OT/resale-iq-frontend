@@ -3,7 +3,7 @@ import { SmartCTA } from "@/components/smart-cta"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
-import { footerSeePlansHrefForPost } from "@/lib/blog-mid-cta"
+import { footerSeePlansHrefForPost, inlineRegisterKillHrefForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
@@ -197,54 +197,27 @@ export default async function BlogPostPage(
           ))}
         </section>
 
-        {/* CTA — plus, below it, a link to /pricing.
+        {/* Footer conversion block.
 
-            OBSERVATION (production `pageviews`, is_bot=0, re-measured against
-            the read-only prod DB on 2026-09-08): 101 distinct visitors arrived
-            from an external referrer in 30d. 69 distinct non-bot visitors read
-            a /blog page (236 views) — the largest public audience on this site
-            after `/`. ZERO of those 101 external-referrer visitors have ever
-            loaded /pricing, in 30d or lifetime; only 3 distinct visitors have
-            loaded it at all, ever (38 views).
-
-            INTERPRETATION: that zero is a property of the link graph, not a
-            measurement of reader interest. A live fetch of /blog and /blog/*
-            on 2026-09-08 found href="/pricing" zero times and no price string
-            at all: the article template's only conversion exit is /register.
-            (`/` is different — it embeds PricingSection inline, so homepage
-            visitors do see the price. Blog readers never have.)
-
-            The primary CTA below is deliberately BYTE-UNCHANGED (same label,
-            same /register target, same emphasis): experiments x-f753ead9cc
-            (signup completion) and x-50338c7326 (activation) both run on that
-            path and have to stay interpretable. This adds a second,
-            lower-emphasis door for the reader who wants to know what it costs,
-            and takes nothing away from the first one.
-
-            Footer "See plans" uses the post's mid-CTA campaign +
-            utm_content=footer_see_plans so how-to-price, views, and the rest
-            are attributable. Never /register. */}
+            Paid door is /pricing, never /register (register still mentions Free).
+            Campaign comes from the post mid-CTA when one exists, else
+            ctr_blog_20260913. utm_content=inline_register_kill on the button,
+            footer_see_plans on the text link. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           {/* Primary door: the no-wall free checker. The blog is our largest
-              external audience (ChatGPT lands readers on /blog/what-sells-best),
-              yet the article template linked ONLY to /register (a signup wall)
-              and /pricing — never to the free tool that produces the aha. A
-              reader who just read "what sells best" wants to check ONE item, not
-              open an account first; check->signup already converts at ~44%, so
-              putting the low-friction action first should widen the top of the
-              funnel without touching the register experiments below. Distinct
-              target (/tools/vinted-price-checker) and its own attribution
+              external audience (ChatGPT lands readers on /blog/what-sells-best).
+              Distinct target (/tools/vinted-price-checker) and its own attribution
               (?src=blog-check) so this door is measured separately from the
-              byte-unchanged /register SmartCTA. */}
+              paid /pricing CTA below. */}
           <Link href="/tools/vinted-price-checker?src=blog-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             Check this item →
           </Link>
           <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
-          <SmartCTA anonLabel="Try Resale IQ →" anonHref="/register?src=blog" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel="Get the numbers" anonHref={inlineRegisterKillHrefForPost(p.sections)} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo

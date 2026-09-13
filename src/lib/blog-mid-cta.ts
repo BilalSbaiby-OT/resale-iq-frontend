@@ -20,20 +20,38 @@ export function pricingFooterSeePlansHref(campaign: string): string {
   return pricingUtmHref(campaign, "footer_see_plans")
 }
 
+/** Former `/register?src=blog` paid door. Never `/register?plan=`. */
+export function pricingInlineRegisterKillHref(campaign: string): string {
+  return pricingUtmHref(campaign, "inline_register_kill")
+}
+
 export function campaignFromPricingHref(href: string): string | null {
   const m = href.match(/[?&]utm_campaign=([^&]+)/)
   return m ? decodeURIComponent(m[1]) : null
+}
+
+function campaignForPost(
+  sections: ReadonlyArray<{ cta?: { href: string } }>,
+): string {
+  for (const s of sections) {
+    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
+    if (campaign) return campaign
+  }
+  return "ctr_blog_20260913"
 }
 
 /** Footer "See plans" on a blog article — same campaign as the mid-CTA when one exists. */
 export function footerSeePlansHrefForPost(
   sections: ReadonlyArray<{ cta?: { href: string } }>,
 ): string {
-  for (const s of sections) {
-    const campaign = s.cta ? campaignFromPricingHref(s.cta.href) : null
-    if (campaign) return pricingFooterSeePlansHref(campaign)
-  }
-  return pricingFooterSeePlansHref("ctr_blog_20260913")
+  return pricingFooterSeePlansHref(campaignForPost(sections))
+}
+
+/** Paid footer button that used to be `/register?src=blog`. */
+export function inlineRegisterKillHrefForPost(
+  sections: ReadonlyArray<{ cta?: { href: string } }>,
+): string {
+  return pricingInlineRegisterKillHref(campaignForPost(sections))
 }
 
 export function pricingMidCta(campaign: string): SectionCtaContent {

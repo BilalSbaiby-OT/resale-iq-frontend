@@ -146,3 +146,10 @@ NEXT (once unblocked): P0-1.
   Island / Gucci lines, buy-below vs demand close.
 - Cite + CTA: `utm_source=blog&utm_medium=organic&utm_campaign=body_price_20260913`.
 - Title/meta/H1 and `ctr_price_20260913` mid-CTA unchanged. No ES page.
+
+## 2026-09-13 — kill blog /register paid CTAs
+- Shared article footer SmartCTA was `/register?src=blog` ("Try Resale IQ →").
+- Now `/pricing?utm_source=organic&utm_medium=blog&utm_campaign=<post>&utm_content=inline_register_kill`,
+  button "Get the numbers". How-to-price campaign `ctr_price_20260913`.
+- Fallback campaign `ctr_blog_20260913` (index + posts with no mid-CTA).
+- ES `/blog/como-poner-precio-en-vinted` body not edited (BODY-ES-001).

@@ -3,6 +3,12 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+FRONTEND, 2026-09-13 — killed blog /register paid CTAs.
+  Shared article SmartCTA `/register?src=blog` → `/pricing` + UTMs
+  (`utm_content=inline_register_kill`). How-to-price uses
+  `ctr_price_20260913`. Posts without a mid-CTA fall back to
+  `ctr_blog_20260913`. Blog index same. ES BODY-ES-001 content not touched.
+
 SEO LANE, 2026-09-13 — BODY-001 exact Content insert on how-to-price
   Section after buy-below: "Demand is the other half of the price" —
   Content's wording (5,746 / Fred Perry 1,027 @ €19 / Stone Island 892
