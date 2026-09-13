@@ -3,6 +3,15 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-13
 
+SEO LANE, 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
+  /manual hub now has FAQPage + HubFaq (what it is, who for, free?,
+  buy-below/data, markets). Title: "How to Resell on Vinted — The
+  Vinted Reselling Manual". 15 chapters expanded 2 → 4 FAQs from
+  chapter copy. /manual/the-buy-below-price citeable DefinedTerm
+  matches the blog twin. Soft seoTitles keep Manual suffix.
+  Authenticity title/meta/H1/body_fake untouched. No /register in
+  FAQ. Paid CTAs stay /pricing. Branch cursor/seo-ex-manual-aeo-30fe.
+
 SEO LANE, 2026-09-13 — EX-AEO-DEFINITIONS citeable term blocks
   Visible H2 + 1–2 sentence leads (above the fold on the three blogs via
   `definedTerm`). FAQ answers match. DefinedTerm JSON-LD added beside

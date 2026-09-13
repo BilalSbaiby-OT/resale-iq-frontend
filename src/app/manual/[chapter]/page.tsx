@@ -5,6 +5,7 @@ import { ALL_CHAPTERS, getChapter } from "@/data/manual"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 import { SmartCTA } from "@/components/smart-cta"
 import { SectionCta } from "@/components/section-cta"
+import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
@@ -23,12 +24,13 @@ export async function generateMetadata(
   const { chapter } = await params
   const c = getChapter(chapter)
   if (!c) return { title: "Not found — Resale IQ" }
-  const title = `${c.title} — The Vinted Reselling Manual`
+  const title = c.seoTitle ?? `${c.title} — The Vinted Reselling Manual`
   return {
     title,
     description: c.description,
     alternates: { canonical: `/manual/${c.slug}` },
     openGraph: { title, description: c.description, type: "article" },
+    twitter: { card: "summary_large_image", title, description: c.description },
   }
 }
 
@@ -46,6 +48,14 @@ export default async function ChapterPage(
   const market = await getMarketNumbers()
   const totalWeekly = market.sold7dTotal
 
+  const definedTerm = c.definedTerm
+    ? {
+        name: c.definedTerm.name,
+        description: c.definedTerm.description,
+        url: `${BASE}/manual/${c.slug}`,
+      }
+    : null
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -61,16 +71,12 @@ export default async function ChapterPage(
       author: { "@type": "Organization", name: "Resale IQ", url: BASE },
       publisher: { "@type": "Organization", name: "Resale IQ", url: BASE },
       mainEntityOfPage: `${BASE}/manual/${c.slug}`,
+      ...(definedTerm
+        ? { about: { "@type": "DefinedTerm", name: definedTerm.name, description: definedTerm.description } }
+        : {}),
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: c.faq.map((f) => ({
-        "@type": "Question",
-        name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    },
+    ...(definedTerm ? [definedTermJsonLd(definedTerm)] : []),
+    ...(c.faq.length > 0 ? [faqPageJsonLd(c.faq)] : []),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -98,6 +104,12 @@ export default async function ChapterPage(
         <h1 style={{ fontSize: 33, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.18, marginBottom: 16 }}>
           {c.title}
         </h1>
+        {c.definedTerm && (
+          <section style={{ marginBottom: 24 }}>
+            <h2 style={{ fontSize: 21, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{c.definedTerm.name}</h2>
+            <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, margin: 0 }}>{c.definedTerm.description}</p>
+          </section>
+        )}
         <p style={{ fontSize: 17, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 30 }}>{c.intro}</p>
 
         {c.sections.map((s) => (

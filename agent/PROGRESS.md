@@ -276,3 +276,14 @@ NEXT (once unblocked): P0-1.
 - CI: definition assertions live in `faq-schema.test.ts` (a standalone
   test file cloned the hub-social read helper and tripped check:dupes).
   `e2e/smoke` `/data` H1 aligned to "Weekly brand volumes on Vinted".
+
+## 2026-09-13 — EX-MANUAL-AEO hub + chapter FAQ
+- `/manual` hub: answer-first title + FAQPage/HubFaq (5 Qs: what it
+  is, who for, free?, buy-below/data, markets). Book schema kept.
+- 15 chapters that already had 2 FAQs expanded to 4 from chapter
+  copy. Authenticity left at 2 so body_fake CTR is untouched.
+- `/manual/the-buy-below-price`: DefinedTerm lead matches the blog
+  twin (`average asking price at departure × 0.95 × 0.70`).
+- Soft `seoTitle`s keep " — The Vinted Reselling Manual". H1s stay.
+- No `/register` in FAQ. Paid CTAs stay `/pricing`.
+- Tests: `faq-schema.test.ts` hub assertions + `manual-aeo.test.ts`.
