@@ -7,6 +7,7 @@ import { PublicProfitCalculator } from "@/components/tools/public-profit-calcula
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
+import { toolHowToHeading, toolsHowToJsonLd } from "@/lib/tools-howto-schema"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -59,10 +60,11 @@ export default async function IntentPage(
 
   // WebApplication + FAQPage schema: tells search AND answer engines exactly what
   // this tool is and lets them lift a citable answer for the target query.
-  // HowTo is omitted: neither the profit calculator (two fields + Calculate)
-  // nor the price checker (a search box) renders a numbered step list.
-  // Emitting HowTo without visible steps is the same schema/page mismatch
-  // FAQPage forbids — do not invent steps to satisfy a brief.
+  // EX-TOOLS-HOWTO: the two money tools also emit HowTo from the visible
+  // numbered steps (UI labels + on-page copy). FAQ stays. Other slugs stay
+  // WebApplication + FAQPage only — do not invent steps for them.
+  const howto = toolsHowToJsonLd(i)
+  const howtoHeading = toolHowToHeading(i)
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -86,6 +88,7 @@ export default async function IntentPage(
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
+    ...(howto ? [howto] : []),
   ]
 
   return (
@@ -109,6 +112,23 @@ export default async function IntentPage(
         {slug === "vinted-profit-calculator"
           ? <PublicProfitCalculator locale={locale} />
           : <FreeChecker locale={locale} />}
+
+        {/* Visible numbered steps for the two money tools. Same strings as
+            HowTo JSON-LD — schema that is not on the page is a rich-result
+            rejection. Heading is the existing FAQ question. */}
+        {howto && howtoHeading && (
+          <section style={{ marginTop: 56 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "-0.3px", marginBottom: 20 }}>{howtoHeading}</h2>
+            <ol style={{ margin: 0, paddingLeft: 22, color: "var(--color-text-secondary)" }}>
+              {howto.step.map((s) => (
+                <li key={s.position} style={{ marginBottom: 16, paddingLeft: 6 }}>
+                  <div style={{ fontSize: 16.5, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 6 }}>{s.name}</div>
+                  <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, margin: 0 }}>{s.text}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {/* Was three filled, bordered cards stacked under the tool, each with
             the same visual weight as the tool itself. Same three points, but

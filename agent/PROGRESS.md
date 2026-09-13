@@ -344,6 +344,22 @@ NEXT (once unblocked): P0-1.
 - MERGED #100 as 0bcee93. Live after Coolify on SOURCE_COMMIT 7e968e5.
   Cache-busted curl 6/6 PASS. Playwright /data H1 flake ignored.
 
+## 2026-09-13 — EX-TOOLS-HOWTO calculator HowTo
+- HowTo JSON-LD on `/tools/vinted-profit-calculator` (4 steps: buy,
+  expected sale, Calculate, net after 5% fee) and
+  `/tools/vinted-price-checker` (3 steps: type brand+model, Check this
+  item, typical departure price + buy-below).
+- Steps taken from visible UI labels and existing lede/FAQ copy only.
+  Same strings render as a numbered `<ol>` so schema matches the page.
+  Heading is the existing FAQ question. FAQPage + WebApplication stay.
+- Price-checker title sharpened to "Vinted Price Checker — Typical
+  Departure Price". Profit title already "Net Profit After Fees".
+  og/twitter already matched the document title (EX-TOOLS-AEO).
+- Paid CTA stays `/pricing?src=tools` — page already had one, so no
+  `utm_campaign=tools_howto_20260913`.
+- Helper: `src/lib/tools-howto-schema.ts`. Other tool slugs stay
+  WebApplication + FAQPage only.
+
 ## 2026-09-13 — homepage FAQ UK word (hotfix)
 - `e2e/market-coverage.spec.ts` failed on `/` after #105: FAQ named UK
   (“does not cover the UK”). Test forbids `\bUK\b` on the homepage.
