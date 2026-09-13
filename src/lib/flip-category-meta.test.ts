@@ -84,10 +84,11 @@ test("metas may cite live warehouse figures and never invent a fallback count", 
   const pair = flipBrandCategoryDescription({
     brand: "Adidas",
     category: "Sneakers",
-    tracked: "1,960,000+",
+    tracked: "{{TRACKED}}",
   })
   assert.match(pair, /watched departures/)
   assert.match(pair, /buy-below/)
+  assert.match(pair, /\{\{TRACKED\}\}/)
   assert.ok(pair.length <= 155)
 
   const pairDash = flipBrandCategoryDescription({
