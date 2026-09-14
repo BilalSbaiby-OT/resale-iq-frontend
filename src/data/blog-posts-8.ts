@@ -174,4 +174,86 @@ export const POSTS_8: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "levis-reselling-vinted-guide",
+    title: "Levi's Reselling on Vinted: 501 Jeans Dominate at €29 Average, Truckers at €40",
+    seoTitle: "Is Levi's Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "Levi's ranks #15 by watched departures across 5 EU Vinted markets — 52/week at €28 average. Jeans dominate at 83% of volume (43 departures at €29 avg, buy-below ~€19). The 501 Original is the single highest-volume cut. Trucker Jackets exit at €40 avg — the best margin-per-unit in the catalog.",
+    date: "2026-09-15",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, Levi's ranked #15 across Spain, France, Germany, Italy and Portugal with 52 watched departures at an average exit price of €28. The defining structural fact: Jeans account for 83% of all Levi's departures (43 of 52) at €29 average — the highest category concentration of any brand in the top 15. Levi's on Vinted is a single-category market, and within that category, cut-number knowledge is the sourcing edge. The 501 series alone spans six distinct cuts with meaningfully different demand profiles. Trucker Jackets are the outlier: 2 departures at €40 average set the highest per-unit margin in the brand.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 52 watched departures in the week to 14 September 2026, Jeans led at 43 exits averaging €29. Jackets contributed 2 departures averaging €40. T-Shirts added 2 departures averaging €8. Tracksuits and Coats each contributed 1 departure at €13 and €9 respectively.",
+          "Full Levi's volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly. The €28 brand average is nearly entirely a Jeans signal — Levi's does not have a meaningful apparel diversification story on EU Vinted. The sourcing decision is almost entirely which cut, which condition, which era.",
+        ],
+      },
+      {
+        h: "Buy-below by category",
+        p: [
+          "With Jeans averaging €29 at departure, modelling a 5% platform deduction and 30% target margin gives a buy-below of approximately €19. That figure applies across the Jeans category, but the distribution inside the category is wide: the 501 Original in an age-faded indigo with a readable selvedge line can exit at €55–80, while a 2020 mass-retail 501 in standard mid-wash exits at €22–28. Sourcing strategy is not 'buy any 501 under €19' — it is 'buy the 501 that exits above the category average.'",
+          "Jackets at €40 average give a buy-below near €27. The Trucker Jacket (Type III) is the primary exit vehicle; the Sherpa Trucker occasionally exceeds €50 in clean condition. These are low-volume categories — 2 departures in the reference week — but individual unit margin is the strongest in the brand.",
+        ],
+        cta: pricingMidCta("ctr_levis_20260915"),
+      },
+      {
+        h: "The 501: six cuts and what each is worth",
+        p: [
+          "The Levi's 501 series is the single largest driver of Jeans volume on EU Vinted. The cuts tracked in catalog data: 501 Original (the classic straight-leg), 501 Slim Taper (narrower through thigh, tapered leg), 501 Slim (slimmer through seat and thigh), 501 Crop (ankle-length, trending upward with women buyers), and 501 OG (Original vintage reissue). On EU Vinted, the 501 Original in vintage indigo — identified by a small 'e' tab on the patch, or pre-1971 two-horse patch — consistently exits at €45–80 in good condition. Contemporary 501 Originals in standard washes exit at €22–32.",
+          "The sourcing precision: the selvedge line on vintage 501s (visible when cuffs are rolled) is the easiest field check — modern mass production does not produce selvedge denim. A selvedge 501 sourced below €20 is not a €28 exit; it is a €60–80 exit if photographed correctly. The 501 Slim and 501 Slim Taper trade closer to the category average with less vintage premium potential.",
+        ],
+      },
+      {
+        h: "The 505, 511, 512, 514 and 550: volume without the premium",
+        p: [
+          "The 505 (regular fit, zip fly), 511 (slim fit), 512 (slim taper), 514 (straight fit), and 550 (relaxed fit) all trade at or below the €29 Jeans average on EU Vinted. The 511 in black is one of the most common Levi's listings on the platform — volume is high, but so is supply, which compresses exit prices toward €15–25. The 505 and 514 in clean indigo or black are reliable exits at €18–28 without the vintage upside of the 501.",
+          "The 550 in a larger fit (34W+) has seen renewed demand from vintage-fit resurgence and can exit at €25–40 when condition is excellent and the fit reads as intentional relaxed rather than worn-out. This is a niche signal, not a broad sourcing strategy.",
+        ],
+      },
+      {
+        h: "Trucker Jacket: the margin outlier",
+        p: [
+          "The Trucker Jacket (Type III cut — the classic four-pocket denim trucker introduced in 1967) exits at €35–55 in clean condition, €55–90 for vintage pieces with era-correct features. The €40 category average in the reference week is a conservative signal: the variance above the average is real, and the Trucker is one of the few Levi's pieces where a €30 sourcing price can yield €60+ on the right era and condition.",
+          "The Sherpa Trucker — the Type III cut with a sherpa fleece lining — exits at €35–55 and has stronger appeal in autumn/winter markets. On EU Vinted, listing timing matters for the Sherpa: the same piece listed in October exits 20–30% faster and 10–15% higher than the same piece listed in July.",
+        ],
+        cta: pricingBodyCta("body_levis_20260915"),
+      },
+      {
+        h: "Authentication and condition checks",
+        p: [
+          "Levi's counterfeits are most common at the 501 level, particularly on vintage-positioned pieces. Checks: the tab on the back right pocket should read 'LEVI'S' in red on white — pre-1971 tabs read with a small 'e' in 'Levi's'; post-1971 tabs use a capital 'E'. The leather patch on the waistband back should show the two-horse logo (two horses trying to pull the jeans apart) with clean lettering — counterfeit patches often have blurred edges or incorrect proportions on the horses. The rivets should have the Levi's 'L' stamped; smooth rivets without the logo are a counterfeit tell on pieces claiming original heritage.",
+          "Condition priority for Jeans: check the crotch seam (highest wear point on all denim — any thinning or repair is a price-killer), check for fading uniformity (deliberate fade is a feature; splotchy fade from washing errors is not), check the zip operation (the YKK or Talon zip on vintage pieces should run clean), and check for waistband paint or transfer staining from storage. For Truckers: check the chest pocket stitching detail, check for lining tears at the hem, and check the rear yoke seam for stress cracks.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is Levi's worth reselling on Vinted?",
+        a: "Yes — with cut and era knowledge. Levi's ranked #15 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 52 departures at €28 average. Jeans dominate at 43 departures averaging €29 (buy-below ~€19) — the 501 Original in vintage indigo can exit at €60–80 but requires era authentication. Trucker Jackets average €40 (buy-below ~€27) and are the strongest margin category.",
+      },
+      {
+        q: "What is the buy-below price for Levi's on Vinted?",
+        a: "With Levi's Jeans averaging €29 at departure (week to 14 September 2026), modelling a 5% platform deduction and 30% target margin gives a buy-below of approximately €19. This applies to contemporary cuts (501 Slim, 511, 505). Vintage 501 Originals with selvedge construction can exit at €60–80 — buy-below on those pieces is ~€50 at the same margin model. Trucker Jackets averaging €40 give a buy-below near €27.",
+      },
+      {
+        q: "Which Levi's jeans sell best on Vinted?",
+        a: "By volume, the 501 Original dominates EU Vinted Levi's departures. The vintage 501 in age-faded indigo (pre-1971 small 'e' tab, selvedge construction) exits at €45–80 — the highest resale value in the Levi's catalog. Contemporary 501s in standard wash exit at €22–32. The 501 Slim Taper and 511 trade closer to the category average. The 550 relaxed fit has recovered premium with vintage-fit demand and can reach €30–40 in clean condition.",
+      },
+      {
+        q: "How do I spot vintage Levi's 501s worth reselling?",
+        a: "Three field checks: 1) Roll the cuffs — selvedge denim (a clean finished edge on the inner hem, no interlocked stitching) indicates pre-mass-production era and commands premium. 2) Check the back tab — a small 'e' in 'Levi's' on the red tab dates the piece pre-1971; post-1971 uses a capital 'E'. 3) Check the waistband patch — the two-horse logo on the leather patch should have clean proportions; blurred printing or incorrect horse proportions are counterfeit tells.",
+      },
+      {
+        q: "How does Levi's compare to Diesel for resale on Vinted?",
+        a: "Diesel ranks #8 with 178 departures/week at €23 average; Levi's ranks #15 with 52 departures/week at €28 average. Diesel has more than three times Levi's volume but a lower average price. Both are Jeans-dominant brands. The key difference: Levi's has a vintage premium tier (501 Original selvedge at €60–80) that Diesel does not match. Diesel's Y2K revival drives model-specific premiums on Larkee and D-Strukt; Levi's vintage premium is era-and-construction-driven rather than model-name-driven.",
+      },
+    ],
+  },
 ]
