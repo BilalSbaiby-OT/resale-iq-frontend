@@ -22,6 +22,7 @@ import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { formatStrPct } from "@/lib/str-pct"
 import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
+import { trackEvent } from "@/lib/analytics"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -219,14 +220,31 @@ export function FreeChecker({
       let body: unknown = null
       try { body = await r.json() } catch { /* non-JSON error page */ }
       const wall = parsePaywallBody(r.status, body)
-      if (wall) { setRes(wall); return }
+      if (wall) {
+        // why: 402 is the product under HARD_PAYWALL, not a failed check —
+        // this anon visitor already got their one free verdict and is now
+        // looking at the checkout card, same as the authed flow logs it
+        // (verdict-content.tsx). Not analysis_failed.
+        setRes(wall)
+        return
+      }
       if (!r.ok) throw new Error(t.couldNotCheck)
       setRes(body as FreeVerdict)
+      // why: this component is the ONLY anon entry point for ChatGPT-citation
+      // and /blog CTA traffic (/tools/vinted-price-checker), but it never
+      // fired a funnel event before this fix — every real free check by a
+      // stranger was invisible to /api/admin/growth-funnel, which counts
+      // free_checks from event IN ('first_analysis','analysis_completed').
+      // Measured 2026-09-14: 0 free_checks recorded across 7 days despite
+      // confirmed traffic hitting this exact page from chatgpt.com referrer.
+      trackEvent("first_analysis")
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") {
         setTimedOut(true)
+        trackEvent("analysis_failed", undefined, { reason: "network" })
       } else {
         setErr(e instanceof Error ? e.message : t.somethingWrong)
+        trackEvent("analysis_failed", undefined, { reason: "generic" })
       }
     } finally {
       clearTimeout(timer)
