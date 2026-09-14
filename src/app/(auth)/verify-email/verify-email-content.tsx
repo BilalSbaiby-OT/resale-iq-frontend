@@ -35,7 +35,13 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             useAuthStore.setState({ isAuthenticated: true, isLoading: false })
           }
           setState("signed-in")
-          router.replace("/verdict")
+          // why: landing on a cold /verdict with an empty input is the
+          // single measured reason 14/14 verified users never ran a check
+          // (verdict_date=null all). The ?q= triggers the existing useEffect
+          // in VerdictInner that auto-runs the query — Nike Air Force 1 is in
+          // _PUBLIC_SAMPLE_QUERIES so it 200s even for unpaid users, giving
+          // a real result before they hit the paywall on their own search.
+          router.replace("/verdict?q=Nike+Air+Force+1")
           return
         }
         // Backend-owned string stays in whatever language the API sent it —
