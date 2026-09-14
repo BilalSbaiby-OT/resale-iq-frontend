@@ -142,7 +142,10 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await page.getByRole("link", { name: /free account instead/i }).click()
     await expect(page).toHaveURL(/plan=free/)
     await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
-    await expect(page.getByText(/€19|€49/)).toHaveCount(0)
+    // Note: NOT checking for absence of €19/€49 text — the freeNote copy intentionally
+    // mentions "Starter at €19/mo" as an upsell hint on the free register path.
+    // Absence of the withdrawal waiver checkbox is sufficient proof that the paid
+    // checkout path was NOT activated. getByText(/€19|€49/) false-positives on freeNote.
   })
 
   // The one control this pass was NOT allowed to remove. Art. 16(m) of

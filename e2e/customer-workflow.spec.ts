@@ -19,7 +19,11 @@ test.describe("customer watchlist workflow", () => {
   test("login → watchlist add → refresh still there", async ({ page }) => {
     await login(page, "alice@example.com", "password12345")
     await page.goto("/watchlist")
-    await expect(page.getByRole("heading", { name: /Watch an item|Watchlist/i }).or(page.getByText("Watch a model you might buy"))).toBeVisible({ timeout: 15_000 })
+    // The "+ Watch item" button is always present (top-right), regardless of
+    // whether the watchlist is empty or not. The empty-state heading only renders
+    // when items.length === 0, which is not guaranteed when the mock server is
+    // reused across runs (serial mode, reuseExistingServer:true locally).
+    await expect(page.getByRole("button", { name: /Watch item|Watch your first model/i }).first()).toBeVisible({ timeout: 15_000 })
     await page.getByRole("button", { name: /Watch item|Watch your first model/i }).first().click()
     await page.getByPlaceholder("Nike").fill("Nike")
     await page.getByPlaceholder("Air Max 90").fill("Air Max 90")
