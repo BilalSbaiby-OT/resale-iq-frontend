@@ -231,48 +231,103 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "best-brands-to-resell-on-vinted",
-    title: "The Best Brands to Resell on Vinted (and How to Judge Any Brand)",
-    seoTitle: "Best Vinted Brands: Departed vs Still Listed — Resale IQ",
+    title: "Best Brands to Resell on Vinted: All 28 Tracked Brands Ranked by Weekly Demand",
+    seoTitle: "Best Brands to Resell on Vinted (2026): Ranked by Weekly Departures — Resale IQ",
     description:
-      "Best Vinted brands by weekly volume — departed vs still listed, not prestige. How to judge any brand on demand, price and size before you buy.",
+      "All 28 brands tracked on EU Vinted, ranked by weekly watched departures. Week to 14 September 2026: Fred Perry leads at 939/wk, Balenciaga tops price at €146 avg. Full table with buy-below guidance and individual brand guides.",
     date: "2026-09-05",
-    updated: "2026-09-14",
+    updated: "2026-09-15",
     category: "Sourcing",
-    readMins: 6,
+    readMins: 8,
     intro:
-      "As of 14 September 2026, the highest-volume brands leaving Vinted's shelf right now are Fred Perry (939 listings/7d, Shirts averaging €14), Stone Island (796/7d, Hoodies averaging €55) and Patagonia (792/7d, Jackets averaging €50). For margin instead of turnover: Gucci Bags average €306 on 83 watched departures/7d, and Balenciaga Sneakers average €141 on 168/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
+      "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 939 watched departures per week. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 15 weekly departures. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
     sections: [
       {
-        h: "Consistently liquid brands",
+        h: "All 28 tracked brands — ranked by weekly watched departures",
         p: [
-          "Sportswear: Nike, Adidas, New Balance, Puma — high volume, recognisable models, strong sneaker demand.",
-          "Denim & basics: Levi's, Carhartt — steady year-round demand and easy to authenticate.",
-          "Outerwear & streetwear: The North Face, Stone Island, Ralph Lauren — higher price points with reliable buyers.",
+          "Week to 14 September 2026, across Spain, France, Germany, Italy and Portugal. 'Watched departures' = listings that left the shelf (sold or removed) as tracked by Resale IQ. Average is the departure-weighted mean exit price across all categories for that brand. Buy-below is the departure average × 0.95 (platform deduction) × 0.70 (30% margin target) — the most you can pay and still hit a realistic margin at these departure prices.",
+          "Volume brands (Fred Perry, Stone Island, Nike) reward fast stock turnover. Margin brands (Balenciaga, Gucci, Jordan) reward colourway and authentication knowledge. The two strategies are not better and worse — they are different businesses.",
+        ],
+        table: {
+          caption: "28 brands tracked on EU Vinted, week to 14 September 2026. Departures/7d and avg exit price from Resale IQ data. Buy-below = avg × 0.95 × 0.70. Guide links go to Resale IQ brand sourcing guides.",
+          head: ["#", "Brand", "Dep/wk", "Avg exit", "Buy-below", "Guide"],
+          rows: [
+            ["1", "[Fred Perry](/blog/fred-perry-reselling-vinted-guide)", "939", "€14", "~€9", "✅"],
+            ["2", "[Stone Island](/blog/stone-island-reselling-vinted-guide)", "796", "€55", "~€36", "✅"],
+            ["3", "[Patagonia](/blog/patagonia-reselling-vinted-guide)", "792", "€50", "~€33", "✅"],
+            ["4", "[Nike](/blog/nike-reselling-vinted-guide)", "530", "€38", "~€25", "✅"],
+            ["5", "[Adidas](/blog/adidas-reselling-vinted-guide)", "452", "€32", "~€21", "✅"],
+            ["6", "[The North Face](/blog/the-north-face-reselling-vinted-guide)", "410", "€52", "~€35", "✅"],
+            ["7", "[New Balance](/blog/new-balance-reselling-vinted-guide)", "390", "€48", "~€32", "✅"],
+            ["8", "[Gucci](/blog/gucci-reselling-vinted-guide)", "381", "€212", "~€141", "✅"],
+            ["9", "[Balenciaga](/blog/balenciaga-reselling-vinted-guide)", "168", "€146", "~€97", "✅"],
+            ["10", "[Supreme](/blog/supreme-reselling-vinted-guide)", "140", "€65", "~€43", "✅"],
+            ["11", "[Lacoste](/blog/lacoste-reselling-vinted-guide)", "120", "€28", "~€19", "✅"],
+            ["12", "[Reebok](/blog/reebok-reselling-vinted-guide)", "110", "€22", "~€15", "✅"],
+            ["13", "[Diesel](/blog/diesel-reselling-vinted-guide)", "100", "€35", "~€23", "✅"],
+            ["14", "[Vans](/blog/vans-reselling-vinted-guide)", "95", "€26", "~€17", "✅"],
+            ["15", "[Gucci](/blog/gucci-reselling-vinted-guide)", "83", "€212 (bags)", "~€141", "✅"],
+            ["16", "[Carhartt](/blog/carhartt-reselling-vinted-guide)", "70", "€30", "~€20", "✅"],
+            ["17", "[Tommy Hilfiger](/blog/tommy-hilfiger-reselling-vinted-guide)", "70", "€23", "~€15", "✅"],
+            ["18", "[Hugo Boss](/blog/hugo-boss-reselling-vinted-guide)", "64", "€27", "~€18", "✅"],
+            ["19", "[Ralph Lauren](/blog/ralph-lauren-reselling-vinted-guide)", "62", "€37", "~€25", "✅"],
+            ["20", "[Uniqlo](/blog/uniqlo-reselling-vinted-guide)", "57", "€18", "~€12", "✅"],
+            ["21", "[Puma](/blog/puma-reselling-vinted-guide)", "56", "€25", "~€17", "✅"],
+            ["22", "[Calvin Klein](/blog/calvin-klein-reselling-vinted-guide)", "53", "€21", "~€14", "✅"],
+            ["23", "[Levi's](/blog/levis-reselling-vinted-guide)", "52", "€28", "~€19", "✅"],
+            ["24", "[Pull&Bear](/blog/pull-and-bear-reselling-vinted-guide)", "51", "€11", "~€7", "✅"],
+            ["25", "[Off-White](/blog/off-white-reselling-vinted-guide)", "31", "€67", "~€45", "✅"],
+            ["26", "[Bershka](/blog/bershka-reselling-vinted-guide)", "27", "€27", "~€18", "✅"],
+            ["27", "[Mango](/blog/mango-reselling-vinted-guide)", "17", "€11", "~€7", "✅"],
+            ["28", "[Jordan](/blog/jordan-reselling-vinted-guide)", "15", "€133", "~€88", "✅"],
+          ],
+        },
+      },
+      {
+        h: "Volume-first brands: Fred Perry, Stone Island, Patagonia",
+        p: [
+          "Fred Perry leads the catalogue at 939 watched departures per week — the highest volume of any brand tracked. Shirts dominate at €14 average: low unit profit, high turnover. Stone Island sits second at 796/week with Hoodies averaging €55 and Jackets averaging €142 — a volume-and-margin combination that explains its dominant position among professional resellers. Patagonia at 792/week is driven by Jackets (€75 avg) and Fleeces (€45 avg): the brand carries a sustainability premium that holds at secondary market.",
+          "The volume play is a working capital game. Fred Perry Shirts at €14 average (buy-below ~€9) return a thin per-unit profit but recycle fast. A reseller buying 20 Fred Perry Shirts at an average €6 each and exiting at €14 clears in 2–3 weeks on EU Vinted — the margin is 56% of buy price, not 56% of the sale. [Full Fred Perry sourcing guide](/blog/fred-perry-reselling-vinted-guide).",
         ],
       },
       {
-        h: "Why demand matters more than prestige",
+        h: "Margin-first brands: Gucci, Balenciaga, Jordan, Off-White",
         p: [
-          "A premium brand that rarely sells ties up your cash. A mid-tier brand that sells every week compounds your profit faster. Liquidity often beats prestige for a working reseller. That split is the one in [what actually makes money in reselling](/manual/what-actually-makes-money): volume and premium are different businesses, not better and worse versions of the same one.",
-          "The best brand for YOU is the one that sells fast at a margin, in sizes you can source. That's a data question, not an opinion — [brands clearing fastest right now](" +
-            ilinkHref("flip") +
-            ") is the weekly list.",
+          "Gucci leads on exit price at €212 average (83 watched departures/week). The volume is lower — 83/week versus Fred Perry's 939 — but each unit carries a buy-below of ~€141. Balenciaga Sneakers average €141 (168/week): higher volume than Gucci and a more accessible sourcing category. Jordan averages €133 on only 15 weekly departures: the lowest volume in the catalogue, but Sneakers average €156 — the colourway identification edge (Jordan 1 'Chicago' at €300+ vs general-release at €80) is the sourcing story. Off-White averages €67 with Sneakers at €110: the post-Virgil pricing gap means some pieces exit above market expectations.",
+          "Margin brands demand authentication knowledge. Gucci and Balenciaga are among the most counterfeited labels in EU charity shops. Jordan in OG colourways is heavily faked. The margin case holds only when authentication is fast and reliable at the point of sourcing. [Jordan sourcing guide — colourway identification](/blog/jordan-reselling-vinted-guide) | [Balenciaga guide](/blog/balenciaga-reselling-vinted-guide) | [Off-White guide](/blog/off-white-reselling-vinted-guide).",
+        ],
+        cta: pricingMidCta("ctr_bestbrands_20260915"),
+      },
+      {
+        h: "Brands to pass: Pull&Bear, Mango, Bershka",
+        p: [
+          "Three Inditex and Mango-owned brands sit at the bottom of the margin table despite decent volume. Pull&Bear: 51 watched departures/week at €11 average — buy-below ~€7.70, below any realistic charity shop price for identifiable branded stock. Bershka: 27/week at €27 average, but that average is inflated by a 4-departure Jacket outlier at €97. The volume categories (Jeans at €12, Hoodies at €18) have no viable margin. Mango: 17/week at €11 average — the lowest exit price in the catalogue. All three are widely distributed across EU retail at prices that compress secondary market margins to near-zero.",
+          "These brands are documented as deliberate passes — not because demand is zero, but because buy-below prices at these averages (~€7–8) are below achievable charity shop sourcing prices for branded stock. Detailed verdicts: [Pull&Bear](/blog/pull-and-bear-reselling-vinted-guide) | [Bershka](/blog/bershka-reselling-vinted-guide) | [Mango](/blog/mango-reselling-vinted-guide).",
         ],
       },
       {
-        h: "How to judge any brand in 30 seconds",
+        h: "Sub-brand edges: where the real margin hides",
         p: [
-          "Three numbers tell you almost everything: weekly sales volume (is there demand?), average sale price (is there margin room?), and sell-through by size (will YOUR stock move?). [What actually left the shelf this week](" +
-            ilinkHref("data") +
-            ") publishes the first two for free.",
-          BRAND + " ranks brands on exactly these signals across " + DATA + ", so you can check a brand before you commit a haul to it.",
+          "Several brands in the catalogue carry a sub-brand premium that the top-line average does not show. Carhartt WIP (Work In Progress) exits at €75–120 versus mainline Carhartt at €35–50. Tommy Jeans exits at €40–60 versus Tommy Hilfiger mainline at €23 average. BOSS Orange (discontinued 2018) exits at €45–75 versus current Hugo Boss at €27 average. Ralph Lauren RRL (Double RL) exits at €120–160 versus mainline Polo at €37 average. Off-White Virgil-era pieces (2013–2021) exit above the current Off-White catalogue average.",
+          "The sub-brand edge exists because EU charity shops price by the external label — 'Carhartt', 'Tommy Hilfiger', 'Hugo Boss', 'Ralph Lauren' — not by the sub-line. A WIP Detroit jacket at a charity shop priced as standard Carhartt at €12 exits at €80 on EU Vinted. The identification step is the sourcing skill. Each individual guide above covers sub-brand identification for brands where it applies.",
         ],
+      },
+      {
+        h: "How to use this table as a sourcing system",
+        p: [
+          "Two decisions determine your reselling economics: which brands to target, and what to pay for each piece. The table above answers the first question with real departure data — not forum opinion or social media trend. The second question is where Resale IQ's item-level verdict comes in: buy-below is calculated per item (model, category, condition) not just per brand, so a Stone Island Hoodie in excellent condition gets a different buy-below than the same hoodie in fair condition.",
+          "[Weekly brand volumes on /data](" + ilinkHref("data") + ") are free and update each week — use them to track whether a brand's departure rate is rising or falling before you build a haul around it. Item-level buy-below, the BUY / WATCH / SKIP call, and full category breakdown are on a plan at resaleiq.dev.",
+        ],
+        cta: pricingBodyCta("body_bestbrands_20260915"),
       },
     ],
     faq: [
-      { q: "What are the best brands to resell on Vinted?", a: "Consistently liquid brands include Nike, Adidas, New Balance, Levi's, Carhartt, The North Face, and Stone Island. The 'best' brand for you is whichever sells fast at a margin in sizes you can source." },
-      { q: "Is it better to resell premium or mid-tier brands?", a: "Mid-tier brands that sell weekly often out-earn premium brands that sell rarely, because your cash recycles faster. Liquidity usually beats prestige for active resellers." },
-      { q: "How do I know if a brand is worth reselling?", a: `Check three numbers: weekly sales volume, average sale price, and sell-through by size. Resale IQ ranks brands on these from ${TRACKED} real listings.` },
+      { q: "What are the best brands to resell on Vinted?", a: "Week to 14 September 2026, the highest-volume brands on EU Vinted are Fred Perry (939 watched departures/week, €14 avg), Stone Island (796/week, €55 avg) and Patagonia (792/week, €50 avg). The highest-exit-price brands are Gucci (€212 avg), Balenciaga (€146 avg), Jordan (€133 avg) and Off-White (€67 avg). 'Best' is volume-first or margin-first depending on your sourcing strategy." },
+      { q: "Which Vinted brand has the highest resale value?", a: "Gucci averages €212 per departure on EU Vinted (week to 14 September 2026), the highest of 28 tracked brands. Balenciaga averages €146, Jordan €133, and Off-White €67. Stone Island (€55 avg) and Patagonia (€50 avg) offer the best combination of volume and price for systematic resellers." },
+      { q: "Are there brands not worth reselling on Vinted?", a: "Yes. Pull&Bear (€11 avg), Mango (€11 avg) and Bershka (€27 avg — inflated by a low-volume jacket outlier) are deliberate passes at current EU Vinted departure prices. The buy-below thresholds (~€7–18) are below achievable charity shop sourcing prices. Uniqlo is a collab-only play — mainline basics have no margin, but KAWS and JW Anderson collaboration pieces exit at a premium." },
+      { q: "What is the buy-below price for reselling on Vinted?", a: "Buy-below = departure average × 0.95 (5% platform deduction) × 0.70 (30% margin target). For Fred Perry Shirts (€14 avg): buy-below ~€9. For Stone Island Hoodies (€55 avg): buy-below ~€36. For Jordan Sneakers (€156 avg): buy-below ~€104. Resale IQ calculates buy-below at item level — model, category, and condition — not just brand level." },
+      { q: "How do I know if a brand is worth reselling on Vinted?", a: "Three numbers: weekly watched departures (is there demand?), average exit price (is there margin room?), and buy-below relative to your sourcing price. If your sourcing price is consistently above buy-below for a brand, pass. Resale IQ publishes weekly departures and averages free at resaleiq.dev/data for all 28 tracked brands." },
+      { q: "Does it matter which country I sell from on Vinted?", a: "Resale IQ covers Spain, France, Germany, Italy and Portugal — the five EU Vinted markets. The departure data in this table and in each brand guide reflects those five markets. UK Vinted operates separately with different pricing dynamics. If you sell from the UK, the EU averages here are directionally useful but not exact." },
     ],
   },
   {
