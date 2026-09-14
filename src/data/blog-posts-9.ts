@@ -167,4 +167,79 @@ export const POSTS_9: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "zara-reselling-vinted-guide",
+    title: "Zara Reselling on Vinted: Jackets at €35 Average, Everything Else Below the Floor",
+    seoTitle: "Is Zara Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "Zara ranks #15 by watched departures across 5 EU Vinted markets — 82/week at €20 average. Jackets are the only viable category at 14 departures averaging €35 (buy-below ~€23). Hoodies (€16), T-Shirts (€10), and Shirts (€9) are below any practical margin threshold.",
+    date: "2026-09-15",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, Zara ranked #15 across Spain, France, Germany, Italy and Portugal with 82 watched departures at an average exit price of €20. Zara is the most interesting negative case in the EU Vinted top-15: it is one of the highest-volume fast-fashion brands on earth, but it produces almost no resale margin on its mass-market lines. The exception is narrow — Jackets at 14 departures averaging €35 — and within Jackets it is narrower still: only specific seasons, fabrications, and conditions exit above the buy-below. The majority of Zara sourcing at any deliberate price is a margin squeeze.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 82 watched departures in the week to 14 September 2026, Hoodies led at 21 exits averaging €16. T-Shirts added 16 departures averaging €10. Jackets contributed 14 departures averaging €35. Tracksuits added 9 departures averaging €17. Shirts rounded out at 8 departures averaging €9.",
+          "Full Zara volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly. The category structure tells the sourcing story: the highest-volume categories (Hoodies, T-Shirts, Shirts) are also the lowest-priced. Jackets are the exception — 17% of departures but the only category that clears the floor. Tracksuits at €17 are marginally viable but only at very low sourcing prices.",
+        ],
+      },
+      {
+        h: "Buy-below by category",
+        p: [
+          "With Jackets averaging €35 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €33.25. Applying a 30% target margin gives a buy-below of approximately €23. Hoodies at €16 give a buy-below near €11. T-Shirts at €10 give a buy-below near €7. Shirts at €9 give a buy-below near €6. Tracksuits at €17 give a buy-below near €12.",
+          "The practical ceiling: Zara T-Shirts, Hoodies, and Shirts are not worth deliberate sourcing at any price. At charity shop prices of €3–7, they occasionally clear, but the photography, listing, and dispatch time costs more per item than the margin. Jackets at €23 buy-below are viable when sourced below that in good condition — the window is real but thin.",
+        ],
+        cta: pricingMidCta("ctr_zara_20260915"),
+      },
+      {
+        h: "Jackets: what makes a Zara jacket resellable",
+        p: [
+          "The €35 Zara Jacket average on EU Vinted is not driven by any specific Zara sub-brand or collab — Zara does not have heritage collab equity. The average reflects structural and seasonal factors: structured blazers in neutral tones (camel, ecru, black) from Zara's mainline and Zara Studio lines exit at €28–55 when clean and recent (within 2 seasons). Leather-look jackets (the bonded leather biker jacket that Zara has produced in multiple iterations since 2018) exit at €25–45. Wool-blend overcoats from the mainline exit at €35–80 in good condition, with the Studio line's heavier constructions reaching the top of that range.",
+          "The sourcing edge is condition and recency. Zara buyers on Vinted are price-sensitive but condition-literate — they are sourcing Zara because they know the brand and want the piece at a discount, not because they do not know what they are buying. A blazer in 'good' condition with pilling or a missing button will list below €20. The same blazer in 'very good' condition with correct sizing listed in the description will reach €40+. The margin opportunity is in the condition delta, not in identifying an unknown piece.",
+        ],
+      },
+      {
+        h: "Zara Studio and TRF: the higher-value sub-lines",
+        p: [
+          "Zara Studio is Zara's elevated mainline — higher fabrication quality, lower volumes, and better secondary market performance. Studio pieces (typically distinguished by 'Studio' labelling inside the garment and at point of sale) exit at 30–50% above equivalent mainline pieces on EU Vinted. A Zara Studio structured blazer exits at €45–70 versus €28–50 for a comparable mainline piece. The identification at point of sourcing: the 'Studio' label inside the collar or on the hang tag is the primary tell.",
+          "Zara TRF (now largely folded into Zara Woman but still labelled on older pieces) targeted a younger demographic and produced denim and crop-top cuts that now circulate as Y2K adjacent pieces. TRF denim exits at €20–35, above the T-Shirts and Shirts average, making it occasionally viable when sourced at €10–15. The sourcing opportunity is narrower than Studio because TRF volumes at charity shops are lower — it was a smaller range.",
+        ],
+        cta: pricingBodyCta("body_zara_20260915"),
+      },
+      {
+        h: "Why Zara's brand average is low despite high volume",
+        p: [
+          "Zara's €20 average is a structural outcome: the brand produces fast-fashion at accessible retail price points (€15–50 for most lines), which anchors secondhand expectations. EU Vinted buyers associate Zara with a price point and resist paying above it even for good condition pieces. The exception is pieces with clear visible quality signals (linen, wool, structured tailoring) that photograph above the Zara fast-fashion expectation — these exit at premium-to-average.",
+          "Compared to the rest of the top-15: Zara sits below Reebok (€16 avg is the comparable, but Reebok has model-specific upsides to €80). Gucci at €212 average is the structural opposite — luxury authentication friction creates the margin. Zara's mass-market positioning means the authentication question does not arise, but neither does the scarcity premium. The sourcing case for Zara is: Jackets in good condition at under €23, and Studio sub-brand identification when available.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is Zara worth reselling on Vinted?",
+        a: "Selectively — Jackets only. Zara ranked #15 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 82 departures at €20 average. The only viable resale category is Jackets (14 departures averaging €35, buy-below ~€23). Hoodies (€16), T-Shirts (€10), Shirts (€9), and Tracksuits (€17) are below any practical sourcing margin. Generic Zara sourcing is not a viable resale strategy.",
+      },
+      {
+        q: "What is the buy-below price for Zara on Vinted?",
+        a: "For Zara Jackets specifically: with an average departure of €35 across EU Vinted markets (week to 14 September 2026), and modelling a 5% platform deduction and 30% target margin, the buy-below sits around €23. For all other Zara categories (Hoodies €16, T-Shirts €10, Shirts €9), the buy-below is below charity shop floor pricing and is not practically reachable. Resale IQ returns the exact buy-below for Zara Jackets by season and condition.",
+      },
+      {
+        q: "What Zara items sell best on Vinted?",
+        a: "By per-unit value: Jackets (14 departures/week at €35 avg). Within Jackets: Zara Studio structured blazers (€45–70), wool-blend overcoats (€35–80), leather-look biker jackets (€25–45). By volume: Hoodies (21 departures/week) but at €16 average — not worth deliberate sourcing. T-Shirts (16 dep/wk at €10) and Shirts (8 dep/wk at €9) are below any viable margin floor.",
+      },
+      {
+        q: "Does Zara Studio resell better than Zara mainline?",
+        a: "Yes — Zara Studio exits at 30–50% above equivalent mainline pieces on EU Vinted. A Studio structured blazer in very good condition exits at €45–70 versus €28–50 for a comparable mainline piece. The Studio label inside the collar or on the hang tag is the identification tell at point of sourcing. Studio pieces at charity shops are priced the same as mainline Zara by uninformed sellers — that is the sourcing edge.",
+      },
+      {
+        q: "How does Zara compare to Reebok and Vans for resale on Vinted?",
+        a: "Zara (82 dep/wk, €20 avg) is the lowest-volume and second-lowest-average of the top-15 brands — only Reebok (€16 avg) is lower. Unlike Reebok, which has model-specific upsides in Sneakers to €80, Zara's upside is category-specific (Jackets only) rather than model-specific. Vans (€36 avg) is driven by collab Sneaker identification; Zara has no equivalent authentication or scarcity premium. The sourcing case for Zara is narrower than either Reebok or Vans.",
+      },
+    ],
+  },
 ]
