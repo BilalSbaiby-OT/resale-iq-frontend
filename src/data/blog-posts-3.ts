@@ -17,11 +17,11 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Take a Vinted offer if it still clears your floor — cost, fees, minimum margin. Bundle slow stock to free cash; don't discount items that already sell.",
     date: "2026-08-07",
-    updated: "2026-09-13",
+    updated: "2026-09-14",
     category: "Selling",
     readMins: 4,
     intro:
-      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 11 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (1,409 watched departures/7d) and Shirts (971/7d) — they clear at full price on their own — while a slow, higher-ticket item like a Bag (362/7d at an average €145) is exactly the kind of stock a bundle discount should free up. Speed, not sentiment, decides.",
+      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 14 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (1,189 watched departures/7d) and Shirts (769/7d) — they clear at full price on their own — while a slow, higher-ticket item like a Bag (298/7d at an average €156) is exactly the kind of stock a bundle discount should free up. Speed, not sentiment, decides.",
     sections: [
       {
         h: "Know your floor before you negotiate",
@@ -148,11 +148,11 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Read the tag and construction first. Era markers date the piece; condition then swings value more than anything else. Price from departed comps.",
     date: "2026-08-07",
-    updated: "2026-09-12",
+    updated: "2026-09-14",
     category: "Sourcing",
     readMins: 6,
     intro:
-      "Vintage is where the biggest margins hide, because value depends on knowledge rather than brand recognition. Two identical-looking jackets can differ tenfold in price based on details most people never check. As of 12 September 2026, the vintage-adjacent categories we watch carry exactly that spread on Vinted: a Stone Island Jacket left the shelf at an average €134 (197 watched departures in 7 days) while a Fred Perry Shirt averaged €14 (547) — same 'sell a garment' motion, roughly ten times the price, decided entirely by what the piece is rather than how new it looks.",
+      "Vintage is where the biggest margins hide, because value depends on knowledge rather than brand recognition. Two identical-looking jackets can differ tenfold in price based on details most people never check. As of 14 September 2026, the vintage-adjacent categories we watch carry exactly that spread on Vinted: a Stone Island Jacket left the shelf at an average €142 (179 watched departures in 7 days) while a Fred Perry Shirt averaged €14 (460) — same 'sell a garment' motion, roughly ten times the price, decided entirely by what the piece is rather than how new it looks.",
     sections: [
       {
         h: "Read the tag first",
