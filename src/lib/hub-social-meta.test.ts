@@ -173,7 +173,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   assert.doesNotMatch(home, /twitter:/)
   // Conversion H1 stays on the landing copy, not the document title.
   const i18n = read("lib/i18n.ts")
-  assert.match(i18n, /heroHeadline: "Know what to pay — and whether it'll sell\."/)
+  assert.match(i18n, /heroHeadline: "Find profitable Vinted flips before buying them\."/)
 })
 
 test("layout Organization + SoftwareApplication JSON-LD stays valid", () => {

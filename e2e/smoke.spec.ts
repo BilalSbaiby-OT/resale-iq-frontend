@@ -27,7 +27,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("textbox")).toHaveValue("")
   await expect(hero.getByText("Example", { exact: true })).toBeVisible()
   // H1 is the JOB, not the SKU. The SKU stays as the caption on the evidence card.
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/what to pay/i)
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Find profitable Vinted flips before buying them/i)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/New Balance 530/)
   await expect(hero.getByText("New Balance 530", { exact: true }).first()).toBeVisible()
   await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
@@ -117,10 +117,12 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   const hero = page.locator("section.riq-pricing")
   await expect(hero).toContainText(/BUY \/ WATCH \/ SKIP/)
   await expect(hero).toContainText(/€19/)
-  // Paid ladder from TIERS. The Free card is public /data, not a €0 item-check plan.
-  for (const name of ["Free", "Starter", "Pro"]) {
+  // Paid ladder only. Free is a one-line public-data link, not a competing €0 card.
+  for (const name of ["Starter", "Pro"]) {
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
   }
+  await expect(page.getByTestId("riq-public-data-line")).toContainText(/Public data only \(not item checks\)/i)
+  await expect(page.getByTestId("riq-starter-trust")).toHaveText("Cancel anytime · €19/mo · unlocks immediately")
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
   // Free forever must not lead — first CTA is Starter.

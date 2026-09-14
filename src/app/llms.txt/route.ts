@@ -85,8 +85,8 @@ Agents can:
 
 Agents must not:
 - Automate checkout or payment.
-- Invent a Free-forever unlimited tier. /tools has a free one-item checker;
-  sell-through and sizes stay on a plan.
+- Invent a Free-forever unlimited tier. Weekly brand volumes on /data stay
+  public. Item-level BUY / WATCH / SKIP starts at Starter EUR 19.
 
 ## What the data is
 
@@ -154,7 +154,7 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 
 - Starter EUR 19/month: item-level BUY / WATCH / SKIP, buy-below, sell-through and sizes.
 - Pro EUR 49/month: adds the Live Deal Finder (on demand), Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
-- /tools has a free one-item checker. There is no Free-forever unlimited tier. Weekly brand volumes on /data stay public.
+- /tools lets you try a check; most items unlock with Starter EUR 19. There is no Free-forever unlimited tier. Weekly brand volumes on /data stay public.
 
 ## Reference
 

@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Check } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
@@ -8,6 +9,7 @@ import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale } from "@/lib/i18n"
+import { canonicalPath } from "@/lib/locale-routes"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -78,6 +80,7 @@ export function PricingSection({
   const router = useRouter()
   const t = copy[locale].pricingSection
   const tiers = localizedTiers(locale)
+  const paidTiers = tiers.filter((tier) => !tier.free)
   const s = compact ? COMPACT : ROOMY
   const Heading = (headingLevel === 1 ? "h1" : "h2") as "h1" | "h2"
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
@@ -156,11 +159,8 @@ export function PricingSection({
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
 
-      {/* 3 tiers. At 1080px wide with a 260px minimum this resolved to 3
-          columns, orphaning Free alone on a second row, left-aligned against a
-          full-width row above — it read as a mistake. Widened the section and
-          dropped the minimum so all sit on one row at desktop, and added
-          justifyContent so any wrapped row centres instead of hanging left. */}
+      {/* Conversion lock: Starter + Pro only in the card row. Free is a
+          one-line public-data link below so it cannot compete with Starter €19. */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(232px, 1fr))",
@@ -179,7 +179,7 @@ export function PricingSection({
             not claim a hit rate, because we have not measured one"). The
             pricingSection.mostPopular key stays translated in all six locales
             for when the claim is earned. */}
-        {tiers.map(tier => (
+        {paidTiers.map(tier => (
           <div key={tier.id} style={{
             position: "relative",
             background: tier.highlight ? "var(--color-surface-elevated)" : "var(--color-surface)",
@@ -215,6 +215,20 @@ export function PricingSection({
               opacity: (!tier.free && !plansReady) ? 0.6 : 1,
               transition: "opacity .18s, border-color .18s",
             }}>{busy === tier.id ? "…" : tier.cta}</button>
+            {tier.id === "operator" && (
+              <p
+                data-testid="riq-starter-trust"
+                style={{
+                  margin: "10px 0 0",
+                  fontSize: compact ? 12 : 13,
+                  lineHeight: 1.45,
+                  color: "var(--color-text-muted)",
+                  textAlign: "center",
+                }}
+              >
+                {t.starterTrust}
+              </p>
+            )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
                 Both were tinted, bordered panels stacked inside an already
                 bordered card; spacing and weight carry the same hierarchy
@@ -246,6 +260,15 @@ export function PricingSection({
           </div>
         ))}
       </div>
+      <p style={{ textAlign: "center", marginTop: 20, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>
+        <Link
+          href={canonicalPath(locale, "/data")}
+          data-testid="riq-public-data-line"
+          style={{ color: "var(--color-text-muted)", fontWeight: 500, textDecoration: "none" }}
+        >
+          {t.publicDataLine}
+        </Link>
+      </p>
       <p style={{ textAlign: "center", fontSize: 13, color: "var(--color-text-muted)", marginTop: 32, lineHeight: 1.6, maxWidth: 760, marginLeft: "auto", marginRight: "auto" }}>
         {t.footer}
       </p>

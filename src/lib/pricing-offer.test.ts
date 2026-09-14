@@ -45,7 +45,27 @@ test("marketing ladder leads with Starter and highlights operator, not Free", ()
   const src = read("components/landing/pricing-section.tsx")
   assert.match(src, /DISPLAY_ORDER: Record<string, number> = \{ operator: 0, power: 1, free: 2 \}/)
   assert.match(src, /highlight: mapped\.id === "operator"/)
+  assert.match(src, /paidTiers = tiers\.filter\(\(tier\) => !tier\.free\)/)
+  assert.match(src, /riq-public-data-line/)
+  assert.match(src, /riq-starter-trust/)
   assert.doesNotMatch(src, /free: 0, operator: 1/)
+})
+
+test("Starter trust line and public-data demote are in EN + ES copy", () => {
+  assert.equal(copy.en.pricingSection.starterTrust, "Cancel anytime · €19/mo · unlocks immediately")
+  assert.equal(copy.es.pricingSection.starterTrust, "Cancela cuando quieras · 19 €/mes · se desbloquea al instante")
+  assert.match(copy.en.pricingSection.publicDataLine, /Public data only \(not item checks\)/)
+  assert.match(copy.es.pricingSection.publicDataLine, /Solo datos públicos \(no comprobaciones de artículos\)/)
+  assert.doesNotMatch(copy.en.pricingSection.publicDataLine, /Start free/i)
+  assert.doesNotMatch(copy.es.tiers.free.cta, /Start free|Empieza gratis/i)
+})
+
+test("homepage H1 is the locked flips offer, not Know-what-to-pay", () => {
+  assert.equal(copy.en.heroHeadline, "Find profitable Vinted flips before buying them.")
+  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
+  assert.match(copy.en.heroSub, /€19/)
+  assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)
+  assert.doesNotMatch(copy.en.heroSub, /Know what to pay/i)
 })
 
 test("Stripe Starter/Pro placeholders are unchanged", () => {
