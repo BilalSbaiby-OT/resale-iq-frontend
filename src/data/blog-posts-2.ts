@@ -63,46 +63,90 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "best-time-to-list-on-vinted",
-    title: "Best Time to List on Vinted — Day, Hour, Season",
-    seoTitle: "When to List on Vinted? Season Beats Hour — Resale IQ",
+    title: "Best Time to List on Vinted — Hour, Day, and Season (Data)",
+    seoTitle: "Best Time to List on Vinted: Season Beats Hour — Resale IQ",
     description:
-      "In-season beats the hour. Evening and Sunday are the usual default — we have not measured hourly traffic. Fresh listings still need the right price.",
+      "Season beats hour on Vinted. Week to 14 September 2026: Hoodies are the busiest category at 1,181 departures/7 days — autumn has started. List outerwear now. Evening and Sunday are the usual daily defaults.",
     date: "2026-08-06",
-    updated: "2026-09-13",
+    updated: "2026-09-15",
     category: "Selling",
-    readMins: 4,
+    readMins: 7,
     intro:
-      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours. But most sellers obsess over the hour and ignore the thing that actually moves the needle: the season.",
+      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. Week to 14 September 2026, Hoodies were the single busiest category across the 28 brands Resale IQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal): 1,181 hoodie listings left the shelf in 7 days, ahead of Jackets (955) and Shirts (760). Autumn has started. If you are holding outerwear, this is when you list it.",
     sections: [
       {
-        h: "Daily timing",
+        h: "What season you are in right now — by the data",
         p: [
-          "The usual advice is to list in the evening, on the reasoning that casual browsing peaks after work. We have not measured Vinted's traffic by hour and cannot — so treat that as a plausible default rather than a finding, and test it on your own account by splitting listings between two times of day and comparing.",
-          "Weekends, particularly Sunday evening, tend to be busy as people plan the week ahead.",
-        ],
-        cta: pricingMidCta("ctr_listtime_20260913"),
-      },
-      {
-        h: "Why season beats hour",
-        p: [
-          "Listing a winter coat in July at the perfect hour still means months of waiting. Listing it in October at a mediocre hour sells it in days. [What actually left the shelf this week](" +
+          "Week to 14 September 2026, across 28 brands on EU Vinted: Hoodies 1,181 watched departures · Jackets 955 · Shirts 760. The autumn transition is live — hoodies and jackets are overtaking shirts, which dominated through summer. Stone Island Hoodies averaged €55 this week (796 departures/week across all categories). Patagonia Jackets averaged €75 (part of Patagonia's 792 total departures). The North Face — 410 departures/week — is fully in autumn territory.",
+          "If you have outerwear in stock, the listing window opened in the first week of September and the next 10–12 weeks are the strongest of the year. If you still hold summer stock (Shirts, Shorts, Swimwear), the market for that has softened materially and will not recover until April. Holding it is a decision to tie up cash for six months. [What actually left the shelf this week](" +
             ilinkHref("data") +
-            ") shows which season you're actually in.",
-          "Buy off-season if you can hold stock cheaply, but list in-season. Cash tied up waiting for a season is the most common reseller cash-flow mistake. [Brands clearing fastest right now](" +
-            ilinkHref("flip") +
-            ") is the in-season list.",
+            ") shows the live category mix.",
         ],
       },
       {
-        h: "Refreshing beats reposting",
+        h: "Category-by-season — when to list what",
         p: [
-          "If something hasn't sold, a small price adjustment or a photo refresh usually does more than deleting and relisting, and doesn't lose the item's existing engagement.",
+          "The table below is the practical version of 'list in season'. It shows which categories peak by quarter, based on EU Vinted departure patterns across the 28 brands we track.",
         ],
+        table: {
+          caption: "EU Vinted seasonal departure patterns for tracked brand categories. 'Peak' = highest weekly departure volume; 'Pass' = slowest quarter — cash-flow risk to hold. Brands from Resale IQ weekly data.",
+          head: ["Category", "Peak quarter", "Transition", "Softest quarter", "Key brands"],
+          rows: [
+            ["Jackets / Coats", "Q4 (Oct–Dec)", "Sep, Feb", "Q3 (Jul–Aug)", "Stone Island, Patagonia, The North Face, Carhartt"],
+            ["Hoodies / Sweatshirts", "Q4 + Q1 (Oct–Mar)", "Sep, Mar", "Q3 (Jul–Aug)", "Stone Island, Fred Perry, Nike, Supreme"],
+            ["Knitwear / Fleeces", "Q4 (Oct–Dec)", "Sep", "Q2–Q3 (Apr–Aug)", "Patagonia, Ralph Lauren, The North Face"],
+            ["Shirts / Polos", "Q2–Q3 (Apr–Aug)", "Mar, Sep", "Q4 (Nov–Jan)", "Fred Perry, Lacoste, Tommy Hilfiger"],
+            ["Sneakers / Trainers", "Year-round", "Minor Q4 dip", "Jan (post-Christmas)", "Nike, Adidas, New Balance, Jordan, Vans"],
+            ["Denim / Jeans", "Year-round", "Slight Q3 lift", "Low variance", "Levi's, Diesel, Carhartt"],
+            ["Bags / Accessories", "Q4 (gift season)", "Nov peak", "Q3 (Jul–Aug)", "Gucci (bags avg €306/departure)"],
+            ["Shorts / Swimwear", "Q2–Q3 (May–Aug)", "Apr, Sep", "Q4 (Oct–Feb)", "Nike, Adidas, Lacoste"],
+          ],
+        },
+      },
+      {
+        h: "Daily timing — the honest version",
+        p: [
+          "The standard advice: list between 18:00 and 22:00 on weekdays when casual browsing peaks after work, or on Sunday evening when buyers plan the week ahead. We have not measured Vinted's traffic by hour and cannot — so treat those as plausible defaults, not findings. Test it on your own account by splitting comparable listings across two times of day and comparing.",
+          "What we can say from departure data: the day-of-week effect on a well-priced, in-season listing from a sought brand is small. A Fred Perry Shirt at €12 (buy-below €9) in September will sell within 2–5 days regardless of listing hour. A Stone Island Jacket in November will sell within 3–7 days at a fair price regardless of listing hour. The hour matters at the margin. The season decides whether the item sells at all in the next 30 days.",
+        ],
+        cta: pricingMidCta("ctr_listtime_20260915"),
+      },
+      {
+        h: "The bump — when and why to use it",
+        p: [
+          "Vinted's Bump moves your listing back to the top of the feed, paid. It makes most sense for in-season stock that has been live for more than 7–10 days without a sale: the item has real demand, the price is right, and the only problem is visibility has faded.",
+          "A Bump on out-of-season stock, or on an item priced above the market departure average, is money wasted. The feed exposure does not manufacture demand. If an item has sat 3+ weeks without a sale, the answer is almost always a price reduction, not a paid push. The [market departure price for your brand and category](" +
+            ilinkHref("data") +
+            ") is the anchor — if you are above it, cut first.",
+        ],
+      },
+      {
+        h: "Refreshing vs relisting",
+        p: [
+          "Deleting and relisting restarts the clock on views and favourites the old listing accumulated. That existing engagement is not nothing — buyers who favourited an item get notified of a price drop. Lose the listing and you lose those notifications.",
+          "A small price adjustment (even €1–2) triggers a 'price dropped' notification to everyone who favourited the item. That is almost always more effective than a relist. Pair a price adjustment with a new cover photo (the one most buyers see in feed) for the same algorithmic boost as a fresh listing without losing the engagement. [Brands clearing fastest right now](" +
+            ilinkHref("flip") +
+            ") tells you whether low sell-through is a timing problem or a sourcing problem.",
+        ],
+      },
+      {
+        h: "Autumn 2026: the categories to list now",
+        p: [
+          "Week to 14 September 2026 (EU5): the transition is confirmed live. If you are holding any of the following, list now rather than waiting for an arbitrary date:",
+          "Stone Island: 796 total departures/week, Hoodies €55 avg, Jackets €142 avg. Patagonia: 792/week, Jackets €75 avg. The North Face: 410/week, Jackets and Fleeces dominant. Carhartt: 70/week — WIP Detroit Jackets exit €80–120 at charity shop sourcing prices of €10–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the 28-brand hub.",
+          "Fred Perry Shirts are in softening territory for September — 939 departures/week still, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
+        ],
+        cta: pricingBodyCta("body_listtime_20260915"),
       },
     ],
     faq: [
-      { q: "What is the best time to list items on Vinted?", a: "Evenings between roughly 18:00 and 22:00, when browsing peaks, and weekends — especially Sunday evening. But listing in the right season matters far more than the exact hour." },
-      { q: "Does relisting on Vinted help items sell?", a: "Usually a price adjustment or better photos works better than deleting and relisting, since relisting discards the engagement the listing already has." },
+      { q: "What is the best time to list items on Vinted?", a: "Season matters more than hour. Week to 14 September 2026, Hoodies (1,181 departures/7 days), Jackets (955) and outerwear are the fastest-moving categories on EU Vinted — autumn has started. For daily timing, evenings between 18:00 and 22:00 and Sunday evenings are the conventional defaults, but we have not measured Vinted's hourly traffic directly." },
+      { q: "What sells fastest on Vinted in autumn?", a: "Hoodies, Jackets and Fleeces. Week to 14 September 2026 on EU Vinted: Hoodies 1,181 watched departures in 7 days, Jackets 955. Key brands: Stone Island (796 total departures/week, Hoodies avg €55, Jackets avg €142), Patagonia (792/week, Jackets avg €75), The North Face (410/week). If you have outerwear in stock, the listing window is now." },
+      { q: "Should I relist on Vinted if something hasn't sold?", a: "No — a price adjustment or new cover photo is almost always better. Deleting and relisting discards every favourite and view the listing accumulated. Favouriting buyers get a price-drop notification when you reduce the price, which is more effective than a fresh listing with no followers. Only relist if the listing is more than 30 days old and has zero engagement." },
+      { q: "When is the worst time to sell summer clothes on Vinted?", a: "October to February. EU Vinted departure data shows Shirts and Shorts volumes decline sharply from late September. Selling summer stock in October means competing on price against in-season buyers, often at a 20–30% reduction from peak prices. Holding summer stock past September ties up capital for roughly six months — sell now at a small discount, or accept the wait." },
+      { q: "Does using the Vinted Bump help items sell faster?", a: "Only when the item is in-season and priced at or below the market departure average. A Bump on an overpriced or off-season listing buys feed exposure, not demand. The departure average for your brand and category is at resaleiq.dev/data — if your price is above it, reduce first." },
+      { q: "What is a 'watched departure' on Vinted?", a: "A watched departure is a listing that left the shelf — sold or removed — as tracked by Resale IQ. It is not a confirmed receipt. Weekly departure volumes and average exit prices for 28 brands across Spain, France, Germany, Italy and Portugal are published free at resaleiq.dev/data." },
+      { q: "Does day of week matter for Vinted listings?", a: "Marginally. Sunday evening sees elevated browsing in EU markets; weekday evenings (18:00–22:00) are also suggested by conventional wisdom, though we have not measured Vinted's hourly traffic directly. In-season positioning and price relative to the departure average determine whether an item sells this week. Day of listing determines whether it gets a first-day visibility boost." },
     ],
   },
   {
