@@ -65,12 +65,12 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
-    updated: "2026-09-13",
+    updated: "2026-09-14",
     category: "Sourcing",
     readMins: 6,
     intro:
-      "As of 11 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,400 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (1,076) and Shirts (993). The single busiest brand/category pair is Stone Island Hoodies: 577 watched departures in 7 days, averaging €54. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
+      "As of 14 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,189 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (961) and Shirts (769). The single busiest brand/category pair is Fred Perry Shirts: 460 watched departures in 7 days, averaging €14. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -107,7 +107,7 @@ export const POSTS: BlogPost[] = [
         h: "Buy-below still decides the flip",
         p: [
           "Knowing what sells best is half the job. The other half is not overpaying for movers.",
-          "Week to 13 September 2026 (EU5): Fred Perry 1,027 watched departures @ €19 · Stone Island 892 @ €66 · Patagonia 843 @ €36 · Gucci 230 @ €197. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
+          "Week to 14 September 2026 (EU5): Fred Perry 947 watched departures @ €18 · Stone Island 804 @ €69 · Patagonia 798 @ €36 · Gucci 221 @ €212. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
           "[Weekly market data](" +
             dataCiteHref("body_sellsbest_20260913") +
             ").",
@@ -127,9 +127,9 @@ export const POSTS: BlogPost[] = [
       {
         q: "What sells best on Vinted?",
         a:
-          "As of 11 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
-          "Hoodies were the busiest category: at least 1,400 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (1,076) and Shirts (993). " +
-          "The busiest brand/category pair was Stone Island Hoodies: 577 watched departures in 7 days, averaging €54. " +
+          "As of 14 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
+          "Hoodies were the busiest category: at least 1,189 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (961) and Shirts (769). " +
+          "The busiest brand/category pair was Fred Perry Shirts: 460 watched departures in 7 days, averaging €14. " +
           "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip).",
       },
       {
@@ -141,7 +141,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "Does high volume mean a good flip?",
         a:
-          "No. Volume and ticket size rarely sit together. Week to 13 September 2026 (EU5): Fred Perry 1,027 watched departures at €19, Stone Island 892 at €66, Patagonia 843 at €36, Gucci 230 at €197. " +
+          "No. Volume and ticket size rarely sit together. Week to 14 September 2026 (EU5): Fred Perry 947 watched departures at €18, Stone Island 804 at €69, Patagonia 798 at €36, Gucci 221 at €212. " +
           "Pair demand with buy-below before you tie up cash. Weekly table: [https://resaleiq.dev/data](/data).",
       },
       {
