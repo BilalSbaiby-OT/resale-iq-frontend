@@ -180,4 +180,88 @@ export const POSTS_4: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "new-balance-reselling-vinted-guide",
+    title: "New Balance Reselling on Vinted: Sneaker-First, Model-Driven, and Where the Margin Lives",
+    seoTitle: "Is New Balance Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "New Balance ranks #5 by watched departures across 5 EU Vinted markets — 260/week at €49 average. Sneakers are 93% of volume: 242 departures at €52 average (buy-below ~€35). Model drives price more than condition — know your NB numbers.",
+    date: "2026-09-14",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, New Balance ranked #5 across Spain, France, Germany, Italy and Portugal with 260 watched departures at an average exit price of €49. The defining feature of New Balance resale on Vinted is concentration: 93% of all watched departures are Sneakers. That is a different brand structure to every other top-ten brand we track. If you are operating in New Balance, you are operating in one category — Sneakers — and the model number is the single most important variable in every sourcing decision.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 260 watched departures, Sneakers accounted for 242 — at an average of €52. The remaining volume is thin: Tracksuits (7 departures, avg €18), Hoodies (4, avg €11), T-Shirts (3, avg €7), and Jackets (2, avg €37). These non-Sneaker categories are too low-volume to build a sourcing strategy around; the 7-day numbers are statistically noisy at that sample size.",
+          "Full New Balance volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly. The €49 brand average is pulled down by the small number of low-ticket apparel exits; the Sneakers segment trades at €52 average, which is the number that matters.",
+        ],
+      },
+      {
+        h: "Buy-below by category",
+        p: [
+          "With Sneakers averaging €52 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €49.40. Applying a 30% target margin gives a buy-below of approximately €35. Any New Balance Sneaker sourced below that price — in sellable condition, with correct model identification — has a realistic margin at current departure prices.",
+          "Tracksuits at €18 average give a buy-below near €12. Hoodies at €11 give a buy-below near €7. T-Shirts at €7 give a buy-below near €5. Jackets at €37 give a buy-below near €25. The apparel categories are only viable at near-zero sourcing cost — they are not the play in New Balance.",
+        ],
+        cta: pricingMidCta("ctr_newbalance_20260914"),
+      },
+      {
+        h: "Model number is the price: the NB sourcing rule",
+        p: [
+          "New Balance is the only brand in the top ten where the model number controls the floor price more than condition does. A 530 in good condition and a 530 in near-perfect condition trade at a narrower spread than a 530 and a 990 in identical condition. Knowing which model numbers trade at premium is the core sourcing skill.",
+          "The models with the strongest EU5 secondary demand at current departure prices: the 530 (consistent everyday-wear demand, broad size range); the 574 (classic shape, the highest unit volume across EU markets); the 993 and 990v5 (US-made, premium positioning, fewer fakes, higher floor); the 2002R (strong resurgence in demand from 2024 onwards, especially in colourways tied to New Balance collabs). The 327 and 247 move but at thinner margins — the silhouette is diffuse and prices compress quickly when multiple colourways coexist.",
+        ],
+      },
+      {
+        h: "Colourway and size: the two variables that move price",
+        p: [
+          "Within a model, colourway is the primary price variable. Neutral colourways — grey, white, cream, and the 'grey day' tonal palettes — command the highest consistent secondary demand because they work across outfit styles. Brand collab releases (New Balance x Aimé Leon Dore, x Salehe Bembury, x Stone Island) carry collector premiums that can double or triple the standard floor, but authentication and demand are narrower and more buyer-specific.",
+          "Size is the second variable. UK sizes 8–10 (EU 42–44) represent peak secondary market demand across EU5. Sizes outside this band — particularly smaller women's sizes and larger men's sizes (UK 12+) — source faster but the buyer pool is thinner at full floor price. Factor size into buy-below: a UK 13 pair at €52 average needs a more aggressive sourcing discount to account for longer time-to-sale.",
+        ],
+      },
+      {
+        h: "Condition scoring on Sneakers: where NB differs from apparel",
+        p: [
+          "New Balance Sneakers have a lower condition tolerance than apparel brands — buyers in the €40–60 range expect clean soles, no yellowing on the midsole, and no heel counter collapse. Soles are the first deduction: any significant rubber wear drops the floor by €8–15 depending on model. Midsole yellowing on older 530 and 574 units is the most common condition issue; it can be partially reversed with cleaning, but photograph under natural light and disclose if any yellowing remains.",
+          "Box presence matters more than on most brands. A New Balance Sneaker with original box converts faster and at the top of the comp range; without a box, price to mid-comp. Lace condition is visible in the listing thumbnail and frequently triggers lower offers — replace worn laces before photographing if sourcing cost allows it.",
+        ],
+        cta: pricingBodyCta("body_newbalance_20260914"),
+      },
+      {
+        h: "Authentication: fakes concentrate in 990 and collab models",
+        p: [
+          "New Balance fakes are less prevalent than Supreme or Balenciaga, but they concentrate in the highest-value models: the 990v5, the 993, and any collab release. Authentication checks for US-made models: the insole should print 'Made in USA' clearly; the heel counter should have firm structure with no soft spots; the outsole compound on genuine 990-series is a dense dark rubber — lightweight or hollow-feeling outsoles are a rejection signal.",
+          "For 530 and 574 — the volume models — fakes exist but are less frequent. The main check: the 'N' logo should be stitched with tight, even thread tension. Loose or puckered embroidery, inconsistent font weight across the 'N', and soft leather substitutes instead of suede overlays on suede-colourway models are the most common tells. " +
+            BRAND +
+            " returns a BUY / WATCH / SKIP with the exact buy-below for a specific New Balance model and colourway.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is New Balance worth reselling on Vinted?",
+        a: "Yes — New Balance ranked #5 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 260 listings left the shelf at an average of €49. Sneakers account for 93% of volume (242 departures, avg €52, buy-below ~€35). Model and colourway knowledge is the primary sourcing skill.",
+      },
+      {
+        q: "What is the buy-below price for New Balance Sneakers on Vinted?",
+        a: "With New Balance Sneakers averaging €52 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €35. Sourcing a New Balance Sneaker below that price in sellable condition gives a realistic margin at current departure prices. Resale IQ returns the exact buy-below for a specific model and colourway on check.",
+      },
+      {
+        q: "What New Balance models sell best on Vinted?",
+        a: "Models with the strongest EU secondary demand: the 530 (consistent everyday demand, broad size range), the 574 (highest volume), the 993 and 990v5 (US-made, premium floor), and the 2002R (strong resurgence from 2024). Collab releases (ALD, Salehe Bembury) carry premiums but serve a narrower buyer pool. Neutral colourways — grey, white, cream — command the highest consistent secondary prices.",
+      },
+      {
+        q: "How does colourway affect New Balance resale value on Vinted?",
+        a: "Colourway is the primary within-model price variable. Neutral tonal colourways (grey day, cream, navy) maintain the broadest buyer demand and trade closest to full departure floor. Brand collab colourways can command 2–3× premiums but have slower, more specific buyer pools. Polarising colourways (neon, high-contrast) source cheap but take longer to convert.",
+      },
+      {
+        q: "How does New Balance compare to other brands for resale on Vinted?",
+        a: "New Balance (260 departures/week, avg €49) is more concentrated than any other top-10 brand — 93% Sneakers. By comparison, Balenciaga (514/week, avg €146) is the highest revenue velocity; Stone Island (785/week, avg €70) is the broadest mid-ticket opportunity. New Balance is the best entry point for Sneaker-focused resellers who can identify model value quickly.",
+      },
+    ],
+  },
 ]
