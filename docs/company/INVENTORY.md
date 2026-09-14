@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `d25991b`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `5fc5766`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
