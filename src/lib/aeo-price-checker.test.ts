@@ -94,7 +94,7 @@ test("price-checker paid CTA is Get the numbers with aeo_price_checker_001", () 
     /AEO_PRICE_CHECKER_CTA =\s*"\/pricing\?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"/,
   )
   const money = read("lib/money-cta.ts")
-  assert.match(money, /PRICE_CHECKER_MONEY_HREF = googleSearchTestPricingHref\("price_checker"\)/)
+  assert.match(money, /PRICE_CHECKER_MONEY_HREF = moneyCtaPricingHref\("price_checker"\)/)
 })
 
 test("lede no longer claims the paywall is the only next step", () => {

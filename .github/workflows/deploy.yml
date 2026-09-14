@@ -180,21 +180,30 @@ jobs:
           # THIS run means to ship. scripts/test-check-deploy-identity.sh
           # falsifies that script against fixtures — see it for proof this
           # can fail red, not just pass green.
-          for i in $(seq 1 60); do
-            sleep 15
+          # Poll every 5s for the first 2 minutes (the app's measured baseline
+          # deploy is ~1m25s, so the overwhelming majority of runs exit here),
+          # then back off to 15s. The old loop slept 15s before its FIRST
+          # check, so even an already-finished deploy billed a minimum of 15s
+          # and a typical one billed ~90s of pure sleep. Same 15-minute
+          # ceiling, far fewer billed idle minutes on the common path.
+          deadline=$(( $(date +%s) + 900 ))
+          i=0
+          while [ "$(date +%s)" -lt "${deadline}" ]; do
+            i=$((i+1))
+            if [ "${i}" -le 24 ]; then sleep 5; else sleep 15; fi
             now=$(curl -sL -m 20 https://resaleiq.dev/ \
                   | grep -oE '_next/static/chunks/[A-Za-z0-9._-]+\.js' \
                   | sort -u | sha256sum | cut -d' ' -f1) || true
             if scripts/check-deploy-identity.sh "${EXPECTED}" 2>/tmp/identity.log; then
               cat /tmp/identity.log
-              echo "Confirmed after ~$((i*15))s."
+              echo "Confirmed after ~$(( $(date +%s) - (deadline - 900) ))s."
               [ -n "${now}" ] && [ "${now}" != "${BEFORE}" ] && echo "Client bundle also changed (fingerprint ${now})." \
                 || echo "Client bundle fingerprint unchanged — expected for a server-only change, now proven safe by commit identity instead."
               code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://resaleiq.dev/flip || true)
               [ "$code" = "200" ] || echo "::warning::New build is live but /flip returned ${code}."
               exit 0
             fi
-            echo "Not yet (attempt ${i}/60): $(cat /tmp/identity.log)"
+            echo "Not yet (attempt ${i}): $(cat /tmp/identity.log)"
           done
           # A real failure, not a warning: 15 minutes is well past this app's
           # normal deploy time (~1m25s baseline), and unlike the old bundle

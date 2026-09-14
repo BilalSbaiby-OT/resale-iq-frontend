@@ -19,7 +19,7 @@ import {
   CHECK_VINTED_PRICE_NAME,
 } from "./webmcp-tools.ts"
 import {
-  GOOGLE_SEARCH_TEST_CAMPAIGN,
+  INTERNAL_CTA_CAMPAIGN,
   PRICE_CHECKER_MONEY_HREF,
   PROFIT_CALC_MONEY_HREF,
   TOOLS_MONEY_HREF,
@@ -121,7 +121,7 @@ test("auth and pricing surfaces are not WebMCP tools", () => {
 })
 
 test("Get the numbers google_search_test doors stay intact", () => {
-  assert.match(TOOLS_MONEY_HREF, new RegExp(GOOGLE_SEARCH_TEST_CAMPAIGN))
+  assert.match(TOOLS_MONEY_HREF, new RegExp(INTERNAL_CTA_CAMPAIGN))
   assert.match(PRICE_CHECKER_MONEY_HREF, /utm_content=price_checker/)
   assert.match(PROFIT_CALC_MONEY_HREF, /utm_content=profit_calc/)
   const toolsPage = read("app/tools/page.tsx")

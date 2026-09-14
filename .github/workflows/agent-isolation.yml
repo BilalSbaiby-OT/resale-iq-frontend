@@ -11,6 +11,16 @@
 # is what gets checked.
 name: Agent Isolation
 
+# Agents push to main in rapid bursts. Without this, five pushes in two
+# minutes bought five full npm ci + build + test runs, four of them for
+# commits already superseded by the time they finished. Deploy only ever
+# ships the newest commit, so the older runs were pure Actions-minute burn.
+# Cancelling is safe here for the same reason as deploy.yml: main is the
+# deployable unit and the newest commit contains the older ones.
+concurrency:
+  group: agent-isolation-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: [main]

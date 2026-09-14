@@ -91,8 +91,31 @@ jobs:
       # Chromium only — playwright.config.ts defines exactly one project
       # (chromium/Desktop Chrome). Installing Firefox/WebKit here would pay
       # for browsers nothing in this repo ever launches.
+      #
+      # CACHED. The download is ~130MB and was re-fetched on all 40 runs in a
+      # single day — pure billed minutes for a byte-identical artifact. The
+      # key is the Playwright version from package-lock, so a version bump
+      # busts the cache automatically and a stale browser can never be used.
+      - name: Resolve Playwright version
+        id: pw
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
       - name: Install Playwright's Chromium
+        if: steps.pw-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+
+      # System deps live outside the cached browser dir, so they are still
+      # needed on a cache hit — but this is seconds, not a 130MB download.
+      - name: Install Chromium system deps
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
 
       # --workers=2, matching the setting baked into test:e2e:required.
       # Measured directly: the "429 on /auth/me does not wipe the JWT" spec

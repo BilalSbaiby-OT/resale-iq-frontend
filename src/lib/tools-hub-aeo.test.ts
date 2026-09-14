@@ -17,7 +17,7 @@ import {
 } from "./tools-hub-aeo.ts"
 import {
   CATEGORY_MONEY_HREF,
-  GOOGLE_SEARCH_TEST_CAMPAIGN,
+  INTERNAL_CTA_CAMPAIGN,
   MONEY_CTA_LABEL,
   MONEY_CTA_SUBLINE,
   PRICE_CHECKER_MONEY_HREF,
@@ -68,16 +68,16 @@ test("citeable buy-below lead does not promise a free item check", () => {
   assert.equal(TOOLS_HUB_DEFINED_TERM.url, "https://resaleiq.dev/tools")
 })
 
-test("money CTA hrefs pin the google_search_test campaign", () => {
+test("money CTA hrefs use honest internal attribution, never a fake cpc source", () => {
   assert.equal(MONEY_CTA_LABEL, "Get the numbers")
   assert.equal(MONEY_CTA_SUBLINE, "Buy-below + demand before cash sticks.")
   assert.equal(
     TOOLS_MONEY_HREF,
-    `/pricing?utm_source=google&utm_medium=cpc&utm_campaign=${GOOGLE_SEARCH_TEST_CAMPAIGN}&utm_content=tools`,
+    `/pricing?utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools`,
   )
   assert.equal(
     CATEGORY_MONEY_HREF,
-    `/pricing?utm_source=google&utm_medium=cpc&utm_campaign=${GOOGLE_SEARCH_TEST_CAMPAIGN}&utm_content=category`,
+    `/pricing?utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=category`,
   )
   assert.equal(
     TOOLS_FAQ_CTA_HREF,
