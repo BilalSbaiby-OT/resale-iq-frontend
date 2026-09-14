@@ -97,7 +97,7 @@ export default async function BlogPostPage(
       headline: p.title,
       description: p.description,
       datePublished: p.date,
-      dateModified: p.date,
+      dateModified: p.updated ?? p.date,
       author: { "@type": "Organization", name: "Resale IQ" },
       publisher: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
       mainEntityOfPage: `https://resaleiq.dev/blog/${p.slug}`,
