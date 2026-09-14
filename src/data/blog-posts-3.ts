@@ -737,4 +737,84 @@ export const POSTS_3: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "fred-perry-reselling-vinted-guide",
+    title: "Fred Perry Reselling on Vinted: Volume, Margins, and Floor Discipline",
+    seoTitle: "Is Fred Perry Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "Fred Perry is the #1 brand by watched departures across 5 EU Vinted markets — 928/week at an average of €18. High liquidity, thin margins. Shirts dominate at 451 departures averaging €14. Buy-below for Jackets is ~€24.",
+    date: "2026-09-14",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, Fred Perry ranked #1 across Spain, France, Germany, Italy and Portugal by a clear margin: 928 listings left the shelf in 7 days. That is the highest observed departure volume of any brand we track. The trade-off is price — the average exit is €18, which makes Fred Perry the highest-liquidity, lowest-margin brand at the top of the table. The strategy here is not about finding the best single flip; it is about floor discipline and volume. If you source below your floor, the volume handles the rest.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 928 watched departures, Shirts led: 451 left the shelf at an average of €14. T-Shirts followed at 168 departures averaging €12. Hoodies contributed 147 at €22 — the highest per-unit return in the core Fred Perry range. Jackets (118 departures at €36) are the premium end. Caps (16 departures, €17) are opportunistic only.",
+          "The Shirt dominance reflects Fred Perry's market position — the M12 Polo is the brand's defining item, and it turns over faster than anything else. Full brand volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly.",
+        ],
+      },
+      {
+        h: "Buy-below by category",
+        p: [
+          "With Shirts averaging €14 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €13.30. Applying a 30% target margin gives a buy-below of approximately €9. A Fred Perry Shirt sourced below €9 has a realistic margin at current departure prices.",
+          "Hoodies at €22 average give a buy-below near €15. Jackets at €36 give a buy-below near €24. The numbers are tight — which is why floor discipline matters more on Fred Perry than on higher-ticket brands. A single pound or euro over floor on a £12 shirt is the entire margin.",
+        ],
+        cta: pricingMidCta("ctr_fredperry_20260914"),
+      },
+      {
+        h: "Why volume makes Fred Perry viable despite thin margins",
+        p: [
+          "At 928 departures per week, Fred Perry moves faster than any brand in the top 10. A thin-margin brand with strong liquidity is often more useful to a part-time reseller than a high-margin brand that sits for weeks. Cash that recycles in 3–5 days competes with cash that earns a bigger margin but waits 3 weeks.",
+          "The condition for this to work: your floor must be real. If you pay £12 for a Shirt that needs cleaning and relist at €14 with €0.70 in fees deducted, you have made €0.60 before sourcing time and postage. The margin is there; the volume argument collapses the moment you pay over floor. " +
+            BRAND +
+            " returns a BUY / WATCH / SKIP with a buy-below for the specific model so you can check the floor before you commit.",
+        ],
+      },
+      {
+        h: "Which Fred Perry pieces hold margin",
+        p: [
+          "The M12 Polo (the piqué twin-tip) is the highest-volume individual piece. Colourway matters: black, navy, and burgundy move consistently. Unusual or season-limited colourways sometimes command a small premium but also sit longer if the buyer pool for that colour is thin.",
+          "Jackets — particularly Harrington-style and track jackets — are the best per-unit Fred Perry opportunity. At 118 departures and €36 average, the buy-below (~€24) is achievable at charity shops and car boots when the Harrington is a current-decade piece in clean condition. Size M and L move fastest; XS and XL sit considerably longer.",
+          "For authenticity: check the laurel wreath badge is original and not faded, the twin-tip colour is consistent, and the fabric label matches the era. Pre-2000 pieces can trade at a premium with the right buyer but require specific knowledge to price — if in doubt, price them as standard.",
+        ],
+      },
+      {
+        h: "Floor management is the whole game",
+        p: [
+          "At these price points, profit or loss is decided at the point of purchase, not at the point of listing. Know your floor — cost plus fees plus minimum margin — before you handle the item, not while you are negotiating. The " +
+            ilinkHref("data") +
+            " page shows what Fred Perry items are actually leaving the shelf at this week, which is the only honest basis for a floor.",
+          "Avoid bidding on lots you cannot separate — a bag of Fred Perry Shirts at a house clearance is only a good buy if the individual item floor math still works on each piece, not on the average.",
+        ],
+        cta: pricingBodyCta("body_fredperry_20260914"),
+      },
+    ],
+    faq: [
+      {
+        q: "Is Fred Perry worth reselling on Vinted?",
+        a: "Yes — Fred Perry is the #1 brand by watched departures across Spain, France, Germany, Italy and Portugal: 928 listings left the shelf in the 7 days to 14 September 2026. Margins are thin (avg €18 exit) but liquidity is the highest of any brand we track. The model works when sourcing floor discipline is strict.",
+      },
+      {
+        q: "What is the buy-below price for a Fred Perry shirt?",
+        a: "With Fred Perry Shirts averaging €14 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €9. Above that the margin disappears. Resale IQ returns the exact buy-below for a specific Fred Perry model on check.",
+      },
+      {
+        q: "What is the most popular Fred Perry item on Vinted?",
+        a: "Shirts — most notably the M12 Polo — dominate: 451 of the 928 weekly departures are Shirts, averaging €14. T-Shirts (168 departures, avg €12) and Hoodies (147, avg €22) follow. Jackets are the best per-unit opportunity at €36 average but move less often (118 departures/week).",
+      },
+      {
+        q: "How does Fred Perry compare to Stone Island and Patagonia for resale?",
+        a: "Fred Perry leads on volume (928 departures/week) but averages €18 — the highest liquidity, the thinnest margins. Stone Island (#3 by volume at 785 departures) averages €70 — less frequent but much higher per-unit. Patagonia (#2) is in between at 785 departures and €36 average. Fred Perry rewards volume operators with strict sourcing floors; Stone Island rewards selective buyers with capital.",
+      },
+      {
+        q: "What is the buy-below for Fred Perry Jackets on Vinted?",
+        a: "Fred Perry Jackets average €36 at departure (118 departures/week to 14 September 2026). Modelling a ~5% platform deduction and 30% target margin gives a buy-below of approximately €24. Harrington and track jackets in clean condition sourced below that price have a realistic margin. Size M and L move fastest.",
+      },
+    ],
+  },
 ]
