@@ -660,8 +660,9 @@ import { POSTS_8 } from "./blog-posts-8"
 import { POSTS_9 } from "./blog-posts-9"
 import { POSTS_10 } from "./blog-posts-10"
 import { POSTS_11 } from "./blog-posts-11"
+import { POSTS_12 } from "./blog-posts-12"
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11]
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11, ...POSTS_12]
 
 export function getPost(slug: string): BlogPost | undefined {
   return ALL_POSTS.find((p) => p.slug === slug)
