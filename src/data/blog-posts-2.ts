@@ -115,9 +115,7 @@ export const POSTS_2: BlogPost[] = [
         h: "The bump — when and why to use it",
         p: [
           "Vinted's Bump moves your listing back to the top of the feed, paid. It makes most sense for in-season stock that has been live for more than 7–10 days without a sale: the item has real demand, the price is right, and the only problem is visibility has faded.",
-          "A Bump on out-of-season stock, or on an item priced above the market departure average, is money wasted. The feed exposure does not manufacture demand. If an item has sat 3+ weeks without a sale, the answer is almost always a price reduction, not a paid push. The [market departure price for your brand and category](" +
-            ilinkHref("data") +
-            ") is the anchor — if you are above it, cut first.",
+          "A Bump on out-of-season stock, or on an item priced above the market departure average, is money wasted. The feed exposure does not manufacture demand. If an item has sat 3+ weeks without a sale, the answer is almost always a price reduction, not a paid push. The [market departure price for your brand and category](https://resaleiq.dev/data) is the anchor — if you are above it, cut first.",
         ],
       },
       {
