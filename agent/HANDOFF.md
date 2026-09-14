@@ -1,7 +1,17 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-13
+
+SEO LANE, 2026-09-13 — EX-ACTIVATION-FIX (this session)
+  Conversion lock: collapse Free on /pricing to one-line public-data
+  (not competing with Starter €19). Starter trust line EN+ES.
+  Homepage H1 → locked flips offer. /tools + price-checker stop
+  promising free BUY/WATCH/SKIP (API is mostly 402).
+  Branch cursor/seo-ex-activation-fix-f1f0.
+
+---
+
 
 SEO LANE, 2026-09-13 — EX-PRICING-OFFER LIVE (merged #117)
   MERGED | c35b6ba | live PASS

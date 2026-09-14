@@ -495,3 +495,16 @@ NEXT (once unblocked): P0-1.
   Cache-busted curl: EN H1 “Find profitable Vinted flips before buying them.”
   ES H1 “Encuentra flips rentables en Vinted antes de comprarlos.”
   Both heroes have BUY / WATCH / SKIP + €19 / 19 €. Free CTA last.
+
+## 2026-09-13 — EX-ACTIVATION-FIX Free demote + Starter trust + homepage offer
+- /pricing: Free card collapsed to one-line “Public data only (not item
+  checks) → /data” below Starter+Pro. Starter trust:
+  “Cancel anytime · €19/mo · unlocks immediately”. Stripe CTAs unchanged.
+- /es/pricing: “Solo datos públicos…” + “Cancela cuando quieras · 19 €/mes
+  · se desbloquea al instante”.
+- Homepage H1: “Find profitable Vinted flips before buying them.”
+  Sub mirrors BUY/WATCH/SKIP + €19/mo. Soft “Know what to pay” killed.
+- /tools + price-checker: stop promising free BUY/WATCH/SKIP. FAQ now
+  matches 402 paywall — public /data free; item checks start Starter €19.
+  WebMCP toolname attrs kept. Get the numbers → /pricing kept.
+- Branch cursor/seo-ex-activation-fix-f1f0.

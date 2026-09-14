@@ -107,7 +107,7 @@ test("llms.txt tells agents the money tools and the free-check boundary", () => 
   assert.match(llms, /\$\{BASE\}\/flip/)
   assert.match(llms, /\$\{BASE\}\/pricing/)
   assert.match(llms, /\$\{BASE\}\/manual/)
-  assert.match(llms, /free one-item checker/)
+  assert.match(llms, /Item-level BUY \/ WATCH \/ SKIP starts at Starter EUR 19/)
   assert.match(llms, /Free-forever/)
   assert.match(llms, /Automate checkout or payment/)
   assert.match(llms, /ES, FR, DE, IT and PT/)

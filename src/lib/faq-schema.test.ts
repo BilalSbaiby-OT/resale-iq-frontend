@@ -294,14 +294,15 @@ test("/tools hub ships FAQPage + HubFaq + DefinedTerm with no /register in schem
   assert.match(aeo, /How does ResaleIQ show demand\?/)
   assert.match(aeo, /Who is ResaleIQ for\?/)
   assert.match(aeo, /Is the Vinted price checker free\?/)
-  assert.match(aeo, /What does the Starter plan unlock beyond the free check\?/)
-  assert.match(aeo, /one-item price checker is free/)
+  assert.match(aeo, /What does the Starter plan unlock\?/)
+  assert.match(aeo, /most items unlock with Starter/)
   assert.match(aeo, /https:\/\/resaleiq\.dev\/data/)
   assert.match(aeo, /https:\/\/resaleiq\.dev\/pricing/)
   const faqBlock = aeo.slice(aeo.indexOf("export const TOOLS_HUB_FAQS"))
   assert.doesNotMatch(faqBlock, /\/register/)
   assert.doesNotMatch(faqBlock, /[?&]utm_/)
-  assert.doesNotMatch(aeo, /no free item-check/i)
+  assert.doesNotMatch(aeo, /free one-item/)
+  assert.doesNotMatch(aeo, /one-item price checker is free/)
 })
 
 test("blog post renderer prints definedTerm above the intro", () => {

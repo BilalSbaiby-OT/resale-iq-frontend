@@ -1,6 +1,6 @@
 /**
  * EX-TOOLS-MONEY-CTA + AEO — primary google_search_test doors,
- * citeable buy-below lead, FAQPage that admits the free one-item checker.
+ * citeable buy-below lead, FAQPage that does not promise a free item check.
  */
 import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
@@ -32,37 +32,38 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("tools FAQ answers match the live free-checker boundary", () => {
+test("tools FAQ answers match the paywalled item-check boundary", () => {
   assert.equal(TOOLS_HUB_FAQS.length, 5)
   assert.equal(TOOLS_HUB_FAQS[0].q, "What is a buy-below price?")
   assert.equal(TOOLS_HUB_FAQS[1].q, "How does ResaleIQ show demand?")
   assert.equal(TOOLS_HUB_FAQS[2].q, "Who is ResaleIQ for?")
   assert.equal(TOOLS_HUB_FAQS[3].q, "Is the Vinted price checker free?")
-  assert.equal(TOOLS_HUB_FAQS[4].q, "What does the Starter plan unlock beyond the free check?")
+  assert.equal(TOOLS_HUB_FAQS[4].q, "What does the Starter plan unlock?")
   for (const f of TOOLS_HUB_FAQS) {
     assert.equal(faqAnswerIsClean(f.a), true, f.q)
   }
   const answers = TOOLS_HUB_FAQS.map((f) => f.a).join("\n")
-  assert.match(answers, /free one-item check|one-item price checker is free/)
+  assert.match(answers, /Starter €19|Starter at €19|Starter is €19/)
   assert.match(answers, /watched departures/)
   assert.match(answers, /Spain, France, Germany, Italy and Portugal/)
   assert.match(answers, /do not cover the UK/)
   assert.match(answers, /Starter is €19/)
-  assert.match(TOOLS_HUB_FAQS[3].a, /^Yes\./)
-  assert.doesNotMatch(answers, /no free item-check/i)
+  assert.doesNotMatch(TOOLS_HUB_FAQS[3].a, /^Yes\./)
+  assert.doesNotMatch(answers, /free one-item/)
+  assert.doesNotMatch(answers, /one-item price checker is free/)
   assert.doesNotMatch(answers, /\/register/)
   assert.doesNotMatch(answers, /[?&]utm_/)
 })
 
-test("citeable buy-below lead mentions the free one-item checker", () => {
+test("citeable buy-below lead does not promise a free item check", () => {
   assert.equal(BUY_BELOW_TERM_NAME, "Buy-below price")
   assert.match(BUY_BELOW_TERM, /average asking price at departure × 0\.95 × 0\.70/)
-  assert.match(BUY_BELOW_TERM, /free one-item checker/)
+  assert.match(BUY_BELOW_TERM, /Starter €19/)
   assert.match(BUY_BELOW_TERM, /BUY, WATCH or SKIP/)
-  assert.match(TOOLS_HUB_BODY, /free one-item check/)
+  assert.match(TOOLS_HUB_BODY, /Most item checks unlock with Starter/)
   assert.match(TOOLS_HUB_BODY, /not the UK/)
-  assert.doesNotMatch(BUY_BELOW_TERM, /no free item-check/i)
-  assert.doesNotMatch(TOOLS_HUB_BODY, /no free item-check/i)
+  assert.doesNotMatch(BUY_BELOW_TERM, /free one-item/)
+  assert.doesNotMatch(TOOLS_HUB_BODY, /free one-item/)
   assert.equal(TOOLS_HUB_DEFINED_TERM.description, BUY_BELOW_TERM)
   assert.equal(TOOLS_HUB_DEFINED_TERM.url, "https://resaleiq.dev/tools")
 })
@@ -97,7 +98,7 @@ test("/tools hub renders FAQPage, DefinedTerm, and both paid doors", () => {
   assert.match(src, /TOOLS_HUB_BODY/)
   assert.match(src, /FreeChecker/)
   assert.doesNotMatch(src, /\/register/)
-  assert.doesNotMatch(src, /no free item-check/i)
+  assert.doesNotMatch(src, /Check it free/)
 })
 
 test("/category hub primary door is the google_search_test MoneyCta", () => {

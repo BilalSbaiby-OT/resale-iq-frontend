@@ -98,7 +98,7 @@ export default async function CategoryHubPage() {
       a:
         "Category volume tells you demand exists — the busiest categories recycle cash; slower, higher-priced ones usually carry more margin per item. " +
         "Buy-below is the most you should pay for a specific listing after fees. Rankings on this page are not a buy-below. " +
-        "The free one-item checker at https://resaleiq.dev/tools returns BUY, WATCH or SKIP plus buy-below. Sell-through and sizes stay on a plan. " +
+        "Item-level BUY, WATCH or SKIP plus buy-below start at Starter €19. Try the checker at https://resaleiq.dev/tools; most items unlock with Starter. Sell-through and sizes stay on a plan. " +
         "Weekly brand volumes stay public at https://resaleiq.dev/data. Brand rankings are at https://resaleiq.dev/flip. " +
         "Unlimited checks and Deal Scanner start on Starter at https://resaleiq.dev/pricing.",
     },
@@ -233,7 +233,7 @@ export default async function CategoryHubPage() {
           >
             brand rankings
           </Link>{" "}
-          for the other cut. A one-item check is free on /tools —{" "}
+          for the other cut. Try a check on /tools — most items unlock with Starter —{" "}
           <Link
             href="/pricing?utm_source=category&utm_medium=organic&utm_campaign=category_aeo_20260913"
             style={{ color: "#34C759", textDecoration: "none" }}
@@ -265,11 +265,11 @@ export default async function CategoryHubPage() {
         </p>
 
         {/* Primary paid door is the google_search_test MoneyCta above.
-            Footer keeps the free one-item checker path plus src=category_index. */}
+            Footer keeps the tools path plus src=category_index. */}
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginTop: 26 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a specific item</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Category volume is free. This hub&apos;s one-item checker is free for BUY, WATCH or SKIP plus buy-below. Sell-through and sizes stay on a plan.
+            Category volume is public. Item checks start at Starter €19. Try the checker; most items unlock with Starter. Sell-through and sizes stay on a plan.
           </p>
           <Link href="/tools/vinted-price-checker?src=category-check" style={{ display: "inline-block", color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "underline" }}>
             Check this item →

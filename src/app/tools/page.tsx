@@ -53,8 +53,8 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <main id="main">
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-          {/* Muted, not accent-green: the checker's "Check it free" is the one
-              CTA on this view and a green back-link competed with it. */}
+          {/* Muted, not accent-green: the filled Check CTA is the one control
+              on this view and a green back-link competed with it. */}
           <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
           <LocaleSwitcher locale={locale} />
         </div>
