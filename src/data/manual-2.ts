@@ -23,7 +23,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Open slightly above your target, not dramatically above it. A modest premium leaves room to accept an offer and lets a price drop register as a genuine reduction later. A large premium gets you filtered out of the searches where buyers set a maximum, which means nobody sees the listing at all and you learn nothing from the silence.",
           "Anchor the number to the asking price at departure for the same model in similar condition. Where the item is at the edge of the distribution — worn, edge size, off-season — start closer to your floor, because the extra premium is not going to be paid and all it buys you is weeks of invisibility.",
-          "How far apart those anchors sit is easy to underestimate until you see the spread. As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (460 watched departures in seven days), a Stone Island Jacket at €142 (179), and a Gucci Bag at €306 (83) — the same \"sell one garment\" motion spanning roughly twenty times the price. A number that is right for one is nonsense for another, which is exactly why the anchor has to come from your model's own departures rather than a category feel or a round figure that looks sensible.",
+          "How far apart those anchors sit is easy to underestimate until you see the spread. As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (455 watched departures in seven days), a Stone Island Jacket at €142 (179), and a Gucci Bag at €306 (83) — the same \"sell one garment\" motion spanning roughly twenty times the price. A number that is right for one is nonsense for another, which is exactly why the anchor has to come from your model's own departures rather than a category feel or a round figure that looks sensible.",
         ],
         callout: {
           label: "Price-filter awareness",
@@ -88,7 +88,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Buyers find items by typing what they want. Your title's only job is to contain those words. Brand, model, category, colour, size — in the order a person would actually search — beats anything clever, because clever does not match a query.",
           "This is the direct inverse of the mispricing signal from chapter 6. The listings you buy cheaply are the ones with vague titles; the listings you sell well are the ones with precise ones. Getting the model name right is worth more than every other listing optimisation combined, because it is the difference between appearing in the right search and not existing.",
-          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Stone Island Hoodie departed at an average of €55 (439 watched departures in seven days) and a Fred Perry Shirt at €14 (460). At that volume the title is a search problem: leave out the brand or the category noun and the listing is not in the results those buyers are already typing.",
+          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Stone Island Hoodie departed at an average of €55 (433 watched departures in seven days) and a Fred Perry Shirt at €14 (460). At that volume the title is a search problem: leave out the brand or the category noun and the listing is not in the results those buyers are already typing.",
         ],
         list: [
           "Brand first — it is the most common opening search term",
@@ -452,7 +452,7 @@ export const CHAPTERS_2: ManualChapter[] = [
         body: [
           "Volume without focus multiplies the number of things you have to be knowledgeable about. Two hundred listings across forty brands means you cannot know any of them well, and your pricing becomes guesswork at exactly the point where guesswork gets expensive.",
           "Narrowing to a handful of brands and categories you understand deeply makes sourcing faster, pricing more accurate and mistakes rarer. Nearly every reseller who scales successfully narrows first, and nearly every one who stalls tried to do it the other way around.",
-          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (460 watched departures in seven days) and a Gucci Bag at €306 (83). Photographing and listing either one takes the same ten to fifteen minutes. When listing time is the constraint, twenty times the departure price is twenty times the return on that hour, which is why narrowing the range before raising volume is a throughput decision, not a taste one.",
+          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (455 watched departures in seven days) and a Gucci Bag at €306 (83). Photographing and listing either one takes the same ten to fifteen minutes. When listing time is the constraint, twenty times the departure price is twenty times the return on that hour, which is why narrowing the range before raising volume is a throughput decision, not a taste one.",
         ],
         callout: {
           label: "The real ceiling",

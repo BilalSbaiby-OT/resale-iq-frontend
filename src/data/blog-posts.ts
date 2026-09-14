@@ -70,7 +70,7 @@ export const POSTS: BlogPost[] = [
     readMins: 6,
     intro:
       "As of 14 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,189 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (961) and Shirts (769). The single busiest brand/category pair is Fred Perry Shirts: 460 watched departures in 7 days, averaging €14. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,181 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (955) and Shirts (760). The single busiest brand/category pair is Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -107,7 +107,7 @@ export const POSTS: BlogPost[] = [
         h: "Buy-below still decides the flip",
         p: [
           "Knowing what sells best is half the job. The other half is not overpaying for movers.",
-          "Week to 14 September 2026 (EU5): Fred Perry 947 watched departures @ €18 · Stone Island 804 @ €69 · Patagonia 798 @ €36 · Gucci 221 @ €212. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
+          "Week to 14 September 2026 (EU5): Fred Perry 939 watched departures @ €18 · Stone Island 796 @ €70 · Patagonia 792 @ €36 · Gucci 221 @ €212. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
           "[Weekly market data](" +
             dataCiteHref("body_sellsbest_20260913") +
             ").",
@@ -128,8 +128,8 @@ export const POSTS: BlogPost[] = [
         q: "What sells best on Vinted?",
         a:
           "As of 14 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
-          "Hoodies were the busiest category: at least 1,189 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (961) and Shirts (769). " +
-          "The busiest brand/category pair was Fred Perry Shirts: 460 watched departures in 7 days, averaging €14. " +
+          "Hoodies were the busiest category: at least 1,181 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (955) and Shirts (760). " +
+          "The busiest brand/category pair was Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. " +
           "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip).",
       },
       {
@@ -141,7 +141,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "Does high volume mean a good flip?",
         a:
-          "No. Volume and ticket size rarely sit together. Week to 14 September 2026 (EU5): Fred Perry 947 watched departures at €18, Stone Island 804 at €69, Patagonia 798 at €36, Gucci 221 at €212. " +
+          "No. Volume and ticket size rarely sit together. Week to 14 September 2026 (EU5): Fred Perry 939 watched departures at €18, Stone Island 796 at €70, Patagonia 792 at €36, Gucci 221 at €212. " +
           "Pair demand with buy-below before you tie up cash. Weekly table: [https://resaleiq.dev/data](/data).",
       },
       {
@@ -168,7 +168,7 @@ export const POSTS: BlogPost[] = [
     category: "Pricing",
     readMins: 6,
     intro:
-      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 14 September 2026, we watched 5,406 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €55, and Balenciaga Sneakers €142. Price off the brand's real departure number, not retail.",
+      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 14 September 2026, we watched 5,377 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €55, and Balenciaga Sneakers €142. Price off the brand's real departure number, not retail.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
@@ -200,9 +200,9 @@ export const POSTS: BlogPost[] = [
           "Use two numbers together:",
           "1. What it exited at — average asking price when comparable listings left the shelf (brand/category averages are free on our weekly table).",
           "2. Whether anything like it is moving — watched departures for that brand this week. High volume + sane exit price = cash can turn. Low volume at a “deal” price = dead stock risk.",
-          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,406 departures across 28 brands. Examples of the gap:",
-          "Fred Perry — 947 left the shelf · avg €18 (volume play)",
-          "Stone Island — 804 · avg €69",
+          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,377 departures across 28 brands. Examples of the gap:",
+          "Fred Perry — 939 left the shelf · avg €18 (volume play)",
+          "Stone Island — 796 · avg €70",
           "Gucci — 221 · avg €212 (price play, thinner volume)",
           "Same week, same markets. Price-alone math would treat a Gucci “deal” and a Fred Perry tee as the same kind of decision. They aren’t.",
           "Buy-below answers “what’s the most I can pay and still margin after fees.” Demand answers “will it leave the shelf before my cash is stuck.” Skip either and you’re guessing.",
@@ -240,7 +240,7 @@ export const POSTS: BlogPost[] = [
     category: "Sourcing",
     readMins: 6,
     intro:
-      "As of 14 September 2026, the highest-volume brands leaving Vinted's shelf right now are Fred Perry (947 listings/7d, Shirts averaging €14), Stone Island (804/7d, Hoodies averaging €55) and Patagonia (798/7d, Jackets averaging €50). For margin instead of turnover: Gucci Bags average €306 on 83 watched departures/7d, and Balenciaga Sneakers average €142 on 169/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
+      "As of 14 September 2026, the highest-volume brands leaving Vinted's shelf right now are Fred Perry (939 listings/7d, Shirts averaging €14), Stone Island (796/7d, Hoodies averaging €55) and Patagonia (792/7d, Jackets averaging €50). For margin instead of turnover: Gucci Bags average €306 on 83 watched departures/7d, and Balenciaga Sneakers average €141 on 168/7d. 'Best' depends on whether you want turnover or margin — full live numbers, updated weekly, at resaleiq.dev.",
     sections: [
       {
         h: "Consistently liquid brands",
@@ -323,7 +323,7 @@ export const POSTS: BlogPost[] = [
           "Vinted's centre of gravity is everyday branded fashion across large EU markets — recognisable mid-market brands, basics, sneakers, denim, outerwear. Volume is its advantage. Items that are easy to search for by brand and model sell reliably, and they sell at a fair rather than a remarkable price.",
           "Depop skews younger and more trend-led, with real strength in curated vintage, Y2K, streetwear and anything with a story attached to it. A well-styled, well-photographed piece can command a price on Depop that the same item would never reach on Vinted, because the buyer is shopping a look rather than a brand name.",
           "The practical translation: Vinted rewards recognisability and price discipline, Depop rewards curation and presentation. If your sourcing edge is spotting underpriced known brands, Vinted's volume is hard to beat. If your edge is taste — finding pieces other people cannot name but want — Depop pays for that in a way Vinted does not.",
-          "The split shows up in the numbers. As of 14 September 2026, the highest-ticket categories we watch leave Vinted's shelf are Gucci Bags (an average €306 across 83 watched departures in 7 days) and Stone Island Jackets (€142 across 179) — the curated, premium end where Depop's styling-and-story premium competes hardest. At the volume end, Fred Perry Shirts moved 460 watched departures at an average €14 the same week: recognisable, cheap, fast, and exactly what Vinted's scale is built for.",
+          "The split shows up in the numbers. As of 14 September 2026, the highest-ticket categories we watch leave Vinted's shelf are Gucci Bags (an average €306 across 83 watched departures in 7 days) and Stone Island Jackets (€142 across 179) — the curated, premium end where Depop's styling-and-story premium competes hardest. At the volume end, Fred Perry Shirts moved 455 watched departures at an average €14 the same week: recognisable, cheap, fast, and exactly what Vinted's scale is built for.",
         ],
         table: {
           caption: "Which platform tends to suit which stock. Generalisations, not rules — test your own categories.",
@@ -448,7 +448,7 @@ export const POSTS: BlogPost[] = [
     category: "Sourcing",
     readMins: 5,
     intro:
-      "As of 14 September 2026, we watched 5,406 listings leave the shelf across 28 tracked brands this week, and the fastest-moving categories point straight at what's worth flipping: Stone Island Hoodies (439 watched departures at €55), Patagonia Jackets (324 at €50) and New Balance Sneakers (242 at €52). To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick categories that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
+      "As of 14 September 2026, we watched 5,377 listings leave the shelf across 28 tracked brands this week, and the fastest-moving categories point straight at what's worth flipping: Stone Island Hoodies (433 watched departures at €55), Patagonia Jackets (319 at €50) and New Balance Sneakers (242 at €52). To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick categories that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
     sections: [
       {
         h: "Start from demand, not from what's cheap",
@@ -467,7 +467,7 @@ export const POSTS: BlogPost[] = [
           "A cheap listing is not automatically a flip. If the model is slow, the size is weak, or buyers are not moving at the expected price, your money is still tied up. The real sourcing test is two-part:",
           "1. Can you buy below your ceiling?",
           "2. Is there evidence that this brand, model, size, and condition can move?",
-          "The tracked week in this guide shows why the second question matters. Stone Island Hoodies recorded 566 watched departures at €55, Patagonia Jackets 346 at €50, and New Balance Sneakers 283 at €51. Those numbers do not guarantee a sale, but they give you a demand signal to compare with the listing in front of you. A cheap item in a thin category does not offer the same cash-turn probability. [Weekly market data](" +
+          "The tracked week in this guide shows why the second question matters. Stone Island Hoodies recorded 433 watched departures at €55, Patagonia Jackets 319 at €50, and New Balance Sneakers 242 at €52. Those numbers do not guarantee a sale, but they give you a demand signal to compare with the listing in front of you. A cheap item in a thin category does not offer the same cash-turn probability. [Weekly market data](" +
             dataCiteHref("body_flips_deepen_002_20260913") +
             ").",
           "Use a two-gate decision before you source. Start with the exit: the likely sale price and how quickly comparable items are leaving the shelf. Then work backwards to the maximum buy price. A practical buy-below estimate is average sale price × 0.95 × 0.70.",
@@ -513,7 +513,7 @@ export const POSTS: BlogPost[] = [
     category: "Business",
     readMins: 5,
     intro:
-      "There's no single number — it depends entirely on which brand and category you source. As of 14 September 2026, category prices we track range from €12 (Pull&Bear Hoodies) to €306 (Gucci Bags) across the 28 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 460 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 12/7d and €156 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
+      "There's no single number — it depends entirely on which brand and category you source. As of 14 September 2026, category prices we track range from €12 (Pull&Bear Hoodies) to €306 (Gucci Bags) across the 28 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 455 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 12/7d and €156 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
     sections: [
       {
         h: "What actually drives income",
@@ -633,7 +633,7 @@ export const POSTS: BlogPost[] = [
         h: "Demand is the other half of buy-below",
         p: [
           "A buy-below number without demand still burns cash. Pair (1) max pay after fees with (2) whether that brand is leaving the shelf this week.",
-          "Week to 14 September 2026 (EU5): we watched 5,406 departures across 28 brands — Fred Perry 947 @ €18 · Stone Island 804 @ €69 · Gucci 221 @ €212. [Weekly market data](" +
+          "Week to 14 September 2026 (EU5): we watched 5,377 departures across 28 brands — Fred Perry 939 @ €18 · Stone Island 796 @ €70 · Gucci 221 @ €212. [Weekly market data](" +
             dataCiteHref("body_buybelow_20260913") +
             ").",
         ],

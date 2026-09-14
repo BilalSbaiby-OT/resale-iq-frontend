@@ -96,7 +96,7 @@ export const CHAPTERS_1: ManualChapter[] = [
         body: [
           "A 50% margin on a €10 item is €5. A 20% margin on a €120 item is €24. Percentage margin is useful for comparing two items of similar price and useless for deciding where to put your money. What you are actually optimising is euros of profit per euro of capital per week — margin and speed together, never margin alone.",
           "This is why volume brands and premium brands are different businesses rather than better and worse versions of the same one. High-volume, low-price stock returns small amounts quickly and forgives mistakes. Premium stock returns larger amounts slowly and punishes them. Both work. Mixing them without noticing which one you are doing does not.",
-          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (460 watched departures in seven days) and a Gucci Bag at €306 (83). Same sell-one-item motion at twenty times the price and roughly a fifth of the turnover, which is why a single target margin applied to both does not work.",
+          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (455 watched departures in seven days) and a Gucci Bag at €306 (83). Same sell-one-item motion at twenty times the price and roughly a fifth of the turnover, which is why a single target margin applied to both does not work.",
         ],
         callout: {
           label: "The test",

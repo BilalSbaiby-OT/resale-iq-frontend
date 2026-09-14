@@ -244,7 +244,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Selling",
     readMins: 5,
     intro:
-      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 14 September 2026, the busiest categories leaving Vinted's shelf across 28 tracked brands were Hoodies (1,189 watched departures/7d), Jackets (961) and Sneakers (714) — so if your item sits in a category showing thin weekly volume, low views is a demand problem no photo or title will fix. Check that first.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 14 September 2026, the busiest categories leaving Vinted's shelf across 28 tracked brands were Hoodies (1,181 watched departures/7d), Jackets (955) and Sneakers (713) — so if your item sits in a category showing thin weekly volume, low views is a demand problem no photo or title will fix. Check that first.",
     sections: [
       {
         h: "First: is there demand at all?",
@@ -259,7 +259,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Demand is the other half of the views",
         p: [
           "More views are useful only when the item has a chance of leaving the shelf. Before spending time on photos, titles, or relisting, use demand to choose what is worth pushing — then use buy-below to decide what is worth buying.",
-          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,406 departures across 28 brands. Fred Perry: 947 departures. Stone Island: 804. Gucci: 221 departures at an average €212. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
+          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,377 departures across 28 brands. Fred Perry: 939 departures. Stone Island: 796. Gucci: 221 departures at an average €212. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
           "The filter is simple:",
           "1. Demand: is this brand/model moving enough this week that extra views could become a sale?",
           "2. Buy-below: what is the most you can pay after fees and still keep your margin?",
@@ -309,7 +309,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Sourcing",
     readMins: 5,
     intro:
-      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 14 September 2026, Jackets were the highest-value fast-moving category we track (961 watched departures/7d at an average €68), well ahead of Hoodies (1,189/7d at €45) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
+      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 14 September 2026, Jackets were the highest-value fast-moving category we track (955 watched departures/7d at an average €68), well ahead of Hoodies (1,181/7d at €45) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
     sections: [
       {
         h: "Buy low season, sell high season",
