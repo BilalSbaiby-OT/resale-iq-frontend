@@ -1,14 +1,22 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
-UPDATED: 2026-09-13
+UPDATED: 2026-09-14
 
-SEO LANE, 2026-09-13 — EX-ACTIVATION-FIX (this session)
-  Conversion lock: collapse Free on /pricing to one-line public-data
-  (not competing with Starter €19). Starter trust line EN+ES.
-  Homepage H1 → locked flips offer. /tools + price-checker stop
-  promising free BUY/WATCH/SKIP (API is mostly 402).
-  Branch cursor/seo-ex-activation-fix-f1f0.
+SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
+  MERGED | e28c993 | live PASS
+  `/deploy-id` SOURCE_COMMIT e28c993f0676e5785dbaeb14192c28d329d809c7
+  Cache-busted curl:
+    https://resaleiq.dev/pricing — Starter first CTA Get the numbers;
+    trust “Cancel anytime · €19/mo · unlocks immediately”;
+    Free demoted to “Public data only (not item checks) → /data”;
+    no €0 card, no Start free.
+    https://resaleiq.dev/es/pricing — Spanish trust + Solo datos públicos.
+    https://resaleiq.dev/ H1 =
+    “Find profitable Vinted flips before buying them.”
+    https://resaleiq.dev/tools — no free BUY/WATCH/SKIP promise;
+    “Most item checks unlock with Starter”; Get the numbers; toolname kept.
+  Branch cursor/seo-ex-activation-fix-f1f0. PR #118.
 
 ---
 

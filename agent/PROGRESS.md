@@ -508,3 +508,6 @@ NEXT (once unblocked): P0-1.
   matches 402 paywall — public /data free; item checks start Starter €19.
   WebMCP toolname attrs kept. Get the numbers → /pricing kept.
 - Branch cursor/seo-ex-activation-fix-f1f0.
+- MERGED #118 as e28c993. Live PASS on SOURCE_COMMIT e28c993.
+  Cache-busted curl: /pricing Starter primary + trust + public-data line;
+  /es/pricing Spanish trust + demote; / H1 flips offer; /tools no free verdict.
