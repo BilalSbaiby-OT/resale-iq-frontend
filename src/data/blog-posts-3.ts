@@ -580,4 +580,82 @@ export const POSTS_3: BlogPost[] = [
       { q: "Is a slow-selling item always mispriced?", a: "No. Some models and some sizes simply have less demand at a given moment — that's a sourcing signal, not a pricing mistake. Checking current brand, category and size demand before repeatedly discounting avoids chasing a price that was never the actual problem." },
     ],
   },
+  {
+    slug: "patagonia-reselling-vinted-guide",
+    title: "Patagonia Reselling on Vinted: Departure Data and Buy-Below",
+    seoTitle: "Is Patagonia Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "Patagonia is the #2 brand by watched departures across 5 EU Vinted markets — 792/week, avg €36. Jackets average €50 at departure; buy below ~€33 to leave margin after fees.",
+    date: "2026-09-14",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, Patagonia was the second-busiest brand we track across Spain, France, Germany, Italy and Portugal: 792 listings left the shelf in 7 days at an average of €36. Only Fred Perry had more departures (935), and Fred Perry averages €18 — less than half the Patagonia ticket. That combination — strong volume AND a meaningful average price — is what makes Patagonia one of the clearest resale opportunities in secondhand fashion right now.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 792 watched departures, Jackets led by a wide margin: 319 left the shelf at an average of €50. That alone would rank Patagonia Jackets as one of the most liquid individual brand/category pairs we track. Hoodies were second at 138 departures averaging €41, followed by Bags at 124 averaging €25.",
+          "Caps (75 departures, avg €9) and T-Shirts (68, avg €17) round out the picture. Caps and tees are thin-margin volume; Jackets and Hoodies are where the resale case sits. Current brand volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly.",
+        ],
+      },
+      {
+        h: "Buy-below for Patagonia Jackets",
+        p: [
+          "If Patagonia Jackets leave the shelf at €50 on average, and Vinted models roughly a 5% platform deduction, the departure-net is around €47.50. Applying a 30% target margin gives a buy-below of approximately €33.",
+          "That means a Patagonia jacket sourced below €33 — charity shop, car boot, estate sale — has a realistic margin if it is in sellable condition. Above €33 you are speculating on condition or on beating the average; below it you have a structural edge on every unit. The exact buy-below for your specific model is what " +
+            BRAND +
+            " returns on check.",
+        ],
+        cta: pricingMidCta("ctr_patagonia_20260914"),
+      },
+      {
+        h: "Condition is where Patagonia flips break",
+        p: [
+          "Patagonia resale value is disproportionately condition-sensitive. A Nano Puff with a working zip and no odour leaves the shelf quickly at full price; the same jacket with a snapped baffle or bobbling fleece may sit for weeks at a heavy discount.",
+          "Check the zip, the DWR (water repellency — brush water over it; it should bead), the seams, and any fleece for excessive pilling. Photograph everything specific — a vague description is the one most likely to trigger a dispute.",
+        ],
+      },
+      {
+        h: "Bags and Caps: smaller margin, faster turnover",
+        p: [
+          "Bags (124 departures, avg €25) and Caps (75, avg €9) move regularly but at thin margins. A Patagonia Black Hole bag at €25 departure means a buy-below around €16 — achievable at the right charity shop, but not a wide target. Caps at €9 average leave almost no room after fees in most sourcing scenarios.",
+          "These categories are worth flipping when you encounter them incidentally, not worth actively hunting. The Jacket category is the anchor. What actually left the shelf this week is on " +
+            ilinkHref("data") + ".",
+        ],
+      },
+      {
+        h: "Market intelligence before the buy",
+        p: [
+          "The same buy-below discipline applies to every unit: check how the specific model is departing in your size range before cash leaves your pocket. Mid sizes (S–L in jackets) move fastest; XS and XL sit longer. Retro Puff, Nano Puff, and Retro-X fleece are consistently the models generating the most departures — recognisable enough that buyers search for them by name.",
+          BRAND +
+            " returns a BUY / WATCH / SKIP with a buy-below price for the exact Patagonia model you query — the two numbers that separate a profitable unit from an inventory problem.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Is Patagonia worth reselling on Vinted?",
+        a: "Yes — Patagonia is the #2 brand by watched departures across Spain, France, Germany, Italy and Portugal: 792 listings left the shelf in the 7 days to 14 September 2026, averaging €36. Jackets lead at 319 departures averaging €50. A unit sourced below ~€33 in good condition has a realistic margin after fees.",
+      },
+      {
+        q: "What Patagonia items sell best on Vinted?",
+        a: "Jackets by a clear margin: 319 watched departures in 7 days averaging €50. Hoodies are second (138 departures, avg €41). Bags and Caps move in volume but at thin margins. Focus sourcing on Jackets and Hoodies — Nano Puff, Retro Puff and Retro-X fleece generate the most recognisable demand.",
+      },
+      {
+        q: "What is the buy-below price for a Patagonia jacket?",
+        a: "With Patagonia Jackets averaging €50 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €33. Above that you are speculating on condition or on beating the average price. Resale IQ returns the exact buy-below for a specific model on check.",
+      },
+      {
+        q: "What condition issues kill Patagonia resale value?",
+        a: "A broken zip, failed DWR (water-repellency), heavy baffle odour, or significant fleece pilling can cut sale price sharply or prevent a sale entirely. Check all four before buying. Photograph every flaw specifically — a vague description is the most common cause of disputes.",
+      },
+      {
+        q: "How liquid is Patagonia on Vinted compared to other brands?",
+        a: "Very liquid for outerwear. 792 departures in 7 days puts Patagonia #2 among the 28 brands Resale IQ tracks — behind only Fred Perry (935 departures). Unlike Fred Perry's €18 average, Patagonia averages €36, meaning more cash per unit at comparable volume. Live weekly comparison: https://resaleiq.dev/flip.",
+      },
+    ],
+  },
 ]
