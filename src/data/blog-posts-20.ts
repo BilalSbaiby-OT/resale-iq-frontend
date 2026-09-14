@@ -1,6 +1,8 @@
 // Batch 20 of SEO/AEO articles. Same contract as blog-posts.ts.
-// Honest claims only: no earnings guarantees, no tax/legal advice as professional advice.
-// All departure data from /api/public/market-snapshot (2026-09-15 build).
+// DISCLAIMER: Informational only — not professional tax or legal advice.
+// Readers should consult a tax adviser for their specific situation.
+// Claims are general EU/national context; thresholds are publicly available
+// from each country's tax authority as of September 2026.
 
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
@@ -8,125 +10,116 @@ import { ilinkHref } from "@/lib/blog-ilink"
 
 export const POSTS_20: BlogPost[] = [
   {
-    slug: "how-to-sell-designer-items-on-vinted",
-    title: "How to Sell Designer Items on Vinted (Without Getting Scammed or Flagged)",
-    seoTitle: "How to Sell Designer Items on Vinted — Resale IQ",
+    slug: "vinted-reselling-tax-guide-eu",
+    title: "Vinted Reselling Tax: What EU Sellers Need to Know in 2026",
+    seoTitle: "Vinted Reselling Tax Guide 2026 (EU) — Resale IQ",
     description:
-      "The full guide to selling designer clothes, bags, and shoes on Vinted: authentication, listing, pricing against departure data, and protecting yourself from buyer disputes. Based on live EU Vinted departure data for Gucci, Balenciaga, Stone Island, and more.",
+      "Does Vinted report your sales to the tax authority? What's the threshold before you owe tax? How to calculate profit and keep records. A plain-language guide for EU resellers in 2026.",
     date: "2026-09-15",
-    category: "Selling",
+    category: "Reselling Basics",
     readMins: 11,
     intro:
-      "Selling designer items on Vinted is high-stakes resale: the margin potential is real (Gucci Bags depart at €304 on average, Balenciaga at €147), but so is the dispute risk. One returned item on a fake claim can wipe the margin from three legitimate sales. This guide covers the process from authentication through to getting paid — protection first, profit second.",
+      "Since 2023, Vinted is required by EU law to report seller data to national tax authorities. Most casual sellers owe nothing — but the rules differ by country, and 'I didn't know' is not a defence once HMRC or the Belgian tax service has your transaction log. This guide covers the actual thresholds, what profit means in tax terms, and what records you need if you sell regularly.",
     definedTerm: {
-      name: "Departure average",
+      name: "DAC7",
       description:
-        "A departure average is the mean price at which items actually completed sales on Vinted over a rolling 7-day window — not listed prices, not asking prices. Resale IQ tracks departure averages across 28 brands and 6 categories on EU Vinted. For designer items, departure averages set the ceiling for your listing price and the floor for your authentication investment.",
+        "DAC7 (EU Directive 2021/514) requires digital platforms like Vinted to report seller transaction data — total sales value, number of transactions, account details — to the tax authority in the seller's country each January. The rule applies to sellers who exceed 30 transactions OR €2,000 in gross sales in a calendar year. Below both thresholds, no report is filed. Above either, the platform reports regardless of whether the seller thinks the income is taxable.",
     },
     sections: [
       {
-        h: "Which designer brands actually sell on EU Vinted",
+        h: "DAC7: Why Vinted now reports your sales",
         p: [
-          "Not all luxury brands have active resale markets on Vinted. The platform skews younger and mid-market — ultra-luxury (Hermès, Chanel) has thin buyer depth on Vinted vs. specialist platforms like Vestiaire Collective. The designer brands with proven buyer depth on EU Vinted, based on departure data for the 7 days to 15 September 2026:",
-          "**Balenciaga** — 510 departures/7 days, average €147. Top categories: Sneakers (156 dep, avg €145), T-Shirts (92 dep, avg €89), Hoodies (79 dep, avg €107). High volume for streetwear-luxury. Active buyer market.",
-          "**Gucci** — 219 departures/7 days, average €211. Top categories: Bags (81 dep, avg €304), Caps (52 dep, avg €146), Sneakers (38 dep, avg €209). Lower volume but higher per-item value. Bags are the highest single-category departure average tracked.",
-          "**Stone Island** — 753 departures/7 days, average €70. Bridges premium and designer. Hoodies (408/7d, avg €56), Jackets (173/7d, avg €140). High volume relative to price point — more approachable for first designer listings.",
-          "**Supreme** — 155 departures/7 days, average €66. Hoodies (47/7d, avg €74), T-Shirts (34/7d, avg €34). Drop-culture brand; individual release values vary widely from the averages.",
-          "**Off-White** — 27 departures/7 days, average €60. Sneakers (10/7d, avg €110) dominate. Thin buyer depth overall — slower exits.",
-          "For the full departure table across all 28 tracked brands, use [Resale IQ's brand tracker](" + ilinkHref("flip") + "). If your item's brand isn't on the list, buyer depth on Vinted is likely insufficient for reliable exits.",
+          "The EU's DAC7 directive (Directive 2021/514, transposed into national law from January 2023) requires all digital platforms operating in the EU — including Vinted — to collect and report seller data to the relevant national tax authority once per year.",
+          "The reporting trigger is **30 transactions OR €2,000 gross sales** in a calendar year. If you sell 31 items at €1 each, Vinted files a report. If you sell 5 items at €500 each, Vinted files a report. Below both thresholds simultaneously, no report is filed.",
+          "What gets reported: your full name, address, date of birth, national identification number, tax ID (if Vinted has it), bank account details, total sales amount, and transaction count. The tax authority then cross-references this against your tax return.",
+          "This does not mean you automatically owe tax. Whether you owe anything depends on your country's rules about occasional versus professional selling — covered in the sections below.",
         ],
       },
       {
-        h: "Authenticate before you list",
+        h: "Occasional selling vs professional selling: the line that matters",
         p: [
-          "Authentication is not optional for designer items on Vinted. Vinted's buyer protection allows disputes on authenticity for 2 days post-delivery. A successful dispute means the item is returned and the transaction reversed — and you bear the return shipping. If the item is damaged in return transit, you absorb that loss.",
-          "Authenticate every designer item before listing, regardless of provenance. The checks that matter by brand:",
-          "**Gucci Bags:** Hardware weight (authentic is heavy, hollow-sounding hardware is fake), interior leather smell (authentic has a distinctive tannery scent), stitching regularity (10–12 stitches per inch on authentic pieces), and the serial number inside — first number corresponds to year, second to production month. Cross-check the serial against the year on the receipt if present.",
-          "**Balenciaga Sneakers:** Box label authenticity (barcode must match shoe tag), sole embossing depth, tongue label printing (authentic has clean, slightly raised print), and the glue line between sole and upper (uneven or visible glue beads indicate replica).",
-          "**Stone Island:** The badge — authentic has a floating compass rose in the centre that moves. The stitching on the badge surround is continuous (replicas often break). The garment dye is uneven by design on authentic pieces; too-uniform colour is suspect.",
-          "**Supreme box logo items:** Box logo proportions (height-to-width ratio is strict on authentic), interior tag font, and the wash label language matching the season. Full authentication details at [how to authenticate designer items on Vinted](/blog/how-to-authenticate-designer-items-vinted).",
-          "If you have any doubt, get a third-party authentication before listing. Several EU-based authentication services charge €10–20 per item. The cost is insurance against a €150+ dispute loss.",
-        ],
-        cta: pricingMidCta("ctr_designer_20260915"),
-      },
-      {
-        h: "Price against departure data, not retail or instinct",
-        p: [
-          "Designer items on Vinted have departure averages that sit well below retail — buyers are on Vinted precisely for that discount. Pricing at or above the departure average guarantees a long hold; pricing below it accelerates departure at reduced margin.",
-          "The positioning framework: **departure average × 0.90 to 1.05** depending on condition. An item in perfect condition with tags can reach 5% above the departure average. Good condition (worn, no flaws) should price at the average. Visible wear prices 10–15% below average.",
-          "Examples from live data: Gucci Bags at €304 average departure — price a mint-condition authenticated Gucci bag at €300–320. A used bag with light scuffing prices at €255–270. Price at €400 and you are outside the clearing range; you will hold indefinitely unless a buyer with specific model preference finds you.",
-          "Balenciaga Sneakers at €145 average: clean pair without box prices at €130–145. Same pair with original box in good condition: €155–175. Never price below your buy-below floor — if the departure average doesn't support your margin, the item should not have been sourced.",
-          "Check departure averages by category before setting the listing price. Gucci Caps (avg €146) and Gucci Sneakers (avg €209) are different products from Gucci Bags (avg €304) — don't apply one brand-level average across categories.",
+          "Every EU country distinguishes between **occasional selling** (selling your own used personal belongings at a loss — generally not taxable) and **professional or commercial selling** (buying to resell for profit — generally taxable as business income).",
+          "If you are reselling — buying items with the intention of selling them at a profit — you are almost certainly on the professional/commercial side of that line, regardless of volume. The intention to profit, not the volume, is often the legal test.",
+          "The safest framing: if you use Resale IQ to calculate buy-below prices and source items specifically to resell them at a departure-price premium, you are operating commercially. That means your profit is taxable income in most EU countries. The question is whether your volume crosses the threshold at which your tax authority is likely to act on it.",
         ],
       },
       {
-        h: "Listing a designer item: the seven fields that move it",
+        h: "Country-by-country thresholds (2026)",
         p: [
-          "Designer buyers on Vinted are more research-driven than general secondhand buyers. They will check the listing photos carefully, read the description, and often cross-reference the price against similar active listings. Your listing must earn their confidence.",
-          "**Title:** Brand + specific model or item type + size + condition marker. 'Balenciaga Triple S Sneakers 42 Light Use' not 'Balenciaga trainers 🔥 great condition'. Model name matters — buyers search for it specifically.",
-          "**Photos:** 10–15 photos minimum for designer items. Required shots: (1) full item clean background, (2) brand logo close-up, (3) authentication marker (badge, serial number, hardware), (4) size label, (5) each side or angle, (6) any flaws isolated and clearly lit. Do not use flash on leather — it kills the texture and reads as hiding something.",
-          "**Description:** Condition grading first (new/excellent/good/acceptable — Vinted's own scale), then authentication notes (what you checked), then measurements if garment, then sourcing context if it adds trust (bought new in store, original receipt available). End with: 'Happy to send additional photos on request.'",
-          "**Category and subcategory:** Be precise. Balenciaga Sneakers in 'Trainers' not 'Shoes'. Gucci Bags in 'Handbags' not 'Accessories'. Wrong category kills search visibility.",
-          "**Size:** List the item's label size AND the measurements. Designer sizing varies; a Supreme Hoodie labelled 'L' may fit like an M. Buyers who know this will ask for measurements — pre-empt it.",
-          "**Postage:** For items over €100, always include tracked shipping in the price or offer it as the only option. Untracked postage on a €300 Gucci Bag creates a dispute surface — 'never received' claims are harder to defend without tracking.",
+          "These are publicly available general thresholds from each country's tax authority as of September 2026. Rules change; verify with a local tax adviser before the January filing deadline. **This is not professional tax advice.**",
+          "**France:** The URSSAF threshold for occasional online resellers is €3,000/year in gross sales OR 20 transactions (reduced from 34 in 2024). Above either limit, declaration is mandatory. Occasional reselling of personal goods (clothes you personally owned and wore) is exempt from VAT and income tax below €5,000 if not bought with resale intent. Reselling for profit is taxable as BIC (industrial and commercial profits) from the first euro.",
+          "**Germany:** The Finanzamt considers reselling taxable from the first transaction if the intent to profit exists (Gewinnerzielungsabsicht). The small-business exemption (Kleinunternehmerregelung) exempts income up to €22,000/year from VAT, but income tax still applies on profit. A Gewerbeanmeldung (business registration) may be required once you exceed a regular pattern of reselling.",
+          "**Netherlands:** Belastingdienst distinguishes between 'result from other activities' (ROW) and business income. Regular reselling for profit is taxable under ROW from the first euro of profit, even without a formal business registration. The €1,800/year small-business exemption (KOR) applies to VAT only, not income tax.",
+          "**Belgium:** The Federal Public Service Finance considers systematic reselling taxable as miscellaneous income or professional income. Occasional resale of personal items is generally exempt. A pattern of buying and reselling crosses into professional territory quickly.",
+          "**Spain:** Agencia Tributaria requires declaration of earnings from economic activities from the first euro. If you are buying to resell (not just clearing personal items), it is treated as economic activity. The módulos simplified regime applies to small traders.",
+          "**General rule for all EU markets:** If you are profitable and you are doing it repeatedly, declare it. The DAC7 report means your tax authority will have the gross sales number — if your declared income does not include it, that creates a mismatch.",
+        ],
+        cta: pricingMidCta("ctr_tax_20260915"),
+      },
+      {
+        h: "How to calculate profit for tax purposes",
+        p: [
+          "Gross sales on the platform is not profit. Taxable profit in reselling is roughly: **sale price − cost of goods − platform fees − shipping − other direct costs**.",
+          "For Vinted: sale price × 0.95 ≈ what you receive after the ~5% Vinted deduction (varies slightly by country and listing type). Subtract the price you paid for the item. Subtract any shipping materials. What remains is your taxable margin on that transaction.",
+          "Example: You buy a Stone Island hoodie for €30 at a charity shop. It sells on Vinted at €72. After Vinted's 5% deduction, you receive ~€68.40. Taxable profit: €68.40 − €30 − €1.50 (packaging) = €36.90.",
+          "Resale IQ's buy-below calculation models this: `departure average × 0.95 × 0.70`. The 0.95 is the platform-fee model; the 0.70 represents 30% of the net proceeds as your target margin. If you are consistently hitting that 30% margin, that is approximately what you would declare as profit per transaction.",
+          "The departure average you see in the [flip tracker](" + ilinkHref("flip") + ") is based on watched listings across EU Vinted markets — use it as the reference price for your records.",
         ],
       },
       {
-        h: "Protecting against buyer disputes",
+        h: "Record keeping: what to log for each transaction",
         p: [
-          "Vinted's buyer protection window gives buyers 2 days after delivery to raise an issue. For designer items, the main dispute vectors are: authenticity claims, condition disagreement, and 'not as described'. All three are manageable with preparation.",
-          "**Before listing:** Document the item with a video walkthrough — camera in hand, narrate each authentication marker you can see, the label, the hardware, the interior. This is not required by Vinted but it is the single best defence if a dispute is raised. Store the video.",
-          "**In the listing:** State the authentication checks you performed in the description. Not a legal certification — a factual description ('badge compass rose moves freely, stitching uniform, serial number checked against year'). This sets the buyer's expectation and makes a post-sale 'it's fake' claim harder to sustain.",
-          "**When you ship:** Photograph the item packaged — garment/bag laid out next to the shipping label, visible condition. Photograph the sealed package. This protects against 'received damaged' and 'not as described' disputes that relate to packaging condition.",
-          "**If a dispute is raised:** Respond within 24 hours with your documentation: video, listing photos, and shipping photos. Vinted's resolution team reviews disputes with the evidence provided by both parties. Documented sellers win the majority of legitimate authenticity disputes; undocumented sellers lose by default.",
+          "Whether or not you owe tax today, building a records habit now protects you if a tax authority queries a future year. The minimum records for each transaction:",
+          "1. Item description (brand, type, condition)\n2. Purchase price and where you bought it (charity shop, flea market, eBay — keep receipts where possible)\n3. Sale price and date\n4. Platform fee deducted\n5. Shipping cost\n6. Net profit on the transaction",
+          "A spreadsheet with one row per item is sufficient. The detailed guide to what fields matter is at [record keeping for resellers](/blog/record-keeping-resellers).",
+          "Resale IQ's buy-below tool already gives you the expected margin before you source. If you record your actual buy price alongside the departure average at the time of purchase, your margin log is largely built from the platform's data.",
         ],
       },
       {
-        h: "Timing and visibility for designer listings",
+        h: "Do you need to register a business?",
         p: [
-          "Designer items have different browsing patterns than general secondhand. Buyers researching a specific model or brand visit Vinted repeatedly over days or weeks — they are comparison shopping, not impulse buying. This means your listing needs sustained visibility, not just a launch spike.",
-          "**List on Thursday evening or Friday.** Vinted traffic peaks on weekends. A Friday listing gets first-day exposure during peak traffic and then stays visible through the weekend when buyer intent is highest.",
-          "**Don't immediately drop the price.** Designer buyers discount items that drop quickly — it signals seller anxiety and raises authenticity questions. Hold price for at least 10 days before any reduction. When you do reduce: drop by €5–10, not a percentage. Percentage drops look distressed.",
-          "**Use the bump feature strategically.** Vinted allows periodic visibility boosts. Use it on day 7 if no activity, not on day 1. Reserve the bump for when the listing needs a second wave of exposure rather than to compensate for a weak initial listing.",
-          "If an item has had no views after 72 hours, the problem is usually category placement or search keywords — not price. Review the title for searchable terms and verify the category is correct before touching the price.",
+          "If you are turning a consistent profit from reselling, the practical question is not 'can I avoid registering' but 'when does registering become cheaper than the risk of not registering'.",
+          "A registered micro-business or sole trader gives you access to deductible expenses that reduce your taxable income: sourcing mileage, packaging, subscription tools like Resale IQ, a proportion of your phone bill. A side-hustle with €15k gross and €6k in deductible costs has a very different tax bill from one declared as €15k flat.",
+          "Registration thresholds vary: in Germany, a Gewerbeanmeldung costs ~€30 and is required once reselling is systematic; in the Netherlands, KVK registration applies when you cross the line from occasional to regular commercial activity; in France, auto-entrepreneur status is available from the first transaction and caps at €77,700/year.",
+          "The question to ask your tax adviser: 'I am buying secondhand clothing at charity shops and flea markets and reselling it on Vinted for a consistent 20–30% margin — should I register, and what expenses can I deduct?' That framing gets you a specific, useful answer.",
         ],
       },
       {
-        h: "When to relist vs. cross-platform a stuck designer item",
+        h: "What to do before the end of 2026",
         p: [
-          "A designer item that has not departed after 30 days on Vinted needs a different decision than a standard secondhand item. The options:",
-          "**Relist on Vinted:** Unpublish and re-list after 30 days. This resets search position. Effective if the problem was visibility rather than price or demand. Adjust photos or description to reflect any feedback you received.",
-          "**Cross-list to Vestiaire Collective or Depop:** These platforms have different buyer demographics. Vestiaire attracts buyers specifically shopping luxury secondhand; they expect authentication documentation and higher prices. If your Gucci Bag at €290 isn't moving on Vinted (where buyers are price-sensitive), it may sell faster at €310 on Vestiaire to a buyer specifically searching for that bag.",
-          "**Reduce and exit:** If the market has moved (departure averages shift over months), the item's value on Vinted may have declined since listing. Re-check current departure data. If the average has dropped 15%, your pricing is now wrong. Price to the current market and exit — holding cost and capital opportunity cost exceed the additional margin.",
-          "**Accept the current best offer:** If you have received offers below your floor but above your cost plus minimum margin, evaluate accepting. A €240 offer on a €304 average item is €54 below average — frustrating, but if the item has been listed 45 days, the time cost may make acceptance rational. Track your decision in your records.",
+          "1. **Pull your Vinted transaction history** for 2026. The app shows total earnings under Profile → My sales. Note the gross figure and transaction count.",
+          "2. **Check if you crossed the DAC7 reporting threshold** (30 transactions OR €2,000 gross). If yes, Vinted will file a report in January 2027. Your tax return should account for this.",
+          "3. **Calculate your profit** using the method above. Gross sales minus buy price, fees, shipping. If the profit is material (above a few hundred euros), consult a tax adviser in your country.",
+          "4. **Start logging every transaction** from today with purchase date, buy price, sale price, and net profit. A simple spreadsheet is enough.",
+          "5. **If you are operating at scale** (multiple items per week, consistent profit), consider registering as a sole trader or micro-business before year-end so 2026 expenses are deductible.",
+          "The goal is not to pay more than you owe — it is to not get a surprise bill in 2027 for 2026 income that was visible in the DAC7 report but missing from your return.",
         ],
-        cta: pricingBodyCta("body_designer_20260915"),
       },
     ],
     faq: [
       {
-        q: "Do designer items actually sell on Vinted?",
-        a: "Yes — Balenciaga has 510 departures per 7 days on EU Vinted at an average €147, Gucci has 219 departures/7d at an average €211, and Stone Island has 753 departures/7d at an average €70. The buyer market for designer items on Vinted is real and active for these brands. Ultra-luxury (Hermès, Chanel) has thinner buyer depth; specialist platforms like Vestiaire Collective suit those better.",
+        q: "Does Vinted report sales to tax authorities?",
+        a: "Yes. Under the EU DAC7 directive, Vinted reports seller data to the relevant national tax authority each January for sellers who exceeded 30 transactions OR €2,000 in gross sales in the previous calendar year. The report includes total sales value, transaction count, and personal identification details. Below both thresholds simultaneously, no report is filed.",
       },
       {
-        q: "How do I prove a designer item is authentic on Vinted?",
-        a: "Document every authentication marker before listing: video walkthrough showing the badge, hardware, serial number, stitching, and size label. State what you checked in the description. Ship with photos of the packaged item. This creates a paper trail that defends against post-delivery authenticity disputes. Third-party authentication certificates (available from EU services at €10–20) are the strongest protection for high-value items.",
+        q: "How much can I sell on Vinted before I pay tax?",
+        a: "There is no universal EU threshold. The DAC7 reporting trigger (30 transactions or €2,000) is a data-sharing rule, not a tax exemption. Whether you owe tax on what Vinted reports depends on your country's rules. If you are buying items with the intention of reselling them at a profit, most EU countries treat that as taxable commercial income from the first euro of profit, regardless of volume. Occasional sale of personal belongings at a loss is usually exempt.",
       },
       {
-        q: "What price should I list designer items for on Vinted?",
-        a: "Price against departure averages — actual completed sales, not listed prices. Gucci Bags average €304 at departure on EU Vinted; Balenciaga Sneakers average €145. For mint condition, list at the average or up to 5% above. For visible wear, list 10–15% below. Price above the departure average and you are outside the clearing range for that item type.",
+        q: "Is reselling on Vinted legal?",
+        a: "Yes. Reselling on Vinted is legal across the EU. The obligation is to declare taxable profit to your national tax authority — not to stop reselling. As long as you keep accurate records and declare income where required, reselling at any scale is a legal commercial activity.",
       },
       {
-        q: "How long does it take to sell a designer item on Vinted?",
-        a: "Faster than most sellers expect for active brands. Balenciaga's 510 departures per 7 days indicates strong buyer activity — a well-listed item in the right price range can depart in 3–7 days. Gucci Bags (219 departures/7d) typically take 7–14 days at correct pricing. Items priced above the departure average take significantly longer. List on Thursday or Friday to catch peak weekend traffic.",
+        q: "Do I need to register a business to resell on Vinted?",
+        a: "Depends on the country and your scale. In Germany, regular commercial reselling generally requires a Gewerbeanmeldung. In the Netherlands, KVK registration applies once activity becomes regular. In France, auto-entrepreneur status is optional but simplifies tax treatment. If you are generating consistent monthly profit, a registered business structure typically reduces your net tax bill through deductible expenses and may be legally required.",
       },
       {
-        q: "Is it safe to sell designer bags on Vinted?",
-        a: "It is safe when you document correctly. The main risks — authenticity disputes and 'not as described' claims — are manageable with pre-shipping video documentation and accurate listing descriptions. For items above €150, use tracked shipping as standard. For items above €300, Vinted's buyer protection requires some form of documentation; treat third-party authentication as cost of doing business at that price point.",
+        q: "How do I calculate profit from Vinted sales for tax?",
+        a: "Profit = sale price × 0.95 (after ~5% Vinted deduction) − cost of goods − shipping materials. Declare this net figure, not the gross sale price. Keep a record of every purchase with its buy price and source — this is your cost-of-goods evidence if the tax authority queries a year's returns.",
       },
       {
-        q: "Should I sell on Vinted or Vestiaire Collective for designer items?",
-        a: "Vinted if you want volume and fast exits for streetwear-adjacent brands (Balenciaga, Stone Island, Supreme, Gucci caps/sneakers). Vestiaire if you're selling classic luxury or if a Vinted listing has stalled at full price — Vestiaire's buyers are specifically shopping luxury and accept higher prices. Many active sellers cross-list on both and pull from whichever platform converts first.",
+        q: "What expenses can I deduct as a Vinted reseller?",
+        a: "If registered as a business or sole trader, typical deductible expenses include: purchase price of resold items, packaging and shipping materials, mileage to sourcing locations (charity shops, car boots), subscription tools used for the business (like Resale IQ), a proportion of your phone bill if used for the business. An accountant in your country can confirm which expenses apply to your structure.",
       },
     ],
   },
