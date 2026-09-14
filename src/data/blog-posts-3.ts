@@ -4,7 +4,7 @@
 
 import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
-import { dataCiteHrefEs, pricingBodyCtaEs, pricingMidCta } from "@/lib/blog-mid-cta"
+import { dataCiteHref, dataCiteHrefEs, pricingBodyCta, pricingBodyCtaEs, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
 
 const BRAND = "Resale IQ"
@@ -655,6 +655,85 @@ export const POSTS_3: BlogPost[] = [
       {
         q: "How liquid is Patagonia on Vinted compared to other brands?",
         a: "Very liquid for outerwear. 792 departures in 7 days puts Patagonia #2 among the 28 brands Resale IQ tracks — behind only Fred Perry (935 departures). Unlike Fred Perry's €18 average, Patagonia averages €36, meaning more cash per unit at comparable volume. Live weekly comparison: https://resaleiq.dev/flip.",
+      },
+    ],
+  },
+  {
+    slug: "stone-island-reselling-vinted-guide",
+    title: "Stone Island Reselling on Vinted: Departure Data and Buy-Below",
+    seoTitle: "Is Stone Island Worth Reselling on Vinted? — Resale IQ",
+    description:
+      "Stone Island is the #3 brand by watched departures across 5 EU Vinted markets — 788/week, avg €70. Hoodies average €55 at departure; buy below ~€36 to leave margin after fees. Jackets average €142.",
+    date: "2026-09-14",
+    category: "Sourcing",
+    readMins: 6,
+    intro:
+      "Week to 14 September 2026, Stone Island ranked #3 across Spain, France, Germany, Italy and Portugal: 788 listings left the shelf in 7 days at an average of €70. That combination — 788 units of volume at a €70 average — puts more cash potential per week on Stone Island than any other brand we track except Fred Perry. Hoodies are the core opportunity: 431 departures at €55. Jackets move less often but at €142 average, each unit is a meaningful individual decision.",
+    sections: [
+      {
+        h: "Volume and category breakdown",
+        p: [
+          "Of the 788 watched departures, Hoodies led by volume: 431 left the shelf at an average of €55. That is the deepest pool of Stone Island resale opportunity. Jackets followed at 178 departures averaging €142 — far fewer units but a much higher per-unit return. Shirts (81 departures, avg €26) and T-Shirts (59, avg €24) round out the mid-tier. Caps (13, avg €26) are thin and opportunistic only.",
+          "The Hoodie / Jacket split is a strategic choice: Hoodies give faster cash turn with a lower buy-below ceiling; Jackets require more capital but return more per flip when the condition is right. Current brand volumes are on " +
+            ilinkHref("flip") +
+            " and update weekly.",
+        ],
+      },
+      {
+        h: "Buy-below for Stone Island Hoodies",
+        p: [
+          "If Stone Island Hoodies leave the shelf at €55 on average, and Vinted models roughly a 5% platform deduction, the departure-net is around €52.25. Applying a 30% target margin gives a buy-below of approximately €36.",
+          "That means a Stone Island hoodie sourced below €36 — charity shop, car boot, estate sale — has a realistic margin at current departure prices. Above €36 you are betting on condition premium or beating the average. The exact buy-below for a specific model and colourway is what " +
+            BRAND +
+            " returns on check.",
+        ],
+        cta: pricingMidCta("ctr_stoneisland_20260914"),
+      },
+      {
+        h: "Jackets: high ticket, high selectivity",
+        p: [
+          "Stone Island Jackets average €142 at departure — the highest average price of any brand/category pair in the top 3 brands we track. A buy-below on a €142 exit price is around €94. At that ceiling, a charity shop or estate sale find at £60–70 (converted) can be a genuine margin unit.",
+          "The selectivity required is higher: authenticity matters (check the compass badge, shadow project labelling, and season codes), condition matters more at this price tier, and size range matters — M and L move fastest, XXL and XS sit considerably longer.",
+        ],
+      },
+      {
+        h: "Condition signals that kill a Stone Island flip",
+        p: [
+          "Stone Island resale value is brand-identity driven. The compass badge must be intact and original — a missing or replaced badge is the single fastest way to destroy resale value regardless of garment condition. Check the lining label and season code (e.g. AW22) so you can describe the piece accurately.",
+          "For Hoodies: check the drawstring (replaceable but signals wear), cuffs and hem for ribbing stretch, and any screen prints for cracking. For Jackets: check zip function, seam integrity, lining, and fabric treatment (garment-dyed and pigment-dyed styles fade unevenly with washing — buyers in this tier know to ask).",
+        ],
+      },
+      {
+        h: "Market intelligence before the buy",
+        p: [
+          "Stone Island buyers in the EU tend to search by product line and season — 'Ghost' pieces, 'Nylon Metal', 'Membrana 3L'. These command a premium over equivalent-season basics. Recognising which product line you have before listing means pricing to the right comparison set, not just the brand average.",
+          BRAND +
+            " returns a BUY / WATCH / SKIP with a buy-below price for the exact Stone Island model you query — the two inputs that separate a margin unit from stalled inventory.",
+          "Full brand comparison at " + ilinkHref("flip") + ".",
+        ],
+        cta: pricingBodyCta("body_stoneisland_20260914"),
+      },
+    ],
+    faq: [
+      {
+        q: "Is Stone Island worth reselling on Vinted?",
+        a: "Yes — Stone Island is the #3 brand by watched departures across Spain, France, Germany, Italy and Portugal: 788 listings left the shelf in the 7 days to 14 September 2026, averaging €70. Hoodies average €55 (431 departures); Jackets average €142 (178 departures). A Hoodie sourced below ~€36 in good condition has a realistic margin after fees.",
+      },
+      {
+        q: "What is the buy-below price for a Stone Island hoodie?",
+        a: "With Stone Island Hoodies averaging €55 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €36. Above that you are speculating on beating the market average. Resale IQ returns the exact buy-below for a specific model on check.",
+      },
+      {
+        q: "How do I authenticate Stone Island before buying to resell?",
+        a: "The compass badge should be original, firmly attached, and consistent with the season. Check the lining label for a season code (e.g. AW22, SS23) and the brand's characteristic stitching on the badge surround. Ghost-line and special-project pieces have specific labelling — if you cannot identify the product line, treat it as a basic piece for pricing.",
+      },
+      {
+        q: "How does Stone Island compare to Fred Perry and Patagonia for resale?",
+        a: "Fred Perry leads on volume (935 departures/week) but averages €18 — high turnover, thin per-unit margin. Patagonia is #2 at 790 departures averaging €36. Stone Island is #3 at 788 departures averaging €70 — similar volume to Patagonia, but nearly double the average exit price. Stone Island is the highest-cash-potential brand in the top three when you weight volume by average price.",
+      },
+      {
+        q: "What Stone Island categories should I target on Vinted?",
+        a: "Hoodies are the primary target: 431 departures at €55 average gives the best combination of liquidity and margin. Jackets (178 departures, €142 average) are worth sourcing when you can authenticate and condition-check reliably. Shirts, T-Shirts, and Caps are incidental — take them when the price is right, don't actively hunt them.",
       },
     ],
   },
