@@ -65,12 +65,12 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
-    updated: "2026-09-14",
+    updated: "2026-09-15",
     category: "Sourcing",
-    readMins: 6,
+    readMins: 8,
     intro:
-      "As of 14 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,181 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (955) and Shirts (760). The single busiest brand/category pair is Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. Full brand-by-brand numbers, updated weekly and free to check, live at resaleiq.dev.",
+      "As of 15 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,181 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (955) and Shirts (760). The single busiest brand/category pair is Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. Autumn is already live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -82,38 +82,95 @@ export const POSTS: BlogPost[] = [
     },
     sections: [
       {
-        h: "The categories that move fastest",
+        h: "Category volumes — week to 15 September 2026",
         p: [
-          "Sneakers and trainers are the single most liquid category on Vinted — recognisable models from Nike, Adidas, and New Balance sell quickly when priced right and in common sizes.",
-          "Everyday branded basics (T-shirts, hoodies, tracksuits, jeans) from mid-tier brands like Levi's, Carhartt, The North Face, and Stone Island have steady, year-round demand.",
-          "Seasonality matters: coats and knitwear spike in autumn/winter; shorts, dresses and swimwear in spring/summer. Buying against the season and holding is a common cash-flow trap.",
+          "Across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal, the busiest categories by watched departures in the trailing 7 days are Hoodies (1,181), Jackets (955), Shirts (760) and Sneakers (713). These four categories account for the majority of tracked movement this week.",
+          "Volume alone does not equal margin opportunity. Hoodies lead by departures because Fred Perry, Stone Island, The North Face and Carhartt all generate high Hoodie volume — but exit prices range from €14 (Fred Perry) to €55 (Stone Island), a 4× spread. The table below shows the top tracked categories with representative margin context.",
+        ],
+        table: {
+          caption:
+            "Watched departures by category, week to 15 September 2026. 28 tracked brands across Spain, France, Germany, Italy, Portugal. Lead brand shown is the highest-volume contributor in that category.",
+          head: ["#", "Category", "Dep/7d", "Avg exit range", "Lead brand/pair", "Season peak"],
+          rows: [
+            [
+              "1",
+              "Hoodies",
+              "1,181",
+              "€14–€55",
+              "[Stone Island](/blog/stone-island-reselling-vinted-guide), [Fred Perry](/blog/fred-perry-reselling-vinted-guide)",
+              "Oct–Jan",
+            ],
+            [
+              "2",
+              "Jackets",
+              "955",
+              "€35–€142",
+              "[Patagonia](/blog/patagonia-reselling-vinted-guide), [Stone Island](/blog/stone-island-reselling-vinted-guide)",
+              "Sep–Dec",
+            ],
+            [
+              "3",
+              "Shirts",
+              "760",
+              "€14–€27",
+              "[Fred Perry](/blog/fred-perry-reselling-vinted-guide) (455 dep alone)",
+              "Year-round",
+            ],
+            [
+              "4",
+              "Sneakers",
+              "713",
+              "€16–€58",
+              "[Nike](/blog/nike-reselling-vinted-guide), [Adidas](/blog/adidas-reselling-vinted-guide)",
+              "Year-round",
+            ],
+          ],
+        },
+      },
+      {
+        h: "Top brand/category pairs driving the numbers",
+        p: [
+          "Category volume is useful. Brand/category volume is actionable — it tells you exactly which item to carry and what it clears at.",
+          "Week to 15 September 2026 (EU5), the highest-volume tracked brand/category pairs: Fred Perry Shirts 455 watched departures averaging €14 · Stone Island Hoodies 433 departures averaging €55 · Stone Island Jackets 179 departures averaging €142 · Patagonia Jackets averaging €36 · Adidas Sneakers 49+ departures at €58. Full volume ranking across all 28 brands is on the [best brands to resell on Vinted hub](/blog/best-brands-to-resell-on-vinted).",
+          "Margin is not proportional to volume. Fred Perry Shirts generate the single highest departure count of any brand/category pair — but the avg exit is €14. Stone Island Jackets generate one-third of the Shirt volume but clear at 10× the price. Volume/turnover and unit margin are different businesses: know which one you are running.",
+        ],
+        cta: pricingMidCta("ctr_sellsbest_pairs_20260915"),
+      },
+      {
+        h: "Autumn 2026: the transition is live",
+        p: [
+          "Jackets (955/wk) and Hoodies (1,181/wk) are already at seasonal pace — buyers in France, Germany and Italy are stocking up. Stone Island, Patagonia and The North Face are the three brands whose Jacket and Hoodie mix is clearing fastest right now.",
+          "Items to list immediately: Stone Island Hoodies and Jackets, Patagonia Fleeces and Jackets, The North Face Puffer Jackets, Carhartt WIP Hoodies. Competition for listings climbs through October — earlier listings get more views before the shelf floods.",
+          "Knitwear has not yet spiked but historically enters its peak in late October. Source it now before listings flood the category and departure prices drop. Shorts, Dresses and Swimwear are in their softest quarter — clear warm-weather stock now or hold until April.",
         ],
       },
       {
-        h: "Why the brand isn't enough on its own",
+        h: "Why the brand alone isn't enough",
         p: [
-          "A popular brand with the wrong size sits unsold. Sell-through varies enormously by size — the same shoe can fly in a mid size and rot in an outlier size.",
+          "A popular brand with the wrong size sits unsold. Sell-through varies sharply by size — the same shoe can fly in a mid-size and sit in an outlier size.",
+          "Category matters too. Levi's ranks #15 by total departures but Jeans account for 83% of all Levi's movement (43 of 52 weekly departures at €29 avg) — Levi's on Vinted is essentially a single-category market, and within that category the 501 Original in vintage indigo exits at €55–80 while a standard 2020 mid-wash exits at €22–28. The brand tells you to look. The model, size and condition tell you whether to buy.",
           "Condition and price do the rest. Two identical items at different prices have completely different sell-through. The winning listing is usually not the cheapest, but the fairest for its condition.",
         ],
       },
       {
-        h: "How to know before you buy",
+        h: "How to use this data before you buy",
         p: [
-          "Instead of guessing, check the market: how fast does this exact model actually sell, at what price, in which sizes? That's the entire job of " + BRAND + ` — it turns ${TRACKED} real listings into a BUY / WATCH / SKIP call, with a buy-below price and the sizes that move.`,
-          "The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost, AND the item sells fast enough that your cash isn't stuck for months. [Brands clearing fastest right now](/flip) and [what actually left the shelf this week](/data) are the free weekly tables. The full equation (fees, shipping, losses and time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).",
+          "Category and brand volume tells you where demand exists. Buy-below tells you whether there is margin. Use both before tying up cash.",
+          "The free weekly tables: [brands ranked by watched departures](/flip) · [weekly volumes and avg exit prices by brand](/data) · [all 28 tracked brands with buy-below guidance and individual guides](/blog/best-brands-to-resell-on-vinted). The item-level call — BUY / WATCH / SKIP with a buy-below price for the specific model — is the paid product.",
+          `The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost AND the item's category/brand is actively moving volume this week. [Brands clearing fastest right now](/flip) and [what left the shelf this week](/data) answer both questions for free. The full equation (fees, shipping, losses, time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).`,
         ],
       },
       {
         h: "Buy-below still decides the flip",
         p: [
           "Knowing what sells best is half the job. The other half is not overpaying for movers.",
-          "Week to 14 September 2026 (EU5): Fred Perry 939 watched departures @ €18 · Stone Island 796 @ €70 · Patagonia 792 @ €36 · Gucci 221 @ €212. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
+          "Week to 15 September 2026 (EU5): Fred Perry 939 watched departures @ €18 · Stone Island 796 @ €70 · Patagonia 792 @ €36 · Gucci 221 @ €212. Volume ≠ margin — pair demand with buy-below before you tie up cash.",
           "[Weekly market data](" +
-            dataCiteHref("body_sellsbest_20260913") +
+            dataCiteHref("body_sellsbest_20260915") +
             ").",
         ],
-        // BODY-SELLSBEST-001. Keep the EX-ILINK flip/data anchors above.
-        cta: pricingBodyCta("body_sellsbest_20260913"),
+        // BODY-SELLSBEST-002. Campaign body_sellsbest_20260915.
+        cta: pricingBodyCta("body_sellsbest_20260915"),
       },
     ],
     faq: [
@@ -127,10 +184,15 @@ export const POSTS: BlogPost[] = [
       {
         q: "What sells best on Vinted?",
         a:
-          "As of 14 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
-          "Hoodies were the busiest category: at least 1,181 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (955) and Shirts (760). " +
+          "As of 15 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
+          "Hoodies were the busiest category: at least 1,181 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (955), Shirts (760) and Sneakers (713). " +
           "The busiest brand/category pair was Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. " +
-          "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip).",
+          "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip). Full 28-brand table: [https://resaleiq.dev/blog/best-brands-to-resell-on-vinted](/blog/best-brands-to-resell-on-vinted).",
+      },
+      {
+        q: "What category sells fastest on Vinted right now?",
+        a:
+          "As of the week to 15 September 2026, Hoodies (1,181 watched departures/7d) and Jackets (955) are the fastest-clearing categories across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Fred Perry Shirts at 455 departures in 7 days.",
       },
       {
         q: "What sells fastest on Vinted?",
@@ -141,19 +203,25 @@ export const POSTS: BlogPost[] = [
       {
         q: "Does high volume mean a good flip?",
         a:
-          "No. Volume and ticket size rarely sit together. Week to 14 September 2026 (EU5): Fred Perry 939 watched departures at €18, Stone Island 796 at €70, Patagonia 792 at €36, Gucci 221 at €212. " +
+          "No. Volume and ticket size rarely sit together. Week to 15 September 2026 (EU5): Fred Perry 939 watched departures at €18, Stone Island 796 at €70, Patagonia 792 at €36, Gucci 221 at €212. " +
           "Pair demand with buy-below before you tie up cash. Weekly table: [https://resaleiq.dev/data](/data).",
       },
       {
         q: "What should I avoid buying to resell on Vinted?",
         a:
-          "Avoid off-season stock you'll hold for months, unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical sale price after fees.",
+          "Avoid off-season stock you'll hold for months (buy summer stock in summer, winter stock from September), unbranded or unrecognisable items, outlier sizes with thin demand, and anything you can't buy well below its typical departure price after fees. On Vinted specifically: avoid high-volume low-price categories like Zara T-Shirts (€10 avg) or Pull&Bear Shirts (€11 avg) — the buy-below math only works if you can source under €7.",
       },
       {
         q: "How do I know if an item will sell before I buy it?",
         a:
           `Check how fast comparable listings leave the shelf, at what asking price, and in which sizes. The free weekly tables are [https://resaleiq.dev/flip](/flip) (brands ranked by watched departures) and [https://resaleiq.dev/data](/data) (volumes and average prices at departure across ES/FR/DE/IT/PT). ` +
+          `For the full 28-brand breakdown with buy-below for each, see [https://resaleiq.dev/blog/best-brands-to-resell-on-vinted](/blog/best-brands-to-resell-on-vinted). ` +
           `Resale IQ turns ${TRACKED} real listings into a BUY / WATCH / SKIP call with a buy-below price — that item-level verdict is the paid product.`,
+      },
+      {
+        q: "What's the best category to resell on Vinted in autumn 2026?",
+        a:
+          "Hoodies and Jackets. Week to 15 September 2026, Hoodies generated 1,181 watched departures and Jackets 955 across the 28 tracked brands — both are already clearing at full autumn pace. Stone Island Hoodies average €55 at departure, Stone Island Jackets €142, Patagonia Jackets €36. Source and list now before October listing volume competes yours down. Knitwear has not yet spiked but typically enters its peak window in late October.",
       },
     ],
   },
