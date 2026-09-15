@@ -4,6 +4,8 @@ import type { Metadata } from "next"
 import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 import { pricingLegacySignupKillHref } from "@/lib/blog-mid-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { requestLocale } from "@/lib/request-locale"
+import { canonicalPath } from "@/lib/locale-routes"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -15,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogIndex() {
+  const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
   const posts = fillTracked([...POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked)
 
@@ -94,7 +97,10 @@ export default async function BlogIndex() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
-          <SmartCTA anonLabel="Get the numbers" anonHref={pricingLegacySignupKillHref("ctr_blog_20260913")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
+              authed cookie-carrying visitor on /blog sees "Open dashboard →" that goes
+              to /es/dashboard etc., not hardcoded English /dashboard (W61 consistency). */}
+          <SmartCTA anonLabel="Get the numbers" anonHref={pricingLegacySignupKillHref("ctr_blog_20260913")} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           {/* Paid door is /pricing with organic/blog UTMs, not the signup wall. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>

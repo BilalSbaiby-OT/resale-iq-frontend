@@ -9,6 +9,8 @@ import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
+import { requestLocale } from "@/lib/request-locale"
+import { canonicalPath } from "@/lib/locale-routes"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -72,6 +74,7 @@ export default async function BlogPostPage(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params
+  const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
   const p = fillTracked(getPost(slug), tracked)
   if (!p) notFound()
@@ -249,7 +252,10 @@ export default async function BlogPostPage(
             {p.preflightQuery ? `Try a live check — ${p.preflightQuery} →` : "Check this item →"}
           </Link>
           <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
-          <SmartCTA anonLabel="Get the numbers" anonHref={legacySignupKillHrefForPost(p.sections)} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
+              authed /es/blog/... or /fr/blog/... reader clicking "Get the numbers" lands
+              on /es/dashboard etc., not hardcoded English /dashboard (W61 consistency). */}
+          <SmartCTA anonLabel="Get the numbers" anonHref={legacySignupKillHrefForPost(p.sections)} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               {footerSeePlansLabelForPost(p.sections)}

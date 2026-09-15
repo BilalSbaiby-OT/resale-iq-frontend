@@ -6,6 +6,8 @@ import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 import { SmartCTA } from "@/components/smart-cta"
 import { SectionCta } from "@/components/section-cta"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
+import { requestLocale } from "@/lib/request-locale"
+import { canonicalPath } from "@/lib/locale-routes"
 
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
@@ -38,6 +40,7 @@ export default async function ChapterPage(
   { params }: { params: Promise<{ chapter: string }> }
 ) {
   const { chapter } = await params
+  const locale = await requestLocale()
   const c = getChapter(chapter)
   if (!c) notFound()
 
@@ -180,9 +183,14 @@ export default async function ChapterPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns a Vinted listing into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
+          {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
+              authed visitor on a manual chapter doesn't get sent to English /dashboard
+              (W61 consistency, same fix as blog [slug] and blog index). */}
           <SmartCTA
             anonLabel={c.checkQuery ? `Try a live check — ${c.checkQuery} →` : "Try Resale IQ →"}
             anonHref={c.checkQuery ? `/tools?q=${encodeURIComponent(c.checkQuery)}&src=manual-check` : "/register"}
+            authedLabel="Open dashboard →"
+            authedHref={canonicalPath(locale, "/dashboard")}
             style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
           />
           <div style={{ marginTop: 14 }}>
