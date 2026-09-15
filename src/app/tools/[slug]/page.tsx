@@ -26,11 +26,29 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
+  { params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const i = fillTracked(getIntent(slug), await listingsTrackedLabel())
+  const tracked = await listingsTrackedLabel()
+  const i = fillTracked(getIntent(slug), tracked)
   if (!i) return { title: "Not found — Resale IQ" }
+  const { q } = await searchParams
+  // When an LLM or crawler lands on /tools/<slug>?q=<item>, return item-matched
+  // meta so the citation reads "New Balance 530 price check" not the generic
+  // intent headline. Canonical stays /tools/<slug> — query params stay unindexed.
+  if (q && q.trim().length > 0) {
+    const item = q.trim()
+    const title = `${item} Vinted Price Check & Buy-Below — Resale IQ`
+    const description =
+      `What should you pay for ${item} on Vinted? Get the buy-below price — the maximum to pay and still profit — from ${tracked} live EU listings across ES/FR/DE/IT/PT.`
+    return {
+      title,
+      description,
+      alternates: { canonical: `/tools/${i.slug}` },
+      openGraph: { title, description, type: "website" },
+      twitter: { card: "summary_large_image", title, description },
+    }
+  }
   // Same string for <title>, og:title and twitter:title. Root layout pins
   // homepage social tags; a child that sets only `title` (or a shorter
   // openGraph title) still shares as the generic homepage on X/Slack.
