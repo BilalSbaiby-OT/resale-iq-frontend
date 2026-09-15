@@ -1,8 +1,8 @@
 // Batch 36 of SEO/AEO articles. Same contract as blog-posts.ts.
-// Fred Perry polo shirts EU Vinted price guide — targets
-// "fred perry polo shirt vinted price", "fred perry M12 polo vinted",
-// "fred perry polo vinted eu guide", "fred perry polo shirt resell value",
-// "is fred perry polo worth reselling vinted".
+// Stone Island Hoodies EU Vinted price guide — targets
+// "stone island hoodie vinted price", "stone island hoodie resell eu",
+// "stone island shadow project hoodie vinted", "stone island garment dyed hoodie buy below",
+// "is stone island hoodie worth reselling vinted".
 
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
@@ -10,101 +10,98 @@ import { ilinkHref } from "@/lib/blog-ilink"
 
 export const POSTS_36: BlogPost[] = [
   {
-    slug: "fred-perry-polo-shirt-eu-vinted-price-guide",
-    title: "Fred Perry Polo Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Fred Perry Polo Shirt Vinted EU Price Guide 2026 — Resale IQ",
+    slug: "stone-island-hoodies-eu-vinted-price-guide",
+    title: "Stone Island Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
+    seoTitle: "Stone Island Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry polo shirts averaged €14 per departure across EU Vinted in September 2026 — 547 shirts per week, the single highest-volume category of any brand tracked. Real exit ranges, buy-below prices by model (M12, M3, M2), and how the polo compares to Fred Perry hoodies (€22 avg) and jackets (€39 avg).",
+      "Stone Island hoodies averaged €55 per departure across EU Vinted in September 2026 — 395 hoodies per week, the brand's highest-volume category. Real exit ranges, buy-below ceilings by hoodie type, and how Stone Island compares to Supreme, The North Face and Carhartt WIP for EU resellers.",
     date: "2026-09-15",
     category: "Sourcing",
-    readMins: 8,
+    readMins: 9,
     intro:
-      "Fred Perry is the highest-departure brand on EU Vinted with 1,092 watched departures per week — and polo shirts alone account for 547 of those. In the week to 15 September 2026, 547 Fred Perry shirts left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €14. That makes the Fred Perry polo the single highest-volume category of any tracked brand on EU Vinted, ahead of Stone Island shirts (high price, lower volume) and Nike sneakers (higher price, 203 total brand departures). The €14 average is modest — but for resellers buying at charity shop prices of €3–8, the margin per item stacks across volume. This guide breaks down exit prices by model, size, condition, and colourway — and where the buy-below ceiling sits for each tier.",
+      "Stone Island hoodies are the single highest-volume item in the ResaleIQ EU Vinted database for any brand above a €50 average exit price. In the week to 15 September 2026, 395 Stone Island hoodies left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €55. That is 54% of the brand's entire 727 weekly departures concentrated in one category — no other tracked brand has a comparable hoodie-to-total-brand ratio. For resellers, this means Stone Island hoodies are both the most liquid entry point into the brand and the category where the most sourcing mistakes get made. This guide breaks down exit prices by hoodie type, dye method, and condition tier — and where the buy-below ceiling sits if you are sourcing to flip on EU Vinted.",
     definedTerm: {
-      name: "Fred Perry polo shirt departure average",
+      name: "Stone Island hoodie departure average",
       description:
-        "The Fred Perry polo shirt departure average is the average price at which a tracked Fred Perry shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Fred Perry shirt departure average is €14 across 547 observed departures in France, Germany, Spain, Italy, and Portugal. This is the single highest-volume category in the ResaleIQ EU Vinted database. Individual exit prices range from €8–10 for faded or poorly photographed pieces to €30–50 for rare colourways or limited editions. The buy-below ceiling at the category level is €9.10.",
+        "The Stone Island hoodie departure average is the average price at which a tracked Stone Island hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Stone Island hoodie departure average is €55 across 395 observed departures in France, Germany, Spain, Italy, and Portugal. This makes Stone Island hoodies the highest-volume category for any brand with an average exit price above €50 in the ResaleIQ EU Vinted database. The brand overall tracks 727 watched departures per week across all categories at a €70 average, with hoodies accounting for 54% of that volume. The buy-below ceiling based on the hoodie departure average is €35.75.",
     },
     sections: [
       {
-        h: "Fred Perry on EU Vinted: the #1 departure brand",
+        h: "Stone Island on EU Vinted: the hoodie dominance",
         p: [
-          "Fred Perry ranks first by watched departures on EU Vinted with 1,092 per week across all categories — ahead of Stone Island (1,030), Patagonia (927), and Balenciaga (471). Shirts account for exactly half that volume: 547 of 1,092 departures are shirts (polo and tennis-collar variations). The brand's category split shows a clear pattern: shirts drive volume at a low average (€14), hoodies drive volume at a mid average (€22), and jackets carry the margin at the high end (€39, 123 departures/7d).",
-          "For a reseller running a volume operation, Fred Perry shirts are the backbone — high turnover, accessible sourcing prices, predictable exit times. A reseller who builds a 20-item Fred Perry shirt rotation, sourcing at €3–7 at charity shops and exiting at €12–18, runs the play that makes the €14 average make sense as a business. The brand is not a premium-margin-per-item play; it is a velocity play.",
-          `The key insight: Fred Perry's advantage on EU Vinted is not the exit price but the exit speed. Shirts from the M12 and M3 lines move in 3–7 days in-season. A faster-moving item at a lower margin often outperforms a high-margin item that takes 30–45 days to exit. [Current Fred Perry brand data →](${ilinkHref("flip")})`,
+          "Stone Island tracks 727 watched departures per week across all categories on EU Vinted at a €70 brand average — making it the third-highest-volume brand in the ResaleIQ EU database behind Fred Perry (834/7d) and Patagonia (739/7d). But unlike those brands, Stone Island's volume is concentrated: hoodies account for 395 of the 727 weekly departures (54%), jackets for 168 (23%), shirts for 74 (10%), and T-shirts for 57 (8%). Caps contribute just 11 per week.",
+          "The hoodie dominance reflects Stone Island's brand identity. The compass badge is the recognised signal — it appears on every hoodie and is what Vinted buyers are searching for. Jackets carry higher exit prices (€141 average) but require significantly higher sourcing investment and have far lower volume. For a reseller building a repeatable sourcing strategy around Stone Island, hoodies at €55 average and 56 departures per day across EU Vinted are the logical entry point.",
+          `The key risk in Stone Island hoodies is the wide condition spread. The €55 average covers items exiting at €25 (heavily worn basics in off-sizes) to €120+ (Shadow Project or unworn archive pieces). Sourcing discipline — knowing which type you have and what it realistically exits at — determines whether Stone Island hoodies are a margin business or a capital trap. [Full Stone Island brand data →](${ilinkHref("flip")})`,
         ],
-        cta: pricingMidCta("ctr_fredperry_guide_intro_20260915"),
+        cta: pricingMidCta("ctr_si_hoodies_guide_intro_20260915"),
       },
       {
-        h: "Fred Perry polo models: M12, M3, M2 and what each sells for",
+        h: "Stone Island hoodie types and exit prices",
         p: [
-          "The M12 polo is Fred Perry's core model and the dominant shirt on EU Vinted. It is the twin-tipped polo with the Fred Perry wreath embroidery on the chest — identifiable to any buyer, with no authentication ambiguity at charity shop prices. The M12 exits at €12–20 in good condition depending on colourway and size. Clean white, black, or navy M12s in M/L exit near the high end of that range (€16–20). Faded or washed-out pieces exit at €8–12. The model is ubiquitous — every market has them, buyers know exactly what they are buying.",
-          "The M3 polo (cotton piqué, slim fit, twin tip) is Fred Perry's premium-positioned equivalent. The difference from the M12 is primarily fabric weight and cut — the M3 uses a heavier cotton piqué and runs slim, which makes it popular with EU buyers who know the range. M3 exits at €15–25 in clean condition, up to €35 for limited-edition or collaboration pieces (Fred Perry x Raf Simons, Fred Perry x Comme des Garçons). The collaboration pieces are identifiable by the label — they carry both house logos and command a significant premium over mainline M3s.",
-          "The M2 polo (the classic cotton piqué, looser fit, older cut) exits at €10–16. It is slightly less sought-after than the M12 due to the looser silhouette — EU buyers trending toward fitted and slim cuts. The M2 is still a solid resale item; its lower exit ceiling means it only works at very low sourcing prices (sub-€5 charity shop).",
-        ],
-      },
-      {
-        h: "Buy-below ceiling and exit ranges by model",
-        p: [
-          "The buy-below ceiling for Fred Perry shirts at the category level is €9.10 — 65% of the €14 departure average. Any shirt sourced below €7 at a charity shop or car boot sale has strong margin at average exit prices. The Fred Perry polo is one of the most commonly found branded items at EU charity shops — France and Germany in particular have consistent supply at €3–8 sourcing prices.",
-          "Model-specific buy-below ceilings differ meaningfully: M12 in good condition (buy below €9, targets €14–18 exit). M3 in clean condition (buy below €12, targets €18–25 exit). M3 collaboration pieces (buy below €20 if authenticated, targets €35–70 exit depending on the colourway and partner). M2 (buy below €5, targets €10–14 exit). Any shirt with heavy fading, pilling, or collar stretching: buy below €3 if at all — these take longer to exit and pull down realised averages.",
-          "Colourway premium is real on Fred Perry. The standard twin-tip colourways (navy/white tip, black/white tip, white/navy tip) are the most liquid — every EU buyer recognises them. But the non-standard colourways — mustard, burgundy, sage green, seasonal collaboration colourways — can exit at €22–30 because they attract buyers looking for something other than the standard palette. If you see a clean M12 in an unusual colourway at charity shop prices, source it.",
-        ],
-        cta: pricingBodyCta("ctr_fredperry_guide_buybellow_20260915"),
-      },
-      {
-        h: "Size and condition: what moves fastest on EU Vinted",
-        p: [
-          "Fred Perry shirts size differently from modern fashion — the brand uses UK sizing, which runs slim and small versus typical EU streetwear sizing. An M12 tagged 'M' (UK) often fits as a small-to-medium in EU sizing context. This creates a buyer advantage: EU Vinted buyers who understand Fred Perry's sizing consistently find clean pieces in 'L' or 'XL' that fit as standard EU M/L, at the price those sizes command (the same as M/L in standard sizing).",
-          "By size: EU M (tagged M–38 in Fred Perry's own sizing) is the most liquid and exits fastest. EU L (tagged L–40) is second. XS and XXL are slower — fewer buyers, longer hold times. S exits well in France and Spain where buyers skew toward slimmer fits.",
-          "Condition is the primary exit-price driver for a commodity item like the M12. The polo's piqué cotton shows wear clearly: pilling at the collar, fading at the chest logo, pulling at the sleeve hems. A spotless M12 in an unfashionable colourway (say, UK blue) exits faster at a better price than a faded M12 in the most searched colourway. Photograph the collar flat against a neutral surface — buyers check the collar condition before the colourway.",
+          "Stone Island hoodies span a wide production range and the type matters more than condition for exit price. The most common item on EU Vinted is the garment-dyed pullover hoodie — the thick, structured fleece in a single pigment wash that characterises most Stone Island collections from the 2010s onward. These exit at €40–65 depending on the dye season and condition, and they account for the bulk of the 395 weekly departures.",
+          "The Shadow Project line (technical construction, articulated seaming, often with a different fabric composition than mainline) exits at a premium — €80–130 in good condition — but appears far less frequently on EU Vinted because retail price and collector awareness keep it in circulation longer. Shadow Project hoodies are identifiable by the separate badge placement, often accompanied by a secondary patch or label inside.",
+          "Garment-dyed variations such as the Fissato dye (crinkled surface) and the Ice dye (bleached irregular pattern) exit above the category average — €60–90 for clean pieces — because the effect is visually distinctive and appears in search-driven resale communities. Ghost treatments (the treatment renders the compass badge nearly invisible under neutral light) are a separate collector sub-market and can exit at €70–120 for rare colourways.",
         ],
       },
       {
-        h: "Fred Perry hoodies vs shirts: where the margin actually sits",
+        h: "Buy-below ceiling and practical sourcing",
         p: [
-          "Fred Perry hoodies exit at €22 average on 186 departures per week — €8 more per exit than shirts, on 361 fewer weekly departures. For a reseller, hoodies are the higher-margin category, but they source less frequently and take longer to find at sourcing prices that maintain the margin. A Fred Perry hoodie at €12 charity shop price exits at €22 with good margin. A Fred Perry shirt at €5 exits at €14 with equivalent margin in percentage terms.",
-          "Fred Perry jackets (track tops, tennis jackets, bomber variations) exit at €39 on 123 departures per week — the highest per-item average in the brand's category mix. These are the items that look like shirts to an untrained buyer at a charity shop: the Fred Perry track jacket at charity shop prices of €8–12 exits at €35–50 on EU Vinted. If you find a Fred Perry track jacket or twin-tipped bomber jacket at £8 in a UK charity shop, it is the highest-margin sourcing find in the brand's range.",
-          "The practical sourcing strategy: shirts are the floor — find them, price them accurately, move them in volume. Hoodies and jackets are the ceiling — source them specifically when the colourway and condition are right. A Fred Perry shirt at €5 and a Fred Perry track jacket at €10 have the same sourcing cost input; the jacket exits at 3× the price.",
+          "The buy-below ceiling for Stone Island hoodies at the category level is €35.75 — 65% of the €55 departure average. This is the maximum you can pay for a standard garment-dyed pullover in good condition and maintain a workable margin after Vinted's seller fee and domestic shipping. For the most common items sourced at charity shops or local markets (worn basics, standard colourways), the practical ceiling is lower: anything above €25 for a worn piece in an off-size risks a loss.",
+          "Shadow Project and special-dye pieces have a higher absolute buy-below ceiling because their exit prices are higher, but the sourcing cost at second-hand markets usually reflects this — experienced charity shop sorters in UK, France, and Germany increasingly identify Stone Island by badge and price accordingly. The margin opportunity is in items sourced from sellers who do not know what they have: plain-looking garment-dyed pieces in darker colourways that hide the badge on the first scan.",
+          "Volume sourcing works differently for Stone Island than for Carhartt (€34.45 jacket buy-below) or Levi's (€18.85 jeans buy-below). Stone Island is a premium brand with a collector audience; buying five mediocre hoodies at €30 each and listing them all for €50 produces slower turns and more price drops than buying one excellent hoodie at €30 and listing it at €65. Quality concentration beats quantity at this price point.",
+        ],
+        cta: pricingBodyCta("ctr_si_hoodies_guide_buybellow_20260915"),
+      },
+      {
+        h: "Condition and colourway: what actually drives exit price",
+        p: [
+          "Stone Island hoodie condition is the primary exit-price driver within the standard garment-dyed range. A clean garment-dyed pullover with no badge damage, no pilling, and strong colour saturation exits at €55–70 in a core colourway (navy, khaki, black, grey). The same piece with heavy pilling around the collar and sleeve cuffs exits at €30–40. Badge condition is especially critical — a bent or discoloured compass badge devalues the piece because it's the primary visual signal buyers verify before purchasing.",
+          "Colourway affects exit price and exit speed. Navy and olive green are the highest-demand colourways on EU Vinted — they are consistent across Stone Island collections, easy to wear, and well-represented in the buyer pool. Unusual colourways (orange, yellow, bright blue) from specific seasons exit slower despite sometimes being harder to find. Exception: pastel or faded archive colourways that have developed collector value exit faster at premium prices when photographed well.",
+          "Size matters for exit speed more than exit price. L and M are the most liquid sizes in EU markets. XL and S sell slightly slower but at similar prices. XXL and XS are long-tail sizes with slower turns — list them, but expect 2–4 weeks rather than 7–10 days. Anything labelled in Italian sizing (common on older pieces) photographs with the EU equivalent prominently to reduce buyer hesitation.",
         ],
       },
       {
-        h: "What kills exit price: the three failure modes",
+        h: "Stone Island hoodies vs Stone Island jackets",
         p: [
-          "Collar damage is the primary exit killer on Fred Perry polos. The twin-tip collar is the design's most distinctive feature — and the first part to show wear. A stretched, pilled, or colour-faded collar reduces exit price by 30–40% regardless of shirt condition. Always check the collar tip seam and the collar underside (where sweat staining accumulates). A collar in perfect condition on a slightly faded shirt photographs better than a pristine shirt body with a worn collar.",
-          "Photography on a flat surface against a white or neutral background consistently produces faster exits and better prices for Fred Perry shirts than hanger photography. The piqué cotton texture, the wreath embroidery detail, and the twin-tip colour contrast all read better flat than hanging. A shirt that sits for three weeks with hanger photos often exits in three days after a re-shoot flat. The cost of a re-shoot is zero; the margin recovery is €3–5 per item.",
-          "Mislabelling the model is a consistent error that slows exits. Listing an M12 as 'Fred Perry polo' and a vintage M3 as 'Fred Perry polo' creates different buyer expectations for the same listing format. Buyers who know the range — and a significant proportion of EU Vinted Fred Perry buyers do — search for 'Fred Perry M12' and 'Fred Perry M3' specifically. Include the model number in the title and description. It takes 10 seconds and changes the search surface the listing appears on.",
+          "The jacket versus hoodie comparison is the most important decision in Stone Island sourcing. Jackets track 168 watched departures per week at a €141 average — nearly triple the hoodie average — and represent the highest-margin category in the entire ResaleIQ EU database. But jackets require dramatically higher sourcing investment: a jacket that exits at €141 needs to be sourced below €91 to maintain the same 65% buy-below discipline, and sourcing a Stone Island jacket below €90 at second-hand markets requires either exceptional luck or access to estate sales and bulk lots.",
+          "For most resellers, the hoodie is the practical Stone Island entry point. The €35.75 buy-below ceiling for hoodies is reachable — garment-dyed hoodies appear regularly at UK charity shops for £15–25, at French vide-greniers for €10–30, and at German Kleiderkreisel listings for €20–40. The capital commitment per item is manageable and the weekly volume of 395 departures means consistent buyer demand.",
+          `Hoodies and jackets are not competing strategies — experienced Stone Island resellers run both. The hoodie pipeline provides consistent weekly turnover; jacket sourcing is the high-value outlier when opportunity arises. Both categories benefit from the same brand knowledge. [Stone Island jacket guide →](/blog/stone-island-jackets-eu-vinted-guide)`,
         ],
+        cta: pricingBodyCta("ctr_si_hoodies_guide_jackets_20260915"),
       },
       {
-        h: "How to use these numbers",
+        h: "Stone Island vs Supreme and The North Face on EU Vinted",
         p: [
-          "The €14 departure average tells you the floor of what the market clears at for the category. Your actual exit price depends on model, condition, colourway, size, and photograph quality — all of which you control. The data tells you where the market is; the sourcing decision is whether you can get below the buy-below ceiling (€9.10 at the category level) with enough margin to justify the hold time.",
-          "For Fred Perry specifically, the volume is large enough that consistent pricing accuracy matters more than finding the perfect piece. A reseller who prices 20 standard M12s accurately at €14–16 and turns them in 7 days outperforms a reseller who waits for the unusual colourway and prices it at €35 with a 30-day hold time. The departure data validates the volume play.",
-          "Buy-below, sell-through rate per model, and momentum rankings for all 3 Fred Perry tracked models are behind the Starter plan — the numbers are what the average tells you the market accepts; the model-level buy-below is what tells you whether the specific item in your hand is a buy or a pass.",
+          "Stone Island vs Supreme: Supreme tracks 154 watched departures per week at a €66 average — slightly higher exit price but significantly lower volume than Stone Island hoodies alone. Supreme's resale dynamics on EU Vinted differ: Supreme is primarily driven by drop cycles and specific item hype (box logo hoodies, collaboration pieces) rather than steady brand-wide demand. Stone Island has more consistent week-over-week volume, which makes it more suitable for a systematic sourcing business. Supreme requires more trend-specific knowledge to source profitably.",
+          "Stone Island vs The North Face: The North Face tracks 183 watched departures per week at a €41 brand average — higher volume but lower exit price than Stone Island hoodies. TNF Nuptse puffers and vintage Gore-Tex shells are the high-value items in the TNF catalogue on EU Vinted, but the average exit price reflects a much larger base of mid-range fleeces and standard puffers. Stone Island hoodies at €55 average are 34% above the TNF brand average, and the buyer demand per listed item is more concentrated.",
+          `Stone Island vs Carhartt WIP: Carhartt tracks 61 watched departures per week at a €31 brand average, with jackets leading at €53. Carhartt is the better option for sourcing volume below €25 per item; Stone Island is the better option when sourcing budget allows €25–35 and exit price matters more than unit count. The two brands serve different reselling risk tolerances — Carhartt for higher frequency/lower margin, Stone Island for lower frequency/higher margin per unit. [Compare all EU Vinted brands →](${ilinkHref("data")})`,
         ],
       },
     ],
     faq: [
       {
-        q: "What do Fred Perry polo shirts sell for on EU Vinted?",
-        a: "Fred Perry shirts averaged €14 per departure across EU Vinted in the week to 15 September 2026, across 547 observed departures in France, Germany, Spain, Italy and Portugal. The M12 polo exits at €12–20 in good condition; the M3 exits at €15–25; M3 collaborations (Raf Simons, Comme des Garçons) exit at €35–70. Unusual colourways command a premium of €6–15 over standard twin-tip colourways.",
+        q: "How much does a Stone Island hoodie sell for on EU Vinted?",
+        a: "The Stone Island hoodie category averaged €55 per departure across EU Vinted in the week to 15 September 2026, based on 395 observed departures in France, Germany, Spain, Italy, and Portugal. That covers a significant range: worn basics in off-sizes exit at €25–35, standard garment-dyed pullovers in core colourways at €40–65, and Shadow Project or special-treatment pieces (Ice dye, Ghost) at €70–130 depending on condition and colourway.",
       },
       {
-        q: "What is the buy-below price for Fred Perry polo shirts?",
-        a: "The buy-below ceiling for Fred Perry shirts at the EU Vinted category level is €9.10, based on the €14 departure average and a 35% margin target after Vinted's seller fee and estimated shipping. M12 in good condition: buy below €9. M3 in clean condition: buy below €12. M3 collaboration pieces: buy below €20 if authenticated. M2 or faded/worn pieces: buy below €5.",
+        q: "What is the buy-below price for a Stone Island hoodie on EU Vinted?",
+        a: "The buy-below ceiling for a standard Stone Island garment-dyed hoodie is €35.75 — 65% of the €55 departure average. For worn pieces or off-sizes, the practical ceiling is closer to €20–25 to account for slower exits. Shadow Project and special-dye variants have a higher absolute buy-below ceiling due to their higher exit prices, but the sourcing premium at second-hand markets usually reflects this. The buy-below rule protects margin before you commit capital.",
       },
       {
-        q: "Is Fred Perry worth reselling on Vinted?",
-        a: "Yes, for volume-based resellers. Fred Perry is the highest-departure brand on EU Vinted with 1,092 watched departures per week, and shirts alone account for 547 of those. The €14 average exit price is modest, but at charity shop sourcing prices of €3–8, the margin per item is consistent and the exit time is short (3–7 days in-season for clean M12 pieces). Hoodies (€22 avg) and jackets (€39 avg) carry better per-item margin for resellers who source selectively.",
+        q: "Which Stone Island hoodie type is most valuable on EU Vinted?",
+        a: "Shadow Project hoodies consistently exit at the highest prices — €80–130 in good condition — due to their technical construction and lower supply on the second-hand market. Fissato dye (crinkled surface) and Ice dye hoodies exit above the category average (€60–90) because of visual distinctiveness. Standard garment-dyed pullovers in navy and olive exit at the category average of €55 and are the most liquid. Ghost-treatment pieces are a collector sub-market that can reach €70–120 for rare colourways.",
       },
       {
-        q: "Which Fred Perry shirt model sells best on EU Vinted?",
-        a: "The M12 is the highest-volume model by departures — it is the most recognised and most commonly found at charity shop prices. The M3 commands a higher exit price (€15–25) and is worth sourcing specifically in clean condition. The M3 collaboration pieces (Raf Simons, Comme des Garçons) are the highest-exit items in the range when authenticated.",
+        q: "Is Stone Island worth reselling on EU Vinted?",
+        a: "Yes, with sourcing discipline. Stone Island hoodies tracked 395 watched departures per week in September 2026 at a €55 average — making it the highest-volume category in the ResaleIQ EU database for any brand above a €50 average exit price. The buy-below ceiling of €35.75 is achievable at second-hand markets. The risk is the wide exit price range — the €55 average includes everything from €25 worn basics to €130 Shadow Project pieces, so knowing what you have before buying determines whether Stone Island is profitable.",
       },
       {
-        q: "What sizes of Fred Perry polo shirts sell fastest on EU Vinted?",
-        a: "EU M (tagged M/38 in Fred Perry sizing) and EU L (tagged L/40) are the most liquid sizes and exit fastest. XS and XXL are slower. Fred Perry uses UK sizing which runs slim, so a Fred Perry 'L' fits as an EU M in practice — EU buyers who know the brand buy one size up from their usual EU size.",
+        q: "How does Stone Island hoodie volume compare to the rest of the brand?",
+        a: "Stone Island hoodies account for 54% of the brand's 727 watched weekly departures on EU Vinted — 395 hoodies versus 168 jackets, 74 shirts, 57 T-shirts, and 11 caps. No other tracked brand has a comparable category concentration at this exit price level. For resellers, this means hoodies are the primary Stone Island liquidity pool. Jackets carry higher margins (€141 average) but lower volume and higher sourcing investment.",
+      },
+      {
+        q: "How long does a Stone Island hoodie take to sell on EU Vinted?",
+        a: "Clean garment-dyed hoodies in L or M in a core colourway (navy, khaki, black, grey) priced at the market rate typically sell within 7–14 days. Unusual colourways or off-sizes can sit for 3–5 weeks before finding a buyer. Shadow Project and special-dye pieces sell within 5–10 days when the type is clearly identified in the title and description — buyers searching for these specific items know exactly what they want. Listing the specific dye method (garment dyed, Fissato, Ice) and the badge condition in the title is the single most effective way to reduce time to departure.",
       },
     ],
   },
