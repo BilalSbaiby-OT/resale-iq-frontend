@@ -333,7 +333,7 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
   // The public checker used to throw "Could not check that item" on any !ok,
   // so the conversion face was a red error. This pins the replacement: a
   // Start — €19/mo CTA and zero teaser fields.
-  test("402 PAYWALL shows Start €19 and never a buy-below", async ({ page }) => {
+  test("402 PAYWALL shows Start €19 and never leaks the locked buy_below price", async ({ page }) => {
     await page.route("**/api/verdict**", async route => {
       await route.fulfill({
         status: 402,
@@ -347,8 +347,11 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     const wall = page.getByTestId("riq-hard-paywall")
     await expect(wall).toBeVisible()
     await expect(wall).toContainText(/Start — €19/)
-    await expect(wall).not.toContainText(/32/)
-    await expect(wall).not.toContainText(/buy-below/i)
+    // The locked buy_below value (32.01) and sell_avg (48.14) must never render.
+    // Note: the copy intentionally says "buy-below price" as CRO — the test guards
+    // the numeric value leaking, not the word.
+    await expect(wall).not.toContainText(/32\.01/)
+    await expect(wall).not.toContainText(/48\.14/)
     await expect(page.getByText(/Could not check that item/i)).toHaveCount(0)
     await expect(page.getByText(/Unlock the rest/i)).toHaveCount(0)
   })

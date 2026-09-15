@@ -9,6 +9,26 @@ import { resolvePriceId, TIERS } from "@/lib/pricing"
 import { trackEvent } from "@/lib/analytics"
 import { getToken } from "@/lib/utils"
 import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
+import { floorTo10k } from "@/lib/floor-to-10k"
+
+// why: paywallBody contains {{TRACKED}} sentinel — resolve client-side via the
+// same market-snapshot endpoint paywall.tsx uses. Starts from "…" so the card
+// renders immediately; the real number fills in when the fetch resolves.
+function useTrackedLabel(): string {
+  const [tracked, setTracked] = useState("…")
+  useEffect(() => {
+    let live = true
+    fetch("/api/public/market-snapshot")
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        const n = d?.listings_tracked
+        if (live && typeof n === "number" && n > 0) setTracked(`${floorTo10k(n)}+`)
+      })
+      .catch(() => {})
+    return () => { live = false }
+  }, [])
+  return tracked
+}
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -18,6 +38,7 @@ import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
 export function HardPaywallCard({ locale, plans }: { locale: Locale; plans?: PaywallPlan[] }) {
   const t = copy[locale].checker
   const price = operatorPrice(plans)
+  const tracked = useTrackedLabel()
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
   const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -59,7 +80,7 @@ export function HardPaywallCard({ locale, plans }: { locale: Locale; plans?: Pay
         <Lock size={15} style={{ color: "#34C759" }} aria-hidden />
         <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{t.paywallHeadline}</span>
       </div>
-      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{t.paywallBody}</p>
+      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{t.paywallBody.replace("{{TRACKED}}", tracked)}</p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <button
           type="button"
