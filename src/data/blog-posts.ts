@@ -801,8 +801,9 @@ import { POSTS_26 } from "./blog-posts-26"
 import { POSTS_27 } from "./blog-posts-27"
 import { POSTS_28 } from "./blog-posts-28"
 import { POSTS_29 } from "./blog-posts-29"
+import { POSTS_30 } from "./blog-posts-30"
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11, ...POSTS_12, ...POSTS_13, ...POSTS_14, ...POSTS_15, ...POSTS_16, ...POSTS_17, ...POSTS_18, ...POSTS_19, ...POSTS_20, ...POSTS_21, ...POSTS_22, ...POSTS_23, ...POSTS_24, ...POSTS_25, ...POSTS_26, ...POSTS_27, ...POSTS_28, ...POSTS_29]
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11, ...POSTS_12, ...POSTS_13, ...POSTS_14, ...POSTS_15, ...POSTS_16, ...POSTS_17, ...POSTS_18, ...POSTS_19, ...POSTS_20, ...POSTS_21, ...POSTS_22, ...POSTS_23, ...POSTS_24, ...POSTS_25, ...POSTS_26, ...POSTS_27, ...POSTS_28, ...POSTS_29, ...POSTS_30]
 
 export function getPost(slug: string): BlogPost | undefined {
   return ALL_POSTS.find((p) => p.slug === slug)
