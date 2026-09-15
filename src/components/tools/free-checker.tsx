@@ -477,6 +477,18 @@ export function FreeChecker({
                   work" into "it works for THESE" — the narrowing is honest,
                   an empty refusal with no next step reads as broken. */}
               <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
+              {/* CRO-UNKNOWN: after the dead-end, give them the catalogue.
+                  /data is the public page that lists every brand we cover —
+                  honest, on-topic, keeps them on-site. Same muted-link style
+                  used in the LIMIT_REACHED branch and throughout this card. */}
+              <div style={{ marginTop: 10 }}>
+                <Link
+                  href={canonicalPath(locale, "/data")}
+                  style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
+                >
+                  → See the 28 brands we track
+                </Link>
+              </div>
             </>
           ) : res.verdict === "BRAND_CATEGORIES" ? (
             // A brand-only query — the backend recognises the brand but has no
