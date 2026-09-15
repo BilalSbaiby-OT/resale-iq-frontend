@@ -327,7 +327,8 @@ export const copy = {
     tiers: {
       power: {
         tagline: "It stops waiting for you to ask",
-        cta: "Let it find the deals",
+        // H28 CRO: Power CTA commitment-match — solution-aware visitor on /pricing already knows the product; name the price. CRO #10. Revenue 2026-09-15.
+        cta: "Start for €49",
         stepUp: "+€30 over Starter — about €1 a day",
         stepUpWhy:
           "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: on demand, it searches the five EU markets we track and shows you listings already priced under your buy-below number.",
@@ -784,7 +785,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Il arrête d'attendre que vous demandiez",
-        cta: "Laissez-le trouver les bons plans",
+        cta: "Démarrer pour 49 €",
         stepUp: "+€30 par rapport à Starter — environ €1 par jour",
         stepUpWhy:
           "Starter vous dit si un article vaut le coup une fois que vous l'avez trouvé. Pro le trouve : à la demande, il cherche sur les cinq marchés UE que nous suivons et vous montre les annonces déjà sous votre prix d'achat max.",
@@ -1175,7 +1176,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Deja de esperar a que preguntes",
-        cta: "Deja que encuentre los chollos",
+        cta: "Empieza por 49 €",
         stepUp: "+€30 sobre Starter — unos €1 al día",
         stepUpWhy:
           "Starter te dice si un artículo merece la pena una vez lo has encontrado. Pro lo encuentra: a demanda, busca en los cinco mercados de la UE que seguimos y te muestra anuncios ya por debajo de tu precio máximo de compra.",
@@ -1563,7 +1564,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Es wartet nicht mehr darauf, dass du fragst",
-        cta: "Lass es die Deals finden",
+        cta: "Für 49 € starten",
         stepUp: "+€30 gegenüber Starter — etwa €1 am Tag",
         stepUpWhy:
           "Starter sagt dir, ob sich ein Artikel lohnt, sobald du ihn gefunden hast. Pro findet ihn: auf Abruf durchsucht es die fünf EU-Märkte, die wir erfassen, und zeigt dir Angebote, die schon unter deiner Kaufobergrenze liegen.",
@@ -1953,7 +1954,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Smette di aspettare che tu chieda",
-        cta: "Lascia che trovi gli affari",
+        cta: "Inizia a 49 €",
         stepUp: "+€30 rispetto a Starter — circa €1 al giorno",
         stepUpWhy:
           "Starter ti dice se un articolo vale l'acquisto, una volta che l'hai trovato. Pro lo trova: su richiesta, cerca nei cinque mercati UE che monitoriamo e ti mostra annunci già sotto il tuo prezzo massimo di acquisto.",
@@ -2341,7 +2342,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Deixa de esperar que perguntes",
-        cta: "Deixa-o encontrar as ofertas",
+        cta: "Começa por 49 €",
         stepUp: "+€30 acima do Starter — cerca de €1 por dia",
         stepUpWhy:
           "O Starter diz-te se um artigo vale a pena depois de o encontrares. O Pro encontra-o: a pedido, pesquisa nos cinco mercados da UE que monitorizamos e mostra-te anúncios já abaixo do teu preço máximo de compra.",
