@@ -293,7 +293,7 @@ export const copy = {
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
       subhead:
-        "ResaleIQ analyzes listings and tells you BUY / WATCH / SKIP, with the target buy price and expected resale. Starter €19/mo.",
+        "One search gives you BUY / WATCH / SKIP, the buy-below price, and how solid the evidence is. Starter €19/mo.",
       faqHeading: "Before you pick a plan",
       faq: [
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
@@ -1136,7 +1136,7 @@ export const copy = {
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
       subhead:
-        "ResaleIQ analiza anuncios y te dice BUY / WATCH / SKIP, con el precio máximo de compra y la reventa esperada. Starter: 19 €/mes.",
+        "Una búsqueda te da BUY / WATCH / SKIP, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
       faqHeading: "Antes de elegir un plan",
       faq: [
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },
