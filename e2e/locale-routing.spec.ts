@@ -265,7 +265,7 @@ test("/es/pricing serves the Spanish pricing page, not a redirect and not Englis
   await expect(page.locator("h1")).toContainText(/Encuentra flips rentables/i)
   await expect(page.locator("section.riq-pricing")).toContainText(/BUY \/ WATCH \/ SKIP/)
   await expect(page.locator("section.riq-pricing")).toContainText(/19 €/)
-  await expect(page.getByTestId("riq-starter-trust")).toHaveText("Cancela cuando quieras · 19 €/mes · se desbloquea al instante")
+  await expect(page.getByTestId("riq-starter-trust")).toContainText(/anuncios seguidos/)
   await expect(page.getByTestId("riq-public-data-line")).toContainText(/Solo datos públicos \(no comprobaciones de artículos\)/)
   await expect(page.locator("html")).toHaveAttribute("lang", "es")
 })

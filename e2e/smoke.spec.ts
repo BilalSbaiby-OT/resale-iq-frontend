@@ -124,7 +124,7 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
   }
   await expect(page.getByTestId("riq-public-data-line")).toContainText(/Public data only \(not item checks\)/i)
-  await expect(page.getByTestId("riq-starter-trust")).toHaveText("Cancel anytime · €19/mo · unlocks immediately")
+  await expect(page.getByTestId("riq-starter-trust")).toContainText(/listings watched/)
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
   // Free forever must not lead — first CTA is Starter.

@@ -296,7 +296,11 @@ export const copy = {
       forever: "forever",
       perMonth: "/month",
       whereItStops: "Where it stops:",
-      starterTrust: "Cancel anytime · €19/mo · unlocks immediately",
+      // H26 CRO: replace process claims with live-data proof. {{TRACKED}} is substituted
+      // with the live listings count from useTrackedLabel() in pricing-section.tsx.
+      // CRO Principle #7 (specific proof before CTA) + #8 (real numbers, not generic claims).
+      // Revenue 2026-09-15.
+      starterTrust: "{{TRACKED}} listings watched · cancel anytime · unlocks immediately",
       publicDataLine: "Public data only (not item checks) → /data",
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
@@ -758,7 +762,7 @@ export const copy = {
       forever: "à vie",
       perMonth: "/mois",
       whereItStops: "Où ça s'arrête :",
-      starterTrust: "Résiliable à tout moment · 19 €/mois · accès immédiat",
+      starterTrust: "{{TRACKED}} annonces suivies · résiliable à tout moment · accès immédiat",
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
@@ -1148,7 +1152,7 @@ export const copy = {
       forever: "de por vida",
       perMonth: "/mes",
       whereItStops: "Dónde se detiene:",
-      starterTrust: "Cancela cuando quieras · 19 €/mes · se desbloquea al instante",
+      starterTrust: "{{TRACKED}} anuncios seguidos · cancela cuando quieras · se desbloquea al instante",
       publicDataLine: "Solo datos públicos (no comprobaciones de artículos) → /data",
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
@@ -1537,7 +1541,7 @@ export const copy = {
       forever: "dauerhaft",
       perMonth: "/Monat",
       whereItStops: "Wo es endet:",
-      starterTrust: "Jederzeit kündbar · 19 €/Monat · sofort freigeschaltet",
+      starterTrust: "{{TRACKED}} Angebote beobachtet · jederzeit kündbar · sofort freigeschaltet",
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
@@ -1927,7 +1931,7 @@ export const copy = {
       forever: "per sempre",
       perMonth: "/mese",
       whereItStops: "Dove si ferma:",
-      starterTrust: "Disdici quando vuoi · 19 €/mese · si sblocca subito",
+      starterTrust: "{{TRACKED}} annunci monitorati · disdici quando vuoi · si sblocca subito",
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
@@ -2315,7 +2319,7 @@ export const copy = {
       forever: "para sempre",
       perMonth: "/mês",
       whereItStops: "Onde para:",
-      starterTrust: "Cancela quando quiseres · 19 €/mês · desbloqueia imediatamente",
+      starterTrust: "{{TRACKED}} anúncios monitorados · cancela quando quiseres · desbloqueia imediatamente",
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",

@@ -11,6 +11,7 @@ import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { LlmEyebrow } from "./llm-eyebrow"
+import { useTrackedLabel } from "@/lib/use-tracked-label"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -105,6 +106,8 @@ export function PricingSection({
   // still settles, the button still enables, and choose()'s existing catch
   // routes to /register — no worse than today, and never a permanently dead CTA.
   const [plansReady, setPlansReady] = useState(false)
+  // H26 CRO: live tracked count for starterTrust — CRO #7/#8. Revenue 2026-09-15.
+  const tracked = useTrackedLabel()
 
   useEffect(() => {
     getPlans()
@@ -268,7 +271,7 @@ export function PricingSection({
                   textAlign: "center",
                 }}
               >
-                {t.starterTrust}
+                {t.starterTrust.replace("{{TRACKED}}", tracked)}
               </p>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
