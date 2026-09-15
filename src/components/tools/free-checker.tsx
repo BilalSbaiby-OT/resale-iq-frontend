@@ -8,6 +8,7 @@ import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
+import { PRICE_CHECKER_MONEY_HREF } from "@/lib/money-cta"
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
@@ -789,7 +790,23 @@ export function FreeChecker({
               <Lock size={14} color="#34C759" />
               {t.unlockLine}
             </div>
-            <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+              <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+              {/* H22: secondary plan-aware paid path. The primary unlock bar above
+                  routes anon visitors to the free account. A visitor who already
+                  knows the price — e.g. arriving from the H21 cold-CTA ladder on
+                  /pricing — has no direct path to pay without this. One quiet line,
+                  identical placement convention as the LIMIT_REACHED branch's
+                  secondary "See plans" link (line ~462). Never on the hero
+                  fold (E-13 + single-accent rule). */}
+              <Link
+                href={PRICE_CHECKER_MONEY_HREF}
+                data-testid="riq-starter-cta-bar"
+                style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none" }}
+              >
+                Starter €19/mo →
+              </Link>
+            </div>
           </div>
           )}
         </div>
