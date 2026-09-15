@@ -819,7 +819,12 @@ export function FreeChecker({
                   /es/register, not the English /register (W61 class of bug).
                   CRO Principle #10 (CTA commitment-match) + #12 (earned-urgency).
                   Revenue 2026-09-16. */}
-              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result`} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+              {/* H40 CRO: locale-aware authedHref — canonicalPath(locale, "/verdict") so an
+                  authed /es/tools or /fr/tools visitor who clicks "See full numbers →" lands
+                  on /es/verdict (redirects to /verdict on the way, per the [locale]/[...rest]
+                  catch-all) rather than English /verdict — consistent with every W61 fix.
+                  Revenue 2026-09-16. */}
+              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result`} authedLabel={t.seeFullNumbers} authedHref={canonicalPath(locale, "/verdict")} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
               <Link
                 href={`${canonicalPath(locale, "/register")}?plan=free`}
                 data-testid="riq-starter-cta-bar"
