@@ -96,7 +96,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     })
     await page.goto("/register")
     await fillFreeRegister(page, `e2e-noticks-${Date.now()}@example.com`)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     expect(registerCalled).toBe(true)
   })
@@ -161,7 +161,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await page.goto("/register?plan=operator")
     await page.locator('input[type="email"]').fill("e2e-nowaiver@example.com")
     await page.locator('input[type="password"]').fill("goodpass123")
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await expect(page.getByText(/immediate access/i)).toBeVisible()
     expect(registerCalled).toBe(false)
   })
@@ -172,7 +172,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await page.goto("/register?plan=operator")
     await expect(page.getByText("€19")).toBeVisible()
     await fillPaidRegister(page, `e2e-paid-${Date.now()}@example.com`)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
     expect(page.url()).toContain("cs_test_paid_register")
     await expect(page).not.toHaveURL(/check-email/)
@@ -227,7 +227,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     })
     await page.goto("/register?plan=operator")
     await fillPaidRegister(page, `e2e-paid-fail-${Date.now()}@example.com`)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     // Both of these strings were hardcoded English literals in the component
     // until this pass — the retry button and this error rendered untranslated on
     // all six locales. They now come from copy[locale].auth.register
@@ -242,7 +242,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     const email = `e2e-completed-${Date.now()}@example.com`
     await page.goto("/register")
     await fillFreeRegister(page, email)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     // Polled for the same reason as the paid case above.
     await expect.poll(() => events, { timeout: 10_000 }).toContain("signup_completed")
@@ -254,7 +254,7 @@ test.describe("signup verify session", () => {
     const email = `e2e-reg-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
     await fillFreeRegister(page, email)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     await expect(page.locator("h1")).toContainText(/Check your email/i)
     await expect(page).not.toHaveURL(/\/app/)
@@ -264,7 +264,7 @@ test.describe("signup verify session", () => {
     const email = `e2e-ver-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
     await fillFreeRegister(page, email)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
 
     const id = await page.evaluate(async () => {
@@ -286,7 +286,7 @@ test.describe("signup verify session", () => {
     const email = `e2e-used-${Date.now()}@example.com`
     await page.goto("/register?plan=free")
     await fillFreeRegister(page, email)
-    await page.getByRole("button", { name: /Create account/i }).click()
+    await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     const id = await page.evaluate(async () => {
       const t = localStorage.getItem("di_jwt")
@@ -344,7 +344,7 @@ test.describe("signup verify session", () => {
     const fill = async () => {
       await page.goto("/register?plan=free")
       await fillFreeRegister(page, email)
-      await page.getByRole("button", { name: /Create account/i }).click()
+      await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     }
     await fill()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
