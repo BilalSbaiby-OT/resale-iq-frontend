@@ -312,7 +312,7 @@ export function PricingSection({
       {!compact && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
           <Link
-            href={canonicalPath(locale, "/tools/vinted-price-checker")}
+            href={canonicalPath(locale, "/tools") + "?q=Fred+Perry+Shirt"}
             data-testid="riq-cold-cta-ladder"
             style={{ color: "var(--color-text-secondary)", fontWeight: 500, textDecoration: "none" }}
           >
