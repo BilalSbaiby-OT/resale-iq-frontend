@@ -22,6 +22,7 @@ import {
 import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_MONEY_HREF } from "@/lib/money-cta"
 import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
 import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
+import { itemQueryMeta } from "@/lib/tools-query-meta"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
@@ -36,19 +37,8 @@ export async function generateMetadata(
   // When an LLM or crawler lands on /tools?q=<item>, return item-matched meta
   // so the citation reads "New Balance 530 price check" not a generic description.
   // Canonical stays /tools — we don't want query params indexed as separate pages.
-  if (q && q.trim().length > 0) {
-    const item = q.trim()
-    const title = `${item} Vinted Price Check & Buy-Below — Resale IQ`
-    const description =
-      `What should you pay for ${item} on Vinted? Get the buy-below price — the maximum to pay and still profit — from ${tracked} live EU listings across ES/FR/DE/IT/PT.`
-    return {
-      title,
-      description,
-      alternates: { canonical: "/tools" },
-      openGraph: { title, description, type: "website" },
-      twitter: { card: "summary_large_image", title, description },
-    }
-  }
+  const itemMeta = itemQueryMeta(q, tracked, "/tools")
+  if (itemMeta) return itemMeta
   const description =
     `Price check, profit calc and sourcing for Vinted resellers. Buy-below is the most you should pay after fees. ${tracked} listings across ES/FR/DE/IT/PT.`
   return {
