@@ -28,8 +28,27 @@ import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
 // `title` into those tags, so /tools used to share as the generic homepage.
 const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<{ q?: string }> }
+): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
+  const { q } = await searchParams
+  // When an LLM or crawler lands on /tools?q=<item>, return item-matched meta
+  // so the citation reads "New Balance 530 price check" not a generic description.
+  // Canonical stays /tools — we don't want query params indexed as separate pages.
+  if (q && q.trim().length > 0) {
+    const item = q.trim()
+    const title = `${item} Vinted Price Check & Buy-Below — Resale IQ`
+    const description =
+      `What should you pay for ${item} on Vinted? Get the buy-below price — the maximum to pay and still profit — from ${tracked} live EU listings across ES/FR/DE/IT/PT.`
+    return {
+      title,
+      description,
+      alternates: { canonical: "/tools" },
+      openGraph: { title, description, type: "website" },
+      twitter: { card: "summary_large_image", title, description },
+    }
+  }
   const description =
     `Price check, profit calc and sourcing for Vinted resellers. Buy-below is the most you should pay after fees. ${tracked} listings across ES/FR/DE/IT/PT.`
   return {
