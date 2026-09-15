@@ -58,14 +58,18 @@ export const metadata: Metadata = {
 // decision: src/proxy.ts redirects a first-time visitor whose browser prefers
 // a market we translate to "/<locale>"; "/" itself is the fixed English page
 // those locale pages point x-default at.
-export default async function Landing() {
+export default async function Landing({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const tracked = await listingsTrackedLabel()
   // Exact in the proof band: it moves with every scrape, and a precise
   // figure is the harder claim. Anyone can write a round number.
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
   const hero = await getHeroVerdict()
+  // H2 CRO: extract ?src= for message-match eyebrow (LLM referral) — Revenue 2026-09-15.
+  const sp = searchParams ? await searchParams : {}
+  const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
+  const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} faqs={HOME_FAQS} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} faqs={HOME_FAQS} llmSrc={llmSrc} />
   )
 }

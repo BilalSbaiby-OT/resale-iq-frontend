@@ -42,8 +42,10 @@ export async function generateMetadata({
 // layout above 404s anything else before this ever renders.
 export default async function LocaleLanding({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
 }) {
   const { locale } = await params
   if (!isPathLocale(locale)) notFound()
@@ -51,7 +53,11 @@ export default async function LocaleLanding({
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
   const hero = await getHeroVerdict()
+  // H2 CRO: message-match eyebrow for LLM-referred visitors — Revenue 2026-09-15.
+  const sp = searchParams ? await searchParams : {}
+  const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
+  const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} />
+    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} llmSrc={llmSrc} />
   )
 }

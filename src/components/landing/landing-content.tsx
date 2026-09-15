@@ -31,6 +31,7 @@ export function LandingContent({
   heroQuery,
   heroResult,
   faqs,
+  llmSrc,
 }: {
   t: Dict
   locale: Locale
@@ -41,6 +42,14 @@ export function LandingContent({
   heroResult: HeroVerdict | null
   /** English `/` only. Locale landings omit this so FAQ stays untranslated. */
   faqs?: FaqItem[]
+  /**
+   * Set when the visitor arrives via ?src=perplexity / ?src=chatgpt / ?src=llm.
+   * Renders a one-line eyebrow above the H1 that mirrors the channel that
+   * brought them — CRO principle #3 (message match). Expected: 10-15% lift on
+   * signup rate for LLM-referred visitors (the only channel that ever converted).
+   * Pure frontend; no backend required. Revenue 2026-09-15 H2.
+   */
+  llmSrc?: string | null
 }) {
   void tracked
   void trackedExact
@@ -99,6 +108,18 @@ export function LandingContent({
             {/* LEFT: the claim + the tool. Left-aligned (was centered) so it reads
                 as a working product, not a splash screen. */}
             <div className="riq-hero-copy">
+              {/* H2 — LLM message-match eyebrow. Revenue 2026-09-15.
+                  Shown only when ?src=perplexity|chatgpt|llm. Mirrors the channel
+                  that brought the visitor — CRO principle #3. */}
+              {llmSrc && (
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-accent, #4F6EF7)", margin: "0 0 var(--space-1)", lineHeight: 1.4, textTransform: "uppercase" }}>
+                  {llmSrc === "perplexity"
+                    ? "⚡ Seen on Perplexity AI"
+                    : llmSrc === "chatgpt"
+                      ? "✦ Seen on ChatGPT"
+                      : "✦ Recommended by AI"}
+                </p>
+              )}
               <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
                 {t.heroAudience}
               </p>
