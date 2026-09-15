@@ -70,6 +70,13 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         className={`text-[12px] ${AUTH_TEXT_MUTED} hover:text-[var(--color-text-primary)]`}>
         {t.signOut}
       </button>
+      <div className="mt-6 pt-5 border-t border-[var(--color-border-ui)] text-center">
+        <p className={`text-[12px] ${AUTH_TEXT_SECONDARY} mb-2`}>Ready to start checking prices?</p>
+        <Link href="/pricing"
+          className={`inline-block text-[13px] font-semibold ${AUTH_ACCENT} hover:underline`}>
+          See what Starter unlocks →
+        </Link>
+      </div>
     </AuthCard>
   )
 }
