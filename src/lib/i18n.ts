@@ -257,7 +257,10 @@ export const copy = {
       // CRO principle #3 (message match) + #10 (CTA commitment ladder).
       // Revenue 2026-09-15.
       paywallHeadlineForItem: (item: string) => `Is ${item} worth buying on Vinted?`,
-      paywallBody: "{{TRACKED}} listings analyzed. BUY/WATCH/SKIP verdict + the exact buy-below price. One avoided bad buy typically covers 2+ months — Starter at €19/mo, cancel anytime.",
+      // H25 CRO: loss-frame leads (CRO #8). "One avoided bad buy covers 2+ months"
+      // was buried last — restructured so the financial win comes first, then the
+      // data proof, then the price. Revenue 2026-09-15.
+      paywallBody: "One avoided bad buy pays for 2+ months here. {{TRACKED}} listings analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.",
       paywallCta: (price: number) => `Start — €${price}/mo`,
       paywallLogin: "Already have an account? Log in",
       confidenceLabel: "Confidence",
@@ -728,7 +731,7 @@ export const copy = {
       limitReachedLabel: "LIMITE ATTEINTE",
       paywallHeadline: "Arrêtez de deviner combien payer sur Vinted.",
       paywallHeadlineForItem: (item: string) => `Vaut-il le coup d'acheter ${item} sur Vinted ?`,
-      paywallBody: "{{TRACKED}} annonces analysées. Verdict BUY/WATCH/SKIP + le prix d'achat exact. Un mauvais achat évité couvre généralement 2+ mois — Starter à 19 €/mois, résiliable à tout moment.",
+      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} annonces analysées — Verdict BUY/WATCH/SKIP + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
       paywallCta: (price: number) => `Commencer — ${price} €/mois`,
       paywallLogin: "Déjà un compte ? Connexion",
       confidenceLabel: "Confiance",
@@ -1117,7 +1120,7 @@ export const copy = {
       limitReachedLabel: "LÍMITE ALCANZADO",
       paywallHeadline: "Deja de adivinar cuánto pagar en Vinted.",
       paywallHeadlineForItem: (item: string) => `¿Vale la pena comprar ${item} en Vinted?`,
-      paywallBody: "{{TRACKED}} anuncios analizados. Veredicto BUY/WATCH/SKIP + el precio de compra exacto. Una mala compra evitada suele cubrir 2+ meses — Starter a 19 €/mes, cancela cuando quieras.",
+      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} anuncios analizados — Veredicto BUY/WATCH/SKIP + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
       paywallCta: (price: number) => `Empezar — ${price} €/mes`,
       paywallLogin: "¿Ya tienes cuenta? Entra",
       confidenceLabel: "Confianza",
@@ -1507,7 +1510,7 @@ export const copy = {
       limitReachedLabel: "LIMIT ERREICHT",
       paywallHeadline: "Hör auf zu raten, was du auf Vinted zahlen sollst.",
       paywallHeadlineForItem: (item: string) => `Lohnt sich ${item} auf Vinted?`,
-      paywallBody: "{{TRACKED}} Angebote analysiert. BUY/WATCH/SKIP-Urteil + der exakte Kaufpreis. Ein vermiedener Fehlkauf deckt typischerweise 2+ Monate — Starter ab 19 €/Monat, jederzeit kündbar.",
+      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Angebote analysiert — BUY/WATCH/SKIP-Urteil + der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
       paywallCta: (price: number) => `Loslegen — ${price} €/Monat`,
       paywallLogin: "Schon ein Konto? Anmelden",
       confidenceLabel: "Konfidenz",
@@ -1897,7 +1900,7 @@ export const copy = {
       limitReachedLabel: "LIMITE RAGGIUNTO",
       paywallHeadline: "Smettila di indovinare quanto pagare su Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale la pena comprare ${item} su Vinted?`,
-      paywallBody: "{{TRACKED}} annunci analizzati. Verdetto BUY/WATCH/SKIP + il prezzo d'acquisto esatto. Un acquisto sbagliato evitato copre tipicamente 2+ mesi — Starter a 19 €/mese, disdici quando vuoi.",
+      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} annunci analizzati — Verdetto BUY/WATCH/SKIP + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
       paywallCta: (price: number) => `Inizia — ${price} €/mese`,
       paywallLogin: "Hai già un account? Accedi",
       confidenceLabel: "Affidabilità",
@@ -2285,7 +2288,7 @@ export const copy = {
       limitReachedLabel: "LIMITE ATINGIDO",
       paywallHeadline: "Para de adivinhar quanto pagar no Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale a pena comprar ${item} no Vinted?`,
-      paywallBody: "{{TRACKED}} anúncios analisados. Veredicto BUY/WATCH/SKIP + o preço de compra exato. Uma má compra evitada cobre tipicamente 2+ meses — Starter a 19 €/mês, cancela quando quiseres.",
+      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} anúncios analisados — Veredicto BUY/WATCH/SKIP + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
       paywallCta: (price: number) => `Começar — ${price} €/mês`,
       paywallLogin: "Já tens conta? Entra",
       confidenceLabel: "Confiança",
