@@ -215,8 +215,21 @@ export const getBrandDetail = (slug: string) => request<BrandDetail>(`/api/brand
 export const getTrendsSummary = () => request<TrendsSummary>("/api/trends/summary")
 export const getRecentSold = (limit = 20) => request<{ data: RecentSold[] }>(`/api/recent-sold?limit=${limit}`)
 export const getPlans = () => request<PlansResponse>("/stripe/plans")
-export const createCheckout = (price_id: string) =>
-  request<{ checkout_url: string }>("/stripe/checkout", {
+export const createCheckout = (price_id: string) => {
+  // GUARD, not decoration. resolvePriceId() returns undefined whenever /stripe/plans
+  // has not resolved yet (slow network, a failed fetch, a click before hydration
+  // finishes). JSON.stringify DROPS undefined values, so the request body became
+  // `{"locale":"en","success_url":"..."}` with no price_id at all and the API
+  // answered 422 `price_id Field required`. That is exactly the production failure
+  // measured across 7 consecutive deploys: every subscribe attempt rejected, 0 paid.
+  //
+  // Throwing here converts a silent malformed request into a caught error the three
+  // call sites already handle by routing the visitor to /register — a recoverable
+  // path instead of a dead button.
+  if (!price_id) {
+    throw new Error("createCheckout called without a price_id (plans not loaded yet)")
+  }
+  return request<{ checkout_url: string }>("/stripe/checkout", {
     method: "POST",
     body: JSON.stringify({
       price_id,
@@ -240,6 +253,7 @@ export const createCheckout = (price_id: string) =>
       cancel_url: `${window.location.origin}/account?checkout=cancelled`,
     }),
   })
+}
 export const verifyCheckoutSession = (sessionId: string) =>
   request<{ paid: boolean; plan: string; access_token?: string; plan_unchanged?: boolean }>(
     `/stripe/verify-session?session_id=${encodeURIComponent(sessionId)}`,
