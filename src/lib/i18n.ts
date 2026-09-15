@@ -749,7 +749,7 @@ export const copy = {
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
-      subhead: "À partir de 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
+      subhead: "Une recherche vous donne BUY / WATCH / SKIP, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
       faqHeading: "Avant de choisir une offre",
       faq: [
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance." },
@@ -1520,7 +1520,7 @@ export const copy = {
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
-      subhead: "Ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
+      subhead: "Eine Suche gibt Ihnen BUY / WATCH / SKIP, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
       faqHeading: "Bevor du einen Tarif wählst",
       faq: [
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl." },
@@ -1906,7 +1906,7 @@ export const copy = {
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
-      subhead: "Da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
+      subhead: "Una ricerca ti dà BUY / WATCH / SKIP, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
       faqHeading: "Prima di scegliere un piano",
       faq: [
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza." },
@@ -2290,7 +2290,7 @@ export const copy = {
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
-      subhead: "A partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
+      subhead: "Uma pesquisa dá-te BUY / WATCH / SKIP, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
       faqHeading: "Antes de escolheres um plano",
       faq: [
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança." },
