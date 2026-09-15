@@ -59,6 +59,15 @@ const ALLOW = [
   // more code than the dupe. UI micro-copy, no business logic, no drift risk.
   // Added after CRO-UNKNOWN landed in both files 2026-09-15 (Elon).
   "<div style={{ marginTop: 10 }}>",
+  // src/app/page.tsx (English root) and src/app/[locale]/page.tsx both call
+  // the same data-fetching block (listingsTrackedLabel, listingsTrackedExact,
+  // getMarketNumbers, getHeroVerdict, searchParams ?src= parse) because
+  // Next.js App Router requires each page.tsx to be its own async server
+  // component -- there is no shared async server parent to hoist into.
+  // The two files differ after the data block (faqs vs locale-keyed copy),
+  // so extraction would only push the identical calls one level up without
+  // removing them. No business logic at drift risk.
+  "const tracked = await listingsTrackedLabel()",
 ]
 
 
