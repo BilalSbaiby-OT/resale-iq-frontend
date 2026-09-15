@@ -19,6 +19,8 @@ export const POSTS_50: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+
+    preflightQuery: "Patagonia",
     intro:
       "Patagonia jackets track 307 watched departures per week across EU Vinted in the week to 15 September 2026 at a €51 average exit price — the largest jacket departure volume of any brand tracked on the platform. At a vol×val score of €15,657 per week (307 × €51), Patagonia jackets represent the single most liquid jacket category in the EU secondhand market: more weekly transactions than The North Face jackets (108/7d at €48), Arc'teryx (which is lower volume at higher per-unit price), and Moncler (which trades at higher price but far fewer departures). The buy-below ceiling of €33.15 (€51 × 0.65) is reliably achievable at EU charity shops and clearance markets, making Patagonia the highest-volume, lowest-friction jacket category available to EU resellers in 2026. This guide covers exit prices by model, buy-below ceilings by category, condition grading checkpoints, and how Patagonia compares to The North Face for EU reselling strategy.",
     definedTerm: {

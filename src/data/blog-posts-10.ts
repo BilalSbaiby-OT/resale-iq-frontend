@@ -19,6 +19,8 @@ export const POSTS_10: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Carhartt WIP",
     intro:
       "Week to 14 September 2026, Carhartt ranked #16 across Spain, France, Germany, Italy and Portugal with 70 watched departures at an average exit price of €30. The brand hides a structural opportunity: Carhartt Work In Progress (WIP), the streetwear sub-brand, exits at 2–3× the price of mainline Carhartt workwear — but both are found at charity shops for the same sourcing price. The ability to tell a WIP Detroit Jacket from a mainline Active Jacket before you pull out your wallet is the entire Carhartt sourcing edge.",
     sections: [
@@ -108,6 +110,8 @@ export const POSTS_10: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
+
+    preflightQuery: "Tommy Hilfiger",
     intro:
       "Week to 14 September 2026, Tommy Hilfiger ranked in the top EU Vinted brands with 70 watched departures at an average exit price of €23. The brand has a structural two-tier market identical to Carhartt: Tommy Jeans (the sub-brand, formerly Hilfiger Denim) exits at 40–60% above Tommy mainline at the same charity shop sourcing price. Identifying the flag logo placement and the Tommy Jeans label at point of sourcing is the primary value-add skill for Tommy Hilfiger reselling on EU Vinted.",
     sections: [

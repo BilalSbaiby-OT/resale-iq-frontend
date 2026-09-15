@@ -19,6 +19,8 @@ export const POSTS_11: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
+
+    preflightQuery: "Hugo Boss",
     intro:
       "Week to 14 September 2026, Hugo Boss ranked #18 across Spain, France, Germany, Italy and Portugal with 64 watched departures at an average exit price of €27. The figure masks a key structural split: the Jacket category exits at €67 on average — 2.5× the brand mean — driven by BOSS blazers and suit jackets in good condition. The sub-brand distinction between BOSS (the premium smart-casual line) and HUGO (the fashion-forward, younger line) also creates a sourcing edge: both labels appear at charity shops under 'Hugo Boss' pricing, but BOSS pieces exit consistently higher on EU Vinted.",
     sections: [
@@ -101,6 +103,8 @@ export const POSTS_11: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Ralph Lauren",
     intro:
       "Week to 14 September 2026, Ralph Lauren ranked #19 across Spain, France, Germany, Italy and Portugal with 62 watched departures at an average exit price of €37. The brand average understates the category-level opportunity: Hoodies average €46, driven by Polo Ralph Lauren logo pieces that exit significantly above the brand mean. The vintage 90s Polo Ralph Lauren piece is one of the most consistently mispriced items at EU charity shops — branded identically to contemporary production but trading at 4–5× current exit on Vinted when the oversized logo, era-correct colourways, and 100% cotton construction are identified correctly.",
     sections: [

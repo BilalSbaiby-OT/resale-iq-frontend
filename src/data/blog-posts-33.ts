@@ -16,6 +16,8 @@ export const POSTS_33: BlogPost[] = [
     description:
       "Nike sneakers averaged €96 per departure across EU Vinted in September 2026 — 77 pairs per week. Air Force 1, Dunk, Air Max 90/95/97, Blazer: real exit ranges, buy-below prices, and which silhouettes actually move.",
     date: "2026-09-15",
+
+    preflightQuery: "Nike Sneakers",
     category: "Sourcing",
     readMins: 9,
     intro:

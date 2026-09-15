@@ -19,6 +19,8 @@ export const POSTS_68: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Fred Perry Shirts",
     intro:
       "Fred Perry shirts track 387 watched departures per week across EU Vinted in the week to 15 September 2026 — the highest-volume shirt brand tracked by ResaleIQ, 4× Lacoste (57/7d) and more than 5× Stone Island shirts (72/7d). The average exit price is €14, and the buy-below ceiling is €9.10. Fred Perry is the #1 brand tracked by ResaleIQ by total weekly departures: 791/7d at an €18 brand-wide average, ahead of Patagonia (696/7d) and Stone Island (690/7d). Shirts drive 49% of the entire Fred Perry brand volume — 387 of 791 weekly departures. This guide covers what the departure volume means for resellers in Q4 2026, how the Twin Tipped and Laurel Wreath model premiums compare with the base shirt tier, and how Fred Perry shirts stack against Lacoste, Stone Island, and Balenciaga in the EU Vinted shirt market.",
     definedTerm: {

@@ -17,6 +17,8 @@ export const POSTS_6: BlogPost[] = [
     description:
       "Nike ranks #9 by watched departures across 5 EU Vinted markets — 172/week at €62 average. Sneakers lead: 78 departures at €96 average (buy-below ~€64). Jackets and Hoodies add volume. Model selection is the primary sourcing skill.",
     date: "2026-09-14",
+
+    preflightQuery: "Nike",
     category: "Sourcing",
     readMins: 7,
     intro:

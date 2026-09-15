@@ -18,6 +18,8 @@ export const POSTS_63: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Gucci Jackets",
     intro:
       "Gucci tracks 7 watched jacket departures per week across EU Vinted in the week to 15 September 2026 at a €304 average exit price — making it the highest per-unit jacket category in the ResaleIQ tracked dataset, above Balenciaga bags (€324 avg, 46/7d) and Stone Island jackets (€140 avg, 164/7d). The buy-below ceiling for the jacket category is €197.60 — 65% of the €304 average — which means a correctly sourced Gucci jacket generates more gross margin per transaction than any outerwear category ResaleIQ tracks. The Gucci brand overall tracks 178 watched departures per week across bags (68/7d at €296), caps (40/7d at €143), sneakers (33/7d at €214), shirts (8/7d at €96), and jackets (7/7d at €304). This guide covers exit prices by jacket model, the sourcing realities for EU Gucci outerwear, authentication essentials, and how Gucci compares to Stone Island and Patagonia as a high-value EU Vinted jacket play.",
     definedTerm: {

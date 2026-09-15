@@ -19,6 +19,8 @@ export const POSTS_54: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Supreme Hoodie",
     intro:
       "Supreme hoodies track 46 watched departures per week across EU Vinted in the week to 15 September 2026 at a €74 average exit price — the brand's highest-volume category on the platform, ahead of t-shirts (33/7d at €34), caps (21/7d at €47), and bags (19/7d at €44). The buy-below ceiling at the hoodie category level is €48.10 — €74 × 0.65, targeting a 35% gross margin after Vinted's seller fee. That ceiling lands below the typical sourcing price for a clean Supreme hoodie from a specialist reseller — the arbitrage window is EU Vinted itself: sellers who mislabel or underprice pieces, and cross-platform buyers who haven't yet benchmarked against the EU Vinted departure rate. This guide covers exit prices by hoodie style (logo crewneck, pullover, collaboration, seasonal graphic), how the Supreme hoodie compares to Balenciaga's €105 hoodie average, and the condition signals that push a piece above or below the €74 category mean.",
     definedTerm: {

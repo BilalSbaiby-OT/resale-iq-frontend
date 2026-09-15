@@ -19,6 +19,8 @@ export const POSTS_57: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Balenciaga Bags",
     intro:
       "Balenciaga Bags track 46 watched departures per week across EU Vinted in the week to 15 September 2026 at a €324 average exit price — making the bag category the highest-value category in the ResaleIQ Balenciaga dataset and the highest average exit in the entire tracked EU Vinted bag segment. The Balenciaga brand overall tracks 473 watched departures per week across sneakers (146/7d at €151), T-shirts (89/7d at €90), hoodies (74/7d at €105), shirts (55/7d at €76), and bags (46/7d at €324). The buy-below ceiling for the bag category is €210.60 — 65% of the €324 average — meaning a correctly sourced Balenciaga bag generates more gross margin per transaction than any other item in the Balenciaga EU Vinted dataset. This guide covers exit prices by model, the sourcing realities for EU Balenciaga bags, authentication essentials, and how Balenciaga compares to Gucci and Stone Island as a high-value EU Vinted play.",
     definedTerm: {

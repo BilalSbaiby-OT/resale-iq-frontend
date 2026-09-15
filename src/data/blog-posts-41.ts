@@ -18,6 +18,8 @@ export const POSTS_41: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Fred Perry",
     intro:
       "Fred Perry T-shirts are one of the highest-volume categories on EU Vinted for the brand — 155 watched departures per week in the week to 15 September 2026 at a €12 average exit price. That puts Fred Perry T-shirts behind only Fred Perry shirts (403 departures/7d at €14) and ahead of hoodies (131/7d at €22) and jackets (102/7d at €32) within the brand. The trade-off is margin: at €12 average and a buy-below ceiling of €7.80, Fred Perry T-shirts are a volume sourcing play, not a high-ticket luxury one. Resellers who buy at charity shop prices and move items in bundles consistently outperform those sourcing from other resellers. This guide covers exit prices by model type, sourcing conditions that close the margin, and how Fred Perry T-shirts compare to other Fred Perry categories for EU Vinted resellers.",
     definedTerm: {

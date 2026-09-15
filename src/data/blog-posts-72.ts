@@ -19,6 +19,8 @@ export const POSTS_72: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Adidas Samba",
     intro:
       "The Adidas Samba is EU Vinted's most searched sneaker — and the one resellers most frequently get burned by. In the week to 15 September 2026, ResaleIQ tracked 6 watched departures of the Adidas Samba across EU Vinted against 27,338 active listings. That is 210 months of supply at current departure rates. The average exit price is €48.01, with a buy-below ceiling of €31.93 — but finding a Samba under €32 at a charity shop that you can reliably exit at the average is harder than it sounds with that much competition. The exception is size 41: buyers in that size pay a €82 average and sourcing ceiling rises to €54.53. This guide gives you the full Samba data for September 2026, explains why the oversupply exists, where the exceptions are, and which Adidas models are better sourcing targets right now.",
     definedTerm: {

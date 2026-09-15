@@ -19,6 +19,8 @@ export const POSTS_60: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Balenciaga Shirts",
     intro:
       "Balenciaga shirts track 55 watched departures per week across EU Vinted in the week to 15 September 2026 at a €76 average exit price — the brand's fourth-highest-volume category on the platform, behind sneakers (146/7d at €151), T-shirts (89/7d at €90), and hoodies (74/7d at €105), and ahead of bags (46/7d at €324). The buy-below ceiling at the shirt category level is €49.40 — €76 × 0.65, targeting a 35% gross margin after Vinted's seller protection fee. The €76 shirt average is lower than the €90 T-shirt average despite the collared/button-up format commanding premium in other luxury resale markets — a EU Vinted-specific dynamic where oversized campaign and graphic T-shirts attract more active buyer competition than structured shirts. The Balenciaga brand overall tracks 473 watched departures per week at a €150 brand average — the fourth-highest per-unit brand in the ResaleIQ EU Vinted database. This guide covers the shirt model hierarchy (Campaign graphic, Tape/stripe, Logo button-up, Crest), exit prices by model and condition, the buy-below ceiling by segment, authentication signals, and how Balenciaga shirts compare to T-shirts and peer brands on EU Vinted in Q4 2026.",
     definedTerm: {

@@ -19,6 +19,8 @@ export const POSTS_8: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Lacoste",
     intro:
       "Week to 14 September 2026, Lacoste ranked #11 across Spain, France, Germany, Italy and Portugal with 118 watched departures at an average exit price of €33. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
     sections: [
@@ -101,6 +103,8 @@ export const POSTS_8: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Adidas",
     intro:
       "Week to 14 September 2026, Adidas ranked #13 across Spain, France, Germany, Italy and Portugal with 98 watched departures at an average exit price of €48. The €48 average is the highest brand average of any non-luxury brand in the EU5 top 15, higher than Nike's €62 when you strip Nike Sneakers out of the comparison. Sneakers lead volume at 49 of 98 departures (50%), but the structural edge is clear: Adidas is a sneaker-first market on Vinted, and within sneakers, specific silhouettes — Samba, Gazelle, Campus 00s — are responsible for a disproportionate share of the €58 average. Sourcing the wrong Adidas model at buy-below still loses.",
     sections: [
@@ -183,6 +187,8 @@ export const POSTS_8: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
+
+    preflightQuery: "Levi's",
     intro:
       "Week to 14 September 2026, Levi's ranked #15 across Spain, France, Germany, Italy and Portugal with 52 watched departures at an average exit price of €28. The defining structural fact: Jeans account for 83% of all Levi's departures (43 of 52) at €29 average — the highest category concentration of any brand in the top 15. Levi's on Vinted is a single-category market, and within that category, cut-number knowledge is the sourcing edge. The 501 series alone spans six distinct cuts with meaningfully different demand profiles. Trucker Jackets are the outlier: 2 departures at €40 average set the highest per-unit margin in the brand.",
     sections: [

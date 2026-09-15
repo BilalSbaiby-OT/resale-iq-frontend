@@ -19,6 +19,8 @@ export const POSTS_52: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Gucci Caps",
     intro:
       "Gucci caps track 44 watched departures per week across EU Vinted in the week to 15 September 2026 at a €138 average exit price — making caps the second-highest-volume category within the Gucci brand after bags (72/7d), and the third-highest in per-unit value after bags (€312 avg) and sneakers (€212 avg). The buy-below ceiling for the cap category is €89.70 (€138 × 0.65). The Gucci brand overall tracks 191 watched departures per week: bags 72/7d at €312, caps 44/7d at €138, sneakers 37/7d at €212, jackets 8/7d at €295. This guide covers exit prices by style — GG Supreme baseball caps, bucket hats, monogram canvas, fedoras, and the Gucci Dapper Dan editions — the authentication points that matter for headwear, and how Gucci caps stack up against Supreme caps as an EU Vinted reselling play.",
     definedTerm: {

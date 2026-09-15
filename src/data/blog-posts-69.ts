@@ -19,6 +19,8 @@ export const POSTS_69: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+
+    preflightQuery: "Jordan Sneakers",
     intro:
       "Jordan sneakers track 12 watched departures per week across EU Vinted in the week to 15 September 2026, at a €156 average exit price — making Jordan the third-highest per-unit sneaker brand in the ResaleIQ EU Vinted catalogue after Gucci (€214 avg across Sneakers) and Balenciaga (€151 avg). The buy-below ceiling is €96.33, targeting a 35% gross margin after Vinted's approximately 5% seller protection fee. What the 12/7d figure obscures is the price range underneath it: a Jordan 1 Retro High in an OG colourway (Chicago, Bred, Royal) exits at €200–600+ for wearable deadstock condition, while a general-release Jordan 1 in a non-OG colourway exits at €60–110. The single biggest reselling edge in the Jordan sneaker market is colourway and model identification — specifically, the ability to distinguish OG retro releases from general-release pairs before purchase. EU charity shops price Jordans as 'Nike trainers' regardless of colourway, creating systematic identification upside for informed buyers.",
     definedTerm: {

@@ -19,6 +19,8 @@ export const POSTS_61: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Fred Perry Shirts",
     intro:
       "Fred Perry shirts track 388 watched departures per week across EU Vinted in the week to 15 September 2026 at a €14 average exit price — the single largest shirt category in the ResaleIQ EU Vinted database, ahead of Stone Island shirts (72/7d at €25) and Lacoste shirts (57/7d at €29). The Fred Perry shirt category is also the highest-volume category of the #1 departure brand: Fred Perry overall tracks 796 watched departures per week, and shirts account for 49% of that total. The buy-below ceiling at the shirt category level is €9.10 — 65% of the €14 departure average, targeting a 35% gross margin after Vinted's seller protection fee. That ceiling is consistently reachable at charity shops across France, Germany, Spain, and the UK, where Fred Perry shirts donate at one of the highest rates of any tracked premium accessible brand. This guide covers exit prices by shirt model (M12 polo, M3 shirt, Oxford button-up), the buy-below ceiling by condition tier, how Fred Perry shirts compare to Lacoste and Stone Island at adjacent price points, and the listing signals that move a shirt from €8 to €20.",
     definedTerm: {

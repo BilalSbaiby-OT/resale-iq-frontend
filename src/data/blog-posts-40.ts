@@ -18,6 +18,8 @@ export const POSTS_40: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Supreme Box Logo Tee",
     intro:
       "Supreme tracks 154 watched departures per week across EU Vinted at a €66 brand average — the highest exit price of any non-luxury streetwear brand in the ResaleIQ EU database. That €66 average sits between Balenciaga at €148 and Carhartt WIP at €53, but Supreme achieves it with hype-driven demand rather than a luxury supply chain. In the week to 15 September 2026, 33 Supreme t-shirts left the EU Vinted shelf at a €34 average — but that figure covers all Supreme tees, and the Box Logo is the brand's single most recognised model and a consistent premium outlier above that average. This guide covers exit prices by category and model, what the Box Logo specifically commands by season and condition, and where the buy-below ceiling sits for resellers sourcing on the open market.",
     definedTerm: {

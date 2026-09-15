@@ -18,6 +18,8 @@ export const POSTS_46: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Balenciaga Hoodie",
     intro:
       "Balenciaga hoodies track 76 watched departures per week across EU Vinted in the week to 15 September 2026 at a €105 average exit price — the brand's mid-tier category by volume, sitting above shirts (56/7d at €76) and below sneakers (152/7d at €148). The buy-below ceiling is €68.25 — 65% of the €105 average — targeting a 35% gross margin after Vinted's platform fee. A single correctly sourced Balenciaga logo hoodie generates more gross margin per transaction than three Fred Perry hoodies combined. For EU resellers who have built confidence in the Balenciaga T-shirt category (90/7d, €89 avg) and want to move up in per-unit margin, hoodies are the correct next step: higher ceiling, same authentication method, and accessible sourcing in French and German charity shops. This guide covers exit prices by hoodie style, the buy-below ceiling, condition criteria, authentication checkpoints, and how the category compares across the Balenciaga EU Vinted resale stack.",
     definedTerm: {

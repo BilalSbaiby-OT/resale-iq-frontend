@@ -587,6 +587,8 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Patagonia is the #2 brand by watched departures across 5 EU Vinted markets — 792/week, avg €36. Jackets average €50 at departure; buy below ~€33 to leave margin after fees.",
     date: "2026-09-14",
+
+    preflightQuery: "Patagonia",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -665,6 +667,8 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Stone Island is the #3 brand by watched departures across 5 EU Vinted markets — 788/week, avg €70. Hoodies average €55 at departure; buy below ~€36 to leave margin after fees. Jackets average €142.",
     date: "2026-09-14",
+
+    preflightQuery: "Stone Island",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -744,6 +748,8 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Fred Perry is the #1 brand by watched departures across 5 EU Vinted markets — 928/week at an average of €18. High liquidity, thin margins. Shirts dominate at 451 departures averaging €14. Buy-below for Jackets is ~€24.",
     date: "2026-09-14",
+
+    preflightQuery: "Fred Perry",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -824,6 +830,8 @@ export const POSTS_3: BlogPost[] = [
     description:
       "Balenciaga ranks #4 by watched departures across 5 EU Vinted markets — 523/week at €145 average. Sneakers lead with 163 departures averaging €140 (buy-below ~€93). Bags are the highest cash-per-unit play at €319 average.",
     date: "2026-09-14",
+
+    preflightQuery: "Balenciaga",
     category: "Sourcing",
     readMins: 7,
     intro:

@@ -18,6 +18,8 @@ export const POSTS_42: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Patagonia Hoodie",
     intro:
       "Patagonia hoodies are the EU charity-shop resale staple — 122 watched departures per week in the week to 15 September 2026 at a €40 average exit price. That makes hoodies Patagonia's second-busiest category on EU Vinted after jackets (307 departures/7d at €51) and ahead of bags (115/7d at €24). The Better Sweater, Los Gatos, Synchilla Snap-T, and Retro Pile fleece are the four models that drive the category — each with a different price ceiling and different sourcing economics. Buy-below sits at €26, which means charity-shop and clearance sourcing is viable; secondary-market sourcing from other resellers rarely leaves margin. This guide covers exit prices by model, sourcing conditions that close the margin, and how Patagonia hoodies compare to North Face and Stone Island for EU Vinted resellers.",
     definedTerm: {

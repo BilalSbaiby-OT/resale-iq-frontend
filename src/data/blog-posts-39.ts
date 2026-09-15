@@ -18,6 +18,8 @@ export const POSTS_39: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Balenciaga Sneakers",
     intro:
       "Balenciaga is the fourth-largest brand by watched departures on EU Vinted with 497 departures per week — and sneakers account for the single biggest slice of that volume. Balenciaga sneakers tracked 154 watched departures per week at a €147 average exit price in the week to 15 September 2026. That is the highest-volume category for the brand and the highest average exit price among Balenciaga product types, ahead of hoodies (€104) and shirts (€75). Only bags reach a higher per-unit ceiling (€323), but at just 49 departures a week, the bag trade is a patience game. Sneakers are the volume play. A Triple S sourced at a charity shop or estate sale below €95 and departing at €140–180 represents one of the highest-margin single-unit events accessible to an EU Vinted reseller. This guide covers exit prices by sneaker model type, buy-below ceilings, condition criteria, and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
     definedTerm: {

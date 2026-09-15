@@ -15,6 +15,8 @@ export const POSTS_32: BlogPost[] = [
     description:
       "What Patagonia jackets actually sell for on EU Vinted in 2026: Synchilla, Better Sweater, Retro-X, Torrentshell, R1, Nano Puff. Real departure averages, size-level buy-below prices, and weekly volume across 9 tracked models.",
     date: "2026-09-15",
+
+    preflightQuery: "Patagonia Jacket",
     category: "Sourcing",
     readMins: 9,
     intro:

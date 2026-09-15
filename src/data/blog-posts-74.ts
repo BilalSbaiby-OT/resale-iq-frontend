@@ -19,6 +19,8 @@ export const POSTS_74: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Adidas Handball Spezial",
     intro:
       "The Adidas Handball Spezial is the most actively departing Adidas sneaker tracked by ResaleIQ on EU Vinted in September 2026. The model cleared 12 watched departures in the 7 days to 15 September — double the Samba and nearly double the Stan Smith — at an average exit price of €79.38 and a buy-below ceiling of €52.79. Supply is 5,166 active listings, giving approximately 80 months of cover at current departure rates. That is elevated, but nowhere near the 210-month oversaturation of the Samba, and with STABLE momentum the exit price is holding. This guide covers the full EU Vinted data for the Handball Spezial in September 2026: size-level buy-below prices, colourway context, speed of sale, and how it compares to the other Adidas sneakers resellers typically encounter.",
     definedTerm: {

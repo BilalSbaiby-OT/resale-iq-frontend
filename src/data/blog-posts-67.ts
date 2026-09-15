@@ -19,6 +19,8 @@ export const POSTS_67: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Stone Island Shirts",
     intro:
       "Stone Island shirts track 72 watched departures per week across EU Vinted in the week to 15 September 2026, at a €25 average exit price. The buy-below ceiling is €15.44. Within the Stone Island brand portfolio, shirts are the third largest category by departure volume: hoodies lead at 371/7d, jackets follow at 164/7d, and shirts are next at 72/7d — ahead of T-shirts (53/7d) and caps (9/7d). The category sits at the accessible end of the Stone Island price range, making shirts a lower-capital entry point to the brand compared to jackets (€140 avg) or hoodies (€56 avg). This guide covers what the departure data means for sourcing Stone Island shirts in Q4 2026, how the overshirt and technical categories compare, and how Stone Island shirts stack against Fred Perry and Lacoste in the EU Vinted mid-market shirt tier.",
     definedTerm: {

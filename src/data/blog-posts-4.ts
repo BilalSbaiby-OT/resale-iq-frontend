@@ -17,6 +17,8 @@ export const POSTS_4: BlogPost[] = [
     description:
       "Supreme ranks #5 by watched departures across 5 EU Vinted markets — 156/week at €66 average. Jackets average €132 (buy-below ~€88). Hoodies average €74 (buy-below ~€49). Box logo commands premiums — authenticate before you buy.",
     date: "2026-09-14",
+
+    preflightQuery: "Supreme",
     category: "Sourcing",
     readMins: 7,
     intro:
@@ -103,6 +105,8 @@ export const POSTS_4: BlogPost[] = [
     description:
       "The North Face ranks #6 by watched departures across 5 EU Vinted markets — 210/week at €41 average. Jackets dominate: 122 departures at €48 (buy-below ~€32). Bags average €66 (buy-below ~€44). Strong autumn/winter sourcing opportunity.",
     date: "2026-09-14",
+
+    preflightQuery: "The North Face",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -189,6 +193,8 @@ export const POSTS_4: BlogPost[] = [
     date: "2026-09-14",
     category: "Sourcing",
     readMins: 6,
+
+    preflightQuery: "New Balance",
     intro:
       "Week to 14 September 2026, New Balance ranked #5 across Spain, France, Germany, Italy and Portugal with 260 watched departures at an average exit price of €49. The defining feature of New Balance resale on Vinted is concentration: 93% of all watched departures are Sneakers. That is a different brand structure to every other top-ten brand we track. If you are operating in New Balance, you are operating in one category — Sneakers — and the model number is the single most important variable in every sourcing decision.",
     sections: [

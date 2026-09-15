@@ -15,6 +15,8 @@ export const POSTS_27: BlogPost[] = [
     description:
       "What Nike sneakers actually sell for on EU Vinted in 2026: departure averages, buy-below prices, and which models have real demand. Based on tracked departures across 5 EU markets.",
     date: "2026-09-15",
+
+    preflightQuery: "Nike Sneakers",
     category: "Price Guides",
     readMins: 11,
     intro:

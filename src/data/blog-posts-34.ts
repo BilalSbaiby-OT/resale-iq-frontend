@@ -17,6 +17,8 @@ export const POSTS_34: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Levi's 501",
     intro:
       "Levi's 501 is the most recognisable denim cut in the world and one of the most consistently traded items on EU Vinted. In the week to 15 September 2026, 41 Levi's jeans pairs left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €29. That number is lower than most resellers expect — and that gap between expectation and reality is exactly where sourcing mistakes get made. The €29 average covers a wide spread: worn W30 basics exit at €15–20, while dead-stock or selvedge 501s in rare washes exit at €80–150. This guide breaks down exit prices by cut, size, and condition tier — and where the buy-below ceiling sits if you are sourcing to resell.",
     definedTerm: {

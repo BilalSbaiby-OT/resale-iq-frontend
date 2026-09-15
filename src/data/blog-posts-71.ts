@@ -19,6 +19,8 @@ export const POSTS_71: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Supreme T-Shirt",
     intro:
       "Supreme T-shirts track 32 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €35 average exit price and a buy-below ceiling of €22.75. The T-shirt is the second-highest-volume category in the Supreme EU Vinted cluster after hoodies (42/7d at €72), and the category that contains Supreme's most recognised model: the Box Logo tee. The €35 category average masks a wide internal range — seasonal graphic tees exit at €20–40, while Box Logo tees exit at €60–180 depending on season and condition. EU charity shops and flea markets price Supreme T-shirts identically regardless of model — typically €8–20 — because sellers rarely distinguish Box Logo from seasonal graphic tees. This guide covers the Supreme T-shirt category data for September 2026, exit price tiers by model type, authentication at source, and how Supreme T-shirts compare to Stone Island, Balenciaga, and Fred Perry in the EU Vinted T-shirt market.",
     definedTerm: {

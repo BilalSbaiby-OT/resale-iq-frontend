@@ -19,6 +19,8 @@ export const POSTS_53: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Ralph Lauren",
     intro:
       "Ralph Lauren tracks 57 watched departures per week across EU Vinted in the week to 15 September 2026 — hoodies lead at 22/7d (€45 average), shirts second at 21/7d (€29 average), jackets third at 6/7d (€64 average). The brand buy-below varies sharply by category: hoodie buy-below is €29.25 (€45 × 0.65), but the shirt category is structurally oversaturated with 30,000+ active listings competing for 21 weekly watched departures. This guide covers exact exit prices by category, the Lacoste comparison at equal shirt prices, and the specific RL categories worth sourcing versus the ones to avoid.",
     definedTerm: {

@@ -19,6 +19,8 @@ export const POSTS_73: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Diesel Jeans",
     intro:
       "Diesel Jeans track 55 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €20 average exit price and a buy-below ceiling of €13.00. The 55/7d departure rate is the highest of any single Diesel category, making Jeans the volume engine of the brand on EU Vinted. The €20 average, however, is one of the lowest per-unit averages in the tracked Diesel cluster, and that tension — high volume, low average — defines the sourcing strategy. This is not a margin-first play at the category level. The value in Diesel Jeans on EU Vinted is in the model tier: the 1DR-5005 and 1DR-509 low-rise wide-leg cuts exit at €35–55 when correctly identified and listed, well above the €20 floor that pulls the category average down. EU charity shops price Diesel Jeans uniformly regardless of model — typically €5–12 — meaning the reseller who can identify the 1DR-5005 at acquisition captures the full price gap between a €7 sourcing cost and a €45 exit. This guide covers the September 2026 Diesel Jeans departure data, the model-tier structure, identification at EU charity shops, the Y2K revival context, and how Diesel Jeans fit into the broader Diesel cluster sourcing strategy.",
     definedTerm: {

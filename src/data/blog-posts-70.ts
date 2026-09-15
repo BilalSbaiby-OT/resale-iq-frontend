@@ -19,6 +19,8 @@ export const POSTS_70: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Stone Island T-Shirts",
     intro:
       "Stone Island T-shirts track 50 watched departures per week across EU Vinted in the week to 15 September 2026, at a €24 average exit price and a buy-below ceiling of €15.60. The T-shirt is the most accessible sourcing tier of the Stone Island cluster: at €24 average it sits just below the €25 shirt average and a long way below hoodies (€56) and jackets (€140), meaning a reseller can enter the Stone Island category from EU charity shops without committing capital to a €90+ hoodie purchase. The T-shirt is also the most frequently misidentified Stone Island garment at charity shops — a base compass-badge tee is typically priced at €5–12 alongside unbranded cotton T-shirts, regardless of whether it is a standard season-run piece or a Ghost Piece with a €40–60 exit ceiling. This guide covers the Stone Island T-shirt category data for September 2026, the Ghost Piece tier premium, authentication markers at EU charity shops, and how Stone Island T-shirts compare to Fred Perry, Supreme, and Balenciaga in the EU Vinted T-shirt market.",
     definedTerm: {

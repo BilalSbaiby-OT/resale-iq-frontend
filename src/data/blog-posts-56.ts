@@ -19,6 +19,8 @@ export const POSTS_56: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Vans Sneakers",
     intro:
       "Vans sneakers track 58 watched departures per week across EU Vinted in the week to 15 September 2026 at a €51 average exit price — the brand's dominant category on the platform, ahead of Vans t-shirts (15/7d at €11) and Vans hoodies (11/7d at €18). The buy-below ceiling at the sneaker category level is €33.15 — €51 × 0.65, targeting a 35% gross margin after Vinted's seller fee. At €33.15, Vans sneakers are among the most accessible buy-below ceilings in the ResaleIQ sneaker dataset: the Old Skool and Classic Slip-On regularly surface at charity shops across France, Germany, and Spain at €5–20. This guide covers exit prices by model (Old Skool, Sk8-Hi, Classic Slip-On, Era), how Vans compares to Adidas Gazelle and New Balance 530 on EU Vinted, and the condition and sizing signals that separate a €35 exit from a €70 one.",
     definedTerm: {

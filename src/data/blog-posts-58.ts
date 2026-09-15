@@ -19,6 +19,8 @@ export const POSTS_58: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "New Balance 530",
     intro:
       "New Balance 530 tracks 104 watched departures per week across EU Vinted in the week to 15 September 2026 at a €37.47 average exit price — making it the highest-volume individual sneaker model in the ResaleIQ New Balance dataset. The buy-below ceiling at the 530 model level is €24.92 (the max_buy_price at which the margin model stays positive after Vinted seller fees). At 104 departures per week, the 530 generates more weekly volume than any other tracked NB model — but carries a DEAD momentum signal in the ResaleIQ system, meaning departure velocity has declined relative to the tracked historical baseline. This guide covers what that signal means for Q4 2026 sourcing decisions, how exit prices break down by condition and size, and how the 530 compares to the NB 9060 (49/7d at €78.83), the NB 550, and Nike Air Force 1 for EU Vinted resellers.",
     definedTerm: {

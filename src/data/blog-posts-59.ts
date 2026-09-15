@@ -19,6 +19,8 @@ export const POSTS_59: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Supreme Jackets",
     intro:
       "Supreme jackets track 14 watched departures per week across EU Vinted in the week to 15 September 2026 at a €138 average exit price — the brand's highest per-unit category on the platform, ahead of hoodies (46/7d at €74), caps (20/7d at €44), bags (18/7d at €45), and t-shirts (32/7d at €35). The buy-below ceiling at the jacket category level is €89.70 — €138 × 0.65, targeting a 35% gross margin after Vinted's seller protection fee and EU domestic shipping (€8–12 for jackets). At 14 departures per week, the jacket category is Supreme's lowest-volume segment on EU Vinted — but the €138 average is 86% above the brand's overall €66 average, making it the highest capital-efficiency category for resellers with access to Supreme outerwear at source. This guide covers the model hierarchy (The North Face collaboration, Coach jacket, Corduroy, Work jacket, Box Logo Parka), exit prices by model and condition, the buy-below ceiling by segment, and how Supreme jackets compare to Stone Island jackets (165/7d at €140) and Supreme hoodies (46/7d at €74) for EU resellers in Q4 2026.",
     definedTerm: {

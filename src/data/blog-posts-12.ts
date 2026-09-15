@@ -17,6 +17,8 @@ export const POSTS_12: BlogPost[] = [
     description:
       "Uniqlo ranked #20 by watched departures across 5 EU Vinted markets — 57/week at €18 average. The basics (HeatTech, Airism, fleece) have no margin. The entire reselling case is KAWS, JW Anderson, UNIQLO U, and collab pieces sourced below €19.",
     date: "2026-09-15",
+
+    preflightQuery: "Uniqlo",
     category: "Sourcing",
     readMins: 6,
     intro:
@@ -99,6 +101,8 @@ export const POSTS_12: BlogPost[] = [
     description:
       "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€29). The sourcing edge is model precision: Puma Suede, Clyde, Palermo and collab models exit far above the brand mean.",
     date: "2026-09-15",
+
+    preflightQuery: "Puma",
     category: "Sourcing",
     readMins: 6,
     intro:

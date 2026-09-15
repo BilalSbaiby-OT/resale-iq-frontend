@@ -19,6 +19,8 @@ export const POSTS_62: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "New Balance 9060",
     intro:
       "New Balance 9060 tracks 49 watched departures per week across EU Vinted in the week to 15 September 2026 at a €78.83 average exit price — the highest per-unit value of any tracked New Balance model. The buy-below ceiling at the 9060 model level is €52.42. The 9060 carries a FADING momentum signal in the ResaleIQ system, placing it in a more favourable position than the NB 530 (DEAD) but below a STABLE or RISING model. This guide covers what FADING means for Q4 2026 sourcing decisions, how exit prices break down by size, and how the 9060 compares to the NB 530, NB 550, and Nike Air Force 1 for EU Vinted resellers.",
     definedTerm: {

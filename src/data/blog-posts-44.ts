@@ -18,6 +18,8 @@ export const POSTS_44: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Gucci Bags",
     intro:
       "Gucci tracks 72 watched bag departures per week across EU Vinted in the week to 15 September 2026 at a €312 average exit price — making it the highest average-exit category in the ResaleIQ tracked dataset. The Gucci brand overall tracks 193 watched departures per week across bags (72/7d at €312), caps (46/7d at €141), sneakers (37/7d at €212), and jackets (8/7d at €295). The buy-below ceiling for the bag category is €202.80 — 65% of the €312 average — which means a correctly sourced Gucci bag generates more gross margin per transaction than any other tracked EU Vinted category. This guide covers exit prices by model, the sourcing realities for EU Gucci bags, authentication essentials, and how Gucci compares to Balenciaga and Stone Island as a high-value EU Vinted play.",
     definedTerm: {

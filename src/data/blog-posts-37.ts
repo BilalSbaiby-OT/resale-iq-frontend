@@ -18,6 +18,8 @@ export const POSTS_37: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Fred Perry Polo",
     intro:
       "Fred Perry is the highest-departure brand on EU Vinted with 834 watched departures per week — and polo shirts alone account for 403 of those. In the week to 15 September 2026, 403 Fred Perry shirts left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €14. That makes the Fred Perry polo the single highest-volume category of any tracked brand on EU Vinted, running ahead of Stone Island hoodies (395 departures at €55 average) and Patagonia jackets. The €14 average is modest — but for resellers buying at charity shop prices of €3–8, the margin per item stacks across volume and frequency. This guide breaks down exit prices by model, size, condition, and colourway — and where the buy-below ceiling sits for each tier.",
     definedTerm: {

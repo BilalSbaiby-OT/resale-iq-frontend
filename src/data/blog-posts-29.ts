@@ -15,6 +15,8 @@ export const POSTS_29: BlogPost[] = [
     description:
       "What Adidas sneakers actually sell for on EU Vinted in 2026: Samba, Handball Spezial, Stan Smith, Campus 00s, Gazelle. Real departure averages, buy-below prices, and weekly volume per model.",
     date: "2026-09-15",
+
+    preflightQuery: "Adidas Sneakers",
     category: "Sourcing",
     readMins: 9,
     intro:

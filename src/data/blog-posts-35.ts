@@ -18,6 +18,8 @@ export const POSTS_35: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Carhartt WIP",
     intro:
       "Carhartt WIP jackets are the highest-exit-price category in the ResaleIQ EU Vinted database for a brand priced under €200 at retail. In the week to 15 September 2026, 21 Carhartt WIP jackets left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €53. The brand overall runs 61 watched departures per week across all categories at a €31 average — but jackets carry the margin: 21 of those 61 departures are jackets, and they exit at 71% above the brand average. For resellers, Carhartt WIP outerwear is one of the most consistent margin opportunities in EU streetwear resale, sitting above Patagonia (€37 brand average) and well below Stone Island (€70) where the entry costs are prohibitive for most sourcing budgets. This guide covers jacket models, exit prices, buy-below ceilings, and where Carhartt WIP sits versus the competition.",
     definedTerm: {

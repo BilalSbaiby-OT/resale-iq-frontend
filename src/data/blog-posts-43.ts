@@ -18,6 +18,8 @@ export const POSTS_43: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Lacoste Polo",
     intro:
       "Lacoste tracks 106 watched departures per week across EU Vinted in the week to 15 September 2026 at a €35 brand average — positioning it above Fred Perry (€18 avg) and Ralph Lauren (€22 avg) in the polo category tier. Shirts lead with 58 departures/7d at €28 average, followed by T-shirts (17/7d at €23), hoodies (10/7d at €47), and jackets (7/7d at €99). The buy-below ceiling at shirt level is €18.20 — 65% of the €28 departure average — which means sourcing requires a higher minimum quality threshold than Fred Perry but delivers better margin per item. This guide covers exit prices by category and condition, the sourcing strategy for EU Lacoste polos, and how Lacoste compares to the other premium polo brands tracked on EU Vinted.",
     definedTerm: {

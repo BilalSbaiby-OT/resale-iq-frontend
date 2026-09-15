@@ -18,6 +18,8 @@ export const POSTS_47: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Adidas Gazelle",
     intro:
       "Adidas sneakers track 45 watched departures per week across EU Vinted in the week to 15 September 2026 at a €60 average exit price — the single highest-volume trainer category in our EU dataset, ahead of Nike Air Force 1 (38/7d, €52 avg) and Jordan 3 (29/7d, €97 avg). The Adidas Gazelle and Gazelle Indoor are among the most searched Adidas models on EU Vinted, driven by the shoe's sustained cultural relevance since Beyoncé's 2023 Renaissance tour appearances. Our live data shows the Gazelle Indoor category tracking 4 watched departures per week at €58 average with RISING momentum — low volume, fast clearance. For EU resellers, the real volume opportunity sits in the Handball Spezial (12/7d at €79) and the Samba family, while the Gazelle Indoor represents a precision play: fewer units, better margin per transaction. This guide covers exit prices by model, buy-below ceilings by size, momentum signals, and sourcing method across the five EU Vinted markets.",
     definedTerm: {

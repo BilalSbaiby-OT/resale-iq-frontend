@@ -15,6 +15,8 @@ export const POSTS_30: BlogPost[] = [
     description:
       "What New Balance sneakers actually sell for on EU Vinted in 2026: 550, 990, 993, 574, 327. Real departure averages, buy-below prices, and weekly volume across 10 tracked models.",
     date: "2026-09-15",
+
+    preflightQuery: "New Balance",
     category: "Sourcing",
     readMins: 9,
     intro:

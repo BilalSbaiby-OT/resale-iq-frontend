@@ -19,6 +19,8 @@ export const POSTS_13: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
+
+    preflightQuery: "Calvin Klein",
     intro:
       "Week to 14 September 2026, Calvin Klein ranked #22 across Spain, France, Germany, Italy and Portugal with 53 watched departures at an average exit price of €21. The brand average is dragged by T-Shirts at €8 — a non-viable sourcing category — and lifted by Jackets at €34 and Jeans at €23. The practical sourcing case is logo-forward pieces: Calvin Klein Jeans (CKJ) and Calvin Klein One logo pieces exit consistently above the brand mean at EU charity shops where they are priced as generic branded clothing.",
     sections: [

@@ -16,6 +16,8 @@ export const POSTS_31: BlogPost[] = [
     description:
       "Stone Island jackets averaged €140 per departure across EU Vinted in September 2026 — 169 jackets per week. Nylon Metal, Membrana, Ghost, Ice Jacket: real exit ranges, buy-below prices, and authentication checks.",
     date: "2026-09-15",
+
+    preflightQuery: "Stone Island Jackets",
     category: "Sourcing",
     readMins: 9,
     intro:

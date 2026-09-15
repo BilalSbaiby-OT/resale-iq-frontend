@@ -20,6 +20,8 @@ export const POSTS_55: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Fred Perry Hoodie",
     intro:
       "Fred Perry hoodies track 217 watched departures per week across EU Vinted in the week to 15 September 2026 — the second-highest hoodie volume among all ResaleIQ-tracked brands, behind only Stone Island (620/7d). The average exit price is €21 and the buy-below ceiling is €13.90. At 0.22 average days to sell, Fred Perry hoodies are the fastest-clearing mid-price hoodie brand in the tracker — clearing in hours in France and Germany. This guide covers what the departure velocity means for sourcing and reselling Fred Perry hoodies on EU Vinted in Q4 2026, how the Laurel Wreath model commands a premium above the category average, and how Fred Perry compares with Stone Island, Patagonia, and Tommy Hilfiger hoodies across EU Vinted.",
     definedTerm: {

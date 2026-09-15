@@ -18,6 +18,8 @@ export const POSTS_38: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Fred Perry Jackets",
     intro:
       "Fred Perry is the highest-departure brand on EU Vinted with 834 watched departures per week — but the most profitable category within the brand is not the polo shirt. Fred Perry jackets track 103 watched departures per week at a €37 average exit price in the week to 15 September 2026. That is more than double the polo shirt average (€14) and more than 60% above the hoodie average (€22). A clean Harrington jacket sourced at a charity shop exit price of €12–18 and departing at €40–55 represents the best per-unit margin in the Fred Perry product range. This guide covers exit prices by jacket type, buy-below ceilings, condition criteria, and how Fred Perry jackets stack up against Stone Island and Patagonia for EU Vinted resellers.",
     definedTerm: {

@@ -19,6 +19,8 @@ export const POSTS_49: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "The North Face",
     intro:
       "The North Face jackets track 108 watched departures per week across EU Vinted in the week to 15 September 2026 at a €48 average exit price — the second-highest jacket volume on the platform behind Stone Island (which tracks 722 total brand departures/7d across all categories). Within the outdoor jacket segment, The North Face is the clear market leader by departure volume: 108 weekly transactions versus Patagonia jackets at 307/7d (a broader sample that includes base layers and fleeces). The buy-below ceiling of €31.20 (€48 × 0.65) makes TNF jackets one of the more accessible entry points into technical outerwear reselling, with sourcing opportunities at summer charity shop clearances when demand temporarily eases. This guide covers exit prices by model, buy-below ceilings, condition grading, and how TNF jackets compare to Patagonia in the EU secondhand market.",
     definedTerm: {

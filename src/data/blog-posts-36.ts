@@ -18,6 +18,8 @@ export const POSTS_36: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+
+    preflightQuery: "Stone Island Hoodies",
     intro:
       "Stone Island hoodies are the single highest-volume item in the ResaleIQ EU Vinted database for any brand above a €50 average exit price. In the week to 15 September 2026, 395 Stone Island hoodies left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €55. That is 54% of the brand's entire 727 weekly departures concentrated in one category — no other tracked brand has a comparable hoodie-to-total-brand ratio. For resellers, this means Stone Island hoodies are both the most liquid entry point into the brand and the category where the most sourcing mistakes get made. This guide breaks down exit prices by hoodie type, dye method, and condition tier — and where the buy-below ceiling sits if you are sourcing to flip on EU Vinted.",
     definedTerm: {

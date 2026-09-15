@@ -19,6 +19,8 @@ export const POSTS_14: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Jordan",
     intro:
       "Week to 14 September 2026, Jordan Brand ranked #28 across Spain, France, Germany, Italy and Portugal with 15 watched departures at an average exit price of €133 — the highest average price of any brand tracked outside Gucci (€212) and Balenciaga (€146). Sneakers dominate at 12 departures averaging €156 — driven by Air Jordan retro releases where the colourway determines the exit price. The sourcing edge is colourway knowledge: a Jordan 1 Retro High in a deadstock OG colourway exits at €200–500+ while a general-release Jordan 1 in a non-OG colourway exits at €60–100. EU charity shops price Jordans as 'Nike trainers' — the same pricing regardless of colourway — creating reliable identification upside for informed resellers.",
     sections: [

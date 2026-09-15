@@ -19,6 +19,8 @@ export const POSTS_65: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+
+    preflightQuery: "Patagonia Bags",
     intro:
       "Patagonia bags track 110 watched departures per week across EU Vinted in the week to 15 September 2026 at a €25 average exit price — making bags the third-highest-volume category in the Patagonia EU Vinted dataset after jackets (299/7d at €51) and hoodies (116/7d at €39). The buy-below ceiling is €16.25. At 110 departures per week and a €25 average, Patagonia bags represent the most liquid branded outdoor bag category tracked by ResaleIQ across EU Vinted — ahead of The North Face bags (9/7d at €74) on volume by a factor of 12. The Black Hole Duffel, Refugio Pack, and Atom Sling are the three models that drive this category. This guide covers exit prices by model, sourcing economics for EU charity shops and outdoor gear resellers, and how Patagonia bags fit within the full Patagonia EU Vinted cluster.",
     definedTerm: {

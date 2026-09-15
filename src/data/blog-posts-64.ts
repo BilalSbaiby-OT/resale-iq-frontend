@@ -18,6 +18,8 @@ export const POSTS_64: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Patagonia Synchilla",
     intro:
       "Patagonia Synchilla is the single highest-volume model in the Patagonia EU Vinted dataset in the week to 15 September 2026: 43 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €51.49 average exit price. The buy-below ceiling is €33.47. The Synchilla carries a STABLE momentum signal — the best available rating for a model of this volume, meaning departure velocity is holding steady against its historical baseline. Patagonia as a brand ranks second on the ResaleIQ tracked-brand list by weekly departures at 706/7d. This guide covers what the Synchilla data means for sourcing in Q4 2026, how exit prices break down by size, and how the Synchilla compares to the brand's other models — and to Stone Island and Ralph Lauren hoodies for EU resellers building a fleece position.",
     definedTerm: {

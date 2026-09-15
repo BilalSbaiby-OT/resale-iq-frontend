@@ -19,6 +19,8 @@ export const POSTS_51: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+
+    preflightQuery: "Gucci Sneakers",
     intro:
       "Gucci sneakers track 37 watched departures per week across EU Vinted in the week to 15 September 2026 at a €212 average exit price — placing the category second only to Gucci bags (€312 avg) in departure value within the Gucci brand. The buy-below ceiling for the sneaker category is €137.80 (€212 × 0.65), meaning a correctly sourced Gucci sneaker generates substantially more gross margin per transaction than any mid-market streetwear category. The Gucci brand overall tracks 191 watched departures per week: bags (72/7d at €312), caps (44/7d at €138), sneakers (37/7d at €212), jackets (8/7d at €295). This guide covers exit prices by model — Rhyton, Ace, Screener, Flashtrek, Tennis 1977 — the authentication points that protect the margin, and how Gucci compares to Balenciaga sneakers as an EU Vinted reselling play.",
     definedTerm: {
