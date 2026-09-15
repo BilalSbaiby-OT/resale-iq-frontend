@@ -263,12 +263,12 @@ export default async function BrandFlipPage(
               door is now the no-signup free checker (check->signup is 43.8%, so a
               check feeds a signup directly); register becomes the secondary link.
               src=flip-check tags the arrival. No offer removed. */}
-          <Link href="/tools/vinted-price-checker?src=flip-check" style={{
+          <Link href={`/tools?q=${encodeURIComponent(b.brand)}&src=flip-check`} style={{
           display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
           color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
           borderRadius: 9, textDecoration: "none",
         }}>
-          Check a {b.brand} item <ArrowRight size={15} />
+          Try a live check — {b.brand} → <ArrowRight size={15} />
         </Link>
         <Link href="/pricing?src=flip" style={{
           display: "inline-flex", alignItems: "center", gap: 7, marginLeft: 10,

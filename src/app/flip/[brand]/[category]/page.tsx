@@ -173,12 +173,12 @@ export default async function BrandCategoryPage(
         </section>
 
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a {b.brand} item</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Check a {b.brand} {catName}</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Get the headline verdict on any item. Buy-below is on a plan.
+            See a live verdict on {b.brand} {catName} — buy-below is on a plan.
           </p>
-          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check this item →
+          <Link href={`/tools?q=${encodeURIComponent(b.brand + " " + catName)}&src=flip`} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            Try a live check — {b.brand} {catName} →
           </Link>
         </div>
 
