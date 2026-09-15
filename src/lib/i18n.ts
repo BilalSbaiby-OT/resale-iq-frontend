@@ -343,7 +343,7 @@ export const copy = {
       },
       operator: {
         tagline: "Answers on anything you look up",
-        cta: "Get the numbers",
+        cta: "Start for €19",
         features: [
           "Unlimited buy/sell verdicts",
           "Every product signal we compute, unblurred",
@@ -800,7 +800,7 @@ export const copy = {
       },
       operator: {
         tagline: "Des réponses sur tout ce que vous cherchez",
-        cta: "Obtenir les chiffres",
+        cta: "Démarrer pour 19 €",
         features: [
           "Verdicts d'achat/vente illimités",
           "Chaque signal produit que nous calculons, sans flou",
@@ -1191,7 +1191,7 @@ export const copy = {
       },
       operator: {
         tagline: "Respuestas para todo lo que busques",
-        cta: "Consigue los números",
+        cta: "Empieza por 19 €",
         features: [
           "Veredictos de compra/venta ilimitados",
           "Cada señal de producto que calculamos, sin difuminar",
@@ -1579,7 +1579,7 @@ export const copy = {
       },
       operator: {
         tagline: "Antworten auf alles, was du nachschlägst",
-        cta: "Zahlen holen",
+        cta: "Für 19 € starten",
         features: [
           "Unbegrenzte Kauf-/Verkaufsentscheidungen",
           "Jedes berechnete Produktsignal, ohne Unschärfe",
@@ -1969,7 +1969,7 @@ export const copy = {
       },
       operator: {
         tagline: "Risposte su tutto quello che cerchi",
-        cta: "Ottieni i numeri",
+        cta: "Inizia a 19 €",
         features: [
           "Verdetti di acquisto/vendita illimitati",
           "Ogni segnale di prodotto che calcoliamo, senza sfocature",
@@ -2357,7 +2357,7 @@ export const copy = {
       },
       operator: {
         tagline: "Respostas para tudo o que procurares",
-        cta: "Obter os números",
+        cta: "Começa por 19 €",
         features: [
           "Veredictos de compra/venda ilimitados",
           "Todos os sinais de produto que calculamos, sem desfoque",
