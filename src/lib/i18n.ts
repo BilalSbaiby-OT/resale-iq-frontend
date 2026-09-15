@@ -722,7 +722,7 @@ export const copy = {
       seeFullNumbers: "Voir tous les chiffres →",
     },
     pricingSection: {
-      heading: "Sachez quoi payer. Ignorez le reste.",
+      heading: "Trouvez des flips rentables sur Vinted avant d'acheter.",
       metaTitle: "Starter 19 € / Pro 49 € — prix d'achat max",
       metaDescription:
         "Starter 19 € / Pro 49 € : prix d'achat max Vinted. Verdicts et tailles en offre payante. Volumes hebdo publics sur /data. Annulable à tout moment.",
@@ -1483,7 +1483,7 @@ export const copy = {
       seeFullNumbers: "Alle Zahlen ansehen →",
     },
     pricingSection: {
-      heading: "Wissen, was du zahlen solltest. Lass aus, was sich nicht lohnt.",
+      heading: "Profitable Vinted-Flips finden, bevor du kaufst.",
       metaTitle: "Starter 19 € / Pro 49 € — Kaufobergrenze",
       metaDescription:
         "Starter 19 € / Pro 49 €: Vinted-Kaufobergrenze. Entscheidungen und Größen im bezahlten Tarif. Markenvolumen öffentlich auf /data. Jederzeit kündbar.",
@@ -1864,7 +1864,7 @@ export const copy = {
       seeFullNumbers: "Vedi tutti i numeri →",
     },
     pricingSection: {
-      heading: "Sappi quanto pagare. Salta il resto.",
+      heading: "Trova flip redditizi su Vinted prima di comprare.",
       metaTitle: "Starter 19 € / Pro 49 € — prezzo d'acquisto",
       metaDescription:
         "Starter 19 € / Pro 49 €: prezzo massimo di acquisto su Vinted. Verdetti e taglie nei piani a pagamento. Volumi pubblici su /data. Disdici quando vuoi.",
@@ -2243,7 +2243,7 @@ export const copy = {
       seeFullNumbers: "Ver todos os números →",
     },
     pricingSection: {
-      heading: "Saiba quanto pagar. Ignore o resto.",
+      heading: "Encontra flips rentáveis no Vinted antes de comprar.",
       metaTitle: "Starter 19 € / Pro 49 € — preço máximo de compra",
       metaDescription:
         "Starter 19 € / Pro 49 €: preço máximo de compra na Vinted. Veredictos e tamanhos nos planos pagos. Volumes públicos em /data. Cancele quando quiser.",
