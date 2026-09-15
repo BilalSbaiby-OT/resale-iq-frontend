@@ -34,6 +34,20 @@ export interface BlogPost {
    * FAQ / DefinedTerm schema must quote the same wording.
    */
   definedTerm?: { name: string; description: string }
+  /**
+   * H32: pre-filled query for the blog footer CTA.
+   *
+   * When set, the "Check this item →" footer button links to
+   * /tools?q={preflightQuery}&src=blog-check and auto-runs the check on
+   * arrival (FreeChecker's useEffect fires on initialQuery).
+   *
+   * Use for brand-specific posts where the query maps cleanly to a live
+   * catalogue entry — e.g. "Stone Island Jackets", "Adidas Stan Smith".
+   * Never set for general guides (what-sells-best, how-to-price) where no
+   * single item applies. The /tools page handles BRAND_CATEGORIES and
+   * BRAND_AVERAGE gracefully, so brand+category pairs are fine.
+   */
+  preflightQuery?: string
   sections: {
     h: string
     p: string[]

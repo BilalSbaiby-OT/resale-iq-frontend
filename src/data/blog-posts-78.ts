@@ -20,6 +20,7 @@ export const POSTS_78: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+    preflightQuery: "Gucci Bags",
     intro:
       "Gucci Bags track 128 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €305 average exit price across all tracked models. At €305, a single Gucci Bag departure generates 4.6× the value of a Diesel Jackets departure (€64 avg) and 15× the value of a Diesel Jeans departure (€20 avg). The tracked Gucci Bag portfolio spans five models with distinct sourcing profiles: the Ophidia (24/7d @€400, STABLE), the Horsebit (17/7d @€380, STABLE), the Jackie (13/7d @€800, STABLE), the GG Marmont (11/7d @€297.50, FADING), and the Dionysus (22/7d @€750, RISING). The Dionysus holds the most favourable signal combination in the current dataset: RISING momentum, the second-highest exit average in the tracked Gucci cluster, and the lowest active-listing count at 772 — the tightest supply among the five tracked models. This guide covers the September 2026 departure data by model, buy-below ceilings, sourcing routes across EU markets, and the relative positioning of Gucci Bags in the EU Vinted premium category cluster.",
     definedTerm: {

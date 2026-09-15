@@ -19,6 +19,7 @@ export const POSTS_77: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+    preflightQuery: "Adidas Gazelle",
     intro:
       "The Adidas Gazelle Indoor has the best supply position of any RISING model in ResaleIQ's Adidas EU Vinted database in September 2026: 71 months of cover at current departure rates, against 181 months for the Stan Smith and 110 months for the Forum Low — both also RISING. With 712 active listings and 4 watched departures per week, the Gazelle Indoor is a lower-volume model than the Handball Spezial or Samba, but it is also RISING while those two are STABLE or DEAD. A €58.00 average exit, a €38.57 buy-below ceiling, and same-day exits (0.23 average days to sell) make it the most supply-efficient RISING play in the Adidas cluster. This guide covers the full EU Vinted data for the Gazelle Indoor in September 2026: buy-below ceiling, size-level data, exit speed context, and a direct comparison with every tracked Adidas model.",
     definedTerm: {

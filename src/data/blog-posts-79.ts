@@ -19,6 +19,7 @@ export const POSTS_79: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+    preflightQuery: "Balenciaga City Bag",
     intro:
       "The Balenciaga City Bag tracks 100 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €412.23 average exit price. That makes it the single highest-departure-frequency model in the tracked EU Vinted premium bag dataset: 100/7d from one model outpaces the Gucci Ophidia (24/7d), the Gucci Dionysus (22/7d), and every other individually tracked premium bag. The supply signal reinforces the demand: only 1,045 active listings across all tracked EU Vinted markets, yielding a 3.09-month supply — the tightest float of any premium bag model in the September 2026 dataset. Exits average 0.33 days (sub-8 hours) from listing to departure. The momentum label is RISING. Buy-below at a 35% gross margin target after Vinted's seller protection fee: €274.13. This guide covers the September 2026 data, authentication requirements, EU sourcing routes, and how the City Bag positions against other tracked Balenciaga models and the broader EU Vinted premium bag cluster.",
     definedTerm: {

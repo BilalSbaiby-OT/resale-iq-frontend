@@ -19,6 +19,7 @@ export const POSTS_75: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+    preflightQuery: "Adidas Stan Smith",
     intro:
       "The Adidas Stan Smith carries the highest average exit price of any Adidas sneaker in ResaleIQ's EU Vinted database in September 2026: €84.14 per departure, above the Handball Spezial's €79.38 and well above the Samba's €48.01. Its momentum is RISING — the only Adidas model in the database with an upward exit-price trend — and when a pair lists, it exits in under three hours (average 0.11 days to sell). The obstacle is supply: 3,619 active listings and 181 months of cover at current departure rates, making it more oversaturated than the Handball Spezial but less than the Samba. That supply position means the Stan Smith is not a blanket buy — it is a colourway-driven buy. This guide covers the full EU Vinted data for the Stan Smith in September 2026: buy-below ceiling, colourway tier guide, exit speed context, and a direct comparison with every other tracked Adidas sneaker.",
     definedTerm: {

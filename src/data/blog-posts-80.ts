@@ -19,6 +19,7 @@ export const POSTS_80: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
+    preflightQuery: "Stone Island Jackets",
     intro:
       "Stone Island Jackets track 162 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €140 average exit price. At €140, Stone Island Jackets are the highest-value outerwear category in the ResaleIQ tracked EU Vinted dataset: they outscore Patagonia Jackets (~€51), The North Face Jackets (€47), Carhartt Jackets (€53), and Diesel Jackets (€64) on per-departure exit value by a factor of 2 to 3. The 162/7d departure frequency places Stone Island Jackets second only to Stone Island Hoodies (359/7d @€56) within the brand — but at €140 average, each Jacket departure generates 2.5× the revenue of a Hoodie departure. The buy-below ceiling at a 35% gross margin target is €86.45. Stone Island Jackets are the per-unit revenue leader in the Stone Island cluster and the highest-scoring category in the EU Vinted tracked outerwear market for September 2026.",
     definedTerm: {

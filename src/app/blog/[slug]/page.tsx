@@ -234,11 +234,19 @@ export default async function BlogPostPage(
           </p>
           {/* Primary door: the no-wall free checker. The blog is our largest
               external audience (ChatGPT lands readers on /blog/what-sells-best).
-              Distinct target (/tools/vinted-price-checker) and its own attribution
-              (?src=blog-check) so this door is measured separately from the
-              paid /pricing CTA below. */}
-          <Link href="/tools/vinted-price-checker?src=blog-check" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check this item →
+              Distinct target (/tools) and its own attribution (?src=blog-check)
+              so this door is measured separately from the paid /pricing CTA below.
+              H32: when the post has a preflightQuery, link directly to /tools?q=…
+              so the checker auto-runs on arrival — same holy-shit moment, zero
+              typing, brand-matched context. Posts without preflightQuery fall back
+              to the generic blank-form path. */}
+          <Link
+            href={p.preflightQuery
+              ? `/tools?q=${encodeURIComponent(p.preflightQuery)}&src=blog-check`
+              : "/tools/vinted-price-checker?src=blog-check"}
+            style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
+          >
+            {p.preflightQuery ? `Try a live check — ${p.preflightQuery} →` : "Check this item →"}
           </Link>
           <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
           <SmartCTA anonLabel="Get the numbers" anonHref={legacySignupKillHrefForPost(p.sections)} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />

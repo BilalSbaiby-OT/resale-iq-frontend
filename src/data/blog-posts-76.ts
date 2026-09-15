@@ -19,6 +19,7 @@ export const POSTS_76: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+    preflightQuery: "Diesel Jackets",
     intro:
       "Diesel Jackets track 16 watched departures per week across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €64 average exit price and a buy-below ceiling of €42.56. Within the Diesel cluster, Jackets are the per-unit revenue leader by a wide margin: at €64 average, a single Diesel Jacket departure generates 3.2× the value of a Diesel Jeans departure (€20 avg) and 3.8× the value of a Diesel T-Shirt departure (€14 avg). The 16/7d departure frequency is lower than Diesel Jeans (55/7d) — this is a selectivity-first category where individual pieces matter more than turnover frequency. The €64 average is driven by two converging forces: the Glenn Martens era (2021–present) repositioned Diesel as a rave-revival luxury streetwear brand, and the EU Vinted market for pre-Martens Y2K Diesel Jackets — oversized puffers, 80s power silhouettes, leather and faux-leather cuts — has been sustained by the brand's cultural moment. This guide covers the September 2026 departure data, the buy-below ceiling, the model-tier structure, sourcing strategy across EU charity shops and markets, and how Diesel Jackets fit into the broader Diesel cluster.",
     definedTerm: {
