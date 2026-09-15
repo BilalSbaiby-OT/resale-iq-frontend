@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, Suspense, type ReactNode } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
+import { canonicalPath } from "@/lib/locale-routes"
 import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict, isPaymentRequired } from "@/lib/api"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
@@ -262,6 +263,18 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               <div className="p-6 text-[13px] text-[#8b99b8]">
                 <p>{t.unknownBody}</p>
                 <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+                {/* CRO-UNKNOWN (verdict): mirror the free-checker fix (C64) — an
+                    UNKNOWN result used to be a dead end with no path forward.
+                    /data lists every brand we cover — honest, on-topic, same muted
+                    link style used throughout the card. */}
+                <div style={{ marginTop: 10 }}>
+                  <Link
+                    href={canonicalPath(locale, "/data")}
+                    style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
+                  >
+                    → See the 28 brands we track
+                  </Link>
+                </div>
               </div>
             ) : result.sell_through_rate == null ? (
               <div className="p-6 pt-5">
