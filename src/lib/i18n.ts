@@ -252,7 +252,7 @@ export const copy = {
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
       paywallHeadline: "Stop guessing what to pay on Vinted.",
-      paywallBody: "5,974,627+ listings analyzed. BUY/WATCH/SKIP verdict + the exact buy-below price — Starter at €19/mo, cancel anytime.",
+      paywallBody: "{{TRACKED}} listings analyzed. BUY/WATCH/SKIP verdict + the exact buy-below price — Starter at €19/mo, cancel anytime.",
       paywallCta: (price: number) => `Start — €${price}/mo`,
       paywallLogin: "Already have an account? Log in",
       confidenceLabel: "Confidence",
