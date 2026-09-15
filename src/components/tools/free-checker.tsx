@@ -8,7 +8,7 @@ import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
-import { PRICE_CHECKER_MONEY_HREF, TOOLS_STARTER_HREF } from "@/lib/money-cta"
+import { PRICE_CHECKER_MONEY_HREF, INTERNAL_CTA_CAMPAIGN } from "@/lib/money-cta"
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
@@ -802,7 +802,7 @@ export function FreeChecker({
               Open-dashboard bar competes with it above the fold, so it stays
               on the /tools card only. The gated sell-through tile below is
               the remaining unlock and still routes ?plan=free. */}
-          {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && res.verdict !== "PAYWALL" && (
+          {!hero && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && res.verdict !== "PAYWALL" && res.verdict !== "BRAND_CATEGORIES" && (
           <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#34C759" />
@@ -815,11 +815,13 @@ export function FreeChecker({
                   A visitor who just saw their buy_below is the highest-intent moment —
                   send them toward Starter first, free account is the fallback.
                   SmartCTA still shortcuts authed users to /verdict.
+                  H39 CRO: locale-aware hrefs — canonicalPath(locale) so /es/tools →
+                  /es/register, not the English /register (W61 class of bug).
                   CRO Principle #10 (CTA commitment-match) + #12 (earned-urgency).
                   Revenue 2026-09-16. */}
-              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={TOOLS_STARTER_HREF} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result`} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
               <Link
-                href={`/register?plan=free`}
+                href={`${canonicalPath(locale, "/register")}?plan=free`}
                 data-testid="riq-starter-cta-bar"
                 style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none" }}
               >
