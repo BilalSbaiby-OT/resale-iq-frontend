@@ -244,8 +244,8 @@ export default async function CategoryPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Category volume tells you demand exists. The verdict tells you whether this item, at this price, makes money.
           </p>
-          <Link href="/tools/vinted-price-checker" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check this item →
+          <Link href={`/tools?q=${encodeURIComponent(`${top.brand} ${lower}`)}&src=cat-check`} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            Try a live check — {top.brand} {lower} →
           </Link>
           {/* Second, lower-emphasis door — this page and its 8 siblings had
               zero route to /pricing (measured live 2026-09-09). Primary CTA
