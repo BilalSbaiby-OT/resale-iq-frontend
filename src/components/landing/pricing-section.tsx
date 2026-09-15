@@ -92,6 +92,10 @@ export function PricingSection({
   const searchParams = useSearchParams()
   const srcParam = searchParams?.get("src") ?? null
   const llmSrc = (!compact && (srcParam === "perplexity" || srcParam === "chatgpt" || srcParam === "llm")) ? srcParam : null
+  // H20 CRO: message-match for ?src=data visitors (arrived from /data public brand page).
+  // They've already seen departure counts and averages — bridge directly to item-level verdicts.
+  // CRO Principle #3 (message match). Revenue 2026-09-15.
+  const dataSrc = (!compact && srcParam === "data")
   // Settles true when the plans fetch resolves OR fails — not only on success.
   // A paid CTA that fires before this lands has no price id to resolve, so
   // `choose` sends the visitor to /register: the exact register wall that was
@@ -166,6 +170,14 @@ export function PricingSection({
             Only rendered on standalone /pricing (!compact) when ?src=perplexity|chatgpt|llm.
             Mirrors H2 on landing-content.tsx — CRO principle #3 (message match). */}
         {llmSrc && <LlmEyebrow src={llmSrc} margin="10px 0 0" />}
+        {/* H20 CRO: /data → /pricing message-match eyebrow. Revenue 2026-09-15.
+            Visitor just saw public brand departure averages — acknowledge that and bridge
+            to what the paid tier adds (item-level BUY/WATCH/SKIP). CRO Principle #3. */}
+        {dataSrc && (
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
+            📊 You've seen the brand averages — this is the item-level verdict
+          </p>
+        )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
