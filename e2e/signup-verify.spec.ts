@@ -195,8 +195,8 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     const events = captureTrackEvents(page)
     await mockPaidCheckout(page)
     await page.goto("/pricing")
-    // Press a paid-plan CTA as a stranger (no token in storage).
-    await page.getByRole("button", { name: /Get the numbers/i }).first().click()
+    // Press a paid-plan CTA as a stranger (no token in storage) — H27 renamed to "Start for €19".
+    await page.getByRole("button", { name: /Start for €19/i }).first().click()
     // Lands on Stripe, never bounced to /register.
     await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
     expect(page.url()).not.toContain("/register")

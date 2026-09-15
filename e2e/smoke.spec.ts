@@ -127,8 +127,8 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   await expect(page.getByTestId("riq-starter-trust")).toContainText(/listings watched/)
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
-  // Free forever must not lead — first CTA is Starter.
-  await expect(page.locator("section.riq-pricing button").first()).toHaveText(/Get the numbers/i)
+  // Free forever must not lead — first CTA is Starter (H27: "Start for €19").
+  await expect(page.locator("section.riq-pricing button").first()).toHaveText(/Start for €19/i)
   // One filled accent CTA on the page; the other tier buttons are ghosts.
   const buttons = page.locator("section.riq-pricing button")
   const filled: string[] = []
