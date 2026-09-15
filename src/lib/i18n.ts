@@ -454,6 +454,10 @@ export const copy = {
         // H7: paid visitors already decided to pay — mirror their intent rather than explain the model.
         // paidSubheading replaces subheading when plan=operator|power.
         paidSubheading: "Unlimited item checks, live EU resale data — no extra steps after this.",
+        // H8: heading is generic "Create your account" even for paid arrivals. paidHeading uses {plan}
+        // interpolation so it names exactly what the visitor is activating (message match #3 + CTA discipline #10).
+        // Component replaces {plan} with t.planNames[plan] at render time.
+        paidHeading: "Activate your {plan} access.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Most popular",
         planDesc: {
@@ -874,6 +878,7 @@ export const copy = {
         heading: "Créez votre compte",
         subheading: "Les volumes hebdo par marque restent publics sur /data. Les vérifications d'articles demandent un plan payant. Résiliable à tout moment.",
         paidSubheading: "Vérifications d'articles illimitées, données de revente EU en direct — aucune étape supplémentaire après cela.",
+        paidHeading: "Activez votre accès {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Le plus populaire",
         planDesc: {
@@ -1257,6 +1262,7 @@ export const copy = {
         heading: "Cree su cuenta",
         subheading: "Los volúmenes semanales por marca siguen públicos en /data. Las comprobaciones de artículos necesitan un plan de pago. Cancele cuando quiera.",
         paidSubheading: "Comprobaciones de artículos ilimitadas, datos de reventa EU en directo — sin pasos adicionales después de esto.",
+        paidHeading: "Activa tu acceso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Más popular",
         planDesc: {
@@ -1637,6 +1643,7 @@ export const copy = {
         heading: "Konto erstellen",
         subheading: "Wöchentliche Markenvolumen bleiben öffentlich auf /data. Artikelprüfungen brauchen einen bezahlten Tarif. Jederzeit kündbar.",
         paidSubheading: "Unbegrenzte Artikelprüfungen, live EU-Wiederverkaufsdaten — keine weiteren Schritte danach.",
+        paidHeading: "Aktiviere deinen {plan}-Zugang.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Am beliebtesten",
         planDesc: {
@@ -2019,6 +2026,7 @@ export const copy = {
         heading: "Crea il tuo account",
         subheading: "I volumi settimanali per marca restano pubblici su /data. I controlli articolo richiedono un piano a pagamento. Annullabile in qualsiasi momento.",
         paidSubheading: "Controlli articolo illimitati, dati di rivendita EU in diretta — nessun passaggio aggiuntivo dopo questo.",
+        paidHeading: "Attiva il tuo accesso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Più popolare",
         planDesc: {
@@ -2399,6 +2407,7 @@ export const copy = {
         heading: "Crie a sua conta",
         subheading: "Os volumes semanais por marca continuam públicos em /data. As verificações de artigos precisam de um plano pago. Cancele quando quiser.",
         paidSubheading: "Verificações de artigos ilimitadas, dados de revenda EU em direto — sem passos adicionais depois disto.",
+        paidHeading: "Ative o seu acesso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Mais popular",
         planDesc: {
