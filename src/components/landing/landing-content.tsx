@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { PricingSection } from "./pricing-section"
+import { LlmEyebrow } from "./llm-eyebrow"
 import { LiveMarketPulse } from "./live-market-pulse"
 import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
@@ -49,7 +50,7 @@ export function LandingContent({
    * signup rate for LLM-referred visitors (the only channel that ever converted).
    * Pure frontend; no backend required. Revenue 2026-09-15 H2.
    */
-  llmSrc?: string | null
+  llmSrc?: "perplexity" | "chatgpt" | "llm" | null
 }) {
   void tracked
   void trackedExact
@@ -111,15 +112,7 @@ export function LandingContent({
               {/* H2 — LLM message-match eyebrow. Revenue 2026-09-15.
                   Shown only when ?src=perplexity|chatgpt|llm. Mirrors the channel
                   that brought the visitor — CRO principle #3. */}
-              {llmSrc && (
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-accent, #4F6EF7)", margin: "0 0 var(--space-1)", lineHeight: 1.4, textTransform: "uppercase" }}>
-                  {llmSrc === "perplexity"
-                    ? "⚡ Seen on Perplexity AI"
-                    : llmSrc === "chatgpt"
-                      ? "✦ Seen on ChatGPT"
-                      : "✦ Recommended by AI"}
-                </p>
-              )}
+              {llmSrc && <LlmEyebrow src={llmSrc} margin="0 0 var(--space-1)" />}
               <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
                 {t.heroAudience}
               </p>

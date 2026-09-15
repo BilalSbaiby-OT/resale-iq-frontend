@@ -10,6 +10,7 @@ import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
+import { LlmEyebrow } from "./llm-eyebrow"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -164,15 +165,7 @@ export function PricingSection({
         {/* H13 CRO: LLM-referral message-match eyebrow. Revenue 2026-09-15.
             Only rendered on standalone /pricing (!compact) when ?src=perplexity|chatgpt|llm.
             Mirrors H2 on landing-content.tsx — CRO principle #3 (message match). */}
-        {llmSrc && (
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-accent, #4F6EF7)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
-            {llmSrc === "perplexity"
-              ? "⚡ Seen on Perplexity AI"
-              : llmSrc === "chatgpt"
-                ? "✦ Seen on ChatGPT"
-                : "✦ Recommended by AI"}
-          </p>
-        )}
+        {llmSrc && <LlmEyebrow src={llmSrc} margin="10px 0 0" />}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
