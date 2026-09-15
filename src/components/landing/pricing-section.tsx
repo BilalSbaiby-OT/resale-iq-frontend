@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Check } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { PaybackCalculator } from "./payback-calculator"
@@ -85,6 +85,12 @@ export function PricingSection({
   const Heading = (headingLevel === 1 ? "h1" : "h2") as "h1" | "h2"
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
+  // H13 CRO: message-match eyebrow on standalone /pricing — Revenue 2026-09-15.
+  // Only shown when !compact (the standalone /pricing route) and ?src= is llm/perplexity/chatgpt.
+  // Mirrors the mechanism already live on landing-content.tsx (H2) — CRO principle #3.
+  const searchParams = useSearchParams()
+  const srcParam = searchParams?.get("src") ?? null
+  const llmSrc = (!compact && (srcParam === "perplexity" || srcParam === "chatgpt" || srcParam === "llm")) ? srcParam : null
   // Settles true when the plans fetch resolves OR fails — not only on success.
   // A paid CTA that fires before this lands has no price id to resolve, so
   // `choose` sends the visitor to /register: the exact register wall that was
@@ -155,6 +161,18 @@ export function PricingSection({
           the one green thing; muted here, the CTA is alone again. */}
       <div style={{ textAlign: "center", marginBottom: s.headMargin }}>
         <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.4px", color: "var(--color-text-muted)" }}>{copy[locale].pricing}</div>
+        {/* H13 CRO: LLM-referral message-match eyebrow. Revenue 2026-09-15.
+            Only rendered on standalone /pricing (!compact) when ?src=perplexity|chatgpt|llm.
+            Mirrors H2 on landing-content.tsx — CRO principle #3 (message match). */}
+        {llmSrc && (
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-accent, #4F6EF7)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
+            {llmSrc === "perplexity"
+              ? "⚡ Seen on Perplexity AI"
+              : llmSrc === "chatgpt"
+                ? "✦ Seen on ChatGPT"
+                : "✦ Recommended by AI"}
+          </p>
+        )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
