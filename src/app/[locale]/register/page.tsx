@@ -7,17 +7,33 @@ import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } fr
 
 export const generateStaticParams = localeStaticParams
 
+const PAID_PLANS = ["operator", "power"] as const
+type PaidPlan = (typeof PAID_PLANS)[number]
+
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>
+  searchParams: Promise<{ plan?: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   if (!isPathLocale(locale)) return {}
   const t = copy[locale].auth.register
+  // H14: plan-aware <title> — "Activate your Starter access. — Resale IQ"
+  // vs generic "Create your account — Resale IQ". CRO Principle #3 (message
+  // match) + #8 (commitment language in tab title reduces plan-confusion
+  // hesitation for paid arrivals).
+  const raw = searchParams ? (await searchParams).plan ?? "" : ""
+  const plan = PAID_PLANS.includes(raw as PaidPlan) ? (raw as PaidPlan) : null
+  const title =
+    plan && t.paidHeading
+      ? t.paidHeading.replace("{plan}", t.planNames[plan])
+      : t.heading
   return {
-    title: `${t.heading} — Resale IQ`,
+    title: `${title} — Resale IQ`,
     description: t.subheading,
+    robots: { index: false, follow: false },
     alternates: { canonical: canonicalPath(locale, "/register"), languages: hreflangLanguages("/register") },
   }
 }
