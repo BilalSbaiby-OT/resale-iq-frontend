@@ -15,11 +15,18 @@ import { useTrackedLabel } from "@/lib/use-tracked-label"
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
  * Guest checkout goes straight to Stripe (same path as /pricing) — the
  * register wall was the #1 measured drop.
+ *
+ * H24: optional `query` prop personalizes the headline to the item the visitor
+ * searched (CRO principle #3 message-match). Falls back to generic headline
+ * when no query is provided (e.g. dashboard paywall). Revenue 2026-09-15.
  */
-export function HardPaywallCard({ locale, plans }: { locale: Locale; plans?: PaywallPlan[] }) {
+export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plans?: PaywallPlan[]; query?: string }) {
   const t = copy[locale].checker
   const price = operatorPrice(plans)
   const tracked = useTrackedLabel()
+  const headline = query?.trim()
+    ? t.paywallHeadlineForItem(query.trim())
+    : t.paywallHeadline
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
   const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -59,7 +66,7 @@ export function HardPaywallCard({ locale, plans }: { locale: Locale; plans?: Pay
     <div data-testid="riq-hard-paywall">
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
         <Lock size={15} style={{ color: "#34C759" }} aria-hidden />
-        <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{t.paywallHeadline}</span>
+        <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{headline}</span>
       </div>
       <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{t.paywallBody.replace("{{TRACKED}}", tracked)}</p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>

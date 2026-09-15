@@ -175,7 +175,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
         {paywalled && (
           <div style={{ background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, marginBottom: 24 }}>
-            <HardPaywallCard locale={locale} />
+            <HardPaywallCard locale={locale} query={query} />
           </div>
         )}
 

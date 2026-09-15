@@ -418,7 +418,7 @@ export function FreeChecker({
             </div>
           )}
           {res.verdict === "PAYWALL" ? (
-            <HardPaywallCard locale={locale} plans={res.plans} />
+            <HardPaywallCard locale={locale} plans={res.plans} query={q} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             <div>
               {/* res.message is backend-owned English prose (api/routes.py) with
