@@ -274,7 +274,7 @@ test("/fr/pricing serves the French pricing page, not a redirect and not English
   const res = await page.goto("/fr/pricing")
   expect(res?.status()).toBe(200)
   expect(page.url()).toMatch(/\/fr\/pricing$/)
-  await expect(page.locator("h1")).toContainText(/Sachez quoi payer/i)
+  await expect(page.locator("h1")).toContainText(/Trouvez des flips rentables/i)
 })
 
 test("all five locale pricing routes serve their own page", async ({ request }) => {
