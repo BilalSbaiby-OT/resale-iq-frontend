@@ -294,6 +294,8 @@ export const copy = {
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
       subhead:
         "One search gives you BUY / WATCH / SKIP, the buy-below price, and how solid the evidence is. Starter €19/mo.",
+      // H19 CRO: Objection #1 ("will it work for me?") answered above the plan cards — CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15.
+      scopeNote: "Built for clothing, shoes and accessories on Vinted · ES · FR · DE · IT · PT. When the sample is too thin to answer, the verdict says UNKNOWN — not a guess.",
       faqHeading: "Before you pick a plan",
       faq: [
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
@@ -750,6 +752,8 @@ export const copy = {
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
       subhead: "Une recherche vous donne BUY / WATCH / SKIP, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
+      // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
+      scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
       faqHeading: "Avant de choisir une offre",
       faq: [
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance." },
@@ -1137,6 +1141,8 @@ export const copy = {
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
       subhead:
         "Una búsqueda te da BUY / WATCH / SKIP, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
+      // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
+      scopeNote: "Diseñado para ropa, calzado y accesorios en Vinted · ES · FR · DE · IT · PT. Cuando la muestra es insuficiente, el veredicto muestra UNKNOWN — nunca una suposición.",
       faqHeading: "Antes de elegir un plan",
       faq: [
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },
@@ -1521,6 +1527,8 @@ export const copy = {
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
       subhead: "Eine Suche gibt Ihnen BUY / WATCH / SKIP, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
+      // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
+      scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
       faqHeading: "Bevor du einen Tarif wählst",
       faq: [
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl." },
@@ -1907,6 +1915,8 @@ export const copy = {
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
       subhead: "Una ricerca ti dà BUY / WATCH / SKIP, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
+      // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
+      scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
       faqHeading: "Prima di scegliere un piano",
       faq: [
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza." },
@@ -2291,6 +2301,8 @@ export const copy = {
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
       subhead: "Uma pesquisa dá-te BUY / WATCH / SKIP, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
+      // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
+      scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
       faqHeading: "Antes de escolheres um plano",
       faq: [
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança." },

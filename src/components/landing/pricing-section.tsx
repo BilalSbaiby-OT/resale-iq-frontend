@@ -170,6 +170,25 @@ export function PricingSection({
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
 
+      {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.
+          Shown ONLY on standalone /pricing (!compact). Answers before price is seen.
+          CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15. */}
+      {!compact && (
+        <p
+          data-testid="riq-scope-note"
+          style={{
+            textAlign: "center",
+            fontSize: 13.5,
+            color: "var(--color-text-muted)",
+            lineHeight: 1.55,
+            maxWidth: 640,
+            margin: "-16px auto 32px",
+          }}
+        >
+          {t.scopeNote}
+        </p>
+      )}
+
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
           one-line public-data link below so it cannot compete with Starter €19. */}
       <div style={{
