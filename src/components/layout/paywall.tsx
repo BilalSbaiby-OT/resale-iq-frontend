@@ -7,11 +7,11 @@ import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { getPlans, createCheckout, getMe, getTrialRecap } from "@/lib/api"
 import { trackEvent } from "@/lib/analytics"
 import { useAuthStore } from "@/lib/auth-store"
-import { floorTo10k } from "@/lib/floor-to-10k"
+import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 
 /**
- * The dataset size, fetched client-side.
+ * The dataset size, fetched client-side via the shared useTrackedLabel hook.
  *
  * Every server component gets this from listingsTrackedLabel(); this one is
  * behind "use client" and cannot await at render, so it fetches the same
@@ -19,28 +19,13 @@ import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
  * the floored last-known value. It is a headline number on the upgrade screen —
  * a stale literal here is read by exactly the people deciding whether to pay.
  */
-function useTracked(): string {
-  const [tracked, setTracked] = useState("…")
-  useEffect(() => {
-    let live = true
-    fetch("/api/public/market-snapshot")
-      .then(r => (r.ok ? r.json() : null))
-      .then(d => {
-        const n = d?.listings_tracked
-        if (live && typeof n === "number" && n > 0) setTracked(`${floorTo10k(n)}+`)
-      })
-      .catch(() => {})
-    return () => { live = false }
-  }, [])
-  return tracked
-}
 
 // Shown to any authenticated account without an active PAID plan.
 //
 // HARD_PAYWALL: unpaid item checks 402. This screen is the paid ladder.
 // TRIAL_LIMITS_SENTENCE is the same public sentence as JSON-LD / methodology.
 export function Paywall({ pro = false }: { pro?: boolean }) {
-  const tracked = useTracked()
+  const tracked = useTrackedLabel()
   const router = useRouter()
   const { logout } = useAuthStore()
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])

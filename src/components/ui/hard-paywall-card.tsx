@@ -9,26 +9,7 @@ import { resolvePriceId, TIERS } from "@/lib/pricing"
 import { trackEvent } from "@/lib/analytics"
 import { getToken } from "@/lib/utils"
 import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
-import { floorTo10k } from "@/lib/floor-to-10k"
-
-// why: paywallBody contains {{TRACKED}} sentinel — resolve client-side via the
-// same market-snapshot endpoint paywall.tsx uses. Starts from "…" so the card
-// renders immediately; the real number fills in when the fetch resolves.
-function useTrackedLabel(): string {
-  const [tracked, setTracked] = useState("…")
-  useEffect(() => {
-    let live = true
-    fetch("/api/public/market-snapshot")
-      .then(r => (r.ok ? r.json() : null))
-      .then(d => {
-        const n = d?.listings_tracked
-        if (live && typeof n === "number" && n > 0) setTracked(`${floorTo10k(n)}+`)
-      })
-      .catch(() => {})
-    return () => { live = false }
-  }, [])
-  return tracked
-}
+import { useTrackedLabel } from "@/lib/use-tracked-label"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
