@@ -39,8 +39,8 @@ test.describe("guest checkout intent", () => {
 
     // The one filled CTA belongs to the highlighted paid tier. Pressing by role
     // rather than by test id, because the thing under test is what a real
-    // visitor's click produces.
-    const buy = page.getByRole("button", { name: /Get the numbers|Let it find the deals/i }).first()
+    // visitor's click produces. H27/H28 renamed CTAs to "Start for €19"/"Start for €49".
+    const buy = page.getByRole("button", { name: /Start for €(19|49)/i }).first()
     await expect(buy).toBeVisible()
     await buy.click()
 
@@ -61,7 +61,7 @@ test.describe("guest checkout intent", () => {
   test("the visitor still lands on register — instrumenting the wall did not move it", async ({ page }) => {
     captureTrack(page)
     await page.goto("/pricing")
-    const buy = page.getByRole("button", { name: /Get the numbers|Let it find the deals/i }).first()
+    const buy = page.getByRole("button", { name: /Start for €(19|49)/i }).first()
     await buy.click()
     await expect(page).toHaveURL(/\/register\?plan=(operator|power)/)
   })
