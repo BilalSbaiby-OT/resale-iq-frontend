@@ -53,6 +53,12 @@ const ALLOW = [
   // the remaining framework-mandated boilerplate, not a business rule that
   // could silently drift the way detectLocale()/acceptLanguageLocale() did.
   "params: Promise<{ locale: string }>\n}): Promise<Metadata> {",
+  // The /data catalogue muted link appears in both verdict-content.tsx
+  // (UNKNOWN branch) and free-checker.tsx (UNKNOWN/LIMIT_REACHED branches).
+  // Extracting as a shared component requires threading locale+canonicalPath --
+  // more code than the dupe. UI micro-copy, no business logic, no drift risk.
+  // Added after CRO-UNKNOWN landed in both files 2026-09-15 (Elon).
+  "<div style={{ marginTop: 10 }}>",
 ]
 
 
