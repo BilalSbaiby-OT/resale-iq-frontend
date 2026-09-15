@@ -39,7 +39,9 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // only, and the slim fold does not print n at all.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
   // Public demand on the fold is sold_7d. Mock 530 is 562. ST stays locked.
-  await expect(hero.getByText(/Buy-below/i)).toBeVisible()
+  // Use testid-scoped selector: heroSub now also contains "buy-below" text, so
+  // the bare /Buy-below/i regex matches 2 elements. Target the answer-row label.
+  await expect(hero.locator("[data-testid='riq-answer-rows']").getByText("Buy-below", { exact: true })).toBeVisible()
   await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
   await expect(hero.getByText("562", { exact: true })).toBeVisible()
   // The label carries the window because the number is sold_7d and nothing on
