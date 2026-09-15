@@ -128,7 +128,7 @@ export const copy = {
     },
     heroHeadline: "Find profitable Vinted flips before buying them.",
     heroSub:
-      "ResaleIQ analyzes listings and tells you BUY / WATCH / SKIP, with the target buy price and expected resale. €19/mo.",
+      "One search gives you the buy-below price — and how good the evidence behind it is.",
     heroBody:
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
@@ -1009,7 +1009,7 @@ export const copy = {
     },
     heroHeadline: "Encuentra flips rentables en Vinted antes de comprarlos.",
     heroSub:
-      "ResaleIQ analiza anuncios y te dice BUY / WATCH / SKIP, con el precio máximo de compra y la reventa esperada. 19 €/mes.",
+      "Una búsqueda te da el precio máximo de compra — y qué tan sólida es la evidencia detrás.",
     heroBody:
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
