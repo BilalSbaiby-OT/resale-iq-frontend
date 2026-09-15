@@ -362,6 +362,24 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6 mt-6">
             <p>{t.empty}</p>
             <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+            {/* PRICING NUDGE. The cold /verdict screen used to end with a list
+                of model chips and nothing else — no path to the pricing page.
+                Watcher measured 8 /pricing visitors in 7 days (C40). This link
+                costs nothing: the copy is already correct ("full access"),
+                the route exists (/pricing returns 200), and the screen renders
+                for every anonymous and free visitor who has not run a check.
+                One line. One more route to the funnel. */}
+            <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 10 }}>
+              <Link
+                href="/pricing"
+                data-testid="riq-cold-pricing-cta"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold"
+                style={{ background: "rgba(52,199,89,0.10)", color: "#34C759", border: "1px solid rgba(52,199,89,0.25)" }}
+              >
+                {t.seePlans} →
+              </Link>
+              <span className="text-[12px] text-[#546380]">€19/mo · no free tier</span>
+            </div>
           </div>
         )}
       </div>

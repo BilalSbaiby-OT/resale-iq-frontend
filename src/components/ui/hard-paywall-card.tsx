@@ -81,6 +81,13 @@ export function HardPaywallCard({ locale, plans }: { locale: Locale; plans?: Pay
         <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>
           {t.paywallLogin}
         </Link>
+        {/* PRICING LINK. The paywall card's only navigation options were
+            "start checkout" (Stripe) and "already have account?" (login).
+            No link to /pricing meant a visitor who wants to compare tiers
+            before committing could not — so they left. One quiet line. */}
+        <Link href={canonicalPath(locale, "/pricing")} data-testid="riq-paywall-see-plans" style={{ color: "#8fa3c4", fontSize: 13 }}>
+          {t.seePlans}
+        </Link>
       </div>
     </div>
   )
