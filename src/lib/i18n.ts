@@ -451,6 +451,9 @@ export const copy = {
       register: {
         heading: "Create your account",
         subheading: "Weekly brand volumes on /data stay public. Item checks need a paid plan. Cancel anytime.",
+        // H7: paid visitors already decided to pay — mirror their intent rather than explain the model.
+        // paidSubheading replaces subheading when plan=operator|power.
+        paidSubheading: "Unlimited item checks, live EU resale data — no extra steps after this.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Most popular",
         planDesc: {
@@ -870,6 +873,7 @@ export const copy = {
       register: {
         heading: "Créez votre compte",
         subheading: "Les volumes hebdo par marque restent publics sur /data. Les vérifications d'articles demandent un plan payant. Résiliable à tout moment.",
+        paidSubheading: "Vérifications d'articles illimitées, données de revente EU en direct — aucune étape supplémentaire après cela.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Le plus populaire",
         planDesc: {
@@ -1252,6 +1256,7 @@ export const copy = {
       register: {
         heading: "Cree su cuenta",
         subheading: "Los volúmenes semanales por marca siguen públicos en /data. Las comprobaciones de artículos necesitan un plan de pago. Cancele cuando quiera.",
+        paidSubheading: "Comprobaciones de artículos ilimitadas, datos de reventa EU en directo — sin pasos adicionales después de esto.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Más popular",
         planDesc: {
@@ -1631,6 +1636,7 @@ export const copy = {
       register: {
         heading: "Konto erstellen",
         subheading: "Wöchentliche Markenvolumen bleiben öffentlich auf /data. Artikelprüfungen brauchen einen bezahlten Tarif. Jederzeit kündbar.",
+        paidSubheading: "Unbegrenzte Artikelprüfungen, live EU-Wiederverkaufsdaten — keine weiteren Schritte danach.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Am beliebtesten",
         planDesc: {
@@ -2012,6 +2018,7 @@ export const copy = {
       register: {
         heading: "Crea il tuo account",
         subheading: "I volumi settimanali per marca restano pubblici su /data. I controlli articolo richiedono un piano a pagamento. Annullabile in qualsiasi momento.",
+        paidSubheading: "Controlli articolo illimitati, dati di rivendita EU in diretta — nessun passaggio aggiuntivo dopo questo.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Più popolare",
         planDesc: {
@@ -2391,6 +2398,7 @@ export const copy = {
       register: {
         heading: "Crie a sua conta",
         subheading: "Os volumes semanais por marca continuam públicos em /data. As verificações de artigos precisam de um plano pago. Cancele quando quiser.",
+        paidSubheading: "Verificações de artigos ilimitadas, dados de revenda EU em direto — sem passos adicionais depois disto.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
         mostPopular: "Mais popular",
         planDesc: {

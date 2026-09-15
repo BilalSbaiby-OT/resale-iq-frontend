@@ -184,7 +184,11 @@ function RegisterContent({ locale }: { locale: Locale }) {
       </div>
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">{t.heading}</h1>
-        <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">{t.subheading}</p>
+        <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">
+          {/* H7: paid visitors already decided — mirror their intent, not the product model.
+              paidSubheading is set for all 6 locales; fallback to subheading if missing. */}
+          {!isFree && t.paidSubheading ? t.paidSubheading : t.subheading}
+        </p>
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           {/* NOT a control. The three-way plan radio that used to sit here is
               gone; `plan` still comes from ?plan= exactly as before, so every
