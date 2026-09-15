@@ -77,6 +77,12 @@ const nextConfig: NextConfig = {
       { source: "/sign-in", destination: "/login", permanent: false },
       { source: "/signup", destination: "/register", permanent: false },
       { source: "/panel", destination: "/dashboard", permanent: false },
+      // /checkout 404'd for 3+ cycles — no standalone route exists yet.
+      // Redirect to /pricing so any inbound link (blog CTAs, LLM citations,
+      // social) lands somewhere with a real purchase button rather than a 404.
+      // 307 not 308: once a real Stripe checkout route ships, we want to swap
+      // the destination without fighting cached redirects.
+      { source: "/checkout", destination: "/pricing", permanent: false },
 
       // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,
       // and Instagram allows exactly one — so a lot of people arrive by TYPING
