@@ -27,6 +27,18 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
   const headline = query?.trim()
     ? t.paywallHeadlineForItem(query.trim())
     : t.paywallHeadline
+  // H35 CRO: body message-match — when a query is known, name the item in the
+  // body so both headline AND body mirror intent at the conversion moment.
+  // Falls back to generic when query is absent (e.g. dashboard paywall).
+  // paywallBodyForItem receives tracked AFTER {{TRACKED}} replacement so the
+  // body stays consistent with the generic variant's substitution pattern.
+  const bodyText = (() => {
+    const resolved = tracked
+    if (query?.trim() && t.paywallBodyForItem) {
+      return t.paywallBodyForItem(query.trim(), resolved)
+    }
+    return t.paywallBody.replace("{{TRACKED}}", resolved)
+  })()
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
   const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -68,7 +80,7 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
         <Lock size={15} style={{ color: "#34C759" }} aria-hidden />
         <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{headline}</span>
       </div>
-      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{t.paywallBody.replace("{{TRACKED}}", tracked)}</p>
+      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{bodyText}</p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <button
           type="button"
