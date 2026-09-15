@@ -283,7 +283,10 @@ export const copy = {
       brandAverageLabel: "BRAND AVERAGE",
       headlineOnly: "Headline call only — market price and buy-below need an account.",
       unlockLine: "Unlock sell-through, demand, sizes and history with a plan.",
-      unlockRest: "Unlock the rest →",
+      unlockRest: "or create a free account",
+      // H38 CRO: primary paid CTA on the tools result-card. Replaced "Unlock the rest →"
+      // (free account path) as the green button label — Revenue 2026-09-16.
+      unlockRestPaid: "Get full numbers — Starter €19/mo →",
       seeFullNumbers: "See full numbers →",
     },
     pricingSection: {
@@ -756,7 +759,8 @@ export const copy = {
       brandAverageLabel: "MOYENNE DE LA MARQUE",
       headlineOnly: "Verdict seul — le prix de marché et le prix d'achat max nécessitent un compte.",
       unlockLine: "Débloquez le taux d'écoulement, la demande, les tailles et l'historique avec un abonnement.",
-      unlockRest: "Débloquer le reste →",
+      unlockRest: "ou créer un compte gratuit",
+      unlockRestPaid: "Voir tous les chiffres — Starter 19 €/mois →",
       seeFullNumbers: "Voir tous les chiffres →",
     },
     pricingSection: {
@@ -1146,7 +1150,8 @@ export const copy = {
       brandAverageLabel: "MEDIA DE LA MARCA",
       headlineOnly: "Solo el veredicto — el precio de mercado y el precio máximo de compra necesitan una cuenta.",
       unlockLine: "Desbloquea la tasa de venta, la demanda, las tallas y el historial con un plan.",
-      unlockRest: "Desbloquear el resto →",
+      unlockRest: "o crear una cuenta gratis",
+      unlockRestPaid: "Ver todos los números — Starter 19 €/mes →",
       seeFullNumbers: "Ver todos los números →",
     },
     pricingSection: {
@@ -1537,7 +1542,8 @@ export const copy = {
       brandAverageLabel: "MARKENDURCHSCHNITT",
       headlineOnly: "Nur die Kurzentscheidung — Marktpreis und Kaufobergrenze brauchen ein Konto.",
       unlockLine: "Schalte Verkaufsrate, Nachfrage, Größen und Verlauf mit einem Tarif frei.",
-      unlockRest: "Rest freischalten →",
+      unlockRest: "oder kostenloses Konto erstellen",
+      unlockRestPaid: "Alle Zahlen — Starter 19 €/Monat →",
       seeFullNumbers: "Alle Zahlen ansehen →",
     },
     pricingSection: {
@@ -1928,7 +1934,8 @@ export const copy = {
       brandAverageLabel: "MEDIA DEL MARCHIO",
       headlineOnly: "Solo il verdetto — prezzo di mercato e prezzo massimo di acquisto richiedono un account.",
       unlockLine: "Sblocca tasso di vendita, domanda, taglie e storico con un piano.",
-      unlockRest: "Sblocca il resto →",
+      unlockRest: "o crea un account gratuito",
+      unlockRestPaid: "Tutti i numeri — Starter 19 €/mese →",
       seeFullNumbers: "Vedi tutti i numeri →",
     },
     pricingSection: {
@@ -2317,7 +2324,8 @@ export const copy = {
       brandAverageLabel: "MÉDIA DA MARCA",
       headlineOnly: "Apenas o veredito — preço de mercado e preço máximo de compra precisam de uma conta.",
       unlockLine: "Desbloqueia taxa de venda, procura, tamanhos e histórico com um plano.",
-      unlockRest: "Desbloquear o resto →",
+      unlockRest: "ou criar uma conta grátis",
+      unlockRestPaid: "Todos os números — Starter 19 €/mês →",
       seeFullNumbers: "Ver todos os números →",
     },
     pricingSection: {

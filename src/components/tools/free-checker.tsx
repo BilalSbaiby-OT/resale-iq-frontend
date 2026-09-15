@@ -8,7 +8,7 @@ import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
-import { PRICE_CHECKER_MONEY_HREF } from "@/lib/money-cta"
+import { PRICE_CHECKER_MONEY_HREF, TOOLS_STARTER_HREF } from "@/lib/money-cta"
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
@@ -809,20 +809,21 @@ export function FreeChecker({
               {t.unlockLine}
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-              <SmartCTA anonLabel={t.unlockRest} anonHref="/register?plan=free" authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
-              {/* H22: secondary plan-aware paid path. The primary unlock bar above
-                  routes anon visitors to the free account. A visitor who already
-                  knows the price — e.g. arriving from the H21 cold-CTA ladder on
-                  /pricing — has no direct path to pay without this. One quiet line,
-                  identical placement convention as the LIMIT_REACHED branch's
-                  secondary "See plans" link (line ~462). Never on the hero
-                  fold (E-13 + single-accent rule). */}
+              {/* H38 CRO: primary → paid (Starter checkout), secondary → free account.
+                  Pre-H38 the green button routed to /register?plan=free (no Stripe),
+                  making every post-result click escape from the revenue funnel.
+                  A visitor who just saw their buy_below is the highest-intent moment —
+                  send them toward Starter first, free account is the fallback.
+                  SmartCTA still shortcuts authed users to /verdict.
+                  CRO Principle #10 (CTA commitment-match) + #12 (earned-urgency).
+                  Revenue 2026-09-16. */}
+              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={TOOLS_STARTER_HREF} authedLabel={t.seeFullNumbers} authedHref="/verdict" style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
               <Link
-                href={PRICE_CHECKER_MONEY_HREF}
+                href={`/register?plan=free`}
                 data-testid="riq-starter-cta-bar"
                 style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none" }}
               >
-                Starter €19/mo →
+                {t.unlockRest}
               </Link>
             </div>
           </div>

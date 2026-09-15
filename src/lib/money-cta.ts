@@ -36,3 +36,13 @@ export const TOOLS_FAQ_CTA_HREF =
 
 export const TOOLS_INDEX_SECONDARY_HREF = "/pricing?src=tools_index"
 export const CATEGORY_INDEX_SECONDARY_HREF = "/pricing?src=category_index"
+
+// H38 CRO: direct /register?plan=operator link for the tools result-card
+// primary CTA (after a visitor sees their buy_below, send them to Starter
+// checkout, not a free account). Keyed per placement so analytics can
+// distinguish tools-result clicks from other paid CTAs.
+export function starterDirectHref(content: string): string {
+  return `/register?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=${content}`
+}
+
+export const TOOLS_STARTER_HREF = starterDirectHref("tools_result")
