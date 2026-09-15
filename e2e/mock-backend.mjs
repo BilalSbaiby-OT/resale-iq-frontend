@@ -204,6 +204,25 @@ const VERDICT_CATALOG = {
     message: "Nike: Sneakers — around €112.14 (206 watched leaving the shelf recently).",
     reason: "unknown",
   },
+  // H23 fix: clicking the "Nike Sneakers" brand-category chip fires this query.
+  // Shape mirrors "new balance 530" (WATCH/HIGH/non-provisional with buy_below).
+  // category_aggregates from the parent Nike BRAND_CATEGORIES row confirm the
+  // aggregate price context so the card can render "206 watched departures".
+  "nike sneakers": {
+    verdict: "WATCH",
+    product: "Nike Sneakers",
+    brand: "Nike",
+    category: "Sneakers",
+    confidence: "HIGH",
+    confidence_note: null,
+    n: 206,
+    sold_7d: 206,
+    active_listings: 4200,
+    buy_below: 58.0,
+    sell_avg: 99.0,
+    sell_median: 95.0,
+    provisional: null,
+  },
   "thin sample sneaker": {
     verdict: "INSUFFICIENT_DATA",
     product: "Thin Sample Sneaker",

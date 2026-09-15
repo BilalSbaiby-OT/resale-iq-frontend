@@ -256,16 +256,23 @@ test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", 
       await search(page, q)
       await expect(page.getByText("NO DATA")).toHaveCount(0)
       await expect(page.getByText(/create a free account/i)).toHaveCount(0)
-      // Rescue chips lead with New Balance 530 (live WATCH). Old assertion
-      // wanted Air Force 1 + Samba, both SKIP live — a second dead end.
-      await expect(page.getByRole("button", { name: "New Balance 530" })).toBeVisible()
+      // H23: brand-only queries now render same-brand category chips
+      // ("Nike Sneakers", "Nike Jackets") via testId=riq-brand-category-chips.
+      // Old assertion expected WORKING_MODELS ("New Balance 530") — no longer
+      // shown for BRAND_CATEGORIES verdicts after H23.
+      await expect(page.getByTestId("riq-brand-category-chips")).toBeVisible()
     })
   }
 
-  test("Nike → New Balance 530 chip is a live item-level call with buy-below", async ({ page }) => {
+  test("Nike → brand-category chip is a live item-level call with buy-below", async ({ page }) => {
     await search(page, "Nike")
-    const next = page.waitForResponse((r) => r.url().includes("/api/verdict") && r.url().includes("Balance"))
-    await page.getByRole("button", { name: "New Balance 530" }).click()
+    // H23: clicking "Nike Sneakers" chip (first brand-category chip) fires a
+    // verdict call — mock-backend "nike sneakers" returns WATCH with buy_below.
+    // Use explicit button name so ordering changes don't break the test.
+    const chips = page.getByTestId("riq-brand-category-chips")
+    const nikeSnkBtn = chips.getByRole("button", { name: "Nike Sneakers" })
+    const next = page.waitForResponse((r) => r.url().includes("/api/verdict") && r.url().includes("Nike%20Sneakers"))
+    await nikeSnkBtn.click()
     const body = await (await next).json()
     expect(["BUY", "WATCH", "SKIP"]).toContain(body.verdict)
     expect(body.buy_below).toEqual(expect.any(Number))
