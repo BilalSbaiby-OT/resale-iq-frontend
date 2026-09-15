@@ -218,14 +218,23 @@ function RegisterContent({ locale }: { locale: Locale }) {
               amount, same source as before, so "€49 shown / €79 charged"
               stays impossible. */}
           {!isFree && (
-            <div className="flex items-center justify-between border border-[var(--color-border-2)] rounded-xl p-3.5">
-              <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
-              <span className="text-right">
-                <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
-                  {prices[plan] != null ? `€${prices[plan]}` : "…"}
+            <div>
+              <div className="flex items-center justify-between border border-[var(--color-border-2)] rounded-xl p-3.5">
+                <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
+                <span className="text-right">
+                  <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
+                    {prices[plan] != null ? `€${prices[plan]}` : "…"}
+                  </span>
+                  <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
                 </span>
-                <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
-              </span>
+              </div>
+              {/* H10: trust note beside price row — resolves the "will I be charged now?" objection
+                  at exactly the moment it forms (Principle #4/#7). Moved UP from below-button. */}
+              {t.paidTrustNote && (
+                <p className="text-[10.5px] text-[var(--color-text-muted)] text-center mt-1.5">
+                  🔒 {t.paidTrustNote}
+                </p>
+              )}
             </div>
           )}
 
