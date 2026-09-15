@@ -128,7 +128,7 @@ export const copy = {
     },
     heroHeadline: "Find profitable Vinted flips before buying them.",
     heroSub:
-      "One search gives you the buy-below price — and how good the evidence behind it is.",
+      "One search gives you the buy-below price — BUY / WATCH / SKIP verdict, evidence confidence, and exit data. Starter €19/mo.",
     heroBody:
       "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
     heroFrom: (tracked: string) =>
@@ -1009,7 +1009,7 @@ export const copy = {
     },
     heroHeadline: "Encuentra flips rentables en Vinted antes de comprarlos.",
     heroSub:
-      "Una búsqueda te da el precio máximo de compra — y qué tan sólida es la evidencia detrás.",
+      "Una búsqueda te da el precio máximo de compra — veredicto BUY / WATCH / SKIP, confianza de la evidencia y datos de salida. Starter 19 €/mes.",
     heroBody:
       "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace.",
     heroFrom: (tracked: string) =>
