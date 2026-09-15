@@ -536,7 +536,25 @@ export function FreeChecker({
                   ))}
                 </div>
               )}
-              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} />
+              {/* H23: same-brand category chips (CRO #10/#12).
+                  The grid above already shows prices per category — these chips
+                  make each row clickable without requiring the user to retype
+                  "Carhartt Jackets". Constructed from res.categories + res.brand
+                  at render time, so they stay on-brand regardless of which brand
+                  triggered BRAND_CATEGORIES. Falls back to WORKING_MODELS only
+                  when the backend sends no categories (shouldn't happen in prod
+                  but defends the invariant). */}
+              {res.categories && res.categories.length > 0 && res.brand ? (
+                <ModelChips
+                  onPick={ex => run(ex)}
+                  disabled={loading}
+                  label={t.tryTheseInstead}
+                  examples={(res.categories as string[]).map(cat => `${res.brand} ${cat}`)}
+                  testId="riq-brand-category-chips"
+                />
+              ) : (
+                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} />
+              )}
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
             // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
