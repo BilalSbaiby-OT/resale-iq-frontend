@@ -271,7 +271,17 @@ function RegisterContent({ locale }: { locale: Locale }) {
           )}
           <button type="submit" disabled={loading}
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
-            {loading ? t.submitting : <>{t.submit} <Check size={15} /></>}
+            {loading ? t.submitting : (
+              <>
+                {/* H9: paid arrivals get a commit-confirming label; free keeps "Create account".
+                    {plan} resolved here — same pattern as paidHeading. Fallback to t.submit
+                    if paidSubmit absent (safe default, shouldn't occur). */}
+                {!isFree && t.paidSubmit
+                  ? t.paidSubmit.replace("{plan}", t.planNames[plan])
+                  : t.submit}
+                {" "}<Check size={15} />
+              </>
+            )}
           </button>
 
           {/* Consent by submission, replacing the tick that used to sit above
