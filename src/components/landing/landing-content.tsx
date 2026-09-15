@@ -52,7 +52,6 @@ export function LandingContent({
    */
   llmSrc?: "perplexity" | "chatgpt" | "llm" | null
 }) {
-  void tracked
   void trackedExact
   void heroQuery
   return (
@@ -129,9 +128,20 @@ export function LandingContent({
               >
                 {t.heroHeadline}
               </h1>
-              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 0 var(--space-5)", lineHeight: 1.5, maxWidth: "48ch" }}>
+              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 0 var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}>
                 {t.heroSub}
               </p>
+              {/* H15 — data-specificity anchor. CRO principle #4 (objection: "how do
+                  you know?") + principle #8 (specific number, not vague claim). Placed
+                  between heroSub and the FreeChecker so the proof lands before the ask.
+                  tracked is the SSR-fetched floor-rounded count from listingsTrackedLabel().
+                  Falls back silently (conditional render) if the warehouse returns "—".
+                  Revenue 2026-09-15 H15. */}
+              {tracked && tracked !== "—" && (
+                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-muted)", margin: "0 0 var(--space-5)", lineHeight: 1.5 }}>
+                  {t.heroFrom(tracked)}
+                </p>
+              )}
               <div id="check">
                 <FreeChecker
                   locale={locale}
