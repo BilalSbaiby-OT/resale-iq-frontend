@@ -302,7 +302,22 @@ export function PricingSection({
           </div>
         ))}
       </div>
-      <p style={{ textAlign: "center", marginTop: 20, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>
+      {/* H21 CRO: CTA commitment ladder for cold traffic — standalone /pricing only.
+          Undecided visitors who aren't yet solution-aware get a low-commitment escape
+          hatch to try the free checker first, rather than bouncing.
+          CRO Principle #10 (CTA commitment ladder). Revenue 2026-09-15. */}
+      {!compact && (
+        <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
+          <Link
+            href={canonicalPath(locale, "/tools/vinted-price-checker")}
+            data-testid="riq-cold-cta-ladder"
+            style={{ color: "var(--color-text-secondary)", fontWeight: 500, textDecoration: "none" }}
+          >
+            {t.coldCtaLadder}
+          </Link>
+        </p>
+      )}
+      <p style={{ textAlign: "center", marginTop: compact ? 20 : 8, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>
         <Link
           href={canonicalPath(locale, "/data")}
           data-testid="riq-public-data-line"
