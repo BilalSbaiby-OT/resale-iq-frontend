@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
 import { definedTermJsonLd } from "@/lib/faq-schema"
-import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, legacySignupKillHrefForPost } from "@/lib/blog-mid-cta"
+import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, footerAnonHrefForPost, footerAnonLabelForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
@@ -255,7 +255,8 @@ export default async function BlogPostPage(
           {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
               authed /es/blog/... or /fr/blog/... reader clicking "Get the numbers" lands
               on /es/dashboard etc., not hardcoded English /dashboard (W61 consistency). */}
-          <SmartCTA anonLabel="Get the numbers" anonHref={legacySignupKillHrefForPost(p.sections)} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          {/* H42 CRO: for posts with preflightQuery, anon path → /tools (try-first); posts without → /pricing (unchanged). */}
+          <SmartCTA anonLabel={footerAnonLabelForPost(p.preflightQuery)} anonHref={footerAnonHrefForPost(p.sections, p.preflightQuery)} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               {footerSeePlansLabelForPost(p.sections)}

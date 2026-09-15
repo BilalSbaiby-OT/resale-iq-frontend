@@ -119,3 +119,29 @@ export function pricingBodyCtaEs(campaign: string): SectionCtaContent {
     href: pricingBodyCtaHrefEs(campaign),
   }
 }
+
+/**
+ * H42 CRO: Lower the CTA commitment step for posts with a preflightQuery.
+ *
+ * Cold anon readers on a /blog/[slug] post should have a try-first door before
+ * seeing a pay-now door. For posts whose footer block already auto-runs a free
+ * check (preflightQuery present), routing the secondary SmartCTA anon path to
+ * /tools keeps the reader in a lower-commitment funnel step. The explicit
+ * pricing door is preserved as the text link below the CTA.
+ *
+ * Posts without preflightQuery are unchanged — they fall back to the paid path.
+ */
+export function footerAnonHrefForPost(
+  sections: ReadonlyArray<{ cta?: { href: string } }>,
+  preflightQuery: string | undefined,
+): string {
+  if (preflightQuery) {
+    return `/tools?q=${encodeURIComponent(preflightQuery)}&src=blog-footer-cta`
+  }
+  return legacySignupKillHrefForPost(sections)
+}
+
+/** Label paired with footerAnonHrefForPost. */
+export function footerAnonLabelForPost(preflightQuery: string | undefined): string {
+  return preflightQuery ? "Try it free →" : "Get the numbers"
+}

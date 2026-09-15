@@ -116,8 +116,9 @@ test("blog article template no longer points the paid footer at the signup wall"
   )
   assert.doesNotMatch(page, /\/register\?src=blog/)
   assert.doesNotMatch(page, /\/register\?plan=/)
-  assert.match(page, /legacySignupKillHrefForPost/)
-  assert.match(page, /Get the numbers/)
+  // H42: legacy function replaced by footerAnonHrefForPost (CTA commitment ladder)
+  assert.match(page, /footerAnonHrefForPost/)
+  assert.match(page, /footerAnonLabelForPost/)
 })
 
 test("blog index paid CTA no longer defaults SmartCTA to the signup wall", () => {
