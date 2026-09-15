@@ -169,13 +169,22 @@ export default async function ChapterPage(
             them, despite a stale crawler snapshot marking a few as having one).
             Same proven pattern as /blog and /flip: primary CTA to the free
             tool stays unchanged, this adds a lower-emphasis second door with
-            a distinct ?src=manual so arrivals are attributable. */}
+            a distinct ?src=manual so arrivals are attributable.
+
+            H34: when the chapter has a checkQuery, link directly to
+            /tools?q=…&src=manual-check for zero-typing holy-shit moment —
+            same mechanism as blog preflightQuery (H32/H33). Chapters without
+            checkQuery fall back to /register (pure-method chapters like tax). */}
         <div style={{ padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center", marginBottom: 26 }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Put this chapter to work.</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns a Vinted listing into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          <SmartCTA anonLabel="Try Resale IQ →" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA
+            anonLabel={c.checkQuery ? `Try a live check — ${c.checkQuery} →` : "Try Resale IQ →"}
+            anonHref={c.checkQuery ? `/tools?q=${encodeURIComponent(c.checkQuery)}&src=manual-check` : "/register"}
+            style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
+          />
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=manual" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo

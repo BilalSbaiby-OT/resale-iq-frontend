@@ -55,6 +55,14 @@ export interface ManualChapter {
   // instead of the static build date — otherwise a genuinely-changed page tells
   // crawlers it hasn't (the EXP-20 stale-lastmod trap, manual half).
   updated?: string
+  /**
+   * H34: CTA message-match. When set, the chapter's bottom CTA pre-fills the
+   * checker with this query — same pattern as blog preflightQuery (H32/H33).
+   * Visitors who just read about margin on a Fred Perry article can run a live
+   * Fred Perry check with zero typing. Omit on chapters that teach pure method
+   * with no obvious single-item anchor (e.g. cashflow chapter).
+   */
+  checkQuery?: string
 }
 
 export const PARTS = [
@@ -70,6 +78,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     number: 1,
     part: "The economics",
     updated: "2026-09-13",
+    checkQuery: "Fred Perry Shirt",
     title: "What actually makes money in reselling",
     description:
       "The full margin equation for Vinted resale — buy price, platform fee, shipping, returns and time — and why most resellers only track the first two.",
@@ -140,6 +149,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "the-buy-below-price",
     number: 2,
     part: "The economics",
+    checkQuery: "New Balance 530",
     updated: "2026-09-13",
     title: "How to work out the most you can pay",
     seoTitle: "What Is a Buy-Below Price on Vinted? — The Vinted Reselling Manual",
@@ -211,6 +221,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "sell-through-vs-volume",
     number: 3,
     part: "The economics",
+    checkQuery: "Stone Island Hoodie",
     updated: "2026-09-13",
     title: "Sell-through rate versus volume: reading demand properly",
     description:
@@ -274,6 +285,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "the-cost-of-time",
     number: 4,
     part: "The economics",
+    checkQuery: "Patagonia Fleece",
     updated: "2026-09-13",
     title: "The cost of time: why fast stock beats fat margins",
     description:
@@ -337,6 +349,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "where-to-source",
     number: 5,
     part: "Sourcing",
+    checkQuery: "Nike Air Force 1",
     updated: "2026-09-13",
     title: "Where stock actually comes from",
     seoTitle: "Where to Source Stock for Vinted Reselling — The Vinted Reselling Manual",
@@ -408,6 +421,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "reading-a-listing",
     number: 6,
     part: "Sourcing",
+    checkQuery: "Adidas Samba",
     updated: "2026-09-13",
     title: "Reading a listing: spotting mispriced stock",
     description:
@@ -478,6 +492,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "sizes-and-dead-stock",
     number: 7,
     part: "Sourcing",
+    checkQuery: "Levi's 501",
     updated: "2026-09-13",
     title: "Sizes: the quiet way portfolios die",
     seoTitle: "Why Edge Sizes Kill Vinted Resale Profit — The Vinted Reselling Manual",
@@ -542,6 +557,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "condition-and-authenticity",
     number: 8,
     part: "Sourcing",
+    checkQuery: "Supreme Box Logo Tee",
     updated: "2026-09-13",
     title: "How to Spot Fake Items on Vinted — Fast Checks That Matter",
     description:

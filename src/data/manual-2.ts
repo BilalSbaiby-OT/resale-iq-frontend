@@ -9,6 +9,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "pricing-your-listing",
     number: 9,
     part: "Selling",
+    checkQuery: "Ralph Lauren Polo",
     updated: "2026-09-12",
     title: "Pricing a listing, and when to cut",
     seoTitle: "How to Price a Vinted Listing (and When to Cut) — The Vinted Reselling Manual",
@@ -74,6 +75,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "photos-and-titles",
     number: 10,
     part: "Selling",
+    checkQuery: "Balenciaga Track",
     updated: "2026-09-12",
     title: "Photos and titles: the conversion layer",
     seoTitle: "How to Write Vinted Titles and Photos That Sell — The Vinted Reselling Manual",
@@ -146,6 +148,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "vinted-mechanics",
     number: 11,
     part: "Selling",
+    checkQuery: "The North Face Jacket",
     updated: "2026-09-13",
     title: "Vinted mechanics you can actually control",
     seoTitle: "Vinted Bumps, Offers and Visibility That Work — The Vinted Reselling Manual",
@@ -212,6 +215,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     slug: "cross-border-markets",
     number: 12,
     part: "Selling",
+    checkQuery: "Gucci Bag",
     updated: "2026-09-13",
     title: "The five EU markets are mostly one market",
     description:
@@ -285,6 +289,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     number: 13,
     part: "Running it as a business",
     updated: "2026-09-13",
+    checkQuery: "Carhartt WIP Jacket",
     title: "Inventory and cashflow",
     seoTitle: "Why Profitable Resellers Still Run Out of Cash — The Vinted Reselling Manual",
     description:
@@ -349,6 +354,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     number: 14,
     part: "Running it as a business",
     updated: "2026-09-13",
+    checkQuery: "Nike Dunk",
     title: "The five numbers to track weekly",
     description:
       "A minimal measurement routine — sell-through, days to sell, realised margin, cash conversion and unlisted backlog — and what each one tells you to change.",
@@ -418,6 +424,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     number: 15,
     part: "Running it as a business",
     updated: "2026-09-12",
+    checkQuery: "Stone Island Jacket",
     title: "Scaling past the hobby",
     seoTitle: "How to Scale Vinted Reselling Past 20 Listings — The Vinted Reselling Manual",
     description:
