@@ -117,11 +117,14 @@ test.describe("the public result face on /", () => {
       const card = await check(page, "Adidas Samba")
 
       await expect(card).toContainText("Tasa de venta")
-      await expect(card).toContainText("con una cuenta gratuita")
+      // H58 CRO: gatedFreeAccount changed from "con una cuenta gratuita" (€0 path)
+      // to "en Starter" — HARD_PAYWALL=1 means no free account exists.
+      await expect(card).toContainText("en Starter")
       // A new string that ships English into five markets goes red here rather
       // than onto the homepage — the gap e2e/i18n-checker.spec.ts was written
       // for, applied to the strings this pass added.
       await expect(card).not.toContainText(/with a free account/i)
+      await expect(card).not.toContainText(/con una cuenta gratuita/i)
       await expect(card).not.toContainText("Sell-through")
       await expect(card.locator("a, button")).toHaveCount(0)
     })
