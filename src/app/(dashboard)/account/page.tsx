@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/analytics"
 import { useAuthStore } from "@/lib/auth-store"
 import type { User } from "@/types"
 import Link from "next/link"
-import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell } from "lucide-react"
+import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell, Rocket } from "lucide-react"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip, planEntitlement } from "@/lib/entitlement"
@@ -30,6 +30,15 @@ export default function AccountPage() {
   const [checkoutCancelled] = useState(
     () => typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("checkout") === "cancelled")
+  // H45 CRO: activation welcome banner — guest-checkout users (and any user
+  // landing here with ?welcome=1) have paid but never run a check. The account
+  // page has zero activation copy today. A single "run your first check" CTA
+  // turns a settings page into a value-delivery moment.
+  // Mirrors the same initializer-not-effect pattern as checkoutCancelled above.
+  // Revenue 2026-09-16.
+  const [showWelcome] = useState(
+    () => typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("welcome") === "1")
   const { logout } = useAuthStore()
   const locale = useLocale()
   const nav = navCopy[locale]
@@ -147,6 +156,24 @@ export default function AccountPage() {
   return (
     <AppShell title="Account" subtitle="Plan, billing, password, and data">
       <div className="max-w-2xl flex flex-col gap-4">
+        {showWelcome && (
+          <div data-testid="riq-welcome-banner" className="flex items-start gap-3 bg-[#0d1e14] border border-[#1a4028] rounded-xl px-4 py-4">
+            <Rocket size={18} className="text-[#34C759] shrink-0 mt-0.5" />
+            <div>
+              <div className="font-bold text-[14px] text-[#eef1f7] mb-1">You&rsquo;re in — run your first check now</div>
+              <div className="text-[12.5px] text-[#8fa3c4] leading-relaxed mb-3">
+                Your Starter plan is active. Search any item — you&rsquo;ll get the buy-below price and a BUY/WATCH/SKIP verdict from live Vinted data.
+              </div>
+              <Link
+                href="/tools"
+                data-testid="riq-welcome-first-check"
+                className="inline-block bg-[#34C759] text-[#06090c] font-bold text-[13px] px-4 py-2 rounded-lg no-underline"
+              >
+                Run your first check →
+              </Link>
+            </div>
+          </div>
+        )}
         {checkoutCancelled && (
           <div className="flex items-center gap-3 bg-[#1a2030] border border-[#263147] rounded-xl px-4 py-3 text-[12.5px] text-[#8fa3c4]">
             <CreditCard size={15} className="text-[#8fa3c4] shrink-0" />
