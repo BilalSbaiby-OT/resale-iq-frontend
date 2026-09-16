@@ -315,22 +315,36 @@ async function exhaustQuotaAndReachLimit(page: import("@playwright/test").Page, 
   expect(body.verdict).toBe("LIMIT_REACHED")
 }
 
-test("an exhausted Spanish visitor's 'Ver planes' link stays on /es, not the English homepage", async ({ page }) => {
+test("an exhausted Spanish visitor's free-account link stays on /es — H47 LIMIT_REACHED upgrade", async ({ page }) => {
   await exhaustQuotaAndReachLimit(page, "/es")
-  const comparePlans = page.getByRole("link", { name: "Ver planes" })
-  await expect(comparePlans).toHaveAttribute("href", "/es#pricing")
+  // H47 replaced the old "Ver planes → /#pricing" secondary link with a GuestCheckoutButton
+  // (primary paid CTA) + a locale-aware "create free account" link (secondary).
+  // The locale regression we guard: the free-account link must point to /es/register,
+  // not the English /register, so a Spanish visitor stays in their locale path.
+  const upgrade = page.getByTestId("riq-limit-reached-upgrade")
+  await expect(upgrade).toBeVisible()
+  const freeAccountLink = page.getByRole("link", { name: /cuenta gratis/i })
+  await expect(freeAccountLink).toHaveAttribute("href", /^\/es\/register/)
 })
 
-test("an exhausted French visitor's 'Voir les tarifs' link stays on /fr, not the English homepage", async ({ page }) => {
+test("an exhausted French visitor's free-account link stays on /fr — H47 LIMIT_REACHED upgrade", async ({ page }) => {
   await exhaustQuotaAndReachLimit(page, "/fr")
-  const comparePlans = page.getByRole("link", { name: "Voir les tarifs" })
-  await expect(comparePlans).toHaveAttribute("href", "/fr#pricing")
+  // Same locale regression guard as the Spanish test above.
+  const upgrade = page.getByTestId("riq-limit-reached-upgrade")
+  await expect(upgrade).toBeVisible()
+  const freeAccountLink = page.getByRole("link", { name: /compte gratuit/i })
+  await expect(freeAccountLink).toHaveAttribute("href", /^\/fr\/register/)
 })
 
-test("an exhausted English visitor's 'See plans' link is still the bare anchor -- no regression", async ({ page }) => {
+test("an exhausted English visitor sees the H47 LIMIT_REACHED upgrade card with paid CTA", async ({ page }) => {
   await exhaustQuotaAndReachLimit(page, "/")
-  const comparePlans = page.getByRole("link", { name: "See plans" })
-  await expect(comparePlans).toHaveAttribute("href", "/#pricing")
+  // H47 removed the old bare "See plans → /#pricing" anchor and replaced with
+  // GuestCheckoutButton (green paid CTA) + "Create a free account →" link.
+  // Guard: upgrade card renders and the free account link goes to /register (no locale prefix).
+  const upgrade = page.getByTestId("riq-limit-reached-upgrade")
+  await expect(upgrade).toBeVisible()
+  const freeAccountLink = page.getByRole("link", { name: /free account/i })
+  await expect(freeAccountLink).toHaveAttribute("href", /^\/register/)
 })
 
 // Funnel events were keyed on the raw pathname, so every locale-prefixed visit
