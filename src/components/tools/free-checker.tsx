@@ -12,6 +12,7 @@ import { PRICE_CHECKER_MONEY_HREF, INTERNAL_CTA_CAMPAIGN } from "@/lib/money-cta
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import {
   CHECK_VINTED_ITEM_DESCRIPTION,
   CHECK_VINTED_ITEM_NAME,
@@ -168,6 +169,49 @@ const TRY_EXAMPLES = ["New Balance 530", "Levi's 501", "New Balance 550"]
 // the screen is not a dead end. designer, 2026-09-01 (defect 3: the row
 // existed only on the UNKNOWN branch; INSUFFICIENT_DATA — the state 37 of
 // 100 board models land on — had none).
+
+// H47 CRO: LIMIT_REACHED upgrade component — paid CTA primary, free account secondary.
+// A visitor who ran 10 checks in one session is the warmest possible lead;
+// the old branch sent them to "Create a free account" (€0) instead of Starter (€19).
+// This fixes the CTA hierarchy: paid button first, free account as a secondary link.
+// Pattern matches HardPaywallCard: guest checkout goes straight to Stripe.
+// CRO #8 (behavioral trigger: hit the limit = proof of intent) + #12 (earned urgency).
+// Revenue 2026-09-16.
+function LimitReachedUpgrade({
+  locale,
+  used,
+  limit,
+}: {
+  locale: Locale
+  used?: number | null
+  limit?: number | null
+}) {
+  const t = copy[locale].checker
+
+  return (
+    <div data-testid="riq-limit-reached-upgrade">
+      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
+        {t.limitReachedUpgradeBody}
+      </p>
+      {used != null && limit != null && (
+        <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: -10, marginBottom: 14 }}>
+          {t.usedOfLimit(used, limit)}
+        </p>
+      )}
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
+        <GuestCheckoutButton locale={locale} label={t.limitReachedUpgradeCta} src="limit_reached" />
+        {/* W61 note applies here too: canonicalPath keeps locale-prefixed visitors on
+            the right locale root for the pricing section. */}
+        <Link
+          href={`${canonicalPath(locale, "/register")}?plan=free`}
+          style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "none" }}
+        >
+          {t.createFreeAccount}
+        </Link>
+      </div>
+    </div>
+  )
+}
 
 // Placeholder examples must be brands/models the catalogue actually prices —
 // 26 brands, sneaker/streetwear-coded (Nike, Adidas, Jordan, New Balance).
@@ -420,51 +464,7 @@ export function FreeChecker({
           {res.verdict === "PAYWALL" ? (
             <HardPaywallCard locale={locale} plans={res.plans} query={q} />
           ) : res.verdict === "LIMIT_REACHED" ? (
-            <div>
-              {/* res.message is backend-owned English prose (api/routes.py) with
-                  no locale awareness — always show the translated fallback
-                  instead of trusting it, never as an ?? default. A French/ES/
-                  DE/IT/PT visitor hitting their daily limit is the single most
-                  common way to reach this branch, and res.message previously
-                  overrode the fallback whenever the backend sent one, which is
-                  always. */}
-              <p style={{ fontSize: 13.5, color: "#8b99b8" }}>
-                {t.limitReachedFallback}
-              </p>
-              {res.used_today != null && res.limit != null && (
-                <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 4 }}>
-                  {t.usedOfLimit(res.used_today, res.limit)}
-                </p>
-              )}
-              {/* Free account before paid tier, per docs/product/SUPPORT-VOICE.md
-                  §3: an anon visitor has no account yet, so the smaller ask
-                  (register — free, keeps the same 10/day and adds 10 full
-                  unlocks/month, no card) comes before the sale. NOT res.upgrade_url: the API
-                  sends "/stripe/plans", the JSON GET getPlans() calls
-                  (src/lib/api.ts:212) via next.config.ts's /stripe/:path*
-                  rewrite — not a page. Linking it directly would navigate to
-                  raw JSON. /register and the homepage's #pricing section are
-                  real pages that exist today. */}
-              <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginTop: 12 }}>
-                <Link
-                  href={`${canonicalPath(locale, "/register")}?plan=free`}
-                  style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none" }}
-                >
-                  {t.createFreeAccount}
-                </Link>
-                {/* W61: was the absolute path "/#pricing" -- on a translated
-                    route (FreeChecker is mounted on both "/" and "/<locale>",
-                    see landing-content.tsx) that sent a Spanish/French/German/
-                    Italian/Portuguese visitor who had just hit their daily
-                    limit back to the ENGLISH homepage's pricing section, mid
-                    funnel, with no warning. canonicalPath keeps them on their
-                    own locale root; the section itself is already translated
-                    (pricing-section.tsx reads copy[locale]). */}
-                <Link href={`${canonicalPath(locale)}#pricing`} style={{ color: "#8fa3c4", fontSize: 13 }}>
-                  {t.seePlans}
-                </Link>
-              </div>
-            </div>
+            <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
           ) : res.verdict === "UNKNOWN" ? (
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
