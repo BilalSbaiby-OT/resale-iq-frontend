@@ -241,7 +241,7 @@ test("/category hub ships FAQPage + HubFaq + aligned social titles", () => {
   assert.match(src, /How do I use category rankings with buy-below\?/)
   assert.match(src, /Which Vinted markets do these category rankings cover\?/)
   assert.match(src, /What Sells Best on Vinted by Category/)
-  assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description/)
   assert.match(src, /utm_campaign=category_aeo_20260913/)
   assert.match(src, /https:\/\/resaleiq\.dev\/data/)
   assert.match(src, /https:\/\/resaleiq\.dev\/flip/)

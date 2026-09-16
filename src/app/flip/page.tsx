@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { BRANDS, catSlug } from "@/lib/seo-categories"
+import { OG_IMAGES } from "@/lib/og-image"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
@@ -31,10 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: "/flip" },
-    openGraph: { title, description, type: "website", url: "/flip" },
+    openGraph: { title, description, type: "website", url: "/flip", images: OG_IMAGES },
     // Root layout pins twitter.title to the homepage string. og:title was
     // already set here; twitter was not, so X/Slack still showed the generic.
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: OG_IMAGES },
   }
 }
 

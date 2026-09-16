@@ -8,6 +8,7 @@ import {
 } from "@/data/search-intents"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { PublicProfitCalculator } from "@/components/tools/public-profit-calculator"
+import { OG_IMAGES } from "@/lib/og-image"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
@@ -47,8 +48,8 @@ export async function generateMetadata(
     title,
     description: i.description,
     alternates: { canonical: `/tools/${i.slug}` },
-    openGraph: { title, description: i.description, type: "website", url: `/tools/${i.slug}` },
-    twitter: { card: "summary_large_image", title, description: i.description },
+    openGraph: { title, description: i.description, type: "website", url: `/tools/${i.slug}`, images: OG_IMAGES },
+    twitter: { card: "summary_large_image", title, description: i.description, images: OG_IMAGES },
   }
 }
 

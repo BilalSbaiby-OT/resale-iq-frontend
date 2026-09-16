@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { CATEGORIES, BRANDS } from "@/lib/seo-categories"
+import { OG_IMAGES } from "@/lib/og-image"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
@@ -24,8 +25,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/data" },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/data" },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/data", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 }
 
 export default async function DataPage() {

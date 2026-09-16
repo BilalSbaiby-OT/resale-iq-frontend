@@ -29,14 +29,14 @@ test("/data sets matching title, og:title, twitter:title and descriptions", () =
   assert.match(src, /openGraph: \{ title: TITLE, description: DESCRIPTION, type: "website"/)
   assert.match(
     src,
-    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION \}/,
+    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION/,
   )
 })
 
 test("/flip sets twitter title/description to the same strings as title + og", () => {
   const src = read("app/flip/page.tsx")
   assert.match(src, /openGraph: \{ title, description, type: "website"/)
-  assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description/)
 })
 
 test("/tools hub pins og/twitter titles to the document title", () => {
@@ -44,14 +44,14 @@ test("/tools hub pins og/twitter titles to the document title", () => {
   assert.match(src, /const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"/)
   assert.match(src, /title: TITLE/)
   assert.match(src, /openGraph: \{ title: TITLE, description, type: "website"/)
-  assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE, description \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE, description/)
 })
 
 test("/tools child pages pin og/twitter titles to the suffixed document title", () => {
   const src = read("app/tools/[slug]/page.tsx")
   assert.match(src, /const title = `\$\{i\.title\} — Resale IQ`/)
   assert.match(src, /openGraph: \{ title, description: i\.description, type: "website"/)
-  assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description: i\.description/)
 })
 
 test("blog generateMetadata uses one string for title, og and twitter", () => {
@@ -72,7 +72,7 @@ test("locale pricing uses one string for title, og and twitter", () => {
   assert.match(src, /openGraph: \{ title, description: t\.metaDescription, type: "website"/)
   assert.match(
     src,
-    /twitter: \{ card: "summary_large_image", title, description: t\.metaDescription \}/,
+    /twitter: \{ card: "summary_large_image", title, description: t\.metaDescription/,
   )
 })
 
@@ -83,7 +83,7 @@ test("/pricing pins og/twitter to the document title (EX-PRICING-CTR)", () => {
   assert.match(src, /openGraph: \{ title: TITLE, description: DESCRIPTION, type: "website"/)
   assert.match(
     src,
-    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION \}/,
+    /twitter: \{ card: "summary_large_image", title: TITLE, description: DESCRIPTION/,
   )
 })
 
@@ -143,7 +143,7 @@ test("/category hub sets twitter title/description to the same strings as title 
   const src = read("app/category/page.tsx")
   assert.match(src, /What Sells Best on Vinted by Category/)
   assert.match(src, /openGraph: \{ title, description, type: "website"/)
-  assert.match(src, /twitter: \{ card: "summary_large_image", title, description \}/)
+  assert.match(src, /twitter: \{ card: "summary_large_image", title, description/)
 })
 
 test("/category slug pages pin social titles via articleSocialMeta", () => {

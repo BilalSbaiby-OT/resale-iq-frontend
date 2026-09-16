@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { PricingSection } from "@/components/landing/pricing-section"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
+import { OG_IMAGES } from "@/lib/og-image"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -35,8 +36,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/pricing", languages: hreflangLanguages("/pricing") },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/pricing" },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/pricing", images: OG_IMAGES },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 }
 
 // `locale` defaults to "en" so this un-prefixed route is the English page;

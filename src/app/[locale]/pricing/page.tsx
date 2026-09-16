@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { PricingPage } from "@/app/pricing/page"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
+import { OG_IMAGES } from "@/lib/og-image"
 
 export const generateStaticParams = localeStaticParams
 
@@ -22,8 +23,8 @@ export async function generateMetadata({
     title,
     description: t.metaDescription,
     alternates: { canonical: canonicalPath(locale, "/pricing"), languages: hreflangLanguages("/pricing") },
-    openGraph: { title, description: t.metaDescription, type: "website", url: canonicalPath(locale, "/pricing") },
-    twitter: { card: "summary_large_image", title, description: t.metaDescription },
+    openGraph: { title, description: t.metaDescription, type: "website", url: canonicalPath(locale, "/pricing"), images: OG_IMAGES },
+    twitter: { card: "summary_large_image", title, description: t.metaDescription, images: OG_IMAGES },
   }
 }
 
