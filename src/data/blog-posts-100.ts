@@ -1,0 +1,111 @@
+// Batch 100 of SEO/AEO articles. Same contract as blog-posts.ts.
+// Lacoste Hoodie EU Vinted price guide — targets
+// "lacoste hoodie vinted price", "lacoste hoodie eu vinted price guide",
+// "lacoste hoodie resell value europe", "is lacoste hoodie worth reselling vinted",
+// "lacoste hoodie buy below vinted", "lacoste sport hoodie vinted eu",
+// "lacoste zip hoodie vinted eu price", "lacoste hoodie vs fred perry vinted eu".
+// DISTINCT from lacoste-polo-eu-vinted-price-guide (brand overview, shirt-dominant,
+// mentions hoodies in one paragraph at stale €47 data) and
+// lacoste-jacket-eu-vinted-price-guide (jackets only, €134 avg, 5/7d) —
+// this guide is HOODIES ONLY: 9/7d @€49 avg (Sep 16 live, 1.36× brand avg €36),
+// buy-below €31.85, Sport zip-through vs classic fleece vs full-zip type hierarchy,
+// Lacoste numeric sizing for hoodies, EU sourcing France+Spain, vs Fred Perry
+// (112/7d @€21) + Ralph Lauren (18/7d @€46) comparison.
+
+import type { BlogPost } from "./blog-posts"
+import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
+import { ilinkHref } from "@/lib/blog-ilink"
+
+export const POSTS_100: BlogPost[] = [
+  {
+    slug: "lacoste-hoodie-eu-vinted-price-guide",
+    title: "Lacoste Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
+    seoTitle: "Lacoste Hoodie Vinted EU Price Guide 2026 — Resale IQ",
+    description:
+      "Lacoste hoodies track 9 watched departures per week on EU Vinted at a €49 average exit price as of September 2026 — 1.36× the Lacoste brand average of €36 and the highest-margin mid-volume Lacoste category. Buy-below €31.85, Sport zip-through vs classic fleece vs full-zip type breakdown, Lacoste numeric sizing for hoodies, and how Lacoste stacks against Fred Perry and Ralph Lauren hoodies for EU resellers.",
+    date: "2026-09-16",
+    category: "Sourcing",
+    readMins: 7,
+
+    preflightQuery: "Lacoste Hoodie",
+
+    intro:
+      "Lacoste hoodies track 9 watched departures per week across EU Vinted in the week to 16 September 2026 at a €49 average exit price — 1.36× the Lacoste brand average of €36 across all categories and the third-highest-volume Lacoste category after shirts (57/7d at €29) and T-shirts (12/7d at €21). The Lacoste brand overall tracks 93 watched departures per week at a €36 brand average. Hoodies represent 9.7% of Lacoste's EU Vinted weekly departures but deliver the highest average exit price among the mid-volume Lacoste categories — only jackets exit higher at €134, but at just 5 departures per week compared to hoodies' 9. The buy-below ceiling at the €49 average is €31.85 (€49 × 0.65), targeting 35% gross margin after Vinted platform fees. At EU charity shops in France and Spain, Lacoste hoodies surface at €10–20, making the per-item margin at correct sourcing €15–25 per piece. This guide covers what drives the €49 hoodie exit, exit ranges by hoodie type and condition, the buy-below ceiling by tier, Lacoste's numeric sizing system applied to hoodies, and how Lacoste compares to Fred Perry and Ralph Lauren for EU hoodie resellers.",
+
+    definedTerm: {
+      name: "Lacoste hoodie departure average",
+      description:
+        "The Lacoste hoodie departure average is the average price at which a tracked Lacoste hoodie listing leaves the shelf on EU Vinted — not the asking price and not retail. As of the week to 16 September 2026, Lacoste hoodies track 9 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €49 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The broader Lacoste brand tracks 93 watched departures per week at a €36 brand average across all five categories; the hoodie category exits at 1.36× that average. The buy-below ceiling at the €49 departure average is €31.85 (€49 × 0.65), targeting 35% gross margin after platform fees. Hoodies represent 9.7% of Lacoste's weekly EU Vinted departure volume and are the third-largest category by weekly movement after shirts (57/7d) and T-shirts (12/7d), but the highest average exit price among the three higher-volume categories. ResaleIQ updates Lacoste hoodie exit data weekly from EU Vinted departure observations across five markets.",
+    },
+
+    sections: [
+      {
+        h: "Lacoste hoodies on EU Vinted: 9 watched departures per week at €49 average",
+        p: [
+          "Lacoste hoodies track 9 watched departures per week across EU Vinted at a €49 average exit price in the week to 16 September 2026. The €49 average sits 36% above the Lacoste brand average of €36 — a clear premium over the shirt-heavy brand mix. Shirts account for 61% of Lacoste's weekly departures (57 of 93) at €29 average and pull the headline brand average well below what Lacoste's non-shirt categories actually achieve. The hoodie buyer on EU Vinted is purchasing a mid-weight branded layering piece — not a polo shirt — and is prepared to pay a price that reflects that functionality premium.",
+          "The 9 departures per week make hoodies a selective category: not as thin as jackets (5/7d at €134) but not the weekly-throughput category that shirts provide. A reseller cannot build a Lacoste hoodie volume operation at 9 weekly departures across all of EU Vinted, but each correctly sourced and listed piece exits at a price that justifies selective sourcing. At 9 departures over five markets (France, Germany, Spain, Italy, Portugal), the EU Vinted Lacoste hoodie market clears at fewer than 2 pieces per day across all markets — meaning correctly listed pieces do not compete with dozens of identical listings and buyers at the right price point act decisively.",
+          `The hoodie category sits between two other Lacoste categories in the brand's value hierarchy: above T-shirts (12/7d at €21 average) and below jackets (5/7d at €134). Tracksuits (4/7d at €23) are a separate category — a Lacoste tracksuit bottom or full set is not the hoodie category and should not be treated as such for pricing or sourcing. The hoodie category includes zip-through sweatshirts, pullover hoodies, and half-zip fleece tops all under the Lacoste brand — each with a distinct price profile. [Full Lacoste brand data →](${ilinkHref("flip")})`,
+        ],
+        cta: pricingMidCta("ctr_lacoste_hoodie_intro_20260916"),
+      },
+      {
+        h: "Buy-below ceiling: €31.85 — condition tiers for Lacoste hoodies",
+        p: [
+          "The buy-below ceiling for Lacoste hoodies at the €49 average exit price is €31.85 (€49 × 0.65), targeting 35% gross margin before Vinted platform fees of approximately 5–8%. In practice, Lacoste hoodies at EU charity shops in France and Spain source at €10–20 — well below the buy-below ceiling — which means the sourcing challenge is condition identification, not price negotiation. A Lacoste hoodie sourced at €12 in Very Good condition exits at €45–55, delivering €25–35 gross per piece at a sub-ceiling sourcing cost. That is the target scenario for EU charity shop sourcing.",
+          "Condition tiers for Lacoste hoodies determine exit range more than any other single variable. By tier: Like New (unworn or worn once, no pilling, no cuff or hem stretch, clean kangaroo pocket edges, all zips functional where applicable) → €60–75 exit range, buy-below €39–48.75. Very Good (light seasonal use, minimal pilling on chest or cuffs, clean interior, functional closures) → €45–60 exit — the primary target window. Good (visible chest or cuff pilling, some hem stretch, no damage to zips or drawcord) → €30–44 exit, viable only at sourcing prices under €20. Fair (heavy pilling, broken zip, stretched-out cuffs, inner lining separation) → €15–25 exit, below buy-below at nearly all sourcing prices. Skip Fair pieces at EU charity shops unless the sourcing price is under €8.",
+          "The primary condition fail points for Lacoste hoodies in EU charity shop sourcing: (1) Chest and sleeve pilling — Lacoste's cotton-polyester blend fleece pills at the chest, underarms, and cuffs with regular wear; visible pilling is the most common cause of exit prices landing in the Good rather than Very Good tier. (2) Drawcord and hood lining — hood drawcords are often missing or badly frayed on donated Lacoste hoodies; buyers notice. (3) Zip function on Sport zip-through models — the full-length zip on Lacoste Sport sweatshirts should run from bottom stop to collar with no snag; a stubborn zip is an active negotiation lever buyers use. (4) Crocodile badge integrity — the sewn crocodile should be intact with no thread pulls; a damaged badge on a Lacoste hoodie signals heavy use even when the garment body is otherwise clean.",
+        ],
+        cta: pricingMidCta("ctr_lacoste_hoodie_buybelow_20260916"),
+      },
+      {
+        h: "Lacoste hoodie types: Sport zip-through, classic pullover, and half-zip fleece",
+        p: [
+          "The €49 average across all Lacoste hoodie departures spans three distinct sub-types with different exit ranges and sourcing profiles. The Lacoste Sport zip-through sweatshirt — a full-length zip fastening with the Lacoste Sport woven label and the Sport sublabel on the left chest — is the most frequently found Lacoste hoodie sub-type at EU charity shops and the primary driver of the 9-departure-per-week count. Sport zip-throughs in navy, black, and dark green in Very Good condition exit at €45–65. The Sport branding and the functional full-zip make these appealing to the sports-casual buyer demographic that dominates EU Vinted's mid-price hoodie segment.",
+          "Classic Lacoste pullover hoodies — the hooded sweatshirt with the crocodile chest badge and the kangaroo front pocket — exit at €40–60 for clean examples in the core colourways (navy, grey marl, forest green). The pullover format appeals to the buyer seeking heritage Lacoste casualwear rather than the Sport line. Heritage pullover hoodies from the 1990s–2000s archive in good condition carry a modest archive premium over contemporary-season pieces: an archive Lacoste pullover with the vintage label treatment exits at €55–70 where a current-season equivalent exits at €42–55. The distinction is visible in the label and crocodile construction — archive pieces have a marginally different badge proportion from contemporary production.",
+          `The half-zip fleece tier — Lacoste's Sport mid-layer fleece in the SH and SF product ranges — exits at €50–75 for Very Good or better condition in the classic colourways. Half-zip fleece pieces are the least frequently found Lacoste hoodie sub-type at EU charity shops (households are more likely to donate a cotton sweatshirt than a performance fleece mid-layer) but carry the highest exit price in the category when found. The half-zip format appeals to the same EU buyer who sources Patagonia Synchilla and North Face fleece mid-layers: function-aware buyers who pay the brand premium for clean mid-layer pieces. [See current Lacoste hoodie data →](${ilinkHref("flip")})`,
+        ],
+      },
+      {
+        h: "Lacoste numeric sizing for hoodies: the same complication as shirts and jackets",
+        p: [
+          "Lacoste uses a proprietary numeric sizing system (0–9) across all garment categories including hoodies, and the mismatch between Lacoste's numeric size and EU S/M/L/XL expectations is as significant for hoodies as it is for polo shirts. A Lacoste hoodie labelled '5' from the 2000s archive fits closer to a contemporary EU M/L (chest 96–100cm) rather than the EU L/XL a buyer might assume from the number. Contemporary-season Lacoste hoodies have been gradually normalised toward EU sizing conventions, but archive pieces — the most commonly found in EU charity shops — still run to the original numeric scale. Buyers who have ordered a Lacoste item using EU size assumptions and received a poorly fitting piece are the primary source of Lacoste hoodie return requests on EU Vinted.",
+          "Reseller best practice for Lacoste hoodie listings: measure the chest width (flat lay, armpit to armpit, doubled), the body length (back collar seam to hem), and the sleeve length (shoulder seam to cuff). Include all three measurements in the Vinted listing alongside the Lacoste numeric size and an EU size estimate. A listing that reads 'Lacoste 5, EU M/L, chest 98cm flat, body 68cm, sleeve 62cm — please check against your measurements before purchasing' removes the primary buyer objection that causes price negotiation or abandonment. Buyers who have been mis-sized on Lacoste before will actively filter for measurement-inclusive listings and purchase without hesitation at the market price.",
+          "For Lacoste Sport zip-through hoodies specifically: the Sport line often runs slightly fuller in the body than the classic Lacoste sizing because it is designed for layering over base layers. A Lacoste Sport hoodie labelled '5' may fit more comfortably as a contemporary EU L than a Lacoste classic hoodie at the same numeric label. Note this difference in the listing — a buyer seeking a fitted look will read 'Sport cut, slightly looser body fit' as useful information rather than a defect, and it pre-empts a return from a buyer who expected the fitted profile of the classic Lacoste cut.",
+        ],
+        cta: pricingBodyCta("ctr_lacoste_hoodie_sizing_20260916"),
+      },
+      {
+        h: "Lacoste vs Fred Perry vs Ralph Lauren hoodies on EU Vinted: three different plays",
+        p: [
+          "The three most prominent branded hoodie categories in the mid-market EU Vinted segment (excluding Stone Island at €57/331/7d, which is a distinct premium tier) are Lacoste (9/7d at €49), Ralph Lauren (18/7d at €46), and Fred Perry (112/7d at €21). Each represents a fundamentally different sourcing-and-exit model. Fred Perry is the volume play: 112 watched departures per week at €21 average — twelve times Lacoste's volume at 43% of Lacoste's exit price. Fred Perry hoodies are the fastest-clearing mid-price hoodie on EU Vinted (effectively intraday clearance in France and Germany), accessible at EU charity shops at €8–15, with a buy-below of €13.65 (€21 × 0.65). The Fred Perry operation is about throughput: consistent weekly sourcing, fast clearance, moderate per-piece margin.",
+          "Ralph Lauren hoodies (18/7d at €46 average) are the closest comparison to Lacoste hoodies in both volume and price. Ralph Lauren's €46 average is €3 below Lacoste's €49; Ralph Lauren's 18/7d departure volume is exactly double Lacoste's 9/7d. The buy-below for Ralph Lauren hoodies is €29.90 (€46 × 0.65) compared to Lacoste's €31.85. The practical sourcing difference: Ralph Lauren hoodies surface more frequently at EU charity shops in Germany and the Netherlands than Lacoste hoodies, which have their highest sourcing frequency in France and Spain. A reseller with primarily northern European sourcing access (Germany, Netherlands, Belgium) will find Ralph Lauren hoodies more reliably than Lacoste. A reseller with French or Spanish sourcing coverage has the inverse advantage.",
+          `Lacoste hoodies occupy the selective mid-high-margin position: fewer weekly departures than Ralph Lauren, slightly higher exit price, with sourcing concentrated in France and Spain. The per-piece economics are comparable to Ralph Lauren but the sourcing opportunities are less frequent. Portfolio strategy for EU hoodie resellers: Fred Perry for high-frequency mid-margin throughput across most EU markets; Ralph Lauren for mid-frequency mid-high margin in northern EU markets; Lacoste for selective high-margin sourcing in France and Spain where the Lacoste brand's home-market charity shop frequency is highest. All three are viable EU Vinted hoodie categories with different sourcing-channel dependencies. [Full hoodie category comparison →](${ilinkHref("data")})`,
+        ],
+        cta: pricingBodyCta("ctr_lacoste_hoodie_vs_fredperry_20260916"),
+      },
+    ],
+
+    faq: [
+      {
+        q: "How much does a Lacoste hoodie sell for on EU Vinted?",
+        a: "Lacoste hoodies track 9 watched departures per week across EU Vinted at a €49 average exit price as of the week to 16 September 2026 — 1.36× the Lacoste brand average of €36 across all categories. By condition: Like New (unworn, no pilling, functional closures) → €60–75. Very Good (light seasonal use, minimal pilling, clean hood and pockets) → €45–60. Good (visible chest or cuff pilling, no zip or drawcord damage) → €30–44. Fair (heavy pilling, broken zip, stretched cuffs) → €15–25. By type: Lacoste Sport zip-through sweatshirts in navy or black in Very Good condition exit at €45–65. Classic pullover hoodies in core colourways exit at €40–60. Half-zip fleece mid-layers in Very Good condition exit at €50–75. The brand overall tracks 93 watched departures per week at €36 — the hoodie category exits at 1.36× that average because the hoodie buyer is purchasing a mid-weight functional layering piece, not a polo shirt. ResaleIQ tracks Lacoste hoodie exit data weekly from EU Vinted departure observations across France, Germany, Spain, Italy, and Portugal.",
+      },
+      {
+        q: "What should I pay for a Lacoste hoodie to make a profit on EU Vinted?",
+        a: "The buy-below ceiling for Lacoste hoodies is €31.85 — calculated as 65% of the €49 average exit price tracked in the week to 16 September 2026, targeting 35% gross margin after Vinted platform fees of approximately 5–8%. At EU charity shops in France and Spain, Lacoste hoodies typically price at €10–20, which means the standard sourcing price lands well below the buy-below ceiling. By condition tier: Like New (targeting €68 exit) → buy-below €44.20. Very Good (targeting €52 exit) → buy-below €33.80. Good (targeting €37 exit) → buy-below €24.05. Fair (targeting €20 exit) → buy-below €13 or skip. The condition gate is the primary risk: a Lacoste hoodie sourced at €15 with heavy chest pilling exits at €30–35, not €49, compressing or eliminating the margin. At the sourcing point, inspect pilling on chest, cuffs, and hood lining, zip function on zip-through models, and drawcord integrity before committing at any price above €10.",
+      },
+      {
+        q: "Which Lacoste hoodie type sells for the most on EU Vinted?",
+        a: "The Lacoste half-zip fleece (the Sport mid-layer in the SH and SF product ranges) is the highest-exit Lacoste hoodie sub-type on EU Vinted, exiting at €50–75 for Very Good or better condition in classic colourways (navy, grey, burgundy). The half-zip format appeals to EU Vinted buyers purchasing functional mid-layer outerwear — the same buyer profile that sources Patagonia Synchilla — and commands a premium over both the Sport zip-through and the classic pullover because it is found less frequently and commands a higher perceived utility value. The Lacoste Sport zip-through sweatshirt is the most frequently found sub-type at EU charity shops and exits at €45–65. The classic pullover hoodie with the crocodile chest badge exits at €40–60. Archive pullover hoodies from the 1990s–2000s in clean condition carry a €10–15 premium over contemporary pieces at the same condition grade. Colourway matters across all sub-types: navy, grey marl, and forest green outperform black and olive at the €49 average because the EU Vinted mid-market hoodie buyer in France and Germany identifies those colourways with the Lacoste heritage palette.",
+      },
+      {
+        q: "How does Lacoste compare to Fred Perry for hoodie reselling on EU Vinted?",
+        a: "Lacoste and Fred Perry represent opposite ends of the hoodie reselling spectrum on EU Vinted. Fred Perry hoodies track 112 watched departures per week at a €21 average exit price — twelve times Lacoste's 9 departures per week and 43% of Lacoste's €49 exit price. Fred Perry is a volume-throughput play: the buy-below is €13.65 (€21 × 0.65), sourcing is accessible at EU charity shops in France and Germany at €8–15, and clearance is effectively intraday (0.22 days to sell). A Fred Perry hoodie operation generates consistent weekly cash flow from high-frequency, moderate-margin transactions. Lacoste hoodies are a selective high-margin play: 9 departures per week means fewer sourcing opportunities, but each correctly sourced Lacoste hoodie (sourced at €12–18, exiting at €45–60) generates €25–40 gross compared to Fred Perry's €7–10 gross per piece. The sourcing frequency difference is structural: France and Spain charity shops carry Lacoste at a fraction of the frequency that northern EU charity shops carry Fred Perry. Choose Fred Perry for consistent weekly throughput across most EU markets; choose Lacoste hoodies for selective high-margin sourcing in French and Spanish sourcing circuits.",
+      },
+      {
+        q: "Is a Lacoste hoodie worth reselling on EU Vinted?",
+        a: "Yes, with condition discipline and sourcing-channel access. Lacoste hoodies track 9 watched departures per week at €49 average on EU Vinted as of September 2026, delivering a buy-below of €31.85 and a per-piece gross margin of €17–38 depending on condition tier and sourcing price. At EU charity shops in France and Spain where Lacoste hoodies surface at €10–20, the margin per correctly-sourced piece is the highest in the mid-price branded hoodie category — above Fred Perry (€7–10/piece), comparable to Ralph Lauren (€16–25/piece at similar volumes). The limiting factor is volume: 9 EU Vinted departures per week means you are not building a Lacoste hoodie volume operation. The correct framing is selective sourcing: when a Lacoste hoodie in Very Good or better condition appears in a French or Spanish charity shop at €10–18, it is one of the best per-piece margin opportunities in the mid-price hoodie market. At higher sourcing prices (€25–30) the margin compresses significantly. Condition failure is the primary margin destroyer: heavy pilling, broken zips, or missing drawcords push a €49-category piece into the €20–30 exit range. Source on condition first, price second.",
+      },
+    ],
+  },
+]
