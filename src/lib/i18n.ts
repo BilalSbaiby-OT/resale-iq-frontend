@@ -321,7 +321,11 @@ export const copy = {
       starterTrust: "{{TRACKED}} listings watched · access in ~2s · cancel anytime",
       publicDataLine: "Public data only (not item checks) → /data",
       footer:
-        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
+        // H57 CRO: align footer to H55 FAQ + H56 trust line — "in ~2s" is more specific
+        // than "immediately" (CRO #8 specificity). All three now say the same thing so
+        // the claim echoes from the CTA button down to the FAQ and the fine-print footer.
+        // Revenue 2026-09-16.
+        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access starts in ~2s after payment — no waiting for an email.",
       subhead:
         "One search gives you BUY / WATCH / SKIP, the buy-below price, and how solid the evidence is. Starter €19/mo.",
       // H19 CRO: Objection #1 ("will it work for me?") answered above the plan cards — CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15.
@@ -794,7 +798,8 @@ export const copy = {
       starterTrust: "{{TRACKED}} annonces suivies · accès en ~2s · résiliable à tout moment",
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
-        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
+        // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
+        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès démarre en ~2s après le paiement — pas d'attente d'e-mail.",
       subhead: "Une recherche vous donne BUY / WATCH / SKIP, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
@@ -1191,7 +1196,8 @@ export const copy = {
       starterTrust: "{{TRACKED}} anuncios seguidos · acceso en ~2s · cancela cuando quieras",
       publicDataLine: "Solo datos públicos (no comprobaciones de artículos) → /data",
       footer:
-        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
+        // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
+        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso empieza en ~2s después del pago — sin esperar un correo.",
       subhead:
         "Una búsqueda te da BUY / WATCH / SKIP, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
@@ -1587,7 +1593,8 @@ export const copy = {
       starterTrust: "{{TRACKED}} Angebote beobachtet · Zugang in ~2s · jederzeit kündbar",
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
-        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
+        // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
+        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang startet in ~2s nach der Zahlung — keine Wartezeit auf eine E-Mail.",
       subhead: "Eine Suche gibt Ihnen BUY / WATCH / SKIP, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
@@ -1984,7 +1991,8 @@ export const copy = {
       starterTrust: "{{TRACKED}} annunci monitorati · accesso in ~2s · disdici quando vuoi",
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
-        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
+        // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
+        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso parte in ~2s dopo il pagamento — nessuna attesa via email.",
       subhead: "Una ricerca ti dà BUY / WATCH / SKIP, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
@@ -2379,7 +2387,8 @@ export const copy = {
       starterTrust: "{{TRACKED}} anúncios monitorados · acesso em ~2s · cancela quando quiseres",
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
-        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
+        // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
+        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso começa em ~2s após o pagamento — sem esperar por um e-mail.",
       subhead: "Uma pesquisa dá-te BUY / WATCH / SKIP, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
