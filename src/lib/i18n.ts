@@ -258,7 +258,10 @@ export const copy = {
       // becoming a CTA: no link, no accent, and none of the verbs e2e/smoke
       // forbids here ("Plan", "Unlock"). The route itself still lives on
       // /tools, per E-13.
-      gatedFreeAccount: "with a free account",
+      // H58 CRO: changed from "with a free account" (€0 path) to "on Starter"
+      // (names the paid tier). HARD_PAYWALL=1 means no free path exists.
+      // Passes E-13: no "Plan"/"Unlock", no href. CRO #10. Revenue 2026-09-16.
+      gatedFreeAccount: "on Starter",
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
       paywallHeadline: "Stop guessing what to pay on Vinted.",
@@ -761,7 +764,7 @@ export const copy = {
       leftShelf: "Départs / 7j",
       stillListed: "Encore en ligne",
       sellThrough: "Taux d'écoulement",
-      gatedFreeAccount: "avec un compte gratuit",
+      gatedFreeAccount: "sur Starter",
       planLabel: "Abonnement",
       limitReachedLabel: "LIMITE ATTEINTE",
       paywallHeadline: "Arrêtez de deviner combien payer sur Vinted.",
@@ -1158,7 +1161,7 @@ export const copy = {
       leftShelf: "Salidas / 7d",
       stillListed: "Aún en venta",
       sellThrough: "Tasa de venta",
-      gatedFreeAccount: "con una cuenta gratuita",
+      gatedFreeAccount: "en Starter",
       planLabel: "Tarifa",
       limitReachedLabel: "LÍMITE ALCANZADO",
       paywallHeadline: "Deja de adivinar cuánto pagar en Vinted.",
@@ -1556,7 +1559,7 @@ export const copy = {
       leftShelf: "Abgänge / 7T",
       stillListed: "Noch inseriert",
       sellThrough: "Verkaufsrate",
-      gatedFreeAccount: "mit einem kostenlosen Konto",
+      gatedFreeAccount: "mit Starter",
       planLabel: "Tarif",
       limitReachedLabel: "LIMIT ERREICHT",
       paywallHeadline: "Hör auf zu raten, was du auf Vinted zahlen sollst.",
@@ -1954,7 +1957,7 @@ export const copy = {
       leftShelf: "Uscite / 7g",
       stillListed: "Ancora in vendita",
       sellThrough: "Tasso di vendita",
-      gatedFreeAccount: "con un account gratuito",
+      gatedFreeAccount: "su Starter",
       planLabel: "Piano",
       limitReachedLabel: "LIMITE RAGGIUNTO",
       paywallHeadline: "Smettila di indovinare quanto pagare su Vinted.",
@@ -2350,7 +2353,7 @@ export const copy = {
       leftShelf: "Saídas / 7d",
       stillListed: "Ainda anunciado",
       sellThrough: "Taxa de venda",
-      gatedFreeAccount: "com uma conta grátis",
+      gatedFreeAccount: "no Starter",
       planLabel: "Plano",
       limitReachedLabel: "LIMITE ATINGIDO",
       paywallHeadline: "Para de adivinhar quanto pagar no Vinted.",
