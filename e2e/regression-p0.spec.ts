@@ -361,5 +361,14 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     await expect(wall).not.toContainText(/48\.14/)
     await expect(page.getByText(/Could not check that item/i)).toHaveCount(0)
     await expect(page.getByText(/Unlock the rest/i)).toHaveCount(0)
+    // H59 CRO: 30-day guarantee (riq-paywall-guarantee) must be present on the
+    // conversion surface for cold/anonymous traffic. H43 added it; this pin
+    // ensures it can never be silently deleted or moved off the HardPaywallCard.
+    // CRO principle #4 (objection handling) + #7 (trust before CTA).
+    // Revenue 2026-09-16.
+    const guarantee = wall.getByTestId("riq-paywall-guarantee")
+    await expect(guarantee).toBeVisible()
+    await expect(guarantee).toContainText(/30-day/i)
+    await expect(guarantee).toContainText(/refund/i)
   })
 })

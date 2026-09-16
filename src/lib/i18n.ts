@@ -236,7 +236,11 @@ export const copy = {
       limitReachedUpgradeBody: "You've run your daily free checks — which means you're actively sourcing. Starter (€19/mo) removes the limit so you can price everything in a session.",
       limitReachedUpgradeCta: "Get Starter — €19/mo →",
       usedOfLimit: (used: number, limit: number) => `${used} of ${limit} free checks used today.`,
-      createFreeAccount: "Create a free account →",
+      // H59 CRO: changed from "Create a free account →" — HARD_PAYWALL=1 means
+      // no free item-check plan. A visitor who hit LIMIT_REACHED already has
+      // anonymous access and the real next step is sign-in (returning account)
+      // or Starter. The secondary link routes to /login. CRO #10. Revenue 2026-09-16.
+      createFreeAccount: "Sign in →",
       seePlans: "See plans",
       unknownFallback: "We track 26 clothing & sneaker brands (ES/FR/DE/IT/PT) — not electronics or homeware. Try one of these:",
       tryTheseInstead: "Try one of these instead",
@@ -296,7 +300,12 @@ export const copy = {
       brandAverageLabel: "BRAND AVERAGE",
       headlineOnly: "Headline call only — market price and buy-below need an account.",
       unlockLine: "Unlock sell-through, demand, sizes and history with a plan.",
-      unlockRest: "or create a free account",
+      // H59 CRO: changed from "or create a free account" — HARD_PAYWALL=1 means
+      // no free item-check path exists. A visitor who has seen a result is not
+      // anonymous; they already have the free call. The secondary action is to
+      // sign in (returning user) not register for €0. CRO #10 (CTA commitment).
+      // Revenue 2026-09-16.
+      unlockRest: "or sign in",
       // H38 CRO: primary paid CTA on the tools result-card. Replaced "Unlock the rest →"
       // (free account path) as the green button label — Revenue 2026-09-16.
       unlockRestPaid: "Get full numbers — Starter €19/mo →",
@@ -752,7 +761,7 @@ export const copy = {
       limitReachedUpgradeBody: "Vous avez utilisé vos vérifications gratuites du jour — ce qui signifie que vous sourcez activement. Starter (19 €/mois) supprime la limite pour que vous puissiez tout chiffrer en une session.",
       limitReachedUpgradeCta: "Passer à Starter — 19 €/mois →",
       usedOfLimit: (used: number, limit: number) => `${used} sur ${limit} vérifications gratuites utilisées aujourd'hui.`,
-      createFreeAccount: "Créer un compte gratuit →",
+      createFreeAccount: "Se connecter →",
       seePlans: "Voir les tarifs",
       unknownFallback: "Nous couvrons 26 marques de vêtements et sneakers (ES/FR/DE/IT/PT) — pas l'électronique ni la maison. Essayez :",
       tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
@@ -783,7 +792,7 @@ export const copy = {
       brandAverageLabel: "MOYENNE DE LA MARQUE",
       headlineOnly: "Verdict seul — le prix de marché et le prix d'achat max nécessitent un compte.",
       unlockLine: "Débloquez le taux d'écoulement, la demande, les tailles et l'historique avec un abonnement.",
-      unlockRest: "ou créer un compte gratuit",
+      unlockRest: "ou se connecter",
       unlockRestPaid: "Voir tous les chiffres — Starter 19 €/mois →",
       seeFullNumbers: "Voir tous les chiffres →",
     },
@@ -1149,7 +1158,7 @@ export const copy = {
       limitReachedUpgradeBody: "Has agotado tus verificaciones gratuitas del día — lo que significa que estás sourcing activamente. Starter (19 €/mes) elimina el límite para que puedas calcular todo en una sesión.",
       limitReachedUpgradeCta: "Consigue Starter — 19 €/mes →",
       usedOfLimit: (used: number, limit: number) => `${used} de ${limit} comprobaciones gratis usadas hoy.`,
-      createFreeAccount: "Crear una cuenta gratis →",
+      createFreeAccount: "Iniciar sesión →",
       seePlans: "Ver planes",
       unknownFallback: "Cubrimos 26 marcas de ropa y sneakers (ES/FR/DE/IT/PT), no electrónica ni hogar. Prueba con:",
       tryTheseInstead: "Prueba con uno de estos",
@@ -1180,7 +1189,7 @@ export const copy = {
       brandAverageLabel: "MEDIA DE LA MARCA",
       headlineOnly: "Solo el veredicto — el precio de mercado y el precio máximo de compra necesitan una cuenta.",
       unlockLine: "Desbloquea la tasa de venta, la demanda, las tallas y el historial con un plan.",
-      unlockRest: "o crear una cuenta gratis",
+      unlockRest: "o iniciar sesión",
       unlockRestPaid: "Ver todos los números — Starter 19 €/mes →",
       seeFullNumbers: "Ver todos los números →",
     },
@@ -1547,7 +1556,7 @@ export const copy = {
       limitReachedUpgradeBody: "Du hast deine kostenlosen Tagesprüfungen verbraucht — das zeigt, dass du aktiv sourcing betreibst. Starter (19 €/Monat) hebt das Limit auf, damit du alles in einer Sitzung kalkulieren kannst.",
       limitReachedUpgradeCta: "Starter holen — 19 €/Monat →",
       usedOfLimit: (used: number, limit: number) => `${used} von ${limit} kostenlosen Prüfungen heute genutzt.`,
-      createFreeAccount: "Kostenloses Konto erstellen →",
+      createFreeAccount: "Anmelden →",
       seePlans: "Preise ansehen",
       unknownFallback: "Wir erfassen 26 Kleidungs- & Sneaker-Marken (ES/FR/DE/IT/PT) — keine Elektronik oder Haushalt. Versuche:",
       tryTheseInstead: "Probier stattdessen eines davon",
@@ -1578,7 +1587,7 @@ export const copy = {
       brandAverageLabel: "MARKENDURCHSCHNITT",
       headlineOnly: "Nur die Kurzentscheidung — Marktpreis und Kaufobergrenze brauchen ein Konto.",
       unlockLine: "Schalte Verkaufsrate, Nachfrage, Größen und Verlauf mit einem Tarif frei.",
-      unlockRest: "oder kostenloses Konto erstellen",
+      unlockRest: "oder anmelden",
       unlockRestPaid: "Alle Zahlen — Starter 19 €/Monat →",
       seeFullNumbers: "Alle Zahlen ansehen →",
     },
@@ -1945,7 +1954,7 @@ export const copy = {
       limitReachedUpgradeBody: "Hai esaurito i tuoi controlli gratuiti giornalieri — il che significa che stai facendo sourcing attivamente. Starter (€19/mese) rimuove il limite così puoi valutare tutto in una sessione.",
       limitReachedUpgradeCta: "Prendi Starter — €19/mese →",
       usedOfLimit: (used: number, limit: number) => `${used} di ${limit} controlli gratuiti usati oggi.`,
-      createFreeAccount: "Crea un account gratuito →",
+      createFreeAccount: "Accedi →",
       seePlans: "Vedi i piani",
       unknownFallback: "Copriamo 26 marchi di abbigliamento e sneaker (ES/FR/DE/IT/PT), non elettronica o casa. Prova con:",
       tryTheseInstead: "Prova uno di questi",
@@ -1976,7 +1985,7 @@ export const copy = {
       brandAverageLabel: "MEDIA DEL MARCHIO",
       headlineOnly: "Solo il verdetto — prezzo di mercato e prezzo massimo di acquisto richiedono un account.",
       unlockLine: "Sblocca tasso di vendita, domanda, taglie e storico con un piano.",
-      unlockRest: "o crea un account gratuito",
+      unlockRest: "o accedi",
       unlockRestPaid: "Tutti i numeri — Starter 19 €/mese →",
       seeFullNumbers: "Vedi tutti i numeri →",
     },
@@ -2341,7 +2350,7 @@ export const copy = {
       limitReachedUpgradeBody: "Usaste todas as verificações gratuitas do dia — o que significa que estás a fazer sourcing ativamente. O Starter (€19/mês) remove o limite para poderes calcular tudo numa sessão.",
       limitReachedUpgradeCta: "Obter Starter — €19/mês →",
       usedOfLimit: (used: number, limit: number) => `${used} de ${limit} verificações grátis usadas hoje.`,
-      createFreeAccount: "Criar uma conta grátis →",
+      createFreeAccount: "Iniciar sessão →",
       seePlans: "Ver planos",
       unknownFallback: "Cobrimos 26 marcas de roupa e sneakers (ES/FR/DE/IT/PT) — não eletrónica nem casa. Tente:",
       tryTheseInstead: "Experimenta um destes",
@@ -2372,7 +2381,7 @@ export const copy = {
       brandAverageLabel: "MÉDIA DA MARCA",
       headlineOnly: "Apenas o veredito — preço de mercado e preço máximo de compra precisam de uma conta.",
       unlockLine: "Desbloqueia taxa de venda, procura, tamanhos e histórico com um plano.",
-      unlockRest: "ou criar uma conta grátis",
+      unlockRest: "ou iniciar sessão",
       unlockRestPaid: "Todos os números — Starter 19 €/mês →",
       seeFullNumbers: "Ver todos os números →",
     },

@@ -203,7 +203,7 @@ function LimitReachedUpgrade({
         {/* W61 note applies here too: canonicalPath keeps locale-prefixed visitors on
             the right locale root for the pricing section. */}
         <Link
-          href={`${canonicalPath(locale, "/register")}?plan=free`}
+          href={canonicalPath(locale, "/login")}
           style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "none" }}
         >
           {t.createFreeAccount}
@@ -358,7 +358,11 @@ export function FreeChecker({
   // not a plan — the deep fields are inside the free tier's monthly unlocks.
   // canonicalPath keeps a /es /fr /de /it /pt visitor on their own locale
   // instead of dropping them on the English register page mid-funnel (W61).
-  const unlockHref = `${canonicalPath(locale, "/register")}?plan=free`
+  // H59 CRO: route to /login (returning user) not ?plan=free. Under HARD_PAYWALL
+  // there is no free item-check path; a free-plan logged-in user who sees a
+  // LockedStat is best served by signing in to their existing account.
+  // Revenue 2026-09-16.
+  const unlockHref = canonicalPath(locale, "/login")
   const sample = watchedSampleNote(sold, listed, res?.verdict, locale)
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
@@ -855,7 +859,7 @@ export function FreeChecker({
                   and non-English locales (blog posts are English-only). */}
               <SmartCTA anonLabel={(src === "blog-check" && blogModeCtaLabel(res?.product)) || t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result_${src ?? "direct"}`} authedLabel={t.seeFullNumbers} authedHref={canonicalPath(locale, "/verdict")} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
               <Link
-                href={`${canonicalPath(locale, "/register")}?plan=free`}
+                href={canonicalPath(locale, "/login")}
                 data-testid="riq-starter-cta-bar"
                 style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none" }}
               >
