@@ -54,7 +54,7 @@ test("marketing ladder leads with Starter and highlights operator, not Free", ()
 test("Starter trust line and public-data demote are in EN + ES copy", () => {
   assert.match(copy.en.pricingSection.starterTrust, /\{\{TRACKED\}\}/)
   assert.match(copy.en.pricingSection.starterTrust, /cancel anytime/)
-  assert.match(copy.en.pricingSection.starterTrust, /unlocks immediately/)
+  assert.match(copy.en.pricingSection.starterTrust, /~2s/)
   assert.match(copy.es.pricingSection.starterTrust, /\{\{TRACKED\}\}/)
   assert.match(copy.es.pricingSection.starterTrust, /cancela cuando quieras/)
   assert.match(copy.en.pricingSection.publicDataLine, /Public data only \(not item checks\)/)
