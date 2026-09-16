@@ -25,7 +25,7 @@ export function itemQueryMeta(
     title,
     description,
     alternates: { canonical },
-    openGraph: { title, description, type: "website" },
+    openGraph: { title, description, type: "website", url: canonical },
     twitter: { card: "summary_large_image", title, description },
   }
 }

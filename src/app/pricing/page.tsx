@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/pricing", languages: hreflangLanguages("/pricing") },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website" },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/pricing" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 }
 

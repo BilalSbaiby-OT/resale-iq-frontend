@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: "/flip" },
-    openGraph: { title, description, type: "website" },
+    openGraph: { title, description, type: "website", url: "/flip" },
     // Root layout pins twitter.title to the homepage string. og:title was
     // already set here; twitter was not, so X/Slack still showed the generic.
     twitter: { card: "summary_large_image", title, description },

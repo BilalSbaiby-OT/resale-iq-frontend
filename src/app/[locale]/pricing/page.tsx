@@ -22,7 +22,7 @@ export async function generateMetadata({
     title,
     description: t.metaDescription,
     alternates: { canonical: canonicalPath(locale, "/pricing"), languages: hreflangLanguages("/pricing") },
-    openGraph: { title, description: t.metaDescription, type: "website" },
+    openGraph: { title, description: t.metaDescription, type: "website", url: canonicalPath(locale, "/pricing") },
     twitter: { card: "summary_large_image", title, description: t.metaDescription },
   }
 }
