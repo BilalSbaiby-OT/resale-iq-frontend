@@ -335,10 +335,12 @@ export const copy = {
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number.", cta: { text: "→ Try a live check now", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
+        // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
+        { q: "Is there a free item checker?", a: "Weekly brand volumes and average departure prices are public on /data — no account needed. Item-level BUY, WATCH or SKIP, buy-below and sizes need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
         { q: "What if the data isn't there for my item?", a: "You still see the check, and where the sample is thin we say so instead of inventing a number. We report watched departures, meaning items leaving the shelf, not sales we didn't witness." },
+        // H51 CRO: trust close is last — ends the FAQ on confidence, not on a missing feature. Revenue 2026-09-16.
         { q: "Can I trust the numbers, and can I cancel?", a: "Every figure comes from listings we watch across the five markets, shown as aggregates you can check yourself on the public data page. Cancel from Account in one click; access runs to the end of the month you paid for, with no email to chase." },
-        { q: "Is there a free item checker?", a: "No. Weekly brand volumes and average departure prices are public on /data with no account. Item-level BUY, WATCH or SKIP, buy-below and sizes need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
       ],
     },
     // Keyed by Tier.id (lib/pricing.ts). Names ("Free"/"Starter"/"Pro") stay
