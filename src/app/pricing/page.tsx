@@ -4,6 +4,7 @@ import { PricingSection } from "@/components/landing/pricing-section"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { OG_IMAGES } from "@/lib/og-image"
+import { listingsTrackedLabel } from "@/lib/stats"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -43,7 +44,13 @@ export const metadata: Metadata = {
 // `locale` defaults to "en" so this un-prefixed route is the English page;
 // src/app/[locale]/pricing/page.tsx imports this same function and passes the
 // path locale — the same split MethodologyPage and SupportPage already use.
-export function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
+export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
+  // H53 CRO: resolve the tracked count server-side so first paint shows a real
+  // number under the Starter CTA instead of "…". Same revalidation window as the
+  // homepage (15-minute market-numbers cache), so the figure is never stale by
+  // more than one render cycle. CRO Principle #7 (trust before CTA).
+  // Revenue 2026-09-16.
+  const seedTracked = await listingsTrackedLabel()
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
@@ -53,7 +60,7 @@ export function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           ← Resale IQ
         </Link>
       </div>
-      <PricingSection locale={locale} headingLevel={1} />
+      <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} />
     </div>
   )
 }

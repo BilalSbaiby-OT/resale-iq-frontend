@@ -72,12 +72,21 @@ export function PricingSection({
   locale = "en",
   compact = false,
   headingLevel = 2,
+  seedTracked,
 }: {
   locale?: Locale
   compact?: boolean
   /** h1 on the standalone /pricing route, h2 when embedded under the landing
    *  page's own h1. One h1 per document; the copy is identical either way. */
   headingLevel?: 1 | 2
+  /**
+   * H53 CRO: SSR-resolved tracked-listings count (e.g. "5,830,000+").
+   * When provided, useTrackedLabel initialises with this value so the trust
+   * signal below the Starter CTA is visible on first paint without waiting
+   * for the client-side fetch. CRO Principle #7 (trust before CTA).
+   * Revenue 2026-09-16.
+   */
+  seedTracked?: string
 }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
@@ -107,7 +116,10 @@ export function PricingSection({
   // routes to /register — no worse than today, and never a permanently dead CTA.
   const [plansReady, setPlansReady] = useState(false)
   // H26 CRO: live tracked count for starterTrust — CRO #7/#8. Revenue 2026-09-15.
-  const tracked = useTrackedLabel()
+  // H53 CRO: seed from SSR so first paint shows the real number, never "…".
+  //          When seedTracked is passed from the server component, useTrackedLabel
+  //          initialises with it; client-side fetch still runs to stay fresh.
+  const tracked = useTrackedLabel(seedTracked)
 
   useEffect(() => {
     getPlans()
