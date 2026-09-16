@@ -302,7 +302,10 @@ test("a deep path under an unsupported locale segment still 404s -- the catch-al
 async function exhaustQuotaAndReachLimit(page: import("@playwright/test").Page, homePath: string) {
   const res = await page.goto(homePath)
   expect(res?.ok()).toBeTruthy()
-  for (let i = 0; i < 10; i++) {
+  // Send 25 pre-requests so the quota (FREE_VERDICT_DAILY_LIMIT=10) is
+  // exhausted even if ~14 are dropped by the Next.js dev-server proxy under
+  // parallel CI workers (ECONNRESET at the proxy level; tracked failures 2026-09-16).
+  for (let i = 0; i < 25; i++) {
     await page.request.get(`/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}`)
   }
   const responsePromise = page.waitForResponse((r) => r.url().includes("/api/verdict"))
