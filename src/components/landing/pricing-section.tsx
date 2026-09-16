@@ -8,7 +8,7 @@ import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
-import { copy, type Locale } from "@/lib/i18n"
+import { copy, type Locale, type FaqItem } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
@@ -362,13 +362,26 @@ export function PricingSection({
         <div style={{ maxWidth: 760, margin: "56px auto 0" }}>
           <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.4px", textAlign: "center", marginBottom: 24 }}>{t.faqHeading}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {t.faq.map((item) => (
+            {(t.faq as unknown as FaqItem[]).map((item) => (
               <details key={item.q} style={{ border: "1px solid var(--color-border-ui)", borderRadius: 12, background: "var(--color-surface)", padding: "0 16px" }}>
                 <summary style={{ cursor: "pointer", listStyle: "none", padding: "14px 0", fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
                   {item.q}
                   <span aria-hidden style={{ color: "var(--color-text-muted)", fontSize: 18, lineHeight: 1, flexShrink: 0 }}>+</span>
                 </summary>
-                <p style={{ fontSize: 14.5, color: "var(--color-text-body)", lineHeight: 1.6, margin: "0 0 16px", paddingRight: 28 }}>{item.a}</p>
+                <p style={{ fontSize: 14.5, color: "var(--color-text-body)", lineHeight: 1.6, margin: "0 0 10px", paddingRight: 28 }}>{item.a}</p>
+                {/* H48 CRO: FAQ live-demo CTA — "works for me?" answer drops visitor into /tools.
+                    Only the first FAQ item carries this link. LLM-cited FAQ can now route
+                    directly to a live product moment. CRO #10 (CTA commitment ladder) + #3
+                    (message match: LLM cites FAQ → user lands in the product). Revenue 2026-09-15. */}
+                {item.cta && (
+                  <p style={{ margin: "0 0 16px", paddingRight: 28 }}>
+                    <a
+                      href={item.cta.href}
+                      data-testid="riq-faq-live-cta"
+                      style={{ fontSize: 14, fontWeight: 600, color: "var(--color-buy)", textDecoration: "none" }}
+                    >{item.cta.text}</a>
+                  </p>
+                )}
               </details>
             ))}
           </div>

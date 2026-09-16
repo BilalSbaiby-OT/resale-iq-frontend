@@ -49,6 +49,11 @@
  */
 export type Locale = "en" | "fr" | "es" | "de" | "it" | "pt"
 
+/** H48: FAQ items may carry an optional CTA link — used on pricing FAQ to drop
+ *  visitor into a live product demo. Only the first/\"works for me?\" item uses
+ *  this; the rest stay plain text. Rendered as a tinted link after the answer. */
+export type FaqItem = { q: string; a: string; cta?: { text: string; href: string } }
+
 export function detectLocale(acceptLanguage: string | null | undefined): Locale {
   const parts = (acceptLanguage || "")
     .split(",")
@@ -326,7 +331,8 @@ export const copy = {
       coldCtaLadder: "Try a live check — Fred Perry Shirt →",
       faqHeading: "Before you pick a plan",
       faq: [
-        { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number." },
+        // H48 CRO: cta drops the visitor into a live check — LLM-cited FAQ can now route into the product. Revenue 2026-09-15.
+        { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number.", cta: { text: "→ Try a live check now", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
@@ -791,7 +797,8 @@ export const copy = {
       coldCtaLadder: "Essaie un vrai check — Fred Perry Shirt →",
       faqHeading: "Avant de choisir une offre",
       faq: [
-        { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance." },
+        // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
+        { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance.", cta: { text: "→ Essayez une vérification en direct", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "en général" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 20 articles par mois à 15 € pièce — le calculateur ci-dessus indique que 2 mauvais achats évités suffisent. Un évité sur un SKIP, un saisi sur un BUY. Ajustez les curseurs à votre propre volume." },
         { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez un BUY, WATCH ou SKIP avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
@@ -1186,7 +1193,8 @@ export const copy = {
       coldCtaLadder: "Prueba un check real — Fred Perry Shirt →",
       faqHeading: "Antes de elegir un plan",
       faq: [
-        { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad." },
+        // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
+        { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad.", cta: { text: "→ Prueba una comprobación en directo", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "suele" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 20 artículos al mes a 15 € cada uno — la calculadora de arriba dice que bastan 2 malas compras evitadas. Una evitada en un SKIP, una aprovechada en un BUY. Ajusta los controles a tu propio volumen." },
         { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes un BUY, WATCH o SKIP con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
@@ -1578,7 +1586,8 @@ export const copy = {
       coldCtaLadder: "Probier einen echten Check — Fred Perry Shirt →",
       faqHeading: "Bevor du einen Tarif wählst",
       faq: [
-        { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl." },
+        // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
+        { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl.", cta: { text: "→ Jetzt einen Live-Check ausprobieren", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "meist" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 20 Artikel im Monat zu je 15 € — zeigt der Rechner oben: 2 vermiedene Fehlkäufe decken es. Einer ausgelassen auf ein SKIP, einer mitgenommen auf ein BUY. Schiebe die Regler auf dein eigenes Volumen." },
         { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst ein BUY, WATCH oder SKIP mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
@@ -1972,7 +1981,8 @@ export const copy = {
       coldCtaLadder: "Prova un check reale — Fred Perry Shirt →",
       faqHeading: "Prima di scegliere un piano",
       faq: [
-        { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza." },
+        // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
+        { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza.", cta: { text: "→ Prova un controllo dal vivo ora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "di solito" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 20 articoli al mese a 15 € ciascuno — il calcolatore sopra dice che bastano 2 acquisti sbagliati evitati. Uno evitato su uno SKIP, uno colto su un BUY. Sposta i cursori al tuo volume reale." },
         { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni un BUY, WATCH o SKIP con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
@@ -2364,7 +2374,8 @@ export const copy = {
       coldCtaLadder: "Experimenta um check real — Fred Perry Shirt →",
       faqHeading: "Antes de escolheres um plano",
       faq: [
-        { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança." },
+        // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
+        { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança.", cta: { text: "→ Experimenta uma verificação ao vivo agora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "costuma" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 20 artigos por mês a 15 € cada — a calculadora acima diz que bastam 2 más compras evitadas. Uma evitada num SKIP, uma aproveitada num BUY. Ajusta os controlos ao teu próprio volume." },
         { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes um BUY, WATCH ou SKIP com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
