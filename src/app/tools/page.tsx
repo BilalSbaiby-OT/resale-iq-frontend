@@ -5,6 +5,7 @@ import { FreeChecker } from "@/components/tools/free-checker"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { fillTracked } from "@/lib/stats"
 import { WelcomeBanner } from "@/components/tools/welcome-banner"
+import { PricingEyebrow } from "@/components/tools/pricing-eyebrow"
 import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -85,6 +86,7 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
         </p>
 
         <WelcomeBanner />
+        <PricingEyebrow />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         <FreeChecker locale={locale} initialQuery={initialQuery} />
 
