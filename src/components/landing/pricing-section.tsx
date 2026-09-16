@@ -385,16 +385,26 @@ export function PricingSection({
               </details>
             ))}
           </div>
+          {/* H49 CRO: acceptedAnswer url — AI answer engines that follow FAQPage schema can
+              surface the direct link in citations without requiring the user to open the page.
+              url is a valid schema.org/Thing property inherited by Answer. Only emitted when
+              the item carries a cta.href (currently the works-for-me entry). Absolute URL.
+              faq-schema.ts rule: absolute resaleiq.dev URLs are fine; UTM tags are not.
+              src=faq-works is not a UTM tag. Zero visible UI change. Revenue 2026-09-15. */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
-                mainEntity: t.faq.map((item) => ({
+                mainEntity: (t.faq as unknown as FaqItem[]).map((item) => ({
                   "@type": "Question",
                   name: item.q,
-                  acceptedAnswer: { "@type": "Answer", text: item.a },
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.a,
+                    ...(item.cta ? { url: `https://resaleiq.dev${item.cta.href}` } : {}),
+                  },
                 })),
               }),
             }}
