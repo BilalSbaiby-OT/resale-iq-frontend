@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Lock } from "lucide-react"
+import { Lock, Check } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPlans, createCheckout } from "@/lib/api"
@@ -109,6 +109,20 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
         <Link href={canonicalPath(locale, "/pricing")} data-testid="riq-paywall-see-plans" style={{ color: "#8fa3c4", fontSize: 13 }}>
           {t.seePlans}
         </Link>
+      </div>
+      {/* H43 CRO: risk-reversal at the conversion moment.
+          The "what if it fails?" objection (#4) was never answered for anon
+          visitors — the 30-day guarantee only appeared in the authenticated
+          Paywall component. Cold traffic sees the HardPaywallCard; adding the
+          guarantee here resolves the last uncovered objection on this surface.
+          CRO principle #4 (objection handling) + #7 (trust before CTA).
+          Revenue 2026-09-16. */}
+      <div
+        data-testid="riq-paywall-guarantee"
+        style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 14, fontSize: 12.5, color: "#6a7d9a" }}
+      >
+        <Check size={13} color="#34C759" strokeWidth={2.5} aria-hidden />
+        30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
       </div>
     </div>
   )
