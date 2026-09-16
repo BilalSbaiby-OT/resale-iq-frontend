@@ -218,10 +218,31 @@ function LimitReachedUpgrade({
 // "Levi's 501" gestured at general vintage resale the catalogue does not
 // cover, which reads as a lie of omission to a casual flipper who tries it
 // and gets refused. ux-researcher, roster consult 2026-09-01.
+// H54 CRO: message-match the paid CTA label to the item just checked.
+// When a visitor arrives from a blog post (?src=blog-check) the checker
+// auto-runs on their item. The unlock bar used to always read the generic
+// "Get full numbers — Starter €19/mo →" regardless of which item was just
+// priced — CRO #3 (message match) violation. When src is blog-check and the
+// API returned a product name, derive a label like
+// "Get [product] numbers — €19/mo →" so the CTA mirrors the item.
+// Blog posts are English-only, product names are catalogue English, so this
+// path is English-only — other locales fall back to t.unlockRestPaid.
+// Revenue 2026-09-16.
+function blogModeCtaLabel(product: string | undefined | null): string | null {
+  if (!product) return null
+  // Keep the label short enough for a button (target ≤35 chars total).
+  // For long product names (>22 chars), use the first two tokens
+  // (e.g. "Nike Air Force 1 Low Retro" → "Nike Air Force 1").
+  const words = product.trim().split(/\s+/)
+  const short = product.length <= 22 ? product : words.slice(0, 3).join(" ")
+  return `Get ${short} numbers — €19/mo →`
+}
+
 export function FreeChecker({
   placeholder, locale = "en", variant = "card", initialQuery, initialResult,
   webmcpName = CHECK_VINTED_ITEM_NAME,
   webmcpDescription = CHECK_VINTED_ITEM_DESCRIPTION,
+  src,
 }: {
   placeholder?: string
   locale?: Locale
@@ -230,6 +251,9 @@ export function FreeChecker({
   initialResult?: FreeVerdict | null
   webmcpName?: string
   webmcpDescription?: string
+  // H54: traffic source. When "blog-check" the paid CTA is message-matched to
+  // the checked item. No effect on hero variant (no CTA bar there).
+  src?: string
 }) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
@@ -824,7 +848,12 @@ export function FreeChecker({
                   on /es/verdict (redirects to /verdict on the way, per the [locale]/[...rest]
                   catch-all) rather than English /verdict — consistent with every W61 fix.
                   Revenue 2026-09-16. */}
-              <SmartCTA anonLabel={t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result`} authedLabel={t.seeFullNumbers} authedHref={canonicalPath(locale, "/verdict")} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
+              {/* H54 CRO: when src=blog-check and we have a product name,
+                  derive a matched label ("Get Nike Air Force 1 numbers — €19/mo →")
+                  so the button mirrors the item the visitor just checked.
+                  Falls back to the generic t.unlockRestPaid for other src values
+                  and non-English locales (blog posts are English-only). */}
+              <SmartCTA anonLabel={(src === "blog-check" && blogModeCtaLabel(res?.product)) || t.unlockRestPaid} anonHref={`${canonicalPath(locale, "/register")}?plan=operator&utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=tools_result_${src ?? "direct"}`} authedLabel={t.seeFullNumbers} authedHref={canonicalPath(locale, "/verdict")} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 18px", borderRadius: 9, textDecoration: "none", whiteSpace: "nowrap" }} />
               <Link
                 href={`${canonicalPath(locale, "/register")}?plan=free`}
                 data-testid="riq-starter-cta-bar"

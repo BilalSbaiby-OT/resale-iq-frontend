@@ -52,11 +52,11 @@ export async function generateMetadata(
   }
 }
 
-export default async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+export default async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; src?: string }> }) {
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
-  const { q: initialQuery } = await searchParams
+  const { q: initialQuery, src } = await searchParams
   const jsonLd = [faqPageJsonLd(TOOLS_HUB_FAQS), definedTermJsonLd(TOOLS_HUB_DEFINED_TERM)]
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
@@ -89,7 +89,7 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
         <WelcomeBanner />
         <PricingEyebrow />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
-        <FreeChecker locale={locale} initialQuery={initialQuery} />
+        <FreeChecker locale={locale} initialQuery={initialQuery} src={src} />
 
         {/* Search-intent titles/descriptions stay English on every locale —
             real content translation (data/search-intents.ts), out of scope
