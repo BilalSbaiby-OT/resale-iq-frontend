@@ -60,10 +60,14 @@ export async function generateMetadata(
     description: p.description,
     alternates: {
       canonical: `/blog/${p.slug}`,
-      // hreflang must be RECIPROCAL or Google ignores it, so the pairing is
-      // declared once here and emitted on BOTH pages — each naming itself and
-      // its counterpart. A one-way annotation is silently discarded.
-      ...(TRANSLATIONS[p.slug] ? { languages: TRANSLATIONS[p.slug] } : {}),
+      // hreflang must be RECIPROCAL or Google ignores it. Translated posts
+      // declare both directions via TRANSLATIONS. All English-only posts emit
+      // en + x-default (self-referencing) so LLM crawlers can associate this
+      // page with the en locale — 0 hreflang = no GEO/AEO locale signal at all.
+      languages: TRANSLATIONS[p.slug] ?? {
+        en: `/blog/${p.slug}`,
+        "x-default": `/blog/${p.slug}`,
+      },
     },
     openGraph: { title: seoTitle, description: p.description, type: "article" },
     twitter: { card: "summary_large_image", title: seoTitle, description: p.description },
