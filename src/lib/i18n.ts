@@ -318,7 +318,7 @@ export const copy = {
       // with the live listings count from useTrackedLabel() in pricing-section.tsx.
       // CRO Principle #7 (specific proof before CTA) + #8 (real numbers, not generic claims).
       // Revenue 2026-09-15.
-      starterTrust: "{{TRACKED}} listings watched · cancel anytime · unlocks immediately",
+      starterTrust: "{{TRACKED}} listings watched · access in ~2s · cancel anytime",
       publicDataLine: "Public data only (not item checks) → /data",
       footer:
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Live Deal Finder, Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access unlocks immediately after payment — no waiting for an email.",
@@ -791,7 +791,7 @@ export const copy = {
       forever: "à vie",
       perMonth: "/mois",
       whereItStops: "Où ça s'arrête :",
-      starterTrust: "{{TRACKED}} annonces suivies · résiliable à tout moment · accès immédiat",
+      starterTrust: "{{TRACKED}} annonces suivies · accès en ~2s · résiliable à tout moment",
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès est débloqué immédiatement après le paiement — pas d'attente d'e-mail.",
@@ -1188,7 +1188,7 @@ export const copy = {
       forever: "de por vida",
       perMonth: "/mes",
       whereItStops: "Dónde se detiene:",
-      starterTrust: "{{TRACKED}} anuncios seguidos · cancela cuando quieras · se desbloquea al instante",
+      starterTrust: "{{TRACKED}} anuncios seguidos · acceso en ~2s · cancela cuando quieras",
       publicDataLine: "Solo datos públicos (no comprobaciones de artículos) → /data",
       footer:
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso se desbloquea inmediatamente después del pago — sin esperar un correo.",
@@ -1584,7 +1584,7 @@ export const copy = {
       forever: "dauerhaft",
       perMonth: "/Monat",
       whereItStops: "Wo es endet:",
-      starterTrust: "{{TRACKED}} Angebote beobachtet · jederzeit kündbar · sofort freigeschaltet",
+      starterTrust: "{{TRACKED}} Angebote beobachtet · Zugang in ~2s · jederzeit kündbar",
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang wird sofort nach der Zahlung freigeschaltet — keine Wartezeit auf eine E-Mail.",
@@ -1981,7 +1981,7 @@ export const copy = {
       forever: "per sempre",
       perMonth: "/mese",
       whereItStops: "Dove si ferma:",
-      starterTrust: "{{TRACKED}} annunci monitorati · disdici quando vuoi · si sblocca subito",
+      starterTrust: "{{TRACKED}} annunci monitorati · accesso in ~2s · disdici quando vuoi",
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso si sblocca subito dopo il pagamento — nessuna attesa via email.",
@@ -2376,7 +2376,7 @@ export const copy = {
       forever: "para sempre",
       perMonth: "/mês",
       whereItStops: "Onde para:",
-      starterTrust: "{{TRACKED}} anúncios monitorados · cancela quando quiseres · desbloqueia imediatamente",
+      starterTrust: "{{TRACKED}} anúncios monitorados · acesso em ~2s · cancela quando quiseres",
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso é desbloqueado imediatamente após o pagamento — sem esperar por um e-mail.",
