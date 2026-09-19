@@ -150,6 +150,11 @@ test("methodology explains sell-through, buy-below and confidence", async ({ pag
   expect(body).toMatch(/0\.95/i)
   expect(body).toMatch(/HIGH/i)
   expect(body).not.toMatch(/undefined|NaN/)
+  // H61 CRO: public trust page sells Starter, not a free-account lie.
+  const cta = page.getByRole("link", { name: /Start for €19/i })
+  await expect(cta).toBeVisible()
+  await expect(cta).toHaveAttribute("href", /\/register\?plan=operator/)
+  await expect(page.getByRole("link", { name: /Create a free account/i })).toHaveCount(0)
 })
 
 test("/tools checker is the free holy-shit moment, not a register wall", async ({ page }) => {
