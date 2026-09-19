@@ -263,7 +263,7 @@ export function PricingSection({
                 the eye has no primary to find and the recommendation the card
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
-            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id || (!tier.free && !plansReady)} style={{
+            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
               width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,
               fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id || (!tier.free && !plansReady)) ? "wait" : "pointer",
               border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
