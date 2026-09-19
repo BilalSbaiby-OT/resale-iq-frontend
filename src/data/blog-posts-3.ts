@@ -825,34 +825,34 @@ export const POSTS_3: BlogPost[] = [
   },
   {
     slug: "balenciaga-reselling-vinted-guide",
-    title: "Balenciaga Reselling on Vinted: Where €145 Average Exits and Strict Authentication Meet",
+    title: "Balenciaga Reselling on Vinted: Where €133 Average Exits and Strict Authentication Meet",
     seoTitle: "Is Balenciaga Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Balenciaga ranks #4 by watched departures across 5 EU Vinted markets — 523/week at €145 average. Sneakers lead with 163 departures averaging €140 (buy-below ~€93). Bags are the highest cash-per-unit play at €319 average.",
-    date: "2026-09-14",
+      "Balenciaga ranks #4 by watched departures across 5 EU Vinted markets — 211/week at €133 average. Sneakers lead with 61 departures averaging €164 (buy-below ~€107). Bags are the highest cash-per-unit play at €193 average.",
+    date: "2026-09-19",
 
     preflightQuery: "Balenciaga",
     category: "Sourcing",
     readMins: 7,
     intro:
-      "Week to 14 September 2026, Balenciaga ranked #4 across Spain, France, Germany, Italy and Portugal with 523 watched departures at an average exit price of €145 — the highest revenue-per-departure of any brand in the top five. That combination of volume and ticket size makes Balenciaga the brand where authentication skill translates most directly into profit: one correctly authenticated Triple S or Track runner, sourced at the right floor, clears more margin than a week of Fred Perry Shirts. The constraint is not demand — it is sourcing knowledge.",
+      "Week to 19 September 2026, Balenciaga ranked #4 across Spain, France, Germany, Italy and Portugal with 211 watched departures at an average exit price of €133 — the highest revenue-per-departure of any brand in the top five. That combination of volume and ticket size makes Balenciaga the brand where authentication skill translates most directly into profit: one correctly authenticated Triple S or Track runner, sourced at the right floor, clears more margin than a week of Fred Perry Shirts. The constraint is not demand — it is sourcing knowledge.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Of the 523 watched departures, Sneakers led with 163 at an average of €140. T-Shirts followed at 93 departures averaging €89. Hoodies contributed 81 at €108 — a strong per-unit return for a garment that sources regularly at charity shops and house clearances. Shirts came in at 64 departures averaging €71. Bags were the smallest category by volume (51 departures) but the highest by exit price: €319 average, driven by canvas totes and shoulder bags in clean condition.",
+          "Of the 211 watched departures, Sneakers led with 61 at an average of €164. T-Shirts followed at 52 departures averaging €96. Hoodies contributed 34 at €103 — a strong per-unit return for a garment that sources regularly at charity shops and house clearances. Shirts came in at 32 departures averaging €83. Bags were the smallest category by volume (9 departures) but the highest by exit price: €193 average, driven by canvas totes and shoulder bags in clean condition.",
           "Full Balenciaga volumes are on " +
             ilinkHref("flip") +
-            " and update weekly. The €145 brand average masks a wide spread — a Sneaker lot and a T-Shirt lot at the same source price are not the same opportunity.",
+            " and update weekly. The €133 brand average masks a wide spread — a Sneaker lot and a T-Shirt lot at the same source price are not the same opportunity.",
         ],
       },
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €140 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €133. Applying a 30% target margin gives a buy-below of approximately €93. Any Balenciaga Sneaker sourced below that price — authenticated and in wearable condition — has a realistic margin at current departure prices.",
-          "Hoodies at €108 average give a buy-below near €72. T-Shirts at €89 give a buy-below near €59. Shirts at €71 give a buy-below near €47. Bags at €319 average give a buy-below near €212 — the highest absolute floor, but bags are also the most condition- and authenticity-dependent category. A bag that fails authentication or photographs as worn has no real market at any price.",
+          "With Sneakers averaging €164 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €156. Applying a 30% target margin gives a buy-below of approximately €109. Any Balenciaga Sneaker sourced below that price — authenticated and in wearable condition — has a realistic margin at current departure prices.",
+          "Hoodies at €103 average give a buy-below near €69. T-Shirts at €96 give a buy-below near €64. Shirts at €83 give a buy-below near €55. Bags at €193 average give a buy-below near €128 — the highest absolute floor, but bags are also the most condition- and authenticity-dependent category. A bag that fails authentication or photographs as worn has no real market at any price.",
         ],
-        cta: pricingMidCta("ctr_balenciaga_20260914"),
+        cta: pricingMidCta("ctr_balenciaga_20260919"),
       },
       {
         h: "Authentication is the sourcing moat",
@@ -866,22 +866,22 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Sneakers: where the margin lives",
         p: [
-          "At 163 departures per week and €140 average, Sneakers are Balenciaga's strongest resale category by revenue volume. The models that drive this: Track runners (the two-sole runner with exposed mesh upper) and Triple S (the chunky triple-layer sole). Both have been widely faked since 2019 — which is the sourcing moat for buyers who can authenticate.",
+          "At 61 departures per week and €164 average, Sneakers are Balenciaga's strongest resale category by revenue volume. The models that drive this: Track runners (the two-sole runner with exposed mesh upper) and Triple S (the chunky triple-layer sole). Both have been widely faked since 2019 — which is the sourcing moat for buyers who can authenticate.",
           "Condition grading matters more than on low-ticket brands: a pair described as 'worn twice' in a flat-lay photo commands €30–40 more than the same pair described as 'used' in box-less presentation. Photograph against a neutral background, show the sole unit cleanly, and describe any toe-box creasing explicitly. EU size 41–43 (M medium) moves fastest; very small and very large sizes sit longer.",
         ],
       },
       {
         h: "Bags: highest cash per unit, strictest condition standard",
         p: [
-          "Bags averaged €319 at departure across 51 watched exits — the highest per-unit exit of any Balenciaga category. The canvas North-South shopper and the Le Cagole shoulder bag account for most of this volume. The condition bar is high: buyers in the €250–350 range are not accepting bags with strap wear, handle darkening, or structural sag.",
+          "Bags averaged €193 at departure across 9 watched exits — the highest per-unit exit of any Balenciaga category. The canvas North-South shopper and the Le Cagole shoulder bag account for most of this volume. The condition bar is high: buyers in the €150–250 range are not accepting bags with strap wear, handle darkening, or structural sag.",
           "Hardware condition is a tell: genuine Balenciaga hardware does not tarnish or flake, and the embossed logo on metal fittings should be sharp. If hardware shows any flaking, treat the piece as non-market. Dust bags are not essential but do support the asking price. Source bags only when you can photograph them under controlled light — corner wear and base sag are invisible in casual photos and return triggers for buyers.",
         ],
-        cta: pricingBodyCta("body_balenciaga_20260914"),
+        cta: pricingBodyCta("body_balenciaga_20260919"),
       },
       {
         h: "How Balenciaga compares to other top brands",
         p: [
-          "By revenue velocity (departures × average price), Balenciaga leads the top five: 523 exits at €145 produces approximately €75,800 in weekly market value across EU5. Stone Island at 785 departures × €70 is €54,950. Patagonia at 785 × €36 is €28,260. Fred Perry at 928 × €18 is €16,704.",
+          "By revenue velocity (departures × average price), Balenciaga competes in the top five: 211 exits at €133 produces approximately €28,060 in weekly market value across EU5. Stone Island at 785 departures × €70 is €54,950. Patagonia at 785 × €36 is €28,260. Fred Perry at 928 × €18 is €16,704.",
           "The practical comparison: Balenciaga requires more capital per unit sourced, stricter authentication, and more careful condition grading — but the sourcing moat is also higher, meaning fewer casual buyers are competing with you for the same inventory. The " +
             ilinkHref("data") +
             " page shows the current week's departure numbers for all 28 tracked brands.",

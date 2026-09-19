@@ -14,25 +14,26 @@ export const POSTS_45: BlogPost[] = [
     title: "Balenciaga T-Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga T-Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga T-Shirts track 90 watched departures per week across EU Vinted in September 2026 at an €89 average exit price. Real exit ranges by style (logo tee, political campaign tee, tape logo), buy-below ceiling €57.85, authentication guide, and how Balenciaga T-shirts compare to hoodies and sneakers for EU resellers.",
-    date: "2026-09-15",
+      "Balenciaga T-Shirts track 52 watched departures per week across EU Vinted in September 2026 at a €96 average exit price. Real exit ranges by style (logo tee, political campaign tee, tape logo), buy-below ceiling €62.40, authentication guide, and how Balenciaga T-shirts compare to hoodies and sneakers for EU resellers.",
+    date: "2026-09-19",
+    updated: "2026-09-19",
     category: "Sourcing",
     readMins: 8,
 
     preflightQuery: "Balenciaga",
     intro:
-      "Balenciaga T-shirts track 90 watched departures per week across EU Vinted in the week to 15 September 2026 at an €89 average exit price — making it the brand's second-highest volume category behind sneakers (152/7d at €148) and ahead of hoodies (76/7d at €105). The buy-below ceiling is €57.85 — 65% of the €89 average — meaning a correctly sourced Balenciaga logo tee generates roughly the same gross margin in a single transaction as five Fred Perry shirts combined. For EU resellers who work charity shops in France, Germany, and Spain, Balenciaga T-shirts are the highest-margin soft-goods category accessible without luxury authentication expertise. This guide covers exit prices by style type, the buy-below ceiling, condition criteria, and how Balenciaga T-shirts compare to hoodies and sneakers as an EU Vinted reselling play.",
+      "Balenciaga T-shirts track 52 watched departures per week across EU Vinted in the week to 19 September 2026 at a €96 average exit price — making it the brand's second-highest volume category behind sneakers (61/7d at €164) and ahead of hoodies (34/7d at €103). The buy-below ceiling is €62.40 — 65% of the €96 average — meaning a correctly sourced Balenciaga logo tee generates roughly the same gross margin in a single transaction as five Fred Perry shirts combined. For EU resellers who work charity shops in France, Germany, and Spain, Balenciaga T-shirts are the highest-margin soft-goods category accessible without luxury authentication expertise. This guide covers exit prices by style type, the buy-below ceiling, condition criteria, and how Balenciaga T-shirts compare to hoodies and sneakers as an EU Vinted reselling play.",
     definedTerm: {
       name: "Balenciaga T-shirt departure average",
       description:
-        "The Balenciaga T-shirt departure average is the average price at which a tracked Balenciaga T-shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Balenciaga T-shirts track 90 watched departures per week across France, Germany, Spain, Italy, and Portugal at an €89 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Balenciaga brand overall tracks 488 watched departures per week at a €149 brand average across all categories. The buy-below ceiling at the T-shirt category level is €57.85 — that is €89 × 0.65, targeting a 35% gross margin after platform fees. Balenciaga T-shirts are the brand's second-highest volume category on EU Vinted, accounting for approximately 18% of the brand's total weekly departures.",
+        "The Balenciaga T-shirt departure average is the average price at which a tracked Balenciaga T-shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 19 September 2026, Balenciaga T-shirts track 52 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €96 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Balenciaga brand overall tracks 211 watched departures per week at a €133 brand average across all categories. The buy-below ceiling at the T-shirt category level is €62.40 — that is €96 × 0.65, targeting a 35% gross margin after platform fees. Balenciaga T-shirts are the brand's second-highest volume category on EU Vinted, accounting for approximately 25% of the brand's total weekly departures.",
     },
     sections: [
       {
-        h: "Balenciaga T-shirts on EU Vinted: 90 departures per week at €89 average",
+        h: "Balenciaga T-shirts on EU Vinted: 52 departures per week at €96 average",
         p: [
-          "Balenciaga T-shirts represent the most accessible entry into the Balenciaga resale category on EU Vinted. At 90 watched departures per week, they move at more than double the frequency of hoodies (76/7d) and nearly 60% of the rate of sneakers (152/7d) — but without the authentication complexity of footwear and with a sourcing price that is reachable in EU charity shops. The €89 average exit price positions the T-shirt category above mid-market brands (Fred Perry shirts at €14/7d avg, Patagonia T-shirts at €17) but below Balenciaga hoodies (€105) and sneakers (€148).",
-          "The exit price range within the T-shirt category is wide: a worn generic Balenciaga logo tee in a common colourway might depart at €45–60, while a clean campaign-edition or collaboration tee in a sought-after colourway can reach €120–160. The €89 average reflects a market weighted toward the mid-range — logo tees in good condition, recognisable typography, standard sizing. For EU resellers, this is the category where condition and authenticity together determine whether a piece exits at the lower or upper bound of the range.",
+          "Balenciaga T-shirts represent the most accessible entry into the Balenciaga resale category on EU Vinted. At 52 watched departures per week, they move at roughly 60% of the frequency of sneakers (61/7d) and ahead of hoodies (34/7d) — but without the authentication complexity of footwear and with a sourcing price that is reachable in EU charity shops. The €96 average exit price positions the T-shirt category above mid-market brands (Fred Perry shirts at €15/7d avg, Patagonia T-shirts at €17) but below Balenciaga hoodies (€103) and sneakers (€164).",
+          "The exit price range within the T-shirt category is wide: a worn generic Balenciaga logo tee in a common colourway might depart at €45–60, while a clean campaign-edition or collaboration tee in a sought-after colourway can reach €120–160. The €96 average reflects a market weighted toward the mid-range — logo tees in good condition, recognisable typography, standard sizing. For EU resellers, this is the category where condition and authenticity together determine whether a piece exits at the lower or upper bound of the range.",
           `EU Vinted activity in the Balenciaga T-shirt category is strongest in France and Germany, where mid-luxury fashion resale volume is highest. Spain and Italy contribute meaningful secondary volume. Sourcing access to charity shops and second-hand stores in French and German urban centres — where Balenciaga brand penetration and donation rates are highest — is the primary sourcing infrastructure for this category. [Full Balenciaga brand data →](${ilinkHref("flip")})`,
         ],
       },
@@ -42,9 +43,9 @@ export const POSTS_45: BlogPost[] = [
           "Balenciaga T-shirt exit prices split materially by style. The logo tee — typically a large-print 'Balenciaga' text or BB monogram on a heavyweight cotton tee — is the highest-volume style and the most recognisable to non-specialist buyers. Logo tees in black or white in good condition depart at €70–100. In excellent condition or in colourways released as limited editions, the ceiling extends to €110–130.",
           "Campaign-edition tees — those bearing specific campaign imagery, season references, or political messaging (Balenciaga's campaign tees from FW22 onward carry distinctive design language) — carry a premium above the category average. Clean campaign tees from sought-after seasons exit at €100–160. These are less frequently found in EU charity shops but surface through Vinted-to-Vinted condition arbitrage: sellers who do not identify the piece correctly list it at general logo-tee pricing.",
           "Tape logo and 'Paris' typography tees are the mid-tier volume driver — recognisable to the Balenciaga buyer but less premium than the campaign pieces. Good condition tape-logo tees depart at €65–90. Collaboration tees (Adidas × Balenciaga, Gucci × Balenciaga) are outliers: clean collaboration pieces exit at €120–200 depending on the colourway and partner brand, but sourcing them is rare enough to treat as a bonus, not a strategy.",
-          `Buy-below ceiling across the T-shirt category: €57.85 — €89 × 0.65, targeting 35% gross margin after Vinted's seller protection fee. For near-new logo tees in core colourways, you can source up to €65–70 and still expect to exit at or above the category average. [See all Balenciaga data →](${ilinkHref("flip")})`,
+          `Buy-below ceiling across the T-shirt category: €62.40 — €96 × 0.65, targeting 35% gross margin after Vinted's seller protection fee. For near-new logo tees in core colourways, you can source up to €70–75 and still expect to exit at or above the category average. [See all Balenciaga data →](${ilinkHref("flip")})`,
         ],
-        cta: pricingMidCta("ctr_balenciaga_tshirt_20260915"),
+        cta: pricingMidCta("ctr_balenciaga_tshirt_20260919"),
       },
       {
         h: "Condition and sizing: what moves at the €89 average, what doesn't",
@@ -66,17 +67,17 @@ export const POSTS_45: BlogPost[] = [
       {
         h: "Balenciaga T-shirts vs hoodies vs sneakers on EU Vinted",
         p: [
-          "EU resellers choosing between Balenciaga categories face a clear trade-off: sneakers are the highest per-unit margin play, hoodies are the mid-point, and T-shirts are the most accessible by sourcing price and authentication complexity. For a reseller starting in the Balenciaga category, T-shirts are the correct entry: 90 departures per week, €89 average, and a buy-below ceiling of €57.85 — all achievable without specialist authentication equipment.",
-          "Balenciaga hoodies (76/7d, €105 average, buy-below €68.25) offer a higher ceiling per piece. The trade-off is that hoodies are less frequently donated to EU charity shops than T-shirts, and condition matters more at the higher price point — a hood with fraying or zip damage is a harder resale. Hoodies require the same label and print authentication as T-shirts.",
-          "Balenciaga sneakers (152/7d, €148 average, buy-below €95.55) are the highest-volume highest-margin category — but authentication complexity is materially higher and replica exposure is acute. For a reseller who has already built confidence in the T-shirt and hoodie category, graduating to sneakers makes sense. For a new Balenciaga reseller, start with the tee.",
+          "EU resellers choosing between Balenciaga categories face a clear trade-off: sneakers are the highest per-unit margin play, hoodies are the mid-point, and T-shirts are the most accessible by sourcing price and authentication complexity. For a reseller starting in the Balenciaga category, T-shirts are the correct entry: 52 departures per week, €96 average, and a buy-below ceiling of €62.40 — all achievable without specialist authentication equipment.",
+          "Balenciaga hoodies (34/7d, €103 average, buy-below €66.95) offer a higher ceiling per piece. The trade-off is that hoodies are less frequently donated to EU charity shops than T-shirts, and condition matters more at the higher price point — a hood with fraying or zip damage is a harder resale. Hoodies require the same label and print authentication as T-shirts.",
+          "Balenciaga sneakers (61/7d, €164 average, buy-below €106.60) are the highest-volume highest-margin category — but authentication complexity is materially higher and replica exposure is acute. For a reseller who has already built confidence in the T-shirt and hoodie category, graduating to sneakers makes sense. For a new Balenciaga reseller, start with the tee.",
         ],
         table: {
-          caption: "Balenciaga category comparison — EU Vinted, week to 15 Sep 2026",
+          caption: "Balenciaga category comparison — EU Vinted, week to 19 Sep 2026",
           head: ["Category", "Departures/7d", "Avg exit price", "Buy-below ceiling"],
           rows: [
-            ["T-Shirts", "90", "€89", "€57.85"],
-            ["Hoodies", "76", "€105", "€68.25"],
-            ["Sneakers", "152", "€148", "€95.55"],
+            ["T-Shirts", "52", "€96", "€62.40"],
+            ["Hoodies", "34", "€103", "€66.95"],
+            ["Sneakers", "61", "€164", "€106.60"],
           ],
         },
       },
@@ -93,11 +94,11 @@ export const POSTS_45: BlogPost[] = [
     faq: [
       {
         q: "How much does a Balenciaga T-shirt sell for on EU Vinted?",
-        a: "Balenciaga T-shirts averaged €89 per departure across EU Vinted in the week to 15 September 2026, across 90 observed departures in France, Germany, Spain, Italy, and Portugal. The range runs from approximately €45–60 for worn logo tees in common colourways to €120–160 for clean campaign-edition or collaboration tees in sought-after colourways.",
+        a: "Balenciaga T-shirts averaged €96 per departure across EU Vinted in the week to 19 September 2026, across 52 observed departures in France, Germany, Spain, Italy, and Portugal. The range runs from approximately €45–60 for worn logo tees in common colourways to €120–160 for clean campaign-edition or collaboration tees in sought-after colourways.",
       },
       {
         q: "What is the buy-below price for a Balenciaga T-shirt on EU Vinted?",
-        a: "The buy-below ceiling for a standard Balenciaga T-shirt at the €89 departure average is €57.85 — 65% of the average exit price, targeting a 35% gross margin after Vinted's 5% seller protection fee. For near-new logo tees in core colourways, you can source up to €65–70 and still expect to exit at or above the category average. For worn pieces, tighten to €30–35.",
+        a: "The buy-below ceiling for a standard Balenciaga T-shirt at the €96 departure average is €62.40 — 65% of the average exit price, targeting a 35% gross margin after Vinted's 5% seller protection fee. For near-new logo tees in core colourways, you can source up to €70–75 and still expect to exit at or above the category average. For worn pieces, tighten to €30–35.",
       },
       {
         q: "Which Balenciaga T-shirt style is most valuable on EU Vinted?",
@@ -105,11 +106,11 @@ export const POSTS_45: BlogPost[] = [
       },
       {
         q: "Is a Balenciaga T-shirt worth reselling on EU Vinted?",
-        a: "Yes — Balenciaga T-shirts track 90 watched departures per week at an €89 average, with a buy-below ceiling of €57.85. A single correctly sourced logo tee generates more gross margin than five Fred Perry shirts at a comparable sourcing cost. The authentication requirement is manageable — label check, print quality, and cotton weight are the three key indicators — making this the most accessible entry into the Balenciaga resale category.",
+        a: "Yes — Balenciaga T-shirts track 52 watched departures per week at a €96 average, with a buy-below ceiling of €62.40. A single correctly sourced logo tee generates more gross margin than five Fred Perry shirts at a comparable sourcing cost. The authentication requirement is manageable — label check, print quality, and cotton weight are the three key indicators — making this the most accessible entry into the Balenciaga resale category.",
       },
       {
         q: "How does a Balenciaga T-shirt compare to a Balenciaga hoodie on EU Vinted?",
-        a: "Balenciaga hoodies track 76 departures per week at €105 average — a higher ceiling but lower frequency than T-shirts (90/7d, €89 avg). Hoodies offer more gross margin per piece when correctly sourced, but they appear less frequently in EU charity shops than T-shirts and have a wider condition sensitivity at the higher price point. For a new Balenciaga reseller, T-shirts are the correct entry point.",
+        a: "Balenciaga hoodies track 34 departures per week at €103 average — a higher ceiling but lower frequency than T-shirts (52/7d, €96 avg). Hoodies offer more gross margin per piece when correctly sourced, but they appear less frequently in EU charity shops than T-shirts and have a wider condition sensitivity at the higher price point. For a new Balenciaga reseller, T-shirts are the correct entry point.",
       },
       {
         q: "How do I authenticate a Balenciaga T-shirt for EU Vinted resale?",
