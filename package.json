@@ -43,5 +43,6 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "_dockerCacheBust": "2026-09-20T01:30:00Z"
 }
