@@ -29,8 +29,13 @@ const PRO_PAID_ONLY = ["/compare"]
 const PRO_OR_TRIAL = ["/order-planner"]
 // Admin / ops / traffic: owner email only. Paying Pro is not the owner.
 const OWNER_ONLY_PREFIX = "/admin"
+// Pages that show seed/demo content to cold visitors (including unauthenticated).
+// AppShell must NOT redirect these users to /login — the seed verdict is the
+// product for a brand-new account, and showing a login wall after paying
+// destroys conversion momentum (CRO #12). Auth check runs in background.
+const AUTH_SANDBOX = ["/verdict"]
 
-export function AppShell({ children, title = "Dashboard", subtitle }: AppShellProps) {
+export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = false }: AppShellProps & { skipAuth?: boolean }) {
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
   const locale = useLocale()
   const t = navCopy[locale].shell
@@ -39,7 +44,22 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
   const [checked, setChecked] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
 
+  // Determine if this route is an auth sandbox — seed content must be
+  // visible to cold visitors even when unauthenticated.
+  const isSandbox = skipAuth || AUTH_SANDBOX.some(p => pathname.startsWith(p))
+
   useEffect(() => {
+    // In the auth sandbox, run checkAuth in the background but NEVER
+    // redirect. Unauthenticated users see the seed verdict card and are
+    // prompted to log in below it, not replaced by a login form.
+    if (isSandbox) {
+      checkAuth().then(ok => {
+        setChecked(true)
+        // Still track auth state so gated content renders correctly,
+        // but do NOT router.push("/login").
+      })
+      return
+    }
     checkAuth().then(ok => {
       if (!ok) router.push("/login")
       setChecked(true)
@@ -80,7 +100,16 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
     )
   }
 
-  if (!isAuthenticated) return null
+  // In the auth sandbox, render children immediately even when
+  // unauthenticated — the seed verdict card IS the product for a
+  // brand-new account. Show a login prompt below content instead of
+  // replacing the page with a login form.
+  if (!isAuthenticated && !isSandbox) return null
+
+  if (!isAuthenticated && isSandbox && !checked) {
+    // Still loading auth in background — render children with a
+    // minimal loading state so the seed card shows immediately.
+  }
 
   if (user && user.email_verified === false) {
     return null
@@ -135,6 +164,37 @@ export function AppShell({ children, title = "Dashboard", subtitle }: AppShellPr
             </div>
           )}
           {gated ?? children}
+          {/* Auth sandbox login prompt — shows when user is
+              unauthenticated on /verdict. The seed verdict card is
+              visible above this; the login prompt appears below it
+              so the user can register and keep their result. */}
+          {isSandbox && !isAuthenticated && !user && checked && (
+            <div style={{
+              background: "var(--color-graphite-elevated)",
+              borderRadius: 14, padding: "14px 20px", marginTop: 24,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              gap: 16, flexWrap: "wrap"
+            }}>
+              <span style={{ fontSize: 14, color: "var(--color-graphite-muted)" }}>
+                Log in to save your verdicts and track your budget
+              </span>
+              <a href="/login" style={{
+                background: "var(--color-accent)", color: "var(--color-on-accent)",
+                borderRadius: 12, padding: "10px 16px", fontSize: 14,
+                fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap"
+              }}>
+                Log in →
+              </a>
+              <a href="/register?plan=operator&src=verdict-seed" style={{
+                background: "transparent", color: "var(--color-accent)",
+                borderRadius: 12, padding: "10px 16px", fontSize: 14,
+                fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap",
+                border: "1px solid var(--color-accent)"
+              }}>
+                Sign up free →
+              </a>
+            </div>
+          )}
         </main>
       </div>
     </div>
