@@ -17,7 +17,7 @@ import type { VerdictResult } from "@/types"
  *
  * Branches:
  *  - "hidden"   — the deep fields are present; nothing to unlock, render nothing.
- *  - "register" — genuinely logged out. Get an account (the free door).
+ *  - "register" — genuinely logged out. Sell Starter (HARD_PAYWALL; no free door).
  *  - "verify"   — logged in, email not confirmed. A one-click step, not a paywall.
  *  - "entitled" — logged in with NO free-unlock quota field, i.e. a paid/entitled
  *                 account whose deep numbers are simply still maturing. NEVER a

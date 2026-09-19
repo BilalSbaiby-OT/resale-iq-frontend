@@ -1,6 +1,14 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
+import { readFileSync } from "node:fs"
+import { dirname, join } from "node:path"
+import { fileURLToPath } from "node:url"
 import { unlockPanelBranch } from "./unlock-panel-state.ts"
+
+const PANEL_SRC = readFileSync(
+  join(dirname(fileURLToPath(import.meta.url)), "../components/ui/unlock-panel.tsx"),
+  "utf8",
+)
 
 // The founder-reported regression, pinned: a PAYING / entitled user on a
 // provisional verdict (deep fields still maturing) must NEVER be shown the
@@ -14,7 +22,7 @@ test("authenticated paid account (no unlocks field) never sees the register wall
   assert.equal(branch, "entitled")
 })
 
-test("genuinely logged-out visitor gets the register door", () => {
+test("genuinely logged-out visitor gets the register branch (Starter pitch, not a free door)", () => {
   const branch = unlockPanelBranch(
     { sell_through_rate: null, unlocks_remaining: undefined },
     false,
@@ -68,4 +76,16 @@ test("no authenticated state ever resolves to the register wall", () => {
   for (const s of states) {
     assert.notEqual(unlockPanelBranch(s, true), "register")
   }
+})
+
+// H60 CRO: AppShell login-walls /verdict, so this branch is currently unreachable
+// for logged-out visitors — but the copy still shipped a 7-day trial + ?plan=free
+// lie. Pin the source so it cannot come back if the shell ever lets anons through.
+test("H60 register-branch copy sells Starter, never a 7-day trial or ?plan=free", () => {
+  assert.match(PANEL_SRC, /href="\/register\?plan=operator&src=verdict"/)
+  assert.match(PANEL_SRC, /Start for €19/)
+  assert.match(PANEL_SRC, /Starter \(€19\/mo\)/)
+  assert.doesNotMatch(PANEL_SRC, />Create a free account</)
+  assert.doesNotMatch(PANEL_SRC, /href="\/register\?plan=free/)
+  assert.doesNotMatch(PANEL_SRC, /after a 7-day trial/)
 })

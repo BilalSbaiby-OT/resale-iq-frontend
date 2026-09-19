@@ -5,7 +5,7 @@ import type { VerdictResult } from "@/types"
 import { unlockPanelBranch } from "@/lib/unlock-panel-state"
 
 /**
- * The free tier's upgrade moment.
+ * The post-verdict upgrade moment.
  *
  * Design rules this deliberately follows:
  *  - The numbers are NOT here to be revealed by CSS. The server omits them
@@ -16,9 +16,8 @@ import { unlockPanelBranch } from "@/lib/unlock-panel-state"
  *  - The ask escalates with evidence. Someone who has spent nothing sees a
  *    quiet unlock button; someone who has spent the whole budget has actually
  *    felt the ceiling, and only then do we make the case for paying.
- *  - The budget is 10 full unlocks per calendar month after the 7-day trial,
- *    on top of the 10/day headline checks every free account already keeps.
- *    Copy must not imply a lifetime cap.
+ *  - HARD_PAYWALL=1: there is no free item-check path and no 7-day trial on
+ *    the anonymous register branch. Logged-out copy sells Starter (€19).
  */
 export function UnlockPanel({
   result, onUnlock, unlocking, isAuthenticated,
@@ -43,20 +42,22 @@ export function UnlockPanel({
   const limit = result.unlocks_limit
   const remaining = result.unlocks_remaining
 
-  // Anonymous: the job is to get an account, not to sell a plan.
+  // Anonymous: HARD_PAYWALL — sell Starter, never a free trial that does not exist.
+  // H60 CRO: this branch used to promise "a 7-day trial with full access — no card"
+  // and route ?plan=free. Live /verdict is public (200) and seeds a locked SKIP, so
+  // every logged-out visitor who landed here was told a €0 path exists. CRO #4/#10.
   if (branch === "register") {
     return (
-      <Shell tone="neutral">
+      <Shell tone="neutral" testId="riq-unlock-register">
         <Title icon={<Lock size={15} className="text-amber-400" />}>
-          The call is free. The numbers need an account.
+          Full numbers need Starter.
         </Title>
         <Body>
           You just saw the verdict on a real item, computed from watched departures.
-          A free account adds sell-through, best sizes and the reasons why on
-          {limit ?? 10} items a month, after a 7-day trial with full access — no card.
+          Starter (€19/mo) unlocks sell-through, best sizes and the reasons why — cancel anytime.
         </Body>
         <Row>
-          <Primary href="/register?plan=free&src=verdict">Create a free account</Primary>
+          <Primary href="/register?plan=operator&src=verdict">Start for €19</Primary>
           <Secondary href="/login">Sign in</Secondary>
         </Row>
       </Shell>
@@ -161,10 +162,10 @@ export function UnlockPanel({
 
 /* ── presentational bits ─────────────────────────────────────────────────── */
 
-function Shell({ tone, children }: { tone: "neutral" | "warm"; children: React.ReactNode }) {
+function Shell({ tone, children, testId }: { tone: "neutral" | "warm"; children: React.ReactNode; testId?: string }) {
   const border = tone === "warm" ? "border-amber-500/30" : "border-[#1c3327]"
   const bg = tone === "warm" ? "bg-amber-500/[0.06]" : "bg-[#0f1720]"
-  return <div className={`mt-5 rounded-xl border ${border} ${bg} p-5`}>{children}</div>
+  return <div data-testid={testId} className={`mt-5 rounded-xl border ${border} ${bg} p-5`}>{children}</div>
 }
 
 function Title({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {

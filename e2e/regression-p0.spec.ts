@@ -221,8 +221,9 @@ test.describe("P0 — a withheld field reads as gated, never as a broken dash", 
     const shown = (await locked.innerText()).trim()
     expect(shown, "a gated field must never render as a bare dash or N/A").not.toMatch(/^(—|-|N\/A)$/i)
 
-    // A lock with no way through is the same dead end as the dash it replaced.
-    await expect(locked).toHaveAttribute("href", /\/register\?plan=free$/)
+    // H59 CRO: lock tile routes to /login, not ?plan=free. HARD_PAYWALL has no
+    // free item-check path; the lock is a sign-in door, not a €0 register door.
+    await expect(locked).toHaveAttribute("href", /\/login$/)
 
     // ABSENT, NOT BLURRED: the withheld values must not be anywhere in the DOM
     // for CSS to reveal. This is the rule tests/test_verdict_leak.py enforces
