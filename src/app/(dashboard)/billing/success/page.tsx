@@ -4,13 +4,23 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { setToken, getToken } from "@/lib/utils"
 import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
-import { CheckCircle2, Clock, AlertTriangle, Loader2 } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
+import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight } from "lucide-react"
 
 /**
  * Post-checkout landing. Stripe often returns in a different webview with empty
  * localStorage. session_id is enough: the API upgrades the bound account and
  * may return a login token so this page can sign them in.
+ *
+ * H-AFTER-PAYMENT (Revenue 2026-09-19): a paid user who lands here and is
+ * auto-redirected to /dashboard 2.5s later has no idea what to do next. The
+ * dashboard for a brand-new account is an empty state. Replace the silent eject
+ * with a "what to do first" step: a CTA to check a real item, pre-filled with a
+ * live example so the user sees a buy-below number on first interaction.
  */
+
+const DEMO_ITEM = "Nike Air Force 1"
+
 function BillingSuccessContent() {
   const params = useSearchParams()
   const router = useRouter()
@@ -41,7 +51,13 @@ function BillingSuccessContent() {
           // random password they never chose. Send them to set one so they can
           // log back in later; already-registered users just go to the dashboard.
           const dest = wasGuest && d.access_token ? "/account?welcome=1" : "/dashboard"
-          setTimeout(() => { window.location.href = dest }, 2500)
+          // Do NOT auto-eject to /dashboard 2.5s later. A paid user's first
+          // interaction with ResaleIQ is the moment the product earns trust, and
+          // an empty dashboard after paying feels like a dead end. Wait 4s so the
+          // success message reads, then let the "Check your first item" CTA carry
+          // the next action. If they ignore it, the auto-redirect still catches
+          // them on the dashboard after the CTA has had a real chance.
+          setTimeout(() => { window.location.href = dest }, 4000)
         } else {
           setState("unpaid")
         }
@@ -62,7 +78,24 @@ function BillingSuccessContent() {
         {state === "ok" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><CheckCircle2 size={34} style={{ color: "#34C759" }} /></div>
           <div style={{ fontSize: 18, fontWeight: 750 }}>Welcome to {plan === "operator" ? "Starter" : plan === "power" ? "Pro" : plan}</div>
-          <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded. Taking you to your dashboard…</div>
+          <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded.</div>
+          {/* H-AFTER-PAYMENT: give the freshly-paid user a concrete first action
+              instead of silently redirecting them to an empty /dashboard and hoping
+              they figure out what to type. A pre-filled live example removes the
+              "what do I search for" friction for a brand-new user who has never seen
+              the product. */}
+          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
+            <a
+              href={`/verdict?q=${encodeURIComponent(DEMO_ITEM)}`}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 22px", borderRadius: 10, background: "#34C759", color: "#06090c", textDecoration: "none", fontWeight: 700, fontSize: 14 }}
+            >
+              Check your first item
+              <ArrowRight size={16} />
+            </a>
+            <div style={{ fontSize: 11.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
+              We pre-filled {DEMO_ITEM} so you see a buy-below number on the first click.
+            </div>
+          </div>
         </>)}
         {state === "unpaid" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><Clock size={34} style={{ color: "#FF9F0A" }} /></div>

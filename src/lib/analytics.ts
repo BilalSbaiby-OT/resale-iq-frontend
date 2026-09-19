@@ -34,6 +34,7 @@ export type FunnelEvent =
   | "register_form_focused"
   | "register_submit_attempted"
   | "register_submit_failed"
+  | "switch_to_free_clicked"
 
 /** Client-side reasons for register_submit_failed. Encoded into path so the
  *  existing /api/track sink stores them (TrackEvent has no extra column). */

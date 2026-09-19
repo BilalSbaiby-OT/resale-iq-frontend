@@ -311,9 +311,15 @@ function RegisterContent({ locale }: { locale: Locale }) {
               Keeps the current pathname so /es/register stays Spanish. Worth
               the extra line: 51 of the 52 checkouts this company has ever
               started expired unpaid and it has never had a paying customer, so
-              an account we keep is worth more than a paid intent we lose. */}
+              an account we keep is worth more than a paid intent we lose.
+              Track the escape hatch so we can decide whether to keep, modify,
+              or A/B it — measurement first, decision later. */}
           {!isFree && (
-            <Link href={`${pathname}?plan=free`} className="text-[10.5px] text-[var(--color-buy)] hover:underline text-center">
+            <Link
+              href={`${pathname}?plan=free`}
+              className="text-[10.5px] text-[var(--color-buy)] hover:underline text-center"
+              onClick={() => { trackEvent("switch_to_free_clicked"); }}
+            >
               {t.switchToFree}
             </Link>
           )}
