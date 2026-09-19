@@ -273,18 +273,35 @@ export function PricingSection({
               transition: "opacity .18s, border-color .18s",
             }}>{busy === tier.id ? "…" : tier.cta}</button>
             {tier.id === "operator" && (
-              <p
-                data-testid="riq-starter-trust"
-                style={{
-                  margin: "10px 0 0",
-                  fontSize: compact ? 12 : 13,
-                  lineHeight: 1.45,
-                  color: "var(--color-text-muted)",
-                  textAlign: "center",
-                }}
-              >
-                {t.starterTrust.replace("{{TRACKED}}", tracked)}
-              </p>
+              <>
+                {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
+                    above the trust line — it's the core honest-data-as-proof signal.
+                    Revenue 2026-09-19. */}
+                <p
+                  style={{
+                    margin: "16px 0 4px",
+                    fontSize: compact ? 11 : 12,
+                    fontWeight: 700,
+                    color: "var(--color-text-primary)",
+                    textAlign: "center",
+                    letterSpacing: "0.3px",
+                  }}
+                >
+                  {tracked} live listings watched
+                </p>
+                <p
+                  data-testid="riq-starter-trust"
+                  style={{
+                    margin: "0 0 8px",
+                    fontSize: compact ? 11 : 12,
+                    lineHeight: 1.45,
+                    color: "var(--color-text-muted)",
+                    textAlign: "center",
+                  }}
+                >
+                  {t.starterTrust.replace("{{TRACKED}}", "")}
+                </p>
+              </>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
                 Both were tinted, bordered panels stacked inside an already

@@ -107,7 +107,7 @@ export function detectLocale(acceptLanguage: string | null | undefined): Locale 
  * else on the page).
  */
 export const WITHDRAWAL_WAIVER_TEXT =
-  "I want access immediately and I understand that by starting the subscription now I lose my 14-day right of withdrawal."
+  "I want access immediately — confirming starts my subscription now (EU digital goods, Art. 16(m))."
 
 export const copy = {
   en: {
