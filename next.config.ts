@@ -84,20 +84,16 @@ const nextConfig: NextConfig = {
       // the destination without fighting cached redirects.
       { source: "/checkout", destination: "/pricing", permanent: false },
 
-      // SHORT TRACKED LINKS. TikTok gives this account no clickable bio link,
-      // and Instagram allows exactly one — so a lot of people arrive by TYPING
-      // the address, and typed traffic carries no campaign tag at all. The
-      // channel then gets credit for nothing.
-      //
-      // resaleiq.dev/tt is short enough to read off a phone screen, and because
-      // we own the redirect we attach the tags ourselves: what the visitor types
-      // is not what gets recorded, the destination is.
-      //
-      // These live HERE and not in the FastAPI backend. Single-segment paths on
-      // this domain are served by Next.js — I put them in the backend first and
-      // they 404'd, because /tt never reaches FastAPI at all.
-      //
-      // permanent:false (307) on purpose — a 308 is cached by browsers forever
+      // POSTS_36 duplicate — the plural "stone-island-hoodies-*" slug was the
+      // first Stone Island hoodie guide shipped; POSTS_66 ("stone-island-hoodie-*"
+      // singular) is the current, richer page with the live numbers. Redirect the
+      // older plural slug to the current singular one so link equity and any
+      // inbound citations consolidate on one URL.
+      {
+        source: "/blog/stone-island-hoodies-eu-vinted-price-guide",
+        destination: "/blog/stone-island-hoodie-eu-vinted-price-guide",
+        permanent: true,
+      },
       // and a slug may need retargeting at a later campaign.
       {
         source: "/tt",
