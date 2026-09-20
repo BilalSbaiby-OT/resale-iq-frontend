@@ -117,3 +117,4 @@ function BillingSuccessContent() {
 export default function BillingSuccessPage() {
   return <Suspense><BillingSuccessContent /></Suspense>
 }
+ 
