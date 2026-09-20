@@ -558,13 +558,14 @@ export const CHAPTERS_1: ManualChapter[] = [
     number: 8,
     part: "Sourcing",
     checkQuery: "Supreme Box Logo Tee",
-    updated: "2026-09-13",
-    title: "How to Spot Fake Items on Vinted — Fast Checks That Matter",
+    updated: "2026-09-20",
+    title: "How to Spot Fake Items on Vinted in 2026 — Checks That Matter",
+    seoTitle: "How to Spot Fake Items on Vinted (2026)",
     description:
-      "Practical authenticity checks for Vinted sellers and buyers. Skip guesswork; protect margin before you buy or ship.",
+      "Spot fakes and over-grades before you buy. Condition moves price more than brand. Fast checks, then a demand check on Resale IQ from €19/mo.",
     minutes: 7,
     intro:
-      "Condition is the single largest price variable we can measure, and it is bigger than almost anyone assumes. Grading consistently is not perfectionism — it is how you avoid paying good-condition prices for stock you will have to describe honestly later.",
+      "Condition is the largest price swing we can measure, and it is bigger than almost anyone assumes. A fake, or an over-grade, wipes the margin before you ever list. Snapshot 20 September 2026 at 14:43: 5,341,780 tracked listings and 566 watched departures this week across Spain, France, Germany, Italy and Portugal. Balenciaga averaged €119. Gucci averaged €303. Those are the names where a counterfeit or a \"very good\" that is actually \"good\" costs you the trade. Grade in daylight before money moves. If you cannot stand behind it, do not buy it. Then check demand so you are not authenticating something that will not leave the shelf. We do not verify authenticity. We tell you whether the brand is moving and what comparable listings left at. Resale IQ returns BUY, WATCH or SKIP from live EU departures. Starter €19/mo. Weekly volumes stay free on /data.",
     sections: [
       {
         h2: "How much condition is actually worth",

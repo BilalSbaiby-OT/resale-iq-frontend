@@ -241,16 +241,16 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-price-items-on-vinted",
-    title: "How to Price Items on Vinted: Buy-Below from Departure Prices",
-    seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically",
+    title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures",
+    seoTitle: "How to Price Items on Vinted (2026) — 566 Exits",
     description:
-      "Price off real Vinted departure prices, then work backwards to buy-below. Resale IQ computes it from watched EU listings. Starter €19/mo.",
+      "Price Vinted items from watched departures, not retail. Week to 20 Sep 2026: 566 exits. Fred Perry €16, Balenciaga €119. Buy-below on Resale IQ, €19/mo.",
     date: "2026-08-05",
-    updated: "2026-09-14",
+    updated: "2026-09-20",
     category: "Pricing",
     readMins: 6,
     intro:
-      "To price an item on Vinted, anchor to what it actually sells for — the median price comparable listings reached when they left the shelf — then set yours slightly below it. Most sellers instead price by feel, which either undersells the item or leaves it sitting unseen. As of 14 September 2026, we watched 5,377 listings leave the shelf across 28 tracked brands this week, and the departure price for the same garment varies wildly by brand: Fred Perry Shirts average €14, Stone Island Hoodies €55, and Balenciaga Sneakers €142. Price off the brand's real departure number, not retail.",
+      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 14:43: across Spain, France, Germany, Italy and Portugal we track 5,341,780 listings. Twenty of 28 tracked brands cleared the publish floor of 5 watched departures and produced 566 observed transitions this week. Fred Perry averaged €16 across 96 departures. Balenciaga averaged €119 across 131. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Check the item on resaleiq.dev — BUY, WATCH or SKIP, Starter €19/mo. Weekly volumes stay free on /data.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
@@ -282,10 +282,10 @@ export const POSTS: BlogPost[] = [
           "Use two numbers together:",
           "1. What it exited at — average asking price when comparable listings left the shelf (brand/category averages are free on our weekly table).",
           "2. Whether anything like it is moving — watched departures for that brand this week. High volume + sane exit price = cash can turn. Low volume at a “deal” price = dead stock risk.",
-          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,377 departures across 28 brands. Examples of the gap:",
-          "Fred Perry — 939 left the shelf · avg €18 (volume play)",
-          "Stone Island — 796 · avg €70",
-          "Gucci — 221 · avg €212 (price play, thinner volume)",
+          "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 566 departures across 20 published brands (28 tracked; floor of 5). Examples of the gap:",
+          "Fred Perry — 96 left the shelf · avg €16 (volume play)",
+          "Stone Island — 62 · avg €73",
+          "Gucci — 26 · avg €303 (price play, thinner volume)",
           "Same week, same markets. Price-alone math would treat a Gucci “deal” and a Fred Perry tee as the same kind of decision. They aren’t.",
           "Buy-below answers “what’s the most I can pay and still margin after fees.” Demand answers “will it leave the shelf before my cash is stuck.” Skip either and you’re guessing.",
           "Full weekly table (free to cite): [weekly market data](" +
@@ -576,16 +576,16 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-find-items-to-flip-on-vinted",
-    title: "How to Find Vinted Flips — Start From Demand, Not Scroll",
-    seoTitle: "How to Find Items to Flip on Vinted — Start From Demand",
+    title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll",
+    seoTitle: "How to Find Items to Flip on Vinted (2026)",
     description:
-      "Stop random scrolling. Find underpriced Vinted items from real demand across ES/FR/DE/IT/PT. Free weekly brand data on Resale IQ.",
+      "Stop scrolling. Start from demand. 566 watched departures this week (20 Sep 2026) on 5.3M EU listings. Balenciaga 131, Fred Perry 96. Checks from €19/mo.",
     date: "2026-08-05",
-    updated: "2026-09-14",
+    updated: "2026-09-20",
     category: "Sourcing",
     readMins: 5,
     intro:
-      "As of 14 September 2026, we watched 5,377 listings leave the shelf across 28 tracked brands this week, and the fastest-moving categories point straight at what's worth flipping: Stone Island Hoodies (433 watched departures at €55), Patagonia Jackets (319 at €50) and New Balance Sneakers (242 at €52). To find items worth flipping on Vinted, start from proven demand rather than from what looks cheap: pick categories that sell fast, know each one's buy-below price, then hunt for listings under it. That turns the hardest part of reselling into a repeatable filter instead of endless scrolling.",
+      "As of 20 September 2026, we watched 566 listings leave the shelf across 20 published brands this week, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. The fastest pairs to hunt are not the cheapest logos. Patagonia Jackets recorded 45 watched departures at €39, Stone Island Hoodies 29 at €52, and New Balance Sneakers 22 at €48. Weekly counts are a lower bound: listings first seen already gone do not enter the 7-day figure. To find items worth flipping, start from proven demand rather than from what looks cheap: pick categories that are actually leaving the shelf, know each one's buy-below, then hunt listings under it — in a charity shop, a Facebook lot, or on Vinted. That turns sourcing into a filter instead of a scroll. We do not see sale receipts. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "Start from demand, not from what's cheap",
@@ -604,7 +604,7 @@ export const POSTS: BlogPost[] = [
           "A cheap listing is not automatically a flip. If the model is slow, the size is weak, or buyers are not moving at the expected price, your money is still tied up. The real sourcing test is two-part:",
           "1. Can you buy below your ceiling?",
           "2. Is there evidence that this brand, model, size, and condition can move?",
-          "The tracked week in this guide shows why the second question matters. Stone Island Hoodies recorded 433 watched departures at €55, Patagonia Jackets 319 at €50, and New Balance Sneakers 242 at €52. Those numbers do not guarantee a sale, but they give you a demand signal to compare with the listing in front of you. A cheap item in a thin category does not offer the same cash-turn probability. [Weekly market data](" +
+          "The tracked week in this guide shows why the second question matters. Stone Island Hoodies recorded 29 watched departures at €52, Patagonia Jackets 45 at €39, and New Balance Sneakers 22 at €48. Those numbers do not guarantee a sale, but they give you a demand signal to compare with the listing in front of you. A cheap item in a thin category does not offer the same cash-turn probability. [Weekly market data](" +
             dataCiteHref("body_flips_deepen_002_20260913") +
             ").",
           "Use a two-gate decision before you source. Start with the exit: the likely sale price and how quickly comparable items are leaving the shelf. Then work backwards to the maximum buy price. A practical buy-below estimate is average sale price × 0.95 × 0.70.",

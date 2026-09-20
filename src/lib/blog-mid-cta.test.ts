@@ -152,10 +152,10 @@ test("how-to-price post ships BODY-001 demand section and keeps ctr_price mid-CT
   const post = posts.slice(start, end)
   assert.match(post, /Demand is the other half of the price/)
   assert.match(post, /A departure price without demand is a trap\. The item can look cheap and still sit/)
-  assert.match(post, /we watched 5,377 departures across 28 brands/)
-  assert.match(post, /Fred Perry — 939 left the shelf · avg €18 \(volume play\)/)
-  assert.match(post, /Stone Island — 796 · avg €70/)
-  assert.match(post, /Gucci — 221 · avg €212 \(price play, thinner volume\)/)
+  assert.match(post, /we watched 566 departures across 20 published brands/)
+  assert.match(post, /Fred Perry — 96 left the shelf · avg €16/)
+  assert.match(post, /Stone Island — 62 · avg €73/)
+  assert.match(post, /Gucci — 26 · avg €303/)
   assert.match(post, /Skip either and you’re guessing/)
   assert.match(post, /pricingMidCta\("ctr_price_20260913"\)/)
   assert.match(post, /pricingBodyCta\("body_price_20260913"\)/)
@@ -230,9 +230,9 @@ test("EX-LOCALE-CTR-ES: Spanish post is answer-first; EN twin titles stay", () =
   assert.ok(h1.length <= 70, `ES H1 ${h1.length} > 70`)
   assert.doesNotMatch(post, /sin regalar tu margen/)
   assert.doesNotMatch(post, /register\?src=blog/)
-  // EN twin — do not rewrite English titles in this lane.
-  assert.match(posts, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically"/)
+  // EN twin — titles may refresh for CTR; keep the slug and buy-below definition.
+  assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 566 Exits"/)
 })
 
 test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {
@@ -382,21 +382,21 @@ test("how-to-get-more-views-on-vinted ships BODY-VIEWS-002 after demand and befo
   const end = posts.indexOf('slug: "seasonal-reselling-calendar"')
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
-  assert.match(post, /title: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
-  assert.match(post, /seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
+  assert.match(post, /title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes"/)
+  assert.match(post, /seoTitle: "How to Get More Views on Vinted .2026. — 4 Fixes"/)
   assert.match(
     post,
-    /No views on Vinted usually means search wording, photos, price, or a stale listing/,
+    /No views\? Check demand first\. 566 watched departures this week/,
   )
   assert.match(post, /Demand is the other half of the views/)
   assert.match(
     post,
     /More views are useful only when the item has a chance of leaving the shelf/,
   )
-  assert.match(post, /we watched 5,377 departures across 28 brands/)
-  assert.match(post, /Fred Perry: 939 departures/)
-  assert.match(post, /Stone Island: 796/)
-  assert.match(post, /Gucci: 221 departures at an average €212/)
+  assert.match(post, /we watched 566 departures across 20 published brands/)
+  assert.match(post, /Fred Perry: 96 departures/)
+  assert.match(post, /Stone Island: 62/)
+  assert.match(post, /Gucci: 26 departures at an average €303/)
   assert.match(post, /1\. Demand: is this brand\/model moving enough this week/)
   assert.match(post, /2\. Buy-below: what is the most you can pay after fees/)
   assert.match(post, /pricingMidCta\("body_views_20260913"\)/)
@@ -486,17 +486,17 @@ test("how-to-find-items-to-flip-on-vinted ships BODY-FLIPS-002 after demand and 
   const end = posts.indexOf('slug: "how-much-money-reselling-vinted"')
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
-  assert.match(post, /title: "How to Find Vinted Flips — Start From Demand, Not Scroll"/)
-  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted — Start From Demand"/)
+  assert.match(post, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
+  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted .2026."/)
   assert.match(
     post,
-    /Stop random scrolling\. Find underpriced Vinted items from real demand/,
+    /Stop scrolling\. Start from demand\. 566 watched departures this week/,
   )
   assert.match(post, /Demand is the other half/)
   assert.match(post, /A buy-below price protects the margin on paper/)
-  assert.match(post, /Stone Island Hoodies recorded 433 watched departures at €55/)
-  assert.match(post, /Patagonia Jackets 319 at €50/)
-  assert.match(post, /New Balance Sneakers 242 at €52/)
+  assert.match(post, /Stone Island Hoodies recorded 29 watched departures at €52/)
+  assert.match(post, /Patagonia Jackets 45 at €39/)
+  assert.match(post, /New Balance Sneakers 22 at €48/)
   assert.match(post, /1\. Can you buy below your ceiling\?/)
   assert.match(post, /2\. Is there evidence that this brand, model, size, and condition can move\?/)
   assert.match(post, /Use a two-gate decision before you source/)

@@ -168,17 +168,17 @@ test("target post titles, metas and H1s are unchanged", () => {
   const posts = read("data/blog-posts.ts")
   const posts2 = read("data/blog-posts-2.ts")
   const posts3 = read("data/blog-posts-3.ts")
-  assert.match(posts, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted — Get Your Buy-Below Automatically"/)
+  assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 566 Exits"/)
   assert.match(
     posts,
-    /Price off real Vinted departure prices, then work backwards to buy-below/,
+    /Price Vinted items from watched departures, not retail/,
   )
-  assert.match(posts, /title: "How to Find Vinted Flips — Start From Demand, Not Scroll"/)
-  assert.match(posts, /seoTitle: "How to Find Items to Flip on Vinted — Start From Demand"/)
+  assert.match(posts, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
+  assert.match(posts, /seoTitle: "How to Find Items to Flip on Vinted .2026."/)
   assert.match(posts, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)
-  assert.match(posts2, /title: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
-  assert.match(posts2, /seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes"/)
+  assert.match(posts2, /title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes"/)
+  assert.match(posts2, /seoTitle: "How to Get More Views on Vinted .2026. — 4 Fixes"/)
   assert.match(posts3, /title: "Vinted Disputes and Returns: A Seller's Guide"/)
   assert.match(posts3, /seoTitle: "How to Avoid Vinted Disputes\? Photos First — Resale IQ"/)
   assert.match(

@@ -151,7 +151,7 @@ test("how-to-price ships the citeable buy-below definition and matching FAQ", ()
     "how-to-price-items-on-vinted",
     "best-brands-to-resell-on-vinted",
   )
-  assert.match(post, /title: "How to Price Items on Vinted: Buy-Below from Departure Prices"/)
+  assert.match(post, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
   assert.match(post, /name: "What is a buy-below price\?"/)
   assert.match(
     post,

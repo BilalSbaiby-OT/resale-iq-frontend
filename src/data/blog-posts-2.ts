@@ -277,16 +277,16 @@ export const POSTS_2: BlogPost[] = [
   },
   {
     slug: "how-to-get-more-views-on-vinted",
-    title: "How to Get More Views on Vinted — 4 Causes and Fixes",
-    seoTitle: "How to Get More Views on Vinted — 4 Causes and Fixes",
+    title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes",
+    seoTitle: "How to Get More Views on Vinted (2026) — 4 Fixes",
     description:
-      "No views on Vinted usually means search wording, photos, price, or a stale listing. Fix the real cause — then buy smarter with buy-below.",
+      "No views? Check demand first. 566 watched departures this week (20 Sep 2026). Then fix title, photos, price, freshness. Item checks from €19/mo.",
     date: "2026-08-06",
-    updated: "2026-09-14",
+    updated: "2026-09-20",
     category: "Selling",
     readMins: 5,
     intro:
-      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what the item sells for, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 14 September 2026, the busiest categories leaving Vinted's shelf across 28 tracked brands were Hoodies (1,181 watched departures/7d), Jackets (955) and Sneakers (713) — so if your item sits in a category showing thin weekly volume, low views is a demand problem no photo or title will fix. Check that first.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (122 watched departures/7d), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. We watched 566 departures this week from 5,341,780 tracked listings in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "First: is there demand at all?",
@@ -301,7 +301,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Demand is the other half of the views",
         p: [
           "More views are useful only when the item has a chance of leaving the shelf. Before spending time on photos, titles, or relisting, use demand to choose what is worth pushing — then use buy-below to decide what is worth buying.",
-          "Week to 14 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 5,377 departures across 28 brands. Fred Perry: 939 departures. Stone Island: 796. Gucci: 221 departures at an average €212. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
+          "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 566 departures across 20 published brands (28 tracked; floor of 5). Fred Perry: 96 departures. Stone Island: 62. Gucci: 26 departures at an average €303. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
           "The filter is simple:",
           "1. Demand: is this brand/model moving enough this week that extra views could become a sale?",
           "2. Buy-below: what is the most you can pay after fees and still keep your margin?",

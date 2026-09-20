@@ -94,19 +94,19 @@ test("chapter renderer prints definedTerm above the intro and uses faqPageJsonLd
   assert.match(chapterPage, /c\.seoTitle/)
 })
 
-test("authenticity chapter CTR (body_fake) is untouched", () => {
+test("authenticity chapter CTR (body_fake) keeps mid-CTA and a short 2026 title", () => {
   const chunk = chapterSlice(manual1, "condition-and-authenticity")
-  assert.match(chunk, /title: "How to Spot Fake Items on Vinted — Fast Checks That Matter"/)
+  assert.match(chunk, /title: "How to Spot Fake Items on Vinted in 2026 — Checks That Matter"/)
+  assert.match(chunk, /seoTitle: "How to Spot Fake Items on Vinted .2026."/)
   assert.match(
     chunk,
-    /Practical authenticity checks for Vinted sellers and buyers. Skip guesswork; protect margin before you buy or ship\./,
+    /Spot fakes and over-grades before you buy\. Condition moves price more than brand/,
   )
   assert.match(chunk, /body_fake_20260913/)
   assert.match(
     chunk,
     /href: "\/pricing\?utm_source=organic&utm_medium=blog&utm_campaign=body_fake_20260913&utm_content=mid_cta"/,
   )
-  assert.doesNotMatch(chunk, /seoTitle:/)
   assert.equal(faqCount(chunk), 2)
 })
 
