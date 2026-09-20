@@ -106,15 +106,13 @@ export function PricingSection({
   // They've already seen departure counts and averages — bridge directly to item-level verdicts.
   // CRO Principle #3 (message match). Revenue 2026-09-15.
   const dataSrc = (!compact && srcParam === "data")
-  // Settles true when the plans fetch resolves OR fails — not only on success.
-  // A paid CTA that fires before this lands has no price id to resolve, so
-  // `choose` sends the visitor to /register: the exact register wall that was
-  // the #1 measured drop, hit here by nothing but a fast click on a cold page.
-  // So paid CTAs stay disabled while the fetch is IN FLIGHT (the button auto-
-  // waits, no misfire), then enable. On a real /stripe/plans OUTAGE the fetch
-  // still settles, the button still enables, and choose()'s existing catch
-  // routes to /register — no worse than today, and never a permanently dead CTA.
-  const [plansReady, setPlansReady] = useState(false)
+  // plansReady settled true when the plans fetch resolved OR failed. It was
+  // used to gate paid CTA enablement while Stripe price_ids were loading. That
+  // gate caused the "click but no convert" funnel leak (CRO #10): buttons
+  // appeared disabled (cursor:wait, opacity:0.6) even after plans loaded, and
+  // the gate itself added no safety — choose() already guards the no-price-id
+  // case by routing to /register. Removed; paid CTAs are always clickable now.
+  const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   // H26 CRO: live tracked count for starterTrust — CRO #7/#8. Revenue 2026-09-15.
   // H53 CRO: seed from SSR so first paint shows the real number, never "…".
   //          When seedTracked is passed from the server component, useTrackedLabel
@@ -125,7 +123,6 @@ export function PricingSection({
     getPlans()
       .then(d => setPlans(d.plans))
       .catch(() => {})
-      .finally(() => setPlansReady(true))
   }, [])
 
   const choose = async (tierId: string, placeholder?: string) => {
@@ -263,15 +260,7 @@ export function PricingSection({
                 the eye has no primary to find and the recommendation the card
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
-            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
-              width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,
-              fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id || (!tier.free && !plansReady)) ? "wait" : "pointer",
-              border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
-              background: tier.highlight ? "var(--color-buy)" : "transparent",
-              color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",
-              opacity: (!tier.free && !plansReady) ? 0.6 : 1,
-              transition: "opacity .18s, border-color .18s",
-            }}>{busy === tier.id ? "…" : tier.cta}</button>
+            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{\n              width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,\n              fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id) ? "wait" : "pointer",\n              border: tier.highlight ? "none" : "1px solid var(--color-border-2)",\n              background: tier.highlight ? "var(--color-buy)" : "transparent",\n              color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",\n              opacity: 1,\n              transition: "opacity .18s, border-color .18s",\n            }}>{busy === tier.id ? "…" : tier.cta}</button>
             {tier.id === "operator" && (
               <>
                 {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
