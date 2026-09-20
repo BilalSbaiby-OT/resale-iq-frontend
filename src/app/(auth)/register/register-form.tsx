@@ -16,27 +16,15 @@ import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 // free account" CTA on the site (pricing section, unlock panel, llms.txt, the
 // Offer schema) landed people on a forced Stripe checkout. The free tier was
 // advertised everywhere and reachable nowhere.
-const PLAN_IDS = ["power", "operator", "free"] as const
+const PLAN_IDS = ["power", "operator"] as const
 type PlanId = (typeof PLAN_IDS)[number]
 
 /** ONLY the real plan ids select a plan. Everything else — missing, unknown,
- *  or a display name — resolves to free.
- *
- *  #50 added a display-name alias map (pro -> power, starter -> operator) so a
- *  hand-typed "?plan=pro" would land on the tier a human calls Pro. Removed:
- *  it re-created the incident documented above it. Every CTA in this codebase
- *  emits an id, never a display name — `grep -rn "plan=" src/` returns only
- *  plan=free, plan=operator and plan=power — so the alias resolved no link we
- *  actually ship. What it did resolve was a typed or third-party URL, silently
- *  upgrading it into the EUR 49 tier: exactly the "landed on a EUR 49 form
- *  with Free unselected" path that bounced all three visitors on 2026-09-01.
- *
- *  The rule is one-directional on purpose. Selecting a cheaper plan than asked
- *  costs a visitor one click; selecting a dearer one costs us the visitor. */
+ *  or a display name — resolves to operator (Starter). */
 function planFromQuery(raw: string | null): PlanId {
-  if (!raw) return "free"
+  if (!raw) return "operator"
   const id = raw.trim().toLowerCase()
-  return (PLAN_IDS as readonly string[]).includes(id) ? (id as PlanId) : "free"
+  return (PLAN_IDS as readonly string[]).includes(id) ? (id as PlanId) : "operator"
 }
 
 function RegisterContent({ locale }: { locale: Locale }) {
@@ -77,7 +65,6 @@ function RegisterContent({ locale }: { locale: Locale }) {
     }).catch(() => {})
   }, [])
 
-  const isFree = plan === "free"
   const formFocused = useRef(false)
 
   const track = (event: FunnelEvent, extra?: { reason?: RegisterFailReason }) => {
@@ -125,11 +112,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
     // No terms gate here any more: pressing this button IS the acceptance, and
     // the sentence saying so sits directly under it. The withdrawal waiver
     // below is a different thing and still gates — see its comment.
-    //
-    // The withdrawal waiver only applies to a paid subscription. Demanding it
-    // for a free signup would be asking someone to waive a right they are not
-    // exercising, which is friction with no legal purpose.
-    if (!isFree && !waiver) {
+    if (!waiver) {
       track("register_submit_failed", { reason: "waiver" })
       setError(t.errorAcceptWaiver); return
     }
@@ -146,18 +129,15 @@ function RegisterContent({ locale }: { locale: Locale }) {
         // (email already taken, network error) hits the catch below instead.
         track("signup_completed")
       }
-      if (plan === "operator" || plan === "power") {
-        try {
-          await startPaidCheckout(plan)
-          return
-        } catch {
-          setCheckoutRetry(true)
-          setError(t.errorCheckoutStart)
-          return
-        }
+      // All registrations go to paid checkout now — no free tier
+      try {
+        await startPaidCheckout(plan)
+        return
+      } catch {
+        setCheckoutRetry(true)
+        setError(t.errorCheckoutStart)
+        return
       }
-      router.push("/check-email")
-      return
     } catch (err: unknown) {
       if (isConflict(err)) {
         track("register_submit_failed", { reason: "conflict" })
@@ -184,59 +164,34 @@ function RegisterContent({ locale }: { locale: Locale }) {
       </div>
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         <h1 className="text-[21px] font-bold mb-1">
-          {/* H8: generic "Create your account" replaced for paid arrivals.
-              paidHeading uses {plan} interpolation — component resolves it at render.
-              Fallback to heading if paidHeading absent (safe default, shouldn't happen). */}
-          {!isFree && t.paidHeading
-            ? t.paidHeading.replace("{plan}", t.planNames[plan])
-            : t.heading}
+          {t.paidHeading.replace("{plan}", t.planNames[plan])}
         </h1>
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">
-          {/* H7: paid visitors already decided — mirror their intent, not the product model.
-              paidSubheading is set for all 6 locales; fallback to subheading if missing. */}
-          {!isFree && t.paidSubheading ? t.paidSubheading : t.subheading}
+          {t.paidSubheading}
         </p>
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
-          {/* NOT a control. The three-way plan radio that used to sit here is
-              gone; `plan` still comes from ?plan= exactly as before, so every
-              paid CTA on the site keeps working and lands in the same Stripe
-              checkout. What changed is that choosing is no longer something a
-              visitor has to DO before they can type an email.
-
-              Measured, production `pageviews`, non-bot, over the window in
-              which register_form_focused has existed (2026-09-05 17:43Z ->
-              2026-09-06 01:53Z): 31 people reached /register, 6 focused any
-              field. 25 of 31 (81%) left without touching the form. The radio
-              was the first thing on it and the only one that made "create an
-              account" start with "decide what to pay". Plan choice loses
-              nothing by moving after the account exists — /account already
-              ships working Upgrade to Starter / Upgrade to Pro buttons through
-              the same createCheckout call (see account/page.tsx).
-
-              A paid arrival still has to SEE the price before a submit sends
+          {/* A paid arrival still has to SEE the price before a submit sends
               them to Stripe, hence this summary. It reads the live Stripe
               amount, same source as before, so "€49 shown / €79 charged"
               stays impossible. */}
-          {!isFree && (
-            <div>
-              <div className="flex items-center justify-between border border-[var(--color-border-2)] rounded-xl p-3.5">
-                <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
-                <span className="text-right">
-                  <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
-                    {prices[plan] != null ? `€${prices[plan]}` : "…"}
-                  </span>
-                  <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
+          <div>
+            <div className="flex items-center justify-between border border-[var(--color-border-2)] rounded-xl p-3.5">
+              <span className="font-semibold text-[14px] text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
+              <span className="text-right">
+                <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
+                  {prices[plan] != null ? `€${prices[plan]}` : "…"}
                 </span>
-              </div>
-              {/* H10: trust note beside price row — resolves the "will I be charged now?" objection
-                  at exactly the moment it forms (Principle #4/#7). Moved UP from below-button. */}
-              {t.paidTrustNote && (
-                <p className="text-[10.5px] text-[var(--color-text-muted)] text-center mt-1.5">
-                  🔒 {t.paidTrustNote}
-                </p>
-              )}
+                <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
+              </span>
             </div>
-          )}
+            {/* H10: trust note beside price row — resolves the "will I be charged now?" objection
+                at exactly the moment it forms (Principle #4/#7). Moved UP from below-button. */}
+            {t.paidTrustNote && (
+              <p className="text-[10.5px] text-[var(--color-text-muted)] text-center mt-1.5">
+                🔒 {t.paidTrustNote}
+              </p>
+            )}
+          </div>
 
           <div>
             <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.emailLabel}</label>
@@ -282,12 +237,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : (
               <>
-                {/* H9: paid arrivals get a commit-confirming label; free keeps "Create account".
-                    {plan} resolved here — same pattern as paidHeading. Fallback to t.submit
-                    if paidSubmit absent (safe default, shouldn't occur). */}
-                {!isFree && t.paidSubmit
-                  ? t.paidSubmit.replace("{plan}", t.planNames[plan])
-                  : t.submit}
+                {t.paidSubmit.replace("{plan}", t.planNames[plan])}
                 {" "}<Check size={15} />
               </>
             )}
@@ -304,7 +254,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
           </p>
 
           <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
-            {isFree ? t.freeNote : t.paidNote}
+            {t.paidNote}
           </p>
 
           {/* The only way off the paid path now that the Free radio is gone.
