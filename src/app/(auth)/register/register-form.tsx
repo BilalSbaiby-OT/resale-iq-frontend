@@ -220,12 +220,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
               W19: this text is WITHDRAWAL_WAIVER_TEXT (src/lib/i18n.ts),
               English on every locale until legal-compliance signs off on a
               translated version — see that constant's comment for why. */}
-          {!isFree && (
-            <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]" data-i18n-pending="waiver-legal-review">
-              <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
-              <span>{WITHDRAWAL_WAIVER_TEXT}</span>
-            </label>
-          )}
+          <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]" data-i18n-pending="waiver-legal-review">
+            <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
+            <span>{WITHDRAWAL_WAIVER_TEXT}</span>
+          </label>
           {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
           {checkoutRetry && (
             <button type="button" onClick={retryPaidCheckout} disabled={loading}
