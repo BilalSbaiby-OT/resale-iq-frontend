@@ -14,7 +14,7 @@ test("landing page loads and is not empty", async ({ page }) => {
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
-  await expect(hero.getByText(/EU Vinted resellers/i)).toBeVisible()
+  await expect(hero.getByText(/buy second-hand to resell/i)).toBeVisible()
   // Seed is the best-EVIDENCED live row, not the best-sounding word. It was
   // Nike Air Force 1 Low (#53) — a BUY, but a provisional one on n=11
   // comparables. No non-provisional BUY exists anywhere in the catalogue, so
@@ -27,7 +27,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("textbox")).toHaveValue("")
   await expect(hero.getByText("Example", { exact: true })).toBeVisible()
   // H1 is the JOB, not the SKU. The SKU stays as the caption on the evidence card.
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Find profitable Vinted flips before buying them/i)
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/New Balance 530/)
   await expect(hero.getByText("New Balance 530", { exact: true }).first()).toBeVisible()
   await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
@@ -114,8 +114,8 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   // The section heading is the document h1 here, not an h2 under the landing
   // page's own h1.
   await expect(page.locator("h1")).toHaveCount(1)
-  // EX-PRICING-OFFER — locked flips hero, not the soft “Know what to pay” line.
-  await expect(page.locator("h1")).toContainText(/Find profitable Vinted flips/i)
+  // Demand OS hero — not the old Vinted-sourcing / “Know what to pay” line.
+  await expect(page.locator("h1")).toContainText(/Know what sells. Decide whether to buy/i)
   const hero = page.locator("section.riq-pricing")
   await expect(hero).toContainText(/BUY \/ WATCH \/ SKIP/)
   await expect(hero).toContainText(/€19/)

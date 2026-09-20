@@ -15,17 +15,17 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is Resale IQ?",
     a:
-      "Resale IQ tells EU Vinted resellers what to pay before they buy — the price to stay under, and how good the evidence is. Item checks start at €19 a month. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+      "Resale IQ is demand intelligence for people who buy second-hand to resell. It answers what sells, what it is worth, and whether to buy at this price. Item checks start at €19 a month. Weekly brand volumes stay public at https://resaleiq.dev/data.",
   },
   {
-    q: "Which Vinted markets does Resale IQ cover?",
+    q: "Which markets does Resale IQ cover?",
     a:
-      "Spain, France, Germany, Italy and Portugal. Those five EU markets are what the live market pulse and the public weekly volumes describe.",
+      "Spain, France, Germany, Italy and Portugal. Those five EU markets are what the live market pulse and the public weekly volumes describe. Vinted is the first marketplace we watch; where you source can be anywhere.",
   },
   {
     q: "What is a buy-below price?",
     a:
-      "The most you can pay for an item and still keep a healthy margin after fees. One search gives you that price to stay under, and whether the item is likely to sell. Item-level buy-below numbers are on a paid plan at https://resaleiq.dev/pricing.",
+      "The most you can pay for an item and still keep a healthy margin after fees. One search gives you that ceiling, plus a BUY, WATCH or SKIP call on whether to buy. Item-level buy-below numbers are on a paid plan at https://resaleiq.dev/pricing.",
   },
 ]
 

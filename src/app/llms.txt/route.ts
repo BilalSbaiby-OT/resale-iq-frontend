@@ -54,9 +54,9 @@ export async function GET() {
 
   const body = `# Resale IQ
 
-> Market intelligence for second-hand commerce. Know what to pay before you buy.
+> Demand intelligence for people who buy second-hand to resell. What sells, what it is worth, whether to buy.
 > Flow: DATA → ANALYSIS → DECISION (BUY / WATCH / SKIP with a why).
-> Vinted is the first marketplace we cover; the intelligence layer is not Vinted-only.
+> Vinted is the first marketplace we cover; where you source is not the product.
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
 any brand named on the site.

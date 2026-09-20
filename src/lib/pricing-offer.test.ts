@@ -16,9 +16,9 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("EN pricing hero is the locked flips offer, not Know-what-to-pay", () => {
+test("EN pricing hero is demand OS, not Know-what-to-pay", () => {
   const t = copy.en.pricingSection
-  assert.equal(t.heading, "Find profitable Vinted flips before buying them.")
+  assert.equal(t.heading, "Know what sells. Decide whether to buy.")
   assert.match(t.subhead, /BUY \/ WATCH \/ SKIP/)
   assert.match(t.subhead, /€19/)
   assert.match(t.subhead, /Starter/)
@@ -26,9 +26,9 @@ test("EN pricing hero is the locked flips offer, not Know-what-to-pay", () => {
   assert.doesNotMatch(t.subhead, /Know what to pay/i)
 })
 
-test("ES pricing hero is an accurate mirror of the locked offer", () => {
+test("ES pricing hero is an accurate mirror of demand OS", () => {
   const t = copy.es.pricingSection
-  assert.equal(t.heading, "Encuentra flips rentables en Vinted antes de comprarlos.")
+  assert.equal(t.heading, "Sabe qué se vende. Decide si compras.")
   assert.match(t.subhead, /BUY \/ WATCH \/ SKIP/)
   assert.match(t.subhead, /19 €/)
   assert.match(t.subhead, /Starter/)
@@ -63,8 +63,8 @@ test("Starter trust line and public-data demote are in EN + ES copy", () => {
   assert.doesNotMatch(copy.es.tiers.free.cta, /Start free|Empieza gratis/i)
 })
 
-test("homepage H1 is the locked flips offer, not Know-what-to-pay", () => {
-  assert.equal(copy.en.heroHeadline, "Find profitable Vinted flips before buying them.")
+test("homepage H1 is demand OS, not Know-what-to-pay", () => {
+  assert.equal(copy.en.heroHeadline, "Know what sells. Decide whether to buy.")
   assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
   assert.match(copy.en.heroSub, /€19/)
   assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)

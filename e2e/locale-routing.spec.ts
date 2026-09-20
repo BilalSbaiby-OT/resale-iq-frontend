@@ -128,7 +128,7 @@ test("\"/de\" serves German even when the browser prefers English -- the URL is 
   expect(res.ok()).toBeTruthy()
   const body = await res.text()
   expect(body).toMatch(/<html lang="de"/)
-  expect(body).toMatch(/Wissen, was du zahlen solltest/)
+  expect(body).toMatch(/Wissen, was sich verkauft/)
 })
 
 test("a visitor who already chose English is not bounced back to \"/de\" on a later visit", async ({ request }) => {
@@ -262,7 +262,7 @@ test("/es/pricing serves the Spanish pricing page, not a redirect and not Englis
   expect(res?.status()).toBe(200)
   expect(page.url()).toMatch(/\/es\/pricing$/)
   // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
-  await expect(page.locator("h1")).toContainText(/Encuentra flips rentables/i)
+  await expect(page.locator("h1")).toContainText(/Sabe qué se vende/i)
   await expect(page.locator("section.riq-pricing")).toContainText(/BUY \/ WATCH \/ SKIP/)
   await expect(page.locator("section.riq-pricing")).toContainText(/19 €/)
   await expect(page.getByTestId("riq-starter-trust")).toContainText(/anuncios seguidos/)
@@ -274,7 +274,7 @@ test("/fr/pricing serves the French pricing page, not a redirect and not English
   const res = await page.goto("/fr/pricing")
   expect(res?.status()).toBe(200)
   expect(page.url()).toMatch(/\/fr\/pricing$/)
-  await expect(page.locator("h1")).toContainText(/Trouvez des flips rentables/i)
+  await expect(page.locator("h1")).toContainText(/Sachez ce qui se vend/i)
 })
 
 test("all five locale pricing routes serve their own page", async ({ request }) => {

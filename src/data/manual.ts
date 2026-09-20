@@ -580,8 +580,8 @@ export const CHAPTERS_1: ManualChapter[] = [
         // EX-CTR-003 mid-CTA after the first how-to section.
         // Campaign body_fake_20260913 matches Content. Soft /data only.
         cta: {
-          headline: "Know what to pay before you buy",
-          body: "Buy-below + demand before cash sticks.",
+          headline: "Know what sells before you buy",
+          body: "Demand + whether to buy before cash sticks.",
           label: "Get the numbers",
           href: "/pricing?utm_source=organic&utm_medium=blog&utm_campaign=body_fake_20260913&utm_content=mid_cta",
           secondaryLabel: "Or browse weekly brand volumes on /data",

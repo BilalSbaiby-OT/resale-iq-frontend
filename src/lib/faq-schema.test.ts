@@ -212,7 +212,7 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.match(landing, /faqPageJsonLd\(faqs\)/)
   assert.match(landing, /<HubFaq items=\{faqs\}/)
   assert.match(home, /What is Resale IQ\?/)
-  assert.match(home, /Which Vinted markets does Resale IQ cover\?/)
+  assert.match(home, /Which markets does Resale IQ cover\?/)
   assert.match(home, /What is a buy-below price\?/)
   assert.match(home, /Spain, France, Germany, Italy and Portugal/)
   assert.match(home, /https:\/\/resaleiq\.dev\/data/)

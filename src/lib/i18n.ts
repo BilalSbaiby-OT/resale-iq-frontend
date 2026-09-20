@@ -113,8 +113,8 @@ export const copy = {
   en: {
     signIn: "Sign in",
     pricing: "Pricing",
-    heroTitle: "Know what to pay before you buy.",
-    heroAudience: "For EU Vinted resellers.",
+    heroTitle: "Know what sells before you buy.",
+    heroAudience: "For people who buy second-hand to resell.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
@@ -131,11 +131,11 @@ export const copy = {
       stampNoTime: "Live market snapshot",
       staleNote: "showing last-good data",
     },
-    heroHeadline: "Find profitable Vinted flips before buying them.",
+    heroHeadline: "Know what sells. Decide whether to buy.",
     heroSub:
-      "One search gives you the buy-below price — BUY / WATCH / SKIP verdict, evidence confidence, and exit data. Starter €19/mo.",
+      "One search: what's in demand, BUY / WATCH / SKIP, and the buy-below price. Starter €19/mo.",
     heroBody:
-      "Market price, buy-below, demand and comparable asking prices at departure — then BUY, WATCH or SKIP. Vinted is the first marketplace it covers.",
+      "What is in demand, what it resells for, whether to buy at this price — then BUY, WATCH or SKIP. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>
       `From ${tracked} live listings and watched departures across five EU markets.`,
     // Additive, not a replacement for the confident demo above it — see
@@ -313,7 +313,7 @@ export const copy = {
     },
     pricingSection: {
       // EX-PRICING-OFFER — Bilal locked flips offer. H1 + subhead are the hero.
-      heading: "Find profitable Vinted flips before buying them.",
+      heading: "Know what sells. Decide whether to buy.",
       // EX-PRICING-CTR — SERP title leads with list prices + buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
       // Not a live Stripe quote; checkout still resolves price ids on the page.
@@ -664,8 +664,8 @@ export const copy = {
   fr: {
     signIn: "Connexion",
     pricing: "Tarifs",
-    heroTitle: "Sachez quoi payer avant d'acheter.",
-    heroAudience: "Pour les revendeurs Vinted en UE.",
+    heroTitle: "Sachez ce qui se vend avant d'acheter.",
+    heroAudience: "Pour ceux qui achètent d'occasion pour revendre.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
     marketPulse: {
       liveLabel: "Marché en direct",
@@ -680,10 +680,10 @@ export const copy = {
       stampNoTime: "Instantané du marché en direct",
       staleNote: "dernières données valides",
     },
-    heroHeadline: "Sachez quoi payer — et si ça se vendra.",
-    heroSub: "Une recherche vous donne le prix à ne pas dépasser — et la solidité des données derrière.",
+    heroHeadline: "Sachez ce qui se vend. Décidez si vous achetez.",
+    heroSub: "Une recherche : ce qui se vend, BUY / WATCH / SKIP, et le prix à ne pas dépasser.",
     heroBody:
-      "Prix de marché, prix d'achat max, demande et prix affichés comparables au moment où l'annonce disparaît — puis ACHETER, SURVEILLER ou ÉCARTER. Vinted d'abord.",
+      "Ce qui est demandé, ce que ça se revend, s'il faut acheter à ce prix — puis BUY, WATCH ou SKIP. Vinted est le premier marketplace ; l'origine de l'achat n'est pas le produit.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -797,7 +797,7 @@ export const copy = {
       seeFullNumbers: "Voir tous les chiffres →",
     },
     pricingSection: {
-      heading: "Trouvez des flips rentables sur Vinted avant d'acheter.",
+      heading: "Sachez ce qui se vend. Décidez si vous achetez.",
       metaTitle: "Starter 19 € / Pro 49 € — prix d'achat max",
       metaDescription:
         "Starter 19 € / Pro 49 € : prix d'achat max Vinted. Verdicts et tailles en offre payante. Volumes hebdo publics sur /data. Annulable à tout moment.",
@@ -1060,8 +1060,8 @@ export const copy = {
   es: {
     signIn: "Entrar",
     pricing: "Precios",
-    heroTitle: "Sabe qué pagar antes de comprar.",
-    heroAudience: "Para revendedores de Vinted en la UE.",
+    heroTitle: "Sabe qué se vende antes de comprar.",
+    heroAudience: "Para quien compra de segunda mano para revender.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
     marketPulse: {
       liveLabel: "Mercado en vivo",
@@ -1076,11 +1076,11 @@ export const copy = {
       stampNoTime: "Instantánea del mercado en vivo",
       staleNote: "mostrando últimos datos válidos",
     },
-    heroHeadline: "Encuentra flips rentables en Vinted antes de comprarlos.",
+    heroHeadline: "Sabe qué se vende. Decide si compras.",
     heroSub:
-      "Una búsqueda te da el precio máximo de compra — veredicto BUY / WATCH / SKIP, confianza de la evidencia y datos de salida. Starter 19 €/mes.",
+      "Una búsqueda: qué se vende, veredicto BUY / WATCH / SKIP y el precio máximo de compra. Starter 19 €/mes.",
     heroBody:
-      "Precio de mercado, precio máximo de compra, demanda y precios de referencia comparables al desaparecer el anuncio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace.",
+      "Qué hay en demanda, a qué se revende, si conviene comprar a este precio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace; de dónde compras no es el producto.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
@@ -1195,7 +1195,7 @@ export const copy = {
     },
     pricingSection: {
       // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
-      heading: "Encuentra flips rentables en Vinted antes de comprarlos.",
+      heading: "Sabe qué se vende. Decide si compras.",
       metaTitle: "Starter 19 € / Pro 49 € — precio de compra máx.",
       metaDescription:
         "Starter 19 € / Pro 49 €: precio máximo de compra en Vinted. Veredictos y tallas en planes de pago. Volúmenes públicos en /data. Cancela cuando quieras.",
@@ -1459,8 +1459,8 @@ export const copy = {
   de: {
     signIn: "Anmelden",
     pricing: "Preise",
-    heroTitle: "Wissen, was du zahlen solltest, bevor du kaufst.",
-    heroAudience: "Für Vinted-Wiederverkäufer in der EU.",
+    heroTitle: "Wissen, was sich verkauft, bevor du kaufst.",
+    heroAudience: "Für alle, die Second-Hand kaufen, um weiterzuverkaufen.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
     marketPulse: {
       liveLabel: "Live-Markt",
@@ -1475,10 +1475,10 @@ export const copy = {
       stampNoTime: "Live-Markt-Snapshot",
       staleNote: "zeige letzte gültige Daten",
     },
-    heroHeadline: "Wissen, was du zahlen solltest — und ob es sich verkauft.",
-    heroSub: "Eine Suche zeigt dir den Höchstpreis — und wie belastbar die Daten dahinter sind.",
+    heroHeadline: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
+    heroSub: "Eine Suche: was gefragt ist, BUY / WATCH / SKIP, und die Kaufobergrenze.",
     heroBody:
-      "Marktpreis, Kaufobergrenze, Nachfrage und vergleichbare Angebotspreise beim Abgang — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz, den wir abdecken.",
+      "Was nachgefragt wird, wofür es sich weiterverkauft, ob du zu diesem Preis kaufen solltest — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz; woher du die Ware holst, ist nicht das Produkt.",
     heroFrom: (tracked: string) =>
       `Basierend auf ${tracked} aktiven Angeboten und beobachteten Abgängen in fünf EU-Märkten.`,
     heroHonesty:
@@ -1592,7 +1592,7 @@ export const copy = {
       seeFullNumbers: "Alle Zahlen ansehen →",
     },
     pricingSection: {
-      heading: "Profitable Vinted-Flips finden, bevor du kaufst.",
+      heading: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
       metaTitle: "Starter 19 € / Pro 49 € — Kaufobergrenze",
       metaDescription:
         "Starter 19 € / Pro 49 €: Vinted-Kaufobergrenze. Entscheidungen und Größen im bezahlten Tarif. Markenvolumen öffentlich auf /data. Jederzeit kündbar.",
@@ -1857,8 +1857,8 @@ export const copy = {
   it: {
     signIn: "Accedi",
     pricing: "Prezzi",
-    heroTitle: "Sappi quanto pagare prima di comprare.",
-    heroAudience: "Per i rivenditori Vinted in UE.",
+    heroTitle: "Sappi cosa si vende prima di comprare.",
+    heroAudience: "Per chi compra usato per rivendere.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
     marketPulse: {
       liveLabel: "Mercato dal vivo",
@@ -1873,10 +1873,10 @@ export const copy = {
       stampNoTime: "Istantanea del mercato dal vivo",
       staleNote: "mostro ultimi dati validi",
     },
-    heroHeadline: "Sappi quanto pagare — e se si venderà.",
-    heroSub: "Una ricerca ti dà il prezzo da non superare — e quanto sono solidi i dati dietro.",
+    heroHeadline: "Sappi cosa si vende. Decidi se comprare.",
+    heroSub: "Una ricerca: cosa si vende, BUY / WATCH / SKIP, e il prezzo da non superare.",
     heroBody:
-      "Prezzo di mercato, prezzo massimo di acquisto, domanda e prezzi comparabili al momento dell'uscita — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace che copriamo.",
+      "Cosa è richiesto, a quanto si rivende, se conviene comprare a questo prezzo — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace; da dove compri non è il prodotto.",
     heroFrom: (tracked: string) =>
       `Basato su ${tracked} annunci attivi e uscite osservate in cinque mercati UE.`,
     heroHonesty:
@@ -1990,7 +1990,7 @@ export const copy = {
       seeFullNumbers: "Vedi tutti i numeri →",
     },
     pricingSection: {
-      heading: "Trova flip redditizi su Vinted prima di comprare.",
+      heading: "Sappi cosa si vende. Decidi se comprare.",
       metaTitle: "Starter 19 € / Pro 49 € — prezzo d'acquisto",
       metaDescription:
         "Starter 19 € / Pro 49 €: prezzo massimo di acquisto su Vinted. Verdetti e taglie nei piani a pagamento. Volumi pubblici su /data. Disdici quando vuoi.",
@@ -2253,8 +2253,8 @@ export const copy = {
   pt: {
     signIn: "Entrar",
     pricing: "Preços",
-    heroTitle: "Saiba quanto pagar antes de comprar.",
-    heroAudience: "Para revendedores Vinted na UE.",
+    heroTitle: "Saiba o que vende antes de comprar.",
+    heroAudience: "Para quem compra em segunda mão para revender.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
     marketPulse: {
       liveLabel: "Mercado ao vivo",
@@ -2269,10 +2269,10 @@ export const copy = {
       stampNoTime: "Instantâneo do mercado ao vivo",
       staleNote: "a mostrar últimos dados válidos",
     },
-    heroHeadline: "Saiba quanto pagar — e se vai vender.",
-    heroSub: "Uma pesquisa dá-lhe o preço máximo a pagar — e quão sólidos são os dados por trás.",
+    heroHeadline: "Saiba o que vende. Decida se compra.",
+    heroSub: "Uma pesquisa: o que está em procura, BUY / WATCH / SKIP, e o preço máximo a pagar.",
     heroBody:
-      "Preço de mercado, preço máximo de compra, procura e preços de referência comparáveis no momento da saída — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace que cobrimos.",
+      "O que está em procura, a que se revende, se deve comprar a este preço — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace; de onde compras não é o produto.",
     heroFrom: (tracked: string) =>
       `A partir de ${tracked} anúncios ativos e saídas observadas em cinco mercados da UE.`,
     heroHonesty:
@@ -2386,7 +2386,7 @@ export const copy = {
       seeFullNumbers: "Ver todos os números →",
     },
     pricingSection: {
-      heading: "Encontra flips rentáveis no Vinted antes de comprar.",
+      heading: "Saiba o que vende. Decida se compra.",
       metaTitle: "Starter 19 € / Pro 49 € — preço máximo de compra",
       metaDescription:
         "Starter 19 € / Pro 49 €: preço máximo de compra na Vinted. Veredictos e tamanhos nos planos pagos. Volumes públicos em /data. Cancele quando quiser.",

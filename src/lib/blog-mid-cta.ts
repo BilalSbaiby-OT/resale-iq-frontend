@@ -71,8 +71,8 @@ export function footerSeePlansLabelForPost(
 
 export function pricingMidCta(campaign: string): SectionCtaContent {
   return {
-    headline: "Know what to pay before you buy",
-    body: "Buy-below + demand before cash sticks.",
+    headline: "Know what sells before you buy",
+    body: "Demand + whether to buy before cash sticks.",
     label: "Get the numbers",
     href: pricingMidCtaHref(campaign),
     secondaryLabel: "Or browse weekly brand volumes on /data",
@@ -91,8 +91,8 @@ export function dataCiteHref(campaign: string): string {
 
 export function pricingBodyCta(campaign: string): SectionCtaContent {
   return {
-    headline: "Know what to pay before you buy",
-    body: "Buy-below + demand before cash sticks.",
+    headline: "Know what sells before you buy",
+    body: "Demand + whether to buy before cash sticks.",
     label: "Get the numbers",
     href: pricingBodyCtaHref(campaign),
   }

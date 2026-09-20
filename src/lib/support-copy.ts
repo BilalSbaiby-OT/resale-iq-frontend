@@ -48,7 +48,7 @@ const en: SupportCopy = {
   faqHeading: "Frequently asked questions",
   faq: (tracked) => [
     ["What is Resale IQ?",
-     "A market-analytics tool for secondhand resellers. We continuously track live listings across Vinted's five main EU markets, and which ones leave the shelf, and turn them into signals to help you decide what to buy, at what price, and in which sizes."],
+     "Demand intelligence for people who buy second-hand to resell. We track live listings across five EU markets (Vinted first) and which ones leave the shelf, and turn them into signals: what sells, what it is worth, whether to buy at this price, and in which sizes."],
     ["Do you guarantee I'll make money?",
      "No. Every signal, score and verdict is informational and probabilistic, based on public market data. Outcomes depend on what you pay, condition, timing and factors outside our control. It's a decision tool, not financial advice or a guarantee."],
     ["What's the difference between Starter and Pro?",
