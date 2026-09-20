@@ -152,10 +152,9 @@ test("how-to-price post ships BODY-001 demand section and keeps ctr_price mid-CT
   const post = posts.slice(start, end)
   assert.match(post, /Demand is the other half of the price/)
   assert.match(post, /A departure price without demand is a trap\. The item can look cheap and still sit/)
-  assert.match(post, /we watched 566 departures across 20 published brands/)
-  assert.match(post, /Fred Perry — 96 left the shelf · avg €16/)
+  assert.match(post, /we watched 443 departures across 18 published brands/)
+  assert.match(post, /Fred Perry — 84 left the shelf · avg €16/)
   assert.match(post, /Stone Island — 62 · avg €73/)
-  assert.match(post, /Gucci — 26 · avg €303/)
   assert.match(post, /Skip either and you’re guessing/)
   assert.match(post, /pricingMidCta\("ctr_price_20260913"\)/)
   assert.match(post, /pricingBodyCta\("body_price_20260913"\)/)
@@ -232,7 +231,7 @@ test("EX-LOCALE-CTR-ES: Spanish post is answer-first; EN twin titles stay", () =
   assert.doesNotMatch(post, /register\?src=blog/)
   // EN twin — titles may refresh for CTR; keep the slug and buy-below definition.
   assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 566 Exits"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 443 Watched Departures"/)
 })
 
 test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { PricingSection } from "./pricing-section"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { LiveMarketPulse } from "./live-market-pulse"
+import { BrandStrip } from "./brand-strip"
 import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
@@ -186,6 +187,8 @@ export function LandingContent({
             </div>
           </div>
         </section>
+
+        <BrandStrip names={market.brandNames} />
 
         <LiveMarketPulse locale={locale} market={market} />
 

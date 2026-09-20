@@ -169,7 +169,7 @@ test("target post titles, metas and H1s are unchanged", () => {
   const posts2 = read("data/blog-posts-2.ts")
   const posts3 = read("data/blog-posts-3.ts")
   assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 566 Exits"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 443 Watched Departures"/)
   assert.match(
     posts,
     /Price Vinted items from watched departures, not retail/,

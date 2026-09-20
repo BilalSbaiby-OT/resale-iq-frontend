@@ -114,7 +114,7 @@ export const copy = {
     signIn: "Sign in",
     pricing: "Pricing",
     heroTitle: "Know what sells before you buy.",
-    heroAudience: "For people who buy second-hand to resell.",
+    heroAudience: "For people who resell second-hand clothes.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
@@ -133,11 +133,11 @@ export const copy = {
     },
     heroHeadline: "Know what sells. Decide whether to buy.",
     heroSub:
-      "One search: what's in demand, BUY / WATCH / SKIP, and the buy-below price. Starter €19/mo.",
+      "Second-hand clothes: which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
     heroBody:
-      "What is in demand, what it resells for, whether to buy at this price — then BUY, WATCH or SKIP. Vinted is the first marketplace we cover; where you source is not the product.",
+      "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>
-      `From ${tracked} live listings and watched departures across five EU markets.`,
+      `From ${tracked} live second-hand clothing listings across the brands we watch.`,
     // Additive, not a replacement for the confident demo above it — see
     // docs/product/DESIGN-REVIEW.md §4. Same number the counter-KPI already
     // tracks (insufficient_data_rate, docs/company/METRICS.md), stated once,
