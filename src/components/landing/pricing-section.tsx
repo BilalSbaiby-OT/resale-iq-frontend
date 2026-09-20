@@ -260,7 +260,15 @@ export function PricingSection({
                 the eye has no primary to find and the recommendation the card
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
-            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{\n              width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,\n              fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id) ? "wait" : "pointer",\n              border: tier.highlight ? "none" : "1px solid var(--color-border-2)",\n              background: tier.highlight ? "var(--color-buy)" : "transparent",\n              color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",\n              opacity: 1,\n              transition: "opacity .18s, border-color .18s",\n            }}>{busy === tier.id ? "…" : tier.cta}</button>
+            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
+              width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,
+              fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id) ? "wait" : "pointer",
+              border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
+              background: tier.highlight ? "var(--color-buy)" : "transparent",
+              color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",
+              opacity: 1,
+              transition: "opacity .18s, border-color .18s",
+            }}>{busy === tier.id ? "…" : tier.cta}</button>
             {tier.id === "operator" && (
               <>
                 {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
