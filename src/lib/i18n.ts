@@ -317,9 +317,9 @@ export const copy = {
       // EX-PRICING-CTR — SERP title matches demand OS, not buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
       // Not a live Stripe quote; checkout still resolves price ids on the page.
-      metaTitle: "Starter €19 / Pro €49 — Know what sells before you buy",
+      metaTitle: "Starter €19 / Pro €49 — What sells",
       metaDescription:
-        "Starter €19 / Pro €49. Check which items are in demand before you buy them to resell. Weekly brand volumes on /data stay public. Cancel anytime.",
+        "Starter €19 / Pro €49. Check demand before you buy to resell. Public /data. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",

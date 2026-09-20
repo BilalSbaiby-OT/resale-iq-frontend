@@ -112,8 +112,8 @@ test("pricing titles are money-intent and capped in every locale (EX-PRICING-CTR
     assert.doesNotMatch(t.metaTitle, /Free|Gratuit|Gratis|Kostenlos/i)
     assert.doesNotMatch(t.metaDescription, /7 days unlimited|essai gratuit|prueba gratis/i)
   }
-  assert.match(copy.en.pricingSection.metaTitle, /Buy-Below/)
-  assert.match(copy.en.pricingSection.metaDescription, /buy-below/)
+  assert.match(copy.en.pricingSection.metaTitle, /What sells/)
+  assert.match(copy.en.pricingSection.metaDescription, /demand/)
 })
 
 test("/methodology uses an AEO title and matching og/twitter (EX-PRICING-CTR)", () => {
