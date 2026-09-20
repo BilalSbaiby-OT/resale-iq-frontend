@@ -314,12 +314,12 @@ export const copy = {
     pricingSection: {
       // EX-PRICING-OFFER — Bilal locked flips offer. H1 + subhead are the hero.
       heading: "Know what sells. Decide whether to buy.",
-      // EX-PRICING-CTR — SERP title leads with list prices + buy-below.
+      // EX-PRICING-CTR — SERP title matches demand OS, not buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
       // Not a live Stripe quote; checkout still resolves price ids on the page.
-      metaTitle: "Starter €19 / Pro €49 — Vinted Buy-Below",
+      metaTitle: "Starter €19 / Pro €49 — Know what sells before you buy",
       metaDescription:
-        "Starter €19 / Pro €49 for Vinted buy-below prices. Verdicts and sizes on paid plans. Weekly brand volumes on /data stay public. Cancel anytime.",
+        "Starter €19 / Pro €49. Check which items are in demand before you buy them to resell. Weekly brand volumes on /data stay public. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",
