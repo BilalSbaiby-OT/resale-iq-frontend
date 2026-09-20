@@ -12,6 +12,7 @@ import { copy, type Locale, type FaqItem } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
+import { useSellThroughLabel } from "@/lib/use-sell-through-label"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -117,6 +118,7 @@ export function PricingSection({
   //          When seedTracked is passed from the server component, useTrackedLabel
   //          initialises with it; client-side fetch still runs to stay fresh.
   const tracked = useTrackedLabel(seedTracked)
+  const sellThrough = useSellThroughLabel()
 
   useEffect(() => {
     getPlans()
@@ -282,11 +284,14 @@ export function PricingSection({
                     textAlign: "center",
                     letterSpacing: "0.3px",
                   }}
-                >
-                  {tracked} live listings watched
-                </p>
-                <p
-                  data-testid="riq-starter-trust"
+                >                    
+                                  {tracked} live listings watched
+                                </p>
+                                <p>
+                                  {sellThrough} watched departures per week
+                                </p>
+                                <p
+                                  data-testid="riq-starter-trust"
                   style={{
                     margin: "0 0 8px",
                     fontSize: compact ? 11 : 12,
