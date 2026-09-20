@@ -51,17 +51,17 @@ export const POSTS_124: BlogPost[] = [
         cta: pricingMidCta("ctr_vinted_ebay_fees_20260921"),
       },
       {
-        h: "What each platform is for",
+        h: "Fees do not invent demand",
         p: [
-          "Vinted: EU5 volume, buyer-protection fees, fast comps. If Stone Island hoodies left 108 times at €55, that is a Vinted model. Do not assume eBay will pay more after final-value fees — we have no eBay departure table.",
-          "eBay: broader search, seller fees, slower days-on-market for common streetwear. Use it when the model is scarce on Vinted this week, not as your default list. Same supplier. Different ask. Brand volume is not a model verdict — run the exact model.",
+          "Vinted buyer protection comes off the buyer. eBay final-value plus extras come off you. Neither fee table tells you whether Fred Perry shirts (121 watched at €14) or Gucci bags (39 at €392) will leave the shelf this week.",
+          "Keep volume names on Vinted. Put a unit on eBay only after the Vinted sample is thin and the ask still covers the extra cut. We do not publish eBay sold comps. Brand totals are not a model verdict.",
         ],
       },
       {
-        h: "Check the model on /tools before you buy",
+        h: "Paste the model into /tools",
         p: [
-          "You already have a supplier. Type brand plus model, not the brand alone. Read demand and the fee-aware ceiling. If volume is thin this week (Adidas 39 departures vs Balenciaga 261), another unit is a guess unless the checker shows a live sample.",
-          `Cite the same weekly table on [market data](${ilinkHref("data")}). Then use [the demand checker](${ilinkHref("flip")}) — Starter €19 — if you are about to spend stock money.`,
+          "Suppliers are already yours. Check brand plus model. Adidas 39 vs Balenciaga 261 this week is a volume gap, not a permission slip. If /tools has no row, do not add another unit.",
+          `Weekly brand table stays on [market data](${ilinkHref("data")}). Item check is [the demand checker](${ilinkHref("flip")}) at Starter €19.`,
         ],
         cta: pricingBodyCta("body_vinted_ebay_fees_20260921"),
       },
