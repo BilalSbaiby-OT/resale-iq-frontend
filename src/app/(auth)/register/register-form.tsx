@@ -254,23 +254,6 @@ function RegisterContent({ locale }: { locale: Locale }) {
           <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
             {t.paidNote}
           </p>
-
-          {/* The only way off the paid path now that the Free radio is gone.
-              Keeps the current pathname so /es/register stays Spanish. Worth
-              the extra line: 51 of the 52 checkouts this company has ever
-              started expired unpaid and it has never had a paying customer, so
-              an account we keep is worth more than a paid intent we lose.
-              Track the escape hatch so we can decide whether to keep, modify,
-              or A/B it — measurement first, decision later. */}
-          {!isFree && (
-            <Link
-              href={`${pathname}?plan=free`}
-              className="text-[10.5px] text-[var(--color-buy)] hover:underline text-center"
-              onClick={() => { trackEvent("switch_to_free_clicked"); }}
-            >
-              {t.switchToFree}
-            </Link>
-          )}
         </form>
         <div className="text-center mt-4 text-[13px] text-[var(--color-text-muted)]">
           {t.alreadyHaveAccount} <Link href="/login" className="text-[var(--color-buy)] hover:underline">{t.signIn}</Link>
