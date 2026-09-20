@@ -242,15 +242,15 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-price-items-on-vinted",
     title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures",
-    seoTitle: "How to Price Items on Vinted (2026) — 566 Exits",
+    seoTitle: "How to Price Items on Vinted (2026) — 443 Watched Departures",
     description:
-      "Price Vinted items from watched departures, not retail. Week to 20 Sep 2026: 566 exits. Fred Perry €16, Balenciaga €119. Buy-below on Resale IQ, €19/mo.",
+      "Price Vinted items from watched departures, not retail. Week to 20 Sep 2026 16:49: 443 departures. Fred Perry €16, Balenciaga €121. Check the model on /tools. Starter €19/mo.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Pricing",
     readMins: 6,
     intro:
-      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 14:43: across Spain, France, Germany, Italy and Portugal we track 5,341,780 listings. Twenty of 28 tracked brands cleared the publish floor of 5 watched departures and produced 566 observed transitions this week. Fred Perry averaged €16 across 96 departures. Balenciaga averaged €119 across 131. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Check the item on resaleiq.dev — BUY, WATCH or SKIP, Starter €19/mo. Weekly volumes stay free on /data.",
+      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal we track 5,341,780 listings. Eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
@@ -282,8 +282,8 @@ export const POSTS: BlogPost[] = [
           "Use two numbers together:",
           "1. What it exited at — average asking price when comparable listings left the shelf (brand/category averages are free on our weekly table).",
           "2. Whether anything like it is moving — watched departures for that brand this week. High volume + sane exit price = cash can turn. Low volume at a “deal” price = dead stock risk.",
-          "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 566 departures across 20 published brands (28 tracked; floor of 5). Examples of the gap:",
-          "Fred Perry — 96 left the shelf · avg €16 (volume play)",
+          "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 443 departures across 18 published brands (28 tracked; floor of 5). Examples of the gap:",
+          "Fred Perry — 84 left the shelf · avg €16 (volume play)",
           "Stone Island — 62 · avg €73",
           "Gucci — 26 · avg €303 (price play, thinner volume)",
           "Same week, same markets. Price-alone math would treat a Gucci “deal” and a Fred Perry tee as the same kind of decision. They aren’t.",
