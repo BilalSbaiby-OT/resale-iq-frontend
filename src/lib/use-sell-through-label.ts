@@ -8,8 +8,8 @@
 import { useEffect, useState } from "react"
 import { formatSellThrough } from "@/lib/format-sell-through"
 
-export function useSellThroughLabel(): string {
-  const [sellThrough, setSellThrough] = useState("—")
+export function useSellThroughLabel(seed?: string): string {
+  const [sellThrough, setSellThrough] = useState(seed ?? "—")
   useEffect(() => {
     let live = true
     fetch("/api/public/market-snapshot")

@@ -74,6 +74,7 @@ export function PricingSection({
   compact = false,
   headingLevel = 2,
   seedTracked,
+  seedSellThrough,
 }: {
   locale?: Locale
   compact?: boolean
@@ -88,6 +89,9 @@ export function PricingSection({
    * Revenue 2026-09-16.
    */
   seedTracked?: string
+  /** SSR-resolved weekly watched-departures label (e.g. "877/wk"). First paint
+   *  must not show an em-dash under the Starter CTA. */
+  seedSellThrough?: string
 }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
@@ -118,7 +122,7 @@ export function PricingSection({
   //          When seedTracked is passed from the server component, useTrackedLabel
   //          initialises with it; client-side fetch still runs to stay fresh.
   const tracked = useTrackedLabel(seedTracked)
-  const sellThrough = useSellThroughLabel()
+  const sellThrough = useSellThroughLabel(seedSellThrough)
 
   useEffect(() => {
     getPlans()
@@ -276,6 +280,7 @@ export function PricingSection({
                     above the trust line — it's the core honest-data-as-proof signal.
                     Revenue 2026-09-19. */}
                 <p
+                  data-testid="riq-sell-through"
                   style={{
                     margin: "16px 0 4px",
                     fontSize: compact ? 11 : 12,
@@ -284,14 +289,11 @@ export function PricingSection({
                     textAlign: "center",
                     letterSpacing: "0.3px",
                   }}
-                >                    
-                                  {tracked} live listings watched
-                                </p>
-                                <p>
-                                  {sellThrough} watched departures per week
-                                </p>
-                                <p
-                                  data-testid="riq-starter-trust"
+                >
+                  {sellThrough} watched departures / 7d
+                </p>
+                <p
+                  data-testid="riq-starter-trust"
                   style={{
                     margin: "0 0 8px",
                     fontSize: compact ? 11 : 12,
@@ -300,7 +302,7 @@ export function PricingSection({
                     textAlign: "center",
                   }}
                 >
-                  {t.starterTrust.replace("{{TRACKED}}", "")}
+                  {t.starterTrust.replace("{{TRACKED}}", tracked)}
                 </p>
               </>
             )}

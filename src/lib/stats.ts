@@ -35,6 +35,16 @@ export async function listingsTrackedLabel(): Promise<string> {
 }
 
 /**
+ * Weekly watched-departures total for pricing trust lines.
+ * Same warehouse as listingsTrackedLabel. Unknown renders as "—", never a guess.
+ */
+export async function sellThroughWeeklyLabel(): Promise<string> {
+  const { formatSellThrough } = await import("./format-sell-through")
+  const { getMarketNumbers } = await import("./market-numbers")
+  return formatSellThrough((await getMarketNumbers()).sold7dTotal)
+}
+
+/**
  * Sentinel for prose that lives in a static data module.
  *
  * `src/data/*.ts` are plain exported constants — they are evaluated at import

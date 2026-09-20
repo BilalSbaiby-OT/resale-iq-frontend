@@ -4,7 +4,7 @@ import { PricingSection } from "@/components/landing/pricing-section"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { OG_IMAGES } from "@/lib/og-image"
-import { listingsTrackedLabel } from "@/lib/stats"
+import { listingsTrackedLabel, sellThroughWeeklyLabel } from "@/lib/stats"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -50,7 +50,10 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   // homepage (15-minute market-numbers cache), so the figure is never stale by
   // more than one render cycle. CRO Principle #7 (trust before CTA).
   // Revenue 2026-09-16.
-  const seedTracked = await listingsTrackedLabel()
+  const [seedTracked, seedSellThrough] = await Promise.all([
+    listingsTrackedLabel(),
+    sellThroughWeeklyLabel(),
+  ])
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
@@ -60,7 +63,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           ← Resale IQ
         </Link>
       </div>
-      <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} />
+      <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
   )
 }

@@ -246,11 +246,14 @@ export const createCheckout = (price_id: string) => {
       // No trailing "?" — it produced a literal "?&session_id=" in the URL of
       // 10 live sessions once the backend appended its separator.
       success_url: `${window.location.origin}/billing/success`,
-      // Flag the abandoned-checkout return so /account can acknowledge it.
-      // Bouncing the user back to a page that looks exactly as they left it
-      // gives no signal whether the cancel registered or the payment silently
-      // failed.
-      cancel_url: `${window.location.origin}/account?checkout=cancelled`,
+      // Guest cancel used to land on /account — a login wall after they almost
+      // paid (190/275 sessions are guest). /pricing still has the CTA.
+      // Locale prefix so an /es visitor does not bounce to English.
+      cancel_url: `${window.location.origin}${(() => {
+        const lang = typeof document !== "undefined" ? document.documentElement.lang : "en"
+        const prefix = lang && lang !== "en" ? `/${lang}` : ""
+        return `${prefix}/pricing?checkout=cancelled`
+      })()}`,
     }),
   })
 }
