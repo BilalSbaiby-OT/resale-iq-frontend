@@ -96,10 +96,18 @@ export const TIERS: Tier[] = [
 // src/lib/entitlement.ts planChip(user, locale), which takes the whole user.
 // Do not reintroduce a plan-name helper here.
 
-// Resolve the display placeholders to the live Stripe price ids from /stripe/plans.
+// Public /stripe/plans ids (also returned by the live API). Used when the
+// click happens before getPlans() hydrates — that path used to dump strangers
+// to /register and we converted 0 of them.
+export const BAKED_PRICE_IDS: Record<string, string> = {
+  operator: "price_1U0psg1Mvj7CL8HQ58vsNbPF",
+  power: "price_1U0psh1Mvj7CL8HQd4eK0kVM",
+}
+
 export function resolvePriceId(placeholder: string | undefined, plans: { id: string; price_id?: string }[]): string | undefined {
   if (!placeholder) return undefined
   const map: Record<string, string> = { "__OPERATOR__": "operator", "__POWER__": "power" }
   const planId = map[placeholder]
-  return plans.find(p => p.id === planId)?.price_id
+  if (!planId) return undefined
+  return plans.find(p => p.id === planId)?.price_id || BAKED_PRICE_IDS[planId]
 }
