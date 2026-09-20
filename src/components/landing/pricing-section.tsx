@@ -112,7 +112,6 @@ export function PricingSection({
   // appeared disabled (cursor:wait, opacity:0.6) even after plans loaded, and
   // the gate itself added no safety — choose() already guards the no-price-id
   // case by routing to /register. Removed; paid CTAs are always clickable now.
-  const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   // H26 CRO: live tracked count for starterTrust — CRO #7/#8. Revenue 2026-09-15.
   // H53 CRO: seed from SSR so first paint shows the real number, never "…".
   //          When seedTracked is passed from the server component, useTrackedLabel
