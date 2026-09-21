@@ -575,7 +575,9 @@ NEXT (once unblocked): P0-1.
 - 12 GSC blog winners cloned to ES/FR/DE/IT/PT (ES how-to-price 308s to native).
 - /data (+ 5 locales) citeable totals + visible refresh `<time>`. /tools locale.
 - Sitemap + robots + llms.txt list the new URLs.
-- Local: tsc, dupes, locale-english, isolation, seo unit tests green.
+- Local: tsc, next build (688), isolation+built, dupes, locale-english,
+  seo unit (34), curl + browser on BEST/VS/FOR, /data cite, locale clones.
+  PR #129 cursor/seo-programmatic-scale-f2b2.
 
 ## 2026-09-21 — week-1 seed lock aligned on PR #127
 - Locked batch: 10 glossary terms, 10 brand hubs, 12 models (32 pages).

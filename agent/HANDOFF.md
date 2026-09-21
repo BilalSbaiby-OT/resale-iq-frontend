@@ -1,19 +1,22 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — PROGRAMMATIC SEO SCALE (this session)
-  Off main after #128. Branch cursor/seo-programmatic-scale-f2b2. Do not push main.
-  Local so far: tsc, check:dupes, check:locale-english, isolation, unit
-  (seo-landings / seo-models / faq-schema). Next: next build + route curl.
-  URL counts (new/expanded this PR):
-    models EN 73 (61 additional; free Samba/AF1/NB 530 only)
-    BEST/VS/FOR EN 12 + locale 60 + hubs EN 3 + hub locale 15
-    /data locale 5 + /tools locale 5
-    blog clones locale 59 (12 GSC slugs × 5, minus ES how-to-price 308)
-    new indexable ≈ 232
-  Free checker still ONLY Samba / AF1 / NB 530. No invented sold_7d.
+SEO LANE, 2026-09-21 — PROGRAMMATIC SEO SCALE SHIPPED
+  PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/129
+  Branch cursor/seo-programmatic-scale-f2b2 off main after #128. Do not push main.
+  Isolation is the Coolify gate. Merge to main deploys via Coolify.
+  Local PASS: tsc, next build (688 pages), isolation + isolation:built,
+  check:dupes, check:locale-english, seo unit tests (34), curl 200 on
+  /best /vs /for landings, /data cite box, /es/data, /fr/blog clone,
+  paid model paywall, Samba free sample. ES how-to-price 308s.
+  Browser: BEST #1, VS/FOR unique H1s, /data em-dash not fake 0,
+  French clone, ES 308, Better Sweater not free, Samba free sample.
+  URL counts: models 73 (61 additional); landings 12 EN + 60 locale;
+  hubs 3 EN + 15 locale; /data locale 5; /tools locale 5; blog clones 59.
+  Sitemap 641 locs (73 models, 18 best pages, 6 best hubs, 30 vs, 36 for,
+  6 data, 6 tools, 59 locale blog). Free checker ONLY Samba / AF1 / NB 530.
 
 ---
 
