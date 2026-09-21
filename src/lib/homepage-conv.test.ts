@@ -36,7 +36,7 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
 test("above-fold free scope names the chips that remain", () => {
   assert.equal(
     copy.en.heroFreeScope,
-    "Free: Samba, Air Force 1, and NB 530. Other models €19/mo.",
+    "Free: Samba + Air Force 1 + NB 530. Other models €19/mo.",
   )
   assert.match(copy.en.heroFreeScope, /Samba/)
   assert.match(copy.en.heroFreeScope, /Air Force 1/)
@@ -73,8 +73,15 @@ test("homepage Samba cite uses checker whole-euro rounding", () => {
   assert.doesNotMatch(cite!, /€24\.35/)
 })
 
-test("brand strip does not fetch missing Patagonia/Balenciaga simpleicons", () => {
+test("English homepage example and cite are Samba, not a second SKU", () => {
+  const page = read("app/page.tsx")
+  assert.match(page, /const example = samba \?\? hero\.result/)
+  assert.match(page, /heroResult=\{example\}/)
+  assert.doesNotMatch(page, /heroResult=\{hero\.result\}/)
+})
+
+test("brand strip is text wordmarks — no simpleicons CDN", () => {
   const strip = read("components/landing/brand-strip.tsx")
-  assert.doesNotMatch(strip, /Patagonia:\s*"patagonia"/)
-  assert.doesNotMatch(strip, /Balenciaga:\s*"balenciaga"/)
+  assert.doesNotMatch(strip, /cdn\.simpleicons\.org/)
+  assert.doesNotMatch(strip, /<img/)
 })

@@ -68,11 +68,15 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
   const hero = await getHeroVerdict()
   const samba = await getTeaserVerdict("Adidas Samba")
   const homeCite = formatHomeCite("Adidas Samba", samba)
+  // Cite, example card, and first free chip are the same SKU (Samba).
+  // 530 remains a free chip; it is no longer a second competing example.
+  const example = samba ?? hero.result
+  const exampleQuery = samba ? "Adidas Samba" : hero.query
   // H2 CRO: extract ?src= for message-match eyebrow (LLM referral) — Revenue 2026-09-15.
   const sp = searchParams ? await searchParams : {}
   const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
   const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={exampleQuery} heroResult={example} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} />
   )
 }
