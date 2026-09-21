@@ -106,17 +106,18 @@ export function LandingContent({
       <main id="main">
         <section
           className="riq-apple-hero"
-          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-10) var(--space-3) var(--space-12)" }}
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-6) var(--space-3) var(--space-12)" }}
         >
           <div className="riq-hero">
-            {/* LEFT: the claim + the tool. Left-aligned (was centered) so it reads
-                as a working product, not a splash screen. */}
+            {/* Centered stack: claim, then the checker module (input + Free: +
+                chips). The product shot sits BELOW, not beside — a side column
+                left-aligns the checker and pushes Free: under the fold. */}
             <div className="riq-hero-copy">
               {/* H2 — LLM message-match eyebrow. Revenue 2026-09-15.
                   Shown only when ?src=perplexity|chatgpt|llm. Mirrors the channel
                   that brought the visitor — CRO principle #3. */}
               {llmSrc && <LlmEyebrow src={llmSrc} margin="0 0 var(--space-1)" />}
-              <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 0 var(--space-2)", lineHeight: 1.5 }}>
+              <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 auto var(--space-2)", lineHeight: 1.5 }}>
                 {t.heroAudience}
               </p>
               <h1
@@ -125,20 +126,20 @@ export function LandingContent({
                   fontWeight: 600,
                   letterSpacing: "var(--tracking-h1)",
                   lineHeight: "var(--leading-h1)",
-                  margin: "0 0 var(--space-3)",
+                  margin: "0 auto var(--space-3)",
                   color: "var(--color-text-primary)",
                   textWrap: "balance",
                 }}
               >
                 {t.heroHeadline}
               </h1>
-              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 0 var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}>
+              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 auto var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}>
                 {t.heroSub}
               </p>
               {homeCite ? (
                 <p
                   data-testid="riq-home-teaser-cite"
-                  style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)", margin: "0 0 var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}
+                  style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)", margin: "0 auto var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}
                 >
                   {homeCite}
                 </p>
@@ -150,34 +151,31 @@ export function LandingContent({
                   Falls back silently (conditional render) if the warehouse returns "—".
                   Revenue 2026-09-15 H15. */}
               {tracked && tracked !== "—" && (
-                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-muted)", margin: "0 0 var(--space-5)", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-muted)", margin: "0 auto var(--space-4)", lineHeight: 1.5 }}>
                   {t.heroFrom(tracked)}
                 </p>
               )}
-              <div id="check">
-                <FreeChecker
-                  locale={locale}
-                  variant="hero"
-                  /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
-                     the seed SKU made the hero read as a finished demo — 30d funnel
-                     showed only 3.8% of visitors ever ran a check (395→15). An empty
-                     field + placeholder is the universal "type here" signal; the seed
-                     verdict still renders below, now labelled "Example" so it reads as
-                     a sample, not the whole product. heroQuery kept for SSR/other use. */
-                  initialQuery=""
-                  initialResult={heroResult}
-                />
-              </div>
-              <p style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "var(--space-3) 0 0", lineHeight: 1.5 }}>
+            </div>
+            <div id="check" className="riq-hero-checker">
+              <FreeChecker
+                locale={locale}
+                variant="hero"
+                /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
+                   the seed SKU made the hero read as a finished demo — 30d funnel
+                   showed only 3.8% of visitors ever ran a check (395→15). An empty
+                   field + placeholder is the universal "type here" signal; the seed
+                   verdict still renders below, now labelled "Example" so it reads as
+                   a sample, not the whole product. heroQuery kept for SSR/other use. */
+                initialQuery=""
+                initialResult={heroResult}
+              />
+              <p style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "var(--space-3) 0 0", lineHeight: 1.5, textAlign: "center" }}>
                 {t.heroTrust}
               </p>
             </div>
 
-            {/* RIGHT: the real product. A screenshot of the live verdict screen in
-                a browser frame — a stranger SEES what they get, not just reads it.
-                Static <img> (no next/image config); decorative, so alt is concise
-                and it's aria-hidden from the a11y tree (the copy carries meaning).
-                Hidden on narrow screens where the checker must lead. */}
+            {/* Below the checker, not beside it. Hidden on narrow screens where
+                the checker must lead. Static <img> (no next/image config). */}
             <div className="riq-hero-shot" aria-hidden="true">
               <div className="riq-browser-frame">
                 <div className="riq-browser-bar">

@@ -3,12 +3,18 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV (this session)
-  Homepage honesty: free chips = Samba + AF1 + NB 530 (live 200).
-  Remove Levi's 501 / NB 550 (live 402). Free scope line, FAQ sync,
-  market table "Showing N of M" + /data, Samba buy-below whole euro
-  to match checker. Skip broken Patagonia/Balenciaga simpleicons
-  (wordmark). Branch cursor/seo-ex-homepage-conv-55d5.
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV leftover (this session)
+  PR #123 merged (5ef7491). Leftover Bilal called out:
+  (1) checker module not centered on desktop — 2-col hero;
+  (2) brand strip still text names; need real local SVGs, omit
+  unmatched; (3) Free: must sit above 1280x800 fold, under CTA.
+  Branch cursor/seo-homepage-free-scope-fold-6ca7. New PR (cannot
+  attach to merged #123). Do not push main until Isolation green.
+
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV LIVE (merged #123)
+  MERGED | 5ef7491 | live PASS then leftover above
+  Free chips Samba + AF1 + NB 530. 501/550 removed. FAQ + table
+  + Samba €24. Text wordmarks shipped — founder rejected.
 
 SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
   MERGED | e28c993 | live PASS
