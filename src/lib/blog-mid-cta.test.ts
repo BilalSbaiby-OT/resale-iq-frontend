@@ -231,7 +231,7 @@ test("EX-LOCALE-CTR-ES: Spanish post is answer-first; EN twin titles stay", () =
   assert.doesNotMatch(post, /register\?src=blog/)
   // EN twin — titles may refresh for CTR; keep the slug and buy-below definition.
   assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted .2026. — 443 Watched Departures"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted — What Buyers Actually Pay \(2026\)"/)
 })
 
 test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {
@@ -486,10 +486,10 @@ test("how-to-find-items-to-flip-on-vinted ships BODY-FLIPS-002 after demand and 
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
   assert.match(post, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
-  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted .2026."/)
+  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted \(2026\) — Demand First"/)
   assert.match(
     post,
-    /Stop scrolling\. Start from demand\. 566 watched departures this week/,
+    /Stop scrolling\. Only buy when demand data says yes\./,
   )
   assert.match(post, /Demand is the other half/)
   assert.match(post, /A buy-below price protects the margin on paper/)

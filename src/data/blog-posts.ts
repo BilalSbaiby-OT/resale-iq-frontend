@@ -242,9 +242,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-price-items-on-vinted",
     title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures",
-    seoTitle: "How to Price Items on Vinted (2026) — 443 Watched Departures",
+    seoTitle: "How to Price Items on Vinted — What Buyers Actually Pay (2026)",
     description:
-      "Price Vinted items from watched departures, not retail. Week to 20 Sep 2026 16:49: 443 departures. Fred Perry €16, Balenciaga €121. Check the model on /tools. Starter €19/mo.",
+      "Most sellers guess wrong. Price from departure data, not retail. Fred Perry items leave at €16, Balenciaga at €121 — real numbers from watched listings. Check any model free on /tools.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Pricing",
@@ -585,9 +585,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-find-items-to-flip-on-vinted",
     title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll",
-    seoTitle: "How to Find Items to Flip on Vinted (2026)",
+    seoTitle: "How to Find Items to Flip on Vinted (2026) — Demand First",
     description:
-      "Stop scrolling. Start from demand. 566 watched departures this week (20 Sep 2026) on 5.3M EU listings. Balenciaga 131, Fred Perry 96. Checks from €19/mo.",
+      "Stop scrolling. Only buy when demand data says yes. This week: Patagonia Jackets €39, Stone Island Hoodies €52, New Balance Sneakers €48 — all moving. Check any model on /tools.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
