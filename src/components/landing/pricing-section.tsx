@@ -7,6 +7,14 @@ import { TIERS, resolvePriceId } from "@/lib/pricing"
 import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
+import {
+  CHECKOUT_COUNTRIES,
+  countryFromLocale,
+  readStoredCountry,
+  storeCountry,
+  type CheckoutCountry,
+  type CheckoutPlan,
+} from "@/lib/checkout"
 import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale, type FaqItem } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -119,6 +127,9 @@ export function PricingSection({
   //          initialises with it; client-side fetch still runs to stay fresh.
   const tracked = useTrackedLabel(seedTracked)
   const sellThrough = useSellThroughLabel()
+  const checkoutCancelled = searchParams?.get("checkout") === "cancelled"
+  const [country, setCountry] = useState<CheckoutCountry | "">(() =>
+    readStoredCountry() ?? countryFromLocale(locale) ?? "")
 
   useEffect(() => {
     getPlans()
@@ -146,7 +157,10 @@ export function PricingSection({
       try {
         const priceId = resolvePriceId(placeholder, plans)
         if (!priceId) { router.push(`/register?plan=${plan}`); return }
-        const { checkout_url } = await createCheckout(priceId)
+        const { checkout_url } = await createCheckout(priceId, {
+          plan: plan as CheckoutPlan,
+          country: country || undefined,
+        })
         trackEvent("checkout_started")
         window.location.href = checkout_url
       } catch (e) {
@@ -166,7 +180,10 @@ export function PricingSection({
     try {
       const priceId = resolvePriceId(placeholder, plans)
       if (!priceId) { router.push("/register"); return }
-      const { checkout_url } = await createCheckout(priceId)
+      const { checkout_url } = await createCheckout(priceId, {
+        plan: (tierId === "power" ? "power" : "operator") as CheckoutPlan,
+        country: country || undefined,
+      })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch { router.push("/register") } finally { setBusy(null) }
@@ -195,6 +212,27 @@ export function PricingSection({
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
 
+      {checkoutCancelled && (
+        <p
+          data-testid="riq-checkout-cancelled"
+          role="status"
+          style={{
+            textAlign: "center",
+            fontSize: 13.5,
+            color: "var(--color-text-secondary)",
+            lineHeight: 1.55,
+            maxWidth: 640,
+            margin: "0 auto 24px",
+            padding: "12px 16px",
+            border: "1px solid var(--color-border-ui)",
+            borderRadius: 12,
+            background: "var(--color-surface)",
+          }}
+        >
+          {t.checkoutCancelled}
+        </p>
+      )}
+
       {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.
           Shown ONLY on standalone /pricing (!compact). Answers before price is seen.
           CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15. */}
@@ -212,6 +250,52 @@ export function PricingSection({
         >
           {t.scopeNote}
         </p>
+      )}
+
+      {!compact && (
+        <div
+          data-testid="riq-billing-country"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 6,
+            margin: "-8px auto 28px",
+            maxWidth: 360,
+          }}
+        >
+          <label htmlFor="riq-vat-country" style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-secondary)" }}>
+            {t.countryLabel}
+          </label>
+          <select
+            id="riq-vat-country"
+            value={country}
+            onChange={(e) => {
+              const next = e.target.value
+              if (next === "") { setCountry(""); return }
+              setCountry(next as CheckoutCountry)
+              storeCountry(next as CheckoutCountry)
+            }}
+            style={{
+              width: "100%",
+              minHeight: 44,
+              borderRadius: 12,
+              border: "1px solid var(--color-border-2)",
+              background: "var(--color-surface)",
+              color: "var(--color-text-primary)",
+              fontSize: 14,
+              padding: "10px 12px",
+            }}
+          >
+            <option value="">—</option>
+            {CHECKOUT_COUNTRIES.map((c) => (
+              <option key={c.code} value={c.code}>{c.native}</option>
+            ))}
+          </select>
+          <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.45, textAlign: "center", margin: 0 }}>
+            {t.countryHint}
+          </p>
+        </div>
       )}
 
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
