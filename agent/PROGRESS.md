@@ -567,6 +567,18 @@ NEXT (once unblocked): P0-1.
 - Sitemap 44 model URLs + 4 glossary. Isolation is the deploy gate.
 - Same branch/PR. EN live first; no locale clones.
 
+## 2026-09-21 — programmatic SEO scale (models + best/vs/for + locales)
+- 61 additional named models (73 total) on adidas/nike/nb/jordan/levis/asics/
+  salomon/converse/dr-martens/puma/carhartt/tnf/patagonia/stone-island/fred-perry.
+  Unique `angle` per row; free checker still Samba / AF1 / NB 530 only.
+- 12 BEST/VS/FOR landings × 6 locales, plus /best /vs /for hubs.
+- 12 GSC blog winners cloned to ES/FR/DE/IT/PT (ES how-to-price 308s to native).
+- /data (+ 5 locales) citeable totals + visible refresh `<time>`. /tools locale.
+- Sitemap + robots + llms.txt list the new URLs.
+- Local: tsc, next build (688), isolation+built, dupes, locale-english,
+  seo unit (34), curl + browser on BEST/VS/FOR, /data cite, locale clones.
+  PR #129 cursor/seo-programmatic-scale-f2b2.
+
 ## 2026-09-21 — week-1 seed lock aligned on PR #127
 - Locked batch: 10 glossary terms, 10 brand hubs, 12 models (32 pages).
 - Glossary: vinted-demand, vinted-sell-through, buy-below-market, dead-stock,
@@ -592,3 +604,14 @@ NEXT (once unblocked): P0-1.
   + demand-intel. Exact steps in `AI/STRIPE.md`. Backend repo not in
   this workspace (private).
 - Branch cursor/checkout-resaleiq-branding-2dee.
+
+## 2026-09-21 — week-2 seed lock aligned on PR #129
+- Trimmed SCALE overshoot: 61 extra models → locked 20 paid slugs.
+- Landings locked to 21 EN (7 best / 8 vs `{a}-vs-{b}` / 6 for).
+- Six-locale copy kept for those 21. Preview VS slugs 308.
+- Free checker still Samba / AF1 / NB 530. Lock: docs/seo/SEED-BATCH-2.md.
+- Local: tsc, build 701, isolation+built, dupes, locale-english, unit 236,
+  curl 44/44, Chrome H1s, paywall vs free, FR clone, /data em-dash.
+- Sitemap 654 locs (32 models, 42 best, 48 vs, 36 for, 18 hubs).
+- PR #129 cursor/seo-programmatic-scale-f2b2. Do not push main.
+

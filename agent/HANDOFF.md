@@ -1,7 +1,46 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
+
+SEO LANE, 2026-09-21 — merge PR #129 onto main after #128
+  Rebase week-2 seed lock onto 12e95b7 (checkout branding). Isolation is
+  the Coolify gate. Free checker Samba / AF1 / NB 530 only.
+
+---
+
+SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK (PR #129)
+  SHIPPED on branch. Isolation is the Coolify gate. Do not push main.
+  SEED-BATCH-2.md was not on this box — lock is docs/seo/SEED-BATCH-2.md.
+  EN 41: 20 paid models + 7 /best + 8 /vs/{a}-vs-{b} + 6 /for.
+  Catalogue 32 models (week-1 12 + week-2 20). Free: Samba / AF1 / NB 530.
+  Locales kept for the 21 landings (105 clones + 15 hubs). Model pages EN-only.
+  Preview /vs/excel|gut-feel|stockx|listing-screenshots 308 to locked slugs.
+  Local PASS: tsc, next build (701), isolation+built, dupes, locale-english,
+  unit 236, curl 44/44, Chrome H1s unique, Stan Smith paywall, Samba free,
+  FR clone French, /data em-dash, 308 excel→resale-iq-vs-excel.
+  Sitemap 654: models 32, best 42, vs 48, for 36, hubs 18.
+  PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/129
+  Branch cursor/seo-programmatic-scale-f2b2.
+
+---
+
+SEO LANE, 2026-09-21 — PROGRAMMATIC SEO SCALE SHIPPED
+  PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/129
+  Branch cursor/seo-programmatic-scale-f2b2 off main after #128. Do not push main.
+  Isolation is the Coolify gate. Merge to main deploys via Coolify.
+  Local PASS: tsc, next build (688 pages), isolation + isolation:built,
+  check:dupes, check:locale-english, seo unit tests (34), curl 200 on
+  /best /vs /for landings, /data cite box, /es/data, /fr/blog clone,
+  paid model paywall, Samba free sample. ES how-to-price 308s.
+  Browser: BEST #1, VS/FOR unique H1s, /data em-dash not fake 0,
+  French clone, ES 308, Better Sweater not free, Samba free sample.
+  URL counts: models 73 (61 additional); landings 12 EN + 60 locale;
+  hubs 3 EN + 15 locale; /data locale 5; /tools locale 5; blog clones 59.
+  Sitemap 641 locs (73 models, 18 best pages, 6 best hubs, 30 vs, 36 for,
+  6 data, 6 tools, 59 locale blog). Free checker ONLY Samba / AF1 / NB 530.
+
+---
 
 FRONTEND, 2026-09-21 — conversion P0 checkout branding
   SHIPPED on branch (rebasing onto main after #127). Local PASS: tsc,

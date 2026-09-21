@@ -56,6 +56,7 @@ export function readStoredCountry(): CheckoutCountry | undefined {
     const v = window.localStorage.getItem(COUNTRY_KEY)
     return isCheckoutCountry(v) ? v : undefined
   } catch {
+    // why: localStorage throws in private mode; VAT country falls back to locale.
     return undefined
   }
 }
@@ -65,7 +66,7 @@ export function storeCountry(code: CheckoutCountry): void {
   try {
     window.localStorage.setItem(COUNTRY_KEY, code)
   } catch {
-    /* private mode / blocked storage */
+    // why: private mode / blocked storage — country still lives on the form field.
   }
 }
 

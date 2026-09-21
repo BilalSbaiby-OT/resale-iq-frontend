@@ -13,6 +13,7 @@ const BASE = "https://resaleiq.dev"
 // (9) were added later and had been missed.
 const PUBLIC_ALLOW = [
   "/", "/tools", "/data", "/blog", "/flip", "/manual", "/glossary", "/category", "/methodology",
+  "/best", "/vs", "/for",
   "/api-docs", "/terms", "/privacy", "/legal", "/support", "/llms.txt",
 ]
 const PRIVATE_DISALLOW = [

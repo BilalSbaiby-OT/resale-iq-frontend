@@ -62,11 +62,20 @@ test("every market's cookie is honoured, not just French", async ({ request }) =
 // worse bug than the one being fixed. These pages have no translation behind
 // them yet, so they must stay English even for a cookie-carrying visitor.
 test("indexable pages with no translation behind them stay English", async ({ request }) => {
-  for (const path of ["/blog", "/terms", "/privacy", "/data", "/manual"]) {
+  for (const path of ["/blog", "/terms", "/privacy", "/manual"]) {
     const res = await request.get(path, { headers: { Cookie: "NEXT_LOCALE=fr" } })
     expect(res.status(), path).toBe(200)
     expect(await res.text(), path).toContain('lang="en"')
   }
+})
+
+test("/data sends a cookie-carrying visitor to its real translated route", async ({ request }) => {
+  const res = await request.get("/data", {
+    headers: { Cookie: "NEXT_LOCALE=fr" },
+    maxRedirects: 0,
+  })
+  expect(res.status()).toBe(307)
+  expect(res.headers()["location"]).toMatch(/\/fr\/data$/)
 })
 
 // /methodology WAS translated (113 keys, six locales) and routed

@@ -23,6 +23,7 @@ import {
   isUsableVerdict,
   fmtBuyBelow,
   FREE_CHECK_QUERIES,
+  brandHasCategory,
 } from "@/lib/seo-models"
 import { MODEL_MONEY_HREF } from "@/lib/money-cta"
 
@@ -294,9 +295,11 @@ export default async function ModelFlipPage(
         <Link href={`/flip/${m.brandSlug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
           → Is {m.brand} worth reselling on Vinted?
         </Link>
-        <Link href={`/flip/${m.brandSlug}/${catSlug(m.category)}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-          → Are {m.brand} {m.category.toLowerCase()} worth reselling?
-        </Link>
+        {brandHasCategory(m.brandSlug, m.category) ? (
+          <Link href={`/flip/${m.brandSlug}/${catSlug(m.category)}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+            → Are {m.brand} {m.category.toLowerCase()} worth reselling?
+          </Link>
+        ) : null}
         <Link href="/flip" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
           → What sells best on Vinted
         </Link>

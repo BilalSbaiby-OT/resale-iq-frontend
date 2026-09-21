@@ -6,6 +6,7 @@ import { BRANDS, CATEGORIES, catSlug } from "@/lib/seo-categories"
 import { SEO_MODELS, modelPath } from "@/lib/seo-models"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
+import { LANDINGS, landingPath, landingHubPath, BLOG_CLONE_SLUGS, blogClonePath } from "@/lib/seo-landings"
 
 const BASE = "https://resaleiq.dev"
 
@@ -79,6 +80,8 @@ const STATIC_CONTENT_DATE = new Date("2026-08-29T00:00:00.000Z")
 const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
 /** /glossary hub + terms. Bump when a definition changes. */
 const GLOSSARY_DATE = new Date("2026-09-21T12:00:00.000Z")
+/** BEST/VS/FOR landings + locale clones. Bump when copy changes. */
+const LANDING_DATE = new Date("2026-09-21T18:00:00.000Z")
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()
@@ -107,14 +110,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // sixth translated page is one entry, not a longer ternary chain.
   const methodologyAlternates = absolute("/methodology")
   const pricingAlternates = absolute("/pricing")
+  const dataAlternates = absolute("/data")
+  const toolsAlternates = absolute("/tools")
   const LOCALIZED: Record<string, Record<string, string>> = {
     "": homeAlternates,
     "/methodology": methodologyAlternates,
     "/pricing": pricingAlternates,
+    "/data": dataAlternates,
+    "/tools": toolsAlternates,
+    "/best": absolute("/best"),
+    "/vs": absolute("/vs"),
+    "/for": absolute("/for"),
   }
-  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
+    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     // /pricing above the 0.6 static-copy shelf: it is the last page before
     // checkout, and the one an ad or a "resaleiq pricing" search lands on.
@@ -212,6 +222,68 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }))
 
+  const landingHubLocalePages = (["best", "vs", "for"] as const).flatMap((kind) => {
+    const languages = absolute(`/${kind}`)
+    return PATH_LOCALES.map((locale) => ({
+      url: `${BASE}${landingHubPath(kind, locale)}`,
+      lastModified: LANDING_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: { languages },
+    }))
+  })
+
+  const landingPages = LANDINGS.flatMap((l) => {
+    const languages = absolute(`/${l.kind}/${l.slug}`)
+    const en = {
+      url: `${BASE}${landingPath(l.kind, l.slug, "en")}`,
+      lastModified: LANDING_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: { languages },
+    }
+    const locales = PATH_LOCALES.map((locale) => ({
+      url: `${BASE}${landingPath(l.kind, l.slug, locale)}`,
+      lastModified: LANDING_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+      alternates: { languages },
+    }))
+    return [en, ...locales]
+  })
+
+  const dataLocalePages = PATH_LOCALES.map((locale) => ({
+    url: `${BASE}/${locale}/data`,
+    lastModified: dataFresh,
+    changeFrequency: "daily" as const,
+    priority: 0.8,
+    alternates: { languages: dataAlternates },
+  }))
+
+  const toolsLocalePages = PATH_LOCALES.map((locale) => ({
+    url: `${BASE}/${locale}/tools`,
+    lastModified: dataFresh,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+    alternates: { languages: toolsAlternates },
+  }))
+
+  const blogClonePages = BLOG_CLONE_SLUGS.flatMap((slug) => {
+    const languages: Record<string, string> = { en: `${BASE}/blog/${slug}`, "x-default": `${BASE}/blog/${slug}` }
+    for (const locale of PATH_LOCALES) {
+      languages[locale] = `${BASE}${blogClonePath(slug, locale)}`
+    }
+    return PATH_LOCALES
+      .filter((locale) => !(locale === "es" && slug === "how-to-price-items-on-vinted"))
+      .map((locale) => ({
+        url: `${BASE}${blogClonePath(slug, locale)}`,
+        lastModified: LANDING_DATE,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+        alternates: { languages },
+      }))
+  })
+
   const blogPages = POSTS.map((p) => ({
     url: `${BASE}/blog/${p.slug}`,
     // Prefer the content-refresh date over the publish date: a post whose dated
@@ -243,5 +315,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...categoryPages,
     ...brandCategoryPages,
     ...modelPages,
+    ...landingPages,
+    ...landingHubLocalePages,
+    ...dataLocalePages,
+    ...toolsLocalePages,
+    ...blogClonePages,
   ]
 }

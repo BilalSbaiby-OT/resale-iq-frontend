@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { PATH_LOCALES, isPathLocale } from "@/lib/locale-routes"
+import { PATH_LOCALES, isPathLocale, isLocaleRoutedPath } from "@/lib/locale-routes"
 
 /**
  * 2026-09-02 OUTAGE — every anonymous visitor got LIMIT_REACHED with
@@ -253,20 +253,6 @@ function isPublicPartialLocalePath(pathname: string): boolean {
   return false
 }
 
-/**
- * Unprefixed paths that DO have a real translated route at "/<locale><path>",
- * so a cookie-carrying visitor should be sent to it rather than served the
- * English one. Only /methodology qualifies today (113 keys in six locales,
- * src/lib/methodology-copy.ts, route at src/app/[locale]/methodology/page.tsx)
- * — it was translated and routed, but nothing ever pointed a French visitor
- * AT it: /methodology with NEXT_LOCALE=fr served English, measured live.
- *
- * Add a path here only once "/<locale><path>" actually renders translated
- * content, for the reason locale-routes.ts states: a URL must never promise a
- * language it does not serve.
- */
-const LOCALE_ROUTED_PATHS = new Set<string>(["/methodology"])
-
 const COOKIE = "NEXT_LOCALE"
 const LOCALE_HEADER = "x-resaleiq-locale"
 
@@ -364,7 +350,7 @@ export function proxy(request: NextRequest) {
     // it, so the URL names the language it serves and the page is shareable,
     // bookmarkable and indexable as that language. 307, matching this file's
     // convention for a preference redirect rather than a permanent move.
-    if (LOCALE_ROUTED_PATHS.has(pathname)) {
+    if (isLocaleRoutedPath(pathname)) {
       const url = request.nextUrl.clone()
       url.pathname = `/${chosen}${pathname}`
       return NextResponse.redirect(url, 307)

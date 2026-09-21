@@ -7,7 +7,8 @@
       "slug": "samba",
       "query": "Adidas Samba",
       "category": "Sneakers",
-      "freeCheck": true
+      "freeCheck": true,
+      "angle": "Indoor-football gum sole that became a fashion staple. Different last and toe from Gazelle or Spezial."
     },
     {
       "brand": "Nike",
@@ -16,7 +17,8 @@
       "slug": "air-force-1",
       "query": "Nike Air Force 1",
       "category": "Sneakers",
-      "freeCheck": true
+      "freeCheck": true,
+      "angle": "Basketball cupsole that reads as a street uniform. Not a runner and not a Dunk."
     },
     {
       "brand": "New Balance",
@@ -25,7 +27,8 @@
       "slug": "530",
       "query": "New Balance 530",
       "category": "Sneakers",
-      "freeCheck": true
+      "freeCheck": true,
+      "angle": "2000s dad-shoe runner with a visible ABZORB chassis. Not the 550 court shoe."
     },
     {
       "brand": "New Balance",
@@ -34,7 +37,8 @@
       "slug": "550",
       "query": "New Balance 550",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "1980s basketball court shoe. Low cupsole, not the 530 runner."
     },
     {
       "brand": "Levi's",
@@ -43,7 +47,8 @@
       "slug": "501",
       "query": "Levi's 501",
       "category": "Jeans",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Button-fly straight jean. Not a 511 slim and not a trucker jacket."
     },
     {
       "brand": "Jordan",
@@ -52,7 +57,8 @@
       "slug": "air-jordan-1",
       "query": "Air Jordan 1",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "High-top basketball original with a Wings logo. Not a Dunk and not a later Jordan number."
     },
     {
       "brand": "Adidas",
@@ -61,7 +67,8 @@
       "slug": "gazelle",
       "query": "Adidas Gazelle",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Suede terrace trainer with a T-toe overlay. Different last from Samba."
     },
     {
       "brand": "Nike",
@@ -70,7 +77,8 @@
       "slug": "dunk-low",
       "query": "Nike Dunk Low",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Low basketball/skate cupsole with a padded collar. Not Air Force 1."
     },
     {
       "brand": "ASICS",
@@ -79,7 +87,8 @@
       "slug": "gel-kayano-14",
       "query": "ASICS Gel-Kayano 14",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Stability runner with visible GEL. Not Gel-1130 and not a fashion dunk."
     },
     {
       "brand": "Salomon",
@@ -88,7 +97,8 @@
       "slug": "xt-6",
       "query": "Salomon XT-6",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Trail chassis with anti-debris mesh and a mud guard. Not a road runner."
     },
     {
       "brand": "Converse",
@@ -97,7 +107,8 @@
       "slug": "chuck-70",
       "query": "Converse Chuck 70",
       "category": "Sneakers",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Heavier canvas, recycled rubber foxing, winged tongue. Not the basic All Star."
     },
     {
       "brand": "Dr. Martens",
@@ -106,7 +117,208 @@
       "slug": "1460",
       "query": "Dr. Martens 1460",
       "category": "Boots",
-      "freeCheck": false
+      "freeCheck": false,
+      "angle": "Eight-eye smooth-leather boot with yellow welt stitch. Not the three-eye 1461."
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Stan Smith",
+      "slug": "stan-smith",
+      "query": "Adidas Stan Smith",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Tennis court leather with a perforated 3-stripe. Not a Samba and not Superstar."
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Handball Spezial",
+      "slug": "handball-spezial",
+      "query": "Adidas Handball Spezial",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Indoor handball suede with a gum sole and a different toe from Samba."
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Superstar",
+      "slug": "superstar",
+      "query": "Adidas Superstar",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Shell-toe basketball leather. The rubber cap is the ID, not a Stan Smith."
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Max 1",
+      "slug": "air-max-1",
+      "query": "Nike Air Max 1",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Visible Air window at the heel. Running lineage, not AF1 and not a Dunk."
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Max Plus",
+      "slug": "air-max-plus",
+      "query": "Nike Air Max Plus",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "TN/Tuned Air with plastic cage overlay. EU nickname TN — not Air Max 90."
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Vomero 5",
+      "slug": "vomero-5",
+      "query": "Nike Vomero 5",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Cushioned road trainer with a layered upper. Not P-6000, not a Dunk."
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "2002R",
+      "slug": "2002r",
+      "query": "New Balance 2002R",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Trail-running chassis with ABZORB and a gusseted tongue. Not 1906R."
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "9060",
+      "slug": "9060",
+      "query": "New Balance 9060",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Sculpted 2000s-revival runner with a warped midsole. Not 530, not 2002R."
+    },
+    {
+      "brand": "Jordan",
+      "brandSlug": "jordan",
+      "model": "Air Jordan 4",
+      "slug": "air-jordan-4",
+      "query": "Air Jordan 4",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Mesh upper with plastic wings and a floating heel. Not AJ3, not AJ5."
+    },
+    {
+      "brand": "Levi's",
+      "brandSlug": "levis",
+      "model": "502",
+      "slug": "502",
+      "query": "Levi's 502",
+      "category": "Jeans",
+      "freeCheck": false,
+      "angle": "Tapered regular jean. Zip fly, slimmer than 501, roomier than 511."
+    },
+    {
+      "brand": "ASICS",
+      "brandSlug": "asics",
+      "model": "Gel-1130",
+      "slug": "gel-1130",
+      "query": "ASICS Gel-1130",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Early-2000s daily trainer with a simpler upper than Kayano 14."
+    },
+    {
+      "brand": "Salomon",
+      "brandSlug": "salomon",
+      "model": "XT-4",
+      "slug": "xt-4",
+      "query": "Salomon XT-4",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Shorter-lug trail cousin of XT-6. Lower stack, not ACS Pro."
+    },
+    {
+      "brand": "Converse",
+      "brandSlug": "converse",
+      "model": "Run Star Hike",
+      "slug": "run-star-hike",
+      "query": "Converse Run Star Hike",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Chunky sawtooth platform on a Chuck upper. Not a flat Chuck 70."
+    },
+    {
+      "brand": "Dr. Martens",
+      "brandSlug": "dr-martens",
+      "model": "Jadon",
+      "slug": "jadon",
+      "query": "Dr. Martens Jadon",
+      "category": "Boots",
+      "freeCheck": false,
+      "angle": "Quad platform eight-eye. Taller sole than 1460, not a 2976 Chelsea."
+    },
+    {
+      "brand": "Puma",
+      "brandSlug": "puma",
+      "model": "Speedcat",
+      "slug": "speedcat",
+      "query": "Puma Speedcat",
+      "category": "Sneakers",
+      "freeCheck": false,
+      "angle": "Motorsport driving shoe with a slim racing last. Not Suede, not Palermo."
+    },
+    {
+      "brand": "Carhartt",
+      "brandSlug": "carhartt",
+      "model": "Detroit Jacket",
+      "slug": "detroit-jacket",
+      "query": "Carhartt Detroit Jacket",
+      "category": "Jackets",
+      "freeCheck": false,
+      "angle": "Blanket-lined duck chore with a square hem. Not Active, not Michigan."
+    },
+    {
+      "brand": "The North Face",
+      "brandSlug": "the-north-face",
+      "model": "Nuptse",
+      "slug": "nuptse",
+      "query": "The North Face Nuptse",
+      "category": "Jackets",
+      "freeCheck": false,
+      "angle": "Stitched-baffle down puffer. Not Denali fleece, not a rain shell."
+    },
+    {
+      "brand": "Patagonia",
+      "brandSlug": "patagonia",
+      "model": "Better Sweater",
+      "slug": "better-sweater",
+      "query": "Patagonia Better Sweater",
+      "category": "Hoodies",
+      "freeCheck": false,
+      "angle": "Knit-face fleece that looks like a sweater. Not Retro-X, not Nano Puff."
+    },
+    {
+      "brand": "Stone Island",
+      "brandSlug": "stone-island",
+      "model": "Ghost",
+      "slug": "ghost",
+      "query": "Stone Island Ghost",
+      "category": "Hoodies",
+      "freeCheck": false,
+      "angle": "Tonal compass badge that reads as a shadow. Not Marina, not Soft Shell-R."
+    },
+    {
+      "brand": "Fred Perry",
+      "brandSlug": "fred-perry",
+      "model": "Oxford Shirt",
+      "slug": "oxford-shirt",
+      "query": "Fred Perry Oxford Shirt",
+      "category": "Shirts",
+      "freeCheck": false,
+      "angle": "Button-down oxford weave, not a Twin Tipped pique polo and not a Harrington."
     }
   ]
 }

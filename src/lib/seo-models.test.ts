@@ -10,7 +10,10 @@ import assert from "node:assert/strict"
 import {
   SEO_MODELS,
   FREE_CHECK_QUERIES,
+  SCALE_HUB_SLUGS,
   WEEK1_HUB_SLUGS,
+  WEEK1_MODEL_SLUGS,
+  WEEK2_MODEL_SLUGS,
   modelPath,
   modelPageTitle,
   modelPageDescription,
@@ -22,6 +25,7 @@ import {
   brandHubFaqs,
   liveAnswerLead,
   fmtBuyBelow,
+  brandHasCategory,
 } from "./seo-models.ts"
 import { faqAnswerIsClean } from "./faq-schema.ts"
 import {
@@ -37,12 +41,27 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("week-1 lock is 12 models + 10 glossary terms + 10 hubs", () => {
-  assert.equal(SEO_MODELS.length, 12)
+test("week-2 seed is 20 paid models on known brands, not doorway clones", () => {
+  const additional = SEO_MODELS.length - 12
+  assert.equal(additional, 20, `additional=${additional}`)
+  assert.equal(SEO_MODELS.length, WEEK1_MODEL_SLUGS.length + WEEK2_MODEL_SLUGS.length)
+  assert.deepEqual(SEO_MODELS.slice(0, 12).map((m) => m.slug), [...WEEK1_MODEL_SLUGS])
+  assert.deepEqual(SEO_MODELS.slice(12).map((m) => m.slug), [...WEEK2_MODEL_SLUGS])
+  assert.equal(WEEK2_MODEL_SLUGS.length, 20)
+  for (const slug of WEEK2_MODEL_SLUGS) {
+    const m = SEO_MODELS.find((row) => row.slug === slug)
+    assert.ok(m, slug)
+    assert.equal(m!.freeCheck, false, slug)
+  }
   assert.equal(modelsPointAtKnownBrands(), true)
+  assert.equal(SCALE_HUB_SLUGS.length, 15)
   assert.equal(WEEK1_HUB_SLUGS.length, 10)
-  const slugs = new Set(SEO_MODELS.map((m) => modelPath(m)))
-  assert.equal(slugs.size, 12)
+  const paths = SEO_MODELS.map((m) => modelPath(m))
+  assert.equal(new Set(paths).size, paths.length)
+  const queries = SEO_MODELS.map((m) => m.query)
+  assert.equal(new Set(queries).size, queries.length)
+  const angles = SEO_MODELS.map((m) => m.angle)
+  assert.equal(new Set(angles).size, angles.length)
   const locked = [
     "/flip/adidas/model/samba",
     "/flip/nike/model/air-force-1",
@@ -56,20 +75,28 @@ test("week-1 lock is 12 models + 10 glossary terms + 10 hubs", () => {
     "/flip/salomon/model/xt-6",
     "/flip/converse/model/chuck-70",
     "/flip/dr-martens/model/1460",
+    "/flip/adidas/model/stan-smith",
+    "/flip/carhartt/model/detroit-jacket",
+    "/flip/patagonia/model/better-sweater",
+    "/flip/stone-island/model/ghost",
+    "/flip/fred-perry/model/oxford-shirt",
   ]
-  assert.deepEqual([...slugs].sort(), [...locked].sort())
+  for (const p of locked) assert.ok(paths.includes(p), p)
   for (const m of SEO_MODELS) {
     assert.ok(m.query.includes(m.brand) || m.brand === "Jordan")
     assert.ok(m.category.length > 0)
     assert.match(m.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+    assert.ok(m.angle.length > 40, m.slug)
+    assert.equal(typeof m.freeCheck, "boolean")
   }
   const brandsSrc = read("data/seo-brands.json")
-  for (const hub of WEEK1_HUB_SLUGS) {
+  for (const hub of SCALE_HUB_SLUGS) {
     assert.match(brandsSrc, new RegExp(`"slug": "${hub}"`))
+    assert.ok(SEO_MODELS.some((m) => m.brandSlug === hub), hub)
   }
 })
 
-test("week-1 models skip doorway clones; insufficient-data brands are allowed", () => {
+test("scale models skip doorway clones; insufficient-data brands are allowed", () => {
   const doorway = [
     "Samba OG",
     "Spezial",
@@ -82,6 +109,8 @@ test("week-1 models skip doorway clones; insufficient-data brands are allowed", 
     "501 Original",
     "Jordan 1 Low",
     "Jordan 1 Mid",
+    "Gazelle Indoor",
+    "Chuck Taylor All Star",
   ]
   const published = new Set(SEO_MODELS.map((m) => m.model))
   for (const clone of doorway) {
@@ -90,6 +119,9 @@ test("week-1 models skip doorway clones; insufficient-data brands are allowed", 
   assert.equal(getSeoModel("jordan", "air-jordan-1")?.freeCheck, false)
   assert.equal(getSeoModel("asics", "gel-kayano-14")?.freeCheck, false)
   assert.equal(getSeoModel("adidas", "gazelle")?.freeCheck, false)
+  assert.equal(getSeoModel("adidas", "handball-spezial")?.freeCheck, false)
+  assert.equal(brandHasCategory("adidas", "Sneakers"), true)
+  assert.equal(brandHasCategory("asics", "Sneakers"), false)
 })
 
 test("free allowlist is Samba, AF1 and NB 530 only", () => {
@@ -270,15 +302,28 @@ test("sitemap, robots and llms advertise the new routes", () => {
   assert.match(sitemap, /glossaryPages/)
   assert.match(sitemap, /"\/glossary"/)
   assert.match(sitemap, /SEO_MODELS/)
+  assert.match(sitemap, /landingPages/)
+  assert.match(sitemap, /landingHubLocalePages/)
+  assert.match(sitemap, /dataLocalePages/)
+  assert.match(sitemap, /toolsLocalePages/)
+  assert.match(sitemap, /blogClonePages/)
   const robots = read("app/robots.ts")
   assert.match(robots, /"\/glossary"/)
+  assert.match(robots, /"\/best"/)
+  assert.match(robots, /"\/vs"/)
+  assert.match(robots, /"\/for"/)
   const llms = read("app/llms.txt/route.ts")
   assert.match(llms, /New Balance 530/)
   assert.match(llms, /\$\{BASE\}\/glossary/)
+  assert.match(llms, /\$\{BASE\}\/best/)
   assert.match(llms, /Named models/)
   assert.match(llms, /except the three/)
   const cfg = read("../next.config.ts")
   assert.match(cfg, /\/glossary\/buy-below-market/)
   assert.match(cfg, /\/glossary\/vinted-demand/)
   assert.match(cfg, /air-jordan-1/)
+  assert.match(cfg, /\/vs\/excel/)
+  assert.match(cfg, /\/vs\/resale-iq-vs-excel/)
+  assert.match(cfg, /\/vs\/gut-feel/)
+  assert.match(cfg, /\/vs\/listing-screenshots/)
 })
