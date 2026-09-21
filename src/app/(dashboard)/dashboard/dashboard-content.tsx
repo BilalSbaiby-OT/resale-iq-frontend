@@ -62,7 +62,7 @@ function Section({ title, sub, action, children }: {
 }) {
   return (
     <section style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
+      <div className="riq-section-head" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
         <div>
           <h2 style={{ fontSize: 22, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>{title}</h2>
           {sub && <div style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginTop: 4, maxWidth: "65ch" }}>{sub}</div>}
@@ -79,7 +79,7 @@ function Section({ title, sub, action, children }: {
           </Link>
         )}
       </div>
-      <div className="riq-scroll-x">{children}</div>
+      {children}
     </section>
   )
 }
@@ -303,7 +303,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
               >{t.welcomeCta}</Link>
             </div>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 240px), 1fr))", gap: 16 }}>
               {deals.map((d, i) => {
                 const q = `${d.brand} ${d.model}`
                 const str = formatStrPct(d.str_pct)

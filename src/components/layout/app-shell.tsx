@@ -152,8 +152,8 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: "24px var(--space-gutter)", background: "var(--color-graphite)" }}>
           {!gated && isTrial && !isPaid && (
-            <div style={{ display: "flex", alignItems: "center", gap: 16, background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
-              <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: 1 }}>
+            <div className="riq-trial-banner" style={{ background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
+              <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: "1 1 180px", minWidth: 0 }}>
                 {/* Third surface naming this same state, so it reads the same
                     module as the sidebar chip and the account card. */}
                 <span style={{ fontWeight: 600 }}>{planChip(user, locale)}</span>

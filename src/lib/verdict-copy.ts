@@ -18,6 +18,8 @@ export type VerdictCopy = {
   limitReachedBody: string
   usedOfLimit: (used: number, limit: number) => string
   seePlans: string
+  openCheck: string
+  managePlan: string
   unknownBody: string
   headlineCall: (product: string) => string
   why: string
@@ -53,6 +55,9 @@ export type VerdictCopy = {
      branches already offer ModelChips. This label reuses that same one-click
      path to keep the visitor going after their first real answer. */
   checkAnother: string
+  estimate: string
+  strPaused: string
+  comps: string
 }
 
 export const verdictCopy: Record<Locale, VerdictCopy> = {
@@ -69,6 +74,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "You've used today's verdicts on your plan. Pro lifts the daily limit.",
     usedOfLimit: (used, limit) => `${used} of ${limit} verdicts used today.`,
     seePlans: "See plans →",
+    openCheck: "Check Nike Air Force 1",
+    managePlan: "Manage subscription",
     unknownBody: "We track 26 clothing & sneaker brands across ES/FR/DE/IT/PT — not electronics or homeware. Try one of these:",
     headlineCall: (product) => `This is the headline call on ${product}, computed from watched departures across 5 EU markets.`,
     why: "Why",
@@ -94,6 +101,9 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Live example — not your check",
     seedIntro: (product) => `Today's real answer for ${product}, from watched departures. It cost you nothing — type an item you are looking at above to get yours.`,
     checkAnother: "Got another item in front of you? Check it while you're here.",
+    estimate: "Estimate",
+    strPaused: "Sell-through is withheld. Watched departures and listings are still shown.",
+    comps: "Active comps",
   },
   fr: {
     heading: "Combien payer ?",
@@ -108,6 +118,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "Vous avez utilisé les verdicts du jour sur votre offre. Pro lève la limite quotidienne.",
     usedOfLimit: (used, limit) => `${used} sur ${limit} verdicts utilisés aujourd'hui.`,
     seePlans: "Voir les offres →",
+    openCheck: "Vérifier Nike Air Force 1",
+    managePlan: "Gérer l'abonnement",
     unknownBody: "Nous couvrons 26 marques de vêtements et sneakers (ES/FR/DE/IT/PT) — pas l'électronique ni la maison. Essayez :",
     headlineCall: (product) => `Voici l'appel principal sur ${product}, calculé à partir des départs observés sur 5 marchés UE.`,
     why: "Pourquoi",
@@ -133,6 +145,9 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Exemple réel — ce n'est pas votre analyse",
     seedIntro: (product) => `La vraie réponse du jour pour ${product}, d'après les départs observés. Elle ne vous a rien coûté — saisissez ci-dessus un article qui vous intéresse pour obtenir la vôtre.`,
     checkAnother: "Un autre article sous les yeux ? Vérifiez-le tant que vous y êtes.",
+    estimate: "Estimation",
+    strPaused: "Le taux d'écoulement est retenu. Les départs observés et les annonces restent affichés.",
+    comps: "Comps actives",
   },
   es: {
     heading: "¿Cuánto pagar?",
@@ -147,6 +162,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "Has usado los veredictos de hoy en tu plan. Pro elimina el límite diario.",
     usedOfLimit: (used, limit) => `${used} de ${limit} veredictos usados hoy.`,
     seePlans: "Ver planes →",
+    openCheck: "Comprobar Nike Air Force 1",
+    managePlan: "Gestionar suscripción",
     unknownBody: "Cubrimos 26 marcas de ropa y sneakers (ES/FR/DE/IT/PT), no electrónica ni hogar. Prueba con:",
     headlineCall: (product) => `Esta es la llamada principal sobre ${product}, calculada con salidas observadas en 5 mercados de la UE.`,
     why: "Por qué",
@@ -172,6 +189,9 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Ejemplo real — no es su consulta",
     seedIntro: (product) => `La respuesta real de hoy para ${product}, a partir de salidas observadas. No le ha costado nada: escriba arriba un artículo que esté mirando para obtener la suya.`,
     checkAnother: "¿Tienes otro artículo delante? Compruébalo ya que estás aquí.",
+    estimate: "Estimación",
+    strPaused: "La rotación está retenida. Las salidas observadas y los anuncios se siguen mostrando.",
+    comps: "Comps activas",
   },
   de: {
     heading: "Was sollen Sie zahlen?",
@@ -186,6 +206,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "Sie haben die heutigen Urteile Ihres Tarifs verbraucht. Pro hebt das Tageslimit auf.",
     usedOfLimit: (used, limit) => `${used} von ${limit} Urteilen heute genutzt.`,
     seePlans: "Tarife ansehen →",
+    openCheck: "Nike Air Force 1 prüfen",
+    managePlan: "Abo verwalten",
     unknownBody: "Wir erfassen 26 Kleidungs- & Sneaker-Marken (ES/FR/DE/IT/PT) — keine Elektronik oder Haushalt. Versuche:",
     headlineCall: (product) => `Das ist der Haupt-Call zu ${product}, aus beobachteten Abgängen in 5 EU-Märkten.`,
     why: "Warum",
@@ -211,6 +233,9 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Echtes Beispiel — nicht Ihre Prüfung",
     seedIntro: (product) => `Die heutige echte Antwort für ${product}, aus beobachteten Abgängen. Sie hat Sie nichts gekostet — geben Sie oben einen Artikel ein, den Sie sich ansehen, und Sie erhalten Ihre eigene.`,
     checkAnother: "Noch ein Artikel vor dir? Prüf ihn gleich mit.",
+    estimate: "Schätzung",
+    strPaused: "Abverkauf ist zurückgehalten. Beobachtete Abgänge und Inserate werden trotzdem gezeigt.",
+    comps: "Aktive Comps",
   },
   it: {
     heading: "Quanto pagare?",
@@ -225,6 +250,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "Hai usato i verdetti di oggi sul tuo piano. Pro elimina il limite giornaliero.",
     usedOfLimit: (used, limit) => `${used} di ${limit} verdetti usati oggi.`,
     seePlans: "Vedi i piani →",
+    openCheck: "Controlla Nike Air Force 1",
+    managePlan: "Gestisci abbonamento",
     unknownBody: "Copriamo 26 marchi di abbigliamento e sneaker (ES/FR/DE/IT/PT), non elettronica o casa. Prova con:",
     headlineCall: (product) => `Questa è la chiamata principale su ${product}, calcolata dalle uscite osservate in 5 mercati UE.`,
     why: "Perché",
@@ -250,6 +277,9 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Esempio reale — non è il tuo controllo",
     seedIntro: (product) => `La risposta reale di oggi per ${product}, dalle uscite osservate. Non ti è costata nulla: scrivi sopra un articolo che stai valutando per avere la tua.`,
     checkAnother: "Hai un altro articolo davanti? Controllalo già che ci sei.",
+    estimate: "Stima",
+    strPaused: "Il sell-through è trattenuto. Le uscite osservate e gli annunci restano visibili.",
+    comps: "Comps attive",
   },
   pt: {
     heading: "Quanto deve pagar?",
@@ -264,6 +294,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReachedBody: "Usou os veredictos de hoje no seu plano. Pro remove o limite diário.",
     usedOfLimit: (used, limit) => `${used} de ${limit} veredictos usados hoje.`,
     seePlans: "Ver planos →",
+    openCheck: "Verificar Nike Air Force 1",
+    managePlan: "Gerir subscrição",
     unknownBody: "Cobrimos 26 marcas de roupa e sneakers (ES/FR/DE/IT/PT) — não eletrónica nem casa. Tente:",
     headlineCall: (product) => `Este é o alerta principal sobre ${product}, calculado a partir de saídas observadas em 5 mercados da UE.`,
     why: "Porquê",
@@ -289,5 +321,8 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     seedLabel: "Exemplo real — não é a sua consulta",
     seedIntro: (product) => `A resposta real de hoje para ${product}, a partir de saídas observadas. Não lhe custou nada — escreva acima um artigo que esteja a ver para obter a sua.`,
     checkAnother: "Tens outro artigo à frente? Verifica-o já que estás aqui.",
+    estimate: "Estimativa",
+    strPaused: "O sell-through está retido. As saídas observadas e os anúncios continuam visíveis.",
+    comps: "Comps ativas",
   },
 }

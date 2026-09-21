@@ -29,7 +29,7 @@ export function Topbar({ title, subtitle, onMenu }: TopbarProps) {
         style={{ alignItems: "center", justifyContent: "center", background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12, width: 36, height: 36, color: "var(--color-graphite-muted)", cursor: "pointer", flexShrink: 0 }}>
         <Menu size={17} />
       </button>
-      <div className="riq-topbar-titlewrap" style={{ minWidth: 180 }}>
+      <div className="riq-topbar-titlewrap" style={{ minWidth: 0, flex: "1 1 auto", overflow: "hidden" }}>
         <div style={{ fontWeight: 600, fontSize: 17, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>{title}</div>
         {subtitle && <div className="riq-topbar-sub" style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginTop: 1 }}>{subtitle}</div>}
       </div>

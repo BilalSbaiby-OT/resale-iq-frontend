@@ -65,9 +65,12 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
         ))}
       </div>
       <p style={{ fontSize: 13.5, color: "#c3cde0", lineHeight: 1.55, marginBottom: 8 }}>
-        €{price} unlocks this check — BUY, WATCH or SKIP plus the max to pay.
+        {t.paywallUnlockLine(price)}
       </p>
-      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{bodyText}</p>
+      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 8 }}>{bodyText}</p>
+      <p style={{ fontSize: 12.5, color: "#8b99b8", lineHeight: 1.55, marginBottom: 14 }}>
+        {t.paywallCatalogNote}
+      </p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" />
         <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>

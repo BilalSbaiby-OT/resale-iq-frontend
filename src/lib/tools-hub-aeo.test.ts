@@ -14,6 +14,7 @@ import {
   TOOLS_HUB_BODY,
   TOOLS_HUB_DEFINED_TERM,
   TOOLS_HUB_FAQS,
+  toolsHub,
 } from "./tools-hub-aeo.ts"
 import {
   CATEGORY_MONEY_HREF,
@@ -89,16 +90,31 @@ test("money CTA hrefs use honest internal attribution, never a fake cpc source",
 
 test("/tools hub renders FAQPage, DefinedTerm, and both paid doors", () => {
   const src = read("app/tools/page.tsx")
-  assert.match(src, /faqPageJsonLd\(TOOLS_HUB_FAQS\)/)
-  assert.match(src, /definedTermJsonLd\(TOOLS_HUB_DEFINED_TERM\)/)
-  assert.match(src, /<HubFaq items=\{TOOLS_HUB_FAQS\}/)
+  assert.match(src, /faqPageJsonLd\(hub\.faqs\)/)
+  assert.match(src, /definedTermJsonLd\(hub\.definedTerm\)/)
+  assert.match(src, /<HubFaq items=\{hub\.faqs\}/)
   assert.match(src, /<MoneyCta href=\{TOOLS_MONEY_HREF\}/)
   assert.match(src, /TOOLS_FAQ_CTA_HREF/)
-  assert.match(src, /BUY_BELOW_TERM/)
-  assert.match(src, /TOOLS_HUB_BODY/)
+  assert.match(src, /hub\.term/)
+  assert.match(src, /hub\.body/)
   assert.match(src, /FreeChecker/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /Check it free/)
+})
+
+test("DE /tools hub is German and names the three free samples, not an English stub", () => {
+  const de = toolsHub("de")
+  assert.match(de.body, /Nachfrage-Intelligenz/)
+  assert.doesNotMatch(de.body, /Resale IQ is demand intelligence/)
+  assert.match(de.body, /Adidas Samba/)
+  assert.match(de.body, /Nike Air Force 1/)
+  assert.match(de.body, /New Balance 530/)
+  const freeFaq = de.faqs.find((f) => /kostenlos/i.test(f.q))
+  assert.ok(freeFaq)
+  assert.match(freeFaq!.a, /Samba/)
+  assert.match(freeFaq!.a, /Air Force 1/)
+  assert.match(freeFaq!.a, /530/)
+  assert.doesNotMatch(freeFaq!.a, /^Nein/)
 })
 
 test("/category hub primary door is the google_search_test MoneyCta", () => {

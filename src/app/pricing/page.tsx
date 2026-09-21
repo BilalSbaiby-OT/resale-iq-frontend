@@ -52,7 +52,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   // Revenue 2026-09-16.
   const seedTracked = await listingsTrackedLabel()
   return (
-    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
+    <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
         {/* "Resale IQ" is the wordmark, not a translatable string — same call
             /methodology and /support already make on this link. */}

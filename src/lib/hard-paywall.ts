@@ -20,6 +20,7 @@ export type PaywallPayload = {
   verdict: "PAYWALL"
   locked: true
   message?: string
+  reason?: string
   upgrade_url?: string
   plans: PaywallPlan[]
 }
@@ -45,6 +46,7 @@ export function parsePaywallBody(status: number, body: unknown): PaywallPayload 
     verdict: "PAYWALL",
     locked: true,
     message: typeof b.message === "string" ? b.message : undefined,
+    reason: typeof b.reason === "string" ? b.reason : undefined,
     upgrade_url: typeof b.upgrade_url === "string" ? b.upgrade_url : undefined,
     plans: plans.length ? plans : DEFAULT_PLANS,
   }

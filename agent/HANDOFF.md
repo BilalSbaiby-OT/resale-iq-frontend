@@ -1,7 +1,18 @@
-STATUS: READY
-OWNER: none
-PUSH: no
+STATUS: IN_PROGRESS
+OWNER: frontend
+PUSH: yes
 UPDATED: 2026-09-21
+
+FRONTEND REPAIR TRIAL — mobile P0 + non-empty verdict + IQ-060/040/010-012/030/002
+  Branch cursor/frontend-repair-iq-p1-1c06 off origin/main @ 0c534be
+  P0: 390px layout (checker stacks, no page-x-scroll on / /verdict /tools /pricing /data)
+  Insights: STR-null no longer blanks the verdict grid; reconstructed/proxy wired if API sends them
+  Catalog: untracked → coverage miss, not Stripe; Miu Miu follows seo-brands when BE adds it
+  Keep: Pro cold /verdict no €19; live-deals power-only; DE i18n; landing how-to + coverage
+
+---
+
+---
 
 FRONTEND AUDIT, 2026-09-21 — architecture + honesty + paid CTA
   Branch cursor/frontend-audit-repair-b071. Do not push main. Do not merge #130

@@ -4,8 +4,9 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
 import { AppShell } from "@/components/layout/app-shell"
-import { getVerdict, isPaymentRequired } from "@/lib/api"
+import { getVerdict, isPaymentRequired, PaymentRequiredError } from "@/lib/api"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
+import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { eur, getToken } from "@/lib/utils"
 import { formatStrPctString } from "@/lib/str-pct"
 import type { VerdictResult } from "@/types"
@@ -24,6 +25,17 @@ import { WORKING_MODELS } from "@/lib/working-models"
 import { ModelChips } from "@/components/tools/model-chips"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { seedWorthShowing } from "@/lib/seed-verdict"
+import { useAuthStore } from "@/lib/auth-store"
+import { coldVerdictCtaKind } from "@/lib/cold-verdict-cta"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { checkerFace } from "@/lib/query-coverage"
+import {
+  collectVerdictMetrics,
+  hasVerdictIntelligence,
+  measuredBuyAndSell,
+  reconstructedNote,
+  type CollectedMetric,
+} from "@/lib/verdict-intelligence"
 
 function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">) {
   return {
@@ -70,23 +82,31 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   const checkLabel = navCopy[locale].items.check
   const styles = verdictStyle(t)
   const params = useSearchParams()
+  const { user } = useAuthStore()
+  const paidCold = coldVerdictCtaKind(user?.plan) === "paid"
   const [query, setQuery] = useState("")
   const [result, setResult] = useState<VerdictResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [unlocking, setUnlocking] = useState(false)
   const [error, setError] = useState("")
   const [paywalled, setPaywalled] = useState(false)
+  const [coverageMiss, setCoverageMiss] = useState(false)
 
   const run = useCallback(async (raw?: string) => {
     const q = (raw ?? query).trim()
     if (!q) return
-    setLoading(true); setError(""); setResult(null); setPaywalled(false)
+    setLoading(true); setError(""); setResult(null); setPaywalled(false); setCoverageMiss(false)
     try {
       setResult(await getVerdict(q))
       trackEvent("verdict_seen")
       trackEvent("analysis_completed")
     } catch (e) {
       if (isPaymentRequired(e)) {
+        const body = e instanceof PaymentRequiredError ? e.body : undefined
+        if (checkerFace({ verdict: "PAYWALL", query: q, apiBody: body }) === "coverage") {
+          setCoverageMiss(true)
+          return
+        }
         // why: 402 is the product under HARD_PAYWALL, not a failed check —
         // render the checkout card. Logging it as analysis_failed would
         // count the conversion face as a drop-off.
@@ -160,13 +180,13 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-1.6px", lineHeight: 1.05, margin: "0 0 28px" }}>
           {t.heading}
         </h1>
-        <div className="flex gap-2 mb-8">
+        <div className="riq-checker-row mb-8">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder={t.placeholder}
-            className="flex-1 bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
             <Zap size={16} />{loading ? t.checking : t.check}
@@ -174,6 +194,11 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         </div>
 
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
+        {coverageMiss && (
+          <div style={{ background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, marginBottom: 24 }}>
+            <CoverageMissCard locale={locale} query={query} onPick={pickModel} disabled={loading} />
+          </div>
+        )}
         {paywalled && (
           <div style={{ background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, marginBottom: 24 }}>
             <HardPaywallCard locale={locale} query={query} />
@@ -182,13 +207,13 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
         {result && vs && (
           <div className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
-            <div className="p-6 flex items-center justify-between border-b border-[rgba(255,255,255,0.07)]">
-              <div>
+            <div className="riq-verdict-head p-6 border-b border-[rgba(255,255,255,0.07)]">
+              <div className="riq-verdict-head-copy">
                 <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
                 {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
               </div>
-              <div className="text-right">
+              <div className="riq-verdict-head-badge">
                 <div className="px-4 py-2 rounded-lg text-[15px] font-extrabold tracking-wide"
                   style={{ color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
                   {vs.label}
@@ -251,7 +276,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             ) : result.verdict === "BRAND_AVERAGE" ? (
               <>
-                <div className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-[rgba(255,255,255,0.07)] border-b border-[rgba(255,255,255,0.07)]">
+                <div className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
                   <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
                   <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
@@ -261,109 +286,45 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 </div>
               </>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
-              <div className="p-6 text-[13px] text-[#8b99b8]">
-                <p>{t.unknownBody}</p>
-                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
-                {/* CRO-UNKNOWN (verdict): mirror the free-checker fix (C64) — an
-                    UNKNOWN result used to be a dead end with no path forward.
-                    /data lists every brand we cover — honest, on-topic, same muted
-                    link style used throughout the card. */}
-                <div style={{ marginTop: 10 }}>
-                  <Link
-                    href={canonicalPath(locale, "/data")}
-                    style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
-                  >
-                    → See the 28 brands we track
-                  </Link>
-                </div>
-              </div>
-            ) : result.sell_through_rate == null ? (
-              <div className="p-6 pt-5">
-                <div className="text-[13px] leading-6 text-[#8b99b8]">
-                  {t.headlineCall(result.product || query)}
-                </div>
-                <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} isAuthenticated={getToken() != null} />
-                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
-              </div>
-            ) : (
               <>
-                {result.reasons && result.reasons.length > 0 && (
-                  <div className="p-6 border-b border-[rgba(255,255,255,0.07)]">
-                    <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">{t.why}</div>
-                    <ul className="flex flex-col gap-2">
-                      {result.reasons.map((r, i) => (
-                        <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
-                          <span className="text-emerald-400 mt-0.5">•</span>{r}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {hasVerdictIntelligence(result) && (
+                  <VerdictInsightBody
+                    result={result}
+                    t={t}
+                    opportunityState={opportunityState}
+                    planLabel={checker.planLabel}
+                    unlockRest={checker.unlockRest}
+                  />
                 )}
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)] border-b border-[rgba(255,255,255,0.07)]">
-                  <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} accent="var(--color-buy)" />
-                  {/* n here is comparable_n, not sold_7d — see the sampleNote
-                      comment above. nKind makes the tooltip say which, because
-                      the sample sentence on this same card quotes the other. */}
-                  <Metric label={t.avgAtExit} value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n} nKind="comparable" />} />
-                  {result.sell_through_rate
-                    ? <Metric label={t.sellThrough} value={formatStrPctString(result.sell_through_rate) ?? "—"} />
-                    : <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
-                  {result.buy_below != null && result.sell_avg != null
-                    ? <Metric label={t.targetNet} value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />
-                    : result.sell_through_rate
-                    /* opportunity_score is a locked_fields member. When the
-                       server withheld it, "—" claimed we had nothing to say
-                       about an item we had simply declined to rate for this
-                       plan — the same lie score-bar.tsx already refuses to
-                       tell with `score ?? 0`. Show the lock and the way past
-                       it instead; only a genuinely unrated item keeps a dash. */
-                    ? <Metric
-                        label={t.opportunity}
-                        value={
-                          opportunityState === "value"
-                            ? `${Math.round(result.opportunity_score!)}/100`
-                            : opportunityState === "locked"
-                            ? <LockedMetricValue label={checker.planLabel} cta={checker.unlockRest} />
-                            : "—"
-                        } />
-                    : <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />}
-                </div>
-
-                <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3">
-                  {result.momentum && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.demand}</span>
-                      {/* No sold_30d on the verdict payload, so the hover states
-                          the rank without a share it cannot compute. */}
-                      <MomentumBadge momentum={result.momentum} size="md" />
-                    </div>
-                  )}
-                  {result.top_sizes && result.top_sizes.length > 0 && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.hotSizes}</span>
-                      <span className="flex gap-1">
-                        {result.top_sizes.slice(0, 5).map(s => (
-                          <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[rgba(255,255,255,0.12)] text-[11px] text-[#a9b6d0]">{s}</span>
-                        ))}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* EXP-5 activation nudge. A priced verdict used to end here with
-                    no next step, so the visitor's first real answer was also
-                    their last action — 0 of 7 signups ever ran a check on a
-                    second day (measured 2026-09-06). This reuses the SAME
-                    one-click ModelChips path the cold/UNKNOWN/brand branches
-                    already use, so a 2nd analysis is one tap away the moment the
-                    first one lands. Frontend only — the in-session 2nd check.
-                    The cross-day return (the strict activation metric) needs a
-                    day-2 email trigger, specced for Eng on the BOARD. */}
-                <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
-                  <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={WORKING_MODELS} testId="riq-check-another" />
+                <div className="p-6 text-[13px] text-[#8b99b8]">
+                  <p>{result.verdict === "UNKNOWN" ? t.unknownBody : (result.confidence_note || result.message || t.unknownBody)}</p>
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+                  <div style={{ marginTop: 10 }}>
+                    <Link
+                      href={canonicalPath(locale, "/data")}
+                      style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
+                    >
+                      → See the 28 brands we track
+                    </Link>
+                  </div>
                 </div>
               </>
+            ) : (
+              <VerdictInsightBody
+                result={result}
+                t={t}
+                opportunityState={opportunityState}
+                planLabel={checker.planLabel}
+                unlockRest={checker.unlockRest}
+                unlock={
+                  <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} isAuthenticated={getToken() != null} />
+                }
+                after={
+                  <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
+                    <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={WORKING_MODELS} testId="riq-check-another" />
+                  </div>
+                }
+              />
             )}
           </div>
         )}
@@ -376,28 +337,184 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
           <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6 mt-6">
             <p>{t.empty}</p>
             <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
-            {/* PRICING NUDGE. The cold /verdict screen used to end with a list
-                of model chips and nothing else — no path to the pricing page.
-                Watcher measured 8 /pricing visitors in 7 days (C40). This link
-                costs nothing: the copy is already correct ("full access"),
-                the route exists (/pricing returns 200), and the screen renders
-                for every anonymous and free visitor who has not run a check.
-                One line. One more route to the funnel. */}
-            <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 10 }}>
-              <Link
-                href="/pricing"
-                data-testid="riq-cold-pricing-cta"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold"
-                style={{ background: "rgba(52,199,89,0.10)", color: "#34C759", border: "1px solid rgba(52,199,89,0.25)" }}
-              >
-                {t.seePlans} →
-              </Link>
-              <span className="text-[12px] text-[#546380]">€19/mo · no free tier</span>
-            </div>
+            {/* IQ-060: paid sessions (operator/power) already have the checker
+                open. Selling Starter €19 here is the founder-reported lie.
+                Anonymous / free keep the pricing nudge. */}
+            {paidCold ? (
+              <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                <Link
+                  href={FIRST_CHECK_HREF}
+                  data-testid="riq-cold-open-check"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold"
+                  style={{ background: "rgba(52,199,89,0.10)", color: "#34C759", border: "1px solid rgba(52,199,89,0.25)" }}
+                >
+                  {t.openCheck}
+                </Link>
+                <Link
+                  href="/account"
+                  data-testid="riq-cold-manage"
+                  className="text-[12px] text-[#8fa3c4]"
+                  style={{ textDecoration: "none" }}
+                >
+                  {t.managePlan}
+                </Link>
+              </div>
+            ) : (
+              <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                <Link
+                  href="/pricing"
+                  data-testid="riq-cold-pricing-cta"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13px] font-semibold"
+                  style={{ background: "rgba(52,199,89,0.10)", color: "#34C759", border: "1px solid rgba(52,199,89,0.25)" }}
+                >
+                  {t.seePlans} →
+                </Link>
+                <span className="text-[12px] text-[#546380]">€19/mo · no free tier</span>
+              </div>
+            )}
           </div>
         )}
       </div>
     </AppShell>
+  )
+}
+
+function metricLabel(id: CollectedMetric["id"], t: VerdictCopy): string {
+  switch (id) {
+    case "buy_below": return t.buyBelow
+    case "sell_avg": return t.avgAtExit
+    case "sold_7d": return t.leftShelf
+    case "active_listings": return t.listedNow
+    case "n": return "n"
+    case "comps": return t.comps
+    case "opportunity": return t.opportunity
+  }
+}
+
+function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy): ReactNode {
+  if (row.id === "buy_below") {
+    const shown = eur(row.numeric)
+    return row.kind === "reconstructed" ? `${shown} · ${t.estimate}` : shown
+  }
+  if (row.id === "sell_avg") {
+    if (row.kind === "measured") {
+      return <MedianN median={result.sell_median ?? result.sell_avg ?? row.numeric} n={result.n} nKind="comparable" />
+    }
+    return `${eur(row.numeric)} · ${t.estimate}`
+  }
+  if (row.id === "n") {
+    return row.kind === "reconstructed"
+      ? `${row.numeric.toLocaleString()} · ${t.estimate}`
+      : row.numeric.toLocaleString()
+  }
+  if (row.id === "opportunity") return `${Math.round(row.numeric)}/100`
+  return row.numeric.toLocaleString()
+}
+
+/**
+ * Whatever the API actually sent: measured first, reconstructed/proxy only
+ * when measured is absent. STR-null used to skip this entire grid and leave
+ * a paid user staring at UnlockPanel chrome.
+ */
+function VerdictInsightBody({
+  result, t, opportunityState, planLabel, unlockRest, unlock, after,
+}: {
+  result: VerdictResult
+  t: VerdictCopy
+  opportunityState: ReturnType<typeof fieldState>
+  planLabel: string
+  unlockRest: string
+  unlock?: ReactNode
+  after?: ReactNode
+}) {
+  const rows = collectVerdictMetrics(result)
+  const strText = result.sell_through_rate ? formatStrPctString(result.sell_through_rate) : null
+  const pair = measuredBuyAndSell(result)
+  const note = reconstructedNote(result)
+  const extras: ReactNode[] = []
+  if (strText) {
+    extras.push(<Metric key="str" label={t.sellThrough} value={strText} />)
+  }
+  if (pair) {
+    extras.push(
+      <Metric key="net" label={t.targetNet} value={eur(Math.max(0, pair.sell - pair.buy))} accent="var(--color-buy)" />,
+    )
+  } else if (opportunityState === "locked" && !rows.some((r) => r.id === "opportunity")) {
+    extras.push(
+      <Metric
+        key="opp"
+        label={t.opportunity}
+        value={<LockedMetricValue label={planLabel} cta={unlockRest} />}
+      />,
+    )
+  }
+
+  const shown = rows.filter((r) => r.id !== "n" || !rows.some((x) => x.id === "sell_avg" && x.kind === "measured"))
+
+  return (
+    <>
+      {result.reasons && result.reasons.length > 0 && (
+        <div className="p-6 border-b border-[rgba(255,255,255,0.07)]">
+          <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">{t.why}</div>
+          <ul className="flex flex-col gap-2">
+            {result.reasons.map((r, i) => (
+              <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
+                <span className="text-emerald-400 mt-0.5">•</span>{r}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {(shown.length > 0 || extras.length > 0) && (
+        <div data-testid="riq-verdict-insights" className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
+          {shown.map((row) => (
+            <Metric
+              key={row.id}
+              label={metricLabel(row.id, t)}
+              value={metricValue(row, result, t)}
+              accent={row.id === "buy_below" ? "var(--color-buy)" : undefined}
+            />
+          ))}
+          {extras}
+        </div>
+      )}
+
+      {!strText && (result.sold_7d != null || result.active_listings != null) && (
+        <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#8b99b8]">
+          {t.strPaused}
+        </div>
+      )}
+      {note && (
+        <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#8b99b8]">
+          {t.estimate}: {note}
+        </div>
+      )}
+
+      {(result.momentum || (result.top_sizes && result.top_sizes.length > 0)) && (
+        <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3">
+          {result.momentum && (
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.demand}</span>
+              <MomentumBadge momentum={result.momentum} size="md" />
+            </div>
+          )}
+          {result.top_sizes && result.top_sizes.length > 0 && (
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.hotSizes}</span>
+              <span className="flex flex-wrap gap-1">
+                {result.top_sizes.slice(0, 5).map(s => (
+                  <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[rgba(255,255,255,0.12)] text-[11px] text-[#a9b6d0]">{s}</span>
+                ))}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {unlock ? <div className="px-6 pb-2">{unlock}</div> : null}
+      {after}
+    </>
   )
 }
 
@@ -442,13 +559,13 @@ function SeedVerdictCard({
         <div className="text-[12.5px] text-[#8b99b8] leading-5">{t.seedIntro(product)}</div>
       </div>
 
-      <div className="p-6 flex items-center justify-between border-b border-[rgba(255,255,255,0.07)]">
-        <div>
+      <div className="riq-verdict-head p-6 border-b border-[rgba(255,255,255,0.07)]">
+        <div className="riq-verdict-head-copy">
           <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
           <div className="text-[15px] font-semibold text-[#eef1f7]">{product}</div>
           {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
         </div>
-        <div className="text-right">
+        <div className="riq-verdict-head-badge">
           <div className="px-4 py-2 rounded-lg text-[15px] font-extrabold tracking-wide"
             style={{ color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
             {vs.label}
@@ -467,7 +584,7 @@ function SeedVerdictCard({
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[rgba(255,255,255,0.07)]">
+      <div className="riq-metric-grid">
         <Metric label={t.buyBelow} value={eur(result.buy_below)} accent="var(--color-buy)" />
         <Metric label={t.avgAtExit} value={eur(result.sell_avg)} />
         <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString(locale) : "—"} />
@@ -503,8 +620,8 @@ function LockedMetricValue({ label, cta }: { label: string; cta: string }) {
 
 function Metric({ label, value, accent }: { label: string; value: ReactNode; accent?: string }) {
   return (
-    <div className="p-5">
-      <div className="text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{label}</div>
+    <div className="riq-metric-cell">
+      <div className="riq-metric-label text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{label}</div>
       <div className="text-[18px] font-bold" style={{ color: accent || "#e8ecf4" }}>{value}</div>
     </div>
   )

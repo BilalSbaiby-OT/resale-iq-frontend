@@ -15,11 +15,7 @@ import { HubFaq } from "@/components/seo/hub-faq"
 import { MoneyCta } from "@/components/money-cta"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import {
-  BUY_BELOW_TERM,
-  BUY_BELOW_TERM_NAME,
-  TOOLS_HUB_BODY,
-  TOOLS_HUB_DEFINED_TERM,
-  TOOLS_HUB_FAQS,
+  toolsHub,
 } from "@/lib/tools-hub-aeo"
 import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_MONEY_HREF } from "@/lib/money-cta"
 import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
@@ -68,17 +64,18 @@ export async function generateMetadata(
 export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; src?: string }> }) {
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
+  const hub = toolsHub(locale)
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   const { q: initialQuery, src } = await searchParams
   const teaser = await getTeaserVerdict(initialQuery)
   const cite = formatTeaserCite(initialQuery ?? "", teaser)
-  const jsonLd = [faqPageJsonLd(TOOLS_HUB_FAQS), definedTermJsonLd(TOOLS_HUB_DEFINED_TERM)]
+  const jsonLd = [faqPageJsonLd(hub.faqs), definedTermJsonLd(hub.definedTerm)]
   return (
-    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
+    <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <main id="main">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
           {/* Muted, not accent-green: the filled Check CTA is the one control
               on this view and a green back-link competed with it. */}
           <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
@@ -91,7 +88,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           </p>
         ) : null}
         <p data-testid="riq-tools-cite" style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 20, maxWidth: 620 }}>
-          {TOOLS_HUB_BODY}
+          {hub.body}
         </p>
 
         <WelcomeBanner />
@@ -102,10 +99,10 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         <MoneyCta href={TOOLS_MONEY_HREF} />
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", margin: "28px 0 8px", letterSpacing: "-0.4px" }}>
-          {BUY_BELOW_TERM_NAME}
+          {hub.termName}
         </h2>
         <p style={{ fontSize: 15.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 12, maxWidth: 620 }}>
-          {BUY_BELOW_TERM}
+          {hub.term}
         </p>
 
         {/* Search-intent titles/descriptions stay English on every locale —
@@ -138,7 +135,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           <Link href="/flip" style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>brand flips</Link>.
         </p>
 
-        <HubFaq items={TOOLS_HUB_FAQS} />
+        <HubFaq items={hub.faqs} />
 
         <p style={{ marginTop: 8, fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
           <Link href={TOOLS_FAQ_CTA_HREF} style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>

@@ -140,3 +140,17 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   assert.match(copy.en.heroSub, /€19/)
   assert.doesNotMatch(copy.en.heroSub, /Second-hand clothes/)
 })
+
+test("landing teaches three steps and honest coverage, and does not ship heroHonesty", () => {
+  const landing = read("components/landing/landing-content.tsx")
+  assert.match(landing, /riq-how-to/)
+  assert.match(landing, /riq-coverage-line/)
+  assert.match(landing, /t\.howToHeading/)
+  assert.match(landing, /t\.howToCoverage/)
+  assert.doesNotMatch(landing, /heroHonesty/)
+  assert.equal(copy.en.howToSteps.length, 3)
+  assert.match(copy.en.howToCoverage, /not in this catalog/)
+  assert.match(copy.en.howToCoverage, /Samba/)
+  assert.match(copy.de.howToCoverage, /Katalog/)
+  assert.doesNotMatch(copy.de.howToCoverage, /\bfree\b/i)
+})

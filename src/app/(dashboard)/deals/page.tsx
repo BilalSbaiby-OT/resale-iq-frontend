@@ -18,6 +18,8 @@ import { eur } from "@/lib/utils"
 import { formatStrPct } from "@/lib/str-pct"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { useLocale } from "@/components/i18n/locale-provider"
+import { useAuthStore } from "@/lib/auth-store"
+import { canFindLiveDeals } from "@/lib/live-deals-gate"
 import { appCopy } from "@/lib/app-copy"
 import { categoryName, formatCount, localizeConfidenceNote } from "@/lib/verdict-words"
 import type { Deal } from "@/types"
@@ -81,6 +83,8 @@ function Figure({ label, value, title }: { label: string; value: React.ReactNode
 function DealsContent() {
   const locale = useLocale()
   const t = appCopy[locale]
+  const { user } = useAuthStore()
+  const showLiveFind = canFindLiveDeals(user?.plan)
   const [liveDeal, setLiveDeal] = useState<Deal | null>(null)
   const searchParams = useSearchParams()
   const [all, setAll] = useState<Deal[]>([])
@@ -337,15 +341,18 @@ function DealsContent() {
 
                 {/* ONE filled control per card. Watchlist is a ghost icon. */}
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: "auto" }}>
-                  <button
-                    onClick={() => setLiveDeal(d)}
-                    style={{
-                      flex: 1, padding: "10px 16px", borderRadius: 12, border: "none", cursor: "pointer",
-                      background: "var(--color-accent)", color: "var(--color-on-accent)",
-                      fontSize: 15, fontWeight: 600,
-                      transition: "opacity var(--motion-fast) var(--motion-ease)",
-                    }}
-                  >{t.deals.findLive}</button>
+                  {showLiveFind && (
+                    <button
+                      onClick={() => setLiveDeal(d)}
+                      data-testid="riq-find-live"
+                      style={{
+                        flex: 1, padding: "10px 16px", borderRadius: 12, border: "none", cursor: "pointer",
+                        background: "var(--color-accent)", color: "var(--color-on-accent)",
+                        fontSize: 15, fontWeight: 600,
+                        transition: "opacity var(--motion-fast) var(--motion-ease)",
+                      }}
+                    >{t.deals.findLive}</button>
+                  )}
                   <button
                     onClick={() => handleWatchlist(d)}
                     aria-label={t.deals.watchlistAdd} title={t.deals.watchlistAdd}

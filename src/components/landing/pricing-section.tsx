@@ -314,11 +314,7 @@ export function PricingSection({
 
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
           one-line public-data link below so it cannot compete with Starter €19. */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(232px, 1fr))",
-        gap: s.gap, alignItems: "stretch", justifyContent: "center",
-      }}>
+      <div className="riq-pricing-grid" style={{ gap: s.gap }}>
         {/* One card shape for every tier. The recommended tier is marked by its
             FILLED CTA and nothing else — previously it also carried a green
             border, a green drop-shadow, a green gradient background, a floating

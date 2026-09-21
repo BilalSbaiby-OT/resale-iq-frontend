@@ -123,6 +123,33 @@ export function isLocaleRoutedPath(pathname: string): boolean {
 }
 
 /**
+ * Cookie-only translated roots that are not in LOCALE_ROUTED_EXACT
+ * (proxy 307 list) but still have a real `/[locale]/<root>` page.
+ */
+const LOCALE_ROUTED_EXTRA_ROOTS = ["register", "support"] as const
+
+/**
+ * IQ-012 — sibling URL for the language switcher.
+ *
+ * The switcher used to hard-code homepage / methodology / register / support.
+ * `/de/pricing`, `/de/data`, `/de/tools` (and the other locale-routed hubs)
+ * then reloaded the same URL after setting a cookie, so picking Français
+ * looked broken. Derive from the routing table instead of a second set.
+ */
+export function localeSiblingPath(pathname: string, locale: Locale): string | null {
+  const seg = pathname.split("/").filter(Boolean)
+  if (seg.length > 0 && isPathLocale(seg[0])) seg.shift()
+  if (seg.length === 0) return canonicalPath(locale, "")
+  const unprefixed = `/${seg.join("/")}`
+  const root = seg[0] ?? ""
+  if ((LOCALE_ROUTED_EXTRA_ROOTS as readonly string[]).includes(root)) {
+    return canonicalPath(locale, unprefixed)
+  }
+  if (isLocaleRoutedPath(unprefixed)) return canonicalPath(locale, unprefixed)
+  return null
+}
+
+/**
  * "/es/register" -> "/register", "/es" -> "/", "/register" -> "/register".
  *
  * Exists because funnel events were keyed on the raw pathname, so every
