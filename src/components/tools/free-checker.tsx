@@ -411,6 +411,7 @@ export function FreeChecker({
         <input
           name="query"
           required
+          autoFocus={hero}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={resolvedPlaceholder}
@@ -440,6 +441,15 @@ export function FreeChecker({
           {loading ? t.checking : t.checkFree}
         </button>
       </form>
+      {hero && (
+        <ModelChips
+          onPick={(ex) => run(ex)}
+          disabled={loading}
+          label={t.tryTheseInstead}
+          examples={TRY_EXAMPLES}
+          testId="riq-hero-try-chips"
+        />
+      )}
       <RegisterCheckVintedItemTool name={webmcpName} description={webmcpDescription} />
 
       {err && <p style={{ color: "#FF453A", fontSize: 13, marginTop: 12 }}>{err}</p>}
