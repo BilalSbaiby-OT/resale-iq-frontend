@@ -116,6 +116,7 @@ export const copy = {
     heroTitle: "Know what sells before you buy.",
     heroAudience: "For people who resell second-hand clothes.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
+    heroFreeScope: "Free: Samba, Air Force 1, and NB 530. Other models €19/mo.",
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
     marketPulse: {
@@ -130,6 +131,8 @@ export const copy = {
       stamp: (s: string) => `Live snapshot · ${s}`,
       stampNoTime: "Live market snapshot",
       staleNote: "showing last-good data",
+      showing: (shown: number, total: number) => `Showing ${shown} of ${total} brands`,
+      seeAll: "See all on /data",
     },
     heroHeadline: "Know what sells. Decide whether to buy.",
     heroSub:
@@ -666,6 +669,7 @@ export const copy = {
     heroTitle: "Sachez ce qui se vend avant d'acheter.",
     heroAudience: "Pour ceux qui achètent d'occasion pour revendre.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
+    heroFreeScope: "Gratuit : Samba, Air Force 1 et NB 530. Autres modèles 19 €/mois.",
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui se vend vraiment en ce moment.",
@@ -678,6 +682,8 @@ export const copy = {
       stamp: (s: string) => `Instantané en direct · ${s}`,
       stampNoTime: "Instantané du marché en direct",
       staleNote: "dernières données valides",
+      showing: (shown: number, total: number) => `${shown} marques sur ${total}`,
+      seeAll: "Tout voir sur /data",
     },
     heroHeadline: "Sachez ce qui se vend. Décidez si vous achetez.",
     heroSub: "Une recherche : ce qui se vend, BUY / WATCH / SKIP, et le prix à ne pas dépasser.",
@@ -1062,6 +1068,7 @@ export const copy = {
     heroTitle: "Sabe qué se vende antes de comprar.",
     heroAudience: "Para quien compra de segunda mano para revender.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
+    heroFreeScope: "Gratis: Samba, Air Force 1 y NB 530. Otros modelos 19 €/mes.",
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que se está vendiendo ahora mismo.",
@@ -1074,6 +1081,8 @@ export const copy = {
       stamp: (s: string) => `Instantánea en vivo · ${s}`,
       stampNoTime: "Instantánea del mercado en vivo",
       staleNote: "mostrando últimos datos válidos",
+      showing: (shown: number, total: number) => `Mostrando ${shown} de ${total} marcas`,
+      seeAll: "Ver todas en /data",
     },
     heroHeadline: "Sabe qué se vende. Decide si compras.",
     heroSub:
@@ -1461,6 +1470,7 @@ export const copy = {
     heroTitle: "Wissen, was sich verkauft, bevor du kaufst.",
     heroAudience: "Für alle, die Second-Hand kaufen, um weiterzuverkaufen.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
+    heroFreeScope: "Kostenlos: Samba, Air Force 1 und NB 530. Andere Modelle 19 €/Monat.",
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verkauft sich gerade wirklich.",
@@ -1473,6 +1483,8 @@ export const copy = {
       stamp: (s: string) => `Live-Snapshot · ${s}`,
       stampNoTime: "Live-Markt-Snapshot",
       staleNote: "zeige letzte gültige Daten",
+      showing: (shown: number, total: number) => `${shown} von ${total} Marken`,
+      seeAll: "Alle auf /data",
     },
     heroHeadline: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
     heroSub: "Eine Suche: was gefragt ist, BUY / WATCH / SKIP, und die Kaufobergrenze.",
@@ -1859,6 +1871,7 @@ export const copy = {
     heroTitle: "Sappi cosa si vende prima di comprare.",
     heroAudience: "Per chi compra usato per rivendere.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
+    heroFreeScope: "Gratis: Samba, Air Force 1 e NB 530. Altri modelli 19 €/mese.",
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa si sta vendendo davvero adesso.",
@@ -1871,6 +1884,8 @@ export const copy = {
       stamp: (s: string) => `Istantanea dal vivo · ${s}`,
       stampNoTime: "Istantanea del mercato dal vivo",
       staleNote: "mostro ultimi dati validi",
+      showing: (shown: number, total: number) => `${shown} marchi su ${total}`,
+      seeAll: "Vedi tutti su /data",
     },
     heroHeadline: "Sappi cosa si vende. Decidi se comprare.",
     heroSub: "Una ricerca: cosa si vende, BUY / WATCH / SKIP, e il prezzo da non superare.",
@@ -2255,6 +2270,7 @@ export const copy = {
     heroTitle: "Saiba o que vende antes de comprar.",
     heroAudience: "Para quem compra em segunda mão para revender.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
+    heroFreeScope: "Grátis: Samba, Air Force 1 e NB 530. Outros modelos 19 €/mês.",
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está mesmo a vender agora.",
@@ -2267,6 +2283,8 @@ export const copy = {
       stamp: (s: string) => `Instantâneo ao vivo · ${s}`,
       stampNoTime: "Instantâneo do mercado ao vivo",
       staleNote: "a mostrar últimos dados válidos",
+      showing: (shown: number, total: number) => `A mostrar ${shown} de ${total} marcas`,
+      seeAll: "Ver todas em /data",
     },
     heroHeadline: "Saiba o que vende. Decida se compra.",
     heroSub: "Uma pesquisa: o que está em procura, BUY / WATCH / SKIP, e o preço máximo a pagar.",

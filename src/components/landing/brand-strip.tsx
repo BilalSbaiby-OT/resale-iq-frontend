@@ -16,13 +16,13 @@ const ICON: Record<string, string> = {
   "New Balance": "newbalance",
   Vans: "vans",
   Supreme: "supreme",
-  Patagonia: "patagonia",
   Carhartt: "carhartt",
   Uniqlo: "uniqlo",
   "Calvin Klein": "calvinklein",
   "Tommy Hilfiger": "tommy",
   "Ralph Lauren": "ralphlauren",
-  Balenciaga: "balenciaga",
+  // Patagonia + Balenciaga: simple-icons has no Balenciaga slug; Patagonia
+  // 403s on the CDN. Missing → wordmark (see Mark).
 }
 
 function Mark({ name }: { name: string }) {

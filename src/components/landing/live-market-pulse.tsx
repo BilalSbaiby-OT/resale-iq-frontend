@@ -1,6 +1,8 @@
 import { copy } from "@/lib/i18n"
 import type { Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
+import Link from "next/link"
+import { canonicalPath } from "@/lib/locale-routes"
 
 /**
  * LIVE MARKET PULSE — the honest-proof section that fills the empty landing.
@@ -95,7 +97,17 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
         })}
       </div>
 
-      <p style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: "var(--space-3)", lineHeight: 1.5 }}>
+      <p
+        data-testid="riq-market-showing"
+        style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: "var(--space-3)", lineHeight: 1.5 }}
+      >
+        {t.showing(rows.length, brands)}
+        {" · "}
+        <Link href={canonicalPath(locale, "/data")} style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>
+          {t.seeAll}
+        </Link>
+      </p>
+      <p style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: "var(--space-2)", lineHeight: 1.5 }}>
         {market.stamp ? t.stamp(market.stamp) : t.stampNoTime}{market.stale ? ` · ${t.staleNote}` : ""}
       </p>
     </section>

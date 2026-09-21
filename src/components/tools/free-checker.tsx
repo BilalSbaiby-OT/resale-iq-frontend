@@ -17,7 +17,7 @@ import {
   CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
 } from "@/lib/webmcp-tools"
 import "@/types/webmcp-jsx"
-import { WORKING_MODELS } from "@/lib/working-models"
+import { FREE_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { formatStrPct } from "@/lib/str-pct"
@@ -141,18 +141,10 @@ function formatSellThrough(raw: string): string {
   return formatStrPct(Number(m[1])) ?? raw
 }
 
-// The catalogue is 26 brands, model-level, sneaker/streetwear-coded — not
-// "any Vinted item." A refusal is the right answer for most typed-in queries
-// (insufficient_data_rate = 40.9% of answered searches, METRICS.md), but the
-// UI should turn that into "it works for THESE" rather than an empty box.
-// Each of these is a query independently confirmed LIVE (2026-09-09) as
-// returning WATCH with a real buy-below — so a dead-ended user who clicks a
-// rescue chip lands on a compelling YES, not another SKIP. Re-verify against
-// /api/verdict before changing (never-manufacture-proof): New Balance 530
-// (WATCH, buy_below €24, sold_7d 378), Levi's 501 (WATCH, €13), New Balance
-// 550 (WATCH, €28). The old list (Nike Air Force 1 / Adidas Samba) both
-// return SKIP live and sent stuck users to a second dead end.
-const TRY_EXAMPLES = ["New Balance 530", "Levi's 501", "New Balance 550"]
+// Anon chips must be models that still 200 with buy-below. Live 2026-09-21:
+// Adidas Samba, Nike Air Force 1, New Balance 530 → 200. Levi's 501 and
+// New Balance 550 → 402 paywall. Never advertise those as free.
+const TRY_EXAMPLES = FREE_MODELS
 
 // --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01; localised 2026-09-01) ---
 // The English strings for this branch now live in src/lib/i18n.ts under
@@ -440,13 +432,21 @@ export function FreeChecker({
         </button>
       </form>
       {hero && (
-        <ModelChips
-          onPick={(ex) => run(ex)}
-          disabled={loading}
-          label={t.tryTheseInstead}
-          examples={TRY_EXAMPLES}
-          testId="riq-hero-try-chips"
-        />
+        <>
+          <ModelChips
+            onPick={(ex) => run(ex)}
+            disabled={loading}
+            label={t.tryTheseInstead}
+            examples={TRY_EXAMPLES}
+            testId="riq-hero-try-chips"
+          />
+          <p
+            data-testid="riq-free-scope"
+            style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}
+          >
+            {copy[locale].heroFreeScope}
+          </p>
+        </>
       )}
       <RegisterCheckVintedItemTool name={webmcpName} description={webmcpDescription} />
 
@@ -577,7 +577,7 @@ export function FreeChecker({
                   make each row clickable without requiring the user to retype
                   "Carhartt Jackets". Constructed from res.categories + res.brand
                   at render time, so they stay on-brand regardless of which brand
-                  triggered BRAND_CATEGORIES. Falls back to WORKING_MODELS only
+                  triggered BRAND_CATEGORIES. Falls back to FREE_MODELS only
                   when the backend sends no categories (shouldn't happen in prod
                   but defends the invariant). */}
               {res.categories && res.categories.length > 0 && res.brand ? (
@@ -589,7 +589,7 @@ export function FreeChecker({
                   testId="riq-brand-category-chips"
                 />
               ) : (
-                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} />
+                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} />
               )}
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
