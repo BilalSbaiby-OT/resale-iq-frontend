@@ -1,20 +1,21 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV leftover (this session)
-  PR #123 merged (5ef7491). Leftover Bilal called out:
-  (1) checker module not centered on desktop — 2-col hero;
-  (2) brand strip still text names; need real local SVGs, omit
-  unmatched; (3) Free: must sit above 1280x800 fold, under CTA.
-  Branch cursor/seo-homepage-free-scope-fold-6ca7. New PR (cannot
-  attach to merged #123). Do not push main until Isolation green.
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV leftover PR #125
+  SHIPPED on branch. Local PASS: tsc, build, isolation, homepage-conv
+  unit, smoke (form center x=640, Free: bottom y=602 < 800, 9 SVG tiles).
+  Playwright public-result-face 3 fails are pre-existing on main
+  (Stripe bar after a real check). Isolation is the deploy gate.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/125
+  Merge to main deploys via Coolify after Isolation. Do not push main
+  from this session.
 
 SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV LIVE (merged #123)
-  MERGED | 5ef7491 | live PASS then leftover above
+  MERGED | 5ef7491 | leftover shipped as #125
   Free chips Samba + AF1 + NB 530. 501/550 removed. FAQ + table
-  + Samba €24. Text wordmarks shipped — founder rejected.
+  + Samba €24. Text wordmarks rejected — replaced in #125.
 
 SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
   MERGED | e28c993 | live PASS
