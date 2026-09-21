@@ -884,7 +884,7 @@ export const copy = {
       subhead: "Une recherche vous donne ACHETER / SURVEILLER / ÉCARTER, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
-      coldCtaLadder: "Essaie un vrai check — Fred Perry Shirt →",
+      coldCtaLadder: "Commencer à 19 € →",
       currentPlanCta: "Offre actuelle",
       manageSubscriptionCta: "Gérer l'abonnement",
       countryLabel: "Pays de TVA",
@@ -1322,7 +1322,7 @@ export const copy = {
         "Una búsqueda te da COMPRA / OBSERVA / DESCARTA, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
       scopeNote: "Diseñado para ropa, calzado y accesorios en Vinted · ES · FR · DE · IT · PT. Cuando la muestra es insuficiente, el veredicto muestra UNKNOWN — nunca una suposición.",
-      coldCtaLadder: "Prueba un check real — Fred Perry Shirt →",
+      coldCtaLadder: "Empieza por 19 € →",
       currentPlanCta: "Plan actual",
       manageSubscriptionCta: "Gestionar suscripción",
       countryLabel: "País del IVA",
@@ -1757,7 +1757,7 @@ export const copy = {
       subhead: "Eine Suche gibt dir KAUFEN / BEOBACHTEN / VERWERFEN, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
-      coldCtaLadder: "Probier einen echten Check — Fred Perry Shirt →",
+      coldCtaLadder: "Für 19 € starten →",
       currentPlanCta: "Aktueller Tarif",
       manageSubscriptionCta: "Abo verwalten",
       countryLabel: "MwSt.-Land",
@@ -2194,7 +2194,7 @@ export const copy = {
       subhead: "Una ricerca ti dà COMPRA / OSSERVA / SCARTA, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
-      coldCtaLadder: "Prova un check reale — Fred Perry Shirt →",
+      coldCtaLadder: "Inizia a 19 € →",
       currentPlanCta: "Piano attuale",
       manageSubscriptionCta: "Gestisci abbonamento",
       countryLabel: "Paese IVA",
@@ -2629,7 +2629,7 @@ export const copy = {
       subhead: "Uma pesquisa dá-te COMPRAR / OBSERVAR / DESCARTAR, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
-      coldCtaLadder: "Experimenta um check real — Fred Perry Shirt →",
+      coldCtaLadder: "Começa por 19 € →",
       currentPlanCta: "Plano atual",
       manageSubscriptionCta: "Gerir subscrição",
       countryLabel: "País do IVA",
