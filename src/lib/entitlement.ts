@@ -56,6 +56,16 @@ export function planState(user: User | null | undefined): PlanState | null {
   return user.trial_ends_at ? "trial_lapsed" : "trial_pending"
 }
 
+/** Starter (`operator`) and Pro (`power`). Free, trial, and logged-out are not paid. */
+export function isPaidPlanId(plan: string | null | undefined): boolean {
+  return plan === "operator" || plan === "power"
+}
+
+/** True when the signed-in account is on a paid Starter or Pro plan. */
+export function isPaidPlan(user: User | null | undefined): boolean {
+  return isPaidPlanId(user?.plan)
+}
+
 interface StaticEntry { chip: string; sub: string }
 interface TrialEntry { chip: string; sub: (daysLeft: number) => string }
 

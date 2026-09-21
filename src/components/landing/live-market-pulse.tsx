@@ -28,15 +28,15 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
   // snapshot actually gives a finite sold count for; never a stand-in.
   const rows = market.brandNames
     .map((name) => ({ name, f: market.get(name) }))
-    .filter((r): r is { name: string; f: NonNullable<ReturnType<typeof market.get>> } =>
-      r.f != null && typeof r.f.sold_7d === "number" && r.f.sold_7d! > 0)
-    .sort((a, b) => (b.f.sold_7d ?? 0) - (a.f.sold_7d ?? 0))
+    .filter((r): r is { name: string; f: NonNullable<ReturnType<typeof market.get>> & { sold_7d: number } } =>
+      r.f != null && typeof r.f.sold_7d === "number" && r.f.sold_7d > 0)
+    .sort((a, b) => b.f.sold_7d - a.f.sold_7d)
     .slice(0, 8)
 
   // No live rows -> render nothing. An empty section beats a fabricated one.
   if (rows.length === 0) return null
 
-  const max = rows[0].f.sold_7d ?? 1
+  const max = rows[0].f.sold_7d
   const listings = market.listingsTracked
   const brands = market.brandsTracked ?? market.brandCount
 
@@ -77,7 +77,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
           <span style={{ ...hdr, textAlign: "right" }}>{t.colAvg}</span>
         </div>
         {rows.map((r) => {
-          const sold = r.f.sold_7d ?? 0
+          const sold = r.f.sold_7d
           const avg = r.f.avg_price_eur
           const pct = Math.max(6, Math.round((sold / max) * 100))
           return (

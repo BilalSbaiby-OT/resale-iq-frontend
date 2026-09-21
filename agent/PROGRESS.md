@@ -619,3 +619,12 @@ NEXT (once unblocked): P0-1.
 - Merge SHA `861eec66212a0616c19534b7657d6ce450bba257`.
 - Isolation firewall SUCCESS. Free allowlist Samba / AF1 / NB 530 only.
 
+## 2026-09-21 — frontend audit + targeted honesty/CTA repairs
+- Inspected DATA→API→STATE→UI. PR #130 still OPEN (Pro subscribe CTA).
+- Shipped JWT on FreeChecker/WebMCP, paid CTA branch, extension 402,
+  comparable-n, locked_fields watchlist, STR string formatter, NB 530 copy.
+- Verified: tsc, unit 270, build 701, isolation+built + warehouse checks.
+  Playwright paid-cta + regression-p0 + smoke 35/35. Methodology inline Code.
+- Docs: TECHNICAL_ARCHITECTURE.md, TECHNICAL_AUDIT_REPORT.md.
+- Branch cursor/frontend-audit-repair-b071. Do not push main.
+

@@ -163,7 +163,7 @@ export default function CalculatorPage() {
 
         {maxBuy !== null && (
           <div className="mb-6">
-            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">Max buy price to hit your target profit</div>
+            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">Max buy to hit that profit after the 5% fee — not the product buy-below (avg × 0.95 × 0.70)</div>
             <div className="font-bold text-[40px] leading-none tracking-tight text-[var(--color-buy)] tabular-nums">{eur(maxBuy)}</div>
           </div>
         )}

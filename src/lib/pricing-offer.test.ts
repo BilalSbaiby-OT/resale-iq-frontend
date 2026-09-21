@@ -79,3 +79,11 @@ test("Stripe Starter/Pro placeholders are unchanged", () => {
   assert.equal(starter?.price, 19)
   assert.equal(pro?.price, 49)
 })
+
+test("paid sessions get current-plan / manage copy, not Start for €19", () => {
+  assert.equal(copy.en.pricingSection.currentPlanCta, "Current plan")
+  assert.equal(copy.en.pricingSection.manageSubscriptionCta, "Manage subscription")
+  const src = read("components/landing/pricing-section.tsx")
+  assert.match(src, /pricingCtaKind/)
+  assert.match(src, /isPaidPlan\(user\)/)
+})

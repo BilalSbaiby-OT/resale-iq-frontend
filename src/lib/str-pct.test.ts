@@ -11,7 +11,7 @@
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { formatStrPct, STR_PCT_FLOOR } from "./str-pct.ts"
+import { formatStrPct, formatStrPctString, STR_PCT_FLOOR } from "./str-pct.ts"
 
 test("a zero rate never prints as 0% — it prints the bound", () => {
   assert.equal(formatStrPct(0), "<0.1%")
@@ -59,4 +59,13 @@ test("null is not zero — an absent rate has no string", () => {
   assert.equal(formatStrPct(undefined), null)
   assert.equal(formatStrPct(Number.NaN), null)
   assert.equal(formatStrPct(Number.POSITIVE_INFINITY), null)
+})
+
+test("API string 0% / 0.0% is rewritten to the bound, never printed as zero", () => {
+  assert.equal(formatStrPctString("0%"), "<0.1%")
+  assert.equal(formatStrPctString("0.0%"), "<0.1%")
+  assert.equal(formatStrPctString("0.19%"), "0.2%")
+  assert.equal(formatStrPctString("<0.1%"), "<0.1%")
+  assert.equal(formatStrPctString(null), null)
+  assert.equal(formatStrPctString("not a rate"), "not a rate")
 })

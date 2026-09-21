@@ -24,6 +24,7 @@ assert.match(bg, /chrome\.storage\.local/)
 assert.match(bg, /migrateSyncToken/)
 assert.match(bg, /status === 403/)
 assert.match(bg, /status === 401/)
+assert.match(bg, /status === 402/)
 assert.doesNotMatch(bg, /verdict === "UNKNOWN"[\s\S]*ok: false/)
 
 const content = read("content.js")

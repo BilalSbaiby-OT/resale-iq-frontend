@@ -204,7 +204,11 @@ export default async function CategoryPage(
                     {fmtCount(e.sold_7d)}
                   </td>
                   <td style={{ padding: "10px", textAlign: "right", color: "#5b6b8c" }}>
-                    {total > 0 && e.sold_7d != null ? `${Math.round((e.sold_7d / total) * 100)}%` : "—"}
+                    {total > 0 && e.sold_7d != null ? (() => {
+                      const raw = (e.sold_7d / total) * 100
+                      const rounded = Math.round(raw)
+                      return rounded === 0 && raw > 0 ? "<1%" : `${rounded}%`
+                    })() : "—"}
                   </td>
                   <td style={{ padding: "10px 0 10px 10px", textAlign: "right", color: "#a9b6d0" }}>
                     {fmtEur(e.avg_price_eur)}

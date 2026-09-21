@@ -6,6 +6,7 @@ import {
   CHECK_VINTED_ITEM_NAME,
   CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
 } from "@/lib/webmcp-tools"
+import { getToken } from "@/lib/utils"
 
 /**
  * Imperative WebMCP fallback for check_vinted_item.
@@ -43,7 +44,9 @@ function getModelContext(): ModelContext | undefined {
 async function executeCheck({ query }: CheckInput): Promise<unknown> {
   const q = String(query ?? "").trim()
   if (q.length < 2) return { error: "query must be at least 2 characters" }
-  const r = await fetch(`/api/verdict?q=${encodeURIComponent(q)}`)
+  const token = typeof window !== "undefined" ? getToken() : null
+  const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
+  const r = await fetch(`/api/verdict?q=${encodeURIComponent(q)}`, { headers })
   try {
     return await r.json()
   } catch {

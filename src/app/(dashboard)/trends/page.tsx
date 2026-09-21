@@ -69,7 +69,11 @@ export default function TrendsPage() {
             </div>
             <div className="divide-y divide-[#1e2535]">
               {loading ? <div className="text-center py-8 text-[#546380] text-[12px]">Loading…</div> :
-                [...(data?.trending_models ?? [])].sort((a, b) => (b.opportunity_score ?? 0) - (a.opportunity_score ?? 0)).slice(0, 10).map((m, i) => (
+                [...(data?.trending_models ?? [])]
+                  .filter((m): m is typeof m & { opportunity_score: number } => typeof m.opportunity_score === "number")
+                  .sort((a, b) => b.opportunity_score - a.opportunity_score)
+                  .slice(0, 10)
+                  .map((m, i) => (
                   <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#1a2030]">
                     <span className="font-mono text-[11px] text-[#546380] w-4">{i + 1}</span>
                     <div className="flex-1 min-w-0">

@@ -226,7 +226,7 @@ export interface VerdictResult {
   // BRAND_AVERAGE: brand + category named but no specific model — a real
   // priced aggregate (api/routes.py _brand_categories_next_step /
   // _brand_average_verdict), never a per-model buy-below.
-  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE"
+  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE" | "PAYWALL"
   product?: string
   category?: string
   /** BRAND_CATEGORIES only: the brand named, categories we hold data for. */

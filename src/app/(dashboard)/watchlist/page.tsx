@@ -10,6 +10,7 @@ import Link from "next/link"
 import { Lock } from "lucide-react"
 import { MedianN } from "@/components/ui/median-n"
 import { formatStrPct } from "@/lib/str-pct"
+import { isFieldLocked } from "@/lib/locked-fields"
 
 export default function WatchlistPage() {
   const [items, setItems] = useState<WatchlistItem[]>([])
@@ -23,7 +24,11 @@ export default function WatchlistPage() {
     setLoading(true)
     try {
       const d = await getWatchlist()
-      setItems(d.items); setWarmingUp(!!d.momentum_warming_up); setLocked(d.locked)
+      setItems(d.items)
+      setWarmingUp(!!d.momentum_warming_up)
+      // `locked` has been a constant false on every backend branch since
+      // W1 (src/lib/locked-fields.ts). Trust locked_fields, same as deals.
+      setLocked(d.locked || isFieldLocked(d.locked_fields, "max_buy_price"))
     } catch {
       setItems([])
     } finally { setLoading(false) }
