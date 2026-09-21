@@ -1,17 +1,21 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK (align PR #129)
-  SEED-BATCH-2.md not on this box — locking to stated counts/URL shapes:
-    20 paid models /flip/{brand}/model/{slug}
-    7 /best/{intent}
-    8 /vs/{a}-vs-{b}
-    6 /for/{persona}
-    EN 41 first; locales kept for those EN winners (already routed).
-  Free allowlist unchanged: Samba / AF1 / NB 530.
-  Branch cursor/seo-programmatic-scale-f2b2. Do not push main.
+SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK (PR #129)
+  SHIPPED on branch. Isolation is the Coolify gate. Do not push main.
+  SEED-BATCH-2.md was not on this box — lock is docs/seo/SEED-BATCH-2.md.
+  EN 41: 20 paid models + 7 /best + 8 /vs/{a}-vs-{b} + 6 /for.
+  Catalogue 32 models (week-1 12 + week-2 20). Free: Samba / AF1 / NB 530.
+  Locales kept for the 21 landings (105 clones + 15 hubs). Model pages EN-only.
+  Preview /vs/excel|gut-feel|stockx|listing-screenshots 308 to locked slugs.
+  Local PASS: tsc, next build (701), isolation+built, dupes, locale-english,
+  unit 236, curl 44/44, Chrome H1s unique, Stan Smith paywall, Samba free,
+  FR clone French, /data em-dash, 308 excel→resale-iq-vs-excel.
+  Sitemap 654: models 32, best 42, vs 48, for 36, hubs 18.
+  PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/129
+  Branch cursor/seo-programmatic-scale-f2b2.
 
 ---
 

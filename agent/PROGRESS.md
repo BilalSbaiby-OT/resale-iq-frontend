@@ -604,3 +604,14 @@ NEXT (once unblocked): P0-1.
   + demand-intel. Exact steps in `AI/STRIPE.md`. Backend repo not in
   this workspace (private).
 - Branch cursor/checkout-resaleiq-branding-2dee.
+
+## 2026-09-21 — week-2 seed lock aligned on PR #129
+- Trimmed SCALE overshoot: 61 extra models → locked 20 paid slugs.
+- Landings locked to 21 EN (7 best / 8 vs `{a}-vs-{b}` / 6 for).
+- Six-locale copy kept for those 21. Preview VS slugs 308.
+- Free checker still Samba / AF1 / NB 530. Lock: docs/seo/SEED-BATCH-2.md.
+- Local: tsc, build 701, isolation+built, dupes, locale-english, unit 236,
+  curl 44/44, Chrome H1s, paywall vs free, FR clone, /data em-dash.
+- Sitemap 654 locs (32 models, 42 best, 48 vs, 36 for, 18 hubs).
+- PR #129 cursor/seo-programmatic-scale-f2b2. Do not push main.
+
