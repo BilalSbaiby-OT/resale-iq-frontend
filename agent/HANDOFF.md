@@ -11,8 +11,8 @@ FRONTEND AUDIT, 2026-09-21 — architecture + honesty + paid CTA
   extension 402 as paywall not outage; n≠sold_7d; watchlist locked_fields;
   formatStrPctString on /verdict; trial/support name NB 530; null≠0 pulse/
   trends/portfolio; PAYWALL on VerdictResult; seller-fee copy.
-  Local: tsc, unit 269, next build 701, isolation+built, dupes, locale-english,
-  extension, warehouse, tracked. Playwright follow-up on the PR.
+  Local: tsc, unit 270, next build 701, isolation+built, dupes, locale-english,
+  extension, warehouse, tracked. Playwright paid-cta+P0+smoke 35/35.
   Docs: TECHNICAL_ARCHITECTURE.md, TECHNICAL_AUDIT_REPORT.md.
 
 SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK MERGED

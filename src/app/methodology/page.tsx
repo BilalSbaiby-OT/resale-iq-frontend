@@ -177,7 +177,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
           <Code>{t.text14}</Code>
           <P>
             {t.text15}
-            <Code>sold_observed=1</Code>{t.text16} <Code>sold_at</Code>{t.text17} <em>or</em>{" "}
+            <Code inline>sold_observed=1</Code>{t.text16} <Code inline>sold_at</Code>{t.text17} <em>or</em>{" "}
             {t.text18}
           </P>
           <Callout label={t.g_whyitmatters_label}>
@@ -298,7 +298,14 @@ function P({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: 15, lineHeight: 1.78, marginBottom: 14 }}>{children}</p>
 }
 
-function Code({ children }: { children: React.ReactNode }) {
+function Code({ children, inline }: { children: React.ReactNode; inline?: boolean }) {
+  if (inline) {
+    return (
+      <code style={{ color: "#8fe3b0", fontFamily: "ui-monospace, monospace", fontSize: "0.95em" }}>
+        {children}
+      </code>
+    )
+  }
   return (
     <div style={{ overflowX: "auto", margin: "4px 0 16px" }}>
       <pre style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "13px 16px", fontSize: 13.5, color: "#8fe3b0", fontFamily: "ui-monospace, monospace", margin: 0 }}>

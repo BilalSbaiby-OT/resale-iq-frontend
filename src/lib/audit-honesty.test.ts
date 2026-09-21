@@ -80,3 +80,10 @@ test("authenticated verdict formats sell-through through formatStrPctString", ()
   const src = read("app/(dashboard)/verdict/verdict-content.tsx")
   assert.match(src, /formatStrPctString\(result\.sell_through_rate\)/)
 })
+
+test("methodology inline tokens are <code>, not a block <pre> inside <p>", () => {
+  const src = read("app/methodology/page.tsx")
+  assert.match(src, /<Code inline>sold_observed=1/)
+  assert.match(src, /<Code inline>sold_at/)
+  assert.match(src, /function Code\(\{ children, inline \}/)
+})

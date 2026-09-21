@@ -14,9 +14,9 @@ The frontend is a Next.js 16 App Router app that proxies `/api`, `/auth`, `/stri
 
 This audit inspected the tree, confirmed several real bugs on `main`, and shipped targeted fixes. Two recent conversion PRs (**#125, #126, #127, #128, #129**) are **merged**. **PR #130** (hide subscribe CTAs for paid users on FreeChecker) was still **OPEN** and unmerged — the founder-reported Pro “subscribe to plan” bug was still on `main`. Equivalent CTA gating is included here so `main` does not wait on #130. Reviewers should close or supersede #130 after this lands (overlap is intentional, not a second product).
 
-**Verified locally (this session):** `npx tsc --noEmit` PASS; `npm run test:unit` **269/269** PASS (Node 24); `npm run build` **701 pages** PASS; `check:isolation` + `check:isolation:built` PASS; `check:dupes`, `check:locale-english`, `check:extension`, `check:warehouse`, `check:tracked` PASS.
+**Verified locally (this session):** `npx tsc --noEmit` PASS; `npm run test:unit` **270/270** PASS (Node 24); `npm run build` **701 pages** PASS; `check:isolation` + `check:isolation:built` PASS; `check:dupes`, `check:locale-english`, `check:extension`, `check:warehouse`, `check:tracked` PASS.
 
-**Playwright / live production curls:** see Verification and UNVERIFIED.
+**Playwright (Chromium, mock backend):** `e2e/paid-checker-cta.spec.ts` **5/5**, `e2e/regression-p0.spec.ts` **17/17**, `e2e/smoke.spec.ts` **13/13** — **35/35**. Smoke covers `/`, `/data`, `/login`, `/es/login`, `/pricing`, `/methodology`, `/tools`, `/calculator`, unauthenticated `/dashboard` → auth. Live production curls remain UNVERIFIED.
 
 ---
 
@@ -53,6 +53,7 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 18. Order Planner remains in nav/pricing despite the “hard no” list — product still sells it on Pro. **Not removed.**
 19. JWT in `localStorage` (XSS can steal). Backend still gates data. **No cookie migration in this pass.**
 20. `npm run lint` reports many **pre-existing** `react-hooks/set-state-in-effect` / `no-html-link-for-pages` errors. Isolation CI does not run eslint. Not mass-fixed.
+21. **Methodology hydration:** `<Code>` (block `div`/`pre`) was nested inside `<P>` (`<p>`) around `sold_observed=1` / `sold_at`. Playwright logged a real hydration mismatch. Fixed with an `inline` variant.
 
 ### Already healthy (verified in source, not re-broken)
 
@@ -129,6 +130,7 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 | Category share `<1%` instead of `0%` | `category/[category]/page.tsx` |
 | Reverse calc labelled as not buy-below | `calculator/page.tsx` |
 | Stale FreeChecker comment (HARD_PAYWALL) | `free-checker.tsx` |
+| Methodology inline Code (hydration) | `src/app/methodology/page.tsx` |
 
 ---
 
@@ -149,7 +151,8 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 
 - **Live production** (`https://resaleiq.dev`) after this PR — Coolify deploy is post-merge. Cache-busted curl of `/`, `/pricing`, `/tools` against prod **was not** the gate for these code fixes.
 - **Backend JSON vs TypeScript types field-by-field.** Sibling `demand-intel` checkout was not in this VM. Types were checked against in-repo comments (`locked-fields.ts`, `hard-paywall.ts`, `MONETIZATION.md`) and frontend call sites.
-- **Playwright `test:e2e:required`** — run after the first push if not recorded below. Spec `e2e/paid-checker-cta.spec.ts` is the behavioural proof for the Pro CTA; it needs the mock backend (`alice@example.com` / `pro@example.com`).
+- **Full `npm run test:e2e:required`** — not the entire required list. Ran `paid-checker-cta` + `regression-p0` + `smoke` (**35/35**). Skipped this session: `customer-workflow`, `signup-verify`, `market-coverage`, `locale-routing`, `public-result-face`, `deal-scanner-numbers`, `momentum-vocabulary`, `attribution-instrument`, `checkout-branding`.
+- **Authenticated dashboard empty/error states** (`/account`, `/deals`, `/watchlist`) against a live backend — mock-only for login/CTA.
 - **Extension on a real Vinted listing** — 402 copy is source-verified only.
 - **Paid Stripe checkout in a real browser** — Stripe dashboard/webhooks untouched; no live card.
 - **`npm run lint` as a gate** — fails on pre-existing rules; Isolation does not run it. Not claimed green.
@@ -161,7 +164,7 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 | Command | Result |
 |---|---|
 | `npx tsc --noEmit` | PASS |
-| `npm run test:unit` (Node 24, `src/lib/*.test.ts`) | **269 pass / 0 fail** |
+| `npm run test:unit` (Node 24, `src/lib/*.test.ts`) | **270 pass / 0 fail** (after methodology pin) |
 | `npm run build` | PASS, 701 pages |
 | `npm run check:isolation` | PASS |
 | `npm run check:isolation:built` | PASS (447 source + 3071 artefacts) |
@@ -171,7 +174,8 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 | `npm run check:warehouse` | PASS |
 | `npm run check:tracked` | PASS |
 | `npm run lint` | FAIL — pre-existing hooks/link rules; not in Isolation |
-| Playwright required suite | see follow-up on the PR if this file is updated after e2e |
+| Playwright paid-checker-cta + regression-p0 + smoke | **35/35 PASS** |
+| Full `test:e2e:required` | **not run** (subset only) |
 | Production curl | **not run** (UNVERIFIED) |
 
 New unit files: `src/lib/audit-honesty.test.ts`, `src/lib/checker-unlock-state.test.ts`, `src/lib/pricing-cta-state.test.ts`. Extra cases in `str-pct.test.ts`, `entitlement.test.ts`, `webmcp-tools.test.ts`.

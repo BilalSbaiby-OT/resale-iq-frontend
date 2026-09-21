@@ -623,7 +623,8 @@ NEXT (once unblocked): P0-1.
 - Inspected DATA→API→STATE→UI. PR #130 still OPEN (Pro subscribe CTA).
 - Shipped JWT on FreeChecker/WebMCP, paid CTA branch, extension 402,
   comparable-n, locked_fields watchlist, STR string formatter, NB 530 copy.
-- Verified: tsc, unit 269, build 701, isolation+built + warehouse checks.
+- Verified: tsc, unit 270, build 701, isolation+built + warehouse checks.
+  Playwright paid-cta + regression-p0 + smoke 35/35. Methodology inline Code.
 - Docs: TECHNICAL_ARCHITECTURE.md, TECHNICAL_AUDIT_REPORT.md.
 - Branch cursor/frontend-audit-repair-b071. Do not push main.
 
