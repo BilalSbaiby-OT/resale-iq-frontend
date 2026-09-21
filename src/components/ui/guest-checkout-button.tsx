@@ -16,11 +16,14 @@ export function GuestCheckoutButton({
   locale,
   label,
   src,
+  asLink = false,
 }: {
   locale: Locale
   label: string
   /** analytics tag for useGuestCheckout src= */
   src?: string
+  /** render as text link style (transparent bg) instead of filled green button */
+  asLink?: boolean
 }) {
   const { ready, busy, start } = useGuestCheckout({ locale, src })
   return (
@@ -28,7 +31,16 @@ export function GuestCheckoutButton({
       type="button"
       onClick={start}
       disabled={!ready || busy}
-      style={{
+      style={asLink ? {
+        background: "transparent",
+        color: "var(--color-text-secondary)",
+        fontWeight: 500,
+        fontSize: 14,
+        padding: "4px 0",
+        border: "none",
+        cursor: ready && !busy ? "pointer" : "wait",
+        textDecoration: "underline",
+      } : {
         background: "#34C759",
         color: "#06090c",
         fontWeight: 700,

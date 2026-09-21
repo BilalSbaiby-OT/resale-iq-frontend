@@ -2,18 +2,15 @@ import { expect, test, type Page } from "@playwright/test"
 import { captureTrackEvents } from "./track-events"
 import { mockPaidCheckout } from "./mock-stripe-checkout"
 
-// Free register is TWO controls now: email and password. The terms checkbox
-// these helpers used to tick is gone -- consent is given by submitting, with
-// the sentence saying so under the button. See register-form.tsx.
+// All register paths are now paid (operator default). fillFreeRegister kept for
+// tests that check the waiver-blocked state (no waiver tick = submit blocked).
 async function fillFreeRegister(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill("goodpass123")
 }
 
-// Paid adds exactly one: the EU withdrawal waiver, which is now the only
-// checkbox on the page. `.first()` is therefore the waiver, not the terms tick
-// it used to be -- if this ever selects something else, a second checkbox has
-// appeared and that is the regression worth failing on.
+// fillPaidRegister: fills email + password + ticks the EU withdrawal waiver.
+// Use for any test that needs to reach /check-email or Stripe (i.e. valid submit).
 async function fillPaidRegister(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill("goodpass123")
@@ -34,14 +31,16 @@ const PAID_CHECKOUT_URL = "https://checkout.stripe.com/c/pay/cs_test_paid_regist
 // on paid, which is a stricter test than the radios ever were -- a radio could
 // be checked without the visitor being charged anything, whereas the waiver
 // rendering means handleSubmit will route this submit to Stripe.
-test.describe("register: 3 controls, free default, waiver kept, signup_completed", () => {
-  test("free path has NO plan radios and NO checkbox — email and password only", async ({ page }) => {
+// All register paths now go to paid (operator default). planFromQuery("") → "operator".
+// There is no free tier. The waiver checkbox always shows.
+test.describe("register: all-paid, waiver always present, signup_completed", () => {
+  test("default /register path is Starter (operator) — shows waiver checkbox", async ({ page }) => {
     await page.goto("/register")
     await expect(page.locator('input[type="radio"]')).toHaveCount(0)
-    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
     await expect(page.locator('input[type="email"]')).toHaveCount(1)
     await expect(page.locator('input[type="password"]')).toHaveCount(1)
-    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
+    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
   })
 
   // The terms did not stop being binding, they stopped costing a click. If this
@@ -54,39 +53,25 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await expect(page.locator('form a[href="/privacy"]')).toBeVisible()
   })
 
-  // Was "submit without TOS shows error and does not call register". Inverted
-  // on purpose: the gate is deliberately gone, so reaching /auth/register with
-  // nothing ticked is now the CORRECT behaviour and this test exists to prove
-  // the removal actually took effect rather than being merely invisible.
-  test("free submit reaches /auth/register with nothing ticked", async ({ page }) => {
-    let registerCalled = false
-    await page.route("**/auth/register", async (route) => {
-      registerCalled = true
-      await route.continue()
-    })
+  // All paths default to operator (paid). Submit without ticking waiver is blocked.
+  // This test verifies submit fails with waiver message, not that it reaches /auth/register.
+  test("submit without waiver is blocked — all paths are paid now", async ({ page }) => {
+    await mockPaidCheckout(page)
     await page.goto("/register")
-    await fillFreeRegister(page, `e2e-noticks-${Date.now()}@example.com`)
+    await fillFreeRegister(page, `e2e-nowaiver-${Date.now()}@example.com`)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
-    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
-    expect(registerCalled).toBe(true)
+    // Should show waiver error, NOT navigate away
+    await expect(page.getByText(/immediate access/i)).toBeVisible({ timeout: 5_000 })
   })
 
-  // The alias removal documented in planFromQuery still holds. Without radios,
-  // the witness is the absence of the paid summary + waiver.
-  // NB "POWER" is NOT in this list: planFromQuery lowercases before the
-  // PLAN_IDS check, so a real id in the wrong case still resolves. Only
-  // things that are not ids at all fall back to free.
+  // planFromQuery now defaults to operator for any unrecognised string.
+  // These all resolve to Starter (operator) and show the waiver.
   for (const bad of ["pro", "starter", "garbage", "enterprise", "%20pro%20"]) {
-    test(`?plan=${bad} is not a plan id and stays Free`, async ({ page }) => {
+    test(`?plan=${bad} resolves to Starter operator (all paid now)`, async ({ page }) => {
       await mockPaidCheckout(page)
       await page.goto(`/register?plan=${bad}`)
-      await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toHaveCount(0)
-      await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
-      // Note: NOT checking for absence of €19/€49 text — the freeNote copy intentionally
-      // mentions "Starter at €19/mo" as an upsell hint on the free register path.
-      // The two witnesses above (no waiver text, no checkbox) are sufficient to prove
-      // no paid checkout path was triggered. getByText(/€19|€49/) would false-positive
-      // on the freeNote string and is therefore removed.
+      await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+      await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
     })
   }
 
@@ -104,18 +89,12 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await expect(page.getByText("€19")).toBeVisible()
   })
 
-  // The escape hatch the Free radio used to be. Without it a paid arrival has
-  // no way to take the free tier without editing the URL by hand.
-  test("paid path offers a free account instead, and taking it drops to 0 controls", async ({ page }) => {
+  // No free tier. "free account instead" link no longer exists.
+  // Skip this test — the escape hatch was removed.
+  test.skip("paid path offered a free account instead (removed — no free tier)", async ({ page }) => {
     await mockPaidCheckout(page)
     await page.goto("/register?plan=operator")
-    await page.getByRole("link", { name: /free account instead/i }).click()
-    await expect(page).toHaveURL(/plan=free/)
-    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0)
-    // Note: NOT checking for absence of €19/€49 text — the freeNote copy intentionally
-    // mentions "Starter at €19/mo" as an upsell hint on the free register path.
-    // Absence of the withdrawal waiver checkbox is sufficient proof that the paid
-    // checkout path was NOT activated. getByText(/€19|€49/) false-positives on freeNote.
+    await expect(page.getByText("Starter", { exact: true })).toBeVisible()
   })
 
   // The one control this pass was NOT allowed to remove. Art. 16(m) of
@@ -194,14 +173,13 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
     await expect(page).not.toHaveURL(/check-email/)
   })
 
-  test("successful free submit fires signup_completed", async ({ page }) => {
+  test.skip("successful free submit fires signup_completed (free tier removed)", async ({ page }) => {
     const events = captureTrackEvents(page)
     const email = `e2e-completed-${Date.now()}@example.com`
     await page.goto("/register")
     await fillFreeRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
-    // Polled for the same reason as the paid case above.
     await expect.poll(() => events, { timeout: 10_000 }).toContain("signup_completed")
   })
 })
@@ -209,8 +187,8 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
 test.describe("signup verify session", () => {
   test("register lands on check-email, not the dashboard", async ({ page }) => {
     const email = `e2e-reg-${Date.now()}@example.com`
-    await page.goto("/register?plan=free")
-    await fillFreeRegister(page, email)
+    await page.goto("/register")
+    await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     await expect(page.locator("h1")).toContainText(/Check your email/i)
@@ -219,8 +197,8 @@ test.describe("signup verify session", () => {
 
   test("verify with token signs in to the dashboard", async ({ page }) => {
     const email = `e2e-ver-${Date.now()}@example.com`
-    await page.goto("/register?plan=free")
-    await fillFreeRegister(page, email)
+    await page.goto("/register")
+    await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
 
@@ -234,15 +212,15 @@ test.describe("signup verify session", () => {
 
     await page.goto(`/verify-email?token=vtok-${id}`)
     await page.waitForURL(/\/verdict/, { timeout: 20_000 })
-    await expect(page.getByRole("link", { name: "Check" })).toBeVisible({ timeout: 20_000 })
+    await expect(page.getByTestId("riq-cold-open-check")).toBeVisible({ timeout: 20_000 })
     const jwt = await page.evaluate(() => localStorage.getItem("di_jwt"))
     expect(jwt).toBeTruthy()
   })
 
   test("used verify token does not mint a second session", async ({ page }) => {
     const email = `e2e-used-${Date.now()}@example.com`
-    await page.goto("/register?plan=free")
-    await fillFreeRegister(page, email)
+    await page.goto("/register")
+    await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/\/check-email/, { timeout: 20_000 })
     const id = await page.evaluate(async () => {
@@ -299,8 +277,8 @@ test.describe("signup verify session", () => {
   test("register 409 copy points to Sign in", async ({ page }) => {
     const email = `e2e-dup-${Date.now()}@example.com`
     const fill = async () => {
-      await page.goto("/register?plan=free")
-      await fillFreeRegister(page, email)
+      await page.goto("/register")
+      await fillPaidRegister(page, email)
       await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     }
     await fill()

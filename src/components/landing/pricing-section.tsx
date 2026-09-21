@@ -440,10 +440,12 @@ export function PricingSection({
         ))}
       </div>
       {/* Cold-traffic CTA under the cards: guest Stripe, not /register.
-          CRO #10: product-aware → starts payment immediately. */}
+          CRO #10: product-aware → starts payment immediately.
+          Rendered as a text link (no background) so it does NOT add a second
+          filled accent to the section — smoke.spec.ts asserts exactly one. */}
       {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
-          <GuestCheckoutButton locale={locale} label={t.coldCtaLadder} src="pricing-cold-cta" />
+          <GuestCheckoutButton locale={locale} label={t.coldCtaLadder} src="pricing-cold-cta" asLink />
         </p>
       )}
       <p style={{ textAlign: "center", marginTop: compact ? 20 : 8, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>

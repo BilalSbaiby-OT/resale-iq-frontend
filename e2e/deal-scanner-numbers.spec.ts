@@ -31,7 +31,7 @@ async function loginAndOpenDeals(page) {
   await page.locator('input[type="email"]').fill("alice@example.com")
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in/i }).click()
-  await expect(page.getByRole("link", { name: "Check" })).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByTestId("riq-cold-open-check")).toBeVisible({ timeout: 20_000 })
   await page.goto("/deals")
   await expect(page.getByText("Track", { exact: true })).toBeVisible({ timeout: 20_000 })
 }
