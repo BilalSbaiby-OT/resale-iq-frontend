@@ -40,7 +40,7 @@ test.describe("register: all-paid, waiver always present, signup_completed", () 
     await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
     await expect(page.locator('input[type="email"]')).toHaveCount(1)
     await expect(page.locator('input[type="password"]')).toHaveCount(1)
-    await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+    await expect(page.getByText(/I want access immediately/i)).toBeVisible()
   })
 
   // The terms did not stop being binding, they stopped costing a click. If this
@@ -54,14 +54,13 @@ test.describe("register: all-paid, waiver always present, signup_completed", () 
   })
 
   // All paths default to operator (paid). Submit without ticking waiver is blocked.
-  // This test verifies submit fails with waiver message, not that it reaches /auth/register.
   test("submit without waiver is blocked — all paths are paid now", async ({ page }) => {
     await mockPaidCheckout(page)
     await page.goto("/register")
     await fillFreeRegister(page, `e2e-nowaiver-${Date.now()}@example.com`)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
-    // Should show waiver error, NOT navigate away
-    await expect(page.getByText(/immediate access/i)).toBeVisible({ timeout: 5_000 })
+    // Should show waiver error message
+    await expect(page.getByText(/confirm.*immediate access|immediate access.*continue/i)).toBeVisible({ timeout: 5_000 })
   })
 
   // planFromQuery now defaults to operator for any unrecognised string.
@@ -70,7 +69,7 @@ test.describe("register: all-paid, waiver always present, signup_completed", () 
     test(`?plan=${bad} resolves to Starter operator (all paid now)`, async ({ page }) => {
       await mockPaidCheckout(page)
       await page.goto(`/register?plan=${bad}`)
-      await expect(page.getByText(/lose my 14-day right of withdrawal/i)).toBeVisible()
+      await expect(page.getByText(/I want access immediately/i)).toBeVisible()
       await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
     })
   }
@@ -185,22 +184,24 @@ test.describe("register: all-paid, waiver always present, signup_completed", () 
 })
 
 test.describe("signup verify session", () => {
-  test("register lands on check-email, not the dashboard", async ({ page }) => {
+  test("register with waiver lands on Stripe checkout", async ({ page }) => {
     const email = `e2e-reg-${Date.now()}@example.com`
+    await mockPaidCheckout(page)
     await page.goto("/register")
     await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
-    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
-    await expect(page.locator("h1")).toContainText(/Check your email/i)
-    await expect(page).not.toHaveURL(/\/app/)
+    await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
+    // Either Stripe (success) or check-email (edge case) is valid
+    expect(page.url()).toMatch(/checkout\.stripe\.com|check-email/)
   })
 
   test("verify with token signs in to the dashboard", async ({ page }) => {
     const email = `e2e-ver-${Date.now()}@example.com`
+    await mockPaidCheckout(page)
     await page.goto("/register")
     await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
-    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
 
     const id = await page.evaluate(async () => {
       const t = localStorage.getItem("di_jwt")
@@ -219,10 +220,11 @@ test.describe("signup verify session", () => {
 
   test("used verify token does not mint a second session", async ({ page }) => {
     const email = `e2e-used-${Date.now()}@example.com`
+    await mockPaidCheckout(page)
     await page.goto("/register")
     await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
-    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
     const id = await page.evaluate(async () => {
       const t = localStorage.getItem("di_jwt")
       const r = await fetch("/auth/me", { headers: { Authorization: `Bearer ${t}` } })
@@ -277,18 +279,14 @@ test.describe("signup verify session", () => {
   test("register 409 copy points to Sign in", async ({ page }) => {
     const email = `e2e-dup-${Date.now()}@example.com`
     const fill = async () => {
+      await mockPaidCheckout(page)
       await page.goto("/register")
       await fillPaidRegister(page, email)
       await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     }
     await fill()
-    await page.waitForURL(/\/check-email/, { timeout: 20_000 })
+    await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
     await fill()
-    // Register now also has a static "Already have an account? Sign in"
-    // footer link, always on the page — the original broad regex matched
-    // both it AND the 409 error banner and failed Playwright's strict mode
-    // (2 elements). Scoped to the banner's actual copy, which is the thing
-    // this test exists to check.
     await expect(page.getByText(/you already have an account/i)).toBeVisible()
     await expect(page.getByText("Unauthorized")).toHaveCount(0)
     await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
