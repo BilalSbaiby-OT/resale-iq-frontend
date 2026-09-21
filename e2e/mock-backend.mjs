@@ -39,7 +39,7 @@ const SNAPSHOT = {
   ],
 }
 
-let nextUserId = 3
+let nextUserId = 4
 let nextWatchId = 1
 const users = new Map()
 const watchlists = new Map()
@@ -308,6 +308,7 @@ function seed(id, email, password, plan = "operator", { verified = true } = {}) 
 }
 seed(1, "alice@example.com", "password12345", "operator")
 seed(2, "bob@example.com", "password12345", "operator")
+seed(3, "pro@example.com", "password12345", "power")
 
 function json(res, status, body) {
   const headers = { "Content-Type": "application/json", ...res.getHeaders() }

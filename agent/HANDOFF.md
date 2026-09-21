@@ -11,6 +11,8 @@ FRONTEND, 2026-09-21 — paid users no longer see subscribe CTAs on /tools
   Anonymous and free still get GuestCheckout. PricingSection paid CTAs
   become Current plan / Manage subscription → /account, never Checkout.
   Local: tsc, unit 258, isolation, locale-english, dupes.
+  Playwright e2e/paid-checker-cta: 5/5 (anon checkout, Pro/Starter no
+  subscribe, /pricing Current plan vs Start for €19).
   Do not push main. Isolation is the Coolify gate.
 
 ---

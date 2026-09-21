@@ -628,6 +628,8 @@ NEXT (once unblocked): P0-1.
   still GuestCheckout. PricingSection: operator/power get Current plan /
   Manage subscription → /account, never Checkout.
 - Local: tsc, unit 258 (including new checker-unlock + pricing-cta tests),
-  isolation, locale-english, dupes. Do not push main.
+  isolation, locale-english, dupes. Playwright e2e/paid-checker-cta 5/5
+  (anon still GuestCheckout; Pro/Starter get Verdict + manage; /pricing
+  Current plan vs Start for €19). Do not push main.
 
 
