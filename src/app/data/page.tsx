@@ -8,6 +8,9 @@ import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
+import { dataChrome, dataFaqs } from "@/data/seo-data-copy"
+import type { Locale } from "@/lib/i18n"
+import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -24,12 +27,14 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/data" },
+  alternates: { canonical: "/data", languages: hreflangLanguages("/data") },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/data", images: OG_IMAGES },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
 }
 
-export default async function DataPage() {
+export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
+  const t = dataChrome[locale]
+  const prefix = locale === "en" ? "" : `/${locale}`
   const tracked = await listingsTrackedLabel()
   const market = await getMarketNumbers()
   const brands = market.brandNames.map((name) => {
@@ -41,57 +46,21 @@ export default async function DataPage() {
     .map(b => b.sold_7d)
     .filter((n): n is number => typeof n === "number" && Number.isFinite(n))
   const totalWeekly = solds.length ? solds.reduce((s, n) => s + n, 0) : null
+  const refreshIso = market.updatedAt ? new Date(market.updatedAt).toISOString() : null
+  const floorLabel =
+    market.publishFloorSold7d != null ? fmtCount(market.publishFloorSold7d) : ""
 
-  const watchedDeparture =
-    'A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. "Sold / 7 days" on this table counts those transitions in the trailing week, not every sold listing on Vinted.'
+  const watchedDeparture = dataFaqs(locale, {
+    totalWeekly: fmtCount(totalWeekly),
+    brandCount: market.brandCount,
+    floor: floorLabel,
+  })[0]?.a ?? ""
 
-  const faqs = [
-    {
-      q: "What is a watched departure?",
-      a: watchedDeparture,
-    },
-    {
-      q: "What are weekly brand volumes on Vinted?",
-      a:
-        `"Sold / 7 days" counts units we watched sell in the trailing week (sold_observed) — ` +
-        `listings that went from active to sold — not every sold listing in the catalogue. ` +
-        `Average sale price is the mean of those observed sales.` +
-        (totalWeekly != null
-          ? ` This snapshot sums to ${fmtCount(totalWeekly)} watched departures across ${market.brandCount} brands.`
-          : "") +
-        ` Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.`,
-    },
-    {
-      q: "Which Vinted markets does this table cover?",
-      a:
-        "Spain, France, Germany, Italy and Portugal (ES/FR/DE/IT/PT). Figures are aggregated from public Vinted listings " +
-        "on those five domains, deduplicated by listing ID. The table does not cover the UK or other Vinted domains.",
-    },
-    {
-      q: "How do I read this table?",
-      a:
-        "Each row is one tracked brand. Sold / 7 days is watched departures that week. Avg sale price is the mean " +
-        "asking price at those departures, in euros. Top categories are the busiest categories for that brand in the snapshot. " +
-        "An em-dash means this snapshot has no figure for that cell — not that the brand sold nothing. " +
-        "Brands are ordered by weekly watched sales." +
-        (market.publishFloorSold7d != null
-          ? ` A brand needs at least ${market.publishFloorSold7d} watched sales to appear in this table.`
-          : ""),
-    },
-    {
-      q: "How often is this table updated?",
-      a:
-        "The table renders from the live snapshot. A freshness stamp shows when the figures were last calculated. " +
-        "If the live feed is unavailable, the last complete snapshot is shown and labelled. " +
-        "Volumes are always a trailing 7-day window, not a calendar week.",
-    },
-    {
-      q: "Is this the size of Vinted as a whole?",
-      a:
-        "No. This is tracked-brand volume only. Unbranded listings and brands outside the tracked set are not counted, " +
-        "so the weekly total is much smaller than listings tracked — a measurement limit, not a refresh failure.",
-    },
-  ]
+  const faqs = dataFaqs(locale, {
+    totalWeekly: fmtCount(totalWeekly),
+    brandCount: market.brandCount,
+    floor: floorLabel,
+  })
 
   // Dataset schema — makes the DATA ITSELF indexable and citable, and eligible
   // for Google Dataset Search. FAQPage sits beside it; do not replace it.
@@ -127,18 +96,58 @@ export default async function DataPage() {
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href={canonicalPath(locale, "")} style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>{t.back}</Link>
         <h1 style={{ fontSize: 32, fontWeight: 600, color: "var(--color-text-primary)", margin: "20px 0 10px", letterSpacing: "-0.6px" }}>
-          Weekly brand volumes on Vinted
+          {t.h1}
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
-          Weekly units we <strong style={{ color: "#c3cde0", fontWeight: 600 }}>watched sell</strong> and average observed sale price by brand across Vinted&apos;s five main EU markets
-          (Spain, France, Germany, Italy, Portugal), from {tracked} analyzed listings.
-          <strong style={{ color: "#c3cde0" }}> Free to cite with attribution to Resale IQ.</strong>
+          {t.ledeBefore}{tracked}{t.ledeCite}
         </p>
 
+        <aside
+          data-testid="riq-data-benchmark"
+          aria-label={t.citeH2}
+          style={{
+            marginTop: 20,
+            padding: "18px 20px",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border-2)",
+            borderRadius: 12,
+          }}
+        >
+          <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "0 0 12px" }}>{t.citeH2}</h2>
+          <dl style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 18px", margin: 0, fontSize: 14 }}>
+            <div>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtRefresh}</dt>
+              <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>
+                <time data-testid="riq-data-refresh" dateTime={refreshIso ?? undefined}>
+                  {stamp ?? "—"}
+                </time>
+                {market.stale ? ` · ${t.lastGood}` : ""}
+              </dd>
+            </div>
+            <div>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtListings}</dt>
+              <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>{tracked}</dd>
+            </div>
+            <div>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtBrands}</dt>
+              <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>{market.brandCount}</dd>
+            </div>
+            <div>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtWeekly}</dt>
+              <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>{fmtCount(totalWeekly)}</dd>
+            </div>
+            <div style={{ gridColumn: "1 / -1" }}>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtMarkets}</dt>
+              <dd style={{ margin: "4px 0 0", color: "#eef1f7" }}>{t.marketsValue}</dd>
+            </div>
+          </dl>
+          <p style={{ fontSize: 13, color: "#8b99b8", lineHeight: 1.65, margin: "12px 0 0" }}>{t.citeNote}</p>
+        </aside>
+
         <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "22px 0 8px", letterSpacing: "-0.3px" }}>
-          What is a watched departure?
+          {t.watchedH2}
         </h2>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660, margin: "0 0 6px" }}>
           {watchedDeparture}
@@ -156,23 +165,20 @@ export default async function DataPage() {
               padding: "12px 14px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10,
             }}
           >
-            <strong style={{ color: "#eef1f7" }}>Observed sales, not catalogue size.</strong>{" "}
-            We track {market.brandsTracked ?? 26} brands and {fmtCount(market.listingsTracked)} distinct listings.
-            Weekly sold below counts only listings we watched go from active to sold
-            {market.publishFloorSold7d != null ? ` (≥ ${market.publishFloorSold7d} watched sales to appear in this table)` : ""}.
-            Most of the catalogue was already sold when we first saw it, so this weekly figure is much smaller than listings tracked.
-            That is a measurement limit, not a refresh failure.
+            <strong style={{ color: "#eef1f7" }}>{t.observedTitle}</strong>{" "}
+            {t.observedP}
+            {market.publishFloorSold7d != null ? ` (≥ ${market.publishFloorSold7d})` : ""}
           </p>
         ) : null}
 
         {market.provenance && market.updatedAt && (
           <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 10, fontFamily: "monospace" }}>
-            Scope EU5 (ES/FR/DE/IT/PT) · trailing 7 days · dedup listing ID · sold = watched transitions · last calculated {stamp}
+            {t.provenance} {stamp}
           </p>
         )}
 
         <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "26px 0 0", letterSpacing: "-0.3px" }}>
-          This week&apos;s snapshot
+          {t.snapshotH2}
         </h2>
 
         <table
@@ -181,9 +187,9 @@ export default async function DataPage() {
         >
           <thead>
             <tr style={{ background: "var(--color-surface-elevated)", color: "#8b99b8", textAlign: "left" }}>
-              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Sold (7 days)</th>
-              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Listings tracked</th>
-              <th style={{ padding: "11px 14px", fontWeight: 600 }}>Freshness</th>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.soldCol}</th>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.listingsCol}</th>
+              <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.freshnessCol}</th>
             </tr>
           </thead>
           <tbody>
@@ -191,8 +197,8 @@ export default async function DataPage() {
               <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(totalWeekly)}</td>
               <td style={{ padding: "12px 14px", fontFamily: "monospace", color: "#eef1f7", fontWeight: 700 }}>{fmtCount(market.listingsTracked)}</td>
               <td style={{ padding: "12px 14px", color: market.stale ? "#FF9F0A" : "#8b99b8" }}>
-                {stamp ?? "—"}
-                {market.stale ? " · last-good" : ""}
+                <time dateTime={refreshIso ?? undefined}>{stamp ?? "—"}</time>
+                {market.stale ? ` · ${t.lastGood}` : ""}
               </td>
             </tr>
           </tbody>
@@ -200,29 +206,26 @@ export default async function DataPage() {
 
         {stamp && (
           <p style={{ fontSize: 12.5, color: "#5b6b8c", marginTop: 10 }}>
-            {market.stale ? "Snapshot taken" : "Last updated"} {stamp} · {market.brandCount} brands ·{" "}
-            {fmtCount(totalWeekly)} units sold in the 7 days to that time
+            {market.stale ? t.stampStale : t.stampLive} {stamp} · {market.brandCount} · {fmtCount(totalWeekly)}
           </p>
         )}
 
         {brands.length === 0 ? (
-          // Only reachable before the very first successful fetch has ever been
-          // cached. Once one lands, this page always has numbers on it.
-          <p style={{ marginTop: 28, color: "#8b99b8" }}>Market data is being refreshed — check back shortly.</p>
+          <p style={{ marginTop: 28, color: "#8b99b8" }}>{t.empty}</p>
         ) : (
           <>
           <h2 style={{ fontSize: 19, fontWeight: 600, color: "#eef1f7", margin: "30px 0 0", letterSpacing: "-0.3px" }}>
-            Weekly sales and average price by brand
+            {t.brandH2}
           </h2>
           <div style={{ marginTop: 18, overflowX: "auto", border: "1px solid var(--color-border-ui)", borderRadius: 12 }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5, minWidth: 620 }}>
               <thead>
                 <tr style={{ background: "var(--color-surface)", color: "#8b99b8", textAlign: "left" }}>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>#</th>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>Brand</th>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>Sold / 7 days</th>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>Avg sale price</th>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>Top categories</th>
+                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colRank}</th>
+                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colBrand}</th>
+                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colSold}</th>
+                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colAvg}</th>
+                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colCats}</th>
                 </tr>
               </thead>
               <tbody>
@@ -251,40 +254,30 @@ export default async function DataPage() {
         )}
 
         <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "30px 0 8px" }}>
-          How these numbers are produced
+          {t.howH2}
         </h2>
         <div style={{ fontSize: 13, color: "#5b6b8c", lineHeight: 1.7 }}>
-          Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. &quot;Sold / 7 days&quot; counts units we <em>watched</em> sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.
+          {t.howP}
         </div>
 
         <HubFaq items={faqs} />
 
         <div style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Want the numbers that make you money?</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>{t.ctaTitle}</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Buy-below price, sell-through and best sizes for any item — plus live deals under your price.
+            {t.ctaP}
           </p>
-          {/* EXP-11 (Tony): /data is the site's 2nd-largest organic entry page AND
-              the top LLM-cited landing surface (Perplexity cites /data; ChatGPT
-              lands visitors here). It led with a bold "See plans" pricing wall and
-              demoted the free check to grey text pointing at /tools (an index, not
-              the checker). That is the EXP-10 wall-before-value leak on our best
-              LLM surface — it fails the G2 gate. Primary door is now the no-signup
-              free checker (check->signup is 43.8%, so a check feeds a signup);
-              plans becomes the secondary link. src=data-check tags the arrival. */}
-          <Link href="/tools/vinted-price-checker?src=data-check" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            Check this item →
+          <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            {t.checkCta}
           </Link>
-          <Link href="/pricing?src=data" style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-            or see plans
+          <Link href={`${prefix}/pricing?src=data`} style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+            {t.plansCta}
           </Link>
         </div>
 
-        {/* /data is the parent of the category rankings — without these links the
-            hubs are only reachable from deep brand pages. */}
         <div style={{ marginTop: 30 }}>
           <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "0 0 10px" }}>
-            Brands ranked by category
+            {t.catH2}
           </h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {CATEGORIES.map((c) => (
@@ -299,19 +292,19 @@ export default async function DataPage() {
           </div>
         </div>
 
-        {/* /data is the highest-authority page that links into the programmatic
-            estate, so the two hubs go here. The homepage already links /data, which
-            puts /flip and /category at crawl depth 2 without touching page.tsx —
-            that file belongs to the other agent's lane (agent/LANES.md). */}
         <div style={{ marginTop: 26, display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <Link href="/flip" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Every brand ranked</Link>
-          <Link href="/category" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Every category ranked</Link>
-          <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Analyze an item</Link>
-          <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Methodology</Link>
-          <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ The reselling manual</Link>
-          <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>→ Reselling guides</Link>
+          <Link href={`${prefix}/flip`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerFlip}</Link>
+          <Link href="/category" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerCat}</Link>
+          <Link href={`${prefix}/tools`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerTools}</Link>
+          <Link href={`${prefix}/methodology`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerMethod}</Link>
+          <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerManual}</Link>
+          <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerBlog}</Link>
         </div>
       </div>
     </div>
   )
+}
+
+export default async function EnglishDataPage() {
+  return <DataPage locale="en" />
 }

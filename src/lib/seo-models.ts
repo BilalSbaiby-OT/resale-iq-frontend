@@ -6,9 +6,10 @@
  * from market-numbers.ts. A frozen A13 board is how we chose WHICH models
  * to publish — not what to print as a figure.
  *
- * Week-1 lock (32 pages): 12 named models on /flip/{brand}/model/{slug},
- * 10 glossary terms, 10 brand hubs deepened. Insufficient warehouse data
- * is an em-dash, never an invented sold_7d. Do not add doorway clones.
+ * Scale lock: named models on /flip/{brand}/model/{slug} plus glossary and
+ * brand hubs. Insufficient warehouse data is an em-dash, never an invented
+ * sold_7d. Do not add doorway clones (Samba OG vs Samba, AF1 Low vs AF1).
+ * Each row carries a unique `angle` so pages are not thin silhouette swaps.
  */
 import raw from "../data/seo-models.json" with { type: "json" }
 import brandsRaw from "../data/seo-brands.json" with { type: "json" }
@@ -36,6 +37,8 @@ export interface SeoModel {
   query: string
   category: string
   freeCheck: boolean
+  /** One-sentence silhouette ID. Must be unique — this is the anti-doorway. */
+  angle: string
 }
 
 const parsed = (raw as { models: SeoModel[] }).models
@@ -44,8 +47,8 @@ export const SEO_MODELS: SeoModel[] = parsed
 
 export const FREE_CHECK_QUERIES = SEO_MODELS.filter((m) => m.freeCheck).map((m) => m.query)
 
-/** Week-1 hub deepen list (seed lock). Same template as every /flip/{brand}. */
-export const WEEK1_HUB_SLUGS = [
+/** Brands that now have named model pages. Same template as every /flip/{brand}. */
+export const SCALE_HUB_SLUGS = [
   "adidas",
   "nike",
   "new-balance",
@@ -56,7 +59,15 @@ export const WEEK1_HUB_SLUGS = [
   "converse",
   "dr-martens",
   "puma",
+  "carhartt",
+  "the-north-face",
+  "patagonia",
+  "stone-island",
+  "fred-perry",
 ] as const
+
+/** @deprecated week-1 name; same list minus the five scale hubs. Prefer SCALE_HUB_SLUGS. */
+export const WEEK1_HUB_SLUGS = SCALE_HUB_SLUGS.slice(0, 10)
 
 export function modelPath(m: SeoModel): string {
   return `/flip/${m.brandSlug}/model/${m.slug}`
@@ -72,6 +83,12 @@ export function modelsForBrand(brandSlug: string): SeoModel[] {
 
 export function siblingModels(m: SeoModel): SeoModel[] {
   return modelsForBrand(m.brandSlug).filter((x) => x.slug !== m.slug)
+}
+
+export function brandHasCategory(brandSlug: string, category: string): boolean {
+  const b = (brandsRaw as { brands: { slug: string; categories?: { category: string }[] }[] }).brands
+    .find((row) => row.slug === brandSlug)
+  return Boolean(b?.categories?.some((c) => c.category === category))
 }
 
 export function generateModelStaticParams() {
@@ -150,6 +167,7 @@ export function modelDemandParagraphs(
 
   paras.push(
     `${m.query} is a named ${cat} model, not a ${m.brand} brand average. ` +
+      `${m.angle} ` +
       `Know what sells — then decide whether to buy this one. ` +
       `A brand figure mixes every silhouette; the buy-below that matters is this model's own watched departures.`,
   )

@@ -245,7 +245,11 @@ test("a locale-prefixed deep path that has no translation redirects to the real 
 // are being handed the English methodology, which is the regression 621e25f
 // shipped to end.
 test("a locale-prefixed path that IS translated serves its own page, not a redirect", async ({ request }) => {
-  for (const path of ["/es/methodology", "/fr/methodology", "/de/methodology", "/it/methodology", "/pt/methodology"]) {
+  for (const path of [
+    "/es/methodology", "/fr/methodology", "/de/methodology", "/it/methodology", "/pt/methodology",
+    "/es/data", "/fr/data", "/es/tools", "/fr/best", "/de/vs", "/it/for",
+    "/fr/blog/how-to-price-items-on-vinted",
+  ]) {
     const res = await request.get(path, { maxRedirects: 0 })
     expect(res.status(), path).toBe(200)
   }

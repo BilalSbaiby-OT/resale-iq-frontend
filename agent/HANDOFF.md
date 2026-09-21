@@ -1,7 +1,21 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
+
+SEO LANE, 2026-09-21 — PROGRAMMATIC SEO SCALE (this session)
+  Off main after #128. Branch cursor/seo-programmatic-scale-f2b2. Do not push main.
+  Local so far: tsc, check:dupes, check:locale-english, isolation, unit
+  (seo-landings / seo-models / faq-schema). Next: next build + route curl.
+  URL counts (new/expanded this PR):
+    models EN 73 (61 additional; free Samba/AF1/NB 530 only)
+    BEST/VS/FOR EN 12 + locale 60 + hubs EN 3 + hub locale 15
+    /data locale 5 + /tools locale 5
+    blog clones locale 59 (12 GSC slugs × 5, minus ES how-to-price 308)
+    new indexable ≈ 232
+  Free checker still ONLY Samba / AF1 / NB 530. No invented sold_7d.
+
+---
 
 FRONTEND, 2026-09-21 — conversion P0 checkout branding
   SHIPPED on branch (rebasing onto main after #127). Local PASS: tsc,

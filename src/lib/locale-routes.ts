@@ -76,6 +76,53 @@ export function absoluteUrl(path: string): string {
 }
 
 /**
+ * Unprefixed paths that have a real translated route at `/<locale><path>`.
+ * Cookie-carrying visitors get a 307 there (src/proxy.ts). A URL must never
+ * promise a language it does not serve — only add a path once the locale
+ * page actually renders translated copy.
+ */
+export const LOCALE_ROUTED_EXACT = [
+  "/methodology",
+  "/pricing",
+  "/data",
+  "/tools",
+  "/best",
+  "/vs",
+  "/for",
+] as const
+
+export const LOCALE_ROUTED_PREFIXES = ["/best/", "/vs/", "/for/"] as const
+
+/** GSC EN winners cloned onto /es|/fr|/de|/it|/pt. Keep in sync with seo-landings copy. */
+export const BLOG_CLONE_SLUGS = [
+  "how-to-price-items-on-vinted",
+  "how-to-find-items-to-flip-on-vinted",
+  "vinted-bundles-and-offers-strategy",
+  "how-to-get-more-views-on-vinted",
+  "vinted-vs-depop-for-sellers",
+  "seasonal-reselling-calendar",
+  "best-time-to-list-on-vinted",
+  "reseller-record-keeping-basics",
+  "vinted-listing-description-guide",
+  "best-brands-to-resell-on-vinted",
+  "buy-below-price-explained",
+  "what-sells-best-on-vinted",
+] as const
+
+export type BlogCloneSlug = (typeof BLOG_CLONE_SLUGS)[number]
+
+export function isBlogCloneSlug(slug: string): slug is BlogCloneSlug {
+  return (BLOG_CLONE_SLUGS as readonly string[]).includes(slug)
+}
+
+export function isLocaleRoutedPath(pathname: string): boolean {
+  if ((LOCALE_ROUTED_EXACT as readonly string[]).includes(pathname)) return true
+  if (LOCALE_ROUTED_PREFIXES.some((p) => pathname.startsWith(p))) return true
+  if (pathname.startsWith("/blog/")) return isBlogCloneSlug(pathname.slice("/blog/".length))
+  return false
+}
+
+/**
  * "/es/register" -> "/register", "/es" -> "/", "/register" -> "/register".
  *
  * Exists because funnel events were keyed on the raw pathname, so every

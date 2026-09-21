@@ -3,6 +3,7 @@ import { INTENTS as RAW_INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
 import { SEO_MODELS, modelPath } from "@/lib/seo-models"
+import { LANDINGS, landingPath } from "@/lib/seo-landings"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
@@ -94,6 +95,10 @@ Key URLs:
 - ${BASE}/data
 - ${BASE}/flip
 - ${BASE}/glossary
+- ${BASE}/best
+- ${BASE}/vs
+- ${BASE}/for
+${LANDINGS.map((l) => `- ${BASE}${landingPath(l.kind, l.slug)}`).join("\n")}
 - ${BASE}/pricing
 - ${BASE}/manual
 

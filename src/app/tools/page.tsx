@@ -9,7 +9,7 @@ import { WelcomeBanner } from "@/components/tools/welcome-banner"
 import { PricingEyebrow } from "@/components/tools/pricing-eyebrow"
 import { requestLocale } from "@/lib/request-locale"
 import { copy } from "@/lib/i18n"
-import { canonicalPath } from "@/lib/locale-routes"
+import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { MoneyCta } from "@/components/money-cta"
@@ -59,13 +59,13 @@ export async function generateMetadata(
   return {
     title: TITLE,
     description,
-    alternates: { canonical: "/tools" },
+    alternates: { canonical: "/tools", languages: hreflangLanguages("/tools") },
     openGraph: { title: TITLE, description, type: "website", url: "/tools", images: OG_IMAGES },
     twitter: { card: "summary_large_image", title: TITLE, description, images: OG_IMAGES },
   }
 }
 
-export default async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; src?: string }> }) {
+export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; src?: string }> }) {
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
@@ -159,3 +159,6 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
     </div>
   )
 }
+
+export default ToolsIndex
+
