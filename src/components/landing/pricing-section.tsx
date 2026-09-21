@@ -374,6 +374,15 @@ export function PricingSection({
               : pricingCtaKind(user, tier.id) === "manage" ? t.manageSubscriptionCta
               : tier.cta
             )}</button>
+            {/* H-CRO-UNDER-CTA: "instant access · cancel anytime" at decision moment.
+                CRO #4 (objection #4: what if it fails) + #7 (trust before CTA).
+                Answers the Stripe-page abandonment fear: lock-in + delayed access.
+                Revenue 2026-09-21. */}
+            {tier.highlight && (
+              <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
+                Instant access · cancel anytime
+              </p>
+            )}
             {tier.id === "operator" && (
               <>
                 {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
@@ -404,7 +413,7 @@ export function PricingSection({
                     textAlign: "center",
                   }}
                 >
-                  {t.starterTrust.replace("{{TRACKED}}", "")}
+                  {t.starterTrust.replace("{{TRACKED}}", tracked)}
                 </p>
               </>
             )}
