@@ -18,9 +18,9 @@ export function itemQueryMeta(
 ): Metadata | null {
   if (!q || !q.trim()) return null
   const item = q.trim()
-  const title = `${item} Vinted Price Check & Buy-Below — Resale IQ`
+  const title = `${item} — should I buy this to resell? — Resale IQ`
   const description =
-    `What should you pay for ${item} on Vinted? Get the buy-below price — the maximum to pay and still profit — from ${tracked} live EU listings across ES/FR/DE/IT/PT.`
+    `Should you buy ${item} to resell? Resale IQ returns BUY, WATCH or SKIP and the most to pay after fees, from ${tracked} watched second-hand clothing listings.`
   return {
     title,
     description,

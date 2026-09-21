@@ -18,9 +18,7 @@ export const BUY_BELOW_TERM =
   "Item-level BUY, WATCH or SKIP plus that number start at Starter €19 a month."
 
 export const TOOLS_HUB_BODY =
-  "Try a brand and model. Most item checks unlock with Starter at €19 a month: BUY, WATCH or SKIP, the buy-below price, and how many watched departures sit behind it. " +
-  "Weekly brand volumes stay public on /data. " +
-  "Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK."
+  "Resale IQ is demand intelligence for people who resell second-hand clothes. You already have suppliers. The job here is which clothing items and models to buy at this price to resell on the platforms we cover. Type a brand and model below. We watch listings leave the shelf on Vinted in Spain, France, Germany, Italy and Portugal — not the UK. A check returns BUY, WATCH or SKIP and the most you should pay after fees, counted from watched departures, not receipts we did not see. Weekly brand volumes stay public on /data with no account. Most item checks unlock with Starter at €19 a month: BUY, WATCH or SKIP, the buy-below price, and how many watched departures sit behind it. Some well-known models show a teaser; the next model usually needs Starter. We do not tell you where to source. We do not write how to list in France. Demand is treated as the same trend unless the numbers split. Cancel anytime after you pay."
 
 export const TOOLS_HUB_DEFINED_TERM: DefinedTermItem = {
   name: BUY_BELOW_TERM_NAME,
@@ -45,7 +43,7 @@ export const TOOLS_HUB_FAQS: FaqItem[] = [
   {
     q: "Who is ResaleIQ for?",
     a:
-      "Resale IQ is for Vinted resellers who want a buy-below price and a demand signal before they spend. " +
+      "Resale IQ is for people who resell second-hand clothes and already have suppliers. Check which items and models to buy to resell. " +
       "Tracked listings cover Spain, France, Germany, Italy and Portugal. Figures do not cover the UK or other Vinted domains.",
   },
   {

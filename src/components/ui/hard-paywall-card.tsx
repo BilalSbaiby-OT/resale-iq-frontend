@@ -42,9 +42,34 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
         <Lock size={15} style={{ color: "#34C759" }} aria-hidden />
         <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{headline}</span>
       </div>
+      <div
+        data-testid="riq-paywall-locked-verdicts"
+        style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}
+      >
+        {["BUY", "WATCH", "SKIP"].map((v) => (
+          <span
+            key={v}
+            style={{
+              opacity: 0.4,
+              border: "1px solid #263147",
+              borderRadius: 8,
+              padding: "6px 10px",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.04em",
+              color: "#eef1f7",
+            }}
+          >
+            {v}
+          </span>
+        ))}
+      </div>
+      <p style={{ fontSize: 13.5, color: "#c3cde0", lineHeight: 1.55, marginBottom: 8 }}>
+        €{price} unlocks this check — BUY, WATCH or SKIP plus the max to pay.
+      </p>
       <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{bodyText}</p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
-        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} />
+        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" />
         <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>
           {t.paywallLogin}
         </Link>

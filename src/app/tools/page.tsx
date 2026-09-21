@@ -29,7 +29,7 @@ import { itemQueryMeta } from "@/lib/tools-query-meta"
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
-const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"
+const TITLE = "Know what sells. Check the model before you buy — Resale IQ"
 
 export async function generateMetadata(
   { searchParams }: { searchParams: Promise<{ q?: string }> }
@@ -42,7 +42,7 @@ export async function generateMetadata(
   const itemMeta = itemQueryMeta(q, tracked, "/tools")
   if (itemMeta) return itemMeta
   const description =
-    `Price check, profit calc and sourcing for Vinted resellers. Buy-below is the most you should pay after fees. ${tracked} listings across ES/FR/DE/IT/PT.`
+    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the most to pay after fees. ${tracked} watched listings. Starter €19/mo.`
   return {
     title: TITLE,
     description,
@@ -70,19 +70,7 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
           <LocaleSwitcher locale={locale} />
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.h1}</h1>
-        <p style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 20, maxWidth: 620 }}>
-          {t.lede}
-        </p>
-
-        <MoneyCta href={TOOLS_MONEY_HREF} />
-
-        <h2 style={{ fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", margin: "8px 0 8px", letterSpacing: "-0.4px" }}>
-          {BUY_BELOW_TERM_NAME}
-        </h2>
-        <p style={{ fontSize: 15.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 12, maxWidth: 620 }}>
-          {BUY_BELOW_TERM}
-        </p>
-        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 28, maxWidth: 620 }}>
+        <p data-testid="riq-tools-cite" style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 20, maxWidth: 620 }}>
           {TOOLS_HUB_BODY}
         </p>
 
@@ -90,6 +78,15 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
         <PricingEyebrow />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         <FreeChecker locale={locale} initialQuery={initialQuery} src={src} />
+
+        <MoneyCta href={TOOLS_MONEY_HREF} />
+
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", margin: "28px 0 8px", letterSpacing: "-0.4px" }}>
+          {BUY_BELOW_TERM_NAME}
+        </h2>
+        <p style={{ fontSize: 15.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 12, maxWidth: 620 }}>
+          {BUY_BELOW_TERM}
+        </p>
 
         {/* Search-intent titles/descriptions stay English on every locale —
             real content translation (data/search-intents.ts), out of scope

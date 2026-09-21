@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Lock, Unlock } from "lucide-react"
 import type { VerdictResult } from "@/types"
 import { unlockPanelBranch } from "@/lib/unlock-panel-state"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 /**
  * The post-verdict upgrade moment.
@@ -57,7 +58,7 @@ export function UnlockPanel({
           Starter (€19/mo) unlocks sell-through, best sizes and the reasons why — cancel anytime.
         </Body>
         <Row>
-          <Primary href="/register?plan=operator&src=verdict">Start for €19</Primary>
+          <GuestCheckoutButton locale="en" label="Start for €19" src="verdict_unlock" />
           <Secondary href="/login">Sign in</Secondary>
         </Row>
       </Shell>

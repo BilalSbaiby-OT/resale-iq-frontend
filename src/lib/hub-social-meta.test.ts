@@ -41,7 +41,7 @@ test("/flip sets twitter title/description to the same strings as title + og", (
 
 test("/tools hub pins og/twitter titles to the document title", () => {
   const src = read("app/tools/page.tsx")
-  assert.match(src, /const TITLE = "Vinted Tools: Price Check & Buy-Below — Resale IQ"/)
+  assert.match(src, /const TITLE = "Know what sells. Check the model before you buy — Resale IQ"/)
   assert.match(src, /title: TITLE/)
   assert.match(src, /openGraph: \{ title: TITLE, description, type: "website"/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE, description/)

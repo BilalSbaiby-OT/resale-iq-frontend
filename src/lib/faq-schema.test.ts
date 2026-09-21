@@ -86,7 +86,7 @@ test("/tools hub has FAQPage, answer-first title, and matching social titles", (
   const src = read("app/tools/page.tsx")
   assert.match(src, /faqPageJsonLd\(TOOLS_HUB_FAQS\)/)
   assert.match(src, /<HubFaq items=\{TOOLS_HUB_FAQS\}/)
-  assert.match(src, /Vinted Tools: Price Check & Buy-Below — Resale IQ/)
+  assert.match(src, /Know what sells. Check the model before you buy — Resale IQ/)
   assert.match(src, /openGraph: \{ title: TITLE/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE/)
   assert.match(src, /href="\/data"/)

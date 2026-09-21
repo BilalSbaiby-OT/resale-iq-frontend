@@ -268,12 +268,12 @@ export const copy = {
       gatedFreeAccount: "on Starter",
       planLabel: "Plan",
       limitReachedLabel: "LIMIT REACHED",
-      paywallHeadline: "Stop guessing what to pay on Vinted.",
+      paywallHeadline: "Should I buy this to resell?",
       // H24 CRO: message-match — when the visitor searched a specific item,
       // the paywall headline mirrors their intent instead of a generic hook.
       // CRO principle #3 (message match) + #10 (CTA commitment ladder).
       // Revenue 2026-09-15.
-      paywallHeadlineForItem: (item: string) => `Is ${item} worth buying on Vinted?`,
+      paywallHeadlineForItem: (item: string) => `Should I buy ${item} to resell?`,
       // H25 CRO: loss-frame leads (CRO #8). "One avoided bad buy covers 2+ months"
       // was buried last — restructured so the financial win comes first, then the
       // data proof, then the price. Revenue 2026-09-15.

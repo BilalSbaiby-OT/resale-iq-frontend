@@ -82,8 +82,9 @@ test("no authenticated state ever resolves to the register wall", () => {
 // for logged-out visitors — but the copy still shipped a 7-day trial + ?plan=free
 // lie. Pin the source so it cannot come back if the shell ever lets anons through.
 test("H60 register-branch copy sells Starter, never a 7-day trial or ?plan=free", () => {
-  assert.match(PANEL_SRC, /href="\/register\?plan=operator&src=verdict"/)
+  assert.match(PANEL_SRC, /GuestCheckoutButton/)
   assert.match(PANEL_SRC, /Start for €19/)
+  assert.doesNotMatch(PANEL_SRC, /href="\/register\?plan=operator/)
   assert.match(PANEL_SRC, /Starter \(€19\/mo\)/)
   assert.doesNotMatch(PANEL_SRC, />Create a free account</)
   assert.doesNotMatch(PANEL_SRC, /href="\/register\?plan=free/)
