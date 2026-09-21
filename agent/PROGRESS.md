@@ -511,3 +511,16 @@ NEXT (once unblocked): P0-1.
 - MERGED #118 as e28c993. Live PASS on SOURCE_COMMIT e28c993.
   Cache-busted curl: /pricing Starter primary + trust + public-data line;
   /es/pricing Spanish trust + demote; / H1 flips offer; /tools no free verdict.
+
+## 2026-09-21 — EX-HOMEPAGE-CONV free chips honesty + table + Samba align
+- Live `/api/verdict` (anon): Samba, AF1, NB 530 = 200; Levi's 501 and NB 550 = 402.
+- Hero chips = FREE_MODELS (Samba, Air Force 1, NB 530). 501/550 removed.
+- Above-fold: “Free: Samba, Air Force 1, and NB 530. Other models €19/mo.”
+- Homepage FAQ names those three as free; other item checks Starter €19; /data public.
+- Market pulse: “Showing N of M brands” + link to /data (today 6 of 28).
+- Samba hero cite uses whole-euro rounding (€24) matching the checker.
+- Brand strip: drop broken Patagonia/Balenciaga simpleicons (wordmark).
+- H1 unchanged (live is still “Know what sells. Decide whether to buy.”).
+- WebMCP attrs kept. Paid CTAs untouched (/pricing).
+- Tests: src/lib/homepage-conv.test.ts + FAQ/teaser updates.
+- Branch cursor/seo-ex-homepage-conv-55d5.

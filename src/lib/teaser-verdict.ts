@@ -96,6 +96,11 @@ function eur(n: number): string {
   return `€${n.toFixed(2)}`
 }
 
+/** Same rounding as the public checker (`Math.round`) so hero and result match. */
+function eurWhole(n: number): string {
+  return `€${Math.round(n)}`
+}
+
 function words(s: string): string[] {
   return s.trim().split(/\s+/).filter(Boolean)
 }
@@ -113,7 +118,7 @@ export function formatHomeCite(query: string, r: HeroVerdict | null): string | n
   if (!isUsable(r)) return null
   const product = (r.product && r.product.trim()) || query
   return (
-    `${product} is ${r.verdict}. Do not pay more than ${eur(r.buy_below as number)} ` +
+    `${product} is ${r.verdict}. Do not pay more than ${eurWhole(r.buy_below as number)} ` +
     `if you buy it to resell. Check it free on /tools — other models are €19 a month.`
   )
 }

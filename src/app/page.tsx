@@ -16,17 +16,17 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is Resale IQ?",
     a:
-      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba and Nike Air Force 1 can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba, Nike Air Force 1, and New Balance 530 can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
   },
   {
     q: "Which clothes do you cover?",
     a:
-      "Clothing brands and models we actually track — Nike, Adidas, Levi's, Zara, Gucci and the rest of the live catalog. Check a model on https://resaleiq.dev/tools before you buy it to resell.",
+      "Clothing brands and models we actually track — Nike, Adidas, Levi's, Zara, Gucci and the rest of the live catalog. Samba, Air Force 1, and NB 530 are free to check on https://resaleiq.dev/tools. Other item checks need Starter at €19 a month. Weekly volumes stay public at https://resaleiq.dev/data.",
   },
   {
     q: "What is a buy-below price?",
     a:
-      "The most you can pay for a garment and still keep a healthy margin after fees. One search gives you that ceiling, and whether the model is in demand. Item-level numbers are on a paid plan at https://resaleiq.dev/pricing.",
+      "The most you can pay for a garment and still keep a healthy margin after fees. Samba, Air Force 1, and NB 530 return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
   },
 ]
 
@@ -68,11 +68,15 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
   const hero = await getHeroVerdict()
   const samba = await getTeaserVerdict("Adidas Samba")
   const homeCite = formatHomeCite("Adidas Samba", samba)
+  // Cite, example card, and first free chip are the same SKU (Samba).
+  // 530 remains a free chip; it is no longer a second competing example.
+  const example = samba ?? hero.result
+  const exampleQuery = samba ? "Adidas Samba" : hero.query
   // H2 CRO: extract ?src= for message-match eyebrow (LLM referral) — Revenue 2026-09-15.
   const sp = searchParams ? await searchParams : {}
   const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
   const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={exampleQuery} heroResult={example} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} />
   )
 }

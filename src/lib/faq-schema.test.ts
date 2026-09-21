@@ -221,6 +221,8 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.doesNotMatch(home, /\bUK\b/)
   assert.match(home, /Item checks start at €19/)
   assert.match(home, /Adidas Samba/)
+  assert.match(home, /Nike Air Force 1/)
+  assert.match(home, /New Balance 530/)
   const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
   const questions = faqBlock.match(/\bq: "/g) ?? []
   assert.equal(questions.length, 3)
@@ -228,6 +230,10 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.doesNotMatch(faqBlock, /\/register/)
   assert.doesNotMatch(faqBlock, /utm_/)
   assert.doesNotMatch(home, /Start free/i)
+  // Levi's 501 / NB 550 are 402 for anon — FAQ must not call them free.
+  assert.doesNotMatch(faqBlock, /Levi's 501/)
+  assert.doesNotMatch(faqBlock, /New Balance 550/)
+  assert.doesNotMatch(faqBlock, /NB 550/)
   // Locale landings must not inherit English FAQ.
   const localeHome = read("app/[locale]/page.tsx")
   assert.doesNotMatch(localeHome, /faqs=/)

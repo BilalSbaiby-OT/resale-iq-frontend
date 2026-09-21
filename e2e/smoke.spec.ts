@@ -14,22 +14,19 @@ test("landing page loads and is not empty", async ({ page }) => {
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
-  await expect(hero.getByText(/buy second-hand to resell/i)).toBeVisible()
-  // Seed is the best-EVIDENCED live row, not the best-sounding word. It was
-  // Nike Air Force 1 Low (#53) — a BUY, but a provisional one on n=11
-  // comparables. No non-provisional BUY exists anywhere in the catalogue, so
-  // the hero shows a HIGH-confidence WATCH on n=153 instead. The enumeration
-  // that establishes that is in src/lib/hero-verdict.ts.
-  // Hero input now starts EMPTY on purpose (2026-09-10 funnel fix): the
-  // prefilled SKU made the hero read as a finished demo — only 3.8% of
-  // visitors ran a check. Empty field + placeholder invites a real search;
-  // the seed verdict still renders below, labelled "Example".
+  await expect(hero.getByText(/resell second-hand clothes/i)).toBeVisible()
+  // Example card, cite, and first free chip are Adidas Samba (anon 200).
+  // Input starts EMPTY on purpose (2026-09-10 funnel fix).
   await expect(hero.getByRole("textbox")).toHaveValue("")
   await expect(hero.getByText("Example", { exact: true })).toBeVisible()
-  // H1 is the JOB, not the SKU. The SKU stays as the caption on the evidence card.
   await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
-  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/New Balance 530/)
-  await expect(hero.getByText("New Balance 530", { exact: true }).first()).toBeVisible()
+  await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/Adidas Samba/)
+  await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "New Balance 530" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
+  await expect(hero.getByRole("button", { name: "New Balance 550" })).toHaveCount(0)
+  await expect(hero.getByTestId("riq-free-scope")).toContainText("Free: Samba + Air Force 1 + NB 530. Other models €19/mo.")
   await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
   // The seed must never be a provisional call again. #54 renders the
   // provisional badge honestly wherever it applies; the point here is that
@@ -38,12 +35,10 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // #54 removed the bare "n=" chip card-wide; XOR: left-the-shelf is sold_7d
   // only, and the slim fold does not print n at all.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
-  // Public demand on the fold is sold_7d. Mock 530 is 562. ST stays locked.
-  // Use testid-scoped selector: heroSub now also contains "buy-below" text, so
-  // the bare /Buy-below/i regex matches 2 elements. Target the answer-row label.
+  // Public demand on the fold is sold_7d. Mock Samba is 48. ST stays locked.
   await expect(hero.locator("[data-testid='riq-answer-rows']").getByText("Buy-below", { exact: true })).toBeVisible()
   await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
-  await expect(hero.getByText("562", { exact: true })).toBeVisible()
+  await expect(hero.getByText("48", { exact: true })).toBeVisible()
   // The label carries the window because the number is sold_7d and nothing on
   // the fold said so — "497" alone is unreadable to a first-time visitor.
   // Same exact-match strictness, new string.
@@ -64,6 +59,8 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(locked).not.toContainText(/Unlock/i)
   await expect(locked).not.toContainText("—")
   await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
+  await expect(page.getByTestId("riq-market-showing")).toContainText(/Showing \d+ of \d+ brands/)
+  await expect(page.getByTestId("riq-market-showing").getByRole("link", { name: /See all on \/data/ })).toHaveAttribute("href", "/data")
 })
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {

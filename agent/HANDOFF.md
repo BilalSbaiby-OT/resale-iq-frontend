@@ -1,7 +1,14 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
-UPDATED: 2026-09-14
+UPDATED: 2026-09-21
+
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV (this session)
+  Homepage honesty: free chips = Samba + AF1 + NB 530 (live 200).
+  Remove Levi's 501 / NB 550 (live 402). Free scope line, FAQ sync,
+  market table "Showing N of M" + /data, Samba buy-below whole euro
+  to match checker. Skip broken Patagonia/Balenciaga simpleicons
+  (wordmark). Branch cursor/seo-ex-homepage-conv-55d5.
 
 SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
   MERGED | e28c993 | live PASS
