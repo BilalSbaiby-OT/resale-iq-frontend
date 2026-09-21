@@ -9,6 +9,7 @@ import { trackEvent } from "@/lib/analytics"
 import { useAuthStore } from "@/lib/auth-store"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 
 /**
  * The dataset size, fetched client-side via the shared useTrackedLabel hook.
@@ -46,7 +47,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
     try {
       const priceId = resolvePriceId(placeholder, plans)
       if (!priceId) return
-      const { checkout_url } = await createCheckout(priceId)
+      const { checkout_url } = await createCheckout(priceId, { plan: placeholder === "__POWER__" ? "power" : "operator" })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch { /* stay */ } finally { setBusy(null) }
@@ -81,7 +82,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             </div>
           </div>
         )}
-        <Link href="/verdict" style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
+        <Link href={FIRST_CHECK_HREF} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
           Check your first item →
         </Link>
       </div>

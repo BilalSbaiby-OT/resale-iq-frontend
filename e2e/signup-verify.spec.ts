@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test"
 import { captureTrackEvents } from "./track-events"
+import { mockPaidCheckout } from "./mock-stripe-checkout"
 
 // Free register is TWO controls now: email and password. The terms checkbox
 // these helpers used to tick is gone -- consent is given by submitting, with
@@ -22,37 +23,6 @@ async function fillPaidRegister(page: Page, email: string) {
 
 const PAID_CHECKOUT_URL = "https://checkout.stripe.com/c/pay/cs_test_paid_register"
 
-async function mockPaidCheckout(page: Page, checkoutUrl = PAID_CHECKOUT_URL) {
-  await page.route("**/stripe/plans", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({
-        publishable_key: null,
-        stripe_enabled: true,
-        plans: [
-          { id: "operator", price_eur: 19, price_id: "price_operator_test" },
-          { id: "power", price_eur: 49, price_id: "price_power_test" },
-          { id: "free", price_eur: 0 },
-        ],
-      }),
-    })
-  })
-  await page.route("**/stripe/checkout", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({ checkout_url: checkoutUrl }),
-    })
-  })
-  await page.route("https://checkout.stripe.com/**", async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: "text/html",
-      body: "<html><body>stripe checkout</body></html>",
-    })
-  })
-}
 
 // The register form is now 2 controls on free (email, password) and 3 on paid
 // (+ the EU withdrawal waiver). The plan radio group and the terms checkbox
@@ -204,20 +174,7 @@ test.describe("register: 3 controls, free default, waiver kept, signup_completed
   })
 
   test("paid checkout failure shows retry and stays off /check-email", async ({ page }) => {
-    await page.route("**/stripe/plans", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          publishable_key: null,
-          stripe_enabled: true,
-          plans: [
-            { id: "operator", price_eur: 19, price_id: "price_operator_test" },
-            { id: "power", price_eur: 49, price_id: "price_power_test" },
-          ],
-        }),
-      })
-    })
+    await mockPaidCheckout(page)
     await page.route("**/stripe/checkout", async (route) => {
       await route.fulfill({
         status: 403,

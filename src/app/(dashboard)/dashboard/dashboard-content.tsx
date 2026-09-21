@@ -16,6 +16,7 @@ import { appCopy } from "@/lib/app-copy"
 import { categoryName, formatCount } from "@/lib/verdict-words"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /**
@@ -107,6 +108,9 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   const [sold, setSold] = useState<RecentSold[] | null>(null)
   const { user } = useAuthStore()
   const plan = user?.plan || "free"
+  const [showWelcome] = useState(
+    () => typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("welcome") === "1")
 
   useEffect(() => {
     // A 402 means "not entitled", not "no data". Catching it into an empty
@@ -181,6 +185,23 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
       {/* Asks about one past verdict. Renders nothing when there is nothing to ask. */}
       <OutcomePrompt />
+
+      {showWelcome && (
+        <div
+          data-testid="riq-paid-first-check"
+          style={{ ...CARD, display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}
+        >
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)" }}>{t.welcomeHeading}</div>
+            <div style={{ fontSize: 15, color: "var(--color-graphite-muted)", marginTop: 4, maxWidth: "65ch" }}>{t.welcomeBody}</div>
+          </div>
+          <Link
+            href={FIRST_CHECK_HREF}
+            data-testid="riq-paid-first-check-cta"
+            style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}
+          >{t.welcomeCta}</Link>
+        </div>
+      )}
 
       {notice && (
         <div role="status" style={{ marginBottom: 16, fontSize: 15, color: "var(--color-graphite-muted)" }}>{notice}</div>
@@ -272,7 +293,16 @@ export function DashboardContent({ locale }: { locale: Locale }) {
             cards have said "ONE filled control per card" since they were
             written; the panel simply never applied its own rule. */}
         <Section title={t.secOpportunitiesTitle} sub={t.secOpportunitiesSub} action={{ href: "/deals", label: t.secOpportunitiesAction, primary: true }}>
-          {!deals ? <SkeletonRows rows={4} height={72} /> : (
+          {!deals ? <SkeletonRows rows={4} height={72} /> : deals.length === 0 ? (
+            <div style={{ ...CARD, textAlign: "center", padding: 32 }}>
+              <div style={{ fontSize: 15, color: "var(--color-graphite-muted)", marginBottom: 16 }}>{t.emptyOpportunities}</div>
+              <Link
+                href={FIRST_CHECK_HREF}
+                data-testid="riq-empty-first-check"
+                style={{ display: "inline-flex", background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
+              >{t.welcomeCta}</Link>
+            </div>
+          ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
               {deals.map((d, i) => {
                 const q = `${d.brand} ${d.model}`

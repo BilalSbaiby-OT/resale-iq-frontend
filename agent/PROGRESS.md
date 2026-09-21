@@ -578,5 +578,17 @@ NEXT (once unblocked): P0-1.
   dr-martens, puma. New brands structure-only; missing warehouse = em-dash.
 - Sitemap 12 model URLs + 10 term URLs + glossary hub. Same PR, no competitor.
 
-
-
+## 2026-09-21 — conversion P0 checkout branding (Resale IQ, not Demand Intel)
+- Frontend POST /stripe/checkout now sends `display_name: Resale IQ`,
+  product name/description, and EU5 `country` (VAT). Guest cancel_url is
+  locale `/pricing?checkout=cancelled`.
+- `/pricing` collects VAT country before the card form (softens
+  `requires_location_inputs`). `/es` defaults to ES.
+- `/billing/success` no longer auto-redirects to an empty dashboard.
+  Primary CTA is a pre-filled first check (`Nike Air Force 1`).
+  Dashboard `?welcome=1` and empty opportunities also force that CTA.
+- Branding, statement descriptor, Product names, trial-card, and
+  Session.create (`branding_settings.display_name`) are Bilal Dashboard
+  + demand-intel. Exact steps in `AI/STRIPE.md`. Backend repo not in
+  this workspace (private).
+- Branch cursor/checkout-resaleiq-branding-2dee.

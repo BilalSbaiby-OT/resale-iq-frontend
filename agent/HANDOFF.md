@@ -3,6 +3,17 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+FRONTEND, 2026-09-21 — conversion P0 checkout branding
+  SHIPPED on branch (rebasing onto main after #127). Local PASS: tsc,
+  next build, isolation, checkout unit (8), Playwright checkout-branding.
+  Browser: /pricing VAT country + cancelled banner; /billing/success
+  first-check CTA → /verdict?q=Nike Air Force 1, no auto-eject.
+  Stripe Dashboard + demand-intel Session.create are Bilal steps in
+  AI/STRIPE.md. Branch cursor/checkout-resaleiq-branding-2dee.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/128
+
+---
+
 SEO LANE, 2026-09-21 — WEEK-1 SEED LOCK (same PR #127)
   SHIPPED on branch. URL shapes unchanged:
     /flip/{brand}/model/{slug} · /flip/{brand} · /glossary/{term}

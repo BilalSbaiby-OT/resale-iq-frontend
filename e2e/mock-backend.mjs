@@ -370,6 +370,10 @@ const server = http.createServer(async (req, res) => {
     json(res, 200, { checkout_url: "https://checkout.stripe.com/c/pay/cs_test_mock" })
     return
   }
+  if (url === "/stripe/verify-session") {
+    json(res, 200, { paid: true, plan: "operator" })
+    return
+  }
 
   if (url === "/api/verdict" && method === "GET") {
     const q = new URL(raw, "http://mock").searchParams.get("q") || ""

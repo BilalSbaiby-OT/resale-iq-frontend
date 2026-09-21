@@ -11,6 +11,7 @@ import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lo
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip, planEntitlement } from "@/lib/entitlement"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
@@ -71,7 +72,7 @@ export default function AccountPage() {
       const placeholder = planId === "operator" ? "__OPERATOR__" : "__POWER__"
       const priceId = resolvePriceId(placeholder, plansList)
       if (!priceId) { alert("Plans are still loading — try again in a moment."); return }
-      const { checkout_url } = await createCheckout(priceId)
+      const { checkout_url } = await createCheckout(priceId, { plan: planId === "power" ? "power" : "operator" })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch (e: unknown) {
@@ -165,7 +166,7 @@ export default function AccountPage() {
                 Your Starter plan is active. Search any item — you&rsquo;ll get the buy-below price and a BUY/WATCH/SKIP verdict from live Vinted data.
               </div>
               <Link
-                href="/tools"
+                href={FIRST_CHECK_HREF}
                 data-testid="riq-welcome-first-check"
                 className="inline-block bg-[#34C759] text-[#06090c] font-bold text-[13px] px-4 py-2 rounded-lg no-underline"
               >

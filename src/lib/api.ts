@@ -1,4 +1,5 @@
 import { getAttribution, getLandingPath } from "@/lib/analytics"
+import { buildCheckoutBody, readStoredCountry, type CheckoutPlan } from "@/lib/checkout"
 import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
@@ -215,7 +216,7 @@ export const getBrandDetail = (slug: string) => request<BrandDetail>(`/api/brand
 export const getTrendsSummary = () => request<TrendsSummary>("/api/trends/summary")
 export const getRecentSold = (limit = 20) => request<{ data: RecentSold[] }>(`/api/recent-sold?limit=${limit}`)
 export const getPlans = () => request<PlansResponse>("/stripe/plans")
-export const createCheckout = (price_id: string) => {
+export const createCheckout = (price_id: string, opts?: { country?: string; plan?: CheckoutPlan }) => {
   // GUARD, not decoration. resolvePriceId() returns undefined whenever /stripe/plans
   // has not resolved yet (slow network, a failed fetch, a click before hydration
   // finishes). JSON.stringify DROPS undefined values, so the request body became
@@ -226,32 +227,17 @@ export const createCheckout = (price_id: string) => {
   // Throwing here converts a silent malformed request into a caught error the three
   // call sites already handle by routing the visitor to /register — a recoverable
   // path instead of a dead button.
-  if (!price_id) {
-    throw new Error("createCheckout called without a price_id (plans not loaded yet)")
-  }
+  const locale = typeof document !== "undefined" ? document.documentElement.lang : "en"
+  const body = buildCheckoutBody({
+    price_id,
+    origin: window.location.origin,
+    locale,
+    country: opts?.country ?? readStoredCountry(),
+    plan: opts?.plan,
+  })
   return request<{ checkout_url: string }>("/stripe/checkout", {
     method: "POST",
-    body: JSON.stringify({
-      price_id,
-      // Hand Stripe Checkout the language the visitor is actually reading.
-      // All 22 real sessions on the live account had locale=null, so someone
-      // who read the Spanish pricing page met an English card form at the one
-      // step where 21 of 22 stopped. layout.tsx already sets <html lang> from
-      // the route locale, so reading it here means the three call sites
-      // (pricing section, paywall, account) need no change. The backend
-      // allow-lists this value and falls back to "auto".
-      locale: typeof document !== "undefined" ? document.documentElement.lang : undefined,
-      // Land on our success page, which verifies the session server-side and
-      // applies the upgrade without depending on webhook delivery.
-      // No trailing "?" — it produced a literal "?&session_id=" in the URL of
-      // 10 live sessions once the backend appended its separator.
-      success_url: `${window.location.origin}/billing/success`,
-      // Flag the abandoned-checkout return so /account can acknowledge it.
-      // Bouncing the user back to a page that looks exactly as they left it
-      // gives no signal whether the cancel registered or the payment silently
-      // failed.
-      cancel_url: `${window.location.origin}/account?checkout=cancelled`,
-    }),
+    body: JSON.stringify(body),
   })
 }
 export const verifyCheckoutSession = (sessionId: string) =>

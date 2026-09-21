@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { setToken, getToken } from "@/lib/utils"
 import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
-import { trackEvent } from "@/lib/analytics"
+import { FIRST_CHECK_HREF, FIRST_CHECK_QUERY } from "@/lib/checkout"
 import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight } from "lucide-react"
 
 /**
@@ -13,19 +13,17 @@ import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight } from "lucide-
  * may return a login token so this page can sign them in.
  *
  * H-AFTER-PAYMENT (Revenue 2026-09-19): a paid user who lands here and is
- * auto-redirected to /dashboard 2.5s later has no idea what to do next. The
- * dashboard for a brand-new account is an empty state. Replace the silent eject
- * with a "what to do first" step: a CTA to check a real item, pre-filled with a
- * live example so the user sees a buy-below number on first interaction.
+ * auto-redirected to /dashboard has no idea what to do next. The dashboard
+ * for a brand-new account is an empty state. Do not auto-eject. The only
+ * primary action is a pre-filled first check.
  */
-
-const DEMO_ITEM = "Nike Air Force 1"
 
 function BillingSuccessContent() {
   const params = useSearchParams()
   const router = useRouter()
   const [state, setState] = useState<"verifying" | "ok" | "unpaid" | "error">("verifying")
   const [plan, setPlan] = useState("")
+  const [guestNeedsPassword, setGuestNeedsPassword] = useState(false)
 
   useEffect(() => {
     const sessionId = params.get("session_id")
@@ -46,18 +44,9 @@ function BillingSuccessContent() {
               useAuthStore.setState({ isAuthenticated: true, isLoading: false })
             }
           }
-          setPlan(d.plan); setState("ok")
-          // A guest who paid without registering now has a real account with a
-          // random password they never chose. Send them to set one so they can
-          // log back in later; already-registered users just go to the dashboard.
-          const dest = wasGuest && d.access_token ? "/account?welcome=1" : "/dashboard"
-          // Do NOT auto-eject to /dashboard 2.5s later. A paid user's first
-          // interaction with ResaleIQ is the moment the product earns trust, and
-          // an empty dashboard after paying feels like a dead end. Wait 4s so the
-          // success message reads, then let the "Check your first item" CTA carry
-          // the next action. If they ignore it, the auto-redirect still catches
-          // them on the dashboard after the CTA has had a real chance.
-          setTimeout(() => { window.location.href = dest }, 4000)
+          setPlan(d.plan)
+          setGuestNeedsPassword(Boolean(wasGuest && d.access_token))
+          setState("ok")
         } else {
           setState("unpaid")
         }
@@ -79,22 +68,34 @@ function BillingSuccessContent() {
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><CheckCircle2 size={34} style={{ color: "#34C759" }} /></div>
           <div style={{ fontSize: 18, fontWeight: 750 }}>Welcome to {plan === "operator" ? "Starter" : plan === "power" ? "Pro" : plan}</div>
           <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded.</div>
-          {/* H-AFTER-PAYMENT: give the freshly-paid user a concrete first action
-              instead of silently redirecting them to an empty /dashboard and hoping
-              they figure out what to type. A pre-filled live example removes the
-              "what do I search for" friction for a brand-new user who has never seen
-              the product. */}
           <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
             <a
-              href={`/verdict?q=${encodeURIComponent(DEMO_ITEM)}`}
+              href={FIRST_CHECK_HREF}
+              data-testid="riq-billing-first-check"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 22px", borderRadius: 10, background: "#34C759", color: "#06090c", textDecoration: "none", fontWeight: 700, fontSize: 14 }}
             >
               Check your first item
               <ArrowRight size={16} />
             </a>
             <div style={{ fontSize: 11.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
-              We pre-filled {DEMO_ITEM} so you see a buy-below number on the first click.
+              We pre-filled {FIRST_CHECK_QUERY} so you see a buy-below number on the first click.
             </div>
+            {guestNeedsPassword && (
+              <a
+                href="/account?welcome=1"
+                data-testid="riq-billing-set-password"
+                style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
+              >
+                Set a password so you can sign back in →
+              </a>
+            )}
+            <a
+              href="/dashboard?welcome=1"
+              data-testid="riq-billing-dashboard"
+              style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
+            >
+              Go to dashboard
+            </a>
           </div>
         </>)}
         {state === "unpaid" && (<>
@@ -117,4 +118,3 @@ function BillingSuccessContent() {
 export default function BillingSuccessPage() {
   return <Suspense><BillingSuccessContent /></Suspense>
 }
- 

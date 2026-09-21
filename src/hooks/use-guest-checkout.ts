@@ -50,7 +50,7 @@ export function useGuestCheckout({
         window.location.href = `${canonicalPath(locale, "/register")}?plan=operator`
         return
       }
-      const { checkout_url } = await createCheckout(priceId)
+      const { checkout_url } = await createCheckout(priceId, { plan: "operator" })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch {

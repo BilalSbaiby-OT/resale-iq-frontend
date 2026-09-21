@@ -86,7 +86,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
     const placeholder = paidPlan === "power" ? "__POWER__" : "__OPERATOR__"
     const priceId = resolvePriceId(placeholder, stripePlans.current)
     if (!priceId) throw new Error("no_price_id")
-    const { checkout_url } = await createCheckout(priceId)
+    const { checkout_url } = await createCheckout(priceId, { plan: paidPlan })
     if (!checkout_url) throw new Error("no_checkout_url")
     track("checkout_started")
     window.location.assign(checkout_url)
