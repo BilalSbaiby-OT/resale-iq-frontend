@@ -66,9 +66,14 @@ any brand named on the site.
 Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU
 Vinted. Tracked markets are ES, FR, DE, IT and PT.
 
+Free sample (no account): Adidas Samba and Nike Air Force 1 on /tools.
+Other models need Starter EUR 19 / month.
+
 Key URLs:
 - ${BASE}/
 - ${BASE}/tools
+- ${BASE}/tools?q=Adidas%20Samba
+- ${BASE}/tools?q=Nike%20Air%20Force%201
 - ${BASE}/tools/vinted-price-checker
 - ${BASE}/tools/vinted-profit-calculator
 - ${BASE}/data

@@ -13,7 +13,7 @@ import type { Locale } from "@/lib/i18n"
  * every language — only the sentence around them changes.
  */
 export const TRIAL_LIMITS_SENTENCE =
-  "Item-level BUY, WATCH or SKIP is Starter at €19 a month. There is no anonymous item check and no free tier. Weekly brand volumes and average departure prices stay public on /data."
+  "Adidas Samba and Nike Air Force 1 are free to check on /tools. Other item-level BUY, WATCH or SKIP is Starter at €19 a month. Weekly brand volumes stay public on /data."
 
 export const TRIAL_LIMITS_SHORT =
   "Item checks start at Starter €19/month. Weekly brand volumes on /data stay public."
@@ -24,11 +24,11 @@ export const TRIAL_BANNER =
 
 export const TRIAL_LIMITS_SENTENCE_BY_LOCALE: Record<Locale, string> = {
   en: TRIAL_LIMITS_SENTENCE,
-  fr: "BUY, WATCH ou SKIP au niveau article, c'est Starter à 19 € par mois. Pas de vérification anonyme, pas d'offre gratuite. Les volumes hebdo par marque et les prix moyens de départ restent publics sur /data.",
-  es: "BUY, WATCH o SKIP a nivel de artículo es Starter a 19 € al mes. No hay comprobación anónima ni plan gratuito. Los volúmenes semanales por marca y los precios medios de salida siguen públicos en /data.",
-  de: "BUY, WATCH oder SKIP auf Artikelebene ist Starter für 19 € im Monat. Keine anonyme Prüfung, kein Gratis-Tarif. Wöchentliche Markenvolumen und durchschnittliche Abgangspreise bleiben öffentlich auf /data.",
-  it: "BUY, WATCH o SKIP a livello di articolo è Starter a 19 € al mese. Nessun controllo anonimo, nessun piano gratuito. I volumi settimanali per marca e i prezzi medi di uscita restano pubblici su /data.",
-  pt: "BUY, WATCH ou SKIP ao nível do artigo é Starter a 19 € por mês. Não há verificação anónima nem plano grátis. Os volumes semanais por marca e os preços médios de saída continuam públicos em /data.",
+  fr: "Adidas Samba et Nike Air Force 1 se vérifient gratuitement sur /tools. Les autres BUY, WATCH ou SKIP au niveau article, c'est Starter à 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
+  es: "Adidas Samba y Nike Air Force 1 se comprueban gratis en /tools. El resto de BUY, WATCH o SKIP a nivel de artículo es Starter a 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
+  de: "Adidas Samba und Nike Air Force 1 sind auf /tools kostenlos prüfbar. Andere BUY, WATCH oder SKIP auf Artikelebene sind Starter für 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
+  it: "Adidas Samba e Nike Air Force 1 si controllano gratis su /tools. Gli altri BUY, WATCH o SKIP a livello di articolo sono Starter a 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
+  pt: "Adidas Samba e Nike Air Force 1 verificam-se grátis em /tools. Os outros BUY, WATCH ou SKIP ao nível do artigo são Starter a 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
 }
 
 export const TRIAL_LIMITS_SHORT_BY_LOCALE: Record<Locale, string> = {

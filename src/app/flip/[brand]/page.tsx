@@ -138,6 +138,20 @@ export default async function BrandFlipPage(
             . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
             what you pay for it.
           </>
+        ) : slug === "adidas" ? (
+          <>
+            Short answer: check{" "}
+            <Link href="/tools?q=Adidas+Samba" style={{ color: "#34C759" }}>Adidas Samba</Link>
+            {" "}on /tools before you buy a pair to resell. That check is free — BUY / WATCH / SKIP
+            and the most to pay after fees. Other Adidas models need Starter at €19/month.
+          </>
+        ) : slug === "nike" ? (
+          <>
+            Short answer: check{" "}
+            <Link href="/tools?q=Nike+Air+Force+1" style={{ color: "#34C759" }}>Nike Air Force 1</Link>
+            {" "}on /tools before you buy a pair to resell. That check is free — BUY / WATCH / SKIP
+            and the most to pay after fees. Other Nike models need Starter at €19/month.
+          </>
         ) : (
           <>
             Short answer: we track {b.brand} across the five main EU Vinted markets. Live weekly volume

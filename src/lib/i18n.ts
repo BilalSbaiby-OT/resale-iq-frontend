@@ -352,7 +352,7 @@ export const copy = {
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
-        { q: "Is there a free item checker?", a: "Weekly brand volumes and average departure prices are public on /data — no account needed. Item-level BUY, WATCH or SKIP, buy-below and sizes need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
+        { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba or Nike Air Force 1 on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "When does access start after paying?", a: "The moment Stripe confirms your payment — usually within 2 seconds. You're redirected straight to your dashboard with full access. No email to wait for, no manual step. If a connection error interrupts the redirect, signing in at /login restores your session immediately." },
