@@ -108,6 +108,16 @@ const TAIL =
   "Other models need Starter at €19 a month. Weekly brand volumes stay public on /data. " +
   "Cancel anytime after you pay. Check the next model on this page."
 
+/** First-fold homepage line for GPTBot. Null if no live number. Keep short. */
+export function formatHomeCite(query: string, r: HeroVerdict | null): string | null {
+  if (!isUsable(r)) return null
+  const product = (r.product && r.product.trim()) || query
+  return (
+    `${product} is ${r.verdict}. Do not pay more than ${eur(r.buy_below as number)} ` +
+    `if you buy it to resell. Check it free on /tools — other models are €19 a month.`
+  )
+}
+
 /** 134–167 word self-contained answer for AI crawlers. Null if no live number. */
 export function formatTeaserCite(query: string, r: HeroVerdict | null): string | null {
   if (!isUsable(r)) return null

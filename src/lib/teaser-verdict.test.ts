@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
+  formatHomeCite,
   formatTeaserCite,
   matchTeaserQuery,
   TEASER_QUERIES,
@@ -44,6 +45,31 @@ test("cite block is 134–167 words and carries the live number", () => {
 test("no buy-below means no cite — never invent", () => {
   assert.equal(formatTeaserCite("Adidas Samba", { verdict: "WATCH", product: "Adidas Samba" }), null)
   assert.equal(formatTeaserCite("Adidas Samba", null), null)
+})
+
+test("homepage cite is a short live number, never invented", () => {
+  const cite = formatHomeCite("Adidas Samba", samba)
+  assert.ok(cite)
+  assert.match(cite, /WATCH/)
+  assert.match(cite, /€24\.35/)
+  assert.match(cite, /Adidas Samba/)
+  assert.match(cite, /€19/)
+  assert.ok(cite.trim().split(/\s+/).length <= 60)
+  assert.equal(formatHomeCite("Adidas Samba", null), null)
+})
+
+test("English homepage SSR-renders the Samba cite in the first fold", () => {
+  const page = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "..", "app/page.tsx"),
+    "utf8",
+  )
+  const landing = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), "..", "components/landing/landing-content.tsx"),
+    "utf8",
+  )
+  assert.match(page, /getTeaserVerdict/)
+  assert.match(page, /formatHomeCite/)
+  assert.match(landing, /riq-home-teaser-cite/)
 })
 
 test("/tools SSR-renders the teaser cite ahead of the essay", () => {

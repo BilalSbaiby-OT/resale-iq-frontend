@@ -34,6 +34,7 @@ export function LandingContent({
   heroResult,
   faqs,
   llmSrc,
+  homeCite,
 }: {
   t: Dict
   locale: Locale
@@ -44,6 +45,8 @@ export function LandingContent({
   heroResult: HeroVerdict | null
   /** English `/` only. Locale landings omit this so FAQ stays untranslated. */
   faqs?: FaqItem[]
+  /** SSR Samba line for GPTBot. English `/` only. Null if no live number. */
+  homeCite?: string | null
   /**
    * Set when the visitor arrives via ?src=perplexity / ?src=chatgpt / ?src=llm.
    * Renders a one-line eyebrow above the H1 that mirrors the channel that
@@ -132,6 +135,14 @@ export function LandingContent({
               <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 0 var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}>
                 {t.heroSub}
               </p>
+              {homeCite ? (
+                <p
+                  data-testid="riq-home-teaser-cite"
+                  style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)", margin: "0 0 var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}
+                >
+                  {homeCite}
+                </p>
+              ) : null}
               {/* H15 — data-specificity anchor. CRO principle #4 (objection: "how do
                   you know?") + principle #8 (specific number, not vague claim). Placed
                   between heroSub and the FreeChecker so the proof lands before the ask.
