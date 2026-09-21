@@ -1,3 +1,5 @@
+import type { ReconstructedSignals } from "@/lib/verdict-intelligence"
+
 export type Plan = "free" | "operator" | "power"
 export type Momentum = "HOT" | "RISING" | "STABLE" | "FADING" | "DEAD"
 export type PortfolioStatus = "sourced" | "listed" | "sold"
@@ -217,7 +219,7 @@ export interface RecentSold {
   sold_at: string
 }
 
-export interface VerdictResult {
+export interface VerdictResult extends ReconstructedSignals {
   // INSUFFICIENT_DATA was missing here while the backend had been returning it
   // for months — so every render path that switched on `verdict` type-checked
   // without ever handling it. It is the answer whenever the sufficiency gate or
@@ -246,8 +248,8 @@ export interface VerdictResult {
   n?: number | null
   active_listings?: number | null
   momentum?: string
-  buy_below?: number
-  sell_avg?: number
+  buy_below?: number | null
+  sell_avg?: number | null
   sell_median?: number | null
   top_sizes?: string[]
   size_velocity?: SizeVelocity[]

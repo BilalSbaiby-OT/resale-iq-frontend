@@ -21,12 +21,13 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
  *    the anonymous register branch. Logged-out copy sells Starter (€19).
  */
 export function UnlockPanel({
-  result, onUnlock, unlocking, isAuthenticated,
+  result, onUnlock, unlocking, isAuthenticated, isPaid = false,
 }: {
   result: VerdictResult
   onUnlock: () => void
   unlocking: boolean
   isAuthenticated: boolean
+  isPaid?: boolean
 }) {
   // WHICH BRANCH — decided in one pure, unit-tested place (unlock-panel-state.ts).
   //
@@ -37,7 +38,7 @@ export function UnlockPanel({
   // not a data fact — so the branch now takes `isAuthenticated` (a real session
   // token), and a logged-in account with no free-unlock quota is treated as
   // entitled (data maturing), never walled.
-  const branch = unlockPanelBranch(result, isAuthenticated)
+  const branch = unlockPanelBranch(result, isAuthenticated, isPaid)
   if (branch === "hidden") return null
 
   const limit = result.unlocks_limit

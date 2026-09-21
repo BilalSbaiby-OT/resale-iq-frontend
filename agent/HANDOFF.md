@@ -1,7 +1,30 @@
 STATUS: READY
 OWNER: none
-PUSH: no
+PUSH: yes
 UPDATED: 2026-09-21
+
+FRONTEND REPAIR TRIAL — PR #133 live-bug pass
+  https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/133
+  Branch cursor/frontend-repair-iq-p1-1c06 off origin/main @ 0c534be
+  Live 2026-09-21: IQ-060 JWT paid CTA; IQ-040 Deal Scanner entitled-only;
+  IQ-010 DE KAUFEN; IQ-051 390px checker; IQ-030 low-demand coverage line;
+  IQ-002 Miu Miu/unknown → coverage miss not Should I buy.
+  Local: tsc, unit 295, dupes, locale-english.
+
+---
+
+FRONTEND REPAIR TRIAL — PR #133
+  https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/133
+  Branch cursor/frontend-repair-iq-p1-1c06 off origin/main @ 0c534be
+  P0: 390px layout (checker stacks, no page-x-scroll on / /verdict /tools /pricing /data)
+  Insights: STR-null no longer blanks the verdict grid; reconstructed/proxy wired if API sends them
+  Catalog: untracked → coverage miss, not Stripe; Miu Miu follows seo-brands when BE adds it
+  Keep: Pro cold /verdict no €19; live-deals power-only; DE i18n; landing how-to + coverage
+  Local: tsc, unit 291, dupes, locale-english, isolation. Playwright mobile+smoke+seed 25/25.
+
+---
+
+---
 
 FRONTEND AUDIT, 2026-09-21 — architecture + honesty + paid CTA
   Branch cursor/frontend-audit-repair-b071. Do not push main. Do not merge #130

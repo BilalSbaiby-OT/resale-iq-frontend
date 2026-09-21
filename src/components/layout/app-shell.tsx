@@ -8,7 +8,8 @@ import { useAuthStore } from "@/lib/auth-store"
 import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
-import { isPaidPlan, planChip } from "@/lib/entitlement"
+import { isPaidPlan, isPaidPlanId, planChip } from "@/lib/entitlement"
+import { getPlanFromToken } from "@/lib/utils"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 interface AppShellProps {
@@ -116,7 +117,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
     return null
   }
 
-  const isPaid = isPaidPlan(user)
+  const isPaid = isPaidPlan(user) || isPaidPlanId(getPlanFromToken())
   const isPower = user?.plan === "power"
   const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
@@ -152,8 +153,8 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: "24px var(--space-gutter)", background: "var(--color-graphite)" }}>
           {!gated && isTrial && !isPaid && (
-            <div style={{ display: "flex", alignItems: "center", gap: 16, background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
-              <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: 1 }}>
+            <div className="riq-trial-banner" style={{ background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
+              <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: "1 1 180px", minWidth: 0 }}>
                 {/* Third surface naming this same state, so it reads the same
                     module as the sidebar chip and the account card. */}
                 <span style={{ fontWeight: 600 }}>{planChip(user, locale)}</span>
@@ -169,7 +170,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
               unauthenticated on /verdict. The seed verdict card is
               visible above this; the login prompt appears below it
               so the user can register and keep their result. */}
-          {isSandbox && !isAuthenticated && !user && checked && (
+          {isSandbox && !isAuthenticated && !user && checked && !isPaid && (
             <div style={{
               background: "var(--color-graphite-elevated)",
               borderRadius: 14, padding: "14px 20px", marginTop: 24,

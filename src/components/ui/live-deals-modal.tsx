@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { getLiveDeals, isPaymentRequired } from "@/lib/api"
 import type { Deal, LiveDeal } from "@/types"
+import { liveDealsEmptyText } from "@/lib/live-deals-gate"
 import { Zap, Search, Heart } from "lucide-react"
 
 interface LiveDealsModalProps {
@@ -76,10 +77,12 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
               <Search size={13} /> Searching live Vinted across 5 markets…
             </div>
           ) : deals.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontSize: 13, lineHeight: 1.55, maxWidth: 420, margin: "0 auto" }}>
-              {error || (reason === "model_too_vague"
-                ? "This model name is too vague to search live — a year or a clothing word would return kits and jackets, not the item. Open a more specific model."
-                : "No listings that match this brand and model under buy-below right now.")}
+            <div data-testid="riq-live-deals-empty" style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontSize: 13, lineHeight: 1.55, maxWidth: 420, margin: "0 auto" }}>
+              {liveDealsEmptyText({
+                error,
+                reason,
+                fallback: "No listings that match this brand and model under buy-below right now.",
+              })}
               {error.includes("Pro feature") && (
                 <div style={{ marginTop: 14 }}>
                   <a href="/account" style={{ color: "#34C759", fontWeight: 700, textDecoration: "none" }}>Upgrade to Pro →</a>

@@ -1,7 +1,7 @@
 "use client"
 import { useRouter, usePathname } from "next/navigation"
 import { Globe } from "lucide-react"
-import { isPathLocale, canonicalPath, ALL_LOCALES } from "@/lib/locale-routes"
+import { ALL_LOCALES, localeSiblingPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 import { appCopy } from "@/lib/app-copy"
 
@@ -16,11 +16,11 @@ import { appCopy } from "@/lib/app-copy"
  * Two different mechanisms depending on where it is mounted, because the
  * site has two different ways of being multilingual (see src/proxy.ts):
  *
- * 1. Page families with a REAL translated ROUTE (`LOCALE_ROUTED_ROOTS`
- *    below: the homepage, /methodology, /register, /support). Picking a
- *    language there navigates to the sibling `/<locale>/<root>` URL; the
- *    proxy stamps the NEXT_LOCALE cookie itself on that request, same as a
- *    visitor typing the URL directly, so this component does not need to.
+ * 1. Page families with a REAL translated ROUTE (`localeSiblingPath` in
+ *    locale-routes.ts: homepage, methodology, register, support, pricing,
+ *    data, tools, best/vs/for, cloned blog). Picking a language there
+ *    navigates to the sibling `/<locale>/<root>` URL; the proxy stamps
+ *    NEXT_LOCALE itself on that request.
  *
  * 2. The remaining unprefixed post-signup routes (/check-email,
  *    /verify-email, /dashboard — see proxy.ts's W19 note) have no
@@ -53,27 +53,8 @@ const NATIVE_NAME: Record<Locale, string> = {
   pt: "Português",
 }
 
-// Page roots that now have a REAL `[locale]/<root>` route (register, support
-// — added alongside this fix; methodology already had one), as opposed to
-// the post-signup routes that only fake it via the NEXT_LOCALE cookie
-// (check-email, verify-email, dashboard — see the file header). "" is the
-// homepage itself.
-//
-// Without this, the switcher's only two branches were "home family" and
-// "reload the same URL after setting a cookie" — for a route like
-// /fr/register that now HAS a translated URL, the cookie branch reloaded
-// /fr/register itself, which reads its locale from the URL segment, not the
-// cookie, so picking a language there visibly did nothing. Extend this set
-// whenever another `[locale]/<root>/page.tsx` route is added.
-const LOCALE_ROUTED_ROOTS = new Set(["", "methodology", "register", "support"])
-
 function localizedDestination(pathname: string, locale: Locale): string | null {
-  const seg = pathname.split("/").filter(Boolean)
-  if (seg.length > 0 && isPathLocale(seg[0])) seg.shift()
-  const root = seg[0] ?? ""
-  if (!LOCALE_ROUTED_ROOTS.has(root)) return null
-  const rest = seg.join("/")
-  return canonicalPath(locale, rest ? `/${rest}` : "")
+  return localeSiblingPath(pathname, locale)
 }
 
 export function LocaleSwitcher({ locale, style }: { locale: Locale; style?: React.CSSProperties }) {

@@ -87,13 +87,13 @@ test("definedTermJsonLd emits a parseable DefinedTerm", () => {
 
 test("/tools hub has FAQPage, answer-first title, and matching social titles", () => {
   const src = read("app/tools/page.tsx")
-  assert.match(src, /faqPageJsonLd\(TOOLS_HUB_FAQS\)/)
-  assert.match(src, /<HubFaq items=\{TOOLS_HUB_FAQS\}/)
+  assert.match(src, /faqPageJsonLd\(hub\.faqs\)/)
+  assert.match(src, /<HubFaq items=\{hub\.faqs\}/)
   assert.match(src, /Know what sells. Check the model before you buy — Resale IQ/)
   assert.match(src, /openGraph: \{ title: TITLE/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE/)
-  assert.match(src, /href="\/data"/)
-  assert.match(src, /href="\/flip"/)
+  assert.match(src, /canonicalPath\(locale, "\/data"\)/)
+  assert.match(src, /canonicalPath\(locale, "\/flip"\)/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /HowTo/)
   assert.doesNotMatch(src, /Vinted Reseller Tools — Price Checker/)
@@ -207,7 +207,7 @@ test("what-sells-best ships a Watched departure lead with hub links", () => {
   assert.doesNotMatch(faq, /\/register/)
 })
 
-test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => {
+test("English homepage ships 4 visible FAQs + FAQPage with no /register", () => {
   const home = read("app/page.tsx")
   const landing = read("components/landing/landing-content.tsx")
   assert.match(home, /const HOME_FAQS/)
@@ -217,6 +217,7 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.match(home, /What is Resale IQ\?/)
   assert.match(home, /Which clothes do you cover\?/)
   assert.match(home, /What is a buy-below price\?/)
+  assert.match(home, /What if you don’t track my item\?/)
   assert.match(home, /second-hand clothes/)
   assert.match(home, /https:\/\/resaleiq\.dev\/data/)
   assert.match(home, /https:\/\/resaleiq\.dev\/pricing/)
@@ -228,7 +229,7 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.match(home, /New Balance 530/)
   const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
   const questions = faqBlock.match(/\bq: "/g) ?? []
-  assert.equal(questions.length, 3)
+  assert.equal(questions.length, 4)
   assert.ok(faqAnswerIsClean(faqBlock))
   assert.doesNotMatch(faqBlock, /\/register/)
   assert.doesNotMatch(faqBlock, /utm_/)
@@ -296,9 +297,9 @@ test("/manual hub ships FAQPage + HubFaq with no /register", () => {
 
 test("/tools hub ships FAQPage + HubFaq + DefinedTerm with no /register in schema", () => {
   const src = read("app/tools/page.tsx")
-  assert.match(src, /faqPageJsonLd\(TOOLS_HUB_FAQS\)/)
-  assert.match(src, /<HubFaq items=\{TOOLS_HUB_FAQS\}/)
-  assert.match(src, /definedTermJsonLd\(TOOLS_HUB_DEFINED_TERM\)/)
+  assert.match(src, /faqPageJsonLd\(hub\.faqs\)/)
+  assert.match(src, /<HubFaq items=\{hub\.faqs\}/)
+  assert.match(src, /definedTermJsonLd\(hub\.definedTerm\)/)
   const aeo = read("lib/tools-hub-aeo.ts")
   assert.match(aeo, /What is a buy-below price\?/)
   assert.match(aeo, /How does ResaleIQ show demand\?/)

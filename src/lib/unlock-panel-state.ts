@@ -36,10 +36,15 @@ export type UnlockPanelBranch =
 export function unlockPanelBranch(
   result: Pick<VerdictResult, "sell_through_rate" | "unlocks_remaining" | "verification_required">,
   isAuthenticated: boolean,
+  isPaid = false,
 ): UnlockPanelBranch {
   // Present deep fields → nothing to unlock. (Mirrors free-checker.tsx.)
   const deepFieldsMissing = result.sell_through_rate == null
   if (!deepFieldsMissing) return "hidden"
+
+  // IQ-060: operator/power never see Start for €19 / See Starter, even when
+  // /auth/me lagged and unlocks_remaining looks like a free quota hole.
+  if (isPaid) return "entitled"
 
   // Anonymity is an AUTH fact. A logged-out visitor gets the free-account door.
   if (!isAuthenticated) return "register"

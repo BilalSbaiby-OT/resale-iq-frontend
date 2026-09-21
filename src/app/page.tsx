@@ -9,7 +9,7 @@ import type { FaqItem } from "@/lib/faq-schema"
 
 import type { Metadata } from "next"
 
-// Visible FAQ + FAQPage on English `/` only (3 Qs max). Compact pricing
+// Visible FAQ + FAQPage on English `/` only. Compact pricing
 // hides the /pricing FAQ, so this is the homepage’s own block — answers
 // match hero copy, no invented stats, no /register, no UTM.
 const HOME_FAQS: FaqItem[] = [
@@ -27,6 +27,11 @@ const HOME_FAQS: FaqItem[] = [
     q: "What is a buy-below price?",
     a:
       "The most you can pay for a garment and still keep a healthy margin after fees. Samba, Air Force 1, and NB 530 return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
+  },
+  {
+    q: "What if you don’t track my item?",
+    a:
+      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. Adidas Samba, Nike Air Force 1 and New Balance 530 are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
   },
 ]
 

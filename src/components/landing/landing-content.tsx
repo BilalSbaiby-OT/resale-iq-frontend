@@ -60,7 +60,7 @@ export function LandingContent({
   void trackedExact
   void heroQuery
   return (
-    <div style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
+    <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
       <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--space-3) var(--space-3) 0", maxWidth: "var(--width-marketing)", margin: "0 auto", gap: "var(--space-2)", flexWrap: "wrap" }}>
         <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
@@ -176,6 +176,43 @@ export function LandingContent({
               </p>
             ) : null}
           </div>
+        </section>
+
+        <section
+          aria-labelledby="riq-how-to-heading"
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)" }}
+        >
+          <h2
+            id="riq-how-to-heading"
+            style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.2px", margin: "0 0 14px", color: "var(--color-text-primary)" }}
+          >
+            {t.howToHeading}
+          </h2>
+          <ol
+            data-testid="riq-how-to"
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              maxWidth: "46ch",
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            {t.howToSteps.map((step, i) => (
+              <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontSize: 14.5, lineHeight: 1.45, color: "var(--color-text-dim)" }}>
+                <span style={{ fontVariantNumeric: "tabular-nums", fontWeight: 600, color: "var(--color-text-primary)", minWidth: "1.5em" }}>{i + 1}.</span>
+                <span>{step}</span>
+              </li>
+            ))}
+          </ol>
+          <p
+            data-testid="riq-coverage-line"
+            style={{ fontSize: 13, lineHeight: 1.5, color: "var(--color-text-dim)", margin: "14px 0 0", maxWidth: "52ch" }}
+          >
+            {t.howToCoverage}
+          </p>
         </section>
 
         <BrandStrip

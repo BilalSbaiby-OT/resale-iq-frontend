@@ -10,6 +10,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
+import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { useAuthStore } from "@/lib/auth-store"
 import { planChip } from "@/lib/entitlement"
@@ -25,6 +26,8 @@ import "@/types/webmcp-jsx"
 import { FREE_MODELS } from "@/lib/working-models"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
+import { checkerFace } from "@/lib/query-coverage"
+import { collectVerdictMetrics, hasVerdictIntelligence, type ReconstructedSignals } from "@/lib/verdict-intelligence"
 import { formatStrPctString } from "@/lib/str-pct"
 import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 import { trackEvent } from "@/lib/analytics"
@@ -46,7 +49,7 @@ function fmtCount(n: number | null | undefined): string {
 // only render fields the API sent. Number first, letter second, sample third
 // — SKIP without counts reads as "this model does not sell".
 
-interface FreeVerdict {
+interface FreeVerdict extends ReconstructedSignals {
   verdict?: string
   product?: string
   category?: string
@@ -397,6 +400,8 @@ export function FreeChecker({
   const sold = res?.sold_7d
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
+  const intel = res ? collectVerdictMetrics(res) : []
+  const hasIntel = res ? hasVerdictIntelligence(res) : false
   // Gated / present / genuinely unmeasured — three states, never collapsed
   // into one dash. See src/lib/locked-fields.ts.
   const strState = fieldState(res?.sell_through_rate, res?.locked_fields, "sell_through_rate")
@@ -576,39 +581,17 @@ export function FreeChecker({
             </div>
           )}
           {res.verdict === "PAYWALL" ? (
-            refusalIsPaid
-              ? <PaidPostCheckBar locale={locale} user={chipUser} />
-              : <HardPaywallCard locale={locale} plans={res.plans} query={q} />
+            checkerFace({ verdict: "PAYWALL", query: q, apiBody: res }) === "coverage"
+              ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
+              : refusalIsPaid
+                ? <PaidPostCheckBar locale={locale} user={chipUser} />
+                : <HardPaywallCard locale={locale} plans={res.plans} query={q} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             refusalIsPaid
               ? <PaidPostCheckBar locale={locale} user={chipUser} />
               : <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
           ) : res.verdict === "UNKNOWN" ? (
-            <>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
-              {/* Same reasoning as the LIMIT_REACHED branch above: res.message
-                  is backend-owned English prose, never localised. Always show
-                  the translated fallback. */}
-              <p style={{ fontSize: 14, color: "#FF9F0A", lineHeight: 1.55 }}>
-                {t.unknownFallback}
-              </p>
-              {/* ux-researcher, roster consult 2026-09-01: turn "this doesn't
-                  work" into "it works for THESE" — the narrowing is honest,
-                  an empty refusal with no next step reads as broken. */}
-              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
-              {/* CRO-UNKNOWN: after the dead-end, give them the catalogue.
-                  /data is the public page that lists every brand we cover —
-                  honest, on-topic, keeps them on-site. Same muted-link style
-                  used in the LIMIT_REACHED branch and throughout this card. */}
-              <div style={{ marginTop: 10 }}>
-                <Link
-                  href={canonicalPath(locale, "/data")}
-                  style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
-                >
-                  → See the 28 brands we track
-                </Link>
-              </div>
-            </>
+            <CoverageMissCard locale={locale} query={res.product ?? q} onPick={ex => run(ex)} disabled={loading} />
           ) : res.verdict === "BRAND_CATEGORIES" ? (
             // A brand-only query — the backend recognises the brand but has no
             // garment to price. Previously fell through to the default
@@ -722,6 +705,17 @@ export function FreeChecker({
                   </span>
                 </div>
               )}
+              {intel.filter((row) => row.id !== "n").length > 0 && (
+                <div data-testid="riq-answer-rows" style={{ marginTop: 14, display: "grid", gap: 8, maxWidth: "min(100%, 420px)" }}>
+                  {intel.filter((row) => row.id !== "n").map((row) => (
+                    <AnswerRow
+                      key={row.id}
+                      label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : t.stillListed}
+                      value={row.id === "buy_below" || row.id === "sell_avg" ? money(row.numeric) : fmtCount(row.numeric)}
+                    />
+                  ))}
+                </div>
+              )}
 
               {(res.confidence_note || res.message) && (
                 <p style={{ marginTop: 10, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>
@@ -782,19 +776,11 @@ export function FreeChecker({
                 <p style={{ marginTop: "var(--space-1)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>{res.match_note}</p>
               )}
 
-              {hasPrices && (
-                // Capped, not full-bleed. Left to itself the list spans the
-                // whole 620px card and the eye travels the width of the fold to
-                // pair "Buy-below" with "€20" — which is what made the old tile
-                // grid feel like a readout. 420px is wide enough for the
-                // longest label in the six locales ("Precio máximo de compra")
-                // and short enough that a label and its number read as one
-                // line. `min()` so 390px keeps its gutter.
+              {(hasPrices || intel.some((r) => r.id === "sold_7d" || r.id === "buy_below") || strState !== "absent") && (
                 <div data-testid="riq-answer-rows" style={{ marginTop: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--color-hairline)", display: "grid", gap: "var(--space-1)", maxWidth: "min(100%, 420px)" }}>
-                  <AnswerRow label={t.buyBelow} value={money(res.buy_below)} />
-                  {/* Public demand on the fold is sold_7d (watched departures),
-                      never comparable_n. Market price and still-listed stay on
-                      /tools. */}
+                  {intel.filter((r) => r.id === "buy_below").map((r) => (
+                    <AnswerRow key="buy" label={t.buyBelow} value={money(r.numeric)} />
+                  ))}
                   {sold != null && <AnswerRow label={t.leftShelf} value={fmtCount(sold)} />}
                   {strState === "value" ? (
                     <AnswerRow label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
@@ -810,7 +796,7 @@ export function FreeChecker({
                 </p>
               )}
 
-              {!hasPrices && (
+              {!hasPrices && !hasIntel && (
                 <p style={{ marginTop: "var(--space-2)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>
                   {t.headlineOnly} {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
                 </p>
@@ -823,28 +809,16 @@ export function FreeChecker({
                 <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12 }}>{res.match_note}</p>
               )}
 
-              {hasPrices && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 10 }}>
-                <Stat label={t.buyBelow} value={money(res.buy_below)} accent="#34C759" />
-                <Stat label={t.marketPrice} value={money(res.sell_avg)} />
-                {sold != null ? <Stat label={t.leftShelf} value={fmtCount(sold)} /> : null}
-                {listed != null ? <Stat label={t.stillListed} value={fmtCount(listed)} /> : null}
-                {/* THE P0 BUG THIS BRANCH USED TO CARRY: the condition was
-                    `res.locked || res.sell_through_rate == null`, and the value
-                    was `res.locked ? t.planLabel : "—"`. Because `res.locked`
-                    is the constant false on every backend branch (see
-                    src/lib/locked-fields.ts for the production curl), the FIRST
-                    half only ever matched via the null check and the SECOND
-                    half only ever chose "—". The gated-copy path was
-                    unreachable: every visitor to the homepage hero saw a bare
-                    dash over the sell-through slot, which reads as "this
-                    product is broken" rather than "this is behind a plan".
-                    The API had been naming the withheld fields in
-                    `locked_fields` the whole time; the UI just never read it.
-
-                    Now: gated -> a lock and a route that unlocks it; genuinely
-                    unmeasured -> no tile at all, because an empty slot is
-                    honest and a dash pretending to be a number is not. */}
+              {intel.length > 0 && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 140px),1fr))", gap: 10 }}>
+                {intel.map((row) => (
+                  <Stat
+                    key={row.id}
+                    label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : row.id === "active_listings" ? t.stillListed : row.id === "comps" ? t.stillListed : row.id === "n" ? "n" : t.buyBelow}
+                    value={row.id === "buy_below" || row.id === "sell_avg" ? money(row.numeric) : fmtCount(row.numeric)}
+                    accent={row.id === "buy_below" ? "#34C759" : undefined}
+                  />
+                ))}
                 {strState === "value" ? (
                   <Stat label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                 ) : strState === "locked" ? (
@@ -908,7 +882,7 @@ export function FreeChecker({
                   its own branch above (defect 2/3, 2026-09-01) — so !hasPrices
                   in this branch only ever means BUY/WATCH/SKIP without an
                   account, not a refusal. */}
-              {!hasPrices && (
+              {!hasPrices && !hasIntel && (
                 <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
                   {t.headlineOnly} {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
                 </p>

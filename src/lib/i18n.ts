@@ -139,6 +139,14 @@ export const copy = {
     heroHeadline: "Know what sells. Decide whether to buy.",
     heroSub:
       "Which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
+    howToHeading: "How to use it",
+    howToSteps: [
+      "Type a brand and model — or paste a listing title.",
+      "Read BUY, WATCH or SKIP and the most you can pay after fees.",
+      "Only source under that buy-below.",
+    ],
+    howToCoverage:
+      "We do not track low-demand items or brands that are not in this catalog. Samba, Air Force 1 and NB 530 are free samples on ES/FR/DE/IT/PT Vinted. A miss is a coverage gap — not a number hiding behind a paywall.",
     heroBody:
       "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>
@@ -199,6 +207,13 @@ export const copy = {
       faqHeading: "Frequently asked questions",
       upsellTitle: "Get the full numbers.",
       upsellCta: "See plans",
+      volumesBefore: "Weekly brand volumes stay public on the ",
+      volumesData: "market data",
+      volumesMid: " page. What sells in this snapshot is ranked on ",
+      volumesFlips: "brand flips",
+      volumesEnd: ".",
+      oneItem: "The checker answers one item at a time.",
+      seePlansFooter: "See the plans →",
       // English strings below are pinned by e2e/smoke.spec.ts ("public profit
       // calculator shows a result or a visible error after Calculate"), which
       // finds the fields by label and the button by its exact accessible name.
@@ -248,6 +263,14 @@ export const copy = {
       createFreeAccount: "Sign in →",
       seePlans: "See plans",
       unknownFallback: "We track 26 clothing & sneaker brands (ES/FR/DE/IT/PT) — not electronics or homeware. Try one of these:",
+      coverageHeadline: "Not in this catalog",
+      coverageBody:
+        "We do not track that query — low-demand and not-in-catalog are the same miss. That is coverage, not a number waiting behind Starter. Try Samba, Air Force 1 or NB 530, or see the brands we publish.",
+      coverageCatalogCta: "→ See the brands we publish on /data",
+      paywallUnlockLine: (price: number) =>
+        `€${price} unlocks this check — BUY, WATCH or SKIP plus the max to pay.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 and NB 530 are the free samples. Other models we track unlock with Starter. Paying does not invent a number for a brand we don't watch.",
       tryTheseInstead: "Try one of these instead",
       // Matches extension/content.js I18N.en.thinSample verbatim (product
       // term, not a fresh translation) and echoes heroHonesty above it.
@@ -364,7 +387,7 @@ export const copy = {
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
-        { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba or Nike Air Force 1 on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
+        { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or New Balance 530 on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "When does access start after paying?", a: "The moment Stripe confirms your payment — usually within 2 seconds. Next you check a real item; we pre-fill Nike Air Force 1. No email to wait for. If a connection error interrupts, sign in at /login." },
@@ -702,9 +725,17 @@ export const copy = {
       seeAll: "Tout voir sur /data",
     },
     heroHeadline: "Sachez ce qui se vend. Décidez si vous achetez.",
-    heroSub: "Ce qui se vend, BUY / WATCH / SKIP, prix à ne pas dépasser. Starter 19 €/mois.",
+    heroSub: "Ce qui se vend, ACHETER / SURVEILLER / ÉCARTER, prix à ne pas dépasser. Starter 19 €/mois.",
+    howToHeading: "Comment l'utiliser",
+    howToSteps: [
+      "Saisissez une marque et un modèle — ou collez le titre d'une annonce.",
+      "Lisez ACHETER, SURVEILLER ou ÉCARTER et le maximum que vous pouvez payer après frais.",
+      "N'achetez que sous ce prix d'achat max.",
+    ],
+    howToCoverage:
+      "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et NB 530 sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
     heroBody:
-      "Ce qui est demandé, ce que ça se revend, s'il faut acheter à ce prix — puis BUY, WATCH ou SKIP. Vinted est le premier marketplace ; l'origine de l'achat n'est pas le produit.",
+      "Ce qui est demandé, ce que ça se revend, s'il faut acheter à ce prix — puis ACHETER, SURVEILLER ou ÉCARTER. Vinted est le premier marketplace ; l'origine de l'achat n'est pas le produit.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -713,7 +744,7 @@ export const copy = {
     checkItem: "Vérifier un article",
     orCheck: "Essai Starter 7 jours",
     features: [
-      { t: "Décider avant d'acheter", d: "DONNÉES → ANALYSE → DÉCISION. BUY, WATCH ou SKIP d'après les disparitions observées — pas un modèle qui devine." },
+      { t: "Décider avant d'acheter", d: "DONNÉES → ANALYSE → DÉCISION. ACHETER, SURVEILLER ou ÉCARTER d'après les disparitions observées — pas un modèle qui devine." },
       { t: "Recherche live", d: "Cherchez des annonces Vinted en direct. L'intelligence est construite sur 5 marchés UE." },
       { t: "Comparaison de prix", d: "Comparez le même article entre sites Vinted. Achetez là où c'est moins cher." },
       { t: "Bons plans", d: "Annonces déjà sous votre prix d'achat maximum, maintenant." },
@@ -743,12 +774,19 @@ export const copy = {
     },
     toolsPage: {
       h1: "Vérifiez le marché avant d'acheter",
-      lede: "Tapez l'article que vous avez en main. Vous obtenez BUY, WATCH ou SKIP, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
+      lede: "Tapez l'article que vous avez en main. Vous obtenez ACHETER, SURVEILLER ou ÉCARTER, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
       moreTools: "Autres outils",
       breadcrumbTools: "Outils",
       faqHeading: "Questions fréquentes",
       upsellTitle: "Obtenez tous les chiffres.",
       upsellCta: "Voir les offres",
+      volumesBefore: "Les volumes par marque restent publics sur la page ",
+      volumesData: "données marché",
+      volumesMid: ". Ce qui part dans cet instantané est classé sur ",
+      volumesFlips: "les flips de marque",
+      volumesEnd: ".",
+      oneItem: "Le checker répond un article à la fois.",
+      seePlansFooter: "Voir les offres →",
       calc: {
         pageTitle: "Calculateur de profit",
         pageSubtitle: "Profit net après commission Vinted. Sans compte.",
@@ -785,6 +823,14 @@ export const copy = {
       createFreeAccount: "Se connecter →",
       seePlans: "Voir les tarifs",
       unknownFallback: "Nous couvrons 26 marques de vêtements et sneakers (ES/FR/DE/IT/PT) — pas l'électronique ni la maison. Essayez :",
+      coverageHeadline: "Pas dans ce catalogue",
+      coverageBody:
+        "Nous n'avons pas de modèle de demande pour cette recherche. C'est la couverture, pas une faible demande, et pas un chiffre qui attend derrière Starter. Essayez Samba, Air Force 1 ou NB 530, ou voyez les marques que nous publions.",
+      coverageCatalogCta: "→ Voir les marques publiées sur /data",
+      paywallUnlockLine: (price: number) =>
+        `${price} € débloque cette vérification — ACHETER, SURVEILLER ou ÉCARTER plus le max à payer.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 et NB 530 sont les exemples gratuits. Les autres modèles que nous suivons se débloquent avec Starter. Payer n'invente pas un chiffre pour une marque que nous ne suivons pas.",
       tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
       insufficientStatement: "Pas assez de départs observés pour chiffrer ceci.",
       insufficientSubtext: "On préfère le dire plutôt que deviner.",
@@ -799,8 +845,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATTEINTE",
       paywallHeadline: "Arrêtez de deviner combien payer sur Vinted.",
       paywallHeadlineForItem: (item: string) => `Vaut-il le coup d'acheter ${item} sur Vinted ?`,
-      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} annonces analysées — Verdict BUY/WATCH/SKIP + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un mauvais achat évité sur ${item} couvre 2+ mois. ${tracked} annonces analysées — Verdict BUY/WATCH/SKIP + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.`,
+      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} annonces analysées — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
+      paywallBodyForItem: (item: string, tracked: string) => `Un mauvais achat évité sur ${item} couvre 2+ mois. ${tracked} annonces analysées — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.`,
       paywallCta: (price: number) => `Commencer — ${price} €/mois`,
       paywallLogin: "Déjà un compte ? Connexion",
       confidenceLabel: "Confiance",
@@ -835,7 +881,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Deal Finder en direct, Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès démarre en ~2s après le paiement — pas d'attente d'e-mail.",
-      subhead: "Une recherche vous donne BUY / WATCH / SKIP, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
+      subhead: "Une recherche vous donne ACHETER / SURVEILLER / ÉCARTER, le prix d'achat max et la solidité des preuves. Starter 19 €/mois.",
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
       coldCtaLadder: "Essaie un vrai check — Fred Perry Shirt →",
@@ -850,12 +896,12 @@ export const copy = {
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance.", cta: { text: "→ Essayez une vérification en direct", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "en général" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 20 articles par mois à 15 € pièce — le calculateur ci-dessus indique que 2 mauvais achats évités suffisent. Un évité sur un SKIP, un saisi sur un BUY. Ajustez les curseurs à votre propre volume." },
-        { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez un BUY, WATCH ou SKIP avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
+        { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez ACHETER, SURVEILLER ou ÉCARTER avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quand l'accès démarre-t-il après le paiement ?", a: "À l'instant où Stripe confirme votre paiement — en général en moins de 2 secondes. Ensuite vous vérifiez un vrai article ; Nike Air Force 1 est déjà saisi. Pas d'e-mail à attendre. Si une erreur de connexion interrompt, connectez-vous sur /login." },
         { q: "Et si les données manquent pour mon article ?", a: "Vous voyez quand même la vérification, et là où l'échantillon est mince nous le disons plutôt que d'inventer un chiffre. Nous rapportons les départs observés, c'est-à-dire les articles qui quittent l'étagère, pas des ventes que nous n'avons pas vues." },
         { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier vous-même sur la page de données publique. Vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé, sans e-mail à relancer." },
-        { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Non. Les volumes hebdo par marque et les prix moyens de départ sont publics sur /data sans compte. BUY, WATCH ou SKIP au niveau article, le prix max et les tailles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API." },
+        { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Oui. Vérifiez Adidas Samba, Nike Air Force 1 ou New Balance 530 sur /tools sans compte. Les volumes hebdo par marque sont publics sur /data. Les autres modèles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API." },
       ],
     },
     tiers: {
@@ -1115,9 +1161,17 @@ export const copy = {
     },
     heroHeadline: "Sabe qué se vende. Decide si compras.",
     heroSub:
-      "Qué se vende, BUY / WATCH / SKIP, precio máximo de compra. Starter 19 €/mes.",
+      "Qué se vende, COMPRA / OBSERVA / DESCARTA, precio máximo de compra. Starter 19 €/mes.",
+    howToHeading: "Cómo usarlo",
+    howToSteps: [
+      "Escribe una marca y un modelo — o pega el título de un anuncio.",
+      "Lee COMPRA, OBSERVA o DESCARTA y lo máximo que puedes pagar tras comisiones.",
+      "Compra solo por debajo de ese precio máximo.",
+    ],
+    howToCoverage:
+      "No rastreamos artículos de baja demanda ni marcas que no están en este catálogo. Samba, Air Force 1 y NB 530 son los ejemplos gratis en Vinted ES/FR/DE/IT/PT. Un fallo es un hueco de cobertura — no un número escondido detrás de un muro de pago.",
     heroBody:
-      "Qué hay en demanda, a qué se revende, si conviene comprar a este precio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace; de dónde compras no es el producto.",
+      "Qué hay en demanda, a qué se revende, si conviene comprar a este precio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace; de dónde compras no es el producto.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
@@ -1162,6 +1216,13 @@ export const copy = {
       faqHeading: "Preguntas frecuentes",
       upsellTitle: "Consigue las cifras completas.",
       upsellCta: "Ver planes",
+      volumesBefore: "Los volúmenes semanales por marca siguen públicos en la página de ",
+      volumesData: "datos de mercado",
+      volumesMid: ". Lo que se mueve en este instantáneo está en ",
+      volumesFlips: "flips de marca",
+      volumesEnd: ".",
+      oneItem: "El comprobador responde un artículo cada vez.",
+      seePlansFooter: "Ver planes →",
       calc: {
         pageTitle: "Calculadora de beneficios",
         pageSubtitle: "Beneficio neto tras las comisiones de Vinted. Sin cuenta.",
@@ -1198,6 +1259,14 @@ export const copy = {
       createFreeAccount: "Iniciar sesión →",
       seePlans: "Ver planes",
       unknownFallback: "Cubrimos 26 marcas de ropa y sneakers (ES/FR/DE/IT/PT), no electrónica ni hogar. Prueba con:",
+      coverageHeadline: "No está en este catálogo",
+      coverageBody:
+        "No tenemos un modelo de demanda para esa consulta. Eso es cobertura, no baja demanda, y no un número esperando detrás de Starter. Prueba Samba, Air Force 1 o NB 530, o mira las marcas que publicamos.",
+      coverageCatalogCta: "→ Ver las marcas publicadas en /data",
+      paywallUnlockLine: (price: number) =>
+        `${price} € desbloquea esta comprobación — COMPRA, OBSERVA o DESCARTA más el máximo a pagar.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 y NB 530 son los ejemplos gratis. Otros modelos que seguimos se desbloquean con Starter. Pagar no inventa un número para una marca que no observamos.",
       tryTheseInstead: "Prueba con uno de estos",
       insufficientStatement: "Aún no hay suficientes salidas observadas para calcular un precio.",
       insufficientSubtext: "Preferimos decirlo antes que adivinar.",
@@ -1212,8 +1281,8 @@ export const copy = {
       limitReachedLabel: "LÍMITE ALCANZADO",
       paywallHeadline: "Deja de adivinar cuánto pagar en Vinted.",
       paywallHeadlineForItem: (item: string) => `¿Vale la pena comprar ${item} en Vinted?`,
-      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} anuncios analizados — Veredicto BUY/WATCH/SKIP + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
-      paywallBodyForItem: (item: string, tracked: string) => `Una mala compra evitada de ${item} cubre 2+ meses. ${tracked} anuncios analizados — Veredicto BUY/WATCH/SKIP + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.`,
+      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
+      paywallBodyForItem: (item: string, tracked: string) => `Una mala compra evitada de ${item} cubre 2+ meses. ${tracked} anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.`,
       paywallCta: (price: number) => `Empezar — ${price} €/mes`,
       paywallLogin: "¿Ya tienes cuenta? Entra",
       confidenceLabel: "Confianza",
@@ -1250,7 +1319,7 @@ export const copy = {
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Deal Finder en vivo, Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso empieza en ~2s después del pago — sin esperar un correo.",
       subhead:
-        "Una búsqueda te da BUY / WATCH / SKIP, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
+        "Una búsqueda te da COMPRA / OBSERVA / DESCARTA, el precio máximo de compra y qué tan sólida es la evidencia. Starter: 19 €/mes.",
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
       scopeNote: "Diseñado para ropa, calzado y accesorios en Vinted · ES · FR · DE · IT · PT. Cuando la muestra es insuficiente, el veredicto muestra UNKNOWN — nunca una suposición.",
       coldCtaLadder: "Prueba un check real — Fred Perry Shirt →",
@@ -1265,12 +1334,12 @@ export const copy = {
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad.", cta: { text: "→ Prueba una comprobación en directo", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "suele" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 20 artículos al mes a 15 € cada uno — la calculadora de arriba dice que bastan 2 malas compras evitadas. Una evitada en un SKIP, una aprovechada en un BUY. Ajusta los controles a tu propio volumen." },
-        { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes un BUY, WATCH o SKIP con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
+        { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes COMPRA, OBSERVA o DESCARTA con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "¿Cuándo empieza el acceso después de pagar?", a: "En el momento en que Stripe confirma tu pago — normalmente en menos de 2 segundos. Luego compruebas un artículo real; Nike Air Force 1 ya está rellenado. Sin esperar un correo. Si un error de conexión interrumpe, inicia sesión en /login." },
         { q: "¿Y si no hay datos para mi artículo?", a: "Sigues viendo la comprobación, y donde la muestra es escasa lo decimos en lugar de inventar un número. Informamos de salidas observadas, es decir, artículos que dejan el estante, no de ventas que no hemos visto." },
         { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar tú mismo en la página de datos pública. Cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado, sin correos que perseguir." },
-        { q: "¿Hay un comprobador de artículos gratis?", a: "No. Los volúmenes semanales por marca y los precios medios de salida son públicos en /data sin cuenta. BUY, WATCH o SKIP a nivel de artículo, el precio máximo y las tallas necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API." },
+        { q: "¿Hay un comprobador de artículos gratis?", a: "Sí. Comprueba Adidas Samba, Nike Air Force 1 o New Balance 530 en /tools sin cuenta. Los volúmenes semanales por marca son públicos en /data. Otros modelos necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API." },
       ],
     },
     tiers: {
@@ -1529,7 +1598,15 @@ export const copy = {
       seeAll: "Alle auf /data",
     },
     heroHeadline: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
-    heroSub: "Was gefragt ist, BUY / WATCH / SKIP, Kaufobergrenze. Starter 19 €/Monat.",
+    heroSub: "Was gefragt ist, KAUFEN / BEOBACHTEN / VERWERFEN, Kaufobergrenze. Starter 19 €/Monat.",
+    howToHeading: "So nutzt du es",
+    howToSteps: [
+      "Gib Marke und Modell ein — oder füge den Titel eines Angebots ein.",
+      "Lies KAUFEN, BEOBACHTEN oder VERWERFEN und den Höchstpreis nach Gebühren.",
+      "Kaufe nur unter dieser Kaufobergrenze.",
+    ],
+    howToCoverage:
+      "Wir erfassen keine schwachen Nachfragemodelle und keine Marken, die nicht in diesem Katalog stehen. Samba, Air Force 1 und NB 530 sind kostenlose Beispiele auf Vinted in ES/FR/DE/IT/PT. Eine Lücke ist Abdeckung — keine Zahl hinter einem Bezahl-Tarif.",
     heroBody:
       "Was nachgefragt wird, wofür es sich weiterverkauft, ob du zu diesem Preis kaufen solltest — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz; woher du die Ware holst, ist nicht das Produkt.",
     heroFrom: (tracked: string) =>
@@ -1540,7 +1617,7 @@ export const copy = {
     checkItem: "Artikel prüfen",
     orCheck: "7-tägige Starter-Testphase starten",
     features: [
-      { t: "Entscheiden, bevor du kaufst", d: "DATEN → ANALYSE → ENTSCHEIDUNG. BUY, WATCH oder SKIP auf Basis beobachteter Abgänge — kein Modell, das rät." },
+      { t: "Entscheiden, bevor du kaufst", d: "DATEN → ANALYSE → ENTSCHEIDUNG. KAUFEN, BEOBACHTEN oder VERWERFEN auf Basis beobachteter Abgänge — kein Modell, das rät." },
       { t: "Live-Suche", d: "Durchsuche aktive Vinted-Angebote über Länderseiten hinweg. Die Analyse basiert auf 5 EU-Märkten." },
       { t: "Preisvergleich", d: "Vergleiche Angebotspreise für dasselbe Produkt über Vinted-Länderseiten hinweg. Kaufe, wo es günstiger ist." },
       { t: "Deal Finder", d: "Angebote, die jetzt schon unter deiner Kaufobergrenze liegen." },
@@ -1570,12 +1647,19 @@ export const copy = {
     },
     toolsPage: {
       h1: "Prüfe den Markt, bevor du kaufst",
-      lede: "Gib den Artikel ein, den du in der Hand hast. Du erhältst BUY, WATCH oder SKIP, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
+      lede: "Gib den Artikel ein, den du in der Hand hast. Du erhältst KAUFEN, BEOBACHTEN oder VERWERFEN, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
       moreTools: "Weitere Tools",
       breadcrumbTools: "Tools",
       faqHeading: "Häufige Fragen",
       upsellTitle: "Hol dir die vollständigen Zahlen.",
       upsellCta: "Pläne ansehen",
+      volumesBefore: "Wöchentliche Markenvolumen bleiben öffentlich auf der Seite ",
+      volumesData: "Marktdaten",
+      volumesMid: ". Was sich in diesem Snapshot verkauft, steht unter ",
+      volumesFlips: "Marken-Flips",
+      volumesEnd: ".",
+      oneItem: "Der Checker prüft jeweils einen Artikel.",
+      seePlansFooter: "Tarife ansehen →",
       calc: {
         pageTitle: "Gewinnrechner",
         pageSubtitle: "Nettogewinn nach Vinted-Gebühren. Ohne Konto.",
@@ -1612,6 +1696,14 @@ export const copy = {
       createFreeAccount: "Anmelden →",
       seePlans: "Preise ansehen",
       unknownFallback: "Wir erfassen 26 Kleidungs- & Sneaker-Marken (ES/FR/DE/IT/PT) — keine Elektronik oder Haushalt. Versuche:",
+      coverageHeadline: "Nicht in diesem Katalog",
+      coverageBody:
+        "Für diese Suche haben wir kein Nachfragemodell. Schwache Nachfrage und nicht im Katalog sind dieselbe Lücke — Abdeckung, keine Zahl hinter Starter. Versuche Samba, Air Force 1 oder NB 530, oder sieh die Marken, die wir veröffentlichen.",
+      coverageCatalogCta: "→ Die veröffentlichten Marken auf /data ansehen",
+      paywallUnlockLine: (price: number) =>
+        `${price} € schaltet diese Prüfung frei — KAUFEN, BEOBACHTEN oder VERWERFEN plus den Höchstpreis.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 und NB 530 sind die kostenlosen Beispiele. Andere Modelle, die wir erfassen, kommen mit Starter. Bezahlen erfindet keine Zahl für eine Marke, die wir nicht beobachten.",
       tryTheseInstead: "Probier stattdessen eines davon",
       insufficientStatement: "Noch nicht genug beobachtete Abgänge für einen Preis.",
       insufficientSubtext: "Das sagen wir lieber, als zu raten.",
@@ -1626,8 +1718,8 @@ export const copy = {
       limitReachedLabel: "LIMIT ERREICHT",
       paywallHeadline: "Hör auf zu raten, was du auf Vinted zahlen sollst.",
       paywallHeadlineForItem: (item: string) => `Lohnt sich ${item} auf Vinted?`,
-      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Angebote analysiert — BUY/WATCH/SKIP-Urteil + der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
-      paywallBodyForItem: (item: string, tracked: string) => `Ein vermiedener Fehlkauf bei ${item} deckt 2+ Monate. ${tracked} Angebote analysiert — BUY/WATCH/SKIP-Urteil + der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.`,
+      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Angebote analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
+      paywallBodyForItem: (item: string, tracked: string) => `Ein vermiedener Fehlkauf bei ${item} deckt 2+ Monate. ${tracked} Angebote analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.`,
       paywallCta: (price: number) => `Loslegen — ${price} €/Monat`,
       paywallLogin: "Schon ein Konto? Anmelden",
       confidenceLabel: "Konfidenz",
@@ -1662,7 +1754,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Live Deal Finder, Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang startet in ~2s nach der Zahlung — keine Wartezeit auf eine E-Mail.",
-      subhead: "Eine Suche gibt Ihnen BUY / WATCH / SKIP, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
+      subhead: "Eine Suche gibt dir KAUFEN / BEOBACHTEN / VERWERFEN, den Kaufhöchstpreis und die Beweissicherheit. Starter 19 €/Monat.",
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
       coldCtaLadder: "Probier einen echten Check — Fred Perry Shirt →",
@@ -1677,12 +1769,12 @@ export const copy = {
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl.", cta: { text: "→ Jetzt einen Live-Check ausprobieren", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "meist" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 20 Artikel im Monat zu je 15 € — zeigt der Rechner oben: 2 vermiedene Fehlkäufe decken es. Einer ausgelassen auf ein SKIP, einer mitgenommen auf ein BUY. Schiebe die Regler auf dein eigenes Volumen." },
-        { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst ein BUY, WATCH oder SKIP mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
+        { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst KAUFEN, BEOBACHTEN oder VERWERFEN mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Wann beginnt der Zugang nach der Zahlung?", a: "In dem Moment, in dem Stripe deine Zahlung bestätigt — normalerweise innerhalb von 2 Sekunden. Als Nächstes prüfst du einen echten Artikel; Nike Air Force 1 ist vorausgefüllt. Keine E-Mail abwarten. Falls ein Verbindungsfehler unterbricht, melde dich auf /login an." },
         { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Du siehst die Prüfung trotzdem, und wo die Stichprobe dünn ist, sagen wir es, statt eine Zahl zu erfinden. Wir berichten beobachtete Abgänge, also Artikel, die das Regal verlassen, nicht Verkäufe, die wir nicht gesehen haben." },
         { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats, ohne einer E-Mail hinterherzujagen." },
-        { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Nein. Wöchentliche Markenvolumen und durchschnittliche Abgangspreise sind ohne Konto öffentlich auf /data. BUY, WATCH oder SKIP auf Artikelebene, Kaufobergrenze und Größen brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API." },
+        { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Ja. Prüfe Adidas Samba, Nike Air Force 1 oder New Balance 530 auf /tools ohne Konto. Wöchentliche Markenvolumen sind öffentlich auf /data. Andere Modelle brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API." },
       ],
     },
     tiers: {
@@ -1943,7 +2035,15 @@ export const copy = {
       seeAll: "Vedi tutti su /data",
     },
     heroHeadline: "Sappi cosa si vende. Decidi se comprare.",
-    heroSub: "Cosa si vende, BUY / WATCH / SKIP, prezzo da non superare. Starter 19 €/mese.",
+    heroSub: "Cosa si vende, COMPRA / OSSERVA / SCARTA, prezzo da non superare. Starter 19 €/mese.",
+    howToHeading: "Come si usa",
+    howToSteps: [
+      "Scrivi una marca e un modello — o incolla il titolo di un annuncio.",
+      "Leggi COMPRA, OSSERVA o SCARTA e il massimo che puoi pagare dopo le commissioni.",
+      "Compra solo sotto quel prezzo massimo.",
+    ],
+    howToCoverage:
+      "Non copriamo articoli a bassa domanda né marche fuori da questo catalogo. Samba, Air Force 1 e NB 530 sono gli esempi gratuiti su Vinted ES/FR/DE/IT/PT. Un mancato risultato è un buco di copertura — non un numero nascosto dietro un paywall.",
     heroBody:
       "Cosa è richiesto, a quanto si rivende, se conviene comprare a questo prezzo — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace; da dove compri non è il prodotto.",
     heroFrom: (tracked: string) =>
@@ -1954,7 +2054,7 @@ export const copy = {
     checkItem: "Controlla un articolo",
     orCheck: "Inizia la prova Starter di 7 giorni",
     features: [
-      { t: "Decidi prima di comprare", d: "DATI → ANALISI → DECISIONE. BUY, WATCH o SKIP in base alle uscite osservate — non un modello che indovina." },
+      { t: "Decidi prima di comprare", d: "DATI → ANALISI → DECISIONE. COMPRA, OSSERVA o SCARTA in base alle uscite osservate — non un modello che indovina." },
       { t: "Ricerca live", d: "Cerca annunci Vinted attivi tra i siti nazionali. L'analisi si basa su 5 mercati UE." },
       { t: "Confronto prezzi", d: "Confronta i prezzi dello stesso articolo tra i siti Vinted. Compra dove costa meno." },
       { t: "Deal Finder", d: "Annunci già sotto il tuo prezzo massimo di acquisto, in questo momento." },
@@ -1984,12 +2084,19 @@ export const copy = {
     },
     toolsPage: {
       h1: "Controlla il mercato prima di comprare",
-      lede: "Digita l'articolo che hai in mano. Ottieni BUY, WATCH o SKIP, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
+      lede: "Digita l'articolo che hai in mano. Ottieni COMPRA, OSSERVA o SCARTA, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
       moreTools: "Altri strumenti",
       breadcrumbTools: "Strumenti",
       faqHeading: "Domande frequenti",
       upsellTitle: "Ottieni i numeri completi.",
       upsellCta: "Vedi i piani",
+      volumesBefore: "I volumi per marca restano pubblici sulla pagina ",
+      volumesData: "dati di mercato",
+      volumesMid: ". Cosa si muove in questa istantanea è su ",
+      volumesFlips: "flip di marca",
+      volumesEnd: ".",
+      oneItem: "Il checker risponde un articolo alla volta.",
+      seePlansFooter: "Vedi i piani →",
       calc: {
         pageTitle: "Calcolatore di profitto",
         pageSubtitle: "Profitto netto dopo le commissioni Vinted. Senza account.",
@@ -2026,6 +2133,14 @@ export const copy = {
       createFreeAccount: "Accedi →",
       seePlans: "Vedi i piani",
       unknownFallback: "Copriamo 26 marchi di abbigliamento e sneaker (ES/FR/DE/IT/PT), non elettronica o casa. Prova con:",
+      coverageHeadline: "Non è in questo catalogo",
+      coverageBody:
+        "Non abbiamo un modello di domanda per questa ricerca. È copertura, non bassa domanda, e non un numero che aspetta dietro Starter. Prova Samba, Air Force 1 o NB 530, o vedi i marchi che pubblichiamo.",
+      coverageCatalogCta: "→ Vedi i marchi pubblicati su /data",
+      paywallUnlockLine: (price: number) =>
+        `${price} € sblocca questo controllo — COMPRA, OSSERVA o SCARTA più il massimo da pagare.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 e NB 530 sono gli esempi gratuiti. Gli altri modelli che copriamo si sbloccano con Starter. Pagare non inventa un numero per un marchio che non osserviamo.",
       tryTheseInstead: "Prova uno di questi",
       insufficientStatement: "Non ci sono ancora abbastanza partenze osservate per calcolare un prezzo.",
       insufficientSubtext: "Preferiamo dirlo piuttosto che indovinare.",
@@ -2040,8 +2155,8 @@ export const copy = {
       limitReachedLabel: "LIMITE RAGGIUNTO",
       paywallHeadline: "Smettila di indovinare quanto pagare su Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale la pena comprare ${item} su Vinted?`,
-      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} annunci analizzati — Verdetto BUY/WATCH/SKIP + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un acquisto sbagliato di ${item} evitato copre 2+ mesi. ${tracked} annunci analizzati — Verdetto BUY/WATCH/SKIP + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.`,
+      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} annunci analizzati — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
+      paywallBodyForItem: (item: string, tracked: string) => `Un acquisto sbagliato di ${item} evitato copre 2+ mesi. ${tracked} annunci analizzati — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.`,
       paywallCta: (price: number) => `Inizia — ${price} €/mese`,
       paywallLogin: "Hai già un account? Accedi",
       confidenceLabel: "Affidabilità",
@@ -2076,7 +2191,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Deal Finder live, Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso parte in ~2s dopo il pagamento — nessuna attesa via email.",
-      subhead: "Una ricerca ti dà BUY / WATCH / SKIP, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
+      subhead: "Una ricerca ti dà COMPRA / OSSERVA / SCARTA, il prezzo massimo d'acquisto e la solidità delle prove. Starter 19 €/mese.",
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
       coldCtaLadder: "Prova un check reale — Fred Perry Shirt →",
@@ -2091,12 +2206,12 @@ export const copy = {
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza.", cta: { text: "→ Prova un controllo dal vivo ora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "di solito" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 20 articoli al mese a 15 € ciascuno — il calcolatore sopra dice che bastano 2 acquisti sbagliati evitati. Uno evitato su uno SKIP, uno colto su un BUY. Sposta i cursori al tuo volume reale." },
-        { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni un BUY, WATCH o SKIP con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
+        { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni COMPRA, OSSERVA o SCARTA con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando inizia l'accesso dopo il pagamento?", a: "Nel momento in cui Stripe conferma il tuo pagamento — di solito entro 2 secondi. Poi verifichi un articolo reale; Nike Air Force 1 è già compilato. Nessuna email da aspettare. Se un errore di connessione interrompe, accedi su /login." },
         { q: "E se non ci sono dati per il mio articolo?", a: "Vedi comunque il controllo, e dove il campione è scarso lo diciamo invece di inventare un numero. Riportiamo le uscite osservate, cioè gli articoli che lasciano lo scaffale, non vendite che non abbiamo visto." },
         { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare tu stesso sulla pagina dati pubblica. Disdici da Account con un clic; l'accesso arriva alla fine del mese pagato, senza email da rincorrere." },
-        { q: "C'è un controllo articoli gratuito?", a: "No. I volumi settimanali per marca e i prezzi medi di uscita sono pubblici su /data senza account. BUY, WATCH o SKIP a livello di articolo, il prezzo massimo e le taglie richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API." },
+        { q: "C'è un controllo articoli gratuito?", a: "Sì. Controlla Adidas Samba, Nike Air Force 1 o New Balance 530 su /tools senza account. I volumi settimanali per marca sono pubblici su /data. Gli altri modelli richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API." },
       ],
     },
     tiers: {
@@ -2355,7 +2470,15 @@ export const copy = {
       seeAll: "Ver todas em /data",
     },
     heroHeadline: "Saiba o que vende. Decida se compra.",
-    heroSub: "O que está em procura, BUY / WATCH / SKIP, preço máximo. Starter 19 €/mês.",
+    heroSub: "O que está em procura, COMPRAR / OBSERVAR / DESCARTAR, preço máximo. Starter 19 €/mês.",
+    howToHeading: "Como usar",
+    howToSteps: [
+      "Escreve uma marca e um modelo — ou cola o título de um anúncio.",
+      "Lê COMPRAR, OBSERVAR ou DESCARTAR e o máximo que podes pagar após taxas.",
+      "Compra só abaixo desse preço máximo.",
+    ],
+    howToCoverage:
+      "Não acompanhamos artigos de baixa procura nem marcas fora deste catálogo. Samba, Air Force 1 e NB 530 são os exemplos grátis na Vinted ES/FR/DE/IT/PT. Uma falha é um buraco de cobertura — não um número escondido atrás de um muro de pagamento.",
     heroBody:
       "O que está em procura, a que se revende, se deve comprar a este preço — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace; de onde compras não é o produto.",
     heroFrom: (tracked: string) =>
@@ -2366,7 +2489,7 @@ export const copy = {
     checkItem: "Verificar um artigo",
     orCheck: "Iniciar o período experimental Starter de 7 dias",
     features: [
-      { t: "Decida antes de comprar", d: "DADOS → ANÁLISE → DECISÃO. BUY, WATCH ou SKIP com base em saídas observadas — não um modelo a adivinhar." },
+      { t: "Decida antes de comprar", d: "DADOS → ANÁLISE → DECISÃO. COMPRAR, OBSERVAR ou DESCARTAR com base em saídas observadas — não um modelo a adivinhar." },
       { t: "Pesquisa em direto", d: "Pesquise anúncios ativos da Vinted entre sites de vários países. A análise assenta em 5 mercados da UE." },
       { t: "Comparar preços", d: "Compare os preços do mesmo artigo entre sites da Vinted. Compre onde for mais barato." },
       { t: "Deal Finder", d: "Anúncios já abaixo do seu preço máximo de compra, agora mesmo." },
@@ -2396,12 +2519,19 @@ export const copy = {
     },
     toolsPage: {
       h1: "Verifique o mercado antes de comprar",
-      lede: "Digite o artigo que tem em mãos. Você recebe BUY, WATCH ou SKIP, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
+      lede: "Digite o artigo que tem em mãos. Você recebe COMPRAR, OBSERVAR ou DESCARTAR, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
       moreTools: "Mais ferramentas",
       breadcrumbTools: "Ferramentas",
       faqHeading: "Perguntas frequentes",
       upsellTitle: "Obtenha os números completos.",
       upsellCta: "Ver planos",
+      volumesBefore: "Os volumes por marca ficam públicos na página de ",
+      volumesData: "dados de mercado",
+      volumesMid: ". O que sai neste retrato está em ",
+      volumesFlips: "flips de marca",
+      volumesEnd: ".",
+      oneItem: "O verificador responde um artigo de cada vez.",
+      seePlansFooter: "Ver planos →",
       calc: {
         pageTitle: "Calculadora de lucro",
         pageSubtitle: "Lucro líquido após as comissões da Vinted. Sem conta.",
@@ -2438,6 +2568,14 @@ export const copy = {
       createFreeAccount: "Iniciar sessão →",
       seePlans: "Ver planos",
       unknownFallback: "Cobrimos 26 marcas de roupa e sneakers (ES/FR/DE/IT/PT) — não eletrónica nem casa. Tente:",
+      coverageHeadline: "Não está neste catálogo",
+      coverageBody:
+        "Não temos um modelo de procura para essa consulta. Isso é cobertura, não baixa procura, e não um número à espera atrás do Starter. Experimenta Samba, Air Force 1 ou NB 530, ou vê as marcas que publicamos.",
+      coverageCatalogCta: "→ Ver as marcas publicadas em /data",
+      paywallUnlockLine: (price: number) =>
+        `${price} € desbloqueia esta verificação — COMPRAR, OBSERVAR ou DESCARTAR mais o máximo a pagar.`,
+      paywallCatalogNote:
+        "Samba, Air Force 1 e NB 530 são os exemplos grátis. Outros modelos que seguimos desbloqueiam-se com Starter. Pagar não inventa um número para uma marca que não observamos.",
       tryTheseInstead: "Experimenta um destes",
       insufficientStatement: "Ainda não há saídas observadas suficientes para calcular um preço.",
       insufficientSubtext: "Preferimos dizer isso a adivinhar.",
@@ -2452,8 +2590,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATINGIDO",
       paywallHeadline: "Para de adivinhar quanto pagar no Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale a pena comprar ${item} no Vinted?`,
-      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} anúncios analisados — Veredicto BUY/WATCH/SKIP + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
-      paywallBodyForItem: (item: string, tracked: string) => `Uma má compra de ${item} evitada cobre 2+ meses. ${tracked} anúncios analisados — Veredicto BUY/WATCH/SKIP + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.`,
+      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
+      paywallBodyForItem: (item: string, tracked: string) => `Uma má compra de ${item} evitada cobre 2+ meses. ${tracked} anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.`,
       paywallCta: (price: number) => `Começar — ${price} €/mês`,
       paywallLogin: "Já tens conta? Entra",
       confidenceLabel: "Confiança",
@@ -2488,7 +2626,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Live Deal Finder, Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso começa em ~2s após o pagamento — sem esperar por um e-mail.",
-      subhead: "Uma pesquisa dá-te BUY / WATCH / SKIP, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
+      subhead: "Uma pesquisa dá-te COMPRAR / OBSERVAR / DESCARTAR, o preço máximo de compra e a solidez das evidências. Starter 19 €/mês.",
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
       coldCtaLadder: "Experimenta um check real — Fred Perry Shirt →",
@@ -2503,12 +2641,12 @@ export const copy = {
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança.", cta: { text: "→ Experimenta uma verificação ao vivo agora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "costuma" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 20 artigos por mês a 15 € cada — a calculadora acima diz que bastam 2 más compras evitadas. Uma evitada num SKIP, uma aproveitada num BUY. Ajusta os controlos ao teu próprio volume." },
-        { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes um BUY, WATCH ou SKIP com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
+        { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes COMPRAR, OBSERVAR ou DESCARTAR com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando começa o acesso depois de pagar?", a: "No momento em que o Stripe confirma o teu pagamento — normalmente em menos de 2 segundos. Depois verificas um artigo real; Nike Air Force 1 já vem preenchido. Sem e-mail a aguardar. Se um erro de ligação interromper, inicia sessão em /login." },
         { q: "E se não houver dados para o meu artigo?", a: "Continuas a ver a verificação, e onde a amostra é reduzida dizemos isso em vez de inventar um número. Reportamos saídas observadas, ou seja, artigos que deixam a prateleira, não vendas que não vimos." },
         { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar tu próprio na página de dados pública. Cancelas em Conta com um clique; o acesso vai até ao fim do mês pago, sem e-mail a perseguir." },
-        { q: "Há um verificador de artigos grátis?", a: "Não. Os volumes semanais por marca e os preços médios de saída são públicos em /data sem conta. BUY, WATCH ou SKIP ao nível do artigo, o preço máximo e os tamanhos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API." },
+        { q: "Há um verificador de artigos grátis?", a: "Sim. Verifica Adidas Samba, Nike Air Force 1 ou New Balance 530 em /tools sem conta. Os volumes semanais por marca são públicos em /data. Outros modelos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API." },
       ],
     },
     tiers: {

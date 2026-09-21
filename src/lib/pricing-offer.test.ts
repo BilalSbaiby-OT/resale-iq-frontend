@@ -29,7 +29,7 @@ test("EN pricing hero is demand OS, not Know-what-to-pay", () => {
 test("ES pricing hero is an accurate mirror of demand OS", () => {
   const t = copy.es.pricingSection
   assert.equal(t.heading, "Sabe qué se vende. Decide si compras.")
-  assert.match(t.subhead, /BUY \/ WATCH \/ SKIP/)
+  assert.match(t.subhead, /COMPRA \/ OBSERVA \/ DESCARTA/)
   assert.match(t.subhead, /19 €/)
   assert.match(t.subhead, /Starter/)
   assert.doesNotMatch(t.heading, /Sabe qué pagar/i)

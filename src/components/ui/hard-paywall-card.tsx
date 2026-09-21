@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { Lock, Check } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
+import { verdictWord } from "@/lib/verdict-words"
 import { canonicalPath } from "@/lib/locale-routes"
 import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
@@ -46,7 +47,7 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
         data-testid="riq-paywall-locked-verdicts"
         style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}
       >
-        {["BUY", "WATCH", "SKIP"].map((v) => (
+        {(["BUY", "WATCH", "SKIP"] as const).map((v) => (
           <span
             key={v}
             style={{
@@ -60,14 +61,17 @@ export function HardPaywallCard({ locale, plans, query }: { locale: Locale; plan
               color: "#eef1f7",
             }}
           >
-            {v}
+            {verdictWord(v, locale) ?? v}
           </span>
         ))}
       </div>
       <p style={{ fontSize: 13.5, color: "#c3cde0", lineHeight: 1.55, marginBottom: 8 }}>
-        €{price} unlocks this check — BUY, WATCH or SKIP plus the max to pay.
+        {t.paywallUnlockLine(price)}
       </p>
-      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{bodyText}</p>
+      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 8 }}>{bodyText}</p>
+      <p style={{ fontSize: 12.5, color: "#8b99b8", lineHeight: 1.55, marginBottom: 14 }}>
+        {t.paywallCatalogNote}
+      </p>
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" />
         <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>

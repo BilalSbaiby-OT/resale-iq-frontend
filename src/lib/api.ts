@@ -15,9 +15,11 @@ import { getToken, clearToken } from "./utils"
  */
 export class PaymentRequiredError extends Error {
   readonly status = 402
-  constructor(message = "A paid plan is required for this data.") {
+  readonly body?: unknown
+  constructor(message = "A paid plan is required for this data.", body?: unknown) {
     super(message)
     this.name = "PaymentRequiredError"
+    this.body = body
   }
 }
 
@@ -79,8 +81,10 @@ async function request<T>(
 
   if (!res.ok) {
     let detail = `Error ${res.status}`
+    let parsed: unknown = undefined
     try {
-      const body = await res.json()
+      parsed = await res.json()
+      const body = parsed && typeof parsed === "object" ? parsed as Record<string, unknown> : {}
       const d = body.detail || body.message
       detail = typeof d === "string" ? d : detail
     } catch { /* ignore JSON parse errors */ }
@@ -89,7 +93,7 @@ async function request<T>(
       if (!publicAuth) clearToken()
       throw new HttpError(401, detail)
     }
-    if (res.status === 402) throw new PaymentRequiredError(detail)
+    if (res.status === 402) throw new PaymentRequiredError(detail, parsed)
     if (res.status === 403) {
       const verifyUrl = res.headers.get("X-Verify-Url")
       if (verifyUrl && typeof window !== "undefined" && !window.location.pathname.startsWith("/check-email")) {
@@ -177,7 +181,7 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   // locked:true means max_buy_price/est_profit_eur/profit_margin_pct/str_pct/
   // top_sizes/opportunity_score are redacted server-side on every deal — free
   // or expired-trial account. Never trust the frontend to hide these instead.
-  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[] }>(`/api/deals?${q}`)
+  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[]; reason?: string; message?: string }>(`/api/deals?${q}`)
 }
 export const getVerdict = (q: string, unlock = false) =>
   request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}${unlock ? "&unlock=true" : ""}`)

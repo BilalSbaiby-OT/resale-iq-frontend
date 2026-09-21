@@ -93,7 +93,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
   ]
 
   return (
-    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "44px 24px" }}>
+    <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <Link href={canonicalPath(locale, "")} style={{ color: "var(--color-buy)", fontSize: 13, textDecoration: "none" }}>{t.back}</Link>
@@ -116,7 +116,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
           }}
         >
           <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "0 0 12px" }}>{t.citeH2}</h2>
-          <dl style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 18px", margin: 0, fontSize: 14 }}>
+          <dl className="riq-data-cite">
             <div>
               <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtRefresh}</dt>
               <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>
@@ -218,14 +218,14 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
             {t.brandH2}
           </h2>
           <div style={{ marginTop: 18, overflowX: "auto", border: "1px solid var(--color-border-ui)", borderRadius: 12 }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5, minWidth: 620 }}>
+            <table className="riq-data-brands" style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5 }}>
               <thead>
                 <tr style={{ background: "var(--color-surface)", color: "#8b99b8", textAlign: "left" }}>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colRank}</th>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colBrand}</th>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colSold}</th>
                   <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colAvg}</th>
-                  <th style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colCats}</th>
+                  <th className="riq-data-cats" style={{ padding: "11px 14px", fontWeight: 600 }}>{t.colCats}</th>
                 </tr>
               </thead>
               <tbody>
@@ -244,7 +244,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
                       {fmtCount(b.sold_7d)}
                     </td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "var(--color-buy)" }}>{fmtEur(b.avg_price_eur)}</td>
-                    <td style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>
+                    <td className="riq-data-cats" style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -262,15 +262,15 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
 
         <HubFaq items={faqs} />
 
-        <div style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>{t.ctaTitle}</div>
-          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
+        <div className="riq-data-cta" style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", width: "100%" }}>{t.ctaTitle}</div>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px", width: "100%" }}>
             {t.ctaP}
           </p>
           <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
             {t.checkCta}
           </Link>
-          <Link href={`${prefix}/pricing?src=data`} style={{ display: "inline-block", marginLeft: 10, color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          <Link href={`${prefix}/pricing?src=data`} style={{ display: "inline-block", color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
             {t.plansCta}
           </Link>
         </div>

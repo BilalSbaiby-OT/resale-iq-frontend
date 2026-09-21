@@ -20,6 +20,11 @@ export type PaywallPayload = {
   verdict: "PAYWALL"
   locked: true
   message?: string
+  reason?: string
+  coverage?: string
+  coverage_class?: string
+  code?: string
+  refusal_reason?: string
   upgrade_url?: string
   plans: PaywallPlan[]
 }
@@ -41,11 +46,17 @@ export function parsePaywallBody(status: number, body: unknown): PaywallPayload 
       price_eur: typeof p.price_eur === "number" && Number.isFinite(p.price_eur) ? p.price_eur : 0,
     }))
     .filter(p => p.tier && p.price_eur > 0)
+  const opt = (key: string) => (typeof b[key] === "string" ? (b[key] as string) : undefined)
   return {
     verdict: "PAYWALL",
     locked: true,
-    message: typeof b.message === "string" ? b.message : undefined,
-    upgrade_url: typeof b.upgrade_url === "string" ? b.upgrade_url : undefined,
+    message: opt("message"),
+    reason: opt("reason"),
+    coverage: opt("coverage"),
+    coverage_class: opt("coverage_class"),
+    code: opt("code"),
+    refusal_reason: opt("refusal_reason"),
+    upgrade_url: opt("upgrade_url"),
     plans: plans.length ? plans : DEFAULT_PLANS,
   }
 }
