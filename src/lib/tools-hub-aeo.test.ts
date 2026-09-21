@@ -100,6 +100,11 @@ test("/tools hub renders FAQPage, DefinedTerm, and both paid doors", () => {
   assert.match(src, /FreeChecker/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /Check it free/)
+  assert.doesNotMatch(src, /Weekly brand volumes stay public/)
+  assert.doesNotMatch(src, /The checker answers one item at a time/)
+  assert.match(src, /t\.volumesBefore/)
+  assert.match(src, /t\.oneItem/)
+  assert.match(src, /t\.seePlansFooter/)
 })
 
 test("DE /tools hub is German and names the three free samples, not an English stub", () => {
@@ -115,6 +120,8 @@ test("DE /tools hub is German and names the three free samples, not an English s
   assert.match(freeFaq!.a, /Air Force 1/)
   assert.match(freeFaq!.a, /530/)
   assert.doesNotMatch(freeFaq!.a, /^Nein/)
+  assert.doesNotMatch(de.body, /\bBUY\b/)
+  assert.match(de.body, /KAUFEN/)
 })
 
 test("/category hub primary door is the google_search_test MoneyCta", () => {

@@ -8,7 +8,8 @@ import { useAuthStore } from "@/lib/auth-store"
 import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
-import { isPaidPlan, planChip } from "@/lib/entitlement"
+import { isPaidPlan, isPaidPlanId, planChip } from "@/lib/entitlement"
+import { getPlanFromToken } from "@/lib/utils"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 interface AppShellProps {
@@ -116,7 +117,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
     return null
   }
 
-  const isPaid = isPaidPlan(user)
+  const isPaid = isPaidPlan(user) || isPaidPlanId(getPlanFromToken())
   const isPower = user?.plan === "power"
   const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))
@@ -169,7 +170,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
               unauthenticated on /verdict. The seed verdict card is
               visible above this; the login prompt appears below it
               so the user can register and keep their result. */}
-          {isSandbox && !isAuthenticated && !user && checked && (
+          {isSandbox && !isAuthenticated && !user && checked && !isPaid && (
             <div style={{
               background: "var(--color-graphite-elevated)",
               borderRadius: 14, padding: "14px 20px", marginTop: 24,

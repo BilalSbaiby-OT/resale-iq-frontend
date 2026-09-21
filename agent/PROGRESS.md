@@ -639,4 +639,17 @@ NEXT (once unblocked): P0-1.
 - Branch cursor/frontend-repair-iq-p1-1c06. Local: tsc, unit 291, dupes,
   locale-english. Playwright mobile-layout added to required.
 
+## 2026-09-21 — live browser confirmation (IQ-060/040/010/051/030/002)
+- IQ-060: `coldVerdictCtaKind(user.plan, JWT)`; `/auth/me` 5xx keeps JWT stub;
+  AppShell hides Start for €19 when paid; UnlockPanel `isPaid` → entitled.
+- IQ-040: Deal Scanner nav hidden unless operator/power/trial; empty board
+  shows API `reason`. Find live stays power-only.
+- IQ-010–012: DE hero/pricing/tools KAUFEN/BEOBACHTEN/VERWERFEN; tools body
+  leftover English moved into `toolsPage` i18n.
+- IQ-051: checker `min-width: 0 !important` + `overflow-x: hidden` at 390px.
+- IQ-030: howToCoverage names low-demand / not-in-catalog explicitly.
+- IQ-002: brand-only catalog match; Miu Miu + unknown → coverage miss;
+  coverage_class read if BE sends it. Paid refusal no longer skips coverage.
+- Local: tsc, unit 295, dupes, locale-english. PR #133.
+
 

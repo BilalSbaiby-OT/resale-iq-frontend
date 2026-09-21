@@ -372,4 +372,30 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     await expect(guarantee).toContainText(/30-day/i)
     await expect(guarantee).toContainText(/refund/i)
   })
+
+  test("untracked 402 (Miu Miu / unknown) is coverage, not Should I buy", async ({ page }) => {
+    await page.route("**/api/verdict**", async route => {
+      await route.fulfill({
+        status: 402,
+        contentType: "application/json",
+        body: JSON.stringify({
+          verdict: "PAYWALL",
+          locked: true,
+          message: "A Resale IQ subscription is required to check items.",
+          plans: [{ tier: "operator", label: "Starter", price_eur: 19 }],
+        }),
+      })
+    })
+    await page.goto("/tools")
+    await page.getByLabel(/Item to check/i).fill("Miu Miu")
+    await page.getByRole("button", { name: /Check this item/i }).click()
+    await expect(page.getByTestId("riq-coverage-miss")).toBeVisible()
+    await expect(page.getByTestId("riq-hard-paywall")).toHaveCount(0)
+    await expect(page.getByText(/Should I buy/i)).toHaveCount(0)
+
+    await page.getByLabel(/Item to check/i).fill("unknownxyz123")
+    await page.getByRole("button", { name: /Check this item/i }).click()
+    await expect(page.getByTestId("riq-coverage-miss")).toBeVisible()
+    await expect(page.getByTestId("riq-hard-paywall")).toHaveCount(0)
+  })
 })

@@ -492,10 +492,15 @@ input[type="submit"]:not(:disabled):active,
   flex-wrap: nowrap;
   gap: 10px;
   margin: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 .riq-checker-row input,
 .riq-checker-row button {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   flex: none;
   justify-content: center;
@@ -516,6 +521,20 @@ input[type="submit"]:not(:disabled):active,
   }
 }
 @media (max-width: 639px) {
+  .riq-checker-row {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .riq-checker-row input,
+  .riq-checker-row button {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex: none !important;
+    white-space: normal;
+  }
   .riq-apple-nav { padding: 20px var(--space-gutter) 0 !important; }
   .riq-apple-hero { padding: var(--space-4) var(--space-gutter) var(--space-4) !important; }
   /* 22px was a settings-page heading — smaller than the verdict word in the
@@ -608,7 +627,8 @@ input[type="submit"]:not(:disabled):active,
   .riq-verdict-head-badge { align-self: flex-start; }
   .riq-public-page { padding-left: 16px !important; padding-right: 16px !important; }
   .riq-data-cite { grid-template-columns: 1fr; }
-  .riq-main { overflow-x: clip; }
+  .riq-main { overflow-x: hidden !important; max-width: 100%; }
+  .riq-public-page { overflow-x: hidden !important; }
   .riq-section-head {
     flex-wrap: wrap;
     align-items: flex-start;

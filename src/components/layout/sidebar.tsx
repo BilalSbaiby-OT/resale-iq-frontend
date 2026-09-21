@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 import { planChip } from "@/lib/entitlement"
+import { canOpenDealScanner } from "@/lib/live-deals-gate"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { navCopy, type NavCopy } from "@/lib/nav-copy"
@@ -152,14 +153,14 @@ export function Sidebar({ className = "" }: { className?: string }) {
             return (
               <details key={label} style={{ marginBottom: 16 }}>
                 <summary style={{ listStyle: "none", cursor: "pointer" }}>{heading}</summary>
-                {items.map(renderItem)}
+                {items.filter((item) => item.href !== "/deals" || canOpenDealScanner(user)).map(renderItem)}
               </details>
             )
           }
           return (
             <div key={label} style={{ marginBottom: 16 }}>
               {heading}
-              {items.map(renderItem)}
+              {items.filter((item) => item.href !== "/deals" || canOpenDealScanner(user)).map(renderItem)}
             </div>
           )
         })}

@@ -581,10 +581,10 @@ export function FreeChecker({
             </div>
           )}
           {res.verdict === "PAYWALL" ? (
-            refusalIsPaid
-              ? <PaidPostCheckBar locale={locale} user={chipUser} />
-              : checkerFace({ verdict: "PAYWALL", query: q, apiBody: res }) === "coverage"
-                ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
+            checkerFace({ verdict: "PAYWALL", query: q, apiBody: res }) === "coverage"
+              ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
+              : refusalIsPaid
+                ? <PaidPostCheckBar locale={locale} user={chipUser} />
                 : <HardPaywallCard locale={locale} plans={res.plans} query={q} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             refusalIsPaid

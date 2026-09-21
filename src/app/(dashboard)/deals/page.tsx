@@ -14,12 +14,12 @@ import { LiveDealsModal } from "@/components/ui/live-deals-modal"
 import { MedianN } from "@/components/ui/median-n"
 import { getDeals, addToWatchlist, getBatchPriceHistory } from "@/lib/api"
 import type { PricePoint } from "@/lib/api"
-import { eur } from "@/lib/utils"
+import { eur, getPlanFromToken } from "@/lib/utils"
 import { formatStrPct } from "@/lib/str-pct"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { useAuthStore } from "@/lib/auth-store"
-import { canFindLiveDeals } from "@/lib/live-deals-gate"
+import { canFindLiveDeals, liveDealsEmptyText } from "@/lib/live-deals-gate"
 import { appCopy } from "@/lib/app-copy"
 import { categoryName, formatCount, localizeConfidenceNote } from "@/lib/verdict-words"
 import type { Deal } from "@/types"
@@ -84,7 +84,7 @@ function DealsContent() {
   const locale = useLocale()
   const t = appCopy[locale]
   const { user } = useAuthStore()
-  const showLiveFind = canFindLiveDeals(user?.plan)
+  const showLiveFind = canFindLiveDeals(user?.plan ?? getPlanFromToken())
   const [liveDeal, setLiveDeal] = useState<Deal | null>(null)
   const searchParams = useSearchParams()
   const [all, setAll] = useState<Deal[]>([])
@@ -97,6 +97,7 @@ function DealsContent() {
   const [category, setCategory] = useState(searchParams.get("category") || "")
   const [brand, setBrand] = useState(searchParams.get("brand") || "")
   const [momentum, setMomentum] = useState(searchParams.get("momentum") || "")
+  const [emptyReason, setEmptyReason] = useState<string | null>(null)
   // Sorted by the TRANSLATED label, otherwise a Spanish list reads
   // alphabetised by its English original. `localeCompare` also gets accents
   // right, which a raw `.sort()` does not.
@@ -109,6 +110,11 @@ function DealsContent() {
     try {
       const d = await getDeals({ limit: 200 })
       setAll(d.deals)
+      setEmptyReason(typeof d.reason === "string" && d.reason.trim()
+        ? d.reason.trim()
+        : typeof d.message === "string" && d.message.trim()
+          ? d.message.trim()
+          : null)
       setWarmingUp(!!d.momentum_warming_up)
       // Same rule the panel already applies: `locked` is a constant false on
       // every backend branch, so the server's own `locked_fields` list is the
@@ -235,7 +241,11 @@ function DealsContent() {
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div style={{ padding: "80px 0", textAlign: "center", fontSize: 17, color: "var(--color-graphite-muted)" }}>{t.deals.empty}</div>
+        <div data-testid="riq-deals-empty" style={{ padding: "80px 0", textAlign: "center", fontSize: 17, color: "var(--color-graphite-muted)" }}>
+          {all.length === 0
+            ? liveDealsEmptyText({ reason: emptyReason, fallback: t.deals.empty })
+            : t.deals.empty}
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
           {filtered.map((d, i) => {

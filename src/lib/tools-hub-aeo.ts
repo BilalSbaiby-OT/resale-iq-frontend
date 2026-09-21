@@ -77,18 +77,18 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
   },
   de: {
     body:
-      "Resale IQ ist Nachfrage-Intelligenz für Leute, die Secondhand-Kleidung weiterverkaufen. Du hast schon Lieferanten. Die Aufgabe hier: welche Kleidungsstücke und Modelle du zu diesem Preis kaufen solltest, um auf den Plattformen weiterzuverkaufen, die wir abdecken. Gib unten Marke und Modell ein. Wir beobachten, wie Angebote das Regal verlassen — auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal, nicht im Vereinigten Königreich. Ein Check liefert BUY, WATCH oder SKIP und den Höchstpreis nach Gebühren, gezählt aus beobachteten Abgängen, nicht aus Quittungen, die wir nicht gesehen haben. Wöchentliche Markenvolumen bleiben ohne Konto öffentlich auf /data. Die meisten Artikelprüfungen schaltet Starter für 19 € im Monat frei: BUY, WATCH oder SKIP, die Kaufobergrenze, und wie viele beobachtete Abgänge hinter der Zahl stehen. Adidas Samba, Nike Air Force 1 und New Balance 530 zeigen einen Teaser; das nächste Modell braucht in der Regel Starter. Wir sagen dir nicht, wo du einkaufst. Wir schreiben nicht, wie du in Frankreich einstellst. Nachfrage gilt als derselbe Trend, außer die Zahlen teilen sich. Nach dem Bezahlen jederzeit kündbar.",
+      "Resale IQ ist Nachfrage-Intelligenz für Leute, die Secondhand-Kleidung weiterverkaufen. Du hast schon Lieferanten. Die Aufgabe hier: welche Kleidungsstücke und Modelle du zu diesem Preis kaufen solltest, um auf den Plattformen weiterzuverkaufen, die wir abdecken. Gib unten Marke und Modell ein. Wir beobachten, wie Angebote das Regal verlassen — auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal, nicht im Vereinigten Königreich. Ein Check liefert KAUFEN, BEOBACHTEN oder VERWERFEN und den Höchstpreis nach Gebühren, gezählt aus beobachteten Abgängen, nicht aus Quittungen, die wir nicht gesehen haben. Wöchentliche Markenvolumen bleiben ohne Konto öffentlich auf /data. Die meisten Artikelprüfungen schaltet Starter für 19 € im Monat frei: KAUFEN, BEOBACHTEN oder VERWERFEN, die Kaufobergrenze, und wie viele beobachtete Abgänge hinter der Zahl stehen. Adidas Samba, Nike Air Force 1 und New Balance 530 zeigen einen Teaser; das nächste Modell braucht in der Regel Starter. Wir sagen dir nicht, wo du einkaufst. Wir schreiben nicht, wie du in Frankreich einstellst. Nachfrage gilt als derselbe Trend, außer die Zahlen teilen sich. Nach dem Bezahlen jederzeit kündbar.",
     termName: "Kaufobergrenze (buy-below)",
     term:
       "Die Kaufobergrenze (buy-below) ist der Höchstpreis, den du für einen Artikel zahlen kannst und trotzdem nach Verkaufsgebühren eine gesunde Marge behältst. " +
       "Resale IQ rechnet sie als durchschnittlichen Ask-Preis beim Abgang × 0,95 × 0,70. " +
-      "BUY, WATCH oder SKIP plus diese Zahl starten mit Starter für 19 € im Monat.",
+      "KAUFEN, BEOBACHTEN oder VERWERFEN plus diese Zahl starten mit Starter für 19 € im Monat.",
     faqs: [
       {
         q: "Was ist eine Kaufobergrenze?",
         a:
           "Die Kaufobergrenze (buy-below) ist der Höchstpreis, den du zahlen kannst und trotzdem nach Gebühren Marge behältst. " +
-          "Resale IQ rechnet durchschnittlichen Ask-Preis beim Abgang × 0,95 × 0,70 und liefert BUY, WATCH oder SKIP mit dieser Zahl auf einem Starter-Check.",
+          "Resale IQ rechnet durchschnittlichen Ask-Preis beim Abgang × 0,95 × 0,70 und liefert KAUFEN, BEOBACHTEN oder VERWERFEN mit dieser Zahl auf einem Starter-Check.",
       },
       {
         q: "Wie zeigt Resale IQ Nachfrage?",
@@ -106,7 +106,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
       {
         q: "Ist der Vinted-Preischeck kostenlos?",
         a:
-          "Adidas Samba, Nike Air Force 1 und New Balance 530 liefern BUY / WATCH / SKIP auf /tools ohne Konto. " +
+          "Adidas Samba, Nike Air Force 1 und New Balance 530 liefern KAUFEN / BEOBACHTEN / VERWERFEN auf /tools ohne Konto. " +
           "Wöchentliche Markenvolumen bleiben öffentlich unter https://resaleiq.dev/de/data. Andere Artikelprüfungen starten mit Starter für 19 € im Monat.",
       },
       {

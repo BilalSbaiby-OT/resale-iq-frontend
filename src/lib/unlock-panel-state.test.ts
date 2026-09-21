@@ -66,6 +66,17 @@ test("free account that spent its allowance gets the upgrade case", () => {
 
 // The OVER-BLOCK direction (per demand-intel CLAUDE.md): confirm we do not
 // accidentally wall an authenticated user in ANY quota state.
+test("paid sessions never take the upgrade/register wall even with a zero quota field", () => {
+  assert.equal(
+    unlockPanelBranch({ sell_through_rate: null, unlocks_remaining: 0 }, true, true),
+    "entitled",
+  )
+  assert.equal(
+    unlockPanelBranch({ sell_through_rate: null, unlocks_remaining: undefined }, false, true),
+    "entitled",
+  )
+})
+
 test("no authenticated state ever resolves to the register wall", () => {
   const states = [
     { sell_through_rate: null, unlocks_remaining: undefined },

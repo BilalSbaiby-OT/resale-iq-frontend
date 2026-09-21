@@ -129,10 +129,11 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         </nav>
 
         <p style={{ marginTop: 28, fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-          Weekly brand volumes stay public on the{" "}
-          <Link href="/data" style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>market data</Link>
-          {" "}page. What sells this week is ranked on{" "}
-          <Link href="/flip" style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>brand flips</Link>.
+          {t.volumesBefore}
+          <Link href={canonicalPath(locale, "/data")} style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>{t.volumesData}</Link>
+          {t.volumesMid}
+          <Link href={canonicalPath(locale, "/flip")} style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>{t.volumesFlips}</Link>
+          {t.volumesEnd}
         </p>
 
         <HubFaq items={hub.faqs} />
@@ -146,9 +147,9 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         {/* Secondary paid path. Primary door is the google_search_test CTA
             above the fold. src=tools_index stays measurable as a footer. */}
         <p style={{ marginTop: 44, paddingTop: 20, borderTop: "1px solid var(--color-border-ui)", fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-          The checker answers one item at a time.{" "}
+          {t.oneItem}{" "}
           <Link href={TOOLS_INDEX_SECONDARY_HREF} style={{ color: "var(--color-text-secondary)", fontWeight: 600, textDecoration: "underline" }}>
-            See the plans →
+            {t.seePlansFooter}
           </Link>
         </p>
         </main>

@@ -3,20 +3,22 @@
  *
  * Backend today returns PAYWALL (402) for almost every anon query outside
  * Samba / AF1 / NB 530. Do not invent fields. When the API already names
- * unknown/untracked (optional `reason` / `coverage` / `verdict: UNKNOWN`)
- * OR the query matches no catalog brand/model we already ship, prefer a
- * “not in catalog” face over Stripe copy. Catalog hits still paywall —
- * with copy that names the three free samples vs everything else.
+ * unknown/untracked (optional `reason` / `coverage` / `coverage_class` /
+ * `verdict: UNKNOWN`) OR the query matches no catalog *brand* we already
+ * ship, prefer a “not in catalog” face over Stripe copy.
+ *
+ * seo-brands.json is slugs, not warehouse numbers. Matching model-name
+ * fragments ("Jacket") falsely paywalled unknown queries. Brand names
+ * only. Miu Miu is not a catalog brand today → coverage, not Should I buy.
  */
 import brandsRaw from "../data/seo-brands.json" with { type: "json" }
-import modelsRaw from "../data/seo-models.json" with { type: "json" }
 import { FREE_MODELS } from "./working-models.ts"
 
 export type QueryCoverageKind = "free_sample" | "catalog" | "untracked"
 export type CheckerFace = "paywall" | "coverage"
 
 const UNTRACKED_CODES =
-  /^(untracked|unknown|not_in_catalog|off_catalog|no_coverage|low_coverage|coverage_gap)$/i
+  /^(untracked|unknown|not_in_catalog|off_catalog|no_coverage|low_coverage|coverage_gap|low_demand)$/i
 
 function normalize(s: string): string {
   return s
@@ -36,15 +38,11 @@ const CATALOG_BRANDS: string[] = (brandsRaw as { brands: { brand: string }[] }).
   .map((b) => b.brand)
   .filter(Boolean)
 
-const CATALOG_QUERIES: string[] = (modelsRaw as { models: { query: string; brand: string; model: string }[] }).models
-  .flatMap((m) => [m.query, m.brand, m.model])
-  .filter((s) => s && s.replace(/\d/g, "").trim().length >= 3)
-
 export function apiSignalsUntracked(body: unknown): boolean {
   if (!body || typeof body !== "object") return false
   const b = body as Record<string, unknown>
   if (b.verdict === "UNKNOWN") return true
-  for (const key of ["reason", "coverage", "code", "refusal_reason"] as const) {
+  for (const key of ["reason", "coverage", "coverage_class", "code", "refusal_reason"] as const) {
     const v = b[key]
     if (typeof v === "string" && UNTRACKED_CODES.test(v.trim())) return true
   }
@@ -56,7 +54,6 @@ export function queryCoverageKind(q: string): QueryCoverageKind {
   if (query.length < 2) return "untracked"
   if ([...FREE_MODELS].some((m) => hasPhrase(query, m))) return "free_sample"
   if (CATALOG_BRANDS.some((b) => hasPhrase(query, b))) return "catalog"
-  if (CATALOG_QUERIES.some((m) => hasPhrase(query, m))) return "catalog"
   return "untracked"
 }
 
@@ -71,8 +68,6 @@ export function checkerFace(opts: {
 }): CheckerFace {
   if (apiSignalsUntracked(opts.apiBody)) return "coverage"
   if (opts.verdict === "UNKNOWN") return "coverage"
-  if (opts.verdict === "PAYWALL" && queryCoverageKind(opts.query) === "untracked") {
-    return "coverage"
-  }
+  if (queryCoverageKind(opts.query) === "untracked") return "coverage"
   return "paywall"
 }

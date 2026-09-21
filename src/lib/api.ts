@@ -181,7 +181,7 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   // locked:true means max_buy_price/est_profit_eur/profit_margin_pct/str_pct/
   // top_sizes/opportunity_score are redacted server-side on every deal — free
   // or expired-trial account. Never trust the frontend to hide these instead.
-  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[] }>(`/api/deals?${q}`)
+  return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[]; reason?: string; message?: string }>(`/api/deals?${q}`)
 }
 export const getVerdict = (q: string, unlock = false) =>
   request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}${unlock ? "&unlock=true" : ""}`)

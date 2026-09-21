@@ -12,9 +12,15 @@ import { isPaidPlanId } from "./entitlement.ts"
  *
  * Plan membership is `isPaidPlanId` in entitlement.ts — do not restate
  * operator/power here.
+ *
+ * `/auth/me` can 429/5xx while the JWT still carries `plan`. Either source
+ * is enough to hide See plans / Start for €19.
  */
 export type ColdVerdictCta = "upgrade" | "paid"
 
-export function coldVerdictCtaKind(plan: Plan | null | undefined): ColdVerdictCta {
-  return isPaidPlanId(plan) ? "paid" : "upgrade"
+export function coldVerdictCtaKind(
+  plan: Plan | string | null | undefined,
+  tokenPlan?: string | null,
+): ColdVerdictCta {
+  return isPaidPlanId(plan) || isPaidPlanId(tokenPlan) ? "paid" : "upgrade"
 }

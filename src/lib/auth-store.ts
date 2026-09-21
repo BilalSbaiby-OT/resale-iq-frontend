@@ -1,7 +1,18 @@
 import { create } from "zustand"
-import type { User } from "@/types"
-import { getToken, setToken, clearToken } from "./utils"
+import type { Plan, User } from "@/types"
+import { getToken, setToken, clearToken, getPlanFromToken, getEmailFromToken } from "./utils"
 import { getMe, login as apiLogin, register as apiRegister, isUnauthorized } from "./api"
+
+function planFromToken(): Plan {
+  const plan = getPlanFromToken()
+  return plan === "operator" || plan === "power" || plan === "free" ? plan : "free"
+}
+
+/** When /auth/me 429/5xx, keep a JWT-backed stub so paid CTAs do not regress. */
+function userFromToken(): User | null {
+  if (!getToken()) return null
+  return { id: 0, email: getEmailFromToken(), plan: planFromToken() }
+}
 
 interface AuthState {
   user: User | null
@@ -58,7 +69,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ user: null, isAuthenticated: false, isLoading: false })
         return false
       }
-      set({ isLoading: false, isAuthenticated: true })
+      set((state) => ({
+        isLoading: false,
+        isAuthenticated: true,
+        user: state.user ?? userFromToken(),
+      }))
       return true
     }
   },

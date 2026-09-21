@@ -3,6 +3,16 @@ OWNER: none
 PUSH: yes
 UPDATED: 2026-09-21
 
+FRONTEND REPAIR TRIAL — PR #133 live-bug pass
+  https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/133
+  Branch cursor/frontend-repair-iq-p1-1c06 off origin/main @ 0c534be
+  Live 2026-09-21: IQ-060 JWT paid CTA; IQ-040 Deal Scanner entitled-only;
+  IQ-010 DE KAUFEN; IQ-051 390px checker; IQ-030 low-demand coverage line;
+  IQ-002 Miu Miu/unknown → coverage miss not Should I buy.
+  Local: tsc, unit 295, dupes, locale-english.
+
+---
+
 FRONTEND REPAIR TRIAL — PR #133
   https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/133
   Branch cursor/frontend-repair-iq-p1-1c06 off origin/main @ 0c534be

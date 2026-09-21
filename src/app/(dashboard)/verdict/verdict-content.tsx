@@ -7,7 +7,7 @@ import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict, isPaymentRequired, PaymentRequiredError } from "@/lib/api"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
-import { eur, getToken } from "@/lib/utils"
+import { eur, getToken, getPlanFromToken } from "@/lib/utils"
 import { formatStrPctString } from "@/lib/str-pct"
 import type { VerdictResult } from "@/types"
 import { Zap, Lock } from "lucide-react"
@@ -21,6 +21,7 @@ import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy, type Locale } from "@/lib/i18n"
+import { verdictWord } from "@/lib/verdict-words"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { ModelChips } from "@/components/tools/model-chips"
 import type { HeroVerdict } from "@/lib/hero-verdict"
@@ -37,11 +38,11 @@ import {
   type CollectedMetric,
 } from "@/lib/verdict-intelligence"
 
-function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">) {
+function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">, locale: Locale) {
   return {
-    BUY:     { color: "var(--color-buy)", bg: "rgba(34,197,94,.10)", border: "rgba(34,197,94,.35)", label: "BUY" },
-    WATCH:   { color: "var(--color-watch)", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: "WATCH" },
-    SKIP:    { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: "SKIP" },
+    BUY:     { color: "var(--color-buy)", bg: "rgba(34,197,94,.10)", border: "rgba(34,197,94,.35)", label: verdictWord("BUY", locale) ?? "BUY" },
+    WATCH:   { color: "var(--color-watch)", bg: "rgba(245,158,11,.10)", border: "rgba(245,158,11,.35)", label: verdictWord("WATCH", locale) ?? "WATCH" },
+    SKIP:    { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: verdictWord("SKIP", locale) ?? "SKIP" },
     UNKNOWN: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.noData },
     INSUFFICIENT_DATA: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.notMeasured },
     LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.limitReached },
@@ -80,10 +81,10 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   const t = verdictCopy[locale]
   const checker = copy[locale].checker
   const checkLabel = navCopy[locale].items.check
-  const styles = verdictStyle(t)
+  const styles = verdictStyle(t, locale)
   const params = useSearchParams()
   const { user } = useAuthStore()
-  const paidCold = coldVerdictCtaKind(user?.plan) === "paid"
+  const paidCold = coldVerdictCtaKind(user?.plan, getPlanFromToken()) === "paid"
   const [query, setQuery] = useState("")
   const [result, setResult] = useState<VerdictResult | null>(null)
   const [loading, setLoading] = useState(false)
@@ -180,15 +181,17 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         <h1 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 700, letterSpacing: "-1.6px", lineHeight: 1.05, margin: "0 0 28px" }}>
           {t.heading}
         </h1>
-        <div className="riq-checker-row mb-8">
+        <div className="riq-checker-row mb-8" style={{ width: "100%", maxWidth: "100%", minWidth: 0 }}>
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder={t.placeholder}
+            style={{ width: "100%", maxWidth: "100%", minWidth: 0 }}
             className="bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
-            className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2">
+            style={{ minWidth: 0, maxWidth: "100%" }}
+            className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center justify-center gap-2">
             <Zap size={16} />{loading ? t.checking : t.check}
           </button>
         </div>
@@ -242,10 +245,10 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   </p>
                 )}
                 <Link
-                  href="/account"
+                  href={paidCold ? "/account" : "/pricing"}
                   className="mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors"
                 >
-                  {t.seePlans}
+                  {paidCold ? t.managePlan : t.seePlans}
                 </Link>
               </div>
             ) : result.verdict === "BRAND_CATEGORIES" ? (
@@ -317,7 +320,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 planLabel={checker.planLabel}
                 unlockRest={checker.unlockRest}
                 unlock={
-                  <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} isAuthenticated={getToken() != null} />
+                  <UnlockPanel result={result} onUnlock={unlock} unlocking={unlocking} isAuthenticated={getToken() != null} isPaid={paidCold} />
                 }
                 after={
                   <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
