@@ -100,7 +100,8 @@ test("homepage checker is centered, Free: is above the 1280x800 fold, logos are 
   const more = strip.getByTestId("riq-brand-more")
   await expect(more).toBeVisible()
   await expect(more).toHaveText(/\+\d+ more/)
-  await expect(more).toHaveAttribute("href", "/data"))
+  await expect(more).toHaveAttribute("href", "/data")
+})
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
