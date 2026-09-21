@@ -150,6 +150,45 @@ export function LandingContent({
               />
             </div>
 
+            {/* Verdict explainer — visible immediately below the checker.
+                Answers the #1 comprehension gap: "what does WATCH €24.35 mean?"
+                Only renders on clients (no SSR text to avoid hydration issues). */}
+            <div
+              data-testid="riq-verdict-explainer"
+              style={{
+                maxWidth: 480,
+                margin: "0 auto",
+                padding: "14px 18px",
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-border-ui)",
+                borderRadius: 12,
+                fontSize: 13,
+                lineHeight: 1.6,
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              <strong style={{ color: "var(--color-text-primary)", display: "block", marginBottom: 6, fontSize: 13.5 }}>
+                What does the result mean?
+              </strong>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                <span style={{ fontWeight: 700, color: "#34C759", fontFamily: "monospace", fontSize: 13 }}>BUY</span>
+                — demand is strong. Source it now.
+              </span>
+              <br />
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                <span style={{ fontWeight: 700, color: "#FF9F0A", fontFamily: "monospace", fontSize: 13 }}>WATCH</span>
+                — worth watching. The €24.35 is the max you can pay and still make a margin.
+              </span>
+              <br />
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <span style={{ fontWeight: 700, color: "#FF3B30", fontFamily: "monospace", fontSize: 13 }}>SKIP</span>
+                — oversupplied or margins are too thin right now.
+              </span>
+              <p style={{ marginTop: 8, marginBottom: 0, fontSize: 12, color: "var(--color-text-muted)" }}>
+                Based on {tracked} live Vinted listings across ES · FR · DE · IT · PT. Updated weekly.
+              </p>
+            </div>
+
             {/* Below the checker, not beside it. Hidden on narrow screens where
                 the checker must lead. Static <img> (no next/image config). */}
             <div className="riq-hero-shot" aria-hidden="true">

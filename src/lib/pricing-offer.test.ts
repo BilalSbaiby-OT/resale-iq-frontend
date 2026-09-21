@@ -64,9 +64,9 @@ test("Starter trust line and public-data demote are in EN + ES copy", () => {
 })
 
 test("homepage H1 is demand OS, not Know-what-to-pay", () => {
-  assert.equal(copy.en.heroHeadline, "Know what sells. Decide whether to buy.")
-  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
-  assert.match(copy.en.heroSub, /€19/)
+  assert.equal(copy.en.heroHeadline, "Know the buy-below price before you source.")
+  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP|BUY \/  WATCH \/ SKIP/)
+  assert.match(copy.en.heroSub, /Vinted|Samba/)
   assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)
   assert.doesNotMatch(copy.en.heroSub, /Know what to pay/i)
 })

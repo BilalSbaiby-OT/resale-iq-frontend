@@ -113,11 +113,11 @@ export const copy = {
   en: {
     signIn: "Sign in",
     pricing: "Pricing",
-    heroTitle: "Know what sells before you buy.",
-    heroAudience: "For people who resell second-hand clothes.",
+    heroTitle: "Vinted EU demand check — buy-below price for resellers.",
+    heroAudience: "For people who resell second-hand clothes on Vinted EU.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     heroFreeScope: "Free: Samba + Air Force 1 + NB 530. Other models €19/mo.",
-    brandStripCaption: "Brands we watch",
+    brandStripCaption: "Brands we track",
     brandStripMore: (n: number) => `+${n} more`,
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
@@ -136,17 +136,17 @@ export const copy = {
       showing: (shown: number, total: number) => `Showing ${shown} of ${total} brands`,
       seeAll: "See all on /data",
     },
-    heroHeadline: "Know what sells. Decide whether to buy.",
+    heroHeadline: "Know the buy-below price before you source.",
     heroSub:
-      "Which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
-    howToHeading: "How to use it",
+      "Type any secondhand clothing model. Get BUY / WATCH / SKIP and the most you can pay to still profit on Vinted EU. Free for Samba and Air Force 1.",
+    howToHeading: "How it works",
     howToSteps: [
-      "Type a brand and model — or paste a listing title.",
-      "Read BUY, WATCH or SKIP and the most you can pay after fees.",
-      "Only source under that buy-below.",
+      "Type a brand + model (e.g. Adidas Samba, Nike Air Force 1, NB 530).",
+      "Get BUY / WATCH / SKIP and the buy-below price — the max to pay and still make margin.",
+      "Source under that number. Skip anything above it.",
     ],
     howToCoverage:
-      "We do not track low-demand items or brands that are not in this catalog. Samba, Air Force 1 and NB 530 are free samples on ES/FR/DE/IT/PT Vinted. A miss is a coverage gap — not a number hiding behind a paywall.",
+      "Covers 28+ brands across Vinted ES, FR, DE, IT, PT. Samba, Air Force 1 and NB 530 are free — no account needed. Other models unlock with Starter at €19/mo.",
     heroBody:
       "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>

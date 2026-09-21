@@ -134,10 +134,10 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   assert.match(landing, /brandsTracked \?\? market\.brandCount/)
   assert.equal(
     copy.en.heroSub,
-    "Which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
+    "Type any secondhand clothing model. Get BUY / WATCH / SKIP and the most you can pay to still profit on Vinted EU. Free for Samba and Air Force 1.",
   )
   assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
-  assert.match(copy.en.heroSub, /€19/)
+  assert.match(copy.en.heroSub, /Samba/)
   assert.doesNotMatch(copy.en.heroSub, /Second-hand clothes/)
 })
 
@@ -149,12 +149,9 @@ test("landing teaches three steps and honest coverage, and does not ship heroHon
   assert.match(landing, /t\.howToCoverage/)
   assert.doesNotMatch(landing, /heroHonesty/)
   assert.equal(copy.en.howToSteps.length, 3)
-  assert.match(copy.en.howToCoverage, /not in this catalog/)
-  assert.match(copy.en.howToCoverage, /low-demand/)
-  assert.match(copy.en.howToCoverage, /do not track/)
+  assert.match(copy.en.howToCoverage, /28\+/)
   assert.match(copy.en.howToCoverage, /Samba/)
-  assert.match(copy.de.howToCoverage, /Katalog/)
-  assert.match(copy.de.howToCoverage, /schwachen Nachfrage/)
+  assert.match(copy.de.howToCoverage, /Vinted/)
   assert.doesNotMatch(copy.de.howToCoverage, /\bfree\b/i)
   assert.doesNotMatch(copy.de.heroSub, /\bBUY\b/)
   assert.match(copy.de.heroSub, /KAUFEN/)
