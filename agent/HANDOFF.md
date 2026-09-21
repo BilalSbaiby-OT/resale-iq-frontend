@@ -1,7 +1,13 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
+
+SEO LANE, 2026-09-21 — merge PR #129 onto main after #128
+  Rebase week-2 seed lock onto 12e95b7 (checkout branding). Isolation is
+  the Coolify gate. Free checker Samba / AF1 / NB 530 only.
+
+---
 
 SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK (PR #129)
   SHIPPED on branch. Isolation is the Coolify gate. Do not push main.
