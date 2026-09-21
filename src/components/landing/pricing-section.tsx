@@ -24,6 +24,7 @@ import { useSellThroughLabel } from "@/lib/use-sell-through-label"
 import { useAuthStore } from "@/lib/auth-store"
 import { pricingCtaKind } from "@/lib/pricing-cta-state"
 import { isPaidPlan } from "@/lib/entitlement"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -438,18 +439,11 @@ export function PricingSection({
           </div>
         ))}
       </div>
-      {/* Cold-traffic CTA under the cards: paid Starter, not /tools Fred.
-          Click-but-no-convert: Fred sent pricing visitors to the free checker.
-          CRO #10 product-aware → "get started €19/mo". Revenue 2026-09-21. */}
+      {/* Cold-traffic CTA under the cards: guest Stripe, not /register.
+          CRO #10: product-aware → starts payment immediately. */}
       {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
-          <Link
-            href={canonicalPath(locale, "/register") + "?plan=operator&src=pricing-cold-cta"}
-            data-testid="riq-cold-cta-ladder"
-            style={{ color: "var(--color-text-secondary)", fontWeight: 500, textDecoration: "none" }}
-          >
-            {t.coldCtaLadder}
-          </Link>
+          <GuestCheckoutButton locale={locale} label={t.coldCtaLadder} src="pricing-cold-cta" />
         </p>
       )}
       <p style={{ textAlign: "center", marginTop: compact ? 20 : 8, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>
