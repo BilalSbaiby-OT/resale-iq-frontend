@@ -3,6 +3,14 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+PRODUCT ISSUE AUDIT, 2026-09-21 — catalog only (no product rewrite)
+  Branch cursor/product-issue-audit-3091. Live deploy-id 0c534be (matches #131).
+  ISSUE_CATALOG.md + ISSUE_CATALOG_TECH.md. User reports 1–10 verified.
+  Top live facts: warehouse publishes 3/28 brands; anon unknown search = PAYWALL;
+  /verdict UnlockPanel paid path OK, cold See plans €19 still ungated;
+  DE pricing FAQ denies free checker; Find live deals ungated for Starter.
+  Do not put heroHonesty on the homepage. Do not invent Miu Miu numbers.
+
 FRONTEND AUDIT, 2026-09-21 — architecture + honesty + paid CTA
   Branch cursor/frontend-audit-repair-b071. Do not push main. Do not merge #130
   on top without a rebase — this branch already includes paid FreeChecker /

@@ -628,3 +628,8 @@ NEXT (once unblocked): P0-1.
 - Docs: TECHNICAL_ARCHITECTURE.md, TECHNICAL_AUDIT_REPORT.md.
 - Branch cursor/frontend-audit-repair-b071. Do not push main.
 
+## 2026-09-21 — full-stack product issue catalog (no rewrite)
+- Live pin `/deploy-id` = `0c534be` (PR #131). Warehouse: 3 published / 28 tracked.
+- Verified Bilal reports 1–10 in ISSUE_CATALOG.md. Tech method in ISSUE_CATALOG_TECH.md.
+- Branch cursor/product-issue-audit-3091. Catalog only — no product code.
+
