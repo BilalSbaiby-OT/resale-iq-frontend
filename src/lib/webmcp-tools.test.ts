@@ -63,6 +63,8 @@ test("FreeChecker is a native form with check_vinted_item WebMCP attrs", () => {
 test("free-check 200 result starts guest Stripe, not /register", () => {
   assert.match(checker, /src="tools_result"/)
   assert.match(checker, /GuestCheckoutButton/)
+  assert.match(checker, /checkerUnlockBranch/)
+  assert.match(checker, /barBranch === "checkout"/)
   assert.doesNotMatch(checker, /utm_content=tools_result/)
   assert.doesNotMatch(checker, /anonHref=.*\/register\?plan=operator/)
 })

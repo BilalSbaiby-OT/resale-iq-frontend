@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Lock, Search, Loader2 } from "lucide-react"
+import { Lock, Unlock, Search, Loader2 } from "lucide-react"
 import { watchedSampleNote } from "@/lib/watched-sample"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
@@ -11,6 +11,11 @@ import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { useAuthStore } from "@/lib/auth-store"
+import { planChip } from "@/lib/entitlement"
+import { checkerUnlockBranch, checkerRefusalIsPaid } from "@/lib/checker-unlock-state"
+import { getToken, getPlanFromToken } from "@/lib/utils"
+import type { Plan, User } from "@/types"
 import {
   CHECK_VINTED_ITEM_DESCRIPTION,
   CHECK_VINTED_ITEM_NAME,
@@ -228,6 +233,54 @@ function blogModeCtaLabel(product: string | undefined | null): string | null {
   return `Get ${short} numbers — €19/mo →`
 }
 
+function paidUserForChip(user: User | null, tokenPlan: string | null): User | null {
+  if (user) return user
+  if (tokenPlan === "operator" || tokenPlan === "power") {
+    return { id: 0, email: "", plan: tokenPlan as Plan }
+  }
+  return null
+}
+
+function PaidPostCheckBar({ locale, user }: { locale: Locale; user: User | null }) {
+  const t = copy[locale].checker
+  const chip = planChip(user, locale)
+  return (
+    <div
+      data-testid="riq-paid-session-bar"
+      style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}
+    >
+      <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
+        <Unlock size={14} color="#34C759" />
+        {t.paidUnlockLine(chip)}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+        <Link
+          href={canonicalPath(locale, "/verdict")}
+          data-testid="riq-paid-verdict-cta"
+          style={{
+            background: "#34C759",
+            color: "#06090c",
+            fontWeight: 700,
+            fontSize: 13.5,
+            padding: "10px 18px",
+            borderRadius: 9,
+            textDecoration: "none",
+          }}
+        >
+          {t.seeFullNumbers}
+        </Link>
+        <Link
+          href={canonicalPath(locale, "/account")}
+          data-testid="riq-paid-manage"
+          style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none" }}
+        >
+          {t.paidManageCta}
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 export function FreeChecker({
   placeholder, locale = "en", variant = "card", initialQuery, initialResult,
   webmcpName = CHECK_VINTED_ITEM_NAME,
@@ -247,6 +300,9 @@ export function FreeChecker({
 }) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
+  const { user, checkAuth } = useAuthStore()
+  const [sessionProbed, setSessionProbed] = useState(false)
+  const [tokenPlan, setTokenPlan] = useState<string | null>(null)
   const [q, setQ] = useState(initialQuery ?? "")
   const [res, setRes] = useState<FreeVerdict | null>(initialResult ?? null)
   // True while the card is showing the seeded sample (not a visitor's own
@@ -264,6 +320,13 @@ export function FreeChecker({
   // might not be. See docs/product/SUPPORT-VOICE.md §4.
   const [timedOut, setTimedOut] = useState(false)
 
+  useEffect(() => {
+    void checkAuth().finally(() => {
+      setTokenPlan(getPlanFromToken())
+      setSessionProbed(true)
+    })
+  }, [checkAuth])
+
   // override: set by the "try one of these instead" chips below, which pass
   // a known-good query directly rather than relying on state set via onChange
   // (which wouldn't have committed yet inside the same click handler).
@@ -275,7 +338,9 @@ export function FreeChecker({
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), VERDICT_TIMEOUT_MS)
     try {
-      const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal })
+      const token = getToken()
+    const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
+    const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal, headers })
       let body: unknown = null
       try { body = await r.json() } catch { /* non-JSON error page */ }
       const wall = parsePaywallBody(r.status, body)
@@ -381,6 +446,20 @@ export function FreeChecker({
   const shownCategory = categoryName(res?.category, locale)
   const shownConfidence = confidenceBand(res?.confidence, locale)
   const shownNote = localizeConfidenceNote(res?.confidence_note, locale)
+  const unlockBranch = checkerUnlockBranch({
+    isExample,
+    verdict: res?.verdict,
+    user,
+    tokenPlan,
+  })
+  const refusalIsPaid = checkerRefusalIsPaid({
+    verdict: res?.verdict,
+    user,
+    tokenPlan,
+  })
+  // Don't flash GuestCheckout at a paying session while /auth/me is in flight.
+  const barBranch = (!sessionProbed && unlockBranch === "checkout") ? "hidden" : unlockBranch
+  const chipUser = paidUserForChip(user, tokenPlan)
 
   const hero = variant === "hero"
   return (
@@ -499,9 +578,13 @@ export function FreeChecker({
             </div>
           )}
           {res.verdict === "PAYWALL" ? (
-            <HardPaywallCard locale={locale} plans={res.plans} query={q} />
+            refusalIsPaid
+              ? <PaidPostCheckBar locale={locale} user={chipUser} />
+              : <HardPaywallCard locale={locale} plans={res.plans} query={q} />
           ) : res.verdict === "LIMIT_REACHED" ? (
-            <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
+            refusalIsPaid
+              ? <PaidPostCheckBar locale={locale} user={chipUser} />
+              : <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
           ) : res.verdict === "UNKNOWN" ? (
             <>
               <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
@@ -837,9 +920,14 @@ export function FreeChecker({
 
           {/* After a free Samba/AF1 200, the next click used to be /register —
               the #1 measured drop. Guest Stripe, same as the 402 card.
-              Also show on hero after a real check (not the seeded example). */}
-          {!isExample && res.verdict !== "UNKNOWN" && res.verdict !== "INSUFFICIENT_DATA" && res.verdict !== "LIMIT_REACHED" && res.verdict !== "PAYWALL" && res.verdict !== "BRAND_CATEGORIES" && (
-          <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
+              Also show on hero after a real check (not the seeded example).
+              Paid sessions (operator/power) must NEVER see this checkout bar —
+              founder report 2026-09-21. Branch is checkerUnlockBranch. */}
+          {barBranch === "paid" && (
+            <PaidPostCheckBar locale={locale} user={chipUser} />
+          )}
+          {barBranch === "checkout" && (
+          <div data-testid="riq-guest-unlock-bar" style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#34C759" />
               {t.unlockLine}

@@ -619,3 +619,15 @@ NEXT (once unblocked): P0-1.
 - Merge SHA `861eec66212a0616c19534b7657d6ce450bba257`.
 - Isolation firewall SUCCESS. Free allowlist Samba / AF1 / NB 530 only.
 
+## 2026-09-21 — paid users no longer see subscribe CTAs after a public check
+- Hypothesis confirmed: `free-checker.tsx` always rendered GuestCheckout +
+  "with a plan" with no session/plan check. Same class of bug UnlockPanel
+  already fixed on /verdict (unlock-panel-state.ts).
+- `isPaidPlan` / `isPaidPlanId` in entitlement.ts. Post-check bar branches
+  via checkerUnlockBranch: paid → Verdict + Manage subscription; anon/free
+  still GuestCheckout. PricingSection: operator/power get Current plan /
+  Manage subscription → /account, never Checkout.
+- Local: tsc, unit 258 (including new checker-unlock + pricing-cta tests),
+  isolation, locale-english, dupes. Do not push main.
+
+

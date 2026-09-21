@@ -21,6 +21,9 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { useSellThroughLabel } from "@/lib/use-sell-through-label"
+import { useAuthStore } from "@/lib/auth-store"
+import { pricingCtaKind } from "@/lib/pricing-cta-state"
+import { isPaidPlan } from "@/lib/entitlement"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -99,6 +102,7 @@ export function PricingSection({
 }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
+  const { user, checkAuth } = useAuthStore()
   const tiers = localizedTiers(locale)
   const paidTiers = tiers.filter((tier) => !tier.free)
   const s = compact ? COMPACT : ROOMY
@@ -137,7 +141,17 @@ export function PricingSection({
       .catch(() => {})
   }, [])
 
+  useEffect(() => {
+    void checkAuth()
+  }, [checkAuth])
+
   const choose = async (tierId: string, placeholder?: string) => {
+    // Paying customers already have a Stripe customer — send them to /account
+    // (portal), never through Checkout again (founder, 2026-09-21).
+    if (isPaidPlan(user)) {
+      router.push(canonicalPath(locale, "/account"))
+      return
+    }
     // HARD_PAYWALL: the Free card is public /data, not a free item-check plan.
     if (tierId === "free") { router.push("/data"); return }
     if (!placeholder) return
@@ -345,7 +359,12 @@ export function PricingSection({
                 the eye has no primary to find and the recommendation the card
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
-            <button onClick={() => choose(tier.id, tier.priceId)} disabled={busy === tier.id} style={{
+            <button
+              onClick={() => choose(tier.id, tier.priceId)}
+              disabled={busy === tier.id}
+              data-testid={`riq-pricing-cta-${tier.id}`}
+              data-cta-kind={pricingCtaKind(user, tier.id)}
+              style={{
               width: "100%", minHeight: 44, padding: "12px 0", borderRadius: 12,
               fontSize: 13.5, fontWeight: 700, cursor: (busy === tier.id) ? "wait" : "pointer",
               border: tier.highlight ? "none" : "1px solid var(--color-border-2)",
@@ -353,7 +372,11 @@ export function PricingSection({
               color: tier.highlight ? "var(--color-on-buy)" : "var(--color-text-primary)",
               opacity: 1,
               transition: "opacity .18s, border-color .18s",
-            }}>{busy === tier.id ? "…" : tier.cta}</button>
+            }}>{busy === tier.id ? "…" : (
+              pricingCtaKind(user, tier.id) === "current" ? t.currentPlanCta
+              : pricingCtaKind(user, tier.id) === "manage" ? t.manageSubscriptionCta
+              : tier.cta
+            )}</button>
             {tier.id === "operator" && (
               <>
                 {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
@@ -422,7 +445,7 @@ export function PricingSection({
       {/* Cold-traffic CTA under the cards: paid Starter, not /tools Fred.
           Click-but-no-convert: Fred sent pricing visitors to the free checker.
           CRO #10 product-aware → "get started €19/mo". Revenue 2026-09-21. */}
-      {!compact && (
+      {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
           <Link
             href={canonicalPath(locale, "/register") + "?plan=operator&src=pricing-cold-cta"}

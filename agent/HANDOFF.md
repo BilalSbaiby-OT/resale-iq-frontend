@@ -3,6 +3,18 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+FRONTEND, 2026-09-21 — paid users no longer see subscribe CTAs on /tools
+  SHIPPED on branch cursor/paid-unlock-cta-7cb5.
+  Founder report (Bilal, Pro): GuestCheckout + "with a plan" after a check
+  on public FreeChecker. UnlockPanel on /verdict was already auth-aware;
+  this surface was not. operator/power now get Verdict + Manage subscription.
+  Anonymous and free still get GuestCheckout. PricingSection paid CTAs
+  become Current plan / Manage subscription → /account, never Checkout.
+  Local: tsc, unit 258, isolation, locale-english, dupes.
+  Do not push main. Isolation is the Coolify gate.
+
+---
+
 SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK MERGED
   MERGED | 861eec66212a0616c19534b7657d6ce450bba257 | PR #129 squash
   Isolation (firewall) SUCCESS on a312827; Playwright was still running
