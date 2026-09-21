@@ -6,9 +6,10 @@
  * from market-numbers.ts. A frozen A13 board is how we chose WHICH models
  * to publish — not what to print as a figure.
  *
- * First batch is a curated slice of named models that already sit on the
+ * Week-1 batch is a curated slice of named models that already sit on the
  * tracked board (docs/audit/proof/W36/a13-gate-joint). Do not add a model
- * that is not a real catalogue row. Do not invent a buy-below.
+ * that is not a real catalogue row. Do not invent a buy-below. Do not add
+ * doorway clones (Samba OG, Air Force 1 Low, Dunk, Spezial, Speedcat OG).
  */
 import raw from "../data/seo-models.json" with { type: "json" }
 import brandsRaw from "../data/seo-brands.json" with { type: "json" }
@@ -229,4 +230,54 @@ export function modelFaqs(opts: {
 export function modelsPointAtKnownBrands(): boolean {
   const slugs = new Set((brandsRaw as { brands: { slug: string }[] }).brands.map((b) => b.slug))
   return SEO_MODELS.every((m) => slugs.has(m.brandSlug))
+}
+
+/**
+ * Visible HubFaq + FAQPage on /flip/{brand}. Same strings. No /register.
+ * No UTM. Free-check honesty is per-brand: only Adidas/Nike/NB hubs that
+ * actually list a teaser model may say yes.
+ */
+export function brandHubFaqs(opts: {
+  brand: string
+  brandSlug: string
+  sold: number | null
+  avg: number | null
+  freeModels: SeoModel[]
+}): FaqItem[] {
+  const { brand, brandSlug, sold, avg, freeModels } = opts
+  const worth =
+    sold != null
+      ? `${brand} has roughly ${fmtCount(sold)} watched departures per week across Spain, France, Germany, Italy and Portugal` +
+        (avg != null ? `, at an average asking price at departure of ${fmtEur(avg)}.` : ".") +
+        ` Whether it is profitable depends on the named model and the price you source it at. Weekly table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/watched-departure`
+      : `${brand} is tracked across Spain, France, Germany, Italy and Portugal. Live weekly volume is on https://resaleiq.dev/data when this snapshot has a row. Whether it is profitable depends on the named model and the price you source it at. Definition: https://resaleiq.dev/glossary/watched-departure`
+
+  const velocity =
+    sold != null
+      ? `This week ${brand} shows about ${fmtCount(sold)} watched departures` +
+        (avg != null ? ` at ${fmtEur(avg)} average asking price at departure` : "") +
+        `. That is brand demand — not a sell-through rate and not a buy-below. Full ranking: https://resaleiq.dev/data. Sell-through definition: https://resaleiq.dev/glossary/sell-through`
+      : `${brand} weekly velocity is listed on https://resaleiq.dev/data when the snapshot has a row. An em-dash means missing, not zero. Definition: https://resaleiq.dev/glossary/watched-departure`
+
+  const freeA = freeModels.length
+    ? `Yes for ${freeModels.map((m) => m.query).join(", ")}: BUY, WATCH or SKIP and buy-below on https://resaleiq.dev/tools with no account. Other ${brand} models need Starter at €19 a month at https://resaleiq.dev/pricing.`
+    : `No. ${brand} weekly volumes stay public at https://resaleiq.dev/data. Item-level BUY, WATCH or SKIP starts at Starter €19 a month at https://resaleiq.dev/pricing. The free sample is Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools.`
+
+  return [
+    { q: `Is ${brand} worth reselling on Vinted?`, a: worth },
+    { q: `How much ${brand} demand is there this week?`, a: velocity },
+    { q: `Is the ${brand} check free?`, a: freeA },
+    {
+      q: "What is a buy-below price?",
+      a:
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
+        "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
+        "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below",
+    },
+    {
+      q: "Which Vinted markets does this cover?",
+      a:
+        `Spain, France, Germany, Italy and Portugal (ES/FR/DE/IT/PT). Figures do not cover the UK or other Vinted domains. Brand table: https://resaleiq.dev/data. Named models: https://resaleiq.dev/flip/${brandSlug}. Plans: https://resaleiq.dev/pricing.`,
+    },
+  ]
 }

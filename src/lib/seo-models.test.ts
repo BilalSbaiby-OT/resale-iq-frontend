@@ -18,6 +18,7 @@ import {
   siblingModels,
   modelDemandParagraphs,
   modelFaqs,
+  brandHubFaqs,
   liveAnswerLead,
   fmtBuyBelow,
 } from "./seo-models.ts"
@@ -35,8 +36,8 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("first batch is 15–25 named models from existing /flip brands", () => {
-  assert.ok(SEO_MODELS.length >= 15 && SEO_MODELS.length <= 25, `got ${SEO_MODELS.length}`)
+test("week-1 batch is 20–50 named models from existing /flip brands", () => {
+  assert.ok(SEO_MODELS.length >= 20 && SEO_MODELS.length <= 50, `got ${SEO_MODELS.length}`)
   assert.equal(modelsPointAtKnownBrands(), true)
   const slugs = new Set(SEO_MODELS.map((m) => modelPath(m)))
   assert.equal(slugs.size, SEO_MODELS.length)
@@ -44,6 +45,33 @@ test("first batch is 15–25 named models from existing /flip brands", () => {
     assert.ok(m.query.includes(m.brand) || m.brand === "Jordan")
     assert.ok(m.category.length > 0)
     assert.match(m.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+  }
+})
+
+test("catalogue rows are A13 models and skip doorway clones", () => {
+  const a13 = JSON.parse(
+    readFileSync(join(root, "..", "docs/audit/proof/W36/a13-gate-joint/result-supply-2026-09-01T0847Z.json"), "utf8"),
+  ) as { all_rows: { brand: string; model: string }[] }
+  const pairs = new Set(a13.all_rows.map((r) => `${r.brand}|${r.model}`))
+  for (const m of SEO_MODELS) {
+    assert.ok(pairs.has(`${m.brand}|${m.model}`), `${m.query} is not on the A13 board`)
+  }
+  const doorway = [
+    "Samba OG",
+    "Spezial",
+    "Campus",
+    "Air Force 1 Low",
+    "Air Force 1 Mid",
+    "Dunk",
+    "Dunk Low SB",
+    "Speedcat OG",
+    "501 Original",
+    "Jordan 1 Low",
+    "Jordan 1 Mid",
+  ]
+  const published = new Set(SEO_MODELS.map((m) => m.model))
+  for (const clone of doorway) {
+    assert.equal(published.has(clone), false, clone)
   }
 })
 
@@ -161,14 +189,50 @@ test("model page template is a system: static params, FAQ, live-or-paywall, inte
   assert.doesNotMatch(src, /Try a live check — \{b\.brand\}/)
 })
 
-test("brand hub lists models and does not promise a free brand-level check", () => {
+test("brand hub lists models, visible FAQ, velocity teaser, no free brand-level check", () => {
   const src = read("app/flip/[brand]/page.tsx")
   assert.match(src, /modelsForBrand/)
   assert.match(src, /models to check before you buy/)
   assert.match(src, /not a free check/)
   assert.match(src, /href="\/glossary"/)
+  assert.match(src, /brandHubFaqs/)
+  assert.match(src, /faqPageJsonLd\(faqs\)/)
+  assert.match(src, /<HubFaq items=\{faqs\}/)
+  assert.match(src, /Weekly \{b\.brand\} velocity/)
+  assert.match(src, /href="\/data"/)
+  assert.match(src, /href="\/glossary\/watched-departure"/)
   assert.doesNotMatch(src, /Try a live check — \{b\.brand\}/)
   assert.doesNotMatch(src, /\/tools\?q=\$\{encodeURIComponent\(b\.brand\)\}/)
+})
+
+test("paid brand hubs refuse a free check; Adidas hub names Samba only", () => {
+  const nike = brandHubFaqs({
+    brand: "Nike",
+    brandSlug: "nike",
+    sold: 203,
+    avg: 67,
+    freeModels: [getSeoModel("nike", "air-force-1")!],
+  })
+  const gazelleBrand = brandHubFaqs({
+    brand: "Gucci",
+    brandSlug: "gucci",
+    sold: 237,
+    avg: 210,
+    freeModels: [],
+  })
+  for (const f of [...nike, ...gazelleBrand]) assert.equal(faqAnswerIsClean(f.a), true, f.q)
+  const nikeBlob = nike.map((f) => `${f.q} ${f.a}`).join("\n")
+  assert.match(nikeBlob, /Is the Nike check free\?/)
+  assert.match(nikeBlob, /Yes for Nike Air Force 1/)
+  assert.doesNotMatch(nikeBlob, /Gazelle/)
+  const paidBlob = gazelleBrand.map((f) => `${f.q} ${f.a}`).join("\n")
+  assert.match(paidBlob, /check free\? No\./)
+  assert.match(paidBlob, /Starter €19/)
+  assert.match(paidBlob, /https:\/\/resaleiq\.dev\/data/)
+  assert.match(paidBlob, /https:\/\/resaleiq\.dev\/pricing/)
+  assert.doesNotMatch(paidBlob, /\/register/)
+  assert.doesNotMatch(paidBlob, /utm_/)
+  assert.doesNotMatch(paidBlob, /free sample is Gucci/)
 })
 
 test("sitemap, robots and llms advertise the new routes", () => {

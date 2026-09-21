@@ -12,7 +12,9 @@ import {
   articleSocialMeta,
 } from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
-import { modelsForBrand, modelPath } from "@/lib/seo-models"
+import { HubFaq } from "@/components/seo/hub-faq"
+import { faqPageJsonLd } from "@/lib/faq-schema"
+import { modelsForBrand, modelPath, brandHubFaqs } from "@/lib/seo-models"
 import { BRAND_MONEY_HREF } from "@/lib/money-cta"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
@@ -62,6 +64,13 @@ export default async function BrandFlipPage(
   const others = BRANDS.filter(x => x.slug !== b.slug).slice(0, 12)
   const seoModels = modelsForBrand(b.slug)
   const freeModels = seoModels.filter((m) => m.freeCheck)
+  const faqs = brandHubFaqs({
+    brand: b.brand,
+    brandSlug: b.slug,
+    sold,
+    avg,
+    freeModels,
+  })
 
   const overlay: BrandSeo | null = live && sold != null && avg != null
     ? {
@@ -81,26 +90,9 @@ export default async function BrandFlipPage(
     : null
 
   // Structured data helps this rank as an answer to "is X worth reselling".
-  const jsonLd = [{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `Is ${b.brand} worth reselling on Vinted?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            sold != null
-              ? `${b.brand} has roughly ${fmtCount(sold)} watched departures per week across the five ` +
-                `main EU Vinted markets` +
-                (avg != null ? `, at an average price at departure of ${fmtEur(avg)}.` : ".") +
-                ` Whether it is profitable depends on the specific model and the price you source it at.`
-              : `${b.brand} is tracked across the five main EU Vinted markets. Whether it is profitable depends on the specific model and the price you source it at.`,
-        },
-      },
-    ],
-  },
+  // FAQPage strings match HubFaq — schema-only answers are a rich-result reject.
+  const jsonLd = [
+    faqPageJsonLd(faqs),
   // Breadcrumbs need a hub that resolves; /flip only started returning 200 on
   // 2026-08-29, so this could not have been correct before that.
   {
@@ -183,6 +175,39 @@ export default async function BrandFlipPage(
           </div>
         ))}
       </div>
+
+      <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
+        Weekly {b.brand} velocity
+      </h2>
+      <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
+        {sold != null ? (
+          <>
+            About{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} watched departures</strong>
+            {" "}this week across Spain, France, Germany, Italy and Portugal
+            {avg != null ? (
+              <>
+                , at{" "}
+                <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
+                {" "}average asking price at departure
+              </>
+            ) : null}
+            . That is brand demand — not a sell-through rate and not a buy-below.
+          </>
+        ) : (
+          <>
+            Live weekly volume is not on this snapshot — an em-dash means missing, not zero.
+          </>
+        )}{" "}
+        Full ranking on{" "}
+        <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>weekly brand volumes</Link>
+        . Definitions:{" "}
+        <Link href="/glossary/watched-departure" style={{ color: "#34C759", textDecoration: "none" }}>watched departure</Link>
+        {" · "}
+        <Link href="/glossary/sell-through" style={{ color: "#34C759", textDecoration: "none" }}>sell-through</Link>
+        {" · "}
+        <Link href="/glossary/buy-below" style={{ color: "#34C759", textDecoration: "none" }}>buy-below</Link>.
+      </p>
 
       <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
         What {b.brand} sells for, by category
@@ -368,6 +393,8 @@ export default async function BrandFlipPage(
           → What counts as a good sell-through rate
         </Link>
       </div>
+
+      <HubFaq items={faqs} />
 
       <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 12px" }}>
         Other brands

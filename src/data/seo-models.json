@@ -215,6 +215,186 @@
       "query": "Gucci Ace",
       "category": "Sneakers",
       "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Campus 00s",
+      "slug": "campus-00s",
+      "query": "Adidas Campus 00s",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Forum Low",
+      "slug": "forum-low",
+      "query": "Adidas Forum Low",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Max 1",
+      "slug": "air-max-1",
+      "query": "Nike Air Max 1",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Blazer Mid",
+      "slug": "blazer-mid",
+      "query": "Nike Blazer Mid",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Tech Fleece",
+      "slug": "tech-fleece",
+      "query": "Nike Tech Fleece",
+      "category": "Hoodies",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "1906R",
+      "slug": "1906r",
+      "query": "New Balance 1906R",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "2002R",
+      "slug": "2002r",
+      "query": "New Balance 2002R",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "327",
+      "slug": "327",
+      "query": "New Balance 327",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Levi's",
+      "brandSlug": "levis",
+      "model": "Trucker",
+      "slug": "trucker",
+      "query": "Levi's Trucker",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Jordan",
+      "brandSlug": "jordan",
+      "model": "Jordan 3",
+      "slug": "jordan-3",
+      "query": "Jordan 3",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Patagonia",
+      "brandSlug": "patagonia",
+      "model": "Nano Puff",
+      "slug": "nano-puff",
+      "query": "Patagonia Nano Puff",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Patagonia",
+      "brandSlug": "patagonia",
+      "model": "Snap-T",
+      "slug": "snap-t",
+      "query": "Patagonia Snap-T",
+      "category": "Hoodies",
+      "freeCheck": false
+    },
+    {
+      "brand": "Carhartt",
+      "brandSlug": "carhartt",
+      "model": "Active Jacket",
+      "slug": "active-jacket",
+      "query": "Carhartt Active Jacket",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Carhartt",
+      "brandSlug": "carhartt",
+      "model": "Double Knee",
+      "slug": "double-knee",
+      "query": "Carhartt Double Knee",
+      "category": "Jeans",
+      "freeCheck": false
+    },
+    {
+      "brand": "Fred Perry",
+      "brandSlug": "fred-perry",
+      "model": "Harrington",
+      "slug": "harrington",
+      "query": "Fred Perry Harrington",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Stone Island",
+      "brandSlug": "stone-island",
+      "model": "Ghost",
+      "slug": "ghost",
+      "query": "Stone Island Ghost",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Reebok",
+      "brandSlug": "reebok",
+      "model": "Instapump Fury",
+      "slug": "instapump-fury",
+      "query": "Reebok Instapump Fury",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Supreme",
+      "brandSlug": "supreme",
+      "model": "Box Logo",
+      "slug": "box-logo",
+      "query": "Supreme Box Logo",
+      "category": "T-Shirts",
+      "freeCheck": false
+    },
+    {
+      "brand": "Balenciaga",
+      "brandSlug": "balenciaga",
+      "model": "Triple S",
+      "slug": "triple-s",
+      "query": "Balenciaga Triple S",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Gucci",
+      "brandSlug": "gucci",
+      "model": "GG Marmont",
+      "slug": "gg-marmont",
+      "query": "Gucci GG Marmont",
+      "category": "Bags",
+      "freeCheck": false
     }
   ]
 }

@@ -557,3 +557,14 @@ NEXT (once unblocked): P0-1.
 - Sitemap, robots, llms.txt. Tests in src/lib/seo-models.test.ts.
 - Branch cursor/seo-programmatic-models-c616.
 
+## 2026-09-21 — week-1 SEO batch on the same PR (#127)
+- Brand hubs: HubFaq + FAQPage (5 Qs), weekly velocity teaser → /data +
+  glossary terms. Free-check FAQ is Yes only when that hub has Samba/AF1/530.
+- Model catalogue 24 → 44 distinct A13 models (Campus 00s, Forum Low, Air Max 1,
+  Blazer Mid, Tech Fleece, 1906R/2002R/327, Trucker, Jordan 3, Nano Puff,
+  Snap-T, Active Jacket, Double Knee, Harrington, Ghost, Instapump Fury,
+  Box Logo, Triple S, GG Marmont). Doorway clones rejected in tests.
+- Sitemap 44 model URLs + 4 glossary. Isolation is the deploy gate.
+- Same branch/PR. EN live first; no locale clones.
+
+

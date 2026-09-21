@@ -3,19 +3,21 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — PROGRAMMATIC MODEL TEMPLATES (this session)
-  SHIPPED on branch. Template system, not one-off blogs.
-  URL pattern: /flip/{brand}/model/{slug} — 24 named models from the
-  A13 catalogue + existing /flip brands. Free sample (live BUY/WATCH/SKIP
-  + buy-below when the teaser API returns): Adidas Samba, Nike Air Force 1,
-  New Balance 530. All other model pages CTA to Starter €19 — they do not
-  promise a free check. Brand hubs list those models. Glossary:
-  /glossary + /glossary/buy-below|watched-departure|sell-through
-  (definition-first, DefinedTerm + FAQ). Sitemap + robots + llms.txt
-  updated. Local: tsc, next build, isolation, warehouse, tracked,
-  dupes, unit tests; curl 200 on samba/gazelle/530/501/glossary/nike hub;
-  sitemap 24 model URLs + 4 glossary URLs. No live verdict in this
-  environment (no backend) — free pages omit the number rather than invent.
+SEO LANE, 2026-09-21 — PROGRAMMATIC MODEL TEMPLATES (week-1 batch, same PR)
+  SHIPPED on branch. Same URL shapes. Do not open a competing PR.
+  Pattern: /flip/{brand}/model/{slug} — 44 named A13 models (no Samba OG /
+  AF1 Low / Dunk / Spezial doorway clones). Free sample only Adidas Samba,
+  Nike Air Force 1, New Balance 530. All other models CTA Starter €19.
+  Brand hubs: citeable lead + weekly velocity teaser → /data + HubFaq matching
+  FAQPage (5 Qs, honest free only when that brand has a teaser model).
+  Glossary: /glossary + buy-below / watched-departure / sell-through.
+  Sitemap: 44 model URLs + 4 glossary URLs. EN only — no ES/FR/DE/IT/PT clones.
+  Local: tsc, next build, isolation, warehouse, tracked, dupes, unit tests;
+  curl 200 on samba / campus-00s / gg-marmont / nike hub / gucci hub /
+  glossary; sitemap 44+4. Isolation green on PR #127. Playwright e2e-required
+  fails are pre-existing (signup-verify / public-result-face), not this lane.
+  Merge to main deploys via Coolify after Isolation. Do not push main here.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/127
   Branch cursor/seo-programmatic-models-c616.
 
 ---
