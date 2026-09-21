@@ -45,7 +45,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
       style={{
         maxWidth: "var(--width-marketing)",
         margin: "0 auto",
-        padding: "var(--space-8) var(--space-3) var(--space-8)",
+        padding: "var(--space-6) var(--space-3) var(--space-8)",
       }}
     >
       {/* Section head: a real number leads, not a templated eyebrow. */}

@@ -71,6 +71,7 @@ test("English homepage SSR-renders the Samba cite in the first fold", () => {
   assert.match(page, /getTeaserVerdict/)
   assert.match(page, /formatHomeCite/)
   assert.match(landing, /riq-home-teaser-cite/)
+  assert.match(landing, /riq-sr-only/)
 })
 
 test("/tools SSR-renders the teaser cite ahead of the essay", () => {

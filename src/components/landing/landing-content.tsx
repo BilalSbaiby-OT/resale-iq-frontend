@@ -56,6 +56,7 @@ export function LandingContent({
    */
   llmSrc?: "perplexity" | "chatgpt" | "llm" | null
 }) {
+  void tracked
   void trackedExact
   void heroQuery
   return (
@@ -106,55 +107,33 @@ export function LandingContent({
       <main id="main">
         <section
           className="riq-apple-hero"
-          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-6) var(--space-3) var(--space-12)" }}
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "var(--space-5) var(--space-3) var(--space-4)" }}
         >
           <div className="riq-hero">
-            {/* Centered stack: claim, then the checker module (input + Free: +
-                chips). The product shot sits BELOW, not beside — a side column
-                left-aligns the checker and pushes Free: under the fold. */}
+            {/* One H1, one subline, then the centered checker. Overline, Samba
+                essay and listing-count line were competing with Check. Samba
+                stays as a free chip; the live cite is SSR for GPTBot only. */}
             <div className="riq-hero-copy">
               {/* H2 — LLM message-match eyebrow. Revenue 2026-09-15.
                   Shown only when ?src=perplexity|chatgpt|llm. Mirrors the channel
                   that brought the visitor — CRO principle #3. */}
               {llmSrc && <LlmEyebrow src={llmSrc} margin="0 0 var(--space-1)" />}
-              <p style={{ fontSize: "var(--text-meta)", fontWeight: 500, letterSpacing: "0.15px", color: "var(--color-text-muted)", margin: "0 auto var(--space-2)", lineHeight: 1.5 }}>
-                {t.heroAudience}
-              </p>
               <h1
                 style={{
                   fontSize: "var(--text-h1-marketing)",
                   fontWeight: 600,
                   letterSpacing: "var(--tracking-h1)",
                   lineHeight: "var(--leading-h1)",
-                  margin: "0 auto var(--space-3)",
+                  margin: "0 auto var(--space-2)",
                   color: "var(--color-text-primary)",
                   textWrap: "balance",
                 }}
               >
                 {t.heroHeadline}
               </h1>
-              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 auto var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}>
+              <p style={{ fontSize: "var(--text-body-marketing)", fontWeight: 400, color: "var(--color-text-dim)", margin: "0 auto", lineHeight: 1.5, maxWidth: "42ch" }}>
                 {t.heroSub}
               </p>
-              {homeCite ? (
-                <p
-                  data-testid="riq-home-teaser-cite"
-                  style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)", margin: "0 auto var(--space-3)", lineHeight: 1.5, maxWidth: "48ch" }}
-                >
-                  {homeCite}
-                </p>
-              ) : null}
-              {/* H15 — data-specificity anchor. CRO principle #4 (objection: "how do
-                  you know?") + principle #8 (specific number, not vague claim). Placed
-                  between heroSub and the FreeChecker so the proof lands before the ask.
-                  tracked is the SSR-fetched floor-rounded count from listingsTrackedLabel().
-                  Falls back silently (conditional render) if the warehouse returns "—".
-                  Revenue 2026-09-15 H15. */}
-              {tracked && tracked !== "—" && (
-                <p style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-muted)", margin: "0 auto var(--space-4)", lineHeight: 1.5 }}>
-                  {t.heroFrom(tracked)}
-                </p>
-              )}
             </div>
             <div id="check" className="riq-hero-checker">
               <FreeChecker
@@ -169,9 +148,6 @@ export function LandingContent({
                 initialQuery=""
                 initialResult={heroResult}
               />
-              <p style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "var(--space-3) 0 0", lineHeight: 1.5, textAlign: "center" }}>
-                {t.heroTrust}
-              </p>
             </div>
 
             {/* Below the checker, not beside it. Hidden on narrow screens where
@@ -194,10 +170,19 @@ export function LandingContent({
                 />
               </div>
             </div>
+            {homeCite ? (
+              <p data-testid="riq-home-teaser-cite" className="riq-sr-only">
+                {homeCite}
+              </p>
+            ) : null}
           </div>
         </section>
 
-        <BrandStrip names={market.brandNames} />
+        <BrandStrip
+          names={market.brandNames}
+          total={market.brandsTracked ?? market.brandCount}
+          locale={locale}
+        />
 
         <LiveMarketPulse locale={locale} market={market} />
 

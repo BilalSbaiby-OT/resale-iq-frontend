@@ -117,6 +117,8 @@ export const copy = {
     heroAudience: "For people who resell second-hand clothes.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     heroFreeScope: "Free: Samba + Air Force 1 + NB 530. Other models €19/mo.",
+    brandStripCaption: "Brands we watch",
+    brandStripMore: (n: number) => `+${n} more`,
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
     marketPulse: {
@@ -136,7 +138,7 @@ export const copy = {
     },
     heroHeadline: "Know what sells. Decide whether to buy.",
     heroSub:
-      "Second-hand clothes: which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
+      "Which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
     heroBody:
       "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>
@@ -670,6 +672,8 @@ export const copy = {
     heroAudience: "Pour ceux qui achètent d'occasion pour revendre.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
     heroFreeScope: "Gratuit : Samba + Air Force 1 + NB 530. Autres modèles 19 €/mois.",
+    brandStripCaption: "Marques que nous suivons",
+    brandStripMore: (n: number) => `+${n} de plus`,
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui se vend vraiment en ce moment.",
@@ -686,7 +690,7 @@ export const copy = {
       seeAll: "Tout voir sur /data",
     },
     heroHeadline: "Sachez ce qui se vend. Décidez si vous achetez.",
-    heroSub: "Une recherche : ce qui se vend, BUY / WATCH / SKIP, et le prix à ne pas dépasser.",
+    heroSub: "Ce qui se vend, BUY / WATCH / SKIP, prix à ne pas dépasser. Starter 19 €/mois.",
     heroBody:
       "Ce qui est demandé, ce que ça se revend, s'il faut acheter à ce prix — puis BUY, WATCH ou SKIP. Vinted est le premier marketplace ; l'origine de l'achat n'est pas le produit.",
     heroFrom: (tracked: string) =>
@@ -1069,6 +1073,8 @@ export const copy = {
     heroAudience: "Para quien compra de segunda mano para revender.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
     heroFreeScope: "Gratis: Samba + Air Force 1 + NB 530. Otros modelos 19 €/mes.",
+    brandStripCaption: "Marcas que vigilamos",
+    brandStripMore: (n: number) => `+${n} más`,
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que se está vendiendo ahora mismo.",
@@ -1086,7 +1092,7 @@ export const copy = {
     },
     heroHeadline: "Sabe qué se vende. Decide si compras.",
     heroSub:
-      "Una búsqueda: qué se vende, veredicto BUY / WATCH / SKIP y el precio máximo de compra. Starter 19 €/mes.",
+      "Qué se vende, BUY / WATCH / SKIP, precio máximo de compra. Starter 19 €/mes.",
     heroBody:
       "Qué hay en demanda, a qué se revende, si conviene comprar a este precio — luego BUY, WATCH o SKIP. Vinted es el primer marketplace; de dónde compras no es el producto.",
     heroFrom: (tracked: string) =>
@@ -1471,6 +1477,8 @@ export const copy = {
     heroAudience: "Für alle, die Second-Hand kaufen, um weiterzuverkaufen.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
     heroFreeScope: "Kostenlos: Samba + Air Force 1 + NB 530. Andere Modelle 19 €/Monat.",
+    brandStripCaption: "Marken, die wir beobachten",
+    brandStripMore: (n: number) => `+${n} weitere`,
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verkauft sich gerade wirklich.",
@@ -1487,7 +1495,7 @@ export const copy = {
       seeAll: "Alle auf /data",
     },
     heroHeadline: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
-    heroSub: "Eine Suche: was gefragt ist, BUY / WATCH / SKIP, und die Kaufobergrenze.",
+    heroSub: "Was gefragt ist, BUY / WATCH / SKIP, Kaufobergrenze. Starter 19 €/Monat.",
     heroBody:
       "Was nachgefragt wird, wofür es sich weiterverkauft, ob du zu diesem Preis kaufen solltest — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz; woher du die Ware holst, ist nicht das Produkt.",
     heroFrom: (tracked: string) =>
@@ -1872,6 +1880,8 @@ export const copy = {
     heroAudience: "Per chi compra usato per rivendere.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
     heroFreeScope: "Gratis: Samba + Air Force 1 + NB 530. Altri modelli 19 €/mese.",
+    brandStripCaption: "Marchi che osserviamo",
+    brandStripMore: (n: number) => `+${n} altri`,
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa si sta vendendo davvero adesso.",
@@ -1888,7 +1898,7 @@ export const copy = {
       seeAll: "Vedi tutti su /data",
     },
     heroHeadline: "Sappi cosa si vende. Decidi se comprare.",
-    heroSub: "Una ricerca: cosa si vende, BUY / WATCH / SKIP, e il prezzo da non superare.",
+    heroSub: "Cosa si vende, BUY / WATCH / SKIP, prezzo da non superare. Starter 19 €/mese.",
     heroBody:
       "Cosa è richiesto, a quanto si rivende, se conviene comprare a questo prezzo — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace; da dove compri non è il prodotto.",
     heroFrom: (tracked: string) =>
@@ -2271,6 +2281,8 @@ export const copy = {
     heroAudience: "Para quem compra em segunda mão para revender.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
     heroFreeScope: "Grátis: Samba + Air Force 1 + NB 530. Outros modelos 19 €/mês.",
+    brandStripCaption: "Marcas que seguimos",
+    brandStripMore: (n: number) => `+${n} mais`,
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está mesmo a vender agora.",
@@ -2287,7 +2299,7 @@ export const copy = {
       seeAll: "Ver todas em /data",
     },
     heroHeadline: "Saiba o que vende. Decida se compra.",
-    heroSub: "Uma pesquisa: o que está em procura, BUY / WATCH / SKIP, e o preço máximo a pagar.",
+    heroSub: "O que está em procura, BUY / WATCH / SKIP, preço máximo. Starter 19 €/mês.",
     heroBody:
       "O que está em procura, a que se revende, se deve comprar a este preço — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace; de onde compras não é o produto.",
     heroFrom: (tracked: string) =>

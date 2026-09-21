@@ -11,7 +11,7 @@ import assert from "node:assert/strict"
 import { FREE_MODELS } from "./working-models.ts"
 import { copy } from "./i18n.ts"
 import { formatHomeCite } from "./teaser-verdict.ts"
-import { brandStripNames, BRAND_MARK_SRC } from "./brand-marks.ts"
+import { brandStripNames, brandStripMoreCount, BRAND_MARK_SRC } from "./brand-marks.ts"
 import type { HeroVerdict } from "./hero-verdict.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -94,12 +94,20 @@ test("brand strip is local SVG marks, never text names or a CDN", () => {
   assert.match(marks, /brand-marks\//)
   assert.doesNotMatch(strip, /riq-brand-name/)
   assert.doesNotMatch(strip, /\{name\}<\/li>/)
+  assert.doesNotMatch(strip, /These are the brands we watch/)
+  assert.match(strip, /riq-brand-more/)
+  assert.match(strip, /canonicalPath\(locale, "\/data"\)/)
+  assert.match(strip, /brandStripMoreCount/)
   assert.equal(brandStripNames(["Patagonia", "Balenciaga", "Fred Perry", "Stone Island", "New Balance"]).includes("Patagonia"), false)
   assert.ok(brandStripNames(["Patagonia", "New Balance"]).includes("New Balance"))
   const filled = brandStripNames(["Fred Perry", "Stone Island", "Patagonia"])
   assert.equal(filled.length, Object.keys(BRAND_MARK_SRC).length)
   assert.ok(filled.includes("Nike"))
   assert.ok(filled.includes("Adidas"))
+  assert.equal(brandStripMoreCount(9, 28), 19)
+  assert.equal(brandStripMoreCount(9, 9), 0)
+  assert.equal(brandStripMoreCount(9, 2), 0)
+  assert.equal(copy.en.brandStripMore(19), "+19 more")
   for (const file of Object.values(BRAND_MARK_SRC)) {
     assert.ok(existsSync(join(root, "..", "public", file.replace(/^\//, ""))), file)
   }
@@ -112,4 +120,23 @@ test("hero checker is a centered column, shot not beside it", () => {
   assert.match(css, /\.riq-hero-checker/)
   assert.match(css, /align-items:\s*center/)
   assert.doesNotMatch(css, /grid-template-columns:\s*1fr 0\.95fr/)
+})
+
+test("homepage hero is one H1 + one subline, Samba essay not in the fold", () => {
+  const landing = read("components/landing/landing-content.tsx")
+  assert.doesNotMatch(landing, /t\.heroAudience/)
+  assert.doesNotMatch(landing, /t\.heroFrom/)
+  assert.doesNotMatch(landing, /t\.heroTrust/)
+  assert.match(landing, /t\.heroHeadline/)
+  assert.match(landing, /t\.heroSub/)
+  assert.match(landing, /riq-sr-only/)
+  assert.match(landing, /riq-home-teaser-cite/)
+  assert.match(landing, /brandsTracked \?\? market\.brandCount/)
+  assert.equal(
+    copy.en.heroSub,
+    "Which models are in demand, BUY / WATCH / SKIP, buy-below. Starter €19/mo.",
+  )
+  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
+  assert.match(copy.en.heroSub, /€19/)
+  assert.doesNotMatch(copy.en.heroSub, /Second-hand clothes/)
 })

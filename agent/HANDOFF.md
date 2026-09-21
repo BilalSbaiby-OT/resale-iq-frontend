@@ -1,7 +1,15 @@
-STATUS: READY
+STATUS: IN_PROGRESS
 OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
+
+FRONTEND, 2026-09-21 — homepage hero + brand strip (this session)
+  Claimed. Cut hero wall of text (overline, Samba essay, listing count);
+  keep H1 + one subline + centered checker + Free: chips. Brand strip
+  gets real marks + remainder “+N more” → /data. Branch
+  cursor/homepage-hero-strip-d269.
+
+---
 
 SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV leftover PR #125
   SHIPPED on branch. Local PASS: tsc, build, isolation, homepage-conv
