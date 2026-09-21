@@ -335,14 +335,13 @@ export function PricingSection({
           </div>
         ))}
       </div>
-      {/* H21 CRO: CTA commitment ladder for cold traffic — standalone /pricing only.
-          Undecided visitors who aren't yet solution-aware get a low-commitment escape
-          hatch to try the free checker first, rather than bouncing.
-          CRO Principle #10 (CTA commitment ladder). Revenue 2026-09-15. */}
+      {/* Cold-traffic CTA under the cards: paid Starter, not /tools Fred.
+          Click-but-no-convert: Fred sent pricing visitors to the free checker.
+          CRO #10 product-aware → "get started €19/mo". Revenue 2026-09-21. */}
       {!compact && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
           <Link
-            href={canonicalPath(locale, "/tools") + "?q=Fred+Perry+Shirt&src=pricing-cold-cta"}
+            href={canonicalPath(locale, "/register") + "?plan=operator&src=pricing-cold-cta"}
             data-testid="riq-cold-cta-ladder"
             style={{ color: "var(--color-text-secondary)", fontWeight: 500, textDecoration: "none" }}
           >

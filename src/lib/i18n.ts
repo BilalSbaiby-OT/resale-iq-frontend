@@ -342,9 +342,8 @@ export const copy = {
         "One search gives you BUY / WATCH / SKIP, the buy-below price, and how solid the evidence is. Starter €19/mo.",
       // H19 CRO: Objection #1 ("will it work for me?") answered above the plan cards — CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15.
       scopeNote: "Built for clothing, shoes and accessories on Vinted · ES · FR · DE · IT · PT. When the sample is too thin to answer, the verdict says UNKNOWN — not a guess.",
-      // H21 CRO: CTA commitment ladder for cold traffic — low-commitment link below plan cards. CRO Principle #10. Revenue 2026-09-15.
-      // H29 CRO: Specificity (#8) — pre-filled live check > empty form. Links to /tools?q=Fred+Perry+Shirt (highest-volume brand, 1k+/week). Revenue 2026-09-15.
-      coldCtaLadder: "Try a live check — Fred Perry Shirt →",
+      // Product-aware /pricing visitors: paid Starter, not /tools Fred. CRO #10. Revenue 2026-09-21.
+      coldCtaLadder: "Start Starter €19 →",
       faqHeading: "Before you pick a plan",
       faq: [
         // H48 CRO: cta drops the visitor into a live check — LLM-cited FAQ can now route into the product. Revenue 2026-09-15.
