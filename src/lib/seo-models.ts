@@ -6,10 +6,9 @@
  * from market-numbers.ts. A frozen A13 board is how we chose WHICH models
  * to publish — not what to print as a figure.
  *
- * Week-1 batch is a curated slice of named models that already sit on the
- * tracked board (docs/audit/proof/W36/a13-gate-joint). Do not add a model
- * that is not a real catalogue row. Do not invent a buy-below. Do not add
- * doorway clones (Samba OG, Air Force 1 Low, Dunk, Spezial, Speedcat OG).
+ * Week-1 lock (32 pages): 12 named models on /flip/{brand}/model/{slug},
+ * 10 glossary terms, 10 brand hubs deepened. Insufficient warehouse data
+ * is an em-dash, never an invented sold_7d. Do not add doorway clones.
  */
 import raw from "../data/seo-models.json" with { type: "json" }
 import brandsRaw from "../data/seo-brands.json" with { type: "json" }
@@ -44,6 +43,20 @@ const parsed = (raw as { models: SeoModel[] }).models
 export const SEO_MODELS: SeoModel[] = parsed
 
 export const FREE_CHECK_QUERIES = SEO_MODELS.filter((m) => m.freeCheck).map((m) => m.query)
+
+/** Week-1 hub deepen list (seed lock). Same template as every /flip/{brand}. */
+export const WEEK1_HUB_SLUGS = [
+  "adidas",
+  "nike",
+  "new-balance",
+  "levis",
+  "jordan",
+  "asics",
+  "salomon",
+  "converse",
+  "dr-martens",
+  "puma",
+] as const
 
 export function modelPath(m: SeoModel): string {
   return `/flip/${m.brandSlug}/model/${m.slug}`
@@ -185,7 +198,7 @@ export function modelFaqs(opts: {
   const buyBelowDef =
     "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
     "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
-    "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below"
+    "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market"
 
   const shouldBuy = m.freeCheck && isUsableVerdict(live)
     ? `Should you buy ${m.query} to resell? ${live!.verdict}. Most to pay after fees: ${fmtBuyBelow(live!.buy_below)}. Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK.`
@@ -211,8 +224,8 @@ export function modelFaqs(opts: {
     sold != null
       ? `${m.brand} has about ${fmtCount(sold)} watched departures a week` +
         (avg != null ? ` at an average of ${fmtEur(avg)}` : "") +
-        `. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Brand table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/watched-departure`
-      : `${m.brand} weekly demand is on https://resaleiq.dev/data when the snapshot has a row. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Definition: https://resaleiq.dev/glossary/watched-departure`
+        `. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Brand table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/vinted-demand`
+      : `${m.brand} weekly demand is on https://resaleiq.dev/data when the snapshot has a row. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Definition: https://resaleiq.dev/glossary/vinted-demand`
 
   return [
     { q: `Should I buy ${m.query} to resell?`, a: shouldBuy },
@@ -249,15 +262,15 @@ export function brandHubFaqs(opts: {
     sold != null
       ? `${brand} has roughly ${fmtCount(sold)} watched departures per week across Spain, France, Germany, Italy and Portugal` +
         (avg != null ? `, at an average asking price at departure of ${fmtEur(avg)}.` : ".") +
-        ` Whether it is profitable depends on the named model and the price you source it at. Weekly table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/watched-departure`
-      : `${brand} is tracked across Spain, France, Germany, Italy and Portugal. Live weekly volume is on https://resaleiq.dev/data when this snapshot has a row. Whether it is profitable depends on the named model and the price you source it at. Definition: https://resaleiq.dev/glossary/watched-departure`
+        ` Whether it is profitable depends on the named model and the price you source it at. Weekly table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/vinted-demand`
+      : `${brand} is tracked across Spain, France, Germany, Italy and Portugal. Live weekly volume is on https://resaleiq.dev/data when this snapshot has a row. Whether it is profitable depends on the named model and the price you source it at. Definition: https://resaleiq.dev/glossary/vinted-demand`
 
   const velocity =
     sold != null
       ? `This week ${brand} shows about ${fmtCount(sold)} watched departures` +
         (avg != null ? ` at ${fmtEur(avg)} average asking price at departure` : "") +
-        `. That is brand demand — not a sell-through rate and not a buy-below. Full ranking: https://resaleiq.dev/data. Sell-through definition: https://resaleiq.dev/glossary/sell-through`
-      : `${brand} weekly velocity is listed on https://resaleiq.dev/data when the snapshot has a row. An em-dash means missing, not zero. Definition: https://resaleiq.dev/glossary/watched-departure`
+        `. That is brand demand — not a sell-through rate and not a buy-below. Full ranking: https://resaleiq.dev/data. Sell-through definition: https://resaleiq.dev/glossary/vinted-sell-through`
+      : `${brand} weekly velocity is listed on https://resaleiq.dev/data when the snapshot has a row. An em-dash means missing, not zero. Definition: https://resaleiq.dev/glossary/vinted-demand`
 
   const freeA = freeModels.length
     ? `Yes for ${freeModels.map((m) => m.query).join(", ")}: BUY, WATCH or SKIP and buy-below on https://resaleiq.dev/tools with no account. Other ${brand} models need Starter at €19 a month at https://resaleiq.dev/pricing.`
@@ -272,7 +285,7 @@ export function brandHubFaqs(opts: {
       a:
         "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
         "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
-        "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below",
+        "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market",
     },
     {
       q: "Which Vinted markets does this cover?",

@@ -567,4 +567,16 @@ NEXT (once unblocked): P0-1.
 - Sitemap 44 model URLs + 4 glossary. Isolation is the deploy gate.
 - Same branch/PR. EN live first; no locale clones.
 
+## 2026-09-21 — week-1 seed lock aligned on PR #127
+- Locked batch: 10 glossary terms, 10 brand hubs, 12 models (32 pages).
+- Glossary: vinted-demand, vinted-sell-through, buy-below-market, dead-stock,
+  vinted-fees, vinted-profit-margin, max-buy-price, average-sale-price,
+  condition-grading, size-demand. Old slugs 308 to the new paths.
+- Models: samba, air-force-1, 530 (free); 550, 501, air-jordan-1, gazelle,
+  dunk-low, gel-kayano-14, xt-6, chuck-70, 1460 (Starter €19).
+- Hubs: adidas, nike, new-balance, levis, jordan, asics, salomon, converse,
+  dr-martens, puma. New brands structure-only; missing warehouse = em-dash.
+- Sitemap 12 model URLs + 10 term URLs + glossary hub. Same PR, no competitor.
+
+
 

@@ -78,7 +78,7 @@ const STATIC_CONTENT_DATE = new Date("2026-08-29T00:00:00.000Z")
 /** /manual hub copy last changed (FAQPage + answer-first title). Do not reuse for /terms. */
 const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
 /** /glossary hub + terms. Bump when a definition changes. */
-const GLOSSARY_DATE = new Date("2026-09-21T00:00:00.000Z")
+const GLOSSARY_DATE = new Date("2026-09-21T12:00:00.000Z")
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()

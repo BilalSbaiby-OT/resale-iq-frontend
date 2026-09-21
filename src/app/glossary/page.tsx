@@ -42,7 +42,7 @@ export default function GlossaryHubPage() {
         Vinted resale glossary
       </h1>
       <p style={{ color: "#8b99b8", fontSize: 15, lineHeight: 1.65, marginBottom: 26 }}>
-        Three terms behind every BUY / WATCH / SKIP. Definition first, so an answer engine can cite them.
+        Ten terms behind every BUY / WATCH / SKIP. Definition first, so an answer engine can cite them.
         Method lives in the{" "}
         <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>manual</Link>
         . Numbers live on{" "}

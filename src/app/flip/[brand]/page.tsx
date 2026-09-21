@@ -202,11 +202,11 @@ export default async function BrandFlipPage(
         Full ranking on{" "}
         <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>weekly brand volumes</Link>
         . Definitions:{" "}
-        <Link href="/glossary/watched-departure" style={{ color: "#34C759", textDecoration: "none" }}>watched departure</Link>
+        <Link href="/glossary/vinted-demand" style={{ color: "#34C759", textDecoration: "none" }}>watched departure</Link>
         {" · "}
-        <Link href="/glossary/sell-through" style={{ color: "#34C759", textDecoration: "none" }}>sell-through</Link>
+        <Link href="/glossary/vinted-sell-through" style={{ color: "#34C759", textDecoration: "none" }}>sell-through</Link>
         {" · "}
-        <Link href="/glossary/buy-below" style={{ color: "#34C759", textDecoration: "none" }}>buy-below</Link>.
+        <Link href="/glossary/buy-below-market" style={{ color: "#34C759", textDecoration: "none" }}>buy-below</Link>.
       </p>
 
       <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>

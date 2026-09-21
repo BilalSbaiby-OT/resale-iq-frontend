@@ -10,6 +10,7 @@ import assert from "node:assert/strict"
 import {
   SEO_MODELS,
   FREE_CHECK_QUERIES,
+  WEEK1_HUB_SLUGS,
   modelPath,
   modelPageTitle,
   modelPageDescription,
@@ -36,26 +37,39 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("week-1 batch is 20–50 named models from existing /flip brands", () => {
-  assert.ok(SEO_MODELS.length >= 20 && SEO_MODELS.length <= 50, `got ${SEO_MODELS.length}`)
+test("week-1 lock is 12 models + 10 glossary terms + 10 hubs", () => {
+  assert.equal(SEO_MODELS.length, 12)
   assert.equal(modelsPointAtKnownBrands(), true)
+  assert.equal(WEEK1_HUB_SLUGS.length, 10)
   const slugs = new Set(SEO_MODELS.map((m) => modelPath(m)))
-  assert.equal(slugs.size, SEO_MODELS.length)
+  assert.equal(slugs.size, 12)
+  const locked = [
+    "/flip/adidas/model/samba",
+    "/flip/nike/model/air-force-1",
+    "/flip/new-balance/model/530",
+    "/flip/new-balance/model/550",
+    "/flip/levis/model/501",
+    "/flip/jordan/model/air-jordan-1",
+    "/flip/adidas/model/gazelle",
+    "/flip/nike/model/dunk-low",
+    "/flip/asics/model/gel-kayano-14",
+    "/flip/salomon/model/xt-6",
+    "/flip/converse/model/chuck-70",
+    "/flip/dr-martens/model/1460",
+  ]
+  assert.deepEqual([...slugs].sort(), [...locked].sort())
   for (const m of SEO_MODELS) {
     assert.ok(m.query.includes(m.brand) || m.brand === "Jordan")
     assert.ok(m.category.length > 0)
     assert.match(m.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/)
   }
+  const brandsSrc = read("data/seo-brands.json")
+  for (const hub of WEEK1_HUB_SLUGS) {
+    assert.match(brandsSrc, new RegExp(`"slug": "${hub}"`))
+  }
 })
 
-test("catalogue rows are A13 models and skip doorway clones", () => {
-  const a13 = JSON.parse(
-    readFileSync(join(root, "..", "docs/audit/proof/W36/a13-gate-joint/result-supply-2026-09-01T0847Z.json"), "utf8"),
-  ) as { all_rows: { brand: string; model: string }[] }
-  const pairs = new Set(a13.all_rows.map((r) => `${r.brand}|${r.model}`))
-  for (const m of SEO_MODELS) {
-    assert.ok(pairs.has(`${m.brand}|${m.model}`), `${m.query} is not on the A13 board`)
-  }
+test("week-1 models skip doorway clones; insufficient-data brands are allowed", () => {
   const doorway = [
     "Samba OG",
     "Spezial",
@@ -73,6 +87,9 @@ test("catalogue rows are A13 models and skip doorway clones", () => {
   for (const clone of doorway) {
     assert.equal(published.has(clone), false, clone)
   }
+  assert.equal(getSeoModel("jordan", "air-jordan-1")?.freeCheck, false)
+  assert.equal(getSeoModel("asics", "gel-kayano-14")?.freeCheck, false)
+  assert.equal(getSeoModel("adidas", "gazelle")?.freeCheck, false)
 })
 
 test("free allowlist is Samba, AF1 and NB 530 only", () => {
@@ -156,20 +173,32 @@ test("null buy-below is an em-dash, never €0", () => {
   assert.equal(liveAnswerLead("Adidas Samba", { verdict: "WATCH" }), null)
 })
 
-test("glossary is definition-first with matching FAQ leads and no signup wall", () => {
-  assert.equal(GLOSSARY_TERMS.length, 3)
-  assert.ok(getGlossaryTerm("buy-below"))
-  assert.ok(getGlossaryTerm("watched-departure"))
-  assert.ok(getGlossaryTerm("sell-through"))
+test("glossary is the locked 10 terms, definition-first, no signup wall", () => {
+  assert.equal(GLOSSARY_TERMS.length, 10)
+  const slugs = GLOSSARY_TERMS.map((t) => t.slug)
+  assert.deepEqual(slugs, [
+    "vinted-demand",
+    "vinted-sell-through",
+    "buy-below-market",
+    "dead-stock",
+    "vinted-fees",
+    "vinted-profit-margin",
+    "max-buy-price",
+    "average-sale-price",
+    "condition-grading",
+    "size-demand",
+  ])
   for (const t of GLOSSARY_TERMS) {
-    assert.ok(t.lead.length > 40)
+    assert.ok(t.lead.length > 40, t.slug)
+    assert.ok(t.body.every((p) => p.length > 40), t.slug)
     assert.equal(t.faqs[0].a, t.lead)
     for (const f of t.faqs) assert.equal(faqAnswerIsClean(f.a), true, f.q)
   }
   for (const f of GLOSSARY_HUB_FAQS) assert.equal(faqAnswerIsClean(f.a), true, f.q)
-  const sell = getGlossaryTerm("sell-through")!
+  const sell = getGlossaryTerm("vinted-sell-through")!
   assert.match(sell.lead, /not weekly turns/)
   assert.match(sell.body.join(" "), /null, not 0/)
+  assert.equal(getGlossaryTerm("buy-below"), undefined)
 })
 
 test("model page template is a system: static params, FAQ, live-or-paywall, internal links", () => {
@@ -180,7 +209,7 @@ test("model page template is a system: static params, FAQ, live-or-paywall, inte
   assert.match(src, /<HubFaq items=\{faqs\}/)
   assert.match(src, /riq-model-paywall/)
   assert.match(src, /riq-model-verdict/)
-  assert.match(src, /href="\/glossary\/buy-below"/)
+  assert.match(src, /href="\/glossary\/buy-below-market"/)
   assert.match(src, /href="\/data"/)
   assert.match(src, /href="\/tools"/)
   assert.match(src, /href="\/pricing"/)
@@ -200,7 +229,7 @@ test("brand hub lists models, visible FAQ, velocity teaser, no free brand-level 
   assert.match(src, /<HubFaq items=\{faqs\}/)
   assert.match(src, /Weekly \{b\.brand\} velocity/)
   assert.match(src, /href="\/data"/)
-  assert.match(src, /href="\/glossary\/watched-departure"/)
+  assert.match(src, /href="\/glossary\/vinted-demand"/)
   assert.doesNotMatch(src, /Try a live check — \{b\.brand\}/)
   assert.doesNotMatch(src, /\/tools\?q=\$\{encodeURIComponent\(b\.brand\)\}/)
 })
@@ -248,4 +277,8 @@ test("sitemap, robots and llms advertise the new routes", () => {
   assert.match(llms, /\$\{BASE\}\/glossary/)
   assert.match(llms, /Named models/)
   assert.match(llms, /except the three/)
+  const cfg = read("../next.config.ts")
+  assert.match(cfg, /\/glossary\/buy-below-market/)
+  assert.match(cfg, /\/glossary\/vinted-demand/)
+  assert.match(cfg, /air-jordan-1/)
 })

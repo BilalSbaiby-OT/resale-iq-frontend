@@ -3,6 +3,20 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+SEO LANE, 2026-09-21 — WEEK-1 SEED LOCK (same PR #127)
+  SHIPPED on branch. URL shapes unchanged:
+    /flip/{brand}/model/{slug} · /flip/{brand} · /glossary/{term}
+  Week-1 = 32 pages: 10 glossary + 10 hubs + 12 models.
+  Free checker ONLY Samba / AF1 / NB 530. Insufficient data = em-dash.
+  ASICS / Salomon / Converse / Dr. Martens hubs added as structure
+  (warehouse empty locally — no invented sold_7d). Old glossary slugs
+  308 to locked terms. Sitemap: 12 model + 11 glossary locs.
+  Isolation is the Coolify gate. Do not push main here.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/127
+  Branch cursor/seo-programmatic-models-c616.
+
+---
+
 SEO LANE, 2026-09-21 — PROGRAMMATIC MODEL TEMPLATES (week-1 batch, same PR)
   SHIPPED on branch. Same URL shapes. Do not open a competing PR.
   Pattern: /flip/{brand}/model/{slug} — 44 named A13 models (no Samba OG /

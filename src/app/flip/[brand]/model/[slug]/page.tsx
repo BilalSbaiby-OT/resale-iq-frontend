@@ -216,11 +216,11 @@ export default async function ModelFlipPage(
       </div>
 
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 22 }}>
-        <Link href="/glossary/buy-below" style={{ color: "#34C759", textDecoration: "none" }}>Buy-below</Link>
+        <Link href="/glossary/buy-below-market" style={{ color: "#34C759", textDecoration: "none" }}>Buy-below</Link>
         {" · "}
-        <Link href="/glossary/watched-departure" style={{ color: "#34C759", textDecoration: "none" }}>Watched departure</Link>
+        <Link href="/glossary/vinted-demand" style={{ color: "#34C759", textDecoration: "none" }}>Watched departure</Link>
         {" · "}
-        <Link href="/glossary/sell-through" style={{ color: "#34C759", textDecoration: "none" }}>Sell-through</Link>
+        <Link href="/glossary/vinted-sell-through" style={{ color: "#34C759", textDecoration: "none" }}>Sell-through</Link>
         {" · "}
         <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>Market data</Link>
         {" · "}
