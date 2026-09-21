@@ -515,7 +515,7 @@ NEXT (once unblocked): P0-1.
 ## 2026-09-21 — EX-HOMEPAGE-CONV free chips honesty + table + Samba align
 - Live `/api/verdict` (anon): Samba, AF1, NB 530 = 200; Levi's 501 and NB 550 = 402.
 - Hero chips = FREE_MODELS (Samba, Air Force 1, NB 530). 501/550 removed.
-- Above-fold: “Free: Samba, Air Force 1, and NB 530. Other models €19/mo.”
+- Above-fold: “Free: Samba + Air Force 1 + NB 530. Other models €19/mo.”
 - Homepage FAQ names those three as free; other item checks Starter €19; /data public.
 - Market pulse: “Showing N of M brands” + link to /data (today 6 of 28).
 - Samba hero cite uses whole-euro rounding (€24) matching the checker.
@@ -524,3 +524,8 @@ NEXT (once unblocked): P0-1.
 - WebMCP attrs kept. Paid CTAs untouched (/pricing).
 - Tests: src/lib/homepage-conv.test.ts + FAQ/teaser updates.
 - Branch cursor/seo-ex-homepage-conv-55d5.
+- MERGED #123 as 5ef7491. Isolation SUCCESS. Coolify Deploy SUCCESS.
+  Live PASS on SOURCE_COMMIT 5ef7491 (≠ eb3119a). Cache-busted curl
+  https://resaleiq.dev/: chips Samba/AF1/NB 530; free scope line;
+  no cdn.simpleicons.org; cite €24 not €24.35; Showing 6 of 28 + /data;
+  FAQ does not promise free for Levi’s 501 / NB 550.

@@ -1,14 +1,23 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV (this session)
-  Homepage honesty: free chips = Samba + AF1 + NB 530 (live 200).
-  Remove Levi's 501 / NB 550 (live 402). Free scope line, FAQ sync,
-  market table "Showing N of M" + /data, Samba buy-below whole euro
-  to match checker. Skip broken Patagonia/Balenciaga simpleicons
-  (wordmark). Branch cursor/seo-ex-homepage-conv-55d5.
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV LIVE (merged #123)
+  MERGED | 5ef7491 | live PASS
+  `/deploy-id` SOURCE_COMMIT 5ef749125684fa966d2ea7502a3e7104e52c59a2
+  Isolation firewall SUCCESS (run 35577769977). Coolify Deploy SUCCESS
+  (run 35577861168). Playwright on main still in_progress / same flake
+  class as main — not the Coolify gate; did not block.
+  Cache-busted curl https://resaleiq.dev/ (short 5ef7491, ≠ eb3119a):
+    chips: Adidas Samba / Nike Air Force 1 / New Balance 530
+      (no Levi’s 501, no NB 550)
+    scope: “Free: Samba + Air Force 1 + NB 530. Other models €19/mo.”
+    no cdn.simpleicons.org/patagonia or /balenciaga (text wordmarks)
+    cite: “Adidas Samba is WATCH. Do not pay more than €24 …”
+    showing: “Showing 6 of 28 brands · See all on /data”
+    FAQ: Levi's catalog only; free = Samba/AF1/530; other checks Starter €19
+  Branch cursor/seo-ex-homepage-conv-55d5. PR #123.
 
 SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
   MERGED | e28c993 | live PASS
