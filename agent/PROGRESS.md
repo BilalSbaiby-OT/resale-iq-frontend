@@ -615,3 +615,7 @@ NEXT (once unblocked): P0-1.
 - Sitemap 654 locs (32 models, 42 best, 48 vs, 36 for, 18 hubs).
 - PR #129 cursor/seo-programmatic-scale-f2b2. Do not push main.
 
+## 2026-09-21 — PR #129 squash-merged to main
+- Merge SHA `861eec66212a0616c19534b7657d6ce450bba257`.
+- Isolation firewall SUCCESS. Free allowlist Samba / AF1 / NB 530 only.
+
