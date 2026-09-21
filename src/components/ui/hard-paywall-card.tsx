@@ -4,9 +4,10 @@ import { Lock, Check } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictWord } from "@/lib/verdict-words"
 import { canonicalPath } from "@/lib/locale-routes"
-import { operatorPrice, AW26_REPORT_URL, type PaywallPlan } from "@/lib/hard-paywall"
+import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -126,37 +127,9 @@ export function HardPaywallCard({
       </p>
 
       {/* ── Secondary CTA: one-off AW26 report for non-subscribers ───────────
-          EUR49, no account, no subscription. Converts cold traffic that won't
-          commit to a monthly plan. livemode:true verified 2026-09-21. */}
-      <div
-        style={{
-          borderTop: "1px solid #1e2a3f",
-          paddingTop: 14,
-          marginBottom: 14,
-        }}
-      >
-        <p style={{ fontSize: 12, color: "#6a7d9a", marginBottom: 8, lineHeight: 1.45 }}>
-          Not ready to subscribe? Get the full AW26 demand picture in one go:
-        </p>
-        <a
-          href={AW26_REPORT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid="riq-aw26-report-cta"
-          style={{
-            display: "inline-block",
-            fontSize: 13,
-            fontWeight: 600,
-            color: "#60a5fa",
-            textDecoration: "none",
-            border: "1px solid rgba(96,165,250,.3)",
-            borderRadius: 8,
-            padding: "7px 14px",
-          }}
-        >
-          Autumn/Winter 2026 Vinted Demand Report — €49 one-off →
-        </a>
-      </div>
+          EUR49, no account, no subscription. Single source: Aw26ReportCta.
+          Revenue 2026-09-21. */}
+      <Aw26ReportCta />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>
