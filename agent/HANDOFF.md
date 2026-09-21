@@ -1,11 +1,14 @@
-STATUS: IN_PROGRESS
-OWNER: seo
+STATUS: READY
+OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — merge PR #129 onto main after #128
-  Rebase week-2 seed lock onto 12e95b7 (checkout branding). Isolation is
-  the Coolify gate. Free checker Samba / AF1 / NB 530 only.
+SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK MERGED
+  MERGED | 861eec66212a0616c19534b7657d6ce450bba257 | PR #129 squash
+  Isolation (firewall) SUCCESS on a312827; Playwright was still running
+  (not the Coolify gate). Free checker Samba / AF1 / NB 530 only.
+  EN 41: 20 paid models + 7 /best + 8 /vs/{a}-vs-{b} + 6 /for.
+  Catalogue 32. Locales of the 21 landings. VS preview slugs 308.
 
 ---
 
