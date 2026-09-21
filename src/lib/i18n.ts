@@ -315,6 +315,9 @@ export const copy = {
       // (free account path) as the green button label — Revenue 2026-09-16.
       unlockRestPaid: "Get full numbers — Starter €19/mo →",
       seeFullNumbers: "See full numbers →",
+      // Paid session on the public checker: never "unlock with a plan".
+      paidUnlockLine: (chip: string) => `You're on ${chip} — open Verdict for the full numbers.`,
+      paidManageCta: "Manage subscription",
     },
     pricingSection: {
       // EX-PRICING-OFFER — Bilal locked flips offer. H1 + subhead are the hero.
@@ -349,6 +352,8 @@ export const copy = {
       scopeNote: "Built for clothing, shoes and accessories on Vinted · ES · FR · DE · IT · PT. When the sample is too thin to answer, the verdict says UNKNOWN — not a guess.",
       // Product-aware /pricing visitors: paid Starter, not /tools Fred. CRO #10. Revenue 2026-09-21.
       coldCtaLadder: "Start Starter €19 →",
+      currentPlanCta: "Current plan",
+      manageSubscriptionCta: "Manage subscription",
       countryLabel: "VAT country",
       countryHint: "Asked here so Stripe Checkout can calculate tax without a second location form.",
       checkoutCancelled: "Checkout cancelled — you haven't been charged. Pick a plan when you're ready.",
@@ -811,6 +816,8 @@ export const copy = {
       unlockRest: "ou se connecter",
       unlockRestPaid: "Voir tous les chiffres — Starter 19 €/mois →",
       seeFullNumbers: "Voir tous les chiffres →",
+      paidUnlockLine: (chip: string) => `Vous êtes sur ${chip} — ouvrez Verdict pour tous les chiffres.`,
+      paidManageCta: "Gérer l'abonnement",
     },
     pricingSection: {
       heading: "Sachez ce qui se vend. Décidez si vous achetez.",
@@ -832,6 +839,8 @@ export const copy = {
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
       coldCtaLadder: "Essaie un vrai check — Fred Perry Shirt →",
+      currentPlanCta: "Offre actuelle",
+      manageSubscriptionCta: "Gérer l'abonnement",
       countryLabel: "Pays de TVA",
       countryHint: "Demandé ici pour que Stripe Checkout calcule la taxe sans un second formulaire de localisation.",
       checkoutCancelled: "Paiement annulé — vous n'avez pas été débité. Choisissez une offre quand vous voulez.",
@@ -1220,6 +1229,8 @@ export const copy = {
       unlockRest: "o iniciar sesión",
       unlockRestPaid: "Ver todos los números — Starter 19 €/mes →",
       seeFullNumbers: "Ver todos los números →",
+      paidUnlockLine: (chip: string) => `Estás en ${chip} — abre Verdict para ver todos los números.`,
+      paidManageCta: "Gestionar suscripción",
     },
     pricingSection: {
       // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
@@ -1243,6 +1254,8 @@ export const copy = {
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
       scopeNote: "Diseñado para ropa, calzado y accesorios en Vinted · ES · FR · DE · IT · PT. Cuando la muestra es insuficiente, el veredicto muestra UNKNOWN — nunca una suposición.",
       coldCtaLadder: "Prueba un check real — Fred Perry Shirt →",
+      currentPlanCta: "Plan actual",
+      manageSubscriptionCta: "Gestionar suscripción",
       countryLabel: "País del IVA",
       countryHint: "Lo pedimos aquí para que Stripe Checkout calcule el impuesto sin un segundo formulario de ubicación.",
       checkoutCancelled: "Pago cancelado — no se te ha cobrado. Elige un plan cuando quieras.",
@@ -1630,6 +1643,8 @@ export const copy = {
       unlockRest: "oder anmelden",
       unlockRestPaid: "Alle Zahlen — Starter 19 €/Monat →",
       seeFullNumbers: "Alle Zahlen ansehen →",
+      paidUnlockLine: (chip: string) => `Du nutzt ${chip} — öffne Verdict für die vollständigen Zahlen.`,
+      paidManageCta: "Abo verwalten",
     },
     pricingSection: {
       heading: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
@@ -1651,6 +1666,8 @@ export const copy = {
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
       coldCtaLadder: "Probier einen echten Check — Fred Perry Shirt →",
+      currentPlanCta: "Aktueller Tarif",
+      manageSubscriptionCta: "Abo verwalten",
       countryLabel: "MwSt.-Land",
       countryHint: "Hier gefragt, damit Stripe Checkout die Steuer ohne ein zweites Standortformular berechnen kann.",
       checkoutCancelled: "Zahlung abgebrochen — es wurde nichts belastet. Wähle einen Tarif, wenn du soweit bist.",
@@ -2040,6 +2057,8 @@ export const copy = {
       unlockRest: "o accedi",
       unlockRestPaid: "Tutti i numeri — Starter 19 €/mese →",
       seeFullNumbers: "Vedi tutti i numeri →",
+      paidUnlockLine: (chip: string) => `Sei su ${chip} — apri Verdict per tutti i numeri.`,
+      paidManageCta: "Gestisci abbonamento",
     },
     pricingSection: {
       heading: "Sappi cosa si vende. Decidi se comprare.",
@@ -2061,6 +2080,8 @@ export const copy = {
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
       coldCtaLadder: "Prova un check reale — Fred Perry Shirt →",
+      currentPlanCta: "Piano attuale",
+      manageSubscriptionCta: "Gestisci abbonamento",
       countryLabel: "Paese IVA",
       countryHint: "Chiesto qui così Stripe Checkout calcola l'imposta senza un secondo modulo di posizione.",
       checkoutCancelled: "Pagamento annullato — non ti è stato addebitato nulla. Scegli un piano quando vuoi.",
@@ -2448,6 +2469,8 @@ export const copy = {
       unlockRest: "ou iniciar sessão",
       unlockRestPaid: "Todos os números — Starter 19 €/mês →",
       seeFullNumbers: "Ver todos os números →",
+      paidUnlockLine: (chip: string) => `Estás no ${chip} — abre o Verdict para todos os números.`,
+      paidManageCta: "Gerir subscrição",
     },
     pricingSection: {
       heading: "Saiba o que vende. Decida se compra.",
@@ -2469,6 +2492,8 @@ export const copy = {
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
       coldCtaLadder: "Experimenta um check real — Fred Perry Shirt →",
+      currentPlanCta: "Plano atual",
+      manageSubscriptionCta: "Gerir subscrição",
       countryLabel: "País do IVA",
       countryHint: "Pedimos aqui para o Stripe Checkout calcular o imposto sem um segundo formulário de localização.",
       checkoutCancelled: "Pagamento cancelado — não foste cobrado. Escolhe um plano quando quiseres.",

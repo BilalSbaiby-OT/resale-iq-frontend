@@ -63,6 +63,8 @@ test("FreeChecker is a native form with check_vinted_item WebMCP attrs", () => {
 test("free-check 200 result starts guest Stripe, not /register", () => {
   assert.match(checker, /src="tools_result"/)
   assert.match(checker, /GuestCheckoutButton/)
+  assert.match(checker, /checkerUnlockBranch/)
+  assert.match(checker, /barBranch === "checkout"/)
   assert.doesNotMatch(checker, /utm_content=tools_result/)
   assert.doesNotMatch(checker, /anonHref=.*\/register\?plan=operator/)
 })
@@ -101,6 +103,8 @@ test("imperative registerTool feature-detects and never registers checkout", () 
   assert.doesNotMatch(register, /toolname=["']?(checkout|createCheckout|stripe)/i)
   assert.match(register, /CHECK_VINTED_ITEM_NAME/)
   assert.doesNotMatch(register, /createCheckout|STRIPE_/)
+  assert.match(register, /getToken/)
+  assert.match(register, /Authorization: `Bearer \$\{token\}`/)
 })
 
 test("llms.txt tells agents the money tools and the free-check boundary", () => {

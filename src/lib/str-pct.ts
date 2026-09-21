@@ -54,3 +54,21 @@ export function formatStrPct(value: number | null | undefined): string | null {
   const oneDecimal = Math.round(value * 10) / 10
   return Number.isInteger(oneDecimal) ? `${oneDecimal}%` : `${oneDecimal.toFixed(1)}%`
 }
+
+/**
+ * Re-run a backend sell-through STRING ("0%", "0.2%", already "<0.1%")
+ * through `formatStrPct`. Dashboard `/verdict` used to print the raw API
+ * string; if the backend ever rounded a Samba-class rate to "0%" that
+ * surface would show the same lie the public checker already refuses.
+ *
+ * Unparseable copy (already a bound, or a sentence) is passed through —
+ * inventing a number from it would be worse than showing what arrived.
+ */
+export function formatStrPctString(raw: string | null | undefined): string | null {
+  if (raw == null) return null
+  const trimmed = raw.trim()
+  if (!trimmed) return null
+  const m = trimmed.match(/^(-?[\d.]+)\s*%$/)
+  if (!m) return trimmed
+  return formatStrPct(Number(m[1])) ?? trimmed
+}

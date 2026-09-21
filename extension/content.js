@@ -38,6 +38,8 @@ const I18N = {
     bought: "I bought at €",
     saved: "logged",
     limited: "Free checks used up for today. Sign in and the panel reconnects on its own.",
+    paywall: "This model unlocks with Starter. Samba, Air Force 1 and NB 530 stay free.",
+    seePlans: "See plans",
     verify: "Confirm your email, then this panel will show numbers again.",
     down: "Couldn't reach Resale IQ. This is on us, not your item.",
     signIn: "Sign in",
@@ -66,6 +68,8 @@ const I18N = {
     bought: "J'ai acheté à €",
     saved: "enregistré",
     limited: "Essais gratuits épuisés aujourd'hui. Connectez-vous et le panneau se reconnecte.",
+    paywall: "Ce modèle s'ouvre avec Starter. Samba, Air Force 1 et NB 530 restent gratuits.",
+    seePlans: "Voir les offres",
     verify: "Confirmez votre e-mail, puis le panneau réaffichera les chiffres.",
     down: "Resale IQ est injoignable. Le problème vient de nous, pas de cet article.",
     signIn: "Connexion",
@@ -94,6 +98,8 @@ const I18N = {
     bought: "Lo compré a €",
     saved: "guardado",
     limited: "Comprobaciones gratis agotadas hoy. Entra y el panel se reconecta solo.",
+    paywall: "Este modelo se desbloquea con Starter. Samba, Air Force 1 y NB 530 siguen gratis.",
+    seePlans: "Ver planes",
     verify: "Confirma tu email y el panel volverá a mostrar números.",
     down: "No se pudo contactar con Resale IQ. El fallo es nuestro, no de este artículo.",
     signIn: "Entrar",
@@ -122,6 +128,8 @@ const I18N = {
     bought: "Gekauft für €",
     saved: "gespeichert",
     limited: "Kostenlose Checks für heute aufgebraucht. Anmelden, dann verbindet sich das Panel.",
+    paywall: "Dieses Modell schaltet Starter frei. Samba, Air Force 1 und NB 530 bleiben kostenlos.",
+    seePlans: "Tarife ansehen",
     verify: "E-Mail bestätigen, dann zeigt das Panel wieder Zahlen.",
     down: "Resale IQ nicht erreichbar. Das liegt an uns, nicht an diesem Artikel.",
     signIn: "Anmelden",
@@ -150,6 +158,8 @@ const I18N = {
     bought: "L'ho comprato a €",
     saved: "salvato",
     limited: "Controlli gratuiti finiti per oggi. Accedi e il pannello si ricollega.",
+    paywall: "Questo modello si sblocca con Starter. Samba, Air Force 1 e NB 530 restano gratis.",
+    seePlans: "Vedi i piani",
     verify: "Conferma l'email, poi il pannello mostra di nuovo i numeri.",
     down: "Resale IQ non raggiungibile. Il problema è nostro, non di questo articolo.",
     signIn: "Accedi",
@@ -178,6 +188,8 @@ const I18N = {
     bought: "Comprei a €",
     saved: "guardado",
     limited: "Verificações grátis esgotadas hoje. Entra e o painel liga-se sozinho.",
+    paywall: "Este modelo desbloqueia com Starter. Samba, Air Force 1 e NB 530 continuam grátis.",
+    seePlans: "Ver planos",
     verify: "Confirma o email e o painel volta a mostrar números.",
     down: "Não foi possível contactar a Resale IQ. O problema é nosso, não deste artigo.",
     signIn: "Entrar",
@@ -310,7 +322,7 @@ function paint(d, askingPrice) {
   if (buyBelow != null && askingPrice != null && askingPrice > buyBelow) {
     overBy = askingPrice - buyBelow;
   }
-  const n = d.n ?? d.sold_7d ?? null;
+  const n = d.n ?? null;
   const conf = (d.confidence || "").toUpperCase();
   const note = d.confidence_note
     || (conf === "LOW" && n != null ? `Only ${n} comparable departures` : "");
@@ -458,6 +470,7 @@ function run() {
     if (!res?.ok) {
       if (res?.verify) paintStatus(t().verify, "https://resaleiq.dev/check-email", t().confirm, false);
       else if (res?.limited) paintStatus(res.rate ? t().rate : t().limited, "https://resaleiq.dev/login", t().signIn, false);
+      else if (res?.paywall) paintStatus(t().paywall, "https://resaleiq.dev/pricing", t().seePlans, false);
       else if (res?.timedOut) paintTimeout();
       else paintStatus(t().down, null, null, true);
       return;

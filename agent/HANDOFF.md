@@ -3,6 +3,18 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+FRONTEND AUDIT, 2026-09-21 — architecture + honesty + paid CTA
+  Branch cursor/frontend-audit-repair-b071. Do not push main. Do not merge #130
+  on top without a rebase — this branch already includes paid FreeChecker /
+  PricingSection gating (PR #130 was still OPEN on main).
+  Fixes: JWT on public checker + WebMCP; Pro/Starter skip GuestCheckout;
+  extension 402 as paywall not outage; n≠sold_7d; watchlist locked_fields;
+  formatStrPctString on /verdict; trial/support name NB 530; null≠0 pulse/
+  trends/portfolio; PAYWALL on VerdictResult; seller-fee copy.
+  Local: tsc, unit 269, next build 701, isolation+built, dupes, locale-english,
+  extension, warehouse, tracked. Playwright follow-up on the PR.
+  Docs: TECHNICAL_ARCHITECTURE.md, TECHNICAL_AUDIT_REPORT.md.
+
 SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK MERGED
   MERGED | 861eec66212a0616c19534b7657d6ce450bba257 | PR #129 squash
   Isolation (firewall) SUCCESS on a312827; Playwright was still running

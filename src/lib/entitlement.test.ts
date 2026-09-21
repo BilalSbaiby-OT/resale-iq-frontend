@@ -20,7 +20,7 @@
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { planChip, planEntitlement, planState, PLAN_COPY_TABLE } from "./entitlement.ts"
+import { planChip, planEntitlement, planState, PLAN_COPY_TABLE, isPaidPlan, isPaidPlanId } from "./entitlement.ts"
 import type { Locale } from "./i18n.ts"
 import type { User } from "../types/index.ts"
 
@@ -136,6 +136,18 @@ test("plan states map from the user, not from a bare plan string", () => {
   assert.equal(planState(null), null)
   assert.equal(planChip(null, "en"), "—")
   assert.equal(planEntitlement(null, "en"), "")
+})
+
+test("isPaidPlan is operator/power only — not free, trial, or logged-out", () => {
+  assert.equal(isPaidPlan({ id: 1, email: "a@b.c", plan: "power" }), true)
+  assert.equal(isPaidPlan({ id: 1, email: "a@b.c", plan: "operator" }), true)
+  assert.equal(isPaidPlan({ id: 1, email: "a@b.c", plan: "free" }), false)
+  assert.equal(isPaidPlan({ id: 1, email: "a@b.c", plan: "free", trial_active: true }), false)
+  assert.equal(isPaidPlan(null), false)
+  assert.equal(isPaidPlanId("power"), true)
+  assert.equal(isPaidPlanId("operator"), true)
+  assert.equal(isPaidPlanId("free"), false)
+  assert.equal(isPaidPlanId(undefined), false)
 })
 
 test("day counts read naturally at the singular boundary", () => {

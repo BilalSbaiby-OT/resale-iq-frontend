@@ -44,7 +44,7 @@ export default function PortfolioPage() {
   return (
     <AppShell title="Portfolio & P&L" subtitle="Track every item from sourcing to sold">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
-        {[["Total Items", stats?.total_items ?? "—", ""], ["Cost basis", stats?.total_invested ? eur(stats.total_invested) : "—", "text-amber-400"], ["Realized profit", stats?.realized_profit ? eur(stats.realized_profit) : "—", "text-emerald-400"], ["Avg ROI (sold)", stats?.avg_roi_pct ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-emerald-400"], ["Avg days held", stats?.avg_days_held ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
+        {[["Total Items", stats?.total_items ?? "—", ""], ["Cost basis", stats?.total_invested != null ? eur(stats.total_invested) : "—", "text-amber-400"], ["Realized profit", stats?.realized_profit != null ? eur(stats.realized_profit) : "—", "text-emerald-400"], ["Avg ROI (sold)", stats?.avg_roi_pct != null ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-emerald-400"], ["Avg days held", stats?.avg_days_held != null ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
           <div key={String(l)} className="bg-[#141820] border border-[#1e2535] rounded-xl p-3">
             <div className="text-[9px] font-mono text-[#546380] uppercase tracking-[1.5px] mb-1">{l}</div>
             <div className={`font-mono font-bold text-[20px] ${c}`}>{v}</div>

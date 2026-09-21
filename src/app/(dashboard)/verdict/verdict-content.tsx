@@ -7,6 +7,7 @@ import { AppShell } from "@/components/layout/app-shell"
 import { getVerdict, isPaymentRequired } from "@/lib/api"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { eur, getToken } from "@/lib/utils"
+import { formatStrPctString } from "@/lib/str-pct"
 import type { VerdictResult } from "@/types"
 import { Zap, Lock } from "lucide-react"
 import { fieldState } from "@/lib/locked-fields"
@@ -241,7 +242,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
-                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {t.leftShelfCount(a.sold_7d.toLocaleString())}
+                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {a.sold_7d != null ? t.leftShelfCount(a.sold_7d.toLocaleString()) : "—"}
                         </span>
                       </button>
                     ))}
@@ -306,7 +307,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       the sample sentence on this same card quotes the other. */}
                   <Metric label={t.avgAtExit} value={<MedianN median={result.sell_median ?? result.sell_avg} n={result.n} nKind="comparable" />} />
                   {result.sell_through_rate
-                    ? <Metric label={t.sellThrough} value={result.sell_through_rate} />
+                    ? <Metric label={t.sellThrough} value={formatStrPctString(result.sell_through_rate) ?? "—"} />
                     : <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />}
                   {result.buy_below != null && result.sell_avg != null
                     ? <Metric label={t.targetNet} value={eur(Math.max(0, result.sell_avg - result.buy_below))} accent="var(--color-buy)" />

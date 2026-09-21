@@ -8,7 +8,7 @@ import { useAuthStore } from "@/lib/auth-store"
 import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
-import { planChip } from "@/lib/entitlement"
+import { isPaidPlan, planChip } from "@/lib/entitlement"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 interface AppShellProps {
@@ -116,7 +116,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
     return null
   }
 
-  const isPaid = user?.plan === "operator" || user?.plan === "power"
+  const isPaid = isPaidPlan(user)
   const isPower = user?.plan === "power"
   const isTrial = user?.trial_active === true
   const needsPaid = PAID_ONLY.some(p => pathname.startsWith(p))

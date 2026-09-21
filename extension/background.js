@@ -114,10 +114,12 @@ chrome.runtime.onMessage.addListener((msg, _sender, respond) => {
       const r = await fetchVerdict(msg.q, token, false);
       if (r.status === 429) { respond({ ok: false, limited: true, rate: true }); return; }
       if (r.status === 403) { respond({ ok: false, verify: true }); return; }
+      if (r.status === 402) { respond({ ok: false, paywall: true }); return; }
       if (!r.ok) { respond({ ok: false, status: r.status, down: true }); return; }
       const data = await r.json();
 
       if (data?.verdict === "LIMIT_REACHED") { respond({ ok: false, limited: true }); return; }
+      if (data?.verdict === "PAYWALL") { respond({ ok: false, paywall: true }); return; }
       // UNKNOWN is a real answer: we have no model-level number. Hide the
       // panel and the extension looks broken. Paint "not tracked" instead.
       cache.set(msg.q, { at: Date.now(), data });
