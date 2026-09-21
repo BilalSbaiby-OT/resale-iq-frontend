@@ -60,6 +60,13 @@ test("FreeChecker is a native form with check_vinted_item WebMCP attrs", () => {
   assert.match(CHECK_VINTED_ITEM_FORM_HTML, /tooldescription="/)
 })
 
+test("free-check 200 result starts guest Stripe, not /register", () => {
+  assert.match(checker, /src="tools_result"/)
+  assert.match(checker, /GuestCheckoutButton/)
+  assert.doesNotMatch(checker, /utm_content=tools_result/)
+  assert.doesNotMatch(checker, /anonHref=.*\/register\?plan=operator/)
+})
+
 test("price-checker uses check_vinted_price; profit uses calculate_vinted_profit", () => {
   const page = read("app/tools/[slug]/page.tsx")
   const hub = read("app/tools/page.tsx")
