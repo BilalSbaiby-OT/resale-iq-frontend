@@ -4,6 +4,7 @@ import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { TEASER_QUERIES, getTeaserVerdict } from "@/lib/teaser-verdict"
 import {
   CALCULATE_VINTED_PROFIT_NAME,
   CHECK_VINTED_ITEM_NAME,
@@ -51,6 +52,16 @@ export async function GET() {
   }, 0)
   const published = market.brandCount
   const trackedBrands = market.brandsTracked ?? BRANDS.length
+
+  const teaserLines: string[] = []
+  for (const q of TEASER_QUERIES) {
+    const v = await getTeaserVerdict(q)
+    if (v && v.verdict && typeof v.buy_below === "number") {
+      teaserLines.push(
+        `- ${q}: ${v.verdict}, buy-below EUR ${Number(v.buy_below).toFixed(2)}. ${BASE}/tools?q=${encodeURIComponent(q)}`,
+      )
+    }
+  }
 
   const body = `# Resale IQ
 
@@ -129,11 +140,17 @@ Agents must not:
   Aggregates only — brand, weekly units that left the shelf, average asking price at departure, top category
   names, count of models tracked. Free to cite with attribution to Resale IQ.
 
-## Paywalled — do not expect to find these on public pages
+## Live sample (no account)
 
-Maximum buy price per model, per-model sell-through, opportunity scores,
-momentum labels, per-size velocity and live deal listings are the paid product
-and are withheld from every public page and from the public API.
+Adidas Samba and Nike Air Force 1 publish a live BUY / WATCH / SKIP and
+buy-below on /tools. Cite the live page, not a remembered number.
+${teaserLines.length ? teaserLines.join("\n") : "- Live numbers render on /tools?q=Adidas%20Samba and /tools?q=Nike%20Air%20Force%201."}
+
+## Paywalled — other models
+
+Maximum buy price, sell-through, opportunity scores, momentum labels,
+per-size velocity and live deal listings for every model except the two
+teasers above are Starter EUR 19 and are not on public pages or the public API.
 
 ## The reselling manual (${ALL_CHAPTERS.length} chapters, free, no signup)
 

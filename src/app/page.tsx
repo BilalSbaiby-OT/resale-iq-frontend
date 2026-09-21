@@ -15,7 +15,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is Resale IQ?",
     a:
-      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Item checks start at €19 a month. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba and Nike Air Force 1 can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
   },
   {
     q: "Which clothes do you cover?",

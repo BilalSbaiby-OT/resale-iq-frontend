@@ -220,6 +220,7 @@ test("English homepage ships 3 visible FAQs + FAQPage with no /register", () => 
   assert.match(home, /https:\/\/resaleiq\.dev\/tools/)
   assert.doesNotMatch(home, /\bUK\b/)
   assert.match(home, /Item checks start at €19/)
+  assert.match(home, /Adidas Samba/)
   const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
   const questions = faqBlock.match(/\bq: "/g) ?? []
   assert.equal(questions.length, 3)

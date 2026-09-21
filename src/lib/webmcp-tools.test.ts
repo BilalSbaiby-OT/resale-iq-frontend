@@ -111,7 +111,9 @@ test("llms.txt tells agents the money tools and the free-check boundary", () => 
   assert.match(llms, /Free-forever/)
   assert.match(llms, /Automate checkout or payment/)
   assert.match(llms, /ES, FR, DE, IT and PT/)
-  assert.doesNotMatch(llms, /no anonymous item-level check/)
+  assert.match(llms, /Live sample/)
+  assert.match(llms, /Adidas Samba/)
+  assert.doesNotMatch(llms, /withheld from every public page/)
 })
 
 test("auth and pricing surfaces are not WebMCP tools", () => {
