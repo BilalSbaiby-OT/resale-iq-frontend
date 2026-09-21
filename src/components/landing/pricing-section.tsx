@@ -25,6 +25,7 @@ import { useAuthStore } from "@/lib/auth-store"
 import { pricingCtaKind } from "@/lib/pricing-cta-state"
 import { isPaidPlan } from "@/lib/entitlement"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -86,6 +87,7 @@ export function PricingSection({
   compact = false,
   headingLevel = 2,
   seedTracked,
+  seedSellThrough,
 }: {
   locale?: Locale
   compact?: boolean
@@ -100,6 +102,9 @@ export function PricingSection({
    * Revenue 2026-09-16.
    */
   seedTracked?: string
+  /** SSR-resolved weekly watched-departures label (e.g. "65/wk").
+   *  Fixes the em-dash rendered on /pricing first paint. Revenue 2026-09-21. */
+  seedSellThrough?: string
 }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
@@ -131,7 +136,7 @@ export function PricingSection({
   //          When seedTracked is passed from the server component, useTrackedLabel
   //          initialises with it; client-side fetch still runs to stay fresh.
   const tracked = useTrackedLabel(seedTracked)
-  const sellThrough = useSellThroughLabel()
+  const sellThrough = useSellThroughLabel(seedSellThrough)
   const checkoutCancelled = searchParams?.get("checkout") === "cancelled"
   const [country, setCountry] = useState<CheckoutCountry | "">(() =>
     readStoredCountry() ?? countryFromLocale(locale) ?? "")
@@ -385,10 +390,10 @@ export function PricingSection({
             )}
             {tier.id === "operator" && (
               <>
-                {/* H-SOCIAL-BF-PROOF: make the live tracked count MORE prominent
-                    above the trust line — it's the core honest-data-as-proof signal.
+                {/* H-SOCIAL-BF-PROOF: live tracked count as primary trust signal.
                     Revenue 2026-09-19. */}
                 <p
+                  data-testid="riq-listings-tracked"
                   style={{
                     margin: "16px 0 4px",
                     fontSize: compact ? 11 : 12,
@@ -397,14 +402,28 @@ export function PricingSection({
                     textAlign: "center",
                     letterSpacing: "0.3px",
                   }}
-                >                    
-                                  {tracked} live listings watched
-                                </p>
-                                <p>
-                                  {sellThrough} watched departures per week
-                                </p>
-                                <p
-                                  data-testid="riq-starter-trust"
+                >
+                  {tracked} live listings watched
+                </p>
+                {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
+                    Only shown when sellThrough resolved to a real number ("65/wk").
+                    Revenue 2026-09-21 (em-dash fix). */}
+                {sellThrough && sellThrough !== "—" && (
+                  <p
+                    data-testid="riq-sell-through"
+                    style={{
+                      margin: "0 0 4px",
+                      fontSize: compact ? 11 : 12,
+                      fontWeight: 600,
+                      color: "var(--color-text-muted)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {sellThrough} watched departures / week
+                  </p>
+                )}
+                <p
+                  data-testid="riq-starter-trust"
                   style={{
                     margin: "0 0 8px",
                     fontSize: compact ? 11 : 12,
@@ -455,6 +474,23 @@ export function PricingSection({
       {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
           <GuestCheckoutButton locale={locale} label={t.coldCtaLadder} src="pricing-cold-cta" asLink />
+        </p>
+      )}
+      {/* AW26 one-off report secondary CTA — EUR49, no account, no subscription.
+          Not ready to commit monthly? One purchase, full picture.
+          Revenue 2026-09-21. */}
+      {!compact && !isPaidPlan(user) && (
+        <p style={{ textAlign: "center", marginTop: 8, fontSize: 13, lineHeight: 1.5 }}>
+          <span style={{ color: "var(--color-text-muted)" }}>Not ready to subscribe? </span>
+          <a
+            href={AW26_REPORT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="riq-aw26-pricing-cta"
+            style={{ color: "#60a5fa", fontWeight: 600, textDecoration: "none" }}
+          >
+            Get the AW26 Vinted Demand Report — €49 one-off →
+          </a>
         </p>
       )}
       <p style={{ textAlign: "center", marginTop: compact ? 20 : 8, fontSize: compact ? 13 : 14, lineHeight: 1.5 }}>

@@ -27,7 +27,16 @@ export type PaywallPayload = {
   refusal_reason?: string
   upgrade_url?: string
   plans: PaywallPlan[]
+  /** Number of data points we hold for this query (teaser — not a paid field).
+   *  Sent by the backend when the brand is in-universe so the FE can show
+   *  "we have N comparables on this item" at the paywall. 2026-09-21. */
+  comparable_n?: number | null
 }
+
+/** Live Stripe payment link for the one-off AW26 demand report.
+ *  EUR49, no account required, no subscription. livemode:true verified 2026-09-21.
+ *  Converts cold traffic that won't commit to a subscription. */
+export const AW26_REPORT_URL = "https://buy.stripe.com/dRm9AL26Y4pO7t8dNx0oM00"
 
 const DEFAULT_PLANS: PaywallPlan[] = [
   { tier: "operator", label: "Starter", price_eur: 19 },
@@ -47,6 +56,10 @@ export function parsePaywallBody(status: number, body: unknown): PaywallPayload 
     }))
     .filter(p => p.tier && p.price_eur > 0)
   const opt = (key: string) => (typeof b[key] === "string" ? (b[key] as string) : undefined)
+  const optNum = (key: string): number | null | undefined => {
+    const v = b[key]
+    return typeof v === "number" && Number.isFinite(v) && v > 0 ? v : undefined
+  }
   return {
     verdict: "PAYWALL",
     locked: true,
@@ -58,6 +71,7 @@ export function parsePaywallBody(status: number, body: unknown): PaywallPayload 
     refusal_reason: opt("refusal_reason"),
     upgrade_url: opt("upgrade_url"),
     plans: plans.length ? plans : DEFAULT_PLANS,
+    comparable_n: optNum("comparable_n"),
   }
 }
 

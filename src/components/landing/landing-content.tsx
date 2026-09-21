@@ -13,6 +13,7 @@ import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { canonicalPath } from "@/lib/locale-routes"
+import { formatSellThrough } from "@/lib/format-sell-through"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -262,7 +263,7 @@ export function LandingContent({
 
         <LiveMarketPulse locale={locale} market={market} />
 
-        <PricingSection locale={locale} compact />
+        <PricingSection locale={locale} compact seedTracked={tracked} seedSellThrough={formatSellThrough(market.sold7dTotal)} />
 
         {faqs && faqs.length > 0 ? (
           <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 var(--space-3) var(--space-10)" }}>

@@ -12,6 +12,7 @@ import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-v
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import { useAuthStore } from "@/lib/auth-store"
 import { planChip } from "@/lib/entitlement"
 import { checkerUnlockBranch, checkerRefusalIsPaid } from "@/lib/checker-unlock-state"
@@ -82,6 +83,9 @@ interface FreeVerdict extends ReconstructedSignals {
   used_today?: number
   limit?: number
   plans?: PaywallPlan[]
+  /** Number of data points held for this query (teaser — not a paid field).
+   *  Sent by the backend on 402 when the brand is in-universe. 2026-09-21. */
+  comparable_n?: number | null
   // Only populated on BRAND_CATEGORIES (api/routes.py) — a brand-only query
   // with no garment named. brand/categories/next_step are structured, so the
   // frontend builds its own translated sentence instead of trusting
@@ -194,7 +198,7 @@ function LimitReachedUpgrade({
           {t.usedOfLimit(used, limit)}
         </p>
       )}
-      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
+      <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 14 }}>
         <GuestCheckoutButton locale={locale} label={t.limitReachedUpgradeCta} src="limit_reached" />
         {/* W61 note applies here too: canonicalPath keeps locale-prefixed visitors on
             the right locale root for the pricing section. */}
@@ -204,6 +208,31 @@ function LimitReachedUpgrade({
         >
           {t.createFreeAccount}
         </Link>
+      </div>
+      {/* AW26 secondary CTA: one-off EUR49 for visitors who won't subscribe.
+          No account needed, converts cold traffic. Revenue 2026-09-21. */}
+      <div style={{ borderTop: "1px solid #1e2a3f", paddingTop: 12 }}>
+        <p style={{ fontSize: 12, color: "#6a7d9a", marginBottom: 8, lineHeight: 1.45 }}>
+          Not ready to subscribe? Get the full AW26 demand picture in one go:
+        </p>
+        <a
+          href={AW26_REPORT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid="riq-aw26-report-cta"
+          style={{
+            display: "inline-block",
+            fontSize: 13,
+            fontWeight: 600,
+            color: "#60a5fa",
+            textDecoration: "none",
+            border: "1px solid rgba(96,165,250,.3)",
+            borderRadius: 8,
+            padding: "7px 14px",
+          }}
+        >
+          Autumn/Winter 2026 Vinted Demand Report — €49 one-off →
+        </a>
       </div>
     </div>
   )
@@ -585,7 +614,7 @@ export function FreeChecker({
               ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
               : refusalIsPaid
                 ? <PaidPostCheckBar locale={locale} user={chipUser} />
-                : <HardPaywallCard locale={locale} plans={res.plans} query={q} />
+                : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             refusalIsPaid
               ? <PaidPostCheckBar locale={locale} user={chipUser} />
