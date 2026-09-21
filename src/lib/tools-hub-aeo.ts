@@ -49,8 +49,8 @@ export const TOOLS_HUB_FAQS: FaqItem[] = [
   {
     q: "Is the Vinted price checker free?",
     a:
-      "Weekly brand volumes and average departure prices stay public at https://resaleiq.dev/data with no account. " +
-      "Item-level BUY, WATCH or SKIP and buy-below start at Starter €19 a month. You can try the checker; most items unlock with Starter.",
+      "Adidas Samba and Nike Air Force 1 return a live BUY / WATCH / SKIP on /tools with no account. " +
+      "Weekly brand volumes stay public at https://resaleiq.dev/data. Other item-level checks start at Starter €19 a month.",
   },
   {
     q: "What does the Starter plan unlock?",

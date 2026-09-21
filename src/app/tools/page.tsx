@@ -25,6 +25,7 @@ import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_
 import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
 import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
 import { itemQueryMeta } from "@/lib/tools-query-meta"
+import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
@@ -40,6 +41,18 @@ export async function generateMetadata(
   // so the citation reads "New Balance 530 price check" not a generic description.
   // Canonical stays /tools — we don't want query params indexed as separate pages.
   const itemMeta = itemQueryMeta(q, tracked, "/tools")
+  const teaser = await getTeaserVerdict(q)
+  const cite = formatTeaserCite(q ?? "", teaser)
+  if (itemMeta && cite && teaser?.verdict && teaser.buy_below != null) {
+    const description =
+      `Should you buy ${q?.trim()} to resell? ${teaser.verdict}. Most to pay after fees: €${Number(teaser.buy_below).toFixed(2)}. Other models Starter €19/mo.`
+    return {
+      ...itemMeta,
+      description,
+      openGraph: { ...itemMeta.openGraph, description },
+      twitter: { ...itemMeta.twitter, description },
+    }
+  }
   if (itemMeta) return itemMeta
   const description =
     `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the most to pay after fees. ${tracked} watched listings. Starter €19/mo.`
@@ -57,6 +70,8 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
   const t = copy[locale].toolsPage
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   const { q: initialQuery, src } = await searchParams
+  const teaser = await getTeaserVerdict(initialQuery)
+  const cite = formatTeaserCite(initialQuery ?? "", teaser)
   const jsonLd = [faqPageJsonLd(TOOLS_HUB_FAQS), definedTermJsonLd(TOOLS_HUB_DEFINED_TERM)]
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
@@ -70,6 +85,11 @@ export default async function ToolsIndex({ searchParams }: { searchParams: Promi
           <LocaleSwitcher locale={locale} />
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.h1}</h1>
+        {cite ? (
+          <p data-testid="riq-teaser-cite" style={{ fontSize: 16, color: "var(--color-text-primary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
+            {cite}
+          </p>
+        ) : null}
         <p data-testid="riq-tools-cite" style={{ fontSize: 16, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 20, maxWidth: 620 }}>
           {TOOLS_HUB_BODY}
         </p>
