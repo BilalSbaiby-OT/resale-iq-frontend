@@ -6,6 +6,7 @@ import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "@/lib/trial-copy"
 import { methodology } from "@/lib/methodology-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
@@ -256,9 +257,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             {t.g_cta_a} {TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale]} {t.g_cta_b}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            <Link href={`${canonicalPath(locale, "/register")}?plan=operator&src=methodology`} style={{ background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              {t.text29}
-            </Link>
+            <GuestCheckoutButton locale={locale} label={t.text29} src="methodology" />
             <Link href="/data" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text30}
             </Link>

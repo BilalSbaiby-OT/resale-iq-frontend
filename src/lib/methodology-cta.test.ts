@@ -21,8 +21,10 @@ const STARTER_CTA = {
   pt: "Começa por 19 €",
 } as const
 
-test("H61 /methodology primary CTA routes to Starter, never ?plan=free", () => {
-  assert.match(PAGE_SRC, /\?plan=operator&src=methodology/)
+test("H61 /methodology primary CTA is guest Stripe, never /register", () => {
+  assert.match(PAGE_SRC, /GuestCheckoutButton/)
+  assert.match(PAGE_SRC, /src="methodology"/)
+  assert.doesNotMatch(PAGE_SRC, /\/register/)
   assert.doesNotMatch(PAGE_SRC, /\?plan=free/)
 })
 

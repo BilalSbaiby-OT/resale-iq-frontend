@@ -9,6 +9,7 @@ import { TRIAL_BANNER_BY_LOCALE } from "@/lib/trial-copy"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip } from "@/lib/entitlement"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -185,14 +186,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
               }}>
                 Log in →
               </a>
-              <a href="/register?plan=operator&src=verdict-seed" style={{
-                background: "transparent", color: "var(--color-accent)",
-                borderRadius: 12, padding: "10px 16px", fontSize: 14,
-                fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap",
-                border: "1px solid var(--color-accent)"
-              }}>
-                Sign up free →
-              </a>
+              <GuestCheckoutButton locale={locale} label="Start for €19" src="verdict-seed" />
             </div>
           )}
         </main>
