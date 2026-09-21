@@ -14,12 +14,15 @@ test("landing page loads and is not empty", async ({ page }) => {
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
-  await expect(hero.getByText(/resell second-hand clothes/i)).toBeVisible()
-  // Example card, cite, and first free chip are Adidas Samba (anon 200).
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
+  await expect(hero.getByText(/Which models are in demand, BUY \/ WATCH \/ SKIP/i)).toBeVisible()
+  await expect(hero.getByText(/For people who resell second-hand clothes/i)).toHaveCount(0)
+  await expect(hero.getByText(/live second-hand clothing listings/i)).toHaveCount(0)
+  await expect(hero.getByTestId("riq-home-teaser-cite")).toBeHidden()
+  // Example card and first free chip are Adidas Samba (anon 200).
   // Input starts EMPTY on purpose (2026-09-10 funnel fix).
   await expect(hero.getByRole("textbox")).toHaveValue("")
   await expect(hero.getByText("Example", { exact: true })).toBeVisible()
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/Adidas Samba/)
   await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
   await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
@@ -93,6 +96,11 @@ test("homepage checker is centered, Free: is above the 1280x800 fold, logos are 
   await expect(strip.getByText("Patagonia")).toHaveCount(0)
   await expect(strip.getByText("Balenciaga")).toHaveCount(0)
   await expect(strip.getByText("Fred Perry")).toHaveCount(0)
+  await expect(strip.getByText("These are the brands we watch")).toHaveCount(0)
+  const more = strip.getByTestId("riq-brand-more")
+  await expect(more).toBeVisible()
+  await expect(more).toHaveText(/\+\d+ more/)
+  await expect(more).toHaveAttribute("href", "/data")
 })
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {

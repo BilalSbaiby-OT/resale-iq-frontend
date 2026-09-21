@@ -40,3 +40,14 @@ export function brandStripNames(published: readonly string[]): string[] {
   }
   return out
 }
+
+/**
+ * Remainder for the “+N more” chip. Never negative. `total` is the warehouse
+ * brand count (brandsTracked ?? brandCount), not seo-brands.json.
+ */
+export function brandStripMoreCount(shown: number, total: number): number {
+  if (!Number.isFinite(shown) || !Number.isFinite(total)) return 0
+  const s = Math.max(0, Math.floor(shown))
+  const t = Math.max(0, Math.floor(total))
+  return t > s ? t - s : 0
+}

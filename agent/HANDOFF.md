@@ -3,6 +3,18 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+FRONTEND, 2026-09-21 — homepage hero + brand strip (PR #126)
+  SHIPPED on branch. Local PASS: tsc, isolation, homepage-conv /
+  pricing-offer / teaser-verdict unit, full e2e/smoke (13). Browser:
+  one H1 + subline, no overline/Samba essay/listing count; centered
+  checker + Free: + chips; brand strip 9 SVG marks + “+N more” → /data.
+  Mock remainder is +17 (26 tracked − 9 shown). Live 28 brands → +19.
+  Merge to main deploys via Coolify after Isolation.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/126
+  Branch cursor/homepage-hero-strip-d269. Do not push main here.
+
+---
+
 SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV leftover PR #125
   SHIPPED on branch. Local PASS: tsc, build, isolation, homepage-conv
   unit, smoke (form center x=640, Free: bottom y=602 < 800, 9 SVG tiles).

@@ -265,7 +265,7 @@ input[type="submit"]:not(:disabled):active,
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
 }
 .riq-hero-copy {
   width: 100%;
@@ -275,11 +275,15 @@ input[type="submit"]:not(:disabled):active,
 .riq-hero-checker {
   width: 100%;
   max-width: 560px;
+  margin-top: 4px;
 }
 .riq-hero-shot {
   width: 100%;
-  max-width: 720px;
-  margin-top: 8px;
+  max-width: 640px;
+  margin-top: var(--space-3);
+}
+.riq-sr-only {
+  display: none;
 }
 .riq-free-scope {
   font-size: 13px;
@@ -321,12 +325,29 @@ input[type="submit"]:not(:disabled):active,
 }
 .riq-model-chip:disabled { cursor: wait; }
 
+.riq-brand-band {
+  max-width: var(--width-marketing);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3);
+  border-top: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline);
+  background: var(--color-bg-2);
+}
+.riq-brand-caption {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0 0 14px;
+  text-align: center;
+}
 .riq-brand-strip {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 12px 16px;
+  gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -335,24 +356,48 @@ input[type="submit"]:not(:disabled):active,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
 }
 .riq-brand-mark {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--color-hairline);
-  border-radius: 12px;
+  border-radius: 10px;
   background: var(--color-surface-elevated);
 }
 .riq-brand-mark img {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: block;
   object-fit: contain;
+}
+.riq-brand-more {
+  display: flex;
+  align-items: center;
+}
+.riq-brand-more-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.riq-brand-more-link:hover {
+  border-color: var(--color-border-2);
+  color: var(--color-on-graphite);
 }
 /* Browser-chrome frame around the real product screenshot — the Linear/Vercel
    "show the product" move. Surface-ladder + hairline, not a drop shadow. */
@@ -468,7 +513,7 @@ input[type="submit"]:not(:disabled):active,
 }
 @media (max-width: 639px) {
   .riq-apple-nav { padding: 20px var(--space-gutter) 0 !important; }
-  .riq-apple-hero { padding: var(--space-6) var(--space-gutter) var(--space-10) !important; }
+  .riq-apple-hero { padding: var(--space-4) var(--space-gutter) var(--space-4) !important; }
   /* 22px was a settings-page heading — smaller than the verdict word in the
      card, which inverted the hierarchy. Mobile marketing H1 token is 38px. */
   .riq-apple-hero h1 {
