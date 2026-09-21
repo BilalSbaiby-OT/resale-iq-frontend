@@ -545,3 +545,15 @@ NEXT (once unblocked): P0-1.
   `+N more` → /data (warehouse brandsTracked − shown). 9 of 28 → +19.
 - Browser + e2e smoke 13/13. PR #126
   cursor/homepage-hero-strip-d269.
+
+## 2026-09-21 — programmatic SEO model templates + glossary
+- Reusable model route `/flip/{brand}/model/{slug}` (24 first-batch pages
+  from catalogue brands; A13 board for WHICH models, warehouse for brand
+  numbers, teaser API for the 3 free samples only).
+- Free allowlist: Adidas Samba, Nike Air Force 1, New Balance 530.
+  Paywalled models: Starter €19 CTA, FAQ "Is this check free? No."
+- Brand hubs list named models; no more "Try a live check — {brand}".
+- Glossary `/glossary` + buy-below / watched-departure / sell-through.
+- Sitemap, robots, llms.txt. Tests in src/lib/seo-models.test.ts.
+- Branch cursor/seo-programmatic-models-c616.
+

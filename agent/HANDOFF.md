@@ -3,6 +3,23 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+SEO LANE, 2026-09-21 — PROGRAMMATIC MODEL TEMPLATES (this session)
+  SHIPPED on branch. Template system, not one-off blogs.
+  URL pattern: /flip/{brand}/model/{slug} — 24 named models from the
+  A13 catalogue + existing /flip brands. Free sample (live BUY/WATCH/SKIP
+  + buy-below when the teaser API returns): Adidas Samba, Nike Air Force 1,
+  New Balance 530. All other model pages CTA to Starter €19 — they do not
+  promise a free check. Brand hubs list those models. Glossary:
+  /glossary + /glossary/buy-below|watched-departure|sell-through
+  (definition-first, DefinedTerm + FAQ). Sitemap + robots + llms.txt
+  updated. Local: tsc, next build, isolation, warehouse, tracked,
+  dupes, unit tests; curl 200 on samba/gazelle/530/501/glossary/nike hub;
+  sitemap 24 model URLs + 4 glossary URLs. No live verdict in this
+  environment (no backend) — free pages omit the number rather than invent.
+  Branch cursor/seo-programmatic-models-c616.
+
+---
+
 FRONTEND, 2026-09-21 — homepage hero + brand strip (PR #126)
   SHIPPED on branch. Local PASS: tsc, isolation, homepage-conv /
   pricing-offer / teaser-verdict unit, full e2e/smoke (13). Browser:

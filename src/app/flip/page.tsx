@@ -7,6 +7,8 @@ import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
+import { SEO_MODELS } from "@/lib/seo-models"
+import { ModelChips } from "@/components/seo/model-chips"
 
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
 // the 26 brand pages + 130 brand x category pages had no index anywhere on the
@@ -238,6 +240,15 @@ export default async function FlipHubPage() {
             </div>
           ))}
         </div>
+
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "34px 0 8px", letterSpacing: "-0.4px" }}>
+          Named models — know what sells, then decide whether to buy
+        </h2>
+        <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
+          Brand averages mix every silhouette. These pages name the model. Adidas Samba, Nike Air Force 1 and New Balance 530 are a free sample. Other models are Starter at €19 a month — not a free check. Definitions:{" "}
+          <Link href="/glossary" style={{ color: "#34C759", textDecoration: "none" }}>glossary</Link>.
+        </p>
+        <ModelChips models={SEO_MODELS} showFreeMark />
 
         <HubFaq items={faqs} />
 

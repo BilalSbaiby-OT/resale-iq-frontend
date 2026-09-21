@@ -12,7 +12,7 @@ const BASE = "https://resaleiq.dev"
 // missing silently drops out of every index. /manual (17 pages) and /category
 // (9) were added later and had been missed.
 const PUBLIC_ALLOW = [
-  "/", "/tools", "/data", "/blog", "/flip", "/manual", "/category", "/methodology",
+  "/", "/tools", "/data", "/blog", "/flip", "/manual", "/glossary", "/category", "/methodology",
   "/api-docs", "/terms", "/privacy", "/legal", "/support", "/llms.txt",
 ]
 const PRIVATE_DISALLOW = [

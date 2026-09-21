@@ -12,6 +12,8 @@ import {
   articleSocialMeta,
 } from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
+import { modelsForBrand, modelPath } from "@/lib/seo-models"
+import { BRAND_MONEY_HREF } from "@/lib/money-cta"
 
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
@@ -54,17 +56,19 @@ export default async function BrandFlipPage(
   const live = market.get(b.brand)
   const sold = live?.sold_7d ?? null
   const avg = live?.avg_price_eur ?? null
-  const models = live?.models_tracked ?? null
+  const modelsTracked = live?.models_tracked ?? null
   const cats = live?.categories ?? []
 
   const others = BRANDS.filter(x => x.slug !== b.slug).slice(0, 12)
+  const seoModels = modelsForBrand(b.slug)
+  const freeModels = seoModels.filter((m) => m.freeCheck)
 
   const overlay: BrandSeo | null = live && sold != null && avg != null
     ? {
         ...b,
         sold_7d: sold,
         avg_price_eur: avg,
-        models_tracked: models ?? b.models_tracked,
+        models_tracked: modelsTracked ?? b.models_tracked,
         top_categories: live.top_categories.length ? live.top_categories : b.top_categories,
         categories: cats
           .filter(c => c.sold_7d != null)
@@ -138,19 +142,17 @@ export default async function BrandFlipPage(
             . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
             what you pay for it.
           </>
-        ) : slug === "adidas" ? (
+        ) : freeModels.length > 0 ? (
           <>
             Short answer: check{" "}
-            <Link href="/tools?q=Adidas+Samba" style={{ color: "#34C759" }}>Adidas Samba</Link>
-            {" "}on /tools before you buy a pair to resell. That check is free — BUY / WATCH / SKIP
-            and the most to pay after fees. Other Adidas models need Starter at €19/month.
-          </>
-        ) : slug === "nike" ? (
-          <>
-            Short answer: check{" "}
-            <Link href="/tools?q=Nike+Air+Force+1" style={{ color: "#34C759" }}>Nike Air Force 1</Link>
-            {" "}on /tools before you buy a pair to resell. That check is free — BUY / WATCH / SKIP
-            and the most to pay after fees. Other Nike models need Starter at €19/month.
+            {freeModels.map((fm, i) => (
+              <span key={fm.slug}>
+                {i > 0 ? (i === freeModels.length - 1 ? " or " : ", ") : null}
+                <Link href={modelPath(fm)} style={{ color: "#34C759" }}>{fm.query}</Link>
+              </span>
+            ))}
+            {" "}before you buy to resell. That named model is a free sample — BUY / WATCH / SKIP
+            and the most to pay after fees. Other {b.brand} models need Starter at €19/month.
           </>
         ) : (
           <>
@@ -173,7 +175,7 @@ export default async function BrandFlipPage(
         {[
           ["Left shelf per week", fmtCount(sold)],
           ["Avg price at exit", fmtEur(avg)],
-          ["Models tracked", models != null ? String(models) : "—"],
+          ["Models tracked", modelsTracked != null ? String(modelsTracked) : "—"],
         ].map(([label, value]) => (
           <div key={label} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px" }}>
             <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 4 }}>{label}</div>
@@ -238,6 +240,37 @@ export default async function BrandFlipPage(
         ))}
       </div>
 
+      {seoModels.length > 0 ? (
+        <>
+          <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
+            {b.brand} models to check before you buy
+          </h2>
+          <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
+            Brand demand tells you {b.brand} is moving. The buy decision is the named model.
+            Free sample models show BUY / WATCH / SKIP here. Everything else is Starter at €19 a month — not a free check.
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
+            {seoModels.map((m) => (
+              <Link
+                key={m.slug}
+                href={modelPath(m)}
+                style={{
+                  display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline",
+                  fontSize: 14, color: "#8fa3c4", textDecoration: "none",
+                  background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
+                  borderRadius: 9, padding: "10px 14px",
+                }}
+              >
+                <span>Should I buy {m.query} to resell?</span>
+                <span style={{ fontSize: 12.5, color: "#5b6b8c", whiteSpace: "nowrap" }}>
+                  {m.freeCheck ? "Free sample" : "Starter €19"}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : null}
+
       {/* The gate — this is the paid product */}
       <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 22, margin: "26px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -249,7 +282,7 @@ export default async function BrandFlipPage(
         <p style={{ color: "#8b99b8", fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>
           Averages don&apos;t tell you what to buy. Resale IQ tracks{" "}
           {b.brand} models{" "}
-          {models != null ? `(${models} with enough sales to show figures)` : "we track"}{" "}
+          {modelsTracked != null ? `(${modelsTracked} with enough sales to show figures)` : "we track"}{" "}
           individually and gives you:
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>
@@ -268,22 +301,23 @@ export default async function BrandFlipPage(
             </li>
           ))}
         </ul>
-          {/* EXP-12 (Tony): /flip/[brand] (e.g. /flip/nike) is an LLM-cited
-              landing surface, same class as /data and the blog. It led with a
-              /register SIGNUP WALL as the primary CTA and demoted the free check
-              to grey text pointing at /tools (an index, NOT the checker) — the
-              same EXP-10/11 wall-before-value leak (fails the G2 gate: strangers
-              must reach value UNASSISTED before we ask for an account). Primary
-              door is now the no-signup free checker (check->signup is 43.8%, so a
-              check feeds a signup directly); register becomes the secondary link.
-              src=flip-check tags the arrival. No offer removed. */}
-          <Link href={`/tools?q=${encodeURIComponent(b.brand)}&src=flip-check`} style={{
-          display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
-          color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
-          borderRadius: 9, textDecoration: "none",
-        }}>
-          Try a live check — {b.brand} → <ArrowRight size={15} />
-        </Link>
+          {freeModels[0] ? (
+            <Link href={modelPath(freeModels[0])} style={{
+              display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
+              color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
+              borderRadius: 9, textDecoration: "none",
+            }}>
+              Check {freeModels[0].query} — free sample → <ArrowRight size={15} />
+            </Link>
+          ) : (
+            <Link href={BRAND_MONEY_HREF} style={{
+              display: "inline-flex", alignItems: "center", gap: 7, background: "#34C759",
+              color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 18px",
+              borderRadius: 9, textDecoration: "none",
+            }}>
+              Get the numbers → <ArrowRight size={15} />
+            </Link>
+          )}
         <Link href="/pricing?src=flip" style={{
           display: "inline-flex", alignItems: "center", gap: 7, marginLeft: 10,
           color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none",
@@ -310,8 +344,10 @@ export default async function BrandFlipPage(
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         For how to turn figures like these into a buy decision, the{" "}
-        <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>reselling manual</Link>{" "}
-        covers the margin maths, the maximum buy price and why sell-through matters more than volume.
+        <Link href="/manual" style={{ color: "#34C759", textDecoration: "none" }}>reselling manual</Link>
+        {" "}and the{" "}
+        <Link href="/glossary" style={{ color: "#34C759", textDecoration: "none" }}>glossary</Link>{" "}
+        cover the margin maths, the maximum buy price and why sell-through matters more than volume.
       </p>
 
       {/* Reciprocal links into the guides. The blog holds 84% of the site's

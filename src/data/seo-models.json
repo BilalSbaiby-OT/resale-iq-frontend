@@ -1,0 +1,220 @@
+{
+  "models": [
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Samba",
+      "slug": "samba",
+      "query": "Adidas Samba",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Force 1",
+      "slug": "air-force-1",
+      "query": "Nike Air Force 1",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "530",
+      "slug": "530",
+      "query": "New Balance 530",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Gazelle",
+      "slug": "gazelle",
+      "query": "Adidas Gazelle",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Handball Spezial",
+      "slug": "handball-spezial",
+      "query": "Adidas Handball Spezial",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Superstar",
+      "slug": "superstar",
+      "query": "Adidas Superstar",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Stan Smith",
+      "slug": "stan-smith",
+      "query": "Adidas Stan Smith",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Dunk Low",
+      "slug": "dunk-low",
+      "query": "Nike Dunk Low",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Max 90",
+      "slug": "air-max-90",
+      "query": "Nike Air Max 90",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Cortez",
+      "slug": "cortez",
+      "query": "Nike Cortez",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "550",
+      "slug": "550",
+      "query": "New Balance 550",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "9060",
+      "slug": "9060",
+      "query": "New Balance 9060",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "574",
+      "slug": "574",
+      "query": "New Balance 574",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Levi's",
+      "brandSlug": "levis",
+      "model": "501",
+      "slug": "501",
+      "query": "Levi's 501",
+      "category": "Jeans",
+      "freeCheck": false
+    },
+    {
+      "brand": "Jordan",
+      "brandSlug": "jordan",
+      "model": "Jordan 1",
+      "slug": "jordan-1",
+      "query": "Jordan 1",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Jordan",
+      "brandSlug": "jordan",
+      "model": "Jordan 4",
+      "slug": "jordan-4",
+      "query": "Jordan 4",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "The North Face",
+      "brandSlug": "the-north-face",
+      "model": "Nuptse",
+      "slug": "nuptse",
+      "query": "The North Face Nuptse",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Patagonia",
+      "brandSlug": "patagonia",
+      "model": "Better Sweater",
+      "slug": "better-sweater",
+      "query": "Patagonia Better Sweater",
+      "category": "Hoodies",
+      "freeCheck": false
+    },
+    {
+      "brand": "Reebok",
+      "brandSlug": "reebok",
+      "model": "Club C",
+      "slug": "club-c",
+      "query": "Reebok Club C",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Carhartt",
+      "brandSlug": "carhartt",
+      "model": "Detroit Jacket",
+      "slug": "detroit-jacket",
+      "query": "Carhartt Detroit Jacket",
+      "category": "Jackets",
+      "freeCheck": false
+    },
+    {
+      "brand": "Fred Perry",
+      "brandSlug": "fred-perry",
+      "model": "Twin Tipped",
+      "slug": "twin-tipped",
+      "query": "Fred Perry Twin Tipped",
+      "category": "Shirts",
+      "freeCheck": false
+    },
+    {
+      "brand": "Stone Island",
+      "brandSlug": "stone-island",
+      "model": "Compass Badge",
+      "slug": "compass-badge",
+      "query": "Stone Island Compass Badge",
+      "category": "Hoodies",
+      "freeCheck": false
+    },
+    {
+      "brand": "Puma",
+      "brandSlug": "puma",
+      "model": "Speedcat",
+      "slug": "speedcat",
+      "query": "Puma Speedcat",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Gucci",
+      "brandSlug": "gucci",
+      "model": "Ace",
+      "slug": "ace",
+      "query": "Gucci Ace",
+      "category": "Sneakers",
+      "freeCheck": false
+    }
+  ]
+}

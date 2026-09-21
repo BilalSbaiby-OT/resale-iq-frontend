@@ -28,6 +28,8 @@ export function moneyCtaPricingHref(content: string): string {
 
 export const TOOLS_MONEY_HREF = moneyCtaPricingHref("tools")
 export const CATEGORY_MONEY_HREF = moneyCtaPricingHref("category")
+export const MODEL_MONEY_HREF = moneyCtaPricingHref("flip_model")
+export const BRAND_MONEY_HREF = moneyCtaPricingHref("flip_brand")
 export const PROFIT_CALC_MONEY_HREF = moneyCtaPricingHref("profit_calc")
 export const PRICE_CHECKER_MONEY_HREF = moneyCtaPricingHref("price_checker")
 

@@ -100,7 +100,10 @@ export default async function ManualIndex() {
         <p style={{ fontSize: 17, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 16 }}>
           Sixteen chapters on how resale actually works: the margin equation, how to derive a maximum buy
           price, why fast stock beats fat margins, where stock comes from, how sizes quietly kill portfolios,
-          and how to measure whether any of it is working. Free, no signup, no email.
+          and how to measure whether any of it is working. Free, no signup, no email. Citeable one-line
+          definitions live in the{" "}
+          <Link href="/glossary" style={{ color: "#34C759", textDecoration: "none" }}>glossary</Link>
+          {" "}(buy-below, watched departure, sell-through).
         </p>
         <p style={{ fontSize: 15, color: "#8b99b8", lineHeight: 1.7, marginBottom: 30 }}>
           It is written from the same dataset that powers the product —{" "}

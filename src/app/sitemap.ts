@@ -3,6 +3,8 @@ import { ALL_POSTS as POSTS } from "@/data/blog-posts"
 import { INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES, catSlug } from "@/lib/seo-categories"
+import { SEO_MODELS, modelPath } from "@/lib/seo-models"
+import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 
 const BASE = "https://resaleiq.dev"
@@ -75,6 +77,8 @@ async function snapshotUpdatedAt(): Promise<Date> {
 const STATIC_CONTENT_DATE = new Date("2026-08-29T00:00:00.000Z")
 /** /manual hub copy last changed (FAQPage + answer-first title). Do not reuse for /terms. */
 const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
+/** /glossary hub + terms. Bump when a definition changes. */
+const GLOSSARY_DATE = new Date("2026-09-21T00:00:00.000Z")
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()
@@ -108,9 +112,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/methodology": methodologyAlternates,
     "/pricing": pricingAlternates,
   }
-  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
+  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: p === "/manual" ? MANUAL_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
+    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     // /pricing above the 0.6 static-copy shelf: it is the last page before
     // checkout, and the one an ad or a "resaleiq pricing" search lands on.
@@ -194,6 +198,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
+  const glossaryPages = GLOSSARY_TERMS.map((t) => ({
+    url: `${BASE}/glossary/${t.slug}`,
+    lastModified: GLOSSARY_DATE,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
+
+  const modelPages = SEO_MODELS.map((m) => ({
+    url: `${BASE}${modelPath(m)}`,
+    lastModified: dataFresh,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
+  }))
+
   const blogPages = POSTS.map((p) => ({
     url: `${BASE}/blog/${p.slug}`,
     // Prefer the content-refresh date over the publish date: a post whose dated
@@ -219,9 +237,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...pricingLocalePages,
     ...toolPages,
     ...manualPages,
+    ...glossaryPages,
     ...blogPages,
     ...brandPages,
     ...categoryPages,
     ...brandCategoryPages,
+    ...modelPages,
   ]
 }

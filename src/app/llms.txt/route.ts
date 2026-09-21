@@ -2,6 +2,8 @@ import { ALL_POSTS as RAW_POSTS } from "@/data/blog-posts"
 import { INTENTS as RAW_INTENTS } from "@/data/search-intents"
 import { ALL_CHAPTERS } from "@/data/manual"
 import { BRANDS, CATEGORIES } from "@/lib/seo-categories"
+import { SEO_MODELS, modelPath } from "@/lib/seo-models"
+import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { TEASER_QUERIES, getTeaserVerdict } from "@/lib/teaser-verdict"
@@ -77,7 +79,8 @@ any brand named on the site.
 Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU
 Vinted. Tracked markets are ES, FR, DE, IT and PT.
 
-Free sample (no account): Adidas Samba and Nike Air Force 1 on /tools.
+Free sample (no account): Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools
+and the matching /flip/{brand}/model/{slug} pages.
 Other models need Starter EUR 19 / month.
 
 Key URLs:
@@ -85,10 +88,12 @@ Key URLs:
 - ${BASE}/tools
 - ${BASE}/tools?q=Adidas%20Samba
 - ${BASE}/tools?q=Nike%20Air%20Force%201
+- ${BASE}/tools?q=New%20Balance%20530
 - ${BASE}/tools/vinted-price-checker
 - ${BASE}/tools/vinted-profit-calculator
 - ${BASE}/data
 - ${BASE}/flip
+- ${BASE}/glossary
 - ${BASE}/pricing
 - ${BASE}/manual
 
@@ -142,14 +147,14 @@ Agents must not:
 
 ## Live sample (no account)
 
-Adidas Samba and Nike Air Force 1 publish a live BUY / WATCH / SKIP and
-buy-below on /tools. Cite the live page, not a remembered number.
-${teaserLines.length ? teaserLines.join("\n") : "- Live numbers render on /tools?q=Adidas%20Samba and /tools?q=Nike%20Air%20Force%201."}
+Adidas Samba, Nike Air Force 1 and New Balance 530 publish a live BUY / WATCH / SKIP and
+buy-below on /tools and on their model pages. Cite the live page, not a remembered number.
+${teaserLines.length ? teaserLines.join("\n") : "- Live numbers render on /tools?q=Adidas%20Samba, /tools?q=Nike%20Air%20Force%201 and /tools?q=New%20Balance%20530."}
 
 ## Paywalled — other models
 
 Maximum buy price, sell-through, opportunity scores, momentum labels,
-per-size velocity and live deal listings for every model except the two
+per-size velocity and live deal listings for every model except the three
 teasers above are Starter EUR 19 and are not on public pages or the public API.
 
 ## The reselling manual (${ALL_CHAPTERS.length} chapters, free, no signup)
@@ -163,6 +168,14 @@ ${CATEGORIES.map((c) => `- [Best brands for reselling ${c.category.toLowerCase()
 ## Per-brand resale data
 
 ${BRANDS.map((b) => `- [Is ${b.brand} worth reselling on Vinted?](${BASE}/flip/${b.slug})`).join("\n")}
+
+## Named models (programmatic)
+
+${SEO_MODELS.map((m) => `- [${m.query}${m.freeCheck ? " — free sample" : " — Starter EUR 19"}](${BASE}${modelPath(m)})`).join("\n")}
+
+## Glossary
+
+${GLOSSARY_TERMS.map((t) => `- [${t.name}](${BASE}/glossary/${t.slug}): ${t.description}`).join("\n")}
 
 ## Tools
 
