@@ -535,3 +535,13 @@ NEXT (once unblocked): P0-1.
 - Hero is one centered column; product shot below, not beside, the checker.
 - e2e 1280x800: Free: in viewport; form center ±48px; 9 local SVG tiles.
 - Branch cursor/seo-homepage-free-scope-fold-6ca7. Successor PR to #123.
+
+## 2026-09-21 — homepage hero clutter cut + brand strip +N more
+- Hero is one H1 + one subline (demand, BUY/WATCH/SKIP, €19) then the
+  centered FreeChecker. Overline, Samba essay, listing-count, and the
+  extra trust line are off the fold. Samba stays a free chip; live cite
+  stays SSR `display:none` for GPTBot.
+- Brand strip: 9 local SVG marks in a hairline band + remainder chip
+  `+N more` → /data (warehouse brandsTracked − shown). 9 of 28 → +19.
+- Browser + e2e smoke 13/13. PR #126
+  cursor/homepage-hero-strip-d269.
