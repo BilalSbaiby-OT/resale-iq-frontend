@@ -1,7 +1,19 @@
-STATUS: READY
-OWNER: none
+STATUS: IN_PROGRESS
+OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
+
+SEO LANE, 2026-09-21 — WEEK-2 SEED LOCK (align PR #129)
+  SEED-BATCH-2.md not on this box — locking to stated counts/URL shapes:
+    20 paid models /flip/{brand}/model/{slug}
+    7 /best/{intent}
+    8 /vs/{a}-vs-{b}
+    6 /for/{persona}
+    EN 41 first; locales kept for those EN winners (already routed).
+  Free allowlist unchanged: Samba / AF1 / NB 530.
+  Branch cursor/seo-programmatic-scale-f2b2. Do not push main.
+
+---
 
 SEO LANE, 2026-09-21 — PROGRAMMATIC SEO SCALE SHIPPED
   PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/129

@@ -5,7 +5,7 @@ function pack(rows: SixCopy): SixCopy {
 }
 
 export const personaLandingCopy: Record<string, SixCopy> = {
-  "vs/gut-feel": pack({
+  "vs/resale-iq-vs-gut-feel": pack({
     en: C("Resale IQ vs gut feel on Vinted", "Resale IQ vs gut feel — n before instinct",
       "Gut feel is fast and often wrong on EU Vinted. Resale IQ puts watched departures and a buy-below ceiling in front of the buy. Three free samples; other models Starter €19/mo.",
       "Instinct is how you notice a silhouette. It is not how you price it. A “this will move” feeling does not know whether 530s left the shelf this week or whether the ask is already above buy-below. Resale IQ is the n. Gut feel is the hypothesis.",
@@ -103,7 +103,7 @@ export const personaLandingCopy: Record<string, SixCopy> = {
         { q: "E se o recorte não tiver cifra?", a: "Mostramos um travessão. Faltar não é zero." },
       ], "Que o instinto cace. Que o armazém vete. Starter 19 €/mês."),
   }),
-  "vs/stockx": pack({
+  "vs/resale-iq-vs-stockx": pack({
     en: C("Resale IQ vs StockX-style apps for Vinted", "Resale IQ vs StockX-style apps — different venues",
       "StockX-style last-sale apps answer a US sneaker exchange. Resale IQ answers EU Vinted watched departures. Do not paste a StockX print into a Vinted bid. Three free samples; other models Starter €19/mo.",
       "StockX, GOAT and cousins are clearing houses with their own last sale. Vinted is a classifieds catalogue across ES/FR/DE/IT/PT with a ~5% seller-side fee in our model. A last sale in dollars is not a buy-below in euros.",

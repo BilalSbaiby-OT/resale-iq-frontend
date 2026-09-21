@@ -1,6 +1,15 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { LANDINGS, getLandingCopy, landingFaqsClean, landingKey } from "./seo-landings.ts"
+import {
+  LANDINGS,
+  WEEK2_BEST_SLUGS,
+  WEEK2_VS_SLUGS,
+  WEEK2_FOR_SLUGS,
+  WEEK2_VS_SLUG_REDIRECTS,
+  getLandingCopy,
+  landingFaqsClean,
+  landingKey,
+} from "./seo-landings.ts"
 import { BLOG_CLONE_SLUGS } from "./locale-routes.ts"
 import { getBlogCloneCopy } from "../data/seo-blog-clones-e.ts"
 import { ALL_LOCALES } from "./locale-routes.ts"
@@ -8,11 +17,21 @@ import { faqAnswerIsClean } from "./faq-schema.ts"
 
 const LOCALES = ALL_LOCALES
 
-test("12 BEST/VS/FOR landings exist with six-locale copy, unique titles, clean FAQs", () => {
-  assert.equal(LANDINGS.length, 12)
-  assert.equal(LANDINGS.filter((l) => l.kind === "best").length, 3)
-  assert.equal(LANDINGS.filter((l) => l.kind === "vs").length, 4)
-  assert.equal(LANDINGS.filter((l) => l.kind === "for").length, 5)
+test("week-2 BEST/VS/FOR seed: 7 best, 8 vs {a}-vs-{b}, 6 for, six-locale copy", () => {
+  assert.equal(LANDINGS.length, 21)
+  assert.deepEqual(LANDINGS.filter((l) => l.kind === "best").map((l) => l.slug), [...WEEK2_BEST_SLUGS])
+  assert.deepEqual(LANDINGS.filter((l) => l.kind === "vs").map((l) => l.slug), [...WEEK2_VS_SLUGS])
+  assert.deepEqual(LANDINGS.filter((l) => l.kind === "for").map((l) => l.slug), [...WEEK2_FOR_SLUGS])
+  assert.equal(WEEK2_BEST_SLUGS.length, 7)
+  assert.equal(WEEK2_VS_SLUGS.length, 8)
+  assert.equal(WEEK2_FOR_SLUGS.length, 6)
+  for (const l of LANDINGS.filter((x) => x.kind === "vs")) {
+    assert.match(l.slug, /.+-vs-.+/, l.slug)
+  }
+  for (const [from, to] of WEEK2_VS_SLUG_REDIRECTS) {
+    assert.doesNotMatch(from, /.+-vs-.+/, from)
+    assert.ok(WEEK2_VS_SLUGS.includes(to as (typeof WEEK2_VS_SLUGS)[number]), to)
+  }
   const titles = new Set<string>()
   for (const l of LANDINGS) {
     for (const locale of LOCALES) {

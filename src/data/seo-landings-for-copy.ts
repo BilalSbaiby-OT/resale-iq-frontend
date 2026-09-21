@@ -18,7 +18,7 @@ const shotEn = C("Resale IQ vs sold-listing screenshots", "Resale IQ vs listing 
   ], "Stop treating a camera roll as n. Starter €19/mo.")
 
 export const forLandingCopy: Record<string, SixCopy> = {
-  "vs/listing-screenshots": six(
+  "vs/resale-iq-vs-listing-screenshots": six(
     shotEn,
     C("Resale IQ frente a capturas de vendidos", "Resale IQ frente a capturas — un almacén gana a un carrete",
       "Capturar la pestaña de vendidos de Vinted no te da un buy-below. Resale IQ deduplica ES/FR/DE/IT/PT y publica la fórmula. Tres muestras gratis; el resto Starter 19 €/mes.",

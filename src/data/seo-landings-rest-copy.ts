@@ -59,7 +59,7 @@ const excelEn = loc(
 )
 
 export const vsForLandingCopy: Record<string, Table> = {
-  "vs/excel": pack(
+  "vs/resale-iq-vs-excel": pack(
     excelEn,
     loc(
       "Resale IQ frente a Excel para flips Vinted",

@@ -12,6 +12,8 @@ import {
   FREE_CHECK_QUERIES,
   SCALE_HUB_SLUGS,
   WEEK1_HUB_SLUGS,
+  WEEK1_MODEL_SLUGS,
+  WEEK2_MODEL_SLUGS,
   modelPath,
   modelPageTitle,
   modelPageDescription,
@@ -39,10 +41,18 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("scale catalogue is 40–80 additional models on known brands, not doorway clones", () => {
+test("week-2 seed is 20 paid models on known brands, not doorway clones", () => {
   const additional = SEO_MODELS.length - 12
-  assert.ok(additional >= 40, `additional=${additional}`)
-  assert.ok(additional <= 80, `additional=${additional}`)
+  assert.equal(additional, 20, `additional=${additional}`)
+  assert.equal(SEO_MODELS.length, WEEK1_MODEL_SLUGS.length + WEEK2_MODEL_SLUGS.length)
+  assert.deepEqual(SEO_MODELS.slice(0, 12).map((m) => m.slug), [...WEEK1_MODEL_SLUGS])
+  assert.deepEqual(SEO_MODELS.slice(12).map((m) => m.slug), [...WEEK2_MODEL_SLUGS])
+  assert.equal(WEEK2_MODEL_SLUGS.length, 20)
+  for (const slug of WEEK2_MODEL_SLUGS) {
+    const m = SEO_MODELS.find((row) => row.slug === slug)
+    assert.ok(m, slug)
+    assert.equal(m!.freeCheck, false, slug)
+  }
   assert.equal(modelsPointAtKnownBrands(), true)
   assert.equal(SCALE_HUB_SLUGS.length, 15)
   assert.equal(WEEK1_HUB_SLUGS.length, 10)
@@ -65,6 +75,11 @@ test("scale catalogue is 40–80 additional models on known brands, not doorway 
     "/flip/salomon/model/xt-6",
     "/flip/converse/model/chuck-70",
     "/flip/dr-martens/model/1460",
+    "/flip/adidas/model/stan-smith",
+    "/flip/carhartt/model/detroit-jacket",
+    "/flip/patagonia/model/better-sweater",
+    "/flip/stone-island/model/ghost",
+    "/flip/fred-perry/model/oxford-shirt",
   ]
   for (const p of locked) assert.ok(paths.includes(p), p)
   for (const m of SEO_MODELS) {
@@ -307,4 +322,8 @@ test("sitemap, robots and llms advertise the new routes", () => {
   assert.match(cfg, /\/glossary\/buy-below-market/)
   assert.match(cfg, /\/glossary\/vinted-demand/)
   assert.match(cfg, /air-jordan-1/)
+  assert.match(cfg, /\/vs\/excel/)
+  assert.match(cfg, /\/vs\/resale-iq-vs-excel/)
+  assert.match(cfg, /\/vs\/gut-feel/)
+  assert.match(cfg, /\/vs\/listing-screenshots/)
 })

@@ -69,6 +69,46 @@ export const SCALE_HUB_SLUGS = [
 /** @deprecated week-1 name; same list minus the five scale hubs. Prefer SCALE_HUB_SLUGS. */
 export const WEEK1_HUB_SLUGS = SCALE_HUB_SLUGS.slice(0, 10)
 
+/** Week-1 catalogue (12). Free checker: samba / air-force-1 / 530 only. */
+export const WEEK1_MODEL_SLUGS = [
+  "samba",
+  "air-force-1",
+  "530",
+  "550",
+  "501",
+  "air-jordan-1",
+  "gazelle",
+  "dunk-low",
+  "gel-kayano-14",
+  "xt-6",
+  "chuck-70",
+  "1460",
+] as const
+
+/** Week-2 seed lock: +20 paid models. Same template. Not free checks. */
+export const WEEK2_MODEL_SLUGS = [
+  "stan-smith",
+  "handball-spezial",
+  "superstar",
+  "air-max-1",
+  "air-max-plus",
+  "vomero-5",
+  "2002r",
+  "9060",
+  "air-jordan-4",
+  "502",
+  "gel-1130",
+  "xt-4",
+  "run-star-hike",
+  "jadon",
+  "speedcat",
+  "detroit-jacket",
+  "nuptse",
+  "better-sweater",
+  "ghost",
+  "oxford-shirt",
+] as const
+
 export function modelPath(m: SeoModel): string {
   return `/flip/${m.brandSlug}/model/${m.slug}`
 }

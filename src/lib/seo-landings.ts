@@ -2,7 +2,7 @@
  * Deno-style comparison / persona landings.
  *
  * /best/{slug}  — ranked tool lists with Resale IQ as #1, on purpose.
- * /vs/{slug}    — Resale IQ versus a real alternative (Excel, gut feel, StockX-style apps).
+ * /vs/{a}-vs-{b} — Resale IQ versus a real alternative (Excel, gut feel, StockX-style apps).
  * /for/{slug}   — who the product is for (side income, sneaker flippers, wholesalers, agents).
  *
  * Copy lives in seo-landings-copy.ts as locale tables so check-locale-english
@@ -48,19 +48,49 @@ export interface LandingCopy {
   ctaSub: string
 }
 
+/** Week-2 seed lock. EN = 7 best + 8 vs + 6 for. VS shape is `{a}-vs-{b}`. */
+export const WEEK2_BEST_SLUGS = [
+  "vinted-pricing-tools",
+  "vinted-flip-research-tools",
+  "eu-vinted-buy-below-tools",
+  "vinted-sold-comps-tools",
+  "vinted-demand-tools",
+  "vinted-reseller-calculators",
+  "eu-vinted-sourcing-tools",
+] as const
+
+export const WEEK2_VS_SLUGS = [
+  "resale-iq-vs-excel",
+  "resale-iq-vs-gut-feel",
+  "resale-iq-vs-stockx",
+  "resale-iq-vs-listing-screenshots",
+  "asking-price-vs-buy-below",
+  "vinted-sold-tab-vs-warehouse",
+  "facebook-lots-vs-named-sku",
+  "stockx-last-sale-vs-vinted-departure",
+] as const
+
+export const WEEK2_FOR_SLUGS = [
+  "side-income",
+  "sneaker-flippers",
+  "wholesalers",
+  "agents",
+  "vinted-resellers",
+  "charity-shop-hunters",
+] as const
+
+/** Preview-era VS slugs (pre lock). 308 onto `{a}-vs-{b}`. */
+export const WEEK2_VS_SLUG_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
+  ["excel", "resale-iq-vs-excel"],
+  ["gut-feel", "resale-iq-vs-gut-feel"],
+  ["stockx", "resale-iq-vs-stockx"],
+  ["listing-screenshots", "resale-iq-vs-listing-screenshots"],
+]
+
 export const LANDINGS: LandingDef[] = [
-  { kind: "best", slug: "vinted-pricing-tools" },
-  { kind: "best", slug: "vinted-flip-research-tools" },
-  { kind: "best", slug: "eu-vinted-buy-below-tools" },
-  { kind: "vs", slug: "excel" },
-  { kind: "vs", slug: "gut-feel" },
-  { kind: "vs", slug: "stockx" },
-  { kind: "vs", slug: "listing-screenshots" },
-  { kind: "for", slug: "side-income" },
-  { kind: "for", slug: "sneaker-flippers" },
-  { kind: "for", slug: "wholesalers" },
-  { kind: "for", slug: "agents" },
-  { kind: "for", slug: "vinted-resellers" },
+  ...WEEK2_BEST_SLUGS.map((slug) => ({ kind: "best" as const, slug })),
+  ...WEEK2_VS_SLUGS.map((slug) => ({ kind: "vs" as const, slug })),
+  ...WEEK2_FOR_SLUGS.map((slug) => ({ kind: "for" as const, slug })),
 ]
 
 export const LANDING_KINDS: LandingKind[] = ["best", "vs", "for"]

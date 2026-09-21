@@ -91,6 +91,17 @@ const nextConfig: NextConfig = {
       { source: "/glossary/sell-through", destination: "/glossary/vinted-sell-through", permanent: true },
       { source: "/flip/jordan/model/jordan-1", destination: "/flip/jordan/model/air-jordan-1", permanent: true },
 
+      // Week-2 VS lock is `{a}-vs-{b}`. Preview slugs 308 so leftover citations
+      // do not split against /vs/resale-iq-vs-excel (and the three siblings).
+      { source: "/vs/excel", destination: "/vs/resale-iq-vs-excel", permanent: true },
+      { source: "/:locale(es|fr|de|it|pt)/vs/excel", destination: "/:locale/vs/resale-iq-vs-excel", permanent: true },
+      { source: "/vs/gut-feel", destination: "/vs/resale-iq-vs-gut-feel", permanent: true },
+      { source: "/:locale(es|fr|de|it|pt)/vs/gut-feel", destination: "/:locale/vs/resale-iq-vs-gut-feel", permanent: true },
+      { source: "/vs/stockx", destination: "/vs/resale-iq-vs-stockx", permanent: true },
+      { source: "/:locale(es|fr|de|it|pt)/vs/stockx", destination: "/:locale/vs/resale-iq-vs-stockx", permanent: true },
+      { source: "/vs/listing-screenshots", destination: "/vs/resale-iq-vs-listing-screenshots", permanent: true },
+      { source: "/:locale(es|fr|de|it|pt)/vs/listing-screenshots", destination: "/:locale/vs/resale-iq-vs-listing-screenshots", permanent: true },
+
       // POSTS_36 duplicate — the plural "stone-island-hoodies-*" slug was the
       // first Stone Island hoodie guide shipped; POSTS_66 ("stone-island-hoodie-*"
       // singular) is the current, richer page with the live numbers. Redirect the
