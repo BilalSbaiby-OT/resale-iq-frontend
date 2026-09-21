@@ -3,7 +3,7 @@
  * promise free checks for 402 models, market table names its cut, Samba
  * buy-below uses the same whole-euro rounding as the checker.
  */
-import { readFileSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
@@ -11,6 +11,7 @@ import assert from "node:assert/strict"
 import { FREE_MODELS } from "./working-models.ts"
 import { copy } from "./i18n.ts"
 import { formatHomeCite } from "./teaser-verdict.ts"
+import { brandStripNames, BRAND_MARK_SRC } from "./brand-marks.ts"
 import type { HeroVerdict } from "./hero-verdict.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -31,6 +32,9 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
   assert.doesNotMatch(checker, /\["New Balance 530", "Levi's 501", "New Balance 550"\]/)
   assert.match(checker, /riq-free-scope/)
   assert.match(checker, /heroFreeScope/)
+  const scopeAt = checker.indexOf("data-testid=\"riq-free-scope\"")
+  const chipsAt = checker.indexOf("testId=\"riq-hero-try-chips\"")
+  assert.ok(scopeAt > 0 && chipsAt > scopeAt, "Free: line must sit above the chips, next to the CTA")
 })
 
 test("above-fold free scope names the chips that remain", () => {
@@ -80,8 +84,32 @@ test("English homepage example and cite are Samba, not a second SKU", () => {
   assert.doesNotMatch(page, /heroResult=\{hero\.result\}/)
 })
 
-test("brand strip is text wordmarks — no simpleicons CDN", () => {
+test("brand strip is local SVG marks, never text names or a CDN", () => {
   const strip = read("components/landing/brand-strip.tsx")
-  assert.doesNotMatch(strip, /cdn\.simpleicons\.org/)
-  assert.doesNotMatch(strip, /<img/)
+  const marks = read("lib/brand-marks.ts")
+  assert.doesNotMatch(strip, /cdn\.simpleicons/)
+  assert.doesNotMatch(marks, /cdn\.simpleicons/)
+  assert.doesNotMatch(marks, /hugo\.svg|"hugo"/)
+  assert.match(strip, /<img/)
+  assert.match(marks, /brand-marks\//)
+  assert.doesNotMatch(strip, /riq-brand-name/)
+  assert.doesNotMatch(strip, /\{name\}<\/li>/)
+  assert.equal(brandStripNames(["Patagonia", "Balenciaga", "Fred Perry", "Stone Island", "New Balance"]).includes("Patagonia"), false)
+  assert.ok(brandStripNames(["Patagonia", "New Balance"]).includes("New Balance"))
+  const filled = brandStripNames(["Fred Perry", "Stone Island", "Patagonia"])
+  assert.equal(filled.length, Object.keys(BRAND_MARK_SRC).length)
+  assert.ok(filled.includes("Nike"))
+  assert.ok(filled.includes("Adidas"))
+  for (const file of Object.values(BRAND_MARK_SRC)) {
+    assert.ok(existsSync(join(root, "..", "public", file.replace(/^\//, ""))), file)
+  }
+})
+
+test("hero checker is a centered column, shot not beside it", () => {
+  const landing = read("components/landing/landing-content.tsx")
+  const css = read("app/globals.css")
+  assert.match(landing, /riq-hero-checker/)
+  assert.match(css, /\.riq-hero-checker/)
+  assert.match(css, /align-items:\s*center/)
+  assert.doesNotMatch(css, /grid-template-columns:\s*1fr 0\.95fr/)
 })

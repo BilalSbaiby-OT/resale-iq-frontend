@@ -433,19 +433,20 @@ export function FreeChecker({
       </form>
       {hero && (
         <>
+          <p
+            className="riq-free-scope"
+            data-testid="riq-free-scope"
+          >
+            {copy[locale].heroFreeScope}
+          </p>
           <ModelChips
             onPick={(ex) => run(ex)}
             disabled={loading}
             label={t.tryTheseInstead}
             examples={TRY_EXAMPLES}
             testId="riq-hero-try-chips"
+            align="center"
           />
-          <p
-            data-testid="riq-free-scope"
-            style={{ fontSize: 13, color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}
-          >
-            {copy[locale].heroFreeScope}
-          </p>
         </>
       )}
       <RegisterCheckVintedItemTool name={webmcpName} description={webmcpDescription} />

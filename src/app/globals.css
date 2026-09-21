@@ -257,11 +257,103 @@ input[type="submit"]:not(:disabled):active,
 .riq-grid-main { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
 .riq-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-/* Landing hero: claim left, live evidence right. Collapses to one column on
-   tablet, where side-by-side would squeeze both to unreadable widths. */
-.riq-hero { display: grid; grid-template-columns: 1fr 0.95fr; gap: 48px; align-items: start; }
-.riq-hero-copy { text-align: left; }
-.riq-hero-shot { margin-top: 64px; }
+/* Landing hero: one centered column so the checker module sits in the
+   middle of the page. The product shot is supporting evidence BELOW the
+   checker — a side column left-aligns the input and drops Free: under
+   the 1280×800 fold. */
+.riq-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+.riq-hero-copy {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+}
+.riq-hero-checker {
+  width: 100%;
+  max-width: 560px;
+}
+.riq-hero-shot {
+  width: 100%;
+  max-width: 720px;
+  margin-top: 8px;
+}
+.riq-free-scope {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 10px 0 0;
+  line-height: 1.5;
+  text-align: center;
+}
+.riq-model-chips { margin-top: 12px; }
+.riq-model-chips-label {
+  font-size: 11px;
+  color: #5b6b8c;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+}
+.riq-model-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.riq-model-chips--center { text-align: center; }
+.riq-model-chips--center .riq-model-chips-row { justify-content: center; }
+.riq-model-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-2);
+  color: #c3cde0;
+  font-family: inherit;
+  font-size: 12.5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.riq-model-chip:disabled { cursor: wait; }
+
+.riq-brand-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.riq-brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+}
+.riq-brand-mark {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  background: var(--color-surface-elevated);
+}
+.riq-brand-mark img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  object-fit: contain;
+}
 /* Browser-chrome frame around the real product screenshot — the Linear/Vercel
    "show the product" move. Surface-ladder + hairline, not a drop shadow. */
 .riq-browser-frame {
@@ -286,10 +378,10 @@ input[type="submit"]:not(:disabled):active,
 .riq-grid-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 40px; }
 @media (max-width: 899px) {
   .riq-grid-main { grid-template-columns: 1fr; }
-  .riq-hero { grid-template-columns: 1fr; gap: 36px; }
-  /* On one column the checker must lead; the product shot is supporting
-     evidence, so drop it rather than push the checker below the fold. */
+  .riq-hero { gap: 24px; }
+  /* Checker must lead; the product shot is supporting evidence. */
   .riq-hero-shot { display: none; }
+  .riq-hero-checker { max-width: 100%; }
   .riq-grid-features { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 @media (max-width: 520px) {

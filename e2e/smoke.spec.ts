@@ -63,6 +63,38 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(page.getByTestId("riq-market-showing").getByRole("link", { name: /See all on \/data/ })).toHaveAttribute("href", "/data")
 })
 
+test("homepage checker is centered, Free: is above the 1280x800 fold, logos are marks", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.goto("/")
+  const form = page.locator("#check form.riq-checker-row")
+  const box = await form.boundingBox()
+  expect(box).toBeTruthy()
+  const mid = box!.x + box!.width / 2
+  expect(Math.abs(mid - 640)).toBeLessThan(48)
+
+  const scope = page.getByTestId("riq-free-scope")
+  await expect(scope).toBeVisible()
+  const scopeBox = await scope.boundingBox()
+  expect(scopeBox).toBeTruthy()
+  expect(scopeBox!.y + scopeBox!.height).toBeLessThan(800)
+
+  const formBottom = box!.y + box!.height
+  expect(scopeBox!.y).toBeGreaterThan(formBottom - 4)
+  const chips = page.getByTestId("riq-hero-try-chips")
+  const chipsBox = await chips.boundingBox()
+  expect(chipsBox).toBeTruthy()
+  expect(chipsBox!.y).toBeGreaterThan(scopeBox!.y)
+
+  const strip = page.getByTestId("riq-brand-strip")
+  await expect(strip.locator("img")).toHaveCount(9)
+  for (const img of await strip.locator("img").all()) {
+    await expect(img).toHaveAttribute("src", /\/brand-marks\/.+\.svg$/)
+  }
+  await expect(strip.getByText("Patagonia")).toHaveCount(0)
+  await expect(strip.getByText("Balenciaga")).toHaveCount(0)
+  await expect(strip.getByText("Fred Perry")).toHaveCount(0)
+})
+
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {
   const res = await page.goto("/data")
   expect(res?.ok()).toBeTruthy()

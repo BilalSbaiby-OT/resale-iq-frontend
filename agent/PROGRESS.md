@@ -524,3 +524,14 @@ NEXT (once unblocked): P0-1.
 - WebMCP attrs kept. Paid CTAs untouched (/pricing).
 - Tests: src/lib/homepage-conv.test.ts + FAQ/teaser updates.
 - Branch cursor/seo-ex-homepage-conv-55d5.
+
+## 2026-09-21 — homepage checker center + real logos + Free: above fold
+- Leftover from merged #123. Cannot attach new commits to that PR.
+- Brand strip: 9 local CC0 SVGs under public/brand-marks/. Omit
+  Patagonia/Balenciaga/Fred Perry/Stone Island (no good free mark).
+  Fill from catalog-with-logos when this week's published 6 lack marks.
+  No text names in the row.
+- Free: line immediately under the Check CTA, before chips.
+- Hero is one centered column; product shot below, not beside, the checker.
+- e2e 1280x800: Free: in viewport; form center ±48px; 9 local SVG tiles.
+- Branch cursor/seo-homepage-free-scope-fold-6ca7. Successor PR to #123.
