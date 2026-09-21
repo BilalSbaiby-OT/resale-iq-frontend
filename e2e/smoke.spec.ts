@@ -14,8 +14,8 @@ test("landing page loads and is not empty", async ({ page }) => {
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
-  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
-  await expect(hero.getByText(/Which models are in demand, BUY \/ WATCH \/ SKIP/i)).toBeVisible()
+  await expect(hero.getByRole("heading", { level: 1 })).toContainText(/buy-below price before you source/i)
+  await expect(hero.getByText(/Get BUY \/ WATCH \/ SKIP/i)).toBeVisible()
   await expect(hero.getByText(/For people who resell second-hand clothes/i)).toHaveCount(0)
   await expect(hero.getByText(/live second-hand clothing listings/i)).toHaveCount(0)
   await expect(hero.getByTestId("riq-home-teaser-cite")).toBeHidden()

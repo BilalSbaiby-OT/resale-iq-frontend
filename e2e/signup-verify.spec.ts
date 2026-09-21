@@ -197,14 +197,21 @@ test.describe("signup verify session", () => {
 
   test("verify with token signs in to the dashboard", async ({ page }) => {
     const email = `e2e-ver-${Date.now()}@example.com`
+    // Intercept Stripe redirect so we stay on-domain to read localStorage
+    await page.route("https://checkout.stripe.com/**", async (route) => {
+      await route.fulfill({ status: 200, contentType: "text/html", body: "<html><body>mock stripe</body></html>" })
+    })
     await mockPaidCheckout(page)
     await page.goto("/register")
     await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
+    // Navigate back to app to read localStorage
+    await page.goto("/")
 
     const id = await page.evaluate(async () => {
       const t = localStorage.getItem("di_jwt")
+      if (!t) return null
       const r = await fetch("/auth/me", { headers: { Authorization: `Bearer ${t}` } })
       const d = await r.json()
       return d.id
@@ -220,13 +227,18 @@ test.describe("signup verify session", () => {
 
   test("used verify token does not mint a second session", async ({ page }) => {
     const email = `e2e-used-${Date.now()}@example.com`
+    await page.route("https://checkout.stripe.com/**", async (route) => {
+      await route.fulfill({ status: 200, contentType: "text/html", body: "<html><body>mock stripe</body></html>" })
+    })
     await mockPaidCheckout(page)
     await page.goto("/register")
     await fillPaidRegister(page, email)
     await page.getByRole("button", { name: /Create account|Activate .* access/i }).click()
     await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
+    await page.goto("/")
     const id = await page.evaluate(async () => {
       const t = localStorage.getItem("di_jwt")
+      if (!t) return null
       const r = await fetch("/auth/me", { headers: { Authorization: `Bearer ${t}` } })
       return (await r.json()).id
     })
