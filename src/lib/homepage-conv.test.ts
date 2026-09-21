@@ -91,7 +91,7 @@ test("brand strip is local SVG marks, never text names or a CDN", () => {
   assert.doesNotMatch(marks, /cdn\.simpleicons/)
   assert.doesNotMatch(marks, /hugo\.svg|"hugo"/)
   assert.match(strip, /<img/)
-  assert.match(strip, /brand-marks\//)
+  assert.match(marks, /brand-marks\//)
   assert.doesNotMatch(strip, /riq-brand-name/)
   assert.doesNotMatch(strip, /\{name\}<\/li>/)
   assert.equal(brandStripNames(["Patagonia", "Balenciaga", "Fred Perry", "Stone Island", "New Balance"]).includes("Patagonia"), false)
