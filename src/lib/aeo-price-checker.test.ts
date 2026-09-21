@@ -85,13 +85,13 @@ test("tools slug page renders deepen + FAQ from the same intent", () => {
   assert.match(page, /AEO_PRICE_CHECKER_CTA/)
   assert.match(page, /PRICE_CHECKER_MONEY_HREF/)
   assert.match(page, /Get the numbers →/)
-  assert.doesNotMatch(page, /register\?/)
+  assert.doesNotMatch(page, /\/register\?plan=free/)
 })
 
 test("price-checker paid CTA is Get the numbers with aeo_price_checker_001", () => {
   assert.match(
     intents,
-    /AEO_PRICE_CHECKER_CTA =\s*"\/pricing\?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"/,
+    /AEO_PRICE_CHECKER_CTA\s*=\s*"\/register\?plan=operator&utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"/,
   )
   const money = read("lib/money-cta.ts")
   assert.match(money, /PRICE_CHECKER_MONEY_HREF = moneyCtaPricingHref\("price_checker"\)/)

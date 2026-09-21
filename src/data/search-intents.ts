@@ -16,9 +16,9 @@ export interface SearchIntent {
   faq: { q: string; a: string }[]
 }
 
-/** Paid door on /tools/vinted-price-checker. Never /register. */
+/** Paid door on /tools/vinted-price-checker. Direct Starter checkout for highest conversion. */
 export const AEO_PRICE_CHECKER_CTA =
-  "/pricing?utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"
+  "/register?plan=operator&utm_source=tools&utm_medium=organic&utm_campaign=aeo_price_checker_001"
 
 export const INTENTS: SearchIntent[] = [
   {
