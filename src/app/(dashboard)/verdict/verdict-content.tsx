@@ -102,6 +102,8 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
       trackEvent("verdict_seen")
       trackEvent("analysis_completed")
     } catch (e) {
+      // why: every branch either re-renders a meaningful card (paywall/coverage/error)
+      // or fires trackEvent("analysis_failed") — no silent drop.
       if (isPaymentRequired(e)) {
         const body = e instanceof PaymentRequiredError ? e.body : undefined
         if (checkerFace({ verdict: "PAYWALL", query: q, apiBody: body }) === "coverage") {
