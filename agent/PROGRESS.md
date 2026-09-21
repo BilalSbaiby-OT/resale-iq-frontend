@@ -545,3 +545,38 @@ NEXT (once unblocked): P0-1.
   `+N more` → /data (warehouse brandsTracked − shown). 9 of 28 → +19.
 - Browser + e2e smoke 13/13. PR #126
   cursor/homepage-hero-strip-d269.
+
+## 2026-09-21 — programmatic SEO model templates + glossary
+- Reusable model route `/flip/{brand}/model/{slug}` (24 first-batch pages
+  from catalogue brands; A13 board for WHICH models, warehouse for brand
+  numbers, teaser API for the 3 free samples only).
+- Free allowlist: Adidas Samba, Nike Air Force 1, New Balance 530.
+  Paywalled models: Starter €19 CTA, FAQ "Is this check free? No."
+- Brand hubs list named models; no more "Try a live check — {brand}".
+- Glossary `/glossary` + buy-below / watched-departure / sell-through.
+- Sitemap, robots, llms.txt. Tests in src/lib/seo-models.test.ts.
+- Branch cursor/seo-programmatic-models-c616.
+
+## 2026-09-21 — week-1 SEO batch on the same PR (#127)
+- Brand hubs: HubFaq + FAQPage (5 Qs), weekly velocity teaser → /data +
+  glossary terms. Free-check FAQ is Yes only when that hub has Samba/AF1/530.
+- Model catalogue 24 → 44 distinct A13 models (Campus 00s, Forum Low, Air Max 1,
+  Blazer Mid, Tech Fleece, 1906R/2002R/327, Trucker, Jordan 3, Nano Puff,
+  Snap-T, Active Jacket, Double Knee, Harrington, Ghost, Instapump Fury,
+  Box Logo, Triple S, GG Marmont). Doorway clones rejected in tests.
+- Sitemap 44 model URLs + 4 glossary. Isolation is the deploy gate.
+- Same branch/PR. EN live first; no locale clones.
+
+## 2026-09-21 — week-1 seed lock aligned on PR #127
+- Locked batch: 10 glossary terms, 10 brand hubs, 12 models (32 pages).
+- Glossary: vinted-demand, vinted-sell-through, buy-below-market, dead-stock,
+  vinted-fees, vinted-profit-margin, max-buy-price, average-sale-price,
+  condition-grading, size-demand. Old slugs 308 to the new paths.
+- Models: samba, air-force-1, 530 (free); 550, 501, air-jordan-1, gazelle,
+  dunk-low, gel-kayano-14, xt-6, chuck-70, 1460 (Starter €19).
+- Hubs: adidas, nike, new-balance, levis, jordan, asics, salomon, converse,
+  dr-martens, puma. New brands structure-only; missing warehouse = em-dash.
+- Sitemap 12 model URLs + 10 term URLs + glossary hub. Same PR, no competitor.
+
+
+

@@ -1,15 +1,17 @@
 /**
  * SSR teaser for GPTBot / PerplexityBot. /tools?q= is a client checker;
  * crawlers do not run JS, so the live BUY/WATCH/SKIP never appeared in HTML.
- * Only Adidas Samba and Nike Air Force 1 are fetched — those two still 200
- * anonymously. Anything else stays paywalled and is not rendered here.
+ * Adidas Samba, Nike Air Force 1 and New Balance 530 are fetched — those
+ * three still 200 anonymously. Anything else stays paywalled and is not
+ * rendered here.
  */
 import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import type { HeroVerdict } from "@/lib/hero-verdict"
+import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
 
-export const TEASER_QUERIES = ["Adidas Samba", "Nike Air Force 1"] as const
+export const TEASER_QUERIES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
 
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_DIR =
@@ -27,16 +29,6 @@ export function matchTeaserQuery(q: string | undefined | null): string | null {
     if (t.toLowerCase() === n) return t
   }
   return null
-}
-
-function isUsable(r: HeroVerdict | null | undefined): r is HeroVerdict {
-  return Boolean(
-    r &&
-      (r.verdict === "BUY" || r.verdict === "WATCH" || r.verdict === "SKIP") &&
-      typeof r.buy_below === "number" &&
-      Number.isFinite(r.buy_below) &&
-      r.buy_below > 0,
-  )
 }
 
 function cachePath(query: string): string {

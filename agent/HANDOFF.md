@@ -3,6 +3,39 @@ OWNER: none
 PUSH: no
 UPDATED: 2026-09-21
 
+SEO LANE, 2026-09-21 — WEEK-1 SEED LOCK (same PR #127)
+  SHIPPED on branch. URL shapes unchanged:
+    /flip/{brand}/model/{slug} · /flip/{brand} · /glossary/{term}
+  Week-1 = 32 pages: 10 glossary + 10 hubs + 12 models.
+  Free checker ONLY Samba / AF1 / NB 530. Insufficient data = em-dash.
+  ASICS / Salomon / Converse / Dr. Martens hubs added as structure
+  (warehouse empty locally — no invented sold_7d). Old glossary slugs
+  308 to locked terms. Sitemap: 12 model + 11 glossary locs.
+  Isolation is the Coolify gate. Do not push main here.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/127
+  Branch cursor/seo-programmatic-models-c616.
+
+---
+
+SEO LANE, 2026-09-21 — PROGRAMMATIC MODEL TEMPLATES (week-1 batch, same PR)
+  SHIPPED on branch. Same URL shapes. Do not open a competing PR.
+  Pattern: /flip/{brand}/model/{slug} — 44 named A13 models (no Samba OG /
+  AF1 Low / Dunk / Spezial doorway clones). Free sample only Adidas Samba,
+  Nike Air Force 1, New Balance 530. All other models CTA Starter €19.
+  Brand hubs: citeable lead + weekly velocity teaser → /data + HubFaq matching
+  FAQPage (5 Qs, honest free only when that brand has a teaser model).
+  Glossary: /glossary + buy-below / watched-departure / sell-through.
+  Sitemap: 44 model URLs + 4 glossary URLs. EN only — no ES/FR/DE/IT/PT clones.
+  Local: tsc, next build, isolation, warehouse, tracked, dupes, unit tests;
+  curl 200 on samba / campus-00s / gg-marmont / nike hub / gucci hub /
+  glossary; sitemap 44+4. Isolation green on PR #127. Playwright e2e-required
+  fails are pre-existing (signup-verify / public-result-face), not this lane.
+  Merge to main deploys via Coolify after Isolation. Do not push main here.
+  PR: https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/127
+  Branch cursor/seo-programmatic-models-c616.
+
+---
+
 FRONTEND, 2026-09-21 — homepage hero + brand strip (PR #126)
   SHIPPED on branch. Local PASS: tsc, isolation, homepage-conv /
   pricing-offer / teaser-verdict unit, full e2e/smoke (13). Browser:

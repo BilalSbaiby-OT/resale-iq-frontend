@@ -21,10 +21,11 @@ const samba: HeroVerdict & { sell_median?: number } = {
   confidence_note: "Priced from 2408 active comparables, not watched sales",
 }
 
-test("only Samba and AF1 are teasers", () => {
-  assert.deepEqual([...TEASER_QUERIES], ["Adidas Samba", "Nike Air Force 1"])
+test("Samba, AF1 and NB 530 are teasers", () => {
+  assert.deepEqual([...TEASER_QUERIES], ["Adidas Samba", "Nike Air Force 1", "New Balance 530"])
   assert.equal(matchTeaserQuery("adidas samba"), "Adidas Samba")
   assert.equal(matchTeaserQuery("  Nike Air Force 1 "), "Nike Air Force 1")
+  assert.equal(matchTeaserQuery("new balance 530"), "New Balance 530")
   assert.equal(matchTeaserQuery("Vans Old Skool"), null)
   assert.equal(matchTeaserQuery(""), null)
 })

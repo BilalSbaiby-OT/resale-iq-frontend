@@ -84,6 +84,13 @@ const nextConfig: NextConfig = {
       // the destination without fighting cached redirects.
       { source: "/checkout", destination: "/pricing", permanent: false },
 
+      // Week-1 glossary lock renamed three early slugs. 308 so any preview
+      // citation or internal leftover consolidates on the locked paths.
+      { source: "/glossary/buy-below", destination: "/glossary/buy-below-market", permanent: true },
+      { source: "/glossary/watched-departure", destination: "/glossary/vinted-demand", permanent: true },
+      { source: "/glossary/sell-through", destination: "/glossary/vinted-sell-through", permanent: true },
+      { source: "/flip/jordan/model/jordan-1", destination: "/flip/jordan/model/air-jordan-1", permanent: true },
+
       // POSTS_36 duplicate — the plural "stone-island-hoodies-*" slug was the
       // first Stone Island hoodie guide shipped; POSTS_66 ("stone-island-hoodie-*"
       // singular) is the current, richer page with the live numbers. Redirect the

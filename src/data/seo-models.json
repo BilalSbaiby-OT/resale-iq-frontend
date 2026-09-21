@@ -1,0 +1,112 @@
+{
+  "models": [
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Samba",
+      "slug": "samba",
+      "query": "Adidas Samba",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Air Force 1",
+      "slug": "air-force-1",
+      "query": "Nike Air Force 1",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "530",
+      "slug": "530",
+      "query": "New Balance 530",
+      "category": "Sneakers",
+      "freeCheck": true
+    },
+    {
+      "brand": "New Balance",
+      "brandSlug": "new-balance",
+      "model": "550",
+      "slug": "550",
+      "query": "New Balance 550",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Levi's",
+      "brandSlug": "levis",
+      "model": "501",
+      "slug": "501",
+      "query": "Levi's 501",
+      "category": "Jeans",
+      "freeCheck": false
+    },
+    {
+      "brand": "Jordan",
+      "brandSlug": "jordan",
+      "model": "Air Jordan 1",
+      "slug": "air-jordan-1",
+      "query": "Air Jordan 1",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Adidas",
+      "brandSlug": "adidas",
+      "model": "Gazelle",
+      "slug": "gazelle",
+      "query": "Adidas Gazelle",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Nike",
+      "brandSlug": "nike",
+      "model": "Dunk Low",
+      "slug": "dunk-low",
+      "query": "Nike Dunk Low",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "ASICS",
+      "brandSlug": "asics",
+      "model": "Gel-Kayano 14",
+      "slug": "gel-kayano-14",
+      "query": "ASICS Gel-Kayano 14",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Salomon",
+      "brandSlug": "salomon",
+      "model": "XT-6",
+      "slug": "xt-6",
+      "query": "Salomon XT-6",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Converse",
+      "brandSlug": "converse",
+      "model": "Chuck 70",
+      "slug": "chuck-70",
+      "query": "Converse Chuck 70",
+      "category": "Sneakers",
+      "freeCheck": false
+    },
+    {
+      "brand": "Dr. Martens",
+      "brandSlug": "dr-martens",
+      "model": "1460",
+      "slug": "1460",
+      "query": "Dr. Martens 1460",
+      "category": "Boots",
+      "freeCheck": false
+    }
+  ]
+}

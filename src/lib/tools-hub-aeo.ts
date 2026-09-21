@@ -49,7 +49,7 @@ export const TOOLS_HUB_FAQS: FaqItem[] = [
   {
     q: "Is the Vinted price checker free?",
     a:
-      "Adidas Samba and Nike Air Force 1 return a live BUY / WATCH / SKIP on /tools with no account. " +
+      "Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on /tools with no account. " +
       "Weekly brand volumes stay public at https://resaleiq.dev/data. Other item-level checks start at Starter €19 a month.",
   },
   {

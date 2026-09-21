@@ -1054,6 +1054,42 @@
       "models_tracked": 0
     },
     {
+      "brand": "ASICS",
+      "slug": "asics",
+      "sold_7d": 0,
+      "avg_price_eur": 0,
+      "top_categories": [],
+      "categories": [],
+      "models_tracked": 0
+    },
+    {
+      "brand": "Salomon",
+      "slug": "salomon",
+      "sold_7d": 0,
+      "avg_price_eur": 0,
+      "top_categories": [],
+      "categories": [],
+      "models_tracked": 0
+    },
+    {
+      "brand": "Converse",
+      "slug": "converse",
+      "sold_7d": 0,
+      "avg_price_eur": 0,
+      "top_categories": [],
+      "categories": [],
+      "models_tracked": 0
+    },
+    {
+      "brand": "Dr. Martens",
+      "slug": "dr-martens",
+      "sold_7d": 0,
+      "avg_price_eur": 0,
+      "top_categories": [],
+      "categories": [],
+      "models_tracked": 0
+    },
+    {
       "brand": "Mango",
       "slug": "mango",
       "sold_7d": 14,
