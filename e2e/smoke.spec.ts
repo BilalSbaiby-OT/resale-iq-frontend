@@ -30,7 +30,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
   await expect(hero.getByRole("button", { name: "New Balance 550" })).toHaveCount(0)
   await expect(hero.getByTestId("riq-free-scope")).toContainText("Free: Samba + Air Force 1 + NB 530. Other models €19/mo.")
-  await expect(hero.getByText("WATCH", { exact: true })).toBeVisible()
+  await expect(hero.getByText("WATCH", { exact: true }).first()).toBeVisible()
   // The seed must never be a provisional call again. #54 renders the
   // provisional badge honestly wherever it applies; the point here is that
   // the FACE of the product is not a call the API hedged.
