@@ -3,31 +3,38 @@
 /** Shared "try one of these" chips. One implementation so verdict and the
  *  public checker cannot drift (check:dupes). */
 export function ModelChips({
-  examples, onPick, disabled, label, testId,
+  examples, onPick, disabled, label, testId, active,
 }: {
   examples: readonly string[]
   onPick: (ex: string) => void
   disabled: boolean
   label: string
   testId?: string
+  /** Highlight the chip that matches the example / current item. */
+  active?: string | null
 }) {
+  const activeKey = active?.trim().toLowerCase() ?? ""
   return (
-    <div style={{ marginTop: 12 }} data-testid={testId}>
-      <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.4px", marginBottom: 8 }}>
+    <div className="riq-model-chips" data-testid={testId}>
+      <div className="riq-model-chips-label">
         {label}
       </div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {examples.map(ex => (
-          <button
-            key={ex}
-            type="button"
-            onClick={() => onPick(ex)}
-            disabled={disabled}
-            style={{ background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", color: "#c3cde0", fontSize: 12.5, padding: "7px 12px", borderRadius: 999, cursor: disabled ? "wait" : "pointer" }}
-          >
-            {ex}
-          </button>
-        ))}
+      <div className="riq-model-chips-row">
+        {examples.map(ex => {
+          const pressed = activeKey.length > 0 && ex.toLowerCase() === activeKey
+          return (
+            <button
+              key={ex}
+              type="button"
+              className="riq-model-chip"
+              aria-pressed={pressed}
+              onClick={() => onPick(ex)}
+              disabled={disabled}
+            >
+              {ex}
+            </button>
+          )
+        })}
       </div>
     </div>
   )

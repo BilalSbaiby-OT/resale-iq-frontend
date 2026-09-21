@@ -439,6 +439,7 @@ export function FreeChecker({
             label={t.tryTheseInstead}
             examples={TRY_EXAMPLES}
             testId="riq-hero-try-chips"
+            active={isExample ? (res?.product ?? TRY_EXAMPLES[0]) : q || undefined}
           />
           <p
             data-testid="riq-free-scope"

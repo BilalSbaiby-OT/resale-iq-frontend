@@ -186,6 +186,94 @@ input[type="submit"]:not(:disabled):active,
 /* Live market pulse: 4-col (brand / velocity bar / sold / avg) on desktop,
    drop the velocity bar on narrow screens so the numbers stay readable. */
 .riq-pulse-grid { display:grid; grid-template-columns:1.6fr 2fr 0.8fr 0.8fr; gap:var(--space-3); }
+
+/* Brand strip: one mark box + one name. Same width/height for every item so
+   a missing logo cannot double-print the wordmark and shift the row. */
+.riq-brand-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 12px 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.riq-brand-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 88px;
+  min-height: 72px;
+  color: var(--color-text-primary);
+  opacity: 0.9;
+}
+.riq-brand-mark {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-hairline);
+  border-radius: 10px;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.riq-brand-mark svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  display: block;
+}
+.riq-brand-name {
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 88px;
+}
+
+/* Hero chips: equal height, left-aligned with the checker input. */
+.riq-model-chips { margin-top: 12px; }
+.riq-model-chips-label {
+  font-size: 11px;
+  color: #5b6b8c;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+}
+.riq-model-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.riq-model-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-2);
+  color: #c3cde0;
+  font-family: inherit;
+  font-size: 12.5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.riq-model-chip:disabled { cursor: wait; }
+.riq-model-chip[aria-pressed="true"] {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-primary);
+}
 @media (max-width: 620px) {
   .riq-pulse-grid { grid-template-columns:1.4fr 0.9fr 0.9fr; }
   .riq-pulse-grid .riq-pulse-velocity { display:none; }

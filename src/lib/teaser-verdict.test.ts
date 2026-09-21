@@ -68,8 +68,7 @@ test("English homepage SSR-renders the Samba cite in the first fold", () => {
     join(dirname(fileURLToPath(import.meta.url)), "..", "components/landing/landing-content.tsx"),
     "utf8",
   )
-  assert.match(page, /getTeaserVerdict/)
-  assert.match(page, /formatHomeCite/)
+  assert.match(page, /getHomeExample/)
   assert.match(landing, /riq-home-teaser-cite/)
 })
 

@@ -22,6 +22,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByRole("heading", { level: 1 })).toContainText(/Know what sells. Decide whether to buy/i)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/Adidas Samba/)
   await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "Adidas Samba" })).toHaveAttribute("aria-pressed", "true")
   await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
   await expect(hero.getByRole("button", { name: "New Balance 530" })).toBeVisible()
   await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
@@ -61,6 +62,14 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
   await expect(page.getByTestId("riq-market-showing")).toContainText(/Showing \d+ of \d+ brands/)
   await expect(page.getByTestId("riq-market-showing").getByRole("link", { name: /See all on \/data/ })).toHaveAttribute("href", "/data")
+  const brandItems = page.getByTestId("riq-brand-strip").locator("li")
+  await expect(brandItems.first()).toBeVisible()
+  const brandCount = await brandItems.count()
+  expect(brandCount).toBeGreaterThan(0)
+  for (let i = 0; i < brandCount; i++) {
+    await expect(brandItems.nth(i).locator(".riq-brand-mark")).toHaveCount(1)
+    await expect(brandItems.nth(i).locator(".riq-brand-name")).toHaveCount(1)
+  }
 })
 
 test("/data shows a number or last-good snapshot, never crashes on null", async ({ page }) => {

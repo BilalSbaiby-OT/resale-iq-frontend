@@ -524,3 +524,12 @@ NEXT (once unblocked): P0-1.
 - WebMCP attrs kept. Paid CTAs untouched (/pricing).
 - Tests: src/lib/homepage-conv.test.ts + FAQ/teaser updates.
 - Branch cursor/seo-ex-homepage-conv-55d5.
+
+## 2026-09-21 — EX-HOMEPAGE-CONV local marks + chip/item align (PR #123)
+- Continue cursor/seo-ex-homepage-conv-55d5. Do not open a second PR.
+- Brand strip: inlined CC0 Simple Icons for Nike/Adidas/Puma/NB/Reebok.
+  Patagonia, Balenciaga, Fred Perry, Stone Island get two-letter tiles.
+  Name printed once. Equal 40×40 mark + 88px item. No cdn.simpleicons.org.
+- Hero chips: equal height, Samba chip aria-pressed while the example is Samba.
+- Locale `/es` `/fr` `/de` `/it` `/pt` use the same getHomeExample() as `/`.
+- Coolify: auto-deploy after merge; Bilal if the swap stalls.

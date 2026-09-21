@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { LandingContent } from "@/components/landing/landing-content"
 import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
-import { getHeroVerdict } from "@/lib/hero-verdict"
+import { getHomeExample } from "@/lib/home-example"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath } from "@/lib/locale-routes"
 
@@ -52,12 +52,12 @@ export default async function LocaleLanding({
   const tracked = await listingsTrackedLabel()
   const trackedExact = await listingsTrackedExact()
   const market = await getMarketNumbers()
-  const hero = await getHeroVerdict()
+  const example = await getHomeExample()
   // H2 CRO: message-match eyebrow for LLM-referred visitors — Revenue 2026-09-15.
   const sp = searchParams ? await searchParams : {}
   const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
   const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} llmSrc={llmSrc} />
+    <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={example.query} heroResult={example.result} llmSrc={llmSrc} />
   )
 }

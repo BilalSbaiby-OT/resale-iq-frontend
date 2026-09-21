@@ -3,12 +3,15 @@ OWNER: seo
 PUSH: no
 UPDATED: 2026-09-21
 
-SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV (this session)
-  Homepage honesty: free chips = Samba + AF1 + NB 530 (live 200).
-  Remove Levi's 501 / NB 550 (live 402). Free scope line, FAQ sync,
-  market table "Showing N of M" + /data, Samba buy-below whole euro
-  to match checker. Skip broken Patagonia/Balenciaga simpleicons
-  (wordmark). Branch cursor/seo-ex-homepage-conv-55d5.
+SEO LANE, 2026-09-21 — EX-HOMEPAGE-CONV (this session, finishing PR #123)
+  Continuing cursor/seo-ex-homepage-conv-55d5. Live still on main:
+  501/550 chips, Samba €24.35, broken simpleicons, table implies 28 of 6.
+  Remaining on this branch: local brand marks (no CDN) + equal-height tiles
+  so Patagonia/Balenciaga/Fred Perry never double-print; chip/item align
+  (Samba chip aria-pressed when the example is Samba). Locale landings
+  share getHomeExample. PR https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/123
+
+---
 
 SEO LANE, 2026-09-14 — EX-ACTIVATION-FIX LIVE (merged #118)
   MERGED | e28c993 | live PASS

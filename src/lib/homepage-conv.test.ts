@@ -11,6 +11,7 @@ import assert from "node:assert/strict"
 import { FREE_MODELS } from "./working-models.ts"
 import { copy } from "./i18n.ts"
 import { formatHomeCite } from "./teaser-verdict.ts"
+import { brandInitials } from "./brand-initials.ts"
 import type { HeroVerdict } from "./hero-verdict.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -21,6 +22,16 @@ function read(rel: string): string {
 
 test("FREE_MODELS is Samba + Air Force 1 + NB 530, never Levi's 501 or NB 550", () => {
   assert.deepEqual([...FREE_MODELS], ["Adidas Samba", "Nike Air Force 1", "New Balance 530"])
+})
+
+test("brand initials are two letters, never the full name", () => {
+  assert.equal(brandInitials("Patagonia"), "PA")
+  assert.equal(brandInitials("Balenciaga"), "BA")
+  assert.equal(brandInitials("Fred Perry"), "FP")
+  assert.equal(brandInitials("Stone Island"), "SI")
+  assert.equal(brandInitials("The North Face"), "NF")
+  assert.equal(brandInitials("Levi's"), "LE")
+  assert.notEqual(brandInitials("Patagonia"), "Patagonia")
 })
 
 test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
@@ -75,13 +86,36 @@ test("homepage Samba cite uses checker whole-euro rounding", () => {
 
 test("English homepage example and cite are Samba, not a second SKU", () => {
   const page = read("app/page.tsx")
-  assert.match(page, /const example = samba \?\? hero\.result/)
-  assert.match(page, /heroResult=\{example\}/)
+  const homeEx = read("lib/home-example.ts")
+  assert.match(page, /getHomeExample/)
+  assert.match(page, /heroResult=\{example\.result\}/)
+  assert.match(homeEx, /getTeaserVerdict\("Adidas Samba"\)/)
   assert.doesNotMatch(page, /heroResult=\{hero\.result\}/)
 })
 
-test("brand strip is text wordmarks — no simpleicons CDN", () => {
+test("locale landing uses the same Samba example as English", () => {
+  const locale = read("app/[locale]/page.tsx")
+  assert.match(locale, /getHomeExample/)
+  assert.match(locale, /heroResult=\{example\.result\}/)
+  assert.doesNotMatch(locale, /getHeroVerdict/)
+})
+
+test("brand strip uses local marks — no simpleicons CDN, name once", () => {
   const strip = read("components/landing/brand-strip.tsx")
-  assert.doesNotMatch(strip, /cdn\.simpleicons\.org/)
+  const marks = read("components/landing/brand-marks.tsx")
+  const css = read("app/globals.css")
+  assert.doesNotMatch(strip, /https?:\/\/cdn\.simpleicons/)
+  assert.doesNotMatch(marks, /https?:\/\/cdn\.simpleicons/)
   assert.doesNotMatch(strip, /<img/)
+  assert.match(strip, /BrandMark/)
+  assert.match(strip, /riq-brand-name/)
+  assert.match(css, /\.riq-brand-mark/)
+  assert.match(css, /\.riq-model-chip/)
+})
+
+test("hero chips highlight the example SKU", () => {
+  const checker = read("components/tools/free-checker.tsx")
+  const chips = read("components/tools/model-chips.tsx")
+  assert.match(checker, /active=\{isExample/)
+  assert.match(chips, /aria-pressed/)
 })
