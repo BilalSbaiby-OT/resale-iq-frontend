@@ -52,7 +52,7 @@ async function readCache(query: string): Promise<Cached | null> {
       return parsed
     }
   } catch {
-    /* cold */
+    // why: missing cache is a cold start, not a tools-page outage.
   }
   return null
 }
@@ -66,7 +66,7 @@ async function writeCache(query: string, result: HeroVerdict): Promise<void> {
       "utf8",
     )
   } catch {
-    /* never 500 the tools page */
+    // why: a cache that cannot be written must never 500 the tools page.
   }
 }
 
@@ -87,7 +87,7 @@ export async function getTeaserVerdict(q: string | undefined | null): Promise<He
       }
     }
   } catch {
-    /* last-good */
+    // why: tools page must still render if the analyzer is down; last-good or no cite.
   }
   return cached?.result ?? null
 }
