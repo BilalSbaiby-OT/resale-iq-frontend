@@ -14,6 +14,7 @@ import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { canonicalPath } from "@/lib/locale-routes"
 import { formatSellThrough } from "@/lib/format-sell-through"
+import { HomeBuyList } from "./home-buy-list"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -136,6 +137,18 @@ export function LandingContent({
                 {t.heroSub}
               </p>
             </div>
+
+            {/* ── Buy list teaser — LEADS the page (CEO directive 2026-09-21) ──
+                The product is NOT a search box. It is a ranked buy list.
+                Show the top opportunities unprompted so a stranger sees
+                "Stone Island Hoodies — BUY — €71 avg" in 3 seconds.
+                94% of visitors never typed a query. Give them the answer first.
+                Search box stays below for lookup; buy list is above for discovery.
+                HomeBuyList is client-only (returns null on SSR/loading), so it
+                takes zero height before the fetch resolves and never pushes the
+                checker below the fold for the fold-position test. */}
+            <HomeBuyList locale={locale} />
+
             <div id="check" className="riq-hero-checker">
               <FreeChecker
                 locale={locale}
