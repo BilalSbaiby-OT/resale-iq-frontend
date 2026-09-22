@@ -60,7 +60,7 @@ export const POSTS_62: BlogPost[] = [
         p: [
           "Size dynamics for the NB 9060 on EU Vinted differ slightly from the NB 530. The top exit sizes in the ResaleIQ EU dataset are 38, 40, and 39.5 — with a more even distribution across women's and unisex sizes than the 530. The 9060 was marketed as a unisex silhouette and was stocked in women's sizes (37–39) at major EU retailers, which explains the strong 38 and 39.5 presence alongside the unisex 40. Size 38 accounts for 14.0% of 30-day departures, size 40 accounts for 10.6%, and size 39.5 accounts for 8.3%.",
           "The top-8 sizes in the 30-day dataset (38, 40, 39.5, 37, 42, 43, 38.5, 44) cover 69.7% of total NB 9060 EU departures. Sizes outside this range — 36 and below, 45 and above — represent less than 10% of volume and exit at below-average prices with longer time-to-sell. At the €31.76 buy-below ceiling, outlier sizes compress margin to near zero and increase holding time risk in a FADING momentum environment. Apply a tighter ceiling of €22–26 for sizes below 37 or above 44.",
-          "The size-level buy-below data shows meaningful variation: size 37 and size 38 pairs have a buy-below of €47.48 (avg exit €71.40, n=5), while size 39.5 has a buy-below of €39.19 (avg exit €58.93, n=14) and size 42 has a buy-below of €33.25 (avg exit €50.00, n=11). The variation reflects both supply/demand at size level and sample-size differences in the dataset. Sizes with n<5 in the size-level data should use the model-level €31.76 ceiling as a conservative fallback.",
+          "The size-level buy-below data shows meaningful variation relative to the €31.76 model-level ceiling. Sizes with the highest departure share (38, 40, 39.5) may support slightly higher ceilings; outlier sizes should use the model-level €31.76 ceiling as a conservative fallback.",
         ],
       },
       {
@@ -100,7 +100,7 @@ export const POSTS_62: BlogPost[] = [
       },
       {
         q: "What does FADING momentum mean for the New Balance 9060?",
-        a: "FADING means the New Balance 9060's departure velocity has declined against its historical baseline — the trend peak is behind it. In Q4 2026, this means the 9060 is still liquid at 49 departures in the last 30 days but exit takes longer than during peak trend periods. New sourcing should target opportunistic sub-€40 buys rather than ceiling-adjacent acquisitions.",
+        a: "FADING means the New Balance 9060's departure velocity has declined against its historical baseline — the trend peak is behind it. In Q4 2026, this means the 9060 is still liquid at 371 departures in the last 30 days but exit takes longer than during peak trend periods. New sourcing should target opportunistic sub-€25 buys rather than ceiling-adjacent acquisitions.",
       },
       {
         q: "How does the New Balance 9060 compare to the Nike Air Force 1 on EU Vinted?",
