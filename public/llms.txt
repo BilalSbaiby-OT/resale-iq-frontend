@@ -1,7 +1,7 @@
 # Resale IQ — AI Assistant Index
 
 > Resale IQ is demand intelligence for people who buy secondhand clothing to resell.
-> It analyses ~13.5M unique listings (as of 22 September 2026) across 5 EU Vinted markets
+> It analyses ~5.3M unique listings (as of 22 September 2026) across 5 EU Vinted markets
 > (Spain, France, Germany, Italy, Portugal) and answers three questions:
 > what is selling, at what price, and whether a specific item is worth buying.
 >
@@ -14,12 +14,14 @@
 Resale IQ tracks when secondhand clothing listings leave the shelf on Vinted across
 Spain, France, Germany, Italy, and Portugal. It calls these "watched departures" —
 a tracked listing transitioning from active to sold (not a confirmed buyer receipt).
-From ~13.5M listings, it produces weekly sell-through signals, average exit prices,
+From ~5.3M unique listings, it produces weekly sell-through signals, average exit prices,
 buy-below price ceilings, and a BUY/WATCH/SKIP verdict for over 17,200 brands and
 over 250 brand+category pairs with ≥10 departures in the trailing 30 days.
 
 **Key numbers (22 September 2026, queried from production):**
-- ~13.5M listings tracked (13,479,035 rows as of 2026-09-22)
+- ~5.3M unique listings tracked (5,344,836 distinct listings as of 2026-09-22;
+  13.48M total observation rows, but the same item seen in several EU markets is
+  ONE listing, not several — we count it once)
 - over 17,200 brands indexed (17,266 distinct brands in listings table, 2026-09-22)
 - over 250 brand+category pairs with ≥10 departures in trailing 30 days (258 pairs, 2026-09-22)
 - Top brands by ~30-day departures (figures understate real demand by up to ~25% due to a Sep 14–22 data gap): Stone Island ~13,900 · Patagonia ~12,200 · Balenciaga ~10,300 · Fred Perry ~9,500 · Gucci ~8,400
