@@ -54,7 +54,7 @@ export default function ComparePage() {
   return (
     <AppShell title="Price Compare" subtitle="Compare prices for any product across Vinted markets — find the cheapest country to buy from">
       <div className="max-w-4xl">
-        <div className="text-[12px] text-[#8b99b8] mb-4 leading-relaxed">
+        <div className="text-[12px] mb-4 leading-relaxed" style={{ color: "var(--color-graphite-muted)" }}>
           Full buy-below intelligence (verdicts, sell-through, confidence) only exists for
           Spain, France, Germany, Italy and Portugal — the markets Resale IQ tracks. The other
           21 markets below are live Vinted asking-price search only: current prices, no
@@ -67,9 +67,9 @@ export default function ComparePage() {
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder="e.g. Nike Air Force 1, Adidas Samba OG, Stone Island crewneck"
-            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
+            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] outline-none focus:border-[var(--color-accent)]/60 placeholder:text-[var(--color-graphite-muted)]" style={{ color: "var(--color-on-graphite)" }} />
           <button onClick={run} disabled={loading || !query.trim() || selectedMarkets.length === 0}
-            className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap">
+            className="px-5 py-3 rounded-lg text-[13px] font-bold transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap" style={{ background: "var(--color-accent)", color: "var(--color-on-accent)" }}>
             <Globe size={15} />{loading ? "Comparing…" : "Compare"}
           </button>
         </div>
@@ -82,9 +82,9 @@ export default function ComparePage() {
               <button key={tld} onClick={() => toggleMarket(tld)}
                 className="px-2.5 py-1 rounded-md text-[12px] font-medium transition-colors"
                 style={{
-                  background: on ? "rgba(52,211,153,.12)" : "#12151d",
-                  border: `1px solid ${on ? "rgba(52,211,153,.35)" : "#1c2333"}`,
-                  color: on ? "#34d399" : "var(--color-text-secondary)",
+                  background: on ? "rgba(52,199,89,.12)" : "var(--color-graphite-elevated)",
+                  border: `1px solid ${on ? "rgba(52,199,89,.35)" : "var(--color-hairline)"}`,
+                  color: on ? "var(--color-accent)" : "var(--color-graphite-muted)",
                 }}>
                 {name}
               </button>
@@ -100,11 +100,11 @@ export default function ComparePage() {
             <SummaryCard label="Markets with results" value={`${result.markets_with_results} / ${result.markets_searched}`} />
             {result.cheapest_market && (
               <SummaryCard label="Cheapest" value={result.cheapest_market.country}
-                sub={eur(result.cheapest_market.avg_price) + " avg"} accent="#34d399" icon={<ArrowDown size={14} />} />
+                sub={eur(result.cheapest_market.avg_price) + " avg"} accent="var(--color-accent)" icon={<ArrowDown size={14} />} />
             )}
             {result.most_expensive_market && (
               <SummaryCard label="Most expensive" value={result.most_expensive_market.country}
-                sub={eur(result.most_expensive_market.avg_price) + " avg"} accent="#f87171" icon={<ArrowUp size={14} />} />
+                sub={eur(result.most_expensive_market.avg_price) + " avg"} accent="var(--color-skip)" icon={<ArrowUp size={14} />} />
             )}
           </div>
         )}
@@ -118,19 +118,19 @@ export default function ComparePage() {
               const isPriciest = tld === priciest
               return (
                 <div key={tld} className="bg-[var(--color-bg-3)] border rounded-xl overflow-hidden"
-                  style={{ borderColor: isCheapest ? "rgba(52,211,153,.3)" : "#1e2535" }}>
+                  style={{ borderColor: isCheapest ? "rgba(52,199,89,.3)" : "var(--color-hairline)" }}>
                   <button onClick={() => setExpandedCountry(expanded ? null : tld)}
                     className="w-full flex items-center gap-4 p-4 text-left hover:bg-[var(--color-surface-elevated)]/50 transition-colors">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[14px] font-semibold text-[#eef1f7]">{stats.country}</span>
-                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">CHEAPEST</span>}
-                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-red-400/10 text-red-400 border border-red-400/30">PRICIEST</span>}
+                        <span className="text-[14px] font-semibold" style={{ color: "var(--color-on-graphite)" }}>{stats.country}</span>
+                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(52,199,89,.10)", color: "var(--color-accent)", borderColor: "rgba(52,199,89,.30)" }}>CHEAPEST</span>}
+                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(255,69,58,.10)", color: "var(--color-skip)", borderColor: "rgba(255,69,58,.30)" }}>PRICIEST</span>}
                       </div>
                       <div className="text-[12px] text-[var(--color-text-secondary)] mt-0.5">{stats.count} listings</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-[16px] font-bold" style={{ color: isCheapest ? "#34d399" : "#e8ecf4" }}>{eur(stats.avg_price)}</div>
+                      <div className="text-[16px] font-bold" style={{ color: isCheapest ? "var(--color-accent)" : "var(--color-on-graphite)" }}>{eur(stats.avg_price)}</div>
                       <div className="text-[12px] text-[var(--color-text-secondary)]">{eur(stats.min_price)} – {eur(stats.max_price)}</div>
                     </div>
                   </button>
@@ -138,16 +138,16 @@ export default function ComparePage() {
                     <div className="border-t border-[var(--color-border)] p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {stats.items.map((item: SearchItem) => (
                         <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer"
-                          className="flex gap-3 p-2.5 rounded-lg bg-[#0d0f13] hover:bg-[var(--color-surface)] transition-colors group">
+                          className="flex gap-3 p-2.5 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors group" style={{ background: "var(--color-bg)" }}>
                           {item.photo && (
                             <img src={item.photo} alt="" className="w-14 h-14 rounded-md object-cover flex-shrink-0" />
                           )}
                           <div className="flex-1 min-w-0">
-                            <div className="text-[12px] text-[#a9b6d0] line-clamp-1">{item.title}</div>
-                            <div className="text-[14px] font-bold text-emerald-400 mt-0.5">{eur(item.price_eur)}</div>
+                            <div className="text-[12px] line-clamp-1" style={{ color: "var(--color-graphite-muted)" }}>{item.title}</div>
+                            <div className="text-[14px] font-bold mt-0.5" style={{ color: "var(--color-accent)" }}>{eur(item.price_eur)}</div>
                             <div className="text-[12px] text-[var(--color-text-secondary)]">{item.size || "—"} · {item.seller?.login || "Unknown seller"}</div>
                           </div>
-                          <ExternalLink size={12} className="flex-shrink-0 mt-1 text-[#3d4a62] opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ExternalLink size={12} className="flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-graphite-muted)" }} />
                         </a>
                       ))}
                     </div>
@@ -159,7 +159,7 @@ export default function ComparePage() {
         )}
 
         {!result && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
+          <div className="text-[13px] bg-[var(--color-graphite-elevated)] border border-[var(--color-hairline)] rounded-xl p-6" style={{ color: "var(--color-graphite-muted)" }}>
             Search any product and compare prices across multiple Vinted markets simultaneously.
             Find arbitrage opportunities — buy where it&apos;s cheapest, sell where it&apos;s most expensive.
           </div>
@@ -174,12 +174,12 @@ function SummaryCard({ label, value, sub, accent, icon }: {
 }) {
   return (
     <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-4">
-      <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1.5">{label}</div>
+      <div className="text-[12px] uppercase tracking-wide mb-1.5" style={{ color: "var(--color-graphite-muted)" }}>{label}</div>
       <div className="flex items-center gap-2">
         {icon && <span style={{ color: accent }}>{icon}</span>}
-        <span className="text-[17px] font-bold" style={{ color: accent || "#e8ecf4" }}>{value}</span>
+        <span className="text-[17px] font-bold" style={{ color: accent || "var(--color-on-graphite)" }}>{value}</span>
       </div>
-      {sub && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{sub}</div>}
+      <div className="text-[12px] mt-0.5" style={{ color: "var(--color-graphite-muted)" }}>{sub}</div>
     </div>
   )
 }
