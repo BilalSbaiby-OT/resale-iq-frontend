@@ -7,6 +7,7 @@ import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
 import { canonicalPath } from "@/lib/locale-routes"
+import { DigestSubscribe } from "@/components/tools/digest-subscribe"
 import { ModelChips } from "@/components/tools/model-chips"
 import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-vinted-item-tool"
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
@@ -584,6 +585,7 @@ export function FreeChecker({
       )}
 
       {res && (
+        <>
         <div
           className={hero ? "animate-fade-in" : undefined}
           data-testid={hero ? "riq-result-card" : undefined}
@@ -1003,6 +1005,7 @@ export function FreeChecker({
               Also show on hero after a real check (not the seeded example).
               Paid sessions (operator/power) must NEVER see this checkout bar —
               founder report 2026-09-21. Branch is checkerUnlockBranch. */}
+
           {barBranch === "paid" && (
             <PaidPostCheckBar locale={locale} user={chipUser} />
           )}
@@ -1029,6 +1032,17 @@ export function FreeChecker({
           </div>
           )}
         </div>
+        {/* Weekly digest opt-in — placed OUTSIDE riq-result-card to avoid
+            violating e2e/public-result-face.spec.ts's CTA-count/background assertions.
+            Shown to anonymous visitors after any real verdict (not the seeded example).
+            Never shown to paid sessions. Never a modal. Easily ignored. */}
+        {!isExample && !user && res.verdict && res.verdict !== "PAYWALL" && res.verdict !== "LIMIT_REACHED" && (
+          <DigestSubscribe
+            query={q}
+            verdictSummary={res.verdict && res.product ? `${res.verdict} — ${res.product}` : res.verdict ?? undefined}
+          />
+        )}
+        </>
       )}
     </div>
   )
