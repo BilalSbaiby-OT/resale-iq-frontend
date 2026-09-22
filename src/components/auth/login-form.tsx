@@ -9,7 +9,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import {
   AuthCard, AuthHeading, AuthField, AuthSubmit,
-  AUTH_ACCENT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
+  AUTH_ACCENT, AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
@@ -17,6 +17,7 @@ import { googleErrorMessage } from "@/lib/google-oauth"
 export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [brandQuery, setBrandQuery] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const { login } = useAuthStore()
@@ -51,7 +52,10 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
           // sees a real buy-below number on arrival instead of a blank input.
           // Nike Air Force 1 is in _PUBLIC_SAMPLE_QUERIES so it works for
           // every plan tier. (Tony C134 2026-09-23)
-          router.push("/verdict?q=Nike+Air+Force+1")
+          const dest = brandQuery.trim()
+            ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
+            : "/verdict?q=Nike+Air+Force+1"
+          router.push(dest)
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
@@ -78,7 +82,10 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
         router.push("/check-email")
         return
       }
-      router.push("/verdict?q=Nike+Air+Force+1")
+      const dest = brandQuery.trim()
+        ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
+        : "/verdict?q=Nike+Air+Force+1"
+      router.push(dest)
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
@@ -91,6 +98,30 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
       {/* Google Sign-In — hidden until backend confirms credentials exist */}
       <GoogleSignInButton label="Continue with Google" />
       <AuthDivider text="or" />
+
+      {/* Intent capture (Notion pattern): ask what they want to check BEFORE
+          logging in. The query is stored in state and used to pre-seed the
+          verdict page after login, replacing the generic Nike Air Force 1 sample.
+          This personalises the first Aha moment — from "here's a generic example"
+          to "here's the exact answer you asked for". Voluntary — blank falls back
+          to the public sample. Tony C139 2026-09-23 */}
+      <div className="mb-1">
+        <label className={`text-[12px] ${AUTH_TEXT_SECONDARY} block mb-1.5 font-medium`}>
+          What do you want to check today?
+        </label>
+        <input
+          type="text"
+          value={brandQuery}
+          onChange={e => setBrandQuery(e.target.value)}
+          placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
+          className={`w-full bg-transparent border border-[var(--color-border-ui)] rounded-lg px-3 py-2.5 text-[14px] ${AUTH_TEXT} outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]`}
+          aria-label="What do you want to check today?"
+          autoComplete="off"
+        />
+        <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-1`}>
+          We&apos;ll run the verdict the moment you&apos;re in.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
