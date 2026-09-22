@@ -83,7 +83,47 @@ export default async function BlogPostPage(
   const p = fillTracked(getPost(slug), tracked)
   if (!p) notFound()
 
-  const others = fillTracked(POSTS.filter((x) => x.slug !== p.slug).slice(0, 4), tracked)
+  // Topically-related "Keep reading" links.
+  //
+  // The previous version always returned the first 4 posts in array order —
+  // what-sells-best, how-to-price, best-brands, vinted-vs-depop — from every
+  // article. Those 4 posts received ~165 internal links each while the remaining
+  // 165 posts received essentially zero, making them invisible to crawlers.
+  //
+  // The fix: pick posts that share the same category first (same topic),
+  // then posts sharing a brand-keyword in the slug (related brand coverage),
+  // then fill with high-value hub posts. Cap at 4 to keep page weight constant.
+  const HUB_SLUGS = [
+    "what-sells-best-on-vinted",
+    "best-brands-to-resell-on-vinted",
+    "how-to-price-items-on-vinted",
+    "buy-below-price-explained",
+  ]
+  const slugTokens = p.slug.split("-")
+  const relatedByCategory = POSTS.filter(
+    (x) => x.slug !== p.slug && x.category === p.category
+  ).slice(0, 3)
+  const relatedByBrand = POSTS.filter(
+    (x) =>
+      x.slug !== p.slug &&
+      !relatedByCategory.some((r) => r.slug === x.slug) &&
+      slugTokens.some(
+        (t) => t.length > 4 && x.slug.includes(t)
+      )
+  ).slice(0, 2)
+  const hubs = POSTS.filter(
+    (x) =>
+      x.slug !== p.slug &&
+      HUB_SLUGS.includes(x.slug) &&
+      !relatedByCategory.some((r) => r.slug === x.slug) &&
+      !relatedByBrand.some((r) => r.slug === x.slug)
+  ).slice(0, 4)
+  const combined = [...relatedByCategory, ...relatedByBrand, ...hubs].slice(0, 4)
+  // Fallback: if not enough topic matches, fill from array start (old behaviour)
+  const fallback = POSTS.filter(
+    (x) => x.slug !== p.slug && !combined.some((r) => r.slug === x.slug)
+  ).slice(0, 4 - combined.length)
+  const others = fillTracked([...combined, ...fallback], tracked)
 
   // Article + FAQPage JSON-LD — this is what lets Google rich results AND answer
   // engines (ChatGPT, Perplexity, Google AI, Claude) lift clean, citable answers.

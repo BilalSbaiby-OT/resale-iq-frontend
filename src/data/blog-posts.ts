@@ -82,6 +82,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+    preflightQuery: "Stone Island Hoodies",
     intro:
       "As of 15 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
       BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,181 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (955) and Shirts (760). The single busiest brand/category pair is Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. Autumn is already live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",

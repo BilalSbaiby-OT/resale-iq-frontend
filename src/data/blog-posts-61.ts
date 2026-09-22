@@ -13,7 +13,7 @@ export const POSTS_61: BlogPost[] = [
   {
     slug: "fred-perry-shirts-eu-vinted-price-guide",
     title: "Fred Perry Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Fred Perry Shirt Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Fred Perry Shirts (All Models): EU Vinted Reseller Guide 2026 — Resale IQ",
     description:
       "Fred Perry shirts track 84 sold departures per week across EU Vinted at a €15 average exit price as of September 2026 — the brand's highest-volume category and the single largest shirt category in the entire ResaleIQ EU Vinted database. Buy-below ceiling €9.75, model breakdown by M12 twin-tip polo, M3 shirt, and Oxford button-up. How Fred Perry shirts compare to Lacoste (57/7d at €29) and Stone Island shirts (72/7d at €25).",
     date: "2026-09-15",

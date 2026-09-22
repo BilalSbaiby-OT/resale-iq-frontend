@@ -11,11 +11,11 @@ import { ilinkHref } from "@/lib/blog-ilink"
 
 export const POSTS_57: BlogPost[] = [
   {
-    slug: "balenciaga-bag-eu-vinted-price-guide",
-    title: "Balenciaga Bags on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Balenciaga Bag Vinted EU Price Guide 2026 — Resale IQ",
+    slug: "balenciaga-neo-classic-bag-eu-vinted-price-guide",
+    title: "Balenciaga Neo Classic and Hourglass Bags on EU Vinted: Price Guide (2026)",
+    seoTitle: "Balenciaga Neo Classic & Hourglass Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga Bags track 46 watched departures per week across EU Vinted in September 2026 at a €324 average exit price. Real exit ranges by model — City B, Classic B, Neo Classic, Hourglass — buy-below ceiling €210.60, authentication essentials, and how Balenciaga bags compare to Gucci bags and Stone Island jackets for EU resellers.",
+      "Balenciaga Neo Classic and Hourglass bags are the highest-value bag models in the Balenciaga EU Vinted dataset. As of September 2026, Balenciaga bags average €311 at departure (6 watched departures/7d). Buy-below ceiling €202, model comparison with City B, Classic B, and Gucci bags, and authentication checkpoints for EU buyers.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

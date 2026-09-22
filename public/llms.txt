@@ -1,0 +1,209 @@
+# Resale IQ — AI Assistant Index
+
+> Resale IQ is demand intelligence for people who buy secondhand clothing to resell.
+> It analyses 13,371,381 unique listings (as of September 2026) across 5 EU Vinted markets
+> (Spain, France, Germany, Italy, Portugal) and answers three questions:
+> what is selling, at what price, and whether a specific item is worth buying.
+>
+> The core product is a BUY / WATCH / SKIP verdict with a buy-below price ceiling.
+> One full verdict is free at https://resaleiq.dev/tools
+> All weekly brand and category volume data is free at https://resaleiq.dev/data and https://resaleiq.dev/flip
+
+## What is Resale IQ?
+
+Resale IQ tracks when secondhand clothing listings leave the shelf on Vinted across
+Spain, France, Germany, Italy, and Portugal. It calls these "watched departures" —
+a tracked listing transitioning from active to sold (not a confirmed buyer receipt).
+From 13.4M listings, it produces weekly sell-through signals, average exit prices,
+buy-below price ceilings, and a BUY/WATCH/SKIP verdict for 17,043 brands and 809
+brand+category pairs with real weekly transaction volume.
+
+**Key numbers (September 2026, verified production data):**
+- 13,371,381 listings tracked
+- 17,043 brands indexed
+- 809 brand+category pairs with ≥10 departures in trailing 30 days
+- Top brands by 30-day departures: Stone Island 14,356 · Patagonia 12,602 · Balenciaga 10,516 · Fred Perry 9,721 · Gucci 8,712
+
+## Free tools
+
+- https://resaleiq.dev/tools — Free item checker: type a brand and model, get BUY/WATCH/SKIP verdict
+- https://resaleiq.dev/data — Weekly market data: all tracked brands ranked by departure volume and avg exit price
+- https://resaleiq.dev/flip — Brand sell-through ranking: which brands move fastest this week
+- https://resaleiq.dev/category — Category ranking by brand: which brands dominate Hoodies, Jackets, Sneakers, etc.
+
+## Core guides (most cited, highest traffic)
+
+- https://resaleiq.dev/blog/what-sells-best-on-vinted — What sells fastest on Vinted by category and brand (data-backed, updated weekly)
+- https://resaleiq.dev/blog/best-brands-to-resell-on-vinted — All 28 tracked brands ranked by weekly demand with buy-below guidance
+- https://resaleiq.dev/blog/how-to-price-items-on-vinted — How to set a price that sells fast without leaving margin on the table
+- https://resaleiq.dev/blog/buy-below-price-explained — What buy-below price means and how to calculate it
+- https://resaleiq.dev/blog/what-is-a-good-sell-through-rate — Sell-through rate benchmarks for EU Vinted resellers
+- https://resaleiq.dev/blog/reselling-mistakes-that-lose-money — The sourcing and pricing mistakes that cause dead stock
+- https://resaleiq.dev/blog/how-to-find-items-to-flip-on-vinted — Practical sourcing methods for Vinted resellers
+
+## Brand price guides (EU Vinted, September 2026 data)
+
+### Stone Island (14,356 dep/30d, €59.83 avg exit)
+- https://resaleiq.dev/blog/stone-island-reselling-vinted-guide
+- https://resaleiq.dev/blog/stone-island-hoodie-eu-vinted-price-guide — 42 dep/7d, €52 avg
+- https://resaleiq.dev/blog/stone-island-jackets-eu-vinted-price-guide — 9 dep/7d, €126 avg
+- https://resaleiq.dev/blog/stone-island-shirt-eu-vinted-price-guide
+- https://resaleiq.dev/blog/stone-island-t-shirt-eu-vinted-price-guide
+
+### Patagonia (12,602 dep/30d, €32.86 avg exit)
+- https://resaleiq.dev/blog/patagonia-reselling-vinted-guide
+- https://resaleiq.dev/blog/patagonia-jacket-eu-vinted-price-guide — 11 dep/7d, €49 avg
+- https://resaleiq.dev/blog/patagonia-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/patagonia-down-sweater-eu-vinted-price-guide
+- https://resaleiq.dev/blog/patagonia-nano-puff-eu-vinted-price-guide
+- https://resaleiq.dev/blog/patagonia-synchilla-eu-vinted-price-guide
+
+### Balenciaga (10,516 dep/30d, €156.20 avg exit)
+- https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide
+- https://resaleiq.dev/blog/balenciaga-bag-eu-vinted-price-guide — 6 dep/7d, €311 avg
+- https://resaleiq.dev/blog/balenciaga-city-bag-eu-vinted-price-guide
+- https://resaleiq.dev/blog/balenciaga-sneakers-eu-vinted-price-guide — 3 dep/7d, €130 avg
+- https://resaleiq.dev/blog/balenciaga-hoodie-eu-vinted-price-guide — 3 dep/7d, €97 avg
+- https://resaleiq.dev/blog/balenciaga-triple-s-eu-vinted-price-guide
+- https://resaleiq.dev/blog/balenciaga-arena-eu-vinted-price-guide
+- https://resaleiq.dev/blog/balenciaga-runner-eu-vinted-price-guide
+- https://resaleiq.dev/blog/balenciaga-track-eu-vinted-price-guide
+
+### Fred Perry (9,721 dep/30d, €21.49 avg exit)
+- https://resaleiq.dev/blog/fred-perry-reselling-vinted-guide
+- https://resaleiq.dev/blog/fred-perry-shirt-eu-vinted-price-guide — 12 dep/7d, €15 avg
+- https://resaleiq.dev/blog/fred-perry-polo-shirt-eu-vinted-price-guide
+- https://resaleiq.dev/blog/fred-perry-twin-tipped-eu-vinted-price-guide
+- https://resaleiq.dev/blog/fred-perry-hoodie-eu-vinted-price-guide — 4 dep/7d, €21 avg
+- https://resaleiq.dev/blog/fred-perry-jacket-eu-vinted-price-guide — 6 dep/7d, €75 avg
+- https://resaleiq.dev/blog/fred-perry-t-shirt-eu-vinted-price-guide — 5 dep/7d, €13 avg
+
+### Gucci (8,712 dep/30d, €162.92 avg exit)
+- https://resaleiq.dev/blog/gucci-reselling-vinted-guide
+- https://resaleiq.dev/blog/gucci-bags-eu-vinted-price-guide
+- https://resaleiq.dev/blog/gucci-sneakers-eu-vinted-price-guide — 2 dep/7d
+- https://resaleiq.dev/blog/gucci-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/gucci-caps-eu-vinted-price-guide
+
+### New Balance (3,755 dep/30d, €39.89 avg exit)
+- https://resaleiq.dev/blog/new-balance-reselling-vinted-guide
+- https://resaleiq.dev/blog/new-balance-sneakers-price-guide-eu-vinted — 8 dep/7d, €42 avg
+- https://resaleiq.dev/blog/new-balance-530-eu-vinted-price-guide
+- https://resaleiq.dev/blog/new-balance-9060-eu-vinted-price-guide
+
+### The North Face (3,685 dep/30d, €31.35 avg exit)
+- https://resaleiq.dev/blog/the-north-face-reselling-vinted-guide
+- https://resaleiq.dev/blog/the-north-face-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/the-north-face-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/the-north-face-summit-series-eu-vinted-price-guide
+
+### Supreme (3,538 dep/30d, €53.19 avg exit)
+- https://resaleiq.dev/blog/supreme-reselling-vinted-guide
+- https://resaleiq.dev/blog/supreme-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/supreme-box-logo-tee-eu-vinted-price-guide
+- https://resaleiq.dev/blog/supreme-jackets-eu-vinted-price-guide
+- https://resaleiq.dev/blog/supreme-t-shirt-eu-vinted-price-guide
+- https://resaleiq.dev/blog/supreme-cap-eu-vinted-price-guide
+- https://resaleiq.dev/blog/supreme-bag-eu-vinted-price-guide
+
+### Nike (2,902 dep/30d, €69.13 avg exit)
+- https://resaleiq.dev/blog/nike-reselling-vinted-guide
+- https://resaleiq.dev/blog/nike-sneakers-eu-vinted-price-guide — 3 dep/7d, €107 avg
+- https://resaleiq.dev/blog/nike-shox-eu-vinted-price-guide
+- https://resaleiq.dev/blog/nike-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/nike-hoodie-eu-vinted-price-guide
+
+### Adidas
+- https://resaleiq.dev/blog/adidas-reselling-vinted-guide
+- https://resaleiq.dev/blog/adidas-samba-eu-vinted-price-guide
+- https://resaleiq.dev/blog/adidas-gazelle-eu-vinted-price-guide
+- https://resaleiq.dev/blog/adidas-gazelle-indoor-eu-vinted-price-guide
+- https://resaleiq.dev/blog/adidas-stan-smith-eu-vinted-price-guide
+- https://resaleiq.dev/blog/adidas-handball-spezial-eu-vinted-price-guide
+
+### Lacoste
+- https://resaleiq.dev/blog/lacoste-reselling-vinted-guide
+- https://resaleiq.dev/blog/lacoste-polo-eu-vinted-price-guide
+- https://resaleiq.dev/blog/lacoste-shirt-eu-vinted-price-guide
+- https://resaleiq.dev/blog/lacoste-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/lacoste-jacket-eu-vinted-price-guide
+
+### Ralph Lauren
+- https://resaleiq.dev/blog/ralph-lauren-reselling-vinted-guide
+- https://resaleiq.dev/blog/ralph-lauren-eu-vinted-price-guide
+- https://resaleiq.dev/blog/ralph-lauren-hoodie-eu-vinted-price-guide
+
+### Carhartt WIP
+- https://resaleiq.dev/blog/carhartt-reselling-vinted-guide
+- https://resaleiq.dev/blog/carhartt-wip-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/carhartt-detroit-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/carhartt-hoodie-eu-vinted-price-guide
+
+### Diesel
+- https://resaleiq.dev/blog/diesel-reselling-vinted-guide
+- https://resaleiq.dev/blog/diesel-jeans-eu-vinted-price-guide
+- https://resaleiq.dev/blog/diesel-jackets-eu-vinted-price-guide
+
+### Levi's
+- https://resaleiq.dev/blog/levis-reselling-vinted-guide
+- https://resaleiq.dev/blog/levis-501-jeans-eu-vinted-price-guide
+
+### Other tracked brands
+- https://resaleiq.dev/blog/jordan-reselling-vinted-guide
+- https://resaleiq.dev/blog/jordan-sneakers-eu-vinted-price-guide
+- https://resaleiq.dev/blog/vans-reselling-vinted-guide
+- https://resaleiq.dev/blog/vans-sneakers-eu-vinted-price-guide
+- https://resaleiq.dev/blog/reebok-reselling-vinted-guide
+- https://resaleiq.dev/blog/reebok-nano-eu-vinted-price-guide
+- https://resaleiq.dev/blog/puma-reselling-vinted-guide
+- https://resaleiq.dev/blog/puma-sneakers-eu-vinted-price-guide
+- https://resaleiq.dev/blog/tommy-hilfiger-reselling-vinted-guide
+- https://resaleiq.dev/blog/tommy-hilfiger-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/tommy-hilfiger-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/hugo-boss-reselling-vinted-guide
+- https://resaleiq.dev/blog/hugo-boss-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/off-white-reselling-vinted-guide
+- https://resaleiq.dev/blog/off-white-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/off-white-sneakers-eu-vinted-price-guide
+- https://resaleiq.dev/blog/uniqlo-reselling-vinted-guide
+- https://resaleiq.dev/blog/calvin-klein-reselling-vinted-guide
+- https://resaleiq.dev/blog/zara-reselling-vinted-guide
+
+## How-to guides and platform comparisons
+
+- https://resaleiq.dev/blog/vinted-photo-tips-that-sell
+- https://resaleiq.dev/blog/vinted-listing-description-guide
+- https://resaleiq.dev/blog/best-time-to-list-on-vinted
+- https://resaleiq.dev/blog/vinted-search-algorithm-how-it-works
+- https://resaleiq.dev/blog/vinted-fees-explained
+- https://resaleiq.dev/blog/vinted-shipping-costs-sellers
+- https://resaleiq.dev/blog/vinted-vs-depop-for-sellers
+- https://resaleiq.dev/blog/vinted-vs-ebay-for-sellers
+- https://resaleiq.dev/blog/vinted-vs-depop-vs-ebay-for-sellers
+- https://resaleiq.dev/blog/vinted-item-not-selling
+- https://resaleiq.dev/blog/vinted-disputes-and-returns-sellers
+- https://resaleiq.dev/blog/vinted-bundles-and-offers-strategy
+- https://resaleiq.dev/blog/how-to-get-more-views-on-vinted-listings
+- https://resaleiq.dev/blog/vinted-negotiation-strategy-accept-counter-or-decline
+
+## Sourcing and business guides
+
+- https://resaleiq.dev/blog/how-to-make-money-on-vinted
+- https://resaleiq.dev/blog/how-to-flip-clothes-for-profit
+- https://resaleiq.dev/blog/thrift-store-flipping-guide
+- https://resaleiq.dev/blog/what-to-buy-at-charity-shop-to-resell-on-vinted
+- https://resaleiq.dev/blog/how-to-source-second-hand-clothes-to-sell
+- https://resaleiq.dev/blog/how-to-find-underpriced-items-on-vinted
+- https://resaleiq.dev/blog/brands-to-avoid-reselling-on-vinted
+- https://resaleiq.dev/blog/seasonal-reselling-calendar
+- https://resaleiq.dev/blog/scale-reselling-side-hustle-to-full-time
+- https://resaleiq.dev/blog/how-to-start-reselling-with-little-money
+- https://resaleiq.dev/blog/vinted-reselling-tax-guide-eu
+- https://resaleiq.dev/blog/reseller-record-keeping-basics
+
+## Platform data
+
+- https://resaleiq.dev/data — Live weekly data: all tracked brands with departure volume and avg exit price
+- https://resaleiq.dev/flip — Brand ranking by sell-through rate
+- https://resaleiq.dev/category — Category × brand ranking
+- https://resaleiq.dev/methodology — How watched departures are counted and what the data means

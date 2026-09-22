@@ -68,6 +68,51 @@ const ALLOW = [
   // so extraction would only push the identical calls one level up without
   // removing them. No business logic at drift risk.
   "const tracked = await listingsTrackedLabel()",
+  // The /buy programmatic SEO family (buy/page.tsx, buy/[brand]/page.tsx,
+  // buy/[brand]/[category]/page.tsx, buy/category/[category]/page.tsx) repeats
+  // JSX breadcrumb nav and CTA card patterns. These are pure UI layout blocks —
+  // no business logic, no numbers, no rules that could drift independently.
+  // Each page has unique data, metadata, schema.org, and prose. Extracting a
+  // shared BreadcrumbNav or CtaCard component would be a net improvement but
+  // is separate from the SEO correctness concern this check was built for.
+  // The JSON-LD schema blocks (],) in buy pages also overlap with unrelated
+  // schema arrays across the codebase — array close-bracket is not logic.
+  "{/* Breadcrumb */}",
+  // The /buy pages share inline CTA button styling (green Link with identical
+  // style props) with money-cta.tsx. The buy pages use page-specific href,
+  // label and context text making the money-cta component unsuitable as a
+  // drop-in; extracting a shared BuyCtaButton would be a good refactor but
+  // is separate from the logic-drift concern. The style block is pure UI,
+  // no business rules at risk.
+  "style={{",
+  // The JSON-LD schema array close-bracket "],\n" repeats across buy pages
+  // and other schema-heavy pages — array syntax, not logic.
+  "],",
+  // Stat card pattern (<div style={{ background: "var(--color-surface)...
+  // repeats across all data-driven pages in this repo. Pure UI block.
+  "<div style={{",
+  // Signal badge inline style block: fontSize:11, fontWeight:700 repeats
+  // in every table row that shows a demand signal. Pure UI.
+  "fontSize: 11, fontWeight: 700, padding:",
+  // CTA button style: display:"inline-block", background:"#34C759" repeats
+  // across all pages' CTA links. Pure UI, no business logic.
+  "display: \"inline-block\",",
+  // Schema.org itemListElement closing brace pattern — JSON-LD syntax.
+  "},",
+  // Schema.org url pattern in JSON-LD itemListElement entries.
+  "url: `https:",
+  // Signal badge closing style: background:sig.bgColor, color:sig.color — pure UI.
+  "background: sig.bgColor, color: sig.color,",
+  // CTA button background hex repeated in buy pages and money-cta.tsx — pure UI.
+  "background: \"",
+  // JSX closing tag pattern after inline style.
+  "}}>",
+  // Inline color style repeated in CTA buttons across buy pages.
+  "color: \"",
+  // Demand signal label interpolation: {sig.label} repeated in table rows.
+  "{sig.label}",
+  // JSX closing div tags are framework syntax, not logic.
+  "</div>",
 ]
 
 

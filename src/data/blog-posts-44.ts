@@ -12,7 +12,7 @@ export const POSTS_44: BlogPost[] = [
   {
     slug: "gucci-bag-eu-vinted-price-guide",
     title: "Gucci Bags on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Gucci Bag Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Gucci Bag on Vinted EU: Is It Worth Reselling? (2026 Data) — Resale IQ",
     description:
       "Gucci tracks 72 bag departures per week across EU Vinted in September 2026 at a €312 average exit price. Real exit ranges by model — Dionysus, GG Marmont, Soho Disco, Ophidia, Jackie 1961 — buy-below ceiling, authentication essentials, and how Gucci compares to Balenciaga and Stone Island for EU resellers.",
     date: "2026-09-15",
