@@ -79,7 +79,7 @@ for brand, pairs in sorted(by_brand.items(), key=lambda x: -sum(p['sold_30d_avg'
     for p in pairs_sorted:
         key = (brand, p['category'])
         di = di_map.get(key, {})
-        buy_below = round(p['avg_price_eur'] * 0.55, 2) if p['avg_price_eur'] else None
+        buy_below = round(p['avg_price_eur'] * 0.665, 2) if p['avg_price_eur'] else None
         categories.append({
             'category': p['category'], 'slug': make_slug(p['category']),
             'sold_30d': round(p['sold_30d_avg']),

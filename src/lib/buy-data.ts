@@ -20,8 +20,11 @@ export interface BuyCategory {
   /** Median price at departure in EUR */
   median_price_eur: number | null
   /**
-   * Buy-below: the most a reseller should pay and still hit a ~45% gross margin
-   * after platform fees. Derived as avg_price_eur * 0.55.
+   * Buy-below: the most a reseller should pay and still hit a 30% gross margin
+   * after a 5% Vinted platform fee. Formula: avg_price_eur × 0.95 × 0.70 = avg × 0.665.
+   * SINGLE SOURCE OF TRUTH: same formula as engine/insight.buy_below_from_avg
+   * (BUY_BELOW_FEE=0.95, BUY_BELOW_MARGIN=0.70) and /api/verdict buy_below.
+   * avg_price_eur here is the average SOLD price from market_stats (30-day window).
    * This is an aggregate estimate — individual item condition + size affect this.
    */
   buy_below: number | null

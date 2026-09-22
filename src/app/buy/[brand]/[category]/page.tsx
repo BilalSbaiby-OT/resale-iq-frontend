@@ -36,7 +36,7 @@ export async function generateMetadata({
   const title = `What to Pay for ${brand.brand} ${cat.category} — Buy-Below Price | ResaleIQ`
   const description =
     `${brand.brand} ${cat.category}: ${fmtCountBuy(cat.sold_30d)} departed in 30 days on Vinted. ` +
-    `Average exit price ${fmtEurBuy(cat.avg_price_eur)} — buy below ${fmtEurBuy(cat.buy_below)} to hit a 45% gross margin. ` +
+    `Average exit price ${fmtEurBuy(cat.avg_price_eur)} — buy below ${fmtEurBuy(cat.buy_below)} to hit a 30% gross margin after Vinted fees. ` +
     `Real sold data, not supply counts.`
 
   return {
@@ -65,7 +65,7 @@ export default async function BuyBrandCategoryPage({
     `across Spain, France, Germany, Italy and Portugal. ` +
     `The average price at departure was ${fmtEurBuy(cat.avg_price_eur)}` +
     (cat.median_price_eur ? ` (median ${fmtEurBuy(cat.median_price_eur)})` : "") +
-    `. To hit a 45% gross margin after Vinted fees and postage, ` +
+    `. To hit a 30% gross margin after a 5% Vinted fee, ` +
     `buy below ${fmtEurBuy(cat.buy_below)}. ` +
     (cat.avg_days_to_sell != null
       ? `Items sell in about ${cat.avg_days_to_sell} days on average. `
@@ -189,11 +189,11 @@ export default async function BuyBrandCategoryPage({
           {[
             [fmtCountBuy(cat.sold_30d), "departed / 30 days"],
             [fmtEurBuy(cat.avg_price_eur), "avg exit price"],
-            [fmtEurBuy(cat.buy_below), "buy below (45% margin)"],
+            [fmtEurBuy(cat.buy_below), "buy below (30% margin)"],
             ...(cat.avg_days_to_sell != null ? [[`${cat.avg_days_to_sell}d`, "avg days to sell"]] : []),
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
-              <div style={{ fontSize: 22, fontWeight: 800, color: l === "buy below (45% margin)" ? "#34C759" : "#eef1f7" }}>{v}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: l === "buy below (30% margin)" ? "#34C759" : "#eef1f7" }}>{v}</div>
               <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 3 }}>{l}</div>
             </div>
           ))}
@@ -224,9 +224,9 @@ export default async function BuyBrandCategoryPage({
             <strong style={{ color: "#34C759" }}>{fmtEurBuy(cat.buy_below)}</strong>{" "}
             is derived from the average departure price of{" "}
             <strong style={{ color: "#eef1f7" }}>{fmtEurBuy(cat.avg_price_eur)}</strong>.
-            We apply a 45% gross margin target — meaning the buy-below is 55% of the average exit price.
-            This covers Vinted&apos;s selling fee (5% + €0.70 capped at €600) and typical postage costs
-            while leaving a real margin.
+            We apply a 5% Vinted platform fee and a 30% gross margin target — meaning the buy-below is 66.5% of the average exit price (avg × 0.95 × 0.70).
+            This is the same formula used by the ResaleIQ verdict engine on every surface.
+            It covers Vinted&apos;s selling fee while leaving a real margin for the reseller.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
             The buy-below is a <em>category-level aggregate</em>. Individual items vary by model, size and
