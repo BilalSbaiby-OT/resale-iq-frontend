@@ -103,7 +103,7 @@ export const POSTS_127: BlogPost[] = [
     title: "Brands to Avoid Reselling on Vinted: What Our Data Shows Is Oversupplied",
     seoTitle: "Brands to Avoid Reselling on Vinted — SKIP Verdicts from Departure Data — Resale IQ",
     description:
-      "Uniqlo basics, Zara T-shirts, Pull&Bear, Mango and Bershka are documented SKIP calls on EU Vinted. Buy-below thresholds sit below charity shop floor prices. Data from tracked departures across ES/FR/DE/IT/PT.",
+      "Uniqlo, Zara, Pull&Bear, Mango and Bershka are documented AVOID calls on EU Vinted — zero tracked departures against heavy live supply. Buy-below thresholds sit below charity shop floor prices. Data from ES/FR/DE/IT/PT.",
     date: "2026-09-22",
     updated: "2026-09-22",
     category: "Sourcing",
@@ -120,24 +120,24 @@ export const POSTS_127: BlogPost[] = [
         h: "The SKIP list: brands where buy-below sits below sourcing floor",
         p: [
           "A brand earns a SKIP verdict when the buy-below price — computed as average departure price × 0.95 × 0.70 — sits below the price you can reliably source that brand's items for. It is not that buyers do not exist. It is that the margin math does not close.",
-          "Week to 14 September 2026, across Spain, France, Germany, Italy and Portugal, the clearest SKIP cases: Pull&Bear (€11 average, buy-below ~€7.70), Mango (€11 average, buy-below ~€7.70), and Bershka (€27 average inflated by a low-volume jacket outlier — mainline categories at €12–18 give buy-belows of €8–13). Uniqlo basics (not collabs) and Zara mass-market lines (not Jackets or Studio) fall below viable thresholds in most categories. Full brand table at /data.",
+          "Checked 22 September 2026, across Spain, France, Germany, Italy and Portugal, the clearest SKIP cases all share one trait: we track zero departures for them. Pull&Bear (Hoodies exit €8.11, buy-below ~€5.39), Mango (Shirts exit €7.46, buy-below ~€4.96), and Bershka (Jackets exit €18.14, buy-below ~€12.06) carry an AVOID signal in every category we hold. Uniqlo and Zara are the same story — Zara Jackets exit at €27.40 with no tracked departures. Heavy live supply with nothing leaving the shelf is the SKIP. Full brand table at /data.",
         ],
         table: {
           caption:
-            "SKIP-verdict brands on EU Vinted, week to 14 September 2026. Departures/7d and avg exit price from Resale IQ data. Buy-below = avg × 0.95 × 0.70. These buy-belows sit below achievable charity shop or bale sourcing prices for recognisable branded stock.",
+            "SKIP-verdict brands on EU Vinted, checked 22 September 2026. Avg exit = recommended_list_price from Resale IQ demand_index. Buy-below = avg × 0.95 × 0.70. Departures/7d is 0 for every one of these rows — that IS the SKIP signal: heavy live supply with nothing leaving the shelf. These buy-belows sit below achievable charity shop or bale sourcing prices for recognisable branded stock.",
           head: ["Brand", "Dep/7d", "Avg exit", "Buy-below", "Why SKIP"],
           rows: [
-            ["Pull&Bear", "51", "€11", "~€7.70", "Below charity shop floor; mass-market Inditex brand"],
-            ["Mango", "17", "€11", "~€7.70", "Lowest exit in catalogue; widely available at retail"],
+            ["Pull&Bear", "0", "€8.11 (Hoodies)", "~€5.39", "Zero departures tracked; below charity shop floor"],
+            ["Mango", "0", "€7.46 (Shirts)", "~€4.96", "Zero departures tracked; widely available at retail"],
             [
               "Bershka",
-              "27",
-              "€27 (inflated)",
-              "~€8–13 (mainline)",
-              "Jacket outlier inflates average; volume categories unviable",
+              "0",
+              "€18.14 (Jackets)",
+              "~€12.06",
+              "Zero departures tracked; volume categories unviable",
             ],
-            ["Uniqlo basics", "~40 of 57", "€10–14", "~€7–10", "Retail substitutability kills secondary premium"],
-            ["Zara mass-market", "~68 of 82", "€9–16", "~€6–11", "Only Jackets viable; T-shirts/shirts/hoodies are SKIP"],
+            ["Uniqlo basics", "0", "€30.48 (Jackets)", "~€20.27", "Retail substitutability kills secondary premium"],
+            ["Zara mass-market", "0", "€27.40 (Jackets)", "~€18.22", "Zero departures tracked across every category"],
           ],
         },
       },
@@ -170,7 +170,7 @@ export const POSTS_127: BlogPost[] = [
     faq: [
       {
         q: "Which brands should I avoid reselling on Vinted?",
-        a: "Based on departure data from Spain, France, Germany, Italy and Portugal (week to 14 September 2026): Pull&Bear (€11 avg, buy-below ~€7.70), Mango (€11 avg, buy-below ~€7.70), and Bershka mainline categories (€12–18 avg, buy-belows of €8–13) are documented SKIP cases. Uniqlo basics (not collabs) and Zara mass-market lines (not Jackets or Studio) also fall below viable thresholds. Brands where buy-below sits below your achievable sourcing price are a SKIP regardless of brand recognition. Weekly table: https://resaleiq.dev/data.",
+        a: "Based on Resale IQ demand data from Spain, France, Germany, Italy and Portugal (checked 22 September 2026): Pull&Bear (Hoodies €8.11, buy-below ~€5.39), Mango (Shirts €7.46, buy-below ~€4.96), and Bershka (Jackets €18.14, buy-below ~€12.06) are documented AVOID cases with zero tracked departures. Uniqlo (Jackets €30.48) and Zara (Jackets €27.40) are also AVOID across every category we hold. Brands where buy-below sits below your achievable sourcing price are a SKIP regardless of brand recognition. Weekly table: https://resaleiq.dev/data.",
       },
       {
         q: "Is Zara worth reselling on Vinted?",
@@ -195,7 +195,7 @@ export const POSTS_127: BlogPost[] = [
     title: "What to Buy at a Charity Shop to Resell on Vinted in 2026",
     seoTitle: "What to Buy at a Charity Shop to Flip on Vinted — Data-Backed List — Resale IQ",
     description:
-      "A data-backed buy list for charity shop sourcing on EU Vinted. Stone Island Hoodies ~€55, Fred Perry Shirts ~€14, Patagonia Jackets ~€35 — and the exact brands to skip: Zara T-shirts, Pull&Bear, Mango. From watched EU Vinted departures.",
+      "A data-backed buy list for charity shop sourcing on EU Vinted. Stone Island Hoodies ~€52, Fred Perry Shirts ~€15, Patagonia Jackets ~€49 — and the exact brands to skip: Zara T-shirts, Pull&Bear, Mango. From watched EU Vinted departures.",
     date: "2026-09-22",
     updated: "2026-09-22",
     category: "Sourcing",
@@ -206,7 +206,7 @@ export const POSTS_127: BlogPost[] = [
         "Buying secondhand items at a charity shop and reselling them on Vinted. The margin is created by the gap between charity shop prices (typically €3–20 for named branded items) and Vinted departure prices. The gap is only profitable when you buy below your buy-below price — average departure × 0.95 × 0.70.",
     },
     intro:
-      "Charity shops in France, Germany, Spain, Italy and Portugal regularly price named branded items at €5–20 regardless of their secondary market value. A Stone Island hoodie in a German charity shop priced at €18 exits at ~€55 on EU Vinted. A Fred Perry shirt at €6 exits at ~€14. The gap is real — but only for specific brands and categories. Zara T-shirts at €8, Uniqlo fleeces at €6, and Pull&Bear hoodies at €5 have no margin: their Vinted exit prices (€10–11) sit at or below charity shop prices once you factor fees. This guide gives you the actual buy list and the skip list, backed by watched departure data from Spain, France, Germany, Italy and Portugal.",
+      "Charity shops in France, Germany, Spain, Italy and Portugal regularly price named branded items at €5–20 regardless of their secondary market value. A Stone Island hoodie in a German charity shop priced at €18 exits at ~€52 on EU Vinted (42 tracked departures in 7 days). A Fred Perry shirt at €6 exits at ~€15 (12 tracked departures). The gap is real — but only for specific brands and categories. Zara, Uniqlo and Pull&Bear have no margin: Pull&Bear hoodies exit at €8.11 and we track zero departures for any of their categories, so the buy-below sits at or below charity shop prices once you factor fees. This guide gives you the actual buy list and the skip list, backed by watched departure data from Spain, France, Germany, Italy and Portugal.",
     sections: [
       {
         h: "The charity shop buy list — brands where the gap is real",
@@ -245,7 +245,7 @@ export const POSTS_127: BlogPost[] = [
         h: "The skip list — what not to buy at a charity shop",
         p: [
           "These categories have buy-belows at or below charity shop pricing for recognisable branded stock. Buying them is not a guaranteed loss — it is that the margin math requires sourcing below charity shop floor prices, which is unreliable at scale.",
-          "Pull&Bear, Mango, Bershka: exit prices of €11–27 (buy-belows ~€7–18) sit at or below what you typically pay for these items at charity shops when you can identify the brand on the label. The brands are Inditex/Mango group — identical mass-market positioning. Not worth deliberate sourcing.",
+          "Pull&Bear, Mango, Bershka: exit prices of €7–18 (buy-belows ~€5–12) sit at or below what you typically pay for these items at charity shops when you can identify the brand on the label, and we track zero departures for them. The brands are Inditex/Mango group — identical mass-market positioning. Not worth deliberate sourcing.",
           "Zara T-Shirts, Shirts, Hoodies: exit at €9–16 (buy-belows €6–11). Charity shop prices for Zara basics: €3–8. The gap barely exists, and a single bad listing or return erases it.",
           "Uniqlo HeatTech, Airism, standard fleece: exit at €8–14 (buy-belows €5–10). Uniqlo sells the same items new for €8–15. Secondary market premium: zero. Exception: KAWS × Uniqlo, JW Anderson × Uniqlo, UNIQLO U (see the Uniqlo guide).",
           "Generic branded basics from Nike, Adidas, or New Balance without a named model: the brand average masks huge variance between a €5 basic tee and a €100 running shoe. 'Nike' at a charity shop is not a buy signal. A named model — Air Force 1, Samba, FuelCell — at a price below buy-below is a buy signal.",
@@ -277,7 +277,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "What NOT to buy at a charity shop for reselling on Vinted?",
-        a: "Pull&Bear, Mango, and Bershka (buy-belows of €7–18 sit at or below charity shop pricing). Zara T-shirts, shirts, and hoodies (exit €9–16; buy-belows €6–11). Uniqlo basics — HeatTech, Airism, standard fleece (exit €8–14, no secondary premium over Uniqlo's own retail price). Generic Nike, Adidas, or New Balance without a named model. Weekly brand averages to check the math yourself: https://resaleiq.dev/data.",
+        a: "Pull&Bear, Mango, and Bershka (buy-belows of €5–12 sit at or below charity shop pricing, with zero tracked departures). Zara (Jackets exit €27.40, still AVOID — no tracked departures). Uniqlo (Jackets exit €30.48, AVOID — no secondary premium over Uniqlo's own retail price). Generic Nike, Adidas, or New Balance without a named model. Weekly brand averages to check the math yourself: https://resaleiq.dev/data.",
       },
       {
         q: "How much should I pay at a charity shop for items to resell?",
