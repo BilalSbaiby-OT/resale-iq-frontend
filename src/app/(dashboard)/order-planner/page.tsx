@@ -20,18 +20,18 @@ interface Plan {
 }
 
 const TREND_STYLE: Record<string, { color: string; icon: string }> = {
-  GROWING: { color: "#34C759", icon: "▲" },
-  HOLDING: { color: "#0A84FF", icon: "■" },
-  COOLING: { color: "#FF9F0A", icon: "▼" },
-  FADING: { color: "#FF453A", icon: "▼" },
+  GROWING: { color: "var(--color-buy)", icon: "▲" },
+  HOLDING: { color: "var(--color-blue)", icon: "■" },
+  COOLING: { color: "var(--color-watch)", icon: "▼" },
+  FADING: { color: "var(--color-skip)", icon: "▼" },
   UNKNOWN: { color: "var(--color-text-secondary)", icon: "?" },
 }
 
 function scoreColor(s: number) {
-  if (s >= 85) return "#34C759"
-  if (s >= 70) return "#64D2FF"
-  if (s >= 50) return "#FF9F0A"
-  return "#FF453A"
+  if (s >= 85) return "var(--color-buy)"
+  if (s >= 70) return "var(--color-cyan)"
+  if (s >= 50) return "var(--color-watch)"
+  return "var(--color-skip)"
 }
 
 export default function OrderPlannerPage() {
@@ -58,11 +58,11 @@ export default function OrderPlannerPage() {
   return (
     <AppShell title="Order Planner" subtitle={`What to order today for stock arriving in ~${weeks} weeks`}>
       {/* Controls */}
-      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16, marginBottom: 16, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "flex-end", background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 12, padding: 16, marginBottom: 16, flexWrap: "wrap" }}>
         <div>
           <label style={{ fontSize: 12, color: "var(--color-text-secondary)", display: "block", marginBottom: 6, letterSpacing: 1 }}>ORDER BUDGET (€)</label>
           <input value={budget} onChange={e => setBudget(e.target.value)} type="number" min="0"
-            style={{ background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", borderRadius: 8, padding: "9px 12px", fontFamily: "monospace", fontSize: 14, color: "#e8ecf4", width: 130, outline: "none" }} />
+            style={{ background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", borderRadius: 8, padding: "9px 12px", fontFamily: "monospace", fontSize: 14, color: "var(--color-on-graphite)", width: 130, outline: "none" }} />
         </div>
         <div>
           <label style={{ fontSize: 12, color: "var(--color-text-secondary)", display: "block", marginBottom: 6, letterSpacing: 1 }}>ARRIVES IN</label>
@@ -70,24 +70,24 @@ export default function OrderPlannerPage() {
             {[2, 3, 4].map(w => (
               <button key={w} onClick={() => setWeeks(w)} style={{
                 padding: "9px 14px", borderRadius: 8, fontFamily: "monospace", fontSize: 12, fontWeight: 700, cursor: "pointer",
-                background: weeks === w ? "rgba(34,197,94,.12)" : "#1a2030",
-                border: `1px solid ${weeks === w ? "#34C759" : "#263147"}`,
-                color: weeks === w ? "#34C759" : "#8fa3c4",
+                background: weeks === w ? "rgba(52,199,89,.12)" : "var(--color-bg-4)",
+                border: `1px solid ${weeks === w ? "var(--color-buy)" : "var(--color-hairline)"}`,
+                color: weeks === w ? "var(--color-buy)" : "var(--color-graphite-muted)",
               }}>{w} wks</button>
             ))}
           </div>
         </div>
         <button onClick={load} disabled={loading} style={{
           padding: "10px 22px", borderRadius: 8, fontSize: 13, fontWeight: 600,
-          background: "#34C759", color: "#0B0D10", border: "none", cursor: "pointer", opacity: loading ? 0.6 : 1,
+          background: "var(--color-buy)", color: "var(--color-graphite)", border: "none", cursor: "pointer", opacity: loading ? 0.6 : 1,
         }}>{loading ? "Forecasting…" : "Build order plan"}</button>
       </div>
 
       {/* Hero stats */}
       {plan?.provisional && (
-        <div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
-          <span style={{ fontSize: 13, color: "#FF9F0A", fontWeight: 700 }}>Provisional</span>
-          <span style={{ fontSize: 12.5, color: "#c3cde0", lineHeight: 1.5 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(255,159,10,.07)", border: "1px solid rgba(255,159,10,.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 14 }}>
+          <span style={{ fontSize: 13, color: "var(--color-watch)", fontWeight: 700 }}>Provisional</span>
+          <span style={{ fontSize: 12.5, color: "var(--color-text-body)", lineHeight: 1.5 }}>
             Sell-through is still being measured, so week-1 sell probabilities use a conservative prior and suggested units cap at 1 per model. Cost and demand are live — do not treat P(sell) as measured sell-through.
           </span>
         </div>
@@ -95,11 +95,11 @@ export default function OrderPlannerPage() {
       {plan && (
         <div className="riq-grid-3" style={{ marginBottom: 16 }}>
           {[
-            ["BUDGET ALLOCATED", `€${plan.allocated_eur.toFixed(0)}`, "#e8ecf4", plan.budget_eur ? `of €${plan.budget_eur.toFixed(0)}` : "no budget set"],
-            ["EXPECTED WEEK-1 PROFIT", `€${plan.expected_week1_profit.toFixed(0)}`, "#34C759", "probability-weighted"],
-            ["FORECAST HORIZON", `${plan.horizon_weeks} weeks`, "#0A84FF", "damped-momentum model"],
+            ["BUDGET ALLOCATED", `€${plan.allocated_eur.toFixed(0)}`, "var(--color-on-graphite)", plan.budget_eur ? `of €${plan.budget_eur.toFixed(0)}` : "no budget set"],
+            ["EXPECTED WEEK-1 PROFIT", `€${plan.expected_week1_profit.toFixed(0)}`, "var(--color-buy)", "probability-weighted"],
+            ["FORECAST HORIZON", `${plan.horizon_weeks} weeks`, "var(--color-blue)", "damped-momentum model"],
           ].map(([l, v, c, sub]) => (
-            <div key={l as string} style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16 }}>
+            <div key={l as string} style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 12, padding: 16 }}>
               <div style={{ fontSize: 12, fontFamily: "monospace", letterSpacing: 1.5, color: "var(--color-text-secondary)" }}>{l}</div>
               <div style={{ fontFamily: "monospace", fontSize: 26, fontWeight: 800, color: c as string, marginTop: 4 }}>{v}</div>
               <div style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 2 }}>{sub}</div>
@@ -109,12 +109,12 @@ export default function OrderPlannerPage() {
       )}
 
       {/* Plan table */}
-      <div style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, overflow: "hidden" }}>
+      <div style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 12, overflow: "hidden" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
               {["Product", "Score", "Demand wk" + weeks, "Trend", "P(sell 7d)", "Cost ≤", "List @", "Profit/unit", "Order", "Sizes"].map(h => (
-                <th key={h} style={{ fontSize: 12, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 1.5, color: "var(--color-text-secondary)", textAlign: "left", padding: "10px 12px", background: "var(--color-surface-elevated)", borderBottom: "1px solid var(--color-border-ui)" }}>{h}</th>
+                <th key={h} style={{ fontSize: 12, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 1.5, color: "var(--color-text-secondary)", textAlign: "left", padding: "10px 12px", background: "var(--color-surface-elevated)", borderBottom: "1px solid var(--color-hairline)" }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -125,7 +125,7 @@ export default function OrderPlannerPage() {
             ) : plan.items.map((e, i) => {
               const t = TREND_STYLE[e.trend] ?? TREND_STYLE.UNKNOWN
               return (
-                <tr key={i} style={{ borderBottom: "1px solid var(--color-border-ui)", background: e.suggested_units > 0 ? "rgba(34,197,94,.04)" : "transparent" }}>
+                <tr key={i} style={{ borderBottom: "1px solid var(--color-hairline)", background: e.suggested_units > 0 ? "rgba(52,199,89,.04)" : "transparent" }}>
                   <td style={{ padding: "11px 12px" }}>
                     <div style={{ fontWeight: 700, fontSize: 13 }}>{e.brand} {e.model}</div>
                     <div style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>{e.category}</div>
@@ -139,17 +139,17 @@ export default function OrderPlannerPage() {
                   <td title={e.str_withheld ? "Sell-through withheld — this is a 0.25 prior, not a measured rate" : undefined} style={{ padding: "11px 12px", fontFamily: "monospace", fontSize: 13, color: e.week1_sell_probability >= 0.7 ? "var(--color-buy)" : e.week1_sell_probability >= 0.5 ? "var(--color-watch)" : "var(--color-skip)" }}>
                     {(e.week1_sell_probability * 100).toFixed(0)}%{e.str_withheld ? <span style={{ fontSize: 12, color: "var(--color-watch)", marginLeft: 4 }}>prior</span> : null}
                   </td>
-                  <td style={{ padding: "11px 12px", fontFamily: "monospace", fontWeight: 700, color: "#34C759" }}>€{e.target_unit_cost.toFixed(0)}</td>
+                  <td style={{ padding: "11px 12px", fontFamily: "monospace", fontWeight: 700, color: "var(--color-buy)" }}>€{e.target_unit_cost.toFixed(0)}</td>
                   <td style={{ padding: "11px 12px", fontFamily: "monospace" }}>€{e.fast_sale_price?.toFixed(0) ?? "—"}</td>
-                  <td style={{ padding: "11px 12px", fontFamily: "monospace", color: "#FF9F0A", fontWeight: 700 }}>+€{e.unit_profit?.toFixed(2) ?? "—"}</td>
+                  <td style={{ padding: "11px 12px", fontFamily: "monospace", color: "var(--color-watch)", fontWeight: 700 }}>+€{e.unit_profit?.toFixed(2) ?? "—"}</td>
                   <td style={{ padding: "11px 12px" }}>
                     {e.suggested_units > 0 ? (
-                      <span style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 13, padding: "3px 10px", borderRadius: 12, background: "rgba(34,197,94,.15)", border: "1px solid rgba(34,197,94,.4)", color: "#34C759" }}>×{e.suggested_units}</span>
+                      <span style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 13, padding: "3px 10px", borderRadius: 12, background: "rgba(52,199,89,.15)", border: "1px solid rgba(52,199,89,.4)", color: "var(--color-buy)" }}>×{e.suggested_units}</span>
                     ) : <span style={{ color: "var(--color-text-secondary)", fontSize: 12 }}>—</span>}
                   </td>
                   <td style={{ padding: "11px 12px" }}>
                     {e.top_sizes.slice(0, 3).map((s, j) => (
-                      <span key={s} style={{ fontSize: 12, fontFamily: "monospace", padding: "2px 6px", borderRadius: 4, marginRight: 3, background: j === 0 ? "rgba(59,130,246,.12)" : "#1a2030", border: `1px solid ${j === 0 ? "rgba(59,130,246,.35)" : "#263147"}`, color: j === 0 ? "#60a5fa" : "#8fa3c4" }}>{s}</span>
+                      <span key={s} style={{ fontSize: 12, fontFamily: "monospace", padding: "2px 6px", borderRadius: 4, marginRight: 3, background: j === 0 ? "rgba(10,132,255,.12)" : "var(--color-bg-4)", border: `1px solid ${j === 0 ? "rgba(10,132,255,.35)" : "var(--color-hairline)"}`, color: j === 0 ? "var(--color-blue)" : "var(--color-graphite-muted)" }}>{s}</span>
                     ))}
                   </td>
                 </tr>
@@ -161,8 +161,8 @@ export default function OrderPlannerPage() {
 
       {plan && (
         <div style={{ marginTop: 12, fontSize: 12, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><AlertTriangle size={11} style={{ color: "#FF9F0A" }} /> {plan.disclaimer}</span><br />
-          <b style={{ color: "#8fa3c4" }}>How to read it:</b> Cost ≤ is the max you should pay your supplier per unit ·
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><AlertTriangle size={11} style={{ color: "var(--color-watch)" }} /> {plan.disclaimer}</span><br />
+          <b style={{ color: "var(--color-graphite-muted)" }}>How to read it:</b> Cost ≤ is the max you should pay your supplier per unit ·
           List @ is the fast-sale price (5% under market) · P(sell 7d) assumes you list at that price in the shown sizes.
         </div>
       )}
