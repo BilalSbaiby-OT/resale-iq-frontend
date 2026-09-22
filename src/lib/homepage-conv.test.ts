@@ -50,19 +50,22 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
   assert.ok(scopeAt > 0 && chipsAt > scopeAt, "Free: line must sit above the chips, next to the CTA")
 })
 
-test("above-fold free scope names the chips that remain", () => {
-  assert.equal(
-    copy.en.heroFreeScope,
-    "Free: Samba + Air Force 1 + NB 530. Other models €19/mo.",
-  )
-  assert.match(copy.en.heroFreeScope, /Samba/)
-  assert.match(copy.en.heroFreeScope, /Air Force 1/)
-  assert.match(copy.en.heroFreeScope, /NB 530/)
+test("above-fold free scope must not promise paywalled SKUs", () => {
+  // Rewritten 2026-09-22. This used to pin the exact string "Free: Samba +
+  // Air Force 1 + NB 530", which became FALSE when every visitor started
+  // getting one free verdict on ANY model (api/routes.py
+  // _claim_first_free_verdict). Naming three models undersold the offer and
+  // told most visitors their item was not covered.
+  //
+  // The assertion that MATTERS is preserved and is the reason this test
+  // exists: Levi's 501 and NB 550 are paywalled, so they must never be
+  // advertised as free in any locale.
+  assert.match(copy.en.heroFreeScope, /first/i)
+  assert.match(copy.en.heroFreeScope, /free/i)
   assert.doesNotMatch(copy.en.heroFreeScope, /501/)
   assert.doesNotMatch(copy.en.heroFreeScope, /550/)
   for (const locale of ["fr", "es", "de", "it", "pt"] as const) {
-    assert.match(copy[locale].heroFreeScope, /Samba/)
-    assert.match(copy[locale].heroFreeScope, /NB 530/)
+    assert.ok(copy[locale].heroFreeScope.length > 0)
     assert.doesNotMatch(copy[locale].heroFreeScope, /501/)
     assert.doesNotMatch(copy[locale].heroFreeScope, /550/)
   }

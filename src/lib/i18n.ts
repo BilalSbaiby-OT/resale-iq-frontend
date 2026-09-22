@@ -116,7 +116,7 @@ export const copy = {
     heroTitle: "Vinted EU demand check — buy-below price for resellers.",
     heroAudience: "For people who resell second-hand clothes on Vinted EU.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
-    heroFreeScope: "Free: Samba + Air Force 1 + NB 530. Other models €19/mo.",
+    heroFreeScope: "Your first check is free on any model. After that, €19/mo.",
     brandStripCaption: "Brands we track",
     brandStripMore: (n: number) => `+${n} more`,
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
@@ -706,7 +706,7 @@ export const copy = {
     heroTitle: "Sachez ce qui se vend avant d'acheter.",
     heroAudience: "Pour ceux qui achètent d'occasion pour revendre.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
-    heroFreeScope: "Gratuit : Samba + Air Force 1 + NB 530. Autres modèles 19 €/mois.",
+    heroFreeScope: "Votre première recherche est gratuite, sur n'importe quel modèle. Ensuite 19 €/mois.",
     brandStripCaption: "Marques que nous suivons",
     brandStripMore: (n: number) => `+${n} de plus`,
     marketPulse: {
@@ -1141,7 +1141,7 @@ export const copy = {
     heroTitle: "Sabe qué se vende antes de comprar.",
     heroAudience: "Para quien compra de segunda mano para revender.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
-    heroFreeScope: "Gratis: Samba + Air Force 1 + NB 530. Otros modelos 19 €/mes.",
+    heroFreeScope: "Tu primera consulta es gratis, en cualquier modelo. Después 19 €/mes.",
     brandStripCaption: "Marcas que vigilamos",
     brandStripMore: (n: number) => `+${n} más`,
     marketPulse: {
@@ -1579,7 +1579,7 @@ export const copy = {
     heroTitle: "Wissen, was sich verkauft, bevor du kaufst.",
     heroAudience: "Für alle, die Second-Hand kaufen, um weiterzuverkaufen.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
-    heroFreeScope: "Kostenlos: Samba + Air Force 1 + NB 530. Andere Modelle 19 €/Monat.",
+    heroFreeScope: "Deine erste Abfrage ist kostenlos — für jedes Modell. Danach 19 €/Monat.",
     brandStripCaption: "Marken, die wir beobachten",
     brandStripMore: (n: number) => `+${n} weitere`,
     marketPulse: {
@@ -2016,7 +2016,7 @@ export const copy = {
     heroTitle: "Sappi cosa si vende prima di comprare.",
     heroAudience: "Per chi compra usato per rivendere.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
-    heroFreeScope: "Gratis: Samba + Air Force 1 + NB 530. Altri modelli 19 €/mese.",
+    heroFreeScope: "La tua prima ricerca è gratuita, su qualsiasi modello. Poi 19 €/mese.",
     brandStripCaption: "Marchi che osserviamo",
     brandStripMore: (n: number) => `+${n} altri`,
     marketPulse: {
@@ -2451,7 +2451,7 @@ export const copy = {
     heroTitle: "Saiba o que vende antes de comprar.",
     heroAudience: "Para quem compra em segunda mão para revender.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
-    heroFreeScope: "Grátis: Samba + Air Force 1 + NB 530. Outros modelos 19 €/mês.",
+    heroFreeScope: "A tua primeira pesquisa é grátis, em qualquer modelo. Depois 19 €/mês.",
     brandStripCaption: "Marcas que seguimos",
     brandStripMore: (n: number) => `+${n} mais`,
     marketPulse: {

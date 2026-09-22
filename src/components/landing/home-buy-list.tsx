@@ -268,9 +268,16 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   {/*
                     Demand column. sold_7d (departures — what actually LEFT the
                     shelf) is the signal a reseller buys on, and the hero subhead
-                    promises it. comparable_n is supply, which is close to the
-                    opposite signal, so it is only the fallback for locked rows
-                    and for anything the tracker has not signalled.
+                    promises it.
+
+                    NEVER fall back to comparable_n here. That was live on
+                    2026-09-22 and printed SUPPLY under a "Sold/wk" header:
+                    Stone Island Jackets showed "362" and New Balance Sneakers
+                    "3,984" when the real departures were 9 and 8. A reseller
+                    reading 3,984 weekly sales would stock hard on a near-dead
+                    line. comparable_n is close to the OPPOSITE signal, so an
+                    unknown departure count must render as "—", not as a number
+                    that means something else.
                   */}
                   <span style={{
                     fontSize:   13,
@@ -280,9 +287,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   }}>
                     {item.sold_7d != null
                       ? item.sold_7d.toLocaleString("en-GB")
-                      : item.comparable_n != null
-                        ? item.comparable_n.toLocaleString("en-GB")
-                        : "—"}
+                      : "—"}
                   </span>
 
                   {/* Avg price */}
