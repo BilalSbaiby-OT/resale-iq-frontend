@@ -90,3 +90,22 @@ test("missing price_id throws instead of posting a 422 body", () => {
     /price_id/,
   )
 })
+
+test("ref_code is forwarded into the checkout body when present", () => {
+  const body = buildCheckoutBody({
+    price_id: BAKED_PRICE_IDS.operator,
+    origin: "https://resaleiq.dev",
+    locale: "en",
+    ref_code: "PARTNER1",
+  })
+  assert.equal(body.ref_code, "PARTNER1")
+})
+
+test("ref_code is absent when not provided", () => {
+  const body = buildCheckoutBody({
+    price_id: BAKED_PRICE_IDS.operator,
+    origin: "https://resaleiq.dev",
+    locale: "en",
+  })
+  assert.equal(body.ref_code, undefined)
+})

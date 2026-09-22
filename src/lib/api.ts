@@ -1,5 +1,6 @@
 import { getAttribution, getLandingPath } from "@/lib/analytics"
 import { buildCheckoutBody, readStoredCountry, type CheckoutPlan } from "@/lib/checkout"
+import { readReferral } from "@/lib/referral"
 import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
   WatchlistItem, PortfolioItem, PortfolioStats, AuthenticityResult,
@@ -238,6 +239,11 @@ export const createCheckout = (price_id: string, opts?: { country?: string; plan
     locale,
     country: opts?.country ?? readStoredCountry(),
     plan: opts?.plan,
+    // Affiliate attribution: read the riq_ref cookie (set by captureReferral
+    // on every page load). Forwarded to the backend as body.ref_code; the
+    // backend adds it to the Stripe session metadata so payments can be
+    // attributed to the partner who referred the visitor.
+    ref_code: readReferral() ?? undefined,
   })
   return request<{ checkout_url: string }>("/stripe/checkout", {
     method: "POST",

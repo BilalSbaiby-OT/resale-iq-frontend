@@ -105,6 +105,7 @@ export function buildCheckoutBody(opts: {
   locale?: string
   country?: string
   plan?: CheckoutPlan
+  ref_code?: string
 }): Record<string, string> {
   if (!opts.price_id) {
     throw new Error("createCheckout called without a price_id (plans not loaded yet)")
@@ -124,5 +125,9 @@ export function buildCheckoutBody(opts: {
     cancel_url: `${opts.origin}${prefix}/pricing?checkout=cancelled`,
   }
   if (country) body.country = country
+  // Affiliate attribution: forward the riq_ref cookie value so the backend
+  // can store it as Stripe session metadata for commission tracking.
+  // Validated as alphanumeric+hyphen/underscore, max 64 chars in referral.ts.
+  if (opts.ref_code) body.ref_code = opts.ref_code
   return body
 }
