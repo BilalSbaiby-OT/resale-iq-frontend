@@ -13,9 +13,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "vinted-bundles-and-offers-strategy",
     title: "Vinted Bundles and Offers in 2026 — When a Lower Price Still Wins",
-    seoTitle: "Should You Accept a Vinted Offer? (2026)",
+    seoTitle: "Should You Accept a Vinted Offer? When to Say Yes, When to Hold (2026)",
     description:
-      "Take a Vinted offer only if it clears cost, fees and your floor. Bundle slow stock. Fast hoodies (122 exits this week) rarely need a cut. From €19/mo.",
+      "Accept if the offer clears your cost, fees and floor. Don't cut a fast mover — Stone Island hoodies and Fred Perry shirts are clearing without discounts. Bundle slow stock. Step-by-step decision framework.",
     date: "2026-08-07",
     updated: "2026-09-20",
     category: "Selling",
@@ -334,9 +334,9 @@ export const POSTS_3: BlogPost[] = [
   {
     slug: "reseller-record-keeping-basics",
     title: "Record Keeping for Resellers: What to Track",
-    seoTitle: "What Should Resellers Track? Six Fields — Resale IQ",
+    seoTitle: "Reseller Record Keeping: The 6 Fields Every Reseller Needs (2026)",
     description:
-      "Six fields per item: purchase price, dates, sale price, fees and shipping. That is enough to see real profit. Tax: ask an accountant where you live.",
+      "Track six things per item: purchase price, purchase date, sale price, sale date, fees and shipping. That's enough to see your real profit. Free spreadsheet template and calculator inside.",
     date: "2026-08-07",
     category: "Business",
     readMins: 5,

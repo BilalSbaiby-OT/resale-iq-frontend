@@ -243,9 +243,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-price-items-on-vinted",
     title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures",
-    seoTitle: "How to Price Items on Vinted — What Buyers Actually Pay (2026)",
+    seoTitle: "How to Price Items on Vinted: Match the Departure Average (2026)",
     description:
-      "Most sellers guess wrong. Price from departure data, not retail. Fred Perry items leave at €16, Balenciaga at €121 — real numbers from watched listings. Check any model free on /tools.",
+      "Price from what similar items actually sold for, not retail. Stone Island hoodies leave at ~€52, Fred Perry shirts at ~€15, Balenciaga at €97–311 — real departure averages from 13M+ tracked EU listings. Undercut by 5–10% to sell faster.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Pricing",
@@ -416,9 +416,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "vinted-vs-depop-for-sellers",
     title: "Vinted vs Depop for EU Sellers: Keep 10% More (2026)",
-    seoTitle: "Vinted vs Depop: EU Sellers Keep 10% More — Resale IQ",
+    seoTitle: "Vinted vs Depop for EU Sellers: Which Keeps More of Your Money? (2026)",
     description:
-      "Depop’s 0% fee is US/UK only. From ES, FR, DE, IT or PT, Vinted takes 0% from the seller vs Depop’s 10%. Live EU Vinted: 482 watched departures / 7d.",
+      "Depop charges EU sellers 10% commission. Vinted charges sellers 0%. On a €50 sale from France, Germany or Spain: Vinted nets €50, Depop nets €45. Fee table, real EU departure data, and when Depop's buyer base justifies the cut.",
     date: "2026-08-29",
     updated: "2026-09-20",
     category: "Platforms",
@@ -586,9 +586,9 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-find-items-to-flip-on-vinted",
     title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll",
-    seoTitle: "How to Find Items to Flip on Vinted (2026) — Demand First",
+    seoTitle: "How to Find Items to Flip on Vinted: Use Demand Data, Not Guesswork (2026)",
     description:
-      "Stop scrolling. Only buy when demand data says yes. This week: Patagonia Jackets €39, Stone Island Hoodies €52, New Balance Sneakers €48 — all moving. Check any model on /tools.",
+      "Only buy what the data confirms is moving. Stone Island hoodies: 42 departures/week at €52 avg. Fred Perry jackets: 6/week at €75. New Balance sneakers: 8/week at €42. How to check any brand before you spend.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
@@ -851,6 +851,7 @@ import { POSTS_53 } from "./blog-posts-53"
 import { POSTS_54 } from "./blog-posts-54"
 import { POSTS_55 } from "./blog-posts-55"
 import { POSTS_56 } from "./blog-posts-56"
+import { POSTS_57 } from "./blog-posts-57"
 import { POSTS_58 } from "./blog-posts-58"
 import { POSTS_59 } from "./blog-posts-59"
 import { POSTS_60 } from "./blog-posts-60"
@@ -920,7 +921,7 @@ import { POSTS_125 } from "./blog-posts-125"
 import { POSTS_126 } from "./blog-posts-126"
 import { POSTS_127 } from "./blog-posts-127"
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11, ...POSTS_12, ...POSTS_13, ...POSTS_14, ...POSTS_15, ...POSTS_16, ...POSTS_17, ...POSTS_18, ...POSTS_19, ...POSTS_20, ...POSTS_21, ...POSTS_22, ...POSTS_23, ...POSTS_24, ...POSTS_25, ...POSTS_26, ...POSTS_27, ...POSTS_28, ...POSTS_29, ...POSTS_30, ...POSTS_31, ...POSTS_32, ...POSTS_33, ...POSTS_34, ...POSTS_35, ...POSTS_36, ...POSTS_37, ...POSTS_38, ...POSTS_39, ...POSTS_40, ...POSTS_41, ...POSTS_42, ...POSTS_43, ...POSTS_44, ...POSTS_45, ...POSTS_46, ...POSTS_47, ...POSTS_48, ...POSTS_49, ...POSTS_50, ...POSTS_51, ...POSTS_52, ...POSTS_53, ...POSTS_54, ...POSTS_55, ...POSTS_56, ...POSTS_58, ...POSTS_59, ...POSTS_60, ...POSTS_61, ...POSTS_62, ...POSTS_63, ...POSTS_64, ...POSTS_65, ...POSTS_66, ...POSTS_67, ...POSTS_68, ...POSTS_69, ...POSTS_70, ...POSTS_71, ...POSTS_72, ...POSTS_73, ...POSTS_74, ...POSTS_75, ...POSTS_76, ...POSTS_77, ...POSTS_78, ...POSTS_79, ...POSTS_80, ...POSTS_81, ...POSTS_82, ...POSTS_83, ...POSTS_84, ...POSTS_85, ...POSTS_86, ...POSTS_87, ...POSTS_88, ...POSTS_89, ...POSTS_90, ...POSTS_91, ...POSTS_92, ...POSTS_93, ...POSTS_94, ...POSTS_95, ...POSTS_96, ...POSTS_97, ...POSTS_98, ...POSTS_99, ...POSTS_100, ...POSTS_101, ...POSTS_102, ...POSTS_103, ...POSTS_104, ...POSTS_105, ...POSTS_106, ...POSTS_107, ...POSTS_108, ...POSTS_109, ...POSTS_110, ...POSTS_111, ...POSTS_112, ...POSTS_113, ...POSTS_114, ...POSTS_115, ...POSTS_116, ...POSTS_119, ...POSTS_120, ...POSTS_121, ...POSTS_122, ...POSTS_123, ...POSTS_124, ...POSTS_125, ...POSTS_126, ...POSTS_127]
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_2, ...POSTS_3, ...POSTS_4, ...POSTS_5, ...POSTS_6, ...POSTS_7, ...POSTS_8, ...POSTS_9, ...POSTS_10, ...POSTS_11, ...POSTS_12, ...POSTS_13, ...POSTS_14, ...POSTS_15, ...POSTS_16, ...POSTS_17, ...POSTS_18, ...POSTS_19, ...POSTS_20, ...POSTS_21, ...POSTS_22, ...POSTS_23, ...POSTS_24, ...POSTS_25, ...POSTS_26, ...POSTS_27, ...POSTS_28, ...POSTS_29, ...POSTS_30, ...POSTS_31, ...POSTS_32, ...POSTS_33, ...POSTS_34, ...POSTS_35, ...POSTS_36, ...POSTS_37, ...POSTS_38, ...POSTS_39, ...POSTS_40, ...POSTS_41, ...POSTS_42, ...POSTS_43, ...POSTS_44, ...POSTS_45, ...POSTS_46, ...POSTS_47, ...POSTS_48, ...POSTS_49, ...POSTS_50, ...POSTS_51, ...POSTS_52, ...POSTS_53, ...POSTS_54, ...POSTS_55, ...POSTS_56, ...POSTS_57, ...POSTS_58, ...POSTS_59, ...POSTS_60, ...POSTS_61, ...POSTS_62, ...POSTS_63, ...POSTS_64, ...POSTS_65, ...POSTS_66, ...POSTS_67, ...POSTS_68, ...POSTS_69, ...POSTS_70, ...POSTS_71, ...POSTS_72, ...POSTS_73, ...POSTS_74, ...POSTS_75, ...POSTS_76, ...POSTS_77, ...POSTS_78, ...POSTS_79, ...POSTS_80, ...POSTS_81, ...POSTS_82, ...POSTS_83, ...POSTS_84, ...POSTS_85, ...POSTS_86, ...POSTS_87, ...POSTS_88, ...POSTS_89, ...POSTS_90, ...POSTS_91, ...POSTS_92, ...POSTS_93, ...POSTS_94, ...POSTS_95, ...POSTS_96, ...POSTS_97, ...POSTS_98, ...POSTS_99, ...POSTS_100, ...POSTS_101, ...POSTS_102, ...POSTS_103, ...POSTS_104, ...POSTS_105, ...POSTS_106, ...POSTS_107, ...POSTS_108, ...POSTS_109, ...POSTS_110, ...POSTS_111, ...POSTS_112, ...POSTS_113, ...POSTS_114, ...POSTS_115, ...POSTS_116, ...POSTS_119, ...POSTS_120, ...POSTS_121, ...POSTS_122, ...POSTS_123, ...POSTS_124, ...POSTS_125, ...POSTS_126, ...POSTS_127]
 
 export function getPost(slug: string): BlogPost | undefined {
   return ALL_POSTS.find((p) => p.slug === slug)

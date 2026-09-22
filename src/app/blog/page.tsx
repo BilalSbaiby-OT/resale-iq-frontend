@@ -9,9 +9,9 @@ import { canonicalPath } from "@/lib/locale-routes"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-  title: "Resale IQ Blog — Vinted reselling guides & data",
+  title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
   description:
-    "Data-backed guides for Vinted resellers: what sells, how to price, buy-below price, sell-through, and how to source profitably across 5 EU markets.",
+    "Practical guides for Vinted resellers backed by real departure data from 13M+ tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.",
   alternates: { canonical: "/blog" },
   }
 }

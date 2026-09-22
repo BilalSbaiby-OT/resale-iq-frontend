@@ -239,7 +239,7 @@ test("EX-LOCALE-CTR-ES: Spanish post is answer-first; EN twin titles stay", () =
   assert.doesNotMatch(post, /register\?src=blog/)
   // EN twin — titles may refresh for CTR; keep the slug and buy-below definition.
   assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted — What Buyers Actually Pay \(2026\)"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted: Match the Departure Average \(2026\)"/)
 })
 
 test("como-poner-precio post ships BODY-ES-001 and never English /pricing", () => {
@@ -390,10 +390,10 @@ test("how-to-get-more-views-on-vinted ships BODY-VIEWS-002 after demand and befo
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
   assert.match(post, /title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes"/)
-  assert.match(post, /seoTitle: "How to Get More Views on Vinted .2026. — 4 Fixes"/)
+  assert.match(post, /seoTitle: "How to Get More Views on Vinted .2026. — Fix These 4 Things"/)
   assert.match(
     post,
-    /No views\? Check demand first\. 566 watched departures this week/,
+    /No views usually means one of four problems/,
   )
   assert.match(post, /Demand is the other half of the views/)
   assert.match(
@@ -494,10 +494,10 @@ test("how-to-find-items-to-flip-on-vinted ships BODY-FLIPS-002 after demand and 
   assert.ok(start >= 0 && end > start)
   const post = posts.slice(start, end)
   assert.match(post, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
-  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted \(2026\) — Demand First"/)
+  assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted: Use Demand Data, Not Guesswork \(2026\)"/)
   assert.match(
     post,
-    /Stop scrolling\. Only buy when demand data says yes\./,
+    /Only buy what the data confirms is moving/,
   )
   assert.match(post, /Demand is the other half/)
   assert.match(post, /A buy-below price protects the margin on paper/)
