@@ -22,6 +22,8 @@ import {
   CHECK_VINTED_PRICE_NAME,
 } from "@/lib/webmcp-tools"
 import { itemQueryMeta } from "@/lib/tools-query-meta"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { BlogProofStrip } from "@/components/blog-proof-strip"
 
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
@@ -58,6 +60,17 @@ export default async function IntentPage(
 ) {
   const { slug } = await params
   const tracked = await listingsTrackedLabel()
+  // Live proof rows for the strip under the H1.
+  //
+  // Measured 7d: 130 humans touched /blog, ZERO reached /tools; 138 of 258
+  // total humans left after a single pageview. These tool pages are where
+  // ChatGPT actually sends people, and they presented a blank input box with no
+  // evidence the data behind it is real — the visitor had to invent a query
+  // before seeing anything work.
+  //
+  // getPublicBuyList fails soft (null on any error, own FATAL log) and is
+  // disk-cached, so this cannot break the page: worst case the strip is absent.
+  const proofRows = await getPublicBuyList(5)
   // What a visitor OPERATES is translated; the editorial body is not.
   //
   // The intent bodies (h1, lede, bullets, FAQ) live in data/search-intents.ts
@@ -158,6 +171,20 @@ export default async function IntentPage(
         ) : (
           <FreeChecker locale={locale} />
         )}
+
+        {/* Proof BELOW the checker, above the lede.
+            The checker stays first — a prior fix moved it above the lede
+            because on a 390px screen the input was pushed off-screen by a
+            ~120-word paragraph. Do not undo that.
+            But a blank input alone gives a cold visitor nothing to believe and
+            nothing to type: 130 humans touched /blog in 7d and ZERO reached a
+            tool. These live rows show the data is real and give an immediate
+            second action for someone who does not yet have an item in mind. */}
+        <BlogProofStrip
+          items={proofRows}
+          ctaHref="/?src=tool_proof"
+          ctaLabel="See the full buy list →"
+        />
 
         <p style={{ fontSize: 16.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginTop: 32, marginBottom: 36, maxWidth: 620 }}>{i.lede}</p>
 

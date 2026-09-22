@@ -34,10 +34,14 @@ const VERDICT_COLOR: Record<string, string> = {
 export function BlogProofStrip({
   items,
   ctaHref,
+  ctaLabel = "Check any item free →",
 }: {
   items: SsrBuyListItem[] | null
   /** Where the CTA sends them — the post's own preflight query when it has one. */
   ctaHref: string
+  /** Override when the strip sits under a checker ("Check any item free" would
+   *  point at the input directly above it, which reads as broken). */
+  ctaLabel?: string
 }) {
   if (!items || items.length === 0) return null
 
@@ -114,7 +118,7 @@ export function BlogProofStrip({
           textDecoration: "none",
         }}
       >
-        Check any item free →
+        {ctaLabel}
       </Link>
     </aside>
   )
