@@ -6,6 +6,30 @@ import { getBrandRankings } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { BrandRanking } from "@/types"
 
+const SPEED_STYLE: Record<string, React.CSSProperties> = {
+  "Very Fast": { color: "#30D158", background: "rgba(48,209,88,.15)", border: "1px solid rgba(48,209,88,.3)" },
+  "Fast":      { color: "#30D158", background: "rgba(48,209,88,.15)", border: "1px solid rgba(48,209,88,.3)" },
+  "Medium":    { color: "#FF9F0A", background: "rgba(255,159,10,.15)", border: "1px solid rgba(255,159,10,.3)" },
+  "Slow":      { color: "#8E8E93", background: "rgba(142,142,147,.12)", border: "1px solid rgba(142,142,147,.25)" },
+}
+
+function profitStyle(label: string): React.CSSProperties {
+  if (label === "High")   return SPEED_STYLE["Very Fast"]
+  if (label === "Medium") return SPEED_STYLE["Medium"]
+  return SPEED_STYLE["Slow"]
+}
+
+const TH: React.CSSProperties = {
+  fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase",
+  color: "var(--color-graphite-muted)", padding: "10px 12px", textAlign: "left",
+  background: "var(--color-graphite-elevated)", borderBottom: "1px solid var(--color-hairline)",
+  whiteSpace: "nowrap", cursor: "pointer", userSelect: "none",
+}
+const TD: React.CSSProperties = {
+  fontSize: 13, padding: "10px 12px", color: "var(--color-on-graphite)",
+  borderBottom: "1px solid var(--color-hairline)", whiteSpace: "nowrap", verticalAlign: "middle",
+}
+
 export default function BrandsPage() {
   const [brands, setBrands] = useState<BrandRanking[]>([])
   const [loading, setLoading] = useState(true)
@@ -34,65 +58,79 @@ export default function BrandsPage() {
 
   const toggleSort = (col: keyof BrandRanking) => { if (sort === col) setDir(d => d * -1); else { setSort(col); setDir(-1) } }
 
-  const SPEED_COLORS: Record<string, string> = {
-    "Very Fast": "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-    "Fast": "text-emerald-400 bg-emerald-500/8 border-emerald-500/25",
-    "Medium": "text-amber-400 bg-amber-500/10 border-amber-500/30",
-    "Slow": "text-red-400 bg-red-500/10 border-red-500/30",
-  }
+  const HEADERS: [string, keyof BrandRanking | ""][] = [
+    ["#", "rank"], ["Brand", "brand"], ["Avg Price", "avg_price_eur"],
+    ["7d Left shelf", "sold_7d"], ["Sell Speed", "speed_score"],
+    ["Profit", "profit_label"], ["Score", "demand_score"], ["Categories", ""],
+  ]
 
   return (
     <AppShell title="Brand Rankings" subtitle={loadError ? "55 brands tracked — unlock to see the ranking" : `${brands.length} brands tracked — click any to scan deals`}>
-      <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl overflow-hidden">
-        <div className="riq-scroll-x"><table className="w-full" style={{ minWidth: 620 }}>
-          <thead>
-            <tr>
-              {[["#", "rank"], ["Brand", "brand"], ["Avg Price", "avg_price_eur"], ["7d Left shelf", "sold_7d"], ["Sell Speed", "speed_score"], ["Profit", "profit_label"], ["Score", "demand_score"], ["Categories", ""]].map(([h, col]) => (
-                <th key={h} onClick={() => col && toggleSort(col as keyof BrandRanking)}
-                  className={`text-[12px] font-mono text-[var(--color-text-secondary)] uppercase tracking-[1.5px] px-3 py-2.5 text-left bg-[var(--color-surface-elevated)] border-b border-[var(--color-border)] ${col ? "cursor-pointer hover:text-[#e8ecf4]" : ""} ${sort === col ? "text-emerald-400" : ""}`}>
-                  {h}{sort === col ? (dir === -1 ? " ↓" : " ↑") : ""}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? <tr><td colSpan={8} className="text-center py-12 text-[var(--color-text-secondary)] text-[12px]">Loading brand rankings…</td></tr> :
-              loadError ? (
-                <tr><td colSpan={8} className="text-center py-12 px-4">
-                  <div className="text-[15px] text-[var(--color-text-primary)] font-semibold mb-2">
+      <div style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 14, overflow: "hidden" }}>
+        <div className="riq-scroll-x">
+          <table style={{ width: "100%", minWidth: 620, borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                {HEADERS.map(([h, col]) => (
+                  <th key={h} onClick={() => col && toggleSort(col as keyof BrandRanking)}
+                    style={{
+                      ...TH,
+                      color: sort === col ? "var(--color-buy)" : "var(--color-graphite-muted)",
+                      cursor: col ? "pointer" : "default",
+                    }}>
+                    {h}{sort === col ? (dir === -1 ? " ↓" : " ↑") : ""}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>Loading brand rankings…</td></tr>
+              ) : loadError ? (
+                <tr><td colSpan={8} style={{ padding: "32px 16px", textAlign: "center" }}>
+                  <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
                     {loadError === "auth" ? "Brand rankings are part of a paid plan" : "Couldn't load brand rankings"}
                   </div>
-                  <div className="text-[13px] text-[var(--color-text-secondary)] mb-4 max-w-[420px] mx-auto">
+                  <div style={{ fontSize: 14, color: "var(--color-graphite-muted)", marginBottom: 20, maxWidth: 420, margin: "0 auto 20px" }}>
                     {loadError === "auth"
                       ? "We track 55 brands across Vinted ES, FR, DE, IT and PT — ranked by what actually left the shelf this week. Starter unlocks the full table."
                       : "This is a connection problem on our side, not an empty dataset. Try again in a moment."}
                   </div>
                   {loadError === "auth"
-                    ? <Link href="/pricing" className="inline-flex items-center justify-center min-h-[44px] px-5 rounded-lg bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[14px]">Unlock 55 brands →</Link>
-                    : <button onClick={() => window.location.reload()} className="inline-flex items-center justify-center min-h-[44px] px-5 rounded-lg border border-[var(--color-border-2)] text-[var(--color-text-primary)] font-semibold text-[14px]">Retry</button>}
+                    ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>Unlock 55 brands →</Link>
+                    : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>Retry</button>}
                 </td></tr>
-              ) :
-              sorted.length === 0 ? (
-                <tr><td colSpan={8} className="text-center py-12 text-[13px] text-[var(--color-text-secondary)]">
+              ) : sorted.length === 0 ? (
+                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>
                   No brand rankings yet — the weekly ranking rebuilds as departures are observed.
                 </td></tr>
-              ) :
-              sorted.map((b, i) => (
-                <tr key={b.brand} onClick={() => window.location.href = `/deals?brand=${encodeURIComponent(b.brand)}`}
-                  className="hover:bg-[var(--color-surface-elevated)] cursor-pointer transition-colors border-b border-[var(--color-border)] last:border-0">
-                  <td className="px-3 py-2.5 font-mono text-[12px] text-[var(--color-text-secondary)]">#{b.rank}</td>
-                  <td className="px-3 py-2.5 font-semibold text-[14px]">{b.brand}</td>
-                  <td className="px-3 py-2.5 font-mono text-[12px]">{eur(b.avg_price_eur)}</td>
-                  <td className="px-3 py-2.5 font-mono font-bold text-[12px]">{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? b.sold_7d.toLocaleString("en-GB") : "—"}</td>
-                  <td className="px-3 py-2.5"><span className={`text-[12px] font-mono font-bold px-2 py-1 rounded border ${SPEED_COLORS[b.speed_label] ?? ""}`}>{b.speed_label}</span></td>
-                  <td className="px-3 py-2.5"><span className={`text-[12px] font-mono font-bold px-2 py-1 rounded border ${b.profit_label === "High" ? SPEED_COLORS["Very Fast"] : b.profit_label === "Medium" ? SPEED_COLORS["Medium"] : SPEED_COLORS["Slow"]}`}>{b.profit_label}</span></td>
-                  <td className="px-3 py-2.5 font-mono text-[12px]">{b.demand_score?.toFixed(0) ?? "—"}</td>
-                  <td className="px-3 py-2.5 text-[12px] text-[#8fa3c4]">{b.categories?.slice(0, 3).join(", ")}</td>
+              ) : sorted.map((b) => (
+                <tr key={b.brand}
+                  style={{ background: "transparent", transition: "background var(--motion-fast)", cursor: "pointer" }}
+                  onClick={() => window.location.href = `/deals?brand=${encodeURIComponent(b.brand)}`}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,.025)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                  <td style={{ ...TD, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>#{b.rank}</td>
+                  <td style={{ ...TD, fontWeight: 600 }}>{b.brand}</td>
+                  <td style={{ ...TD, fontVariantNumeric: "tabular-nums" }}>{eur(b.avg_price_eur)}</td>
+                  <td style={{ ...TD, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? b.sold_7d.toLocaleString("en-GB") : "—"}</td>
+                  <td style={TD}>
+                    <span style={{ ...SPEED_STYLE[b.speed_label] ?? {}, fontSize: 12, fontWeight: 700, padding: "2px 8px", borderRadius: 6, display: "inline-block", fontVariantNumeric: "tabular-nums" }}>
+                      {b.speed_label}
+                    </span>
+                  </td>
+                  <td style={TD}>
+                    <span style={{ ...profitStyle(b.profit_label), fontSize: 12, fontWeight: 700, padding: "2px 8px", borderRadius: 6, display: "inline-block" }}>
+                      {b.profit_label}
+                    </span>
+                  </td>
+                  <td style={{ ...TD, fontVariantNumeric: "tabular-nums" }}>{b.demand_score?.toFixed(0) ?? "—"}</td>
+                  <td style={{ ...TD, color: "var(--color-graphite-muted)", fontSize: 12 }}>{b.categories?.slice(0, 3).join(", ")}</td>
                 </tr>
-              ))
-            }
-          </tbody>
-        </table></div>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </AppShell>
   )
