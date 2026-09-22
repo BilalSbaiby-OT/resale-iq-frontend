@@ -249,6 +249,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-20",
     category: "Pricing",
     readMins: 6,
+    preflightQuery: "New Balance 530",
     intro:
       "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal we track 5,341,780 listings. Eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
     definedTerm: {
@@ -320,6 +321,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 199 departures in the last 30 days. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 101 departures in the last 30 days. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
     sections: [
@@ -418,6 +420,7 @@ export const POSTS: BlogPost[] = [
     description: "Fees, audience and real sell-through compared on tracked EU listings — which platform actually pays you more.",
     date: "2026-08-29",
     updated: "2026-09-20",
+    preflightQuery: "Adidas Samba",
     category: "Platforms",
     readMins: 11,
     intro:
@@ -540,6 +543,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-13",
     category: "Metrics",
     readMins: 4,
+    preflightQuery: "New Balance 530",
     intro:
       "Sell-through rate is the metric most new resellers ignore and most pros obsess over. It measures how quickly your stock actually sells — and it decides how fast your money compounds.",
     definedTerm: {
@@ -588,6 +592,7 @@ export const POSTS: BlogPost[] = [
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
+    preflightQuery: "Nike Air Force 1",
     readMins: 5,
     intro:
       "As of 20 September 2026, we watched 566 listings leave the shelf across 20 published brands this week, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. The fastest pairs to hunt are not the cheapest logos. Patagonia Jackets recorded 45 watched departures at €39, Stone Island Hoodies 29 at €52, and New Balance Sneakers 22 at €48. Weekly counts are a lower bound: listings first seen already gone do not enter the 7-day figure. To find items worth flipping, start from proven demand rather than from what looks cheap: pick categories that are actually leaving the shelf, know each one's buy-below, then hunt listings under it — in a charity shop, a Facebook lot, or on Vinted. That turns sourcing into a filter instead of a scroll. We do not see sale receipts. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
@@ -653,6 +658,7 @@ export const POSTS: BlogPost[] = [
     date: "2026-09-05",
     updated: "2026-09-14",
     category: "Business",
+    preflightQuery: "Adidas Samba",
     readMins: 5,
     intro:
       "There's no single number — it depends entirely on which brand and category you source. As of 14 September 2026, category prices we track range from €12 (Pull&Bear Hoodies) to €306 (Gucci Bags) across the 28 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 455 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 12 departures in the last 30 days and €156 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
@@ -696,6 +702,7 @@ export const POSTS: BlogPost[] = [
     date: "2026-08-05",
     category: "Business",
     readMins: 5,
+    preflightQuery: "New Balance 530",
     intro:
       "Most reselling losses aren't dramatic — they're quiet: cash tied up in stock that won't sell, a few euros lost per item on bad pricing. Here are the seven that add up fastest.",
     sections: [
@@ -735,6 +742,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-14",
     category: "Pricing",
     readMins: 5,
+    preflightQuery: "Adidas Samba",
     intro:
       "Ask a struggling reseller their sale price and they'll know it. Ask their buy-below price and they'll pause. That gap is where profit leaks. Here's the number that fixes it.",
     definedTerm: {
