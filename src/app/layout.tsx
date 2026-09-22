@@ -24,7 +24,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 
 // EX-HOMEPAGE-AEO — answer-first, brand suffix. Demand OS, not Vinted-sourcing.
 // Soft cap 60. H1 on `/` stays t.heroHeadline.
-const TITLE = "Know what sells before you buy — Resale IQ"
+const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 
 // The dataset size is FETCHED, never typed. Two literal "900,000+" strings
 // lived here — one in the meta description, one in the JSON-LD — and by
@@ -34,7 +34,7 @@ const TITLE = "Know what sells before you buy — Resale IQ"
 // simply never migrated. Floored to 10k, so the "+" stays true between the
 // hourly refreshes.
 const desc = (tracked: string) =>
-  `What sells, what it is worth, whether to buy. ${tracked} listings across Spain, France, Germany, Italy and Portugal.`
+  `A ranked list of the second-hand clothing worth buying to resell right now — what is leaving the shelf and the most to pay for it. ${tracked} live listings across Spain, France, Germany, Italy and Portugal.`
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()

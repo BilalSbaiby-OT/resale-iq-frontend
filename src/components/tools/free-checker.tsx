@@ -497,7 +497,7 @@ export function FreeChecker({
           placeholder={resolvedPlaceholder}
           aria-label={t.inputAriaLabel}
           toolparamdescription={CHECK_VINTED_ITEM_QUERY_DESCRIPTION}
-          style={{ background: "var(--color-bg-2)", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "#eef1f7", fontSize: hero ? 16 : 15, fontWeight: 400, outline: "none" }}
+          style={{ background: "var(--color-bg-2)", border: hero ? "1px solid var(--color-border-2)" : "1px solid var(--color-border)", borderRadius: hero ? 12 : 10, padding: hero ? "15px 16px" : "13px 15px", color: "var(--color-text-primary)", fontSize: 16, fontWeight: 400, outline: "none", minHeight: 44 }}
         />
         <button
           type="submit"

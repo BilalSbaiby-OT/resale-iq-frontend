@@ -157,14 +157,14 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   const titleMatch = layout.match(/const TITLE = "([^"]+)"/)
   assert.ok(titleMatch)
   const title = titleMatch[1]
-  assert.equal(title, "Know what sells before you buy — Resale IQ")
+  assert.equal(title, "What to buy this week to resell on Vinted — Resale IQ")
   assert.ok(title.length <= 60)
   assert.match(title, /Resale IQ/)
-  assert.match(title, /what sells/)
+  assert.match(title, /What to buy/)
   assert.doesNotMatch(title, /Know what to pay/)
   assert.match(
     layout,
-    /What sells, what it is worth, whether to buy\. \$\{tracked\} listings across Spain, France, Germany, Italy and Portugal\./,
+    /A ranked list of the second-hand clothing worth buying to resell right now/,
   )
   assert.match(layout, /openGraph: \{[\s\S]*title: TITLE/)
   assert.match(layout, /twitter: \{[\s\S]*title: TITLE/)
@@ -173,7 +173,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   assert.doesNotMatch(home, /twitter:/)
   // Conversion H1 stays on the landing copy, not the document title.
   const i18n = read("lib/i18n.ts")
-  assert.match(i18n, /heroHeadline: "Know the buy-below price before you source\."/)
+  assert.match(i18n, /heroHeadline: "Know what to buy this week to resell on Vinted\."/)
 })
 
 test("layout Organization + SoftwareApplication JSON-LD stays valid", () => {

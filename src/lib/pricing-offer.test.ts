@@ -63,12 +63,15 @@ test("Starter trust line and public-data demote are in EN + ES copy", () => {
   assert.doesNotMatch(copy.es.tiers.free.cta, /Start free|Empieza gratis/i)
 })
 
-test("homepage H1 is demand OS, not Know-what-to-pay", () => {
-  assert.equal(copy.en.heroHeadline, "Know the buy-below price before you source.")
-  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP|BUY \/  WATCH \/ SKIP/)
-  assert.match(copy.en.heroSub, /Vinted|Samba/)
+test("homepage H1 sells the buy list, not a per-item price lookup", () => {
+  assert.equal(copy.en.heroHeadline, "Know what to buy this week to resell on Vinted.")
+  assert.match(copy.en.heroSub, /ranked list/)
+  assert.match(copy.en.heroSub, /Vinted/)
   assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)
   assert.doesNotMatch(copy.en.heroSub, /Know what to pay/i)
+  // The product answers "what inventory should I buy", not "is THIS item worth
+  // buying" — the per-item promise is what produced 0 BUY verdicts for trial users.
+  assert.doesNotMatch(copy.en.heroHeadline, /buy-below price before you source/i)
 })
 
 test("Stripe Starter/Pro placeholders are unchanged", () => {

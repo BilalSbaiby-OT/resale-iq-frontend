@@ -132,13 +132,19 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   assert.match(landing, /riq-sr-only/)
   assert.match(landing, /riq-home-teaser-cite/)
   assert.match(landing, /brandsTracked \?\? market\.brandCount/)
+  // Positioning (2026-09-22): the hero sells the RANKED BUY LIST — "what
+  // inventory should I buy this week" — not a per-item price lookup. The old
+  // copy promised "type any model, get BUY/WATCH/SKIP", which the verdict logs
+  // showed we answer with WATCH/UNKNOWN almost every time: 4 trial users ran 22
+  // searches and received ZERO BUY verdicts, then declined to pay. Assert the
+  // demand framing, and assert the per-item promise is NOT being made.
   assert.equal(
     copy.en.heroSub,
-    "Type any secondhand clothing model. Get BUY / WATCH / SKIP and the most you can pay to still profit on Vinted EU. Free for Samba and Air Force 1.",
+    "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted EU data.",
   )
-  assert.match(copy.en.heroSub, /BUY \/ WATCH \/ SKIP/)
-  assert.match(copy.en.heroSub, /Samba/)
-  assert.doesNotMatch(copy.en.heroSub, /Second-hand clothes/)
+  assert.match(copy.en.heroSub, /ranked list/)
+  assert.match(copy.en.heroSub, /leaving the shelf/)
+  assert.doesNotMatch(copy.en.heroSub, /Type any/)
 })
 
 test("landing teaches three steps and honest coverage, and does not ship heroHonesty", () => {

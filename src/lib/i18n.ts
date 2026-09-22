@@ -136,14 +136,14 @@ export const copy = {
       showing: (shown: number, total: number) => `Showing ${shown} of ${total} brands`,
       seeAll: "See all on /data",
     },
-    heroHeadline: "Know the buy-below price before you source.",
+    heroHeadline: "Know what to buy this week to resell on Vinted.",
     heroSub:
-      "Type any secondhand clothing model. Get BUY / WATCH / SKIP and the most you can pay to still profit on Vinted EU. Free for Samba and Air Force 1.",
+      "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted EU data.",
     howToHeading: "How it works",
     howToSteps: [
-      "Type a brand + model (e.g. Adidas Samba, Nike Air Force 1, NB 530).",
-      "Get BUY / WATCH / SKIP and the buy-below price — the max to pay and still make margin.",
-      "Source under that number. Skip anything above it.",
+      "Open the buy list — what's selling fastest across the brands we watch this week.",
+      "Each row gives you the verdict, weekly departures and the most you can pay and still make margin.",
+      "Buy under that number. Skip the rest.",
     ],
     howToCoverage:
       "Covers 28+ brands across Vinted ES, FR, DE, IT, PT. Samba, Air Force 1 and NB 530 are free — no account needed. Other models unlock with Starter at €19/mo.",
