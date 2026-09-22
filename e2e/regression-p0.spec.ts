@@ -354,7 +354,8 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     await page.getByRole("button", { name: /Check this item/i }).click()
     const wall = page.getByTestId("riq-hard-paywall")
     await expect(wall).toBeVisible()
-    await expect(wall).toContainText(/Start — €19/)
+    // H63 CRO changed the paywall CTA copy from "Start — €19" to "Unlock buy-below — €19/mo"
+    await expect(wall).toContainText(/Unlock buy-below — €19\/mo/)
     // The locked buy_below value (32.01) and sell_avg (48.14) must never render.
     // Note: the copy intentionally says "buy-below price" as CRO — the test guards
     // the numeric value leaking, not the word.

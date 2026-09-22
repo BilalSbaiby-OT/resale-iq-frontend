@@ -170,8 +170,9 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   await expect(page.getByTestId("riq-starter-trust")).toContainText(/listings watched/)
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
-  // Free forever must not lead — first CTA is Starter (H27: "Start for €19").
-  await expect(page.locator("section.riq-pricing button").first()).toHaveText(/Start for €19/i)
+  // Free forever must not lead — first tier CTA is Starter (H27: "Start for €19").
+  // Use data-testid to skip TryFreeInput's submit button which is also in the section (H61).
+  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
   // One filled accent CTA on the page; the other tier buttons are ghosts.
   const buttons = page.locator("section.riq-pricing button")
   const filled: string[] = []

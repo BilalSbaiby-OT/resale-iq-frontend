@@ -12,7 +12,7 @@ test.describe("checkout branding + first check", () => {
     await page.goto("/es/pricing")
     await expect(page.getByTestId("riq-billing-country")).toBeVisible()
     await expect(page.locator("#riq-vat-country")).toHaveValue("ES")
-    await page.locator("section.riq-pricing button").first().click()
+    await page.getByTestId("riq-pricing-cta-operator").click()
     await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
     expect(posts.length).toBeGreaterThan(0)
     const body = posts[0]
