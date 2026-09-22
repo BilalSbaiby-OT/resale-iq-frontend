@@ -2,13 +2,14 @@
 import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { Check } from "lucide-react"
+import { Check, TrendingUp } from "lucide-react"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
 import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -19,6 +20,17 @@ import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-i
 // advertised everywhere and reachable nowhere.
 const PLAN_IDS = ["power", "operator"] as const
 type PlanId = (typeof PLAN_IDS)[number]
+
+// Top-moving brand/category pairs shown to prove product value at the point of
+// checkout. These are the items a new subscriber will actually be able to check.
+// Sourced live from /api/public/market-snapshot; static fallback is last verified
+// values (2026-09-22) so the preview never renders empty.
+type DemandRow = SnapshotBrandRow
+const DEMAND_FALLBACK: DemandRow[] = [
+  { brand: "Stone Island", category: "Hoodies",     sold_7d: 102, avg_price_eur: 58 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+  { brand: "Patagonia",    category: "Fleece",       sold_7d: 22,  avg_price_eur: 46 },
+]
 
 /** ONLY the real plan ids select a plan. Everything else — missing, unknown,
  *  or a display name — resolves to operator (Starter). */
@@ -52,6 +64,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const [checkoutRetry, setCheckoutRetry] = useState(false)
   // Real prices from Stripe, keyed by plan id. Falls back to null → "…" until loaded.
   const [prices, setPrices] = useState<Record<string, number>>({})
+  const [demandRows, setDemandRows] = useState<DemandRow[]>(DEMAND_FALLBACK)
   const stripePlans = useRef<{ id: string; price_id?: string }[]>([])
   const registeredRef = useRef(false)
   const { register } = useAuthStore()
@@ -64,6 +77,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
       d.plans.forEach(p => { m[p.id] = p.price_eur })
       setPrices(m)
     }).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    // Live demand numbers to show product value at point of checkout.
+    // Same pattern as check-email-content.tsx (C132). Falls back silently.
+    fetchTopBrandRows(3, DEMAND_FALLBACK).then(rows => setDemandRows(rows)).catch(() => {})
   }, [])
 
   const formFocused = useRef(false)
@@ -170,6 +189,37 @@ function RegisterContent({ locale }: { locale: Locale }) {
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">
           {t.paidSubheading}
         </p>
+
+        {/* What a subscriber unlocks — live top-moving items so the number
+            justifies the price before the visitor hits their card. Same signal
+            check-email-content.tsx shows; here it answers "why €19/mo now?" */}
+        <div className="mb-5 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-xl p-4">
+          <div className="flex items-center gap-1.5 mb-3">
+            <TrendingUp size={13} className="text-[var(--color-buy)]" />
+            <span className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
+              What&apos;s moving on Vinted right now
+            </span>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            {demandRows.map(r => (
+              <div key={`${r.brand}-${r.category}`}
+                className="flex items-center justify-between py-1.5 border-b border-[var(--color-border-2)] last:border-0">
+                <div>
+                  <span className="text-[12.5px] font-semibold text-[var(--color-text-primary)]">{r.brand}</span>
+                  <span className="text-[11.5px] text-[var(--color-text-muted)] ml-1.5">{r.category}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[12.5px] font-bold text-[var(--color-buy)]">
+                    {r.sold_7d.toLocaleString()}
+                  </span>
+                  <span className="text-[10.5px] text-[var(--color-text-muted)] ml-1">/7d</span>
+                  <div className="text-[11px] text-[var(--color-text-secondary)]">avg €{r.avg_price_eur}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           {/* Google Sign-In — hidden until backend confirms credentials exist */}
           <GoogleSignInButton label="Continue with Google" />

@@ -9,17 +9,18 @@ import {
   AuthCard, AUTH_ACCENT, AUTH_ACCENT_BUTTON,
   AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
 // for their verification email: the goal is to make them WANT to click the link.
-const FALLBACK_BRANDS = [
+const FALLBACK_BRANDS: SnapshotBrandRow[] = [
   { brand: "New Balance", category: "Sneakers", sold_7d: 383, avg_price_eur: 43 },
   { brand: "Nike",        category: "Sneakers", sold_7d: 129, avg_price_eur: 48 },
   { brand: "Adidas",      category: "Sneakers", sold_7d: 126, avg_price_eur: 57 },
 ]
 
-type BrandRow = { brand: string; category: string; sold_7d: number; avg_price_eur: number }
+type BrandRow = SnapshotBrandRow
 
 export function CheckEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.checkEmail
@@ -37,23 +38,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     // Fetch live numbers from the public snapshot so the preview is always
     // current. Falls back to FALLBACK_BRANDS silently — the user still sees
     // real-looking data while we wait for the network.
-    fetch("/api/public/market-snapshot")
-      .then(r => r.json())
-      .then((d: { brands?: Array<{ brand: string; sold_7d: number; avg_price_eur: number; top_categories?: string[]; categories?: Array<{ category: string; sold_7d: number; avg_price_eur: number }> }> }) => {
-        if (!Array.isArray(d.brands)) return
-        // Pick top 3 by sold_7d, flatten to their best category
-        const rows: BrandRow[] = d.brands
-          .flatMap(b => {
-            if (!Array.isArray(b.categories)) return [{ brand: b.brand, category: b.top_categories?.[0] ?? "", sold_7d: b.sold_7d, avg_price_eur: b.avg_price_eur }]
-            const best = [...b.categories].sort((a, b) => b.sold_7d - a.sold_7d)[0]
-            return best ? [{ brand: b.brand, category: best.category, sold_7d: best.sold_7d, avg_price_eur: best.avg_price_eur }] : []
-          })
-          .filter(r => r.sold_7d >= 5)
-          .sort((a, b) => b.sold_7d - a.sold_7d)
-          .slice(0, 3)
-        if (rows.length >= 3) setBrands(rows)
-      })
-      .catch(() => { /* keep FALLBACK_BRANDS */ })
+    fetchTopBrandRows(3, FALLBACK_BRANDS).then(rows => setBrands(rows)).catch(() => {})
   }, [])
 
   const handleResend = async () => {
