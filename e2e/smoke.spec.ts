@@ -173,8 +173,9 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   // Free forever must not lead — first tier CTA is Starter (H27: "Start for €19").
   // Use data-testid to skip TryFreeInput's submit button which is also in the section (H61).
   await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
-  // One filled accent CTA on the page; the other tier buttons are ghosts.
-  const buttons = page.locator("section.riq-pricing button")
+  // One filled accent CTA among the TIER buttons (not TryFreeInput submit, which is also green).
+  // Scope to data-testid pattern so we only count tier plan buttons.
+  const buttons = page.locator("[data-testid^='riq-pricing-cta-']")
   const filled: string[] = []
   for (let i = 0; i < (await buttons.count()); i++) {
     const bg = await buttons.nth(i).evaluate((el) => getComputedStyle(el).backgroundColor)
