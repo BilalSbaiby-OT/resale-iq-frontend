@@ -22,7 +22,7 @@ import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictWord } from "@/lib/verdict-words"
-import { WORKING_MODELS } from "@/lib/working-models"
+import { WORKING_MODELS, FREE_MODELS } from "@/lib/working-models"
 import { ModelChips } from "@/components/tools/model-chips"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { seedWorthShowing } from "@/lib/seed-verdict"
@@ -265,7 +265,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(result.categories ?? []),
                   )}
                 </div>
-                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
                 {result.category_aggregates && result.category_aggregates.length > 0 && (
                   <div className="flex flex-col gap-2 mt-4">
                     {result.category_aggregates.map(a => (
@@ -285,13 +285,31 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             ) : result.verdict === "BRAND_AVERAGE" ? (
               <>
+                {/*
+                  BUY BELOW must lead (2026-09-22). This grid used to open with
+                  AVG AT EXIT and never showed a buy-below at all, so searching
+                  "Stone Island hoodie" returned an average with no actionable
+                  number — while the homepage advertised Stone Island Hoodies as
+                  STRONG BUY. A reseller standing in a shop needs the max price
+                  to pay; that is the entire product. The backend now returns
+                  buy_below on aggregates (avg × 0.95 × 0.70, the same published
+                  rule used everywhere else), and `limitation` still states this
+                  is the brand/category average rather than that exact model.
+                */}
                 <div className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
+                  <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} />
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
                   <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
                   <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
                 </div>
                 <div className="p-6">
-                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+                  {/*
+                    FREE_MODELS, not WORKING_MODELS: this chip row was offering
+                    Levi's 501 and NB 550, which are PAYWALLED. Suggesting
+                    "try one of these instead" and then walling the suggestion
+                    is the worst possible sequence for a first-time visitor.
+                  */}
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
                 </div>
               </>
             ) : result.verdict === "OVERSUPPLIED" ? (
@@ -331,7 +349,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 )}
                 <div className="p-6 text-[13px] text-[#8b99b8]">
                   <p>{result.verdict === "UNKNOWN" ? t.unknownBody : (result.confidence_note || result.message || t.unknownBody)}</p>
-                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
                   <div style={{ marginTop: 10 }}>
                     <Link
                       href={canonicalPath(locale, "/data")}
@@ -369,7 +387,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6 mt-6">
             <p>{t.empty}</p>
-            <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
+            <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
             {/* IQ-060: paid sessions (operator/power) already have the checker
                 open. Selling Starter €19 here is the founder-reported lie.
                 Anonymous / free keep the pricing nudge. */}
