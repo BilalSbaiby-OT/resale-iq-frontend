@@ -28,9 +28,9 @@ export default function TrendsPage() {
             {loading ? Array(5).fill(0).map((_, i) => <div key={i} className="h-20 bg-[var(--color-surface-elevated)] rounded-xl animate-pulse" />) :
               data?.categories?.slice(0, 10).map(c => (
                 <Link key={c.category} href={`/deals?category=${encodeURIComponent(c.category)}`}
-                  className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-xl p-3 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all cursor-pointer">
+                  className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-xl p-3 hover:border-[rgba(52,199,89,0.30)] hover:bg-[rgba(52,199,89,0.05)] transition-all cursor-pointer">
                   <div className="font-bold text-[13px] mb-1">{c.category}</div>
-                  <div className="font-mono text-[18px] font-extrabold text-emerald-400">{c.sold_7d != null ? c.sold_7d.toLocaleString() : "—"}</div>
+                  <div className="font-mono text-[18px] font-extrabold text-[var(--color-buy)]">{c.sold_7d != null ? c.sold_7d.toLocaleString() : "—"}</div>
                   <div className="text-[12px] text-[var(--color-text-secondary)]">units/7d · avg {c.avg_price ? eur(c.avg_price) : "—"}</div>
                 </Link>
               ))
@@ -41,12 +41,12 @@ export default function TrendsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
             <div className="px-4 py-3 border-b border-[var(--color-border)]">
-              <div className="font-bold text-[13px] flex items-center gap-1.5"><Flame size={14} className="text-amber-400" /> Trending Right Now</div>
+              <div className="font-bold text-[13px] flex items-center gap-1.5"><Flame size={14} className="text-[var(--color-watch)]" /> Trending Right Now</div>
               {/* HOT ∪ RISING is p>=.70, i.e. the top 30% of the rank. Name the
                   rank, not the two bucket keys the chip no longer displays. */}
               <div className="text-[12px] text-[#8fa3c4]">Top 30% by departure rank</div>
             </div>
-            <div className="divide-y divide-[#1e2535]">
+            <div className="divide-y divide-[var(--color-border)]">
               {loading ? <div className="text-center py-8 text-[var(--color-text-secondary)] text-[12px]">Loading…</div> :
                 (data?.trending_models ?? []).filter(m => m.momentum_label === "HOT" || m.momentum_label === "RISING").slice(0, 10).map((m, i) => (
                   <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-surface-elevated)]">
@@ -64,10 +64,10 @@ export default function TrendsPage() {
 
           <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
             <div className="px-4 py-3 border-b border-[var(--color-border)]">
-              <div className="font-bold text-[13px] flex items-center gap-1.5"><Star size={14} className="text-emerald-400" /> Best Opportunity Scores</div>
+              <div className="font-bold text-[13px] flex items-center gap-1.5"><Star size={14} className="text-[var(--color-buy)]" /> Best Opportunity Scores</div>
               <div className="text-[12px] text-[#8fa3c4]">Highest scoring models</div>
             </div>
-            <div className="divide-y divide-[#1e2535]">
+            <div className="divide-y divide-[var(--color-border)]">
               {loading ? <div className="text-center py-8 text-[var(--color-text-secondary)] text-[12px]">Loading…</div> :
                 [...(data?.trending_models ?? [])]
                   .filter((m): m is typeof m & { opportunity_score: number } => typeof m.opportunity_score === "number")

@@ -5,7 +5,7 @@ import { getPortfolio, getPortfolioStats, addPortfolioItem, updatePortfolioItem,
 import { eur } from "@/lib/utils"
 import type { PortfolioItem, PortfolioStats } from "@/types"
 
-const STATUS_STYLES = { sourced: "bg-blue-500/10 border-blue-500/30 text-blue-400", listed: "bg-amber-500/10 border-amber-500/30 text-amber-400", sold: "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" }
+const STATUS_STYLES = { sourced: "bg-[rgba(10,132,255,0.10)] border-[rgba(10,132,255,0.30)] text-[var(--color-blue)]", listed: "bg-[rgba(255,159,10,0.10)] border-[rgba(255,159,10,0.30)] text-[var(--color-watch)]", sold: "bg-[rgba(52,199,89,0.10)] border-[rgba(52,199,89,0.30)] text-[var(--color-buy)]" }
 
 export default function PortfolioPage() {
   const [items, setItems] = useState<PortfolioItem[]>([])
@@ -44,7 +44,7 @@ export default function PortfolioPage() {
   return (
     <AppShell title="Portfolio & P&L" subtitle="Track every item from sourcing to sold">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
-        {[["Total Items", stats?.total_items ?? "—", ""], ["Cost basis", stats?.total_invested != null ? eur(stats.total_invested) : "—", "text-amber-400"], ["Realized profit", stats?.realized_profit != null ? eur(stats.realized_profit) : "—", "text-emerald-400"], ["Avg ROI (sold)", stats?.avg_roi_pct != null ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-emerald-400"], ["Avg days held", stats?.avg_days_held != null ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
+        {[["Total Items", stats?.total_items ?? "—", ""], ["Cost basis", stats?.total_invested != null ? eur(stats.total_invested) : "—", "text-[var(--color-watch)]"], ["Realized profit", stats?.realized_profit != null ? eur(stats.realized_profit) : "—", "text-[var(--color-buy)]"], ["Avg ROI (sold)", stats?.avg_roi_pct != null ? `${stats.avg_roi_pct.toFixed(0)}%` : "—", "text-[var(--color-buy)]"], ["Avg days held", stats?.avg_days_held != null ? `${Math.round(stats.avg_days_held)}d` : "—", ""]].map(([l, v, c]) => (
           <div key={String(l)} className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-3">
             <div className="text-[12px] font-mono text-[var(--color-text-secondary)] uppercase tracking-[1.5px] mb-1">{l}</div>
             <div className={`font-mono font-bold text-[20px] ${c}`}>{v}</div>
@@ -54,9 +54,9 @@ export default function PortfolioPage() {
       <p className="text-[12px] text-[#5b6b8c] mb-4 -mt-2">Cost basis and realized P&amp;L from the items you logged. This is not a mark-to-market portfolio value.</p>
       <div className="flex gap-2 mb-4">
         {["", "sourced", "listed", "sold"].map(s => (
-          <button key={s} onClick={() => setFilter(s)} className={`px-4 py-1.5 rounded-lg text-[11.5px] font-semibold border transition-all capitalize ${filter === s ? "bg-emerald-500/10 border-emerald-500 text-emerald-400" : "bg-[var(--color-bg-3)] border-[var(--color-border-2)] text-[#8fa3c4]"}`}>{s || "All"}</button>
+          <button key={s} onClick={() => setFilter(s)} className={`px-4 py-1.5 rounded-lg text-[11.5px] font-semibold border transition-all capitalize ${filter === s ? "bg-[rgba(52,199,89,0.10)] border-[var(--color-accent)] text-[var(--color-buy)]" : "bg-[var(--color-bg-3)] border-[var(--color-border-2)] text-[#8fa3c4]"}`}>{s || "All"}</button>
         ))}
-        <button onClick={() => setShowAdd(true)} className="ml-auto bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-1.5 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Add item</button>
+        <button onClick={() => setShowAdd(true)} className="ml-auto bg-[rgba(52,199,89,0.10)] border border-[var(--color-accent)] text-[var(--color-buy)] font-semibold text-[12px] px-4 py-1.5 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Add item</button>
       </div>
       {showAdd && (
         <div className="fixed inset-0 bg-[#0B0D10]/90 z-50 flex items-center justify-center p-6">
@@ -65,12 +65,12 @@ export default function PortfolioPage() {
             {[["Brand*","brand","Nike"],["Model*","model","Air Max 90"],["Size","size","42"],["Cost (€)*","cost_eur","45"]].map(([l,k,ph]) => (
               <div key={String(k)}>
                 <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1">{l}</label>
-                <input value={form[k as keyof typeof form]} onChange={e => setForm({...form, [k]: e.target.value})} placeholder={String(ph)} className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
+                <input value={form[k as keyof typeof form]} onChange={e => setForm({...form, [k]: e.target.value})} placeholder={String(ph)} className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-[rgba(52,199,89,0.60)]" />
               </div>
             ))}
             <div className="flex gap-2 mt-1">
               <button onClick={() => setShowAdd(false)} className="flex-1 border border-[var(--color-border-2)] rounded-lg py-2.5 text-[12px] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)]">Cancel</button>
-              <button onClick={addItem} className="flex-1 bg-emerald-400 text-[#0B0D10] font-semibold text-[12.5px] rounded-lg py-2.5 hover:bg-emerald-300">Add item</button>
+              <button onClick={addItem} className="flex-1 bg-[var(--color-accent)] text-[var(--color-on-accent)] font-semibold text-[12.5px] rounded-lg py-2.5 hover:opacity-90">Add item</button>
             </div>
           </div>
         </div>
@@ -91,12 +91,12 @@ export default function PortfolioPage() {
                   <td className="px-3 py-2.5 font-mono text-[12px]">{eur(item.list_price_eur)}</td>
                   <td className="px-3 py-2.5 text-[12px] text-[#8fa3c4]">{item.platform}</td>
                   <td className="px-3 py-2.5"><span className={`text-[12px] font-mono font-bold px-2 py-0.5 rounded-full border ${STATUS_STYLES[item.status]}`}>{item.status}</span></td>
-                  <td className={`px-3 py-2.5 font-mono font-bold text-[13px] ${profit != null ? profit >= 0 ? "text-emerald-400" : "text-red-400" : "text-[var(--color-text-secondary)]"}`}>{profit != null ? `${profit >= 0 ? "+" : ""}${eur(profit)}` : "—"}</td>
+                  <td className={`px-3 py-2.5 font-mono font-bold text-[13px] ${profit != null ? profit >= 0 ? "text-[var(--color-buy)]" : "text-[var(--color-skip)]" : "text-[var(--color-text-secondary)]"}`}>{profit != null ? `${profit >= 0 ? "+" : ""}${eur(profit)}` : "—"}</td>
                   <td className="px-3 py-2.5 font-mono text-[12px] text-[var(--color-text-secondary)]">{item.days_held != null ? `${item.days_held}d` : "—"}</td>
                   <td className="px-3 py-2.5 flex gap-1">
-                    {item.status === "sourced" && <button onClick={() => markListed(item.id)} className="text-[12px] px-2 py-1 border border-amber-500/40 text-amber-400 rounded hover:bg-amber-500/10">List</button>}
-                    {item.status === "listed" && <button onClick={() => markSold(item.id)} className="text-[12px] px-2 py-1 border border-emerald-500/40 text-emerald-400 rounded hover:bg-emerald-500/10">Sold</button>}
-                    <button onClick={() => del(item.id)} className="text-[12px] px-2 py-1 border border-red-500/30 text-red-400 rounded hover:bg-red-500/10">Del</button>
+                    {item.status === "sourced" && <button onClick={() => markListed(item.id)} className="text-[12px] px-2 py-1 border border-[rgba(255,159,10,0.40)] text-[var(--color-watch)] rounded hover:bg-[rgba(255,159,10,0.10)]">List</button>}
+                    {item.status === "listed" && <button onClick={() => markSold(item.id)} className="text-[12px] px-2 py-1 border border-[rgba(52,199,89,0.40)] text-[var(--color-buy)] rounded hover:bg-[rgba(52,199,89,0.10)]">Sold</button>}
+                    <button onClick={() => del(item.id)} className="text-[12px] px-2 py-1 border border-[rgba(255,69,58,0.30)] text-[var(--color-skip)] rounded hover:bg-[rgba(255,69,58,0.10)]">Del</button>
                   </td>
                 </tr>
               )

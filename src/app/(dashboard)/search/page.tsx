@@ -56,7 +56,7 @@ export default function SearchPage() {
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder="e.g. Nike Air Force 1, Levi's 501, Stone Island jacket"
-            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
+            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-[rgba(52,199,89,0.60)] placeholder:text-[var(--color-text-secondary)]" />
           <select value={market} onChange={e => setMarket(e.target.value)}
             className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
             {Object.entries(MARKETS).map(([tld, name]) => (
@@ -70,12 +70,12 @@ export default function SearchPage() {
             ))}
           </select>
           <button onClick={run} disabled={loading || !query.trim()}
-            className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap">
+            className="px-5 py-3 rounded-lg text-[13px] font-bold bg-[var(--color-accent)] text-[var(--color-on-accent)] hover:opacity-90 transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap">
             <Search size={15} />{loading ? "Searching…" : "Search"}
           </button>
         </div>
 
-        {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
+        {error && <div className="text-[13px] text-[var(--color-skip)] mb-4">{error}</div>}
 
         {/* Results */}
         {items.length > 0 && (
@@ -95,7 +95,7 @@ export default function SearchPage() {
               <div className="p-3.5">
                 <div className="text-[13px] font-medium text-[#e8ecf4] line-clamp-2 mb-1.5">{item.title}</div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[17px] font-bold text-emerald-400">{eur(item.price_eur)}</span>
+                  <span className="text-[17px] font-bold text-[var(--color-buy)]">{eur(item.price_eur)}</span>
                   {item.size && <span className="px-2 py-0.5 rounded bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] text-[12px] text-[#a9b6d0]">{item.size}</span>}
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-[var(--color-text-secondary)]">

@@ -42,14 +42,14 @@ export default function WatchlistPage() {
     <AppShell title="Watchlist" subtitle="Track brands and models you want to source">
       <MomentumWarmupNotice warmingUp={warmingUp} />
       {locked && items.length > 0 && (
-        <div className="flex items-center gap-3 bg-emerald-500/8 border border-emerald-500/25 rounded-xl px-4 py-3 mb-4 text-[12px] text-[#8fa3c4]">
-          <Lock size={14} className="text-emerald-400 shrink-0" />
+        <div className="flex items-center gap-3 bg-[rgba(52,199,89,0.08)] border border-[rgba(52,199,89,0.25)] rounded-xl px-4 py-3 mb-4 text-[12px] text-[#8fa3c4]">
+          <Lock size={14} className="text-[var(--color-buy)] shrink-0" />
           <span>Buy-below, sell price and STR are hidden on the free plan.</span>
-          <Link href="/account" className="ml-auto text-emerald-400 font-semibold whitespace-nowrap">Upgrade — €19/mo</Link>
+          <Link href="/account" className="ml-auto text-[var(--color-buy)] font-semibold whitespace-nowrap">Upgrade — €19/mo</Link>
         </div>
       )}
       <div className="flex justify-end mb-4">
-        <button onClick={() => setShowAdd(true)} className="bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Watch item</button>
+        <button onClick={() => setShowAdd(true)} className="bg-[rgba(52,199,89,0.10)] border border-[var(--color-accent)] text-[var(--color-buy)] font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors">+ Watch item</button>
       </div>
       {showAdd && (
         <div className="fixed inset-0 bg-[#0B0D10]/90 z-50 flex items-center justify-center p-6">
@@ -57,15 +57,15 @@ export default function WatchlistPage() {
             <h2 className="font-bold text-[18px]">Watch an item</h2>
             <div>
               <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1">Brand*</label>
-              <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Nike" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
+              <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Nike" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-[rgba(52,199,89,0.60)]" />
             </div>
             <div>
               <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1">Model*</label>
-              <input value={model} onChange={e => setModel(e.target.value)} placeholder="Air Max 90" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
+              <input value={model} onChange={e => setModel(e.target.value)} placeholder="Air Max 90" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-[rgba(52,199,89,0.60)]" />
             </div>
             <div className="flex gap-2">
               <button onClick={() => setShowAdd(false)} className="flex-1 border border-[var(--color-border-2)] rounded-lg py-2.5 text-[12px] text-[var(--color-text-secondary)]">Cancel</button>
-              <button onClick={add} className="flex-1 bg-emerald-400 text-[#0B0D10] font-semibold text-[12.5px] rounded-lg py-2.5">Add</button>
+              <button onClick={add} className="flex-1 bg-[var(--color-accent)] text-[var(--color-on-accent)] font-semibold text-[12.5px] rounded-lg py-2.5">Add</button>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function WatchlistPage() {
           <p className="text-[13px] text-[#8b99b8] mt-2 leading-relaxed">
             When the market moves — price, sell-through, or a listing under your buy-below — we can ping you. A WATCH becomes BUY when the ask is at or under buy-below and we have enough comparable departures. Pin the models you source so you do not have to re-check them.
           </p>
-          <button onClick={() => setShowAdd(true)} className="mt-4 bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12px] px-4 py-2 rounded-lg">Watch your first model</button>
+          <button onClick={() => setShowAdd(true)} className="mt-4 bg-[rgba(52,199,89,0.10)] border border-[var(--color-accent)] text-[var(--color-buy)] font-semibold text-[12px] px-4 py-2 rounded-lg">Watch your first model</button>
         </div>
        ) :
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -90,7 +90,7 @@ export default function WatchlistPage() {
               <div className="grid grid-cols-3 gap-2 mb-3">
                 <div className="bg-[var(--color-surface-elevated)] rounded-lg p-2">
                   <div className="text-[12px] font-mono text-[var(--color-text-secondary)] uppercase">Buy Below</div>
-                  <div className="font-mono font-bold text-[13px] mt-0.5 text-emerald-400">
+                  <div className="font-mono font-bold text-[13px] mt-0.5 text-[var(--color-buy)]">
                     {locked ? <Lock size={11} className="text-[var(--color-text-secondary)]" /> : eur(item.max_buy_price)}
                   </div>
                 </div>
@@ -102,7 +102,7 @@ export default function WatchlistPage() {
                 </div>
                 <div className="bg-[var(--color-surface-elevated)] rounded-lg p-2">
                   <div className="text-[12px] font-mono text-[var(--color-text-secondary)] uppercase">STR</div>
-                  <div className="font-mono font-bold text-[13px] mt-0.5 text-amber-400">
+                  <div className="font-mono font-bold text-[13px] mt-0.5 text-[var(--color-watch)]">
                     {/* WAS toFixed(0), which printed "0%" for every rate under
                         0.5 — 4 of the 24 models with a publishable rate in
                         production (Samba 0.19%, AF1 0.38%, NB 9060 0.39%,
@@ -114,7 +114,7 @@ export default function WatchlistPage() {
               </div>
               {item.momentum_label && <div className="mb-3"><MomentumBadge momentum={item.momentum_label} /></div>}
               <div className="flex gap-2">
-                <Link href={`/deals?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[12px] font-semibold border border-emerald-500/40 text-emerald-400 py-1.5 rounded-lg hover:bg-emerald-500/10">Find deals</Link>
+                <Link href={`/deals?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[12px] font-semibold border border-[rgba(52,199,89,0.40)] text-[var(--color-buy)] py-1.5 rounded-lg hover:bg-[rgba(52,199,89,0.10)]">Find deals</Link>
                 <Link href={`/verdict?q=${encodeURIComponent(`${item.brand} ${item.model}`)}`} className="flex-1 text-center text-[12px] font-semibold border border-[var(--color-border-2)] text-[#8fa3c4] py-1.5 rounded-lg hover:bg-[var(--color-surface-elevated)]">Verdict</Link>
               </div>
             </div>
