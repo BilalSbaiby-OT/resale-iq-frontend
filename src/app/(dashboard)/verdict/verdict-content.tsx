@@ -242,6 +242,17 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             )}
 
+            {/* D-38 (2026-09-22): 30-day demand evidence for models admitted on
+                30d sales but where weekly shelf departures are not yet observable.
+                This is NOT the weekly "left shelf" count — label and copy are
+                deliberately different. Only shown when sold_7d is absent/zero
+                AND the backend supplied sold_30d_evidence with a demand_note. */}
+            {result.sold_30d_evidence != null && (result.sold_7d == null || result.sold_7d === 0) && result.demand_note && result.verdict !== "BRAND_CATEGORIES" && (
+              <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#8b99b8]">
+                {result.demand_note}
+              </div>
+            )}
+
             {result.verdict === "LIMIT_REACHED" ? (
               <div className="p-6 text-[13px] text-[#8b99b8] leading-6">
                 <p>{t.limitReachedBody}</p>

@@ -259,6 +259,15 @@ export interface VerdictResult extends ReconstructedSignals {
   opportunity_score?: number
   sell_through_rate?: string | null
   sold_7d?: number | null
+  /** 30-day aggregate sales count — present when the model was admitted on
+   *  30-day evidence (sold_30d>=8) but weekly shelf departures are not yet
+   *  observable (shelf_blind coverage class). This is NOT weekly departures;
+   *  the frontend must label it "N sold in 30 days", never "left shelf". */
+  sold_30d_evidence?: number | null
+  /** Human-readable explanation of the 30-day evidence window, e.g.
+   *  "88 sold in 30 days (based on 30-day sales, not this week's shelf)".
+   *  Present when sold_30d_evidence is set; always describes its window. */
+  demand_note?: string | null
   n?: number | null
   active_listings?: number | null
   momentum?: string

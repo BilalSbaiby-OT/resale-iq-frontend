@@ -64,6 +64,11 @@ interface FreeVerdict extends ReconstructedSignals {
   sell_avg?: number | null
   n?: number | null
   sold_7d?: number | null
+  /** 30-day aggregate sales count — present for shelf-blind models admitted
+   *  on 30d evidence. NOT weekly departures; must be labelled differently. */
+  sold_30d_evidence?: number | null
+  /** Human-readable 30-day evidence string, e.g. "88 sold in 30 days (...)". */
+  demand_note?: string | null
   active_listings?: number | null
   confidence?: string
   confidence_note?: string
@@ -817,6 +822,13 @@ export function FreeChecker({
                 <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.message}</p>
               )}
 
+              {/* D-38: 30-day demand evidence — shown when weekly shelf departures
+                  are not yet observable but the model was admitted on 30d sales.
+                  This is NOT weekly departures. Label is distinct: "88 sold in 30 days". */}
+              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && res.demand_note && (
+                <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.demand_note}</p>
+              )}
+
               {shownCategory && (
                 <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{shownCategory}</div>
               )}
@@ -967,6 +979,11 @@ export function FreeChecker({
                   active_listings only. */}
               {sample && (
                 <p style={{ marginTop: 10, fontSize: 13.5, color: "#FF9F0A", lineHeight: 1.55 }}>{sample}</p>
+              )}
+
+              {/* D-38: 30-day demand evidence for shelf-blind models. NOT weekly departures. */}
+              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && res.demand_note && (
+                <p style={{ marginTop: 10, fontSize: 13, color: "#8b99b8", lineHeight: 1.55 }}>{res.demand_note}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has

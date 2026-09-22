@@ -71,6 +71,8 @@ export type HeroVerdict = {
   sell_avg?: number | null
   n?: number | null
   sold_7d?: number | null
+  sold_30d_evidence?: number | null
+  demand_note?: string | null
   active_listings?: number | null
   confidence?: string
   confidence_note?: string
