@@ -90,6 +90,26 @@ const CARD: React.CSSProperties = {
   padding: 20,
 }
 
+// Compact verdict badge for the hero buy-list strip.
+const VERDICT_C: Record<string, string> = {
+  "STRONG BUY": "#30D158", BUY: "#30D158", RISING: "#30D158", WATCH: "#FF9F0A", SKIP: "#8E8E93",
+}
+const VERDICT_BG_C: Record<string, string> = {
+  "STRONG BUY": "rgba(48,209,88,.18)", BUY: "rgba(48,209,88,.15)", RISING: "rgba(48,209,88,.15)", WATCH: "rgba(255,159,10,.15)", SKIP: "rgba(142,142,147,.12)",
+}
+function VerdictChip({ v }: { v: string }) {
+  const c = VERDICT_C[v] ?? "#8E8E93"
+  const bg = VERDICT_BG_C[v] ?? "rgba(142,142,147,.12)"
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: bg, border: `1px solid ${c}40`, color: c, fontWeight: 700, fontSize: 10, letterSpacing: "0.04em", borderRadius: 6, padding: "2px 6px", whiteSpace: "nowrap" }}>{v}</span>
+  )
+}
+
+interface PublicBuyItem {
+  brand: string; model?: string; category?: string; verdict: string; momentum: string
+  locked: boolean; sold_7d: number | null; avg_price_eur: number | null
+}
+
 export function DashboardContent({ locale }: { locale: Locale }) {
   const t = copy[locale].dashboard
   const a = appCopy[locale]
@@ -99,6 +119,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   const buyBelow = copy[locale].checker.buyBelow
   // Each section loads independently — one slow endpoint never blanks the page.
   const [kpis, setKpis] = useState<KPIs | null>(null)
+  const [publicBuys, setPublicBuys] = useState<PublicBuyItem[] | null>(null)
   const [deals, setDeals] = useState<Deal[] | null>(null)
   const [dealsLocked, setDealsLocked] = useState(false)
   const [strLocked, setStrLocked] = useState(false)
@@ -122,6 +143,12 @@ export function DashboardContent({ locale }: { locale: Locale }) {
       set(empty)
     }
     getKPIs().then(setKpis).catch(onFail(setKpis, null))
+    // Public buy-list: top N ranked items, 3 free rows, no JWT needed.
+    // This renders the "what to buy today" answer while authenticated deals load.
+    fetch("/api/public/buy-list?limit=6")
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d?.items?.length) setPublicBuys((d.items as PublicBuyItem[]).slice(0, 5)) })
+      .catch(() => {})
     getDeals({ limit: 8 })
       // `d.locked` alone is not enough and never was: the flag is a constant
       // false on every backend branch (src/lib/locked-fields.ts has the
@@ -239,6 +266,74 @@ export function DashboardContent({ locale }: { locale: Locale }) {
               href="/verdict"
               style={{ color: "var(--color-graphite-muted)", fontSize: 14, fontWeight: 400, textDecoration: "none", whiteSpace: "nowrap" }}
             >{t.freeBannerAction}</Link>
+          </div>
+        </div>
+      )}
+
+      {/* HERO BUY-LIST — answers "what should I buy today" on arrival.
+          Uses /api/public/buy-list (3 free rows, no JWT). The authenticated
+          Opportunities section below adds buy-below and deeper filters once
+          loaded. Having NOTHING answered until /api/deals returned was the
+          main activation failure: 11 of 25 accounts ran zero verdicts. */}
+      {publicBuys && publicBuys.length > 0 && (
+        <div
+          data-testid="riq-hero-buy-list"
+          style={{ ...CARD, marginBottom: 24, padding: "16px 20px" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>
+              What to buy today
+            </div>
+            <div style={{ fontSize: 12, color: "var(--color-graphite-muted)" }}>Ranked by demand · EU5 Vinted</div>
+          </div>
+          <div>
+            {publicBuys.map((item, i) => {
+              const v = [
+                "STRONG BUY", "BUY", "RISING", "WATCH", "SKIP",
+              ].includes(item.verdict) ? item.verdict : item.momentum
+              const label = item.model ? `${item.brand} ${item.model}` : `${item.brand} ${item.category ?? ""}`
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    padding: "10px 0",
+                    borderBottom: i < publicBuys.length - 1 ? "1px solid var(--color-hairline)" : "none",
+                    opacity: item.locked ? 0.55 : 1,
+                    minHeight: 40,
+                  }}
+                >
+                  <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", width: 18, fontVariantNumeric: "tabular-nums", flexShrink: 0 }}>{i + 1}</span>
+                  <Link
+                    href={item.locked ? "/account" : `/verdict?q=${encodeURIComponent(label.trim())}`}
+                    style={{ flex: 1, textDecoration: "none", minWidth: 0 }}
+                  >
+                    <span style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>{label.trim()}</span>
+                  </Link>
+                  {item.locked
+                    ? <Lock size={12} color="var(--color-graphite-muted)" aria-label="Upgrade to unlock" />
+                    : <VerdictChip v={v} />}
+                  <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums", flexShrink: 0, width: 52, textAlign: "right" }}>
+                    {item.locked ? "—" : (item.avg_price_eur != null ? `€${item.avg_price_eur}` : "—")}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+          <div style={{ marginTop: 12, display: "flex", gap: 10, alignItems: "center" }}>
+            <Link
+              href="/deals"
+              data-testid="riq-hero-buy-list-scanner"
+              style={{ fontSize: 14, fontWeight: 600, color: "var(--color-accent)", textDecoration: "none" }}
+            >
+              Open deal scanner →
+            </Link>
+            <span style={{ color: "var(--color-hairline)", fontSize: 14 }}>·</span>
+            <Link href="/account" style={{ fontSize: 13, color: "var(--color-graphite-muted)", textDecoration: "none" }}>
+              Unlock buy-below
+            </Link>
           </div>
         </div>
       )}
