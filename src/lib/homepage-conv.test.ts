@@ -24,14 +24,28 @@ test("FREE_MODELS leads with a BUY model and never exposes paywalled SKUs", () =
   // The guard that matters is that no PAYWALLED sku reaches a free chip —
   // Levi's 501 and NB 550 402 for anonymous visitors.
   //
-  // FuelCell leads deliberately (2026-09-22): it is the only free model that
-  // currently verdicts BUY. The other three are STABLE/speed~0 and return
-  // WATCH, so a free demo built only from them can never show the product
-  // finding a winner — which is what trial users hit (22 searches, 0 BUYs,
-  // 0 payments). Keep this list in sync with _PUBLIC_SAMPLE_QUERIES in
-  // api/routes.py, or a chip will 402.
-  assert.deepEqual([...FREE_MODELS], ["New Balance FuelCell", "Adidas Samba", "Nike Air Force 1", "New Balance 530"])
-  assert.equal(FREE_MODELS[0], "New Balance FuelCell")
+  // ORDERING (retargeted 2026-09-22, late): this test previously pinned
+  // FuelCell first on the premise that it was "the only free model that
+  // verdicts BUY". That premise expired with the staleness fix (34df8b4).
+  // Re-measured live against production, FuelCell is now the WORST demo of
+  // the four — WATCH/LOW, reason=thin_comparables, NO demand figure and NO
+  // substitution alternatives — while NB 530 returns 1235 sold/30d with 3
+  // alternatives and is also our most-searched model.
+  // The durable invariant is NOT a specific name, it is: the FIRST chip must
+  // be a model that actually returns evidence, because for most visitors it
+  // is the only verdict they will ever see. Assert that property, plus the
+  // paywall guard, rather than freezing a ranking that depends on live data.
+  // Keep this list in sync with _PUBLIC_SAMPLE_QUERIES in api/routes.py,
+  // or a chip will 402.
+  assert.equal(FREE_MODELS.length, 4)
+  assert.equal(FREE_MODELS[0], "New Balance 530")
+  assert.ok(
+    !FREE_MODELS.slice(0, 3).includes("New Balance FuelCell" as never),
+    "FuelCell returns no demand figure and no alternatives — it must not be a lead demo chip",
+  )
+  for (const expected of ["New Balance 530", "Nike Air Force 1", "Adidas Samba", "New Balance FuelCell"]) {
+    assert.ok(FREE_MODELS.includes(expected as never), `${expected} missing from FREE_MODELS`)
+  }
   for (const paywalled of ["Levi's 501", "New Balance 550"]) {
     assert.ok(!FREE_MODELS.includes(paywalled as never), `${paywalled} must never be a free chip`)
   }
