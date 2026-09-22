@@ -11,7 +11,33 @@ import { Suspense } from "react"
 
 function EyebrowInner() {
   const params = useSearchParams()
-  if (params.get("src") !== "pricing-cold-cta") return null
+  const src = params.get("src")
+
+  if (src === "pricing-try-free") {
+    return (
+      <div
+        data-testid="riq-pricing-try-free-eyebrow"
+        style={{
+          marginBottom: 18,
+          background: "rgba(48,209,88,.06)",
+          border: "1px solid rgba(48,209,88,.22)",
+          borderRadius: 12,
+          padding: "12px 16px",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 10,
+        }}
+      >
+        <span style={{ fontSize: 16, flexShrink: 0, lineHeight: 1.4 }} aria-hidden>✓</span>
+        <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.55 }}>
+          <strong style={{ color: "var(--color-text-primary)" }}>This is a real verdict — live data, no demo mode.</strong>{" "}
+          Starter €19/mo unlocks buy-below prices on every brand and model you source.
+        </p>
+      </div>
+    )
+  }
+
+  if (src !== "pricing-cold-cta") return null
   return (
     <div
       data-testid="riq-pricing-eyebrow"
