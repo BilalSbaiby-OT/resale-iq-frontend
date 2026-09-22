@@ -15,6 +15,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
 import { HomeBuyList } from "./home-buy-list"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -242,15 +243,38 @@ export function LandingContent({
         />
 
         {/* ── PRICING TEASER — replaces inline PricingSection ───────────────
-            Full pricing lives at /pricing (both tiers, payback calculator,
-            FAQ). The homepage no longer duplicates it — cold visitors first
-            see proof (market table) before we ask for money.
-            ?src=homepage_cta keeps attribution consistent with ?src=nav and
-            ?src=footer already used on this page. */}
-        <div style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)", textAlign: "center" }}>
+            H65 CRO: homepage pricing zone upgrade (Revenue 2026-09-23).
+            BEFORE: faint grey "Pricing →" link. A visitor who just saw live
+            BUY signals had no direct conversion path; they had to navigate to
+            /pricing and click again. Funnel: 52 weekly homepage visitors,
+            0 paying. A dim link does not close an already-warm visitor.
+            AFTER: GuestCheckoutButton (direct Stripe checkout) as primary + 
+            secondary "See plans" link. CRO principles applied:
+            - #12 Conversion momentum: value (buy-list proof) → earned CTA.
+            - #10 CTA discipline: solution-aware visitor → "Start €19/mo" is
+              the right commitment level, not "see how it works".
+            - #5 Visual hierarchy: one green filled button, one dim link.
+            - #9 Friction audit: removes the extra /pricing click.
+            ZIK Analytics leads with "Start Smart. Scale Faster" + immediate
+            trial CTA. Fathom leads with "7-day free trial" above the fold.
+            Both show the ask at the moment of conviction, not one page later.
+            HARD_PAYWALL stays ON — this goes to Stripe directly.
+            ?src=homepage_checkout for attribution. */}
+        <div
+          style={{
+            maxWidth: "var(--width-hero)",
+            margin: "0 auto",
+            padding: "0 var(--space-3) var(--space-6)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <GuestCheckoutButton locale={locale} label="Start €19/mo — buy-below on every brand →" src="homepage_checkout" />
           <Link
             href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
-            style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-dim)", textDecoration: "none", padding: "10px 20px", border: "1px solid var(--color-border-ui, rgba(255,255,255,.12))", borderRadius: 10, display: "inline-block" }}
+            style={{ fontSize: 12.5, color: "var(--color-text-dim)", textDecoration: "none" }}
           >
             {t.pricing} →
           </Link>
