@@ -1,7 +1,7 @@
 # Resale IQ — AI Assistant Index
 
 > Resale IQ is demand intelligence for people who buy secondhand clothing to resell.
-> It analyses 13,371,381 unique listings (as of September 2026) across 5 EU Vinted markets
+> It analyses ~13.5M unique listings (as of 22 September 2026) across 5 EU Vinted markets
 > (Spain, France, Germany, Italy, Portugal) and answers three questions:
 > what is selling, at what price, and whether a specific item is worth buying.
 >
@@ -14,15 +14,20 @@
 Resale IQ tracks when secondhand clothing listings leave the shelf on Vinted across
 Spain, France, Germany, Italy, and Portugal. It calls these "watched departures" —
 a tracked listing transitioning from active to sold (not a confirmed buyer receipt).
-From 13.4M listings, it produces weekly sell-through signals, average exit prices,
-buy-below price ceilings, and a BUY/WATCH/SKIP verdict for 17,043 brands and 809
-brand+category pairs with real weekly transaction volume.
+From ~13.5M listings, it produces weekly sell-through signals, average exit prices,
+buy-below price ceilings, and a BUY/WATCH/SKIP verdict for over 17,200 brands and
+over 250 brand+category pairs with ≥10 departures in the trailing 30 days.
 
-**Key numbers (September 2026, verified production data):**
-- 13,371,381 listings tracked
-- 17,043 brands indexed
-- 809 brand+category pairs with ≥10 departures in trailing 30 days
-- Top brands by 30-day departures: Stone Island 14,356 · Patagonia 12,602 · Balenciaga 10,516 · Fred Perry 9,721 · Gucci 8,712
+**Key numbers (22 September 2026, queried from production):**
+- ~13.5M listings tracked (13,479,035 rows as of 2026-09-22)
+- over 17,200 brands indexed (17,266 distinct brands in listings table, 2026-09-22)
+- over 250 brand+category pairs with ≥10 departures in trailing 30 days (258 pairs, 2026-09-22)
+- Top brands by ~30-day departures (figures understate real demand by up to ~25% due to a Sep 14–22 data gap): Stone Island ~13,900 · Patagonia ~12,200 · Balenciaga ~10,300 · Fred Perry ~9,500 · Gucci ~8,400
+
+Note on departure figures: a Vinted API outage (Sep 14–22 2026) left an 8-day gap in
+sold-detection. All 30-day departure figures for approximately October 2026 are therefore
+conservative floors — real sell-through is higher. We publish the measured number, not an
+adjusted estimate.
 
 ## Free tools
 
@@ -40,64 +45,70 @@ brand+category pairs with real weekly transaction volume.
 - https://resaleiq.dev/blog/what-is-a-good-sell-through-rate — Sell-through rate benchmarks for EU Vinted resellers
 - https://resaleiq.dev/blog/reselling-mistakes-that-lose-money — The sourcing and pricing mistakes that cause dead stock
 - https://resaleiq.dev/blog/how-to-find-items-to-flip-on-vinted — Practical sourcing methods for Vinted resellers
+- https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now — Ranked buy-list for EU Vinted resellers based on current model-level signal data
+- https://resaleiq.dev/blog/which-brands-sell-fastest-on-vinted — Brand sell-speed ranking with 30-day departure data and avg exit prices
+- https://resaleiq.dev/blog/new-balance-530-resell-guide-vinted — New Balance 530 resell guide: 1,235 departures/30d, avg €38.51, buy-below €25.61
+- https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide — All Patagonia models ranked by 30-day departures with buy-below prices
 
 ## Brand price guides (EU Vinted, September 2026 data)
 
-### Stone Island (14,356 dep/30d, €59.83 avg exit)
+### Stone Island (~13,900 dep/30d, ~€60 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/stone-island-reselling-vinted-guide
-- https://resaleiq.dev/blog/stone-island-hoodie-eu-vinted-price-guide — 42 dep/7d, €52 avg
-- https://resaleiq.dev/blog/stone-island-jackets-eu-vinted-price-guide — 9 dep/7d, €126 avg
+- https://resaleiq.dev/blog/stone-island-hoodie-eu-vinted-price-guide — Hoodies: ~5,700 dep/30d, ~€53 avg
+- https://resaleiq.dev/blog/stone-island-jackets-eu-vinted-price-guide — Jackets: ~1,700 dep/30d, ~€127 avg
 - https://resaleiq.dev/blog/stone-island-shirt-eu-vinted-price-guide
 - https://resaleiq.dev/blog/stone-island-t-shirt-eu-vinted-price-guide
 
-### Patagonia (12,602 dep/30d, €32.86 avg exit)
+### Patagonia (~12,200 dep/30d, ~€33 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/patagonia-reselling-vinted-guide
-- https://resaleiq.dev/blog/patagonia-jacket-eu-vinted-price-guide — 11 dep/7d, €49 avg
+- https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide — All models ranked by signal
+- https://resaleiq.dev/blog/patagonia-jacket-eu-vinted-price-guide — Jackets: ~3,200 dep/30d, ~€49 avg
 - https://resaleiq.dev/blog/patagonia-hoodie-eu-vinted-price-guide
 - https://resaleiq.dev/blog/patagonia-down-sweater-eu-vinted-price-guide
 - https://resaleiq.dev/blog/patagonia-nano-puff-eu-vinted-price-guide
 - https://resaleiq.dev/blog/patagonia-synchilla-eu-vinted-price-guide
 
-### Balenciaga (10,516 dep/30d, €156.20 avg exit)
+### Balenciaga (~10,300 dep/30d, ~€155 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide
-- https://resaleiq.dev/blog/balenciaga-bag-eu-vinted-price-guide — 6 dep/7d, €311 avg
+- https://resaleiq.dev/blog/balenciaga-bag-eu-vinted-price-guide
 - https://resaleiq.dev/blog/balenciaga-city-bag-eu-vinted-price-guide
-- https://resaleiq.dev/blog/balenciaga-sneakers-eu-vinted-price-guide — 3 dep/7d, €130 avg
-- https://resaleiq.dev/blog/balenciaga-hoodie-eu-vinted-price-guide — 3 dep/7d, €97 avg
+- https://resaleiq.dev/blog/balenciaga-sneakers-eu-vinted-price-guide
+- https://resaleiq.dev/blog/balenciaga-hoodie-eu-vinted-price-guide
 - https://resaleiq.dev/blog/balenciaga-triple-s-eu-vinted-price-guide
 - https://resaleiq.dev/blog/balenciaga-arena-eu-vinted-price-guide
 - https://resaleiq.dev/blog/balenciaga-runner-eu-vinted-price-guide
 - https://resaleiq.dev/blog/balenciaga-track-eu-vinted-price-guide
 
-### Fred Perry (9,721 dep/30d, €21.49 avg exit)
+### Fred Perry (~9,500 dep/30d, ~€22 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/fred-perry-reselling-vinted-guide
-- https://resaleiq.dev/blog/fred-perry-shirt-eu-vinted-price-guide — 12 dep/7d, €15 avg
+- https://resaleiq.dev/blog/fred-perry-shirt-eu-vinted-price-guide
 - https://resaleiq.dev/blog/fred-perry-polo-shirt-eu-vinted-price-guide
 - https://resaleiq.dev/blog/fred-perry-twin-tipped-eu-vinted-price-guide
-- https://resaleiq.dev/blog/fred-perry-hoodie-eu-vinted-price-guide — 4 dep/7d, €21 avg
-- https://resaleiq.dev/blog/fred-perry-jacket-eu-vinted-price-guide — 6 dep/7d, €75 avg
-- https://resaleiq.dev/blog/fred-perry-t-shirt-eu-vinted-price-guide — 5 dep/7d, €13 avg
+- https://resaleiq.dev/blog/fred-perry-hoodie-eu-vinted-price-guide
+- https://resaleiq.dev/blog/fred-perry-jacket-eu-vinted-price-guide
+- https://resaleiq.dev/blog/fred-perry-t-shirt-eu-vinted-price-guide
 
-### Gucci (8,712 dep/30d, €162.92 avg exit)
+### Gucci (~8,400 dep/30d, ~€165 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/gucci-reselling-vinted-guide
 - https://resaleiq.dev/blog/gucci-bags-eu-vinted-price-guide
-- https://resaleiq.dev/blog/gucci-sneakers-eu-vinted-price-guide — 2 dep/7d
+- https://resaleiq.dev/blog/gucci-sneakers-eu-vinted-price-guide
 - https://resaleiq.dev/blog/gucci-jacket-eu-vinted-price-guide
 - https://resaleiq.dev/blog/gucci-caps-eu-vinted-price-guide
 
-### New Balance (3,755 dep/30d, €39.89 avg exit)
+### New Balance (~3,600 dep/30d, ~€40 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/new-balance-reselling-vinted-guide
-- https://resaleiq.dev/blog/new-balance-sneakers-price-guide-eu-vinted — 8 dep/7d, €42 avg
+- https://resaleiq.dev/blog/new-balance-530-resell-guide-vinted — 530: 1,235 dep/30d, avg €38.51, buy-below €25.61
+- https://resaleiq.dev/blog/new-balance-sneakers-price-guide-eu-vinted
 - https://resaleiq.dev/blog/new-balance-530-eu-vinted-price-guide
-- https://resaleiq.dev/blog/new-balance-9060-eu-vinted-price-guide
+- https://resaleiq.dev/blog/new-balance-9060-eu-vinted-price-guide — 9060: 371 dep/30d, avg €47.76, buy-below €31.76
 
-### The North Face (3,685 dep/30d, €31.35 avg exit)
+### The North Face (~3,500 dep/30d, ~€32 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/the-north-face-reselling-vinted-guide
 - https://resaleiq.dev/blog/the-north-face-hoodie-eu-vinted-price-guide
 - https://resaleiq.dev/blog/the-north-face-jacket-eu-vinted-price-guide
 - https://resaleiq.dev/blog/the-north-face-summit-series-eu-vinted-price-guide
 
-### Supreme (3,538 dep/30d, €53.19 avg exit)
+### Supreme (~3,500 dep/30d, ~€53 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/supreme-reselling-vinted-guide
 - https://resaleiq.dev/blog/supreme-hoodie-eu-vinted-price-guide
 - https://resaleiq.dev/blog/supreme-box-logo-tee-eu-vinted-price-guide
@@ -106,16 +117,16 @@ brand+category pairs with real weekly transaction volume.
 - https://resaleiq.dev/blog/supreme-cap-eu-vinted-price-guide
 - https://resaleiq.dev/blog/supreme-bag-eu-vinted-price-guide
 
-### Nike (2,902 dep/30d, €69.13 avg exit)
+### Nike (~2,800 dep/30d, ~€70 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/nike-reselling-vinted-guide
-- https://resaleiq.dev/blog/nike-sneakers-eu-vinted-price-guide — 3 dep/7d, €107 avg
+- https://resaleiq.dev/blog/nike-sneakers-eu-vinted-price-guide
 - https://resaleiq.dev/blog/nike-shox-eu-vinted-price-guide
 - https://resaleiq.dev/blog/nike-jacket-eu-vinted-price-guide
 - https://resaleiq.dev/blog/nike-hoodie-eu-vinted-price-guide
 
-### Adidas
+### Adidas (~1,800 dep/30d, ~€40 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/adidas-reselling-vinted-guide
-- https://resaleiq.dev/blog/adidas-samba-eu-vinted-price-guide
+- https://resaleiq.dev/blog/adidas-samba-eu-vinted-price-guide — Samba: 88 dep/30d, avg €47.86, buy-below €31.83
 - https://resaleiq.dev/blog/adidas-gazelle-eu-vinted-price-guide
 - https://resaleiq.dev/blog/adidas-gazelle-indoor-eu-vinted-price-guide
 - https://resaleiq.dev/blog/adidas-stan-smith-eu-vinted-price-guide
@@ -128,7 +139,7 @@ brand+category pairs with real weekly transaction volume.
 - https://resaleiq.dev/blog/lacoste-hoodie-eu-vinted-price-guide
 - https://resaleiq.dev/blog/lacoste-jacket-eu-vinted-price-guide
 
-### Ralph Lauren
+### Ralph Lauren (~1,000 dep/30d, ~€39 avg exit, as of 2026-09-22)
 - https://resaleiq.dev/blog/ralph-lauren-reselling-vinted-guide
 - https://resaleiq.dev/blog/ralph-lauren-eu-vinted-price-guide
 - https://resaleiq.dev/blog/ralph-lauren-hoodie-eu-vinted-price-guide
