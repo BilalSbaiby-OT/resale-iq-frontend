@@ -129,14 +129,19 @@ export function SsrBuyListTeaser({
               </span>
             </div>
 
-            {/* Right: verdict + avg price */}
+            {/* Right: verdict + buy-below price (the core hook, never gated per OS decision) */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
               <VerdictBadge verdict={item.verdict} />
-              {item.avg_price_eur != null && (
-                <span style={{ fontSize: 13, fontWeight: 600, color: "#EEF1F7", fontVariantNumeric: "tabular-nums" }}>
-                  €{item.avg_price_eur} avg
-                </span>
-              )}
+              {item.avg_price_eur != null && (() => {
+                // Canonical formula: avg × 0.95 × 0.70 = avg × 0.665
+                // COMPANY-OS decision: the buy-below number is the free hook — never gate it.
+                const buyBelow = Math.round(item.avg_price_eur * 0.665)
+                return (
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
+                    Buy below €{buyBelow}
+                  </span>
+                )
+              })()}
             </div>
           </div>
         ))}
@@ -160,7 +165,7 @@ export function SsrBuyListTeaser({
         >
           <div>
             <p style={{ fontSize: 12.5, fontWeight: 600, color: "#EEF1F7", margin: "0 0 2px" }}>
-              Buy-below price on every row — plus full weekly ranked list.
+              Full ranked list + buy-below on every brand, updated weekly.
             </p>
             <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
               Starter €19/mo · cancel anytime
