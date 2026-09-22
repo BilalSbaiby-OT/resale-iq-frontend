@@ -82,6 +82,60 @@ const COMPACT: Scale = {
   taglineMin: 34, perDay: 12, body: 12.5, featureGap: 11, blockGap: 18,
 }
 
+/**
+ * H61 CRO: own-item input in the try-free banner on /pricing.
+ * Visitor types their specific brand+model → navigates to /tools pre-filled.
+ * "use client" is already in the file (line 1). Revenue 2026-09-23.
+ */
+function TryFreeInput({ locale = "en" }: { locale?: Locale }) {
+  const router = useRouter()
+  const [val, setVal] = useState("")
+  return (
+    <form
+      style={{ display: "flex", gap: 8, marginTop: 12 }}
+      onSubmit={(e) => {
+        e.preventDefault()
+        const trimmed = val.trim()
+        if (!trimmed) return
+        router.push(`/tools?q=${encodeURIComponent(trimmed)}&src=pricing-try-free`)
+      }}
+    >
+      <input
+        type="text"
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        placeholder="Or type your own: Stone Island, Carhartt…"
+        style={{
+          flex: 1,
+          minWidth: 0,
+          padding: "8px 12px",
+          borderRadius: 8,
+          border: "1px solid var(--color-border-2)",
+          background: "var(--color-bg-2)",
+          color: "var(--color-text-primary)",
+          fontSize: 13,
+        }}
+      />
+      <button
+        type="submit"
+        style={{
+          padding: "8px 14px",
+          borderRadius: 8,
+          border: "none",
+          background: "#30D158",
+          color: "#06090c",
+          fontSize: 13,
+          fontWeight: 700,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Check →
+      </button>
+    </form>
+  )
+}
+
 export function PricingSection({
   locale = "en",
   compact = false,
@@ -367,6 +421,12 @@ export function PricingSection({
               </Link>
             ))}
           </div>
+          {/* H61 CRO: own-item input — visitor types their specific brand+model
+              and lands on /tools with their query pre-filled. Eliminates two
+              navigation steps vs clicking a preset and re-typing. CRO #8
+              (specificity: their item, not a demo) + #6 (cognitive load: one
+              step instead of three). Revenue 2026-09-23. */}
+          <TryFreeInput locale={locale} />
         </div>
       )}
 
