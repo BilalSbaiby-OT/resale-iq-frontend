@@ -56,6 +56,10 @@ const SRC_DATA = join(ROOT, 'src', 'data')
  *    (30 days to DD Month YYYY, Vinted ES/FR/DE/IT/PT)"
  */
 const WEEKLY_CLAIM_PATTERNS = [
+  // "N departures per 7 days" (alternate phrasing)
+  /\b\d[\d,]*\s+departures?\s+per\s+7\s+days\b/i,
+  // "N departures/7 days" (slash-space variant)
+  /\b\d[\d,]*\s+departures?\/7\s+days\b/i,
   // "N departures per week" / "N departures/week" / "N departures/7d"
   /\b\d[\d,]*\s+(?:watched\s+)?departures?\s+per\s+week\b/i,
   /\b\d[\d,]*\s+(?:watched\s+)?departures?\/week\b/i,

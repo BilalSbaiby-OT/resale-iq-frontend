@@ -22,7 +22,7 @@ export const POSTS_66: BlogPost[] = [
     title: "Stone Island Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Stone Island Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Stone Island hoodies track 178 departures in the last 30 days across EU Vinted at a €56 average exit price as of 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit basis, and 53% of the Stone Island brand's 138 departures in the last 30 days. Buy-below ceiling €36.40. Ghost Piece models trade well above the base tier; Marina pieces carry a €119 average exit. Cross-brand comparison with Patagonia hoodies (202 departures in the last 30 days at €39), Ralph Lauren (22 departures in the last 30 days at €45), The North Face (21 departures in the last 30 days at €20).",
+      "Stone Island hoodies track 178 departures in the last 30 days across EU Vinted at a €56 average exit price as of 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit basis, and 53% of the Stone Island brand's 178 departures in the last 30 days. Buy-below ceiling €36.40. Ghost Piece models trade well above the base tier; Marina pieces carry a €119 average exit. Cross-brand comparison with Patagonia hoodies (202 departures in the last 30 days at €39), Ralph Lauren (22 departures in the last 30 days at €45), The North Face (21 departures in the last 30 days at €20).",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",
@@ -31,7 +31,7 @@ export const POSTS_66: BlogPost[] = [
     preflightQuery: "Stone Island Hoodie",
 
     intro:
-      "Stone Island hoodies track 178 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted — the highest-volume branded hoodie category in the ResaleIQ EU Vinted dataset on a per-unit exit price basis. The average exit price is €56, and the buy-below ceiling is €36.40. Hoodies are 53% of the Stone Island brand's 138 departures in the last 30 days across all categories, making them the brand's most liquid category on EU Vinted. This guide covers what the volume and exit data mean for sourcing in Q4 2026, how the Ghost and Marina model premiums compare with the base hoodie tier, and how Stone Island hoodies stack against Patagonia, Ralph Lauren, and The North Face in the EU Vinted mid-to-premium hoodie market.",
+      "Stone Island hoodies track 178 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted — the highest-volume branded hoodie category in the ResaleIQ EU Vinted dataset on a per-unit exit price basis. The average exit price is €56, and the buy-below ceiling is €36.40. Hoodies are 53% of the Stone Island brand's 178 departures in the last 30 days across all categories, making them the brand's most liquid category on EU Vinted. This guide covers what the volume and exit data mean for sourcing in Q4 2026, how the Ghost and Marina model premiums compare with the base hoodie tier, and how Stone Island hoodies stack against Patagonia, Ralph Lauren, and The North Face in the EU Vinted mid-to-premium hoodie market.",
 
     definedTerm: {
       name: "Stone Island hoodie departure average",

@@ -28,7 +28,7 @@ export const POSTS_19: BlogPost[] = [
         h: "Step 1: Pick brands with liquid markets",
         p: [
           "You cannot flip a brand nobody is buying. The first filter for any sourcing run is departure rate — how many items for this brand actually left the shelf on Vinted in the last 7 days.",
-          "As of 15 September 2026, the highest-velocity EU Vinted brands by departure are: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (756 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70), Balenciaga (510 departures in the last 30 days, avg €147), New Balance (657 departures in the last 30 days, avg €49). A high departure rate means buyers are active. An active buyer market means you can move stock in days rather than weeks.",
+          "As of 15 September 2026, the highest-velocity EU Vinted brands by departure are: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (1323 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70), Balenciaga (2322 departures in the last 30 days, avg €147), New Balance (657 departures in the last 30 days, avg €49). A high departure rate means buyers are active. An active buyer market means you can move stock in days rather than weeks.",
           "Low-velocity brands (Mango at 17 departures in the last 30 days, Jordan at 15 departures in the last 30 days) are not automatically bad — Jordan Sneakers depart at €156 average, so a single flip has high margin potential — but they require more patience and capital held longer.",
           "Check departure rates by brand and category at [Resale IQ's flip tracker](" + ilinkHref("flip") + ") before any sourcing run. The brands on the board are ranked by volume — start at the top and work down to your sourcing channel.",
         ],
@@ -59,7 +59,7 @@ export const POSTS_19: BlogPost[] = [
         p: [
           "Authentication failures are the most expensive mistakes in clothes flipping. A Gucci bag purchased for €90 and sold for €300, then returned as fake, costs more than the initial margin — it costs the €90 buy, the €300 hold, the shipping cost both ways, and a dispute on your Vinted profile.",
           "For designer items (Gucci, Balenciaga, Off-White, Supreme), authenticate before purchase. The key checks are brand-specific but the universal checkpoints are: (1) hardware weight — cheap fakes have light hollow metal; (2) stitching regularity — authentic pieces are machine-made to tight tolerances; (3) logo placement and proportions; (4) serial number presence and format.",
-          "Gucci Bags depart at an average €304 on EU Vinted (81 departures/7 days). The margin on a €90 authenticated sourcing is significant — but only if the item is what it claims to be. Full authentication guide at [how to authenticate designer items on Vinted](/blog/how-to-authenticate-designer-items-vinted).",
+          "Gucci Bags depart at an average €304 on EU Vinted (489 departures in the last 30 days). The margin on a €90 authenticated sourcing is significant — but only if the item is what it claims to be. Full authentication guide at [how to authenticate designer items on Vinted](/blog/how-to-authenticate-designer-items-vinted).",
           "For Stone Island, Ralph Lauren, Patagonia — brands with strong resale value but active fakes — check the label, badge stitching, and hardware before purchase. Do not rely on the seller's claim.",
         ],
       },
@@ -96,7 +96,7 @@ export const POSTS_19: BlogPost[] = [
         p: [
           "Based on EU Vinted departures for the 7 days to 15 September 2026:",
           "**Highest absolute margin (departure avg minus typical sourcing cost):** Stone Island Jackets (€140 avg departure), Gucci Bags (€304), Balenciaga Sneakers (€145), Jordan Sneakers (€156). These have €50–200+ potential margin per flip if sourced correctly. The constraint is sourcing frequency — these items don't appear at charity shops every week.",
-          "**Highest volume + reasonable margin:** Fred Perry Shirts (421 departures in the last 30 days, avg €14 — sourcing typically €2–5 at thrift), Stone Island Hoodies (408 departures in the last 30 days, avg €56 — typically €10–20 if found), Patagonia Jackets (313 departures in the last 30 days, avg €50 — €10–18 at charity).",
+          "**Highest volume + reasonable margin:** Fred Perry Shirts (421 departures in the last 30 days, avg €14 — sourcing typically €2–5 at thrift), Stone Island Hoodies (178 departures in the last 30 days, avg €56 — typically €10–20 if found), Patagonia Jackets (313 departures in the last 30 days, avg €50 — €10–18 at charity).",
           "**Best for starting out:** Fred Perry (predictable, high volume, easy to authenticate), Patagonia (strong resale demand, clear authentication markers, fast departure), Tommy Hilfiger Hoodies (42 departures in the last 30 days, avg €17 — lower margin but very common at thrift).",
           "The full departure table with buy-below calculations is at [what sells best on Vinted](/blog/what-sells-best-on-vinted). Use it before every sourcing run.",
         ],
@@ -106,11 +106,11 @@ export const POSTS_19: BlogPost[] = [
     faq: [
       {
         q: "How much money can you make flipping clothes?",
-        a: "It depends on the brands you source and how many items you move per week. At 10 flips per week with an average net margin of €10 per flip, that is €100/week or €400/month. Fred Perry at 862 departures per 7 days on EU Vinted shows high buyer demand — a reseller sourcing Fred Perry at €3–5 per item and exiting at €15–18 has a €10+ margin per flip. Scaling to 30–50 flips per week with higher-margin brands (Stone Island, Patagonia) is where income becomes material.",
+        a: "It depends on the brands you source and how many items you move per week. At 10 flips per week with an average net margin of €10 per flip, that is €100/week or €400/month. Fred Perry at 199 departures in the last 30 days on EU Vinted shows high buyer demand — a reseller sourcing Fred Perry at €3–5 per item and exiting at €15–18 has a €10+ margin per flip. Scaling to 30–50 flips per week with higher-margin brands (Stone Island, Patagonia) is where income becomes material.",
       },
       {
         q: "What's the best brand to flip on Vinted?",
-        a: "For new resellers: Fred Perry (862 EU Vinted departures/7d, avg €18, easy to source at charity shops) and Patagonia (756 departures in the last 30 days, avg €37, clear authentication). For experienced resellers: Stone Island (178 departures in the last 30 days, avg €70 for Hoodies, €140 for Jackets) and Balenciaga (510 departures in the last 30 days, avg €147). The right brand is the intersection of what departs fast in the current market and what you can source below buy-below price in your area.",
+        a: "For new resellers: Fred Perry (862 EU Vinted departures/7d, avg €18, easy to source at charity shops) and Patagonia (1323 departures in the last 30 days, avg €37, clear authentication). For experienced resellers: Stone Island (178 departures in the last 30 days, avg €70 for Hoodies, €140 for Jackets) and Balenciaga (2322 departures in the last 30 days, avg €147). The right brand is the intersection of what departs fast in the current market and what you can source below buy-below price in your area.",
       },
       {
         q: "How do you source clothes to flip?",
