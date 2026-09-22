@@ -5,6 +5,8 @@ import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { OG_IMAGES } from "@/lib/og-image"
 import { listingsTrackedLabel, sellThroughWeeklyLabel } from "@/lib/stats"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -50,9 +52,24 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   // homepage (15-minute market-numbers cache), so the figure is never stale by
   // more than one render cycle. CRO Principle #7 (trust before CTA).
   // Revenue 2026-09-16.
-  const [seedTracked, seedSellThrough] = await Promise.all([
+  //
+  // 2026-09-22 — PROOF BEFORE PRICE. Measured over 14d (browser-confirmed,
+  // non-bot): 44 of 50 humans who viewed pricing had NEVER seen a verdict, and
+  // 5 of 7 who started checkout hadn't either. Stripe agrees — 23 of 25
+  // sessions had no email typed. People were being asked to pay before they
+  // had experienced the product once. 8 of those 44 LANDED here first, so the
+  // homepage buy list never had a chance to do its job.
+  // The buy list is fetched server-side and rendered ABOVE the price cards so
+  // the answer arrives before the ask. Free/unlocked rows only — the teaser's
+  // job is to prove value, not to sell twice on the same screen.
+  const [seedTracked, seedSellThrough, buyList] = await Promise.all([
     listingsTrackedLabel(),
     sellThroughWeeklyLabel(),
+    getPublicBuyList(5).catch((err) => {
+      // Never let a buy-list outage break the page people pay on.
+      console.error("[pricing] buy-list fetch failed:", err)
+      return null
+    }),
   ])
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
@@ -63,6 +80,11 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           ← Resale IQ
         </Link>
       </div>
+      {buyList && buyList.length > 0 && (
+        <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
+          <SsrBuyListTeaser items={buyList} locale={locale} />
+        </div>
+      )}
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
   )
