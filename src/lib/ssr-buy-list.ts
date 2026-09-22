@@ -16,9 +16,11 @@ import path from "node:path"
 
 export interface SsrBuyListItem {
   brand: string
+  model: string | null
   category: string
   verdict: string
   sold_7d: number | null
+  sold_30d_evidence: number | null
   avg_price_eur: number | null
   locked: boolean
 }
@@ -54,9 +56,11 @@ function shape(raw: Record<string, unknown>): SsrBuyListItem | null {
   if (typeof raw.brand !== "string" || typeof raw.category !== "string") return null
   return {
     brand: raw.brand,
+    model: typeof raw.model === "string" ? raw.model : null,
     category: raw.category,
     verdict: typeof raw.verdict === "string" ? raw.verdict : "",
     sold_7d: typeof raw.sold_7d === "number" && Number.isFinite(raw.sold_7d) ? raw.sold_7d : null,
+    sold_30d_evidence: typeof raw.sold_30d_evidence === "number" && Number.isFinite(raw.sold_30d_evidence) ? raw.sold_30d_evidence : null,
     avg_price_eur: typeof raw.avg_price_eur === "number" && Number.isFinite(raw.avg_price_eur) && raw.avg_price_eur > 0
       ? raw.avg_price_eur : null,
     locked: raw.locked === true,

@@ -62,10 +62,14 @@ export function SsrBuyListTeaser({
   items: SsrBuyListItem[]
   locale: Locale
 }) {
-  // Only show free (unlocked) rows with a real BUY verdict — the teaser must
-  // prove the product finds winners, not display a table of WATCHes.
+  // Only show free (unlocked) rows — the teaser must prove the product finds
+  // winners. BUY = hot momentum; RISING = strong 30-day history recovering
+  // from the Sep 14-22 outage. Both are actionable; WATCH is shown if no
+  // BUY/RISING rows are available. SKIP is never shown in the teaser.
   const freeRows = items
-    .filter(i => !i.locked && (i.verdict === "STRONG BUY" || i.verdict === "BUY"))
+    .filter(i => !i.locked && (
+      i.verdict === "STRONG BUY" || i.verdict === "BUY" || i.verdict === "RISING"
+    ))
     .slice(0, 3)
 
   if (freeRows.length === 0) return null
@@ -110,14 +114,18 @@ export function SsrBuyListTeaser({
               borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,.06)",
             }}
           >
-            {/* Left: brand + category */}
+            {/* Left: brand + model (or category if no model) */}
             <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
               <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {item.brand}
+                {item.brand}{item.model ? ` ${item.model}` : ""}
               </span>
               <span style={{ fontSize: 12, color: "#8FA3C4" }}>
                 {item.category}
-                {item.sold_7d != null ? ` · ${item.sold_7d} sold/wk` : ""}
+                {item.sold_7d != null
+                  ? ` · ${item.sold_7d} sold/wk`
+                  : item.sold_30d_evidence != null
+                    ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
+                    : ""}
               </span>
             </div>
 
