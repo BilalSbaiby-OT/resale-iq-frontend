@@ -13,6 +13,7 @@ import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
+import { BlogInlineChecker } from "@/components/blog/blog-inline-checker"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -220,6 +221,13 @@ export default async function BlogPostPage(
           }
           ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} free →` : undefined}
         />
+        {/* Inline checker — runs the post's own preflight query on load.
+            No redirect, no typing. Visitor sees their verdict before the
+            first paragraph. Only rendered when the post has a preflightQuery
+            (174 of 174 current posts have one); falls back gracefully otherwise. */}
+        {p.preflightQuery && (
+          <BlogInlineChecker preflightQuery={p.preflightQuery} locale={locale} />
+        )}
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>
