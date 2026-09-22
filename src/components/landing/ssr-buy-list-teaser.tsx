@@ -18,7 +18,7 @@
 import Link from "next/link"
 import { TrendingUp } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-import type { Locale } from "@/lib/i18n"
+import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
@@ -133,7 +133,11 @@ export function SsrBuyListTeaser({
           </div>
         ))}
 
-        {/* Footer CTA — buy-below prices are behind paywall */}
+        {/* Footer CTA — re-laddered for cold traffic 2026-09-22:
+            Free action is visually primary (filled button); paid checkout is
+            secondary (link style). Cold LLM-referred visitors land seconds after
+            an AI answer — getting one free check before paying is the correct
+            first ask. The paid CTA stays present for visitors already sold. */}
         <div
           style={{
             padding: "12px 16px",
@@ -155,13 +159,25 @@ export function SsrBuyListTeaser({
             </p>
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" />
+            {/* PRIMARY: free action — correct first ask for cold traffic */}
             <Link
-              href={canonicalPath(locale, "/data")}
-              style={{ fontSize: 12, color: "#5A6A80", textDecoration: "none", whiteSpace: "nowrap" }}
+              href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check`}
+              style={{
+                background: "#34C759",
+                color: "#06090c",
+                fontWeight: 700,
+                fontSize: 13.5,
+                padding: "10px 18px",
+                borderRadius: 9,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                display: "inline-block",
+              }}
             >
-              Free brand volumes →
+              {copy[locale].checkItem} →
             </Link>
+            {/* SECONDARY: paid checkout — demoted to link style for warm/ready visitors */}
+            <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" asLink />
           </div>
         </div>
       </div>

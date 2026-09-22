@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { PricingSection } from "./pricing-section"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { LiveMarketPulse } from "./live-market-pulse"
 import { BrandStrip } from "./brand-strip"
@@ -14,7 +13,6 @@ import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
-import { formatSellThrough } from "@/lib/format-sell-through"
 import { HomeBuyList } from "./home-buy-list"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 
@@ -207,6 +205,13 @@ export function LandingContent({
           </div>
         </section>
 
+        {/* ── LIVE MARKET PROOF — moved above the fold ─────────────────────
+            Our strongest credibility signal: real, specific, unfakeable
+            production numbers. Rendered immediately after the hero so a cold
+            visitor (especially LLM-referred) sees verifiable data before
+            the how-it-works explanation. */}
+        <LiveMarketPulse locale={locale} market={market} />
+
         <section
           aria-labelledby="riq-how-to-heading"
           style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)" }}
@@ -250,9 +255,20 @@ export function LandingContent({
           locale={locale}
         />
 
-        <LiveMarketPulse locale={locale} market={market} />
-
-        <PricingSection locale={locale} compact seedTracked={tracked} seedSellThrough={formatSellThrough(market.sold7dTotal)} />
+        {/* ── PRICING TEASER — replaces inline PricingSection ───────────────
+            Full pricing lives at /pricing (both tiers, payback calculator,
+            FAQ). The homepage no longer duplicates it — cold visitors first
+            see proof (market table) before we ask for money.
+            ?src=homepage_cta keeps attribution consistent with ?src=nav and
+            ?src=footer already used on this page. */}
+        <div style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)", textAlign: "center" }}>
+          <Link
+            href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
+            style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-dim)", textDecoration: "none", padding: "10px 20px", border: "1px solid var(--color-border-ui, rgba(255,255,255,.12))", borderRadius: 10, display: "inline-block" }}
+          >
+            {t.pricing} →
+          </Link>
+        </div>
 
         {faqs && faqs.length > 0 ? (
           <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 var(--space-3) var(--space-10)" }}>
