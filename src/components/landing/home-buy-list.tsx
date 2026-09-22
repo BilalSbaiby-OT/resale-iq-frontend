@@ -19,7 +19,9 @@ import type { Locale } from "@/lib/i18n"
  *
  * Fix 2026-09-22 (Elon): resolved 6 visible defects:
  *  1. Column headers overlapping → 4-col grid with explicit min widths
- *  2. Blank verdict pill → derive verdict from price spread when API returns ""
+ *  2. Blank verdict pill → backend now joins demand_index and returns the real
+ *     STRONG BUY / BUY signal. (An earlier fix derived a verdict from price
+ *     spread; that fabricated our core signal and was removed.)
  *  3. Em-dash departs/wk → replaced with "Listings" col (comparable_n is real)
  *  4. Mobile overflow → overflow-x scroll wrapper with scroll affordance
  *  5. Majority-locked rows → request 6, cap display at 5 (3 free + 2 locked)
@@ -152,6 +154,9 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
   if (error || items.length === 0) return null
 
   const lockedCount = items.filter(i => i.locked).length
+  // True once the departure tracker supplies real sold-per-week counts; drives
+  // the column header so the label always matches the number below it.
+  const hasDepartures = items.some(i => i.sold_7d != null)
 
   return (
     <div
@@ -208,7 +213,9 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
               {[
                 { label: "Item",      align: "left"  as const },
                 { label: "Verdict",   align: "left"  as const },
-                { label: "Listings",  align: "right" as const },
+                // Header must name the number underneath it: once a row carries
+                // real departures, "Listings" would mislabel sold-per-week as supply.
+                { label: hasDepartures ? "Sold/wk" : "Listings", align: "right" as const },
                 { label: "Avg",       align: "right" as const },
               ].map(({ label, align }) => (
                 <span key={label} style={{ ...HEADER_STYLE, textAlign: align }}>{label}</span>
@@ -257,14 +264,24 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                     }
                   </div>
 
-                  {/* Listings (comparable_n) — real number even for locked rows (teaser) */}
+                  {/*
+                    Demand column. sold_7d (departures — what actually LEFT the
+                    shelf) is the signal a reseller buys on, and the hero subhead
+                    promises it. comparable_n is supply, which is close to the
+                    opposite signal, so it is only the fallback for locked rows
+                    and for anything the tracker has not signalled.
+                  */}
                   <span style={{
                     fontSize:   13,
                     color:      item.locked ? "#3A3A3C" : "#A0ABBA",
                     fontFamily: "ui-monospace, 'SF Mono', monospace",
                     textAlign:  "right",
                   }}>
-                    {item.comparable_n != null ? item.comparable_n.toLocaleString("en-GB") : "—"}
+                    {item.sold_7d != null
+                      ? item.sold_7d.toLocaleString("en-GB")
+                      : item.comparable_n != null
+                        ? item.comparable_n.toLocaleString("en-GB")
+                        : "—"}
                   </span>
 
                   {/* Avg price */}
