@@ -7,6 +7,7 @@ import { SEO_MODELS, modelPath } from "@/lib/seo-models"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 import { LANDINGS, landingPath, landingHubPath, BLOG_CLONE_SLUGS, blogClonePath } from "@/lib/seo-landings"
+import { BUY_DATA, BUY_CATEGORIES, catSlug as buyCatSlug } from "@/lib/buy-data"
 
 const BASE = "https://resaleiq.dev"
 
@@ -95,7 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Console measured 0 impressions across all nine category pages over
   // 2026-07-30..08-26. They carry the snapshot's lastmod and a high priority
   // because they are entry points to the data-driven estate, not static copy.
-  const dataDrivenHubs = new Set(["", "/data", "/flip", "/category"])
+  const dataDrivenHubs = new Set(["", "/data", "/flip", "/category", "/buy"])
   // Absolute-URL version of hreflangLanguages() — Next's own docs example for
   // sitemap alternates uses full URLs ('https://nextjs.org/en-US'), not paths.
   const absolute = (suffix: string) => {
@@ -122,7 +123,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/vs": absolute("/vs"),
     "/for": absolute("/for"),
   }
-  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for"].map((p) => ({
+  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/buy", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for"].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
@@ -302,6 +303,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }))
 
+  const buyBUY_DATE = new Date("2026-09-22T00:00:00.000Z")
+
+  // /buy/[brand] — one page per brand with real 30-day sold evidence
+  const buyBrandPages = BUY_DATA.brands.map((b) => ({
+    url: `${BASE}/buy/${b.slug}`,
+    lastModified: buyBUY_DATE,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }))
+
+  // /buy/[brand]/[category] — 231 leaf pages (threshold: sold_30d >= 3)
+  const buyBrandCategoryPages = BUY_DATA.brands.flatMap((b) =>
+    b.categories.map((c) => ({
+      url: `${BASE}/buy/${b.slug}/${c.slug}`,
+      lastModified: buyBUY_DATE,
+      changeFrequency: "weekly" as const,
+      priority: 0.75,
+    })),
+  )
+
+  // /buy/category/[category] — 10 category hubs
+  const buyCategoryHubPages = BUY_CATEGORIES.map((cat) => ({
+    url: `${BASE}/buy/category/${buyCatSlug(cat)}`,
+    lastModified: buyBUY_DATE,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }))
+
   return [
     ...staticPages,
     ...localePages,
@@ -320,5 +349,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...dataLocalePages,
     ...toolsLocalePages,
     ...blogClonePages,
+    // /buy programmatic SEO family — 279 new pages
+    ...buyBrandPages,
+    ...buyBrandCategoryPages,
+    ...buyCategoryHubPages,
   ]
 }
