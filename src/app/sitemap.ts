@@ -83,6 +83,23 @@ const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
 const GLOSSARY_DATE = new Date("2026-09-21T12:00:00.000Z")
 /** BEST/VS/FOR landings + locale clones. Bump when copy changes. */
 const LANDING_DATE = new Date("2026-09-21T18:00:00.000Z")
+/**
+ * /blog hub — the most recent date across all posts (updated ?? date).
+ * Computed at module load from the same POSTS array the hub page renders, so
+ * it advances automatically whenever a post is added or refreshed. This is
+ * intentionally NOT STATIC_CONTENT_DATE: the hub's content (the post list)
+ * changes every time a new post lands, and advertising the old static date
+ * told Googlebot the page hadn't changed — exactly the stale-lastmod trap
+ * described in the file header. Google last crawled /blog on 2026-09-04;
+ * 100+ posts were added after that date; the stale lastmod explains why.
+ */
+const BLOG_HUB_DATE = toDay(
+  new Date(
+    Math.max(
+      ...POSTS.map((p) => new Date(p.updated ?? p.date).getTime())
+    )
+  )
+)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()
@@ -125,7 +142,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/buy", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
+    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : p === "/blog" ? BLOG_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     // /pricing above the 0.6 static-copy shelf: it is the last page before
     // checkout, and the one an ad or a "resaleiq pricing" search lands on.
