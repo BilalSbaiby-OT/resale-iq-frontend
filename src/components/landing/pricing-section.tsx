@@ -696,6 +696,42 @@ export function PricingSection({
           />
         </div>
       )}
+
+      {/* H62 CRO: post-FAQ earned-urgency CTA block.
+          CRO Principle #12 (conversion momentum): the visitor has just worked
+          through 6 objection-handling FAQ items — they resolved their doubts.
+          The page previously ended cold with no follow-through. Plausible,
+          Fathom, and Linear all close their FAQ with a "ready to go?" block;
+          our FAQ has no equivalent. This adds it: a brief closing line that
+          mirrors what the visitor already read, then the primary paid CTA.
+          Not a hard sell — the FAQs already did the selling. This is the
+          earned moment to act.
+          Revenue 2026-09-23. */}
+      {!compact && !isPaidPlan(user) && (
+        <div
+          data-testid="riq-post-faq-cta"
+          style={{
+            maxWidth: 640,
+            margin: "48px auto 0",
+            textAlign: "center",
+            padding: "28px 20px",
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border-ui)",
+            borderRadius: 16,
+          }}
+        >
+          <p style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 8px", letterSpacing: "-0.2px" }}>
+            Ready to stop guessing?
+          </p>
+          <p style={{ fontSize: 14, color: "var(--color-text-secondary)", margin: "0 0 20px", lineHeight: 1.55 }}>
+            One search. BUY, WATCH or SKIP — and the most you can pay. Starter €19/mo, instant access, cancel anytime.
+          </p>
+          <GuestCheckoutButton locale={locale} label="Start Starter €19 →" src="post-faq-cta" />
+          <p style={{ fontSize: 12, color: "var(--color-text-muted)", margin: "12px 0 0" }}>
+            Instant access · cancel anytime · 30-day money-back guarantee
+          </p>
+        </div>
+      )}
     </section>
   )
 }
