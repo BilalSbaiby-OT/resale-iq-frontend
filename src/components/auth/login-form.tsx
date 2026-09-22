@@ -47,7 +47,11 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
           // Clean the token out of the URL (don't expose it in history)
           window.history.replaceState({}, "", "/login")
-          router.push("/verdict")
+          // Pre-seed the first verdict query so a newly-verified account
+          // sees a real buy-below number on arrival instead of a blank input.
+          // Nike Air Force 1 is in _PUBLIC_SAMPLE_QUERIES so it works for
+          // every plan tier. (Tony C134 2026-09-23)
+          router.push("/verdict?q=Nike+Air+Force+1")
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
@@ -74,7 +78,7 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
         router.push("/check-email")
         return
       }
-      router.push("/verdict")
+      router.push("/verdict?q=Nike+Air+Force+1")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
