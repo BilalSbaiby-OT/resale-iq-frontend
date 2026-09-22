@@ -217,7 +217,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                 // Header must name the number underneath it: once a row carries
                 // real departures, "Listings" would mislabel sold-per-week as supply.
                 { label: hasDepartures ? "Sold/wk" : "Listings", align: "right" as const },
-                { label: "Avg",       align: "right" as const },
+                { label: "Buy below", align: "right" as const },
               ].map(({ label, align }) => (
                 <span key={label} style={{ ...HEADER_STYLE, textAlign: align }}>{label}</span>
               ))}
@@ -290,16 +290,23 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                       : "—"}
                   </span>
 
-                  {/* Avg price */}
+                  {/* Buy below — the free hook (OS principle: never gate this number).
+                    Canonical formula: avg × 0.95 × 0.70 = avg × 0.665.
+                    Shown in green for free rows so it reads as the actionable signal.
+                    Locked rows keep the padlock — avg_price_eur is gated there anyway.
+                    Revenue 2026-09-23. */}
                   <span style={{
                     fontSize:   13,
-                    color:      item.locked ? "#3A3A3C" : "#A0ABBA",
+                    color:      item.locked ? "#3A3A3C" : "#30D158",
                     fontFamily: "ui-monospace, 'SF Mono', monospace",
+                    fontWeight: item.locked ? 400 : 700,
                     textAlign:  "right",
                   }}>
                     {item.locked
                       ? <Lock size={11} color="#3A3A3C" aria-hidden />
-                      : (item.avg_price_eur != null ? `€${item.avg_price_eur}` : "—")
+                      : (item.avg_price_eur != null
+                          ? `€${Math.round(item.avg_price_eur * 0.665)}`
+                          : "—")
                     }
                   </span>
                 </div>
