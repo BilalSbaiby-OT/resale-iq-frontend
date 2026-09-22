@@ -218,6 +218,7 @@ export default async function BlogPostPage(
               ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
               : `${canonicalPath(locale, "/tools")}?src=blog_proof`
           }
+          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} free →` : undefined}
         />
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>
