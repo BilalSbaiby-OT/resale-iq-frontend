@@ -112,7 +112,9 @@ export function Sidebar({ className = "" }: { className?: string }) {
     return (
       <Link key={href} href={href} style={{
         display: "flex", alignItems: "center", gap: 10,
-        padding: "8px 10px", marginBottom: 1, borderRadius: 8,
+        // minHeight 44 is the WCAG 2.5.5 tap target: "8px 10px" + 15px text
+        // rendered 39px, so every nav link in the app was 5px short on mobile.
+        padding: "8px 10px", minHeight: 44, marginBottom: 1, borderRadius: 8,
         textDecoration: "none", fontSize: 15, fontWeight: active ? 500 : 400,
         color: active ? "var(--color-on-graphite)" : "var(--color-graphite-muted)",
         background: active ? "rgba(255,255,255,.06)" : "transparent",

@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
           <>
             <AuthHeading heading={t.heading} subheading={t.subheading} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
+              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" />
               <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
             </form>
             <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]">{t.backToSignIn}</Link></div>

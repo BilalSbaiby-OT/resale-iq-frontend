@@ -26,7 +26,7 @@ export function Topbar({ title, subtitle, onMenu }: TopbarProps) {
   return (
     <header className="riq-topbar" style={{ height: 56, flexShrink: 0, background: "var(--color-graphite)", borderBottom: "1px solid var(--color-hairline)", display: "flex", alignItems: "center", padding: "0 20px", gap: 16 }}>
       <button className="riq-hamburger" onClick={onMenu} aria-label={t.openMenu}
-        style={{ alignItems: "center", justifyContent: "center", background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12, width: 36, height: 36, color: "var(--color-graphite-muted)", cursor: "pointer", flexShrink: 0 }}>
+        style={{ alignItems: "center", justifyContent: "center", background: "transparent", border: "1px solid var(--color-hairline)", borderRadius: 12, width: 44, height: 44, color: "var(--color-graphite-muted)", cursor: "pointer", flexShrink: 0 }}>
         <Menu size={17} />
       </button>
       <div className="riq-topbar-titlewrap" style={{ minWidth: 0, flex: "1 1 auto", overflow: "hidden" }}>
@@ -53,7 +53,7 @@ export function Topbar({ title, subtitle, onMenu }: TopbarProps) {
           <CircleUser size={14} />
           <span className="riq-topbar-email" style={{ maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{email || t.account}</span>
         </button>
-        <button onClick={logout} title={t.signOut} style={{ display: "flex", alignItems: "center", background: "transparent", border: "none", color: "var(--color-graphite-muted)", cursor: "pointer", padding: 4 }}>
+        <button onClick={logout} title={t.signOut} aria-label={t.signOut} style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "transparent", border: "none", color: "var(--color-graphite-muted)", cursor: "pointer", padding: 12, minWidth: 44, minHeight: 44 }}>
           <LogOut size={15} />
         </button>
       </div>

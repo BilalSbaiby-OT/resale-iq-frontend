@@ -67,7 +67,7 @@ export default function ComparePage() {
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder="e.g. Nike Air Force 1, Adidas Samba OG, Stone Island crewneck"
-            className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
           <button onClick={run} disabled={loading || !query.trim() || selectedMarkets.length === 0}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap">
             <Globe size={15} />{loading ? "Comparing…" : "Compare"}
@@ -80,11 +80,11 @@ export default function ComparePage() {
             const on = selectedMarkets.includes(tld)
             return (
               <button key={tld} onClick={() => toggleMarket(tld)}
-                className="px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors"
+                className="px-2.5 py-1 rounded-md text-[12px] font-medium transition-colors"
                 style={{
                   background: on ? "rgba(52,211,153,.12)" : "#12151d",
                   border: `1px solid ${on ? "rgba(52,211,153,.35)" : "#1c2333"}`,
-                  color: on ? "#34d399" : "#546380",
+                  color: on ? "#34d399" : "var(--color-text-secondary)",
                 }}>
                 {name}
               </button>
@@ -117,35 +117,35 @@ export default function ComparePage() {
               const isCheapest = tld === cheapestTld
               const isPriciest = tld === priciest
               return (
-                <div key={tld} className="bg-[#141820] border rounded-xl overflow-hidden"
+                <div key={tld} className="bg-[var(--color-bg-3)] border rounded-xl overflow-hidden"
                   style={{ borderColor: isCheapest ? "rgba(52,211,153,.3)" : "#1e2535" }}>
                   <button onClick={() => setExpandedCountry(expanded ? null : tld)}
-                    className="w-full flex items-center gap-4 p-4 text-left hover:bg-[#1a2030]/50 transition-colors">
+                    className="w-full flex items-center gap-4 p-4 text-left hover:bg-[var(--color-surface-elevated)]/50 transition-colors">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[14px] font-semibold text-[#eef1f7]">{stats.country}</span>
-                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">CHEAPEST</span>}
-                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-red-400/10 text-red-400 border border-red-400/30">PRICIEST</span>}
+                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-emerald-400/10 text-emerald-400 border border-emerald-400/30">CHEAPEST</span>}
+                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold bg-red-400/10 text-red-400 border border-red-400/30">PRICIEST</span>}
                       </div>
-                      <div className="text-[11px] text-[#546380] mt-0.5">{stats.count} listings</div>
+                      <div className="text-[12px] text-[var(--color-text-secondary)] mt-0.5">{stats.count} listings</div>
                     </div>
                     <div className="text-right">
                       <div className="text-[16px] font-bold" style={{ color: isCheapest ? "#34d399" : "#e8ecf4" }}>{eur(stats.avg_price)}</div>
-                      <div className="text-[10px] text-[#546380]">{eur(stats.min_price)} – {eur(stats.max_price)}</div>
+                      <div className="text-[12px] text-[var(--color-text-secondary)]">{eur(stats.min_price)} – {eur(stats.max_price)}</div>
                     </div>
                   </button>
                   {expanded && stats.items && (
-                    <div className="border-t border-[#1e2535] p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="border-t border-[var(--color-border)] p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {stats.items.map((item: SearchItem) => (
                         <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer"
-                          className="flex gap-3 p-2.5 rounded-lg bg-[#0d0f13] hover:bg-[#12151d] transition-colors group">
+                          className="flex gap-3 p-2.5 rounded-lg bg-[#0d0f13] hover:bg-[var(--color-surface)] transition-colors group">
                           {item.photo && (
                             <img src={item.photo} alt="" className="w-14 h-14 rounded-md object-cover flex-shrink-0" />
                           )}
                           <div className="flex-1 min-w-0">
                             <div className="text-[12px] text-[#a9b6d0] line-clamp-1">{item.title}</div>
                             <div className="text-[14px] font-bold text-emerald-400 mt-0.5">{eur(item.price_eur)}</div>
-                            <div className="text-[10px] text-[#546380]">{item.size || "—"} · {item.seller?.login || "Unknown seller"}</div>
+                            <div className="text-[12px] text-[var(--color-text-secondary)]">{item.size || "—"} · {item.seller?.login || "Unknown seller"}</div>
                           </div>
                           <ExternalLink size={12} className="flex-shrink-0 mt-1 text-[#3d4a62] opacity-0 group-hover:opacity-100 transition-opacity" />
                         </a>
@@ -159,7 +159,7 @@ export default function ComparePage() {
         )}
 
         {!result && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
             Search any product and compare prices across multiple Vinted markets simultaneously.
             Find arbitrage opportunities — buy where it&apos;s cheapest, sell where it&apos;s most expensive.
           </div>
@@ -173,13 +173,13 @@ function SummaryCard({ label, value, sub, accent, icon }: {
   label: string; value: string; sub?: string; accent?: string; icon?: React.ReactNode
 }) {
   return (
-    <div className="bg-[#141820] border border-[#1e2535] rounded-xl p-4">
-      <div className="text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{label}</div>
+    <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-4">
+      <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1.5">{label}</div>
       <div className="flex items-center gap-2">
         {icon && <span style={{ color: accent }}>{icon}</span>}
         <span className="text-[17px] font-bold" style={{ color: accent || "#e8ecf4" }}>{value}</span>
       </div>
-      {sub && <div className="text-[11px] text-[#5b6b8c] mt-0.5">{sub}</div>}
+      {sub && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{sub}</div>}
     </div>
   )
 }

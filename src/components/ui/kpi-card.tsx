@@ -20,7 +20,7 @@ export function KpiCard({ label, value, unit, sublabel, delta, deltaType, loadin
     <div style={{ position: "relative", background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, display: "flex", flexDirection: "column", gap: 8, minHeight: 104, overflow: "hidden" }}>
       {/* Thin accent rule along the top edge — the premium "this tile means something" cue. */}
       <span aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${accent}, transparent 75%)`, opacity: 0.7 }} />
-      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--color-graphite-muted)" }}>{label}</div>
+      <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--color-graphite-muted)" }}>{label}</div>
       {loading ? (
         <>
           <Skeleton width={90} height={30} />

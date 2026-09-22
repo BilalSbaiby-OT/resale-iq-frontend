@@ -56,15 +56,15 @@ export default function SearchPage() {
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder="e.g. Nike Air Force 1, Levi's 501, Stone Island jacket"
-            className="flex-1 bg-[#1a2030] border border-[#263147] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
           <select value={market} onChange={e => setMarket(e.target.value)}
-            className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
+            className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
             {Object.entries(MARKETS).map(([tld, name]) => (
               <option key={tld} value={tld}>{name}</option>
             ))}
           </select>
           <select value={sort} onChange={e => setSort(e.target.value)}
-            className="bg-[#1a2030] border border-[#263147] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
+            className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
             {SORT_OPTIONS.map(o => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
@@ -85,7 +85,7 @@ export default function SearchPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {items.map(item => (
             <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer"
-              className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden hover:border-[#2a3a55] transition-colors group">
+              className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl overflow-hidden hover:border-[#2a3a55] transition-colors group">
               {item.photo && (
                 <div className="aspect-square bg-[#0d0f13] overflow-hidden">
                   <img src={item.photo} alt={item.title} loading="lazy"
@@ -96,9 +96,9 @@ export default function SearchPage() {
                 <div className="text-[13px] font-medium text-[#e8ecf4] line-clamp-2 mb-1.5">{item.title}</div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[17px] font-bold text-emerald-400">{eur(item.price_eur)}</span>
-                  {item.size && <span className="px-2 py-0.5 rounded bg-[#1a2030] border border-[#263147] text-[11px] text-[#a9b6d0]">{item.size}</span>}
+                  {item.size && <span className="px-2 py-0.5 rounded bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] text-[12px] text-[#a9b6d0]">{item.size}</span>}
                 </div>
-                <div className="flex items-center gap-3 text-[11px] text-[#546380]">
+                <div className="flex items-center gap-3 text-[12px] text-[var(--color-text-secondary)]">
                   {item.favourite_count > 0 && <span className="flex items-center gap-1"><Star size={10} />{item.favourite_count}</span>}
                   {item.view_count > 0 && <span className="flex items-center gap-1"><Eye size={10} />{item.view_count}</span>}
                   {item.seller && <span className="ml-auto">{item.seller.login}</span>}
@@ -110,13 +110,13 @@ export default function SearchPage() {
         </div>
 
         {searched && items.length === 0 && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
             No listings found for &quot;{query}&quot; in {MARKETS[market] || market}. Try a different market or broader search term.
           </div>
         )}
 
         {!searched && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6">
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
             Search any product across 26 Vinted markets. Results come directly from Vinted&apos;s live catalog — click any listing to view it on Vinted.
           </div>
         )}

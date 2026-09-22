@@ -47,8 +47,11 @@ export const AUTH_TEXT_SECONDARY = "text-[var(--color-text-secondary)]"
 export const AUTH_TEXT_MUTED = "text-[var(--color-text-muted)]"
 
 const FIELD_CLASS =
-  "w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 " +
-  "text-[13.5px] text-[var(--color-text-primary)] outline-none " +
+  // 16px is NOT a style choice: iOS Safari auto-zooms the whole page when a
+  // focused input is below 16px, shifting the layout mid-form. min-h-[44px]
+  // is the WCAG 2.5.5 tap target (py-2.5 rendered 42px).
+  "w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 min-h-[44px] " +
+  "text-[16px] text-[var(--color-text-primary)] outline-none " +
   "focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]"
 
 /** The card every (auth) route sits in. One shape, one place to change it. */
@@ -82,6 +85,9 @@ export function AuthField({
   onChange,
   placeholder,
   minLength,
+  autoComplete,
+  invalid,
+  describedBy,
 }: {
   label: string
   type: "email" | "password"
@@ -89,16 +95,28 @@ export function AuthField({
   onChange: (v: string) => void
   placeholder: string
   minLength?: number
+  /** Password managers and iOS Keychain cannot autofill without this. Missing
+   *  autocomplete forces manual typing on mobile -> typos -> wrong-password
+   *  -> abandoned signup. Pass "email" | "current-password" | "new-password". */
+  autoComplete?: string
+  /** Wires the field to the form-level error for screen readers. */
+  invalid?: boolean
+  describedBy?: string
 }) {
   return (
     <div>
-      <label className={`text-[11px] ${AUTH_TEXT_MUTED} block mb-1.5`}>{label}</label>
+      {/* 12px, secondary (not muted): 11px muted measured 3.02:1 on the card
+          background — WCAG AA needs 4.5:1 for text this size. */}
+      <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required
         minLength={minLength}
+        autoComplete={autoComplete}
+        aria-invalid={invalid || undefined}
+        aria-describedby={invalid ? describedBy : undefined}
         className={FIELD_CLASS}
         placeholder={placeholder}
       />

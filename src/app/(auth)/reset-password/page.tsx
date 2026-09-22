@@ -92,8 +92,8 @@ export default function ResetPasswordPage() {
             <AuthHeading heading={tr.heading} subheading={tr.subheading} />
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <AuthField label={tr.newLabel} type="password" value={password} onChange={setPassword} placeholder={tr.newPlaceholder} minLength={8} />
-              <AuthField label={tr.confirmLabel} type="password" value={confirm} onChange={setConfirm} placeholder={tr.confirmPlaceholder} minLength={8} />
+              <AuthField label={tr.newLabel} type="password" value={password} onChange={setPassword} placeholder={tr.newPlaceholder} minLength={8} autoComplete="new-password" />
+              <AuthField label={tr.confirmLabel} type="password" value={confirm} onChange={setConfirm} placeholder={tr.confirmPlaceholder} minLength={8} autoComplete="new-password" />
 
               {error && (
                 <div className="bg-[var(--color-skip)]/10 border border-[var(--color-skip)]/30 rounded-lg px-3 py-2.5 text-[12.5px] text-[var(--color-skip)]">

@@ -181,27 +181,27 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 <span className="font-bold text-[15px] text-[var(--color-text-primary)]">
                   {prices[plan] != null ? `€${prices[plan]}` : "…"}
                 </span>
-                <span className="text-[10px] text-[var(--color-text-muted)] ml-1">{t.perMonth}</span>
+                <span className="text-[12px] text-[var(--color-text-secondary)] ml-1">{t.perMonth}</span>
               </span>
             </div>
             {/* H10: trust note beside price row — resolves the "will I be charged now?" objection
                 at exactly the moment it forms (Principle #4/#7). Moved UP from below-button. */}
             {t.paidTrustNote && (
-              <p className="text-[10.5px] text-[var(--color-text-muted)] text-center mt-1.5">
+              <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-1.5">
                 🔒 {t.paidTrustNote}
               </p>
             )}
           </div>
 
           <div>
-            <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.emailLabel}</label>
-            <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
-              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[13.5px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
+            <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{t.emailLabel}</label>
+            <input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
+              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 min-h-[44px] text-[16px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
           <div>
-            <label className="text-[11px] text-[var(--color-text-muted)] block mb-1.5">{t.passwordLabel}</label>
-            <input type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder={t.passwordPlaceholder}
-              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[13.5px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
+            <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{t.passwordLabel}</label>
+            <input type="password" required autoComplete="new-password" value={password} onChange={e => setPassword(e.target.value)} placeholder={t.passwordPlaceholder}
+              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 min-h-[44px] text-[16px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
 
           {/* EU consumer law: for digital content delivered immediately, the
@@ -221,7 +221,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
               English on every locale until legal-compliance signs off on a
               translated version — see that constant's comment for why. */}
           <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]" data-i18n-pending="waiver-legal-review">
-            <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 accent-[var(--color-buy)]" />
+            <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
             <span>{WITHDRAWAL_WAIVER_TEXT}</span>
           </label>
           {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
@@ -247,11 +247,11 @@ function RegisterContent({ locale }: { locale: Locale }) {
               open in a new tab, so nothing is hidden, it just costs no click
               to proceed. Deliberately NOT applied to the withdrawal waiver
               above, which the law requires as a separate affirmative act. */}
-          <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
+          <p className="text-[12px] text-[var(--color-text-secondary)] text-center">
             {t.tosInlinePrefix} <Link href="/terms" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.termsLabel}</Link> {t.tosAnd} <Link href="/privacy" target="_blank" className="text-[var(--color-buy)] hover:underline">{t.privacyLabel}</Link>{t.tosSuffix ? ` ${t.tosSuffix}` : ""}
           </p>
 
-          <p className="text-[10.5px] text-[var(--color-text-muted)] text-center">
+          <p className="text-[12px] text-[var(--color-text-secondary)] text-center">
             {t.paidNote}
           </p>
         </form>

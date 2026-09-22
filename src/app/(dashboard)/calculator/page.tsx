@@ -89,7 +89,7 @@ export default function CalculatorPage() {
   if (!authChecked || authLoading) {
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "var(--color-bg)" }}>
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "5px", color: "var(--color-buy)" }}>RESALE·IQ</div>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, letterSpacing: "5px", color: "var(--color-buy)" }}>RESALE·IQ</div>
       </div>
     )
   }

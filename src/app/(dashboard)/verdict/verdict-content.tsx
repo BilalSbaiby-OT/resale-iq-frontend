@@ -190,7 +190,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
             onKeyDown={e => e.key === "Enter" && run()}
             placeholder={t.placeholder}
             style={{ width: "100%", maxWidth: "100%", minWidth: 0 }}
-            className="bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[#546380]" />
+            className="bg-[#0f1218] border border-[rgba(255,255,255,0.12)] rounded-2xl px-5 py-4 text-[17px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
           <button onClick={() => run()} disabled={loading || !query.trim()}
             style={{ minWidth: 0, maxWidth: "100%" }}
             className="px-6 py-4 rounded-2xl text-[16px] font-bold bg-emerald-400 text-[#06090c] hover:bg-emerald-300 transition-colors disabled:opacity-40 flex items-center justify-center gap-2">
@@ -211,10 +211,10 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         )}
 
         {result && vs && (
-          <div className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
+          <div className="bg-[var(--color-bg-3)] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
             <div className="riq-verdict-head p-6 border-b border-[rgba(255,255,255,0.07)]">
               <div className="riq-verdict-head-copy">
-                <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
+                <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1">{t.decision}</div>
                 <div className="text-[15px] font-semibold text-[#eef1f7]">{result.product || query}</div>
                 {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
               </div>
@@ -224,7 +224,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   {vs.label}
                 </div>
                 {result.confidence && (
-                  <div className="text-[10px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
+                  <div className="text-[12px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
                     {t.confidence} {result.confidence}
                     {result.provisional ? ` · ${t.provisional}` : ""}
                   </div>
@@ -268,7 +268,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       <button
                         key={a.category}
                         onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq) }}
-                        className="flex items-center justify-between bg-[#1a2030] border border-[rgba(255,255,255,0.12)] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
+                        className="flex items-center justify-between bg-[var(--color-surface-elevated)] border border-[rgba(255,255,255,0.12)] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
@@ -339,7 +339,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         )}
 
         {!result && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[#12151d] border border-[#1c2333] rounded-xl p-6 mt-6">
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6 mt-6">
             <p>{t.empty}</p>
             <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
             {/* IQ-060: paid sessions (operator/power) already have the checker
@@ -374,7 +374,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 >
                   {t.seePlans} →
                 </Link>
-                <span className="text-[12px] text-[#546380]">€19/mo · no free tier</span>
+                <span className="text-[12px] text-[var(--color-text-secondary)]">€19/mo · no free tier</span>
               </div>
             )}
           </div>
@@ -460,7 +460,7 @@ function VerdictInsightBody({
     <>
       {result.reasons && result.reasons.length > 0 && (
         <div className="p-6 border-b border-[rgba(255,255,255,0.07)]">
-          <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-3">{t.why}</div>
+          <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-3">{t.why}</div>
           <ul className="flex flex-col gap-2">
             {result.reasons.map((r, i) => (
               <li key={i} className="flex gap-2 text-[13px] text-[#a9b6d0]">
@@ -500,16 +500,16 @@ function VerdictInsightBody({
         <div className="p-6 flex flex-wrap items-center gap-x-8 gap-y-3">
           {result.momentum && (
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.demand}</span>
+              <span className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide">{t.demand}</span>
               <MomentumBadge momentum={result.momentum} size="md" />
             </div>
           )}
           {result.top_sizes && result.top_sizes.length > 0 && (
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-[11px] text-[#546380] uppercase tracking-wide">{t.hotSizes}</span>
+              <span className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide">{t.hotSizes}</span>
               <span className="flex flex-wrap gap-1">
                 {result.top_sizes.slice(0, 5).map(s => (
-                  <span key={s} className="px-2 py-0.5 rounded bg-[#1a2030] border border-[rgba(255,255,255,0.12)] text-[11px] text-[#a9b6d0]">{s}</span>
+                  <span key={s} className="px-2 py-0.5 rounded bg-[var(--color-surface-elevated)] border border-[rgba(255,255,255,0.12)] text-[12px] text-[#a9b6d0]">{s}</span>
                 ))}
               </span>
             </div>
@@ -558,15 +558,15 @@ function SeedVerdictCard({
   const product = result.product || query
   const sample = watchedSampleNote(result.sold_7d, result.active_listings, result.verdict, locale)
   return (
-    <div data-testid="riq-seed-verdict" className="bg-[#141820] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
-      <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] bg-[#12151d]">
-        <div className="text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{t.seedLabel}</div>
+    <div data-testid="riq-seed-verdict" className="bg-[var(--color-bg-3)] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
+      <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] bg-[var(--color-surface)]">
+        <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1.5">{t.seedLabel}</div>
         <div className="text-[12.5px] text-[#8b99b8] leading-5">{t.seedIntro(product)}</div>
       </div>
 
       <div className="riq-verdict-head p-6 border-b border-[rgba(255,255,255,0.07)]">
         <div className="riq-verdict-head-copy">
-          <div className="text-[11px] text-[#546380] uppercase tracking-wide mb-1">{t.decision}</div>
+          <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1">{t.decision}</div>
           <div className="text-[15px] font-semibold text-[#eef1f7]">{product}</div>
           {result.category && <div className="text-[12px] text-[#5b6b8c] mt-0.5">{result.category}</div>}
         </div>
@@ -576,7 +576,7 @@ function SeedVerdictCard({
             {vs.label}
           </div>
           {result.confidence && (
-            <div className="text-[10px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
+            <div className="text-[12px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">
               {t.confidence} {result.confidence}
             </div>
           )}
@@ -626,7 +626,7 @@ function LockedMetricValue({ label, cta }: { label: string; cta: string }) {
 function Metric({ label, value, accent }: { label: string; value: ReactNode; accent?: string }) {
   return (
     <div className="riq-metric-cell">
-      <div className="riq-metric-label text-[10px] text-[#546380] uppercase tracking-wide mb-1.5">{label}</div>
+      <div className="riq-metric-label text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1.5">{label}</div>
       <div className="text-[18px] font-bold" style={{ color: accent || "#e8ecf4" }}>{value}</div>
     </div>
   )

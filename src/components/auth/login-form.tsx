@@ -39,9 +39,9 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" />
-        <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" />
-        {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
+        <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
+        <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
+        {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
         <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
       </form>
       <div className={`text-center mt-5 text-[13px] ${AUTH_TEXT_SECONDARY}`}>

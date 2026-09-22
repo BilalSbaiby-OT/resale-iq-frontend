@@ -15,7 +15,7 @@ const SIGNAL_STYLE: Record<string, string> = {
 function TrendArrow({ dir }: { dir: string | null }) {
   if (dir === "rising") return <span className="text-emerald-400">▲</span>
   if (dir === "falling") return <span className="text-red-400">▼</span>
-  return <span className="text-[#546380]">—</span>
+  return <span className="text-[var(--color-text-secondary)]">—</span>
 }
 
 export default function MarketPage() {
@@ -66,9 +66,9 @@ export default function MarketPage() {
           ["SHOWING", rows.length, "#e8ecf4", "top signals by investment score"],
         ].map(([l, v, c, sub]) => (
           <div key={l as string} style={{ background: "#141820", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: 16 }}>
-            <div style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: 1.5, color: "#546380" }}>{l}</div>
+            <div style={{ fontSize: 12, fontFamily: "monospace", letterSpacing: 1.5, color: "var(--color-text-secondary)" }}>{l}</div>
             <div style={{ fontFamily: "monospace", fontSize: 26, fontWeight: 800, color: c as string, marginTop: 4 }}>{v as number}</div>
-            <div style={{ fontSize: 10, color: "#546380", marginTop: 2 }}>{sub}</div>
+            <div style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 2 }}>{sub}</div>
           </div>
         ))}
       </div>
@@ -80,17 +80,17 @@ export default function MarketPage() {
       </p>
 
       {loading ? (
-        <div style={{ color: "#546380", fontSize: 13, padding: 40, textAlign: "center" }}>Loading market signals…</div>
+        <div style={{ color: "var(--color-text-secondary)", fontSize: 13, padding: 40, textAlign: "center" }}>Loading market signals…</div>
       ) : rows.length === 0 ? (
-        <div style={{ color: "#546380", fontSize: 13, padding: 40, textAlign: "center" }}>No signals available yet — the analyzer refreshes roughly every 2 hours.</div>
+        <div style={{ color: "var(--color-text-secondary)", fontSize: 13, padding: 40, textAlign: "center" }}>No signals available yet — the analyzer refreshes roughly every 2 hours.</div>
       ) : (
-        <div className="bg-[#141820] border border-[#1e2535] rounded-xl overflow-hidden">
+        <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl overflow-hidden">
           <div className="riq-scroll-x"><table className="w-full" style={{ minWidth: 720 }}>
             <thead>
               <tr>
                 {HEADERS.map(([h, col]) => (
                   <th key={h} onClick={() => col && toggleSort(col)}
-                    className={`text-[9px] font-mono text-[#546380] uppercase tracking-[1.5px] px-3 py-2.5 text-left bg-[#1a2030] border-b border-[#1e2535] ${col ? "cursor-pointer hover:text-[#e8ecf4]" : ""} ${sort === col ? "text-emerald-400" : ""}`}>
+                    className={`text-[12px] font-mono text-[var(--color-text-secondary)] uppercase tracking-[1.5px] px-3 py-2.5 text-left bg-[var(--color-surface-elevated)] border-b border-[var(--color-border)] ${col ? "cursor-pointer hover:text-[#e8ecf4]" : ""} ${sort === col ? "text-emerald-400" : ""}`}>
                     {h}{sort === col ? (dir === -1 ? " ↓" : " ↑") : ""}
                   </th>
                 ))}
@@ -104,7 +104,7 @@ export default function MarketPage() {
                   </td>
                   <td className="px-3 py-2.5 text-[12.5px] text-[#c3cde0] whitespace-nowrap">{r.category}</td>
                   <td className="px-3 py-2.5">
-                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border whitespace-nowrap ${SIGNAL_STYLE[r.signal] ?? SIGNAL_STYLE.HOLD}`}>{r.signal}</span>
+                    <span className={`text-[12px] font-mono font-bold px-2 py-0.5 rounded border whitespace-nowrap ${SIGNAL_STYLE[r.signal] ?? SIGNAL_STYLE.HOLD}`}>{r.signal}</span>
                   </td>
                   <td className="px-3 py-2.5 text-[13px] font-mono font-bold text-emerald-400 tabular-nums">{r.investment_score != null ? Math.round(r.investment_score) : "—"}</td>
                   <td className="px-3 py-2.5 text-[12.5px] font-mono text-[#c3cde0] tabular-nums">{r.units_sold_all_7d != null ? r.units_sold_all_7d.toLocaleString() : "—"}</td>

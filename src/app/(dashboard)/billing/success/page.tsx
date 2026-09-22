@@ -77,7 +77,7 @@ function BillingSuccessContent() {
               Check your first item
               <ArrowRight size={16} />
             </a>
-            <div style={{ fontSize: 11.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
+            <div style={{ fontSize: 12.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
               We pre-filled {FIRST_CHECK_QUERY} so you see a buy-below number on the first click.
             </div>
             {guestNeedsPassword && (

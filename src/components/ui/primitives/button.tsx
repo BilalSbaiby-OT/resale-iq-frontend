@@ -37,7 +37,10 @@ const variantStyles: Record<string, React.CSSProperties> = {
   },
   danger: {
     background: "var(--color-skip)",
-    color: "#ffffff",
+    // Token, not #ffffff: --color-on-buy (#06090c) is the near-black used on
+    // saturated accent surfaces. White on Apple red (#FF453A) is only 3.4:1;
+    // the dark-on-accent pairing is the one the token system already encodes.
+    color: "var(--color-on-buy)",
     border: "1px solid transparent",
   },
 }

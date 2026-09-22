@@ -2,7 +2,11 @@
  * Design preview — every primitive in every variant and state.
  * Route: /design-preview
  *
- * Not linked from the app. For internal QA only.
+ * Internal QA only. "Not linked from the app" is NOT the same as
+ * "not indexable": Google discovers unlinked routes via referrers, the
+ * Chrome UX report and scrapers. A noindex layout sits alongside this file
+ * (layout.tsx) so this page can never land in search results next to our
+ * real product pages.
  */
 "use client"
 
