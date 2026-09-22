@@ -104,6 +104,17 @@ interface FreeVerdict extends ReconstructedSignals {
     sold_7d: number
     avg_price_eur: number | null
   }[]
+  // OVERSUPPLIED (2026-09-22): heavy live supply, ~zero departures. A real
+  // answer ("do not stock this"), not a refusal — deliberately NOT reusing
+  // `categories`, which is typed string[] for BRAND_CATEGORIES and rendered
+  // through Intl.ListFormat.
+  oversupply_categories?: {
+    category: string
+    live_listings: number
+    avg_price_eur: number | null
+    departures_7d: number
+  }[]
+  live_listings_total?: number
 }
 
 // Verdict colour vs. system/quota colour are two different channels — see
@@ -126,6 +137,10 @@ const VERDICT_COLOR: Record<string, string> = {
   // used for UNKNOWN and INSUFFICIENT_DATA. Blue: informative, deliberately not
   // the green of BUY -- it is a brand-level average, not a per-item call.
   BRAND_AVERAGE: "#60a5fa",
+  // OVERSUPPLIED is an ANSWER ("do not stock this"), not a refusal, so it must
+  // not take the grey of UNKNOWN/PAYWALL. Red = the same "don't put money in"
+  // meaning SKIP carries, because that is exactly what it means.
+  OVERSUPPLIED: "#FF453A",
 }
 
 function money(n: number | null | undefined) {
@@ -600,6 +615,74 @@ export function FreeChecker({
               : <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
           ) : res.verdict === "UNKNOWN" ? (
             <CoverageMissCard locale={locale} query={res.product ?? q} onPick={ex => run(ex)} disabled={loading} />
+          ) : res.verdict === "OVERSUPPLIED" ? (
+            // Heavy live supply, ~zero departures. This is the product doing
+            // its job on a query we used to fail: "Uniqlo down jacket" (69
+            // searches) and "Zara wool coat" (65) previously returned UNKNOWN
+            // or a 402 asking €19 for an answer we did not hold.
+            //
+            // "Do not stock this" is worth money to a reseller — it stops a bad
+            // purchase — so it renders as a real verdict, then pivots to the
+            // buy list. A dead end here wastes the one moment the visitor has
+            // just seen us be genuinely useful for free.
+            <>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10, flexWrap: "wrap" }}>
+                <span style={{
+                  fontSize: 11, fontWeight: 700, letterSpacing: ".08em",
+                  color: VERDICT_COLOR.OVERSUPPLIED,
+                  background: "rgba(255,69,58,.12)",
+                  padding: "5px 9px", borderRadius: 6,
+                }}>
+                  DON&apos;T STOCK
+                </span>
+                <span style={{ fontSize: 15, color: "var(--color-text-primary)", fontWeight: 600 }}>
+                  {res.brand ?? q}
+                </span>
+              </div>
+
+              <p style={{ fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.55, marginBottom: 12 }}>
+                {res.live_listings_total != null
+                  ? `${res.live_listings_total.toLocaleString("en-GB")} live listings on Vinted EU, almost none leaving the shelf in the last 7 days. Heavy supply with no departures means slow resale and price pressure.`
+                  : res.message}
+              </p>
+
+              {res.oversupply_categories && res.oversupply_categories.length > 0 && (
+                <div style={{
+                  border: "1px solid var(--color-hairline)", borderRadius: 10,
+                  overflow: "hidden", marginBottom: 14,
+                }}>
+                  {res.oversupply_categories.slice(0, 3).map((c, i) => (
+                    <div key={c.category} style={{
+                      display: "flex", justifyContent: "space-between", alignItems: "center",
+                      gap: 12, padding: "10px 12px", minHeight: 44,
+                      borderTop: i === 0 ? "none" : "1px solid var(--color-hairline)",
+                    }}>
+                      <span style={{ fontSize: 13, color: "var(--color-text-primary)", fontWeight: 500 }}>
+                        {c.category}
+                      </span>
+                      <span style={{
+                        fontSize: 12, color: "var(--color-text-secondary)",
+                        fontFamily: "ui-monospace, 'SF Mono', monospace",
+                      }}>
+                        {c.live_listings.toLocaleString("en-GB")} listed · {money(c.avg_price_eur)} · {c.departures_7d} sold/wk
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <a
+                href="/#what-to-buy"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  minHeight: 44, padding: "12px 18px", borderRadius: 10,
+                  background: "var(--color-buy)", color: "var(--color-on-buy)",
+                  fontSize: 14, fontWeight: 600, textDecoration: "none",
+                }}
+              >
+                See what IS selling this week →
+              </a>
+            </>
           ) : res.verdict === "BRAND_CATEGORIES" ? (
             // A brand-only query — the backend recognises the brand but has no
             // garment to price. Previously fell through to the default

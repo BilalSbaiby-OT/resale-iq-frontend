@@ -161,6 +161,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
   return (
     <div
       data-testid="riq-home-buy-list"
+      id="what-to-buy"
       style={{
         maxWidth:  680,
         margin:    "0 auto var(--space-3, 20px)",
