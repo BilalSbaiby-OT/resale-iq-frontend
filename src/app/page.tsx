@@ -77,7 +77,18 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
   // SSR buy list for first-render proof — renders in initial HTML so the
   // reseller sees Stone Island BUY €70 / Fred Perry BUY €18 without waiting
   // for JS. HomeBuyList client component is kept as live-refresh fallback.
+  // Failures are logged loudly inside getPublicBuyList so the disappearance
+  // of the headline feature is never silent — check server logs for [ssr-buy-list] FATAL.
   const ssrBuyList = await getPublicBuyList(5)
+  if (!ssrBuyList || ssrBuyList.length === 0) {
+    // why: this is the product's headline promise ("a ranked list of the
+    // second-hand clothing worth stocking right now"). A null/empty result
+    // means the homepage front door shows nothing of value. Log at error level
+    // so monitoring catches it before a visitor does — HomeBuyList (client-only
+    // fallback) still renders below the checker, but the above-the-fold SSR
+    // proof is gone.
+    console.error("[page] WARN: ssrBuyList is empty — SsrBuyListTeaser will not render above the fold. Check [ssr-buy-list] FATAL log above for root cause.")
+  }
   // Cite, example card, and first free chip are the same SKU (Samba).
   // 530 remains a free chip; it is no longer a second competing example.
   const example = samba ?? hero.result

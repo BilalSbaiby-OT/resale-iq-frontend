@@ -359,7 +359,7 @@ export default async function BrandFlipPage(
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         We continuously track live listings across Vinted ES, FR, DE, IT and PT, and watch which ones leave the shelf —
-        {tracked} unique listings — and recompute every signal roughly every 2 hours. The figures on this page are
+        {tracked} listing records — and recompute every signal roughly every 2 hours. The figures on this page are
         live aggregates, not estimates. Last calculated {market.stamp ?? "—"}.{" "}
         <Link href="/methodology" style={{ color: "#34C759", textDecoration: "none" }}>Methodology</Link>
         {" · "}

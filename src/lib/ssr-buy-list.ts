@@ -86,7 +86,17 @@ export async function getPublicBuyList(limit = 5): Promise<SsrBuyListItem[] | nu
         await writeCache(items)
         return items
       }
+      // why: 0 shapeable rows on an ok response means the teaser will vanish —
+      // log so a future shape() regression surfaces in server logs, not a curl.
+      console.error("[ssr-buy-list] FATAL: 0 shapeable rows from buy-list API — homepage buy list EMPTY")
+    } else {
+      // why: non-ok means SSR fetch failed; log so the outage is visible.
+      console.error(`[ssr-buy-list] FATAL: buy-list fetch HTTP ${r.status} — homepage buy list EMPTY`)
     }
-  } catch { /* fallback to cache */ }
+  } catch (err) {
+    // why: log before falling back to cache so a misconfigured BACKEND_URL or
+    // backend outage shows up in server logs instead of silently serving stale.
+    console.error("[ssr-buy-list] FATAL: buy-list fetch threw — homepage buy list may be stale or EMPTY", err instanceof Error ? err.message : String(err))
+  }
   return cached ? cached.items.slice(0, limit) : null
 }

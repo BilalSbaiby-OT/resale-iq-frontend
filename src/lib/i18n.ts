@@ -341,9 +341,12 @@ export const copy = {
       // Paid session on the public checker: never "unlock with a plan".
       paidUnlockLine: (chip: string) => `You're on ${chip} — open Verdict for the full numbers.`,
       paidManageCta: "Manage subscription",
+      alternativesHeading: "What to check instead",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} avg`,
+      alternativesBuyBelow: "Buy-below — Starter",
     },
     pricingSection: {
-      // EX-PRICING-OFFER — Bilal locked flips offer. H1 + subhead are the hero.
       heading: "Know what sells. Decide whether to buy.",
       // EX-PRICING-CTR — SERP title matches demand OS, not buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
@@ -864,6 +867,10 @@ export const copy = {
       seeFullNumbers: "Voir tous les chiffres →",
       paidUnlockLine: (chip: string) => `Vous êtes sur ${chip} — ouvrez Verdict pour tous les chiffres.`,
       paidManageCta: "Gérer l'abonnement",
+      alternativesHeading: "Ce qu'il faut vérifier à la place",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} moy.`,
+      alternativesBuyBelow: "Prix max — Starter",
     },
     pricingSection: {
       heading: "Sachez ce qui se vend. Décidez si vous achetez.",
@@ -1300,6 +1307,10 @@ export const copy = {
       seeFullNumbers: "Ver todos los números →",
       paidUnlockLine: (chip: string) => `Estás en ${chip} — abre Verdict para ver todos los números.`,
       paidManageCta: "Gestionar suscripción",
+      alternativesHeading: "Qué comprobar en su lugar",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} media`,
+      alternativesBuyBelow: "Precio máximo — Starter",
     },
     pricingSection: {
       // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
@@ -1737,6 +1748,10 @@ export const copy = {
       seeFullNumbers: "Alle Zahlen ansehen →",
       paidUnlockLine: (chip: string) => `Du nutzt ${chip} — öffne Verdict für die vollständigen Zahlen.`,
       paidManageCta: "Abo verwalten",
+      alternativesHeading: "Was stattdessen zu prüfen ist",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} Ø`,
+      alternativesBuyBelow: "Kauflimit — Starter",
     },
     pricingSection: {
       heading: "Wissen, was sich verkauft. Entscheide, ob du kaufst.",
@@ -2174,6 +2189,10 @@ export const copy = {
       seeFullNumbers: "Vedi tutti i numeri →",
       paidUnlockLine: (chip: string) => `Sei su ${chip} — apri Verdict per tutti i numeri.`,
       paidManageCta: "Gestisci abbonamento",
+      alternativesHeading: "Cosa controllare invece",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} media`,
+      alternativesBuyBelow: "Prezzo max — Starter",
     },
     pricingSection: {
       heading: "Sappi cosa si vende. Decidi se comprare.",
@@ -2609,6 +2628,10 @@ export const copy = {
       seeFullNumbers: "Ver todos os números →",
       paidUnlockLine: (chip: string) => `Estás no ${chip} — abre o Verdict para todos os números.`,
       paidManageCta: "Gerir subscrição",
+      alternativesHeading: "O que verificar em vez disso",
+      alternativesDemand: (note: string) => note,
+      alternativesAvgPrice: (price: string) => `${price} média`,
+      alternativesBuyBelow: "Preço máximo — Starter",
     },
     pricingSection: {
       heading: "Saiba o que vende. Decida se compra.",

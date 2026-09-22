@@ -121,6 +121,20 @@ interface FreeVerdict extends ReconstructedSignals {
     departures_7d: number
   }[]
   live_listings_total?: number
+  /** Backend-supplied alternatives for this query — items with stronger 30-day
+   *  demand. Present on verdicts. buy_below_locked=true means price is paid-only. */
+  alternatives?: {
+    brand: string
+    model: string
+    category: string
+    sold_30d: number
+    demand_note: string
+    avg_price_eur: number | null
+    momentum: string
+    buy_below_locked: boolean
+  }[]
+  /** Backend-supplied note explaining why these alternatives are shown. */
+  alternatives_note?: string | null
 }
 
 // Verdict colour vs. system/quota colour are two different channels — see
@@ -261,6 +275,112 @@ function blogModeCtaLabel(product: string | undefined | null): string | null {
   const words = product.trim().split(/\s+/)
   const short = product.length <= 22 ? product : words.slice(0, 3).join(" ")
   return `Get ${short} numbers — €19/mo →`
+}
+
+/**
+ * VerdictAlternatives — renders backend-supplied alternative items below a verdict.
+ *
+ * WHY THIS EXISTS: 2,786 of 2,798 verdict-runners in the last 14 days ran
+ * exactly one check and never came back (99.6% one-and-done). 80% of all
+ * searches are three sneaker models whose verdict is usually SKIP or WATCH.
+ * The alternatives the backend now supplies ARE the next search — the reason
+ * to run a second check. Each row is clickable and fires that item's query.
+ *
+ * Design rules:
+ * - demand_note is backend-owned copy — never substitute "30 days" for "weekly".
+ * - avg_price_eur is the honest exit price — label it, never claim it is buy-below.
+ * - buy_below_locked:true means the buy-below price is paid-only — show lock,
+ *   never leak the number or show a blurred/fake value.
+ * - alternatives_note is backend-supplied context copy — use verbatim, do not
+ *   paraphrase or invent stronger claims.
+ * - Each row is a button that runs that item as a new check (creates second search).
+ */
+function VerdictAlternatives({
+  alternatives,
+  alternatives_note,
+  locale,
+  onRun,
+  disabled,
+}: {
+  alternatives: NonNullable<FreeVerdict["alternatives"]>
+  alternatives_note?: string | null
+  locale: Locale
+  onRun: (query: string) => void
+  disabled: boolean
+}) {
+  const t = copy[locale].checker
+  if (alternatives.length === 0) return null
+  return (
+    <div
+      data-testid="riq-verdict-alternatives"
+      style={{ marginTop: 16 }}
+    >
+      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8FA3C4", marginBottom: 8 }}>
+        {t.alternativesHeading}
+      </div>
+      {alternatives_note && (
+        <p style={{ fontSize: 12.5, color: "#8FA3C4", marginBottom: 10, lineHeight: 1.5 }}>
+          {alternatives_note}
+        </p>
+      )}
+      <div
+        style={{
+          background: "var(--color-surface, #12151d)",
+          border: "1px solid rgba(255,255,255,.08)",
+          borderRadius: 12,
+          overflow: "hidden",
+        }}
+      >
+        {alternatives.map((alt, i) => (
+          <button
+            key={`${alt.brand}-${alt.model}`}
+            type="button"
+            disabled={disabled}
+            onClick={() => onRun(`${alt.brand} ${alt.model}`)}
+            style={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              padding: "11px 14px",
+              background: "transparent",
+              border: "none",
+              borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,.06)",
+              cursor: disabled ? "wait" : "pointer",
+              textAlign: "left",
+            }}
+          >
+            {/* Left: brand + model, demand note (30-day NOT weekly) */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0, flex: 1 }}>
+              <span style={{ fontSize: 13.5, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {alt.brand} {alt.model}
+              </span>
+              <span style={{ fontSize: 11.5, color: "#8FA3C4" }}>
+                {/* demand_note is backend-owned: "371 sold in 30 days" — never relabel as weekly */}
+                {t.alternativesDemand(alt.demand_note)}
+              </span>
+            </div>
+            {/* Right: avg price + lock on buy-below */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 3, flexShrink: 0 }}>
+              {alt.avg_price_eur != null && (
+                <span style={{ fontSize: 12.5, fontWeight: 600, color: "#EEF1F7", fontVariantNumeric: "tabular-nums" }}>
+                  {t.alternativesAvgPrice(`€${Math.round(alt.avg_price_eur)}`)}
+                </span>
+              )}
+              {/* buy_below_locked:true — price is paid-only, show lock label, never leak value */}
+              {alt.buy_below_locked && (
+                <span style={{ fontSize: 11, color: "#8FA3C4", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <Lock size={10} aria-hidden />
+                  {t.alternativesBuyBelow}
+                </span>
+              )}
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 function paidUserForChip(user: User | null, tokenPlan: string | null): User | null {
@@ -1040,6 +1160,19 @@ export function FreeChecker({
           <DigestSubscribe
             query={q}
             verdictSummary={res.verdict && res.product ? `${res.verdict} — ${res.product}` : res.verdict ?? undefined}
+          />
+        )}
+        {/* Alternatives — shown after any real verdict (not the seeded example) when
+            the backend provides them. Each row is clickable and fires a new search,
+            creating the second check the 99.6% one-and-done rate shows people never run.
+            buy_below_locked is always respected — never leak the price. */}
+        {!isExample && res.alternatives && res.alternatives.length > 0 && (
+          <VerdictAlternatives
+            alternatives={res.alternatives}
+            alternatives_note={res.alternatives_note}
+            locale={locale}
+            onRun={run}
+            disabled={loading}
           />
         )}
         </>
