@@ -58,9 +58,23 @@ function VerdictBadge({ verdict }: { verdict: string }) {
 export function SsrBuyListTeaser({
   items,
   locale,
+  showPrice = true,
 }: {
   items: SsrBuyListItem[]
   locale: Locale
+  /** Show the "Starter €19/mo" line under the footer CTA.
+   *
+   *  PROOF BEFORE PRICE (2026-09-22). Teardown of 11 comparable data/analytics
+   *  products (Keepa, PriceCharting, SellerAmp, Jungle Scout, ZIK, Vendoo,
+   *  Plausible, Fathom, Beehiiv, Helium 10, Flipwise) found ZERO that state a
+   *  price above the fold; every one leads with dataset scale, a user count, or
+   *  named proof and defers price to a later section or a /pricing page.
+   *  Our homepage did the inverse — "Starter €19/mo" appeared in the first
+   *  screen, before the visitor had seen a single answer. Measured locally:
+   *  44 of 50 humans who reached /pricing had never seen a verdict.
+   *  So: price OFF on the homepage (proof first), ON at /pricing where the
+   *  visitor has already asked the commercial question. */
+  showPrice?: boolean
 }) {
   // Only show free (unlocked) rows — the teaser must prove the product finds
   // winners. BUY = hot momentum; RISING = strong 30-day history recovering
@@ -121,10 +135,21 @@ export function SsrBuyListTeaser({
               </span>
               <span style={{ fontSize: 12, color: "#8FA3C4" }}>
                 {item.category}
-                {item.sold_7d != null
-                  ? ` · ${item.sold_7d} sold/wk`
-                  : item.sold_30d_evidence != null
-                    ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
+                {/* DEMAND FIGURE — 2026-09-22.
+                    This used to prefer sold_7d, which made the buy list read
+                    "New Balance 530 · 7 sold/wk" for an item with 1,235 sold in
+                    30 days. The Sep 14-22 ingest outage sits inside the 7-day
+                    window, so sold_7d is a near-zero artefact until ~Sep 29 and
+                    understates our single best item by ~176x. Leading a buy
+                    list with a dead-looking number on its top row is worse than
+                    showing nothing.
+                    Prefer the 30-day evidence, which is honest and stable; fall
+                    back to sold_7d only when 30d evidence is absent. Revisit
+                    after Sep 29 only if 7d becomes the more useful signal. */}
+                {item.sold_30d_evidence != null
+                  ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
+                  : item.sold_7d != null
+                    ? ` · ${item.sold_7d} sold/wk`
                     : ""}
               </span>
             </div>
@@ -167,9 +192,21 @@ export function SsrBuyListTeaser({
             <p style={{ fontSize: 12.5, fontWeight: 600, color: "#EEF1F7", margin: "0 0 2px" }}>
               Full ranked list + buy-below on every brand, updated weekly.
             </p>
-            <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
-              Starter €19/mo · cancel anytime
-            </p>
+            {showPrice ? (
+              <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
+                Starter €19/mo · cancel anytime
+              </p>
+            ) : (
+              /* Proof substitute, not a price. Keepa leads with "Monitoring
+                 7,669,135,713 products", PriceCharting with "45,000+ games
+                 priced", Plausible with "313B tracked pageviews". With zero
+                 customers and zero testimonials, verifiable dataset scale is
+                 the only honest trust signal we own — and we genuinely hold
+                 13.4M listing records across 5 EU markets. */
+              <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
+                Built from 13.4M tracked Vinted listings across 5 EU markets
+              </p>
+            )}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
             {/* PRIMARY: free action — correct first ask for cold traffic */}

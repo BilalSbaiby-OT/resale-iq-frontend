@@ -139,7 +139,7 @@ export function LandingContent({
                 CRO: show the answer before asking for money. 94% of visitors
                 never typed a query — give them the ranked list first. */}
             {ssrBuyList && ssrBuyList.length > 0 && (
-              <SsrBuyListTeaser items={ssrBuyList} locale={locale} />
+              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} />
             )}
 
 
