@@ -12,9 +12,11 @@ import { faqPageJsonLd, type FaqItem } from "@/lib/faq-schema"
 import type { copy, Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
 import { formatSellThrough } from "@/lib/format-sell-through"
 import { HomeBuyList } from "./home-buy-list"
+import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -37,6 +39,7 @@ export function LandingContent({
   faqs,
   llmSrc,
   homeCite,
+  ssrBuyList,
 }: {
   t: Dict
   locale: Locale
@@ -53,10 +56,15 @@ export function LandingContent({
    * Set when the visitor arrives via ?src=perplexity / ?src=chatgpt / ?src=llm.
    * Renders a one-line eyebrow above the H1 that mirrors the channel that
    * brought them — CRO principle #3 (message match). Expected: 10-15% lift on
-   * signup rate for LLM-referred visitors (the only channel that ever converted).
+   * signup rate for LLM-referred visitors (the only channel that ever converted).\
    * Pure frontend; no backend required. Revenue 2026-09-15 H2.
    */
   llmSrc?: "perplexity" | "chatgpt" | "llm" | null
+  /**
+   * SSR-fetched buy list for first-render above-the-fold proof.
+   * Null when backend is unavailable — falls back to HomeBuyList client-side.
+   */
+  ssrBuyList?: SsrBuyListItem[] | null
 }) {
   void tracked
   void trackedExact
@@ -138,16 +146,18 @@ export function LandingContent({
               </p>
             </div>
 
-            {/* ── Buy list teaser — LEADS the page (CEO directive 2026-09-21) ──
-                The product is NOT a search box. It is a ranked buy list.
-                Show the top opportunities unprompted so a stranger sees
-                "Stone Island Hoodies — BUY — €71 avg" in 3 seconds.
-                94% of visitors never typed a query. Give them the answer first.
-                Search box stays below for lookup; buy list is above for discovery.
-                HomeBuyList is client-only (returns null on SSR/loading), so it
-                takes zero height before the fetch resolves and never pushes the
-                checker below the fold for the fold-position test. */}
-            <HomeBuyList locale={locale} />
+            {/* ── CONVERSION REDESIGN 2026-09-22 ──────────────────────────────
+                Cold visitor journey: see proof → understand → check own item.
+                SSR teaser shows real BUY rows (Stone Island €70, Fred Perry €18)
+                in initial HTML — no JS wait, crawler-visible, conversion-first.
+                HomeBuyList (client-only) below the checker updates live and shows
+                locked rows with the paywall CTA.
+                CRO: show the answer before asking for money. 94% of visitors
+                never typed a query — give them the ranked list first. */}
+            {ssrBuyList && ssrBuyList.length > 0 && (
+              <SsrBuyListTeaser items={ssrBuyList} locale={locale} />
+            )}
+
 
             <div id="check" className="riq-hero-checker">
               <FreeChecker
@@ -164,44 +174,10 @@ export function LandingContent({
               />
             </div>
 
-            {/* Verdict explainer — visible immediately below the checker.
-                Answers the #1 comprehension gap: "what does WATCH €24.35 mean?"
-                Only renders on clients (no SSR text to avoid hydration issues). */}
-            <div
-              data-testid="riq-verdict-explainer"
-              style={{
-                maxWidth: 480,
-                margin: "0 auto",
-                padding: "14px 18px",
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border-ui)",
-                borderRadius: 12,
-                fontSize: 13,
-                lineHeight: 1.6,
-                color: "var(--color-text-secondary)",
-              }}
-            >
-              <strong style={{ color: "var(--color-text-primary)", display: "block", marginBottom: 6, fontSize: 13.5 }}>
-                What does the result mean?
-              </strong>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                <span style={{ fontWeight: 700, color: "#34C759", fontFamily: "monospace", fontSize: 13 }}>BUY</span>
-                — demand is strong. Source it now.
-              </span>
-              <br />
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                <span style={{ fontWeight: 700, color: "#FF9F0A", fontFamily: "monospace", fontSize: 13 }}>WATCH</span>
-                — worth watching. The €24.35 is the max you can pay and still make a margin.
-              </span>
-              <br />
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontWeight: 700, color: "#FF3B30", fontFamily: "monospace", fontSize: 13 }}>SKIP</span>
-                — oversupplied or margins are too thin right now.
-              </span>
-              <p style={{ marginTop: 8, marginBottom: 0, fontSize: 12, color: "var(--color-text-muted)" }}>
-                Based on {tracked} live Vinted listings across ES · FR · DE · IT · PT. Updated weekly.
-              </p>
-            </div>
+            {/* HomeBuyList — client-side live refresh with locked rows + paywall CTA.
+                SSR rows are already shown above (SsrBuyListTeaser). This layer
+                updates with the freshest data after hydration. */}
+            <HomeBuyList locale={locale} />
 
             {/* Below the checker, not beside it. Hidden on narrow screens where
                 the checker must lead. Static <img> (no next/image config). */}

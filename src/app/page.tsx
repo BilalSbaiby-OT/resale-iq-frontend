@@ -3,6 +3,7 @@ import { listingsTrackedLabel, listingsTrackedExact } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { getHeroVerdict } from "@/lib/hero-verdict"
 import { formatHomeCite, getTeaserVerdict } from "@/lib/teaser-verdict"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { copy } from "@/lib/i18n"
 import { hreflangLanguages } from "@/lib/locale-routes"
 import type { FaqItem } from "@/lib/faq-schema"
@@ -73,6 +74,10 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
   const hero = await getHeroVerdict()
   const samba = await getTeaserVerdict("Adidas Samba")
   const homeCite = formatHomeCite("Adidas Samba", samba)
+  // SSR buy list for first-render proof — renders in initial HTML so the
+  // reseller sees Stone Island BUY €70 / Fred Perry BUY €18 without waiting
+  // for JS. HomeBuyList client component is kept as live-refresh fallback.
+  const ssrBuyList = await getPublicBuyList(5)
   // Cite, example card, and first free chip are the same SKU (Samba).
   // 530 remains a free chip; it is no longer a second competing example.
   const example = samba ?? hero.result
@@ -82,6 +87,6 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
   const srcRaw = Array.isArray(sp.src) ? sp.src[0] : (sp.src ?? null)
   const llmSrc = (srcRaw === "perplexity" || srcRaw === "chatgpt" || srcRaw === "llm") ? srcRaw : null
   return (
-    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={exampleQuery} heroResult={example} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} />
+    <LandingContent t={copy.en} locale="en" tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={exampleQuery} heroResult={example} faqs={HOME_FAQS} llmSrc={llmSrc} homeCite={homeCite} ssrBuyList={ssrBuyList} />
   )
 }
