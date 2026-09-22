@@ -15,19 +15,19 @@ export const POSTS_8: BlogPost[] = [
     title: "Lacoste Reselling on Vinted: Jackets at €80 Average, Shirts Lead Volume",
     seoTitle: "Is Lacoste Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Lacoste tracks 2,220 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.24 average. Shirts lead at 650 departures (€23.41 avg). Jackets: 177 departures at €39.91 avg. The sourcing edge is the L.12.12 polo and Harrington jacket identification.te volume at 62 departures averaging €27 — the highest Shirt volume of any top-15 brand.",
+      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.87 average. Shirts lead at 650 departures (€23.41 avg). Jackets: 177 departures at €39.91 avg. The sourcing edge is the L.12.12 polo and Harrington jacket identification.te volume at 62 departures averaging €27 — the highest Shirt volume of any top-15 brand.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
 
     preflightQuery: "Lacoste",
     intro:
-      "Lacoste tracks 2,220 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level, observation window to 22 September 2026) at a €27.24 average. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
+      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level, observation window to 22 September 2026) at a €27.87 average. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Brand-level Lacoste departures in the last 30 days on EU Vinted: Shirts 650 (€23.41 avg), Hoodies 224 (€24.64 avg), T-Shirts 190 (€23.32 avg), Jackets 177 (€39.91 avg), Tracksuits 119 (€30.31 avg). Total: 2,220 at €27.24 avg. ResaleIQ does not publish per-model counts for Lacoste.rtures averaging €41. Jackets came in at 9 departures averaging €80 — the highest average of any Lacoste category and above the Vinted average for Jackets across most top-10 brands. Tracksuits rounded out the top five at 6 departures averaging €37.",
+          "Brand-level Lacoste departures in the last 30 days on EU Vinted: Shirts 650 (€23.41 avg), Hoodies 224 (€24.64 avg), T-Shirts 190 (€23.32 avg), Jackets 177 (€39.91 avg), Tracksuits 119 (€30.31 avg). Total: 1,914 at €27.87 avg. ResaleIQ does not publish per-model counts for Lacoste.rtures averaging €41. Jackets came in at 9 departures averaging €80 — the highest average of any Lacoste category and above the Vinted average for Jackets across most top-10 brands. Tracksuits rounded out the top five at 6 departures averaging €37.",
           "Full Lacoste volumes are on " +
             ilinkHref("flip") +
             " and update weekly. The €33 brand average is structurally driven by Shirt volume; strip the Shirt category and the remaining departures average over €42. The sourcing question is whether you are building a Shirt volume play or targeting the high-ticket Jacket and Hoodie minority.",
@@ -74,7 +74,7 @@ export const POSTS_8: BlogPost[] = [
     faq: [
       {
         q: "Is Lacoste worth reselling on Vinted?",
-        a: "Yes — primarily for Shirts and Jackets. Lacoste tracks 2,220 brand-level departures in the last 30 days on EU Vinted at €27.24 average. Shirts: 650 departures at €23.41 avg; Jackets: 177 departures at €39.91 avg.res at €33 average. Shirts lead volume at 62 departures averaging €27 (buy-below ~€18). Jackets lead by margin at 9 departures averaging €80 (buy-below ~€53). The L.12.12 polo is the backbone of the Shirt volume; specific outerwear lines drive the Jacket average.",
+        a: "Yes — primarily for Shirts and Jackets. Lacoste tracks 1,914 brand-level departures in the last 30 days on EU Vinted at €27.87 average. Shirts: 650 departures at €23.41 avg; Jackets: 177 departures at €39.91 avg.res at €33 average. Shirts lead volume at 62 departures averaging €27 (buy-below ~€18). Jackets lead by margin at 9 departures averaging €80 (buy-below ~€53). The L.12.12 polo is the backbone of the Shirt volume; specific outerwear lines drive the Jacket average.",
       },
       {
         q: "What is the buy-below price for Lacoste on Vinted?",
@@ -90,7 +90,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "How does Lacoste compare to Fred Perry for resale on Vinted?",
-        a: "Fred Perry tracks 10,425 brand-level departures in the last 30 days at €21.32 average — 4.7× Lacoste's brand-level volume of 2,220/30d, but at a lower average. Lacoste's €33 average reflects higher-ticket outerwear. For sourcing strategy: Fred Perry is a volume play at low price points (buy-below ~€9 Shirts); Lacoste is a higher-ticket play with Jackets at €80 and Hoodies at €41. Both brands have strong Shirt volume, but Lacoste Shirts are worth nearly twice as much per exit.",
+        a: "Fred Perry tracks 9,229 brand-level departures in the last 30 days at €21.69 average — 4.7× Lacoste's brand-level volume of 1,914/30d, but at a lower average. Lacoste's €33 average reflects higher-ticket outerwear. For sourcing strategy: Fred Perry is a volume play at low price points (buy-below ~€9 Shirts); Lacoste is a higher-ticket play with Jackets at €80 and Hoodies at €41. Both brands have strong Shirt volume, but Lacoste Shirts are worth nearly twice as much per exit.",
       },
     ],
   },

@@ -89,7 +89,7 @@ export const POSTS_10: BlogPost[] = [
       },
       {
         q: "What Carhartt items sell best on Vinted?",
-        a: "By per-unit value: WIP Detroit Jacket (€75–120 in good condition), WIP Active Jacket (€60–95), WIP Nimbus Pullover (€55–80), WIP Skyton Jacket (€55–90). By volume based on our tracked model data: Hoodies and Jackets lead. Carhartt tracks 2,791 brand-level departures in the last 30 days across all categories at €25.90 average on EU Vinted. Beanies at €10 and T-Shirts at €14 are high-volume but below viable sourcing floor.",
+        a: "By per-unit value: WIP Detroit Jacket (€75–120 in good condition), WIP Active Jacket (€60–95), WIP Nimbus Pullover (€55–80), WIP Skyton Jacket (€55–90). By volume based on our tracked model data: Hoodies and Jackets lead. Carhartt tracks 2,375 brand-level departures in the last 30 days across all categories at €26.24 average on EU Vinted. Beanies at €10 and T-Shirts at €14 are high-volume but below viable sourcing floor.",
       },
       {
         q: "How do I identify Carhartt WIP vs mainline Carhartt?",
@@ -97,7 +97,7 @@ export const POSTS_10: BlogPost[] = [
       },
       {
         q: "How does Carhartt compare to The North Face for resale on Vinted?",
-        a: "The North Face tracks 4,100 brand-level departures in the last 30 days at €30.83 average on EU Vinted, significantly outperforming Carhartt (2,791 brand-level departures/30d at €25.90) on volume. TNF's Puffer Jackets category exits at €80–180 and has broader mass-market recognition. Carhartt's edge is specificity: the WIP sub-brand premium is higher in percentage terms (2–3× mainline) than TNF's comparable product-line spread. Carhartt sourcing requires sub-brand identification skill; TNF sourcing requires model and condition precision. Both benefit from charity shop mispricing — but TNF has more sourcing competition due to brand recognition.",
+        a: "The North Face tracks 3,407 brand-level departures in the last 30 days at €32.05 average on EU Vinted, significantly outperforming Carhartt (2,375 brand-level departures/30d at €26.24) on volume. TNF's Puffer Jackets category exits at €80–180 and has broader mass-market recognition. Carhartt's edge is specificity: the WIP sub-brand premium is higher in percentage terms (2–3× mainline) than TNF's comparable product-line spread. Carhartt sourcing requires sub-brand identification skill; TNF sourcing requires model and condition precision. Both benefit from charity shop mispricing — but TNF has more sourcing competition due to brand recognition.",
       },
     ],
   },
@@ -106,14 +106,14 @@ export const POSTS_10: BlogPost[] = [
     title: "Tommy Hilfiger Reselling on Vinted: €23 Average and the Tommy Jeans Sub-Brand Edge",
     seoTitle: "Is Tommy Hilfiger Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Tommy Hilfiger tracks 1,186 departures in the last 30 days (brand-level) on EU Vinted at €21.71 average. Jackets: 129 departures at €36.10 avg. Tommy Jeans exits at 40–60% above Tommy mainline — sub-brand identification is the sourcing edge.",
+      "Tommy Hilfiger tracks 991 departures in the last 30 days (brand-level) on EU Vinted at €21.71 average. Jackets: 129 departures at €36.10 avg. Tommy Jeans exits at 40–60% above Tommy mainline — sub-brand identification is the sourcing edge.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
 
     preflightQuery: "Tommy Hilfiger",
     intro:
-      "Tommy Hilfiger tracks 1,186 departures in the last 30 days (brand-level, across all tracked TH items on EU Vinted, 22 September 2026) at €21.71 average. The brand has a structural two-tier market identical to Carhartt: Tommy Jeans (the sub-brand, formerly Hilfiger Denim) exits at 40–60% above Tommy mainline at the same charity shop sourcing price. Identifying the flag logo placement and the Tommy Jeans label at point of sourcing is the primary value-add skill for Tommy Hilfiger reselling on EU Vinted.",
+      "Tommy Hilfiger tracks 991 departures in the last 30 days (brand-level, across all tracked TH items on EU Vinted, 22 September 2026) at €21.71 average. The brand has a structural two-tier market identical to Carhartt: Tommy Jeans (the sub-brand, formerly Hilfiger Denim) exits at 40–60% above Tommy mainline at the same charity shop sourcing price. Identifying the flag logo placement and the Tommy Jeans label at point of sourcing is the primary value-add skill for Tommy Hilfiger reselling on EU Vinted.",
     sections: [
       {
         h: "Volume and category breakdown",
@@ -158,7 +158,7 @@ export const POSTS_10: BlogPost[] = [
     faq: [
       {
         q: "Is Tommy Hilfiger worth reselling on Vinted?",
-        a: "Selectively — Jackets and Tommy Jeans items. Tommy Hilfiger tracks 1,186 brand-level departures in the last 30 days at €21.71 average on EU Vinted. Jackets: 129 departures at €36.10 avg. ResaleIQ does not publish per-model buy-below for TH (not in per-model catalogue). Tommy Jeans exits at 40–60% above mainline Tommy at the same charity shop sourcing price. The sourcing edge is sub-brand identification: Tommy Jeans Sherpa Trucker Jackets exit at €55–80 versus €35–50 for mainline blouson jackets.",
+        a: "Selectively — Jackets and Tommy Jeans items. Tommy Hilfiger tracks 991 brand-level departures in the last 30 days at €21.71 average on EU Vinted. Jackets: 129 departures at €36.10 avg. ResaleIQ does not publish per-model buy-below for TH (not in per-model catalogue). Tommy Jeans exits at 40–60% above mainline Tommy at the same charity shop sourcing price. The sourcing edge is sub-brand identification: Tommy Jeans Sherpa Trucker Jackets exit at €55–80 versus €35–50 for mainline blouson jackets.",
       },
       {
         q: "What is the buy-below price for Tommy Hilfiger on Vinted?",

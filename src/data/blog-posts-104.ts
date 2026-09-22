@@ -23,7 +23,7 @@ export const POSTS_104: BlogPost[] = [
     title: "Carhartt Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Carhartt Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Carhartt hoodies track 7 departures in the last 30 days (per tracked models, model_signals) at a €21 average exit price as of 22 September 2026. Carhartt brand-level: 2,791 departures/30d at €25.90 avg. Tommy Hilfigerthe €33 jacket market. Buy-below €13.65, WIP Chase vs mainline identification, condition grading, and how Carhartt hoodies compare to Tommy Hilfiger (€20) and Ralph Lauren (€50) for EU resellers.",
+      "Carhartt hoodies track 7 departures in the last 30 days (per tracked models, model_signals) at a €21 average exit price as of 22 September 2026. Carhartt brand-level: 2,375 departures/30d at €26.24 avg. Tommy Hilfigerthe €33 jacket market. Buy-below €13.65, WIP Chase vs mainline identification, condition grading, and how Carhartt hoodies compare to Tommy Hilfiger (€20) and Ralph Lauren (€50) for EU resellers.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 6,

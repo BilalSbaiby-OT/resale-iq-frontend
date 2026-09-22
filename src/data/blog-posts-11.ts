@@ -15,22 +15,22 @@ export const POSTS_11: BlogPost[] = [
     title: "Hugo Boss Reselling on Vinted: BOSS vs HUGO, €27 Average and the €67 Jacket Outlier",
     seoTitle: "Is Hugo Boss Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Hugo Boss tracks 2,017 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level) at a €23.80 average. Jackets lead at €32.29 avg, with 208 jacket departures in the last 30 days. The sourcing edge is sub-brand identification: BOSS (smart casual) and HUGO (fashion-forward) exit very differently on Vinted.",
+      "Hugo Boss tracks 1,752 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level) at a €24.06 average. Jackets lead at €32.29 avg, with 208 jacket departures in the last 30 days. The sourcing edge is sub-brand identification: BOSS (smart casual) and HUGO (fashion-forward) exit very differently on Vinted.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
 
     preflightQuery: "Hugo Boss",
     intro:
-      "Hugo Boss tracks 2,017 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level, observation window to 22 September 2026) at a €23.80 average. The Jacket category exits at €32.29 on average (208 jacket departures/30d), above the brand mean, driven by BOSS blazers and suit jackets in good condition. The sub-brand distinction between BOSS (the premium smart-casual line) and HUGO (the fashion-forward, younger line) creates a sourcing edge: both appear at charity shops under 'Hugo Boss' pricing, but BOSS pieces exit consistently higher on EU Vinted.",
+      "Hugo Boss tracks 1,752 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level, observation window to 22 September 2026) at a €24.06 average. The Jacket category exits at €32.29 on average (208 jacket departures/30d), above the brand mean, driven by BOSS blazers and suit jackets in good condition. The sub-brand distinction between BOSS (the premium smart-casual line) and HUGO (the fashion-forward, younger line) creates a sourcing edge: both appear at charity shops under 'Hugo Boss' pricing, but BOSS pieces exit consistently higher on EU Vinted.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Hugo Boss brand-level departures in the last 30 days on EU Vinted: Shirts 429 (€12.82 avg), Hoodies 266 (€16.91 avg), Jackets 208 (€32.29 avg), T-Shirts 174 (€13.51 avg), Tracksuits 79 (€17.66 avg). Total brand: 2,017 departures at €23.80 average. These are brand-level figures from our full EU Vinted tracking — ResaleIQ does not yet publish per-model departure counts for Hugo Boss (the brand is not in our per-model catalogue).",
+          "Hugo Boss brand-level departures in the last 30 days on EU Vinted: Shirts 429 (€12.82 avg), Hoodies 266 (€16.91 avg), Jackets 208 (€32.29 avg), T-Shirts 174 (€13.51 avg), Tracksuits 79 (€17.66 avg). Total brand: 1,752 departures at €24.06 average. These are brand-level figures from our full EU Vinted tracking — ResaleIQ does not yet publish per-model departure counts for Hugo Boss (the brand is not in our per-model catalogue).",
           "Full Hugo Boss brand data is on " +
             ilinkHref("flip") +
-            " and update weekly. The €23.80 brand average is anchored by the Jacket category at €32.29 — which sits significantly above the next-highest categories (Tracksuits €17.66, Hoodies €16.91, T-Shirts €13.51, Shirts €12.82). The sourcing decision for deliberate selection is Jackets and selected Hoodies — T-Shirts and Tracksuits are below any viable margin floor.",
+            " and update weekly. The €24.06 brand average is anchored by the Jacket category at €32.29 — which sits significantly above the next-highest categories (Tracksuits €17.66, Hoodies €16.91, T-Shirts €13.51, Shirts €12.82). The sourcing decision for deliberate selection is Jackets and selected Hoodies — T-Shirts and Tracksuits are below any viable margin floor.",
         ],
       },
       {
@@ -74,7 +74,7 @@ export const POSTS_11: BlogPost[] = [
     faq: [
       {
         q: "Is Hugo Boss worth reselling on Vinted?",
-        a: "Yes — specifically BOSS Jackets and blazers. Hugo Boss tracks 2,017 brand-level departures in the last 30 days on EU Vinted at €23.80 average. Jackets: 208 departures at €32.29 average (brand-level). BOSS blazers individually exit at €55–95 in very good condition and are consistently underpriced at EU charity shops (€10–20 sourcing). The BOSS vs HUGO sub-brand distinction and BOSS Orange discontinued pieces add further upside.",
+        a: "Yes — specifically BOSS Jackets and blazers. Hugo Boss tracks 1,752 brand-level departures in the last 30 days on EU Vinted at €24.06 average. Jackets: 208 departures at €32.29 average (brand-level). BOSS blazers individually exit at €55–95 in very good condition and are consistently underpriced at EU charity shops (€10–20 sourcing). The BOSS vs HUGO sub-brand distinction and BOSS Orange discontinued pieces add further upside.",
       },
       {
         q: "What is the buy-below price for Hugo Boss on Vinted?",
@@ -185,7 +185,7 @@ export const POSTS_11: BlogPost[] = [
       },
       {
         q: "How does Ralph Lauren compare to Hugo Boss for resale on Vinted?",
-        a: "Ralph Lauren (1,211 brand-level departures/30d at €42.10 avg) outperforms Hugo Boss (2,017 brand-level departures/30d at €23.80 avg) on average exit price per departure due to vintage Polo and RRL premium items. Hugo Boss has a higher Jacket average (€67 vs €50 for Ralph Lauren) due to BOSS tailored blazers. For vintage-era resale, Ralph Lauren is significantly higher upside. For modern smart-casual tailored pieces, BOSS outperforms Polo. Both require sub-brand identification (RRL, BOSS Orange, BOSS vs HUGO) to capture the full sourcing edge.",
+        a: "Ralph Lauren (1,027 brand-level departures/30d at €37.21 avg) outperforms Hugo Boss (1,752 brand-level departures/30d at €24.06 avg) on average exit price per departure due to vintage Polo and RRL premium items. Hugo Boss has a higher Jacket average (€67 vs €50 for Ralph Lauren) due to BOSS tailored blazers. For vintage-era resale, Ralph Lauren is significantly higher upside. For modern smart-casual tailored pieces, BOSS outperforms Polo. Both require sub-brand identification (RRL, BOSS Orange, BOSS vs HUGO) to capture the full sourcing edge.",
       },
     ],
   },

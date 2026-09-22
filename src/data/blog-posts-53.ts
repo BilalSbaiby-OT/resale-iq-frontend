@@ -15,18 +15,18 @@ export const POSTS_53: BlogPost[] = [
     title: "Ralph Lauren on EU Vinted: Price Guide 2026 (Hoodies Beat Shirts)",
     seoTitle: "Ralph Lauren Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Ralph Lauren tracks 1,211 departures in the last 30 days across all tracked Ralph Lauren items on EU Vinted (brand-level) at a €42.10 average. Hoodies lead by average exit. ResaleIQ tracks 54 departures across 3 per-model tracked Ralph Lauren models (Cable Knit 22, Big Pony 18, Classic Fit 14).ow €29.25. Shirts track 21 departures in the last 30 days at €29 but face 30,000+ active listings. Real category breakdown, buy-below ceilings, Lacoste comparison, and the one RL category worth focusing on.",
+      "Ralph Lauren tracks 1,027 departures in the last 30 days across all tracked Ralph Lauren items on EU Vinted (brand-level) at a €37.21 average. Hoodies lead by average exit. ResaleIQ tracks 54 departures across 3 per-model tracked Ralph Lauren models (Cable Knit 22, Big Pony 18, Classic Fit 14).ow €29.25. Shirts track 21 departures in the last 30 days at €29 but face 30,000+ active listings. Real category breakdown, buy-below ceilings, Lacoste comparison, and the one RL category worth focusing on.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
 
     preflightQuery: "Ralph Lauren",
     intro:
-      "Ralph Lauren tracks 1,211 brand-level departures in the last 30 days (observation window to 22 September 2026) across EU Vinted at €42.10 average — hoodies are a key category, shirts second at 21 departures in the last 30 days (€29 average), jackets third at 6 departures in the last 30 days (€64 average). The brand buy-below varies sharply by category: hoodie buy-below is €29.25 (€45 × 0.65), but the shirt category is structurally oversaturated with 30,000+ active listings competing for 21 weekly watched departures. This guide covers exact exit prices by category, the Lacoste comparison at equal shirt prices, and the specific RL categories worth sourcing versus the ones to avoid.",
+      "Ralph Lauren tracks 1,027 brand-level departures in the last 30 days (observation window to 22 September 2026) across EU Vinted at €37.21 average — hoodies are a key category, shirts second at 21 departures in the last 30 days (€29 average), jackets third at 6 departures in the last 30 days (€64 average). The brand buy-below varies sharply by category: hoodie buy-below is €29.25 (€45 × 0.65), but the shirt category is structurally oversaturated with 30,000+ active listings competing for 21 weekly watched departures. This guide covers exact exit prices by category, the Lacoste comparison at equal shirt prices, and the specific RL categories worth sourcing versus the ones to avoid.",
     definedTerm: {
       name: "Ralph Lauren hoodie departure average",
       description:
-        "The Ralph Lauren hoodie category: ResaleIQ tracks 22 departures in the last 30 days for the Cable Knit model (per-model, model_signals), at a €47.07 average exit price. Brand-level Ralph Lauren tracks 1,211 departures across all categories at €42.10 average. Hoodies are the highest-volume and highest-margin category within the Ralph Lauren brand on EU Vinted, ahead of shirts (21 departures in the last 30 days · €29) and jackets (6 departures in the last 30 days · €64). The buy-below ceiling for hoodies at a 35% target margin is €29.25.",
+        "The Ralph Lauren hoodie category: ResaleIQ tracks 22 departures in the last 30 days for the Cable Knit model (per-model, model_signals), at a €47.07 average exit price. Brand-level Ralph Lauren tracks 1,027 departures across all categories at €37.21 average. Hoodies are the highest-volume and highest-margin category within the Ralph Lauren brand on EU Vinted, ahead of shirts (21 departures in the last 30 days · €29) and jackets (6 departures in the last 30 days · €64). The buy-below ceiling for hoodies at a 35% target margin is €29.25.",
     },
     sections: [
       {
@@ -45,7 +45,7 @@ export const POSTS_53: BlogPost[] = [
       {
         h: "Ralph Lauren hoodies: the category that actually works",
         p: [
-          "Ralph Lauren hoodies: our per-model tracked Cable Knit model shows 22 departures in the last 30 days at €47.07 average. Brand-level Ralph Lauren tracks 1,211 departures across all categories at €42.10 average. With ~16,500 active listings versus 22 weekly watched departures, supply is elevated but not structurally broken the way shirts are.",
+          "Ralph Lauren hoodies: our per-model tracked Cable Knit model shows 22 departures in the last 30 days at €47.07 average. Brand-level Ralph Lauren tracks 1,027 departures across all categories at €37.21 average. With ~16,500 active listings versus 22 weekly watched departures, supply is elevated but not structurally broken the way shirts are.",
           "**Buy-below for hoodies: €29.25** (€45 × 0.65 = 35% gross margin target). The realistic sourcing corridor is €18–28 to maintain margin after platform fees.",
           "The hoodie category spans three main price bands on EU Vinted: classic crew-neck sweatshirts (€30–45), fleece quarter-zips (€40–65), and heavyweight double-knit hoodies (€55–90). The quarter-zip sub-category specifically tracks at ~€62 average exit where found — buy-below €40 for those.",
           "Size spread across the hoodie category is flat — Medium, Large, Small and XL all exit within €2 of each other based on historical watched departures. There is no size premium to chase.",
@@ -73,9 +73,9 @@ export const POSTS_53: BlogPost[] = [
         h: "Ralph Lauren vs Lacoste: which old-money brand wins on EU Vinted",
         p: [
           "Both brands occupy the same EU secondhand market positioning — old-money aesthetic, mainstream recognition, accessible price tier. The departure data for the week to 15 September 2026:",
-          "**Ralph Lauren shirts: brand-level, part of 1,211 total RL departures/30d · €42.10 brand avg** (30,000+ active listings)",
+          "**Ralph Lauren shirts: brand-level, part of 1,027 total RL departures/30d · €37.21 brand avg** (30,000+ active listings)",
           "**Lacoste shirts: 650 brand-level departures/30d · €23.41 average** (~33,000 active listings)",
-          "Lacoste generates 2.9× the brand-level departure count of Ralph Lauren (2,220 vs 1,211), with shirts (650/30d) vs RL's brand-level total. The key difference is the Lacoste polo's cult resale status on EU Vinted — the slim-fit L.12.12 polo in classic colorways turns reliably regardless of season.",
+          "Lacoste generates 2.9× the brand-level departure count of Ralph Lauren (1,914 vs 1,027), with shirts (650/30d) vs RL's brand-level total. The key difference is the Lacoste polo's cult resale status on EU Vinted — the slim-fit L.12.12 polo in classic colorways turns reliably regardless of season.",
           "For a reseller building a systemised EU Vinted sourcing operation, Lacoste shirts generate more throughput. Ralph Lauren's advantage is the hoodie and jacket categories, which Lacoste does not match in departure rate.",
           `[Check live Ralph Lauren data on Resale IQ →](${ilinkHref("flip")})`,
         ],
@@ -106,7 +106,7 @@ export const POSTS_53: BlogPost[] = [
     faq: [
       {
         q: "What is the average price for Ralph Lauren hoodies on EU Vinted?",
-        a: "Ralph Lauren's tracked Cable Knit hoodie model shows 22 departures in the last 30 days at €47.07 average (per-model, model_signals). Brand-level Ralph Lauren tracks 1,211 departures across all categories at €42.10 average. The buy-below ceiling for a 35% gross margin at that exit is €29.25. Classic crew-neck sweatshirts exit at €30–45; fleece quarter-zips at €40–65; heavyweight double-knit hoodies at €55–90. Size has minimal impact on exit price — Medium, Large, Small and XL are within €2 of each other.",
+        a: "Ralph Lauren's tracked Cable Knit hoodie model shows 22 departures in the last 30 days at €47.07 average (per-model, model_signals). Brand-level Ralph Lauren tracks 1,027 departures across all categories at €37.21 average. The buy-below ceiling for a 35% gross margin at that exit is €29.25. Classic crew-neck sweatshirts exit at €30–45; fleece quarter-zips at €40–65; heavyweight double-knit hoodies at €55–90. Size has minimal impact on exit price — Medium, Large, Small and XL are within €2 of each other.",
       },
       {
         q: "Are Ralph Lauren polo shirts worth reselling on EU Vinted?",
@@ -114,7 +114,7 @@ export const POSTS_53: BlogPost[] = [
       },
       {
         q: "How does Ralph Lauren compare to Lacoste on EU Vinted?",
-        a: "For shirts, Lacoste wins on brand-level velocity: 650 brand-level shirt departures/30d at €23.41 average versus Ralph Lauren's brand total of 1,211 departures/30d at €42.10 across all categories. Ralph Lauren's advantage is in hoodies (22 departures in the last 30 days · €45) and jackets (6 departures in the last 30 days · €64), categories where Lacoste does not generate equivalent departure rates. A combined sourcing strategy — RL hoodies and jackets, Lacoste polo shirts — captures both brand loyalties without the RL shirt oversaturation problem.",
+        a: "For shirts, Lacoste wins on brand-level velocity: 650 brand-level shirt departures/30d at €23.41 average versus Ralph Lauren's brand total of 1,027 departures/30d at €37.21 across all categories. Ralph Lauren's advantage is in hoodies (22 departures in the last 30 days · €45) and jackets (6 departures in the last 30 days · €64), categories where Lacoste does not generate equivalent departure rates. A combined sourcing strategy — RL hoodies and jackets, Lacoste polo shirts — captures both brand loyalties without the RL shirt oversaturation problem.",
       },
       {
         q: "What is the buy-below price for Ralph Lauren on Vinted?",

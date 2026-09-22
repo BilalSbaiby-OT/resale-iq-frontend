@@ -15,22 +15,22 @@ export const POSTS_13: BlogPost[] = [
     title: "Calvin Klein Reselling on Vinted: Jackets at €34 Average and the Logo vs. No-Logo Split",
     seoTitle: "Is Calvin Klein Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Calvin Klein tracks 1,368 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level) at a €17.93 average. Jackets lead at €38.29 avg (55 jacket departures/30d). The sourcing edge is the logo vs. no-logo split: CK One and Calvin Klein Jeans logo pieces consistently exit above the brand mean.",
+      "Calvin Klein tracks 1,222 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level) at a €18.15 average. Jackets lead at €38.29 avg (55 jacket departures/30d). The sourcing edge is the logo vs. no-logo split: CK One and Calvin Klein Jeans logo pieces consistently exit above the brand mean.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
 
     preflightQuery: "Calvin Klein",
     intro:
-      "Calvin Klein tracks 1,368 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level, observation window to 22 September 2026) at a €17.93 average. The brand average is held down by T-Shirts at €6.95 — a non-viable sourcing category — and lifted by Jackets at €38.29 and Jeans at €17.84. The practical sourcing case is logo-forward pieces: Calvin Klein Jeans (CKJ) and Calvin Klein One logo pieces exit consistently above the brand mean at EU charity shops where they are priced as generic branded clothing.",
+      "Calvin Klein tracks 1,222 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level, observation window to 22 September 2026) at a €18.15 average. The brand average is held down by T-Shirts at €6.95 — a non-viable sourcing category — and lifted by Jackets at €38.29 and Jeans at €17.84. The practical sourcing case is logo-forward pieces: Calvin Klein Jeans (CKJ) and Calvin Klein One logo pieces exit consistently above the brand mean at EU charity shops where they are priced as generic branded clothing.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Calvin Klein brand-level departures in the last 30 days on EU Vinted: Hoodies 167 (€15.74 avg), T-Shirts 119 (€6.95 avg), Shirts 86 (€11.15 avg), Jackets 55 (€38.29 avg), Jeans 47 (€17.84 avg), Tracksuits 43 (€14.53 avg). Total brand: 1,368 departures at €17.93 average. These are brand-level figures — ResaleIQ does not yet publish per-model departure counts for Calvin Klein (not in per-model catalogue).",
+          "Calvin Klein brand-level departures in the last 30 days on EU Vinted: Hoodies 167 (€15.74 avg), T-Shirts 119 (€6.95 avg), Shirts 86 (€11.15 avg), Jackets 55 (€38.29 avg), Jeans 47 (€17.84 avg), Tracksuits 43 (€14.53 avg). Total brand: 1,222 departures at €18.15 average. These are brand-level figures — ResaleIQ does not yet publish per-model departure counts for Calvin Klein (not in per-model catalogue).",
           "Full Calvin Klein brand data is on " +
             ilinkHref("flip") +
-            " and update weekly. The €17.93 brand average is held down by T-Shirts at €6.95 — below any viable margin floor. Jackets at €38.29 carry the margin case. Hoodies at €15.74 are borderline at charity shop pricing; only logo-prominent CK One hoodies in very good condition clear a practical buy-below.",
+            " and update weekly. The €18.15 brand average is held down by T-Shirts at €6.95 — below any viable margin floor. Jackets at €38.29 carry the margin case. Hoodies at €15.74 are borderline at charity shop pricing; only logo-prominent CK One hoodies in very good condition clear a practical buy-below.",
         ],
       },
       {
@@ -74,7 +74,7 @@ export const POSTS_13: BlogPost[] = [
     faq: [
       {
         q: "Is Calvin Klein worth reselling on Vinted?",
-        a: "Yes — specifically Jackets and CKJ/CK One logo pieces. Calvin Klein tracks 1,368 brand-level departures in the last 30 days on EU Vinted at €17.93 average. Jackets: 55 departures at €38.29 average. CKJ trucker jackets exit at €30–60; 90s high-waist CKJ jeans exit at €28–55. T-Shirts at €6.95 avg are not viable. The logo vs. no-logo identification split is the practical sourcing edge.",
+        a: "Yes — specifically Jackets and CKJ/CK One logo pieces. Calvin Klein tracks 1,222 brand-level departures in the last 30 days on EU Vinted at €18.15 average. Jackets: 55 departures at €38.29 average. CKJ trucker jackets exit at €30–60; 90s high-waist CKJ jeans exit at €28–55. T-Shirts at €6.95 avg are not viable. The logo vs. no-logo identification split is the practical sourcing edge.",
       },
       {
         q: "What is the buy-below price for Calvin Klein on Vinted?",

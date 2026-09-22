@@ -90,7 +90,7 @@ export const POSTS_7: BlogPost[] = [
       },
       {
         q: "How does Diesel compare to Nike and Lacoste for resale on Vinted?",
-        a: "Diesel tracks 4,509 brand-level departures in the last 30 days at €23.08 average on EU Vinted. Nike tracks 3,283 brand-level departures/30d at €68.40 avg. Lacoste tracks 2,220 brand-level departures/30d at €27.24 avg. Nike higher average due to Sneakers; Diesel's average is weighted down by commodity denim. The Jacket categories are comparable in per-unit margin potential: Diesel Jackets at €61 avg vs Lacoste Jackets (estimated higher). The sourcing skill for Diesel is era-identification; for Nike it is model-and-colourway precision.",
+        a: "Diesel tracks 4,509 brand-level departures in the last 30 days at €23.08 average on EU Vinted. Nike tracks 3,283 brand-level departures/30d at €68.40 avg. Lacoste tracks 1,914 brand-level departures/30d at €27.87 avg. Nike higher average due to Sneakers; Diesel's average is weighted down by commodity denim. The Jacket categories are comparable in per-unit margin potential: Diesel Jackets at €61 avg vs Lacoste Jackets (estimated higher). The sourcing skill for Diesel is era-identification; for Nike it is model-and-colourway precision.",
       },
     ],
   },
