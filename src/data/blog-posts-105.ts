@@ -22,7 +22,7 @@ export const POSTS_105: BlogPost[] = [
     title: "Hugo Boss Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Hugo Boss Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Hugo Boss hoodies track 266 departures in the last 30 days (across all tracked Hugo Boss hoodies on EU Vinted, brand-level) at a €16.91 average exit price as of 22 September 2026. BOSS vs HUGO vs BOSS Orange identification, condition grading, and how Hugo Boss hoodies compare to Tommy Hilfiger and Carhartt for EU resellers. Buy-below €15.60, BOSS vs HUGO vs BOSS Orange identification, condition grading, and how Hugo Boss hoodies compare to Tommy Hilfiger (€20) and Carhartt (€21) for EU resellers.",
+      "Hugo Boss hoodies track 266 departures in the last 30 days (across all tracked Hugo Boss hoodies on EU Vinted, brand-level) at a €16.91 average exit price as of 22 September 2026. BOSS vs HUGO vs BOSS Orange identification, condition grading, and how Hugo Boss hoodies compare to Tommy Hilfiger and Carhartt for EU resellers.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 6,
