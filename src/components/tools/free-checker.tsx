@@ -956,6 +956,21 @@ export function FreeChecker({
               )}
 
               <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
+
+              {/* H64 CRO: upgrade nudge on INSUFFICIENT_DATA.
+                  37 of 100 board models land here. The visitor ran a real item,
+                  saw real price + n figures, and hit a dead end. That is warm intent
+                  with ZERO conversion path. Adding a checkout offer converts this
+                  warm-lead cohort without touching the paywall or the hero result.
+                  CRO #10 (CTA ladder: they've seen data → now a committed next step)
+                  + #12 (earned-urgency: value first, ask second).
+                  Revenue 2026-09-23. */}
+              <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--color-border-ui)", display: "flex", flexDirection: "column", gap: 6 }}>
+                <p style={{ fontSize: 12.5, color: "#8b99b8", margin: 0, lineHeight: 1.5 }}>
+                  More data = a clearer call. Starter unlocks every item in the catalog — unlimited checks.
+                </p>
+                <GuestCheckoutButton locale={locale} label="Unlock full analysis — €19/mo →" src="insufficient_data_nudge" />
+              </div>
             </div>
           ) : hero ? (
             // THE PUBLIC RESULT FACE (homepage `/` only — /tools keeps the card
