@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
 import { captureAttribution, captureLandingPath, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
+import { captureReferral } from "@/lib/referral"
 import { stripLocalePrefix } from "@/lib/locale-routes"
 
 /** Keyed on the LOCALE-STRIPPED path — see the lookup below for why. */
@@ -57,6 +58,7 @@ export function PageviewTracker() {
 
     // Store the campaign that brought them here before anything else runs, so
     // it survives even if this is the only page they ever load.
+    captureReferral()
     captureAttribution()
     captureLandingPath()
 
