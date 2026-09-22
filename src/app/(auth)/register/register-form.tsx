@@ -8,6 +8,7 @@ import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
 import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
+import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -170,6 +171,9 @@ function RegisterContent({ locale }: { locale: Locale }) {
           {t.paidSubheading}
         </p>
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
+          {/* Google Sign-In — hidden until backend confirms credentials exist */}
+          <GoogleSignInButton label="Continue with Google" />
+          <AuthDivider text="or" />
           {/* A paid arrival still has to SEE the price before a submit sends
               them to Stripe, hence this summary. It reads the live Stripe
               amount, same source as before, so "€49 shown / €79 charged"

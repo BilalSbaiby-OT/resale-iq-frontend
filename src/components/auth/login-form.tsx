@@ -1,7 +1,9 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
+import { setToken } from "@/lib/utils"
+import { getMe } from "@/lib/api"
 import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
@@ -9,6 +11,8 @@ import {
   AuthCard, AuthHeading, AuthField, AuthSubmit,
   AUTH_ACCENT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
+import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
+import { googleErrorMessage } from "@/lib/google-oauth"
 
 export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
@@ -18,6 +22,47 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
   const { login } = useAuthStore()
   const router = useRouter()
   const t = copy[localeProp ?? useLocale()].auth.login
+
+  /**
+   * Google OAuth callback handler.
+   *
+   * The backend redirects here as:
+   *   /login?google_token=<JWT>   — success
+   *   /login?google_error=<code>  — failure
+   *
+   * We run this in useEffect (client only) so it never runs on the server and
+   * does not block the initial render.
+   */
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const params = new URLSearchParams(window.location.search)
+
+    const googleToken = params.get("google_token")
+    if (googleToken) {
+      // Store the JWT — same key as password login
+      setToken(googleToken)
+      // Fetch the user record to hydrate the auth store, then redirect
+      getMe(googleToken)
+        .then(user => {
+          useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
+          // Clean the token out of the URL (don't expose it in history)
+          window.history.replaceState({}, "", "/login")
+          router.push("/verdict")
+        })
+        .catch(() => {
+          // If /auth/me fails, the token is bad — fall back to a clean login
+          window.history.replaceState({}, "", "/login")
+          setError("Google sign-in failed. Please try again or use email.")
+        })
+      return
+    }
+
+    const googleErr = params.get("google_error")
+    if (googleErr) {
+      window.history.replaceState({}, "", "/login")
+      setError(googleErrorMessage(googleErr) ?? "Google sign-in failed.")
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,6 +83,11 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
   return (
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
+
+      {/* Google Sign-In — hidden until backend confirms credentials exist */}
+      <GoogleSignInButton label="Continue with Google" />
+      <AuthDivider text="or" />
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
