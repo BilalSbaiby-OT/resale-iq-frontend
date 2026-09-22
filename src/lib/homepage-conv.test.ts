@@ -170,7 +170,7 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   // demand framing, and assert the per-item promise is NOT being made.
   assert.equal(
     copy.en.heroSub,
-    "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted EU data.",
+    "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted data across 5 EU markets.",
   )
   assert.match(copy.en.heroSub, /ranked list/)
   assert.match(copy.en.heroSub, /leaving the shelf/)

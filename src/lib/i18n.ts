@@ -142,7 +142,7 @@ export const copy = {
     },
     heroHeadline: "Know what to buy this week to resell on Vinted.",
     heroSub:
-      "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted EU data.",
+      "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted data across 5 EU markets.",
     howToHeading: "How it works",
     howToSteps: [
       "Open the buy list — what's selling fastest across the brands we watch this week.",
