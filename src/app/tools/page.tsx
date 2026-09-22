@@ -92,7 +92,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         </p>
 
         <WelcomeBanner />
-        <PricingEyebrow />
+        <PricingEyebrow locale={locale} />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         <FreeChecker locale={locale} initialQuery={initialQuery} src={src} />
 
