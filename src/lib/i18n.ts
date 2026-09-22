@@ -124,7 +124,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Live market",
       heading: "This is what's actually selling right now.",
-      sub: (listings: string, brands: number) => `We're tracking ${listings} live listings across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `We're tracking ${records} listing records across ${brands} brands (${distinct} distinct items). Here's what left the shelf this week — watched departures, not guesses.`
+          : `We're tracking ${records} listing records across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
+      subFallback: (listings: string, brands: number) => `We're tracking ${listings} listings across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
       subNoCount: (brands: number) => `Across ${brands} brands, here's what left the shelf this week — watched departures, not guesses.`,
       colBrand: "Brand",
       colVelocity: "Weekly velocity",
@@ -715,7 +719,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui se vend vraiment en ce moment.",
-      sub: (listings: string, brands: number) => `Nous suivons ${listings} annonces en direct sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `Nous suivons ${records} annonces sur ${brands} marques (${distinct} articles distincts). Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
+          : `Nous suivons ${records} annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
+      subFallback: (listings: string, brands: number) => `Nous suivons ${listings} annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       subNoCount: (brands: number) => `Sur ${brands} marques, voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       colBrand: "Marque",
       colVelocity: "Vélocité hebdo",
@@ -1154,7 +1162,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que se está vendiendo ahora mismo.",
-      sub: (listings: string, brands: number) => `Seguimos ${listings} anuncios en vivo en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `Seguimos ${records} anuncios en ${brands} marcas (${distinct} artículos distintos). Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
+          : `Seguimos ${records} anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
+      subFallback: (listings: string, brands: number) => `Seguimos ${listings} anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       subNoCount: (brands: number) => `En ${brands} marcas, esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       colBrand: "Marca",
       colVelocity: "Velocidad semanal",
@@ -1596,7 +1608,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verkauft sich gerade wirklich.",
-      sub: (listings: string, brands: number) => `Wir verfolgen ${listings} Live-Anzeigen über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `Wir verfolgen ${records} Inserate über ${brands} Marken (${distinct} einzelne Artikel). Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
+          : `Wir verfolgen ${records} Inserate über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
+      subFallback: (listings: string, brands: number) => `Wir verfolgen ${listings} Inserate über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
       subNoCount: (brands: number) => `Über ${brands} Marken hinweg — das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
       colBrand: "Marke",
       colVelocity: "Wöchentl. Tempo",
@@ -2037,7 +2053,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa si sta vendendo davvero adesso.",
-      sub: (listings: string, brands: number) => `Monitoriamo ${listings} annunci dal vivo su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `Monitoriamo ${records} inserzioni su ${brands} marchi (${distinct} articoli distinti). Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
+          : `Monitoriamo ${records} inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
+      subFallback: (listings: string, brands: number) => `Monitoriamo ${listings} inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       subNoCount: (brands: number) => `Su ${brands} marchi, ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       colBrand: "Marchio",
       colVelocity: "Velocità settim.",
@@ -2476,7 +2496,11 @@ export const copy = {
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está mesmo a vender agora.",
-      sub: (listings: string, brands: number) => `Acompanhamos ${listings} anúncios ao vivo em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
+      sub: (records: string, brands: number, distinct: string | null) =>
+        distinct != null
+          ? `Acompanhamos ${records} anúncios em ${brands} marcas (${distinct} artigos distintos). Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
+          : `Acompanhamos ${records} anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
+      subFallback: (listings: string, brands: number) => `Acompanhamos ${listings} anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       subNoCount: (brands: number) => `Em ${brands} marcas, isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       colBrand: "Marca",
       colVelocity: "Velocidade semanal",

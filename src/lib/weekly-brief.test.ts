@@ -35,6 +35,7 @@ function mkMarket(
     stamp: updatedAt,
     updatedAt,
     listingsTracked: 5488136,
+    totalListingRecords: null,
     sold7dTotal: null,
     brandCount: brandNames.length,
     brandsTracked: brandNames.length,

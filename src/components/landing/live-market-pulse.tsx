@@ -38,6 +38,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
 
   const max = rows[0].f.sold_7d
   const listings = market.listingsTracked
+  const listingRecords = market.totalListingRecords
   const brands = market.brandsTracked ?? market.brandCount
 
   return (
@@ -62,8 +63,20 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
         <h2 style={{ fontSize: "var(--text-title)", fontWeight: 600, letterSpacing: "-0.02em", color: "var(--color-text-primary)", margin: "0 0 var(--space-2)", textWrap: "balance" }}>
           {t.heading}
         </h2>
+        {/* Lead with the listing-records figure (larger, honestly labelled).
+            The distinct-item count is shown as the stated basis so we
+            volunteer the narrower number — a reseller cannot catch us
+            exaggerating when we name both. */}
         <p style={{ fontSize: "var(--text-body-marketing)", color: "var(--color-text-dim)", margin: 0, lineHeight: 1.5 }}>
-          {listings != null ? t.sub(listings.toLocaleString(locale === "en" ? "en-US" : locale), brands) : t.subNoCount(brands)}
+          {listingRecords != null
+            ? t.sub(
+                listingRecords.toLocaleString(locale === "en" ? "en-US" : locale),
+                brands,
+                listings != null ? listings.toLocaleString(locale === "en" ? "en-US" : locale) : null,
+              )
+            : listings != null
+              ? t.subFallback(listings.toLocaleString(locale === "en" ? "en-US" : locale), brands)
+              : t.subNoCount(brands)}
         </p>
       </div>
 

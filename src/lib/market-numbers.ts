@@ -55,6 +55,14 @@ export interface MarketNumbers {
   /** ISO stamp from the snapshot, for age checks (P0-8). */
   updatedAt: string | null
   listingsTracked: number | null
+  /**
+   * COUNT(*) of listing rows across ES, FR, DE, IT and PT — the larger figure
+   * from `total_listing_records`. A garment listed in several markets counts
+   * once per market, so this is listing records, not distinct items.
+   * Use `listingsTracked` when you need the deduplicated item count.
+   * Null when the backend has not yet exposed the field or it is unavailable.
+   */
+  totalListingRecords: number | null
   /** Sum of per-brand sold_7d. Null if no brand has a finite sold count. */
   sold7dTotal: number | null
   brandCount: number
@@ -150,6 +158,7 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     brands?: RawBrand[]
     updated_at?: string
     listings_tracked?: unknown
+    total_listing_records?: unknown
     brand_count?: unknown
     brands_tracked?: unknown
     publish_floor_sold_7d?: unknown
@@ -166,6 +175,7 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
   }
 
   const listingsTracked = num(raw?.listings_tracked)
+  const totalListingRecords = num(raw?.total_listing_records)
   let sold7dTotal: number | null = null
   for (const name of brandNames) {
     const n = byBrand[name]?.sold_7d
@@ -178,6 +188,7 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     stamp: utcStamp(raw?.updated_at),
     updatedAt: typeof raw?.updated_at === "string" ? raw.updated_at : null,
     listingsTracked,
+    totalListingRecords,
     sold7dTotal,
     brandCount: typeof raw?.brand_count === "number" ? raw.brand_count : brandNames.length,
     brandsTracked: typeof raw?.brands_tracked === "number" ? raw.brands_tracked : null,

@@ -92,3 +92,35 @@ export async function listingsTrackedExact(): Promise<string | null> {
   const n = await getListingsTracked()
   return n ? n.toLocaleString("en-GB") : null
 }
+
+/**
+ * The total listing-records count (COUNT(*) across ES, FR, DE, IT, PT) —
+ * the larger figure from `total_listing_records` in the snapshot.
+ * A garment listed in several markets counts once per market; use this for
+ * "listing records" copy and `getListingsTracked()` for the distinct-item count.
+ * Returns null if the field is absent/unavailable, so callers fall back gracefully.
+ */
+export async function getListingRecords(): Promise<number | null> {
+  const { getMarketNumbers } = await import("./market-numbers")
+  const n = (await getMarketNumbers()).totalListingRecords
+  return typeof n === "number" && n > 0 ? n : null
+}
+
+/**
+ * Formatted label for the listing-records count, e.g. "13,490,000+".
+ * Floored to nearest 10k so the "+" stays true between refreshes.
+ * Falls back to "—" (never a hardcoded guess) when the field is unavailable.
+ */
+export async function listingRecordsLabel(): Promise<string> {
+  const n = await getListingRecords()
+  return n ? `${floorTo10k(n)}+` : "—"
+}
+
+/**
+ * Distinct-item count, formatted for inline use as the stated basis.
+ * Returns null when unavailable.
+ */
+export async function listingsTrackedInlineLabel(): Promise<string | null> {
+  const n = await getListingsTracked()
+  return n ? n.toLocaleString("en-GB") : null
+}

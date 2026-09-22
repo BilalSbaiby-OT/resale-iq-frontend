@@ -3,7 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
-import { listingsTrackedLabel } from "@/lib/stats"
+import { listingsTrackedLabel, listingRecordsLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { structuredDataCopy } from "@/lib/structured-data-copy"
 import type { Locale } from "@/lib/i18n"
@@ -26,18 +26,18 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 // Soft cap 60. H1 on `/` stays t.heroHeadline.
 const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 
-// The dataset size is FETCHED, never typed. Two literal "900,000+" strings
-// lived here — one in the meta description, one in the JSON-LD — and by
-// 2026-08-14 the real figure was 966,236, so every search result and every
-// answer engine was quoting a number 66k stale and drifting further each day.
-// That is the exact failure src/lib/stats.ts was written to end; this file was
-// simply never migrated. Floored to 10k, so the "+" stays true between the
-// hourly refreshes.
+// The dataset size is FETCHED, never typed. The meta description and JSON-LD
+// lead with the listing-records figure (COUNT(*) across all 5 markets), which
+// is the larger, honestly-labelled number. The distinct-item count is shown
+// in the live-market-pulse section on the homepage. Both are live from the API.
 const desc = (tracked: string) =>
-  `A ranked list of the second-hand clothing worth buying to resell right now — what is leaving the shelf and the most to pay for it. ${tracked} live listings across Spain, France, Germany, Italy and Portugal.`
+  `A ranked list of the second-hand clothing worth buying to resell right now — what is leaving the shelf and the most to pay for it. ${tracked} listing records across Spain, France, Germany, Italy and Portugal.`
 
 export async function generateMetadata(): Promise<Metadata> {
-  const tracked = await listingsTrackedLabel()
+  // Use listing-records figure (larger, honestly labelled); fall back to
+  // distinct-item count if the new field is not yet available.
+  const records = await listingRecordsLabel()
+  const tracked = records !== "—" ? records : await listingsTrackedLabel()
   const DESC = desc(tracked)
   const locale = await requestLocale()
   return {
@@ -149,7 +149,9 @@ const orgJsonLd = (tracked: string, locale: Locale) => {
  */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
-  const ORG_JSONLD = orgJsonLd(await listingsTrackedLabel(), locale)
+  const records = await listingRecordsLabel()
+  const trackedLabel = records !== "—" ? records : await listingsTrackedLabel()
+  const ORG_JSONLD = orgJsonLd(trackedLabel, locale)
   return (
     <html lang={locale} className={`dark ${inter.variable} ${mono.variable}`}>
       <head>
