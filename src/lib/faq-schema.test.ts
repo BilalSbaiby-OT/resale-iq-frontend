@@ -135,7 +135,7 @@ function postSlice(src: string, slug: string, nextSlug?: string): string {
 test("buy-below-price-explained ships a Buy-below price lead and FAQ", () => {
   const post = postSlice(read("data/blog-posts.ts"), "buy-below-price-explained")
   assert.match(post, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)
-  assert.match(post, /What a buy-below price is, how to calculate it/)
+  assert.match(post, /The ceiling that keeps a flip profitable after fees/)
   assert.match(post, /name: "Buy-below price"/)
   assert.match(
     post,

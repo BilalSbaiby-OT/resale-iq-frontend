@@ -243,9 +243,8 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-price-items-on-vinted",
     title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures",
-    seoTitle: "How to Price Items on Vinted: Match the Departure Average (2026)",
-    description:
-      "Price from what similar items actually sold for, not retail. Stone Island hoodies leave at ~€52, Fred Perry shirts at ~€15, Balenciaga at €97–311 — real departure averages from 13M+ tracked EU listings. Undercut by 5–10% to sell faster.",
+    seoTitle: "How to Price Items on Vinted (2026 Data)",
+    description: "Price from real departure averages, not retail. Stone Island hoodies leave at ~EUR52, Fred Perry shirts ~EUR15. Free check.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Pricing",
@@ -315,9 +314,8 @@ export const POSTS: BlogPost[] = [
   {
     slug: "best-brands-to-resell-on-vinted",
     title: "Best Brands to Resell on Vinted: All 28 Tracked Brands Ranked by Weekly Demand",
-    seoTitle: "Best Brands to Resell on Vinted (2026): Ranked by Weekly Departures — Resale IQ",
-    description:
-      "All 28 brands tracked on EU Vinted, ranked by weekly watched departures. Week to 14 September 2026: Fred Perry leads at 199 departures in the last 30 days, Balenciaga tops price at €146 avg. Full table with buy-below guidance and individual brand guides.",
+    seoTitle: "Best Brands to Resell on Vinted (2026 Data)",
+    description: "The brands with real departure volume right now, ranked from 13.4M tracked EU Vinted listings.",
     date: "2026-09-05",
     updated: "2026-09-15",
     category: "Sourcing",
@@ -416,9 +414,8 @@ export const POSTS: BlogPost[] = [
   {
     slug: "vinted-vs-depop-for-sellers",
     title: "Vinted vs Depop for EU Sellers: Keep 10% More (2026)",
-    seoTitle: "Vinted vs Depop for EU Sellers: Which Keeps More of Your Money? (2026)",
-    description:
-      "Depop charges EU sellers 10% commission. Vinted charges sellers 0%. On a €50 sale from France, Germany or Spain: Vinted nets €50, Depop nets €45. Fee table, real EU departure data, and when Depop's buyer base justifies the cut.",
+    seoTitle: "Vinted vs Depop for Sellers (2026 Data)",
+    description: "Fees, audience and real sell-through compared on tracked EU listings — which platform actually pays you more.",
     date: "2026-08-29",
     updated: "2026-09-20",
     category: "Platforms",
@@ -586,9 +583,8 @@ export const POSTS: BlogPost[] = [
   {
     slug: "how-to-find-items-to-flip-on-vinted",
     title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll",
-    seoTitle: "How to Find Items to Flip on Vinted: Use Demand Data, Not Guesswork (2026)",
-    description:
-      "Only buy what the data confirms is moving. Stone Island hoodies: 42 departures in the last 30 days at €52 avg. Fred Perry jackets: 6/week at €75. New Balance sneakers: 8/week at €42. How to check any brand before you spend.",
+    seoTitle: "How to Find Items to Flip on Vinted (2026)",
+    description: "Only buy what the data says is moving. Stone Island hoodies: 42 departures in 30 days at EUR52 avg. Check any item free.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
@@ -732,9 +728,9 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "buy-below-price-explained",
+    seoTitle: "Buy-Below Price: The Max to Pay, Explained",
     title: "Buy-Below Price: The One Number That Decides Your Profit",
-    description:
-      "What a buy-below price is, how to calculate it, and why it's the single most important number in reselling — with the exact formula.",
+    description: "The ceiling that keeps a flip profitable after fees, and how we compute it from real sold prices.",
     date: "2026-08-05",
     updated: "2026-09-14",
     category: "Pricing",

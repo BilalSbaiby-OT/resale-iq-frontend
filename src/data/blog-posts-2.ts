@@ -64,9 +64,8 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "best-time-to-list-on-vinted",
     title: "Best Time to List on Vinted — Hour, Day, and Season (Data)",
-    seoTitle: "Best Time to List on Vinted: Season Matters More Than Hour (2026)",
-    description:
-      "Autumn is the peak season on EU Vinted. Stone Island hoodies (42 dep/week) and Patagonia jackets (11 dep/week) clear fastest Oct–Dec. For daily timing: evenings and Sunday work, but listing the right item in season beats any hour trick.",
+    seoTitle: "Best Time to List on Vinted (2026 Data)",
+    description: "When listings actually sell, measured across 13.4M tracked EU Vinted listings in 5 markets.",
     date: "2026-08-06",
     updated: "2026-09-15",
     category: "Selling",
@@ -150,9 +149,8 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "vinted-listing-description-guide",
     title: "How to Write Vinted Descriptions — Titles Buyers Search",
-    seoTitle: "How to Write Vinted Listing Titles and Descriptions That Get Found (2026)",
-    description:
-      "Your Vinted title needs brand, item and size upfront — those are the words buyers search. The description removes doubts: measurements, material, condition, any flaws. Template and examples inside.",
+    seoTitle: "Vinted Listing Descriptions That Sell",
+    description: "What to write so buyers find and trust your listing — patterns from items that actually sold.",
     date: "2026-08-06",
     updated: "2026-09-13",
     category: "Selling",
@@ -278,9 +276,8 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "how-to-get-more-views-on-vinted",
     title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes",
-    seoTitle: "How to Get More Views on Vinted (2026) — Fix These 4 Things",
-    description:
-      "No views usually means one of four problems: thin demand for the item, wrong title keywords, price above what buyers pay, or stale listing. Fix them in that order. Stone Island hoodies and Fred Perry shirts move fastest right now — check demand before blaming photos.",
+    seoTitle: "How to Get More Views on Vinted (2026)",
+    description: "Why your listings stall and what actually moves them, from real sold-listing patterns.",
     date: "2026-08-06",
     updated: "2026-09-20",
     category: "Selling",
@@ -343,9 +340,8 @@ export const POSTS_2: BlogPost[] = [
   {
     slug: "seasonal-reselling-calendar",
     title: "Seasonal Reselling Calendar — Don't Freeze Your Cash",
-    seoTitle: "Vinted Reselling Calendar 2026: What to Buy Each Month",
-    description:
-      "Buy against the season, sell into it. Coats and knitwear are cheapest in spring but sell Oct–Jan. Trainers and summer clothing sell Apr–Jul. Month-by-month guide to avoid frozen cash in off-season stock.",
+    seoTitle: "Reselling Calendar: What Sells Each Month",
+    description: "Which categories move in which month, from real departure data across 5 EU Vinted markets.",
     date: "2026-08-06",
     updated: "2026-09-14",
     category: "Sourcing",

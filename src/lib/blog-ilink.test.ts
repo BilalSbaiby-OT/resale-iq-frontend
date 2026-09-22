@@ -164,21 +164,25 @@ test("EX-ILINK does not touch mid-CTA campaigns or blog-mid-cta.ts", () => {
   assert.doesNotMatch(es, /ilinkHref\("pricing"\)/)
 })
 
-test("target post titles, metas and H1s are unchanged", () => {
+// Retargeted 2026-09-23: these pinned an earlier CTR experiment that LOST
+// (653 impressions -> 4 clicks; how-to-price-items 156 impr @ pos 9.2, ZERO
+// clicks). Titles were 64-79 chars, descriptions 187-267 — Google truncated
+// them. The lock now pins the shortened SERP-safe strings.
+test("target post titles, metas and H1s are SERP-length safe", () => {
   const posts = read("data/blog-posts.ts")
   const posts2 = read("data/blog-posts-2.ts")
   const posts3 = read("data/blog-posts-3.ts")
   assert.match(posts, /title: "How to Price Items on Vinted in 2026 — Buy-Below from Departures"/)
-  assert.match(posts, /seoTitle: "How to Price Items on Vinted: Match the Departure Average \(2026\)"/)
+  assert.match(posts, /seoTitle: "How to Price Items on Vinted \(2026 Data\)"/)
   assert.match(
     posts,
-    /Price from what similar items actually sold for, not retail/,
+    /Price from real departure averages, not retail/,
   )
   assert.match(posts, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
-  assert.match(posts, /seoTitle: "How to Find Items to Flip on Vinted: Use Demand Data, Not Guesswork \(2026\)"/)
+  assert.match(posts, /seoTitle: "How to Find Items to Flip on Vinted \(2026\)"/)
   assert.match(posts, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)
   assert.match(posts2, /title: "How to Get More Views on Vinted in 2026 — 4 Causes and Fixes"/)
-  assert.match(posts2, /seoTitle: "How to Get More Views on Vinted .2026. — Fix These 4 Things"/)
+  assert.match(posts2, /seoTitle: "How to Get More Views on Vinted \(2026\)"/)
   assert.match(posts3, /title: "Vinted Disputes and Returns: A Seller's Guide"/)
   assert.match(posts3, /seoTitle: "How to Avoid Vinted Disputes\? Photos First — Resale IQ"/)
   assert.match(
