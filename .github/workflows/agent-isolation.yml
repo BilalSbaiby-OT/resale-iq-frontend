@@ -92,7 +92,7 @@ jobs:
         #
         # The docs checks still RUN and still print loudly. They just do not
         # stand between a fix and production.
-        run: npm run check:tracked && npm run check:warehouse && npm run check:dupes && npm run check:silent && npm run check:locale-english
+        run: npm run check:tracked && npm run check:warehouse && npm run check:dupes && npm run check:silent && npm run check:locale-english && npm run check:weekly-claims
 
       - name: Docs freshness (advisory — never blocks a deploy)
         continue-on-error: true

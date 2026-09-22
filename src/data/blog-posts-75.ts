@@ -15,7 +15,7 @@ export const POSTS_75: BlogPost[] = [
     title: "Adidas Stan Smith on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Adidas Stan Smith Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Stan Smith tracked 7 watched departures per week on EU Vinted in September 2026 — the highest average exit price of any Adidas sneaker at €84.14, with RISING momentum and a sub-3-hour exit speed (avg 0.11 days to sell). Buy-below ceiling €55.95. Supply is 3,619 active listings / 181-month cover — oversupplied, but exits still clear fast when the colourway is right. Full data, colourway guide, and comparison against Handball Spezial, Samba, and Gazelle Indoor.",
+      "Adidas Stan Smith tracked 7 departures in the last 30 days on EU Vinted in September 2026 — the highest average exit price of any Adidas sneaker at €84.14, with RISING momentum and a sub-3-hour exit speed (avg 0.11 days to sell). Buy-below ceiling €55.95. Supply is 3,619 active listings / 181-month cover — oversupplied, but exits still clear fast when the colourway is right. Full data, colourway guide, and comparison against Handball Spezial, Samba, and Gazelle Indoor.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -25,7 +25,7 @@ export const POSTS_75: BlogPost[] = [
     definedTerm: {
       name: "Adidas Stan Smith departure average",
       description:
-        "The Adidas Stan Smith departure average is the average price at which a tracked Stan Smith listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Stan Smith tracks 7 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €84.14 average exit price, with 3,619 active listings and approximately 181 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €55.95 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Momentum label: RISING — exit prices are trending upward. Average days to sell: 0.11 (exits typically within 2–3 hours of listing going live). No size-level buy-below data is available yet — use the €55.95 category ceiling across all sizes.",
+        "The Adidas Stan Smith departure average is the average price at which a tracked Stan Smith listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Stan Smith tracks 7 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €84.14 average exit price, with 3,619 active listings and approximately 181 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €55.95 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Momentum label: RISING — exit prices are trending upward. Average days to sell: 0.11 (exits typically within 2–3 hours of listing going live). No size-level buy-below data is available yet — use the €55.95 category ceiling across all sizes.",
     },
     sections: [
       {
@@ -33,7 +33,7 @@ export const POSTS_75: BlogPost[] = [
         p: [
           "The Stan Smith was first produced as a tennis shoe in 1971, named after the American player who won Wimbledon in 1972. It remained a sport-utility staple until Adidas discontinued it in 2012, made it scarce, then relaunched it in 2014 to manufactured demand — a product strategy that generated over 40 million pairs sold and established it as one of the most recognised sneakers on earth. On EU Vinted, that ubiquity cuts both ways: pairs are constantly available, but exits are also constant.",
           "The data in September 2026 positions the Stan Smith as the highest single-unit value play in the Adidas EU Vinted cluster. At €84.14 average exit, it outperforms the Handball Spezial (€79.38), the Gazelle Indoor (€58.00), and the Samba by a wide margin. RISING momentum means the exit price is not declining — unlike the Samba and Campus 00s, both of which carry DEAD momentum and are in price erosion. The Stan Smith's exit velocity is even faster than the Handball Spezial: 0.11 average days to sell versus 0.20 — pairs typically leave within 2–3 hours of listing.",
-          `The obstacle is supply. 181 months of cover at current departure rates is high — 3,619 active listings competing for 7 departures per week. That ratio demands selectivity on colourway and condition. [See live Stan Smith data →](${ilinkHref("flip")})`,
+          `The obstacle is supply. 181 months of cover at current departure rates is high — 3,619 active listings competing for 7 departures in the last 30 days. That ratio demands selectivity on colourway and condition. [See live Stan Smith data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_stan_smith_intro_20260915"),
       },
@@ -74,9 +74,9 @@ export const POSTS_75: BlogPost[] = [
         h: "Stan Smith vs Handball Spezial vs Samba: the sourcing decision",
         p: [
           "When a EU charity shop has all three Adidas models on the shelf at the same price, the sourcing decision should be driven by departure data — not by cultural profile or personal preference. The EU Vinted data for September 2026 gives a clear order of preference.",
-          "The Handball Spezial is the volume play: 12 departures per week, 0.20 DTS, STABLE, manageable 80-month supply. Source any clean pair under €52.79 with confidence. The Stan Smith is the value play: 7 departures per week, 0.11 DTS (fastest exit in the cluster), €84.14 average exit, RISING. Source selected colourways under €55.95 — but be selective on condition and colourway because 181-month supply means a poor-colourway pair will sit in the pool rather than exit at category average. The Samba is the structural avoid: DEAD momentum, €48.01 average exit, 210-month supply.",
+          "The Handball Spezial is the volume play: 12 departures in the last 30 days, 0.20 DTS, STABLE, manageable 80-month supply. Source any clean pair under €52.79 with confidence. The Stan Smith is the value play: 7 departures in the last 30 days, 0.11 DTS (fastest exit in the cluster), €84.14 average exit, RISING. Source selected colourways under €55.95 — but be selective on condition and colourway because 181-month supply means a poor-colourway pair will sit in the pool rather than exit at category average. The Samba is the structural avoid: DEAD momentum, €48.01 average exit, 210-month supply.",
           "The practical sourcing rule: if you find a Stan Smith in white/white or a collab colourway under €55, it is the best single-unit exit value in the Adidas cluster. If you find a standard white/green Stan Smith and a Handball Spezial at identical prices, take the Handball Spezial — safer volume outcome. Never take a Samba when either alternative is available at the same price.",
-          "The Gazelle Indoor (4/7d, €58.00, RISING, 71-month supply) is an interesting complement: lower volume and lower price than the Stan Smith, but with better supply dynamics (71 months vs 181) and also RISING. It is the sleeper in the Adidas group.",
+          "The Gazelle Indoor (4 departures in the last 30 days, €58.00, RISING, 71-month supply) is an interesting complement: lower volume and lower price than the Stan Smith, but with better supply dynamics (71 months vs 181) and also RISING. It is the sleeper in the Adidas group.",
         ],
         table: {
           caption: "Adidas EU Vinted sneaker comparison — week to 15 Sep 2026",
@@ -126,11 +126,11 @@ export const POSTS_75: BlogPost[] = [
       },
       {
         q: "Stan Smith or Handball Spezial: which is better to resell on EU Vinted?",
-        a: "The Handball Spezial is the safer volume play (12 departures/7d vs 7, tighter 80-month supply vs 181), but the Stan Smith is the higher-value play when colourway and condition are right (€84.14 avg exit vs €79.38, fastest DTS in the cluster at 0.11 days, RISING momentum vs STABLE). If you source at the same price, the Handball Spezial is the lower-risk bet; a premium-colourway Stan Smith in excellent condition under €55 is the higher-margin bet.",
+        a: "The Handball Spezial is the safer volume play (12 departures in the last 30 days vs 7, tighter 80-month supply vs 181), but the Stan Smith is the higher-value play when colourway and condition are right (€84.14 avg exit vs €79.38, fastest DTS in the cluster at 0.11 days, RISING momentum vs STABLE). If you source at the same price, the Handball Spezial is the lower-risk bet; a premium-colourway Stan Smith in excellent condition under €55 is the higher-margin bet.",
       },
       {
         q: "Is the Adidas Stan Smith oversaturated on EU Vinted?",
-        a: "At 181 months of supply (3,619 active listings at 7 departures per week), the Stan Smith is oversupplied in the common white/green colourway. However, RISING momentum and a sub-3-hour exit speed indicate that demand is absorbing supply. The practical implication: be selective on colourway and condition, and exits will still clear fast. Avoid standard colourways in poor condition — those pairs sit in the 181-month pool.",
+        a: "At 181 months of supply (3,619 active listings at 7 departures in the last 30 days), the Stan Smith is oversupplied in the common white/green colourway. However, RISING momentum and a sub-3-hour exit speed indicate that demand is absorbing supply. The practical implication: be selective on colourway and condition, and exits will still clear fast. Avoid standard colourways in poor condition — those pairs sit in the 181-month pool.",
       },
     ],
   },

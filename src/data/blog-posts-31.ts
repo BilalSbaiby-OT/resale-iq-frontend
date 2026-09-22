@@ -31,7 +31,7 @@ export const POSTS_31: BlogPost[] = [
       {
         h: "Stone Island jackets on EU Vinted: what the data shows",
         p: [
-          "Of Stone Island's 731 total watched departures per week across EU Vinted (week to 15 September 2026), Jackets account for 169 of them at a €140 average exit price — 23% of weekly volume at double the brand average. The remaining volume is dominated by Hoodies (398/wk, €55 avg), but jackets punch far above their weight by cash value. At 169 units per week × €140 average, Stone Island jackets represent €23,660 of weekly secondary market activity across five EU countries.",
+          "Of Stone Island's 731 total watched departures per week across EU Vinted (week to 15 September 2026), Jackets account for 169 of them at a €140 average exit price — 23% of weekly volume at double the brand average. The remaining volume is dominated by Hoodies (178 departures in the last 30 days, €55 avg), but jackets punch far above their weight by cash value. At 169 units per week × €140 average, Stone Island jackets represent €23,660 of weekly secondary market activity across five EU countries.",
           "The €140 average is the central estimate across all tracked jacket lines. The distribution is wide: standard quilted outers and regular outer shells typically exit at €80–130 in good condition. Technical lines (Nylon Metal, Membrana 3L, Crinkle Reps) exit at €120–250. Premium and rare lines (Ghost, Ice Jacket, Shadow Project) command €200–600+ depending on condition, colourway, and season. Knowing which product line you have before you set a buy-below is not optional — it is the entire sourcing decision.",
           `[Current Stone Island departure data →](${ilinkHref("flip")})`,
         ],
@@ -164,7 +164,7 @@ export const POSTS_31: BlogPost[] = [
       },
       {
         q: "Is Stone Island worth reselling on Vinted?",
-        a: "Yes — Stone Island is the highest-ticket apparel brand Resale IQ tracks across EU Vinted. Jackets average €140 per departure (169/wk as of September 2026), making it the highest-revenue-per-departure category-brand combination in the tracked set. Hoodies are the higher-volume play (398/wk at €55 avg). Together, Stone Island generates over €51,000 of weekly secondary market activity across 5 EU countries. The margin is real but the buy-below discipline is tighter than lower-ticket brands — at €140 exits, paying €100+ for a jacket requires a clear authentication pass.",
+        a: "Yes — Stone Island is the highest-ticket apparel brand Resale IQ tracks across EU Vinted. Jackets average €140 per departure (51 departures in the last 30 days as of September 2026), making it the highest-revenue-per-departure category-brand combination in the tracked set. Hoodies are the higher-volume play (178 departures in the last 30 days at €55 avg). Together, Stone Island generates over €51,000 of weekly secondary market activity across 5 EU countries. The margin is real but the buy-below discipline is tighter than lower-ticket brands — at €140 exits, paying €100+ for a jacket requires a clear authentication pass.",
       },
       {
         q: "What is the buy-below price for a Stone Island jacket?",
@@ -180,7 +180,7 @@ export const POSTS_31: BlogPost[] = [
       },
       {
         q: "How do Stone Island jackets compare to Stone Island hoodies for resale?",
-        a: "Hoodies are the volume play: 398 departures per week at €55 average as of September 2026 — faster cash turn, lower per-unit margin, more forgiving sourcing. Jackets are the premium play: 169 departures per week at €140 average — more capital per unit, higher margin per flip, but tighter authentication requirements and more sourcing selectivity. Both are legitimate resale strategies. Hoodies are a better starting point if you are new to Stone Island; once you can authenticate product lines reliably, jackets offer materially higher per-unit returns.",
+        a: "Hoodies are the volume play: 178 departures in the last 30 days at €55 average as of September 2026 — faster cash turn, lower per-unit margin, more forgiving sourcing. Jackets are the premium play: 51 departures in the last 30 days at €140 average — more capital per unit, higher margin per flip, but tighter authentication requirements and more sourcing selectivity. Both are legitimate resale strategies. Hoodies are a better starting point if you are new to Stone Island; once you can authenticate product lines reliably, jackets offer materially higher per-unit returns.",
       },
     ],
   },

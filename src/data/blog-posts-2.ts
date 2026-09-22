@@ -77,7 +77,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "What season you are in right now — by the data",
         p: [
-          "Week to 14 September 2026, across 28 brands on EU Vinted: Hoodies 1,181 watched departures · Jackets 955 · Shirts 760. The autumn transition is live — hoodies and jackets are overtaking shirts, which dominated through summer. Stone Island Hoodies averaged €55 this week (796 departures/week across all categories). Patagonia Jackets averaged €75 (part of Patagonia's 792 total departures). The North Face — 410 departures/week — is fully in autumn territory.",
+          "Week to 14 September 2026, across 28 brands on EU Vinted: Hoodies 1,181 watched departures · Jackets 955 · Shirts 760. The autumn transition is live — hoodies and jackets are overtaking shirts, which dominated through summer. Stone Island Hoodies averaged €55 this week (1323 departures in the last 30 days across all categories). Patagonia Jackets averaged €75 (part of Patagonia's 792 total departures). The North Face — 72 departures in the last 30 days — is fully in autumn territory.",
           "If you have outerwear in stock, the listing window opened in the first week of September and the next 10–12 weeks are the strongest of the year. If you still hold summer stock (Shirts, Shorts, Swimwear), the market for that has softened materially and will not recover until April. Holding it is a decision to tie up cash for six months. [What actually left the shelf this week](" +
             ilinkHref("data") +
             ") shows the live category mix.",
@@ -132,7 +132,7 @@ export const POSTS_2: BlogPost[] = [
         p: [
           "Week to 14 September 2026 (EU5): the transition is confirmed live. If you are holding any of the following, list now rather than waiting for an arbitrary date:",
           "Stone Island: 796 total departures/week, Hoodies €55 avg, Jackets €142 avg. Patagonia: 792/week, Jackets €75 avg. The North Face: 410/week, Jackets and Fleeces dominant. Carhartt: 70/week — WIP Detroit Jackets exit €80–120 at charity shop sourcing prices of €10–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the 28-brand hub.",
-          "Fred Perry Shirts are in softening territory for September — 939 departures/week still, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
+          "Fred Perry Shirts are in softening territory for September — 199 departures in the last 30 days still, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
         ],
         cta: pricingBodyCta("body_listtime_20260915"),
       },
@@ -286,7 +286,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Selling",
     readMins: 5,
     intro:
-      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (122 watched departures/7d), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. We watched 566 departures this week from 5,341,780 tracked listings in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (780 departures in the last 30 days), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. We watched 566 departures this week from 5,341,780 tracked listings in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "First: is there demand at all?",
@@ -351,7 +351,7 @@ export const POSTS_2: BlogPost[] = [
     category: "Sourcing",
     readMins: 5,
     intro:
-      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 14 September 2026, Jackets were the highest-value fast-moving category we track (955 watched departures/7d at an average €68), well ahead of Hoodies (1,181/7d at €45) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
+      "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 14 September 2026, Jackets were the highest-value fast-moving category we track (199 departures in the last 30 days at an average €68), well ahead of Hoodies (199 departures in the last 30 days at €45) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
     sections: [
       {
         h: "Buy low season, sell high season",

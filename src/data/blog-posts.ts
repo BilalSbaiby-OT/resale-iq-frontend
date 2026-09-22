@@ -154,7 +154,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Autumn 2026: the transition is live",
         p: [
-          "Jackets (955/wk) and Hoodies (1,181/wk) are already at seasonal pace — buyers in France, Germany and Italy are stocking up. Stone Island, Patagonia and The North Face are the three brands whose Jacket and Hoodie mix is clearing fastest right now.",
+          "Jackets (199 departures in the last 30 days) and Hoodies (199 departures in the last 30 days) are already at seasonal pace — buyers in France, Germany and Italy are stocking up. Stone Island, Patagonia and The North Face are the three brands whose Jacket and Hoodie mix is clearing fastest right now.",
           "Items to list immediately: Stone Island Hoodies and Jackets, Patagonia Fleeces and Jackets, The North Face Puffer Jackets, Carhartt WIP Hoodies. Competition for listings climbs through October — earlier listings get more views before the shelf floods.",
           "Knitwear has not yet spiked but historically enters its peak in late October. Source it now before listings flood the category and departure prices drop. Shorts, Dresses and Swimwear are in their softest quarter — clear warm-weather stock now or hold until April.",
         ],
@@ -163,7 +163,7 @@ export const POSTS: BlogPost[] = [
         h: "Why the brand alone isn't enough",
         p: [
           "A popular brand with the wrong size sits unsold. Sell-through varies sharply by size — the same shoe can fly in a mid-size and sit in an outlier size.",
-          "Category matters too. Levi's ranks #15 by total departures but Jeans account for 83% of all Levi's movement (43 of 52 weekly departures at €29 avg) — Levi's on Vinted is essentially a single-category market, and within that category the 501 Original in vintage indigo exits at €55–80 while a standard 2020 mid-wash exits at €22–28. The brand tells you to look. The model, size and condition tell you whether to buy.",
+          "Category matters too. Levi's ranks #15 by total departures but Jeans account for 83% of all Levi's movement (43 of 52 departures in the last 30 days at €29 avg) — Levi's on Vinted is essentially a single-category market, and within that category the 501 Original in vintage indigo exits at €55–80 while a standard 2020 mid-wash exits at €22–28. The brand tells you to look. The model, size and condition tell you whether to buy.",
           "Condition and price do the rest. Two identical items at different prices have completely different sell-through. The winning listing is usually not the cheapest, but the fairest for its condition.",
         ],
       },
@@ -207,7 +207,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "What category sells fastest on Vinted right now?",
         a:
-          "As of the week to 15 September 2026, Hoodies (1,181 watched departures/7d) and Jackets (955) are the fastest-clearing categories across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Fred Perry Shirts at 455 departures in 7 days.",
+          "As of the week to 15 September 2026, Hoodies (199 departures in the last 30 days) and Jackets (955) are the fastest-clearing categories across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Fred Perry Shirts at 455 departures in 7 days.",
       },
       {
         q: "What sells fastest on Vinted?",
@@ -317,13 +317,13 @@ export const POSTS: BlogPost[] = [
     title: "Best Brands to Resell on Vinted: All 28 Tracked Brands Ranked by Weekly Demand",
     seoTitle: "Best Brands to Resell on Vinted (2026): Ranked by Weekly Departures — Resale IQ",
     description:
-      "All 28 brands tracked on EU Vinted, ranked by weekly watched departures. Week to 14 September 2026: Fred Perry leads at 939/wk, Balenciaga tops price at €146 avg. Full table with buy-below guidance and individual brand guides.",
+      "All 28 brands tracked on EU Vinted, ranked by weekly watched departures. Week to 14 September 2026: Fred Perry leads at 199 departures in the last 30 days, Balenciaga tops price at €146 avg. Full table with buy-below guidance and individual brand guides.",
     date: "2026-09-05",
     updated: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
     intro:
-      "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 939 watched departures per week. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 15 weekly departures. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
+      "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 199 departures in the last 30 days. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 101 departures in the last 30 days. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
     sections: [
       {
         h: "All 28 tracked brands — ranked by weekly watched departures",
@@ -369,14 +369,14 @@ export const POSTS: BlogPost[] = [
       {
         h: "Volume-first brands: Fred Perry, Stone Island, Patagonia",
         p: [
-          "Fred Perry leads the catalogue at 939 watched departures per week — the highest volume of any brand tracked. Shirts dominate at €14 average: low unit profit, high turnover. Stone Island sits second at 796/week with Hoodies averaging €55 and Jackets averaging €142 — a volume-and-margin combination that explains its dominant position among professional resellers. Patagonia at 792/week is driven by Jackets (€75 avg) and Fleeces (€45 avg): the brand carries a sustainability premium that holds at secondary market.",
+          "Fred Perry leads the catalogue at 199 departures in the last 30 days — the highest volume of any brand tracked. Shirts dominate at €14 average: low unit profit, high turnover. Stone Island sits second at 796/week with Hoodies averaging €55 and Jackets averaging €142 — a volume-and-margin combination that explains its dominant position among professional resellers. Patagonia at 792/week is driven by Jackets (€75 avg) and Fleeces (€45 avg): the brand carries a sustainability premium that holds at secondary market.",
           "The volume play is a working capital game. Fred Perry Shirts at €14 average (buy-below ~€9) return a thin per-unit profit but recycle fast. A reseller buying 20 Fred Perry Shirts at an average €6 each and exiting at €14 clears in 2–3 weeks on EU Vinted — the margin is 56% of buy price, not 56% of the sale. [Full Fred Perry sourcing guide](/blog/fred-perry-reselling-vinted-guide).",
         ],
       },
       {
         h: "Margin-first brands: Gucci, Balenciaga, Jordan, Off-White",
         p: [
-          "Gucci leads on exit price at €212 average (83 watched departures/week). The volume is lower — 83/week versus Fred Perry's 939 — but each unit carries a buy-below of ~€141. Balenciaga Sneakers average €141 (168/week): higher volume than Gucci and a more accessible sourcing category. Jordan averages €133 on only 15 weekly departures: the lowest volume in the catalogue, but Sneakers average €156 — the colourway identification edge (Jordan 1 'Chicago' at €300+ vs general-release at €80) is the sourcing story. Off-White averages €67 with Sneakers at €110: the post-Virgil pricing gap means some pieces exit above market expectations.",
+          "Gucci leads on exit price at €212 average (83 departures in the last 30 days). The volume is lower — 83/week versus Fred Perry's 939 — but each unit carries a buy-below of ~€141. Balenciaga Sneakers average €141 (168/week): higher volume than Gucci and a more accessible sourcing category. Jordan averages €133 on only 101 departures in the last 30 days: the lowest volume in the catalogue, but Sneakers average €156 — the colourway identification edge (Jordan 1 'Chicago' at €300+ vs general-release at €80) is the sourcing story. Off-White averages €67 with Sneakers at €110: the post-Virgil pricing gap means some pieces exit above market expectations.",
           "Margin brands demand authentication knowledge. Gucci and Balenciaga are among the most counterfeited labels in EU charity shops. Jordan in OG colourways is heavily faked. The margin case holds only when authentication is fast and reliable at the point of sourcing. [Jordan sourcing guide — colourway identification](/blog/jordan-reselling-vinted-guide) | [Balenciaga guide](/blog/balenciaga-reselling-vinted-guide) | [Off-White guide](/blog/off-white-reselling-vinted-guide).",
         ],
         cta: pricingMidCta("ctr_bestbrands_20260915"),
@@ -384,7 +384,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Brands to pass: Pull&Bear, Mango, Bershka",
         p: [
-          "Three Inditex and Mango-owned brands sit at the bottom of the margin table despite decent volume. Pull&Bear: 51 watched departures/week at €11 average — buy-below ~€7.70, below any realistic charity shop price for identifiable branded stock. Bershka: 27/week at €27 average, but that average is inflated by a 4-departure Jacket outlier at €97. The volume categories (Jeans at €12, Hoodies at €18) have no viable margin. Mango: 17/week at €11 average — the lowest exit price in the catalogue. All three are widely distributed across EU retail at prices that compress secondary market margins to near-zero.",
+          "Three Inditex and Mango-owned brands sit at the bottom of the margin table despite decent volume. Pull&Bear: 51 departures in the last 30 days at €11 average — buy-below ~€7.70, below any realistic charity shop price for identifiable branded stock. Bershka: 27/week at €27 average, but that average is inflated by a 4-departure Jacket outlier at €97. The volume categories (Jeans at €12, Hoodies at €18) have no viable margin. Mango: 17/week at €11 average — the lowest exit price in the catalogue. All three are widely distributed across EU retail at prices that compress secondary market margins to near-zero.",
           "These brands are documented as deliberate passes — not because demand is zero, but because buy-below prices at these averages (~€7–8) are below achievable charity shop sourcing prices for branded stock. Detailed verdicts: [Pull&Bear](/blog/pull-and-bear-reselling-vinted-guide) | [Bershka](/blog/bershka-reselling-vinted-guide) | [Mango](/blog/mango-reselling-vinted-guide).",
         ],
       },
@@ -405,7 +405,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "What are the best brands to resell on Vinted?", a: "Week to 14 September 2026, the highest-volume brands on EU Vinted are Fred Perry (939 watched departures/week, €14 avg), Stone Island (796/week, €55 avg) and Patagonia (792/week, €50 avg). The highest-exit-price brands are Gucci (€212 avg), Balenciaga (€146 avg), Jordan (€133 avg) and Off-White (€67 avg). 'Best' is volume-first or margin-first depending on your sourcing strategy." },
+      { q: "What are the best brands to resell on Vinted?", a: "Week to 14 September 2026, the highest-volume brands on EU Vinted are Fred Perry (199 departures in the last 30 days, €14 avg), Stone Island (796/week, €55 avg) and Patagonia (792/week, €50 avg). The highest-exit-price brands are Gucci (€212 avg), Balenciaga (€146 avg), Jordan (€133 avg) and Off-White (€67 avg). 'Best' is volume-first or margin-first depending on your sourcing strategy." },
       { q: "Which Vinted brand has the highest resale value?", a: "Gucci averages €212 per departure on EU Vinted (week to 14 September 2026), the highest of 28 tracked brands. Balenciaga averages €146, Jordan €133, and Off-White €67. Stone Island (€55 avg) and Patagonia (€50 avg) offer the best combination of volume and price for systematic resellers." },
       { q: "Are there brands not worth reselling on Vinted?", a: "Yes. Pull&Bear (€11 avg), Mango (€11 avg) and Bershka (€27 avg — inflated by a low-volume jacket outlier) are deliberate passes at current EU Vinted departure prices. The buy-below thresholds (~€7–18) are below achievable charity shop sourcing prices. Uniqlo is a collab-only play — mainline basics have no margin, but KAWS and JW Anderson collaboration pieces exit at a premium." },
       { q: "What is the buy-below price for reselling on Vinted?", a: "Buy-below = departure average × 0.95 (5% platform deduction) × 0.70 (30% margin target). For Fred Perry Shirts (€14 avg): buy-below ~€9. For Stone Island Hoodies (€55 avg): buy-below ~€36. For Jordan Sneakers (€156 avg): buy-below ~€104. Resale IQ calculates buy-below at item level — model, category, and condition — not just brand level." },
@@ -588,7 +588,7 @@ export const POSTS: BlogPost[] = [
     title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll",
     seoTitle: "How to Find Items to Flip on Vinted: Use Demand Data, Not Guesswork (2026)",
     description:
-      "Only buy what the data confirms is moving. Stone Island hoodies: 42 departures/week at €52 avg. Fred Perry jackets: 6/week at €75. New Balance sneakers: 8/week at €42. How to check any brand before you spend.",
+      "Only buy what the data confirms is moving. Stone Island hoodies: 42 departures in the last 30 days at €52 avg. Fred Perry jackets: 6/week at €75. New Balance sneakers: 8/week at €42. How to check any brand before you spend.",
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
@@ -659,7 +659,7 @@ export const POSTS: BlogPost[] = [
     category: "Business",
     readMins: 5,
     intro:
-      "There's no single number — it depends entirely on which brand and category you source. As of 14 September 2026, category prices we track range from €12 (Pull&Bear Hoodies) to €306 (Gucci Bags) across the 28 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 455 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 12/7d and €156 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
+      "There's no single number — it depends entirely on which brand and category you source. As of 14 September 2026, category prices we track range from €12 (Pull&Bear Hoodies) to €306 (Gucci Bags) across the 28 brands on resaleiq.dev — a 25x spread for the same 'sell a hoodie/bag' motion. Volume varies just as much: Fred Perry Shirts saw 455 watched departures in 7 days at €14 avg, versus Jordan Sneakers at 12 departures in the last 30 days and €156 avg. Income is margin per item × how many you can actually sell, not a fixed rate. (General information, not a promise of earnings.)",
     sections: [
       {
         h: "What actually drives income",

@@ -41,7 +41,7 @@ export const POSTS_32: BlogPost[] = [
         p: [
           "The Synchilla is Patagonia's highest-departure jacket by monthly volume: 216 watched departures in the last 30 days at a €51.80 average exit price. Weekly volume runs at 47 departures — more than any other Patagonia model. Buy-below ceiling at the brand level is €34.45.",
           "Size matters significantly here. Size-level data from EU Vinted shows S exits at a €54.76 average (buy-below €36.42) while XS exits lower at €36.27 (buy-below €24.12). XL exits at €41.62 (buy-below €27.68). The practical implication: an S-size Synchilla at €20 at a charity shop is well inside the buy-below ceiling; an XS at the same price only breaks even.",
-          "The Synchilla is a volume play, not a margin play. At 47 departures per week, finding one is not hard — but sourcing profitably requires knowing the size ceiling. The most common EU Vinted sizes (M, S, L) all have workable buy-below prices.",
+          "The Synchilla is a volume play, not a margin play. At 47 departures in the last 30 days, finding one is not hard — but sourcing profitably requires knowing the size ceiling. The most common EU Vinted sizes (M, S, L) all have workable buy-below prices.",
         ],
       },
       {
@@ -49,7 +49,7 @@ export const POSTS_32: BlogPost[] = [
         p: [
           "The Better Sweater (fleece, not knit) is Patagonia's second-highest departure model: 181 watched departures in 30 days at a €40.91 average. Buy-below ceiling: €27.21. Weekly volume: 27 departures.",
           "Size-level breakdown: XL exits highest at €46.10 (buy-below €30.66), M at €47.06 (buy-below €31.29), XXL at €43.70 (buy-below €29.06). S drops to €38.25 (buy-below €25.44). L exits at €43.00 (buy-below €28.59). Larger sizes exit at a small premium — likely because the Better Sweater skews male and larger male sizes see less charity-shop churn.",
-          "The Better Sweater is slightly lower-margin than Synchilla but highly liquid. At 27 departures per week it turns quickly. Sourcing below €18 in any size secures margin at the worst-case exit price.",
+          "The Better Sweater is slightly lower-margin than Synchilla but highly liquid. At 27 departures in the last 30 days it turns quickly. Sourcing below €18 in any size secures margin at the worst-case exit price.",
         ],
         cta: pricingBodyCta("ctr_patagonia_guide_better_sweater_20260915"),
       },
@@ -94,7 +94,7 @@ export const POSTS_32: BlogPost[] = [
       },
       {
         q: "Which Patagonia model sells best on Vinted?",
-        a: "By volume, the Synchilla leads with 216 watched departures in 30 days and 47 departures per week. The Better Sweater (181/month), Black Hole bag (186/month), and Refugio bag (223/month) are also high-volume. By margin potential, the Retro-X (€78 average exit) and Torrentshell S (€113 average exit) offer the best buy-below headroom if sourced cheaply.",
+        a: "By volume, the Synchilla leads with 216 watched departures in 30 days and 47 departures in the last 30 days. The Better Sweater (181/month), Black Hole bag (186/month), and Refugio bag (223/month) are also high-volume. By margin potential, the Retro-X (€78 average exit) and Torrentshell S (€113 average exit) offer the best buy-below headroom if sourced cheaply.",
       },
       {
         q: "What sizes are best to source for Patagonia on EU Vinted?",

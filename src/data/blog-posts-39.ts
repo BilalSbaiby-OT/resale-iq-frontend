@@ -14,7 +14,7 @@ export const POSTS_39: BlogPost[] = [
     title: "Balenciaga Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga sneakers averaged €164 per departure across EU Vinted in September 2026 — 61 watched departures per week, the brand's highest-volume category. Real exit ranges, buy-below ceilings by model type (Triple S, Speed Trainer, Track), and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
+      "Balenciaga sneakers averaged €164 per departure across EU Vinted in September 2026 — 61 departures in the last 30 days, the brand's highest-volume category. Real exit ranges, buy-below ceilings by model type (Triple S, Speed Trainer, Track), and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",
@@ -22,7 +22,7 @@ export const POSTS_39: BlogPost[] = [
 
     preflightQuery: "Balenciaga Sneakers",
     intro:
-      "Balenciaga is the fourth-largest brand by watched departures on EU Vinted with 211 departures per week — and sneakers account for the single biggest slice of that volume. Balenciaga sneakers tracked 61 watched departures per week at a €164 average exit price in the week to 19 September 2026. That is the highest-volume category for the brand and the highest average exit price among Balenciaga product types, ahead of hoodies (€103) and shirts (€83). Only bags reach a higher per-unit ceiling (€193), but at just 9 departures a week, the bag trade is a patience game. Sneakers are the volume play. A Triple S sourced at a charity shop or estate sale below €105 and departing at €150–190 represents one of the highest-margin single-unit events accessible to an EU Vinted reseller. This guide covers exit prices by sneaker model type, buy-below ceilings, condition criteria, and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
+      "Balenciaga is the fourth-largest brand by watched departures on EU Vinted with 2322 departures in the last 30 days — and sneakers account for the single biggest slice of that volume. Balenciaga sneakers tracked 61 departures in the last 30 days at a €164 average exit price in the week to 19 September 2026. That is the highest-volume category for the brand and the highest average exit price among Balenciaga product types, ahead of hoodies (€103) and shirts (€83). Only bags reach a higher per-unit ceiling (€193), but at just 9 departures a week, the bag trade is a patience game. Sneakers are the volume play. A Triple S sourced at a charity shop or estate sale below €105 and departing at €150–190 represents one of the highest-margin single-unit events accessible to an EU Vinted reseller. This guide covers exit prices by sneaker model type, buy-below ceilings, condition criteria, and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
     definedTerm: {
       name: "Balenciaga sneaker departure average",
       description:
@@ -32,7 +32,7 @@ export const POSTS_39: BlogPost[] = [
       {
         h: "Balenciaga sneakers on EU Vinted: volume at luxury prices",
         p: [
-          "Balenciaga sneakers are unusual in the EU resale market: they move at luxury price points but with trainers-market volume. The €164 departure average sits well above New Balance sneakers (€54 average) and below Gucci sneakers (€211, 9 departures per week). That positions Balenciaga sneakers in a pocket where volume is meaningful — 61 departures a week — but the per-unit margin is high enough to justify sourcing effort.",
+          "Balenciaga sneakers are unusual in the EU resale market: they move at luxury price points but with trainers-market volume. The €164 departure average sits well above New Balance sneakers (€54 average) and below Gucci sneakers (€211, 9 departures in the last 30 days). That positions Balenciaga sneakers in a pocket where volume is meaningful — 61 departures a week — but the per-unit margin is high enough to justify sourcing effort.",
           "The Triple S is the defining model. Introduced in 2017, it drove the chunky-sole trend and remains the most recognised Balenciaga sneaker on EU resale markets. Triple S listings that clear are typically in white/black, triple white, or triple black colourways in men's sizes 40–44. The Speed Trainer and Track runner are secondary volume drivers — faster sell-through when priced right, narrower margin windows than the Triple S.",
         ],
       },
@@ -67,8 +67,8 @@ export const POSTS_39: BlogPost[] = [
       {
         h: "Balenciaga sneakers vs Gucci sneakers vs Nike on EU Vinted",
         p: [
-          "EU resellers often choose between three premium sneaker lanes. Balenciaga gives 61 departures per week at €164 average — the best combination for consistent weekly throughput at luxury price points. Authentication is mandatory but manageable once you know the markers.",
-          "Gucci sneakers (Ace, Rhyton, Screener) offer a higher per-unit ceiling at €211 average, but volume is thin at 9 departures per week. A sourcing miss sits longer. Best suited for resellers with patience and strong authentication knowledge.",
+          "EU resellers often choose between three premium sneaker lanes. Balenciaga gives 61 departures in the last 30 days at €164 average — the best combination for consistent weekly throughput at luxury price points. Authentication is mandatory but manageable once you know the markers.",
+          "Gucci sneakers (Ace, Rhyton, Screener) offer a higher per-unit ceiling at €211 average, but volume is thin at 9 departures in the last 30 days. A sourcing miss sits longer. Best suited for resellers with patience and strong authentication knowledge.",
           "Nike at volume (Jordan, Air Max) dominates EU Vinted by departure count at a much lower price point. Margin per pair is thinner, but turnover is faster and authentication risk is lower. Balenciaga exits at nearly 3× the New Balance sneaker average (€164 vs €54) — a meaningful difference per sourcing event.",
           `Balenciaga sneakers are the clearest argument for sourcing one piece carefully over sourcing many pieces quickly. One genuine Triple S at €70 from a charity estate clearance, departing at €160, beats a full session of lower-margin trainers. [See live brand comparisons →](${ilinkHref("data")})`,
         ],
@@ -108,7 +108,7 @@ export const POSTS_39: BlogPost[] = [
       },
       {
         q: "How do Balenciaga sneakers compare to Gucci sneakers on EU Vinted?",
-        a: "Balenciaga sneakers offer higher volume at a slightly lower ceiling: 61 departures per week at €164 average versus Gucci's 9 departures per week at €211 average. Balenciaga is the better choice for resellers who want consistent weekly throughput; Gucci suits resellers who can wait longer for a higher per-unit return. Both require strong authentication knowledge.",
+        a: "Balenciaga sneakers offer higher volume at a slightly lower ceiling: 61 departures in the last 30 days at €164 average versus Gucci's 9 departures in the last 30 days at €211 average. Balenciaga is the better choice for resellers who want consistent weekly throughput; Gucci suits resellers who can wait longer for a higher per-unit return. Both require strong authentication knowledge.",
       },
       {
         q: "Which Balenciaga sneaker model sells best on EU Vinted?",

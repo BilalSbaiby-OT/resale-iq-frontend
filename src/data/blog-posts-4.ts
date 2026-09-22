@@ -94,7 +94,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "How does Supreme compare to Stone Island and Balenciaga for resale?",
-        a: "Supreme (156 departures/week, avg €66) has lower volume than Stone Island (785/week, avg €70) but the same average ticket. Balenciaga (517/week, avg €146) leads on revenue velocity. Supreme's sourcing moat is drop knowledge and authentication skill; Stone Island's is condition grading and authenticity; Balenciaga's is authentication depth at a higher capital requirement. All three reward buyers who can verify before they bid.",
+        a: "Supreme (657 departures in the last 30 days, avg €66) has lower volume than Stone Island (785/week, avg €70) but the same average ticket. Balenciaga (517/week, avg €146) leads on revenue velocity. Supreme's sourcing moat is drop knowledge and authentication skill; Stone Island's is condition grading and authenticity; Balenciaga's is authentication depth at a higher capital requirement. All three reward buyers who can verify before they bid.",
       },
     ],
   },
@@ -132,7 +132,7 @@ export const POSTS_4: BlogPost[] = [
       {
         h: "Jackets: 58% of volume, the whole play",
         p: [
-          "At 122 departures per week and €48 average, Jackets are the reason to operate in The North Face. The dominant models in EU Vinted: the Resolve wind jacket (lightweight, packable, consistent secondary demand), the Thermoball and Puffer family (insulated, high seasonality), and the Fleece range — particularly the 100 and 200-series Denali fleece, which trades at premium with the right colourway.",
+          "At 780 departures in the last 30 days and €48 average, Jackets are the reason to operate in The North Face. The dominant models in EU Vinted: the Resolve wind jacket (lightweight, packable, consistent secondary demand), the Thermoball and Puffer family (insulated, high seasonality), and the Fleece range — particularly the 100 and 200-series Denali fleece, which trades at premium with the right colourway.",
           "Size breadth matters here more than on most brands: The North Face Jackets move across a wider size range than streetwear brands, so S through XL all find buyers. Women's cuts move faster in S and M; men's in M and L. Annotate the exact label size and mention fit if it runs unusual.",
         ],
       },
@@ -172,7 +172,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "What North Face items sell best on Vinted?",
-        a: "Jackets dominate: 122 of the 210 weekly departures are Jackets, averaging €48 (to 14 September 2026). The Resolve wind jacket, Thermoball and Puffer range, and Denali fleece are the core models. Bags (12 departures, avg €66) are the highest per-unit opportunity. Hoodies (32, avg €20) and T-Shirts (19, avg €13) are thin-margin volume plays.",
+        a: "Jackets dominate: 122 of the 657 departures in the last 30 days are Jackets, averaging €48 (to 14 September 2026). The Resolve wind jacket, Thermoball and Puffer range, and Denali fleece are the core models. Bags (12 departures, avg €66) are the highest per-unit opportunity. Hoodies (32, avg €20) and T-Shirts (19, avg €13) are thin-margin volume plays.",
       },
       {
         q: "When is the best time to source North Face to resell on Vinted?",
@@ -180,7 +180,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "How does The North Face compare to Patagonia for resale on Vinted?",
-        a: "The North Face (210 departures/week, avg €41) has more volume than Patagonia (773/week — wait, Patagonia actually has more volume; TNF leads on jacket concentration). The North Face is more jacket-concentrated (58% of volume in Jackets); Patagonia has broader category spread. Both are seasonal brands that reward autumn sourcing. North Face Bags (avg €66) outprice Patagonia's equivalent; Patagonia's Hoodies (avg €33) outprice North Face Hoodies (avg €20).",
+        a: "The North Face (657 departures in the last 30 days, avg €41) has more volume than Patagonia (773/week — wait, Patagonia actually has more volume; TNF leads on jacket concentration). The North Face is more jacket-concentrated (58% of volume in Jackets); Patagonia has broader category spread. Both are seasonal brands that reward autumn sourcing. North Face Bags (avg €66) outprice Patagonia's equivalent; Patagonia's Hoodies (avg €33) outprice North Face Hoodies (avg €20).",
       },
     ],
   },
@@ -266,7 +266,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "How does New Balance compare to other brands for resale on Vinted?",
-        a: "New Balance (260 departures/week, avg €49) is more concentrated than any other top-10 brand — 93% Sneakers. By comparison, Balenciaga (514/week, avg €146) is the highest revenue velocity; Stone Island (785/week, avg €70) is the broadest mid-ticket opportunity. New Balance is the best entry point for Sneaker-focused resellers who can identify model value quickly.",
+        a: "New Balance (657 departures in the last 30 days, avg €49) is more concentrated than any other top-10 brand — 93% Sneakers. By comparison, Balenciaga (514/week, avg €146) is the highest revenue velocity; Stone Island (785/week, avg €70) is the broadest mid-ticket opportunity. New Balance is the best entry point for Sneaker-focused resellers who can identify model value quickly.",
       },
     ],
   },

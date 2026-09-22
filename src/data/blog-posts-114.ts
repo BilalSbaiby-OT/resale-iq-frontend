@@ -84,7 +84,7 @@ export const POSTS_114: BlogPost[] = [
         p: [
           "Day 1: Note your views, likes, messages over the last 7 days. This is your baseline. Day 2: Redo the cover photo — worn or natural-light flat-lay. Day 3: Rewrite the title using the formula: Type + Brand + Model + Size + Colour + Condition. Day 4: Adjust price to 85-100% of the sold-price benchmark (use live data, not asking prices). Day 5: Enrich description with measurements, condition details, and hashtags. Day 6: If still no messages, drop price another 5%. Day 7: Review the data — keep, relist with improvements, or delist.",
           "The end-of-week decision: if views are up but likes are flat, fix the cover photo. If likes are up but messages are flat, fix the price. If messages are up but sales are flat, fix the trust signals (response speed, review count, description completeness). Each signal tells you exactly what to fix next.",
-          `Before you spend the week fixing visibility, confirm your item is in a liquid market. Patagonia sold 141 times this week at €33 average across 5 EU markets — that is a market where visibility fixes work. A brand with 6 departures per week is a demand problem, not a visibility problem. [Check your item's demand →](${ilinkHref("flip")})`,
+          `Before you spend the week fixing visibility, confirm your item is in a liquid market. Patagonia sold 141 times this week at €33 average across 5 EU markets — that is a market where visibility fixes work. A brand with 6 departures in the last 30 days is a demand problem, not a visibility problem. [Check your item's demand →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_views_7day_checklist_20260919"),
       },

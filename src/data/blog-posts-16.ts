@@ -226,7 +226,7 @@ export const POSTS_16: BlogPost[] = [
       },
       {
         q: "What sells fastest on Vinted to make money?",
-        a: "As of September 2026, the highest-departure brands on Vinted EU are Fred Perry (862 departures/7d, avg €18), Patagonia (756, avg €37), and Stone Island (753, avg €70). The fastest categories are Hoodies (especially in autumn), Jackets, and Sneakers. High departure volume means quicker turnover, which matters more than high margin per item when starting out.",
+        a: "As of September 2026, the highest-departure brands on Vinted EU are Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (756, avg €37), and Stone Island (753, avg €70). The fastest categories are Hoodies (especially in autumn), Jackets, and Sneakers. High departure volume means quicker turnover, which matters more than high margin per item when starting out.",
       },
       {
         q: "How much money can you make reselling on Vinted?",

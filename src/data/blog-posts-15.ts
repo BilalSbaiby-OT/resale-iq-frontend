@@ -28,14 +28,14 @@ export const POSTS_15: BlogPost[] = [
           "Of the 27 watched departures in the week to 14 September 2026, Jeans led at 9 exits averaging €12. Jackets contributed 4 departures averaging €97. Coats added 3 departures averaging €20. Hoodies added 3 departures averaging €18. T-Shirts rounded out at 3 departures averaging €5.",
           "Full Bershka volumes are on " +
             ilinkHref("flip") +
-            " and update weekly. The €97 Jacket average deserves immediate context: 4 departures is too low a sample to treat as a stable category average — one or two premium vintage outerwear pieces attributed to Bershka can move a 4-departure average significantly. At 4 weekly departures in the Jacket category, the actual sourcing signal is not 'Bershka Jackets average €97' but rather 'occasional Bershka-labelled outerwear exits above €50' — a different and weaker claim. The reliable volume category is Jeans at 9 departures and €12 average — which has no viable margin.",
+            " and update weekly. The €97 Jacket average deserves immediate context: 4 departures is too low a sample to treat as a stable category average — one or two premium vintage outerwear pieces attributed to Bershka can move a 4-departure average significantly. At 4 departures in the last 30 days in the Jacket category, the actual sourcing signal is not 'Bershka Jackets average €97' but rather 'occasional Bershka-labelled outerwear exits above €50' — a different and weaker claim. The reliable volume category is Jeans at 9 departures and €12 average — which has no viable margin.",
         ],
       },
       {
         h: "Why the €97 Jacket average is not a sourcing signal",
         p: [
           "The Bershka Jacket average of €97 across 4 departures in a single week is almost certainly driven by 1–2 outlier pieces rather than a consistent Jacket premium. Bershka's mainline Jacket range retails at €30–60 — a leather-look jacket at €49.99, a puffer at €39.99, a bomber at €44.99. For these to exit at €97 average on EU Vinted, either: (a) the pieces are rare vintage or limited-edition Bershka outerwear from the brand's early Inditex period; (b) the pieces are mislabelled (Bershka occasionally stocks items from external brands with Bershka hangtags at differing price points); or (c) a sampling artefact from 4-departure-per-week volume.",
-          "A reseller targeting 'Bershka Jackets at €97' as a sourcing strategy would find that — across a typical EU charity shop supply — the Bershka outerwear available is current-era production priced at €8–20, exiting at €20–40 on Vinted, not at €97. The reliable data signal is: 27 weekly departures at €27 average, with Jeans as the volume leader at €12. That is the Bershka resale market on EU Vinted.",
+          "A reseller targeting 'Bershka Jackets at €97' as a sourcing strategy would find that — across a typical EU charity shop supply — the Bershka outerwear available is current-era production priced at €8–20, exiting at €20–40 on Vinted, not at €97. The reliable data signal is: 27 departures in the last 30 days at €27 average, with Jeans as the volume leader at €12. That is the Bershka resale market on EU Vinted.",
         ],
         cta: pricingMidCta("ctr_bershka_20260915"),
       },

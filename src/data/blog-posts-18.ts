@@ -50,7 +50,7 @@ export const POSTS_18: BlogPost[] = [
         p: [
           "The most common pricing mistake on Vinted: checking what other sellers are listing for, and pricing to match. Listed prices are not departure prices. A hoodie listed at €45 that never departs does not tell you what the market pays — it tells you what one seller hoped the market would pay.",
           "Departure data is the correct benchmark. Resale IQ tracks actual completions across EU Vinted markets. Patagonia Hoodies: 128 departures per 7 days at an average of €41. Patagonia Jackets: 313 departures at €50. If you're pricing a Patagonia Fleece Hoodie at €65 because similar items are listed for €65, but the actual departure average is €41, you will sit. If you price at €38–42, you move.",
-          "For high-velocity brands (Fred Perry at 862 departures/7d, Stone Island at 753) the market is liquid — buyers are active, competition is real, and pricing precision matters more, not less. A Fred Perry Shirt priced at €18 (market average) against 20 similar listings will take longer to depart than one priced at €14–15 with better photos.",
+          "For high-velocity brands (Fred Perry at 199 departures in the last 30 days, Stone Island at 753) the market is liquid — buyers are active, competition is real, and pricing precision matters more, not less. A Fred Perry Shirt priced at €18 (market average) against 20 similar listings will take longer to depart than one priced at €14–15 with better photos.",
           "Check [Resale IQ's flip data](" + ilinkHref("flip") + ") before setting your price. The buy-below principle — sourcing at one-third of expected exit — is covered in depth in [buy-below price explained](/blog/buy-below-price-explained).",
         ],
       },
@@ -115,7 +115,7 @@ export const POSTS_18: BlogPost[] = [
       },
       {
         q: "What are the best things to sell on Vinted?",
-        a: "Brands with high departure rates and buy-below sourcing opportunities. Resale IQ tracks 28 EU Vinted brands — top-velocity as of September 2026: Fred Perry (862 departures/7d, avg €18), Patagonia (756/7d, avg €37), Stone Island (753/7d, avg €70). The best items are those where the exit price is 3× the sourcing cost — see [what sells best on Vinted](/blog/what-sells-best-on-vinted) for the full departure table.",
+        a: "Brands with high departure rates and buy-below sourcing opportunities. Resale IQ tracks 28 EU Vinted brands — top-velocity as of September 2026: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (756 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70). The best items are those where the exit price is 3× the sourcing cost — see [what sells best on Vinted](/blog/what-sells-best-on-vinted) for the full departure table.",
       },
       {
         q: "Should I accept offers on Vinted?",

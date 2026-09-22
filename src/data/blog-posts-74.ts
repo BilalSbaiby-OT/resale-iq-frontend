@@ -15,7 +15,7 @@ export const POSTS_74: BlogPost[] = [
     title: "Adidas Handball Spezial on EU Vinted: Price Guide, Buy-Below and Size Data (2026)",
     seoTitle: "Adidas Handball Spezial Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Handball Spezial tracked 12 watched departures per week on EU Vinted in September 2026 — the highest volume of any Adidas sneaker in our database. Average exit €79.38, buy-below ceiling €52.79, 80-month supply (not oversaturated). Size 39 and 38 dominate volume at a €76–78 average exit. STABLE momentum. Full data, size breakdown, and comparison against Samba, Stan Smith, and Gazelle Indoor.",
+      "Adidas Handball Spezial tracked 12 departures in the last 30 days on EU Vinted in September 2026 — the highest volume of any Adidas sneaker in our database. Average exit €79.38, buy-below ceiling €52.79, 80-month supply (not oversaturated). Size 39 and 38 dominate volume at a €76–78 average exit. STABLE momentum. Full data, size breakdown, and comparison against Samba, Stan Smith, and Gazelle Indoor.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -26,14 +26,14 @@ export const POSTS_74: BlogPost[] = [
     definedTerm: {
       name: "Adidas Handball Spezial departure average",
       description:
-        "The Adidas Handball Spezial departure average is the average price at which a tracked Handball Spezial listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Handball Spezial tracks 12 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €79.38 average exit price, with 5,166 active listings and approximately 80.7 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €52.79 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Size 39 exits at €76.83 average (buy-below €51.09); size 38 exits at €78.33 average (buy-below €52.09). Momentum label: STABLE — exit prices are not declining. Average days to sell: 0.20 (exits typically within hours of listing going live).",
+        "The Adidas Handball Spezial departure average is the average price at which a tracked Handball Spezial listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Handball Spezial tracks 12 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €79.38 average exit price, with 5,166 active listings and approximately 80.7 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €52.79 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Size 39 exits at €76.83 average (buy-below €51.09); size 38 exits at €78.33 average (buy-below €52.09). Momentum label: STABLE — exit prices are not declining. Average days to sell: 0.20 (exits typically within hours of listing going live).",
     },
     sections: [
       {
         h: "Adidas Handball Spezial: the highest-volume Adidas sneaker on EU Vinted",
         p: [
           "The Handball Spezial was designed as a court handball shoe in 1979 — a flatter sole, a wider toe box, and a distinctive suede upper that distinguishes it from the Samba's glossy finish. The model has undergone several cultural revivals, most recently driven by Liam Gallagher-era Britpop associations and a 2023–2024 fashion cycle that pushed it into EU Vinted's top-selling sneaker tier.",
-          "The data confirms the cultural signal: 12 watched departures per week, the highest of any Adidas model in ResaleIQ's EU tracked database. What separates the Handball Spezial from the Samba — which it almost always outsells on EU Vinted despite being far less famous in mainstream streetwear — is the supply dynamic. 5,166 active listings versus 27,338 for the Samba. At 80 months of supply, this is still a market with competition, but the exit price is not being destroyed by surplus inventory the way the Samba is.",
+          "The data confirms the cultural signal: 12 departures in the last 30 days, the highest of any Adidas model in ResaleIQ's EU tracked database. What separates the Handball Spezial from the Samba — which it almost always outsells on EU Vinted despite being far less famous in mainstream streetwear — is the supply dynamic. 5,166 active listings versus 27,338 for the Samba. At 80 months of supply, this is still a market with competition, but the exit price is not being destroyed by surplus inventory the way the Samba is.",
           `The ResaleIQ verdict on the Handball Spezial is currently STABLE — which in the context of EU sneaker resale means the model is actively clearing at a price worth sourcing for. The opportunity score is meaningfully higher than the Samba's. [See live Handball Spezial data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_handball_spezial_intro_20260915"),
@@ -95,7 +95,7 @@ export const POSTS_74: BlogPost[] = [
         p: [
           "The three Adidas models most frequently found together at EU charity shops are the Samba, Handball Spezial, and Stan Smith. This is not a coincidence — all three have had major fashion cycles in the last three years that drove mass retail production, and all three now appear with some regularity in the secondary market. The choice between them, when you find all three priced identically, is determined by EU Vinted's departure data, not by the model's cultural profile.",
           "The Handball Spezial wins on every metric that matters for resellers: the most departures per week (12 vs 7 for Stan Smith, 6 for Samba), a competitive exit average (€79.38 vs €84.14 for Stan Smith, €48.01 for Samba), the fastest exit time (0.20 days — sub-24h — faster than both alternatives), and the most manageable supply position (80 months vs 181 for Stan Smith, 210 for Samba).",
-          "The Stan Smith exits at a higher average price (€84.14) and carries RISING momentum, which makes it the better single-unit target when the colourway is right. But the Handball Spezial's volume advantage means it is the safer bet when you need consistent throughput — 12 departures per week is a more liquid market than 7.",
+          "The Stan Smith exits at a higher average price (€84.14) and carries RISING momentum, which makes it the better single-unit target when the colourway is right. But the Handball Spezial's volume advantage means it is the safer bet when you need consistent throughput — 12 departures in the last 30 days is a more liquid market than 7.",
           "The Samba is a clear avoid at category level unless you find size 41 under €54, a confirmed OG colourway, or a Liam Gallagher / Wales Bonner collaboration. Its 210-month supply tail is a structural sourcing problem that no cultural popularity can fix on the resale timeline.",
         ],
         table: {
@@ -137,7 +137,7 @@ export const POSTS_74: BlogPost[] = [
       },
       {
         q: "Handball Spezial or Samba: which is better to resell on EU Vinted?",
-        a: "Handball Spezial by every metric: 12 watched departures per week (vs 6 for Samba), €79.38 average exit (vs €48.01), STABLE momentum (vs DEAD), far fewer competing listings (5,166 vs 27,338), and an average sell time under 4 hours versus the Samba's slow clearing rate. The Samba has the cultural recognition; the Handball Spezial has the better resale economics.",
+        a: "Handball Spezial by every metric: 12 departures in the last 30 days (vs 6 for Samba), €79.38 average exit (vs €48.01), STABLE momentum (vs DEAD), far fewer competing listings (5,166 vs 27,338), and an average sell time under 4 hours versus the Samba's slow clearing rate. The Samba has the cultural recognition; the Handball Spezial has the better resale economics.",
       },
       {
         q: "How do I identify a Liam Gallagher Handball Spezial?",

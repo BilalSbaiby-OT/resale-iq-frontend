@@ -30,8 +30,8 @@ export const POSTS_34: BlogPost[] = [
       {
         h: "Levi's on EU Vinted: what the data shows",
         p: [
-          "The Levi's brand tracks 49 watched departures per week across all categories on EU Vinted, with jeans accounting for 41 of those — 84% of brand volume. The average exit price across jeans departures is €29, placing Levi's at the lower end of the branded denim segment. Total monthly volume runs at approximately 177 jeans departures.",
-          "The jeans dominance makes sense: the 501 straight-leg is Levi's most actively listed cut on EU Vinted and the only model in the ResaleIQ tracked database. Jackets (Trucker, Type III) account for 2 departures per week at a €40 average — a higher exit price but insufficient volume to build a sourcing strategy around. Hoodies and tracksuits trail at 2–3 departures per week.",
+          "The Levi's brand tracks 49 departures in the last 30 days across all categories on EU Vinted, with jeans accounting for 41 of those — 84% of brand volume. The average exit price across jeans departures is €29, placing Levi's at the lower end of the branded denim segment. Total monthly volume runs at approximately 177 jeans departures.",
+          "The jeans dominance makes sense: the 501 straight-leg is Levi's most actively listed cut on EU Vinted and the only model in the ResaleIQ tracked database. Jackets (Trucker, Type III) account for 2 departures in the last 30 days at a €40 average — a higher exit price but insufficient volume to build a sourcing strategy around. Hoodies and tracksuits trail at 2–3 departures in the last 30 days.",
           `The key insight for resellers: Levi's is a volume-and-condition play, not a brand-name-premium play. The €29 average is 62% lower than Nike sneakers (€64 average) and 21% lower than New Balance (€50 average). Margin comes from sourcing below the cost curve — not from the brand premium. [Current Levi's brand data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_levis_guide_intro_20260915"),
@@ -64,7 +64,7 @@ export const POSTS_34: BlogPost[] = [
       {
         h: "Levi's Trucker Jacket and other cuts",
         p: [
-          "The Levi's Trucker Jacket (Type III) accounts for 2 watched departures per week at a €40 average — a 38% premium over the jeans average. The Trucker has a more distinct silhouette and is more collectable than the 501, which supports the higher exit price. Modern Truckers exit at €30–45; vintage (USA-made, single stitch, dark denim) exit at €80–200 in good condition.",
+          "The Levi's Trucker Jacket (Type III) accounts for 2 departures in the last 30 days at a €40 average — a 38% premium over the jeans average. The Trucker has a more distinct silhouette and is more collectable than the 501, which supports the higher exit price. Modern Truckers exit at €30–45; vintage (USA-made, single stitch, dark denim) exit at €80–200 in good condition.",
           "The 505 regular fit is the second most listed Levi's cut on EU Vinted but is less tracked than the 501 — it exits at a slight discount (€23–26) because the straight-but-not-tapered silhouette is less sought by the vintage-influenced buyer pool driving Vinted's denim segment. The 512 slim taper exits higher than the 505 but lower than the 501 due to trend positioning.",
           "Levi's shorts, tracksuits, and T-shirts are low-volume items on EU Vinted (2–3 total brand departures per week) and are not worth systematically sourcing. Focus stays on 501 jeans and, opportunistically, the Trucker Jacket when found below €20.",
         ],
@@ -74,8 +74,8 @@ export const POSTS_34: BlogPost[] = [
         h: "Levi's vs Wrangler, Carhartt, and Diesel on EU Vinted",
         p: [
           "Levi's vs Wrangler: Wrangler is not in the ResaleIQ tracked database — too few EU Vinted departures to build a reliable signal. The brand is more popular in the US market than EU. On EU Vinted, Wrangler exits slower and lower than Levi's 501 equivalents. If you source both, Levi's has a significantly faster turn time.",
-          "Levi's vs Carhartt WIP: Carhartt runs 61 watched departures per week at a €31 average — more volume than Levi's but at a similar price point. The key difference is category: Carhartt leads in jackets (21 departures/7d at €53 average), where the margin is significantly better than Levi's jeans. For denim-only sourcing, Levi's 501 is the benchmark. For outerwear, Carhartt WIP jackets at €53 average are a better margin play.",
-          `Levi's vs Diesel: Diesel tracks 162 watched departures per week at a €23 average — higher volume but lower price than Levi's. Diesel's lower exit price reflects a more saturated supply and a less collector-driven buyer pool. On EU Vinted, Diesel moves faster at lower margins; Levi's 501 moves slower at better margins, especially for vintage pieces. [See all tracked EU brands →](${ilinkHref("data")})`,
+          "Levi's vs Carhartt WIP: Carhartt runs 61 departures in the last 30 days at a €31 average — more volume than Levi's but at a similar price point. The key difference is category: Carhartt leads in jackets (21 departures in the last 30 days at €53 average), where the margin is significantly better than Levi's jeans. For denim-only sourcing, Levi's 501 is the benchmark. For outerwear, Carhartt WIP jackets at €53 average are a better margin play.",
+          `Levi's vs Diesel: Diesel tracks 51 departures in the last 30 days at a €23 average — higher volume but lower price than Levi's. Diesel's lower exit price reflects a more saturated supply and a less collector-driven buyer pool. On EU Vinted, Diesel moves faster at lower margins; Levi's 501 moves slower at better margins, especially for vintage pieces. [See all tracked EU brands →](${ilinkHref("data")})`,
         ],
       },
     ],

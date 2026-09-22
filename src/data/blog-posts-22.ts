@@ -28,11 +28,11 @@ export const POSTS_22: BlogPost[] = [
         h: "Buy-below targets from live departure data",
         p: [
           "Before sourcing, know your numbers. These are current EU Vinted departure averages (7 days to 15 September 2026) and derived buy-below prices at 100% net margin (i.e. double your money):",
-          "**Fred Perry:** 850 watched departures/7d, avg €18 → buy below **€9**. Shirts dominate (416/7d, avg €14). Common in UK charity shops and French brocantes; oversupplied in parts of the UK, still underpriced elsewhere in EU.",
-          "**Patagonia:** 747/7d, avg €37 → buy below **€18**. Jackets (311/7d, avg €51) command the highest values. Rare at charity shops; more common at German hiking/outdoor gear markets, ski resort secondhand sales, and Alpine swap events.",
-          "**Stone Island:** 739/7d, avg €70 → buy below **€35**. Hoodies (401/7d, avg €55) are the volume item; jackets average €140. Stone Island items at charity shops are usually mispriced — donors often don't recognise the brand. When you find one for under €10, it's a clear buy.",
-          "**Balenciaga:** 509/7d, avg €147 → buy below **€74**. Charity shops rarely hold designer at correct prices; brocante stalls and individual Vinted sellers unaware of authentication requirements can be sources. Risk: fakes are common — authenticate before buying to source.",
-          "**Supreme:** 155/7d, avg €66 → buy below **€33**. Box logo pieces carry premiums above averages. UK and Japanese tourist flows seed UK charity shops with Supreme; look in affluent area shops.",
+          "**Fred Perry:** 199 departures in the last 30 days, avg €18 → buy below **€9**. Shirts dominate (416 departures in the last 30 days, avg €14). Common in UK charity shops and French brocantes; oversupplied in parts of the UK, still underpriced elsewhere in EU.",
+          "**Patagonia:** 1323 departures in the last 30 days, avg €37 → buy below **€18**. Jackets (311 departures in the last 30 days, avg €51) command the highest values. Rare at charity shops; more common at German hiking/outdoor gear markets, ski resort secondhand sales, and Alpine swap events.",
+          "**Stone Island:** 178 departures in the last 30 days, avg €70 → buy below **€35**. Hoodies (401 departures in the last 30 days, avg €55) are the volume item; jackets average €140. Stone Island items at charity shops are usually mispriced — donors often don't recognise the brand. When you find one for under €10, it's a clear buy.",
+          "**Balenciaga:** 2322 departures in the last 30 days, avg €147 → buy below **€74**. Charity shops rarely hold designer at correct prices; brocante stalls and individual Vinted sellers unaware of authentication requirements can be sources. Risk: fakes are common — authenticate before buying to source.",
+          "**Supreme:** 199 departures in the last 30 days, avg €66 → buy below **€33**. Box logo pieces carry premiums above averages. UK and Japanese tourist flows seed UK charity shops with Supreme; look in affluent area shops.",
           "For complete buy-below calculations across all brands, use the [Resale IQ flip calculator](" + ilinkHref("flip") + ").",
         ],
       },
@@ -108,11 +108,11 @@ export const POSTS_22: BlogPost[] = [
       },
       {
         q: "Can you make money reselling from charity shops on Vinted?",
-        a: "Yes, reliably — if you source in areas where charity shop staff don't recognise brands. A Stone Island hoodie at €3 in a charity shop resells at €50–60 on Vinted (Stone Island watched departures: 739/7d, avg €70). The arbitrage is real; it requires brand knowledge and willingness to physically visit multiple shops.",
+        a: "Yes, reliably — if you source in areas where charity shop staff don't recognise brands. A Stone Island hoodie at €3 in a charity shop resells at €50–60 on Vinted (Stone Island watched departures: 178 departures in the last 30 days, avg €70). The arbitrage is real; it requires brand knowledge and willingness to physically visit multiple shops.",
       },
       {
         q: "What brands are worth looking for when sourcing for Vinted?",
-        a: "Prioritise brands with high watched departure volume on EU Vinted: Fred Perry (850/7d, avg €18), Patagonia (747/7d, avg €37), Stone Island (739/7d, avg €70), Balenciaga (509/7d, avg €147), and Supreme (155/7d, avg €66). These brands have proven buyer depth — items move reliably when priced correctly.",
+        a: "Prioritise brands with high watched departure volume on EU Vinted: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (1323 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70), Balenciaga (2322 departures in the last 30 days, avg €147), and Supreme (199 departures in the last 30 days, avg €66). These brands have proven buyer depth — items move reliably when priced correctly.",
       },
       {
         q: "What is Vinted arbitrage?",

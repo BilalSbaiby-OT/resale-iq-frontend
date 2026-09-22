@@ -5,7 +5,7 @@
 // "fred perry twin tipped buy below vinted", "fred perry twin tipped shirt vinted prix",
 // "fred perry twin tipped polo preis vinted", "fred perry twin tipped vinted prezzo".
 // Category: Shirts. RISING momentum. 0.15 avg days to sell (sub-4h).
-// Highest uncovered RISING model after Nike Shox (post 88). opp=19.7, 29/7d @€18.98.
+// Highest uncovered RISING model after Nike Shox (post 88). opp=19.7, 29 departures in the last 30 days @€18.98.
 
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
@@ -17,7 +17,7 @@ export const POSTS_89: BlogPost[] = [
     title: "Fred Perry Twin Tipped on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry Twin Tipped Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry Twin Tipped tracks 29 watched departures per week across EU Vinted in September 2026 at a €18.98 average exit price — RISING momentum with a sub-4-hour average sell time. Real exit ranges by size, size-level buy-below ceilings, and why size M at €22.26 avg exit is the Twin Tipped's highest-margin play on EU Vinted right now.",
+      "Fred Perry Twin Tipped tracks 29 departures in the last 30 days across EU Vinted in September 2026 at a €18.98 average exit price — RISING momentum with a sub-4-hour average sell time. Real exit ranges by size, size-level buy-below ceilings, and why size M at €22.26 avg exit is the Twin Tipped's highest-margin play on EU Vinted right now.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 6,
@@ -25,19 +25,19 @@ export const POSTS_89: BlogPost[] = [
     preflightQuery: "Fred Perry Twin Tipped",
 
     intro:
-      "Fred Perry Twin Tipped tracks 29 watched departures per week across EU Vinted in the week to 16 September 2026 at a €18.98 average exit price — with a 0.15 average days-to-sell (sub-4 hours), the fastest-clearing Fred Perry product in the EU Vinted dataset. The category carries RISING momentum. Spain is the strongest exit market. Size M moves the most volume (29.5% of all 30d departures); size XXL commands the highest average exit at €38.32, with a buy-below ceiling of €25.48. At the category-wide €18.98 average exit, the buy-below ceiling is €12.62 — sources priced below that in Very Good or better condition are high-probability flips with same-morning turnovers at current market velocity. This guide covers exit prices by size, why the Twin Tipped outperforms standard Fred Perry polos on DTS, which colourways clear fastest, and how Twin Tipped compares to the Fred Perry Harrington and Laurel Wreath as EU Vinted reseller categories.",
+      "Fred Perry Twin Tipped tracks 29 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted at a €18.98 average exit price — with a 0.15 average days-to-sell (sub-4 hours), the fastest-clearing Fred Perry product in the EU Vinted dataset. The category carries RISING momentum. Spain is the strongest exit market. Size M moves the most volume (29.5% of all 30d departures); size XXL commands the highest average exit at €38.32, with a buy-below ceiling of €25.48. At the category-wide €18.98 average exit, the buy-below ceiling is €12.62 — sources priced below that in Very Good or better condition are high-probability flips with same-morning turnovers at current market velocity. This guide covers exit prices by size, why the Twin Tipped outperforms standard Fred Perry polos on DTS, which colourways clear fastest, and how Twin Tipped compares to the Fred Perry Harrington and Laurel Wreath as EU Vinted reseller categories.",
 
     definedTerm: {
       name: "Fred Perry Twin Tipped departure average",
       description:
-        "The Fred Perry Twin Tipped departure average is the average price at which a tracked Fred Perry Twin Tipped listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Fred Perry Twin Tipped tracks 29 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €18.98 category average is €12.62 — that is €18.98 × 0.665, targeting approximately 33% gross margin after platform fees. Spain (ES) is the strongest exit market in the current EU Vinted dataset. Fred Perry Twin Tipped carries RISING momentum as of September 2026.",
+        "The Fred Perry Twin Tipped departure average is the average price at which a tracked Fred Perry Twin Tipped listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Fred Perry Twin Tipped tracks 29 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €18.98 category average is €12.62 — that is €18.98 × 0.665, targeting approximately 33% gross margin after platform fees. Spain (ES) is the strongest exit market in the current EU Vinted dataset. Fred Perry Twin Tipped carries RISING momentum as of September 2026.",
     },
 
     sections: [
       {
         h: "What the Fred Perry Twin Tipped market looks like on EU Vinted right now",
         p: [
-          "Fred Perry Twin Tipped is the highest-velocity shirt in the Fred Perry EU Vinted dataset in September 2026. 29 watched departures per week at €18.98 average with a 0.15 DTS — under 4 hours — means correctly priced Twin Tipped polos are clearing the same day they're listed, in most cases within the morning. For comparison, the Fred Perry Harrington jacket tracks 9/7d at €53 with the same 0.15 DTS; the Fred Perry Laurel Wreath tracks 8/7d at €23.31 with a slower 0.28 DTS. Twin Tipped dominates on volume by 3:1 within the Fred Perry EU Vinted category.",
+          "Fred Perry Twin Tipped is the highest-velocity shirt in the Fred Perry EU Vinted dataset in September 2026. 29 departures in the last 30 days at €18.98 average with a 0.15 DTS — under 4 hours — means correctly priced Twin Tipped polos are clearing the same day they're listed, in most cases within the morning. For comparison, the Fred Perry Harrington jacket tracks 9 departures in the last 30 days at €53 with the same 0.15 DTS; the Fred Perry Laurel Wreath tracks 8 departures in the last 30 days at €23.31 with a slower 0.28 DTS. Twin Tipped dominates on volume by 3:1 within the Fred Perry EU Vinted category.",
           "The Twin Tipped is Fred Perry's most recognisable polo silhouette — the two-colour tipping on collar and cuffs is the visual marker that drives brand identification from a thumbnail. This recognisability is the demand engine: buyers searching 'Fred Perry polo' on Vinted can identify a Twin Tipped in a listing photo without reading the description. That reduces buyer hesitation and compresses DTS. With 2,171 active listings in the dataset, supply is healthy but not saturating — the 0.15 DTS is driven by genuine buyer demand meeting correctly-priced inventory.",
           "Spain is the strongest EU exit market for Fred Perry Twin Tipped in the current data — stronger than France and Germany, which tracks with Fred Perry's strong streetwear positioning in Spanish youth culture from the 1990s onwards, carried through into the current resale buyer base. If you're sourcing in Spain — rastros, segunda mano, app-based C2C — Twin Tipped availability at the buy-below ceiling is realistic. In northern EU markets (Germany, Netherlands), the brand trades at slightly higher source prices but the same exit range applies.",
         ],
@@ -73,7 +73,7 @@ export const POSTS_89: BlogPost[] = [
       {
         h: "Fred Perry Twin Tipped vs Harrington vs Laurel Wreath: which to prioritise",
         p: [
-          "The three active Fred Perry reseller categories on EU Vinted in September 2026 have distinct profiles. Twin Tipped leads on volume (29/7d) and speed (0.15 DTS) but has the lowest per-unit exit (€18.98). Harrington jacket delivers 9/7d at €53.01 — 2.8× the per-unit exit of Twin Tipped but 3× the source cost (buy-below €35.26 vs €12.62), matching on DTS at 0.15. Laurel Wreath delivers 8/7d at €23.31 with a slower 0.28 DTS — higher exit than Twin Tipped but slower clearing.",
+          "The three active Fred Perry reseller categories on EU Vinted in September 2026 have distinct profiles. Twin Tipped leads on volume (29 departures in the last 30 days) and speed (0.15 DTS) but has the lowest per-unit exit (€18.98). Harrington jacket delivers 9 departures in the last 30 days at €53.01 — 2.8× the per-unit exit of Twin Tipped but 3× the source cost (buy-below €35.26 vs €12.62), matching on DTS at 0.15. Laurel Wreath delivers 8 departures in the last 30 days at €23.31 with a slower 0.28 DTS — higher exit than Twin Tipped but slower clearing.",
           `For capital-efficiency: Twin Tipped is the highest-turnover play with the lowest capital at risk. For per-unit margin in euros: Harrington jacket delivers more absolute margin per flip (€17.75 vs €6.36 at respective buy-belows) but requires finding Harrington jackets below €35, which is harder at EU second-hand markets than finding Twin Tipped polos below €12. The practical answer for most EU resellers: build a Twin Tipped base inventory for weekly cash flow, and layer in Harrington jackets when found below ceiling to boost per-flip margin. Both source from the same Fred Perry second-hand market appearances. [Check live Fred Perry data →](${ilinkHref("flip")})`,
         ],
         cta: pricingBodyCta("ctr_fp_twintipped_vs_harrington_20260916"),
@@ -83,7 +83,7 @@ export const POSTS_89: BlogPost[] = [
     faq: [
       {
         q: "How many Fred Perry Twin Tipped polos sell on EU Vinted per week?",
-        a: "Fred Perry Twin Tipped tracks 29 watched departures per week across EU Vinted in the week to 16 September 2026 at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked Fred Perry Twin Tipped listing left the shelf — not a confirmed buyer-reported sale. The category carries RISING momentum as of September 2026. Spain (ES) is the strongest exit market. Size M is the most liquid size (127 departures/30d, 29.5% of total); size XXL commands the highest average exit at €38.32. There are 2,171 active Twin Tipped listings across EU Vinted markets in the current dataset.",
+        a: "Fred Perry Twin Tipped tracks 29 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked Fred Perry Twin Tipped listing left the shelf — not a confirmed buyer-reported sale. The category carries RISING momentum as of September 2026. Spain (ES) is the strongest exit market. Size M is the most liquid size (127 departures/30d, 29.5% of total); size XXL commands the highest average exit at €38.32. There are 2,171 active Twin Tipped listings across EU Vinted markets in the current dataset.",
       },
       {
         q: "What should I pay for a Fred Perry Twin Tipped to make a profit on Vinted?",
@@ -99,7 +99,7 @@ export const POSTS_89: BlogPost[] = [
       },
       {
         q: "Is Fred Perry Twin Tipped worth reselling compared to Fred Perry Harrington jacket?",
-        a: "Both are active reseller categories on EU Vinted in September 2026 with the same 0.15 DTS. Twin Tipped leads on volume (29/7d vs 9/7d) but has a lower per-unit exit (€18.98 vs €53.01). At respective buy-below ceilings (€12.62 vs €35.26), Twin Tipped delivers €6.36 gross margin per unit; Harrington delivers €17.75. Harrington is 2.8× the per-unit margin in euros but requires sourcing at 2.8× the capital threshold — harder to find at EU flea markets than Twin Tipped polos. The practical strategy: Twin Tipped for volume and weekly cash flow; Harrington for per-flip margin when found below ceiling. Both source from the same Fred Perry second-hand market appearances across France, Germany, Spain, Italy, and Portugal.",
+        a: "Both are active reseller categories on EU Vinted in September 2026 with the same 0.15 DTS. Twin Tipped leads on volume (29 departures in the last 30 days vs 9 departures in the last 30 days) but has a lower per-unit exit (€18.98 vs €53.01). At respective buy-below ceilings (€12.62 vs €35.26), Twin Tipped delivers €6.36 gross margin per unit; Harrington delivers €17.75. Harrington is 2.8× the per-unit margin in euros but requires sourcing at 2.8× the capital threshold — harder to find at EU flea markets than Twin Tipped polos. The practical strategy: Twin Tipped for volume and weekly cash flow; Harrington for per-flip margin when found below ceiling. Both source from the same Fred Perry second-hand market appearances across France, Germany, Spain, Italy, and Portugal.",
       },
     ],
   },

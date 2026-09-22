@@ -55,7 +55,7 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Samba and Samba OG: the trend models",
         p: [
-          "The Samba is the most culturally prominent Adidas shoe on Vinted right now — but not the most profitable sourcing target on volume/margin criteria. Samba exits average €48.01 with 6 departures per week; Samba OG exits at €60.61 with 5 departures. The buy-below prices are €31.93 (Samba) and €40.31 (Samba OG).",
+          "The Samba is the most culturally prominent Adidas shoe on Vinted right now — but not the most profitable sourcing target on volume/margin criteria. Samba exits average €48.01 with 6 departures in the last 30 days; Samba OG exits at €60.61 with 5 departures. The buy-below prices are €31.93 (Samba) and €40.31 (Samba OG).",
           "Those buy-below ceilings are meaningful: a standard Samba in good condition sells for just under €50 on EU Vinted. Sourcing above €31.93 erodes the margin below defensible levels at that exit average. The model's high retail demand keeps secondhand supply relatively thin — which supports the price but means fewer sourcing opportunities per month compared to a model with higher turnover.",
           "Samba OG exits higher (€60.61) because it is the premium-construction variant with a slightly different silhouette — buyers who know the range specifically seek OG. If you find both at the same source price, always prefer the OG. The colourway split follows the same pattern as Stan Smiths: black/white and gum-sole colourways are the most liquid.",
           `[Current Samba departure data →](${ilinkHref("data")})`,
@@ -64,15 +64,15 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Campus 00s and Gazelle Indoor: the wider catalogue",
         p: [
-          "The Campus 00s exits at €37.99 with 4 departures per week — the lowest exit price of the tracked Adidas models. Buy-below is €25.26. The low absolute exit price means smaller per-unit margin in euros, even at defensible margin percentages. Campus 00s are worth sourcing at charity shop prices (€8–20 clean) but not at prices that require competitive above-floor sourcing.",
-          "The Gazelle Indoor is a newer entrant to Vinted resale: 4 departures per week at €58.00 average exit, buy-below €38.57. The model benefits from strong editorial coverage in 2025–2026 and is still in growth phase for Vinted demand. It is worth watching as a sourcing category — the current volume is modest but the exit price is reasonable.",
-          "The Forum Low rounds out the tracked catalogue: €42.17 average exit, buy-below €28.04, 3 departures per week. Low volume makes it a secondary sourcing target — only buy Forum Lows if sourced below €28 and in clean condition.",
+          "The Campus 00s exits at €37.99 with 4 departures in the last 30 days — the lowest exit price of the tracked Adidas models. Buy-below is €25.26. The low absolute exit price means smaller per-unit margin in euros, even at defensible margin percentages. Campus 00s are worth sourcing at charity shop prices (€8–20 clean) but not at prices that require competitive above-floor sourcing.",
+          "The Gazelle Indoor is a newer entrant to Vinted resale: 4 departures in the last 30 days at €58.00 average exit, buy-below €38.57. The model benefits from strong editorial coverage in 2025–2026 and is still in growth phase for Vinted demand. It is worth watching as a sourcing category — the current volume is modest but the exit price is reasonable.",
+          "The Forum Low rounds out the tracked catalogue: €42.17 average exit, buy-below €28.04, 3 departures in the last 30 days. Low volume makes it a secondary sourcing target — only buy Forum Lows if sourced below €28 and in clean condition.",
         ],
       },
       {
         h: "Adidas vs Nike: which brand to prioritise on EU Vinted",
         p: [
-          "Nike leads on raw weekly volume and has a tighter price range — the Air Force 1's 38 departures per week make it the single most reliable sourcing target on EU Vinted. Adidas has lower total volume (41 departures across 7 models versus Nike's higher concentration in fewer models) but higher exit prices on the top models (Handball Spezial at €79, Stan Smith at €84).",
+          "Nike leads on raw weekly volume and has a tighter price range — the Air Force 1's 38 departures in the last 30 days make it the single most reliable sourcing target on EU Vinted. Adidas has lower total volume (41 departures across 7 models versus Nike's higher concentration in fewer models) but higher exit prices on the top models (Handball Spezial at €79, Stan Smith at €84).",
           "The practical choice depends on sourcing opportunity: if you find both at the same source price, the model with the higher buy-below ceiling wins. Handball Spezial at €52 source price has a defensible margin. AF1 at €62 is the ceiling. At flea market prices, you may find Air Force 1s more frequently (broader supply) but Handball Spezials at higher source prices still work if under the ceiling.",
           "The second-order factor is condition sensitivity: Adidas suede models (Handball Spezial, Samba) are more condition-sensitive than Nike leather AF1s. A worn suede Spezial drops more value than a worn AF1. Price suede accordingly at the point of sourcing, not after cleaning.",
         ],
@@ -98,7 +98,7 @@ export const POSTS_29: BlogPost[] = [
       },
       {
         q: "Which Adidas sneaker sells best on Vinted?",
-        a: "By weekly departure volume on EU Vinted, the Handball Spezial leads in September 2026: 12 watched departures per week at a €79.38 average exit. Stan Smith (7 departures, €84.14 exit) ranks second by exit price. Samba and Samba OG follow with 6 and 5 departures respectively, though at lower exit prices.",
+        a: "By weekly departure volume on EU Vinted, the Handball Spezial leads in September 2026: 12 departures in the last 30 days at a €79.38 average exit. Stan Smith (7 departures, €84.14 exit) ranks second by exit price. Samba and Samba OG follow with 6 and 5 departures respectively, though at lower exit prices.",
       },
       {
         q: "Is it worth reselling Adidas sneakers on Vinted?",

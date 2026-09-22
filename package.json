@@ -11,6 +11,7 @@
     "check:isolation": "node scripts/check-agent-isolation.mjs",
     "check:isolation:built": "node scripts/check-agent-isolation.mjs --built",
     "check:tracked": "node scripts/check-tracked-figure.mjs",
+    "check:weekly-claims": "node scripts/check-weekly-claims.mjs",
     "check:dupes": "node scripts/check-duplicate-logic.mjs",
     "check:silent": "node scripts/check-silent-failure.mjs",
     "check:locale-english": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-locale-english.mjs",

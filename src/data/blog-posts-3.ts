@@ -21,7 +21,7 @@ export const POSTS_3: BlogPost[] = [
     category: "Selling",
     readMins: 4,
     intro:
-      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 20 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (122 watched departures/7d) and Shirts (74/7d) — they are already leaving the shelf — while Bags (29/7d) are the slower, higher-ticket stock a bundle discount should free up. Speed, not sentiment, decides. We watched 566 departures this week across 20 published brands, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. Fred Perry averaged €16. Gucci averaged €303. Do not cut a mover to win a conversation. Work the floor before you reply. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
+      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 20 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (780 departures in the last 30 days) and Shirts (74 departures in the last 30 days) — they are already leaving the shelf — while Bags (29 departures in the last 30 days) are the slower, higher-ticket stock a bundle discount should free up. Speed, not sentiment, decides. We watched 566 departures this week across 20 published brands, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. Fred Perry averaged €16. Gucci averaged €303. Do not cut a mover to win a conversation. Work the floor before you reply. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "Know your floor before you negotiate",
@@ -733,7 +733,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "How does Stone Island compare to Fred Perry and Patagonia for resale?",
-        a: "Fred Perry leads on volume (935 departures/week) but averages €18 — high turnover, thin per-unit margin. Patagonia is #2 at 790 departures averaging €36. Stone Island is #3 at 788 departures averaging €70 — similar volume to Patagonia, but nearly double the average exit price. Stone Island is the highest-cash-potential brand in the top three when you weight volume by average price.",
+        a: "Fred Perry leads on volume (199 departures in the last 30 days) but averages €18 — high turnover, thin per-unit margin. Patagonia is #2 at 790 departures averaging €36. Stone Island is #3 at 788 departures averaging €70 — similar volume to Patagonia, but nearly double the average exit price. Stone Island is the highest-cash-potential brand in the top three when you weight volume by average price.",
       },
       {
         q: "What Stone Island categories should I target on Vinted?",
@@ -775,7 +775,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Why volume makes Fred Perry viable despite thin margins",
         p: [
-          "At 928 departures per week, Fred Perry moves faster than any brand in the top 10. A thin-margin brand with strong liquidity is often more useful to a part-time reseller than a high-margin brand that sits for weeks. Cash that recycles in 3–5 days competes with cash that earns a bigger margin but waits 3 weeks.",
+          "At 199 departures in the last 30 days, Fred Perry moves faster than any brand in the top 10. A thin-margin brand with strong liquidity is often more useful to a part-time reseller than a high-margin brand that sits for weeks. Cash that recycles in 3–5 days competes with cash that earns a bigger margin but waits 3 weeks.",
           "The condition for this to work: your floor must be real. If you pay £12 for a Shirt that needs cleaning and relist at €14 with €0.70 in fees deducted, you have made €0.60 before sourcing time and postage. The margin is there; the volume argument collapses the moment you pay over floor. " +
             BRAND +
             " returns a BUY / WATCH / SKIP with a buy-below for the specific model so you can check the floor before you commit.",
@@ -811,15 +811,15 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the most popular Fred Perry item on Vinted?",
-        a: "Shirts — most notably the M12 Polo — dominate: 451 of the 928 weekly departures are Shirts, averaging €14. T-Shirts (168 departures, avg €12) and Hoodies (147, avg €22) follow. Jackets are the best per-unit opportunity at €36 average but move less often (118 departures/week).",
+        a: "Shirts — most notably the M12 Polo — dominate: 451 of the 199 departures in the last 30 days are Shirts, averaging €14. T-Shirts (168 departures, avg €12) and Hoodies (147, avg €22) follow. Jackets are the best per-unit opportunity at €36 average but move less often (199 departures in the last 30 days).",
       },
       {
         q: "How does Fred Perry compare to Stone Island and Patagonia for resale?",
-        a: "Fred Perry leads on volume (928 departures/week) but averages €18 — the highest liquidity, the thinnest margins. Stone Island (#3 by volume at 785 departures) averages €70 — less frequent but much higher per-unit. Patagonia (#2) is in between at 785 departures and €36 average. Fred Perry rewards volume operators with strict sourcing floors; Stone Island rewards selective buyers with capital.",
+        a: "Fred Perry leads on volume (199 departures in the last 30 days) but averages €18 — the highest liquidity, the thinnest margins. Stone Island (#3 by volume at 785 departures) averages €70 — less frequent but much higher per-unit. Patagonia (#2) is in between at 785 departures and €36 average. Fred Perry rewards volume operators with strict sourcing floors; Stone Island rewards selective buyers with capital.",
       },
       {
         q: "What is the buy-below for Fred Perry Jackets on Vinted?",
-        a: "Fred Perry Jackets average €36 at departure (118 departures/week to 14 September 2026). Modelling a ~5% platform deduction and 30% target margin gives a buy-below of approximately €24. Harrington and track jackets in clean condition sourced below that price have a realistic margin. Size M and L move fastest.",
+        a: "Fred Perry Jackets average €36 at departure (199 departures in the last 30 days to 14 September 2026). Modelling a ~5% platform deduction and 30% target margin gives a buy-below of approximately €24. Harrington and track jackets in clean condition sourced below that price have a realistic margin. Size M and L move fastest.",
       },
     ],
   },
@@ -866,7 +866,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Sneakers: where the margin lives",
         p: [
-          "At 61 departures per week and €164 average, Sneakers are Balenciaga's strongest resale category by revenue volume. The models that drive this: Track runners (the two-sole runner with exposed mesh upper) and Triple S (the chunky triple-layer sole). Both have been widely faked since 2019 — which is the sourcing moat for buyers who can authenticate.",
+          "At 61 departures in the last 30 days and €164 average, Sneakers are Balenciaga's strongest resale category by revenue volume. The models that drive this: Track runners (the two-sole runner with exposed mesh upper) and Triple S (the chunky triple-layer sole). Both have been widely faked since 2019 — which is the sourcing moat for buyers who can authenticate.",
           "Condition grading matters more than on low-ticket brands: a pair described as 'worn twice' in a flat-lay photo commands €30–40 more than the same pair described as 'used' in box-less presentation. Photograph against a neutral background, show the sole unit cleanly, and describe any toe-box creasing explicitly. EU size 41–43 (M medium) moves fastest; very small and very large sizes sit longer.",
         ],
       },

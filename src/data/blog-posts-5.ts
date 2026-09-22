@@ -101,7 +101,7 @@ export const POSTS_5: BlogPost[] = [
       },
       {
         q: "How does Gucci compare to Balenciaga for resale on Vinted?",
-        a: "Gucci (221 departures/week, avg €212) and Balenciaga (514/week, avg €146) have similar weekly revenue velocity (~€46,900 vs ~€75,000). Balenciaga has nearly 2.5× the volume; Gucci has a higher average ticket driven by Bags at €306. Balenciaga's sourcing challenge is sneaker authentication depth; Gucci's is bag authentication and higher capital per unit. Experienced resellers can operate both — Balenciaga for volume velocity, Gucci for per-unit margin.",
+        a: "Gucci (489 departures in the last 30 days, avg €212) and Balenciaga (514/week, avg €146) have similar weekly revenue velocity (~€46,900 vs ~€75,000). Balenciaga has nearly 2.5× the volume; Gucci has a higher average ticket driven by Bags at €306. Balenciaga's sourcing challenge is sneaker authentication depth; Gucci's is bag authentication and higher capital per unit. Experienced resellers can operate both — Balenciaga for volume velocity, Gucci for per-unit margin.",
       },
     ],
   },

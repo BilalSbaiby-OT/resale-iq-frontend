@@ -90,7 +90,7 @@ export const POSTS_7: BlogPost[] = [
       },
       {
         q: "How does Diesel compare to Nike and Lacoste for resale on Vinted?",
-        a: "Diesel (178 departures/week, €23 avg) sits between Nike (172/week, €62 avg) and Lacoste (118/week in the same EU5 rankings). Nike has a much higher average due to Sneakers; Diesel's average is weighted down by commodity denim. The Jacket categories are comparable in per-unit margin potential: Diesel Jackets at €61 avg vs Lacoste Jackets (estimated higher). The sourcing skill for Diesel is era-identification; for Nike it is model-and-colourway precision.",
+        a: "Diesel (88 departures in the last 30 days, €23 avg) sits between Nike (172/week, €62 avg) and Lacoste (118/week in the same EU5 rankings). Nike has a much higher average due to Sneakers; Diesel's average is weighted down by commodity denim. The Jacket categories are comparable in per-unit margin potential: Diesel Jackets at €61 avg vs Lacoste Jackets (estimated higher). The sourcing skill for Diesel is era-identification; for Nike it is model-and-colourway precision.",
       },
     ],
   },

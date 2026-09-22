@@ -82,7 +82,7 @@ export const POSTS_9: BlogPost[] = [
       },
       {
         q: "What Vans items sell best on Vinted?",
-        a: "By volume and value: Sneakers (59 departures/week at €51 avg). Within Sneakers: collab editions (Supreme, WTAPS, CDG, COMME des GARÇONS) exit at €80–300 for clean pairs. Vans Vault limited editions exit at €65–110. Standard Old Skool in unusual or women's colourways outperform the core colourways. Apparel (T-Shirts €11, Hoodies €18) is not worth deliberate Vans-brand sourcing.",
+        a: "By volume and value: Sneakers (59 departures in the last 30 days at €51 avg). Within Sneakers: collab editions (Supreme, WTAPS, CDG, COMME des GARÇONS) exit at €80–300 for clean pairs. Vans Vault limited editions exit at €65–110. Standard Old Skool in unusual or women's colourways outperform the core colourways. Apparel (T-Shirts €11, Hoodies €18) is not worth deliberate Vans-brand sourcing.",
       },
       {
         q: "How do I spot fake Vans Old Skool?",
@@ -159,7 +159,7 @@ export const POSTS_9: BlogPost[] = [
       },
       {
         q: "What Reebok items sell best on Vinted?",
-        a: "By volume: Sneakers (36 departures/week at €18 avg). Within Sneakers: Classic Leather (€30–55), Club C 85 in white/green (€25–70), Freestyle Hi in limited colourways (€35–80). By per-unit value above average: Heritage Windbreakers from 1980s–1990s (€25–45), Reebok collab outerwear (Cottweiler, VB, Cardi B — €35–80). Hoodies (€12) and T-Shirts (€10) are below practical margin threshold.",
+        a: "By volume: Sneakers (36 departures in the last 30 days at €18 avg). Within Sneakers: Classic Leather (€30–55), Club C 85 in white/green (€25–70), Freestyle Hi in limited colourways (€35–80). By per-unit value above average: Heritage Windbreakers from 1980s–1990s (€25–45), Reebok collab outerwear (Cottweiler, VB, Cardi B — €35–80). Hoodies (€12) and T-Shirts (€10) are below practical margin threshold.",
       },
       {
         q: "Which Reebok sneakers are worth reselling on Vinted?",
@@ -234,7 +234,7 @@ export const POSTS_9: BlogPost[] = [
       },
       {
         q: "What Zara items sell best on Vinted?",
-        a: "By per-unit value: Jackets (14 departures/week at €35 avg). Within Jackets: Zara Studio structured blazers (€45–70), wool-blend overcoats (€35–80), leather-look biker jackets (€25–45). By volume: Hoodies (21 departures/week) but at €16 average — not worth deliberate sourcing. T-Shirts (16 dep/wk at €10) and Shirts (8 dep/wk at €9) are below any viable margin floor.",
+        a: "By per-unit value: Jackets (14 departures in the last 30 days at €35 avg). Within Jackets: Zara Studio structured blazers (€45–70), wool-blend overcoats (€35–80), leather-look biker jackets (€25–45). By volume: Hoodies (21 departures in the last 30 days) but at €16 average — not worth deliberate sourcing. T-Shirts (16 dep/wk at €10) and Shirts (8 dep/wk at €9) are below any viable margin floor.",
       },
       {
         q: "Does Zara Studio resell better than Zara mainline?",

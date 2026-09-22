@@ -36,8 +36,8 @@ export const POSTS_109: BlogPost[] = [
         h: "The honest answer: yes, if you buy below €34.45",
         p: [
           "Reselling on Vinted is worth it in 2026 — but only if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026 at a €53 average exit price. The buy-below ceiling at that average is €34.45 (€53 × 0.65), targeting 35% gross margin after Vinted platform fees of roughly 5–8%. Net of a 6% fee on a €53 exit, take-home is €49.82 — €15.37 on a €34.45 buy (45% on capital).",
-          "That is the math that decides whether a flip is worth your time. A Fred Perry shirt bought at €8 and sold at €15 (80/7d tracked departures) is €7 profit before fees — €6.10 after. A Balenciaga sneaker bought at €100 and sold at €164 (61/7d tracked) is €64 before fees — €60 after. The margin is real. The condition is buy-below discipline: never pay more than 65% of the tracked departure average for the specific brand and category you are buying.",
-          `The €53 average is a blended figure across 23 brands. The real decision is brand-level: Balenciaga sneakers exit at €164 (61/7d), Gucci bags at €450 (24/7d), Fred Perry shirts at €15 (80/7d). Each brand has its own buy-below ceiling. [Full brand ranking →](${ilinkHref("flip")})`,
+          "That is the math that decides whether a flip is worth your time. A Fred Perry shirt bought at €8 and sold at €15 (80 departures in the last 30 days tracked departures) is €7 profit before fees — €6.10 after. A Balenciaga sneaker bought at €100 and sold at €164 (61 departures in the last 30 days tracked) is €64 before fees — €60 after. The margin is real. The condition is buy-below discipline: never pay more than 65% of the tracked departure average for the specific brand and category you are buying.",
+          `The €53 average is a blended figure across 23 brands. The real decision is brand-level: Balenciaga sneakers exit at €164 (61 departures in the last 30 days), Gucci bags at €450 (24 departures in the last 30 days), Fred Perry shirts at €15 (80 departures in the last 30 days). Each brand has its own buy-below ceiling. [Full brand ranking →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_worth_reselling_intro_20260919"),
       },
@@ -45,7 +45,7 @@ export const POSTS_109: BlogPost[] = [
         h: "What 'worth it' actually means: the 3 numbers that decide",
         p: [
           "Three numbers decide whether a Vinted flip is worth your time. (1) The tracked departure average for that brand and category — the price at which items actually leave the shelf, not the asking price. (2) The buy-below ceiling — 65% of the departure average, targeting 35% gross margin. (3) The weekly departure count — how many items of that brand and category left the shelf in the trailing 7 days. A high departure count means fast turnover; a low count means your capital sits.",
-          "Worked example: Balenciaga sneakers track 61 watched departures per week at a €164 average exit. Buy-below ceiling: €106.60 (€164 × 0.65). Source at €80, sell at €164, net €154 after 6% fee — €74 profit (92% on capital). The same logic at lower volume: Stone Island jackets track 32/7d at €135 average. Buy-below: €87.75. Source at €60, sell at €135, net €126.90 — €66.90 profit (112% on capital). The margin is not the question. The question is whether you can source under the ceiling.",
+          "Worked example: Balenciaga sneakers track 61 departures in the last 30 days at a €164 average exit. Buy-below ceiling: €106.60 (€164 × 0.65). Source at €80, sell at €164, net €154 after 6% fee — €74 profit (92% on capital). The same logic at lower volume: Stone Island jackets track 32 departures in the last 30 days at €135 average. Buy-below: €87.75. Source at €60, sell at €135, net €126.90 — €66.90 profit (112% on capital). The margin is not the question. The question is whether you can source under the ceiling.",
           "The failure mode is buying at or above the departure average. A Fred Perry shirt bought at €15 (the average exit) and sold at €15 is €0 before fees — a loss after. The buy-below rule is not a suggestion; it is the difference between a profitable flip and a donation. ResaleIQ's free checker returns the buy-below ceiling for any brand and category pair before you spend cash.",
         ],
         cta: pricingMidCta("ctr_worth_reselling_3numbers_20260919"),
@@ -53,8 +53,8 @@ export const POSTS_109: BlogPost[] = [
       {
         h: "The brands where it is most worth it (live 19 Sep 2026)",
         p: [
-          "Not all brands are equal. The live 19 September 2026 snapshot shows three tiers. High-volume, high-margin: Balenciaga (211/7d at €133 average, buy-below €86.45) and Gucci (51/7d at €297 average, buy-below €193.05). High-volume, low-margin: Fred Perry (175/7d at €17 average, buy-below €11.05) and Patagonia (162/7d at €34 average, buy-below €22.10). Low-volume, high-margin: Supreme (28/7d at €82 average, buy-below €53.30) and Stone Island jackets (32/7d at €135 average, buy-below €87.75).",
-          "The best flips sit at the intersection of volume and margin. Balenciaga sneakers (61/7d at €164) and Stone Island hoodies (60/7d at €54) are the strongest plays this week — enough departures to move inventory fast, enough margin to make the hour spent sourcing worth it. Fred Perry shirts (80/7d at €15) are the volume play: thin per-unit margin but the highest departure count in the tracked set, and the fastest to turn over.",
+          "Not all brands are equal. The live 19 September 2026 snapshot shows three tiers. High-volume, high-margin: Balenciaga (2322 departures in the last 30 days at €133 average, buy-below €86.45) and Gucci (51 departures in the last 30 days at €297 average, buy-below €193.05). High-volume, low-margin: Fred Perry (175 departures in the last 30 days at €17 average, buy-below €11.05) and Patagonia (51 departures in the last 30 days at €34 average, buy-below €22.10). Low-volume, high-margin: Supreme (28 departures in the last 30 days at €82 average, buy-below €53.30) and Stone Island jackets (32 departures in the last 30 days at €135 average, buy-below €87.75).",
+          "The best flips sit at the intersection of volume and margin. Balenciaga sneakers (61 departures in the last 30 days at €164) and Stone Island hoodies (60 departures in the last 30 days at €54) are the strongest plays this week — enough departures to move inventory fast, enough margin to make the hour spent sourcing worth it. Fred Perry shirts (80 departures in the last 30 days at €15) are the volume play: thin per-unit margin but the highest departure count in the tracked set, and the fastest to turn over.",
           `The full 23-brand table with per-category breakdowns is on the [live data page →](${ilinkHref("data")})`,
         ],
         cta: pricingMidCta("ctr_worth_reselling_brands_20260919"),
@@ -86,7 +86,7 @@ export const POSTS_109: BlogPost[] = [
       },
       {
         q: "How much money can you make reselling on Vinted?",
-        a: "It depends on volume and buy-below discipline. A Fred Perry shirt bought at €8 and sold at €15 (80/7d tracked departures) is €6.10 profit after fees. A Balenciaga sneaker bought at €80 and sold at €164 (61/7d tracked) is €74 profit after fees. The per-item margin ranges from €6 to €74 across tracked brands. Scale comes from consistent sourcing under the buy-below ceiling, not from a single big flip.",
+        a: "It depends on volume and buy-below discipline. A Fred Perry shirt bought at €8 and sold at €15 (80 departures in the last 30 days tracked departures) is €6.10 profit after fees. A Balenciaga sneaker bought at €80 and sold at €164 (61 departures in the last 30 days tracked) is €74 profit after fees. The per-item margin ranges from €6 to €74 across tracked brands. Scale comes from consistent sourcing under the buy-below ceiling, not from a single big flip.",
       },
       {
         q: "Is it worth reselling on Vinted if you are a beginner?",
@@ -94,7 +94,7 @@ export const POSTS_109: BlogPost[] = [
       },
       {
         q: "What is the best brand to resell on Vinted in 2026?",
-        a: "The best brand depends on your capital and volume goals. Balenciaga (211/7d at €133 average, buy-below €86.45) is the strongest all-round play — high volume and high margin. Fred Perry (175/7d at €17 average, buy-below €11.05) is the volume play — thin per-unit margin but the highest departure count. Gucci (51/7d at €297 average, buy-below €193.05) is the high-margin play — fewer departures but the highest average exit price.",
+        a: "The best brand depends on your capital and volume goals. Balenciaga (2322 departures in the last 30 days at €133 average, buy-below €86.45) is the strongest all-round play — high volume and high margin. Fred Perry (175 departures in the last 30 days at €17 average, buy-below €11.05) is the volume play — thin per-unit margin but the highest departure count. Gucci (51 departures in the last 30 days at €297 average, buy-below €193.05) is the high-margin play — fewer departures but the highest average exit price.",
       },
       {
         q: "Does Vinted take a cut from sellers?",

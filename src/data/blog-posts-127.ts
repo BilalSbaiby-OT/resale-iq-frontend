@@ -174,7 +174,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "Is Zara worth reselling on Vinted?",
-        a: "Selectively. Zara Jackets (14 departures/week at €35 avg, buy-below ~€23) and Zara Studio pieces (€45–70 exit) are viable when sourced below the buy-below. Zara T-Shirts (€10 avg), Shirts (€9), and Hoodies (€16) are SKIP — buy-below thresholds of €6–11 sit below realistic sourcing prices. Full guide: https://resaleiq.dev/blog/zara-reselling-vinted-guide.",
+        a: "Selectively. Zara Jackets (14 departures in the last 30 days at €35 avg, buy-below ~€23) and Zara Studio pieces (€45–70 exit) are viable when sourced below the buy-below. Zara T-Shirts (€10 avg), Shirts (€9), and Hoodies (€16) are SKIP — buy-below thresholds of €6–11 sit below realistic sourcing prices. Full guide: https://resaleiq.dev/blog/zara-reselling-vinted-guide.",
       },
       {
         q: "Is Uniqlo worth reselling on Vinted?",
@@ -186,7 +186,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "Does low departure volume always mean a brand is a SKIP?",
-        a: "No — low volume can mean a niche with strong margins, not saturation. Jordan (15 departures/week at €133 avg) is the clearest counter-example: low volume, high unit margin. The SKIP signal is specifically when exit prices are too low to source profitably — volume alone does not determine that. Check exit price and buy-below, not just departure count.",
+        a: "No — low volume can mean a niche with strong margins, not saturation. Jordan (15 departures in the last 30 days at €133 avg) is the clearest counter-example: low volume, high unit margin. The SKIP signal is specifically when exit prices are too low to source profitably — volume alone does not determine that. Check exit price and buy-below, not just departure count.",
       },
     ],
   },
@@ -285,7 +285,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "What is the best brand to find at a charity shop for Vinted?",
-        a: "Stone Island has the widest departure premium over typical charity shop pricing: Hoodies average ~€55 on EU Vinted (buy-below ~€36) while charity shops price them at €12–25. Jackets average ~€142 (buy-below ~€94) at €20–50 in charity shops. Fred Perry Shirts offer the most volume (455 watched departures/7d) at thin unit margins. Carhartt WIP has the highest surprise premium when identified — WIP Detroit Jacket at €12 charity shop exits at €95 Vinted.",
+        a: "Stone Island has the widest departure premium over typical charity shop pricing: Hoodies average ~€55 on EU Vinted (buy-below ~€36) while charity shops price them at €12–25. Jackets average ~€142 (buy-below ~€94) at €20–50 in charity shops. Fred Perry Shirts offer the most volume (199 departures in the last 30 days) at thin unit margins. Carhartt WIP has the highest surprise premium when identified — WIP Detroit Jacket at €12 charity shop exits at €95 Vinted.",
       },
       {
         q: "Does the country I source from matter for EU Vinted reselling?",

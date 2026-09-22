@@ -89,7 +89,7 @@ export const POSTS_6: BlogPost[] = [
       },
       {
         q: "What Nike items sell best on Vinted?",
-        a: "Sneakers dominate: 78 of the 172 weekly departures are Sneakers averaging €96 in the week to 14 September 2026. The Air Max 1 (OG colourways, consistent EU5 demand), Jordan 1 (OG colourways €120–180+), and Vapormax are the volume premium models. Tech Fleece Jackets (23 departures, avg €55) are the top apparel play. Generic Nike apparel (T-Shirts, basic Hoodies) has thin margins.",
+        a: "Sneakers dominate: 78 of the 657 departures in the last 30 days are Sneakers averaging €96 in the week to 14 September 2026. The Air Max 1 (OG colourways, consistent EU5 demand), Jordan 1 (OG colourways €120–180+), and Vapormax are the volume premium models. Tech Fleece Jackets (23 departures, avg €55) are the top apparel play. Generic Nike apparel (T-Shirts, basic Hoodies) has thin margins.",
       },
       {
         q: "How do I authenticate a Nike Air Jordan 1 before buying to resell?",
@@ -97,7 +97,7 @@ export const POSTS_6: BlogPost[] = [
       },
       {
         q: "How does Nike compare to New Balance and Supreme for resale on Vinted?",
-        a: "Nike (172 departures/week, avg €62) sits between New Balance (260/week, avg €49) and Supreme (156/week, avg €66) in the EU5 rankings. Nike Sneakers average €96 — significantly above New Balance Sneakers (€52) — but the premium is concentrated in a narrow set of models. Supreme's resale edge is drop knowledge; New Balance's is model-number expertise; Nike's is model-and-colourway precision combined with authentication skill for Jordans.",
+        a: "Nike (88 departures in the last 30 days, avg €62) sits between New Balance (260/week, avg €49) and Supreme (156/week, avg €66) in the EU5 rankings. Nike Sneakers average €96 — significantly above New Balance Sneakers (€52) — but the premium is concentrated in a narrow set of models. Supreme's resale edge is drop knowledge; New Balance's is model-number expertise; Nike's is model-and-colourway precision combined with authentication skill for Jordans.",
       },
     ],
   },

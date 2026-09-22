@@ -30,7 +30,7 @@ export const POSTS_14: BlogPost[] = [
           "Of the 15 watched departures in the week to 14 September 2026, Sneakers led at 12 exits averaging €156. Hoodies contributed 1 departure averaging €25. Jackets added 1 departure averaging €40. T-Shirts rounded out at 1 departure averaging €65.",
           "Full Jordan Brand volumes are on " +
             ilinkHref("flip") +
-            " and update weekly. At 15 weekly departures Jordan is lower-volume than other tracked brands — but the per-unit average (€133) is the third-highest in the catalogue, reflecting the luxury streetwear positioning of Jordan Brand at the intersection of sportswear heritage and sneaker collecting. The reselling case is almost entirely Sneakers: 80% of departures, 100% of the margin case. Jordan apparel exits at non-trivial averages (T-Shirts at €65 — likely Jump Man 23 heritage graphic tees) but volumes are too low for a systematic sourcing strategy.",
+            " and update weekly. At 101 departures in the last 30 days Jordan is lower-volume than other tracked brands — but the per-unit average (€133) is the third-highest in the catalogue, reflecting the luxury streetwear positioning of Jordan Brand at the intersection of sportswear heritage and sneaker collecting. The reselling case is almost entirely Sneakers: 80% of departures, 100% of the margin case. Jordan apparel exits at non-trivial averages (T-Shirts at €65 — likely Jump Man 23 heritage graphic tees) but volumes are too low for a systematic sourcing strategy.",
         ],
       },
       {
@@ -133,7 +133,7 @@ export const POSTS_14: BlogPost[] = [
       {
         h: "Practical verdict: Pull&Bear is a passing grade, not a sourcing target",
         p: [
-          "The honest assessment for Pull&Bear is a deliberate pass rather than a sourcing strategy. At 51 weekly departures with an €11 average, the brand has real demand volume — but the economics do not support deliberate charity shop sourcing of current-production Pull&Bear. The only viable case is opportunistic vintage denim at clearance pricing (under €5), and these pieces are uncommon enough that they cannot support a consistent sourcing plan.",
+          "The honest assessment for Pull&Bear is a deliberate pass rather than a sourcing strategy. At a limited number of departures in the last 30 days with an €11 average, the brand has real demand volume — but the economics do not support deliberate charity shop sourcing of current-production Pull&Bear. The only viable case is opportunistic vintage denim at clearance pricing (under €5), and these pieces are uncommon enough that they cannot support a consistent sourcing plan.",
           "For resellers who encounter Pull&Bear pieces at charity shops: Hoodies priced below €7 and Jackets priced below €8 represent marginal cases; current production pieces priced above €8 are almost certainly non-viable after fees. Vintage denim with a 90s-era P&B bear label at under €5 is the only piece worth buying deliberately. All other Pull&Bear sourcing is a net-negative time investment.",
         ],
         cta: pricingBodyCta("body_pullandbear_20260915"),

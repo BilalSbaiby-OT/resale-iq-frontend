@@ -14,26 +14,26 @@ export const POSTS_42: BlogPost[] = [
     title: "Patagonia Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia hoodies tracked 122 watched departures per week across EU Vinted in September 2026 at a €40 average — the brand's second-busiest category after jackets. Real exit ranges by model (Better Sweater, Los Gatos, Synchilla Snap-T, Retro Pile), buy-below ceiling at €26, and how Patagonia hoodies compare to North Face fleeces and Stone Island for EU resellers.",
+      "Patagonia hoodies tracked 780 departures in the last 30 days across EU Vinted in September 2026 at a €40 average — the brand's second-busiest category after jackets. Real exit ranges by model (Better Sweater, Los Gatos, Synchilla Snap-T, Retro Pile), buy-below ceiling at €26, and how Patagonia hoodies compare to North Face fleeces and Stone Island for EU resellers.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
 
     preflightQuery: "Patagonia Hoodie",
     intro:
-      "Patagonia hoodies are the EU charity-shop resale staple — 122 watched departures per week in the week to 15 September 2026 at a €40 average exit price. That makes hoodies Patagonia's second-busiest category on EU Vinted after jackets (307 departures/7d at €51) and ahead of bags (115/7d at €24). The Better Sweater, Los Gatos, Synchilla Snap-T, and Retro Pile fleece are the four models that drive the category — each with a different price ceiling and different sourcing economics. Buy-below sits at €26, which means charity-shop and clearance sourcing is viable; secondary-market sourcing from other resellers rarely leaves margin. This guide covers exit prices by model, sourcing conditions that close the margin, and how Patagonia hoodies compare to North Face and Stone Island for EU Vinted resellers.",
+      "Patagonia hoodies are the EU charity-shop resale staple — 780 departures in the last 30 days in the week to 15 September 2026 at a €40 average exit price. That makes hoodies Patagonia's second-busiest category on EU Vinted after jackets (780 departures in the last 30 days at €51) and ahead of bags (202 departures in the last 30 days at €24). The Better Sweater, Los Gatos, Synchilla Snap-T, and Retro Pile fleece are the four models that drive the category — each with a different price ceiling and different sourcing economics. Buy-below sits at €26, which means charity-shop and clearance sourcing is viable; secondary-market sourcing from other resellers rarely leaves margin. This guide covers exit prices by model, sourcing conditions that close the margin, and how Patagonia hoodies compare to North Face and Stone Island for EU Vinted resellers.",
     definedTerm: {
       name: "Patagonia hoodie departure average",
       description:
-        "The Patagonia hoodie departure average is the average price at which a tracked Patagonia hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Patagonia hoodies track 122 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. This makes hoodies Patagonia's second-highest-volume category on EU Vinted behind jackets (307/7d at €51). The buy-below ceiling at the hoodie category level is €26 — that is €40 × 0.65, targeting a 35% gross margin after platform fees. The Better Sweater Hoody is the highest-exiting hoodie model within the category, typically departing €8–12 above the €40 category average in clean condition.",
+        "The Patagonia hoodie departure average is the average price at which a tracked Patagonia hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Patagonia hoodies track 780 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. This makes hoodies Patagonia's second-highest-volume category on EU Vinted behind jackets (780 departures in the last 30 days at €51). The buy-below ceiling at the hoodie category level is €26 — that is €40 × 0.65, targeting a 35% gross margin after platform fees. The Better Sweater Hoody is the highest-exiting hoodie model within the category, typically departing €8–12 above the €40 category average in clean condition.",
     },
     sections: [
       {
-        h: "Patagonia hoodies on EU Vinted: 122 departures/week at €40",
+        h: "Patagonia hoodies on EU Vinted: 780 departures in the last 30 days at €40",
         p: [
-          "Patagonia hoodies are a reliably liquid category across EU Vinted — 122 watched departures per week as of the week to 15 September 2026 at a €40 average. Within the Patagonia brand total of 733 departures per week, hoodies sit second behind jackets (307/7d at €51) and above bags (115/7d at €24). The brand's EU Vinted footprint spans France, Germany, Spain, Italy, and Portugal.",
+          "Patagonia hoodies are a reliably liquid category across EU Vinted — 780 departures in the last 30 days as of the week to 15 September 2026 at a €40 average. Within the Patagonia brand total of 1323 departures in the last 30 days, hoodies sit second behind jackets (780 departures in the last 30 days at €51) and above bags (202 departures in the last 30 days at €24). The brand's EU Vinted footprint spans France, Germany, Spain, Italy, and Portugal.",
           "The €40 average for hoodies blends four distinct models with different demand profiles and resale ceilings. The Better Sweater and Retro Pile fleece sit above the category average; the Synchilla Snap-T and Los Gatos sit at or near it. Understanding which model you are sourcing — and what it actually exits at — is the difference between a margin-positive unit and a write-off at €40 expected but a €28 actual.",
-          `Patagonia's total EU Vinted brand footprint is 733 watched departures per week at a €37 brand average — the second-most liquid brand in the ResaleIQ EU database by volume, behind Fred Perry (823/7d at €18). [Full Patagonia brand data →](${ilinkHref("flip")})`,
+          `Patagonia's total EU Vinted brand footprint is 1323 departures in the last 30 days at a €37 brand average — the second-most liquid brand in the ResaleIQ EU database by volume, behind Fred Perry (1323 departures in the last 30 days at €18). [Full Patagonia brand data →](${ilinkHref("flip")})`,
         ],
       },
       {
@@ -59,16 +59,16 @@ export const POSTS_42: BlogPost[] = [
         p: [
           "The economics of Patagonia hoodie reselling on EU Vinted depend almost entirely on sourcing channel. At a €26 buy-below, the margin requires sourcing below secondary-market prices. Charity shops and hospice shops in Germany, France, and the UK are the most reliable channel — Better Sweater hoodies appear at €5–12, and most non-Retro-Pile models are findable at margin-viable prices when sourced in volume.",
           "End-of-season retail discounts are the second channel. Patagonia runs seasonal sales at 30–40% off, which can bring a €149 Better Sweater to €89–105. At those retail-discount prices, the margin is tight on a €46–54 Vinted exit — the economics work only on perfect-condition units that achieve the high end of the exit range. Resellers who source from other Vinted or eBay sellers at €25–35 and expect a €40+ exit are often working against the margin, not with it.",
-          `Patagonia's total EU Vinted brand footprint is 733 watched departures per week across all categories. At the hoodie category level, 122 per week means roughly 17 per day across all five EU markets combined. That is sufficient liquidity for a reseller who sources 3–5 units per week to sell within 5–10 days at the average price, assuming correct model identification and honest condition photography. [Check Patagonia data →](${ilinkHref("data")})`,
+          `Patagonia's total EU Vinted brand footprint is 1323 departures in the last 30 days across all categories. At the hoodie category level, 122 per week means roughly 17 per day across all five EU markets combined. That is sufficient liquidity for a reseller who sources 3–5 units per week to sell within 5–10 days at the average price, assuming correct model identification and honest condition photography. [Check Patagonia data →](${ilinkHref("data")})`,
         ],
       },
       {
         h: "Patagonia vs The North Face vs Stone Island: EU Vinted comparison",
         p: [
           "Three brands dominate the EU charity-shop fleece resale market: Patagonia, The North Face, and Stone Island. Each has a different profile for EU Vinted resellers.",
-          "Patagonia hoodies: 122 departures/7d at €40 avg — high volume, medium price. The brand's EU Vinted moat is the Better Sweater recognition and consistent charity-shop supply. Buy-below at €26.",
-          "The North Face: 168 departures/7d at €43 brand avg across all categories — similar volume to Patagonia, slightly higher average. North Face hoodies and fleeces exit at €35–50, comparable to Patagonia hoodie range. North Face jackets (Nuptse, Himalayan Parka) carry a higher ceiling than Patagonia jackets in the EU market.",
-          "Stone Island: 722 departures/7d at €71 brand avg — similar total volume to Patagonia but much higher per-unit value. Stone Island hoodies and sweatshirts exit at €55–110, above the Patagonia hoodie ceiling. Stone Island is not a charity-shop sourcing category — it requires secondary-market sourcing and carries authentication risk. The per-unit margin is higher when it works; the sourcing risk is also higher.",
+          "Patagonia hoodies: 780 departures in the last 30 days at €40 avg — high volume, medium price. The brand's EU Vinted moat is the Better Sweater recognition and consistent charity-shop supply. Buy-below at €26.",
+          "The North Face: 780 departures in the last 30 days at €43 brand avg across all categories — similar volume to Patagonia, slightly higher average. North Face hoodies and fleeces exit at €35–50, comparable to Patagonia hoodie range. North Face jackets (Nuptse, Himalayan Parka) carry a higher ceiling than Patagonia jackets in the EU market.",
+          "Stone Island: 1323 departures in the last 30 days at €71 brand avg — similar total volume to Patagonia but much higher per-unit value. Stone Island hoodies and sweatshirts exit at €55–110, above the Patagonia hoodie ceiling. Stone Island is not a charity-shop sourcing category — it requires secondary-market sourcing and carries authentication risk. The per-unit margin is higher when it works; the sourcing risk is also higher.",
           "For EU resellers working a charity-shop pipeline, Patagonia hoodies and The North Face are the more reliable high-volume categories. For those with access to authenticated Stone Island at correct prices, the higher ceiling compensates for sourcing difficulty.",
         ],
         cta: pricingMidCta("ctr_patagonia_hoodie_guide_compare_20260915"),
@@ -85,7 +85,7 @@ export const POSTS_42: BlogPost[] = [
     faq: [
       {
         q: "How many Patagonia hoodies sell on EU Vinted per week?",
-        a: "ResaleIQ tracked 122 watched departures per week for Patagonia hoodies across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf, not a confirmed sale the platform reported. Patagonia's total EU Vinted brand footprint is 733 departures per week across all categories.",
+        a: "ResaleIQ tracked 780 departures in the last 30 days for Patagonia hoodies across EU Vinted — France, Germany, Spain, Italy, and Portugal — in the week to 15 September 2026, at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf, not a confirmed sale the platform reported. Patagonia's total EU Vinted brand footprint is 1323 departures in the last 30 days across all categories.",
       },
       {
         q: "What is the buy-below price for a Patagonia hoodie on Vinted?",
@@ -97,11 +97,11 @@ export const POSTS_42: BlogPost[] = [
       },
       {
         q: "Is Patagonia fleece worth reselling on Vinted in Europe?",
-        a: "Yes — Patagonia hoodies and fleeces are one of the most liquid resale categories in the EU charity-shop resale pipeline, with 122 watched departures per week at €40 average. The economics require sourcing below €26 (buy-below ceiling), which rules out most secondary-market sourcing but is achievable at charity shops, estate sales, and end-of-season retail discounts. Correct model identification and honest condition photography are the two highest-leverage listing improvements.",
+        a: "Yes — Patagonia hoodies and fleeces are one of the most liquid resale categories in the EU charity-shop resale pipeline, with 780 departures in the last 30 days at €40 average. The economics require sourcing below €26 (buy-below ceiling), which rules out most secondary-market sourcing but is achievable at charity shops, estate sales, and end-of-season retail discounts. Correct model identification and honest condition photography are the two highest-leverage listing improvements.",
       },
       {
         q: "How does Patagonia compare to The North Face for EU Vinted resellers?",
-        a: "Patagonia hoodies track 122 departures/7d at €40 average; The North Face has 168 departures/7d at €43 brand average across all categories. Exit prices for hoodies and fleeces are broadly comparable (€35–54 for both brands). The North Face jackets (Nuptse, Himalayan Parka) carry a higher ceiling than Patagonia jackets in the EU market. For charity-shop sourcing, both brands are viable; Patagonia Better Sweater supply is often more consistent in EU charity shops than North Face fleece.",
+        a: "Patagonia hoodies track 780 departures in the last 30 days at €40 average; The North Face has 780 departures in the last 30 days at €43 brand average across all categories. Exit prices for hoodies and fleeces are broadly comparable (€35–54 for both brands). The North Face jackets (Nuptse, Himalayan Parka) carry a higher ceiling than Patagonia jackets in the EU market. For charity-shop sourcing, both brands are viable; Patagonia Better Sweater supply is often more consistent in EU charity shops than North Face fleece.",
       },
       {
         q: "How long does a Patagonia hoodie take to sell on EU Vinted?",

@@ -15,7 +15,7 @@ export const POSTS_72: BlogPost[] = [
     title: "Adidas Samba on EU Vinted: Price Guide, Buy-Below and Oversupply Warning (2026 Data)",
     seoTitle: "Adidas Samba Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Samba tracked 6 watched departures per week on EU Vinted in September 2026 against 27,338 active listings — a 210-month supply overhang that makes standard Sambas a SKIP for most resellers. Buy-below ceiling €31.93. Size 41 exits at €82 average — the one size where the economics still work. Samba OG exits higher at €60.61 (3/7d). Full size-level data, oversupply context, and the Adidas models that outperform the Samba on EU Vinted right now.",
+      "Adidas Samba tracked 6 departures in the last 30 days on EU Vinted in September 2026 against 27,338 active listings — a 210-month supply overhang that makes standard Sambas a SKIP for most resellers. Buy-below ceiling €31.93. Size 41 exits at €82 average — the one size where the economics still work. Samba OG exits higher at €60.61 (3 departures in the last 30 days). Full size-level data, oversupply context, and the Adidas models that outperform the Samba on EU Vinted right now.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
@@ -26,7 +26,7 @@ export const POSTS_72: BlogPost[] = [
     definedTerm: {
       name: "Adidas Samba departure average",
       description:
-        "The Adidas Samba departure average is the average price at which a tracked Adidas Samba listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Adidas Samba tracks 6 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €48.01 average exit price, with 27,338 active listings. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at category level is €31.93 — the maximum sourcing price that keeps gross margin positive after Vinted's seller protection fee, targeting a 35% gross margin. The Samba OG variant tracks separately at 3 watched departures per week at a €60.61 average, with a buy-below of €40.31. The best-performing EU market for Samba exits is Germany.",
+        "The Adidas Samba departure average is the average price at which a tracked Adidas Samba listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Adidas Samba tracks 6 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €48.01 average exit price, with 27,338 active listings. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at category level is €31.93 — the maximum sourcing price that keeps gross margin positive after Vinted's seller protection fee, targeting a 35% gross margin. The Samba OG variant tracks separately at 3 departures in the last 30 days at a €60.61 average, with a buy-below of €40.31. The best-performing EU market for Samba exits is Germany.",
     },
     sections: [
       {
@@ -95,8 +95,8 @@ export const POSTS_72: BlogPost[] = [
         h: "Better Adidas sourcing alternatives: Handball Spezial and Stan Smith",
         p: [
           "If you want Adidas exposure on EU Vinted, the Samba is not the best model to focus on in September 2026. Two models significantly outperform it on the criteria that matter for resellers:",
-          "The Handball Spezial is the highest-volume Adidas model in our tracked data: 12 watched departures per week at a €79.38 average exit, with a buy-below of €52.79. The supply situation is entirely different — active listings are manageable, the STABLE momentum label means the model is holding its exit price without declining, and the exit average is 65% higher than the Samba's. Size 39 and 38 dominate volume, both with strong exits. The Handball Spezial is harder to find at charity shops than the Samba — precisely because it has not been mass-produced at the same scale — but that scarcity is what makes it a better sourcing target.",
-          "The Stan Smith exits at the highest Adidas average tracked: €84.14 with 7 watched departures per week and RISING momentum. The white/green OG colourway is liquid and consistently demanded; supply is present at charity shops across EU without the extreme saturation of the Samba. Buy-below ceiling €55.95.",
+          "The Handball Spezial is the highest-volume Adidas model in our tracked data: 12 departures in the last 30 days at a €79.38 average exit, with a buy-below of €52.79. The supply situation is entirely different — active listings are manageable, the STABLE momentum label means the model is holding its exit price without declining, and the exit average is 65% higher than the Samba's. Size 39 and 38 dominate volume, both with strong exits. The Handball Spezial is harder to find at charity shops than the Samba — precisely because it has not been mass-produced at the same scale — but that scarcity is what makes it a better sourcing target.",
+          "The Stan Smith exits at the highest Adidas average tracked: €84.14 with 7 departures in the last 30 days and RISING momentum. The white/green OG colourway is liquid and consistently demanded; supply is present at charity shops across EU without the extreme saturation of the Samba. Buy-below ceiling €55.95.",
           "Neither the Handball Spezial nor the Stan Smith generates the social-media recognition of the Samba — but on EU Vinted, resale buyers are spending real money, not looking for hype signals. The Handball Spezial and Stan Smith convert at higher prices with healthier supply dynamics.",
         ],
         table: {
@@ -133,11 +133,11 @@ export const POSTS_72: BlogPost[] = [
       },
       {
         q: "Is the Adidas Samba oversaturated on Vinted?",
-        a: "Yes. As of September 2026, there are 27,338 active Samba listings on EU Vinted clearing 6 departures per week — 210 months of supply. This is the longest supply tail in ResaleIQ's EU sneaker database at this volume level. The Samba is a cultural phenomenon in streetwear, but the resale market is saturated by the same retail production volume that makes it popular.",
+        a: "Yes. As of September 2026, there are 27,338 active Samba listings on EU Vinted clearing 6 departures in the last 30 days — 210 months of supply. This is the longest supply tail in ResaleIQ's EU sneaker database at this volume level. The Samba is a cultural phenomenon in streetwear, but the resale market is saturated by the same retail production volume that makes it popular.",
       },
       {
         q: "Adidas Samba or Handball Spezial: which is better to resell on EU Vinted?",
-        a: "Handball Spezial by every metric: 12 watched departures per week (vs 6 for Samba), €79.38 average exit (vs €48.01), STABLE momentum (vs DEAD), and far fewer competing listings. The Handball Spezial is the better sourcing target in September 2026.",
+        a: "Handball Spezial by every metric: 12 departures in the last 30 days (vs 6 for Samba), €79.38 average exit (vs €48.01), STABLE momentum (vs DEAD), and far fewer competing listings. The Handball Spezial is the better sourcing target in September 2026.",
       },
       {
         q: "How many Adidas Sambas are active on EU Vinted right now?",

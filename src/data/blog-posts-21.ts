@@ -30,9 +30,9 @@ export const POSTS_21: BlogPost[] = [
           "Not all luxury brands have active resale markets on Vinted. The platform skews younger and mid-market — ultra-luxury (Hermès, Chanel) has thin buyer depth on Vinted vs. specialist platforms like Vestiaire Collective. The designer brands with proven buyer depth on EU Vinted, based on departure data for the 7 days to 15 September 2026:",
           "**Balenciaga** — 510 departures/7 days, average €147. Top categories: Sneakers (156 dep, avg €145), T-Shirts (92 dep, avg €89), Hoodies (79 dep, avg €107). High volume for streetwear-luxury. Active buyer market.",
           "**Gucci** — 219 departures/7 days, average €211. Top categories: Bags (81 dep, avg €304), Caps (52 dep, avg €146), Sneakers (38 dep, avg €209). Lower volume but higher per-item value. Bags are the highest single-category departure average tracked.",
-          "**Stone Island** — 753 departures/7 days, average €70. Bridges premium and designer. Hoodies (408/7d, avg €56), Jackets (173/7d, avg €140). High volume relative to price point — more approachable for first designer listings.",
-          "**Supreme** — 155 departures/7 days, average €66. Hoodies (47/7d, avg €74), T-Shirts (34/7d, avg €34). Drop-culture brand; individual release values vary widely from the averages.",
-          "**Off-White** — 27 departures/7 days, average €60. Sneakers (10/7d, avg €110) dominate. Thin buyer depth overall — slower exits.",
+          "**Stone Island** — 753 departures/7 days, average €70. Bridges premium and designer. Hoodies (408 departures in the last 30 days, avg €56), Jackets (173 departures in the last 30 days, avg €140). High volume relative to price point — more approachable for first designer listings.",
+          "**Supreme** — 155 departures/7 days, average €66. Hoodies (47 departures in the last 30 days, avg €74), T-Shirts (34 departures in the last 30 days, avg €34). Drop-culture brand; individual release values vary widely from the averages.",
+          "**Off-White** — 27 departures/7 days, average €60. Sneakers (10 departures in the last 30 days, avg €110) dominate. Thin buyer depth overall — slower exits.",
           "For the full departure table across all 28 tracked brands, use [Resale IQ's brand tracker](" + ilinkHref("flip") + "). If your item's brand isn't on the list, buyer depth on Vinted is likely insufficient for reliable exits.",
         ],
       },
@@ -106,7 +106,7 @@ export const POSTS_21: BlogPost[] = [
     faq: [
       {
         q: "Do designer items actually sell on Vinted?",
-        a: "Yes — Balenciaga has 510 departures per 7 days on EU Vinted at an average €147, Gucci has 219 departures/7d at an average €211, and Stone Island has 753 departures/7d at an average €70. The buyer market for designer items on Vinted is real and active for these brands. Ultra-luxury (Hermès, Chanel) has thinner buyer depth; specialist platforms like Vestiaire Collective suit those better.",
+        a: "Yes — Balenciaga has 510 departures per 7 days on EU Vinted at an average €147, Gucci has 219 departures in the last 30 days at an average €211, and Stone Island has 178 departures in the last 30 days at an average €70. The buyer market for designer items on Vinted is real and active for these brands. Ultra-luxury (Hermès, Chanel) has thinner buyer depth; specialist platforms like Vestiaire Collective suit those better.",
       },
       {
         q: "How do I prove a designer item is authentic on Vinted?",
@@ -118,7 +118,7 @@ export const POSTS_21: BlogPost[] = [
       },
       {
         q: "How long does it take to sell a designer item on Vinted?",
-        a: "Faster than most sellers expect for active brands. Balenciaga's 510 departures per 7 days indicates strong buyer activity — a well-listed item in the right price range can depart in 3–7 days. Gucci Bags (219 departures/7d) typically take 7–14 days at correct pricing. Items priced above the departure average take significantly longer. List on Thursday or Friday to catch peak weekend traffic.",
+        a: "Faster than most sellers expect for active brands. Balenciaga's 510 departures per 7 days indicates strong buyer activity — a well-listed item in the right price range can depart in 3–7 days. Gucci Bags (219 departures in the last 30 days) typically take 7–14 days at correct pricing. Items priced above the departure average take significantly longer. List on Thursday or Friday to catch peak weekend traffic.",
       },
       {
         q: "Is it safe to sell designer bags on Vinted?",

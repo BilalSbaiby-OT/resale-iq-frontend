@@ -89,7 +89,7 @@ export const POSTS_10: BlogPost[] = [
       },
       {
         q: "What Carhartt items sell best on Vinted?",
-        a: "By per-unit value: WIP Detroit Jacket (€75–120 in good condition), WIP Active Jacket (€60–95), WIP Nimbus Pullover (€55–80), WIP Skyton Jacket (€55–90). By volume: Hoodies (18 departures/week at €28 avg) and Jackets (22 departures/week at €52 avg). Beanies at €10 and T-Shirts at €14 are high-volume but below viable sourcing floor.",
+        a: "By per-unit value: WIP Detroit Jacket (€75–120 in good condition), WIP Active Jacket (€60–95), WIP Nimbus Pullover (€55–80), WIP Skyton Jacket (€55–90). By volume: Hoodies (18 departures in the last 30 days at €28 avg) and Jackets (22 departures in the last 30 days at €52 avg). Beanies at €10 and T-Shirts at €14 are high-volume but below viable sourcing floor.",
       },
       {
         q: "How do I identify Carhartt WIP vs mainline Carhartt?",

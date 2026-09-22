@@ -108,7 +108,7 @@ export const POSTS_13: BlogPost[] = [
           "Of the 31 watched departures in the week to 14 September 2026, Sneakers led at 10 exits averaging €110. T-Shirts contributed 9 departures averaging €31. Hoodies added 8 departures averaging €71. Shirts added 2 departures averaging €6. Caps rounded out at 1 departure averaging €70.",
           "Full Off-White volumes are on " +
             ilinkHref("flip") +
-            " and update weekly. Off-White is a low-volume, high-value brand — 31 departures is low compared to Nike (172/wk) or Adidas (98/wk), but at €67 average it generates proportionally more per transaction. The sourcing opportunity is narrow-but-deep: Off-White pieces at charity shops are rare, but when found, the margin is typically 3–6x the sourcing price.",
+            " and update weekly. Off-White is a low-volume, high-value brand — 31 departures is low compared to Nike (88 departures in the last 30 days) or Adidas (a limited number of departures in the last 30 days), but at €67 average it generates proportionally more per transaction. The sourcing opportunity is narrow-but-deep: Off-White pieces at charity shops are rare, but when found, the margin is typically 3–6x the sourcing price.",
         ],
       },
       {

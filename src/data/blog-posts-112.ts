@@ -81,9 +81,9 @@ export const POSTS_112: BlogPost[] = [
       {
         h: "Real examples from this week's data (19 September 2026)",
         p: [
-          "Here is what the live data shows for three real items right now, using the ResaleIQ market snapshot. Fred Perry Shirts: 76 watched departures per week at a €15 average exit. The sold-price benchmark is €15 — list at €17–18 (odd price, small buffer) and expect offers around €13–14. The volume is there; the margin per unit is thin, so the game is turnover.",
-          "Stone Island Hoodies: 54 watched departures per week at a €55 average exit. The benchmark is €55 — list at €59 (just under the €60 threshold) and hold. The margin per unit is strong (€20+ gross), so you can afford to wait for the right buyer rather than racing to the bottom.",
-          "Calvin Klein Hoodies: 6 watched departures per week at a €14 average exit. The benchmark is €14 — and the demand is so thin that even at €14 the item may sit for weeks. This is a SKIP for reselling: the volume is not there to justify the sourcing cost, photography time, and shipping. The data tells you this before you buy, not after.",
+          "Here is what the live data shows for three real items right now, using the ResaleIQ market snapshot. Fred Perry Shirts: 76 departures in the last 30 days at a €15 average exit. The sold-price benchmark is €15 — list at €17–18 (odd price, small buffer) and expect offers around €13–14. The volume is there; the margin per unit is thin, so the game is turnover.",
+          "Stone Island Hoodies: 54 departures in the last 30 days at a €55 average exit. The benchmark is €55 — list at €59 (just under the €60 threshold) and hold. The margin per unit is strong (€20+ gross), so you can afford to wait for the right buyer rather than racing to the bottom.",
+          "Calvin Klein Hoodies: 6 departures in the last 30 days at a €14 average exit. The benchmark is €14 — and the demand is so thin that even at €14 the item may sit for weeks. This is a SKIP for reselling: the volume is not there to justify the sourcing cost, photography time, and shipping. The data tells you this before you buy, not after.",
           `These three examples show the spectrum: high-volume-thin-margin (Fred Perry), lower-volume-strong-margin (Stone Island), and no-volume-no-margin (Calvin Klein). The checker tells you which bucket an item falls into before you list it. [Check your item →](${ilinkHref("flip")})`,
         ],
         cta: pricingBodyCta("ctr_howprice_examples_20260919"),

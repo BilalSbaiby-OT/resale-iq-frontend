@@ -31,14 +31,14 @@ export const POSTS_27: BlogPost[] = [
         h: "Nike sneakers on EU Vinted: the baseline numbers",
         p: [
           "Nike accounts for 78 sneaker departures per week on EU Vinted in ResaleIQ's tracked markets, at an average exit price of €96. Of the 28 brands tracked, Nike ranks in the top five for sneaker category volume — which means there is real buyer demand, but also real seller competition. The practical implication: Nike sneakers do sell on Vinted, but only at prices buyers are willing to pay, which are lower than most sellers expect.",
-          "The Air Force 1 is the single most-searched Nike query on ResaleIQ and one of the most frequently departed Nike sneakers on EU Vinted. Current departure data shows it exiting at an average of €93.75, with a buy-below sourcing ceiling of €62.34 — meaning you need to source the shoe below that price for the margin to hold after accounting for your time and any platform transaction costs. At 38 departures per week, it has enough volume to treat as a reliable category.",
+          "The Air Force 1 is the single most-searched Nike query on ResaleIQ and one of the most frequently departed Nike sneakers on EU Vinted. Current departure data shows it exiting at an average of €93.75, with a buy-below sourcing ceiling of €62.34 — meaning you need to source the shoe below that price for the margin to hold after accounting for your time and any platform transaction costs. At 38 departures in the last 30 days, it has enough volume to treat as a reliable category.",
           "The important caveat with Nike on Vinted: the brand has dozens of models, and departure rates vary sharply between them. Mainstream retro runners (Air Force 1, Air Max 90, Dunk) move faster than technical training silhouettes or older lifestyle models that have left mainstream rotation. Before sourcing any Nike model, the relevant question is not 'does Nike sell on Vinted?' but 'does this specific model sell, at what price, and how many per week?'",
         ],
       },
       {
         h: "Air Force 1: the benchmark Nike model",
         p: [
-          "The Air Force 1 is the safest Nike model to source on EU Vinted by liquidity. With 38 weekly departures in tracked markets and an average exit of €93.75, it has both volume and a clear price floor. The buy-below ceiling sits at €62.34 — sourcing at charity shops, market stalls, or secondary platforms below that number leaves a workable margin at the EU Vinted exit average.",
+          "The Air Force 1 is the safest Nike model to source on EU Vinted by liquidity. With 241 departures in the last 30 days in tracked markets and an average exit of €93.75, it has both volume and a clear price floor. The buy-below ceiling sits at €62.34 — sourcing at charity shops, market stalls, or secondary platforms below that number leaves a workable margin at the EU Vinted exit average.",
           "Condition matters more on the Air Force 1 than on most other models because it is a white-heavy silhouette. Yellowed soles, midsole scuffs, and creased toe boxes all bring the exit price down materially — buyers on Vinted searching for AF1s are price-sensitive and have enough supply to choose clean pairs at competitive prices. Pairs graded 'good' (minor wear, clean uppers) exit closer to €85–95; pairs graded 'fair' (visible creasing, oxidised soles) exit closer to €55–70. Source accordingly.",
           "Regional variation: French and German Vinted buyers tend to pay slightly above the EU average for Nike Air Force 1s, while Spanish and Italian buyers are more price-sensitive in the sneaker category. If you are listing in France or Germany, you can often set your listing price at the EU average and still convert; in Spain or Italy, pricing 10–15% below the EU average moves stock faster.",
         ],
@@ -94,7 +94,7 @@ export const POSTS_27: BlogPost[] = [
       },
       {
         q: "Is it worth reselling Nike trainers on Vinted?",
-        a: "Yes, for models with sufficient weekly departure volume. The Air Force 1 sees 38 departures per week in tracked EU markets — enough volume to treat as a reliable category. The margin depends on sourcing below the buy-below price (€62.34 for AF1). For lower-volume Nike models, the holding risk increases and the sourcing threshold needs to be proportionally lower.",
+        a: "Yes, for models with sufficient weekly departure volume. The Air Force 1 sees 38 departures in the last 30 days in tracked EU markets — enough volume to treat as a reliable category. The margin depends on sourcing below the buy-below price (€62.34 for AF1). For lower-volume Nike models, the holding risk increases and the sourcing threshold needs to be proportionally lower.",
       },
       {
         q: "What is the buy-below price for Nike Air Force 1 on Vinted?",

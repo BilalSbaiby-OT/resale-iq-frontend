@@ -82,7 +82,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "What Lacoste items sell best on Vinted?",
-        a: "By volume: Shirts (62 departures/week at €27 avg) — led by the L.12.12 polo in classic colourways (white, navy, green) in sizes M and L. By revenue per unit: Jackets (9 departures at €80 avg) — clean contemporary outerwear and archive velour pieces. Hoodies (12 departures at €41 avg) are the strongest apparel category by unit value outside outerwear.",
+        a: "By volume: Shirts (a limited number of departures in the last 30 days at €27 avg) — led by the L.12.12 polo in classic colourways (white, navy, green) in sizes M and L. By revenue per unit: Jackets (9 departures at €80 avg) — clean contemporary outerwear and archive velour pieces. Hoodies (12 departures at €41 avg) are the strongest apparel category by unit value outside outerwear.",
       },
       {
         q: "How do I spot fake Lacoste polos?",
@@ -166,7 +166,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "What Adidas items sell best on Vinted?",
-        a: "By volume: Sneakers (49 departures/week at €58 avg) — led by Samba OG, Gazelle, and Campus 00s in cultural colourways. By per-unit value: Jackets (8 departures at €75 avg) — vintage SST, firebird, and Adidas collab outerwear. Tracksuits (18 departures at €40 avg) are the strongest apparel category — matching SST sets command 40–60% premium over the separate pieces.",
+        a: "By volume: Sneakers (49 departures in the last 30 days at €58 avg) — led by Samba OG, Gazelle, and Campus 00s in cultural colourways. By per-unit value: Jackets (8 departures at €75 avg) — vintage SST, firebird, and Adidas collab outerwear. Tracksuits (18 departures at €40 avg) are the strongest apparel category — matching SST sets command 40–60% premium over the separate pieces.",
       },
       {
         q: "Which Adidas sneakers are worth reselling on Vinted?",
@@ -174,7 +174,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "How does Adidas compare to Nike for resale on Vinted?",
-        a: "Nike ranks #9 with 172 departures/week at €62 average; Adidas ranks #13 with 98 departures/week at €48 average. Nike has higher volume and a higher average due to Air Max and Jordan colourway premiums. Adidas's Jacket average (€75) slightly exceeds Nike's Jacket average (€55). The sourcing logic is the same for both: wrong model = no margin regardless of brand. Adidas Samba and Gazelle are the equivalent of Nike Air Max 1 and Jordan 1 OG — the silhouettes carrying the average.",
+        a: "Nike ranks #9 with 88 departures in the last 30 days at €62 average; Adidas ranks #13 with a limited number of departures in the last 30 days at €48 average. Nike has higher volume and a higher average due to Air Max and Jordan colourway premiums. Adidas's Jacket average (€75) slightly exceeds Nike's Jacket average (€55). The sourcing logic is the same for both: wrong model = no margin regardless of brand. Adidas Samba and Gazelle are the equivalent of Nike Air Max 1 and Jordan 1 OG — the silhouettes carrying the average.",
       },
     ],
   },
@@ -258,7 +258,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "How does Levi's compare to Diesel for resale on Vinted?",
-        a: "Diesel ranks #8 with 178 departures/week at €23 average; Levi's ranks #15 with 52 departures/week at €28 average. Diesel has more than three times Levi's volume but a lower average price. Both are Jeans-dominant brands. The key difference: Levi's has a vintage premium tier (501 Original selvedge at €60–80) that Diesel does not match. Diesel's Y2K revival drives model-specific premiums on Larkee and D-Strukt; Levi's vintage premium is era-and-construction-driven rather than model-name-driven.",
+        a: "Diesel ranks #8 with 88 departures in the last 30 days at €23 average; Levi's ranks #15 with a limited number of departures in the last 30 days at €28 average. Diesel has more than three times Levi's volume but a lower average price. Both are Jeans-dominant brands. The key difference: Levi's has a vintage premium tier (501 Original selvedge at €60–80) that Diesel does not match. Diesel's Y2K revival drives model-specific premiums on Larkee and D-Strukt; Levi's vintage premium is era-and-construction-driven rather than model-name-driven.",
       },
     ],
   },

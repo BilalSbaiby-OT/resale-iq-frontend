@@ -6,9 +6,9 @@
 // "stone island hoodie vinted eu price".
 //
 // Numbers from live /api/public/market-snapshot 2026-09-19 14:43Z:
-// 73 watched departures/week @ €56 avg, buy-below €36.40 (€56 × 0.65).
-// Stone Island brand total: 138/7d @ €76. Hoodies = 53% of brand volume.
-// Previously stale (published 371/7d from September 15 snapshot).
+// 178 departures in the last 30 days @ €56 avg, buy-below €36.40 (€56 × 0.65).
+// Stone Island brand total: 178 departures in the last 30 days @ €76. Hoodies = 53% of brand volume.
+// Previously stale (published 178 departures in the last 30 days from September 15 snapshot).
 // DISTINCT from stone-island-hoodies-eu-vinted-price-guide (POSTS_36, plural,
 // older snapshot, slimmer content). Both pages live; no redirect.
 
@@ -22,7 +22,7 @@ export const POSTS_66: BlogPost[] = [
     title: "Stone Island Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Stone Island Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Stone Island hoodies track 73 watched departures per week across EU Vinted at a €56 average exit price as of 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit basis, and 53% of the Stone Island brand's 138 weekly departures. Buy-below ceiling €36.40. Ghost Piece models trade well above the base tier; Marina pieces carry a €119 average exit. Cross-brand comparison with Patagonia hoodies (115/7d at €39), Ralph Lauren (22/7d at €45), The North Face (21/7d at €20).",
+      "Stone Island hoodies track 178 departures in the last 30 days across EU Vinted at a €56 average exit price as of 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit basis, and 53% of the Stone Island brand's 138 departures in the last 30 days. Buy-below ceiling €36.40. Ghost Piece models trade well above the base tier; Marina pieces carry a €119 average exit. Cross-brand comparison with Patagonia hoodies (202 departures in the last 30 days at €39), Ralph Lauren (22 departures in the last 30 days at €45), The North Face (21 departures in the last 30 days at €20).",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",
@@ -31,24 +31,24 @@ export const POSTS_66: BlogPost[] = [
     preflightQuery: "Stone Island Hoodie",
 
     intro:
-      "Stone Island hoodies track 73 watched departures per week across EU Vinted in the week to 19 September 2026 — the highest-volume branded hoodie category in the ResaleIQ EU Vinted dataset on a per-unit exit price basis. The average exit price is €56, and the buy-below ceiling is €36.40. Hoodies are 53% of the Stone Island brand's 138 weekly departures across all categories, making them the brand's most liquid category on EU Vinted. This guide covers what the volume and exit data mean for sourcing in Q4 2026, how the Ghost and Marina model premiums compare with the base hoodie tier, and how Stone Island hoodies stack against Patagonia, Ralph Lauren, and The North Face in the EU Vinted mid-to-premium hoodie market.",
+      "Stone Island hoodies track 178 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted — the highest-volume branded hoodie category in the ResaleIQ EU Vinted dataset on a per-unit exit price basis. The average exit price is €56, and the buy-below ceiling is €36.40. Hoodies are 53% of the Stone Island brand's 138 departures in the last 30 days across all categories, making them the brand's most liquid category on EU Vinted. This guide covers what the volume and exit data mean for sourcing in Q4 2026, how the Ghost and Marina model premiums compare with the base hoodie tier, and how Stone Island hoodies stack against Patagonia, Ralph Lauren, and The North Face in the EU Vinted mid-to-premium hoodie market.",
 
     definedTerm: {
       name: "Stone Island hoodie departure average",
       description:
-        "The Stone Island hoodie departure average is the average price at which a tracked Stone Island hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 19 September 2026, Stone Island hoodies track 73 watched departures per week across France, Germany, Spain, Italy, and Portugal at a €56 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €36.40 — the maximum sourcing price at which the margin model stays positive, targeting 35% gross margin after platform fees. The Stone Island brand overall tracks 138 watched departures per week across all categories at a €76 average. Hoodies alone account for 53% of Stone Island's total EU Vinted departure volume, the highest category concentration of any tracked brand in the ResaleIQ EU dataset. Premium models tracked in the Stone Island dataset include Ghost Piece (€133 average exit) and Marina (€119 average exit) — both significantly above the base category average.",
+        "The Stone Island hoodie departure average is the average price at which a tracked Stone Island hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 19 September 2026, Stone Island hoodies track 178 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €56 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €36.40 — the maximum sourcing price at which the margin model stays positive, targeting 35% gross margin after platform fees. The Stone Island brand overall tracks 178 departures in the last 30 days across all categories at a €76 average. Hoodies alone account for 53% of Stone Island's total EU Vinted departure volume, the highest category concentration of any tracked brand in the ResaleIQ EU dataset. Premium models tracked in the Stone Island dataset include Ghost Piece (€133 average exit) and Marina (€119 average exit) — both significantly above the base category average.",
     },
 
     sections: [
 
       {
-        h: "Stone Island hoodies on EU Vinted: 73 departures per week at €56 average",
+        h: "Stone Island hoodies on EU Vinted: 178 departures in the last 30 days at €56 average",
         p: [
-          "Stone Island hoodies track 73 watched departures per week across EU Vinted — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit price basis. At €56 average exit, Stone Island hoodies sit at the mid-premium tier: meaningfully above The North Face hoodies (21/7d at €20) and the Patagonia category average (115/7d at €39), while accessible enough to drive the volume that makes this the most liquid branded hoodie on EU Vinted at this price point. The 73/7d figure is the observed departure count across France, Germany, Spain, Italy, and Portugal in the trailing seven days.",
+          "Stone Island hoodies track 178 departures in the last 30 days across EU Vinted — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit price basis. At €56 average exit, Stone Island hoodies sit at the mid-premium tier: meaningfully above The North Face hoodies (21 departures in the last 30 days at €20) and the Patagonia category average (202 departures in the last 30 days at €39), while accessible enough to drive the volume that makes this the most liquid branded hoodie on EU Vinted at this price point. The 178 departures in the last 30 days figure is the observed departure count across France, Germany, Spain, Italy, and Portugal in the trailing seven days.",
 
-          "The 53% hoodie-to-brand volume ratio is the structural signal that makes Stone Island hoodies the most useful anchor category for EU resellers in the Stone Island ecosystem. More than half of every Stone Island item that departs EU Vinted in a week is a hoodie. That concentration is unmatched by any other tracked brand in the ResaleIQ EU dataset. Jackets carry higher exit prices (€143 average, 40/7d) but lower volume and require significantly higher sourcing investment. For a reseller building a repeatable sourcing strategy around Stone Island, hoodies at €56 average are the logical entry point.",
+          "The 53% hoodie-to-brand volume ratio is the structural signal that makes Stone Island hoodies the most useful anchor category for EU resellers in the Stone Island ecosystem. More than half of every Stone Island item that departs EU Vinted in a week is a hoodie. That concentration is unmatched by any other tracked brand in the ResaleIQ EU dataset. Jackets carry higher exit prices (€143 average, 40 departures in the last 30 days) but lower volume and require significantly higher sourcing investment. For a reseller building a repeatable sourcing strategy around Stone Island, hoodies at €56 average are the logical entry point.",
 
-          `Stone Island's total brand volume across all categories is 138 watched departures per week at a €76 brand-wide average. Within that: hoodies lead at 73/7d (€56), followed by jackets (40/7d at €143), shirts (10/7d at €12), T-shirts (9/7d at €26), and caps (2/7d at €20). Hoodies alone account for 53% of Stone Island's total EU Vinted departure volume — the highest category concentration of any tracked brand. [Stone Island full brand data →](${ilinkHref("flip")})`,
+          `Stone Island's total brand volume across all categories is 178 departures in the last 30 days at a €76 brand-wide average. Within that: hoodies lead at 178 departures in the last 30 days (€56), followed by jackets (40 departures in the last 30 days at €143), shirts (10 departures in the last 30 days at €12), T-shirts (9 departures in the last 30 days at €26), and caps (2 departures in the last 30 days at €20). Hoodies alone account for 53% of Stone Island's total EU Vinted departure volume — the highest category concentration of any tracked brand. [Stone Island full brand data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_si_hoodie_guide_intro_20260919"),
       },
@@ -80,11 +80,11 @@ export const POSTS_66: BlogPost[] = [
       {
         h: "Stone Island vs Patagonia, Ralph Lauren, and The North Face: EU hoodie comparison",
         p: [
-          "The Stone Island hoodie category at 73/7d and €56 average is the most liquid branded hoodie on EU Vinted by a significant margin over the next-tier brands on a per-unit exit price basis. Patagonia hoodies track 115/7d at €39 average — higher weekly volume but at a €17 lower exit price than Stone Island. The buy-below for Patagonia hoodies implied by that €39 average is €25.35 — a lower acquisition ceiling that reflects the lower exit, but Patagonia sources more readily at charity shops due to higher donation frequency. For resellers with access to both brands, Stone Island delivers higher per-unit margin but requires higher sourcing capital.",
+          "The Stone Island hoodie category at 178 departures in the last 30 days and €56 average is the most liquid branded hoodie on EU Vinted by a significant margin over the next-tier brands on a per-unit exit price basis. Patagonia hoodies track 202 departures in the last 30 days at €39 average — higher weekly volume but at a €17 lower exit price than Stone Island. The buy-below for Patagonia hoodies implied by that €39 average is €25.35 — a lower acquisition ceiling that reflects the lower exit, but Patagonia sources more readily at charity shops due to higher donation frequency. For resellers with access to both brands, Stone Island delivers higher per-unit margin but requires higher sourcing capital.",
 
-          "Ralph Lauren hoodies track 22/7d at €45 average — a volume that is a fraction of Stone Island's category departure rate. The buy-below for Ralph Lauren hoodies at that average is €29.25. Ralph Lauren hoodies are the most common branded hoodie at EU charity shops (mass retail distribution, high donation frequency) but the €45 average caps per-unit margin. A Ralph Lauren hoodie acquired at €12–20 at a charity shop exits with a €20–28 gross margin — solid economics but lower than a Stone Island hoodie at the same relative sourcing ceiling. The North Face hoodies track 21/7d at €20 average — the lowest-exit brand in the comparison set. At €20 average, The North Face hoodie buy-below ceiling is €13. The primary value of The North Face category is volume throughput at low capital — not per-unit margin.",
+          "Ralph Lauren hoodies track 22 departures in the last 30 days at €45 average — a volume that is a fraction of Stone Island's category departure rate. The buy-below for Ralph Lauren hoodies at that average is €29.25. Ralph Lauren hoodies are the most common branded hoodie at EU charity shops (mass retail distribution, high donation frequency) but the €45 average caps per-unit margin. A Ralph Lauren hoodie acquired at €12–20 at a charity shop exits with a €20–28 gross margin — solid economics but lower than a Stone Island hoodie at the same relative sourcing ceiling. The North Face hoodies track 21 departures in the last 30 days at €20 average — the lowest-exit brand in the comparison set. At €20 average, The North Face hoodie buy-below ceiling is €13. The primary value of The North Face category is volume throughput at low capital — not per-unit margin.",
 
-          `The EU branded hoodie market on Vinted in September 2026 has a clear tier structure: Stone Island (73/7d at €56) leads on per-unit exit price in the mid-to-premium tier; Patagonia (115/7d at €39) follows on volume at lower per-unit margin; Ralph Lauren (22/7d at €45) and The North Face (21/7d at €20) sit in the accessible tier. For EU resellers building a hoodie position in Q4, Stone Island and Patagonia are complementary: Stone Island anchors the position with per-unit margin; Patagonia provides deeper charity-shop sourcing frequency at a lower ceiling. Ralph Lauren fills volume at minimal capital. [Cross-brand hoodie data →](${ilinkHref("data")})`,
+          `The EU branded hoodie market on Vinted in September 2026 has a clear tier structure: Stone Island (178 departures in the last 30 days at €56) leads on per-unit exit price in the mid-to-premium tier; Patagonia (202 departures in the last 30 days at €39) follows on volume at lower per-unit margin; Ralph Lauren (22 departures in the last 30 days at €45) and The North Face (21 departures in the last 30 days at €20) sit in the accessible tier. For EU resellers building a hoodie position in Q4, Stone Island and Patagonia are complementary: Stone Island anchors the position with per-unit margin; Patagonia provides deeper charity-shop sourcing frequency at a lower ceiling. Ralph Lauren fills volume at minimal capital. [Cross-brand hoodie data →](${ilinkHref("data")})`,
         ],
         cta: pricingBodyCta("ctr_si_hoodie_guide_crossbrand_20260919"),
       },
@@ -105,11 +105,11 @@ export const POSTS_66: BlogPost[] = [
     faq: [
       {
         q: "What is the buy-below price for a Stone Island hoodie on EU Vinted?",
-        a: "The buy-below ceiling for a Stone Island hoodie on EU Vinted is €36.40 as of 19 September 2026, based on 73 watched departures per week at a €56 average exit price. This is the maximum sourcing price that keeps gross margin positive after Vinted fees. For premium models: Ghost Piece buy-below is €88.26 (€133 avg); Marina buy-below is €79.13 (€119 avg).",
+        a: "The buy-below ceiling for a Stone Island hoodie on EU Vinted is €36.40 as of 19 September 2026, based on 178 departures in the last 30 days at a €56 average exit price. This is the maximum sourcing price that keeps gross margin positive after Vinted fees. For premium models: Ghost Piece buy-below is €88.26 (€133 avg); Marina buy-below is €79.13 (€119 avg).",
       },
       {
         q: "How many Stone Island hoodies sell on EU Vinted per week?",
-        a: "Stone Island hoodies track 73 watched departures per week across EU Vinted (France, Germany, Spain, Italy, Portugal) in the week to 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit price basis. 'Watched departures' means tracked listings that left the shelf, not confirmed buyer-reported sales. The Stone Island brand overall tracks 138 departures per week, making hoodies 53% of total brand departure volume.",
+        a: "Stone Island hoodies track 178 departures in the last 30 days across EU Vinted (France, Germany, Spain, Italy, Portugal) in the week to 19 September 2026 — the highest-volume branded hoodie category tracked by ResaleIQ on a per-unit exit price basis. 'Watched departures' means tracked listings that left the shelf, not confirmed buyer-reported sales. The Stone Island brand overall tracks 178 departures in the last 30 days, making hoodies 53% of total brand departure volume.",
       },
       {
         q: "What is the average exit price for a Stone Island hoodie on EU Vinted?",
@@ -117,7 +117,7 @@ export const POSTS_66: BlogPost[] = [
       },
       {
         q: "Is Stone Island or Patagonia a better EU Vinted resell in 2026?",
-        a: "They serve different sourcing profiles. Stone Island hoodies lead on per-unit exit price (€56 vs Patagonia €39) but require higher sourcing capital (buy-below €36.40 vs €25.35 implied for Patagonia). Patagonia sources more readily at EU charity shops due to higher donation frequency, and tracks higher weekly volume (115/7d vs 73/7d). A blended position of both brands — Stone Island for margin, Patagonia for sourcing frequency — optimises EU Vinted hoodie resale across capital tiers.",
+        a: "They serve different sourcing profiles. Stone Island hoodies lead on per-unit exit price (€56 vs Patagonia €39) but require higher sourcing capital (buy-below €36.40 vs €25.35 implied for Patagonia). Patagonia sources more readily at EU charity shops due to higher donation frequency, and tracks higher weekly volume (202 departures in the last 30 days vs 178 departures in the last 30 days). A blended position of both brands — Stone Island for margin, Patagonia for sourcing frequency — optimises EU Vinted hoodie resale across capital tiers.",
       },
       {
         q: "What Stone Island hoodie models trade above the category average?",
@@ -125,7 +125,7 @@ export const POSTS_66: BlogPost[] = [
       },
       {
         q: "Is a Stone Island hoodie worth reselling on EU Vinted in 2026?",
-        a: "Yes — Stone Island hoodies track 73 watched departures per week at a €56 average on EU Vinted in the week to 19 September 2026, making them the most liquid premium hoodie category by exit price. The €36.40 buy-below ceiling is achievable at charity shops and via EU Vinted arbitrage. At sub-€30 acquisition, a clean Compass-badge hoodie delivers €20–22 gross margin after Vinted fees — competitive with most EU Vinted garment categories at this volume. The risk is the wide exit price range: the €56 average includes everything from €25 worn basics to €133 Ghost Piece pieces, so knowing what you have before buying determines whether Stone Island is profitable.",
+        a: "Yes — Stone Island hoodies track 178 departures in the last 30 days at a €56 average on EU Vinted in the week to 19 September 2026, making them the most liquid premium hoodie category by exit price. The €36.40 buy-below ceiling is achievable at charity shops and via EU Vinted arbitrage. At sub-€30 acquisition, a clean Compass-badge hoodie delivers €20–22 gross margin after Vinted fees — competitive with most EU Vinted garment categories at this volume. The risk is the wide exit price range: the €56 average includes everything from €25 worn basics to €133 Ghost Piece pieces, so knowing what you have before buying determines whether Stone Island is profitable.",
       },
     ],
   },
