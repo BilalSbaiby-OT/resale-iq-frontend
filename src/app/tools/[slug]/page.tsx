@@ -126,8 +126,19 @@ export default async function IntentPage(
         </nav>
 
         <h1 style={{ fontSize: 34, fontWeight: 600, color: "var(--color-text-primary)", lineHeight: 1.15, letterSpacing: "-0.6px", marginBottom: 16 }}>{i.h1}</h1>
-        <p style={{ fontSize: 16.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 36, maxWidth: 620 }}>{i.lede}</p>
 
+        {/* The TOOL goes above the lede.
+
+            Measured 2026-09-22 (Playwright, 390px): the input on
+            /tools/vinted-price-checker was NOT VISIBLE — a fill() timed out
+            with "element is not visible" — because a ~120-word lede sat
+            between the H1 and the checker. ChatGPT sends ~8 visitors/day to
+            this exact page and it is our single best acquisition channel, so
+            every one of those mobile visits landed on a wall of text with no
+            usable tool on screen.
+
+            The lede still renders (it is real SEO/answer-engine copy), just
+            below the thing the visitor came to use. */}
         {/* Profit-calculator intent: a buy-price Calculate, never the checker.
             Other slugs keep the free checker (holy-shit verdict). */}
         {slug === "vinted-profit-calculator" ? (
@@ -147,6 +158,8 @@ export default async function IntentPage(
         ) : (
           <FreeChecker locale={locale} />
         )}
+
+        <p style={{ fontSize: 16.5, color: "var(--color-text-secondary)", lineHeight: 1.7, marginTop: 32, marginBottom: 36, maxWidth: 620 }}>{i.lede}</p>
 
         {/* Visible numbered steps for the two money tools. Same strings as
             HowTo JSON-LD — schema that is not on the page is a rich-result
