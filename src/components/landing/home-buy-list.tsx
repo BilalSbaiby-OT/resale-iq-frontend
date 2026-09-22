@@ -40,42 +40,44 @@ interface BuyListItem {
   price_p75?: number | null
 }
 
-// Apple HIG dark-theme signal colours
+// Apple HIG dark-theme signal colours.
+// "STRONG BUY" needs its own entry: without one it falls back to the grey
+// default, so our strongest signal would render in the SKIP colour.
 const VERDICT_COLOR: Record<string, string> = {
+  "STRONG BUY": "#30D158",  // system green
   BUY:   "#30D158",  // system green
   WATCH: "#FF9F0A",  // system orange
   SKIP:  "#8E8E93",  // system grey
 }
 
 const VERDICT_BG: Record<string, string> = {
+  "STRONG BUY": "rgba(48,209,88,.22)",
   BUY:   "rgba(48,209,88,.15)",
   WATCH: "rgba(255,159,10,.15)",
   SKIP:  "rgba(142,142,147,.12)",
 }
 
 /**
- * Derive a verdict signal from price-spread data when the backend hasn't
- * returned an explicit BUY/WATCH/SKIP (departure tracker was offline Sep 14-21).
- * spread = (median − p25) / median:
- *   ≥ 0.45 → BUY (strong spread, buy low sell at median)
- *   0.30–0.45 → WATCH
- *   < 0.30 → SKIP
- * Returns "" when no price data is available (locked rows).
+ * Return the backend's real verdict.
+ *
+ * The tracker is live again and `/api/public/buy-list` now joins demand_index,
+ * so rows arrive carrying a genuine "STRONG BUY" / "BUY" signal.
+ *
+ * "STRONG BUY" was missing from the accepted list below, so every STRONG BUY
+ * row fell through to the price-spread heuristic and was relabelled — the three
+ * free rows rendered WATCH / WATCH / SKIP while the API was returning STRONG
+ * BUY for all three. That inverted our best signal into a "don't buy" on the
+ * one table the homepage exists to sell.
+ *
+ * The spread heuristic is gone: it INVENTED a verdict from price dispersion and
+ * presented it as our demand signal. A number we made up is worse than no
+ * number. No signal now renders no pill.
  */
 function deriveVerdict(item: BuyListItem): string {
-  if (item.verdict && ["BUY", "WATCH", "SKIP"].includes(item.verdict)) {
+  if (item.verdict && ["STRONG BUY", "BUY", "WATCH", "SKIP"].includes(item.verdict)) {
     return item.verdict
   }
-  if (item.locked || item.avg_price_eur == null || item.price_p25 == null) {
-    return ""
-  }
-  const median = item.avg_price_eur
-  const p25 = item.price_p25
-  if (median <= 0) return ""
-  const spread = (median - p25) / median
-  if (spread >= 0.45) return "BUY"
-  if (spread >= 0.30) return "WATCH"
-  return "SKIP"
+  return ""
 }
 
 function VerdictBadge({ verdict }: { verdict: string }) {
