@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { BUY_DATA, BUY_CATEGORIES, fmtCountBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, fmtCountBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
 
 export const metadata: Metadata = {
   title: "What to Pay for Secondhand Resale — Buy-Below Prices by Brand",
@@ -32,7 +32,8 @@ const jsonLd = {
 }
 
 export default function BuyHubPage() {
-  const topBrands = BUY_DATA.brands.slice(0, 20)
+  // Batch 1: top 20 highest-evidence pairs. See lib/buy-data.ts for rationale.
+  const batch1 = BUY_BATCH1_PAIRS
   const totalPairs = BUY_DATA.total_pairs
 
   return (
@@ -86,67 +87,48 @@ export default function BuyHubPage() {
           </div>
         </div>
 
-        {/* Brand grid */}
+        {/* Pairs grid — directly links to leaf pages (1 click from /buy hub) */}
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 16 }}>
-          Buy-below prices by brand
+          Buy-below by brand &amp; category
         </h2>
+        <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
+          Showing {batch1.length} highest-evidence pairs (≥189 real departures / 30 days). All numbers from confirmed Vinted sales.
+        </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 12, marginBottom: 40 }}>
-          {topBrands.map((b) => {
-            const topCat = b.categories[0]
-            return (
-              <Link
-                key={b.slug}
-                href={`/buy/${b.slug}`}
-                style={{ textDecoration: "none" }}
+          {batch1.map(({ brand: b, cat: c }) => (
+            <Link
+              key={`${b.slug}/${c.slug}`}
+              href={`/buy/${b.slug}/${c.slug}`}
+              style={{ textDecoration: "none" }}
+            >
+              <div
+                style={{
+                  background: "var(--color-surface, #131823)",
+                  border: "1px solid var(--color-border-ui, #1e2a3f)",
+                  borderRadius: 12,
+                  padding: "18px 20px",
+                }}
               >
-                <div
-                  style={{
-                    background: "var(--color-surface, #131823)",
-                    border: "1px solid var(--color-border-ui, #1e2a3f)",
-                    borderRadius: 12,
-                    padding: "18px 20px",
-                    transition: "border-color 0.15s",
-                  }}
-                >
-                  <div style={{ fontSize: 16, fontWeight: 700, color: "#eef1f7", marginBottom: 4 }}>{b.brand}</div>
-                  <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10 }}>
-                    {b.categories.length} categories tracked
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7", marginBottom: 2 }}>{b.brand}</div>
+                <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10 }}>{c.category}</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 18, fontWeight: 700, color: "#34C759" }}>
+                      {fmtEurBuy(c.buy_below)}
+                    </div>
+                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>buy below</div>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                    <div>
-                      <div style={{ fontSize: 18, fontWeight: 700, color: "#34C759" }}>
-                        {fmtCountBuy(b.sold_30d)}
-                      </div>
-                      <div style={{ fontSize: 11, color: "#5b6b8c" }}>departures / 30d</div>
+                  <div>
+                    <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>
+                      {fmtCountBuy(c.sold_30d)}
                     </div>
-                    <div>
-                      <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>
-                        {topCat?.buy_below ? fmtEurBuy(topCat.buy_below) : fmtEurBuy(b.avg_price_eur * 0.55)}
-                      </div>
-                      <div style={{ fontSize: 11, color: "#5b6b8c" }}>buy below ({topCat?.category ?? "top cat"})</div>
-                    </div>
+                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>sold / 30d</div>
                   </div>
                 </div>
-              </Link>
-            )
-          })}
+              </div>
+            </Link>
+          ))}
         </div>
-
-        {/* All brands list for long tail */}
-        {BUY_DATA.brands.length > 20 && (
-          <div style={{ marginBottom: 40 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 600, color: "#eef1f7", marginBottom: 12 }}>All tracked brands</h2>
-            <div style={{ columns: "2 200px", gap: 12 }}>
-              {BUY_DATA.brands.map((b) => (
-                <div key={b.slug} style={{ breakInside: "avoid", marginBottom: 4 }}>
-                  <Link href={`/buy/${b.slug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-                    {b.brand}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* CTA */}
         <div style={{ padding: "24px 28px", background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-2, #1e3a2f)", borderRadius: 12, textAlign: "center", marginBottom: 36 }}>

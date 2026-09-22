@@ -299,6 +299,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
           <Link href={`${prefix}/methodology`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerMethod}</Link>
           <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerManual}</Link>
           <Link href="/blog" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerBlog}</Link>
+          <Link href="/buy" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>Buy-below prices</Link>
         </div>
       </div>
     </div>

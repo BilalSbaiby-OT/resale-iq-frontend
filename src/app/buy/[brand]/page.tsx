@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import {
   BUY_DATA,
   getBuyBrand,
+  BUY_BATCH1_SLUGS,
   fmtEurBuy,
   fmtCountBuy,
   signalDisplay,
@@ -12,8 +13,16 @@ import {
 
 export const revalidate = 3600
 
+// Batch 1: only the brands that have at least one batch-1 pair.
+// See BUY_BATCH1_SLUGS in lib/buy-data.ts for rollout rationale.
+const BATCH1_BRAND_SLUGS = new Set(
+  BUY_DATA.brands
+    .filter((b) => b.categories.some((c) => BUY_BATCH1_SLUGS.has(`${b.slug}/${c.slug}`)))
+    .map((b) => b.slug),
+)
+
 export function generateStaticParams() {
-  return BUY_DATA.brands.map((b) => ({ brand: b.slug }))
+  return [...BATCH1_BRAND_SLUGS].map((slug) => ({ brand: slug }))
 }
 
 export async function generateMetadata({
@@ -49,7 +58,11 @@ export default async function BuyBrandPage({
   const brand = getBuyBrand(brandSlug)
   if (!brand) notFound()
 
-  const topCat = brand.categories[0]
+  // Only show batch-1 categories on the brand page (see rollout rationale in buy-data.ts)
+  const batch1Cats = brand.categories.filter((c) =>
+    BUY_BATCH1_SLUGS.has(`${brand.slug}/${c.slug}`)
+  )
+  const topCat = batch1Cats[0] ?? brand.categories[0]
   const sig = signalDisplay(topCat?.signal ?? null)
 
   const intro = `${brand.brand} had an estimated ${fmtCountBuy(brand.sold_30d)} departures in the last 30 days across Spain, France, Germany, Italy and Portugal. ` +
@@ -148,7 +161,7 @@ export default async function BuyBrandPage({
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {brand.categories.map((cat) => {
+            {batch1Cats.map((cat) => {
               const sig = signalDisplay(cat.signal)
               return (
                 <Link key={cat.slug} href={`/buy/${brand.slug}/${cat.slug}`} style={{ textDecoration: "none" }}>

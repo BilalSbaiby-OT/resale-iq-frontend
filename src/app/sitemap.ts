@@ -7,7 +7,7 @@ import { SEO_MODELS, modelPath } from "@/lib/seo-models"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 import { LANDINGS, landingPath, landingHubPath, BLOG_CLONE_SLUGS, blogClonePath } from "@/lib/seo-landings"
-import { BUY_DATA, BUY_CATEGORIES, catSlug as buyCatSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, catSlug as buyCatSlug } from "@/lib/buy-data"
 
 const BASE = "https://resaleiq.dev"
 
@@ -305,31 +305,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const buyBUY_DATE = new Date("2026-09-22T00:00:00.000Z")
 
-  // /buy/[brand] — one page per brand with real 30-day sold evidence
-  const buyBrandPages = BUY_DATA.brands.map((b) => ({
-    url: `${BASE}/buy/${b.slug}`,
+  // /buy hub + batch-1 brand pages (10 brands in batch 1)
+  const buyBatchBrandSlugs = new Set(BUY_BATCH1_PAIRS.map((p) => p.brand.slug))
+  const buyBrandPages = [...buyBatchBrandSlugs].map((slug) => ({
+    url: `${BASE}/buy/${slug}`,
     lastModified: buyBUY_DATE,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }))
 
-  // /buy/[brand]/[category] — 231 leaf pages (threshold: sold_30d >= 3)
-  const buyBrandCategoryPages = BUY_DATA.brands.flatMap((b) =>
-    b.categories.map((c) => ({
-      url: `${BASE}/buy/${b.slug}/${c.slug}`,
-      lastModified: buyBUY_DATE,
-      changeFrequency: "weekly" as const,
-      priority: 0.75,
-    })),
-  )
-
-  // /buy/category/[category] — 10 category hubs
-  const buyCategoryHubPages = BUY_CATEGORIES.map((cat) => ({
-    url: `${BASE}/buy/category/${buyCatSlug(cat)}`,
+  // /buy/[brand]/[category] — batch 1 only: 20 leaf pages (threshold: sold_30d >= 189)
+  const buyBrandCategoryPages = BUY_BATCH1_PAIRS.map(({ brand: b, cat: c }) => ({
+    url: `${BASE}/buy/${b.slug}/${c.slug}`,
     lastModified: buyBUY_DATE,
     changeFrequency: "weekly" as const,
-    priority: 0.8,
+    priority: 0.8,  // Raised from 0.75 — these are the substantive leaf pages
   }))
+
+  // No /buy/category/* in batch 1 — add after leaf pages prove indexable
 
   return [
     ...staticPages,
@@ -349,9 +342,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...dataLocalePages,
     ...toolsLocalePages,
     ...blogClonePages,
-    // /buy programmatic SEO family — 279 new pages
+    // /buy programmatic SEO family — batch 1: 20 leaf pages + 10 brand hubs + hub
     ...buyBrandPages,
     ...buyBrandCategoryPages,
-    ...buyCategoryHubPages,
+    // buyCategoryHubPages deferred to batch 2 (prove leaves index first)
   ]
 }

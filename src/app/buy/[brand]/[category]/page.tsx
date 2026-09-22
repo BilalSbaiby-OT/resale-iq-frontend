@@ -3,7 +3,9 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import {
   BUY_DATA,
+  getBuyBrand,
   getBuyPair,
+  BUY_BATCH1_SLUGS,
   fmtEurBuy,
   fmtCountBuy,
   signalDisplay,
@@ -12,9 +14,12 @@ import {
 
 export const revalidate = 3600
 
+// Batch 1: top-20 pairs only. See BUY_BATCH1_SLUGS in lib/buy-data.ts for rationale.
 export function generateStaticParams() {
   return BUY_DATA.brands.flatMap((b) =>
-    b.categories.map((c) => ({ brand: b.slug, category: c.slug })),
+    b.categories
+      .filter((c) => BUY_BATCH1_SLUGS.has(`${b.slug}/${c.slug}`))
+      .map((c) => ({ brand: b.slug, category: c.slug })),
   )
 }
 

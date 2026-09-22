@@ -287,6 +287,9 @@ export default async function CategoryPage(
             <Link href="/manual" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
               → The Vinted reselling manual: how to price, source and turn stock
             </Link>
+            <Link href="/buy" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
+              → What to pay — buy-below prices by brand &amp; category
+            </Link>
           </div>
         </div>
       </div>

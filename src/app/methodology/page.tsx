@@ -264,6 +264,9 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             <Link href="/manual" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
               {t.text31}
             </Link>
+            <Link href="/buy" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
+              Buy-below prices
+            </Link>
           </div>
         </div>
 

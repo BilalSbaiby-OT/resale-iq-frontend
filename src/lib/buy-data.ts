@@ -59,6 +59,54 @@ export interface BuyData {
 
 export const BUY_DATA = raw as BuyData
 
+/**
+ * Batch 1 rollout — top 20 pairs by 30-day sold volume (all ≥189/mo).
+ *
+ * WHY: Google Search Console shows 2/3 of our existing /flip/* programmatic
+ * pages are not indexed despite sitemap inclusion. Root cause: thin pages +
+ * no path from indexed pages to the generated leaves. We publish batch 1
+ * (top-evidence pages only), build real link paths from indexed pages, then
+ * inspect with GSC URL Inspection API after 2-3 weeks. If indexed → scale to
+ * all 231 pairs. If "Discovered not indexed" → template is still too thin.
+ *
+ * Upgrade path: expand this set and update the sitemap filter to scale.
+ */
+export const BUY_BATCH1_SLUGS = new Set<string>([
+  "stone-island/hoodies",
+  "fred-perry/shirts",
+  "patagonia/jackets",
+  "new-balance/sneakers",
+  "patagonia/bags",
+  "stone-island/jackets",
+  "balenciaga/sneakers",
+  "fred-perry/t-shirts",
+  "the-north-face/jackets",
+  "patagonia/hoodies",
+  "gucci/bags",
+  "diesel/jeans",
+  "fred-perry/hoodies",
+  "stone-island/shirts",
+  "off-white/shirts",
+  "gucci/caps",
+  "patagonia/t-shirts",
+  "stone-island/t-shirts",
+  "nike/sneakers",
+  "patagonia/caps",
+])
+
+/** Only the batch-1 pairs — used by generateStaticParams and sitemap */
+export const BUY_BATCH1_PAIRS: Array<{ brand: BuyBrand; cat: BuyCategory }> = (() => {
+  const result: Array<{ brand: BuyBrand; cat: BuyCategory }> = []
+  for (const brand of BUY_DATA.brands) {
+    for (const cat of brand.categories) {
+      if (BUY_BATCH1_SLUGS.has(`${brand.slug}/${cat.slug}`)) {
+        result.push({ brand, cat })
+      }
+    }
+  }
+  return result.sort((a, b) => b.cat.sold_30d - a.cat.sold_30d)
+})()
+
 export const catSlug = (c: string) =>
   c.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
 

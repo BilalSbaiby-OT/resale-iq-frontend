@@ -365,7 +365,9 @@ export default async function BrandFlipPage(
         {" · "}
         <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>Market data</Link>
         {" · "}
-        <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Analyze an item</Link>.
+        <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Analyze an item</Link>
+        {" · "}
+        <Link href={`/buy/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>Buy-below prices</Link>.
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         For how to turn figures like these into a buy decision, the{" "}
