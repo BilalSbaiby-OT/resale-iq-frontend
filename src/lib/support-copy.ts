@@ -54,7 +54,7 @@ const en: SupportCopy = {
     ["What's the difference between Starter and Pro?",
      "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price Compare (full intelligence on those 5, live asking-price search on 26 markets total), per-size velocity, and REST API access."],
     ["Is there a free plan or trial?",
-     "Yes for three models: Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools, no account. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access. There is no unlimited free tier."],
+     "Yes for three models: New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools, no account. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access. There is no unlimited free tier."],
     ["How do I cancel?",
      "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
     ["How do I reset my password?",

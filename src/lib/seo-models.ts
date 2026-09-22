@@ -232,7 +232,7 @@ export function modelDemandParagraphs(
     )
   } else {
     paras.push(
-      `${m.query} is not a free check. Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. ` +
+      `${m.query} is not a free check. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. ` +
         `This model's BUY, WATCH or SKIP and buy-below start at Starter €19 a month. ` +
         `Do not treat the ${m.brand} average as the ${m.model} number.`,
     )
@@ -268,13 +268,13 @@ export function modelFaqs(opts: {
     ? {
         q: `Is the ${m.query} check free?`,
         a:
-          `Yes for this model: Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on /tools with no account. ` +
+          `Yes for this model: New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on /tools with no account. ` +
           `Weekly brand volumes stay public at https://resaleiq.dev/data. Other item-level checks start at Starter €19 a month.`,
       }
     : {
         q: `Is the ${m.query} check free?`,
         a:
-          `No. ${m.query} needs Starter at €19 a month. The free sample is Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools. ` +
+          `No. ${m.query} needs Starter at €19 a month. The free sample is New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools. ` +
           `${m.brand} weekly volumes stay public at https://resaleiq.dev/data.`,
       }
 
@@ -332,7 +332,7 @@ export function brandHubFaqs(opts: {
 
   const freeA = freeModels.length
     ? `Yes for ${freeModels.map((m) => m.query).join(", ")}: BUY, WATCH or SKIP and buy-below on https://resaleiq.dev/tools with no account. Other ${brand} models need Starter at €19 a month at https://resaleiq.dev/pricing.`
-    : `No. ${brand} weekly volumes stay public at https://resaleiq.dev/data. Item-level BUY, WATCH or SKIP starts at Starter €19 a month at https://resaleiq.dev/pricing. The free sample is Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools.`
+    : `No. ${brand} weekly volumes stay public at https://resaleiq.dev/data. Item-level BUY, WATCH or SKIP starts at Starter €19 a month at https://resaleiq.dev/pricing. The free sample is New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools.`
 
   return [
     { q: `Is ${brand} worth reselling on Vinted?`, a: worth },

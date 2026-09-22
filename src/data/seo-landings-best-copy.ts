@@ -16,7 +16,7 @@ const pricing: Table = {
     intro:
       "A Vinted pricing tool has one job: tell you the most you can pay for a named model after fees, from listings that actually left the shelf in Spain, France, Germany, Italy and Portugal. Resale IQ is built for that job. Spreadsheets, screenshot folders and US sneaker apps are not.",
     verdict:
-      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.95 × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is Adidas Samba, Nike Air Force 1 and New Balance 530. Other models start at Starter €19/mo. We do not invent competitor user counts.",
+      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.95 × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models start at Starter €19/mo. We do not invent competitor user counts.",
     sections: [
       {
         h: "What a pricing tool must answer",
@@ -57,7 +57,7 @@ const pricing: Table = {
       },
       {
         q: "Is Resale IQ a free Vinted price checker?",
-        a: "Only Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on https://resaleiq.dev/tools with no account. Other models need Starter at €19 a month at https://resaleiq.dev/pricing. Weekly brand volumes stay public.",
+        a: "Only New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on https://resaleiq.dev/tools with no account. Other models need Starter at €19 a month at https://resaleiq.dev/pricing. Weekly brand volumes stay public.",
       },
       {
         q: "Does this cover the UK?",
@@ -410,7 +410,7 @@ const research: Table = {
       {
         h: "The paid door is honest",
         p: [
-          "Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Researching Dunk Low, Air Jordan 4 or a Carhartt Detroit Jacket is Starter. That is not a crippled demo — brand tables stay public so you can still see whether the house is even moving.",
+          "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Researching Dunk Low, Air Jordan 4 or a Carhartt Detroit Jacket is Starter. That is not a crippled demo — brand tables stay public so you can still see whether the house is even moving.",
           "If you need a tool that pretends every SKU is free, this is not it. If you need the highest price worth paying on EU Vinted, it is.",
         ],
       },
@@ -432,7 +432,7 @@ const research: Table = {
       },
       {
         q: "Can I research every model for free?",
-        a: "No. Weekly brand volumes are public. Item-level BUY / WATCH / SKIP is free only for Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month.",
+        a: "No. Weekly brand volumes are public. Item-level BUY / WATCH / SKIP is free only for New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month.",
       },
       {
         q: "Is sell-through on the research pages?",
@@ -807,7 +807,7 @@ const buyBelow: Table = {
       },
       {
         q: "Is buy-below free for every model?",
-        a: "No. Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Other models need Starter at €19 a month at https://resaleiq.dev/pricing.",
+        a: "No. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Other models need Starter at €19 a month at https://resaleiq.dev/pricing.",
       },
       {
         q: "Is buy-below promised profit?",

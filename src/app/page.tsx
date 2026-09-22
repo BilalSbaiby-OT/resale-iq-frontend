@@ -31,7 +31,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What if you don’t track my item?",
     a:
-      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. Adidas Samba, Nike Air Force 1 and New Balance 530 are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
+      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
   },
 ]
 

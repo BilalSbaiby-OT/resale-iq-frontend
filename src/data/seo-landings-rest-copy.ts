@@ -28,7 +28,7 @@ const excelEn = loc(
   "Resale IQ vs Excel — a warehouse, not a ledger",
   "Resale IQ versus Excel for EU Vinted: live watched departures and a published buy-below versus a spreadsheet you have to type. Starter €19/mo after three free samples.",
   "Excel is excellent at remembering what you paid. It cannot watch a listing leave the shelf in Spain, France, Germany, Italy and Portugal, de-dupe it across five domains, or tell you when n is too small. Resale IQ is the warehouse. Excel remains a ledger for your cash.",
-  "Use Excel for cash in and cash out. Use Resale IQ to decide whether to buy. The free sample is Adidas Samba, Nike Air Force 1 and New Balance 530. Other models are Starter. {weekly} watched departures this snapshot across {brands} brands sit behind /data — not inside a cell you pasted last Tuesday.",
+  "Use Excel for cash in and cash out. Use Resale IQ to decide whether to buy. The free sample is New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models are Starter. {weekly} watched departures this snapshot across {brands} brands sit behind /data — not inside a cell you pasted last Tuesday.",
   [
     { h: "What Excel cannot see", p: [
       "A spreadsheet does not know that Vinted’s five EU domains are largely one catalogue. Summing “Spain + France” in a sheet overstates distinct listings. We de-dupe by listing ID. Method: /methodology.",
@@ -52,7 +52,7 @@ const excelEn = loc(
   [
     { q: "Is Resale IQ a replacement for Excel?", a: "No. It replaces guessing the market. Keep the sheet for cash. Warehouse: https://resaleiq.dev/data. Plans: https://resaleiq.dev/pricing." },
     { q: "Can I dump Resale IQ numbers into Excel?", a: "Public brand volumes are on /data and the public snapshot API. Item-level buy-below for models other than the three samples is Starter — not a CSV of secrets in the HTML." },
-    { q: "Is every model free?", a: "No. Only Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month." },
+    { q: "Is every model free?", a: "No. Only New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month." },
     { q: "Which markets?", a: "Spain, France, Germany, Italy and Portugal. Not the UK." },
   ],
   "Keep the sheet. Buy the warehouse. Starter €19/mo.",

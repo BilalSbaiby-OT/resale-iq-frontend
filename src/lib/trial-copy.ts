@@ -13,7 +13,7 @@ import type { Locale } from "@/lib/i18n"
  * every language — only the sentence around them changes.
  */
 export const TRIAL_LIMITS_SENTENCE =
-  "Adidas Samba, Nike Air Force 1 and New Balance 530 are free to check on /tools. Other item-level BUY, WATCH or SKIP is Starter at €19 a month. Weekly brand volumes stay public on /data."
+  "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are free to check on /tools. Other item-level BUY, WATCH or SKIP is Starter at €19 a month. Weekly brand volumes stay public on /data."
 
 export const TRIAL_LIMITS_SHORT =
   "Item checks start at Starter €19/month. Weekly brand volumes on /data stay public."

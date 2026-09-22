@@ -9,7 +9,7 @@ export const personaLandingCopy: Record<string, SixCopy> = {
     en: C("Resale IQ vs gut feel on Vinted", "Resale IQ vs gut feel — n before instinct",
       "Gut feel is fast and often wrong on EU Vinted. Resale IQ puts watched departures and a buy-below ceiling in front of the buy. Three free samples; other models Starter €19/mo.",
       "Instinct is how you notice a silhouette. It is not how you price it. A “this will move” feeling does not know whether 530s left the shelf this week or whether the ask is already above buy-below. Resale IQ is the n. Gut feel is the hypothesis.",
-      "Trust gut feel to pick a hunt. Trust Resale IQ to veto the buy. Adidas Samba, Nike Air Force 1 and New Balance 530 are free samples. Everything else is Starter. {weekly} watched departures across {brands} brands this snapshot — an em-dash if missing, never a confident zero.",
+      "Trust gut feel to pick a hunt. Trust Resale IQ to veto the buy. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are free samples. Everything else is Starter. {weekly} watched departures across {brands} brands this snapshot — an em-dash if missing, never a confident zero.",
       "Where instinct fails", "Colourways, sizes and condition swing the exit more than the logo. Brand averages hide that. Gut feel reads the logo.",
       "A SKIP on a famous model is the product working. Samba can be a skip at the wrong ask. Instinct hates that sentence. The warehouse does not.",
       "Where instinct still belongs", "Sourcing: which charity-shop rail, which size stack, which hour you can stand in a queue. Resale IQ does not walk the floor.",
@@ -18,7 +18,7 @@ export const personaLandingCopy: Record<string, SixCopy> = {
       [["Will this logo sell?", "Often yes", "Brand row on /data"], ["What can I pay?", "A round number", "Buy-below, or Starter"], ["Is n too small?", "Ignored", "Em-dash, not 0"], ["Free check", "Always", "Three named models"]],
       [
         { q: "Should I ignore my gut?", a: "No. Use it to choose a hunt, then check the warehouse. https://resaleiq.dev/data and https://resaleiq.dev/tools." },
-        { q: "Is the check free for every model?", a: "No. Only Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month at https://resaleiq.dev/pricing." },
+        { q: "Is the check free for every model?", a: "No. Only New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month at https://resaleiq.dev/pricing." },
         { q: "Which markets?", a: "Spain, France, Germany, Italy and Portugal. Not the UK." },
         { q: "What if the snapshot has no figure?", a: "We show an em-dash. Missing is not zero." },
       ], "Let instinct hunt. Let the warehouse veto. Starter €19/mo."),
@@ -117,7 +117,7 @@ export const personaLandingCopy: Record<string, SixCopy> = {
       [
         { q: "Is Resale IQ a StockX alternative?", a: "No. Different venue. Resale IQ is for EU Vinted. Snapshot: https://resaleiq.dev/data." },
         { q: "Can I use a StockX last sale as buy-below?", a: "Not on Vinted. Fees, catalogue and sizes differ. Formula: https://resaleiq.dev/methodology." },
-        { q: "Is every Vinted model free to check?", a: "No. Adidas Samba, Nike Air Force 1 and New Balance 530 only. Other models: Starter €19 a month at https://resaleiq.dev/pricing." },
+        { q: "Is every Vinted model free to check?", a: "No. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 only. Other models: Starter €19 a month at https://resaleiq.dev/pricing." },
         { q: "UK?", a: "Not covered. Spain, France, Germany, Italy, Portugal." },
       ], "Do not paste an exchange print into a Vinted bid. Starter €19/mo."),
     es: C("Resale IQ frente a apps tipo StockX para Vinted", "Resale IQ frente a apps tipo StockX — recintos distintos",

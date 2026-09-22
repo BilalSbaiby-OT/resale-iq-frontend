@@ -123,7 +123,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     body: [
       "You compute the number before you source, not as a feeling in front of a rail. Pay under it and the flip has room after fees. Pay over it and you are speculating.",
       "The hard input is the realistic sale price — the asking price similar items were listed at when they left the shelf, not what hopeful sellers are asking now. Brand averages on /data are demand context. The buy-below that decides the purchase is the named model's own departures.",
-      "Know what sells. Decide whether to buy. Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP plus buy-below on /tools with no account. Other models start at Starter €19 a month.",
+      "Know what sells. Decide whether to buy. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP plus buy-below on /tools with no account. Other models start at Starter €19 a month.",
     ],
     seeAlso: [
       { href: "/glossary/max-buy-price", label: "Max buy price" },
@@ -139,7 +139,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       },
       {
         q: "Where do I get a live buy-below?",
-        a: "Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other models need Starter at €19 a month: https://resaleiq.dev/pricing. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+        a: "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other models need Starter at €19 a month: https://resaleiq.dev/pricing. Weekly brand volumes stay public at https://resaleiq.dev/data.",
       },
     ],
   },
@@ -247,7 +247,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     body: [
       "Set the ceiling before you leave the house and do not renegotiate it in the shop. The pull to stretch is strongest on attractive items — which other resellers also find attractive, which means they are priced accordingly.",
       "Walking away from a marginal buy costs you an item you would have made very little on. Buying it costs you the cash, the shelf space and the attention, all of which had a better use.",
-      "Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP plus this ceiling on /tools with no account. Other named models start at Starter €19 a month. Brand averages on /data are not a max buy price.",
+      "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP plus this ceiling on /tools with no account. Other named models start at Starter €19 a month. Brand averages on /data are not a max buy price.",
     ],
     seeAlso: [
       { href: "/glossary/buy-below-market", label: "Buy-below (market)" },
@@ -263,7 +263,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       },
       {
         q: "Where do I get a live max buy price?",
-        a: "Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other models need Starter at €19 a month: https://resaleiq.dev/pricing.",
+        a: "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other models need Starter at €19 a month: https://resaleiq.dev/pricing.",
       },
     ],
   },
@@ -397,6 +397,6 @@ export const GLOSSARY_HUB_FAQS: FaqItem[] = [
   },
   {
     q: "Which checks are free?",
-    a: "Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other item-level BUY / WATCH / SKIP starts at Starter €19 a month: https://resaleiq.dev/pricing. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+    a: "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on https://resaleiq.dev/tools. Other item-level BUY / WATCH / SKIP starts at Starter €19 a month: https://resaleiq.dev/pricing. Weekly brand volumes stay public at https://resaleiq.dev/data.",
   },
 ]

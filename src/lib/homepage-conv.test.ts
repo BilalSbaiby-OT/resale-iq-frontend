@@ -20,8 +20,21 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("FREE_MODELS is Samba + Air Force 1 + NB 530, never Levi's 501 or NB 550", () => {
-  assert.deepEqual([...FREE_MODELS], ["Adidas Samba", "Nike Air Force 1", "New Balance 530"])
+test("FREE_MODELS leads with a BUY model and never exposes paywalled SKUs", () => {
+  // The guard that matters is that no PAYWALLED sku reaches a free chip —
+  // Levi's 501 and NB 550 402 for anonymous visitors.
+  //
+  // FuelCell leads deliberately (2026-09-22): it is the only free model that
+  // currently verdicts BUY. The other three are STABLE/speed~0 and return
+  // WATCH, so a free demo built only from them can never show the product
+  // finding a winner — which is what trial users hit (22 searches, 0 BUYs,
+  // 0 payments). Keep this list in sync with _PUBLIC_SAMPLE_QUERIES in
+  // api/routes.py, or a chip will 402.
+  assert.deepEqual([...FREE_MODELS], ["New Balance FuelCell", "Adidas Samba", "Nike Air Force 1", "New Balance 530"])
+  assert.equal(FREE_MODELS[0], "New Balance FuelCell")
+  for (const paywalled of ["Levi's 501", "New Balance 550"]) {
+    assert.ok(!FREE_MODELS.includes(paywalled as never), `${paywalled} must never be a free chip`)
+  }
 })
 
 test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {

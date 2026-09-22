@@ -245,7 +245,7 @@ export default async function FlipHubPage() {
           Named models — know what sells, then decide whether to buy
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
-          Brand averages mix every silhouette. These pages name the model. Adidas Samba, Nike Air Force 1 and New Balance 530 are a free sample. Other models are Starter at €19 a month — not a free check. Definitions:{" "}
+          Brand averages mix every silhouette. These pages name the model. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are a free sample. Other models are Starter at €19 a month — not a free check. Definitions:{" "}
           <Link href="/glossary" style={{ color: "#34C759", textDecoration: "none" }}>glossary</Link>.
         </p>
         <ModelChips models={SEO_MODELS} showFreeMark />

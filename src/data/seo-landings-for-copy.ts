@@ -114,7 +114,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       [["Checks", "10 / month after trial", "Pro €49 — Deal Finder"], ["Evenings", "Yes", "All day"], ["Free sample", "Three models", "Same three"], ["Public /data", "Yes", "Yes"]],
       [
         { q: "Is Resale IQ for people with a day job?", a: "Yes. Starter after a 7-day unlimited window, then 10 checks a month. https://resaleiq.dev/pricing" },
-        { q: "Are all checks free?", a: "No. Adidas Samba, Nike Air Force 1 and New Balance 530 only on https://resaleiq.dev/tools. Other models need Starter." },
+        { q: "Are all checks free?", a: "No. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 only on https://resaleiq.dev/tools. Other models need Starter." },
         { q: "Does the 10-check budget last forever?", a: "No. It resets each month. It is not a lifetime pool." },
         { q: "Which markets?", a: "Spain, France, Germany, Italy and Portugal. Not the UK." },
       ], "Ten named-model checks beat a junk drawer of screenshots. Starter €19/mo."),

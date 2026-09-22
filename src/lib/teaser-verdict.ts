@@ -1,7 +1,7 @@
 /**
  * SSR teaser for GPTBot / PerplexityBot. /tools?q= is a client checker;
  * crawlers do not run JS, so the live BUY/WATCH/SKIP never appeared in HTML.
- * Adidas Samba, Nike Air Force 1 and New Balance 530 are fetched — those
+ * New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are fetched — those
  * three still 200 anonymously. Anything else stays paywalled and is not
  * rendered here.
  */
