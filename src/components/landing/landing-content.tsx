@@ -76,25 +76,11 @@ export function LandingContent({
         </Link>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
           <LocaleSwitcher locale={locale} />
-          {/* This page had NO link to /pricing in any form — verified against
-              the live HTML on 2026-09-08, zero href matches on the whole
-              document — while being the largest public surface on the site
-              (157 distinct non-bot visitor_hash rows in 30d, vs 69 on /blog).
-              /pricing has been loaded 5 times by distinct visitor_hash rows in
-              the product's lifetime.
-
-              The prices themselves are NOT missing: PricingSection is embedded
-              below, so EUR 19 and EUR 49 are in this document already. What was
-              missing is a countable route to them that does not require the
-              scroll — pricing_view fires on the /pricing path and the #pricing
-              hash only, never on the inline section coming into view, so how
-              many landing visitors reach the embedded prices is UNKNOWN and is
-              not being asserted here either way.
-
-              TEXT, same weight and colour as Sign in, so the graphite Check
-              stays the only filled control above the fold. ?src=nav makes the
-              arrival attributable through the query string /api/track already
-              persists — the same mechanism acd5dc3 used for ?src=blog. */}
+          {/* ?src=nav makes the arrival attributable through the query string
+              /api/track already persists — the same mechanism acd5dc3 used for
+              ?src=blog. Full pricing and payback calculator live at /pricing.
+              The inline PricingSection was removed 2026-09-22 (CRO restructure);
+              pricing_view fires correctly on the /pricing path now. */}
           <Link
             href={`${canonicalPath(locale, "/pricing")}?src=nav`}
             style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)", textDecoration: "none", whiteSpace: "nowrap" }}
