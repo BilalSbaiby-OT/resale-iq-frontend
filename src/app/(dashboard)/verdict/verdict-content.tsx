@@ -48,6 +48,10 @@ function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limit
     LIMIT_REACHED: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.limitReached },
     BRAND_CATEGORIES: { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.marketData },
     BRAND_AVERAGE:     { color: "var(--color-unknown)", bg: "rgba(139,153,184,.10)", border: "rgba(139,153,184,.30)", label: label.brandAverage },
+    // OVERSUPPLIED is an ANSWER — heavy supply, ~zero departures, so don't buy.
+    // Without this entry it fell through to the UNKNOWN style and rendered
+    // "NO DATA" on a query we CAN answer, then upsold €19 anyway.
+    OVERSUPPLIED: { color: "var(--color-skip)", bg: "rgba(239,68,68,.10)", border: "rgba(239,68,68,.35)", label: "DON'T STOCK" },
   }
 }
 
@@ -290,6 +294,30 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={WORKING_MODELS} testId="riq-working-models" />
                 </div>
               </>
+            ) : result.verdict === "OVERSUPPLIED" ? (
+              // A real, free answer: heavy supply, nothing leaving the shelf.
+              // Must NOT show the "unlock full numbers" upsell — there is
+              // nothing locked here, and asking €19 right after telling someone
+              // we have no per-item data is what produced 287 checkout sessions
+              // and 0 payments.
+              <div className="p-6">
+                <p className="text-[14px] leading-[1.6] text-[var(--color-text-secondary)]">
+                  {result.message}
+                </p>
+                <div style={{ marginTop: 16 }}>
+                  <Link
+                    href={canonicalPath(locale, "/")}
+                    style={{
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      minHeight: 44, padding: "12px 18px", borderRadius: 10,
+                      background: "var(--color-buy)", color: "var(--color-on-buy)",
+                      fontSize: 14, fontWeight: 600, textDecoration: "none",
+                    }}
+                  >
+                    See what IS selling this week →
+                  </Link>
+                </div>
+              </div>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
               <>
                 {hasVerdictIntelligence(result) && (

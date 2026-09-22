@@ -228,7 +228,21 @@ export interface VerdictResult extends ReconstructedSignals {
   // BRAND_AVERAGE: brand + category named but no specific model — a real
   // priced aggregate (api/routes.py _brand_categories_next_step /
   // _brand_average_verdict), never a per-model buy-below.
-  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE" | "PAYWALL"
+  // OVERSUPPLIED: heavy live supply with ~zero watched departures — a real
+  // "do not stock this" answer (api/routes.py _oversupplied_next_step), not a
+  // refusal. Same lesson as INSUFFICIENT_DATA above: a verdict the backend
+  // returns but the union omits type-checks everywhere and silently falls
+  // through to the UNKNOWN branch, which rendered "NO DATA" on a query we can
+  // in fact answer.
+  verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE" | "PAYWALL" | "OVERSUPPLIED"
+  /** OVERSUPPLIED only — per-category evidence behind the verdict. */
+  oversupply_categories?: {
+    category: string
+    live_listings: number
+    avg_price_eur: number | null
+    departures_7d: number
+  }[]
+  live_listings_total?: number
   product?: string
   category?: string
   /** BRAND_CATEGORIES only: the brand named, categories we hold data for. */
