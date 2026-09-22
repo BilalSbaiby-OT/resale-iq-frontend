@@ -6,7 +6,7 @@ import { eur } from "@/lib/utils"
 import type { AuthenticityResult } from "@/types"
 import { Check } from "lucide-react"
 
-const SCORE_STYLES = (s: number) => s >= 75 ? { ring: "border-emerald-500", text: "text-emerald-400", bg: "bg-emerald-500/10" } : s >= 50 ? { ring: "border-amber-500", text: "text-amber-400", bg: "bg-amber-500/8" } : s >= 25 ? { ring: "border-amber-400", text: "text-amber-400", bg: "bg-amber-500/8" } : { ring: "border-red-500", text: "text-red-400", bg: "bg-red-500/10" }
+const SCORE_STYLES = (s: number) => s >= 75 ? { ring: "border-[var(--color-accent)]", text: "text-[var(--color-accent)]", bg: "bg-[var(--color-accent)]/10" } : s >= 50 ? { ring: "border-amber-500", text: "text-amber-400", bg: "bg-amber-500/8" } : s >= 25 ? { ring: "border-amber-400", text: "text-amber-400", bg: "bg-amber-500/8" } : { ring: "border-[var(--color-skip)]", text: "text-[var(--color-skip)]", bg: "bg-[var(--color-skip)]/10" }
 
 export default function AuthenticityPage() {
   const [url, setUrl] = useState("")
@@ -54,22 +54,22 @@ export default function AuthenticityPage() {
 
         {/* URL MODE — the primary, real path */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-5 mb-4">
-          <label className="text-[12px] font-semibold text-[#e8ecf4] block mb-2">Paste a Vinted listing URL</label>
+          <label className="text-[12px] font-semibold text-[var(--color-on-graphite)] block mb-2">Paste a Vinted listing URL</label>
           <div className="flex gap-2">
             <input value={url} onChange={e => setUrl(e.target.value)} onKeyDown={e => e.key === "Enter" && analyzeUrl()}
-              placeholder="https://www.vinted.es/items/..." className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
-            <button onClick={analyzeUrl} disabled={loading || !url.trim()} className="bg-emerald-400 text-[#0B0D10] font-semibold text-[12.5px] px-5 rounded-lg hover:bg-emerald-300 transition-colors disabled:opacity-50 whitespace-nowrap">
+              placeholder="https://www.vinted.es/items/..." className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 font-mono text-[13px] text-[var(--color-on-graphite)] outline-none focus:border-[var(--color-accent)]/60 placeholder:text-[var(--color-text-secondary)]" />
+            <button onClick={analyzeUrl} disabled={loading || !url.trim()} className="bg-[var(--color-accent)] text-[var(--color-on-accent)] font-semibold text-[12.5px] px-5 rounded-lg hover:bg-[var(--color-accent)]/80 transition-colors disabled:opacity-50 whitespace-nowrap">
               {loading ? "…" : "Check"}
             </button>
           </div>
           {result?.fetched_listing && (
-            <div className="mt-3 text-[12px] text-[#8fa3c4] bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2 flex items-center gap-1.5">
-              <Check size={12} className="text-emerald-400 shrink-0" /> Read live: <span className="text-[#e8ecf4]">{result.fetched_listing.brand} · €{result.fetched_listing.price_eur} · {result.fetched_listing.condition}</span>
+            <div className="mt-3 text-[12px] text-[var(--color-graphite-muted)] bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2 flex items-center gap-1.5">
+              <Check size={12} className="text-[var(--color-accent)] shrink-0" /> Read live: <span className="text-[var(--color-on-graphite)]">{result.fetched_listing.brand} · €{result.fetched_listing.price_eur} · {result.fetched_listing.condition}</span>
               {result.fetched_listing.exact_match ? " (exact listing)" : " (closest match)"}
             </div>
           )}
-          {err && <div className="mt-3 text-[12px] text-red-400">{err}</div>}
-          <button onClick={() => setShowManual(s => !s)} className="mt-3 text-[12px] text-[var(--color-text-secondary)] hover:text-[#8fa3c4]">
+          {err && <div className="mt-3 text-[12px] text-[var(--color-skip)]">{err}</div>}
+          <button onClick={() => setShowManual(s => !s)} className="mt-3 text-[12px] text-[var(--color-text-secondary)] hover:text-[var(--color-graphite-muted)]">
             {showManual ? "− Hide manual entry" : "+ Or enter details manually"}
           </button>
         </div>
@@ -80,15 +80,15 @@ export default function AuthenticityPage() {
             {[["Listed price (€)*","listed_price","45","number"],["Brand","brand","Gucci","text"],["Model","model","GG Belt","text"],["Category","category","Bags","text"],["Seller account age (days)","seller_days","365","number"],["Seller rating (0-5)","seller_rating","4.8","number"],["Seller total sales","seller_sales","42","number"]].map(([l,k,ph,t]) => (
               <div key={String(k)} className={k === "listed_price" ? "col-span-2" : ""}>
                 <label className="text-[12px] text-[var(--color-text-secondary)] tracking-wide block mb-1.5">{l}</label>
-                <input type={String(t)} value={form[k as keyof typeof form]} onChange={e => set(String(k), e.target.value)} placeholder={String(ph)} className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
+                <input type={String(t)} value={form[k as keyof typeof form]} onChange={e => set(String(k), e.target.value)} placeholder={String(ph)} className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[var(--color-on-graphite)] outline-none focus:border-[var(--color-accent)]/60 placeholder:text-[var(--color-text-secondary)]" />
               </div>
             ))}
             <div className="col-span-2">
               <label className="text-[12px] text-[var(--color-text-secondary)] tracking-wide block mb-1.5">Listing title (optional)</label>
-              <input value={form.title} onChange={e => set("title", e.target.value)} placeholder="Copy the listing title here…" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
+              <input value={form.title} onChange={e => set("title", e.target.value)} placeholder="Copy the listing title here…" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[var(--color-on-graphite)] outline-none focus:border-[var(--color-accent)]/60 placeholder:text-[var(--color-text-secondary)]" />
             </div>
           </div>
-          <button onClick={analyze} disabled={loading} className="w-full bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[13px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
+          <button onClick={analyze} disabled={loading} className="w-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)] text-[var(--color-accent)] font-semibold text-[13px] py-3 rounded-lg hover:bg-[var(--color-accent)] hover:text-[var(--color-on-accent)] transition-colors disabled:opacity-50">
             {loading ? "Analysing…" : "Analyse listing"}
           </button>
         </div>
@@ -102,7 +102,7 @@ export default function AuthenticityPage() {
               </div>
               {result.flags.length > 0 ? (
                 <div className="space-y-2">
-                  {result.flags.map((f, i) => <div key={i} className="flex gap-2 bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2 text-[12px] text-[#8fa3c4]"><span></span><span>{f}</span></div>)}
+                  {result.flags.map((f, i) => <div key={i} className="flex gap-2 bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2 text-[12px] text-[var(--color-graphite-muted)]"><span></span><span>{f}</span></div>)}
                 </div>
               ) : <div className="text-center text-[12px] text-[var(--color-text-secondary)]">No specific concerns detected</div>}
               <div className="mt-4 bg-amber-500/8 border border-amber-500/25 rounded-lg p-3 text-[12px] text-amber-400">{result.disclaimer}</div>
@@ -112,7 +112,7 @@ export default function AuthenticityPage() {
               <div className="space-y-2">
                 {Object.entries(result.breakdown).map(([k, v]) => (
                   <div key={k} className="flex justify-between py-2 border-b border-[var(--color-border)] last:border-0 text-[12px]">
-                    <span className="text-[#8fa3c4]">{k.replace(/_/g, " ")}</span>
+                    <span className="text-[var(--color-graphite-muted)]">{k.replace(/_/g, " ")}</span>
                     <span className="font-mono font-bold">{v}/100</span>
                   </div>
                 ))}
