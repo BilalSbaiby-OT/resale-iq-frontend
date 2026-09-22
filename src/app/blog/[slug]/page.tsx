@@ -11,6 +11,8 @@ import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { BlogProofStrip } from "@/components/blog-proof-strip"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -82,6 +84,17 @@ export default async function BlogPostPage(
   const tracked = await listingsTrackedLabel()
   const p = fillTracked(getPost(slug), tracked)
   if (!p) notFound()
+
+  // Live proof rows for the strip under the H1.
+  //
+  // ChatGPT (our #1 external referrer) lands people on these price guides, and
+  // they had no way to reach an answer: zero forms, zero inputs, CTA only at the
+  // bottom of an 11-minute read. 24h funnel was 46 humans -> 1 verdict_seen.
+  //
+  // getPublicBuyList already fails soft (returns null on any error, with its own
+  // FATAL log) and is disk-cached, so this cannot break the static build or the
+  // page render — worst case the strip renders nothing at all.
+  const proofRows = await getPublicBuyList(5)
 
   // Topically-related "Keep reading" links.
   //
@@ -194,6 +207,18 @@ export default async function BlogPostPage(
           {p.category} · {p.readMins} min read
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
+
+        {/* Live proof, directly under the headline — the first thing an
+            AI-referred visitor sees. Uses the post's own preflight query when it
+            has one so the CTA continues their topic instead of resetting it. */}
+        <BlogProofStrip
+          items={proofRows}
+          ctaHref={
+            p.preflightQuery
+              ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
+              : `${canonicalPath(locale, "/tools")}?src=blog_proof`
+          }
+        />
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>
