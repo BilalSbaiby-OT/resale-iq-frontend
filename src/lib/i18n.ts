@@ -633,7 +633,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "Confirming your email…",
-        signedIn: "You’re in — opening your dashboard…",
+        signedIn: "You’re in — loading your first verdict…",
         confirmedHeading: "You’re confirmed",
         badHeading: "This link can’t be used",
         missingToken: "This link is missing its token.",
@@ -1097,7 +1097,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "Confirmation de votre e-mail…",
-        signedIn: "C'est bon — ouverture de votre tableau de bord…",
+        signedIn: "C'est bon — chargement de votre premier verdict…",
         confirmedHeading: "Vous êtes confirmé",
         badHeading: "Ce lien ne peut pas être utilisé",
         missingToken: "Ce lien n'a pas de jeton.",
@@ -1543,7 +1543,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "Confirmando su correo…",
-        signedIn: "Ya está — abriendo su panel…",
+        signedIn: "Ya está — cargando su primer veredicto…",
         confirmedHeading: "Confirmado",
         badHeading: "Este enlace no se puede usar",
         missingToken: "A este enlace le falta el token.",
@@ -1988,7 +1988,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "E-Mail wird bestätigt…",
-        signedIn: "Fertig — Ihr Dashboard wird geöffnet…",
+        signedIn: "Fertig — Ihr erstes Verdict wird geladen…",
         confirmedHeading: "Bestätigt",
         badHeading: "Dieser Link kann nicht verwendet werden",
         missingToken: "Diesem Link fehlt sein Token.",
@@ -2431,7 +2431,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "Conferma della tua email…",
-        signedIn: "Fatto — apertura della tua dashboard…",
+        signedIn: "Fatto — caricamento del tuo primo verdetto…",
         confirmedHeading: "Sei confermato",
         badHeading: "Questo link non può essere usato",
         missingToken: "A questo link manca il token.",
@@ -2874,7 +2874,7 @@ export const copy = {
       },
       verifyEmail: {
         checking: "A confirmar o seu email…",
-        signedIn: "Pronto — a abrir o seu dashboard…",
+        signedIn: "Pronto — a carregar o seu primeiro veredicto…",
         confirmedHeading: "Está confirmado",
         badHeading: "Este link não pode ser usado",
         missingToken: "A este link falta o token.",

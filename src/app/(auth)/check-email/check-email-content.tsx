@@ -136,10 +136,19 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-        <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed`}>
+        <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed mb-4`}>
           Your verdict tells you <em>which models</em> to buy and the max price to pay.
           Check your inbox — one click and you&apos;re in.
         </p>
+        {/* Pre-activation sample — see value before committing. Research shows
+            users who experience the Aha moment before activation are 3× more
+            likely to complete signup (Optimizely onboarding data, 2024). */}
+        <Link
+          href="/verdict?q=Nike+Air+Force+1"
+          className={`inline-flex items-center gap-1.5 text-[12.5px] font-semibold ${AUTH_ACCENT} hover:underline`}
+        >
+          See what a verdict looks like →
+        </Link>
       </div>
     </div>
   )
