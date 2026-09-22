@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test"
+import { expect, test, type Page } from "@playwright/test"
 
 /**
  * Every number on a Deal Scanner card must be the number its label claims.
@@ -26,12 +26,14 @@ import { expect, test } from "@playwright/test"
  *  - A LOW-tier row (n < 8) must show no price at all, not a zero.
  */
 
-async function loginAndOpenDeals(page) {
+async function loginAndOpenDeals(page: Page) {
   await page.goto("/login")
   await page.locator('input[type="email"]').fill("alice@example.com")
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in/i }).click()
-  await expect(page.getByTestId("riq-cold-open-check")).toBeVisible({ timeout: 20_000 })
+  // C134: login now redirects to /verdict?q=... (pre-seeded activation path)
+  // Wait for the verdict page rather than the cold-state element.
+  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
   await page.goto("/deals")
   await expect(page.getByText("Track", { exact: true })).toBeVisible({ timeout: 20_000 })
 }
@@ -42,7 +44,7 @@ async function loginAndOpenDeals(page) {
  * Scanner restyle in flight can move every colour and box without breaking
  * these assertions.
  */
-function card(page, model: string) {
+function card(page: Page, model: string) {
   return page
     .locator("div")
     .filter({ has: page.getByText(model, { exact: true }) })

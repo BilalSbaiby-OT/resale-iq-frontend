@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test"
+import { expect, test, type Page } from "@playwright/test"
 
 /**
  * Browser workflows against the in-memory mock backend.
@@ -7,12 +7,14 @@ import { expect, test } from "@playwright/test"
  */
 test.describe.configure({ mode: "serial" })
 
-async function login(page, email: string, password: string) {
+async function login(page: Page, email: string, password: string) {
   await page.goto("/login")
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill(password)
   await page.getByRole("button", { name: /Sign in/i }).click()
-  await expect(page.getByTestId("riq-cold-open-check")).toBeVisible({ timeout: 20_000 })
+  // C134: login now redirects to /verdict?q=... (pre-seeded activation path)
+  // Wait for the verdict page to load rather than the cold-state element.
+  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
 }
 
 test.describe("customer watchlist workflow", () => {
