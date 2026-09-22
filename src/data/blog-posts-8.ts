@@ -15,19 +15,19 @@ export const POSTS_8: BlogPost[] = [
     title: "Lacoste Reselling on Vinted: Jackets at €80 Average, Shirts Lead Volume",
     seoTitle: "Is Lacoste Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Lacoste ranks #11 by watched departures across 5 EU Vinted markets — 118/week at €33 average. Jackets lead by revenue at 9 departures averaging €80 (buy-below ~€53). Shirts dominate volume at 62 departures averaging €27 — the highest Shirt volume of any top-15 brand.",
+      "Lacoste tracks 2,220 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.24 average. Shirts lead at 650 departures (€23.41 avg). Jackets: 177 departures at €39.91 avg. The sourcing edge is the L.12.12 polo and Harrington jacket identification.te volume at 62 departures averaging €27 — the highest Shirt volume of any top-15 brand.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
 
     preflightQuery: "Lacoste",
     intro:
-      "Week to 14 September 2026, Lacoste ranked #11 across Spain, France, Germany, Italy and Portugal with 118 watched departures at an average exit price of €33. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
+      "Lacoste tracks 2,220 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level, observation window to 22 September 2026) at a €27.24 average. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Of the 118 watched departures in the week to 14 September 2026, Shirts dominated at 62 exits averaging €27. T-Shirts added 20 departures averaging €21. Hoodies contributed 12 departures averaging €41. Jackets came in at 9 departures averaging €80 — the highest average of any Lacoste category and above the Vinted average for Jackets across most top-10 brands. Tracksuits rounded out the top five at 6 departures averaging €37.",
+          "Brand-level Lacoste departures in the last 30 days on EU Vinted: Shirts 650 (€23.41 avg), Hoodies 224 (€24.64 avg), T-Shirts 190 (€23.32 avg), Jackets 177 (€39.91 avg), Tracksuits 119 (€30.31 avg). Total: 2,220 at €27.24 avg. ResaleIQ does not publish per-model counts for Lacoste.rtures averaging €41. Jackets came in at 9 departures averaging €80 — the highest average of any Lacoste category and above the Vinted average for Jackets across most top-10 brands. Tracksuits rounded out the top five at 6 departures averaging €37.",
           "Full Lacoste volumes are on " +
             ilinkHref("flip") +
             " and update weekly. The €33 brand average is structurally driven by Shirt volume; strip the Shirt category and the remaining departures average over €42. The sourcing question is whether you are building a Shirt volume play or targeting the high-ticket Jacket and Hoodie minority.",
@@ -36,7 +36,7 @@ export const POSTS_8: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €80 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €76. Applying a 30% target margin gives a buy-below of approximately €53. Any Lacoste Jacket sourced below that price — correct condition and era — has a realistic margin at current departure prices.",
+          "With Jackets averaging €39.91 (brand-level, 177 departures/30d) and Vinted modelling roughly a 5% platform deduction, the departure-net is around €76. Applying a 30% target margin gives a buy-below of approximately €53. Any Lacoste Jacket sourced below that price — correct condition and era — has a realistic margin at current departure prices.",
           "Shirts at €27 average give a buy-below near €18. T-Shirts at €21 give a buy-below near €14. Hoodies at €41 give a buy-below near €27. Tracksuits at €37 give a buy-below near €25. The Jacket category is the clearest margin target; Shirts at buy-below €18 are viable as a high-volume charity shop play if sourcing costs are consistently below that floor.",
         ],
         cta: pricingMidCta("ctr_lacoste_20260915"),
@@ -58,7 +58,7 @@ export const POSTS_8: BlogPost[] = [
       {
         h: "Hoodies: above-average exit and the colourway premium",
         p: [
-          "At 12 departures and €41 average, Lacoste Hoodies are the second-highest average category and sit above both Nike Hoodies (€23) and Diesel Hoodies (€20) on a per-unit basis. The premium reflects Lacoste's positioning: the SH9623 and related full-zip fleece cuts in premium colourways (navy, dark green, burgundy) maintain €35–50 exit prices because buyers view them as durable basics with brand credibility.",
+          "Lacoste Hoodies track 224 brand-level departures in the last 30 days at €24.64 average — above T-shirts and shirts in average exit but below jackets. The premium reflects Lacoste's positioning: the SH9623 and related full-zip fleece cuts in premium colourways (navy, dark green, burgundy) maintain €35–50 exit prices because buyers view them as durable basics with brand credibility.",
           "Sourcing signal: Lacoste Hoodies with the full embroidered croc (not the smaller printed badge) command a premium. The embroidered version is the mainline product; the printed badge is common in diffusion lines and gift-set adjacents. This is visible on the listing photo when the lighting is adequate — offer for the embroidered version, pass on or negotiate hard for the badge version.",
         ],
         cta: pricingBodyCta("body_lacoste_20260915"),
@@ -74,11 +74,11 @@ export const POSTS_8: BlogPost[] = [
     faq: [
       {
         q: "Is Lacoste worth reselling on Vinted?",
-        a: "Yes — primarily for Shirts and Jackets. Lacoste ranked #11 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 118 departures at €33 average. Shirts lead volume at 62 departures averaging €27 (buy-below ~€18). Jackets lead by margin at 9 departures averaging €80 (buy-below ~€53). The L.12.12 polo is the backbone of the Shirt volume; specific outerwear lines drive the Jacket average.",
+        a: "Yes — primarily for Shirts and Jackets. Lacoste tracks 2,220 brand-level departures in the last 30 days on EU Vinted at €27.24 average. Shirts: 650 departures at €23.41 avg; Jackets: 177 departures at €39.91 avg.res at €33 average. Shirts lead volume at 62 departures averaging €27 (buy-below ~€18). Jackets lead by margin at 9 departures averaging €80 (buy-below ~€53). The L.12.12 polo is the backbone of the Shirt volume; specific outerwear lines drive the Jacket average.",
       },
       {
         q: "What is the buy-below price for Lacoste on Vinted?",
-        a: "Buy-below varies by category. Lacoste Jackets averaging €80: buy-below ~€53. Hoodies averaging €41: buy-below ~€27. Tracksuits averaging €37: buy-below ~€25. Shirts averaging €27: buy-below ~€18. T-Shirts averaging €21: buy-below ~€14. Resale IQ returns the exact buy-below for specific Lacoste models based on live EU Vinted departure data.",
+        a: "Rough buy-below by category (65% of brand-level average): Jackets at €39.91 → ~€25.94. Hoodies at €24.64 → ~€16.02. Shirts at €23.41 → ~€15.22. ResaleIQ does not publish per-model ceilings for Lacoste.27: buy-below ~€18. T-Shirts averaging €21: buy-below ~€14. Resale IQ returns the exact buy-below for specific Lacoste models based on live EU Vinted departure data.",
       },
       {
         q: "What Lacoste items sell best on Vinted?",
@@ -90,7 +90,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "How does Lacoste compare to Fred Perry for resale on Vinted?",
-        a: "Fred Perry (#1 by departures, 893/week at €18 avg) has nearly eight times Lacoste's volume but a lower average price. Lacoste's €33 average reflects higher-ticket outerwear. For sourcing strategy: Fred Perry is a volume play at low price points (buy-below ~€9 Shirts); Lacoste is a higher-ticket play with Jackets at €80 and Hoodies at €41. Both brands have strong Shirt volume, but Lacoste Shirts are worth nearly twice as much per exit.",
+        a: "Fred Perry tracks 10,425 brand-level departures in the last 30 days at €21.32 average — 4.7× Lacoste's brand-level volume of 2,220/30d, but at a lower average. Lacoste's €33 average reflects higher-ticket outerwear. For sourcing strategy: Fred Perry is a volume play at low price points (buy-below ~€9 Shirts); Lacoste is a higher-ticket play with Jackets at €80 and Hoodies at €41. Both brands have strong Shirt volume, but Lacoste Shirts are worth nearly twice as much per exit.",
       },
     ],
   },

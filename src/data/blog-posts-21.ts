@@ -106,7 +106,7 @@ export const POSTS_21: BlogPost[] = [
     faq: [
       {
         q: "Do designer items actually sell on Vinted?",
-        a: "Yes — Balenciaga has 2322 departures in the last 30 days on EU Vinted at an average €147, Gucci has 489 departures in the last 30 days at an average €211, and Stone Island has 178 departures in the last 30 days at an average €70. The buyer market for designer items on Vinted is real and active for these brands. Ultra-luxury (Hermès, Chanel) has thinner buyer depth; specialist platforms like Vestiaire Collective suit those better.",
+        a: "Yes — Balenciaga tracks 11,023 brand-level departures in the last 30 days on EU Vinted at €158.08 average, Gucci tracks 9,618 brand-level departures at €158.94 average, and Stone Island tracks 15,663 brand-level departures at €60.43 average. These are brand-level figures from our full EU Vinted tracking.e last 30 days at an average €70. The buyer market for designer items on Vinted is real and active for these brands. Ultra-luxury (Hermès, Chanel) has thinner buyer depth; specialist platforms like Vestiaire Collective suit those better.",
       },
       {
         q: "How do I prove a designer item is authentic on Vinted?",

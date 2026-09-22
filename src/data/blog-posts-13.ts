@@ -15,29 +15,29 @@ export const POSTS_13: BlogPost[] = [
     title: "Calvin Klein Reselling on Vinted: Jackets at €34 Average and the Logo vs. No-Logo Split",
     seoTitle: "Is Calvin Klein Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Calvin Klein ranks #22 by watched departures across 5 EU Vinted markets — 53/week at €21 average. Jackets lead at €34 avg (buy-below ~€22). The sourcing edge is the logo vs. no-logo split: CK One and Calvin Klein Jeans logo pieces consistently exit above the brand mean.",
+      "Calvin Klein tracks 1,368 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level) at a €17.93 average. Jackets lead at €38.29 avg (55 jacket departures/30d). The sourcing edge is the logo vs. no-logo split: CK One and Calvin Klein Jeans logo pieces consistently exit above the brand mean.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
 
     preflightQuery: "Calvin Klein",
     intro:
-      "Week to 14 September 2026, Calvin Klein ranked #22 across Spain, France, Germany, Italy and Portugal with 53 watched departures at an average exit price of €21. The brand average is dragged by T-Shirts at €8 — a non-viable sourcing category — and lifted by Jackets at €34 and Jeans at €23. The practical sourcing case is logo-forward pieces: Calvin Klein Jeans (CKJ) and Calvin Klein One logo pieces exit consistently above the brand mean at EU charity shops where they are priced as generic branded clothing.",
+      "Calvin Klein tracks 1,368 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level, observation window to 22 September 2026) at a €17.93 average. The brand average is held down by T-Shirts at €6.95 — a non-viable sourcing category — and lifted by Jackets at €38.29 and Jeans at €17.84. The practical sourcing case is logo-forward pieces: Calvin Klein Jeans (CKJ) and Calvin Klein One logo pieces exit consistently above the brand mean at EU charity shops where they are priced as generic branded clothing.",
     sections: [
       {
         h: "Volume and category breakdown",
         p: [
-          "Of the 53 watched departures in the week to 14 September 2026, Hoodies led by volume at 13 exits averaging €15. T-Shirts contributed 10 departures averaging €8. Jeans added 7 departures averaging €23. Jackets added 6 departures averaging €34. Tracksuits rounded out at 5 departures averaging €19.",
-          "Full Calvin Klein volumes are on " +
+          "Calvin Klein brand-level departures in the last 30 days on EU Vinted: Hoodies 167 (€15.74 avg), T-Shirts 119 (€6.95 avg), Shirts 86 (€11.15 avg), Jackets 55 (€38.29 avg), Jeans 47 (€17.84 avg), Tracksuits 43 (€14.53 avg). Total brand: 1,368 departures at €17.93 average. These are brand-level figures — ResaleIQ does not yet publish per-model departure counts for Calvin Klein (not in per-model catalogue).",
+          "Full Calvin Klein brand data is on " +
             ilinkHref("flip") +
-            " and update weekly. The €21 brand average obscures the category split: Jackets at €34 carry the margin case. T-Shirts at €8 sit below any viable margin floor — they are available new at major retailers for €15–25, and their Vinted exit price reflects that. Hoodies at €15 are borderline at charity shop pricing; only logo-prominent CK One hoodies in very good condition clear a practical buy-below.",
+            " and update weekly. The €17.93 brand average is held down by T-Shirts at €6.95 — below any viable margin floor. Jackets at €38.29 carry the margin case. Hoodies at €15.74 are borderline at charity shop pricing; only logo-prominent CK One hoodies in very good condition clear a practical buy-below.",
         ],
       },
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €34 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €32.30. Applying a 30% target margin gives a buy-below of approximately €22. Any Calvin Klein jacket sourced below that price — logo confirmed, condition correct — has a realistic margin at current departure prices.",
-          "Jeans at €23 average give a buy-below near €15. Hoodies at €15 give a buy-below near €10. Tracksuits at €19 give a buy-below near €13. T-Shirts at €8 give a buy-below near €5 — this is below most charity shop pricing for branded garments. T-Shirts are not a viable sourcing target. Jeans at €15 buy-below are viable only when sourced at clearance pricing or as part of a bulk charity shop find.",
+          "With Jackets averaging €38.29 (brand-level, 55 departures/30d on EU Vinted) and Vinted modelling roughly a 5% platform deduction, the departure-net is around €36.38. Applying a 30% target margin gives a rough buy-below of approximately €25. For CKJ trucker jackets specifically (which exit at €30–60), the implied buy-below stretches to €20–42. ResaleIQ does not publish per-model buy-below for Calvin Klein (not in per-model catalogue).",
+          "Jeans at €17.84 average give a rough buy-below near €11.60. Hoodies at €15.74 give a rough buy-below near €10.23. Tracksuits at €14.53 give a rough buy-below near €9.44. T-Shirts at €6.95 are not a viable sourcing target. Jeans are viable when sourced at clearance pricing.",
         ],
         cta: pricingMidCta("ctr_calvinklein_20260915"),
       },
@@ -51,14 +51,14 @@ export const POSTS_13: BlogPost[] = [
       {
         h: "Jackets: the highest-margin category",
         p: [
-          "At 6 departures averaging €34, Jackets are the highest-average category. Two types drive consistent above-average exits: Calvin Klein denim jackets in the classic trucker silhouette (zip or button-front, structured shoulders, logo interior tab at the back waistband) exit at €30–60 in very good condition depending on wash and size — correctly identified CKJ trucker jackets are among the most underpriced Calvin Klein pieces at EU charity shops (€8–18 sourcing, €30–60 exit). The Calvin Klein lightweight technical jacket (the zippered nylon blouson silhouette, introduced in multiple seasonal colourways) exits at €28–50.",
+          "Jackets track 55 brand-level departures in the last 30 days at €38.29 average — the highest-average category. Two types drive consistent above-average exits: Calvin Klein denim jackets in the classic trucker silhouette (zip or button-front, structured shoulders, logo interior tab at the back waistband) exit at €30–60 in very good condition depending on wash and size — correctly identified CKJ trucker jackets are among the most underpriced Calvin Klein pieces at EU charity shops (€8–18 sourcing, €30–60 exit). The Calvin Klein lightweight technical jacket (the zippered nylon blouson silhouette, introduced in multiple seasonal colourways) exits at €28–50.",
           "Sourcing signal: CKJ denim jackets are frequently mispriced at EU charity shops — the interior back tab reads 'Calvin Klein Jeans' and staff price generically at €10–20. On Vinted, buyers searching 'Calvin Klein denim jacket' or 'CK Jeans trucker' find a market with consistent demand from buyers who associate the 90s revival with the CKJ aesthetic. A CKJ trucker jacket in mid-blue wash, very good condition, sourced at €12 and listed at €42 with the correct sub-line in the title is a representative transaction.",
         ],
       },
       {
         h: "Jeans: the volume opportunity",
         p: [
-          "At 7 departures averaging €23, Jeans represent the highest-volume viable sourcing category. Calvin Klein Jeans in the straight-leg and slim-fit cuts exit at €20–35 depending on wash, era, and condition. The 90s-era high-waist Calvin Klein Jeans — identifiable by the CKJ leather back patch and the high-rise silhouette — exit at €28–55 as vintage pieces on EU Vinted, where the 90s revival has sustained demand for high-waist denim.",
+          "Jeans track 47 brand-level departures in the last 30 days at €17.84 average — one of the viable sourcing categories. Calvin Klein Jeans in the straight-leg and slim-fit cuts exit at €20–35 depending on wash, era, and condition. The 90s-era high-waist Calvin Klein Jeans — identifiable by the CKJ leather back patch and the high-rise silhouette — exit at €28–55 as vintage pieces on EU Vinted, where the 90s revival has sustained demand for high-waist denim.",
           "The sourcing case for CKJ denim is the era identification edge: 90s Calvin Klein Jeans carry a vintage premium that contemporary CKJ production does not. The interior back leather patch on 90s pieces reads 'CALVIN KLEIN JEANS' in a serif font, vs. the contemporary sans-serif label. This distinction is invisible to charity shop staff and material to Vinted buyers. A pair of 90s high-waist CKJ straight-leg jeans in very good condition, sourced at €5–10, listed at €35–50 with the era correctly identified in the title, is a representative vintage jeans transaction on EU Vinted.",
         ],
         cta: pricingBodyCta("body_calvinklein_20260915"),
@@ -74,15 +74,15 @@ export const POSTS_13: BlogPost[] = [
     faq: [
       {
         q: "Is Calvin Klein worth reselling on Vinted?",
-        a: "Yes — specifically Jackets and CKJ/CK One logo pieces. Calvin Klein ranked #22 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 53 departures at €21 average. Jackets averaged €34 (buy-below ~€22). CKJ trucker jackets exit at €30–60; 90s high-waist CKJ jeans exit at €28–55. T-Shirts at €8 avg are not viable. The logo vs. no-logo identification split is the practical sourcing edge.",
+        a: "Yes — specifically Jackets and CKJ/CK One logo pieces. Calvin Klein tracks 1,368 brand-level departures in the last 30 days on EU Vinted at €17.93 average. Jackets: 55 departures at €38.29 average. CKJ trucker jackets exit at €30–60; 90s high-waist CKJ jeans exit at €28–55. T-Shirts at €6.95 avg are not viable. The logo vs. no-logo identification split is the practical sourcing edge.",
       },
       {
         q: "What is the buy-below price for Calvin Klein on Vinted?",
-        a: "For Calvin Klein Jackets: with an average departure of €34 and 5% platform deduction, buy-below sits around €22. For CKJ trucker jackets specifically (which exit at €30–60), buy-below stretches to €20–42. Jeans at €23 avg give buy-below near €15. Hoodies at €15 give buy-below near €10. T-Shirts at €8 avg are below viable sourcing floor. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Calvin Klein Jackets (brand-level avg €38.29, 55 departures/30d): rough buy-below ~€25. For CKJ trucker jackets (which exit at €30–60), implied buy-below is €20–42. Jeans at €17.84 avg give rough buy-below ~€11.60. Hoodies at €15.74 avg give rough buy-below ~€10.23. T-Shirts at €6.95 avg are below viable sourcing floor. ResaleIQ does not publish per-model ceilings for Calvin Klein (not in per-model catalogue).",
       },
       {
         q: "What Calvin Klein pieces are worth sourcing for Vinted resale?",
-        a: "By per-unit value: 90s high-waist CKJ jeans in vintage condition (€28–55), CKJ trucker denim jackets (€30–60), CK One logo hoodies (€25–40). By volume: Hoodies (13 dep/wk at €15 avg — only CK One logo pieces are viable), Jeans (7 dep/wk at €23 avg). T-Shirts, generic Hoodies, and Tracksuits are below practical margin floors.",
+        a: "By per-unit value: 90s high-waist CKJ jeans in vintage condition (€28–55), CKJ trucker denim jackets (€30–60), CK One logo hoodies (€25–40). By 30-day brand-level volume: Hoodies (167 at €15.74 avg — only CK One logo pieces are viable), T-Shirts (119 at €6.95 — not viable), Jackets (55 at €38.29), Jeans (47 at €17.84). T-Shirts and generic Tracksuits are below practical margin floors.",
       },
       {
         q: "How do I identify genuine Calvin Klein Jeans vintage pieces?",
@@ -100,7 +100,7 @@ export const POSTS_13: BlogPost[] = [
     category: "Sourcing",
     readMins: 7,
     intro:
-      "Week to 14 September 2026, Off-White ranked #25 across Spain, France, Germany, Italy and Portugal with 31 watched departures at an average exit price of €67 — the highest brand average of any unguided brand in the dataset and higher than Adidas, Vans, and Lacoste. Sneakers dominate at €110 average, with Hoodies at €71 a second tier. The sourcing case is defined by one structural fact: Off-White prices at EU charity shops have not adjusted for the post-Virgil Abloh era — pieces priced at €15–30 as 'designer logo streetwear' consistently exit at €80–150 on EU Vinted where buyers who understand the brand's history and legacy pricing pay accordingly.",
+      "Off-White tracks 2,447 brand-level departures in the last 30 days across all tracked Off-White items on EU Vinted at a €36.45 average — with its highest-category Sneakers exiting at €110 avg. Sneakers dominate at €110 average, with Hoodies at €71 a second tier. The sourcing case is defined by one structural fact: Off-White prices at EU charity shops have not adjusted for the post-Virgil Abloh era — pieces priced at €15–30 as 'designer logo streetwear' consistently exit at €80–150 on EU Vinted where buyers who understand the brand's history and legacy pricing pay accordingly.",
     sections: [
       {
         h: "Volume and category breakdown",
