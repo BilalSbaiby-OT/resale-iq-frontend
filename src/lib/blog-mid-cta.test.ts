@@ -31,13 +31,21 @@ test("pricing mid-CTA href is /pricing with organic blog UTMs", () => {
   assert.doesNotMatch(href, /register/)
 })
 
-test("pricing mid-CTA copy is the QC-passed conversion block", () => {
+test("pricing mid-CTA keeps the paid door and adds a free try-first door", () => {
   const cta = pricingMidCta("ctr_price_20260913")
   assert.equal(cta.headline, "Know what sells before you buy")
   assert.equal(cta.body, "Demand + whether to buy before cash sticks.")
   assert.equal(cta.label, "Get the numbers")
-  assert.equal(cta.secondaryHref, "/data")
-  assert.doesNotMatch(cta.body, /free check/i)
+  // Updated 2026-09-22. This used to pin secondaryHref === "/data" and assert
+  // the body never mentioned a free check — both encoded the pre-2026-09-22
+  // world where NOTHING was free. Every anonymous visitor now gets one full
+  // verdict, so a free door is an honest offer and /data (a soft brand-volume
+  // cite) was the weaker secondary. The assertions that MATTER are kept below:
+  // the primary door is still the paid /pricing path, and no CTA may route to
+  // the signup wall.
+  assert.match(cta.secondaryHref ?? "", /^\/tools\?/)
+  assert.match(cta.secondaryLabel ?? "", /free/i)
+  assert.doesNotMatch(cta.secondaryHref ?? "", /register/)
   assert.doesNotMatch(cta.href, /register/)
   assert.equal(
     cta.href,

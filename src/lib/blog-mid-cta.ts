@@ -1,9 +1,23 @@
 /**
- * Mid-article paid CTA for how-to blog posts.
+ * Mid-article CTA for how-to blog posts.
  *
- * Conversion QC passed the /pricing path. Do not send these
- * blocks to the signup wall — that page still mentions Free.
- * Soft /data cite is the secondary link. No free-check door.
+ * Do not send these blocks to the signup wall.
+ *
+ * SECONDARY DOOR IS NOW THE FREE CHECK (2026-09-22). This file used to say
+ * "No free-check door", which was correct when nothing was free. It is stale:
+ * every anonymous visitor now gets ONE full verdict before the paywall
+ * (api/routes.py _claim_first_free_verdict), so a free door is an honest offer,
+ * not a promise we cannot keep.
+ *
+ * Why it changed: /blog/what-sells-best-on-vinted is our single best acquisition
+ * page — 82 unique humans in 30 days, 3x the next page — and every CTA on it
+ * pointed at /pricing. Measured outcome over those 30 days: of all blog readers,
+ * 2 reached /pricing and 0 paid. We were asking a cold reader for €19 before
+ * showing them a single number, which is the same mistake that produced 287
+ * Stripe sessions and 0 payments. The paid door stays (primary label is
+ * unchanged); the cheap try-first door now sits beside it instead of a soft
+ * /data cite.
+ *
  * No invented hit rates.
  */
 import type { SectionCtaContent } from "./section-cta"
@@ -75,8 +89,10 @@ export function pricingMidCta(campaign: string): SectionCtaContent {
     body: "Demand + whether to buy before cash sticks.",
     label: "Get the numbers",
     href: pricingMidCtaHref(campaign),
-    secondaryLabel: "Or browse weekly brand volumes on /data",
-    secondaryHref: "/data",
+    // Try-first door. Was "/data" (a soft brand-volume cite, not the product).
+    // One full verdict is genuinely free, so this is a real offer.
+    secondaryLabel: "Or check one item free →",
+    secondaryHref: `/tools?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=mid_cta_free`,
   }
 }
 
