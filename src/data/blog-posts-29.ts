@@ -72,7 +72,7 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Adidas vs Nike: which brand to prioritise on EU Vinted",
         p: [
-          "Nike leads on raw weekly volume and has a tighter price range — the Air Force 1's 38 departures in the last 30 days make it the single most reliable sourcing target on EU Vinted. Adidas has lower total volume (41 departures across 7 models versus Nike's higher concentration in fewer models) but higher exit prices on the top models (Handball Spezial at €79, Stan Smith at €84).",
+          "Nike leads on raw 30-day volume and a tighter price range — the Air Force 1's 38 departures in the last 30 days make it the single most reliable sourcing target on EU Vinted. Adidas has lower total volume (41 departures across 7 models versus Nike's higher concentration in fewer models) but higher exit prices on the top models (Handball Spezial at €79, Stan Smith at €84).",
           "The practical choice depends on sourcing opportunity: if you find both at the same source price, the model with the higher buy-below ceiling wins. Handball Spezial at €52 source price has a defensible margin. AF1 at €62 is the ceiling. At flea market prices, you may find Air Force 1s more frequently (broader supply) but Handball Spezials at higher source prices still work if under the ceiling.",
           "The second-order factor is condition sensitivity: Adidas suede models (Handball Spezial, Samba) are more condition-sensitive than Nike leather AF1s. A worn suede Spezial drops more value than a worn AF1. Price suede accordingly at the point of sourcing, not after cleaning.",
         ],

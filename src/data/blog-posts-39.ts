@@ -67,7 +67,7 @@ export const POSTS_39: BlogPost[] = [
       {
         h: "Balenciaga sneakers vs Gucci sneakers vs Nike on EU Vinted",
         p: [
-          "EU resellers often choose between three premium sneaker lanes. Balenciaga gives 61 departures in the last 30 days at €164 average — the best combination for consistent weekly throughput at luxury price points. Authentication is mandatory but manageable once you know the markers.",
+          "EU resellers often choose between three premium sneaker lanes. Balenciaga gives 61 departures in the last 30 days at €164 average — the best combination for consistent 30-day throughput at luxury price points. Authentication is mandatory but manageable once you know the markers.",
           "Gucci sneakers (Ace, Rhyton, Screener) offer a higher per-unit ceiling at €211 average, but volume is thin at 9 departures in the last 30 days. A sourcing miss sits longer. Best suited for resellers with patience and strong authentication knowledge.",
           "Nike at volume (Jordan, Air Max) dominates EU Vinted by departure count at a much lower price point. Margin per pair is thinner, but turnover is faster and authentication risk is lower. Balenciaga exits at nearly 3× the New Balance sneaker average (€164 vs €54) — a meaningful difference per sourcing event.",
           `Balenciaga sneakers are the clearest argument for sourcing one piece carefully over sourcing many pieces quickly. One genuine Triple S at €70 from a charity estate clearance, departing at €160, beats a full session of lower-margin trainers. [See live brand comparisons →](${ilinkHref("data")})`,

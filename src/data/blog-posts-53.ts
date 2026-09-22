@@ -57,7 +57,7 @@ export const POSTS_53: BlogPost[] = [
         p: [
           "The RL polo shirt category illustrates oversaturation at the brand level. **30,000+ active listings across EU Vinted competing for 21 weekly watched departures** implies a forward supply measured in years, not weeks. At current velocity, clearing the active supply would take over 1,400 days.",
           "Average exit price sits at €29 for RL polo shirts — which puts the buy-below at €18.85. The problem is sourcing below that ceiling consistently when listing volume signals heavy seller competition.",
-          "Contrast: Lacoste polo shirts track **100+ watched departures per week** at €24 average across the same EU markets. Lacoste has 4–5× the resale velocity at a similar price point. If the sourcing opportunity is an old-money polo shirt play, Lacoste generates more throughput per sourcing hour than Ralph Lauren shirts.",
+          "Contrast: Lacoste polo shirts track **100+ watched departures in the last 30 days** at €24 average across the same EU markets. Lacoste has 4–5× the resale velocity at a similar price point. If the sourcing opportunity is an old-money polo shirt play, Lacoste generates more throughput per sourcing hour than Ralph Lauren shirts.",
           `[See full Lacoste brand data on Resale IQ →](${ilinkHref("flip")})`,
         ],
       },
@@ -114,7 +114,7 @@ export const POSTS_53: BlogPost[] = [
       },
       {
         q: "How does Ralph Lauren compare to Lacoste on EU Vinted?",
-        a: "For polo shirts, Lacoste wins on velocity: 100+ watched departures per week at €24 average versus Ralph Lauren's 21 departures in the last 30 days at €29. Ralph Lauren's advantage is in hoodies (22 departures in the last 30 days · €45) and jackets (6 departures in the last 30 days · €64), categories where Lacoste does not generate equivalent departure rates. A combined sourcing strategy — RL hoodies and jackets, Lacoste polo shirts — captures both brand loyalties without the RL shirt oversaturation problem.",
+        a: "For polo shirts, Lacoste wins on velocity: 100+ watched departures in the last 30 days at €24 average versus Ralph Lauren's 21 departures in the last 30 days at €29. Ralph Lauren's advantage is in hoodies (22 departures in the last 30 days · €45) and jackets (6 departures in the last 30 days · €64), categories where Lacoste does not generate equivalent departure rates. A combined sourcing strategy — RL hoodies and jackets, Lacoste polo shirts — captures both brand loyalties without the RL shirt oversaturation problem.",
       },
       {
         q: "What is the buy-below price for Ralph Lauren on Vinted?",

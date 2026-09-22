@@ -73,6 +73,22 @@ const WEEKLY_CLAIM_PATTERNS = [
   /\b(?:[4-9]|[1-9]\d+)\s+weekly\s+departures?\b/i,
 ]
 
+/**
+ * Weekly-framing-near-30d pattern.
+ * Fires when "weekly" / "per week" / "a week" / "each week" appears
+ * within ~80 characters of "departures in the last 30 days" on the
+ * same line.  The window and the wording must agree.
+ *
+ * HOW TO FIX A FAILING BUILD
+ * - Replace "weekly" / "per week" with "30-day" or "over 30 days"
+ * - Any DERIVED figure (revenue = units × avg price, rankings,
+ *   "X times more") must be RECOMPUTED from 30-day numbers, not just
+ *   relabelled.  A ratio computed from old weekly counts is wrong for
+ *   a 30-day window.
+ */
+const WEEKLY_FRAMING_NEAR_30D =
+  /(?:(?:weekly|per\s+week|a\s+week|each\s+week)[^.]{0,80}departures\s+in\s+the\s+last\s+30\s+days|departures\s+in\s+the\s+last\s+30\s+days[^.]{0,80}(?:weekly|per\s+week|a\s+week))/i
+
 function walk (dir) {
   return readdirSync(dir).flatMap(name => {
     const p = join(dir, name)
@@ -99,6 +115,12 @@ for (const file of walk(SRC_DATA)) {
         break // one offence per line is enough
       }
     }
+
+    // Check for weekly framing near "departures in the last 30 days"
+    const framingHit = line.match(WEEKLY_FRAMING_NEAR_30D)
+    if (framingHit) {
+      offences.push({ file: rel, line: idx + 1, hit: framingHit[0].slice(0, 80), context: stripped.slice(0, 100) })
+    }
   })
 }
 
@@ -112,6 +134,10 @@ if (offences.length > 0) {
    WHY THIS FAILS
    Weekly figures (sold_7d / "per week") degrade to near-zero during any API
    hiccup and cannot be re-verified without a live production query.
+   Also: "weekly" wording applied to a "30-day" number is metric-relabelling —
+   the window and the wording must agree.  Derived figures (revenue = units ×
+   avg price, rankings, "X times more") must be RECOMPUTED from 30-day numbers,
+   not just relabelled — a ratio from old weekly counts is wrong for 30 days.
    A reseller who reads "138 Stone Island hoodies sold per week" and checks
    our own free tool — seeing a far smaller number — never comes back.
 

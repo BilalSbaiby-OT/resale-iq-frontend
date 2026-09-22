@@ -40,7 +40,7 @@ export const POSTS_23: BlogPost[] = [
           "**Stone Island** → search 'Stone Ilsand', 'Stone Islend', 'Stoneisland', 'Stone Isand'. These return real Stone Island items listed by sellers who typed the name rather than selecting from autocomplete. Departure average €70 (hoodies €55, jackets €140) — a misspelled listing sitting at €15 is not a fake, it's a find.",
           "**Balenciaga** → 'Balenciga', 'Balencigia', 'Balencaga', 'Balenciagga'. Highest-value misspellings on Vinted. Departure average €147. One real piece listed by a seller who typed the brand wrong and priced it at €30 is a meaningful arbitrage.",
           "**Patagonia** → 'Patagonya', 'Patagona', 'Patagònia'. Less common but present, particularly from non-English-speaking sellers listing outdoor gear.",
-          "**Fred Perry** → 'Fred Perrry', 'Fred Pery', 'Fredperry'. High volume brand; even a 1% misspelling rate at 199 departures in the last 30 days means multiple underpriced items available weekly.",
+          "**Fred Perry** → 'Fred Perrry', 'Fred Pery', 'Fredperry'. High volume brand; even a 1% misspelling rate at 199 departures in the last 30 days means multiple underpriced items available each month.",
           "**Supreme** → 'Suprem', 'Surpreme', 'Supremme'. Box logo pieces appear here — verify authenticity (stitching, font spacing) before buying.",
           "Run these searches in the Vinted app's search bar, not through brand filters. Brand filters only catch items correctly categorised under that brand; a free-text search catches any listing where the word appears in the title regardless of how it's categorised.",
           "For complete departure averages to know what each misspelled find is worth, use the [flip calculator](\" + ilinkHref(\"flip\") + \").",
