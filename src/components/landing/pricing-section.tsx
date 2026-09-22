@@ -318,6 +318,58 @@ export function PricingSection({
         </div>
       )}
 
+      {/* H55 CRO: PROOF BEFORE PRICE — static "try it free" banner above cards.
+          Guaranteed visible on every /pricing load regardless of buy-list API.
+          3 pre-filled brand queries → /tools so the visitor experiences a real
+          verdict before the payment ask. Static copy = zero API dependency.
+          CRO #3 (message match) + #7 (trust before CTA). Revenue 2026-09-22. */}
+      {!compact && (
+        <div
+          data-testid="riq-try-free-banner"
+          style={{
+            maxWidth: 640,
+            margin: "0 auto 36px",
+            background: "var(--color-surface)",
+            border: "1px solid rgba(48,209,88,.25)",
+            borderRadius: 14,
+            padding: "18px 20px",
+          }}
+        >
+          <p style={{ fontSize: 13, fontWeight: 700, color: "#30D158", margin: "0 0 4px", letterSpacing: "0.02em" }}>
+            Try a live verdict before you buy — no account needed
+          </p>
+          <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
+            These run against real data right now. See the BUY / WATCH / SKIP and the buy-below price for free.
+          </p>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {[
+              { label: "Nike Air Force 1", q: "Nike+Air+Force+1" },
+              { label: "Adidas Samba", q: "Adidas+Samba" },
+              { label: "New Balance 530", q: "New+Balance+530" },
+            ].map(({ label, q }) => (
+              <Link
+                key={q}
+                href={`/tools?q=${q}&src=pricing-try-free`}
+                data-testid="riq-try-free-query"
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#EEF1F7",
+                  background: "var(--color-surface-elevated)",
+                  border: "1px solid var(--color-border-2)",
+                  borderRadius: 8,
+                  padding: "8px 14px",
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {label} →
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
           one-line public-data link below so it cannot compete with Starter €19. */}
       <div className="riq-pricing-grid" style={{ gap: s.gap }}>
