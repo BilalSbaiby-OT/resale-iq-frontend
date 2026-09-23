@@ -6,6 +6,8 @@ import { pricingLegacySignupKillHref } from "@/lib/blog-mid-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -20,6 +22,14 @@ export default async function BlogIndex() {
   const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
   const posts = fillTracked([...POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked)
+  // H77 CRO: fetch live buy-list so the blog index proves the product BEFORE the
+  // post list. /blog gets 130 weekly visitors — the highest-traffic page outside
+  // the homepage — but showed ZERO live data. Visitor from ChatGPT sees article
+  // titles and nothing showing the tool working.
+  // Same SSR proof strip used on /pricing (H66) and homepage (H75): rows are
+  // clickable → /tools pre-filled → paywall at moment of intent.
+  // Revenue 2026-09-23.
+  const buyList = await getPublicBuyList(4).catch(() => null)
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -47,6 +57,16 @@ export default async function BlogIndex() {
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
           Built on {tracked} analyzed listings across 5 EU markets.
         </p>
+
+        {/* H77 CRO: live buy-list proof strip above the post list.
+            Visitor sees what the tool actually does before choosing a guide.
+            rowSrc="blog-index-row" → /tools with query pre-filled → paywall at intent.
+            Degrades gracefully: renders nothing if the API is unavailable. */}
+        {buyList && buyList.length > 0 && (
+          <div style={{ marginBottom: 32 }}>
+            <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="blog-index-row" />
+          </div>
+        )}
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "0 0 14px" }}>
           All guides
