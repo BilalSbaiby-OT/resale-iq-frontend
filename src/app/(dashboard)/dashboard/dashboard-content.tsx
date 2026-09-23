@@ -28,7 +28,14 @@ import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
  * Logged-in users can answer "should I buy this?" without leaving the page
  * they land on after login. Same pattern as Linear's command palette.
  */
-function QuickCheckInput({ locale }: { locale: Locale }) {
+/**
+ * C210: Quick suggestions below the check input.
+ * Problem: 11/25 accounts ran 0 verdicts — arriving at a blank input they had
+ * to know what to type. These chips pre-seed the input with live top-buy items
+ * (same buy-list the dashboard hero renders) so one click triggers a verdict.
+ * src=dashboard_suggestion tracks activation from this surface.
+ */
+function QuickCheckInput({ locale, suggestions }: { locale: Locale; suggestions?: string[] }) {
   const [query, setQuery] = useState("")
   const router = useRouter()
   const handleSubmit = (e: React.FormEvent) => {
@@ -38,53 +45,83 @@ function QuickCheckInput({ locale }: { locale: Locale }) {
     router.push(`/verdict?q=${encodeURIComponent(q)}&src=dashboard_quick_check`)
   }
   return (
-    <form
-      onSubmit={handleSubmit}
-      data-testid="riq-dashboard-quick-check"
-      style={{
-        display: "flex",
-        gap: 10,
-        marginBottom: 28,
-        alignItems: "center",
-      }}
-    >
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Check an item — e.g. Stone Island Hoodie"
-        aria-label="Check an item"
+    <div style={{ marginBottom: 24 }}>
+      <form
+        onSubmit={handleSubmit}
+        data-testid="riq-dashboard-quick-check"
         style={{
-          flex: 1,
-          background: "var(--color-graphite-elevated)",
-          border: "1px solid var(--color-border-ui)",
-          borderRadius: 10,
-          color: "var(--color-on-graphite)",
-          fontSize: 15,
-          padding: "12px 16px",
-          outline: "none",
-        }}
-      />
-      <button
-        type="submit"
-        disabled={!query.trim()}
-        style={{
-          background: "var(--color-accent)",
-          color: "var(--color-on-accent)",
-          border: "none",
-          borderRadius: 10,
-          padding: "12px 20px",
-          fontSize: 15,
-          fontWeight: 600,
-          cursor: query.trim() ? "pointer" : "default",
-          opacity: query.trim() ? 1 : 0.5,
-          whiteSpace: "nowrap",
-          flexShrink: 0,
+          display: "flex",
+          gap: 10,
+          alignItems: "center",
         }}
       >
-        Check →
-      </button>
-    </form>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Check an item — e.g. Stone Island Hoodie"
+          aria-label="Check an item"
+          style={{
+            flex: 1,
+            background: "var(--color-graphite-elevated)",
+            border: "1px solid var(--color-border-ui)",
+            borderRadius: 10,
+            color: "var(--color-on-graphite)",
+            fontSize: 15,
+            padding: "12px 16px",
+            outline: "none",
+          }}
+        />
+        <button
+          type="submit"
+          disabled={!query.trim()}
+          style={{
+            background: "var(--color-accent)",
+            color: "var(--color-on-accent)",
+            border: "none",
+            borderRadius: 10,
+            padding: "12px 20px",
+            fontSize: 15,
+            fontWeight: 600,
+            cursor: query.trim() ? "pointer" : "default",
+            opacity: query.trim() ? 1 : 0.5,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+          }}
+        >
+          Check →
+        </button>
+      </form>
+      {suggestions && suggestions.length > 0 && (
+        <div
+          data-testid="riq-dashboard-suggestions"
+          style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}
+        >
+          <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", alignSelf: "center", marginRight: 2 }}>
+            Try:
+          </span>
+          {suggestions.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => router.push(`/verdict?q=${encodeURIComponent(s)}&src=dashboard_suggestion`)}
+              style={{
+                background: "var(--color-graphite-elevated)",
+                border: "1px solid var(--color-border-ui)",
+                borderRadius: 8,
+                color: "var(--color-on-graphite)",
+                fontSize: 13,
+                padding: "5px 12px",
+                cursor: "pointer",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -286,7 +323,12 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           11 of 25 accounts ran 0 verdicts because checking required navigating to /verdict.
           This input submits directly to /verdict?q=... with src=dashboard_quick_check
           so funnel analytics can measure activation from the dashboard. */}
-      <QuickCheckInput locale={locale} />
+      <QuickCheckInput
+        locale={locale}
+        suggestions={publicBuys
+          ? publicBuys.slice(0, 4).map(b => b.model ? `${b.brand} ${b.model}` : b.brand)
+          : undefined}
+      />
 
       {showWelcome && (
         <div
