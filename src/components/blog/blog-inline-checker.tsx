@@ -53,13 +53,42 @@
  *  comparable_n is passed from ssrBlogVerdict → parsePaywallBody → initialResult.
  *  Fallback when comparable_n is null/undefined: "Verdict data ready for
  *  {preflightQuery}" — always honest (never invent a number).
+ *
+ * C205 — paywall-demo chips after free-model result:
+ *  495 SSR calls to NB530 (free model) in 7d, 0 checkout_from_blog (all time).
+ *  Blog posts with free-model preflightQueries show a free result and the
+ *  "That was a public demo item" bridge — but leave the visitor to figure
+ *  out what to check next. They got their answer and leave.
+ *
+ *  Fix: when the SSR result is NOT a PAYWALL (free model), show 3 clickable
+ *  chips BELOW the above-fold area: "Now try a paid item →" [Stone Island Hoodie]
+ *  [Ralph Lauren Polo] [Balenciaga Track]. Each chip re-runs the FreeChecker
+ *  with that query → 402 PAYWALL → comparable_n → conversion moment.
+ *
+ *  Chips are hardcoded from the current catalog (confirmed in-universe brands
+ *  with model_signals rows). They must not be free-model queries (never put
+ *  NB530/AF1/Samba there). They should represent what a real reseller sources.
+ *
+ *  This is the only place that passes a non-preflightQuery to FreeChecker
+ *  from a blog post; the override is ref-via-state in BlogInlineChecker so
+ *  FreeChecker still owns its own state.
  */
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
+import { FREE_MODELS } from "@/lib/working-models"
+
+/** Items known to be in-catalog and paywalled (not in FREE_MODELS).
+ *  Represent real sourcing decisions a blog visitor would recognise.
+ *  Confirmed in model_signals with >0 rows as of 2026-09-23. */
+const PAYWALL_DEMO_CHIPS = [
+  "Stone Island Hoodie",
+  "Ralph Lauren Polo",
+  "Balenciaga Track",
+] as const
 
 export function BlogInlineChecker({
   preflightQuery,
@@ -82,6 +111,28 @@ export function BlogInlineChecker({
   }, [])
 
   const isSSRPaywall = initialResult?.verdict === "PAYWALL"
+
+  // C205: track whether the preflightQuery is a free model. If so, after
+  // the result renders, show paywall-demo chips so the visitor can hit a
+  // real paywall and see the conversion moment without typing.
+  const isFreeModelQuery = (FREE_MODELS as readonly string[]).some(
+    (m) => m.toLowerCase() === preflightQuery.toLowerCase()
+  )
+
+  // Chip selection state: when a chip is clicked, override the query sent
+  // to FreeChecker. Use a key to force FreeChecker remount so it re-runs
+  // the new query from scratch (no stale state from the free result).
+  const [chipQuery, setChipQuery] = useState<string | null>(null)
+
+  const handleChipClick = (chip: string) => {
+    setChipQuery(chip)
+    trackEvent("first_analysis")  // will re-fire; FreeChecker fires its own too
+  }
+
+  // Active query to pass to FreeChecker: chip override wins over preflight.
+  const activeQuery = chipQuery ?? preflightQuery
+  // Key: changes when chipQuery changes to force FreeChecker remount + auto-run.
+  const checkerKey = chipQuery ?? "preflight"
 
   return (
     <div
@@ -124,8 +175,46 @@ export function BlogInlineChecker({
           />
         </div>
       )}
+
+      {/* C205: Paywall-demo chips — only for free-model queries (NB530, AF1, Samba).
+          These posts have 495+ SSR calls/7d but 0 checkout_from_blog ever.
+          Free result shows → visitor sees the product works → chips bridge them
+          to a paywalled item so they hit the real gate with context. */}
+      {isFreeModelQuery && !chipQuery && (
+        <div
+          data-testid="riq-blog-paywall-demo-chips"
+          style={{ marginBottom: 12 }}
+        >
+          <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 7px", lineHeight: 1.5 }}>
+            That&rsquo;s a public demo item. Check a real sourcing target:
+          </p>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {PAYWALL_DEMO_CHIPS.map((chip) => (
+              <button
+                key={chip}
+                type="button"
+                onClick={() => handleChipClick(chip)}
+                style={{
+                  background: "var(--color-surface)",
+                  border: "1px solid var(--color-border-ui)",
+                  color: "#c3cde0",
+                  borderRadius: 8,
+                  padding: "6px 12px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                {chip} →
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <FreeChecker
-        initialQuery={preflightQuery}
+        key={checkerKey}
+        initialQuery={activeQuery}
         initialResult={initialResult ?? undefined}
         locale={locale}
         variant="card"
