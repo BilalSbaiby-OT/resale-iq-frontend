@@ -504,6 +504,12 @@ export function FreeChecker({
         // this anon visitor already got their one free verdict and is now
         // looking at the checkout card, same as the authed flow logs it
         // (verdict-content.tsx). Not analysis_failed.
+        // Fire first_analysis BEFORE returning so blog/tools paywall hits
+        // appear in the funnel (checkout_started depends on this event).
+        // Previously this branch returned early and the event was never fired,
+        // so /api/admin/growth-funnel counted 0 free_checks from 130 weekly
+        // blog visitors even though they were hitting /api/verdict.
+        trackEvent("first_analysis")
         setRes(wall)
         return
       }
