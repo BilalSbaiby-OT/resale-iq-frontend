@@ -239,7 +239,10 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
               const lockedHref = item.locked
                 ? `/tools?q=${encodeURIComponent([item.brand, item.category].join(" "))}&src=buy_list_locked`
                 : null
-              const RowEl = lockedHref ? Link : "div"
+              // C181-fix(tony): RowEl must be typed as React.ElementType so TS
+              // doesn't infer the union as Link|"div" and reject the conditional
+              // href spread. When locked, href is always a string (never undefined).
+              const RowEl: React.ElementType = lockedHref ? Link : "div"
               return (
                 <RowEl
                   key={`${item.brand}-${item.category}-${i}`}
