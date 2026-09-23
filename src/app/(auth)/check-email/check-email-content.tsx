@@ -125,6 +125,17 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     ? `/verdict?q=${encodeURIComponent(intentQuery)}`
     : "/verdict?q=Nike+Air+Force+1"
 
+  // C162(tony): map brand names to the closest public sample query so demand-
+  // panel rows can be tapped directly. Only the 3 public samples bypass the
+  // paywall — Superhuman/Linear pattern: make every visible data point a path
+  // to the Aha moment. Falls back to Nike AF1 for any unrecognised brand.
+  const brandToSampleHref = (brand: string): string => {
+    const b = brand.toLowerCase()
+    if (b.includes("new balance")) return "/verdict?q=New+Balance+530"
+    if (b.includes("adidas")) return "/verdict?q=Adidas+Samba"
+    return "/verdict?q=Nike+Air+Force+1"
+  }
+
   return (
     <div className="w-full max-w-md flex flex-col gap-5">
       <AuthCard center>
@@ -174,21 +185,28 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           </span>
         </div>
         <div className="flex flex-col gap-2 mb-4">
+          {/* C162(tony): rows are tappable links to the closest public sample
+              query — Superhuman/Linear pattern: make every data point a direct
+              path to the Aha moment instead of passive eye candy. */}
           {brands.map(b => (
-            <div key={`${b.brand}-${b.category}`}
-              className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0">
+            <Link key={`${b.brand}-${b.category}`}
+              href={brandToSampleHref(b.brand)}
+              className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0 hover:bg-[var(--color-surface-hover,rgba(255,255,255,0.04))] rounded-lg px-1 -mx-1 transition-colors group cursor-pointer">
               <div>
-                <span className={`text-[13.5px] font-semibold ${AUTH_TEXT}`}>{b.brand}</span>
+                <span className={`text-[13.5px] font-semibold ${AUTH_TEXT} group-hover:text-[var(--color-buy)]`}>{b.brand}</span>
                 <span className={`text-[12px] ${AUTH_TEXT_MUTED} ml-1.5`}>{b.category}</span>
               </div>
-              <div className="text-right">
-                <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
-                  {b.sold_7d.toLocaleString()}
-                </span>
-                <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
-                <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>avg €{b.avg_price_eur}</div>
+              <div className="text-right flex items-center gap-2">
+                <div>
+                  <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
+                    {b.sold_7d.toLocaleString()}
+                  </span>
+                  <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
+                  <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>avg €{b.avg_price_eur}</div>
+                </div>
+                <ArrowRight size={12} className={`${AUTH_TEXT_MUTED} opacity-0 group-hover:opacity-100 transition-opacity shrink-0`} />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         {/* C143(tony): personalised CTA — Duolingo pattern: name the exact goal
