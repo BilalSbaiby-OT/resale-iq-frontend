@@ -59,6 +59,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const [intentQuery, setIntentQuery] = useState("")
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
+  // C148(tony): when backend returns 409 Conflict, render a clickable sign-in
+  // link instead of dead text — the user has an account and needs a path, not
+  // a message. Stores the email they typed so the link pre-fills /login.
+  const [conflictEmail, setConflictEmail] = useState("")
   const [loading, setLoading] = useState(false)
   // After a paid register succeeds but Stripe Checkout does not, stay here with
   // a retry — never dump them on /check-email as the only next step.
@@ -168,7 +172,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
     } catch (err: unknown) {
       if (isConflict(err)) {
         track("register_submit_failed", { reason: "conflict" })
-        setError(t.errorAlreadyExists)
+        // C148(tony): store the typed email so we can render a linked CTA
+        // pointing to /login?email=… — converts a dead-end into a navigation.
+        setConflictEmail(email)
+        setError("")
       } else {
         const reason: RegisterFailReason =
           err instanceof Error && err.message.startsWith("Network error")
@@ -309,6 +316,22 @@ function RegisterContent({ locale }: { locale: Locale }) {
             <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
             <span>{WITHDRAWAL_WAIVER_TEXT}</span>
           </label>
+          {/* C148(tony): conflict renders as a navigation link, not dead text.
+              The email they typed pre-fills /login?email=… so they don't retype.
+              Generic errors stay as plain text below (unchanged path). */}
+          {conflictEmail && (
+            <div className="text-[12px] text-center">
+              <span className="text-[var(--color-text-secondary)]">An account already exists for </span>
+              <span className="text-[var(--color-text-primary)] font-medium">{conflictEmail}</span>
+              <span className="text-[var(--color-text-secondary)]">. </span>
+              <Link
+                href={`/login?email=${encodeURIComponent(conflictEmail)}`}
+                className="text-[var(--color-buy)] font-semibold hover:underline"
+              >
+                Sign in →
+              </Link>
+            </div>
+          )}
           {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
           {checkoutRetry && (
             <button type="button" onClick={retryPaidCheckout} disabled={loading}

@@ -1,6 +1,6 @@
 "use client"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
 import { setToken } from "@/lib/utils"
 import { getMe } from "@/lib/api"
@@ -14,7 +14,7 @@ import {
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
 
-export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
+export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [brandQuery, setBrandQuery] = useState("")
@@ -22,7 +22,15 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
   const [loading, setLoading] = useState(false)
   const { login } = useAuthStore()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const t = copy[localeProp ?? useLocale()].auth.login
+
+  // C148(tony): if we arrived from /register conflict CTA, pre-fill the email
+  // so the user doesn't retype what they already entered.
+  useEffect(() => {
+    const preEmail = searchParams.get("email")
+    if (preEmail) setEmail(decodeURIComponent(preEmail))
+  }, [searchParams])
 
   /**
    * Google OAuth callback handler.
@@ -169,4 +177,8 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
       </div>
     </AuthCard>
   )
+}
+
+export function LoginForm(props: { locale?: Locale } = {}) {
+  return <Suspense><LoginFormInner {...props} /></Suspense>
 }
