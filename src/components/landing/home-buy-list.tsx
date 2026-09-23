@@ -227,9 +227,23 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
 
             {items.map((item, i) => {
               const verdict = deriveVerdict(item)
+              // H115 CRO: locked rows become links to /tools with the item pre-filled.
+              // A visitor sees "Stone Island Hoodies — RISING — 🔒" and has no action.
+              // Making it a link to /tools?q=Stone+Island+Hoodies&src=buy_list_locked
+              // lets them run the query → paywall fires immediately at moment of peak intent.
+              // Pattern: H75 (free rows) extended to locked rows — same mechanic, higher
+              // commitment (they clicked to see something they know is locked).
+              // CRO #8 (specificity: named item at paywall) + #12 (conversion momentum:
+              // buy-list row → paywall → GuestCheckoutButton, no detour).
+              // Revenue 2026-09-23.
+              const lockedHref = item.locked
+                ? `/tools?q=${encodeURIComponent([item.brand, item.category].join(" "))}&src=buy_list_locked`
+                : null
+              const RowEl = lockedHref ? Link : "div"
               return (
-                <div
+                <RowEl
                   key={`${item.brand}-${item.category}-${i}`}
+                  {...(lockedHref ? { href: lockedHref } : {})}
                   data-testid={item.locked ? "riq-buy-list-row-locked" : "riq-buy-list-row-free"}
                   style={{
                     display:            "grid",
@@ -242,6 +256,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                     opacity:            item.locked ? 0.65 : 1,
                     minHeight:          44,  // Apple HIG min tap target
                     transition:         "background 0.15s ease",
+                    ...(lockedHref ? { textDecoration: "none", color: "inherit", cursor: "pointer" } : {}),
                   }}
                 >
                   {/* Item: Brand + category */}
@@ -319,7 +334,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                           : "—")
                     }
                   </span>
-                </div>
+                </RowEl>
               )
             })}
           </div>
