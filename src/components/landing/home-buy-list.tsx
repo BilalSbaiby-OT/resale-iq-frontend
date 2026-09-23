@@ -260,9 +260,17 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   </div>
 
                   {/* Verdict */}
+                  {/* H89 CRO: locked rows show the real verdict (dimmed) instead of
+                      a bare padlock. Pattern: Keepa shows the chart curve but locks
+                      the axis scale — visitor sees "there IS a signal, I need the key".
+                      Locked verdict badge at 0.4 opacity: item name is visible, direction
+                      is visible, buy price is still behind the lock. Creates "I can see
+                      it's RISING but I can't act without a subscription" tension.
+                      CRO #8 (specificity: RISING > padlock) + #7 (trust: we have real
+                      data on this item). Revenue 2026-09-23. */}
                   <div style={{ textAlign: "left" }}>
                     {item.locked
-                      ? <Lock size={13} color="#3A3A3C" aria-label="Locked" />
+                      ? <span style={{ opacity: 0.4 }}><VerdictBadge verdict={verdict} /></span>
                       : <VerdictBadge verdict={verdict} />
                     }
                   </div>
