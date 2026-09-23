@@ -207,7 +207,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "What category sells fastest on Vinted right now?",
         a:
-          "As of the week to 23 September 2026, Hoodies (190 departures/7d) and Jackets (125 departures/7d) are the fastest-clearing categories across the brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Stone Island Hoodies at 116 departures in 7 days.",
+          "As of 23 September 2026, Hoodies (190 departures in 7 days) and Jackets (125 departures in 7 days) are the fastest-clearing categories across the brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Stone Island Hoodies at 116 departures in 7 days.",
       },
       {
         q: "What sells fastest on Vinted?",
