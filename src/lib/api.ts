@@ -221,7 +221,7 @@ export const getBrandDetail = (slug: string) => request<BrandDetail>(`/api/brand
 export const getTrendsSummary = () => request<TrendsSummary>("/api/trends/summary")
 export const getRecentSold = (limit = 20) => request<{ data: RecentSold[] }>(`/api/recent-sold?limit=${limit}`)
 export const getPlans = () => request<PlansResponse>("/stripe/plans")
-export const createCheckout = (price_id: string, opts?: { country?: string; plan?: CheckoutPlan }) => {
+export const createCheckout = (price_id: string, opts?: { country?: string; plan?: CheckoutPlan; customer_email?: string }) => {
   // GUARD, not decoration. resolvePriceId() returns undefined whenever /stripe/plans
   // has not resolved yet (slow network, a failed fetch, a click before hydration
   // finishes). JSON.stringify DROPS undefined values, so the request body became
@@ -244,6 +244,9 @@ export const createCheckout = (price_id: string, opts?: { country?: string; plan
     // backend adds it to the Stripe session metadata so payments can be
     // attributed to the partner who referred the visitor.
     ref_code: readReferral() ?? undefined,
+    // H80 CRO: authenticated user's email passed explicitly so Stripe
+    // pre-populates the email field. Closes the 23/25 no-email gap.
+    customer_email: opts?.customer_email,
   })
   return request<{ checkout_url: string }>("/stripe/checkout", {
     method: "POST",

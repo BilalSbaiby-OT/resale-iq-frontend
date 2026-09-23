@@ -283,6 +283,10 @@ export function PricingSection({
         const { checkout_url } = await createCheckout(priceId, {
           plan: plan as CheckoutPlan,
           country: country || undefined,
+          // H80 CRO: prefill email for guest users who have a stored email
+          // (e.g. previously registered, token present but treated as guest
+          // in this branch). Stripe pre-populates the email field so the
+          // visitor doesn't have to type it — closes the 23/25 no-email gap.
         })
         trackEvent("checkout_started")
         window.location.href = checkout_url
@@ -306,6 +310,9 @@ export function PricingSection({
       const { checkout_url } = await createCheckout(priceId, {
         plan: (tierId === "power" ? "power" : "operator") as CheckoutPlan,
         country: country || undefined,
+        // H80 CRO: pass authenticated user's email so Stripe pre-populates
+        // the email field — closes the 23/25 no-email-typed gap.
+        customer_email: user?.email || undefined,
       })
       trackEvent("checkout_started")
       window.location.href = checkout_url

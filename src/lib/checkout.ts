@@ -106,6 +106,12 @@ export function buildCheckoutBody(opts: {
   country?: string
   plan?: CheckoutPlan
   ref_code?: string
+  /** H80 CRO: authenticated user's email — pre-populates Stripe's email field
+   *  so the visitor sees their address already filled in rather than a blank box.
+   *  Closes the 23/25 no-email gap measured in Stripe sessions.
+   *  Backend uses this only when no auth-token-resolved email is available
+   *  (belt-and-suspenders for edge cases where the JWT path is unavailable). */
+  customer_email?: string
 }): Record<string, string> {
   if (!opts.price_id) {
     throw new Error("createCheckout called without a price_id (plans not loaded yet)")
@@ -129,5 +135,12 @@ export function buildCheckoutBody(opts: {
   // can store it as Stripe session metadata for commission tracking.
   // Validated as alphanumeric+hyphen/underscore, max 64 chars in referral.ts.
   if (opts.ref_code) body.ref_code = opts.ref_code
+  // H80 CRO: email prefill — forward the authenticated user's email so the
+  // backend can pass it to Stripe as customer_email (or as a Customer object
+  // field when a country is also set). Belt-and-suspenders: the backend also
+  // reads it from the JWT, but passing it explicitly covers edge cases where
+  // the Authorization header path is unavailable (e.g. network proxy stripping
+  // headers, short-lived token expiry between page load and click).
+  if (opts.customer_email) body.customer_email = opts.customer_email
   return body
 }

@@ -5,6 +5,7 @@ import { resolvePriceId, TIERS } from "@/lib/pricing"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
 import { canonicalPath } from "@/lib/locale-routes"
+import { useAuthStore } from "@/lib/auth-store"
 import type { Locale } from "@/lib/i18n"
 
 /**
@@ -30,6 +31,9 @@ export function useGuestCheckout({
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
   const [ready, setReady] = useState(false)
   const [busy, setBusy] = useState(false)
+  // H80 CRO: read authenticated user's email to prefill Stripe checkout.
+  // useAuthStore is safe to call in a hook that already runs client-side only.
+  const { user } = useAuthStore()
 
   useEffect(() => {
     getPlans()
@@ -50,7 +54,12 @@ export function useGuestCheckout({
         window.location.href = `${canonicalPath(locale, "/register")}?plan=operator`
         return
       }
-      const { checkout_url } = await createCheckout(priceId, { plan: "operator" })
+      const { checkout_url } = await createCheckout(priceId, {
+        plan: "operator",
+        // H80 CRO: pass user's email (if logged in) so Stripe pre-populates
+        // the email field — closes the 23/25 no-email-typed gap.
+        customer_email: user?.email || undefined,
+      })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch {
