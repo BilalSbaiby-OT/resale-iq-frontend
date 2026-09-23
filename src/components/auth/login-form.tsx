@@ -93,9 +93,20 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
         router.push("/check-email")
         return
       }
-      const dest = brandQuery.trim()
+      // C147: read localStorage intent query (set by register C140 or a prior
+      // session) so a returning user who logs in with email+password also lands
+      // on their own query rather than the generic Air Force 1 sample.
+      // Mirrors the Google OAuth callback pattern (C141).
+      let dest = brandQuery.trim()
         ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
         : "/verdict?q=Nike+Air+Force+1"
+      try {
+        const saved = localStorage.getItem("riq_intent_query")
+        if (saved && !brandQuery.trim()) {
+          dest = `/verdict?q=${encodeURIComponent(saved)}`
+          localStorage.removeItem("riq_intent_query")
+        }
+      } catch { /* private mode — fall back */ }
       router.push(dest)
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
