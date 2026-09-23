@@ -578,32 +578,71 @@ export function PricingSection({
           <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
             Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.
           </p>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            {[
-              { label: "Nike Air Force 1", q: "Nike Air Force 1" },
-              { label: "Adidas Samba", q: "Adidas Samba" },
-              { label: "New Balance 530", q: "New Balance 530" },
-            ].map(({ label, q }) => (
-              <button
-                key={q}
-                type="button"
-                data-testid="riq-try-free-query"
-                onClick={() => setInlineQuery(q)}
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: inlineQuery === q ? "#30D158" : "#EEF1F7",
-                  background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
-                  border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
-                  borderRadius: 8,
-                  padding: "8px 14px",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {label} →
-              </button>
-            ))}
+          {/* H92 CRO: two chip rows — free demo items + real paywall items.
+              ZIK Analytics / SellerAmp pattern: let the visitor experience the
+              tool on real brands they actually source, not just preset demos.
+              Demo row returns free verdict (public samples by design).
+              Real-brand row hits the paywall + GuestCheckoutButton inline —
+              visitor sees the exact paid product before the plan cards.
+              CRO #4 (does it work for MY items?) + #8 (specificity: named brands
+              they recognise, not a vague demo). Revenue 2026-09-23. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free demo</span>
+              {[
+                { label: "Nike Air Force 1", q: "Nike Air Force 1" },
+                { label: "Adidas Samba", q: "Adidas Samba" },
+                { label: "New Balance 530", q: "New Balance 530" },
+              ].map(({ label, q }) => (
+                <button
+                  key={q}
+                  type="button"
+                  data-testid="riq-try-free-query"
+                  onClick={() => setInlineQuery(q)}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: inlineQuery === q ? "#30D158" : "#EEF1F7",
+                    background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
+                    border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
+                    borderRadius: 8,
+                    padding: "8px 14px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {label} →
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Your brands</span>
+              {[
+                { label: "Stone Island Hoodies", q: "Stone Island Hoodies" },
+                { label: "The North Face Jacket", q: "The North Face Jacket" },
+                { label: "Carhartt Detroit Jacket", q: "Carhartt Detroit Jacket" },
+              ].map(({ label, q }) => (
+                <button
+                  key={q}
+                  type="button"
+                  data-testid="riq-try-real-query"
+                  onClick={() => setInlineQuery(q)}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: inlineQuery === q ? "#4F8EF7" : "#A8B8D0",
+                    background: inlineQuery === q ? "rgba(79,142,247,.10)" : "transparent",
+                    border: inlineQuery === q ? "1px solid rgba(79,142,247,.4)" : "1px solid var(--color-border-2)",
+                    borderRadius: 8,
+                    padding: "8px 14px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {label} →
+                </button>
+              ))}
+            </div>
           </div>
           {/* H68 CRO: own-item inline — verdict runs inline on /pricing */}
           <TryFreeInput locale={locale} onQuery={setInlineQuery} />
