@@ -174,11 +174,21 @@ export function formatCount(n: number, locale: Locale): string {
 }
 
 /** BUY/WATCH/SKIP in `locale`. Any other verdict string is returned untouched —
- *  BRAND_AVERAGE, LIMIT_REACHED and friends have their own branches upstream. */
+ *  BRAND_AVERAGE, LIMIT_REACHED and friends have their own branches upstream.
+ *
+ *  PROVISIONAL_PRICE and PROVISIONAL are confidence-qualified WATCHes:
+ *  the backend has price data but sell-through evidence is still maturing.
+ *  They translate the same as WATCH so a visitor reads "WATCH" (amber) instead
+ *  of the raw enum "PROVISIONAL_PRICE" (grey), which read as an error state.
+ *  Measured: 379 PROVISIONAL_PRICE + 74 PROVISIONAL in 7 days — the dominant
+ *  anon verdict — rendering grey/unreadable while 0 converted. 2026-09-23. */
 export function verdictWord(verdict: string | undefined, locale: Locale): string | null {
   if (!verdict) return null
+  // Normalise confidence-qualified variants to their base verdict before lookup.
+  const normalised =
+    verdict === "PROVISIONAL_PRICE" || verdict === "PROVISIONAL" ? "WATCH" : verdict
   const table = VERDICT_WORDS[locale]
-  return (table as Record<string, string>)[verdict] ?? null
+  return (table as Record<string, string>)[normalised] ?? null
 }
 
 /** HIGH/MEDIUM/LOW in `locale`; unknown bands pass through unchanged. */

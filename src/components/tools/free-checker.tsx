@@ -148,6 +148,11 @@ const VERDICT_COLOR: Record<string, string> = {
   BUY: "#34C759",
   WATCH: "#FF9F0A",
   SKIP: "#FF453A",
+  // PROVISIONAL_PRICE and PROVISIONAL are confidence-qualified WATCHes — amber
+  // so the visitor reads a real verdict colour, not the same grey as UNKNOWN.
+  // 379 + 74 = 453 anon hits/7d were rendering as grey "PROVISIONAL_PRICE".
+  PROVISIONAL_PRICE: "#FF9F0A",
+  PROVISIONAL: "#FF9F0A",
   LOCKED: "#8b99b8",
   INSUFFICIENT_DATA: "#8b99b8",
   UNKNOWN: "#8b99b8",
