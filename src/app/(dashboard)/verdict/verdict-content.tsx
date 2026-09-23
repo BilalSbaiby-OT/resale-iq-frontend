@@ -37,6 +37,7 @@ import {
   reconstructedNote,
   type CollectedMetric,
 } from "@/lib/verdict-intelligence"
+import { parsePaywallBody } from "@/lib/hard-paywall"
 
 function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">, locale: Locale) {
   return {
@@ -96,11 +97,12 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   const [error, setError] = useState("")
   const [paywalled, setPaywalled] = useState(false)
   const [coverageMiss, setCoverageMiss] = useState(false)
+  const [comparableN, setComparableN] = useState<number | null | undefined>(undefined)
 
   const run = useCallback(async (raw?: string) => {
     const q = (raw ?? query).trim()
     if (!q) return
-    setLoading(true); setError(""); setResult(null); setPaywalled(false); setCoverageMiss(false)
+    setLoading(true); setError(""); setResult(null); setPaywalled(false); setCoverageMiss(false); setComparableN(undefined)
     try {
       setResult(await getVerdict(q))
       trackEvent("verdict_seen")
@@ -117,6 +119,8 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         // why: 402 is the product under HARD_PAYWALL, not a failed check —
         // render the checkout card. Logging it as analysis_failed would
         // count the conversion face as a drop-off.
+        const paywall = parsePaywallBody(402, body)
+        setComparableN(paywall?.comparable_n)
         setPaywalled(true)
         return
       }
@@ -210,7 +214,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
         )}
         {paywalled && (
           <div style={{ background: "var(--color-graphite)", border: "1px solid var(--color-hairline)", borderRadius: 14, padding: 20, marginBottom: 24 }}>
-            <HardPaywallCard locale={locale} query={query} />
+            <HardPaywallCard locale={locale} query={query} comparableN={comparableN} />
           </div>
         )}
 
