@@ -2,7 +2,8 @@
 import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { Check, TrendingUp } from "lucide-react"
+import { Check, TrendingUp, CheckCircle2, AlertCircle } from "lucide-react"
+import { queryCoverageKind } from "@/lib/query-coverage"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
@@ -247,7 +248,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
 
         {/* Hero intent input — largest, first, most prominent element.
             Canva pattern: one big clear goal input before anything else.
-            Tapping a demand row below seeds this field. */}
+            Tapping a demand row below seeds this field.
+            C173(tony): real-time catalog coverage hint — users who type an
+            untracked query (Gucci, Rolex, etc.) learn it BEFORE registering,
+            not after. Prevents "first verdict = coverage miss" which is the
+            biggest first-impression failure point. queryCoverageKind is pure
+            client-side (no API call) — instant feedback as they type. */}
         <div className="mb-4">
           <input
             type="text"
@@ -259,6 +265,32 @@ function RegisterContent({ locale }: { locale: Locale }) {
             autoComplete="off"
             autoFocus
           />
+          {/* Coverage badge — only shows when user has typed enough to classify.
+              Green = catalog brand (will get a real verdict); amber = untracked
+              (will see a coverage-miss, so redirect to catalog). Keeps expectations
+              honest before they commit to Stripe. */}
+          {(() => {
+            if (intentQuery.trim().length < 3) return null
+            const kind = queryCoverageKind(intentQuery.trim())
+            if (kind === "catalog" || kind === "free_sample") {
+              return (
+                <div className="flex items-center gap-1.5 mt-1.5 px-1">
+                  <CheckCircle2 size={12} className="text-[var(--color-buy)] shrink-0" />
+                  <span className="text-[11.5px] text-[var(--color-buy)]">We track this — your verdict runs on signup</span>
+                </div>
+              )
+            }
+            return (
+              <div className="flex items-center gap-1.5 mt-1.5 px-1">
+                <AlertCircle size={12} className="text-[var(--color-watch)] shrink-0" />
+                <span className="text-[11.5px] text-[var(--color-watch)]">
+                  Not in catalog yet —{" "}
+                  <Link href="/data" target="_blank" className="underline hover:text-[var(--color-text-primary)]">see tracked brands</Link>
+                  {" "}or tap a hot item below
+                </span>
+              </div>
+            )
+          })()}
         </div>
 
         {/* Demand panel — now secondary to the intent input (tap-to-fill shortcut).
