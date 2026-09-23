@@ -386,50 +386,69 @@ export function PricingSection({
         </p>
       )}
 
+      {/* H78 CRO: VAT country demoted from prominent standalone section to an
+          inline disclosure. Prior: a full-width dropdown with label + hint text
+          sat between the capability matrix and the try-free demo — a tax form
+          mid-pitch. Visitor who came to see the product had to scroll past a
+          bureaucratic form to reach the demo. Competitor reference: Plausible,
+          Fathom, Linear all collect tax jurisdiction at Stripe Checkout, not
+          mid-page. Fix: collapse to a single text-link that expands inline
+          (details/summary) so the country stays settable without dominating the
+          cold-traffic view. Function preserved: country stores to localStorage
+          and feeds the existing checkout flow unchanged. CRO #9 (friction
+          audit) + #12 (conversion momentum). Revenue 2026-09-23. */}
       {!compact && (
-        <div
+        <details
           data-testid="riq-billing-country"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 6,
-            margin: "-8px auto 28px",
             maxWidth: 360,
+            margin: "-8px auto 20px",
+            textAlign: "center",
           }}
         >
-          <label htmlFor="riq-vat-country" style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-secondary)" }}>
-            {t.countryLabel}
-          </label>
-          <select
-            id="riq-vat-country"
-            value={country}
-            onChange={(e) => {
-              const next = e.target.value
-              if (next === "") { setCountry(""); return }
-              setCountry(next as CheckoutCountry)
-              storeCountry(next as CheckoutCountry)
-            }}
+          <summary
             style={{
-              width: "100%",
-              minHeight: 44,
-              borderRadius: 12,
-              border: "1px solid var(--color-border-2)",
-              background: "var(--color-surface)",
-              color: "var(--color-text-primary)",
-              fontSize: 14,
-              padding: "10px 12px",
+              cursor: "pointer",
+              listStyle: "none",
+              fontSize: 12,
+              color: "var(--color-text-muted)",
+              userSelect: "none",
+              padding: "4px 0",
             }}
           >
-            <option value="">—</option>
-            {CHECKOUT_COUNTRIES.map((c) => (
-              <option key={c.code} value={c.code}>{c.native}</option>
-            ))}
-          </select>
-          <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.45, textAlign: "center", margin: 0 }}>
-            {t.countryHint}
-          </p>
-        </div>
+            {t.countryLabel} {country ? `(${country})` : "—"} ▾
+          </summary>
+          <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
+            <select
+              id="riq-vat-country"
+              value={country}
+              onChange={(e) => {
+                const next = e.target.value
+                if (next === "") { setCountry(""); return }
+                setCountry(next as CheckoutCountry)
+                storeCountry(next as CheckoutCountry)
+              }}
+              style={{
+                width: "100%",
+                minHeight: 40,
+                borderRadius: 10,
+                border: "1px solid var(--color-border-2)",
+                background: "var(--color-surface)",
+                color: "var(--color-text-primary)",
+                fontSize: 13,
+                padding: "8px 12px",
+              }}
+            >
+              <option value="">—</option>
+              {CHECKOUT_COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>{c.native}</option>
+              ))}
+            </select>
+            <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", lineHeight: 1.45, textAlign: "center", margin: 0 }}>
+              {t.countryHint}
+            </p>
+          </div>
+        </details>
       )}
 
       {/* H76 CRO: free-vs-paid capability matrix — scannable 3-col comparison strip.
