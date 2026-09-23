@@ -168,7 +168,7 @@ function BillingSuccessContent() {
             )}
             {!firstCheckLabel && (
               <a
-                href="/verdict"
+                href={FIRST_CHECK_HREF}
                 data-testid="riq-billing-first-check"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 20px", borderRadius: 10, background: "rgba(52,199,89,.12)", border: "1px solid rgba(52,199,89,.3)", color: "#34C759", textDecoration: "none", fontWeight: 600, fontSize: 13.5, width: "100%", justifyContent: "center" }}
               >
