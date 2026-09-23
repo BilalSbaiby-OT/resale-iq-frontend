@@ -7,6 +7,8 @@ import { OG_IMAGES } from "@/lib/og-image"
 import { listingsTrackedLabel, sellThroughWeeklyLabel } from "@/lib/stats"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
+import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
+import { getMarketNumbers } from "@/lib/market-numbers"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -62,7 +64,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   // The buy list is fetched server-side and rendered ABOVE the price cards so
   // the answer arrives before the ask. Free/unlocked rows only — the teaser's
   // job is to prove value, not to sell twice on the same screen.
-  const [seedTracked, seedSellThrough, buyList] = await Promise.all([
+  const [seedTracked, seedSellThrough, buyList, market] = await Promise.all([
     listingsTrackedLabel(),
     sellThroughWeeklyLabel(),
     getPublicBuyList(8).catch((err) => {
@@ -70,6 +72,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
       console.error("[pricing] buy-list fetch failed:", err)
       return null
     }),
+    getMarketNumbers().catch(() => null),
   ])
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
@@ -89,6 +92,17 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
               item?) + #8 (specificity). Revenue 2026-09-23. */}
           <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" showLockedFomo showPrice />
         </div>
+      )}
+      {/* H85 CRO: live market pulse on /pricing — objection-killing proof at the
+          moment of purchase decision. Homepage visitors already see the pulse and
+          trust the data; pricing visitors had NO equivalent credibility signal.
+          52 people hit Stripe, 0 paid — the gap is conviction, not price.
+          Showing real brand velocity + avg prices resolves "is this real data?"
+          before the plan cards, so the ask lands on an already-convinced visitor.
+          CRO #7 (trust before CTA) + #8 (specificity: exact sold counts, not a
+          vague "thousands of brands" claim). Revenue 2026-09-23. */}
+      {market && (
+        <LiveMarketPulse locale={locale} market={market} />
       )}
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
