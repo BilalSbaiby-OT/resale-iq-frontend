@@ -69,10 +69,10 @@ export function BlogProofStrip({
       }}
     >
       <p style={{ fontSize: 13, fontWeight: 700, color: "#EEF1F7", margin: "0 0 2px" }}>
-        Live right now — what our data says to buy
+        Live buy opportunities — profit margins from today&rsquo;s Vinted data
       </p>
       <p style={{ fontSize: 11.5, color: "#8FA3C4", margin: "0 0 10px" }}>
-        Updated from tracked Vinted EU sales. Not an example — this is today&rsquo;s list.
+        Buy price → resale price → margin. These are real departures, not estimates.
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -99,8 +99,11 @@ export function BlogProofStrip({
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ color, fontWeight: 700, fontSize: 11 }}>{it.verdict}</span>
+                <span style={{ color: "#8FA3C4", fontVariantNumeric: "tabular-nums", fontSize: 12 }}>
+                  buy &lt;€{buyBelow}
+                </span>
                 <span style={{ color: "#30D158", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
-                  Buy below €{buyBelow}
+                  → resells ~€{Math.round(it.avg_price_eur as number)}
                 </span>
               </span>
             </div>
