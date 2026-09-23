@@ -20,8 +20,17 @@
  *  - Only renders when a preflightQuery is provided.
  *  - Uses src="blog-check" so the paid CTA is message-matched to the item.
  *  - Zero hardcoded numbers — the FreeChecker fetches everything live.
+ *
+ * Analytics note (C193):
+ *  When initialResult is a PAYWALL payload (C191 SSR prefetch), the
+ *  FreeChecker never calls run() → trackEvent("first_analysis") is silently
+ *  dropped → blog visits are invisible in the funnel. This component fires
+ *  the event on mount for SSR-seeded PAYWALL visits so checkout_from_blog
+ *  is measurable instead of perpetually 0.
  */
+import { useEffect } from "react"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
 
@@ -35,6 +44,16 @@ export function BlogInlineChecker({
   /** SSR-prefetched verdict — renders HardPaywallCard on first paint, no spinner. */
   initialResult?: PaywallPayload | null
 }) {
+  // C193: SSR-seeded PAYWALL visits skip run() inside FreeChecker so
+  // first_analysis is never fired. Fire it here on mount so blog paywall
+  // impressions appear in the funnel and checkout_from_blog can be measured.
+  useEffect(() => {
+    if (initialResult?.verdict === "PAYWALL") {
+      trackEvent("first_analysis")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div
       id="riq-blog-checker"
