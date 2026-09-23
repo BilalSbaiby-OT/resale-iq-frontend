@@ -14,7 +14,8 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
-import { TrendingUp } from "lucide-react"
+import { TrendingUp, CheckCircle2, AlertCircle } from "lucide-react"
+import { queryCoverageKind } from "@/lib/query-coverage"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // Keepa/Plausible pattern: show live product data BEFORE the form.
@@ -244,9 +245,37 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           aria-label="What do you want to check today?"
           autoComplete="off"
         />
-        <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-1`}>
-          We&apos;ll run the verdict the moment you&apos;re in.
-        </p>
+        {/* C178(tony): catalog coverage badge — same pattern as register-form.tsx.
+            Returning users who type an untracked brand (Gucci, Rolex, Supreme) see
+            "not in catalog yet" BEFORE logging in — prevents the dead-end of:
+            login → /verdict?q=Gucci+Hoodie → INSUFFICIENT_DATA → close tab.
+            queryCoverageKind is pure client-side (no network call), instant feedback. */}
+        {(() => {
+          if (brandQuery.trim().length < 3) return (
+            <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-1`}>
+              We&apos;ll run the verdict the moment you&apos;re in.
+            </p>
+          )
+          const kind = queryCoverageKind(brandQuery.trim())
+          if (kind === "catalog" || kind === "free_sample") {
+            return (
+              <div className="flex items-center gap-1.5 mt-1 px-0.5">
+                <CheckCircle2 size={11} className="text-[var(--color-buy)] shrink-0" />
+                <span className="text-[11px] text-[var(--color-buy)]">We track this — verdict runs on sign-in</span>
+              </div>
+            )
+          }
+          return (
+            <div className="flex items-center gap-1.5 mt-1 px-0.5">
+              <AlertCircle size={11} className="text-[var(--color-watch)] shrink-0" />
+              <span className="text-[11px] text-[var(--color-watch)]">
+                Not in catalog yet —{" "}
+                <Link href="/data" target="_blank" className="underline hover:text-[var(--color-text-primary)]">see tracked brands</Link>
+                {" "}or tap a hot item above
+              </span>
+            </div>
+          )
+        })()}
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
