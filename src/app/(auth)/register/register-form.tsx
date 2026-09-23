@@ -11,6 +11,7 @@ import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { IntentTypeahead } from "@/components/auth/intent-typeahead"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -254,15 +255,14 @@ function RegisterContent({ locale }: { locale: Locale }) {
             not after. Prevents "first verdict = coverage miss" which is the
             biggest first-impression failure point. queryCoverageKind is pure
             client-side (no API call) — instant feedback as they type. */}
+        {/* C180(tony): typeahead replaces plain input — brand suggestions with
+            live demand counts as the user types. Reduces coverage-miss first
+            verdicts (11/25 accounts ran 0 verdicts after seeing an empty box).
+            Keyboard nav (↑↓ Enter Escape) works; closes on outside click. */}
         <div className="mb-4">
-          <input
-            type="text"
+          <IntentTypeahead
             value={intentQuery}
-            onChange={e => setIntentQuery(e.target.value)}
-            placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
-            className="w-full bg-[var(--color-bg-4)] border-2 border-[var(--color-border-2)] focus:border-[var(--color-buy)] rounded-xl px-4 py-3.5 text-[16px] text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)] transition-colors"
-            aria-label="What do you want to check today?"
-            autoComplete="off"
+            onChange={setIntentQuery}
             autoFocus
           />
           {/* Coverage badge — only shows when user has typed enough to classify.
