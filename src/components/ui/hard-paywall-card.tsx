@@ -142,7 +142,10 @@ export function HardPaywallCard({
       <Aw26ReportCta />
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
-        <Link href={canonicalPath(locale, "/login")} style={{ color: "#8fa3c4", fontSize: 13 }}>
+        <Link
+          href={`${canonicalPath(locale, "/login")}${query?.trim() ? `?q=${encodeURIComponent(query.trim())}` : ""}`}
+          style={{ color: "#8fa3c4", fontSize: 13 }}
+        >
           {t.paywallLogin}
         </Link>
         <Link

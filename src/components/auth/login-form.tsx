@@ -42,9 +42,15 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
 
   // C148(tony): if we arrived from /register conflict CTA, pre-fill the email
   // so the user doesn't retype what they already entered.
+  // C176(tony): if we arrived from the paywall "Sign in" link (hard-paywall-card
+  // passes ?q=<query>), pre-seed the intent field so the item context is not
+  // dropped and login routes to the exact verdict they were checking, not the
+  // generic Nike AF1 sample. Paywall → sign in → wrong verdict = activation dead-end.
   useEffect(() => {
     const preEmail = searchParams.get("email")
     if (preEmail) setEmail(decodeURIComponent(preEmail))
+    const preQ = searchParams.get("q")
+    if (preQ) setBrandQuery(decodeURIComponent(preQ))
   }, [searchParams])
 
   // C156(tony): fetch live demand rows for the "what's moving" panel.
