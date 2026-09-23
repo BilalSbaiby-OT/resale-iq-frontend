@@ -6,6 +6,7 @@ import { ALL_POSTS as POSTS, getPost } from "@/data/blog-posts"
 import { definedTermJsonLd } from "@/lib/faq-schema"
 import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, footerAnonHrefForPost, footerAnonLabelForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
@@ -323,28 +324,46 @@ export default async function BlogPostPage(
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
-          {/* Primary door: the no-wall free checker. The blog is our largest
-              external audience (ChatGPT lands readers on /blog/what-sells-best).
-              Distinct target (/tools) and its own attribution (?src=blog-check)
-              so this door is measured separately from the paid /pricing CTA below.
-              H32: when the post has a preflightQuery, link directly to /tools?q=…
-              so the checker auto-runs on arrival — same holy-shit moment, zero
-              typing, brand-matched context. Posts without preflightQuery fall back
-              to the generic blank-form path. */}
-          <Link
-            href={p.preflightQuery
-              ? `/tools?q=${encodeURIComponent(p.preflightQuery)}&src=blog-check`
-              : "/tools/vinted-price-checker?src=blog-check"}
-            style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
-          >
-            {p.preflightQuery ? `Try a live check — ${p.preflightQuery} →` : "Check this item →"}
-          </Link>
-          <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
+          {/* H106 CRO: blog-footer direct checkout for posts with preflightQuery.
+              BEFORE: two green Links both routing to /tools — a visitor who
+              scrolled 11 minutes already saw the inline checker + PAYWALL at
+              the top. Sending them back to /tools is a wasted click.
+              AFTER: for posts with preflightQuery, the primary CTA is
+              GuestCheckoutButton (direct Stripe). They already experienced the
+              product; the scroll-to-bottom intent is highest-awareness, so
+              the right ask is the subscription, not another demo.
+              Posts without preflightQuery keep the existing Link (no checker was
+              run at the top, so /tools is still the right first step).
+              SmartCTA remains below as the secondary path for authed users.
+              CRO #10 (CTA commitment ladder: product-aware visitor → direct CTA)
+              + #12 (conversion momentum: 11 min read → earned CTA).
+              Revenue 2026-09-24. */}
+          {p.preflightQuery ? (
+            <>
+              <GuestCheckoutButton
+                locale={locale}
+                label={`Unlock ${p.preflightQuery} buy-below — €19/mo →`}
+                src="blog_footer_cta"
+                query={p.preflightQuery}
+              />
+              <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Instant access · 30-day money-back guarantee · cancel anytime</div>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/tools/vinted-price-checker?src=blog-check"
+                style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
+              >
+                Check this item →
+              </Link>
+              <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Type a brand and model. Buy-below is on a plan. &nbsp;·&nbsp; or</div>
+            </>
+          )}
           {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
               authed /es/blog/... or /fr/blog/... reader clicking "Get the numbers" lands
               on /es/dashboard etc., not hardcoded English /dashboard (W61 consistency). */}
           {/* H42 CRO: for posts with preflightQuery, anon path → /tools (try-first); posts without → /pricing (unchanged). */}
-          <SmartCTA anonLabel={footerAnonLabelForPost(p.preflightQuery)} anonHref={footerAnonHrefForPost(p.sections, p.preflightQuery)} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          <SmartCTA anonLabel={footerAnonLabelForPost(p.preflightQuery)} anonHref={footerAnonHrefForPost(p.sections, p.preflightQuery)} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "transparent", color: "#8fa3c4", fontWeight: 600, fontSize: 13, padding: "4px 0", border: "none", textDecoration: "underline" }} />
           <div style={{ marginTop: 14 }}>
             <Link href={footerSeePlansHrefForPost(p.sections)} style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               {footerSeePlansLabelForPost(p.sections)}
