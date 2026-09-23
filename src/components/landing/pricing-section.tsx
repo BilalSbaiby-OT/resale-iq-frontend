@@ -711,13 +711,20 @@ export function PricingSection({
               : pricingCtaKind(user, tier.id) === "manage" ? t.manageSubscriptionCta
               : tier.cta
             )}</button>
-            {/* H-CRO-UNDER-CTA: "instant access · cancel anytime" at decision moment.
-                CRO #4 (objection #4: what if it fails) + #7 (trust before CTA).
-                Answers the Stripe-page abandonment fear: lock-in + delayed access.
-                Revenue 2026-09-21. */}
+            {/* H90 CRO: add 30-day money-back guarantee to under-CTA copy at decision moment.
+                Before: "Instant access · cancel anytime" — missing the strongest risk signal.
+                23 of 25 Stripe sessions had NO email typed = Stripe-page abandonment.
+                Competitor benchmark: Plausible places "No surprise fees. Your card will never
+                be charged unexpectedly." at the decision point; Fathom places "We're not interested
+                in having someone's money if they aren't happy." directly on the pricing page.
+                Both use risk-removal AT the moment of decision, not buried at page-bottom.
+                "30-day money-back guarantee" already appeared in our post-FAQ footer CTA
+                (line ~951) and in blog paywalls — moving it to the plan card CTA places the
+                highest-conviction risk-removal signal where 23/25 Stripe visits needed it.
+                CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
-                Instant access · cancel anytime
+                Instant access · 30-day money-back guarantee · cancel anytime
               </p>
             )}
             {tier.id === "operator" && (
