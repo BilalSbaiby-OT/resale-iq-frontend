@@ -107,7 +107,7 @@ function VerdictChip({ v }: { v: string }) {
 
 interface PublicBuyItem {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
-  locked: boolean; sold_7d: number | null; avg_price_eur: number | null
+  locked: boolean; sold_7d: number | null; sold_30d_evidence: number | null; avg_price_eur: number | null
 }
 
 export function DashboardContent({ locale }: { locale: Locale }) {
@@ -311,6 +311,11 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                     style={{ flex: 1, textDecoration: "none", minWidth: 0 }}
                   >
                     <span style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>{label.trim()}</span>
+                    {!item.locked && item.sold_30d_evidence != null && (
+                      <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", display: "block", marginTop: 1 }}>
+                        {item.sold_30d_evidence.toLocaleString()} watched departures / 30d
+                      </span>
+                    )}
                   </Link>
                   {item.locked
                     ? <Lock size={12} color="var(--color-graphite-muted)" aria-label="Upgrade to unlock" />
