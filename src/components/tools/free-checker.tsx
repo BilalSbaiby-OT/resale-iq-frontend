@@ -663,6 +663,22 @@ export function FreeChecker({
     res?.buy_below != null &&
     barBranch === "checkout"
 
+  // H100 CRO: verdict-context bridge — shown when a real BUY/WATCH/SKIP call was
+  // returned but isSampleFreeResult did NOT fire (free model + no buy_below, e.g.
+  // WATCH/SKIP where price is absent). The generic "Unlock sell-through..." bar still
+  // shows, but a stranger who just got a SKIP has no context for why they'd pay — this
+  // names what they saw and what they'd gain. CRO #3 (message match: mirror the call)
+  // + #8 (specificity: name the outcome, not a feature list) + #12 (value earned,
+  // ask follows). Non-hero, non-example, checkout branch only. Revenue 2026-09-23.
+  const VERDICT_CONTEXT_BRIDGE_VERDICTS = ["BUY", "WATCH", "SKIP", "PROVISIONAL", "PROVISIONAL_PRICE", "BRAND_AVERAGE"]
+  const showVerdictContextBridge =
+    !hero &&
+    !isExample &&
+    barBranch === "checkout" &&
+    !isSampleFreeResult &&
+    res?.verdict != null &&
+    VERDICT_CONTEXT_BRIDGE_VERDICTS.includes(res.verdict)
+
   return (
     <div style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
       {/* WebMCP: one shared money tool for /tools and /tools/vinted-price-checker
@@ -1237,6 +1253,42 @@ export function FreeChecker({
                 Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.
               </p>
               <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="tools_sample_bridge" />
+            </div>
+          )}
+          {/* H100 CRO: verdict-context bridge — a brief sentence naming the call the
+              visitor just got and what they'd gain with Starter. Fires when the
+              generic unlock bar would show but isSampleFreeResult did not (e.g. the
+              free model returned WATCH or SKIP with no buy_below). CRO #3/#8/#12.
+              Revenue 2026-09-23. */}
+          {showVerdictContextBridge && (
+            <div
+              data-testid="riq-verdict-context-bridge"
+              style={{
+                marginTop: 12,
+                padding: "12px 14px",
+                background: "rgba(255,255,255,.03)",
+                border: "1px solid var(--color-border-ui)",
+                borderRadius: 10,
+              }}
+            >
+              <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
+                {res!.verdict === "BUY" || res!.verdict === "PROVISIONAL" || res!.verdict === "PROVISIONAL_PRICE"
+                  ? "This item is a buy. Starter shows the buy-below price and weekly demand for every item you source — 8,400+ models."
+                  : res!.verdict === "WATCH"
+                  ? "Worth watching. Starter unlocks the exact buy-below price and demand trends for every item you check — €19/mo."
+                  : res!.verdict === "BRAND_AVERAGE"
+                  ? "You saw category averages. Starter adds per-model buy-below prices for every specific item you pick."
+                  : "Smart pass — you just saved yourself a bad purchase. Starter shows what IS moving in your sourcing range."}
+              </p>
+              <GuestCheckoutButton
+                locale={locale}
+                label={
+                  res!.verdict === "SKIP"
+                    ? "Find what's selling — €19/mo →"
+                    : "See buy-below price — €19/mo →"
+                }
+                src="verdict_context_bridge"
+              />
             </div>
           )}
           {barBranch === "checkout" && (
