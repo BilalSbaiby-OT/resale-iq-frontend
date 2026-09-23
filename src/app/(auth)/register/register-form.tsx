@@ -72,8 +72,33 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const [demandRows, setDemandRows] = useState<DemandRow[]>(DEMAND_FALLBACK)
   const stripePlans = useRef<{ id: string; price_id?: string }[]>([])
   const registeredRef = useRef(false)
-  const { register } = useAuthStore()
+  const { register, login } = useAuthStore()
   const router = useRouter()
+
+  // C152(tony): conflict login path — "welcome back" inline form.
+  // When 409 fires, instead of a dead-end "Sign in →" link that loses
+  // the plan context, transform the form: user enters their password here
+  // and we login() + startPaidCheckout() in one shot.
+  // Linear/Notion/Canva pattern: merge signup+login, no redirect needed.
+  const [conflictPassword, setConflictPassword] = useState("")
+  const [conflictLoading, setConflictLoading] = useState(false)
+
+  const handleConflictLogin = async () => {
+    if (!conflictPassword || !conflictEmail) return
+    setError("")
+    setConflictLoading(true)
+    try {
+      await login(conflictEmail, conflictPassword)
+      // Carry the intent query forward (may have been typed before the conflict)
+      if (intentQuery.trim()) {
+        try { localStorage.setItem("riq_intent_query", intentQuery.trim()) } catch { /* private mode */ }
+      }
+      await startPaidCheckout(plan)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Sign-in failed — check your password and try again.")
+      setConflictLoading(false)
+    }
+  }
 
   useEffect(() => {
     getPlans().then(d => {
@@ -327,20 +352,38 @@ function RegisterContent({ locale }: { locale: Locale }) {
             <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
             <span>{WITHDRAWAL_WAIVER_TEXT}</span>
           </label>
-          {/* C148(tony): conflict renders as a navigation link, not dead text.
-              The email they typed pre-fills /login?email=… so they don't retype.
-              Generic errors stay as plain text below (unchanged path). */}
+          {/* C152(tony): 409 conflict → inline "welcome back" login.
+              Linear/Notion/Canva pattern: merge signup+login in one form,
+              no redirect, plan context preserved throughout.
+              C148 was: dead link to /login?email=… (lost the plan selection). */}
           {conflictEmail && (
-            <div className="text-[12px] text-center">
-              <span className="text-[var(--color-text-secondary)]">An account already exists for </span>
-              <span className="text-[var(--color-text-primary)] font-medium">{conflictEmail}</span>
-              <span className="text-[var(--color-text-secondary)]">. </span>
-              <Link
-                href={`/login?email=${encodeURIComponent(conflictEmail)}`}
-                className="text-[var(--color-buy)] font-semibold hover:underline"
+            <div className="rounded-xl border border-[var(--color-border-2)] p-4 bg-[var(--color-bg-4)]">
+              <p className="text-[13px] font-semibold text-[var(--color-text-primary)] mb-0.5">
+                Welcome back — you already have an account.
+              </p>
+              <p className="text-[12px] text-[var(--color-text-secondary)] mb-3">
+                Enter your password to continue to checkout.
+              </p>
+              <input
+                type="password"
+                value={conflictPassword}
+                onChange={e => setConflictPassword(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && handleConflictLogin()}
+                placeholder="Your password"
+                autoFocus
+                className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[14px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)] mb-2"
+              />
+              <button
+                type="button"
+                onClick={handleConflictLogin}
+                disabled={conflictLoading || !conflictPassword}
+                className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-2.5 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                Sign in →
-              </Link>
+                {conflictLoading ? "Signing in…" : `Continue to ${plan === "power" ? "Pro" : "Starter"} checkout →`}
+              </button>
+              <p className="text-[11px] text-[var(--color-text-muted)] mt-2 text-center">
+                Not you? <a href="/register" className="text-[var(--color-buy)] hover:underline">Use a different email</a>
+              </p>
             </div>
           )}
           {error && <div className="text-[12px] text-[var(--color-skip)] text-center">{error}</div>}
