@@ -18,7 +18,7 @@ export const POSTS_12: BlogPost[] = [
       "Uniqlo ranked #20 by watched departures across 5 EU Vinted markets — 57/week at €18 average. The basics (HeatTech, Airism, fleece) have no margin. The entire reselling case is KAWS, JW Anderson, UNIQLO U, and collab pieces sourced below €19.",
     date: "2026-09-15",
 
-    preflightQuery: "Uniqlo",
+    preflightQuery: "Uniqlo Fleece",
     category: "Sourcing",
     readMins: 6,
     intro:

@@ -18,7 +18,7 @@ export const POSTS_9: BlogPost[] = [
       "Vans ranks #14 by watched departures across 5 EU Vinted markets — 98/week at €36 average. Sneakers dominate at 59 departures averaging €51 (buy-below ~€34). 60% of Vans exits are footwear — brand-name sourcing loses, silhouette precision wins.",
     date: "2026-09-15",
 
-    preflightQuery: "Vans",
+    preflightQuery: "Vans Old Skool",
     category: "Sourcing",
     readMins: 7,
     intro:

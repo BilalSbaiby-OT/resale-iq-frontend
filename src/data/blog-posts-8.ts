@@ -20,7 +20,7 @@ export const POSTS_8: BlogPost[] = [
     category: "Sourcing",
     readMins: 7,
 
-    preflightQuery: "Lacoste",
+    preflightQuery: "Lacoste Polo",
     intro:
       "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level, observation window to 22 September 2026) at a €27.87 average. The standout structural fact: Shirts account for 52% of all Lacoste departures (62 of 118) at €27 average — the highest Shirt concentration of any top-15 brand on EU Vinted. Jackets are the margin story at 9 departures averaging €80, and Hoodies outperform expectation at 12 departures averaging €41. Lacoste is not a sneaker brand on Vinted; it is a polo and outerwear market.",
     sections: [
