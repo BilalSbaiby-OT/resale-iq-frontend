@@ -100,8 +100,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondance :",
     extHeroCaption: "Exemple du panneau Chrome sur une annonce Adidas Samba",
     watchedSampleHead: "Sur les annonces observées, 120 ont quitté le rayon contre 300 encore en ligne.",
-    registerHeading: "Créez votre compte",
-    registerSubmit: "Créer le compte",
+    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
+    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
+    registerHeading: "What do you want to check?",
+    registerSubmit: "Activer l'accès Starter →",
     registerEmailLabel: "E-mail",
     registerPasswordLabel: "Mot de passe",
     verdictBuy: "ACHETER",
@@ -129,8 +131,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "coincide con:",
     extHeroCaption: "Ejemplo del panel de Chrome en un anuncio de Adidas Samba",
     watchedSampleHead: "En los anuncios que observamos, 120 salieron del catálogo frente a 300 que siguen en venta.",
-    registerHeading: "Cree su cuenta",
-    registerSubmit: "Crear cuenta",
+    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
+    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
+    registerHeading: "What do you want to check?",
+    registerSubmit: "Activar acceso Starter →",
     registerEmailLabel: "Correo electrónico",
     registerPasswordLabel: "Contraseña",
     verdictBuy: "COMPRA",
@@ -158,8 +162,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "gefunden:",
     extHeroCaption: "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot",
     watchedSampleHead: "In den von uns beobachteten Angeboten sind 120 aus dem Bestand gegangen, 300 sind noch inseriert.",
-    registerHeading: "Konto erstellen",
-    registerSubmit: "Konto erstellen",
+    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
+    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
+    registerHeading: "What do you want to check?",
+    registerSubmit: "Starter-Zugang aktivieren →",
     registerEmailLabel: "E-Mail",
     registerPasswordLabel: "Passwort",
     verdictBuy: "KAUFEN",
@@ -187,8 +193,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "corrispondenza:",
     extHeroCaption: "Esempio del pannello Chrome su un annuncio Adidas Samba",
     watchedSampleHead: "Negli annunci osservati, 120 sono usciti dallo scaffale contro 300 ancora in vendita.",
-    registerHeading: "Crea il tuo account",
-    registerSubmit: "Crea account",
+    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
+    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
+    registerHeading: "What do you want to check?",
+    registerSubmit: "Attiva accesso Starter →",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Password",
     verdictBuy: "COMPRA",
@@ -216,8 +224,10 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondência:",
     extHeroCaption: "Exemplo do painel Chrome num anúncio Adidas Samba",
     watchedSampleHead: "Nos anúncios que observámos, 120 saíram da prateleira contra 300 ainda anunciados.",
-    registerHeading: "Crie a sua conta",
-    registerSubmit: "Criar conta",
+    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
+    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
+    registerHeading: "What do you want to check?",
+    registerSubmit: "Ativar acesso Starter →",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Palavra-passe",
     verdictBuy: "COMPRAR",
