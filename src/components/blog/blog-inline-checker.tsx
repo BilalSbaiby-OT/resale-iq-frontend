@@ -112,6 +112,14 @@ export function BlogInlineChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Chip selection state: when a chip is clicked, override the query sent
+  // to FreeChecker. Use a key to force FreeChecker remount so it re-runs
+  // the new query from scratch (no stale state from the free result).
+  // IMPORTANT: must be declared before any expression that references chipQuery,
+  // or the bundler (Turbopack TDZ) crashes with "Cannot access 'm' before
+  // initialization" — see C209 hotfix.
+  const [chipQuery, setChipQuery] = useState<string | null>(null)
+
   // C207: track whether the ACTIVE query is a free model. If so, after
   // the result renders, show paywall-demo chips so the visitor can hit a
   // real paywall and see the conversion moment without typing.
@@ -131,11 +139,6 @@ export function BlogInlineChecker({
   const isFreeModelQuery = (FREE_MODELS as readonly string[]).some(
     (m) => m.toLowerCase() === preflightQuery.toLowerCase()
   )
-
-  // Chip selection state: when a chip is clicked, override the query sent
-  // to FreeChecker. Use a key to force FreeChecker remount so it re-runs
-  // the new query from scratch (no stale state from the free result).
-  const [chipQuery, setChipQuery] = useState<string | null>(null)
 
   const handleChipClick = (chip: string) => {
     setChipQuery(chip)
