@@ -235,8 +235,19 @@ function RegisterContent({ locale }: { locale: Locale }) {
         </div>
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
-          {/* Google Sign-In — hidden until backend confirms credentials exist */}
-          <GoogleSignInButton label="Continue with Google" />
+          {/* Google Sign-In — hidden until backend confirms credentials exist.
+              C151(tony): onBeforeNavigate carries the intent query typed before
+              the Google redirect, matching the login-form pattern (C141). Without
+              this, a user who typed "Stone Island Hoodie" and clicked Google
+              lost their query — the redirect blanks localStorage's pending write. */}
+          <GoogleSignInButton
+            label="Continue with Google"
+            onBeforeNavigate={() => {
+              if (intentQuery.trim()) {
+                try { localStorage.setItem("riq_intent_query", intentQuery.trim()) } catch { /* private mode */ }
+              }
+            }}
+          />
           <AuthDivider text="or" />
 
           {/* Intent capture (Notion pattern): ask what they want to check BEFORE
