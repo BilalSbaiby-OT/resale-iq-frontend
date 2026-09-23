@@ -35,7 +35,9 @@
  *  must scroll to reach the buy button. This renders a compact checkout CTA
  *  ABOVE the full checker when the SSR result is already a PAYWALL, so the
  *  conversion action is visible on first paint without scrolling.
- *  Only shown for SSR PAYWALL (initialResult.verdict === "PAYWALL") — free
+ *  C207 removes the isSSRPaywall gate — the bar now shows for all non-free-model
+ *  posts since ssrBlogVerdict almost never returns PAYWALL (SSR calls get 200).
+ *  Previously gated on SSR PAYWALL (initialResult.verdict === "PAYWALL") — free
  *  results and loading states do not show it.
  *
  * C202 — remove email friction from above-fold bar:
@@ -110,9 +112,7 @@ export function BlogInlineChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const isSSRPaywall = initialResult?.verdict === "PAYWALL"
-
-  // C205: track whether the preflightQuery is a free model. If so, after
+  // C207: track whether the preflightQuery is a free model. If so, after
   // the result renders, show paywall-demo chips so the visitor can hit a
   // real paywall and see the conversion moment without typing.
   const isFreeModelQuery = (FREE_MODELS as readonly string[]).some(
@@ -140,12 +140,15 @@ export function BlogInlineChecker({
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >
-      {/* C197+C202+C203: Above-fold single checkout CTA — only on SSR PAYWALL.
-          C202 removed the email input (C199): checkout_from_blog stayed 0
-          while /tools (single button, no pre-gate) converts at ~30%.
-          C203: comparable_n-specific copy — "We have N data points on X.
-          Unlock buy-below prices →" beats generic "verdict is ready". */}
-      {isSSRPaywall && (
+      {/* C207: Above-fold single checkout CTA — show for ALL non-free-model posts.
+          Previously gated on isSSRPaywall (C197+C202+C203), but ssrBlogVerdict
+          returns null for non-free-model posts whose query hits 200 on the internal
+          backend call (first-free-verdict or catalog-miss). This meant the bar
+          NEVER rendered on ~161 of 176 posts, explaining checkout_from_blog = 0 all-time.
+          Fix: show whenever !isFreeModelQuery — the post topic is a paid item, so the
+          CTA is always honest regardless of SSR result.
+          comparable_n from SSR PAYWALL response shows when available. */}
+      {!isFreeModelQuery && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           data-testid="riq-blog-above-fold-cta"
@@ -164,7 +167,7 @@ export function BlogInlineChecker({
           <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
             {initialResult?.comparable_n
               ? <>We have <strong style={{ color: "#34C759" }}>{initialResult.comparable_n}</strong> data points on {preflightQuery}.</>
-              : <>Verdict data ready for {preflightQuery}.</>
+              : <>Get the buy-below price for {preflightQuery}.</>
             }
           </span>
           <GuestCheckoutButton
