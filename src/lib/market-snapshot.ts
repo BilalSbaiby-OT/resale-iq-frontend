@@ -59,6 +59,9 @@ export async function fetchBrandRowForQuery(
     const { score: _s, ...row } = best
     return row
   } catch {
+    // why: fetchBrandRowForQuery is a best-effort preview used only on the
+    // check-email waiting screen. A failure here is non-critical and not
+    // actionable by the user — the generic demand panel renders instead.
     return null
   }
 }
