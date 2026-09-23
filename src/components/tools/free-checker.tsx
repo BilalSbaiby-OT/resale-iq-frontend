@@ -315,6 +315,12 @@ function VerdictAlternatives({
 }) {
   const t = copy[locale].checker
   if (alternatives.length === 0) return null
+  // H99 CRO: show checkout CTA if any alternative has a locked buy-below.
+  // The visitor just saw items with gated prices — maximum specificity for
+  // what they'd unlock. CRO #10 (solution-aware) + #8 (they can see exactly
+  // what's locked) + #12 (value shown, ask earned). Non-hero only (this
+  // component never renders in hero mode). Revenue 2026-09-23.
+  const hasLockedAlts = alternatives.some((a) => a.buy_below_locked)
   return (
     <div
       data-testid="riq-verdict-alternatives"
@@ -384,6 +390,20 @@ function VerdictAlternatives({
           </button>
         ))}
       </div>
+      {/* H99 CRO: unlock CTA below locked alternatives — specific call to
+          action placed at the moment the visitor has just seen exactly which
+          items they'd get buy-below prices for. Only shown when ≥1 alt is
+          locked. Never shown to paying sessions (VerdictAlternatives only
+          renders for anonymous/free, barBranch checkout path). */}
+      {hasLockedAlts && (
+        <div style={{ marginTop: 12, paddingTop: 10 }}>
+          <GuestCheckoutButton
+            locale={locale}
+            label="Unlock buy-below prices — €19/mo →"
+            src="verdict_alternatives_unlock"
+          />
+        </div>
+      )}
     </div>
   )
 }
