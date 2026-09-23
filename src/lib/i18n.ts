@@ -646,6 +646,7 @@ export const copy = {
         badBody: "Links expire after 24 hours. Sign in and we'll send you a new one.",
         signIn: "Sign in →",
         signInToResend: "Sign in to get a new link →",
+        pricingCta: "See plans →",
       },
     },
     // Dashboard's first screen only — nav chrome (AppShell sidebar/account
@@ -1114,6 +1115,7 @@ export const copy = {
         badBody: "Les liens expirent après 24 heures. Connectez-vous pour en recevoir un nouveau.",
         signIn: "Connexion →",
         signInToResend: "Se connecter pour obtenir un nouveau lien →",
+        pricingCta: "Voir les offres →",
       },
     },
     dashboard: {
@@ -1564,6 +1566,7 @@ export const copy = {
         badBody: "Los enlaces caducan a las 24 horas. Inicie sesión y le enviaremos uno nuevo.",
         signIn: "Iniciar sesión →",
         signInToResend: "Iniciar sesión para obtener un nuevo enlace →",
+        pricingCta: "Ver planes →",
       },
     },
     dashboard: {
@@ -2013,6 +2016,7 @@ export const copy = {
         badBody: "Links laufen nach 24 Stunden ab. Melden Sie sich an und wir senden Ihnen einen neuen.",
         signIn: "Anmelden →",
         signInToResend: "Anmelden für einen neuen Link →",
+        pricingCta: "Pläne ansehen →",
       },
     },
     dashboard: {
@@ -2460,6 +2464,7 @@ export const copy = {
         badBody: "I link scadono dopo 24 ore. Accedi e ti invieremo uno nuovo.",
         signIn: "Accedi →",
         signInToResend: "Accedi per ottenere un nuovo link →",
+        pricingCta: "Vedi i piani →",
       },
     },
     dashboard: {
@@ -2907,6 +2912,7 @@ export const copy = {
         badBody: "Os links expiram após 24 horas. Inicie sessão e enviaremos um novo.",
         signIn: "Iniciar sessão →",
         signInToResend: "Iniciar sessão para obter um novo link →",
+        pricingCta: "Ver planos →",
       },
     },
     dashboard: {

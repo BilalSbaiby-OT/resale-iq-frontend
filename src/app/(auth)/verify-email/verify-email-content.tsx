@@ -135,7 +135,12 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-[var(--color-buy)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.confirmedHeading}</h1>
             <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{message}</p>
-            <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
+            {/* C165(tony): already-confirmed state had only 'Sign in →' — users never saw /pricing.
+                Canva rule: never show a dead end. Primary CTA = pricing (revenue path); secondary = sign in. */}
+            <Link href="/pricing?ref=verify-already" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3">
+              {t.pricingCta}
+            </Link>
+            <Link href="/login" className="inline-block w-full border border-[var(--color-border-ui)] text-[var(--color-text-secondary)] font-semibold text-[13px] py-2.5 rounded-lg hover:bg-[var(--color-surface-raised)] transition-colors">
               {t.signIn}
             </Link>
           </>
