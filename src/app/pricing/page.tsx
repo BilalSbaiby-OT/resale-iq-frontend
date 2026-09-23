@@ -8,6 +8,7 @@ import { listingsTrackedLabel, sellThroughWeeklyLabel } from "@/lib/stats"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
+import { BrandStrip } from "@/components/landing/brand-strip"
 import { getMarketNumbers } from "@/lib/market-numbers"
 
 /**
@@ -103,6 +104,23 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           vague "thousands of brands" claim). Revenue 2026-09-23. */}
       {market && (
         <LiveMarketPulse locale={locale} market={market} />
+      )}
+      {/* H91 CRO: brand strip on /pricing — visual proof of coverage scope.
+          Objection "will it work for what I sell?" (CRO #4) fires at the moment
+          of purchase decision. Homepage already shows logos and converts at a
+          higher rate than pricing. Pricing visitors had zero visual proof the
+          catalog matched their brands — they saw a pulse table and immediately
+          hit plan cards. Brand logos answer the coverage question silently,
+          in <1 second of scan time, before they have to ask.
+          market already fetched above (H85); zero extra requests.
+          CRO #4 (objection: does it cover my items?) + #7 (trust before CTA).
+          Revenue 2026-09-23. */}
+      {market && (
+        <BrandStrip
+          names={market.brandNames}
+          total={market.brandsTracked ?? market.brandCount}
+          locale={locale}
+        />
       )}
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
