@@ -112,9 +112,22 @@ export function BlogInlineChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // C207: track whether the preflightQuery is a free model. If so, after
+  // C207: track whether the ACTIVE query is a free model. If so, after
   // the result renders, show paywall-demo chips so the visitor can hit a
   // real paywall and see the conversion moment without typing.
+  //
+  // C208: use activeQuery (not preflightQuery) so that after a chip click the
+  // above-fold CTA appears for the chip's paid item. Previously, a visitor who
+  // clicked e.g. "Stone Island Hoodie" chip on an NB530 post would get a
+  // PAYWALL result in the checker below but NO above-fold CTA — isFreeModelQuery
+  // was permanently true (NB530 is free) even though the running query was paid.
+  // Fix: re-derive on the active query so the gate reflects what the checker
+  // is actually running, not the post's static topic.
+  const isActiveQueryFreeModel = (FREE_MODELS as readonly string[]).some(
+    (m) => m.toLowerCase() === (chipQuery ?? preflightQuery).toLowerCase()
+  )
+  // Keep the original name for the chips logic (show chips when the POST topic is free,
+  // regardless of chip state — chips only appear before any chip is clicked).
   const isFreeModelQuery = (FREE_MODELS as readonly string[]).some(
     (m) => m.toLowerCase() === preflightQuery.toLowerCase()
   )
@@ -140,15 +153,12 @@ export function BlogInlineChecker({
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >
-      {/* C207: Above-fold single checkout CTA — show for ALL non-free-model posts.
-          Previously gated on isSSRPaywall (C197+C202+C203), but ssrBlogVerdict
-          returns null for non-free-model posts whose query hits 200 on the internal
-          backend call (first-free-verdict or catalog-miss). This meant the bar
-          NEVER rendered on ~161 of 176 posts, explaining checkout_from_blog = 0 all-time.
-          Fix: show whenever !isFreeModelQuery — the post topic is a paid item, so the
-          CTA is always honest regardless of SSR result.
+      {/* C207/C208: Above-fold single checkout CTA — show for ALL non-free-model active queries.
+          C207: previously gated on isSSRPaywall; changed to !isFreeModelQuery for the post topic.
+          C208: now uses !isActiveQueryFreeModel so after a chip click (paid item), the CTA
+          appears immediately for the chip query — not for the static post topic.
           comparable_n from SSR PAYWALL response shows when available. */}
-      {!isFreeModelQuery && (
+      {!isActiveQueryFreeModel && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           data-testid="riq-blog-above-fold-cta"
@@ -166,15 +176,15 @@ export function BlogInlineChecker({
         >
           <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
             {initialResult?.comparable_n
-              ? <>We have <strong style={{ color: "#34C759" }}>{initialResult.comparable_n}</strong> data points on {preflightQuery}.</>
-              : <>Get the buy-below price for {preflightQuery}.</>
+              ? <>We have <strong style={{ color: "#34C759" }}>{initialResult.comparable_n}</strong> data points on {activeQuery}.</>
+              : <>Get the buy-below price for {activeQuery}.</>
             }
           </span>
           <GuestCheckoutButton
             locale={locale}
             label="Unlock buy-below →"
             src="blog_above_fold"
-            query={preflightQuery}
+            query={activeQuery}
           />
         </div>
       )}
