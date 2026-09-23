@@ -5,7 +5,7 @@ import { setToken, getToken } from "@/lib/utils"
 import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { FIRST_CHECK_HREF, FIRST_CHECK_QUERY } from "@/lib/checkout"
-import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight } from "lucide-react"
+import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight, Tag, BarChart2, TrendingUp } from "lucide-react"
 
 /**
  * Post-checkout landing. Stripe often returns in a different webview with empty
@@ -76,19 +76,48 @@ function BillingSuccessContent() {
         </>)}
         {state === "ok" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><CheckCircle2 size={34} style={{ color: "#34C759" }} /></div>
-          <div style={{ fontSize: 18, fontWeight: 750 }}>Welcome to {plan === "operator" ? "Starter" : plan === "power" ? "Pro" : plan}</div>
-          <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded.</div>
-          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
+          <div style={{ fontSize: 18, fontWeight: 750 }}>You&apos;re in — {plan === "operator" ? "Starter" : plan === "power" ? "Pro" : plan}</div>
+          <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Here&apos;s what&apos;s unlocked:</div>
+
+          {/* Linear pattern: show 3 specific things they unlocked — removes blank-state anxiety.
+              Vercel rule: cap at one primary CTA. Secondary items are ghost links.
+              C150(tony): replaces "Your account is upgraded." (abstract) with concrete proof. */}
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 8, textAlign: "left" }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(52,199,89,.08)", border: "1px solid rgba(52,199,89,.2)", borderRadius: 10, padding: "10px 14px" }}>
+              <Tag size={15} style={{ color: "#34C759", marginTop: 1, flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 600, color: "#eef1f7" }}>Buy-below price on any item</div>
+                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>The max you should pay to profit — for every brand and model we track.</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(52,199,89,.08)", border: "1px solid rgba(52,199,89,.2)", borderRadius: 10, padding: "10px 14px" }}>
+              <BarChart2 size={15} style={{ color: "#34C759", marginTop: 1, flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 600, color: "#eef1f7" }}>Deal scanner with sell-through rate</div>
+                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>Ranked buy opportunities across EU Vinted — filtered by demand, updated daily.</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(52,199,89,.08)", border: "1px solid rgba(52,199,89,.2)", borderRadius: 10, padding: "10px 14px" }}>
+              <TrendingUp size={15} style={{ color: "#34C759", marginTop: 1, flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 600, color: "#eef1f7" }}>Brand and model trend signals</div>
+                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>See what&apos;s moving before you buy — rising, hot, or cooling across 135 brands.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
+            {/* ONE primary CTA (Vercel rule). Pre-seeds their intent or Nike AF1 sample. */}
             <a
               href={firstCheckHref}
               data-testid="riq-billing-first-check"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 22px", borderRadius: 10, background: "#34C759", color: "#06090c", textDecoration: "none", fontWeight: 700, fontSize: 14 }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 24px", borderRadius: 10, background: "#34C759", color: "#06090c", textDecoration: "none", fontWeight: 700, fontSize: 14, width: "100%", justifyContent: "center" }}
             >
-              Check your first item
+              {firstCheckLabel ? `Check ${firstCheckLabel} now` : "Run your first check"}
               <ArrowRight size={16} />
             </a>
-            <div style={{ fontSize: 12.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
-              {firstCheckLabel ? `Run your ${firstCheckLabel} buy-below check now.` : `We pre-filled ${FIRST_CHECK_QUERY} so you see a buy-below number on the first click.`}
+            <div style={{ fontSize: 12, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5, textAlign: "center" }}>
+              {firstCheckLabel ? `Get the buy-below price for ${firstCheckLabel}.` : `We pre-filled ${FIRST_CHECK_QUERY} so you see a real buy-below number immediately.`}
             </div>
             {guestNeedsPassword && (
               <a
@@ -104,7 +133,7 @@ function BillingSuccessContent() {
               data-testid="riq-billing-dashboard"
               style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
             >
-              Go to dashboard
+              Go to dashboard →
             </a>
           </div>
         </>)}
