@@ -177,6 +177,17 @@ export function PricingSection({
   const Heading = (headingLevel === 1 ? "h1" : "h2") as "h1" | "h2"
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
+  // H113 CRO: email input on the Starter card — writes to riq_capture_email so
+  // choose() pre-fills Stripe without the visitor needing to type it there.
+  // 23/25 Stripe sessions had no email (measured 2026-09-22). choose() already
+  // reads riq_capture_email; this card input is the missing write path on /pricing.
+  // CRO #6 (cognitive load: one fewer required field on Stripe) + #4 (commitment
+  // signal: typing email increases micro-commitment before checkout).
+  // Revenue 2026-09-23. H113.
+  const [cardEmail, setCardEmail] = useState("")
+  useEffect(() => {
+    try { setCardEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
   // H13 CRO: message-match eyebrow on standalone /pricing — Revenue 2026-09-15.
   // Only shown when !compact (the standalone /pricing route) and ?src= is llm/perplexity/chatgpt.
   // Mirrors the mechanism already live on landing-content.tsx (H2) — CRO principle #3.
@@ -775,6 +786,42 @@ export function PricingSection({
             <div style={{ fontSize: s.perDay, color: "var(--color-text-muted)", marginBottom: 16, minHeight: 17 }}>
               {tier.free ? t.noCardRequired : t.perDay((tier.price / 30).toFixed(2))}
             </div>
+            {/* H113 CRO: email input on the Starter card only.
+                23/25 Stripe sessions had no email typed — the email field is
+                the highest-friction moment on Stripe's own page. choose()
+                reads riq_capture_email; this provides the missing write path
+                directly on the Starter card so the visitor pre-fills Stripe
+                before clicking. Optional — checkout still works without it.
+                CRO #6 (cognitive load) + #4 (commitment signal) + #12 (momentum:
+                email→click vs cold click). Revenue 2026-09-23. H113. */}
+            {tier.highlight && !compact && !isPaidPlan(user) && (
+              <div style={{ marginBottom: 10 }}>
+                <input
+                  type="email"
+                  value={cardEmail}
+                  onChange={(e) => {
+                    setCardEmail(e.target.value)
+                    try {
+                      if (e.target.value.trim()) localStorage.setItem("riq_capture_email", e.target.value.trim())
+                    } catch { /* private mode */ }
+                  }}
+                  placeholder="Your email — pre-fills Stripe (optional)"
+                  autoComplete="email"
+                  data-testid="riq-pricing-card-email"
+                  style={{
+                    width: "100%",
+                    background: "var(--color-bg)",
+                    border: "1px solid var(--color-border-ui)",
+                    borderRadius: 10,
+                    padding: "10px 14px",
+                    fontSize: 13.5,
+                    color: "var(--color-text-primary)",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+            )}
             {/* ONE filled accent CTA per view. The other two are ghosts — a
                 hairline and label on the card's own background, not a second
                 and third filled rectangle. When every tier's button is filled,
