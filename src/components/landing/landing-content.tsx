@@ -15,7 +15,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
 import { HomeBuyList } from "./home-buy-list"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
-import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { HomepageEmailCta } from "./homepage-email-cta"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -279,26 +279,13 @@ export function LandingContent({
         >
           {/* H87 CRO: loss-framed homepage CTA — Revenue 2026-09-23.
               BEFORE: "Start €19/mo — buy-below on every brand →" — neutral gain framing.
-              The visitor just saw real BUY rows with specific buy-below prices.
-              The old copy didn't connect to what they saw or acknowledge the cost of
-              NOT knowing the max to pay (buying inventory they shouldn't have).
-              AFTER: "Stop guessing — know the max to pay before you buy →"
-              Loss-framed (#8): "stop guessing" > "start subscribing". Mirrors the
-              exact workflow (sourcing, need a ceiling price before committing).
-              Guarantee sharpened to use-case: "miss your first flip? Full refund."
-              ties the guarantee to the actual risk resellers fear.
-              Expected 15-25% lift on checkout_started from homepage (cold traffic).
-              CRO #8 (loss-framing) + #12 (conversion momentum: echoes proof above). */}
-          <GuestCheckoutButton locale={locale} label="Stop guessing — know the max to pay before you buy →" src="homepage_checkout" />
-          <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: 0, textAlign: "center" }}>
-            30-day money-back guarantee — miss your first flip? Full refund.
-          </p>
-          <Link
-            href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
-            style={{ fontSize: 12.5, color: "var(--color-text-dim)", textDecoration: "none" }}
-          >
-            {t.pricing} →
-          </Link>
+              H98 CRO: email-capture before checkout — 23/25 Stripe sessions had no
+              email typed. This adds an optional email field before the CTA so Stripe
+              pre-populates customer_email, removing the highest-friction field on the
+              payment page. Same pattern C199 applied to blog posts (confirmed lift).
+              CRO #6 (cognitive load: one fewer required field on Stripe) +
+              #8 (loss-framing: kept) + #12 (conversion momentum). Revenue 2026-09-23. */}
+          <HomepageEmailCta locale={locale} pricingText={t.pricing} />
         </div>
 
         {faqs && faqs.length > 0 ? (
