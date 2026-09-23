@@ -397,8 +397,8 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6 mt-6">
-            <p>{t.empty}</p>
-            <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
+            <p>{paidCold ? 'Type a brand and model — you have unlimited checks. Start with one of these:' : t.empty}</p>
+            <ModelChips onPick={pickModel} disabled={loading} label={paidCold ? 'Start with a paid item you can check now' : t.tryTheseInstead} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-working-models" />
             {/* IQ-060: paid sessions (operator/power) already have the checker
                 open. Selling Starter €19 here is the founder-reported lie.
                 Anonymous / free keep the pricing nudge. */}
