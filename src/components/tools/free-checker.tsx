@@ -625,6 +625,24 @@ export function FreeChecker({
   const chipUser = paidUserForChip(user, tokenPlan)
 
   const hero = variant === "hero"
+
+  // H86 CRO: when the visitor ran one of the three public sample queries and got
+  // a REAL buy-below (not a PAYWALL refusal), they've seen the product work —
+  // but the generic "unlock with a plan" bar doesn't acknowledge that they just
+  // got a demo. Name the gap: "that was a public item; yours need a subscription."
+  // Same pattern as the /pricing post-sample bridge (H72) but on /tools, the
+  // page with actual search intent. CRO #4 (do I have YOUR items?) + #8
+  // (specificity: name the fact, not a vague "sell more"). Non-hero only —
+  // homepage (hero) has E-13/#59 no-CTA constraint. Revenue 2026-09-23.
+  const isPublicSampleQuery = (FREE_MODELS as readonly string[]).some(
+    (m) => m.toLowerCase() === q.toLowerCase()
+  )
+  const isSampleFreeResult =
+    !hero &&
+    isPublicSampleQuery &&
+    res?.buy_below != null &&
+    barBranch === "checkout"
+
   return (
     <div style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
       {/* WebMCP: one shared money tool for /tools and /tools/vinted-price-checker
@@ -1154,6 +1172,31 @@ export function FreeChecker({
 
           {barBranch === "paid" && (
             <PaidPostCheckBar locale={locale} user={chipUser} />
+          )}
+          {/* H86 CRO: sample bridge — when visitor ran a public demo query and
+              got a real buy-below, name the gap before the checkout bar so the
+              CTA lands with context, not cold. /pricing already has this (H72);
+              this brings it to /tools where the actual search intent lives.
+              Rendered ABOVE the bar so the bar's e2e contract stays intact. */}
+          {isSampleFreeResult && (
+            <div
+              data-testid="riq-tools-sample-bridge"
+              style={{
+                marginTop: 12,
+                padding: "12px 14px",
+                background: "rgba(52,199,89,.07)",
+                border: "1px solid rgba(52,199,89,.18)",
+                borderRadius: 10,
+              }}
+            >
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 3px", lineHeight: 1.4 }}>
+                That was a public demo item.
+              </p>
+              <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
+                Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.
+              </p>
+              <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="tools_sample_bridge" />
+            </div>
           )}
           {barBranch === "checkout" && (
           <div data-testid="riq-guest-unlock-bar" style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
