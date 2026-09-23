@@ -28,6 +28,12 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import { FreeChecker } from "@/components/tools/free-checker"
 
+// The three public demo queries that bypass the paywall by design.
+// After the visitor sees one of these, they've experienced the product —
+// show a bridge to the paid plan so the realisation doesn't drift away.
+// H72 CRO. Revenue 2026-09-23.
+const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
 // it directly and is out of scope for this pass. Here, on the marketing
@@ -465,6 +471,33 @@ export function PricingSection({
                 variant="card"
                 src="pricing-inline"
               />
+              {/* H72 CRO: post-sample bridge — the three preset queries return a
+                  free public verdict BY DESIGN. After the visitor sees it, the
+                  most common next action is nothing (scroll past the plan cards).
+                  This callout names the gap between the demo and their real items
+                  and puts the checkout button at the exact moment of highest intent.
+                  CRO #10 (CTA commitment ladder) + #12 (conversion momentum).
+                  Revenue 2026-09-23. */}
+              {FREE_SAMPLE_QUERIES.map(q => q.toLowerCase()).includes(inlineQuery.toLowerCase()) && (
+                <div
+                  data-testid="riq-sample-bridge"
+                  style={{
+                    marginTop: 14,
+                    padding: "14px 16px",
+                    background: "rgba(52,199,89,.07)",
+                    border: "1px solid rgba(52,199,89,.22)",
+                    borderRadius: 12,
+                  }}
+                >
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
+                    That was a public demo item. Your items need a subscription.
+                  </p>
+                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
+                    Type any brand + item above to see whether it's worth buying — buy-below price, sell-through rate, demand. €19/mo · 30-day money-back guarantee.
+                  </p>
+                  <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="pricing_sample_bridge" />
+                </div>
+              )}
             </div>
           )}
         </div>
