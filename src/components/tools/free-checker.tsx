@@ -874,6 +874,18 @@ export function FreeChecker({
               >
                 See what IS selling this week →
               </a>
+              {/* C212: OVERSUPPLIED was a conversion dead end — visitor just got
+                  real value (told NOT to stock something) then had no path to
+                  pay. Every other non-free result branch has a checkout button.
+                  Surface: blog inline checker (130 visitors/7d) + /tools. */}
+              <div style={{ marginTop: 10 }}>
+                <GuestCheckoutButton
+                  locale={locale}
+                  label="Check unlimited items — €19/mo →"
+                  src="oversupplied_nudge"
+                  query={q}
+                />
+              </div>
             </>
           ) : res.verdict === "BRAND_CATEGORIES" ? (
             // A brand-only query — the backend recognises the brand but has no
