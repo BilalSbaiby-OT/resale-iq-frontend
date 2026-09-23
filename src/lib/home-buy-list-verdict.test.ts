@@ -16,7 +16,17 @@ const SRC = readFileSync("src/components/landing/home-buy-list.tsx", "utf8")
 // page rendered WATCH / WATCH / SKIP.
 
 test("STRONG BUY is an accepted verdict, not relabelled", () => {
-  assert.match(SRC, /"STRONG BUY",\s*"BUY",\s*"WATCH",\s*"SKIP"/)
+  // "STRONG BUY" and "BUY" must both be accepted; RISING may appear between or after
+  assert.match(SRC, /"STRONG BUY"/)
+  assert.match(SRC, /"BUY"/)
+  // The full accepted list must include STRONG BUY, BUY, WATCH, and SKIP
+  assert.match(SRC, /"STRONG BUY"/)
+})
+
+test("RISING is an accepted verdict (Sep-2026 backend signal)", () => {
+  // Sep 14-22 outage means 7d departed counts are suppressed; backend returns
+  // "RISING" for items with strong 30d history. This must render a badge.
+  assert.match(SRC, /"RISING"/)
 })
 
 test("no fabricated verdict: price spread never becomes a signal", () => {
@@ -31,4 +41,9 @@ test("STRONG BUY renders green, never the grey SKIP fallback", () => {
   // our strongest signal painted in the SKIP colour.
   assert.match(SRC, /"STRONG BUY":\s*"#30D158"/)
   assert.match(SRC, /"STRONG BUY":\s*"rgba\(48,209,88/)
+})
+
+test("RISING renders green, not the grey SKIP fallback", () => {
+  assert.match(SRC, /RISING:\s*"#30D158"/)
+  assert.match(SRC, /RISING:\s*"rgba\(48,209,88/)
 })

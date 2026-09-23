@@ -47,16 +47,18 @@ interface BuyListItem {
 // default, so our strongest signal would render in the SKIP colour.
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",  // system green
-  BUY:   "#30D158",  // system green
-  WATCH: "#FF9F0A",  // system orange
-  SKIP:  "#8E8E93",  // system grey
+  BUY:    "#30D158",  // system green
+  RISING: "#30D158",  // system green — strong 30d momentum, recovering 7d signal
+  WATCH:  "#FF9F0A",  // system orange
+  SKIP:   "#8E8E93",  // system grey
 }
 
 const VERDICT_BG: Record<string, string> = {
   "STRONG BUY": "rgba(48,209,88,.22)",
-  BUY:   "rgba(48,209,88,.15)",
-  WATCH: "rgba(255,159,10,.15)",
-  SKIP:  "rgba(142,142,147,.12)",
+  BUY:    "rgba(48,209,88,.15)",
+  RISING: "rgba(48,209,88,.12)",  // slightly softer than BUY — strong but not hot
+  WATCH:  "rgba(255,159,10,.15)",
+  SKIP:   "rgba(142,142,147,.12)",
 }
 
 /**
@@ -76,7 +78,7 @@ const VERDICT_BG: Record<string, string> = {
  * number. No signal now renders no pill.
  */
 function deriveVerdict(item: BuyListItem): string {
-  if (item.verdict && ["STRONG BUY", "BUY", "WATCH", "SKIP"].includes(item.verdict)) {
+  if (item.verdict && ["STRONG BUY", "BUY", "RISING", "WATCH", "SKIP"].includes(item.verdict)) {
     return item.verdict
   }
   return ""
