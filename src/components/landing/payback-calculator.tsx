@@ -3,6 +3,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 /**
  * Answers the only question that decides a purchase: "will this make me more
@@ -229,6 +230,24 @@ export function PaybackCalculator({
         {c.disclaimer}
         <Link href={canonicalPath(locale, "/methodology")} style={{ color: "var(--color-buy)", textDecoration: "none" }}>{c.methodology}</Link>.
       </p>
+      {/* H97 CRO: post-calculator CTA — visitor just self-computed their ROI.
+          The calculator answers "will this pay for itself?" and shows "yes, in 1
+          bad buy avoided." That is the moment of highest conviction on /pricing:
+          the visitor ran their own numbers, not a marketing claim. The previous
+          flow ended here with a methodology disclaimer — the conclusion (it pays
+          for itself) had no action to take. Adding a checkout CTA at the natural
+          exit of the calculator converts that conviction into a click.
+          CRO #12 (conversion momentum: calculator is penultimate step, CTA is the
+          last) + #10 (solution-aware: they computed the ROI themselves, so "Start"
+          is the right commitment level, not "learn more").
+          Revenue 2026-09-23. */}
+      <div style={{ marginTop: 20, textAlign: "center" }}>
+        <GuestCheckoutButton
+          locale={locale}
+          label="Start — stop losing on bad buys →"
+          src="payback_calculator_cta"
+        />
+      </div>
     </div>
   )
 }
