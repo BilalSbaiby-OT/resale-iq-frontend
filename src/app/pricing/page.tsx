@@ -65,7 +65,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   const [seedTracked, seedSellThrough, buyList] = await Promise.all([
     listingsTrackedLabel(),
     sellThroughWeeklyLabel(),
-    getPublicBuyList(5).catch((err) => {
+    getPublicBuyList(8).catch((err) => {
       // Never let a buy-list outage break the page people pay on.
       console.error("[pricing] buy-list fetch failed:", err)
       return null
@@ -87,7 +87,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
               /tools auto-runs their query → paywall fires → PricingEyebrow
               shows "this is real, unlock it for €19". CRO #4 (do they have my
               item?) + #8 (specificity). Revenue 2026-09-23. */}
-          <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" />
+          <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" showLockedFomo showPrice />
         </div>
       )}
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />

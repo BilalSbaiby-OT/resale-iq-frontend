@@ -107,6 +107,7 @@ export function SsrBuyListTeaser({
   locale,
   showPrice = true,
   rowSrc,
+  showLockedFomo = false,
 }: {
   items: SsrBuyListItem[]
   locale: Locale
@@ -120,6 +121,14 @@ export function SsrBuyListTeaser({
    * Revenue 2026-09-23.
    */
   rowSrc?: string
+  /**
+   * H82 CRO: when true, show 2 blurred locked rows after the free rows to prove
+   * the ranked list is deeper than what's visible and create genuine FOMO.
+   * Used on /pricing only. Homepage stays uncluttered.
+   * No fabricated data: brand + category come from the real API response.
+   * Revenue 2026-09-23.
+   */
+  showLockedFomo?: boolean
   /** Show the "Starter €19/mo" line under the footer CTA.
    *
    *  PROOF BEFORE PRICE (2026-09-22). Teardown of 11 comparable data/analytics
@@ -143,6 +152,13 @@ export function SsrBuyListTeaser({
       i.verdict === "STRONG BUY" || i.verdict === "BUY" || i.verdict === "RISING"
     ))
     .slice(0, 3)
+
+  // H82 CRO: locked rows for FOMO blur effect on /pricing only.
+  // Prefer items whose verdict field is non-empty (real data rows).
+  // If the API returns no locked rows, fall back to any non-free items.
+  const lockedFomoRows = showLockedFomo
+    ? items.filter(i => i.locked).slice(0, 2)
+    : []
 
   if (freeRows.length === 0) return null
 
@@ -208,6 +224,45 @@ export function SsrBuyListTeaser({
             </div>
           )
         })}
+
+        {/* H82 CRO: locked FOMO rows — blurred, non-clickable, with lock icon.
+            Shows the subscriber-only depth of the ranked list. No data is revealed
+            because price, verdict, and demand figures are blurred out.
+            Only rendered on /pricing (showLockedFomo=true). Revenue 2026-09-23. */}
+        {lockedFomoRows.map((item, i) => (
+          <div
+            key={`locked-${item.brand}-${item.category}-${i}`}
+            aria-hidden
+            style={{
+              ...baseRowStyle,
+              borderTop: "1px solid rgba(255,255,255,.06)",
+              position: "relative",
+              overflow: "hidden",
+              opacity: 0.6,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1, filter: "blur(4px)", userSelect: "none" }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7" }}>
+                {item.brand}{item.model ? ` ${item.model}` : ""}
+              </span>
+              <span style={{ fontSize: 12, color: "#8FA3C4" }}>{item.category}</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0, filter: "blur(4px)", userSelect: "none" }}>
+              <span style={{ fontSize: 11, fontWeight: 700, background: "rgba(48,209,88,.15)", color: "#30D158", borderRadius: 6, padding: "3px 8px" }}>BUY</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158" }}>Buy below €••</span>
+            </div>
+            {/* Lock overlay */}
+            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 16, pointerEvents: "none" }}>
+              <span style={{ fontSize: 11, color: "#6A7D9A", fontWeight: 600, letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: 4 }}>
+                <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
+                  <rect x="1" y="5" width="9" height="7" rx="2" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
+                  <path d="M3 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
+                </svg>
+                Subscribers only
+              </span>
+            </div>
+          </div>
+        ))}
 
         {/* Footer CTA — re-laddered for cold traffic 2026-09-22:
             Free action is visually primary (filled button); paid checkout is
