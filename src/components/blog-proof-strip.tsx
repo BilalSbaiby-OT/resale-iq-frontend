@@ -34,7 +34,7 @@ const VERDICT_COLOR: Record<string, string> = {
 export function BlogProofStrip({
   items,
   ctaHref,
-  ctaLabel = "Check any item free →",
+  ctaLabel = "Check any item now →",
 }: {
   items: SsrBuyListItem[] | null
   /** Where the CTA sends them — the post's own preflight query when it has one. */
@@ -90,7 +90,7 @@ export function BlogProofStrip({
               <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {it.brand}{it.model ? ` ${it.model}` : ""}
                 <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
-                  {" · "}{(it.sold_30d_evidence as number).toLocaleString()} sold/30 days
+                  {" · "}{(it.sold_30d_evidence as number).toLocaleString()} departed/30 days
                 </span>
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>

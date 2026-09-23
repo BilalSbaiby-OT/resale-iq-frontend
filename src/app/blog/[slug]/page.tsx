@@ -219,7 +219,7 @@ export default async function BlogPostPage(
               ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
               : `${canonicalPath(locale, "/tools")}?src=blog_proof`
           }
-          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} free →` : undefined}
+          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
         />
         {/* Inline checker — runs the post's own preflight query on load.
             No redirect, no typing. Visitor sees their verdict before the

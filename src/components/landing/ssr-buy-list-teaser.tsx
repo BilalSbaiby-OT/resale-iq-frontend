@@ -77,9 +77,9 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
               back to sold_7d only when 30d evidence is absent. Revisit
               after Sep 29 only if 7d becomes the more useful signal. */}
           {item.sold_30d_evidence != null
-            ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
+            ? ` · ${item.sold_30d_evidence.toLocaleString()} departed/30 days`
             : item.sold_7d != null
-              ? ` · ${item.sold_7d} sold/wk`
+              ? ` · ${item.sold_7d} departures/wk`
               : ""}
         </span>
       </div>
