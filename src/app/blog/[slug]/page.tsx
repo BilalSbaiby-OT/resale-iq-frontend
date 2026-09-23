@@ -220,6 +220,7 @@ export default async function BlogPostPage(
               : `${canonicalPath(locale, "/tools")}?src=blog_proof`
           }
           ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
+          hasInlineChecker={!!p.preflightQuery}
         />
         {/* Inline checker — runs the post's own preflight query on load.
             No redirect, no typing. Visitor sees their verdict before the

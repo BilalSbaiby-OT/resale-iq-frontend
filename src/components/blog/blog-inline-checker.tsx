@@ -29,6 +29,7 @@ export function BlogInlineChecker({
 }) {
   return (
     <div
+      id="riq-blog-checker"
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >

@@ -35,6 +35,7 @@ export function BlogProofStrip({
   items,
   ctaHref,
   ctaLabel = "Check any item now →",
+  hasInlineChecker = false,
 }: {
   items: SsrBuyListItem[] | null
   /** Where the CTA sends them — the post's own preflight query when it has one. */
@@ -42,6 +43,9 @@ export function BlogProofStrip({
   /** Override when the strip sits under a checker ("Check any item free" would
    *  point at the input directly above it, which reads as broken). */
   ctaLabel?: string
+  /** When true the checker is already rendered below — scroll to it instead
+   *  of navigating off-page. Eliminates the exit on posts with preflightQuery. */
+  hasInlineChecker?: boolean
 }) {
   if (!items || items.length === 0) return null
 
@@ -104,6 +108,25 @@ export function BlogProofStrip({
         })}
       </div>
 
+      {hasInlineChecker ? (
+        /* Checker already below — scroll to it, don't navigate off-page */
+        <a
+          href="#riq-blog-checker"
+          style={{
+            display: "inline-block",
+            marginTop: 12,
+            background: "#34C759",
+            color: "#06090c",
+            fontWeight: 700,
+            fontSize: 13,
+            padding: "9px 16px",
+            borderRadius: 8,
+            textDecoration: "none",
+          }}
+        >
+          See the verdict ↓
+        </a>
+      ) : (
       <Link
         href={ctaHref}
         style={{
@@ -120,6 +143,7 @@ export function BlogProofStrip({
       >
         {ctaLabel}
       </Link>
+      )}
     </aside>
   )
 }
