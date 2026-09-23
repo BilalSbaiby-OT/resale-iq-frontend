@@ -2,7 +2,8 @@
 import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
-import { setToken } from "@/lib/utils"
+import { setToken, getPlanFromToken } from "@/lib/utils"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { getMe } from "@/lib/api"
 import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
@@ -76,24 +77,22 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
           // Clean the token out of the URL (don't expose it in history)
           window.history.replaceState({}, "", "/login")
-          // Pre-seed the first verdict query so a newly-verified account
-          // sees a real buy-below number on arrival instead of a blank input.
-          // Nike Air Force 1 is in _PUBLIC_SAMPLE_QUERIES so it works for
-          // every plan tier. (Tony C134 2026-09-23)
-          // C141: also read riq_intent_query from localStorage — set by the
-          // onBeforeNavigate handler above if the user typed an intent query
-          // before clicking "Continue with Google". Same pattern as
-          // verify-email-content.tsx. Cleared after use.
-          let dest = brandQuery.trim()
-            ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
-            : "/verdict?q=Nike+Air+Force+1"
+          // C171(tony): Google login also lacked plan-aware routing — matched
+          // the same fix applied to email+password login and reset-password (C166).
+          // Paid users land on /dashboard; intent query still overrides.
+          let dest: string
           try {
             const saved = localStorage.getItem("riq_intent_query")
             if (saved) {
               dest = `/verdict?q=${encodeURIComponent(saved)}`
               localStorage.removeItem("riq_intent_query")
+            } else if (brandQuery.trim()) {
+              dest = `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
+            } else {
+              const plan = getPlanFromToken()
+              dest = (plan === "operator" || plan === "power") ? "/dashboard" : FIRST_CHECK_HREF
             }
-          } catch { /* private mode — fall back */ }
+          } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
           router.push(dest)
         })
         .catch(() => {
@@ -125,16 +124,24 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       // session) so a returning user who logs in with email+password also lands
       // on their own query rather than the generic Air Force 1 sample.
       // Mirrors the Google OAuth callback pattern (C141).
-      let dest = brandQuery.trim()
-        ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
-        : "/verdict?q=Nike+Air+Force+1"
+      // C171(tony): C166 added plan-aware routing to reset-password but login
+      // still sent every paid subscriber to the public Nike AF1 demo. Paid
+      // users get /dashboard (their buy-list); free/unknown get the intent
+      // query or FIRST_CHECK_HREF sample. Intent query still overrides both —
+      // if they typed a brand before logging in, that check fires on arrival.
+      let dest: string
       try {
         const saved = localStorage.getItem("riq_intent_query")
-        if (saved && !brandQuery.trim()) {
+        if (brandQuery.trim()) {
+          dest = `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
+        } else if (saved) {
           dest = `/verdict?q=${encodeURIComponent(saved)}`
           localStorage.removeItem("riq_intent_query")
+        } else {
+          const plan = getPlanFromToken()
+          dest = (plan === "operator" || plan === "power") ? "/dashboard" : FIRST_CHECK_HREF
         }
-      } catch { /* private mode — fall back */ }
+      } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
       router.push(dest)
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
