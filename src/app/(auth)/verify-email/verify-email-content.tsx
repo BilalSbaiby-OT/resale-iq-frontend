@@ -77,10 +77,14 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // without an explicit intent query. topBrandRef is fetched in parallel;
           // if the race means it's still empty, fall back to Stone Island Hoodies.
           let firstQuery = encodeURIComponent(topBrandRef.current || "Stone Island Hoodies")
+          // C182(tony): track whether the user explicitly captured an intent at
+          // /register so the two free-routing paths below can diverge.
+          let hadIntent = false
           try {
             const saved = localStorage.getItem("riq_intent_query")
             if (saved) {
               firstQuery = encodeURIComponent(saved)
+              hadIntent = true
               localStorage.removeItem("riq_intent_query")
             }
           } catch { /* private mode — fall back to sample */ }
@@ -89,21 +93,30 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // the Stripe checkout that fires right after register). Sending
           // them to a paywalled /verdict is the conversion dead-end we've
           // measured: they see the buy-below locked, have no path back to
-          // checkout, and close the tab. Instead: paid plans go to /verdict
-          // (same as before, their first real answer); free plans go to
-          // /pricing so the next action is subscribe, not bounce.
+          // checkout, and close the tab.
+          // C182(tony): Plausible/Fathom/Beehiiv pattern — product-first sell.
+          //   paid    → /verdict?q=<firstQuery> (immediate first answer, same as before)
+          //   free + intent → /pricing?ref=verify&q=<firstQuery> (C174 message-match eyebrow;
+          //                   peak intent, they typed an item, sell at that moment)
+          //   free + no intent → /verdict?q=Nike+Air+Force+1 (full free demo, Aha moment
+          //                   BEFORE asking for money; from /verdict they search their own
+          //                   item → paywall fires at "this works" moment; 11/25 accounts
+          //                   ran 0 verdicts — they signed up then saw a cold /pricing ask
+          //                   and left without ever seeing the product)
           // res.plan is available from the verify-email API response.
           // Falls back to /verdict if plan is absent (safe, pre-C160 behaviour).
           const isPaid = res.plan && res.plan !== "free"
           if (isPaid) {
             router.replace(`/verdict?q=${firstQuery}`)
+          } else if (hadIntent) {
+            // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready)
+            router.replace(`/pricing?ref=verify&q=${firstQuery}`)
           } else {
-            // Carry the intent query so /pricing can show context + pre-fill
-            // checkout. Decoded back to a readable string for the URL param.
-            const intentParam = firstQuery !== "Nike+Air+Force+1"
-              ? `&q=${firstQuery}`
-              : ""
-            router.replace(`/pricing?ref=verify${intentParam}`)
+            // Free + no intent: Aha moment first — show a free sample verdict so
+            // they understand the product BEFORE we ask for money. Nike AF1 is in
+            // _PUBLIC_SAMPLE_QUERIES so it returns full data with no subscription.
+            // From /verdict they naturally search their own item → paywall fires.
+            router.replace(`/verdict?q=Nike+Air+Force+1`)
           }
           return
         }
