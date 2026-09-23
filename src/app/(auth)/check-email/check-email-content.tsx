@@ -22,6 +22,54 @@ const FALLBACK_BRANDS: SnapshotBrandRow[] = [
 
 type BrandRow = SnapshotBrandRow
 
+// C163(tony): email-app shortcuts — Superhuman/Notion/Canva pattern.
+// Deep-links to the user's inbox so they never have to leave and hunt.
+// Gmail search pre-filters for emails from noreply@resaleiq.dev in the last day.
+function EmailClientButton({ email }: { email: string }) {
+  const domain = email.split("@")[1]?.toLowerCase() ?? ""
+  type Client = { label: string; href: string }
+  let client: Client | null = null
+
+  if (domain === "gmail.com" || domain === "googlemail.com") {
+    client = {
+      label: "Open Gmail",
+      href: "https://mail.google.com/mail/u/0/#search/from%3Anoreply%40resaleiq.dev+newer_than%3A1d",
+    }
+  } else if (
+    domain === "outlook.com" || domain === "hotmail.com" ||
+    domain === "live.com" || domain === "msn.com"
+  ) {
+    client = {
+      label: "Open Outlook",
+      href: "https://outlook.live.com/mail/0/",
+    }
+  } else if (domain === "icloud.com" || domain === "me.com" || domain === "mac.com") {
+    client = {
+      label: "Open iCloud Mail",
+      href: "https://www.icloud.com/mail",
+    }
+  } else if (domain === "yahoo.com" || domain === "yahoo.co.uk") {
+    client = {
+      label: "Open Yahoo Mail",
+      href: "https://mail.yahoo.com/",
+    }
+  }
+
+  // No known client → no button rendered (don't guess wrong)
+  if (!client) return null
+
+  return (
+    <a
+      href={client.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border border-[var(--color-border-ui)] text-[13px] font-semibold text-[var(--color-text-primary)] hover:border-[var(--color-buy)] hover:text-[var(--color-buy)] transition-colors mb-4"
+    >
+      {client.label} →
+    </a>
+  )
+}
+
 // C143(tony): activation — 3-step progress indicator for the verification
 // waiting screen. Linear/Notion research: users abandon verification when it
 // feels like an admin step rather than progress toward a goal. Showing them
@@ -150,6 +198,14 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           {t.bodyPrefix}{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
           {" "}{t.bodyMiddle} <strong className={`${AUTH_TEXT} font-semibold`}>{t.spam}</strong> {t.bodySuffix} <span className={AUTH_TEXT}>noreply@resaleiq.dev</span>.
         </p>
+        {/* C163(tony): email-app shortcut buttons — Superhuman/Notion pattern.
+            The #1 reason users abandon verification: they leave the tab to find
+            the email and never come back. One-tap deep-links to the actual inbox
+            remove that roundtrip. Detected from user.email domain; shows "Open
+            Gmail" for @gmail, "Open Outlook" for hotmail/outlook/live, "Open
+            iCloud Mail" for icloud/me/mac, generic for everything else. */}
+        <EmailClientButton email={user?.email ?? ""} />
+
         <p className={`${AUTH_TEXT_MUTED} text-[12px] mb-6`}>
           {t.cantFind} <a href="mailto:support@resaleiq.dev" className={`${AUTH_ACCENT} hover:underline`}>support@resaleiq.dev</a>.
         </p>
