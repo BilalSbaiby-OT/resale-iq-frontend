@@ -70,7 +70,8 @@ export function useGuestCheckout({
       } catch { /* private mode / storage quota */ }
       const priceId = resolvePriceId(placeholder, stripePlans)
       if (!priceId) {
-        window.location.href = `${canonicalPath(locale, "/register")}?plan=operator`
+        const fallbackQ = query?.trim() ? `&q=${encodeURIComponent(query.trim())}` : ""
+        window.location.href = `${canonicalPath(locale, "/register")}?plan=operator${fallbackQ}`
         return
       }
       const { checkout_url } = await createCheckout(priceId, {
@@ -86,7 +87,10 @@ export function useGuestCheckout({
       // loaded). The error is unactionable for the user, and the fallback to /register
       // keeps the button from ever being a dead end. No log because this path is expected
       // in dev and would produce noise; Stripe failures appear in the Stripe dashboard.
-      window.location.href = `${canonicalPath(locale, "/register")}?plan=operator`
+      // C158(tony): carry query on the error-fallback path too so the register
+      // intent field is pre-filled even when the Stripe call itself throws.
+      const fallbackQ = query?.trim() ? `&q=${encodeURIComponent(query.trim())}` : ""
+      window.location.href = `${canonicalPath(locale, "/register")}?plan=operator${fallbackQ}`
     } finally {
       setBusy(false)
     }

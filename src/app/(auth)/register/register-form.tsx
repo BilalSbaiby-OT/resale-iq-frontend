@@ -56,7 +56,14 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // point was removing ticks: EU law requires express, standalone consent to
   // waive the 14-day withdrawal right for immediately-delivered digital goods.
   // Legality is a constraint, not a conversion input. Paid path only.
-  const [intentQuery, setIntentQuery] = useState("")
+  // C158(tony): seed intentQuery from ?q= URL param — when GuestCheckoutButton
+  // falls back to /register?plan=operator&q=Stone+Island+Hoodie (because
+  // Stripe guest checkout failed), the intent field pre-fills from the URL so
+  // the visitor doesn't have to retype what they were checking.
+  // Derived once from searchParams (same pattern as `plan` above — derived,
+  // not state-driven, because the URL doesn't change after mount).
+  const queryFromUrl = searchParams.get("q") ?? ""
+  const [intentQuery, setIntentQuery] = useState(queryFromUrl)
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
   // C148(tony): when backend returns 409 Conflict, render a clickable sign-in
