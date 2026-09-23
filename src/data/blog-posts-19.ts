@@ -16,7 +16,7 @@ export const POSTS_19: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Flipping clothes for profit is a two-variable problem: buy below what the market pays on departure, and sell before holding costs eat the margin. Every other detail — sourcing location, listing quality, pricing — is in service of those two constraints. This guide covers the full process end to end, built around EU Vinted departure data for the 28 brands Resale IQ tracks.",
     definedTerm: {

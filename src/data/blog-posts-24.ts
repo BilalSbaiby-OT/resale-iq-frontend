@@ -16,7 +16,7 @@ export const POSTS_24: BlogPost[] = [
     date: "2026-09-15",
     category: "Platforms",
     readMins: 11,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Three platforms. Very different fee structures, audiences, and category fits. The question isn't which is 'best' — it's which is best for this item. A Fred Perry polo that exits at €17 on Vinted may fetch €28 on Depop and £12 on eBay. The platform choice is a sourcing and pricing decision, not a brand loyalty one. Here is the complete breakdown.",
     definedTerm: {

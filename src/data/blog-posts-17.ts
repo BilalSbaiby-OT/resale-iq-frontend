@@ -16,7 +16,7 @@ export const POSTS_17: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Of the 28 brands Resale IQ tracks across EU Vinted markets, six carry significant counterfeit risk: Stone Island, Balenciaga, Gucci, Supreme, Jordan, and Off-White. A Stone Island hoodie averaging €56 departure price and a Balenciaga sneaker averaging €140 are exactly the margin targets counterfeiters optimise for. This guide covers the physical checks that experienced resellers use at source — in a charity shop, at a car boot sale, or reviewing a Vinted listing's photos — before committing to a purchase.",
     definedTerm: {

@@ -150,7 +150,7 @@ export const POSTS_128: BlogPost[] = [
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 6,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       `As of 22 September 2026, Resale IQ tracks ${TRACKED} listings across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 sold-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on whether you mean volume (Stone Island, Patagonia, Fred Perry) or sell speed in days (Balenciaga Track at avg 0.3 days). Here is the full breakdown.`,
     definedTerm: {

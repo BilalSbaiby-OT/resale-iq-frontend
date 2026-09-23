@@ -16,7 +16,7 @@ export const POSTS_26: BlogPost[] = [
     date: "2026-09-15",
     category: "Platforms",
     readMins: 14,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Vinted has over 65 million members and no seller fees — which makes it the highest-margin resale platform in Europe for most categories. But no seller fees also means more competition: every seller on Vinted is keeping a larger share of the price, so items that aren't priced and presented well simply don't move. This guide covers the full method — from setting up your account correctly to sourcing items below the market floor — so you are not guessing at each step.",
     definedTerm: {

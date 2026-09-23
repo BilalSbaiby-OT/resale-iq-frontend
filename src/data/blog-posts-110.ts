@@ -19,7 +19,7 @@ export const POSTS_110: BlogPost[] = [
     category: "Sourcing",
     readMins: 9,
 
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
 
     intro:
       "Vinted's search algorithm is a two-stage relevance engine. First it matches listings to a search query using keywords in your title, description, category, brand field, and hashtags. Then it ranks those matched listings by quality signals: click-through rate on the main photo, listing freshness, seller reputation, response time, and price competitiveness. Your title carries the most weight in stage one — a listing with a keyword-rich title and a blurry photo will outrank a beautiful listing with a vague title every time. The algorithm is not static: Vinted updated its ranking logic in early 2026, placing increased weight on listing freshness and main-photo CTR. This guide breaks down exactly what the algorithm measures, what it ignores, and the specific changes that move your listings up in 2026.",

@@ -16,7 +16,7 @@ export const POSTS_16: BlogPost[] = [
     date: "2026-09-15",
     category: "Pricing",
     readMins: 6,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Vinted is widely marketed as 'no seller fees', and that is mostly true — Vinted charges a buyer protection fee to the buyer, not a commission to the seller. But selling on Vinted is not free. Shipping labels, optional boosts, and VAT rules chip away at your margin. This page breaks down exactly what you keep on a €20, €50, and €100 sale — and where the margin goes.",
     definedTerm: {
@@ -140,7 +140,7 @@ export const POSTS_16: BlogPost[] = [
     date: "2026-09-15",
     category: "Strategy",
     readMins: 8,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Vinted processes millions of second-hand transactions across EU5 markets every week. The sellers who make consistent money are not the ones who list everything they own — they are the ones who buy specific brands at or below a known buy-below price, list fast, and ship promptly. This guide covers the exact method: what to source, where to find it, what to pay, and how to keep as much of the sale price as possible.",
     definedTerm: {

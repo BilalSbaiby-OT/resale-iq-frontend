@@ -18,7 +18,7 @@ export const POSTS_113: BlogPost[] = [
     category: "Selling",
     readMins: 8,
 
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
 
     intro:
       "Most Vinted sales do not happen at the listed price. They happen through the Make an Offer button — buyers can send up to 25 offers per day, and sellers can counter, accept, or decline. The problem is not the offers. The problem is that most sellers have no system for handling them. They accept too low, counter too high, or decline buyers who would have paid more. This guide gives you a decision framework built on how the platform actually works — not on forum opinions.",

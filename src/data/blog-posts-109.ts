@@ -22,7 +22,7 @@ export const POSTS_109: BlogPost[] = [
     category: "Sourcing",
     readMins: 7,
 
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Yes, reselling on Vinted is worth it — with one condition: you buy below the tracked departure average. Across the 23 brands ResaleIQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal), 1,077 items left the shelf in the week to 19 September 2026. The average exit price across all tracked brands is €53. Buy below that average and the margin works. Buy above it and you are donating your time. This page answers the objection with live data, not opinion.",
 

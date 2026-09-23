@@ -321,7 +321,7 @@ export const POSTS: BlogPost[] = [
     updated: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     intro:
       "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 199 departures in the last 30 days. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 101 departures in the last 30 days. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
     sections: [
@@ -592,7 +592,7 @@ export const POSTS: BlogPost[] = [
     date: "2026-08-05",
     updated: "2026-09-20",
     category: "Sourcing",
-    preflightQuery: "Nike Air Force 1",
+    preflightQuery: "Ralph Lauren Poloshirt",
     readMins: 5,
     intro:
       "As of 20 September 2026, we watched 566 listings leave the shelf across 20 published brands this week, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. The fastest pairs to hunt are not the cheapest logos. Patagonia Jackets recorded 45 watched departures at €39, Stone Island Hoodies 29 at €52, and New Balance Sneakers 22 at €48. Weekly counts are a lower bound: listings first seen already gone do not enter the 7-day figure. To find items worth flipping, start from proven demand rather than from what looks cheap: pick categories that are actually leaving the shelf, know each one's buy-below, then hunt listings under it — in a charity shop, a Facebook lot, or on Vinted. That turns sourcing into a filter instead of a scroll. We do not see sale receipts. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
