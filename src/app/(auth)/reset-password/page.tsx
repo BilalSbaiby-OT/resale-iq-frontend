@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { resetPassword, getMe } from "@/lib/api"
 import { setToken } from "@/lib/utils"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useAuthStore } from "@/lib/auth-store"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -48,7 +49,19 @@ export default function ResetPasswordPage() {
         } catch {
           useAuthStore.setState({ isAuthenticated: true, isLoading: false })
         }
-        router.replace("/verdict")
+        // C146(tony): carry intent query from localStorage so a returning user
+        // who typed their search on /login before clicking "forgot password"
+        // lands on that result, not a blank /verdict. Same pattern as verify-email
+        // (C140). Falls back to Nike Air Force 1 sample — always a real result.
+        let firstHref = FIRST_CHECK_HREF
+        try {
+          const saved = localStorage.getItem("riq_intent_query")
+          if (saved) {
+            firstHref = "/verdict?q=" + encodeURIComponent(saved)
+            localStorage.removeItem("riq_intent_query")
+          }
+        } catch { /* private mode — fall back to sample */ }
+        router.replace(firstHref)
         return
       }
       setDone(true)
