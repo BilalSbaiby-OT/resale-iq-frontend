@@ -44,6 +44,15 @@
  *  Blog had an email input gating the same button — pre-gate decision adds
  *  cognitive friction before conversion. Removed the input. Single
  *  GuestCheckoutButton — same pattern as /tools. Stripe collects email after.
+ *
+ * C203 — comparable_n in above-fold copy:
+ *  34 first_analysis events in 7d from blog, 0 checkout_from_blog. The CTA
+ *  rendered but no one clicked. Copy was generic ("verdict is ready"). Fix:
+ *  show the actual comparable_n from the SSR payload — "We have 41 data points
+ *  on New Balance 550. Unlock buy-below prices →". Specificity converts.
+ *  comparable_n is passed from ssrBlogVerdict → parsePaywallBody → initialResult.
+ *  Fallback when comparable_n is null/undefined: "Verdict data ready for
+ *  {preflightQuery}" — always honest (never invent a number).
  */
 import { useEffect } from "react"
 import { FreeChecker } from "@/components/tools/free-checker"
@@ -80,9 +89,11 @@ export function BlogInlineChecker({
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >
-      {/* C197+C202: Above-fold single checkout CTA — only on SSR PAYWALL.
+      {/* C197+C202+C203: Above-fold single checkout CTA — only on SSR PAYWALL.
           C202 removed the email input (C199): checkout_from_blog stayed 0
-          while /tools (single button, no pre-gate) converts at ~30%. */}
+          while /tools (single button, no pre-gate) converts at ~30%.
+          C203: comparable_n-specific copy — "We have N data points on X.
+          Unlock buy-below prices →" beats generic "verdict is ready". */}
       {isSSRPaywall && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
@@ -100,11 +111,14 @@ export function BlogInlineChecker({
           }}
         >
           <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-            Your {preflightQuery} verdict is ready.
+            {initialResult?.comparable_n
+              ? <>We have <strong style={{ color: "#34C759" }}>{initialResult.comparable_n}</strong> data points on {preflightQuery}.</>
+              : <>Verdict data ready for {preflightQuery}.</>
+            }
           </span>
           <GuestCheckoutButton
             locale={locale}
-            label="Unlock — €19/mo →"
+            label="Unlock buy-below →"
             src="blog_above_fold"
             query={preflightQuery}
           />
