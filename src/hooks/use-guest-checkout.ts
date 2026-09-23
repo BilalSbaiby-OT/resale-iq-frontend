@@ -48,6 +48,17 @@ export function useGuestCheckout({
   // H80 CRO: read authenticated user's email to prefill Stripe checkout.
   // useAuthStore is safe to call in a hook that already runs client-side only.
   const { user } = useAuthStore()
+  // H116 CRO: read the email the visitor typed on homepage/blog/pricing-card capture
+  // forms (riq_capture_email) so every GuestCheckoutButton pre-fills Stripe — even
+  // buttons that don't explicitly receive a customerEmail prop.
+  // Prop wins → auth user email wins → localStorage fallback. Only read at click-
+  // time (inside start()) to avoid SSR hydration mismatch.
+  // Affected surfaces: pricing cold-cta, blog-footer-cta, verdict-context-bridge,
+  // tools-sample-bridge, post-faq-cta, payback-calculator-cta — all lacked the
+  // pre-fill. H107/H113 already wired HardPaywallCard and pricing-card directly;
+  // this closes the gap for every other button at once.
+  // CRO #6 (cognitive load: removes required Stripe email field) + #9 (friction:
+  // one less step the visitor hasn't already completed). Revenue 2026-09-24. H116.
 
   useEffect(() => {
     getPlans()
@@ -77,13 +88,19 @@ export function useGuestCheckout({
         window.location.href = `${canonicalPath(locale, "/register")}?plan=operator${fallbackQ}`
         return
       }
+      // H116 CRO: read stored email at click-time (not render-time) to avoid
+      // SSR hydration mismatch. Priority: explicit prop > auth user > localStorage.
+      const storedEmail = (() => {
+        try { return localStorage.getItem("riq_capture_email") ?? "" } catch { return "" }
+      })()
       const { checkout_url } = await createCheckout(priceId, {
         plan: "operator",
         // H80 CRO: pass user's email (if logged in) so Stripe pre-populates
         // the email field — closes the 23/25 no-email-typed gap.
         // H93: customerEmail prop wins over auth store email — used when caller
         // has an email from a preceding capture form (DigestSubscribe).
-        customer_email: customerEmail || user?.email || undefined,
+        // H116: storedEmail as final fallback so ALL GuestCheckoutButtons benefit.
+        customer_email: customerEmail || user?.email || storedEmail || undefined,
       })
       trackEvent("checkout_started")
       window.location.href = checkout_url
