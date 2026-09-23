@@ -11,6 +11,7 @@ import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
 import { BrandStrip } from "@/components/landing/brand-strip"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
+import { PricingTryInput } from "@/components/landing/pricing-try-input"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -136,6 +137,16 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           + #12 (demonstration → conviction → ask).
           Revenue 2026-09-23. */}
       <PricingVerdictDemo locale={locale} />
+      {/* H108 CRO: "Try your own item" input below the static verdict demo.
+          The demo (H105) shows AF1 data — proves the format but not coverage.
+          Visitor sourcing Stone Island or Carhartt thinks "does it cover mine?"
+          and the page had no answer. This input routes to /tools?q=X&src=pricing_try;
+          /tools auto-runs the query and fires the paywall with the item named.
+          44/50 /pricing visitors never saw a verdict — this lets them check their
+          own item without leaving into an unknown page, maintaining momentum.
+          CRO #3 (message match: their item) + #4 (objection: works for mine?)
+          + #12 (demo→personalized→paywall→checkout). Revenue 2026-09-23. */}
+      <PricingTryInput locale={locale} />
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
   )
