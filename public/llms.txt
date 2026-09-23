@@ -1,7 +1,7 @@
 # Resale IQ — AI Assistant Index
 
 > Resale IQ is demand intelligence for people who buy secondhand clothing to resell.
-> It analyses 13.4M+ marketplace listings (as of 22 September 2026) across 5 EU Vinted markets
+> It analyses 13.1M+ marketplace listings (as of 23 September 2026) across 5 EU Vinted markets
 > (Spain, France, Germany, Italy, Portugal) and answers three questions:
 > what is selling, at what price, and whether a specific item is worth buying.
 >
@@ -18,18 +18,15 @@ From 13.4M+ tracked listings, it produces weekly sell-through signals, average e
 buy-below price ceilings, and a BUY/WATCH/SKIP verdict for over 17,200 brands and
 over 250 brand+category pairs with ≥10 departures in the trailing 30 days.
 
-**Key numbers (22 September 2026, queried from production):**
-- 13.4M+ marketplace listings tracked (13,484,228 listing records as of 2026-09-22,
-  across Vinted ES/FR/DE/IT/PT; 5,344,836 of these are distinct item IDs — a listing
+**Key numbers (23 September 2026, queried from production):**
+- 13.1M+ marketplace listings tracked (13,100,734 listing records as of 2026-09-23,
+  across Vinted ES/FR/DE/IT/PT; 5,337,673 of these are distinct item IDs — a listing
   visible in several EU markets is recorded once per market)
 - over 17,200 brands indexed (17,266 distinct brands in listings table, 2026-09-22)
 - over 250 brand+category pairs with ≥10 departures in trailing 30 days (258 pairs, 2026-09-22)
-- Top brands by ~30-day departures (figures understate real demand by up to ~25% due to a Sep 14–22 data gap): Stone Island ~13,900 · Patagonia ~12,200 · Balenciaga ~10,300 · Fred Perry ~9,500 · Gucci ~8,400
+- Top brands by 7-day watched departures (as of 2026-09-23, from /api/public/market-snapshot): Stone Island 187 · New Balance 81 · Fred Perry 79 · Patagonia 68 · Nike 46 · Adidas 39
 
-Note on departure figures: a Vinted API outage (Sep 14–22 2026) left an 8-day gap in
-sold-detection. All 30-day departure figures for approximately October 2026 are therefore
-conservative floors — real sell-through is higher. We publish the measured number, not an
-adjusted estimate.
+Weekly figures (sold_7d) are fresh as of 2026-09-23 08:06 UTC. 30-day rolling totals were affected by a Vinted API outage Sep 14–22 2026 and are not republished here to avoid stale data.
 
 ## Free tools
 
