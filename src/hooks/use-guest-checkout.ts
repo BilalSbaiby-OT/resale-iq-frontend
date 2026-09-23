@@ -29,7 +29,12 @@ export function useGuestCheckout({
   src?: string
 }) {
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
-  const [ready, setReady] = useState(false)
+  // H84 CRO: initialise ready=true because BAKED_PRICE_IDS always provides a
+  // fallback operator price_id. Previously the button was disabled (cursor:wait)
+  // on first paint while getPlans() resolved — on blog pages the paywall card
+  // renders from SSR immediately, so users who clicked the CTA within the first
+  // ~300ms saw no response and abandoned. Revenue 2026-09-23.
+  const [ready, setReady] = useState(true)
   const [busy, setBusy] = useState(false)
   // H80 CRO: read authenticated user's email to prefill Stripe checkout.
   // useAuthStore is safe to call in a hook that already runs client-side only.
