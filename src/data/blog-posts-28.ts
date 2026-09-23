@@ -16,7 +16,7 @@ export const POSTS_28: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Every resale profit starts before you list anything — it starts when you buy. Sourcing well means paying below the number that, after fees and time, still leaves a real margin. This guide ranks the four main sourcing channels by margin, time cost, and risk, and shows you exactly how to calculate the buy-below price before you commit to any item.",
     definedTerm: {

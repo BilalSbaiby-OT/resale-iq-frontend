@@ -47,7 +47,7 @@ export const POSTS_128: BlogPost[] = [
     readMins: 7,
     preflightQuery: "New Balance 530",
     intro:
-      "As of 22 September 2026, the single highest-volume model in Resale IQ's tracked set is the New Balance 530: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure, with a buy-below of €25.61. The Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85) and Ralph Lauren Poloshirt (825 dep/30d, avg €23.88, buy-below €15.88) are second and third. These are minimums — a Sep 14–22 data gap means real 30-day demand is likely higher. The table below ranks every model with a confirmed buy-below signal and at least 50 departures in the trailing 30 days.",
+      "As of 22 September 2026, the single highest-volume model in Resale IQ's tracked set is the New Balance 530: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure, with a buy-below of €25.61. The Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85) and New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88) are second and third. These are minimums — a Sep 14–22 data gap means real 30-day demand is likely higher. The table below ranks every model with a confirmed buy-below signal and at least 50 departures in the trailing 30 days.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -61,7 +61,7 @@ export const POSTS_128: BlogPost[] = [
         h: "How to read this table",
         p: [
           "Sold/30d is watched departures across the 5 EU Vinted markets in the trailing 30 days — minimums, not totals. A Sep 14–22 outage in our sold-detection means the real figures are likely up to ~25% higher. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin after a ~5% platform fee.",
-          "The table is ordered by sold/30d descending. Volume and margin are different things — the Ralph Lauren Poloshirt moves 825 units at €24 avg, while the Balenciaga Track moves 891 units at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
+          "The table is ordered by sold/30d descending. Volume and margin are different things — the New Balance 550 moves 825 units at €24 avg, while the Balenciaga Track moves 891 units at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
         ],
         table: {
           caption:
@@ -70,7 +70,7 @@ export const POSTS_128: BlogPost[] = [
           rows: [
             ["1", "[New Balance 530](/blog/new-balance-530-resell-guide-vinted)", "Sneakers", "1,235", "€38.51", "€25.61"],
             ["2", "[Balenciaga Track](/blog/balenciaga-track-eu-vinted-price-guide)", "Other", "891", "€290.00", "€192.85"],
-            ["3", "[Ralph Lauren Poloshirt](/blog/ralph-lauren-reselling-vinted-guide)", "Shirts", "825", "€23.88", "€15.88"],
+            ["3", "[New Balance 550](/blog/ralph-lauren-reselling-vinted-guide)", "Shirts", "825", "€23.88", "€15.88"],
             ["4", "[Balenciaga Runner](/blog/balenciaga-runner-eu-vinted-price-guide)", "Other", "389", "€141.56", "€94.14"],
             ["5", "[New Balance 9060](/blog/new-balance-9060-eu-vinted-price-guide)", "Sneakers", "371", "€47.76", "€31.76"],
             ["6", "[Puma Speedcat OG](/blog/puma-sneakers-eu-vinted-price-guide)", "Sneakers", "319", "€55.14", "€36.67"],
@@ -90,7 +90,7 @@ export const POSTS_128: BlogPost[] = [
         h: "Why these items right now",
         p: [
           "The autumn transition is already live. Patagonia Synchilla (202 dep/30d) and Retro-X (118 dep/30d at €67 avg, buy-below €44.70) are clearing at pace as buyers in France, Germany and Italy move into layering. Stone Island Hoodies account for roughly 5,700 of Stone Island's ~13,900 brand-level departures this month at an average of €52.51.",
-          "High-volume basics (Ralph Lauren Poloshirt at €24, Fred Perry Twin Tipped at €21) run on volume, not margin per unit. The Balenciaga cluster — Track, Runner, City Bag, Triple S, Arena — runs on ticket size: fewer transactions, more euro per deal. Know which business you are running before you source.",
+          "High-volume basics (New Balance 550 at €24, Fred Perry Twin Tipped at €21) run on volume, not margin per unit. The Balenciaga cluster — Track, Runner, City Bag, Triple S, Arena — runs on ticket size: fewer transactions, more euro per deal. Know which business you are running before you source.",
           "The New Balance 530 sits in the middle: 1,235 departures at €38.51 avg. At a buy-below of €25.61, that is a model where volume and margin overlap — the reason it leads the table. The 9060 (371 dep/30d, €47.76, buy-below €31.76) is a complementary hold: newer model, higher average, lower competition.",
         ],
         cta: pricingMidCta("ctr_buynow_20260922"),
@@ -117,7 +117,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What should I buy to resell on Vinted right now?",
         a:
-          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €25.61), Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85), Ralph Lauren Poloshirt (825 dep/30d, avg €23.88, buy-below €15.88). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to sold, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
+          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €25.61), Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85), New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to sold, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
       },
       {
         q: "What is a buy-below price?",
@@ -137,7 +137,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "How do I know what to pay for an item I want to resell on Vinted?",
         a:
-          "Use the buy-below price: avg departure price × 0.95 × 0.70. For the top models listed here, buy-below prices range from €15.88 (Ralph Lauren Poloshirt) to €230.22 (Balenciaga City Bag). Never pay above the buy-below ceiling unless you have evidence the specific size, condition or colourway commands a premium. Check a specific model free at https://resaleiq.dev/tools",
+          "Use the buy-below price: avg departure price × 0.95 × 0.70. For the top models listed here, buy-below prices range from €15.88 (New Balance 550) to €230.22 (Balenciaga City Bag). Never pay above the buy-below ceiling unless you have evidence the specific size, condition or colourway commands a premium. Check a specific model free at https://resaleiq.dev/tools",
       },
     ],
   },
@@ -150,7 +150,7 @@ export const POSTS_128: BlogPost[] = [
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 6,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       `As of 22 September 2026, Resale IQ tracks ${TRACKED} listings across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 sold-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on whether you mean volume (Stone Island, Patagonia, Fred Perry) or sell speed in days (Balenciaga Track at avg 0.3 days). Here is the full breakdown.`,
     definedTerm: {

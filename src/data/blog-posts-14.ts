@@ -103,7 +103,7 @@ export const POSTS_14: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 5,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Week to 14 September 2026, Pull&Bear ranked #23 across Spain, France, Germany, Italy and Portugal with 51 watched departures at an average exit price of €11 — the lowest brand average in the tracked catalogue for brands with meaningful volume. The core Pull&Bear product range (basics, Hoodies, Jeans, casual Jackets) exits at prices that sit at or below the price of the same item in a Pull&Bear store new, eliminating margin for deliberate resellers. Pull&Bear is Inditex-owned and widely available across EU markets, with Zara-equivalent distribution creating no secondary market scarcity. The only realistic sourcing edge is vintage Pull&Bear — late-1990s and early-2000s denim and collab pieces where the Inditex era branding carries a retro premium.",
     sections: [

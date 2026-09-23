@@ -16,7 +16,7 @@ export const POSTS_23: BlogPost[] = [
     date: "2026-09-15",
     category: "Strategy",
     readMins: 10,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Vinted's search algorithm punishes listings that break its conventions. Misspelled brands, wrong categories, three blurry photos, and vague descriptions all suppress visibility — which means the items sell slower and sometimes sit at whatever the seller originally listed. This creates a systematic sourcing opportunity: find listings the algorithm is hiding, buy below departure average, relist correctly. This guide maps the specific search tactics that surface underpriced items on Vinted before other resellers get there.",
     definedTerm: {

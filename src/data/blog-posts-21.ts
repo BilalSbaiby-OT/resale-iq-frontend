@@ -16,7 +16,7 @@ export const POSTS_21: BlogPost[] = [
     date: "2026-09-15",
     category: "Selling",
     readMins: 11,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Selling designer items on Vinted is high-stakes resale: the margin potential is real (Gucci Bags depart at €304 on average, Balenciaga at €147), but so is the dispute risk. One returned item on a fake claim can wipe the margin from three legitimate sales. This guide covers the process from authentication through to getting paid — protection first, profit second.",
     definedTerm: {

@@ -108,7 +108,7 @@ export const POSTS_127: BlogPost[] = [
     updated: "2026-09-22",
     category: "Sourcing",
     readMins: 7,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     definedTerm: {
       name: "Oversupplied brand (Vinted resale)",
       description:
@@ -201,7 +201,7 @@ export const POSTS_127: BlogPost[] = [
     updated: "2026-09-22",
     category: "Sourcing",
     readMins: 8,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     definedTerm: {
       name: "Charity shop flip (Vinted resale)",
       description:

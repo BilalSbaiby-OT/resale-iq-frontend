@@ -18,7 +18,7 @@ export const POSTS_20: BlogPost[] = [
     date: "2026-09-15",
     category: "Reselling Basics",
     readMins: 11,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Since 2023, Vinted is required by EU law to report seller data to national tax authorities. Most casual sellers owe nothing — but the rules differ by country, and 'I didn't know' is not a defence once HMRC or the Belgian tax service has your transaction log. This guide covers the actual thresholds, what profit means in tax terms, and what records you need if you sell regularly.",
     definedTerm: {

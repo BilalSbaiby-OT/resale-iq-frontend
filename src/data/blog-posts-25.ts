@@ -16,7 +16,7 @@ export const POSTS_25: BlogPost[] = [
     date: "2026-09-15",
     category: "Pricing",
     readMins: 12,
-    preflightQuery: "Ralph Lauren Poloshirt",
+    preflightQuery: "New Balance 550",
     intro:
       "Most vintage sellers either underprice (leaving money on the table) or overprice (leaving the item on the shelf). The difference is a pricing method. Vintage clothing has four distinct value signals that don't apply to new or modern secondhand — era, condition, desirability, and platform fit. Get those four inputs right and your pricing is defensible. Here is how to do it.",
     definedTerm: {
