@@ -432,6 +432,70 @@ export function PricingSection({
         </div>
       )}
 
+      {/* H76 CRO: free-vs-paid capability matrix — scannable 3-col comparison strip.
+          Problem: 44/50 pricing visitors had never seen a verdict before hitting the
+          price ask. The try-free banner asks them to click to learn the product, but
+          gives zero preview of what the output looks like. Fathom and Plausible both
+          make the value/access boundary legible BEFORE asking for a card — their
+          feature lists answer "what do I get?" in one scan. Here: a minimal 3-col
+          table (Signal | Free demo | Starter) so cold visitors see the output
+          structure before they decide whether to try the checker.
+          Structurally different from H74 (recovery copy block) and H75 (deeplinks):
+          this is a new comparison table element, not a text mutation or a link.
+          CRO #7 (trust before CTA) + #6 (cognitive load: show output, not just promise).
+          Revenue 2026-09-23. */}
+      {!compact && (
+        <div
+          data-testid="riq-capability-matrix"
+          style={{
+            maxWidth: 560,
+            margin: "0 auto 28px",
+            border: "1px solid var(--color-border-ui)",
+            borderRadius: 12,
+            overflow: "hidden",
+          }}
+        >
+          {/* Header row */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 100px 120px",
+            background: "var(--color-surface)",
+            borderBottom: "1px solid var(--color-border-ui)",
+            padding: "10px 16px",
+            gap: 8,
+          }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>What the verdict shows</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free demo</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
+          </div>
+          {/* Data rows */}
+          {[
+            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓" },
+            { label: "Buy-below price",              free: "—",              paid: "✓" },
+            { label: "Sell-through rate",            free: "—",              paid: "✓" },
+            { label: "Demand direction",             free: "—",              paid: "✓" },
+            { label: "Any brand + item you choose",  free: "—",              paid: "✓" },
+          ].map((row, i) => (
+            <div
+              key={row.label}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 100px 120px",
+                padding: "9px 16px",
+                gap: 8,
+                background: i % 2 === 0 ? "var(--color-surface)" : "var(--color-surface-elevated)",
+                borderBottom: i < 4 ? "1px solid var(--color-border-ui)" : "none",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ fontSize: 13, color: "var(--color-text-body)", lineHeight: 1.4 }}>{row.label}</span>
+              <span style={{ fontSize: 12.5, color: "var(--color-text-muted)", textAlign: "center" }}>{row.free}</span>
+              <span style={{ fontSize: 13, fontWeight: row.paid === "✓" ? 700 : 400, color: row.paid === "✓" ? "#30D158" : "var(--color-text-muted)", textAlign: "center" }}>{row.paid}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* H68 CRO: INLINE PROOF ON /PRICING — verdict runs HERE, no redirect.
           Before: visitor clicks preset → /tools (page nav) → checker loads →
           hits paywall → /pricing required to see price cards → checkout.
