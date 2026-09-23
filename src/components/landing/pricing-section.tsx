@@ -300,13 +300,23 @@ export function PricingSection({
       try {
         const priceId = resolvePriceId(placeholder, plans)
         if (!priceId) { router.push(`/register?plan=${plan}`); return }
+        // H104 CRO: read email captured earlier on homepage/blog
+        // (riq_capture_email, set by HomepageEmailCta / BlogIndexCheckoutCta).
+        // The plan card CTA was the only checkout entry on /pricing that did
+        // NOT pass customer_email — visitor who typed email on homepage then
+        // navigated to /pricing and clicked the card went to Stripe cold.
+        // This closes the gap: pre-fill Stripe with the stored email so the
+        // highest-friction field on Stripe's own form is already done.
+        // CRO #6 (cognitive load: remove one required field) + #12 (momentum:
+        // the visitor already committed their email once — reinforce it).
+        // Revenue 2026-09-23.
+        const storedEmail = (() => {
+          try { return localStorage.getItem("riq_capture_email") ?? "" } catch { return "" }
+        })()
         const { checkout_url } = await createCheckout(priceId, {
           plan: plan as CheckoutPlan,
           country: country || undefined,
-          // H80 CRO: prefill email for guest users who have a stored email
-          // (e.g. previously registered, token present but treated as guest
-          // in this branch). Stripe pre-populates the email field so the
-          // visitor doesn't have to type it — closes the 23/25 no-email gap.
+          customer_email: storedEmail || undefined,
         })
         trackEvent("checkout_started")
         window.location.href = checkout_url
