@@ -26,6 +26,7 @@ import { pricingCtaKind } from "@/lib/pricing-cta-state"
 import { isPaidPlan } from "@/lib/entitlement"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
+import { FreeChecker } from "@/components/tools/free-checker"
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -83,11 +84,11 @@ const COMPACT: Scale = {
 }
 
 /**
- * H61 CRO: own-item input in the try-free banner on /pricing.
- * Visitor types their specific brand+model → navigates to /tools pre-filled.
- * "use client" is already in the file (line 1). Revenue 2026-09-23.
+ * H68 CRO: own-item input on /pricing — inline mode.
+ * When onQuery is provided, runs the verdict inline (no redirect).
+ * Falls back to router.push for edge cases. Revenue 2026-09-23.
  */
-function TryFreeInput({ locale = "en" }: { locale?: Locale }) {
+function TryFreeInput({ locale = "en", onQuery }: { locale?: Locale; onQuery?: (q: string) => void }) {
   const router = useRouter()
   const [val, setVal] = useState("")
   return (
@@ -97,6 +98,7 @@ function TryFreeInput({ locale = "en" }: { locale?: Locale }) {
         e.preventDefault()
         const trimmed = val.trim()
         if (!trimmed) return
+        if (onQuery) { onQuery(trimmed); setVal(""); return }
         router.push(`/tools?q=${encodeURIComponent(trimmed)}&src=pricing-try-free`)
       }}
     >
@@ -194,6 +196,10 @@ export function PricingSection({
   const checkoutCancelled = searchParams?.get("checkout") === "cancelled"
   const [country, setCountry] = useState<CheckoutCountry | "">(() =>
     readStoredCountry() ?? countryFromLocale(locale) ?? "")
+  // H68 CRO: inline verdict query — when set, renders FreeChecker inline on
+  // /pricing instead of redirecting to /tools. Visitor sees verdict + paywall
+  // + GuestCheckoutButton without ever leaving the pricing page.
+  const [inlineQuery, setInlineQuery] = useState<string | null>(null)
 
   useEffect(() => {
     getPlans()
@@ -372,11 +378,13 @@ export function PricingSection({
         </div>
       )}
 
-      {/* H55 CRO: PROOF BEFORE PRICE — static "try it free" banner above cards.
-          Guaranteed visible on every /pricing load regardless of buy-list API.
-          3 pre-filled brand queries → /tools so the visitor experiences a real
-          verdict before the payment ask. Static copy = zero API dependency.
-          CRO #3 (message match) + #7 (trust before CTA). Revenue 2026-09-22. */}
+      {/* H68 CRO: INLINE PROOF ON /PRICING — verdict runs HERE, no redirect.
+          Before: visitor clicks preset → /tools (page nav) → checker loads →
+          hits paywall → /pricing required to see price cards → checkout.
+          After: click preset → verdict + paywall + GuestCheckoutButton renders
+          inline, no navigation. 3-step funnel collapse.
+          CRO #6 (cognitive load) + #7 (trust before CTA) + #9 (friction audit).
+          Revenue 2026-09-23. */}
       {!compact && (
         <div
           data-testid="riq-try-free-banner"
@@ -390,43 +398,53 @@ export function PricingSection({
           }}
         >
           <p style={{ fontSize: 13, fontWeight: 700, color: "#30D158", margin: "0 0 4px", letterSpacing: "0.02em" }}>
-            Try a live verdict before you buy — no account needed
+            Try a live verdict before you subscribe — no account needed
           </p>
           <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
-            These run against real data right now. See the BUY / WATCH / SKIP and the buy-below price for free.
+            Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {[
-              { label: "Nike Air Force 1", q: "Nike+Air+Force+1" },
-              { label: "Adidas Samba", q: "Adidas+Samba" },
-              { label: "New Balance 530", q: "New+Balance+530" },
+              { label: "Nike Air Force 1", q: "Nike Air Force 1" },
+              { label: "Adidas Samba", q: "Adidas Samba" },
+              { label: "New Balance 530", q: "New Balance 530" },
             ].map(({ label, q }) => (
-              <Link
+              <button
                 key={q}
-                href={`/tools?q=${q}&src=pricing-try-free`}
+                type="button"
                 data-testid="riq-try-free-query"
+                onClick={() => setInlineQuery(q)}
                 style={{
                   fontSize: 13,
                   fontWeight: 600,
-                  color: "#EEF1F7",
-                  background: "var(--color-surface-elevated)",
-                  border: "1px solid var(--color-border-2)",
+                  color: inlineQuery === q ? "#30D158" : "#EEF1F7",
+                  background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
+                  border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
                   borderRadius: 8,
                   padding: "8px 14px",
-                  textDecoration: "none",
+                  cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
               >
                 {label} →
-              </Link>
+              </button>
             ))}
           </div>
-          {/* H61 CRO: own-item input — visitor types their specific brand+model
-              and lands on /tools with their query pre-filled. Eliminates two
-              navigation steps vs clicking a preset and re-typing. CRO #8
-              (specificity: their item, not a demo) + #6 (cognitive load: one
-              step instead of three). Revenue 2026-09-23. */}
-          <TryFreeInput locale={locale} />
+          {/* H68 CRO: own-item inline — verdict runs inline on /pricing */}
+          <TryFreeInput locale={locale} onQuery={setInlineQuery} />
+          {/* Inline FreeChecker: renders once a query is selected. The visitor
+              sees the real verdict (or paywall+checkout) without leaving /pricing. */}
+          {inlineQuery && (
+            <div style={{ marginTop: 18 }}>
+              <FreeChecker
+                key={inlineQuery}
+                initialQuery={inlineQuery}
+                locale={locale}
+                variant="card"
+                src="pricing-inline"
+              />
+            </div>
+          )}
         </div>
       )}
 
