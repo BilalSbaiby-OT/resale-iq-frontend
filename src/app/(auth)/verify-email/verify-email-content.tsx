@@ -5,7 +5,7 @@ import { verifyEmail, getMe } from "@/lib/api"
 import { setToken } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import Link from "next/link"
-import { CheckCircle2, AlertCircle } from "lucide-react"
+import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 
 type State = "checking" | "signed-in" | "already" | "bad"
@@ -14,7 +14,19 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.verifyEmail
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
+  const [intentQuery, setIntentQuery] = useState("")
   const router = useRouter()
+
+  // C144(tony): read intent query from localStorage so the "checking" state
+  // can personalise the anticipation copy. Same key as register-form.tsx and
+  // check-email-content.tsx. Do NOT remove it here — verify-email-content is
+  // the consumer that removes it after the redirect fires (line ~54).
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("riq_intent_query")
+      if (saved) setIntentQuery(saved)
+    } catch { /* private mode — intentQuery stays empty */ }
+  }, [])
 
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("token")
@@ -73,7 +85,25 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
 
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8 text-center">
         {state === "checking" && (
-          <p className="text-[var(--color-text-secondary)] text-[13px] py-6">{t.checking}</p>
+          // C144(tony): personalised anticipation state — shows the user's
+          // intent query so the 1-3s verify call feels like progress, not
+          // waiting. Highest-excitement moment in the entire funnel: the user
+          // just clicked the email link and expects to land on their answer.
+          <div className="py-4">
+            <div className="flex justify-center mb-4">
+              <TrendingUp size={30} className="text-[var(--color-buy)] animate-pulse" />
+            </div>
+            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-2">
+              {intentQuery
+                ? `Unlocking your ${intentQuery} verdict…`
+                : "Confirming your email…"}
+            </p>
+            <p className="text-[var(--color-text-muted)] text-[12px]">
+              {intentQuery
+                ? "Almost there — this takes a moment."
+                : "One moment."}
+            </p>
+          </div>
         )}
 
         {state === "signed-in" && (
