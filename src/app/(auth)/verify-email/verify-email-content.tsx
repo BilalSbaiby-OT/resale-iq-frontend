@@ -63,7 +63,27 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               localStorage.removeItem("riq_intent_query")
             }
           } catch { /* private mode — fall back to sample */ }
-          router.replace(`/verdict?q=${firstQuery}`)
+          // C160(tony): Canva rule — never show the locked door, show the
+          // unlock path. Most verifying users have plan=free (they abandoned
+          // the Stripe checkout that fires right after register). Sending
+          // them to a paywalled /verdict is the conversion dead-end we've
+          // measured: they see the buy-below locked, have no path back to
+          // checkout, and close the tab. Instead: paid plans go to /verdict
+          // (same as before, their first real answer); free plans go to
+          // /pricing so the next action is subscribe, not bounce.
+          // res.plan is available from the verify-email API response.
+          // Falls back to /verdict if plan is absent (safe, pre-C160 behaviour).
+          const isPaid = res.plan && res.plan !== "free"
+          if (isPaid) {
+            router.replace(`/verdict?q=${firstQuery}`)
+          } else {
+            // Carry the intent query so /pricing can show context + pre-fill
+            // checkout. Decoded back to a readable string for the URL param.
+            const intentParam = firstQuery !== "Nike+Air+Force+1"
+              ? `&q=${firstQuery}`
+              : ""
+            router.replace(`/pricing?ref=verify${intentParam}`)
+          }
           return
         }
         // Backend-owned string stays in whatever language the API sent it —
