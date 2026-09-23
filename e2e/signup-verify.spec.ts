@@ -302,6 +302,6 @@ test.describe("signup verify session", () => {
     await fill()
     await expect(page.getByText(/an account already exists for/i)).toBeVisible()
     await expect(page.getByText("Unauthorized")).toHaveCount(0)
-    await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
+    await expect(page.getByRole("link", { name: "Sign in →" })).toBeVisible()
   })
 })
