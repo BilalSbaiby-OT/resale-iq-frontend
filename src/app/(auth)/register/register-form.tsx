@@ -56,6 +56,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // point was removing ticks: EU law requires express, standalone consent to
   // waive the 14-day withdrawal right for immediately-delivered digital goods.
   // Legality is a constraint, not a conversion input. Paid path only.
+  const [intentQuery, setIntentQuery] = useState("")
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
@@ -148,6 +149,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
         // Fires only after the account actually exists — a submit that throws
         // (email already taken, network error) hits the catch below instead.
         track("signup_completed")
+        // Persist intent so verify-email can redirect to the right first
+        // verdict rather than the generic Nike AF1 sample. Cleared by
+        // verify-email-content.tsx after the redirect fires. (Tony C140)
+        if (intentQuery.trim()) {
+          try { localStorage.setItem("riq_intent_query", intentQuery.trim()) } catch { /* private mode */ }
+        }
       }
       // All registrations go to paid checkout now — no free tier
       try {
@@ -224,6 +231,30 @@ function RegisterContent({ locale }: { locale: Locale }) {
           {/* Google Sign-In — hidden until backend confirms credentials exist */}
           <GoogleSignInButton label="Continue with Google" />
           <AuthDivider text="or" />
+
+          {/* Intent capture (Notion pattern): ask what they want to check BEFORE
+              they pay. The query is saved to localStorage on register success
+              and used to pre-seed the first verdict after email verification —
+              replacing the generic Nike AF1 redirect with the exact category
+              they care about. Voluntary — blank falls back to the public sample.
+              Tony C140 2026-09-23 */}
+          <div>
+            <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5 font-medium">
+              What do you want to check today?
+            </label>
+            <input
+              type="text"
+              value={intentQuery}
+              onChange={e => setIntentQuery(e.target.value)}
+              placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
+              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[14px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]"
+              aria-label="What do you want to check today?"
+              autoComplete="off"
+            />
+            <p className="text-[11px] text-[var(--color-text-muted)] mt-1">
+              We&apos;ll run the verdict the moment your email is confirmed.
+            </p>
+          </div>
           {/* A paid arrival still has to SEE the price before a submit sends
               them to Stripe, hence this summary. It reads the live Stripe
               amount, same source as before, so "€49 shown / €79 charged"

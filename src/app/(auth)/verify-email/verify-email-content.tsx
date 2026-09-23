@@ -41,7 +41,17 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // in VerdictInner that auto-runs the query — Nike Air Force 1 is in
           // _PUBLIC_SAMPLE_QUERIES so it 200s even for unpaid users, giving
           // a real result before they hit the paywall on their own search.
-          router.replace("/verdict?q=Nike+Air+Force+1")
+          // C140: if the user captured intent at /register, use that query
+          // instead of the generic sample — personalising the first Aha moment.
+          let firstQuery = "Nike+Air+Force+1"
+          try {
+            const saved = localStorage.getItem("riq_intent_query")
+            if (saved) {
+              firstQuery = encodeURIComponent(saved)
+              localStorage.removeItem("riq_intent_query")
+            }
+          } catch { /* private mode — fall back to sample */ }
+          router.replace(`/verdict?q=${firstQuery}`)
           return
         }
         // Backend-owned string stays in whatever language the API sent it —
