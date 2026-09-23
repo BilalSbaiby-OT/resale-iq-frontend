@@ -188,28 +188,42 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             What&apos;s moving on Vinted right now
           </span>
         </div>
+        {/* C181(tony): Plausible "live demo" pattern — show verdict OUTPUT format
+            before login. Each row now shows BUY/WATCH + estimated buy-below
+            so the user understands what they're signing in FOR, not just that
+            something is moving. Signal is client-side only (public avg × 0.95 × 0.70
+            = buy_below estimate; sold_7d > 50 = BUY, 15-50 = WATCH).
+            Research: Plausible shows a full real dashboard before signup —
+            the #1 pattern for removing \"what does this product even show me?\"
+            anxiety at the login gate. */}
         <div className="flex flex-col gap-1">
-          {demandRows.map(r => (
-            <button
-              key={`${r.brand}-${r.category}`}
-              type="button"
-              onClick={() => setBrandQuery(`${r.brand} ${r.category}`)}
-              className="flex items-center justify-between py-1.5 border-b border-[var(--color-border-2)] last:border-0 hover:bg-[var(--color-surface-elevated)] rounded px-1 -mx-1 transition-colors text-left w-full"
-            >
-              <div>
-                <span className={`text-[12.5px] font-semibold ${AUTH_TEXT}`}>{r.brand}</span>
-                <span className={`text-[11.5px] ${AUTH_TEXT_MUTED} ml-1.5`}>{r.category}</span>
-              </div>
-              <div className="text-right">
-                <span className={`text-[12px] font-bold ${AUTH_ACCENT}`}>
-                  {r.sold_7d.toLocaleString()}
-                </span>
-                <span className={`text-[10.5px] ${AUTH_TEXT_MUTED} ml-1`}>/7d</span>
-              </div>
-            </button>
-          ))}
+          {demandRows.map(r => {
+            const buyBelow = Math.round(r.avg_price_eur * 0.95 * 0.70)
+            const signal: "BUY" | "WATCH" = r.sold_7d >= 50 ? "BUY" : "WATCH"
+            const signalColor = signal === "BUY" ? "var(--color-buy)" : "var(--color-watch)"
+            return (
+              <button
+                key={`${r.brand}-${r.category}`}
+                type="button"
+                onClick={() => setBrandQuery(`${r.brand} ${r.category}`)}
+                className="flex items-center justify-between py-2 border-b border-[var(--color-border-2)] last:border-0 hover:bg-[var(--color-surface-elevated)] rounded px-1 -mx-1 transition-colors text-left w-full"
+              >
+                <div>
+                  <span className={`text-[12.5px] font-semibold ${AUTH_TEXT}`}>{r.brand}</span>
+                  <span className={`text-[11.5px] ${AUTH_TEXT_MUTED} ml-1.5`}>{r.category}</span>
+                  <div className={`text-[10.5px] ${AUTH_TEXT_MUTED} mt-0.5`}>{r.sold_7d} departures/7d</div>
+                </div>
+                <div className="flex flex-col items-end gap-0.5 shrink-0 ml-2">
+                  <span className="text-[10.5px] font-bold px-1.5 py-0.5 rounded" style={{ color: signalColor, background: `color-mix(in srgb, ${signalColor} 12%, transparent)` }}>
+                    {signal}
+                  </span>
+                  <span className={`text-[10.5px] ${AUTH_TEXT_MUTED}`}>buy below <span style={{ color: signalColor }} className="font-semibold">€{buyBelow}</span></span>
+                </div>
+              </button>
+            )
+          })}
         </div>
-        <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-2`}>Tap a row to pre-fill your first check.</p>
+        <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-2`}>Tap a row to pre-fill. Sign in to see your item&apos;s full verdict.</p>
       </div>
 
       {/* Google Sign-In — hidden until backend confirms credentials exist.
