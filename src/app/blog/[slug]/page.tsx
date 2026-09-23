@@ -12,6 +12,7 @@ import { howToJsonLd } from "@/lib/howto-schema"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { ssrBlogVerdict } from "@/lib/ssr-blog-verdict"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { BlogInlineChecker } from "@/components/blog/blog-inline-checker"
 
@@ -95,7 +96,15 @@ export default async function BlogPostPage(
   // getPublicBuyList already fails soft (returns null on any error, with its own
   // FATAL log) and is disk-cached, so this cannot break the static build or the
   // page render — worst case the strip renders nothing at all.
-  const proofRows = await getPublicBuyList(5)
+  //
+  // SSR blog verdict: prefetch the paywall response so HardPaywallCard renders
+  // on first HTML paint — no spinner, no client-side delay at the conversion
+  // moment. Only seeded for PAYWALL (402) results; free-model 200s stay as
+  // client auto-runs so the result is live. ssrBlogVerdict fails soft → null.
+  const [proofRows, ssrVerdict] = await Promise.all([
+    getPublicBuyList(5),
+    ssrBlogVerdict(p.preflightQuery),
+  ])
 
   // Topically-related "Keep reading" links.
   //
@@ -227,7 +236,7 @@ export default async function BlogPostPage(
             first paragraph. Only rendered when the post has a preflightQuery
             (174 of 174 current posts have one); falls back gracefully otherwise. */}
         {p.preflightQuery && (
-          <BlogInlineChecker preflightQuery={p.preflightQuery} locale={locale} />
+          <BlogInlineChecker preflightQuery={p.preflightQuery} locale={locale} initialResult={ssrVerdict} />
         )}
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>
