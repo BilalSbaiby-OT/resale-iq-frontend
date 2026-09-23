@@ -200,6 +200,13 @@ export function PricingSection({
     srcParam === "blog_proof" || srcParam === "blog-check" || srcParam === "blog" ||
     utmMedium === "blog"
   ))
+  // H101 CRO: paywall-referral message-match eyebrow. Revenue 2026-09-23.
+  // Visitor just hit the hard paywall on /tools searching a real item — they know
+  // the product has an answer and they came here to see the price. Default /pricing
+  // header ("Know what sells. Decide whether to buy.") treats them as cold traffic.
+  // Fix: acknowledge they just found an item they want to check; bridge to the offer.
+  // CRO Principle #3 (message match: mirror the intent that brought them here).
+  const paywallSrc = (!compact && srcParam === "paywall")
   // plansReady settled true when the plans fetch resolved OR failed. It was
   // used to gate paid CTA enablement while Stripe price_ids were loading. That
   // gate caused the "click but no convert" funnel leak (CRO #10): buttons
@@ -358,6 +365,15 @@ export function PricingSection({
         {blogSrc && (
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
             📰 You've seen the verdict — unlock the buy-below number
+          </p>
+        )}
+        {/* H101 CRO: paywall-referral message-match eyebrow. Revenue 2026-09-23.
+            Visitor hit the hard paywall on /tools, clicked "See plans". They found
+            their item; they know the product has an answer. Mirror that intent.
+            CRO Principle #3 (message match). */}
+        {paywallSrc && (
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
+            🔒 Your item has an answer — pick a plan to unlock it
           </p>
         )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>

@@ -136,7 +136,7 @@ export function HardPaywallCard({
           {t.paywallLogin}
         </Link>
         <Link
-          href={`${canonicalPath(locale, "/pricing")}${query?.trim() ? `?item=${encodeURIComponent(query.trim())}` : ""}`}
+          href={`${canonicalPath(locale, "/pricing")}?src=paywall${query?.trim() ? `&item=${encodeURIComponent(query.trim())}` : ""}`}
           data-testid="riq-paywall-see-plans"
           style={{ color: "#8fa3c4", fontSize: 13 }}
         >
