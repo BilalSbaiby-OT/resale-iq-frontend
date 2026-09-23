@@ -16,7 +16,7 @@ export const POSTS_119: BlogPost[] = [
     date: "2026-09-20",
     category: "Tools",
     readMins: 7,
-    preflightQuery: "Vinted reseller tools",
+    preflightQuery: "Jordan 1 Mid",
     intro:
       "Most “Vinted tool stacks” are a spreadsheet, a photo app, and a dozen browser extensions that never get opened. The job is simpler: decide whether to buy an item to resell, then list it without eating fees. On 20 Sep 2026 Resale IQ watched 443 brand-level departures across published EU5 brands on 5,341,780 tracked listings (snapshot 16:49). Fred Perry left the shelf 84 times at €16 average. Stone Island jackets 19 times at €137. Gucci bags 11 times at €500. Those numbers are the tool. Everything else is support. Below is an honest roundup: demand check first, fee math second, photos third, and the junk you can skip.",
     definedTerm: {

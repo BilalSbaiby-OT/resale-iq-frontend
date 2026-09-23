@@ -18,7 +18,7 @@ export const POSTS_111: BlogPost[] = [
     category: "Sourcing",
     readMins: 7,
 
-    preflightQuery: "How to check if a Vinted item is worth buying",
+    preflightQuery: "New Balance 530",
 
     intro:
       "The most expensive mistake a Vinted reseller makes is buying an item that never sells. The fix is a free price check before you buy: type the brand and item into the ResaleIQ checker, get a buy-below ceiling from live EU departure data, and only buy at or below that number. This guide shows you exactly how the checker works, what the verdict means, and the 5 numbers that tell you whether an item is worth your money.",

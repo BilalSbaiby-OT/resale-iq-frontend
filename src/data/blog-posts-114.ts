@@ -18,7 +18,7 @@ export const POSTS_114: BlogPost[] = [
     category: "Selling",
     readMins: 7,
 
-    preflightQuery: "Vinted listing views boost",
+    preflightQuery: "Adidas Superstar",
 
     intro:
       "Most Vinted listings do not get views because of five fixable signals: the title does not match what buyers search, the category is wrong, the price is above market, the photos are low quality, and the listing has no engagement history. This guide breaks down exactly how Vinted's ranking algorithm works and gives you a 7-day plan to fix visibility — with live data from 5.4M tracked EU listings showing what actually gets seen.",

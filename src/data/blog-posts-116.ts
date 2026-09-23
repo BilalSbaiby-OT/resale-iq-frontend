@@ -18,7 +18,7 @@ export const POSTS_116: BlogPost[] = [
     category: "Money",
     readMins: 6,
 
-    preflightQuery: "Vinted shipping costs for sellers",
+    preflightQuery: "Carhartt WIP Detroit Jacket",
 
     intro:
       "Vinted's default shipping model is buyer-paid: the buyer chooses a carrier and pays the shipping cost at checkout, and you receive the full item price. But there is an optional seller-paid model, and the difference determines whether a low-value item is worth listing at all. Here is how Vinted shipping actually works, what it means for your profit, and the math that decides if an item is worth selling.",

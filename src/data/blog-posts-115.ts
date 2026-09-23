@@ -18,7 +18,7 @@ export const POSTS_115: BlogPost[] = [
     category: "Money",
     readMins: 6,
 
-    preflightQuery: "Vinted seller fees 2026",
+    preflightQuery: "Stone Island Hoodie",
 
     intro:
       "Vinted charges sellers zero commission — no final value fee, no listing fee, no payment processing deduction. When your item sells for €50, €50 goes into your Vinted wallet. The platform's revenue comes from the buyer side: a Buyer Protection fee (roughly 5% + €0.70, varies by market) plus shipping paid at checkout. Here is the exact fee breakdown, what it means for your profit, and how Vinted compares to every other resale platform.",

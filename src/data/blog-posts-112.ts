@@ -19,7 +19,7 @@ export const POSTS_112: BlogPost[] = [
     category: "Pricing",
     readMins: 8,
 
-    preflightQuery: "How to price Vinted items for fast sales",
+    preflightQuery: "Adidas Samba",
 
     intro:
       "The most common Vinted pricing mistake is listing at a number you hope someone will pay. The second most common is adding a 'negotiation buffer' that kills your visibility. The fix is pricing from what comparable items actually sold for — not what sellers are asking — and understanding how Vinted's algorithm rewards the right starting price. This guide shows you the research process, the psychology, and the markdown cadence that moves inventory without racing to the bottom.",
