@@ -83,14 +83,6 @@ import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
 import { FREE_MODELS } from "@/lib/working-models"
 
-/** Items known to be in-catalog and paywalled (not in FREE_MODELS).
- *  Represent real sourcing decisions a blog visitor would recognise.
- *  Confirmed in model_signals with >0 rows as of 2026-09-23. */
-const PAYWALL_DEMO_CHIPS = [
-  "Stone Island Hoodie",
-  "Ralph Lauren Polo",
-  "Balenciaga Track",
-] as const
 
 export function BlogInlineChecker({
   preflightQuery,
@@ -118,19 +110,9 @@ export function BlogInlineChecker({
   // IMPORTANT: must be declared before any expression that references chipQuery,
   // or the bundler (Turbopack TDZ) crashes with "Cannot access 'm' before
   // initialization" — see C209 hotfix.
+
   const [chipQuery, setChipQuery] = useState<string | null>(null)
 
-  // C207: track whether the ACTIVE query is a free model. If so, after
-  // the result renders, show paywall-demo chips so the visitor can hit a
-  // real paywall and see the conversion moment without typing.
-  //
-  // C208: use activeQuery (not preflightQuery) so that after a chip click the
-  // above-fold CTA appears for the chip's paid item. Previously, a visitor who
-  // clicked e.g. "Stone Island Hoodie" chip on an NB530 post would get a
-  // PAYWALL result in the checker below but NO above-fold CTA — isFreeModelQuery
-  // was permanently true (NB530 is free) even though the running query was paid.
-  // Fix: re-derive on the active query so the gate reflects what the checker
-  // is actually running, not the post's static topic.
   const isActiveQueryFreeModel = (FREE_MODELS as readonly string[]).some(
     (m) => m.toLowerCase() === (chipQuery ?? preflightQuery).toLowerCase()
   )
@@ -140,12 +122,8 @@ export function BlogInlineChecker({
     (m) => m.toLowerCase() === preflightQuery.toLowerCase()
   )
 
-  const handleChipClick = (chip: string) => {
-    setChipQuery(chip)
-    trackEvent("first_analysis")  // will re-fire; FreeChecker fires its own too
-  }
 
-  // Active query to pass to FreeChecker: chip override wins over preflight.
+
   const activeQuery = chipQuery ?? preflightQuery
   // Key: changes when chipQuery changes to force FreeChecker remount + auto-run.
   const checkerKey = chipQuery ?? "preflight"
@@ -192,39 +170,36 @@ export function BlogInlineChecker({
         </div>
       )}
 
-      {/* C205: Paywall-demo chips — only for free-model queries (NB530, AF1, Samba).
+      {/* C214: Buy-list pitch for free-model visitors (NB530, AF1, Samba).
           These posts have 495+ SSR calls/7d but 0 checkout_from_blog ever.
-          Free result shows → visitor sees the product works → chips bridge them
-          to a paywalled item so they hit the real gate with context. */}
+          The visitor just got a free verdict — they don't need 'see another verdict'.
+          They need to see the DIFFERENT value: the full ranked buy list.
+          Pitch: 47+ items like this, ranked by profit margin, with buy-below prices.
+          Direct checkout CTA — no chip redirect detour. */}
       {isFreeModelQuery && !chipQuery && (
         <div
-          data-testid="riq-blog-paywall-demo-chips"
-          style={{ marginBottom: 12 }}
+          data-testid="riq-blog-buylist-pitch"
+          onClick={() => trackEvent("checkout_from_blog")}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            background: "rgba(52,199,89,.08)",
+            border: "1px solid rgba(52,199,89,.22)",
+            borderRadius: 10,
+            padding: "12px 14px",
+            marginBottom: 12,
+          }}
         >
-          <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 7px", lineHeight: 1.5 }}>
-            That&rsquo;s a public demo item. Check a real sourcing target:
-          </p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {PAYWALL_DEMO_CHIPS.map((chip) => (
-              <button
-                key={chip}
-                type="button"
-                onClick={() => handleChipClick(chip)}
-                style={{
-                  background: "var(--color-surface)",
-                  border: "1px solid var(--color-border-ui)",
-                  color: "#c3cde0",
-                  borderRadius: 8,
-                  padding: "6px 12px",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                }}
-              >
-                {chip} →
-              </button>
-            ))}
-          </div>
+          <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
+            <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — with buy-below prices for each.
+          </span>
+          <GuestCheckoutButton
+            locale={locale}
+            label="See full buy list →"
+            src="blog_buylist_pitch"
+            query={preflightQuery}
+          />
         </div>
       )}
 
