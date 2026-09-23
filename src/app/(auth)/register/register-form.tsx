@@ -306,6 +306,13 @@ function RegisterContent({ locale }: { locale: Locale }) {
               if (intentQuery.trim()) {
                 try { localStorage.setItem("riq_intent_query", intentQuery.trim()) } catch { /* private mode */ }
               }
+              // C172(tony): save the intended plan so the Google OAuth callback
+              // can route to checkout instead of the free demo. Google register
+              // bypasses Stripe entirely — without this the user arrives as
+              // plan=free with no path to payment. Timestamped: entries older
+              // than 5 minutes are treated as stale (returning users, not
+              // fresh signups) and ignored on the callback side.
+              try { localStorage.setItem("riq_register_plan", JSON.stringify({ plan, ts: Date.now() })) } catch { /* private mode */ }
             }}
           />
           <AuthDivider text="or" />

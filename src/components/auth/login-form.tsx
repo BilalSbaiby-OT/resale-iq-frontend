@@ -90,7 +90,23 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
               dest = `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
             } else {
               const plan = getPlanFromToken()
-              dest = (plan === "operator" || plan === "power") ? "/dashboard" : FIRST_CHECK_HREF
+              if (plan === "operator" || plan === "power") {
+                dest = "/dashboard"
+              } else {
+                // C172(tony): Google signup skips Stripe — new user arrives as
+                // plan=free with no checkout. If riq_register_plan was written
+                // by register-form.tsx < 5 min ago, route to /pricing to close
+                // checkout instead of dumping them on the free Nike AF1 demo.
+                try {
+                  const raw = localStorage.getItem("riq_register_plan")
+                  localStorage.removeItem("riq_register_plan")
+                  const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
+                  const fresh = parsed ? Date.now() - parsed.ts < 5 * 60 * 1000 : false
+                  dest = (fresh && (parsed?.plan === "operator" || parsed?.plan === "power"))
+                    ? `/pricing?ref=google-signup&plan=${parsed.plan}`
+                    : FIRST_CHECK_HREF
+                } catch { dest = FIRST_CHECK_HREF }
+              }
             }
           } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
           router.push(dest)
