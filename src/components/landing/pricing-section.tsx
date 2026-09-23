@@ -181,6 +181,19 @@ export function PricingSection({
   // They've already seen departure counts and averages — bridge directly to item-level verdicts.
   // CRO Principle #3 (message match). Revenue 2026-09-15.
   const dataSrc = (!compact && srcParam === "data")
+  // H71 CRO: message-match for blog-referred visitors (?src=blog_proof, blog-check, blog,
+  // or any path arriving via utm_medium=blog which covers all footer/mid-CTA links).
+  // These visitors arrived from a blog post that showed them the buy list and auto-ran
+  // the inline checker — they hit the PAYWALL and then navigated to /pricing. They've
+  // already seen the product work. The default /pricing header treats them as cold traffic.
+  // Bridge the moment: acknowledge what they just saw, then name what unlocking it means.
+  // CRO Principle #3 (message match). Mirrors H13 (LLM eyebrow) + H20 (/data eyebrow).
+  // Revenue 2026-09-23.
+  const utmMedium = searchParams?.get("utm_medium") ?? null
+  const blogSrc = (!compact && (
+    srcParam === "blog_proof" || srcParam === "blog-check" || srcParam === "blog" ||
+    utmMedium === "blog"
+  ))
   // plansReady settled true when the plans fetch resolved OR failed. It was
   // used to gate paid CTA enablement while Stripe price_ids were loading. That
   // gate caused the "click but no convert" funnel leak (CRO #10): buttons
@@ -286,6 +299,15 @@ export function PricingSection({
         {dataSrc && (
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
             📊 You've seen the brand averages — this is the item-level verdict
+          </p>
+        )}
+        {/* H71 CRO: blog-referral message-match eyebrow. Revenue 2026-09-23.
+            Blog visitor saw the buy list + inline checker hit paywall → arrived here.
+            They've already seen the product. Bridge that moment instead of cold-opening.
+            CRO Principle #3 (message match). Mirrors H13 (LLM) + H20 (/data) eyebrows. */}
+        {blogSrc && (
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
+            📰 You've seen the verdict — unlock the buy-below number
           </p>
         )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
