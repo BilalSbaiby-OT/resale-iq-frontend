@@ -19,6 +19,21 @@
  *    stale or contradict the page it sits on.
  *  - Renders nothing at all if the API gives us nothing (never an empty box).
  *  - No price shown: proof before price, same rule as the homepage.
+ *
+ * C216 (elon) — topic-matched coverage teaser:
+ * The strip previously showed 3 generic buy-list items (Nike, Adidas, NB) on
+ * every post. A visitor landing on the Stone Island Hoodie guide saw Nike data —
+ * no proof that we actually cover Stone Island. The "do you even have my item?"
+ * objection fired before the HardPaywallCard had a chance.
+ *
+ * Fix: when ssrVerdict supplies a comparable_n for the post's own preflightQuery,
+ * show a topic-matched coverage row AT THE TOP of the strip. It reads:
+ *   ✓ Stone Island Hoodie — 47 data points tracked  [See verdict ↓]
+ * This answers "do you cover my item?" instantly, before the paywall ask.
+ * comparable_n is NOT a paid field (the backend explicitly sends it free to prove
+ * coverage exists). The row shows no price — the strip's "no price shown" rule
+ * still holds. When comparable_n is absent (brand not in universe) the row is
+ * suppressed and the strip falls back to generic buy-list rows.
  */
 import Link from "next/link"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
@@ -36,6 +51,8 @@ export function BlogProofStrip({
   ctaHref,
   ctaLabel = "Check any item now →",
   hasInlineChecker = false,
+  topicQuery,
+  topicComparableN,
 }: {
   items: SsrBuyListItem[] | null
   /** Where the CTA sends them — the post's own preflight query when it has one. */
@@ -46,6 +63,19 @@ export function BlogProofStrip({
   /** When true the checker is already rendered below — scroll to it instead
    *  of navigating off-page. Eliminates the exit on posts with preflightQuery. */
   hasInlineChecker?: boolean
+  /**
+   * C216: the post's own preflightQuery. When provided alongside
+   * topicComparableN, a topic-matched coverage teaser row renders at the
+   * top of the strip — before the generic buy-list rows — so the visitor
+   * immediately sees that THIS item is tracked.
+   */
+  topicQuery?: string | null
+  /**
+   * C216: comparable_n from ssrBlogVerdict's PAYWALL response. NOT a paid
+   * field — the backend sends it free as a coverage teaser. Only rendered
+   * when > 0 so a null/undefined gracefully suppresses the row.
+   */
+  topicComparableN?: number | null
 }) {
   if (!items || items.length === 0) return null
 
@@ -55,7 +85,10 @@ export function BlogProofStrip({
     .filter(i => !i.locked && i.sold_30d_evidence != null && i.avg_price_eur != null)
     .slice(0, 3)
 
-  if (rows.length === 0) return null
+  // C216: show topic teaser if we have coverage data for this post's item.
+  const showTopicTeaser = !!topicQuery && topicComparableN != null && topicComparableN > 0
+
+  if (rows.length === 0 && !showTopicTeaser) return null
 
   return (
     <aside
@@ -76,6 +109,39 @@ export function BlogProofStrip({
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {/* C216: Topic-matched coverage teaser — appears FIRST so the visitor
+            immediately sees their item is tracked before reading generic rows.
+            Answers "do you cover my item?" before the paywall question. */}
+        {showTopicTeaser && (
+          <div
+            data-testid="riq-blog-topic-teaser"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 10,
+              fontSize: 13,
+              paddingBottom: rows.length > 0 ? 6 : 0,
+              marginBottom: rows.length > 0 ? 6 : 0,
+              borderBottom: rows.length > 0 ? "1px solid rgba(48,209,88,.18)" : "none",
+            }}
+          >
+            <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              ✓ {topicQuery}
+              <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
+                {" · "}{(topicComparableN as number).toLocaleString()} data points tracked
+              </span>
+            </span>
+            {hasInlineChecker && (
+              <a
+                href="#riq-blog-checker"
+                style={{ color: "#30D158", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap", textDecoration: "none", flexShrink: 0 }}
+              >
+                See verdict ↓
+              </a>
+            )}
+          </div>
+        )}
         {rows.map((it, i) => {
           const color = VERDICT_COLOR[it.verdict] ?? "#8FA3C4"
           // Canonical buy-below formula: avg × 0.95 × 0.70 = avg × 0.665.

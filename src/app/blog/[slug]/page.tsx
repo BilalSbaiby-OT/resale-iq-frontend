@@ -222,6 +222,9 @@ export default async function BlogPostPage(
         {/* Live proof, directly under the headline — the first thing an
             AI-referred visitor sees. Uses the post's own preflight query when it
             has one so the CTA continues their topic instead of resetting it. */}
+        {/* C216(elon): pass topicQuery + topicComparableN so the strip renders
+            a coverage teaser for THIS post's item first. Answers "do you even
+            cover my item?" before the generic buy-list rows appear. */}
         <BlogProofStrip
           items={proofRows}
           ctaHref={
@@ -231,6 +234,8 @@ export default async function BlogPostPage(
           }
           ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
           hasInlineChecker={!!p.preflightQuery}
+          topicQuery={p.preflightQuery ?? null}
+          topicComparableN={ssrVerdict?.comparable_n ?? null}
         />
         {/* Inline checker — runs the post's own preflight query on load.
             No redirect, no typing. Visitor sees their verdict before the
