@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
 import { Lock, Check } from "lucide-react"
+import { useState, useEffect } from "react"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictWord } from "@/lib/verdict-words"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -39,6 +40,15 @@ export function HardPaywallCard({
   const t = copy[locale].checker
   const price = operatorPrice(plans)
   const tracked = useTrackedLabel()
+  // H107 CRO: read captured email from localStorage so Stripe checkout is pre-filled.
+  // H98/H102/H104 wired this for homepage/blog-index/pricing-plan-cards; HardPaywallCard
+  // (the /tools paywall — highest-frequency checkout entry point) was the remaining gap.
+  // riq_capture_email is written by HomepageEmailCta and BlogIndexCheckoutCta.
+  // Reading in useEffect (client-only) avoids SSR mismatch. Revenue 2026-09-23.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
   const headline = query?.trim()
     ? t.paywallHeadlineForItem(query.trim())
     : t.paywallHeadline
@@ -118,7 +128,7 @@ export function HardPaywallCard({
             </div>
           ))}
         </div>
-        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} />
+        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} customerEmail={capturedEmail || undefined} />
       </div>
 
       <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 8 }}>{bodyText}</p>
