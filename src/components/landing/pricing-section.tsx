@@ -218,7 +218,17 @@ export function PricingSection({
   // H68 CRO: inline verdict query — when set, renders FreeChecker inline on
   // /pricing instead of redirecting to /tools. Visitor sees verdict + paywall
   // + GuestCheckoutButton without ever leaving the pricing page.
-  const [inlineQuery, setInlineQuery] = useState<string | null>(null)
+  //
+  // H73 CRO: ?item= carry from paywall "See plans" link — CRO #3 (message match).
+  // When a visitor hits the hard paywall on /tools (searched "Stone Island Hoodie"),
+  // the old "See plans →" linked to bare /pricing — query dropped, cold page.
+  // Now: paywall encodes ?item=<query>, pricing pre-populates the inline checker,
+  // visitor arrives to /pricing already showing the verdict for their exact item.
+  // Revenue 2026-09-23.
+  const itemParam = searchParams?.get("item") ?? null
+  const [inlineQuery, setInlineQuery] = useState<string | null>(() =>
+    !compact && itemParam?.trim() ? itemParam.trim() : null
+  )
 
   useEffect(() => {
     getPlans()
