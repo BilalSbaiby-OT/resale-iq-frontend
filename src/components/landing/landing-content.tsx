@@ -139,8 +139,14 @@ export function LandingContent({
                 locked rows with the paywall CTA.
                 CRO: show the answer before asking for money. 94% of visitors
                 never typed a query — give them the ranked list first. */}
+            {/* H75 CRO: homepage buy-list rows are now clickable deeplinks to /tools.
+                Visitor sees Stone Island Hoodies BUY €71 → clicks → /tools auto-runs
+                → for non-sample items: paywall fires → GuestCheckoutButton at moment
+                of highest intent (they asked for data on a specific item they care about).
+                /pricing already uses rowSrc="pricing-row" for the same mechanic (H66).
+                Revenue 2026-09-23. */}
             {ssrBuyList && ssrBuyList.length > 0 && (
-              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} />
+              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} rowSrc="homepage-row" />
             )}
 
 
