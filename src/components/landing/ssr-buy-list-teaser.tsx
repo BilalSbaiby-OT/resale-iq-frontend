@@ -108,6 +108,7 @@ export function SsrBuyListTeaser({
   showPrice = true,
   rowSrc,
   showLockedFomo = false,
+  ctaScrollTo,
 }: {
   items: SsrBuyListItem[]
   locale: Locale
@@ -129,6 +130,15 @@ export function SsrBuyListTeaser({
    * Revenue 2026-09-23.
    */
   showLockedFomo?: boolean
+  /**
+   * H111 CRO: when provided, the footer paid CTA becomes a smooth-scroll anchor
+   * to this id instead of a direct Stripe checkout. Used on /pricing to route
+   * visitors through proof (LiveMarketPulse → BrandStrip → VerdictDemo →
+   * PricingTryInput) before the plan cards + FAQ + 30-day guarantee.
+   * 23/25 Stripe sessions had zero email typed — cold direct checkout is the
+   * leak. CRO #12 (conversion momentum: proof → conviction → CTA). Revenue 2026-09-23.
+   */
+  ctaScrollTo?: string
   /** Show the "Starter €19/mo" line under the footer CTA.
    *
    *  PROOF BEFORE PRICE (2026-09-22). Teardown of 11 comparable data/analytics
@@ -311,8 +321,31 @@ export function SsrBuyListTeaser({
                 Revenue 2026-09-23. */}
             {showPrice ? (
               <>
-                {/* Pricing page: warm visitor — paid CTA leads */}
-                <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="ssr_buy_list_pricing" />
+                {/* H111 CRO: ctaScrollTo routes pricing-page visitors through
+                    proof before checkout, instead of hitting Stripe cold.
+                    23/25 Stripe sessions had zero email — they weren't ready.
+                    Scroll-to-plans lets them see verdict demo + FAQ + 30-day
+                    guarantee before committing. CRO #12. Revenue 2026-09-23. */}
+                {ctaScrollTo ? (
+                  <a
+                    href={`#${ctaScrollTo}`}
+                    style={{
+                      background: "#34C759",
+                      color: "#06090c",
+                      fontWeight: 700,
+                      fontSize: 13.5,
+                      padding: "10px 18px",
+                      borderRadius: 9,
+                      textDecoration: "none",
+                      whiteSpace: "nowrap",
+                      display: "inline-block",
+                    }}
+                  >
+                    See plans →
+                  </a>
+                ) : (
+                  <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="ssr_buy_list_pricing" />
+                )}
                 <Link
                   href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check_pricing`}
                   style={{

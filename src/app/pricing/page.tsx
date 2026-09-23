@@ -93,7 +93,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
               /tools auto-runs their query → paywall fires → PricingEyebrow
               shows "this is real, unlock it for €19". CRO #4 (do they have my
               item?) + #8 (specificity). Revenue 2026-09-23. */}
-          <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" showLockedFomo showPrice />
+          <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" showLockedFomo showPrice ctaScrollTo="pricing-plans" />
         </div>
       )}
       {/* H85 CRO: live market pulse on /pricing — objection-killing proof at the
@@ -147,7 +147,9 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           CRO #3 (message match: their item) + #4 (objection: works for mine?)
           + #12 (demo→personalized→paywall→checkout). Revenue 2026-09-23. */}
       <PricingTryInput locale={locale} />
-      <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
+      <div id="pricing-plans">
+        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
+      </div>
     </div>
   )
 }
