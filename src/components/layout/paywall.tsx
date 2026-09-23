@@ -37,8 +37,16 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
   // into a concrete return the user already saw.
   const [recap, setRecap] = useState<{ headline: string; buys: number } | null>(null)
 
+  const [queryParam, setQueryParam] = useState<string | null>(null)
+
   useEffect(() => { getPlans().then(d => setPlans(d.plans)).catch(() => {}) }, [])
   useEffect(() => { getTrialRecap().then(r => setRecap(r)).catch(() => {}) }, [])
+  useEffect(() => {
+    try {
+      const p = new URLSearchParams(window.location.search).get("q")
+      setQueryParam(p || null)
+    } catch { setQueryParam(null) }
+  }, [])
   useEffect(() => { getMe().then(u => setVerified(u.email_verified !== false)).catch(() => {}) }, [])
 
   const subscribe = async (placeholder?: string) => {
@@ -49,6 +57,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       if (!priceId) return
       const { checkout_url } = await createCheckout(priceId, { plan: placeholder === "__POWER__" ? "power" : "operator" })
       trackEvent("checkout_started")
+      try { if (queryParam) localStorage.setItem("riq_intent_query", queryParam) } catch { /* private mode */ }
       window.location.href = checkout_url
     } catch { /* stay */ } finally { setBusy(null) }
   }
@@ -64,7 +73,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Unlock size={15} style={{ color: "#34C759" }} />
-          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>Item checks need a plan</span>
+          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{queryParam ? `Unlock ${queryParam} analysis` : "Item checks need a plan"}</span>
         </div>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
           {TRIAL_LIMITS_SENTENCE} Buy-below, typical departure price, sell-through and best
@@ -82,8 +91,12 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             </div>
           </div>
         )}
-        <Link href={FIRST_CHECK_HREF} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}>
-          Check your first item →
+        <Link
+          href={queryParam ? "/verdict?q=" + encodeURIComponent(queryParam) : FIRST_CHECK_HREF}
+          onClick={() => { try { if (queryParam) localStorage.setItem("riq_intent_query", queryParam) } catch { /* private mode */ } }}
+          style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}
+        >
+          {queryParam ? `Check ${queryParam} now →` : "Check your first item →"}
         </Link>
       </div>
       )}

@@ -24,6 +24,8 @@ function BillingSuccessContent() {
   const [state, setState] = useState<"verifying" | "ok" | "unpaid" | "error">("verifying")
   const [plan, setPlan] = useState("")
   const [guestNeedsPassword, setGuestNeedsPassword] = useState(false)
+  const [firstCheckHref, setFirstCheckHref] = useState(FIRST_CHECK_HREF)
+  const [firstCheckLabel, setFirstCheckLabel] = useState<string | null>(null)
 
   useEffect(() => {
     const sessionId = params.get("session_id")
@@ -47,6 +49,14 @@ function BillingSuccessContent() {
           setPlan(d.plan)
           setGuestNeedsPassword(Boolean(wasGuest && d.access_token))
           setState("ok")
+          try {
+            const saved = localStorage.getItem("riq_intent_query")
+            if (saved) {
+              setFirstCheckHref("/verdict?q=" + encodeURIComponent(saved))
+              setFirstCheckLabel(saved)
+              localStorage.removeItem("riq_intent_query")
+            }
+          } catch { /* private mode fallback */ }
         } else {
           setState("unpaid")
         }
@@ -70,7 +80,7 @@ function BillingSuccessContent() {
           <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>Your account is upgraded.</div>
           <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
             <a
-              href={FIRST_CHECK_HREF}
+              href={firstCheckHref}
               data-testid="riq-billing-first-check"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 22px", borderRadius: 10, background: "#34C759", color: "#06090c", textDecoration: "none", fontWeight: 700, fontSize: 14 }}
             >
@@ -78,7 +88,7 @@ function BillingSuccessContent() {
               <ArrowRight size={16} />
             </a>
             <div style={{ fontSize: 12.5, color: "#8b99b8", maxWidth: 280, lineHeight: 1.5 }}>
-              We pre-filled {FIRST_CHECK_QUERY} so you see a buy-below number on the first click.
+              {firstCheckLabel ? `Run your ${firstCheckLabel} buy-below check now.` : `We pre-filled ${FIRST_CHECK_QUERY} so you see a buy-below number on the first click.`}
             </div>
             {guestNeedsPassword && (
               <a
