@@ -207,6 +207,14 @@ export function PricingSection({
   // Fix: acknowledge they just found an item they want to check; bridge to the offer.
   // CRO Principle #3 (message match: mirror the intent that brought them here).
   const paywallSrc = (!compact && srcParam === "paywall")
+  // C174(tony): verify-email → /pricing message-match eyebrow. Revenue 2026-09-23.
+  // verify-email-content.tsx routes free users to /pricing?ref=verify&q=<intent> after
+  // email confirmation. Highest-intent moment in funnel: someone just confirmed email,
+  // one step from their first verdict. Old code treated them as cold traffic. Fix: read
+  // ?ref=verify and ?q= to show personalised bridge copy. CRO Principle #3.
+  const refParam = searchParams?.get("ref") ?? null
+  const verifySrc = (!compact && (refParam === "verify" || refParam === "verify-already"))
+  const verifyIntentQuery = verifySrc ? (searchParams?.get("q") ?? null) : null
   // plansReady settled true when the plans fetch resolved OR failed. It was
   // used to gate paid CTA enablement while Stripe price_ids were loading. That
   // gate caused the "click but no convert" funnel leak (CRO #10): buttons
@@ -384,6 +392,21 @@ export function PricingSection({
         {paywallSrc && (
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
             🔒 Your item has an answer — pick a plan to unlock it
+          </p>
+        )}
+        {/* C174(tony): verify-referral message-match eyebrow. Revenue 2026-09-23.
+            Free user just verified email → routed here by verify-email-content.tsx.
+            ?q= carries their intent query from /register. Without this, they land on
+            cold "Know what sells" copy — no acknowledgement of the step they just took.
+            Bridge copy closes the registration moment: email confirmed → next step = pay.
+            Names their item when ?q= is present; generic "first verdict" when not. */}
+        {verifySrc && (
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
+            ✅ Email confirmed —{" "}
+            {verifyIntentQuery
+              ? <>your {verifyIntentQuery} verdict is ready — pick a plan to unlock it</>
+              : <>you&apos;re one step from your first verdict — pick a plan below</>
+            }
           </p>
         )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
