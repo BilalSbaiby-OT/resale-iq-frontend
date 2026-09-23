@@ -397,8 +397,41 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
         {!result && !loading && (
           <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6 mt-6">
-            <p>{paidCold ? 'Type a brand and model — you have unlimited checks. Start with one of these:' : t.empty}</p>
-            <ModelChips onPick={pickModel} disabled={loading} label={paidCold ? 'Start with a paid item you can check now' : t.tryTheseInstead} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-working-models" />
+            {paidCold ? (
+              // C155(tony): activation guidance for paid users who haven't run a check yet.
+              // Research: Notion/Linear/Superhuman pattern — show the user the product in a
+              // useful state from day 1. The #1 reason 11/25 accounts ran zero verdicts:
+              // they didn't have a mental model of WHEN to use the checker.
+              // This adds 3 concrete reseller scenarios (market, kilo sale, online buy) so
+              // a brand-new account sees "oh — I check something BEFORE I buy it."
+              // Each scenario is a button that pre-fills and runs the search immediately.
+              <div className="mb-4">
+                <p className="text-[13px] font-semibold text-[#c8d0e0] mb-1">Run a check before you buy</p>
+                <p className="text-[12px] text-[#5b6b8c] mb-3">
+                  Type any brand + item you&apos;re thinking of buying. We&apos;ll tell you the max price to pay to profit on resale.
+                </p>
+                <div className="flex flex-col gap-2 mb-4" data-testid="riq-activation-scenarios">
+                  {[
+                    { label: "Found a Stone Island hoodie at a market?", query: "Stone Island Hoodie" },
+                    { label: "Kilo sale has Carhartt jackets?", query: "Carhartt Detroit Jacket" },
+                    { label: "Weighing up Fred Perry polos?", query: "Fred Perry Polo Shirt" },
+                  ].map(({ label, query }) => (
+                    <button
+                      key={query}
+                      onClick={() => pickModel(query)}
+                      disabled={loading}
+                      className="w-full text-left px-3 py-2.5 rounded-lg border border-[#1c2333] hover:border-[rgba(52,199,89,0.35)] hover:bg-[rgba(52,199,89,0.04)] transition-colors group"
+                    >
+                      <span className="text-[12px] text-[#5b6b8c] group-hover:text-[#8fa3c4]">{label}</span>
+                      <span className="ml-2 text-[11.5px] font-semibold text-[#34C759] opacity-70 group-hover:opacity-100">Check {query} →</span>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-[11px] text-[#3a4458] mb-3">Or pick a top-moving item to see what a verdict looks like:</p>
+              </div>
+            ) : null}
+            <p>{!paidCold ? t.empty : null}</p>
+            <ModelChips onPick={pickModel} disabled={loading} label={paidCold ? 'Or start with one of these:' : t.tryTheseInstead} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-working-models" />
             {/* IQ-060: paid sessions (operator/power) already have the checker
                 open. Selling Starter €19 here is the founder-reported lie.
                 Anonymous / free keep the pricing nudge. */}
