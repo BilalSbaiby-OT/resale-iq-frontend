@@ -124,8 +124,19 @@ export default async function BlogIndex() {
               CRO #10 (CTA discipline: solution-aware → direct CTA) + #12 (conversion
               momentum: intent built on the page, don't defer it). Revenue 2026-09-23. */}
           <BlogIndexCheckoutCta locale={locale} />
+          {/* H103 CRO: 30-day money-back guarantee below /blog index CTA — objection
+              handling at the highest-traffic conversion point (130 visitors/7d).
+              H90 added it to /pricing plan cards; H69 to homepage; blog index was
+              the remaining gap. The objection "what if I pay and it's useless?" fires
+              exactly when the visitor is looking at the checkout button and has not yet
+              seen a live verdict. Guarantee copy right below the button removes that
+              risk signal before it can bounce them. CRO #4 (proof next to objection:
+              risk = wasted €19, answer = full refund) + #7 (trust before CTA). Revenue 2026-09-23. */}
+          <p style={{ fontSize: 12, color: "#5b6b8c", marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
+            30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
+          </p>
           {/* Paid door is /pricing with organic/blog UTMs, not the signup wall. */}
-          <div style={{ marginTop: 14 }}>
+          <div style={{ marginTop: 10 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo
             </Link>
