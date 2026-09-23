@@ -30,6 +30,8 @@ export type FunnelEvent =
   // session, and conflating the two would inflate the only number we have that
   // is supposed to mean "reached Stripe".
   | "checkout_intent_guest"
+  /** Visitor clicked the above-fold checkout CTA on a blog page (C197 SSR PAYWALL strip). */
+  | "checkout_from_blog"
   | "analysis_failed"
   | "register_form_focused"
   | "register_submit_attempted"

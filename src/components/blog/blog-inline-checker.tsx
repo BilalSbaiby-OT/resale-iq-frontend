@@ -80,8 +80,10 @@ export function BlogInlineChecker({
           Positioned before FreeChecker so it renders at the top of the
           checker container, above the query/lock UI. */}
       {isSSRPaywall && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           data-testid="riq-blog-above-fold-cta"
+          onClick={() => trackEvent("checkout_from_blog")}
           style={{
             display: "flex",
             alignItems: "center",
