@@ -903,6 +903,27 @@ export function FreeChecker({
               ) : (
                 <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} />
               )}
+              {/* H95 CRO: brand-query checkout nudge — BRAND_CATEGORIES was the
+                  only warm-intent branch with ZERO conversion path after H64
+                  added the nudge to INSUFFICIENT_DATA. A visitor who typed a
+                  brand name demonstrated intent; they saw real category prices
+                  and departure rates. Prompt them to type brand+item OR subscribe.
+                  CRO #10 (CTA ladder) + #12 (value first, ask second).
+                  Only shown when not already a paying session. Revenue 2026-09-23. */}
+              {barBranch === "checkout" && (
+                <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--color-border-ui)", display: "flex", flexDirection: "column", gap: 6 }}>
+                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: 0, lineHeight: 1.5 }}>
+                    Type <strong style={{ color: "#eef1f7" }}>{res.brand ?? "brand"} + item</strong> above for a buy-below price. Starter unlocks every item in the catalog.
+                  </p>
+                  <GuestCheckoutButton locale={locale} label="Unlock all items — €19/mo →" src="brand_categories_nudge" />
+                  <Link
+                    href={canonicalPath(locale, "/data")}
+                    style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none", marginTop: 2 }}
+                  >
+                    Browse the full catalog →
+                  </Link>
+                </div>
+              )}
             </>
           ) : res.verdict === "INSUFFICIENT_DATA" ? (
             // A DELIBERATE REFUSAL, not an error. design/extension-panel/insufficient.html
