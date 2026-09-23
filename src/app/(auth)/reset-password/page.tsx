@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { resetPassword, getMe } from "@/lib/api"
-import { setToken, getPlanFromToken } from "@/lib/utils"
+import { setToken as persistJwt, getPlanFromToken } from "@/lib/utils"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useAuthStore } from "@/lib/auth-store"
 import { useRouter } from "next/navigation"
@@ -18,7 +18,12 @@ export default function ResetPasswordPage() {
   // client-side, so window.location is both simpler and safe here.
   // undefined = haven't looked yet, null = looked and it's missing. Without the
   // third state every visitor sees a flash of "invalid link" before the effect runs.
-  const [token, setToken] = useState<string | null | undefined>(undefined)
+  // C179(tony): renamed from [token, setToken] — the original name shadowed the
+  // setToken import from @/lib/utils, meaning setToken(res.access_token) called
+  // the React state setter instead of persisting the JWT to localStorage. Symptom:
+  // password-reset users were "authenticated" in-memory but not on refresh, and
+  // getPlanFromToken() always returned undefined → wrongly routed to Nike AF1 demo.
+  const [urlToken, setUrlToken] = useState<string | null | undefined>(undefined)
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
   const [loading, setLoading] = useState(false)
@@ -29,7 +34,7 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     const t = new URLSearchParams(window.location.search).get("token")
-    setToken(t)
+    setUrlToken(t)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,12 +42,12 @@ export default function ResetPasswordPage() {
     setError("")
     if (password !== confirm) { setError(tr.errorMismatch); return }
     if (password.length < 8) { setError(tr.errorLength); return }
-    if (!token) { setError(tr.errorNoToken); return }
+    if (!urlToken) { setError(tr.errorNoToken); return }
     setLoading(true)
     try {
-      const res = await resetPassword(token, password)
+      const res = await resetPassword(urlToken, password)
       if (res.access_token) {
-        setToken(res.access_token)
+        persistJwt(res.access_token)
         try {
           const user = await getMe(res.access_token)
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
@@ -94,11 +99,11 @@ export default function ResetPasswordPage() {
               {tr.signIn}
             </Link>
           </div>
-        ) : token === undefined ? (
+        ) : urlToken === undefined ? (
           <div className="text-center py-6">
             <p className="text-[var(--color-text-secondary)] text-[13px]">{tr.checking}</p>
           </div>
-        ) : token === null ? (
+        ) : urlToken === null ? (
           <div className="text-center">
             <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-[var(--color-watch)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{tr.invalidHeading}</h1>
