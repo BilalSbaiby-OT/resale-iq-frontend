@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Mail, TrendingUp } from "lucide-react"
+import { Mail, TrendingUp, CheckCircle2, Circle, ArrowRight } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -22,12 +22,52 @@ const FALLBACK_BRANDS: SnapshotBrandRow[] = [
 
 type BrandRow = SnapshotBrandRow
 
+// C143(tony): activation — 3-step progress indicator for the verification
+// waiting screen. Linear/Notion research: users abandon verification when it
+// feels like an admin step rather than progress toward a goal. Showing them
+// they're at step 2 of 3 (not stuck) reduces drop-off. The third step names
+// their specific intent query if one was captured on /register.
+const Steps = ({ intentQuery }: { intentQuery: string }) => {
+  const steps = [
+    { label: "Account created", done: true },
+    { label: "Verify your email", done: false, active: true },
+    { label: intentQuery ? `See your ${intentQuery} verdict` : "Get your first verdict", done: false },
+  ]
+  return (
+    <div className="flex items-center gap-1 mb-5 w-full">
+      {steps.map((step, i) => (
+        <div key={i} className="flex items-center gap-1 flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 min-w-0">
+            {step.done
+              ? <CheckCircle2 size={14} className="text-[var(--color-buy)] shrink-0" />
+              : step.active
+                ? <div className="w-3.5 h-3.5 rounded-full border-2 border-[var(--color-buy)] shrink-0" />
+                : <Circle size={14} className="text-[var(--color-border-ui)] shrink-0" />
+            }
+            <span className={`text-[11px] truncate ${step.done ? "text-[var(--color-buy)]" : step.active ? AUTH_TEXT : AUTH_TEXT_MUTED}`}>
+              {step.label}
+            </span>
+          </div>
+          {i < steps.length - 1 && (
+            <ArrowRight size={10} className={`text-[var(--color-border-ui)] ml-1 shrink-0`} />
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function CheckEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.checkEmail
   const [msg, setMsg] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [brands, setBrands] = useState<BrandRow[]>(FALLBACK_BRANDS)
+  // C143(tony): read intent query from localStorage so the waiting screen can
+  // personalise the CTA and progress step. Do NOT delete it here — verify-email
+  // needs it to redirect to the right verdict after the click. Only verify-email
+  // removes it.
+  const [intentQuery, setIntentQuery] = useState("")
   const { logout, user, isAuthenticated, checkAuth } = useAuthStore()
 
   useEffect(() => {
@@ -39,6 +79,17 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     // current. Falls back to FALLBACK_BRANDS silently — the user still sees
     // real-looking data while we wait for the network.
     fetchTopBrandRows(3, FALLBACK_BRANDS).then(rows => setBrands(rows)).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    // C143(tony): read intent query from localStorage on mount.
+    // Pattern: same key as register-form.tsx and verify-email-content.tsx.
+    // Read-only here — verify-email-content.tsx is the only consumer that
+    // deletes it (after the redirect fires).
+    try {
+      const saved = localStorage.getItem("riq_intent_query")
+      if (saved) setIntentQuery(saved)
+    } catch { /* private mode — intentQuery stays empty, generic copy shows */ }
   }, [])
 
   const handleResend = async () => {
@@ -60,9 +111,21 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     }
   }
 
+  // C143(tony): personalised verdict href — if the user captured intent on
+  // /register, show them their specific query. Otherwise default to the public
+  // sample so the "see what a verdict looks like" link always works (pre-paid).
+  const sampleHref = intentQuery
+    ? `/verdict?q=${encodeURIComponent(intentQuery)}`
+    : "/verdict?q=Nike+Air+Force+1"
+
   return (
     <div className="w-full max-w-md flex flex-col gap-5">
       <AuthCard center>
+        {/* C143(tony): 3-step progress bar — Linear pattern: show users they
+            are 2/3 of the way to their goal (the verdict), not stuck in admin.
+            Third step names their specific intent query when available. */}
+        <Steps intentQuery={intentQuery} />
+
         <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
         <h1 className="text-[18px] font-bold mb-2">{t.heading}</h1>
         <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-4 leading-relaxed`}>
@@ -121,18 +184,22 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
+        {/* C143(tony): personalised CTA — Duolingo pattern: name the exact goal
+            so the click feels like finishing the job, not starting it. */}
         <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed mb-4`}>
           Your verdict tells you <em>which models</em> to buy and the max price to pay.
-          Check your inbox — one click and you&apos;re in.
+          {intentQuery
+            ? <> One click and you&apos;ll see the <strong className={AUTH_TEXT}>{intentQuery}</strong> buy-below.</>
+            : <> Check your inbox — one click and you&apos;re in.</>
+          }
         </p>
-        {/* Pre-activation sample — see value before committing. Research shows
-            users who experience the Aha moment before activation are 3× more
-            likely to complete signup (Optimizely onboarding data, 2024). */}
+        {/* Pre-activation sample — see value before committing. Personalised to
+            the intent query the user captured at /register when available. */}
         <Link
-          href="/verdict?q=Nike+Air+Force+1"
+          href={sampleHref}
           className={`inline-flex items-center gap-1.5 text-[12.5px] font-semibold ${AUTH_ACCENT} hover:underline`}
         >
-          See what a verdict looks like →
+          {intentQuery ? `Preview the ${intentQuery} verdict →` : "See what a verdict looks like →"}
         </Link>
       </div>
     </div>
