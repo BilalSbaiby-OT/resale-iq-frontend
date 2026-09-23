@@ -330,25 +330,41 @@ export function PricingSection({
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
       </div>
 
+      {/* H74 CRO: checkout-cancelled recovery — 52 people hit Stripe, 0 converted;
+          the passive "you weren't charged" text had no re-offer CTA. Now: loss-framed
+          subtext + immediate GuestCheckoutButton so the visitor's intent isn't lost.
+          CRO #8 (loss-framing) + #10 (CTA discipline) + #4 (objection: "can I try again").
+          Revenue 2026-09-23. */}
       {checkoutCancelled && (
-        <p
+        <div
           data-testid="riq-checkout-cancelled"
           role="status"
           style={{
             textAlign: "center",
-            fontSize: 13.5,
-            color: "var(--color-text-secondary)",
-            lineHeight: 1.55,
-            maxWidth: 640,
-            margin: "0 auto 24px",
-            padding: "12px 16px",
+            maxWidth: 520,
+            margin: "0 auto 32px",
+            padding: "20px 24px",
             border: "1px solid var(--color-border-ui)",
-            borderRadius: 12,
+            borderRadius: 14,
             background: "var(--color-surface)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 14,
           }}
         >
-          {t.checkoutCancelled}
-        </p>
+          <p style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)", margin: 0, lineHeight: 1.4 }}>
+            You were 30 seconds away from your first buy-below price.
+          </p>
+          <p style={{ fontSize: 13, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.55 }}>
+            {t.checkoutCancelled}
+          </p>
+          <GuestCheckoutButton
+            locale={locale}
+            label="Start now — €19/mo →"
+            src="pricing_cancelled_recovery"
+          />
+        </div>
       )}
 
       {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.
