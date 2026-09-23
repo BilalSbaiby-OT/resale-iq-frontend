@@ -38,17 +38,14 @@
  *  Only shown for SSR PAYWALL (initialResult.verdict === "PAYWALL") — free
  *  results and loading states do not show it.
  *
- * C199 — email capture in the above-fold bar:
- *  Guest blog visitors arrive cold — Stripe shows a blank email field.
- *  52 checkout_started → 3 paid = 94% Stripe abandonment (funnel 2026-09-23).
- *  Highest-friction field is the email. Adding an email input before the CTA
- *  button pre-fills Stripe's customer_email, reducing one required field.
- *  Email is optional — visitor can still click through without typing one.
- *  If entered, it is stored in localStorage (riq_capture_email) for recovery
- *  and passed to Stripe via customerEmail prop on GuestCheckoutButton.
- *  Captures intent even if they abandon Stripe (future recovery email).
+ * C202 — remove email friction from above-fold bar:
+ *  checkout_from_blog = 0 after C199 shipped (email input in above-fold CTA).
+ *  /tools converts at ~30% (3 checkouts / 10 visitors) with a single button.
+ *  Blog had an email input gating the same button — pre-gate decision adds
+ *  cognitive friction before conversion. Removed the input. Single
+ *  GuestCheckoutButton — same pattern as /tools. Stripe collects email after.
  */
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
@@ -65,9 +62,6 @@ export function BlogInlineChecker({
   /** SSR-prefetched verdict — renders HardPaywallCard on first paint, no spinner. */
   initialResult?: PaywallPayload | null
 }) {
-  // C199: email state for the above-fold capture bar.
-  const [captureEmail, setCaptureEmail] = useState("")
-
   // C193: SSR-seeded PAYWALL visits skip run() inside FreeChecker so
   // first_analysis is never fired. Fire it here on mount so blog paywall
   // impressions appear in the funnel and checkout_from_blog can be measured.
@@ -80,26 +74,15 @@ export function BlogInlineChecker({
 
   const isSSRPaywall = initialResult?.verdict === "PAYWALL"
 
-  // C199: persist captured email so it survives /billing/cancel recovery flow.
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value
-    setCaptureEmail(v)
-    try {
-      if (v.trim()) localStorage.setItem("riq_capture_email", v.trim())
-    } catch { /* private mode */ }
-  }
-
   return (
     <div
       id="riq-blog-checker"
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >
-      {/* C197+C199: Above-fold email-capture + checkout bar — only on SSR PAYWALL.
-          On 390px mobile the full HardPaywallCard is below fold (~525px
-          before the CTA). This compact bar is the first thing the visitor
-          sees when the data is ready on first paint, before any scrolling.
-          C199 adds an email input: pre-fills Stripe, closes 94% Stripe drop. */}
+      {/* C197+C202: Above-fold single checkout CTA — only on SSR PAYWALL.
+          C202 removed the email input (C199): checkout_from_blog stayed 0
+          while /tools (single button, no pre-gate) converts at ~30%. */}
       {isSSRPaywall && (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
@@ -107,7 +90,7 @@ export function BlogInlineChecker({
           onClick={() => trackEvent("checkout_from_blog")}
           style={{
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
             gap: 10,
             background: "rgba(52,199,89,.08)",
             border: "1px solid rgba(52,199,89,.22)",
@@ -116,47 +99,15 @@ export function BlogInlineChecker({
             marginBottom: 14,
           }}
         >
-          <span style={{ fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
+          <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
             Your {preflightQuery} verdict is ready.
           </span>
-          {/* C199: email capture row */}
-          <div
-            style={{
-              display: "flex",
-              gap: 8,
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-            <div onClick={(e) => e.stopPropagation()} style={{ flex: "1 1 160px", minWidth: 0 }}>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={captureEmail}
-                onChange={handleEmailChange}
-                data-testid="riq-blog-email-capture"
-                style={{
-                  width: "100%",
-                  background: "rgba(255,255,255,.06)",
-                  border: "1px solid rgba(255,255,255,.12)",
-                  borderRadius: 8,
-                  padding: "9px 12px",
-                  fontSize: 13,
-                  color: "#eef1f7",
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-            <GuestCheckoutButton
-              locale={locale}
-              label={`Unlock ${preflightQuery} — €19/mo →`}
-              src="blog_above_fold"
-              query={preflightQuery}
-              customerEmail={captureEmail.trim() || undefined}
-            />
-          </div>
+          <GuestCheckoutButton
+            locale={locale}
+            label="Unlock — €19/mo →"
+            src="blog_above_fold"
+            query={preflightQuery}
+          />
         </div>
       )}
       <FreeChecker
