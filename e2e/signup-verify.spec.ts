@@ -300,7 +300,7 @@ test.describe("signup verify session", () => {
     await fill()
     await page.waitForURL(/checkout\.stripe\.com|check-email/, { timeout: 20_000 })
     await fill()
-    await expect(page.getByText(/you already have an account/i)).toBeVisible()
+    await expect(page.getByText(/an account already exists for/i)).toBeVisible()
     await expect(page.getByText("Unauthorized")).toHaveCount(0)
     await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible()
   })
