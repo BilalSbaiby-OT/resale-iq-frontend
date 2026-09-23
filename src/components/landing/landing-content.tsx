@@ -164,6 +164,21 @@ export function LandingContent({
                 initialResult={heroResult}
               />
             </div>
+            {/* H112 CRO: free-model micro-line below the hero checker.
+                Three models — Samba, Air Force 1, NB 530 — are free to check,
+                no account needed. That fact only appeared in the "How it works"
+                section below the fold. A visitor at the checker had no signal
+                they could try without paying, so the "do I need to pay?" objection
+                fired with zero counter-signal at the most critical moment.
+                Fathom: "7 days free" above the pricing CTA. beehiiv: "Launch $0"
+                headline tier. Both name the no-risk entry prominently at the ask.
+                This adds one line immediately below the checker so the zero-commitment
+                path is visible before the visitor decides whether to type.
+                CRO #7 (trust before CTA: name the free path at the moment of ask).
+                Revenue 2026-09-23. */}
+            <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: "6px auto 0", textAlign: "center" }}>
+              Try free: <strong>Samba</strong>, <strong>Air Force 1</strong> or <strong>NB 530</strong> — no account needed.
+            </p>
 
             {/* HomeBuyList — client-side live refresh with locked rows + paywall CTA.
                 SSR rows are already shown above (SsrBuyListTeaser). This layer
