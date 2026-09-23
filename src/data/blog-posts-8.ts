@@ -104,7 +104,7 @@ export const POSTS_8: BlogPost[] = [
     category: "Sourcing",
     readMins: 7,
 
-    preflightQuery: "Adidas",
+    preflightQuery: "Adidas Superstar",
     intro:
       "Week to 14 September 2026, Adidas ranked #13 across Spain, France, Germany, Italy and Portugal with 98 watched departures at an average exit price of €48. The €48 average is the highest brand average of any non-luxury brand in the EU5 top 15, higher than Nike's €62 when you strip Nike Sneakers out of the comparison. Sneakers lead volume at 49 of 98 departures (50%), but the structural edge is clear: Adidas is a sneaker-first market on Vinted, and within sneakers, specific silhouettes — Samba, Gazelle, Campus 00s — are responsible for a disproportionate share of the €58 average. Sourcing the wrong Adidas model at buy-below still loses.",
     sections: [
@@ -188,7 +188,7 @@ export const POSTS_8: BlogPost[] = [
     category: "Sourcing",
     readMins: 6,
 
-    preflightQuery: "Levi's",
+    preflightQuery: "Levi's 501",
     intro:
       "Week to 14 September 2026, Levi's ranked #15 across Spain, France, Germany, Italy and Portugal with 52 watched departures at an average exit price of €28. The defining structural fact: Jeans account for 83% of all Levi's departures (43 of 52) at €29 average — the highest category concentration of any brand in the top 15. Levi's on Vinted is a single-category market, and within that category, cut-number knowledge is the sourcing edge. The 501 series alone spans six distinct cuts with meaningfully different demand profiles. Trucker Jackets are the outlier: 2 departures at €40 average set the highest per-unit margin in the brand.",
     sections: [

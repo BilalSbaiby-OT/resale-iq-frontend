@@ -102,7 +102,7 @@ export const POSTS_12: BlogPost[] = [
       "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€29). The sourcing edge is model precision: Puma Suede, Clyde, Palermo and collab models exit far above the brand mean.",
     date: "2026-09-15",
 
-    preflightQuery: "Puma",
+    preflightQuery: "Puma Speedcat",
     category: "Sourcing",
     readMins: 6,
     intro:

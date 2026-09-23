@@ -104,7 +104,7 @@ export const POSTS_9: BlogPost[] = [
     category: "Sourcing",
     readMins: 6,
 
-    preflightQuery: "Reebok",
+    preflightQuery: "Reebok Club C",
     intro:
       "Week to 14 September 2026, Reebok ranked #12 across Spain, France, Germany, Italy and Portugal with 99 watched departures at an average exit price of €16. The brand average is the lowest of any top-15 brand with Sneaker volume — Reebok is a volume-at-low-price market, not a margin play. The practical case for sourcing Reebok is narrow: specific heritage models (Classic Leather, Club C 85, Freestyle) that exit above the brand average at €30–60, and Jackets (19 departures averaging €18) sourced at charity shop prices. Everything else — Hoodies at €12, T-Shirts at €10 — has no practical margin floor.",
     sections: [
