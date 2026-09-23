@@ -79,13 +79,13 @@ export const POSTS: BlogPost[] = [
     description:
       `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
-    updated: "2026-09-15",
+    updated: "2026-09-23",
     category: "Sourcing",
     readMins: 8,
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "As of 15 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): at least 1,181 hoodie listings left the shelf in the trailing 7 days across the 28 brands we track — ahead of Jackets (955) and Shirts (760). The single busiest brand/category pair is Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. Autumn is already live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",
+      "As of 23 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): 190 hoodie listings left the shelf in the trailing 7 days across the 19 brands we track — ahead of Sneakers (141) and Jackets (125). The single busiest brand/category pair is Stone Island Hoodies: 116 watched departures in 7 days, averaging €59. Autumn is live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -97,46 +97,46 @@ export const POSTS: BlogPost[] = [
     },
     sections: [
       {
-        h: "Category volumes — week to 15 September 2026",
+        h: "Category volumes — week to 23 September 2026",
         p: [
-          "Across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal, the busiest categories by watched departures in the trailing 7 days are Hoodies (1,181), Jackets (955), Shirts (760) and Sneakers (713). These four categories account for the majority of tracked movement this week.",
-          "Volume alone does not equal margin opportunity. Hoodies lead by departures because Fred Perry, Stone Island, The North Face and Carhartt all generate high Hoodie volume — but exit prices range from €14 (Fred Perry) to €55 (Stone Island), a 4× spread. The table below shows the top tracked categories with representative margin context.",
+          "Across the brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal, the busiest categories by watched departures in the trailing 7 days are Hoodies (190), Sneakers (141), Jackets (125) and Shirts (71). These four categories account for the majority of tracked movement this week.",
+          "Volume alone does not equal margin opportunity. Hoodies lead by departures because Stone Island, Fred Perry, The North Face and Carhartt all generate high Hoodie volume — but exit prices range from €19 (Fred Perry) to €59 (Stone Island), a 3× spread. The table below shows the top tracked categories with representative margin context.",
         ],
         table: {
           caption:
-            "Watched departures by category, week to 15 September 2026. 28 tracked brands across Spain, France, Germany, Italy, Portugal. Lead brand shown is the highest-volume contributor in that category.",
+            "Watched departures by category, week to 23 September 2026. Tracked brands across Spain, France, Germany, Italy, Portugal. Lead brand shown is the highest-volume contributor in that category.",
           head: ["#", "Category", "Dep/7d", "Avg exit range", "Lead brand/pair", "Season peak"],
           rows: [
             [
               "1",
               "Hoodies",
-              "1,181",
-              "€14–€55",
+              "190",
+              "€19–€59",
               "[Stone Island](/blog/stone-island-reselling-vinted-guide), [Fred Perry](/blog/fred-perry-reselling-vinted-guide)",
               "Oct–Jan",
             ],
             [
               "2",
-              "Jackets",
-              "955",
-              "€35–€142",
-              "[Patagonia](/blog/patagonia-reselling-vinted-guide), [Stone Island](/blog/stone-island-reselling-vinted-guide)",
-              "Sep–Dec",
-            ],
-            [
-              "3",
-              "Shirts",
-              "760",
-              "€14–€27",
-              "[Fred Perry](/blog/fred-perry-reselling-vinted-guide) (455 dep alone)",
+              "Sneakers",
+              "141",
+              "€21–€167",
+              "[New Balance](/blog/new-balance-reselling-vinted-guide), [Balenciaga](/blog/balenciaga-reselling-vinted-guide)",
               "Year-round",
             ],
             [
+              "3",
+              "Jackets",
+              "125",
+              "€31–€240",
+              "[Stone Island](/blog/stone-island-reselling-vinted-guide), [Patagonia](/blog/patagonia-reselling-vinted-guide)",
+              "Sep–Dec",
+            ],
+            [
               "4",
-              "Sneakers",
-              "713",
-              "€16–€58",
-              "[Nike](/blog/nike-reselling-vinted-guide), [Adidas](/blog/adidas-reselling-vinted-guide)",
+              "Shirts",
+              "71",
+              "€14–€61",
+              "[Fred Perry](/blog/fred-perry-reselling-vinted-guide) (35 dep alone)",
               "Year-round",
             ],
           ],
@@ -146,7 +146,7 @@ export const POSTS: BlogPost[] = [
         h: "Top brand/category pairs driving the numbers",
         p: [
           "Category volume is useful. Brand/category volume is actionable — it tells you exactly which item to carry and what it clears at.",
-          "Week to 15 September 2026 (EU5), the highest-volume tracked brand/category pairs: Fred Perry Shirts 455 watched departures averaging €14 · Stone Island Hoodies 433 departures averaging €55 · Stone Island Jackets 179 departures averaging €142 · Patagonia Jackets averaging €36 · Adidas Sneakers 49+ departures at €58. Full volume ranking across all 28 brands is on the [best brands to resell on Vinted hub](/blog/best-brands-to-resell-on-vinted).",
+          "Week to 23 September 2026 (EU5), the highest-volume tracked brand/category pairs: Stone Island Hoodies 116 watched departures averaging €59 · New Balance Sneakers 65 departures averaging €36 · Fred Perry Shirts 35 departures averaging €14 · Stone Island Jackets 32 departures averaging €241 · Patagonia Jackets 25 departures averaging €48. Full volume ranking across all tracked brands is on the [best brands to resell on Vinted hub](/blog/best-brands-to-resell-on-vinted).",
           "Margin is not proportional to volume. Fred Perry Shirts generate the single highest departure count of any brand/category pair — but the avg exit is €14. Stone Island Jackets generate one-third of the Shirt volume but clear at 10× the price. Volume/turnover and unit margin are different businesses: know which one you are running.",
         ],
         cta: pricingMidCta("ctr_sellsbest_pairs_20260915"),
@@ -154,7 +154,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Autumn 2026: the transition is live",
         p: [
-          "Jackets (199 departures in the last 30 days) and Hoodies (199 departures in the last 30 days) are already at seasonal pace — buyers in France, Germany and Italy are stocking up. Stone Island, Patagonia and The North Face are the three brands whose Jacket and Hoodie mix is clearing fastest right now.",
+          "Jackets (125 departures in the last 7 days) and Hoodies (190 departures in the last 7 days) are already at seasonal pace — buyers in France, Germany and Italy are stocking up. Stone Island, Patagonia and The North Face are the three brands whose Jacket and Hoodie mix is clearing fastest right now.",
           "Items to list immediately: Stone Island Hoodies and Jackets, Patagonia Fleeces and Jackets, The North Face Puffer Jackets, Carhartt WIP Hoodies. Competition for listings climbs through October — earlier listings get more views before the shelf floods.",
           "Knitwear has not yet spiked but historically enters its peak in late October. Source it now before listings flood the category and departure prices drop. Shorts, Dresses and Swimwear are in their softest quarter — clear warm-weather stock now or hold until April.",
         ],
@@ -199,15 +199,15 @@ export const POSTS: BlogPost[] = [
       {
         q: "What sells best on Vinted?",
         a:
-          "As of 15 September 2026, among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
-          "Hoodies were the busiest category: at least 1,181 hoodie listings left the shelf in the trailing 7 days, ahead of Jackets (955), Shirts (760) and Sneakers (713). " +
-          "The busiest brand/category pair was Fred Perry Shirts: 455 watched departures in 7 days, averaging €14. " +
-          "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip). Full 28-brand table: [https://resaleiq.dev/blog/best-brands-to-resell-on-vinted](/blog/best-brands-to-resell-on-vinted).",
+          "As of 23 September 2026, among the brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, " +
+          "Hoodies were the busiest category: 190 hoodie listings left the shelf in the trailing 7 days, ahead of Sneakers (141), Jackets (125) and Shirts (71). " +
+          "The busiest brand/category pair was Stone Island Hoodies: 116 watched departures in 7 days, averaging €59. " +
+          "That is tracked-brand volume, not the whole Vinted catalogue. Live weekly volumes: [https://resaleiq.dev/data](/data). Brand ranking: [https://resaleiq.dev/flip](/flip). Full brand table: [https://resaleiq.dev/blog/best-brands-to-resell-on-vinted](/blog/best-brands-to-resell-on-vinted).",
       },
       {
         q: "What category sells fastest on Vinted right now?",
         a:
-          "As of the week to 15 September 2026, Hoodies (199 departures in the last 30 days) and Jackets (955) are the fastest-clearing categories across the 28 brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Fred Perry Shirts at 455 departures in 7 days.",
+          "As of the week to 23 September 2026, Hoodies (190 departures/7d) and Jackets (125 departures/7d) are the fastest-clearing categories across the brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal. Both are driven by autumn demand — September is the start of peak-season movement for outerwear and layering pieces. The busiest single brand/category pair is Stone Island Hoodies at 116 departures in 7 days.",
       },
       {
         q: "What sells fastest on Vinted?",
@@ -218,7 +218,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "Does high volume mean a good flip?",
         a:
-          "No. Volume and ticket size rarely sit together. Week to 15 September 2026 (EU5): Fred Perry 939 watched departures at €18, Stone Island 796 at €70, Patagonia 792 at €36, Gucci 221 at €212. " +
+          "No. Volume and ticket size rarely sit together. Week to 23 September 2026 (EU5): Stone Island 148+ watched departures at €59–€241, New Balance 65 at €36, Fred Perry 35 at €14, Balenciaga 14 at €167. " +
           "Pair demand with buy-below before you tie up cash. Weekly table: [https://resaleiq.dev/data](/data).",
       },
       {
@@ -236,7 +236,7 @@ export const POSTS: BlogPost[] = [
       {
         q: "What's the best category to resell on Vinted in autumn 2026?",
         a:
-          "Hoodies and Jackets. Week to 15 September 2026, Hoodies generated 1,181 watched departures and Jackets 955 across the 28 tracked brands — both are already clearing at full autumn pace. Stone Island Hoodies average €55 at departure, Stone Island Jackets €142, Patagonia Jackets €36. Source and list now before October listing volume competes yours down. Knitwear has not yet spiked but typically enters its peak window in late October.",
+          "Hoodies and Jackets. Week to 23 September 2026, Hoodies generated 190 watched departures and Jackets 125 across the tracked brands — both are already clearing at full autumn pace. Stone Island Hoodies average €59 at departure, Stone Island Jackets €241, Patagonia Jackets €48. Source and list now before October listing volume competes yours down. Knitwear has not yet spiked but typically enters its peak window in late October.",
       },
     ],
   },
