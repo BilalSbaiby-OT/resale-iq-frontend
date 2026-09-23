@@ -302,25 +302,52 @@ export function SsrBuyListTeaser({
             )}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            {/* PRIMARY: free action — correct first ask for cold traffic */}
-            <Link
-              href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check`}
-              style={{
-                background: "#34C759",
-                color: "#06090c",
-                fontWeight: 700,
-                fontSize: 13.5,
-                padding: "10px 18px",
-                borderRadius: 9,
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-                display: "inline-block",
-              }}
-            >
-              {copy[locale].checkItem} →
-            </Link>
-            {/* SECONDARY: paid checkout — demoted to link style for warm/ready visitors */}
-            <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" asLink />
+            {/* H88 CRO: CTA order matches visitor awareness.
+                /pricing (showPrice=true): visitor is solution-aware — paying is the
+                correct next action. Paid checkout is PRIMARY (filled), free check
+                is secondary (link). CRO #10 (commitment ladder: solution-aware →
+                "start free"). Homepage (showPrice=false): visitor is cold — free check
+                is still the right first ask; order stays as before.
+                Revenue 2026-09-23. */}
+            {showPrice ? (
+              <>
+                {/* Pricing page: warm visitor — paid CTA leads */}
+                <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="ssr_buy_list_pricing" />
+                <Link
+                  href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check_pricing`}
+                  style={{
+                    color: "var(--color-text-secondary)",
+                    fontWeight: 500,
+                    fontSize: 13.5,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {copy[locale].checkItem} →
+                </Link>
+              </>
+            ) : (
+              <>
+                {/* Homepage/cold traffic: free check leads */}
+                <Link
+                  href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check`}
+                  style={{
+                    background: "#34C759",
+                    color: "#06090c",
+                    fontWeight: 700,
+                    fontSize: 13.5,
+                    padding: "10px 18px",
+                    borderRadius: 9,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    display: "inline-block",
+                  }}
+                >
+                  {copy[locale].checkItem} →
+                </Link>
+                <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" asLink />
+              </>
+            )}
           </div>
         </div>
       </div>
