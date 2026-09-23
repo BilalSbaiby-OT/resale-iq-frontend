@@ -111,10 +111,17 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     }
   }
 
-  // C143(tony): personalised verdict href — if the user captured intent on
-  // /register, show them their specific query. Otherwise default to the public
-  // sample so the "see what a verdict looks like" link always works (pre-paid).
-  const sampleHref = intentQuery
+  // C149(tony): preview link MUST resolve to a public sample query — Nike AF1,
+  // Adidas Samba, or New Balance 530. If intentQuery is e.g. "Stone Island Hoodie"
+  // and we link to /verdict?q=Stone+Island+Hoodie the unpaid user lands on the
+  // paywall, not a result. The progress step still names their intent (promise kept);
+  // the preview proves the product via the free demo. We do NOT use intentQuery
+  // as the href here.
+  const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+  const intentIsSample = intentQuery
+    ? FREE_SAMPLE_QUERIES.some(s => s.toLowerCase() === intentQuery.trim().toLowerCase())
+    : false
+  const sampleHref = intentIsSample
     ? `/verdict?q=${encodeURIComponent(intentQuery)}`
     : "/verdict?q=Nike+Air+Force+1"
 
@@ -188,9 +195,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             so the click feels like finishing the job, not starting it. */}
         <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed mb-4`}>
           Your verdict tells you <em>which models</em> to buy and the max price to pay.
-          {intentQuery
-            ? <> One click and you&apos;ll see the <strong className={AUTH_TEXT}>{intentQuery}</strong> buy-below.</>
-            : <> Check your inbox — one click and you&apos;re in.</>
+          {intentQuery && !intentIsSample
+            ? <> Verify your email, then complete checkout — your <strong className={AUTH_TEXT}>{intentQuery}</strong> check unlocks straight after.</>
+            : intentIsSample
+              ? <> One click and you&apos;ll see the <strong className={AUTH_TEXT}>{intentQuery}</strong> buy-below.</>
+              : <> Check your inbox — one click and you&apos;re in.</>
           }
         </p>
         {/* Pre-activation sample — see value before committing. Personalised to
@@ -199,7 +208,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           href={sampleHref}
           className={`inline-flex items-center gap-1.5 text-[12.5px] font-semibold ${AUTH_ACCENT} hover:underline`}
         >
-          {intentQuery ? `Preview the ${intentQuery} verdict →` : "See what a verdict looks like →"}
+          {intentIsSample ? `Preview the ${intentQuery} verdict →` : "See what a verdict looks like →"}
         </Link>
       </div>
     </div>
