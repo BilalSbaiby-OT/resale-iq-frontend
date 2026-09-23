@@ -225,10 +225,24 @@ export function PricingSection({
   // Now: paywall encodes ?item=<query>, pricing pre-populates the inline checker,
   // visitor arrives to /pricing already showing the verdict for their exact item.
   // Revenue 2026-09-23.
+  //
+  // H79 CRO: pre-seed sample verdict for visitors with no ?item= — Revenue 2026-09-23.
+  // Measured: 44 of 50 humans who saw /pricing had NEVER seen a verdict. The price
+  // ask was landing before the product. Without ?item= the FreeChecker is hidden
+  // behind a form field visitors never type in.
+  // Fix: pick a random public sample query so every /pricing visitor sees a live
+  // verdict + post-sample bridge + checkout CTA on arrival, without typing anything.
+  // The sample bridge copy ("That was a public demo item. Your items need a subscription.")
+  // already explains why paid access is needed — this just makes every visitor see it.
   const itemParam = searchParams?.get("item") ?? null
-  const [inlineQuery, setInlineQuery] = useState<string | null>(() =>
-    !compact && itemParam?.trim() ? itemParam.trim() : null
-  )
+  const [inlineQuery, setInlineQuery] = useState<string | null>(() => {
+    if (!compact) {
+      if (itemParam?.trim()) return itemParam.trim()
+      // Pre-seed a random sample query so the product proves itself before the price ask.
+      return FREE_SAMPLE_QUERIES[Math.floor(Math.random() * FREE_SAMPLE_QUERIES.length)]
+    }
+    return null
+  })
 
   useEffect(() => {
     getPlans()
