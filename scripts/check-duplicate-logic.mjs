@@ -141,6 +141,9 @@ const ALLOW = [
   // (H117). Identical deliberate brand token in two independent UI surfaces — pure
   // styling, no business logic at drift risk.
   "border: \"1px solid rgba(52,199,89,.35)\",",
+  // borderRadius: 6 for green chips — same chip pattern, same reason as above.
+  // Appears in both PricingTryInput and landing-content.tsx free-sample chips.
+  "borderRadius: 6,",
 ]
 
 
