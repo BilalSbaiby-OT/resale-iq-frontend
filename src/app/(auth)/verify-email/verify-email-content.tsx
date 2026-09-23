@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { verifyEmail, getMe } from "@/lib/api"
 import { setToken } from "@/lib/utils"
@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/auth-store"
 import Link from "next/link"
 import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
+import { fetchTopBrandRows } from "@/lib/market-snapshot"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -15,6 +16,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
   const [intentQuery, setIntentQuery] = useState("")
+  // C177(tony): live top brand for no-intent fallback. Canva rule: never show
+  // a blank/generic state — inject the #1 hot item instead of the Nike AF1
+  // free sample. Fetched in parallel with the verify call so there's no wait.
+  const topBrandRef = useRef<string>("")
   const router = useRouter()
 
   // C144(tony): read intent query from localStorage so the "checking" state
@@ -26,6 +31,18 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
       const saved = localStorage.getItem("riq_intent_query")
       if (saved) setIntentQuery(saved)
     } catch { /* private mode — intentQuery stays empty */ }
+  }, [])
+
+  // C177(tony): fetch live top brand in parallel with verify call.
+  // The ref holds the result; the verify useEffect reads it when deciding
+  // the firstQuery fallback. Race is safe — if verify finishes first, topBrandRef
+  // is "" and falls back to Stone Island Hoodie hardcoded (still better than AF1).
+  useEffect(() => {
+    fetchTopBrandRows(1, []).then(rows => {
+      if (rows[0]) {
+        topBrandRef.current = `${rows[0].brand} ${rows[0].category}`
+      }
+    }).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -55,7 +72,11 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // a real result before they hit the paywall on their own search.
           // C140: if the user captured intent at /register, use that query
           // instead of the generic sample — personalising the first Aha moment.
-          let firstQuery = "Nike+Air+Force+1"
+          // C177(tony): Canva rule — no-intent users get the live #1 hot item
+          // instead of Nike AF1 free sample. Personalised first-answer path even
+          // without an explicit intent query. topBrandRef is fetched in parallel;
+          // if the race means it's still empty, fall back to Stone Island Hoodies.
+          let firstQuery = encodeURIComponent(topBrandRef.current || "Stone Island Hoodies")
           try {
             const saved = localStorage.getItem("riq_intent_query")
             if (saved) {
