@@ -229,30 +229,48 @@ function RegisterContent({ locale }: { locale: Locale }) {
       <div className="flex justify-end mb-3">
       </div>
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
+        {/* C168(tony): Canva/Duolingo/Notion pattern — goal-first framing.
+            Research: Canva asks "What will you design?" before account creation.
+            Duolingo makes you start a lesson before signing up. Notion shows you
+            a template FIRST. All three lead with the user's goal, not the admin task.
+            Old heading "Activate your Starter access" is admin framing that creates
+            resistance. New: user commits to a specific goal → sees confirmation of
+            product value → THEN credentials. Intent drives completion.
+            The submit button dynamically reflects the query so clicking feels
+            purposeful ("Check Stone Island Hoodie →") not generic ("Create account"). */}
         <h1 className="text-[21px] font-bold mb-1">
-          {t.paidHeading.replace("{plan}", t.planNames[plan])}
+          What do you want to check?
         </h1>
-        <p className="text-[var(--color-text-secondary)] text-[13px] mb-5">
-          {t.paidSubheading}
+        <p className="text-[var(--color-text-secondary)] text-[13px] mb-4">
+          Type your item — your buy-below verdict runs the moment you&apos;re in.
         </p>
 
-        {/* What a subscriber unlocks — live top-moving items so the number
-            justifies the price before the visitor hits their card. Same signal
-            check-email-content.tsx shows; here it answers "why €19/mo now?" */}
-        <div className="mb-5 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-xl p-4">
-          <div className="flex items-center gap-1.5 mb-3">
-            <TrendingUp size={13} className="text-[var(--color-buy)]" />
-            <span className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
-              What&apos;s moving on Vinted right now
+        {/* Hero intent input — largest, first, most prominent element.
+            Canva pattern: one big clear goal input before anything else.
+            Tapping a demand row below seeds this field. */}
+        <div className="mb-4">
+          <input
+            type="text"
+            value={intentQuery}
+            onChange={e => setIntentQuery(e.target.value)}
+            placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
+            className="w-full bg-[var(--color-bg-4)] border-2 border-[var(--color-border-2)] focus:border-[var(--color-buy)] rounded-xl px-4 py-3.5 text-[16px] text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)] transition-colors"
+            aria-label="What do you want to check today?"
+            autoComplete="off"
+            autoFocus
+          />
+        </div>
+
+        {/* Demand panel — now secondary to the intent input (tap-to-fill shortcut).
+            Shows product evidence. C157(tony): Canva "react, don't create" pattern. */}
+        <div className="mb-5 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-xl p-3.5">
+          <div className="flex items-center gap-1.5 mb-2.5">
+            <TrendingUp size={12} className="text-[var(--color-buy)]" />
+            <span className="text-[10.5px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
+              Or tap a hot item to pre-fill
             </span>
           </div>
-          {/* C157(tony): Canva "react, don't create" pattern — tap a row to
-              pre-fill the intent field instead of typing from scratch.
-              Login C156 uses buttons here; register was static divs — users
-              had to type their item manually. Interactive rows remove that
-              blank-input friction: one tap seeds the intent and the hint
-              confirms it. Same onClick pattern as login-form.tsx. */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-0.5">
             {demandRows.map(r => (
               <button
                 key={`${r.brand}-${r.category}`}
@@ -261,20 +279,19 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 className="flex items-center justify-between py-1.5 border-b border-[var(--color-border-2)] last:border-0 hover:bg-[var(--color-surface-elevated)] rounded px-1 -mx-1 transition-colors text-left w-full"
               >
                 <div>
-                  <span className="text-[12.5px] font-semibold text-[var(--color-text-primary)]">{r.brand}</span>
-                  <span className="text-[11.5px] text-[var(--color-text-muted)] ml-1.5">{r.category}</span>
+                  <span className="text-[12px] font-semibold text-[var(--color-text-primary)]">{r.brand}</span>
+                  <span className="text-[11px] text-[var(--color-text-muted)] ml-1.5">{r.category}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[12.5px] font-bold text-[var(--color-buy)]">
+                  <span className="text-[12px] font-bold text-[var(--color-buy)]">
                     {r.sold_7d.toLocaleString()}
                   </span>
-                  <span className="text-[10.5px] text-[var(--color-text-muted)] ml-1">/7d</span>
-                  <div className="text-[11px] text-[var(--color-text-secondary)]">avg €{r.avg_price_eur}</div>
+                  <span className="text-[10px] text-[var(--color-text-muted)] ml-1">/7d</span>
+                  <div className="text-[10.5px] text-[var(--color-text-secondary)]">avg €{r.avg_price_eur}</div>
                 </div>
               </button>
             ))}
           </div>
-          <p className="text-[11px] text-[var(--color-text-muted)] mt-2">Tap a row to pre-fill your first check.</p>
         </div>
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
@@ -292,30 +309,6 @@ function RegisterContent({ locale }: { locale: Locale }) {
             }}
           />
           <AuthDivider text="or" />
-
-          {/* Intent capture (Notion pattern): ask what they want to check BEFORE
-              they pay. The query is saved to localStorage on register success
-              and used to pre-seed the first verdict after email verification —
-              replacing the generic Nike AF1 redirect with the exact category
-              they care about. Voluntary — blank falls back to the public sample.
-              Tony C140 2026-09-23 */}
-          <div>
-            <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5 font-medium">
-              What do you want to check today?
-            </label>
-            <input
-              type="text"
-              value={intentQuery}
-              onChange={e => setIntentQuery(e.target.value)}
-              placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
-              className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[14px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]"
-              aria-label="What do you want to check today?"
-              autoComplete="off"
-            />
-            <p className="text-[11px] text-[var(--color-text-muted)] mt-1">
-              We&apos;ll run the verdict the moment your email is confirmed.
-            </p>
-          </div>
           {/* A paid arrival still has to SEE the price before a submit sends
               them to Stripe, hence this summary. It reads the live Stripe
               amount, same source as before, so "€49 shown / €79 charged"
@@ -411,12 +404,20 @@ function RegisterContent({ locale }: { locale: Locale }) {
               {t.continueToCheckout}
             </button>
           )}
+          {/* C168(tony): dynamic submit label — when the user has typed a query,
+              the button says "Check Stone Island Hoodie →" so clicking feels
+              purposeful (completing their stated goal) not administrative.
+              Duolingo pattern: every action in the activation path names the
+              user's specific intent, not a generic task. Falls back to
+              plan-generic copy when intent field is empty. */}
           <button type="submit" disabled={loading}
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : (
               <>
-                {t.paidSubmit.replace("{plan}", t.planNames[plan])}
-                {" "}<Check size={15} />
+                {intentQuery.trim()
+                  ? `Check ${intentQuery.trim()} →`
+                  : t.paidSubmit.replace("{plan}", t.planNames[plan])}
+                {!intentQuery.trim() && <Check size={15} />}
               </>
             )}
           </button>
