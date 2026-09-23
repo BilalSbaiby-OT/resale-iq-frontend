@@ -332,8 +332,13 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
             <p style={{ fontSize: 13, fontWeight: 600, color: "#EEF1F7", margin: "0 0 2px" }}>
               {lockedCount} more rows locked — plus buy-below price on every item.
             </p>
-            <p style={{ fontSize: 12, color: "#6A7D9A", margin: 0 }}>
+            <p style={{ fontSize: 12, color: "#6A7D9A", margin: "0 0 3px" }}>
               Starter €19/mo — cancel anytime. Instant access.
+            </p>
+            {/* H69 CRO: risk-reversal at the moment of decision on the buy list CTA.
+                CRO #4 (objection: "what if it fails?"). Revenue 2026-09-23. */}
+            <p style={{ fontSize: 11.5, color: "#4a5a70", margin: 0 }}>
+              30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
             </p>
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>

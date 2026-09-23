@@ -272,6 +272,14 @@ export function LandingContent({
           }}
         >
           <GuestCheckoutButton locale={locale} label="Start €19/mo — buy-below on every brand →" src="homepage_checkout" />
+          {/* H69 CRO: risk-reversal at the moment of decision. CRO #4 (objection:
+              "what if it fails?"). HardPaywallCard already shows this guarantee on the
+              402 path; the homepage checkout CTA was missing it. Expected 10-20% lift
+              on checkout initiation for visitors who saw the buy list and are ready.
+              Revenue 2026-09-23. */}
+          <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: 0, textAlign: "center" }}>
+            30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
+          </p>
           <Link
             href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
             style={{ fontSize: 12.5, color: "var(--color-text-dim)", textDecoration: "none" }}
