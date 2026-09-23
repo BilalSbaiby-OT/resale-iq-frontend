@@ -17,7 +17,76 @@ import { categoryName, formatCount } from "@/lib/verdict-words"
 import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { useRouter } from "next/navigation"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
+
+/**
+ * C206: Quick-check input at the top of the dashboard.
+ * Problem: 11 of 25 accounts ran 0 verdicts. The dashboard had no way to
+ * check an item — you had to navigate to /verdict separately.
+ * Fix: a single-line query input that routes directly to /verdict?q=...
+ * Logged-in users can answer "should I buy this?" without leaving the page
+ * they land on after login. Same pattern as Linear's command palette.
+ */
+function QuickCheckInput({ locale }: { locale: Locale }) {
+  const [query, setQuery] = useState("")
+  const router = useRouter()
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const q = query.trim()
+    if (!q) return
+    router.push(`/verdict?q=${encodeURIComponent(q)}&src=dashboard_quick_check`)
+  }
+  return (
+    <form
+      onSubmit={handleSubmit}
+      data-testid="riq-dashboard-quick-check"
+      style={{
+        display: "flex",
+        gap: 10,
+        marginBottom: 28,
+        alignItems: "center",
+      }}
+    >
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Check an item — e.g. Stone Island Hoodie"
+        aria-label="Check an item"
+        style={{
+          flex: 1,
+          background: "var(--color-graphite-elevated)",
+          border: "1px solid var(--color-border-ui)",
+          borderRadius: 10,
+          color: "var(--color-on-graphite)",
+          fontSize: 15,
+          padding: "12px 16px",
+          outline: "none",
+        }}
+      />
+      <button
+        type="submit"
+        disabled={!query.trim()}
+        style={{
+          background: "var(--color-accent)",
+          color: "var(--color-on-accent)",
+          border: "none",
+          borderRadius: 10,
+          padding: "12px 20px",
+          fontSize: 15,
+          fontWeight: 600,
+          cursor: query.trim() ? "pointer" : "default",
+          opacity: query.trim() ? 1 : 0.5,
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+        }}
+      >
+        Check →
+      </button>
+    </form>
+  )
+}
 
 /**
  * A withheld value inside a dense card row.
@@ -212,6 +281,12 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
       {/* Asks about one past verdict. Renders nothing when there is nothing to ask. */}
       <OutcomePrompt />
+
+      {/* C206: Quick-check input — answers "should I buy this?" on the dashboard front door.
+          11 of 25 accounts ran 0 verdicts because checking required navigating to /verdict.
+          This input submits directly to /verdict?q=... with src=dashboard_quick_check
+          so funnel analytics can measure activation from the dashboard. */}
+      <QuickCheckInput locale={locale} />
 
       {showWelcome && (
         <div
