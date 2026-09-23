@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { resetPassword, getMe } from "@/lib/api"
-import { setToken } from "@/lib/utils"
+import { setToken, getPlanFromToken } from "@/lib/utils"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useAuthStore } from "@/lib/auth-store"
 import { useRouter } from "next/navigation"
@@ -49,18 +49,27 @@ export default function ResetPasswordPage() {
         } catch {
           useAuthStore.setState({ isAuthenticated: true, isLoading: false })
         }
-        // C146(tony): carry intent query from localStorage so a returning user
-        // who typed their search on /login before clicking "forgot password"
-        // lands on that result, not a blank /verdict. Same pattern as verify-email
-        // (C140). Falls back to Nike Air Force 1 sample — always a real result.
-        let firstHref = FIRST_CHECK_HREF
+        // C166(tony): route paid users to /dashboard, free/unknown to their
+        // intent query or the Nike AF1 sample. A returning user who forgot
+        // their password already has a subscription — landing on a public demo
+        // makes them wonder whether their account still exists. Dashboard
+        // answers "yes, you're in, here's your data" in one step.
+        // Intent query overrides for both — if they typed before clicking
+        // "forgot password", they get that specific check on arrival.
+        let firstHref: string
         try {
           const saved = localStorage.getItem("riq_intent_query")
           if (saved) {
             firstHref = "/verdict?q=" + encodeURIComponent(saved)
             localStorage.removeItem("riq_intent_query")
+          } else {
+            // Token is now stored; getPlanFromToken() reads it.
+            const plan = getPlanFromToken()
+            firstHref = (plan === "operator" || plan === "power")
+              ? "/dashboard"
+              : FIRST_CHECK_HREF
           }
-        } catch { /* private mode — fall back to sample */ }
+        } catch { /* private mode — fall back to sample */ firstHref = FIRST_CHECK_HREF }
         router.replace(firstHref)
         return
       }
