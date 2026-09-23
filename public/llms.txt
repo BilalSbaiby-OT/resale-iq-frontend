@@ -19,14 +19,14 @@ buy-below price ceilings, and a BUY/WATCH/SKIP verdict for over 17,200 brands an
 over 250 brand+category pairs with ≥10 departures in the trailing 30 days.
 
 **Key numbers (23 September 2026, queried from production):**
-- 13.1M+ marketplace listings tracked (13,100,734 listing records as of 2026-09-23,
+- 13.1M+ marketplace listings tracked (13,069,430 listing records as of 2026-09-23,
   across Vinted ES/FR/DE/IT/PT; 5,337,673 of these are distinct item IDs — a listing
   visible in several EU markets is recorded once per market)
 - over 17,200 brands indexed (17,266 distinct brands in listings table, 2026-09-22)
 - over 250 brand+category pairs with ≥10 departures in trailing 30 days (258 pairs, 2026-09-22)
-- Top brands by 7-day watched departures (as of 2026-09-23, from /api/public/market-snapshot): Stone Island 187 · New Balance 81 · Fred Perry 79 · Patagonia 68 · Nike 46 · Adidas 39
+- Top brands by 7-day watched departures (as of 2026-09-23 11:13 UTC, from /api/public/market-snapshot): Stone Island 206 · Fred Perry 101 · Patagonia 82 · New Balance 81 · Balenciaga 61 · Reebok 38
 
-Weekly figures (sold_7d) are fresh as of 2026-09-23 08:06 UTC. 30-day rolling totals were affected by a Vinted API outage Sep 14–22 2026 and are not republished here to avoid stale data.
+Weekly figures (sold_7d) are fresh as of 2026-09-23 11:13 UTC. 30-day rolling totals were affected by a Vinted API outage Sep 14–22 2026 and are not republished here to avoid stale data.
 
 ## Free tools
 
