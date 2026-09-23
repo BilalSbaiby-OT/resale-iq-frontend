@@ -203,10 +203,19 @@ export function BlogInlineChecker({
         </div>
       )}
 
+      {/* C215(elon): Do NOT pass initialResult to FreeChecker.
+          The bug: ssrBlogVerdict seeds a PAYWALL result as initialResult.
+          FreeChecker skips auto-run when initialResult is present (line ~564).
+          So first-time visitors never trigger run() → never claim first-free-verdict
+          → see a cold paywall wall immediately → checkout_from_blog = 0 all-time.
+          Fix: always let FreeChecker auto-run its own API call. First-timers get
+          their free verdict (claim_first_free_verdict fires). The above-fold CTA
+          still uses initialResult.comparable_n for copy — that's the only use case.
+          Verified: FreeChecker run() → 200 with verdict for first-timers, 402 paywall
+          for repeat visitors (HARD_PAYWALL stays ON). */}
       <FreeChecker
         key={checkerKey}
         initialQuery={activeQuery}
-        initialResult={initialResult ?? undefined}
         locale={locale}
         variant="card"
         src="blog-check"
