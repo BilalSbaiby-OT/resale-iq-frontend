@@ -1,13 +1,12 @@
 import Link from "next/link"
-import { SmartCTA } from "@/components/smart-cta"
 import type { Metadata } from "next"
 import { ALL_POSTS as POSTS } from "@/data/blog-posts"
-import { pricingLegacySignupKillHref } from "@/lib/blog-mid-cta"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
+import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -117,10 +116,14 @@ export default async function BlogIndex() {
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
-          {/* H41 CRO: locale-aware authedHref — canonicalPath(locale, "/dashboard") so an
-              authed cookie-carrying visitor on /blog sees "Open dashboard →" that goes
-              to /es/dashboard etc., not hardcoded English /dashboard (W61 consistency). */}
-          <SmartCTA anonLabel="Get the numbers" anonHref={pricingLegacySignupKillHref("ctr_blog_20260913")} authedLabel="Open dashboard →" authedHref={canonicalPath(locale, "/dashboard")} style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }} />
+          {/* H96 CRO: direct Stripe checkout replaces SmartCTA → /pricing detour.
+              /blog gets 130 visitors/7d. The old "Get the numbers" SmartCTA sent cold
+              visitors to /pricing — adding an entire navigation step before they could
+              reach Stripe. BlogIndexCheckoutCta goes direct to Stripe for anon visitors,
+              keeps "Open dashboard →" for paid accounts.
+              CRO #10 (CTA discipline: solution-aware → direct CTA) + #12 (conversion
+              momentum: intent built on the page, don't defer it). Revenue 2026-09-23. */}
+          <BlogIndexCheckoutCta locale={locale} />
           {/* Paid door is /pricing with organic/blog UTMs, not the signup wall. */}
           <div style={{ marginTop: 14 }}>
             <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>

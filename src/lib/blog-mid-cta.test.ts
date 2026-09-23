@@ -129,14 +129,17 @@ test("blog article template no longer points the paid footer at the signup wall"
   assert.match(page, /footerAnonLabelForPost/)
 })
 
-test("blog index paid CTA no longer defaults SmartCTA to the signup wall", () => {
+test("blog index CTA no longer routes through register or pricing — direct Stripe (H96)", () => {
   const page = readFileSync(
     join(dirname(fileURLToPath(import.meta.url)), "../app/blog/page.tsx"),
     "utf8",
   )
+  // Must never go to the signup wall
   assert.doesNotMatch(page, /\/register/)
-  assert.match(page, /pricingLegacySignupKillHref\("ctr_blog_20260913"\)/)
-  assert.match(page, /Get the numbers/)
+  // H96: SmartCTA → /pricing removed in favour of BlogIndexCheckoutCta (direct Stripe).
+  // Test: the new component is present and the old detour is gone.
+  assert.match(page, /BlogIndexCheckoutCta/)
+  assert.doesNotMatch(page, /pricingLegacySignupKillHref\("ctr_blog_20260913"\)/)
 })
 
 test("how-to-price footer stays on ctr_price when BODY-001 CTA is also present", () => {
