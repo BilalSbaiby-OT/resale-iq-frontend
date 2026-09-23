@@ -22,6 +22,8 @@ import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-for
 import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
 import { itemQueryMeta } from "@/lib/tools-query-meta"
 import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
+import { getPublicBuyList } from "@/lib/ssr-buy-list"
+import { BlogProofStrip } from "@/components/blog-proof-strip"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
@@ -67,7 +69,10 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
   const hub = toolsHub(locale)
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
   const { q: initialQuery, src } = await searchParams
-  const teaser = await getTeaserVerdict(initialQuery)
+  const [teaser, proofRows] = await Promise.all([
+    getTeaserVerdict(initialQuery),
+    getPublicBuyList(5),
+  ])
   const cite = formatTeaserCite(initialQuery ?? "", teaser)
   const jsonLd = [faqPageJsonLd(hub.faqs), definedTermJsonLd(hub.definedTerm)]
   return (
@@ -93,6 +98,16 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
 
         <WelcomeBanner />
         <PricingEyebrow locale={locale} />
+        {/* C164(tony): live proof strip — same pattern as /blog/[slug] and /tools/[slug].
+            /tools gets 10 humans/week and sends them to a blank checker input with
+            no evidence the data is real. A visitor from ChatGPT sees real buy-list rows
+            above the fold before they type a single character. Fails soft: null = no strip. */}
+        <BlogProofStrip
+          items={proofRows}
+          ctaHref={TOOLS_MONEY_HREF}
+          ctaLabel="Check any model now →"
+          hasInlineChecker
+        />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         <FreeChecker locale={locale} initialQuery={initialQuery} src={src} />
 
