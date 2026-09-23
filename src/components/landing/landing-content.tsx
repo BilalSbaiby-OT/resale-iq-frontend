@@ -164,21 +164,40 @@ export function LandingContent({
                 initialResult={heroResult}
               />
             </div>
-            {/* H112 CRO: free-model micro-line below the hero checker.
-                Three models — Samba, Air Force 1, NB 530 — are free to check,
-                no account needed. That fact only appeared in the "How it works"
-                section below the fold. A visitor at the checker had no signal
-                they could try without paying, so the "do I need to pay?" objection
-                fired with zero counter-signal at the most critical moment.
-                Fathom: "7 days free" above the pricing CTA. beehiiv: "Launch $0"
-                headline tier. Both name the no-risk entry prominently at the ask.
-                This adds one line immediately below the checker so the zero-commitment
-                path is visible before the visitor decides whether to type.
-                CRO #7 (trust before CTA: name the free path at the moment of ask).
-                Revenue 2026-09-23. */}
-            <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: "6px auto 0", textAlign: "center" }}>
-              Try free: <strong>Samba</strong>, <strong>Air Force 1</strong> or <strong>NB 530</strong> — no account needed.
-            </p>
+            {/* H117 CRO: upgrade H112 plain text into clickable free-sample chips.
+                H112 told visitors they could try Samba/AF1/NB530 free but gave them
+                nothing to click — the CTA was zero-friction intent with zero-friction
+                action blocked behind "type something yourself". At 52 visitors/week
+                (4x /pricing) this is the highest-value free-path surface.
+                Pattern: identical to H114 chips on /pricing (proven same session).
+                Each chip routes to /tools?q=<item>&src=home_free_sample — paywall
+                fires for non-sample queries, full data for these three, no account.
+                CRO #7 (trust: show the product is real before asking) +
+                CRO #10 (CTA ladder: free chip < /tools paywall < checkout).
+                Revenue 2026-09-23. H117. */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 7, marginTop: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 12, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>Try free:</span>
+              {(["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const).map((q) => (
+                <Link
+                  key={q}
+                  href={canonicalPath(locale, `/tools?q=${encodeURIComponent(q)}&src=home_free_sample`)}
+                  style={{
+                    fontSize: 12,
+                    color: "#34C759",
+                    border: "1px solid rgba(52,199,89,.35)",
+                    borderRadius: 6,
+                    padding: "3px 9px",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    fontWeight: 600,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {q}
+                </Link>
+              ))}
+              <span style={{ fontSize: 11, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>— no account needed</span>
+            </div>
 
             {/* HomeBuyList — client-side live refresh with locked rows + paywall CTA.
                 SSR rows are already shown above (SsrBuyListTeaser). This layer

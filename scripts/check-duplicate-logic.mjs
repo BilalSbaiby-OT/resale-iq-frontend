@@ -136,6 +136,11 @@ const ALLOW = [
   // approach for all file-scanning guards and must NOT be consolidated — each guard
   // has different matching logic and must remain independently correct.
   "const stripped = line.trim()",
+  // Green chip style (border:1px solid rgba(52,199,89,.35)) is the visual language
+  // for free-sample chips. Used in PricingTryInput (H114) and landing-content.tsx
+  // (H117). Identical deliberate brand token in two independent UI surfaces — pure
+  // styling, no business logic at drift risk.
+  "border: \"1px solid rgba(52,199,89,.35)\",",
 ]
 
 
