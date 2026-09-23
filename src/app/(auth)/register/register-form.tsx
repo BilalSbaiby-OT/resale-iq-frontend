@@ -239,10 +239,20 @@ function RegisterContent({ locale }: { locale: Locale }) {
               What&apos;s moving on Vinted right now
             </span>
           </div>
-          <div className="flex flex-col gap-1.5">
+          {/* C157(tony): Canva "react, don't create" pattern — tap a row to
+              pre-fill the intent field instead of typing from scratch.
+              Login C156 uses buttons here; register was static divs — users
+              had to type their item manually. Interactive rows remove that
+              blank-input friction: one tap seeds the intent and the hint
+              confirms it. Same onClick pattern as login-form.tsx. */}
+          <div className="flex flex-col gap-1">
             {demandRows.map(r => (
-              <div key={`${r.brand}-${r.category}`}
-                className="flex items-center justify-between py-1.5 border-b border-[var(--color-border-2)] last:border-0">
+              <button
+                key={`${r.brand}-${r.category}`}
+                type="button"
+                onClick={() => setIntentQuery(`${r.brand} ${r.category}`)}
+                className="flex items-center justify-between py-1.5 border-b border-[var(--color-border-2)] last:border-0 hover:bg-[var(--color-surface-elevated)] rounded px-1 -mx-1 transition-colors text-left w-full"
+              >
                 <div>
                   <span className="text-[12.5px] font-semibold text-[var(--color-text-primary)]">{r.brand}</span>
                   <span className="text-[11.5px] text-[var(--color-text-muted)] ml-1.5">{r.category}</span>
@@ -254,9 +264,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
                   <span className="text-[10.5px] text-[var(--color-text-muted)] ml-1">/7d</span>
                   <div className="text-[11px] text-[var(--color-text-secondary)]">avg €{r.avg_price_eur}</div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
+          <p className="text-[11px] text-[var(--color-text-muted)] mt-2">Tap a row to pre-fill your first check.</p>
         </div>
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
