@@ -640,7 +640,9 @@ export const copy = {
         missingToken: "This link is missing its token.",
         invalidOrExpired: "This link is invalid or has expired.",
         alreadyConfirmedFallback: "This email is already confirmed.",
+        badBody: "Links expire after 24 hours. Sign in and we'll send you a new one.",
         signIn: "Sign in →",
+        signInToResend: "Sign in to get a new link →",
       },
     },
     // Dashboard's first screen only — nav chrome (AppShell sidebar/account
@@ -1105,7 +1107,9 @@ export const copy = {
         missingToken: "Ce lien n'a pas de jeton.",
         invalidOrExpired: "Ce lien n'est plus valide ou a expiré.",
         alreadyConfirmedFallback: "Cet e-mail est déjà confirmé.",
+        badBody: "Les liens expirent après 24 heures. Connectez-vous pour en recevoir un nouveau.",
         signIn: "Connexion →",
+        signInToResend: "Se connecter pour obtenir un nouveau lien →",
       },
     },
     dashboard: {
@@ -1552,7 +1556,9 @@ export const copy = {
         missingToken: "A este enlace le falta el token.",
         invalidOrExpired: "Este enlace no es válido o ha caducado.",
         alreadyConfirmedFallback: "Este correo ya está confirmado.",
+        badBody: "Los enlaces caducan a las 24 horas. Inicie sesión y le enviaremos uno nuevo.",
         signIn: "Iniciar sesión →",
+        signInToResend: "Iniciar sesión para obtener un nuevo enlace →",
       },
     },
     dashboard: {
@@ -1998,7 +2004,9 @@ export const copy = {
         missingToken: "Diesem Link fehlt sein Token.",
         invalidOrExpired: "Dieser Link ist ungültig oder abgelaufen.",
         alreadyConfirmedFallback: "Diese E-Mail ist bereits bestätigt.",
+        badBody: "Links laufen nach 24 Stunden ab. Melden Sie sich an und wir senden Ihnen einen neuen.",
         signIn: "Anmelden →",
+        signInToResend: "Anmelden für einen neuen Link →",
       },
     },
     dashboard: {
@@ -2442,7 +2450,9 @@ export const copy = {
         missingToken: "A questo link manca il token.",
         invalidOrExpired: "Questo link non è valido o è scaduto.",
         alreadyConfirmedFallback: "Questa email è già confermata.",
+        badBody: "I link scadono dopo 24 ore. Accedi e ti invieremo uno nuovo.",
         signIn: "Accedi →",
+        signInToResend: "Accedi per ottenere un nuovo link →",
       },
     },
     dashboard: {
@@ -2886,7 +2896,9 @@ export const copy = {
         missingToken: "A este link falta o token.",
         invalidOrExpired: "Este link é inválido ou expirou.",
         alreadyConfirmedFallback: "Este email já está confirmado.",
+        badBody: "Os links expiram após 24 horas. Inicie sessão e enviaremos um novo.",
         signIn: "Iniciar sessão →",
+        signInToResend: "Iniciar sessão para obter um novo link →",
       },
     },
     dashboard: {

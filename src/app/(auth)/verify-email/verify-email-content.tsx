@@ -125,9 +125,14 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           <>
             <div className="flex justify-center mb-4"><AlertCircle size={34} className="text-[var(--color-watch)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.badHeading}</h1>
-            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{message}</p>
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-2">{message}</p>
+            {/* C145(tony): badBody explains WHY and names the recovery path.
+                Links expire → sign in → login-form detects unverified → /check-email → resend.
+                The old "Sign in →" pointed somewhere helpful but said nothing — users who got
+                a bad link had no idea signing in would get them unstuck. */}
+            <p className="text-[var(--color-text-muted)] text-[12px] mb-6">{t.badBody}</p>
             <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
-              {t.signIn}
+              {t.signInToResend}
             </Link>
           </>
         )}
