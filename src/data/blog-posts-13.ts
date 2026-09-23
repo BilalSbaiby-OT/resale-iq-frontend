@@ -99,6 +99,7 @@ export const POSTS_13: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
+    preflightQuery: "Off-White T-Shirt",
     intro:
       "Off-White tracks 2,447 brand-level departures in the last 30 days across all tracked Off-White items on EU Vinted at a €36.45 average — with its highest-category Sneakers exiting at €110 avg. Sneakers dominate at €110 average, with Hoodies at €71 a second tier. The sourcing case is defined by one structural fact: Off-White prices at EU charity shops have not adjusted for the post-Virgil Abloh era — pieces priced at €15–30 as 'designer logo streetwear' consistently exit at €80–150 on EU Vinted where buyers who understand the brand's history and legacy pricing pay accordingly.",
     sections: [

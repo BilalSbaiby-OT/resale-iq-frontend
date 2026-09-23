@@ -19,6 +19,7 @@ export const POSTS_15: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 5,
+    preflightQuery: "Bershka Hoodie",
     intro:
       "Week to 14 September 2026, Bershka ranked #26 across Spain, France, Germany, Italy and Portugal with 27 watched departures at an average exit price of €27. That average is materially misleading for resellers: it is inflated by 4 Jacket departures averaging €97 — an outlier cluster driven by low Jacket volume rather than a consistent Jacket premium. The actual reselling picture is Jeans at €12 average (9 departures, the volume category), Hoodies at €18 (3 departures), and T-Shirts at €5 (3 departures). Bershka is Inditex-owned (alongside Zara, Pull&Bear, Massimo Dutti, Stradivarius) and carries the same structural resale problem as Pull&Bear: wide EU distribution, available new at lower prices than secondary market exit, and no scarcity-based premium.",
     sections: [
@@ -83,6 +84,7 @@ export const POSTS_15: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 4,
+    preflightQuery: "Mango Blazer",
     intro:
       "Week to 14 September 2026, Mango ranked #27 across Spain, France, Germany, Italy and Portugal with 17 watched departures at an average exit price of €11 — the joint-lowest brand average in the tracked catalogue alongside Pull&Bear. Every category average for Mango on EU Vinted is at or below the buy-below threshold achievable at EU charity shop pricing. Mango is a Spanish mid-market fashion brand with 2,700+ stores globally, wide EU distribution, and a value proposition built on trend-led basics at accessible prices — the same structural resale problem as Pull&Bear and Bershka. This guide is a transparency report on why Mango does not resell, not a sourcing strategy.",
     sections: [

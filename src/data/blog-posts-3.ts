@@ -19,6 +19,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-20",
     category: "Selling",
     readMins: 4,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 20 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (780 departures in the last 30 days) and Shirts (74 departures in the last 30 days) — they are already leaving the shelf — while Bags (29 departures in the last 30 days) are the slower, higher-ticket stock a bundle discount should free up. Speed, not sentiment, decides. We watched 566 departures this week across 20 published brands, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. Fred Perry averaged €16. Gucci averaged €303. Do not cut a mover to win a conversation. Work the floor before you reply. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
@@ -63,6 +64,7 @@ export const POSTS_3: BlogPost[] = [
     date: "2026-08-07",
     category: "Selling",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Most disputes are preventable. The ones that aren't are usually decided by evidence — which means the work happens before you ship, not after the complaint.",
     sections: [
@@ -107,6 +109,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Sneakers are the most liquid category on Vinted, which makes them the easiest place to start and the easiest place to overpay. Volume protects you from being stuck; it doesn't protect your margin.",
     sections: [
@@ -150,6 +153,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-14",
     category: "Sourcing",
     readMins: 6,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Vintage is where the biggest margins hide, because value depends on knowledge rather than brand recognition. Two identical-looking jackets can differ tenfold in price based on details most people never check. As of 14 September 2026, the vintage-adjacent categories we watch carry exactly that spread on Vinted: a Stone Island Jacket left the shelf at an average €142 (179 watched departures in 7 days) while a Fred Perry Shirt averaged €14 (460) — same 'sell a garment' motion, roughly ten times the price, decided entirely by what the piece is rather than how new it looks.",
     sections: [
@@ -199,6 +203,7 @@ export const POSTS_3: BlogPost[] = [
     date: "2026-08-07",
     category: "Sourcing",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Pallets and wholesale lots promise volume at low per-item cost. They also transfer all the sorting, grading and dead-stock risk to you. Whether they're worth it comes down to arithmetic, not optimism.",
     sections: [
@@ -243,6 +248,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-13",
     category: "Selling",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Two sellers with identical stock can get completely different results. The difference is usually the closet: how many live listings there are, how consistent they look, and whether a buyer landing on one item finds five more they want.",
     sections: [
@@ -292,6 +298,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Most scams targeting sellers rely on one thing: moving you off the platform, where you have no protection. The rules to avoid them are short and worth following without exception.",
     sections: [
@@ -338,6 +345,7 @@ export const POSTS_3: BlogPost[] = [
     date: "2026-08-07",
     category: "Business",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Most resellers can tell you their revenue and almost none can tell you their profit. Tracking a handful of numbers per item turns reselling from a feeling into a business. (General information — for your tax obligations, speak to a qualified accountant in your country.)",
     sections: [
@@ -388,6 +396,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-13",
     category: "Business",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "You don't need capital to start reselling; you need discipline about what you buy. With a small budget, every wrong purchase costs you a large share of your working capital — so the buy decision matters more, not less. (No income is guaranteed.)",
     sections: [
@@ -519,6 +528,7 @@ export const POSTS_3: BlogPost[] = [
     updated: "2026-09-13",
     category: "Selling",
     readMins: 6,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Something in your closet has been sitting for a while and you don't know why. Before you assume the item is a bad buy, check it in order: most 'nobody wants this' items are actually 'this is priced or described wrong' items, and that's fixable in minutes, not months.",
     sections: [

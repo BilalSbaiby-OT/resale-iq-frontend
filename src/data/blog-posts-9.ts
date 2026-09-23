@@ -180,6 +180,7 @@ export const POSTS_9: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
+    preflightQuery: "Zara Jacket",
     intro:
       "Week to 14 September 2026, Zara ranked #15 across Spain, France, Germany, Italy and Portugal with 82 watched departures at an average exit price of €20. Zara is the most interesting negative case in the EU Vinted top-15: it is one of the highest-volume fast-fashion brands on earth, but it produces almost no resale margin on its mass-market lines. The exception is narrow — Jackets at 14 departures averaging €35 — and within Jackets it is narrower still: only specific seasons, fabrications, and conditions exit above the buy-below. The majority of Zara sourcing at any deliberate price is a margin squeeze.",
     sections: [

@@ -16,6 +16,7 @@ export const POSTS_18: BlogPost[] = [
     date: "2026-09-15",
     category: "Selling",
     readMins: 10,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Across the 28 brands Resale IQ tracks on EU Vinted, the same gap repeats: two listings for the same item — same size, similar condition — where one sits for three weeks and the other departs in two days. The difference is almost never the item. It's how the listing is constructed. These eight tips cover what the faster-moving listings have in common.",
     definedTerm: {

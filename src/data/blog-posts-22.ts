@@ -16,6 +16,7 @@ export const POSTS_22: BlogPost[] = [
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "The margin in Vinted reselling is locked at the moment of sourcing. A Fred Perry shirt that departs at €18 on Vinted needs to cost you under €9 to clear 100% net margin after fees. Where you find it determines everything. This guide maps the best sourcing venues by type and country — from UK car boot sales to French vide-greniers to German Kleidertausch events — with buy-below targets based on live EU Vinted departure data.",
     definedTerm: {

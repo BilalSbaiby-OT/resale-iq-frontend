@@ -20,6 +20,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-13",
     category: "Selling",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Photos decide whether a buyer taps your listing at all. Two sellers can list the same jacket at the same price and one sells in a day while the other sits for months. The difference is almost always the pictures.",
     sections: [
@@ -70,6 +71,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-15",
     category: "Selling",
     readMins: 7,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. Week to 14 September 2026, Hoodies were the single busiest category across the 28 brands Resale IQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal): 1,181 hoodie listings left the shelf in 7 days, ahead of Jackets (955) and Shirts (760). Autumn has started. If you are holding outerwear, this is when you list it.",
     sections: [
@@ -155,6 +157,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-13",
     category: "Selling",
     readMins: 4,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Your description does two jobs: it gets you found in Vinted's search, and it removes the doubts that stop someone buying. Most listings fail at both.",
     sections: [
@@ -197,6 +200,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-13",
     category: "Sourcing",
     readMins: 6,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Charity shops and car boots are where the best margins live — you can buy at a few euros and sell at twenty. But they're also where most beginners fill their homes with unsellable stock. Here's the discipline that separates the two.",
     sections: [
@@ -241,6 +245,7 @@ export const POSTS_2: BlogPost[] = [
     date: "2026-08-06",
     category: "Selling",
     readMins: 4,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Shipping is where new sellers lose margin and ratings. The mechanics are simple once you know them, and getting them right costs almost nothing.",
     sections: [
@@ -282,6 +287,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-20",
     category: "Selling",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (780 departures in the last 30 days), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. We watched 566 departures this week from 5,341,780 tracked listings in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
@@ -346,6 +352,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-14",
     category: "Sourcing",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Reselling is a seasonal business. Buy against the season, sell into it — but only if you can afford to hold. As of 14 September 2026, Jackets were the highest-value fast-moving category we track (199 departures in the last 30 days at an average €68), well ahead of Hoodies (199 departures in the last 30 days at €45) on price — which is exactly why coats bought cheap in summer and sold into winter carry the season's best margin. Here's the rhythm.",
     sections: [
@@ -389,6 +396,7 @@ export const POSTS_2: BlogPost[] = [
     date: "2026-08-06",
     category: "Platforms",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Vinted and eBay both sell secondhand clothing, but they take very different cuts and attract different buyers. The right answer is usually 'both, depending on the item'.",
     sections: [
@@ -435,6 +443,7 @@ export const POSTS_2: BlogPost[] = [
     updated: "2026-09-12",
     category: "Business",
     readMins: 6,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Most resellers plateau at the same place: they run out of hours, not opportunities. Scaling isn't about working more — it's about removing the bottleneck. (General information, not a promise of earnings.)",
     sections: [
@@ -483,6 +492,7 @@ export const POSTS_2: BlogPost[] = [
     date: "2026-08-07",
     category: "Business",
     readMins: 5,
+    preflightQuery: "Nike Air Force 1",
     intro:
       "Arbitrage is buying something where it is cheap and selling it where it is dear. In secondhand fashion the version everyone repeats is geographic — buy in Spain, sell in Germany. We checked that against our own crawl of all five EU Vinted domains, and it is mostly not true.",
     sections: [
