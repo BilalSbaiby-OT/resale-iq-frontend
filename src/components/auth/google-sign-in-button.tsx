@@ -19,8 +19,13 @@ import { getGoogleOAuthStatus } from "@/lib/google-oauth"
 
 export function GoogleSignInButton({
   label = "Continue with Google",
+  onBeforeNavigate,
 }: {
   label?: string
+  /** Called synchronously before the browser navigates to /auth/google/login.
+   *  Use this to persist any form state that needs to survive the redirect
+   *  (e.g. intent query → localStorage). Tony C141. */
+  onBeforeNavigate?: () => void
 }) {
   const [enabled, setEnabled] = useState<boolean | null>(null)
 
@@ -35,6 +40,7 @@ export function GoogleSignInButton({
   return (
     <a
       href="/auth/google/login"
+      onClick={() => onBeforeNavigate?.()}
       role="button"
       aria-label="Continue with Google"
       className={[

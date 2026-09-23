@@ -52,9 +52,20 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
           // sees a real buy-below number on arrival instead of a blank input.
           // Nike Air Force 1 is in _PUBLIC_SAMPLE_QUERIES so it works for
           // every plan tier. (Tony C134 2026-09-23)
-          const dest = brandQuery.trim()
+          // C141: also read riq_intent_query from localStorage — set by the
+          // onBeforeNavigate handler above if the user typed an intent query
+          // before clicking "Continue with Google". Same pattern as
+          // verify-email-content.tsx. Cleared after use.
+          let dest = brandQuery.trim()
             ? `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
             : "/verdict?q=Nike+Air+Force+1"
+          try {
+            const saved = localStorage.getItem("riq_intent_query")
+            if (saved) {
+              dest = `/verdict?q=${encodeURIComponent(saved)}`
+              localStorage.removeItem("riq_intent_query")
+            }
+          } catch { /* private mode — fall back */ }
           router.push(dest)
         })
         .catch(() => {
@@ -95,8 +106,18 @@ export function LoginForm({ locale: localeProp }: { locale?: Locale } = {}) {
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
 
-      {/* Google Sign-In — hidden until backend confirms credentials exist */}
-      <GoogleSignInButton label="Continue with Google" />
+      {/* Google Sign-In — hidden until backend confirms credentials exist.
+          onBeforeNavigate: if the user typed an intent query, save it to
+          localStorage before the browser leaves for Google. The callback
+          handler below reads it back on return. Tony C141. */}
+      <GoogleSignInButton
+        label="Continue with Google"
+        onBeforeNavigate={() => {
+          if (brandQuery.trim()) {
+            try { localStorage.setItem("riq_intent_query", brandQuery.trim()) } catch { /* private mode */ }
+          }
+        }}
+      />
       <AuthDivider text="or" />
 
       {/* Intent capture (Notion pattern): ask what they want to check BEFORE
