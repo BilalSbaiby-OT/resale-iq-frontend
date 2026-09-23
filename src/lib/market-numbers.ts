@@ -138,9 +138,22 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
   let stale = false
 
   try {
-    const r = await fetch(`${backendUrl()}/api/public/market-snapshot`, {
-      cache: "no-store",
-    })
+    // H110 CRO: 5-second timeout so slow backend never hangs SSR pages
+    // (/pricing was timing out at 15s+, converting 0%). Falls back to
+    // last-good cache — the page still renders with real data, just slightly
+    // stale. cache:"no-store" is kept so Next.js does not add its own
+    // indefinite cache on top of this. Revenue 2026-09-23.
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5_000)
+    let r: Response
+    try {
+      r = await fetch(`${backendUrl()}/api/public/market-snapshot`, {
+        cache: "no-store",
+        signal: controller.signal,
+      })
+    } finally {
+      clearTimeout(timeoutId)
+    }
     if (r.ok) snap = await r.json()
   } catch {
     // fall through to the cache

@@ -54,10 +54,18 @@ async function fetchSampleVerdict(): Promise<SampleVerdict | null> {
   // Nike AF1 is a canonical free sample (api/routes.py _is_public_sample_query).
   // Full data is returned to anon callers by design — not a paywall breach.
   try {
-    const r = await fetch(
-      `${backendUrl()}/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}`,
-      { next: { revalidate: 3600 } }
-    )
+    // H110 CRO: 5-second timeout guards against slow backend hanging /pricing SSR.
+    const pvc = new AbortController()
+    const pvTimeout = setTimeout(() => pvc.abort(), 5_000)
+    let r: Response
+    try {
+      r = await fetch(
+        `${backendUrl()}/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}`,
+        { next: { revalidate: 3600 }, signal: pvc.signal }
+      )
+    } finally {
+      clearTimeout(pvTimeout)
+    }
     if (!r.ok) return null
     const d = (await r.json()) as Record<string, unknown>
     if (!d.verdict || d.verdict === "UNKNOWN" || d.verdict === "BRAND_CATEGORIES") return null
