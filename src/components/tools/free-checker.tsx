@@ -1043,6 +1043,24 @@ export function FreeChecker({
 
               <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
 
+              {/* H109 CRO: catalog browse link on INSUFFICIENT_DATA.
+                  37 of 100 board models land here with thin data and a checkout nudge
+                  but no escape hatch for visitors whose item genuinely isn't tracked.
+                  /data shows what IS tracked — giving them a real next step and
+                  reducing bounce when they aren't ready to pay €19 blind.
+                  CRO #4 (objection: works for my items?) + #9 (friction: every section
+                  must reduce doubt OR guide action; a dead end with only a paid CTA
+                  does neither for the not-ready visitor).
+                  Revenue 2026-09-23. */}
+              <div style={{ marginTop: 6 }}>
+                <Link
+                  href={canonicalPath(locale, "/data")}
+                  style={{ fontSize: 12.5, color: "#5b6b8c", textDecoration: "none" }}
+                >
+                  Browse the full catalog →
+                </Link>
+              </div>
+
               {/* H64 CRO: upgrade nudge on INSUFFICIENT_DATA.
                   37 of 100 board models land here. The visitor ran a real item,
                   saw real price + n figures, and hit a dead end. That is warm intent
