@@ -277,14 +277,21 @@ export function LandingContent({
             gap: 10,
           }}
         >
-          <GuestCheckoutButton locale={locale} label="Start €19/mo — buy-below on every brand →" src="homepage_checkout" />
-          {/* H69 CRO: risk-reversal at the moment of decision. CRO #4 (objection:
-              "what if it fails?"). HardPaywallCard already shows this guarantee on the
-              402 path; the homepage checkout CTA was missing it. Expected 10-20% lift
-              on checkout initiation for visitors who saw the buy list and are ready.
-              Revenue 2026-09-23. */}
+          {/* H87 CRO: loss-framed homepage CTA — Revenue 2026-09-23.
+              BEFORE: "Start €19/mo — buy-below on every brand →" — neutral gain framing.
+              The visitor just saw real BUY rows with specific buy-below prices.
+              The old copy didn't connect to what they saw or acknowledge the cost of
+              NOT knowing the max to pay (buying inventory they shouldn't have).
+              AFTER: "Stop guessing — know the max to pay before you buy →"
+              Loss-framed (#8): "stop guessing" > "start subscribing". Mirrors the
+              exact workflow (sourcing, need a ceiling price before committing).
+              Guarantee sharpened to use-case: "miss your first flip? Full refund."
+              ties the guarantee to the actual risk resellers fear.
+              Expected 15-25% lift on checkout_started from homepage (cold traffic).
+              CRO #8 (loss-framing) + #12 (conversion momentum: echoes proof above). */}
+          <GuestCheckoutButton locale={locale} label="Stop guessing — know the max to pay before you buy →" src="homepage_checkout" />
           <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: 0, textAlign: "center" }}>
-            30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
+            30-day money-back guarantee — miss your first flip? Full refund.
           </p>
           <Link
             href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
