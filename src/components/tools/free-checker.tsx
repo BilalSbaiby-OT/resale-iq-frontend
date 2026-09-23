@@ -1229,6 +1229,7 @@ export function FreeChecker({
           <DigestSubscribe
             query={q}
             verdictSummary={res.verdict && res.product ? `${res.verdict} — ${res.product}` : res.verdict ?? undefined}
+            locale={locale}
           />
         )}
         {/* Alternatives — shown after any real verdict (not the seeded example) when

@@ -17,6 +17,7 @@ export function GuestCheckoutButton({
   label,
   src,
   query,
+  customerEmail,
   asLink = false,
 }: {
   locale: Locale
@@ -26,10 +27,13 @@ export function GuestCheckoutButton({
   /** Item query the visitor was checking — passed to useGuestCheckout to
    *  save as riq_intent_query before redirect (C196). */
   query?: string
+  /** Email to pre-fill on Stripe checkout — from a preceding email-capture
+   *  form (H93). Passed through to useGuestCheckout. */
+  customerEmail?: string
   /** render as text link style (transparent bg) instead of filled green button */
   asLink?: boolean
 }) {
-  const { ready, busy, start } = useGuestCheckout({ locale, src, query })
+  const { ready, busy, start } = useGuestCheckout({ locale, src, query, customerEmail })
   return (
     <button
       type="button"

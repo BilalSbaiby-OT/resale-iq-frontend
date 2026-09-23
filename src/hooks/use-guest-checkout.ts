@@ -24,10 +24,13 @@ export function useGuestCheckout({
   locale,
   src,
   query,
+  customerEmail,
 }: {
   locale: Locale
   /** analytics tag appended as src= to checkout_intent_guest event */
   src?: string
+  /** Optional email to pre-fill Stripe checkout — e.g. from a preceding email-capture form. */
+  customerEmail?: string
   /** The item the visitor was checking when they hit the paywall.
    *  Saved to localStorage before redirect so /billing/success can
    *  pre-fill their first check, and /pricing?checkout=cancelled can
@@ -78,7 +81,9 @@ export function useGuestCheckout({
         plan: "operator",
         // H80 CRO: pass user's email (if logged in) so Stripe pre-populates
         // the email field — closes the 23/25 no-email-typed gap.
-        customer_email: user?.email || undefined,
+        // H93: customerEmail prop wins over auth store email — used when caller
+        // has an email from a preceding capture form (DigestSubscribe).
+        customer_email: customerEmail || user?.email || undefined,
       })
       trackEvent("checkout_started")
       window.location.href = checkout_url

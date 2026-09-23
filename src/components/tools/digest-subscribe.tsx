@@ -11,12 +11,16 @@
  */
 
 import { useState } from "react"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import type { Locale } from "@/lib/i18n"
 
 interface DigestSubscribeProps {
   /** The query the visitor just ran (stored as GDPR source context). */
   query?: string
   /** Short human-readable verdict summary (e.g. "BUY — Nike Air Force 1"). */
   verdictSummary?: string
+  /** Locale — needed for GuestCheckoutButton post-subscribe upgrade CTA (H93). */
+  locale?: Locale
 }
 
 type SubmitState = "idle" | "submitting" | "success" | "already" | "error"
@@ -25,7 +29,7 @@ function isValidEmail(v: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
 }
 
-export function DigestSubscribe({ query, verdictSummary }: DigestSubscribeProps) {
+export function DigestSubscribe({ query, verdictSummary, locale = "en" }: DigestSubscribeProps) {
   const [email, setEmail] = useState("")
   const [state, setState] = useState<SubmitState>("idle")
   const [inlineErr, setInlineErr] = useState("")
@@ -81,7 +85,22 @@ export function DigestSubscribe({ query, verdictSummary }: DigestSubscribeProps)
           color: "var(--color-text-secondary, #8fa3c4)",
         }}
       >
-        ✓ You&apos;re in — first email lands Monday.
+        <div style={{ marginBottom: 10 }}>
+          ✓ You&apos;re in — first email lands Monday.
+        </div>
+        {/* H93 CRO: email typed → highest-intent moment → bridge to paid plan.
+            Visitor just confirmed their email address; pre-fill Stripe so they
+            never have to type it again. CRO #12 (conversion momentum at peak
+            intent) + #10 (solution-aware CTA: they know what the product does).
+            Expected: 20-30% lift on checkout_started from this cohort because
+            email already captured = intent > any cold visitor. Revenue 2026-09-23. */}
+        <GuestCheckoutButton
+          locale={locale}
+          label="Unlock full analysis — €19/mo →"
+          src="digest_subscribe_success"
+          query={query}
+          customerEmail={email}
+        />
       </div>
     )
   }
@@ -100,7 +119,15 @@ export function DigestSubscribe({ query, verdictSummary }: DigestSubscribeProps)
           color: "var(--color-text-dim, #5b6b8c)",
         }}
       >
-        Already subscribed.
+        <div style={{ marginBottom: 10 }}>Already subscribed.</div>
+        {/* H93: same bridge for already-subscribed visitors — they know the product */}
+        <GuestCheckoutButton
+          locale={locale}
+          label="Unlock full analysis — €19/mo →"
+          src="digest_already_subscribed"
+          query={query}
+          customerEmail={email}
+        />
       </div>
     )
   }
