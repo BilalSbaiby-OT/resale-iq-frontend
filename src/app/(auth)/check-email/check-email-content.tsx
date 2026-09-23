@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Mail, TrendingUp, CheckCircle2, Circle, ArrowRight } from "lucide-react"
+import { Mail, TrendingUp, CheckCircle2, Circle, ArrowRight, Lock } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -9,7 +9,7 @@ import {
   AuthCard, AUTH_ACCENT, AUTH_ACCENT_BUTTON,
   AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
-import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
@@ -116,6 +116,9 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   // needs it to redirect to the right verdict after the click. Only verify-email
   // removes it.
   const [intentQuery, setIntentQuery] = useState("")
+  // C175(tony): personalised demand row for the user's specific intent query.
+  // Fetched from market-snapshot on mount; null until loaded or on no match.
+  const [intentRow, setIntentRow] = useState<SnapshotBrandRow | null>(null)
   const { logout, user, isAuthenticated, checkAuth } = useAuthStore()
 
   useEffect(() => {
@@ -136,7 +139,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     // deletes it (after the redirect fires).
     try {
       const saved = localStorage.getItem("riq_intent_query")
-      if (saved) setIntentQuery(saved)
+      if (saved) {
+        setIntentQuery(saved)
+        // C175(tony): once we have the intent query, fetch the matching row.
+        fetchBrandRowForQuery(saved).then(row => setIntentRow(row)).catch(() => {})
+      }
     } catch { /* private mode — intentQuery stays empty, generic copy shows */ }
   }, [])
 
@@ -229,6 +236,37 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           {t.signOut}
         </button>
       </AuthCard>
+
+      {/* C175(tony): personalised item preview — Superhuman pattern.
+          When the user typed a specific item (e.g. Stone Island Hoodie), show THEIR
+          item's demand data right here, with buy-below locked behind verification.
+          This proves we have their data before they click the link — turns a generic
+          "check your email" wait into a specific promise we're about to keep.
+          Only renders when intentRow is available (brand matched in catalog). */}
+      {intentRow && (
+        <div className="bg-[var(--color-surface)] border border-[var(--color-buy)] border-opacity-30 rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp size={14} className={AUTH_ACCENT} />
+            <span className={`text-[11.5px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
+              Your item — ready to check
+            </span>
+          </div>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className={`text-[15px] font-bold ${AUTH_TEXT}`}>{intentRow.brand}</div>
+              <div className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{intentRow.category}</div>
+            </div>
+            <div className="text-right">
+              <div className={`text-[14px] font-bold ${AUTH_ACCENT}`}>{intentRow.sold_7d.toLocaleString()} <span className={`text-[11px] font-normal ${AUTH_TEXT_MUTED}`}>dep/7d</span></div>
+              <div className={`text-[12px] ${AUTH_TEXT_SECONDARY}`}>avg €{intentRow.avg_price_eur}</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5">
+            <Lock size={12} className={AUTH_TEXT_MUTED} />
+            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy-below price unlocks after verification</span>
+          </div>
+        </div>
+      )}
 
       {/* Live demand preview — shows the product value while the user waits.
           Asana/Notion lesson: the Aha moment must happen BEFORE activation, not after.
