@@ -10,6 +10,7 @@ import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
 import { BrandStrip } from "@/components/landing/brand-strip"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -122,6 +123,19 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           locale={locale}
         />
       )}
+      {/* H105 CRO: inline sample verdict between proof and price cards.
+          44/50 pricing visitors had NEVER seen a verdict (measured 2026-09-22).
+          The ask lands before the value. This fetches the Nike AF1 free-sample
+          verdict SSR and renders it inline — exactly what a subscriber sees —
+          so the visitor understands the product before the price cards appear.
+          Plausible.io pattern: show your own real data BEFORE asking for money.
+          locked_fields (sell_through, top_sizes etc.) shown as blurred chips
+          — proves depth without leaking paid data (H82 FOMO pattern).
+          CRO #2 (demonstrate the one outcome) + #4 (objection: worth it?)
+          + #7 (trust: real numbers) + #8 (specificity: €31 not "know what to pay")
+          + #12 (demonstration → conviction → ask).
+          Revenue 2026-09-23. */}
+      <PricingVerdictDemo locale={locale} />
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
     </div>
   )
