@@ -55,13 +55,71 @@ function VerdictBadge({ verdict }: { verdict: string }) {
   )
 }
 
+function RowContent({ item }: { item: SsrBuyListItem }) {
+  return (
+    <>
+      {/* Left: brand + model (or category if no model) */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          {item.brand}{item.model ? ` ${item.model}` : ""}
+        </span>
+        <span style={{ fontSize: 12, color: "#8FA3C4" }}>
+          {item.category}
+          {/* DEMAND FIGURE — 2026-09-22.
+              This used to prefer sold_7d, which made the buy list read
+              "New Balance 530 · 7 sold/wk" for an item with 1,235 sold in
+              30 days. The Sep 14-22 ingest outage sits inside the 7-day
+              window, so sold_7d is a near-zero artefact until ~Sep 29 and
+              understates our single best item by ~176x. Leading a buy
+              list with a dead-looking number on its top row is worse than
+              showing nothing.
+              Prefer the 30-day evidence, which is honest and stable; fall
+              back to sold_7d only when 30d evidence is absent. Revisit
+              after Sep 29 only if 7d becomes the more useful signal. */}
+          {item.sold_30d_evidence != null
+            ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
+            : item.sold_7d != null
+              ? ` · ${item.sold_7d} sold/wk`
+              : ""}
+        </span>
+      </div>
+
+      {/* Right: verdict + buy-below price (the core hook, never gated per OS decision) */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
+        <VerdictBadge verdict={item.verdict} />
+        {item.avg_price_eur != null && (() => {
+          // Canonical formula: avg × 0.95 × 0.70 = avg × 0.665
+          // COMPANY-OS decision: the buy-below number is the free hook — never gate it.
+          const buyBelow = Math.round(item.avg_price_eur * 0.665)
+          return (
+            <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
+              Buy below €{buyBelow}
+            </span>
+          )
+        })()}
+      </div>
+    </>
+  )
+}
+
 export function SsrBuyListTeaser({
   items,
   locale,
   showPrice = true,
+  rowSrc,
 }: {
   items: SsrBuyListItem[]
   locale: Locale
+  /**
+   * H66 CRO: when provided, each buy-list row becomes a link that navigates to
+   * /tools with the item pre-filled as the query. The visitor lands on /tools,
+   * FreeChecker auto-runs, and the paywall (for non-sample items) + PricingEyebrow
+   * close the loop: they see "we have data on this item → subscribe to unlock it."
+   * Used by /pricing (rowSrc="pricing-row"). Homepage rows stay non-clickable.
+   * CRO Principle #4 (objection: "do they have my item?") + #8 (specificity).
+   * Revenue 2026-09-23.
+   */
+  rowSrc?: string
   /** Show the "Starter €19/mo" line under the footer CTA.
    *
    *  PROOF BEFORE PRICE (2026-09-22). Teardown of 11 comparable data/analytics
@@ -87,6 +145,15 @@ export function SsrBuyListTeaser({
     .slice(0, 3)
 
   if (freeRows.length === 0) return null
+
+  const baseRowStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    padding: "12px 16px",
+    minHeight: 52,
+  } as const
 
   return (
     <div
@@ -115,61 +182,32 @@ export function SsrBuyListTeaser({
           overflow: "hidden",
         }}
       >
-        {freeRows.map((item, i) => (
-          <div
-            key={`${item.brand}-${item.category}`}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 12,
-              padding: "12px 16px",
-              minHeight: 52,
-              borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,.06)",
-            }}
-          >
-            {/* Left: brand + model (or category if no model) */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {item.brand}{item.model ? ` ${item.model}` : ""}
-              </span>
-              <span style={{ fontSize: 12, color: "#8FA3C4" }}>
-                {item.category}
-                {/* DEMAND FIGURE — 2026-09-22.
-                    This used to prefer sold_7d, which made the buy list read
-                    "New Balance 530 · 7 sold/wk" for an item with 1,235 sold in
-                    30 days. The Sep 14-22 ingest outage sits inside the 7-day
-                    window, so sold_7d is a near-zero artefact until ~Sep 29 and
-                    understates our single best item by ~176x. Leading a buy
-                    list with a dead-looking number on its top row is worse than
-                    showing nothing.
-                    Prefer the 30-day evidence, which is honest and stable; fall
-                    back to sold_7d only when 30d evidence is absent. Revisit
-                    after Sep 29 only if 7d becomes the more useful signal. */}
-                {item.sold_30d_evidence != null
-                  ? ` · ${item.sold_30d_evidence.toLocaleString()} sold/30 days`
-                  : item.sold_7d != null
-                    ? ` · ${item.sold_7d} sold/wk`
-                    : ""}
-              </span>
+        {freeRows.map((item, i) => {
+          const q = [item.brand, item.model].filter(Boolean).join(" ")
+          const rowHref = rowSrc
+            ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(q)}&src=${rowSrc}`
+            : null
+          const borderTop = i === 0 ? "none" : "1px solid rgba(255,255,255,.06)"
+          if (rowHref) {
+            return (
+              <Link
+                key={`${item.brand}-${item.category}`}
+                href={rowHref}
+                style={{ ...baseRowStyle, borderTop, textDecoration: "none", color: "inherit" }}
+              >
+                <RowContent item={item} />
+              </Link>
+            )
+          }
+          return (
+            <div
+              key={`${item.brand}-${item.category}`}
+              style={{ ...baseRowStyle, borderTop }}
+            >
+              <RowContent item={item} />
             </div>
-
-            {/* Right: verdict + buy-below price (the core hook, never gated per OS decision) */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
-              <VerdictBadge verdict={item.verdict} />
-              {item.avg_price_eur != null && (() => {
-                // Canonical formula: avg × 0.95 × 0.70 = avg × 0.665
-                // COMPANY-OS decision: the buy-below number is the free hook — never gate it.
-                const buyBelow = Math.round(item.avg_price_eur * 0.665)
-                return (
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
-                    Buy below €{buyBelow}
-                  </span>
-                )
-              })()}
-            </div>
-          </div>
-        ))}
+          )
+        })}
 
         {/* Footer CTA — re-laddered for cold traffic 2026-09-22:
             Free action is visually primary (filled button); paid checkout is

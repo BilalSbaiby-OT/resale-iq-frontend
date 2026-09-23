@@ -82,7 +82,12 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
       </div>
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
-          <SsrBuyListTeaser items={buyList} locale={locale} />
+          {/* H66 CRO: rowSrc makes each buy-list row a link to /tools with the
+              item pre-filled. Visitor clicks "Stone Island Hoodies BUY ↓€70" →
+              /tools auto-runs their query → paywall fires → PricingEyebrow
+              shows "this is real, unlock it for €19". CRO #4 (do they have my
+              item?) + #8 (specificity). Revenue 2026-09-23. */}
+          <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="pricing-row" />
         </div>
       )}
       <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />

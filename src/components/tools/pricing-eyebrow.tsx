@@ -15,7 +15,7 @@ function EyebrowInner({ locale = "en" }: { locale?: Locale }) {
   const params = useSearchParams()
   const src = params.get("src")
 
-  if (src === "pricing-try-free") {
+  if (src === "pricing-try-free" || src === "pricing-row") {
     return (
       // H60 CRO: pricing-try-free visitors are product-aware (saw /pricing) AND
       // now experience-aware (just ran a live verdict). CRO #10: match CTA
