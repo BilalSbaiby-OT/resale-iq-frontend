@@ -213,6 +213,19 @@ export function PricingSection({
   const tracked = useTrackedLabel(seedTracked)
   const sellThrough = useSellThroughLabel(seedSellThrough)
   const checkoutCancelled = searchParams?.get("checkout") === "cancelled"
+  // C196 CRO: when visitor returns after cancelling Stripe checkout, read the
+  // item they were about to unlock from localStorage (saved by useGuestCheckout).
+  // Shows personalised copy: "Your [item] check is still locked" instead of
+  // generic "you weren't charged". Private mode / missing → null (generic copy).
+  const [cancelledItem, setCancelledItem] = useState<string | null>(null)
+  useEffect(() => {
+    if (!checkoutCancelled) return
+    try {
+      const saved = localStorage.getItem("riq_intent_query")
+      if (saved?.trim()) setCancelledItem(saved.trim())
+    } catch { /* private mode */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkoutCancelled])
   const [country, setCountry] = useState<CheckoutCountry | "">(() =>
     readStoredCountry() ?? countryFromLocale(locale) ?? "")
   // H68 CRO: inline verdict query — when set, renders FreeChecker inline on
@@ -375,15 +388,19 @@ export function PricingSection({
           }}
         >
           <p style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)", margin: 0, lineHeight: 1.4 }}>
-            You were 30 seconds away from your first buy-below price.
+            {cancelledItem
+              ? `Your ${cancelledItem} buy-below price is still locked.`
+              : "You were 30 seconds away from your first buy-below price."
+            }
           </p>
           <p style={{ fontSize: 13, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.55 }}>
             {t.checkoutCancelled}
           </p>
           <GuestCheckoutButton
             locale={locale}
-            label="Start now — €19/mo →"
+            label={cancelledItem ? `Unlock ${cancelledItem} — €19/mo →` : "Start now — €19/mo →"}
             src="pricing_cancelled_recovery"
+            query={cancelledItem ?? undefined}
           />
         </div>
       )}

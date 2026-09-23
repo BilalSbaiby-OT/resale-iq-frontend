@@ -16,16 +16,20 @@ export function GuestCheckoutButton({
   locale,
   label,
   src,
+  query,
   asLink = false,
 }: {
   locale: Locale
   label: string
   /** analytics tag for useGuestCheckout src= */
   src?: string
+  /** Item query the visitor was checking — passed to useGuestCheckout to
+   *  save as riq_intent_query before redirect (C196). */
+  query?: string
   /** render as text link style (transparent bg) instead of filled green button */
   asLink?: boolean
 }) {
-  const { ready, busy, start } = useGuestCheckout({ locale, src })
+  const { ready, busy, start } = useGuestCheckout({ locale, src, query })
   return (
     <button
       type="button"

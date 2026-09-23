@@ -118,7 +118,7 @@ export function HardPaywallCard({
             </div>
           ))}
         </div>
-        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" />
+        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} />
       </div>
 
       <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 8 }}>{bodyText}</p>

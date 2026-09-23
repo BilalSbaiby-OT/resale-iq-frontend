@@ -23,10 +23,16 @@ import type { Locale } from "@/lib/i18n"
 export function useGuestCheckout({
   locale,
   src,
+  query,
 }: {
   locale: Locale
   /** analytics tag appended as src= to checkout_intent_guest event */
   src?: string
+  /** The item the visitor was checking when they hit the paywall.
+   *  Saved to localStorage before redirect so /billing/success can
+   *  pre-fill their first check, and /pricing?checkout=cancelled can
+   *  show what they were about to unlock. C196. */
+  query?: string
 }) {
   const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
   // H84 CRO: initialise ready=true because BAKED_PRICE_IDS always provides a
@@ -54,6 +60,14 @@ export function useGuestCheckout({
     const eventPath = src ? `${here}?plan=operator&src=${src}` : `${here}?plan=operator`
     try {
       if (!getToken()) trackEvent("checkout_intent_guest", eventPath)
+      // C196 CRO: save the item query before redirecting to Stripe so
+      // /billing/success pre-fills the first check and the cancelled-
+      // recovery card can show "you were about to unlock [item]".
+      // Same localStorage key as register-form.tsx — both flows read it
+      // on /billing/success. Private mode silently fails.
+      try {
+        if (query?.trim()) localStorage.setItem("riq_intent_query", query.trim())
+      } catch { /* private mode / storage quota */ }
       const priceId = resolvePriceId(placeholder, stripePlans)
       if (!priceId) {
         window.location.href = `${canonicalPath(locale, "/register")}?plan=operator`
