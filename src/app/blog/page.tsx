@@ -41,7 +41,9 @@ export default async function BlogIndex() {
   // Same SSR proof strip used on /pricing (H66) and homepage (H75): rows are
   // clickable → /tools pre-filled → paywall at moment of intent.
   // Revenue 2026-09-23.
-  const buyList = await getPublicBuyList(4).catch(() => null)
+  // H130 CRO: increased from 4→8 so showLockedFomo gets 2 locked rows (FOMO)
+  // instead of 1 (3 free + 1 locked with limit=4). Same as /pricing (8). 2026-09-28.
+  const buyList = await getPublicBuyList(8).catch(() => null)
 
   const jsonLd = {
     "@context": "https://schema.org",
