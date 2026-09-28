@@ -9,9 +9,10 @@ import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import {
-  AuthCard, AuthHeading, AuthField, AuthSubmit,
-  AUTH_ACCENT, AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
+  AuthCard, AuthHeading, AuthField,
+  AUTH_ACCENT, AUTH_ACCENT_BUTTON, AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
+import { queryCoverageKind } from "@/lib/query-coverage"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
 import { TrendingUp } from "lucide-react"
@@ -276,7 +277,28 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
         {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
-        <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
+        {/* C(tony): Canva goal-framing pattern — when the user has typed a tracked
+            intent query, the submit button names their specific goal rather than
+            the generic "Sign in". Same pattern as register-form.tsx dynamic button.
+            "Sign in & check Stone Island Hoodie →" feels purposeful; "Sign in"
+            feels like admin. Only tracked items get the named CTA — untracked
+            stays generic so we don't promise a verdict we can't deliver. */}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`${AUTH_ACCENT_BUTTON} mt-1`}
+        >
+          {loading ? t.submitting : (() => {
+            const q = brandQuery.trim()
+            if (q.length >= 3) {
+              const kind = queryCoverageKind(q)
+              if (kind === "catalog" || kind === "free_sample") {
+                return `Sign in & check ${q} →`
+              }
+            }
+            return t.submit
+          })()}
+        </button>
       </form>
       <div className={`text-center mt-5 text-[13px] ${AUTH_TEXT_SECONDARY}`}>
         {t.newHere} <Link href="/register" className={`${AUTH_ACCENT} hover:underline font-semibold`}>{t.getAccess}</Link>
