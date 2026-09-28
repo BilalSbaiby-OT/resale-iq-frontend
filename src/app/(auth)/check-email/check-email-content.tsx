@@ -283,8 +283,14 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
               query — Superhuman/Linear pattern: make every data point a direct
               path to the Aha moment instead of passive eye candy. */}
           {brands.map(b => (
+            // C215(tony): save brand+category interest to localStorage on tap
+            // so verify-email can personalise the routing (free+intent → /pricing
+            // with eyebrow instead of generic /verdict?q=Nike+AF1). Without this
+            // the interest signal the user just demonstrated by tapping is silently
+            // lost — 11/25 accounts ran 0 verdicts; this is one capture path.
             <Link key={`${b.brand}-${b.category}`}
               href={brandToSampleHref(b.brand)}
+              onClick={() => { try { localStorage.setItem("riq_intent_query", `${b.brand} ${b.category}`) } catch { /* private mode */ } }}
               className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0 hover:bg-[var(--color-surface-hover,rgba(255,255,255,0.04))] rounded-lg px-1 -mx-1 transition-colors group cursor-pointer">
               <div>
                 <span className={`text-[13.5px] font-semibold ${AUTH_TEXT} group-hover:text-[var(--color-buy)]`}>{b.brand}</span>
