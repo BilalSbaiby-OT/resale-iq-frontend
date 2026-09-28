@@ -300,6 +300,47 @@ export function BlogInlineChecker({
         </div>
       )}
 
+      {/* C227(elon): Cross-check chips for PAID-model posts — no chip clicked yet.
+          On free-model posts (NB530/AF1/Samba) the C224 chips above nudge to a paid item.
+          Paid-model posts had NO equivalent: a first-timer who got their free verdict
+          for Stone Island Hoodie had no prompt to check a second item — they just left.
+          After a first-timer's free verdict, their NEXT check returns 402 PAYWALL.
+          These chips surface 3 different brands to click immediately after the verdict,
+          driving a second auto-run → paywall → comparable_n → conversion moment.
+          Guard: only show when the post topic is NOT a free model (paid posts only),
+          no chip has been clicked yet, and the chip items differ from the post's own query.
+          Items are confirmed paid-model catalog entries (not FREE_MODELS). */}
+      {!isFreeModelQuery && !chipQuery && (() => {
+        // Verified PAYWALL for anonymous visitors (all return paywalled=true + comparable_n≥40).
+        // Ralph Lauren Polo Shirt excluded: returns free 200 for anon — wrong funnel outcome.
+        const CROSS_CHIPS = ["Stone Island Hoodie", "Balenciaga Track", "Levis 501", "Fred Perry Polo", "New Balance 550"]
+        const chips = CROSS_CHIPS.filter(q => q.toLowerCase() !== preflightQuery.toLowerCase()).slice(0, 3)
+        if (chips.length === 0) return null
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 12, color: "#5b6b8c", flexShrink: 0 }}>Also in catalog →</span>
+            {chips.map((q) => (
+              <button
+                key={q}
+                onClick={() => { setChipQuery(q); trackEvent("chip_click", q) }}
+                style={{
+                  background: "rgba(52,199,89,.08)",
+                  border: "1px solid rgba(52,199,89,.22)",
+                  borderRadius: 6,
+                  color: "#c3cde0",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )
+      })()}
+
       {/* C215(elon): Do NOT pass initialResult to FreeChecker.
           The bug: ssrBlogVerdict seeds a PAYWALL result as initialResult.
           FreeChecker skips auto-run when initialResult is present (line ~564).
