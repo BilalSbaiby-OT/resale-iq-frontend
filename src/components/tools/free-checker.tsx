@@ -14,6 +14,7 @@ import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { useAuthStore } from "@/lib/auth-store"
 import { planChip, isPaidPlan } from "@/lib/entitlement"
 import { checkerUnlockBranch, checkerRefusalIsPaid } from "@/lib/checker-unlock-state"
@@ -461,6 +462,7 @@ export function FreeChecker({
   webmcpName = CHECK_VINTED_ITEM_NAME,
   webmcpDescription = CHECK_VINTED_ITEM_DESCRIPTION,
   src,
+  buyListPreview,
 }: {
   placeholder?: string
   locale?: Locale
@@ -472,6 +474,14 @@ export function FreeChecker({
   // H54: traffic source. When "blog-check" the paid CTA is message-matched to
   // the checked item. No effect on hero variant (no CTA bar there).
   src?: string
+  /**
+   * C228(elon): real catalog rows to show LOCKED (price blurred) inside
+   * HardPaywallCard itself. Passed through from BlogInlineChecker's SSR
+   * buyListPreview — same data already fetched for the above-fold CTA bar,
+   * just rendered a second time inside the paywall card where the reader's
+   * eyes actually are right after seeing their verdict.
+   */
+  buyListPreview?: SsrBuyListItem[] | null
 }) {
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
@@ -807,7 +817,7 @@ export function FreeChecker({
               ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
               : refusalIsPaid
                 ? <PaidPostCheckBar locale={locale} user={chipUser} />
-                : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} fromPricing={src === "pricing_try"} />
+                : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} fromPricing={src === "pricing_try"} lockedRows={buyListPreview} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             refusalIsPaid
               ? <PaidPostCheckBar locale={locale} user={chipUser} />

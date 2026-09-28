@@ -357,6 +357,7 @@ export function BlogInlineChecker({
         locale={locale}
         variant="card"
         src="blog-check"
+        buyListPreview={buyListPreview}
       />
     </div>
   )

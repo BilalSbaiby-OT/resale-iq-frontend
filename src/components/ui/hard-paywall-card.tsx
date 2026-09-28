@@ -9,6 +9,7 @@ import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -31,6 +32,7 @@ export function HardPaywallCard({
   query,
   comparableN,
   fromPricing,
+  lockedRows,
 }: {
   locale: Locale
   plans?: PaywallPlan[]
@@ -45,6 +47,17 @@ export function HardPaywallCard({
    * high-intent re-engagement path. Revenue 2026-09-28.
    */
   fromPricing?: boolean
+  /**
+   * C228(elon): 2-3 real catalog rows shown LOCKED (blurred price) inline in
+   * the paywall card itself. Hypothesis: "unlock buy list" is too abstract —
+   * the reader just got a single verdict and has no idea what's actually IN
+   * the buy list. Showing real brand/model names with a blurred price makes
+   * the ask concrete ("this specific thing, behind this specific blur") instead
+   * of an abstract subscription pitch. Surface: /blog* 130/7d,
+   * checkout_from_blog=0 all-time despite C225/C226/C227. Never fabricated —
+   * rows come straight from the same SSR buy-list fetch already used elsewhere.
+   */
+  lockedRows?: SsrBuyListItem[] | null
 }) {
   const t = copy[locale].checker
   const price = operatorPrice(plans)
@@ -111,6 +124,50 @@ export function HardPaywallCard({
           </span>
         ))}
       </div>
+
+      {/* C228(elon): 2-3 real locked catalog rows — the reader just got ONE
+          verdict; show them what else is in the buy list they'd unlock.
+          Brand/model visible, price blurred (CSS filter, not text removed) so
+          the ask is concrete: "this specific item is in there, priced,
+          waiting" instead of an abstract "unlock buy list" pitch. */}
+      {lockedRows && lockedRows.length > 0 && (
+        <div
+          data-testid="riq-paywall-locked-rows"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 6,
+            marginBottom: 12,
+            border: "1px solid #263147",
+            borderRadius: 10,
+            padding: "10px 12px",
+          }}
+        >
+          <span style={{ fontSize: 11, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+            In your unlocked buy list
+          </span>
+          {lockedRows.slice(0, 3).map((it, i) => (
+            <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontSize: 13, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {it.brand}{it.model ? ` ${it.model}` : ""}
+              </span>
+              <span
+                aria-hidden
+                style={{
+                  filter: "blur(4px)",
+                  color: "#eef1f7",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                  userSelect: "none",
+                }}
+              >
+                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Evidence teaser — "we hold N data points on this item". Not a paid field. */}
       {comparableN != null && comparableN > 0 && (
