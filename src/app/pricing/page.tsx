@@ -80,11 +80,42 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
-        {/* "Resale IQ" is the wordmark, not a translatable string — same call
-            /methodology and /support already make on this link. */}
-        <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44 }}>
-          ← Resale IQ
-        </Link>
+        {/* H134 CRO: nav row with "skip to plans" anchor for product-aware visitors.
+            /pricing has 5+ screens of proof before the plan cards. A visitor who is
+            already convinced — they clicked /pricing from the nav, they know what the
+            product is — must scroll the full page to reach the checkout button. This
+            is CRO #12 (conversion momentum) + #9 (friction: convinced visitors blocked
+            by proof they don't need). The anchor link names the price so the commitment
+            is set before clicking — CRO #10 (CTA discipline: solution-aware visitor).
+            Placed in the existing top nav row beside the back link; zero extra layout.
+            Revenue 2026-09-28. H134. */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+          {/* "Resale IQ" is the wordmark, not a translatable string — same call
+              /methodology and /support already make on this link. */}
+          <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44 }}>
+            ← Resale IQ
+          </Link>
+          <a
+            href="#pricing-plans"
+            data-testid="riq-pricing-skip-to-plans"
+            style={{
+              fontSize: 12.5,
+              fontWeight: 600,
+              color: "#34C759",
+              textDecoration: "none",
+              border: "1px solid rgba(52,199,89,.3)",
+              borderRadius: 7,
+              padding: "5px 12px",
+              whiteSpace: "nowrap",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
+              minHeight: 32,
+            }}
+          >
+            Plans from €19/mo ↓
+          </a>
+        </div>
       </div>
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
