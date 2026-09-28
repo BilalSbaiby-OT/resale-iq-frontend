@@ -155,16 +155,20 @@ export function BlogInlineChecker({
             marginBottom: 14,
           }}
         >
+          {/* C218(elon): buy-list pitch copy for all non-free posts.
+              BEFORE: "We have N data points on {query}" + "Unlock buy-below →"
+              (item-specific) → 0 conversions on what-sells-best (64 views, 36 first_analysis).
+              AFTER: "47+ items ranked by profit margin" → "See full buy list →"
+              (buy-list pitch) → same framing that produced 2/32 conversions on
+              what-to-buy-to-resell (blog_buylist_pitch src). Tests whether the
+              buy-list value prop converts on non-free-model posts. */}
           <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-            {initialResult?.comparable_n
-              ? <>We have <strong style={{ color: "#34C759" }}>{initialResult.comparable_n}</strong> data points on {activeQuery}.</>
-              : <>Get the buy-below price for {activeQuery}.</>
-            }
+            <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — buy-below prices for each.
           </span>
           <GuestCheckoutButton
             locale={locale}
-            label="Unlock buy-below →"
-            src="blog_above_fold"
+            label="See full buy list →"
+            src="blog_buylist_pitch"
             query={activeQuery}
           />
         </div>
