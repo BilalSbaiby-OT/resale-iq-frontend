@@ -742,13 +742,21 @@ export function PricingSection({
                     borderRadius: 12,
                   }}
                 >
+                  {/* H133 CRO: query-specific loss-framing on the sample bridge.
+                      Before: "That was a public demo item. Your items need a subscription."
+                      — cold, factual, no urgency. The visitor just SAW live proof;
+                      the bridge must name what they proved and frame the gap as a loss.
+                      CRO #8 (loss-frame: "every item you check without this") +
+                      #3 (message-match: name the exact query they just ran) +
+                      #10 (CTA discipline: solution-aware → named item CTA).
+                      Revenue 2026-09-28. */}
                   <p style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
-                    That was a public demo item. Your items need a subscription.
+                    {inlineQuery} is a public sample. Every other item you check is behind the paywall.
                   </p>
                   <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    Type any brand + item above to see whether it's worth buying — buy-below price, sell-through rate, demand. €19/mo · cancel anytime.
+                    You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
                   </p>
-                  <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="pricing_sample_bridge" />
+                  <GuestCheckoutButton locale={locale} label={`Get verdicts like this — €19/mo →`} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
                 </div>
               )}
             </div>
