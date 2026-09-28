@@ -16,6 +16,9 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { HomeBuyList } from "./home-buy-list"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HomepageEmailCta } from "./homepage-email-cta"
+import { HeroFreeChips } from "./hero-free-chips"
+import { RoiExampleCard } from "./roi-example-card"
+import { TrustBlock } from "./trust-block"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -67,6 +70,7 @@ export function LandingContent({
 }) {
   void trackedExact
   void heroQuery
+  void heroResult
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
@@ -159,47 +163,21 @@ export function LandingContent({
                 /* Input starts EMPTY on purpose (2026-09-10). Prefilling it with
                    the seed SKU made the hero read as a finished demo — 30d funnel
                    showed only 3.8% of visitors ever ran a check (395→15). An empty
-                   field + placeholder is the universal "type here" signal; the seed
-                   verdict still renders below, now labelled "Example" so it reads as
-                   a sample, not the whole product. heroQuery kept for SSR/other use. */
+                   field + placeholder is the universal "type here" signal.
+                   initialResult removed 2026-09-28: the WATCH example (Adidas Samba)
+                   was filling above-fold space on mobile and communicating "this tool
+                   mostly says no" — the SSR buy list with BUY rows is the proof story. */
                 initialQuery=""
-                initialResult={heroResult}
+                initialResult={null}
               />
             </div>
-            {/* H117 CRO: upgrade H112 plain text into clickable free-sample chips.
-                H112 told visitors they could try Samba/AF1/NB530 free but gave them
-                nothing to click — the CTA was zero-friction intent with zero-friction
-                action blocked behind "type something yourself". At 52 visitors/week
-                (4x /pricing) this is the highest-value free-path surface.
-                Pattern: identical to H114 chips on /pricing (proven same session).
-                Each chip routes to /tools?q=<item>&src=home_free_sample — paywall
-                fires for non-sample queries, full data for these three, no account.
-                CRO #7 (trust: show the product is real before asking) +
-                CRO #10 (CTA ladder: free chip < /tools paywall < checkout).
-                Revenue 2026-09-23. H117. */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 7, marginTop: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 12, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>Try free:</span>
-              {(["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const).map((q) => (
-                <Link
-                  key={q}
-                  href={canonicalPath(locale, `/tools?q=${encodeURIComponent(q)}&src=home_free_sample`)}
-                  style={{
-                    fontSize: 12,
-                    color: "#34C759",
-                    border: "1px solid rgba(52,199,89,.35)",
-                    borderRadius: 6,
-                    padding: "3px 9px",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    fontWeight: 600,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {q}
-                </Link>
-              ))}
-              <span style={{ fontSize: 11, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>— no account needed</span>
-            </div>
+            {/* H117 CRO: clickable free-sample chips with analytics tracking.
+                Upgraded from static Link chips to HeroFreeChips (client component)
+                so hero_cta_click fires per chip — measures which free model drives
+                the most trial checks and whether chip clicks convert at higher rate
+                than direct search. CRO #7 (trust: show the product is real) +
+                CRO #10 (CTA ladder: free chip < paywall < checkout). 2026-09-28. */}
+            <HeroFreeChips locale={locale} />
 
             {/* HomeBuyList — client-side live refresh with locked rows + paywall CTA.
                 SSR rows are already shown above (SsrBuyListTeaser). This layer
@@ -283,6 +261,23 @@ export function LandingContent({
           total={market.brandsTracked ?? market.brandCount}
           locale={locale}
         />
+
+        {/* ── ROI EXAMPLE — concrete worked flip from a real buy-list row ────
+            CRO #4 (objection: "worth it?") + #8 (specificity beats abstraction).
+            Shows: "Buy [item] at €X, typical exit €Y, after fee = ~€Z margin."
+            Honesty: numbers come from live SSR buy list — never hardcoded.
+            Only renders when a real unlocked row with avg_price is available.
+            Shows "covers your Starter month" only when margin ≥ €19 from real data. */}
+        {ssrBuyList && ssrBuyList.length > 0 && (
+          <RoiExampleCard items={ssrBuyList} />
+        )}
+
+        {/* ── TRUST BLOCK — specific, verifiable proof signals ──────────────
+            CRO #7 (trust before CTA). Every item here is a real fact:
+            data freshness from API stamp, 5 EU markets (factual), Stripe secure
+            (true), methodology link (exists). No fake reviews, no fake user count.
+            "Cancel anytime" is in /terms. No refund promise (terms don't say so). */}
+        <TrustBlock market={market} />
 
         {/* ── OBJECTION ROW — 5 universal objections answered next to the pricing CTA (CRO #4).
             Numbers come from market prop — no new API calls. Never fabricated. */}

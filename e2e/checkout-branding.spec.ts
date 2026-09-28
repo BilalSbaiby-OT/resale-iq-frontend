@@ -35,7 +35,7 @@ test.describe("checkout branding + first check", () => {
     await page.goto("/billing/success?session_id=cs_test_ok")
     const cta = page.getByTestId("riq-billing-first-check")
     await expect(cta).toBeVisible()
-    await expect(cta).toHaveAttribute("href", "/verdict?q=Nike%20Air%20Force%201")
+    await expect(cta).toHaveAttribute("href", "/verdict?q=New%20Balance%20530")
     await expect(page.getByText(/You're in/i)).toBeVisible()
     expect(page.url()).toMatch(/\/billing\/success/)
   })

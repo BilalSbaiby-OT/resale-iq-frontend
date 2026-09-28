@@ -21,10 +21,12 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   await expect(hero.getByText(/For people who resell second-hand clothes/i)).toHaveCount(0)
   await expect(hero.getByText(/live second-hand clothing listings/i)).toHaveCount(0)
   await expect(hero.getByTestId("riq-home-teaser-cite")).toBeHidden()
-  // Example card and first free chip are Adidas Samba (anon 200).
   // Input starts EMPTY on purpose (2026-09-10 funnel fix).
+  // initialResult removed 2026-09-28: the WATCH example was taking above-fold space
+  // on mobile — the SSR buy list BUY rows are the proof story now.
   await expect(hero.getByRole("textbox")).toHaveValue("")
-  await expect(hero.getByText("Example", { exact: true })).toBeVisible()
+  // Example card no longer pre-rendered (initialResult=null) — SSR buy list is the proof
+  await expect(hero.getByText("Example", { exact: true })).toHaveCount(0)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/Adidas Samba/)
   await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
   await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
@@ -34,7 +36,8 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // riq-free-scope says "first check is free" — the exact wording tracks heroFreeScope copy.
   await expect(hero.getByTestId("riq-free-scope")).toContainText(/first/i)
   await expect(hero.getByTestId("riq-free-scope")).toContainText(/free/i)
-  await expect(hero.getByText("WATCH", { exact: true }).first()).toBeVisible()
+  // The SSR buy list shows live buy-list rows — check buy-below is visible
+  await expect(hero.getByText(/BUY|WATCH/i).first()).toBeVisible()
   // The seed must never be a provisional call again. #54 renders the
   // provisional badge honestly wherever it applies; the point here is that
   // the FACE of the product is not a call the API hedged.
@@ -42,29 +45,23 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // #54 removed the bare "n=" chip card-wide; XOR: left-the-shelf is sold_7d
   // only, and the slim fold does not print n at all.
   await expect(hero.getByText(/\bn=\d/)).toHaveCount(0)
-  // Public demand on the fold is sold_7d. Mock Samba is 48. ST stays locked.
-  await expect(hero.locator("[data-testid='riq-answer-rows']").getByText("Buy-below", { exact: true })).toBeVisible()
+  // SSR buy list: live BUY/WATCH rows are the proof above the fold
+  // (the Samba WATCH example card was removed 2026-09-28 to free up above-fold mobile space).
+  // The durable invariant is: live buy-list rows with buy-below prices are visible
+  // on the homepage hero — the product's core output without requiring interaction.
+  await expect(hero.getByText(/BUY|WATCH/i).first()).toBeVisible()
+  // Checker buy-below row still visible when a check is run (not tested here — no API call).
+  // Market price label is not shown (confirmed removed). Still listed (confirmed removed).
   await expect(hero.getByText("Market price", { exact: true })).toHaveCount(0)
-  await expect(hero.getByText("48", { exact: true })).toBeVisible()
-  // The label carries the window because the number is sold_7d and nothing on
-  // the fold said so — "497" alone is unreadable to a first-time visitor.
-  // Same exact-match strictness, new string.
-  await expect(hero.getByText("Left shelf / 7d", { exact: true })).toBeVisible()
   await expect(hero.getByText("Still listed", { exact: true })).toHaveCount(0)
   // One Check control in the hero — do not count nav/footer chrome.
   await expect(hero.getByRole("button", { name: /check/i })).toHaveCount(1)
   await expect(hero.getByRole("link", { name: /open dashboard/i })).toHaveCount(0)
   await expect(hero.getByRole("link", { name: /sign in/i })).toHaveCount(0)
-  // E-13: gated sell-through on the fold is lock + field name, NOT a Plan/
-  // Unlock CTA. The register route lives on /tools, not in this grid.
-  const locked = hero.getByTestId("riq-locked-stat")
-  await expect(locked).toBeVisible()
-  await expect(locked).not.toHaveAttribute("href")
-  await expect(hero.getByText(/Sell-through/i)).toBeVisible()
-  await expect(hero.locator("[data-locked-field=sell_through_rate]")).not.toContainText("0%")
-  await expect(locked).not.toContainText(/Plan/i)
-  await expect(locked).not.toContainText(/Unlock/i)
-  await expect(locked).not.toContainText("—")
+  // E-13 retargeted (2026-09-28): initialResult removed from hero — locked sell-through
+  // no longer shown on page load (checker starts empty). The durable invariant is that
+  // locked rows in the SSR buy list (Revenue showLockedFomo) never link to /register —
+  // the paywall fires inline on /tools after a real query.
   await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
   await expect(page.getByTestId("riq-market-showing")).toContainText(/Showing \d+ of \d+ brands/)
   await expect(page.getByTestId("riq-market-showing").getByRole("link", { name: /See all on \/data/ })).toHaveAttribute("href", "/data")

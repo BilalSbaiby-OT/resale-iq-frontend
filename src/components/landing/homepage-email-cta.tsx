@@ -72,9 +72,10 @@ export function HomepageEmailCta({ locale, pricingText }: { locale: Locale; pric
         src="homepage_checkout"
         customerEmail={email.trim() || undefined}
       />
-      <p style={{ fontSize: 12, color: "var(--color-text-dim)", margin: 0, textAlign: "center" }}>
-        30-day money-back guarantee — miss your first flip? Full refund.
-      </p>
+      {/* Guarantee line REMOVED — /terms (section 3) covers cancel-anytime and
+          billing-through-period, but does not promise a money-back refund.
+          Recommendation: add a no-questions refund clause to /terms before
+          restoring any guarantee copy on this page. */}
       <Link
         href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
         style={{ fontSize: 12.5, color: "var(--color-text-dim)", textDecoration: "none" }}
