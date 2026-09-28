@@ -126,6 +126,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
   }, [])
 
   const formFocused = useRef(false)
+  // C(tony)WaiverPulse: ref + highlight state so the checkbox scrolls into
+  // view and pulses red when a user submits without ticking it. Without this,
+  // 100% of register_submit_failed are reason=waiver — users error and can't
+  // see what they missed because the checkbox is below the fold on mobile.
+  const waiverRef = useRef<HTMLLabelElement>(null)
+  const [waiverHighlight, setWaiverHighlight] = useState(false)
 
   const track = (event: FunnelEvent, extra?: { reason?: RegisterFailReason }) => {
     try {
@@ -174,7 +180,13 @@ function RegisterContent({ locale }: { locale: Locale }) {
     // below is a different thing and still gates — see its comment.
     if (!waiver) {
       track("register_submit_failed", { reason: "waiver" })
-      setError(t.errorAcceptWaiver); return
+      setError(t.errorAcceptWaiver)
+      // Scroll the checkbox into view and pulse it red so the user can see
+      // what they need to tick — 100% of failures are this reason.
+      setWaiverHighlight(true)
+      waiverRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+      setTimeout(() => setWaiverHighlight(false), 2000)
+      return
     }
     if (password.length < 8) {
       track("register_submit_failed", { reason: "password_length" })
@@ -434,7 +446,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
               W19: this text is WITHDRAWAL_WAIVER_TEXT (src/lib/i18n.ts),
               English on every locale until legal-compliance signs off on a
               translated version — see that constant's comment for why. */}
-          <label className="flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)]" data-i18n-pending="waiver-legal-review">
+          <label ref={waiverRef} className={`flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)] rounded-lg transition-colors duration-300 ${waiverHighlight ? "bg-red-500/10 ring-1 ring-red-500/50 px-2 py-1" : ""}`} data-i18n-pending="waiver-legal-review">
             <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
             <span>{WITHDRAWAL_WAIVER_TEXT}</span>
           </label>
