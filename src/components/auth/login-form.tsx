@@ -14,9 +14,9 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
-import { TrendingUp, CheckCircle2, AlertCircle } from "lucide-react"
-import { queryCoverageKind } from "@/lib/query-coverage"
+import { TrendingUp } from "lucide-react"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { IntentTypeahead } from "@/components/auth/intent-typeahead"
 
 // Keepa/Plausible pattern: show live product data BEFORE the form.
 // Returning users who haven't run a verdict yet have no mental model of
@@ -240,56 +240,28 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       />
       <AuthDivider text="or" />
 
-      {/* Intent capture (Notion pattern): ask what they want to check BEFORE
-          logging in. The query is stored in state and used to pre-seed the
-          verdict page after login, replacing the generic Nike Air Force 1 sample.
-          This personalises the first Aha moment — from "here's a generic example"
-          to "here's the exact answer you asked for". Voluntary — blank falls back
-          to the public sample. Tony C139 2026-09-23 */}
+      {/* C214(tony): upgrade intent input to IntentTypeahead — same component as
+          register-form.tsx. A returning user who types "Gucci Hoodie" on /login
+          gets no autocomplete with the old plain input — they sign in and land on
+          INSUFFICIENT_DATA (dead activation). IntentTypeahead adds:
+          1. Brand+category autocomplete from the live market snapshot
+          2. Coverage badge (✓ We track this / ⚠ Not in catalog yet)
+          3. Demand counts as social proof in the dropdown
+          Pattern: register-form.tsx C180 showed the same fix works at signup. */}
       <div className="mb-1">
         <label className={`text-[12px] ${AUTH_TEXT_SECONDARY} block mb-1.5 font-medium`}>
           What do you want to check today?
         </label>
-        <input
-          type="text"
+        <IntentTypeahead
           value={brandQuery}
-          onChange={e => setBrandQuery(e.target.value)}
-          placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
-          className={`w-full bg-transparent border border-[var(--color-border-ui)] rounded-lg px-3 py-2.5 text-[14px] ${AUTH_TEXT} outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]`}
+          onChange={setBrandQuery}
           aria-label="What do you want to check today?"
-          autoComplete="off"
         />
-        {/* C178(tony): catalog coverage badge — same pattern as register-form.tsx.
-            Returning users who type an untracked brand (Gucci, Rolex, Supreme) see
-            "not in catalog yet" BEFORE logging in — prevents the dead-end of:
-            login → /verdict?q=Gucci+Hoodie → INSUFFICIENT_DATA → close tab.
-            queryCoverageKind is pure client-side (no network call), instant feedback. */}
-        {(() => {
-          if (brandQuery.trim().length < 3) return (
-            <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-1`}>
-              We&apos;ll run the verdict the moment you&apos;re in.
-            </p>
-          )
-          const kind = queryCoverageKind(brandQuery.trim())
-          if (kind === "catalog" || kind === "free_sample") {
-            return (
-              <div className="flex items-center gap-1.5 mt-1 px-0.5">
-                <CheckCircle2 size={11} className="text-[var(--color-buy)] shrink-0" />
-                <span className="text-[11px] text-[var(--color-buy)]">We track this — verdict runs on sign-in</span>
-              </div>
-            )
-          }
-          return (
-            <div className="flex items-center gap-1.5 mt-1 px-0.5">
-              <AlertCircle size={11} className="text-[var(--color-watch)] shrink-0" />
-              <span className="text-[11px] text-[var(--color-watch)]">
-                Not in catalog yet —{" "}
-                <Link href="/data" target="_blank" className="underline hover:text-[var(--color-text-primary)]">see tracked brands</Link>
-                {" "}or tap a hot item above
-              </span>
-            </div>
-          )
-        })()}
+        {brandQuery.trim().length < 3 && (
+          <p className={`text-[11px] ${AUTH_TEXT_MUTED} mt-1`}>
+            We&apos;ll run the verdict the moment you&apos;re in.
+          </p>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
