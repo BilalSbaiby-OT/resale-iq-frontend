@@ -65,7 +65,6 @@ export function LandingContent({
    */
   ssrBuyList?: SsrBuyListItem[] | null
 }) {
-  void tracked
   void trackedExact
   void heroQuery
   return (
@@ -281,6 +280,34 @@ export function LandingContent({
           total={market.brandsTracked ?? market.brandCount}
           locale={locale}
         />
+
+        {/* ── OBJECTION ROW — H120 CRO ────────────────────────────────────────
+            5 universal objections answered next to the pricing CTA (CRO #4).
+            Fathom places "7-day free trial · From $15/month · Cancel anytime"
+            directly under their hero CTA (usefathom.com). Plausible uses
+            "no credit card required" adjacent to their trial CTA
+            (plausible.io/privacy-focused-web-analytics). Both put trust/risk
+            answers at the moment of doubt — not buried in FAQ.
+            Numbers come from market prop — no new API calls. Never fabricated. */}
+        <div
+          data-testid="riq-objection-row"
+          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-5)" }}
+        >
+          <dl style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(155px, 1fr))", gap: 10, margin: 0, padding: 0 }}>
+            {([
+              { q: "Works for my items?", a: `${market.brandCount}+ brands — ES, FR, DE, IT & PT` },
+              { q: "Worth it?", a: market.sold7dTotal ? `${market.sold7dTotal.toLocaleString()} sales tracked last week` : "Live sell-through on every brand" },
+              { q: "Hard to use?", a: "Type a brand, get a verdict in seconds" },
+              { q: "What if it's wrong?", a: "Try Samba, AF1 & NB530 free — no account needed" },
+              { q: "Can I trust this?", a: market.listingsTracked ? `${market.listingsTracked.toLocaleString()} listings tracked live` : `${tracked} listings across 5 EU markets` },
+            ] as { q: string; a: string }[]).map(({ q, a }) => (
+              <div key={q} style={{ background: "var(--color-surface)", borderRadius: 8, padding: "11px 13px" }}>
+                <dt style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-dim)", marginBottom: 4 }}>{q}</dt>
+                <dd style={{ fontSize: 13, color: "var(--color-text-primary)", margin: 0, lineHeight: 1.4 }}>{a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
 
         {/* ── PRICING TEASER — replaces inline PricingSection ───────────────
             H65 CRO: homepage pricing zone upgrade (Revenue 2026-09-23).
