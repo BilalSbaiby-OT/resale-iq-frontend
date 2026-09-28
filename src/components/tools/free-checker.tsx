@@ -13,6 +13,7 @@ import { RegisterCheckVintedItemTool } from "@/components/tools/register-check-v
 import { HardPaywallCard } from "@/components/ui/hard-paywall-card"
 import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { VerdictUpsellCta } from "@/components/ui/verdict-upsell-cta"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { useAuthStore } from "@/lib/auth-store"
@@ -1359,6 +1360,23 @@ export function FreeChecker({
               </Link>
             </div>
           </div>
+          )}
+          {/* Revenue sprint 2026-09-28: ONE paid block directly under every free
+              verdict for anon/free users — the real per-item margin line (never
+              invented; omitted when buy_below/sell_avg are absent) + one-click
+              Stripe checkout + the annual link. E-13/#59: never on the hero
+              (homepage fold), so this is gated the same as the guest-unlock bar
+              above it but excludes `hero` explicitly. Paid users never see it —
+              barBranch is only "checkout" for anon/free (checkerUnlockBranch). */}
+          {!hero && barBranch === "checkout" && (
+            <VerdictUpsellCta
+              locale={locale}
+              buyBelow={res.buy_below}
+              sellAvg={res.sell_avg}
+              query={q}
+              src="verdict_upsell"
+              annualHref={`${canonicalPath(locale, "/pricing")}?billing=yearly#pricing-plans`}
+            />
           )}
         </div>
         {/* Weekly digest opt-in — placed OUTSIDE riq-result-card to avoid

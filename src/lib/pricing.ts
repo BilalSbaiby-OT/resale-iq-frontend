@@ -13,6 +13,10 @@ export interface Tier {
   name: string
   price: number            // monthly EUR
   priceId?: string         // Stripe price id (checkout); absent = waitlist tier
+  /** Annual EUR total (2 months free vs monthly x12). Absent = no annual price yet. */
+  priceAnnual?: number
+  /** Stripe annual price id placeholder, resolved via resolveAnnualPriceId(). */
+  priceIdAnnual?: string
   tagline: string
   cta: string
   highlight?: boolean      // the recommended / most-popular tier
@@ -33,6 +37,8 @@ export const TIERS: Tier[] = [
     name: "Pro",
     price: 49,
     priceId: "__POWER__",
+    priceAnnual: 490,
+    priceIdAnnual: "__POWER_ANNUAL__",
     highlight: true,
     // The €19 -> €49 jump only reads as fair once the difference is named as a
     // category change rather than a longer feature list. Starter answers when
@@ -60,6 +66,8 @@ export const TIERS: Tier[] = [
     name: "Starter",
     price: 19,
     priceId: "__OPERATOR__",
+    priceAnnual: 190,
+    priceIdAnnual: "__OPERATOR_ANNUAL__",
     tagline: "Answers on anything you look up",
     cta: "Get the numbers",
     features: [
@@ -110,4 +118,35 @@ export function resolvePriceId(placeholder: string | undefined, plans: { id: str
   const planId = map[placeholder]
   if (!planId) return undefined
   return plans.find(p => p.id === planId)?.price_id || BAKED_PRICE_IDS[planId]
+}
+
+// Annual prices (2026-09-28 sprint): 2 months free vs monthly x12. Same
+// baked-fallback pattern as BAKED_PRICE_IDS — created live via Stripe API,
+// recorded here so the very first click (before /stripe/plans hydrates)
+// still resolves to a real price id instead of bouncing to /register.
+export const BAKED_ANNUAL_PRICE_IDS: Record<string, string> = {
+  operator: "price_1UKlc51Mvj7CL8HQgGFgVKQK",
+  power: "price_1UKlc51Mvj7CL8HQ3Dr1nptv",
+}
+
+export function resolveAnnualPriceId(
+  placeholder: string | undefined,
+  plans: { id: string; price_id_annual?: string }[],
+): string | undefined {
+  if (!placeholder) return undefined
+  const map: Record<string, string> = { "__OPERATOR_ANNUAL__": "operator", "__POWER_ANNUAL__": "power" }
+  const planId = map[placeholder]
+  if (!planId) return undefined
+  return plans.find(p => p.id === planId)?.price_id_annual || BAKED_ANNUAL_PRICE_IDS[planId]
+}
+
+export type BillingCycle = "monthly" | "yearly"
+
+/** The EUR figure a pricing card shows for the selected billing cycle.
+ *  Yearly uses the tier's real annual total (2 months free); if a tier
+ *  somehow has no priceAnnual, falls back to price*12 so the card never
+ *  shows a blank number (defensive — every current tier has priceAnnual). */
+export function tierPriceEur(tier: Pick<Tier, "price" | "priceAnnual">, cycle: BillingCycle): number {
+  if (cycle === "monthly") return tier.price
+  return tier.priceAnnual ?? tier.price * 12
 }

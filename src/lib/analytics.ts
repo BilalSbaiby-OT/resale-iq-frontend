@@ -43,6 +43,10 @@ export type FunnelEvent =
   | "hero_cta_click"
 /** Visitor clicked a paywall-demo chip on a blog post (C224 free-model posts). */
 | "chip_click"
+/** Visitor clicked the paid CTA in the block directly under a free verdict
+ *  result (verdict-upsell-cta.tsx, Revenue sprint 2026-09-28). `path` carries
+ *  the variant (call-site src, or `${src}_annual` for the yearly link). */
+| "verdict_upsell_click"
 /** Client-side reasons for register_submit_failed. Encoded into path so the
  *  existing /api/track sink stores them (TrackEvent has no extra column). */
 export type RegisterFailReason =

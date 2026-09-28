@@ -325,6 +325,9 @@ export interface PlanInfo {
   name: string
   price_eur: number
   price_id?: string
+  /** Annual price (2026-09-28 sprint) — EUR total per year, 2 months free vs monthly x12. */
+  price_eur_annual?: number
+  price_id_annual?: string
   verdicts_per_day: number
   features: string[]
 }

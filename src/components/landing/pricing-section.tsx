@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Check } from "lucide-react"
-import { TIERS, resolvePriceId } from "@/lib/pricing"
+import { TIERS, resolvePriceId, resolveAnnualPriceId, tierPriceEur, type BillingCycle } from "@/lib/pricing"
 import { PaybackCalculator } from "./payback-calculator"
 import { getPlans, createCheckout } from "@/lib/api"
 import { getToken } from "@/lib/utils"
@@ -193,6 +193,12 @@ export function PricingSection({
   // Mirrors the mechanism already live on landing-content.tsx (H2) — CRO principle #3.
   const searchParams = useSearchParams()
   const srcParam = searchParams?.get("src") ?? null
+  // Monthly/yearly toggle (2026-09-28 sprint). Default MONTHLY — cold mobile
+  // traffic on /pricing must not see a €190 sticker-shock number first; yearly
+  // is an opt-in view, not the default framing. ?billing=yearly deep-links
+  // straight into the yearly view (used by the verdict-upsell "or €190/year" link).
+  const billingParam = searchParams?.get("billing")
+  const [billing, setBilling] = useState<BillingCycle>(billingParam === "yearly" ? "yearly" : "monthly")
   const llmSrc = (!compact && (srcParam === "perplexity" || srcParam === "chatgpt" || srcParam === "llm")) ? srcParam : null
   // H20 CRO: message-match for ?src=data visitors (arrived from /data public brand page).
   // They've already seen departure counts and averages — bridge directly to item-level verdicts.
@@ -293,7 +299,7 @@ export function PricingSection({
     void checkAuth()
   }, [checkAuth])
 
-  const choose = async (tierId: string, placeholder?: string) => {
+  const choose = async (tierId: string, placeholder?: string, annualPlaceholder?: string) => {
     // Paying customers already have a Stripe customer — send them to /account
     // (portal), never through Checkout again (founder, 2026-09-21).
     if (isPaidPlan(user)) {
@@ -303,6 +309,10 @@ export function PricingSection({
     // HARD_PAYWALL: the Free card is public /data, not a free item-check plan.
     if (tierId === "free") { router.push("/data"); return }
     if (!placeholder) return
+    const resolveThisPriceId = (allPlans: typeof plans) =>
+      billing === "yearly" && annualPlaceholder
+        ? resolveAnnualPriceId(annualPlaceholder, allPlans)
+        : resolvePriceId(placeholder, allPlans)
     if (!getToken()) {
       const plan = tierId === "power" ? "power" : "operator"
       // GUEST CHECKOUT (2026-09-09): a logged-out visitor who clicks a paid
@@ -317,7 +327,7 @@ export function PricingSection({
       trackEvent("checkout_intent_guest", `${here}?plan=${plan}`)
       setBusy(tierId)
       try {
-        const priceId = resolvePriceId(placeholder, plans)
+        const priceId = resolveThisPriceId(plans)
         if (!priceId) { router.push(`/register?plan=${plan}`); return }
         // H104 CRO: read email captured earlier on homepage/blog
         // (riq_capture_email, set by HomepageEmailCta / BlogIndexCheckoutCta).
@@ -354,7 +364,7 @@ export function PricingSection({
     }
     setBusy(tierId)
     try {
-      const priceId = resolvePriceId(placeholder, plans)
+      const priceId = resolveThisPriceId(plans)
       if (!priceId) { router.push("/register"); return }
       const { checkout_url } = await createCheckout(priceId, {
         plan: (tierId === "power" ? "power" : "operator") as CheckoutPlan,
@@ -766,6 +776,51 @@ export function PricingSection({
 
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
           one-line public-data link below so it cannot compete with Starter €19. */}
+      {/* Monthly/yearly toggle (2026-09-28 sprint). Default MONTHLY (cold mobile
+          traffic must not see €190 first). "2 months free" badge on yearly —
+          real math (190 = 19*10, 490 = 49*10), never an invented discount %. */}
+          <div
+            data-testid="riq-billing-toggle"
+            role="group"
+            aria-label={t.billingToggleLabel}
+            style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 20 }}
+          >
+            {(["monthly", "yearly"] as const).map((cycle) => (
+              <button
+                key={cycle}
+                type="button"
+                onClick={() => setBilling(cycle)}
+                data-testid={`riq-billing-${cycle}`}
+                aria-pressed={billing === cycle}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "7px 16px",
+                  borderRadius: 999,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  border: billing === cycle ? "1px solid var(--color-buy)" : "1px solid var(--color-border-ui)",
+                  background: billing === cycle ? "rgba(52,199,89,.10)" : "transparent",
+                  color: billing === cycle ? "var(--color-buy)" : "var(--color-text-secondary)",
+                  cursor: "pointer",
+                }}
+              >
+                {cycle === "monthly" ? t.billingMonthly : t.billingYearly}
+                {cycle === "yearly" && (
+                  <span
+                    data-testid="riq-yearly-badge"
+                    style={{
+                      fontSize: 10.5, fontWeight: 700, color: "var(--color-buy)",
+                      background: "rgba(52,199,89,.14)", borderRadius: 999, padding: "2px 7px",
+                    }}
+                  >
+                    {t.twoMonthsFree}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
       <div className="riq-pricing-grid" style={{ gap: s.gap }}>
         {/* One card shape for every tier. The recommended tier is marked by its
             FILLED CTA and nothing else — previously it also carried a green
@@ -790,16 +845,21 @@ export function PricingSection({
             <div style={{ fontSize: s.tierName, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.2px" }}>{tier.name}</div>
             <div style={{ fontSize: s.tagline, color: "var(--color-text-secondary)", marginTop: 6, minHeight: s.taglineMin, lineHeight: 1.45 }}>{tier.tagline}</div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: `${s.blockGap}px 0 4px` }}>
-              <span style={{ fontSize: 40, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-1px" }}>
-                {tier.free ? "€0" : `€${tier.price}`}
+              <span data-testid={`riq-pricing-amount-${tier.id}`} style={{ fontSize: 40, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-1px" }}>
+                {tier.free ? "€0" : `€${tierPriceEur(tier, billing)}`}
               </span>
-              <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>{tier.free ? t.forever : t.perMonth}</span>
+              <span style={{ fontSize: 14, color: "var(--color-text-muted)" }}>
+                {tier.free ? t.forever : (billing === "yearly" ? t.perYear : t.perMonth)}
+              </span>
             </div>
             {/* Per-day price. A monthly figure is compared against other
                 subscriptions; a daily one is compared against a coffee, and
-                against the margin on a single flip. Same number, honest framing. */}
+                against the margin on a single flip. Same number, honest framing.
+                Yearly: same per-day maths off the annual total (÷365), so the
+                daily anchor stays honest instead of quoting the monthly rate
+                under a yearly price. */}
             <div style={{ fontSize: s.perDay, color: "var(--color-text-muted)", marginBottom: 16, minHeight: 17 }}>
-              {tier.free ? t.noCardRequired : t.perDay((tier.price / 30).toFixed(2))}
+              {tier.free ? t.noCardRequired : t.perDay((tierPriceEur(tier, billing) / (billing === "yearly" ? 365 : 30)).toFixed(2))}
             </div>
             {/* H113 CRO: email input on the Starter card only.
                 23/25 Stripe sessions had no email typed — the email field is
@@ -899,7 +959,7 @@ export function PricingSection({
                 layout is making stops being legible.
                 44px minimum: this is the tap target on a phone. */}
             <button
-              onClick={() => choose(tier.id, tier.priceId)}
+              onClick={() => choose(tier.id, tier.priceId, tier.priceIdAnnual)}
               disabled={busy === tier.id}
               data-testid={`riq-pricing-cta-${tier.id}`}
               data-cta-kind={pricingCtaKind(user, tier.id)}

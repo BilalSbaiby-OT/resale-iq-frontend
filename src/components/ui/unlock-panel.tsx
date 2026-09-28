@@ -4,6 +4,8 @@ import { Lock, Unlock } from "lucide-react"
 import type { VerdictResult } from "@/types"
 import { unlockPanelBranch } from "@/lib/unlock-panel-state"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { verdictUpsellLine } from "@/lib/verdict-upsell"
+import { trackEvent } from "@/lib/analytics"
 
 /**
  * The post-verdict upgrade moment.
@@ -49,6 +51,10 @@ export function UnlockPanel({
   // and route ?plan=free. Live /verdict is public (200) and seeds a locked SKIP, so
   // every logged-out visitor who landed here was told a €0 path exists. CRO #4/#10.
   if (branch === "register") {
+    // Revenue sprint 2026-09-28: the real per-item margin line, computed
+    // from THIS verdict's own buy_below/sell_avg (never invented — omitted
+    // when either is absent). Same helper used on the public /tools card.
+    const upsellLine = verdictUpsellLine({ buy_below: result.buy_below, sell_avg: result.sell_avg })
     return (
       <Shell tone="neutral" testId="riq-unlock-register">
         <Title icon={<Lock size={15} className="text-amber-400" />}>
@@ -58,10 +64,25 @@ export function UnlockPanel({
           You just saw the verdict on a real item, computed from watched departures.
           Starter (€19/mo) unlocks sell-through, best sizes and the reasons why — cancel anytime.
         </Body>
+        {upsellLine && (
+          <p className="mb-3 text-[12.5px] font-semibold text-[#eef1f7]">{upsellLine}</p>
+        )}
         <Row>
-          <GuestCheckoutButton locale="en" label="Start for €19" src="verdict_unlock" />
+          <span onClick={() => trackEvent("verdict_upsell_click", "verdict_page_unlock")}>
+            <GuestCheckoutButton locale="en" label="Start for €19" src="verdict_unlock" />
+          </span>
           <Secondary href="/login">Sign in</Secondary>
         </Row>
+        <p className="mt-3 text-[11.5px] text-[#5b6b8c]">
+          <a
+            href="/pricing?billing=yearly#pricing-plans"
+            data-testid="riq-verdict-upsell-annual"
+            onClick={() => trackEvent("verdict_upsell_click", "verdict_page_unlock_annual")}
+            className="underline"
+          >
+            or €190/year (2 months free)
+          </a>
+        </p>
       </Shell>
     )
   }
