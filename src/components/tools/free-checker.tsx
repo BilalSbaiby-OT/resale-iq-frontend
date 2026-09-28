@@ -809,7 +809,7 @@ export function FreeChecker({
               ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
               : refusalIsPaid
                 ? <PaidPostCheckBar locale={locale} user={chipUser} />
-                : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} />
+                : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} fromPricing={src === "pricing_try"} />
           ) : res.verdict === "LIMIT_REACHED" ? (
             refusalIsPaid
               ? <PaidPostCheckBar locale={locale} user={chipUser} />

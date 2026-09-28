@@ -30,12 +30,21 @@ export function HardPaywallCard({
   plans,
   query,
   comparableN,
+  fromPricing,
 }: {
   locale: Locale
   plans?: PaywallPlan[]
   query?: string
   /** Teaser from the 402 body — number of comparables we hold for this item. */
   comparableN?: number | null
+  /**
+   * H127 CRO: When true, the visitor just came from /pricing (src=pricing_try)
+   * and already knows what the plans are. Replace the redundant "See plans →"
+   * link with a "← Back to pricing" anchor that returns them to #pricing-plans
+   * (already seen). This removes one dead navigation branch and adds one
+   * high-intent re-engagement path. Revenue 2026-09-28.
+   */
+  fromPricing?: boolean
 }) {
   const t = copy[locale].checker
   const price = operatorPrice(plans)
@@ -184,13 +193,27 @@ export function HardPaywallCard({
         >
           {t.paywallLogin}
         </Link>
-        <Link
-          href={`${canonicalPath(locale, "/pricing")}?src=paywall${query?.trim() ? `&item=${encodeURIComponent(query.trim())}` : ""}`}
-          data-testid="riq-paywall-see-plans"
-          style={{ color: "#8fa3c4", fontSize: 13 }}
-        >
-          {t.seePlans}
-        </Link>
+        {fromPricing ? (
+          /* H127 CRO: visitor came from /pricing — they already saw the plans.
+             "See plans" is a dead loop. Replace with a return anchor that puts
+             them back at #pricing-plans, one click from checkout.
+             Revenue 2026-09-28. */
+          <Link
+            href={`${canonicalPath(locale, "/pricing")}#pricing-plans`}
+            data-testid="riq-paywall-back-to-pricing"
+            style={{ color: "#8fa3c4", fontSize: 13 }}
+          >
+            ← Back to pricing
+          </Link>
+        ) : (
+          <Link
+            href={`${canonicalPath(locale, "/pricing")}?src=paywall${query?.trim() ? `&item=${encodeURIComponent(query.trim())}` : ""}`}
+            data-testid="riq-paywall-see-plans"
+            style={{ color: "#8fa3c4", fontSize: 13 }}
+          >
+            {t.seePlans}
+          </Link>
+        )}
       </div>
 
       {/* Risk-reversal guarantee */}
