@@ -243,7 +243,12 @@ export default async function BlogPostPage(
             first paragraph. Only rendered when the post has a preflightQuery
             (174 of 174 current posts have one); falls back gracefully otherwise. */}
         {p.preflightQuery && (
-          <BlogInlineChecker preflightQuery={p.preflightQuery} locale={locale} initialResult={ssrVerdict} />
+          <BlogInlineChecker
+            preflightQuery={p.preflightQuery}
+            locale={locale}
+            initialResult={ssrVerdict}
+            buyListPreview={proofRows?.filter(r => !r.locked).slice(0, 2) ?? null}
+          />
         )}
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>

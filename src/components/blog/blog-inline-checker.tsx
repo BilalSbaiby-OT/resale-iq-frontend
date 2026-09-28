@@ -82,17 +82,26 @@ import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
 import { FREE_MODELS } from "@/lib/working-models"
-
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { VERDICT_COLOR } from "@/components/blog-proof-strip"
 
 export function BlogInlineChecker({
   preflightQuery,
   locale = "en",
   initialResult,
+  buyListPreview,
 }: {
   preflightQuery: string
   locale?: Locale
   /** SSR-prefetched verdict — renders HardPaywallCard on first paint, no spinner. */
   initialResult?: PaywallPayload | null
+  /**
+   * C221(elon): up to 2 unlocked buy-list rows from the page's proofRows.
+   * Shown inside the above-fold CTA so visitors see actual products + prices
+   * before the paywall ask, not just "47+ items like this" text.
+   * Surface: blog 130/7d. Replaces generic copy with real product evidence.
+   */
+  buyListPreview?: SsrBuyListItem[] | null
 }) {
   // C193: SSR-seeded PAYWALL visits skip run() inside FreeChecker so
   // first_analysis is never fired. Fire it here on mount so blog paywall
@@ -155,19 +164,46 @@ export function BlogInlineChecker({
             marginBottom: 14,
           }}
         >
-          {/* C218(elon): buy-list pitch copy for all non-free posts.
-              BEFORE: "We have N data points on {query}" + "Unlock buy-below →"
-              (item-specific) → 0 conversions on what-sells-best (64 views, 36 first_analysis).
-              AFTER: "47+ items ranked by profit margin" → "See full buy list →"
-              (buy-list pitch) → same framing that produced 2/32 conversions on
-              what-to-buy-to-resell (blog_buylist_pitch src). Tests whether the
-              buy-list value prop converts on non-free-model posts. */}
-          <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-            <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — buy-below prices for each.
-          </span>
+          {/* C221(elon): Show 2 actual buy-list rows instead of generic "47+ items" text.
+              BEFORE: "47+ items like this, ranked by profit margin" + "See full buy list →"
+              → 0 checkout_from_blog all-time. Generic claim, no proof.
+              AFTER: 2 real unlocked products with buy-below + resale prices — visitors
+              see what they're paying for BEFORE clicking checkout. Same data already on
+              page (proofRows). Only adds 10 lines; no extra network call.
+              Surface: blog 130/7d. */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {buyListPreview && buyListPreview.length > 0 ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "#8FA3C4", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                  From today&rsquo;s buy list
+                </span>
+                {buyListPreview.slice(0, 2).map((it, i) => {
+                  const color = VERDICT_COLOR[it.verdict] ?? "#8b99b8"
+                  const buyBelow = it.avg_price_eur != null ? Math.round(it.avg_price_eur * 0.665) : null
+                  return (
+                    <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+                      <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {it.brand}{it.model ? ` ${it.model}` : ""}
+                      </span>
+                      <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
+                      {buyBelow != null && (
+                        <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
+                          buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
+                        </span>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <span style={{ fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
+                <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — buy-below prices for each.
+              </span>
+            )}
+          </div>
           <GuestCheckoutButton
             locale={locale}
-            label="See full buy list →"
+            label={buyListPreview && buyListPreview.length > 0 ? "Unlock all 47+ items →" : "See full buy list →"}
             src="blog_buylist_pitch"
             query={activeQuery}
           />
@@ -195,12 +231,39 @@ export function BlogInlineChecker({
             marginBottom: 12,
           }}
         >
-          <span style={{ flex: 1, fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-            <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — with buy-below prices for each.
-          </span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            {buyListPreview && buyListPreview.length > 0 ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "#8FA3C4", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                  From today&rsquo;s buy list
+                </span>
+                {buyListPreview.slice(0, 2).map((it, i) => {
+                  const color = VERDICT_COLOR[it.verdict] ?? "#8b99b8"
+                  const buyBelow = it.avg_price_eur != null ? Math.round(it.avg_price_eur * 0.665) : null
+                  return (
+                    <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+                      <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {it.brand}{it.model ? ` ${it.model}` : ""}
+                      </span>
+                      <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
+                      {buyBelow != null && (
+                        <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
+                          buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
+                        </span>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <span style={{ fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
+                <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — with buy-below prices for each.
+              </span>
+            )}
+          </div>
           <GuestCheckoutButton
             locale={locale}
-            label="See full buy list →"
+            label={buyListPreview && buyListPreview.length > 0 ? "Unlock all 47+ items →" : "See full buy list →"}
             src="blog_buylist_pitch"
             query={preflightQuery}
           />

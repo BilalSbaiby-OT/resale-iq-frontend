@@ -38,7 +38,7 @@
 import Link from "next/link"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
-const VERDICT_COLOR: Record<string, string> = {
+export const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
   BUY: "#30D158",
   RISING: "#30D158",
