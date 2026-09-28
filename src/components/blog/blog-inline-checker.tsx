@@ -186,11 +186,13 @@ export function BlogInlineChecker({
                         {it.brand}{it.model ? ` ${it.model}` : ""}
                       </span>
                       <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
-                      {buyBelow != null && (
+                      {buyBelow != null ? (
                         <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
                           buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
                         </span>
-                      )}
+                      ) : it.locked ? (
+                        <span style={{ color: "#5b6b8c", fontSize: 12, flexShrink: 0 }}>🔒 price locked</span>
+                      ) : null}
                     </div>
                   )
                 })}
@@ -246,11 +248,13 @@ export function BlogInlineChecker({
                         {it.brand}{it.model ? ` ${it.model}` : ""}
                       </span>
                       <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
-                      {buyBelow != null && (
+                      {buyBelow != null ? (
                         <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
                           buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
                         </span>
-                      )}
+                      ) : it.locked ? (
+                        <span style={{ color: "#5b6b8c", fontSize: 12, flexShrink: 0 }}>🔒 price locked</span>
+                      ) : null}
                     </div>
                   )
                 })}

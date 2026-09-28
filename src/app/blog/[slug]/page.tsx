@@ -250,7 +250,16 @@ export default async function BlogPostPage(
             preflightQuery={p.preflightQuery}
             locale={locale}
             initialResult={ssrVerdict}
-            buyListPreview={proofRows?.filter(r => !r.locked).slice(0, 2) ?? null}
+            buyListPreview={(() => {
+                // C222(elon): prefer LOCKED rows — they create FOMO (visitor sees the item
+                // is RISING but price is hidden). Unlocked rows are already visible free;
+                // showing them in the CTA gives no reason to pay. Fallback to unlocked when
+                // no locked rows exist. Surface: blog 130/7d.
+                const locked = proofRows?.filter(r => r.locked) ?? []
+                const unlocked = proofRows?.filter(r => !r.locked) ?? []
+                const preview = locked.length > 0 ? locked : unlocked
+                return preview.slice(0, 2).length > 0 ? preview.slice(0, 2) : null
+              })()}
           />
         )}
         {p.definedTerm && (
