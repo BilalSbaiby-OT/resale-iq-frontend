@@ -88,7 +88,16 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
 }
 
 /** Mini inline verdict card — shown when a free sample chip is clicked. */
-function InlineVerdictCard({ result, query, locale, capturedEmail }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string }) {
+function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail, onEmailCapture }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void }) {
+  const [email, setEmail] = useState(initialEmail ?? "")
+  const handleEmailChange = (v: string) => {
+    setEmail(v)
+    if (v.trim()) {
+      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
+      onEmailCapture?.(v.trim())
+    }
+  }
+  const capturedEmail = email
   const col = verdictColor(result.verdict)
   return (
     <div
@@ -180,6 +189,34 @@ function InlineVerdictCard({ result, query, locale, capturedEmail }: { result: I
           fires Stripe directly from the inline verdict. Email pre-filled from riq_capture_email.
           CRO #12 (momentum: demo → earned checkout, no detour) + #10 (solution-aware → commit).
           Revenue 2026-09-28. */}
+      {/* H126 CRO: email capture on inline verdict card — peak conviction moment.
+          H122 added email capture to HardPaywallCard but InlineVerdictCard was
+          missed. A visitor who lands on /pricing fresh, clicks a free sample chip,
+          sees the verdict, and clicks checkout hits Stripe with no email pre-filled
+          (same "23 of 25 sessions had no email" problem). One field here closes
+          the gap and persists to riq_capture_email so all downstream checkout
+          paths (GuestCheckoutButton, registered flow) pre-fill Stripe.
+          CRO #6 (remove first Stripe friction) + #12 (momentum: don't break
+          conviction with a cold form). Revenue 2026-09-28. */}
+      {!capturedEmail && (
+        <input
+          type="email"
+          placeholder="Enter your email to unlock →"
+          onChange={e => handleEmailChange(e.target.value)}
+          style={{
+            width: "100%",
+            background: "#0d1117",
+            color: "#eef1f7",
+            border: "1.5px solid rgba(52,199,89,.35)",
+            borderRadius: 9,
+            padding: "9px 13px",
+            fontSize: 13.5,
+            outline: "none",
+            marginBottom: 8,
+            boxSizing: "border-box",
+          }}
+        />
+      )}
       <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
         Unlock sell-through, top sizes & all items for <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
       </p>
@@ -369,7 +406,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
       </div>
 
       {/* Inline verdict result */}
-      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} />}
+      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />}
     </div>
   )
 }
