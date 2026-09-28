@@ -76,7 +76,7 @@ interface InlineVerdict {
 }
 
 /** Inline paywall nudge — shown when a custom-item fetch returns 402 (PAYWALL). */
-function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void }) {
+function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture, comparableN }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; comparableN?: number | null }) {
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -101,9 +101,20 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       <p style={{ fontSize: 14, fontWeight: 700, color: "#eef1f7", margin: "0 0 6px", lineHeight: 1.4 }}>
         We have data on <strong style={{ color: "#34C759" }}>{query}</strong> — unlock it below
       </p>
-      <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
-        BUY / WATCH / SKIP verdict + exact buy-below price · Starter €19/mo
-      </p>
+      {/* H135 CRO: comparable_n specificity — same trust signal as HardPaywallCard.
+          "We have data" is a claim. "We hold 109 data points" is proof.
+          The 402 body already returns comparable_n; this surfaces it on /pricing inline
+          paywall, where it was previously discarded. CRO #8 (specificity) + #7 (trust).
+          Revenue 2026-09-28. */}
+      {comparableN != null && comparableN > 0 ? (
+        <p style={{ fontSize: 12.5, color: "#34C759", margin: "0 0 10px", lineHeight: 1.45, fontWeight: 600 }}>
+          ✓ We hold {comparableN.toLocaleString("en-GB")} data points on this item — the answer is ready.
+        </p>
+      ) : (
+        <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
+          BUY / WATCH / SKIP verdict + exact buy-below price · Starter €19/mo
+        </p>
+      )}
       {/* Locked field teaser — same FOMO pattern as InlineVerdictCard */}
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
         {["Buy-below price", "Sell-through rate", "Top sizes", "Demand trend"].map((f) => (
@@ -323,6 +334,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
   const [loading, setLoading] = useState(false)
   // H128 CRO: inline custom paywall — submitted custom item returns 402 inline.
   const [customPaywallQuery, setCustomPaywallQuery] = useState<string | null>(null)
+  const [customPaywallComparableN, setCustomPaywallComparableN] = useState<number | null>(null)
   const [customLoading, setCustomLoading] = useState(false)
   // H125 CRO: read captured email for GuestCheckoutButton pre-fill in InlineVerdictCard.
   // Same pattern as HardPaywallCard H122 — read at mount to avoid SSR mismatch.
@@ -372,6 +384,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
     // CRO #9 (momentum: every section guides action) + #12 (demo → personalized → ask).
     // Revenue 2026-09-28. H128.
     setCustomPaywallQuery(null)
+    setCustomPaywallComparableN(null)
     setInlineResult(null)
     setActiveChip(null)
     setCustomLoading(true)
@@ -379,6 +392,13 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
       const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
       if (res.status === 402 || res.status === 401) {
         // Paywalled item — show custom nudge inline, no navigation.
+        // H135 CRO: parse 402 body to extract comparable_n for specificity signal.
+        // Before: body discarded, CustomItemPaywallCard shows "We have data" (claim).
+        // After: "We hold 109 data points" (proof). CRO #8 + #7. Revenue 2026-09-28.
+        try {
+          const body = await res.json().catch(() => null)
+          if (body?.comparable_n != null) setCustomPaywallComparableN(body.comparable_n as number)
+        } catch { /* non-fatal — comparableN stays null */ }
         setCustomPaywallQuery(trimmed)
       } else if (res.ok) {
         const data = await res.json()
@@ -542,7 +562,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
           Now: submit → fetch → 402 → CustomItemPaywallCard inline → one click to Stripe.
           Keeps visitor at highest conviction moment (they chose to type their item).
           CRO #9 (momentum) + #12 (demonstration → personalized → ask). Revenue 2026-09-28. */}
-      {customPaywallQuery && <CustomItemPaywallCard query={customPaywallQuery} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />}
+      {customPaywallQuery && <CustomItemPaywallCard query={customPaywallQuery} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} comparableN={customPaywallComparableN} />}
     </div>
   )
 }
