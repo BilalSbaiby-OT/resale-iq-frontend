@@ -9,6 +9,7 @@ import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import { trackEvent } from "@/lib/analytics"
+import { queryCoverageKind } from "@/lib/query-coverage"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -114,8 +115,23 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           if (isPaid) {
             router.replace(`/verdict?q=${firstQuery}`)
           } else if (hadIntent) {
-            // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready)
-            router.replace(`/pricing?ref=verify&q=${firstQuery}`)
+            // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready).
+            // C(tony)CoverageGate: only route to /pricing if the intent is a tracked
+            // brand or free sample — queryCoverageKind check here. An untracked item
+            // (e.g. "Gucci Bag") cannot produce a verdict after payment, so routing to
+            // /pricing with "your Gucci Bag verdict is ready" is a false promise.
+            // Untracked intent → fall through to the free NB530 Aha-moment demo so the
+            // user sees the product working before we ask for money. Peak-intent is only
+            // peak-intent if we can actually deliver.
+            const savedForCoverage = decodeURIComponent(firstQuery)
+            const isCoverable = queryCoverageKind(savedForCoverage) !== "untracked"
+            if (isCoverable) {
+              router.replace(`/pricing?ref=verify&q=${firstQuery}`)
+            } else {
+              // Untracked intent: Aha-moment first — NB530 demo, then they search their
+              // real item at /verdict which routes to the paywall at the "this works" moment.
+              router.replace(`/verdict?q=New+Balance+530`)
+            }
           } else {
             // C218(tony): checkout-abandoned path — if riq_register_plan was
             // written < 5min ago (email+password flow, same as C172 for Google),
