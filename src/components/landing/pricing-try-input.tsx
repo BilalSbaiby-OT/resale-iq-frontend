@@ -50,11 +50,12 @@
  * Revenue 2026-09-23. H108 / H114.
  */
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 /** Three public sample queries — full verdicts, no account, no paywall. */
 const FREE_SAMPLES: { label: string; q: string }[] = [
@@ -87,7 +88,7 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
 }
 
 /** Mini inline verdict card — shown when a free sample chip is clicked. */
-function InlineVerdictCard({ result, query }: { result: InlineVerdict; query: string }) {
+function InlineVerdictCard({ result, query, locale, capturedEmail }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string }) {
   const col = verdictColor(result.verdict)
   return (
     <div
@@ -174,25 +175,21 @@ function InlineVerdictCard({ result, query }: { result: InlineVerdict; query: st
         ))}
       </div>
 
-      {/* CTA */}
+      {/* H125 CRO: direct checkout at peak conviction — visitor just saw a full live verdict.
+          Before: anchor scrolled them away from the proof moment. After: GuestCheckoutButton
+          fires Stripe directly from the inline verdict. Email pre-filled from riq_capture_email.
+          CRO #12 (momentum: demo → earned checkout, no detour) + #10 (solution-aware → commit).
+          Revenue 2026-09-28. */}
       <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
         Unlock sell-through, top sizes & all items for <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
       </p>
-      <a
-        href="#pricing-plans"
-        style={{
-          display: "inline-block",
-          background: col,
-          color: "#000",
-          fontWeight: 700,
-          fontSize: 13,
-          borderRadius: 8,
-          padding: "8px 16px",
-          textDecoration: "none",
-        }}
-      >
-        See plans ↓
-      </a>
+      <GuestCheckoutButton
+        locale={locale}
+        label="Unlock all items — €19/mo →"
+        src="inline_verdict_cta"
+        query={query}
+        customerEmail={capturedEmail}
+      />
     </div>
   )
 }
@@ -205,6 +202,12 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
   const [activeChip, setActiveChip] = useState<string | null>(null)
   const [inlineResult, setInlineResult] = useState<InlineVerdict | null>(null)
   const [loading, setLoading] = useState(false)
+  // H125 CRO: read captured email for GuestCheckoutButton pre-fill in InlineVerdictCard.
+  // Same pattern as HardPaywallCard H122 — read at mount to avoid SSR mismatch.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
 
   async function fetchInlineVerdict(query: string) {
     setActiveChip(query)
@@ -366,7 +369,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
       </div>
 
       {/* Inline verdict result */}
-      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} />}
+      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} />}
     </div>
   )
 }
