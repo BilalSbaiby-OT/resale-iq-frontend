@@ -8,6 +8,8 @@
  *  - Sentence case copy. Minimal chrome. 44px min-height tap targets.
  *  - Three states: idle → submitting → success (or already_subscribed).
  *  - Inline email validation only — no server roundtrip until submit.
+ *  - Founder rule (2026-09-28): at most 1 email a month, opt-in only —
+ *    never promise a weekly cadence here.
  */
 
 import { useState } from "react"
@@ -86,7 +88,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         }}
       >
         <div style={{ marginBottom: 10 }}>
-          ✓ You&apos;re in — first email lands Monday.
+          ✓ You&apos;re in — next email lands with next month&apos;s list.
         </div>
         {/* H93 CRO: email typed → highest-intent moment → bridge to paid plan.
             Visitor just confirmed their email address; pre-fill Stripe so they
@@ -143,7 +145,8 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         borderRadius: 10,
       }}
     >
-      {/* Offer copy — one calm sentence */}
+      {/* Offer copy — one calm sentence, small + secondary (founder rule:
+          email capture is never the main CTA). */}
       <p
         style={{
           margin: "0 0 10px",
@@ -152,7 +155,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
           lineHeight: 1.5,
         }}
       >
-        Get next week&apos;s buy list — 10 items with the strongest demand, free, every Monday.
+        Monthly buy list by email — 1 email a month, unsubscribe anytime.
       </p>
 
       <form
@@ -163,7 +166,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         <div style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: 4 }}>
           <input
             type="email"
-            aria-label="Email address for weekly buy list"
+            aria-label="Email address for monthly buy list"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => {
@@ -233,7 +236,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
           lineHeight: 1.5,
         }}
       >
-        Weekly buy list. Unsubscribe anytime.
+        1 email a month. Unsubscribe anytime.
       </p>
     </div>
   )
