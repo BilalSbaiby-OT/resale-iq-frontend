@@ -10,6 +10,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import { trackEvent } from "@/lib/analytics"
 import { queryCoverageKind } from "@/lib/query-coverage"
+import { ActivationSteps } from "@/components/auth/activation-steps"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -175,6 +176,13 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
       </div>
 
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8 text-center">
+        {/* C(tony)ActivationSteps on verify-email: steps 1+2 done, step 3 active.
+            When the user clicks the email link they land on a nearly-done state —
+            showing them ✓ ✓ → "Get your verdict" makes the redirect feel like a
+            reward, not an admin hop. Superhuman/Notion/Canva pattern: visualise
+            progress at every transition so users know they're close, not lost.
+            intentQuery from localStorage personalises the third step label. */}
+        <ActivationSteps step={3} intentQuery={intentQuery} />
         {state === "checking" && (
           // C144(tony): personalised anticipation state — shows the user's
           // intent query so the 1-3s verify call feels like progress, not

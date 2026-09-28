@@ -6,6 +6,7 @@
 // Usage:
 //   step=1 → on /register (active = "Create your account", third label names their intent)
 //   step=2 → on /check-email (active = "Verify your email")
+//   step=3 → on /verify-email (steps 1+2 done, third label active — "almost there")
 //   intentQuery → personalises the third step label when a brand was typed.
 
 import { CheckCircle2, Circle, ArrowRight } from "lucide-react"
@@ -17,7 +18,7 @@ export function ActivationSteps({
   step,
   intentQuery = "",
 }: {
-  step: 1 | 2
+  step: 1 | 2 | 3
   intentQuery?: string
 }) {
   const thirdLabel = intentQuery
@@ -32,13 +33,13 @@ export function ActivationSteps({
     },
     {
       label: "Verify email",
-      done: false,
+      done: step > 2,
       active: step === 2,
     },
     {
       label: thirdLabel,
       done: false,
-      active: false,
+      active: step === 3,
     },
   ]
 
