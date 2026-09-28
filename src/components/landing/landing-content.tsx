@@ -152,7 +152,7 @@ export function LandingContent({
                 With only 1 free RISING row live the list looks thin; blurred rows prove depth.
                 Pattern proven on /pricing (H82). 52 weekly visitors (4x /pricing). Revenue 2026-09-28. */}
             {ssrBuyList && ssrBuyList.length > 0 && (
-              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} rowSrc="homepage-row" showLockedFomo />
+              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} rowSrc="homepage-row" showLockedFomo trackedLabel={tracked} />
             )}
 
 

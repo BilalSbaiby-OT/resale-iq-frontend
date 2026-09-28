@@ -20,6 +20,7 @@ const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
 export function HeroFreeChips({ locale }: { locale: Locale }) {
   return (
     <div
+      data-testid="riq-hero-try-chips"
       style={{
         display: "flex",
         alignItems: "center",

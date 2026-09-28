@@ -109,6 +109,7 @@ export function SsrBuyListTeaser({
   rowSrc,
   showLockedFomo = false,
   ctaScrollTo,
+  trackedLabel,
 }: {
   items: SsrBuyListItem[]
   locale: Locale
@@ -152,6 +153,13 @@ export function SsrBuyListTeaser({
    *  So: price OFF on the homepage (proof first), ON at /pricing where the
    *  visitor has already asked the commercial question. */
   showPrice?: boolean
+  /**
+   * Live dataset label for the proof-substitute line shown when showPrice=false
+   * (homepage). Passed from the SSR page so the number matches the meta
+   * description rather than a stale hardcoded figure.
+   * Falls back to "13.4M" only when the caller does not supply it.
+   */
+  trackedLabel?: string | null
 }) {
   // Only show free (unlocked) rows — the teaser must prove the product finds
   // winners. BUY = hot momentum; RISING = strong 30-day history recovering
@@ -304,10 +312,10 @@ export function SsrBuyListTeaser({
                  7,669,135,713 products", PriceCharting with "45,000+ games
                  priced", Plausible with "313B tracked pageviews". With zero
                  customers and zero testimonials, verifiable dataset scale is
-                 the only honest trust signal we own — and we genuinely hold
-                 13.4M listing records across 5 EU markets. */
+                 the only honest trust signal we own.
+                 Live value passed from SSR page to keep in sync with meta desc. */
               <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
-                Built from 13.4M tracked Vinted listings across 5 EU markets
+                Built from {trackedLabel ?? "13.4M"} tracked Vinted listings across 5 EU markets
               </p>
             )}
           </div>
@@ -361,9 +369,10 @@ export function SsrBuyListTeaser({
               </>
             ) : (
               <>
-                {/* Homepage/cold traffic: free check leads */}
-                <Link
-                  href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check`}
+                {/* Homepage/cold traffic: free check leads — scroll to the
+                    checker already on the page instead of navigating away. */}
+                <a
+                  href="#check"
                   style={{
                     background: "#34C759",
                     color: "#06090c",
@@ -377,7 +386,7 @@ export function SsrBuyListTeaser({
                   }}
                 >
                   {copy[locale].checkItem} →
-                </Link>
+                </a>
                 <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" asLink />
               </>
             )}

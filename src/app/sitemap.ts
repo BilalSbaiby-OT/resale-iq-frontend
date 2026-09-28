@@ -302,7 +302,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
   })
 
-  const blogPages = POSTS.map((p) => ({
+  // noindex posts stay live (for citations) but must not appear in the sitemap —
+  // advertising a noindex URL invites crawlers to discover and then ignore it,
+  // wasting crawl budget. Filter them out here so the sitemap and the meta robots
+  // tag are always consistent (both say the same thing about the same URL).
+  const blogPages = POSTS.filter((p) => !p.noindex).map((p) => ({
     url: `${BASE}/blog/${p.slug}`,
     // Prefer the content-refresh date over the publish date: a post whose dated
     // data block was rewritten genuinely changed, and advertising the old

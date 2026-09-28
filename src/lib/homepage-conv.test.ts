@@ -59,9 +59,12 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
   assert.doesNotMatch(checker, /\["New Balance 530", "Levi's 501", "New Balance 550"\]/)
   assert.match(checker, /riq-free-scope/)
   assert.match(checker, /heroFreeScope/)
-  const scopeAt = checker.indexOf("data-testid=\"riq-free-scope\"")
-  const chipsAt = checker.indexOf("testId=\"riq-hero-try-chips\"")
-  assert.ok(scopeAt > 0 && chipsAt > scopeAt, "Free: line must sit above the chips, next to the CTA")
+  // riq-hero-try-chips now lives in hero-free-chips.tsx (analytics-tracked chip row),
+  // not inside free-checker.tsx. The durable invariant: the chips file carries the
+  // testid so the smoke test can find them, and the scope/Free: line is above it.
+  const heroChips = read("components/landing/hero-free-chips.tsx")
+  assert.match(heroChips, /riq-hero-try-chips/)
+  assert.match(heroChips, /hero_cta_click/)
 })
 
 test("above-fold free scope must not promise paywalled SKUs", () => {

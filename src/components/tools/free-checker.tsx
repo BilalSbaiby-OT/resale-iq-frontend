@@ -744,14 +744,9 @@ export function FreeChecker({
           >
             {copy[locale].heroFreeScope}
           </p>
-          <ModelChips
-            onPick={(ex) => run(ex)}
-            disabled={loading}
-            label={t.tryTheseInstead}
-            examples={TRY_EXAMPLES}
-            testId="riq-hero-try-chips"
-            align="center"
-          />
+          {/* Chips rendered by HeroFreeChips outside this component (landing-content.tsx)
+              which fires hero_cta_click analytics. ModelChips removed to avoid duplicate
+              chip rows — a single row below the checker serves both purposes. */}
         </>
       )}
       <RegisterCheckVintedItemTool name={webmcpName} description={webmcpDescription} />
