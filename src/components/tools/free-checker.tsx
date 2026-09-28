@@ -543,6 +543,15 @@ export function FreeChecker({
       // Measured 2026-09-14: 0 free_checks recorded across 7 days despite
       // confirmed traffic hitting this exact page from chatgpt.com referrer.
       trackEvent("first_analysis")
+      // why: verdict_seen and analysis_completed only existed in verdict-content.tsx
+      // (the /verdict page). After H83/C192/C193/C215 (2026-09-23) all blog and
+      // /tools traffic flows through FreeChecker which never fired these two events,
+      // so pageviews recorded 40-63 first_analysis/day but 0 verdict_seen/analysis_completed
+      // even though the product was working fine (B: analytics break, not product break).
+      // Measured 2026-09-28: 0/30 non-bot first_analysis visitors had a verdict_seen
+      // in the same period; backend verdict_logs showed ~150 real verdicts/day throughout.
+      trackEvent("verdict_seen")
+      trackEvent("analysis_completed")
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") {
         setTimedOut(true)
