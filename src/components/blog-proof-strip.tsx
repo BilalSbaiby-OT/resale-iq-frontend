@@ -81,8 +81,12 @@ export function BlogProofStrip({
 
   // Unlocked rows only, and only ones carrying a real demand figure: this strip
   // exists to prove the data is real, so a row without evidence defeats it.
+  // C220(elon): accept sold_7d as evidence when sold_30d_evidence is null —
+  // the public buy-list returns 3 unlocked rows but only 1 has sold_30d_evidence;
+  // the other 2 have sold_7d. Previously 2/3 free rows were filtered out, leaving
+  // a single-row "Live buy opportunities" strip. Now the strip shows up to 3 rows.
   const rows = items
-    .filter(i => !i.locked && i.sold_30d_evidence != null && i.avg_price_eur != null)
+    .filter(i => !i.locked && (i.sold_30d_evidence != null || i.sold_7d != null) && i.avg_price_eur != null)
     .slice(0, 3)
 
   // C216: show topic teaser if we have coverage data for this post's item.
@@ -160,7 +164,11 @@ export function BlogProofStrip({
               <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {it.brand}{it.model ? ` ${it.model}` : ""}
                 <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
-                  {" · "}{(it.sold_30d_evidence as number).toLocaleString()} departed/30 days
+                  {it.sold_30d_evidence != null
+                    ? ` · ${(it.sold_30d_evidence as number).toLocaleString()} departed/30 days`
+                    : it.sold_7d != null
+                    ? ` · ${(it.sold_7d as number).toLocaleString()} departed this week`
+                    : ""}
                 </span>
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
