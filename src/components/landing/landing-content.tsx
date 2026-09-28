@@ -144,8 +144,11 @@ export function LandingContent({
                 of highest intent (they asked for data on a specific item they care about).
                 /pricing already uses rowSrc="pricing-row" for the same mechanic (H66).
                 Revenue 2026-09-23. */}
+            {/* H129 CRO: showLockedFomo on homepage — 2 blurred locked rows after free rows.
+                With only 1 free RISING row live the list looks thin; blurred rows prove depth.
+                Pattern proven on /pricing (H82). 52 weekly visitors (4x /pricing). Revenue 2026-09-28. */}
             {ssrBuyList && ssrBuyList.length > 0 && (
-              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} rowSrc="homepage-row" />
+              <SsrBuyListTeaser items={ssrBuyList} locale={locale} showPrice={false} rowSrc="homepage-row" showLockedFomo />
             )}
 
 
@@ -281,13 +284,7 @@ export function LandingContent({
           locale={locale}
         />
 
-        {/* ── OBJECTION ROW — H120 CRO ────────────────────────────────────────
-            5 universal objections answered next to the pricing CTA (CRO #4).
-            Fathom places "7-day free trial · From $15/month · Cancel anytime"
-            directly under their hero CTA (usefathom.com). Plausible uses
-            "no credit card required" adjacent to their trial CTA
-            (plausible.io/privacy-focused-web-analytics). Both put trust/risk
-            answers at the moment of doubt — not buried in FAQ.
+        {/* ── OBJECTION ROW — 5 universal objections answered next to the pricing CTA (CRO #4).
             Numbers come from market prop — no new API calls. Never fabricated. */}
         <div
           data-testid="riq-objection-row"
