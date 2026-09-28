@@ -29,6 +29,17 @@
  * CRO #4 (objection: does it work?) + #7 (trust before CTA) + #12
  * (demonstration → conviction → ask). Revenue 2026-09-23. H114.
  *
+ * H118 CRO: Free sample chips now fetch the verdict INLINE — no page
+ * navigation, no context switch. Plausible.io shows a live product demo on
+ * the pricing page; ResaleIQ routed visitors away to /tools. With inline
+ * fetch, the visitor clicks "Nike Air Force 1" and a real verdict appears
+ * below the input while they stay on /pricing. They see the product working,
+ * look down and see the plan cards — conviction before ask.
+ * Custom items still route to /tools so the HardPaywallCard shows their item
+ * name in checkout copy (no change to that path).
+ * CRO #3 (message match) + #4 (does it work?) + #7 (trust before CTA)
+ * + #12 (demonstration → conviction → ask). Revenue 2026-09-28. H118.
+ *
  * CRO principles:
  *  #3 (message match): visitor's own item in the paywall headline.
  *  #4 (objection: does it work for MY items?): they try and find out.
@@ -41,7 +52,7 @@
 "use client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Search } from "lucide-react"
+import { Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
 import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 
@@ -52,14 +63,182 @@ const FREE_SAMPLES: { label: string; q: string }[] = [
   { label: "New Balance 530", q: "New Balance 530" },
 ]
 
+type VerdictType = "BUY" | "WATCH" | "SKIP"
+
+interface InlineVerdict {
+  verdict: VerdictType
+  buy_below: number | null
+  sell_avg: number | null
+  demand_note: string | null
+  product: string
+  confidence: string | null
+}
+
+function verdictColor(v: VerdictType): string {
+  if (v === "BUY") return "#34C759"
+  if (v === "SKIP") return "#FF3B30"
+  return "#FFD60A"
+}
+
+function VerdictMomentumIcon({ v }: { v: VerdictType }) {
+  if (v === "BUY") return <TrendingUp size={14} color="#34C759" />
+  if (v === "SKIP") return <TrendingDown size={14} color="#FF3B30" />
+  return <Minus size={14} color="#FFD60A" />
+}
+
+/** Mini inline verdict card — shown when a free sample chip is clicked. */
+function InlineVerdictCard({ result, query }: { result: InlineVerdict; query: string }) {
+  const col = verdictColor(result.verdict)
+  return (
+    <div
+      data-testid="riq-pricing-inline-verdict"
+      style={{
+        marginTop: 14,
+        maxWidth: 480,
+        background: "var(--color-surface)",
+        border: `1px solid ${col}40`,
+        borderRadius: 12,
+        padding: "14px 16px",
+      }}
+    >
+      {/* Header row */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+        <span style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7" }}>{result.product}</span>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 5,
+            fontSize: 12,
+            fontWeight: 800,
+            color: col,
+            border: `1px solid ${col}55`,
+            borderRadius: 7,
+            padding: "3px 9px",
+            letterSpacing: "0.04em",
+          }}
+        >
+          <VerdictMomentumIcon v={result.verdict} />
+          {result.verdict}
+        </span>
+      </div>
+
+      {/* Key numbers */}
+      <div style={{ display: "flex", gap: 20, marginBottom: 10 }}>
+        {result.buy_below != null && (
+          <div>
+            <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+              Buy below
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: col, letterSpacing: "-0.4px" }}>
+              €{result.buy_below.toFixed(0)}
+            </div>
+          </div>
+        )}
+        {result.sell_avg != null && (
+          <div>
+            <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+              Avg resale
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.4px" }}>
+              €{result.sell_avg.toFixed(0)}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Demand note */}
+      {result.demand_note && (
+        <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
+          {result.demand_note}
+        </p>
+      )}
+
+      {/* Locked fields teaser */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+        {["Sell-through rate", "Top sizes", "Market trends", "Opportunity score"].map((f) => (
+          <span
+            key={f}
+            style={{
+              fontSize: 11,
+              color: "#4a5970",
+              border: "1px solid #1e2d45",
+              borderRadius: 6,
+              padding: "3px 7px",
+              filter: "blur(2px)",
+              userSelect: "none",
+            }}
+          >
+            {f}
+          </span>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
+        Unlock sell-through, top sizes & all items for <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
+      </p>
+      <a
+        href="#pricing-plans"
+        style={{
+          display: "inline-block",
+          background: col,
+          color: "#000",
+          fontWeight: 700,
+          fontSize: 13,
+          borderRadius: 8,
+          padding: "8px 16px",
+          textDecoration: "none",
+        }}
+      >
+        See plans ↓
+      </a>
+    </div>
+  )
+}
+
 export function PricingTryInput({ locale }: { locale: Locale }) {
   const [q, setQ] = useState("")
   const router = useRouter()
+
+  // H118: inline verdict state for free sample chips
+  const [activeChip, setActiveChip] = useState<string | null>(null)
+  const [inlineResult, setInlineResult] = useState<InlineVerdict | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  async function fetchInlineVerdict(query: string) {
+    setActiveChip(query)
+    setInlineResult(null)
+    setLoading(true)
+    try {
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`)
+      if (res.ok) {
+        const data = await res.json()
+        setInlineResult({
+          verdict: (data.verdict as VerdictType) ?? "WATCH",
+          buy_below: data.buy_below ?? null,
+          sell_avg: data.sell_avg ?? null,
+          demand_note: data.demand_note ?? null,
+          product: data.product ?? query,
+          confidence: data.confidence ?? null,
+        })
+      }
+    } catch {
+      // why: fetch failure is non-fatal — the chip stays highlighted and the
+      // visitor can still type their item and route to /tools. No data beats
+      // no product, and a console.error on a pricing page would be noisy on
+      // every slow mobile connection. The lack of result speaks for itself.
+      setInlineResult(null)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const trimmed = q.trim()
     if (!trimmed) return
+    // Custom items route to /tools where HardPaywallCard shows the item name
     router.push(canonicalPath(locale, `/tools?q=${encodeURIComponent(trimmed)}&src=pricing_try`))
   }
 
@@ -140,12 +319,14 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
         </button>
       </form>
 
-      {/* H114 CRO: free live sample chips — full verdicts, no account needed.
-          The 3 public sample queries (AF1/Samba/NB530) return buy-below price,
-          sell-through and demand without any paywall. They are the product's
-          "free trial" moment. Surfacing them here answers the #1 objection at
-          the purchase decision point: "does it actually work?"
-          src=pricing_free_sample tracks this funnel entry separately. */}
+      {/* H118 CRO: free live sample chips — inline fetch, no nav away.
+          Previously: click chip → navigate to /tools → load page → see verdict.
+          Now: click chip → fetch inline → verdict appears below input in ~1s.
+          Plausible.io pattern: live demo on the pricing page itself, zero friction.
+          The visitor experiences the product without a redirect, looks down and
+          sees plan cards on the same page — momentum intact.
+          Full verdict (AF1/Samba/NB530 are public sample queries, no auth required).
+          src=pricing_free_sample still used when navigating for non-sample queries. */}
       <div
         style={{
           display: "flex",
@@ -159,28 +340,33 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
           Or try free live examples:
         </span>
         {FREE_SAMPLES.map(({ label, q: sampleQ }) => (
-          <a
+          <button
             key={sampleQ}
-            href={canonicalPath(locale, `/tools?q=${encodeURIComponent(sampleQ)}&src=pricing_free_sample`)}
+            type="button"
+            onClick={() => fetchInlineVerdict(sampleQ)}
             style={{
               fontSize: 12,
-              color: "#34C759",
+              color: activeChip === sampleQ ? "#000" : "#34C759",
+              background: activeChip === sampleQ ? "#34C759" : "transparent",
               border: "1px solid rgba(52,199,89,.35)",
               borderRadius: 6,
               padding: "3px 9px",
-              textDecoration: "none",
+              cursor: "pointer",
               whiteSpace: "nowrap",
               fontWeight: 600,
               lineHeight: 1.6,
             }}
           >
-            {label}
-          </a>
+            {loading && activeChip === sampleQ ? "…" : label}
+          </button>
         ))}
         <span style={{ fontSize: 11.5, color: "#4a5970", whiteSpace: "nowrap" }}>
           — no account required
         </span>
       </div>
+
+      {/* Inline verdict result */}
+      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} />}
     </div>
   )
 }
