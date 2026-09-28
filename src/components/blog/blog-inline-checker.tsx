@@ -203,9 +203,7 @@ export function BlogInlineChecker({
           </div>
           <GuestCheckoutButton
             locale={locale}
-
-            label={`Unlock ${activeQuery} — €19/mo →`}
-
+            label="Unlock full buy list — €19/mo →"
             src="blog_buylist_pitch"
             query={activeQuery}
           />
@@ -266,9 +264,7 @@ export function BlogInlineChecker({
           </div>
           <GuestCheckoutButton
             locale={locale}
-
-            label={`Unlock ${activeQuery} — €19/mo →`}
-
+            label="Unlock full buy list — €19/mo →"
             src="blog_buylist_pitch"
             query={activeQuery}
           />
