@@ -11,6 +11,7 @@ import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { dataChrome, dataFaqs } from "@/data/seo-data-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -262,17 +263,22 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
 
         <HubFaq items={faqs} />
 
+        {/* C219(elon): /data gets 27 human visits/7d (18 from chatgpt.com + 9 direct).
+            The old CTA sent them to /tools (navigation) + /pricing (another navigation).
+            Two exits, zero conversions. Replace "see plans" ghost link with a direct
+            GuestCheckoutButton — same pattern as dashboard free-banner, blog above-fold,
+            and HardPaywallCard. "Check this item" stays as the free-path primary CTA. */}
         <div className="riq-data-cta" style={{ marginTop: 28, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", width: "100%" }}>{t.ctaTitle}</div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px", width: "100%" }}>
             {t.ctaP}
           </p>
-          <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
-            {t.checkCta}
-          </Link>
-          <Link href={`${prefix}/pricing?src=data`} style={{ display: "inline-block", color: "#8fa3c4", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-            {t.plansCta}
-          </Link>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
+            <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+              {t.checkCta}
+            </Link>
+            <GuestCheckoutButton locale={locale} label="Start Starter — €19/mo" src="data_cta" />
+          </div>
         </div>
 
         <div style={{ marginTop: 30 }}>
