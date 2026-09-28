@@ -13,7 +13,6 @@ import type { MarketNumbers } from "@/lib/market-numbers"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
-import { HomeBuyList } from "./home-buy-list"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HomepageEmailCta } from "./homepage-email-cta"
 import { HeroFreeChips } from "./hero-free-chips"
@@ -178,11 +177,6 @@ export function LandingContent({
                 than direct search. CRO #7 (trust: show the product is real) +
                 CRO #10 (CTA ladder: free chip < paywall < checkout). 2026-09-28. */}
             <HeroFreeChips locale={locale} />
-
-            {/* HomeBuyList — client-side live refresh with locked rows + paywall CTA.
-                SSR rows are already shown above (SsrBuyListTeaser). This layer
-                updates with the freshest data after hydration. */}
-            <HomeBuyList locale={locale} />
 
             {/* Below the checker, not beside it. Hidden on narrow screens where
                 the checker must lead. Static <img> (no next/image config). */}
