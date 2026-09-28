@@ -1,4 +1,7 @@
 "use client"
+import Link from "next/link"
+import { TrendingUp } from "lucide-react"
+import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 
 /**
  * The three shapes every (auth) form is built from: a heading pair, a labelled
@@ -120,6 +123,66 @@ export function AuthField({
         className={FIELD_CLASS}
         placeholder={placeholder}
       />
+    </div>
+  )
+}
+
+/**
+ * AuthDemandPanel — live Vinted demand rows shown alongside auth forms.
+ *
+ * Plausible/Duolingo pattern: show the product while the user completes admin.
+ * Extracted from forgot-password/page.tsx (C167) and reset-password/page.tsx (C183)
+ * to eliminate the dupe flagged by check:dupes. One component, one place to update.
+ *
+ * Rows link to the closest free-sample verdict (Nike AF1 / Adidas Samba /
+ * New Balance 530) so a tap delivers a real result even pre-login.
+ * Footer copy is parameterised so each context can be specific.
+ */
+export function AuthDemandPanel({
+  rows,
+  footer = "Your verdict unlocks the moment you\u2019re back in. Tap a row to preview the data.",
+}: {
+  rows: SnapshotBrandRow[]
+  footer?: string
+}) {
+  return (
+    <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <TrendingUp size={16} className={AUTH_ACCENT} />
+        <span className={`text-[12px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
+          What&apos;s moving on Vinted right now
+        </span>
+      </div>
+      <div className="flex flex-col gap-2 mb-4">
+        {rows.map(b => {
+          const brand = b.brand.toLowerCase()
+          const sampleHref = brand.includes("new balance")
+            ? "/verdict?q=New+Balance+530"
+            : brand.includes("adidas")
+              ? "/verdict?q=Adidas+Samba"
+              : "/verdict?q=Nike+Air+Force+1"
+          return (
+            <Link
+              key={`${b.brand}-${b.category}`}
+              href={sampleHref}
+              className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0 hover:bg-[var(--color-surface-hover,rgba(255,255,255,0.04))] rounded-lg px-1 -mx-1 transition-colors group"
+            >
+              <div>
+                <span className={`text-[13.5px] font-semibold ${AUTH_TEXT} group-hover:text-[var(--color-buy)]`}>{b.brand}</span>
+                <span className={`text-[12px] ${AUTH_TEXT_MUTED} ml-1.5`}>{b.category}</span>
+              </div>
+              <div className="text-right">
+                <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
+                  {b.sold_7d.toLocaleString()}
+                </span>
+                <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
+                <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>avg €{b.avg_price_eur}</div>
+              </div>
+            </Link>
+          )
+        })}
+      </div>
+      <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed`}>{footer}</p>
     </div>
   )
 }
