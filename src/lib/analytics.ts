@@ -41,6 +41,8 @@ export type FunnelEvent =
   /** Visitor clicked a primary CTA on the homepage hero (free chip, primary buy list CTA).
    *  Emitted by HeroFreeChips; variant label passed via path. */
   | "hero_cta_click"
+/** Visitor clicked a paywall-demo chip on a blog post (C224 free-model posts). */
+| "chip_click"
 /** Client-side reasons for register_submit_failed. Encoded into path so the
  *  existing /api/track sink stores them (TrackEvent has no extra column). */
 export type RegisterFailReason =

@@ -278,6 +278,35 @@ export function BlogInlineChecker({
         </div>
       )}
 
+      {/* C224(elon): paywall-demo chips — free-model posts only, before any chip clicked.
+          Free-model visitors (NB530, AF1, Samba) get a free verdict and bounce —
+          checkout_from_blog = 0 all-time. These chips let them one-tap a real paid item
+          to experience the paywall CTA with context (comparable_n), not cold.
+          Chips must not be free-model queries (see FREE_MODELS). Confirmed in catalog. */}
+      {isFreeModelQuery && !chipQuery && (
+        <div style={{ display: \"flex\", alignItems: \"center\", gap: 8, marginBottom: 14, flexWrap: \"wrap\" }}>
+          <span style={{ fontSize: 12, color: \"#5b6b8c\", flexShrink: 0 }}>Now try a paid item →</span>
+          {[\"Stone Island Hoodie\", \"Ralph Lauren Polo Shirt\", \"Balenciaga Track\"].map((q) => (
+            <button
+              key={q}
+              onClick={() => { setChipQuery(q); trackEvent("chip_click", q) }}
+              style={{
+                background: \"rgba(52,199,89,.08)\",
+                border: \"1px solid rgba(52,199,89,.22)\",
+                borderRadius: 6,
+                color: \"#c3cde0\",
+                fontSize: 12.5,
+                fontWeight: 600,
+                padding: \"5px 10px\",
+                cursor: \"pointer\",
+              }}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* C215(elon): Do NOT pass initialResult to FreeChecker.
           The bug: ssrBlogVerdict seeds a PAYWALL result as initialResult.
           FreeChecker skips auto-run when initialResult is present (line ~564).
