@@ -160,7 +160,7 @@ export function AuthDemandPanel({
             ? "/verdict?q=New+Balance+530"
             : brand.includes("adidas")
               ? "/verdict?q=Adidas+Samba"
-              : "/verdict?q=Nike+Air+Force+1"
+              : "/verdict?q=New+Balance+530"
           return (
             <Link
               key={`${b.brand}-${b.category}`}

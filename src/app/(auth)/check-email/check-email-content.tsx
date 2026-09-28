@@ -172,13 +172,13 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   // paywall, not a result. The progress step still names their intent (promise kept);
   // the preview proves the product via the free demo. We do NOT use intentQuery
   // as the href here.
-  const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+  const FREE_SAMPLE_QUERIES = ["New Balance 530", "Adidas Samba", "Nike Air Force 1"]
   const intentIsSample = intentQuery
     ? FREE_SAMPLE_QUERIES.some(s => s.toLowerCase() === intentQuery.trim().toLowerCase())
     : false
   const sampleHref = intentIsSample
     ? `/verdict?q=${encodeURIComponent(intentQuery)}`
-    : "/verdict?q=Nike+Air+Force+1"
+    : "/verdict?q=New+Balance+530"
 
   // C162(tony): map brand names to the closest public sample query so demand-
   // panel rows can be tapped directly. Only the 3 public samples bypass the
@@ -188,7 +188,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     const b = brand.toLowerCase()
     if (b.includes("new balance")) return "/verdict?q=New+Balance+530"
     if (b.includes("adidas")) return "/verdict?q=Adidas+Samba"
-    return "/verdict?q=Nike+Air+Force+1"
+    return "/verdict?q=New+Balance+530"
   }
 
   return (

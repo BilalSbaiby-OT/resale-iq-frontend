@@ -14,8 +14,8 @@ import {
 } from "./checkout.ts"
 
 test("first-check CTA is a pre-filled verdict, not an empty dashboard", () => {
-  assert.equal(FIRST_CHECK_QUERY, "Nike Air Force 1")
-  assert.equal(FIRST_CHECK_HREF, "/verdict?q=Nike%20Air%20Force%201")
+  assert.equal(FIRST_CHECK_QUERY, "New Balance 530")
+  assert.equal(FIRST_CHECK_HREF, "/verdict?q=New%20Balance%20530")
 })
 
 test("locale maps to the VAT country Stripe Tax needs", () => {

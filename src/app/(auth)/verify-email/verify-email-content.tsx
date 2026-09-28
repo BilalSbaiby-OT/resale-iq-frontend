@@ -133,10 +133,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               router.replace(`/pricing?ref=verify-abandoned`)
             } else {
               // Free + no intent: Aha moment first — show a free sample verdict so
-              // they understand the product BEFORE we ask for money. Nike AF1 is in
+              // they understand the product BEFORE we ask for money. New Balance 530 is in (1235 sold/30d vs AF1's 181 — 7x stronger demo;
               // _PUBLIC_SAMPLE_QUERIES so it returns full data with no subscription.
               // From /verdict they naturally search their own item → paywall fires.
-              router.replace(`/verdict?q=Nike+Air+Force+1`)
+              router.replace(`/verdict?q=New+Balance+530`)
             }
           }
           return

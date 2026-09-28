@@ -16,7 +16,10 @@ import { BAKED_PRICE_IDS } from "./pricing.ts"
  * almost paid).
  */
 
-export const FIRST_CHECK_QUERY = "Nike Air Force 1"
+// C(tony): New Balance 530 leads — 1,235 sold/30d vs Nike AF1's 181 (7x stronger
+// evidence). Our strongest free-sample demo should be the first impression on every
+// new account. FREE_MODELS[0] matches this query; keep in sync when that list changes.
+export const FIRST_CHECK_QUERY = "New Balance 530"
 export const FIRST_CHECK_HREF = `/verdict?q=${encodeURIComponent(FIRST_CHECK_QUERY)}`
 
 export const CHECKOUT_COUNTRIES = [
