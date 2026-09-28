@@ -200,10 +200,20 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         <Steps intentQuery={intentQuery} />
 
         <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
-        <h1 className="text-[18px] font-bold mb-2">{t.heading}</h1>
+        {/* C(tony): goal-framing heading replaces admin-framing "Check your email".
+            Research (yukaichou.com): the Win State at this moment must feel like
+            a reward, not homework. "One click to your verdict" names what the user
+            gets — not the bureaucratic task of email confirmation.
+            Personalised when intentQuery is available (e.g. "Stone Island Hoodie"). */}
+        <h1 className="text-[18px] font-bold mb-1">
+          {intentQuery
+            ? `One click — your ${intentQuery} check is ready`
+            : "One click and you're in"}
+        </h1>
         <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-4 leading-relaxed`}>
-          {t.bodyPrefix}{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
-          {" "}{t.bodyMiddle} <strong className={`${AUTH_TEXT} font-semibold`}>{t.spam}</strong> {t.bodySuffix} <span className={AUTH_TEXT}>noreply@resaleiq.dev</span>.
+          We emailed a verify link to{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
+          {" "}Click it and your verdict loads immediately. Check{" "}
+          <strong className={`${AUTH_TEXT} font-semibold`}>spam / junk</strong> if it isn&apos;t there — sent from <span className={AUTH_TEXT}>noreply@resaleiq.dev</span>.
         </p>
         {/* C163(tony): email-app shortcut buttons — Superhuman/Notion pattern.
             The #1 reason users abandon verification: they leave the tab to find
