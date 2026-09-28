@@ -822,6 +822,61 @@ export function PricingSection({
                 />
               </div>
             )}
+            {/* H117 CRO: live-data trust signals moved ABOVE the CTA button.
+                Before: tracked count + sell-through appeared after the "Start for €19"
+                button — visitor had to click (or scroll past) before seeing the proof.
+                Competitor reference: Plausible places "No surprise fees / no surprise
+                charges" AT the decision point; beehiiv shows subscriber counts BEFORE
+                the paid plan CTA. CRO Principle #7 (trust before CTA): the visitor
+                needs to see the evidence — real watched departures, real listing count —
+                before the ask, not after it. Zero functional change; pure order fix.
+                Revenue 2026-09-28. */}
+            {tier.id === "operator" && (
+              <>
+                {/* Live tracked count as primary trust signal — moved pre-CTA. */}
+                <p
+                  data-testid="riq-listings-tracked"
+                  style={{
+                    margin: "16px 0 4px",
+                    fontSize: compact ? 11 : 12,
+                    fontWeight: 700,
+                    color: "var(--color-text-primary)",
+                    textAlign: "center",
+                    letterSpacing: "0.3px",
+                  }}
+                >
+                  {tracked} live listings watched
+                </p>
+                {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
+                    Only shown when sellThrough resolved to a real number ("65/wk"). */}
+                {sellThrough && sellThrough !== "—" && (
+                  <p
+                    data-testid="riq-sell-through"
+                    style={{
+                      margin: "0 0 4px",
+                      fontSize: compact ? 11 : 12,
+                      fontWeight: 600,
+                      color: "var(--color-text-muted)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {sellThrough} watched departures / week
+                  </p>
+                )}
+                <p
+                  data-testid="riq-starter-trust"
+                  style={{
+                    margin: "0 0 12px",
+                    fontSize: compact ? 11 : 12,
+                    lineHeight: 1.45,
+                    color: "var(--color-text-muted)",
+                    textAlign: "center",
+                  }}
+                >
+                  {t.starterTrust.replace("{{TRACKED}}", tracked)}
+                </p>
+              </>
+            )}
             {/* ONE filled accent CTA per view. The other two are ghosts — a
                 hairline and label on the card's own background, not a second
                 and third filled rectangle. When every tier's button is filled,
@@ -847,68 +902,11 @@ export function PricingSection({
               : tier.cta
             )}</button>
             {/* H90 CRO: add 30-day money-back guarantee to under-CTA copy at decision moment.
-                Before: "Instant access · cancel anytime" — missing the strongest risk signal.
-                23 of 25 Stripe sessions had NO email typed = Stripe-page abandonment.
-                Competitor benchmark: Plausible places "No surprise fees. Your card will never
-                be charged unexpectedly." at the decision point; Fathom places "We're not interested
-                in having someone's money if they aren't happy." directly on the pricing page.
-                Both use risk-removal AT the moment of decision, not buried at page-bottom.
-                "30-day money-back guarantee" already appeared in our post-FAQ footer CTA
-                (line ~951) and in blog paywalls — moving it to the plan card CTA places the
-                highest-conviction risk-removal signal where 23/25 Stripe visits needed it.
                 CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
                 Instant access · 30-day money-back guarantee · cancel anytime
               </p>
-            )}
-            {tier.id === "operator" && (
-              <>
-                {/* H-SOCIAL-BF-PROOF: live tracked count as primary trust signal.
-                    Revenue 2026-09-19. */}
-                <p
-                  data-testid="riq-listings-tracked"
-                  style={{
-                    margin: "16px 0 4px",
-                    fontSize: compact ? 11 : 12,
-                    fontWeight: 700,
-                    color: "var(--color-text-primary)",
-                    textAlign: "center",
-                    letterSpacing: "0.3px",
-                  }}
-                >
-                  {tracked} live listings watched
-                </p>
-                {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
-                    Only shown when sellThrough resolved to a real number ("65/wk").
-                    Revenue 2026-09-21 (em-dash fix). */}
-                {sellThrough && sellThrough !== "—" && (
-                  <p
-                    data-testid="riq-sell-through"
-                    style={{
-                      margin: "0 0 4px",
-                      fontSize: compact ? 11 : 12,
-                      fontWeight: 600,
-                      color: "var(--color-text-muted)",
-                      textAlign: "center",
-                    }}
-                  >
-                    {sellThrough} watched departures / week
-                  </p>
-                )}
-                <p
-                  data-testid="riq-starter-trust"
-                  style={{
-                    margin: "0 0 8px",
-                    fontSize: compact ? 11 : 12,
-                    lineHeight: 1.45,
-                    color: "var(--color-text-muted)",
-                    textAlign: "center",
-                  }}
-                >
-                  {t.starterTrust.replace("{{TRACKED}}", tracked)}
-                </p>
-              </>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
                 Both were tinted, bordered panels stacked inside an already
