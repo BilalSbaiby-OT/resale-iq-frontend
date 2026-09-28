@@ -164,7 +164,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   assert.doesNotMatch(title, /Know what to pay/)
   assert.match(
     layout,
-    /listing records across 5 EU markets/,
+    /A ranked list of the second-hand clothing worth buying to resell right now/,
   )
   assert.match(layout, /openGraph: \{[\s\S]*title: TITLE/)
   assert.match(layout, /twitter: \{[\s\S]*title: TITLE/)
