@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Mail, TrendingUp, ArrowRight, Lock } from "lucide-react"
+import { Mail, TrendingUp, ArrowRight, Lock, AlertCircle } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -10,6 +10,7 @@ import {
   AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
 import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { queryCoverageKind } from "@/lib/query-coverage"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 
 // The three brands most likely to resonate with a new reseller — confirmed
@@ -160,6 +161,12 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     return "/verdict?q=New+Balance+530"
   }
 
+  // C(tony): expectation-setting for untracked intents — the user typed a brand
+  // we don't track yet (e.g. "Gucci Bag") but CoverageGate on verify-email will
+  // still route them to the NB530 demo. Without this panel they land on NB530
+  // with zero context and think something went wrong. Set the expectation here.
+  const intentIsUntracked = intentQuery.trim().length >= 3 && queryCoverageKind(intentQuery.trim()) === "untracked"
+
   return (
     <div className="w-full max-w-md flex flex-col gap-5">
       <AuthCard center>
@@ -223,7 +230,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           This proves we have their data before they click the link — turns a generic
           "check your email" wait into a specific promise we're about to keep.
           Only renders when intentRow is available (brand matched in catalog). */}
-      {intentRow && (
+      {!intentIsUntracked && intentRow && (
         <div className="bg-[var(--color-surface)] border border-[var(--color-buy)] border-opacity-30 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp size={14} className={AUTH_ACCENT} />
@@ -244,6 +251,27 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-2 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5">
             <Lock size={12} className={AUTH_TEXT_MUTED} />
             <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy-below price unlocks after verification</span>
+          </div>
+        </div>
+      )}
+
+      {/* C(tony): expectation-setting panel for untracked intent queries — see
+          comment above intentIsUntracked. Replaces the intentRow panel when the
+          user's typed brand isn't in our catalog, so they know a demo (NB530)
+          is coming and why, instead of being confused by a mismatched result. */}
+      {intentIsUntracked && (
+        <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <AlertCircle size={14} className="text-[var(--color-watch)] shrink-0" />
+            <span className="text-[11.5px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
+              Not in catalog yet
+            </span>
+          </div>
+          <p className="text-[13px] text-[var(--color-text-secondary)] mb-3">
+            <strong className="text-[var(--color-text-primary)]">{intentQuery}</strong> isn&apos;t tracked yet — but we&apos;ll show you a live New Balance 530 verdict first so you see exactly how it works.
+          </p>
+          <div className="text-[12px] text-[var(--color-text-muted)]">
+            Then search your own item — we add new brands regularly.
           </div>
         </div>
       )}
