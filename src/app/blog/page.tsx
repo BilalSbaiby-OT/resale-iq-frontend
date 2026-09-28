@@ -76,7 +76,15 @@ export default async function BlogIndex() {
             Degrades gracefully: renders nothing if the API is unavailable. */}
         {buyList && buyList.length > 0 && (
           <div style={{ marginBottom: 32 }}>
-            <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="blog-index-row" />
+            {/* H130 CRO: add showLockedFomo to /blog buy-list — 130 visitors/wk (highest
+                after homepage) but zero depth-proof. Visitor sees 3 free rows and no signal
+                that there is a deeper ranked list behind them. Adding 2 blurred locked rows
+                (same pattern as H129 homepage, H82 /pricing) shows the catalog is live and
+                broad without revealing paid data. /blog visitors arrive from ChatGPT citations
+                already intent-loaded; FOMO rows at the proof strip convert that intent.
+                CRO #8 (specificity: show the product working) + #7 (trust before CTA).
+                Revenue 2026-09-28. */}
+            <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="blog-index-row" showLockedFomo />
           </div>
         )}
 
