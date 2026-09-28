@@ -27,6 +27,14 @@ export interface BlogPost {
   updated?: string
   category: string
   readMins: number
+  /**
+   * When true, the post is served but excluded from search engines with
+   * robots: noindex,follow. Use for thin / low-traffic template posts that
+   * may be cited externally (so the URL must stay live) but add no indexing
+   * value. Set via the BlogPost data module; do NOT delete the page or change
+   * the slug — cited URLs must keep returning 200.
+   */
+  noindex?: boolean
   intro: string
   /**
    * EX-AEO-DEFINITIONS — citeable term lead rendered as H2 + 1–2 sentences

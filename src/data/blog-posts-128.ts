@@ -146,7 +146,7 @@ export const POSTS_128: BlogPost[] = [
     title: "Which Brands Sell Fastest on Vinted in 2026 (EU Data)",
     seoTitle: "Which Brands Sell Fastest on Vinted 2026 — 30-Day Departure Ranking",
     description:
-      "Stone Island, Patagonia and Balenciaga lead by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT) as of September 2026, based on ${TRACKED} tracked listings. Brand sell speeds and avg exit prices from production data.",
+      `Stone Island, Patagonia and Balenciaga lead by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT) as of September 2026, based on ${TRACKED} tracked listings. Brand sell speeds and avg exit prices from production data.`,
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 6,

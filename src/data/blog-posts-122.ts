@@ -16,6 +16,7 @@ export const POSTS_122: BlogPost[] = [
     date: "2026-09-20",
     category: "Compare",
     readMins: 6,
+    noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
       "Vinted vs Grailed is a channel pick after you already know which model to buy. Across 5,564,932 Vinted listings we track in ES, FR, DE, IT and PT, the week to 18 September 2026 showed Balenciaga leaving the shelf 261 times at €140 average — sneakers 76 at €152. Fred Perry moved 258 times at €17. Patagonia 234 at €38. Stone Island 197 at €71 — hoodies 108 at €55. Nike 74 at €72. Supreme 54 at €80. Adidas 39 at €54. Grailed is thinner, slower, and aimed at collectors who pay for rare cuts. Vinted is volume. Buy the model that still leaves the shelf on Vinted at a price that covers fees, then list Grailed only if the same piece is scarce. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",

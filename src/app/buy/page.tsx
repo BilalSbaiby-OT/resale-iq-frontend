@@ -5,7 +5,7 @@ import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, fmtCountBuy, fmtEurBuy, cat
 export const metadata: Metadata = {
   title: "What to Pay for Secondhand Resale — Buy-Below Prices by Brand",
   description:
-    "Real sell-through data from 13M+ Vinted listings. Know exactly what to pay when buying inventory to resell — brand by brand, category by category, with 30-day departure counts and buy-below prices.",
+    "Buy-below prices for 231 brand-category pairs on EU Vinted. Real 30-day departure data: what to pay when sourcing secondhand inventory to resell.",
   alternates: { canonical: "https://resaleiq.dev/buy" },
   openGraph: {
     title: "Resale Buy-Below Intelligence — ResaleIQ",

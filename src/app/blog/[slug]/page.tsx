@@ -64,6 +64,9 @@ export async function generateMetadata(
   return {
     title: seoTitle,
     description: p.description,
+    // noindex posts: keep the URL alive (may be cited) but exclude from search.
+    // follow: true — still want link equity to pass through to linked pages.
+    ...(p.noindex ? { robots: { index: false, follow: true } } : {}),
     alternates: {
       canonical: `/blog/${p.slug}`,
       // hreflang must be RECIPROCAL or Google ignores it. Translated posts

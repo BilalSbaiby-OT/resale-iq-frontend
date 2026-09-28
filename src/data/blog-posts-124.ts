@@ -16,6 +16,7 @@ export const POSTS_124: BlogPost[] = [
     date: "2026-09-21",
     category: "Compare",
     readMins: 6,
+    noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
       "Vinted vs eBay fees is a channel tax after you already know which clothing model to buy. Across 5,564,932 Vinted listings we track in ES, FR, DE, IT and PT, the week to 18 September 2026 showed Balenciaga leaving the shelf 261 times at €140 average — sneakers 76 at €152. Fred Perry moved 258 times at €17. Patagonia 234 at €38. Stone Island 197 at €71 — hoodies 108 at €55. Nike 74 at €72. New Balance 71 at €75. Adidas 39 at €54. eBay takes a seller cut and slower comps. Vinted is volume. Buy the model that still leaves the shelf on Vinted at a price that covers both fee stacks, then list eBay only if the same piece is scarce. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",

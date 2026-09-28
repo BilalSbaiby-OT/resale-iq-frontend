@@ -16,6 +16,7 @@ export const POSTS_123: BlogPost[] = [
     date: "2026-09-21",
     category: "News",
     readMins: 6,
+    noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
       "DAC7 (EU Directive 2021/514) makes Vinted report sellers who hit 30 transactions or €2,000 gross in a calendar year. That is a reporting trigger, not a tax bill, and it is not a reason to buy slow stock. This week, on 5,309,568 EU5 Vinted listings (snapshot 20 September 2026 21:38 UTC), Stone Island left the shelf 62 times at €73 average, hoodies 29 at €52. Fred Perry 47 at €16. Patagonia jackets 21 at €33. New Balance sneakers 22 at €48. Gucci 24 at €279, bags 10 at €452. Adidas 5 at €26. If you are already over the DAC7 line, each extra SKU still has to leave. Buy the model that is still departing, then check that exact model on /tools. We count watched departures, not confirmed cash sales. No per-model buy-below on this page. Not tax advice.",

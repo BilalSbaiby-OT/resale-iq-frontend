@@ -31,7 +31,7 @@ const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 // is the larger, honestly-labelled number. The distinct-item count is shown
 // in the live-market-pulse section on the homepage. Both are live from the API.
 const desc = (tracked: string) =>
-  `A ranked list of the second-hand clothing worth buying to resell right now — what is leaving the shelf and the most to pay for it. ${tracked} listing records across Spain, France, Germany, Italy and Portugal.`
+  `${tracked} listing records across 5 EU markets. Real sell-through data on Vinted reselling: what sells, buy-below price, BUY/WATCH/SKIP verdict per item.`
 
 export async function generateMetadata(): Promise<Metadata> {
   // Use listing-records figure (larger, honestly labelled); fall back to

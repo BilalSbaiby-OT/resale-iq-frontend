@@ -211,3 +211,10 @@ jobs:
           # outcome of a successful run.
           echo "::error::resaleiq.dev is still not serving ${EXPECTED} after 15 min. Either the deploy failed, or /deploy-id is misreporting — check Coolify's deployment log before assuming success."
           exit 1
+
+      # IndexNow ping — tell Bing/ChatGPT search index that pages changed.
+      # Non-fatal: a network blip should not mark the deploy as failed.
+      # The key file is served at /e230108ca3e5998572e4dd43193c58c6.txt (public/).
+      - name: Ping IndexNow (Bing / ChatGPT search)
+        continue-on-error: true
+        run: node scripts/indexnow-ping.mjs
