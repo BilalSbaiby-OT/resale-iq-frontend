@@ -98,7 +98,12 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             } else {
               const plan = getPlanFromToken()
               if (plan === "operator" || plan === "power") {
-                dest = "/dashboard"
+                // C216(tony): paid + no intent → /verdict (WORKING_MODELS chips,
+                // live first answer) instead of /dashboard (12-line stub, 0 activation
+                // value). 11/25 accounts ran zero verdicts — they logged in, hit an
+                // empty admin screen, and left. Linear/Plausible pattern: route new
+                // users to the VALUE screen first; /dashboard is in the nav.
+                dest = FIRST_CHECK_HREF
               } else {
                 // C172(tony): Google signup skips Stripe — new user arrives as
                 // plan=free with no checkout. If riq_register_plan was written
@@ -161,8 +166,11 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           dest = `/verdict?q=${encodeURIComponent(saved)}`
           localStorage.removeItem("riq_intent_query")
         } else {
-          const plan = getPlanFromToken()
-          dest = (plan === "operator" || plan === "power") ? "/dashboard" : FIRST_CHECK_HREF
+          // C216(tony): paid + no intent → /verdict (WORKING_MODELS chips,
+          // live first answer) instead of /dashboard (12-line stub). Same
+          // fix as Google OAuth callback above — both paths had the same bug.
+          // plan check removed: both paths now go to FIRST_CHECK_HREF.
+          dest = FIRST_CHECK_HREF
         }
       } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
       router.push(dest)
