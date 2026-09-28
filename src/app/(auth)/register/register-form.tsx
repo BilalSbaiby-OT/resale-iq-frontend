@@ -193,6 +193,15 @@ function RegisterContent({ locale }: { locale: Locale }) {
         if (intentQuery.trim()) {
           try { localStorage.setItem("riq_intent_query", intentQuery.trim()) } catch { /* private mode */ }
         }
+        // C218(tony): mirror C172 for email+password signups — save the plan
+        // so verify-email-content can detect checkout abandonment.
+        // Flow: register → startPaidCheckout → user abandons Stripe → clicks
+        // verify link → arrives as plan=free. Without this, verify-email can't
+        // distinguish "always free" from "abandoned checkout" and sends both to
+        // the Nike AF1 free demo. With this, abandoned users go back to pricing
+        // instead of a demo that implies the product is free.
+        // Same 5-min TTL as C172 (riq_register_plan in Google flow).
+        try { localStorage.setItem("riq_register_plan", JSON.stringify({ plan, ts: Date.now() })) } catch { /* private mode */ }
       }
       // All registrations go to paid checkout now — no free tier
       try {

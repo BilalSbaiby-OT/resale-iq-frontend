@@ -112,11 +112,27 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready)
             router.replace(`/pricing?ref=verify&q=${firstQuery}`)
           } else {
-            // Free + no intent: Aha moment first — show a free sample verdict so
-            // they understand the product BEFORE we ask for money. Nike AF1 is in
-            // _PUBLIC_SAMPLE_QUERIES so it returns full data with no subscription.
-            // From /verdict they naturally search their own item → paywall fires.
-            router.replace(`/verdict?q=Nike+Air+Force+1`)
+            // C218(tony): checkout-abandoned path — if riq_register_plan was
+            // written < 5min ago (email+password flow, same as C172 for Google),
+            // the user abandoned Stripe and then clicked the verify link. Send
+            // them back to pricing with ?ref=verify-abandoned so they can retry
+            // checkout — not the Nike AF1 free demo which implies the product is free.
+            let checkoutAbandoned = false
+            try {
+              const raw = localStorage.getItem("riq_register_plan")
+              localStorage.removeItem("riq_register_plan")
+              const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
+              checkoutAbandoned = parsed ? Date.now() - parsed.ts < 5 * 60 * 1000 : false
+            } catch { /* private mode */ }
+            if (checkoutAbandoned) {
+              router.replace(`/pricing?ref=verify-abandoned`)
+            } else {
+              // Free + no intent: Aha moment first — show a free sample verdict so
+              // they understand the product BEFORE we ask for money. Nike AF1 is in
+              // _PUBLIC_SAMPLE_QUERIES so it returns full data with no subscription.
+              // From /verdict they naturally search their own item → paywall fires.
+              router.replace(`/verdict?q=Nike+Air+Force+1`)
+            }
           }
           return
         }
