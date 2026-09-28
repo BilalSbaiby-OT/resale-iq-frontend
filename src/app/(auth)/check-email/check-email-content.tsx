@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Mail, TrendingUp, CheckCircle2, Circle, ArrowRight, Lock } from "lucide-react"
+import { Mail, TrendingUp, ArrowRight, Lock } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -10,6 +10,7 @@ import {
   AUTH_TEXT, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
 import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { ActivationSteps } from "@/components/auth/activation-steps"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
@@ -70,40 +71,8 @@ function EmailClientButton({ email }: { email: string }) {
   )
 }
 
-// C143(tony): activation — 3-step progress indicator for the verification
-// waiting screen. Linear/Notion research: users abandon verification when it
-// feels like an admin step rather than progress toward a goal. Showing them
-// they're at step 2 of 3 (not stuck) reduces drop-off. The third step names
-// their specific intent query if one was captured on /register.
-const Steps = ({ intentQuery }: { intentQuery: string }) => {
-  const steps = [
-    { label: "Account created", done: true },
-    { label: "Verify your email", done: false, active: true },
-    { label: intentQuery ? `See your ${intentQuery} verdict` : "Get your first verdict", done: false },
-  ]
-  return (
-    <div className="flex items-center gap-1 mb-5 w-full">
-      {steps.map((step, i) => (
-        <div key={i} className="flex items-center gap-1 flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 min-w-0">
-            {step.done
-              ? <CheckCircle2 size={14} className="text-[var(--color-buy)] shrink-0" />
-              : step.active
-                ? <div className="w-3.5 h-3.5 rounded-full border-2 border-[var(--color-buy)] shrink-0" />
-                : <Circle size={14} className="text-[var(--color-border-ui)] shrink-0" />
-            }
-            <span className={`text-[11px] truncate ${step.done ? "text-[var(--color-buy)]" : step.active ? AUTH_TEXT : AUTH_TEXT_MUTED}`}>
-              {step.label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <ArrowRight size={10} className={`text-[var(--color-border-ui)] ml-1 shrink-0`} />
-          )}
-        </div>
-      ))}
-    </div>
-  )
-}
+// C143(tony): Steps replaced by shared ActivationSteps component (step={2}).
+// See src/components/auth/activation-steps.tsx.
 
 export function CheckEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.checkEmail
@@ -194,10 +163,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   return (
     <div className="w-full max-w-md flex flex-col gap-5">
       <AuthCard center>
-        {/* C143(tony): 3-step progress bar — Linear pattern: show users they
-            are 2/3 of the way to their goal (the verdict), not stuck in admin.
-            Third step names their specific intent query when available. */}
-        <Steps intentQuery={intentQuery} />
+        {/* C143(tony): 3-step progress bar — now shared component, step 2 of 3.
+            Linear/Fathom pattern: show users they are 2/3 of the way to their goal
+            (the verdict), not stuck in admin. Third step names their specific intent
+            query when available. */}
+        <ActivationSteps step={2} intentQuery={intentQuery} />
 
         <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
         {/* C(tony): goal-framing heading replaces admin-framing "Check your email".

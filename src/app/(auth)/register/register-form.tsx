@@ -12,6 +12,7 @@ import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { IntentTypeahead } from "@/components/auth/intent-typeahead"
+import { ActivationSteps } from "@/components/auth/activation-steps"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -240,6 +241,11 @@ function RegisterContent({ locale }: { locale: Locale }) {
       <div className="flex justify-end mb-3">
       </div>
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
+        {/* C(tony)ActivationSteps: step 1 of 3 progress bar — Fathom/Linear pattern.
+            Users who see they're at step 1 of 3 are less likely to drop off than users
+            who see an opaque "Create account" form with no sense of where they are.
+            Third step label personalises to their typed intent query. */}
+        <ActivationSteps step={1} intentQuery={intentQuery} />
         {/* C168(tony): Canva/Duolingo/Notion pattern — goal-first framing.
             Research: Canva asks "What will you design?" before account creation.
             Duolingo makes you start a lesson before signing up. Notion shows you
