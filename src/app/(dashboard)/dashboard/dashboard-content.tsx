@@ -9,6 +9,7 @@ import { MedianN } from "@/components/ui/median-n"
 import { SkeletonRows } from "@/components/ui/skeleton"
 import { OutcomePrompt } from "@/components/ui/outcome-prompt"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { eur, ago } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -367,22 +368,23 @@ export function DashboardContent({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)" }}>{t.freeBannerHeading}</div>
             <div style={{ fontSize: 15, color: "var(--color-graphite-muted)", marginTop: 4, maxWidth: "65ch" }}>{t.freeBannerBody}</div>
           </div>
-          {/* TWO ACTIONS: one primary (upgrade), one secondary (use the tool).
-              The banner copy already says "unlock with a plan" — the CTA must
-              land on /pricing, not /verdict. Check item stays as a ghost so
-              users who ignore the upgrade still find the product.
-              /pricing is the actual funnel step between this banner and
-              checkout_started; linking to /account or /verdict skips it. */}
-          <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
+          {/* C217: direct Starter checkout — skip the /pricing detour.
+              /pricing gets 12/7d; most free users who see this banner never
+              reach it. GuestCheckoutButton fires Stripe directly (same as
+              blog/tools/HardPaywallCard). "See plans" stays as a secondary
+              text link for users who want to compare tiers first.
+              Dashboard 15/7d visitors, 19 free accounts, 0 upgrades. */}
+          <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
+            <GuestCheckoutButton
+              locale={locale}
+              label="Start Starter — €19/mo"
+              src="dashboard_free_banner"
+            />
             <Link
               href="/pricing"
               data-testid="riq-free-banner-upgrade"
-              style={{ background: "var(--color-accent)", color: "var(--color-on-accent)", borderRadius: 12, padding: "10px 16px", fontSize: 15, fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}
+              style={{ color: "var(--color-graphite-muted)", fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}
             >{t.seePlansAction}</Link>
-            <Link
-              href="/verdict"
-              style={{ color: "var(--color-graphite-muted)", fontSize: 14, fontWeight: 400, textDecoration: "none", whiteSpace: "nowrap" }}
-            >{t.freeBannerAction}</Link>
           </div>
         </div>
       )}
