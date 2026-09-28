@@ -205,7 +205,9 @@ export function BlogInlineChecker({
           </div>
           <GuestCheckoutButton
             locale={locale}
-            label={buyListPreview && buyListPreview.length > 0 ? "Unlock full buy list →" : "See full buy list →"}
+
+            label={`Unlock ${activeQuery} — €19/mo →`}
+
             src="blog_buylist_pitch"
             query={activeQuery}
           />
@@ -267,9 +269,11 @@ export function BlogInlineChecker({
           </div>
           <GuestCheckoutButton
             locale={locale}
-            label={buyListPreview && buyListPreview.length > 0 ? "Unlock full buy list →" : "See full buy list →"}
+
+            label={`Unlock ${activeQuery} — €19/mo →`}
+
             src="blog_buylist_pitch"
-            query={preflightQuery}
+            query={activeQuery}
           />
         </div>
       )}
