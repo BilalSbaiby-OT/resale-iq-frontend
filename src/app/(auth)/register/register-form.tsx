@@ -443,20 +443,28 @@ function RegisterContent({ locale }: { locale: Locale }) {
               {t.continueToCheckout}
             </button>
           )}
-          {/* C168(tony): dynamic submit label — when the user has typed a query,
-              the button says "Check Stone Island Hoodie →" so clicking feels
-              purposeful (completing their stated goal) not administrative.
-              Duolingo pattern: every action in the activation path names the
-              user's specific intent, not a generic task. Falls back to
-              plan-generic copy when intent field is empty. */}
+          {/* C168(tony): dynamic submit label — when the user has typed a tracked
+              query, the button says "Check Stone Island Hoodie →" so clicking
+              feels purposeful (completing their stated goal) not administrative.
+              Duolingo/Canva pattern: every action names the user's specific intent.
+              C217(tony): untracked query — do NOT name the item in the button.
+              Canva never shows a template path for a design they can't deliver.
+              "Check Gucci Handbag →" + Stripe checkout + INSUFFICIENT_DATA is the
+              worst possible first impression. Untracked intent → generic copy so
+              we don't promise a verdict we can't fulfil. The amber coverage badge
+              already tells them the item isn't tracked; the CTA should match. */}
           <button type="submit" disabled={loading}
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : (
               <>
-                {intentQuery.trim()
-                  ? `Check ${intentQuery.trim()} →`
-                  : t.paidSubmit.replace("{plan}", t.planNames[plan])}
-                {!intentQuery.trim() && <Check size={15} />}
+                {(() => {
+                  const q = intentQuery.trim()
+                  if (!q) return <>{t.paidSubmit.replace("{plan}", t.planNames[plan])}<Check size={15} /></>
+                  const kind = queryCoverageKind(q)
+                  if (kind === "catalog" || kind === "free_sample") return <>{`Check ${q} →`}</>
+                  // Untracked: don't promise we have it — use generic submit
+                  return <>{t.paidSubmit.replace("{plan}", t.planNames[plan])}<Check size={15} /></>
+                })()}
               </>
             )}
           </button>
