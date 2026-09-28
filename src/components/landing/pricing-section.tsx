@@ -585,13 +585,20 @@ export function PricingSection({
             <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free demo</span>
             <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
           </div>
-          {/* Data rows */}
+          {/* Data rows
+              H124 CRO: buy-below row was "—" for free, but the inline demo chips
+              ABOVE the matrix show buy-below prices for the 3 free sample queries.
+              A visitor who just saw €31 buy-below then read "—" gets cognitive
+              dissonance — the table appeared to lie. Fix: "demos only" makes the
+              free access visible and honest, so the paid "any item" reads as the
+              upgrade, not a correction of a trust-breaking discrepancy.
+              CRO #7 (trust) + #1 (clarity). Revenue 2026-09-28. */}
           {[
-            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓" },
-            { label: "Buy-below price",              free: "—",              paid: "✓" },
+            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓ any item" },
+            { label: "Buy-below price",              free: "demos only",     paid: "✓ any item" },
             { label: "Sell-through rate",            free: "—",              paid: "✓" },
             { label: "Demand direction",             free: "—",              paid: "✓" },
-            { label: "Any brand + item you choose",  free: "—",              paid: "✓" },
+            { label: "Your own brand + item",        free: "—",              paid: "✓ unlimited" },
           ].map((row, i) => (
             <div
               key={row.label}
