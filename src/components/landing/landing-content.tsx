@@ -367,6 +367,7 @@ export function LandingContent({
           <Link href={`${canonicalPath(locale, "/pricing")}?src=footer`} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.pricing}</Link>
           <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
           <Link href="/flip" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
+          <Link href="/buy" style={{ color: "#5b6b8c", textDecoration: "none" }}>Buy prices</Link>
           <Link href="/category" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
           <Link href="/flip/nike" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
           <Link href="/category/sneakers" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>

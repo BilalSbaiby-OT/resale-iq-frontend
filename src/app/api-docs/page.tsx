@@ -43,7 +43,7 @@ export default function ApiDocs() {
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "24px 0 8px", letterSpacing: "-0.6px" }}>Resale IQ API</h1>
         <p style={{ ...P, marginBottom: 6 }}>

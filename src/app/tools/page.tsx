@@ -83,7 +83,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
           {/* Muted, not accent-green: the filled Check CTA is the one control
               on this view and a green back-link competed with it. */}
-          <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+          <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
           <LocaleSwitcher locale={locale} />
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "var(--color-text-primary)", margin: "24px 0 12px", letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.h1}</h1>

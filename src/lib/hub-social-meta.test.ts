@@ -57,10 +57,10 @@ test("/tools child pages pin og/twitter titles to the suffixed document title", 
 test("blog generateMetadata uses one string for title, og and twitter", () => {
   const src = read("app/blog/[slug]/page.tsx")
   assert.match(src, /const seoTitle = p\.seoTitle \?\? `\$\{p\.title\} — Resale IQ`/)
-  assert.match(src, /openGraph: \{ title: seoTitle, description: p\.description, type: "article" \}/)
+  assert.match(src, /openGraph: \{ title: seoTitle, description: p\.description, type: "article", images: OG_IMAGES \}/)
   assert.match(
     src,
-    /twitter: \{ card: "summary_large_image", title: seoTitle, description: p\.description \}/,
+    /twitter: \{ card: "summary_large_image", title: seoTitle, description: p\.description, images: OG_IMAGES \}/,
   )
   assert.doesNotMatch(src, /const ogTitle/)
   assert.doesNotMatch(src, /p\.seoTitle \?\? p\.title/)
@@ -164,7 +164,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   assert.doesNotMatch(title, /Know what to pay/)
   assert.match(
     layout,
-    /A ranked list of the second-hand clothing worth buying to resell right now/,
+    /listing records across 5 EU markets/,
   )
   assert.match(layout, /openGraph: \{[\s\S]*title: TITLE/)
   assert.match(layout, /twitter: \{[\s\S]*title: TITLE/)

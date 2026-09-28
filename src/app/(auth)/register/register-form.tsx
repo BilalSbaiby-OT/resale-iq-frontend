@@ -371,6 +371,27 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 <span className="text-[12px] text-[var(--color-text-secondary)] ml-1">{t.perMonth}</span>
               </span>
             </div>
+            {/* Plan toggle: let visitors switch between Starter and Pro without
+                leaving the page. Uses URL ?plan= param so the page title,
+                heading and price all update reactively. The link updates the
+                same URL the existing planFromQuery() already reads. */}
+            <div className="text-center mt-1.5">
+              {plan === "operator" ? (
+                <a
+                  href={`${pathname}?plan=power`}
+                  className="text-[11.5px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)]"
+                >
+                  Want Pro (€{prices["power"] ?? 49}/mo instead)?
+                </a>
+              ) : (
+                <a
+                  href={`${pathname}?plan=operator`}
+                  className="text-[11.5px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)]"
+                >
+                  ← Switch to Starter (€{prices["operator"] ?? 19}/mo)
+                </a>
+              )}
+            </div>
             {/* H10: trust note beside price row — resolves the "will I be charged now?" objection
                 at exactly the moment it forms (Principle #4/#7). Moved UP from below-button. */}
             {t.paidTrustNote && (

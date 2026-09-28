@@ -82,7 +82,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
         {/* "Resale IQ" is the wordmark, not a translatable string — same call
             /methodology and /support already make on this link. */}
-        <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none" }}>
+        <Link href={canonicalPath(locale)} style={{ color: "var(--color-text-secondary)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44 }}>
           ← Resale IQ
         </Link>
       </div>

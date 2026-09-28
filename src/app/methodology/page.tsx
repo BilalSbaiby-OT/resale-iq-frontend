@@ -118,7 +118,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 780, margin: "0 auto" }}>
-        <Link href={canonicalPath(locale)} style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
+        <Link href={canonicalPath(locale)} style={{ color: "#34C759", textDecoration: "none", fontSize: 13, display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 34, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.16, margin: "22px 0 14px" }}>
           {t.text0}

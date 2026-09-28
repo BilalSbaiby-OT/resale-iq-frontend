@@ -9,11 +9,24 @@ import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 
 export async function generateMetadata(): Promise<Metadata> {
+  const tracked = await listingsTrackedLabel()
+  const desc = `Practical guides for Vinted resellers backed by ${tracked} tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.`
   return {
-  title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
-  description:
-    "Practical guides for Vinted resellers backed by real departure data from 13M+ tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.",
-  alternates: { canonical: "/blog" },
+    title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
+    description: desc,
+    alternates: { canonical: "https://resaleiq.dev/blog" },
+    openGraph: {
+      title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
+      description: desc,
+      url: "https://resaleiq.dev/blog",
+      siteName: "Resale IQ",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
+      description: desc,
+    },
   }
 }
 
@@ -50,7 +63,7 @@ export default async function BlogIndex() {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none" }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
         <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.

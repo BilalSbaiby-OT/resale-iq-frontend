@@ -91,7 +91,7 @@ function adminItems(t: NavCopy) {
   ]
 }
 
-export function Sidebar({ className = "" }: { className?: string }) {
+export function Sidebar({ className = "", inert }: { className?: string; inert?: boolean }) {
   const pathname = usePathname()
   const { user } = useAuthStore()
   const locale = useLocale()
@@ -133,7 +133,7 @@ export function Sidebar({ className = "" }: { className?: string }) {
   }
 
   return (
-    <aside className={className} style={{ width: 232, flexShrink: 0, background: "var(--color-graphite)", borderRight: "1px solid var(--color-hairline)", display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+    <aside className={className} inert={inert} style={{ width: 232, flexShrink: 0, background: "var(--color-graphite)", borderRight: "1px solid var(--color-hairline)", display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
       {/* Wordmark */}
       <div style={{ padding: "16px 16px", display: "flex", alignItems: "center", gap: 10, height: 56, boxSizing: "border-box" }}>
         <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--color-on-graphite)" }}>Resale IQ</div>

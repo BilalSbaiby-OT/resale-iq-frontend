@@ -12,6 +12,7 @@ import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
+import { OG_IMAGES } from "@/lib/og-image"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { ssrBlogVerdict } from "@/lib/ssr-blog-verdict"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
@@ -74,8 +75,8 @@ export async function generateMetadata(
         "x-default": `/blog/${p.slug}`,
       },
     },
-    openGraph: { title: seoTitle, description: p.description, type: "article" },
-    twitter: { card: "summary_large_image", title: seoTitle, description: p.description },
+    openGraph: { title: seoTitle, description: p.description, type: "article", images: OG_IMAGES },
+    twitter: { card: "summary_large_image", title: seoTitle, description: p.description, images: OG_IMAGES },
   }
 }
 

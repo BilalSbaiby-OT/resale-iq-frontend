@@ -45,6 +45,16 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
   const pathname = usePathname()
   const [checked, setChecked] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
+  // Track whether we're in mobile layout (≤899px) to apply `inert` correctly.
+  // On desktop the sidebar is always visible so we must NOT apply inert.
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 899px)")
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
 
   // Determine if this route is an auth sandbox — seed content must be
   // visible to cold visitors even when unauthenticated.
@@ -146,7 +156,12 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "var(--color-graphite)" }}>
-      <Sidebar className={`riq-sidebar${navOpen ? " open" : ""}`} />
+      {/* Mobile: sidebar slides in from the left. When closed it's off-screen
+          (transform: translateX(-100%)) but still in the a11y/tab order,
+          so keyboard/AT users tab into invisible links. `inert` suppresses
+          focus, clicks and AT while it's hidden; it is removed when the
+          drawer opens. The `open` class controls the CSS transform. */}
+      <Sidebar className={`riq-sidebar${navOpen ? " open" : ""}`} inert={isMobile && !navOpen} />
       {/* Scrim behind the drawer on mobile */}
       <div className={`riq-scrim${navOpen ? " open" : ""}`} onClick={() => setNavOpen(false)} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>

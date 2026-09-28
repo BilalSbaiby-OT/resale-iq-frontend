@@ -288,7 +288,7 @@ export function LandingHub({ kind, locale }: { kind: LandingKind; locale: Locale
   const t = LANDING_HUB_COPY[kind][locale]
   return (
     <main style={{ maxWidth: 760, margin: "0 auto", padding: "32px 20px 64px" }}>
-      <Link href={canonicalPath(locale, "")} style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>
+      <Link href={canonicalPath(locale, "")} style={{ color: "#34C759", textDecoration: "none", fontSize: 13, display: "inline-flex", alignItems: "center", minHeight: 44 }}>
         ← Resale IQ
       </Link>
       <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "22px 0 12px" }}>{t.h1}</h1>

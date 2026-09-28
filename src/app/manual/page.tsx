@@ -92,7 +92,7 @@ export default async function ManualIndex() {
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#34C759", textDecoration: "none", fontSize: 13 }}>← Resale IQ</Link>
+        <Link href="/" style={{ color: "#34C759", textDecoration: "none", fontSize: 13, display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
 
         <h1 style={{ fontSize: 36, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", lineHeight: 1.15, margin: "22px 0 14px" }}>
           The Vinted Reselling Manual
