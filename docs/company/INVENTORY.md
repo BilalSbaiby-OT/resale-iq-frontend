@@ -1,6 +1,6 @@
 # INVENTORY — generated, do not hand-edit
 
-**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `b7b2318`
+**Regenerate:** `node scripts/build-inventory.mjs` · **Verify fresh:** `--check` · commit `8f6b2d8`
 
 This file exists so that **"does X exist?" is a lookup, not a guess.** Asserting an absence after an
 incomplete search is one of the five failure classes in `POST-MORTEM.md`, and the most expensive
@@ -9,8 +9,9 @@ telling the founder we had no telemetry at all.
 
 **Before writing "there is no ...", look here. A grep that finds nothing proves you did not find it.**
 
-## Production tables (52) — from `demand-intel/db/schema.py`
+## Production tables (59) — from `demand-intel/db/schema.py`
 
+- `IF`
 - `acquisition_channels`
 - `activity_logs`
 - `agent_audit_log`
@@ -24,10 +25,15 @@ telling the founder we had no telemetry at all.
 - `cycle_purchases`
 - `demand_index`
 - `deploys`
+- `digest_sends`
+- `digest_subscribers`
+- `email_idempotency`
 - `email_unsubscribes`
 - `email_verifications`
 - `experiments`
 - `ext_error_counts`
+- `first_free_verdict`
+- `guard`
 - `health_checks`
 - `image_embeddings`
 - `investment_cycles`
@@ -50,6 +56,7 @@ telling the founder we had no telemetry at all.
 - `purchase_logs`
 - `rank_snapshots`
 - `reddit_queue`
+- `referrals`
 - `saved_searches`
 - `scraper_log`
 - `shelf_passes`
@@ -64,7 +71,7 @@ telling the founder we had no telemetry at all.
 - `watchlist_items`
 - `will`
 
-## Check scripts (8)
+## Check scripts (10)
 
 - `scripts/check-agent-isolation.mjs`
 - `scripts/check-duplicate-logic.mjs`
@@ -73,9 +80,11 @@ telling the founder we had no telemetry at all.
 - `scripts/check-silent-failure.mjs`
 - `scripts/check-stale-gates.mjs`
 - `scripts/check-tracked-figure.mjs`
+- `scripts/check-untracked-brand-claims.mjs`
 - `scripts/check-warehouse.mjs`
+- `scripts/check-weekly-claims.mjs`
 
-## npm scripts (20)
+## npm scripts (22)
 
 - `build`
 - `check:dupes`
@@ -88,7 +97,9 @@ telling the founder we had no telemetry at all.
 - `check:silent`
 - `check:tracked`
 - `check:tracked:built`
+- `check:untracked-brands`
 - `check:warehouse`
+- `check:weekly-claims`
 - `dev`
 - `lint`
 - `seo:indexnow`
