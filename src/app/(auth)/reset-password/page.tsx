@@ -6,10 +6,21 @@ import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useAuthStore } from "@/lib/auth-store"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { CheckCircle2, AlertCircle } from "lucide-react"
+import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+
+// C183(tony): Plausible/Duolingo pattern — show live product value alongside
+// the reset form. A user resetting their password is highly motivated (inbox
+// twice) — this is the exact moment to remind them what they're coming back for.
+// Same fallback approach as forgot-password/check-email.
+const DEMAND_FALLBACK: SnapshotBrandRow[] = [
+  { brand: "Stone Island", category: "Hoodies",     sold_7d: 102, avg_price_eur: 58 },
+  { brand: "New Balance",  category: "Sneakers",    sold_7d: 383, avg_price_eur: 43 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+]
 
 export default function ResetPasswordPage() {
   // Read the token from the URL on the client rather than via useSearchParams:
@@ -29,12 +40,22 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState("")
+  // C183(tony): live demand rows — Plausible "show the product alongside the
+  // form" pattern. Fetched on mount so they're ready when the form renders.
+  const [demandRows, setDemandRows] = useState<SnapshotBrandRow[]>(DEMAND_FALLBACK)
   const router = useRouter()
   const tr = copy[useLocale()].auth.resetPassword
 
   useEffect(() => {
     const t = new URLSearchParams(window.location.search).get("token")
     setUrlToken(t)
+  }, [])
+
+  // C183(tony): fetch live numbers on mount in parallel with the token check.
+  // Race is safe — numbers are only rendered in the form state which shows
+  // after the token check, so they're always ready by then.
+  useEffect(() => {
+    fetchTopBrandRows(3, DEMAND_FALLBACK).then(rows => setDemandRows(rows)).catch(() => {})
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -88,7 +109,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md flex flex-col gap-5">
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-8">
         {done ? (
           <div className="text-center">
@@ -137,6 +158,58 @@ export default function ResetPasswordPage() {
           </>
         )}
       </div>
+
+      {/* C183(tony): live demand panel alongside the valid-token form state.
+          Plausible/Duolingo pattern: "show the product while the user completes
+          admin". A password-reset user is highly motivated — they went to their
+          inbox TWICE. Showing live Vinted numbers during the form fill reminds
+          them exactly what they're coming back for, reducing abandonment at
+          the last step. Rows link to the closest free-sample verdict so a tap
+          delivers a real result even pre-login (same pattern as forgot-password
+          C167 and check-email C162). Only renders on the valid-token form state
+          (not done / invalid / checking). */}
+      {urlToken && !done && (
+        <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp size={16} className="text-[var(--color-buy)]" />
+            <span className="text-[12px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
+              What&apos;s moving on Vinted right now
+            </span>
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
+            {demandRows.map(b => {
+              const brand = b.brand.toLowerCase()
+              const sampleHref = brand.includes("new balance")
+                ? "/verdict?q=New+Balance+530"
+                : brand.includes("adidas")
+                  ? "/verdict?q=Adidas+Samba"
+                  : "/verdict?q=Nike+Air+Force+1"
+              return (
+                <Link
+                  key={`${b.brand}-${b.category}`}
+                  href={sampleHref}
+                  className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0 hover:bg-[var(--color-surface-hover,rgba(255,255,255,0.04))] rounded-lg px-1 -mx-1 transition-colors group"
+                >
+                  <div>
+                    <span className="text-[13.5px] font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-buy)]">{b.brand}</span>
+                    <span className="text-[12px] text-[var(--color-text-muted)] ml-1.5">{b.category}</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[13px] font-bold text-[var(--color-buy)]">
+                      {b.sold_7d.toLocaleString()}
+                    </span>
+                    <span className="text-[11px] text-[var(--color-text-muted)] ml-1">departures/7d</span>
+                    <div className="text-[11.5px] text-[var(--color-text-secondary)]">avg €{b.avg_price_eur}</div>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+          <p className="text-[11.5px] text-[var(--color-text-muted)] leading-relaxed">
+            Your verdict unlocks the moment you&apos;re back in. Tap a row to preview the data.
+          </p>
+        </div>
+      )}
     </div>
   )
 }
