@@ -149,10 +149,8 @@ export function BlogInlineChecker({
           appears immediately for the chip query — not for the static post topic.
           comparable_n from SSR PAYWALL response shows when available. */}
       {!isActiveQueryFreeModel && (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           data-testid="riq-blog-above-fold-cta"
-          onClick={() => trackEvent("checkout_from_blog")}
           style={{
             display: "flex",
             alignItems: "center",
@@ -223,7 +221,6 @@ export function BlogInlineChecker({
       {isFreeModelQuery && !chipQuery && (
         <div
           data-testid="riq-blog-buylist-pitch"
-          onClick={() => trackEvent("checkout_from_blog")}
           style={{
             display: "flex",
             alignItems: "center",

@@ -73,7 +73,18 @@ export function useGuestCheckout({
     const here = typeof window !== "undefined" ? window.location.pathname : "/tools"
     const eventPath = src ? `${here}?plan=operator&src=${src}` : `${here}?plan=operator`
     try {
-      if (!getToken()) trackEvent("checkout_intent_guest", eventPath)
+      if (!getToken()) {
+        trackEvent("checkout_intent_guest", eventPath)
+        // C225(elon): fire checkout_from_blog for any checkout initiated from a blog post.
+        // checkout_from_blog was only attached as onClick on the above-fold CTA div in
+        // blog-inline-checker.tsx — not on the GuestCheckoutButton inside HardPaywallCard
+        // or any other FreeChecker paywall branch. Every checkout that flows through
+        // use-guest-checkout (the common path) from /blog/* was invisible to the metric,
+        // making it perpetually 0 despite real conversion attempts. Surface: blog 130/7d.
+        if (here.startsWith("/blog/") || here.includes("/blog/")) {
+          trackEvent("checkout_from_blog", eventPath)
+        }
+      }
       // C196 CRO: save the item query before redirecting to Stripe so
       // /billing/success pre-fills the first check and the cancelled-
       // recovery card can show "you were about to unlock [item]".
