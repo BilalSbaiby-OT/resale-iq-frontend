@@ -8,6 +8,7 @@ import Link from "next/link"
 import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 import { fetchTopBrandRows } from "@/lib/market-snapshot"
+import { trackEvent } from "@/lib/analytics"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -64,6 +65,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             useAuthStore.setState({ isAuthenticated: true, isLoading: false })
           }
           setState("signed-in")
+          // C(tony): track email verification as a funnel event — previously
+          // unmeasured black hole between signup_completed and first_analysis.
+          // Without this we cannot see how many users drop at the verify step.
+          try { trackEvent("email_verified") } catch { /* never block redirect */ }
           // why: landing on a cold /verdict with an empty input is the
           // single measured reason 14/14 verified users never ran a check
           // (verdict_date=null all). The ?q= triggers the existing useEffect
