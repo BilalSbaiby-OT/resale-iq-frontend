@@ -199,13 +199,13 @@ export function BlogInlineChecker({
               </div>
             ) : (
               <span style={{ fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-                <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — buy-below prices for each.
+                <strong style={{ color: "#34C759" }}>Today&rsquo;s buy list</strong> — ranked items with buy-below prices.
               </span>
             )}
           </div>
           <GuestCheckoutButton
             locale={locale}
-            label={buyListPreview && buyListPreview.length > 0 ? "Unlock all 47+ items →" : "See full buy list →"}
+            label={buyListPreview && buyListPreview.length > 0 ? "Unlock full buy list →" : "See full buy list →"}
             src="blog_buylist_pitch"
             query={activeQuery}
           />
@@ -261,13 +261,13 @@ export function BlogInlineChecker({
               </div>
             ) : (
               <span style={{ fontSize: 13, color: "#c3cde0", lineHeight: 1.45 }}>
-                <strong style={{ color: "#34C759" }}>47+ items like this</strong>, ranked by profit margin — with buy-below prices for each.
+                <strong style={{ color: "#34C759" }}>Today&rsquo;s buy list</strong> — ranked items with buy-below prices.
               </span>
             )}
           </div>
           <GuestCheckoutButton
             locale={locale}
-            label={buyListPreview && buyListPreview.length > 0 ? "Unlock all 47+ items →" : "See full buy list →"}
+            label={buyListPreview && buyListPreview.length > 0 ? "Unlock full buy list →" : "See full buy list →"}
             src="blog_buylist_pitch"
             query={preflightQuery}
           />
