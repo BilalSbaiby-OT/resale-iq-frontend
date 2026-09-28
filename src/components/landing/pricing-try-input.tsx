@@ -75,6 +75,88 @@ interface InlineVerdict {
   confidence: string | null
 }
 
+/** Inline paywall nudge — shown when a custom-item fetch returns 402 (PAYWALL). */
+function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void }) {
+  const [email, setEmail] = useState(initialEmail ?? "")
+  const handleEmailChange = (v: string) => {
+    setEmail(v)
+    if (v.trim()) {
+      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
+      onEmailCapture?.(v.trim())
+    }
+  }
+  return (
+    <div
+      data-testid="riq-pricing-custom-paywall"
+      style={{
+        marginTop: 14,
+        maxWidth: 480,
+        background: "var(--color-surface)",
+        border: "1px solid rgba(52,199,89,.3)",
+        borderRadius: 12,
+        padding: "14px 16px",
+      }}
+    >
+      {/* Personalised headline — CRO #3 message-match */}
+      <p style={{ fontSize: 14, fontWeight: 700, color: "#eef1f7", margin: "0 0 6px", lineHeight: 1.4 }}>
+        We have data on <strong style={{ color: "#34C759" }}>{query}</strong> — unlock it below
+      </p>
+      <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
+        BUY / WATCH / SKIP verdict + exact buy-below price · Starter €19/mo
+      </p>
+      {/* Locked field teaser — same FOMO pattern as InlineVerdictCard */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+        {["Buy-below price", "Sell-through rate", "Top sizes", "Demand trend"].map((f) => (
+          <span
+            key={f}
+            style={{
+              fontSize: 11,
+              color: "#4a5970",
+              border: "1px solid #1e2d45",
+              borderRadius: 6,
+              padding: "3px 7px",
+              filter: "blur(2px)",
+              userSelect: "none",
+            }}
+          >
+            {f}
+          </span>
+        ))}
+      </div>
+      {/* Email capture before checkout — same pattern as H122/H126 */}
+      {!email && (
+        <input
+          type="email"
+          placeholder="Enter your email to unlock →"
+          onChange={e => handleEmailChange(e.target.value)}
+          style={{
+            width: "100%",
+            background: "#0d1117",
+            color: "#eef1f7",
+            border: "1.5px solid rgba(52,199,89,.35)",
+            borderRadius: 9,
+            padding: "9px 13px",
+            fontSize: 13.5,
+            outline: "none",
+            marginBottom: 8,
+            boxSizing: "border-box",
+          }}
+        />
+      )}
+      <GuestCheckoutButton
+        locale={locale}
+        label={`Unlock ${query} — €19/mo →`}
+        src="pricing_custom_paywall"
+        query={query}
+        customerEmail={email || undefined}
+      />
+      <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "8px 0 0" }}>
+        30-day money-back guarantee · cancel anytime
+      </p>
+    </div>
+  )
+}
+
 function verdictColor(v: VerdictType): string {
   if (v === "BUY") return "#34C759"
   if (v === "SKIP") return "#FF3B30"
@@ -239,6 +321,9 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
   const [activeChip, setActiveChip] = useState<string | null>(null)
   const [inlineResult, setInlineResult] = useState<InlineVerdict | null>(null)
   const [loading, setLoading] = useState(false)
+  // H128 CRO: inline custom paywall — submitted custom item returns 402 inline.
+  const [customPaywallQuery, setCustomPaywallQuery] = useState<string | null>(null)
+  const [customLoading, setCustomLoading] = useState(false)
   // H125 CRO: read captured email for GuestCheckoutButton pre-fill in InlineVerdictCard.
   // Same pattern as HardPaywallCard H122 — read at mount to avoid SSR mismatch.
   const [capturedEmail, setCapturedEmail] = useState("")
@@ -274,12 +359,57 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
     }
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const trimmed = q.trim()
     if (!trimmed) return
-    // Custom items route to /tools where HardPaywallCard shows the item name
-    router.push(canonicalPath(locale, `/tools?q=${encodeURIComponent(trimmed)}&src=pricing_try`))
+    // H128 CRO: fetch inline instead of routing to /tools.
+    // Free samples return a verdict (show it inline). Paid items return 402 PAYWALL —
+    // show CustomItemPaywallCard in place so the visitor stays on /pricing next to the
+    // plan cards, at the highest conviction moment. Before this, every custom submit
+    // navigated away to /tools → paywall → "Back to pricing" (3 clicks to checkout).
+    // Now: type item → submit → personalized nudge appears inline → one click to Stripe.
+    // CRO #9 (momentum: every section guides action) + #12 (demo → personalized → ask).
+    // Revenue 2026-09-28. H128.
+    setCustomPaywallQuery(null)
+    setInlineResult(null)
+    setActiveChip(null)
+    setCustomLoading(true)
+    try {
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      if (res.status === 402 || res.status === 401) {
+        // Paywalled item — show custom nudge inline, no navigation.
+        setCustomPaywallQuery(trimmed)
+      } else if (res.ok) {
+        const data = await res.json()
+        if (data.verdict && data.verdict !== "PAYWALL") {
+          // Free sample returned full verdict — show it inline.
+          setActiveChip(trimmed)
+          setInlineResult({
+            verdict: (data.verdict as VerdictType) ?? "WATCH",
+            buy_below: data.buy_below ?? null,
+            sell_avg: data.sell_avg ?? null,
+            demand_note: data.demand_note ?? null,
+            product: data.product ?? trimmed,
+            confidence: data.confidence ?? null,
+          })
+        } else {
+          // PAYWALL verdict in 200 body (some backends return 200+PAYWALL).
+          setCustomPaywallQuery(trimmed)
+        }
+      } else {
+        // Unexpected error — fall back to navigation so the user isn't stuck.
+        router.push(canonicalPath(locale, `/tools?q=${encodeURIComponent(trimmed)}&src=pricing_try`))
+      }
+    } catch (err) {
+      // why: network error on a pricing-page fetch is non-fatal — the visitor
+      // is routed to /tools as a fallback so they aren't left without a path.
+      // Logging at warn preserves debuggability without alarming users.
+      console.warn("[pricing-try] inline fetch failed, falling back to /tools:", err instanceof Error ? err.message : String(err))
+      router.push(canonicalPath(locale, `/tools?q=${encodeURIComponent(trimmed)}&src=pricing_try`))
+    } finally {
+      setCustomLoading(false)
+    }
   }
 
   return (
@@ -341,7 +471,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
         </div>
         <button
           type="submit"
-          disabled={!q.trim()}
+          disabled={!q.trim() || customLoading}
           style={{
             background: "#30D158",
             color: "#000",
@@ -350,12 +480,12 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
             padding: "10px 18px",
             fontSize: 14,
             fontWeight: 700,
-            cursor: q.trim() ? "pointer" : "not-allowed",
-            opacity: q.trim() ? 1 : 0.45,
+            cursor: (q.trim() && !customLoading) ? "pointer" : "not-allowed",
+            opacity: (q.trim() && !customLoading) ? 1 : 0.45,
             whiteSpace: "nowrap",
           }}
         >
-          Check it →
+          {customLoading ? "…" : "Check it →"}
         </button>
       </form>
 
@@ -407,6 +537,12 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
 
       {/* Inline verdict result */}
       {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />}
+      {/* H128 CRO: inline custom paywall — stays on /pricing for personalized upsell.
+          Before: custom submit → /tools → paywall → "Back to pricing" (3 hops).
+          Now: submit → fetch → 402 → CustomItemPaywallCard inline → one click to Stripe.
+          Keeps visitor at highest conviction moment (they chose to type their item).
+          CRO #9 (momentum) + #12 (demonstration → personalized → ask). Revenue 2026-09-28. */}
+      {customPaywallQuery && <CustomItemPaywallCard query={customPaywallQuery} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />}
     </div>
   )
 }
