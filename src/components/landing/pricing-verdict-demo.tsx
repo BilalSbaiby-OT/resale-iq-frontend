@@ -259,6 +259,36 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
             + more — unlocked with Starter
           </span>
         </div>
+
+        {/* H119 CRO: post-demo CTA — every section must guide action (principle #9).
+            The demo card showed the full product output. A visitor sold at this moment
+            has no path forward — they must scroll past the try-your-item input to reach
+            plan cards. This anchor short-circuits that for already-convinced visitors
+            while leaving the try-input visible for those still deciding.
+            CRO #9 (guide action) + #12 (demonstration → earned CTA).
+            Revenue 2026-09-28. H119. */}
+        <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,.06)" }}>
+          <a
+            href="#pricing-plans"
+            data-testid="riq-demo-to-plans-cta"
+            style={{
+              display: "inline-block",
+              background: "#30D158",
+              color: "#06090c",
+              fontWeight: 700,
+              fontSize: 13,
+              borderRadius: 8,
+              padding: "9px 18px",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Check your own items →
+          </a>
+          <span style={{ marginLeft: 14, fontSize: 12, color: "#5b6b8c" }}>
+            Starter €19/mo · cancel anytime
+          </span>
+        </div>
       </div>
     </div>
   )
