@@ -49,6 +49,19 @@ export function HardPaywallCard({
   useEffect(() => {
     try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
   }, [])
+  // H122 CRO: inline email input on the paywall card for direct /tools traffic.
+  // A visitor who arrives at /tools directly has never typed their email on homepage
+  // or blog — so riq_capture_email is empty and Stripe gets no prefill. This adds a
+  // single email field ABOVE the checkout button, persisting to riq_capture_email so
+  // every checkout path (GuestCheckoutButton + registered flow) pre-fills Stripe.
+  // CRO principle #6 (cognitive load) — removes the first thing they must type on Stripe.
+  // Revenue 2026-09-28.
+  const handleEmailChange = (v: string) => {
+    setCapturedEmail(v)
+    if (v.trim()) {
+      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
+    }
+  }
   const headline = query?.trim()
     ? t.paywallHeadlineForItem(query.trim())
     : t.paywallHeadline
@@ -128,6 +141,29 @@ export function HardPaywallCard({
             </div>
           ))}
         </div>
+        {/* H122 CRO: email capture on the paywall card — prefills Stripe for direct /tools visitors.
+            Visitors arriving via /tools directly have never typed their email on homepage/blog,
+            so riq_capture_email is empty. One field here closes the gap; value persists so
+            GuestCheckoutButton below always sends customer_email to the backend. */}
+        {!capturedEmail && (
+          <input
+            type="email"
+            placeholder="Enter your email to continue →"
+            onChange={e => handleEmailChange(e.target.value)}
+            style={{
+              width: "100%",
+              background: "#0d1117",
+              color: "#eef1f7",
+              border: "1.5px solid rgba(52,199,89,.35)",
+              borderRadius: 9,
+              padding: "9px 13px",
+              fontSize: 13.5,
+              outline: "none",
+              marginBottom: 10,
+              boxSizing: "border-box",
+            }}
+          />
+        )}
         <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} customerEmail={capturedEmail || undefined} />
       </div>
 
