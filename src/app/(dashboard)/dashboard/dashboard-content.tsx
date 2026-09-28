@@ -11,6 +11,7 @@ import { OutcomePrompt } from "@/components/ui/outcome-prompt"
 import { getKPIs, getDeals, getBrandRankings, getTrendsSummary, getRecentSold, addToWatchlist, isPaymentRequired } from "@/lib/api"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { eur, ago } from "@/lib/utils"
+import { getToken } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
 import { appCopy } from "@/lib/app-copy"
@@ -19,6 +20,7 @@ import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useRouter } from "next/navigation"
+import { isPaidPlan } from "@/lib/entitlement"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /**
@@ -214,7 +216,8 @@ function VerdictChip({ v }: { v: string }) {
 
 interface PublicBuyItem {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
-  locked: boolean; sold_7d: number | null; sold_30d_evidence: number | null; avg_price_eur: number | null
+  locked: boolean; sold_7d: number | null; sold_30d_evidence?: number | null; sold_30d?: number | null; avg_price_eur: number | null
+  max_buy_price?: number | null
 }
 
 export function DashboardContent({ locale }: { locale: Locale }) {
@@ -250,11 +253,25 @@ export function DashboardContent({ locale }: { locale: Locale }) {
       set(empty)
     }
     getKPIs().then(setKpis).catch(onFail(setKpis, null))
-    // Public buy-list: top N ranked items, 3 free rows, no JWT needed.
-    // This renders the "what to buy today" answer while authenticated deals load.
-    fetch("/api/public/buy-list?limit=6")
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d?.items?.length) setPublicBuys((d.items as PublicBuyItem[]).slice(0, 5)) })
+    // Buy-list: always try the paid /api/buy-list with bearer token (includes max_buy_price
+    // for Starter/Pro). If the user is free/anon the backend returns 402 → fall back to the
+    // public teaser (/api/public/buy-list, 3 free rows). This means paid users always see
+    // unlocked buy-below prices in the "What to buy today" section.
+    const token = getToken()
+    const buyListHeaders: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
+    fetch("/api/buy-list?limit=6", { headers: buyListHeaders })
+      .then(r => {
+        if (r.status === 402) {
+          // Free/anon user — fall back to public teaser
+          return fetch("/api/public/buy-list?limit=6").then(r2 => r2.ok ? r2.json() : null)
+        }
+        return r.ok ? r.json() : null
+      })
+      .then(d => {
+        // Paid endpoint returns { results: [...] }, public returns { items: [...] }
+        const rows = d?.results ?? d?.items
+        if (rows?.length) setPublicBuys((rows as PublicBuyItem[]).slice(0, 5))
+      })
       .catch(() => {})
     getDeals({ limit: 8 })
       // `d.locked` alone is not enough and never was: the flag is a constant
@@ -330,6 +347,32 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           ? publicBuys.slice(0, 4).map(b => b.model ? `${b.brand} ${b.model}` : b.brand)
           : undefined}
       />
+
+      {/* PAID USER ONBOARDING: 3-step plain-language guide shown once on first visit.
+          Shown to paid users (Starter/Pro) when there's no ?welcome=1 (already handled above).
+          Gives new accounts a mental model for what to do next. */}
+      {isPaidPlan(user) && !showWelcome && (
+        <div
+          data-testid="riq-paid-onboarding"
+          style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: "16px 20px", marginBottom: 24 }}
+        >
+          <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 12 }}>
+            Three things to do right now
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { n: "1", text: "See this week's buy list — scroll down for the ranked items to stock.", href: "#what-to-buy" },
+              { n: "2", text: "Check any item before you buy — type brand + model in the box above.", href: "/verdict" },
+              { n: "3", text: "Save items to your watchlist — click any item, then Watchlist.", href: "/watchlist" },
+            ].map(({ n, text, href }) => (
+              <Link key={n} href={href} style={{ display: "flex", gap: 12, alignItems: "flex-start", textDecoration: "none" }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-accent)", background: "rgba(52,199,89,.10)", border: "1px solid rgba(52,199,89,.25)", borderRadius: 6, padding: "2px 8px", flexShrink: 0, lineHeight: 1.6 }}>{n}</span>
+                <span style={{ fontSize: 14, color: "var(--color-graphite-muted)", lineHeight: 1.5, paddingTop: 2 }}>{text}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {showWelcome && (
         <div
@@ -440,7 +483,13 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                     ? <Lock size={12} color="var(--color-graphite-muted)" aria-label="Upgrade to unlock" />
                     : <VerdictChip v={v} />}
                   <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums", flexShrink: 0, width: 52, textAlign: "right" }}>
-                    {item.locked ? "—" : (item.avg_price_eur != null ? `€${item.avg_price_eur}` : "—")}
+                    {item.locked
+                      ? "—"
+                      : (item.max_buy_price != null
+                          ? `€${Math.round(item.max_buy_price)}`
+                          : item.avg_price_eur != null
+                            ? `€${item.avg_price_eur}`
+                            : "—")}
                   </span>
                 </div>
               )
@@ -454,10 +503,14 @@ export function DashboardContent({ locale }: { locale: Locale }) {
             >
               Open deal scanner →
             </Link>
-            <span style={{ color: "var(--color-hairline)", fontSize: 14 }}>·</span>
-            <Link href="/account" style={{ fontSize: 13, color: "var(--color-graphite-muted)", textDecoration: "none" }}>
-              Unlock buy-below
-            </Link>
+            {!isPaidPlan(user) && (
+              <>
+                <span style={{ color: "var(--color-hairline)", fontSize: 14 }}>·</span>
+                <Link href="/account" style={{ fontSize: 13, color: "var(--color-graphite-muted)", textDecoration: "none" }}>
+                  Unlock buy-below
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

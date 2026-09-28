@@ -14,7 +14,7 @@ const PLAN_COLOR: Record<string, string> = { free: "#60a5fa", operator: "#34d399
 const TH: React.CSSProperties = { fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.8px", color: "#4d5a75", textAlign: "left", padding: "10px 14px", background: "var(--color-surface-elevated)", borderBottom: "1px solid var(--color-border-ui)" }
 const TD: React.CSSProperties = { padding: "12px 14px", borderBottom: "1px solid #181e2d", fontSize: 13, verticalAlign: "middle" }
 
-type Filter = "all" | "paying" | "comped" | "disabled"
+type Filter = "all" | "paying" | "comped" | "disabled" | "google" | "email"
 
 function isOn(u: AdminUser) {
   return u.is_active === true
@@ -40,7 +40,11 @@ function Badge({ label, color }: { label: string; color: string }) {
 
 function AdminInner() {
   const [users, setUsers] = useState<AdminUser[] | null>(null)
-  const [metrics, setMetrics] = useState<{ paying_total: number; mrr_eur: number; verified_users: number; total_users: number } | null>(null)
+  const [metrics, setMetrics] = useState<{
+    paying_total: number; mrr_eur: number; verified_users: number; total_users: number
+    google_signups?: number; email_signups?: number; free_users?: number
+    comped?: number; new_signups_7d?: number
+  } | null>(null)
   const [err, setErr] = useState("")
   const [busy, setBusy] = useState<number | string | null>(null)
   const [q, setQ] = useState("")
@@ -106,6 +110,8 @@ function AdminInner() {
       if (filter === "paying") return u.billing === "stripe" && isOn(u)
       if (filter === "comped") return u.billing === "comped"
       if (filter === "disabled") return !isOn(u)
+      if (filter === "google") return u.signup_method === "google"
+      if (filter === "email") return u.signup_method === "email"
       return true
     })
   }, [users, query, filter])
@@ -128,6 +134,8 @@ function AdminInner() {
     { id: "paying", label: "Paying" },
     { id: "comped", label: "Comped" },
     { id: "disabled", label: "Disabled" },
+    { id: "google", label: "Google" },
+    { id: "email", label: "Email" },
   ]
 
   return (
@@ -136,10 +144,14 @@ function AdminInner() {
       {metrics && (
         <div className="riq-grid-kpi" style={{ marginBottom: 18 }}>
           {[
-            { l: "Customers", v: String(metrics.verified_users), c: "#eef1f7", h: "Verified accounts, excluding internal" },
-            { l: "Paying", v: String(metrics.paying_total), c: "#34d399", h: "Active Stripe subscriptions" },
-            { l: "MRR", v: `€${metrics.mrr_eur}`, c: "#FF9F0A", h: "Starter €19 · Pro €49. Gifted plans excluded." },
-            { l: "Comped", v: String(compedCount), c: "#60a5fa", h: "Paid plan, no Stripe — not revenue" },
+            { l: "Paying", v: String(metrics.paying_total), c: "#34d399", h: "Active Stripe subscriptions (excl. internal/owner)" },
+            { l: "MRR", v: `€${metrics.mrr_eur}`, c: "#FF9F0A", h: "Starter €19 · Pro €49. Gifted/comped excluded." },
+            { l: "Comped", v: String(metrics.comped ?? compedCount), c: "#60a5fa", h: "Paid plan, no Stripe — not revenue" },
+            { l: "Free users", v: String(metrics.free_users ?? "—"), c: "#8b99b8", h: "Active free accounts (excl. internal/owner)" },
+            { l: "Real users", v: String(metrics.verified_users), c: "#eef1f7", h: "Verified accounts, excl. internal & owner" },
+            { l: "Google sign-ups", v: String(metrics.google_signups ?? "—"), c: "#60a5fa", h: "Signed up via Google OAuth" },
+            { l: "Email sign-ups", v: String(metrics.email_signups ?? "—"), c: "#8b99b8", h: "Signed up with email + password" },
+            { l: "New (7 days)", v: String(metrics.new_signups_7d ?? "—"), c: "#34d399", h: "New sign-ups in last 7 days (excl. internal)" },
           ].map(k => (
             <div key={k.l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "16px 18px" }}>
               <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.6px" }}>{k.l}</div>
@@ -177,8 +189,8 @@ function AdminInner() {
             {users.length === 0 ? "No users yet." : "Nothing in this view."}
           </div>
         ) : (
-          <div className="riq-scroll-x"><table style={{ width: "100%", borderCollapse: "collapse", minWidth: 780 }}>
-            <thead><tr>{["Customer", "Plan", "Billing", "Status", "Joined", ""].map(h => <th key={h || "a"} style={TH}>{h}</th>)}</tr></thead>
+          <div className="riq-scroll-x"><table style={{ width: "100%", borderCollapse: "collapse", minWidth: 900 }}>
+            <thead><tr>{["Customer", "Plan", "Billing", "Sign-up", "Stripe sub", "Status", "Joined", ""].map(h => <th key={h || "a"} style={TH}>{h}</th>)}</tr></thead>
             <tbody>
               {filtered.map(u => {
                 const on = isOn(u)
@@ -210,6 +222,16 @@ function AdminInner() {
                   <td style={TD}>
                     {u.billing === "stripe" ? <Badge label="Stripe" color="#34d399" />
                       : u.billing === "comped" ? <Badge label="Comped" color="#60a5fa" />
+                      : <span style={{ color: "#4d5a75", fontSize: 12 }}>—</span>}
+                  </td>
+                  <td style={TD}>
+                    <span style={{ fontSize: 12, color: u.signup_method === "google" ? "#60a5fa" : "#8b99b8" }}>
+                      {u.signup_method === "google" ? "Google" : "Email"}
+                    </span>
+                  </td>
+                  <td style={TD}>
+                    {u.stripe_sub_id
+                      ? <Badge label="Active" color="#34d399" />
                       : <span style={{ color: "#4d5a75", fontSize: 12 }}>—</span>}
                   </td>
                   <td style={TD}>

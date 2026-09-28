@@ -172,10 +172,9 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         ))}
       </div>
 
-      {/* Risk reversal — removes the last objection for an ROI-driven buyer. */}
-      <div style={{ marginTop: 22, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(34,197,94,.06)", border: "1px solid rgba(34,197,94,.25)", borderRadius: 20, padding: "7px 16px" }}>
-        <Check size={14} color="#34C759" strokeWidth={2.5} />
-        <span style={{ fontSize: 13, color: "#c3cde0" }}>30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.</span>
+      {/* Fine-print refund */}
+      <div style={{ marginTop: 22 }}>
+        <a href="/terms" style={{ fontSize: 11.5, color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
       </div>
 
       <div style={{ marginTop: 20, fontSize: 12, color: "#5b6b8c" }}>

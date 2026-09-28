@@ -369,7 +369,7 @@ export default async function BlogPostPage(
                 src="blog_footer_cta"
                 query={p.preflightQuery}
               />
-              <div style={{ fontSize: 12.5, color: "#5b6b8c", margin: "10px 0 14px" }}>Instant access · 30-day money-back guarantee · cancel anytime</div>
+              <div style={{ fontSize: 11.5, color: "#4d5a75", margin: "10px 0 14px" }}><a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a></div>
             </>
           ) : (
             <>

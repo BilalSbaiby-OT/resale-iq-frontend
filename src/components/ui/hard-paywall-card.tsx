@@ -142,7 +142,7 @@ export function HardPaywallCard({
             "BUY / WATCH / SKIP verdict + exact buy-below price",
             "Unlimited checks — every item in our catalog",
             "Sell-through rate, demand, top sizes, market trends",
-            "Instant access · 30-day money-back guarantee",
+            "Instant access · cancel anytime",
           ].map((f) => (
             <div key={f} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
               <Check size={13} color="#34C759" strokeWidth={2.5} style={{ marginTop: 2, flexShrink: 0 }} aria-hidden />
@@ -216,13 +216,12 @@ export function HardPaywallCard({
         )}
       </div>
 
-      {/* Risk-reversal guarantee */}
+      {/* Fine-print refund line */}
       <div
         data-testid="riq-paywall-guarantee"
-        style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 14, fontSize: 12.5, color: "#6a7d9a" }}
+        style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 14, fontSize: 11.5, color: "#4d5a75" }}
       >
-        <Check size={13} color="#34C759" strokeWidth={2.5} aria-hidden />
-        30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
+        <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
       </div>
     </div>
   )

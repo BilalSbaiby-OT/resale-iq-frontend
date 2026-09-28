@@ -15,7 +15,7 @@ import { CoverageMissCard } from "@/components/ui/coverage-miss-card"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import { useAuthStore } from "@/lib/auth-store"
-import { planChip } from "@/lib/entitlement"
+import { planChip, isPaidPlan } from "@/lib/entitlement"
 import { checkerUnlockBranch, checkerRefusalIsPaid } from "@/lib/checker-unlock-state"
 import { getToken, getPlanFromToken } from "@/lib/utils"
 import type { Plan, User } from "@/types"
@@ -738,12 +738,15 @@ export function FreeChecker({
       </form>
       {hero && (
         <>
-          <p
-            className="riq-free-scope"
-            data-testid="riq-free-scope"
-          >
-            {copy[locale].heroFreeScope}
-          </p>
+          {/* Only show the free-scope note to anon/free visitors — paid users don't need it */}
+          {!sessionProbed || !isPaidPlan(user) ? (
+            <p
+              className="riq-free-scope"
+              data-testid="riq-free-scope"
+            >
+              {copy[locale].heroFreeScope}
+            </p>
+          ) : null}
           {/* Chips rendered by HeroFreeChips outside this component (landing-content.tsx)
               which fires hero_cta_click analytics. ModelChips removed to avoid duplicate
               chip rows — a single row below the checker serves both purposes. */}

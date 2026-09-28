@@ -363,10 +363,9 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
             <p style={{ fontSize: 12, color: "#6A7D9A", margin: "0 0 3px" }}>
               Starter €19/mo — cancel anytime. Instant access.
             </p>
-            {/* H69 CRO: risk-reversal at the moment of decision on the buy list CTA.
-                CRO #4 (objection: "what if it fails?"). Revenue 2026-09-23. */}
+            {/* H69 CRO: refund fine-print at the moment of decision on the buy list CTA. */}
             <p style={{ fontSize: 11.5, color: "#4a5a70", margin: 0 }}>
-              30-day money-back guarantee — if it doesn&rsquo;t pay for itself, we refund you.
+              <a href="/terms" style={{ color: "#4a5a70", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
             </p>
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>

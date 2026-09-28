@@ -746,7 +746,7 @@ export function PricingSection({
                     That was a public demo item. Your items need a subscription.
                   </p>
                   <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    Type any brand + item above to see whether it's worth buying — buy-below price, sell-through rate, demand. €19/mo · 30-day money-back guarantee.
+                    Type any brand + item above to see whether it's worth buying — buy-below price, sell-through rate, demand. €19/mo · cancel anytime.
                   </p>
                   <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="pricing_sample_bridge" />
                 </div>
@@ -912,7 +912,7 @@ export function PricingSection({
                 CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
-                Instant access · 30-day money-back guarantee · cancel anytime
+                Instant access · cancel anytime · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
               </p>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
@@ -1095,7 +1095,7 @@ export function PricingSection({
           </p>
           <GuestCheckoutButton locale={locale} label="Start Starter €19 →" src="post-faq-cta" />
           <p style={{ fontSize: 12, color: "var(--color-text-muted)", margin: "12px 0 0" }}>
-            Instant access · cancel anytime · 30-day money-back guarantee
+            Instant access · cancel anytime · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
           </p>
         </div>
       )}

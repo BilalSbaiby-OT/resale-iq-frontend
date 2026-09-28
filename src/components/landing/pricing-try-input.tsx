@@ -151,7 +151,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
         customerEmail={email || undefined}
       />
       <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "8px 0 0" }}>
-        30-day money-back guarantee · cancel anytime
+        <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
       </p>
     </div>
   )

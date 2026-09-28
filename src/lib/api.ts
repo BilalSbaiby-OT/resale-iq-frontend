@@ -330,11 +330,17 @@ export interface AdminUser {
   verdict_count_today: number; verdict_date: string | null;
   email_verified?: boolean; is_owner?: boolean; protected?: boolean;
   billing?: "stripe" | "comped" | "none";
+  signup_method?: "google" | "email";
+  is_internal?: boolean;
 }
 export const adminListUsers = () =>
   request<{
     users: AdminUser[]; total: number;
-    metrics?: { paying_total: number; mrr_eur: number; verified_users: number; total_users: number };
+    metrics?: {
+      paying_total: number; mrr_eur: number; verified_users: number; total_users: number
+      google_signups?: number; email_signups?: number; free_users?: number
+      comped?: number; new_signups_7d?: number
+    };
   }>("/admin/users")
 export const adminChangePlan = (userId: number, plan: string) =>
   request<{ ok: boolean; new_plan: string }>(`/admin/users/${userId}/plan`, {
