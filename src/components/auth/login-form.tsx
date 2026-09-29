@@ -44,6 +44,22 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     if (preEmail) setEmail(decodeURIComponent(preEmail))
   }, [searchParams])
 
+  // C(tony)LoginIntentRecall: pre-populate the intent typeahead from
+  // localStorage on mount. A user who typed their item during /register
+  // (or a previous login session) should see it here without re-typing —
+  // so the goal-button immediately says "Sign in & check Stone Island Hoodie →"
+  // and on submit they route straight to their verdict.
+  // Pattern: Superhuman pre-fills context from the last session so returning
+  // users land in continuity, not a blank state.
+  // Only reads on mount — does NOT clear the key (verify-email owns that cleanup).
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(INTENT_QUERY_KEY)
+      if (saved && !intentQuery) setIntentQuery(saved)
+    } catch { /* private mode — intentQuery stays empty */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   /**
    * Google OAuth callback handler.
    *
