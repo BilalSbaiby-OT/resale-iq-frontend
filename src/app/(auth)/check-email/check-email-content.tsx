@@ -285,6 +285,25 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           className={`text-[12px] ${AUTH_TEXT_MUTED} hover:text-[var(--color-text-primary)]`}>
           {t.signOut}
         </button>
+
+        {/* C(tony)CheckEmailEscape: unverified users who log back in get routed
+            here with no way off the page (login-form.tsx redirects
+            email_verified===false straight to /check-email). 11/25 accounts ran
+            0 verdicts — some signed up, left, came back, and got stuck exactly
+            here. Anon.com's 2026 teardown of 20 SaaS signups flags this same
+            failure: "Email verification is required before accessing the
+            dashboard. A 'skip for now' option ... would help." usertourkit's
+            welcome-screen research is blunter: "The fastest way to lose trust
+            is trapping someone in a wizard they can't exit." Subdued on purpose
+            — this must not compete with the primary verify action above it. */}
+        {isAuthenticated && user && user.email_verified !== true && (
+          <Link
+            href="/dashboard"
+            className={`mt-2 text-[11.5px] ${AUTH_TEXT_MUTED} hover:text-[var(--color-text-primary)] transition-colors`}
+          >
+            Skip for now — continue to dashboard →
+          </Link>
+        )}
       </AuthCard>
 
       {/* C(tony)WaitingVerdictPreview: blurred verdict teaser for tracked intent
