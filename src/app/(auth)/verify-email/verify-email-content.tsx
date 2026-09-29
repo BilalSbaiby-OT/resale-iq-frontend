@@ -11,6 +11,7 @@ import { trackEvent } from "@/lib/analytics"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
+import { fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -105,6 +106,16 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // C(tony)C230: store timer ref so CTA click can cancel the redirect —
           // previously clicking the CTA still caused a /dashboard redirect 2500ms
           // later because the timer was not cancelled.
+          // C(tony)C231: Write the first-check seed before the /dashboard redirect.
+          // Registration writes the seed to sessionStorage immediately after
+          // account creation, but email verify links almost always open in a NEW
+          // TAB — a different sessionStorage context. The seed written at register
+          // time is dead by the time the user lands on /dashboard. We re-fetch and
+          // re-write it here so the "Your first check is ready" button on the
+          // dashboard shows for 100% of email-verified accounts, not just same-tab
+          // flows. Fire-and-forget: any error falls back gracefully (writeFirstCheckSeed
+          // swallows storage exceptions; fetchFirstCheckQuery returns FREE_MODELS[0]).
+          fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
           const go = (href: string) => {
             redirectTimerRef.current = setTimeout(() => router.replace(href), 2500)
           }
