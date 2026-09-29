@@ -15,6 +15,12 @@ const PUBLIC_ALLOW = [
   "/", "/tools", "/data", "/blog", "/flip", "/manual", "/glossary", "/category", "/methodology",
   "/best", "/vs", "/for",
   "/api-docs", "/terms", "/privacy", "/legal", "/support", "/llms.txt",
+  // Affiliate/partner programme — explicitly open to AI agents. /api/ sits in
+  // PRIVATE_DISALLOW below, but per the robots.txt spec the more specific
+  // Allow wins over the shorter Disallow prefix, so listing the exact
+  // affiliate sub-path here (not widening /api/ itself) is what actually
+  // lets a compliant agent call the register/stats endpoints.
+  "/partners", "/affiliate.json", "/api/public/affiliate/",
 ]
 const PRIVATE_DISALLOW = [
   "/dashboard", "/admin", "/account", "/deals", "/watchlist",

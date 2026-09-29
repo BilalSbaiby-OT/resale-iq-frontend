@@ -248,15 +248,16 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           + #9 (every section must do a job — this removes remaining doubt).
           Revenue 2026-09-29. H167. */}
       <PricingFaq />
-      {/* H152 CRO: sticky bottom CTA on /pricing — appears during proof scroll,
-          disappears when #pricing-plans is visible. A visitor convinced at
-          PricingVerdictDemo or PricingTryInput had no persistent CTA — they had to
-          scroll all the way down or back up to reach the plan cards. This bar
-          surfaces a one-tap scroll anchor throughout the proof section.
-          CRO #9 (friction: convinced visitor can act without scroll gymnastics)
-          + #10 (solution-aware → anchor to plans, not cold Stripe)
-          + #12 (momentum: proof → earned CTA, no interrupt).
-          Revenue 2026-09-29. H152. */}
+      {/* Founder feedback 2026-09-29: /partners had no inbound links anywhere on
+          the site. /pricing has no site-wide <footer> (that only exists on the
+          homepage via LandingContent) — this is the smallest honest fix: one
+          small link near the page's other fine-print links (Terms sits inside
+          PricingSection's own CTA cards above), not a new footer component. */}
+      <div style={{ maxWidth: 1040, margin: "0 auto", padding: "0 24px 24px", textAlign: "center" }}>
+        <Link href="/partners" style={{ color: "var(--color-text-muted)", fontSize: 12.5, textDecoration: "underline" }}>
+          Partners / Affiliate programme
+        </Link>
+      </div>
       <PricingStickyCta locale={locale} />
     </div>
   )

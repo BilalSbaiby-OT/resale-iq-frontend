@@ -357,6 +357,12 @@ export function LandingContent({
           <Link href="/flip" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
           <Link href="/buy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Buy prices</Link>
           <Link href="/category" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
+          {/* Founder feedback 2026-09-29: /partners worked (200) but nothing on the
+              site linked to it — a human or an AI agent had no way to discover the
+              affiliate programme except by guessing the URL. "Partners" stays
+              English across locales, same precedent as "Buy prices" two links up —
+              this is a footer link label, not core conversion copy. */}
+          <Link href="/partners" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Partners</Link>
           <Link href="/flip/nike" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
           <Link href="/category/sneakers" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
           <Link href="/manual" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>

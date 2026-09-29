@@ -182,6 +182,15 @@ export default async function BlogIndex() {
           , published free.
         </p>
 
+        {/* Founder feedback 2026-09-29: /partners had no inbound links anywhere on
+            the site. /blog has no shared <footer> either — smallest honest fix,
+            same pattern as the /pricing link just added. */}
+        <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", marginBottom: 14 }}>
+          <Link href="/partners" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>
+            Partners / Affiliate programme
+          </Link>
+        </p>
+
         {/* H160 CRO: ROI worked example on /blog index — conviction before ask (130/7d).
             /blog has the buy-list proof strip (H77) but sends visitors straight to a generic
             checkout CTA with no concrete payback example. Homepage + /pricing both show

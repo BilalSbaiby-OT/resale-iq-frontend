@@ -1,11 +1,27 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import {
+  AFFILIATE_COMMISSION,
+  AFFILIATE_CONTACT,
+  AFFILIATE_LINK_FORMAT,
+  AFFILIATE_REGISTER_ENDPOINT,
+  AFFILIATE_RULES,
+  AFFILIATE_STATS_ENDPOINT,
+  BASE_URL,
+} from "@/lib/affiliate-programme"
+import { AiAgentRegisterForm } from "@/components/partners/ai-agent-register-form"
 
 export const metadata: Metadata = {
   title: "Partner programme — Resale IQ",
   description:
     "Resale IQ pays 30% recurring commission and gives creators a free Pro account plus a personalised weekly buy-list they can publish as their own content.",
-  alternates: { canonical: "/partners" },
+  alternates: {
+    canonical: "/partners",
+    // Lets a script (human-written or agent-written) discover the
+    // machine-readable programme description without parsing this page's
+    // HTML — the conventional way to point at a JSON sibling of an HTML page.
+    types: { "application/json": [{ url: "/affiliate.json" }] },
+  },
   openGraph: {
     title: "Partner programme — Resale IQ",
     description:
@@ -145,6 +161,22 @@ export default function PartnersPage() {
             }}
           >
             Affiliate programme ↓
+          </a>
+          <a
+            href="#ai-agents"
+            style={{
+              display: "inline-block",
+              background: "transparent",
+              color: "var(--color-text-secondary)",
+              fontWeight: 500,
+              fontSize: 14,
+              padding: "12px 22px",
+              borderRadius: 10,
+              border: "1px solid var(--color-border-2)",
+              textDecoration: "none",
+            }}
+          >
+            For AI agents ↓
           </a>
         </div>
       </section>
@@ -671,6 +703,216 @@ export default function PartnersPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ── For AI agents ── */}
+      <section
+        id="ai-agents"
+        style={{ maxWidth: 720, margin: "56px auto 0", padding: "0 24px" }}
+      >
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 700,
+            color: "var(--color-text-primary)",
+            marginBottom: 12,
+          }}
+        >
+          For AI agents
+        </h2>
+        <p
+          style={{
+            fontSize: 15,
+            lineHeight: 1.65,
+            color: "var(--color-text-body)",
+            marginBottom: 20,
+          }}
+        >
+          An AI agent, or the person or company operating one, can register in
+          a single API call and get its own referral link — the same 30%
+          recurring commission and terms as a human affiliate, nothing
+          different. The human or company operating the agent is the
+          affiliate on record and receives any payout; the agent is not a
+          legal party to the programme.
+        </p>
+
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: "var(--color-text-secondary)",
+            marginBottom: 8,
+          }}
+        >
+          Register
+        </p>
+        <pre
+          style={{
+            background: "var(--color-bg-4)",
+            border: "1px solid var(--color-border-2)",
+            borderRadius: 10,
+            padding: "14px 16px",
+            fontSize: 12.5,
+            lineHeight: 1.6,
+            overflowX: "auto",
+            marginBottom: 20,
+          }}
+        >
+          <code>{`curl -X POST ${AFFILIATE_REGISTER_ENDPOINT.url} \\
+  -H "Content-Type: application/json" \\
+  -d '${JSON.stringify(AFFILIATE_REGISTER_ENDPOINT.example_request)}'`}</code>
+        </pre>
+
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: "var(--color-text-secondary)",
+            marginBottom: 8,
+          }}
+        >
+          Response (201) — the token is shown once, store it
+        </p>
+        <pre
+          style={{
+            background: "var(--color-bg-4)",
+            border: "1px solid var(--color-border-2)",
+            borderRadius: 10,
+            padding: "14px 16px",
+            fontSize: 12.5,
+            lineHeight: 1.6,
+            overflowX: "auto",
+            marginBottom: 20,
+          }}
+        >
+          <code>{JSON.stringify(AFFILIATE_REGISTER_ENDPOINT.example_response, null, 2)}</code>
+        </pre>
+
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: "var(--color-text-secondary)",
+            marginBottom: 8,
+          }}
+        >
+          Check your stats
+        </p>
+        <pre
+          style={{
+            background: "var(--color-bg-4)",
+            border: "1px solid var(--color-border-2)",
+            borderRadius: 10,
+            padding: "14px 16px",
+            fontSize: 12.5,
+            lineHeight: 1.6,
+            overflowX: "auto",
+            marginBottom: 20,
+          }}
+        >
+          <code>{`curl "${AFFILIATE_STATS_ENDPOINT.url}?code=YOUR_CODE&token=YOUR_TOKEN"`}</code>
+        </pre>
+
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--color-text-secondary)",
+            marginBottom: 20,
+            lineHeight: 1.6,
+          }}
+        >
+          Full machine-readable programme description, including the request
+          schema and the rules below, is at{" "}
+          <a href="/affiliate.json" style={{ color: "var(--color-buy)" }}>
+            /affiliate.json
+          </a>
+          . 409 means that email is already registered; 400 means the request
+          body was invalid; the endpoint is rate-limited.
+        </p>
+
+        <p
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: "var(--color-text-primary)",
+            marginBottom: 10,
+          }}
+        >
+          Or register here (calls the same endpoint)
+        </p>
+        <AiAgentRegisterForm />
+      </section>
+
+      {/* ── Terms ── */}
+      <section
+        id="terms"
+        style={{ maxWidth: 720, margin: "56px auto 0", padding: "0 24px" }}
+      >
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 700,
+            color: "var(--color-text-primary)",
+            marginBottom: 12,
+          }}
+        >
+          Terms
+        </h2>
+        <p
+          style={{
+            fontSize: 14,
+            color: "var(--color-text-secondary)",
+            marginBottom: 16,
+            lineHeight: 1.6,
+          }}
+        >
+          These apply equally whether you are a person or an AI agent (through
+          its operator). Registering means you accept them.
+        </p>
+        <ul
+          style={{
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
+          {AFFILIATE_RULES.map((rule) => (
+            <li
+              key={rule}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+                fontSize: 14,
+                color: "var(--color-text-body)",
+                lineHeight: 1.55,
+              }}
+            >
+              <span style={{ color: "var(--color-buy)", flexShrink: 0, fontWeight: 700 }}>·</span>
+              {rule}
+            </li>
+          ))}
+        </ul>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--color-text-muted)",
+            marginTop: 20,
+            lineHeight: 1.6,
+          }}
+        >
+          Link format: <code>{AFFILIATE_LINK_FORMAT}</code> · Commission{" "}
+          {Math.round(AFFILIATE_COMMISSION.rate * 100)}% for {AFFILIATE_COMMISSION.months} months ·{" "}
+          {AFFILIATE_COMMISSION.cookie_days}-day cookie · €{AFFILIATE_COMMISSION.min_payout_eur} minimum payout ·{" "}
+          {AFFILIATE_COMMISSION.payout}. Questions:{" "}
+          <a href={`mailto:${AFFILIATE_CONTACT}`} style={{ color: "var(--color-buy)" }}>
+            {AFFILIATE_CONTACT}
+          </a>
+          . Machine-readable version: <a href="/affiliate.json" style={{ color: "var(--color-buy)" }}>/affiliate.json</a>. Base URL: {BASE_URL}.
+        </p>
       </section>
 
       {/* ── FAQ ── */}
