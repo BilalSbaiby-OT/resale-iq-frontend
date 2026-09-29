@@ -4,7 +4,7 @@ import { copy } from "./i18n.ts"
 
 const LOCALES = ["en", "es", "fr", "de", "it", "pt"] as const
 
-test("pricing FAQ free-checker truth matches EN in every locale (Samba / AF1 / NB 530)", () => {
+test("pricing FAQ free-checker truth matches EN in every locale (Samba / AF1 / Fred Perry Polo)", () => {
   for (const locale of LOCALES) {
     const faqs = copy[locale].pricingSection.faq
     const free = faqs.find((f) =>
@@ -15,7 +15,8 @@ test("pricing FAQ free-checker truth matches EN in every locale (Samba / AF1 / N
     assert.ok(free, `${locale} pricing FAQ must ask about the free checker`)
     assert.match(free.a, /Samba/, `${locale} must name Samba`)
     assert.match(free.a, /Air Force 1/, `${locale} must name AF1`)
-    assert.match(free.a, /530/, `${locale} must name NB 530`)
+    assert.match(free.a, /Fred Perry/, `${locale} must name Fred Perry Polo`)
+    assert.doesNotMatch(free.a, /530/, `${locale} must not claim New Balance 530 is free — it is HARD_PAYWALL`)
     assert.doesNotMatch(free.a, /^(No|Non|Nein|Não)\b/, `${locale} must not deny the free checker`)
   }
 })

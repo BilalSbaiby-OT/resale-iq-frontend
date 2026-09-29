@@ -60,7 +60,7 @@ test("blog clones cover 12 GSC winners in six locales", () => {
   }
 })
 
-test("free-check honesty: only Samba / AF1 / NB 530 named as free samples", () => {
+test("free-check honesty: only Samba / AF1 / Fred Perry Polo named as free samples", () => {
   const blob = LANDINGS.map((l) =>
     LOCALES.map((locale) => {
       const c = getLandingCopy(l.kind, l.slug, locale)!
@@ -69,6 +69,7 @@ test("free-check honesty: only Samba / AF1 / NB 530 named as free samples", () =
   ).join("\n")
   assert.match(blob, /Samba/)
   assert.match(blob, /Air Force 1/)
-  assert.match(blob, /530/)
+  assert.match(blob, /Fred Perry/)
+  assert.doesNotMatch(blob, /New Balance 530/, "New Balance 530 is HARD_PAYWALL (402) and must never be named as a free sample")
   assert.doesNotMatch(blob, /unlimited free checker/)
 })

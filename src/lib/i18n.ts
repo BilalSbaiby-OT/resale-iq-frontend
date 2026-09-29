@@ -150,7 +150,7 @@ export const copy = {
       "Buy under that number. Skip the rest.",
     ],
     howToCoverage:
-      "Covers 28+ brands across Vinted ES, FR, DE, IT, PT. Samba, Air Force 1 and NB 530 are free — no account needed. Other models unlock with Starter at €19/mo.",
+      "Covers 28+ brands across Vinted ES, FR, DE, IT, PT. Samba, Air Force 1 and Fred Perry Polo are free — no account needed. Other models unlock with Starter at €19/mo.",
     heroBody:
       "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>
@@ -269,12 +269,12 @@ export const copy = {
       unknownFallback: "We track 26 clothing & sneaker brands (ES/FR/DE/IT/PT) — not electronics or homeware. Try one of these:",
       coverageHeadline: "Not in this catalog",
       coverageBody:
-        "We do not track that query — low-demand and not-in-catalog are the same miss. That is coverage, not a number waiting behind Starter. Try Samba, Air Force 1 or NB 530, or see the brands we publish.",
+        "We do not track that query — low-demand and not-in-catalog are the same miss. That is coverage, not a number waiting behind Starter. Try Samba, Air Force 1 or Fred Perry Polo, or see the brands we publish.",
       coverageCatalogCta: "→ See the brands we publish on /data",
       paywallUnlockLine: (price: number) =>
         `€${price} unlocks this check — BUY, WATCH or SKIP plus the max to pay.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 and NB 530 are the free samples. Other models we track unlock with Starter. Paying does not invent a number for a brand we don't watch.",
+        "Samba, Air Force 1 and Fred Perry Polo are the free samples. Other models we track unlock with Starter. Paying does not invent a number for a brand we don't watch.",
       tryTheseInstead: "Try one of these instead",
       // Matches extension/content.js I18N.en.thinSample verbatim (product
       // term, not a fresh translation) and echoes heroHonesty above it.
@@ -399,7 +399,7 @@ export const copy = {
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
-        { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or New Balance 530 on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
+        { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or Fred Perry Polo on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "When does access start after paying?", a: "The moment Stripe confirms your payment — usually within 2 seconds. Next you check a real item; we pre-fill Nike Air Force 1. No email to wait for. If a connection error interrupts, sign in at /login." },
@@ -762,7 +762,7 @@ export const copy = {
       "N'achetez que sous ce prix d'achat max.",
     ],
     howToCoverage:
-      "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et NB 530 sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
+      "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et Fred Perry Polo sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
     heroBody:
       "Ce qui est demandé, ce que ça se revend, s'il faut acheter à ce prix — puis ACHETER, SURVEILLER ou ÉCARTER. Vinted est le premier marketplace ; l'origine de l'achat n'est pas le produit.",
     heroFrom: (tracked: string) =>
@@ -854,12 +854,12 @@ export const copy = {
       unknownFallback: "Nous couvrons 26 marques de vêtements et sneakers (ES/FR/DE/IT/PT) — pas l'électronique ni la maison. Essayez :",
       coverageHeadline: "Pas dans ce catalogue",
       coverageBody:
-        "Nous n'avons pas de modèle de demande pour cette recherche. C'est la couverture, pas une faible demande, et pas un chiffre qui attend derrière Starter. Essayez Samba, Air Force 1 ou NB 530, ou voyez les marques que nous publions.",
+        "Nous n'avons pas de modèle de demande pour cette recherche. C'est la couverture, pas une faible demande, et pas un chiffre qui attend derrière Starter. Essayez Samba, Air Force 1 ou Fred Perry Polo, ou voyez les marques que nous publions.",
       coverageCatalogCta: "→ Voir les marques publiées sur /data",
       paywallUnlockLine: (price: number) =>
         `${price} € débloque cette vérification — ACHETER, SURVEILLER ou ÉCARTER plus le max à payer.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 et NB 530 sont les exemples gratuits. Les autres modèles que nous suivons se débloquent avec Starter. Payer n'invente pas un chiffre pour une marque que nous ne suivons pas.",
+        "Samba, Air Force 1 et Fred Perry Polo sont les exemples gratuits. Les autres modèles que nous suivons se débloquent avec Starter. Payer n'invente pas un chiffre pour une marque que nous ne suivons pas.",
       tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
       insufficientStatement: "Pas assez de départs observés pour chiffrer ceci.",
       insufficientSubtext: "On préfère le dire plutôt que deviner.",
@@ -941,7 +941,7 @@ export const copy = {
         { q: "Et si les données manquent pour mon article ?", a: "Deux cas : si l'échantillon est mince, vous voyez un résultat partiel avec une note 'données limitées' — nous le disons plutôt que de deviner. Si l'article est complètement hors de nos 22 marques suivies, vous verrez 'Pas dans ce catalogue' — c'est un manque de couverture, pas un paywall. Consultez /data pour voir chaque marque que nous publions. La couverture s'élargit au fur et à mesure que nous ajoutons des modèles ; les 22 marques couvrent les catégories de revente les plus actives sur Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier sur la page de données publique. Vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé. Pas satisfait(e) ? Écrivez-nous dans les 30 jours suivant votre premier paiement pour un remboursement complet — voir /terms." },
-        { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Oui. Vérifiez Adidas Samba, Nike Air Force 1 ou New Balance 530 sur /tools sans compte. Les volumes hebdo par marque sont publics sur /data. Les autres modèles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API." },
+        { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Oui. Vérifiez Adidas Samba, Nike Air Force 1 ou Fred Perry Polo sur /tools sans compte. Les volumes hebdo par marque sont publics sur /data. Les autres modèles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API." },
       ],
     },
     tiers: {
@@ -1216,7 +1216,7 @@ export const copy = {
       "Compra solo por debajo de ese precio máximo.",
     ],
     howToCoverage:
-      "No rastreamos artículos de baja demanda ni marcas que no están en este catálogo. Samba, Air Force 1 y NB 530 son los ejemplos gratis en Vinted ES/FR/DE/IT/PT. Un fallo es un hueco de cobertura — no un número escondido detrás de un muro de pago.",
+      "No rastreamos artículos de baja demanda ni marcas que no están en este catálogo. Samba, Air Force 1 y Fred Perry Polo son los ejemplos gratis en Vinted ES/FR/DE/IT/PT. Un fallo es un hueco de cobertura — no un número escondido detrás de un muro de pago.",
     heroBody:
       "Qué hay en demanda, a qué se revende, si conviene comprar a este precio — luego COMPRA, OBSERVA o DESCARTA. Vinted es el primer marketplace; de dónde compras no es el producto.",
     heroFrom: (tracked: string) =>
@@ -1308,12 +1308,12 @@ export const copy = {
       unknownFallback: "Cubrimos 26 marcas de ropa y sneakers (ES/FR/DE/IT/PT), no electrónica ni hogar. Prueba con:",
       coverageHeadline: "No está en este catálogo",
       coverageBody:
-        "No tenemos un modelo de demanda para esa consulta. Eso es cobertura, no baja demanda, y no un número esperando detrás de Starter. Prueba Samba, Air Force 1 o NB 530, o mira las marcas que publicamos.",
+        "No tenemos un modelo de demanda para esa consulta. Eso es cobertura, no baja demanda, y no un número esperando detrás de Starter. Prueba Samba, Air Force 1 o Fred Perry Polo, o mira las marcas que publicamos.",
       coverageCatalogCta: "→ Ver las marcas publicadas en /data",
       paywallUnlockLine: (price: number) =>
         `${price} € desbloquea esta comprobación — COMPRA, OBSERVA o DESCARTA más el máximo a pagar.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 y NB 530 son los ejemplos gratis. Otros modelos que seguimos se desbloquean con Starter. Pagar no inventa un número para una marca que no observamos.",
+        "Samba, Air Force 1 y Fred Perry Polo son los ejemplos gratis. Otros modelos que seguimos se desbloquean con Starter. Pagar no inventa un número para una marca que no observamos.",
       tryTheseInstead: "Prueba con uno de estos",
       insufficientStatement: "Aún no hay suficientes salidas observadas para calcular un precio.",
       insufficientSubtext: "Preferimos decirlo antes que adivinar.",
@@ -1397,7 +1397,7 @@ export const copy = {
         { q: "¿Y si no hay datos para mi artículo?", a: "Dos casos: si la muestra es escasa, ves un resultado parcial con una nota 'datos limitados' — lo decimos en lugar de adivinar. Si el artículo está completamente fuera de las 22 marcas que seguimos, verás 'No está en este catálogo' — es un hueco de cobertura, no un paywall. Consulta /data para ver cada marca que publicamos. La cobertura crece a medida que añadimos modelos; las 22 marcas cubren las categorías de reventa de mayor volumen en Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar en la página de datos pública. Cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado. ¿No satisfecho/a? Escríbenos en los 30 días siguientes a tu primer pago para un reembolso completo — ver /terms." },
-        { q: "¿Hay un comprobador de artículos gratis?", a: "Sí. Comprueba Adidas Samba, Nike Air Force 1 o New Balance 530 en /tools sin cuenta. Los volúmenes semanales por marca son públicos en /data. Otros modelos necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API." },
+        { q: "¿Hay un comprobador de artículos gratis?", a: "Sí. Comprueba Adidas Samba, Nike Air Force 1 o Fred Perry Polo en /tools sin cuenta. Los volúmenes semanales por marca son públicos en /data. Otros modelos necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API." },
       ],
     },
     tiers: {
@@ -1671,7 +1671,7 @@ export const copy = {
       "Kaufe nur unter dieser Kaufobergrenze.",
     ],
     howToCoverage:
-      "Wir erfassen keine schwachen Nachfragemodelle und keine Marken, die nicht in diesem Katalog stehen. Samba, Air Force 1 und NB 530 sind kostenlose Beispiele auf Vinted in ES/FR/DE/IT/PT. Eine Lücke ist Abdeckung — keine Zahl hinter einem Bezahl-Tarif.",
+      "Wir erfassen keine schwachen Nachfragemodelle und keine Marken, die nicht in diesem Katalog stehen. Samba, Air Force 1 und Fred Perry Polo sind kostenlose Beispiele auf Vinted in ES/FR/DE/IT/PT. Eine Lücke ist Abdeckung — keine Zahl hinter einem Bezahl-Tarif.",
     heroBody:
       "Was nachgefragt wird, wofür es sich weiterverkauft, ob du zu diesem Preis kaufen solltest — dann KAUFEN, BEOBACHTEN oder VERWERFEN. Vinted ist der erste Marktplatz; woher du die Ware holst, ist nicht das Produkt.",
     heroFrom: (tracked: string) =>
@@ -1763,12 +1763,12 @@ export const copy = {
       unknownFallback: "Wir erfassen 26 Kleidungs- & Sneaker-Marken (ES/FR/DE/IT/PT) — keine Elektronik oder Haushalt. Versuche:",
       coverageHeadline: "Nicht in diesem Katalog",
       coverageBody:
-        "Für diese Suche haben wir kein Nachfragemodell. Schwache Nachfrage und nicht im Katalog sind dieselbe Lücke — Abdeckung, keine Zahl hinter Starter. Versuche Samba, Air Force 1 oder NB 530, oder sieh die Marken, die wir veröffentlichen.",
+        "Für diese Suche haben wir kein Nachfragemodell. Schwache Nachfrage und nicht im Katalog sind dieselbe Lücke — Abdeckung, keine Zahl hinter Starter. Versuche Samba, Air Force 1 oder Fred Perry Polo, oder sieh die Marken, die wir veröffentlichen.",
       coverageCatalogCta: "→ Die veröffentlichten Marken auf /data ansehen",
       paywallUnlockLine: (price: number) =>
         `${price} € schaltet diese Prüfung frei — KAUFEN, BEOBACHTEN oder VERWERFEN plus den Höchstpreis.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 und NB 530 sind die kostenlosen Beispiele. Andere Modelle, die wir erfassen, kommen mit Starter. Bezahlen erfindet keine Zahl für eine Marke, die wir nicht beobachten.",
+        "Samba, Air Force 1 und Fred Perry Polo sind die kostenlosen Beispiele. Andere Modelle, die wir erfassen, kommen mit Starter. Bezahlen erfindet keine Zahl für eine Marke, die wir nicht beobachten.",
       tryTheseInstead: "Probier stattdessen eines davon",
       insufficientStatement: "Noch nicht genug beobachtete Abgänge für einen Preis.",
       insufficientSubtext: "Das sagen wir lieber, als zu raten.",
@@ -1850,7 +1850,7 @@ export const copy = {
         { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Zwei Fälle: Ist die Stichprobe dünn, siehst du ein Teilergebnis mit einem klaren Hinweis 'begrenzte Daten' — wir sagen es, statt zu raten. Liegt der Artikel völlig außerhalb der 22 Marken, die wir verfolgen, erscheint 'Nicht in diesem Katalog' — das ist eine Abdeckungslücke, kein Paywall. Schau auf /data nach, welche Marken wir veröffentlichen. Die Abdeckung wächst, wenn wir Modelle hinzufügen; die 22 Marken decken die umsatzstärksten Kategorien auf Vinted EU ab." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats. Nicht zufrieden? Schreib uns innerhalb von 30 Tagen nach deiner ersten Zahlung für eine vollständige Rückerstattung — siehe /terms." },
-        { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Ja. Prüfe Adidas Samba, Nike Air Force 1 oder New Balance 530 auf /tools ohne Konto. Wöchentliche Markenvolumen sind öffentlich auf /data. Andere Modelle brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API." },
+        { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Ja. Prüfe Adidas Samba, Nike Air Force 1 oder Fred Perry Polo auf /tools ohne Konto. Wöchentliche Markenvolumen sind öffentlich auf /data. Andere Modelle brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API." },
       ],
     },
     tiers: {
@@ -2126,7 +2126,7 @@ export const copy = {
       "Compra solo sotto quel prezzo massimo.",
     ],
     howToCoverage:
-      "Non copriamo articoli a bassa domanda né marche fuori da questo catalogo. Samba, Air Force 1 e NB 530 sono gli esempi gratuiti su Vinted ES/FR/DE/IT/PT. Un mancato risultato è un buco di copertura — non un numero nascosto dietro un paywall.",
+      "Non copriamo articoli a bassa domanda né marche fuori da questo catalogo. Samba, Air Force 1 e Fred Perry Polo sono gli esempi gratuiti su Vinted ES/FR/DE/IT/PT. Un mancato risultato è un buco di copertura — non un numero nascosto dietro un paywall.",
     heroBody:
       "Cosa è richiesto, a quanto si rivende, se conviene comprare a questo prezzo — poi COMPRA, OSSERVA o SCARTA. Vinted è il primo marketplace; da dove compri non è il prodotto.",
     heroFrom: (tracked: string) =>
@@ -2218,12 +2218,12 @@ export const copy = {
       unknownFallback: "Copriamo 26 marchi di abbigliamento e sneaker (ES/FR/DE/IT/PT), non elettronica o casa. Prova con:",
       coverageHeadline: "Non è in questo catalogo",
       coverageBody:
-        "Non abbiamo un modello di domanda per questa ricerca. È copertura, non bassa domanda, e non un numero che aspetta dietro Starter. Prova Samba, Air Force 1 o NB 530, o vedi i marchi che pubblichiamo.",
+        "Non abbiamo un modello di domanda per questa ricerca. È copertura, non bassa domanda, e non un numero che aspetta dietro Starter. Prova Samba, Air Force 1 o Fred Perry Polo, o vedi i marchi che pubblichiamo.",
       coverageCatalogCta: "→ Vedi i marchi pubblicati su /data",
       paywallUnlockLine: (price: number) =>
         `${price} € sblocca questo controllo — COMPRA, OSSERVA o SCARTA più il massimo da pagare.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 e NB 530 sono gli esempi gratuiti. Gli altri modelli che copriamo si sbloccano con Starter. Pagare non inventa un numero per un marchio che non osserviamo.",
+        "Samba, Air Force 1 e Fred Perry Polo sono gli esempi gratuiti. Gli altri modelli che copriamo si sbloccano con Starter. Pagare non inventa un numero per un marchio che non osserviamo.",
       tryTheseInstead: "Prova uno di questi",
       insufficientStatement: "Non ci sono ancora abbastanza partenze osservate per calcolare un prezzo.",
       insufficientSubtext: "Preferiamo dirlo piuttosto che indovinare.",
@@ -2305,7 +2305,7 @@ export const copy = {
         { q: "E se non ci sono dati per il mio articolo?", a: "Due casi: se il campione è scarso, vedi un risultato parziale con una nota 'dati limitati' — lo diciamo invece di inventare. Se l'articolo è completamente fuori dalle 22 marche che seguiamo, vedrai 'Non è in questo catalogo' — è un gap di copertura, non un paywall. Consulta /data per vedere ogni marca che pubblichiamo. La copertura cresce aggiungendo modelli; le 22 marche coprono le categorie di rivendita a più alto volume su Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare sulla pagina dati pubblica. Disdici da Account con un clic; l'accesso arriva alla fine del mese pagato. Non soddisfatto/a? Scrivici entro 30 giorni dal tuo primo pagamento per un rimborso completo — vedi /terms." },
-        { q: "C'è un controllo articoli gratuito?", a: "Sì. Controlla Adidas Samba, Nike Air Force 1 o New Balance 530 su /tools senza account. I volumi settimanali per marca sono pubblici su /data. Gli altri modelli richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API." },
+        { q: "C'è un controllo articoli gratuito?", a: "Sì. Controlla Adidas Samba, Nike Air Force 1 o Fred Perry Polo su /tools senza account. I volumi settimanali per marca sono pubblici su /data. Gli altri modelli richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API." },
       ],
     },
     tiers: {
@@ -2579,7 +2579,7 @@ export const copy = {
       "Compra só abaixo desse preço máximo.",
     ],
     howToCoverage:
-      "Não acompanhamos artigos de baixa procura nem marcas fora deste catálogo. Samba, Air Force 1 e NB 530 são os exemplos grátis na Vinted ES/FR/DE/IT/PT. Uma falha é um buraco de cobertura — não um número escondido atrás de um muro de pagamento.",
+      "Não acompanhamos artigos de baixa procura nem marcas fora deste catálogo. Samba, Air Force 1 e Fred Perry Polo são os exemplos grátis na Vinted ES/FR/DE/IT/PT. Uma falha é um buraco de cobertura — não um número escondido atrás de um muro de pagamento.",
     heroBody:
       "O que está em procura, a que se revende, se deve comprar a este preço — depois COMPRAR, OBSERVAR ou DESCARTAR. A Vinted é o primeiro marketplace; de onde compras não é o produto.",
     heroFrom: (tracked: string) =>
@@ -2671,12 +2671,12 @@ export const copy = {
       unknownFallback: "Cobrimos 26 marcas de roupa e sneakers (ES/FR/DE/IT/PT) — não eletrónica nem casa. Tente:",
       coverageHeadline: "Não está neste catálogo",
       coverageBody:
-        "Não temos um modelo de procura para essa consulta. Isso é cobertura, não baixa procura, e não um número à espera atrás do Starter. Experimenta Samba, Air Force 1 ou NB 530, ou vê as marcas que publicamos.",
+        "Não temos um modelo de procura para essa consulta. Isso é cobertura, não baixa procura, e não um número à espera atrás do Starter. Experimenta Samba, Air Force 1 ou Fred Perry Polo, ou vê as marcas que publicamos.",
       coverageCatalogCta: "→ Ver as marcas publicadas em /data",
       paywallUnlockLine: (price: number) =>
         `${price} € desbloqueia esta verificação — COMPRAR, OBSERVAR ou DESCARTAR mais o máximo a pagar.`,
       paywallCatalogNote:
-        "Samba, Air Force 1 e NB 530 são os exemplos grátis. Outros modelos que seguimos desbloqueiam-se com Starter. Pagar não inventa um número para uma marca que não observamos.",
+        "Samba, Air Force 1 e Fred Perry Polo são os exemplos grátis. Outros modelos que seguimos desbloqueiam-se com Starter. Pagar não inventa um número para uma marca que não observamos.",
       tryTheseInstead: "Experimenta um destes",
       insufficientStatement: "Ainda não há saídas observadas suficientes para calcular um preço.",
       insufficientSubtext: "Preferimos dizer isso a adivinhar.",
@@ -2758,7 +2758,7 @@ export const copy = {
         { q: "E se não houver dados para o meu artigo?", a: "Dois casos: se a amostra for reduzida, vês um resultado parcial com uma nota 'dados limitados' — dizemos isso em vez de adivinhar. Se o artigo estiver completamente fora das 22 marcas que seguimos, verás 'Não está neste catálogo' — é uma lacuna de cobertura, não um paywall. Consulta /data para ver cada marca que publicamos. A cobertura cresce à medida que adicionamos modelos; as 22 marcas cobrem as categorias de revenda de maior volume na Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar na página de dados pública. Cancelas em Conta com um clique; o acesso vai até ao fim do mês pago. Não estás satisfeito/a? Envia-nos um email nos 30 dias seguintes ao teu primeiro pagamento para um reembolso completo — ver /terms." },
-        { q: "Há um verificador de artigos grátis?", a: "Sim. Verifica Adidas Samba, Nike Air Force 1 ou New Balance 530 em /tools sem conta. Os volumes semanais por marca são públicos em /data. Outros modelos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API." },
+        { q: "Há um verificador de artigos grátis?", a: "Sim. Verifica Adidas Samba, Nike Air Force 1 ou Fred Perry Polo em /tools sem conta. Os volumes semanais por marca são públicos em /data. Outros modelos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API." },
       ],
     },
     tiers: {

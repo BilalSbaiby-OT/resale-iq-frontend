@@ -135,7 +135,7 @@ export function AuthField({
  * to eliminate the dupe flagged by check:dupes. One component, one place to update.
  *
  * Rows link to the closest free-sample verdict (Nike AF1 / Adidas Samba /
- * New Balance 530) so a tap delivers a real result even pre-login.
+ * Fred Perry Polo) so a tap delivers a real result even pre-login.
  * Footer copy is parameterised so each context can be specific.
  */
 export function AuthDemandPanel({
@@ -156,10 +156,10 @@ export function AuthDemandPanel({
       <div className="flex flex-col gap-2 mb-4">
         {rows.map(b => {
           const brand = b.brand.toLowerCase()
-          const sampleHref = brand.includes("new balance")
-            ? "/verdict?q=New+Balance+530"
-            : brand.includes("adidas")
-              ? "/verdict?q=Adidas+Samba"
+          const sampleHref = brand.includes("adidas")
+            ? "/verdict?q=Adidas+Samba"
+            : brand.includes("fred perry")
+              ? "/verdict?q=Fred+Perry+Polo"
               : "/verdict?q=Nike+Air+Force+1"
           return (
             <Link

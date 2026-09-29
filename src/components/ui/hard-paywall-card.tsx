@@ -297,8 +297,8 @@ export function HardPaywallCard({
 
       {/* C(tony)PaywallFreeChips: free-sample taster chips below all paid CTAs.
           A user who hits the paywall and closes the tab without SEEING the product
-          work is a permanent loss. FREE_MODELS (NB530 / AF1 / Samba) bypass the
-          wall entirely (_PUBLIC_SAMPLE_QUERIES in api/routes.py). Showing them here
+          work is a permanent loss. FREE_MODELS (Fred Perry Polo / AF1 / Samba) bypass
+          the wall entirely (_PUBLIC_SAMPLE_QUERIES in api/routes.py). Showing them here
           gives the user a "try before you buy" escape hatch at the exact moment of
           maximum doubt — they've typed their item, hit a wall, and need to know the
           product is real before committing €19.

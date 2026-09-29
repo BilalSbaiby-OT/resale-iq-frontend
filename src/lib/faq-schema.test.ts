@@ -226,7 +226,7 @@ test("English homepage ships 4 visible FAQs + FAQPage with no /register", () => 
   assert.match(home, /Item checks start at €19/)
   assert.match(home, /Adidas Samba/)
   assert.match(home, /Nike Air Force 1/)
-  assert.match(home, /New Balance 530/)
+  assert.match(home, /Fred Perry Polo/)
   const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
   const questions = faqBlock.match(/\bq: "/g) ?? []
   assert.equal(questions.length, 4)

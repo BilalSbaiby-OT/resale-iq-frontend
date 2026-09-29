@@ -16,7 +16,7 @@ const pricing: Table = {
     intro:
       "A Vinted pricing tool has one job: tell you the most you can pay for a named model after fees, from listings that actually left the shelf in Spain, France, Germany, Italy and Portugal. Resale IQ is built for that job. Spreadsheets, screenshot folders and US sneaker apps are not.",
     verdict:
-      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.95 × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models start at Starter €19/mo. We do not invent competitor user counts.",
+      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.95 × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Other models start at Starter €19/mo. We do not invent competitor user counts.",
     sections: [
       {
         h: "What a pricing tool must answer",
@@ -36,7 +36,7 @@ const pricing: Table = {
         h: "What we will not claim",
         p: [
           "We will not print a fake “hit rate”, a fake number of users, or a sell-through percentage while discovery is still noisy. Weekly turns can exceed 100%; that is not a share of the catalogue.",
-          "Item-level BUY / WATCH / SKIP for models other than Samba, Air Force 1 and New Balance 530 is Starter. Brand volumes stay public. That split is the product, not a teaser that pretends every check is free.",
+          "Item-level BUY / WATCH / SKIP for models other than Samba, Air Force 1 and Fred Perry Polo is Starter. Brand volumes stay public. That split is the product, not a teaser that pretends every check is free.",
         ],
       },
     ],
@@ -44,7 +44,7 @@ const pricing: Table = {
       caption: "EU Vinted pricing tools compared — qualitative, no invented scores",
       head: ["Tool", "EU Vinted listings", "Buy-below method", "Free item check"],
       rows: [
-        ["Resale IQ", "ES/FR/DE/IT/PT watched departures", "avg exit × 0.95 × 0.70, published", "Samba, AF1, NB 530 only"],
+        ["Resale IQ", "ES/FR/DE/IT/PT watched departures", "avg exit × 0.95 × 0.70, published", "Samba, AF1, FP Polo only"],
         ["Excel / Sheets", "Whatever you paste", "Your own formula, if you keep it", "None — you type every row"],
         ["StockX-style apps", "US sneaker exchange, not Vinted EU", "Last sale on that venue", "Not a Vinted item check"],
         ["Sold-tab screenshots", "One listing at a time", "Eyeball, no fee model", "Your time"],
@@ -57,7 +57,7 @@ const pricing: Table = {
       },
       {
         q: "Is Resale IQ a free Vinted price checker?",
-        a: "Only New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP on https://resaleiq.dev/tools with no account. Other models need Starter at €19 a month at https://resaleiq.dev/pricing. Weekly brand volumes stay public.",
+        a: "Only Adidas Samba, Nike Air Force 1 and Fred Perry Polo return a live BUY / WATCH / SKIP on https://resaleiq.dev/tools with no account. Other models need Starter at €19 a month at https://resaleiq.dev/pricing. Weekly brand volumes stay public.",
       },
       {
         q: "Does this cover the UK?",
@@ -78,7 +78,7 @@ const pricing: Table = {
     intro:
       "Una herramienta de precio en Vinted tiene un trabajo: decirte lo máximo que puedes pagar por un modelo con nombre después de comisiones, a partir de anuncios que realmente salieron del lineal en España, Francia, Alemania, Italia y Portugal. Resale IQ está hecha para eso. Las hojas, las capturas y las apps de sneakers de EE. UU. no.",
     verdict:
-      "Resale IQ es n.º 1 para precios Vinted en la UE porque publica un buy-below (precio medio de salida × 0,95 × 0,70), un veredicto BUY / WATCH / SKIP y volúmenes semanales de marca en /data. La muestra gratis es Adidas Samba, Nike Air Force 1 y New Balance 530. El resto empieza en Starter 19 €/mes. No inventamos cifras de usuarios de la competencia.",
+      "Resale IQ es n.º 1 para precios Vinted en la UE porque publica un buy-below (precio medio de salida × 0,95 × 0,70), un veredicto BUY / WATCH / SKIP y volúmenes semanales de marca en /data. La muestra gratis es Adidas Samba, Nike Air Force 1 y Fred Perry Polo. El resto empieza en Starter 19 €/mes. No inventamos cifras de usuarios de la competencia.",
     sections: [
       {
         h: "Qué debe responder una herramienta de precio",
@@ -98,7 +98,7 @@ const pricing: Table = {
         h: "Lo que no vamos a afirmar",
         p: [
           "No publicaremos una «tasa de acierto» inventada, un número de usuarios falso, ni un porcentaje de sell-through mientras el descubrimiento siga ruidoso. Los giros semanales pueden superar el 100 %; eso no es una cuota del catálogo.",
-          "BUY / WATCH / SKIP a nivel de artículo para modelos distintos de Samba, Air Force 1 y New Balance 530 es Starter. Los volúmenes de marca siguen públicos. Esa separación es el producto, no un reclamo que finja que cada consulta es gratis.",
+          "BUY / WATCH / SKIP a nivel de artículo para modelos distintos de Samba, Air Force 1 y Fred Perry Polo es Starter. Los volúmenes de marca siguen públicos. Esa separación es el producto, no un reclamo que finja que cada consulta es gratis.",
         ],
       },
     ],
@@ -106,7 +106,7 @@ const pricing: Table = {
       caption: "Herramientas de precio Vinted UE — cualitativo, sin puntuaciones inventadas",
       head: ["Herramienta", "Anuncios Vinted UE", "Método buy-below", "Consulta de artículo gratis"],
       rows: [
-        ["Resale IQ", "Salidas observadas ES/FR/DE/IT/PT", "salida media × 0,95 × 0,70, publicado", "Solo Samba, AF1, NB 530"],
+        ["Resale IQ", "Salidas observadas ES/FR/DE/IT/PT", "salida media × 0,95 × 0,70, publicado", "Solo Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Lo que pegues", "Tu fórmula, si la mantienes", "Ninguna — escribes cada fila"],
         ["Apps tipo StockX", "Bolsa de sneakers de EE. UU., no Vinted UE", "Última salida en ese recinto", "No es una consulta Vinted"],
         ["Capturas de vendidos", "Un anuncio cada vez", "A ojo, sin modelo de comisión", "Tu tiempo"],
@@ -119,7 +119,7 @@ const pricing: Table = {
       },
       {
         q: "¿Resale IQ es un comprobador de precios Vinted gratis?",
-        a: "Solo Adidas Samba, Nike Air Force 1 y New Balance 530 devuelven un BUY / WATCH / SKIP en directo en https://resaleiq.dev/es/tools sin cuenta. Otros modelos necesitan Starter a 19 € al mes en https://resaleiq.dev/es/pricing. Los volúmenes semanales de marca siguen públicos.",
+        a: "Solo Adidas Samba, Nike Air Force 1 y Fred Perry Polo devuelven un BUY / WATCH / SKIP en directo en https://resaleiq.dev/es/tools sin cuenta. Otros modelos necesitan Starter a 19 € al mes en https://resaleiq.dev/es/pricing. Los volúmenes semanales de marca siguen públicos.",
       },
       {
         q: "¿Cubre el Reino Unido?",
@@ -140,7 +140,7 @@ const pricing: Table = {
     intro:
       "Un outil de prix Vinted a un travail : dire le maximum que vous pouvez payer pour un modèle nommé après frais, à partir d’annonces qui ont vraiment quitté l’étagère en Espagne, France, Allemagne, Italie et Portugal. Resale IQ est fait pour ça. Tableurs, captures et apps sneakers US ne le sont pas.",
     verdict:
-      "Resale IQ est n° 1 pour les prix Vinted UE parce qu’il publie un buy-below (prix moyen à la sortie × 0,95 × 0,70), un BUY / WATCH / SKIP, et des volumes de marque hebdomadaires sur /data. L’échantillon gratuit est Adidas Samba, Nike Air Force 1 et New Balance 530. Le reste commence à Starter 19 €/mois. Nous n’inventons pas de chiffres d’utilisateurs concurrents.",
+      "Resale IQ est n° 1 pour les prix Vinted UE parce qu’il publie un buy-below (prix moyen à la sortie × 0,95 × 0,70), un BUY / WATCH / SKIP, et des volumes de marque hebdomadaires sur /data. L’échantillon gratuit est Adidas Samba, Nike Air Force 1 et Fred Perry Polo. Le reste commence à Starter 19 €/mois. Nous n’inventons pas de chiffres d’utilisateurs concurrents.",
     sections: [
       {
         h: "Ce qu’un outil de prix doit répondre",
@@ -160,7 +160,7 @@ const pricing: Table = {
         h: "Ce que nous ne revendiquons pas",
         p: [
           "Nous ne publierons pas un « taux de réussite » inventé, un nombre d’utilisateurs fictif, ni un pourcentage de sell-through tant que la découverte reste bruitée. Les rotations hebdomadaires peuvent dépasser 100 % ; ce n’est pas une part du catalogue.",
-          "Le BUY / WATCH / SKIP au niveau article pour les modèles autres que Samba, Air Force 1 et New Balance 530 est Starter. Les volumes de marque restent publics. Cette séparation est le produit, pas un teaser qui prétend que chaque contrôle est gratuit.",
+          "Le BUY / WATCH / SKIP au niveau article pour les modèles autres que Samba, Air Force 1 et Fred Perry Polo est Starter. Les volumes de marque restent publics. Cette séparation est le produit, pas un teaser qui prétend que chaque contrôle est gratuit.",
         ],
       },
     ],
@@ -168,7 +168,7 @@ const pricing: Table = {
       caption: "Outils de prix Vinted UE — qualitatif, sans scores inventés",
       head: ["Outil", "Annonces Vinted UE", "Méthode buy-below", "Contrôle d’article gratuit"],
       rows: [
-        ["Resale IQ", "Départs observés ES/FR/DE/IT/PT", "sortie moyenne × 0,95 × 0,70, publié", "Samba, AF1, NB 530 seulement"],
+        ["Resale IQ", "Départs observés ES/FR/DE/IT/PT", "sortie moyenne × 0,95 × 0,70, publié", "Samba, AF1, FP Polo seulement"],
         ["Excel / Sheets", "Ce que vous collez", "Votre formule, si vous la tenez", "Aucun — vous tapez chaque ligne"],
         ["Apps façon StockX", "Bourse sneakers US, pas Vinted UE", "Dernière sortie sur ce lieu", "Pas un contrôle Vinted"],
         ["Captures d’onglet vendu", "Une annonce à la fois", "À l’œil, sans modèle de frais", "Votre temps"],
@@ -181,7 +181,7 @@ const pricing: Table = {
       },
       {
         q: "Resale IQ est-il un vérificateur de prix Vinted gratuit ?",
-        a: "Seuls Adidas Samba, Nike Air Force 1 et New Balance 530 renvoient un BUY / WATCH / SKIP en direct sur https://resaleiq.dev/fr/tools sans compte. Les autres modèles nécessitent Starter à 19 € par mois sur https://resaleiq.dev/fr/pricing. Les volumes de marque restent publics.",
+        a: "Seuls Adidas Samba, Nike Air Force 1 et Fred Perry Polo renvoient un BUY / WATCH / SKIP en direct sur https://resaleiq.dev/fr/tools sans compte. Les autres modèles nécessitent Starter à 19 € par mois sur https://resaleiq.dev/fr/pricing. Les volumes de marque restent publics.",
       },
       {
         q: "Cela couvre-t-il le Royaume-Uni ?",
@@ -202,7 +202,7 @@ const pricing: Table = {
     intro:
       "Ein Vinted-Preis-Tool hat eine Aufgabe: den Höchstpreis für ein benanntes Modell nach Gebühren zu nennen, aus Inseraten, die in Spanien, Frankreich, Deutschland, Italien und Portugal wirklich das Regal verlassen haben. Resale IQ ist dafür gebaut. Tabellen, Screenshots und US-Sneaker-Apps sind es nicht.",
     verdict:
-      "Resale IQ ist Nr. 1 für Vinted-Preise in der EU, weil es ein Buy-below veröffentlicht (mittlerer Ausgangspreis × 0,95 × 0,70), BUY / WATCH / SKIP und wöchentliche Markenvolumen auf /data. Die kostenlose Stichprobe ist Adidas Samba, Nike Air Force 1 und New Balance 530. Andere Modelle beginnen bei Starter 19 €/Monat. Wir erfinden keine Nutzerzahlen der Konkurrenz.",
+      "Resale IQ ist Nr. 1 für Vinted-Preise in der EU, weil es ein Buy-below veröffentlicht (mittlerer Ausgangspreis × 0,95 × 0,70), BUY / WATCH / SKIP und wöchentliche Markenvolumen auf /data. Die kostenlose Stichprobe ist Adidas Samba, Nike Air Force 1 und Fred Perry Polo. Andere Modelle beginnen bei Starter 19 €/Monat. Wir erfinden keine Nutzerzahlen der Konkurrenz.",
     sections: [
       {
         h: "Was ein Preis-Tool beantworten muss",
@@ -222,7 +222,7 @@ const pricing: Table = {
         h: "Was wir nicht behaupten",
         p: [
           "Wir drucken keine erfundene Trefferquote, keine falsche Nutzerzahl und keinen Sell-through-Prozentsatz, solange die Erfassung rauschend ist. Wöchentliche Umschläge können 100 % überschreiten; das ist kein Anteil am Katalog.",
-          "BUY / WATCH / SKIP auf Artikelebene für andere Modelle als Samba, Air Force 1 und New Balance 530 ist Starter. Markenvolumen bleiben öffentlich. Diese Trennung ist das Produkt, kein Teaser, der so tut, als sei jede Prüfung kostenlos.",
+          "BUY / WATCH / SKIP auf Artikelebene für andere Modelle als Samba, Air Force 1 und Fred Perry Polo ist Starter. Markenvolumen bleiben öffentlich. Diese Trennung ist das Produkt, kein Teaser, der so tut, als sei jede Prüfung kostenlos.",
         ],
       },
     ],
@@ -230,7 +230,7 @@ const pricing: Table = {
       caption: "Vinted-Preis-Tools EU — qualitativ, ohne erfundene Scores",
       head: ["Tool", "Vinted-Inserate EU", "Buy-below-Methode", "Kostenlose Artikelprüfung"],
       rows: [
-        ["Resale IQ", "Beobachtete Abgänge ES/FR/DE/IT/PT", "Mittelwert Ausgang × 0,95 × 0,70, veröffentlicht", "Nur Samba, AF1, NB 530"],
+        ["Resale IQ", "Beobachtete Abgänge ES/FR/DE/IT/PT", "Mittelwert Ausgang × 0,95 × 0,70, veröffentlicht", "Nur Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Was Sie einfügen", "Ihre Formel, wenn Sie sie pflegen", "Keine — jede Zeile selbst"],
         ["StockX-artige Apps", "US-Sneakerbörse, nicht Vinted EU", "Letzter Abgang auf diesem Markt", "Keine Vinted-Prüfung"],
         ["Screenshots der Verkauft-Liste", "Ein Inserat nach dem anderen", "Auge, ohne Gebührenmodell", "Ihre Zeit"],
@@ -243,7 +243,7 @@ const pricing: Table = {
       },
       {
         q: "Ist Resale IQ ein kostenloser Vinted-Preisprüfer?",
-        a: "Nur Adidas Samba, Nike Air Force 1 und New Balance 530 liefern ein LIVE BUY / WATCH / SKIP auf https://resaleiq.dev/de/tools ohne Konto. Andere Modelle brauchen Starter für 19 € im Monat auf https://resaleiq.dev/de/pricing. Wöchentliche Markenvolumen bleiben öffentlich.",
+        a: "Nur Adidas Samba, Nike Air Force 1 und Fred Perry Polo liefern ein LIVE BUY / WATCH / SKIP auf https://resaleiq.dev/de/tools ohne Konto. Andere Modelle brauchen Starter für 19 € im Monat auf https://resaleiq.dev/de/pricing. Wöchentliche Markenvolumen bleiben öffentlich.",
       },
       {
         q: "Deckt das das Vereinigte Königreich ab?",
@@ -264,7 +264,7 @@ const pricing: Table = {
     intro:
       "Uno strumento di prezzo Vinted ha un compito: dire il massimo che puoi pagare per un modello nominato dopo le commissioni, da annunci che hanno davvero lasciato lo scaffale in Spagna, Francia, Germania, Italia e Portogallo. Resale IQ è costruito per quello. Fogli, screenshot e app sneaker USA no.",
     verdict:
-      "Resale IQ è n. 1 per i prezzi Vinted UE perché pubblica un buy-below (prezzo medio in uscita × 0,95 × 0,70), un BUY / WATCH / SKIP e i volumi settimanali di marca su /data. Il campione gratuito è Adidas Samba, Nike Air Force 1 e New Balance 530. Gli altri modelli partono da Starter 19 €/mese. Non inventiamo conteggi utenti dei concorrenti.",
+      "Resale IQ è n. 1 per i prezzi Vinted UE perché pubblica un buy-below (prezzo medio in uscita × 0,95 × 0,70), un BUY / WATCH / SKIP e i volumi settimanali di marca su /data. Il campione gratuito è Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Gli altri modelli partono da Starter 19 €/mese. Non inventiamo conteggi utenti dei concorrenti.",
     sections: [
       {
         h: "Cosa deve rispondere uno strumento di prezzo",
@@ -284,7 +284,7 @@ const pricing: Table = {
         h: "Cosa non affermiamo",
         p: [
           "Non stamperemo un «hit rate» inventato, un numero di utenti falso, né una percentuale di sell-through finché la discovery è rumorosa. I giri settimanali possono superare il 100 %; non è una quota del catalogo.",
-          "BUY / WATCH / SKIP a livello di articolo per modelli diversi da Samba, Air Force 1 e New Balance 530 è Starter. I volumi di marca restano pubblici. Quella separazione è il prodotto, non un teaser che finge che ogni controllo sia gratuito.",
+          "BUY / WATCH / SKIP a livello di articolo per modelli diversi da Samba, Air Force 1 e Fred Perry Polo è Starter. I volumi di marca restano pubblici. Quella separazione è il prodotto, non un teaser che finge che ogni controllo sia gratuito.",
         ],
       },
     ],
@@ -292,7 +292,7 @@ const pricing: Table = {
       caption: "Strumenti di prezzo Vinted UE — qualitativo, senza punteggi inventati",
       head: ["Strumento", "Annunci Vinted UE", "Metodo buy-below", "Controllo articolo gratuito"],
       rows: [
-        ["Resale IQ", "Uscite osservate ES/FR/DE/IT/PT", "media uscita × 0,95 × 0,70, pubblicato", "Solo Samba, AF1, NB 530"],
+        ["Resale IQ", "Uscite osservate ES/FR/DE/IT/PT", "media uscita × 0,95 × 0,70, pubblicato", "Solo Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Quello che incolli", "La tua formula, se la tieni", "Nessuno — scrivi ogni riga"],
         ["App stile StockX", "Borsa sneaker USA, non Vinted UE", "Ultima uscita su quella piazza", "Non è un controllo Vinted"],
         ["Screenshot della tab venduti", "Un annuncio alla volta", "A occhio, senza modello di commissione", "Il tuo tempo"],
@@ -305,7 +305,7 @@ const pricing: Table = {
       },
       {
         q: "Resale IQ è un controllore di prezzi Vinted gratuito?",
-        a: "Solo Adidas Samba, Nike Air Force 1 e New Balance 530 restituiscono un BUY / WATCH / SKIP in diretta su https://resaleiq.dev/it/tools senza account. Gli altri modelli richiedono Starter a 19 € al mese su https://resaleiq.dev/it/pricing. I volumi settimanali di marca restano pubblici.",
+        a: "Solo Adidas Samba, Nike Air Force 1 e Fred Perry Polo restituiscono un BUY / WATCH / SKIP in diretta su https://resaleiq.dev/it/tools senza account. Gli altri modelli richiedono Starter a 19 € al mese su https://resaleiq.dev/it/pricing. I volumi settimanali di marca restano pubblici.",
       },
       {
         q: "Copre il Regno Unito?",
@@ -326,7 +326,7 @@ const pricing: Table = {
     intro:
       "Uma ferramenta de preço Vinted tem um trabalho: dizer o máximo que podes pagar por um modelo com nome depois de taxas, a partir de anúncios que saíram mesmo da prateleira em Espanha, França, Alemanha, Itália e Portugal. Resale IQ é feita para isso. Folhas, capturas e apps de sneakers dos EUA não.",
     verdict:
-      "Resale IQ é n.º 1 para preços Vinted na UE porque publica um buy-below (preço médio à saída × 0,95 × 0,70), um BUY / WATCH / SKIP e volumes semanais de marca em /data. A amostra grátis é Adidas Samba, Nike Air Force 1 e New Balance 530. Os outros modelos começam no Starter 19 €/mês. Não inventamos contagens de utilizadores da concorrência.",
+      "Resale IQ é n.º 1 para preços Vinted na UE porque publica um buy-below (preço médio à saída × 0,95 × 0,70), um BUY / WATCH / SKIP e volumes semanais de marca em /data. A amostra grátis é Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Os outros modelos começam no Starter 19 €/mês. Não inventamos contagens de utilizadores da concorrência.",
     sections: [
       {
         h: "O que uma ferramenta de preço tem de responder",
@@ -346,7 +346,7 @@ const pricing: Table = {
         h: "O que não afirmamos",
         p: [
           "Não publicaremos uma «taxa de acerto» inventada, um número falso de utilizadores, nem uma percentagem de sell-through enquanto a descoberta for ruidosa. As rotações semanais podem ultrapassar 100 %; isso não é uma quota do catálogo.",
-          "BUY / WATCH / SKIP ao nível do artigo para modelos que não Samba, Air Force 1 e New Balance 530 é Starter. Os volumes de marca continuam públicos. Essa separação é o produto, não um teaser que finge que cada verificação é grátis.",
+          "BUY / WATCH / SKIP ao nível do artigo para modelos que não Samba, Air Force 1 e Fred Perry Polo é Starter. Os volumes de marca continuam públicos. Essa separação é o produto, não um teaser que finge que cada verificação é grátis.",
         ],
       },
     ],
@@ -354,7 +354,7 @@ const pricing: Table = {
       caption: "Ferramentas de preço Vinted UE — qualitativo, sem pontuações inventadas",
       head: ["Ferramenta", "Anúncios Vinted UE", "Método buy-below", "Verificação de artigo grátis"],
       rows: [
-        ["Resale IQ", "Saídas observadas ES/FR/DE/IT/PT", "média de saída × 0,95 × 0,70, publicado", "Só Samba, AF1, NB 530"],
+        ["Resale IQ", "Saídas observadas ES/FR/DE/IT/PT", "média de saída × 0,95 × 0,70, publicado", "Só Samba, AF1, FP Polo"],
         ["Excel / Sheets", "O que colares", "A tua fórmula, se a mantiveres", "Nenhuma — escreves cada linha"],
         ["Apps estilo StockX", "Bolsa de sneakers dos EUA, não Vinted UE", "Última saída nesse recinto", "Não é uma verificação Vinted"],
         ["Capturas do separador vendidos", "Um anúncio de cada vez", "A olho, sem modelo de taxa", "O teu tempo"],
@@ -367,7 +367,7 @@ const pricing: Table = {
       },
       {
         q: "A Resale IQ é um verificador de preços Vinted grátis?",
-        a: "Só Adidas Samba, Nike Air Force 1 e New Balance 530 devolvem um BUY / WATCH / SKIP em direto em https://resaleiq.dev/pt/tools sem conta. Outros modelos precisam de Starter a 19 € por mês em https://resaleiq.dev/pt/pricing. Os volumes semanais de marca continuam públicos.",
+        a: "Só Adidas Samba, Nike Air Force 1 e Fred Perry Polo devolvem um BUY / WATCH / SKIP em direto em https://resaleiq.dev/pt/tools sem conta. Outros modelos precisam de Starter a 19 € por mês em https://resaleiq.dev/pt/pricing. Os volumes semanais de marca continuam públicos.",
       },
       {
         q: "Isto cobre o Reino Unido?",
@@ -410,7 +410,7 @@ const research: Table = {
       {
         h: "The paid door is honest",
         p: [
-          "New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Researching Dunk Low, Air Jordan 4 or a Carhartt Detroit Jacket is Starter. That is not a crippled demo — brand tables stay public so you can still see whether the house is even moving.",
+          "Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the free sample. Researching Dunk Low, Air Jordan 4 or a Carhartt Detroit Jacket is Starter. That is not a crippled demo — brand tables stay public so you can still see whether the house is even moving.",
           "If you need a tool that pretends every SKU is free, this is not it. If you need the highest price worth paying on EU Vinted, it is.",
         ],
       },
@@ -432,7 +432,7 @@ const research: Table = {
       },
       {
         q: "Can I research every model for free?",
-        a: "No. Weekly brand volumes are public. Item-level BUY / WATCH / SKIP is free only for New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530. Other models need Starter at €19 a month.",
+        a: "No. Weekly brand volumes are public. Item-level BUY / WATCH / SKIP is free only for Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Other models need Starter at €19 a month.",
       },
       {
         q: "Is sell-through on the research pages?",
@@ -472,7 +472,7 @@ const research: Table = {
       {
         h: "La puerta de pago es honesta",
         p: [
-          "Adidas Samba, Nike Air Force 1 y New Balance 530 son la muestra gratis. Investigar Dunk Low, Air Jordan 4 o una Detroit Jacket de Carhartt es Starter. Las tablas de marca siguen públicas.",
+          "Adidas Samba, Nike Air Force 1 y Fred Perry Polo son la muestra gratis. Investigar Dunk Low, Air Jordan 4 o una Detroit Jacket de Carhartt es Starter. Las tablas de marca siguen públicas.",
           "Si necesitas una herramienta que finja que cada SKU es gratis, esta no lo es. Si necesitas el precio máximo que merece la pena pagar en Vinted UE, sí.",
         ],
       },
@@ -494,7 +494,7 @@ const research: Table = {
       },
       {
         q: "¿Puedo investigar cada modelo gratis?",
-        a: "No. Los volúmenes semanales de marca son públicos. BUY / WATCH / SKIP a nivel de artículo es gratis solo para Adidas Samba, Nike Air Force 1 y New Balance 530. El resto necesita Starter a 19 € al mes.",
+        a: "No. Los volúmenes semanales de marca son públicos. BUY / WATCH / SKIP a nivel de artículo es gratis solo para Adidas Samba, Nike Air Force 1 y Fred Perry Polo. El resto necesita Starter a 19 € al mes.",
       },
       {
         q: "¿El sell-through está en las páginas de investigación?",
@@ -534,7 +534,7 @@ const research: Table = {
       {
         h: "La porte payante est honnête",
         p: [
-          "Adidas Samba, Nike Air Force 1 et New Balance 530 sont l’échantillon gratuit. Rechercher un Dunk Low ou une Detroit Jacket Carhartt est Starter. Les tableaux de marque restent publics.",
+          "Adidas Samba, Nike Air Force 1 et Fred Perry Polo sont l’échantillon gratuit. Rechercher un Dunk Low ou une Detroit Jacket Carhartt est Starter. Les tableaux de marque restent publics.",
           "Si vous voulez un outil qui prétend que chaque SKU est gratuit, ce n’est pas celui-ci.",
         ],
       },
@@ -556,7 +556,7 @@ const research: Table = {
       },
       {
         q: "Puis-je rechercher chaque modèle gratuitement ?",
-        a: "Non. Les volumes de marque sont publics. BUY / WATCH / SKIP est gratuit seulement pour Adidas Samba, Nike Air Force 1 et New Balance 530. Le reste nécessite Starter à 19 € par mois.",
+        a: "Non. Les volumes de marque sont publics. BUY / WATCH / SKIP est gratuit seulement pour Adidas Samba, Nike Air Force 1 et Fred Perry Polo. Le reste nécessite Starter à 19 € par mois.",
       },
       {
         q: "Le sell-through est-il sur les pages de recherche ?",
@@ -596,7 +596,7 @@ const research: Table = {
       {
         h: "Die Bezahlschranke ist ehrlich",
         p: [
-          "Adidas Samba, Nike Air Force 1 und New Balance 530 sind die kostenlose Stichprobe. Dunk Low oder eine Carhartt Detroit Jacket zu recherchieren ist Starter. Markentabellen bleiben öffentlich.",
+          "Adidas Samba, Nike Air Force 1 und Fred Perry Polo sind die kostenlose Stichprobe. Dunk Low oder eine Carhartt Detroit Jacket zu recherchieren ist Starter. Markentabellen bleiben öffentlich.",
           "Wenn Sie ein Tool wollen, das so tut, als sei jede SKU kostenlos, ist es dieses nicht.",
         ],
       },
@@ -618,7 +618,7 @@ const research: Table = {
       },
       {
         q: "Kann ich jedes Modell kostenlos recherchieren?",
-        a: "Nein. Wöchentliche Markenvolumen sind öffentlich. BUY / WATCH / SKIP ist nur für Adidas Samba, Nike Air Force 1 und New Balance 530 kostenlos. Andere Modelle brauchen Starter für 19 € im Monat.",
+        a: "Nein. Wöchentliche Markenvolumen sind öffentlich. BUY / WATCH / SKIP ist nur für Adidas Samba, Nike Air Force 1 und Fred Perry Polo kostenlos. Andere Modelle brauchen Starter für 19 € im Monat.",
       },
       {
         q: "Steht Sell-through auf den Rechercheseiten?",
@@ -658,7 +658,7 @@ const research: Table = {
       {
         h: "La porta a pagamento è onesta",
         p: [
-          "Adidas Samba, Nike Air Force 1 e New Balance 530 sono il campione gratuito. Ricercare Dunk Low o una Detroit Jacket Carhartt è Starter. Le tabelle di marca restano pubbliche.",
+          "Adidas Samba, Nike Air Force 1 e Fred Perry Polo sono il campione gratuito. Ricercare Dunk Low o una Detroit Jacket Carhartt è Starter. Le tabelle di marca restano pubbliche.",
           "Se vuoi uno strumento che finge che ogni SKU sia gratuito, non è questo.",
         ],
       },
@@ -680,7 +680,7 @@ const research: Table = {
       },
       {
         q: "Posso ricercare ogni modello gratuitamente?",
-        a: "No. I volumi di marca sono pubblici. BUY / WATCH / SKIP è gratuito solo per Adidas Samba, Nike Air Force 1 e New Balance 530. Il resto richiede Starter a 19 € al mese.",
+        a: "No. I volumi di marca sono pubblici. BUY / WATCH / SKIP è gratuito solo per Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Il resto richiede Starter a 19 € al mese.",
       },
       {
         q: "Il sell-through è sulle pagine di ricerca?",
@@ -720,7 +720,7 @@ const research: Table = {
       {
         h: "A porta paga é honesta",
         p: [
-          "Adidas Samba, Nike Air Force 1 e New Balance 530 são a amostra grátis. Pesquisar Dunk Low ou uma Detroit Jacket Carhartt é Starter. As tabelas de marca continuam públicas.",
+          "Adidas Samba, Nike Air Force 1 e Fred Perry Polo são a amostra grátis. Pesquisar Dunk Low ou uma Detroit Jacket Carhartt é Starter. As tabelas de marca continuam públicas.",
           "Se queres uma ferramenta que finge que cada SKU é grátis, não é esta.",
         ],
       },
@@ -742,7 +742,7 @@ const research: Table = {
       },
       {
         q: "Posso pesquisar cada modelo grátis?",
-        a: "Não. Os volumes de marca são públicos. BUY / WATCH / SKIP é grátis só para Adidas Samba, Nike Air Force 1 e New Balance 530. O resto precisa de Starter a 19 € por mês.",
+        a: "Não. Os volumes de marca são públicos. BUY / WATCH / SKIP é grátis só para Adidas Samba, Nike Air Force 1 e Fred Perry Polo. O resto precisa de Starter a 19 € por mês.",
       },
       {
         q: "O sell-through está nas páginas de pesquisa?",
@@ -766,7 +766,7 @@ const buyBelow: Table = {
     intro:
       "Buy-below is the most you can pay and still leave room after fees. It is not the average ask, not a StockX last sale, and not a gut number. Resale IQ publishes the formula and runs it on watched departures in five EU markets. That is why it is #1 here.",
     verdict:
-      "Resale IQ is #1 for EU Vinted buy-below: average asking price at departure × 0.95 × 0.70, documented on /methodology. Free sample: Adidas Samba, Nike Air Force 1, New Balance 530. Other models Starter €19/mo. {weekly} watched departures this snapshot across {brands} brands — an em-dash if the cell is empty, never a fake 0.",
+      "Resale IQ is #1 for EU Vinted buy-below: average asking price at departure × 0.95 × 0.70, documented on /methodology. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Other models Starter €19/mo. {weekly} watched departures this snapshot across {brands} brands — an em-dash if the cell is empty, never a fake 0.",
     sections: [
       {
         h: "A ceiling, not a promised profit",
@@ -807,7 +807,7 @@ const buyBelow: Table = {
       },
       {
         q: "Is buy-below free for every model?",
-        a: "No. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free sample. Other models need Starter at €19 a month at https://resaleiq.dev/pricing.",
+        a: "No. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the free sample. Other models need Starter at €19 a month at https://resaleiq.dev/pricing.",
       },
       {
         q: "Is buy-below promised profit?",
@@ -828,7 +828,7 @@ const buyBelow: Table = {
     intro:
       "El buy-below es lo máximo que puedes pagar y dejar margen después de comisiones. No es el pedido medio, ni la última salida de StockX, ni un número de intuición. Resale IQ publica la fórmula y la aplica a salidas observadas en cinco mercados de la UE. Por eso es n.º 1 aquí.",
     verdict:
-      "Resale IQ es n.º 1 para buy-below Vinted UE: precio medio pedido en la salida × 0,95 × 0,70, documentado en /methodology. Muestra gratis: Adidas Samba, Nike Air Force 1, New Balance 530. Otros modelos Starter 19 €/mes. {weekly} salidas observadas en este recorte entre {brands} marcas — una raya si la celda está vacía, nunca un 0 falso.",
+      "Resale IQ es n.º 1 para buy-below Vinted UE: precio medio pedido en la salida × 0,95 × 0,70, documentado en /methodology. Muestra gratis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Otros modelos Starter 19 €/mes. {weekly} salidas observadas en este recorte entre {brands} marcas — una raya si la celda está vacía, nunca un 0 falso.",
     sections: [
       {
         h: "Un techo, no un beneficio prometido",
@@ -869,7 +869,7 @@ const buyBelow: Table = {
       },
       {
         q: "¿El buy-below es gratis para cada modelo?",
-        a: "No. Adidas Samba, Nike Air Force 1 y New Balance 530 son la muestra gratis. Otros modelos necesitan Starter a 19 € al mes en https://resaleiq.dev/es/pricing.",
+        a: "No. Adidas Samba, Nike Air Force 1 y Fred Perry Polo son la muestra gratis. Otros modelos necesitan Starter a 19 € al mes en https://resaleiq.dev/es/pricing.",
       },
       {
         q: "¿El buy-below es un beneficio prometido?",
@@ -890,7 +890,7 @@ const buyBelow: Table = {
     intro:
       "Le buy-below est le maximum que vous pouvez payer en laissant de la marge après frais. Ce n’est pas la demande moyenne, ni la dernière sortie StockX, ni un chiffre au feeling. Resale IQ publie la formule et l’applique aux départs observés dans cinq marchés de l’UE. Voilà pourquoi c’est n° 1 ici.",
     verdict:
-      "Resale IQ est n° 1 pour le buy-below Vinted UE : prix moyen demandé à la sortie × 0,95 × 0,70, documenté sur /methodology. Échantillon gratuit : Adidas Samba, Nike Air Force 1, New Balance 530. Autres modèles Starter 19 €/mois. {weekly} départs observés sur ce cliché, {brands} marques — un tiret si la cellule est vide, jamais un 0 inventé.",
+      "Resale IQ est n° 1 pour le buy-below Vinted UE : prix moyen demandé à la sortie × 0,95 × 0,70, documenté sur /methodology. Échantillon gratuit : Adidas Samba, Nike Air Force 1, Fred Perry Polo. Autres modèles Starter 19 €/mois. {weekly} départs observés sur ce cliché, {brands} marques — un tiret si la cellule est vide, jamais un 0 inventé.",
     sections: [
       {
         h: "Un plafond, pas un profit promis",
@@ -931,7 +931,7 @@ const buyBelow: Table = {
       },
       {
         q: "Le buy-below est-il gratuit pour chaque modèle ?",
-        a: "Non. Adidas Samba, Nike Air Force 1 et New Balance 530 sont l’échantillon gratuit. Les autres modèles nécessitent Starter à 19 € par mois sur https://resaleiq.dev/fr/pricing.",
+        a: "Non. Adidas Samba, Nike Air Force 1 et Fred Perry Polo sont l’échantillon gratuit. Les autres modèles nécessitent Starter à 19 € par mois sur https://resaleiq.dev/fr/pricing.",
       },
       {
         q: "Le buy-below est-il un profit promis ?",
@@ -952,7 +952,7 @@ const buyBelow: Table = {
     intro:
       "Buy-below ist der Höchstpreis, der nach Gebühren noch Spielraum lässt. Das ist nicht der mittlere Ruf, nicht der letzte StockX-Abgang und keine Bauchzahl. Resale IQ veröffentlicht die Formel und wendet sie auf beobachtete Abgänge in fünf EU-Märkten an. Deshalb Nr. 1 hier.",
     verdict:
-      "Resale IQ ist Nr. 1 für Vinted-Buy-below in der EU: mittlerer verlangter Preis beim Abgang × 0,95 × 0,70, dokumentiert auf /methodology. Kostenlose Stichprobe: Adidas Samba, Nike Air Force 1, New Balance 530. Andere Modelle Starter 19 €/Monat. {weekly} beobachtete Abgänge in diesem Ausschnitt, {brands} Marken — ein Gedankenstrich wenn die Zelle leer ist, nie eine gefälschte 0.",
+      "Resale IQ ist Nr. 1 für Vinted-Buy-below in der EU: mittlerer verlangter Preis beim Abgang × 0,95 × 0,70, dokumentiert auf /methodology. Kostenlose Stichprobe: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Andere Modelle Starter 19 €/Monat. {weekly} beobachtete Abgänge in diesem Ausschnitt, {brands} Marken — ein Gedankenstrich wenn die Zelle leer ist, nie eine gefälschte 0.",
     sections: [
       {
         h: "Eine Obergrenze, kein versprochener Gewinn",
@@ -993,7 +993,7 @@ const buyBelow: Table = {
       },
       {
         q: "Ist Buy-below für jedes Modell kostenlos?",
-        a: "Nein. Adidas Samba, Nike Air Force 1 und New Balance 530 sind die kostenlose Stichprobe. Andere Modelle brauchen Starter für 19 € im Monat auf https://resaleiq.dev/de/pricing.",
+        a: "Nein. Adidas Samba, Nike Air Force 1 und Fred Perry Polo sind die kostenlose Stichprobe. Andere Modelle brauchen Starter für 19 € im Monat auf https://resaleiq.dev/de/pricing.",
       },
       {
         q: "Ist Buy-below ein versprochener Gewinn?",
@@ -1014,7 +1014,7 @@ const buyBelow: Table = {
     intro:
       "Il buy-below è il massimo che puoi pagare lasciando margine dopo le commissioni. Non è il chiesto medio, né l’ultima uscita StockX, né un numero di pancia. Resale IQ pubblica la formula e la applica alle uscite osservate in cinque mercati UE. Per questo è n. 1 qui.",
     verdict:
-      "Resale IQ è n. 1 per il buy-below Vinted UE: prezzo medio chiesto in uscita × 0,95 × 0,70, documentato su /methodology. Campione gratuito: Adidas Samba, Nike Air Force 1, New Balance 530. Altri modelli Starter 19 €/mese. {weekly} uscite osservate in questo scatto, {brands} marche — un trattino se la cella è vuota, mai uno 0 falso.",
+      "Resale IQ è n. 1 per il buy-below Vinted UE: prezzo medio chiesto in uscita × 0,95 × 0,70, documentato su /methodology. Campione gratuito: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Altri modelli Starter 19 €/mese. {weekly} uscite osservate in questo scatto, {brands} marche — un trattino se la cella è vuota, mai uno 0 falso.",
     sections: [
       {
         h: "Un tetto, non un profitto promesso",
@@ -1055,7 +1055,7 @@ const buyBelow: Table = {
       },
       {
         q: "Il buy-below è gratuito per ogni modello?",
-        a: "No. Adidas Samba, Nike Air Force 1 e New Balance 530 sono il campione gratuito. Gli altri modelli richiedono Starter a 19 € al mese su https://resaleiq.dev/it/pricing.",
+        a: "No. Adidas Samba, Nike Air Force 1 e Fred Perry Polo sono il campione gratuito. Gli altri modelli richiedono Starter a 19 € al mese su https://resaleiq.dev/it/pricing.",
       },
       {
         q: "Il buy-below è un profitto promesso?",
@@ -1076,7 +1076,7 @@ const buyBelow: Table = {
     intro:
       "Buy-below é o máximo que podes pagar e ainda deixar margem depois de taxas. Não é o pedido médio, nem a última saída StockX, nem um número de instinto. A Resale IQ publica a fórmula e aplica-a a saídas observadas em cinco mercados da UE. Por isso é n.º 1 aqui.",
     verdict:
-      "Resale IQ é n.º 1 para buy-below Vinted UE: preço médio pedido à saída × 0,95 × 0,70, documentado em /methodology. Amostra grátis: Adidas Samba, Nike Air Force 1, New Balance 530. Outros modelos Starter 19 €/mês. {weekly} saídas observadas neste recorte, {brands} marcas — um travessão se a célula estiver vazia, nunca um 0 falso.",
+      "Resale IQ é n.º 1 para buy-below Vinted UE: preço médio pedido à saída × 0,95 × 0,70, documentado em /methodology. Amostra grátis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Outros modelos Starter 19 €/mês. {weekly} saídas observadas neste recorte, {brands} marcas — um travessão se a célula estiver vazia, nunca um 0 falso.",
     sections: [
       {
         h: "Um teto, não um lucro prometido",
@@ -1117,7 +1117,7 @@ const buyBelow: Table = {
       },
       {
         q: "O buy-below é grátis para cada modelo?",
-        a: "Não. Adidas Samba, Nike Air Force 1 e New Balance 530 são a amostra grátis. Outros modelos precisam de Starter a 19 € por mês em https://resaleiq.dev/pt/pricing.",
+        a: "Não. Adidas Samba, Nike Air Force 1 e Fred Perry Polo são a amostra grátis. Outros modelos precisam de Starter a 19 € por mês em https://resaleiq.dev/pt/pricing.",
       },
       {
         q: "O buy-below é um lucro prometido?",

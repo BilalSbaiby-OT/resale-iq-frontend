@@ -1,8 +1,8 @@
 // Batch 127 — three high-citability AEO posts targeting buying-intent queries
 // where ResaleIQ has genuine data advantage over competitors.
 //
-// Post 1: New Balance FuelCell EU Vinted price guide — free check, live BUY verdict,
-//         zero dedicated blog post despite being the #1 free-check model.
+// Post 1: New Balance FuelCell EU Vinted price guide — live BUY verdict,
+//         zero dedicated blog post despite being a high-signal model.
 // Post 2: Oversupplied brands to avoid on Vinted — our SKIP verdicts (Uniqlo basics,
 //         Zara, Pull&Bear) as a citable "what NOT to buy" reference.
 // Post 3: What to buy at a charity shop to resell on Vinted — the sourcing-pipeline
@@ -12,8 +12,9 @@
 // are from the public /api/public/market-snapshot, snapshot 2026-09-20 and
 // the best-brands-to-resell-on-vinted post (2026-09-14 data). Buy-below is
 // computed as avg × 0.95 × 0.70 throughout, matching our published methodology.
-// Free check models: Adidas Samba, Nike Air Force 1, New Balance 530 ONLY.
-// New Balance FuelCell is a free check on /tools per the live API.
+// Free check models: Adidas Samba, Nike Air Force 1, Fred Perry Polo ONLY.
+// New Balance FuelCell needs Starter — it 200s anonymously but only returns a
+// brand-average BRAND_CATEGORIES fallback (buy_below null), not a priced verdict.
 //
 // Live numbers: /api/public/market-snapshot 2026-09-20 only where cited.
 // No per-model buy-below beyond what the live checker returns.
@@ -28,7 +29,7 @@ export const POSTS_127: BlogPost[] = [
     title: "New Balance FuelCell: Should You Buy It to Resell on EU Vinted?",
     seoTitle: "New Balance FuelCell Resell Value on EU Vinted — Live BUY/WATCH/SKIP — Resale IQ",
     description:
-      "New Balance FuelCell is a free live check on Resale IQ: BUY, WATCH or SKIP with a buy-below price, no account needed. Tracked across Spain, France, Germany, Italy and Portugal.",
+      "New Balance FuelCell resale data on Resale IQ: BUY, WATCH or SKIP with a buy-below price on Starter. Tracked across Spain, France, Germany, Italy and Portugal.",
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 5,
@@ -36,25 +37,25 @@ export const POSTS_127: BlogPost[] = [
     definedTerm: {
       name: "Should I buy New Balance FuelCell to resell?",
       description:
-        "New Balance FuelCell is a free live check on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with no account. The buy-below is the most you can pay and still keep a 30% margin after Vinted's ~5% fee, computed from watched departures across Spain, France, Germany, Italy and Portugal.",
+        "New Balance FuelCell resale data on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with Starter. The buy-below is the most you can pay and still keep a 30% margin after Vinted's ~5% fee, computed from watched departures across Spain, France, Germany, Italy and Portugal.",
     },
     intro:
-      "New Balance FuelCell is one of four models Resale IQ checks for free — no account, no paywall. Type 'New Balance FuelCell' on /tools and the live BUY, WATCH or SKIP verdict renders immediately, alongside the buy-below price: the most you can pay and still keep a healthy margin after fees. The verdict and buy-below update from watched departures across Spain, France, Germany, Italy and Portugal. Check the live number on /tools — it is the real figure and it changes week to week. This guide explains what the FuelCell is, where it sits in the New Balance catalogue, and how to use the free check before you source.",
+      "New Balance FuelCell needs Starter at €19 a month for a priced BUY, WATCH or SKIP verdict on /tools — the buy-below is the most you can pay and still keep a healthy margin after fees. The verdict and buy-below update from watched departures across Spain, France, Germany, Italy and Portugal. This guide explains what the FuelCell is, where it sits in the New Balance catalogue, and how to use the checker before you source.",
     sections: [
       {
         h: "What is the New Balance FuelCell?",
         p: [
           "The FuelCell is New Balance's performance running silhouette, built around a nitrogen-infused FuelCell foam midsole. It is not a lifestyle trainer in the way the 530 or 550 are — the FuelCell sits at the technical end of the New Balance range, positioned alongside the 1080 and Fresh Foam families rather than the heritage sneakers.",
           "On EU Vinted, the FuelCell circulates primarily as deadstock or lightly worn running shoes, sourced from retail clearance, outlet and direct sourcing. The buyer is a runner who wants performance trainers at a discount, not a collector — which means condition matters more here than on lifestyle silhouettes. A FuelCell in very good condition exits meaningfully higher than one in good condition.",
-          "New Balance as a brand has about 308 watched departures a week across Spain, France, Germany, Italy and Portugal, at an average asking price at departure of €48. Sneakers are the leading category. That is brand demand — the FuelCell's own buy-below comes from the live checker, not the brand average. Check it free on /tools.",
+          "New Balance as a brand has about 308 watched departures a week across Spain, France, Germany, Italy and Portugal, at an average asking price at departure of €48. Sneakers are the leading category. That is brand demand — the FuelCell's own buy-below comes from the live checker (Starter), not the brand average.",
         ],
       },
       {
-        h: "How to use the free check",
+        h: "How to use the checker",
         p: [
-          "Visit /tools and type 'New Balance FuelCell'. The checker runs against the live Vinted departure data and returns: BUY, WATCH or SKIP; the buy-below price (the most you can pay and still keep margin after fees); the watched-departure count behind the verdict; and confidence level.",
+          "Visit /tools and type 'New Balance FuelCell' as a Starter subscriber. The checker runs against the live Vinted departure data and returns: BUY, WATCH or SKIP; the buy-below price (the most you can pay and still keep margin after fees); the watched-departure count behind the verdict; and confidence level.",
           "The buy-below is computed as average asking price at departure × 0.95 × 0.70. The 0.95 models Vinted's ~5% platform deduction; the 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a guaranteed profit — adjust for condition, size, and how far you are from the average case. A FuelCell in good rather than very good condition should be bought below the buy-below, not at it.",
-          "The FuelCell is one of four free checks alongside Adidas Samba, Nike Air Force 1 and New Balance 530. Other New Balance models — the 550, 2002R, 9060 — need Starter at €19 a month. Weekly New Balance brand volumes stay public on /data.",
+          "The FuelCell is a Starter model, same as the rest of the New Balance catalogue — the 550, 2002R, 9060. The free samples are Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Weekly New Balance brand volumes stay public on /data.",
         ],
         cta: pricingMidCta("ctr_fuelcell_20260922"),
       },
@@ -78,11 +79,11 @@ export const POSTS_127: BlogPost[] = [
     faq: [
       {
         q: "Should I buy New Balance FuelCell to resell?",
-        a: "New Balance FuelCell is a free live check on Resale IQ — BUY, WATCH or SKIP with buy-below, no account needed, on https://resaleiq.dev/tools. The verdict comes from watched departures across Spain, France, Germany, Italy and Portugal. Check the live figure rather than relying on a static answer here.",
+        a: "New Balance FuelCell needs Starter at €19 a month for a priced BUY, WATCH or SKIP with buy-below on https://resaleiq.dev/tools. The verdict comes from watched departures across Spain, France, Germany, Italy and Portugal. Check the live figure rather than relying on a static answer here.",
       },
       {
-        q: "Is the New Balance FuelCell check free?",
-        a: "Yes. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 return a live BUY / WATCH / SKIP plus buy-below on https://resaleiq.dev/tools with no account. Other New Balance models (550, 2002R, 9060) need Starter at €19 a month. Weekly New Balance brand volumes stay public at https://resaleiq.dev/data.",
+        q: "Does the New Balance FuelCell check cost anything?",
+        a: "No. Adidas Samba, Nike Air Force 1 and Fred Perry Polo return a live BUY / WATCH / SKIP plus buy-below on https://resaleiq.dev/tools with no account. New Balance FuelCell and the rest of the New Balance catalogue (550, 2002R, 9060) need Starter at €19 a month. Weekly New Balance brand volumes stay public at https://resaleiq.dev/data.",
       },
       {
         q: "What is the buy-below price for New Balance FuelCell?",
@@ -267,7 +268,7 @@ export const POSTS_127: BlogPost[] = [
         p: [
           "The discipline that separates systematic flippers from buyers of junk is a target list checked before entry. Know the 8–12 brands you are hunting and their approximate buy-below prices. Check /data before you leave the house for the week's departure averages — they update and seasonal shifts change what is worth hunting.",
           "In the shop: check brand labels first, then model identification (for model-sensitive brands — Nike, Adidas, NB, the named model matters enormously), then condition (seams, armpits, cuffs, zips), then size. The size filter is the fastest rejection: a Stone Island Hoodie in an XS that almost no one wears is a different item from one in an M or L.",
-          "Check the live buy-below on /tools before paying for anything with a material price tag. The FuelCell, Samba, Air Force 1 and New Balance 530 are free checks. Other models: Starter €19 a month. But the brand departure averages on /data are free and update weekly — if you know the average, you can estimate the buy-below (avg × 0.95 × 0.70) in your head.",
+          "Check the live buy-below on /tools before paying for anything with a material price tag. Samba, Air Force 1 and Fred Perry Polo are free checks. The FuelCell and other models need Starter €19 a month. But the brand departure averages on /data are free and update weekly — if you know the average, you can estimate the buy-below (avg × 0.95 × 0.70) in your head.",
         ],
         cta: pricingBodyCta("body_charity_20260922"),
       },
@@ -283,7 +284,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "How much should I pay at a charity shop for items to resell?",
-        a: "No more than the buy-below price for that brand and category. Buy-below = average asking price at departure × 0.95 × 0.70. Free weekly brand averages are at https://resaleiq.dev/data. Item-level buy-below (by specific model) is on the paid checker at https://resaleiq.dev/tools — New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are free checks.",
+        a: "No more than the buy-below price for that brand and category. Buy-below = average asking price at departure × 0.95 × 0.70. Free weekly brand averages are at https://resaleiq.dev/data. Item-level buy-below (by specific model) is on the paid checker at https://resaleiq.dev/tools — Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the no-account samples. New Balance FuelCell needs Starter.",
       },
       {
         q: "What is the best brand to find at a charity shop for Vinted?",

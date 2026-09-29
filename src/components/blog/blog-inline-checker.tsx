@@ -60,7 +60,7 @@
  *  {preflightQuery}" — always honest (never invent a number).
  *
  * C205 — paywall-demo chips after free-model result:
- *  495 SSR calls to NB530 (free model) in 7d, 0 checkout_from_blog (all time).
+ *  495 SSR calls to a free model in 7d, 0 checkout_from_blog (all time).
  *  Blog posts with free-model preflightQueries show a free result and the
  *  "That was a public demo item" bridge — but leave the visitor to figure
  *  out what to check next. They got their answer and leave.
@@ -295,7 +295,7 @@ export function BlogInlineChecker({
         <RoiExampleCard items={(roiRows ?? buyListPreview)!} />
       )}
 
-      {/* C214: Buy-list pitch for free-model visitors (NB530, AF1, Samba).
+      {/* C214: Buy-list pitch for free-model visitors (Fred Perry Polo, AF1, Samba).
           These posts have 495+ SSR calls/7d but 0 checkout_from_blog ever.
           The visitor just got a free verdict — they don't need 'see another verdict'.
           They need to see the DIFFERENT value: the full ranked buy list.
@@ -359,7 +359,7 @@ export function BlogInlineChecker({
       )}
 
       {/* C224(elon): paywall-demo chips — free-model posts only, before any chip clicked.
-          Free-model visitors (NB530, AF1, Samba) get a free verdict and bounce —
+          Free-model visitors (Fred Perry Polo, AF1, Samba) get a free verdict and bounce —
           checkout_from_blog = 0 all-time. These chips let them one-tap a real paid item
           to experience the paywall CTA with context (comparable_n), not cold.
           Chips must not be free-model queries (see FREE_MODELS). Confirmed in catalog. */}
@@ -388,7 +388,7 @@ export function BlogInlineChecker({
       )}
 
       {/* C227(elon): Cross-check chips for PAID-model posts — no chip clicked yet.
-          On free-model posts (NB530/AF1/Samba) the C224 chips above nudge to a paid item.
+          On free-model posts (Fred Perry Polo/AF1/Samba) the C224 chips above nudge to a paid item.
           Paid-model posts had NO equivalent: a first-timer who got their free verdict
           for Stone Island Hoodie had no prompt to check a second item — they just left.
           After a first-timer's free verdict, their NEXT check returns 402 PAYWALL.

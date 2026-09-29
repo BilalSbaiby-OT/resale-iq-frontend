@@ -7,7 +7,7 @@
  *
  * Copy lives in seo-landings-copy.ts as locale tables so check-locale-english
  * can scan it. Numbers never live here: live warehouse figures are interpolated
- * at render time. Free-check honesty: only Samba / AF1 / NB 530. No /register
+ * at render time. Free-check honesty: only Samba / AF1 / Fred Perry Polo. No /register
  * in FAQ. No invented competitor metrics.
  */
 import type { Locale } from "./i18n"

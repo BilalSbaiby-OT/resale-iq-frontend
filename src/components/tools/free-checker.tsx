@@ -48,7 +48,7 @@ function fmtCount(n: number | null | undefined): string {
 }
 
 // Public checker. HARD_PAYWALL: anonymous callers get buy-below only on the
-// three free models (Samba / AF1 / NB 530). Everything else is HTTP 402.
+// three free models (Samba / AF1 / Fred Perry Polo). Everything else is HTTP 402.
 // STR, demand, sizes and history stay behind the plan. Never invent numbers:
 // only render fields the API sent. Number first, letter second, sample third
 // — SKIP without counts reads as "this model does not sell".

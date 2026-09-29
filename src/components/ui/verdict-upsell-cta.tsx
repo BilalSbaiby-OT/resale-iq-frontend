@@ -204,7 +204,7 @@ export function VerdictUpsellCta({
       </div>
 
       {/* H159 CRO: "Check YOUR item" inline bridge — Plausible/Beehiiv pattern.
-          After seeing a free sample (Samba/AF1/NB530), the visitor's real question
+          After seeing a free sample (Samba/AF1/Fred Perry Polo), the visitor's real question
           is "does it work for MY items?" The existing CTA was generic. This adds a
           mini input so they try their actual sourcing item right here, creating the
           conviction chain: sample → personalized paywall → item-specific checkout.

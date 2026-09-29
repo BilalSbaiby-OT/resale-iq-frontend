@@ -17,7 +17,7 @@
  *  - HardPaywallCard at /tools carries the item name into checkout copy.
  *  - src=pricing_try is a funnel source for analytics.
  *
- * H114 CRO: Added "free live samples" chips — AF1/Samba/NB530 are the 3
+ * H114 CRO: Added "free live samples" chips — AF1/Samba/Fred Perry Polo are the 3
  * public sample queries that return FULL verdicts with no account required.
  * The pricing page never surfaced them — visitors had no way to experience
  * a real verdict before the paywall. These chips make the free path
@@ -584,7 +584,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
           Plausible.io pattern: live demo on the pricing page itself, zero friction.
           The visitor experiences the product without a redirect, looks down and
           sees plan cards on the same page — momentum intact.
-          Full verdict (AF1/Samba/NB530 are public sample queries, no auth required).
+          Full verdict (AF1/Samba/Fred Perry Polo are public sample queries, no auth required).
           src=pricing_free_sample still used when navigating for non-sample queries. */}
       <div
         style={{

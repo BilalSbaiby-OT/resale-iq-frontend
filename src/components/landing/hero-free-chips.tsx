@@ -20,7 +20,7 @@
  *  - Navigation fallback preserved: Link inside the inline card goes to /tools
  *    for visitors who want to explore further
  *
- * Free-model chips (AF1/Samba/NB530) always return full verdicts to anon —
+ * Free-model chips (AF1/Samba/Fred Perry Polo) always return full verdicts to anon —
  * no paywall needed here. The checkout CTA below the inline result is the
  * conversion ask.
  *
@@ -74,7 +74,7 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
  *  - Fathom: full trial before payment request.
  *  - Beehiiv: free tier proves value; ask comes after personalized experience.
  *
- * THE GAP: HeroFreeChips lets visitors see a verdict for Adidas Samba (AF1/NB530).
+ * THE GAP: HeroFreeChips lets visitors see a verdict for Adidas Samba (AF1/Fred Perry Polo).
  * The conviction chain STOPS there — the only next action is a generic checkout CTA.
  * There's no bridge from "I saw their data" to "does it work for MY items?".
  *

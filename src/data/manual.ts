@@ -149,7 +149,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     slug: "the-buy-below-price",
     number: 2,
     part: "The economics",
-    checkQuery: "New Balance 530",
+    checkQuery: "Fred Perry Polo",
     updated: "2026-09-13",
     title: "How to work out the most you can pay",
     seoTitle: "What Is a Buy-Below Price on Vinted? — The Vinted Reselling Manual",

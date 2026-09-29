@@ -284,7 +284,7 @@ export function LandingContent({
               { q: "Works for my items?", a: `${market.brandCount}+ brands — ES, FR, DE, IT & PT` },
               { q: "Worth it?", a: market.sold7dTotal ? `${market.sold7dTotal.toLocaleString()} sales tracked last week` : "Live sell-through on every brand" },
               { q: "Hard to use?", a: "Type a brand, get a verdict in seconds" },
-              { q: "What if it's wrong?", a: "Try Samba, AF1 & NB530 free — no account needed" },
+              { q: "What if it's wrong?", a: "Try Samba, AF1 & Fred Perry Polo free — no account needed" },
               { q: "Can I trust this?", a: market.listingsTracked ? `${market.listingsTracked.toLocaleString()} listings tracked live` : `${tracked} listings across 5 EU markets` },
             ] as { q: string; a: string }[]).map(({ q, a }) => (
               <div key={q} style={{ background: "var(--color-surface)", borderRadius: 8, padding: "11px 13px" }}>

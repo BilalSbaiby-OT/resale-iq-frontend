@@ -17,22 +17,22 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is Resale IQ?",
     a:
-      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba, Nike Air Force 1, and New Balance 530 can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba, Nike Air Force 1, and Fred Perry Polo can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
   },
   {
     q: "Which clothes do you cover?",
     a:
-      "Clothing brands and models we actually track — Nike, Adidas, Levi's, Zara, Gucci and the rest of the live catalog. Samba, Air Force 1, and NB 530 are free to check on https://resaleiq.dev/tools. Other item checks need Starter at €19 a month. Weekly volumes stay public at https://resaleiq.dev/data.",
+      "Clothing brands and models we actually track — Nike, Adidas, Levi's, Zara, Gucci and the rest of the live catalog. Samba, Air Force 1, and Fred Perry Polo are free to check on https://resaleiq.dev/tools. Other item checks need Starter at €19 a month. Weekly volumes stay public at https://resaleiq.dev/data.",
   },
   {
     q: "What is a buy-below price?",
     a:
-      "The most you can pay for a garment and still keep a healthy margin after fees. Samba, Air Force 1, and NB 530 return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
+      "The most you can pay for a garment and still keep a healthy margin after fees. Samba, Air Force 1, and Fred Perry Polo return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
   },
   {
     q: "What if you don’t track my item?",
     a:
-      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
+      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
   },
 ]
 
@@ -90,7 +90,6 @@ export default async function Landing({ searchParams }: { searchParams?: Promise
     console.error("[page] WARN: ssrBuyList is empty — SsrBuyListTeaser will not render above the fold. Check [ssr-buy-list] FATAL log above for root cause.")
   }
   // Cite, example card, and first free chip are the same SKU (Samba).
-  // 530 remains a free chip; it is no longer a second competing example.
   const example = samba ?? hero.result
   const exampleQuery = samba ? "Adidas Samba" : hero.query
   // H2 CRO: extract ?src= for message-match eyebrow (LLM referral) — Revenue 2026-09-15.

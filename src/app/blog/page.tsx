@@ -127,7 +127,7 @@ export default async function BlogIndex() {
         </p>
 
         {/* H162 CRO: interactive free checker on /blog index — 130/7d visitors with
-            zero product experience before this. Three free sample chips (AF1/Samba/NB530)
+            zero product experience before this. Three free sample chips (AF1/Samba/Fred Perry Polo)
             return live verdicts inline, no navigation required. After the verdict: email
             capture + GuestCheckoutButton at peak conviction. "Check YOUR item" input
             handles custom queries → 402 PAYWALL → comparable_n → personalized ask.

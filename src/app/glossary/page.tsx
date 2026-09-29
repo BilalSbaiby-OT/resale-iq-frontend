@@ -77,7 +77,7 @@ export default function GlossaryHubPage() {
         Check a named model
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        Brand averages are not a buy-below. These pages name the model. Free sample: Adidas Samba, Nike Air Force 1, New Balance 530. Others are Starter €19.
+        Brand averages are not a buy-below. These pages name the model. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Others are Starter €19.
       </p>
       <ModelChips models={SEO_MODELS} showFreeMark />
 

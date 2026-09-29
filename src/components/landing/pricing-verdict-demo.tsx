@@ -13,7 +13,7 @@
  * Shows exactly what a subscriber sees, on first paint, no JS, no spinner.
  *
  * RULES:
- *  - Only ever use a free sample query (AF1/Samba/NB530) — these are public
+ *  - Only ever use a free sample query (AF1/Samba/Fred Perry Polo) — these are public
  *    by design (_is_public_sample_query), never behind the wall.
  *  - If the fetch fails, returns null → caller skips the section cleanly.
  *  - No fabricated numbers. Every figure is from the live API response.

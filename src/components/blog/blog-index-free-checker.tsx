@@ -7,7 +7,7 @@
  * They never experience the product — so the ask lands on an unconvinced visitor.
  *
  * Plausible.io pattern: show the product working on the page the visitor is on,
- * before sending them anywhere else. Three free-sample chips (AF1/Samba/NB530)
+ * before sending them anywhere else. Three free-sample chips (AF1/Samba/Fred Perry Polo)
  * return full verdicts — no account, no paywall, no navigation.
  *
  * After the inline verdict: GuestCheckoutButton directly at peak conviction.

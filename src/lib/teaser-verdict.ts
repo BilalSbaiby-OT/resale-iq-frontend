@@ -1,9 +1,9 @@
 /**
  * SSR teaser for GPTBot / PerplexityBot. /tools?q= is a client checker;
  * crawlers do not run JS, so the live BUY/WATCH/SKIP never appeared in HTML.
- * New Balance FuelCell, Adidas Samba, Nike Air Force 1 and Fred Perry Polo are fetched — those
- * three still 200 anonymously. Anything else stays paywalled and is not
- * rendered here.
+ * Adidas Samba, Nike Air Force 1 and Fred Perry Polo are fetched — those
+ * three still 200 anonymously with a real priced verdict. Anything else
+ * stays paywalled and is not rendered here.
  */
 import { promises as fs } from "node:fs"
 import os from "node:os"

@@ -301,7 +301,7 @@ export const POSTS_128: BlogPost[] = [
         p: [
           "At €25.61 buy-below, you need a reliable source below that threshold. Charity shops (particularly in France and Germany) regularly price NB 530s at €8–18. Vinted itself (searching active listings below €25) works when sellers misprice — the 0.2-day average sell time means well-priced listings go fast, so check daily.",
           "Car boot sales and estate sales carry risk on condition but produce the best margins. Avoid buying at Vinted active prices above €25 to resell on the same platform — the differential does not survive fees.",
-          `Live rankings and the most current buy-below: [check the NB 530 free on /tools](/tools). The buy-below shown there may differ slightly from the September 2026 figure here as the production snapshot refreshes. [Full New Balance guide](/blog/new-balance-reselling-vinted-guide) · [weekly market data](/data).`,
+          `Live rankings and the most current buy-below: [check the NB 530 on /tools](/tools) with Starter. The buy-below shown there may differ slightly from the September 2026 figure here as the production snapshot refreshes. [Full New Balance guide](/blog/new-balance-reselling-vinted-guide) · [weekly market data](/data).`,
         ],
         cta: pricingBodyCta("body_nb530_20260922"),
       },
@@ -310,7 +310,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",
         a:
-          "Based on 22 September 2026 production data: yes, if sourced below €25.61. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €25.61 (avg × 0.95 × 0.70). Average sell time 0.2 days. It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal free at https://resaleiq.dev/tools",
+          "Based on 22 September 2026 production data: yes, if sourced below €25.61. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €25.61 (avg × 0.95 × 0.70). Average sell time 0.2 days. It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal at https://resaleiq.dev/tools with Starter — NB 530 is not a free sample.",
       },
       {
         q: "How much does a New Balance 530 sell for on Vinted?",
