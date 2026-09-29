@@ -32,7 +32,10 @@ import { FreeChecker } from "@/components/tools/free-checker"
 // After the visitor sees one of these, they've experienced the product —
 // show a bridge to the paid plan so the realisation doesn't drift away.
 // H72 CRO. Revenue 2026-09-23.
-const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "New Balance 530"]
+// 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
+// SKIP live with buy_below=null (see src/lib/working-models.ts). Keep in sync
+// with FREE_MODELS and api/routes.py _PUBLIC_SAMPLE_QUERIES.
+const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "Fred Perry Polo"]
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -511,305 +514,6 @@ export function PricingSection({
         </div>
       )}
 
-      {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.
-          Shown ONLY on standalone /pricing (!compact). Answers before price is seen.
-          CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15. */}
-      {!compact && (
-        <p
-          data-testid="riq-scope-note"
-          style={{
-            textAlign: "center",
-            fontSize: 13.5,
-            color: "var(--color-text-muted)",
-            lineHeight: 1.55,
-            maxWidth: 640,
-            margin: "-16px auto 32px",
-          }}
-        >
-          {t.scopeNote}
-        </p>
-      )}
-
-      {/* H78 CRO: VAT country demoted from prominent standalone section to an
-          inline disclosure. Prior: a full-width dropdown with label + hint text
-          sat between the capability matrix and the try-free demo — a tax form
-          mid-pitch. Visitor who came to see the product had to scroll past a
-          bureaucratic form to reach the demo. Competitor reference: Plausible,
-          Fathom, Linear all collect tax jurisdiction at Stripe Checkout, not
-          mid-page. Fix: collapse to a single text-link that expands inline
-          (details/summary) so the country stays settable without dominating the
-          cold-traffic view. Function preserved: country stores to localStorage
-          and feeds the existing checkout flow unchanged. CRO #9 (friction
-          audit) + #12 (conversion momentum). Revenue 2026-09-23. */}
-      {!compact && (
-        <details
-          data-testid="riq-billing-country"
-          style={{
-            maxWidth: 360,
-            margin: "-8px auto 20px",
-            textAlign: "center",
-          }}
-        >
-          <summary
-            style={{
-              cursor: "pointer",
-              listStyle: "none",
-              fontSize: 12,
-              color: "var(--color-text-muted)",
-              userSelect: "none",
-              padding: "4px 0",
-            }}
-          >
-            {t.countryLabel} {country ? `(${country})` : "—"} ▾
-          </summary>
-          <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
-            <select
-              id="riq-vat-country"
-              value={country}
-              onChange={(e) => {
-                const next = e.target.value
-                if (next === "") { setCountry(""); return }
-                setCountry(next as CheckoutCountry)
-                storeCountry(next as CheckoutCountry)
-              }}
-              style={{
-                width: "100%",
-                minHeight: 40,
-                borderRadius: 10,
-                border: "1px solid var(--color-border-2)",
-                background: "var(--color-surface)",
-                color: "var(--color-text-primary)",
-                fontSize: 13,
-                padding: "8px 12px",
-              }}
-            >
-              <option value="">—</option>
-              {CHECKOUT_COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.native}</option>
-              ))}
-            </select>
-            <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", lineHeight: 1.45, textAlign: "center", margin: 0 }}>
-              {t.countryHint}
-            </p>
-          </div>
-        </details>
-      )}
-
-      {/* H76 CRO: free-vs-paid capability matrix — scannable 3-col comparison strip.
-          Problem: 44/50 pricing visitors had never seen a verdict before hitting the
-          price ask. The try-free banner asks them to click to learn the product, but
-          gives zero preview of what the output looks like. Fathom and Plausible both
-          make the value/access boundary legible BEFORE asking for a card — their
-          feature lists answer "what do I get?" in one scan. Here: a minimal 3-col
-          table (Signal | Free demo | Starter) so cold visitors see the output
-          structure before they decide whether to try the checker.
-          Structurally different from H74 (recovery copy block) and H75 (deeplinks):
-          this is a new comparison table element, not a text mutation or a link.
-          CRO #7 (trust before CTA) + #6 (cognitive load: show output, not just promise).
-          Revenue 2026-09-23. */}
-      {!compact && (
-        <div
-          data-testid="riq-capability-matrix"
-          style={{
-            maxWidth: 560,
-            margin: "0 auto 28px",
-            border: "1px solid var(--color-border-ui)",
-            borderRadius: 12,
-            overflow: "hidden",
-          }}
-        >
-          {/* Header row */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 100px 120px",
-            background: "var(--color-surface)",
-            borderBottom: "1px solid var(--color-border-ui)",
-            padding: "10px 16px",
-            gap: 8,
-          }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>What the verdict shows</span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free demo</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
-          </div>
-          {/* Data rows
-              H124 CRO: buy-below row was "—" for free, but the inline demo chips
-              ABOVE the matrix show buy-below prices for the 3 free sample queries.
-              A visitor who just saw €31 buy-below then read "—" gets cognitive
-              dissonance — the table appeared to lie. Fix: "demos only" makes the
-              free access visible and honest, so the paid "any item" reads as the
-              upgrade, not a correction of a trust-breaking discrepancy.
-              CRO #7 (trust) + #1 (clarity). Revenue 2026-09-28. */}
-          {[
-            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓ any item" },
-            { label: "Buy-below price",              free: "demos only",     paid: "✓ any item" },
-            { label: "Sell-through rate",            free: "—",              paid: "✓" },
-            { label: "Demand direction",             free: "—",              paid: "✓" },
-            { label: "Your own brand + item",        free: "—",              paid: "✓ unlimited" },
-          ].map((row, i) => (
-            <div
-              key={row.label}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 100px 120px",
-                padding: "9px 16px",
-                gap: 8,
-                background: i % 2 === 0 ? "var(--color-surface)" : "var(--color-surface-elevated)",
-                borderBottom: i < 4 ? "1px solid var(--color-border-ui)" : "none",
-                alignItems: "center",
-              }}
-            >
-              <span style={{ fontSize: 13, color: "var(--color-text-body)", lineHeight: 1.4 }}>{row.label}</span>
-              <span style={{ fontSize: 12.5, color: "var(--color-text-muted)", textAlign: "center" }}>{row.free}</span>
-              <span style={{ fontSize: 13, fontWeight: row.paid === "✓" ? 700 : 400, color: row.paid === "✓" ? "#30D158" : "var(--color-text-muted)", textAlign: "center" }}>{row.paid}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* H68 CRO: INLINE PROOF ON /PRICING — verdict runs HERE, no redirect.
-          Before: visitor clicks preset → /tools (page nav) → checker loads →
-          hits paywall → /pricing required to see price cards → checkout.
-          After: click preset → verdict + paywall + GuestCheckoutButton renders
-          inline, no navigation. 3-step funnel collapse.
-          CRO #6 (cognitive load) + #7 (trust before CTA) + #9 (friction audit).
-          Revenue 2026-09-23. */}
-      {!compact && (
-        <div
-          data-testid="riq-try-free-banner"
-          style={{
-            maxWidth: 640,
-            margin: "0 auto 36px",
-            background: "var(--color-surface)",
-            border: "1px solid rgba(48,209,88,.25)",
-            borderRadius: 14,
-            padding: "18px 20px",
-          }}
-        >
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#30D158", margin: "0 0 4px", letterSpacing: "0.02em" }}>
-            Try a live verdict before you subscribe — no account needed
-          </p>
-          <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
-            Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.
-          </p>
-          {/* H92 CRO: two chip rows — free demo items + real paywall items.
-              ZIK Analytics / SellerAmp pattern: let the visitor experience the
-              tool on real brands they actually source, not just preset demos.
-              Demo row returns free verdict (public samples by design).
-              Real-brand row hits the paywall + GuestCheckoutButton inline —
-              visitor sees the exact paid product before the plan cards.
-              CRO #4 (does it work for MY items?) + #8 (specificity: named brands
-              they recognise, not a vague demo). Revenue 2026-09-23. */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free demo</span>
-              {[
-                { label: "Nike Air Force 1", q: "Nike Air Force 1" },
-                { label: "Adidas Samba", q: "Adidas Samba" },
-                { label: "New Balance 530", q: "New Balance 530" },
-              ].map(({ label, q }) => (
-                <button
-                  key={q}
-                  type="button"
-                  data-testid="riq-try-free-query"
-                  onClick={() => setInlineQuery(q)}
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: inlineQuery === q ? "#30D158" : "#EEF1F7",
-                    background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
-                    border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
-                    borderRadius: 8,
-                    padding: "8px 14px",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {label} →
-                </button>
-              ))}
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Your brands</span>
-              {[
-                { label: "Stone Island Hoodies", q: "Stone Island Hoodies" },
-                { label: "The North Face Jacket", q: "The North Face Jacket" },
-                { label: "Carhartt Detroit Jacket", q: "Carhartt Detroit Jacket" },
-              ].map(({ label, q }) => (
-                <button
-                  key={q}
-                  type="button"
-                  data-testid="riq-try-real-query"
-                  onClick={() => setInlineQuery(q)}
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: inlineQuery === q ? "#4F8EF7" : "#A8B8D0",
-                    background: inlineQuery === q ? "rgba(79,142,247,.10)" : "transparent",
-                    border: inlineQuery === q ? "1px solid rgba(79,142,247,.4)" : "1px solid var(--color-border-2)",
-                    borderRadius: 8,
-                    padding: "8px 14px",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {label} →
-                </button>
-              ))}
-            </div>
-          </div>
-          {/* H68 CRO: own-item inline — verdict runs inline on /pricing */}
-          <TryFreeInput locale={locale} onQuery={setInlineQuery} />
-          {/* Inline FreeChecker: renders once a query is selected. The visitor
-              sees the real verdict (or paywall+checkout) without leaving /pricing. */}
-          {inlineQuery && (
-            <div style={{ marginTop: 18 }}>
-              <FreeChecker
-                key={inlineQuery}
-                initialQuery={inlineQuery}
-                locale={locale}
-                variant="card"
-                src="pricing-inline"
-              />
-              {/* H72 CRO: post-sample bridge — the three preset queries return a
-                  free public verdict BY DESIGN. After the visitor sees it, the
-                  most common next action is nothing (scroll past the plan cards).
-                  This callout names the gap between the demo and their real items
-                  and puts the checkout button at the exact moment of highest intent.
-                  CRO #10 (CTA commitment ladder) + #12 (conversion momentum).
-                  Revenue 2026-09-23. */}
-              {FREE_SAMPLE_QUERIES.map(q => q.toLowerCase()).includes(inlineQuery.toLowerCase()) && (
-                <div
-                  data-testid="riq-sample-bridge"
-                  style={{
-                    marginTop: 14,
-                    padding: "14px 16px",
-                    background: "rgba(52,199,89,.07)",
-                    border: "1px solid rgba(52,199,89,.22)",
-                    borderRadius: 12,
-                  }}
-                >
-                  {/* H133 CRO: query-specific loss-framing on the sample bridge.
-                      Before: "That was a public demo item. Your items need a subscription."
-                      — cold, factual, no urgency. The visitor just SAW live proof;
-                      the bridge must name what they proved and frame the gap as a loss.
-                      CRO #8 (loss-frame: "every item you check without this") +
-                      #3 (message-match: name the exact query they just ran) +
-                      #10 (CTA discipline: solution-aware → named item CTA).
-                      Revenue 2026-09-28. */}
-                  <p style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
-                    {inlineQuery} is a public sample. Every other item you check is behind the paywall.
-                  </p>
-                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
-                  </p>
-                  <GuestCheckoutButton locale={locale} label={`Get verdicts like this — €19/mo →`} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Conversion lock: Starter + Pro only in the card row. Free is a
           one-line public-data link below so it cannot compete with Starter €19. */}
       {/* Monthly/yearly toggle (2026-09-28 sprint). Default MONTHLY (cold mobile
@@ -1135,6 +839,305 @@ export function PricingSection({
         starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
       />
 
+
+      {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.
+          Shown ONLY on standalone /pricing (!compact). Answers before price is seen.
+          CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15. */}
+      {!compact && (
+        <p
+          data-testid="riq-scope-note"
+          style={{
+            textAlign: "center",
+            fontSize: 13.5,
+            color: "var(--color-text-muted)",
+            lineHeight: 1.55,
+            maxWidth: 640,
+            margin: "-16px auto 32px",
+          }}
+        >
+          {t.scopeNote}
+        </p>
+      )}
+
+      {/* H76 CRO: free-vs-paid capability matrix — scannable 3-col comparison strip.
+          Problem: 44/50 pricing visitors had never seen a verdict before hitting the
+          price ask. The try-free banner asks them to click to learn the product, but
+          gives zero preview of what the output looks like. Fathom and Plausible both
+          make the value/access boundary legible BEFORE asking for a card — their
+          feature lists answer "what do I get?" in one scan. Here: a minimal 3-col
+          table (Signal | Free demo | Starter) so cold visitors see the output
+          structure before they decide whether to try the checker.
+          Structurally different from H74 (recovery copy block) and H75 (deeplinks):
+          this is a new comparison table element, not a text mutation or a link.
+          CRO #7 (trust before CTA) + #6 (cognitive load: show output, not just promise).
+          Revenue 2026-09-23. */}
+      {!compact && (
+        <div
+          data-testid="riq-capability-matrix"
+          style={{
+            maxWidth: 560,
+            margin: "0 auto 28px",
+            border: "1px solid var(--color-border-ui)",
+            borderRadius: 12,
+            overflow: "hidden",
+          }}
+        >
+          {/* Header row */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 100px 120px",
+            background: "var(--color-surface)",
+            borderBottom: "1px solid var(--color-border-ui)",
+            padding: "10px 16px",
+            gap: 8,
+          }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>What the verdict shows</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free demo</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
+          </div>
+          {/* Data rows
+              H124 CRO: buy-below row was "—" for free, but the inline demo chips
+              ABOVE the matrix show buy-below prices for the 3 free sample queries.
+              A visitor who just saw €31 buy-below then read "—" gets cognitive
+              dissonance — the table appeared to lie. Fix: "demos only" makes the
+              free access visible and honest, so the paid "any item" reads as the
+              upgrade, not a correction of a trust-breaking discrepancy.
+              CRO #7 (trust) + #1 (clarity). Revenue 2026-09-28. */}
+          {[
+            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓ any item" },
+            { label: "Buy-below price",              free: "demos only",     paid: "✓ any item" },
+            { label: "Sell-through rate",            free: "—",              paid: "✓" },
+            { label: "Demand direction",             free: "—",              paid: "✓" },
+            { label: "Your own brand + item",        free: "—",              paid: "✓ unlimited" },
+          ].map((row, i) => (
+            <div
+              key={row.label}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 100px 120px",
+                padding: "9px 16px",
+                gap: 8,
+                background: i % 2 === 0 ? "var(--color-surface)" : "var(--color-surface-elevated)",
+                borderBottom: i < 4 ? "1px solid var(--color-border-ui)" : "none",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ fontSize: 13, color: "var(--color-text-body)", lineHeight: 1.4 }}>{row.label}</span>
+              <span style={{ fontSize: 12.5, color: "var(--color-text-muted)", textAlign: "center" }}>{row.free}</span>
+              <span style={{ fontSize: 13, fontWeight: row.paid === "✓" ? 700 : 400, color: row.paid === "✓" ? "#30D158" : "var(--color-text-muted)", textAlign: "center" }}>{row.paid}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* H68 CRO: INLINE PROOF ON /PRICING — verdict runs HERE, no redirect.
+          Before: visitor clicks preset → /tools (page nav) → checker loads →
+          hits paywall → /pricing required to see price cards → checkout.
+          After: click preset → verdict + paywall + GuestCheckoutButton renders
+          inline, no navigation. 3-step funnel collapse.
+          CRO #6 (cognitive load) + #7 (trust before CTA) + #9 (friction audit).
+          Revenue 2026-09-23. */}
+      {!compact && (
+        <div
+          data-testid="riq-try-free-banner"
+          style={{
+            maxWidth: 640,
+            margin: "0 auto 36px",
+            background: "var(--color-surface)",
+            border: "1px solid rgba(48,209,88,.25)",
+            borderRadius: 14,
+            padding: "18px 20px",
+          }}
+        >
+          <p style={{ fontSize: 13, fontWeight: 700, color: "#30D158", margin: "0 0 4px", letterSpacing: "0.02em" }}>
+            Try a live verdict before you subscribe — no account needed
+          </p>
+          <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
+            Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.
+          </p>
+          {/* H92 CRO: two chip rows — free demo items + real paywall items.
+              ZIK Analytics / SellerAmp pattern: let the visitor experience the
+              tool on real brands they actually source, not just preset demos.
+              Demo row returns free verdict (public samples by design).
+              Real-brand row hits the paywall + GuestCheckoutButton inline —
+              visitor sees the exact paid product before the plan cards.
+              CRO #4 (does it work for MY items?) + #8 (specificity: named brands
+              they recognise, not a vague demo). Revenue 2026-09-23. */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free demo</span>
+              {[
+                { label: "Nike Air Force 1", q: "Nike Air Force 1" },
+                { label: "Adidas Samba", q: "Adidas Samba" },
+                { label: "New Balance 530", q: "New Balance 530" },
+              ].map(({ label, q }) => (
+                <button
+                  key={q}
+                  type="button"
+                  data-testid="riq-try-free-query"
+                  onClick={() => setInlineQuery(q)}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: inlineQuery === q ? "#30D158" : "#EEF1F7",
+                    background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
+                    border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
+                    borderRadius: 8,
+                    padding: "8px 14px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {label} →
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Your brands</span>
+              {[
+                { label: "Stone Island Hoodies", q: "Stone Island Hoodies" },
+                { label: "The North Face Jacket", q: "The North Face Jacket" },
+                { label: "Carhartt Detroit Jacket", q: "Carhartt Detroit Jacket" },
+              ].map(({ label, q }) => (
+                <button
+                  key={q}
+                  type="button"
+                  data-testid="riq-try-real-query"
+                  onClick={() => setInlineQuery(q)}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: inlineQuery === q ? "#4F8EF7" : "#A8B8D0",
+                    background: inlineQuery === q ? "rgba(79,142,247,.10)" : "transparent",
+                    border: inlineQuery === q ? "1px solid rgba(79,142,247,.4)" : "1px solid var(--color-border-2)",
+                    borderRadius: 8,
+                    padding: "8px 14px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {label} →
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* H68 CRO: own-item inline — verdict runs inline on /pricing */}
+          <TryFreeInput locale={locale} onQuery={setInlineQuery} />
+          {/* Inline FreeChecker: renders once a query is selected. The visitor
+              sees the real verdict (or paywall+checkout) without leaving /pricing. */}
+          {inlineQuery && (
+            <div style={{ marginTop: 18 }}>
+              <FreeChecker
+                key={inlineQuery}
+                initialQuery={inlineQuery}
+                locale={locale}
+                variant="card"
+                src="pricing-inline"
+              />
+              {/* H72 CRO: post-sample bridge — the three preset queries return a
+                  free public verdict BY DESIGN. After the visitor sees it, the
+                  most common next action is nothing (scroll past the plan cards).
+                  This callout names the gap between the demo and their real items
+                  and puts the checkout button at the exact moment of highest intent.
+                  CRO #10 (CTA commitment ladder) + #12 (conversion momentum).
+                  Revenue 2026-09-23. */}
+              {FREE_SAMPLE_QUERIES.map(q => q.toLowerCase()).includes(inlineQuery.toLowerCase()) && (
+                <div
+                  data-testid="riq-sample-bridge"
+                  style={{
+                    marginTop: 14,
+                    padding: "14px 16px",
+                    background: "rgba(52,199,89,.07)",
+                    border: "1px solid rgba(52,199,89,.22)",
+                    borderRadius: 12,
+                  }}
+                >
+                  {/* H133 CRO: query-specific loss-framing on the sample bridge.
+                      Before: "That was a public demo item. Your items need a subscription."
+                      — cold, factual, no urgency. The visitor just SAW live proof;
+                      the bridge must name what they proved and frame the gap as a loss.
+                      CRO #8 (loss-frame: "every item you check without this") +
+                      #3 (message-match: name the exact query they just ran) +
+                      #10 (CTA discipline: solution-aware → named item CTA).
+                      Revenue 2026-09-28. */}
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
+                    {inlineQuery} is a public sample. Every other item you check is behind the paywall.
+                  </p>
+                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
+                    You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
+                  </p>
+                  <GuestCheckoutButton locale={locale} label={`Get verdicts like this — €19/mo →`} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* H78 CRO: VAT country demoted from prominent standalone section to an
+          inline disclosure. Prior: a full-width dropdown with label + hint text
+          sat between the capability matrix and the try-free demo — a tax form
+          mid-pitch. Visitor who came to see the product had to scroll past a
+          bureaucratic form to reach the demo. Competitor reference: Plausible,
+          Fathom, Linear all collect tax jurisdiction at Stripe Checkout, not
+          mid-page. Fix: collapse to a single text-link that expands inline
+          (details/summary) so the country stays settable without dominating the
+          cold-traffic view. Function preserved: country stores to localStorage
+          and feeds the existing checkout flow unchanged. CRO #9 (friction
+          audit) + #12 (conversion momentum). Revenue 2026-09-23. */}
+      {!compact && (
+        <details
+          data-testid="riq-billing-country"
+          style={{
+            maxWidth: 360,
+            margin: "-8px auto 20px",
+            textAlign: "center",
+          }}
+        >
+          <summary
+            style={{
+              cursor: "pointer",
+              listStyle: "none",
+              fontSize: 12,
+              color: "var(--color-text-muted)",
+              userSelect: "none",
+              padding: "4px 0",
+            }}
+          >
+            {t.countryLabel} {country ? `(${country})` : "—"} ▾
+          </summary>
+          <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
+            <select
+              id="riq-vat-country"
+              value={country}
+              onChange={(e) => {
+                const next = e.target.value
+                if (next === "") { setCountry(""); return }
+                setCountry(next as CheckoutCountry)
+                storeCountry(next as CheckoutCountry)
+              }}
+              style={{
+                width: "100%",
+                minHeight: 40,
+                borderRadius: 10,
+                border: "1px solid var(--color-border-2)",
+                background: "var(--color-surface)",
+                color: "var(--color-text-primary)",
+                fontSize: 13,
+                padding: "8px 12px",
+              }}
+            >
+              <option value="">—</option>
+              {CHECKOUT_COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>{c.native}</option>
+              ))}
+            </select>
+            <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", lineHeight: 1.45, textAlign: "center", margin: 0 }}>
+              {t.countryHint}
+            </p>
+          </div>
+        </details>
+      )}
       {/* Objection-handling row (CRO #4). Standalone /pricing only — the compact
           strip on the homepage already sits under a full page of proof, so the
           same six questions there would be noise. Native <details> is the whole

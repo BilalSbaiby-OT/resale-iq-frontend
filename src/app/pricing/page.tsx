@@ -121,39 +121,15 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           </a>
         </div>
       </div>
-      {/* H157 CRO: above-fold orienting headline on /pricing — CRO #1 (clarity < 5s).
-          8 of 44 /pricing visitors arrived here FIRST — never saw the homepage,
-          never read a blog post, never saw the buy list on landing. Those visitors
-          landed on proof-before-context: a locked buy list with no headline explaining
-          why any of it matters. The first screen must answer "what is this / who for /
-          why care" before proof lands. The headline is the frame the proof sits in.
-          Tight, outcome-first: 1 line + 1 subhead. No bloat, no feature dump.
-          Revenue 2026-09-29. H157. */}
-      <div style={{ maxWidth: 1040, margin: "0 auto", padding: "24px 24px 0" }}>
-        <h1
-          style={{
-            fontSize: "clamp(22px, 4vw, 32px)",
-            fontWeight: 800,
-            color: "var(--color-text-primary)",
-            margin: "0 0 8px",
-            letterSpacing: "-0.5px",
-            lineHeight: 1.2,
-          }}
-        >
-          Know exactly what to buy for resale — and what to pay.
-        </h1>
-        <p
-          style={{
-            fontSize: 15,
-            color: "var(--color-text-secondary)",
-            margin: 0,
-            lineHeight: 1.55,
-            maxWidth: 560,
-          }}
-        >
-          Resale IQ tracks demand, sell-through rates, and buy-below prices across secondhand markets — so every buying decision is backed by data.
-        </p>
-      </div>
+      {/* H157 CRO headline removed 2026-09-29 (H171): it duplicated PricingSection's
+          own heading as a second <h1> on /pricing — page.tsx's H157 h1 PLUS
+          PricingSection's headingLevel={1} h1 rendered two h1 elements on the same
+          document, which failed 12 required e2e tests (smoke.spec.ts h1-count assertion,
+          locale-routing.spec.ts strict-mode h1 locator on /es and /fr pricing) and is an
+          a11y/SEO violation (one h1 per document — frontend-checklist). PricingSection's
+          heading (identical intent: "what is this / who for / why care") is now the
+          document's ONLY h1 — headingLevel={1} below still does that job. No content
+          lost, just de-duplicated. */}
 
       {/* DECLUTTER (founder feedback 2026-09-28/29): plan cards are the first
           content after the header on every viewport — a 390px visitor no
