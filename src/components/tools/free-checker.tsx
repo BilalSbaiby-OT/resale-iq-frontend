@@ -193,9 +193,11 @@ function formatSellThrough(raw: string): string {
   return formatStrPctString(raw) ?? raw
 }
 
-// Anon chips must be models that still 200 with buy-below. Live 2026-09-21:
-// Adidas Samba, Nike Air Force 1, New Balance 530 → 200. Levi's 501 and
-// New Balance 550 → 402 paywall. Never advertise those as free.
+// Anon chips must be models that still 200 with a priced verdict. Live 2026-09-29:
+// Fred Perry Polo, Adidas Samba, Nike Air Force 1 → 200 with buy-below. Levi's 501,
+// New Balance 550, and New Balance 530 → 402 paywall. New Balance FuelCell 200s but
+// only as a brand-average BRAND_CATEGORIES fallback (buy_below null). Never advertise
+// any of those four as free. See src/lib/working-models.ts for the full rationale.
 const TRY_EXAMPLES = FREE_MODELS
 
 // --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01; localised 2026-09-01) ---
@@ -485,7 +487,7 @@ export function FreeChecker({
   buyListPreview?: SsrBuyListItem[] | null
 }) {
   const t = copy[locale].checker
-  const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, New Balance 530`
+  const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, Fred Perry Polo`
   const { user, checkAuth } = useAuthStore()
   const [sessionProbed, setSessionProbed] = useState(false)
   const [tokenPlan, setTokenPlan] = useState<string | null>(null)
