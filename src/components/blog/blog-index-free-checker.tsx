@@ -10,9 +10,14 @@
  * before sending them anywhere else. Three free-sample chips (AF1/Samba/NB530)
  * return full verdicts — no account, no paywall, no navigation.
  *
- * After the inline verdict: email capture + GuestCheckoutButton at peak conviction
- * (just saw a live buy_below price). Same email-prefill pattern as every other
- * post-verdict surface (riq_capture_email → Stripe pre-fill).
+ * After the inline verdict: GuestCheckoutButton directly at peak conviction.
+ * H165 CRO: removed the email input gate that appeared before the checkout button
+ * (same fix as H160 on blog posts). H160 proved email gates kill cold-traffic
+ * conversion (checkout_from_blog stayed 0 with the input; C202 on /tools showed
+ * a single button converts ~30%). Stripe collects email natively.
+ * riq_capture_email pre-fill still works when the visitor previously gave their
+ * email on /pricing, /tools, homepage, or blog footer — zero friction for return
+ * visitors, and Stripe handles first-timers. Surface: blog 130/7d. Revenue 2026-09-29.
  *
  * "Now check YOUR item" input bridges the "does it cover my brands?" objection —
  * custom items hit 402 PAYWALL → comparable_n → personalized inline ask.
@@ -78,13 +83,9 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
     try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
   }, [])
 
-  function handleEmailChange(v: string) {
-    setCapturedEmail(v)
-    if (v.trim()) {
-      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
-    }
-  }
-
+  // H165 CRO: handleEmailChange removed — email inputs removed from blog index free-checker.
+  // capturedEmail read from localStorage for pre-fill on GuestCheckoutButton. H160 lesson.
+  
   async function fetchSample(query: string) {
     setActiveChip(query)
     setResult(null)
@@ -280,26 +281,11 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               ))}
             </div>
           )}
-          {/* Peak conviction: email + checkout */}
-          {!capturedEmail && (
-            <input
-              type="email"
-              placeholder="Your email to unlock →"
-              onChange={e => handleEmailChange(e.target.value)}
-              style={{
-                width: "100%",
-                background: "#0d1117",
-                color: "#eef1f7",
-                border: "1.5px solid rgba(52,199,89,.35)",
-                borderRadius: 8,
-                padding: "8px 12px",
-                fontSize: 13,
-                outline: "none",
-                marginBottom: 8,
-                boxSizing: "border-box",
-              }}
-            />
-          )}
+          {/* H165 CRO: email input REMOVED from free-verdict block.
+              H160 proved email gates kill cold-traffic conversion on blog posts
+              (checkout_from_blog=0 with input). Same lesson applies here.
+              Stripe collects email. riq_capture_email pre-fill still works via
+              customerEmail prop below for return visitors. */}
           <GuestCheckoutButton
             locale={locale}
             label={`Unlock ${result.product} buy-below — €19/mo →`}
@@ -333,25 +319,9 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               ✓ {paywallN.toLocaleString("en-GB")} data points tracked — the answer is ready.
             </p>
           )}
-          {!capturedEmail && (
-            <input
-              type="email"
-              placeholder="Your email to unlock →"
-              onChange={e => handleEmailChange(e.target.value)}
-              style={{
-                width: "100%",
-                background: "#0d1117",
-                color: "#eef1f7",
-                border: "1.5px solid rgba(52,199,89,.35)",
-                borderRadius: 8,
-                padding: "8px 12px",
-                fontSize: 13,
-                outline: "none",
-                marginBottom: 8,
-                boxSizing: "border-box",
-              }}
-            />
-          )}
+          {/* H165 CRO: email input REMOVED from custom-item paywall block.
+              Same fix as free-verdict block above and H160 on blog posts.
+              Stripe collects email natively. */}
           <GuestCheckoutButton
             locale={locale}
             label={`Unlock ${paywallQuery} buy-below — €19/mo →`}
