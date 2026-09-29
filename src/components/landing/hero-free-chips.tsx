@@ -36,6 +36,7 @@ import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
 const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
@@ -344,84 +345,19 @@ function HeroInlineVerdictCard({
           CRO #3 (message match: their item in the ask) + #9 (removes /tools navigation
           hop) + #12 (conviction momentum: sample → personalize → ask).
           Revenue 2026-09-29. H169. */}
-      <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,.06)" }}>
-        <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 7px", lineHeight: 1.5, fontWeight: 500 }}>
-          Now check YOUR item:
-        </p>
-        <form
-          onSubmit={handleCustomSubmit}
-          style={{ display: "flex", gap: 7, maxWidth: 360 }}
-        >
-          <input
-            type="text"
-            value={customQ}
-            onChange={e => setCustomQ(e.target.value)}
-            placeholder="e.g. Stone Island Hoodie"
-            autoComplete="off"
-            style={{
-              flex: 1,
-              background: "#0d1117",
-              color: "#eef1f7",
-              border: "1px solid rgba(52,199,89,.25)",
-              borderRadius: 8,
-              padding: "8px 10px",
-              fontSize: 13,
-              outline: "none",
-              minWidth: 0,
-            }}
-          />
-          <button
-            type="submit"
-            disabled={!customQ.trim() || customLoading}
-            style={{
-              background: "rgba(52,199,89,.12)",
-              color: "#34C759",
-              border: "1px solid rgba(52,199,89,.3)",
-              borderRadius: 8,
-              padding: "7px 11px",
-              fontSize: 12.5,
-              fontWeight: 700,
-              cursor: (customQ.trim() && !customLoading) ? "pointer" : "not-allowed",
-              opacity: (customQ.trim() && !customLoading) ? 1 : 0.5,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {customLoading ? "…" : "Check →"}
-          </button>
-        </form>
-
-        {/* Inline personalized paywall — fires when their custom item returns 402 */}
-        {customPaywallQuery && (
-          <div
-            data-testid="riq-hero-custom-paywall"
-            style={{
-              marginTop: 10,
-              padding: "10px 12px",
-              background: "var(--color-surface)",
-              border: "1px solid rgba(52,199,89,.3)",
-              borderRadius: 9,
-            }}
-          >
-            <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
-              We have data on{" "}
-              <strong style={{ color: "#34C759" }}>{customPaywallQuery}</strong>{" "}
-              — unlock it below
-            </p>
-            {customPaywallN != null && customPaywallN > 0 && (
-              <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>
-                ✓ {customPaywallN.toLocaleString("en-GB")} data points on this item — the answer is ready.
-              </p>
-            )}
-            <GuestCheckoutButton
-              locale={locale}
-              label={`Unlock ${customPaywallQuery} buy-below — €19/mo →`}
-              src="hero_custom_paywall"
-              query={customPaywallQuery}
-              customerEmail={email || undefined}
-            />
-          </div>
-        )}
-      </div>
+      <CustomQueryInput
+        value={customQ}
+        onChange={setCustomQ}
+        onSubmit={handleCustomSubmit}
+        loading={customLoading}
+        buttonPadding="7px 11px"
+        paywallQuery={customPaywallQuery}
+        paywallN={customPaywallN}
+        paywallTestId="riq-hero-custom-paywall"
+        locale={locale}
+        ctaSrc="hero_custom_paywall"
+        customerEmail={email}
+      />
     </div>
   )
 }

@@ -190,17 +190,6 @@ const ALLOW = [
   "fontSize: 12.5,",
   // fontWeight: 700 for the secondary check button — same design token as above.
   "fontWeight: 700,",
-  // The cursor/opacity/whiteSpace + form/paywall structure is shared across all
-  // inline-paywall bridge surfaces (PricingTryInput, VerdictUpsellCta, HeroFreeChips).
-  // These are parallel independent UI surfaces; the button UX contract (disabled
-  // state logic) is intentionally identical — consistent behaviour by design.
-  "cursor: (customQ.trim() && !customLoading) ? \"pointer\" : \"not-allowed\",",
-  // opacity disabled-state logic — same reason as cursor above.
-  "opacity: (customQ.trim() && !customLoading) ? 1 : 0.5,",
-  // whiteSpace:nowrap on the submit button + "Inline personalized paywall" comment
-  // are structurally identical across all inline-paywall bridge surfaces.
-  "whiteSpace: \"nowrap\",",
-  "Inline personalized paywall — fires when their custom item returns 402",
 ]
 
 

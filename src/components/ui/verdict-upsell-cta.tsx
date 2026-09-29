@@ -38,6 +38,7 @@
 import { useEffect, useState } from "react"
 import { verdictUpsellLine } from "@/lib/verdict-upsell"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 
@@ -210,84 +211,19 @@ export function VerdictUpsellCta({
           Blog 130/7d + /tools 10/7d = 140/7d reach.
           CRO #3 (message match) + #4 (objection: covers my brands?)
           + #9 (one less hop) + #12 (sample → personalize → ask). Revenue 2026-09-29. */}
-      <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,.06)" }}>
-        <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 7px", lineHeight: 1.5, fontWeight: 500 }}>
-          Now check YOUR item:
-        </p>
-        <form
-          onSubmit={handleCustomSubmit}
-          style={{ display: "flex", gap: 7, maxWidth: 360 }}
-        >
-          <input
-            type="text"
-            value={customQ}
-            onChange={e => setCustomQ(e.target.value)}
-            placeholder="e.g. Stone Island Hoodie"
-            autoComplete="off"
-            style={{
-              flex: 1,
-              background: "#0d1117",
-              color: "#eef1f7",
-              border: "1px solid rgba(52,199,89,.25)",
-              borderRadius: 8,
-              padding: "8px 10px",
-              fontSize: 13,
-              outline: "none",
-              minWidth: 0,
-            }}
-          />
-          <button
-            type="submit"
-            disabled={!customQ.trim() || customLoading}
-            style={{
-              background: "rgba(52,199,89,.12)",
-              color: "#34C759",
-              border: "1px solid rgba(52,199,89,.3)",
-              borderRadius: 8,
-              padding: "8px 12px",
-              fontSize: 12.5,
-              fontWeight: 700,
-              cursor: (customQ.trim() && !customLoading) ? "pointer" : "not-allowed",
-              opacity: (customQ.trim() && !customLoading) ? 1 : 0.5,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {customLoading ? "…" : "Check →"}
-          </button>
-        </form>
-
-        {/* Inline personalized paywall — fires when their custom item returns 402 */}
-        {customPaywallQuery && (
-          <div
-            data-testid="riq-verdict-upsell-custom-paywall"
-            style={{
-              marginTop: 10,
-              padding: "10px 12px",
-              background: "var(--color-surface)",
-              border: "1px solid rgba(52,199,89,.3)",
-              borderRadius: 9,
-            }}
-          >
-            <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
-              We have data on{" "}
-              <strong style={{ color: "#34C759" }}>{customPaywallQuery}</strong>{" "}
-              — unlock it below
-            </p>
-            {customPaywallN != null && customPaywallN > 0 && (
-              <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>
-                ✓ {customPaywallN.toLocaleString("en-GB")} data points on this item — the answer is ready.
-              </p>
-            )}
-            <GuestCheckoutButton
-              locale={locale}
-              label={`Unlock ${customPaywallQuery} buy-below — €19/mo →`}
-              src="verdict_upsell_custom_paywall"
-              query={customPaywallQuery}
-              customerEmail={capturedEmail || undefined}
-            />
-          </div>
-        )}
-      </div>
+      <CustomQueryInput
+        value={customQ}
+        onChange={setCustomQ}
+        onSubmit={handleCustomSubmit}
+        loading={customLoading}
+        buttonPadding="8px 12px"
+        paywallQuery={customPaywallQuery}
+        paywallN={customPaywallN}
+        paywallTestId="riq-verdict-upsell-custom-paywall"
+        locale={locale}
+        ctaSrc="verdict_upsell_custom_paywall"
+        customerEmail={capturedEmail}
+      />
     </div>
   )
 }
