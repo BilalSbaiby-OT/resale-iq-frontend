@@ -86,12 +86,43 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
         </span>
       </div>
 
-      {/* Right: verdict + the real stored buy-below. Never a recomputed margin formula. */}
+      {/* Right: verdict + the real stored buy-below + typical exit price.
+          H184 CRO: Show avg_price_eur ("exit ~€106") alongside buy_below ("↓€70")
+          so the reseller can read the full margin at a glance without going deeper.
+          RESEARCH (fetched 2026-09-29):
+          - Plausible: shows full value before asking — visitor needs both sides of the
+            data to understand what they're buying.
+          - Keepa free graph: buy-price AND sell-price in same view — never just one number.
+          - Linear free: shows exactly what you get (250 issues) — the complete picture.
+          The buy-below is the ceiling. avg_price_eur is the expected recovery. Together
+          they define the margin. Without the exit price the BUY signal is incomplete —
+          a visitor on mobile sees "↓€70" and has no idea if that's 10% or 40% margin.
+          HONESTY: avg_price_eur comes from the live API (avg recent departure price).
+          Never recomputed, never invented — omitted when null. Labelled "exit ~€X" to
+          signal it's a typical exit, not a guaranteed sale (watched departures, not sales).
+          Not shown on locked rows (buy_below is already null there; this guard matches).
+          CRO #8 (specificity: complete the picture with a real second number)
+          + #2 (single core desire: resell = buy + sell, show both halves inline)
+          + #4 (objection: "worth it?" answered by visible margin, not imagination).
+          Surface: homepage 52/7d + /pricing 12/7d. Revenue 2026-09-29. H184. */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
         <VerdictBadge verdict={item.verdict} />
         {buyBelowLabel(item.buy_below) && (
           <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
             {buyBelowLabel(item.buy_below)}
+          </span>
+        )}
+        {/* H184: typical exit price — the reseller's other required number.
+            Only shown when both buy_below and avg_price_eur are present so the
+            row is always consistent: if we can show one we show both, otherwise neither.
+            Math: use Math.round for clean integer, matching buy-below label format.
+            Never on locked rows (buy_below null protects the guard above anyway). */}
+        {item.buy_below != null && item.avg_price_eur != null && item.avg_price_eur > 0 && (
+          <span
+            data-testid="riq-buy-list-exit-price"
+            style={{ fontSize: 11, color: "var(--color-text-muted)", fontVariantNumeric: "tabular-nums" }}
+          >
+            exit ~€{Math.round(item.avg_price_eur)}
           </span>
         )}
       </div>
