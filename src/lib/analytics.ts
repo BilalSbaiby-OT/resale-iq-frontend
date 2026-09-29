@@ -44,6 +44,10 @@ export type FunnelEvent =
   | "hero_cta_click"
 /** Visitor clicked a paywall-demo chip on a blog post (C224 free-model posts). */
 | "chip_click"
+/** H173 CRO: visitor clicked the compact annual CTA on HardPaywallCard
+ *  ("Save 2 months — €190/year →"). path carries the surface tag,
+ *  e.g. "paywall_annual". Surface: /blog* 130/7d. Revenue 2026-09-29. */
+| "annual_cta_click"
 /** Visitor clicked the paid CTA in the block directly under a free verdict
  *  result (verdict-upsell-cta.tsx, Revenue sprint 2026-09-28). `path` carries
  *  the variant (call-site src, or `${src}_annual` for the yearly link). */

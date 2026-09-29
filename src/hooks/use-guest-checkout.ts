@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { getPlans, createCheckout } from "@/lib/api"
-import { resolvePriceId, TIERS } from "@/lib/pricing"
+import { resolvePriceId, resolveAnnualPriceId, TIERS } from "@/lib/pricing"
 import { getToken } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -25,6 +25,7 @@ export function useGuestCheckout({
   src,
   query,
   customerEmail,
+  annual,
 }: {
   locale: Locale
   /** analytics tag appended as src= to checkout_intent_guest event */
@@ -36,8 +37,13 @@ export function useGuestCheckout({
    *  pre-fill their first check, and /pricing?checkout=cancelled can
    *  show what they were about to unlock. C196. */
   query?: string
+  /** H173: when true, resolve the annual (operator) price id instead of the
+   *  monthly one — same plan tier, different billing cycle. Lets a compact
+   *  secondary CTA on HardPaywallCard sell annual directly without the
+   *  visitor having to navigate to /pricing and flip the billing toggle. */
+  annual?: boolean
 }) {
-  const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string }[]>([])
+  const [stripePlans, setStripePlans] = useState<{ id: string; price_id?: string; price_id_annual?: string }[]>([])
   // H84 CRO: initialise ready=true because BAKED_PRICE_IDS always provides a
   // fallback operator price_id. Previously the button was disabled (cursor:wait)
   // on first paint while getPlans() resolved — on blog pages the paywall card
@@ -68,7 +74,8 @@ export function useGuestCheckout({
   }, [])
 
   const start = async () => {
-    const placeholder = TIERS.find(x => x.id === "operator")?.priceId
+    const tier = TIERS.find(x => x.id === "operator")
+    const placeholder = annual ? tier?.priceIdAnnual : tier?.priceId
     setBusy(true)
     const here = typeof window !== "undefined" ? window.location.pathname : "/tools"
     const eventPath = src ? `${here}?plan=operator&src=${src}` : `${here}?plan=operator`
@@ -93,7 +100,9 @@ export function useGuestCheckout({
       try {
         if (query?.trim()) localStorage.setItem("riq_intent_query", query.trim())
       } catch { /* private mode / storage quota */ }
-      const priceId = resolvePriceId(placeholder, stripePlans)
+      const priceId = annual
+        ? resolveAnnualPriceId(placeholder, stripePlans)
+        : resolvePriceId(placeholder, stripePlans)
       if (!priceId) {
         const fallbackQ = query?.trim() ? `&q=${encodeURIComponent(query.trim())}` : ""
         window.location.href = `${canonicalPath(locale, "/register")}?plan=operator${fallbackQ}`
