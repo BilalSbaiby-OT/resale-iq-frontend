@@ -19,6 +19,8 @@ import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { BlogInlineChecker } from "@/components/blog/blog-inline-checker"
 import { BlogFooterCta } from "@/components/blog/blog-footer-cta"
 import { BlogStickyBar } from "@/components/blog/blog-sticky-bar"
+import { getMarketNumbers } from "@/lib/market-numbers"
+import { liveSellsBestIntro } from "@/lib/live-sells-best-intro"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -113,6 +115,25 @@ export default async function BlogPostPage(
     ssrBlogVerdict(p.preflightQuery),
   ])
 
+  // Live refresh for /blog/what-sells-best-on-vinted's headline claim.
+  //
+  // Audit 2026-09-29 flagged this post as the site's #1 ChatGPT-referred
+  // page whose visible "updated" date and opening claim were pinned to a
+  // hand-written date (23 September 2026) that goes stale the moment the
+  // live snapshot moves past it — while /data and the /blog index (H164)
+  // both read getMarketNumbers() live. Only fetched for this one slug
+  // (cheap, cached 15-min like every other page reading this warehouse);
+  // never fabricates — liveSellsBestIntro returns null when the snapshot
+  // has no usable category data, and the static intro/updated date stay.
+  const liveIntro = p.slug === "what-sells-best-on-vinted"
+    ? liveSellsBestIntro(await getMarketNumbers())
+    : null
+  // dateModified must be the SAME timestamp the visible page renders, not
+  // just "now" — a schema date ahead of the visible copy is a mismatch a
+  // fact-checking crawler can catch. Falls back to the post's own `updated`
+  // field when the live snapshot is unavailable.
+  const liveDateModified = liveIntro ? liveIntro.updatedAtIso.slice(0, 10) : null
+
   // Topically-related "Keep reading" links.
   //
   // The previous version always returned the first 4 posts in array order —
@@ -174,7 +195,7 @@ export default async function BlogPostPage(
       headline: p.title,
       description: p.description,
       datePublished: p.date,
-      dateModified: p.updated ?? p.date,
+      dateModified: liveDateModified ?? p.updated ?? p.date,
       author: { "@type": "Organization", name: "Resale IQ" },
       publisher: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
       mainEntityOfPage: `https://resaleiq.dev/blog/${p.slug}`,
@@ -226,6 +247,17 @@ export default async function BlogPostPage(
 
         <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
           {p.category} · {p.readMins} min read
+          {/* Live "updated" stamp for /blog/what-sells-best-on-vinted — the audit
+              flagged this page as showing a hand-written date that could drift
+              from the data underneath it. Sourced from the same market snapshot
+              /data stamps "Live snapshot · ..." with, so the two pages agree.
+              Falls back to nothing (not a hardcoded date) when the snapshot is
+              unavailable — never invents a freshness claim. */}
+          {liveIntro && (
+            <span style={{ color: "#5b6b8c", fontWeight: 600, textTransform: "none", letterSpacing: 0 }}>
+              {" "}· Updated {liveIntro.updatedLabel}
+            </span>
+          )}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
 
@@ -356,7 +388,24 @@ export default async function BlogPostPage(
             ctr_blog_20260913. utm_content=legacy_signup_kill on the button,
             footer_see_plans on the text link. */}
         <div style={{ marginTop: 34, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Know before you buy.</div>
+          {/* H175 CRO: message-matched footer headline on blog articles.
+              BEFORE: "Know before you buy." — generic on every post regardless of topic.
+              A visitor who just read 11 minutes about Stone Island hoodies sees a headline
+              that could belong to any product on the internet.
+              AFTER: for posts with preflightQuery (virtually all of them): "Unlock the
+              buy-below price for {preflightQuery}." — names the exact item the visitor
+              came here to learn about. Same message-match principle (#3) that H154/H155/H156
+              applied to CTA buttons; here applied to the earning headline.
+              Posts without preflightQuery keep the original generic headline.
+              CRO #1 (clarity: what IS this page, right now, for me?)
+              + #3 (message match: headline mirrors the item they just read about)
+              + #8 (behavioral: specificity converts; "Stone Island Hoodie" > "any item").
+              Surface: /blog/[slug] 130/7d. Revenue 2026-09-29. H175. */}
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>
+            {p.preflightQuery
+              ? `Unlock the buy-below price for ${p.preflightQuery}.`
+              : "Know before you buy."}
+          </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
             Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
