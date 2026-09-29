@@ -171,6 +171,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
     // C(tony)CheckoutInterstitial: pause before the hard navigation — show the
     // demand preview and plan summary so the payment context is crystal clear.
     // window.location.assign fires only when user clicks "Continue to payment →".
+    // C(tony)InterstitialAnalytics: emit shown event so we can measure the
+    // interstitial CTR = checkout_interstitial_clicked / checkout_interstitial_shown.
+    // If CTR < 60% the copy or trust signals need work; if > 90% it's not the bottleneck.
+    track("checkout_interstitial_shown")
     setPendingCheckoutUrl(checkout_url)
   }
 
@@ -328,7 +332,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
 
             <button
               type="button"
-              onClick={() => { window.location.assign(pendingCheckoutUrl) }}
+              onClick={() => { track("checkout_interstitial_clicked"); window.location.assign(pendingCheckoutUrl) }}
               className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[14px] py-3.5 rounded-lg hover:opacity-90 transition-opacity"
             >
               Continue to payment →

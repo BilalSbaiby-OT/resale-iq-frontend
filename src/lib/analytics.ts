@@ -47,6 +47,16 @@ export type FunnelEvent =
  *  result (verdict-upsell-cta.tsx, Revenue sprint 2026-09-28). `path` carries
  *  the variant (call-site src, or `${src}_annual` for the yearly link). */
 | "verdict_upsell_click"
+/** Checkout interstitial panel shown — account created, Stripe URL ready,
+ *  user sees the "Account created ✓ / Continue to payment →" screen.
+ *  Emitted once per registration flow, right when pendingCheckoutUrl is set.
+ *  Denominator for checkout_started (clicked CTA) to measure interstitial CTR. */
+| "checkout_interstitial_shown"
+/** User clicked "Continue to payment →" on the checkout interstitial. Compare
+ *  against checkout_interstitial_shown to get interstitial CTR.
+ *  NOTE: checkout_started already fires before the interstitial shows — this
+ *  event is the CLICK on the interstitial CTA, not the checkout session open. */
+| "checkout_interstitial_clicked"
 /** Client-side reasons for register_submit_failed. Encoded into path so the
  *  existing /api/track sink stores them (TrackEvent has no extra column). */
 export type RegisterFailReason =
