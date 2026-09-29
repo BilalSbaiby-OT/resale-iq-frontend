@@ -145,7 +145,12 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             const savedForCoverage = decodeURIComponent(firstQuery)
             const isCoverable = queryCoverageKind(savedForCoverage) !== "untracked"
             if (isCoverable) {
-              setRedirectLabel(null)
+              // C(tony)VerifiedFlash personalisation: name the item so the 700ms
+              // confirmation flash says "Loading your Stone Island Hoodie verdict…"
+              // instead of blank "Taking you there…". Every other path already names
+              // the product — this was the only gap. /pricing?ref=verify has the C174
+              // eyebrow that also names the item, so naming it here is consistent.
+              setRedirectLabel(decodeURIComponent(firstQuery))
               go(`/pricing?ref=verify&q=${firstQuery}`)
             } else {
               // C(tony)AF1Demo: Aha-moment first — AF1 returns WATCH+buy_below=€31.16
