@@ -12,6 +12,7 @@ import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typeahead"
+import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -288,70 +289,19 @@ function RegisterContent({ locale }: { locale: Locale }) {
             redirect. The account already exists at this point; back-nav here is safe
             (they can return to pricing and retry checkout via /pricing?ref=verify-abandoned). */}
         {pendingCheckoutUrl ? (
-          <div className="py-2">
-            <div className="flex justify-center mb-4">
-              <div className="w-10 h-10 rounded-full bg-[var(--color-buy)]/15 flex items-center justify-center">
-                <Check size={20} className="text-[var(--color-buy)]" />
-              </div>
-            </div>
-            {/* C(tony)InterstitialPersonalisation: Superhuman never confirms
-                "action completed" in the abstract — every confirmation names
-                the specific thing the user just did ("Your inbox is ready",
-                not "Setup complete"). "Account created ✓" is admin framing
-                that ignores the item the user typed two fields up. When the
-                query is a tracked item, name it in the headline so the
-                confirmation matches what they're actually here for. */}
-            <h2 className="text-[18px] font-bold text-center mb-1">
-              {intentQuery.trim() && (findDemandMatch(intentQuery) || queryCoverageKind(intentQuery) !== "untracked")
-                ? <>Your {intentQuery.trim()} verdict is ready ✓</>
-                : <>Account created ✓</>}
-            </h2>
-            <p className="text-[13px] text-[var(--color-text-secondary)] text-center mb-5">
-              One step away — unlock it below.
-            </p>
-
-            {/* What they're about to unlock */}
-            <div className="rounded-xl border border-[var(--color-buy)]/30 bg-[var(--color-buy)]/5 px-4 py-3 mb-4">
-              <p className="text-[12px] text-[var(--color-text-muted)] mb-1 uppercase tracking-wide font-semibold">You&apos;re unlocking</p>
-              {intentQuery.trim() && (findDemandMatch(intentQuery) || queryCoverageKind(intentQuery) !== "untracked") ? (
-                <>
-                  <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1">
-                    {intentQuery.trim()} verdict
-                  </p>
-                  {findDemandMatch(intentQuery) && (
-                    <p className="text-[12px] text-[var(--color-text-secondary)]">
-                      {findDemandMatch(intentQuery)!.sold_7d} watched departures this week
-                      {findDemandMatch(intentQuery)!.avg_price_eur ? ` · avg €${findDemandMatch(intentQuery)!.avg_price_eur}` : ""}
-                      {" — "}<span className="font-semibold text-[var(--color-buy)]">buy-below price unlocking now</span>
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p className="text-[15px] font-bold text-[var(--color-text-primary)]">
-                  Full demand intelligence — check any brand
-                </p>
-              )}
-            </div>
-
-            {/* Plan summary */}
-            <div className="flex items-center justify-between rounded-lg border border-[var(--color-border-2)] bg-[var(--color-bg-4)] px-3 py-2.5 mb-5">
-              <span className="text-[13px] font-semibold text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
-              <span className="text-[13px] font-bold text-[var(--color-text-primary)]">
-                {prices[plan] != null ? `€${prices[plan]}/mo` : "…"}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => { track("checkout_interstitial_clicked"); window.location.assign(pendingCheckoutUrl) }}
-              className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[14px] py-3.5 rounded-lg hover:opacity-90 transition-opacity"
-            >
-              Continue to payment →
-            </button>
-            <p className="text-[11.5px] text-[var(--color-text-muted)] text-center mt-3">
-              🔒 Secure checkout via Stripe
-            </p>
-          </div>
+          // C(tony)CheckoutInterstitial / C(tony)InterstitialPersonalisation:
+          // shared component — also used by login-form.tsx for Google OAuth path.
+          // See src/components/auth/checkout-interstitial-card.tsx for rationale.
+          <CheckoutInterstitialCard
+            intent={intentQuery}
+            demandMatch={demandMatch}
+            planLabel={t.planNames[plan]}
+            planPrice={prices[plan] ?? null}
+            onContinue={() => {
+              track("checkout_interstitial_clicked")
+              window.location.assign(pendingCheckoutUrl)
+            }}
+          />
         ) : (
         <>
         {/* C168(tony): Canva/Duolingo/Notion pattern — goal-first framing.

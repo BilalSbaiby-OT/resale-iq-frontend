@@ -15,8 +15,10 @@ import {
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
-import { IntentTypeahead } from "@/components/auth/intent-typeahead"
+import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typeahead"
 import { queryCoverageKind } from "@/lib/query-coverage"
+import { trackEvent } from "@/lib/analytics"
+import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
 
 const INTENT_QUERY_KEY = "riq_intent_query"
 
@@ -35,6 +37,14 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [intentQuery, setIntentQuery] = useState("")
+  // C(tony)GoogleCheckoutInterstitial: hold the pending Stripe URL + intent so
+  // Google OAuth signups see the same "You're about to unlock X" interstitial
+  // as email/password signups. Without this, Google new-signups skip straight
+  // to Stripe with zero context — same cold-jump problem that caused 95%+
+  // checkout abandonment in the email flow before the interstitial was added.
+  // Pattern: register-form.tsx pendingCheckoutUrl + pendingCheckoutIntent.
+  const [pendingCheckoutUrl, setPendingCheckoutUrl] = useState<string | null>(null)
+  const [pendingCheckoutIntent, setPendingCheckoutIntent] = useState<string>("")
   const { login } = useAuthStore()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -105,6 +115,9 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           // to Stripe now. Falls back to verdict on any error (same UX as before).
           // Pattern: Stripe own documentation — never silently skip payment for a
           // user who initiated a paid signup flow.
+          // C(tony)GoogleCheckoutInterstitial: instead of window.location.assign
+          // directly to Stripe, set pendingCheckoutUrl so the interstitial card
+          // renders first — same "You're about to unlock X" pattern as email flow.
           let checkoutHandled = false
           try {
             const raw = window.localStorage.getItem("riq_register_plan")
@@ -120,7 +133,12 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
                 const { checkout_url } = await createCheckout(priceId, { plan: parsed.plan as CheckoutPlan })
                 if (checkout_url) {
                   checkoutHandled = true
-                  window.location.assign(checkout_url)
+                  // C(tony)GoogleCheckoutInterstitial: show demand-preview interstitial
+                  // instead of blind-jumping to Stripe. Same pattern as register-form.tsx
+                  // pendingCheckoutUrl. The CTA "Continue to payment →" fires the assign.
+                  try { trackEvent("checkout_interstitial_shown") } catch { /* never block */ }
+                  setPendingCheckoutIntent(savedIntent ?? "")
+                  setPendingCheckoutUrl(checkout_url)
                 }
               }
             }
@@ -175,6 +193,31 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
+  }
+
+  // C(tony)GoogleCheckoutInterstitial: demand match for the pending checkout intent.
+  // Same lookup as register-form.tsx — findDemandMatch reads the already-fetched
+  // liveSuggestionsCache so there's no extra network call.
+  const pendingDemandMatch = pendingCheckoutIntent.trim().length >= 3
+    ? findDemandMatch(pendingCheckoutIntent)
+    : null
+
+  // C(tony)GoogleCheckoutInterstitial: when pendingCheckoutUrl is set, render
+  // the shared CheckoutInterstitialCard — Google OAuth path gets the same
+  // "You're about to unlock X" confirmation as the email/password path.
+  if (pendingCheckoutUrl) {
+    return (
+      <AuthCard>
+        <CheckoutInterstitialCard
+          intent={pendingCheckoutIntent}
+          demandMatch={pendingDemandMatch}
+          onContinue={() => {
+            try { trackEvent("checkout_interstitial_clicked") } catch { /* never block */ }
+            window.location.assign(pendingCheckoutUrl)
+          }}
+        />
+      </AuthCard>
+    )
   }
 
   return (
