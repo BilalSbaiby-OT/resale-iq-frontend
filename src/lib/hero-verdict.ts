@@ -52,11 +52,12 @@
  *
  * MUST NOT call /api/verdict on every homepage hit: that endpoint claims
  * anonymous quota, writes verdict_logs, and counts against
- * ANON_IP_DAILY_CEILING (300/day) on the frontend container IP. A 5-minute
- * Next fetch cache is 288/day — enough to crowd out real cookieless clients.
+ * ANON_IP_DAILY_CEILING (300/day) on the frontend container IP.
  *
  * Disk last-good + 30 min freshness: at most ~48 backend calls/day, and a
- * LIMIT_REACHED / outage still shows the last real BUY/WATCH/SKIP.
+ * LIMIT_REACHED / outage / 2.5s abort still shows the last real BUY/WATCH/SKIP.
+ * The fetch is cache:"no-store". Do not put next.revalidate back beside the
+ * AbortSignal — Next's patched fetch can ignore the abort when that option is set.
  * Cache is keyed by query so a seed change cannot serve yesterday's SKU.
  */
 import { promises as fs } from "node:fs"
@@ -92,6 +93,22 @@ type Cached = { fetchedAt: number; query: string; result: HeroVerdict }
 
 function backendUrl(): string {
   return process.env.BACKEND_URL || "http://localhost:8080"
+}
+
+/**
+ * Backend GET that cannot hang SSR. cache:"no-store" so Next's patched fetch
+ * honours the abort — it can ignore AbortSignal next to next.revalidate.
+ * Callers catch the abort and serve their own last-good disk cache.
+ * Shared so the deadline cannot be fixed in one homepage fetch and missed in another.
+ */
+export async function fetchBounded(url: string, timeoutMs = 2_500): Promise<Response> {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, { cache: "no-store", signal: controller.signal })
+  } finally {
+    clearTimeout(timeoutId)
+  }
 }
 
 function isUsable(r: HeroVerdict | null | undefined): r is HeroVerdict {
@@ -147,9 +164,7 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
     return { query: QUERY, result: withoutComparableN(cached.result) }
   }
   try {
-    const r = await fetch(`${backendUrl()}/api/verdict?q=${encodeURIComponent(QUERY)}`, {
-      next: { revalidate: 1800 },
-    })
+    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(QUERY)}`)
     if (r.ok) {
       const result = (await r.json()) as HeroVerdict
       if (isUsable(result)) {
@@ -158,7 +173,7 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
       }
     }
   } catch {
-    // why: homepage must still render if the analyzer is down; last-good or empty checker.
+    // why: homepage must still render if the analyzer is down or the fetch aborts; last-good or empty checker.
   }
   return { query: QUERY, result: cached?.result ? withoutComparableN(cached.result) : null }
 }

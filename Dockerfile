@@ -52,8 +52,10 @@ EXPOSE 3000
 # running:unknown — Docker had no way to tell whether Next was actually serving,
 # so a wedged container that stayed up looked identical to a working one.
 # Uses node's global fetch rather than curl, which node:22-slim does not ship.
-# Targets "/" and not "/api/ping": the api path is a rewrite to the backend, so
-# using it would make the frontend report unhealthy whenever the BACKEND is down.
+# Health must not depend on homepage SSR or the backend. "/" awaits backend
+# fetches; a stuck analyzer made this check fail and Traefik 503'd the whole
+# site. /healthz is a static 200 with no fetch and no DB. Do not point this at
+# "/" or at /api/* (those paths rewrite to the backend).
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+  CMD node -e "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["node", "server.js"]

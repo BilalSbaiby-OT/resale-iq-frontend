@@ -13,6 +13,7 @@
 import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
+import { fetchBounded } from "./hero-verdict.ts"
 
 export interface SsrBuyListItem {
   brand: string
@@ -73,9 +74,7 @@ export async function getPublicBuyList(limit = 5): Promise<SsrBuyListItem[] | nu
     return cached.items.slice(0, limit)
   }
   try {
-    const r = await fetch(`${backendUrl()}/api/public/buy-list?limit=${limit + 1}`, {
-      next: { revalidate: 1800 },
-    })
+    const r = await fetchBounded(`${backendUrl()}/api/public/buy-list?limit=${limit + 1}`)
     if (r.ok) {
       const json = await r.json() as { items?: unknown[] }
       const items = (json.items ?? [])

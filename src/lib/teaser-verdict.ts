@@ -8,7 +8,7 @@
 import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
-import type { HeroVerdict } from "@/lib/hero-verdict"
+import { fetchBounded, type HeroVerdict } from "./hero-verdict.ts"
 import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
 
 // 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
@@ -71,9 +71,7 @@ export async function getTeaserVerdict(q: string | undefined | null): Promise<He
   const cached = await readCache(query)
   if (cached && Date.now() - cached.fetchedAt < MAX_AGE_MS) return cached.result
   try {
-    const r = await fetch(`${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`, {
-      next: { revalidate: 1800 },
-    })
+    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`)
     if (r.ok) {
       const result = (await r.json()) as HeroVerdict
       if (isUsable(result)) {
@@ -82,7 +80,7 @@ export async function getTeaserVerdict(q: string | undefined | null): Promise<He
       }
     }
   } catch {
-    // why: tools page must still render if the analyzer is down; last-good or no cite.
+    // why: tools page must still render if the analyzer is down or the fetch aborts; last-good or no cite.
   }
   return cached?.result ?? null
 }
