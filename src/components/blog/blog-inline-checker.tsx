@@ -47,6 +47,9 @@
  *  cognitive friction before conversion. Removed the input. Single
  *  GuestCheckoutButton — same pattern as /tools. Stripe collects email after.
  *
+ * H160 — H140 re-added a conditional email input (cold visitors only).
+ *  Still 0 checkout_from_blog. Re-removing. Single button, no gate.
+ *
  * C203 — comparable_n in above-fold copy:
  *  34 first_analysis events in 7d from blog, 0 checkout_from_blog. The CTA
  *  rendered but no one clicked. Copy was generic ("verdict is ready"). Fix:
@@ -249,28 +252,13 @@ export function BlogInlineChecker({
                 ✓ {initialResult.comparable_n.toLocaleString()} data points on {preflightQuery}
               </span>
             )}
-            {/* H140 CRO: conditional email input — first-visit visitors only.
-                ChatGPT referrers arrive cold (no localStorage email). Returning visitors skip it.
-                Stores to riq_capture_email → all downstream GuestCheckoutButtons pre-fill Stripe.
-                CRO #6 (remove Stripe's email field) + #9 (no friction for return visitors). */}
-            {!capturedEmail && (
-              <input
-                type="email"
-                placeholder="Your email →"
-                onChange={e => handleEmailChange(e.target.value)}
-                style={{
-                  background: "#0d1117",
-                  color: "#eef1f7",
-                  border: "1.5px solid rgba(52,199,89,.35)",
-                  borderRadius: 8,
-                  padding: "8px 11px",
-                  fontSize: 12.5,
-                  outline: "none",
-                  width: 160,
-                  boxSizing: "border-box" as const,
-                }}
-              />
-            )}
+            {/* H160: email input REMOVED from above-fold CTA.
+                C202 proved checkout_from_blog = 0 after C199 added it.
+                H140 re-added it conditionally (cold visitors only) — still 0.
+                C202 lesson: /tools converts ~30% with a single button.
+                Any extra field before the button kills cold ChatGPT traffic.
+                Stripe collects email. customerEmail pre-fill still works via
+                riq_capture_email (written by footer/sticky captures). */}
             <GuestCheckoutButton
               locale={locale}
               label={
