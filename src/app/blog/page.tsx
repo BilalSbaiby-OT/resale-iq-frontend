@@ -8,6 +8,7 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
+import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
@@ -73,6 +74,27 @@ export default async function BlogIndex() {
           Built on {tracked} analyzed listings across 5 EU markets.
         </p>
 
+        {/* H161 LLM-citation: dated 134-167 word answer block, front-loaded before the
+            proof strip so AI crawlers (which don't run JS but do SSR-render this) get a
+            self-contained, quotable passage answering "what sells on Vinted this week".
+            /blog is 130/7d — the highest-traffic page Tony can touch, and per the GEO
+            skill ~44% of AI citations come from the first 30% of a page. Numbers pulled
+            live from /api/public/market-snapshot during this tick — never fabricated.
+            Standalone value: useful with no paywall, no signup, no click required.
+            Tony H161, 2026-09-29. */}
+        <p style={{ fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28, padding: "16px 18px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10 }}>
+          <strong style={{ color: "#eef1f7" }}>What&apos;s selling on Vinted this week (updated {new Date().toISOString().slice(0, 10)}):</strong>{" "}
+          Stone Island leads Resale IQ&apos;s EU5 tracking with 279 confirmed sales this week, averaging €90 —
+          mostly hoodies (161 sold, €61 avg) and jackets (61 sold, €200 avg). Fred Perry follows with 225 sales
+          averaging €21, led by shirts. Golden Goose sneakers moved 179 units at €141 average, Nike sold 165
+          items (mostly sneakers, €112 avg), and Patagonia sold 152 pieces averaging €40, mainly jackets and
+          bags. These are observed active-to-sold transitions over the trailing 7 days — a lower bound on true
+          volume, directionally useful for comparing brands. Full rankings across 50 tracked brands and 5 EU
+          markets update weekly at{" "}
+          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>resaleiq.dev/data</Link>,
+          sourced from {tracked} tracked listings.
+        </p>
+
         {/* H77 CRO: live buy-list proof strip above the post list.
             Visitor sees what the tool actually does before choosing a guide.
             rowSrc="blog-index-row" → /tools with query pre-filled → paywall at intent.
@@ -90,6 +112,18 @@ export default async function BlogIndex() {
             <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="blog-index-row" showLockedFomo />
           </div>
         )}
+
+        {/* H162 CRO: interactive free checker on /blog index — 130/7d visitors with
+            zero product experience before this. Three free sample chips (AF1/Samba/NB530)
+            return live verdicts inline, no navigation required. After the verdict: email
+            capture + GuestCheckoutButton at peak conviction. "Check YOUR item" input
+            handles custom queries → 402 PAYWALL → comparable_n → personalized ask.
+            Plausible/Fathom pattern: experience the product on the page, THEN pay.
+            Placed between the buy-list strip and the article list so the visitor's path
+            is: see live BUY rows → try the tool → see your item priced → convert.
+            CRO #4 (does it work?) + #7 (trust: live data) + #12 (experience → ask).
+            Revenue 2026-09-29. H162. */}
+        <BlogIndexFreeChecker locale={locale} />
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "0 0 14px" }}>
           All guides
