@@ -15,6 +15,7 @@ import { PricingTryInput } from "@/components/landing/pricing-try-input"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { PricingStickyCta } from "@/components/landing/pricing-sticky-cta"
 import { TrustBlock } from "@/components/landing/trust-block"
+import { PricingFaq } from "@/components/landing/pricing-faq"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -244,6 +245,25 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
+      {/* H167 CRO: FAQ section below plan cards — structured objection handling
+          at the exact moment a visitor has seen the price and is hesitating.
+          RESEARCH (fetched live 2026-09-29):
+           - Fathom (usefathom.com/pricing): explicit FAQ section placed below plan cards.
+             Pattern: every doubt gets a named, honest answer right there.
+           - Linear (linear.app/pricing): transparent feature comparison table placed
+             at the decision point — "trusted by 40,000 companies" with names.
+           - Keepa (keepa.com/pricing): shows product demo before pricing, then answers
+             "what is it?" and "how much?" inline.
+          GAP: /pricing had verdict demos, TrustBlock, ROI card but no explicit Q&A.
+          The 5 universal objections (#4: works for me? worth it? hard to use? what if
+          it fails? can I trust them?) were never answered in one scannable place.
+          A visitor who scrolls past plans and still hasn't bought is at the FAQ point
+          — that's the last stop before bounce. Placing it BELOW plan cards ensures
+          it does not add friction before the ask lands.
+          CRO #4 (objection handling NEXT TO the doubt) + #7 (trust, last chance)
+          + #9 (every section must do a job — this removes remaining doubt).
+          Revenue 2026-09-29. H167. */}
+      <PricingFaq />
       {/* H152 CRO: sticky bottom CTA on /pricing — appears during proof scroll,
           disappears when #pricing-plans is visible. A visitor convinced at
           PricingVerdictDemo or PricingTryInput had no persistent CTA — they had to
