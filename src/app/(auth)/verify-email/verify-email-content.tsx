@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { verifyEmail, getMe } from "@/lib/api"
 import { setToken } from "@/lib/utils"
@@ -42,6 +42,25 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const [message, setMessage] = useState("")
   const [af1Row, setAf1Row] = useState<SnapshotBrandRow>(AF1_FALLBACK)
   const router = useRouter()
+  // C(tony)C230: store the auto-redirect timer so the first-check CTA can cancel
+  // it — without this the user clicks "Run your first check →", navigates to
+  // /verdict, and 2500ms later gets kicked back to /dashboard. The timer ref
+  // survives re-renders and is cleaned up on unmount.
+  const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Cancel redirect on unmount (user navigated away before timer fired)
+  useEffect(() => {
+    return () => {
+      if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current)
+    }
+  }, [])
+
+  const handleFirstCheckClick = useCallback(() => {
+    if (redirectTimerRef.current) {
+      clearTimeout(redirectTimerRef.current)
+      redirectTimerRef.current = null
+    }
+  }, [])
 
   // C(tony)VerifyEmailFirstCheckCTA: pre-load top brand rows on mount so the
   // AF1 live-data card has real numbers ready by the time the signed-in
@@ -83,7 +102,12 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // (email just verified) and previously it was gone in under a
           // second. The auto-redirect to /dashboard still fires unless the
           // user clicks the CTA first (founder rule preserved).
-          const go = (href: string) => setTimeout(() => router.replace(href), 2500)
+          // C(tony)C230: store timer ref so CTA click can cancel the redirect —
+          // previously clicking the CTA still caused a /dashboard redirect 2500ms
+          // later because the timer was not cancelled.
+          const go = (href: string) => {
+            redirectTimerRef.current = setTimeout(() => router.replace(href), 2500)
+          }
 
           // C218: checkout-abandoned path — riq_register_plan written <5min
           // ago means the user picked a paid plan, hit Stripe, bailed, then
@@ -176,6 +200,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             </div>
             <Link
               href="/verdict?q=Nike+Air+Force+1&src=verify_email"
+              onClick={handleFirstCheckClick}
               className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3"
             >
               Run your first check →
