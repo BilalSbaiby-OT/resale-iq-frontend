@@ -69,6 +69,11 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
   const heroChips = read("components/landing/hero-free-chips.tsx")
   assert.match(heroChips, /riq-hero-try-chips/)
   assert.match(heroChips, /hero_cta_click/)
+  // H179: the free-sample card must not re-sell a buy-below the visitor already saw.
+  assert.match(heroChips, /riq-hero-free-line/)
+  assert.match(heroChips, /riq-hero-sample-line/)
+  assert.doesNotMatch(heroChips, /Unlock \$\{truncated\} buy-below/)
+  assert.doesNotMatch(heroChips, /Enter your email to unlock/)
 })
 
 test("above-fold free scope must not promise paywalled SKUs", () => {

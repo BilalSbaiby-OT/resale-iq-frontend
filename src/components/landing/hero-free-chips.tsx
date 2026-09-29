@@ -30,7 +30,6 @@
  * Revenue 2026-09-29. H139.
  */
 import { useState, useEffect } from "react"
-import Link from "next/link"
 import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
@@ -171,13 +170,8 @@ function HeroInlineVerdictCard({
   }
 
   const col = verdictColor(result.verdict)
-  // H155: query-specific CTA label (mirrors H154 VerdictUpsellCta)
-  const ctaLabel = (() => {
-    const q = query.trim()
-    if (!q) return "Unlock all items — €19/mo →"
-    const truncated = q.length > 28 ? `${q.slice(0, 25)}…` : q
-    return `Unlock ${truncated} buy-below — €19/mo →`
-  })()
+  // H179: this card only renders a public sample. The visitor already has the
+  // buy-below on screen. Do not sell that number back to them.
   return (
     <div
       data-testid="riq-hero-inline-verdict"
@@ -287,67 +281,35 @@ function HeroInlineVerdictCard({
         </div>
       )}
 
-      {/* Pitch */}
-      <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
-        Unlock sell-through, top sizes & all brands for{" "}
-        <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
+      {/* H179 CRO: free-vs-paid line at the moment of proof.
+          RESEARCH (fetched 2026-09-29):
+          - Keepa free shows the price graph with no account; paid is Product Finder
+            / Buy Box, not "pay to see this graph" (increoscale.com/blog/keepa-japanese-safety-guide,
+            revenuegeeks.com/software/keepa/pricing).
+          - Linear free is a real product (250 issues); paid removes the cap
+            (linear.app/pricing). The line is visible, not a re-ask for the free feature.
+          - Beehiiv Launch is $0 and a working product; paid is "everything on Launch +"
+            (beehiiv.com/pricing).
+          - Plausible: full product before the plan ask; the upgrade page recommends
+            from usage you already generated (plausible.io/docs/subscription-plans,
+            plausible.io/docs/trial). No card on the trial.
+          - Fathom: 7-day full trial, then pay; no free plan, and they say why
+            (usefathom.com/pricing, usefathom.com/docs/start/trials).
+          GAP: this card showed the sample buy-below, then the primary button said
+          "Unlock {that item} buy-below — €19/mo". That re-sells a number the visitor
+          already has, and buries "check YOUR item" under the ask. Samples are exempt
+          from the wall (api/routes.py _is_public_sample_query); the first non-sample
+          check is still free (_claim_first_free_verdict). HARD_PAYWALL stays on.
+          ORDER: line → check your item (prove coverage) → checkout for every item.
+          Surface: homepage 52/7d. CRO #1 #4 #10 #12.
+          Revenue 2026-09-29. H179. */}
+      <p
+        data-testid="riq-hero-sample-line"
+        style={{ fontSize: 12, color: "#c3cde0", margin: "0 0 8px", lineHeight: 1.5 }}
+      >
+        You already have this sample&apos;s number. Your first check on any other item is free. After that, Starter is €19/mo.
       </p>
 
-      {/* H168 CRO: email capture input on homepage hero inline verdict — peak conviction.
-          H155 added email PRE-FILL from localStorage but had NO input for first-time visitors.
-          23/25 Stripe sessions had no email typed (measured 2026-09-22). The /pricing
-          InlineVerdictCard got this fix in H126 — the homepage chip was missed.
-          Homepage has 52 visitors/7d (4× /pricing). Same mechanism: show input when no
-          email captured yet, persist to localStorage, pre-fill downstream Stripe checkout.
-          CRO #6 (remove Stripe friction) + #9 (momentum: don't break conviction).
-          Revenue 2026-09-29. H168. */}
-      {!email && (
-        <input
-          type="email"
-          placeholder="Enter your email to unlock →"
-          onChange={e => handleEmailChange(e.target.value)}
-          style={{
-            width: "100%",
-            background: "#0d1117",
-            color: "#eef1f7",
-            border: "1.5px solid rgba(52,199,89,.35)",
-            borderRadius: 9,
-            padding: "9px 13px",
-            fontSize: 13.5,
-            outline: "none",
-            marginBottom: 8,
-            boxSizing: "border-box",
-          }}
-        />
-      )}
-      {/* H155 CRO: query-specific label + email prefill — mirrors H154 (VerdictUpsellCta). */}
-      <GuestCheckoutButton
-        locale={locale}
-        label={ctaLabel}
-        src="hero_inline_verdict_cta"
-        query={query}
-        customerEmail={email || undefined}
-      />
-
-      {/* Explore link — doesn't break momentum but gives a path for the curious */}
-      <p style={{ margin: "7px 0 0", textAlign: "center" }}>
-        <Link
-          href={canonicalPath(locale, `/tools?q=${encodeURIComponent(query)}&src=hero_chip_explore`)}
-          style={{ fontSize: 11, color: "#5b6b8c", textDecoration: "underline" }}
-        >
-          Explore on /tools →
-        </Link>
-      </p>
-
-      {/* H169 CRO: "Check YOUR item" inline bridge — same conviction chain as H159.
-          After seeing a free sample, the visitor's real question is "does it work for
-          MY items?" This adds a mini input so they try their specific item right here,
-          on the homepage where trust signals, ROI card, and objection row are in view.
-          402 → inline personalized nudge → one-click Stripe with their item pre-filled.
-          200 → /tools for full verdict. Network error → /tools fallback (never stuck).
-          CRO #3 (message match: their item in the ask) + #9 (removes /tools navigation
-          hop) + #12 (conviction momentum: sample → personalize → ask).
-          Revenue 2026-09-29. H169. */}
       <CustomQueryInput
         value={customQ}
         onChange={setCustomQ}
@@ -361,6 +323,36 @@ function HeroInlineVerdictCard({
         ctaSrc="hero_custom_paywall"
         customerEmail={email}
       />
+
+      {!email && (
+        <input
+          type="email"
+          placeholder="Email for checkout (optional)"
+          aria-label="Email for checkout, optional"
+          onChange={e => handleEmailChange(e.target.value)}
+          style={{
+            width: "100%",
+            background: "#0d1117",
+            color: "#eef1f7",
+            border: "1px solid #1e2d45",
+            borderRadius: 9,
+            padding: "9px 13px",
+            fontSize: 13,
+            outline: "none",
+            marginTop: 10,
+            boxSizing: "border-box",
+          }}
+        />
+      )}
+      <div style={{ marginTop: 8 }}>
+        <GuestCheckoutButton
+          locale={locale}
+          label="Starter — every item — €19/mo →"
+          src="hero_inline_verdict_cta"
+          query={query}
+          customerEmail={email || undefined}
+        />
+      </div>
     </div>
   )
 }
@@ -455,10 +447,20 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
             {loading && activeChip === q ? "…" : q}
           </button>
         ))}
-        <span style={{ fontSize: 11, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>
-          — no account needed
-        </span>
       </div>
+      <p
+        data-testid="riq-hero-free-line"
+        style={{
+          fontSize: 12,
+          color: "var(--color-text-dim)",
+          margin: "8px 0 0",
+          textAlign: "center",
+          maxWidth: 440,
+          lineHeight: 1.45,
+        }}
+      >
+        These 3 answers stay free, no account. Your first check on any other item is free. After that, Starter is €19/mo.
+      </p>
 
       {/* Inline verdict — appears below chips when a chip is clicked */}
       {inlineResult && (
