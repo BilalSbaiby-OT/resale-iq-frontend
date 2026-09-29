@@ -187,6 +187,19 @@ export function VerdictUpsellCta({
         >
           or €190/year (2 months free)
         </a>
+        {/* H166 CRO: 30-day refund guarantee under the primary upsell CTA.
+            H153 added this to HardPaywallCard (paywall hits). VerdictUpsellCta —
+            shown to anon/free visitors who just saw a REAL free verdict on
+            /tools (10/7d) + blog (130/7d) = 140/7d — was missing it entirely.
+            This is the highest-conviction moment: visitor just saw a live BUY
+            with buy-below number. The last remaining objection is "what if it's
+            wrong / not worth it?" The guarantee resolves it inline, at the exact
+            point they are weighing €19.
+            CRO #4 (objection: what if it fails?) + no risk (one line, no data,
+            no API, falls back to the same UI without it). Revenue 2026-09-29. H166. */}
+        <p style={{ fontSize: 11, color: "#5b6b8c", margin: "6px 0 0", lineHeight: 1.45 }}>
+          <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+        </p>
       </div>
 
       {/* H159 CRO: "Check YOUR item" inline bridge — Plausible/Beehiiv pattern.
