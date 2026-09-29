@@ -8,6 +8,8 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { operatorPrice, type PaywallPlan } from "@/lib/hard-paywall"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { useGuestCheckout } from "@/hooks/use-guest-checkout"
+import { trackEvent } from "@/lib/analytics"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { FREE_MODELS } from "@/lib/working-models"
@@ -85,6 +87,10 @@ export function HardPaywallCard({
       try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
     }
   }
+  // H173 CRO: annual checkout is otherwise unreachable from /blog — the only
+  // path was /pricing → find the billing toggle → switch it. Surface: /blog*
+  // 130/7d. One annual sale (€190) clears the €98/week floor. Revenue 2026-09-29.
+  const { start: startAnnual } = useGuestCheckout({ locale, src: "paywall_card_annual", query, customerEmail: capturedEmail || undefined, annual: true })
   const headline = query?.trim()
     ? t.paywallHeadlineForItem(query.trim())
     : t.paywallHeadline
@@ -248,6 +254,34 @@ export function HardPaywallCard({
         >
           <Check size={12} color="rgba(52,199,89,0.75)" strokeWidth={2.5} aria-hidden />
           <span>30-day money-back guarantee · instant access · cancel anytime</span>
+        </div>
+        {/* H173 CRO: annual CTA — the ONLY way to buy annual from the blog paywall.
+            Otherwise visitors must navigate to /pricing, find the billing toggle,
+            switch it — friction that meant annual was effectively unreachable
+            from the highest-volume surface. Compact, secondary, ghost-styled so
+            it never competes with the primary monthly CTA. Same operator tier,
+            annual billing cycle. Surface: /blog* 130/7d. Revenue 2026-09-29. */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10, fontSize: 12.5 }}>
+          <span style={{ color: "#8b99b8" }}>or</span>
+          <button
+            type="button"
+            onClick={() => {
+              trackEvent("annual_cta_click", "paywall_annual")
+              startAnnual()
+            }}
+            style={{
+              background: "transparent",
+              color: "#34C759",
+              fontWeight: 600,
+              fontSize: 12.5,
+              padding: "6px 12px",
+              borderRadius: 8,
+              border: "1px solid rgba(52,199,89,0.3)",
+              cursor: "pointer",
+            }}
+          >
+            Save 2 months — €190/year →
+          </button>
         </div>
       </div>
 
