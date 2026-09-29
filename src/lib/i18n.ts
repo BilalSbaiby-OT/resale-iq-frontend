@@ -559,7 +559,13 @@ export const copy = {
       },
       register: {
         heading: "Create your account",
-        subheading: "Weekly brand volumes on /data stay public. Item checks need a paid plan. Cancel anytime.",
+        // C(tony)RegisterSubheadingFreeFirst: old copy said "item checks need a paid plan" which
+        // was technically true for unlimited checks but misleading for new free signups — they
+        // land directly on a Nike AF1 verdict (a FREE_MODELS query) after registration. Telling
+        // a visitor "you need to pay" at the exact moment they're about to get a free answer
+        // suppresses signups. New copy names the free models explicitly (honest + verifiable),
+        // frames unlimited as the paid upgrade, and confirms no card needed to get started.
+        subheading: "Try Nike AF1, Adidas Samba or New Balance free — no card needed. Unlimited checks unlock with a plan.",
         // H7: paid visitors already decided to pay — mirror their intent rather than explain the model.
         // paidSubheading replaces subheading when plan=operator|power.
         paidSubheading: "Unlimited item checks, live EU resale data — no extra steps after this.",
