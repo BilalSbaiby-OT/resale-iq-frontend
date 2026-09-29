@@ -334,7 +334,7 @@ export default async function BlogPostPage(
                 </table>
               </figure>
             )}
-            {s.cta && <SectionCta cta={s.cta} />}
+            {s.cta && <SectionCta cta={s.cta} preflightQuery={p.preflightQuery} locale={locale} />}
           </section>
         ))}
 
