@@ -1,17 +1,33 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { forgotPassword } from "@/lib/api"
 import Link from "next/link"
 import { Mail } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
-import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
+import { AuthHeading, AuthField, AuthSubmit, AuthDemandPanel } from "@/components/auth/auth-form-parts"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+
+// C(tony): Plausible/Duolingo pattern — show live product value alongside the
+// sent-confirmation. A user who just requested a reset went straight to their
+// inbox — highest-intent moment on this page. Same fallback approach as
+// reset-password/check-email.
+const DEMAND_FALLBACK: SnapshotBrandRow[] = [
+  { brand: "Stone Island", category: "Hoodies",     sold_7d: 102, avg_price_eur: 58 },
+  { brand: "New Balance",  category: "Sneakers",    sold_7d: 383, avg_price_eur: 43 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+]
 
 export function ForgotPasswordContent() {
   const [email, setEmail] = useState("")
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [demandRows, setDemandRows] = useState<SnapshotBrandRow[]>(DEMAND_FALLBACK)
   const t = copy[useLocale()].auth.forgotPassword
+
+  useEffect(() => {
+    fetchTopBrandRows(3, DEMAND_FALLBACK).then(rows => setDemandRows(rows)).catch(() => {})
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setLoading(true)
@@ -44,6 +60,13 @@ export function ForgotPasswordContent() {
           </>
         )}
       </div>
+
+      {sent && (
+        <AuthDemandPanel
+          rows={demandRows}
+          footer="Your verdict unlocks the moment you reset your password — tap a row to preview."
+        />
+      )}
     </div>
   )
 }
