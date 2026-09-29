@@ -33,6 +33,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
 /** Three public sample queries — full verdicts, no account, no paywall. */
 const FREE_SAMPLES = [
@@ -63,7 +64,7 @@ function VerdictIcon({ v }: { v: VerdictType }) {
   return <Minus size={13} color="#FFD60A" />
 }
 
-export function BlogIndexFreeChecker({ locale = "en" }: { locale?: Locale }) {
+export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale?: Locale; buyListPreview?: SsrBuyListItem[] | null }) {
   const [activeChip, setActiveChip] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<InlineVerdict | null>(null)
@@ -249,6 +250,35 @@ export function BlogIndexFreeChecker({ locale = "en" }: { locale?: Locale }) {
           </div>
           {result.demand_note && (
             <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>{result.demand_note}</p>
+          )}
+          {/* H165 CRO: real locked buy-list rows in blog index inline verdict.
+              Pattern from H150 (/pricing InlineVerdictCard) + H155 (homepage)
+              + H158 (CustomItemPaywallCard) + H228(elon) (HardPaywallCard).
+              BEFORE: visitor sees buy_below + verdict but has no proof the catalog
+              has any depth. "Also in your buy list" with 3 real brand/model names
+              (blurred price) answers "does it cover more than 3 free items?" inline.
+              130/7d blog visitors — the highest-traffic non-homepage surface.
+              Falls back silently when buyListPreview unavailable.
+              CRO #8 (behavioral: real items > abstract claims) + #4 (objection:
+              catalog depth) + #7 (trust: concrete names, not a vague pitch).
+              Revenue 2026-09-29. H165. */}
+          {buyListPreview && buyListPreview.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "8px 10px" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 2 }}>
+                Also in your buy list
+              </span>
+              {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
+                <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                  <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
+                    {it.brand}{it.model ? ` ${it.model}` : ""}
+                  </span>
+                  <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none" as const, display: "inline-flex", alignItems: "center", gap: 3 }}>
+                    <Lock size={9} />
+                    {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+                  </span>
+                </div>
+              ))}
+            </div>
           )}
           {/* Peak conviction: email + checkout */}
           {!capturedEmail && (

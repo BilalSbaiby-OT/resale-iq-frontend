@@ -147,7 +147,7 @@ export default async function BlogIndex() {
             is: see live BUY rows → try the tool → see your item priced → convert.
             CRO #4 (does it work?) + #7 (trust: live data) + #12 (experience → ask).
             Revenue 2026-09-29. H162. */}
-        <BlogIndexFreeChecker locale={locale} />
+        <BlogIndexFreeChecker locale={locale} buyListPreview={buyList} />
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "0 0 14px" }}>
           All guides
