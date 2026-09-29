@@ -132,6 +132,27 @@ export function BlogInlineChecker({
 
   const [chipQuery, setChipQuery] = useState<string | null>(null)
 
+  // H140 CRO: read captured email so blog above-fold CTA pre-fills Stripe.
+  // Blog is our #1 traffic surface (130/7d) and checkout_from_blog = 0 all-time.
+  // C202 removed an unconditional email input (hurt conversion for returning visitors).
+  // This adds it back CONDITIONALLY — only when riq_capture_email is not already set.
+  // First-visit ChatGPT referrers (cold, no localStorage email) see one field.
+  // Returning visitors (email already stored from /pricing, /tools, homepage) skip it.
+  // Value persists to riq_capture_email so all downstream GuestCheckoutButtons pre-fill.
+  // CRO #6 (cognitive load: Stripe's email field is the single highest-friction moment)
+  // + #9 (friction: only for visitors who need it, not a gate for all).
+  // Revenue 2026-09-29. H140.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
+  const handleEmailChange = (v: string) => {
+    setCapturedEmail(v)
+    if (v.trim()) {
+      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
+    }
+  }
+
   const isActiveQueryFreeModel = (FREE_MODELS as readonly string[]).some(
     (m) => m.toLowerCase() === (chipQuery ?? preflightQuery).toLowerCase()
   )
@@ -211,12 +232,37 @@ export function BlogInlineChecker({
               </span>
             )}
           </div>
-          <GuestCheckoutButton
-            locale={locale}
-            label="Unlock full buy list — €19/mo →"
-            src="blog_buylist_pitch"
-            query={activeQuery}
-          />
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
+            {/* H140 CRO: conditional email input — first-visit visitors only.
+                ChatGPT referrers arrive cold (no localStorage email). Returning visitors skip it.
+                Stores to riq_capture_email → all downstream GuestCheckoutButtons pre-fill Stripe.
+                CRO #6 (remove Stripe's email field) + #9 (no friction for return visitors). */}
+            {!capturedEmail && (
+              <input
+                type="email"
+                placeholder="Your email →"
+                onChange={e => handleEmailChange(e.target.value)}
+                style={{
+                  background: "#0d1117",
+                  color: "#eef1f7",
+                  border: "1.5px solid rgba(52,199,89,.35)",
+                  borderRadius: 8,
+                  padding: "8px 11px",
+                  fontSize: 12.5,
+                  outline: "none",
+                  width: 160,
+                  boxSizing: "border-box" as const,
+                }}
+              />
+            )}
+            <GuestCheckoutButton
+              locale={locale}
+              label="Unlock full buy list — €19/mo →"
+              src="blog_buylist_pitch"
+              query={activeQuery}
+              customerEmail={capturedEmail || undefined}
+            />
+          </div>
         </div>
       )}
 
@@ -297,6 +343,7 @@ export function BlogInlineChecker({
             label="Unlock full buy list — €19/mo →"
             src="blog_buylist_pitch"
             query={activeQuery}
+            customerEmail={capturedEmail || undefined}
           />
         </div>
       )}
