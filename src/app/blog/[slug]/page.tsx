@@ -261,10 +261,43 @@ export default async function BlogPostPage(
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
 
-        {/* H181: checker BEFORE the proof strip. Live order was strip → €19
-            unlock → ROI → chips → the actual check, so a reader never reached
-            a verdict without scrolling a pitch. /tools/[slug] already keeps
-            the checker first for the same 390px reason. */}
+        <BlogProofStrip
+          items={proofRows}
+          ctaHref={
+            p.preflightQuery
+              ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
+              : `${canonicalPath(locale, "/tools")}?src=blog_proof`
+          }
+          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
+          hasInlineChecker={!!p.preflightQuery}
+          checkerAbove={!!p.preflightQuery}
+          topicQuery={p.preflightQuery ?? null}
+          topicComparableN={ssrVerdict?.comparable_n ?? null}
+        />
+        {p.definedTerm && (
+          <section style={{ marginBottom: 24 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>
+            <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, margin: 0 }}>{renderRichText(p.definedTerm.description)}</p>
+          </section>
+        )}
+        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
+
+        {/* H183 CRO: checker AFTER the intro paragraph — warm before the ask.
+            RESEARCH (fetched 2026-09-29):
+            - Plausible: 30-day trial, no card — value visible first, then ask.
+            - Beehiiv: free Launch plan — use the product, upgrade when ready.
+            - Fathom: 7-day full trial before first payment.
+            MEASUREMENT: checkout_from_blog = 0 all-time with H181 (checker first under H1).
+            ROOT CAUSE: visitor from ChatGPT arrives for information (article). H181 put
+            the checker immediately under the H1 — paywall fired before a single word of
+            article content was read. No agreement, no education = no conversion.
+            FIX: visitor reads proof strip (real buy-list rows) + intro paragraph FIRST,
+            then hits the checker. They've seen value before the ask. At that point
+            the comparable_n teaser ("47 data points on Stone Island Hoodie") lands on a
+            visitor who already trusts the data, not a cold bouncer.
+            CRO #12 (conversion momentum: agreement → education → solution → proof → offer)
+            + #9 (friction: cold paywall before value is the friction to remove).
+            Surface: /blog/[slug] 130/7d. Revenue 2026-09-29. H183. */}
         {p.preflightQuery && (
           <BlogInlineChecker
             preflightQuery={p.preflightQuery}
@@ -289,26 +322,6 @@ export default async function BlogPostPage(
               })()}
           />
         )}
-        <BlogProofStrip
-          items={proofRows}
-          ctaHref={
-            p.preflightQuery
-              ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
-              : `${canonicalPath(locale, "/tools")}?src=blog_proof`
-          }
-          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
-          hasInlineChecker={!!p.preflightQuery}
-          checkerAbove={!!p.preflightQuery}
-          topicQuery={p.preflightQuery ?? null}
-          topicComparableN={ssrVerdict?.comparable_n ?? null}
-        />
-        {p.definedTerm && (
-          <section style={{ marginBottom: 24 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>
-            <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, margin: 0 }}>{renderRichText(p.definedTerm.description)}</p>
-          </section>
-        )}
-        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
 
         {p.sections.map((s) => (
           <section key={s.h} style={{ marginBottom: 24 }}>
