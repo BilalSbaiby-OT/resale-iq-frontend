@@ -412,7 +412,12 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 }
                 after={
                   <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
-                    <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={WORKING_MODELS} testId="riq-check-another" />
+                    {/* C(tony)CheckAnotherFreeGuard: use FREE_MODELS for unpaid users so
+                        "Check another" chips after a result don't immediately hit the paywall.
+                        WORKING_MODELS (Levi's 501, NB 550) are paywalled — offering them
+                        to free users as the next click after AF1 kills the discovery loop.
+                        Same guard as the cold empty-state panel at line ~466. */}
+                    <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-check-another" />
                   </div>
                 }
               />
