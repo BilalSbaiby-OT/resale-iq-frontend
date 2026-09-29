@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { Check, CheckCircle2, AlertCircle } from "lucide-react"
+import { Check } from "lucide-react"
 import { queryCoverageKind } from "@/lib/query-coverage"
 import { useAuthStore } from "@/lib/auth-store"
 import { getPlans, isConflict, createCheckout } from "@/lib/api"
@@ -10,7 +10,6 @@ import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/ana
 import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
-import { IntentTypeahead } from "@/components/auth/intent-typeahead"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
@@ -246,57 +245,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
             product value → THEN credentials. Intent drives completion.
             The submit button dynamically reflects the query so clicking feels
             purposeful ("Check Stone Island Hoodie →") not generic ("Create account"). */}
-        <h1 className="text-[21px] font-bold mb-1">
-          What do you want to check?
-        </h1>
+        <h1 className="text-[21px] font-bold mb-1">Create account</h1>
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-4">
-          Type your item — your buy-below verdict runs the moment you&apos;re in.
+          Email continues to payment. Google opens your dashboard.
         </p>
-
-        {/* Hero intent input — largest, first, most prominent element.
-            Canva pattern: one big clear goal input before anything else.
-            Tapping a demand row below seeds this field.
-            C173(tony): real-time catalog coverage hint — users who type an
-            untracked query (Gucci, Rolex, etc.) learn it BEFORE registering,
-            not after. Prevents "first verdict = coverage miss" which is the
-            biggest first-impression failure point. queryCoverageKind is pure
-            client-side (no API call) — instant feedback as they type. */}
-        {/* C180(tony): typeahead replaces plain input — brand suggestions with
-            live demand counts as the user types. Reduces coverage-miss first
-            verdicts (11/25 accounts ran 0 verdicts after seeing an empty box).
-            Keyboard nav (↑↓ Enter Escape) works; closes on outside click. */}
-        <div className="mb-4">
-          <IntentTypeahead
-            value={intentQuery}
-            onChange={setIntentQuery}
-            autoFocus
-          />
-          {/* Coverage badge — only shows when user has typed enough to classify.
-              Green = catalog brand (will get a real verdict); amber = untracked
-              (will see a coverage-miss, so redirect to catalog). Keeps expectations
-              honest before they commit to Stripe. */}
-          {(() => {
-            if (intentQuery.trim().length < 3) return null
-            const kind = queryCoverageKind(intentQuery.trim())
-            if (kind === "catalog" || kind === "free_sample") {
-              return (
-                <div className="flex items-center gap-1.5 mt-1.5 px-1">
-                  <CheckCircle2 size={12} className="text-[var(--color-buy)] shrink-0" />
-                  <span className="text-[11.5px] text-[var(--color-buy)]">We track this — your verdict runs on signup</span>
-                </div>
-              )
-            }
-            return (
-              <div className="flex items-center gap-1.5 mt-1.5 px-1">
-                <AlertCircle size={12} className="text-[var(--color-watch)] shrink-0" />
-                <span className="text-[11.5px] text-[var(--color-watch)]">
-                  Not in catalog yet —{" "}
-                  <Link href="/data" target="_blank" className="underline hover:text-[var(--color-text-primary)]">see tracked brands</Link>
-                </span>
-              </div>
-            )
-          })()}
-        </div>
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           {/* Google Sign-In — hidden until backend confirms credentials exist.

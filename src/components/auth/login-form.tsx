@@ -2,8 +2,7 @@
 import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
-import { setToken, getPlanFromToken } from "@/lib/utils"
-import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { setToken } from "@/lib/utils"
 import { getMe } from "@/lib/api"
 import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
@@ -12,14 +11,12 @@ import {
   AuthCard, AuthHeading, AuthField,
   AUTH_ACCENT, AUTH_ACCENT_BUTTON, AUTH_TEXT_SECONDARY, AUTH_TEXT_MUTED,
 } from "@/components/auth/auth-form-parts"
-import { queryCoverageKind } from "@/lib/query-coverage"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
 
 export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [brandQuery, setBrandQuery] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const { login } = useAuthStore()
@@ -27,17 +24,9 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
   const searchParams = useSearchParams()
   const t = copy[localeProp ?? useLocale()].auth.login
 
-  // C148(tony): if we arrived from /register conflict CTA, pre-fill the email
-  // so the user doesn't retype what they already entered.
-  // C176(tony): if we arrived from the paywall "Sign in" link (hard-paywall-card
-  // passes ?q=<query>), pre-seed the intent field so the item context is not
-  // dropped and login routes to the exact verdict they were checking, not the
-  // generic Nike AF1 sample. Paywall → sign in → wrong verdict = activation dead-end.
   useEffect(() => {
     const preEmail = searchParams.get("email")
     if (preEmail) setEmail(decodeURIComponent(preEmail))
-    const preQ = searchParams.get("q")
-    if (preQ) setBrandQuery(decodeURIComponent(preQ))
   }, [searchParams])
 
   /**
@@ -62,46 +51,8 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       getMe(googleToken)
         .then(user => {
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
-          // Clean the token out of the URL (don't expose it in history)
           window.history.replaceState({}, "", "/login")
-          // C171(tony): Google login also lacked plan-aware routing — matched
-          // the same fix applied to email+password login and reset-password (C166).
-          // Paid users land on /dashboard; intent query still overrides.
-          let dest: string
-          try {
-            const saved = localStorage.getItem("riq_intent_query")
-            if (saved) {
-              dest = `/verdict?q=${encodeURIComponent(saved)}`
-              localStorage.removeItem("riq_intent_query")
-            } else if (brandQuery.trim()) {
-              dest = `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
-            } else {
-              const plan = getPlanFromToken()
-              if (plan === "operator" || plan === "power") {
-                // C216(tony): paid + no intent → /verdict (WORKING_MODELS chips,
-                // live first answer) instead of /dashboard (12-line stub, 0 activation
-                // value). 11/25 accounts ran zero verdicts — they logged in, hit an
-                // empty admin screen, and left. Linear/Plausible pattern: route new
-                // users to the VALUE screen first; /dashboard is in the nav.
-                dest = FIRST_CHECK_HREF
-              } else {
-                // C172(tony): Google signup skips Stripe — new user arrives as
-                // plan=free with no checkout. If riq_register_plan was written
-                // by register-form.tsx < 5 min ago, route to /pricing to close
-                // checkout instead of dumping them on the free Nike AF1 demo.
-                try {
-                  const raw = localStorage.getItem("riq_register_plan")
-                  localStorage.removeItem("riq_register_plan")
-                  const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
-                  const fresh = parsed ? Date.now() - parsed.ts < 5 * 60 * 1000 : false
-                  dest = (fresh && (parsed?.plan === "operator" || parsed?.plan === "power"))
-                    ? `/pricing?ref=google-signup&plan=${parsed.plan}`
-                    : FIRST_CHECK_HREF
-                } catch { dest = FIRST_CHECK_HREF }
-              }
-            }
-          } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
-          router.push(dest)
+          router.push("/dashboard")
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
@@ -128,32 +79,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         router.push("/check-email")
         return
       }
-      // C147: read localStorage intent query (set by register C140 or a prior
-      // session) so a returning user who logs in with email+password also lands
-      // on their own query rather than the generic Air Force 1 sample.
-      // Mirrors the Google OAuth callback pattern (C141).
-      // C171(tony): C166 added plan-aware routing to reset-password but login
-      // still sent every paid subscriber to the public Nike AF1 demo. Paid
-      // users get /dashboard (their buy-list); free/unknown get the intent
-      // query or FIRST_CHECK_HREF sample. Intent query still overrides both —
-      // if they typed a brand before logging in, that check fires on arrival.
-      let dest: string
-      try {
-        const saved = localStorage.getItem("riq_intent_query")
-        if (brandQuery.trim()) {
-          dest = `/verdict?q=${encodeURIComponent(brandQuery.trim())}`
-        } else if (saved) {
-          dest = `/verdict?q=${encodeURIComponent(saved)}`
-          localStorage.removeItem("riq_intent_query")
-        } else {
-          // C216(tony): paid + no intent → /verdict (WORKING_MODELS chips,
-          // live first answer) instead of /dashboard (12-line stub). Same
-          // fix as Google OAuth callback above — both paths had the same bug.
-          // plan check removed: both paths now go to FIRST_CHECK_HREF.
-          dest = FIRST_CHECK_HREF
-        }
-      } catch { /* private mode — fall back */ dest = FIRST_CHECK_HREF }
-      router.push(dest)
+      router.push("/dashboard")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
@@ -163,14 +89,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
 
-      <GoogleSignInButton
-        label="Continue with Google"
-        onBeforeNavigate={() => {
-          if (brandQuery.trim()) {
-            try { localStorage.setItem("riq_intent_query", brandQuery.trim()) } catch { /* private mode */ }
-          }
-        }}
-      />
+      <GoogleSignInButton label="Continue with Google" />
       <AuthDivider text="or" />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -188,16 +107,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           disabled={loading}
           className={`${AUTH_ACCENT_BUTTON} mt-1`}
         >
-          {loading ? t.submitting : (() => {
-            const q = brandQuery.trim()
-            if (q.length >= 3) {
-              const kind = queryCoverageKind(q)
-              if (kind === "catalog" || kind === "free_sample") {
-                return `Sign in & check ${q} →`
-              }
-            }
-            return t.submit
-          })()}
+          {loading ? t.submitting : t.submit}
         </button>
       </form>
       <div className={`text-center mt-5 text-[13px] ${AUTH_TEXT_SECONDARY}`}>
