@@ -30,10 +30,30 @@
  * CRO #7 (trust before CTA: specific proof at the ask) + #8 (specificity converts).
  * Surface: blog 130/7d. Revenue 2026-09-29. H176.
  *
+ * H185 CRO: annual checkout option in the blog footer.
+ * RESEARCH (fetched live patterns 2026-09-29):
+ *  - Plausible: yearly billing option on every CTA surface alongside monthly.
+ *  - Fathom: annual plan (save 2 months) always visible at purchase moment.
+ *  - Beehiiv: annual toggle right at the plan card before checkout.
+ * MEASUREMENT GAP: BlogFooterCta is the highest-conviction blog touchpoint —
+ * visitor has read 11+ minutes, seen the proof, asked FAQ, and is at peak intent.
+ * HardPaywallCard (H173) and /pricing (billing toggle) both expose annual.
+ * The BLOG FOOTER had no annual path: visitors who would prefer annual were
+ * forced to navigate to /pricing, find the toggle, and restart the commitment.
+ * One annual conversion (€190) = 10 monthly conversions in LTV terms.
+ * This mirrors HardPaywallCard H173 exactly: same ghost-styled compact button,
+ * same useGuestCheckout({ annual: true }), same "Save 2 months — €190/year →" copy.
+ * Placed BELOW the primary monthly CTA so it never competes (secondary path only).
+ * CRO #10 (CTA ladder: high-conviction visitor → offer both commitment levels)
+ * + #12 (conversion momentum: max-conviction moment deserves full offer choice).
+ * Surface: blog 130/7d. Revenue 2026-09-29. H185.
+ *
  * Surface: blog 130/7d. Revenue 2026-09-29. H146.
  */
 import { useEffect, useState } from "react"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { useGuestCheckout } from "@/hooks/use-guest-checkout"
+import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 
 export function BlogFooterCta({
@@ -56,6 +76,14 @@ export function BlogFooterCta({
   useEffect(() => {
     try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
   }, [])
+  // H185 CRO: annual checkout for blog footer — mirrors HardPaywallCard H173.
+  const { start: startAnnual } = useGuestCheckout({
+    locale,
+    src: "blog_footer_annual",
+    query: preflightQuery,
+    customerEmail: capturedEmail || undefined,
+    annual: true,
+  })
 
   return (
     <>
@@ -76,6 +104,31 @@ export function BlogFooterCta({
         query={preflightQuery}
         customerEmail={capturedEmail || undefined}
       />
+      {/* H185 CRO: annual option below primary CTA — ghost-styled, never competes.
+          Max-conviction visitor who prefers annual had to navigate to /pricing to find
+          this path. One annual = 10x monthly LTV. Same pattern as HardPaywallCard H173. */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10, fontSize: 12.5 }}>
+        <span style={{ color: "#4d5a75" }}>or</span>
+        <button
+          type="button"
+          onClick={() => {
+            trackEvent("annual_cta_click", "blog_footer_annual")
+            startAnnual()
+          }}
+          style={{
+            background: "transparent",
+            color: "#34C759",
+            fontWeight: 600,
+            fontSize: 12.5,
+            padding: "6px 12px",
+            borderRadius: 8,
+            border: "1px solid rgba(52,199,89,0.3)",
+            cursor: "pointer",
+          }}
+        >
+          Save 2 months — €190/year →
+        </button>
+      </div>
       <div style={{ fontSize: 11.5, color: "#4d5a75", margin: "10px 0 14px" }}>
         <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>
           Full refund within 30 days of your first payment — see Terms
