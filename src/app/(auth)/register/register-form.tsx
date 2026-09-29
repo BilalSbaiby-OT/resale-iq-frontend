@@ -11,6 +11,7 @@ import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
+import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typeahead"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -68,6 +69,15 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const registeredRef = useRef(false)
   const { register, login } = useAuthStore()
   const router = useRouter()
+
+  // C(tony)RegisterDemandPreview: once the user has typed ≥3 chars and it
+  // matches a brand we track, show live weekly demand right under the
+  // field — pre-submit reassurance that "yes, this is a real, watched
+  // market" before they hand over card details. Recomputed on every
+  // keystroke (cheap in-memory lookup, no network call — findDemandMatch
+  // reads the same suggestions array the typeahead dropdown already
+  // fetched from market-snapshot).
+  const demandMatch = intentQuery.trim().length >= 3 ? findDemandMatch(intentQuery) : null
 
   // C152(tony): conflict login path — "welcome back" inline form.
   // When 409 fires, instead of a dead-end "Sign in →" link that loses
@@ -313,6 +323,37 @@ function RegisterContent({ locale }: { locale: Locale }) {
               <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-1.5">
                 🔒 {t.paidTrustNote}
               </p>
+            )}
+          </div>
+
+          {/* C(tony)RegisterDemandPreview: intent field + inline demand card.
+              Different from the price/waiver blocks above (those are about the
+              transaction) — this is about the market itself: proof the brand
+              the user is about to track has real, observed weekly turnover,
+              shown BEFORE they commit card details. */}
+          <div>
+            <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">
+              What do you want to check first?
+            </label>
+            <IntentTypeahead
+              value={intentQuery}
+              onChange={setIntentQuery}
+              placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
+              aria-label="What do you want to check first?"
+            />
+            {demandMatch && (
+              <div className="mt-2 flex items-center gap-2 rounded-lg border border-[var(--color-border-2)] bg-[var(--color-bg-4)] px-3 py-2">
+                <Check size={13} className="text-[var(--color-buy)] shrink-0" />
+                <p className="text-[12px] text-[var(--color-text-secondary)] leading-snug">
+                  <span className="font-semibold text-[var(--color-text-primary)]">
+                    {demandMatch.sold_7d} watched departures this week
+                  </span>
+                  {demandMatch.avg_price_eur ? (
+                    <> · avg €{demandMatch.avg_price_eur}</>
+                  ) : null}
+                  {" — "}real demand, not a guess.
+                </p>
+              </div>
             )}
           </div>
 

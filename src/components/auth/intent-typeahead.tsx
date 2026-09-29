@@ -29,19 +29,26 @@ type Suggestion = {
   brand: string
   category: string
   sold_7d: number
+  avg_price_eur?: number
 }
 
 // Static fallback — brand names from the catalog without live counts.
 // Used when the market-snapshot fetch fails so the typeahead still works.
-const STATIC_BRANDS: string[] = (
-  brandsRaw as { brands: { brand: string }[] }
-).brands.map((b) => b.brand).filter(Boolean)
+const STATIC_BRAND_ROWS = (
+  brandsRaw as { brands: { brand: string; sold_7d?: number; avg_price_eur?: number }[] }
+).brands.filter((b) => b.brand)
 
-const STATIC_SUGGESTIONS: Suggestion[] = STATIC_BRANDS.map((brand) => ({
-  brand,
+const STATIC_SUGGESTIONS: Suggestion[] = STATIC_BRAND_ROWS.map((b) => ({
+  brand: b.brand,
   category: "",
-  sold_7d: 0,
+  sold_7d: b.sold_7d ?? 0,
+  avg_price_eur: b.avg_price_eur,
 }))
+
+// Populated once the live market-snapshot fetch succeeds, so the demand
+// preview card (below) can look up a match without its own network call —
+// same data, no duplicate fetch.
+let liveSuggestionsCache: Suggestion[] = STATIC_SUGGESTIONS
 
 function normalize(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim()
@@ -53,6 +60,21 @@ function matchesSuggestion(q: string, s: Suggestion): boolean {
   const label = normalize(`${s.brand} ${s.category}`)
   const brandOnly = normalize(s.brand)
   return label.includes(nq) || brandOnly.startsWith(nq)
+}
+
+// C(tony)RegisterDemandPreview: given the current input text, find the
+// best matching brand row so a demand card can render "X watched this
+// week" beneath the field. Exported so register-form.tsx can render its
+// own card without re-fetching market-snapshot.
+export function findDemandMatch(q: string): Suggestion | null {
+  const nq = normalize(q)
+  if (nq.length < 3) return null
+  let best: Suggestion | null = null
+  for (const s of liveSuggestionsCache) {
+    if (!matchesSuggestion(q, s)) continue
+    if (!best || s.sold_7d > best.sold_7d) best = s
+  }
+  return best
 }
 
 export type IntentTypeaheadProps = {
@@ -94,18 +116,31 @@ export function IntentTypeahead({
           if (Array.isArray(b.categories) && b.categories.length > 0) {
             for (const c of b.categories) {
               if (c.sold_7d >= 3) {
-                pairs.push({ brand: b.brand, category: c.category, sold_7d: c.sold_7d })
+                pairs.push({
+                  brand: b.brand,
+                  category: c.category,
+                  sold_7d: c.sold_7d,
+                  avg_price_eur: c.avg_price_eur,
+                })
               }
             }
           } else {
             // Brand-only row — use first top_category as label
             const cat = b.top_categories?.[0] ?? ""
-            pairs.push({ brand: b.brand, category: cat, sold_7d: b.sold_7d ?? 0 })
+            pairs.push({
+              brand: b.brand,
+              category: cat,
+              sold_7d: b.sold_7d ?? 0,
+              avg_price_eur: b.avg_price_eur,
+            })
           }
         }
         // Highest demand first — resellers scan fast, the hottest item should win
         pairs.sort((a, b) => b.sold_7d - a.sold_7d)
-        if (pairs.length > 0) setSuggestions(pairs)
+        if (pairs.length > 0) {
+          setSuggestions(pairs)
+          liveSuggestionsCache = pairs
+        }
       })
       .catch(() => {
         // Silent: static fallback already loaded
