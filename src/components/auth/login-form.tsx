@@ -13,6 +13,7 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 
 export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
@@ -52,7 +53,10 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         .then(user => {
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
           window.history.replaceState({}, "", "/login")
-          router.push("/dashboard")
+          // C(tony)LoginVerdict: route returning Google users to /verdict (first
+          // real answer) instead of /dashboard (12-line stub, 0 activation value).
+          // Same fix as email login below — Elon's cleanup stripped both routes.
+          router.push(FIRST_CHECK_HREF)
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
@@ -79,7 +83,10 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         router.push("/check-email")
         return
       }
-      router.push("/dashboard")
+      // C(tony)LoginVerdict: route to /verdict (first real answer, Nike AF1 seed)
+      // instead of /dashboard (12-line stub, 11/25 accounts ran 0 verdicts after
+      // Elon's cleanup stripped the intent routing). Value screen first, then nav.
+      router.push(FIRST_CHECK_HREF)
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
