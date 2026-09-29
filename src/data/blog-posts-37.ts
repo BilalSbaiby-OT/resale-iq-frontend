@@ -14,7 +14,7 @@ export const POSTS_37: BlogPost[] = [
     title: "Fred Perry Polo Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry Polo Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry polo shirts averaged €14 per departure across EU Vinted in September 2026 — 403 shirts per week, the highest-volume category of the #1 departure brand overall. Real exit ranges, buy-below prices by model (M12, M3, M2), and how the polo compares to Fred Perry hoodies (€22 avg) and jackets (€37 avg).",
+      "Fred Perry polo shirts averaged €14 per departure across EU Vinted in September 2026 — 403 shirts per week.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

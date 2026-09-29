@@ -20,7 +20,7 @@ export const POSTS_92: BlogPost[] = [
     title: "Tommy Hilfiger Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Tommy Hilfiger Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Tommy Hilfiger hoodies track 510 departures in the last 30 days (across all tracked Tommy Hilfiger hoodies on EU Vinted, brand-level) at a €19.69 average exit price. Real exit ranges by hoodie type, buy-below ceiling €11.70, Tommy Jeans hoodie premium (€30–50 exit), condition grading, and how Tommy Hilfiger hoodies compare to Ralph Lauren for EU resellers.",
+      "Tommy Hilfiger hoodies track 510 departures in the last 30 days (across all tracked Tommy Hilfiger hoodies on EU Vinted.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

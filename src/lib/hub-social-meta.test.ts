@@ -3,7 +3,7 @@
  * title. Root layout pins homepage og:title / twitter:title; a child `title`
  * alone does not override those tags.
  */
-import { readFileSync } from "node:fs"
+import { readFileSync, existsSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
@@ -192,4 +192,35 @@ test("layout Organization + SoftwareApplication JSON-LD stays valid", () => {
   const start = layout.indexOf("return {", orgStart)
   const emitted = layout.slice(start, layout.indexOf("export default", start))
   assert.doesNotMatch(emitted, /sell_through|featureList/)
+})
+
+// EX-ORG-WEBSITE-JSONLD (2026-09-29): the homepage carried only FAQPage/Offer
+// JSON-LD nodes — no dedicated Organization or WebSite entity, which is the
+// pairing search/answer engines expect for basic entity recognition. Adds
+// exactly one of each, both server-rendered in the root <head> (every route,
+// every locale). Guards: no linked-profile list (no real profiles to cite),
+// no rating or review fields (no fake social proof — hard site rule), logo
+// must be an absolute URL to a file that actually exists in the app dir.
+test("homepage ships a dedicated Organization entity and a WebSite entity, honestly", () => {
+  const layout = read("app/layout.tsx")
+  assert.match(layout, /const organizationEntityJsonLd = \(/)
+  assert.match(layout, /"@type": "Organization"/)
+  assert.match(layout, /logo: "https:\/\/resaleiq\.dev\/favicon\.ico"/)
+  assert.doesNotMatch(layout, /sameAs/)
+  assert.doesNotMatch(layout, /aggregateRating/)
+  assert.doesNotMatch(layout, /"review"/)
+
+  assert.match(layout, /const websiteJsonLd = \{/)
+  assert.match(layout, /"@type": "WebSite"/)
+
+  // Both must actually be emitted in the rendered <head>, not just declared.
+  const bodyStart = layout.indexOf("export default async function RootLayout")
+  const body = layout.slice(bodyStart)
+  assert.match(body, /organizationEntityJsonLd\(trackedLabel, locale\)/)
+  assert.match(body, /JSON\.stringify\(ORGANIZATION_ENTITY_JSONLD\)/)
+  assert.match(body, /JSON\.stringify\(websiteJsonLd\)/)
+
+  // favicon.ico must be a real file (Next's file-convention icon), not a
+  // stand-in path that would 404 — this is the guard against inventing a logo.
+  assert.ok(existsSync(join(root, "app/favicon.ico")), "src/app/favicon.ico must exist")
 })

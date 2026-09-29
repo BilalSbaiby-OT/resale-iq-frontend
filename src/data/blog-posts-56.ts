@@ -15,7 +15,7 @@ export const POSTS_56: BlogPost[] = [
     title: "Vans Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Vans Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Vans sneakers track 58 departures in the last 30 days across EU Vinted at a €51 average exit price as of September 2026. Vans is the highest-volume sneaker brand in the accessible mid-range on EU Vinted — above Adidas (45 departures in the last 30 days @€60) and Reebok (28 departures in the last 30 days @€17). Real exit ranges by model (Old Skool, Sk8-Hi, Classic Slip-On, Era), buy-below ceiling €33.15, Adidas Gazelle and New Balance comparison, and the condition signals that push a pair above the €51 average.",
+      "Vans sneakers track 58 departures in the last 30 days across EU Vinted at a €51 average exit price as of September 2026.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

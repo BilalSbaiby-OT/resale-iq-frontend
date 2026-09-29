@@ -15,7 +15,7 @@ export const POSTS_58: BlogPost[] = [
     title: "New Balance 530 on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "New Balance 530 Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "New Balance 530 tracks 1235 departures in the last 30 days across EU Vinted at a €37.47 average exit price in September 2026 — the highest-volume New Balance model but with DEAD momentum signal. Buy-below ceiling €24.92, comparison with NB 9060 (49 departures in the last 30 days at €78.83, FADING), NB 550, and Nike Air Force 1. Includes sizing data (top sizes 38/40/37) and what the momentum downgrade means for sourcing decisions in Q4 2026.",
+      "New Balance 530 tracks 1235 departures in the last 30 days across EU Vinted at a €37.47 average exit price in September 2026 — the highest-volume New.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

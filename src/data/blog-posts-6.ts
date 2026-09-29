@@ -15,7 +15,7 @@ export const POSTS_6: BlogPost[] = [
     title: "Nike Reselling on Vinted: Sneakers at €96 Average, the Models That Drive Margin",
     seoTitle: "Is Nike Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Nike ranks #9 by watched departures across 5 EU Vinted markets — 172/week at €62 average. Sneakers lead: 78 departures at €96 average (buy-below ~€64). Jackets and Hoodies add volume. Model selection is the primary sourcing skill.",
+      "Nike ranks #9 by watched departures across 5 EU Vinted markets — 172/week at €62 average. Sneakers lead: 78 departures at €96 average (buy-below ~€64).",
     date: "2026-09-14",
 
     preflightQuery: "Nike Air Force 1",

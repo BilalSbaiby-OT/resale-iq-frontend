@@ -12,7 +12,7 @@ export const POSTS_123: BlogPost[] = [
     title: "DAC7 on Vinted: which model to buy in 2026",
     seoTitle: "DAC7 Vinted 2026 | Which model to buy to resell | Resale IQ",
     description:
-      "DAC7 reports 30 transactions or €2,000 gross. Still buy the model that leaves the shelf. This week’s watched departures on 5,309,568 EU5 Vinted listings, then /tools.",
+      "DAC7 reports 30 transactions or €2,000 gross. Still buy the model that leaves the shelf. This week’s watched departures on 5,309,568 EU5 Vinted listings.",
     date: "2026-09-21",
     category: "News",
     readMins: 6,

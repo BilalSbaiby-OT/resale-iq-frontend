@@ -14,7 +14,7 @@ export const POSTS_33: BlogPost[] = [
     title: "Nike Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Nike Sneaker Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Nike sneakers averaged €96 per departure across EU Vinted in September 2026 — 77 pairs per week. Air Force 1, Dunk, Air Max 90/95/97, Blazer: real exit ranges, buy-below prices, and which silhouettes actually move.",
+      "Nike sneakers averaged €96 per departure across EU Vinted in September 2026 — 77 pairs per week. Air Force 1, Dunk, Air Max 90/95/97.",
     date: "2026-09-15",
 
     preflightQuery: "Nike Sneakers",

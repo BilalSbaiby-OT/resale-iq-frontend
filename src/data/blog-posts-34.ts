@@ -13,7 +13,7 @@ export const POSTS_34: BlogPost[] = [
     title: "Levi's 501 Jeans on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Levi's 501 Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Levi's 501 jeans averaged €29 per departure across EU Vinted in September 2026 — 41 pairs per week in the jeans category. Real exit ranges, buy-below prices by waist size, and how the 501 compares to the 505, Trucker Jacket, and other Levi's cuts that move on Vinted.",
+      "Levi's 501 jeans averaged €29 per departure across EU Vinted in September 2026 — 41 pairs per week in the jeans category.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

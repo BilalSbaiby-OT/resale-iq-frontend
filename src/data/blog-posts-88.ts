@@ -18,7 +18,7 @@ export const POSTS_88: BlogPost[] = [
     title: "Nike Shox on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Nike Shox Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Nike Shox track 19 departures in the last 30 days across EU Vinted in September 2026 at a €136.58 average exit price — RISING momentum with a sub-10-hour average sell time. Real exit ranges by model, size-level buy-below ceilings, and why size 43 is the highest-margin Shox play on EU Vinted right now.",
+      "Nike Shox track 19 departures in the last 30 days across EU Vinted in September 2026 at a €136.58 average exit price — RISING momentum with a sub-10-hour.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

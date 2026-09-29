@@ -15,7 +15,7 @@ export const POSTS_84: BlogPost[] = [
     title: "Balenciaga Runner on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Balenciaga Runner Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga Runner tracked 68 departures in the last 30 days on EU Vinted in September 2026 at a €163.07 average exit price. STABLE momentum, ~1,380 active listings, 4.67-month supply (tightest in the Balenciaga sneaker cluster), and 0.36 DTS. Buy-below €108.64. The Runner is the third-most-liquid Balenciaga sneaker and the tightest-supply model in the five-model tracked dataset. Full authentication guide, EU sourcing routes, and five-model Balenciaga sneaker cluster comparison.",
+      "Balenciaga Runner tracked 68 departures in the last 30 days on EU Vinted in September 2026 at a €163.07 average exit price.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 9,

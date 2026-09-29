@@ -10,9 +10,9 @@ export const POSTS_120: BlogPost[] = [
   {
     slug: "should-i-buy-this-model-to-resell",
     title: "Should I Buy This Model to Resell? (2026 Demand Check)",
-    seoTitle: "Should I Buy This Model to Resell? 2026 Demand Check | Resale IQ",
+    seoTitle: "Should I Buy This Model to Resell? | Resale IQ",
     description:
-      "Decide which clothing model to buy to resell: this week’s watched departures on 5,309,568 Vinted listings (EU5), then run the model in Resale IQ /tools. No per-model buy-below on this page.",
+      "Decide which clothing model to buy to resell: this week’s watched departures on 5,309,568 Vinted listings (EU5), then run the model in Resale IQ /tools.",
     date: "2026-09-20",
     category: "Sourcing",
     readMins: 5,

@@ -15,7 +15,7 @@ export const POSTS_4: BlogPost[] = [
     title: "Supreme Reselling on Vinted: Drop Logic, Floor Discipline, and Where the Margin Lives",
     seoTitle: "Is Supreme Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Supreme ranks #5 by watched departures across 5 EU Vinted markets — 156/week at €66 average. Jackets average €132 (buy-below ~€88). Hoodies average €74 (buy-below ~€49). Box logo commands premiums — authenticate before you buy.",
+      "Supreme ranks #5 by watched departures across 5 EU Vinted markets — 156/week at €66 average. Jackets average €132 (buy-below ~€88).",
     date: "2026-09-14",
 
     preflightQuery: "Supreme Box Logo Hoodie",
@@ -103,7 +103,7 @@ export const POSTS_4: BlogPost[] = [
     title: "The North Face Reselling on Vinted: Jackets Lead, Seasonality Matters",
     seoTitle: "Is The North Face Worth Reselling on Vinted? — Resale IQ",
     description:
-      "The North Face ranks #6 by watched departures across 5 EU Vinted markets — 210/week at €41 average. Jackets dominate: 122 departures at €48 (buy-below ~€32). Bags average €66 (buy-below ~€44). Strong autumn/winter sourcing opportunity.",
+      "The North Face ranks #6 by watched departures across 5 EU Vinted markets — 210/week at €41 average. Jackets dominate: 122 departures at €48 (buy-below.",
     date: "2026-09-14",
 
     preflightQuery: "The North Face",
@@ -189,7 +189,7 @@ export const POSTS_4: BlogPost[] = [
     title: "New Balance Reselling on Vinted: Sneaker-First, Model-Driven, and Where the Margin Lives",
     seoTitle: "Is New Balance Worth Reselling on Vinted? — Resale IQ",
     description:
-      "New Balance ranks #5 by watched departures across 5 EU Vinted markets — 260/week at €49 average. Sneakers are 93% of volume: 242 departures at €52 average (buy-below ~€35). Model drives price more than condition — know your NB numbers.",
+      "New Balance ranks #5 by watched departures across 5 EU Vinted markets — 260/week at €49 average. Sneakers are 93% of volume: 242 departures at €52 average.",
     date: "2026-09-14",
     category: "Sourcing",
     readMins: 6,

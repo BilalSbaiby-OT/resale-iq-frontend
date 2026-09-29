@@ -14,7 +14,7 @@ export const POSTS_45: BlogPost[] = [
     title: "Balenciaga T-Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga T-Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga T-Shirts track 52 departures in the last 30 days across EU Vinted in September 2026 at a €96 average exit price. Real exit ranges by style (logo tee, political campaign tee, tape logo), buy-below ceiling €62.40, authentication guide, and how Balenciaga T-shirts compare to hoodies and sneakers for EU resellers.",
+      "Balenciaga T-Shirts track 52 departures in the last 30 days across EU Vinted in September 2026 at a €96 average exit price.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

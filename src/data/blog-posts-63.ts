@@ -14,7 +14,7 @@ export const POSTS_63: BlogPost[] = [
     title: "Gucci Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Gucci Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Gucci tracks 7 jacket departures per week across EU Vinted in September 2026 at a €304 average exit price — the highest per-unit jacket category in the ResaleIQ dataset. Real exit ranges by model — Web Stripe canvas, GG Supreme bomber, tailored blazer, denim trucker — buy-below ceiling €197.60, authentication essentials, and how Gucci jackets compare to Stone Island and Balenciaga for EU resellers.",
+      "Gucci tracks 7 jacket departures per week across EU Vinted in September 2026 at a €304 average exit price — the highest per-unit jacket category in the.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

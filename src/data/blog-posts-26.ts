@@ -12,7 +12,7 @@ export const POSTS_26: BlogPost[] = [
     title: "How to Sell on Vinted and Actually Make Money (2026 Guide)",
     seoTitle: "How to Sell on Vinted and Make Money (2026) — Resale IQ",
     description:
-      "The complete Vinted seller guide: account setup, photography, pricing, listing copy, promoted listings, and sourcing items at the right buy-below price. Practical method, not generic advice.",
+      "The complete Vinted seller guide: account setup, photography, pricing, listing copy, promoted listings, and sourcing items at the right buy-below price.",
     date: "2026-09-15",
     category: "Platforms",
     readMins: 14,

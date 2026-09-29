@@ -15,7 +15,7 @@ export const POSTS_71: BlogPost[] = [
     title: "Supreme T-Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Supreme T-Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Supreme T-shirts track 32 departures in the last 30 days across EU Vinted at a €35 average exit price in September 2026. Buy-below ceiling €22.75. Box Logo tees command a €60–180 premium over seasonal graphic tees. Cross-brand comparison with Stone Island T-Shirts (50 departures in the last 30 days at €24), Balenciaga T-Shirts (87 departures in the last 30 days at €89), and Fred Perry T-Shirts (149 departures in the last 30 days at €13). Supreme cluster: hoodies (42 departures in the last 30 days at €72), jackets (12 departures in the last 30 days at €146), caps (20 departures in the last 30 days at €44).",
+      "Supreme T-shirts track 32 departures in the last 30 days across EU Vinted at a €35 average exit price in September 2026. Buy-below ceiling €22.75.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

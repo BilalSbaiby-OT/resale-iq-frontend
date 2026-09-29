@@ -80,7 +80,7 @@ test("buy-below chapter matches the blog twin definition lead", () => {
   assert.match(chunk, /0\.70 targets roughly a 30% margin/)
   assert.match(chunk, /sourcing ceiling, not a promised profit/)
   assert.match(chunk, /q: "What is a buy-below price\?"/)
-  assert.match(chunk, /seoTitle: "What Is a Buy-Below Price on Vinted\? — The Vinted Reselling Manual"/)
+  assert.match(chunk, /seoTitle: "What Is a Buy-Below Price\? — The Vinted Reselling Manual"/)
   assert.match(chunk, /title: "How to work out the most you can pay"/)
   assert.doesNotMatch(chunk, /\/register/)
 })

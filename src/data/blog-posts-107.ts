@@ -22,7 +22,7 @@ export const POSTS_107: BlogPost[] = [
     title: "Off-White Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Off-White Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Off-White hoodies track 4 departures in the last 30 days on EU Vinted at a €42 average exit price as of 19 September 2026 — the highest-volume Off-White apparel category after sneakers, and a different play from the €154 sneaker market. Buy-below €27.30, WIP Hooded Chase vs Back to Black vs Diagonal Arrow identification, condition grading, and how Off-White hoodies compare to Balenciaga (€100) and Stone Island (€55) for EU resellers.",
+      "Off-White hoodies track 4 departures in the last 30 days on EU Vinted at a €42 average exit price as of 19 September 2026 — the highest-volume Off-White.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 6,

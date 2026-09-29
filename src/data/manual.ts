@@ -80,6 +80,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     updated: "2026-09-13",
     checkQuery: "Fred Perry Shirt",
     title: "What actually makes money in reselling",
+    seoTitle: "What Makes Money Reselling — The Vinted Reselling Manual",
     description:
       "The full margin equation for Vinted resale — buy price, platform fee, shipping, returns and time — and why most resellers only track the first two.",
     minutes: 7,
@@ -152,7 +153,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Fred Perry Polo",
     updated: "2026-09-13",
     title: "How to work out the most you can pay",
-    seoTitle: "What Is a Buy-Below Price on Vinted? — The Vinted Reselling Manual",
+    seoTitle: "What Is a Buy-Below Price? — The Vinted Reselling Manual",
     description:
       "Buy-below is the most you can pay and still profit after Vinted fees: average departure ask × 0.95 × 0.70. How to calculate it before you source.",
     minutes: 6,
@@ -224,6 +225,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Stone Island Hoodie",
     updated: "2026-09-13",
     title: "Sell-through rate versus volume: reading demand properly",
+    seoTitle: "Sell-Through Rate vs Volume — The Vinted Reselling Manual",
     description:
       "Why a category selling thousands of units a week can still be a bad place to put your money, and how to tell demand from saturation.",
     minutes: 7,
@@ -288,6 +290,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Patagonia Fleece",
     updated: "2026-09-13",
     title: "The cost of time: why fast stock beats fat margins",
+    seoTitle: "Fast Stock Beats Fat Margins — The Vinted Reselling Manual",
     description:
       "Capital turns explained — how a 20% margin that clears in three weeks outperforms a 60% margin that takes six months, and what that means for what you buy.",
     minutes: 6,
@@ -352,9 +355,9 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Nike Air Force 1",
     updated: "2026-09-13",
     title: "Where stock actually comes from",
-    seoTitle: "Where to Source Stock for Vinted Reselling — The Vinted Reselling Manual",
+    seoTitle: "Where to Source Vinted Stock — The Vinted Reselling Manual",
     description:
-      "The four supply channels for resale stock — charity and thrift, wholesale and bales, retail clearance, and platform-to-platform — with the real cost and risk of each.",
+      "The four supply channels for resale stock — charity and thrift, wholesale and bales, retail clearance, platform-to-platform — the real cost and risk of each.",
     minutes: 8,
     intro:
       "Sourcing is not one activity. It is four quite different businesses that happen to share an output, and each has a distinct cost structure, time cost and failure mode. Picking the wrong one for your capital and schedule is a more expensive mistake than picking the wrong brand.",
@@ -424,6 +427,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Adidas Samba",
     updated: "2026-09-13",
     title: "Reading a listing: spotting mispriced stock",
+    seoTitle: "Reading a Vinted Listing — The Vinted Reselling Manual",
     description:
       "What underpriced listings have in common, which signals are real and which are traps, and how to check a find in under a minute.",
     minutes: 6,
@@ -495,7 +499,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     checkQuery: "Levi's 501",
     updated: "2026-09-13",
     title: "Sizes: the quiet way portfolios die",
-    seoTitle: "Why Edge Sizes Kill Vinted Resale Profit — The Vinted Reselling Manual",
+    seoTitle: "Edge Sizes Kill Resale Profit — The Vinted Reselling Manual",
     description:
       "Why size distribution matters as much as brand demand, how edge sizes turn good buys into dead stock, and the sourcing rule that follows from it.",
     minutes: 6,

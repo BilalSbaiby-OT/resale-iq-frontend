@@ -15,7 +15,7 @@ export const POSTS_82: BlogPost[] = [
     title: "Balenciaga Arena on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Balenciaga Arena Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga Arena tracked 60 departures in the last 30 days on EU Vinted in September 2026 at a €149.92 average exit price. RISING momentum, 1,745 active listings, 7.15-month supply, and 0.26 DTS (sub-6-hour exits). Buy-below €99.70. Italy is the strongest sourcing and departure market. Size 43 is the highest-volume departure size (16.7% of 30d). Full authentication guide, EU sourcing routes, and five-model Balenciaga sneaker cluster comparison.",
+      "Balenciaga Arena tracked 60 departures in the last 30 days on EU Vinted in September 2026 at a €149.92 average exit price.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 9,

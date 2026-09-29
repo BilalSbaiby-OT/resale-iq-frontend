@@ -12,7 +12,7 @@ export const POSTS_17: BlogPost[] = [
     title: "How to Authenticate Designer Items on Vinted (2026 Guide)",
     seoTitle: "How to Spot Fake Designer Items on Vinted — Resale IQ",
     description:
-      "Stone Island, Balenciaga, Gucci, Supreme, Jordan and Off-White are the six most counterfeited brands on EU Vinted. Here are the physical checks that catch fakes before you buy.",
+      "Stone Island, Balenciaga, Gucci, Supreme, Jordan and Off-White are the six most counterfeited brands on EU Vinted.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

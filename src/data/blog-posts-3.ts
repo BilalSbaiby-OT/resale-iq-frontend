@@ -593,7 +593,7 @@ export const POSTS_3: BlogPost[] = [
     title: "Patagonia Reselling on Vinted: Departure Data and Buy-Below",
     seoTitle: "Is Patagonia Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Patagonia is the #2 brand by watched departures across 5 EU Vinted markets — 792/week, avg €36. Jackets average €50 at departure; buy below ~€33 to leave margin after fees.",
+      "Patagonia is the #2 brand by watched departures across 5 EU Vinted markets — 792/week, avg €36. Jackets average €50 at departure; buy below ~€33 to leave.",
     date: "2026-09-14",
 
     preflightQuery: "Patagonia Synchilla",
@@ -673,7 +673,7 @@ export const POSTS_3: BlogPost[] = [
     title: "Stone Island Reselling on Vinted: Departure Data and Buy-Below",
     seoTitle: "Is Stone Island Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Stone Island is the #3 brand by watched departures across 5 EU Vinted markets — 788/week, avg €70. Hoodies average €55 at departure; buy below ~€36 to leave margin after fees. Jackets average €142.",
+      "Stone Island is the #3 brand by watched departures across 5 EU Vinted markets — 788/week, avg €70. Hoodies average €55 at departure; buy below ~€36 to.",
     date: "2026-09-14",
 
     preflightQuery: "Stone Island Ghost",
@@ -754,7 +754,7 @@ export const POSTS_3: BlogPost[] = [
     title: "Fred Perry Reselling on Vinted: Volume, Margins, and Floor Discipline",
     seoTitle: "Is Fred Perry Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Fred Perry is the #1 brand by watched departures across 5 EU Vinted markets — 928/week at an average of €18. High liquidity, thin margins. Shirts dominate at 451 departures averaging €14. Buy-below for Jackets is ~€24.",
+      "Fred Perry is the #1 brand by watched departures across 5 EU Vinted markets — 928/week at an average of €18. High liquidity, thin margins.",
     date: "2026-09-14",
 
     preflightQuery: "Fred Perry Harrington",
@@ -836,7 +836,7 @@ export const POSTS_3: BlogPost[] = [
     title: "Balenciaga Reselling on Vinted: Where €133 Average Exits and Strict Authentication Meet",
     seoTitle: "Is Balenciaga Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Balenciaga ranks #4 by watched departures across 5 EU Vinted markets — 211/week at €133 average. Sneakers lead with 61 departures averaging €164 (buy-below ~€107). Bags are the highest cash-per-unit play at €193 average.",
+      "Balenciaga ranks #4 by watched departures across 5 EU Vinted markets — 211/week at €133 average. Sneakers lead with 61 departures averaging €164.",
     date: "2026-09-19",
 
     preflightQuery: "Balenciaga Track",

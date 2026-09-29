@@ -21,7 +21,7 @@ export const POSTS_99: BlogPost[] = [
     title: "Patagonia Nano Puff on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Nano Puff Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia Nano Puff jackets exit at €55–90 on EU Vinted as of September 2026 — 10–80% above the €50 Patagonia jacket category average, with lower condition risk than the Down Sweater. Buy-below ceiling €35–58, PrimaLoft fill assessment, vest vs full jacket pricing, hooded premium, and charity shop frequency advantage for EU resellers.",
+      "Patagonia Nano Puff jackets exit at €55–90 on EU Vinted as of September 2026 — 10–80% above the €50 Patagonia jacket category average.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

@@ -10,9 +10,9 @@ export const POSTS_22: BlogPost[] = [
   {
     slug: "vinted-sourcing-guide",
     title: "Where to Source Clothes to Resell on Vinted (By Country and Venue Type)",
-    seoTitle: "Vinted Sourcing Guide: Where to Find Cheap Stock to Resell — Resale IQ",
+    seoTitle: "Vinted Sourcing Guide: Where to Find Cheap — Resale IQ",
     description:
-      "Car boots, vide-greniers, charity chains, flea markets, and clearance apps — where to find cheap secondhand stock to resell on Vinted by country (UK, FR, DE, NL, BE, ES). Includes buy-below targets by brand from live departure data.",
+      "Car boots, vide-greniers, charity chains, flea markets, and clearance apps — where to find cheap secondhand stock to resell on Vinted by country (UK, FR.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,

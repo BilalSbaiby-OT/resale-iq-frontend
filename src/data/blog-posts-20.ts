@@ -14,7 +14,7 @@ export const POSTS_20: BlogPost[] = [
     title: "Vinted Reselling Tax: What EU Sellers Need to Know in 2026",
     seoTitle: "Vinted Reselling Tax Guide 2026 (EU) — Resale IQ",
     description:
-      "Does Vinted report your sales to the tax authority? What's the threshold before you owe tax? How to calculate profit and keep records. A plain-language guide for EU resellers in 2026.",
+      "Does Vinted report your sales to the tax authority? What's the threshold before you owe tax? How to calculate profit and keep records.",
     date: "2026-09-15",
     category: "Reselling Basics",
     readMins: 11,

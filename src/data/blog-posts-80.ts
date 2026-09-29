@@ -15,7 +15,7 @@ export const POSTS_80: BlogPost[] = [
     title: "Stone Island Jackets on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Stone Island Jackets Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Stone Island Jackets track 51 departures in the last 30 days on EU Vinted in September 2026 at a €140 average exit price — the highest-value outerwear category in the tracked EU Vinted dataset. Buy-below €86.45. Compass badge premium, Shadow Project and Ghost editions, EU sourcing routes via charity shops and brocantes, and how Stone Island Jackets compare to Hoodies (178 departures in the last 30 days @€56) within the cluster.",
+      "Stone Island Jackets track 51 departures in the last 30 days on EU Vinted in September 2026 at a €140 average exit price — the highest-value outerwear.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

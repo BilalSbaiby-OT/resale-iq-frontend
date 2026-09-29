@@ -15,7 +15,7 @@ export const POSTS_10: BlogPost[] = [
     title: "Carhartt Reselling on Vinted: WIP vs Workwear, €30 Average and the Sub-Brand Edge",
     seoTitle: "Is Carhartt Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Carhartt ranks #16 by watched departures across 5 EU Vinted markets — 70/week at €30 average. Jackets lead at €52 avg (buy-below ~€35). The sourcing edge is WIP identification: Carhartt WIP exits at 2–3× mainline prices at the same charity shop sourcing floor.",
+      "Carhartt ranks #16 by watched departures across 5 EU Vinted markets — 70/week at €30 average. Jackets lead at €52 avg (buy-below ~€35).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -106,7 +106,7 @@ export const POSTS_10: BlogPost[] = [
     title: "Tommy Hilfiger Reselling on Vinted: €23 Average and the Tommy Jeans Sub-Brand Edge",
     seoTitle: "Is Tommy Hilfiger Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Tommy Hilfiger tracks 991 departures in the last 30 days (brand-level) on EU Vinted at €21.71 average. Jackets: 129 departures at €36.10 avg. Tommy Jeans exits at 40–60% above Tommy mainline — sub-brand identification is the sourcing edge.",
+      "Tommy Hilfiger tracks 991 departures in the last 30 days (brand-level) on EU Vinted at €21.71 average. Jackets: 129 departures at €36.10 avg.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,

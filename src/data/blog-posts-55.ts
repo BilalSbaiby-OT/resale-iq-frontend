@@ -16,7 +16,7 @@ export const POSTS_55: BlogPost[] = [
     title: "Fred Perry Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry hoodies track 34 departures in the last 30 days across EU Vinted at a €17 average exit price as of 19 September 2026 — the third-most-active hoodie category among the 28 brands Resale IQ tracks across 5 EU markets, level with Balenciaga hoodies on weekly volume but at a tenth of the exit price. Buy-below €11.05, vintage-vs-modern identification, Laurel and logo variants that move, and how Fred Perry hoodies compare to Nike, Carhartt WIP, and Tommy Hilfiger for EU resellers.",
+      "Fred Perry hoodies track 34 departures in the last 30 days across EU Vinted at a €17 average exit price as of 19 September 2026 — the third-most-active.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

@@ -13,7 +13,7 @@ export const POSTS_27: BlogPost[] = [
     title: "Nike Sneakers Price Guide: What They Actually Sell for on EU Vinted (2026)",
     seoTitle: "Nike Sneakers EU Price Guide — Resale IQ (2026 Data)",
     description:
-      "What Nike sneakers actually sell for on EU Vinted in 2026: departure averages, buy-below prices, and which models have real demand. Based on tracked departures across 5 EU markets.",
+      "What Nike sneakers actually sell for on EU Vinted in 2026: departure averages, buy-below prices, and which models have real demand.",
     date: "2026-09-15",
 
     preflightQuery: "Nike Sneakers",

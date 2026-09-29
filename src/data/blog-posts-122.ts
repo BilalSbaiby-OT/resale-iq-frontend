@@ -10,9 +10,9 @@ export const POSTS_122: BlogPost[] = [
   {
     slug: "vinted-vs-grailed-streetwear-which-model-to-buy",
     title: "Vinted vs Grailed Streetwear: Which Model to Buy (2026)",
-    seoTitle: "Vinted vs Grailed Streetwear 2026 | Which Model to Buy | Resale IQ",
+    seoTitle: "Vinted vs Grailed Streetwear 2026 | Which Model | Resale IQ",
     description:
-      "Pick the streetwear model to buy before you pick the channel. This week’s watched departures on 5,564,932 EU5 Vinted listings, then check the model on /tools. Not a Grailed clone.",
+      "Pick the streetwear model to buy before you pick the channel. This week’s watched departures on 5,564,932 EU5 Vinted listings.",
     date: "2026-09-20",
     category: "Compare",
     readMins: 6,

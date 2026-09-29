@@ -12,7 +12,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     checkQuery: "Ralph Lauren Polo",
     updated: "2026-09-12",
     title: "Pricing a listing, and when to cut",
-    seoTitle: "How to Price a Vinted Listing (and When to Cut) — The Vinted Reselling Manual",
+    seoTitle: "Pricing a Vinted Listing — The Vinted Reselling Manual",
     description:
       "Setting an opening price that leaves room to negotiate, running a disciplined markdown schedule, and knowing when a price cut is cheaper than waiting.",
     minutes: 7,
@@ -78,7 +78,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     checkQuery: "Balenciaga Track",
     updated: "2026-09-12",
     title: "Photos and titles: the conversion layer",
-    seoTitle: "How to Write Vinted Titles and Photos That Sell — The Vinted Reselling Manual",
+    seoTitle: "Vinted Titles and Photos — The Vinted Reselling Manual",
     description:
       "The listing work that actually moves the needle — searchable titles, a repeatable photo set, and descriptions that reduce returns rather than sell.",
     minutes: 6,
@@ -151,7 +151,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     checkQuery: "The North Face Jacket",
     updated: "2026-09-13",
     title: "Vinted mechanics you can actually control",
-    seoTitle: "Vinted Bumps, Offers and Visibility That Work — The Vinted Reselling Manual",
+    seoTitle: "Vinted Bumps and Offers — The Vinted Reselling Manual",
     description:
       "How visibility, bumps, offers and buyer messaging work in practice, and which of the levers are worth paying for.",
     minutes: 6,
@@ -218,8 +218,9 @@ export const CHAPTERS_2: ManualChapter[] = [
     checkQuery: "Gucci Bag",
     updated: "2026-09-13",
     title: "The five EU markets are mostly one market",
+    seoTitle: "The Five EU Markets Are One — The Vinted Reselling Manual",
     description:
-      "We measured how much Vinted's ES, FR, DE, IT and PT catalogues overlap. Most listings appear on several domains at an identical price — which means the country-arbitrage playbook does not work the way it is usually described.",
+      "We measured how much Vinted's EU catalogues overlap. Most listings appear on several domains at an identical price, so country-arbitrage rarely works.",
     minutes: 7,
     intro:
       "The standard advice is to buy in a cheap country and sell in an expensive one. We checked that against our own crawl of all five Vinted domains, and it does not survive contact with the data. The five markets are far closer to one shared catalogue than to five separate ones.",
@@ -291,7 +292,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     updated: "2026-09-13",
     checkQuery: "Carhartt WIP Jacket",
     title: "Inventory and cashflow",
-    seoTitle: "Why Profitable Resellers Still Run Out of Cash — The Vinted Reselling Manual",
+    seoTitle: "Vinted Inventory & Cashflow — The Vinted Reselling Manual",
     description:
       "How much stock to hold, why profitable resellers still run out of money, and the simple discipline that prevents it.",
     minutes: 6,
@@ -356,6 +357,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     updated: "2026-09-13",
     checkQuery: "Nike Dunk",
     title: "The five numbers to track weekly",
+    seoTitle: "Five Numbers to Track Weekly — The Vinted Reselling Manual",
     description:
       "A minimal measurement routine — sell-through, days to sell, realised margin, cash conversion and unlisted backlog — and what each one tells you to change.",
     minutes: 6,
@@ -426,7 +428,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     updated: "2026-09-12",
     checkQuery: "Stone Island Jacket",
     title: "Scaling past the hobby",
-    seoTitle: "How to Scale Vinted Reselling Past 20 Listings — The Vinted Reselling Manual",
+    seoTitle: "Scaling Vinted Past 20 Items — The Vinted Reselling Manual",
     description:
       "What breaks between 20 and 200 listings, why the constraint is throughput rather than capital, and the systems that have to exist before volume goes up.",
     minutes: 6,
@@ -498,7 +500,7 @@ export const CHAPTERS_2: ManualChapter[] = [
     part: "Running it as a business",
     updated: "2026-09-13",
     title: "Tax, platform reporting and knowing when it is a business",
-    seoTitle: "Do You Pay Tax on Vinted Sales? DAC7 Basics — The Vinted Reselling Manual",
+    seoTitle: "Vinted Tax: DAC7 Basics — The Vinted Reselling Manual",
     description:
       "A plain-language overview of DAC7 platform reporting in the EU, the hobby-versus-business distinction, and what records to keep. Not tax advice.",
     minutes: 6,

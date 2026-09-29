@@ -14,7 +14,7 @@ export const POSTS_43: BlogPost[] = [
     title: "Lacoste Polos on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Lacoste Polo Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.87 average — shirts lead at 650 departures (€23.41 avg), a €28 exit price. Real exit ranges by category, buy-below ceiling, and how Lacoste compares to Fred Perry and Ralph Lauren for EU resellers.",
+      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.87 average — shirts lead at 650.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

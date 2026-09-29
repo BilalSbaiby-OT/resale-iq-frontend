@@ -21,7 +21,7 @@ export const POSTS_98: BlogPost[] = [
     title: "Lacoste Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Lacoste Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Lacoste jackets track 177 departures in the last 30 days (across all tracked Lacoste jacket listings on EU Vinted, brand-level) at a €39.91 average exit price — the highest-average category in the Lacoste EU Vinted footprint.ory. Buy-below €87.10, Harrington vs windbreaker vs tennis blouson sourcing hierarchy, Lacoste numeric sizing guide, and how Lacoste jackets compare to Carhartt and Tommy Hilfiger for EU resellers.",
+      "Lacoste jackets track 177 departures in the last 30 days (across all tracked Lacoste jacket listings on EU Vinted.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

@@ -21,7 +21,7 @@ export const POSTS_96: BlogPost[] = [
     title: "Off-White Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Off-White Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Off-White sneakers track 5 departures in the last 30 days across EU Vinted at a €154 average exit price as of September 2026 — the highest per-departure average in the Off-White dataset. Nike collab vs Out of Office model breakdown, buy-below ceiling €100.10, EU colourway premiums, and how Off-White sneakers compare to Gucci and Balenciaga for EU resellers.",
+      "Off-White sneakers track 5 departures in the last 30 days across EU Vinted at a €154 average exit price as of September 2026 — the highest per-departure.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

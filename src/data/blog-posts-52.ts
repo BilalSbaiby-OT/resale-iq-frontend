@@ -15,7 +15,7 @@ export const POSTS_52: BlogPost[] = [
     title: "Gucci Caps on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Gucci Caps Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Gucci caps track 44 departures in the last 30 days across EU Vinted at a €138 average exit price as of September 2026. GG baseball caps, bucket hats, monogram line: real exit ranges, buy-below ceiling at €89.70, authentication essentials, and how Gucci caps compare to Supreme caps for EU resellers.",
+      "Gucci caps track 44 departures in the last 30 days across EU Vinted at a €138 average exit price as of September 2026.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

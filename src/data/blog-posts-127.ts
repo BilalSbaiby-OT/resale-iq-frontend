@@ -27,7 +27,7 @@ export const POSTS_127: BlogPost[] = [
   {
     slug: "new-balance-fuelcell-eu-vinted-price-guide",
     title: "New Balance FuelCell: Should You Buy It to Resell on EU Vinted?",
-    seoTitle: "New Balance FuelCell Resell Value on EU Vinted — Live BUY/WATCH/SKIP — Resale IQ",
+    seoTitle: "New Balance FuelCell Resell Value on EU Vinted — Resale IQ",
     description:
       "New Balance FuelCell resale data on Resale IQ: BUY, WATCH or SKIP with a buy-below price on Starter. Tracked across Spain, France, Germany, Italy and Portugal.",
     date: "2026-09-22",
@@ -102,9 +102,9 @@ export const POSTS_127: BlogPost[] = [
   {
     slug: "brands-to-avoid-reselling-on-vinted",
     title: "Brands to Avoid Reselling on Vinted: What Our Data Shows Is Oversupplied",
-    seoTitle: "Brands to Avoid Reselling on Vinted — SKIP Verdicts from Departure Data — Resale IQ",
+    seoTitle: "Brands to Avoid Reselling on Vinted — SKIP — Resale IQ",
     description:
-      "Uniqlo, Zara, Pull&Bear, Mango and Bershka are documented AVOID calls on EU Vinted — zero tracked departures against heavy live supply. Buy-below thresholds sit below charity shop floor prices. Data from ES/FR/DE/IT/PT.",
+      "Uniqlo, Zara, Pull&Bear, Mango and Bershka are documented AVOID calls on EU Vinted — zero tracked departures against heavy live supply.",
     date: "2026-09-22",
     updated: "2026-09-22",
     category: "Sourcing",
@@ -195,9 +195,9 @@ export const POSTS_127: BlogPost[] = [
   {
     slug: "what-to-buy-at-charity-shop-to-resell-on-vinted",
     title: "What to Buy at a Charity Shop to Resell on Vinted in 2026",
-    seoTitle: "What to Buy at a Charity Shop to Flip on Vinted — Data-Backed List — Resale IQ",
+    seoTitle: "What to Buy at a Charity Shop to Flip on Vinted — Resale IQ",
     description:
-      "A data-backed buy list for charity shop sourcing on EU Vinted. Stone Island Hoodies ~€52, Fred Perry Shirts ~€15, Patagonia Jackets ~€49 — and the exact brands to skip: Zara T-shirts, Pull&Bear, Mango. From watched EU Vinted departures.",
+      "A data-backed buy list for charity shop sourcing on EU Vinted. Stone Island Hoodies ~€52, Fred Perry Shirts ~€15.",
     date: "2026-09-22",
     updated: "2026-09-22",
     category: "Sourcing",

@@ -12,7 +12,7 @@ export const POSTS_19: BlogPost[] = [
     title: "How to Flip Clothes for Profit (The Full Method, 2026)",
     seoTitle: "How to Flip Clothes for Profit — Resale IQ",
     description:
-      "The complete process for flipping clothes for profit on Vinted: which brands to source, what to pay, how to price for fast departures, and how to scale the operation. Based on live EU Vinted departure data.",
+      "The complete process for flipping clothes for profit on Vinted: which brands to source, what to pay, how to price for fast departures.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,

@@ -15,7 +15,7 @@ export const POSTS_7: BlogPost[] = [
     title: "Diesel Reselling on Vinted: Jackets at €61 Average, the Y2K Revival Opportunity",
     seoTitle: "Is Diesel Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Diesel ranks #8 by watched departures across 5 EU Vinted markets — 178/week at €23 average. Jackets lead by revenue: 19 departures at €61 average (buy-below ~€41). Y2K revival pieces command a premium; basic modern Diesel does not.",
+      "Diesel ranks #8 by watched departures across 5 EU Vinted markets — 178/week at €23 average. Jackets lead by revenue: 19 departures at €61 average.",
     date: "2026-09-15",
 
     preflightQuery: "Diesel Jacket",

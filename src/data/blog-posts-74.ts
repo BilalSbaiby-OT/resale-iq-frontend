@@ -13,9 +13,9 @@ export const POSTS_74: BlogPost[] = [
   {
     slug: "adidas-handball-spezial-eu-vinted-price-guide",
     title: "Adidas Handball Spezial on EU Vinted: Price Guide, Buy-Below and Size Data (2026)",
-    seoTitle: "Adidas Handball Spezial Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Adidas Handball Spezial Vinted EU Price Guide — Resale IQ",
     description:
-      "Adidas Handball Spezial tracked 12 departures in the last 30 days on EU Vinted in September 2026 — the highest volume of any Adidas sneaker in our database. Average exit €79.38, buy-below ceiling €52.79, 80-month supply (not oversaturated). Size 39 and 38 dominate volume at a €76–78 average exit. STABLE momentum. Full data, size breakdown, and comparison against Samba, Stan Smith, and Gazelle Indoor.",
+      "Adidas Handball Spezial tracked 12 departures in the last 30 days on EU Vinted in September 2026 — the highest volume of any Adidas sneaker in our.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

@@ -15,9 +15,9 @@ export const POSTS_89: BlogPost[] = [
   {
     slug: "fred-perry-twin-tipped-eu-vinted-price-guide",
     title: "Fred Perry Twin Tipped on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Fred Perry Twin Tipped Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Fred Perry Twin Tipped Vinted EU Price Guide — Resale IQ",
     description:
-      "Fred Perry Twin Tipped tracks 29 departures in the last 30 days across EU Vinted in September 2026 at a €18.98 average exit price — RISING momentum with a sub-4-hour average sell time. Real exit ranges by size, size-level buy-below ceilings, and why size M at €22.26 avg exit is the Twin Tipped's highest-margin play on EU Vinted right now.",
+      "Fred Perry Twin Tipped tracks 29 departures in the last 30 days across EU Vinted in September 2026 at a €18.98 average exit price — RISING momentum with a.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 6,

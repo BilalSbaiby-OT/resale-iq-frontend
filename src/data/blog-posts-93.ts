@@ -22,7 +22,7 @@ export const POSTS_93: BlogPost[] = [
     title: "Reebok Nano on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Reebok Nano Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Reebok Nano training shoes track 5 departures in the last 30 days across EU Vinted in September 2026 at a €38.20 average exit price — 2.4× the Reebok brand average of €16. Real exit ranges by generation (Nano X, Nano X2, Nano X3), buy-below ceiling €24.83, CrossFit buyer pool dynamics, and how Nano compares to Classic Leather for EU resellers.",
+      "Reebok Nano training shoes track 5 departures in the last 30 days across EU Vinted in September 2026 at a €38.20 average exit price — 2.4× the Reebok.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

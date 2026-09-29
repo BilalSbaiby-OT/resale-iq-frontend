@@ -12,7 +12,7 @@ export const POSTS_21: BlogPost[] = [
     title: "How to Sell Designer Items on Vinted (Without Getting Scammed or Flagged)",
     seoTitle: "How to Sell Designer Items on Vinted — Resale IQ",
     description:
-      "The full guide to selling designer clothes, bags, and shoes on Vinted: authentication, listing, pricing against departure data, and protecting yourself from buyer disputes. Based on live EU Vinted departure data for Gucci, Balenciaga, Stone Island, and more.",
+      "The full guide to selling designer clothes, bags, and shoes on Vinted: authentication, listing, pricing against departure data.",
     date: "2026-09-15",
     category: "Selling",
     readMins: 11,

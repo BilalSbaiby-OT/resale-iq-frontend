@@ -14,7 +14,7 @@ export const POSTS_40: BlogPost[] = [
     title: "Supreme Box Logo Tee on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Supreme Box Logo Tee Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Supreme tracks 178 departures in the last 30 days across EU Vinted at a €66 brand average — the highest exit price of any streetwear brand outside luxury in the ResaleIQ database. T-shirts depart at €34 average, with Box Logo tees commanding a significant premium at €60–180 depending on season and condition. Real exit ranges, buy-below prices, and how Supreme compares to Balenciaga and Gucci.",
+      "Supreme tracks 178 departures in the last 30 days across EU Vinted at a €66 brand average — the highest exit price of any streetwear brand outside luxury.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

@@ -15,7 +15,7 @@ export const POSTS_73: BlogPost[] = [
     title: "Diesel Jeans on EU Vinted: Price Guide, Buy-Below and Model Tier (2026 Data)",
     seoTitle: "Diesel Jeans Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Diesel Jeans tracked 55 departures in the last 30 days on EU Vinted in September 2026 at a €20 average exit price. Buy-below ceiling €13.00. The 1DR-5005 and 1DR-509 low-rise wide-leg models exit at €35–55 — the high-value tier inside a brand with a €20 category floor. Model identification at EU charity shops, the Y2K revival context, and how Diesel Jeans compare to Levi's (37 departures in the last 30 days @€30) and the rest of the Diesel cluster (jackets 16 departures in the last 30 days @€64 = the real revenue driver).",
+      "Diesel Jeans tracked 55 departures in the last 30 days on EU Vinted in September 2026 at a €20 average exit price. Buy-below ceiling €13.00.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

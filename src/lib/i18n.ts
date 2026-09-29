@@ -357,7 +357,7 @@ export const copy = {
       // Not a live Stripe quote; checkout still resolves price ids on the page.
       metaTitle: "Starter €19 / Pro €49 — What sells",
       metaDescription:
-        "Starter €19 / Pro €49. Check demand before you buy to resell. Public /data. Cancel anytime.",
+        "Know the max price to pay before you buy to resell on Vinted. Starter €19/mo, Pro €49/mo — real demand data first. Cancel anytime.",
       noCardRequired: "No card required",
       perDay: (amount: string) => `about €${amount} a day`,
       mostPopular: "MOST POPULAR",

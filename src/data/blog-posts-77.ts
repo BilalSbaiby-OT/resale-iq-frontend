@@ -15,7 +15,7 @@ export const POSTS_77: BlogPost[] = [
     title: "Adidas Gazelle Indoor on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Adidas Gazelle Indoor Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Gazelle Indoor tracked 4 departures in the last 30 days on EU Vinted in September 2026 at a €58.00 average exit price, RISING momentum, and the tightest supply position of any RISING Adidas model at 71 months. Buy-below ceiling €38.57. Size 36 buy-below €33.25. 712 active listings. The Gazelle Indoor is the sleeper in the Adidas EU Vinted cluster — low competition, RISING price trend, same-day exits.",
+      "Adidas Gazelle Indoor tracked 4 departures in the last 30 days on EU Vinted in September 2026 at a €58.00 average exit price, RISING momentum.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

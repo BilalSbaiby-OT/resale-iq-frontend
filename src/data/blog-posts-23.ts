@@ -12,7 +12,7 @@ export const POSTS_23: BlogPost[] = [
     title: "How to Find Underpriced Items on Vinted (Search Tactics That Actually Work)",
     seoTitle: "How to Find Underpriced Items on Vinted — Resale IQ",
     description:
-      "Wrong categories, misspelled listings, bad photos, stale listings — the algorithmic gaps that let underpriced items slip through on Vinted. How to find cheap branded items before other resellers do.",
+      "Wrong categories, misspelled listings, bad photos, stale listings — the algorithmic gaps that let underpriced items slip through on Vinted.",
     date: "2026-09-15",
     category: "Strategy",
     readMins: 10,

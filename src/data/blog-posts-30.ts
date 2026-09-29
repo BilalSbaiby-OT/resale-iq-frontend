@@ -13,7 +13,7 @@ export const POSTS_30: BlogPost[] = [
     title: "New Balance Sneakers Price Guide for EU Vinted (2026 Data)",
     seoTitle: "New Balance Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "What New Balance sneakers actually sell for on EU Vinted in 2026: 550, 990, 993, 574, 327. Real departure averages, buy-below prices, and weekly volume across 10 tracked models.",
+      "What New Balance sneakers actually sell for on EU Vinted in 2026: 550, 990, 993, 574, 327. Real departure averages, buy-below prices.",
     date: "2026-09-15",
 
     preflightQuery: "New Balance",

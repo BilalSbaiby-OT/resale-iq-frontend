@@ -12,9 +12,9 @@ export const POSTS_110: BlogPost[] = [
   {
     slug: "vinted-search-algorithm-how-it-works",
     title: "How the Vinted Search Algorithm Works in 2026: Rankings, Signals, and What Actually Moves Listings",
-    seoTitle: "Vinted Search Algorithm 2026 — How It Works & How to Rank Higher | Resale IQ",
+    seoTitle: "Vinted Search Algorithm 2026 — How It Works | Resale IQ",
     description:
-      "Vinted's search algorithm is a two-stage relevance engine: keyword match first, then quality signals. Title carries the most weight, then category accuracy, photo CTR, listing freshness, seller reputation, and price competitiveness. Here's exactly what moves your listings up in 2026.",
+      "Vinted's search algorithm is a two-stage relevance engine: keyword match first, then quality signals.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 9,

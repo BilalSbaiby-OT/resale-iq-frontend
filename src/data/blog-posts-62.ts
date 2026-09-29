@@ -15,7 +15,7 @@ export const POSTS_62: BlogPost[] = [
     title: "New Balance 9060 on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "New Balance 9060 Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "New Balance 9060 tracks 371 departures in the last 30 days across EU Vinted at a €47.76 average exit price in September 2026 — the second-highest-volume New Balance model with FADING momentum. Buy-below ceiling €31.76, comparison with NB 530 (1235 departures in the last 30 days at €38.51, DEAD), NB 550, and Nike Air Force 1. What the FADING signal means for sourcing strategy.",
+      "New Balance 9060 tracks 371 departures in the last 30 days across EU Vinted at a €47.76 average exit price in September 2026 — the second-highest-volume.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

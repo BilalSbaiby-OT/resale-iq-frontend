@@ -11,9 +11,9 @@ export const POSTS_111: BlogPost[] = [
   {
     slug: "how-to-check-if-a-vinted-item-is-worth-buying",
     title: "How to Check if a Vinted Item Is Worth Buying (Free Price Checker Guide)",
-    seoTitle: "How to Check if a Vinted Item Is Worth Buying — Free Price Checker Guide | Resale IQ",
+    seoTitle: "How to Check if a Vinted Item Is Worth Buying | Resale IQ",
     description:
-      "Use the free ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from 5.4M+ tracked listings across ES/FR/DE/IT/PT — see exactly what to pay, what to skip, and how to read the verdict.",
+      "Use the free ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from 5.4M+ tracked listings across.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 7,

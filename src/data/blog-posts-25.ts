@@ -12,7 +12,7 @@ export const POSTS_25: BlogPost[] = [
     title: "How to Price Vintage Clothing: What Your Items Are Actually Worth",
     seoTitle: "How to Price Vintage Clothing (2026) — Resale IQ",
     description:
-      "How to value vintage clothing before you list it: the four pricing signals, how to read sold comps, the era premium, and what kills value. A practical method, not a guess.",
+      "How to value vintage clothing before you list it: the four pricing signals, how to read sold comps, the era premium, and what kills value.",
     date: "2026-09-15",
     category: "Pricing",
     readMins: 12,

@@ -12,7 +12,7 @@ export const POSTS_28: BlogPost[] = [
     title: "How to Source Second-Hand Clothes to Sell (2026 Reseller Guide)",
     seoTitle: "How to Source Second-Hand Clothes to Sell — Resale IQ (2026)",
     description:
-      "Where to find second-hand clothes to resell on Vinted, Depop, and eBay in 2026: charity shops, car boots, wholesale bales, and online channels ranked by margin, time, and risk. Know your buy-below price before you buy.",
+      "Where to find second-hand clothes to resell on Vinted, Depop, and eBay in 2026: charity shops, car boots, wholesale bales.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 12,

@@ -15,7 +15,7 @@ export const POSTS_72: BlogPost[] = [
     title: "Adidas Samba on EU Vinted: Price Guide, Buy-Below and Oversupply Warning (2026 Data)",
     seoTitle: "Adidas Samba Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Samba tracked 6 departures in the last 30 days on EU Vinted in September 2026 against 27,338 active listings — a 210-month supply overhang that makes standard Sambas a SKIP for most resellers. Buy-below ceiling €31.93. Size 41 exits at €82 average — the one size where the economics still work. Samba OG exits higher at €60.61 (3 departures in the last 30 days). Full size-level data, oversupply context, and the Adidas models that outperform the Samba on EU Vinted right now.",
+      "Adidas Samba tracked 6 departures in the last 30 days on EU Vinted in September 2026 against 27,338 active listings — a 210-month supply overhang that.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

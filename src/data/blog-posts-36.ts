@@ -12,9 +12,9 @@ export const POSTS_36: BlogPost[] = [
   {
     slug: "stone-island-hoodies-eu-vinted-price-guide",
     title: "Stone Island Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Stone Island Hoodies EU Vinted: Full Category Guide 2026 — Resale IQ",
+    seoTitle: "Stone Island Hoodies EU Vinted: Full Category — Resale IQ",
     description:
-      "Stone Island hoodies averaged €55 per departure across EU Vinted in September 2026 — 395 hoodies per week, the brand's highest-volume category. Real exit ranges, buy-below ceilings by hoodie type, and how Stone Island compares to Supreme, The North Face and Carhartt WIP for EU resellers.",
+      "Stone Island hoodies averaged €55 per departure across EU Vinted in September 2026 — 395 hoodies per week, the brand's highest-volume category.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

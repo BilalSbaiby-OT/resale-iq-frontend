@@ -11,9 +11,9 @@ export const POSTS_114: BlogPost[] = [
   {
     slug: "how-to-get-more-views-on-vinted-listings",
     title: "How to Get More Views on Vinted Listings (2026)",
-    seoTitle: "How to Get More Views on Vinted Listings — 2026 Guide | Resale IQ",
+    seoTitle: "How to Get More Views on Vinted Listings | Resale IQ",
     description:
-      "Your Vinted listings are not getting views because of fixable signals: title, category, price, photos, and engagement. Learn the 5 ranking factors + live data from 5.4M tracked listings to fix visibility in 7 days.",
+      "Your Vinted listings are not getting views because of fixable signals: title, category, price, photos, and engagement.",
     date: "2026-09-19",
     category: "Selling",
     readMins: 7,

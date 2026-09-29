@@ -22,7 +22,7 @@ export const POSTS_46: BlogPost[] = [
     title: "Balenciaga Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga hoodies track 38 departures in the last 30 days on EU Vinted at a €100 average exit price as of 19 September 2026 — the highest-value hoodie category among the 28 brands Resale IQ tracks across 5 EU markets, and nearly double the €55 Stone Island hoodie average. Buy-below €65, padded vs unlined vs cropped identification, luxury-authentication red flags, and how Balenciaga hoodies compare to Stone Island, Off-White, and Nike for EU resellers.",
+      "Balenciaga hoodies track 38 departures in the last 30 days on EU Vinted at a €100 average exit price as of 19 September 2026 — the highest-value hoodie.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

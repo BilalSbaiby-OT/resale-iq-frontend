@@ -53,7 +53,7 @@ export const INTENTS: SearchIntent[] = [
   {
     slug: "vinted-sourcing-tool",
     keyword: "vinted sourcing tool",
-    title: "Vinted Sourcing Tool — Know What to Buy Before You Spend",
+    title: "Vinted Sourcing Tool",
     description:
       "A sourcing tool for Vinted resellers: what to buy, the max price to pay, which sizes move, and live deals under your buy-below price across 5 EU markets.",
     h1: "Vinted Sourcing Tool",
@@ -72,7 +72,7 @@ export const INTENTS: SearchIntent[] = [
   {
     slug: "vinted-resale-analytics",
     keyword: "vinted resale analytics",
-    title: `Vinted Resale Analytics — ${TRACKED} Listings, 5 EU Markets`,
+    title: "Vinted Resale Analytics",
     description:
       `Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across ${TRACKED} listings in 5 EU markets.`,
     h1: "Vinted Resale Analytics",
@@ -91,7 +91,7 @@ export const INTENTS: SearchIntent[] = [
   {
     slug: "reselling-intelligence",
     keyword: "reselling intelligence",
-    title: "Reselling Intelligence — Source With Data, Not Guesswork",
+    title: "Reselling Intelligence",
     description:
       `Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on ${TRACKED} analyzed listings.`,
     h1: "Reselling Intelligence",

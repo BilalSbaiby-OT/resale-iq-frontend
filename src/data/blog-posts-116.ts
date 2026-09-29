@@ -11,9 +11,9 @@ export const POSTS_116: BlogPost[] = [
   {
     slug: "vinted-shipping-costs-sellers",
     title: "Vinted Shipping Costs for Sellers: Who Pays and How It Affects Your Profit (2026)",
-    seoTitle: "Vinted Shipping Costs for Sellers 2026 — Who Pays & Profit Math | Resale IQ",
+    seoTitle: "Vinted Shipping Costs for Sellers 2026 | Resale IQ",
     description:
-      "Vinted buyers usually pay shipping — sellers keep the item price. Learn the two shipping models, the profit-after-shipping math with live data from 5.4M tracked EU listings, and the bundle strategy that makes low-value items worth selling.",
+      "Vinted buyers usually pay shipping — sellers keep the item price. Learn the two shipping models, the profit-after-shipping math with live data from 5.4M.",
     date: "2026-09-20",
     category: "Money",
     readMins: 6,

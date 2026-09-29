@@ -23,7 +23,7 @@ export const POSTS_106: BlogPost[] = [
     title: "Nike Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Nike Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Nike hoodies track 9 departures in the last 30 days (per tracked models, model_signals) at a €17 average exit price as of 22 September 2026. Club Fleece vs Tech Fleece identification, condition grading, and how Nike hoodies compare to Tommy Hilfiger (510 brand-level hoodie departures/30d at €19.69 avg) and Carhartt (7 per-model departures/30d at €21 avg) for EU resellers.",
+      "Nike hoodies track 9 departures in the last 30 days (per tracked models, model_signals) at a €17 average exit price as of 22 September 2026.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 6,

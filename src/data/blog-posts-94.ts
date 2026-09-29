@@ -21,7 +21,7 @@ export const POSTS_94: BlogPost[] = [
     title: "Puma Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Puma Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Puma Sneakers track 13 departures in the last 30 days across EU Vinted in September 2026 at a €56 average exit price — 70% above the Puma brand average of €33. Model-by-model exit ranges for the Palermo, Suede, Clyde, and Speed Cat, EU size dynamics, colourway premiums, buy-below ceiling €36.40, and how Puma Sneakers compare to Adidas Samba and Nike Air Force 1 as a sourcing strategy.",
+      "Puma Sneakers track 13 departures in the last 30 days across EU Vinted in September 2026 at a €56 average exit price — 70% above the Puma brand average of.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

@@ -136,7 +136,7 @@ export const POSTS_16: BlogPost[] = [
     title: "How to Make Money on Vinted in 2026 (What Actually Works)",
     seoTitle: "How to Make Money on Vinted 2026: Real Strategy — Resale IQ",
     description:
-      "A practical guide to making money on Vinted: which brands and categories generate the most departures, how to find stock below buy-below price, and how to keep the most from each sale.",
+      "A practical guide to making money on Vinted: which brands and categories generate the most departures, how to find stock below buy-below price.",
     date: "2026-09-15",
     category: "Strategy",
     readMins: 8,

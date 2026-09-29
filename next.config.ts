@@ -142,10 +142,7 @@ const nextConfig: NextConfig = {
       // window's 1,147 tracked impressions and 0 clicks each. The largest is
       // /blog/how-to-spot-fake-items-vinted: position 9.85 (page 1), 74
       // impressions in 35 days for real buyer-intent queries, currently a dead
-      // end on every click. The other four dead URLs are brand pages for
-      // brands no longer on the /flip roster (calvin-klein, bershka, mango,
-      // pull-bear) — redirected to the /flip hub rather than re-created, since
-      // the brand itself isn't supported today. Permanent (301/308): none of
+      // end on every click. Permanent (301/308): none of
       // this content is coming back, and a soft-404 leaves Google no reason to
       // keep crawling a ranking the company already earned.
       {
@@ -158,8 +155,6 @@ const nextConfig: NextConfig = {
         destination: "/blog/what-is-a-good-sell-through-rate",
         permanent: true,
       },
-      { source: "/flip/calvin-klein", destination: "/flip", permanent: true },
-      { source: "/flip/calvin-klein/:path*", destination: "/flip", permanent: true },
       { source: "/flip/bershka", destination: "/flip", permanent: true },
       { source: "/flip/mango", destination: "/flip", permanent: true },
       { source: "/flip/pull-bear", destination: "/flip", permanent: true },

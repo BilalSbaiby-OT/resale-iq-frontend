@@ -12,7 +12,7 @@ export const POSTS_18: BlogPost[] = [
     title: "Best Vinted Selling Tips (What Actually Moves Items in 2026)",
     seoTitle: "Vinted Selling Tips That Work — Resale IQ",
     description:
-      "Eight specific tips that move Vinted listings faster: how to write titles that rank, price with live market data, use the 14-day reduction window, and refresh stale stock — with real departure numbers.",
+      "Eight specific tips that move Vinted listings faster: how to write titles that rank, price with live market data, use the 14-day reduction window.",
     date: "2026-09-15",
     category: "Selling",
     readMins: 10,

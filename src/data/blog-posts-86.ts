@@ -15,7 +15,7 @@ export const POSTS_86: BlogPost[] = [
     title: "Supreme Bags on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Supreme Bag Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Supreme bags track 17 departures in the last 30 days across EU Vinted at a €45 average exit price in September 2026. Buy-below ceiling €29.25 (35% gross margin target after Vinted fee). The Supreme bag category spans canvas tote bags at the accessible entry tier, nylon shoulder and side bags at the mid tier, and Cordura backpacks and duffles at the premium tier. Full EU sourcing routes, authentication guide, and comparison against the full Supreme EU Vinted category cluster.",
+      "Supreme bags track 17 departures in the last 30 days across EU Vinted at a €45 average exit price in September 2026.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 8,

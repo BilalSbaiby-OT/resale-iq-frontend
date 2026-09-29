@@ -15,7 +15,7 @@ export const POSTS_69: BlogPost[] = [
     title: "Jordan Sneakers on EU Vinted: Price Guide and Buy-Below by Model (2026 Data)",
     seoTitle: "Jordan Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Jordan sneakers track 12 departures in the last 30 days across EU Vinted at a €156 average exit price in September 2026 — the third-highest per-unit average in the ResaleIQ catalogue after Gucci (€212) and Balenciaga (€151). Buy-below ceiling €96.33. The exit price is almost entirely colourway-driven: OG colourways (Chicago, Bred, Royal, Military Blue) exit at €200–600+; non-OG general release pairs exit at €60–110. Model breakdown by Air Jordan 1 Retro High, AJ3, AJ4, AJ11. Cross-brand comparison with Nike Sneakers (178 departures in the last 30 days at €99) and Balenciaga Sneakers (2322 departures in the last 30 days at €151).",
+      "Jordan sneakers track 12 departures in the last 30 days across EU Vinted at a €156 average exit price in September 2026 — the third-highest per-unit.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

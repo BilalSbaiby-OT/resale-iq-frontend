@@ -15,7 +15,7 @@ export const POSTS_13: BlogPost[] = [
     title: "Calvin Klein Reselling on Vinted: Jackets at €34 Average and the Logo vs. No-Logo Split",
     seoTitle: "Is Calvin Klein Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Calvin Klein tracks 1,222 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level) at a €18.15 average. Jackets lead at €38.29 avg (55 jacket departures/30d). The sourcing edge is the logo vs. no-logo split: CK One and Calvin Klein Jeans logo pieces consistently exit above the brand mean.",
+      "Calvin Klein tracks 1,222 departures in the last 30 days across all tracked Calvin Klein items on EU Vinted (brand-level) at a €18.15 average.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
@@ -95,7 +95,7 @@ export const POSTS_13: BlogPost[] = [
     title: "Off-White Reselling on Vinted: Sneakers at €110 Average and the Post-Virgil Pricing Shift",
     seoTitle: "Is Off-White Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Off-White ranks #25 by watched departures across 5 EU Vinted markets — 31/week at €67 average. Sneakers lead at €110 avg (buy-below ~€73). The sourcing edge is the post-Virgil Abloh transition: pre-2022 pieces carry a legacy premium that retail and charity shops do not price.",
+      "Off-White ranks #25 by watched departures across 5 EU Vinted markets — 31/week at €67 average. Sneakers lead at €110 avg (buy-below ~€73).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

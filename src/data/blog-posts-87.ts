@@ -17,7 +17,7 @@ export const POSTS_87: BlogPost[] = [
     title: "Lacoste Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Lacoste Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Lacoste shirts track 650 departures in the last 30 days (across all tracked Lacoste shirt listings on EU Vinted, brand-level) at a €23.41 average exit price — the highest-volume category in the Lacoste EU Vinted dataset. Real exit ranges by shirt type, buy-below ceiling €18.85, condition grading, and how Lacoste shirts compare to Fred Perry and Ralph Lauren for EU resellers.",
+      "Lacoste shirts track 650 departures in the last 30 days (across all tracked Lacoste shirt listings on EU Vinted.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

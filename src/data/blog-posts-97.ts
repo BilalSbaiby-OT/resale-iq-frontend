@@ -19,9 +19,9 @@ export const POSTS_97: BlogPost[] = [
   {
     slug: "patagonia-down-sweater-eu-vinted-price-guide",
     title: "Patagonia Down Sweater on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Patagonia Down Sweater Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Patagonia Down Sweater Vinted EU Price Guide — Resale IQ",
     description:
-      "Patagonia Down Sweater jackets exit at €65–110 on EU Vinted as of September 2026 — the highest per-unit exit in the Patagonia jacket category, 30–120% above the brand average. Buy-below ceiling €42–72, fill integrity condition check, hooded vs non-hooded premium, estate sale sourcing edge, and Down Sweater vs Nano Puff for EU resellers.",
+      "Patagonia Down Sweater jackets exit at €65–110 on EU Vinted as of September 2026 — the highest per-unit exit in the Patagonia jacket category.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

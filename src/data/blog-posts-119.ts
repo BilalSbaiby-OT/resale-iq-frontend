@@ -10,7 +10,7 @@ export const POSTS_119: BlogPost[] = [
   {
     slug: "vinted-reseller-tools-2026",
     title: "Vinted Reseller Tools in 2026: What You Actually Need (and What You Don't)",
-    seoTitle: "Vinted Reseller Tools 2026 — Demand Check, Fees, Photos | Resale IQ",
+    seoTitle: "Vinted Reseller Tools 2026 — Demand Check | Resale IQ",
     description:
       "The only tools that change a buy decision: demand check, fee math, photos. Live EU5 watched-departure numbers from 5,341,780 listings. Skip the bloated stacks.",
     date: "2026-09-20",

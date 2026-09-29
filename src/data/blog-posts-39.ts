@@ -14,7 +14,7 @@ export const POSTS_39: BlogPost[] = [
     title: "Balenciaga Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga sneakers averaged €164 per departure across EU Vinted in September 2026 — 61 departures in the last 30 days, the brand's highest-volume category. Real exit ranges, buy-below ceilings by model type (Triple S, Speed Trainer, Track), and how Balenciaga sneakers compare to Gucci and Nike for EU resellers.",
+      "Balenciaga sneakers averaged €164 per departure across EU Vinted in September 2026 — 61 departures in the last 30 days.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

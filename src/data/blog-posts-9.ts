@@ -15,7 +15,7 @@ export const POSTS_9: BlogPost[] = [
     title: "Vans Reselling on Vinted: Sneakers at €51 Average, the Model Precision Edge",
     seoTitle: "Is Vans Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Vans ranks #14 by watched departures across 5 EU Vinted markets — 98/week at €36 average. Sneakers dominate at 59 departures averaging €51 (buy-below ~€34). 60% of Vans exits are footwear — brand-name sourcing loses, silhouette precision wins.",
+      "Vans ranks #14 by watched departures across 5 EU Vinted markets — 98/week at €36 average. Sneakers dominate at 59 departures averaging €51 (buy-below.",
     date: "2026-09-15",
 
     preflightQuery: "Vans Old Skool",
@@ -99,7 +99,7 @@ export const POSTS_9: BlogPost[] = [
     title: "Reebok Reselling on Vinted: Sneakers and Jackets at €18 Average, the Volume Play",
     seoTitle: "Is Reebok Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Reebok ranks #12 by watched departures across 5 EU Vinted markets — 99/week at €16 average. Sneakers lead at 36 departures averaging €18. Jackets are the unexpected tie: 19 departures also at €18. Classic Leather, Club C, and Freestyle are the sourcing-worthy models.",
+      "Reebok ranks #12 by watched departures across 5 EU Vinted markets — 99/week at €16 average. Sneakers lead at 36 departures averaging €18.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
@@ -176,7 +176,7 @@ export const POSTS_9: BlogPost[] = [
     title: "Zara Reselling on Vinted: Jackets at €35 Average, Everything Else Below the Floor",
     seoTitle: "Is Zara Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Zara ranks #15 by watched departures across 5 EU Vinted markets — 82/week at €20 average. Jackets are the only viable category at 14 departures averaging €35 (buy-below ~€23). Hoodies (€16), T-Shirts (€10), and Shirts (€9) are below any practical margin threshold.",
+      "Zara ranks #15 by watched departures across 5 EU Vinted markets — 82/week at €20 average. Jackets are the only viable category at 14 departures averaging.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,

@@ -15,7 +15,7 @@ export const POSTS_8: BlogPost[] = [
     title: "Lacoste Reselling on Vinted: Jackets at €80 Average, Shirts Lead Volume",
     seoTitle: "Is Lacoste Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.87 average. Shirts lead at 650 departures (€23.41 avg). Jackets: 177 departures at €39.91 avg. The sourcing edge is the L.12.12 polo and Harrington jacket identification.te volume at 62 departures averaging €27 — the highest Shirt volume of any top-15 brand.",
+      "Lacoste tracks 1,914 departures in the last 30 days across all tracked Lacoste items on EU Vinted (brand-level) at a €27.87 average.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -99,7 +99,7 @@ export const POSTS_8: BlogPost[] = [
     title: "Adidas Reselling on Vinted: Sneakers at €58 Average, Jackets the Margin Play",
     seoTitle: "Is Adidas Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Adidas ranks #13 by watched departures across 5 EU Vinted markets — 98/week at €48 average. Sneakers lead at 49 departures averaging €58 (buy-below ~€39). Jackets are the outlier: 8 departures averaging €75 (buy-below ~€50). The Adidas resale edge is model and colourway precision — the wrong silhouette at the right price still loses.",
+      "Adidas ranks #13 by watched departures across 5 EU Vinted markets — 98/week at €48 average. Sneakers lead at 49 departures averaging €58 (buy-below ~€39).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -183,7 +183,7 @@ export const POSTS_8: BlogPost[] = [
     title: "Levi's Reselling on Vinted: 501 Jeans Dominate at €29 Average, Truckers at €40",
     seoTitle: "Is Levi's Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Levi's ranks #15 by watched departures across 5 EU Vinted markets — 52/week at €28 average. Jeans dominate at 83% of volume (43 departures at €29 avg, buy-below ~€19). The 501 Original is the single highest-volume cut. Trucker Jackets exit at €40 avg — the best margin-per-unit in the catalog.",
+      "Levi's ranks #15 by watched departures across 5 EU Vinted markets — 52/week at €28 average. Jeans dominate at 83% of volume (43 departures at €29 avg.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,

@@ -15,7 +15,7 @@ export const POSTS_79: BlogPost[] = [
     title: "Balenciaga City Bag on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Balenciaga City Bag Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga City Bag tracked 1235 departures in the last 30 days on EU Vinted in September 2026 at a €412.23 average exit price — the highest single-model departure count of any tracked premium bag. RISING momentum, 3.09-month supply (tightest in the dataset), and 0.33 DTS (sub-8-hour exits). Buy-below €274.13. Full sourcing guide, authentication notes, and EU market comparison.",
+      "Balenciaga City Bag tracked 1235 departures in the last 30 days on EU Vinted in September 2026 at a €412.23 average exit price — the highest single-model.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

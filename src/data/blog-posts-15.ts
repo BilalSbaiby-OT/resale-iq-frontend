@@ -15,7 +15,7 @@ export const POSTS_15: BlogPost[] = [
     title: "Bershka Reselling on Vinted: The €97 Jacket Anomaly and Why the Average Lies",
     seoTitle: "Is Bershka Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Bershka ranked #26 by watched departures across 5 EU Vinted markets — 27/week at €27 average. Jackets at €97 avg (4 dep) are an anomaly, not the norm. Jeans at €12 avg are the volume category with no viable margin. Honest assessment: a deliberate pass.",
+      "Bershka ranked #26 by watched departures across 5 EU Vinted markets — 27/week at €27 average. Jackets at €97 avg (4 dep) are an anomaly, not the norm.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 5,
@@ -80,7 +80,7 @@ export const POSTS_15: BlogPost[] = [
     title: "Mango Reselling on Vinted: €11 Average and Why the Brand Doesn't Resell",
     seoTitle: "Is Mango Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Mango ranked #27 by watched departures across 5 EU Vinted markets — 17/week at €11 average. Every category average is below a viable buy-below threshold. Honest assessment: do not deliberately source Mango for resale.",
+      "Mango ranked #27 by watched departures across 5 EU Vinted markets — 17/week at €11 average. Every category average is below a viable buy-below threshold.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 4,

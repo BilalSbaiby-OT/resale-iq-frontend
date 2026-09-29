@@ -15,9 +15,9 @@ export const POSTS_109: BlogPost[] = [
   {
     slug: "is-it-worth-reselling-on-vinted",
     title: "Is It Worth Reselling on Vinted in 2026? The Honest Answer (Data-Backed)",
-    seoTitle: "Is It Worth Reselling on Vinted? 2026 Data-Backed Answer — Resale IQ",
+    seoTitle: "Is It Worth Reselling on Vinted? 2026 — Resale IQ",
     description:
-      "Yes — if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026. The margin is real but conditional: buy-below discipline decides whether a flip makes money. Live numbers, honest math, no hype.",
+      "Yes — if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 7,

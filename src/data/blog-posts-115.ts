@@ -11,9 +11,9 @@ export const POSTS_115: BlogPost[] = [
   {
     slug: "vinted-fees-explained",
     title: "Vinted Fees Explained: What Sellers and Buyers Actually Pay (2026)",
-    seoTitle: "Vinted Fees Explained 2026 — Seller & Buyer Costs | Resale IQ",
+    seoTitle: "Vinted Fees Explained — Seller & Buyer Costs | Resale IQ",
     description:
-      "Vinted charges sellers 0% commission — you keep 100% of your sale price. Buyers pay Buyer Protection (roughly 5% + €0.70, varies by market) plus shipping. Full fee breakdown with live market data from 5.4M tracked EU listings.",
+      "Vinted charges sellers 0% commission — you keep 100% of your sale price. Buyers pay Buyer Protection (roughly 5% + €0.70, varies by market) plus shipping.",
     date: "2026-09-20",
     category: "Money",
     readMins: 6,

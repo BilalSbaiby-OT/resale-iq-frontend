@@ -15,7 +15,7 @@ export const POSTS_65: BlogPost[] = [
     title: "Patagonia Bags on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Bag Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia bags track 165 departures in the last 30 days across EU Vinted at a €25 average exit price in September 2026 — the brand's third-highest-volume category. Buy-below ceiling €16.25. Real exit ranges by model (Black Hole Duffel, Refugio Pack, Atom Sling), comparison with The North Face bags (9 departures in the last 30 days at €74) and Vans bags (4 departures in the last 30 days at €9), and full Patagonia cluster context.",
+      "Patagonia bags track 165 departures in the last 30 days across EU Vinted at a €25 average exit price in September 2026 — the brand's third-highest-volume.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

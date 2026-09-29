@@ -15,7 +15,7 @@ export const POSTS_12: BlogPost[] = [
     title: "Uniqlo Reselling on Vinted: The Collab Premium vs the Basics Trap",
     seoTitle: "Is Uniqlo Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Uniqlo ranked #20 by watched departures across 5 EU Vinted markets — 57/week at €18 average. The basics (HeatTech, Airism, fleece) have no margin. The entire reselling case is KAWS, JW Anderson, UNIQLO U, and collab pieces sourced below €19.",
+      "Uniqlo ranked #20 by watched departures across 5 EU Vinted markets — 57/week at €18 average. The basics (HeatTech, Airism, fleece) have no margin.",
     date: "2026-09-15",
 
     preflightQuery: "Uniqlo Fleece",
@@ -99,7 +99,7 @@ export const POSTS_12: BlogPost[] = [
     title: "Puma Reselling on Vinted: Sneakers at €44 Average and the Model Precision Edge",
     seoTitle: "Is Puma Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€29). The sourcing edge is model precision: Puma Suede, Clyde, Palermo and collab models exit far above the brand mean.",
+      "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€29).",
     date: "2026-09-15",
 
     preflightQuery: "Puma Speedcat",

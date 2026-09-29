@@ -22,7 +22,7 @@ export const POSTS_100: BlogPost[] = [
     title: "Lacoste Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Lacoste Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Lacoste hoodies track 224 departures in the last 30 days (across all tracked Lacoste hoodies on EU Vinted, brand-level) at a €24.64 average exit price as of September 2026. Buy-below guidance, hoodie type identification, and how Lacoste hoodies compare to Ralph Lauren and Fred Perry for EU resellers.n mid-volume Lacoste category. Buy-below €31.85, Sport zip-through vs classic fleece vs full-zip type breakdown, Lacoste numeric sizing for hoodies, and how Lacoste stacks against Fred Perry and Ralph Lauren hoodies for EU resellers.",
+      "Lacoste hoodies track 224 departures in the last 30 days (across all tracked Lacoste hoodies on EU Vinted.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

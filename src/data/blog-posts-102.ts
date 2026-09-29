@@ -21,9 +21,9 @@ export const POSTS_102: BlogPost[] = [
   {
     slug: "carhartt-detroit-jacket-eu-vinted-price-guide",
     title: "Carhartt WIP Detroit Jacket on EU Vinted: Price Guide and Buy-Below (2026 Data)",
-    seoTitle: "Carhartt Detroit Jacket Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Carhartt Detroit Jacket Vinted EU Price Guide — Resale IQ",
     description:
-      "Carhartt jackets track 18 departures in the last 30 days on EU Vinted at a €43 average as of September 2026. The Detroit WIP — the brand's iconic chore coat silhouette — exits at €55–80 for Very Good condition, above the jacket category average because workwear Detroits and lighter shells pull it down. Buy-below €35.75, WIP vs OG identification guide, colourway hierarchy (Hamilton Brown premium), EU size distribution, and how Carhartt compares to The North Face for EU jacket resellers.",
+      "Carhartt jackets track 18 departures in the last 30 days on EU Vinted at a €43 average as of September 2026.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 8,

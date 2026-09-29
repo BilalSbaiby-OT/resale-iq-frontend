@@ -22,7 +22,7 @@ export const POSTS_103: BlogPost[] = [
     title: "The North Face Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "The North Face Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "The North Face hoodies track 18 departures in the last 30 days on EU Vinted at a €20 average exit price as of September 2026 — a tight-margin, high-frequency sourcing play distinct from the €48 TNF jacket market. Buy-below €13.00, hoodie type hierarchy (Half-dome vs Drew Peak vs Surgent fleece), condition grading, and how TNF hoodies compare to Carhartt (€22) and Ralph Lauren (€46) for EU resellers.",
+      "The North Face hoodies track 18 departures in the last 30 days on EU Vinted at a €20 average exit price as of September 2026 — a tight-margin.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 6,

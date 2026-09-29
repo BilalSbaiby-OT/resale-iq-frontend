@@ -32,11 +32,11 @@ function read(rel: string): string {
 test("sample titles match the EX-FLIP-CATEGORY-META examples", () => {
   assert.equal(
     flipBrandTitle("Adidas"),
-    "Does Adidas sell on Vinted? Weekly departures — Resale IQ",
+    "Adidas on Vinted: weekly departures — Resale IQ",
   )
   assert.equal(
     flipBrandCategoryTitle("Adidas", "Sneakers"),
-    "Adidas sneakers on Vinted: demand & buy-below — Resale IQ",
+    "Adidas sneakers: demand & buy-below — Resale IQ",
   )
   assert.equal(
     categoryLeafTitle("Sneakers"),
@@ -44,18 +44,23 @@ test("sample titles match the EX-FLIP-CATEGORY-META examples", () => {
   )
 })
 
-test("every brand and category title is number-free and branded", () => {
+// EX-META-LENGTH-CAP (2026-09-29): title <=60 incl. suffix must hold for
+// every real brand/category in the catalogue, not just short samples —
+// "The North Face tracksuits" was the worst offender at 67 chars before this.
+test("every brand and category title is number-free, branded, and <=60 chars", () => {
   for (const b of BRANDS) {
     const title = flipBrandTitle(b.brand)
     assert.match(title, / — Resale IQ$/)
     assert.match(title, /Vinted/)
     assert.match(title, /departures/i)
     assert.doesNotMatch(title, /\d/)
+    assert.ok(title.length <= 60, `${b.brand} title ${title.length}: ${title}`)
     for (const c of b.categories || []) {
       const leaf = flipBrandCategoryTitle(b.brand, c.category)
       assert.match(leaf, / — Resale IQ$/)
       assert.match(leaf, /demand & buy-below/)
       assert.doesNotMatch(leaf, /\d/)
+      assert.ok(leaf.length <= 60, `${b.brand} ${c.category} title ${leaf.length}: ${leaf}`)
     }
   }
   for (const c of CATEGORIES) {
@@ -65,6 +70,7 @@ test("every brand and category title is number-free and branded", () => {
       `Do ${c.toLowerCase()} sell on Vinted? Category demand — Resale IQ`,
     )
     assert.doesNotMatch(title, /\d/)
+    assert.ok(title.length <= 60, `${c} title ${title.length}: ${title}`)
   }
 })
 
@@ -149,6 +155,22 @@ test("/flip/[brand]/[category] generateMetadata uses the helper and matching soc
   assert.match(src, /flipBrandCategoryDescription\(/)
   assert.match(src, /articleSocialMeta\(/)
   assert.doesNotMatch(src, /twitter:/)
+})
+
+// EX-CALVIN-KLEIN-DUP (2026-09-29): next.config.ts used to 308-redirect every
+// /flip/calvin-klein/:path* to the /flip hub even though calvin-klein is a
+// live brand in seo-brands.json with its own generated pages — so every
+// /flip/calvin-klein/<category> page served the HUB's title+description
+// (redirect fires before generateMetadata runs). Removing the stale redirect
+// entry fixes it at the source; this guards the regression.
+test("next.config.ts no longer redirects live calvin-klein brand/category pages to the /flip hub", () => {
+  const cfg = read("../next.config.ts")
+  assert.doesNotMatch(cfg, /"\/flip\/calvin-klein"/)
+  assert.doesNotMatch(cfg, /"\/flip\/calvin-klein\/:path\*"/)
+  // The three genuinely zero-model brands (never had real pages) still redirect.
+  assert.match(cfg, /"\/flip\/bershka"/)
+  assert.match(cfg, /"\/flip\/mango"/)
+  assert.match(cfg, /"\/flip\/pull-bear"/)
 })
 
 test("/category/[category] generateMetadata uses the helper; FAQPage stays", () => {

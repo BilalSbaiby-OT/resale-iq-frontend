@@ -19,9 +19,9 @@ export const POSTS_91: BlogPost[] = [
     title:
       "The North Face Summit Series on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle:
-      "The North Face Summit Series Vinted EU Price Guide 2026 — Resale IQ",
+      "The North Face Summit Series Vinted EU Price — Resale IQ",
     description:
-      "The North Face Summit Series tracks 10 departures in the last 30 days across EU Vinted in September 2026 at a €92.81 average exit price — the highest per-unit exit in the TNF EU Vinted catalogue. Real exit ranges by Summit Series model (Futurelight, Gore-Tex Pro, XPLR Shell), buy-below ceiling €60.33, authentication guide, and how Summit Series compares to the Nuptse and Arc'teryx for EU resellers.",
+      "The North Face Summit Series tracks 10 departures in the last 30 days across EU Vinted in September 2026 at a €92.81 average exit price — the highest.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 8,

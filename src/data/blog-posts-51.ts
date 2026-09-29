@@ -15,7 +15,7 @@ export const POSTS_51: BlogPost[] = [
     title: "Gucci Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Gucci Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Gucci sneakers track 37 departures in the last 30 days across EU Vinted at a €212 average exit price as of September 2026. Rhyton, Ace, Screener, Flashtrek, Tennis 1977: real exit ranges, buy-below ceilings at €137.80, authentication essentials, and how Gucci compares to Balenciaga sneakers for EU resellers.",
+      "Gucci sneakers track 37 departures in the last 30 days across EU Vinted at a €212 average exit price as of September 2026.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

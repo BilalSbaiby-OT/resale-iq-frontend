@@ -11,9 +11,9 @@ export const POSTS_113: BlogPost[] = [
   {
     slug: "vinted-negotiation-strategy-accept-counter-or-decline",
     title: "Vinted Negotiation Strategy: When to Accept, Counter, or Decline (2026)",
-    seoTitle: "Vinted Negotiation Strategy — Accept, Counter, or Decline | Resale IQ",
+    seoTitle: "Vinted Negotiation Strategy — Accept, Counter | Resale IQ",
     description:
-      "Most Vinted sales go through offers. Learn the 70% rule, counter-offer psychology, and when to decline — with live data from 5.4M+ tracked listings and real examples from this week's departures.",
+      "Most Vinted sales go through offers. Learn the 70% rule, counter-offer psychology, and when to decline — with live data from 5.4M+ tracked listings and.",
     date: "2026-09-19",
     category: "Selling",
     readMins: 8,

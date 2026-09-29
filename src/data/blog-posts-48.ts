@@ -15,7 +15,7 @@ export const POSTS_48: BlogPost[] = [
     title: "Balenciaga Bags on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga Bag Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga bags track 9 departures in the last 30 days across EU Vinted in September 2026 at a €193 average exit price. Real exit ranges by model (City, Cagole, Le Cagole XS, Neo Classic), buy-below ceiling €125.45, authentication guide, and how Balenciaga bags compare to Gucci bags for EU resellers.",
+      "Balenciaga bags track 9 departures in the last 30 days across EU Vinted in September 2026 at a €193 average exit price.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

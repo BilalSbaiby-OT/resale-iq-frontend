@@ -139,6 +139,48 @@ const orgJsonLd = (tracked: string, locale: Locale) => {
 }
 
 /**
+ * Dedicated Organization entity (EX-ORG-WEBSITE-JSONLD, 2026-09-29).
+ *
+ * The block above already carries "@type": ["Organization", "SoftwareApplication"]
+ * on one node, which is valid JSON-LD but means an entity-lookup crawler that
+ * only understands a single "Organization" node (not the array-typed hybrid)
+ * has nothing clean to key off. This is a SEPARATE, minimal Organization node —
+ * name, url, logo, description only. No linked-profile list: the company has
+ * no real official social profiles linked on the live site today, and
+ * inventing one is a false entity claim. No rating or review fields either —
+ * no fake social proof, ever.
+ *
+ * logo: there is no dedicated Resale IQ logo file under /public (checked
+ * 2026-09-29 — /public holds brand-marks/*.svg for OTHER brands, social/*.png
+ * for platform icons, and a product screenshot; none is Resale IQ's own mark).
+ * /favicon.ico is the one real, absolute, already-live square icon that
+ * exists today (served by Next's file convention from src/app/favicon.ico),
+ * so it is the honest choice here — not a stand-in URL that 404s.
+ */
+const organizationEntityJsonLd = (tracked: string, locale: Locale) => ({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Resale IQ",
+  url: "https://resaleiq.dev",
+  logo: "https://resaleiq.dev/favicon.ico",
+  description: structuredDataCopy(locale).description(tracked),
+})
+
+/**
+ * WebSite entity (EX-ORG-WEBSITE-JSONLD). Names the site as a distinct thing
+ * from the Organization that publishes it — the standard pairing search and
+ * answer engines expect. No SearchAction: there is no site-wide search box
+ * to point a potentialAction at (the checker is a specific tool, not a
+ * generic site search), and a fabricated one would 404 or mismatch on click.
+ */
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Resale IQ",
+  url: "https://resaleiq.dev",
+}
+
+/**
  * There is exactly one <html> tag in the app (Next.js root layout), so it
  * cannot itself live under `app/[locale]/`. Instead `src/proxy.ts` stamps
  * every request with `x-resaleiq-locale` (URL-derived, not header-derived —
@@ -162,10 +204,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const records = await listingRecordsLabel()
   const trackedLabel = records !== "—" ? records : await listingsTrackedLabel()
   const ORG_JSONLD = orgJsonLd(trackedLabel, locale)
+  const ORGANIZATION_ENTITY_JSONLD = organizationEntityJsonLd(trackedLabel, locale)
   return (
     <html lang={locale} className={`${frontDoor ? "riq-light" : "dark"} ${inter.variable} ${mono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_ENTITY_JSONLD) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
       </head>
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
         <FrontDoorTheme />

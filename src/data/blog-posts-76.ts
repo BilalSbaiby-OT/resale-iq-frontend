@@ -15,7 +15,7 @@ export const POSTS_76: BlogPost[] = [
     title: "Diesel Jackets on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Diesel Jackets Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Diesel Jackets tracked 16 departures in the last 30 days on EU Vinted in September 2026 at a €64 average exit price. Buy-below ceiling €42.56. Diesel Jackets generate 2.2× the brand's overall per-departure revenue — the highest-margin category in the Diesel cluster. Glenn Martens-era pieces, Y2K puffers and 80s power silhouettes drive the €64 average. Model guide, sourcing strategy, and comparison to Diesel Jeans (55 departures in the last 30 days @€20) and the full cluster.",
+      "Diesel Jackets tracked 16 departures in the last 30 days on EU Vinted in September 2026 at a €64 average exit price. Buy-below ceiling €42.56.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

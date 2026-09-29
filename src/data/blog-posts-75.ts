@@ -15,7 +15,7 @@ export const POSTS_75: BlogPost[] = [
     title: "Adidas Stan Smith on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Adidas Stan Smith Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas Stan Smith tracked 7 departures in the last 30 days on EU Vinted in September 2026 — the highest average exit price of any Adidas sneaker at €84.14, with RISING momentum and a sub-3-hour exit speed (avg 0.11 days to sell). Buy-below ceiling €55.95. Supply is 3,619 active listings / 181-month cover — oversupplied, but exits still clear fast when the colourway is right. Full data, colourway guide, and comparison against Handball Spezial, Samba, and Gazelle Indoor.",
+      "Adidas Stan Smith tracked 7 departures in the last 30 days on EU Vinted in September 2026 — the highest average exit price of any Adidas sneaker at.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

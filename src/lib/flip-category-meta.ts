@@ -27,11 +27,11 @@ function eurLabel(n: number | null | undefined): string | null {
 export const META_SUFFIX = " — Resale IQ"
 
 export function flipBrandTitle(brand: string): string {
-  return `Does ${brand} sell on Vinted? Weekly departures${META_SUFFIX}`
+  return `${brand} on Vinted: weekly departures${META_SUFFIX}`
 }
 
 export function flipBrandCategoryTitle(brand: string, category: string): string {
-  return `${brand} ${category.toLowerCase()} on Vinted: demand & buy-below${META_SUFFIX}`
+  return `${brand} ${category.toLowerCase()}: demand & buy-below${META_SUFFIX}`
 }
 
 export function categoryLeafTitle(category: string): string {

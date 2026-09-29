@@ -18,7 +18,7 @@ export const POSTS_90: BlogPost[] = [
     title: "Ralph Lauren Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Ralph Lauren Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Ralph Lauren hoodies: our tracked Cable Knit model shows 22 departures/30d at €47.07 average. Ralph Lauren brand-level: 1,027 departures/30d at €37.21 average on EU Vinted. Sourcing guide, condition tiers, and how Ralph Lauren hoodies compare to Stone Island and Fred Perry.nted dataset. Real exit ranges by hoodie type, buy-below ceiling €29.90, condition grading, crew-neck vs quarter-zip vs double-knit breakdown, and how Ralph Lauren hoodies compare to Lacoste and Stone Island for EU resellers.",
+      "Ralph Lauren hoodies: our tracked Cable Knit model shows 22 departures/30d at €47.07 average. Ralph Lauren brand-level: 1,027 departures/30d at €37.21.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

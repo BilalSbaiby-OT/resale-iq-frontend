@@ -15,7 +15,7 @@ export const POSTS_54: BlogPost[] = [
     title: "Supreme Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Supreme Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Supreme hoodies track 46 departures in the last 30 days across EU Vinted at a €74 average exit price as of September 2026. The hoodie is Supreme's highest-volume category on EU Vinted — above t-shirts, caps, and bags. Real exit ranges by style, buy-below ceiling €48.10, Balenciaga comparison, and how to identify the pieces that trade above the €74 average.",
+      "Supreme hoodies track 46 departures in the last 30 days across EU Vinted at a €74 average exit price as of September 2026.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

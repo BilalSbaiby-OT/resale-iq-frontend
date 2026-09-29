@@ -15,7 +15,7 @@ export const POSTS_68: BlogPost[] = [
     title: "Fred Perry Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry shirts track 9,229 brand-level departures in the last 30 days across EU Vinted at a €21.69 average exit price (September 2026) — the highest-volume shirt brand by brand-level departures. Lacoste shirts: 650 brand-level departures/30d at €23.41 avg. Buy-below ceiling €9.75. Cross-brand comparison with Lacoste shirts (57 departures in the last 30 days at €29), Stone Island shirts (72 departures in the last 30 days at €25), Balenciaga shirts (55 departures in the last 30 days at €76). Fred Perry brand total: 185 sold departures/week — #1 tracked brand on EU Vinted by volume.",
+      "Fred Perry shirts track 9,229 brand-level departures in the last 30 days across EU Vinted at a €21.69 average exit price (September 2026) — the.",
     date: "2026-09-15",
     updated: "2026-09-19",
     category: "Sourcing",

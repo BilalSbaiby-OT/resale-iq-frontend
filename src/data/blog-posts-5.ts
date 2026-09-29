@@ -15,7 +15,7 @@ export const POSTS_5: BlogPost[] = [
     title: "Gucci Reselling on Vinted: Bags Lead at €306, Authentication is the Only Moat",
     seoTitle: "Is Gucci Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Gucci ranks #6 by watched departures across 5 EU Vinted markets — 221/week at €212 average. Bags lead at 83 departures averaging €306 (buy-below ~€203). Caps: 52 departures at €146 (buy-below ~€97). Authentication is the entire sourcing edge.",
+      "Gucci ranks #6 by watched departures across 5 EU Vinted markets — 221/week at €212 average. Bags lead at 83 departures averaging €306 (buy-below ~€203).",
     date: "2026-09-14",
 
     preflightQuery: "Gucci Belt",

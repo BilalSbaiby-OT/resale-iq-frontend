@@ -13,7 +13,7 @@ export const POSTS_29: BlogPost[] = [
     title: "Adidas Sneakers Price Guide for EU Vinted (2026 Data)",
     seoTitle: "Adidas Sneakers Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "What Adidas sneakers actually sell for on EU Vinted in 2026: Samba, Handball Spezial, Stan Smith, Campus 00s, Gazelle. Real departure averages, buy-below prices, and weekly volume per model.",
+      "What Adidas sneakers actually sell for on EU Vinted in 2026: Samba, Handball Spezial, Stan Smith, Campus 00s, Gazelle.",
     date: "2026-09-15",
 
     preflightQuery: "Adidas Sneakers",

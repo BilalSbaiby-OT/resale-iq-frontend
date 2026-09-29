@@ -15,7 +15,7 @@ export const POSTS_11: BlogPost[] = [
     title: "Hugo Boss Reselling on Vinted: BOSS vs HUGO, €27 Average and the €67 Jacket Outlier",
     seoTitle: "Is Hugo Boss Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Hugo Boss tracks 1,752 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level) at a €24.06 average. Jackets lead at €32.29 avg, with 208 jacket departures in the last 30 days. The sourcing edge is sub-brand identification: BOSS (smart casual) and HUGO (fashion-forward) exit very differently on Vinted.",
+      "Hugo Boss tracks 1,752 departures in the last 30 days across all tracked Hugo Boss items on EU Vinted (brand-level) at a €24.06 average.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 6,
@@ -99,7 +99,7 @@ export const POSTS_11: BlogPost[] = [
     title: "Ralph Lauren Reselling on Vinted: Polo Logo, €46 Hoodies and the Vintage 90s Premium",
     seoTitle: "Is Ralph Lauren Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Ralph Lauren ranks #19 by watched departures across 5 EU Vinted markets — 62/week at €37 average. Hoodies lead at €46 avg (buy-below ~€31). The sourcing edge is vintage 90s Polo identification: big-logo Polo hoodies exit at €80–200+ — 4–5× the brand average — and are consistently mispriced at EU charity shops.",
+      "Ralph Lauren ranks #19 by watched departures across 5 EU Vinted markets — 62/week at €37 average. Hoodies lead at €46 avg (buy-below ~€31).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

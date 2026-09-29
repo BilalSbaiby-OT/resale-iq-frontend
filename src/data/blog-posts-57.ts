@@ -13,9 +13,9 @@ export const POSTS_57: BlogPost[] = [
   {
     slug: "balenciaga-neo-classic-bag-eu-vinted-price-guide",
     title: "Balenciaga Neo Classic and Hourglass Bags on EU Vinted: Price Guide (2026)",
-    seoTitle: "Balenciaga Neo Classic & Hourglass Vinted EU Price Guide 2026 — Resale IQ",
+    seoTitle: "Balenciaga Neo Classic & Hourglass Vinted EU — Resale IQ",
     description:
-      "Balenciaga Neo Classic and Hourglass bags are the highest-value bag models in the Balenciaga EU Vinted dataset. As of September 2026, Balenciaga bags average €311 at departure (6 departures in the last 30 days). Buy-below ceiling €202, model comparison with City B, Classic B, and Gucci bags, and authentication checkpoints for EU buyers.",
+      "Balenciaga Neo Classic and Hourglass bags are the highest-value bag models in the Balenciaga EU Vinted dataset.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

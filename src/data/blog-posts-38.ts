@@ -14,7 +14,7 @@ export const POSTS_38: BlogPost[] = [
     title: "Fred Perry Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry jackets averaged €37 per departure across EU Vinted in the week to 19 September 2026 — 22 jackets per week, the brand's highest-margin category. Real exit ranges, buy-below ceilings by jacket type (Harrington, track, overcoat), and how Fred Perry jackets compare to Stone Island and Patagonia for EU resellers.",
+      "Fred Perry jackets averaged €37 per departure across EU Vinted in the week to 19 September 2026 — 22 jackets per week, the brand's highest-margin category.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

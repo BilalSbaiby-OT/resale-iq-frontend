@@ -39,9 +39,9 @@ export const POSTS_128: BlogPost[] = [
   {
     slug: "what-to-buy-to-resell-on-vinted-right-now",
     title: "What to Buy to Resell on Vinted Right Now (September 2026)",
-    seoTitle: "What to Buy to Resell on Vinted Right Now — Ranked Buy List September 2026",
+    seoTitle: "What to Buy to Resell on Vinted Right Now — Resale IQ",
     description:
-      "Ranked buy list for EU Vinted resellers based on real departure data from September 2026. New Balance 530 leads with 1,235 watched departures in 30 days at an average €38.51. Includes buy-below prices so you know what to pay.",
+      "Ranked buy list for EU Vinted resellers based on real departure data from September 2026. New Balance 530 leads with 1,235 watched departures in 30 days.",
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 7,
@@ -144,9 +144,9 @@ export const POSTS_128: BlogPost[] = [
   {
     slug: "which-brands-sell-fastest-on-vinted",
     title: "Which Brands Sell Fastest on Vinted in 2026 (EU Data)",
-    seoTitle: "Which Brands Sell Fastest on Vinted 2026 — 30-Day Departure Ranking",
+    seoTitle: "Which Brands Sell Fastest on Vinted 2026 — Resale IQ",
     description:
-      `Stone Island, Patagonia and Balenciaga lead by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT) as of September 2026, based on ${TRACKED} tracked listings. Brand sell speeds and avg exit prices from production data.`,
+      `Stone Island, Patagonia and Balenciaga lead by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT) as of September 2026.`,
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 6,
@@ -242,9 +242,9 @@ export const POSTS_128: BlogPost[] = [
   {
     slug: "new-balance-530-resell-guide-vinted",
     title: "New Balance 530 on Vinted: Should You Buy It to Resell? (2026 Data)",
-    seoTitle: "New Balance 530 Resell Guide — EU Vinted 2026 | BUY/WATCH/SKIP + Buy-Below",
+    seoTitle: "New Balance 530 Resell Guide — EU Vinted 2026",
     description:
-      "New Balance 530 had 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) as of September 2026, averaging €38.51 at departure. Buy-below is €25.61. Here is the full signal breakdown and what to pay.",
+      "New Balance 530 had 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) as of September 2026, averaging €38.51 at departure.",
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 5,
@@ -332,9 +332,9 @@ export const POSTS_128: BlogPost[] = [
   {
     slug: "patagonia-reselling-vinted-complete-guide",
     title: "Patagonia on Vinted: Every Model Ranked by Resell Signal (2026)",
-    seoTitle: "Patagonia Reselling Guide EU Vinted 2026 — All Models, Buy-Below Prices",
+    seoTitle: "Patagonia Reselling Guide EU Vinted 2026 — All Models",
     description:
-      "Patagonia had ~12,200 watched departures in 30 days on EU Vinted as of September 2026. All tracked models ranked by signal: Refugio (215 dep/30d), Synchilla (202), Better Sweater (177), Retro-X (118), Torrentshell (94). Buy-below prices included.",
+      "Patagonia had ~12,200 watched departures in 30 days on EU Vinted as of September 2026. All tracked models ranked by signal: Refugio (215 dep/30d).",
     date: "2026-09-22",
     category: "Sourcing",
     readMins: 7,

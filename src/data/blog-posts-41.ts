@@ -14,7 +14,7 @@ export const POSTS_41: BlogPost[] = [
     title: "Fred Perry T-Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Fred Perry T-Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Fred Perry T-shirts tracked 199 departures in the last 30 days across EU Vinted in September 2026 at a €12 average — the brand's second-busiest category after shirts. Real exit ranges by model type (Ringer, Twin Tipped, Plain Logo, Contrast Print), buy-below ceiling at €7.80, and how Fred Perry T-shirts compare to polo shirts and hoodies for EU resellers.",
+      "Fred Perry T-shirts tracked 199 departures in the last 30 days across EU Vinted in September 2026 at a €12 average — the brand's second-busiest category.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

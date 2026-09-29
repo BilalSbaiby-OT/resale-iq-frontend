@@ -15,7 +15,7 @@ export const POSTS_49: BlogPost[] = [
     title: "The North Face Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "The North Face Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "The North Face jackets track 108 departures in the last 30 days across EU Vinted in September 2026 at a €48 average exit price. Real exit ranges by model (Nuptse, Himalayan, McMurdo, 1990 Mountain Jacket), buy-below ceiling €31.20, and how TNF jackets compare to Patagonia jackets for EU resellers.",
+      "The North Face jackets track 108 departures in the last 30 days across EU Vinted in September 2026 at a €48 average exit price.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

@@ -15,7 +15,7 @@ export const POSTS_60: BlogPost[] = [
     title: "Balenciaga Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Balenciaga Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga shirts track 32 departures in the last 30 days across EU Vinted at a €83 average exit price as of September 2026 — the brand's fourth-highest-volume category, behind sneakers (61 departures in the last 30 days), T-shirts (52 departures in the last 30 days), and hoodies (34 departures in the last 30 days). Buy-below ceiling €53.95, model breakdown by Campaign graphic shirt, Tape shirt, and Logo button-up. How Balenciaga shirts compare to T-shirts (€96 avg) and Gucci shirts (11 departures in the last 30 days at €168).",
+      "Balenciaga shirts track 32 departures in the last 30 days across EU Vinted at a €83 average exit price as of September 2026 — the brand's.",
     date: "2026-09-19",
     updated: "2026-09-19",
     category: "Sourcing",

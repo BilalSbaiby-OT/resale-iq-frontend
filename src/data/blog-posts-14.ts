@@ -15,7 +15,7 @@ export const POSTS_14: BlogPost[] = [
     title: "Jordan Brand Reselling on Vinted: Sneakers at €156 Average and the Colourway Edge",
     seoTitle: "Is Jordan Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Jordan Brand ranked #28 by watched departures across 5 EU Vinted markets — 15/week at €133 average. Sneakers dominate at €156 avg (buy-below ~€109). The sourcing edge is colourway and retro identification — OG colourways exit 2–3× above the category mean.",
+      "Jordan Brand ranked #28 by watched departures across 5 EU Vinted markets — 15/week at €133 average. Sneakers dominate at €156 avg (buy-below ~€109).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -99,7 +99,7 @@ export const POSTS_14: BlogPost[] = [
     title: "Pull&Bear Reselling on Vinted: High Volume, Low Margin, and the Vintage Exception",
     seoTitle: "Is Pull&Bear Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Pull&Bear ranked #23 by watched departures across 5 EU Vinted markets — 51/week at €11 average. The brand average is the lowest viable margin case in the catalogue. The only realistic sourcing edge is vintage late-90s/early-00s Pull&Bear denim and limited edition collab pieces.",
+      "Pull&Bear ranked #23 by watched departures across 5 EU Vinted markets — 51/week at €11 average. The brand average is the lowest viable margin case in the.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 5,

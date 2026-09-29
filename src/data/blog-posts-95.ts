@@ -21,7 +21,7 @@ export const POSTS_95: BlogPost[] = [
     title: "Tommy Hilfiger Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Tommy Hilfiger Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Tommy Hilfiger jackets track 129 departures in the last 30 days (across all tracked Tommy Hilfiger jackets on EU Vinted, brand-level) at a €36.10 average exit price. Real exit ranges by jacket type, Tommy Jeans Sherpa Trucker premium (€55–80), and how Tommy Hilfiger jackets compare to Ralph Lauren for EU resellers. ResaleIQ does not publish a per-model buy-below for Tommy Hilfiger (not in per-model catalogue).",
+      "Tommy Hilfiger jackets track 129 departures in the last 30 days (across all tracked Tommy Hilfiger jackets on EU Vinted.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

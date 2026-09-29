@@ -21,7 +21,7 @@ export const POSTS_101: BlogPost[] = [
     title: "Nike Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Nike Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Nike jackets track 16 departures in the last 30 days on EU Vinted at a €62 average exit price as of September 2026 — the highest-value non-sneaker Nike category and the dominant mid-range jacket tier between Patagonia (€50 avg) and Stone Island (€151 avg). Buy-below €40.30, Windrunner vs Tech Fleece vs ACG type breakdown, and how Nike stacks against Patagonia, The North Face, and Carhartt jackets for EU resellers.",
+      "Nike jackets track 16 departures in the last 30 days on EU Vinted at a €62 average exit price as of September 2026 — the highest-value non-sneaker Nike.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 7,

@@ -16,7 +16,7 @@ export const POSTS_78: BlogPost[] = [
     title: "Gucci Bags on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Gucci Bags Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Gucci Bags tracked 489 departures in the last 30 days on EU Vinted in September 2026 at a €305 average exit price. The Dionysus leads momentum (RISING, 22 departures in the last 30 days @€750). Buy-below by model: Ophidia €299.68, Horsebit €273.86, Jackie €541.60, GG Marmont €265.43, Dionysus €523.61. Full model guide, sourcing strategy by tier, and EU market comparison.",
+      "Gucci Bags tracked 489 departures in the last 30 days on EU Vinted in September 2026 at a €305 average exit price.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

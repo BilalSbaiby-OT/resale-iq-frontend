@@ -15,7 +15,7 @@ export const POSTS_53: BlogPost[] = [
     title: "Ralph Lauren on EU Vinted: Price Guide 2026 (Hoodies Beat Shirts)",
     seoTitle: "Ralph Lauren Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Ralph Lauren tracks 1,027 departures in the last 30 days across all tracked Ralph Lauren items on EU Vinted (brand-level) at a €37.21 average. Hoodies lead by average exit. ResaleIQ tracks 54 departures across 3 per-model tracked Ralph Lauren models (Cable Knit 22, Big Pony 18, Classic Fit 14).ow €29.25. Shirts track 21 departures in the last 30 days at €29 but face 30,000+ active listings. Real category breakdown, buy-below ceilings, Lacoste comparison, and the one RL category worth focusing on.",
+      "Ralph Lauren tracks 1,027 departures in the last 30 days across all tracked Ralph Lauren items on EU Vinted (brand-level) at a €37.21 average.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

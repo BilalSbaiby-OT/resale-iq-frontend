@@ -15,7 +15,7 @@ export const POSTS_85: BlogPost[] = [
     title: "Balenciaga Track on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Balenciaga Track Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga Track tracked 2322 departures in the last 30 days on EU Vinted in September 2026 at a €144.37 average exit price. STABLE momentum, ~5,200 active listings, 6.16-month supply, and 0.31 DTS (fastest in the Balenciaga sneaker cluster at sub-8-hour exits). Buy-below €96.05. The Track is the highest-departure-frequency Balenciaga sneaker in the tracked EU dataset — 2.5× the next model by weekly volume. Full authentication guide, EU sourcing routes, and five-model Balenciaga sneaker cluster comparison.",
+      "Balenciaga Track tracked 2322 departures in the last 30 days on EU Vinted in September 2026 at a €144.37 average exit price.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 9,

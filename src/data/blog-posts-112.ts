@@ -12,9 +12,9 @@ export const POSTS_112: BlogPost[] = [
   {
     slug: "how-to-price-vinted-items-for-fast-sales",
     title: "How to Price Vinted Items for Fast Sales (2026 Seller Guide)",
-    seoTitle: "How to Price Vinted Items for Fast Sales — 2026 Seller Guide | Resale IQ",
+    seoTitle: "How to Price Vinted Items for Fast Sales — 2026 | Resale IQ",
     description:
-      "Price Vinted items to sell fast without leaving money on the table. Live departure data from 5.4M+ tracked listings, negotiation psychology, markdown cadence, and the algorithm's pricing signals — with real examples from this week.",
+      "Price Vinted items to sell fast without leaving money on the table. Live departure data from 5.4M+ tracked listings, negotiation psychology.",
     date: "2026-09-19",
     category: "Pricing",
     readMins: 8,

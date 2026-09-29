@@ -15,7 +15,7 @@ export const POSTS_67: BlogPost[] = [
     title: "Stone Island Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Stone Island Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Stone Island shirts: our tracked data shows 72 departures in the last 30 days (per tracked models, model_signals) at a €25 average exit price. Stone Island brand-level: 13,556 departures/30d at €60.84 avg. Buy-below ceiling for the model is €15.44. Overshirt and technical shirt lines drive the category. Cross-brand comparison with Fred Perry shirts (178 departures in the last 30 days at €14) and Lacoste shirts (57 departures in the last 30 days at €29). Stone Island brand is #3 overall at 178 departures in the last 30 days.",
+      "Stone Island shirts: our tracked data shows 72 departures in the last 30 days (per tracked models, model_signals) at a €25 average exit price.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

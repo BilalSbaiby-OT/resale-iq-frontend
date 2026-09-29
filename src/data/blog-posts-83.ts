@@ -15,7 +15,7 @@ export const POSTS_83: BlogPost[] = [
     title: "Supreme Caps on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Supreme Cap Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Supreme caps track 20 departures in the last 30 days across EU Vinted at a €44 average exit price in September 2026. Buy-below ceiling €28.60. Camp Cap averages €140 (buy-below €89.50, RISING momentum) and the 6-Panel cap averages €30 (buy-below €19.94, HOT signal). Cross-brand comparison with Gucci Caps (40 departures in the last 30 days at €143) and Ralph Lauren Caps. Full authentication guide and EU sourcing strategy.",
+      "Supreme caps track 20 departures in the last 30 days across EU Vinted at a €44 average exit price in September 2026. Buy-below ceiling €28.60.",
     date: "2026-09-16",
     category: "Sourcing",
     readMins: 8,

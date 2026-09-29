@@ -14,7 +14,7 @@ export const POSTS_64: BlogPost[] = [
     title: "Patagonia Synchilla on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Synchilla Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia Synchilla tracks 202 departures in the last 30 days across EU Vinted at a €51.49 average exit price in September 2026 — STABLE momentum, the brand's highest-volume model. Buy-below ceiling €33.47. Top exit sizes L/M/S/XL, comparison with Better Sweater (177 departures in the last 30 days), Retro-X (118 departures in the last 30 days), and Stone Island hoodies. Patagonia brand is #2 by 30-day departures at 1323 departures in the last 30 days.",
+      "Patagonia Synchilla tracks 202 departures in the last 30 days across EU Vinted at a €51.49 average exit price in September 2026 — STABLE momentum.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

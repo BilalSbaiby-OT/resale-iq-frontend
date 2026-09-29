@@ -14,7 +14,7 @@ export const POSTS_35: BlogPost[] = [
     title: "Carhartt WIP Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Carhartt WIP Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Carhartt WIP jackets averaged €53 per departure across EU Vinted in September 2026 — 21 jackets per week, the highest-exit-price category among the 28 brands tracked. Real exit ranges, buy-below prices by jacket model, and how Carhartt WIP compares to Patagonia, Stone Island and The North Face.",
+      "Carhartt WIP jackets averaged €53 per departure across EU Vinted in September 2026 — 21 jackets per week.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

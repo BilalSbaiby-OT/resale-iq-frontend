@@ -15,7 +15,7 @@ export const POSTS_81: BlogPost[] = [
     title: "Balenciaga Triple S on EU Vinted: Price Guide, Buy-Below and Resale Data (2026)",
     seoTitle: "Balenciaga Triple S Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Balenciaga Triple S tracked 76 departures in the last 30 days on EU Vinted in September 2026 at a €191.79 average exit price — the highest average exit of any tracked Balenciaga sneaker. RISING momentum, 3,621 active listings, 12.84-month supply, and 0.37 DTS (same-day exits). Buy-below €127.54. Size 43 exits at €297.71 average. Full sourcing guide, authentication notes, and EU sneaker cluster comparison.",
+      "Balenciaga Triple S tracked 76 departures in the last 30 days on EU Vinted in September 2026 at a €191.79 average exit price — the highest average exit of.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

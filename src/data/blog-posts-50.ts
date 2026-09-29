@@ -15,7 +15,7 @@ export const POSTS_50: BlogPost[] = [
     title: "Patagonia Jackets on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Jacket Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia jackets track 780 departures in the last 30 days across EU Vinted in September 2026 at a €51 average exit price — the highest jacket departure volume on the platform. Real exit ranges by model (Synchilla, Nano Puff, Down Sweater, R1, Torrentshell), buy-below ceiling €33.15, and how Patagonia jackets compare to The North Face for EU resellers.",
+      "Patagonia jackets track 780 departures in the last 30 days across EU Vinted in September 2026 at a €51 average exit price — the highest jacket departure.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 9,

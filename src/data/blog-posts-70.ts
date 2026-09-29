@@ -15,7 +15,7 @@ export const POSTS_70: BlogPost[] = [
     title: "Stone Island T-Shirts on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Stone Island T-Shirt Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Stone Island T-shirts track 50 departures in the last 30 days across EU Vinted at a €24 average exit price in September 2026 — the entry-level tier of the Stone Island cluster. Buy-below ceiling €15.60. Ghost Piece T-shirts command a €35–60 premium over the base compass-badge tier. Cross-brand comparison with Fred Perry T-Shirts (149 departures in the last 30 days at €13), Supreme T-Shirts (32 departures in the last 30 days at €35), and Balenciaga T-Shirts (87 departures in the last 30 days at €89). Completes the Stone Island cluster: hoodies (178 departures in the last 30 days at €56), jackets (51 departures in the last 30 days at €140), shirts (70 departures in the last 30 days at €25), T-shirts (50 departures in the last 30 days at €24).",
+      "Stone Island T-shirts track 50 departures in the last 30 days across EU Vinted at a €24 average exit price in September 2026 — the entry-level tier of the.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,

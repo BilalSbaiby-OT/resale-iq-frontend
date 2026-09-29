@@ -14,7 +14,7 @@ export const POSTS_42: BlogPost[] = [
     title: "Patagonia Hoodies on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Patagonia Hoodie Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Patagonia hoodies tracked 780 departures in the last 30 days across EU Vinted in September 2026 at a €40 average — the brand's second-busiest category after jackets. Real exit ranges by model (Better Sweater, Los Gatos, Synchilla Snap-T, Retro Pile), buy-below ceiling at €26, and how Patagonia hoodies compare to North Face fleeces and Stone Island for EU resellers.",
+      "Patagonia hoodies tracked 780 departures in the last 30 days across EU Vinted in September 2026 at a €40 average — the brand's second-busiest category.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,

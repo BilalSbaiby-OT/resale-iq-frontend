@@ -14,7 +14,7 @@ export const POSTS_47: BlogPost[] = [
     title: "Adidas Gazelle on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Adidas Gazelle Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Adidas sneakers track 45 departures in the last 30 days across EU Vinted in September 2026 at a €60 average exit price. Real exit ranges by model (Gazelle Indoor, Handball Spezial, Samba, Stan Smith), buy-below ceilings by size, RISING momentum signals, and how to source Adidas trainers profitably across France, Germany, Spain, and Italy.",
+      "Adidas sneakers track 45 departures in the last 30 days across EU Vinted in September 2026 at a €60 average exit price.",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 8,
