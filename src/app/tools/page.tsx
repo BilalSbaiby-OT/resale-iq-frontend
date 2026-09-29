@@ -109,7 +109,16 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           hasInlineChecker
         />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
-        <FreeChecker locale={locale} initialQuery={initialQuery} src={src} />
+        {/* H144 CRO: pass proofRows into FreeChecker so HardPaywallCard can show
+            the "In your unlocked buy list" locked-row teasers (C228 pattern).
+            /tools gets 10 humans/7d and every paywall hit was showing an abstract
+            pitch ("unlock the market data") with no concrete proof of contents.
+            proofRows is already fetched SSR for BlogProofStrip above — zero extra
+            requests. HardPaywallCard.lockedRows shows 3 rows with blurred prices,
+            making the ask concrete: "this specific item is priced, waiting."
+            CRO #4 (objection: what's actually in there?) + #7 (specific proof)
+            + #8 (concrete names, not "unlock buy list" abstraction). Revenue 2026-09-29. H144. */}
+        <FreeChecker locale={locale} initialQuery={initialQuery} src={src} buyListPreview={proofRows} />
 
         <MoneyCta href={TOOLS_MONEY_HREF} />
 
