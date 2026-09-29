@@ -23,6 +23,8 @@ export interface SsrBuyListItem {
   sold_7d: number | null
   sold_30d_evidence: number | null
   avg_price_eur: number | null
+  /** Real max_buy_price on unlocked rows. Null on locked rows — never invented. */
+  buy_below: number | null
   locked: boolean
 }
 
@@ -64,6 +66,8 @@ function shape(raw: Record<string, unknown>): SsrBuyListItem | null {
     sold_30d_evidence: typeof raw.sold_30d_evidence === "number" && Number.isFinite(raw.sold_30d_evidence) ? raw.sold_30d_evidence : null,
     avg_price_eur: typeof raw.avg_price_eur === "number" && Number.isFinite(raw.avg_price_eur) && raw.avg_price_eur > 0
       ? raw.avg_price_eur : null,
+    buy_below: typeof raw.buy_below === "number" && Number.isFinite(raw.buy_below)
+      ? raw.buy_below : null,
     locked: raw.locked === true,
   }
 }

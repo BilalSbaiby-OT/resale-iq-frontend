@@ -36,8 +36,11 @@
  * suppressed and the strip falls back to generic buy-list rows.
  */
 import Link from "next/link"
+import { Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
+import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 export const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -80,20 +83,15 @@ export function BlogProofStrip({
 }) {
   if (!items || items.length === 0) return null
 
-  // Unlocked rows only, and only ones carrying a real demand figure: this strip
-  // exists to prove the data is real, so a row without evidence defeats it.
-  // C220(elon): accept sold_7d as evidence when sold_30d_evidence is null —
-  // the public buy-list returns 3 unlocked rows but only 1 has sold_30d_evidence;
-  // the other 2 have sold_7d. Previously 2/3 free rows were filtered out, leaving
-  // a single-row "Live buy opportunities" strip. Now the strip shows up to 3 rows.
-  const rows = items
-    .filter(i => !i.locked && (i.sold_30d_evidence != null || i.sold_7d != null) && i.avg_price_eur != null)
-    .slice(0, 3)
+  // Unlocked rows carry the real buy_below. Locked rows keep the name and a
+  // lock — never a recomputed price. Top 3 are the free taste; the rest stay shut.
+  const unlocked = items.filter(i => !i.locked).slice(0, 3)
+  const locked = items.filter(i => i.locked)
 
   // C216: show topic teaser if we have coverage data for this post's item.
   const showTopicTeaser = !!topicQuery && topicComparableN != null && topicComparableN > 0
 
-  if (rows.length === 0 && !showTopicTeaser) return null
+  if (unlocked.length === 0 && locked.length === 0 && !showTopicTeaser) return null
 
   return (
     <aside
@@ -126,9 +124,9 @@ export function BlogProofStrip({
               justifyContent: "space-between",
               gap: 10,
               fontSize: 13,
-              paddingBottom: rows.length > 0 ? 6 : 0,
-              marginBottom: rows.length > 0 ? 6 : 0,
-              borderBottom: rows.length > 0 ? "1px solid rgba(48,209,88,.18)" : "none",
+              paddingBottom: unlocked.length + locked.length > 0 ? 6 : 0,
+              marginBottom: unlocked.length + locked.length > 0 ? 6 : 0,
+              borderBottom: unlocked.length + locked.length > 0 ? "1px solid rgba(48,209,88,.18)" : "none",
             }}
           >
             <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -147,13 +145,13 @@ export function BlogProofStrip({
             )}
           </div>
         )}
-        {rows.map((it, i) => {
+        {unlocked.map((it, i) => {
           const color = VERDICT_COLOR[it.verdict] ?? "#8FA3C4"
-          // Canonical buy-below formula: avg × 0.95 × 0.70 = avg × 0.665.
-          const buyBelow = Math.round((it.avg_price_eur as number) * 0.665)
+          const price = buyBelowLabel(it.buy_below)
           return (
             <div
               key={`${it.brand}-${it.model ?? i}`}
+              data-testid="riq-buy-list-row-free"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -174,16 +172,42 @@ export function BlogProofStrip({
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ color, fontWeight: 700, fontSize: 11 }}>{it.verdict}</span>
-                <span style={{ color: "#8FA3C4", fontVariantNumeric: "tabular-nums", fontSize: 12 }}>
-                  buy &lt;€{buyBelow}
-                </span>
-                <span style={{ color: "#30D158", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
-                  → resells ~€{Math.round(it.avg_price_eur as number)}
-                </span>
+                {price && (
+                  <span style={{ color: "#30D158", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
+                    {price}
+                  </span>
+                )}
               </span>
             </div>
           )
         })}
+        {locked.map((it, i) => (
+          <div
+            key={`locked-${it.brand}-${it.model ?? i}`}
+            data-testid="riq-buy-list-row-locked"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 10,
+              fontSize: 13,
+              opacity: 0.72,
+            }}
+          >
+            <span style={{ color: "#8FA3C4", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {itemDisplayName(it.brand, it.model)}
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, color: "#6A7D9A" }}>
+              <Lock size={12} aria-hidden />
+              <span style={{ fontSize: 12, fontWeight: 600 }}>{BUY_LIST_UNLOCK_LABEL}</span>
+            </span>
+          </div>
+        ))}
+        {locked.length > 0 && (
+          <div style={{ marginTop: 8 }}>
+            <GuestCheckoutButton locale="en" label={BUY_LIST_UNLOCK_LABEL} src="blog_buy_list_locked" />
+          </div>
+        )}
       </div>
 
       {hasInlineChecker ? (

@@ -22,6 +22,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { itemDisplayName } from "@/lib/item-display-name"
+import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -61,10 +62,10 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
     <>
       {/* Left: brand + model (or category if no model) */}
       <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
-        <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {itemDisplayName(item.brand, item.model)}
         </span>
-        <span style={{ fontSize: 12, color: "#8FA3C4" }}>
+        <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
           {item.category}
           {/* DEMAND FIGURE — 2026-09-22.
               This used to prefer sold_7d, which made the buy list read
@@ -85,19 +86,14 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
         </span>
       </div>
 
-      {/* Right: verdict + buy-below price (the core hook, never gated per OS decision) */}
+      {/* Right: verdict + the real stored buy-below. Never a recomputed margin formula. */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
         <VerdictBadge verdict={item.verdict} />
-        {item.avg_price_eur != null && (() => {
-          // Canonical formula: avg × 0.95 × 0.70 = avg × 0.665
-          // COMPANY-OS decision: the buy-below number is the free hook — never gate it.
-          const buyBelow = Math.round(item.avg_price_eur * 0.665)
-          return (
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
-              Buy below €{buyBelow}
-            </span>
-          )
-        })()}
+        {buyBelowLabel(item.buy_below) && (
+          <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
+            {buyBelowLabel(item.buy_below)}
+          </span>
+        )}
       </div>
     </>
   )
@@ -108,7 +104,7 @@ export function SsrBuyListTeaser({
   locale,
   showPrice = true,
   rowSrc,
-  showLockedFomo = false,
+  showLockedFomo: _showLockedFomo = false,
   ctaScrollTo,
   trackedLabel,
 }: {
@@ -162,24 +158,14 @@ export function SsrBuyListTeaser({
    */
   trackedLabel?: string | null
 }) {
-  // Only show free (unlocked) rows — the teaser must prove the product finds
-  // winners. BUY = hot momentum; RISING = strong 30-day history recovering
-  // from the Sep 14-22 outage. Both are actionable; WATCH is shown if no
-  // BUY/RISING rows are available. SKIP is never shown in the teaser.
+  // Top 3 unlocked rows, including WATCH. The list is often all WATCH; dropping
+  // those made the teaser render nothing. SKIP never appears (the API excludes it).
   const freeRows = items
-    .filter(i => !i.locked && (
-      i.verdict === "STRONG BUY" || i.verdict === "BUY" || i.verdict === "RISING"
-    ))
+    .filter(i => !i.locked && i.verdict !== "SKIP")
     .slice(0, 3)
+  const lockedRows = items.filter(i => i.locked).slice(0, 4)
 
-  // H82 CRO: locked rows for FOMO blur effect on /pricing only.
-  // Prefer items whose verdict field is non-empty (real data rows).
-  // If the API returns no locked rows, fall back to any non-free items.
-  const lockedFomoRows = showLockedFomo
-    ? items.filter(i => i.locked).slice(0, 2)
-    : []
-
-  if (freeRows.length === 0) return null
+  if (freeRows.length === 0 && lockedRows.length === 0) return null
 
   const baseRowStyle = {
     display: "flex",
@@ -203,7 +189,7 @@ export function SsrBuyListTeaser({
       {/* Section label */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <TrendingUp size={15} color="#30D158" aria-hidden />
-        <span style={{ fontSize: 12.5, fontWeight: 600, color: "#8FA3C4", letterSpacing: "0.02em" }}>
+        <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-secondary)", letterSpacing: "0.02em" }}>
           Buying opportunities this week
         </span>
       </div>
@@ -212,17 +198,17 @@ export function SsrBuyListTeaser({
       <div
         style={{
           background: "var(--color-surface, #12151d)",
-          border: "1px solid rgba(255,255,255,.08)",
+          border: "1px solid var(--color-hairline)",
           borderRadius: 14,
           overflow: "hidden",
         }}
       >
         {freeRows.map((item, i) => {
-          const q = [item.brand, item.model].filter(Boolean).join(" ")
+          const q = itemDisplayName(item.brand, item.model)
           const rowHref = rowSrc
             ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(q)}&src=${rowSrc}`
             : null
-          const borderTop = i === 0 ? "none" : "1px solid rgba(255,255,255,.06)"
+          const borderTop = i === 0 ? "none" : "1px solid var(--color-hairline)"
           if (rowHref) {
             return (
               <Link
@@ -244,42 +230,29 @@ export function SsrBuyListTeaser({
           )
         })}
 
-        {/* H82 CRO: locked FOMO rows — blurred, non-clickable, with lock icon.
-            Shows the subscriber-only depth of the ranked list. No data is revealed
-            because price, verdict, and demand figures are blurred out.
-            Only rendered on /pricing (showLockedFomo=true). Revenue 2026-09-23. */}
-        {lockedFomoRows.map((item, i) => (
+        {lockedRows.map((item, i) => (
           <div
-            key={`locked-${item.brand}-${item.category}-${i}`}
-            aria-hidden
+            key={`locked-${item.brand}-${item.model ?? item.category}-${i}`}
+            data-testid="riq-buy-list-row-locked"
             style={{
               ...baseRowStyle,
               borderTop: "1px solid rgba(255,255,255,.06)",
-              position: "relative",
-              overflow: "hidden",
-              opacity: 0.6,
+              opacity: 0.72,
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1, filter: "blur(4px)", userSelect: "none" }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7" }}>
-                {item.brand}{item.model ? ` ${item.model}` : ""}
+            <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#8FA3C4", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {itemDisplayName(item.brand, item.model)}
               </span>
-              <span style={{ fontSize: 12, color: "#8FA3C4" }}>{item.category}</span>
+              <span style={{ fontSize: 12, color: "#6A7D9A" }}>{item.category}</span>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0, filter: "blur(4px)", userSelect: "none" }}>
-              <span style={{ fontSize: 11, fontWeight: 700, background: "rgba(48,209,88,.15)", color: "#30D158", borderRadius: 6, padding: "3px 8px" }}>BUY</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158" }}>Buy below €••</span>
-            </div>
-            {/* Lock overlay */}
-            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 16, pointerEvents: "none" }}>
-              <span style={{ fontSize: 11, color: "#6A7D9A", fontWeight: 600, letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: 4 }}>
-                <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
-                  <rect x="1" y="5" width="9" height="7" rx="2" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
-                  <path d="M3 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
-                </svg>
-                Subscribers only
-              </span>
-            </div>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, color: "#6A7D9A", fontSize: 12, fontWeight: 600 }}>
+              <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
+                <rect x="1" y="5" width="9" height="7" rx="2" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
+                <path d="M3 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
+              </svg>
+              {BUY_LIST_UNLOCK_LABEL}
+            </span>
           </div>
         ))}
 
@@ -291,7 +264,7 @@ export function SsrBuyListTeaser({
         <div
           style={{
             padding: "12px 16px",
-            borderTop: "1px solid rgba(255,255,255,.06)",
+            borderTop: "1px solid var(--color-hairline)",
             background: "rgba(48,209,88,.04)",
             display: "flex",
             alignItems: "center",
@@ -301,11 +274,11 @@ export function SsrBuyListTeaser({
           }}
         >
           <div>
-            <p style={{ fontSize: 12.5, fontWeight: 600, color: "#EEF1F7", margin: "0 0 2px" }}>
+            <p style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-primary)", margin: "0 0 2px" }}>
               Full ranked list + buy-below on every brand, updated weekly.
             </p>
             {showPrice ? (
-              <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
+              <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
                 Starter €19/mo · cancel anytime
               </p>
             ) : (
@@ -315,7 +288,7 @@ export function SsrBuyListTeaser({
                  customers and zero testimonials, verifiable dataset scale is
                  the only honest trust signal we own.
                  Live value passed from SSR page to keep in sync with meta desc. */
-              <p style={{ fontSize: 11.5, color: "#6A7D9A", margin: 0 }}>
+              <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
                 Built from {trackedLabel ?? "13.4M"} tracked Vinted listings across 5 EU markets
               </p>
             )}

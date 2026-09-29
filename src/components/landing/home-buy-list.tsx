@@ -5,6 +5,8 @@ import { Lock, TrendingUp } from "lucide-react"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import type { Locale } from "@/lib/i18n"
+import { itemDisplayName } from "@/lib/item-display-name"
+import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 
 /**
  * HomeBuyList — ranked teaser of top buying opportunities.
@@ -30,12 +32,14 @@ import type { Locale } from "@/lib/i18n"
 
 interface BuyListItem {
   brand: string
+  model?: string | null
   category: string
   verdict: "BUY" | "WATCH" | "SKIP" | string
   momentum: string
   locked: boolean
   sold_7d: number | null
   avg_price_eur: number | null
+  buy_below?: number | null
   comparable_n: number | null
   months_supply: number | null
   price_p25?: number | null
@@ -270,7 +274,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                       color:      item.locked ? "#6A7D9A" : "#EEF1F7",
                       marginRight: 6,
                     }}>
-                      {item.brand}
+                      {itemDisplayName(item.brand, item.model)}
                     </span>
                     <span style={{ fontSize: 12, color: "#5A6A80" }}>
                       {item.category}
@@ -318,11 +322,8 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                       : "—"}
                   </span>
 
-                  {/* Buy below — the free hook (OS principle: never gate this number).
-                    Canonical formula: avg × 0.95 × 0.70 = avg × 0.665.
-                    Shown in green for free rows so it reads as the actionable signal.
-                    Locked rows keep the padlock — avg_price_eur is gated there anyway.
-                    Revenue 2026-09-23. */}
+                  {/* Buy below — the stored ceiling on unlocked rows. Locked rows
+                    keep the padlock. Never avg × fees × margin. */}
                   <span style={{
                     fontSize:   13,
                     color:      item.locked ? "#3A3A3C" : "#30D158",
@@ -332,9 +333,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   }}>
                     {item.locked
                       ? <Lock size={11} color="#3A3A3C" aria-hidden />
-                      : (item.avg_price_eur != null
-                          ? `€${Math.round(item.avg_price_eur * 0.665)}`
-                          : "—")
+                      : (buyBelowLabel(item.buy_below)?.replace("buy below ", "") ?? "—")
                     }
                   </span>
                 </RowEl>
@@ -371,7 +370,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
             <GuestCheckoutButton
               locale={locale}
-              label="Unlock all →"
+              label={BUY_LIST_UNLOCK_LABEL}
               src="buy_list_paywall"
             />
             <a

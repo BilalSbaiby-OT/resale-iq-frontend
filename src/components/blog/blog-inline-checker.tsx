@@ -86,6 +86,8 @@ import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
 import { FREE_MODELS } from "@/lib/working-models"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { itemDisplayName } from "@/lib/item-display-name"
+import { buyBelowLabel } from "@/lib/buy-list-display"
 import { VERDICT_COLOR } from "@/components/blog-proof-strip"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
@@ -215,16 +217,16 @@ export function BlogInlineChecker({
                 </span>
                 {buyListPreview.slice(0, 2).map((it, i) => {
                   const color = VERDICT_COLOR[it.verdict] ?? "#8b99b8"
-                  const buyBelow = it.avg_price_eur != null ? Math.round(it.avg_price_eur * 0.665) : null
+                  const price = buyBelowLabel(it.buy_below)
                   return (
                     <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
                       <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {it.brand}{it.model ? ` ${it.model}` : ""}
+                        {itemDisplayName(it.brand, it.model)}
                       </span>
                       <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
-                      {buyBelow != null ? (
-                        <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
-                          buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
+                      {price ? (
+                        <span style={{ color: "#30D158", fontSize: 12, flexShrink: 0, fontWeight: 700 }}>
+                          {price}
                         </span>
                       ) : it.locked ? (
                         <span style={{ color: "#5b6b8c", fontSize: 12, flexShrink: 0 }}>🔒 price locked</span>
@@ -324,16 +326,16 @@ export function BlogInlineChecker({
                 </span>
                 {buyListPreview.slice(0, 2).map((it, i) => {
                   const color = VERDICT_COLOR[it.verdict] ?? "#8b99b8"
-                  const buyBelow = it.avg_price_eur != null ? Math.round(it.avg_price_eur * 0.665) : null
+                  const price = buyBelowLabel(it.buy_below)
                   return (
                     <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
                       <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {it.brand}{it.model ? ` ${it.model}` : ""}
+                        {itemDisplayName(it.brand, it.model)}
                       </span>
                       <span style={{ color, fontWeight: 700, fontSize: 11, flexShrink: 0 }}>{it.verdict}</span>
-                      {buyBelow != null ? (
-                        <span style={{ color: "#8FA3C4", fontSize: 12, flexShrink: 0 }}>
-                          buy &lt;€{buyBelow} → ~€{Math.round(it.avg_price_eur as number)}
+                      {price ? (
+                        <span style={{ color: "#30D158", fontSize: 12, flexShrink: 0, fontWeight: 700 }}>
+                          {price}
                         </span>
                       ) : it.locked ? (
                         <span style={{ color: "#5b6b8c", fontSize: 12, flexShrink: 0 }}>🔒 price locked</span>

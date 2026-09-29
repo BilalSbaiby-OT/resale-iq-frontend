@@ -3,7 +3,7 @@
  *
  * CRO principle #4 (objection handling) + #8 (behavioral: specificity beats abstraction).
  * Shows: "Buy Balenciaga Track at €71, typical Vinted exit €106, after 5% fee = ~€30 profit."
- * The formula (avg × 0.665 = buy_below) is the same one SsrBuyListTeaser uses.
+ * The buy-below is the stored ceiling on the row (buy_below), not a recomputed margin.
  *
  * Honesty rules:
  * - Numbers come from the live SSR buy list passed in — never hardcoded.
@@ -16,23 +16,24 @@
  * Picks the highest-avg-price free row for the most impressive honest example.
  */
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { itemDisplayName } from "@/lib/item-display-name"
 
 export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
   // Find best (highest avg price) free, unlocked row with a price
   const row = items
-    .filter(i => !i.locked && i.avg_price_eur != null && i.avg_price_eur > 0)
+    .filter(i => !i.locked && i.avg_price_eur != null && i.avg_price_eur > 0 && i.buy_below != null)
     .sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
 
-  if (!row || row.avg_price_eur == null) return null
+  if (!row || row.avg_price_eur == null || row.buy_below == null) return null
 
   const avg = row.avg_price_eur
-  const buyBelow = Math.round(avg * 0.665)
+  const buyBelow = Math.round(row.buy_below)
   const fee = +(avg * 0.05).toFixed(2)
   const margin = +(avg - buyBelow - fee).toFixed(0)
   // Only show "covers the month" if the margin genuinely exceeds Starter price
   const coversMonth = margin >= 19
 
-  const label = [row.brand, row.model].filter(Boolean).join(" ")
+  const label = itemDisplayName(row.brand, row.model)
   const demand =
     row.sold_30d_evidence != null
       ? `${row.sold_30d_evidence.toLocaleString()} watched departures in 30 days`
@@ -64,7 +65,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
       <div
         style={{
           background: "var(--color-surface)",
-          border: "1px solid rgba(255,255,255,.08)",
+          border: "1px solid var(--color-hairline)",
           borderRadius: 14,
           padding: "18px 20px",
           maxWidth: 520,
@@ -108,7 +109,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
           <span style={{ fontWeight: 500, color: "var(--color-text-dim)", fontVariantNumeric: "tabular-nums" }}>
             −€{fee.toFixed(0)}
           </span>
-          <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid rgba(255,255,255,.06)" }}>
+          <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid var(--color-hairline)" }}>
             Margin per flip
           </span>
           <span
@@ -118,7 +119,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
               color: "#30D158",
               fontVariantNumeric: "tabular-nums",
               paddingTop: 4,
-              borderTop: "1px solid rgba(255,255,255,.06)",
+              borderTop: "1px solid var(--color-hairline)",
             }}
           >
             ≈ €{margin}
