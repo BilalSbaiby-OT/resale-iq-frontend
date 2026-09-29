@@ -21,8 +21,16 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const [intentQuery, setIntentQuery] = useState("")
   // C(tony)VerifiedFlash: names the query the confirmed "signed-in" state is
   // about to load, so the checkmark screen isn't a blank generic line before
-  // the delayed redirect fires. null on /pricing destinations (no query to name).
+  // the delayed redirect fires. null on destinations with no named item.
   const [redirectLabel, setRedirectLabel] = useState<string | null>(null)
+  // C(tony)FlashDest: distinguishes "verdict" (we're loading your result) from
+  // "pricing" (one click to unlock — but the answer isn't loaded yet). Without
+  // this the flash says "Loading your Stone Island Hoodie verdict…" on the
+  // pricing path, which is a false promise — we route to /pricing, not /verdict.
+  // "verdict" → "Loading your [item] verdict…"
+  // "pricing" → "Unlocking your [item] verdict — almost there…"
+  // null      → "Taking you there…"
+  const [redirectDest, setRedirectDest] = useState<"verdict" | "pricing" | null>(null)
   // C177(tony): live top brand for no-intent fallback. Canva rule: never show
   // a blank/generic state — inject the #1 hot item instead of the Nike AF1
   // free sample. Fetched in parallel with the verify call so there's no wait.
@@ -43,7 +51,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   // C177(tony): fetch live top brand in parallel with verify call.
   // The ref holds the result; the verify useEffect reads it when deciding
   // the firstQuery fallback. Race is safe — if verify finishes first, topBrandRef
-  // is "" and falls back to Stone Island Hoodie hardcoded (still better than AF1).
+  // is "" and falls back to Nike Air Force 1 (free sample, verified WATCH+buy_below).
   useEffect(() => {
     fetchTopBrandRows(1, []).then(rows => {
       if (rows[0]) {
@@ -125,13 +133,12 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // res.plan is available from the verify-email API response.
           // Falls back to /verdict if plan is absent (safe, pre-C160 behaviour).
           const isPaid = res.plan && res.plan !== "free"
-          // C(tony)VerifiedFlash: name the destination so the (now-visible)
-          // "signed-in" state can say exactly what's loading, not a blank
-          // generic line. decodeURIComponent because firstQuery is already
-          // encoded for the URL.
-          setRedirectLabel(decodeURIComponent(firstQuery))
           const go = (href: string) => setTimeout(() => router.replace(href), 700)
           if (isPaid) {
+            // Paid: route to verdict with whatever item we resolved. Flash says
+            // "Loading your [item] verdict…" — accurate, we're about to show it.
+            setRedirectLabel(decodeURIComponent(firstQuery))
+            setRedirectDest("verdict")
             go(`/verdict?q=${firstQuery}`)
           } else if (hadIntent) {
             // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready).
@@ -145,18 +152,19 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             const savedForCoverage = decodeURIComponent(firstQuery)
             const isCoverable = queryCoverageKind(savedForCoverage) !== "untracked"
             if (isCoverable) {
-              // C(tony)VerifiedFlash personalisation: name the item so the 700ms
-              // confirmation flash says "Loading your Stone Island Hoodie verdict…"
-              // instead of blank "Taking you there…". Every other path already names
-              // the product — this was the only gap. /pricing?ref=verify has the C174
-              // eyebrow that also names the item, so naming it here is consistent.
+              // C(tony)FlashDest fix: routes to /pricing, not /verdict. The old flash
+              // said "Loading your Stone Island Hoodie verdict…" — a false promise,
+              // because the verdict is behind a paywall the user hasn't passed yet.
+              // "Unlocking" is honest: we're opening the door, not handing them the answer.
               setRedirectLabel(decodeURIComponent(firstQuery))
+              setRedirectDest("pricing")
               go(`/pricing?ref=verify&q=${firstQuery}`)
             } else {
               // C(tony)AF1Demo: Aha-moment first — AF1 returns WATCH+buy_below=€31.16
               // (measured 2026-09-29). NB530 returns SKIP+null — a red verdict as first
               // impression. Show them what the product actually does, THEN search their item.
               setRedirectLabel("Nike Air Force 1")
+              setRedirectDest("verdict")
               go(`/verdict?q=Nike+Air+Force+1`)
             }
           } else {
@@ -174,9 +182,15 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             } catch { /* private mode */ }
             if (checkoutAbandoned) {
               setRedirectLabel(null)
+              setRedirectDest(null)
               go(`/pricing?ref=verify-abandoned`)
             } else {
+              // C(tony)FlashDest fix: no-intent path. topBrandRef may hold a paywalled
+              // brand (e.g. "Stone Island Hoodies") from C177 — using it as redirectLabel
+              // here would show "Loading your Stone Island Hoodies verdict…" while actually
+              // routing to Nike Air Force 1. Route and label are now consistent.
               setRedirectLabel("Nike Air Force 1")
+              setRedirectDest("verdict")
               go(`/verdict?q=Nike+Air+Force+1`)
             }
           }
@@ -243,7 +257,11 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               {t.signedIn}
             </p>
             <p className="text-[var(--color-text-muted)] text-[12px]">
-              {redirectLabel ? `Loading your ${redirectLabel} verdict…` : "Taking you there…"}
+              {redirectDest === "verdict" && redirectLabel
+                ? `Loading your ${redirectLabel} verdict…`
+                : redirectDest === "pricing" && redirectLabel
+                  ? `Unlocking your ${redirectLabel} verdict — almost there…`
+                  : "Taking you there…"}
             </p>
           </div>
         )}
