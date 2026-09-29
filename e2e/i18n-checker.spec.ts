@@ -331,12 +331,18 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(panel.getByRole("button", { name: "Fred Perry Polo" })).toBeVisible()
     })
 
-    // The live market pulse — replaces the removed live-market-proof band.
-    // Renders the real snapshot (mock: Nike/Adidas) as a data-dense list with
-    // localised heading + column labels. See components/landing/live-market-pulse.tsx.
-    test(`the live market pulse renders localised copy in ${locale}, not English`, async ({ page }) => {
+    // 2026-09-30 text-diet pass: the live market pulse block ("This is what's
+    // actually selling right now" / riq-market-showing) was removed from the
+    // homepage embed to cut visible word count — it still renders on
+    // /pricing (LiveMarketPulse component untouched, see
+    // src/app/pricing/page.tsx). This test now checks the homepage does NOT
+    // show it and the localised heading only appears on /pricing.
+    test(`the live market pulse renders localised copy on /pricing in ${locale}, not English`, async ({ page }) => {
       await gotoHomepage(page)
+      await expect(page.getByText(l.pulseHeading, { exact: true })).toHaveCount(0)
 
+      const res = await page.goto("/pricing")
+      expect(res?.ok()).toBeTruthy()
       await expect(page.getByText(l.pulseHeading, { exact: true })).toBeVisible()
       await expect(page.getByText(l.pulseLiveLabel, { exact: true })).toBeVisible()
       // The brand rows come from the live snapshot (mock serves Nike + Adidas).

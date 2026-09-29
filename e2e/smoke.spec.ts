@@ -34,8 +34,12 @@ test("homepage shows Starter €19 and Pro €49 plan cards, with exactly one h1
   await expect(page.getByText("Pro", { exact: true }).first()).toBeVisible()
   await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
   await expect(page.getByTestId("riq-pricing-cta-power")).toHaveText(/Start for €49/i)
-  // Exactly one link to the full comparison page, not a duplicate pricing block.
-  await expect(page.getByRole("link", { name: /See full comparison/i })).toHaveCount(1)
+  // 2026-09-30 text-diet pass: the standalone "See full comparison →
+  // Pricing" text link was removed from the homepage (it duplicated the nav
+  // Pricing link one screen up) — the nav link is now the only route to
+  // /pricing from the front door, and the compact cards on "/" already show
+  // both prices, so nothing is lost.
+  await expect(page.getByRole("link", { name: /See full comparison/i })).toHaveCount(0)
 })
 
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
@@ -92,8 +96,14 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // locked rows in the SSR buy list (Revenue showLockedFomo) never link to /register —
   // the paywall fires inline on /tools after a real query.
   await expect(hero.locator('a[href*="/register"]')).toHaveCount(0)
-  await expect(page.getByTestId("riq-market-showing")).toContainText(/Showing \d+ of \d+ brands/)
-  await expect(page.getByTestId("riq-market-showing").getByRole("link", { name: /See all on \/data/ })).toHaveAttribute("href", "/data")
+  // 2026-09-30 text-diet pass: LiveMarketPulse ("This is what's actually
+  // selling right now" data table, riq-market-showing) was removed from the
+  // homepage embed — same live-data honesty now lives in the brand strip's
+  // "+N more" link to /data and the how-it-works coverage line. LiveMarketPulse
+  // itself is untouched and still renders on /pricing (see smoke.spec.ts's
+  // /pricing test + homepage-conv.test.ts's source-level assertions on it).
+  await expect(page.getByTestId("riq-market-showing")).toHaveCount(0)
+  await expect(page.getByTestId("riq-brand-more")).toHaveAttribute("href", "/data")
 })
 
 test("homepage checker is centered, Free: is above the 1280x800 fold, logos are marks", async ({ page }) => {

@@ -180,9 +180,13 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   // showed we answer with WATCH/UNKNOWN almost every time: 4 trial users ran 22
   // searches and received ZERO BUY verdicts, then declined to pay. Assert the
   // demand framing, and assert the per-item promise is NOT being made.
-  assert.equal(
+  // 2026-09-30: hero sub trimmed for the text-diet pass (~65% homepage word
+  // cut, founder ask "too much text"). Assert intent (ranked list, Vinted,
+  // leaving the shelf, no "Type any") rather than freezing exact prose —
+  // the exact-equal pin from the earlier redesign is gone on purpose.
+  assert.match(
     copy.en.heroSub,
-    "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted data across 5 EU markets.",
+    /leaving the shelf/,
   )
   assert.match(copy.en.heroSub, /ranked list/)
   assert.match(copy.en.heroSub, /leaving the shelf/)

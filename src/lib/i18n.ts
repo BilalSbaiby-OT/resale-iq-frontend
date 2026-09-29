@@ -142,15 +142,15 @@ export const copy = {
     },
     heroHeadline: "Know what to buy this week to resell on Vinted.",
     heroSub:
-      "A ranked list of the second-hand clothing worth stocking right now — what's actually leaving the shelf, and the most you can pay for it. Built from live Vinted data across 5 EU markets.",
+      "A ranked list of what's actually leaving the shelf on Vinted this week, and the most you can pay for it.",
     howToHeading: "How it works",
     howToSteps: [
-      "Open the buy list — what's selling fastest across the brands we watch this week.",
-      "Each row gives you the verdict, weekly departures and the most you can pay and still make margin.",
-      "Buy under that number. Skip the rest.",
+      "See what's selling fastest this week.",
+      "Get the buy-below price for each item.",
+      "Buy under that number.",
     ],
     howToCoverage:
-      "Covers 28+ brands across Vinted ES, FR, DE, IT, PT. Samba, Air Force 1 and Fred Perry Polo are free — no account needed. Other models unlock with Starter at €19/mo.",
+      "28+ brands, 5 EU markets. Samba, Air Force 1 and Fred Perry Polo are free — no account needed.",
     heroBody:
       "Demand for second-hand clothes — which items and models to buy to resell. Vinted is the first marketplace we cover; where you source is not the product.",
     heroFrom: (tracked: string) =>

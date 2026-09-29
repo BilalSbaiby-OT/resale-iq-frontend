@@ -71,6 +71,41 @@ test.describe("390px: no horizontal page scroll, checker not clipped", () => {
     expect(amountBox!.y).toBeLessThan(844)
   })
 
+  // 2026-09-30 text-diet pass: founder measured the live homepage at 1,282
+  // visible words / 8,797px (10.4 phone screens) at 390x844 and asked for
+  // less text. This guard pins the outcome so the page cannot silently grow
+  // back: <=500 visible words, <=6 phone screens tall, exactly one h1, both
+  // prices visible without scrolling past the pricing cards, and the live
+  // buy list still shows 3 priced rows above the fold. Word count is read
+  // from innerText (rendered/visible text only, same measurement method the
+  // founder used) — hidden nav/menu text and script/style content are
+  // excluded by the browser automatically.
+  test("homepage text diet: <=500 visible words, <=6 phone screens, one h1, prices + buy list visible", async ({ page }) => {
+    const res = await page.goto("/")
+    expect(res?.ok()).toBeTruthy()
+
+    await expect(page.locator("h1")).toHaveCount(1)
+
+    const text = (await page.locator("body").innerText()).trim()
+    const wordCount = text.split(/\s+/).filter(Boolean).length
+    expect(wordCount, `homepage visible word count grew to ${wordCount} (cap 500)`).toBeLessThanOrEqual(500)
+
+    const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight)
+    const screens = pageHeight / 844
+    expect(screens, `homepage grew to ${screens.toFixed(1)} phone screens (cap 6)`).toBeLessThanOrEqual(6)
+
+    // Both prices visible somewhere on the page (pricing cards render below
+    // the fold on 390px, which is expected — the cap above bounds how far).
+    await expect(page.getByText("€19", { exact: true }).first()).toBeVisible()
+    await expect(page.getByText("€49", { exact: true }).first()).toBeVisible()
+
+    // Live buy list still shows its top 3 priced rows.
+    const buyList = page.getByTestId("riq-ssr-buy-list")
+    await expect(buyList).toBeVisible()
+    const pricedRows = buyList.locator('[style*="tabular-nums"]', { hasText: "€" })
+    expect(await pricedRows.count(), "buy list must show at least 3 priced rows").toBeGreaterThanOrEqual(3)
+  })
+
   test("/verdict check row stacks and a STR-null result still shows shelf numbers", async ({ page }) => {
     await page.goto("/verdict")
     const row = page.locator("div.riq-checker-row")

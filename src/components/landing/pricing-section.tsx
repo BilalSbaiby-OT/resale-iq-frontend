@@ -694,8 +694,11 @@ export function PricingSection({
                   {tracked} live listings watched
                 </p>
                 {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
-                    Only shown when sellThrough resolved to a real number ("65/wk"). */}
-                {sellThrough && sellThrough !== "—" && (
+                    Only shown when sellThrough resolved to a real number ("65/wk").
+                    2026-09-30 text-diet pass: hidden in compact mode (homepage) —
+                    it's a second live-count line right under riq-listings-tracked;
+                    kept on standalone /pricing. No test asserts riq-sell-through. */}
+                {!compact && sellThrough && sellThrough !== "—" && (
                   <p
                     data-testid="riq-sell-through"
                     style={{
@@ -709,18 +712,26 @@ export function PricingSection({
                     {sellThrough} watched departures / week
                   </p>
                 )}
-                <p
-                  data-testid="riq-starter-trust"
-                  style={{
-                    margin: "0 0 12px",
-                    fontSize: compact ? 11 : 12,
-                    lineHeight: 1.45,
-                    color: "var(--color-text-muted)",
-                    textAlign: "center",
-                  }}
-                >
-                  {t.starterTrust.replace("{{TRACKED}}", tracked)}
-                </p>
+                {/* 2026-09-30 text-diet pass: hidden in compact mode — this line
+                    restates "{tracked} listings watched" (already shown two
+                    lines up as riq-listings-tracked) plus "cancel anytime"
+                    (already shown below the CTA as fine print). Kept on
+                    standalone /pricing; e2e/smoke.spec.ts +
+                    e2e/locale-routing.spec.ts assert it there. */}
+                {!compact && (
+                  <p
+                    data-testid="riq-starter-trust"
+                    style={{
+                      margin: "0 0 12px",
+                      fontSize: compact ? 11 : 12,
+                      lineHeight: 1.45,
+                      color: "var(--color-text-muted)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {t.starterTrust.replace("{{TRACKED}}", tracked)}
+                  </p>
+                )}
               </>
             )}
             {/* ONE filled accent CTA per view. The other two are ghosts — a
@@ -757,8 +768,12 @@ export function PricingSection({
             {/* stepUp / ceiling keep every word — only their boxes are gone.
                 Both were tinted, bordered panels stacked inside an already
                 bordered card; spacing and weight carry the same hierarchy
-                without three nested rectangles. */}
-            {tier.stepUp && (
+                without three nested rectangles.
+                2026-09-30 text-diet pass: hidden in compact mode (homepage
+                embed) — stepUpWhy in particular is a full explainer
+                paragraph per tier; the standalone /pricing page (where a
+                visitor is already weighing tiers) keeps it. */}
+            {!compact && tier.stepUp && (
               <div style={{ marginTop: s.blockGap }}>
                 <div style={{ fontSize: s.body, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 6 }}>{tier.stepUp}</div>
                 {tier.stepUpWhy && (
@@ -766,16 +781,20 @@ export function PricingSection({
                 )}
               </div>
             )}
-            {tier.ceiling && (
+            {!compact && tier.ceiling && (
               <div style={{ marginTop: s.blockGap, fontSize: s.perDay, color: "var(--color-text-muted)", lineHeight: 1.55 }}>
                 <span style={{ color: "var(--color-text-secondary)", fontWeight: 600 }}>{t.whereItStops} </span>{tier.ceiling}
               </div>
             )}
             {/* A hairline, not a third nested box: it separates the argument
                 for the tier from the list of what is in it without drawing
-                another rectangle inside an already bordered card. */}
+                another rectangle inside an already bordered card.
+                2026-09-30 text-diet pass: compact mode (homepage embed)
+                shows only the first 4 bullets — full list stays on the
+                standalone /pricing page. Feature order in pricing.ts already
+                leads with the most persuasive line per tier. */}
             <div style={{ marginTop: s.blockGap, paddingTop: s.blockGap, borderTop: "1px solid var(--color-border-ui)", display: "flex", flexDirection: "column", gap: s.featureGap }}>
-              {tier.features.map(f => (
+              {(compact ? tier.features.slice(0, 4) : tier.features).map(f => (
                 <div key={f} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                   <Check size={15} color="var(--color-text-muted)" strokeWidth={2.5} style={{ marginTop: 2, flexShrink: 0 }} />
                   <span style={{ fontSize: s.body, color: "var(--color-text-body)", lineHeight: 1.5 }}>{f}</span>
@@ -820,9 +839,17 @@ export function PricingSection({
           {t.publicDataLine}
         </Link>
       </p>
-      <p style={{ textAlign: "center", fontSize: 13, color: "var(--color-text-muted)", marginTop: 32, lineHeight: 1.6, maxWidth: 760, marginLeft: "auto", marginRight: "auto" }}>
-        {t.footer}
-      </p>
+      {/* 2026-09-30 text-diet pass: this ~55-word fine-print paragraph
+          (cancel-anytime, what Pro unlocks, "estimated margin not promised
+          profit") restates points already in the FAQ + tier bullets. Kept on
+          standalone /pricing where a visitor is deciding; cut from the
+          homepage compact embed. The 30-day refund line stays everywhere —
+          it renders separately, right under the highlighted card's CTA. */}
+      {!compact && (
+        <p style={{ textAlign: "center", fontSize: 13, color: "var(--color-text-muted)", marginTop: 32, lineHeight: 1.6, maxWidth: 760, marginLeft: "auto", marginRight: "auto" }}>
+          {t.footer}
+        </p>
+      )}
 
       {/* Moved BELOW the tiers (was between the heading and the prices).
           Measured at 390px: the calculator is 758px — a full phone viewport of
@@ -835,10 +862,20 @@ export function PricingSection({
           homepages. starterPrice: taken from TIERS rather than the
           calculator's own constant, so the break-even sum can never quote a
           price the cards above it have stopped charging. */}
-      <PaybackCalculator
-        locale={locale}
-        starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
-      />
+      {/* 2026-09-30 text-diet pass: PaybackCalculator ("How many bad buys
+          would it have to catch?") is a good objection-handling tool but it
+          is 138 words + two sliders standing between the plan cards and the
+          FAQ on every render, including the homepage's compact strip where
+          the page already made its case in three screens above this one.
+          Kept on the standalone /pricing page (cold, product-aware traffic
+          that came here specifically to weigh the price) and cut from the
+          homepage's compact embed. */}
+      {!compact && (
+        <PaybackCalculator
+          locale={locale}
+          starterPrice={TIERS.find((x) => x.id === "operator")?.price ?? 19}
+        />
+      )}
 
 
       {/* H19 CRO: Objection #1 ("works for me?") — scope/coverage note above plan cards.

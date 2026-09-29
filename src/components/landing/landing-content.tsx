@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { LlmEyebrow } from "./llm-eyebrow"
-import { LiveMarketPulse } from "./live-market-pulse"
 import { BrandStrip } from "./brand-strip"
 import { RedirectIfAuthed } from "./redirect-if-authed"
 import { FreeChecker } from "@/components/tools/free-checker"
@@ -15,8 +14,6 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HeroFreeChips } from "./hero-free-chips"
-import { RoiExampleCard } from "./roi-example-card"
-import { TrustBlock } from "./trust-block"
 import { PricingSection } from "./pricing-section"
 import { formatSellThrough } from "@/lib/format-sell-through"
 
@@ -209,12 +206,11 @@ export function LandingContent({
           </div>
         </section>
 
-        {/* ── LIVE MARKET PROOF — moved above the fold ─────────────────────
-            Our strongest credibility signal: real, specific, unfakeable
-            production numbers. Rendered immediately after the hero so a cold
-            visitor (especially LLM-referred) sees verifiable data before
-            the how-it-works explanation. */}
-        <LiveMarketPulse locale={locale} market={market} />
+        <BrandStrip
+          names={market.brandNames}
+          total={market.brandsTracked ?? market.brandCount}
+          locale={locale}
+        />
 
         <section
           aria-labelledby="riq-how-to-heading"
@@ -253,51 +249,6 @@ export function LandingContent({
           </p>
         </section>
 
-        <BrandStrip
-          names={market.brandNames}
-          total={market.brandsTracked ?? market.brandCount}
-          locale={locale}
-        />
-
-        {/* ── ROI EXAMPLE — concrete worked flip from a real buy-list row ────
-            CRO #4 (objection: "worth it?") + #8 (specificity beats abstraction).
-            Shows: "Buy [item] at €X, typical exit €Y, after fee = ~€Z margin."
-            Honesty: numbers come from live SSR buy list — never hardcoded.
-            Only renders when a real unlocked row with avg_price is available.
-            Shows "covers your Starter month" only when margin ≥ €19 from real data. */}
-        {ssrBuyList && ssrBuyList.length > 0 && (
-          <RoiExampleCard items={ssrBuyList} />
-        )}
-
-        {/* ── TRUST BLOCK — specific, verifiable proof signals ──────────────
-            CRO #7 (trust before CTA). Every item here is a real fact:
-            data freshness from API stamp, 5 EU markets (factual), Stripe secure
-            (true), methodology link (exists). No fake reviews, no fake user count.
-            "Cancel anytime" is in /terms. No refund promise (terms don't say so). */}
-        <TrustBlock market={market} />
-
-        {/* ── OBJECTION ROW — 5 universal objections answered next to the pricing CTA (CRO #4).
-            Numbers come from market prop — no new API calls. Never fabricated. */}
-        <div
-          data-testid="riq-objection-row"
-          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-5)" }}
-        >
-          <dl style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(155px, 1fr))", gap: 10, margin: 0, padding: 0 }}>
-            {([
-              { q: "Works for my items?", a: `${market.brandCount}+ brands — ES, FR, DE, IT & PT` },
-              { q: "Worth it?", a: market.sold7dTotal ? `${market.sold7dTotal.toLocaleString()} sales tracked last week` : "Live sell-through on every brand" },
-              { q: "Hard to use?", a: "Type a brand, get a verdict in seconds" },
-              { q: "What if it's wrong?", a: "Try Samba, AF1 & Fred Perry Polo free — no account needed" },
-              { q: "Can I trust this?", a: market.listingsTracked ? `${market.listingsTracked.toLocaleString()} listings tracked live` : `${tracked} listings across 5 EU markets` },
-            ] as { q: string; a: string }[]).map(({ q, a }) => (
-              <div key={q} style={{ background: "var(--color-surface)", borderRadius: 8, padding: "11px 13px" }}>
-                <dt style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-dim)", marginBottom: 4 }}>{q}</dt>
-                <dd style={{ fontSize: 13, color: "var(--color-text-primary)", margin: 0, lineHeight: 1.4 }}>{a}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
         {/* ── PRICING CARDS — Starter €19 / Pro €49, right on the homepage ──
             Founder feedback 2026-09-29: "why you dont show pricing on
             homepage?" — before this, the only price mentioned above the fold
@@ -312,8 +263,14 @@ export function LandingContent({
             headingLevel=2: the homepage's own H1 is above; PricingSection's
             heading becomes an h2 here (this is exactly what the prop exists
             for — see pricing-section.tsx's own comment on it).
-            Placed after the objection row (the live-data proof/trust section
-            immediately above) and before the FAQ, per the founder's brief.
+            2026-09-30 text-diet pass: RoiExampleCard ("What one good flip
+            actually looks like"), LiveMarketPulse ("This is what's actually
+            selling right now" data table) and the objection-row dl block
+            were removed here — same honest live-data proof this page already
+            leads with (the SSR buy list above + howToCoverage's "28+ brands,
+            5 EU markets" line), just not re-stated three more times before
+            the price. PaybackCalculator inside PricingSection is now gated
+            off in compact mode (see pricing-section.tsx) for the same reason.
             seedTracked/seedSellThrough reuse the SSR-fetched market numbers
             already in scope — zero extra requests, same pattern /pricing
             uses (src/app/pricing/page.tsx). */}
@@ -324,18 +281,11 @@ export function LandingContent({
           seedTracked={tracked}
           seedSellThrough={formatSellThrough(market.sold7dTotal)}
         />
-        {/* One clear link to the full comparison — not a second pricing
-            block. PricingSection's own "public data" line already covers
-            the free tier; this is the only additional pricing link on the
-            page, matching the founder's "keep it simple" ask. */}
-        <div style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)", textAlign: "center" }}>
-          <Link
-            href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
-            style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-dim)", textDecoration: "none" }}
-          >
-            See full comparison → {t.pricing}
-          </Link>
-        </div>
+        {/* CRO note: the second CTA count is nav "Sign in"/"Pricing" (chrome,
+            not a conversion ask) + hero Check + pricing cards' own Starter/Pro
+            CTAs — the standalone "See full comparison → Pricing" text link
+            that used to sit here duplicated the nav Pricing link one screen
+            up and was cut in the 2026-09-30 text-diet pass. */}
 
         {faqs && faqs.length > 0 ? (
           <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 var(--space-3) var(--space-10)" }}>
