@@ -7,6 +7,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
+import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
@@ -133,6 +134,20 @@ export default async function BlogIndex() {
           </Link>
           , published free.
         </p>
+
+        {/* H160 CRO: ROI worked example on /blog index — conviction before ask (130/7d).
+            /blog has the buy-list proof strip (H77) but sends visitors straight to a generic
+            checkout CTA with no concrete payback example. Homepage + /pricing both show
+            RoiExampleCard ("Buy X at €Y, flip for ~€Z margin — covers your Starter month")
+            and it is the single most objection-specific component in the codebase.
+            /blog (130/7d, highest-traffic) was missing it entirely.
+            buyList already fetched above (no extra request). Renders nothing when no
+            suitable row is available — zero-risk.
+            CRO #4 (objection: worth it?) + #8 (specificity: real €€€ not "save money")
+            + #12 (demonstration → conviction → ask). Revenue 2026-09-29. H160. */}
+        {buyList && buyList.length > 0 && (
+          <RoiExampleCard items={buyList} />
+        )}
 
         <div style={{ marginTop: 40, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
           <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Stop guessing what sells.</div>
