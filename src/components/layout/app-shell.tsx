@@ -95,11 +95,13 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
     }
   }, [pathname])
 
-  useEffect(() => {
-    if (checked && isAuthenticated && user && user.email_verified === false) {
-      router.replace("/check-email")
-    }
-  }, [checked, isAuthenticated, user, router])
+  // FOUNDER AUTH RULE (2026-09-29): after register/login the user always
+  // lands on /dashboard. Email verification is a non-blocking follow-up
+  // (register() already returns a working JWT and check-email-content.tsx
+  // is an opt-in banner) — it must never override the dashboard landing by
+  // force-redirecting to /check-email. This effect used to do exactly that
+  // (added in f1769ad) and silently sent every fresh signup to /check-email
+  // instead, which is the reason 0 real signups converted 2026-09-21+.
 
   if (!checked || isLoading) {
     return (
@@ -123,9 +125,9 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
     // minimal loading state so the seed card shows immediately.
   }
 
-  if (user && user.email_verified === false) {
-    return null
-  }
+  // FOUNDER AUTH RULE (2026-09-29): an unverified account is a fully
+  // functional /dashboard session, not a blank page — do not gate render on
+  // email_verified. (Removed alongside the /check-email redirect above.)
 
   const isPaid = isPaidPlan(user) || isPaidPlanId(getPlanFromToken())
   const isPower = user?.plan === "power"
