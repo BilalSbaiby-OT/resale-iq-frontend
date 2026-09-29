@@ -14,41 +14,39 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
-import { FIRST_CHECK_HREF } from "@/lib/checkout"
-import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typeahead"
-import { queryCoverageKind } from "@/lib/query-coverage"
 import { trackEvent } from "@/lib/analytics"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
 
-const INTENT_QUERY_KEY = "riq_intent_query"
-
-function saveIntentQuery(q: string) {
-  try {
-    window.localStorage.setItem(INTENT_QUERY_KEY, q)
-  } catch {
-    // why: private/incognito mode can throw on localStorage writes; the intent
-    // simply won't persist across the OAuth redirect — non-fatal, no user-facing state to fix.
-  }
-}
-
+// FOUNDER AUTH RULES (2026-09-29, binding): /login is a plain sign-in form —
+// no "what do you want to check" question, no intent typeahead. A successful
+// Google or email login lands on /dashboard, not /verdict, not /pricing.
+//
+// This intentionally reverses several prior CRO passes (C(tony)LoginVerdict
+// etc.) that routed logged-in users to /verdict on the (correct, at the time)
+// observation that the old /dashboard was a 12-line stub with zero activation
+// value. That is no longer true — dashboard-content.tsx now ships a
+// QuickCheckInput + live suggestion chips on first paint, so /dashboard IS a
+// real activation surface, not a dead end. The founder rule is explicit and
+// current; follow it.
+//
+// The ONE exception kept: if the visitor picked a paid plan before hitting
+// Google (riq_register_plan, set by register-form.tsx's ?plan= CTA), Google
+// OAuth bypasses Stripe entirely, so we still have to route them to checkout
+// — that is not a "what do you want to check" detour, it is completing a
+// payment they already started.
 export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const [intentQuery, setIntentQuery] = useState("")
-  // C(tony)GoogleCheckoutInterstitial: hold the pending Stripe URL + intent so
-  // Google OAuth signups see the same "You're about to unlock X" interstitial
-  // as email/password signups. Without this, Google new-signups skip straight
-  // to Stripe with zero context — same cold-jump problem that caused 95%+
-  // checkout abandonment in the email flow before the interstitial was added.
-  // Pattern: register-form.tsx pendingCheckoutUrl + pendingCheckoutIntent.
+  // C(tony)GoogleCheckoutInterstitial: hold the pending Stripe URL so Google
+  // OAuth signups that arrived with a paid plan selected see the same
+  // "You're about to unlock X" interstitial as email/password signups before
+  // the hard Stripe navigation.
   const [pendingCheckoutUrl, setPendingCheckoutUrl] = useState<string | null>(null)
-  const [pendingCheckoutIntent, setPendingCheckoutIntent] = useState<string>("")
   // C(tony)GoogleCheckoutPlanLabel: show plan name + price on the interstitial
   // so Google OAuth signups see the same price confirmation as email/password
-  // signups. Without this planLabel/planPrice are null and the plan row is
-  // omitted — users don't know what they're paying before clicking Stripe.
+  // signups.
   const [pendingPlanLabel, setPendingPlanLabel] = useState<string | null>(null)
   const [pendingPlanPrice, setPendingPlanPrice] = useState<number | null>(null)
   const { login } = useAuthStore()
@@ -60,22 +58,6 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     const preEmail = searchParams.get("email")
     if (preEmail) setEmail(decodeURIComponent(preEmail))
   }, [searchParams])
-
-  // C(tony)LoginIntentRecall: pre-populate the intent typeahead from
-  // localStorage on mount. A user who typed their item during /register
-  // (or a previous login session) should see it here without re-typing —
-  // so the goal-button immediately says "Sign in & check Stone Island Hoodie →"
-  // and on submit they route straight to their verdict.
-  // Pattern: Superhuman pre-fills context from the last session so returning
-  // users land in continuity, not a blank state.
-  // Only reads on mount — does NOT clear the key (verify-email owns that cleanup).
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(INTENT_QUERY_KEY)
-      if (saved && !intentQuery) setIntentQuery(saved)
-    } catch { /* private mode — intentQuery stays empty */ }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   /**
    * Google OAuth callback handler.
@@ -100,27 +82,12 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         .then(async user => {
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
           window.history.replaceState({}, "", "/login")
-          // C(tony)LoginVerdict: route returning Google users to /verdict (first
-          // real answer) instead of /dashboard (12-line stub, 0 activation value).
-          // Same fix as email login below — Elon's cleanup stripped both routes.
-          // C(tony)LoginIntentField: if the user typed a tracked intent query
-          // before hitting Google (saved to localStorage pre-redirect), route
-          // straight to their query's verdict instead of the generic seed.
-          let savedIntent: string | null = null
-          try {
-            savedIntent = window.localStorage.getItem(INTENT_QUERY_KEY)
-          } catch {
-            // why: localStorage read can throw in private/incognito mode; savedIntent
-            // stays null and we fall back to FIRST_CHECK_HREF below — safe default.
-          }
 
           // C(tony)GoogleCheckout: Google OAuth bypassed the email/password register
           // form, so Stripe checkout was never triggered. If riq_register_plan is
           // fresh (< 5 min), the user chose a plan before clicking Google — they
           // expect to pay. Resolve the price, create a checkout session, and redirect
-          // to Stripe now. Falls back to verdict on any error (same UX as before).
-          // Pattern: Stripe own documentation — never silently skip payment for a
-          // user who initiated a paid signup flow.
+          // to Stripe now. Falls back to /dashboard on any error.
           // C(tony)GoogleCheckoutInterstitial: instead of window.location.assign
           // directly to Stripe, set pendingCheckoutUrl so the interstitial card
           // renders first — same "You're about to unlock X" pattern as email flow.
@@ -143,7 +110,6 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
                   // instead of blind-jumping to Stripe. Same pattern as register-form.tsx
                   // pendingCheckoutUrl. The CTA "Continue to payment →" fires the assign.
                   try { trackEvent("checkout_interstitial_shown") } catch { /* never block */ }
-                  setPendingCheckoutIntent(savedIntent ?? "")
                   // C(tony)GoogleCheckoutPlanLabel: pass plan name + price so the
                   // interstitial shows the same plan row as the email/password path.
                   setPendingPlanLabel(matchedPlan?.name ?? null)
@@ -155,12 +121,15 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           } catch {
             // why: GoogleCheckout is best-effort — any error (network, stale plan
             // data, missing price_id, Stripe unavailable) must never block login.
-            // The user created their account successfully; falling back to verdict
-            // lets them reach the product. They can upgrade via /pricing later.
+            // The user created their account successfully; falling back to
+            // /dashboard lets them reach the product. They can upgrade via
+            // /pricing later.
           }
 
+          // FOUNDER RULE: a successful Google login lands on /dashboard, not
+          // /verdict, unless a paid checkout is in flight (handled above).
           if (!checkoutHandled) {
-            router.push(savedIntent ? `/verdict?q=${encodeURIComponent(savedIntent)}` : FIRST_CHECK_HREF)
+            router.push("/dashboard")
           }
         })
         .catch(() => {
@@ -188,29 +157,12 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         router.push("/check-email")
         return
       }
-      // C(tony)LoginVerdict: route to /verdict (first real answer, Nike AF1 seed)
-      // instead of /dashboard (12-line stub, 11/25 accounts ran 0 verdicts after
-      // Elon's cleanup stripped the intent routing). Value screen first, then nav.
-      // C(tony)LoginIntentField: if the user told us what they want to check,
-      // route straight to their query's verdict instead of the generic seed.
-      const trimmedIntent = intentQuery.trim()
-      if (trimmedIntent && queryCoverageKind(trimmedIntent) !== "untracked") {
-        saveIntentQuery(trimmedIntent)
-        router.push(`/verdict?q=${encodeURIComponent(trimmedIntent)}`)
-      } else {
-        router.push(FIRST_CHECK_HREF)
-      }
+      // FOUNDER RULE: a successful email/password login lands on /dashboard.
+      router.push("/dashboard")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
   }
-
-  // C(tony)GoogleCheckoutInterstitial: demand match for the pending checkout intent.
-  // Same lookup as register-form.tsx — findDemandMatch reads the already-fetched
-  // liveSuggestionsCache so there's no extra network call.
-  const pendingDemandMatch = pendingCheckoutIntent.trim().length >= 3
-    ? findDemandMatch(pendingCheckoutIntent)
-    : null
 
   // C(tony)GoogleCheckoutInterstitial: when pendingCheckoutUrl is set, render
   // the shared CheckoutInterstitialCard — Google OAuth path gets the same
@@ -219,8 +171,8 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     return (
       <AuthCard>
         <CheckoutInterstitialCard
-          intent={pendingCheckoutIntent}
-          demandMatch={pendingDemandMatch}
+          intent=""
+          demandMatch={null}
           planLabel={pendingPlanLabel}
           planPrice={pendingPlanPrice}
           onContinue={() => {
@@ -236,52 +188,19 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
 
-      <GoogleSignInButton
-        label="Continue with Google"
-        onBeforeNavigate={() => {
-          const trimmedIntent = intentQuery.trim()
-          if (trimmedIntent) saveIntentQuery(trimmedIntent)
-        }}
-      />
+      <GoogleSignInButton label="Continue with Google" />
       <AuthDivider text="or" />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {!loading && (
-          <div className="flex flex-col gap-1.5">
-            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>What do you want to check?</span>
-            <IntentTypeahead
-              value={intentQuery}
-              onChange={setIntentQuery}
-              onSelect={(v) => saveIntentQuery(v)}
-              placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
-              aria-label="What do you want to check?"
-            />
-          </div>
-        )}
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
         {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
-        {/* C(tony)LoginGoalButton: when the user types a tracked intent query, the
-            submit button names their specific goal — "Sign in & check Stone Island
-            Hoodie →" feels purposeful; generic "Sign in" feels like admin.
-            Canva/Linear pattern: label the action with the outcome, not the mechanism.
-            Only tracked items get the named CTA — untracked stays generic so we
-            don't promise a verdict we can't deliver. queryCoverageKind already
-            evaluated in handleSubmit; reuse the same check here for the label. */}
         <button
           type="submit"
           disabled={loading}
           className={`${AUTH_ACCENT_BUTTON} mt-1`}
         >
-          {loading
-            ? t.submitting
-            : (() => {
-                const trimmed = intentQuery.trim()
-                return trimmed && queryCoverageKind(trimmed) !== "untracked"
-                  ? `Sign in & check ${trimmed} →`
-                  : t.submit
-              })()
-          }
+          {loading ? t.submitting : t.submit}
         </button>
       </form>
       <div className={`text-center mt-5 text-[13px] ${AUTH_TEXT_SECONDARY}`}>

@@ -107,7 +107,8 @@ async function login(page: import("@playwright/test").Page) {
   await page.locator('input[type="email"]').fill("alice@example.com")
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in|Se connecter/i }).click()
-  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
+  // FOUNDER AUTH RULE (2026-09-29): login always lands on /dashboard.
+  await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
 }
 
 test("the side panel renders in French, collapsed to Check / Finds / Account", async ({ page, context }) => {

@@ -31,9 +31,8 @@ async function loginAndOpenDeals(page: Page) {
   await page.locator('input[type="email"]').fill("alice@example.com")
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in/i }).click()
-  // C134: login now redirects to /verdict?q=... (pre-seeded activation path)
-  // Wait for the verdict page rather than the cold-state element.
-  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
+  // FOUNDER AUTH RULE (2026-09-29): login always lands on /dashboard.
+  await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
   await page.goto("/deals")
   await expect(page.getByText("Track", { exact: true })).toBeVisible({ timeout: 20_000 })
 }
