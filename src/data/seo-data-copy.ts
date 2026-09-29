@@ -47,6 +47,12 @@ export interface DataChrome {
   footerMethod: string
   footerManual: string
   footerBlog: string
+  /** C(elon) SEO/CRO fix 2026-09-29: one-line CTA above the fold on /data,
+   *  right above the reused homepage free-check pattern (input + 3 free
+   *  sample chips). "Check any item → max price to pay" — mirrors the
+   *  audit's exact copy brief. Kept in dataChrome (not a new copy module)
+   *  so translation stays next to every other /data string. */
+  freeCheckLine: string
 }
 
 export const dataChrome: Record<Locale, DataChrome> = {
@@ -101,6 +107,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Methodology",
     footerManual: "→ The reselling manual",
     footerBlog: "→ Reselling guides",
+    freeCheckLine: "Check any item → max price to pay",
   },
   es: {
     title: "Volúmenes semanales de marca en Vinted — qué se vende en 2026",
@@ -153,6 +160,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Metodología",
     footerManual: "→ El manual de reventa",
     footerBlog: "→ Guías de reventa",
+    freeCheckLine: "Consulta cualquier artículo → precio máximo a pagar",
   },
   fr: {
     title: "Volumes hebdomadaires de marque sur Vinted — ce qui part en 2026",
@@ -205,6 +213,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Méthodologie",
     footerManual: "→ Le manuel de revente",
     footerBlog: "→ Guides de revente",
+    freeCheckLine: "Vérifiez n'importe quel article → prix maximum à payer",
   },
   de: {
     title: "Wöchentliche Markenvolumen auf Vinted — was 2026 geht",
@@ -257,6 +266,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Methodik",
     footerManual: "→ Das Wiederverkaufs-Handbuch",
     footerBlog: "→ Wiederverkaufs-Leitfäden",
+    freeCheckLine: "Prüfe jeden Artikel → Höchstpreis zum Kauf",
   },
   it: {
     title: "Volumi settimanali di marca su Vinted — cosa esce nel 2026",
@@ -309,6 +319,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Metodologia",
     footerManual: "→ Il manuale di rivendita",
     footerBlog: "→ Guide di rivendita",
+    freeCheckLine: "Controlla qualsiasi articolo → prezzo massimo da pagare",
   },
   pt: {
     title: "Volumes semanais de marca na Vinted — o que sai em 2026",
@@ -361,6 +372,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     footerMethod: "→ Metodologia",
     footerManual: "→ O manual de revenda",
     footerBlog: "→ Guias de revenda",
+    freeCheckLine: "Verifica qualquer artigo → preço máximo a pagar",
   },
 }
 

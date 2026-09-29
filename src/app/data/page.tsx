@@ -12,6 +12,8 @@ import { dataChrome, dataFaqs } from "@/data/seo-data-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { FreeChecker } from "@/components/tools/free-checker"
+import { HeroFreeChips } from "@/components/landing/hero-free-chips"
 
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
@@ -104,6 +106,22 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
           {t.ledeBefore}{tracked}{t.ledeCite}
         </p>
+
+        {/* SEO/CRO fix 2026-09-29: /data's only above-the-fold action used to be
+            scrolling past the whole table to the footer CTA — measured 30d: 24
+            ChatGPT + 16 Google visitors landed here and 0 reached checkout.
+            Reuses the exact homepage free-check pattern (input + the 3 free-
+            sample chips) via the SAME components (FreeChecker variant="hero" +
+            HeroFreeChips) rather than a new implementation — check:dupes guard.
+            Placed BEFORE the citeable-totals aside so it is the first actionable
+            thing on 390px, above the (untouched, still-SSR) data table below. */}
+        <div className="riq-hero-checker" style={{ marginTop: 18, maxWidth: 560 }}>
+          <p style={{ fontSize: 14.5, fontWeight: 600, color: "#eef1f7", margin: "0 0 10px" }}>
+            {t.freeCheckLine}
+          </p>
+          <FreeChecker locale={locale} variant="hero" initialQuery="" initialResult={null} />
+          <HeroFreeChips locale={locale} />
+        </div>
 
         <aside
           data-testid="riq-data-benchmark"
