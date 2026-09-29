@@ -140,7 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/vs": absolute("/vs"),
     "/for": absolute("/for"),
   }
-  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/buy", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for"].map((p) => ({
+  const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/buy", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for", "/partners"].map((p) => ({
     url: `${BASE}${p}`,
     lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : p === "/blog" ? BLOG_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
