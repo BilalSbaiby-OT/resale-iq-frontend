@@ -91,11 +91,20 @@ export function BlogInlineChecker({
   locale = "en",
   initialResult,
   buyListPreview,
+  roiRows,
 }: {
   preflightQuery: string
   locale?: Locale
   /** SSR-prefetched verdict — renders HardPaywallCard on first paint, no spinner. */
   initialResult?: PaywallPayload | null
+  /**
+   * H138(elon): unlocked buy-list rows for the RoiExampleCard. Separate from
+   * buyListPreview (which uses locked rows for FOMO via C222). RoiExampleCard
+   * filters !locked internally but if buyListPreview is all locked rows it
+   * renders nothing. Passing unlocked rows here fixes the silent null render.
+   * Falls back to buyListPreview when roiRows is not provided.
+   */
+  roiRows?: SsrBuyListItem[] | null
   /**
    * C221(elon): up to 2 unlocked buy-list rows from the page's proofRows.
    * Shown inside the above-fold CTA so visitors see actual products + prices
@@ -223,8 +232,12 @@ export function BlogInlineChecker({
           is available (RoiExampleCard contract). CRO #4 (objection: worth it?) +
           #8 (specificity: real item, real margin, not a claim) +
           #12 (conviction before the FreeChecker paywall). Revenue 2026-09-29. H137. */}
-      {!isFreeModelQuery && buyListPreview && buyListPreview.length > 0 && (
-        <RoiExampleCard items={buyListPreview} />
+      {/* H138(elon): use roiRows (unlocked) if available, else fall back to buyListPreview.
+          C222 passes locked rows as buyListPreview for FOMO in the CTA above; RoiExampleCard
+          filters !locked so it was silently rendering nothing on posts where all buyListPreview
+          rows are locked. roiRows is the unlocked slice from the page, no extra fetch. */}
+      {!isFreeModelQuery && (roiRows ?? buyListPreview) && (roiRows ?? buyListPreview)!.length > 0 && (
+        <RoiExampleCard items={(roiRows ?? buyListPreview)!} />
       )}
 
       {/* C214: Buy-list pitch for free-model visitors (NB530, AF1, Samba).

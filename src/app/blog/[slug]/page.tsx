@@ -260,6 +260,13 @@ export default async function BlogPostPage(
                 const preview = locked.length > 0 ? locked : unlocked
                 return preview.slice(0, 2).length > 0 ? preview.slice(0, 2) : null
               })()}
+            roiRows={(() => {
+                // H138(elon): unlocked rows for RoiExampleCard. C222 above sends locked rows
+                // as buyListPreview so the ROI card was silently rendering nothing (it filters
+                // !locked). Pass the unlocked slice separately — no extra fetch, same proofRows.
+                const unlocked = proofRows?.filter(r => !r.locked) ?? []
+                return unlocked.length > 0 ? unlocked : null
+              })()}
           />
         )}
         {p.definedTerm && (
