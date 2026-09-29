@@ -28,11 +28,13 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // Example card no longer pre-rendered (initialResult=null) — SSR buy list is the proof
   await expect(hero.getByText("Example", { exact: true })).toHaveCount(0)
   await expect(hero.getByRole("heading", { level: 1 })).not.toContainText(/Adidas Samba/)
-  await expect(hero.getByRole("link", { name: "Adidas Samba" })).toBeVisible()
-  await expect(hero.getByRole("link", { name: "Nike Air Force 1" })).toBeVisible()
-  await expect(hero.getByRole("link", { name: "New Balance 530" })).toBeVisible()
-  await expect(hero.getByRole("link", { name: "Levi's 501" })).toHaveCount(0)
-  await expect(hero.getByRole("link", { name: "New Balance 550" })).toHaveCount(0)
+  // H139: free-sample chips are now buttons (inline fetch), not links (navigation).
+  await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "New Balance 530" })).toBeVisible()
+  // Non-free-model queries must not appear as chip buttons.
+  await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
+  await expect(hero.getByRole("button", { name: "New Balance 550" })).toHaveCount(0)
   // riq-free-scope says "first check is free" — the exact wording tracks heroFreeScope copy.
   await expect(hero.getByTestId("riq-free-scope")).toContainText(/first/i)
   await expect(hero.getByTestId("riq-free-scope")).toContainText(/free/i)
