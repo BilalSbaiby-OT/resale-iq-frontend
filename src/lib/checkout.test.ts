@@ -14,8 +14,10 @@ import {
 } from "./checkout.ts"
 
 test("first-check CTA is a pre-filled verdict, not an empty dashboard", () => {
-  assert.equal(FIRST_CHECK_QUERY, "New Balance 530")
-  assert.equal(FIRST_CHECK_HREF, "/verdict?q=New%20Balance%20530")
+  // C(tony)AF1Demo 2026-09-29: AF1 returns WATCH+buy_below=€31.16 (measured live).
+  // NB530 returned SKIP+null — a red "don't buy" as new user's first impression.
+  assert.equal(FIRST_CHECK_QUERY, "Nike Air Force 1")
+  assert.equal(FIRST_CHECK_HREF, "/verdict?q=Nike%20Air%20Force%201")
 })
 
 test("locale maps to the VAT country Stripe Tax needs", () => {
