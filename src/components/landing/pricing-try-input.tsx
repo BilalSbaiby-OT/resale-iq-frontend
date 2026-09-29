@@ -343,9 +343,19 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
       <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
         Unlock sell-through, top sizes & all items for <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
       </p>
+      {/* H156 CRO: query-specific CTA label on /pricing inline verdict card.
+          Before: "Unlock all items — €19/mo →" — generic, no message match.
+          After: "Unlock Nike Air Force 1 buy-below — €19/mo →" — names the
+          exact item the visitor just saw a verdict for. Same pattern proven
+          in H154 (VerdictUpsellCta) and H155 (HeroInlineVerdictCard).
+          Peak conviction moment: visitor just saw buy_below + verdict for
+          their chip — the CTA should mirror it, not reset to abstract copy.
+          CRO #3 (message match: their item in the ask) + #10 (CTA discipline:
+          solution-aware → commit-framed label).
+          Revenue 2026-09-29. H156. */}
       <GuestCheckoutButton
         locale={locale}
-        label="Unlock all items — €19/mo →"
+        label={query ? `Unlock ${query} buy-below — €19/mo →` : "Unlock all items — €19/mo →"}
         src="inline_verdict_cta"
         query={query}
         customerEmail={capturedEmail}
