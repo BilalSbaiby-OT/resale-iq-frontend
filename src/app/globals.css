@@ -380,6 +380,12 @@ input[type="submit"]:not(:disabled):active,
   display: block;
   object-fit: contain;
 }
+/* Marks are filled #e8ecf4 for the dark app. On the light front door that
+   grey disappears into the tile. Flatten to black so Nike/Adidas/etc. read
+   as normal marks, not ghosts. */
+html.riq-light .riq-brand-mark img {
+  filter: brightness(0);
+}
 .riq-brand-more {
   display: flex;
   align-items: center;
