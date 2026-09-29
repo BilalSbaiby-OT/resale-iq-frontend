@@ -124,14 +124,24 @@ test("scale models skip doorway clones; insufficient-data brands are allowed", (
   assert.equal(brandHasCategory("asics", "Sneakers"), false)
 })
 
-test("free allowlist is Samba, AF1 and NB 530 only", () => {
-  assert.deepEqual(FREE_CHECK_QUERIES, ["Adidas Samba", "Nike Air Force 1", "New Balance 530"])
-  assert.deepEqual([...TEASER_QUERIES], [...FREE_CHECK_QUERIES])
+test("free-check SEO model pages are Samba and AF1; Fred Perry Polo is the third free sample without a dedicated page", () => {
+  // FREE_CHECK_QUERIES gates the inline free verdict on a SPECIFIC scale-locked
+  // /flip/{brand}/model/{slug} page (see WEEK1_MODEL_SLUGS/WEEK2_MODEL_SLUGS —
+  // frozen at 32 total pages by design, see file header). Fred Perry Polo
+  // replaced New Balance 530 as the backend's third free sample (2026-09-29,
+  // NB530 verdicts SKIP live with buy_below=null) but does not yet have its
+  // own catalog page, so FREE_CHECK_QUERIES is a SUBSET of TEASER_QUERIES
+  // (the /tools + llms.txt teaser set), not an exact match.
+  assert.deepEqual(FREE_CHECK_QUERIES, ["Adidas Samba", "Nike Air Force 1"])
+  for (const q of FREE_CHECK_QUERIES) {
+    assert.ok((TEASER_QUERIES as readonly string[]).includes(q), `${q} missing from TEASER_QUERIES`)
+  }
+  assert.ok((TEASER_QUERIES as readonly string[]).includes("Fred Perry Polo"))
   assert.equal(getSeoModel("adidas", "samba")?.freeCheck, true)
   assert.equal(getSeoModel("nike", "air-force-1")?.freeCheck, true)
-  assert.equal(getSeoModel("new-balance", "530")?.freeCheck, true)
+  assert.equal(getSeoModel("new-balance", "530")?.freeCheck, false)
   assert.equal(getSeoModel("adidas", "gazelle")?.freeCheck, false)
-  assert.equal(SEO_MODELS.filter((m) => m.freeCheck).length, 3)
+  assert.equal(SEO_MODELS.filter((m) => m.freeCheck).length, 2)
 })
 
 test("model titles are answer-first, branded, and number-free", () => {
