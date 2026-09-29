@@ -17,6 +17,7 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { ssrBlogVerdict } from "@/lib/ssr-blog-verdict"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { BlogInlineChecker } from "@/components/blog/blog-inline-checker"
+import { BlogFooterCta } from "@/components/blog/blog-footer-cta"
 import { BlogStickyBar } from "@/components/blog/blog-sticky-bar"
 
 /**
@@ -374,15 +375,11 @@ export default async function BlogPostPage(
               + #12 (conversion momentum: 11 min read → earned CTA).
               Revenue 2026-09-24. */}
           {p.preflightQuery ? (
-            <>
-              <GuestCheckoutButton
-                locale={locale}
-                label={`Unlock ${p.preflightQuery} buy-below — €19/mo →`}
-                src="blog_footer_cta"
-                query={p.preflightQuery}
-              />
-              <div style={{ fontSize: 11.5, color: "#4d5a75", margin: "10px 0 14px" }}><a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a></div>
-            </>
+            /* H146 CRO: BlogFooterCta is a Client Component that reads riq_capture_email
+               on mount so visitors who captured email above-fold (H140) or via sticky bar
+               (H142) skip Stripe's email field at the footer — last friction in the
+               max-conviction earned-CTA moment. blog 130/7d. Revenue 2026-09-29. */
+            <BlogFooterCta preflightQuery={p.preflightQuery} locale={locale} />
           ) : (
             <>
               <Link
