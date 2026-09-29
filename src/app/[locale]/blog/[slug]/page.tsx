@@ -30,8 +30,11 @@ export async function generateMetadata(
   const { locale, slug } = await params
   if (!isPathLocale(locale) || !isBlogCloneSlug(slug)) return {}
   if (locale === "es" && slug in BLOG_CLONE_ES_REDIRECT) return {}
-  const copy = getBlogCloneCopy(slug, locale)
-  if (!copy) return {}
+  const raw = getBlogCloneCopy(slug, locale)
+  if (!raw) return {}
+  // Fill {weekly}/{brands}/{tracked} in the description too — the body was
+  // filled but the meta description shipped the raw tokens.
+  const copy = fillLandingPlaceholders(raw, await landingStats())
   const title = landingPageTitle(copy)
   const path = blogClonePath(slug, locale)
   return {

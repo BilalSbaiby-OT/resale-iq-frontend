@@ -12,6 +12,7 @@ import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
+import { blogCloneHreflang, isBlogCloneSlug } from "@/lib/seo-landings"
 import { OG_IMAGES } from "@/lib/og-image"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { ssrBlogVerdict } from "@/lib/ssr-blog-verdict"
@@ -32,17 +33,19 @@ import { liveSellsBestIntro } from "@/lib/live-sells-best-intro"
  * future that may not arrive. If Spanish earns impressions, replace this with a
  * real i18n model AND move the language off the <article> tag onto <html lang>.
  */
+const PRICE_SLUG = "how-to-price-items-on-vinted"
+// Full set (en + es + fr/de/it/pt + x-default) so the EN post and the ES post
+// both list every locale clone that lists THEM. hreflang is only honoured when
+// reciprocal, and the /fr /de /it /pt clones already point at both EN and ES.
+const PRICE_HREFLANG = absolutise(blogCloneHreflang(PRICE_SLUG))
+
+function absolutise(langs: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(Object.entries(langs).map(([k, v]) => [k, `https://resaleiq.dev${v}`]))
+}
+
 const TRANSLATIONS: Record<string, Record<string, string>> = {
-  "how-to-price-items-on-vinted": {
-    en: "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
-    "es-ES": "https://resaleiq.dev/blog/como-poner-precio-en-vinted",
-    "x-default": "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
-  },
-  "como-poner-precio-en-vinted": {
-    en: "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
-    "es-ES": "https://resaleiq.dev/blog/como-poner-precio-en-vinted",
-    "x-default": "https://resaleiq.dev/blog/how-to-price-items-on-vinted",
-  },
+  [PRICE_SLUG]: PRICE_HREFLANG,
+  "como-poner-precio-en-vinted": PRICE_HREFLANG,
 }
 
 /** Posts not written in the site's default language. */
@@ -77,10 +80,9 @@ export async function generateMetadata(
       // declare both directions via TRANSLATIONS. All English-only posts emit
       // en + x-default (self-referencing) so LLM crawlers can associate this
       // page with the en locale — 0 hreflang = no GEO/AEO locale signal at all.
-      languages: TRANSLATIONS[p.slug] ?? {
-        en: `/blog/${p.slug}`,
-        "x-default": `/blog/${p.slug}`,
-      },
+      languages: TRANSLATIONS[p.slug] ?? (isBlogCloneSlug(p.slug)
+        ? blogCloneHreflang(p.slug)
+        : { en: `/blog/${p.slug}`, "x-default": `/blog/${p.slug}` }),
     },
     openGraph: { title: seoTitle, description: p.description, type: "article", images: OG_IMAGES },
     twitter: { card: "summary_large_image", title: seoTitle, description: p.description, images: OG_IMAGES },

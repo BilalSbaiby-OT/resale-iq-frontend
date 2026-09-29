@@ -41,6 +41,8 @@ export function fillLandingPlaceholders(
     s.replaceAll("{tracked}", stats.tracked).replaceAll("{brands}", stats.brands).replaceAll("{weekly}", stats.weekly)
   return {
     ...copy,
+    title: fill(copy.title),
+    description: fill(copy.description),
     intro: fill(copy.intro),
     verdict: fill(copy.verdict),
     ctaSub: fill(copy.ctaSub),
@@ -78,8 +80,12 @@ export async function landingMetadata(
   slug: string,
   locale: Locale,
 ): Promise<Metadata> {
-  const copy = getLandingCopy(kind, slug, locale)
-  if (!copy) return { title: "Not found — Resale IQ" }
+  const raw = getLandingCopy(kind, slug, locale)
+  if (!raw) return { title: "Not found — Resale IQ" }
+  // The description carries the same {weekly}/{brands}/{tracked} tokens as the
+  // body. Emitting it raw published literal "{weekly}" in the SERP snippet and
+  // og:description of every /best clone (see landing-placeholders.test.ts).
+  const copy = fillLandingPlaceholders(raw, await landingStats())
   const title = landingPageTitle(copy)
   const path = landingPath(kind, slug, locale)
   const social = landingSocialMeta(kind, slug, copy, locale)

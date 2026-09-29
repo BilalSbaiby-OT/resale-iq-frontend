@@ -7,6 +7,7 @@ import { SEO_MODELS, modelPath } from "@/lib/seo-models"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 import { LANDINGS, landingPath, landingHubPath, BLOG_CLONE_SLUGS, blogClonePath } from "@/lib/seo-landings"
+import { isRedirectedPath } from "@/lib/sitemap-redirects"
 import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, catSlug as buyCatSlug } from "@/lib/buy-data"
 
 const BASE = "https://resaleiq.dev"
@@ -345,7 +346,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // No /buy/category/* in batch 1 — add after leaf pages prove indexable
 
-  return [
+  const entries = [
     ...staticPages,
     ...localePages,
     ...methodologyLocalePages,
@@ -368,4 +369,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...buyBrandCategoryPages,
     // buyCategoryHubPages deferred to batch 2 (prove leaves index first)
   ]
+  // Never list a URL that 308s to another one (bershka/mango/plural stone-island).
+  return entries.filter((e) => !isRedirectedPath(e.url))
 }
