@@ -394,6 +394,23 @@ const server = http.createServer(async (req, res) => {
     json(res, 200, SNAPSHOT)
     return
   }
+  if (url.startsWith("/api/public/buy-list")) {
+    // Mirrors the shape src/lib/ssr-buy-list.ts#shape() and
+    // home-buy-list.tsx#BuyListItem expect: 3 free (unlocked) priced rows +
+    // 2 locked rows, so the SSR teaser + HomeBuyList client fallback + the
+    // e2e/mobile-layout.spec.ts text-diet guard (>=3 priced rows) all have
+    // real data to render against, same as the live backend.
+    json(res, 200, {
+      items: [
+        { brand: "Stone Island", model: "Hoodie", category: "Hoodies", verdict: "WATCH", sold_7d: 166, sold_30d_evidence: null, avg_price_eur: 62.23, buy_below: 41.38, locked: false },
+        { brand: "Fred Perry", model: "Fred Perry Polo", category: "Shirts", verdict: "WATCH", sold_7d: null, sold_30d_evidence: 1656, avg_price_eur: 12.22, buy_below: 8.13, locked: false },
+        { brand: "Fred Perry", model: "Fred Perry T-Shirt", category: "T-Shirts", verdict: "WATCH", sold_7d: null, sold_30d_evidence: 659, avg_price_eur: 11.53, buy_below: 7.67, locked: false },
+        { brand: "Balenciaga", model: "Track", category: "Other", verdict: "WATCH", sold_7d: null, sold_30d_evidence: null, avg_price_eur: null, buy_below: null, locked: true },
+        { brand: "Patagonia", model: "Synchilla", category: "Jackets", verdict: "WATCH", sold_7d: null, sold_30d_evidence: null, avg_price_eur: null, buy_below: null, locked: true },
+      ],
+    })
+    return
+  }
   if (url.startsWith("/api/ping")) {
     json(res, 200, { ok: true, db: "connected" })
     return
