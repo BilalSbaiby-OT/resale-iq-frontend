@@ -19,8 +19,9 @@ import { BAKED_PRICE_IDS } from "./pricing.ts"
 // C(tony)AF1Demo: Nike Air Force 1 is the activation demo. NB530 returned SKIP+buy_below=null
 // in prod (2026-09-29 measured live) — a new user's first verdict was red "SKIP" with no price.
 // AF1 returns WATCH+buy_below=€31.16 — a complete, actionable answer that shows what the
-// product actually does. NB530 stays in FREE_MODELS as a chip; it is NOT the first impression.
-// FREE_MODELS[0] is still "New Balance 530" (homepage chips) — FIRST_CHECK_QUERY is separate.
+// product actually does. NB530 was removed from FREE_MODELS (2026-09-29, replaced with
+// Fred Perry Polo — same measurement); it was never the first impression anyway.
+// FREE_MODELS[0] is now "Fred Perry Polo" (homepage chips) — FIRST_CHECK_QUERY is separate.
 export const FIRST_CHECK_QUERY = "Nike Air Force 1"
 export const FIRST_CHECK_HREF = `/verdict?q=${encodeURIComponent(FIRST_CHECK_QUERY)}`
 

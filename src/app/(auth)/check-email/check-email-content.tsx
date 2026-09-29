@@ -177,12 +177,14 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   }
 
   // C149(tony): preview link MUST resolve to a public sample query — Nike AF1,
-  // Adidas Samba, or New Balance 530. If intentQuery is e.g. "Stone Island Hoodie"
+  // Adidas Samba, or Fred Perry Polo. If intentQuery is e.g. "Stone Island Hoodie"
   // and we link to /verdict?q=Stone+Island+Hoodie the unpaid user lands on the
   // paywall, not a result. The progress step still names their intent (promise kept);
   // the preview proves the product via the free demo. We do NOT use intentQuery
   // as the href here.
-  const FREE_SAMPLE_QUERIES = ["New Balance 530", "Adidas Samba", "Nike Air Force 1"]
+  // 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
+  // SKIP live with buy_below=null. Keep in sync with FREE_MODELS.
+  const FREE_SAMPLE_QUERIES = ["Fred Perry Polo", "Adidas Samba", "Nike Air Force 1"]
   const intentIsSample = intentQuery
     ? FREE_SAMPLE_QUERIES.some(s => s.toLowerCase() === intentQuery.trim().toLowerCase())
     : false

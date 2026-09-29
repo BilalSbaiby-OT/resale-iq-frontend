@@ -39,7 +39,10 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
-const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
+// 2026-09-29: New Balance 530 replaced with Fred Perry Polo (NB530 verdicts
+// SKIP live with buy_below=null — see src/lib/working-models.ts for the
+// measurement). Keep in sync with FREE_MODELS / api/routes.py _PUBLIC_SAMPLE_QUERIES.
+const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "Fred Perry Polo"] as const
 
 type VerdictType = "BUY" | "WATCH" | "SKIP" | "STRONG BUY"
 

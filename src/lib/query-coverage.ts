@@ -2,7 +2,7 @@
  * IQ-002 FE half — coverage vs paywall.
  *
  * Backend today returns PAYWALL (402) for almost every anon query outside
- * Samba / AF1 / NB 530. Do not invent fields. When the API already names
+ * Samba / AF1 / Fred Perry Polo. Do not invent fields. When the API already names
  * unknown/untracked (optional `reason` / `coverage` / `coverage_class` /
  * `verdict: UNKNOWN`) OR the query matches no catalog *brand* we already
  * ship, prefer a “not in catalog” face over Stripe copy.

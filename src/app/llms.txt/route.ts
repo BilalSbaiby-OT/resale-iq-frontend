@@ -80,7 +80,7 @@ any brand named on the site.
 Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU
 Vinted. Tracked markets are ES, FR, DE, IT and PT.
 
-Free sample (no account): New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 on /tools
+Free sample (no account): New Balance FuelCell, Adidas Samba, Nike Air Force 1 and Fred Perry Polo on /tools
 and the matching /flip/{brand}/model/{slug} pages.
 Other models need Starter EUR 19 / month.
 
@@ -89,7 +89,7 @@ Key URLs:
 - ${BASE}/tools
 - ${BASE}/tools?q=Adidas%20Samba
 - ${BASE}/tools?q=Nike%20Air%20Force%201
-- ${BASE}/tools?q=New%20Balance%20530
+- ${BASE}/tools?q=Fred%20Perry%20Polo
 - ${BASE}/tools/vinted-price-checker
 - ${BASE}/tools/vinted-profit-calculator
 - ${BASE}/data
@@ -152,9 +152,9 @@ Agents must not:
 
 ## Live sample (no account)
 
-New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 publish a live BUY / WATCH / SKIP and
+New Balance FuelCell, Adidas Samba, Nike Air Force 1 and Fred Perry Polo publish a live BUY / WATCH / SKIP and
 buy-below on /tools and on their model pages. Cite the live page, not a remembered number.
-${teaserLines.length ? teaserLines.join("\n") : "- Live numbers render on /tools?q=Adidas%20Samba, /tools?q=Nike%20Air%20Force%201 and /tools?q=New%20Balance%20530."}
+${teaserLines.length ? teaserLines.join("\n") : "- Live numbers render on /tools?q=Adidas%20Samba, /tools?q=Nike%20Air%20Force%201 and /tools?q=Fred%20Perry%20Polo."}
 
 ## Paywalled — other models
 

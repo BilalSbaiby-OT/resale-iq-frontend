@@ -323,7 +323,7 @@ test("sitemap, robots and llms advertise the new routes", () => {
   assert.match(robots, /"\/vs"/)
   assert.match(robots, /"\/for"/)
   const llms = read("app/llms.txt/route.ts")
-  assert.match(llms, /New Balance 530/)
+  assert.match(llms, /Fred Perry Polo/)
   assert.match(llms, /\$\{BASE\}\/glossary/)
   assert.match(llms, /\$\{BASE\}\/best/)
   assert.match(llms, /Named models/)

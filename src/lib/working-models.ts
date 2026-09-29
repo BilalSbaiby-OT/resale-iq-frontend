@@ -4,7 +4,7 @@
  * as the next click — not "Nike sneaker" (a brand-average, not an item).
  *
  * WORKING_MODELS is the signed-in catalogue. FREE_MODELS is the anon
- * allowlist — live `/api/verdict` 200 with buy-below (checked 2026-09-21).
+ * allowlist — live `/api/verdict` 200 with buy-below (checked 2026-09-29).
  * Levi's 501 and New Balance 550 402 for anonymous visitors; never put
  * them on a free chip.
  */
@@ -16,18 +16,30 @@
 // real demand figure AND substitution alternatives, or the demo teaches people
 // we have no data.
 //
-// 2026-09-22 (re-measured live AFTER the staleness fix, commit 34df8b4):
-//   New Balance 530      WATCH/MEDIUM  buy<=€25.61  1235 sold/30d  3 alternatives
+// 2026-09-29: New Balance 530 REMOVED as a free sample. Measured live, it
+// verdicts SKIP with buy_below=null (73 watched departures/7d vs 125,627
+// active listings) — the single most-searched free query showed every new
+// visitor a red dead-end with no price. It was also FIRST_CHECK_QUERY
+// (src/lib/checkout.ts, since replaced with Nike AF1 by a separate fix) and
+// the register-verify preview sample, so the WORST possible number was a new
+// account's very first impression.
+//
+// Replaced with Fred Perry Polo. Chosen by querying prod model_signals
+// directly (comparable_n>=20, buy_below not null, sold_30d DESC) and
+// confirming through engine.sufficiency.signal_verdict (the SAME function
+// /api/verdict calls) — not guessed. Live: WATCH, buy_below €8.18,
+// sold_30d 1656 (highest of every candidate clearing the n>=20 floor),
+// comparable_n 65, 3 alternatives.
+//
+// 2026-09-22 figures below still hold for AF1/Samba (re-verify FuelCell
+// before promoting it again):
 //   Nike Air Force 1     WATCH/MEDIUM  buy<=€31.24   181 sold/30d  3 alternatives
 //   Adidas Samba         WATCH/MEDIUM  buy<=€31.83    88 sold/30d  3 alternatives
 //   New Balance FuelCell WATCH/LOW     buy<=€47.23  NO demand fig  0 alternatives
 //                        └─ "Too few comparable departures", reason=thin_comparables
-// FuelCell was previously FIRST, chosen when it returned BUY on pre-outage data.
-// That is no longer true: it is now the ONLY one of the four with no demand
-// figure and no alternatives — our weakest possible first impression. Demoted
-// to last. NB 530 leads: strongest evidence (1235/30d) and it is also our
-// most-searched model, so the demo matches real intent.
+// FuelCell stays last: it is the only one of the four with no demand figure
+// and no alternatives — our weakest possible first impression.
 // RE-CHECK THIS ORDER whenever the demand pipeline changes.
-export const FREE_MODELS = ["New Balance 530", "Nike Air Force 1", "Adidas Samba", "New Balance FuelCell"] as const
+export const FREE_MODELS = ["Fred Perry Polo", "Nike Air Force 1", "Adidas Samba", "New Balance FuelCell"] as const
 
-export const WORKING_MODELS = ["New Balance 530", "Levi's 501", "New Balance 550"] as const
+export const WORKING_MODELS = ["Fred Perry Polo", "Levi's 501", "New Balance 550"] as const

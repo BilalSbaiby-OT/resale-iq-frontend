@@ -113,6 +113,21 @@ test.describe("register: free by default, dashboard landing, waiver only on paid
     await expect(page).toHaveURL(/\/register/)
   })
 
+  test("paid (?plan=) submit without the withdrawal waiver moves keyboard focus to the checkbox", async ({ page }) => {
+    // Register waiver dead-end (pageviews: register_submit_failed at
+    // /register?reason=waiver). scrollIntoView alone helps mouse/touch users
+    // but leaves keyboard and screen-reader users stranded on the submit
+    // button with no indication where the blocking control is. Moving focus
+    // to the checkbox makes the failure recoverable for every input method,
+    // not just pointer ones.
+    await mockPaidCheckout(page, PAID_CHECKOUT_URL)
+    await page.goto("/register?plan=operator")
+    await fillRegister(page, `e2e-nowaiver-focus-${Date.now()}@example.com`)
+    await page.getByRole("button", { name: /Activate .* access/i }).click()
+    await expect(page.getByText(/immediate access/i)).toBeVisible()
+    await expect(page.locator('input[type="checkbox"]')).toBeFocused()
+  })
+
   test("paid (?plan=) submit with the waiver ticked redirects to Stripe Checkout", async ({ page }) => {
     const events = captureTrackEvents(page)
     await mockPaidCheckout(page)

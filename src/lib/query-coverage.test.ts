@@ -5,7 +5,7 @@ import { apiSignalsUntracked, checkerFace, queryCoverageKind } from "./query-cov
 test("free samples, catalog brands, and off-catalog queries classify without invented API fields", () => {
   assert.equal(queryCoverageKind("Adidas Samba"), "free_sample")
   assert.equal(queryCoverageKind("nike air force 1"), "free_sample")
-  assert.equal(queryCoverageKind("New Balance 530"), "free_sample")
+  assert.equal(queryCoverageKind("Fred Perry Polo"), "free_sample")
   assert.equal(queryCoverageKind("Nike Dunk"), "catalog")
   assert.equal(queryCoverageKind("Gucci"), "catalog")
   assert.equal(queryCoverageKind("Levi's 501"), "catalog")

@@ -107,6 +107,14 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // it. Only relevant on the paid path — the waiver never blocks account
   // creation (see header comment).
   const waiverRef = useRef<HTMLLabelElement>(null)
+  // Register waiver dead-end fix (pageviews: register_submit_failed at
+  // /register?reason=waiver). scrollIntoView on the label alone helps
+  // mouse/touch users but leaves keyboard and screen-reader users stranded
+  // on the submit button — nothing tells them WHERE the blocking control is
+  // without sight. A dedicated ref on the checkbox INPUT (not the label) lets
+  // the failure move real keyboard focus there, which is both visible (focus
+  // ring) and announced (screen reader reads the checkbox's own label text).
+  const waiverCheckboxRef = useRef<HTMLInputElement>(null)
   const [waiverHighlight, setWaiverHighlight] = useState(false)
 
   const track = (event: FunnelEvent, extra?: { reason?: RegisterFailReason }) => {
@@ -179,6 +187,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
         setError(t.errorAcceptWaiver)
         setWaiverHighlight(true)
         waiverRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+        // Move real keyboard focus to the checkbox itself (not just scroll)
+        // so keyboard/screen-reader users land on the blocking control, not
+        // stranded on the submit button. See waiverCheckboxRef comment above.
+        waiverCheckboxRef.current?.focus()
         setTimeout(() => setWaiverHighlight(false), 2000)
         return
       }
@@ -317,7 +329,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 </p>
               )}
               <label ref={waiverRef} className={`flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)] rounded-lg transition-colors duration-300 ${waiverHighlight ? "bg-red-500/10 ring-1 ring-red-500/50 px-2 py-1" : ""}`} data-i18n-pending="waiver-legal-review">
-                <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
+                <input ref={waiverCheckboxRef} type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
                 <span>{WITHDRAWAL_WAIVER_TEXT}</span>
               </label>
             </>

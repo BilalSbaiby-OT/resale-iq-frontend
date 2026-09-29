@@ -969,7 +969,7 @@ export function PricingSection({
               {[
                 { label: "Nike Air Force 1", q: "Nike Air Force 1" },
                 { label: "Adidas Samba", q: "Adidas Samba" },
-                { label: "New Balance 530", q: "New Balance 530" },
+                { label: "Fred Perry Polo", q: "Fred Perry Polo" },
               ].map(({ label, q }) => (
                 <button
                   key={q}

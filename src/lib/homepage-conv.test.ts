@@ -38,12 +38,12 @@ test("FREE_MODELS leads with a BUY model and never exposes paywalled SKUs", () =
   // Keep this list in sync with _PUBLIC_SAMPLE_QUERIES in api/routes.py,
   // or a chip will 402.
   assert.equal(FREE_MODELS.length, 4)
-  assert.equal(FREE_MODELS[0], "New Balance 530")
+  assert.equal(FREE_MODELS[0], "Fred Perry Polo")
   assert.ok(
     !FREE_MODELS.slice(0, 3).includes("New Balance FuelCell" as never),
     "FuelCell returns no demand figure and no alternatives — it must not be a lead demo chip",
   )
-  for (const expected of ["New Balance 530", "Nike Air Force 1", "Adidas Samba", "New Balance FuelCell"]) {
+  for (const expected of ["Fred Perry Polo", "Nike Air Force 1", "Adidas Samba", "New Balance FuelCell"]) {
     assert.ok(FREE_MODELS.includes(expected as never), `${expected} missing from FREE_MODELS`)
   }
   for (const paywalled of ["Levi's 501", "New Balance 550"]) {

@@ -14,13 +14,13 @@ import type { Locale } from "./i18n.ts"
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const read = (rel: string) => readFileSync(join(root, rel), "utf8")
 
-test("trial-copy names all three free models, including New Balance 530", () => {
+test("trial-copy names all three free models, including Fred Perry Polo", () => {
   for (const model of FREE_MODELS) {
     assert.match(TRIAL_LIMITS_SENTENCE, new RegExp(model))
   }
   const locales: Locale[] = ["en", "fr", "es", "de", "it", "pt"]
   for (const locale of locales) {
-    assert.match(TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale], /New Balance 530/)
+    assert.match(TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale], /Fred Perry Polo/)
     assert.match(TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale], /Adidas Samba/)
     assert.match(TRIAL_LIMITS_SENTENCE_BY_LOCALE[locale], /Nike Air Force 1/)
   }
@@ -29,7 +29,7 @@ test("trial-copy names all three free models, including New Balance 530", () => 
 test("support FAQ names all three free models", () => {
   const src = read("lib/support-copy.ts")
   assert.match(src, /three models/)
-  assert.match(src, /New Balance 530/)
+  assert.match(src, /Fred Perry Polo/)
   assert.doesNotMatch(src, /Yes for two models/)
 })
 
