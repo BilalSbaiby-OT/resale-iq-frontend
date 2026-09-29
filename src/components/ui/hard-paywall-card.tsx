@@ -10,6 +10,7 @@ import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { FREE_MODELS } from "@/lib/working-models"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -255,10 +256,44 @@ export function HardPaywallCard({
         {t.paywallCatalogNote}
       </p>
 
-      {/* ── Secondary CTA: one-off AW26 report for non-subscribers ───────────
+      {/* Secondary CTA: one-off AW26 report for non-subscribers ───────────
           EUR49, no account, no subscription. Single source: Aw26ReportCta.
           Revenue 2026-09-21. */}
       <Aw26ReportCta />
+
+      {/* C(tony)PaywallFreeChips: free-sample taster chips below all paid CTAs.
+          A user who hits the paywall and closes the tab without SEEING the product
+          work is a permanent loss. FREE_MODELS (NB530 / AF1 / Samba) bypass the
+          wall entirely (_PUBLIC_SAMPLE_QUERIES in api/routes.py). Showing them here
+          gives the user a "try before you buy" escape hatch at the exact moment of
+          maximum doubt — they've typed their item, hit a wall, and need to know the
+          product is real before committing €19.
+          Placement: tertiary (below paid CTA + AW26 report) so it never competes
+          with the primary conversion path. Canva/Plausible pattern: always leave
+          a free-sample door open next to the paid ask.
+          Tony 2026-09-30. */}
+      <div style={{ marginBottom: 14 }}>
+        <p style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 8 }}>Or see the product free — no account needed:</p>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {FREE_MODELS.slice(0, 3).map(model => (
+            <Link
+              key={model}
+              href={`/verdict?q=${encodeURIComponent(model)}`}
+              style={{
+                fontSize: 12,
+                color: "#34C759",
+                border: "1px solid rgba(52,199,89,0.3)",
+                borderRadius: 8,
+                padding: "5px 10px",
+                textDecoration: "none",
+                display: "inline-block",
+              }}
+            >
+              {model} →
+            </Link>
+          ))}
+        </div>
+      </div>
 
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
         <Link
