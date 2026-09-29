@@ -129,7 +129,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             const raw = window.localStorage.getItem("riq_register_plan")
             window.localStorage.removeItem("riq_register_plan")
             const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
-            if (parsed && Date.now() - parsed.ts < 5 * 60 * 1000) {
+            if (parsed && Date.now() - parsed.ts < 30 * 60 * 1000) {
               const plansData = await getPlans()
               const matchedPlan = plansData.plans.find(
                 (p: { id: string; price_id?: string; name?: string; price_eur?: number }) => p.id === parsed.plan

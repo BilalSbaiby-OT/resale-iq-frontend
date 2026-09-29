@@ -203,7 +203,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               const raw = localStorage.getItem("riq_register_plan")
               localStorage.removeItem("riq_register_plan")
               const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
-              checkoutAbandoned = parsed ? Date.now() - parsed.ts < 5 * 60 * 1000 : false
+              checkoutAbandoned = parsed ? Date.now() - parsed.ts < 30 * 60 * 1000 : false
             } catch { /* private mode */ }
             if (checkoutAbandoned) {
               setRedirectLabel(null)
