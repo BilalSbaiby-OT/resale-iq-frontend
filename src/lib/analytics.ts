@@ -38,6 +38,7 @@ export type FunnelEvent =
   | "register_submit_failed"
   | "switch_to_free_clicked"
   | "email_verified"
+  | "first_signup_verdict_redirect"
   /** Visitor clicked a primary CTA on the homepage hero (free chip, primary buy list CTA).
    *  Emitted by HeroFreeChips; variant label passed via path. */
   | "hero_cta_click"
