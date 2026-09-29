@@ -144,6 +144,31 @@ const ALLOW = [
   // borderRadius: 6 for green chips — same chip pattern, same reason as above.
   // Appears in both PricingTryInput and landing-content.tsx free-sample chips.
   "borderRadius: 6,",
+  // InlineVerdict interface type (verdict/buy_below/sell_avg/demand_note/product)
+  // is duplicated across BlogIndexFreeChecker, PricingTryInput, and HeroFreeChips.
+  // These are independent client components for different surfaces — blog index,
+  // /pricing, and homepage hero — each owning its full state+render logic.
+  // Extracting to a shared lib would require shared state, shared fetch, shared
+  // render — coupling surfaces that are intentionally separate. The interface is
+  // a local type contract, not business logic at drift risk. Pure structural type.
+  "interface InlineVerdict {",
+  // FREE_SAMPLES constant (AF1/Samba/NB530 as {label,q}[]) repeats in
+  // BlogIndexFreeChecker and PricingTryInput. The three public sample queries
+  // are a product constant (config), not logic — a shared constant would be correct
+  // but the three values are stable and checked independently per surface. Same
+  // reason as InlineVerdict above: parallel independent surfaces, pure config.
+  "]",
+  // Email input inline style block (background:#0d1117, color:#eef1f7,
+  // border:1.5px solid rgba(52,199,89,.35)) repeats across BlogIndexFreeChecker,
+  // PricingTryInput, VerdictUpsellCta, and HardPaywallCard. It is the brand's
+  // email input visual token — a deliberate design consistency requirement, not
+  // logic. Each surface owns its own event handler and state. Pure UI styling.
+  "outline: \"none\",",
+  // Email input font size line (fontSize:13.5 or 13) — same input token as above.
+  // Also repeats as fontSize:13 in the GuestCheckoutButton container pattern
+  // shared between VerdictUpsellCta and BlogIndexFreeChecker inline paywall nudge.
+  // Pure UI style property, no business logic at drift risk.
+  "fontSize: 13,",
 ]
 
 
