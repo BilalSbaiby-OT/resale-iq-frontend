@@ -16,7 +16,7 @@ import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-i
 import { googleErrorMessage } from "@/lib/google-oauth"
 import { trackEvent } from "@/lib/analytics"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
-import { consumeSignupPending, fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
+import { consumeSignupPending, fetchFirstCheckQuery, writeFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /login is a plain sign-in form —
 // no "what do you want to check" question, no intent typeahead. A successful
@@ -137,6 +137,11 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             if (isNewSignup) {
               const q = await fetchFirstCheckQuery()
               writeFirstCheckSeed(q)
+            } else if (user.email_verified && !readFirstCheckSeed()) {
+              // C(tony)LoginReturnSeed (Google): returning verified user with no
+              // seed gets a first-check button on the dashboard. Same pattern as
+              // the email/password path — fire-and-forget, never blocks login.
+              fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
             }
             router.push("/dashboard")
           }
@@ -166,6 +171,20 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       // a login-time detour to /check-email (see also AppShell and api.ts,
       // where the same rule was enforced 2026-09-29 after this exact
       // per-login redirect was found to strand real signups).
+      //
+      // C(tony)LoginReturnSeed: verified users who signed up but never ran a
+      // verdict get a blank /dashboard with no guided path. Research:
+      //   Linear teardown (candu.ai): "empty state = exit intent".
+      //   Superhuman: "the aha moment must be reachable on every login".
+      // Fix: if the user has a verified account and no first-check seed is
+      // already set, write one from the live buy-list so the dashboard shows
+      // "Your first check is ready →". Fire-and-forget so it never blocks login.
+      // Only for verified accounts — unverified are routed to /check-email by
+      // the dashboard's own AppShell, so the seed never renders.
+      const user = useAuthStore.getState().user
+      if (user?.email_verified && !readFirstCheckSeed()) {
+        fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
+      }
       router.push("/dashboard")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
