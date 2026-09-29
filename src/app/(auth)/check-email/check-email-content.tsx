@@ -188,9 +188,12 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   const intentIsSample = intentQuery
     ? FREE_SAMPLE_QUERIES.some(s => s.toLowerCase() === intentQuery.trim().toLowerCase())
     : false
+  // C(tony)CheckEmailPreviewSrc: add src= tracking so funnel analytics can
+  // distinguish preview clicks at /check-email from organic /verdict visits.
+  // Previously unmeasured — the CARRIED experiment metric needed this tag.
   const sampleHref = intentIsSample
-    ? `/verdict?q=${encodeURIComponent(intentQuery)}`
-    : "/verdict?q=Nike+Air+Force+1"
+    ? `/verdict?q=${encodeURIComponent(intentQuery)}&src=check_email_preview`
+    : "/verdict?q=Nike+Air+Force+1&src=check_email_preview"
 
   // C(tony): expectation-setting for untracked intents — the user typed a brand
   // we don't track yet (e.g. "Gucci Bag") but CoverageGate on verify-email will

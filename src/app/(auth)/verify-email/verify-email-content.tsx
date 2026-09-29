@@ -189,7 +189,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               </div>
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] text-[var(--color-text-muted)]">Sold (7d)</span>
+                  <span className="text-[12px] text-[var(--color-text-muted)]">Watched departures (7d)</span>
                   <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between">
