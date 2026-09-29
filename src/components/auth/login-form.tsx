@@ -19,6 +19,8 @@ import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typea
 import { queryCoverageKind } from "@/lib/query-coverage"
 import { trackEvent } from "@/lib/analytics"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { Check } from "lucide-react"
 
 const INTENT_QUERY_KEY = "riq_intent_query"
 
@@ -37,6 +39,11 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [intentQuery, setIntentQuery] = useState("")
+  // C(tony)LoginHotChips: 4 live brand chips when intent field is empty —
+  // same Canva "What will you design?" pattern as /register. Returning users
+  // who never ran a verdict see familiar branded items and tap to pre-fill,
+  // removing the blank-slate paralysis measured on 11/25 accounts.
+  const [hotChips, setHotChips] = useState<SnapshotBrandRow[]>([])
   // C(tony)GoogleCheckoutInterstitial: hold the pending Stripe URL + intent so
   // Google OAuth signups see the same "You're about to unlock X" interstitial
   // as email/password signups. Without this, Google new-signups skip straight
@@ -74,6 +81,15 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       const saved = localStorage.getItem(INTENT_QUERY_KEY)
       if (saved && !intentQuery) setIntentQuery(saved)
     } catch { /* private mode — intentQuery stays empty */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // C(tony)LoginHotChips: fetch live top brands on mount — same as /register.
+  // Loaded into hotChips; shown only when intentQuery is empty.
+  useEffect(() => {
+    fetchTopBrandRows(4, []).then(rows => {
+      if (rows.length > 0) setHotChips(rows)
+    }).catch(() => {})
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -212,6 +228,10 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     ? findDemandMatch(pendingCheckoutIntent)
     : null
 
+  // C(tony)LoginDemandPreview: live demand card while the user types their intent.
+  // Same as RegisterDemandPreview — no extra network call, reads suggestions cache.
+  const demandMatch = intentQuery.trim().length >= 3 ? findDemandMatch(intentQuery) : null
+
   // C(tony)GoogleCheckoutInterstitial: when pendingCheckoutUrl is set, render
   // the shared CheckoutInterstitialCard — Google OAuth path gets the same
   // "You're about to unlock X" confirmation as the email/password path.
@@ -249,6 +269,27 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         {!loading && (
           <div className="flex flex-col gap-1.5">
             <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>What do you want to check?</span>
+            {/* C(tony)LoginHotChips: Canva "What will you design?" pattern — show
+                4 tappable live brand chips when the field is empty. Returning users
+                who never ran a verdict see familiar items and tap to pre-fill,
+                removing blank-field paralysis. Same chip style as /register. */}
+            {!intentQuery.trim() && hotChips.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-1">
+                {hotChips.map(chip => (
+                  <button
+                    key={`${chip.brand}-${chip.category}`}
+                    type="button"
+                    onClick={() => setIntentQuery(`${chip.brand}${chip.category ? " " + chip.category : ""}`)}
+                    className="inline-flex items-center gap-1 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] hover:border-[var(--color-buy)] hover:bg-[var(--color-surface-raised)] text-[var(--color-text-secondary)] text-[11.5px] font-medium rounded-full px-2.5 py-1 transition-colors cursor-pointer"
+                  >
+                    <span>{chip.brand}{chip.category ? ` ${chip.category}` : ""}</span>
+                    {chip.sold_7d > 0 && (
+                      <span className="text-[var(--color-buy)] font-semibold">{chip.sold_7d}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
             <IntentTypeahead
               value={intentQuery}
               onChange={setIntentQuery}
@@ -256,6 +297,25 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
               placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
               aria-label="What do you want to check?"
             />
+            {/* C(tony)LoginDemandPreview: live demand card once ≥3 chars typed —
+                Superhuman "continuity" pattern. Returning users may have already
+                been researching a brand and come to log in with it in mind; seeing
+                the live demand reassures the product is still tracking it. Same
+                component as RegisterDemandPreview — no extra API call. */}
+            {demandMatch && (
+              <div className="mt-1 flex items-center gap-2 rounded-lg border border-[var(--color-border-2)] bg-[var(--color-bg-4)] px-3 py-2">
+                <Check size={13} className="text-[var(--color-buy)] shrink-0" />
+                <p className="text-[12px] text-[var(--color-text-secondary)] leading-snug">
+                  <span className="font-semibold text-[var(--color-text-primary)]">
+                    {demandMatch.sold_7d} watched departures this week
+                  </span>
+                  {demandMatch.avg_price_eur ? (
+                    <> · avg €{demandMatch.avg_price_eur}</>
+                  ) : null}
+                  {" — "}real demand, not a guess.
+                </p>
+              </div>
+            )}
           </div>
         )}
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
