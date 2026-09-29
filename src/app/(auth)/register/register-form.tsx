@@ -294,9 +294,20 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 <Check size={20} className="text-[var(--color-buy)]" />
               </div>
             </div>
-            <h2 className="text-[18px] font-bold text-center mb-1">Account created ✓</h2>
+            {/* C(tony)InterstitialPersonalisation: Superhuman never confirms
+                "action completed" in the abstract — every confirmation names
+                the specific thing the user just did ("Your inbox is ready",
+                not "Setup complete"). "Account created ✓" is admin framing
+                that ignores the item the user typed two fields up. When the
+                query is a tracked item, name it in the headline so the
+                confirmation matches what they're actually here for. */}
+            <h2 className="text-[18px] font-bold text-center mb-1">
+              {intentQuery.trim() && (findDemandMatch(intentQuery) || queryCoverageKind(intentQuery) !== "untracked")
+                ? <>Your {intentQuery.trim()} verdict is ready ✓</>
+                : <>Account created ✓</>}
+            </h2>
             <p className="text-[13px] text-[var(--color-text-secondary)] text-center mb-5">
-              One step away from your first verdict.
+              One step away — unlock it below.
             </p>
 
             {/* What they're about to unlock */}
