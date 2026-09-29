@@ -90,6 +90,61 @@ async function fetchSampleVerdict(): Promise<SampleVerdict | null> {
   }
 }
 
+function publicVerdictLabel(verdict: string): string {
+  return verdict === "PROVISIONAL" || verdict === "PROVISIONAL_PRICE" ? "WATCH" : verdict
+}
+
+/**
+ * H180 — one-row live sample above the plan cards on /pricing (12 unique
+ * humans / 7d). Founder declutter (2026-09-29) keeps the long proof sections
+ * below the cards so a 390px visitor still sees the price. That left the ask
+ * in the first viewport and the product below it. 44 of 50 pricing visitors
+ * had never seen a verdict. This strip is the product (a real public-sample
+ * buy-below), not a sentence about what is free and not a scroll link.
+ *
+ * Fetched, never hardcoded. Renders nothing if the sample has no buy-below.
+ * Does not use id="pricing-proof" — that anchor stays on the full demo below.
+ */
+export async function PricingVerdictStrip() {
+  const v = await fetchSampleVerdict()
+  if (!v || v.buy_below == null) return null
+  const label = publicVerdictLabel(v.verdict)
+  const buy = `€${v.buy_below.toFixed(0)}`
+  const exit = v.sell_avg != null ? `€${v.sell_avg.toFixed(0)}` : null
+  return (
+    <p
+      data-testid="riq-pricing-proof-strip"
+      style={{
+        maxWidth: 1040,
+        margin: "0 auto",
+        padding: "10px 24px 0",
+        fontSize: 14,
+        lineHeight: 1.45,
+        color: "var(--color-text-secondary)",
+      }}
+    >
+      <span style={{ fontWeight: 700, color: "var(--color-text-primary)" }}>{v.product}</span>
+      {" · "}
+      <span style={{ fontWeight: 700, color: "var(--color-buy, #30D158)" }}>{label}</span>
+      {" · buy below "}
+      <span style={{ fontWeight: 800, color: "var(--color-buy, #30D158)", fontVariantNumeric: "tabular-nums" }}>{buy}</span>
+      {exit ? (
+        <>
+          {" · typical exit "}
+          <span style={{ fontWeight: 700, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>{exit}</span>
+        </>
+      ) : null}
+      {". "}
+      <a
+        href="#pricing-try"
+        style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 2 }}
+      >
+        Check yours before you pick a plan →
+      </a>
+    </p>
+  )
+}
+
 const VERDICT_COLOR: Record<string, string> = {
   BUY: "#30D158",
   WATCH: "#FF9F0A",
@@ -114,10 +169,7 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
   const v = await fetchSampleVerdict()
   if (!v || !v.buy_below) return null
 
-  const verdictLabel =
-    v.verdict === "PROVISIONAL" || v.verdict === "PROVISIONAL_PRICE"
-      ? "WATCH"
-      : v.verdict
+  const verdictLabel = publicVerdictLabel(v.verdict)
   const color = VERDICT_COLOR[verdictLabel] ?? "#8b99b8"
   const bg = VERDICT_BG[verdictLabel] ?? "rgba(139,153,184,.12)"
 

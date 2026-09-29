@@ -503,6 +503,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
 
   return (
     <div
+      id="pricing-try"
       data-testid="riq-pricing-try-input"
       style={{
         maxWidth: 1040,

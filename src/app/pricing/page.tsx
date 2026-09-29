@@ -10,7 +10,7 @@ import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
 import { BrandStrip } from "@/components/landing/brand-strip"
 import { getMarketNumbers } from "@/lib/market-numbers"
-import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
+import { PricingVerdictDemo, PricingVerdictStrip } from "@/components/landing/pricing-verdict-demo"
 import { PricingTryInput } from "@/components/landing/pricing-try-input"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { PricingStickyCta } from "@/components/landing/pricing-sticky-cta"
@@ -131,11 +131,13 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           document's ONLY h1 — headingLevel={1} below still does that job. No content
           lost, just de-duplicated. */}
 
-      {/* DECLUTTER (founder feedback 2026-09-28/29): plan cards are the first
-          content after the header on every viewport — a 390px visitor no
-          longer scrolls past the buy-list teaser and the live market table to
-          find the price. Those proof sections are kept, just moved below the
-          plans instead of above them. */}
+      {/* DECLUTTER (founder feedback 2026-09-28/29): the long proof sections
+          (buy list, market table, brand strip) stay BELOW the cards so a 390px
+          visitor does not scroll a wall to find the price.
+          H180: one live sample row sits above the cards. The product (a real
+          public-sample buy-below) is in the first viewport; the wall is not.
+          /pricing 12 unique humans / 7d. */}
+      <PricingVerdictStrip />
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
