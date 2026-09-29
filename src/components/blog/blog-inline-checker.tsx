@@ -356,7 +356,7 @@ export function BlogInlineChecker({
       {isFreeModelQuery && !chipQuery && (
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
           <span style={{ fontSize: 12, color: "#5b6b8c", flexShrink: 0 }}>Now try a paid item →</span>
-          {["Stone Island Hoodie", "Ralph Lauren Polo Shirt", "Balenciaga Track"].map((q) => (
+          {["Stone Island Hoodie", "New Balance 550", "Balenciaga Track"].map((q) => (
             <button
               key={q}
               onClick={() => { setChipQuery(q); trackEvent("chip_click", q) }}
@@ -389,7 +389,8 @@ export function BlogInlineChecker({
           Items are confirmed paid-model catalog entries (not FREE_MODELS). */}
       {!isFreeModelQuery && !chipQuery && (() => {
         // Verified PAYWALL for anonymous visitors (all return paywalled=true + comparable_n≥40).
-        // Ralph Lauren Polo Shirt excluded: returns free 200 for anon — wrong funnel outcome.
+        // H145: swapped Ralph Lauren Polo Shirt → New Balance 550 (RL returns free 200 for anon;
+        // NB550 is confirmed PAYWALL for anon and has 59 data points — good comparable_n teaser).
         const CROSS_CHIPS = ["Stone Island Hoodie", "Balenciaga Track", "Levis 501", "Fred Perry Polo", "New Balance 550"]
         const chips = CROSS_CHIPS.filter(q => q.toLowerCase() !== preflightQuery.toLowerCase()).slice(0, 3)
         if (chips.length === 0) return null
