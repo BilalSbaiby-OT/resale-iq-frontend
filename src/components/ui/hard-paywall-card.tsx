@@ -231,6 +231,23 @@ export function HardPaywallCard({
           />
         )}
         <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} customerEmail={capturedEmail || undefined} />
+        {/* H153 CRO: guarantee badge immediately below CTA.
+            The 30-day refund guarantee existed as near-invisible fine-print (#4d5a75)
+            buried below Aw26ReportCta and text blocks. Plausible places "no credit card
+            required" directly under the CTA button — the doubt resolves at the exact
+            moment the finger is on the button. Moving it here costs zero layout and
+            answers objection #4 ("what if it fails?") at the right instant.
+            CRO #4 (objection handling next to the doubt) + #7 (trust before CTA)
+            + #12 (conviction → earned CTA → instant re-assurance = no hesitation).
+            Surface: /tools 10/7d, /pricing 12/7d, blog paywall hits.
+            Revenue 2026-09-29. H153. */}
+        <div
+          data-testid="riq-paywall-guarantee-inline"
+          style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 9, fontSize: 12, color: "rgba(52,199,89,0.75)" }}
+        >
+          <Check size={12} color="rgba(52,199,89,0.75)" strokeWidth={2.5} aria-hidden />
+          <span>30-day money-back guarantee · instant access · cancel anytime</span>
+        </div>
       </div>
 
       <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 8 }}>{bodyText}</p>
