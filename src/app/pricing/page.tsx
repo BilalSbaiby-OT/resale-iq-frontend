@@ -14,6 +14,7 @@ import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
 import { PricingTryInput } from "@/components/landing/pricing-try-input"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { PricingStickyCta } from "@/components/landing/pricing-sticky-cta"
+import { TrustBlock } from "@/components/landing/trust-block"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -228,6 +229,18 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           <RoiExampleCard items={buyList} />
         </div>
       )}
+      {/* H163 CRO: TrustBlock directly above the plan cards on /pricing — objection
+          handling at the exact purchase decision moment.
+          Homepage has this block and converts better. Pricing visitors — already at
+          the highest-intent point in the funnel — had zero trust signals before the
+          plan cards: no "Cancel anytime", no "Stripe secure checkout", no "5 EU markets",
+          no data freshness label. Those objections ("can I trust this?", "what if it
+          doesn't work for me?") fire hardest right before payment.
+          market already fetched (H85 above); zero extra requests.
+          CRO #4 (objection: worth it? works for me?) + #7 (trust before CTA)
+          + #12 (conviction → earned ask, not cold ask).
+          Revenue 2026-09-29. H163. */}
+      {market && <TrustBlock market={market} />}
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
