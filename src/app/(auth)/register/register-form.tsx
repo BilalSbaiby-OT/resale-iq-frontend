@@ -10,6 +10,7 @@ import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
+import { fetchFirstCheckQuery, markSignupPending, writeFirstCheckSeed } from "@/lib/first-check-seed"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /register is a PLAIN account form.
 // No "what do you want to check" question, no intent typeahead, no demand
@@ -174,8 +175,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
       }
       if (!isPaidPlan) {
         // FOUNDER RULE 2026-09-29 (binding, do not override): every login and
-        // signup lands on /dashboard. The dashboard has the quick-check input
-        // and suggestion chips, so there is no cold start.
+        // signup lands on /dashboard — never /verdict. The seed is a query
+        // string only. FirstRunSeed on the dashboard turns it into one
+        // click. The query comes from the live public buy-list and is
+        // always a FREE_MODELS string, so the click is a real verdict.
+        const q = await fetchFirstCheckQuery()
+        writeFirstCheckSeed(q)
         router.push("/dashboard")
         return
       }
@@ -250,9 +255,17 @@ function RegisterContent({ locale }: { locale: Locale }) {
               this form's own checkout call entirely. */}
           <GoogleSignInButton
             label="Continue with Google"
-            onBeforeNavigate={isPaidPlan ? () => {
-              try { localStorage.setItem("riq_register_plan", JSON.stringify({ plan, ts: Date.now() })) } catch { /* private mode */ }
-            } : undefined}
+            onBeforeNavigate={() => {
+              try {
+                if (isPaidPlan) {
+                  localStorage.setItem("riq_register_plan", JSON.stringify({ plan, ts: Date.now() }))
+                } else {
+                  // Same-tab OAuth return reads this and writes the live
+                  // first-check seed. Not a redirect to /verdict.
+                  markSignupPending()
+                }
+              } catch { /* why: private mode — Google still lands on /dashboard */ }
+            }}
           />
           <AuthDivider text="or" />
 

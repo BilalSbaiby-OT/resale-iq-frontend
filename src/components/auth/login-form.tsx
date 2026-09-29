@@ -16,6 +16,7 @@ import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-i
 import { googleErrorMessage } from "@/lib/google-oauth"
 import { trackEvent } from "@/lib/analytics"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
+import { consumeSignupPending, fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /login is a plain sign-in form —
 // no "what do you want to check" question, no intent typeahead. A successful
@@ -128,7 +129,15 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
 
           // FOUNDER RULE: a successful Google login lands on /dashboard, not
           // /verdict, unless a paid checkout is in flight (handled above).
+          // A free signup that started on /register set riq_signup_pending
+          // before the OAuth hop. Write the live first-check seed here so
+          // the dashboard shows one button. Returning logins have no flag.
+          const isNewSignup = consumeSignupPending()
           if (!checkoutHandled) {
+            if (isNewSignup) {
+              const q = await fetchFirstCheckQuery()
+              writeFirstCheckSeed(q)
+            }
             router.push("/dashboard")
           }
         })

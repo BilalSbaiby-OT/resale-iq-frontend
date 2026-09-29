@@ -11,6 +11,7 @@ import { navCopy } from "@/lib/nav-copy"
 import { isPaidPlan, isPaidPlanId, planChip } from "@/lib/entitlement"
 import { getPlanFromToken } from "@/lib/utils"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { FirstRunSeed } from "@/components/auth/first-run-seed"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -169,6 +170,10 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
         <Topbar title={title} subtitle={subtitle} onMenu={() => setNavOpen(v => !v)} />
         <main className="riq-main" style={{ flex: 1, overflowY: "auto", padding: "24px var(--space-gutter)", background: "var(--color-graphite)" }}>
+          {/* Signup handoff. Renders nothing unless this tab just created
+              an account and landed on /dashboard. Does not change the
+              landing URL (founder rule 2026-09-29). */}
+          {!gated && <FirstRunSeed />}
           {!gated && isTrial && !isPaid && (
             <div className="riq-trial-banner" style={{ background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "14px 20px", marginBottom: 24 }}>
               <div style={{ fontSize: 15, color: "var(--color-on-graphite)", flex: "1 1 180px", minWidth: 0 }}>
