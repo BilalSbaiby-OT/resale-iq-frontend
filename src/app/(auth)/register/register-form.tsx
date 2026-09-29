@@ -53,6 +53,25 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // not state-driven, because the URL doesn't change after mount).
   const queryFromUrl = searchParams.get("q") ?? ""
   const [intentQuery, setIntentQuery] = useState(queryFromUrl)
+
+  // C(tony)RegisterIntentRecall: when the user typed their item during a
+  // previous /register visit (or on /login), navigated away (back button,
+  // pricing link, Google OAuth redirect), and returned to /register with no
+  // ?q= in the URL, the demand-preview card and goal-framing step-1 label
+  // were blank. Without the card they lost the pre-submit reassurance they
+  // already saw. Pattern: Superhuman/Canva never blank a field the user
+  // already filled — they restore it from the last session.
+  // Only reads on mount; only runs when URL provided no ?q= seed (queryFromUrl
+  // is empty) — avoids clobbering an explicit ?q= deep-link.
+  useEffect(() => {
+    if (queryFromUrl) return // URL wins — nothing to restore
+    try {
+      const saved = localStorage.getItem("riq_intent_query")
+      if (saved && saved.trim()) setIntentQuery(saved.trim())
+    } catch { /* private mode — intentQuery stays empty */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const [waiver, setWaiver] = useState(false)
   const [error, setError] = useState("")
   // C148(tony): when backend returns 409 Conflict, render a clickable sign-in
