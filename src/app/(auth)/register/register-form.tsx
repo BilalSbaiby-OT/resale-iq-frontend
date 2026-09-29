@@ -343,6 +343,13 @@ function RegisterContent({ locale }: { locale: Locale }) {
               W19: this text is WITHDRAWAL_WAIVER_TEXT (src/lib/i18n.ts),
               English on every locale until legal-compliance signs off on a
               translated version — see that constant's comment for why. */}
+          {/* C(tony)WaiverProactive: proactive affordance before submit attempt */}
+          {!waiver && (
+            <p className="text-[11px] text-[var(--color-text-muted)] flex items-center gap-1 mb-1">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-skip)] shrink-0" />
+              Tick the box below to activate your account
+            </p>
+          )}
           <label ref={waiverRef} className={`flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)] rounded-lg transition-colors duration-300 ${waiverHighlight ? "bg-red-500/10 ring-1 ring-red-500/50 px-2 py-1" : ""}`} data-i18n-pending="waiver-legal-review">
             <input type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
             <span>{WITHDRAWAL_WAIVER_TEXT}</span>
