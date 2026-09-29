@@ -218,6 +218,22 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             query when available. */}
         <ActivationSteps step={2} intentQuery={intentQuery} />
 
+        {/* C(tony)C233: Trial incentive pill — PLG Handbook (plghandbook.com/time-to-value):
+            "A gate that gives the person passing through it nothing is pure loss."
+            Email verify = gate. Before this change, the check-email page said nothing
+            about the trial waiting on the other side. 29% of signups (9/31) never
+            clicked the link. Adding the concrete reward flips the verify link from
+            "admin task" to "start something I want."
+            Superhuman (katesyuma.substack.com): build desire before the click.
+            Canva (supademo.com/user-flow-examples/canva): name the outcome, not the step.
+            Copy kept short: one line, one reward, one action. */}
+        <div className="flex items-center gap-2.5 bg-[var(--color-buy)]/10 border border-[var(--color-buy)]/30 rounded-xl px-4 py-3 mb-5">
+          <div className="w-2 h-2 rounded-full bg-[var(--color-buy)] shrink-0" />
+          <p className="text-[12.5px] font-semibold text-[var(--color-buy)] leading-snug">
+            Verify to start your 7-day Starter trial — unlimited demand checks, every buy-below signal
+          </p>
+        </div>
+
         <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
         {/* C(tony): goal-framing heading replaces admin-framing "Check your email".
             Research (yukaichou.com): the Win State at this moment must feel like
