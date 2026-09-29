@@ -419,7 +419,7 @@ export const copy = {
       power: {
         tagline: "It stops waiting for you to ask",
         // H28 CRO: Power CTA commitment-match — solution-aware visitor on /pricing already knows the product; name the price. CRO #10. Revenue 2026-09-15.
-        cta: "Start for €49",
+        cta: "Try Pro for €49 →",
         stepUp: "+€30 over Starter — about €1 a day",
         stepUpWhy:
           "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: on demand, it searches the five EU markets we track and shows you listings already priced under your buy-below number.",
@@ -435,7 +435,7 @@ export const copy = {
       },
       operator: {
         tagline: "Answers on anything you look up",
-        cta: "Start for €19",
+        cta: "Try Starter for €19 →",
         features: [
           "Unlimited buy/sell verdicts",
           "Every product signal we compute, unblurred",
@@ -947,7 +947,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Il arrête d'attendre que vous demandiez",
-        cta: "Démarrer pour 49 €",
+        cta: "Essayer Pro pour 49 € →",
         stepUp: "+€30 par rapport à Starter — environ €1 par jour",
         stepUpWhy:
           "Starter vous dit si un article vaut le coup une fois que vous l'avez trouvé. Pro le trouve : à la demande, il cherche sur les cinq marchés UE que nous suivons et vous montre les annonces déjà sous votre prix d'achat max.",
@@ -963,7 +963,7 @@ export const copy = {
       },
       operator: {
         tagline: "Des réponses sur tout ce que vous cherchez",
-        cta: "Démarrer pour 19 €",
+        cta: "Essayer Starter pour 19 € →",
         features: [
           "Verdicts d'achat/vente illimités",
           "Chaque signal produit que nous calculons, sans flou",
@@ -1403,7 +1403,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Deja de esperar a que preguntes",
-        cta: "Empieza por 49 €",
+        cta: "Probar Pro por 49 € →",
         stepUp: "+€30 sobre Starter — unos €1 al día",
         stepUpWhy:
           "Starter te dice si un artículo merece la pena una vez lo has encontrado. Pro lo encuentra: a demanda, busca en los cinco mercados de la UE que seguimos y te muestra anuncios ya por debajo de tu precio máximo de compra.",
@@ -1419,7 +1419,7 @@ export const copy = {
       },
       operator: {
         tagline: "Respuestas para todo lo que busques",
-        cta: "Empieza por 19 €",
+        cta: "Probar Starter por 19 € →",
         features: [
           "Veredictos de compra/venta ilimitados",
           "Cada señal de producto que calculamos, sin difuminar",
@@ -1856,7 +1856,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Es wartet nicht mehr darauf, dass du fragst",
-        cta: "Für 49 € starten",
+        cta: "Pro ausprobieren – 49 € →",
         stepUp: "+€30 gegenüber Starter — etwa €1 am Tag",
         stepUpWhy:
           "Starter sagt dir, ob sich ein Artikel lohnt, sobald du ihn gefunden hast. Pro findet ihn: auf Abruf durchsucht es die fünf EU-Märkte, die wir erfassen, und zeigt dir Angebote, die schon unter deiner Kaufobergrenze liegen.",
@@ -1872,7 +1872,7 @@ export const copy = {
       },
       operator: {
         tagline: "Antworten auf alles, was du nachschlägst",
-        cta: "Für 19 € starten",
+        cta: "Starter ausprobieren – 19 € →",
         features: [
           "Unbegrenzte Kauf-/Verkaufsentscheidungen",
           "Jedes berechnete Produktsignal, ohne Unschärfe",
@@ -2311,7 +2311,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Smette di aspettare che tu chieda",
-        cta: "Inizia a 49 €",
+        cta: "Prova Pro a 49 € →",
         stepUp: "+€30 rispetto a Starter — circa €1 al giorno",
         stepUpWhy:
           "Starter ti dice se un articolo vale l'acquisto, una volta che l'hai trovato. Pro lo trova: su richiesta, cerca nei cinque mercati UE che monitoriamo e ti mostra annunci già sotto il tuo prezzo massimo di acquisto.",
@@ -2327,7 +2327,7 @@ export const copy = {
       },
       operator: {
         tagline: "Risposte su tutto quello che cerchi",
-        cta: "Inizia a 19 €",
+        cta: "Prova Starter a 19 € →",
         features: [
           "Verdetti di acquisto/vendita illimitati",
           "Ogni segnale di prodotto che calcoliamo, senza sfocature",
@@ -2764,7 +2764,7 @@ export const copy = {
     tiers: {
       power: {
         tagline: "Deixa de esperar que perguntes",
-        cta: "Começa por 49 €",
+        cta: "Experimenta Pro por 49 € →",
         stepUp: "+€30 acima do Starter — cerca de €1 por dia",
         stepUpWhy:
           "O Starter diz-te se um artigo vale a pena depois de o encontrares. O Pro encontra-o: a pedido, pesquisa nos cinco mercados da UE que monitorizamos e mostra-te anúncios já abaixo do teu preço máximo de compra.",
@@ -2780,7 +2780,7 @@ export const copy = {
       },
       operator: {
         tagline: "Respostas para tudo o que procurares",
-        cta: "Começa por 19 €",
+        cta: "Experimenta Starter por 19 € →",
         features: [
           "Veredictos de compra/venda ilimitados",
           "Todos os sinais de produto que calculamos, sem desfoque",
