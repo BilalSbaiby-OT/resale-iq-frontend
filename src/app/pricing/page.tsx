@@ -142,6 +142,15 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
 
+      {/* H187 CRO: TrustBlock moved IMMEDIATELY below plan cards — peak hesitation point.
+          Previous placement (position 9 of 10) meant trust signals appeared after buy list,
+          market pulse, brand strip, verdict demo, try input, ROI card — too late for a visitor
+          who saw the price and hesitated. CRO #7 (trust before CTA — at the decision moment)
+          + #4 (objection handling next to the doubt: "cancel anytime" belongs right after the
+          price is shown). Zero content change; zero extra data requests (market already fetched).
+          Revenue 2026-09-30. H187. */}
+      {market && <TrustBlock market={market} />}
+
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
           {/* H66 CRO: rowSrc makes each buy-list row a link to /tools with the
@@ -217,18 +226,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           <RoiExampleCard items={buyList} />
         </div>
       )}
-      {/* H163 CRO: TrustBlock directly above the plan cards on /pricing — objection
-          handling at the exact purchase decision moment.
-          Homepage has this block and converts better. Pricing visitors — already at
-          the highest-intent point in the funnel — had zero trust signals before the
-          plan cards: no "Cancel anytime", no "Stripe secure checkout", no "5 EU markets",
-          no data freshness label. Those objections ("can I trust this?", "what if it
-          doesn't work for me?") fire hardest right before payment.
-          market already fetched (H85 above); zero extra requests.
-          CRO #4 (objection: worth it? works for me?) + #7 (trust before CTA)
-          + #12 (conviction → earned ask, not cold ask).
-          Revenue 2026-09-29. H163. */}
-      {market && <TrustBlock market={market} />}
+      {/* H163/H187: TrustBlock moved above (immediately below plan cards). */}
       {/* H167 CRO: FAQ section below plan cards — structured objection handling
           at the exact moment a visitor has seen the price and is hesitating.
           RESEARCH (fetched live 2026-09-29):
