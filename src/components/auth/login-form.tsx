@@ -154,7 +154,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       <AuthDivider text="or" />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        {!loading && !error && (
+        {!loading && (
           <div className="flex flex-col gap-1.5">
             <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>What do you want to check?</span>
             <IntentTypeahead

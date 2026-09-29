@@ -257,7 +257,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
             purposeful ("Check Stone Island Hoodie →") not generic ("Create account"). */}
         <h1 className="text-[21px] font-bold mb-1">Create account</h1>
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-4">
-          Email continues to payment. Google opens your dashboard.
+          Email continues to payment. Google goes straight to your first check.
         </p>
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
