@@ -363,7 +363,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...landingHubLocalePages,
     ...dataLocalePages,
     ...toolsLocalePages,
-    ...blogClonePages,
+    // blogClonePages excluded: all locale blog clones are noindex,follow (0 human visitors
+    // in 60 days, thin translated content, Google demoted on 2026-08-29). Noindex URLs must
+    // not appear in sitemap — advertising them wastes crawl budget (see line 306 comment).
+    // ...blogClonePages,
     // /buy programmatic SEO family — batch 1: 20 leaf pages + 10 brand hubs + hub
     ...buyBrandPages,
     ...buyBrandCategoryPages,

@@ -60,3 +60,16 @@ test("clone titles are not shared between two locales of the same slug", () => {
   }
   assert.ok(LANDINGS.length > 0 && typeof getLandingCopy === "function")
 })
+
+// SEO-CONSOLIDATE-P1 regression: locale blog clone pages must be noindex,follow
+// and must not appear in the sitemap (thin content, 0 human visitors in 60 days).
+test("locale blog clone metadata has robots noindex,follow", () => {
+  const src = read("app/[locale]/blog/[slug]/page.tsx")
+  assert.match(src, /robots:\s*\{\s*index:\s*false,\s*follow:\s*true\s*\}/, "noindex,follow missing from clone metadata")
+})
+
+test("sitemap.ts does not include blogClonePages in the entries array", () => {
+  const src = read("app/sitemap.ts")
+  // The line that spreads blogClonePages must be commented out, not an active spread
+  assert.doesNotMatch(src, /^\s*\.\.\.(blogClonePages),/m, "blogClonePages must not be spread into entries")
+})
