@@ -80,6 +80,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   const [msg, setMsg] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [cooldown, setCooldown] = useState(0)
   const [brands, setBrands] = useState<BrandRow[]>(FALLBACK_BRANDS)
   // C143(tony): read intent query from localStorage so the waiting screen can
   // personalise the CTA and progress step. Do NOT delete it here — verify-email
@@ -117,6 +118,12 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     } catch { /* private mode — intentQuery stays empty, generic copy shows */ }
   }, [])
 
+  useEffect(() => {
+    if (cooldown <= 0) return
+    const t = setTimeout(() => setCooldown(c => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [cooldown])
+
   const handleResend = async () => {
     setError(""); setMsg(""); setLoading(true)
     try {
@@ -129,6 +136,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         // comment). Only the local fallback is translated.
         setMsg(res.message || t.sentFallback)
       }
+      setCooldown(60)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : t.resendError)
     } finally {
@@ -208,9 +216,9 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         {error && <div className="text-[12.5px] text-[var(--color-skip)] mb-4">{error}</div>}
 
         {isAuthenticated && (
-          <button type="button" onClick={handleResend} disabled={loading}
+          <button type="button" onClick={handleResend} disabled={loading || cooldown > 0}
             className={`${AUTH_ACCENT_BUTTON} mb-3`}>
-            {loading ? t.sending : t.resend}
+            {loading ? t.sending : cooldown > 0 ? `Resend in ${cooldown}s` : t.resend}
           </button>
         )}
         {!isAuthenticated && (
