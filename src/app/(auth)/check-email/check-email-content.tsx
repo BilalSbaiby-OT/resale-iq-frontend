@@ -207,6 +207,14 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   // with zero context and think something went wrong. Set the expectation here.
   const intentIsUntracked = intentQuery.trim().length >= 3 && queryCoverageKind(intentQuery.trim()) === "untracked"
 
+  // C(tony)VerifyPreviewFallback: register no longer writes riq_intent_query
+  // (founder auth rules 2026-09-29) so intentRow is always null for new users.
+  // Fall back to brands[0] from the live snapshot so the blurred verdict teaser
+  // (loss-aversion pattern) shows for 100% of verifiers, not 0%.
+  // Superhuman: "interruptive = impactful; tucked-away = ignored."
+  const displayRow = intentRow ?? (brands.length > 0 ? brands[0] : null)
+  const displayIsIntent = intentRow !== null
+
   return (
     <div className="w-full max-w-md flex flex-col gap-5">
       <AuthCard center>
@@ -286,34 +294,34 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           the real buy-below formula. Goal: make the shape of the payoff visible
           without giving away the actual number, so verification feels like the
           last step to an already-computed answer. */}
-      {!intentIsUntracked && intentRow && (
+      {!intentIsUntracked && displayRow && (
         <div className="bg-[var(--color-surface)] border border-[var(--color-buy)] rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <Sparkles size={14} className={AUTH_ACCENT} />
             <span className={`text-[11.5px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
-              Your {intentRow.brand} verdict is ready
+              {displayIsIntent ? `Your ${displayRow!.brand} verdict is ready` : 'A live verdict — yours to unlock'}
             </span>
           </div>
           <div className="flex items-center justify-between mb-3">
             <div>
-              <div className={`text-[15px] font-bold ${AUTH_TEXT}`}>{intentRow.brand}</div>
-              <div className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{intentRow.category}</div>
+              <div className={`text-[15px] font-bold ${AUTH_TEXT}`}>{displayRow!.brand}</div>
+              <div className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{displayRow!.category}</div>
             </div>
           </div>
           <div className="flex flex-col gap-2 mb-3">
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Watched departures (7d)</span>
-              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{intentRow.sold_7d.toLocaleString()}</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{displayRow!.sold_7d.toLocaleString()}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Avg resale price</span>
-              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>€{intentRow.avg_price_eur}</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>€{displayRow!.avg_price_eur}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy below</span>
               <span className="flex items-center gap-1.5">
                 <span className="blur-sm select-none text-[13px] font-semibold" aria-hidden="true">
-                  €{Math.round(intentRow.avg_price_eur * 0.7)}
+                  €{Math.round(displayRow!.avg_price_eur * 0.7)}
                 </span>
                 <Lock size={11} className={AUTH_TEXT_MUTED} />
               </span>
@@ -321,7 +329,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           </div>
           <div className="flex items-center gap-2 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5">
             <Lock size={12} className={AUTH_TEXT_MUTED} />
-            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Verify email to unlock — one click in your inbox → your buy-below price</span>
+            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>
+              {displayIsIntent
+                ? 'Verify email to unlock — one click in your inbox → your buy-below price'
+                : 'Verify email to see this check — one click in your inbox'}
+            </span>
           </div>
         </div>
       )}
