@@ -94,12 +94,12 @@ export default async function BlogIndex() {
   }
 
   return (
-    <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
+    <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "48px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
-        <Link href="/" style={{ color: "#34C759", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
-        <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
-        <p style={{ fontSize: 15, color: "#8b99b8", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
+        <Link href="/" style={{ color: "var(--color-buy-ink)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
+        <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "var(--color-text-primary)", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
+        <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
           Built on {tracked} analyzed listings across 5 EU markets.
         </p>
@@ -112,9 +112,9 @@ export default async function BlogIndex() {
             no wrong numbers. CRO #1 (clarity: honest) + #7 (trust: reproducible numbers).
             Revenue 2026-09-29. H164. */}
         {liveSellingParagraph && (
-          <p style={{ fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28, padding: "16px 18px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10 }}>
+          <p style={{ fontSize: 13.5, color: "var(--color-text-body)", lineHeight: 1.7, marginBottom: 28, padding: "16px 18px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10 }}>
             {liveSellingParagraph}{" "}
-            <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>See full rankings →</Link>
+            <Link href="/data" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>See full rankings →</Link>
           </p>
         )}
 
@@ -122,8 +122,8 @@ export default async function BlogIndex() {
             proof strip above the article list is gone — /blog is an index,
             not a second sales page. A short text link sends anyone who wants
             to see the tool working straight to /tools instead. */}
-        <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 32 }}>
-          Want to see it work first? <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Try a free check →</Link>
+        <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", marginBottom: 32 }}>
+          Want to see it work first? <Link href="/tools" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>Try a free check →</Link>
         </p>
 
         {/* H162 CRO: interactive free checker on /blog index — 130/7d visitors with
@@ -138,7 +138,7 @@ export default async function BlogIndex() {
             Revenue 2026-09-29. H162. */}
         <BlogIndexFreeChecker locale={locale} buyListPreview={buyList} />
 
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "0 0 14px" }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 14px" }}>
           All guides
         </h2>
 
@@ -149,11 +149,11 @@ export default async function BlogIndex() {
               href={`/blog/${p.slug}`}
               style={{ display: "block", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "18px 20px", textDecoration: "none" }}
             >
-              <div style={{ fontSize: 11, color: "#34C759", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
+              <div style={{ fontSize: 11, color: "var(--color-buy-ink)", textTransform: "uppercase", letterSpacing: "0.5px", fontWeight: 700 }}>
                 {p.category} · {p.readMins} min read
               </div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7", margin: "6px 0" }}>{p.title}</div>
-              <div style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.55 }}>{p.description}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: "var(--color-text-primary)", margin: "6px 0" }}>{p.title}</div>
+              <div style={{ fontSize: 13.5, color: "var(--color-text-secondary)", lineHeight: 1.55 }}>{p.description}</div>
             </Link>
           ))}
         </div>
@@ -163,20 +163,20 @@ export default async function BlogIndex() {
             against 4% for the 156 /flip URLs and zero for the nine /category ones.
             Sending readers (and crawlers) from here into the data pages is the
             cheapest way to share that standing. */}
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "40px 0 10px" }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)", margin: "40px 0 10px" }}>
           Go straight to the numbers
         </h2>
-        <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 14 }}>
+        <p style={{ fontSize: 14, color: "var(--color-text-body)", lineHeight: 1.7, marginBottom: 14 }}>
           The guides explain the method. The data pages apply it to live listings:{" "}
-          <Link href="/flip" style={{ color: "#34C759", textDecoration: "none" }}>
+          <Link href="/flip" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>
             every tracked brand ranked by what it sells each week
           </Link>
           ,{" "}
-          <Link href="/category" style={{ color: "#34C759", textDecoration: "none" }}>
+          <Link href="/category" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>
             every category ranked by which brands move in it
           </Link>
           , and the{" "}
-          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>
+          <Link href="/data" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>
             full weekly market data
           </Link>
           , published free.
@@ -197,8 +197,8 @@ export default async function BlogIndex() {
         )}
 
         <div style={{ marginTop: 40, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7" }}>Stop guessing what sells.</div>
-          <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)" }}>Stop guessing what sells.</div>
+          <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>
           {/* H96 CRO: direct Stripe checkout replaces SmartCTA → /pricing detour.
@@ -210,12 +210,12 @@ export default async function BlogIndex() {
               momentum: intent built on the page, don't defer it). Revenue 2026-09-23. */}
           <BlogIndexCheckoutCta locale={locale} />
           {/* Fine-print refund line below /blog CTA */}
-          <p style={{ fontSize: 11.5, color: "#4d5a75", marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
-            <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+          <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", marginTop: 10, marginBottom: 0, lineHeight: 1.5 }}>
+            <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
           </p>
           {/* Paid door is /pricing with organic/blog UTMs, not the signup wall. */}
           <div style={{ marginTop: 10 }}>
-            <Link href="/pricing?src=blog_index" style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}>
+            <Link href="/pricing?src=blog_index" style={{ color: "var(--color-text-muted)", fontSize: 13, textDecoration: "underline" }}>
               See plans — from €19/mo
             </Link>
           </div>

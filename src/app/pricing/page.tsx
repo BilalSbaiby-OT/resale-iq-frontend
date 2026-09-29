@@ -105,7 +105,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
             style={{
               fontSize: 12.5,
               fontWeight: 600,
-              color: "#34C759",
+              color: "var(--color-buy-ink)",
               textDecoration: "none",
               border: "1px solid rgba(52,199,89,.3)",
               borderRadius: 7,

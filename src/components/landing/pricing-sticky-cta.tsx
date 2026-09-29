@@ -92,8 +92,9 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
         left: 0,
         right: 0,
         zIndex: 50,
-        background: "rgba(11,13,16,0.97)",
-        borderTop: "1px solid rgba(52,199,89,.25)",
+        background: "var(--color-surface)",
+        borderTop: "1px solid var(--color-border)",
+        color: "var(--color-text-secondary)",
         padding: "10px 16px",
         display: "flex",
         alignItems: "center",
@@ -104,14 +105,14 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
       <span
         style={{
           fontSize: 13,
-          color: "#8FA3C4",
+          color: "var(--color-text-secondary)",
           minWidth: 0,
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
         }}
       >
-        <strong style={{ color: "#34C759" }}>Starter €19/mo</strong>
+        <strong style={{ color: "var(--color-buy-ink)" }}>Starter €19/mo</strong>
         {" "}— unlock every item in the catalog, cancel anytime.
       </span>
       {/* H174 CRO: direct GuestCheckoutButton replaces scroll anchor.

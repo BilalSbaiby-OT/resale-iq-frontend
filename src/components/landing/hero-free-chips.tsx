@@ -187,7 +187,7 @@ function HeroInlineVerdictCard({
     >
       {/* Header row */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 9 }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7" }}>{result.product}</span>
+        <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)" }}>{result.product}</span>
         <span
           style={{
             display: "inline-flex",
@@ -211,7 +211,7 @@ function HeroInlineVerdictCard({
       <div style={{ display: "flex", gap: 18, marginBottom: 8 }}>
         {result.buy_below != null && (
           <div>
-            <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
+            <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
               Buy below
             </div>
             <div style={{ fontSize: 20, fontWeight: 800, color: col, letterSpacing: "-0.4px" }}>
@@ -221,10 +221,10 @@ function HeroInlineVerdictCard({
         )}
         {result.sell_avg != null && (
           <div>
-            <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
+            <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
               Avg resale
             </div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.4px" }}>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.4px" }}>
               €{result.sell_avg.toFixed(0)}
             </div>
           </div>
@@ -233,7 +233,7 @@ function HeroInlineVerdictCard({
 
       {/* Demand note */}
       {result.demand_note && (
-        <p style={{ fontSize: 11.5, color: "#8b99b8", margin: "0 0 9px", lineHeight: 1.5 }}>
+        <p style={{ fontSize: 11.5, color: "var(--color-text-secondary)", margin: "0 0 9px", lineHeight: 1.5 }}>
           {result.demand_note}
         </p>
       )}
@@ -244,16 +244,16 @@ function HeroInlineVerdictCard({
           Makes the ask concrete: "these specific items are in there, priced, waiting."
           Falls back to field-name chips when no buyListPreview. CRO #8 + #4 + #7. */}
       {buyListPreview && buyListPreview.length > 0 ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "8px 10px" }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid var(--color-border-2)", borderRadius: 9, padding: "8px 10px" }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
             Also in your buy list
           </span>
           {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
             <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-              <span style={{ fontSize: 12, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: 12, color: "var(--color-text-body)", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {it.brand}{it.model ? ` ${it.model}` : ""}
               </span>
-              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 3 }}>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 3 }}>
                 <Lock size={9} />
                 {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
               </span>
@@ -268,7 +268,7 @@ function HeroInlineVerdictCard({
               style={{
                 fontSize: 10.5,
                 color: "#4a5970",
-                border: "1px solid #1e2d45",
+                border: "1px solid var(--color-border-2)",
                 borderRadius: 5,
                 padding: "2px 6px",
                 filter: "blur(2px)",
@@ -305,7 +305,7 @@ function HeroInlineVerdictCard({
           Revenue 2026-09-29. H179. */}
       <p
         data-testid="riq-hero-sample-line"
-        style={{ fontSize: 12, color: "#c3cde0", margin: "0 0 8px", lineHeight: 1.5 }}
+        style={{ fontSize: 12, color: "var(--color-text-body)", margin: "0 0 8px", lineHeight: 1.5 }}
       >
         You already have this sample&apos;s number. Your first check on any other item is free. After that, Starter is €19/mo.
       </p>
@@ -332,9 +332,9 @@ function HeroInlineVerdictCard({
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
-            background: "#0d1117",
-            color: "#eef1f7",
-            border: "1px solid #1e2d45",
+            background: "var(--color-bg-2)",
+            color: "var(--color-text-primary)",
+            border: "1px solid var(--color-border-2)",
             borderRadius: 9,
             padding: "9px 13px",
             fontSize: 13,

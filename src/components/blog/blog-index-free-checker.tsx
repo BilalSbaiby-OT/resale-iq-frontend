@@ -180,7 +180,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
         marginBottom: 28,
       }}
     >
-      <p style={{ fontSize: 12, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 10px" }}>
+      <p style={{ fontSize: 12, fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 10px" }}>
         See it live — free examples, no account required
       </p>
 
@@ -222,7 +222,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
           }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7" }}>{result.product}</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)" }}>{result.product}</span>
             <span
               style={{
                 display: "inline-flex",
@@ -243,19 +243,19 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
           <div style={{ display: "flex", gap: 18, marginBottom: result.demand_note ? 8 : 0 }}>
             {result.buy_below != null && (
               <div>
-                <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Buy below</div>
+                <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Buy below</div>
                 <div style={{ fontSize: 20, fontWeight: 800, color: col, letterSpacing: "-0.3px" }}>€{result.buy_below.toFixed(0)}</div>
               </div>
             )}
             {result.sell_avg != null && (
               <div>
-                <div style={{ fontSize: 10.5, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Avg resale</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.3px" }}>€{result.sell_avg.toFixed(0)}</div>
+                <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Avg resale</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.3px" }}>€{result.sell_avg.toFixed(0)}</div>
               </div>
             )}
           </div>
           {result.demand_note && (
-            <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>{result.demand_note}</p>
+            <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>{result.demand_note}</p>
           )}
           {/* H165 CRO: real locked buy-list rows in blog index inline verdict.
               Pattern from H150 (/pricing InlineVerdictCard) + H155 (homepage)
@@ -269,16 +269,16 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               catalog depth) + #7 (trust: concrete names, not a vague pitch).
               Revenue 2026-09-29. H165. */}
           {buyListPreview && buyListPreview.length > 0 && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "8px 10px" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 2 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid var(--color-border-2)", borderRadius: 9, padding: "8px 10px" }}>
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 2 }}>
                 Also in your buy list
               </span>
               {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
                 <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                  <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
+                  <span style={{ fontSize: 12.5, color: "var(--color-text-body)", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
                     {it.brand}{it.model ? ` ${it.model}` : ""}
                   </span>
-                  <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none" as const, display: "inline-flex", alignItems: "center", gap: 3 }}>
+                  <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none" as const, display: "inline-flex", alignItems: "center", gap: 3 }}>
                     <Lock size={9} />
                     {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
                   </span>
@@ -302,8 +302,8 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
             query={activeChip ?? undefined}
             customerEmail={capturedEmail || undefined}
           />
-          <p style={{ fontSize: 11, color: "#5b6b8c", margin: "7px 0 0" }}>
-            <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days — see Terms</a>
+          <p style={{ fontSize: 11, color: "var(--color-text-muted)", margin: "7px 0 0" }}>
+            <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>Full refund within 30 days — see Terms</a>
           </p>
         </div>
       )}
@@ -320,7 +320,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
             marginBottom: 10,
           }}
         >
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
+          <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 4px", lineHeight: 1.4 }}>
             We have data on <strong style={{ color: "#34C759" }}>{paywallQuery}</strong> — unlock it
           </p>
           {paywallN != null && paywallN > 0 && (
@@ -354,7 +354,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               style={{
                 flex: 1,
                 background: "rgba(255,255,255,.04)",
-                color: "#eef1f7",
+                color: "var(--color-text-primary)",
                 border: "1px solid var(--color-border-ui)",
                 borderRadius: 8,
                 padding: "9px 12px",

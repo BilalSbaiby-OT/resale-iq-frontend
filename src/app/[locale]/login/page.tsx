@@ -32,7 +32,7 @@ export default async function LocaleLoginPage(props: { params: Promise<{ locale:
   const { locale } = await props.params
   if (!isPathLocale(locale)) notFound()
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "#0B0D10" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)" }}>
       <Link href={canonicalPath(locale)} aria-label="Resale IQ home" className="flex items-center gap-2 mb-8">
         <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
         <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>

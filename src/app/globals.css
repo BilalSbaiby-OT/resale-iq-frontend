@@ -108,6 +108,7 @@
   --color-hairline: rgba(255, 255, 255, 0.08);
   --color-accent: #34C759;
   --color-on-accent: #06090c;
+  --color-buy-ink: #30D158;
   --color-text-dim: rgba(232, 236, 244, 0.62);   /* muted body: 56–64% */
   /* Graphite tokens UNIFIED to the cool navy base (2026-09-10, founder call:
      "yes unify"). Was a separate warm-graphite world (#1d1d1f/#f5f5f7) for the
@@ -633,4 +634,52 @@ input[type="submit"]:not(:disabled):active,
     flex-wrap: wrap;
     align-items: flex-start;
   }
+}
+
+/* ── Light front door ───────────────────────────────────────────────────────
+   Founder 2026-09-29: home, pricing, login, register, blog (and locale twins)
+   are a real light surface. The logged-in app stays on the dark tokens above.
+   This is not a filter invert — a designed light palette (Apple system
+   grouped background, label ink, black hairlines). Accent fill is brand
+   green #30D158; small green text uses --color-buy-ink so it clears 4.5:1
+   (#30D158 on white is ~2:1). Unlayered so it beats Tailwind body utilities. */
+html.riq-light {
+  color-scheme: light;
+  background: #F5F5F7;
+  --color-bg: #F5F5F7;
+  --color-bg-2: #FFFFFF;
+  --color-bg-3: #F2F2F7;
+  --color-bg-4: #F2F2F7;
+  --color-bg-5: #E5E5EA;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F2F2F7;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-2: rgba(0, 0, 0, 0.12);
+  --color-border-ui: rgba(0, 0, 0, 0.06);
+  --color-hairline: rgba(0, 0, 0, 0.08);
+  --color-text-primary: #1C1C1E;
+  --color-text-secondary: #3A3A3C;
+  --color-text-muted: #636366;
+  --color-text-body: #1C1C1E;
+  --color-text-dim: rgba(60, 60, 67, 0.78);
+  --color-on-buy: #06210C;
+  --color-green: #30D158;
+  --color-buy: #30D158;
+  --color-accent: #30D158;
+  --color-on-accent: #06210C;
+  --color-buy-ink: #157A32;
+  --color-blue: #0071E3;
+  --color-graphite: #F5F5F7;
+  --color-on-graphite: #1C1C1E;
+  --color-graphite-elevated: #FFFFFF;
+  --color-graphite-muted: rgba(60, 60, 67, 0.72);
+}
+html.riq-light body {
+  background: #F5F5F7;
+  color: #1C1C1E;
+}
+html.riq-light ::-webkit-scrollbar-thumb { background: #C7C7CC; }
+html.riq-light ::selection { background: rgba(48, 209, 88, 0.28); }
+html.riq-light .skeleton {
+  background: linear-gradient(90deg, #E5E5EA 25%, #F2F2F7 50%, #E5E5EA 75%);
 }

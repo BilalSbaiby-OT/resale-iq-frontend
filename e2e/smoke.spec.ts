@@ -11,6 +11,33 @@ test("landing page loads and is not empty", async ({ page }) => {
   expect(text.trim().length).toBeGreaterThan(80)
 })
 
+// Founder feedback 2026-09-29 ("why you dont show pricing on homepage?"):
+// before this, the homepage only mentioned a bare "€19/mo" in body text plus
+// a dim "Pricing →" link — the Pro tier and both plan cards never rendered
+// on "/" at all (2026-09-22 CRO restructure replaced the inline PricingSection
+// with a teaser). This locks in the fix: the homepage now embeds the SAME
+// PricingSection component /pricing renders (compact mode, headingLevel=2 so
+// the document keeps exactly one h1), showing both Starter €19 and Pro €49
+// plan cards, right on the front door.
+test("homepage shows Starter €19 and Pro €49 plan cards, with exactly one h1", async ({ page }) => {
+  const res = await page.goto("/")
+  expect(res?.ok()).toBeTruthy()
+  await expect(page.locator("h1")).toHaveCount(1)
+  const pricing = page.locator("section.riq-pricing")
+  await expect(pricing).toBeVisible()
+  // Heading inside the embedded section must be an h2, not a second h1.
+  await expect(pricing.locator("h1")).toHaveCount(0)
+  await expect(pricing.locator("h2")).toHaveCount(1)
+  await expect(page.getByTestId("riq-pricing-amount-operator")).toHaveText("€19")
+  await expect(page.getByTestId("riq-pricing-amount-power")).toHaveText("€49")
+  await expect(page.getByText("Starter", { exact: true }).first()).toBeVisible()
+  await expect(page.getByText("Pro", { exact: true }).first()).toBeVisible()
+  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
+  await expect(page.getByTestId("riq-pricing-cta-power")).toHaveText(/Start for €49/i)
+  // Exactly one link to the full comparison page, not a duplicate pricing block.
+  await expect(page.getByRole("link", { name: /See full comparison/i })).toHaveCount(1)
+})
+
 test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ page }) => {
   await page.goto("/")
   const hero = page.locator("section.riq-apple-hero")
@@ -181,9 +208,9 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
     if (bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") filled.push(bg)
   }
   expect(filled).toHaveLength(1)
-  // Apple system green #34C759 (was Tailwind #22c55e / rgb(34,197,94) before the
-  // 2026-09 Apple-palette token change).
-  expect(filled[0]).toBe("rgb(52, 199, 89)")
+  // Apple system green #30D158 on the light front door (was #34C759 /
+  // rgb(52,199,89)). Dark-app verdict chips stay #34C759.
+  expect(filled[0]).toBe("rgb(48, 209, 88)")
 })
 
 test("methodology explains sell-through, buy-below and confidence", async ({ page }) => {

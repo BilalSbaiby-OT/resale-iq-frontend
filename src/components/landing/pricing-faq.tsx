@@ -74,7 +74,7 @@ function FaqRow({ item }: { item: FaqItem }) {
   return (
     <div
       style={{
-        borderTop: "1px solid rgba(255,255,255,.07)",
+        borderTop: "1px solid var(--color-border)",
       }}
     >
       <button
@@ -97,16 +97,16 @@ function FaqRow({ item }: { item: FaqItem }) {
           style={{
             fontSize: 14.5,
             fontWeight: 600,
-            color: "#eef1f7",
+            color: "var(--color-text-primary)",
             lineHeight: 1.4,
           }}
         >
           {item.q}
         </span>
         {open ? (
-          <ChevronUp size={16} color="#8b99b8" style={{ flexShrink: 0 }} />
+          <ChevronUp size={16} color="var(--color-text-secondary)" style={{ flexShrink: 0 }} />
         ) : (
-          <ChevronDown size={16} color="#8b99b8" style={{ flexShrink: 0 }} />
+          <ChevronDown size={16} color="var(--color-text-secondary)" style={{ flexShrink: 0 }} />
         )}
       </button>
       {open && (
@@ -114,7 +114,7 @@ function FaqRow({ item }: { item: FaqItem }) {
           <p
             style={{
               fontSize: 13.5,
-              color: "#8b99b8",
+              color: "var(--color-text-secondary)",
               lineHeight: 1.65,
               margin: 0,
             }}
@@ -155,7 +155,7 @@ export function PricingFaq() {
         style={{
           fontSize: 18,
           fontWeight: 700,
-          color: "#eef1f7",
+          color: "var(--color-text-primary)",
           margin: "0 0 4px",
         }}
       >
@@ -164,7 +164,7 @@ export function PricingFaq() {
       <p
         style={{
           fontSize: 13,
-          color: "#5b6b8c",
+          color: "var(--color-text-muted)",
           margin: "0 0 24px",
           lineHeight: 1.5,
         }}
@@ -173,7 +173,7 @@ export function PricingFaq() {
       </p>
       <div
         style={{
-          borderBottom: "1px solid rgba(255,255,255,.07)",
+          borderBottom: "1px solid var(--color-border)",
         }}
       >
         {FAQS.map((item) => (

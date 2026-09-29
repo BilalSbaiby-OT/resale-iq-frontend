@@ -1,6 +1,6 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { localeSiblingPath } from "./locale-routes.ts"
+import { isFrontDoorPath, localeSiblingPath } from "./locale-routes.ts"
 
 test("language switcher navigates locale-routed money/data/tools hubs, not cookie-reload", () => {
   assert.equal(localeSiblingPath("/de/pricing", "fr"), "/fr/pricing")
@@ -14,6 +14,15 @@ test("language switcher navigates locale-routed money/data/tools hubs, not cooki
   assert.equal(localeSiblingPath("/de/support", "en"), "/support")
   assert.equal(localeSiblingPath("/de/best", "fr"), "/fr/best")
   assert.equal(localeSiblingPath("/de/blog/how-to-price-items-on-vinted", "es"), "/es/blog/how-to-price-items-on-vinted")
+})
+
+test("front door is home, pricing, login, register, blog — not posts or the app", () => {
+  for (const p of ["/", "/pricing", "/login", "/register", "/blog", "/es", "/fr/pricing", "/de/login", "/it/register", "/pt/blog"]) {
+    assert.equal(isFrontDoorPath(p), true, p)
+  }
+  for (const p of ["/dashboard", "/tools", "/blog/what-sells-best-on-vinted", "/es/blog/what-sells-best-on-vinted", "/data", "/check-email", "/forgot-password"]) {
+    assert.equal(isFrontDoorPath(p), false, p)
+  }
 })
 
 test("untranslated app routes stay cookie-driven (null sibling)", () => {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { PATH_LOCALES, isPathLocale, isLocaleRoutedPath } from "@/lib/locale-routes"
+import { PATH_LOCALES, isPathLocale, isLocaleRoutedPath, isFrontDoorPath } from "@/lib/locale-routes"
 
 /**
  * 2026-09-02 OUTAGE — every anonymous visitor got LIMIT_REACHED with
@@ -284,9 +284,15 @@ function acceptLanguageLocale(header: string | null): (typeof PATH_LOCALES)[numb
   return null
 }
 
+const FRONT_DOOR_HEADER = "x-resaleiq-front-door"
+
 function withLocaleHeader(request: NextRequest, locale: string) {
   const headers = new Headers(request.headers)
   headers.set(LOCALE_HEADER, locale)
+  // Never trust a client-supplied value — the layout paints light or dark
+  // from this header, and a spoofed "1" would light the logged-in app.
+  headers.delete(FRONT_DOOR_HEADER)
+  if (isFrontDoorPath(request.nextUrl.pathname)) headers.set(FRONT_DOOR_HEADER, "1")
   return NextResponse.next({ request: { headers } })
 }
 

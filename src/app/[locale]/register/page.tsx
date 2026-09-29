@@ -57,15 +57,15 @@ export default async function LocaleRegisterPage({
   const { locale } = await params
   if (!isPathLocale(locale)) notFound()
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "#0B0D10" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)" }}>
       {/* Same "logo -> home" convention as (auth)/layout.tsx (UX-RULES.md
           ticket 2), but locale-aware -- linking "/" here would be the exact
           class of bug this route exists to fix (see [locale]/methodology's
           back-link note). RegisterForm renders its own LocaleSwitcher
           already, so this wrapper does not mount a second one. */}
       <Link href={canonicalPath(locale)} aria-label="Resale IQ home" className="flex items-center gap-2 mb-8">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-[#0B0D10] font-bold text-[14px]">R</div>
-        <span className="text-[15px] font-bold text-[#eef1f7]">Resale IQ</span>
+        <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
+        <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>
       </Link>
       <RegisterForm locale={locale} />
     </div>

@@ -278,16 +278,19 @@ export function PricingSection({
   // Measured: 44 of 50 humans who saw /pricing had NEVER seen a verdict. The price
   // ask was landing before the product. Without ?item= the FreeChecker is hidden
   // behind a form field visitors never type in.
-  // Fix: pick a random public sample query so every /pricing visitor sees a live
-  // verdict + post-sample bridge + checkout CTA on arrival, without typing anything.
+  // Fix: pre-seed a public sample query so every /pricing visitor sees a live
+  // verdict + post-sample bridge + checkout CTA on arrival, without typing.
+  // The sample is stable (first free model), not Math.random — a random pick
+  // mismatches SSR vs client and remounts the section mid-click.
   // The sample bridge copy ("That was a public demo item. Your items need a subscription.")
   // already explains why paid access is needed — this just makes every visitor see it.
   const itemParam = searchParams?.get("item") ?? null
   const [inlineQuery, setInlineQuery] = useState<string | null>(() => {
     if (!compact) {
       if (itemParam?.trim()) return itemParam.trim()
-      // Pre-seed a random sample query so the product proves itself before the price ask.
-      return FREE_SAMPLE_QUERIES[Math.floor(Math.random() * FREE_SAMPLE_QUERIES.length)]
+      // Stable sample, not Math.random: server and client must render the same
+      // chip or hydration remounts the section and drops the tier click.
+      return FREE_SAMPLE_QUERIES[0] ?? null
     }
     return null
   })
@@ -979,7 +982,7 @@ export function PricingSection({
                   style={{
                     fontSize: 13,
                     fontWeight: 600,
-                    color: inlineQuery === q ? "#30D158" : "#EEF1F7",
+                    color: inlineQuery === q ? "var(--color-buy-ink)" : "var(--color-text-primary)",
                     background: inlineQuery === q ? "rgba(48,209,88,.10)" : "var(--color-surface-elevated)",
                     border: inlineQuery === q ? "1px solid rgba(48,209,88,.4)" : "1px solid var(--color-border-2)",
                     borderRadius: 8,
@@ -1060,10 +1063,10 @@ export function PricingSection({
                       #3 (message-match: name the exact query they just ran) +
                       #10 (CTA discipline: solution-aware → named item CTA).
                       Revenue 2026-09-28. */}
-                  <p style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
+                  <p style={{ fontSize: 13.5, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 4px", lineHeight: 1.4 }}>
                     {inlineQuery} is a public sample. Every other item you check is behind the paywall.
                   </p>
-                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
+                  <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
                     You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
                   </p>
                   <GuestCheckoutButton locale={locale} label={`Get verdicts like this — €19/mo →`} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />

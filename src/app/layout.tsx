@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next"
+import { headers } from "next/headers"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
+import { FrontDoorTheme } from "@/components/layout/front-door-theme"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
 import { listingsTrackedLabel, listingRecordsLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
@@ -82,11 +84,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Without this, mobile browsers render at ~980px desktop width and force the
 // user to pinch-zoom. Our customers are mostly on phones — this is essential.
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: "#0B0D10",
+// theme-color follows the front door: light canvas on public entry routes,
+// near-black on the logged-in app. The proxy stamps the header; this must
+// stay a function (not a static export) or every route shares one colour.
+export async function generateViewport(): Promise<Viewport> {
+  const frontDoor = (await headers()).get("x-resaleiq-front-door") === "1"
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    themeColor: frontDoor ? "#F5F5F7" : "#0B0D10",
+    colorScheme: frontDoor ? "light" : "dark",
+  }
 }
 
 // Site-wide Organization + SoftwareApplication schema. Helps search AND answer
@@ -149,15 +158,17 @@ const orgJsonLd = (tracked: string, locale: Locale) => {
  */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
+  const frontDoor = (await headers()).get("x-resaleiq-front-door") === "1"
   const records = await listingRecordsLabel()
   const trackedLabel = records !== "—" ? records : await listingsTrackedLabel()
   const ORG_JSONLD = orgJsonLd(trackedLabel, locale)
   return (
-    <html lang={locale} className={`dark ${inter.variable} ${mono.variable}`}>
+    <html lang={locale} className={`${frontDoor ? "riq-light" : "dark"} ${inter.variable} ${mono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }} />
       </head>
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
+        <FrontDoorTheme />
         <PageviewTracker />
         <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>

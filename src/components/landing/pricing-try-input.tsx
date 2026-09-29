@@ -99,7 +99,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       }}
     >
       {/* Personalised headline — CRO #3 message-match */}
-      <p style={{ fontSize: 14, fontWeight: 700, color: "#eef1f7", margin: "0 0 6px", lineHeight: 1.4 }}>
+      <p style={{ fontSize: 14, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 6px", lineHeight: 1.4 }}>
         We have data on <strong style={{ color: "#34C759" }}>{query}</strong> — unlock it below
       </p>
       {/* H135 CRO: comparable_n specificity — same trust signal as HardPaywallCard.
@@ -137,7 +137,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
               <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {it.brand}{it.model ? ` ${it.model}` : ""}
               </span>
-              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
                 <Lock size={10} />
                 {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
               </span>
@@ -172,8 +172,8 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
-            background: "#0d1117",
-            color: "#eef1f7",
+            background: "var(--color-bg-2)",
+            color: "var(--color-text-primary)",
             border: "1.5px solid rgba(52,199,89,.35)",
             borderRadius: 9,
             padding: "9px 13px",
@@ -236,7 +236,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
     >
       {/* Header row */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <span style={{ fontSize: 13.5, fontWeight: 700, color: "#eef1f7" }}>{result.product}</span>
+        <span style={{ fontSize: 13.5, fontWeight: 700, color: "var(--color-text-primary)" }}>{result.product}</span>
         <span
           style={{
             display: "inline-flex",
@@ -273,7 +273,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
             <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
               Avg resale
             </div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.4px" }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.4px" }}>
               €{result.sell_avg.toFixed(0)}
             </div>
           </div>
@@ -308,7 +308,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
               <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {it.brand}{it.model ? ` ${it.model}` : ""}
               </span>
-              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
                 <Lock size={10} />
                 {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
               </span>
@@ -357,8 +357,8 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
-            background: "#0d1117",
-            color: "#eef1f7",
+            background: "var(--color-bg-2)",
+            color: "var(--color-text-primary)",
             border: "1.5px solid rgba(52,199,89,.35)",
             borderRadius: 9,
             padding: "9px 13px",
@@ -370,7 +370,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         />
       )}
       <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
-        Unlock sell-through, top sizes & all items for <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
+        Unlock sell-through, top sizes & all items for <strong style={{ color: "var(--color-text-primary)" }}>€19/mo</strong>
       </p>
       {/* H156 CRO: query-specific CTA label on /pricing inline verdict card.
           Before: "Unlock all items — €19/mo →" — generic, no message match.

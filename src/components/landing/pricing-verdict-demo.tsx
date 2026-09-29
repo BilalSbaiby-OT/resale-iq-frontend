@@ -214,7 +214,7 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
               <div style={{ fontSize: 11, color: "#6a7d9a", marginBottom: 3, fontWeight: 600 }}>
                 SELL AVG
               </div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.5px" }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.5px" }}>
                 €{v.sell_avg.toFixed(0)}
               </div>
             </div>

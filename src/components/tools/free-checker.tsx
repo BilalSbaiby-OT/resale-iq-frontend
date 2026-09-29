@@ -155,11 +155,11 @@ const VERDICT_COLOR: Record<string, string> = {
   // 379 + 74 = 453 anon hits/7d were rendering as grey "PROVISIONAL_PRICE".
   PROVISIONAL_PRICE: "#FF9F0A",
   PROVISIONAL: "#FF9F0A",
-  LOCKED: "#8b99b8",
-  INSUFFICIENT_DATA: "#8b99b8",
-  UNKNOWN: "#8b99b8",
-  LIMIT_REACHED: "#8b99b8",
-  PAYWALL: "#8b99b8",
+  LOCKED: "var(--color-text-secondary)",
+  INSUFFICIENT_DATA: "var(--color-text-secondary)",
+  UNKNOWN: "var(--color-text-secondary)",
+  LIMIT_REACHED: "var(--color-text-secondary)",
+  PAYWALL: "var(--color-text-secondary)",
   // BRAND_AVERAGE is a real ANSWER, not a refusal, so it must not share the grey
   // used for UNKNOWN and INSUFFICIENT_DATA. Blue: informative, deliberately not
   // the green of BUY -- it is a brand-level average, not a per-item call.
@@ -234,7 +234,7 @@ function LimitReachedUpgrade({
 
   return (
     <div data-testid="riq-limit-reached-upgrade">
-      <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
+      <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", lineHeight: 1.65, marginBottom: 14 }}>
         {t.limitReachedUpgradeBody}
       </p>
       {used != null && limit != null && (
@@ -428,7 +428,7 @@ function PaidPostCheckBar({ locale, user }: { locale: Locale; user: User | null 
       data-testid="riq-paid-session-bar"
       style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}
     >
-      <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ fontSize: 13.5, color: "var(--color-text-secondary)", display: "flex", alignItems: "center", gap: 8 }}>
         <Unlock size={14} color="#34C759" />
         {t.paidUnlockLine(chip)}
       </div>
@@ -585,7 +585,7 @@ export function FreeChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (initialQuery && !initialResult) run(initialQuery) }, [])
 
-  const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "#8b99b8") : "#8b99b8"
+  const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
   // WATCHED DEPARTURES ONLY. This was `res.sold_7d ?? res.n`, and `n` is NOT a
   // departure count — it is `comparable_n`, the fenced subset of clean comps the
   // confidence band and the price stats are computed from (api/routes.py
@@ -782,7 +782,7 @@ export function FreeChecker({
           </p>
           <button
             onClick={() => run()}
-            style={{ marginTop: 8, background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", color: "#c3cde0", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
+            style={{ marginTop: 8, background: "var(--color-surface-elevated)", border: "1px solid var(--color-border-2)", color: "var(--color-text-body)", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer" }}
           >
             {t.tryAgain}
           </button>
@@ -809,10 +809,10 @@ export function FreeChecker({
             // not the whole product — the fix that pairs with the now-empty
             // input. Points them back to the box to run their own.
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "#8b99b8", background: "var(--color-surface-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 6, padding: "3px 8px" }}>
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--color-text-secondary)", background: "var(--color-surface-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 6, padding: "3px 8px" }}>
                 {t.exampleLabel}
               </span>
-              <span style={{ fontSize: 12.5, color: "#8b99b8" }}>{t.exampleNudge}</span>
+              <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>{t.exampleNudge}</span>
             </div>
           )}
           {res.verdict === "PAYWALL" ? (
@@ -921,7 +921,7 @@ export function FreeChecker({
             // as the BRAND_AVERAGE card's "Carhartt Jackets" — catalogue
             // taxonomy, not prose.
             <>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.brand ?? res.product ?? q}</div>
+              <div style={{ fontSize: 15, color: "var(--color-text-primary)", fontWeight: 600, marginBottom: 8 }}>{res.brand ?? res.product ?? q}</div>
               <p style={{ fontSize: 14, color: "#FF9F0A", lineHeight: 1.55 }}>
                 {t.brandCategoriesIntro(
                   res.brand ?? q,
@@ -944,8 +944,8 @@ export function FreeChecker({
                         background: "var(--color-surface-elevated)", borderRadius: 9, padding: "9px 12px",
                       }}
                     >
-                      <span style={{ fontSize: 13, color: "#eef1f7" }}>{a.category}</span>
-                      <span style={{ fontSize: 12.5, color: "#8b99b8" }}>
+                      <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>{a.category}</span>
+                      <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
                         {money(a.avg_price_eur)} {t.avg} · {t.leftShelfCount(fmtCount(a.sold_7d))}
                       </span>
                     </div>
@@ -980,8 +980,8 @@ export function FreeChecker({
                   Only shown when not already a paying session. Revenue 2026-09-23. */}
               {barBranch === "checkout" && (
                 <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--color-border-ui)", display: "flex", flexDirection: "column", gap: 6 }}>
-                  <p style={{ fontSize: 12.5, color: "#8b99b8", margin: 0, lineHeight: 1.5 }}>
-                    Type <strong style={{ color: "#eef1f7" }}>{res.brand ?? "brand"} + item</strong> above for a buy-below price. Starter unlocks every item in the catalog.
+                  <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.5 }}>
+                    Type <strong style={{ color: "var(--color-text-primary)" }}>{res.brand ?? "brand"} + item</strong> above for a buy-below price. Starter unlocks every item in the catalog.
                   </p>
                   <GuestCheckoutButton locale={locale} label="Unlock all items — €19/mo →" src="brand_categories_nudge" />
                   <Link
@@ -1022,9 +1022,9 @@ export function FreeChecker({
             // this branch still owes. Assert the PROPERTY (a statement is shown, n
             // is honest, no verdict colour, a next step exists), not the wording.
             <div data-testid="riq-insufficient">
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              <div style={{ fontSize: 15, color: "var(--color-text-primary)", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
 
-              <p style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", lineHeight: 1.4, margin: 0 }}>
+              <p style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)", lineHeight: 1.4, margin: 0 }}>
                 {t.insufficientStatement}
               </p>
               <p style={{ fontSize: 12.5, color: "#8fa3c4", marginTop: 6, lineHeight: 1.5 }}>
@@ -1033,7 +1033,7 @@ export function FreeChecker({
 
               {res.n != null && (
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid var(--color-border-ui)" }}>
-                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 700, color: "#eef1f7", letterSpacing: "-0.5px" }}>
+                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.5px" }}>
                     {fmtCount(res.n)}
                   </span>
                   <span style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>
@@ -1102,7 +1102,7 @@ export function FreeChecker({
                   + #12 (earned-urgency: value first, ask second).
                   Revenue 2026-09-23. */}
               <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--color-border-ui)", display: "flex", flexDirection: "column", gap: 6 }}>
-                <p style={{ fontSize: 12.5, color: "#8b99b8", margin: 0, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.5 }}>
                   More data = a clearer call. Starter unlocks every item in the catalog — unlimited checks.
                 </p>
                 <GuestCheckoutButton locale={locale} label="Unlock full analysis — €19/mo →" src="insufficient_data_nudge" />
@@ -1180,9 +1180,9 @@ export function FreeChecker({
             </>
           ) : (
             <>
-              <div style={{ fontSize: 15, color: "#eef1f7", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
+              <div style={{ fontSize: 15, color: "var(--color-text-primary)", fontWeight: 600, marginBottom: 8 }}>{res.product ?? q}</div>
               {res.match_note && (
-                <p style={{ fontSize: 12.5, color: "#8b99b8", marginBottom: 12 }}>{res.match_note}</p>
+                <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", marginBottom: 12 }}>{res.match_note}</p>
               )}
 
               {intel.length > 0 && (
@@ -1256,7 +1256,7 @@ export function FreeChecker({
 
               {/* D-38: 30-day demand evidence for shelf-blind models. NOT weekly departures. */}
               {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && res.demand_note && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "#8b99b8", lineHeight: 1.55 }}>{res.demand_note}</p>
+                <p style={{ marginTop: 10, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.55 }}>{res.demand_note}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has
@@ -1264,7 +1264,7 @@ export function FreeChecker({
                   in this branch only ever means BUY/WATCH/SKIP without an
                   account, not a refusal. */}
               {!hasPrices && !hasIntel && (
-                <p style={{ marginTop: 12, fontSize: 13, color: "#8b99b8" }}>
+                <p style={{ marginTop: 12, fontSize: 13, color: "var(--color-text-secondary)" }}>
                   {t.headlineOnly} {TRIAL_LIMITS_SHORT_BY_LOCALE[locale]}
                 </p>
               )}
@@ -1296,10 +1296,10 @@ export function FreeChecker({
                 borderRadius: 10,
               }}
             >
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 3px", lineHeight: 1.4 }}>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 3px", lineHeight: 1.4 }}>
                 That was a public demo item.
               </p>
-              <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>
                 Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.
               </p>
               <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="tools_sample_bridge" />
@@ -1321,7 +1321,7 @@ export function FreeChecker({
                 borderRadius: 10,
               }}
             >
-              <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>
                 {res!.verdict === "BUY" || res!.verdict === "PROVISIONAL" || res!.verdict === "PROVISIONAL_PRICE"
                   ? "This item is a buy. Starter shows the buy-below price and weekly demand for every item you source — 8,400+ models."
                   : res!.verdict === "WATCH"
@@ -1343,7 +1343,7 @@ export function FreeChecker({
           )}
           {barBranch === "checkout" && (
           <div data-testid="riq-guest-unlock-bar" style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 10, padding: "14px 16px" }}>
-            <div style={{ fontSize: 13.5, color: "#8b99b8", display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 13.5, color: "var(--color-text-secondary)", display: "flex", alignItems: "center", gap: 8 }}>
               <Lock size={14} color="#34C759" />
               {t.unlockLine}
             </div>
@@ -1415,7 +1415,7 @@ function Stat({ label, value, accent }: { label: string; value: string; accent?:
   return (
     <div style={{ background: "var(--color-surface-elevated)", borderRadius: 10, padding: "12px 14px", border: "1px solid var(--color-border-ui)" }}>
       <div style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>{label}</div>
-      <div style={{ fontSize: 19, fontWeight: 700, color: accent || "#eef1f7", marginTop: 3, letterSpacing: "-0.3px", fontVariantNumeric: "tabular-nums" }}>{value}</div>
+      <div style={{ fontSize: 19, fontWeight: 700, color: accent || "var(--color-text-primary)", marginTop: 3, letterSpacing: "-0.3px", fontVariantNumeric: "tabular-nums" }}>{value}</div>
     </div>
   )
 }

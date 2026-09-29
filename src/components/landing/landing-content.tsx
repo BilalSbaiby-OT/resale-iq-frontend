@@ -14,10 +14,11 @@ import type { HeroVerdict } from "@/lib/hero-verdict"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { canonicalPath } from "@/lib/locale-routes"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
-import { HomepageEmailCta } from "./homepage-email-cta"
 import { HeroFreeChips } from "./hero-free-chips"
 import { RoiExampleCard } from "./roi-example-card"
 import { TrustBlock } from "./trust-block"
+import { PricingSection } from "./pricing-section"
+import { formatSellThrough } from "@/lib/format-sell-through"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -168,6 +169,8 @@ export function LandingContent({
                    mostly says no" — the SSR buy list with BUY rows is the proof story. */
                 initialQuery=""
                 initialResult={null}
+                // H178: buyListPreview → HardPaywallCard named locked rows on homepage paywall (52/7d). CRO #4+#7+#8.
+                buyListPreview={ssrBuyList}
               />
             </div>
             {/* H117 CRO: clickable free-sample chips with analytics tracking.
@@ -295,44 +298,43 @@ export function LandingContent({
           </dl>
         </div>
 
-        {/* ── PRICING TEASER — replaces inline PricingSection ───────────────
-            H65 CRO: homepage pricing zone upgrade (Revenue 2026-09-23).
-            BEFORE: faint grey "Pricing →" link. A visitor who just saw live
-            BUY signals had no direct conversion path; they had to navigate to
-            /pricing and click again. Funnel: 52 weekly homepage visitors,
-            0 paying. A dim link does not close an already-warm visitor.
-            AFTER: GuestCheckoutButton (direct Stripe checkout) as primary + 
-            secondary "See plans" link. CRO principles applied:
-            - #12 Conversion momentum: value (buy-list proof) → earned CTA.
-            - #10 CTA discipline: solution-aware visitor → "Start €19/mo" is
-              the right commitment level, not "see how it works".
-            - #5 Visual hierarchy: one green filled button, one dim link.
-            - #9 Friction audit: removes the extra /pricing click.
-            ZIK Analytics leads with "Start Smart. Scale Faster" + immediate
-            trial CTA. Fathom leads with "7-day free trial" above the fold.
-            Both show the ask at the moment of conviction, not one page later.
-            HARD_PAYWALL stays ON — this goes to Stripe directly.
-            ?src=homepage_checkout for attribution. */}
-        <div
-          style={{
-            maxWidth: "var(--width-hero)",
-            margin: "0 auto",
-            padding: "0 var(--space-3) var(--space-6)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          {/* H87 CRO: loss-framed homepage CTA — Revenue 2026-09-23.
-              BEFORE: "Start €19/mo — buy-below on every brand →" — neutral gain framing.
-              H98 CRO: email-capture before checkout — 23/25 Stripe sessions had no
-              email typed. This adds an optional email field before the CTA so Stripe
-              pre-populates customer_email, removing the highest-friction field on the
-              payment page. Same pattern C199 applied to blog posts (confirmed lift).
-              CRO #6 (cognitive load: one fewer required field on Stripe) +
-              #8 (loss-framing: kept) + #12 (conversion momentum). Revenue 2026-09-23. */}
-          <HomepageEmailCta locale={locale} pricingText={t.pricing} />
+        {/* ── PRICING CARDS — Starter €19 / Pro €49, right on the homepage ──
+            Founder feedback 2026-09-29: "why you dont show pricing on
+            homepage?" — before this, the only price mentioned above the fold
+            was a bare "€19/mo" in prose plus a dim "Pricing →" link (the
+            2026-09-22 CRO restructure, H65); the Pro tier and both plan cards
+            were never rendered here at all. Reusing PricingSection in its
+            existing `compact` mode (already the density /pricing itself does
+            not use — this is the SAME component /pricing renders, just
+            denser) keeps tier content, live Stripe price ids, the
+            monthly/yearly toggle and the checkout branch in the one place
+            they have always lived — no second copy of pricing logic.
+            headingLevel=2: the homepage's own H1 is above; PricingSection's
+            heading becomes an h2 here (this is exactly what the prop exists
+            for — see pricing-section.tsx's own comment on it).
+            Placed after the objection row (the live-data proof/trust section
+            immediately above) and before the FAQ, per the founder's brief.
+            seedTracked/seedSellThrough reuse the SSR-fetched market numbers
+            already in scope — zero extra requests, same pattern /pricing
+            uses (src/app/pricing/page.tsx). */}
+        <PricingSection
+          locale={locale}
+          compact
+          headingLevel={2}
+          seedTracked={tracked}
+          seedSellThrough={formatSellThrough(market.sold7dTotal)}
+        />
+        {/* One clear link to the full comparison — not a second pricing
+            block. PricingSection's own "public data" line already covers
+            the free tier; this is the only additional pricing link on the
+            page, matching the founder's "keep it simple" ask. */}
+        <div style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)", textAlign: "center" }}>
+          <Link
+            href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
+            style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-dim)", textDecoration: "none" }}
+          >
+            See full comparison → {t.pricing}
+          </Link>
         </div>
 
         {faqs && faqs.length > 0 ? (
@@ -346,33 +348,33 @@ export function LandingContent({
         ) : null}
       </main>
 
-      <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "#5b6b8c", fontSize: 12 }}>
+      <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "var(--color-text-muted)", fontSize: 12 }}>
         <div style={{ display: "flex", gap: 16, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 16 }}>
           {/* First in the row for the same reason it is now in the nav: this
               footer carried 15 links and not one of them was the price. */}
-          <Link href={`${canonicalPath(locale, "/pricing")}?src=footer`} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.pricing}</Link>
-          <Link href="/tools" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
-          <Link href="/flip" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
-          <Link href="/buy" style={{ color: "#5b6b8c", textDecoration: "none" }}>Buy prices</Link>
-          <Link href="/category" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
-          <Link href="/flip/nike" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
-          <Link href="/category/sneakers" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
-          <Link href="/manual" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
-          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.methodologyLink}</Link>
-          <Link href="/data" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.marketData}</Link>
-          <Link href="/api-docs" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.api}</Link>
-          <Link href="/blog" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.blog}</Link>
-          <Link href="/terms" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
-          <Link href="/privacy" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
-          <Link href="/legal" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
-          <Link href={canonicalPath(locale, "/support")} style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.siteFooter.support}</Link>
-          <Link href="/login" style={{ color: "#5b6b8c", textDecoration: "none" }}>{t.signIn}</Link>
+          <Link href={`${canonicalPath(locale, "/pricing")}?src=footer`} style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.pricing}</Link>
+          <Link href="/tools" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
+          <Link href="/flip" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
+          <Link href="/buy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Buy prices</Link>
+          <Link href="/category" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
+          <Link href="/flip/nike" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
+          <Link href="/category/sneakers" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
+          <Link href="/manual" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
+          <Link href={canonicalPath(locale, "/methodology")} style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.methodologyLink}</Link>
+          <Link href="/data" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.marketData}</Link>
+          <Link href="/api-docs" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.api}</Link>
+          <Link href="/blog" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.blog}</Link>
+          <Link href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
+          <Link href="/privacy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
+          <Link href="/legal" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
+          <Link href={canonicalPath(locale, "/support")} style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.support}</Link>
+          <Link href="/login" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.signIn}</Link>
         </div>
         <div style={{ marginBottom: 14 }}>
           <SocialLinks />
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
-        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "#5b6b8c", lineHeight: 1.6 }}>
+        <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "var(--color-text-muted)", lineHeight: 1.6 }}>
           {t.siteFooter.disclaimer}
         </div>
       </footer>

@@ -167,3 +167,18 @@ export function stripLocalePrefix(pathname: string): string {
   if (!m || !isPathLocale(m[1])) return pathname
   return m[2] || "/"
 }
+
+/**
+ * Public front door only: home, pricing, login, register, blog, and the
+ * locale-prefixed twins of those exact paths. Blog posts and the logged-in
+ * app are not in this set — they keep the dark product theme.
+ */
+const FRONT_DOOR_ROOTS = new Set(["pricing", "login", "register", "blog"])
+
+export function isFrontDoorPath(pathname: string): boolean {
+  const path = (pathname || "/").split("?")[0].split("#")[0]
+  const seg = path.split("/").filter(Boolean)
+  if (seg.length > 0 && isPathLocale(seg[0])) seg.shift()
+  if (seg.length === 0) return true
+  return seg.length === 1 && FRONT_DOOR_ROOTS.has(seg[0])
+}
