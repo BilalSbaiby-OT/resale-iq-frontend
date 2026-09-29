@@ -401,8 +401,14 @@ export function BlogInlineChecker({
         // Verified PAYWALL for anonymous visitors (all return paywalled=true + comparable_n≥40).
         // H145: swapped Ralph Lauren Polo Shirt → New Balance 550 (RL returns free 200 for anon;
         // NB550 is confirmed PAYWALL for anon and has 59 data points — good comparable_n teaser).
-        const CROSS_CHIPS = ["Stone Island Hoodie", "Balenciaga Track", "Levis 501", "Fred Perry Polo", "New Balance 550"]
-        const chips = CROSS_CHIPS.filter(q => q.toLowerCase() !== preflightQuery.toLowerCase()).slice(0, 3)
+        // H177(elon): removed "Fred Perry Polo" from CROSS_CHIPS — it is a FREE_MODEL.
+        // Clicking it on a paid-post gave a free verdict with no checkout CTA → dead-end.
+        // All chips must be paid-model catalog entries that return 402 for anon visitors.
+        const CROSS_CHIPS = ["Stone Island Hoodie", "Balenciaga Track", "Levis 501", "New Balance 550", "Ralph Lauren Polo"]
+        const chips = CROSS_CHIPS.filter(q =>
+          q.toLowerCase() !== preflightQuery.toLowerCase() &&
+          !(FREE_MODELS as readonly string[]).some(m => m.toLowerCase() === q.toLowerCase())
+        ).slice(0, 3)
         if (chips.length === 0) return null
         return (
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
