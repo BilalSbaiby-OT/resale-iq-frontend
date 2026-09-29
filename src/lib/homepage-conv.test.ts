@@ -204,3 +204,23 @@ test("landing teaches three steps and honest coverage, and does not ship heroHon
   assert.doesNotMatch(copy.de.heroSub, /\bBUY\b/)
   assert.match(copy.de.heroSub, /KAUFEN/)
 })
+
+test("homepage buy-list footer checks first and does not open Stripe", () => {
+  const landing = read("components/landing/landing-content.tsx")
+  const teaser = read("components/landing/ssr-buy-list-teaser.tsx")
+  assert.match(landing, /showPrice=\{false\}/)
+  assert.match(landing, /<PricingSection/)
+  assert.doesNotMatch(teaser, /Get buy-below prices/)
+  assert.doesNotMatch(teaser, /src="ssr_buy_list"(?!_)/)
+  assert.match(teaser, /data-testid="riq-home-see-plans"/)
+  assert.match(teaser, /href="#pricing"/)
+  assert.match(teaser, /href="#check"/)
+})
+
+test("highlighted plan card collects email in compact mode too", () => {
+  const pricing = read("components/landing/pricing-section.tsx")
+  assert.match(pricing, /tier\.highlight && !isPaidPlan\(user\)/)
+  assert.doesNotMatch(pricing, /tier\.highlight && !compact && !isPaidPlan\(user\)/)
+  assert.match(pricing, /data-testid="riq-pricing-card-email"/)
+  assert.match(pricing, /riq_capture_email/)
+})

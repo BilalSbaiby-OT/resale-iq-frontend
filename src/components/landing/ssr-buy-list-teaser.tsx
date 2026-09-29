@@ -294,13 +294,9 @@ export function SsrBuyListTeaser({
             )}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-            {/* H88 CRO: CTA order matches visitor awareness.
-                /pricing (showPrice=true): visitor is solution-aware — paying is the
-                correct next action. Paid checkout is PRIMARY (filled), free check
-                is secondary (link). CRO #10 (commitment ladder: solution-aware →
-                "start free"). Homepage (showPrice=false): visitor is cold — free check
-                is still the right first ask; order stays as before.
-                Revenue 2026-09-23. */}
+            {/* H88: /pricing (showPrice) is solution-aware — plans/checkout lead.
+                Homepage (showPrice=false): check leads. The secondary control
+                scrolls to the plan cards on this page. It must not open Stripe. */}
             {showPrice ? (
               <>
                 {/* H111 CRO: ctaScrollTo routes pricing-page visitors through
@@ -343,8 +339,10 @@ export function SsrBuyListTeaser({
               </>
             ) : (
               <>
-                {/* Homepage/cold traffic: free check leads — scroll to the
-                    checker already on the page instead of navigating away. */}
+                {/* Homepage: the rows already show a buy-below. Do not open
+                    Stripe from this block — 23/25 sessions had no email, and
+                    44/50 pricing viewers had never seen a verdict. Check is
+                    the action. Plans are further down the same page. */}
                 <a
                   href="#check"
                   style={{
@@ -361,7 +359,19 @@ export function SsrBuyListTeaser({
                 >
                   {copy[locale].checkItem} →
                 </a>
-                <GuestCheckoutButton locale={locale} label="Get buy-below prices →" src="ssr_buy_list" asLink />
+                <a
+                  href="#pricing"
+                  data-testid="riq-home-see-plans"
+                  style={{
+                    color: "var(--color-text-secondary)",
+                    fontWeight: 500,
+                    fontSize: 13.5,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {copy[locale].pricing} →
+                </a>
               </>
             )}
           </div>

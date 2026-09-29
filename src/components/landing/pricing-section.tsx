@@ -634,15 +634,13 @@ export function PricingSection({
                 </div>
               )
             })()}
-            {/* H113 CRO: email input on the Starter card only.
-                23/25 Stripe sessions had no email typed — the email field is
-                the highest-friction moment on Stripe's own page. choose()
-                reads riq_capture_email; this provides the missing write path
-                directly on the Starter card so the visitor pre-fills Stripe
-                before clicking. Optional — checkout still works without it.
-                CRO #6 (cognitive load) + #4 (commitment signal) + #12 (momentum:
-                email→click vs cold click). Revenue 2026-09-23. H113. */}
-            {tier.highlight && !compact && !isPaidPlan(user) && (
+            {/* Email write path on the highlighted plan card, including the
+                homepage compact cards. HomepageEmailCta was the old writer;
+                it was removed when the cards moved onto the homepage, and the
+                !compact guard left those buttons opening Stripe with no email.
+                choose() already reads riq_capture_email. Optional — checkout
+                still works if they skip it. */}
+            {tier.highlight && !isPaidPlan(user) && (
               <div style={{ marginBottom: 10 }}>
                 <input
                   type="email"
