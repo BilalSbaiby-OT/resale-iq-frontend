@@ -84,6 +84,7 @@ import type { PaywallPayload } from "@/lib/hard-paywall"
 import { FREE_MODELS } from "@/lib/working-models"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { VERDICT_COLOR } from "@/components/blog-proof-strip"
+import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 export function BlogInlineChecker({
   preflightQuery,
@@ -208,6 +209,22 @@ export function BlogInlineChecker({
             query={activeQuery}
           />
         </div>
+      )}
+
+      {/* H137 CRO: ROI worked example below above-fold CTA for paid-model blog posts.
+          Blog: 130/7d visitors, 0 checkout_from_blog all-time.
+          The above-fold CTA shows 2 buy-list rows (C221); visitors see what's in the list
+          but don't immediately see WHY it pays off. RoiExampleCard adds the P&L math:
+          "Buy X at €Y, typical exit €Z, margin ~€W — one flip covers your Starter month"
+          from a REAL live buy-list row. Same component as /pricing (H136), different surface.
+          Rendered only for non-free-model queries (free-model posts already show the buy-list
+          pitch below — adding ROI there too would duplicate). buyListPreview is already in
+          scope; no extra fetch. Falls back gracefully: renders nothing when no suitable row
+          is available (RoiExampleCard contract). CRO #4 (objection: worth it?) +
+          #8 (specificity: real item, real margin, not a claim) +
+          #12 (conviction before the FreeChecker paywall). Revenue 2026-09-29. H137. */}
+      {!isFreeModelQuery && buyListPreview && buyListPreview.length > 0 && (
+        <RoiExampleCard items={buyListPreview} />
       )}
 
       {/* C214: Buy-list pitch for free-model visitors (NB530, AF1, Samba).
