@@ -57,8 +57,21 @@ function EmailClientButton({ email }: { email: string }) {
     }
   }
 
-  // No known client → no button rendered (don't guess wrong)
-  if (!client) return null
+  // C(tony)EmailFallback: unknown provider → mailto: fallback.
+  // Opens the OS-default mail app on desktop (Mail.app, Outlook, Thunderbird)
+  // and the native app on mobile (iOS Mail, Android Gmail). Better than nothing
+  // for Proton, Hey, Fastmail, company domains — the exact providers where
+  // the user is LEAST likely to have webmail in a browser tab already open.
+  if (!client) {
+    return (
+      <a
+        href="mailto:"
+        className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border border-[var(--color-border-ui)] text-[13px] font-semibold text-[var(--color-text-primary)] hover:border-[var(--color-buy)] hover:text-[var(--color-buy)] transition-colors mb-4"
+      >
+        Open email app →
+      </a>
+    )
+  }
 
   return (
     <a
