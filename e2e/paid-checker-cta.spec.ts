@@ -22,7 +22,8 @@ async function login(page: Page, email: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill("password12345")
   await page.getByRole("button", { name: /Sign in/i }).click()
-  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
+  // FOUNDER AUTH RULE (2026-09-29): login always lands on /dashboard.
+  await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
 }
 
 test("anonymous checker still offers Starter checkout after a real check", async ({ page }) => {
