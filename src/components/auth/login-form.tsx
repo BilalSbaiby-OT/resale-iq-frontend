@@ -152,11 +152,6 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     setError(""); setLoading(true)
     try {
       await login(email, password)
-      const u = useAuthStore.getState().user
-      if (u && u.email_verified === false) {
-        router.push("/check-email")
-        return
-      }
       // FOUNDER RULE: a successful email/password login lands on /dashboard.
       router.push("/dashboard")
     }
