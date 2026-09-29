@@ -1,4 +1,5 @@
 "use client"
+import { useEffect, useState } from "react"
 import { verdictUpsellLine } from "@/lib/verdict-upsell"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
@@ -16,13 +17,21 @@ import type { Locale } from "@/lib/i18n"
  * (checkerUnlockBranch already returns "checkout" for both hero and card, so
  * the hero exclusion has to happen at the call site, not in this component).
  *
- * Content:
- *  - The real per-item margin line, computed from the verdict's own
- *    buy_below/sell_avg fields (verdictUpsellLine — never invents a number;
- *    omitted when either field is missing).
- *  - One primary CTA straight to Stripe checkout (guest checkout, no
- *    /register detour — GuestCheckoutButton already does this).
- *  - One small secondary link for the annual price (2 months free).
+ * H154 CRO: two changes vs the original:
+ *
+ * 1. QUERY-SPECIFIC CTA LABEL (CRO #3 message-match + #10 CTA discipline):
+ *    After seeing a verdict for "Stone Island Hoodie", the CTA previously read
+ *    "Unlock the full buy list" — the user doesn't know what the buy list is;
+ *    they came to know if they should BUY this item. The label now reads
+ *    "Unlock Stone Island Hoodie buy-below — €19/mo" — mirrors their intent,
+ *    names exactly what they get. Falls back to the generic label when no query.
+ *
+ * 2. EMAIL PREFILL from riq_capture_email (CRO #6 cognitive load):
+ *    The sticky bar (H142), blog footer (H146) and paywall card (H122/H107) all
+ *    pre-fill Stripe email from localStorage. VerdictUpsellCta — the CTA shown
+ *    immediately after seeing a verdict — was the one remaining gap. Visitors
+ *    who typed their email on the homepage or blog had to type it again at Stripe
+ *    via this path. useEffect read (same pattern as every other pre-fill) closes it.
  *
  * Paid users must never see this — callers gate on isPaidPlan/checkerUnlockBranch
  * before rendering; this component does not re-check plan itself so it stays a
@@ -48,6 +57,29 @@ export function VerdictUpsellCta({
   annualHref: string
 }) {
   const line = verdictUpsellLine({ buy_below: buyBelow, sell_avg: sellAvg })
+
+  // H154 CRO: pre-fill Stripe email from localStorage — same pattern as
+  // BlogStickyBar (H142), BlogFooterCta (H146), HardPaywallCard (H107/H122).
+  // VerdictUpsellCta was the last checkout-entry surface missing this write path.
+  // Direct /tools visitors with a captured email from homepage/blog skip the
+  // Stripe email field entirely; their last friction is removed at the
+  // highest-intent moment (right after seeing their verdict).
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
+
+  // H154 CRO: query-specific label — names exactly what the visitor is about to
+  // get. "Unlock the full buy list" was too abstract immediately post-verdict;
+  // the visitor knows their item, not what the "buy list" is. Truncate at 28 chars
+  // so the button stays single-line on 375px screens.
+  const ctaLabel = (() => {
+    const q = query?.trim()
+    if (!q) return "Unlock the full buy list — €19/mo"
+    const truncated = q.length > 28 ? `${q.slice(0, 25)}…` : q
+    return `Unlock ${truncated} buy-below — €19/mo`
+  })()
+
   return (
     <div
       data-testid="riq-verdict-upsell"
@@ -68,9 +100,10 @@ export function VerdictUpsellCta({
         <span onClick={() => trackEvent("verdict_upsell_click", src)}>
           <GuestCheckoutButton
             locale={locale}
-            label="Unlock the full buy list — €19/mo"
+            label={ctaLabel}
             src={src}
             query={query}
+            customerEmail={capturedEmail || undefined}
           />
         </span>
         <a
