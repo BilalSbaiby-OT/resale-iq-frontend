@@ -24,6 +24,7 @@ import { itemQueryMeta } from "@/lib/tools-query-meta"
 import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
+import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
@@ -119,6 +120,21 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
             CRO #4 (objection: what's actually in there?) + #7 (specific proof)
             + #8 (concrete names, not "unlock buy list" abstraction). Revenue 2026-09-29. H144. */}
         <FreeChecker locale={locale} initialQuery={initialQuery} src={src} buyListPreview={proofRows} />
+
+        {/* H172 CRO: ROI worked example on /tools — conviction after first verdict, before upsell.
+            /tools gets 10 humans/7d. Every visitor who searches sees a verdict or a paywall —
+            but no concrete "what does a flip actually look like?" moment.
+            /pricing (H136) and blog (H137) both have RoiExampleCard; /tools was the gap.
+            proofRows is already fetched SSR for BlogProofStrip above — zero extra requests.
+            RoiExampleCard renders nothing when no suitable free, unlocked row is available.
+            CRO #4 (objection: is €19/mo worth it?) + #8 (specificity: real item, real margin,
+            not "save money") + #12 (verdict → evidence → ROI → MoneyCta momentum).
+            /tools: 10/7d. Revenue 2026-09-29. H172. */}
+        {proofRows && proofRows.length > 0 && (
+          <div style={{ maxWidth: 720, margin: "0 auto" }}>
+            <RoiExampleCard items={proofRows} />
+          </div>
+        )}
 
         <MoneyCta href={TOOLS_MONEY_HREF} />
 
