@@ -152,7 +152,11 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     setError(""); setLoading(true)
     try {
       await login(email, password)
-      // FOUNDER RULE: a successful email/password login lands on /dashboard.
+      // FOUNDER RULE: a successful email/password login always lands on
+      // /dashboard — email verification is a non-blocking follow-up, never
+      // a login-time detour to /check-email (see also AppShell and api.ts,
+      // where the same rule was enforced 2026-09-29 after this exact
+      // per-login redirect was found to strand real signups).
       router.push("/dashboard")
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
