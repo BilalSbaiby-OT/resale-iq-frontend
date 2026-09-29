@@ -13,6 +13,7 @@ import { getMarketNumbers } from "@/lib/market-numbers"
 import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
 import { PricingTryInput } from "@/components/landing/pricing-try-input"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
+import { PricingStickyCta } from "@/components/landing/pricing-sticky-cta"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -196,6 +197,16 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
+      {/* H152 CRO: sticky bottom CTA on /pricing — appears during proof scroll,
+          disappears when #pricing-plans is visible. A visitor convinced at
+          PricingVerdictDemo or PricingTryInput had no persistent CTA — they had to
+          scroll all the way down or back up to reach the plan cards. This bar
+          surfaces a one-tap scroll anchor throughout the proof section.
+          CRO #9 (friction: convinced visitor can act without scroll gymnastics)
+          + #10 (solution-aware → anchor to plans, not cold Stripe)
+          + #12 (momentum: proof → earned CTA, no interrupt).
+          Revenue 2026-09-29. H152. */}
+      <PricingStickyCta locale={locale} />
     </div>
   )
 }

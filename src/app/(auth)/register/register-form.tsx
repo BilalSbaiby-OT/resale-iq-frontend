@@ -82,6 +82,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // After a paid register succeeds but Stripe Checkout does not, stay here with
   // a retry — never dump them on /check-email as the only next step.
   const [checkoutRetry, setCheckoutRetry] = useState(false)
+  // C(tony)CheckoutInterstitial: instead of immediately navigating to Stripe,
+  // show a 1-screen "You're about to unlock X" panel with the demand numbers
+  // the user already saw. Bridges the account-creation → payment context gap
+  // that drives 95%+ checkout abandonment. Stripe/Linear pattern: confirm the
+  // action before the hard navigation. Stored URL fires on CTA click.
+  const [pendingCheckoutUrl, setPendingCheckoutUrl] = useState<string | null>(null)
   // Real prices from Stripe, keyed by plan id. Falls back to null → "…" until loaded.
   const [prices, setPrices] = useState<Record<string, number>>({})
   const stripePlans = useRef<{ id: string; price_id?: string }[]>([])
@@ -162,7 +168,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
     const { checkout_url } = await createCheckout(priceId, { plan: paidPlan })
     if (!checkout_url) throw new Error("no_checkout_url")
     track("checkout_started")
-    window.location.assign(checkout_url)
+    // C(tony)CheckoutInterstitial: pause before the hard navigation — show the
+    // demand preview and plan summary so the payment context is crystal clear.
+    // window.location.assign fires only when user clicks "Continue to payment →".
+    setPendingCheckoutUrl(checkout_url)
   }
 
   const retryPaidCheckout = async () => {
@@ -265,6 +274,71 @@ function RegisterContent({ locale }: { locale: Locale }) {
             who see an opaque "Create account" form with no sense of where they are.
             Third step label personalises to their typed intent query. */}
         <ActivationSteps step={1} intentQuery={intentQuery} />
+
+        {/* C(tony)CheckoutInterstitial: full-screen summary before Stripe navigation.
+            Fires once account is created + checkout_url is ready. User sees their
+            item, the demand numbers, the plan price, and a clear "Continue to payment"
+            CTA. This is NOT a delay — it replaces the cold, context-free Stripe jump
+            that caused 95%+ checkout abandonment. Pattern: Stripe own checkout shows
+            "You're buying X" before card entry; Linear shows plan + features before
+            redirect. The account already exists at this point; back-nav here is safe
+            (they can return to pricing and retry checkout via /pricing?ref=verify-abandoned). */}
+        {pendingCheckoutUrl ? (
+          <div className="py-2">
+            <div className="flex justify-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-[var(--color-buy)]/15 flex items-center justify-center">
+                <Check size={20} className="text-[var(--color-buy)]" />
+              </div>
+            </div>
+            <h2 className="text-[18px] font-bold text-center mb-1">Account created ✓</h2>
+            <p className="text-[13px] text-[var(--color-text-secondary)] text-center mb-5">
+              One step away from your first verdict.
+            </p>
+
+            {/* What they're about to unlock */}
+            <div className="rounded-xl border border-[var(--color-buy)]/30 bg-[var(--color-buy)]/5 px-4 py-3 mb-4">
+              <p className="text-[12px] text-[var(--color-text-muted)] mb-1 uppercase tracking-wide font-semibold">You&apos;re unlocking</p>
+              {intentQuery.trim() && (findDemandMatch(intentQuery) || queryCoverageKind(intentQuery) !== "untracked") ? (
+                <>
+                  <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1">
+                    {intentQuery.trim()} verdict
+                  </p>
+                  {findDemandMatch(intentQuery) && (
+                    <p className="text-[12px] text-[var(--color-text-secondary)]">
+                      {findDemandMatch(intentQuery)!.sold_7d} watched departures this week
+                      {findDemandMatch(intentQuery)!.avg_price_eur ? ` · avg €${findDemandMatch(intentQuery)!.avg_price_eur}` : ""}
+                      {" — "}<span className="font-semibold text-[var(--color-buy)]">buy-below price unlocking now</span>
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="text-[15px] font-bold text-[var(--color-text-primary)]">
+                  Full demand intelligence — check any brand
+                </p>
+              )}
+            </div>
+
+            {/* Plan summary */}
+            <div className="flex items-center justify-between rounded-lg border border-[var(--color-border-2)] bg-[var(--color-bg-4)] px-3 py-2.5 mb-5">
+              <span className="text-[13px] font-semibold text-[var(--color-text-primary)]">{t.planNames[plan]}</span>
+              <span className="text-[13px] font-bold text-[var(--color-text-primary)]">
+                {prices[plan] != null ? `€${prices[plan]}/mo` : "…"}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => { window.location.assign(pendingCheckoutUrl) }}
+              className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[14px] py-3.5 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Continue to payment →
+            </button>
+            <p className="text-[11.5px] text-[var(--color-text-muted)] text-center mt-3">
+              🔒 Secure checkout via Stripe
+            </p>
+          </div>
+        ) : (
+        <>
         {/* C168(tony): Canva/Duolingo/Notion pattern — goal-first framing.
             Research: Canva asks "What will you design?" before account creation.
             Duolingo makes you start a lesson before signing up. Notion shows you
@@ -498,6 +572,8 @@ function RegisterContent({ locale }: { locale: Locale }) {
         <div className="text-center mt-4 text-[13px] text-[var(--color-text-muted)]">
           {t.alreadyHaveAccount} <Link href="/login" className="text-[var(--color-buy)] hover:underline">{t.signIn}</Link>
         </div>
+        </>
+        )}
       </div>
     </div>
   )

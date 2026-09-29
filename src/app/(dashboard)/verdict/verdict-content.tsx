@@ -38,6 +38,18 @@ import {
   type CollectedMetric,
 } from "@/lib/verdict-intelligence"
 import { parsePaywallBody } from "@/lib/hard-paywall"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+
+// C(tony): fallback activation scenarios for paid cold state.
+// These are the Canva-template moment for a paid user who hasn't run a check yet.
+// Live data overrides these on mount; fallbacks ensure the panel never renders empty.
+const ACTIVATION_FALLBACK: SnapshotBrandRow[] = [
+  { brand: "Stone Island", category: "Hoodies",    sold_7d: 102, avg_price_eur: 58 },
+  { brand: "Carhartt",     category: "Jackets",     sold_7d: 44,  avg_price_eur: 32 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+]
+
+const ACTIVATION_CONTEXT = ["at a market", "at a kilo sale", "at a vintage fair"]
 
 function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">, locale: Locale) {
   return {
@@ -98,6 +110,11 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   const [paywalled, setPaywalled] = useState(false)
   const [coverageMiss, setCoverageMiss] = useState(false)
   const [comparableN, setComparableN] = useState<number | null | undefined>(undefined)
+  // C(tony): live top-movers for paid activation panel. Fetched once on mount
+  // from /api/public/market-snapshot so the 3 scenario buttons show TODAY's
+  // best opportunities, not a hardcoded list from when the code was written.
+  // Falls back to ACTIVATION_FALLBACK silently — never renders empty.
+  const [activationRows, setActivationRows] = useState<SnapshotBrandRow[]>(ACTIVATION_FALLBACK)
 
   const run = useCallback(async (raw?: string) => {
     const q = (raw ?? query).trim()
@@ -155,6 +172,14 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
     if (q) { setQuery(q); run(q) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // C(tony): fetch live top-movers for the paid cold-state activation panel.
+  // Only fetches when the user is paid (paidCold) — free/anon users don't see
+  // the panel so there's no point fetching for them.
+  useEffect(() => {
+    if (!paidCold) return
+    fetchTopBrandRows(3, ACTIVATION_FALLBACK).then(rows => setActivationRows(rows)).catch(() => {})
+  }, [paidCold])
 
   const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
   const opportunityState = fieldState(result?.opportunity_score, result?.locked_fields, "opportunity_score")
@@ -415,21 +440,24 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   Type any brand + item you&apos;re thinking of buying. We&apos;ll tell you the max price to pay to profit on resale.
                 </p>
                 <div className="flex flex-col gap-2 mb-4" data-testid="riq-activation-scenarios">
-                  {[
-                    { label: "Found a Stone Island hoodie at a market?", query: "Stone Island Hoodie" },
-                    { label: "Kilo sale has Carhartt jackets?", query: "Carhartt Detroit Jacket" },
-                    { label: "Weighing up Fred Perry polos?", query: "Fred Perry Polo Shirt" },
-                  ].map(({ label, query }) => (
-                    <button
-                      key={query}
-                      onClick={() => pickModel(query)}
-                      disabled={loading}
-                      className="w-full text-left px-3 py-2.5 rounded-lg border border-[#1c2333] hover:border-[rgba(52,199,89,0.35)] hover:bg-[rgba(52,199,89,0.04)] transition-colors group"
-                    >
-                      <span className="text-[12px] text-[#5b6b8c] group-hover:text-[#8fa3c4]">{label}</span>
-                      <span className="ml-2 text-[11.5px] font-semibold text-[#34C759] opacity-70 group-hover:opacity-100">Check {query} →</span>
-                    </button>
-                  ))}
+                  {/* C(tony): live activation scenarios — top-movers from /api/public/market-snapshot.
+                      Replaces hardcoded Stone Island/Carhartt/Fred Perry with whatever is actually
+                      hot TODAY. ACTIVATION_CONTEXT rotates the hook phrase by position. */}
+                  {activationRows.map((row, i) => {
+                    const q = `${row.brand} ${row.category}`
+                    const ctx = ACTIVATION_CONTEXT[i % ACTIVATION_CONTEXT.length]
+                    return (
+                      <button
+                        key={q}
+                        onClick={() => pickModel(q)}
+                        disabled={loading}
+                        className="w-full text-left px-3 py-2.5 rounded-lg border border-[#1c2333] hover:border-[rgba(52,199,89,0.35)] hover:bg-[rgba(52,199,89,0.04)] transition-colors group"
+                      >
+                        <span className="text-[12px] text-[#5b6b8c] group-hover:text-[#8fa3c4]">Found {row.brand} {row.category.toLowerCase()} {ctx}?</span>
+                        <span className="ml-2 text-[11.5px] font-semibold text-[#34C759] opacity-70 group-hover:opacity-100">Check {q} →</span>
+                      </button>
+                    )
+                  })}
                 </div>
                 <p className="text-[11px] text-[#3a4458] mb-3">Or pick a top-moving item to see what a verdict looks like:</p>
               </div>
