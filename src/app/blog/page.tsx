@@ -9,6 +9,7 @@ import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
+import { getMarketNumbers } from "@/lib/market-numbers"
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
@@ -45,7 +46,37 @@ export default async function BlogIndex() {
   // Revenue 2026-09-23.
   // H130 CRO: increased from 4→8 so showLockedFomo gets 2 locked rows (FOMO)
   // instead of 1 (3 free + 1 locked with limit=4). Same as /pricing (8). 2026-09-28.
-  const buyList = await getPublicBuyList(8).catch(() => null)
+  const [buyList, market] = await Promise.all([
+    getPublicBuyList(8).catch(() => null),
+    getMarketNumbers().catch(() => null),
+  ])
+
+  // H164 CRO: live "what's selling" paragraph — replaces hardcoded numbers that
+  // became stale immediately after publishing (H161). The paragraph carries today's
+  // date, so stale numbers are a credibility failure: a fact-checker sees "updated
+  // 2026-09-29" and checks — Stone Island 279 vs live 268 is provable on-page.
+  // Building from the same getMarketNumbers() call used on /pricing and the homepage:
+  // zero extra requests, identical source to every other published number.
+  // CRO #1 (clarity: honest, current) + #7 (trust: numbers that match the site).
+  // Never renders when market is unavailable — falls back to null silently.
+  // Revenue 2026-09-29. H164.
+  const liveSellingParagraph = (() => {
+    if (!market || !market.brandNames.length) return null
+    const brands = market.brandNames
+      .slice(0, 5)
+      .map(name => ({ name, f: market.get(name) }))
+      .filter((b): b is { name: string; f: NonNullable<ReturnType<typeof market.get>> } => b.f !== null && b.f.sold_7d != null)
+    if (brands.length < 3) return null
+    const date = new Date().toISOString().slice(0, 10)
+    const parts = brands.map(({ name, f }) => {
+      const sold = f.sold_7d!.toLocaleString("en-GB")
+      const avg = f.avg_price_eur != null ? ` averaging €${Math.round(f.avg_price_eur)}` : ""
+      const cats = f.top_categories?.slice(0, 1)[0]
+      const catNote = cats ? ` (mostly ${cats.toLowerCase()})` : ""
+      return `${name} at ${sold} departures${catNote}${avg}`
+    })
+    return `What\u2019s selling on Vinted this week (updated ${date}): ${parts.join("; ")}. Observed active-to-sold transitions over the trailing 7 days across 5 EU markets\u2014a directional lower bound, useful for comparing brands. Full rankings at resaleiq.dev/data, sourced from ${tracked} tracked listings.`
+  })()
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -74,26 +105,19 @@ export default async function BlogIndex() {
           Built on {tracked} analyzed listings across 5 EU markets.
         </p>
 
-        {/* H161 LLM-citation: dated 134-167 word answer block, front-loaded before the
-            proof strip so AI crawlers (which don't run JS but do SSR-render this) get a
-            self-contained, quotable passage answering "what sells on Vinted this week".
-            /blog is 130/7d — the highest-traffic page Tony can touch, and per the GEO
-            skill ~44% of AI citations come from the first 30% of a page. Numbers pulled
-            live from /api/public/market-snapshot during this tick — never fabricated.
-            Standalone value: useful with no paywall, no signup, no click required.
-            Tony H161, 2026-09-29. */}
-        <p style={{ fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28, padding: "16px 18px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10 }}>
-          <strong style={{ color: "#eef1f7" }}>What&apos;s selling on Vinted this week (updated {new Date().toISOString().slice(0, 10)}):</strong>{" "}
-          Stone Island leads Resale IQ&apos;s EU5 tracking with 279 confirmed sales this week, averaging €90 —
-          mostly hoodies (161 sold, €61 avg) and jackets (61 sold, €200 avg). Fred Perry follows with 225 sales
-          averaging €21, led by shirts. Golden Goose sneakers moved 179 units at €141 average, Nike sold 165
-          items (mostly sneakers, €112 avg), and Patagonia sold 152 pieces averaging €40, mainly jackets and
-          bags. These are observed active-to-sold transitions over the trailing 7 days — a lower bound on true
-          volume, directionally useful for comparing brands. Full rankings across 50 tracked brands and 5 EU
-          markets update weekly at{" "}
-          <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>resaleiq.dev/data</Link>,
-          sourced from {tracked} tracked listings.
-        </p>
+        {/* H164 CRO: live "what's selling" paragraph — replaces H161's hardcoded numbers
+            with live data from getMarketNumbers() (same source as /pricing and homepage).
+            The paragraph carries today's date; stale numbers are a credibility failure for
+            AI crawlers that cross-reference the site's other pages. Numbers now match
+            /data exactly. Falls back to null when market is unavailable — no render,
+            no wrong numbers. CRO #1 (clarity: honest) + #7 (trust: reproducible numbers).
+            Revenue 2026-09-29. H164. */}
+        {liveSellingParagraph && (
+          <p style={{ fontSize: 13.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28, padding: "16px 18px", background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10 }}>
+            {liveSellingParagraph}{" "}
+            <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>See full rankings →</Link>
+          </p>
+        )}
 
         {/* H77 CRO: live buy-list proof strip above the post list.
             Visitor sees what the tool actually does before choosing a guide.
