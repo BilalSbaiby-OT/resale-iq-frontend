@@ -2,37 +2,44 @@
 /**
  * PricingStickyCtA — persistent bottom bar on /pricing during proof scroll.
  *
- * WHY: /pricing has 5+ proof sections between the buy-list teaser and the plan
- * cards: LiveMarketPulse, BrandStrip, PricingVerdictDemo, PricingTryInput,
- * RoiExampleCard. A visitor who is convinced at the VerdictDemo (~800px scroll)
- * has NO persistent CTA — they must scroll up or continue scrolling down to
- * reach the plan cards. The skip-to-plans link at the top is long gone.
+ * H174 CRO FIX: After the 2026-09-29 declutter (d282b78), plan cards are
+ * NOW FIRST on /pricing (id="pricing-plans"). The original H152 logic showed
+ * the sticky when scrollY > 400 AND #pricing-plans was visible — which was
+ * correct when plans were below proof sections, but is wrong after the
+ * reorder. With plans at the top:
  *
- * Blog has BlogStickyBar (H141) which made the checkout action visible throughout
- * the read. /pricing — higher-intent, product-aware visitors — had no equivalent.
+ *  BEFORE FIX:
+ *   - At load: plans visible → sticky hidden ✓
+ *   - After 400px scroll (still within plans section): plans visible → hidden ✓
+ *   - After scrolling PAST plans into proof sections: plans.rect.top < 0, which
+ *     is still < window.innerHeight * 0.75 → plansVisible = true → hidden ✗
+ *   - Result: sticky NEVER shows while visitor reads proof sections. The bar
+ *     was permanently hidden for any visitor who scrolled past the plan cards.
  *
- * WHAT IT DOES:
- *  - Appears after 400px scroll (buy-list teaser is past the viewport).
- *  - Disappears when #pricing-plans is visible (visitor can see the real CTAs).
- *  - Direct scroll anchor to #pricing-plans — CRO #10 (solution-aware → commit).
- *  - Pre-fills email from riq_capture_email (same pattern as BlogStickyBar H142).
- *  - "Plans from €19/mo" with a scroll anchor — no cold Stripe hit, preserves
- *    the proof → conviction → plan-card → checkout momentum (CRO #12).
+ *  AFTER FIX:
+ *   - Show when visitor has scrolled PAST the plan cards (plans.rect.bottom < 0)
+ *     — they've seen the price, they're now in proof territory, the persistent
+ *     CTA is useful.
+ *   - Hide when visitor is back near the top (plans visible or above plans area)
+ *     OR when visitor scrolls past #pricing-proof bottom (proof over, not needed).
  *
- * RULES:
- *  - Never shows when the plan cards are visible (no redundant pressure).
- *  - Never POST /stripe/checkout directly from here — scrolls to #pricing-plans.
- *  - No fabricated numbers. No fake urgency. One clear action.
+ * This restores the intended behavior: visible throughout the proof section
+ * scroll, giving a convinced visitor a direct path to Stripe without scrolling
+ * all the way back to the plan cards at the top.
  *
- * CRO #9 (friction: convinced visitor can act immediately without scrolling back)
- * + #10 (CTA discipline: solution-aware → anchor to plans, not a cold buy)
- * + #12 (momentum: conviction → earned CTA, not an interrupt)
- * + #6 (cognitive load: one button, one scroll, no new choices introduced)
+ * Changed: direct GuestCheckoutButton instead of scroll anchor. A visitor who
+ * has scrolled past the plans and is reading proof is PRODUCT-AWARE — the right
+ * CTA is "Start now" (direct Stripe), not "See plans" (scroll back to what they
+ * already scrolled past). CRO #10 (CTA discipline: product-aware visitor → commit).
  *
- * H152 CRO. Surface: /pricing 12/7d. Revenue 2026-09-29.
+ * CRO #9 (friction: no scroll-back required) + #10 (solution-aware → direct CTA)
+ * + #12 (momentum: plan seen → proof read → earned CTA, not an interrupt)
+ * + #6 (cognitive load: one action, email pre-filled from localStorage)
+ *
+ * H174 CRO. Surface: /pricing 12/7d. Revenue 2026-09-29.
  */
 import { useEffect, useState } from "react"
-import { canonicalPath } from "@/lib/locale-routes"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { Locale } from "@/lib/i18n"
 
 export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
@@ -44,17 +51,28 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
       if (ticking) return
       ticking = true
       requestAnimationFrame(() => {
-        const scrollY = window.scrollY
-        // Show after 400px (proof sections have started).
-        // Hide when #pricing-plans is at or above the viewport midpoint —
-        // visitor can already see the plan cards.
         const plansEl = document.getElementById("pricing-plans")
-        let plansVisible = false
+        const proofEl = document.getElementById("pricing-proof")
+
+        let show = false
         if (plansEl) {
           const rect = plansEl.getBoundingClientRect()
-          plansVisible = rect.top < window.innerHeight * 0.75
+          // Show when the plan cards have FULLY scrolled above the viewport
+          // (bottom edge is above the top of the screen). This means the visitor
+          // has seen the plan cards and scrolled past them into the proof sections.
+          const plansPastViewport = rect.bottom < 0
+          // Hide again when the visitor scrolls beyond the proof sections
+          // (optional safety: don't show if proof section is not yet loaded)
+          let proofReachable = true
+          if (proofEl) {
+            const proofRect = proofEl.getBoundingClientRect()
+            // Still useful as long as proof section is visible or above viewport
+            proofReachable = proofRect.bottom > -200
+          }
+          show = plansPastViewport && proofReachable
         }
-        setVisible(scrollY > 400 && !plansVisible)
+
+        setVisible(show)
         ticking = false
       })
     }
@@ -96,24 +114,16 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
         <strong style={{ color: "#34C759" }}>Starter €19/mo</strong>
         {" "}— unlock every item in the catalog, cancel anytime.
       </span>
-      <a
-        href={`${canonicalPath(locale, "/pricing")}#pricing-plans`}
-        data-testid="riq-pricing-sticky-scroll"
-        style={{
-          background: "#30D158",
-          color: "#000",
-          fontWeight: 700,
-          fontSize: 13.5,
-          padding: "9px 18px",
-          borderRadius: 9,
-          textDecoration: "none",
-          whiteSpace: "nowrap",
-          flexShrink: 0,
-          display: "inline-block",
-        }}
-      >
-        See plans →
-      </a>
+      {/* H174 CRO: direct GuestCheckoutButton replaces scroll anchor.
+          Visitor who has scrolled past plan cards is product-aware — the right
+          ask is direct Stripe, not "scroll back to plans" (they already saw them).
+          Email pre-filled from riq_capture_email (same pattern as every CTA surface).
+          CRO #10 (CTA discipline: product-aware → commit, not navigate). */}
+      <GuestCheckoutButton
+        locale={locale}
+        label="Start — €19/mo →"
+        src="pricing_sticky_cta"
+      />
     </div>
   )
 }

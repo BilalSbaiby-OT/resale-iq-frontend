@@ -44,7 +44,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 const FREE_SAMPLES = [
   { label: "Nike Air Force 1", q: "Nike Air Force 1" },
   { label: "Adidas Samba", q: "Adidas Samba" },
-  { label: "New Balance 530", q: "New Balance 530" },
+  { label: "Fred Perry Polo", q: "Fred Perry Polo" },
 ]
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
@@ -375,7 +375,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
             </button>
           </form>
           <p style={{ fontSize: 11.5, color: "#4a5970", margin: "5px 0 0" }}>
-            No account needed for Nike Air Force 1 · Adidas Samba · New Balance 530. All other items unlock on a plan.
+            No account needed for Nike Air Force 1 · Adidas Samba · Fred Perry Polo. All other items unlock on a plan.
           </p>
         </div>
       )}

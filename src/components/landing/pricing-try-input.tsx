@@ -62,7 +62,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 const FREE_SAMPLES: { label: string; q: string }[] = [
   { label: "Nike Air Force 1", q: "Nike Air Force 1" },
   { label: "Adidas Samba", q: "Adidas Samba" },
-  { label: "New Balance 530", q: "New Balance 530" },
+  { label: "Fred Perry Polo", q: "Fred Perry Polo" },
 ]
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"

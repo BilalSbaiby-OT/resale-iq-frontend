@@ -1,9 +1,14 @@
 /**
  * SSR teaser for GPTBot / PerplexityBot. /tools?q= is a client checker;
  * crawlers do not run JS, so the live BUY/WATCH/SKIP never appeared in HTML.
- * New Balance FuelCell, Adidas Samba, Nike Air Force 1 and New Balance 530 are fetched — those
+ * Adidas Samba, Nike Air Force 1 and Fred Perry Polo are fetched — those
  * three still 200 anonymously. Anything else stays paywalled and is not
  * rendered here.
+ *
+ * 2026-09-29: New Balance 530 replaced by Fred Perry Polo as the third free
+ * sample — NB530 verdicts SKIP live with buy_below=null (uninformative for
+ * new visitors). Kept in sync with pricing-section.tsx FREE_SAMPLE_QUERIES
+ * and api/routes.py _PUBLIC_SAMPLE_QUERIES.
  */
 import { promises as fs } from "node:fs"
 import os from "node:os"
@@ -11,7 +16,7 @@ import path from "node:path"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
 
-export const TEASER_QUERIES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
+export const TEASER_QUERIES = ["Adidas Samba", "Nike Air Force 1", "Fred Perry Polo"] as const
 
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_DIR =
