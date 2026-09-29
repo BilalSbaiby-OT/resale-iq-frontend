@@ -12,9 +12,8 @@ async function login(page: Page, email: string, password: string) {
   await page.locator('input[type="email"]').fill(email)
   await page.locator('input[type="password"]').fill(password)
   await page.getByRole("button", { name: /Sign in/i }).click()
-  // C134: login now redirects to /verdict?q=... (pre-seeded activation path)
-  // Wait for the verdict page to load rather than the cold-state element.
-  await page.waitForURL(/\/verdict/, { timeout: 20_000 })
+  // FOUNDER AUTH RULE (2026-09-29): login always lands on /dashboard, not /verdict.
+  await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
 }
 
 test.describe("customer watchlist workflow", () => {

@@ -100,10 +100,12 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondance :",
     extHeroCaption: "Exemple du panneau Chrome sur une annonce Adidas Samba",
     watchedSampleHead: "Sur les annonces observées, 120 ont quitté le rayon contre 300 encore en ligne.",
-    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
-    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
-    registerHeading: "What do you want to check?",
-    registerSubmit: "Activer l'accès Starter →",
+    // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy —
+    // "What do you want to check?" no longer exists (removed with the
+    // intent-question funnel). registerSubmit is the FREE-path submit label
+    // (t.submit), asserted on plain /register — no ?plan= CTA.
+    registerHeading: "Créez votre compte",
+    registerSubmit: "Créer le compte",
     registerEmailLabel: "E-mail",
     registerPasswordLabel: "Mot de passe",
     verdictBuy: "ACHETER",
@@ -131,10 +133,9 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "coincide con:",
     extHeroCaption: "Ejemplo del panel de Chrome en un anuncio de Adidas Samba",
     watchedSampleHead: "En los anuncios que observamos, 120 salieron del catálogo frente a 300 que siguen en venta.",
-    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
-    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
-    registerHeading: "What do you want to check?",
-    registerSubmit: "Activar acceso Starter →",
+    // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
+    registerHeading: "Cree su cuenta",
+    registerSubmit: "Crear cuenta",
     registerEmailLabel: "Correo electrónico",
     registerPasswordLabel: "Contraseña",
     verdictBuy: "COMPRA",
@@ -162,10 +163,9 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "gefunden:",
     extHeroCaption: "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot",
     watchedSampleHead: "In den von uns beobachteten Angeboten sind 120 aus dem Bestand gegangen, 300 sind noch inseriert.",
-    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
-    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
-    registerHeading: "What do you want to check?",
-    registerSubmit: "Starter-Zugang aktivieren →",
+    // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
+    registerHeading: "Konto erstellen",
+    registerSubmit: "Konto erstellen",
     registerEmailLabel: "E-Mail",
     registerPasswordLabel: "Passwort",
     verdictBuy: "KAUFEN",
@@ -193,10 +193,9 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "corrispondenza:",
     extHeroCaption: "Esempio del pannello Chrome su un annuncio Adidas Samba",
     watchedSampleHead: "Negli annunci osservati, 120 sono usciti dallo scaffale contro 300 ancora in vendita.",
-    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
-    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
-    registerHeading: "What do you want to check?",
-    registerSubmit: "Attiva accesso Starter →",
+    // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
+    registerHeading: "Crea il tuo account",
+    registerSubmit: "Crea account",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Password",
     verdictBuy: "COMPRA",
@@ -224,10 +223,9 @@ const LOCALES: Record<string, LocaleFixture> = {
     extHeroMatched: "correspondência:",
     extHeroCaption: "Exemplo do painel Chrome num anúncio Adidas Samba",
     watchedSampleHead: "Nos anúncios que observámos, 120 saíram da prateleira contra 300 ainda anunciados.",
-    // C168(tony): register heading is now fixed English "What do you want to check?" on all locales.
-    // Submit button shows locale-specific paidSubmit with Starter injected (plan=operator default).
-    registerHeading: "What do you want to check?",
-    registerSubmit: "Ativar acesso Starter →",
+    // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
+    registerHeading: "Crie a sua conta",
+    registerSubmit: "Criar conta",
     registerEmailLabel: "Email",
     registerPasswordLabel: "Palavra-passe",
     verdictBuy: "COMPRAR",
@@ -378,12 +376,6 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(checker.getByText("In the listings we watched", { exact: false })).toHaveCount(0)
     })
 
-    // W19: the highest-commitment moment on the site — a visitor who reads a
-    // translated pitch and clicks a CTA off it must not land on an English
-    // form. `gotoHomepage` first (not a direct `page.goto("/register")`) so
-    // the NEXT_LOCALE cookie src/proxy.ts stamps on "/" is set before the
-    // navigation to /register — that cookie, not this route's own URL, is
-    // what src/proxy.ts's COOKIE_LOCALE_PATHS reads (see its W19 comment).
     test(`the register form renders localised in ${locale}, not English`, async ({ page }) => {
       await gotoHomepage(page)
       const res = await page.goto("/register")
@@ -395,16 +387,25 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(page.getByText(l.registerEmailLabel, { exact: true })).toBeVisible()
       await expect(page.getByText(l.registerPasswordLabel, { exact: true })).toBeVisible()
       await expect(page.getByRole("heading", { name: "Create your account" })).toHaveCount(0)
+    })
 
-      // The EU 14-day withdrawal-waiver consent is a legal string, not
-      // marketing copy — src/lib/i18n.ts's WITHDRAWAL_WAIVER_TEXT comment and
-      // the W19 workboard entry: render it in English on every locale until
-      // legal-compliance signs off on translated wording, rather than ship a
-      // guessed translation of a consent. Assert it is present, in English,
-      // on every locale — a silent translation of this string later must
-      // fail this test, not slip through as "some native text exists."
+    // W19: the highest-commitment moment on the site — a visitor who reads a
+    // translated pitch and clicks a paid CTA off it must not land on an
+    // English form. The EU 14-day withdrawal-waiver consent only renders on
+    // the paid path (?plan=), immediately before the Stripe step — see
+    // register-form.tsx header comment for why it no longer gates plain
+    // account creation. src/lib/i18n.ts's WITHDRAWAL_WAIVER_TEXT comment and
+    // the W19 workboard entry: render it in English on every locale until
+    // legal-compliance signs off on translated wording, rather than ship a
+    // guessed translation of a consent.
+    test(`the paid register form shows the EU withdrawal waiver in English in ${locale}`, async ({ page }) => {
+      await gotoHomepage(page)
+      const res = await page.goto("/register?plan=operator")
+      expect(res?.ok()).toBeTruthy()
+
+      await expect(page.locator("html")).toHaveAttribute("lang", locale)
       await expect(page.getByText(
-        "I want access immediately and I understand that by starting the subscription now I lose my 14-day right of withdrawal.",
+        "I want access immediately — confirming starts my subscription now (EU digital goods, Art. 16(m)).",
       )).toBeVisible()
     })
   })
