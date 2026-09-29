@@ -13,6 +13,7 @@ import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-i
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { IntentTypeahead, findDemandMatch } from "@/components/auth/intent-typeahead"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // Free + paid. Paid prices load LIVE from Stripe so the shown amount always
 // matches what's charged (no €49-shown / €79-charged surprises).
@@ -104,6 +105,19 @@ function RegisterContent({ locale }: { locale: Locale }) {
   // reads the same suggestions array the typeahead dropdown already
   // fetched from market-snapshot).
   const demandMatch = intentQuery.trim().length >= 3 ? findDemandMatch(intentQuery) : null
+
+  // C(tony)RegisterHotChips: Canva "What will you design?" pattern.
+  // When the intent field is empty, show 4 tappable chips from the live
+  // market-snapshot so users who don't know what to type can one-tap select.
+  // Each chip shows the brand + category label. On tap it seeds intentQuery,
+  // which immediately triggers the demand card (findDemandMatch threshold = 3 chars).
+  const [hotChips, setHotChips] = useState<SnapshotBrandRow[]>([])
+  useEffect(() => {
+    fetchTopBrandRows(4, []).then(rows => {
+      if (rows.length > 0) setHotChips(rows)
+    }).catch(() => {})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // C152(tony): conflict login path — "welcome back" inline form.
   // When 409 fires, instead of a dead-end "Sign in →" link that loses
@@ -393,6 +407,26 @@ function RegisterContent({ locale }: { locale: Locale }) {
             <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">
               What do you want to check first?
             </label>
+            {/* C(tony)RegisterHotChips: show tappable brand chips when the field
+                is empty — Canva "What will you design?" pattern. Clears once the
+                user types or taps a chip (intentQuery non-empty). */}
+            {!intentQuery.trim() && hotChips.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {hotChips.map(chip => (
+                  <button
+                    key={`${chip.brand}-${chip.category}`}
+                    type="button"
+                    onClick={() => setIntentQuery(`${chip.brand}${chip.category ? " " + chip.category : ""}`)}
+                    className="inline-flex items-center gap-1 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] hover:border-[var(--color-buy)] hover:bg-[var(--color-surface-raised)] text-[var(--color-text-secondary)] text-[11.5px] font-medium rounded-full px-2.5 py-1 transition-colors cursor-pointer"
+                  >
+                    <span>{chip.brand}{chip.category ? ` ${chip.category}` : ""}</span>
+                    {chip.sold_7d > 0 && (
+                      <span className="text-[var(--color-buy)] font-semibold">{chip.sold_7d}</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
             <IntentTypeahead
               value={intentQuery}
               onChange={setIntentQuery}
