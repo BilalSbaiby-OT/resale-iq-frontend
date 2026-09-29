@@ -45,6 +45,12 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
   // Pattern: register-form.tsx pendingCheckoutUrl + pendingCheckoutIntent.
   const [pendingCheckoutUrl, setPendingCheckoutUrl] = useState<string | null>(null)
   const [pendingCheckoutIntent, setPendingCheckoutIntent] = useState<string>("")
+  // C(tony)GoogleCheckoutPlanLabel: show plan name + price on the interstitial
+  // so Google OAuth signups see the same price confirmation as email/password
+  // signups. Without this planLabel/planPrice are null and the plan row is
+  // omitted — users don't know what they're paying before clicking Stripe.
+  const [pendingPlanLabel, setPendingPlanLabel] = useState<string | null>(null)
+  const [pendingPlanPrice, setPendingPlanPrice] = useState<number | null>(null)
   const { login } = useAuthStore()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -126,7 +132,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             if (parsed && Date.now() - parsed.ts < 5 * 60 * 1000) {
               const plansData = await getPlans()
               const matchedPlan = plansData.plans.find(
-                (p: { id: string; price_id?: string }) => p.id === parsed.plan
+                (p: { id: string; price_id?: string; name?: string; price_eur?: number }) => p.id === parsed.plan
               )
               const priceId = matchedPlan?.price_id
               if (priceId) {
@@ -138,6 +144,10 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
                   // pendingCheckoutUrl. The CTA "Continue to payment →" fires the assign.
                   try { trackEvent("checkout_interstitial_shown") } catch { /* never block */ }
                   setPendingCheckoutIntent(savedIntent ?? "")
+                  // C(tony)GoogleCheckoutPlanLabel: pass plan name + price so the
+                  // interstitial shows the same plan row as the email/password path.
+                  setPendingPlanLabel(matchedPlan?.name ?? null)
+                  setPendingPlanPrice(matchedPlan?.price_eur ?? null)
                   setPendingCheckoutUrl(checkout_url)
                 }
               }
@@ -211,6 +221,8 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         <CheckoutInterstitialCard
           intent={pendingCheckoutIntent}
           demandMatch={pendingDemandMatch}
+          planLabel={pendingPlanLabel}
+          planPrice={pendingPlanPrice}
           onContinue={() => {
             try { trackEvent("checkout_interstitial_clicked") } catch { /* never block */ }
             window.location.assign(pendingCheckoutUrl)
