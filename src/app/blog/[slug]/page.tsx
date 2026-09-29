@@ -428,7 +428,7 @@ export default async function BlogPostPage(
                on mount so visitors who captured email above-fold (H140) or via sticky bar
                (H142) skip Stripe's email field at the footer — last friction in the
                max-conviction earned-CTA moment. blog 130/7d. Revenue 2026-09-29. */
-            <BlogFooterCta preflightQuery={p.preflightQuery} locale={locale} />
+            <BlogFooterCta preflightQuery={p.preflightQuery} locale={locale} comparableN={ssrVerdict?.comparable_n ?? null} />
           ) : (
             <>
               <Link
