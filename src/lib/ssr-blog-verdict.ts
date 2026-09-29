@@ -13,9 +13,17 @@
  *  - Anon (no auth) — will return PAYWALL for almost all queries.
  *  - Returns null on any error → BlogInlineChecker falls back to client fetch.
  *  - Returns null for a 200 (free model) → client auto-run picks it up.
- *  - revalidate: 3600 — re-fetches hourly via ISR, not every build.
  *  - Never fabricates a result — null is always the safe fallback.
+ *
+ * H183 FIX (2026-09-29): original code used { next: { revalidate: 3600 } }
+ * without a timeout. Inside the deployed FE container, Next.js's patched fetch
+ * hangs indefinitely on that ISR option — "it can ignore AbortSignal next to
+ * next.revalidate" (per hero-verdict.ts comment). Measured: every blog/[slug]
+ * page returned 0 bytes after 25s. Fix: use fetchBounded (2.5s abort,
+ * cache:"no-store") which is the established pattern for every other SSR
+ * backend call in this codebase.
  */
+import { fetchBounded } from "@/lib/hero-verdict"
 import { parsePaywallBody, type PaywallPayload } from "@/lib/hard-paywall"
 
 function backendUrl(): string {
@@ -27,9 +35,8 @@ export async function ssrBlogVerdict(
 ): Promise<PaywallPayload | null> {
   if (!query) return null
   try {
-    const r = await fetch(
-      `${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`,
-      { next: { revalidate: 3600 } }
+    const r = await fetchBounded(
+      `${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`
     )
     let body: unknown = null
     try {
