@@ -45,7 +45,7 @@ test.describe("register: free by default, dashboard landing, waiver only on paid
     await expect(page.locator('form a[href="/privacy"]')).toBeVisible()
   })
 
-  test("free submit requires no waiver and lands on /dashboard", async ({ page }) => {
+  test("free submit requires no waiver and lands on /dashboard, and STAYS there", async ({ page }) => {
     const events = captureTrackEvents(page)
     const email = `e2e-free-${Date.now()}@example.com`
     await page.goto("/register")
@@ -53,6 +53,15 @@ test.describe("register: free by default, dashboard landing, waiver only on paid
     await page.getByRole("button", { name: /Create account/i }).click()
     await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
     await expect.poll(() => events, { timeout: 10_000 }).toContain("signup_completed")
+    // Regression guard: dashboard widgets (kpis, brand-rankings) fetch data
+    // in the background and 403 for an unverified account. api.ts used to
+    // hard-navigate the WHOLE PAGE to X-Verify-Url on any 403 — which
+    // yanked a brand-new user off /dashboard to /check-email a few hundred
+    // ms after landing, with zero user action. That silent redirect-on-any-
+    // background-403 is why 0 real signups converted since 2026-09-21.
+    await page.waitForTimeout(3000)
+    expect(page.url()).toContain("/dashboard")
+    expect(page.url()).not.toContain("/check-email")
   })
 
   // ?plan= is unchanged: still resolves any non-power id to operator, garbage

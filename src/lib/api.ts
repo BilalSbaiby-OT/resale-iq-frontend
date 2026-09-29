@@ -95,12 +95,20 @@ async function request<T>(
       throw new HttpError(401, detail)
     }
     if (res.status === 402) throw new PaymentRequiredError(detail, parsed)
-    if (res.status === 403) {
-      const verifyUrl = res.headers.get("X-Verify-Url")
-      if (verifyUrl && typeof window !== "undefined" && !window.location.pathname.startsWith("/check-email")) {
-        window.location.href = verifyUrl
-      }
-    }
+    // FOUNDER AUTH RULE (2026-09-29): email verification is a non-blocking
+    // follow-up, never a gate — /check-email is an opt-in banner a user can
+    // visit, not something the app forces them into. This used to do
+    // `window.location.href = verifyUrl` on ANY 403 carrying X-Verify-Url,
+    // which is a hard full-page navigation that fires from ANY background
+    // fetch (e.g. dashboard's own /api/kpis, /api/brands/rankings widgets)
+    // and overrides React Router entirely — including the register form's
+    // own router.push("/dashboard") right after signup. That silent
+    // redirect-on-any-403 is why 0 real signups converted since 2026-09-21:
+    // every fresh account landed on /dashboard for one render, then a
+    // widget's background fetch 403'd and the WHOLE PAGE was yanked to
+    // /check-email before the user could do anything. The 403 still throws
+    // below so each caller can handle "not verified yet" locally (e.g. hide
+    // a paid widget) — it must never navigate the browser itself.
     throw new HttpError(res.status, detail)
   }
 
