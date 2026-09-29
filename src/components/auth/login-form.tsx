@@ -153,18 +153,27 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
         {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
-        {/* C(tony): Canva goal-framing pattern — when the user has typed a tracked
-            intent query, the submit button names their specific goal rather than
-            the generic "Sign in". Same pattern as register-form.tsx dynamic button.
-            "Sign in & check Stone Island Hoodie →" feels purposeful; "Sign in"
-            feels like admin. Only tracked items get the named CTA — untracked
-            stays generic so we don't promise a verdict we can't deliver. */}
+        {/* C(tony)LoginGoalButton: when the user types a tracked intent query, the
+            submit button names their specific goal — "Sign in & check Stone Island
+            Hoodie →" feels purposeful; generic "Sign in" feels like admin.
+            Canva/Linear pattern: label the action with the outcome, not the mechanism.
+            Only tracked items get the named CTA — untracked stays generic so we
+            don't promise a verdict we can't deliver. queryCoverageKind already
+            evaluated in handleSubmit; reuse the same check here for the label. */}
         <button
           type="submit"
           disabled={loading}
           className={`${AUTH_ACCENT_BUTTON} mt-1`}
         >
-          {loading ? t.submitting : t.submit}
+          {loading
+            ? t.submitting
+            : (() => {
+                const trimmed = intentQuery.trim()
+                return trimmed && queryCoverageKind(trimmed) !== "untracked"
+                  ? `Sign in & check ${trimmed} →`
+                  : t.submit
+              })()
+          }
         </button>
       </form>
       <div className={`text-center mt-5 text-[13px] ${AUTH_TEXT_SECONDARY}`}>
