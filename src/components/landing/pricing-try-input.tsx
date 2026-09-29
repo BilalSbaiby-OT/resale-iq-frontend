@@ -52,10 +52,11 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Search, TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { Search, TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
 /** Three public sample queries — full verdicts, no account, no paywall. */
 const FREE_SAMPLES: { label: string; q: string }[] = [
@@ -181,7 +182,7 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
 }
 
 /** Mini inline verdict card — shown when a free sample chip is clicked. */
-function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail, onEmailCapture }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void }) {
+function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail, onEmailCapture, buyListPreview }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; buyListPreview?: SsrBuyListItem[] | null }) {
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -257,25 +258,54 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         </p>
       )}
 
-      {/* Locked fields teaser */}
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
-        {["Sell-through rate", "Top sizes", "Market trends", "Opportunity score"].map((f) => (
-          <span
-            key={f}
-            style={{
-              fontSize: 11,
-              color: "#4a5970",
-              border: "1px solid #1e2d45",
-              borderRadius: 6,
-              padding: "3px 7px",
-              filter: "blur(2px)",
-              userSelect: "none",
-            }}
-          >
-            {f}
+      {/* H150 CRO: replace hardcoded fake-field chips with real locked buy-list items.
+          Before: 4 blurred chips ("Sell-through rate", "Top sizes", …) — fake field
+          names that mean nothing to a reseller and weren't connected to real data.
+          After: up to 3 real buy-list item names with blurred buy-below prices, same
+          pattern as HardPaywallCard.lockedRows (C228). Makes the ask concrete:
+          "this specific item is in there, priced, waiting" vs abstract column headers.
+          Falls back to field-name chips only when no buyListPreview is available.
+          CRO #8 (behavioral: specificity — real items convert, abstract labels don't)
+          + #4 (objection: "will it work for MY items?" — real catalog names answer it)
+          + #7 (trust before CTA: concrete rows > made-up UI widgets).
+          Revenue 2026-09-29. H150. */}
+      {buyListPreview && buyListPreview.length > 0 ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "9px 11px" }}>
+          <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+            Also in your buy list
           </span>
-        ))}
-      </div>
+          {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
+            <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {it.brand}{it.model ? ` ${it.model}` : ""}
+              </span>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                <Lock size={10} />
+                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+          {["Sell-through rate", "Top sizes", "Market trends", "Opportunity score"].map((f) => (
+            <span
+              key={f}
+              style={{
+                fontSize: 11,
+                color: "#4a5970",
+                border: "1px solid #1e2d45",
+                borderRadius: 6,
+                padding: "3px 7px",
+                filter: "blur(2px)",
+                userSelect: "none",
+              }}
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* H125 CRO: direct checkout at peak conviction — visitor just saw a full live verdict.
           Before: anchor scrolled them away from the proof moment. After: GuestCheckoutButton
@@ -324,7 +354,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
   )
 }
 
-export function PricingTryInput({ locale }: { locale: Locale }) {
+export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; buyListPreview?: import("@/lib/ssr-buy-list").SsrBuyListItem[] | null }) {
   const [q, setQ] = useState("")
   const router = useRouter()
 
@@ -556,7 +586,7 @@ export function PricingTryInput({ locale }: { locale: Locale }) {
       </div>
 
       {/* Inline verdict result */}
-      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />}
+      {inlineResult && <InlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} buyListPreview={buyListPreview} />}
       {/* H128 CRO: inline custom paywall — stays on /pricing for personalized upsell.
           Before: custom submit → /tools → paywall → "Back to pricing" (3 hops).
           Now: submit → fetch → 402 → CustomItemPaywallCard inline → one click to Stripe.

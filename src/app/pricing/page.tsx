@@ -178,7 +178,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           own item without leaving into an unknown page, maintaining momentum.
           CRO #3 (message match: their item) + #4 (objection: works for mine?)
           + #12 (demo→personalized→paywall→checkout). Revenue 2026-09-23. */}
-      <PricingTryInput locale={locale} />
+      <PricingTryInput locale={locale} buyListPreview={buyList} />
       {/* H136 CRO: ROI worked example on /pricing — conviction before ask.
           44/50 /pricing visitors never saw a verdict. The Starter ask lands cold.
           This card shows "Buy X at €Y, sell at €Z, margin ~€W — one flip covers €19/mo"
