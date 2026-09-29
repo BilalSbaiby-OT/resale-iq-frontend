@@ -42,6 +42,7 @@ export async function generateMetadata(
     title,
     description: copy.description,
     alternates: { canonical: path, languages: blogCloneHreflang(slug) },
+    robots: { index: false, follow: true },
   }
 }
 
