@@ -64,17 +64,34 @@ export function SectionCta({
           {cta.label} →
         </Link>
       )}
-      {cta.secondaryHref && cta.secondaryLabel && (
-        <div style={{ marginTop: 12 }}>
-          <Link
-            href={cta.secondaryHref}
-            onClick={() => trackEvent("checkout_intent_guest", `${typeof window !== "undefined" ? window.location.pathname : ""}?src=section_cta_free`)}
-            style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}
-          >
-            {cta.secondaryLabel}
-          </Link>
-        </div>
-      )}
+      {cta.secondaryHref && cta.secondaryLabel && (() => {
+        // H177 CRO: message-match the secondary free-check link when preflightQuery is set.
+        // Before: "Or check one item free →" → /tools (empty search box — visitor must retype).
+        // After: "Check Stone Island Hoodie free →" → /tools?q=Stone+Island+Hoodie (pre-filled).
+        // The mid-CTA fires on a reader who just consumed 3+ paragraphs about a specific item.
+        // Routing them to a blank /tools resets all context and asks them to do work.
+        // Pre-filling the query preserves their intent and reduces time-to-verdict.
+        // CRO #3 (message match: their item, not a generic prompt)
+        // + #6 (cognitive load: no re-typing)
+        // + #9 (friction: every step guides action, this step was stalling it)
+        // + #12 (momentum: article → item-specific trial → paywall → checkout).
+        // Surface: blog 130/7d. Revenue 2026-09-29. H177.
+        const href = preflightQuery
+          ? `${cta.secondaryHref.replace(/([?&])q=[^&]*/g, "").replace(/\?$/, "")}${cta.secondaryHref.includes("?") ? "&" : "?"}q=${encodeURIComponent(preflightQuery)}&src=section_cta_free_matched`
+          : cta.secondaryHref
+        const label = preflightQuery ? `Check ${preflightQuery} free →` : cta.secondaryLabel
+        return (
+          <div style={{ marginTop: 12 }}>
+            <Link
+              href={href}
+              onClick={() => trackEvent("checkout_intent_guest", `${typeof window !== "undefined" ? window.location.pathname : ""}?src=section_cta_free`)}
+              style={{ color: "#8fa3c4", fontSize: 13, textDecoration: "underline" }}
+            >
+              {label}
+            </Link>
+          </div>
+        )
+      })()}
     </div>
   )
 }
