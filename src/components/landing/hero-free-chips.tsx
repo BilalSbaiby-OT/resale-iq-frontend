@@ -29,13 +29,14 @@
  * + #7 (trust before CTA: verdict IS the trust; plans + ROI already on page).
  * Revenue 2026-09-29. H139.
  */
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 
 const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "New Balance 530"] as const
 
@@ -61,17 +62,39 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
   return <Minus size={13} color="#FFD60A" />
 }
 
-/** Mini inline verdict card — shown on the homepage when a chip is clicked. */
+/** Mini inline verdict card — shown on the homepage when a chip is clicked.
+ *
+ * H155 CRO: three gaps vs HeroInlineVerdictCard's first ship (H139):
+ * 1. QUERY-SPECIFIC CTA LABEL (CRO #3): "Unlock Adidas Samba buy-below — €19/mo"
+ *    vs generic "Unlock all items". Mirrors H154 (VerdictUpsellCta).
+ * 2. REAL LOCKED BUY-LIST ROWS (CRO #7/#8/#4): real item names with blurred
+ *    prices replace abstract field-name chips. Mirrors H150 (/pricing card).
+ *    Falls back to field chips when no buyListPreview available.
+ * 3. EMAIL PREFILL (CRO #6/#9): reads riq_capture_email so homepage visitors
+ *    who already typed email on /pricing or blog skip Stripe email field.
+ * Revenue 2026-09-29. H155.
+ */
 function HeroInlineVerdictCard({
   result,
   query,
   locale,
+  buyListPreview,
+  capturedEmail,
 }: {
   result: InlineVerdict
   query: string
   locale: Locale
+  buyListPreview?: SsrBuyListItem[] | null
+  capturedEmail?: string
 }) {
   const col = verdictColor(result.verdict)
+  // H155: query-specific CTA label (mirrors H154 VerdictUpsellCta)
+  const ctaLabel = (() => {
+    const q = query.trim()
+    if (!q) return "Unlock all items — €19/mo →"
+    const truncated = q.length > 28 ? `${q.slice(0, 25)}…` : q
+    return `Unlock ${truncated} buy-below — €19/mo →`
+  })()
   return (
     <div
       data-testid="riq-hero-inline-verdict"
@@ -138,25 +161,48 @@ function HeroInlineVerdictCard({
         </p>
       )}
 
-      {/* Locked field teaser */}
-      <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 10 }}>
-        {["Sell-through rate", "Top sizes", "Market trend", "Opportunity score"].map((f) => (
-          <span
-            key={f}
-            style={{
-              fontSize: 10.5,
-              color: "#4a5970",
-              border: "1px solid #1e2d45",
-              borderRadius: 5,
-              padding: "2px 6px",
-              filter: "blur(2px)",
-              userSelect: "none",
-            }}
-          >
-            {f}
+      {/* H155 CRO: real locked buy-list rows — mirrors H150 (/pricing InlineVerdictCard).
+          Before: 4 abstract field-name chips ("Sell-through rate", "Top sizes"…) with blur.
+          After: up to 3 real buy-list item names with blurred buy-below prices.
+          Makes the ask concrete: "these specific items are in there, priced, waiting."
+          Falls back to field-name chips when no buyListPreview. CRO #8 + #4 + #7. */}
+      {buyListPreview && buyListPreview.length > 0 ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "8px 10px" }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+            Also in your buy list
           </span>
-        ))}
-      </div>
+          {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
+            <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontSize: 12, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {it.brand}{it.model ? ` ${it.model}` : ""}
+              </span>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 3 }}>
+                <Lock size={9} />
+                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 10 }}>
+          {["Sell-through rate", "Top sizes", "Market trend", "Opportunity score"].map((f) => (
+            <span
+              key={f}
+              style={{
+                fontSize: 10.5,
+                color: "#4a5970",
+                border: "1px solid #1e2d45",
+                borderRadius: 5,
+                padding: "2px 6px",
+                filter: "blur(2px)",
+                userSelect: "none",
+              }}
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Pitch */}
       <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
@@ -164,12 +210,13 @@ function HeroInlineVerdictCard({
         <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
       </p>
 
-      {/* Checkout CTA — peak conviction: visitor just saw a live verdict */}
+      {/* H155 CRO: query-specific label + email prefill — mirrors H154 (VerdictUpsellCta). */}
       <GuestCheckoutButton
         locale={locale}
-        label="Unlock all items — €19/mo →"
+        label={ctaLabel}
         src="hero_inline_verdict_cta"
         query={query}
+        customerEmail={capturedEmail || undefined}
       />
 
       {/* Explore link — doesn't break momentum but gives a path for the curious */}
@@ -185,10 +232,16 @@ function HeroInlineVerdictCard({
   )
 }
 
-export function HeroFreeChips({ locale }: { locale: Locale }) {
+export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyListPreview?: SsrBuyListItem[] | null }) {
   const [activeChip, setActiveChip] = useState<string | null>(null)
   const [inlineResult, setInlineResult] = useState<InlineVerdict | null>(null)
   const [loading, setLoading] = useState(false)
+  // H155 CRO: pre-fill Stripe email from localStorage — same pattern as
+  // VerdictUpsellCta (H154), BlogStickyBar (H142), HardPaywallCard (H107).
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
 
   async function fetchInlineVerdict(query: string) {
     setActiveChip(query)
@@ -276,7 +329,7 @@ export function HeroFreeChips({ locale }: { locale: Locale }) {
 
       {/* Inline verdict — appears below chips when a chip is clicked */}
       {inlineResult && (
-        <HeroInlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} />
+        <HeroInlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} buyListPreview={buyListPreview} capturedEmail={capturedEmail || undefined} />
       )}
     </div>
   )

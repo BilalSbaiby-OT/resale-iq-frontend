@@ -176,7 +176,7 @@ export function LandingContent({
                 the most trial checks and whether chip clicks convert at higher rate
                 than direct search. CRO #7 (trust: show the product is real) +
                 CRO #10 (CTA ladder: free chip < paywall < checkout). 2026-09-28. */}
-            <HeroFreeChips locale={locale} />
+            <HeroFreeChips locale={locale} buyListPreview={ssrBuyList} />
 
             {/* Below the checker, not beside it. Hidden on narrow screens where
                 the checker must lead. Static <img> (no next/image config). */}
