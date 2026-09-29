@@ -79,14 +79,24 @@ function HeroInlineVerdictCard({
   query,
   locale,
   buyListPreview,
-  capturedEmail,
+  capturedEmail: initialEmail,
+  onEmailCapture,
 }: {
   result: InlineVerdict
   query: string
   locale: Locale
   buyListPreview?: SsrBuyListItem[] | null
   capturedEmail?: string
+  onEmailCapture?: (email: string) => void
 }) {
+  const [email, setEmail] = useState(initialEmail ?? "")
+  const handleEmailChange = (v: string) => {
+    setEmail(v)
+    if (v.trim()) {
+      try { localStorage.setItem("riq_capture_email", v.trim()) } catch { /* private mode */ }
+      onEmailCapture?.(v.trim())
+    }
+  }
   const col = verdictColor(result.verdict)
   // H155: query-specific CTA label (mirrors H154 VerdictUpsellCta)
   const ctaLabel = (() => {
@@ -210,13 +220,40 @@ function HeroInlineVerdictCard({
         <strong style={{ color: "#eef1f7" }}>€19/mo</strong>
       </p>
 
+      {/* H168 CRO: email capture input on homepage hero inline verdict — peak conviction.
+          H155 added email PRE-FILL from localStorage but had NO input for first-time visitors.
+          23/25 Stripe sessions had no email typed (measured 2026-09-22). The /pricing
+          InlineVerdictCard got this fix in H126 — the homepage chip was missed.
+          Homepage has 52 visitors/7d (4× /pricing). Same mechanism: show input when no
+          email captured yet, persist to localStorage, pre-fill downstream Stripe checkout.
+          CRO #6 (remove Stripe friction) + #9 (momentum: don't break conviction).
+          Revenue 2026-09-29. H168. */}
+      {!email && (
+        <input
+          type="email"
+          placeholder="Enter your email to unlock →"
+          onChange={e => handleEmailChange(e.target.value)}
+          style={{
+            width: "100%",
+            background: "#0d1117",
+            color: "#eef1f7",
+            border: "1.5px solid rgba(52,199,89,.35)",
+            borderRadius: 9,
+            padding: "9px 13px",
+            fontSize: 13.5,
+            outline: "none",
+            marginBottom: 8,
+            boxSizing: "border-box",
+          }}
+        />
+      )}
       {/* H155 CRO: query-specific label + email prefill — mirrors H154 (VerdictUpsellCta). */}
       <GuestCheckoutButton
         locale={locale}
         label={ctaLabel}
         src="hero_inline_verdict_cta"
         query={query}
-        customerEmail={capturedEmail || undefined}
+        customerEmail={email || undefined}
       />
 
       {/* Explore link — doesn't break momentum but gives a path for the curious */}
@@ -329,7 +366,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
 
       {/* Inline verdict — appears below chips when a chip is clicked */}
       {inlineResult && (
-        <HeroInlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} buyListPreview={buyListPreview} capturedEmail={capturedEmail || undefined} />
+        <HeroInlineVerdictCard result={inlineResult} query={activeChip ?? ""} locale={locale} buyListPreview={buyListPreview} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} />
       )}
     </div>
   )
