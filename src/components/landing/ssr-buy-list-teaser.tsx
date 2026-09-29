@@ -21,6 +21,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { itemDisplayName } from "@/lib/item-display-name"
 
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -61,7 +62,7 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
       {/* Left: brand + model (or category if no model) */}
       <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0, flex: 1 }}>
         <span style={{ fontSize: 14, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-          {item.brand}{item.model ? ` ${item.model}` : ""}
+          {itemDisplayName(item.brand, item.model)}
         </span>
         <span style={{ fontSize: 12, color: "#8FA3C4" }}>
           {item.category}

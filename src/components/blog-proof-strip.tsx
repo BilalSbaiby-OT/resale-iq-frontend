@@ -37,6 +37,7 @@
  */
 import Link from "next/link"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { itemDisplayName } from "@/lib/item-display-name"
 
 export const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -162,7 +163,7 @@ export function BlogProofStrip({
               }}
             >
               <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {it.brand}{it.model ? ` ${it.model}` : ""}
+                {itemDisplayName(it.brand, it.model)}
                 <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
                   {it.sold_30d_evidence != null
                     ? ` · ${(it.sold_30d_evidence as number).toLocaleString()} departed/30 days`
