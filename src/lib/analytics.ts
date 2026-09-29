@@ -47,6 +47,12 @@ export type FunnelEvent =
  *  result (verdict-upsell-cta.tsx, Revenue sprint 2026-09-28). `path` carries
  *  the variant (call-site src, or `${src}_annual` for the yearly link). */
 | "verdict_upsell_click"
+/** H159 CRO: visitor typed their own item in the "Check YOUR item" bridge
+ *  below a free verdict (VerdictUpsellCta). Fires before the inline fetch,
+ *  so we can measure how many post-verdict visitors personalize vs just click
+ *  the generic checkout CTA. `path` = the upsell src tag (e.g. "tools_card").
+ *  Revenue 2026-09-29. */
+| "verdict_upsell_try_submit"
 /** Checkout interstitial panel shown — account created, Stripe URL ready,
  *  user sees the "Account created ✓ / Continue to payment →" screen.
  *  Emitted once per registration flow, right when pendingCheckoutUrl is set.
