@@ -44,6 +44,19 @@ import type { Locale } from "@/lib/i18n"
 
 export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
   const [visible, setVisible] = useState(false)
+  // H186 CRO: read riq_capture_email so Stripe is pre-filled for visitors who
+  // typed their email on any earlier surface (homepage, blog, pricing-try-input,
+  // inline verdict card). PricingStickyCta was the only CTA surface missing this
+  // read; every other surface (BlogStickyBar H142, BlogFooterCta H146,
+  // InlineVerdictCard H126, HardPaywallCard H122) already does it. Without this,
+  // a visitor who typed their email at the blog footer and then landed on /pricing
+  // would still hit Stripe cold from the sticky bar — same "23 of 25 no email"
+  // problem the others were fixed for. CRO #6 (remove Stripe email field friction).
+  // Revenue 2026-09-30. H186.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
 
   useEffect(() => {
     let ticking = false
@@ -124,6 +137,7 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
         locale={locale}
         label="Start — €19/mo →"
         src="pricing_sticky_cta"
+        customerEmail={capturedEmail || undefined}
       />
     </div>
   )
