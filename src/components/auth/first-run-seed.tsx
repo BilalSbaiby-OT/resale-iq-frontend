@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { clearFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
+import { FREE_MODELS } from "@/lib/working-models"
 
 /**
  * One button, not a blank input.
@@ -19,10 +20,27 @@ import { clearFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
  * The query was chosen from the live public buy-list at signup and is
  * always a FREE_MODELS string, so the click returns a priced verdict.
  * Dashboard visitor count before this mount: 15 unique humans / 7d.
+ *
+ * C(tony)SeedDismissedFallback: when the user dismisses the seed with
+ * "Not now", they previously fell into a blank state — no guided path to
+ * a first free verdict. Research:
+ *   Notion (https://sanjaydey.com/saas-onboarding-ux-15-examples-that-convert):
+ *     "Template gallery instead of blank page. Users always have 2–3 choices."
+ *   Canva (https://supademo.com/user-flow-examples/canva):
+ *     "No blank canvas. Templates ARE the empty state."
+ *   PLG Handbook (https://plghandbook.com/empty-state-design):
+ *     "Guided empty states increase activation by 30–40%."
+ * Fix: after dismiss, show 3 FREE_MODELS chips so the user still has a
+ * clear, frictionless path to their first real free verdict. Chips link
+ * with src=signup_seed_dismissed for funnel measurement.
  */
 export function FirstRunSeed() {
   const pathname = usePathname()
   const [query, setQuery] = useState<string | null>(null)
+  // C(tony)SeedDismissedFallback: after "Not now" the seed is cleared;
+  // dismissed=true switches the component to the fallback chip row
+  // so the user never lands in a blank state with no free-verdict path.
+  const [dismissed, setDismissed] = useState(false)
 
   const onDashboard = pathname === "/dashboard" || pathname.endsWith("/dashboard")
 
@@ -31,9 +49,78 @@ export function FirstRunSeed() {
     setQuery(readFirstCheckSeed())
   }, [onDashboard])
 
-  if (!onDashboard || !query) return null
+  if (!onDashboard) return null
+  // Render nothing until we have either a seed query OR a dismissed state
+  // to show the fallback. Avoids a flash of empty content on mount.
+  if (!query && !dismissed) return null
 
-  const href = `/verdict?q=${encodeURIComponent(query)}&src=signup_seed`
+  // C(tony)SeedDismissedFallback: Notion template-gallery pattern.
+  // Never leave the user staring at nothing after a dismissal.
+  // 3 chips = 3 guaranteed-free verdicts (all in FREE_MODELS).
+  // Clicking a chip navigates to /verdict — the component unmounts and
+  // dismissed state is gone, so /dashboard re-shows cleanly on return.
+  // The × dismisses the fallback row for this session.
+  if (dismissed) {
+    return (
+      <div
+        data-testid="riq-first-run-seed-fallback"
+        style={{
+          marginBottom: 16,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexWrap: "wrap",
+        }}
+      >
+        <span
+          style={{
+            fontSize: 12,
+            color: "var(--color-graphite-muted)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Try a free check:
+        </span>
+        {FREE_MODELS.map((m) => (
+          <Link
+            key={m}
+            href={`/verdict?q=${encodeURIComponent(m)}&src=signup_seed_dismissed`}
+            data-testid={`riq-seed-fallback-chip-${m.replace(/\s+/g, "-").toLowerCase()}`}
+            style={{
+              background: "var(--color-graphite-elevated)",
+              border: "1px solid var(--color-border-ui)",
+              borderRadius: 8,
+              color: "var(--color-on-graphite)",
+              fontSize: 13,
+              padding: "5px 12px",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {m}
+          </Link>
+        ))}
+        <button
+          type="button"
+          aria-label="Dismiss free check suggestions"
+          onClick={() => setDismissed(false)}
+          style={{
+            background: "none",
+            border: "none",
+            padding: "4px 6px",
+            fontSize: 14,
+            color: "var(--color-graphite-muted)",
+            cursor: "pointer",
+            lineHeight: 1,
+          }}
+        >
+          ×
+        </button>
+      </div>
+    )
+  }
+
+  const href = `/verdict?q=${encodeURIComponent(query!)}&src=signup_seed`
 
   return (
     <div
@@ -76,7 +163,7 @@ export function FirstRunSeed() {
       </Link>
       <button
         type="button"
-        onClick={() => { clearFirstCheckSeed(); setQuery(null) }}
+        onClick={() => { clearFirstCheckSeed(); setDismissed(true) }}
         style={{
           background: "none",
           border: "none",

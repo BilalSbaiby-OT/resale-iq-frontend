@@ -9,6 +9,7 @@ import { CheckCircle2, AlertCircle } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
+import { fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
 
 export default function ResetPasswordPage() {
   // Read the token from the URL on the client rather than via useSearchParams:
@@ -61,6 +62,14 @@ export default function ResetPasswordPage() {
         // first paint, so /dashboard IS a real activation surface.
         // Stale intent key still cleared here so it doesn't leak into other pages.
         try { localStorage.removeItem("riq_intent_query") } catch { /* private mode */ }
+        // C(tony)C232: write the first-check seed after password reset so
+        // the "Your first check is ready" button shows on /dashboard.
+        // Previously password-reset completions landed on a blank dashboard
+        // with no guided path to a first verdict (same gap C231 fixed for
+        // email-verify). Fire-and-forget — any error falls back gracefully
+        // (writeFirstCheckSeed swallows storage exceptions; fetchFirstCheckQuery
+        // returns FREE_MODELS[0]).
+        fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
         router.replace("/dashboard")
         return
       }
