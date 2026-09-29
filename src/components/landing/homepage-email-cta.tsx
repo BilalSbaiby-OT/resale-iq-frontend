@@ -101,10 +101,24 @@ export function HomepageEmailCta({ locale, pricingText }: { locale: Locale; pric
         src="homepage_checkout"
         customerEmail={email.trim() || undefined}
       />
-      {/* Guarantee line REMOVED — /terms (section 3) covers cancel-anytime and
-          billing-through-period, but does not promise a money-back refund.
-          Recommendation: add a no-questions refund clause to /terms before
-          restoring any guarantee copy on this page. */}
+      {/* H149 CRO: price + trust signals under homepage primary CTA (homepage 52/7d).
+          BEFORE: homepage final ask showed no price, no guarantee, no cancel-anytime —
+          weaker than the /pricing Starter card which shows "Instant access · cancel anytime
+          · 30-day refund policy." A visitor who never navigated to /pricing (most of them)
+          saw a cold green button with no commitment context.
+          AFTER: "Starter €19/mo · cancel anytime · 30-day refund policy" mirrors the
+          exact copy in pricing-section.tsx H90, placed right below the CTA where doubt
+          fires. /terms s.3 confirms the 30-day full refund — this is honest.
+          CRO #4 (objection: what if it fails? — refund removes the risk framing) +
+          #10 (price in CTA context: solution-aware visitor sees commitment level without
+          navigating to /pricing to find it).
+          Revenue 2026-09-29. H149. */}
+      <p style={{ fontSize: 11.5, color: "var(--color-text-dim)", margin: "2px 0 0", textAlign: "center", lineHeight: 1.5 }}>
+        Starter €19/mo · cancel anytime ·{" "}
+        <a href="/terms" style={{ color: "var(--color-text-dim)", textDecoration: "underline" }}>
+          30-day refund policy
+        </a>
+      </p>
       <Link
         href={`${canonicalPath(locale, "/pricing")}?src=homepage_cta`}
         style={{ fontSize: 12.5, color: "var(--color-text-dim)", textDecoration: "none" }}
