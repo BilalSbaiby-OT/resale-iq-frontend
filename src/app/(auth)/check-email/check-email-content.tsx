@@ -240,6 +240,21 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             iCloud Mail" for icloud/me/mac, generic for everything else. */}
         <EmailClientButton email={user?.email ?? ""} />
 
+        {/* C(tony)CheckEmailPreviewCTA: the only path to experiencing the product
+            while waiting lived at the bottom of the page (~line 392) where nobody
+            scrolls during a 30s email wait. Linear's playbook (candu.ai teardown,
+            fetched 2026-09-29): "protect the fastest path to the core action" —
+            use every idle moment to get the user doing the real thing, not
+            reading about it. Placed directly under the email CTA, the first
+            place the eye lands after "Open Gmail", as a quiet secondary link so
+            it never competes with the primary action. */}
+        <Link
+          href={sampleHref}
+          className="inline-flex items-center gap-1 text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)] mb-4 transition-colors"
+        >
+          {intentRow ? "See a live verdict while you wait →" : "Preview the product while you wait →"}
+        </Link>
+
         <p className={`${AUTH_TEXT_MUTED} text-[12px] mb-6`}>
           {t.cantFind} <a href="mailto:support@resaleiq.dev" className={`${AUTH_ACCENT} hover:underline`}>support@resaleiq.dev</a>.
         </p>
