@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Mail, TrendingUp, ArrowRight, Lock, AlertCircle, Sparkles } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
@@ -11,6 +12,7 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { queryCoverageKind } from "@/lib/query-coverage"
+import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 
 // The three brands most likely to resonate with a new reseller — confirmed
@@ -104,6 +106,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   // Fetched from market-snapshot on mount; null until loaded or on no match.
   const [intentRow, setIntentRow] = useState<SnapshotBrandRow | null>(null)
   const { logout, user, isAuthenticated, checkAuth } = useAuthStore()
+  const router = useRouter()
 
   useEffect(() => {
     checkAuth()
@@ -130,6 +133,22 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
       }
     } catch { /* private mode — intentQuery stays empty, generic copy shows */ }
   }, [])
+
+  // C(tony)AlreadyVerifiedRoute: a user can land on /check-email with an
+  // already-verified account (e.g. old session, signed in days later after
+  // clicking the link elsewhere). Nothing previously redirected them off this
+  // waiting screen — silently route straight to their intent verdict (if
+  // tracked) or FIRST_CHECK_HREF instead of leaving them stuck here.
+  useEffect(() => {
+    if (!user) return
+    if (user.email_verified !== true) return
+    const q = intentQuery.trim()
+    if (q && queryCoverageKind(q) !== "untracked") {
+      router.replace(`/verdict?q=${encodeURIComponent(q)}`)
+    } else {
+      router.replace(FIRST_CHECK_HREF)
+    }
+  }, [user, intentQuery, router])
 
   useEffect(() => {
     if (cooldown <= 0) return
