@@ -858,9 +858,39 @@ export function PricingSection({
                 Yearly: same per-day maths off the annual total (÷365), so the
                 daily anchor stays honest instead of quoting the monthly rate
                 under a yearly price. */}
-            <div style={{ fontSize: s.perDay, color: "var(--color-text-muted)", marginBottom: 16, minHeight: 17 }}>
+            <div style={{ fontSize: s.perDay, color: "var(--color-text-muted)", marginBottom: billing === "yearly" && !tier.free ? 4 : 16, minHeight: 17 }}>
               {tier.free ? t.noCardRequired : t.perDay((tierPriceEur(tier, billing) / (billing === "yearly" ? 365 : 30)).toFixed(2))}
             </div>
+            {/* H148 CRO: per-card annual saving line — CRO #8 specificity.
+                The toggle badge says "2 months free" but that abstracts away the €.
+                A visitor comparing monthly vs yearly is already in a commitment frame;
+                the € saving is what tips the decision. Plausible/Fathom both show the
+                exact EUR saving on the yearly price card, not just a percentage.
+                Computed from tier.price × 12 − tier.priceAnnual (same data the toggle
+                badge already uses, never invented). Starter saves €38, Pro saves €98.
+                Shown only for yearly billing on non-free tiers — no fake urgency,
+                no rounding, always honest. CRO #8 (behavioral: specificity converts)
+                + #12 (conviction: the number lands right before the CTA).
+                Revenue 2026-09-29. */}
+            {billing === "yearly" && !tier.free && tier.priceAnnual != null && (() => {
+              const yearlyTotal = tier.priceAnnual
+              const monthlyEquiv = tier.price * 12
+              const saved = monthlyEquiv - yearlyTotal
+              if (saved <= 0) return null
+              return (
+                <div
+                  data-testid={`riq-yearly-saving-${tier.id}`}
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: "var(--color-buy)",
+                    marginBottom: 14,
+                  }}
+                >
+                  Save €{saved} vs monthly
+                </div>
+              )
+            })()}
             {/* H113 CRO: email input on the Starter card only.
                 23/25 Stripe sessions had no email typed — the email field is
                 the highest-friction moment on Stripe's own page. choose()
