@@ -31,7 +31,7 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // H139: free-sample chips are now buttons (inline fetch), not links (navigation).
   await expect(hero.getByRole("button", { name: "Adidas Samba" })).toBeVisible()
   await expect(hero.getByRole("button", { name: "Nike Air Force 1" })).toBeVisible()
-  await expect(hero.getByRole("button", { name: "New Balance 530" })).toBeVisible()
+  await expect(hero.getByRole("button", { name: "Fred Perry Polo" })).toBeVisible()
   // Non-free-model queries must not appear as chip buttons.
   await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
   await expect(hero.getByRole("button", { name: "New Balance 550" })).toHaveCount(0)

@@ -108,6 +108,27 @@ const VERDICT_CATALOG = {
     sell_median: 40.0,
     provisional: null,
   },
+  // Free-sample seed (2026-09-29, replaces NB530 as the third free chip).
+  // Mirrors production live measurement exactly: WATCH / MEDIUM / comparable
+  // n=65 / sold_30d=1656 / buy-below €8.18 against a €12.30 market. Chosen by
+  // querying model_signals directly (comparable_n>=20, buy_below not null)
+  // and confirming through engine.sufficiency.signal_verdict — the same
+  // function /api/verdict calls. See src/lib/working-models.ts for the
+  // full measurement writeup.
+  "fred perry polo": {
+    verdict: "WATCH",
+    product: "Fred Perry Polo",
+    category: "Shirts",
+    confidence: "MEDIUM",
+    confidence_note: null,
+    n: 65,
+    sold_7d: 66,
+    active_listings: 49187,
+    buy_below: 8.18,
+    sell_avg: 12.3,
+    sell_median: 11.0,
+    provisional: null,
+  },
   // The PREVIOUS hero seed, kept as an ordinary row: it is still the fixture
   // that exercises the thin-provisional-BUY rendering path (provisional flag,
   // an "Only N" confidence note, and a comparable count that differs from

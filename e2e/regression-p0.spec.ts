@@ -169,7 +169,7 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     // (a live WATCH). The old assertion looked for Nike Air Force 1, which
     // returns SKIP live — a stuck user was sent to a second dead end.
     await expect(panel.getByText(/try one of these instead/i)).toBeVisible()
-    await expect(panel.getByRole("button", { name: "New Balance 530" })).toBeVisible()
+    await expect(panel.getByRole("button", { name: "Fred Perry Polo" })).toBeVisible()
 
     // The priced-metrics grid (Buy-below / Market price / Left shelf / Listed)
     // must not render at all — there is no price to show, and rendering the
