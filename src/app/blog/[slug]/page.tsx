@@ -210,7 +210,7 @@ export default async function BlogPostPage(
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       {/* H141 CRO: persistent sticky bar while scrolling. blog 130/7d. Revenue 2026-09-29. */}
       {p.preflightQuery && (
-        <BlogStickyBar preflightQuery={p.preflightQuery} locale={locale} />
+        <BlogStickyBar preflightQuery={p.preflightQuery} locale={locale} comparableN={ssrVerdict?.comparable_n ?? null} />
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* The root layout hardcodes <html lang="en">, and varying that per page

@@ -25,9 +25,21 @@ import type { Locale } from "@/lib/i18n"
 export function BlogStickyBar({
   preflightQuery,
   locale = "en",
+  comparableN,
 }: {
   preflightQuery: string
   locale?: Locale
+  /**
+   * H151 CRO: comparable_n from ssrBlogVerdict — number of data points we hold
+   * for this post's item. Surfaced in the sticky bar copy so the scroll-phase
+   * CTA carries specificity ("47 data points on Stone Island Hoodie") instead of
+   * a generic claim ("buy-below price & demand data"). Same data already SSR'd
+   * for the above-fold CTA (H150); passing it here costs nothing.
+   * CRO #8 (specificity: a real count > a vague description)
+   * + #7 (trust: proves we have data on this item while they're still reading).
+   * Surface: blog 130/7d. Revenue 2026-09-29. H151.
+   */
+  comparableN?: number | null
 }) {
   const [visible, setVisible] = useState(false)
   // H142 CRO: pre-fill Stripe email from localStorage.
@@ -84,7 +96,10 @@ export function BlogStickyBar({
     >
       <span style={{ fontSize: 13, color: "#8FA3C4", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
         <strong style={{ color: "#34C759" }}>{preflightQuery}</strong>
-        {" "}— buy-below price &amp; demand data
+        {" "}—{" "}
+        {comparableN != null && comparableN > 0
+          ? `${comparableN.toLocaleString("en-GB")} data points tracked`
+          : "buy-below price & demand data"}
       </span>
       <GuestCheckoutButton
         locale={locale}
