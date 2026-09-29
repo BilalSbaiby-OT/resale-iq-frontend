@@ -8,7 +8,6 @@ import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
 import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
-import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 
@@ -83,9 +82,8 @@ function RegisterContent({ locale }: { locale: Locale }) {
       if (isPaidPlan) {
         await startPaidCheckout(plan as "operator" | "power")
       } else {
-        // C(tony)FirstSignupVerdict: returning users who sign in via conflict path
-        // land on the demo verdict — same first-impression they'd get as a new signup.
-        router.push(FIRST_CHECK_HREF + "&src=conflict_signup")
+        // FOUNDER RULE 2026-09-29: every login/signup lands on /dashboard.
+        router.push("/dashboard")
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Sign-in failed — check your password and try again.")
@@ -167,15 +165,10 @@ function RegisterContent({ locale }: { locale: Locale }) {
         track("signup_completed")
       }
       if (!isPaidPlan) {
-        // C(tony)FirstSignupVerdict: new free signups land directly on Nike AF1 verdict
-        // (a FREE_MODELS query — returns WATCH + buy_below=€31 without payment).
-        // Canva opens the canvas. Duolingo starts the lesson. We show the answer.
-        // /dashboard was the prior destination; a new account there saw an empty
-        // quick-check input and had to know what to type. This removes that cold start.
-        // src=first_signup lets funnel analytics measure first-verdict-seen rate by
-        // acquisition path.
-        track("first_signup_verdict_redirect")
-        router.push(FIRST_CHECK_HREF + "&src=first_signup")
+        // FOUNDER RULE 2026-09-29 (binding, do not override): every login and
+        // signup lands on /dashboard. The dashboard has the quick-check input
+        // and suggestion chips, so there is no cold start.
+        router.push("/dashboard")
         return
       }
       // Paid arrival: the account now exists. The EU withdrawal waiver gates
