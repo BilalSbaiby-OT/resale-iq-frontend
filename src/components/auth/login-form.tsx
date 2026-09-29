@@ -3,7 +3,8 @@ import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useAuthStore } from "@/lib/auth-store"
 import { setToken } from "@/lib/utils"
-import { getMe } from "@/lib/api"
+import { getMe, getPlans, createCheckout } from "@/lib/api"
+import type { CheckoutPlan } from "@/lib/checkout"
 import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
@@ -80,7 +81,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       setToken(googleToken)
       // Fetch the user record to hydrate the auth store, then redirect
       getMe(googleToken)
-        .then(user => {
+        .then(async user => {
           useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
           window.history.replaceState({}, "", "/login")
           // C(tony)LoginVerdict: route returning Google users to /verdict (first
@@ -96,7 +97,43 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
             // why: localStorage read can throw in private/incognito mode; savedIntent
             // stays null and we fall back to FIRST_CHECK_HREF below — safe default.
           }
-          router.push(savedIntent ? `/verdict?q=${encodeURIComponent(savedIntent)}` : FIRST_CHECK_HREF)
+
+          // C(tony)GoogleCheckout: Google OAuth bypassed the email/password register
+          // form, so Stripe checkout was never triggered. If riq_register_plan is
+          // fresh (< 5 min), the user chose a plan before clicking Google — they
+          // expect to pay. Resolve the price, create a checkout session, and redirect
+          // to Stripe now. Falls back to verdict on any error (same UX as before).
+          // Pattern: Stripe own documentation — never silently skip payment for a
+          // user who initiated a paid signup flow.
+          let checkoutHandled = false
+          try {
+            const raw = window.localStorage.getItem("riq_register_plan")
+            window.localStorage.removeItem("riq_register_plan")
+            const parsed = raw ? (JSON.parse(raw) as { plan: string; ts: number }) : null
+            if (parsed && Date.now() - parsed.ts < 5 * 60 * 1000) {
+              const plansData = await getPlans()
+              const matchedPlan = plansData.plans.find(
+                (p: { id: string; price_id?: string }) => p.id === parsed.plan
+              )
+              const priceId = matchedPlan?.price_id
+              if (priceId) {
+                const { checkout_url } = await createCheckout(priceId, { plan: parsed.plan as CheckoutPlan })
+                if (checkout_url) {
+                  checkoutHandled = true
+                  window.location.assign(checkout_url)
+                }
+              }
+            }
+          } catch {
+            // why: GoogleCheckout is best-effort — any error (network, stale plan
+            // data, missing price_id, Stripe unavailable) must never block login.
+            // The user created their account successfully; falling back to verdict
+            // lets them reach the product. They can upgrade via /pricing later.
+          }
+
+          if (!checkoutHandled) {
+            router.push(savedIntent ? `/verdict?q=${encodeURIComponent(savedIntent)}` : FIRST_CHECK_HREF)
+          }
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
