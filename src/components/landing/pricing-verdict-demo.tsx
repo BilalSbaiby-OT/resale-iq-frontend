@@ -123,6 +123,7 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
 
   return (
     <div
+      id="pricing-proof"
       data-testid="riq-pricing-verdict-demo"
       style={{
         maxWidth: 1040,

@@ -432,6 +432,42 @@ export function PricingSection({
         )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
+        {/* H170 CRO: "See a live verdict first" escape link for cold visitors on /pricing.
+            After the 2026-09-29 declutter (d282b78), plan cards render first on /pricing.
+            8 of 44 /pricing visitors arrived cold — they had never seen the homepage,
+            never ran a verdict. They see plan cards with no context: "Know what sells.
+            Decide whether to buy." + €19/mo, no proof of what that means.
+            The PricingVerdictDemo (Nike AF1 live verdict) and PricingTryInput (try YOUR
+            item) are both now BELOW the plan cards — exactly what a cold visitor needs,
+            but there was no path to reach them without scrolling past the full plans section.
+            This one-line text link gives them a deliberate "show me before I pay" escape
+            at the exact moment of maximum doubt — right after the price is visible but
+            before they commit. Scrolls to #pricing-proof which points at PricingVerdictDemo.
+            Rendered only on standalone /pricing (!compact) — the homepage compact strip
+            already sits under a full page of proof, so this link would be noise there.
+            Anti-repeat check: H169=personalization-bridge, H168=email-capture,
+            H167=FAQ-objection, H166=refund-guarantee. H170=proof-path-link
+            (different surface mechanism — navigation escape, not inline capture/copy/FAQ).
+            CRO #10 (CTA discipline: unaware/cold visitor → "see how it works" before commit)
+            + #12 (conversion momentum: give cold visitors proof before the ask)
+            + #9 (friction: proof is below, just needs to be discoverable — one line, zero risk).
+            Surface: /pricing 12/7d. Revenue 2026-09-29. H170. */}
+        {!compact && (
+          <p style={{ marginTop: 10, marginBottom: 0 }}>
+            <a
+              href="#pricing-proof"
+              data-testid="riq-pricing-proof-link"
+              style={{
+                fontSize: 13,
+                color: "var(--color-text-muted)",
+                textDecoration: "none",
+                borderBottom: "1px solid currentColor",
+              }}
+            >
+              → Not sure yet? See a live verdict example first
+            </a>
+          </p>
+        )}
       </div>
 
       {/* H74 CRO: checkout-cancelled recovery — 52 people hit Stripe, 0 converted;
