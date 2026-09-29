@@ -135,11 +135,36 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           const isPaid = res.plan && res.plan !== "free"
           const go = (href: string) => setTimeout(() => router.replace(href), 700)
           if (isPaid) {
-            // Paid: route to verdict with whatever item we resolved. Flash says
-            // "Loading your [item] verdict…" — accurate, we're about to show it.
-            setRedirectLabel(decodeURIComponent(firstQuery))
-            setRedirectDest("verdict")
-            go(`/verdict?q=${firstQuery}`)
+            // C(tony)PaidCoverageGate: mirror the free+intent coverage check.
+            // Without this, a paid user who typed "Gucci Handbag" at /register
+            // routes to /verdict?q=Gucci+Handbag and immediately sees
+            // INSUFFICIENT_DATA — the worst possible first impression after
+            // completing a payment. The same queryCoverageKind guard used on
+            // the free+intent path applies here: if the intent is untracked,
+            // route to the AF1 demo (WATCH+buy_below confirmed live) so the
+            // product feels working before the user searches their own item.
+            // No-intent and tracked-intent paths are unchanged.
+            if (hadIntent) {
+              const intentDecoded = decodeURIComponent(firstQuery)
+              const paidIsCoverable = queryCoverageKind(intentDecoded) !== "untracked"
+              if (paidIsCoverable) {
+                // Tracked item: route straight to their verdict. Flash accurate.
+                setRedirectLabel(intentDecoded)
+                setRedirectDest("verdict")
+                go(`/verdict?q=${firstQuery}`)
+              } else {
+                // Untracked item: show a working AF1 verdict first so the product
+                // makes sense before they search their own item via the input.
+                setRedirectLabel("Nike Air Force 1")
+                setRedirectDest("verdict")
+                go(`/verdict?q=Nike+Air+Force+1`)
+              }
+            } else {
+              // No intent captured: topBrand or AF1 fallback as before.
+              setRedirectLabel(decodeURIComponent(firstQuery))
+              setRedirectDest("verdict")
+              go(`/verdict?q=${firstQuery}`)
+            }
           } else if (hadIntent) {
             // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready).
             // C(tony)CoverageGate: only route to /pricing if the intent is a tracked
