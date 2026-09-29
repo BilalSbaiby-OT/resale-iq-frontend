@@ -14,12 +14,26 @@ import {
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { googleErrorMessage } from "@/lib/google-oauth"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { IntentTypeahead } from "@/components/auth/intent-typeahead"
+import { queryCoverageKind } from "@/lib/query-coverage"
+
+const INTENT_QUERY_KEY = "riq_intent_query"
+
+function saveIntentQuery(q: string) {
+  try {
+    window.localStorage.setItem(INTENT_QUERY_KEY, q)
+  } catch {
+    // why: private/incognito mode can throw on localStorage writes; the intent
+    // simply won't persist across the OAuth redirect — non-fatal, no user-facing state to fix.
+  }
+}
 
 export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [intentQuery, setIntentQuery] = useState("")
   const { login } = useAuthStore()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -56,7 +70,17 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           // C(tony)LoginVerdict: route returning Google users to /verdict (first
           // real answer) instead of /dashboard (12-line stub, 0 activation value).
           // Same fix as email login below — Elon's cleanup stripped both routes.
-          router.push(FIRST_CHECK_HREF)
+          // C(tony)LoginIntentField: if the user typed a tracked intent query
+          // before hitting Google (saved to localStorage pre-redirect), route
+          // straight to their query's verdict instead of the generic seed.
+          let savedIntent: string | null = null
+          try {
+            savedIntent = window.localStorage.getItem(INTENT_QUERY_KEY)
+          } catch {
+            // why: localStorage read can throw in private/incognito mode; savedIntent
+            // stays null and we fall back to FIRST_CHECK_HREF below — safe default.
+          }
+          router.push(savedIntent ? `/verdict?q=${encodeURIComponent(savedIntent)}` : FIRST_CHECK_HREF)
         })
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
@@ -86,7 +110,15 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
       // C(tony)LoginVerdict: route to /verdict (first real answer, Nike AF1 seed)
       // instead of /dashboard (12-line stub, 11/25 accounts ran 0 verdicts after
       // Elon's cleanup stripped the intent routing). Value screen first, then nav.
-      router.push(FIRST_CHECK_HREF)
+      // C(tony)LoginIntentField: if the user told us what they want to check,
+      // route straight to their query's verdict instead of the generic seed.
+      const trimmedIntent = intentQuery.trim()
+      if (trimmedIntent && queryCoverageKind(trimmedIntent) !== "untracked") {
+        saveIntentQuery(trimmedIntent)
+        router.push(`/verdict?q=${encodeURIComponent(trimmedIntent)}`)
+      } else {
+        router.push(FIRST_CHECK_HREF)
+      }
     }
     catch (err: unknown) { setError(err instanceof Error ? err.message : t.errorInvalid) }
     finally { setLoading(false) }
@@ -96,10 +128,28 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
 
-      <GoogleSignInButton label="Continue with Google" />
+      <GoogleSignInButton
+        label="Continue with Google"
+        onBeforeNavigate={() => {
+          const trimmedIntent = intentQuery.trim()
+          if (trimmedIntent) saveIntentQuery(trimmedIntent)
+        }}
+      />
       <AuthDivider text="or" />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {!loading && !error && (
+          <div className="flex flex-col gap-1.5">
+            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>What do you want to check?</span>
+            <IntentTypeahead
+              value={intentQuery}
+              onChange={setIntentQuery}
+              onSelect={(v) => saveIntentQuery(v)}
+              placeholder="e.g. Stone Island Hoodie, Fred Perry Polo…"
+              aria-label="What do you want to check?"
+            />
+          </div>
+        )}
         <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
         {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
