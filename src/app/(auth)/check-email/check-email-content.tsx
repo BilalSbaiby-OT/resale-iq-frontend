@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Mail, TrendingUp, ArrowRight, Lock, AlertCircle } from "lucide-react"
+import { Mail, TrendingUp, ArrowRight, Lock, AlertCircle, Sparkles } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -272,6 +272,53 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-2 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5">
             <Lock size={12} className={AUTH_TEXT_MUTED} />
             <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy-below price unlocks after verification</span>
+          </div>
+        </div>
+      )}
+
+      {/* C(tony)WaitingVerdictPreview: blurred verdict teaser for tracked intent
+          queries. Mirrors the real verdict card format (brand, category, demand,
+          avg price, buy-below) but locks the buy-below number behind a blur —
+          the €value shown is a DISPLAY-ONLY approximation (avg_price * 0.7), not
+          the real buy-below formula. Goal: make the shape of the payoff visible
+          without giving away the actual number, so verification feels like the
+          last step to an already-computed answer. */}
+      {!intentIsUntracked && intentRow && (
+        <div className="bg-[var(--color-surface)] border border-[var(--color-buy)] rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles size={14} className={AUTH_ACCENT} />
+            <span className={`text-[11.5px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
+              Your {intentRow.brand} verdict is ready
+            </span>
+          </div>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className={`text-[15px] font-bold ${AUTH_TEXT}`}>{intentRow.brand}</div>
+              <div className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{intentRow.category}</div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 mb-3">
+            <div className="flex items-center justify-between">
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Watched departures (7d)</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{intentRow.sold_7d.toLocaleString()}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Avg resale price</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>€{intentRow.avg_price_eur}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy below</span>
+              <span className="flex items-center gap-1.5">
+                <span className="blur-sm select-none text-[13px] font-semibold" aria-hidden="true">
+                  €{Math.round(intentRow.avg_price_eur * 0.7)}
+                </span>
+                <Lock size={11} className={AUTH_TEXT_MUTED} />
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5">
+            <Lock size={12} className={AUTH_TEXT_MUTED} />
+            <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Verify email to unlock — one click in your inbox → your buy-below price</span>
           </div>
         </div>
       )}
