@@ -62,6 +62,41 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
   return <Minus size={13} color="#FFD60A" />
 }
 
+/**
+ * H169 CRO: "Check YOUR item" inline bridge on homepage hero inline verdict card.
+ *
+ * RESEARCH (patterns confirmed in H159, fetched/applied 2026-09-29):
+ *  - Plausible.io: show the product working for visitor's specific need before ask.
+ *  - Fathom: full trial before payment request.
+ *  - Beehiiv: free tier proves value; ask comes after personalized experience.
+ *
+ * THE GAP: HeroFreeChips lets visitors see a verdict for Adidas Samba (AF1/NB530).
+ * The conviction chain STOPS there — the only next action is a generic checkout CTA.
+ * There's no bridge from "I saw their data" to "does it work for MY items?".
+ *
+ * VerdictUpsellCta (blog 130/7d + /tools 10/7d) got this fix in H159.
+ * The homepage chip path (52/7d) was the remaining gap.
+ *
+ * FIX: add "Now check YOUR item" mini input below the existing CTA.
+ *  - 402 → inline nudge: "We hold N data points on [item] — unlock it below"
+ *    + GuestCheckoutButton("Unlock [item] buy-below — €19/mo →") pre-filled.
+ *  - 200 (free sample) / error → navigate to /tools for full verdict.
+ *
+ * CONVICTION CHAIN (Plausible/Beehiiv pattern):
+ * Free chip (Samba) → see verdict → "check YOUR item" → personalized paywall
+ * → "Unlock [their item] — €19/mo" → Stripe with item + email pre-filled.
+ *
+ * Anti-repeat: last 3 ticks = email-capture-input, faq-objection-handling,
+ * refund-guarantee. This = personalization-bridge (different surface, different
+ * mechanism, CRO #3/#9/#12 vs #6/#4/#4).
+ *
+ * Traffic: homepage 52/7d.
+ * CRO #3 (message match: their item named in the ask)
+ * + #9 (friction: inline paywall removes /tools hop)
+ * + #12 (conviction momentum: sample → personalize → ask).
+ * Revenue 2026-09-29. H169.
+ */
+
 /** Mini inline verdict card — shown on the homepage when a chip is clicked.
  *
  * H155 CRO: three gaps vs HeroInlineVerdictCard's first ship (H139):
@@ -97,6 +132,40 @@ function HeroInlineVerdictCard({
       onEmailCapture?.(v.trim())
     }
   }
+  // H169 CRO: "Check YOUR item" bridge state — mirrors H159 (VerdictUpsellCta).
+  const [customQ, setCustomQ] = useState("")
+  const [customLoading, setCustomLoading] = useState(false)
+  const [customPaywallQuery, setCustomPaywallQuery] = useState<string | null>(null)
+  const [customPaywallN, setCustomPaywallN] = useState<number | null>(null)
+
+  async function handleCustomSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const trimmed = customQ.trim()
+    if (!trimmed) return
+    setCustomPaywallQuery(null)
+    setCustomPaywallN(null)
+    setCustomLoading(true)
+    try {
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      if (res.status === 402 || res.status === 401) {
+        // Paywalled — show item-specific inline nudge.
+        try {
+          const body = await res.json().catch(() => null)
+          if (body?.comparable_n != null) setCustomPaywallN(body.comparable_n as number)
+        } catch { /* non-fatal — nudge shows without count */ }
+        setCustomPaywallQuery(trimmed)
+      } else {
+        // Free sample (200) or unexpected — navigate to /tools so they see the full verdict.
+        window.location.href = `/tools?q=${encodeURIComponent(trimmed)}&src=hero_chip_try`
+      }
+    } catch {
+      // why: network failure is non-fatal — /tools fallback ensures visitor is never stuck.
+      window.location.href = `/tools?q=${encodeURIComponent(trimmed)}&src=hero_chip_try`
+    } finally {
+      setCustomLoading(false)
+    }
+  }
+
   const col = verdictColor(result.verdict)
   // H155: query-specific CTA label (mirrors H154 VerdictUpsellCta)
   const ctaLabel = (() => {
@@ -265,6 +334,94 @@ function HeroInlineVerdictCard({
           Explore on /tools →
         </Link>
       </p>
+
+      {/* H169 CRO: "Check YOUR item" inline bridge — same conviction chain as H159.
+          After seeing a free sample, the visitor's real question is "does it work for
+          MY items?" This adds a mini input so they try their specific item right here,
+          on the homepage where trust signals, ROI card, and objection row are in view.
+          402 → inline personalized nudge → one-click Stripe with their item pre-filled.
+          200 → /tools for full verdict. Network error → /tools fallback (never stuck).
+          CRO #3 (message match: their item in the ask) + #9 (removes /tools navigation
+          hop) + #12 (conviction momentum: sample → personalize → ask).
+          Revenue 2026-09-29. H169. */}
+      <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,.06)" }}>
+        <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 7px", lineHeight: 1.5, fontWeight: 500 }}>
+          Now check YOUR item:
+        </p>
+        <form
+          onSubmit={handleCustomSubmit}
+          style={{ display: "flex", gap: 7, maxWidth: 360 }}
+        >
+          <input
+            type="text"
+            value={customQ}
+            onChange={e => setCustomQ(e.target.value)}
+            placeholder="e.g. Stone Island Hoodie"
+            autoComplete="off"
+            style={{
+              flex: 1,
+              background: "#0d1117",
+              color: "#eef1f7",
+              border: "1px solid rgba(52,199,89,.25)",
+              borderRadius: 8,
+              padding: "8px 10px",
+              fontSize: 13,
+              outline: "none",
+              minWidth: 0,
+            }}
+          />
+          <button
+            type="submit"
+            disabled={!customQ.trim() || customLoading}
+            style={{
+              background: "rgba(52,199,89,.12)",
+              color: "#34C759",
+              border: "1px solid rgba(52,199,89,.3)",
+              borderRadius: 8,
+              padding: "7px 11px",
+              fontSize: 12.5,
+              fontWeight: 700,
+              cursor: (customQ.trim() && !customLoading) ? "pointer" : "not-allowed",
+              opacity: (customQ.trim() && !customLoading) ? 1 : 0.5,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {customLoading ? "…" : "Check →"}
+          </button>
+        </form>
+
+        {/* Inline personalized paywall — fires when their custom item returns 402 */}
+        {customPaywallQuery && (
+          <div
+            data-testid="riq-hero-custom-paywall"
+            style={{
+              marginTop: 10,
+              padding: "10px 12px",
+              background: "var(--color-surface)",
+              border: "1px solid rgba(52,199,89,.3)",
+              borderRadius: 9,
+            }}
+          >
+            <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
+              We have data on{" "}
+              <strong style={{ color: "#34C759" }}>{customPaywallQuery}</strong>{" "}
+              — unlock it below
+            </p>
+            {customPaywallN != null && customPaywallN > 0 && (
+              <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>
+                ✓ {customPaywallN.toLocaleString("en-GB")} data points on this item — the answer is ready.
+              </p>
+            )}
+            <GuestCheckoutButton
+              locale={locale}
+              label={`Unlock ${customPaywallQuery} buy-below — €19/mo →`}
+              src="hero_custom_paywall"
+              query={customPaywallQuery}
+              customerEmail={email || undefined}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

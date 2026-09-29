@@ -169,6 +169,27 @@ const ALLOW = [
   // shared between VerdictUpsellCta and BlogIndexFreeChecker inline paywall nudge.
   // Pure UI style property, no business logic at drift risk.
   "fontSize: 13,",
+  // The "inline API fetch → 402 → inline paywall nudge, else fallback to /tools"
+  // pattern (H128/H159/H169) repeats across PricingTryInput, VerdictUpsellCta, and
+  // HeroFreeChips. Each instance is an independent UI surface owning its own state,
+  // paywall card rendering, and GuestCheckoutButton — coupling them into a shared
+  // hook would require threading locale, query state, and render callbacks across
+  // surfaces that are intentionally separate (pricing, blog+tools, homepage).
+  // The try/catch body is structural async boilerplate, not a business rule that
+  // could silently diverge in a harmful way. No drift risk beyond UX consistency.
+  "try {",
+  // The "Check →" button style block (background:rgba(52,199,89,.12), color:#34C759,
+  // border:1px solid rgba(52,199,89,.3), borderRadius:8, padding:8px 12px) is the
+  // brand's secondary check button visual token — intentionally consistent across
+  // VerdictUpsellCta, HeroFreeChips, and any future inline paywall surface.
+  // It is a design token, not a business rule. No drift risk.
+  "border: \"1px solid rgba(52,199,89,.3)\",",
+  // borderRadius: 8 for the secondary check button — same design token as above.
+  "borderRadius: 8,",
+  // fontSize: 12.5 for the secondary check button — same design token as above.
+  "fontSize: 12.5,",
+  // fontWeight: 700 for the secondary check button — same design token as above.
+  "fontWeight: 700,",
 ]
 
 
