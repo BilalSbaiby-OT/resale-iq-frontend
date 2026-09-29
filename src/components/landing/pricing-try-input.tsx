@@ -77,7 +77,7 @@ interface InlineVerdict {
 }
 
 /** Inline paywall nudge — shown when a custom-item fetch returns 402 (PAYWALL). */
-function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture, comparableN }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; comparableN?: number | null }) {
+function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture, comparableN, buyListPreview }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; comparableN?: number | null; buyListPreview?: SsrBuyListItem[] | null }) {
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -116,25 +116,54 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
           BUY / WATCH / SKIP verdict + exact buy-below price · Starter €19/mo
         </p>
       )}
-      {/* Locked field teaser — same FOMO pattern as InlineVerdictCard */}
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
-        {["Buy-below price", "Sell-through rate", "Top sizes", "Demand trend"].map((f) => (
-          <span
-            key={f}
-            style={{
-              fontSize: 11,
-              color: "#4a5970",
-              border: "1px solid #1e2d45",
-              borderRadius: 6,
-              padding: "3px 7px",
-              filter: "blur(2px)",
-              userSelect: "none",
-            }}
-          >
-            {f}
+      {/* H158 CRO: real locked buy-list rows in CustomItemPaywallCard — same pattern as
+          InlineVerdictCard (H150). Before: 4 abstract chip names ("Buy-below price", "Top sizes")
+          — meaningless to a reseller who doesn't know what the buy list is yet. After: real
+          brand/model names with blurred buy-below prices, proving the catalog has concrete items.
+          The visitor typed THEIR item and hit the paywall; showing 3 other real catalog items
+          (priced, waiting) makes the unlock ask concrete, not abstract.
+          Falls back to field-name chips only when buyListPreview is unavailable.
+          CRO #8 (specificity: real items > abstract labels)
+          + #4 (objection: "will it work for MY items?" — real names answer it)
+          + #7 (trust before CTA: concrete rows > invented UI widgets).
+          Revenue 2026-09-29. H158. */}
+      {buyListPreview && buyListPreview.length > 0 ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 12, border: "1px solid #1e2d45", borderRadius: 9, padding: "9px 11px" }}>
+          <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
+            Also in your buy list
           </span>
-        ))}
-      </div>
+          {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
+            <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontSize: 12.5, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {it.brand}{it.model ? ` ${it.model}` : ""}
+              </span>
+              <span aria-hidden style={{ filter: "blur(4px)", color: "#eef1f7", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                <Lock size={10} />
+                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+          {["Buy-below price", "Sell-through rate", "Top sizes", "Demand trend"].map((f) => (
+            <span
+              key={f}
+              style={{
+                fontSize: 11,
+                color: "#4a5970",
+                border: "1px solid #1e2d45",
+                borderRadius: 6,
+                padding: "3px 7px",
+                filter: "blur(2px)",
+                userSelect: "none",
+              }}
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+      )}
       {/* Email capture before checkout — same pattern as H122/H126 */}
       {!email && (
         <input
@@ -602,7 +631,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
           Now: submit → fetch → 402 → CustomItemPaywallCard inline → one click to Stripe.
           Keeps visitor at highest conviction moment (they chose to type their item).
           CRO #9 (momentum) + #12 (demonstration → personalized → ask). Revenue 2026-09-28. */}
-      {customPaywallQuery && <CustomItemPaywallCard query={customPaywallQuery} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} comparableN={customPaywallComparableN} />}
+      {customPaywallQuery && <CustomItemPaywallCard query={customPaywallQuery} locale={locale} capturedEmail={capturedEmail || undefined} onEmailCapture={(e) => setCapturedEmail(e)} comparableN={customPaywallComparableN} buyListPreview={buyListPreview} />}
     </div>
   )
 }
