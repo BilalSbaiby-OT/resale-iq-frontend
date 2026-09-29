@@ -148,7 +148,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     : false
   const sampleHref = intentIsSample
     ? `/verdict?q=${encodeURIComponent(intentQuery)}`
-    : "/verdict?q=New+Balance+530"
+    : "/verdict?q=Nike+Air+Force+1"
 
   // C162(tony): map brand names to the closest public sample query so demand-
   // panel rows can be tapped directly. Only the 3 public samples bypass the
@@ -158,7 +158,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     const b = brand.toLowerCase()
     if (b.includes("new balance")) return "/verdict?q=New+Balance+530"
     if (b.includes("adidas")) return "/verdict?q=Adidas+Samba"
-    return "/verdict?q=New+Balance+530"
+    return "/verdict?q=Nike+Air+Force+1"
   }
 
   // C(tony): expectation-setting for untracked intents — the user typed a brand
@@ -268,7 +268,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             </span>
           </div>
           <p className="text-[13px] text-[var(--color-text-secondary)] mb-3">
-            <strong className="text-[var(--color-text-primary)]">{intentQuery}</strong> isn&apos;t tracked yet — but we&apos;ll show you a live New Balance 530 verdict first so you see exactly how it works.
+            <strong className="text-[var(--color-text-primary)]">{intentQuery}</strong> isn&apos;t tracked yet — but we&apos;ll show you a live Nike Air Force 1 verdict first so you see exactly how it works.
           </p>
           <div className="text-[12px] text-[var(--color-text-muted)]">
             Then search your own item — we add new brands regularly.

@@ -16,10 +16,12 @@ import { BAKED_PRICE_IDS } from "./pricing.ts"
  * almost paid).
  */
 
-// C(tony): New Balance 530 leads — 1,235 sold/30d vs Nike AF1's 181 (7x stronger
-// evidence). Our strongest free-sample demo should be the first impression on every
-// new account. FREE_MODELS[0] matches this query; keep in sync when that list changes.
-export const FIRST_CHECK_QUERY = "New Balance 530"
+// C(tony)AF1Demo: Nike Air Force 1 is the activation demo. NB530 returned SKIP+buy_below=null
+// in prod (2026-09-29 measured live) — a new user's first verdict was red "SKIP" with no price.
+// AF1 returns WATCH+buy_below=€31.16 — a complete, actionable answer that shows what the
+// product actually does. NB530 stays in FREE_MODELS as a chip; it is NOT the first impression.
+// FREE_MODELS[0] is still "New Balance 530" (homepage chips) — FIRST_CHECK_QUERY is separate.
+export const FIRST_CHECK_QUERY = "Nike Air Force 1"
 export const FIRST_CHECK_HREF = `/verdict?q=${encodeURIComponent(FIRST_CHECK_QUERY)}`
 
 export const CHECKOUT_COUNTRIES = [

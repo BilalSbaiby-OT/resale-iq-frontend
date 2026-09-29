@@ -79,11 +79,9 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // a real result before they hit the paywall on their own search.
           // C140: if the user captured intent at /register, use that query
           // instead of the generic sample — personalising the first Aha moment.
-          // C177(tony): Canva rule — no-intent users get the live #1 hot item
-          // instead of Nike AF1 free sample. Personalised first-answer path even
-          // without an explicit intent query. topBrandRef is fetched in parallel;
-          // if the race means it's still empty, fall back to Stone Island Hoodies.
-          let firstQuery = encodeURIComponent(topBrandRef.current || "Stone Island Hoodies")
+          // C(tony)AF1Demo: AF1 is the no-intent fallback — WATCH+buy_below=€31.16 measured live.
+          // Stone Island Hoodies is paywalled. topBrand fetch still personalises when available.
+          let firstQuery = encodeURIComponent(topBrandRef.current || "Nike Air Force 1")
           // C182(tony): track whether the user explicitly captured an intent at
           // /register so the two free-routing paths below can diverge.
           let hadIntent = false
@@ -129,9 +127,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             if (isCoverable) {
               router.replace(`/pricing?ref=verify&q=${firstQuery}`)
             } else {
-              // Untracked intent: Aha-moment first — NB530 demo, then they search their
-              // real item at /verdict which routes to the paywall at the "this works" moment.
-              router.replace(`/verdict?q=New+Balance+530`)
+              // C(tony)AF1Demo: Aha-moment first — AF1 returns WATCH+buy_below=€31.16
+              // (measured 2026-09-29). NB530 returns SKIP+null — a red verdict as first
+              // impression. Show them what the product actually does, THEN search their item.
+              router.replace(`/verdict?q=Nike+Air+Force+1`)
             }
           } else {
             // C218(tony): checkout-abandoned path — if riq_register_plan was
@@ -149,11 +148,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             if (checkoutAbandoned) {
               router.replace(`/pricing?ref=verify-abandoned`)
             } else {
-              // Free + no intent: Aha moment first — show a free sample verdict so
-              // they understand the product BEFORE we ask for money. New Balance 530 is in (1235 sold/30d vs AF1's 181 — 7x stronger demo;
-              // _PUBLIC_SAMPLE_QUERIES so it returns full data with no subscription.
-              // From /verdict they naturally search their own item → paywall fires.
-              router.replace(`/verdict?q=New+Balance+530`)
+              router.replace(`/verdict?q=Nike+Air+Force+1`)
             }
           }
           return
