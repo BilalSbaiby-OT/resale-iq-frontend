@@ -19,6 +19,10 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
   const [intentQuery, setIntentQuery] = useState("")
+  // C(tony)VerifiedFlash: names the query the confirmed "signed-in" state is
+  // about to load, so the checkmark screen isn't a blank generic line before
+  // the delayed redirect fires. null on /pricing destinations (no query to name).
+  const [redirectLabel, setRedirectLabel] = useState<string | null>(null)
   // C177(tony): live top brand for no-intent fallback. Canva rule: never show
   // a blank/generic state — inject the #1 hot item instead of the Nike AF1
   // free sample. Fetched in parallel with the verify call so there's no wait.
@@ -71,6 +75,16 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // unmeasured black hole between signup_completed and first_analysis.
           // Without this we cannot see how many users drop at the verify step.
           try { trackEvent("email_verified") } catch { /* never block redirect */ }
+          // C(tony)VerifiedFlash: setState + router.replace() below used to fire in
+          // the SAME synchronous tick — React never got a paint between them, so the
+          // "signed-in" JSX branch (line ~204) was dead code: real users went straight
+          // from "Confirming your email…" to a hard navigation with zero confirmation
+          // that anything succeeded. Linear/Superhuman never blind-redirect off a
+          // confirmed action without a visible acknowledgment first. The redirect
+          // below is now deliberately delayed one frame so the confirmed checkmark
+          // + named destination actually renders before the jump. Not a countdown
+          // UI (that's VerifyProgress's ActivationSteps, already shipped) — this is
+          // fixing a state that never painted.
           // why: landing on a cold /verdict with an empty input is the
           // single measured reason 14/14 verified users never ran a check
           // (verdict_date=null all). The ?q= triggers the existing useEffect
@@ -111,8 +125,14 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // res.plan is available from the verify-email API response.
           // Falls back to /verdict if plan is absent (safe, pre-C160 behaviour).
           const isPaid = res.plan && res.plan !== "free"
+          // C(tony)VerifiedFlash: name the destination so the (now-visible)
+          // "signed-in" state can say exactly what's loading, not a blank
+          // generic line. decodeURIComponent because firstQuery is already
+          // encoded for the URL.
+          setRedirectLabel(decodeURIComponent(firstQuery))
+          const go = (href: string) => setTimeout(() => router.replace(href), 700)
           if (isPaid) {
-            router.replace(`/verdict?q=${firstQuery}`)
+            go(`/verdict?q=${firstQuery}`)
           } else if (hadIntent) {
             // Free + intent: pricing with message-match eyebrow (peak intent, C174 ready).
             // C(tony)CoverageGate: only route to /pricing if the intent is a tracked
@@ -125,12 +145,14 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             const savedForCoverage = decodeURIComponent(firstQuery)
             const isCoverable = queryCoverageKind(savedForCoverage) !== "untracked"
             if (isCoverable) {
-              router.replace(`/pricing?ref=verify&q=${firstQuery}`)
+              setRedirectLabel(null)
+              go(`/pricing?ref=verify&q=${firstQuery}`)
             } else {
               // C(tony)AF1Demo: Aha-moment first — AF1 returns WATCH+buy_below=€31.16
               // (measured 2026-09-29). NB530 returns SKIP+null — a red verdict as first
               // impression. Show them what the product actually does, THEN search their item.
-              router.replace(`/verdict?q=Nike+Air+Force+1`)
+              setRedirectLabel("Nike Air Force 1")
+              go(`/verdict?q=Nike+Air+Force+1`)
             }
           } else {
             // C218(tony): checkout-abandoned path — if riq_register_plan was
@@ -146,9 +168,11 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               checkoutAbandoned = parsed ? Date.now() - parsed.ts < 5 * 60 * 1000 : false
             } catch { /* private mode */ }
             if (checkoutAbandoned) {
-              router.replace(`/pricing?ref=verify-abandoned`)
+              setRedirectLabel(null)
+              go(`/pricing?ref=verify-abandoned`)
             } else {
-              router.replace(`/verdict?q=Nike+Air+Force+1`)
+              setRedirectLabel("Nike Air Force 1")
+              go(`/verdict?q=Nike+Air+Force+1`)
             }
           }
           return
@@ -201,7 +225,22 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
         )}
 
         {state === "signed-in" && (
-          <p className="text-[var(--color-text-secondary)] text-[13px] py-6">{t.signedIn}</p>
+          // C(tony)VerifiedFlash: this branch was previously dead code — setState
+          // and router.replace() fired in the same tick so it never painted (see
+          // the C(tony)VerifiedFlash comment above where isPaid is set). Now the
+          // redirect is delayed 700ms so the user sees this confirmed checkmark
+          // and named destination instead of a jarring instant navigation.
+          <div className="py-4">
+            <div className="flex justify-center mb-4">
+              <CheckCircle2 size={30} className="text-[var(--color-buy)]" />
+            </div>
+            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-2">
+              {t.signedIn}
+            </p>
+            <p className="text-[var(--color-text-muted)] text-[12px]">
+              {redirectLabel ? `Loading your ${redirectLabel} verdict…` : "Taking you there…"}
+            </p>
+          </div>
         )}
 
         {state === "already" && (
