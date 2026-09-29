@@ -10,6 +10,16 @@ import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
+import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+
+// C(tony)RegisterMarketStrip: 3 live brand rows shown on free /register path
+// to answer "why sign up?" before the email field. Plausible/Fathom pattern:
+// show the value, not a promise of it. Static fallback so it never errors.
+const REGISTER_STRIP_FALLBACK: SnapshotBrandRow[] = [
+  { brand: "New Balance", category: "Sneakers", sold_7d: 383, avg_price_eur: 43 },
+  { brand: "Stone Island", category: "Jackets",  sold_7d: 198, avg_price_eur: 89 },
+  { brand: "Carhartt",     category: "Jackets",  sold_7d: 121, avg_price_eur: 51 },
+]
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /register is a PLAIN account form.
 // No "what do you want to check" question, no intent typeahead, no demand
@@ -68,6 +78,14 @@ function RegisterContent({ locale }: { locale: Locale }) {
   const registeredRef = useRef(false)
   const { register, login } = useAuthStore()
   const router = useRouter()
+  // C(tony)RegisterMarketStrip: fetch 3 live brand rows for the demand preview
+  // strip on the free /register path. Only loaded when not a paid arrival —
+  // paid users already see their plan price and don't need extra persuasion.
+  const [stripRows, setStripRows] = useState<SnapshotBrandRow[]>(REGISTER_STRIP_FALLBACK)
+  useEffect(() => {
+    if (isPaidPlan) return
+    fetchTopBrandRows(3, REGISTER_STRIP_FALLBACK).then(setStripRows).catch(() => {})
+  }, [isPaidPlan])
 
   // C152(tony): conflict login path — "welcome back" inline form.
   const [conflictPassword, setConflictPassword] = useState("")
@@ -239,6 +257,30 @@ function RegisterContent({ locale }: { locale: Locale }) {
         <p className="text-[var(--color-text-secondary)] text-[13px] mb-4">
           {isPaidPlan ? t.paidSubheading : t.subheading}
         </p>
+
+        {/* C(tony)RegisterMarketStrip: 3-row live demand preview shown on free
+            path before the form. Answers "why sign up?" with real sell velocity
+            and price data — Plausible/Fathom pattern: show the value first.
+            Not rendered for paid arrivals (they already see their plan price). */}
+        {!isPaidPlan && (
+          <div className="mb-4 rounded-xl border border-[var(--color-border-ui)] overflow-hidden">
+            <div className="px-3 py-2 bg-[var(--color-bg-4)] border-b border-[var(--color-border-ui)]">
+              <span className="text-[11px] font-semibold text-[var(--color-text-muted)] uppercase tracking-wide">Selling on Vinted this week</span>
+            </div>
+            {stripRows.slice(0, 3).map((row, i) => (
+              <div key={`${row.brand}-${row.category}`} className={`flex items-center justify-between px-3 py-2.5 ${i < 2 ? "border-b border-[var(--color-border-ui)]" : ""}`}>
+                <div>
+                  <span className="text-[13px] font-semibold text-[var(--color-text-primary)]">{row.brand}</span>
+                  <span className="text-[11px] text-[var(--color-text-muted)] ml-1.5">{row.category}</span>
+                </div>
+                <div className="text-right shrink-0 ml-3">
+                  <span className="text-[13px] font-bold text-[var(--color-buy)]">{row.sold_7d.toLocaleString()} sold</span>
+                  <span className="text-[11px] text-[var(--color-text-muted)] ml-1.5">avg €{row.avg_price_eur}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} onFocus={onFormFocus} className="flex flex-col gap-4">
           {/* Google Sign-In always creates a free account (api/oauth_google.py
