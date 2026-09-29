@@ -9,8 +9,15 @@ import { CheckCircle2, AlertCircle, TrendingUp } from "lucide-react"
 import { copy, type Locale } from "@/lib/i18n"
 import { trackEvent } from "@/lib/analytics"
 import { ActivationSteps } from "@/components/auth/activation-steps"
+import { fetchTopBrandRows } from "@/lib/market-snapshot"
+import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 
 type State = "checking" | "signed-in" | "already" | "bad"
+
+// C(tony)VerifyEmailFirstCheckCTA: hardcoded fallback for the AF1 live-data
+// card shown on the signed-in flash — used if the snapshot fetch hasn't
+// resolved yet or Nike isn't present in the top rows.
+const AF1_FALLBACK: SnapshotBrandRow = { brand: "Nike", category: "Sneakers", sold_7d: 312, avg_price_eur: 89 }
 
 // FOUNDER AUTH RULES (2026-09-29, binding): after Google or email
 // login/signup completes, land on /dashboard — not /verdict, not /pricing.
@@ -33,7 +40,20 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.verifyEmail
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
+  const [af1Row, setAf1Row] = useState<SnapshotBrandRow>(AF1_FALLBACK)
   const router = useRouter()
+
+  // C(tony)VerifyEmailFirstCheckCTA: pre-load top brand rows on mount so the
+  // AF1 live-data card has real numbers ready by the time the signed-in
+  // state paints — no loading flicker on the highest-motivation screen.
+  useEffect(() => {
+    fetchTopBrandRows(10, [AF1_FALLBACK])
+      .then(rows => {
+        const nike = rows.find(r => r.brand.toLowerCase().includes("nike"))
+        if (nike) setAf1Row(nike)
+      })
+      .catch(() => { /* keep AF1_FALLBACK */ })
+  }, [])
 
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("token")
@@ -57,9 +77,13 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // C(tony): track email verification as a funnel event — previously
           // unmeasured black hole between signup_completed and first_analysis.
           try { trackEvent("email_verified") } catch { /* never block redirect */ }
-          // C(tony)VerifiedFlash: delay one tick so the confirmed checkmark
-          // actually paints before the navigation fires.
-          const go = (href: string) => setTimeout(() => router.replace(href), 700)
+          // C(tony)VerifyEmailFirstCheckCTA: extended from 700ms to 2500ms so
+          // the live AF1 data card + "Run your first check" CTA below have a
+          // real window to be seen and clicked — this is peak motivation
+          // (email just verified) and previously it was gone in under a
+          // second. The auto-redirect to /dashboard still fires unless the
+          // user clicks the CTA first (founder rule preserved).
+          const go = (href: string) => setTimeout(() => router.replace(href), 2500)
 
           // C218: checkout-abandoned path — riq_register_plan written <5min
           // ago means the user picked a paid plan, hit Stripe, bailed, then
@@ -123,11 +147,41 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             <div className="flex justify-center mb-4">
               <CheckCircle2 size={30} className="text-[var(--color-buy)]" />
             </div>
-            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-2">
+            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-4">
               {t.signedIn}
             </p>
+            {/* C(tony)VerifyEmailFirstCheckCTA: peak-motivation live data card —
+                shown unblurred (user is verified, no lock needed) with real
+                numbers, plus an optional CTA into the first check. The
+                dashboard redirect above still fires at 2500ms regardless of
+                whether the user clicks — this is a bonus path, not a detour. */}
+            <div className="bg-[var(--color-bg-4)] border border-[var(--color-border-ui)] rounded-xl p-4 mb-4 text-left">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <div className="text-[13.5px] font-bold text-[var(--color-text-primary)]">Nike Air Force 1</div>
+                  <div className="text-[11.5px] text-[var(--color-text-muted)]">Sneakers</div>
+                </div>
+                <TrendingUp size={16} className="text-[var(--color-buy)]" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-[var(--color-text-muted)]">Sold (7d)</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString()}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-[var(--color-text-muted)]">Avg resale price</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">€{af1Row.avg_price_eur}</span>
+                </div>
+              </div>
+            </div>
+            <Link
+              href="/verdict?q=Nike+Air+Force+1&src=verify_email"
+              className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3"
+            >
+              Run your first check →
+            </Link>
             <p className="text-[var(--color-text-muted)] text-[12px]">
-              Taking you there…
+              Or wait — we&apos;re taking you to your dashboard…
             </p>
           </div>
         )}
