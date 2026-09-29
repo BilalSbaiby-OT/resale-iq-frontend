@@ -163,6 +163,11 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
   }
 
   const col = result ? verdictColor(result.verdict) : "#34C759"
+  // H176(elon): detect when the result is from a free-model chip (AF1/Samba/Fred Perry Polo).
+  // If so, the visitor ALREADY has buy_below for free — CTA "Unlock X buy-below" is a lie.
+  // Fix: when result is from a free model, CTA = "Unlock the full buy list" (the value gap).
+  const FREE_SAMPLE_QUERIES = FREE_SAMPLES.map(s => s.q.toLowerCase())
+  const isFreeSampleResult = !!result && FREE_SAMPLE_QUERIES.includes((activeChip ?? "").toLowerCase())
 
   return (
     <div
@@ -288,7 +293,11 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               customerEmail prop below for return visitors. */}
           <GuestCheckoutButton
             locale={locale}
-            label={`Unlock ${result.product} buy-below — €19/mo →`}
+            label={
+              isFreeSampleResult
+                ? "Unlock the full buy list — €19/mo →"
+                : `Unlock ${result.product} buy-below — €19/mo →`
+            }
             src="blog_index_free_checker"
             query={activeChip ?? undefined}
             customerEmail={capturedEmail || undefined}
