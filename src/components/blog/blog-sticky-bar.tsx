@@ -30,6 +30,15 @@ export function BlogStickyBar({
   locale?: Locale
 }) {
   const [visible, setVisible] = useState(false)
+  // H142 CRO: pre-fill Stripe email from localStorage.
+  // Visitors who captured their email via H140 (above-fold blog CTA) or any other
+  // riq_capture_email writer will skip Stripe's email field when clicking this bar.
+  // CRO #6 (cognitive load: removes one required field) + #9 (friction: Stripe
+  // email is the highest single-step drop-off). Surface: blog 130/7d. Revenue 2026-09-29.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
 
   useEffect(() => {
     let ticking = false
@@ -82,6 +91,7 @@ export function BlogStickyBar({
         label="Unlock buy-below →"
         src="blog_sticky_bar"
         query={preflightQuery}
+        customerEmail={capturedEmail || undefined}
       />
     </div>
   )
