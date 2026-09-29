@@ -12,6 +12,7 @@ import { BrandStrip } from "@/components/landing/brand-strip"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { PricingVerdictDemo } from "@/components/landing/pricing-verdict-demo"
 import { PricingTryInput } from "@/components/landing/pricing-try-input"
+import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -178,6 +179,20 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           CRO #3 (message match: their item) + #4 (objection: works for mine?)
           + #12 (demo→personalized→paywall→checkout). Revenue 2026-09-23. */}
       <PricingTryInput locale={locale} />
+      {/* H136 CRO: ROI worked example on /pricing — conviction before ask.
+          44/50 /pricing visitors never saw a verdict. The Starter ask lands cold.
+          This card shows "Buy X at €Y, sell at €Z, margin ~€W — one flip covers €19/mo"
+          from a real live buy-list row (honest, sourced from SSR buyList already fetched).
+          Objection: "is it worth it?" answered with a specific real example, not a claim.
+          RoiExampleCard renders nothing when no suitable row is available, so this is
+          zero-risk; buyList already fetched above (re-used, no extra request).
+          CRO #4 (objection: worth it?) + #8 (specificity: real numbers, not "save money")
+          + #12 (demonstration → conviction → ask). Revenue 2026-09-29. H136. */}
+      {buyList && buyList.length > 0 && (
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+          <RoiExampleCard items={buyList} />
+        </div>
+      )}
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
