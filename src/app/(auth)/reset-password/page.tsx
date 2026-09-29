@@ -1,8 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { resetPassword, getMe } from "@/lib/api"
-import { setToken as persistJwt, getPlanFromToken } from "@/lib/utils"
-import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { setToken as persistJwt } from "@/lib/utils"
 import { useAuthStore } from "@/lib/auth-store"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -54,28 +53,15 @@ export default function ResetPasswordPage() {
         } catch {
           useAuthStore.setState({ isAuthenticated: true, isLoading: false })
         }
-        // C166(tony): route paid users to /dashboard, free/unknown to their
-        // intent query or the Nike AF1 sample. A returning user who forgot
-        // their password already has a subscription — landing on a public demo
-        // makes them wonder whether their account still exists. Dashboard
-        // answers "yes, you're in, here's your data" in one step.
-        // Intent query overrides for both — if they typed before clicking
-        // "forgot password", they get that specific check on arrival.
-        let firstHref: string
-        try {
-          const saved = localStorage.getItem("riq_intent_query")
-          if (saved) {
-            firstHref = "/verdict?q=" + encodeURIComponent(saved)
-            localStorage.removeItem("riq_intent_query")
-          } else {
-            // Token is now stored; getPlanFromToken() reads it.
-            const plan = getPlanFromToken()
-            firstHref = (plan === "operator" || plan === "power")
-              ? "/dashboard"
-              : FIRST_CHECK_HREF
-          }
-        } catch { /* private mode — fall back to sample */ firstHref = FIRST_CHECK_HREF }
-        router.replace(firstHref)
+        // C(tony)ResetPasswordDashboard: FOUNDER AUTH RULES (2026-09-29, binding):
+        // every login/signup lands on /dashboard — not /verdict, not a sample query.
+        // The old C166 logic routed free users to FIRST_CHECK_HREF (Nike AF1 demo)
+        // which made a returning user who forgot their password think their data was
+        // gone. dashboard-content.tsx now ships QuickCheckInput + live chips on
+        // first paint, so /dashboard IS a real activation surface.
+        // Stale intent key still cleared here so it doesn't leak into other pages.
+        try { localStorage.removeItem("riq_intent_query") } catch { /* private mode */ }
+        router.replace("/dashboard")
         return
       }
       setDone(true)
