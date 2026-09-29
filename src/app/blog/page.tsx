@@ -5,7 +5,6 @@ import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
-import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
@@ -119,23 +118,13 @@ export default async function BlogIndex() {
           </p>
         )}
 
-        {/* H77 CRO: live buy-list proof strip above the post list.
-            Visitor sees what the tool actually does before choosing a guide.
-            rowSrc="blog-index-row" → /tools with query pre-filled → paywall at intent.
-            Degrades gracefully: renders nothing if the API is unavailable. */}
-        {buyList && buyList.length > 0 && (
-          <div style={{ marginBottom: 32 }}>
-            {/* H130 CRO: add showLockedFomo to /blog buy-list — 130 visitors/wk (highest
-                after homepage) but zero depth-proof. Visitor sees 3 free rows and no signal
-                that there is a deeper ranked list behind them. Adding 2 blurred locked rows
-                (same pattern as H129 homepage, H82 /pricing) shows the catalog is live and
-                broad without revealing paid data. /blog visitors arrive from ChatGPT citations
-                already intent-loaded; FOMO rows at the proof strip convert that intent.
-                CRO #8 (specificity: show the product working) + #7 (trust before CTA).
-                Revenue 2026-09-28. */}
-            <SsrBuyListTeaser items={buyList} locale={locale} rowSrc="blog-index-row" showLockedFomo />
-          </div>
-        )}
+        {/* DECLUTTER (founder feedback 2026-09-28/29): the pasted buy-list
+            proof strip above the article list is gone — /blog is an index,
+            not a second sales page. A short text link sends anyone who wants
+            to see the tool working straight to /tools instead. */}
+        <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 32 }}>
+          Want to see it work first? <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Try a free check →</Link>
+        </p>
 
         {/* H162 CRO: interactive free checker on /blog index — 130/7d visitors with
             zero product experience before this. Three free sample chips (AF1/Samba/NB530)

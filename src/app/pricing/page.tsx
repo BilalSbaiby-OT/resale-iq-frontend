@@ -155,6 +155,15 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
         </p>
       </div>
 
+      {/* DECLUTTER (founder feedback 2026-09-28/29): plan cards are the first
+          content after the header on every viewport — a 390px visitor no
+          longer scrolls past the buy-list teaser and the live market table to
+          find the price. Those proof sections are kept, just moved below the
+          plans instead of above them. */}
+      <div id="pricing-plans">
+        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
+      </div>
+
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
           {/* H66 CRO: rowSrc makes each buy-list row a link to /tools with the
@@ -242,9 +251,6 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           + #12 (conviction → earned ask, not cold ask).
           Revenue 2026-09-29. H163. */}
       {market && <TrustBlock market={market} />}
-      <div id="pricing-plans">
-        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
-      </div>
       {/* H167 CRO: FAQ section below plan cards — structured objection handling
           at the exact moment a visitor has seen the price and is hesitating.
           RESEARCH (fetched live 2026-09-29):

@@ -9,18 +9,7 @@ import Link from "next/link"
 import { CheckCircle2, AlertCircle } from "lucide-react"
 import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
-import { AuthHeading, AuthField, AuthSubmit, AuthDemandPanel } from "@/components/auth/auth-form-parts"
-import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
-
-// C183(tony): Plausible/Duolingo pattern — show live product value alongside
-// the reset form. A user resetting their password is highly motivated (inbox
-// twice) — this is the exact moment to remind them what they're coming back for.
-// Same fallback approach as forgot-password/check-email.
-const DEMAND_FALLBACK: SnapshotBrandRow[] = [
-  { brand: "Stone Island", category: "Hoodies",     sold_7d: 102, avg_price_eur: 58 },
-  { brand: "New Balance",  category: "Sneakers",    sold_7d: 383, avg_price_eur: 43 },
-  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
-]
+import { AuthHeading, AuthField, AuthSubmit } from "@/components/auth/auth-form-parts"
 
 export default function ResetPasswordPage() {
   // Read the token from the URL on the client rather than via useSearchParams:
@@ -40,22 +29,12 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState("")
-  // C183(tony): live demand rows — Plausible "show the product alongside the
-  // form" pattern. Fetched on mount so they're ready when the form renders.
-  const [demandRows, setDemandRows] = useState<SnapshotBrandRow[]>(DEMAND_FALLBACK)
   const router = useRouter()
   const tr = copy[useLocale()].auth.resetPassword
 
   useEffect(() => {
     const t = new URLSearchParams(window.location.search).get("token")
     setUrlToken(t)
-  }, [])
-
-  // C183(tony): fetch live numbers on mount in parallel with the token check.
-  // Race is safe — numbers are only rendered in the form state which shows
-  // after the token check, so they're always ready by then.
-  useEffect(() => {
-    fetchTopBrandRows(3, DEMAND_FALLBACK).then(rows => setDemandRows(rows)).catch(() => {})
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -158,19 +137,6 @@ export default function ResetPasswordPage() {
           </>
         )}
       </div>
-
-      {/* C183(tony): live demand panel alongside the valid-token form state.
-          Plausible/Duolingo pattern: "show the product while the user completes
-          admin". A password-reset user is highly motivated — they went to their
-          inbox TWICE. Showing live Vinted numbers during the form fill reminds
-          them exactly what they're coming back for, reducing abandonment at
-          the last step. Rows link to the closest free-sample verdict so a tap
-          delivers a real result even pre-login (same pattern as forgot-password
-          C167 and check-email C162). Only renders on the valid-token form state
-          (not done / invalid / checking). */}
-      {urlToken && !done && (
-        <AuthDemandPanel rows={demandRows} />
-      )}
     </div>
   )
 }

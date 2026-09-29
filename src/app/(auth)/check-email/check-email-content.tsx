@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Mail, TrendingUp, ArrowRight, Lock, AlertCircle, Sparkles } from "lucide-react"
+import { Mail, Lock, AlertCircle, Sparkles } from "lucide-react"
 import { resendVerification } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { copy, type Locale } from "@/lib/i18n"
@@ -190,17 +190,6 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
     ? `/verdict?q=${encodeURIComponent(intentQuery)}`
     : "/verdict?q=Nike+Air+Force+1"
 
-  // C162(tony): map brand names to the closest public sample query so demand-
-  // panel rows can be tapped directly. Only the 3 public samples bypass the
-  // paywall — Superhuman/Linear pattern: make every visible data point a path
-  // to the Aha moment. Falls back to Nike AF1 for any unrecognised brand.
-  const brandToSampleHref = (brand: string): string => {
-    const b = brand.toLowerCase()
-    if (b.includes("new balance")) return "/verdict?q=New+Balance+530"
-    if (b.includes("adidas")) return "/verdict?q=Adidas+Samba"
-    return "/verdict?q=Nike+Air+Force+1"
-  }
-
   // C(tony): expectation-setting for untracked intents — the user typed a brand
   // we don't track yet (e.g. "Gucci Bag") but CoverageGate on verify-email will
   // still route them to the NB530 demo. Without this panel they land on NB530
@@ -378,67 +367,6 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* Live demand preview — shows the product value while the user waits.
-          Asana/Notion lesson: the Aha moment must happen BEFORE activation, not after.
-          Every number is sourced from /api/public/market-snapshot and refreshed on mount. */}
-      <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <TrendingUp size={16} className={AUTH_ACCENT} />
-          <span className={`text-[12px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
-            What&apos;s moving on Vinted right now
-          </span>
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
-          {/* C162(tony): rows are tappable links to the closest public sample
-              query — Superhuman/Linear pattern: make every data point a direct
-              path to the Aha moment instead of passive eye candy. */}
-          {brands.map(b => (
-            // C215(tony): save brand+category interest to localStorage on tap
-            // so verify-email can personalise the routing (free+intent → /pricing
-            // with eyebrow instead of generic /verdict?q=Nike+AF1). Without this
-            // the interest signal the user just demonstrated by tapping is silently
-            // lost — 11/25 accounts ran 0 verdicts; this is one capture path.
-            <Link key={`${b.brand}-${b.category}`}
-              href={brandToSampleHref(b.brand)}
-              onClick={() => { try { localStorage.setItem("riq_intent_query", `${b.brand} ${b.category}`) } catch { /* private mode */ } }}
-              className="flex items-center justify-between py-2 border-b border-[var(--color-border-ui)] last:border-0 hover:bg-[var(--color-surface-hover,rgba(255,255,255,0.04))] rounded-lg px-1 -mx-1 transition-colors group cursor-pointer">
-              <div>
-                <span className={`text-[13.5px] font-semibold ${AUTH_TEXT} group-hover:text-[var(--color-buy)]`}>{b.brand}</span>
-                <span className={`text-[12px] ${AUTH_TEXT_MUTED} ml-1.5`}>{b.category}</span>
-              </div>
-              <div className="text-right flex items-center gap-2">
-                <div>
-                  <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
-                    {b.sold_7d.toLocaleString()}
-                  </span>
-                  <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
-                  <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>avg €{b.avg_price_eur}</div>
-                </div>
-                <ArrowRight size={12} className={`${AUTH_TEXT_MUTED} opacity-0 group-hover:opacity-100 transition-opacity shrink-0`} />
-              </div>
-            </Link>
-          ))}
-        </div>
-        {/* C143(tony): personalised CTA — Duolingo pattern: name the exact goal
-            so the click feels like finishing the job, not starting it. */}
-        <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed mb-4`}>
-          Your verdict tells you <em>which models</em> to buy and the max price to pay.
-          {intentQuery && !intentIsSample
-            ? <> Verify your email, then complete checkout — your <strong className={AUTH_TEXT}>{intentQuery}</strong> check unlocks straight after.</>
-            : intentIsSample
-              ? <> One click and you&apos;ll see the <strong className={AUTH_TEXT}>{intentQuery}</strong> buy-below.</>
-              : <> Check your inbox — one click and you&apos;re in.</>
-          }
-        </p>
-        {/* Pre-activation sample — see value before committing. Personalised to
-            the intent query the user captured at /register when available. */}
-        <Link
-          href={sampleHref}
-          className={`inline-flex items-center gap-1.5 text-[12.5px] font-semibold ${AUTH_ACCENT} hover:underline`}
-        >
-          {intentIsSample ? `Preview the ${intentQuery} verdict →` : "See what a verdict looks like →"}
-        </Link>
-      </div>
     </div>
   )
 }
