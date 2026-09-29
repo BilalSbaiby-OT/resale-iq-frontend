@@ -178,7 +178,10 @@ export function BlogInlineChecker({
           C207: previously gated on isSSRPaywall; changed to !isFreeModelQuery for the post topic.
           C208: now uses !isActiveQueryFreeModel so after a chip click (paid item), the CTA
           appears immediately for the chip query — not for the static post topic.
-          comparable_n from SSR PAYWALL response shows when available. */}
+          H150: comparable_n from SSR PAYWALL response is now surfaced in the above-fold CTA
+          (was only shown in HardPaywallCard below, which loads client-side — 300ms delay).
+          When comparable_n is present and no chip is active, the teaser and button label
+          are message-matched to the post's item, not generic. */}
       {!isActiveQueryFreeModel && (
         <div
           data-testid="riq-blog-above-fold-cta"
@@ -233,6 +236,19 @@ export function BlogInlineChecker({
             )}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
+            {/* H150 CRO: comparable_n teaser — item-specific coverage before the button.
+                initialResult (SSR PAYWALL payload) carries comparable_n for the post's
+                preflightQuery. Previously only visible in HardPaywallCard, which renders
+                client-side (~300ms after paint). This surfaces it immediately in the
+                above-fold CTA for no extra cost — data is already in SSR props.
+                Only shown when no chip is active (chipQuery===null) since initialResult
+                is for the post's own preflightQuery, not a chip query.
+                Surface: blog 130/7d. Revenue 2026-09-29. H150. */}
+            {initialResult?.comparable_n && !chipQuery && (
+              <span style={{ fontSize: 11.5, color: "#34C759", fontWeight: 700, lineHeight: 1.3 }}>
+                ✓ {initialResult.comparable_n.toLocaleString()} data points on {preflightQuery}
+              </span>
+            )}
             {/* H140 CRO: conditional email input — first-visit visitors only.
                 ChatGPT referrers arrive cold (no localStorage email). Returning visitors skip it.
                 Stores to riq_capture_email → all downstream GuestCheckoutButtons pre-fill Stripe.
@@ -257,7 +273,11 @@ export function BlogInlineChecker({
             )}
             <GuestCheckoutButton
               locale={locale}
-              label="Unlock full buy list — €19/mo →"
+              label={
+                initialResult?.comparable_n && !chipQuery
+                  ? `Unlock ${preflightQuery} verdict — €19/mo →`
+                  : "Unlock full buy list — €19/mo →"
+              }
               src="blog_buylist_pitch"
               query={activeQuery}
               customerEmail={capturedEmail || undefined}
