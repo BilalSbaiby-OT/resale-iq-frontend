@@ -7,6 +7,7 @@ import type {
   RecentSold, VerdictResult, CalcResult, PlansResponse, LiveDealsResult,
   SearchResult, PriceCompareResult,
 } from "@/types"
+import { collapseDoubledModelQuery } from "./item-display-name"
 import { getToken, clearToken } from "./utils"
 
 /**
@@ -192,8 +193,14 @@ export const getDeals = (params?: { category?: string; brand?: string; momentum?
   // or expired-trial account. Never trust the frontend to hide these instead.
   return request<{ deals: Deal[]; count: number; momentum_warming_up?: boolean; locked: boolean; locked_fields: string[]; reason?: string; message?: string }>(`/api/deals?${q}`)
 }
-export const getVerdict = (q: string, unlock = false) =>
-  request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(q)}${unlock ? "&unlock=true" : ""}`)
+export const getVerdict = (q: string, unlock = false) => {
+  // why: dashboard chips concatenate brand + model. A doubled free sample
+  // is not in the public-sample allowlist, so the click 402s instead of
+  // returning the first verdict. Collapse before the request. Do not
+  // rewrite queries that are not a repeated leading phrase.
+  const query = collapseDoubledModelQuery(q)
+  return request<VerdictResult>(`/api/verdict?q=${encodeURIComponent(query)}${unlock ? "&unlock=true" : ""}`)
+}
 export const getCalc = (brand: string, model: string, buy_price: number) =>
   request<CalcResult>(`/api/calc?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&buy_price=${buy_price}`)
 // Outcomes — what actually happened after a verdict.
