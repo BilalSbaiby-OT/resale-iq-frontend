@@ -179,7 +179,21 @@ export function BlogInlineChecker({
       data-testid="riq-blog-inline-checker"
       style={{ marginBottom: 28 }}
     >
-      {/* C207/C208: Above-fold single checkout CTA — show for ALL non-free-model active queries.
+      {/* H181: the check itself is the first child. Live HTML (what-sells-best,
+          2026-09-29) put the €19 unlock bar, ROI card and catalog chips ABOVE
+          FreeChecker, so "See the verdict" landed on a pay ask. FreeChecker
+          auto-runs initialQuery and must be the first thing in this box.
+          Do not pass initialResult — a seeded PAYWALL skips that auto-run. */}
+      <FreeChecker
+        key={checkerKey}
+        initialQuery={activeQuery}
+        locale={locale}
+        variant="card"
+        src="blog-check"
+        buyListPreview={buyListPreview}
+      />
+
+      {/* C207/C208: checkout pitch AFTER the check, never before it.
           C207: previously gated on isSSRPaywall; changed to !isFreeModelQuery for the post topic.
           C208: now uses !isActiveQueryFreeModel so after a chip click (paid item), the CTA
           appears immediately for the chip query — not for the static post topic.
@@ -437,24 +451,6 @@ export function BlogInlineChecker({
         )
       })()}
 
-      {/* C215(elon): Do NOT pass initialResult to FreeChecker.
-          The bug: ssrBlogVerdict seeds a PAYWALL result as initialResult.
-          FreeChecker skips auto-run when initialResult is present (line ~564).
-          So first-time visitors never trigger run() → never claim first-free-verdict
-          → see a cold paywall wall immediately → checkout_from_blog = 0 all-time.
-          Fix: always let FreeChecker auto-run its own API call. First-timers get
-          their free verdict (claim_first_free_verdict fires). The above-fold CTA
-          still uses initialResult.comparable_n for copy — that's the only use case.
-          Verified: FreeChecker run() → 200 with verdict for first-timers, 402 paywall
-          for repeat visitors (HARD_PAYWALL stays ON). */}
-      <FreeChecker
-        key={checkerKey}
-        initialQuery={activeQuery}
-        locale={locale}
-        variant="card"
-        src="blog-check"
-        buyListPreview={buyListPreview}
-      />
     </div>
   )
 }

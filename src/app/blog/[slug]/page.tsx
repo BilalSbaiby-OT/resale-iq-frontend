@@ -261,28 +261,10 @@ export default async function BlogPostPage(
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.6px", color: "#eef1f7", margin: "10px 0 16px", lineHeight: 1.2 }}>{p.title}</h1>
 
-        {/* Live proof, directly under the headline — the first thing an
-            AI-referred visitor sees. Uses the post's own preflight query when it
-            has one so the CTA continues their topic instead of resetting it. */}
-        {/* C216(elon): pass topicQuery + topicComparableN so the strip renders
-            a coverage teaser for THIS post's item first. Answers "do you even
-            cover my item?" before the generic buy-list rows appear. */}
-        <BlogProofStrip
-          items={proofRows}
-          ctaHref={
-            p.preflightQuery
-              ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
-              : `${canonicalPath(locale, "/tools")}?src=blog_proof`
-          }
-          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
-          hasInlineChecker={!!p.preflightQuery}
-          topicQuery={p.preflightQuery ?? null}
-          topicComparableN={ssrVerdict?.comparable_n ?? null}
-        />
-        {/* Inline checker — runs the post's own preflight query on load.
-            No redirect, no typing. Visitor sees their verdict before the
-            first paragraph. Only rendered when the post has a preflightQuery
-            (174 of 174 current posts have one); falls back gracefully otherwise. */}
+        {/* H181: checker BEFORE the proof strip. Live order was strip → €19
+            unlock → ROI → chips → the actual check, so a reader never reached
+            a verdict without scrolling a pitch. /tools/[slug] already keeps
+            the checker first for the same 390px reason. */}
         {p.preflightQuery && (
           <BlogInlineChecker
             preflightQuery={p.preflightQuery}
@@ -307,6 +289,19 @@ export default async function BlogPostPage(
               })()}
           />
         )}
+        <BlogProofStrip
+          items={proofRows}
+          ctaHref={
+            p.preflightQuery
+              ? `${canonicalPath(locale, "/tools")}?q=${encodeURIComponent(p.preflightQuery)}&src=blog_proof`
+              : `${canonicalPath(locale, "/tools")}?src=blog_proof`
+          }
+          ctaLabel={p.preflightQuery ? `Check ${p.preflightQuery} now →` : undefined}
+          hasInlineChecker={!!p.preflightQuery}
+          checkerAbove={!!p.preflightQuery}
+          topicQuery={p.preflightQuery ?? null}
+          topicComparableN={ssrVerdict?.comparable_n ?? null}
+        />
         {p.definedTerm && (
           <section style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>{p.definedTerm.name}</h2>

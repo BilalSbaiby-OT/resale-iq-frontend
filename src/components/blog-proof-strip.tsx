@@ -55,6 +55,7 @@ export function BlogProofStrip({
   ctaHref,
   ctaLabel = "Check any item now →",
   hasInlineChecker = false,
+  checkerAbove = false,
   topicQuery,
   topicComparableN,
 }: {
@@ -67,6 +68,8 @@ export function BlogProofStrip({
   /** When true the checker is already rendered below — scroll to it instead
    *  of navigating off-page. Eliminates the exit on posts with preflightQuery. */
   hasInlineChecker?: boolean
+  /** Blog posts render the checker above this strip. Arrow must not say down. */
+  checkerAbove?: boolean
   /**
    * C216: the post's own preflightQuery. When provided alongside
    * topicComparableN, a topic-matched coverage teaser row renders at the
@@ -140,7 +143,7 @@ export function BlogProofStrip({
                 href="#riq-blog-checker"
                 style={{ color: "#30D158", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap", textDecoration: "none", flexShrink: 0 }}
               >
-                See verdict ↓
+                {checkerAbove ? "See verdict ↑" : "See verdict ↓"}
               </a>
             )}
           </div>
@@ -210,8 +213,8 @@ export function BlogProofStrip({
         )}
       </div>
 
-      {hasInlineChecker ? (
-        /* Checker already below — scroll to it, don't navigate off-page */
+      {hasInlineChecker && !checkerAbove ? (
+        /* Checker already below — scroll to it, don't navigate off-page. */
         <a
           href="#riq-blog-checker"
           style={{
@@ -228,7 +231,7 @@ export function BlogProofStrip({
         >
           See the verdict ↓
         </a>
-      ) : (
+      ) : !hasInlineChecker ? (
       <Link
         href={ctaHref}
         style={{
@@ -245,7 +248,7 @@ export function BlogProofStrip({
       >
         {ctaLabel}
       </Link>
-      )}
+      ) : null}
     </aside>
   )
 }
