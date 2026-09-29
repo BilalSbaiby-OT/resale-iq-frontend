@@ -332,7 +332,7 @@ input[type="submit"]:not(:disabled):active,
 
 .riq-brand-band {
   max-width: var(--width-marketing);
-  margin: 0 auto;
+  margin: var(--space-3) auto 0;
   padding: var(--space-4) var(--space-3);
   border-top: 1px solid var(--color-hairline);
   border-bottom: 1px solid var(--color-hairline);
@@ -689,3 +689,32 @@ html.riq-light ::selection { background: rgba(48, 209, 88, 0.28); }
 html.riq-light .skeleton {
   background: linear-gradient(90deg, #E5E5EA 25%, #F2F2F7 50%, #E5E5EA 75%);
 }
+
+/* ── Homepage section system ─────────────────────────────────────────────
+   One rhythm for every homepage section: same 56px gap above, same centred
+   720px column, one H2 style, one body size. Sections only own a TOP gap so
+   gaps never double up; the footer uses the same variable. */
+:root { --riq-section-gap: 56px; }
+.riq-home-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--riq-section-gap) var(--space-gutter) 0;
+  text-align: center;
+}
+.riq-home-h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+  margin: 0 0 24px;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+.riq-faq summary::-webkit-details-marker { display: none; }
+.riq-faq summary::marker { content: ""; }
+.riq-faq .riq-faq-plus { transition: transform 0.15s ease; }
+.riq-faq details[open] .riq-faq-plus { transform: rotate(45deg); }
+/* Homepage pricing strip: same section gap + H2 as every other homepage block
+   (the <=640px .riq-pricing rule above would otherwise re-pad it to 40px). */
+.riq-pricing.riq-pricing-home { padding: var(--riq-section-gap) var(--space-gutter) 0 !important; }
+.riq-pricing.riq-pricing-home h2 { font-size: 22px !important; letter-spacing: -0.4px !important; }

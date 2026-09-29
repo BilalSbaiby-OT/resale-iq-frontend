@@ -87,7 +87,7 @@ const ROOMY: Scale = {
   taglineMin: 44, perDay: 13, body: 14.5, featureGap: 12, blockGap: 24,
 }
 const COMPACT: Scale = {
-  padY: "36px 20px 56px", maxWidth: 720, headMargin: 24, headSize: 22,
+  padY: "var(--riq-section-gap) 20px 0", maxWidth: 720, headMargin: 24, headSize: 22,
   gap: 16, cardPad: "20px", tierName: 15, tagline: 12.5,
   taglineMin: 34, perDay: 12, body: 12.5, featureGap: 11, blockGap: 18,
 }
@@ -385,7 +385,7 @@ export function PricingSection({
   }
 
   return (
-    <section id="pricing" className="riq-pricing" style={{ padding: s.padY, maxWidth: s.maxWidth, margin: "0 auto" }}>
+    <section id="pricing" className={compact ? "riq-pricing riq-pricing-home" : "riq-pricing"} style={{ padding: s.padY, maxWidth: s.maxWidth, margin: "0 auto" }}>
       {/* The eyebrow was the section's second accent-coloured element after the
           filled CTA. On the standalone page that made two things compete to be
           the one green thing; muted here, the CTA is alone again. */}
@@ -436,8 +436,8 @@ export function PricingSection({
             }
           </p>
         )}
-        <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: "-0.6px", lineHeight: 1.15 }}>{t.heading}</Heading>
-        <p style={{ fontSize: compact ? 13 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
+        <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: compact ? "-0.4px" : "-0.6px", lineHeight: compact ? 1.2 : 1.15 }}>{t.heading}</Heading>
+        <p style={{ fontSize: compact ? 14.5 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
         {/* H170 CRO: "See a live verdict first" escape link for cold visitors on /pricing.
             After the 2026-09-29 declutter (d282b78), plan cards render first on /pricing.
             8 of 44 /pricing visitors arrived cold — they had never seen the homepage,

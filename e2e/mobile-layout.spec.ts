@@ -80,6 +80,55 @@ test.describe("390px: no horizontal page scroll, checker not clipped", () => {
   // from innerText (rendered/visible text only, same measurement method the
   // founder used) — hidden nav/menu text and script/style content are
   // excluded by the browser automatically.
+  // Light-homepage polish: the FAQ used hardcoded near-white text (invisible on
+  // the light page) and the brand strip touched the next section. Contrast is
+  // computed from real computed styles, walking up to the first opaque bg.
+  test("homepage: FAQ heading + questions readable (>=4.5:1), brand strip has >=32px gap to next section, FAQ answer opens readable", async ({ page }) => {
+    await page.goto("/")
+    const faq = page.getByTestId("riq-faq")
+    test.skip((await faq.count()) === 0, "no FAQ rendered (backend faqs empty)")
+    await faq.scrollIntoViewIfNeeded()
+    const contrast = () => page.evaluate(() => {
+      const parse = (c: string) => (c.match(/[\d.]+/g) ?? []).map(Number)
+      const lum = ([r, g, b]: number[]) => {
+        const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4 }
+        return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+      }
+      const bgOf = (el: Element | null): number[] => {
+        while (el) {
+          const c = parse(getComputedStyle(el).backgroundColor)
+          if (c.length >= 3 && (c.length === 3 || c[3] > 0.99)) return c.slice(0, 3)
+          el = el.parentElement
+        }
+        return [255, 255, 255]
+      }
+      const ratio = (el: Element) => {
+        const fg = parse(getComputedStyle(el).color).slice(0, 3)
+        const a = lum(fg), b = lum(bgOf(el))
+        return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+      }
+      const els = [document.querySelector('[data-testid="riq-faq-heading"]')!, ...Array.from(document.querySelectorAll('[data-testid="riq-faq"] summary'))]
+      return els.map((e) => ({ text: (e.textContent ?? "").slice(0, 40), ratio: ratio(e) }))
+    })
+    const rows = await contrast()
+    expect(rows.length).toBeGreaterThan(1)
+    for (const r of rows) expect(r.ratio, `${r.text} contrast`).toBeGreaterThanOrEqual(4.5)
+
+    const first = faq.locator("details").first()
+    await first.locator("summary").click()
+    const ans = first.locator("p")
+    await expect(ans).toBeVisible()
+    const ansColor = await ans.evaluate((e) => getComputedStyle(e).color)
+    expect(ansColor).not.toMatch(/^rgb\(2[0-5]\d, 2[0-5]\d, 2[0-5]\d\)$/)
+
+    const gap = await page.evaluate(() => {
+      const strip = document.querySelector('[data-testid="riq-brand-strip"]')!.getBoundingClientRect()
+      const h = document.getElementById("riq-how-to-heading")!.getBoundingClientRect()
+      return h.top - strip.bottom
+    })
+    expect(gap, "brand strip -> next heading gap").toBeGreaterThanOrEqual(32)
+  })
+
   test("homepage text diet: <=500 visible words, <=6 phone screens, one h1, prices + buy list visible", async ({ page }) => {
     const res = await page.goto("/")
     expect(res?.ok()).toBeTruthy()

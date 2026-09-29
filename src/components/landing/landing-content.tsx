@@ -214,12 +214,9 @@ export function LandingContent({
 
         <section
           aria-labelledby="riq-how-to-heading"
-          style={{ maxWidth: "var(--width-hero)", margin: "0 auto", padding: "0 var(--space-3) var(--space-6)" }}
+          className="riq-home-section"
         >
-          <h2
-            id="riq-how-to-heading"
-            style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.2px", margin: "0 0 14px", color: "var(--color-text-primary)" }}
-          >
+          <h2 id="riq-how-to-heading" className="riq-home-h2">
             {t.howToHeading}
           </h2>
           <ol
@@ -229,13 +226,14 @@ export function LandingContent({
               margin: 0,
               padding: 0,
               maxWidth: "46ch",
+              marginInline: "auto",
               display: "flex",
               flexDirection: "column",
               gap: 10,
             }}
           >
             {t.howToSteps.map((step, i) => (
-              <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontSize: 14.5, lineHeight: 1.45, color: "var(--color-text-dim)" }}>
+              <li key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", fontSize: 14.5, lineHeight: 1.5, color: "var(--color-text-secondary)", textAlign: "left" }}>
                 <span style={{ fontVariantNumeric: "tabular-nums", fontWeight: 600, color: "var(--color-text-primary)", minWidth: "1.5em" }}>{i + 1}.</span>
                 <span>{step}</span>
               </li>
@@ -243,7 +241,7 @@ export function LandingContent({
           </ol>
           <p
             data-testid="riq-coverage-line"
-            style={{ fontSize: 13, lineHeight: 1.5, color: "var(--color-text-dim)", margin: "14px 0 0", maxWidth: "52ch" }}
+            style={{ fontSize: 14.5, lineHeight: 1.5, color: "var(--color-text-secondary)", margin: "20px auto 0", maxWidth: "52ch", textAlign: "center" }}
           >
             {t.howToCoverage}
           </p>
@@ -288,17 +286,17 @@ export function LandingContent({
             up and was cut in the 2026-09-30 text-diet pass. */}
 
         {faqs && faqs.length > 0 ? (
-          <div style={{ maxWidth: 720, margin: "0 auto", padding: "0 var(--space-3) var(--space-10)" }}>
+          <div className="riq-home-section">
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd(faqs)) }}
             />
-            <HubFaq items={faqs} />
+            <HubFaq items={faqs} flush />
           </div>
         ) : null}
       </main>
 
-      <footer style={{ padding: "48px 24px 64px", textAlign: "center", color: "var(--color-text-muted)", fontSize: 12 }}>
+      <footer style={{ padding: "var(--riq-section-gap) 24px 64px", textAlign: "center", color: "var(--color-text-muted)", fontSize: 12 }}>
         <div style={{ display: "flex", gap: 16, rowGap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 16 }}>
           {/* First in the row for the same reason it is now in the nav: this
               footer carried 15 links and not one of them was the price. */}
