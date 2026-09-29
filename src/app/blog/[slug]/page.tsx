@@ -17,6 +17,7 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { ssrBlogVerdict } from "@/lib/ssr-blog-verdict"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { BlogInlineChecker } from "@/components/blog/blog-inline-checker"
+import { BlogStickyBar } from "@/components/blog/blog-sticky-bar"
 
 /**
  * Translation pairs, keyed by slug, both directions.
@@ -206,6 +207,10 @@ export default async function BlogPostPage(
 
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
+      {/* H141 CRO: persistent sticky bar while scrolling. blog 130/7d. Revenue 2026-09-29. */}
+      {p.preflightQuery && (
+        <BlogStickyBar preflightQuery={p.preflightQuery} locale={locale} />
+      )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* The root layout hardcodes <html lang="en">, and varying that per page
           needs a route group. For a single test page, lang on <article> is the
