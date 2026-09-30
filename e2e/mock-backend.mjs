@@ -229,6 +229,20 @@ const VERDICT_CATALOG = {
   // Shape mirrors "new balance 530" (WATCH/HIGH/non-provisional with buy_below).
   // category_aggregates from the parent Nike BRAND_CATEGORIES row confirm the
   // aggregate price context so the card can render "206 watched departures".
+  // Brand/category average answer (real BRAND_AVERAGE shape: served identically to
+  // every caller, buy_below present). Used by verdict-trial-cta.spec.ts.
+  "carhartt jackets": {
+    verdict: "BRAND_AVERAGE",
+    product: "Carhartt Jackets",
+    brand: "Carhartt",
+    category: "Jackets",
+    confidence: "AGGREGATE",
+    n: 44,
+    sold_7d: 44,
+    active_listings: 900,
+    buy_below: 21.0,
+    sell_avg: 32.0,
+  },
   "nike sneakers": {
     verdict: "WATCH",
     product: "Nike Sneakers",
@@ -354,6 +368,7 @@ function seed(id, email, password, plan = "operator", { verified = true } = {}) 
 seed(1, "alice@example.com", "password12345", "operator")
 seed(2, "bob@example.com", "password12345", "operator")
 seed(3, "pro@example.com", "password12345", "power")
+seed(900, "free@example.com", "password12345", "free")
 
 function json(res, status, body) {
   const headers = { "Content-Type": "application/json", ...res.getHeaders() }
@@ -506,6 +521,10 @@ const server = http.createServer(async (req, res) => {
         n: entry.n,
         sold_7d: entry.sold_7d,
         locked: true,
+        // Real backend shape for a free account (api/routes.py ~L2192): quota fields present.
+        unlocks_limit: 3,
+        unlocks_used: 3,
+        unlocks_remaining: 0,
         locked_fields: [
           "buy_below", "sell_avg", "sell_median", "sell_through_rate",
           "top_sizes", "size_velocity", "opportunity_score", "reasons",

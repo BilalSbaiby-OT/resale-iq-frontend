@@ -13,6 +13,8 @@ import type { VerdictResult } from "@/types"
 import { Zap, Lock } from "lucide-react"
 import { fieldState } from "@/lib/locked-fields"
 import { UnlockPanel } from "@/components/ui/unlock-panel"
+import { VerdictTrialCta } from "@/components/ui/verdict-trial-cta"
+import { verdictTrialCtaVisible } from "@/lib/verdict-trial-cta"
 import { MedianN } from "@/components/ui/median-n"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
 import { watchedSampleNote } from "@/lib/watched-sample"
@@ -423,6 +425,13 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               />
             )}
           </div>
+        )}
+
+        {/* ONE direct trial CTA under the result for unpaid viewers (logged-in free
+            accounts + brand-average answers had none). Logged-out already has it
+            inside UnlockPanel; the helper prevents a second button. */}
+        {result && vs && verdictTrialCtaVisible({ result, isPaid: paidCold, isAuthenticated: getToken() != null }) && (
+          <VerdictTrialCta locale={locale} query={query} src="verdict_page_trial" />
         )}
 
         {showSeed && (
