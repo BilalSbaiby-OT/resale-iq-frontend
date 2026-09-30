@@ -65,7 +65,8 @@ test("clone titles are not shared between two locales of the same slug", () => {
 // and must not appear in the sitemap (thin content, 0 human visitors in 60 days).
 test("locale blog clone metadata has robots noindex,follow", () => {
   const src = read("app/[locale]/blog/[slug]/page.tsx")
-  assert.match(src, /robots:\s*\{\s*index:\s*false,\s*follow:\s*true\s*\}/, "noindex,follow missing from clone metadata")
+  assert.match(src, /shouldNoindexBlogClone\(/, "conditional noindex rule missing from clone metadata")
+  assert.match(src, /index:\s*false,\s*follow:\s*true/, "noindex,follow missing from clone metadata")
 })
 
 test("sitemap.ts does not include blogClonePages in the entries array", () => {
