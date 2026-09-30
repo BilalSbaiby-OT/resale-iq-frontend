@@ -142,6 +142,20 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
       </div>
 
+      {/* H192 CRO: ROI card moved ABOVE TrustBlock — answer "worth it?" before "can I trust them?"
+          Previous order: plan cards → TrustBlock → ... → ROI card (position 8).
+          CRO #12 (conversion momentum): objections fire in sequence — "worth it?" comes before
+          "cancel anytime." Visitor sees €19, immediately sees "one flip = ~€30 margin, that covers
+          a month" (ROI), THEN sees "cancel anytime, 5.9M tracked" (TrustBlock). The ROI card
+          already exists and renders nothing when no suitable row is available — zero risk.
+          CRO #4 (objection: is it worth it?) directly adjacent to the price.
+          Revenue 2026-09-30. H192. */}
+      {buyList && buyList.length > 0 && (
+        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+          <RoiExampleCard items={buyList} />
+        </div>
+      )}
+
       {/* H187 CRO: TrustBlock moved IMMEDIATELY below plan cards — peak hesitation point.
           Previous placement (position 9 of 10) meant trust signals appeared after buy list,
           market pulse, brand strip, verdict demo, try input, ROI card — too late for a visitor
@@ -212,20 +226,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           CRO #3 (message match: their item) + #4 (objection: works for mine?)
           + #12 (demo→personalized→paywall→checkout). Revenue 2026-09-23. */}
       <PricingTryInput locale={locale} buyListPreview={buyList} />
-      {/* H136 CRO: ROI worked example on /pricing — conviction before ask.
-          44/50 /pricing visitors never saw a verdict. The Starter ask lands cold.
-          This card shows "Buy X at €Y, sell at €Z, margin ~€W — one flip covers €19/mo"
-          from a real live buy-list row (honest, sourced from SSR buyList already fetched).
-          Objection: "is it worth it?" answered with a specific real example, not a claim.
-          RoiExampleCard renders nothing when no suitable row is available, so this is
-          zero-risk; buyList already fetched above (re-used, no extra request).
-          CRO #4 (objection: worth it?) + #8 (specificity: real numbers, not "save money")
-          + #12 (demonstration → conviction → ask). Revenue 2026-09-29. H136. */}
-      {buyList && buyList.length > 0 && (
-        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <RoiExampleCard items={buyList} />
-        </div>
-      )}
+      {/* H136/H192: ROI card moved above plan cards (H192). Was here at position 8, now at position 2. */}
       {/* H163/H187: TrustBlock moved above (immediately below plan cards). */}
       {/* H167 CRO: FAQ section below plan cards — structured objection handling
           at the exact moment a visitor has seen the price and is hesitating.
