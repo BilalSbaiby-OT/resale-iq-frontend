@@ -18,6 +18,7 @@ import { fillLandingPlaceholders, landingStats, LandingCopyChrome } from "@/comp
 import { isPathLocale } from "@/lib/locale-routes"
 import { articleSocialMeta } from "@/lib/flip-category-meta"
 
+import { countWords, shouldNoindexBlogClone } from "@/lib/blog-clone-noindex"
 import { withFittedMetadata } from "@/lib/meta-fit"
 const BASE = "https://resaleiq.dev"
 
@@ -43,7 +44,9 @@ async function generateMetadataRaw(
     title,
     description: copy.description,
     alternates: { canonical: path, languages: blogCloneHreflang(slug) },
-    robots: { index: false, follow: true },
+    robots: shouldNoindexBlogClone(locale, slug, countWords(copy))
+      ? { index: false, follow: true }
+      : { index: true, follow: true },
   }
 }
 
