@@ -10,6 +10,7 @@ import { useAuthStore } from "@/lib/auth-store"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 
 /**
  * The dataset size, fetched client-side via the shared useTrackedLabel hook.
@@ -32,6 +33,9 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
   const [verified, setVerified] = useState<boolean | null>(null)
+  // H196 CRO: trial framing — first charge date computed after mount so SSR and client agree.
+  const [chargeDate, setChargeDate] = useState<string | null>(null)
+  useEffect(() => { setChargeDate(firstChargeDate("en")) }, [])
   // Personalized value recap — "in your trial we flagged N BUYs worth ~€X".
   // The single highest-leverage thing on this screen: it turns an abstract price
   // into a concrete return the user already saw.
@@ -150,9 +154,20 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             {t.highlight && <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", background: "#34C759", color: "#06090c", fontSize: 10.5, fontWeight: 800, padding: "4px 12px", borderRadius: 20 }}>MOST POPULAR</div>}
             <div style={{ fontSize: 15, fontWeight: 700 }}>{t.name}</div>
             <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 3, minHeight: 32 }}>{t.tagline}</div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 4, margin: "16px 0" }}>
-              <span style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-1px" }}>€{t.price}</span>
-              <span style={{ fontSize: 13, color: "#5b6b8c" }}>/mo</span>
+            {/* H196 CRO: €0 today trial framing — matches H189 on HardPaywallCard + PricingSection.
+                Logged-in paywall was still showing €{t.price}/mo as the anchor number, causing
+                sticker-shock before the visitor understood it was a free trial. This surface is
+                higher-intent than /pricing (the visitor already signed up); it deserves the same
+                trial-first framing. CRO #8 (loss-framing: €0 > €19 on hesitant visitor) +
+                #3 (message match: every surface now leads with the same trial promise). */}
+            <div style={{ margin: "16px 0" }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                <span style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-1px", color: "#34C759" }}>€0</span>
+                <span style={{ fontSize: 13, color: "#5b6b8c" }}>today</span>
+              </div>
+              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
+                then €{t.price}/month after your {TRIAL_DAYS}-day trial{chargeDate ? ` · first charge ${chargeDate}` : ""}
+              </div>
             </div>
             <button onClick={() => subscribe(t.priceId)} disabled={busy === t.priceId} style={{
               width: "100%", padding: "11px 0", borderRadius: 9, fontSize: 13, fontWeight: 700, cursor: "pointer",
@@ -160,6 +175,15 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
               background: t.highlight ? "#34C759" : "#1a2030",
               color: t.highlight ? "#06090c" : "#eef1f7",
             }}>{busy === t.priceId ? "…" : t.cta}</button>
+            {/* H196 CRO: card-stored chip — mirrors H195 on PricingSection.
+                Authenticated visitors on this screen have a card hesitation: the trial
+                is free but they're about to enter card details. Place the reassurance
+                directly below the button. CRO #4 (objection: what if I forget to cancel?) */}
+            {t.highlight && (
+              <p style={{ textAlign: "center", fontSize: 11.5, color: "#5b6b8c", margin: "5px 0 0", lineHeight: 1.4 }}>
+                <span aria-hidden="true">&#128274;</span>{" "}Card stored · charged only after day {TRIAL_DAYS}
+              </p>
+            )}
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 9 }}>
               {t.features.slice(0, 5).map(f => (
                 <div key={f} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
