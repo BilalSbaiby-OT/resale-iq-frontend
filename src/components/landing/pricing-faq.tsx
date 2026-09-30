@@ -62,6 +62,17 @@ interface FaqItem {
 
 const FAQS: FaqItem[] = [
   {
+    // H193 CRO: trial objection first — card-hesitant visitors have this question before all others.
+    // The plan cards say "€0 today, charged day 7" but no FAQ item addressed it.
+    // CRO #4 (objection handling: "what if it fails?" immediately before the card ask) +
+    // #7 (trust: honest answer to the card-hesitation converts better than silence).
+    // Placed first because it is the blocking objection for anyone who saw the price cards
+    // and scrolled to the FAQ instead of clicking — they need the trial answer before coverage.
+    // Revenue 2026-09-30. H193.
+    q: "What happens at the end of the 7-day trial?",
+    a: "Your card is charged at the plan price on day 7. You will get an email reminder on day 6 so you are never surprised. Cancel any time before then from your account page — no call, no confirmation screen, no retention trap. If you forget and get charged, email support@resaleiq.dev within 30 days for a full refund.",
+  },
+  {
     q: "Which markets does Resale IQ cover?",
     a: "All five major Vinted EU markets: Spain, France, Germany, Italy and Portugal. Data is ingested daily from live listings across all five — a jacket trending in FR shows up alongside the same jacket in DE.",
   },
