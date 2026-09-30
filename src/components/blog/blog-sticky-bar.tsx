@@ -7,6 +7,18 @@
  * surface for the remaining 11 minutes of read. A sticky bar keeps the
  * conversion action visible throughout the scroll.
  *
+ * H191 CRO: surface "€0 today" in the sticky bar left copy.
+ * H189 introduced "€0 today" framing on the paywall card (cost before value →
+ * trial before price). The sticky bar never got that frame — visitors scrolled
+ * through the blog seeing item name + data count but no cost signal, then
+ * faced a "Start my 7-day free trial" button with no anchor on what it costs.
+ * Adding "€0 today" to the left copy answers the cost question at the exact
+ * moment the visitor is deciding whether to click.
+ * CRO #3 (message match: every surface now says €0 today)
+ * + #8 (loss-framing: free > paid anchoring on cold scroll traffic)
+ * + #12 (conviction before commitment: trial = zero risk, visible before CTA).
+ * Surface: blog 130/7d. Revenue 2026-09-30. H191.
+ *
  * Rules:
  * - Only visible after the visitor has scrolled past the inline checker
  *   (400px threshold — above-fold CTA is still visible before that).
@@ -98,8 +110,9 @@ export function BlogStickyBar({
         <strong style={{ color: "#34C759" }}>{preflightQuery}</strong>
         {" "}—{" "}
         {comparableN != null && comparableN > 0
-          ? `${comparableN.toLocaleString("en-GB")} data points tracked`
-          : "buy-below price & demand data"}
+          ? `${comparableN.toLocaleString("en-GB")} data points · `
+          : "buy-below price · "}
+        <strong style={{ color: "#34C759" }}>€0 today</strong>
       </span>
       <GuestCheckoutButton
         locale={locale}
