@@ -138,6 +138,19 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
   const [items, setItems]       = useState<BuyListItem[]>([])
   const [loading, setLoading]   = useState(true)
   const [error, setError]       = useState(false)
+  // H197 CRO: read riq_capture_email so the buy-list paywall CTA pre-fills Stripe.
+  // HomeBuyList was the ONLY GuestCheckoutButton on the homepage (52/7d) that never
+  // passed customerEmail — every other checkout surface already reads this value.
+  // Visitors who typed email at the hero chip, /pricing, or blog would still hit
+  // Stripe cold from this CTA. One localStorage read closes the gap.
+  // CRO #6 (cognitive load: remove Stripe email field for returning visitors)
+  // + #9 (friction: Stripe email = single highest drop-off moment, already proven by
+  //   23/25 Stripe sessions with no email in H183 measurement).
+  // Revenue 2026-09-30. H197.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
 
   useEffect(() => {
     let live = true
@@ -371,6 +384,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
             <GuestCheckoutButton
               locale={locale}
               src="buy_list_paywall"
+              customerEmail={capturedEmail || undefined}
             />
             <a
               href={AW26_REPORT_URL}
