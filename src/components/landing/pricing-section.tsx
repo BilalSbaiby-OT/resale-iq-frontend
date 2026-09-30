@@ -777,6 +777,14 @@ export function PricingSection({
                 <span style={{ color: "var(--color-text-muted)" }}>{trialCardLine(locale)}</span>
               </p>
             )}
+            {/* H195 CRO: card-hesitation chip. 19/20 Stripe sessions left with no email typed;
+                the modal asks for a card, so say before the click that it is stored, not charged,
+                until after day 7. CRO #4 (objection handling adjacent to CTA). Starter only. */}
+            {!compact && tier.id === "operator" && pricingCtaKind(user, tier.id) !== "current" && pricingCtaKind(user, tier.id) !== "manage" && (
+              <p data-testid="riq-card-stored-chip" style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "4px 0 0", lineHeight: 1.4 }}>
+                <span aria-hidden="true">&#128274;</span>{" "}Card stored &middot; charged only after day 7
+              </p>
+            )}
             {/* H90 CRO: add 30-day money-back guarantee to under-CTA copy at decision moment.
                 CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
