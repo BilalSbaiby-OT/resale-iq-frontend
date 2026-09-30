@@ -248,7 +248,17 @@ export default async function BlogPostPage(
             <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, margin: 0 }}>{renderRichText(p.definedTerm.description)}</p>
           </section>
         )}
-        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
+        {/* H194(elon): for what-sells-best-on-vinted, replace the static hand-written
+            intro (pinned to "23 September 2026") with the live text from liveSellsBestIntro.
+            The live text is already fetched and used for the "Updated" stamp but was
+            never actually rendered — the static p.intro overrode it. This closes the
+            mismatch: the visible date now equals the "Updated …" label, and the figures
+            match what /data and the homepage show live. Fallback: if liveIntro is null
+            (snapshot unavailable), the original static intro renders unchanged.
+            Surface: /blog/what-sells-best-on-vinted, 130 unique humans/7d. */}
+        <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>
+          {liveIntro ? liveIntro.text : renderRichText(p.intro)}
+        </p>
         {topSteps.length > 0 && (
           <nav aria-label="Next steps" data-next-steps style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px", margin: "-8px 0 28px", background: "var(--color-surface)" }}>
             <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 8 }}>Check it with live data</div>
