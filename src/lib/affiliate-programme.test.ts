@@ -7,7 +7,7 @@
  * spinning up a server, since these are static-source assertions the same
  * way the rest of this suite works.
  */
-import { readFileSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
@@ -123,27 +123,27 @@ test("robots.ts allows the affiliate API path, /affiliate.json and /partners in 
   assert.match(src, /AI_BOTS\.map\(\(ua\) => \(\{ userAgent: ua, allow: PUBLIC_ALLOW/)
 })
 
-test("public/llms.txt (the file actually served — public files win over route.ts) has the affiliate section near the top", () => {
-  // Confirmed live 2026-09-29: Next.js serves public/llms.txt over
-  // src/app/llms.txt/route.ts when both exist at the same path (`npm run
-  // start` + curl reproduces the exact "AI Assistant Index" header the
-  // production site returns; `next dev` even logs "A conflicting public
-  // file and page file was found for path /llms.txt"). The route.ts file is
-  // updated too (other tests in this file assert on it) in case the public
-  // file is ever removed, but public/llms.txt is what a crawler actually
-  // reads today.
-  const src = read("../public/llms.txt")
-  assert.match(src, /## Affiliate programme \(open to people and AI agents\)/)
-  assert.match(src, /30% recurring commission for 12 months/)
-  assert.match(src, /60-day first-party cookie/)
-  assert.match(src, /€25 minimum payout/)
-  assert.match(src, /api\/public\/affiliate\/register/)
-  assert.match(src, /api\/public\/affiliate\/stats/)
-  assert.match(src, /https:\/\/resaleiq\.dev\/affiliate\.json/)
-  assert.match(src, /https:\/\/resaleiq\.dev\/partners/)
-  const affIdx = src.indexOf("## Affiliate programme")
-  const whatIdx = src.indexOf("## What is Resale IQ?")
-  assert.ok(affIdx >= 0 && whatIdx > affIdx, "affiliate section must be near the top")
+test("public/llms.txt is gone: a static public file shadows the dynamic route and its numbers rot", () => {
+  // 2026-09-30: public/llms.txt (hand-written, dated 23 Sep) won over src/app/llms.txt/route.ts
+  // in production, so the served file quoted 13.1M listings / 28 brands / week-old top-brand volumes
+  // that no longer matched /data. The route derives every figure from the same helpers as the pages.
+  assert.equal(existsSync(join(root, "../public/llms.txt")), false, "public/llms.txt must not exist — it shadows the live route")
+})
+
+test("llms.txt lists the top landing pages, /tools, /data, /pricing, /partners and /affiliate.json with one-line descriptions", () => {
+  const src = read("app/llms.txt/route.ts")
+  for (const path of [
+    "/blog/what-sells-best-on-vinted",
+    "/blog/what-to-buy-to-resell-on-vinted-right-now",
+    "/blog/ralph-lauren-eu-vinted-price-guide",
+    "/tools",
+    "/data",
+    "/pricing",
+    "/partners",
+    "/affiliate.json",
+  ]) {
+    assert.match(src, new RegExp("- \\$\\{BASE\\}" + path.replace(/[.\\/]/g, "\\$&") + ": \\S"), `llms.txt route: no described entry for ${path}`)
+  }
 })
 
 test("llms.txt has the affiliate section near the top with the register call and links", () => {

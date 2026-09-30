@@ -15,6 +15,8 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { HeroFreeChips } from "@/components/landing/hero-free-chips"
 
+import { fitMetadata } from "@/lib/meta-fit"
+import { isRedirectedPath } from "@/lib/sitemap-redirects"
 // Public, citable open data. Must render at request time: docker build cannot
 // reach the snapshot API, so a static / ISR shell bakes "being refreshed" with
 // no brands. Runtime BACKEND_URL can. Crawlers still see the numbers in HTML.
@@ -27,13 +29,13 @@ const TITLE = "Weekly Brand Volumes on Vinted — What Sells Best in 2026"
 const DESCRIPTION =
   "Weekly Vinted brand volumes: watched departures and average asking prices at departure across Spain, France, Germany, Italy and Portugal. Updated from live listings."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = fitMetadata({
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/data", languages: hreflangLanguages("/data") },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: "/data", images: OG_IMAGES },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: OG_IMAGES },
-}
+})
 
 export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
   const t = dataChrome[locale]
@@ -254,7 +256,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
                     <td style={{ padding: "11px 14px", color: "#eef1f7", fontWeight: 600 }}>
                       {(() => {
                         const slug = BRANDS.find(x => x.brand === b.brand)?.slug
-                        return slug
+                        return slug && !isRedirectedPath(`/flip/${slug}`)
                           ? <Link href={`/flip/${slug}`} style={{ color: "#eef1f7", textDecoration: "none" }}>{b.brand}</Link>
                           : b.brand
                       })()}
@@ -292,7 +294,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
             {t.ctaP}
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
-            <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
+            <Link href="/tools/vinted-price-checker?src=data-check" style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
               {t.checkCta}
             </Link>
             <GuestCheckoutButton locale={locale} src="data_cta" />
@@ -317,7 +319,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
         </div>
 
         <div style={{ marginTop: 26, display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <Link href={`${prefix}/flip`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerFlip}</Link>
+          <Link href="/flip" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerFlip}</Link>
           <Link href="/category" style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerCat}</Link>
           <Link href={`${prefix}/tools`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerTools}</Link>
           <Link href={`${prefix}/methodology`} style={{ color: "#8fa3c4", fontSize: 13.5, textDecoration: "none" }}>{t.footerMethod}</Link>

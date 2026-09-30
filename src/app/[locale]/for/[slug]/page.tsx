@@ -4,11 +4,12 @@ import { SeoLandingPage, landingMetadata } from "@/components/seo/landing-page"
 import { generateLocaleLandingStaticParams, getLanding } from "@/lib/seo-landings"
 import { isPathLocale } from "@/lib/locale-routes"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 export function generateStaticParams() {
   return generateLocaleLandingStaticParams("for")
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ locale: string; slug: string }> },
 ): Promise<Metadata> {
   const { locale, slug } = await params
@@ -23,3 +24,6 @@ export default async function LocaleForLanding(
   if (!isPathLocale(locale) || !getLanding("for", slug)) notFound()
   return <SeoLandingPage kind="for" slug={slug} locale={locale} />
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

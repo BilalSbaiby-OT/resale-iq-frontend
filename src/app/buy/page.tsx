@@ -2,7 +2,8 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, fmtCountBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
 
-export const metadata: Metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata: Metadata = fitMetadata({
   title: "What to Pay for Secondhand Resale — Buy-Below Prices by Brand",
   description:
     "Buy-below prices for 231 brand-category pairs on EU Vinted. Real 30-day departure data: what to pay when sourcing secondhand inventory to resell.",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
       "Stop guessing what to pay. 231 tracked brand-category pairs, real 30-day sold data, buy-below prices built from actual departure averages.",
     url: "https://resaleiq.dev/buy",
   },
-}
+})
 
 const jsonLd = {
   "@context": "https://schema.org",

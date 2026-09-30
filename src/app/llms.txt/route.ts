@@ -109,6 +109,18 @@ Full machine-readable programme description: ${BASE}/affiliate.json
 Human page with terms and a registration form: ${BASE}/partners
 Questions: ${AFFILIATE_CONTACT}
 
+## Most useful pages (one line each)
+
+- ${BASE}/blog/what-sells-best-on-vinted: What sells best on Vinted right now, ranked by watched departures${weekly ? ` (${weekly.toLocaleString()} in the last 7 days across ${published} published brands)` : ""}.
+- ${BASE}/blog/what-to-buy-to-resell-on-vinted-right-now: Which items to buy to resell right now, with buy-below prices.
+- ${BASE}/blog/ralph-lauren-eu-vinted-price-guide: Ralph Lauren EU Vinted price guide: departure prices and what to pay.
+- ${BASE}/tools: Free item check. Type a Vinted item, get BUY / WATCH / SKIP and a buy-below price (Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free samples).
+- ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} unique listings.
+- ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly sales, with brand and brand-by-category pages.
+- ${BASE}/pricing: Starter EUR 19 / month, Pro EUR 49 / month. There is no free-forever tier.
+- ${BASE}/partners: Affiliate programme: 30% recurring for 12 months, open to people and AI agents.
+- ${BASE}/affiliate.json: Machine-readable affiliate programme: register endpoint, stats endpoint, terms.
+
 ## For agents
 
 Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU

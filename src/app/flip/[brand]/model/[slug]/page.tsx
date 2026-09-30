@@ -27,6 +27,8 @@ import {
 } from "@/lib/seo-models"
 import { MODEL_MONEY_HREF } from "@/lib/money-cta"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
 export const revalidate = 900
 
 const BASE = "https://resaleiq.dev"
@@ -35,7 +37,7 @@ export function generateStaticParams() {
   return generateModelStaticParams()
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ brand: string; slug: string }> },
 ): Promise<Metadata> {
   const { brand, slug } = await params
@@ -305,7 +307,12 @@ export default async function ModelFlipPage(
         </Link>
       </div>
 
+      <RelatedLinks to={{ kind: "flip-model", brand: m.brandSlug, slug: m.slug }} />
+
       <HubFaq items={faqs} />
     </main>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

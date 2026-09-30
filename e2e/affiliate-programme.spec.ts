@@ -68,18 +68,9 @@ test("/affiliate.json is valid JSON with the founder-approved terms", async ({ r
 })
 
 test("/llms.txt has the affiliate programme section", async ({ request }) => {
-  // NOTE: in `next dev`, /llms.txt 500s with "A conflicting public file and
-  // page file was found for path /llms.txt" — a PRE-EXISTING conflict between
-  // public/llms.txt and src/app/llms.txt/route.ts that predates this change
-  // (both files already existed on main). In the PRODUCTION build (`next
-  // build` + `next start`, what actually deploys), Next.js resolves this by
-  // serving the public file, confirmed live via curl against resaleiq.dev.
-  // Skip under dev's broken response rather than assert a false regression;
-  // the unit test (affiliate-programme.test.ts) asserts on public/llms.txt's
-  // actual content directly, and the live check step re-verifies this exact
-  // URL against production after deploy.
+  // /llms.txt is served by src/app/llms.txt/route.ts (public/llms.txt was removed — it shadowed the route).
   const res = await request.get("/llms.txt")
-  test.skip(!res.ok(), "known dev-mode-only public/route.ts conflict, pre-existing — see comment")
+  expect(res.ok()).toBeTruthy()
   const text = await res.text()
   expect(text).toContain("## Affiliate programme")
   expect(text).toContain("/affiliate.json")

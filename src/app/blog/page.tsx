@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { ALL_POSTS as POSTS } from "@/data/blog-posts"
+import { LINKABLE_POSTS } from "@/lib/related-links"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -10,7 +10,8 @@ import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
 import { getMarketNumbers } from "@/lib/market-numbers"
 
-export async function generateMetadata(): Promise<Metadata> {
+import { withFittedMetadata } from "@/lib/meta-fit"
+async function generateMetadataRaw(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
   const desc = `Practical guides for Vinted resellers backed by ${tracked} tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.`
   return {
@@ -35,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogIndex() {
   const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
-  const posts = fillTracked([...POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked)
+  const posts = fillTracked([...LINKABLE_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked)
   // H77 CRO: fetch live buy-list so the blog index proves the product BEFORE the
   // post list. /blog gets 130 weekly visitors — the highest-traffic page outside
   // the homepage — but showed ZERO live data. Visitor from ChatGPT sees article
@@ -233,3 +234,6 @@ export default async function BlogIndex() {
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

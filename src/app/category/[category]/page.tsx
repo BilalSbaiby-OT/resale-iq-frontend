@@ -12,6 +12,8 @@ import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
 // Programmatic SEO, cross-brand cut: one page per category, ranking every
 // tracked brand by that category's own weekly sales volume. This is the axis
 // the brand pages can't answer — "I want to flip sneakers, which brand?" —
@@ -27,7 +29,7 @@ export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ category: c.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ category: string }> }
 ): Promise<Metadata> {
   const { category } = await params
@@ -292,7 +294,11 @@ export default async function CategoryPage(
             </Link>
           </div>
         </div>
+        <RelatedLinks to={{ kind: "category", slug: c.slug }} />
       </div>
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

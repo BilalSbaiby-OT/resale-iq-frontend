@@ -8,11 +8,12 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath } from "@/lib/locale-routes"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 // og:locale wants underscore region tags, not the bare two-letter codes the
 // dictionary and the URL both use.
 const OG_LOCALE: Record<string, string> = { es: "es_ES", fr: "fr_FR", de: "de_DE", it: "it_IT", pt: "pt_PT" }
 
-export async function generateMetadata({
+async function generateMetadataRaw({
   params,
 }: {
   params: Promise<{ locale: string }>
@@ -63,3 +64,6 @@ export default async function LocaleLanding({
     <LandingContent t={copy[locale]} locale={locale} tracked={tracked} trackedExact={trackedExact} market={market} heroQuery={hero.query} heroResult={hero.result} llmSrc={llmSrc} ssrBuyList={ssrBuyList} />
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

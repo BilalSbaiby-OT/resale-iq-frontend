@@ -25,11 +25,13 @@ import { itemQueryMeta } from "@/lib/tools-query-meta"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
@@ -305,6 +307,8 @@ export default async function IntentPage(
           )}
         </section>
 
+        <RelatedLinks to={{ kind: "tool", slug }} />
+
         <nav style={{ marginTop: 56 }}>
           <h2 style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-muted)", marginBottom: 14, textTransform: "uppercase", letterSpacing: "0.5px" }}>{t.moreTools}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -318,3 +322,6 @@ export default async function IntentPage(
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

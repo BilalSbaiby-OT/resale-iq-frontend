@@ -23,6 +23,9 @@ import { BlogStickyBar } from "@/components/blog/blog-sticky-bar"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { liveSellsBestIntro } from "@/lib/live-sells-best-intro"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
+import { topLandingNextSteps } from "@/lib/related-links"
 /**
  * Translation pairs, keyed by slug, both directions.
  *
@@ -57,7 +60,7 @@ export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
@@ -136,47 +139,10 @@ export default async function BlogPostPage(
   // field when the live snapshot is unavailable.
   const liveDateModified = liveIntro ? liveIntro.updatedAtIso.slice(0, 10) : null
 
-  // Topically-related "Keep reading" links.
-  //
-  // The previous version always returned the first 4 posts in array order —
-  // what-sells-best, how-to-price, best-brands, vinted-vs-depop — from every
-  // article. Those 4 posts received ~165 internal links each while the remaining
-  // 165 posts received essentially zero, making them invisible to crawlers.
-  //
-  // The fix: pick posts that share the same category first (same topic),
-  // then posts sharing a brand-keyword in the slug (related brand coverage),
-  // then fill with high-value hub posts. Cap at 4 to keep page weight constant.
-  const HUB_SLUGS = [
-    "what-sells-best-on-vinted",
-    "best-brands-to-resell-on-vinted",
-    "how-to-price-items-on-vinted",
-    "buy-below-price-explained",
-  ]
-  const slugTokens = p.slug.split("-")
-  const relatedByCategory = POSTS.filter(
-    (x) => x.slug !== p.slug && x.category === p.category
-  ).slice(0, 3)
-  const relatedByBrand = POSTS.filter(
-    (x) =>
-      x.slug !== p.slug &&
-      !relatedByCategory.some((r) => r.slug === x.slug) &&
-      slugTokens.some(
-        (t) => t.length > 4 && x.slug.includes(t)
-      )
-  ).slice(0, 2)
-  const hubs = POSTS.filter(
-    (x) =>
-      x.slug !== p.slug &&
-      HUB_SLUGS.includes(x.slug) &&
-      !relatedByCategory.some((r) => r.slug === x.slug) &&
-      !relatedByBrand.some((r) => r.slug === x.slug)
-  ).slice(0, 4)
-  const combined = [...relatedByCategory, ...relatedByBrand, ...hubs].slice(0, 4)
-  // Fallback: if not enough topic matches, fill from array start (old behaviour)
-  const fallback = POSTS.filter(
-    (x) => x.slug !== p.slug && !combined.some((r) => r.slug === x.slug)
-  ).slice(0, 4 - combined.length)
-  const others = fillTracked([...combined, ...fallback], tracked)
+  // Related links (next steps + brand/category data + ring of posts) come from
+  // src/lib/related-links.ts, which distributes inbound links across ALL posts.
+  // The old fixed slice gave 4 posts ~165 links each and left ~130 with <3.
+  const topSteps = topLandingNextSteps(p.slug)
 
   // Article + FAQPage JSON-LD — this is what lets Google rich results AND answer
   // engines (ChatGPT, Perplexity, Google AI, Claude) lift clean, citable answers.
@@ -283,6 +249,16 @@ export default async function BlogPostPage(
           </section>
         )}
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 28 }}>{renderRichText(p.intro)}</p>
+        {topSteps.length > 0 && (
+          <nav aria-label="Next steps" data-next-steps style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px", margin: "-8px 0 28px", background: "var(--color-surface)" }}>
+            <div style={{ fontSize: 12, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 8 }}>Check it with live data</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+              {topSteps.map((l) => (
+                <Link key={l.href} href={l.href} style={{ color: "#34C759", fontSize: 14.5, textDecoration: "none", fontWeight: 600 }}>→ {l.label}</Link>
+              ))}
+            </div>
+          </nav>
+        )}
 
         {/* H183 CRO: checker AFTER the intro paragraph — warm before the ask.
             RESEARCH (fetched 2026-09-29):
@@ -462,18 +438,11 @@ export default async function BlogPostPage(
           </div>
         </div>
 
-        {/* Internal links help SEO + crawl depth */}
-        <div style={{ marginTop: 34 }}>
-          <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10, letterSpacing: "0.1px" }}>Keep reading</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {others.map((o) => (
-              <Link key={o.slug} href={`/blog/${o.slug}`} style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-                → {o.title}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <RelatedLinks to={{ kind: "blog", slug: p.slug }} tracked={tracked} />
       </article>
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

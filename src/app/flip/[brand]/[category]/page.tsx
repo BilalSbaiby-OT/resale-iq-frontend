@@ -11,6 +11,9 @@ import {
 } from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
+import { hasBuyPair } from "@/lib/related-links"
 // Programmatic SEO: one page per brand x top-category, targeting
 // "are <brand> <category> worth reselling on Vinted".
 // Numbers come from the public market-snapshot API at render time (ISR), so the
@@ -45,7 +48,7 @@ function resolve(brandSlug: string, categorySlug: string) {
   return { b, category: row.category, baselineSold: row.sold_7d }
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ brand: string; category: string }> }
 ): Promise<Metadata> {
   const { brand, category } = await params
@@ -193,15 +196,21 @@ export default async function BrandCategoryPage(
                 → Are {b.brand} {c} worth reselling?
               </Link>
             ))}
-            <Link href={`/buy/${b.slug}/${catSlug(catName)}`} style={{ color: "#34C759", fontSize: 14, textDecoration: "none" }}>
-              → What to pay for {b.brand} {catName} — buy-below price
-            </Link>
+            {hasBuyPair(b.slug, catSlug(catName)) && (
+              <Link href={`/buy/${b.slug}/${catSlug(catName)}`} style={{ color: "#34C759", fontSize: 14, textDecoration: "none" }}>
+                → What to pay for {b.brand} {catName} — buy-below price
+              </Link>
+            )}
             <Link href="/methodology" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ How these numbers are calculated</Link>
             <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Analyze an item</Link>
             <Link href="/data" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>→ Full Vinted market data</Link>
           </div>
         </div>
+        <RelatedLinks to={{ kind: "flip-cat", brand: b.slug, category: catSlug(catName) }} tracked={tracked} />
       </div>
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

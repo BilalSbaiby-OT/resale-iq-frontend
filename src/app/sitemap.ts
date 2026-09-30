@@ -8,7 +8,8 @@ import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { PATH_LOCALES, hreflangLanguages } from "@/lib/locale-routes"
 import { LANDINGS, landingPath, landingHubPath, BLOG_CLONE_SLUGS, blogClonePath } from "@/lib/seo-landings"
 import { isRedirectedPath } from "@/lib/sitemap-redirects"
-import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, catSlug as buyCatSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_BATCH1_PAIRS } from "@/lib/buy-data"
+import { blogHubDate, manualHubDate, buyDataDate } from "@/lib/sitemap-dates"
 
 const BASE = "https://resaleiq.dev"
 
@@ -78,8 +79,6 @@ async function snapshotUpdatedAt(): Promise<Date> {
  * requires a human edit is exactly the point.
  */
 const STATIC_CONTENT_DATE = new Date("2026-08-29T00:00:00.000Z")
-/** /manual hub copy last changed (FAQPage + answer-first title). Do not reuse for /terms. */
-const MANUAL_HUB_DATE = new Date("2026-09-13T00:00:00.000Z")
 /** /glossary hub + terms. Bump when a definition changes. */
 const GLOSSARY_DATE = new Date("2026-09-21T12:00:00.000Z")
 /** BEST/VS/FOR landings + locale clones. Bump when copy changes. */
@@ -94,13 +93,11 @@ const LANDING_DATE = new Date("2026-09-21T18:00:00.000Z")
  * described in the file header. Google last crawled /blog on 2026-09-04;
  * 100+ posts were added after that date; the stale lastmod explains why.
  */
-const BLOG_HUB_DATE = toDay(
-  new Date(
-    Math.max(
-      ...POSTS.map((p) => new Date(p.updated ?? p.date).getTime())
-    )
-  )
-)
+const BLOG_HUB_DATE = blogHubDate(POSTS, STATIC_CONTENT_DATE)
+/** /manual hub: newest chapter `updated` (was a hardcoded 2026-09-13 constant). */
+const MANUAL_HUB_DATE = manualHubDate(ALL_CHAPTERS, STATIC_CONTENT_DATE)
+/** /buy hub + brand + leaf pages: the day the buy-data snapshot was generated. */
+const BUY_DATE = buyDataDate(BUY_DATA.generated_at, STATIC_CONTENT_DATE)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dataFresh = await snapshotUpdatedAt()
@@ -114,7 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Console measured 0 impressions across all nine category pages over
   // 2026-07-30..08-26. They carry the snapshot's lastmod and a high priority
   // because they are entry points to the data-driven estate, not static copy.
-  const dataDrivenHubs = new Set(["", "/data", "/flip", "/category", "/buy"])
+  const dataDrivenHubs = new Set(["", "/data", "/flip", "/category", "/tools"])
   // Absolute-URL version of hreflangLanguages() — Next's own docs example for
   // sitemap alternates uses full URLs ('https://nextjs.org/en-US'), not paths.
   const absolute = (suffix: string) => {
@@ -143,7 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   const staticPages = ["", "/pricing", "/blog", "/tools", "/data", "/flip", "/category", "/buy", "/manual", "/glossary", "/methodology", "/terms", "/privacy", "/legal", "/support", "/api-docs", "/best", "/vs", "/for", "/partners"].map((p) => ({
     url: `${BASE}${p}`,
-    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : p === "/blog" ? BLOG_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
+    lastModified: p === "/manual" ? MANUAL_HUB_DATE : p === "/buy" ? BUY_DATE : p === "/glossary" ? GLOSSARY_DATE : p === "/best" || p === "/vs" || p === "/for" ? LANDING_DATE : p === "/blog" ? BLOG_HUB_DATE : dataDrivenHubs.has(p) ? dataFresh : STATIC_CONTENT_DATE,
     changeFrequency: p === "/flip" || p === "/category" ? ("daily" as const) : ("monthly" as const),
     // /pricing above the 0.6 static-copy shelf: it is the last page before
     // checkout, and the one an ad or a "resaleiq pricing" search lands on.
@@ -325,13 +322,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }))
 
-  const buyBUY_DATE = new Date("2026-09-22T00:00:00.000Z")
-
   // /buy hub + batch-1 brand pages (10 brands in batch 1)
   const buyBatchBrandSlugs = new Set(BUY_BATCH1_PAIRS.map((p) => p.brand.slug))
   const buyBrandPages = [...buyBatchBrandSlugs].map((slug) => ({
     url: `${BASE}/buy/${slug}`,
-    lastModified: buyBUY_DATE,
+    lastModified: BUY_DATE,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }))
@@ -339,7 +334,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // /buy/[brand]/[category] — batch 1 only: 20 leaf pages (threshold: sold_30d >= 189)
   const buyBrandCategoryPages = BUY_BATCH1_PAIRS.map(({ brand: b, cat: c }) => ({
     url: `${BASE}/buy/${b.slug}/${c.slug}`,
-    lastModified: buyBUY_DATE,
+    lastModified: BUY_DATE,
     changeFrequency: "weekly" as const,
     priority: 0.8,  // Raised from 0.75 — these are the substantive leaf pages
   }))

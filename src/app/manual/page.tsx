@@ -6,6 +6,7 @@ import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
 
+import { fitMetadata } from "@/lib/meta-fit"
 // Manual index. Deliberately a real table of contents rather than a landing
 // page — this is the hub every chapter and every programmatic SEO page links
 // back to, so it has to be genuinely navigable.
@@ -17,7 +18,7 @@ const TITLE = "How to Resell on Vinted — The Vinted Reselling Manual"
 const DESCRIPTION =
   "Free 16-chapter Vinted reselling manual: buy-below price, sourcing, sizes, cashflow and the five numbers to track. Written from watched ES/FR/DE/IT/PT listings. No signup."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = fitMetadata({
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/manual" },
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     type: "article",
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
-}
+})
 
 // Visible FAQ and FAQPage JSON-LD share this array. Answers stay qualitative
 // except where this page already prints a live figure. Signup walls and

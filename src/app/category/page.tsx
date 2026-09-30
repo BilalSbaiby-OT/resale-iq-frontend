@@ -9,6 +9,7 @@ import { faqPageJsonLd } from "@/lib/faq-schema"
 import { MoneyCta } from "@/components/money-cta"
 import { CATEGORY_INDEX_SECONDARY_HREF, CATEGORY_MONEY_HREF } from "@/lib/money-cta"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 // The hub for the /category estate, and the more urgent of the two: Search
 // Console for 2026-07-30..08-26 recorded ZERO impressions across all nine
 // category pages, while /category itself returned 404. Nine well-built pages
@@ -21,7 +22,7 @@ export const revalidate = 900
 
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
 
-export async function generateMetadata(): Promise<Metadata> {
+async function generateMetadataRaw(): Promise<Metadata> {
   const title = `What Sells Best on Vinted by Category — ${CATEGORIES.length} Ranked`
   const description =
     `The ${CATEGORIES.length} categories we track, ranked by weekly watched departures on Vinted ` +
@@ -283,3 +284,6 @@ export default async function CategoryHubPage() {
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

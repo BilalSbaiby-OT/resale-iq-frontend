@@ -1,3 +1,5 @@
+import { RelatedLinks } from "@/components/seo/related-links"
+import { withFittedMetadata } from "@/lib/meta-fit"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -25,7 +27,7 @@ export function generateStaticParams() {
   return [...BATCH1_BRAND_SLUGS].map((slug) => ({ brand: slug }))
 }
 
-export async function generateMetadata({
+async function generateMetadataRaw({
   params,
 }: {
   params: Promise<{ brand: string }>
@@ -252,6 +254,8 @@ export default async function BuyBrandPage({
           </Link>
         </div>
 
+        <RelatedLinks to={{ kind: "buy-brand", slug: brand.slug }} />
+
         <div style={{ marginTop: 28, fontSize: 12, color: "#3f4a63" }}>
           Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}. Threshold: {BUY_DATA.threshold}.
         </div>
@@ -259,3 +263,6 @@ export default async function BuyBrandPage({
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

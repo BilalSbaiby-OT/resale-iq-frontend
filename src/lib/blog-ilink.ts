@@ -9,6 +9,8 @@ export const ILINK_CAMPAIGN = "ilink_20260913"
 export type IlinkHub = "flip" | "data" | "pricing"
 
 export function ilinkHref(hub: IlinkHub, locale?: "es"): string {
-  const prefix = locale === "es" ? "/es" : ""
+  // /es/flip has no page of its own (proxy 307s it to /flip), so a Spanish link
+  // to it is a redirect on every Spanish post. Only /data and /pricing have /es routes.
+  const prefix = locale === "es" && hub !== "flip" ? "/es" : ""
   return `${prefix}/${hub}?utm_source=blog&utm_medium=ilink&utm_campaign=${ILINK_CAMPAIGN}&utm_content=to_${hub}`
 }

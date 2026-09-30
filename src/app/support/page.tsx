@@ -5,11 +5,12 @@ import { support } from "@/lib/support-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 
-export const metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata = fitMetadata({
   title: "Support & FAQ — Resale IQ",
   description: "Get help with Resale IQ — billing, accounts, data, and how the signals work.",
   alternates: { canonical: "/support", languages: hreflangLanguages("/support") },
-}
+})
 
 // The company address: sends via Resend SMTP, receives via Porkbun forwarding.
 // Was a personal Outlook inbox, which meant every customer got a reply from a

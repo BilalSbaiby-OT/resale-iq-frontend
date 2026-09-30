@@ -5,10 +5,11 @@ import { dataChrome } from "@/data/seo-data-copy"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 import { OG_IMAGES } from "@/lib/og-image"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 export const dynamic = "force-dynamic"
 export const generateStaticParams = localeStaticParams
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params
@@ -30,3 +31,6 @@ export default async function LocaleDataPage(
   if (!isPathLocale(locale)) notFound()
   return <DataPage locale={locale} />
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

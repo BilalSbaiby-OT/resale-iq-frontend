@@ -6,9 +6,10 @@ import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } fr
 import { OG_IMAGES } from "@/lib/og-image"
 import { listingsTrackedLabel } from "@/lib/stats"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 export const generateStaticParams = localeStaticParams
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params
@@ -37,3 +38,6 @@ export default async function LocaleToolsPage({
   if (!isPathLocale(locale)) notFound()
   return <ToolsIndex searchParams={searchParams} />
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

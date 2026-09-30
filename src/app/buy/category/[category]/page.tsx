@@ -12,6 +12,7 @@ import {
   type BuyCategory,
 } from "@/lib/buy-data"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 export const revalidate = 3600
 
 export function generateStaticParams() {
@@ -36,7 +37,7 @@ function getBrandsForCategory(categorySlug: string): { categoryName: string; row
   return { categoryName: catName, rows }
 }
 
-export async function generateMetadata({
+async function generateMetadataRaw({
   params,
 }: {
   params: Promise<{ category: string }>
@@ -281,3 +282,6 @@ export default async function BuyCategoryPage({
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

@@ -1,11 +1,12 @@
 import Link from "next/link"
 
-export const metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata = fitMetadata({
   title: "Vinted Resale API — Resale IQ Developer Docs",
   description:
     "REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average asking prices at departure, buy-below prices and demand signals for 26 brands. Included with the Pro plan.",
   alternates: { canonical: "/api-docs" },
-}
+})
 
 // Documented here rather than only in the app, because a developer evaluating
 // whether to subscribe needs to see the API BEFORE paying — and because this

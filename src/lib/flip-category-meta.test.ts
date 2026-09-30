@@ -141,7 +141,7 @@ test("articleSocialMeta pins the same string on title, og and twitter", () => {
 
 test("/flip/[brand] generateMetadata uses the helper and matching social tags", () => {
   const src = read("app/flip/[brand]/page.tsx")
-  const meta = src.slice(src.indexOf("export async function generateMetadata"), src.indexOf("export default"))
+  const meta = src.slice(src.indexOf("async function generateMetadataRaw"), src.indexOf("export default"))
   assert.match(meta, /flipBrandTitle\(/)
   assert.match(meta, /flipBrandDescription\(/)
   assert.match(meta, /articleSocialMeta\(/)

@@ -54,7 +54,8 @@ test("ilink helper uses blog/ilink + ilink_20260913 + hub content", () => {
   )
   assert.equal(
     ilinkHref("flip", "es"),
-    "/es/flip?utm_source=blog&utm_medium=ilink&utm_campaign=ilink_20260913&utm_content=to_flip",
+    // /es/flip has no route (307 -> /flip); the Spanish link must point straight at /flip.
+    "/flip?utm_source=blog&utm_medium=ilink&utm_campaign=ilink_20260913&utm_content=to_flip",
   )
   assert.equal(
     ilinkHref("pricing", "es"),

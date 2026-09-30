@@ -18,13 +18,14 @@ import { fillLandingPlaceholders, landingStats, LandingCopyChrome } from "@/comp
 import { isPathLocale } from "@/lib/locale-routes"
 import { articleSocialMeta } from "@/lib/flip-category-meta"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 const BASE = "https://resaleiq.dev"
 
 export function generateStaticParams() {
   return generateLocaleBlogCloneParams()
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ locale: string; slug: string }> },
 ): Promise<Metadata> {
   const { locale, slug } = await params
@@ -92,3 +93,6 @@ export default async function LocaleBlogClonePage(
     </main>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

@@ -4,6 +4,7 @@ import { MethodologyPage } from "@/app/methodology/page"
 import { methodology } from "@/lib/methodology-copy"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 // Same live figures as "/methodology" (tracked count, weekly departures) —
 // same revalidate window so a locale reader is not looking at a staler
 // snapshot than an English one.
@@ -11,7 +12,7 @@ export const revalidate = 900
 
 export const generateStaticParams = localeStaticParams
 
-export async function generateMetadata({
+async function generateMetadataRaw({
   params,
 }: {
   params: Promise<{ locale: string }>
@@ -48,3 +49,6 @@ export default async function LocaleMethodology({
   if (!isPathLocale(locale)) notFound()
   return <MethodologyPage locale={locale} />
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

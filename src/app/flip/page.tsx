@@ -10,6 +10,8 @@ import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { SEO_MODELS } from "@/lib/seo-models"
 import { ModelChips } from "@/components/seo/model-chips"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { isRedirectedPath } from "@/lib/sitemap-redirects"
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
 // the 26 brand pages + 130 brand x category pages had no index anywhere on the
 // site — their only discovery path was sitemap.xml plus a partial list on /data.
@@ -24,7 +26,7 @@ export const revalidate = 900
 
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
 
-export async function generateMetadata(): Promise<Metadata> {
+async function generateMetadataRaw(): Promise<Metadata> {
   const title = `What sells best on Vinted in 2026? ${BRANDS.length} brands ranked`
   // Kept under ~155 chars so Google does not truncate it in the SERP.
   const description =
@@ -209,12 +211,18 @@ export default async function FlipHubPage() {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-                <Link
-                  href={`/flip/${r.slug}`}
-                  style={{ color: "#eef1f7", fontSize: 16, fontWeight: 600, textDecoration: "none", letterSpacing: "-0.2px" }}
-                >
-                  Is {r.brand} worth reselling on Vinted?
-                </Link>
+                {isRedirectedPath(`/flip/${r.slug}`) ? (
+                  <span style={{ color: "#eef1f7", fontSize: 16, fontWeight: 600, letterSpacing: "-0.2px" }}>
+                    Is {r.brand} worth reselling on Vinted?
+                  </span>
+                ) : (
+                  <Link
+                    href={`/flip/${r.slug}`}
+                    style={{ color: "#eef1f7", fontSize: 16, fontWeight: 600, textDecoration: "none", letterSpacing: "-0.2px" }}
+                  >
+                    Is {r.brand} worth reselling on Vinted?
+                  </Link>
+                )}
                 <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
                   {fmtCount(r.sold_7d)}<span style={{ color: "#5b6b8c" }}> left shelf/week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
@@ -279,3 +287,6 @@ export default async function FlipHubPage() {
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

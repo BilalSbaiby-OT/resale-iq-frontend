@@ -9,6 +9,8 @@ import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
 // One page per manual chapter. Static prose — the chapters teach method, which
 // does not change week to week — plus a live data strip pulled from the public
 // market snapshot so the page is never stale on the one thing that does change.
@@ -20,7 +22,7 @@ export function generateStaticParams() {
   return ALL_CHAPTERS.map((c) => ({ chapter: c.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ chapter: string }> }
 ): Promise<Metadata> {
   const { chapter } = await params
@@ -228,6 +230,8 @@ export default async function ChapterPage(
           )}
         </div>
 
+        <RelatedLinks to={{ kind: "manual", slug: c.slug }} />
+
         <div style={{ marginTop: 22 }}>
           <Link href="/manual" style={{ color: "#34C759", fontSize: 14, textDecoration: "none" }}>
             ← All {ALL_CHAPTERS.length} chapters
@@ -237,3 +241,6 @@ export default async function ChapterPage(
     </div>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

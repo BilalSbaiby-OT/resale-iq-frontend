@@ -1,11 +1,12 @@
 import Link from "next/link"
 
-export const metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata = fitMetadata({
   title: "Terms of Service — Resale IQ",
   description:
     "The terms covering Resale IQ accounts, subscriptions, acceptable use and limitations of the market data.",
   alternates: { canonical: "/terms" },
-}
+})
 
 export default function Terms() {
   return (

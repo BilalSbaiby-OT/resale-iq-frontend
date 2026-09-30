@@ -1,4 +1,5 @@
 import seo from "@/data/seo-brands.json"
+import { isRedirectedPath } from "./sitemap-redirects.ts"
 
 // Shared derivation of the programmatic SEO route space. The sitemap, the
 // category hubs and the brand x category pages all have to agree on which
@@ -16,6 +17,14 @@ export interface BrandSeo {
 }
 
 export const BRANDS = seo.brands as BrandSeo[]
+
+/**
+ * Brands whose /flip/<slug> page actually renders. A few tracked brands
+ * (bershka, mango, pull-bear) 308 to /flip in next.config.ts; linking to them
+ * from /flip and /data handed crawlers a redirect on every page. Anything that
+ * LINKS to a brand page must iterate this, not BRANDS.
+ */
+export const LINKABLE_BRANDS: BrandSeo[] = BRANDS.filter((b) => !isRedirectedPath(`/flip/${b.slug}`))
 
 export const catSlug = (c: string) =>
   c.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")

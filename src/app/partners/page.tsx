@@ -11,7 +11,8 @@ import {
 } from "@/lib/affiliate-programme"
 import { AiAgentRegisterForm } from "@/components/partners/ai-agent-register-form"
 
-export const metadata: Metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata: Metadata = fitMetadata({
   title: "Partner programme — Resale IQ",
   description:
     "Resale IQ pays 30% recurring commission and gives creators a free Pro account plus a personalised weekly buy-list they can publish as their own content.",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     url: "/partners",
   },
   robots: { index: true, follow: true },
-}
+})
 
 /**
  * /partners — affiliate and creator-partner landing page.

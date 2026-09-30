@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
+import { fitMetadata } from "@/lib/meta-fit"
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
 // answers all three in public, including the parts that are unflattering.
@@ -30,13 +31,13 @@ const TITLE = "How Buy-Below and Every Number Are Calculated — Resale IQ"
 const DESCRIPTION =
   "How buy-below and sell-through are calculated from watched Vinted listings, how often data refreshes, and what the numbers cannot tell you."
 
-export const metadata: Metadata = {
+export const metadata: Metadata = fitMetadata({
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/methodology", languages: hreflangLanguages("/methodology") },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "article" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
-}
+})
 
 // methodology-copy.ts stores its 58 values as plain TS string literals. Three
 // of them (verified across all 6 locales) contain an HTML named entity --

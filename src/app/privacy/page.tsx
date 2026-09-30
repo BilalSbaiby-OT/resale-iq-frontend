@@ -1,6 +1,7 @@
 import Link from "next/link"
 
-export const metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata = fitMetadata({
   title: "Privacy Policy — Resale IQ",
   description:
     "How Resale IQ handles your data: what we collect, why, who processes it, and your GDPR rights.",
@@ -9,7 +10,7 @@ export const metadata = {
   // trailing-slash variants) onto one URL. Every other public page already
   // carries one; these four were simply missed.
   alternates: { canonical: "/privacy" },
-}
+})
 
 export default function Privacy() {
   return (

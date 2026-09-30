@@ -17,6 +17,9 @@ import { faqPageJsonLd } from "@/lib/faq-schema"
 import { modelsForBrand, modelPath, brandHubFaqs } from "@/lib/seo-models"
 import { BRAND_MONEY_HREF } from "@/lib/money-cta"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
+import { hasBuyBrand } from "@/lib/related-links"
 // Programmatic SEO: one statically-generated page per tracked brand, targeting
 // "is X worth reselling / flipping on Vinted". Data is baked in at build time
 // from scripts/export_seo_data.py — aggregates only, never the paid signals.
@@ -30,7 +33,7 @@ export function generateStaticParams() {
   return BRANDS.map(b => ({ brand: b.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ brand: string }> }
 ): Promise<Metadata> {
   const { brand: slug } = await params
@@ -61,7 +64,6 @@ export default async function BrandFlipPage(
   const modelsTracked = live?.models_tracked ?? null
   const cats = live?.categories ?? []
 
-  const others = BRANDS.filter(x => x.slug !== b.slug).slice(0, 12)
   const seoModels = modelsForBrand(b.slug)
   const freeModels = seoModels.filter((m) => m.freeCheck)
   const faqs = brandHubFaqs({
@@ -250,7 +252,12 @@ export default async function BrandFlipPage(
         {(cats.length
           ? cats
           : (b.categories || []).map(c => ({ category: c.category, sold_7d: null as number | null, avg_price_eur: null as number | null }))
-        ).map(c => (
+        )
+          // Live snapshot categories can outnumber the baked-in route space
+          // (generateStaticParams only emits categories in seo-brands.json). Linking
+          // to one that has no page hands crawlers a 404 — 22 such links measured.
+          .filter(c => (b.categories || []).some(x => catSlug(x.category) === catSlug(c.category)))
+          .map(c => (
           <Link key={c.category} href={`/flip/${b.slug}/${catSlug(c.category)}`} style={{
             display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline",
             fontSize: 14, color: "#8fa3c4", textDecoration: "none",
@@ -366,8 +373,12 @@ export default async function BrandFlipPage(
         <Link href="/data" style={{ color: "#34C759", textDecoration: "none" }}>Market data</Link>
         {" · "}
         <Link href="/tools" style={{ color: "#34C759", textDecoration: "none" }}>Analyze an item</Link>
-        {" · "}
-        <Link href={`/buy/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>Buy-below prices</Link>.
+        {hasBuyBrand(b.slug) && (
+          <>
+            {" · "}
+            <Link href={`/buy/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>Buy-below prices</Link>
+          </>
+        )}.
       </p>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
         For how to turn figures like these into a buy decision, the{" "}
@@ -398,20 +409,10 @@ export default async function BrandFlipPage(
 
       <HubFaq items={faqs} />
 
-      <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: "28px 0 12px" }}>
-        Other brands
-      </h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {others.map(o => (
-          <Link key={o.slug} href={`/flip/${o.slug}`} style={{
-            fontSize: 13, color: "#a9b6d0", textDecoration: "none",
-            background: "var(--color-surface)", border: "1px solid var(--color-border-ui)",
-            borderRadius: 8, padding: "7px 12px",
-          }}>
-            {o.brand}
-          </Link>
-        ))}
-      </div>
+      <RelatedLinks to={{ kind: "flip-brand", slug: b.slug }} tracked={tracked} />
     </main>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

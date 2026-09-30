@@ -1,10 +1,11 @@
 import Link from "next/link"
 
-export const metadata = {
+import { fitMetadata } from "@/lib/meta-fit"
+export const metadata = fitMetadata({
   title: "Legal Notice — Resale IQ",
   description: "Legal notice and operator contact details for Resale IQ.",
   alternates: { canonical: "/legal" },
-}
+})
 
 // Identity (legal name, tax ID, postal address) is not published on the site.
 // It is provided on request to support@resaleiq.dev.

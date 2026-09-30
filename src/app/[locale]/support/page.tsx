@@ -4,9 +4,10 @@ import { SupportPage } from "@/app/support/page"
 import { support } from "@/lib/support-copy"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 export const generateStaticParams = localeStaticParams
 
-export async function generateMetadata({
+async function generateMetadataRaw({
   params,
 }: {
   params: Promise<{ locale: string }>
@@ -38,3 +39,6 @@ export default async function LocaleSupportPage({
   if (!isPathLocale(locale)) notFound()
   return <SupportPage locale={locale} />
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

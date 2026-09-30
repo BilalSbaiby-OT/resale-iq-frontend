@@ -8,13 +8,15 @@ import { GLOSSARY_TERMS, getGlossaryTerm, glossaryTermJsonLd } from "@/lib/gloss
 import { SEO_MODELS } from "@/lib/seo-models"
 import { ModelChips } from "@/components/seo/model-chips"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
+import { RelatedLinks } from "@/components/seo/related-links"
 const BASE = "https://resaleiq.dev"
 
 export function generateStaticParams() {
   return GLOSSARY_TERMS.map((t) => ({ term: t.slug }))
 }
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { params }: { params: Promise<{ term: string }> },
 ): Promise<Metadata> {
   const { term } = await params
@@ -93,7 +95,12 @@ export default async function GlossaryTermPage(
       </h2>
       <ModelChips models={models} />
 
+      <RelatedLinks to={{ kind: "glossary", slug: t.slug }} />
+
       <HubFaq items={t.faqs} />
     </main>
   )
 }
+
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

@@ -26,12 +26,13 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
+import { withFittedMetadata } from "@/lib/meta-fit"
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
 const TITLE = "Know what sells. Check the model before you buy — Resale IQ"
 
-export async function generateMetadata(
+async function generateMetadataRaw(
   { searchParams }: { searchParams: Promise<{ q?: string }> }
 ): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
@@ -200,3 +201,5 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
 
 export default ToolsIndex
 
+// Length-fit title/description (<=60/<=160) for every variant this generator returns.
+export const generateMetadata = withFittedMetadata(generateMetadataRaw)

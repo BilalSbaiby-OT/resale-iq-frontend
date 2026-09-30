@@ -72,7 +72,7 @@ export const POSTS_20: BlogPost[] = [
         p: [
           "Whether or not you owe tax today, building a records habit now protects you if a tax authority queries a future year. The minimum records for each transaction:",
           "1. Item description (brand, type, condition)\n2. Purchase price and where you bought it (charity shop, flea market, eBay — keep receipts where possible)\n3. Sale price and date\n4. Platform fee deducted\n5. Shipping cost\n6. Net profit on the transaction",
-          "A spreadsheet with one row per item is sufficient. The detailed guide to what fields matter is at [record keeping for resellers](/blog/record-keeping-resellers).",
+          "A spreadsheet with one row per item is sufficient. The manual chapter on [tax and the rules](/manual/tax-and-the-rules) covers which fields matter.",
           "Resale IQ's buy-below tool already gives you the expected margin before you source. If you record your actual buy price alongside the departure average at the time of purchase, your margin log is largely built from the platform's data.",
         ],
       },

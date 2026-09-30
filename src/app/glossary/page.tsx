@@ -12,12 +12,11 @@ import { SEO_MODELS } from "@/lib/seo-models"
 import { articleSocialMeta } from "@/lib/flip-category-meta"
 import { ModelChips } from "@/components/seo/model-chips"
 
+import { fitMetadata } from "@/lib/meta-fit"
 const BASE = "https://resaleiq.dev"
 
-export const metadata: Metadata = articleSocialMeta(
-  GLOSSARY_HUB_TITLE,
-  GLOSSARY_HUB_DESCRIPTION,
-  "/glossary",
+export const metadata: Metadata = fitMetadata(
+  articleSocialMeta(GLOSSARY_HUB_TITLE, GLOSSARY_HUB_DESCRIPTION, "/glossary"),
 )
 
 export default function GlossaryHubPage() {

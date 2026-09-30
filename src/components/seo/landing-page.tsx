@@ -22,6 +22,8 @@ import {
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages, isPathLocale } from "@/lib/locale-routes"
 
+import { RelatedLinks } from "@/components/seo/related-links"
+import { fitMetadata } from "@/lib/meta-fit"
 const BASE = "https://resaleiq.dev"
 
 const DATA_LINK: Record<Locale, string> = {
@@ -185,7 +187,7 @@ export function LandingBody({
         {" · "}
         <Link href={`${prefix}/tools`} style={{ color: "#34C759", textDecoration: "none" }}>/tools</Link>
         {" · "}
-        <Link href={`${prefix}/flip`} style={{ color: "#34C759", textDecoration: "none" }}>/flip</Link>
+        <Link href="/flip" style={{ color: "#34C759", textDecoration: "none" }}>/flip</Link>
         {" · "}
         <Link href={`${prefix}/methodology`} style={{ color: "#34C759", textDecoration: "none" }}>/methodology</Link>
         {" · "}
@@ -226,6 +228,8 @@ export function LandingBody({
         ))}
       </div>
 
+      {locale === "en" && <RelatedLinks to={{ kind: "landing", landingKind: kind, slug }} />}
+
       <HubFaq items={copy.faqs} />
     </main>
   )
@@ -238,7 +242,7 @@ export function makeLocaleLandingHub(kind: LandingKind) {
     ): Promise<Metadata> => {
       const { locale } = await params
       if (!isPathLocale(locale)) return {}
-      return landingHubMetadata(kind, locale)
+      return fitMetadata(await landingHubMetadata(kind, locale))
     },
     Page: async (
       { params }: { params: Promise<{ locale: string }> },
