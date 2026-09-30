@@ -42,6 +42,11 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
   const [af1Row, setAf1Row] = useState<SnapshotBrandRow>(AF1_FALLBACK)
+  // C(tony)VerifyEmailCTASync: lifted from inside useEffect so the manual CTA
+  // uses the same live query as the auto-redirect timer. Previously the CTA was
+  // hardcoded to Nike AF1 — if the buy-list returned Fred Perry Polo, the CTA
+  // and the timer would send the user to different verdicts.
+  const [firstCheckQuery, setFirstCheckQuery] = useState("Nike Air Force 1")
   const router = useRouter()
   // C(tony)C230: store the auto-redirect timer so the first-check CTA can cancel
   // it — without this the user clicks "Run your first check →", navigates to
@@ -119,12 +124,15 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // Falls back to Nike Air Force 1 if buy-list fetch fails.
           // Founder auth rule preserved: /login and /register are plain forms;
           // this redirect is a one-time post-verify event, not a form redirect.
-          let firstCheckQuery = "Nike Air Force 1"
+          let resolvedQuery = "Nike Air Force 1"
           try {
             const q = await fetchFirstCheckQuery()
-            firstCheckQuery = q
+            resolvedQuery = q
             writeFirstCheckSeed(q)
-          } catch { writeFirstCheckSeed(firstCheckQuery) }
+          } catch { writeFirstCheckSeed(resolvedQuery) }
+          // C(tony)VerifyEmailCTASync: sync to state so the manual CTA
+          // uses the same query as the auto-redirect below.
+          setFirstCheckQuery(resolvedQuery)
           const go = (href: string) => {
             redirectTimerRef.current = setTimeout(() => router.replace(href), 2500)
           }
@@ -148,7 +156,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           if (checkoutAbandoned) {
             go(`/pricing?ref=verify-abandoned`)
           } else {
-            go(`/verdict?q=${encodeURIComponent(firstCheckQuery)}&src=email_verified`)
+            go(`/verdict?q=${encodeURIComponent(resolvedQuery)}&src=email_verified`)
           }
           return
         }
@@ -219,7 +227,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               </div>
             </div>
             <Link
-              href="/verdict?q=Nike+Air+Force+1&src=verify_email"
+              href={`/verdict?q=${encodeURIComponent(firstCheckQuery)}&src=email_verified`}
               onClick={handleFirstCheckClick}
               className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3"
             >
