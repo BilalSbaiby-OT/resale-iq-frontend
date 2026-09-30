@@ -14,6 +14,8 @@ import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { RelatedLinks } from "@/components/seo/related-links"
 import { hasBuyPair } from "@/lib/related-links"
+import { isRedirectedPath } from "@/lib/sitemap-redirects"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 // Programmatic SEO: one page per brand x top-category, targeting
 // "are <brand> <category> worth reselling on Vinted".
 // Numbers come from the public market-snapshot API at render time (ISR), so the
@@ -104,16 +106,13 @@ export default async function BrandCategoryPage(
             : `Prices vary by model, condition and size. Check listings that recently left the shelf rather than active ones, since active listings show hopeful asking prices, not the price at departure.` } },
       ],
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Resale IQ", item: "https://resaleiq.dev" },
-        { "@type": "ListItem", position: 2, name: "Brands", item: "https://resaleiq.dev/flip" },
-        { "@type": "ListItem", position: 3, name: b.brand, item: `https://resaleiq.dev/flip/${b.slug}` },
-        { "@type": "ListItem", position: 4, name: catName, item: `https://resaleiq.dev/flip/${b.slug}/${catSlug(catName)}` },
-      ],
-    },
+    breadcrumbJsonLd([
+      ["Resale IQ", "/"],
+      ["Brands", "/flip"],
+      // A brand whose /flip/<slug> 308s to /flip is not a breadcrumb step.
+      ...(isRedirectedPath(`/flip/${b.slug}`) ? [] : ([[b.brand, `/flip/${b.slug}`]] as const)),
+      [catName, `/flip/${b.slug}/${catSlug(catName)}`],
+    ]),
   ]
 
   const siblings = (b.categories || []).map((c) => c.category).filter((c) => c !== catName)
@@ -125,7 +124,11 @@ export default async function BrandCategoryPage(
         <div style={{ fontSize: 13, marginBottom: 18 }}>
           <Link href="/" style={{ color: "#34C759", textDecoration: "none" }}>Resale IQ</Link>
           <span style={{ color: "#3f4a63" }}> / </span>
-          <Link href={`/flip/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>{b.brand}</Link>
+          {isRedirectedPath(`/flip/${b.slug}`) ? (
+            <Link href="/flip" style={{ color: "#34C759", textDecoration: "none" }}>Brands</Link>
+          ) : (
+            <Link href={`/flip/${b.slug}`} style={{ color: "#34C759", textDecoration: "none" }}>{b.brand}</Link>
+          )}
         </div>
 
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} stale={market.stale} />

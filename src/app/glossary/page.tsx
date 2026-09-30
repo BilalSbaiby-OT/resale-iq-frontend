@@ -13,6 +13,7 @@ import { articleSocialMeta } from "@/lib/flip-category-meta"
 import { ModelChips } from "@/components/seo/model-chips"
 
 import { fitMetadata } from "@/lib/meta-fit"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 const BASE = "https://resaleiq.dev"
 
 export const metadata: Metadata = fitMetadata(
@@ -21,6 +22,7 @@ export const metadata: Metadata = fitMetadata(
 
 export default function GlossaryHubPage() {
   const jsonLd = [
+    breadcrumbJsonLd([["Resale IQ", "/"], ["Glossary", "/glossary"]]),
     faqPageJsonLd(GLOSSARY_HUB_FAQS),
     ...GLOSSARY_TERMS.map((t) =>
       definedTermJsonLd({

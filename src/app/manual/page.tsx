@@ -7,6 +7,7 @@ import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
 
 import { fitMetadata } from "@/lib/meta-fit"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 // Manual index. Deliberately a real table of contents rather than a landing
 // page — this is the hub every chapter and every programmatic SEO page links
 // back to, so it has to be genuinely navigable.
@@ -67,6 +68,7 @@ export default async function ManualIndex() {
   const brandCount = market.brandCount > 0 ? market.brandCount : null
 
   const jsonLd = [
+    breadcrumbJsonLd([["Resale IQ", "/"], ["Reselling manual", "/manual"]]),
     {
       "@context": "https://schema.org",
       "@type": "Book",

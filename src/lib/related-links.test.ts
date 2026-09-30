@@ -183,3 +183,24 @@ test("redirected brands are not linkable and hubs skip them", () => {
   assert.match(read("app/flip/page.tsx"), /isRedirectedPath\(`\/flip\/\$\{r\.slug\}`\)/)
   assert.match(read("app/data/page.tsx"), /isRedirectedPath\(`\/flip\/\$\{slug\}`\)/)
 })
+
+test("every family emits BreadcrumbList JSON-LD (hubs and leaves)", () => {
+  for (const f of [
+    "app/blog/[slug]/page.tsx", "app/blog/page.tsx", "app/flip/page.tsx", "app/flip/[brand]/page.tsx",
+    "app/flip/[brand]/[category]/page.tsx", "app/flip/[brand]/model/[slug]/page.tsx", "app/category/page.tsx",
+    "app/category/[category]/page.tsx", "app/buy/page.tsx", "app/buy/[brand]/page.tsx", "app/buy/[brand]/[category]/page.tsx",
+    "app/glossary/page.tsx", "app/glossary/[term]/page.tsx", "app/manual/page.tsx", "app/manual/[chapter]/page.tsx",
+    "app/tools/page.tsx", "app/tools/[slug]/page.tsx", "components/seo/landing-page.tsx",
+  ]) assert.match(read(f), /BreadcrumbList|breadcrumbJsonLd\(/, `${f}: no BreadcrumbList JSON-LD`)
+})
+
+test("/buy hub ItemList only names brands whose /buy page exists", () => {
+  assert.match(read("app/buy/page.tsx"), /hasBuyBrand\(b\.slug\)/)
+})
+
+test("breadcrumbJsonLd builds absolute, 1-indexed ListItems", async () => {
+  const { breadcrumbJsonLd } = await import("./breadcrumbs.ts")
+  const b = breadcrumbJsonLd([["Resale IQ", "/"], ["Blog", "/blog"]])
+  assert.equal(b["@type"], "BreadcrumbList")
+  assert.deepEqual(b.itemListElement.map((x: { position: number; item: string }) => [x.position, x.item]), [[1, "https://resaleiq.dev"], [2, "https://resaleiq.dev/blog"]])
+})

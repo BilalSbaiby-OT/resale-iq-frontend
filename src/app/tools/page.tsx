@@ -27,6 +27,7 @@ import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
@@ -76,7 +77,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
     getPublicBuyList(5),
   ])
   const cite = formatTeaserCite(initialQuery ?? "", teaser)
-  const jsonLd = [faqPageJsonLd(hub.faqs), definedTermJsonLd(hub.definedTerm)]
+  const jsonLd = [breadcrumbJsonLd([["Resale IQ", "/"], ["Tools", "/tools"]]), faqPageJsonLd(hub.faqs), definedTermJsonLd(hub.definedTerm)]
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -173,7 +174,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           {t.volumesBefore}
           <Link href={canonicalPath(locale, "/data")} style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>{t.volumesData}</Link>
           {t.volumesMid}
-          <Link href={canonicalPath(locale, "/flip")} style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>{t.volumesFlips}</Link>
+          <Link href="/flip" style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "none" }}>{t.volumesFlips}</Link>
           {t.volumesEnd}
         </p>
 

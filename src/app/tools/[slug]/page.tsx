@@ -27,6 +27,7 @@ import { BlogProofStrip } from "@/components/blog-proof-strip"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { RelatedLinks } from "@/components/seo/related-links"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 export function generateStaticParams() {
   return INTENTS.map((i) => ({ slug: i.slug }))
 }
@@ -102,6 +103,7 @@ export default async function IntentPage(
   const howto = toolsHowToJsonLd(i)
   const howtoHeading = toolHowToHeading(i)
   const jsonLd = [
+    breadcrumbJsonLd([["Resale IQ", "/"], ["Tools", "/tools"], [i.h1, `/tools/${slug}`]]),
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",

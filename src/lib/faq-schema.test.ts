@@ -93,7 +93,10 @@ test("/tools hub has FAQPage, answer-first title, and matching social titles", (
   assert.match(src, /openGraph: \{ title: TITLE/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE/)
   assert.match(src, /canonicalPath\(locale, "\/data"\)/)
-  assert.match(src, /canonicalPath\(locale, "\/flip"\)/)
+  // /flip has no locale route (proxy 307s /es/flip -> /flip), so the hub links the bare path; a locale-prefixed
+  // /flip link was a redirect on every translated /tools page (crawl 2026-09-30).
+  assert.match(src, /href="\/flip"/)
+  assert.doesNotMatch(src, /canonicalPath\(locale, "\/flip"\)/)
   assert.doesNotMatch(src, /\/register/)
   assert.doesNotMatch(src, /HowTo/)
   assert.doesNotMatch(src, /Vinted Reseller Tools — Price Checker/)

@@ -11,6 +11,7 @@ import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
 import { getMarketNumbers } from "@/lib/market-numbers"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 async function generateMetadataRaw(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
   const desc = `Practical guides for Vinted resellers backed by ${tracked} tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.`
@@ -96,7 +97,7 @@ export default async function BlogIndex() {
 
   return (
     <div style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "48px 24px" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, breadcrumbJsonLd([["Resale IQ", "/"], ["Blog", "/blog"]])]) }} />
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
         <Link href="/" style={{ color: "var(--color-buy-ink)", fontSize: 13, textDecoration: "none", display: "inline-flex", alignItems: "center", minHeight: 44}}>← Resale IQ</Link>
         <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "var(--color-text-primary)", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>

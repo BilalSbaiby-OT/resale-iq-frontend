@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, fmtCountBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
 
 import { fitMetadata } from "@/lib/meta-fit"
+import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
+import { hasBuyBrand } from "@/lib/related-links"
 export const metadata: Metadata = fitMetadata({
   title: "What to Pay for Secondhand Resale — Buy-Below Prices by Brand",
   description:
@@ -24,7 +26,7 @@ const jsonLd = {
     "What resellers should pay for secondhand inventory by brand and category, based on 30-day Vinted departures across Spain, France, Germany, Italy and Portugal.",
   url: "https://resaleiq.dev/buy",
   numberOfItems: BUY_DATA.total_pairs,
-  itemListElement: BUY_DATA.brands.slice(0, 20).map((b, i) => ({
+  itemListElement: BUY_DATA.brands.filter((b) => hasBuyBrand(b.slug)).slice(0, 20).map((b, i) => ({
     "@type": "ListItem",
     position: i + 1,
     name: `${b.brand} resale buy-below prices`,
@@ -39,7 +41,7 @@ export default function BuyHubPage() {
 
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, breadcrumbJsonLd([["Resale IQ", "/"], ["Buy prices", "/buy"]])]) }} />
       <div style={{ maxWidth: 860, margin: "0 auto" }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: 13, marginBottom: 18 }}>
