@@ -101,21 +101,30 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           // the live AF1 data card + "Run your first check" CTA below have a
           // real window to be seen and clicked — this is peak motivation
           // (email just verified) and previously it was gone in under a
-          // second. The auto-redirect to /dashboard still fires unless the
-          // user clicks the CTA first (founder rule preserved).
+          // second.
           // C(tony)C230: store timer ref so CTA click can cancel the redirect —
           // previously clicking the CTA still caused a /dashboard redirect 2500ms
           // later because the timer was not cancelled.
-          // C(tony)C231: Write the first-check seed before the /dashboard redirect.
+          // C(tony)C231: Write the first-check seed before the redirect.
           // Registration writes the seed to sessionStorage immediately after
           // account creation, but email verify links almost always open in a NEW
-          // TAB — a different sessionStorage context. The seed written at register
-          // time is dead by the time the user lands on /dashboard. We re-fetch and
-          // re-write it here so the "Your first check is ready" button on the
-          // dashboard shows for 100% of email-verified accounts, not just same-tab
-          // flows. Fire-and-forget: any error falls back gracefully (writeFirstCheckSeed
-          // swallows storage exceptions; fetchFirstCheckQuery returns FREE_MODELS[0]).
-          fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
+          // TAB — a different sessionStorage context. We re-fetch and re-write here.
+          // C(tony)VerifyEmailDirectVerdict: auto-redirect now goes to the first
+          // verdict URL (same query the CTA uses), not /dashboard. Superhuman
+          // pattern: deliver the aha moment directly — user gets their first real
+          // answer immediately after verifying, not another button to click.
+          // Activation was 57% (13/23 verified) with the seed-on-dashboard pattern;
+          // any verified user who misses the 2500ms CTA gets a blank dashboard.
+          // Now both paths (click CTA + wait for timer) land on the same answer.
+          // Falls back to Nike Air Force 1 if buy-list fetch fails.
+          // Founder auth rule preserved: /login and /register are plain forms;
+          // this redirect is a one-time post-verify event, not a form redirect.
+          let firstCheckQuery = "Nike Air Force 1"
+          try {
+            const q = await fetchFirstCheckQuery()
+            firstCheckQuery = q
+            writeFirstCheckSeed(q)
+          } catch { writeFirstCheckSeed(firstCheckQuery) }
           const go = (href: string) => {
             redirectTimerRef.current = setTimeout(() => router.replace(href), 2500)
           }
@@ -139,7 +148,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           if (checkoutAbandoned) {
             go(`/pricing?ref=verify-abandoned`)
           } else {
-            go(`/dashboard`)
+            go(`/verdict?q=${encodeURIComponent(firstCheckQuery)}&src=email_verified`)
           }
           return
         }
