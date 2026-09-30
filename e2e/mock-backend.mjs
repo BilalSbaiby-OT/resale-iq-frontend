@@ -568,6 +568,39 @@ const server = http.createServer(async (req, res) => {
 
   const user = caller(req)
 
+  // Paid buy-list (api/routes.py paid_buy_list): 402 without Starter/Pro, else every row
+  // unlocked with max_buy_price. Mirrors the live response shape (`items`).
+  if (url.startsWith("/api/buy-list")) {
+    if (!user || !["operator", "power"].includes(user.plan)) { json(res, 402, { detail: { message: "subscription required" } }); return }
+    const row = (brand, model, category, momentum, sold_30d, avg, mbp) => ({
+      brand, model, category, verdict: momentum === "HOT" ? "BUY" : momentum === "RISING" ? "RISING" : "WATCH", momentum,
+      sold_7d: null, sold_30d, avg_price_eur: avg, median_price_eur: avg, max_buy_price: mbp, locked: false,
+      updated_at: "2026-09-29 06:00:00",
+    })
+    json(res, 200, { items: [
+      row("Stone Island", "Hoodie", "Hoodies", "HOT", 1240, 62.23, 41.38),
+      row("Fred Perry", "Fred Perry Polo", "Shirts", "STABLE", 1656, 12.22, 8.13),
+      row("Fred Perry", "Fred Perry T-Shirt", "T-Shirts", "STABLE", 659, 11.53, 7.67),
+      row("Patagonia", "Synchilla", "Jackets", "RISING", 412, 58.4, 38.83),
+      row("Balenciaga", "Track", "Sneakers", "RISING", 310, 140.1, 93.15),
+      row("Nike", "Air Force 1 Low", "Sneakers", "HOT", 980, 44.9, 29.86),
+    ], count: 6, plan: user.plan })
+    return
+  }
+  // Read-only trial line source (api/stripe_routes.py trial_status). alice is mid-trial; others are not.
+  if (url === "/stripe/trial-status") {
+    if (!user) { json(res, 401, { detail: "Auth required" }); return }
+    if (user.email === "alice@example.com") {
+      json(res, 200, { trialing: true, trial_end: new Date(Date.now() + 5.5 * 86400000).toISOString(), price_label: "€19/month", plan: user.plan })
+    } else json(res, 200, { trialing: false, trial_end: null, price_label: null, plan: user.plan })
+    return
+  }
+  if (url === "/stripe/portal") {
+    if (!user) { json(res, 401, { detail: "Auth required" }); return }
+    json(res, 200, { portal_url: "http://localhost:3999/mock-portal" })
+    return
+  }
+
   if (url === "/auth/me") {
     if (!user) { json(res, 401, { detail: "Not authenticated" }); return }
     res.setHeader("Cache-Control", "no-store, private")

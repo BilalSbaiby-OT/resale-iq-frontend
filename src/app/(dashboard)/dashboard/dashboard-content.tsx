@@ -21,6 +21,8 @@ import { formatStrPct } from "@/lib/str-pct"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useRouter } from "next/navigation"
 import { isPaidPlan } from "@/lib/entitlement"
+import { TrialLine } from "@/components/dashboard/trial-line"
+import { WeeklyBuyList } from "@/components/dashboard/weekly-buy-list"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
 
 /**
@@ -38,7 +40,7 @@ import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
  * (same buy-list the dashboard hero renders) so one click triggers a verdict.
  * src=dashboard_suggestion tracks activation from this surface.
  */
-function QuickCheckInput({ locale, suggestions }: { locale: Locale; suggestions?: string[] }) {
+function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; suggestions?: string[]; paid?: boolean }) {
   const [query, setQuery] = useState("")
   const router = useRouter()
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,6 +51,11 @@ function QuickCheckInput({ locale, suggestions }: { locale: Locale; suggestions?
   }
   return (
     <div style={{ marginBottom: 24 }}>
+      {paid && (
+        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
+          Check any item before you buy
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         data-testid="riq-dashboard-quick-check"
@@ -230,6 +237,8 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   // Each section loads independently — one slow endpoint never blanks the page.
   const [kpis, setKpis] = useState<KPIs | null>(null)
   const [publicBuys, setPublicBuys] = useState<PublicBuyItem[] | null>(null)
+  // Paid/trialing accounts get the whole unlocked list; everyone else the 5-row teaser above.
+  const [fullBuys, setFullBuys] = useState<PublicBuyItem[] | null>(null)
   const [deals, setDeals] = useState<Deal[] | null>(null)
   const [dealsLocked, setDealsLocked] = useState(false)
   const [strLocked, setStrLocked] = useState(false)
@@ -259,7 +268,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
     // unlocked buy-below prices in the "What to buy today" section.
     const token = getToken()
     const buyListHeaders: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
-    fetch("/api/buy-list?limit=6", { headers: buyListHeaders })
+    fetch("/api/buy-list?limit=25", { headers: buyListHeaders })
       .then(r => {
         if (r.status === 402) {
           // Free/anon user — fall back to public teaser
@@ -270,7 +279,10 @@ export function DashboardContent({ locale }: { locale: Locale }) {
       .then(d => {
         // Paid endpoint returns { results: [...] }, public returns { items: [...] }
         const rows = d?.results ?? d?.items
-        if (rows?.length) setPublicBuys((rows as PublicBuyItem[]).slice(0, 5))
+        if (rows?.length) {
+          setPublicBuys((rows as PublicBuyItem[]).slice(0, 5))
+          setFullBuys(rows as PublicBuyItem[])
+        }
       })
       .catch(() => {})
     getDeals({ limit: 8 })
@@ -341,37 +353,20 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           11 of 25 accounts ran 0 verdicts because checking required navigating to /verdict.
           This input submits directly to /verdict?q=... with src=dashboard_quick_check
           so funnel analytics can measure activation from the dashboard. */}
+      {isPaidPlan(user) && <TrialLine />}
+
       <QuickCheckInput
         locale={locale}
-        suggestions={publicBuys
+        paid={isPaidPlan(user)}
+        suggestions={publicBuys && !isPaidPlan(user)
           ? publicBuys.slice(0, 4).map(b => b.model ? `${b.brand} ${b.model}` : b.brand)
           : undefined}
       />
 
-      {/* PAID USER ONBOARDING: 3-step plain-language guide shown once on first visit.
-          Shown to paid users (Starter/Pro) when there's no ?welcome=1 (already handled above).
-          Gives new accounts a mental model for what to do next. */}
-      {isPaidPlan(user) && !showWelcome && (
-        <div
-          data-testid="riq-paid-onboarding"
-          style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: "16px 20px", marginBottom: 24 }}
-        >
-          <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 12 }}>
-            Three things to do right now
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {[
-              { n: "1", text: "See this week's buy list — scroll down for the ranked items to stock.", href: "#what-to-buy" },
-              { n: "2", text: "Check any item before you buy — type brand + model in the box above.", href: "/verdict" },
-              { n: "3", text: "Save items to your watchlist — click any item, then Watchlist.", href: "/watchlist" },
-            ].map(({ n, text, href }) => (
-              <Link key={n} href={href} style={{ display: "flex", gap: 12, alignItems: "flex-start", textDecoration: "none" }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-accent)", background: "rgba(52,199,89,.10)", border: "1px solid rgba(52,199,89,.25)", borderRadius: 6, padding: "2px 8px", flexShrink: 0, lineHeight: 1.6 }}>{n}</span>
-                <span style={{ fontSize: 14, color: "var(--color-graphite-muted)", lineHeight: 1.5, paddingTop: 2 }}>{text}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
+      {/* Paid/trialing: the whole week's list, every row unlocked. Same
+          /api/buy-list the teaser below falls back from — no new data path. */}
+      {isPaidPlan(user) && fullBuys && fullBuys.length > 0 && (
+        <WeeklyBuyList rows={fullBuys.filter(r => !r.locked)} />
       )}
 
       {showWelcome && (
@@ -436,7 +431,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           Opportunities section below adds buy-below and deeper filters once
           loaded. Having NOTHING answered until /api/deals returned was the
           main activation failure: 11 of 25 accounts ran zero verdicts. */}
-      {publicBuys && publicBuys.length > 0 && (
+      {publicBuys && publicBuys.length > 0 && !(isPaidPlan(user) && fullBuys) && (
         <div
           data-testid="riq-hero-buy-list"
           style={{ ...CARD, marginBottom: 24, padding: "16px 20px" }}

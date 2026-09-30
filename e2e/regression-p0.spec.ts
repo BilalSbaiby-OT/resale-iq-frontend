@@ -279,7 +279,15 @@ test.describe("P0 — bare-brand is priced, next click is an item-level WATCH", 
     const body = await (await next).json()
     expect(["BUY", "WATCH", "SKIP"]).toContain(body.verdict)
     expect(body.buy_below).toEqual(expect.any(Number))
-    await expect(page.getByText("WATCH", { exact: true })).toBeVisible()
+    // "WATCH" also appears as chips in the live-opportunities aside (strict-mode clash),
+    // so pin the one in the result card: the verdict word whose card carries the
+    // "Sneakers · Confidence" line for the category we just clicked.
+    // Innermost div holding both the WATCH span and the confidence line = the result card.
+    const resultCard = page
+      .locator("xpath=//div[.//span[normalize-space(text())='WATCH'] and .//div[contains(., 'Sneakers · Confidence')]]")
+      .last()
+    await expect(resultCard.getByText("WATCH", { exact: true })).toBeVisible()
+    await expect(resultCard.getByText(/Sneakers · Confidence/)).toBeVisible()
   })
 })
 
@@ -356,15 +364,20 @@ test.describe("P0 — HARD_PAYWALL 402 is a checkout card, not an error or a lea
     await page.getByRole("button", { name: /Check this item/i }).click()
     const wall = page.getByTestId("riq-hard-paywall")
     await expect(wall).toBeVisible()
-    // H63 CRO changed the paywall CTA copy from "Start — €19" to "Unlock buy-below — €19/mo"
-    await expect(wall).toContainText(/Unlock buy-below — €19\/mo/)
+    // Card-required 7-day trial (2026-09-30): the CTA is "Start my 7-day free trial"
+    // and the offer is honest about the price — €0 today, €19/month from the charge date.
+    await expect(wall.getByRole("link", { name: /Start my 7-day free trial/i }).or(wall.getByRole("button", { name: /Start my 7-day free trial/i })).first()).toBeVisible()
+    await expect(wall).toContainText(/€0\s*today/)
+    await expect(wall).toContainText(/€19\/month/)
     // The locked buy_below value (32.01) and sell_avg (48.14) must never render.
     // Note: the copy intentionally says "buy-below price" as CRO — the test guards
     // the numeric value leaking, not the word.
     await expect(wall).not.toContainText(/32\.01/)
     await expect(wall).not.toContainText(/48\.14/)
     await expect(page.getByText(/Could not check that item/i)).toHaveCount(0)
-    await expect(page.getByText(/Unlock the rest/i)).toHaveCount(0)
+    // Scoped to the wall: the live-opportunities aside legitimately shows "Unlock the rest"
+    // on its own locked rows; the assertion is that the paywall card has no half-teaser copy.
+    await expect(wall.getByText(/Unlock the rest/i)).toHaveCount(0)
     // Fine-print refund line (riq-paywall-guarantee) must be present on the
     // conversion surface for cold/anonymous traffic — now as a muted /terms link.
     // Founder decision (2026-09-28): quiet fine print only; no prominent guarantee.

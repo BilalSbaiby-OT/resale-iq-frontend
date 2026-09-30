@@ -273,6 +273,8 @@ export const verifyCheckoutSession = (sessionId: string) =>
     `/stripe/verify-session?session_id=${encodeURIComponent(sessionId)}`,
   )
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")
+export const getTrialStatus = () =>
+  request<{ trialing: boolean; trial_end: string | null; price_label: string | null; plan: string | null }>("/stripe/trial-status")
 
 // Watchlist
 // locked:true means max_buy_price/avg_price_eur/str_pct/opportunity_score are
