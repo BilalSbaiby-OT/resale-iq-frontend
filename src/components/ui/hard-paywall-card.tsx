@@ -13,6 +13,7 @@ import { trackEvent } from "@/lib/analytics"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { FREE_MODELS } from "@/lib/working-models"
+import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -71,8 +72,11 @@ export function HardPaywallCard({
   // riq_capture_email is written by HomepageEmailCta and BlogIndexCheckoutCta.
   // Reading in useEffect (client-only) avoids SSR mismatch. Revenue 2026-09-23.
   const [capturedEmail, setCapturedEmail] = useState("")
+  const [chargeDate, setChargeDate] = useState<string | null>(null)
   useEffect(() => {
     try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+    setChargeDate(firstChargeDate(locale))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   // H122 CRO: inline email input on the paywall card for direct /tools traffic.
   // A visitor who arrives at /tools directly has never typed their email on homepage
@@ -195,11 +199,27 @@ export function HardPaywallCard({
           marginBottom: 14,
         }}
       >
-        <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 8 }}>
-          <span style={{ fontSize: 28, fontWeight: 800, color: "#eef1f7", letterSpacing: "-0.5px" }}>
-            €{price}
-          </span>
-          <span style={{ fontSize: 13, color: "#8b99b8" }}>/month · cancel anytime</span>
+        {/* H189 CRO: lead with €0 today (trial framing) not €19/month.
+            Before: "€19 / /month · cancel anytime" — anchors on cost before value.
+            After: "€0 today" large, then "then €19/month after {N}-day trial" small.
+            GuestCheckoutButton already shows this in its disclosure, but it's small text
+            below the button. The price header is the FIRST number the visitor reads
+            inside the offer box — it must match the trial promise, not contradict it.
+            CRO #3 (message match: every surface says free trial, now so does the header)
+            + #8 (loss-framing: "€0 today" > "€19/month" on cold traffic)
+            + #12 (conviction before commitment: trial is the offer, show it first).
+            Surface: blog 130/7d, /tools 10/7d, /pricing paywall. Revenue 2026-09-30. H189. */}
+        <div style={{ marginBottom: 8 }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+            <span style={{ fontSize: 28, fontWeight: 800, color: "#34C759", letterSpacing: "-0.5px" }}>
+              €0
+            </span>
+            <span style={{ fontSize: 13, color: "#8b99b8" }}>today</span>
+          </div>
+          <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>
+            then €{price}/month after your {TRIAL_DAYS}-day trial
+            {chargeDate ? ` · first charge ${chargeDate}` : ""}
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
           {[
