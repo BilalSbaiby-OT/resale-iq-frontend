@@ -245,7 +245,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           CRO #4 (objection handling NEXT TO the doubt) + #7 (trust, last chance)
           + #9 (every section must do a job — this removes remaining doubt).
           Revenue 2026-09-29. H167. */}
-      <PricingFaq />
+      <PricingFaq locale={locale} />
       {/* Founder feedback 2026-09-29: /partners had no inbound links anywhere on
           the site. /pricing has no site-wide <footer> (that only exists on the
           homepage via LandingContent) — this is the smallest honest fix: one

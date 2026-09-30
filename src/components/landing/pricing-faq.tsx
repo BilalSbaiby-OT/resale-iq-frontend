@@ -29,10 +29,30 @@
  * CRO: #4 (objection handling NEXT TO the doubt) + #7 (trust before CTA — technically
  * after first CTA but before the visitor bounces) + #9 (every section must do a job —
  * this removes doubt, which reduces doubt). Revenue 2026-09-29. H167.
+ *
+ * H188 CRO: post-FAQ earned checkout CTA.
+ * Pattern (fetched 2026-09-29): Fathom closes its FAQ with "Start your free trial" button.
+ * Plausible closes its FAQ block with a "Start free trial" CTA. Linear closes with a
+ * "Get started" link right after the comparison table + FAQ block.
+ * The GAP: PricingFaq ended with just a closing border — no conversion path. A visitor
+ * who read all 6 FAQ items has resolved every objection the page raised. That is the
+ * highest-conviction visitor on the page. They reached the bottom with doubts answered
+ * and faced: nothing. The sticky bar is the only CTA after FAQ, and it fires only if
+ * the visitor has scrolled far enough and noticed it.
+ * FIX: one GuestCheckoutButton immediately after the FAQ borderBottom — same "Start
+ * for €19" text, same src="pricing_faq_cta" for analytics. No email input (CRO #6 —
+ * this visitor is convinced; extra fields add friction at the moment of decision).
+ * Email pre-filled from localStorage if captured earlier (same pattern as every other
+ * CTA surface). CRO #10 (CTA discipline: convinced visitor → earned commit CTA)
+ * + #12 (momentum: objections answered → ask immediately follows)
+ * + #9 (friction: checkout surface at the exact right moment, no scroll-back needed).
+ * Surface: /pricing 12/7d. Revenue 2026-09-30. H188.
  */
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import type { Locale } from "@/lib/i18n"
 
 interface FaqItem {
   q: string
@@ -141,7 +161,13 @@ function FaqRow({ item }: { item: FaqItem }) {
   )
 }
 
-export function PricingFaq() {
+export function PricingFaq({ locale = "en" }: { locale?: Locale }) {
+  // H188: pre-fill email from localStorage if captured by an earlier surface.
+  const [capturedEmail, setCapturedEmail] = useState("")
+  useEffect(() => {
+    try { setCapturedEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
+  }, [])
+
   return (
     <div
       data-testid="riq-pricing-faq"
@@ -179,6 +205,28 @@ export function PricingFaq() {
         {FAQS.map((item) => (
           <FaqRow key={item.q} item={item} />
         ))}
+      </div>
+      {/* H188 CRO: earned checkout CTA after all objections are answered.
+          A visitor who reached the end of the FAQ has resolved every doubt the page
+          raised. No CTA was here before — they faced a closing border and nothing else.
+          Fathom / Plausible / Linear all close their FAQ blocks with a checkout button.
+          One button, email pre-filled, src="pricing_faq_cta" for analytics tracing.
+          CRO #10 (earned commit CTA) + #12 (momentum: answer → ask) + #9 (no scroll-back). */}
+      <div
+        data-testid="riq-faq-cta"
+        style={{
+          marginTop: 28,
+          textAlign: "center",
+        }}
+      >
+        <GuestCheckoutButton
+          locale={locale}
+          src="pricing_faq_cta"
+          customerEmail={capturedEmail}
+        />
+        <p style={{ margin: "8px 0 0", fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.4 }}>
+          Cancel anytime · 30-day refund policy
+        </p>
       </div>
     </div>
   )
