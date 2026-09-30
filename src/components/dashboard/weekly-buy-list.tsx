@@ -7,6 +7,7 @@ import { itemDisplayName } from "@/lib/item-display-name"
 export interface BuyRow {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
   locked: boolean; sold_30d?: number | null; sold_30d_evidence?: number | null
+  sold_7d?: number | null
   avg_price_eur: number | null; max_buy_price?: number | null; updated_at?: string
 }
 
@@ -27,8 +28,10 @@ function updatedLabel(rows: BuyRow[]): string | null {
  * THIS WEEK'S FULL BUY LIST for paid/trialing accounts: every row unlocked,
  * buy-below (the most you should pay) next to the exit price (average asking
  * price at departure). Data = the existing paid /api/buy-list, untouched.
+ * trialMode: show "Top this week" heading instead of "This week's buy list"
+ * so trial users see demand signals without a BUY label that implies certainty.
  */
-export function WeeklyBuyList({ rows }: { rows: BuyRow[] }) {
+export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; trialMode?: boolean }) {
   const [watched, setWatched] = useState<Set<string>>(new Set())
   const updated = updatedLabel(rows)
   const watch = async (r: BuyRow) => {
@@ -43,7 +46,7 @@ export function WeeklyBuyList({ rows }: { rows: BuyRow[] }) {
       style={{ background: "var(--color-graphite-elevated)", borderRadius: 14, padding: "16px 16px 12px", marginBottom: 24 }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>This week’s buy list</h2>
+        <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>{trialMode ? "Top this week" : "This week’s buy list"}</h2>
         <span style={{ fontSize: 12, color: "var(--color-graphite-muted)" }}>{rows.length} items · EU5 Vinted</span>
       </div>
       <div data-testid="riq-buy-list-updated" style={{ fontSize: 12.5, color: "var(--color-graphite-muted)", margin: "4px 0 10px" }}>
@@ -67,7 +70,7 @@ export function WeeklyBuyList({ rows }: { rows: BuyRow[] }) {
                 <span style={{ fontSize: 14.5, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.25 }}>{label}</span>
                 <span style={{ display: "block", fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 1 }}>
                   <span style={{ color: VC[v] ?? "#8E8E93", fontWeight: 700, letterSpacing: "0.03em" }}>{v}</span>
-                  {r.sold_30d != null ? ` · ${r.sold_30d.toLocaleString("en-GB")}/30d` : ""}
+                  {r.sold_7d != null ? ` · ${r.sold_7d.toLocaleString("en-GB")} dep/7d` : r.sold_30d != null ? ` · ${r.sold_30d.toLocaleString("en-GB")}/30d` : ""}
                 </span>
               </Link>
               <span style={{ textAlign: "right", fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums" }}>{eur0(r.max_buy_price)}</span>

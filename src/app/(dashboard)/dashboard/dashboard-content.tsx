@@ -20,7 +20,7 @@ import { isFieldLocked } from "@/lib/locked-fields"
 import { formatStrPct } from "@/lib/str-pct"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { useRouter } from "next/navigation"
-import { isPaidPlan } from "@/lib/entitlement"
+import { isPaidPlan, planState } from "@/lib/entitlement"
 import { TrialLine } from "@/components/dashboard/trial-line"
 import { WeeklyBuyList } from "@/components/dashboard/weekly-buy-list"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
@@ -248,6 +248,9 @@ export function DashboardContent({ locale }: { locale: Locale }) {
   const [sold, setSold] = useState<RecentSold[] | null>(null)
   const { user } = useAuthStore()
   const plan = user?.plan || "free"
+  // Trial users have backend access identical to paid; show full buy list to both.
+  const canSeeFullList = isPaidPlan(user) || planState(user) === "trial"
+  const isTrialOnly = !isPaidPlan(user) && planState(user) === "trial"
   const [showWelcome] = useState(
     () => typeof window !== "undefined" &&
       new URLSearchParams(window.location.search).get("welcome") === "1")
@@ -357,16 +360,17 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
       <QuickCheckInput
         locale={locale}
-        paid={isPaidPlan(user)}
-        suggestions={publicBuys && !isPaidPlan(user)
+        paid={canSeeFullList}
+        suggestions={publicBuys && !canSeeFullList
           ? publicBuys.slice(0, 4).map(b => b.model ? `${b.brand} ${b.model}` : b.brand)
           : undefined}
       />
 
-      {/* Paid/trialing: the whole week's list, every row unlocked. Same
-          /api/buy-list the teaser below falls back from — no new data path. */}
-      {isPaidPlan(user) && fullBuys && fullBuys.length > 0 && (
-        <WeeklyBuyList rows={fullBuys.filter(r => !r.locked)} />
+      {/* Paid + active trial: the whole week's list, every row unlocked. Same
+          /api/buy-list the teaser below falls back from — no new data path.
+          Trial users see "Top this week" label (not BUY) per product spec. */}
+      {canSeeFullList && fullBuys && fullBuys.length > 0 && (
+        <WeeklyBuyList rows={fullBuys.filter(r => !r.locked)} trialMode={isTrialOnly} />
       )}
 
       {showWelcome && (
@@ -431,7 +435,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           Opportunities section below adds buy-below and deeper filters once
           loaded. Having NOTHING answered until /api/deals returned was the
           main activation failure: 11 of 25 accounts ran zero verdicts. */}
-      {publicBuys && publicBuys.length > 0 && !(isPaidPlan(user) && fullBuys) && (
+      {publicBuys && publicBuys.length > 0 && !(canSeeFullList && fullBuys) && (
         <div
           data-testid="riq-hero-buy-list"
           style={{ ...CARD, marginBottom: 24, padding: "16px 20px" }}
