@@ -70,7 +70,7 @@ const FAQS: FaqItem[] = [
     // and scrolled to the FAQ instead of clicking — they need the trial answer before coverage.
     // Revenue 2026-09-30. H193.
     q: "What happens at the end of the 7-day trial?",
-    a: "Your card is charged at the plan price on day 7. You will get an email reminder on day 6 so you are never surprised. Cancel any time before then from your account page — no call, no confirmation screen, no retention trap. If you forget and get charged, email support@resaleiq.dev within 30 days for a full refund.",
+    a: "Your card is charged at the plan price on day 7. You will get an email reminder a few days before your first charge so you are never surprised. Cancel any time before then from your account page — no call, no confirmation screen, no retention trap. If you forget and get charged, email support@resaleiq.dev within 30 days for a full refund.",
   },
   {
     q: "Which markets does Resale IQ cover?",
