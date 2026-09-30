@@ -65,22 +65,32 @@ export async function fetchFirstCheckQuery(
   }
 }
 
+// C(tony)SeedLocalStorage: seed moved to localStorage so verified users who
+// close and reopen the browser still see the first-run CTA on /dashboard
+// (sessionStorage is per-tab and per-session — a user who verifies, closes
+// their laptop, returns the next day is still JWT-authed but their seed was
+// gone, leaving 11/25 verified accounts with 0 verdicts and a blank dashboard).
+// TTL extended from 30min to 24h for the same reason: verifying at 10pm and
+// returning at 8am was also a miss. The read/write API is unchanged — callers
+// (register-form, verify-email, login-form, AppShell) need no update.
+const SEED_TTL_MS = 24 * 60 * 60 * 1000 // 24h
+
 export function writeFirstCheckSeed(query: string): void {
   try {
-    sessionStorage.setItem(FIRST_CHECK_SEED_KEY, JSON.stringify({ q: query, ts: Date.now() }))
+    localStorage.setItem(FIRST_CHECK_SEED_KEY, JSON.stringify({ q: query, ts: Date.now() }))
   } catch {
-    // why: private mode has no sessionStorage. Signup still lands on /dashboard.
+    // why: private mode / storage quota. Signup still lands on /dashboard.
   }
 }
 
 export function readFirstCheckSeed(): string | null {
   try {
-    const raw = sessionStorage.getItem(FIRST_CHECK_SEED_KEY)
+    const raw = localStorage.getItem(FIRST_CHECK_SEED_KEY)
     if (!raw) return null
     const parsed = JSON.parse(raw) as { q?: string; ts?: number }
     if (!parsed.q || typeof parsed.q !== "string") return null
-    if (parsed.ts && Date.now() - parsed.ts > 30 * 60 * 1000) {
-      sessionStorage.removeItem(FIRST_CHECK_SEED_KEY)
+    if (parsed.ts && Date.now() - parsed.ts > SEED_TTL_MS) {
+      localStorage.removeItem(FIRST_CHECK_SEED_KEY)
       return null
     }
     const canonical = FREE_SET.get(parsed.q.toLowerCase())
@@ -92,7 +102,7 @@ export function readFirstCheckSeed(): string | null {
 }
 
 export function clearFirstCheckSeed(): void {
-  try { sessionStorage.removeItem(FIRST_CHECK_SEED_KEY) } catch { /* why: private mode — nothing to clear */ }
+  try { localStorage.removeItem(FIRST_CHECK_SEED_KEY) } catch { /* why: private mode — nothing to clear */ }
 }
 
 export function markSignupPending(): void {
