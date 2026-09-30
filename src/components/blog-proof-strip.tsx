@@ -208,7 +208,7 @@ export function BlogProofStrip({
         ))}
         {locked.length > 0 && (
           <div style={{ marginTop: 8 }}>
-            <GuestCheckoutButton locale="en" label={BUY_LIST_UNLOCK_LABEL} src="blog_buy_list_locked" />
+            <GuestCheckoutButton locale="en" src="blog_buy_list_locked" />
           </div>
         )}
       </div>

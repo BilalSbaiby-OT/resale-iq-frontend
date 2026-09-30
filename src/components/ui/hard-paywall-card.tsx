@@ -237,7 +237,7 @@ export function HardPaywallCard({
             }}
           />
         )}
-        <GuestCheckoutButton locale={locale} label={t.paywallCta(price)} src="paywall_card" query={query} customerEmail={capturedEmail || undefined} />
+        <GuestCheckoutButton locale={locale} src="paywall_card" query={query} customerEmail={capturedEmail || undefined} />
         {/* H153 CRO: guarantee badge immediately below CTA.
             The 30-day refund guarantee existed as near-invisible fine-print (#4d5a75)
             buried below Aw26ReportCta and text blocks. Plausible places "no credit card

@@ -295,7 +295,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
             <Link href={`${prefix}/tools/vinted-price-checker?src=data-check`} style={{ display: "inline-block", background: "var(--color-buy)", color: "var(--color-on-buy)", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}>
               {t.checkCta}
             </Link>
-            <GuestCheckoutButton locale={locale} label="Start Starter — €19/mo" src="data_cta" />
+            <GuestCheckoutButton locale={locale} src="data_cta" />
           </div>
         </div>
 

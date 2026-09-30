@@ -134,7 +134,9 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     const text = (await panel.innerText()).trim()
     expect(text.length).toBeGreaterThan(0)
     expect(text).not.toMatch(/undefined|NaN/)
-    expect(text).not.toMatch(/€0\b/)
+    // "€0 today" is the trial disclosure under the checkout button (2026-09-30),
+    // not a price shown for the item — still fail on any other €0.
+    expect(text).not.toMatch(/€0\b(?! today)/)
 
     // A real reason from the API is shown — not invented, not dropped. Uses
     // whatever the server actually sent for this fixture, not a hardcoded

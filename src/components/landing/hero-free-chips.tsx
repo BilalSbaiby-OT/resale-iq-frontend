@@ -347,7 +347,6 @@ function HeroInlineVerdictCard({
       <div style={{ marginTop: 8 }}>
         <GuestCheckoutButton
           locale={locale}
-          label="Starter — every item — €19/mo →"
           src="hero_inline_verdict_cta"
           query={query}
           customerEmail={email || undefined}

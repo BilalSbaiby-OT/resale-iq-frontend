@@ -370,7 +370,6 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
             <GuestCheckoutButton
               locale={locale}
-              label={BUY_LIST_UNLOCK_LABEL}
               src="buy_list_paywall"
             />
             <a

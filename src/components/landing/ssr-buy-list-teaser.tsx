@@ -353,7 +353,7 @@ export function SsrBuyListTeaser({
                     See plans →
                   </a>
                 ) : (
-                  <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="ssr_buy_list_pricing" />
+                  <GuestCheckoutButton locale={locale} src="ssr_buy_list_pricing" />
                 )}
                 <Link
                   href={`${canonicalPath(locale, "/tools")}?src=ssr_free_check_pricing`}

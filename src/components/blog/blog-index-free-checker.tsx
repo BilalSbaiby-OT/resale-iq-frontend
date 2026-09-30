@@ -293,11 +293,6 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               customerEmail prop below for return visitors. */}
           <GuestCheckoutButton
             locale={locale}
-            label={
-              isFreeSampleResult
-                ? "Unlock the full buy list — €19/mo →"
-                : `Unlock ${result.product} buy-below — €19/mo →`
-            }
             src="blog_index_free_checker"
             query={activeChip ?? undefined}
             customerEmail={capturedEmail || undefined}
@@ -333,7 +328,6 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               Stripe collects email natively. */}
           <GuestCheckoutButton
             locale={locale}
-            label={`Unlock ${paywallQuery} buy-below — €19/mo →`}
             src="blog_index_custom_paywall"
             query={paywallQuery}
             customerEmail={capturedEmail || undefined}

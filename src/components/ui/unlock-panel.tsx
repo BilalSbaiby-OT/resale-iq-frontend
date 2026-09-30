@@ -69,7 +69,7 @@ export function UnlockPanel({
         )}
         <Row>
           <span onClick={() => trackEvent("verdict_upsell_click", "verdict_page_unlock")}>
-            <GuestCheckoutButton locale="en" label="Start for €19" src="verdict_unlock" />
+            <GuestCheckoutButton locale="en" src="verdict_unlock" />
           </span>
           <Secondary href="/login">Sign in</Secondary>
         </Row>

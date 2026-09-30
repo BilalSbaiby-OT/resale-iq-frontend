@@ -1,6 +1,9 @@
 "use client"
+import { useEffect, useState } from "react"
 import { useGuestCheckout } from "@/hooks/use-guest-checkout"
 import type { Locale } from "@/lib/i18n"
+import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
+import { TIERS } from "@/lib/pricing"
 
 /**
  * GuestCheckoutButton — shared green "start Starter checkout" button.
@@ -9,19 +12,21 @@ import type { Locale } from "@/lib/i18n"
  * need the same button shape/styles/disabled logic with different label text.
  * Keeping it in one place means one place to break.
  *
- * Rendered label text is caller-supplied so the two surfaces can say different
- * things ("Get Starter — €19/mo →" vs "Start — €19/mo") without forking the component.
+ * The label is the card-required 7-day trial CTA from ONE place (lib/trial-cta.ts
+ * -> copy[locale].trial.cta[CTA_VARIANT]); call sites no longer hardcode labels,
+ * so a copy variant swaps in a single spot. Founder decision 2026-09-30.
  */
 export function GuestCheckoutButton({
   locale,
-  label,
   src,
   query,
   customerEmail,
   asLink = false,
+  annual = false,
 }: {
   locale: Locale
-  label: string
+  /** Deprecated/ignored: the label is always the trial CTA (single source). */
+  label?: string
   /** analytics tag for useGuestCheckout src= */
   src?: string
   /** Item query the visitor was checking — passed to useGuestCheckout to
@@ -32,9 +37,15 @@ export function GuestCheckoutButton({
   customerEmail?: string
   /** render as text link style (transparent bg) instead of filled green button */
   asLink?: boolean
+  /** yearly Starter price in the disclosure line (checkout itself is driven by the hook). */
+  annual?: boolean
 }) {
-  const { ready, busy, start } = useGuestCheckout({ locale, src, query, customerEmail })
-  return (
+  const { ready, busy, start } = useGuestCheckout({ locale, src, query, customerEmail, annual })
+  const [date, setDate] = useState<string | null>(null)
+  useEffect(() => { setDate(firstChargeDate(locale)) }, [locale])
+  const starter = TIERS.find((x) => x.id === "operator")
+  const price = annual ? (starter?.priceAnnual ?? 190) : (starter?.price ?? 19)
+  const button = (
     <button
       type="button"
       onClick={start}
@@ -59,7 +70,16 @@ export function GuestCheckoutButton({
         cursor: ready && !busy ? "pointer" : "wait",
       }}
     >
-      {label}
+      {trialCtaLabel(locale)}
     </button>
+  )
+  if (asLink) return button
+  return (
+    <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 6, maxWidth: 360 }}>
+      {button}
+      <span style={{ fontSize: 11.5, lineHeight: 1.4, textAlign: "center", color: "var(--color-text-muted)" }}>
+        {trialLine(locale, price, annual ? "year" : "month", date)} {trialCardLine(locale)}
+      </span>
+    </span>
   )
 }

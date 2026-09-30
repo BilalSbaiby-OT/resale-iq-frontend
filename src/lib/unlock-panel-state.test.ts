@@ -94,7 +94,9 @@ test("no authenticated state ever resolves to the register wall", () => {
 // lie. Pin the source so it cannot come back if the shell ever lets anons through.
 test("H60 register-branch copy sells Starter, never a 7-day trial or ?plan=free", () => {
   assert.match(PANEL_SRC, /GuestCheckoutButton/)
-  assert.match(PANEL_SRC, /Start for €19/)
+  // Label is the single-source trial CTA (lib/trial-cta.ts); the pinned promise is
+  // that the button is the guest-checkout one, not a hardcoded string.
+  assert.doesNotMatch(PANEL_SRC, /label=/)
   assert.doesNotMatch(PANEL_SRC, /href="\/register\?plan=operator/)
   assert.match(PANEL_SRC, /Starter \(€19\/mo\)/)
   assert.doesNotMatch(PANEL_SRC, />Create a free account</)

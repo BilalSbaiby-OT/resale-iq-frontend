@@ -45,7 +45,7 @@ function EyebrowInner({ locale = "en" }: { locale?: Locale }) {
             Starter €19/mo unlocks buy-below prices on every brand and model you source.
           </p>
         </div>
-        <GuestCheckoutButton locale={locale} label="Get Starter €19/mo →" src="pricing-try-free-eyebrow" />
+        <GuestCheckoutButton locale={locale} src="pricing-try-free-eyebrow" />
       </div>
     )
   }

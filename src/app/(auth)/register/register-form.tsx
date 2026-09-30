@@ -8,6 +8,7 @@ import { getPlans, isConflict, createCheckout } from "@/lib/api"
 import { trackEvent, type FunnelEvent, type RegisterFailReason } from "@/lib/analytics"
 import { resolvePriceId } from "@/lib/pricing"
 import { copy, WITHDRAWAL_WAIVER_TEXT, type Locale } from "@/lib/i18n"
+import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { fetchFirstCheckQuery, markSignupPending, writeFirstCheckSeed } from "@/lib/first-check-seed"
@@ -44,6 +45,8 @@ function planFromQuery(raw: string | null): PlanId {
 
 function RegisterContent({ locale }: { locale: Locale }) {
   const t = copy[locale].auth.register
+  const [chargeDate, setChargeDate] = useState<string | null>(null)
+  useEffect(() => { setChargeDate(firstChargeDate(locale)) }, [locale])
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const searchParams = useSearchParams()
@@ -302,11 +305,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
                   </a>
                 )}
               </div>
-              {t.paidTrustNote && (
-                <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-1.5">
-                  🔒 {t.paidTrustNote}
-                </p>
-              )}
+              {/* Card-required 7-day trial disclosure (single source: lib/trial-cta.ts). */}
+              <p data-testid="riq-register-trial-line" className="text-[12px] text-[var(--color-text-secondary)] text-center mt-1.5">
+                {trialLine(locale, prices[plan] ?? (plan === "power" ? 49 : 19), "month", chargeDate)}
+                <br />
+                <span className="text-[var(--color-text-muted)]">🔒 {trialCardLine(locale)}</span>
+              </p>
             </div>
           )}
 
@@ -390,7 +394,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : (
               <>
-                {isPaidPlan ? t.paidSubmit.replace("{plan}", t.planNames[plan]) : t.submit}
+                {isPaidPlan ? trialCtaLabel(locale) : t.submit}
                 <Check size={15} />
               </>
             )}

@@ -98,7 +98,6 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
             email already captured = intent > any cold visitor. Revenue 2026-09-23. */}
         <GuestCheckoutButton
           locale={locale}
-          label="Unlock full analysis — €19/mo →"
           src="digest_subscribe_success"
           query={query}
           customerEmail={email}
@@ -125,7 +124,6 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         {/* H93: same bridge for already-subscribed visitors — they know the product */}
         <GuestCheckoutButton
           locale={locale}
-          label="Unlock full analysis — €19/mo →"
           src="digest_already_subscribed"
           query={query}
           customerEmail={email}

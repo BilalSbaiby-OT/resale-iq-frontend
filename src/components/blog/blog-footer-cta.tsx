@@ -99,7 +99,6 @@ export function BlogFooterCta({
       )}
       <GuestCheckoutButton
         locale={locale}
-        label={`Unlock ${preflightQuery} buy-below — €19/mo →`}
         src="blog_footer_cta"
         query={preflightQuery}
         customerEmail={capturedEmail || undefined}

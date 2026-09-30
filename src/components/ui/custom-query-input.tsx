@@ -119,7 +119,6 @@ export function CustomQueryInput({
           )}
           <GuestCheckoutButton
             locale={locale}
-            label={`Unlock ${paywallQuery} buy-below — €19/mo →`}
             src={ctaSrc}
             query={paywallQuery}
             customerEmail={customerEmail || undefined}

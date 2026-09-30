@@ -209,7 +209,7 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
               }}>
                 Log in →
               </a>
-              <GuestCheckoutButton locale={locale} label="Start for €19" src="verdict-seed" />
+              <GuestCheckoutButton locale={locale} src="verdict-seed" />
             </div>
           )}
         </main>

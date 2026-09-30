@@ -202,6 +202,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
           demandMatch={null}
           planLabel={pendingPlanLabel}
           planPrice={pendingPlanPrice}
+          locale={localeProp}
           onContinue={() => {
             try { trackEvent("checkout_interstitial_clicked") } catch { /* never block */ }
             window.location.assign(pendingCheckoutUrl)

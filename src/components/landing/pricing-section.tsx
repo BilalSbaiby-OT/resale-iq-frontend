@@ -18,6 +18,7 @@ import {
 import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale, type FaqItem } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
+import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { useSellThroughLabel } from "@/lib/use-sell-through-label"
@@ -188,6 +189,10 @@ export function PricingSection({
   // signal: typing email increases micro-commitment before checkout).
   // Revenue 2026-09-23. H113.
   const [cardEmail, setCardEmail] = useState("")
+  // First-charge date (today + 7d). Computed after mount so SSR and hydration
+  // agree; until then the line reads "after your 7-day trial".
+  const [chargeDate, setChargeDate] = useState<string | null>(null)
+  useEffect(() => { setChargeDate(firstChargeDate(locale)) }, [locale])
   useEffect(() => {
     try { setCardEmail(localStorage.getItem("riq_capture_email") ?? "") } catch { /* private mode */ }
   }, [])
@@ -510,7 +515,6 @@ export function PricingSection({
           </p>
           <GuestCheckoutButton
             locale={locale}
-            label={cancelledItem ? `Unlock ${cancelledItem} — €19/mo →` : "Start now — €19/mo →"}
             src="pricing_cancelled_recovery"
             query={cancelledItem ?? undefined}
           />
@@ -601,9 +605,13 @@ export function PricingSection({
                 Yearly: same per-day maths off the annual total (÷365), so the
                 daily anchor stays honest instead of quoting the monthly rate
                 under a yearly price. */}
+            {/* Compact homepage strip drops the "about €0.63 a day" line: the trial
+                disclosure replaced it and the homepage word cap (<=500) is a guard. */}
+            {(!compact || tier.free) && (
             <div style={{ fontSize: s.perDay, color: "var(--color-text-muted)", marginBottom: billing === "yearly" && !tier.free ? 4 : 16, minHeight: 17 }}>
               {tier.free ? t.noCardRequired : t.perDay((tierPriceEur(tier, billing) / (billing === "yearly" ? 365 : 30)).toFixed(2))}
             </div>
+            )}
             {/* H148 CRO: per-card annual saving line — CRO #8 specificity.
                 The toggle badge says "2 months free" but that abstracts away the €.
                 A visitor comparing monthly vs yearly is already in a commitment frame;
@@ -756,13 +764,24 @@ export function PricingSection({
             }}>{busy === tier.id ? "…" : (
               pricingCtaKind(user, tier.id) === "current" ? t.currentPlanCta
               : pricingCtaKind(user, tier.id) === "manage" ? t.manageSubscriptionCta
-              : tier.cta
+              : trialCtaLabel(locale)
             )}</button>
+            {/* Card-required 7-day free trial: the disclosure sits directly under
+                the button (price, first-charge date, cancel path). Founder decision
+                2026-09-30; copy from lib/trial-cta.ts. Hidden once the visitor is
+                already on a paid plan (button then says Current plan / Manage). */}
+            {!compact && pricingCtaKind(user, tier.id) !== "current" && pricingCtaKind(user, tier.id) !== "manage" && (
+              <p data-testid={`riq-trial-line-${tier.id}`} style={{ textAlign: "center", fontSize: 12, color: "var(--color-text-secondary)", margin: "8px 0 0", lineHeight: 1.4 }}>
+                {trialLine(locale, tierPriceEur(tier, billing), billing === "yearly" ? "year" : "month", chargeDate)}
+                <br />
+                <span style={{ color: "var(--color-text-muted)" }}>{trialCardLine(locale)}</span>
+              </p>
+            )}
             {/* H90 CRO: add 30-day money-back guarantee to under-CTA copy at decision moment.
                 CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
-                Instant access · cancel anytime · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
+                <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
               </p>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
@@ -810,7 +829,16 @@ export function PricingSection({
           filled accent to the section — smoke.spec.ts asserts exactly one. */}
       {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 20, fontSize: 14, lineHeight: 1.5 }}>
-          <GuestCheckoutButton locale={locale} label={t.coldCtaLadder} src="pricing-cold-cta" asLink />
+          <GuestCheckoutButton locale={locale} src="pricing-cold-cta" asLink />
+        </p>
+      )}
+      {/* Homepage compact strip: ONE shared trial disclosure under both cards instead
+          of one per card — the homepage text-diet guard (<=500 words) is why. Same copy
+          source as the per-card line on /pricing (lib/trial-cta.ts). */}
+      {compact && !isPaidPlan(user) && (
+        <p data-testid="riq-trial-line-compact" style={{ textAlign: "center", marginTop: 14, fontSize: 12.5, color: "var(--color-text-secondary)", lineHeight: 1.45 }}>
+          {trialLine(locale, tierPriceEur(paidTiers[0], "monthly"), "month", chargeDate)}{" "}
+          <span style={{ color: "var(--color-text-muted)" }}>{trialCardLine(locale)}</span>
         </p>
       )}
       {/* AW26 one-off report secondary CTA — EUR49, no account, no subscription.
@@ -1104,7 +1132,7 @@ export function PricingSection({
                   <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
                     You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
                   </p>
-                  <GuestCheckoutButton locale={locale} label={`Get verdicts like this — €19/mo →`} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
+                  <GuestCheckoutButton locale={locale} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
                 </div>
               )}
             </div>
@@ -1268,7 +1296,7 @@ export function PricingSection({
           <p style={{ fontSize: 14, color: "var(--color-text-secondary)", margin: "0 0 20px", lineHeight: 1.55 }}>
             One search. BUY, WATCH or SKIP — and the most you can pay. Starter €19/mo, instant access, cancel anytime.
           </p>
-          <GuestCheckoutButton locale={locale} label="Start Starter €19 →" src="post-faq-cta" />
+          <GuestCheckoutButton locale={locale} src="post-faq-cta" />
           <p style={{ fontSize: 12, color: "var(--color-text-muted)", margin: "12px 0 0" }}>
             Instant access · cancel anytime · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
           </p>

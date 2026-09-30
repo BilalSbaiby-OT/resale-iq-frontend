@@ -420,7 +420,6 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
             <GuestCheckoutButton
               locale={locale}
-              label="Start Starter — €19/mo"
               src="dashboard_free_banner"
             />
             <Link

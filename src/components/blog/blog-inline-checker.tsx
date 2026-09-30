@@ -278,11 +278,6 @@ export function BlogInlineChecker({
                 riq_capture_email (written by footer/sticky captures). */}
             <GuestCheckoutButton
               locale={locale}
-              label={
-                initialResult?.comparable_n && !chipQuery
-                  ? `Unlock ${preflightQuery} verdict — €19/mo →`
-                  : "Unlock full buy list — €19/mo →"
-              }
               src="blog_buylist_pitch"
               query={activeQuery}
               customerEmail={capturedEmail || undefined}
@@ -366,7 +361,6 @@ export function BlogInlineChecker({
           </div>
           <GuestCheckoutButton
             locale={locale}
-            label="Unlock full buy list — €19/mo →"
             src="blog_buylist_pitch"
             query={activeQuery}
             customerEmail={capturedEmail || undefined}

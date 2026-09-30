@@ -49,7 +49,6 @@ export function SectionCta({
         <div style={{ marginTop: 16 }}>
           <GuestCheckoutButton
             locale={locale}
-            label={`${cta.label} →`}
             src="section_cta_checkout"
             query={preflightQuery}
             customerEmail={capturedEmail || undefined}

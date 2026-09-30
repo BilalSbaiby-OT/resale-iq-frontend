@@ -144,7 +144,6 @@ export function BlogIndexCheckoutCta({ locale = "en" }: { locale?: Locale }) {
       />
       <GuestCheckoutButton
         locale={locale}
-        label={checked ? "Start — €19/mo →" : "Start — €19/mo →"}
         src="blog_index_cta"
         customerEmail={email.trim() || undefined}
       />

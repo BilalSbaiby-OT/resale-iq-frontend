@@ -111,6 +111,20 @@ export const WITHDRAWAL_WAIVER_TEXT =
 
 export const copy = {
   en: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "Start my 7-day free trial" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "€0 today. Then {price} from {date}. Cancel anytime before then and pay nothing.",
+      lineNoDate: "€0 today. Then {price} after your 7-day trial. Cancel anytime before then and pay nothing.",
+      card: "Card required, reminder before charge",
+      priceMonth: "€{n}/month",
+      priceYear: "€{n}/year",
+    },
     signIn: "Sign in",
     pricing: "Pricing",
     heroTitle: "Vinted EU demand check — buy-below price for resellers.",
@@ -726,6 +740,20 @@ export const copy = {
     },
   },
   fr: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "Commencer mon essai gratuit de 7 jours" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "0 € aujourd'hui, puis {price} à partir du {date}. Annulez avant et vous ne payez rien.",
+      lineNoDate: "0 € aujourd'hui, puis {price} après vos 7 jours d'essai. Annulez avant et vous ne payez rien.",
+      card: "Carte requise · rappel avant prélèvement",
+      priceMonth: "{n} €/mois",
+      priceYear: "{n} €/an",
+    },
     signIn: "Connexion",
     pricing: "Tarifs",
     heroTitle: "Sachez ce qui se vend avant d'acheter.",
@@ -1179,6 +1207,20 @@ export const copy = {
     },
   },
   es: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "Empezar mi prueba gratuita de 7 días" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "0 € hoy, después {price} desde el {date}. Cancela antes y no pagas nada.",
+      lineNoDate: "0 € hoy, después {price} tras tu prueba de 7 días. Cancela antes y no pagas nada.",
+      card: "Tarjeta necesaria · aviso antes de cobrar",
+      priceMonth: "{n} €/mes",
+      priceYear: "{n} €/año",
+    },
     signIn: "Entrar",
     pricing: "Precios",
     heroTitle: "Sabe qué se vende antes de comprar.",
@@ -1635,6 +1677,20 @@ export const copy = {
     },
   },
   de: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "7 Tage kostenlos testen" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "Heute 0 €, danach {price} ab dem {date}. Vorher kündigen, nichts zahlen.",
+      lineNoDate: "Heute 0 €, danach {price} nach den 7 Testtagen. Vorher kündigen, nichts zahlen.",
+      card: "Karte nötig · Erinnerung vor Abbuchung",
+      priceMonth: "{n} €/Monat",
+      priceYear: "{n} €/Jahr",
+    },
     signIn: "Anmelden",
     pricing: "Preise",
     heroTitle: "Wissen, was sich verkauft, bevor du kaufst.",
@@ -2090,6 +2146,20 @@ export const copy = {
     },
   },
   it: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "Inizia la mia prova gratuita di 7 giorni" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "0 € oggi, poi {price} dal {date}. Annulla prima e non paghi nulla.",
+      lineNoDate: "0 € oggi, poi {price} dopo i 7 giorni di prova. Annulla prima e non paghi nulla.",
+      card: "Carta richiesta · promemoria prima dell'addebito",
+      priceMonth: "{n} €/mese",
+      priceYear: "{n} €/anno",
+    },
     signIn: "Accedi",
     pricing: "Prezzi",
     heroTitle: "Sappi cosa si vende prima di comprare.",
@@ -2543,6 +2613,20 @@ export const copy = {
     },
   },
   pt: {
+    // Card-required 7-day free trial (founder decision 2026-09-30). ONE source for
+    // every trial CTA label + disclosure line. Variants live under `cta` — add
+    // "B" here (all six locales) and flip CTA_VARIANT in lib/cta-variant.ts.
+    // Copy: company/research/2026-09-30-trial-cta.md. Non-EN strings are
+    // unreviewed by native speakers.
+    trial: {
+      cta: { A: "Começar o meu teste grátis de 7 dias" },
+      // {price} = priceMonth/priceYear with {n} filled; {date} = first-charge date.
+      line: "0 € hoje, depois {price} a partir de {date}. Cancele antes e não paga nada.",
+      lineNoDate: "0 € hoje, depois {price} após o teste de 7 dias. Cancele antes e não paga nada.",
+      card: "Cartão obrigatório · aviso antes da cobrança",
+      priceMonth: "{n} €/mês",
+      priceYear: "{n} €/ano",
+    },
     signIn: "Entrar",
     pricing: "Preços",
     heroTitle: "Saiba o que vende antes de comprar.",

@@ -244,7 +244,6 @@ export function PaybackCalculator({
       <div style={{ marginTop: 20, textAlign: "center" }}>
         <GuestCheckoutButton
           locale={locale}
-          label="Start — stop losing on bad buys →"
           src="payback_calculator_cta"
         />
       </div>

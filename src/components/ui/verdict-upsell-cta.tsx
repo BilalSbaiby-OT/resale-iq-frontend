@@ -174,7 +174,6 @@ export function VerdictUpsellCta({
         <span onClick={() => trackEvent("verdict_upsell_click", src)}>
           <GuestCheckoutButton
             locale={locale}
-            label={ctaLabel}
             src={src}
             query={query}
             customerEmail={capturedEmail || undefined}

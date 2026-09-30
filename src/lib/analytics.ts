@@ -4,6 +4,8 @@
  * First-party funnel events. Same /api/track endpoint as pageviews.
  * Never throws. Never blocks navigation.
  */
+import { CTA_VARIANT } from "./cta-variant.ts"
+
 export type FunnelEvent =
   | "landing_view"
   | "signup_started"
@@ -393,6 +395,13 @@ function send(body: Record<string, unknown>) {
   }
 }
 
+/** Events that carry the active CTA-copy variant (CTA_VARIANT, default "A"). */
+const CTA_VARIANT_EVENTS: ReadonlySet<FunnelEvent> = new Set<FunnelEvent>([
+  "checkout_started",
+  "checkout_intent_guest",
+  "checkout_from_blog",
+])
+
 export function trackEvent(
   event: FunnelEvent,
   path?: string,
@@ -400,6 +409,11 @@ export function trackEvent(
 ) {
   if (typeof window === "undefined") return
   let outPath = path || window.location.pathname || "/"
+  // cta_variant rides on the path, like plan/src/reason: the /api/track sink
+  // persists only event/path/utm_*, so a body field would be dropped.
+  if (CTA_VARIANT_EVENTS.has(event) && !/[?&]cta_variant=/.test(outPath)) {
+    outPath = `${outPath}${outPath.includes("?") ? "&" : "?"}cta_variant=${CTA_VARIANT}`
+  }
   // reason is stored on path, not as a body field: the track sink's Pydantic
   // model only persists event/path/utm_*, and extra JSON keys are dropped.
   if (extra?.reason) {

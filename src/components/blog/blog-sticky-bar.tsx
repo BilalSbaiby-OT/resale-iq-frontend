@@ -103,7 +103,6 @@ export function BlogStickyBar({
       </span>
       <GuestCheckoutButton
         locale={locale}
-        label="Unlock buy-below →"
         src="blog_sticky_bar"
         query={preflightQuery}
         customerEmail={capturedEmail || undefined}

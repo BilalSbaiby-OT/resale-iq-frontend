@@ -18,8 +18,11 @@
  *   planPrice   — price in euros (may be null → show "…")
  *   onContinue  — called when user clicks "Continue to payment →"
  */
+import { useEffect, useState } from "react"
 import { Check } from "lucide-react"
 import { queryCoverageKind } from "@/lib/query-coverage"
+import type { Locale } from "@/lib/i18n"
+import { trialCtaLabel, trialLine, firstChargeDate } from "@/lib/trial-cta"
 
 export interface DemandMatchLike {
   sold_7d: number
@@ -31,6 +34,7 @@ export interface CheckoutInterstitialCardProps {
   demandMatch: DemandMatchLike | null
   planLabel?: string | null
   planPrice?: number | null
+  locale?: Locale
   onContinue: () => void
 }
 
@@ -39,8 +43,11 @@ export function CheckoutInterstitialCard({
   demandMatch,
   planLabel,
   planPrice,
+  locale = "en",
   onContinue,
 }: CheckoutInterstitialCardProps) {
+  const [chargeDate, setChargeDate] = useState<string | null>(null)
+  useEffect(() => { setChargeDate(firstChargeDate(locale)) }, [locale])
   const trimmed = intent.trim()
   const hasNamedItem = trimmed && (demandMatch || queryCoverageKind(trimmed) !== "untracked")
 
@@ -98,8 +105,13 @@ export function CheckoutInterstitialCard({
         onClick={onContinue}
         className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[14px] py-3.5 rounded-lg hover:opacity-90 transition-opacity"
       >
-        Continue to payment →
+        {trialCtaLabel(locale)}
       </button>
+      {planPrice != null && (
+        <p className="text-[11.5px] text-[var(--color-text-secondary)] text-center mt-2">
+          {trialLine(locale, planPrice, "month", chargeDate)}
+        </p>
+      )}
       <p className="text-[11.5px] text-[var(--color-text-muted)] text-center mt-3">
         🔒 Secure checkout via Stripe
       </p>

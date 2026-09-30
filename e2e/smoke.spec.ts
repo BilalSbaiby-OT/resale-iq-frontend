@@ -32,8 +32,8 @@ test("homepage shows Starter €19 and Pro €49 plan cards, with exactly one h1
   await expect(page.getByTestId("riq-pricing-amount-power")).toHaveText("€49")
   await expect(page.getByText("Starter", { exact: true }).first()).toBeVisible()
   await expect(page.getByText("Pro", { exact: true }).first()).toBeVisible()
-  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
-  await expect(page.getByTestId("riq-pricing-cta-power")).toHaveText(/Start for €49/i)
+  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start my 7-day free trial/i)
+  await expect(page.getByTestId("riq-pricing-cta-power")).toHaveText(/Start my 7-day free trial/i)
   // 2026-09-30 text-diet pass: the standalone "See full comparison →
   // Pricing" text link was removed from the homepage (it duplicated the nav
   // Pricing link one screen up) — the nav link is now the only route to
@@ -206,9 +206,9 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   await expect(page.getByTestId("riq-starter-trust")).toContainText(/listings watched/)
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
-  // Free forever must not lead — first tier CTA is Starter (H27: "Start for €19").
+  // Free forever must not lead — first tier CTA is Starter (trial CTA, 2026-09-30: "Start my 7-day free trial").
   // Use data-testid to skip TryFreeInput's submit button which is also in the section (H61).
-  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start for €19/i)
+  await expect(page.getByTestId("riq-pricing-cta-operator")).toHaveText(/Start my 7-day free trial/i)
   // One filled accent CTA among the TIER buttons (not TryFreeInput submit, which is also green).
   // Scope to data-testid pattern so we only count tier plan buttons.
   const buttons = page.locator("[data-testid^='riq-pricing-cta-']")
@@ -232,7 +232,7 @@ test("methodology explains sell-through, buy-below and confidence", async ({ pag
   expect(body).toMatch(/HIGH/i)
   expect(body).not.toMatch(/undefined|NaN/)
   // H61 CRO: public trust page sells Starter via guest Stripe, not a register wall.
-  const cta = page.getByRole("button", { name: /Start for €19/i })
+  const cta = page.getByRole("button", { name: /Start my 7-day free trial/i })
   await expect(cta).toBeVisible()
   await expect(page.locator('a[href*="/register?plan=operator"]')).toHaveCount(0)
   await expect(page.getByRole("link", { name: /Create a free account/i })).toHaveCount(0)

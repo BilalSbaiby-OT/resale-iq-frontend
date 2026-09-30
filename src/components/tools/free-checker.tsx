@@ -243,7 +243,7 @@ function LimitReachedUpgrade({
         </p>
       )}
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", marginBottom: 14 }}>
-        <GuestCheckoutButton locale={locale} label={t.limitReachedUpgradeCta} src="limit_reached" />
+        <GuestCheckoutButton locale={locale} src="limit_reached" />
         {/* W61 note applies here too: canonicalPath keeps locale-prefixed visitors on
             the right locale root for the pricing section. */}
         <Link
@@ -403,7 +403,6 @@ function VerdictAlternatives({
         <div style={{ marginTop: 12, paddingTop: 10 }}>
           <GuestCheckoutButton
             locale={locale}
-            label="Unlock buy-below prices — €19/mo →"
             src="verdict_alternatives_unlock"
           />
         </div>
@@ -901,7 +900,6 @@ export function FreeChecker({
               <div style={{ marginTop: 10 }}>
                 <GuestCheckoutButton
                   locale={locale}
-                  label="Check unlimited items — €19/mo →"
                   src="oversupplied_nudge"
                   query={q}
                 />
@@ -983,7 +981,7 @@ export function FreeChecker({
                   <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.5 }}>
                     Type <strong style={{ color: "var(--color-text-primary)" }}>{res.brand ?? "brand"} + item</strong> above for a buy-below price. Starter unlocks every item in the catalog.
                   </p>
-                  <GuestCheckoutButton locale={locale} label="Unlock all items — €19/mo →" src="brand_categories_nudge" />
+                  <GuestCheckoutButton locale={locale} src="brand_categories_nudge" />
                   <Link
                     href={canonicalPath(locale, "/data")}
                     style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none", marginTop: 2 }}
@@ -1105,7 +1103,7 @@ export function FreeChecker({
                 <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.5 }}>
                   More data = a clearer call. Starter unlocks every item in the catalog — unlimited checks.
                 </p>
-                <GuestCheckoutButton locale={locale} label="Unlock full analysis — €19/mo →" src="insufficient_data_nudge" />
+                <GuestCheckoutButton locale={locale} src="insufficient_data_nudge" />
               </div>
             </div>
           ) : hero ? (
@@ -1302,7 +1300,7 @@ export function FreeChecker({
               <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>
                 Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.
               </p>
-              <GuestCheckoutButton locale={locale} label="Start — €19/mo →" src="tools_sample_bridge" />
+              <GuestCheckoutButton locale={locale} src="tools_sample_bridge" />
             </div>
           )}
           {/* H100 CRO: verdict-context bridge — a brief sentence naming the call the
@@ -1332,11 +1330,6 @@ export function FreeChecker({
               </p>
               <GuestCheckoutButton
                 locale={locale}
-                label={
-                  res!.verdict === "SKIP"
-                    ? "Find what's selling — €19/mo →"
-                    : "See buy-below price — €19/mo →"
-                }
                 src="verdict_context_bridge"
               />
             </div>
@@ -1350,7 +1343,6 @@ export function FreeChecker({
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
               <GuestCheckoutButton
                 locale={locale}
-                label={(src === "blog-check" && blogModeCtaLabel(res?.product)) || t.unlockRestPaid}
                 src="tools_result"
               />
               <Link

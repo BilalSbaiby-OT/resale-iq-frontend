@@ -186,7 +186,6 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       )}
       <GuestCheckoutButton
         locale={locale}
-        label={`Unlock ${query} — €19/mo →`}
         src="pricing_custom_paywall"
         query={query}
         customerEmail={email || undefined}
@@ -384,7 +383,6 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
           Revenue 2026-09-29. H156. */}
       <GuestCheckoutButton
         locale={locale}
-        label={query ? `Unlock ${query} buy-below — €19/mo →` : "Unlock all items — €19/mo →"}
         src="inline_verdict_cta"
         query={query}
         customerEmail={capturedEmail}

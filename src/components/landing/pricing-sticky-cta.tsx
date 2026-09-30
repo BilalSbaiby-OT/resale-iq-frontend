@@ -135,7 +135,6 @@ export function PricingStickyCta({ locale = "en" }: { locale?: Locale }) {
           CRO #10 (CTA discipline: product-aware → commit, not navigate). */}
       <GuestCheckoutButton
         locale={locale}
-        label="Start — €19/mo →"
         src="pricing_sticky_cta"
         customerEmail={capturedEmail || undefined}
       />
