@@ -226,8 +226,36 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           <>
             <div className="flex justify-center mb-4"><CheckCircle2 size={34} className="text-[var(--color-buy)]" /></div>
             <h1 className="text-[18px] font-bold mb-2">{t.confirmedHeading}</h1>
-            <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">{message}</p>
-            <Link href="/login" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity">
+            <p className="text-[var(--color-text-secondary)] text-[13px] mb-4">{message}</p>
+            {/* C(tony)AlreadyVerifiedNudge: users already verified who re-click the email
+                link previously got a dead-end "sign in" button with no context. These are
+                warm accounts — engaged enough to click — but may have never run a verdict
+                (10 verified accounts with 0 verdicts). Add the same AF1 live-data card
+                shown on first-verify plus a direct "See what's selling →" CTA so they
+                land straight in the product, not at a login gate. */}
+            <div className="bg-[var(--color-bg-4)] border border-[var(--color-border-ui)] rounded-xl p-4 mb-4 text-left">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <div className="text-[13.5px] font-bold text-[var(--color-text-primary)]">Nike Air Force 1</div>
+                  <div className="text-[11.5px] text-[var(--color-text-muted)]">Sneakers · live demand</div>
+                </div>
+                <TrendingUp size={16} className="text-[var(--color-buy)]" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-[var(--color-text-muted)]">Watched departures (7d)</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString()}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-[var(--color-text-muted)]">Avg resale price</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">€{af1Row.avg_price_eur}</span>
+                </div>
+              </div>
+            </div>
+            <Link href="/login?redirect=%2Fverdict%3Fq%3DNike%2BAir%2BForce%2B1%26src%3Dalready_verified" className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3">
+              See what&apos;s selling →
+            </Link>
+            <Link href="/login" className="block text-[var(--color-text-muted)] text-[12px] hover:text-[var(--color-text-secondary)] transition-colors">
               {t.signIn}
             </Link>
           </>
