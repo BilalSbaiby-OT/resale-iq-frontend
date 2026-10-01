@@ -4,20 +4,20 @@ Everything below is written to survive review. The two things that get
 extensions rejected are an unjustified permission and a privacy policy that
 does not match what the code does; both are addressed.
 
-Upload **1.3.0**. Live store is still 1.2.0 until Google approves this package.
+Upload **1.4.0**. Live store is still 1.2.0 until Google approves this package.
 
 ## One-off setup
 Register once at https://chrome.google.com/webstore/devconsole — **$5, one
 payment, forever**. Requires a Google account.
 
 ## Upload
-Zip: `~/Desktop/resale-iq-extension-1.3.0.zip`
+Zip: `~/Desktop/resale-iq-extension-1.4.0.zip`
 The manifest is at the zip root, which is what the console expects.
 
 Rebuild:
 ```
 cd ~/Desktop/resale-iq/extension
-zip -r ~/Desktop/resale-iq-extension-1.3.0.zip \
+zip -r ~/Desktop/resale-iq-extension-1.4.0.zip \
   manifest.json background.js content.js content.css link.js \
   options.html options.js icons \
   -x "*.DS_Store"
@@ -26,7 +26,7 @@ zip -r ~/Desktop/resale-iq-extension-1.3.0.zip \
 ## Listing fields
 
 **Name**
-Resale IQ - buy-below prices for resellers
+Resale IQ — Reseller price check
 
 NOTE: the name deliberately does NOT contain "Vinted". Google treats another
 product's trademark in an extension NAME as implying endorsement, and it is one
@@ -66,7 +66,7 @@ Support: support@resaleiq.dev
 **Language:** English
 **Homepage:** https://resaleiq.dev
 
-**Release notes (1.3.0)**
+**Release notes (1.4.0)**
 BUY / WATCH / SKIP on the listing (no more IN RANGE / TOO DEAR). Panel stays
 visible when we have no model data. Sign-in token stays on this device, not
 Chrome sync. Collapse control, German/Italian/Portuguese panel copy, and a
@@ -121,7 +121,7 @@ Certify:
 - Screenshots 1280×800, square corners, no browser chrome:
   regenerate with `python3 store-assets/make-screenshots.py` so they show
   **BUY** and **SKIP**, not the old IN RANGE / TOO DEAR labels. Upload at
-  least those two. Do not submit 1.3.0 with the old screenshots — Google
+  least those two. Do not submit 1.4.0 with the old screenshots — Google
   compares screenshots to the running UI.
   **A third shot, showing the "not tracked" panel, is scoped but not
   captured** — `make-screenshots.py`'s `card()` now renders that state, but

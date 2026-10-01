@@ -32,7 +32,7 @@ import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
-const TITLE = "Know what sells. Check the model before you buy — Resale IQ"
+const TITLE = "Max price to pay before you buy to resell — Resale IQ"
 
 async function generateMetadataRaw(
   { searchParams }: { searchParams: Promise<{ q?: string; query?: string }> }

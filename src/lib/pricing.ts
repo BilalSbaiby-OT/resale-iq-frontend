@@ -46,15 +46,15 @@ export const TIERS: Tier[] = [
     // and surfaces items already under your buy price. That is the difference
     // between a reference tool and a sourcing engine, and it is what people are
     // actually paying the extra €30 for.
-    tagline: "Plan what to take from a lot",
+    tagline: "Plan how many of each brand to buy",
     cta: "Let it find the deals",
     stepUp: "+€30 over Starter — about €1 a day",
     stepUpWhy:
-      "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to take from a lot), Price Compare and the API.",
+      "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to buy), Price Compare and the API.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
-      "Order Planner — how many pieces of each brand to take from a lot",
+      "Order Planner — how many pieces of each brand to buy",
       "Per-size sell-through when the watched sample supports it",
       "REST API access (your own API key)",
       "Price Compare — full buy-below intelligence on ES/FR/DE/IT/PT, plus live asking-price search across 26 markets total",

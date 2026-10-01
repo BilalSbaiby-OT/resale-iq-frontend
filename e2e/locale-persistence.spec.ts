@@ -284,9 +284,9 @@ test("/tools carries the stored language into both the chrome and the free check
   expect(res.status()).toBe(200)
   const html = await res.text()
   expect(html).toContain('lang="fr"')
-  expect(html).toContain("Vérifiez le marché avant d'acheter")
+  expect(html).toContain("Le prix max à payer pour le stock que vous revendez")
   expect(html).toContain("Vérifier cet article")
-  expect(html).not.toContain("Check the market before you buy")
+  expect(html).not.toContain("Max price to pay for stock you resell on Vinted")
 })
 
 test("/tools offers a language switcher", async ({ page, context }) => {
@@ -313,7 +313,7 @@ test("French survives / -> /check -> /tools -> /register through real link click
 
   await page.goto("/tools")
   expect(await page.locator("html").getAttribute("lang")).toBe("fr")
-  await expect(page.getByRole("heading", { name: "Vérifiez le marché avant d'acheter" })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "Le prix max à payer pour le stock que vous revendez" })).toBeVisible()
 
   await page.getByRole("link", { name: "← Resale IQ" }).click()
   await page.waitForURL(/\/fr$/, { timeout: 20_000 })

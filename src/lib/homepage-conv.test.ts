@@ -186,9 +186,9 @@ test("homepage hero is one H1 + one subline, Samba essay not in the fold", () =>
   // the exact-equal pin from the earlier redesign is gone on purpose.
   assert.match(
     copy.en.heroSub,
-    /Vinted buyers take this week/,
+    /Reselling intelligence for resellers/,
   )
-  assert.match(copy.en.heroSub, /stock that sits/)
+  assert.match(copy.en.heroSub, /5 EU markets/)
   assert.doesNotMatch(copy.en.heroSub, /Type any/)
 })
 
@@ -205,7 +205,7 @@ test("landing teaches three steps and honest coverage, and does not ship heroHon
   assert.match(copy.de.howToCoverage, /Vinted/)
   assert.doesNotMatch(copy.de.howToCoverage, /\bfree\b/i)
   assert.doesNotMatch(copy.de.heroSub, /\bBUY\b/)
-  assert.match(copy.de.heroSub, /Vinted-Käufer/)
+  assert.match(copy.de.heroSub, /Wiederverkäufer/)
 })
 
 test("homepage buy-list footer checks first and does not open Stripe", () => {

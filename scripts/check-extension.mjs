@@ -12,7 +12,7 @@ const read = (f) => readFileSync(join(ROOT, f), "utf8")
 
 const manifest = JSON.parse(read("manifest.json"))
 assert.equal(manifest.manifest_version, 3)
-assert.equal(manifest.version, "1.3.0")
+assert.equal(manifest.version, "1.4.0")
 assert.equal(manifest.name.includes("Vinted"), false, "trademark in NAME")
 assert.equal(manifest.homepage_url, "https://resaleiq.dev")
 assert.deepEqual(manifest.permissions, ["storage"])
@@ -51,4 +51,4 @@ for (const f of ["link.js", "options.js"]) {
   assert.doesNotMatch(src, /chrome\.storage\.sync/)
 }
 
-console.log("✓ extension 1.3.0 listing and privacy contracts hold")
+console.log("✓ extension 1.4.0 listing and privacy contracts hold")

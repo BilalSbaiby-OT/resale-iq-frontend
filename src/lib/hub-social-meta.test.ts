@@ -41,7 +41,7 @@ test("/flip sets twitter title/description to the same strings as title + og", (
 
 test("/tools hub pins og/twitter titles to the document title", () => {
   const src = read("app/tools/page.tsx")
-  assert.match(src, /const TITLE = "Know what sells. Check the model before you buy — Resale IQ"/)
+  assert.match(src, /const TITLE = "Max price to pay before you buy to resell — Resale IQ"/)
   assert.match(src, /title: TITLE/)
   assert.match(src, /openGraph: \{ title: TITLE, description, type: "website"/)
   assert.match(src, /twitter: \{ card: "summary_large_image", title: TITLE, description/)
@@ -173,7 +173,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   assert.doesNotMatch(home, /twitter:/)
   // Conversion H1 stays on the landing copy, not the document title.
   const i18n = read("lib/i18n.ts")
-  assert.match(i18n, /heroHeadline: "Know what to buy at the friperie, flea market or bale, and the max price to pay\. Sell it on Vinted\."/)
+  assert.match(i18n, /heroHeadline: "Know what stock to source to resell on Vinted, and the max price to pay\."/)
 })
 
 test("layout Organization + SoftwareApplication JSON-LD stays valid", () => {

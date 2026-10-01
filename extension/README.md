@@ -19,7 +19,7 @@ resaleiq.dev and the extension picks up the session on this device.
 ## Publishing (Chrome Web Store)
 
 1. From this folder:
-   `zip -r ~/Desktop/resale-iq-extension-1.3.0.zip manifest.json background.js content.js content.css link.js options.html options.js icons -x "*.DS_Store"`
+   `zip -r ~/Desktop/resale-iq-extension-1.4.0.zip manifest.json background.js content.js content.css link.js options.html options.js icons -x "*.DS_Store"`
 2. Open https://chrome.google.com/webstore/devconsole
 3. **Resale IQ** → **Package** → **Upload new package** → the zip
 4. Paste copy from `STORE-LISTING.md` (privacy ticks included)
@@ -27,7 +27,7 @@ resaleiq.dev and the extension picks up the session on this device.
 6. Privacy policy URL: https://resaleiq.dev/privacy
 7. Submit for review
 
-The public listing stays on the previous version until Google approves 1.3.0.
+The public listing stays on the previous version until Google approves 1.4.0.
 
 ## What it does not do
 

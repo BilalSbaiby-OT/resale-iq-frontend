@@ -1,4 +1,4 @@
-# SUBMIT 1.3.0 — do these in order
+# SUBMIT 1.4.0 — do these in order
 
 Everything below is generated from extension/STORE-LISTING.md. Paste verbatim.
 
@@ -13,16 +13,16 @@ screenshots or the privacy declarations, which are exactly what must change.
 
 ## 1. Package  →  Build / Upload new package
 
-    ~/Desktop/resale-iq-extension-1.3.0.zip
+    ~/Desktop/resale-iq-extension-1.4.0.zip
 
-Verified: manifest 1.3.0, matches the committed source byte-for-byte.
+Verified: manifest 1.4.0, matches the committed source byte-for-byte.
 
 ## 2. Screenshots  →  Store listing  →  REPLACE BOTH
 
     ~/Desktop/resale-iq/extension/store-assets/screenshot-1-in-range.png
     ~/Desktop/resale-iq/extension/store-assets/screenshot-2-too-dear.png
 
-Both 1280x800. The old ones showed IN RANGE / TOO DEAR, which 1.3.0 no longer
+Both 1280x800. The old ones showed IN RANGE / TOO DEAR, which 1.4.0 no longer
 has — this is the single most likely cause of rejection. Delete the old two.
 
 ## 3. Summary (132 char limit)
@@ -63,7 +63,7 @@ Support: support@resaleiq.dev
     Language: English
     Homepage: https://resaleiq.dev
 
-## 6. Release notes (1.3.0)
+## 6. Release notes (1.4.0)
 
 BUY / WATCH / SKIP on the listing (no more IN RANGE / TOO DEAR). Panel stays
 visible when we have no model data. Sign-in token stays on this device, not

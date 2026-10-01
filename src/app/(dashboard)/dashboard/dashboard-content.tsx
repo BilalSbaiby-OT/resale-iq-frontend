@@ -53,7 +53,7 @@ function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; sugges
     <div style={{ marginBottom: 24 }}>
       {paid && (
         <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
-          In the shop? Type the brand, get the max price to pay.
+          Type the brand, get the max price to pay.
         </div>
       )}
       <form

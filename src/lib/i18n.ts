@@ -128,7 +128,7 @@ export const copy = {
     signIn: "Sign in",
     pricing: "Pricing",
     heroTitle: "Vinted EU demand check — buy-below price for resellers.",
-    heroAudience: "For people who resell second-hand clothes on Vinted EU.",
+    heroAudience: "For resellers on Vinted EU.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     heroFreeScope: "Your first check is free on any model. After that, €19/mo.",
     brandStripCaption: "Brands we track",
@@ -154,9 +154,8 @@ export const copy = {
       showing: (shown: number, total: number) => `Showing ${shown} of ${total} brands`,
       seeAll: "See all on /data",
     },
-    heroHeadline: "Know what to buy at the friperie, flea market or bale, and the max price to pay. Sell it on Vinted.",
-    heroSub:
-      "What Vinted buyers take this week, so you stop buying stock that sits.",
+    heroHeadline: "Know what stock to source to resell on Vinted, and the max price to pay.",
+    heroSub: "Reselling intelligence for resellers: live Vinted resale prices across 5 EU markets.",
     howToHeading: "How it works",
     howToSteps: [
       "See what's selling fastest this week.",
@@ -166,7 +165,7 @@ export const copy = {
     howToCoverage:
       "28+ brands, 5 EU markets. Samba, Air Force 1 and Fred Perry Polo are free — no account needed.",
     heroBody:
-      "For resellers who source outside Vinted (friperies, charity shops, flea markets, car boot sales, wholesale lots) and sell on Vinted.",
+      "For resellers: what an item resells for on Vinted and the max price to pay when sourcing stock.",
     heroFrom: (tracked: string) =>
       `From ${tracked} live second-hand clothing listings across the brands we watch.`,
     // Additive, not a replacement for the confident demo above it — see
@@ -212,8 +211,8 @@ export const copy = {
     // larger content task and stay English on every locale for now — same
     // "hero + conversion moment first" split as the rest of this file.
     toolsPage: {
-      h1: "Check the market before you buy",
-      lede: "Try a brand and model. Most item checks unlock with Starter at €19 a month — BUY, WATCH or SKIP, the most you should pay, and how many watched departures sit behind the number. Weekly volumes stay public on /data. Sell-through and sizes stay on a plan. Null is not zero.",
+      h1: "Max price to pay for stock you resell on Vinted",
+      lede: "You source it. We tell you what it resells for on Vinted and the most to pay. Try a brand and model. Most item checks unlock with Starter at €19 a month — BUY, WATCH or SKIP, the most you should pay, and how many watched departures sit behind the number. Weekly volumes stay public on /data. Sell-through and sizes stay on a plan. Null is not zero.",
       // Chrome for /tools and /tools/<slug>. The intent BODIES
       // (data/search-intents.ts: h1, lede, bullets, faq) are still English on
       // every locale — that is the documented content split noted above. What
@@ -364,7 +363,7 @@ export const copy = {
       alternativesBuyBelow: "Buy-below — Starter",
     },
     pricingSection: {
-      heading: "Pay the right price at the friperie, every time.",
+      heading: "Source the right stock at the right price.",
       // EX-PRICING-CTR — SERP title matches demand OS, not buy-below.
       // €19 / €49 match TIERS in lib/pricing.ts (Starter/operator, Pro/power).
       // Not a live Stripe quote; checkout still resolves price ids on the page.
@@ -430,16 +429,16 @@ export const copy = {
     // BUY/WATCH/SKIP in `features` above.
     tiers: {
       power: {
-        tagline: "Plan what to take from a lot",
+        tagline: "Plan how many of each brand to buy",
         // H28 CRO: Power CTA commitment-match — solution-aware visitor on /pricing already knows the product; name the price. CRO #10. Revenue 2026-09-15.
         cta: "Try Pro for €49 →",
         stepUp: "+€30 over Starter — about €1 a day",
         stepUpWhy:
-          "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to take from a lot), Price Compare and the API.",
+          "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to buy), Price Compare and the API.",
         ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
         features: [
           "Everything in Starter",
-          "Order Planner — how many pieces of each brand to take from a lot",
+          "Order Planner — how many pieces of each brand to buy",
           "Per-size sell-through when the watched sample supports it",
           "REST API access (your own API key)",
           "Price Compare — full buy-below intelligence on ES/FR/DE/IT/PT, plus live asking-price search across 26 markets total",
@@ -754,8 +753,8 @@ export const copy = {
     },
     signIn: "Connexion",
     pricing: "Tarifs",
-    heroTitle: "Sachez ce qui se vend avant d'acheter.",
-    heroAudience: "Pour ceux qui achètent d'occasion pour revendre.",
+    heroTitle: "Quel stock sourcer pour revendre sur Vinted, et à quel prix max",
+    heroAudience: "Pour les revendeurs sur Vinted.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
     heroFreeScope: "Votre première recherche est gratuite, sur n'importe quel modèle. Ensuite 19 €/mois.",
     brandStripCaption: "Marques que nous suivons",
@@ -779,8 +778,8 @@ export const copy = {
       showing: (shown: number, total: number) => `${shown} marques sur ${total}`,
       seeAll: "Tout voir sur /data",
     },
-    heroHeadline: "Sache quoi acheter en friperie, vide-grenier ou lot, et à quel prix max. Revends sur Vinted.",
-    heroSub: "Ce que les acheteurs Vinted prennent vraiment, pour ne plus acheter du stock qui dort.",
+    heroHeadline: "Sachez quel stock sourcer pour revendre sur Vinted, et le prix max à payer.",
+    heroSub: "L'intelligence de revente pour les revendeurs : prix de revente en direct sur 5 marchés européens.",
     howToHeading: "Comment l'utiliser",
     howToSteps: [
       "Saisissez une marque et un modèle — ou collez le titre d'une annonce.",
@@ -790,7 +789,7 @@ export const copy = {
     howToCoverage:
       "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et Fred Perry Polo sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
     heroBody:
-      "Pour les revendeurs qui s'approvisionnent hors Vinted (friperies, boutiques solidaires, vide-greniers, lots) et revendent sur Vinted.",
+      "Pour les revendeurs : à quel prix un article se revend sur Vinted et le prix max à payer pour sourcer du stock.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -828,8 +827,8 @@ export const copy = {
         "Resale IQ est un outil indépendant, non affilié à Vinted ni à aucune marque mentionnée sur ce site, et n'est ni approuvé ni cautionné par eux. Tous les noms de produits, logos et marques appartiennent à leurs propriétaires respectifs et ne sont utilisés qu'à des fins d'identification. Tous les signaux sont informatifs, basés sur des données de marché publiques, et ne constituent ni un conseil financier ni une garantie de résultat.",
     },
     toolsPage: {
-      h1: "Vérifiez le marché avant d'acheter",
-      lede: "Tapez l'article que vous avez en main. Vous obtenez ACHETER, SURVEILLER ou ÉCARTER, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
+      h1: "Le prix max à payer pour le stock que vous revendez",
+      lede: "Vous sourcez, nous vous disons à quel prix ça se revend sur Vinted et le maximum à payer. Tapez l'article que vous avez en main. Vous obtenez ACHETER, SURVEILLER ou ÉCARTER, le prix maximum à payer, et le nombre de disparitions observées derrière ce chiffre. Le taux d'écoulement et les tailles restent réservés à un plan payant. Une valeur manquante n'est pas un zéro.",
       moreTools: "Autres outils",
       breadcrumbTools: "Outils",
       faqHeading: "Questions fréquentes",
@@ -925,7 +924,7 @@ export const copy = {
       alternativesBuyBelow: "Prix max — Starter",
     },
     pricingSection: {
-      heading: "Paie le bon prix en friperie.",
+      heading: "Sourcez le bon stock au bon prix.",
       metaTitle: "Starter 19 € / Pro 49 € — prix d'achat max",
       metaDescription:
         "Starter 19 € / Pro 49 € : prix d'achat max Vinted. Verdicts et tailles en offre payante. Volumes hebdo publics sur /data. Annulable à tout moment.",
@@ -972,15 +971,15 @@ export const copy = {
     },
     tiers: {
       power: {
-        tagline: "Planifiez ce qu'il faut prendre dans un lot",
+        tagline: "Planifiez combien de pièces de chaque marque acheter",
         cta: "Essayer Pro pour 49 € →",
         stepUp: "+€30 par rapport à Starter — environ €1 par jour",
         stepUpWhy:
-          "Starter vous dit si un article vaut le coup. Pro ajoute l'Order Planner (combien de pièces de chaque marque prendre dans un lot), Price Compare et l'API.",
+          "Starter vous dit si un article vaut le coup. Pro ajoute l'Order Planner (combien de pièces de chaque marque acheter), Price Compare et l'API.",
         ceiling: "Besoin de plusieurs sièges, de volume ou d'un périmètre sur mesure ? Contactez-nous.",
         features: [
           "Tout ce qui est dans Starter",
-          "Order Planner — combien de pièces de chaque marque prendre dans un lot",
+          "Order Planner — combien de pièces de chaque marque acheter",
           "Taux d'écoulement par taille quand l'échantillon observé le permet",
           "Accès API REST (votre propre clé API)",
           "Price Compare — intelligence complète du prix d'achat max sur ES/FR/DE/IT/PT, plus recherche live des prix affichés sur 26 marchés au total",
@@ -1220,8 +1219,8 @@ export const copy = {
     },
     signIn: "Entrar",
     pricing: "Precios",
-    heroTitle: "Sabe qué se vende antes de comprar.",
-    heroAudience: "Para quien compra de segunda mano para revender.",
+    heroTitle: "Qué stock comprar para revender en Vinted, precio máx.",
+    heroAudience: "Para revendedores en Vinted.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
     heroFreeScope: "Tu primera consulta es gratis, en cualquier modelo. Después 19 €/mes.",
     brandStripCaption: "Marcas que vigilamos",
@@ -1245,9 +1244,8 @@ export const copy = {
       showing: (shown: number, total: number) => `Mostrando ${shown} de ${total} marcas`,
       seeAll: "Ver todas en /data",
     },
-    heroHeadline: "Sabe qué comprar en la tienda de segunda mano, el mercadillo o un lote, y el precio máximo a pagar. Véndelo en Vinted.",
-    heroSub:
-      "Lo que los compradores de Vinted se llevan esta semana, para no comprar stock parado.",
+    heroHeadline: "Sabe qué stock comprar para revender en Vinted y el precio máximo a pagar.",
+    heroSub: "Inteligencia de reventa para revendedores: precios de reventa en vivo en 5 mercados de la UE.",
     howToHeading: "Cómo usarlo",
     howToSteps: [
       "Escribe una marca y un modelo — o pega el título de un anuncio.",
@@ -1257,7 +1255,7 @@ export const copy = {
     howToCoverage:
       "No rastreamos artículos de baja demanda ni marcas que no están en este catálogo. Samba, Air Force 1 y Fred Perry Polo son los ejemplos gratis en Vinted ES/FR/DE/IT/PT. Un fallo es un hueco de cobertura — no un número escondido detrás de un muro de pago.",
     heroBody:
-      "Para revendedores que compran fuera de Vinted (tiendas de segunda mano, mercadillos, lotes) y venden en Vinted.",
+      "Para revendedores: a cuánto se revende un artículo en Vinted y el precio máximo a pagar al comprar stock.",
     heroFrom: (tracked: string) =>
       `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
@@ -1295,8 +1293,8 @@ export const copy = {
         "Resale IQ es una herramienta independiente y no está afiliada, respaldada ni conectada con Vinted ni con ninguna marca mencionada en este sitio. Todos los nombres de producto, logotipos y marcas son propiedad de sus respectivos dueños y se usan solo con fines de identificación. Todas las señales son informativas, se basan en datos públicos de mercado, y no constituyen asesoramiento financiero ni garantía de resultados.",
     },
     toolsPage: {
-      h1: "Comprueba el mercado antes de comprar",
-      lede: "Prueba una marca y un modelo. La mayoría de las comprobaciones se desbloquean con Starter a 19 € al mes — COMPRA, OBSERVA o DESCARTA, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás. Los volúmenes semanales siguen públicos en /data. La rotación de ventas y las tallas quedan en un plan. Un valor nulo no es un cero.",
+      h1: "El precio máximo a pagar por el stock que revendes",
+      lede: "Tú compras el stock. Te decimos a cuánto se revende en Vinted y lo máximo a pagar. Prueba una marca y un modelo. La mayoría de las comprobaciones se desbloquean con Starter a 19 € al mes — COMPRA, OBSERVA o DESCARTA, el precio máximo que deberías pagar, y cuántas salidas observadas hay detrás. Los volúmenes semanales siguen públicos en /data. La rotación de ventas y las tallas quedan en un plan. Un valor nulo no es un cero.",
       moreTools: "Más herramientas",
       breadcrumbTools: "Herramientas",
       faqHeading: "Preguntas frecuentes",
@@ -1393,7 +1391,7 @@ export const copy = {
     },
     pricingSection: {
       // EX-PRICING-OFFER — Spanish mirror of the locked flips offer.
-      heading: "Paga el precio justo en la tienda de segunda mano, siempre.",
+      heading: "Compra el stock adecuado al precio justo.",
       metaTitle: "Starter 19 € / Pro 49 € — precio de compra máx.",
       metaDescription:
         "Starter 19 € / Pro 49 €: precio máximo de compra en Vinted. Veredictos y tallas en planes de pago. Volúmenes públicos en /data. Cancela cuando quieras.",
@@ -1441,15 +1439,15 @@ export const copy = {
     },
     tiers: {
       power: {
-        tagline: "Planifica qué llevarte de un lote",
+        tagline: "Planifica cuántas piezas de cada marca comprar",
         cta: "Probar Pro por 49 € →",
         stepUp: "+€30 sobre Starter — unos €1 al día",
         stepUpWhy:
-          "Starter te dice si un artículo merece la pena. Pro añade el Order Planner (cuántas piezas de cada marca llevarte de un lote), Price Compare y la API.",
+          "Starter te dice si un artículo merece la pena. Pro añade el Order Planner (cuántas piezas de cada marca comprar), Price Compare y la API.",
         ceiling: "¿Necesitas varios puestos, volumen o un alcance a medida? Hablemos.",
         features: [
           "Todo lo de Starter",
-          "Order Planner — cuántas piezas de cada marca llevarte de un lote",
+          "Order Planner — cuántas piezas de cada marca comprar",
           "Tasa de venta por talla cuando la muestra observada lo permite",
           "Acceso a la API REST (tu propia clave API)",
           "Price Compare — inteligencia completa de precio máximo de compra en ES/FR/DE/IT/PT, además de búsqueda de precios en vivo en 26 mercados en total",
@@ -1689,8 +1687,8 @@ export const copy = {
     },
     signIn: "Anmelden",
     pricing: "Preise",
-    heroTitle: "Wissen, was sich verkauft, bevor du kaufst.",
-    heroAudience: "Für alle, die Second-Hand kaufen, um weiterzuverkaufen.",
+    heroTitle: "Welchen Bestand einkaufen, um auf Vinted zu verkaufen",
+    heroAudience: "Für Wiederverkäufer auf Vinted.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
     heroFreeScope: "Deine erste Abfrage ist kostenlos — für jedes Modell. Danach 19 €/Monat.",
     brandStripCaption: "Marken, die wir beobachten",
@@ -1714,8 +1712,8 @@ export const copy = {
       showing: (shown: number, total: number) => `${shown} von ${total} Marken`,
       seeAll: "Alle auf /data",
     },
-    heroHeadline: "Wisse, was du im Secondhand-Laden, auf dem Flohmarkt oder im Großposten kaufen sollst, und den Höchstpreis. Verkauf es auf Vinted.",
-    heroSub: "Was Vinted-Käufer diese Woche nehmen, damit du keine Ladenhüter kaufst.",
+    heroHeadline: "Wisse, welchen Bestand du für Vinted einkaufen solltest, und den Maximalpreis.",
+    heroSub: "Resale-Intelligence für Wiederverkäufer: aktuelle Wiederverkaufspreise in 5 EU-Märkten.",
     howToHeading: "So nutzt du es",
     howToSteps: [
       "Gib Marke und Modell ein — oder füge den Titel eines Angebots ein.",
@@ -1725,7 +1723,7 @@ export const copy = {
     howToCoverage:
       "Wir erfassen keine schwachen Nachfragemodelle und keine Marken, die nicht in diesem Katalog stehen. Samba, Air Force 1 und Fred Perry Polo sind kostenlose Beispiele auf Vinted in ES/FR/DE/IT/PT. Eine Lücke ist Abdeckung — keine Zahl hinter einem Bezahl-Tarif.",
     heroBody:
-      "Für Wiederverkäufer, die außerhalb von Vinted einkaufen (Secondhand-Läden, Flohmärkte, Großposten) und auf Vinted verkaufen.",
+      "Für Wiederverkäufer: wofür ein Artikel auf Vinted weiterverkauft wird und der Maximalpreis beim Einkauf von Bestand.",
     heroFrom: (tracked: string) =>
       `Basierend auf ${tracked} aktiven Angeboten und beobachteten Abgängen in fünf EU-Märkten.`,
     heroHonesty:
@@ -1762,8 +1760,8 @@ export const copy = {
         "Resale IQ ist ein unabhängiges Tool und steht in keiner Verbindung zu Vinted oder einer auf dieser Seite genannten Marke, ist von diesen weder unterstützt noch anerkannt. Alle Produktnamen, Logos und Marken sind Eigentum ihrer jeweiligen Inhaber und dienen nur der Identifikation. Alle Signale sind informativ, beruhen auf öffentlichen Marktdaten und stellen weder eine Finanzberatung noch eine Erfolgsgarantie dar.",
     },
     toolsPage: {
-      h1: "Prüfe den Markt, bevor du kaufst",
-      lede: "Gib den Artikel ein, den du in der Hand hast. Du erhältst KAUFEN, BEOBACHTEN oder VERWERFEN, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
+      h1: "Der Maximalpreis für Bestand, den du auf Vinted weiterverkaufst",
+      lede: "Du besorgst den Bestand. Wir sagen dir, wofür er sich auf Vinted weiterverkauft und was du höchstens zahlen solltest. Gib den Artikel ein, den du in der Hand hast. Du erhältst KAUFEN, BEOBACHTEN oder VERWERFEN, den Höchstpreis, den du zahlen solltest, und wie viele beobachtete Abgänge hinter der Zahl stehen. Verkaufsrate und Größen bleiben einem bezahlten Plan vorbehalten. Ein fehlender Wert ist nicht gleich null.",
       moreTools: "Weitere Tools",
       breadcrumbTools: "Tools",
       faqHeading: "Häufige Fragen",
@@ -1859,7 +1857,7 @@ export const copy = {
       alternativesBuyBelow: "Kauflimit — Starter",
     },
     pricingSection: {
-      heading: "Zahl im Secondhand-Laden immer den richtigen Preis.",
+      heading: "Kauf den richtigen Bestand zum richtigen Preis.",
       metaTitle: "Starter 19 € / Pro 49 € — Kaufobergrenze",
       metaDescription:
         "Starter 19 € / Pro 49 €: Vinted-Kaufobergrenze. Entscheidungen und Größen im bezahlten Tarif. Markenvolumen öffentlich auf /data. Jederzeit kündbar.",
@@ -1906,15 +1904,15 @@ export const copy = {
     },
     tiers: {
       power: {
-        tagline: "Plane, was du aus einem Posten nimmst",
+        tagline: "Plane, wie viele Teile jeder Marke du kaufst",
         cta: "Pro ausprobieren – 49 € →",
         stepUp: "+€30 gegenüber Starter — etwa €1 am Tag",
         stepUpWhy:
-          "Starter sagt dir, ob sich ein Artikel lohnt. Pro ergänzt den Order Planner (wie viele Teile jeder Marke du aus einem Posten nimmst), Price Compare und die API.",
+          "Starter sagt dir, ob sich ein Artikel lohnt. Pro ergänzt den Order Planner (wie viele Teile jeder Marke du kaufst), Price Compare und die API.",
         ceiling: "Mehrere Plätze, größeres Volumen oder ein individueller Umfang nötig? Lass uns reden.",
         features: [
           "Alles aus Starter",
-          "Order Planner — wie viele Teile jeder Marke du aus einem Posten nimmst",
+          "Order Planner — wie viele Teile jeder Marke du kaufst",
           "Verkaufsrate pro Größe, wenn die beobachtete Stichprobe es hergibt",
           "REST-API-Zugang (eigener API-Schlüssel)",
           "Price Compare — vollständige Kaufobergrenzen-Analyse auf ES/FR/DE/IT/PT, plus Live-Preissuche über 26 Märkte insgesamt",
@@ -2156,8 +2154,8 @@ export const copy = {
     },
     signIn: "Accedi",
     pricing: "Prezzi",
-    heroTitle: "Sappi cosa si vende prima di comprare.",
-    heroAudience: "Per chi compra usato per rivendere.",
+    heroTitle: "Quale stock prendere per rivendere su Vinted, prezzo max",
+    heroAudience: "Per i rivenditori su Vinted.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
     heroFreeScope: "La tua prima ricerca è gratuita, su qualsiasi modello. Poi 19 €/mese.",
     brandStripCaption: "Marchi che osserviamo",
@@ -2181,8 +2179,8 @@ export const copy = {
       showing: (shown: number, total: number) => `${shown} marchi su ${total}`,
       seeAll: "Vedi tutti su /data",
     },
-    heroHeadline: "Sappi cosa comprare al mercatino dell'usato, al mercato delle pulci o in uno stock, e il prezzo massimo da pagare. Rivendilo su Vinted.",
-    heroSub: "Cosa comprano gli acquirenti Vinted questa settimana, per non comprare stock fermo.",
+    heroHeadline: "Sappi quale stock prendere per rivendere su Vinted e il prezzo massimo da pagare.",
+    heroSub: "Intelligence di rivendita per i rivenditori: prezzi di rivendita in tempo reale in 5 mercati UE.",
     howToHeading: "Come si usa",
     howToSteps: [
       "Scrivi una marca e un modello — o incolla il titolo di un annuncio.",
@@ -2192,7 +2190,7 @@ export const copy = {
     howToCoverage:
       "Non copriamo articoli a bassa domanda né marche fuori da questo catalogo. Samba, Air Force 1 e Fred Perry Polo sono gli esempi gratuiti su Vinted ES/FR/DE/IT/PT. Un mancato risultato è un buco di copertura — non un numero nascosto dietro un paywall.",
     heroBody:
-      "Per chi rivende e compra fuori da Vinted (mercatini dell'usato, mercati delle pulci, stock) e vende su Vinted.",
+      "Per chi rivende: a quanto si rivende un articolo su Vinted e il prezzo massimo da pagare per il tuo stock.",
     heroFrom: (tracked: string) =>
       `Basato su ${tracked} annunci attivi e uscite osservate in cinque mercati UE.`,
     heroHonesty:
@@ -2229,8 +2227,8 @@ export const copy = {
         "Resale IQ è uno strumento indipendente e non è affiliato, approvato o collegato a Vinted o a qualsiasi marchio citato su questo sito. Tutti i nomi di prodotto, i loghi e i marchi sono di proprietà dei rispettivi titolari e sono usati solo a scopo identificativo. Tutti i segnali sono informativi, basati su dati di mercato pubblici, e non costituiscono consulenza finanziaria né garanzia di risultati.",
     },
     toolsPage: {
-      h1: "Controlla il mercato prima di comprare",
-      lede: "Digita l'articolo che hai in mano. Ottieni COMPRA, OSSERVA o SCARTA, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
+      h1: "Il prezzo massimo da pagare per lo stock che rivendi",
+      lede: "Lo stock lo prendi tu. Noi ti diciamo a quanto si rivende su Vinted e il massimo da pagare. Digita l'articolo che hai in mano. Ottieni COMPRA, OSSERVA o SCARTA, il prezzo massimo da pagare, e quante uscite osservate ci sono dietro il numero. Tasso di vendita e taglie restano riservati a un piano a pagamento. Un valore nullo non è uno zero.",
       moreTools: "Altri strumenti",
       breadcrumbTools: "Strumenti",
       faqHeading: "Domande frequenti",
@@ -2326,7 +2324,7 @@ export const copy = {
       alternativesBuyBelow: "Prezzo max — Starter",
     },
     pricingSection: {
-      heading: "Paga il prezzo giusto al mercatino dell'usato, ogni volta.",
+      heading: "Prendi lo stock giusto al prezzo giusto.",
       metaTitle: "Starter 19 € / Pro 49 € — prezzo d'acquisto",
       metaDescription:
         "Starter 19 € / Pro 49 €: prezzo massimo di acquisto su Vinted. Verdetti e taglie nei piani a pagamento. Volumi pubblici su /data. Disdici quando vuoi.",
@@ -2373,15 +2371,15 @@ export const copy = {
     },
     tiers: {
       power: {
-        tagline: "Pianifica cosa prendere da uno stock",
+        tagline: "Pianifica quanti pezzi di ogni marca comprare",
         cta: "Prova Pro a 49 € →",
         stepUp: "+€30 rispetto a Starter — circa €1 al giorno",
         stepUpWhy:
-          "Starter ti dice se un articolo vale l'acquisto. Pro aggiunge l'Order Planner (quanti pezzi di ogni marca prendere da uno stock), Price Compare e l'API.",
+          "Starter ti dice se un articolo vale l'acquisto. Pro aggiunge l'Order Planner (quanti pezzi di ogni marca comprare), Price Compare e l'API.",
         ceiling: "Servono più posti, volume o un ambito su misura? Parliamone.",
         features: [
           "Tutto quello che c'è in Starter",
-          "Order Planner — quanti pezzi di ogni marca prendere da uno stock",
+          "Order Planner — quanti pezzi di ogni marca comprare",
           "Tasso di vendita per taglia quando il campione osservato lo consente",
           "Accesso API REST (la tua chiave API)",
           "Price Compare — intelligence completa del prezzo massimo di acquisto su ES/FR/DE/IT/PT, più ricerca live dei prezzi su 26 mercati in totale",
@@ -2621,8 +2619,8 @@ export const copy = {
     },
     signIn: "Entrar",
     pricing: "Preços",
-    heroTitle: "Saiba o que vende antes de comprar.",
-    heroAudience: "Para quem compra em segunda mão para revender.",
+    heroTitle: "Que stock comprar para revender na Vinted, preço máx.",
+    heroAudience: "Para revendedores na Vinted.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
     heroFreeScope: "A tua primeira pesquisa é grátis, em qualquer modelo. Depois 19 €/mês.",
     brandStripCaption: "Marcas que seguimos",
@@ -2646,8 +2644,8 @@ export const copy = {
       showing: (shown: number, total: number) => `A mostrar ${shown} de ${total} marcas`,
       seeAll: "Ver todas em /data",
     },
-    heroHeadline: "Saiba o que comprar na loja de segunda mão, na feira ou num lote, e o preço máximo a pagar. Revenda na Vinted.",
-    heroSub: "O que os compradores da Vinted levam esta semana, para não comprares stock parado.",
+    heroHeadline: "Saiba que stock comprar para revender na Vinted e o preço máximo a pagar.",
+    heroSub: "Inteligência de revenda para revendedores: preços de revenda em tempo real em 5 mercados da UE.",
     howToHeading: "Como usar",
     howToSteps: [
       "Escreve uma marca e um modelo — ou cola o título de um anúncio.",
@@ -2657,7 +2655,7 @@ export const copy = {
     howToCoverage:
       "Não acompanhamos artigos de baixa procura nem marcas fora deste catálogo. Samba, Air Force 1 e Fred Perry Polo são os exemplos grátis na Vinted ES/FR/DE/IT/PT. Uma falha é um buraco de cobertura — não um número escondido atrás de um muro de pagamento.",
     heroBody:
-      "Para revendedores que compram fora da Vinted (lojas de segunda mão, feiras, lotes) e vendem na Vinted.",
+      "Para revendedores: por quanto um artigo se revende na Vinted e o preço máximo a pagar ao comprar stock.",
     heroFrom: (tracked: string) =>
       `A partir de ${tracked} anúncios ativos e saídas observadas em cinco mercados da UE.`,
     heroHonesty:
@@ -2694,8 +2692,8 @@ export const copy = {
         "A Resale IQ é uma ferramenta independente e não é afiliada, endossada ou associada à Vinted ou a qualquer marca mencionada neste site. Todos os nomes de produtos, logótipos e marcas são propriedade dos respetivos titulares e são usados apenas para fins de identificação. Todos os sinais são informativos, baseados em dados públicos de mercado, e não constituem aconselhamento financeiro nem garantia de resultados.",
     },
     toolsPage: {
-      h1: "Verifique o mercado antes de comprar",
-      lede: "Digite o artigo que tem em mãos. Você recebe COMPRAR, OBSERVAR ou DESCARTAR, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
+      h1: "O preço máximo a pagar pelo stock que revendes",
+      lede: "Tu compras o stock. Nós dizemos-te por quanto se revende na Vinted e o máximo a pagar. Digite o artigo que tem em mãos. Você recebe COMPRAR, OBSERVAR ou DESCARTAR, o preço máximo a pagar, e quantas saídas observadas há por trás do número. Taxa de escoamento e tamanhos ficam reservados a um plano pago. Um valor nulo não é um zero.",
       moreTools: "Mais ferramentas",
       breadcrumbTools: "Ferramentas",
       faqHeading: "Perguntas frequentes",
@@ -2791,7 +2789,7 @@ export const copy = {
       alternativesBuyBelow: "Preço máximo — Starter",
     },
     pricingSection: {
-      heading: "Paga o preço certo na loja de segunda mão, sempre.",
+      heading: "Compra o stock certo ao preço certo.",
       metaTitle: "Starter 19 € / Pro 49 € — preço máximo de compra",
       metaDescription:
         "Starter 19 € / Pro 49 €: preço máximo de compra na Vinted. Veredictos e tamanhos nos planos pagos. Volumes públicos em /data. Cancele quando quiser.",
@@ -2838,15 +2836,15 @@ export const copy = {
     },
     tiers: {
       power: {
-        tagline: "Planeia o que levar de um lote",
+        tagline: "Planeia quantas peças de cada marca comprar",
         cta: "Experimenta Pro por 49 € →",
         stepUp: "+€30 acima do Starter — cerca de €1 por dia",
         stepUpWhy:
-          "O Starter diz-te se um artigo vale a pena. O Pro acrescenta o Order Planner (quantas peças de cada marca levar de um lote), o Price Compare e a API.",
+          "O Starter diz-te se um artigo vale a pena. O Pro acrescenta o Order Planner (quantas peças de cada marca comprar), o Price Compare e a API.",
         ceiling: "Precisas de mais lugares, volume ou um âmbito personalizado? Vamos conversar.",
         features: [
           "Tudo o que está no Starter",
-          "Order Planner — quantas peças de cada marca levar de um lote",
+          "Order Planner — quantas peças de cada marca comprar",
           "Taxa de venda por tamanho quando a amostra observada o permite",
           "Acesso à API REST (a tua própria chave API)",
           "Price Compare — inteligência completa de preço máximo de compra em ES/FR/DE/IT/PT, mais pesquisa de preços em direto em 26 mercados no total",
