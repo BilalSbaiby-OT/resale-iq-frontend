@@ -30,6 +30,7 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [searched, setSearched] = useState(false)
+  const [recent, setRecent] = useState(false)
 
   const run = async () => {
     const q = query.trim()
@@ -38,6 +39,7 @@ export default function SearchPage() {
     try {
       const res = await searchVinted({ q, market, limit: 30, sort })
       setItems(res.items)
+      setRecent(res.source === "tracked_index")
       setSearched(true)
     } catch (e) {
       setError(isPaymentRequired(e)
@@ -79,7 +81,7 @@ export default function SearchPage() {
 
         {/* Results */}
         {items.length > 0 && (
-          <div className="text-[12px] text-[#5b6b8c] mb-3">{items.length} listings found in {MARKETS[market] || market}</div>
+          <div className="text-[12px] text-[#5b6b8c] mb-3">{items.length} listings found in {MARKETS[market] || market}{recent && " — recently seen on Vinted (last 3 days), not a live lookup; open the listing to confirm it is still available"}</div>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

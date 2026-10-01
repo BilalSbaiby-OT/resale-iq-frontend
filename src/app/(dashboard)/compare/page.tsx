@@ -45,7 +45,7 @@ export default function ComparePage() {
   }
 
   const sorted = result
-    ? Object.entries(result.by_country).sort((a, b) => a[1].avg_price - b[1].avg_price)
+    ? Object.entries(result.by_country).sort((a, b) => (a[1].avg_price ?? Infinity) - (b[1].avg_price ?? Infinity))
     : []
 
   const cheapestTld = result?.cheapest_market?.tld
@@ -94,6 +94,9 @@ export default function ComparePage() {
 
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
 
+        {result?.source === "tracked_index" && (
+          <div className="text-[12px] text-[#5b6b8c] mb-3">Prices come from listings recently seen on Vinted (last 3 days), not a live lookup. Open a listing to confirm it is still available.</div>
+        )}
         {/* Summary cards */}
         {result && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
@@ -145,7 +148,7 @@ export default function ComparePage() {
                           <div className="flex-1 min-w-0">
                             <div className="text-[12px] line-clamp-1" style={{ color: "var(--color-graphite-muted)" }}>{item.title}</div>
                             <div className="text-[14px] font-bold mt-0.5" style={{ color: "var(--color-accent)" }}>{eur(item.price_eur)}</div>
-                            <div className="text-[12px] text-[var(--color-text-secondary)]">{item.size || "—"} · {item.seller?.login || "Unknown seller"}</div>
+                            <div className="text-[12px] text-[var(--color-text-secondary)]">{item.size || "—"}{item.seller?.login ? ` · ${item.seller.login}` : ""}</div>
                           </div>
                           <ExternalLink size={12} className="flex-shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-graphite-muted)" }} />
                         </a>

@@ -359,6 +359,7 @@ export interface SearchItem {
   photo: string | null
   country: string
   seller: SearchSeller | null
+  seen_at?: string
   favourite_count: number
   view_count: number
 }
@@ -369,6 +370,8 @@ export interface SearchResult {
   country: string
   count: number
   items: SearchItem[]
+  /** "tracked_index" = recently-seen listings from our own index (Vinted live lookup unavailable). */
+  source?: "live" | "tracked_index"
 }
 
 export interface CountryPriceStats {
@@ -388,4 +391,5 @@ export interface PriceCompareResult {
   cheapest_market: { country: string; tld: string; avg_price: number } | null
   most_expensive_market: { country: string; tld: string; avg_price: number } | null
   by_country: Record<string, CountryPriceStats>
+  source?: "live" | "tracked_index"
 }
