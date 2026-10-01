@@ -310,7 +310,7 @@ export function SsrBuyListTeaser({
         >
           <div>
             <p style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-primary)", margin: "0 0 2px" }}>
-              Full list + buy-below, updated weekly.
+              Full weekly list.
             </p>
             {showPrice ? (
               <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
@@ -324,7 +324,7 @@ export function SsrBuyListTeaser({
                  the only honest trust signal we own.
                  Live value passed from SSR page to keep in sync with meta desc. */
               <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
-                Built from {trackedLabel ?? "13.4M"} tracked Vinted listings across 5 EU markets
+                {trackedLabel ?? "13.4M"} tracked Vinted listings · 5 EU markets
               </p>
             )}
           </div>
