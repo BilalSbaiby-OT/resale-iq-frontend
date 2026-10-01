@@ -14,14 +14,16 @@ const API = process.env.BACKEND_URL || "http://localhost:8080";
 // bootstrap/JSON-LD. It is still worth setting — frame-ancestors, base-uri,
 // form-action and object-src are the parts that actually stop framing, base-tag
 // injection and data exfiltration via forms.
+// Google Ads tag hosts are allowed ONLY when NEXT_PUBLIC_GADS_ID is set (build time).
+const ADS = process.env.NEXT_PUBLIC_GADS_ID ? " https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://*.google-analytics.com" : "";
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval'${ADS ? " https://www.googletagmanager.com" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
   // Stripe Checkout is a redirect (not embedded), so connect-src only needs self.
-  "connect-src 'self'",
+  `connect-src 'self'${ADS}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

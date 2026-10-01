@@ -6,6 +6,7 @@ import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
 import { FIRST_CHECK_HREF, FIRST_CHECK_QUERY } from "@/lib/checkout"
 import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight, Tag, BarChart2, TrendingUp, Zap } from "lucide-react"
+import { fireConversion } from "@/lib/gads"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 
 // C159(tony): live demand rows shown right after payment — Canva-template moment.
@@ -61,6 +62,12 @@ function BillingSuccessContent() {
           setPlan(d.plan)
           setGuestNeedsPassword(Boolean(wasGuest && d.access_token))
           setState("ok")
+          // Google Ads conversion: inert unless NEXT_PUBLIC_GADS_ID + _CONV_LABEL are set and ad consent is granted. No PII.
+          try {
+            if (!sessionStorage.getItem("riq_gads_fired_" + sessionId)) {
+              if (fireConversion()) sessionStorage.setItem("riq_gads_fired_" + sessionId, "1")
+            }
+          } catch { /* never block the success page */ }
           try {
             const saved = localStorage.getItem("riq_intent_query")
             if (saved) {

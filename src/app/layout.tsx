@@ -3,6 +3,7 @@ import { headers } from "next/headers"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
+import { GadsTag } from "@/components/gads-tag"
 import { FrontDoorTheme } from "@/components/layout/front-door-theme"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
 import { listingsTrackedLabel, listingRecordsLabel } from "@/lib/stats"
@@ -215,6 +216,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="bg-[#0B0D10] text-[#e8ecf4] antialiased">
         <FrontDoorTheme />
         <PageviewTracker />
+        <GadsTag />
         <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
     </html>
