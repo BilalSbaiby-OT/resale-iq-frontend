@@ -108,7 +108,7 @@ export function BlogProofStrip({
       }}
     >
       <p style={{ fontSize: 13, fontWeight: 700, color: "#EEF1F7", margin: "0 0 2px" }}>
-        Live buy opportunities — profit margins from today&rsquo;s Vinted data
+        This week&rsquo;s best finds to look for
       </p>
       <p style={{ fontSize: 11.5, color: "#8FA3C4", margin: "0 0 10px" }}>
         Buy price → resale price → margin. These are real departures, not estimates.

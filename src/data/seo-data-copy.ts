@@ -91,7 +91,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     howP:
       'Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. "Sold / 7 days" counts units we watched sell in the trailing week (sold_observed), not every sold listing in the catalogue. Average sale price is the mean of those observed sales. Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.',
     ctaTitle: "Want the numbers that make you money?",
-    ctaP: "Buy-below price, sell-through and best sizes for any item — plus live deals under your price.",
+    ctaP: "Buy-below price, sell-through and best sizes for any item.",
     checkCta: "Check this item →",
     plansCta: "or see plans",
     catH2: "Brands ranked by category",

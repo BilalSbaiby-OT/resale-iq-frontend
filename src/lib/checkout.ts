@@ -85,7 +85,7 @@ export function productCopy(plan?: CheckoutPlan | string, price_id?: string): {
     return {
       product_name: "Resale IQ Pro",
       product_description:
-        "Live Deal Finder, Order Planner and unlimited buy-below checks on ES/FR/DE/IT/PT Vinted.",
+        "Order Planner and unlimited buy-below checks on ES/FR/DE/IT/PT Vinted.",
     }
   }
   return {

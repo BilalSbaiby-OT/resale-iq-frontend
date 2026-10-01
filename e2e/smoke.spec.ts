@@ -194,7 +194,7 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
   // page's own h1.
   await expect(page.locator("h1")).toHaveCount(1)
   // Demand OS hero — not the old Vinted-sourcing / “Know what to pay” line.
-  await expect(page.locator("h1")).toContainText(/Know what sells. Decide whether to buy/i)
+  await expect(page.locator("h1")).toContainText(/Pay the right price at the friperie/i)
   const hero = page.locator("section.riq-pricing")
   await expect(hero).toContainText(/BUY \/ WATCH \/ SKIP/)
   await expect(hero).toContainText(/€19/)

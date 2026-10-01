@@ -458,7 +458,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
           lineHeight: 1.45,
         }}
       >
-        These 3 answers stay free, no account. Your first check on any other item is free. After that, Starter is €19/mo.
+        These 3 stay free, no account. Any other item: first check free, then Starter €19/mo.
       </p>
 
       {/* Inline verdict — appears below chips when a chip is clicked */}

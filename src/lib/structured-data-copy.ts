@@ -46,12 +46,12 @@ type StructuredDataCopy = {
  * these strings are new translations — exactly the ones most worth policing.
  */
 export const NO_CARD: Record<Locale, string> = {
-  en: "No card required.",
-  es: "Sin tarjeta.",
-  fr: "Sans carte bancaire.",
-  de: "Keine Karte erforderlich.",
-  it: "Senza carta.",
-  pt: "Sem cartão.",
+  en: "No card for a free account or free checks. The 7-day trial needs a card: €0 today, cancel anytime.",
+  es: "Sin tarjeta para la cuenta gratuita. La prueba de 7 días necesita tarjeta: 0 € hoy, cancela cuando quieras.",
+  fr: "Sans carte pour le compte gratuit. L'essai de 7 jours demande une carte : 0 € aujourd'hui, résiliable à tout moment.",
+  de: "Keine Karte fürs kostenlose Konto. Die 7-Tage-Testphase braucht eine Karte: heute 0 €, jederzeit kündbar.",
+  it: "Nessuna carta per l'account gratuito. La prova di 7 giorni richiede una carta: 0 € oggi, disdici quando vuoi.",
+  pt: "Sem cartão para a conta gratuita. O teste de 7 dias precisa de cartão: 0 € hoje, cancela quando quiseres.",
 }
 
 export const STRUCTURED_DATA_COPY: Record<Locale, Omit<StructuredDataCopy, "offerFree">> = {

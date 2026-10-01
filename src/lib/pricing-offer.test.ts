@@ -18,7 +18,7 @@ function read(rel: string): string {
 
 test("EN pricing hero is demand OS, not Know-what-to-pay", () => {
   const t = copy.en.pricingSection
-  assert.equal(t.heading, "Know what sells. Decide whether to buy.")
+  assert.equal(t.heading, "Pay the right price at the friperie, every time.")
   assert.match(t.subhead, /BUY \/ WATCH \/ SKIP/)
   assert.match(t.subhead, /€19/)
   assert.match(t.subhead, /Starter/)
@@ -28,7 +28,7 @@ test("EN pricing hero is demand OS, not Know-what-to-pay", () => {
 
 test("ES pricing hero is an accurate mirror of demand OS", () => {
   const t = copy.es.pricingSection
-  assert.equal(t.heading, "Sabe qué se vende. Decide si compras.")
+  assert.equal(t.heading, "Paga el precio justo en la tienda de segunda mano, siempre.")
   assert.match(t.subhead, /COMPRA \/ OBSERVA \/ DESCARTA/)
   assert.match(t.subhead, /19 €/)
   assert.match(t.subhead, /Starter/)
@@ -64,8 +64,8 @@ test("Starter trust line and public-data demote are in EN + ES copy", () => {
 })
 
 test("homepage H1 sells the buy list, not a per-item price lookup", () => {
-  assert.equal(copy.en.heroHeadline, "Know what to buy this week to resell on Vinted.")
-  assert.match(copy.en.heroSub, /ranked list/)
+  assert.equal(copy.en.heroHeadline, "Know what to buy at the friperie, flea market or bale, and the max price to pay. Sell it on Vinted.")
+  assert.match(copy.en.heroSub, /Vinted buyers take this week/)
   assert.match(copy.en.heroSub, /Vinted/)
   assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)
   assert.doesNotMatch(copy.en.heroSub, /Know what to pay/i)

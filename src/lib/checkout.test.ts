@@ -51,7 +51,7 @@ test("product copy is Resale IQ, never Demand Intel", () => {
   assert.equal(starter.product_name, "Resale IQ Starter")
   assert.equal(pro.product_name, "Resale IQ Pro")
   assert.match(starter.product_description, /buy-below/i)
-  assert.match(pro.product_description, /Live Deal Finder/)
+  assert.match(pro.product_description, /Order Planner/)
   assert.doesNotMatch(starter.product_name, /Demand Intel/i)
   assert.doesNotMatch(pro.product_description, /Demand Intel/i)
   assert.equal(productCopy(undefined, BAKED_PRICE_IDS.power).product_name, "Resale IQ Pro")

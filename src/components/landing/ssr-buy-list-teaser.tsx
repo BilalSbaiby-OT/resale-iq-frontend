@@ -221,7 +221,7 @@ export function SsrBuyListTeaser({
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <TrendingUp size={15} color="#30D158" aria-hidden />
         <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-secondary)", letterSpacing: "0.02em" }}>
-          Buying opportunities this week
+          What to look for this week
         </span>
       </div>
 
@@ -306,7 +306,7 @@ export function SsrBuyListTeaser({
         >
           <div>
             <p style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-primary)", margin: "0 0 2px" }}>
-              Full ranked list + buy-below on every brand, updated weekly.
+              Full list + buy-below, updated weekly.
             </p>
             {showPrice ? (
               <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>

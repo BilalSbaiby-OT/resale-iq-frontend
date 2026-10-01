@@ -55,13 +55,13 @@ export const INTENTS: SearchIntent[] = [
     keyword: "vinted sourcing tool",
     title: "Vinted Sourcing Tool",
     description:
-      "A sourcing tool for Vinted resellers: what to buy, the max price to pay, which sizes move, and live deals under your buy-below price across 5 EU markets.",
-    h1: "Vinted Sourcing Tool",
+      "Tool for resellers who source in shops, markets and lots: what to buy, the max price to pay and which sizes move, then sell on Vinted.",
+    h1: "Tool for resellers who source in shops, markets and lots",
     lede:
       "Sourcing is where reselling profit is won or lost. Resale IQ tells you which items have real demand, the maximum you should pay, and which sizes actually sell — before you spend a cent.",
     bullets: [
       { h: "Stop buying dead stock", p: "Most resellers lose money on a chunk of what they buy. We flag demand before you buy." },
-      { h: "Live deals under your price", p: "Pro scans current listings across all 5 EU markets and surfaces items already below your buy-below price." },
+      { h: "Know the max price at the rail", p: "Type the brand in the shop or at the flea market and get the most to pay before you hand over cash." },
       { h: "Plan three weeks ahead", p: "The Order Planner shows what to buy today for stock landing in three weeks, based on recent weekly demand." },
     ],
     faq: [

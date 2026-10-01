@@ -2,7 +2,7 @@
 //
 // HARD_PAYWALL: anon /api/verdict is 402. The Free card is public weekly
 // volumes on /data, not item checks. Item-level BUY/WATCH/SKIP is Starter
-// €19; Pro €49 adds Live Finder / Planner / Compare / API.
+// €19; Pro €49 adds Planner / Compare / API.
 //
 // Business €99 was cut 2026-08-31 (AMENDMENTS.md AM-3, founder-approved):
 // zero customers, no Stripe price ever existed for it, nothing to provide
@@ -46,16 +46,15 @@ export const TIERS: Tier[] = [
     // and surfaces items already under your buy price. That is the difference
     // between a reference tool and a sourcing engine, and it is what people are
     // actually paying the extra €30 for.
-    tagline: "It stops waiting for you to ask",
+    tagline: "Plan what to take from a lot",
     cta: "Let it find the deals",
     stepUp: "+€30 over Starter — about €1 a day",
     stepUpWhy:
-      "Starter tells you whether an item is worth buying, once you have found it. Pro finds it: on demand, it searches the five EU markets we track and shows you listings already priced under your buy-below number.",
+      "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to take from a lot), Price Compare and the API.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
-      "Live Deal Finder — current Vinted listings under your buy-below, on demand when you search",
-      "3-week demand Order Planner",
+      "Order Planner — how many pieces of each brand to take from a lot",
       "Per-size sell-through when the watched sample supports it",
       "REST API access (your own API key)",
       "Price Compare — full buy-below intelligence on ES/FR/DE/IT/PT, plus live asking-price search across 26 markets total",
@@ -73,12 +72,12 @@ export const TIERS: Tier[] = [
     features: [
       "Unlimited buy/sell verdicts",
       "Every product signal we compute, unblurred",
-      "Deal Scanner — warehouse models already under buy-below",
+      "Fast sellers — models that sell in all five markets",
       "Full market trends & brand rankings",
       "Watchlist & portfolio P&L",
       "Cross-platform fee calculator",
     ],
-    ceiling: "No Live Deal Finder, Order Planner, Price Compare or API — that's Pro.",
+    ceiling: "No Order Planner, Price Compare or API — that's Pro.",
   },
   {
     id: "free",
@@ -93,7 +92,7 @@ export const TIERS: Tier[] = [
       "No anonymous item-level buy-below.",
       "Item checks are Starter at €19 a month.",
     ],
-    ceiling: "There is no free item-check tier. Live Finder is Pro.",
+    ceiling: "There is no free item-check tier.",
   },
 ]
 

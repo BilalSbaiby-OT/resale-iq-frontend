@@ -111,7 +111,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>This is a Pro feature</span>
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>
-            Order Planner, live deals and Price Compare are on Pro. Starter keeps unlimited verdicts and the Deal Scanner.
+            Order Planner and Price Compare are on Pro. Starter keeps unlimited verdicts.
           </p>
         </div>
       )}
@@ -132,8 +132,8 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
-            ? "The Order Planner, Price Compare and live deals are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime."
-            : `${tracked} listings, live deal finder, 3-week Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
+            ? "The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime."
+            : `${tracked} listings, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
         </p>
         {/* The one reframe that collapses price resistance. */}
         <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>
