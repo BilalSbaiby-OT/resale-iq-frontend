@@ -156,7 +156,11 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
           if (checkoutAbandoned) {
             go(`/pricing?ref=verify-abandoned`)
           } else {
-            go(`/verdict?q=${encodeURIComponent(resolvedQuery)}&src=email_verified`)
+            // FOUNDER RULE (business.json founder_auth_rules): every signup/login
+            // lands on /dashboard. Do not reroute to /verdict or a sample —
+            // reverted twice (dfec4a7, f8f77f0). The dashboard shows the
+            // first-check seed and the full buy list.
+            go(`/dashboard`)
           }
           return
         }
