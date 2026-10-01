@@ -1,4 +1,4 @@
-# Customer / agent firewall — CI enforcement.
+# Customer / agent firewall — CI enforcement (deploy gate).
 #
 # Company spec §54 requires the customer/agent isolation tests to run in
 # CI/CD. The backend repo holds the matching Python suite, but its frontend
