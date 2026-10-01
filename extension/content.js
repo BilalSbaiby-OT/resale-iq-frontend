@@ -215,8 +215,10 @@ function readListing() {
     )?.textContent?.trim() ||
     document.title.split("|")[0].trim();
 
+  // ^= not *=: on live vinted.fr the first *="/brand/" match is the breadcrumb
+  // (/catalog/1242-trainers/brand/53-nike -> "Nike Baskets"), not the brand.
   const brand =
-    document.querySelector('a[href*="/brand/"], [itemprop="brand"]')?.textContent?.trim() || "";
+    document.querySelector('a[href^="/brand/"], [itemprop="brand"]')?.textContent?.trim() || "";
 
   let price = null;
   for (const el of document.querySelectorAll('[data-testid*="price"], p, div, span')) {
