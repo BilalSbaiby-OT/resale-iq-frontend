@@ -20,6 +20,7 @@ import {
 import { MONEY_CTA_LABEL, TOOLS_FAQ_CTA_HREF, TOOLS_INDEX_SECONDARY_HREF, TOOLS_MONEY_HREF } from "@/lib/money-cta"
 import { WebmcpDeclarativeForm } from "@/components/tools/webmcp-declarative-form"
 import { CHECK_VINTED_ITEM_FORM_HTML } from "@/lib/webmcp-tools"
+import { resolveQuery } from "@/lib/tool-params"
 import { itemQueryMeta } from "@/lib/tools-query-meta"
 import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
@@ -34,10 +35,10 @@ import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 const TITLE = "Know what sells. Check the model before you buy — Resale IQ"
 
 async function generateMetadataRaw(
-  { searchParams }: { searchParams: Promise<{ q?: string }> }
+  { searchParams }: { searchParams: Promise<{ q?: string; query?: string }> }
 ): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
-  const { q } = await searchParams
+  const q = resolveQuery(await searchParams)
   // When an LLM or crawler lands on /tools?q=<item>, return item-matched meta
   // so the citation reads "New Balance 530 price check" not a generic description.
   // Canonical stays /tools — we don't want query params indexed as separate pages.
@@ -66,12 +67,14 @@ async function generateMetadataRaw(
   }
 }
 
-export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; src?: string }> }) {
+export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?: string; query?: string; src?: string }> }) {
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
   const hub = toolsHub(locale)
   const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
-  const { q: initialQuery, src } = await searchParams
+  const sp = await searchParams
+  const initialQuery = resolveQuery(sp)
+  const src = sp.src
   const [teaser, proofRows] = await Promise.all([
     getTeaserVerdict(initialQuery),
     getPublicBuyList(5),

@@ -7,6 +7,7 @@ import {
   CALCULATE_VINTED_PROFIT_NAME,
   CALCULATE_VINTED_PROFIT_SELL_DESCRIPTION,
 } from "@/lib/webmcp-tools"
+import { computeProfit, parseMoney, VINTED_FEE_PCT } from "@/lib/tool-params"
 import "@/types/webmcp-jsx"
 
 /**
@@ -22,13 +23,6 @@ import "@/types/webmcp-jsx"
  * literals: the accent here is one button plus the payoff figure, and both
  * have to move with the palette rather than pinning a hex to this file.
  */
-const VINTED_FEE_PCT = 0.05
-
-function parseMoney(raw: string): number | null {
-  const n = Number.parseFloat(raw.trim().replace(",", "."))
-  if (!Number.isFinite(n) || n < 0.01) return null
-  return n
-}
 
 function money(n: number): string {
   const sign = n < 0 ? "−" : ""
@@ -54,17 +48,19 @@ const labelStyle: React.CSSProperties = {
   marginBottom: 7,
 }
 
-export function PublicProfitCalculator({ locale = "en" }: { locale?: Locale }) {
+export function PublicProfitCalculator({
+  locale = "en", initialBuy, initialSell,
+}: { locale?: Locale; initialBuy?: string; initialSell?: string }) {
   const t = copy[locale].toolsPage.calc
-  const [buyPrice, setBuyPrice] = useState("")
-  const [sellPrice, setSellPrice] = useState("")
+  const [buyPrice, setBuyPrice] = useState(initialBuy ?? "")
+  const [sellPrice, setSellPrice] = useState(initialSell ?? "")
   const [error, setError] = useState("")
   const [result, setResult] = useState<null | {
     buy: number
     sell: number
     fee: number
     net: number
-  }>(null)
+  }>(computeProfit(initialBuy, initialSell))
 
   const onCalculate = (e: FormEvent) => {
     e.preventDefault()
@@ -89,6 +85,8 @@ export function PublicProfitCalculator({ locale = "en" }: { locale?: Locale }) {
   return (
     <form
       noValidate
+      action="/tools/vinted-profit-calculator"
+      method="get"
       toolname={CALCULATE_VINTED_PROFIT_NAME}
       tooldescription={CALCULATE_VINTED_PROFIT_DESCRIPTION}
       onSubmit={onCalculate}

@@ -39,6 +39,8 @@ function escAttr(value: string): string {
 export function webmcpFormHtml(opts: {
   toolname: string
   tooldescription: string
+  /** Page that reads the GET params and renders the result server-side. */
+  action: string
   fields: { name: string; description: string }[]
 }): string {
   const inputs = opts.fields
@@ -47,23 +49,26 @@ export function webmcpFormHtml(opts: {
         `<input name="${escAttr(f.name)}" required toolparamdescription="${escAttr(f.description)}">`,
     )
     .join("")
-  return `<form toolname="${escAttr(opts.toolname)}" tooldescription="${escAttr(opts.tooldescription)}">${inputs}</form>`
+  return `<form action="${escAttr(opts.action)}" method="get" toolname="${escAttr(opts.toolname)}" tooldescription="${escAttr(opts.tooldescription)}">${inputs}</form>`
 }
 
 export const CHECK_VINTED_ITEM_FORM_HTML = webmcpFormHtml({
   toolname: CHECK_VINTED_ITEM_NAME,
+  action: "/tools",
   tooldescription: CHECK_VINTED_ITEM_DESCRIPTION,
   fields: [{ name: "query", description: CHECK_VINTED_ITEM_QUERY_DESCRIPTION }],
 })
 
 export const CHECK_VINTED_PRICE_FORM_HTML = webmcpFormHtml({
   toolname: CHECK_VINTED_PRICE_NAME,
+  action: "/tools/vinted-price-checker",
   tooldescription: CHECK_VINTED_PRICE_DESCRIPTION,
   fields: [{ name: "query", description: CHECK_VINTED_ITEM_QUERY_DESCRIPTION }],
 })
 
 export const CALCULATE_VINTED_PROFIT_FORM_HTML = webmcpFormHtml({
   toolname: CALCULATE_VINTED_PROFIT_NAME,
+  action: "/tools/vinted-profit-calculator",
   tooldescription: CALCULATE_VINTED_PROFIT_DESCRIPTION,
   fields: [
     { name: "buy_price", description: CALCULATE_VINTED_PROFIT_BUY_DESCRIPTION },

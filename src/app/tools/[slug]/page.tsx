@@ -21,6 +21,8 @@ import {
   CHECK_VINTED_PRICE_FORM_HTML,
   CHECK_VINTED_PRICE_NAME,
 } from "@/lib/webmcp-tools"
+import { resolveQuery } from "@/lib/tool-params"
+import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
 import { itemQueryMeta } from "@/lib/tools-query-meta"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
@@ -33,13 +35,13 @@ export function generateStaticParams() {
 }
 
 async function generateMetadataRaw(
-  { params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string }> }
+  { params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; query?: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
   const tracked = await listingsTrackedLabel()
   const i = fillTracked(getIntent(slug), tracked)
   if (!i) return { title: "Not found — Resale IQ" }
-  const { q } = await searchParams
+  const q = resolveQuery(await searchParams)
   // When an LLM or crawler lands on /tools/<slug>?q=<item>, return item-matched
   // meta so the citation reads "New Balance 530 price check" not the generic
   // intent headline. Canonical stays /tools/<slug> — query params stay unindexed.
@@ -59,9 +61,16 @@ async function generateMetadataRaw(
 }
 
 export default async function IntentPage(
-  { params }: { params: Promise<{ slug: string }> }
+  { params, searchParams }: {
+    params: Promise<{ slug: string }>
+    searchParams: Promise<{ q?: string; query?: string; buy_price?: string; sell_price?: string }>
+  }
 ) {
   const { slug } = await params
+  const sp = await searchParams
+  const initialQuery = resolveQuery(sp)
+  const teaser = await getTeaserVerdict(initialQuery)
+  const cite = formatTeaserCite(initialQuery ?? "", teaser)
   const tracked = await listingsTrackedLabel()
   // Live proof rows for the strip under the H1.
   //
@@ -143,6 +152,11 @@ export default async function IntentPage(
         </nav>
 
         <h1 style={{ fontSize: 34, fontWeight: 600, color: "var(--color-text-primary)", lineHeight: 1.15, letterSpacing: "-0.6px", marginBottom: 16 }}>{i.h1}</h1>
+        {cite ? (
+          <p data-testid="riq-teaser-cite" style={{ fontSize: 16, color: "var(--color-text-primary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
+            {cite}
+          </p>
+        ) : null}
 
         {/* The TOOL goes above the lede.
 
@@ -161,19 +175,20 @@ export default async function IntentPage(
         {slug === "vinted-profit-calculator" ? (
           <>
             <WebmcpDeclarativeForm html={CALCULATE_VINTED_PROFIT_FORM_HTML} />
-            <PublicProfitCalculator locale={locale} />
+            <PublicProfitCalculator locale={locale} initialBuy={sp.buy_price} initialSell={sp.sell_price} />
           </>
         ) : slug === "vinted-price-checker" ? (
           <>
             <WebmcpDeclarativeForm html={CHECK_VINTED_PRICE_FORM_HTML} />
             <FreeChecker
               locale={locale}
+              initialQuery={initialQuery}
               webmcpName={CHECK_VINTED_PRICE_NAME}
               webmcpDescription={CHECK_VINTED_PRICE_DESCRIPTION}
             />
           </>
         ) : (
-          <FreeChecker locale={locale} />
+          <FreeChecker locale={locale} initialQuery={initialQuery} />
         )}
 
         {/* Proof BELOW the checker, above the lede.
