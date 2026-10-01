@@ -70,6 +70,7 @@ export const TIERS: Tier[] = [
     tagline: "Answers on anything you look up",
     cta: "Get the numbers",
     features: [
+      "Weekly resale signals: what stock to source and the max price",
       "Unlimited buy/sell verdicts",
       "Every product signal we compute, unblurred",
       "Fast sellers — models that sell in all five markets",

@@ -1139,7 +1139,8 @@ export function FreeChecker({
                 {res.product ?? q}
               </div>
               <div style={{ marginTop: 2, fontSize: "var(--text-title)", fontWeight: 600, color, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
-                {label}
+                <span style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)", marginRight: 8, letterSpacing: 0 }}>{copy[locale].signalLabel}:</span>
+                <span>{label}</span>
               </div>
               <div style={{ marginTop: 4, fontSize: "var(--text-meta)", color: "var(--color-text-dim)" }}>
                 {shownCategory ? `${shownCategory} · ` : ""}
@@ -1202,6 +1203,7 @@ export function FreeChecker({
               )}
 
               <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginTop: hasPrices ? 16 : 4 }}>
+                <span style={{ fontSize: 12, fontWeight: 500, color: "#7f8da9" }}>{copy[locale].signalLabel}:</span>
                 <span style={{ fontSize: 26, fontWeight: 800, color, letterSpacing: "0.5px" }}>
                   {label}
                 </span>

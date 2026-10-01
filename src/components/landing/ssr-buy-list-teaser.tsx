@@ -221,9 +221,13 @@ export function SsrBuyListTeaser({
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <TrendingUp size={15} color="#30D158" aria-hidden />
         <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-secondary)", letterSpacing: "0.02em" }}>
-          What to look for this week
+          {copy[locale].thisWeekSignals}
         </span>
       </div>
+
+      <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: "-4px 0 10px" }}>
+        {copy[locale].signalsDisclaimer}
+      </p>
 
       {/* Rows — card-style, stacks on mobile */}
       <div

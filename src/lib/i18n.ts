@@ -155,7 +155,10 @@ export const copy = {
       seeAll: "See all on /data",
     },
     heroHeadline: "Know what stock to source to resell on Vinted, and the max price to pay.",
-    heroSub: "Reselling intelligence for resellers: live Vinted resale prices across 5 EU markets.",
+    heroSub: "Vinted resale signals: BUY, WATCH or SKIP, the max price to pay and what it resells for.",
+    thisWeekSignals: "This week's signals",
+    signalsDisclaimer: "Based on past resale data, not a guarantee.",
+    signalLabel: "Signal",
     howToHeading: "How it works",
     howToSteps: [
       "See what's selling fastest this week.",
@@ -448,6 +451,7 @@ export const copy = {
         tagline: "Answers on anything you look up",
         cta: "Try Starter for €19 →",
         features: [
+          "Weekly resale signals: what stock to source and the max price",
           "Unlimited buy/sell verdicts",
           "Every product signal we compute, unblurred",
           "Fast sellers — models that sell in all five markets",
@@ -779,7 +783,10 @@ export const copy = {
       seeAll: "Tout voir sur /data",
     },
     heroHeadline: "Sachez quel stock sourcer pour revendre sur Vinted, et le prix max à payer.",
-    heroSub: "L'intelligence de revente pour les revendeurs : prix de revente en direct sur 5 marchés européens.",
+    heroSub: "Signaux de revente Vinted : ACHAT, ATTENTE ou PASSER, le prix max à payer et le prix de revente.",
+    thisWeekSignals: "Signaux de la semaine",
+    signalsDisclaimer: "Basé sur des données de revente passées, sans garantie.",
+    signalLabel: "Signal",
     howToHeading: "Comment l'utiliser",
     howToSteps: [
       "Saisissez une marque et un modèle — ou collez le titre d'une annonce.",
@@ -989,6 +996,7 @@ export const copy = {
         tagline: "Des réponses sur tout ce que vous cherchez",
         cta: "Essayer Starter pour 19 € →",
         features: [
+          "Signaux de revente hebdomadaires : quel stock sourcer et le prix max",
           "Verdicts d'achat/vente illimités",
           "Chaque signal produit que nous calculons, sans flou",
           "Ventes rapides — modèles qui se vendent sur les cinq marchés",
@@ -1245,7 +1253,10 @@ export const copy = {
       seeAll: "Ver todas en /data",
     },
     heroHeadline: "Sabe qué stock comprar para revender en Vinted y el precio máximo a pagar.",
-    heroSub: "Inteligencia de reventa para revendedores: precios de reventa en vivo en 5 mercados de la UE.",
+    heroSub: "Señales de reventa en Vinted: COMPRA, OBSERVA o DESCARTA, el precio máximo a pagar y el precio de reventa.",
+    thisWeekSignals: "Señales de la semana",
+    signalsDisclaimer: "Basado en datos de reventa pasados, sin garantía.",
+    signalLabel: "Señal",
     howToHeading: "Cómo usarlo",
     howToSteps: [
       "Escribe una marca y un modelo — o pega el título de un anuncio.",
@@ -1457,6 +1468,7 @@ export const copy = {
         tagline: "Respuestas para todo lo que busques",
         cta: "Probar Starter por 19 € →",
         features: [
+          "Señales de reventa semanales: qué stock comprar y el precio máximo",
           "Veredictos de compra/venta ilimitados",
           "Cada señal de producto que calculamos, sin difuminar",
           "Ventas rápidas — modelos que se venden en los cinco mercados",
@@ -1713,7 +1725,10 @@ export const copy = {
       seeAll: "Alle auf /data",
     },
     heroHeadline: "Wisse, welchen Bestand du für Vinted einkaufen solltest, und den Maximalpreis.",
-    heroSub: "Resale-Intelligence für Wiederverkäufer: aktuelle Wiederverkaufspreise in 5 EU-Märkten.",
+    heroSub: "Vinted-Resale-Signale: KAUFEN, BEOBACHTEN oder VERWERFEN, der Maximalpreis beim Einkauf und der Wiederverkaufspreis.",
+    thisWeekSignals: "Signale der Woche",
+    signalsDisclaimer: "Basiert auf vergangenen Wiederverkaufsdaten, keine Garantie.",
+    signalLabel: "Signal",
     howToHeading: "So nutzt du es",
     howToSteps: [
       "Gib Marke und Modell ein — oder füge den Titel eines Angebots ein.",
@@ -1922,6 +1937,7 @@ export const copy = {
         tagline: "Antworten auf alles, was du nachschlägst",
         cta: "Starter ausprobieren – 19 € →",
         features: [
+          "Wöchentliche Resale-Signale: welchen Bestand du einkaufen solltest und der Maximalpreis",
           "Unbegrenzte Kauf-/Verkaufsentscheidungen",
           "Jedes berechnete Produktsignal, ohne Unschärfe",
           "Schnelldreher — Modelle, die in allen fünf Märkten laufen",
@@ -2180,7 +2196,10 @@ export const copy = {
       seeAll: "Vedi tutti su /data",
     },
     heroHeadline: "Sappi quale stock prendere per rivendere su Vinted e il prezzo massimo da pagare.",
-    heroSub: "Intelligence di rivendita per i rivenditori: prezzi di rivendita in tempo reale in 5 mercati UE.",
+    heroSub: "Segnali di rivendita su Vinted: COMPRA, OSSERVA o SCARTA, il prezzo massimo da pagare e il prezzo di rivendita.",
+    thisWeekSignals: "Segnali della settimana",
+    signalsDisclaimer: "Basato su dati di rivendita passati, nessuna garanzia.",
+    signalLabel: "Segnale",
     howToHeading: "Come si usa",
     howToSteps: [
       "Scrivi una marca e un modello — o incolla il titolo di un annuncio.",
@@ -2389,6 +2408,7 @@ export const copy = {
         tagline: "Risposte su tutto quello che cerchi",
         cta: "Prova Starter a 19 € →",
         features: [
+          "Segnali di rivendita settimanali: quale stock prendere e il prezzo massimo",
           "Verdetti di acquisto/vendita illimitati",
           "Ogni segnale di prodotto che calcoliamo, senza sfocature",
           "Vendite rapide — modelli che si vendono nei cinque mercati",
@@ -2645,7 +2665,10 @@ export const copy = {
       seeAll: "Ver todas em /data",
     },
     heroHeadline: "Saiba que stock comprar para revender na Vinted e o preço máximo a pagar.",
-    heroSub: "Inteligência de revenda para revendedores: preços de revenda em tempo real em 5 mercados da UE.",
+    heroSub: "Sinais de revenda na Vinted: COMPRAR, OBSERVAR ou DESCARTAR, o preço máximo a pagar e o preço de revenda.",
+    thisWeekSignals: "Sinais da semana",
+    signalsDisclaimer: "Com base em dados de revenda passados, sem garantia.",
+    signalLabel: "Sinal",
     howToHeading: "Como usar",
     howToSteps: [
       "Escreve uma marca e um modelo — ou cola o título de um anúncio.",
@@ -2854,6 +2877,7 @@ export const copy = {
         tagline: "Respostas para tudo o que procurares",
         cta: "Experimenta Starter por 19 € →",
         features: [
+          "Sinais de revenda semanais: que stock comprar e o preço máximo",
           "Veredictos de compra/venda ilimitados",
           "Todos os sinais de produto que calculamos, sem desfoque",
           "Vendas rápidas — modelos que vendem nos cinco mercados",

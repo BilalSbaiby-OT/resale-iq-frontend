@@ -65,7 +65,7 @@ test("Starter trust line and public-data demote are in EN + ES copy", () => {
 
 test("homepage H1 sells the buy list, not a per-item price lookup", () => {
   assert.equal(copy.en.heroHeadline, "Know what stock to source to resell on Vinted, and the max price to pay.")
-  assert.match(copy.en.heroSub, /Reselling intelligence for resellers/)
+  assert.match(copy.en.heroSub, /Vinted resale signals: BUY, WATCH or SKIP/)
   assert.match(copy.en.heroSub, /Vinted/)
   assert.doesNotMatch(copy.en.heroHeadline, /Know what to pay/i)
   assert.doesNotMatch(copy.en.heroSub, /Know what to pay/i)
