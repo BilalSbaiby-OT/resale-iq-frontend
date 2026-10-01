@@ -87,7 +87,7 @@ test.describe("register: free by default, dashboard landing, waiver only on paid
 
     await page.goto("/register?plan=operator")
     await expect(page.getByText("Starter", { exact: true })).toBeVisible()
-    await expect(page.getByText("€19")).toBeVisible()
+    await expect(page.getByText("€19", { exact: true })).toBeVisible()
     await expect(page.locator('input[type="checkbox"]')).toHaveCount(1)
   })
 
@@ -132,7 +132,7 @@ test.describe("register: free by default, dashboard landing, waiver only on paid
     const events = captureTrackEvents(page)
     await mockPaidCheckout(page)
     await page.goto("/register?plan=operator")
-    await expect(page.getByText("€19")).toBeVisible()
+    await expect(page.getByText("€19", { exact: true })).toBeVisible()
     await fillPaidRegister(page, `e2e-paid-${Date.now()}@example.com`)
     await page.getByRole("button", { name: /Start my 7-day free trial/i }).click()
     await page.waitForURL(/checkout\.stripe\.com/, { timeout: 20_000 })
