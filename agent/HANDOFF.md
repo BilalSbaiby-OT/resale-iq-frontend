@@ -1,7 +1,23 @@
 STATUS: READY
 OWNER: none
 PUSH: yes
-UPDATED: 2026-09-21
+UPDATED: 2026-10-02
+
+FOUNDER SESSION, 2026-10-02 (Claude, founder-directed) — all on main, deployed, live-checked
+  - buy_below = average sale x 0.70 everywhere (5% "Vinted fee" removed: private sellers pay no fee).
+  - One brand count (live brandsTracked, 61), one listing headline ("14M+ listing records").
+  - Departures never called "sold". Founder rule: NO per-product or brand x category
+    departure counts on customer-facing pages; lead with verdict, buy-below, resell price.
+    Brand-level volumes stay on /data and /methodology only.
+  - One FREE_SAMPLES list (Samba, AF1, Fred Perry Polo); no "free check of any item", no guru lines.
+  - Payback calculator default 30 x EUR 20 = EUR 600/month.
+  - /partners "1.1M sold" card removed. /billing/success handles login_required.
+  - Backend (private repo): CI green again, deploys automatic; verdict cold start fixed;
+    plan in resale-iq-backend docs/PLAN-2026-Q4.md (EUR 400 by 31 Oct, EUR 2,000 by 31 Dec).
+  Leftover for the SEO lane: ~119 static blog/manual data files still carry literal
+  per-product departure counts (src/data/blog-posts-*.ts, manual*.ts) — remove per the rule above.
+
+---
 
 FRONTEND REPAIR TRIAL — PR #133 live-bug pass
   https://github.com/BilalSbaiby-OT/resale-iq-frontend/pull/133

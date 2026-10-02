@@ -653,3 +653,6 @@ NEXT (once unblocked): P0-1.
 - Local: tsc, unit 295, dupes, locale-english. PR #133.
 
 
+
+## 2026-10-02 — founder session (Claude)
+- Trust batch + x0.70 formula + no per-product counts + calculator EUR 600 shipped and live-checked. See HANDOFF.
