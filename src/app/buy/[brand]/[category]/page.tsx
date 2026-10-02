@@ -41,7 +41,7 @@ async function generateMetadataRaw({
   const title = `What to Pay for ${brand.brand} ${cat.category} — Buy-Below Price | ResaleIQ`
   const description =
     `${brand.brand} ${cat.category}: ${fmtDeparturesBuy(cat.sold_30d)} left the shelf in 30 days on Vinted. ` +
-    `Average exit price ${fmtEurBuy(cat.avg_price_eur)} — buy below ${fmtEurBuy(cat.buy_below)} to hit a 30% gross margin after Vinted fees. ` +
+    `Average exit price ${fmtEurBuy(cat.avg_price_eur)} — buy below ${fmtEurBuy(cat.buy_below)} to hit a 30% gross margin. ` +
     `Watched departures, not supply counts.`
 
   return {
@@ -70,7 +70,7 @@ export default async function BuyBrandCategoryPage({
     `across Spain, France, Germany, Italy and Portugal (watched departures, not confirmed sales). ` +
     `The average price at departure was ${fmtEurBuy(cat.avg_price_eur)}` +
     (cat.median_price_eur ? ` (median ${fmtEurBuy(cat.median_price_eur)})` : "") +
-    `. To hit a 30% gross margin after a 5% Vinted fee, ` +
+    `. To hit a 30% gross margin, ` +
     `buy below ${fmtEurBuy(cat.buy_below)}. ` +
     (cat.active_listings != null && departurePairPrintable(cat.sold_30d, cat.active_listings)
       ? `There are currently about ${fmtCountBuy(cat.active_listings)} active ${brand.brand} ${cat.category} listings — ` +
@@ -224,9 +224,9 @@ export default async function BuyBrandCategoryPage({
             <strong style={{ color: "#34C759" }}>{fmtEurBuy(cat.buy_below)}</strong>{" "}
             is derived from the average departure price of{" "}
             <strong style={{ color: "#eef1f7" }}>{fmtEurBuy(cat.avg_price_eur)}</strong>.
-            We apply a 5% Vinted platform fee and a 30% gross margin target — meaning the buy-below is 66.5% of the average exit price (avg × 0.95 × 0.70).
+            We apply a 30% gross margin target — meaning the buy-below is 70% of the average exit price (avg × 0.70).
             This is the same formula used by the ResaleIQ verdict engine on every surface.
-            It covers Vinted&apos;s selling fee while leaving a real margin for the reseller.
+            Vinted charges private sellers no selling fee, so no platform cut is built into that number.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
             The buy-below is a <em>category-level aggregate</em>. Individual items vary by model, size and

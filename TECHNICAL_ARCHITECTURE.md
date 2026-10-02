@@ -11,7 +11,7 @@ Verified against this tree on 2026-09-21 (`main` at `4f15eea` plus this audit br
 
 The product number is the highest price worth paying for a Vinted item:
 
-`buy_below = avg_sale × 0.95 × 0.70` on **ES / FR / DE / IT / PT**.
+`buy_below = avg_sale × 0.70` on **ES / FR / DE / IT / PT**.
 
 The frontend sells that number (homepage, `/tools`, `/pricing`, `/verdict`), cites weekly brand volumes (`/data`, `/flip`), and hosts the Chrome MV3 overlay (`extension/`). It does **not** own SQLite. Counts a customer sees on marketing/data pages come from `src/lib/market-numbers.ts` → `GET /api/public/market-snapshot`. `seo-brands.json` is slugs, not numbers.
 

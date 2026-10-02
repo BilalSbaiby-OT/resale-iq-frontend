@@ -58,7 +58,8 @@ test("tools FAQ answers match the paywalled item-check boundary", () => {
 
 test("citeable buy-below lead does not promise a free item check", () => {
   assert.equal(BUY_BELOW_TERM_NAME, "Buy-below price")
-  assert.match(BUY_BELOW_TERM, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(BUY_BELOW_TERM, /average asking price at departure × 0\.70/)
+  assert.doesNotMatch(BUY_BELOW_TERM, /0\.95/)
   assert.match(BUY_BELOW_TERM, /Starter €19/)
   assert.match(BUY_BELOW_TERM, /BUY, WATCH or SKIP/)
   assert.match(TOOLS_HUB_BODY, /Most item checks unlock with Starter/)

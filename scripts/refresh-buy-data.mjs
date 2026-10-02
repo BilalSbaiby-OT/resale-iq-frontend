@@ -79,7 +79,7 @@ for brand, pairs in sorted(by_brand.items(), key=lambda x: -sum(p['sold_30d_avg'
     for p in pairs_sorted:
         key = (brand, p['category'])
         di = di_map.get(key, {})
-        buy_below = round(p['avg_price_eur'] * 0.665, 2) if p['avg_price_eur'] else None
+        buy_below = round(p['avg_price_eur'] * 0.70, 2) if p['avg_price_eur'] else None
         categories.append({
             'category': p['category'], 'slug': make_slug(p['category']),
             'sold_30d': round(p['sold_30d_avg']),
@@ -102,6 +102,7 @@ from datetime import date
 result = {
     'generated_at': date.today().isoformat(),
     'source': 'market_stats (Vinted DE/FR/ES/IT/PT)',
+    'formula': 'buy_below = avg_price_eur * 0.70 (30% gross margin; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)',
     'threshold': 'sold_30d >= 3 (30-day departures)',
     'total_pairs': sum(len(b['categories']) for b in brands_data),
     'total_brands': len(brands_data),

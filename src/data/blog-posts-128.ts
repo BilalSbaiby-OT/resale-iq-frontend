@@ -11,7 +11,7 @@
 //
 // Post 3: new-balance-530-resell-guide-vinted
 //   → "New Balance 530 resell Vinted" / "is NB 530 worth buying to resell"
-//   → 1,235 dep/30d, avg €38.51, buy-below €25.61 — strongest model signal in DB
+//   → 1,235 dep/30d, avg €38.51, buy-below €26.96 — strongest model signal in DB
 //
 // Post 4: patagonia-reselling-vinted-complete-guide
 //   → "is Patagonia worth reselling on Vinted" / "which Patagonia sells best"
@@ -47,25 +47,25 @@ export const POSTS_128: BlogPost[] = [
     readMins: 7,
     preflightQuery: "New Balance 530",
     intro:
-      "As of 22 September 2026, the single highest-volume model in Resale IQ's tracked set is the New Balance 530: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure, with a buy-below of €25.61. The Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85) and New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88) are second and third. These are minimums — a Sep 14–22 data gap means real 30-day demand is likely higher. The table below ranks every model with a confirmed buy-below signal and at least 50 departures in the trailing 30 days.",
+      "As of 22 September 2026, the single highest-volume model in Resale IQ's tracked set is the New Balance 530: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure, with a buy-below of €26.96. The Balenciaga Track (891 dep/30d, avg €290, buy-below €203.00) and New Balance 550 (825 dep/30d, avg €23.88, buy-below €16.72) are second and third. These are minimums — a Sep 14–22 data gap means real 30-day demand is likely higher. The table below ranks every model with a confirmed buy-below signal and at least 50 departures in the trailing 30 days.",
     definedTerm: {
       name: "Watched departure",
       description:
         "A watched departure is a listing Resale IQ tracked from active to no longer listed — not a confirmed buyer receipt. " +
         "Sold_30d counts those transitions in the trailing 30 days across 5 EU Vinted markets (ES/FR/DE/IT/PT), " +
-        "not every transaction on Vinted as a whole. Buy-below is modelled as avg departure price × 0.95 × 0.70 " +
-        "(5% platform fee model, 30% margin target). Treat it as a sourcing ceiling, not a profit guarantee.",
+        "not every transaction on Vinted as a whole. Buy-below is modelled as avg departure price × 0.70 " +
+        "(30% margin target; no fee factor, because Vinted charges private sellers no selling fee). Treat it as a sourcing ceiling, not a profit guarantee.",
     },
     sections: [
       {
         h: "How to read this table",
         p: [
-          "Left the shelf/30d is watched departures across the 5 EU Vinted markets in the trailing 30 days — minimums, not totals. A Sep 14–22 outage in our shelf-detection means the real figures are likely up to ~25% higher. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin after a ~5% platform fee.",
+          "Left the shelf/30d is watched departures across the 5 EU Vinted markets in the trailing 30 days — minimums, not totals. A Sep 14–22 outage in our shelf-detection means the real figures are likely up to ~25% higher. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin.",
           "The table is ordered by left-the-shelf/30d descending. Volume and margin are different things — the New Balance 550 moves 825 units at €24 avg, while the Balenciaga Track moves 891 units at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
         ],
         table: {
           caption:
-            "Ranked buy list — September 2026, EU Vinted (ES/FR/DE/IT/PT). Left the shelf/30d = watched departures in trailing 30 days (minimum, outage-adjusted). Buy-below = sourcing ceiling for ~30% margin after ~5% platform fee.",
+            "Ranked buy list — September 2026, EU Vinted (ES/FR/DE/IT/PT). Left the shelf/30d = watched departures in trailing 30 days (minimum, outage-adjusted). Buy-below = sourcing ceiling for a ~30% margin.",
           head: ["#", "Model", "Category", "Left the shelf/30d (min)", "Avg exit price", "Buy-below"],
           rows: [
             ["1", "[New Balance 530](/blog/new-balance-530-resell-guide-vinted)", "Sneakers", "1,235", "€38.51", "€25.61"],
@@ -89,9 +89,9 @@ export const POSTS_128: BlogPost[] = [
       {
         h: "Why these items right now",
         p: [
-          "The autumn transition is already live. Patagonia Synchilla (202 dep/30d) and Retro-X (118 dep/30d at €67 avg, buy-below €44.70) are clearing at pace as buyers in France, Germany and Italy move into layering. Stone Island Hoodies account for roughly 5,700 of Stone Island's ~13,900 brand-level departures this month at an average of €52.51.",
+          "The autumn transition is already live. Patagonia Synchilla (202 dep/30d) and Retro-X (118 dep/30d at €67 avg, buy-below €47.05) are clearing at pace as buyers in France, Germany and Italy move into layering. Stone Island Hoodies account for roughly 5,700 of Stone Island's ~13,900 brand-level departures this month at an average of €52.51.",
           "High-volume basics (New Balance 550 at €24, Fred Perry Twin Tipped at €21) run on volume, not margin per unit. The Balenciaga cluster — Track, Runner, City Bag, Triple S, Arena — runs on ticket size: fewer transactions, more euro per deal. Know which business you are running before you source.",
-          "The New Balance 530 sits in the middle: 1,235 departures at €38.51 avg. At a buy-below of €25.61, that is a model where volume and margin overlap — the reason it leads the table. The 9060 (371 dep/30d, €47.76, buy-below €31.76) is a complementary hold: newer model, higher average, lower competition.",
+          "The New Balance 530 sits in the middle: 1,235 departures at €38.51 avg. At a buy-below of €26.96, that is a model where volume and margin overlap — the reason it leads the table. The 9060 (371 dep/30d, €47.76, buy-below €33.43) is a complementary hold: newer model, higher average, lower competition.",
         ],
         cta: pricingMidCta("ctr_buynow_20260922"),
       },
@@ -99,15 +99,15 @@ export const POSTS_128: BlogPost[] = [
         h: "What is not on this list — and why",
         p: [
           "Models with no buy-below price are absent by design. Vans Old Skool, Nike Air Max 90, Nike Vapormax and Jordan 1 have NULL buy-below in the production database — their comparable sets are contaminated and we will not publish a ceiling we cannot stand behind. When we cannot produce a reliable number, we do not produce one.",
-          "Models below 50 dep/30d are excluded here but available in the full checker. Low-volume models with high ticket prices (Gucci Ophidia at 95 dep/30d, €489 avg, buy-below €325) are viable for experienced resellers who can assess condition accurately. For new resellers, stick to the table above.",
+          "Models below 50 dep/30d are excluded here but available in the full checker. Low-volume models with high ticket prices (Gucci Ophidia at 95 dep/30d, €489 avg, buy-below €342) are viable for experienced resellers who can assess condition accurately. For new resellers, stick to the table above.",
           `The live ranking updates when the production snapshot refreshes. For real-time position, [check the weekly brand volumes](/data) or [run the item checker for a specific model](/tools).`,
         ],
       },
       {
         h: "The buy-below floor — what it means in practice",
         p: [
-          "Buy-below = avg departure price × 0.95 × 0.70. The 0.95 models a 5% combined fee rate (Vinted buyer protection, payment processing). The 0.70 targets a 30% gross margin on the sell price — not profit after your time, shipping, or failed listings.",
-          "If you source a New Balance 530 for €20 against a buy-below of €25.61, you have ~€5.61 of sourcing headroom and can expect to sell around €38.51. That is arithmetic, not a guarantee. Size, condition and timing affect the actual sell price.",
+          "Buy-below = avg departure price × 0.70. There is no fee factor: Vinted charges private sellers no selling fee, and Buyer Protection is paid by the buyer. The 0.70 targets a 30% gross margin on the sell price — not profit after your time, shipping, or failed listings.",
+          "If you source a New Balance 530 for €20 against a buy-below of €26.96, you have ~€5.61 of sourcing headroom and can expect to sell around €38.51. That is arithmetic, not a guarantee. Size, condition and timing affect the actual sell price.",
           `[Free weekly market data →](` + dataCiteHref("body_buynow_20260922") + `) · [Run the item checker for any model →](/tools)`,
         ],
         cta: pricingBodyCta("body_buynow_20260922"),
@@ -117,27 +117,27 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What should I buy to resell on Vinted right now?",
         a:
-          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €25.61), Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85), New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to no longer listed, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
+          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €26.96), Balenciaga Track (891 dep/30d, avg €290, buy-below €203.00), New Balance 550 (825 dep/30d, avg €23.88, buy-below €16.72). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to no longer listed, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
       },
       {
         q: "What is a buy-below price?",
         a:
-          "A buy-below price is the most you can pay for an item and still clear a target margin after selling fees. Resale IQ models it as: average departure price × 0.95 (5% platform fee) × 0.70 (30% margin target). For the New Balance 530, that is €38.51 × 0.95 × 0.70 = €25.61. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
+          "A buy-below price is the most you can pay for an item and still clear a target margin after selling fees. Resale IQ models it as: average departure price × 0.70 (30% margin target). For the New Balance 530, that is €38.51 × 0.70 = €26.96. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
       },
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",
         a:
-          "Based on 22 September 2026 production data: the New Balance 530 had at least 1,235 watched departures in the trailing 30 days across 5 EU Vinted markets, averaging €38.51 at departure. Buy-below is €25.61. That is the highest departure count of any single model in Resale IQ's tracked set with a confirmed buy-below. Check the live signal at https://resaleiq.dev/blog/new-balance-530-resell-guide-vinted",
+          "Based on 22 September 2026 production data: the New Balance 530 had at least 1,235 watched departures in the trailing 30 days across 5 EU Vinted markets, averaging €38.51 at departure. Buy-below is €26.96. That is the highest departure count of any single model in Resale IQ's tracked set with a confirmed buy-below. Check the live signal at https://resaleiq.dev/blog/new-balance-530-resell-guide-vinted",
       },
       {
         q: "What Patagonia model sells best on Vinted?",
         a:
-          "As of 22 September 2026, Patagonia Refugio leads at 215 dep/30d (avg €44.14, buy-below €29.35), followed by Synchilla at 202 dep/30d (avg €45.87, buy-below €30.50) and Better Sweater at 177 dep/30d (avg €45.93, buy-below €30.54). Full model breakdown: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
+          "As of 22 September 2026, Patagonia Refugio leads at 215 dep/30d (avg €44.14, buy-below €30.90), followed by Synchilla at 202 dep/30d (avg €45.87, buy-below €32.11) and Better Sweater at 177 dep/30d (avg €45.93, buy-below €32.15). Full model breakdown: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
       },
       {
         q: "How do I know what to pay for an item I want to resell on Vinted?",
         a:
-          "Use the buy-below price: avg departure price × 0.95 × 0.70. For the top models listed here, buy-below prices range from €15.88 (New Balance 550) to €230.22 (Balenciaga City Bag). Never pay above the buy-below ceiling unless you have evidence the specific size, condition or colourway commands a premium. Check a specific model free at https://resaleiq.dev/tools",
+          "Use the buy-below price: avg departure price × 0.70. For the top models listed here, buy-below prices range from €16.72 (New Balance 550) to €242.33 (Balenciaga City Bag). Never pay above the buy-below ceiling unless you have evidence the specific size, condition or colourway commands a premium. Check a specific model free at https://resaleiq.dev/tools",
       },
     ],
   },
@@ -197,15 +197,15 @@ export const POSTS_128: BlogPost[] = [
         h: "Autumn 2026: which brands are picking up right now",
         p: [
           "Stone Island Hoodies have ~5,700 dep/30d at ~€53 avg exit — the single highest brand+category volume in the tracked set. Jackets are at ~1,700 dep/30d at ~€127. Both are already clearing at autumn pace as buyers in France, Germany and Italy stock up from September onwards.",
-          "Patagonia Jackets (~3,200 dep/30d at ~€49) and Synchilla specifically (202 dep/30d at €45.87, buy-below €30.50) are moving. Patagonia Retro-X (118 dep/30d at €67.22, buy-below €44.70) is the higher-margin play in the same brand. Both are autumn pieces — sourcing competition will increase through October.",
-          "Ralph Lauren Quarter Zip (257 dep/30d at €46.30, buy-below €30.79) is a knitwear signal. Not autumn outerwear volume, but consistent October–January demand at margins that work from charity shop sources.",
+          "Patagonia Jackets (~3,200 dep/30d at ~€49) and Synchilla specifically (202 dep/30d at €45.87, buy-below €32.11) are moving. Patagonia Retro-X (118 dep/30d at €67.22, buy-below €47.05) is the higher-margin play in the same brand. Both are autumn pieces — sourcing competition will increase through October.",
+          "Ralph Lauren Quarter Zip (257 dep/30d at €46.30, buy-below €32.41) is a knitwear signal. Not autumn outerwear volume, but consistent October–January demand at margins that work from charity shop sources.",
         ],
       },
       {
         h: "Brands where volume misleads",
         p: [
-          "High brand-level volume does not mean every category inside that brand is worth buying. Stone Island's 13,900 monthly departures are spread across Hoodies (€53), Other/accessories (€59), Jackets (€127), Shirts (€28) and T-shirts (€25). A €25 Stone Island T-shirt at Stone Island's brand reputation still needs a buy-below under ~€16 to make the math work.",
-          "Fred Perry's volume is concentrated in Shirts (~60% of total) averaging €22. Twin Tipped Shirts specifically: 108 dep/30d at €20.80, buy-below €13.83. At that price point, you need a very low acquisition cost — car boot sourcing or bulk buying, not individual eBay buys.",
+          "High brand-level volume does not mean every category inside that brand is worth buying. Stone Island's 13,900 monthly departures are spread across Hoodies (€53), Other/accessories (€59), Jackets (€127), Shirts (€28) and T-shirts (€25). A €25 Stone Island T-shirt at Stone Island's brand reputation still needs a buy-below under ~€18 to make the math work.",
+          "Fred Perry's volume is concentrated in Shirts (~60% of total) averaging €22. Twin Tipped Shirts specifically: 108 dep/30d at €20.80, buy-below €14.56. At that price point, you need a very low acquisition cost — car boot sourcing or bulk buying, not individual eBay buys.",
           `For the live brand ranking sorted by velocity, see the [free weekly flip ranking](` + ilinkHref("flip") + `). For volume and price: [weekly market data](` + ilinkHref("data") + `). For a specific model's BUY/WATCH/SKIP signal: [check it free on /tools](/tools).`,
         ],
         cta: pricingBodyCta("body_brands_20260922"),
@@ -225,12 +225,12 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Is Patagonia worth reselling on Vinted?",
         a:
-          "Based on September 2026 data: Patagonia had ~12,200 watched departures in 30 days across EU Vinted, avg exit ~€33. Jackets lead (~3,200 dep/30d at ~€49 avg). Top models by signal: Refugio 215 dep/30d (€44.14 avg, buy-below €29.35), Synchilla 202 dep/30d (€45.87, buy-below €30.50), Better Sweater 177 dep/30d (€45.93, buy-below €30.54). Full model breakdown: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
+          "Based on September 2026 data: Patagonia had ~12,200 watched departures in 30 days across EU Vinted, avg exit ~€33. Jackets lead (~3,200 dep/30d at ~€49 avg). Top models by signal: Refugio 215 dep/30d (€44.14 avg, buy-below €30.90), Synchilla 202 dep/30d (€45.87, buy-below €32.11), Better Sweater 177 dep/30d (€45.93, buy-below €32.15). Full model breakdown: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
       },
       {
         q: "Does Balenciaga sell on Vinted?",
         a:
-          "Yes. As of September 2026, Balenciaga had ~10,300 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) at an avg exit of ~€155. Model leaders: Track (891 dep/30d, avg €290, buy-below €192.85), Runner (389 dep/30d, avg €141.56, buy-below €94.14), City Bag (309 dep/30d, avg €346.19, buy-below €230.22). These are high-ticket models. Full guide: https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide",
+          "Yes. As of September 2026, Balenciaga had ~10,300 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) at an avg exit of ~€155. Model leaders: Track (891 dep/30d, avg €290, buy-below €203.00), Runner (389 dep/30d, avg €141.56, buy-below €99.09), City Bag (309 dep/30d, avg €346.19, buy-below €242.33). These are high-ticket models. Full guide: https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide",
       },
       {
         q: "What brand has the most sales on EU Vinted?",
@@ -250,7 +250,7 @@ export const POSTS_128: BlogPost[] = [
     readMins: 5,
     preflightQuery: "New Balance 530",
     intro:
-      "As of 22 September 2026, the New Balance 530 is the highest-volume single model in Resale IQ's tracked set: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure. Buy-below sourcing ceiling: €25.61. If you are deciding whether to buy a New Balance 530 to flip on EU Vinted, the signal says yes — at the right source price.",
+      "As of 22 September 2026, the New Balance 530 is the highest-volume single model in Resale IQ's tracked set: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure. Buy-below sourcing ceiling: €26.96. If you are deciding whether to buy a New Balance 530 to flip on EU Vinted, the signal says yes — at the right source price.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -263,27 +263,27 @@ export const POSTS_128: BlogPost[] = [
         h: "New Balance 530 EU Vinted signal — September 2026",
         p: [
           "Production figures queried 22 September 2026:",
-          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling for ~30% margin) €25.61 · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
+          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling for ~30% margin) €26.96 · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
           "The 1,235 figure is a minimum. A Sep 14–22 shelf-detection outage left an ~8-day gap in the trailing 30d window — real demand is likely up to ~25% higher. We publish the measured figure.",
         ],
       },
       {
         h: "What to pay — buy-below breakdown",
         p: [
-          "Buy-below = avg exit price × 0.95 × 0.70. For the NB 530: €38.51 × 0.95 × 0.70 = €25.61.",
-          "That models a 5% combined fee rate (Vinted buyer protection + payment processing) and a 30% gross margin target on the sell price. At a €20 source price you have ~€5.61 of headroom and a theoretical gross margin of ~34%. At €25 source price your headroom is €0.61 — buy it only if the condition and size are strong.",
+          "Buy-below = avg exit price × 0.70. For the NB 530: €38.51 × 0.70 = €26.96.",
+          "That models a 30% gross margin target on the sell price, with no fee factor (Vinted charges private sellers no selling fee). At a €20 source price you have ~€6.96 of headroom and a gross margin of ~48%. At a €25 source price your headroom is €1.96 and the margin is ~35% — buy it only if the condition and size are strong.",
           "Common sizes command the full average. Outlier sizes (very small, very large) typically exit below the average — adjust your source ceiling down for non-mid sizes. Colourways matter less for the 530 than for some models: it is bought for the silhouette more than a specific colourway.",
         ],
         table: {
           caption:
             "New Balance 530 sourcing scenarios, September 2026. Gross margin = (sell price − source price) / sell price, before returns/fees/time.",
-          head: ["Source price", "Expected sell price", "Gross margin after fees (~5%)", "Verdict"],
+          head: ["Source price", "Expected sell price", "Gross margin", "Verdict"],
           rows: [
-            ["€15", "~€38.51", "~57%", "Strong buy"],
-            ["€20", "~€38.51", "~47%", "Buy"],
-            ["€25", "~€38.51", "~36%", "Buy (tight)"],
-            ["€25.61 (buy-below)", "~€38.51", "~30%", "Floor — do not exceed"],
-            ["€30", "~€38.51", "~24%", "Skip — margin gone"],
+            ["€15", "~€38.51", "~61%", "Strong buy"],
+            ["€20", "~€38.51", "~48%", "Buy"],
+            ["€25", "~€38.51", "~35%", "Buy (tight)"],
+            ["€26.96 (buy-below)", "~€38.51", "~30%", "Floor — do not exceed"],
+            ["€30", "~€38.51", "~22%", "Skip — margin gone"],
           ],
         },
         cta: pricingMidCta("ctr_nb530_20260922"),
@@ -292,7 +292,7 @@ export const POSTS_128: BlogPost[] = [
         h: "How the NB 530 compares to other New Balance models",
         p: [
           "The 530 is not the only strong NB signal, but it is the most volume-consistent. Here are the New Balance models in Resale IQ's tracked set with confirmed buy-below prices, queried 22 September 2026:",
-          "NB 530: 1,235 dep/30d · avg €38.51 · buy-below €25.61. NB 9060: 371 dep/30d · avg €47.76 · buy-below €31.76. NB FuelCell: 314 dep/30d · avg €71.03 · buy-below €47.23. NB 740: 66 dep/30d · avg €34.85 · buy-below €23.18. NB 1906R: 53 dep/30d · avg €56.35 · buy-below €37.47. NB 574: 53 dep/30d · avg €30.50 · buy-below €20.28.",
+          "NB 530: 1,235 dep/30d · avg €38.51 · buy-below €26.96. NB 9060: 371 dep/30d · avg €47.76 · buy-below €33.43. NB FuelCell: 314 dep/30d · avg €71.03 · buy-below €49.72. NB 740: 66 dep/30d · avg €34.85 · buy-below €24.40. NB 1906R: 53 dep/30d · avg €56.35 · buy-below €39.45. NB 574: 53 dep/30d · avg €32.11 · buy-below €21.35.",
           "The 530 wins on raw volume. The 9060 and FuelCell have a higher ticket if you can source them. The 1906R and 574 are slower movers but still viable at the right price. [Check any NB model live →](/tools)",
         ],
       },
@@ -310,7 +310,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",
         a:
-          "Based on 22 September 2026 production data: yes, if sourced below €25.61. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €25.61 (avg × 0.95 × 0.70). It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal at https://resaleiq.dev/tools with Starter — NB 530 is not a free sample.",
+          "Based on 22 September 2026 production data: yes, if sourced below €26.96. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €26.96 (avg × 0.70). It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal at https://resaleiq.dev/tools with Starter — NB 530 is not a free sample.",
       },
       {
         q: "How much does a New Balance 530 sell for on Vinted?",
@@ -320,12 +320,12 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is the buy-below price for New Balance 530?",
         a:
-          "€25.61 as of 22 September 2026. Computed as avg departure price (€38.51) × 0.95 (5% platform fee model) × 0.70 (30% gross margin target). Do not pay above this ceiling to resell on EU Vinted at a healthy margin. If the specific condition or size warrants a premium, verify via the live checker before paying above the floor.",
+          "€26.96 as of 22 September 2026. Computed as avg departure price (€38.51) × 0.70 (30% gross margin target). Do not pay above this ceiling to resell on EU Vinted at a healthy margin. If the specific condition or size warrants a premium, verify via the live checker before paying above the floor.",
       },
       {
         q: "Which New Balance sells best on Vinted?",
         a:
-          "By volume, the NB 530 leads: at least 1,235 dep/30d as of September 2026, avg €38.51, buy-below €25.61. The 9060 is next: 371 dep/30d, avg €47.76, buy-below €31.76. The FuelCell is third: 314 dep/30d, avg €71.03, buy-below €47.23. Full New Balance breakdown: https://resaleiq.dev/blog/new-balance-reselling-vinted-guide",
+          "By volume, the NB 530 leads: at least 1,235 dep/30d as of September 2026, avg €38.51, buy-below €26.96. The 9060 is next: 371 dep/30d, avg €47.76, buy-below €33.43. The FuelCell is third: 314 dep/30d, avg €71.03, buy-below €49.72. Full New Balance breakdown: https://resaleiq.dev/blog/new-balance-reselling-vinted-guide",
       },
     ],
   },
@@ -352,11 +352,11 @@ export const POSTS_128: BlogPost[] = [
       {
         h: "All tracked Patagonia models — September 2026",
         p: [
-          "Queried 22 September 2026 from production model_signals and market_stats tables. All buy-below prices computed as avg_price_eur × 0.95 × 0.70. Sold_30d figures are minimums — the Sep 14–22 API outage means real 30d demand is likely up to ~25% higher.",
+          "Queried 22 September 2026 from production model_signals and market_stats tables. All buy-below prices computed as avg_price_eur × 0.70. Sold_30d figures are minimums — the Sep 14–22 API outage means real 30d demand is likely up to ~25% higher.",
         ],
         table: {
           caption:
-            "Patagonia models ranked by 30-day departure volume, EU Vinted (ES/FR/DE/IT/PT), 22 September 2026. All figures are minimums. Buy-below = avg exit × 0.95 × 0.70 (5% fee, 30% margin target).",
+            "Patagonia models ranked by 30-day departure volume, EU Vinted (ES/FR/DE/IT/PT), 22 September 2026. All figures are minimums. Buy-below = avg exit × 0.70 (30% margin target).",
           head: ["Model", "Category", "Dep/30d (min)", "Avg exit", "Buy-below"],
           rows: [
             ["Refugio", "Bags", "215", "€44.14", "€29.35"],
@@ -378,25 +378,25 @@ export const POSTS_128: BlogPost[] = [
         h: "Which Patagonia models are worth buying to resell",
         p: [
           "The top three by margin-volume overlap are Synchilla, Better Sweater and Retro-X. Here is why:",
-          "Synchilla (202 dep/30d, €45.87 avg, buy-below €30.50): autumn-peak item. Movement accelerates from September through December as buyers in France and Germany buy for the cold. Charity shops typically price Synchillas at €8–20, giving strong sourcing headroom.",
-          "Better Sweater (177 dep/30d, €45.93 avg, buy-below €30.54): same autumn logic, similar numbers. The Better Sweater and Synchilla are complementary holds — they have nearly identical economics, so both are worth buying when available at price.",
-          "Retro-X (118 dep/30d, €67.22 avg, buy-below €44.70): higher ticket, slower movement than the top two, but the €67 average exit at 118 departures/month is reliable. If you can source at €25–35, the margin on a Retro-X is materially better than on a Synchilla.",
+          "Synchilla (202 dep/30d, €45.87 avg, buy-below €32.11): autumn-peak item. Movement accelerates from September through December as buyers in France and Germany buy for the cold. Charity shops typically price Synchillas at €8–20, giving strong sourcing headroom.",
+          "Better Sweater (177 dep/30d, €45.93 avg, buy-below €32.15): same autumn logic, similar numbers. The Better Sweater and Synchilla are complementary holds — they have nearly identical economics, so both are worth buying when available at price.",
+          "Retro-X (118 dep/30d, €67.22 avg, buy-below €47.05): higher ticket, slower movement than the top two, but the €67 average exit at 118 departures/month is reliable. If you can source at €25–35, the margin on a Retro-X is materially better than on a Synchilla.",
         ],
         cta: pricingMidCta("ctr_patagonia_20260922"),
       },
       {
         h: "High volume, lower margin: Refugio and Black Hole",
         p: [
-          "Refugio Bags (215 dep/30d, €44.14 avg, buy-below €29.35) lead the model ranking by volume but are not the highest-margin play. Bags are harder to condition-assess than jackets, and the €29.35 buy-below assumes a clean bag with working clips. A bag with wear, missing buckles or dirty fabric exits well below the €44 average.",
-          "Black Hole Bags (165 dep/30d, €42.24 avg, buy-below €28.09) carry the same caveat. Both models move consistently, but only buy clean units with no visible damage. Damaged bags on Vinted sit — buyers can see every scuff in listing photos.",
-          "Capilene (112 dep/30d, €20.39 avg, buy-below €13.56) is high-volume but low-ticket. At a buy-below of €13.56, the only viable source is charity shops at €4–8. Not a model for buyers who source from resale platforms.",
+          "Refugio Bags (215 dep/30d, €44.14 avg, buy-below €30.90) lead the model ranking by volume but are not the highest-margin play. Bags are harder to condition-assess than jackets, and the €30.90 buy-below assumes a clean bag with working clips. A bag with wear, missing buckles or dirty fabric exits well below the €44 average.",
+          "Black Hole Bags (165 dep/30d, €42.24 avg, buy-below €29.57) carry the same caveat. Both models move consistently, but only buy clean units with no visible damage. Damaged bags on Vinted sit — buyers can see every scuff in listing photos.",
+          "Capilene (112 dep/30d, €20.39 avg, buy-below €14.27) is high-volume but low-ticket. At a buy-below of €14.27, the only viable source is charity shops at €4–8. Not a model for buyers who source from resale platforms.",
         ],
       },
       {
         h: "Autumn 2026: Patagonia is already picking up",
         p: [
           "Jackets account for roughly 3,200 of Patagonia's ~12,200 monthly departures at ~€49 avg. The Synchilla and Better Sweater are already clearing — September is the start of their peak window in France and Germany. Retro-X and R1 will follow as October temperatures drop.",
-          "The Torrentshell (94 dep/30d, €97.81 avg, buy-below €65.04) is a rainy-season piece: it runs year-round in Iberia and Germany but peaks in autumn. At an average exit of nearly €100, the buy-below of €65 requires careful sourcing, but the margin potential is the highest in the Patagonia range at correct source prices.",
+          "The Torrentshell (94 dep/30d, €97.81 avg, buy-below €68.47) is a rainy-season piece: it runs year-round in Iberia and Germany but peaks in autumn. At an average exit of nearly €100, the buy-below of €70 requires careful sourcing, but the margin potential is the highest in the Patagonia range at correct source prices.",
           `For the live Patagonia signal and model-level verdict, [check any model free on /tools](/tools). [All brand volumes and rankings →](/data).`,
         ],
         cta: pricingBodyCta("body_patagonia_20260922"),
@@ -406,12 +406,12 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Is Patagonia worth reselling on Vinted?",
         a:
-          "Based on September 2026 data: yes, for the right models at the right source price. Patagonia had ~12,200 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), avg exit ~€33. Best models by dep/30d: Refugio (215 dep, buy-below €29.35), Synchilla (202 dep, buy-below €30.50), Better Sweater (177 dep, buy-below €30.54). Full model table: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
+          "Based on September 2026 data: yes, for the right models at the right source price. Patagonia had ~12,200 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), avg exit ~€33. Best models by dep/30d: Refugio (215 dep, buy-below €30.90), Synchilla (202 dep, buy-below €32.11), Better Sweater (177 dep, buy-below €32.15). Full model table: https://resaleiq.dev/blog/patagonia-reselling-vinted-complete-guide",
       },
       {
         q: "Which Patagonia sells best on Vinted?",
         a:
-          "As of 22 September 2026 across EU Vinted (ES/FR/DE/IT/PT): Refugio Bags lead at 215 watched dep/30d (avg €44.14, buy-below €29.35). Synchilla is next at 202 dep/30d (avg €45.87, buy-below €30.50). Better Sweater follows at 177 dep/30d (avg €45.93, buy-below €30.54). All three move in autumn. Retro-X at 118 dep/30d (avg €67.22, buy-below €44.70) offers the best margin per unit.",
+          "As of 22 September 2026 across EU Vinted (ES/FR/DE/IT/PT): Refugio Bags lead at 215 watched dep/30d (avg €44.14, buy-below €30.90). Synchilla is next at 202 dep/30d (avg €45.87, buy-below €32.11). Better Sweater follows at 177 dep/30d (avg €45.93, buy-below €32.15). All three move in autumn. Retro-X at 118 dep/30d (avg €67.22, buy-below €47.05) offers the best margin per unit.",
       },
       {
         q: "How much does Patagonia sell for on Vinted?",
@@ -421,12 +421,12 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is the buy-below price for Patagonia Synchilla?",
         a:
-          "€30.50 as of 22 September 2026. Computed as avg departure price (€45.87) × 0.95 (5% platform fee) × 0.70 (30% gross margin target). Source at €15–25 from charity shops to hit a 45–55% gross margin. At source prices above €30 the margin is gone on a standard sale; buy only if you have evidence of above-average condition or rare colourway.",
+          "€32.11 as of 22 September 2026. Computed as avg departure price (€45.87) × 0.70 (30% gross margin target). Source at €15–25 from charity shops to hit a 45–55% gross margin. At source prices above €32 the margin is gone on a standard sale; buy only if you have evidence of above-average condition or rare colourway.",
       },
       {
         q: "What Patagonia model has the highest resale value on Vinted?",
         a:
-          "By avg exit price in the tracked set (September 2026): Torrentshell (~€98 avg, buy-below ~€65) > Retro-X (~€67, buy-below ~€45) > R1 (~€60, buy-below ~€40) > Nano Puff (~€58, buy-below ~€39). By volume × ticket, Retro-X is typically the best balance for most resellers. Torrentshell requires careful condition assessment at that price point.",
+          "By avg exit price in the tracked set (September 2026): Torrentshell (~€98 avg, buy-below ~€69) > Retro-X (~€67, buy-below ~€47) > R1 (~€60, buy-below ~€42) > Nano Puff (~€58, buy-below ~€41). By volume × ticket, Retro-X is typically the best balance for most resellers. Torrentshell requires careful condition assessment at that price point.",
       },
     ],
   },

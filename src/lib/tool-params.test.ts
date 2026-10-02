@@ -1,6 +1,6 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { computeProfit, resolveQuery } from "./tool-params.ts"
+import { computeProfit, resolveQuery, VINTED_FEE_PCT } from "./tool-params.ts"
 import { matchTeaserQuery } from "./teaser-verdict.ts"
 import { CHECK_VINTED_ITEM_FORM_HTML, CHECK_VINTED_PRICE_FORM_HTML, CALCULATE_VINTED_PROFIT_FORM_HTML } from "./webmcp-tools.ts"
 
@@ -18,10 +18,11 @@ test("query alias reaches the free-sample matcher; paid models stay unmatched", 
   assert.equal(matchTeaserQuery(resolveQuery({ query: "Stone Island Hoodie" })), null)
 })
 
-test("computeProfit: 20 buy / 45 sell = +22.75 after 5% fee; bad input = null", () => {
+test("computeProfit: 20 buy / 45 sell = +25.00 (Vinted charges private sellers no selling fee); bad input = null", () => {
   const r = computeProfit("20", "45")
   assert.ok(r)
-  assert.equal(r.net.toFixed(2), "22.75")
+  assert.equal(VINTED_FEE_PCT, 0)
+  assert.equal(r.net.toFixed(2), "25.00")
   assert.equal(computeProfit("20,5", "45")?.buy, 20.5)
   assert.equal(computeProfit("0", "45"), null)
   assert.equal(computeProfit(undefined, "45"), null)

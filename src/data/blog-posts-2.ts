@@ -132,7 +132,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Autumn 2026: the categories to list now",
         p: [
           "Week to 14 September 2026 (EU5): the transition is confirmed live. If you are holding any of the following, list now rather than waiting for an arbitrary date:",
-          "Stone Island: 796 total departures/week, Hoodies €55 avg, Jackets €142 avg. Patagonia: 792/week, Jackets €75 avg. The North Face: 410/week, Jackets and Fleeces dominant. Carhartt: 70/week — WIP Detroit Jackets exit €80–120 at charity shop sourcing prices of €10–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the 28-brand hub.",
+          "Stone Island: 796 total departures/week, Hoodies €55 avg, Jackets €142 avg. Patagonia: 792/week, Jackets €75 avg. The North Face: 410/week, Jackets and Fleeces dominant. Carhartt: 70/week — WIP Detroit Jackets exit €80–120 at charity shop sourcing prices of €11–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the 28-brand hub.",
           "Fred Perry Shirts are in softening territory for September — 199 departures in the last 30 days still, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
         ],
         cta: pricingBodyCta("body_listtime_20260915"),
@@ -233,7 +233,7 @@ export const POSTS_2: BlogPost[] = [
     ],
     faq: [
       { q: "What should I look for when thrift flipping?", a: "Recognisable brands in good condition and common sizes, priced below your buy-below number. Check labels, seams, armpits, hems and zips. If brand, condition, size or price fails, put it back." },
-      { q: "How much should I pay at a charity shop to resell?", a: "No more than your buy-below price — roughly the item's average sale price × 0.95 (after fees) × 0.70 for about a 30% margin. Anything above that is speculation." },
+      { q: "How much should I pay at a charity shop to resell?", a: "No more than your buy-below price — roughly the item's average sale price × 0.70 for about a 30% margin. Anything above that is speculation." },
     ],
   },
   {

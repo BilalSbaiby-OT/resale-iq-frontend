@@ -18,9 +18,8 @@ const CHECK_THIS_ITEM = "Check this item"
 const BUY_LABEL = "Buy price (€)"
 const SELL_LABEL = "Expected sale price (€)"
 const CALCULATE = "Calculate"
-const NET_LABEL = "Net after Vinted 5% fee"
-const FEE_DISCLAIMER =
-  "Arithmetic on your figures — the 5% is the published Vinted seller-side rate, not a hit-rate claim."
+const NET_LABEL = "Net profit"
+const FEE_DISCLAIMER = "Vinted charges private sellers no selling fee."
 
 export const TOOL_HOWTO_SLUGS = [
   "vinted-price-checker",

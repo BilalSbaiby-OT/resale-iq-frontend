@@ -23,13 +23,13 @@ export const CHECK_VINTED_ITEM_QUERY_DESCRIPTION =
 export const CALCULATE_VINTED_PROFIT_NAME = "calculate_vinted_profit"
 
 export const CALCULATE_VINTED_PROFIT_DESCRIPTION =
-  "Estimates net Vinted profit after the published ~5% seller-side fee from a buy price and an expected sale price. Does not look up live market prices and does not process payments."
+  "Estimates net Vinted profit from a buy price and an expected sale price. Vinted charges private sellers no selling fee, so net is the sale price minus the buy price. Does not look up live market prices and does not process payments."
 
 export const CALCULATE_VINTED_PROFIT_BUY_DESCRIPTION =
   "Purchase price in euros you would pay for the item."
 
 export const CALCULATE_VINTED_PROFIT_SELL_DESCRIPTION =
-  "Expected Vinted sale price in euros, before the ~5% seller fee."
+  "Expected Vinted sale price in euros, as the seller receives it (Vinted charges private sellers no selling fee)."
 
 function escAttr(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")

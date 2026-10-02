@@ -232,7 +232,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "Listed now",
     },
     tip: {
-      targetNet: "Buy-below is 70% of the fee-adjusted asking price at departure. This is that gap, not a forecast.",
+      targetNet: "Buy-below is 70% of the average asking price at departure. This is that gap, not a forecast.",
       priceTrend: "30-day price trend",
       openMarket: (m) => `Open ${m} search`,
       sampleAvgWatched: "Sample size — watched departures behind this mean",
@@ -294,7 +294,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "En venta ahora",
     },
     tip: {
-      targetNet: "El precio de compra es el 70% del precio de venta ajustado por comisiones. Esto es esa diferencia, no una previsión.",
+      targetNet: "El precio de compra es el 70% del precio medio pedido al salir. Esto es esa diferencia, no una previsión.",
       priceTrend: "Tendencia de precio a 30 días",
       openMarket: (m) => `Abrir búsqueda en ${m}`,
       sampleAvgWatched: "Tamaño de la muestra — salidas observadas detrás de esta media",
@@ -356,7 +356,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "En vente maintenant",
     },
     tip: {
-      targetNet: "Le prix d’achat vaut 70% du prix de vente ajusté des frais. Voici cet écart, pas une prévision.",
+      targetNet: "Le prix d’achat vaut 70% du prix demandé moyen au départ. Voici cet écart, pas une prévision.",
       priceTrend: "Tendance des prix sur 30 jours",
       openMarket: (m) => `Ouvrir la recherche ${m}`,
       sampleAvgWatched: "Taille de l’échantillon — départs suivis derrière cette moyenne",
@@ -418,7 +418,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "Jetzt im Angebot",
     },
     tip: {
-      targetNet: "Der Kaufpreis liegt bei 70% des gebührenbereinigten Verkaufspreises. Das ist diese Spanne, keine Prognose.",
+      targetNet: "Der Kaufpreis liegt bei 70% des durchschnittlichen Angebotspreises beim Abgang. Das ist diese Spanne, keine Prognose.",
       priceTrend: "Preisverlauf über 30 Tage",
       openMarket: (m) => `${m}-Suche öffnen`,
       sampleAvgWatched: "Stichprobengröße — beobachtete Abgänge hinter diesem Mittelwert",
@@ -480,7 +480,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "In vendita ora",
     },
     tip: {
-      targetNet: "Il prezzo d’acquisto è il 70% del prezzo di vendita al netto delle commissioni. Questo è quel margine, non una previsione.",
+      targetNet: "Il prezzo d’acquisto è il 70% del prezzo richiesto medio all’uscita. Questo è quel margine, non una previsione.",
       priceTrend: "Andamento prezzi a 30 giorni",
       openMarket: (m) => `Apri la ricerca su ${m}`,
       sampleAvgWatched: "Dimensione del campione — uscite osservate dietro questa media",
@@ -542,7 +542,7 @@ export const appCopy: Record<Locale, AppCopy> = {
       listedNow: "À venda agora",
     },
     tip: {
-      targetNet: "O preço de compra é 70% do preço de venda ajustado às comissões. Isto é essa margem, não uma previsão.",
+      targetNet: "O preço de compra é 70% do preço pedido médio à saída. Isto é essa margem, não uma previsão.",
       priceTrend: "Tendência de preços a 30 dias",
       openMarket: (m) => `Abrir pesquisa em ${m}`,
       sampleAvgWatched: "Dimensão da amostra — saídas observadas por trás desta média",

@@ -36,10 +36,11 @@ test("hidden WebMCP forms carry a GET action", async ({ request }) => {
   expect(html).toMatch(/<form action="\/tools" method="get" toolname="check_vinted_item"/)
 })
 
-test("profit calculator ?buy_price&sell_price renders +€22.75", async ({ browser }) => {
+test("profit calculator ?buy_price&sell_price renders +€25.00 (Vinted charges private sellers no selling fee)", async ({ browser }) => {
   const ctx = await browser.newContext({ javaScriptEnabled: false })
   const page = await ctx.newPage()
   await page.goto("/tools/vinted-profit-calculator?buy_price=20&sell_price=45")
-  await expect(page.getByTestId("riq-calc-result")).toContainText("+€22.75")
+  await expect(page.getByTestId("riq-calc-result")).toContainText("+€25.00")
+  await expect(page.getByTestId("riq-calc-result")).not.toContainText(/5 ?%/)
   await ctx.close()
 })

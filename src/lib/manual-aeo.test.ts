@@ -74,9 +74,11 @@ test("buy-below chapter matches the blog twin definition lead", () => {
     chunk,
     /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
   )
-  assert.match(chunk, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(chunk, /average asking price at departure × 0\.70/)
   assert.match(chunk, /departure-price input reflects watched listings leaving the shelf/)
-  assert.match(chunk, /0\.95 models a 5% platform deduction/)
+  assert.match(chunk, /Vinted charges private sellers no selling fee/)
+  assert.doesNotMatch(chunk, /0\.95/)
+  assert.doesNotMatch(chunk, /5% platform deduction/)
   assert.match(chunk, /0\.70 targets roughly a 30% margin/)
   assert.match(chunk, /sourcing ceiling, not a promised profit/)
   assert.match(chunk, /q: "What is a buy-below price\?"/)

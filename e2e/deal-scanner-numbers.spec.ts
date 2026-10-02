@@ -71,14 +71,15 @@ test.describe("Deal Scanner — the numbers on the card", () => {
   test("buy-below and target net hold to the published formulas", async ({ page }) => {
     await loginAndOpenDeals(page)
     const track = card(page, "Track")
-    // avg 92.22 -> 92.22 * 0.95 * 0.70 = 61.33, rendered to whole euros.
-    await expect(track.getByText("€61", { exact: true })).toBeVisible()
-    // 92.22 * 0.95 - 61.33 = 26.28. Target net is derived from buy-below, so
+    // avg 92.22 -> 92.22 * 0.70 = 64.55 (no fee factor: Vinted charges private
+    // sellers no selling fee), rendered to whole euros.
+    await expect(track.getByText("€65", { exact: true })).toBeVisible()
+    // 92.22 - 64.55 = 27.67. Target net is derived from buy-below, so
     // it sits inline on the quiet meta line rather than in a figure of its
-    // own — there is no element whose whole text is "+€26" and there should
+    // own — there is no element whose whole text is "+€28" and there should
     // not be. Pin the label to the value instead: a number in the wrong slot
     // is the exact class of bug this file exists to catch.
-    await expect(track.getByText(/^Target net \+€26$/)).toBeVisible()
+    await expect(track.getByText(/^Target net \+€28$/)).toBeVisible()
   })
 
   test("a real sub-1% sell-through never prints as 0%", async ({ page }) => {

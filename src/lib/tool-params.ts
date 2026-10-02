@@ -4,7 +4,15 @@
  * `sell_price` for the calculator); human deep links and llms.txt use `q`.
  * Both must land on the same server-rendered result.
  */
-export const VINTED_FEE_PCT = 0.05
+/**
+ * Vinted's selling fee for private sellers in ES / FR / DE / IT / PT: none
+ * (Vinted help article 373, "Is selling on Vinted free?"). The percentage charge on
+ * Vinted's fee card is the BUYER's Buyer Protection fee, added at checkout on top of
+ * the item price and never deducted from the seller's payout. Kept as a
+ * constant so the free calculator stays true to Vinted's published policy if
+ * it ever changes.
+ */
+export const VINTED_FEE_PCT = 0
 
 type Param = string | string[] | undefined
 
@@ -25,12 +33,16 @@ export function parseMoney(raw: string | undefined): number | null {
   return n
 }
 
-export type ProfitResult = { buy: number; sell: number; fee: number; net: number }
+export type ProfitResult = { buy: number; sell: number; net: number }
+
+/** Net profit on the visitor's own figures: what the seller receives minus what they paid. */
+export function netProfit(sell: number, buy: number): number {
+  return sell - sell * VINTED_FEE_PCT - buy
+}
 
 export function computeProfit(buyRaw: string | undefined, sellRaw: string | undefined): ProfitResult | null {
   const buy = parseMoney(buyRaw)
   const sell = parseMoney(sellRaw)
   if (buy == null || sell == null) return null
-  const fee = sell * VINTED_FEE_PCT
-  return { buy, sell, fee, net: sell - fee - buy }
+  return { buy, sell, net: netProfit(sell, buy) }
 }

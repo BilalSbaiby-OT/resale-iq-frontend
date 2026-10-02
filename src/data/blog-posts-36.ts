@@ -25,7 +25,7 @@ export const POSTS_36: BlogPost[] = [
     definedTerm: {
       name: "Stone Island hoodie departure average",
       description:
-        "The Stone Island hoodie departure average is the average price at which a tracked Stone Island hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Stone Island hoodie departure average is €55 across 395 observed departures in France, Germany, Spain, Italy, and Portugal. This makes Stone Island hoodies the highest-volume category for any brand with an average exit price above €50 in the ResaleIQ EU Vinted database. The brand overall tracks 178 departures in the last 30 days across all categories at a €70 average, with hoodies accounting for 54% of that volume. The buy-below ceiling based on the hoodie departure average is €35.75.",
+        "The Stone Island hoodie departure average is the average price at which a tracked Stone Island hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Stone Island hoodie departure average is €55 across 395 observed departures in France, Germany, Spain, Italy, and Portugal. This makes Stone Island hoodies the highest-volume category for any brand with an average exit price above €50 in the ResaleIQ EU Vinted database. The brand overall tracks 178 departures in the last 30 days across all categories at a €70 average, with hoodies accounting for 54% of that volume. The buy-below ceiling based on the hoodie departure average is €38.50.",
     },
     sections: [
       {
@@ -48,7 +48,7 @@ export const POSTS_36: BlogPost[] = [
       {
         h: "Buy-below ceiling and practical sourcing",
         p: [
-          "The buy-below ceiling for Stone Island hoodies at the category level is €35.75 — 65% of the €55 departure average. This is the maximum you can pay for a standard garment-dyed pullover in good condition and maintain a workable margin after Vinted's seller fee and domestic shipping. For the most common items sourced at charity shops or local markets (worn basics, standard colourways), the practical ceiling is lower: anything above €25 for a worn piece in an off-size risks a loss.",
+          "The buy-below ceiling for Stone Island hoodies at the category level is €38.50 — 70% of the €55 departure average. This is the maximum you can pay for a standard garment-dyed pullover in good condition and maintain a workable margin after domestic shipping. For the most common items sourced at charity shops or local markets (worn basics, standard colourways), the practical ceiling is lower: anything above €25 for a worn piece in an off-size risks a loss.",
           "Shadow Project and special-dye pieces have a higher absolute buy-below ceiling because their exit prices are higher, but the sourcing cost at second-hand markets usually reflects this — experienced charity shop sorters in UK, France, and Germany increasingly identify Stone Island by badge and price accordingly. The margin opportunity is in items sourced from sellers who do not know what they have: plain-looking garment-dyed pieces in darker colourways that hide the badge on the first scan.",
           "Volume sourcing works differently for Stone Island than for Carhartt (€34.45 jacket buy-below) or Levi's (€18.85 jeans buy-below). Stone Island is a premium brand with a collector audience; buying five mediocre hoodies at €30 each and listing them all for €50 produces slower turns and more price drops than buying one excellent hoodie at €30 and listing it at €65. Quality concentration beats quantity at this price point.",
         ],
@@ -65,7 +65,7 @@ export const POSTS_36: BlogPost[] = [
       {
         h: "Stone Island hoodies vs Stone Island jackets",
         p: [
-          "The jacket versus hoodie comparison is the most important decision in Stone Island sourcing. Jackets track 780 departures in the last 30 days at a €141 average — nearly triple the hoodie average — and represent the highest-margin category in the entire ResaleIQ EU database. But jackets require dramatically higher sourcing investment: a jacket that exits at €141 needs to be sourced below €91 to maintain the same 65% buy-below discipline, and sourcing a Stone Island jacket below €90 at second-hand markets requires either exceptional luck or access to estate sales and bulk lots.",
+          "The jacket versus hoodie comparison is the most important decision in Stone Island sourcing. Jackets track 780 departures in the last 30 days at a €141 average — nearly triple the hoodie average — and represent the highest-margin category in the entire ResaleIQ EU database. But jackets require dramatically higher sourcing investment: a jacket that exits at €141 needs to be sourced below €99 to maintain the same 70% buy-below discipline, and sourcing a Stone Island jacket below €99 at second-hand markets requires either exceptional luck or access to estate sales and bulk lots.",
           "For most resellers, the hoodie is the practical Stone Island entry point. The €35.75 buy-below ceiling for hoodies is reachable — garment-dyed hoodies appear regularly at UK charity shops for £15–25, at French vide-greniers for €10–30, and at German Kleiderkreisel listings for €20–40. The capital commitment per item is manageable and the weekly volume of 395 departures means consistent buyer demand.",
           `Hoodies and jackets are not competing strategies — experienced Stone Island resellers run both. The hoodie pipeline provides consistent weekly turnover; jacket sourcing is the high-value outlier when opportunity arises. Both categories benefit from the same brand knowledge. [Stone Island jacket guide →](/blog/stone-island-jackets-eu-vinted-guide)`,
         ],
@@ -87,7 +87,7 @@ export const POSTS_36: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Stone Island hoodie on EU Vinted?",
-        a: "The buy-below ceiling for a standard Stone Island garment-dyed hoodie is €35.75 — 65% of the €55 departure average. For worn pieces or off-sizes, the practical ceiling is closer to €20–25 to account for slower exits. Shadow Project and special-dye variants have a higher absolute buy-below ceiling due to their higher exit prices, but the sourcing premium at second-hand markets usually reflects this. The buy-below rule protects margin before you commit capital.",
+        a: "The buy-below ceiling for a standard Stone Island garment-dyed hoodie is €38.50 — 70% of the €55 departure average. For worn pieces or off-sizes, the practical ceiling is closer to €20–25 to account for slower exits. Shadow Project and special-dye variants have a higher absolute buy-below ceiling due to their higher exit prices, but the sourcing premium at second-hand markets usually reflects this. The buy-below rule protects margin before you commit capital.",
       },
       {
         q: "Which Stone Island hoodie type is most valuable on EU Vinted?",
@@ -95,7 +95,7 @@ export const POSTS_36: BlogPost[] = [
       },
       {
         q: "Is Stone Island worth reselling on EU Vinted?",
-        a: "Yes, with sourcing discipline. Stone Island hoodies tracked 178 departures in the last 30 days in September 2026 at a €55 average — making it the highest-volume category in the ResaleIQ EU database for any brand above a €50 average exit price. The buy-below ceiling of €35.75 is achievable at second-hand markets. The risk is the wide exit price range — the €55 average includes everything from €25 worn basics to €130 Shadow Project pieces, so knowing what you have before buying determines whether Stone Island is profitable.",
+        a: "Yes, with sourcing discipline. Stone Island hoodies tracked 178 departures in the last 30 days in September 2026 at a €55 average — making it the highest-volume category in the ResaleIQ EU database for any brand above a €50 average exit price. The buy-below ceiling of €38.50 is achievable at second-hand markets. The risk is the wide exit price range — the €55 average includes everything from €25 worn basics to €130 Shadow Project pieces, so knowing what you have before buying determines whether Stone Island is profitable.",
       },
       {
         q: "How does Stone Island hoodie volume compare to the rest of the brand?",

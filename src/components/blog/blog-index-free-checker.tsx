@@ -40,6 +40,7 @@ import type { Locale } from "@/lib/i18n"
 import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { localizeDemandNote } from "@/lib/verdict-words"
+import { buyBelowFromAvg } from "@/lib/buy-below"
 
 /** Three public sample queries — full verdicts, no account, no paywall. */
 const FREE_SAMPLES = [
@@ -281,7 +282,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
                   </span>
                   <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12.5, fontWeight: 700, flexShrink: 0, userSelect: "none" as const, display: "inline-flex", alignItems: "center", gap: 3 }}>
                     <Lock size={9} />
-                    {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+                    {it.avg_price_eur != null ? `€${Math.round(buyBelowFromAvg(it.avg_price_eur))}` : "€••"}
                   </span>
                 </div>
               ))}

@@ -158,7 +158,7 @@ export default async function BuyBrandPage({
             {brand.brand} buy-below by category
           </h2>
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
-            Buy-below is the maximum you should pay to keep a 30% margin. It is derived from the average
+            Buy-below is the maximum you should pay to keep a 30% margin: the average price at departure × 0.70. It is derived from the average
             price at departure — not from listed asking prices, which are wishes not facts. Use the free
             checker for a model-level verdict.
           </p>

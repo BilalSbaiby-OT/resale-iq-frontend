@@ -15,7 +15,7 @@ export const POSTS_5: BlogPost[] = [
     title: "Gucci Reselling on Vinted: Bags Lead at €306, Authentication is the Only Moat",
     seoTitle: "Is Gucci Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Gucci ranks #6 by watched departures across 5 EU Vinted markets — 221/week at €212 average. Bags lead at 83 departures averaging €306 (buy-below ~€203).",
+      "Gucci ranks #6 by watched departures across 5 EU Vinted markets — 221/week at €212 average. Bags lead at 83 departures averaging €306 (buy-below ~€214).",
     date: "2026-09-14",
 
     preflightQuery: "Gucci Belt",
@@ -36,8 +36,8 @@ export const POSTS_5: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Bags averaging €306 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €290.70. Applying a 30% target margin gives a buy-below of approximately €203. Any Gucci Bag sourced below that price — authenticated, with no damage to hardware or leather — has a realistic margin at current departure prices. That is the highest buy-below floor of any brand in the EU5 top ten.",
-          "Caps at €146 average give a buy-below near €97. Sneakers at €209 give a buy-below near €139. Jackets at €257 give a buy-below near €171. Shirts at €105 give a buy-below near €70. Every category requires capital above €70 to operate at margin; this is not a starter brand. The " +
+          "With Bags averaging €306 at departure, applying a 30% target margin gives a buy-below of approximately €214. Any Gucci Bag sourced below that price — authenticated, with no damage to hardware or leather — has a realistic margin at current departure prices. That is the highest buy-below floor of any brand in the EU5 top ten.",
+          "Caps at €146 average give a buy-below near €102. Sneakers at €209 give a buy-below near €146. Jackets at €257 give a buy-below near €180. Shirts at €105 give a buy-below near €74. Every category requires capital above €70 to operate at margin; this is not a starter brand. The " +
             BRAND +
             " check returns BUY / WATCH / SKIP with an exact buy-below for the specific Gucci model.",
         ],
@@ -53,7 +53,7 @@ export const POSTS_5: BlogPost[] = [
       {
         h: "Caps: 52 departures at €146 — the underrated volume play",
         p: [
-          "Gucci Caps are the most efficient per-unit opportunity after Bags: 52 departures at €146 average, with a buy-below of approximately €97. A Gucci cap is easier to store, photograph, ship, and authenticate than a Bag — and the departure price is high enough to generate margin above €40 per unit on a correctly sourced piece.",
+          "Gucci Caps are the most efficient per-unit opportunity after Bags: 52 departures at €146 average, with a buy-below of approximately €102. A Gucci cap is easier to store, photograph, ship, and authenticate than a Bag — and the departure price is high enough to generate margin above €40 per unit on a correctly sourced piece.",
           "The dominant models: GG-monogram canvas caps (the classic black-on-black or off-white variants move fastest), the Gucci-stripe grosgrain ribbon caps (particularly in red/green/red), and the Interlocking G logo caps in wool or felt. Condition grading on caps is primarily about peak shaping and brim integrity — a collapsed or misshapen cap is a hard pass regardless of other condition. Store flat-crown caps in a box, not stacked.",
         ],
       },
@@ -85,11 +85,11 @@ export const POSTS_5: BlogPost[] = [
     faq: [
       {
         q: "Is Gucci worth reselling on Vinted?",
-        a: "Yes — Gucci ranked #6 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 221 listings left the shelf at an average of €212 — the highest revenue velocity of any brand in the top ten beyond Balenciaga at roughly €46,900/week. Bags lead at 83 departures averaging €306 (buy-below ~€203). Authentication is the entire sourcing edge.",
+        a: "Yes — Gucci ranked #6 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 221 listings left the shelf at an average of €212 — the highest revenue velocity of any brand in the top ten beyond Balenciaga at roughly €46,900/week. Bags lead at 83 departures averaging €306 (buy-below ~€214). Authentication is the entire sourcing edge.",
       },
       {
         q: "What is the buy-below price for a Gucci Bag on Vinted?",
-        a: "With Gucci Bags averaging €306 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €203. That is the highest buy-below floor of any brand category in the EU5 top ten. Resale IQ returns the exact buy-below for a specific Gucci model on check.",
+        a: "With Gucci Bags averaging €306 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €214. That is the highest buy-below floor of any brand category in the EU5 top ten. Resale IQ returns the exact buy-below for a specific Gucci model on check.",
       },
       {
         q: "What Gucci items sell best on Vinted?",

@@ -39,7 +39,7 @@ test("howToJsonLd emits a parseable HowTo with HowToStep positions", () => {
     description: "Price off real Vinted departure prices, then work backwards to buy-below.",
     sections: [
       { h: "Start from the real departure price, not the retail price", p: ["Look at listings that recently left the shelf."] },
-      { h: "Work backwards to your buy-below price", p: ["buy-below = average asking price at departure × 0.95 × 0.70"] },
+      { h: "Work backwards to your buy-below price", p: ["buy-below = average asking price at departure × 0.70"] },
     ],
   }
   const schema = howToJsonLd(post)
@@ -113,7 +113,7 @@ test("Spanish pricing post uses Spanish step names and skips the methodology hea
     description: "El método que usan los revendedores para fijar precio en Vinted.",
     sections: [
       { h: "Olvida el precio de tienda", p: ["El precio original no dice casi nada."] },
-      { h: "Tu precio máximo de compra", p: ["precio máximo = precio medio al desaparecer el anuncio × 0,95 × 0,70"] },
+      { h: "Tu precio máximo de compra", p: ["precio máximo = precio medio al desaparecer el anuncio × 0,70"] },
       { h: "La demanda es la otra mitad del precio", p: ["Un precio de salida sin demanda es una trampa."] },
       { h: "La velocidad importa más que el último euro", p: ["Un artículo que se vende en nueve días a 40 € es mejor negocio."] },
       { h: "Qué miden esas cifras, y qué no", p: ["Seguimos anuncios en los cinco mercados."] },

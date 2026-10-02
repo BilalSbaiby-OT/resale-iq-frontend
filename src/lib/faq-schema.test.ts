@@ -145,7 +145,8 @@ test("buy-below-price-explained ships a Buy-below price lead and FAQ", () => {
     /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
   )
   assert.match(post, /sourcing ceiling, not a promised profit/)
-  assert.match(post, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(post, /average asking price at departure × 0\.70/)
+  assert.doesNotMatch(post, /0\.95/)
   assert.match(post, /q: "What is a buy-below price\?"/)
   assert.doesNotMatch(post, /register\?plan=/)
   assert.doesNotMatch(post, /Start free/i)
@@ -163,7 +164,8 @@ test("how-to-price ships the citeable buy-below definition and matching FAQ", ()
     post,
     /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
   )
-  assert.match(post, /average asking price at departure × 0\.95 × 0\.70/)
+  assert.match(post, /average asking price at departure × 0\.70/)
+  assert.doesNotMatch(post, /0\.95/)
   assert.match(post, /sourcing ceiling, not a promised profit/)
   assert.match(post, /q: "What is a buy-below price\?"/)
   assert.doesNotMatch(post, /The maximum you should pay when sourcing/)

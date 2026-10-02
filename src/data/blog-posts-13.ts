@@ -36,8 +36,8 @@ export const POSTS_13: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €38.29 (brand-level, 55 departures/30d on EU Vinted) and Vinted modelling roughly a 5% platform deduction, the departure-net is around €36.38. Applying a 30% target margin gives a rough buy-below of approximately €25. For CKJ trucker jackets specifically (which exit at €30–60), the implied buy-below stretches to €20–42. ResaleIQ does not publish per-model buy-below for Calvin Klein (not in per-model catalogue).",
-          "Jeans at €17.84 average give a rough buy-below near €11.60. Hoodies at €15.74 give a rough buy-below near €10.23. Tracksuits at €14.53 give a rough buy-below near €9.44. T-Shirts at €6.95 are not a viable sourcing target. Jeans are viable when sourced at clearance pricing.",
+          "With Jackets averaging €38.29 (brand-level, 55 departures/30d on EU Vinted), applying a 30% target margin gives a rough buy-below of approximately €27. For CKJ trucker jackets specifically (which exit at €30–60), the implied buy-below stretches to €21–42. ResaleIQ does not publish per-model buy-below for Calvin Klein (not in per-model catalogue).",
+          "Jeans at €17.84 average give a rough buy-below near €12.49. Hoodies at €15.74 give a rough buy-below near €11.02. Tracksuits at €14.53 give a rough buy-below near €10.17. T-Shirts at €6.95 are not a viable sourcing target. Jeans are viable when sourced at clearance pricing.",
         ],
         cta: pricingMidCta("ctr_calvinklein_20260915"),
       },
@@ -78,7 +78,7 @@ export const POSTS_13: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Calvin Klein on Vinted?",
-        a: "For Calvin Klein Jackets (brand-level avg €38.29, 55 departures/30d): rough buy-below ~€25. For CKJ trucker jackets (which exit at €30–60), implied buy-below is €20–42. Jeans at €17.84 avg give rough buy-below ~€11.60. Hoodies at €15.74 avg give rough buy-below ~€10.23. T-Shirts at €6.95 avg are below viable sourcing floor. ResaleIQ does not publish per-model ceilings for Calvin Klein (not in per-model catalogue).",
+        a: "For Calvin Klein Jackets (brand-level avg €38.29, 55 departures/30d): rough buy-below ~€27. For CKJ trucker jackets (which exit at €30–60), implied buy-below is €21–42. Jeans at €17.84 avg give rough buy-below ~€12.49. Hoodies at €15.74 avg give rough buy-below ~€11.02. T-Shirts at €6.95 avg are below viable sourcing floor. ResaleIQ does not publish per-model ceilings for Calvin Klein (not in per-model catalogue).",
       },
       {
         q: "What Calvin Klein pieces are worth sourcing for Vinted resale?",
@@ -95,7 +95,7 @@ export const POSTS_13: BlogPost[] = [
     title: "Off-White Reselling on Vinted: Sneakers at €110 Average and the Post-Virgil Pricing Shift",
     seoTitle: "Is Off-White Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Off-White ranks #25 by watched departures across 5 EU Vinted markets — 31/week at €67 average. Sneakers lead at €110 avg (buy-below ~€73).",
+      "Off-White ranks #25 by watched departures across 5 EU Vinted markets — 31/week at €67 average. Sneakers lead at €110 avg (buy-below ~€77).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -115,8 +115,8 @@ export const POSTS_13: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €110 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €104.50. Applying a 30% target margin gives a buy-below of approximately €73. Any Off-White sneaker sourced below that price — authenticity confirmed, condition correct — has a realistic margin at current departure prices.",
-          "Hoodies at €71 average give a buy-below near €47. T-Shirts at €31 give a buy-below near €21. Caps at €70 give a buy-below near €46. Shirts at €6 average are non-viable. The sourcing floor for T-Shirts is achievable at charity shops where Off-White pieces surface (often at €10–20 regardless of model), making T-Shirts the highest-accessibility entry point — though not the highest-margin. The primary sourcing goal remains Sneakers and Hoodies.",
+          "With Sneakers averaging €110 at departure, applying a 30% target margin gives a buy-below of approximately €77. Any Off-White sneaker sourced below that price — authenticity confirmed, condition correct — has a realistic margin at current departure prices.",
+          "Hoodies at €71 average give a buy-below near €50. T-Shirts at €31 give a buy-below near €22. Caps at €70 give a buy-below near €49. Shirts at €6 average are non-viable. The sourcing floor for T-Shirts is achievable at charity shops where Off-White pieces surface (often at €10–20 regardless of model), making T-Shirts the highest-accessibility entry point — though not the highest-margin. The primary sourcing goal remains Sneakers and Hoodies.",
         ],
         cta: pricingMidCta("ctr_offwhite_20260915"),
       },
@@ -138,7 +138,7 @@ export const POSTS_13: BlogPost[] = [
         h: "Hoodies and T-Shirts: the logo premium",
         p: [
           "At 8 departures averaging €71, Hoodies represent the second-highest category by value. Off-White logo hoodies in the Virgil-era design language — the diagonal stripes across the chest, the quotation-mark motifs, the fluorescent orange industrial belt — exit at €60–120 on EU Vinted in good condition. Post-Virgil Off-White hoodies (cleaner aesthetic, less visible logo motifs) exit at €40–80.",
-          "T-Shirts at €31 average are the most accessible sourcing target by buy-below (~€21). A Virgil-era Off-White graphic T-Shirt sourced at €12–18 at a charity shop — where it is priced as 'designer graphic T-Shirt' regardless of the Off-White × print collaboration — lists at €28–50 on EU Vinted. The sourcing frequency is low (Off-White T-Shirts appear at EU charity shops rarely) but the margin per transaction is 2–3x sourcing price, making any find viable at the standard €21 buy-below.",
+          "T-Shirts at €31 average are the most accessible sourcing target by buy-below (~€22). A Virgil-era Off-White graphic T-Shirt sourced at €12–18 at a charity shop — where it is priced as 'designer graphic T-Shirt' regardless of the Off-White × print collaboration — lists at €28–50 on EU Vinted. The sourcing frequency is low (Off-White T-Shirts appear at EU charity shops rarely) but the margin per transaction is 2–3x sourcing price, making any find viable at the standard €21 buy-below.",
         ],
         cta: pricingBodyCta("body_offwhite_20260915"),
       },
@@ -153,15 +153,15 @@ export const POSTS_13: BlogPost[] = [
     faq: [
       {
         q: "Is Off-White worth reselling on Vinted?",
-        a: "Yes — specifically Sneakers (€110 avg) and Hoodies (€71 avg). Off-White ranked #25 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 31 departures at €67 average. Sneakers buy-below ~€73; Hoodies buy-below ~€47; T-Shirts buy-below ~€21. The sourcing edge is the post-Virgil Abloh pricing gap — EU charity shops price Off-White at €15–40 regardless of era or collaboration; EU Vinted buyers pay €80–150+ for Virgil-era pieces.",
+        a: "Yes — specifically Sneakers (€110 avg) and Hoodies (€71 avg). Off-White ranked #25 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 31 departures at €67 average. Sneakers buy-below ~€73; Hoodies buy-below ~€51; T-Shirts buy-below ~€21. The sourcing edge is the post-Virgil Abloh pricing gap — EU charity shops price Off-White at €15–40 regardless of era or collaboration; EU Vinted buyers pay €80–150+ for Virgil-era pieces.",
       },
       {
         q: "What is the buy-below price for Off-White on Vinted?",
-        a: "For Off-White Sneakers: with an average departure of €110 and 5% platform deduction, buy-below sits around €73. For Off-White × Nike 'The Ten' collabs (which exit at €120–600+), buy-below is materially higher. Hoodies at €71 avg give buy-below near €47. T-Shirts at €31 give buy-below near €21. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Off-White Sneakers: with an average departure of €110, buy-below sits around €77. For Off-White × Nike 'The Ten' collabs (which exit at €120–600+), buy-below is materially higher. Hoodies at €71 avg give buy-below near €50. T-Shirts at €31 give buy-below near €22. Resale IQ returns exact buy-below by brand, model, and condition.",
       },
       {
         q: "What Off-White pieces are worth sourcing?",
-        a: "By per-unit value: Off-White × Nike 'The Ten' sneakers (€120–600+), Virgil-era logo Hoodies (€60–120), Off-White caps (€70 avg). By accessibility: T-Shirts (€31 avg, buy-below ~€21 — the most achievable charity shop find). Shirts at €6 avg are non-viable. The Off-White × Nike collaboration (Zoom Fly, Air Jordan, Air Force 1 subsequent releases) is the primary sneaker target.",
+        a: "By per-unit value: Off-White × Nike 'The Ten' sneakers (€120–600+), Virgil-era logo Hoodies (€60–120), Off-White caps (€70 avg). By accessibility: T-Shirts (€31 avg, buy-below ~€22 — the most achievable charity shop find). Shirts at €6 avg are non-viable. The Off-White × Nike collaboration (Zoom Fly, Air Jordan, Air Force 1 subsequent releases) is the primary sneaker target.",
       },
       {
         q: "How do I authenticate Off-White before reselling?",

@@ -46,7 +46,7 @@ const excelEn = loc(
   { caption: "Resale IQ vs Excel", head: ["Job", "Excel", "Resale IQ"], rows: [
     ["Remember your buys", "Yes", "Not the product"],
     ["EU Vinted watched departures", "Only if you type them", "Warehouse, five domains"],
-    ["Buy-below formula", "If you built one", "Published × 0.95 × 0.70"],
+    ["Buy-below formula", "If you built one", "Published × 0.70"],
     ["Free item check", "None", "Samba, AF1, FP Polo"],
   ]},
   [
@@ -84,7 +84,7 @@ export const vsForLandingCopy: Record<string, Table> = {
       { caption: "Resale IQ frente a Excel", head: ["Trabajo", "Excel", "Resale IQ"], rows: [
         ["Recordar compras", "Sí", "No es el producto"],
         ["Salidas observadas Vinted UE", "Solo si las escribes", "Almacén, cinco dominios"],
-        ["Fórmula buy-below", "Si construiste una", "Publicada × 0,95 × 0,70"],
+        ["Fórmula buy-below", "Si construiste una", "Publicada × 0,70"],
         ["Consulta de artículo gratis", "Ninguna", "Samba, AF1, FP Polo"],
       ]},
       [
@@ -118,7 +118,7 @@ export const vsForLandingCopy: Record<string, Table> = {
       { caption: "Resale IQ contre Excel", head: ["Tâche", "Excel", "Resale IQ"], rows: [
         ["Se souvenir des achats", "Oui", "Pas le produit"],
         ["Départs observés Vinted UE", "Seulement si vous les tapez", "Entrepôt, cinq domaines"],
-        ["Formule buy-below", "Si vous en avez bâti une", "Publiée × 0,95 × 0,70"],
+        ["Formule buy-below", "Si vous en avez bâti une", "Publiée × 0,70"],
         ["Contrôle d’article gratuit", "Aucun", "Samba, AF1, FP Polo"],
       ]},
       [
@@ -152,7 +152,7 @@ export const vsForLandingCopy: Record<string, Table> = {
       { caption: "Resale IQ gegen Excel", head: ["Aufgabe", "Excel", "Resale IQ"], rows: [
         ["Käufe merken", "Ja", "Nicht das Produkt"],
         ["Beobachtete Vinted-Abgänge EU", "Nur wenn Sie sie tippen", "Lager, fünf Domains"],
-        ["Buy-below-Formel", "Wenn Sie eine gebaut haben", "Veröffentlicht × 0,95 × 0,70"],
+        ["Buy-below-Formel", "Wenn Sie eine gebaut haben", "Veröffentlicht × 0,70"],
         ["Kostenlose Artikelprüfung", "Keine", "Samba, AF1, FP Polo"],
       ]},
       [
@@ -186,7 +186,7 @@ export const vsForLandingCopy: Record<string, Table> = {
       { caption: "Resale IQ contro Excel", head: ["Lavoro", "Excel", "Resale IQ"], rows: [
         ["Ricordare gli acquisti", "Sì", "Non è il prodotto"],
         ["Uscite osservate Vinted UE", "Solo se le scrivi", "Magazzino, cinque domini"],
-        ["Formula buy-below", "Se ne hai costruita una", "Pubblicata × 0,95 × 0,70"],
+        ["Formula buy-below", "Se ne hai costruita una", "Pubblicata × 0,70"],
         ["Controllo articolo gratuito", "Nessuno", "Samba, AF1, FP Polo"],
       ]},
       [
@@ -220,7 +220,7 @@ export const vsForLandingCopy: Record<string, Table> = {
       { caption: "Resale IQ vs Excel", head: ["Tarefa", "Excel", "Resale IQ"], rows: [
         ["Lembrar compras", "Sim", "Não é o produto"],
         ["Saídas observadas Vinted UE", "Só se as escreveres", "Armazém, cinco domínios"],
-        ["Fórmula buy-below", "Se construíste uma", "Publicada × 0,95 × 0,70"],
+        ["Fórmula buy-below", "Se construíste uma", "Publicada × 0,70"],
         ["Verificação de artigo grátis", "Nenhuma", "Samba, AF1, FP Polo"],
       ]},
       [

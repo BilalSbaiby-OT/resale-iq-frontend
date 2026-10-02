@@ -26,19 +26,19 @@ const SELL_LEAD =
   "Vinted sell-through is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate."
 
 const BUY_BELOW_MARKET_LEAD =
-  "A buy-below on the market is the most you can pay for a typical comparable and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
+  "A buy-below on the market is the most you can pay for a typical comparable and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
 
 const DEAD_STOCK_LEAD =
   "Dead stock is inventory that does not clear: the listing sits, capital sits, and a markdown — not a better photo — is usually what eventually moves it. Volume without sell-through is how dead stock hides in a busy category."
 
 const FEES_LEAD =
-  "Resale IQ models Vinted's seller deduction as 5% of the asking price at departure (the 0.95 in buy-below). That is a modelled platform haircut, not every fee a seller might pay, and not a buyer-protection quote. Substitute the rate that actually hits your payout."
+  "No. Resale IQ's buy-below has no fee factor. Vinted charges private sellers no selling fee in Spain, France, Germany, Italy and Portugal: you receive the full sale price. The percentage-based charge on Vinted's fee card is the buyer's Buyer Protection fee, added at checkout on top of the item price, so it never comes out of your payout. Buy-below is the average asking price at departure × 0.70."
 
 const MARGIN_LEAD =
-  "Vinted profit margin in the buy-below model is the room you keep after the modelled 5% platform deduction. The 0.70 multiplier targets roughly a 30% margin on the departure ask. It is a planning target, not a guaranteed net on the item in your hand."
+  "Vinted profit margin in the buy-below model is the room you keep on the departure ask. The 0.70 multiplier targets roughly a 30% margin: pay 70% of the asking price at departure and the other 30% is yours, before your own packaging and travel. Vinted charges private sellers no selling fee, so nothing is taken off the sale price. It is a planning target, not a guaranteed net on the item in your hand."
 
 const MAX_BUY_LEAD =
-  "Max buy price is the sourcing ceiling you take to the rail: pay at or under it, walk away above it. On Resale IQ it is the same arithmetic as buy-below — average asking price at departure × 0.95 × 0.70 — applied to the named model, then adjusted for condition and size."
+  "Max buy price is the sourcing ceiling you take to the rail: pay at or under it, walk away above it. On Resale IQ it is the same arithmetic as buy-below — average asking price at departure × 0.70 — applied to the named model, then adjusted for condition and size."
 
 const AVG_SALE_LEAD =
   "Average sale price on Resale IQ public pages is the average asking price at departure for watched listings that left the shelf — not a receipt, not the average of active asks, and not a promised exit for the piece you are holding."
@@ -118,10 +118,10 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     h1: "What is a buy-below on the market?",
     title: "What is a buy-below on the Vinted market? — Resale IQ",
     description:
-      "Market buy-below is average departure ask × 0.95 × 0.70. A sourcing ceiling from watched listings, not promised profit.",
+      "Market buy-below is average departure ask × 0.70. A sourcing ceiling from watched listings, not promised profit.",
     lead: BUY_BELOW_MARKET_LEAD,
     body: [
-      "You compute the number before you source, not as a feeling in front of a rail. Pay under it and the flip has room after fees. Pay over it and you are speculating.",
+      "You compute the number before you source, not as a feeling in front of a rail. Pay under it and the flip has room. Pay over it and you are speculating.",
       "The hard input is the realistic sale price — the asking price similar items were listed at when they left the shelf, not what hopeful sellers are asking now. Brand averages on /data are demand context. The buy-below that decides the purchase is the named model's own departures.",
       "Know what sells. Decide whether to buy. Adidas Samba, Nike Air Force 1 and Fred Perry Polo return a live BUY / WATCH / SKIP plus buy-below on /tools with no account. Other models start at Starter €19 a month.",
     ],
@@ -135,7 +135,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       { q: "What is a buy-below on the market?", a: BUY_BELOW_MARKET_LEAD },
       {
         q: "How do you calculate a buy-below price?",
-        a: "Buy-below price = average asking price at departure × 0.95 × 0.70. The 0.95 is the 5% platform deduction Resale IQ models for Vinted; the 0.70 targets about a 30% margin. Method: https://resaleiq.dev/manual/the-buy-below-price",
+        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 targets about a 30% margin, and no platform cut is built in because Vinted charges private sellers no selling fee. Method: https://resaleiq.dev/manual/the-buy-below-price",
       },
       {
         q: "Where do I get a live buy-below?",
@@ -177,15 +177,15 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     slug: "vinted-fees",
     name: "Vinted fees",
-    h1: "What Vinted fees does buy-below model?",
-    title: "What Vinted fees does Resale IQ model? — Resale IQ",
+    h1: "Does buy-below include Vinted fees?",
+    title: "Does Resale IQ's buy-below include Vinted fees? — Resale IQ",
     description:
-      "Buy-below models a 5% Vinted seller deduction (× 0.95). That is a modelled haircut, not every fee and not a payout quote.",
+      "Vinted charges private sellers no selling fee, so buy-below (average departure ask × 0.70) has no fee factor. The buyer pays Buyer Protection on top.",
     lead: FEES_LEAD,
     body: [
-      "The arithmetic is: start from the asking price at departure, take off what the platform deducts from you, then apply your target margin. Resale IQ's published 0.95 is the 5% seller deduction it models for Vinted as a private seller on the tracked EU domains.",
-      "Fee structures differ by platform, by market, and by whether you sell as a private individual or a business, and they change. The profit calculator applies current per-platform rates so you are not working from a figure you memorised a year ago. Do not treat 5% as a legal disclosure of Vinted's full fee card.",
-      "Buyer-side shipping and protection are not in the 0.95. They affect what a buyer will pay, which already sits inside the departure ask. Do not subtract them again on top of buy-below unless you know your payout is different.",
+      "The arithmetic is: start from the asking price at departure, then apply your target margin. Resale IQ's buy-below is average asking price at departure × 0.70. There is no seller-fee step in the middle, because Vinted does not take one from private sellers.",
+      "What can still cost you money: optional paid promotion, the packaging you buy, the travel to source, and — if you resell on another platform — that platform's own commission, which differs by platform and changes. The free profit calculator on this site uses true Vinted arithmetic: sale price minus what you paid. Business accounts can differ, so check Vinted's own fee pages for your account type.",
+      "Buyer Protection and shipping are paid by the buyer on top of the item price. They are not deducted from your payout, so there is nothing to subtract for them on top of buy-below.",
     ],
     seeAlso: [
       { href: "/glossary/buy-below-market", label: "Buy-below (market)" },
@@ -194,14 +194,14 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       { href: "/manual/the-buy-below-price", label: "Manual: the buy-below price" },
     ],
     faqs: [
-      { q: "What Vinted fees does buy-below model?", a: FEES_LEAD },
+      { q: "Does buy-below include Vinted fees?", a: FEES_LEAD },
       {
-        q: "Is 5% Vinted's complete fee?",
-        a: "No. It is the seller deduction Resale IQ models in buy-below (the 0.95). Other charges can apply depending on account type and market. Use the profit calculator at https://resaleiq.dev/tools/vinted-profit-calculator and substitute the rate that hits your payout.",
+        q: "Does Vinted charge sellers a fee?",
+        a: "Not for private sellers. Vinted's help centre says there are no fees for uploading items or selling them, and you receive the full selling price in your Vinted Wallet. The buyer pays a Buyer Protection fee on top. Optional extras such as promoting an item cost extra, and business accounts or other platforms can differ. Profit calculator: https://resaleiq.dev/tools/vinted-profit-calculator",
       },
       {
         q: "Are buyer shipping or protection in buy-below?",
-        a: "Not as a second subtraction. They influence what a buyer will pay, which is already in the asking price at departure. Method: https://resaleiq.dev/glossary/buy-below-market",
+        a: "No. The buyer pays them on top of the item price, and they are not deducted from the seller, so nothing is subtracted for them. Method: https://resaleiq.dev/glossary/buy-below-market",
       },
     ],
   },
@@ -211,10 +211,10 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     h1: "What profit margin does buy-below target?",
     title: "What Vinted profit margin does buy-below target? — Resale IQ",
     description:
-      "Buy-below's 0.70 targets about a 30% margin after a modelled 5% fee. A planning target, not guaranteed net.",
+      "Buy-below's 0.70 targets about a 30% margin on the departure ask. A planning target, not guaranteed net.",
     lead: MARGIN_LEAD,
     body: [
-      "On a €40 departure ask, 5% leaves about €38 net revenue; 30% of that sale as margin implies a max buy around €26.60. Pay €30 and you are working for roughly 21%. Pay €34 and you are working for free once one item in ten fails to sell. Those euros are an illustration of the formula, not a quote for a named model.",
+      "On a €40 departure ask, a 30% margin implies a max buy of €28 (€40 × 0.70). Pay €32 and you are working for roughly 20%. Pay €36 and you are working for 10%, which one item in ten failing to sell wipes out. Those euros are an illustration of the formula, not a quote for a named model.",
       "The target should not be identical on every piece. Slow, expensive stock needs a wider margin because cash is tied up longer. Fast, cheap stock can run thinner. A single blanket percentage is a reasonable starting point and a poor long-term policy.",
       "Turns beat fat margins that never clear. Dead stock at a 60% sticker margin is worse than a 20% flip that leaves the shelf. Pair this page with sell-through and max buy price.",
     ],
@@ -242,7 +242,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     h1: "What is a max buy price?",
     title: "What is a max buy price on Vinted? — Resale IQ",
     description:
-      "Max buy price is the ceiling you take sourcing: departure ask × 0.95 × 0.70 on the named model, then adjust for condition and size.",
+      "Max buy price is the ceiling you take sourcing: departure ask × 0.70 on the named model, then adjust for condition and size.",
     lead: MAX_BUY_LEAD,
     body: [
       "Set the ceiling before you leave the house and do not renegotiate it in the shop. The pull to stretch is strongest on attractive items — which other resellers also find attractive, which means they are priced accordingly.",

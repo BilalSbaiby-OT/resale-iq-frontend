@@ -72,13 +72,16 @@ export default function CalculatorPage() {
     setLoading(true)
     try {
       const r = await getCalc(brand || "Item", model || brand || "Item", 1)
-      const sp = r.platforms?.[0]?.sell_price
+      const best = r.platforms?.[0]
+      const sp = best?.sell_price
       if (typeof sp !== "number") {
         setMaxBuy(null)
         setError(tx("No price data for this product. Try a brand and model we track."))
         return
       }
-      const net = sp * 0.95
+      // What the seller actually receives on that platform: the API's own fee,
+      // not a hard-coded haircut (Vinted charges private sellers no selling fee).
+      const net = sp - (typeof best.platform_fee === "number" ? best.platform_fee : 0)
       setMaxBuy(net - n)
     } catch (e) {
       // why: surfaced in the form alert — a silent catch was the original bug
@@ -165,7 +168,7 @@ export default function CalculatorPage() {
 
         {maxBuy !== null && (
           <div className="mb-6">
-            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">{tx("Max buy to hit that profit after the 5% fee — not the product buy-below (avg × 0.95 × 0.70)")}</div>
+            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">{tx("Max buy to hit that profit on the best platform — not the product buy-below (avg × 0.70)")}</div>
             <div className="font-bold text-[40px] leading-none tracking-tight text-[var(--color-buy)] tabular-nums">{eur(maxBuy)}</div>
           </div>
         )}

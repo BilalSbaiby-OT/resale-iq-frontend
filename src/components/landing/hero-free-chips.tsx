@@ -38,6 +38,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { localizeDemandNote } from "@/lib/verdict-words"
+import { buyBelowFromAvg } from "@/lib/buy-below"
 
 // 2026-09-29: New Balance 530 replaced with Fred Perry Polo (NB530 verdicts
 // SKIP live with buy_below=null — see src/lib/working-models.ts for the
@@ -256,7 +257,7 @@ function HeroInlineVerdictCard({
               </span>
               <span aria-hidden style={{ filter: "blur(4px)", color: "var(--color-text-primary)", fontSize: 12, fontWeight: 700, flexShrink: 0, userSelect: "none", display: "inline-flex", alignItems: "center", gap: 3 }}>
                 <Lock size={9} />
-                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+                {it.avg_price_eur != null ? `€${Math.round(buyBelowFromAvg(it.avg_price_eur))}` : "€••"}
               </span>
             </div>
           ))}

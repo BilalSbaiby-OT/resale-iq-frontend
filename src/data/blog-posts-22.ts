@@ -23,7 +23,7 @@ export const POSTS_22: BlogPost[] = [
     definedTerm: {
       name: "Buy-below price",
       description:
-        "The buy-below price is the maximum you can pay for an item and still achieve your target margin after Vinted fees and any sourcing costs. Resale IQ calculates this automatically from live departure averages. The formula: buy-below = departure average × (1 − target margin percentage). For a 100% net margin target on a €18 departure average item, your buy-below is €9.",
+        "The buy-below price is the maximum you can pay for an item and still achieve your target margin after any sourcing costs. Resale IQ calculates this automatically from live departure averages. The formula: buy-below = departure average × (1 − target margin percentage). For a 100% net margin target on a €18 departure average item, your buy-below is €9.",
     },
     sections: [
       {

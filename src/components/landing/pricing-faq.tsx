@@ -23,7 +23,7 @@
  *  - Coverage: the brand count is brandsTracked from the live snapshot, passed in as
  *    `brands`; the FAQ never hard-codes it (it was "21 brands" when 61 were tracked).
  *  - 5 EU markets: ES, FR, DE, IT, PT (Vinted only — we are Vinted-specific).
- *  - Buy-below formula is canonical: avg × 0.95 × 0.70.
+ *  - Buy-below formula is canonical: avg × 0.70 (no fee factor — Vinted charges private sellers no selling fee).
  *  - Withheld models → honest "we don't cover it" is always correct.
  *  - 30-day refund is in Terms (linked from paywall card already).
  *
@@ -80,7 +80,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "How is the buy-below price calculated?",
-    a: "Average recent sale price × 0.95 × 0.70. The 0.70 multiplier targets a ~30% gross margin after Vinted buyer protection and seller fees. We only show the number when we have enough comparable sales to be confident — when the data is thin, we say so instead of guessing.",
+    a: "Average asking price at departure × 0.70. The 0.70 multiplier targets a ~30% gross margin. Vinted charges private sellers no selling fee, so no platform cut is built into the number. We only show the number when we have enough comparable departures to be confident — when the data is thin, we say so instead of guessing.",
   },
   {
     q: "What if my item isn't in the catalog?",

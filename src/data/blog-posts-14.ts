@@ -36,7 +36,7 @@ export const POSTS_14: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €156 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €148.20. Applying a 30% target margin gives a buy-below of approximately €104. Any Jordan sneaker sourced below that price — confirmed model, confirmed colourway, confirmed condition — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €156 at departure, applying a 30% target margin gives a buy-below of approximately €109. Any Jordan sneaker sourced below that price — confirmed model, confirmed colourway, confirmed condition — has a realistic margin at current departure prices.",
           "The upper range for premium Jordan retro colourways (the Jordan 1 Retro High OG 'Chicago', the Jordan 4 Retro 'Military Blue', the Jordan 3 Retro 'White Cement') is €300–600+ for wearable deadstock or near-deadstock condition, shifting the buy-below ceiling significantly upward. For Jordan apparel: T-Shirts at €65 give a buy-below near €46. Hoodies at €25 give a buy-below near €18. The T-Shirt buy-below is achievable only for heritage graphic tees — Jordan 23 jumpsuit logo, authentic vintage 90s Jordan brand pieces — not current production.",
         ],
         cta: pricingMidCta("ctr_jordan_20260915"),
@@ -74,11 +74,11 @@ export const POSTS_14: BlogPost[] = [
     faq: [
       {
         q: "Is Jordan Brand worth reselling on Vinted?",
-        a: "Yes — specifically Jordan Retro Sneakers in OG colourways. Jordan ranked #28 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 15 departures at €133 average. Sneakers averaged €156 (buy-below ~€104). The sourcing edge is colourway identification: Jordan 1 Retro High 'Chicago', 'Bred', and 'Royal' colourways exit at €200–500+ at EU charity shop sourcing prices of €25–40. Jordan apparel is not a viable systematic sourcing target.",
+        a: "Yes — specifically Jordan Retro Sneakers in OG colourways. Jordan ranked #28 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 15 departures at €133 average. Sneakers averaged €156 (buy-below ~€109). The sourcing edge is colourway identification: Jordan 1 Retro High 'Chicago', 'Bred', and 'Royal' colourways exit at €200–500+ at EU charity shop sourcing prices of €25–40. Jordan apparel is not a viable systematic sourcing target.",
       },
       {
         q: "What is the buy-below price for Jordan on Vinted?",
-        a: "For Jordan Sneakers: with an average departure of €156 and 5% platform deduction, buy-below sits around €104. For OG colourway Jordan 1 Retro High (which exits at €250–500+), buy-below stretches to €175–350. For general-release Jordan Sneakers (which exit at €60–100), buy-below is near €42–70 — harder to achieve at EU charity shops where Jordan pricing is increasing with collector awareness. Resale IQ returns exact buy-below by brand, model, colourway, and condition.",
+        a: "For Jordan Sneakers: with an average departure of €156, buy-below sits around €109. For OG colourway Jordan 1 Retro High (which exits at €250–500+), buy-below stretches to €175–350. For general-release Jordan Sneakers (which exit at €60–100), buy-below is near €42–70 — harder to achieve at EU charity shops where Jordan pricing is increasing with collector awareness. Resale IQ returns exact buy-below by brand, model, colourway, and condition.",
       },
       {
         q: "What Jordan items sell best on Vinted?",
@@ -120,7 +120,7 @@ export const POSTS_14: BlogPost[] = [
         h: "Why Pull&Bear has no margin: the Inditex distribution problem",
         p: [
           "Pull&Bear is owned by Inditex (the Zara parent) and operates 900+ stores across 40 markets. The brand's value proposition is trend-reactive casualwear at accessible prices — a Hoodie retails at €20–30, Jeans at €25–35, Jackets at €30–50. On EU Vinted, these same items exit at €12, €8, and €12 respectively — at or below charity shop prices and well below new retail. The structural problem is identical to Zara basics: Pull&Bear items are available new, in current sizes, at the same or lower price than any used listing on Vinted.",
-          "A deliberate reseller buying Pull&Bear at a charity shop (€5–8 per piece) and listing at EU Vinted average prices (€11 brand average) generates €3–6 gross margin per item before fees, packaging, and time. At Vinted's approximate fee structure, the net is €1–3 per item — below any viable unit economics for deliberate resale strategy. Pull&Bear items sourced at charity shops are almost never below the buy-below threshold because the buy-below threshold (near €7 for Hoodies at €12 exit) is lower than typical branded charity shop pricing.",
+          "A deliberate reseller buying Pull&Bear at a charity shop (€5–8 per piece) and listing at EU Vinted average prices (€11 brand average) generates €3–6 gross margin per item before packaging and time. Once packaging and time are counted, the net is €1–3 per item — below any viable unit economics for deliberate resale strategy. Pull&Bear items sourced at charity shops are almost never below the buy-below threshold because the buy-below threshold (near €7 for Hoodies at €12 exit) is lower than typical branded charity shop pricing.",
         ],
         cta: pricingMidCta("ctr_pullandbear_20260915"),
       },
@@ -147,7 +147,7 @@ export const POSTS_14: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Pull&Bear on Vinted?",
-        a: "For Pull&Bear Hoodies: with an average departure of €12 and 5% platform deduction, buy-below sits around €8. For Jackets at €12 avg, buy-below is near €8. For Jeans at €8 avg, buy-below is near €5.50. These thresholds are below typical EU charity shop pricing for branded basics. Only clearance-priced pieces (under €5) generate any margin — and only if condition is very good. Pull&Bear is not a viable deliberate sourcing target.",
+        a: "For Pull&Bear Hoodies: with an average departure of €12, buy-below sits around €8. For Jackets at €12 avg, buy-below is near €8. For Jeans at €8 avg, buy-below is near €5.50. These thresholds are below typical EU charity shop pricing for branded basics. Only clearance-priced pieces (under €5) generate any margin — and only if condition is very good. Pull&Bear is not a viable deliberate sourcing target.",
       },
       {
         q: "What Pull&Bear items sell best on Vinted?",
@@ -155,7 +155,7 @@ export const POSTS_14: BlogPost[] = [
       },
       {
         q: "How does Pull&Bear compare to Zara for resale on Vinted?",
-        a: "Both are Inditex brands with similar resale challenges. Zara (82 dep/wk at €20 avg) has a higher volume and a higher average than Pull&Bear (51 dep/wk at €11 avg). Zara's Jackets at €35 avg give a viable buy-below near €23; Pull&Bear's Jackets at €12 avg give a buy-below near €8. Zara Studio identification (limited-edition pieces that exit at €40–80) is a viable Zara sourcing edge without a Pull&Bear equivalent at the same scale. Zara is meaningfully more resellable than Pull&Bear.",
+        a: "Both are Inditex brands with similar resale challenges. Zara (82 dep/wk at €20 avg) has a higher volume and a higher average than Pull&Bear (51 dep/wk at €11 avg). Zara's Jackets at €35 avg give a viable buy-below near €25; Pull&Bear's Jackets at €12 avg give a buy-below near €8. Zara Studio identification (limited-edition pieces that exit at €40–80) is a viable Zara sourcing edge without a Pull&Bear equivalent at the same scale. Zara is meaningfully more resellable than Pull&Bear.",
       },
     ],
   },

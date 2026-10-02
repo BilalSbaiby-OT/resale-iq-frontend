@@ -24,7 +24,7 @@ export const POSTS_34: BlogPost[] = [
     definedTerm: {
       name: "Levi's 501 departure average",
       description:
-        "The Levi's 501 departure average is the average price at which a tracked Levi's 501 listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Levi's jeans departure average is €29 across 41 observed departures in France, Germany, Spain, Italy, and Portugal. This figure covers the full Levi's jeans category tracked by ResaleIQ, which is dominated by the 501 straight-leg cut. Individual exit prices range from €12–15 for heavily worn basics to €80–150 for dead-stock or rare washes. The buy-below ceiling based on this departure average is €18.85.",
+        "The Levi's 501 departure average is the average price at which a tracked Levi's 501 listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Levi's jeans departure average is €29 across 41 observed departures in France, Germany, Spain, Italy, and Portugal. This figure covers the full Levi's jeans category tracked by ResaleIQ, which is dominated by the 501 straight-leg cut. Individual exit prices range from €12–15 for heavily worn basics to €80–150 for dead-stock or rare washes. The buy-below ceiling based on this departure average is €20.30.",
     },
     sections: [
       {
@@ -47,7 +47,7 @@ export const POSTS_34: BlogPost[] = [
       {
         h: "Buy-below ceiling and size breakdown",
         p: [
-          "The buy-below ceiling for Levi's 501 jeans at the category level is €18.85 — 65% of the €29 departure average. This is the maximum you can pay for a modern, standard-condition 501 and maintain a workable margin after Vinted's seller fee and shipping. Any pair sourced below €12 at a charity shop or flea market has strong margin at the lowest exit prices.",
+          "The buy-below ceiling for Levi's 501 jeans at the category level is €20.30 — 70% of the €29 departure average. This is the maximum you can pay for a modern, standard-condition 501 and maintain a workable margin after shipping. Any pair sourced below €12 at a charity shop or flea market has strong margin at the lowest exit prices.",
           "Size matters significantly for exit price and liquidity. W30–W32 are the most actively traded sizes and exit near the category average (€27–32). W28 and W29 are popular in France and Spain specifically — strong demand but fewer items in circulation, which can push exit prices to €35–45 for clean pairs. W34 and W36 exit below the average at €20–25. W38+ is a long tail with lower exit prices and slower turnover.",
           "Leg length affects price less than waist size, but L32 is the most liquid inseam. L30 and L34 are also liquid; L36 is a specialist size with slower turnover. Hemmed pairs exit at a discount — buyers prefer un-hemmed so they can tailor to their own length.",
         ],
@@ -86,7 +86,7 @@ export const POSTS_34: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Levi's 501 on EU Vinted?",
-        a: "The buy-below ceiling for a standard modern Levi's 501 is €18.85 — 65% of the €29 departure average. Sourcing below €12 at a charity shop or flea market covers the worst-case exit price with margin. Vintage pieces have a higher buy-below ceiling relative to their exit price — a USA-made 501 sourced at €30 can exit at €100+ if the details are right.",
+        a: "The buy-below ceiling for a standard modern Levi's 501 is €20.30 — 70% of the €29 departure average. Sourcing below €12 at a charity shop or flea market covers the worst-case exit price with margin. Vintage pieces have a higher buy-below ceiling relative to their exit price — a USA-made 501 sourced at €30 can exit at €100+ if the details are right.",
       },
       {
         q: "Which Levi's size sells best on EU Vinted?",

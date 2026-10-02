@@ -36,8 +36,8 @@ export const POSTS_7: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €61 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €57.95. Applying a 30% target margin gives a buy-below of approximately €41. Any Diesel Jacket sourced below that price — in sellable condition, correct era — has a realistic margin at current departure prices.",
-          "Jeans at €21 average give a buy-below near €14. Hoodies at €20 give a buy-below near €13. T-Shirts at €11 give a buy-below near €7. Shirts at €8 are effectively below any practical sourcing floor. The Jacket category is where capital should concentrate; the other categories are viable only as high-volume low-cost sourcing plays, and T-Shirts and Shirts are not worth deliberate sourcing at these averages.",
+          "With Jackets averaging €61 at departure, applying a 30% target margin gives a buy-below of approximately €43. Any Diesel Jacket sourced below that price — in sellable condition, correct era — has a realistic margin at current departure prices.",
+          "Jeans at €21 average give a buy-below near €15. Hoodies at €20 give a buy-below near €14. T-Shirts at €11 give a buy-below near €8. Shirts at €8 are effectively below any practical sourcing floor. The Jacket category is where capital should concentrate; the other categories are viable only as high-volume low-cost sourcing plays, and T-Shirts and Shirts are not worth deliberate sourcing at these averages.",
         ],
         cta: pricingMidCta("ctr_diesel_20260915"),
       },
@@ -59,7 +59,7 @@ export const POSTS_7: BlogPost[] = [
       {
         h: "Hoodies: modest margin, collab upside",
         p: [
-          "Hoodies at 25 departures and €20 average sit at a buy-below of roughly €13 — viable for pieces sourced at €5–10 at charity shops but not worth deliberate targeting. The exception is Diesel graphic hoodies from the 2003–2009 era (vintage 'Only The Brave' branding, D-logo chest print, flame-logo hoodies) which trade above the €20 floor due to Y2K demand — these can exit at €30–45 when correctly identified and photographed against a clean background.",
+          "Hoodies at 25 departures and €20 average sit at a buy-below of roughly €14 — viable for pieces sourced at €5–10 at charity shops but not worth deliberate targeting. The exception is Diesel graphic hoodies from the 2003–2009 era (vintage 'Only The Brave' branding, D-logo chest print, flame-logo hoodies) which trade above the €20 floor due to Y2K demand — these can exit at €30–45 when correctly identified and photographed against a clean background.",
           "Glenn Martens era Hoodies (2022–2025) are a second upside cohort: the D-Kroosshort and related oversized cuts in washed fleece or heavy cotton are sought as wardrobe basics with runway adjacency and exit at €35–55 in good condition. If sourcing at a venue where you can check labels, the Martens-era pieces are clearly dateable by cut and hardware — the D-logo rubber patches and the Diesel wordmark placement changed visibly between the pre-2022 and post-2022 collections.",
         ],
       },
@@ -74,11 +74,11 @@ export const POSTS_7: BlogPost[] = [
     faq: [
       {
         q: "Is Diesel worth reselling on Vinted?",
-        a: "Yes — selectively. Diesel ranked #8 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 178 listings left the shelf at an average of €23. Jackets drive the real margin at 19 departures averaging €61 (buy-below ~€41). Y2K and Glenn Martens era pieces command a premium; generic modern Diesel denim averages €21 and requires high-volume sourcing discipline.",
+        a: "Yes — selectively. Diesel ranked #8 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 178 listings left the shelf at an average of €23. Jackets drive the real margin at 19 departures averaging €61 (buy-below ~€43). Y2K and Glenn Martens era pieces command a premium; generic modern Diesel denim averages €21 and requires high-volume sourcing discipline.",
       },
       {
         q: "What is the buy-below price for Diesel Jackets on Vinted?",
-        a: "With Diesel Jackets averaging €61 at departure across EU Vinted markets (week to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €41. This applies to Y2K era and Glenn Martens runway pieces that exit at or above €61 — generic Diesel outerwear from 2015–2020 does not reach this floor. Resale IQ returns the exact buy-below for specific Diesel models.",
+        a: "With Diesel Jackets averaging €61 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €43. This applies to Y2K era and Glenn Martens runway pieces that exit at or above €61 — generic Diesel outerwear from 2015–2020 does not reach this floor. Resale IQ returns the exact buy-below for specific Diesel models.",
       },
       {
         q: "What Diesel items sell best on Vinted?",

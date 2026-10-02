@@ -38,7 +38,7 @@ export const POSTS_119: BlogPost[] = [
       {
         h: "Fee and profit math (do this in one place)",
         p: [
-          "Vinted takes a seller fee and Buyer Protection sits on the buyer. Net is not list price. A €16 Fred Perry polo that looked like a €6 profit can be a €1 leftover once you count fees, shipping absorption (if you offered free shipping), and returns risk.",
+          "Vinted charges private sellers no selling fee and Buyer Protection sits on the buyer, but net is still not list price. A €16 Fred Perry polo that looked like a €6 profit can be a €1 leftover once you count shipping absorption (if you offered free shipping), packaging, and returns risk.",
           "Use one calculator. Do not maintain three Google Sheets that disagree. The [profit path on /tools](/tools) is enough for a go/no-go. Spreadsheets are for inventory after you already bought.",
         ],
       },

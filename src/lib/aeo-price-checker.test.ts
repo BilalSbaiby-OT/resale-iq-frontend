@@ -37,7 +37,8 @@ test("price-checker title and H1 stay owned by the existing page", () => {
 test("price-checker body walks departure → buy-below → BUY/WATCH/SKIP", () => {
   assert.match(checker, /h: "From departure price to BUY, WATCH or SKIP"/)
   assert.match(checker, /Asking prices are hopes/)
-  assert.match(checker, /0\.95 × 0\.70/)
+  assert.match(checker, /average × 0\.70\. The 0\.70 targets about a 30% margin/)
+  assert.doesNotMatch(checker, /0\.95/)
   assert.match(checker, /BUY, WATCH or SKIP against that number/)
   assert.match(checker, /most items unlock with Starter at €19/)
   assert.match(checker, /Sell-through and sizes stay on a plan/)
@@ -51,7 +52,8 @@ test("price-checker FAQs match paywall reality and do not promise a free verdict
   assert.match(checker, /q: "Why departure prices\?"/)
   assert.match(checker, /q: "Is the Vinted price checker free\?"/)
   const faq = checker.slice(checker.indexOf("faq:"))
-  assert.match(faq, /0\.95 × 0\.70/)
+  assert.match(faq, /average asking price at departure × 0\.70/)
+  assert.doesNotMatch(faq, /0\.95/)
   assert.match(faq, /Item-level BUY, WATCH or SKIP and buy-below start at Starter €19/)
   assert.match(faq, /Sell-through and sizes stay on a plan/)
   assert.doesNotMatch(faq, /Yes\. You can run a one-item check/)
@@ -59,7 +61,7 @@ test("price-checker FAQs match paywall reality and do not promise a free verdict
   assert.doesNotMatch(faq, /\/register/)
   const answers = [
     "A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Resale IQ returns a buy-below price and a BUY, WATCH or SKIP call across Spain, France, Germany, Italy and Portugal.",
-    "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70. The 0.95 covers the 5% platform deduction we model for Vinted, and the 0.70 targets about a 30% margin.",
+    "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.70, which targets about a 30% margin. Vinted charges private sellers no selling fee, so no platform cut is built into that number.",
     "Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. We do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price.",
     "Weekly brand volumes and average departure prices stay public on /data with no account. Item-level BUY, WATCH or SKIP and buy-below start at Starter €19 a month. You can try the checker; most items unlock with Starter. Sell-through and sizes stay on a plan.",
   ]

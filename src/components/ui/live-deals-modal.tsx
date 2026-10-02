@@ -55,7 +55,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
   const avg = typeof deal.avg_price_eur === "number" && Number.isFinite(deal.avg_price_eur)
     ? deal.avg_price_eur
     : null
-  const targetNet = (price: number) => avg != null && avg > 0 ? avg * 0.95 - price : null
+  const targetNet = (price: number) => avg != null && avg > 0 ? avg - price : null
 
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
@@ -112,7 +112,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       <div style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 16, color: "#34C759" }}>€{d.price_eur.toFixed(0)}</div>
                       {net != null && net > 0 && (
-                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#FF9F0A" }} title={tx("Fee-adjusted warehouse avg minus this ask — constructed, not a forecast")}>{tx("Target net €{0}", [net.toFixed(0)])}</div>
+                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#FF9F0A" }} title={tx("Warehouse avg minus this ask — constructed, not a forecast")}>{tx("Target net €{0}", [net.toFixed(0)])}</div>
                       )}
                     </div>
                     <span style={{ color: "#0A84FF", fontSize: 13 }}>↗</span>

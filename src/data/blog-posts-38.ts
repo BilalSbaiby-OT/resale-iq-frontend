@@ -26,7 +26,7 @@ export const POSTS_38: BlogPost[] = [
     definedTerm: {
       name: "Fred Perry jacket departure average",
       description:
-        "The Fred Perry jacket departure average is the average price at which a tracked Fred Perry jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 19 September 2026, the Fred Perry jacket departure average is €37 across 22 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest average exit price of any Fred Perry category, ahead of hoodies (€17) and shirts (€15). Individual exit prices range from €20 for worn or generic track jackets to €80–120 for archive Harrington styles or collaboration pieces. The buy-below ceiling at the jacket category level is €24.05.",
+        "The Fred Perry jacket departure average is the average price at which a tracked Fred Perry jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 19 September 2026, the Fred Perry jacket departure average is €37 across 22 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest average exit price of any Fred Perry category, ahead of hoodies (€17) and shirts (€15). Individual exit prices range from €20 for worn or generic track jackets to €80–120 for archive Harrington styles or collaboration pieces. The buy-below ceiling at the jacket category level is €25.90.",
     },
     sections: [
       {
@@ -49,7 +49,7 @@ export const POSTS_38: BlogPost[] = [
       {
         h: "Buy-below ceiling and margin structure",
         p: [
-          "The buy-below ceiling for Fred Perry jackets at the category level is €24.05 — 65% of the €37 departure average. This is the maximum you can pay for a standard piece in good condition and maintain workable margin after Vinted's seller fee and domestic shipping. For the Harrington specifically: sourcing below €15 at a charity shop produces clear margin even at the lower end of the exit range (€35–40). Sourcing above €22 on a standard Harrington requires it to exit at €38+ — achievable on clean pieces but requiring confidence in condition assessment.",
+          "The buy-below ceiling for Fred Perry jackets at the category level is €25.90 — 70% of the €37 departure average. This is the maximum you can pay for a standard piece in good condition and maintain workable margin after domestic shipping. For the Harrington specifically: sourcing below €15 at a charity shop produces clear margin even at the lower end of the exit range (€35–40). Sourcing above €22 on a standard Harrington requires it to exit at €38+ — achievable on clean pieces but requiring confidence in condition assessment.",
           "The margin structure compares favourably to Fred Perry shirts. A shirt sourced at €5 and exiting at €15 generates roughly €7–8 net after fees. A Harrington sourced at €12 and exiting at €42 generates roughly €25 net after fees — 3–4× the per-unit margin on similar sourcing effort per item. The limitation is sourcing frequency: Harrington jackets appear less often than polo shirts in charity shop racks, so the volume cannot match the shirt pipeline.",
           "The optimal Fred Perry reselling strategy combines both categories: shirts for volume and capital velocity (91 departures in the last 30 days, sourcing at €3–6), Harrington jackets and track tops for per-unit margin when encountered (22 departures in the last 30 days, sourcing at €8–18). Running both in parallel maximises exposure across the brand's EU Vinted demand.",
         ],
@@ -88,11 +88,11 @@ export const POSTS_38: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Fred Perry jacket on EU Vinted?",
-        a: "The buy-below ceiling for a Fred Perry jacket at the category level is €24.05 — 65% of the €37 departure average. For a Harrington J2 in good condition, sourcing below €15 (achievable at UK charity shops and French vide-greniers) produces clear margin even at the lower end of the exit range. Track tops require a lower sourcing ceiling (below €12) to maintain margin at their typical €20–30 exit range.",
+        a: "The buy-below ceiling for a Fred Perry jacket at the category level is €25.90 — 70% of the €37 departure average. For a Harrington J2 in good condition, sourcing below €15 (achievable at UK charity shops and French vide-greniers) produces clear margin even at the lower end of the exit range. Track tops require a lower sourcing ceiling (below €12) to maintain margin at their typical €21–30 exit range.",
       },
       {
         q: "Is the Fred Perry Harrington jacket worth reselling on EU Vinted?",
-        a: "Yes — the Harrington (J2) is Fred Perry's most liquid jacket model and the piece buyers search for by name. Clean Harringtons in core colourways (navy, black, racing green) exit at €35–55 within 5–10 days. The buy-below ceiling of €24.05 is achievable at charity shops and flea markets. Per-unit margin on a Harrington is 3–4× higher than on a Fred Perry shirt — making it the most attractive per-item category in the Fred Perry range for EU Vinted resellers with limited sourcing frequency.",
+        a: "Yes — the Harrington (J2) is Fred Perry's most liquid jacket model and the piece buyers search for by name. Clean Harringtons in core colourways (navy, black, racing green) exit at €35–55 within 5–10 days. The buy-below ceiling of €25.90 is achievable at charity shops and flea markets. Per-unit margin on a Harrington is 3–4× higher than on a Fred Perry shirt — making it the most attractive per-item category in the Fred Perry range for EU Vinted resellers with limited sourcing frequency.",
       },
       {
         q: "How do Fred Perry jackets compare to Stone Island jackets on EU Vinted?",

@@ -49,7 +49,7 @@ export const POSTS_92: BlogPost[] = [
       {
         h: "Buy-below ceiling: what to pay at source for Tommy Hilfiger hoodies",
         p: [
-          "ResaleIQ does not publish a per-model buy-below ceiling for Tommy Hilfiger hoodies because the brand is not yet in our per-model tracked catalogue (model_signals). The brand-level average exit is €19.69 across 510 tracked hoodies in the last 30 days. As a rough guide, sourcing below 65% of the exit price you see (i.e., below €12.80 at the €19.69 average) targets a 35% gross margin, but use the free checker to get a verdict for the specific item. In practice, the sourcing window at EU charity shops is €4–€9 for mainline Tommy Hilfiger sweatshirts.",
+          "ResaleIQ does not publish a per-model buy-below ceiling for Tommy Hilfiger hoodies because the brand is not yet in our per-model tracked catalogue (model_signals). The brand-level average exit is €19.69 across 510 tracked hoodies in the last 30 days. As a rough guide, sourcing below 70% of the exit price you see (i.e., below €13.78 at the €19.69 average) targets a 30% gross margin, but use the free checker to get a verdict for the specific item. In practice, the sourcing window at EU charity shops is €4–€9 for mainline Tommy Hilfiger sweatshirts.",
           "For Tommy Jeans hoodies — which exit at €30–€50 on EU Vinted — sourcing at €10–€16 at charity shops that do not differentiate the sub-brand from mainline Tommy Hilfiger is the highest-ROI sourcing motion in the category. The sub-brand identification is the key skill (see below).",
           "For condition guidance on Tommy Hilfiger hoodies: Excellent/Like New pieces command the highest exit (aim for €21–€25 for mainline in perfect condition, €38–€52 for Tommy Jeans). Very Good is the primary sourcing target. Good (light collar stretch, minor underarm wear) — buy at deep discount only. Fair — skip. The charity-shop error rate for Tommy Hilfiger sub-brand identification is high — staff commonly price Tommy Jeans at the same €4–€8 range as mainline Tommy Hilfiger. That mispricing is the sourcing edge.",
         ],
@@ -91,7 +91,7 @@ export const POSTS_92: BlogPost[] = [
       },
       {
         q: "What should I pay for a Tommy Hilfiger hoodie to make a profit on Vinted?",
-        a: "ResaleIQ does not yet publish a per-model buy-below ceiling for Tommy Hilfiger hoodies (the brand is not in our per-model tracked catalogue). The brand-level average exit is €19.69 across 510 tracked Tommy Hilfiger hoodie transactions in the last 30 days. As a rough guide, sourcing below €12.80 (65% of €19.69) targets a 35% gross margin. For Tommy Jeans hoodies — which exit at €30–€50 — sourcing at €6–€12 at charity shops that misprice the sub-brand is the highest ROI motion. Use the free checker on the specific item you are looking at for a data-backed verdict.",
+        a: "ResaleIQ does not yet publish a per-model buy-below ceiling for Tommy Hilfiger hoodies (the brand is not in our per-model tracked catalogue). The brand-level average exit is €19.69 across 510 tracked Tommy Hilfiger hoodie transactions in the last 30 days. As a rough guide, sourcing below €13.78 (70% of €19.69) targets a 30% gross margin. For Tommy Jeans hoodies — which exit at €30–€50 — sourcing at €6–€12 at charity shops that misprice the sub-brand is the highest ROI motion. Use the free checker on the specific item you are looking at for a data-backed verdict.",
       },
       {
         q: "What is the difference between Tommy Jeans and Tommy Hilfiger hoodies on Vinted?",

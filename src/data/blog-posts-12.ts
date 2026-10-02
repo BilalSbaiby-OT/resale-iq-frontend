@@ -36,8 +36,8 @@ export const POSTS_12: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Hoodies averaging €28 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €26.60. Applying a 30% target margin gives a buy-below of approximately €19. Any Uniqlo Hoodie sourced below €19 — and it must be a collab or UNIQLO U piece, not a standard fleece — has a realistic margin at current departure prices.",
-          "Jackets at €20 average give a buy-below near €13. T-Shirts at €12 give a buy-below near €8. Shirts at €10 give a buy-below near €7. Bags at €10 give a buy-below near €7. The Hoodie category is the only one with a realistic sourcing case — and only for collab or premium sub-line pieces. Jackets at a €13 buy-below are theoretically viable at charity shop clearance pricing only, and competition for collab Uniqlo outerwear is higher than standard category.",
+          "With Hoodies averaging €28 at departure, applying a 30% target margin gives a buy-below of approximately €20. Any Uniqlo Hoodie sourced below €19 — and it must be a collab or UNIQLO U piece, not a standard fleece — has a realistic margin at current departure prices.",
+          "Jackets at €20 average give a buy-below near €14. T-Shirts at €12 give a buy-below near €8. Shirts at €10 give a buy-below near €7. Bags at €10 give a buy-below near €7. The Hoodie category is the only one with a realistic sourcing case — and only for collab or premium sub-line pieces. Jackets at a €14 buy-below are theoretically viable at charity shop clearance pricing only, and competition for collab Uniqlo outerwear is higher than standard category.",
         ],
         cta: pricingMidCta("ctr_uniqlo_20260915"),
       },
@@ -74,11 +74,11 @@ export const POSTS_12: BlogPost[] = [
     faq: [
       {
         q: "Is Uniqlo worth reselling on Vinted?",
-        a: "Only for collab pieces — KAWS × Uniqlo, JW Anderson × Uniqlo, UNIQLO U, MoMA × Uniqlo UT Graphics. Standard Uniqlo basics (HeatTech, Airism, standard fleece) have no margin: EU Vinted exit prices for basics (€8–14) sit at or below Uniqlo's new retail price. Uniqlo ranked #20 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 57 departures at €18 average. Collab Hoodies exit at €28 avg (buy-below ~€19); KAWS tees exit at €30–90.",
+        a: "Only for collab pieces — KAWS × Uniqlo, JW Anderson × Uniqlo, UNIQLO U, MoMA × Uniqlo UT Graphics. Standard Uniqlo basics (HeatTech, Airism, standard fleece) have no margin: EU Vinted exit prices for basics (€8–14) sit at or below Uniqlo's new retail price. Uniqlo ranked #20 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 57 departures at €18 average. Collab Hoodies exit at €28 avg (buy-below ~€20); KAWS tees exit at €30–90.",
       },
       {
         q: "What is the buy-below price for Uniqlo on Vinted?",
-        a: "For Uniqlo collab Hoodies: with an average departure of €28 and 5% platform deduction, buy-below sits around €19. For KAWS × Uniqlo UT tees (which exit at €30–90 depending on design), buy-below stretches to €20–63. Standard Uniqlo T-Shirts at €12 avg give buy-below near €8 — below most charity shop prices, making them non-viable. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Uniqlo collab Hoodies: with an average departure of €28, buy-below sits around €20. For KAWS × Uniqlo UT tees (which exit at €30–90 depending on design), buy-below stretches to €21–63. Standard Uniqlo T-Shirts at €12 avg give buy-below near €8 — below most charity shop prices, making them non-viable. Resale IQ returns exact buy-below by brand, model, and condition.",
       },
       {
         q: "What Uniqlo items sell best on Vinted?",
@@ -90,7 +90,7 @@ export const POSTS_12: BlogPost[] = [
       },
       {
         q: "Are KAWS × Uniqlo T-shirts worth reselling?",
-        a: "Yes — provided the condition is good. KAWS × Uniqlo UT Graphics exit at €30–90 on EU Vinted for sought-after Companion and Companion-BFF designs, versus €6–12 at EU charity shops and €14.90 at new retail. Buy-below for a KAWS tee targeting €50 exit is around €33. Condition is critical: KAWS × Uniqlo graphics fade with washing — a faded example exits at €15–25; a crisp example exits at €40–80. Check for cracking, fading, and print edge definition before sourcing.",
+        a: "Yes — provided the condition is good. KAWS × Uniqlo UT Graphics exit at €30–90 on EU Vinted for sought-after Companion and Companion-BFF designs, versus €6–12 at EU charity shops and €14.90 at new retail. Buy-below for a KAWS tee targeting €50 exit is around €35. Condition is critical: KAWS × Uniqlo graphics fade with washing — a faded example exits at €15–25; a crisp example exits at €40–80. Check for cracking, fading, and print edge definition before sourcing.",
       },
     ],
   },
@@ -99,7 +99,7 @@ export const POSTS_12: BlogPost[] = [
     title: "Puma Reselling on Vinted: Sneakers at €44 Average and the Model Precision Edge",
     seoTitle: "Is Puma Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€29).",
+      "Puma ranked #21 by watched departures across 5 EU Vinted markets — 56/week at €25 average. Sneakers lead at €44 avg (buy-below ~€31).",
     date: "2026-09-15",
 
     preflightQuery: "Puma Speedcat",
@@ -120,8 +120,8 @@ export const POSTS_12: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €44 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €41.80. Applying a 30% target margin gives a buy-below of approximately €29. Any Puma sneaker sourced below that price — correct model confirmed, correct condition, correct size — has a realistic margin at current departure prices.",
-          "Tracksuits at €21 average give a buy-below near €14. Jackets at €19 give a buy-below near €13. Hoodies at €16 give a buy-below near €11. T-Shirts at €9 give a buy-below near €6. The Sneaker category is where the practical sourcing case lives entirely. Tracksuits at a €14 buy-below are theoretically achievable at clearance pricing only; Hoodies, Jackets, and T-Shirts are not viable sourcing targets for deliberate resale strategy.",
+          "With Sneakers averaging €44 at departure, applying a 30% target margin gives a buy-below of approximately €31. Any Puma sneaker sourced below that price — correct model confirmed, correct condition, correct size — has a realistic margin at current departure prices.",
+          "Tracksuits at €21 average give a buy-below near €15. Jackets at €19 give a buy-below near €13. Hoodies at €16 give a buy-below near €11. T-Shirts at €9 give a buy-below near €6. The Sneaker category is where the practical sourcing case lives entirely. Tracksuits at a €14 buy-below are theoretically achievable at clearance pricing only; Hoodies, Jackets, and T-Shirts are not viable sourcing targets for deliberate resale strategy.",
         ],
         cta: pricingMidCta("ctr_puma_20260915"),
       },
@@ -158,11 +158,11 @@ export const POSTS_12: BlogPost[] = [
     faq: [
       {
         q: "Is Puma worth reselling on Vinted?",
-        a: "Yes — specifically Puma Sneakers. Puma ranked #21 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 56 departures at €25 average. Sneakers averaged €44 (buy-below ~€29), 76% above the brand mean. The Puma Suede, Puma Clyde, Puma Palermo, and Puma Speed Cat (Scuderia Ferrari collab) are the high-upside models. Puma apparel (T-Shirts at €9, Hoodies at €16) is not a viable sourcing target.",
+        a: "Yes — specifically Puma Sneakers. Puma ranked #21 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 56 departures at €25 average. Sneakers averaged €44 (buy-below ~€31), 76% above the brand mean. The Puma Suede, Puma Clyde, Puma Palermo, and Puma Speed Cat (Scuderia Ferrari collab) are the high-upside models. Puma apparel (T-Shirts at €9, Hoodies at €16) is not a viable sourcing target.",
       },
       {
         q: "What is the buy-below price for Puma on Vinted?",
-        a: "For Puma Sneakers: with an average departure of €44 and 5% platform deduction, buy-below sits around €29. For Puma Speed Cat (which exits at €50–110), buy-below stretches to €33–77. For Puma Suede and Palermo (€40–80), buy-below is €27–56. Hoodies at €16 avg give buy-below near €11. T-Shirts at €9 give buy-below near €6. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Puma Sneakers: with an average departure of €44, buy-below sits around €31. For Puma Speed Cat (which exits at €50–110), buy-below stretches to €35–77. For Puma Suede and Palermo (€40–80), buy-below is €28–56. Hoodies at €16 avg give buy-below near €11. T-Shirts at €9 give buy-below near €6. Resale IQ returns exact buy-below by brand, model, and condition.",
       },
       {
         q: "What Puma items sell best on Vinted?",

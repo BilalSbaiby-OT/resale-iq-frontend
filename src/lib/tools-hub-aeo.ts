@@ -15,7 +15,7 @@ export const BUY_BELOW_TERM_NAME = "Buy-below price"
 
 export const BUY_BELOW_TERM =
   "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. " +
-  "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
+  "Resale IQ models it as average asking price at departure × 0.70. " +
   "Item-level BUY, WATCH or SKIP plus that number start at Starter €19 a month."
 
 export const TOOLS_HUB_BODY =
@@ -32,7 +32,7 @@ export const TOOLS_HUB_FAQS: FaqItem[] = [
     q: "What is a buy-below price?",
     a:
       "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. " +
-      "Resale IQ models it as average asking price at departure × 0.95 × 0.70 and returns BUY, WATCH or SKIP with that number on a Starter check.",
+      "Resale IQ models it as average asking price at departure × 0.70 and returns BUY, WATCH or SKIP with that number on a Starter check.",
   },
   {
     q: "How does ResaleIQ show demand?",
@@ -81,14 +81,14 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
     termName: "Kaufobergrenze (buy-below)",
     term:
       "Die Kaufobergrenze (buy-below) ist der Höchstpreis, den du für einen Artikel zahlen kannst und trotzdem nach Verkaufsgebühren eine gesunde Marge behältst. " +
-      "Resale IQ rechnet sie als durchschnittlichen Ask-Preis beim Abgang × 0,95 × 0,70. " +
+      "Resale IQ rechnet sie als durchschnittlichen Ask-Preis beim Abgang × 0,70. " +
       "KAUFEN, BEOBACHTEN oder VERWERFEN plus diese Zahl starten mit Starter für 19 € im Monat.",
     faqs: [
       {
         q: "Was ist eine Kaufobergrenze?",
         a:
           "Die Kaufobergrenze (buy-below) ist der Höchstpreis, den du zahlen kannst und trotzdem nach Gebühren Marge behältst. " +
-          "Resale IQ rechnet durchschnittlichen Ask-Preis beim Abgang × 0,95 × 0,70 und liefert KAUFEN, BEOBACHTEN oder VERWERFEN mit dieser Zahl auf einem Starter-Check.",
+          "Resale IQ rechnet durchschnittlichen Ask-Preis beim Abgang × 0,70 und liefert KAUFEN, BEOBACHTEN oder VERWERFEN mit dieser Zahl auf einem Starter-Check.",
       },
       {
         q: "Wie zeigt Resale IQ Nachfrage?",
@@ -123,14 +123,14 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
     termName: "Prix d'achat max (buy-below)",
     term:
       "Le prix d'achat max (buy-below) est le plus que vous pouvez payer pour un article tout en gardant une marge saine après frais. " +
-      "Resale IQ le calcule comme le prix demandé moyen au départ × 0,95 × 0,70. " +
+      "Resale IQ le calcule comme le prix demandé moyen au départ × 0,70. " +
       "BUY, WATCH ou SKIP plus ce chiffre commencent avec Starter à 19 € par mois.",
     faqs: [
       {
         q: "Qu'est-ce qu'un prix d'achat max ?",
         a:
           "Le prix d'achat max (buy-below) est le plus que vous pouvez payer en gardant une marge après frais. " +
-          "Resale IQ le calcule comme prix demandé moyen au départ × 0,95 × 0,70 et renvoie BUY, WATCH ou SKIP avec ce chiffre sur un check Starter.",
+          "Resale IQ le calcule comme prix demandé moyen au départ × 0,70 et renvoie BUY, WATCH ou SKIP avec ce chiffre sur un check Starter.",
       },
       {
         q: "Comment Resale IQ montre-t-il la demande ?",
@@ -165,14 +165,14 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
     termName: "Precio máximo de compra (buy-below)",
     term:
       "El precio máximo de compra (buy-below) es lo más que puedes pagar por un artículo y seguir con margen sano tras comisiones. " +
-      "Resale IQ lo calcula como el precio pedido medio al salir × 0,95 × 0,70. " +
+      "Resale IQ lo calcula como el precio pedido medio al salir × 0,70. " +
       "BUY, WATCH o SKIP más esa cifra empiezan con Starter a 19 € al mes.",
     faqs: [
       {
         q: "¿Qué es un precio máximo de compra?",
         a:
           "El precio máximo de compra (buy-below) es lo más que puedes pagar manteniendo margen tras comisiones. " +
-          "Resale IQ lo calcula como precio pedido medio al salir × 0,95 × 0,70 y devuelve BUY, WATCH o SKIP con esa cifra en un check Starter.",
+          "Resale IQ lo calcula como precio pedido medio al salir × 0,70 y devuelve BUY, WATCH o SKIP con esa cifra en un check Starter.",
       },
       {
         q: "¿Cómo muestra Resale IQ la demanda?",
@@ -207,14 +207,14 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
     termName: "Prezzo max di acquisto (buy-below)",
     term:
       "Il prezzo max di acquisto (buy-below) è il massimo che puoi pagare per un articolo mantenendo un margine sano dopo le commissioni. " +
-      "Resale IQ lo calcola come prezzo chiesto medio all'uscita × 0,95 × 0,70. " +
+      "Resale IQ lo calcola come prezzo chiesto medio all'uscita × 0,70. " +
       "BUY, WATCH o SKIP più quel numero partono con Starter a 19 € al mese.",
     faqs: [
       {
         q: "Cos'è un prezzo max di acquisto?",
         a:
           "Il prezzo max di acquisto (buy-below) è il massimo che puoi pagare mantenendo margine dopo le commissioni. " +
-          "Resale IQ lo calcola come prezzo chiesto medio all'uscita × 0,95 × 0,70 e restituisce BUY, WATCH o SKIP con quel numero su un check Starter.",
+          "Resale IQ lo calcola come prezzo chiesto medio all'uscita × 0,70 e restituisce BUY, WATCH o SKIP con quel numero su un check Starter.",
       },
       {
         q: "Come mostra Resale IQ la domanda?",
@@ -249,14 +249,14 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
     termName: "Preço máximo de compra (buy-below)",
     term:
       "O preço máximo de compra (buy-below) é o máximo que podes pagar por um artigo e ainda manter margem saudável após taxas. " +
-      "A Resale IQ calcula-o como o preço pedido médio à saída × 0,95 × 0,70. " +
+      "A Resale IQ calcula-o como o preço pedido médio à saída × 0,70. " +
       "BUY, WATCH ou SKIP mais esse número começam com Starter a 19 € por mês.",
     faqs: [
       {
         q: "O que é um preço máximo de compra?",
         a:
           "O preço máximo de compra (buy-below) é o máximo que podes pagar mantendo margem após taxas. " +
-          "A Resale IQ calcula-o como preço pedido médio à saída × 0,95 × 0,70 e devolve BUY, WATCH ou SKIP com esse número num check Starter.",
+          "A Resale IQ calcula-o como preço pedido médio à saída × 0,70 e devolve BUY, WATCH ou SKIP com esse número num check Starter.",
       },
       {
         q: "Como a Resale IQ mostra procura?",

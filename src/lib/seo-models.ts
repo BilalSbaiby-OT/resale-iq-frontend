@@ -266,7 +266,7 @@ export function modelFaqs(opts: {
   const { model: m, live, sold, avg } = opts
   const buyBelowDef =
     "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
-    "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
+    "Resale IQ models it as average asking price at departure × 0.70. " +
     "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market"
 
   const shouldBuy = m.freeCheck && isUsableVerdict(live)
@@ -355,7 +355,7 @@ export function brandHubFaqs(opts: {
       q: "What is a buy-below price?",
       a:
         "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
-        "Resale IQ models it as average asking price at departure × 0.95 × 0.70. " +
+        "Resale IQ models it as average asking price at departure × 0.70. " +
         "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market",
     },
     {

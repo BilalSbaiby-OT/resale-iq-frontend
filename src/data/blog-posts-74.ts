@@ -22,11 +22,11 @@ export const POSTS_74: BlogPost[] = [
 
     preflightQuery: "Adidas Handball Spezial",
     intro:
-      "The Adidas Handball Spezial is the most actively departing Adidas sneaker tracked by ResaleIQ on EU Vinted in September 2026. The model cleared 12 watched departures in the 7 days to 15 September — double the Samba and nearly double the Stan Smith — at an average exit price of €79.38 and a buy-below ceiling of €52.79. Supply is 5,166 active listings, giving approximately 80 months of cover at current departure rates. That is elevated, but nowhere near the 210-month oversaturation of the Samba, and with STABLE momentum the exit price is holding. This guide covers the full EU Vinted data for the Handball Spezial in September 2026: size-level buy-below prices, colourway context, speed of sale, and how it compares to the other Adidas sneakers resellers typically encounter.",
+      "The Adidas Handball Spezial is the most actively departing Adidas sneaker tracked by ResaleIQ on EU Vinted in September 2026. The model cleared 12 watched departures in the 7 days to 15 September — double the Samba and nearly double the Stan Smith — at an average exit price of €79.38 and a buy-below ceiling of €55.57. Supply is 5,166 active listings, giving approximately 80 months of cover at current departure rates. That is elevated, but nowhere near the 210-month oversaturation of the Samba, and with STABLE momentum the exit price is holding. This guide covers the full EU Vinted data for the Handball Spezial in September 2026: size-level buy-below prices, colourway context, speed of sale, and how it compares to the other Adidas sneakers resellers typically encounter.",
     definedTerm: {
       name: "Adidas Handball Spezial departure average",
       description:
-        "The Adidas Handball Spezial departure average is the average price at which a tracked Handball Spezial listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Handball Spezial tracks 12 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €79.38 average exit price, with 5,166 active listings and approximately 80.7 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €52.79 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Size 39 exits at €76.83 average (buy-below €51.09); size 38 exits at €78.33 average (buy-below €52.09). Momentum label: STABLE — exit prices are not declining. Average days to sell: 0.20 (exits typically within hours of listing going live).",
+        "The Adidas Handball Spezial departure average is the average price at which a tracked Handball Spezial listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Handball Spezial tracks 12 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €79.38 average exit price, with 5,166 active listings and approximately 80.7 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €55.57 — the maximum sourcing price that maintains a positive gross margin, targeting a 30% gross margin. Size 39 exits at €76.83 average (buy-below €53.78); size 38 exits at €78.33 average (buy-below €54.83). Momentum label: STABLE — exit prices are not declining. Average days to sell: 0.20 (exits typically within hours of listing going live).",
     },
     sections: [
       {
@@ -53,7 +53,7 @@ export const POSTS_74: BlogPost[] = [
             ["Watched departures/7d", "12"],
             ["Average exit price", "€79.38"],
             ["Median exit price", "€65.00"],
-            ["Buy-below ceiling", "€52.79"],
+            ["Buy-below ceiling", "€55.57"],
             ["Active listings", "5,166"],
             ["Months supply", "80.7"],
             ["Avg days to sell", "0.20 (same-day)"],
@@ -65,9 +65,9 @@ export const POSTS_74: BlogPost[] = [
         h: "Size-level buy-below prices: where to source Handball Spezial",
         p: [
           "ResaleIQ tracks size-level data for the Handball Spezial where the sample size supports a reliable estimate. The two dominant sizes in the EU exit data are 39 and 38 — both mid-range EU women's / smaller men's sizes that align with the model's popularity in the fashion-first buyer segment on EU Vinted.",
-          "Size 39: 6 exits in the tracking period, €76.83 average, buy-below ceiling €51.09. This is the highest-volume size for the Handball Spezial on EU Vinted and the most consistently liquid exit. When sourcing, size 39 in any clean colourway at or below €51 is a straightforward positive-margin move.",
-          "Size 38: 3 exits in the tracking period, €78.33 average, buy-below ceiling €52.09. Exit average is fractionally higher than size 39 — slightly smaller EU women's sizing commands a minor premium, consistent with the model's fashion-buyer demographic. Also buy at or below €52.",
-          "For larger sizes (EU 41–44), ResaleIQ does not yet have sufficient tracked departures to give reliable size-specific ceilings. Use the category-level buy-below of €52.79 as the conservative ceiling for unlisted sizes — and note that men's-dominant sizes are likely to exit at or above the €65 median given overall supply dynamics at those sizes.",
+          "Size 39: 6 exits in the tracking period, €76.83 average, buy-below ceiling €53.78. This is the highest-volume size for the Handball Spezial on EU Vinted and the most consistently liquid exit. When sourcing, size 39 in any clean colourway at or below €51 is a straightforward positive-margin move.",
+          "Size 38: 3 exits in the tracking period, €78.33 average, buy-below ceiling €54.83. Exit average is fractionally higher than size 39 — slightly smaller EU women's sizing commands a minor premium, consistent with the model's fashion-buyer demographic. Also buy at or below €52.",
+          "For larger sizes (EU 41–44), ResaleIQ does not yet have sufficient tracked departures to give reliable size-specific ceilings. Use the category-level buy-below of €55.57 as the conservative ceiling for unlisted sizes — and note that men's-dominant sizes are likely to exit at or above the €65 median given overall supply dynamics at those sizes.",
         ],
         table: {
           caption: "Handball Spezial EU Vinted size-level data — Sep 2026",
@@ -129,7 +129,7 @@ export const POSTS_74: BlogPost[] = [
       },
       {
         q: "What is the Handball Spezial buy-below price for EU Vinted resellers?",
-        a: "The category-level buy-below ceiling is €52.79 — the maximum sourcing price that maintains a positive gross margin at the €79.38 category average after Vinted's platform fee. For size 39 specifically, the buy-below is €51.09. For size 38, it is €52.09. Source any clean pair in any colourway at or below these thresholds.",
+        a: "The category-level buy-below ceiling is €55.57 — the maximum sourcing price that maintains a positive gross margin at the €79.38 category average. For size 39 specifically, the buy-below is €53.78. For size 38, it is €54.83. Source any clean pair in any colourway at or below these thresholds.",
       },
       {
         q: "How fast does the Adidas Handball Spezial sell on EU Vinted?",

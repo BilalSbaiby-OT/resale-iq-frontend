@@ -21,11 +21,11 @@ export const POSTS_77: BlogPost[] = [
     readMins: 7,
     preflightQuery: "Adidas Gazelle",
     intro:
-      "The Adidas Gazelle Indoor has the best supply position of any RISING model in ResaleIQ's Adidas EU Vinted database in September 2026: 71 months of cover at current departure rates, against 181 months for the Stan Smith and 110 months for the Forum Low — both also RISING. With 712 active listings and 4 departures in the last 30 days, the Gazelle Indoor is a lower-volume model than the Handball Spezial or Samba, but it is also RISING while those two are STABLE or DEAD. A €58.00 average exit, a €38.57 buy-below ceiling, and same-day exits (0.23 average days to sell) make it the most supply-efficient RISING play in the Adidas cluster. This guide covers the full EU Vinted data for the Gazelle Indoor in September 2026: buy-below ceiling, size-level data, exit speed context, and a direct comparison with every tracked Adidas model.",
+      "The Adidas Gazelle Indoor has the best supply position of any RISING model in ResaleIQ's Adidas EU Vinted database in September 2026: 71 months of cover at current departure rates, against 181 months for the Stan Smith and 110 months for the Forum Low — both also RISING. With 712 active listings and 4 departures in the last 30 days, the Gazelle Indoor is a lower-volume model than the Handball Spezial or Samba, but it is also RISING while those two are STABLE or DEAD. A €58.00 average exit, a €40.60 buy-below ceiling, and same-day exits (0.23 average days to sell) make it the most supply-efficient RISING play in the Adidas cluster. This guide covers the full EU Vinted data for the Gazelle Indoor in September 2026: buy-below ceiling, size-level data, exit speed context, and a direct comparison with every tracked Adidas model.",
     definedTerm: {
       name: "Adidas Gazelle Indoor departure average",
       description:
-        "The Adidas Gazelle Indoor departure average is the average price at which a tracked Gazelle Indoor listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Gazelle Indoor tracks 4 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €58.00 average exit price, with 712 active listings and approximately 71 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €38.57 — the maximum sourcing price that maintains a positive gross margin after Vinted's seller protection fee, targeting a 35% gross margin. Momentum label: RISING — exit prices are trending upward. Average days to sell: 0.23 (exits typically within the same day of listing). Size 36 buy-below: €33.25 (size-level average exit €50.00, based on 3 tracked departures).",
+        "The Adidas Gazelle Indoor departure average is the average price at which a tracked Gazelle Indoor listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Gazelle Indoor tracks 4 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €58.00 average exit price, with 712 active listings and approximately 71 months of supply at current rates. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €40.60 — the maximum sourcing price that maintains a positive gross margin, targeting a 30% gross margin. Momentum label: RISING — exit prices are trending upward. Average days to sell: 0.23 (exits typically within the same day of listing). Size 36 buy-below: €35.00 (size-level average exit €50.00, based on 3 tracked departures).",
     },
     sections: [
       {
@@ -41,7 +41,7 @@ export const POSTS_77: BlogPost[] = [
         h: "Gazelle Indoor EU Vinted data: September 2026",
         p: [
           "ResaleIQ tracked the following Gazelle Indoor EU Vinted data in the 7 days to 15 September 2026.",
-          "Average exit: €58.00. This is the category-average departure price across all tracked Gazelle Indoor listings in France, Germany, Spain, Italy, and Portugal. The buy-below ceiling of €38.57 is calculated at a 35% gross margin target after Vinted's seller protection fee (5% on the final sale price). Source any clean pair under €38 and the exit math works at average rates.",
+          "Average exit: €58.00. This is the category-average departure price across all tracked Gazelle Indoor listings in France, Germany, Spain, Italy, and Portugal. The buy-below ceiling of €40.60 is calculated at a 30% gross margin target. Source any clean pair under €38 and the exit math works at average rates.",
           "Exit speed: 0.23 days — same-day exits. Pairs typically clear within a few hours of listing on EU Vinted. This is slower than the Stan Smith's 0.11 DTS but faster than the Samba (0.28) and Campus 00s (0.30), and fast enough to confirm genuine active demand at the current price level. A model exiting on the same day it lists is not sitting in a crowded pool — it is being found immediately by buyers who have it on their search list.",
           "Active listings: 712. Months supply: 71. At 712 listings and 4 departures in the last 30 days, the Gazelle Indoor has the smallest active float of any tracked Adidas model — less than 3% of the Samba's 27,338 active listings. This is not a model where a reseller competes in a commodity market. It is a model where well-priced, well-conditioned pairs are found by buyers before competing listings have time to accumulate.",
         ],
@@ -51,7 +51,7 @@ export const POSTS_77: BlogPost[] = [
           rows: [
             ["Watched departures/7d", "4"],
             ["Average exit price", "€58.00"],
-            ["Buy-below ceiling", "€38.57"],
+            ["Buy-below ceiling", "€40.60"],
             ["Active listings", "712"],
             ["Months supply", "71"],
             ["Avg days to sell", "0.23 (same-day)"],
@@ -62,9 +62,9 @@ export const POSTS_77: BlogPost[] = [
       {
         h: "Size 36 buy-below: the Gazelle Indoor's highest-velocity size",
         p: [
-          "The Gazelle Indoor's top velocity size in September 2026 is EU 36, with a size-level buy-below of €33.25 and an average exit price of €50.00, based on 3 tracked departures. Size 36 is a smaller women's size — this is a useful sourcing signal. Women's EU 36 Adidas sneakers are undersupplied in charity shops relative to mid-range men's sizes (38–42), which means a size 36 Gazelle Indoor in good condition is a find, not a common occurrence.",
+          "The Gazelle Indoor's top velocity size in September 2026 is EU 36, with a size-level buy-below of €35.00 and an average exit price of €50.00, based on 3 tracked departures. Size 36 is a smaller women's size — this is a useful sourcing signal. Women's EU 36 Adidas sneakers are undersupplied in charity shops relative to mid-range men's sizes (38–42), which means a size 36 Gazelle Indoor in good condition is a find, not a common occurrence.",
           "The size 36 average exit of €50.00 is below the overall category average of €58.00. This is partly a sample-size effect (3 departures) and partly a reflection that size 36 buyers tend to search across more model options than a buyer in a mid-range male size — which keeps the clearing price slightly lower than the category average even as exits are consistent. Source a size 36 Gazelle Indoor under €33 and the gross margin is confirmed at category rates.",
-          "No size-level buy-below data is yet available for EU 39.5 (the second top-velocity size) or EU 38 (third). Apply the category ceiling of €38.57 across those sizes — the sample is small enough that individual condition and colourway matter more than a size-specific floor.",
+          "No size-level buy-below data is yet available for EU 39.5 (the second top-velocity size) or EU 38 (third). Apply the category ceiling of €40.60 across those sizes — the sample is small enough that individual condition and colourway matter more than a size-specific floor.",
           `[Check current Gazelle Indoor size data →](${ilinkHref("data")})`,
         ],
         cta: pricingMidCta("ctr_gazelle_indoor_size_20260915"),
@@ -113,11 +113,11 @@ export const POSTS_77: BlogPost[] = [
     faq: [
       {
         q: "What is the Adidas Gazelle Indoor average price on EU Vinted in 2026?",
-        a: "The Gazelle Indoor averages €58.00 per departure on EU Vinted as of September 2026, based on ResaleIQ's EU tracking across France, Germany, Spain, Italy, and Portugal. The buy-below ceiling is €38.57. Momentum is RISING, and the model has the tightest supply position of any RISING Adidas model at 71 months.",
+        a: "The Gazelle Indoor averages €58.00 per departure on EU Vinted as of September 2026, based on ResaleIQ's EU tracking across France, Germany, Spain, Italy, and Portugal. The buy-below ceiling is €40.60. Momentum is RISING, and the model has the tightest supply position of any RISING Adidas model at 71 months.",
       },
       {
         q: "What is the Gazelle Indoor buy-below price for EU Vinted resellers?",
-        a: "The category buy-below ceiling is €38.57 — the maximum sourcing price that maintains a positive gross margin at the €58.00 average exit after Vinted's seller protection fee. Size 36 has a specific buy-below of €33.25 (average exit €50.00 for that size). For all other sizes, apply the €38.57 category ceiling.",
+        a: "The category buy-below ceiling is €40.60 — the maximum sourcing price that maintains a positive gross margin at the €58.00 average exit. Size 36 has a specific buy-below of €35.00 (average exit €50.00 for that size). For all other sizes, apply the €40.60 category ceiling.",
       },
       {
         q: "Is the Adidas Gazelle Indoor worth reselling on EU Vinted in 2026?",

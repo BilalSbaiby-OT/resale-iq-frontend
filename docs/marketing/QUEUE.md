@@ -401,15 +401,16 @@ publish_floor_sold_7d=5`. Brand/category-level figures only — per-model figure
 > asking prices — half wishful thinking.
 >
 > A rough rule: take the median price of comparable items at the point they left the shelf,
-> knock off Vinted's ~5% seller fee, then only pay a price that leaves real margin — a lot of
-> flippers aim for something like 30% under that post-fee number. If you can only find two or
-> three comparables, that's not enough to trust — keep looking or skip it.
+> then only pay a price that leaves real margin — Vinted doesn't charge private sellers a
+> selling fee, so a lot of flippers just aim for something like 30% under that number. If you
+> can only find two or three comparables, that's not enough to trust — keep looking or skip it.
 >
 > If you don't want to do that math by hand, resaleiq.dev does it for ES/FR/DE/IT/PT listings
-> (buy_below = avg price-at-departure × 0.95 × 0.70) and tells you plainly when there isn't
+> (buy_below = avg price-at-departure × 0.70) and tells you plainly when there isn't
 > enough data to trust the number, instead of printing one anyway.
 >
-> Why this is true: fee-and-margin logic is standard reseller practice. The formula is the
+> Why this is true: Vinted charges private sellers no selling fee (its help centre, article 373),
+> so there is no fee step to model. The formula is the
 > shipped one (`resale-iq/CLAUDE.md`, "the product, in one line"). Scope stated explicitly so it
 > can't read as US/UK coverage.
 

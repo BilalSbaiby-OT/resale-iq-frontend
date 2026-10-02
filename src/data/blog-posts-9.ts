@@ -36,8 +36,8 @@ export const POSTS_9: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €51 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €48.45. Applying a 30% target margin gives a buy-below of approximately €34. Any Vans Sneakers sourced below that price — correct model, correct colourway, sellable condition — has a realistic margin at current departure prices.",
-          "T-Shirts at €11 average give a buy-below near €7. Hoodies at €18 give a buy-below near €12. Bags at €9 give a buy-below near €6. Caps at €10 give a buy-below near €7. None of these apparel and accessory categories are worth deliberate sourcing — they are viable only when acquired at charity shop prices as part of a mixed lot. The entire Vans value proposition on EU Vinted lives in the Sneaker category.",
+          "With Sneakers averaging €51 at departure, applying a 30% target margin gives a buy-below of approximately €36. Any Vans Sneakers sourced below that price — correct model, correct colourway, sellable condition — has a realistic margin at current departure prices.",
+          "T-Shirts at €11 average give a buy-below near €8. Hoodies at €18 give a buy-below near €13. Bags at €9 give a buy-below near €6. Caps at €10 give a buy-below near €7. None of these apparel and accessory categories are worth deliberate sourcing — they are viable only when acquired at charity shop prices as part of a mixed lot. The entire Vans value proposition on EU Vinted lives in the Sneaker category.",
         ],
         cta: pricingMidCta("ctr_vans_20260915"),
       },
@@ -59,7 +59,7 @@ export const POSTS_9: BlogPost[] = [
       {
         h: "Standard Old Skool: when it is and isn't worth sourcing",
         p: [
-          "The standard Old Skool (black/white, white/black, checkerboard navy, tri-tone) exits at €25–45 on EU Vinted depending on condition and size. At a buy-below of €34 for the average, this means: an Old Skool sourced at €10–15 at a charity shop in clean, unworn condition is marginally profitable. An Old Skool sourced at €20+ needs to be in exceptional condition or an unusual size to clear the margin threshold.",
+          "The standard Old Skool (black/white, white/black, checkerboard navy, tri-tone) exits at €25–45 on EU Vinted depending on condition and size. At a buy-below of €34 for the average, this means: an Old Skool sourced at €11–15 at a charity shop in clean, unworn condition is marginally profitable. An Old Skool sourced at €20+ needs to be in exceptional condition or an unusual size to clear the margin threshold.",
           "Size distribution matters: EU42 and EU43 are the most liquid sizes for men's Old Skool and exit at the midpoint of the range. EU45+ are slower to sell and buyers are less willing to pay premium. Women's UK3–UK5 (EU36–38) exits quickly in colourways marketed to women (dusty pink, sage, butter yellow) and can exceed the brand average for the category when correctly listed in the women's section rather than generic footwear.",
         ],
       },
@@ -74,11 +74,11 @@ export const POSTS_9: BlogPost[] = [
     faq: [
       {
         q: "Is Vans worth reselling on Vinted?",
-        a: "Yes — primarily for Sneakers, and specifically for collab and limited editions. Vans ranked #14 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 98 departures at €36 average. Sneakers account for 60% of departures at €51 average (buy-below ~€34). Standard Old Skool in core colourways exits at €25–45 and is only profitable sourced below €15. Collab editions (Supreme, WTAPS, CDG) exit at €80–300 and are the real margin opportunity.",
+        a: "Yes — primarily for Sneakers, and specifically for collab and limited editions. Vans ranked #14 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 98 departures at €36 average. Sneakers account for 60% of departures at €51 average (buy-below ~€36). Standard Old Skool in core colourways exits at €25–45 and is only profitable sourced below €15. Collab editions (Supreme, WTAPS, CDG) exit at €80–300 and are the real margin opportunity.",
       },
       {
         q: "What is the buy-below price for Vans Sneakers on Vinted?",
-        a: "With Vans Sneakers averaging €51 at departure across EU Vinted markets (week to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €34. This applies to sneakers that consistently reach or exceed €51 exit — collab editions and limited Vault releases. Standard Old Skool in core colourways average €25–45 and do not support a €34 sourcing price unless in exceptional condition. Resale IQ returns the exact buy-below for specific Vans models.",
+        a: "With Vans Sneakers averaging €51 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €36. This applies to sneakers that consistently reach or exceed €51 exit — collab editions and limited Vault releases. Standard Old Skool in core colourways average €25–45 and do not support a €34 sourcing price unless in exceptional condition. Resale IQ returns the exact buy-below for specific Vans models.",
       },
       {
         q: "What Vans items sell best on Vinted?",
@@ -120,8 +120,8 @@ export const POSTS_9: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €18 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €17.10. Applying a 30% target margin gives a buy-below of approximately €12. Jackets at €18 average give the same buy-below of ~€12. Tracksuits at €18 give a buy-below near €12. Hoodies at €12 give a buy-below near €8. T-Shirts at €10 give a buy-below near €7.",
-          "The uncomfortable truth: a buy-below of €12 for Reebok Sneakers means the margin window only opens for pieces sourced at or below charity shop floor pricing. A Reebok pair sourced at €8 at a car boot and listed at €20 nets approximately €11 after platform fees — viable as a volume filler, not as a deliberate resale strategy. The model-specific opportunity is the exception and it requires identification skill.",
+          "With Sneakers averaging €18 at departure, applying a 30% target margin gives a buy-below of approximately €13. Jackets at €18 average give the same buy-below of ~€13. Tracksuits at €18 give a buy-below near €13. Hoodies at €12 give a buy-below near €8. T-Shirts at €10 give a buy-below near €7.",
+          "The uncomfortable truth: a buy-below of €12 for Reebok Sneakers means the margin window only opens for pieces sourced at or below charity shop floor pricing. A Reebok pair sourced at €8 at a car boot and listed at €20 nets approximately €12 before packaging and time — viable as a volume filler, not as a deliberate resale strategy. The model-specific opportunity is the exception and it requires identification skill.",
         ],
         cta: pricingMidCta("ctr_reebok_20260915"),
       },
@@ -155,7 +155,7 @@ export const POSTS_9: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Reebok Sneakers on Vinted?",
-        a: "With Reebok Sneakers averaging €18 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 5% platform deduction and 30% target margin, the buy-below sits around €12. This is a charity-shop-floor buy-below. The practical case is model-specific: Classic Leather, Club C 85, and Freestyle exit at €30–80 and support a buy-below of €20–54. Generic Reebok Sneakers do not support a €12 sourcing price from any venue except bulk lots.",
+        a: "With Reebok Sneakers averaging €18 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €13. This is a charity-shop-floor buy-below. The practical case is model-specific: Classic Leather, Club C 85, and Freestyle exit at €30–80 and support a buy-below of €21–54. Generic Reebok Sneakers do not support a €12 sourcing price from any venue except bulk lots.",
       },
       {
         q: "What Reebok items sell best on Vinted?",
@@ -196,7 +196,7 @@ export const POSTS_9: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €35 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €33.25. Applying a 30% target margin gives a buy-below of approximately €23. Hoodies at €16 give a buy-below near €11. T-Shirts at €10 give a buy-below near €7. Shirts at €9 give a buy-below near €6. Tracksuits at €17 give a buy-below near €12.",
+          "With Jackets averaging €35 at departure, applying a 30% target margin gives a buy-below of approximately €25. Hoodies at €16 give a buy-below near €11. T-Shirts at €10 give a buy-below near €7. Shirts at €9 give a buy-below near €6. Tracksuits at €17 give a buy-below near €12.",
           "The practical ceiling: Zara T-Shirts, Hoodies, and Shirts are not worth deliberate sourcing at any price. At charity shop prices of €3–7, they occasionally clear, but the photography, listing, and dispatch time costs more per item than the margin. Jackets at €23 buy-below are viable when sourced below that in good condition — the window is real but thin.",
         ],
         cta: pricingMidCta("ctr_zara_20260915"),
@@ -227,11 +227,11 @@ export const POSTS_9: BlogPost[] = [
     faq: [
       {
         q: "Is Zara worth reselling on Vinted?",
-        a: "Selectively — Jackets only. Zara ranked #15 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 82 departures at €20 average. The only viable resale category is Jackets (14 departures averaging €35, buy-below ~€23). Hoodies (€16), T-Shirts (€10), Shirts (€9), and Tracksuits (€17) are below any practical sourcing margin. Generic Zara sourcing is not a viable resale strategy.",
+        a: "Selectively — Jackets only. Zara ranked #15 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 82 departures at €20 average. The only viable resale category is Jackets (14 departures averaging €35, buy-below ~€25). Hoodies (€16), T-Shirts (€10), Shirts (€9), and Tracksuits (€17) are below any practical sourcing margin. Generic Zara sourcing is not a viable resale strategy.",
       },
       {
         q: "What is the buy-below price for Zara on Vinted?",
-        a: "For Zara Jackets specifically: with an average departure of €35 across EU Vinted markets (week to 14 September 2026), and modelling a 5% platform deduction and 30% target margin, the buy-below sits around €23. For all other Zara categories (Hoodies €16, T-Shirts €10, Shirts €9), the buy-below is below charity shop floor pricing and is not practically reachable. Resale IQ returns the exact buy-below for Zara Jackets by season and condition.",
+        a: "For Zara Jackets specifically: with an average departure of €35 across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €25. For all other Zara categories (Hoodies €16, T-Shirts €10, Shirts €9), the buy-below is below charity shop floor pricing and is not practically reachable. Resale IQ returns the exact buy-below for Zara Jackets by season and condition.",
       },
       {
         q: "What Zara items sell best on Vinted?",
