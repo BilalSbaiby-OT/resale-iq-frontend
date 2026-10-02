@@ -62,7 +62,9 @@ export default async function CategoryHubPage() {
       category: c.category,
       slug: c.slug,
       entries,
-      brandCount: entries.length,
+      // Brands with a live figure in this category — the rows actually ranked,
+      // not the frozen count of brand pages (which includes em-dash rows).
+      brandCount: entries.filter((e) => e.sold_7d != null).length,
       total: entries.reduce((sum, e) => sum + (e.sold_7d ?? 0), 0),
       leader: entries.find((e) => e.sold_7d != null) ?? null,
     }
@@ -189,7 +191,7 @@ export default async function CategoryHubPage() {
                   {r.total > 0 ? fmtCount(r.total) : "—"}
                   <span style={{ color: "#5b6b8c" }}> left shelf/week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
-                  {r.brandCount}<span style={{ color: "#5b6b8c" }}> brands</span>
+                  {r.brandCount > 0 ? r.brandCount : "—"}<span style={{ color: "#5b6b8c" }}> {r.brandCount === 1 ? "brand" : "brands"}</span>
                 </div>
               </div>
 

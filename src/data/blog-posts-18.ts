@@ -19,11 +19,11 @@ export const POSTS_18: BlogPost[] = [
     readMins: 10,
     preflightQuery: "New Balance 550",
     intro:
-      "Across the 28 brands Resale IQ tracks on EU Vinted, the same gap repeats: two listings for the same item — same size, similar condition — where one sits for three weeks and the other departs in two days. The difference is almost never the item. It's how the listing is constructed. These eight tips cover what the faster-moving listings have in common.",
+      "Across the {{BRANDS}} brands Resale IQ tracks on EU Vinted, the same gap repeats: two listings for the same item — same size, similar condition — where one sits for three weeks and the other departs in two days. The difference is almost never the item. It's how the listing is constructed. These eight tips cover what the faster-moving listings have in common.",
     definedTerm: {
       name: "Departure rate",
       description:
-        `Departure rate is the number of items for a given brand or category that complete a sale on Vinted within a set period, typically 7 days. Resale IQ tracks departure rates across 28 brands and ${TRACKED} listing records. A higher departure rate means more buyers in that market — which also means more competition from other sellers. High departure rate is necessary but not sufficient for fast sales: listing quality determines which items in the pool depart first.`,
+        `Departure rate is the number of items for a given brand or category that complete a sale on Vinted within a set period, typically 7 days. Resale IQ tracks departure rates across the {{BRANDS}} brands it tracks and ${TRACKED} listing records. A higher departure rate means more buyers in that market — which also means more competition from other sellers. High departure rate is necessary but not sufficient for fast sales: listing quality determines which items in the pool depart first.`,
     },
     sections: [
       {
@@ -109,7 +109,7 @@ export const POSTS_18: BlogPost[] = [
       },
       {
         q: "How do I price items on Vinted?",
-        a: "Use departure data, not listing prices. Listed prices are asking prices, not transaction prices. Resale IQ tracks actual EU Vinted completions across 28 brands — for example, Patagonia Hoodies depart at an average €41, and Stone Island Hoodies at €56. Price within 10% of the departure average for your category, adjust for condition, and you will move faster than sellers pricing to match other listings.",
+        a: "Use departure data, not listing prices. Listed prices are asking prices, not transaction prices. Resale IQ tracks actual EU Vinted completions across the {{BRANDS}} brands it tracks — for example, Patagonia Hoodies depart at an average €41, and Stone Island Hoodies at €56. Price within 10% of the departure average for your category, adjust for condition, and you will move faster than sellers pricing to match other listings.",
       },
       {
         q: "How long does it take to sell on Vinted?",
@@ -117,7 +117,7 @@ export const POSTS_18: BlogPost[] = [
       },
       {
         q: "What are the best things to sell on Vinted?",
-        a: "Brands with high departure rates and buy-below sourcing opportunities. Resale IQ tracks 28 EU Vinted brands — top-velocity as of September 2026: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (1323 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70). The best items are those where the exit price is 3× the sourcing cost — see [what sells best on Vinted](/blog/what-sells-best-on-vinted) for the full departure table.",
+        a: "Brands with high departure rates and buy-below sourcing opportunities. Resale IQ tracks {{BRANDS}} EU Vinted brands — top-velocity as of September 2026: Fred Perry (199 departures in the last 30 days, avg €18), Patagonia (1323 departures in the last 30 days, avg €37), Stone Island (178 departures in the last 30 days, avg €70). The best items are those where the exit price is 3× the sourcing cost — see [what sells best on Vinted](/blog/what-sells-best-on-vinted) for the full departure table.",
       },
       {
         q: "Should I accept offers on Vinted?",

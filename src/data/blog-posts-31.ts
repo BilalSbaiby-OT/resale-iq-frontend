@@ -21,7 +21,7 @@ export const POSTS_31: BlogPost[] = [
     category: "Sourcing",
     readMins: 9,
     intro:
-      "Stone Island jackets are the highest-average-ticket category among all 28 brands Resale IQ tracks across EU Vinted. In the week to 15 September 2026, 169 Stone Island jackets left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €140 — nearly double the brand's overall departure average of €70. These are not casual flips: the sourcing window is narrower, authentication matters more, and the specific product line determines whether a jacket exits at €80 or €400. This guide breaks down the main Stone Island jacket lines by departure tier, buy-below price, and the condition and authenticity signals that move each one.",
+      "In the week to 15 September 2026, Stone Island jackets were the highest-average-ticket category in Resale IQ's published data across EU Vinted: 169 Stone Island jackets left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €140 — nearly double the brand's overall departure average of €70. These are not casual flips: the sourcing window is narrower, authentication matters more, and the specific product line determines whether a jacket exits at €80 or €400. This guide breaks down the main Stone Island jacket lines by departure tier, buy-below price, and the condition and authenticity signals that move each one.",
     definedTerm: {
       name: "Stone Island jacket departure average",
       description:

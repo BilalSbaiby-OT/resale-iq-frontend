@@ -142,7 +142,7 @@ export const POSTS_25: BlogPost[] = [
       {
         h: "Where ResaleIQ fits in a vintage pricing workflow",
         p: [
-          "ResaleIQ tracks watched departures — items actually leaving the shelf — across EU Vinted markets (France, Germany, Spain, Italy, Portugal) for 28 tracked brands. For vintage sellers operating in EU markets, this data gives you the current exit-price distribution per brand and category without manually scraping sold comps.",
+          "ResaleIQ tracks watched departures — items actually leaving the shelf — across EU Vinted markets (France, Germany, Spain, Italy, Portugal) for the {{BRANDS}} brands it tracks. For vintage sellers operating in EU markets, this data gives you the current exit-price distribution per brand and category without manually scraping sold comps.",
           "The [flip tool](" + ilinkHref("flip") + ") gives you buy-below ceilings by brand: the price at which sourcing the item leaves a defensible margin after platform fees. For vintage pricing specifically, you start from the EU Vinted departure average (the floor) and apply the era, condition, and platform adjustments described above to land at your target.",
           "Use ResaleIQ to confirm that the brand and category you are pricing has active sell-through — that items are actually leaving the shelf rather than accumulating. A brand with slow departures needs a more aggressive floor price to move in a reasonable window. A brand with fast departures gives you room to price at or above the market average and still exit within two weeks.",
         ],

@@ -22,6 +22,7 @@ import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
+import { fillBrands } from "@/lib/fill-brands"
 import { useSellThroughLabel } from "@/lib/use-sell-through-label"
 import { useAuthStore } from "@/lib/auth-store"
 import { pricingCtaKind } from "@/lib/pricing-cta-state"
@@ -155,6 +156,7 @@ export function PricingSection({
   headingLevel = 2,
   seedTracked,
   seedSellThrough,
+  seedBrands,
 }: {
   locale?: Locale
   compact?: boolean
@@ -172,9 +174,13 @@ export function PricingSection({
   /** SSR-resolved weekly watched-departures label (e.g. "65/wk").
    *  Fixes the em-dash rendered on /pricing first paint. Revenue 2026-09-21. */
   seedSellThrough?: string
+  /** SSR-resolved brands_tracked (live snapshot). The FAQ copy carries a BRANDS
+   *  sentinel; null drops the number from the sentence instead of printing a literal. */
+  seedBrands?: number | null
 }) {
   const router = useRouter()
   const t = copy[locale].pricingSection
+  const faq = fillBrands(t.faq as unknown as FaqItem[], seedBrands ?? null)
   const { user, checkAuth } = useAuthStore()
   const tiers = localizedTiers(locale)
   const paidTiers = tiers.filter((tier) => !tier.free)
@@ -1227,7 +1233,7 @@ export function PricingSection({
         <div style={{ maxWidth: 760, margin: "56px auto 0" }}>
           <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.4px", textAlign: "center", marginBottom: 24 }}>{t.faqHeading}</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {(t.faq as unknown as FaqItem[]).map((item) => (
+            {faq.map((item) => (
               <details key={item.q} style={{ border: "1px solid var(--color-border-ui)", borderRadius: 12, background: "var(--color-surface)", padding: "0 16px" }}>
                 <summary style={{ cursor: "pointer", listStyle: "none", padding: "14px 0", fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
                   {item.q}
@@ -1262,7 +1268,7 @@ export function PricingSection({
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
-                mainEntity: (t.faq as unknown as FaqItem[]).map((item) => ({
+                mainEntity: faq.map((item) => ({
                   "@type": "Question",
                   name: item.q,
                   acceptedAnswer: {

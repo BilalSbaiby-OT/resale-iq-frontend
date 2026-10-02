@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ALL_CHAPTERS, getChapter } from "@/data/manual"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
+import { ofTracked } from "@/lib/fill-brands"
 import { SmartCTA } from "@/components/smart-cta"
 import { SectionCta } from "@/components/section-cta"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
@@ -208,7 +209,7 @@ export default async function ChapterPage(
               Live, while you read this
             </div>
             <div style={{ fontSize: 14.5, lineHeight: 1.7, color: "#c3cde0" }}>
-              The {market.brandCount} brands Resale IQ tracks had about{" "}
+              The {market.brandCount} brands with published weekly data{ofTracked(market.brandCount, market.brandsTracked)} had about{" "}
               <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items leave the shelf</strong> in the last
               seven days across Vinted ES, FR, DE, IT and PT. Every figure in this manual&apos;s data pages comes
               from that same feed —{" "}

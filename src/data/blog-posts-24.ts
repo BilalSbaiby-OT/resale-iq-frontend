@@ -112,7 +112,7 @@ export const POSTS_24: BlogPost[] = [
       {
         h: "Where ResaleIQ fits in a multi-platform strategy",
         p: [
-          "Whatever platform you choose, the sourcing decision happens before the listing. Buying an item at a price that leaves margin after platform fees is the only lever you fully control. ResaleIQ tracks watched departures across the main EU Vinted markets — France, Germany, Spain, Italy, Portugal — and gives you the buy-below ceiling for 28 tracked brands before you spend a euro.",
+          "Whatever platform you choose, the sourcing decision happens before the listing. Buying an item at a price that leaves margin after platform fees is the only lever you fully control. ResaleIQ tracks watched departures across the main EU Vinted markets — France, Germany, Spain, Italy, Portugal — and gives you the buy-below ceiling, across the {{BRANDS}} brands it tracks, before you spend a euro.",
           "The departure data is Vinted-specific: it shows what is actually leaving the shelf at what price, not asking-price averages or eBay sold comps. For Depop and eBay pricing, you combine ResaleIQ's EU Vinted baseline (the floor) with the 20–50% premium those platforms sometimes command on the same items. If the item trades at €18 average on Vinted and you can source it under €9, the Depop ceiling of €30–35 is pure upside — but you don't need Depop to work to be profitable.",
           "Use the [flip tool](" + ilinkHref("flip") + ") to see departure velocity and buy-below prices by brand, then apply the platform multiplier when deciding where to list.",
         ],

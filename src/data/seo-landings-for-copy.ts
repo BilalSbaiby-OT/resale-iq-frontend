@@ -109,7 +109,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "What side income is not", "It is not 200 SKUs. It is not UK sourcing. It is not authenticity marketing. It is “I saw a 501 and a Twin Tipped and I will not pay the ask.”",
       "A free unlimited checker would lie about our cost and yours. We do not offer one. Brand volumes stay public so a quiet month still has a table.",
       "How to use the ten checks", "Spend them on named models, not brand words. “Nike” is not a check. “Nike Vomero 5” is. The model pages exist so you stop wasting a check on a house average.",
-      "{tracked} listing records, {brands} brands. If the cell is empty we show an em-dash. Do not invent a side-income ROI we have not measured.",
+      "{tracked} listing records. If the cell is empty we show an em-dash. Do not invent a side-income ROI we have not measured.",
       "Side income vs full-time", ["Need", "Side income", "Full-time / agent"],
       [["Checks", "10 / month after trial", "Pro €49 — Deal Finder"], ["Evenings", "Yes", "All day"], ["Free sample", "Three models", "Same three"], ["Public /data", "Yes", "Yes"]],
       [
@@ -125,7 +125,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "Lo que un extra no es", "No son 200 SKU. No es sourcing en el Reino Unido. No es marketing de autenticidad. Es «vi un 501 y un Twin Tipped y no pagaré el pedido».",
       "Un comprobador ilimitado gratis mentiría sobre nuestro coste y el tuyo. No lo ofrecemos. Los volúmenes de marca siguen públicos para que un mes callado tenga tabla.",
       "Cómo usar las diez consultas", "Gástalas en modelos con nombre, no en palabras de marca. «Nike» no es una consulta. «Nike Vomero 5» sí. Las páginas de modelo existen para que no gastes una consulta en una media de casa.",
-      "{tracked} registros de anuncios, {brands} marcas. Si la celda está vacía, raya. No inventamos un ROI de ingresos extra que no hemos medido.",
+      "{tracked} registros de anuncios. Si la celda está vacía, raya. No inventamos un ROI de ingresos extra que no hemos medido.",
       "Extra frente a jornada completa", ["Necesidad", "Ingresos extra", "Jornada / agente"],
       [["Consultas", "10 / mes después de la prueba", "Pro 49 € — Deal Finder"], ["Tardes", "Sí", "Todo el día"], ["Muestra gratis", "Tres modelos", "Los mismos tres"], [" /data público", "Sí", "Sí"]],
       [
@@ -141,7 +141,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "Ce qu’un appoint n’est pas", "Ce n’est pas 200 SKU. Ce n’est pas du sourcing Royaume-Uni. Ce n’est pas du marketing d’authenticité. C’est « j’ai vu un 501 et un Twin Tipped et je ne paierai pas la demande ».",
       "Un vérificateur illimité gratuit mentirait sur notre coût et le vôtre. Nous n’en offrons pas. Les volumes de marque restent publics pour qu’un mois calme ait encore un tableau.",
       "Comment user des dix contrôles", "Dépensez-les sur des modèles nommés, pas des mots de marque. « Nike » n’est pas un contrôle. « Nike Vomero 5 » l’est. Les pages modèle existent pour ne pas gâcher un contrôle sur une moyenne de maison.",
-      "{tracked} enregistrements d’annonces, {brands} marques. Cellule vide = tiret. Nous n’inventons pas un ROI d’appoint non mesuré.",
+      "{tracked} enregistrements d’annonces. Cellule vide = tiret. Nous n’inventons pas un ROI d’appoint non mesuré.",
       "Appoint contre temps plein", ["Besoin", "Appoint", "Temps plein / agent"],
       [["Contrôles", "10 / mois après essai", "Pro 49 € — Deal Finder"], ["Soirs", "Oui", "Toute la journée"], ["Échantillon gratuit", "Trois modèles", "Les mêmes trois"], ["/data public", "Oui", "Oui"]],
       [
@@ -157,7 +157,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "Was Nebeneinkommen nicht ist", "Nicht 200 SKUs. Nicht UK-Sourcing. Nicht Authentizitätsmarketing. Es ist «ich sah eine 501 und ein Twin Tipped und zahle den Ruf nicht».",
       "Ein unbegrenzter kostenloser Prüfer würde über unsere Kosten und Ihre lügen. Den gibt es nicht. Markenvolumen bleiben öffentlich, damit ein stiller Monat trotzdem eine Tabelle hat.",
       "Die zehn Prüfungen nutzen", "Geben Sie sie für benannte Modelle aus, nicht für Markenwörter. «Nike» ist keine Prüfung. «Nike Vomero 5» ist eine. Die Modellseiten existieren, damit Sie keine Prüfung auf einem Hausdurchschnitt verbrennen.",
-      "{tracked} Inseratseinträge, {brands} Marken. Leere Zelle = Gedankenstrich. Wir erfinden keine unbelegte Nebeneinkommen-Rendite.",
+      "{tracked} Inseratseinträge. Leere Zelle = Gedankenstrich. Wir erfinden keine unbelegte Nebeneinkommen-Rendite.",
       "Nebenbei gegen Vollzeit", ["Bedarf", "Nebeneinkommen", "Vollzeit / Agent"],
       [["Prüfungen", "10 / Monat nach Test", "Pro 49 € — Deal Finder"], ["Abende", "Ja", "Den ganzen Tag"], ["Kostenlose Stichprobe", "Drei Modelle", "Dieselben drei"], ["Öffentliches /data", "Ja", "Ja"]],
       [
@@ -173,7 +173,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "Cosa un extra non è", "Non sono 200 SKU. Non è sourcing nel Regno Unito. Non è marketing di autenticità. È «ho visto un 501 e un Twin Tipped e non pago il chiesto».",
       "Un controllore illimitato gratuito mentirebbe sul nostro costo e sul tuo. Non lo offriamo. I volumi di marca restano pubblici così un mese quieto ha ancora una tabella.",
       "Come usare i dieci controlli", "Spendili su modelli nominati, non su parole di marca. «Nike» non è un controllo. «Nike Vomero 5» lo è. Le pagine modello esistono perché tu non bruci un controllo su una media di casa.",
-      "{tracked} registrazioni di inserzioni, {brands} marche. Cella vuota = trattino. Non inventiamo un ROI da extra non misurato.",
+      "{tracked} registrazioni di inserzioni. Cella vuota = trattino. Non inventiamo un ROI da extra non misurato.",
       "Extra contro tempo pieno", ["Bisogno", "Extra", "Tempo pieno / agente"],
       [["Controlli", "10 / mese dopo la prova", "Pro 49 € — Deal Finder"], ["Sere", "Sì", "Tutto il giorno"], ["Campione gratuito", "Tre modelli", "Gli stessi tre"], ["/data pubblico", "Sì", "Sì"]],
       [
@@ -189,7 +189,7 @@ export const forLandingCopy: Record<string, SixCopy> = {
       "O que um extra não é", "Não são 200 SKU. Não é sourcing no Reino Unido. Não é marketing de autenticidade. É «vi uns 501 e um Twin Tipped e não pago o pedido».",
       "Um verificador ilimitado grátis mentiria sobre o nosso custo e o teu. Não o oferecemos. Os volumes de marca continuam públicos para um mês calmo ter tabela.",
       "Como usar as dez verificações", "Gasta-as em modelos com nome, não em palavras de marca. «Nike» não é uma verificação. «Nike Vomero 5» é. As páginas de modelo existem para não gastares uma verificação numa média de casa.",
-      "{tracked} registos de anúncios, {brands} marcas. Célula vazia = travessão. Não inventamos um ROI de extra que não medimos.",
+      "{tracked} registos de anúncios. Célula vazia = travessão. Não inventamos um ROI de extra que não medimos.",
       "Extra vs tempo inteiro", ["Necessidade", "Rendimento extra", "Tempo inteiro / agente"],
       [["Verificações", "10 / mês depois da prova", "Pro 49 € — Deal Finder"], ["Noites", "Sim", "O dia todo"], ["Amostra grátis", "Três modelos", "Os mesmos três"], ["/data público", "Sim", "Sim"]],
       [

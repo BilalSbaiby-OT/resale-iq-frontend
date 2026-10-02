@@ -93,7 +93,7 @@ export const POSTS: BlogPost[] = [
     preflightQuery: "Stone Island Hoodies",
     intro:
       "As of 23 September 2026, Hoodies are the single busiest category on Vinted across the 5 EU markets " +
-      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): 190 hoodie listings left the shelf in the trailing 7 days across the 19 brands we track — ahead of Sneakers (141) and Jackets (125). The single busiest brand/category pair is Stone Island Hoodies: 116 watched departures in 7 days, averaging €59. Autumn is live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",
+      BRAND + " tracks (Spain, France, Germany, Italy, Portugal): 190 hoodie listings left the shelf in the trailing 7 days across the 19 brands with published weekly data — ahead of Sneakers (141) and Jackets (125). The single busiest brand/category pair is Stone Island Hoodies: 116 watched departures in 7 days, averaging €59. Autumn is live: Jackets and Hoodies are clearing at seasonal pace. Full category breakdown, brand/category pairs, and buy-below context below.",
     definedTerm: {
       name: "Watched departure",
       description:
@@ -179,7 +179,7 @@ export const POSTS: BlogPost[] = [
         h: "How to use this data before you buy",
         p: [
           "Category and brand volume tells you where demand exists. Buy-below tells you whether there is margin. Use both before tying up cash.",
-          "The free weekly tables: [brands ranked by watched departures](/flip) · [weekly volumes and avg exit prices by brand](/data) · [all 28 tracked brands with buy-below guidance and individual guides](/blog/best-brands-to-resell-on-vinted). The item-level call — BUY / WATCH / SKIP with a buy-below price for the specific model — is the paid product.",
+          "The free weekly tables: [brands ranked by watched departures](/flip) · [weekly volumes and avg exit prices by brand](/data) · [brand-by-brand guides with buy-below guidance](/blog/best-brands-to-resell-on-vinted). The item-level call — BUY / WATCH / SKIP with a buy-below price for the specific model — is the paid product.",
           `The practical rule: only buy when the resale price minus fees leaves a healthy margin over your cost AND the item's category/brand is actively moving volume this week. [Brands clearing fastest right now](/flip) and [what left the shelf this week](/data) answer both questions for free. The full equation (fees, shipping, losses, time) is in [what actually makes money in reselling](/manual/what-actually-makes-money).`,
         ],
       },
@@ -322,7 +322,7 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "best-brands-to-resell-on-vinted",
-    title: "Best Brands to Resell on Vinted: All 28 Tracked Brands Ranked by Weekly Demand",
+    title: "Best Brands to Resell on Vinted: Tracked Brands Ranked by Weekly Demand",
     seoTitle: "Best Brands to Resell on Vinted (2026 Data)",
     description: `The brands with real departure volume right now, ranked from ${TRACKED} listing records.`,
     date: "2026-09-05",
@@ -334,7 +334,7 @@ export const POSTS: BlogPost[] = [
       "Week to 14 September 2026, Resale IQ tracked 28 brands across Spain, France, Germany, Italy and Portugal. Fred Perry leads on volume at 199 departures in the last 30 days. Balenciaga leads on price at €146 average. Jordan leads on unit margin potential at €133 average on just 101 departures in the last 30 days. 'Best' is a function of your sourcing strategy — the full ranked table below separates the volume plays from the margin plays. Live numbers update weekly at resaleiq.dev/data.",
     sections: [
       {
-        h: "All 28 tracked brands — ranked by weekly watched departures",
+        h: "Tracked brands ranked by weekly watched departures — week to 14 September 2026",
         p: [
           "Week to 14 September 2026, across Spain, France, Germany, Italy and Portugal. 'Watched departures' = listings that left the shelf (sold or removed) as tracked by Resale IQ. Average is the departure-weighted mean exit price across all categories for that brand. Buy-below is the departure average × 0.95 (platform deduction) × 0.70 (30% margin target) — the most you can pay and still hit a realistic margin at these departure prices.",
           "Volume brands (Fred Perry, Stone Island, Nike) reward fast stock turnover. Margin brands (Balenciaga, Gucci, Jordan) reward colourway and authentication knowledge. The two strategies are not better and worse — they are different businesses.",
@@ -417,7 +417,7 @@ export const POSTS: BlogPost[] = [
       { q: "Which Vinted brand has the highest resale value?", a: "Gucci averages €212 per departure on EU Vinted (week to 14 September 2026), the highest of 28 tracked brands. Balenciaga averages €146, Jordan €133, and Off-White €67. Stone Island (€55 avg) and Patagonia (€50 avg) offer the best combination of volume and price for systematic resellers." },
       { q: "Are there brands not worth reselling on Vinted?", a: "Yes. Pull&Bear (€11 avg), Mango (€11 avg) and Bershka (€27 avg — inflated by a low-volume jacket outlier) are deliberate passes at current EU Vinted departure prices. The buy-below thresholds (~€7–18) are below achievable charity shop sourcing prices. Uniqlo is a collab-only play — mainline basics have no margin, but KAWS and JW Anderson collaboration pieces exit at a premium." },
       { q: "What is the buy-below price for reselling on Vinted?", a: "Buy-below = departure average × 0.95 (5% platform deduction) × 0.70 (30% margin target). For Fred Perry Shirts (€14 avg): buy-below ~€9. For Stone Island Hoodies (€55 avg): buy-below ~€36. For Jordan Sneakers (€156 avg): buy-below ~€104. Resale IQ calculates buy-below at item level — model, category, and condition — not just brand level." },
-      { q: "How do I know if a brand is worth reselling on Vinted?", a: "Three numbers: weekly watched departures (is there demand?), average exit price (is there margin room?), and buy-below relative to your sourcing price. If your sourcing price is consistently above buy-below for a brand, pass. Resale IQ publishes weekly departures and averages free at resaleiq.dev/data for all 28 tracked brands." },
+      { q: "How do I know if a brand is worth reselling on Vinted?", a: "Three numbers: weekly watched departures (is there demand?), average exit price (is there margin room?), and buy-below relative to your sourcing price. If your sourcing price is consistently above buy-below for a brand, pass. Resale IQ publishes weekly departures and averages free at resaleiq.dev/data for every brand with published weekly data." },
       { q: "Does it matter which country I sell from on Vinted?", a: "Resale IQ covers Spain, France, Germany, Italy and Portugal — the five EU Vinted markets. The departure data in this table and in each brand guide reflects those five markets. UK Vinted operates separately with different pricing dynamics. If you sell from the UK, the EU averages here are directionally useful but not exact." },
     ],
   },

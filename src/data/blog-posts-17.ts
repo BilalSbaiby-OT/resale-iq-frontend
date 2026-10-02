@@ -18,7 +18,7 @@ export const POSTS_17: BlogPost[] = [
     readMins: 9,
     preflightQuery: "New Balance 550",
     intro:
-      "Of the 28 brands Resale IQ tracks across EU Vinted markets, six carry significant counterfeit risk: Stone Island, Balenciaga, Gucci, Supreme, Jordan, and Off-White. A Stone Island hoodie averaging €56 departure price and a Balenciaga sneaker averaging €140 are exactly the margin targets counterfeiters optimise for. This guide covers the physical checks that experienced resellers use at source — in a charity shop, at a car boot sale, or reviewing a Vinted listing's photos — before committing to a purchase.",
+      "Six of the {{BRANDS}} brands Resale IQ tracks across EU Vinted markets carry significant counterfeit risk: Stone Island, Balenciaga, Gucci, Supreme, Jordan, and Off-White. A Stone Island hoodie averaging €56 departure price and a Balenciaga sneaker averaging €140 are exactly the margin targets counterfeiters optimise for. This guide covers the physical checks that experienced resellers use at source — in a charity shop, at a car boot sale, or reviewing a Vinted listing's photos — before committing to a purchase.",
     definedTerm: {
       name: "Authentication",
       description:

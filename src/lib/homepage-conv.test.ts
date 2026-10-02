@@ -203,7 +203,10 @@ test("landing teaches three steps and honest coverage, and does not ship heroHon
   assert.match(landing, /t\.howToCoverage/)
   assert.doesNotMatch(landing, /heroHonesty/)
   assert.equal(copy.en.howToSteps.length, 3)
-  assert.match(copy.en.howToCoverage, /28\+/)
+  // The brand count is the live brands_tracked, never a literal ("28+" went stale).
+  assert.match(copy.en.howToCoverage, /We track \{\{BRANDS\}\} brands across 5 EU markets/)
+  assert.doesNotMatch(copy.en.howToCoverage, /\b\d+\+?\s+brands/)
+  assert.match(landing, /fillBrands\(t\.howToCoverage, market\.brandsTracked\)/)
   assert.match(copy.en.howToCoverage, /Samba/)
   assert.match(copy.de.howToCoverage, /Vinted/)
   assert.doesNotMatch(copy.de.howToCoverage, /\bfree\b/i)

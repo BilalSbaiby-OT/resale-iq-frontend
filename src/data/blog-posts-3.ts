@@ -664,7 +664,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "How liquid is Patagonia on Vinted compared to other brands?",
-        a: "Very liquid for outerwear. 792 departures in 7 days puts Patagonia #2 among the 28 brands Resale IQ tracks — behind only Fred Perry (935 departures). Unlike Fred Perry's €18 average, Patagonia averages €36, meaning more cash per unit at comparable volume. Live weekly comparison: https://resaleiq.dev/flip.",
+        a: "Very liquid for outerwear. 792 departures in 7 days puts Patagonia #2 among the brands in Resale IQ's weekly data — behind only Fred Perry (935 departures). Unlike Fred Perry's €18 average, Patagonia averages €36, meaning more cash per unit at comparable volume. Live weekly comparison: https://resaleiq.dev/flip.",
       },
     ],
   },
@@ -892,7 +892,7 @@ export const POSTS_3: BlogPost[] = [
           "By revenue velocity (departures × average price), Balenciaga competes in the top five: 211 exits at €133 produces approximately €28,060 in weekly market value across EU5. Stone Island at 785 departures × €70 is €54,950. Patagonia at 785 × €36 is €28,260. Fred Perry at 928 × €18 is €16,704.",
           "The practical comparison: Balenciaga requires more capital per unit sourced, stricter authentication, and more careful condition grading — but the sourcing moat is also higher, meaning fewer casual buyers are competing with you for the same inventory. The " +
             ilinkHref("data") +
-            " page shows the current week's departure numbers for all 28 tracked brands.",
+            " page shows the current week's departure numbers for every brand with published weekly data.",
         ],
       },
     ],

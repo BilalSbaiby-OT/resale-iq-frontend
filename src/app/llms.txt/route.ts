@@ -6,6 +6,7 @@ import { SEO_MODELS, modelPath } from "@/lib/seo-models"
 import { LANDINGS, landingPath } from "@/lib/seo-landings"
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { fillBrands } from "@/lib/fill-brands"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { TEASER_QUERIES, getTeaserVerdict } from "@/lib/teaser-verdict"
 import {
@@ -54,13 +55,16 @@ export async function GET() {
   const tracked = await listingsTrackedLabel()
   const market = await getMarketNumbers()
   const INTENTS = fillTracked(RAW_INTENTS, tracked)
-  const ALL_POSTS = fillTracked(RAW_POSTS, tracked)
+  const ALL_POSTS = fillBrands(fillTracked(RAW_POSTS, tracked), market.brandsTracked)
   const weekly = market.brandNames.reduce((s, name) => {
     const n = market.get(name)?.sold_7d
     return s + (typeof n === "number" ? n : 0)
   }, 0)
   const published = market.brandCount
-  const trackedBrands = market.brandsTracked ?? BRANDS.length
+  // The live brands_tracked, or null. NOT BRANDS.length: that is the frozen /flip
+  // page list (32), which this file once printed as "tracked brands" next to the
+  // real 61. An unknown count leaves the sentence; no literal stands in for it.
+  const trackedBrands = market.brandsTracked
 
   const teaserLines: string[] = []
   for (const q of TEASER_QUERIES) {
@@ -116,7 +120,7 @@ Questions: ${AFFILIATE_CONTACT}
 - ${BASE}/blog/ralph-lauren-eu-vinted-price-guide: Ralph Lauren EU Vinted price guide: departure prices and what to pay.
 - ${BASE}/tools: Free item check. Type a Vinted item, get BUY / WATCH / SKIP and a buy-below price (Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free samples).
 - ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} listing records.
-- ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly sales, with brand and brand-by-category pages.
+- ${BASE}/flip: Brands ranked by weekly watched departures, with a page per brand and per brand-by-category.
 - ${BASE}/pricing: Starter EUR 19 / month, Pro EUR 49 / month. There is no free-forever tier.
 - ${BASE}/partners: Affiliate programme: 30% recurring for 12 months, open to people and AI agents.
 - ${BASE}/affiliate.json: Machine-readable affiliate programme: register endpoint, stats endpoint, terms.
@@ -172,8 +176,8 @@ Agents must not:
   (COUNT(DISTINCT external_id), each item once) is published on ${BASE}/data
   and ${BASE}/methodology; never read the records figure as unique items.
 - ${weekly
-    ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
-    : `Tracked brands: ${trackedBrands}.`}
+    ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor${trackedBrands != null ? ` (${trackedBrands} brands tracked)` : ""}. This is not catalogue size.`
+    : trackedBrands != null ? `Tracked brands: ${trackedBrands}.` : "Weekly volume is not available in this snapshot."}
 - Refresh: listings are scheduled for collection every 30 minutes per market, but a run is skipped if the previous one is still in progress, so real spacing runs longer during backlog — see ${BASE}/methodology for the measured cadence. Signals recompute every 2 hours on schedule, with no skips observed. Public pages carry no page-level cache and render from the live database on every request.
 - Method: watched departure transitions (sold_observed) — a listing leaving the shelf, inferred as a sale at its last asking price. Not an observed sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
 

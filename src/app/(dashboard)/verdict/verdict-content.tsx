@@ -396,7 +396,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     <Link
                       href={canonicalPath(locale, "/data")}
                       style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
-                    >{tx("→ See the 28 brands we track")}</Link>
+                    >{tx("→ See the brands we track")}</Link>
                   </div>
                 </div>
               </>

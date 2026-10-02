@@ -22,7 +22,7 @@ export const POSTS_21: BlogPost[] = [
     definedTerm: {
       name: "Departure average",
       description:
-        "A departure average is the mean price at which items actually completed sales on Vinted over a rolling 7-day window — not listed prices, not asking prices. Resale IQ tracks departure averages across 28 brands and 6 categories on EU Vinted. For designer items, departure averages set the ceiling for your listing price and the floor for your authentication investment.",
+        "A departure average is the mean price at which items actually completed sales on Vinted over a rolling 7-day window — not listed prices, not asking prices. Resale IQ tracks departure averages across the {{BRANDS}} brands it tracks, by category, on EU Vinted. For designer items, departure averages set the ceiling for your listing price and the floor for your authentication investment.",
     },
     sections: [
       {
@@ -34,7 +34,7 @@ export const POSTS_21: BlogPost[] = [
           "**Stone Island** — 178 departures in the last 30 days, average €70. Bridges premium and designer. Hoodies (178 departures in the last 30 days, avg €56), Jackets (51 departures in the last 30 days, avg €140). High volume relative to price point — more approachable for first designer listings.",
           "**Supreme** — 199 departures in the last 30 days, average €66. Hoodies (47 departures in the last 30 days, avg €74), T-Shirts (34 departures in the last 30 days, avg €34). Drop-culture brand; individual release values vary widely from the averages.",
           "**Off-White** — 27 departures in the last 30 days, average €60. Sneakers (10 departures in the last 30 days, avg €110) dominate. Thin buyer depth overall — slower exits.",
-          "For the full departure table across all 28 tracked brands, use [Resale IQ's brand tracker](" + ilinkHref("flip") + "). If your item's brand isn't on the list, buyer depth on Vinted is likely insufficient for reliable exits.",
+          "For the full departure table by brand, use [Resale IQ's brand tracker](" + ilinkHref("flip") + "). If your item's brand isn't on the list, buyer depth on Vinted is likely insufficient for reliable exits.",
         ],
       },
       {

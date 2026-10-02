@@ -73,7 +73,7 @@ export const POSTS_2: BlogPost[] = [
     readMins: 7,
     preflightQuery: "New Balance 550",
     intro:
-      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. Week to 14 September 2026, Hoodies were the single busiest category across the 28 brands Resale IQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal): 1,181 hoodie listings left the shelf in 7 days, ahead of Jackets (955) and Shirts (760). Autumn has started. If you are holding outerwear, this is when you list it.",
+      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. Week to 14 September 2026, Hoodies were the single busiest category across the 28 brands Resale IQ tracked on EU Vinted that week (Spain, France, Germany, Italy, Portugal): 1,181 hoodie listings left the shelf in 7 days, ahead of Jackets (955) and Shirts (760). Autumn has started. If you are holding outerwear, this is when you list it.",
     sections: [
       {
         h: "What season you are in right now — by the data",
@@ -87,7 +87,7 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Category-by-season — when to list what",
         p: [
-          "The table below is the practical version of 'list in season'. It shows which categories peak by quarter, based on EU Vinted departure patterns across the 28 brands we track.",
+          "The table below is the practical version of 'list in season'. It shows which categories peak by quarter, based on EU Vinted departure patterns across the {{BRANDS}} brands we track.",
         ],
         table: {
           caption: "EU Vinted seasonal departure patterns for tracked brand categories. 'Peak' = highest weekly departure volume; 'Pass' = slowest quarter — cash-flow risk to hold. Brands from Resale IQ weekly data.",
@@ -144,7 +144,7 @@ export const POSTS_2: BlogPost[] = [
       { q: "Should I relist on Vinted if something hasn't sold?", a: "No — a price adjustment or new cover photo is almost always better. Deleting and relisting discards every favourite and view the listing accumulated. Favouriting buyers get a price-drop notification when you reduce the price, which is more effective than a fresh listing with no followers. Only relist if the listing is more than 30 days old and has zero engagement." },
       { q: "When is the worst time to sell summer clothes on Vinted?", a: "October to February. EU Vinted departure data shows Shirts and Shorts volumes decline sharply from late September. Selling summer stock in October means competing on price against in-season buyers, often at a 20–30% reduction from peak prices. Holding summer stock past September ties up capital for roughly six months — sell now at a small discount, or accept the wait." },
       { q: "Does using the Vinted Bump help items sell faster?", a: "Only when the item is in-season and priced at or below the market departure average. A Bump on an overpriced or off-season listing buys feed exposure, not demand. The departure average for your brand and category is at resaleiq.dev/data — if your price is above it, reduce first." },
-      { q: "What is a 'watched departure' on Vinted?", a: "A watched departure is a listing that left the shelf — sold or removed — as tracked by Resale IQ. It is not a confirmed receipt. Weekly departure volumes and average exit prices for 28 brands across Spain, France, Germany, Italy and Portugal are published free at resaleiq.dev/data." },
+      { q: "What is a 'watched departure' on Vinted?", a: "A watched departure is a listing that left the shelf — sold or removed — as tracked by Resale IQ. It is not a confirmed receipt. Weekly departure volumes and average exit prices for every brand with enough weekly departures to publish, across Spain, France, Germany, Italy and Portugal, are free at resaleiq.dev/data." },
       { q: "Does day of week matter for Vinted listings?", a: "Marginally. Sunday evening sees elevated browsing in EU markets; weekday evenings (18:00–22:00) are also suggested by conventional wisdom, though we have not measured Vinted's hourly traffic directly. In-season positioning and price relative to the departure average determine whether an item sells this week. Day of listing determines whether it gets a first-day visibility boost." },
     ],
   },

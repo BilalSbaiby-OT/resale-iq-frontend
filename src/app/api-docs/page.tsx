@@ -1,12 +1,21 @@
 import Link from "next/link"
 
 import { fitMetadata } from "@/lib/meta-fit"
-export const metadata = fitMetadata({
-  title: "Vinted Resale API — Resale IQ Developer Docs",
-  description:
-    "REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average asking prices at departure, buy-below prices and demand signals for 26 brands. Included with the Pro plan.",
-  alternates: { canonical: "/api-docs" },
-})
+import { getBrandsTracked } from "@/lib/stats"
+
+// "for 26 brands" was typed here when 26 were tracked; it stayed after 61 were.
+// The brand count is the live brands_tracked, and an unknown count leaves the
+// sentence ("across the brands we track") rather than printing a literal.
+const brandsPhrase = (n: number | null) => (n != null ? `the ${n} brands we track` : "the brands we track")
+
+export async function generateMetadata() {
+  return fitMetadata({
+    title: "Vinted Resale API — Resale IQ Developer Docs",
+    description:
+      `REST API for Vinted resale data across ES, FR, DE, IT and PT. Query sell-through rates, average asking prices at departure, buy-below prices and demand signals across ${brandsPhrase(await getBrandsTracked())}. Included with the Pro plan.`,
+    alternates: { canonical: "/api-docs" },
+  })
+}
 
 // Documented here rather than only in the app, because a developer evaluating
 // whether to subscribe needs to see the API BEFORE paying — and because this
@@ -40,7 +49,8 @@ const PRE: React.CSSProperties = {
   padding: "13px 15px", fontSize: 12.5, color: "#8fe3b0", overflowX: "auto", margin: "10px 0",
 }
 
-export default function ApiDocs() {
+export default async function ApiDocs() {
+  const brandsTracked = await getBrandsTracked()
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "48px 24px" }}>
       <div style={{ maxWidth: 820, margin: "0 auto" }}>
@@ -49,7 +59,7 @@ export default function ApiDocs() {
         <h1 style={{ fontSize: 30, fontWeight: 600, color: "#eef1f7", margin: "24px 0 8px", letterSpacing: "-0.6px" }}>Resale IQ API</h1>
         <p style={{ ...P, marginBottom: 6 }}>
           Query real Vinted resale data across ES, FR, DE, IT and PT — sell-through rates, average
-          asking prices at departure, buy-below prices and demand signals for 26 brands.
+          asking prices at departure, buy-below prices and demand signals across {brandsPhrase(brandsTracked)}.
         </p>
         <p style={{ fontSize: 13, color: "#5b6b8c" }}>
           Included with <Link href="/register" style={{ color: "#34C759" }}>Pro</Link>. Generate your

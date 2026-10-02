@@ -12,9 +12,11 @@ import { SEO_MODELS } from "@/lib/seo-models"
 import { ModelChips } from "@/components/seo/model-chips"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
+import { flipHubTitle, flipHubDescription, rankedBrandsPhrase } from "@/lib/flip-category-meta"
+import { ofTracked } from "@/lib/fill-brands"
 import { isRedirectedPath } from "@/lib/sitemap-redirects"
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
-// the 26 brand pages + 130 brand x category pages had no index anywhere on the
+// the brand pages + brand x category pages had no index anywhere on the
 // site — their only discovery path was sitemap.xml plus a partial list on /data.
 // Search Console for 2026-07-30..08-26 measured the result: ~30 impressions
 // across all 156 URLs, against ~600 for the blog. An estate that large needs a
@@ -27,12 +29,18 @@ export const revalidate = 900
 
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
 
+// How many brands this page actually ranks: those with a live weekly figure.
+// BRANDS.length is the number of /flip pages in a frozen JSON export — neither the
+// tracked set nor what the table shows (brands absent from the snapshot render an
+// em-dash and are not ranked), so it is never printed.
+function rankedBrandCount(market: Awaited<ReturnType<typeof getMarketNumbers>>): number {
+  return BRANDS.filter((b) => market.get(b.brand)?.sold_7d != null).length
+}
+
 async function generateMetadataRaw(): Promise<Metadata> {
-  const title = `What sells best on Vinted in 2026? ${BRANDS.length} brands ranked`
+  const title = flipHubTitle()
   // Kept under ~155 chars so Google does not truncate it in the SERP.
-  const description =
-    `What sells best on Vinted in 2026 among ${BRANDS.length} tracked brands: weekly watched ` +
-    `departures across 5 EU markets, average prices at departure, and the categories that move.`
+  const description = flipHubDescription(rankedBrandCount(await getMarketNumbers()))
   return {
     title,
     description,
@@ -63,6 +71,9 @@ export default async function FlipHubPage() {
 
   const ranked = rows.filter((r) => r.sold_7d != null)
   const total = ranked.reduce((sum, r) => sum + (r.sold_7d ?? 0), 0)
+  // What the table below ranks. Shared by the answer block, the FAQ and the
+  // intro so the three can never disagree with each other or with the rows.
+  const rankedPhrase = rankedBrandsPhrase(ranked.length)
   const top = ranked[0]
   const second = ranked[1]
   const third = ranked[2]
@@ -80,7 +91,7 @@ export default async function FlipHubPage() {
       (second && third
         ? ` ${second.brand} (${fmtCount(second.sold_7d)}/week) and ${third.brand} (${fmtCount(third.sold_7d)}/week) follow.`
         : "") +
-      ` These are listings we watched leave the shelf, not confirmed sale receipts, and they cover ${BRANDS.length} tracked brands on Vinted's five EU domains — not the whole catalogue, and not unbranded listings.` +
+      ` These are listings we watched leave the shelf, not confirmed sale receipts, and they cover ${rankedPhrase}${ofTracked(ranked.length, market.brandsTracked)} on Vinted's five EU domains — not the whole catalogue, and not unbranded listings.` +
       (dearest?.avg_price_eur != null
         ? ` Volume and ticket size rarely sit in the same brand: ${dearest.brand} has the highest average asking price at departure at ${fmtEur(dearest.avg_price_eur)}.`
         : "") +
@@ -130,7 +141,7 @@ export default async function FlipHubPage() {
       // Coverage-bias guard. Tracked-brand volume is not the size of Vinted.
       q: "How many items do these brands sell on Vinted each week?",
       a:
-        `The ${BRANDS.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
+        `${rankedPhrase[0].toUpperCase()}${rankedPhrase.slice(1)} account for roughly ${fmtCount(total)} ` +
         `items we watch leave the shelf per week across ${MARKETS}. That is tracked-brand volume only — ` +
         `unbranded listings and brands outside the tracked set are not counted, so it is ` +
         `not a measure of Vinted as a whole.`,
@@ -187,7 +198,7 @@ export default async function FlipHubPage() {
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{sellsBest2026}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
           Every brand below links to its own page — weekly volume, average sale price and the
-          categories that actually move. Volumes are what the {BRANDS.length} tracked brands sell
+          categories that actually move. Volumes are what {rankedPhrase} sell
           across {MARKETS}; they are not the size of Vinted as a whole.
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />

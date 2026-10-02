@@ -71,7 +71,7 @@ export const POSTS_4: BlogPost[] = [
           "Supreme T-Shirts at €34 average and Caps at €47 are viable if the sourcing price is right — below €23 and €31 respectively — but margin per unit is thin. The case for T-Shirts and Caps is storage efficiency and turn rate: small, easy to photograph, fast to list, and fast to move when priced at or slightly below comp. They do not require the same authentication depth as Hoodies or Jackets.",
           "Seasonal note: Caps tend to move year-round on Vinted; T-Shirts slow in winter across EU markets. If you are sourcing in autumn, weight sourcing capacity towards Hoodies and Jackets over T-Shirts. The " +
             ilinkHref("data") +
-            " page shows current-week departure splits across all 28 tracked brands.",
+            " page shows current-week departure splits across every brand with published weekly data.",
         ],
       },
     ],

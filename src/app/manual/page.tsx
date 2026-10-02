@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { ALL_CHAPTERS, PARTS } from "@/data/manual"
 import { CATEGORIES } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
+import { ofTracked } from "@/lib/fill-brands"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
 
@@ -113,7 +114,7 @@ export default async function ManualIndex() {
           {totalWeekly != null ? (
             <>
               <strong style={{ color: "#eef1f7" }}>{fmtCount(totalWeekly)} items we watched leave the shelf in the last seven days</strong>{" "}
-              across {brandCount != null ? brandCount : "our"} tracked brands on Vinted ES, FR, DE, IT and PT
+              across {brandCount != null ? `${brandCount} brands with published weekly data${ofTracked(brandCount, market.brandsTracked)}` : "the brands we track"} on Vinted ES, FR, DE, IT and PT
             </>
           ) : (
             <>live watched-departure data across tracked brands on Vinted ES, FR, DE, IT and PT</>

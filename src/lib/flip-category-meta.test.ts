@@ -15,6 +15,8 @@ import {
   flipBrandCategoryDescription,
   categoryLeafDescription,
   articleSocialMeta,
+  rankedBrandsLabel,
+  rankedBrandsPhrase,
 } from "./flip-category-meta.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -113,6 +115,7 @@ test("metas may cite live warehouse figures and never invent a fallback count", 
   })
   assert.match(cat, /watched departures/)
   assert.match(cat, /buy-below/)
+  assert.match(cat, /12 brands ranked by watched departures/)
   assert.match(cat, /Adidas leads with 809/)
   assert.ok(cat.length <= 155)
 
@@ -199,4 +202,20 @@ test("leaf H1s and tables stay on page data — titles only change metadata", ()
   assert.match(cat, /Best brands for reselling \{lower\} on Vinted/)
   assert.match(cat, /fmtCount\(total\)/)
   assert.match(cat, /fmtCount\(e\.sold_7d\)/)
+})
+
+// Coats had one ranked brand and printed "1 brands ranked"; the count also came
+// from the frozen brand-page list, so it included brands with no live figure.
+test("ranked-brand wording is singular for one, and drops the number for none", () => {
+  assert.equal(rankedBrandsLabel(26), "26 brands ranked")
+  assert.equal(rankedBrandsLabel(1), "1 brand ranked")
+  assert.equal(rankedBrandsLabel(0), "Brands ranked")
+  assert.equal(rankedBrandsPhrase(27), "the 27 brands ranked on this page")
+  assert.equal(rankedBrandsPhrase(1), "the one brand ranked on this page")
+  assert.equal(rankedBrandsPhrase(0), "the brands ranked on this page")
+  const one = categoryLeafDescription({ category: "Coats", brandCount: 1, topBrand: "Canada Goose", topSold: 12 })
+  assert.match(one, /1 brand ranked by watched departures/)
+  assert.doesNotMatch(one, /1 brands/)
+  const none = categoryLeafDescription({ category: "Coats", brandCount: 0, topBrand: null, topSold: null })
+  assert.doesNotMatch(none, /\b\d+ brands?\b/)
 })

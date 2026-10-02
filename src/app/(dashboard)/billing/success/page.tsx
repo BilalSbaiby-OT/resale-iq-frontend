@@ -169,7 +169,7 @@ function BillingSuccessContent() {
               <TrendingUp size={15} style={{ color: "#34C759", marginTop: 1, flexShrink: 0 }} />
               <div>
                 <div style={{ fontSize: 13.5, fontWeight: 600, color: "#eef1f7" }}>{tx("Brand and model trend signals")}</div>
-                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>{tx("See what's moving before you buy — rising, hot, or cooling across 135 brands.")}</div>
+                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>{tx("See what's moving before you buy — rising, hot, or cooling across the brands we track.")}</div>
               </div>
             </div>
           </div>

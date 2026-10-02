@@ -7,6 +7,7 @@ import {
   categoryLeafTitle,
   categoryLeafDescription,
   articleSocialMeta,
+  rankedBrandsPhrase,
 } from "@/lib/flip-category-meta"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { HubFaq } from "@/components/seo/hub-faq"
@@ -41,7 +42,9 @@ async function generateMetadataRaw(
   const title = categoryLeafTitle(c.category)
   const description = categoryLeafDescription({
     category: c.category,
-    brandCount: c.entries.length,
+    // Ranked rows only: c.entries is the frozen list of brand pages for this
+    // category, including brands the live snapshot has no figure for.
+    brandCount: entries.filter(e => e.sold_7d != null).length,
     topBrand: top && top.sold_7d != null ? top.brand : null,
     topSold: top?.sold_7d,
   })
@@ -86,6 +89,9 @@ export default async function CategoryPage(
     0,
   )
   const lower = c.category.toLowerCase()
+  // Brands with a live figure in this category: what the table ranks and what
+  // `total` sums. entries.length also counts brands that render an em-dash.
+  const liveCount = entries.filter(e => e.sold_7d != null).length
   const top = entries.find(e => e.sold_7d != null) ?? entries[0]
   const dearest = [...entries].filter(e => e.avg_price_eur != null).sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
 
@@ -108,9 +114,12 @@ export default async function CategoryPage(
     {
       q: `How many ${lower} sell on Vinted each week?`,
       a:
-        `The ${entries.length} brands Resale IQ tracks account for roughly ${fmtCount(total)} ` +
-        `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
-        `unbranded and untracked listings are not counted.`,
+        liveCount > 0
+          ? `${rankedBrandsPhrase(liveCount).replace(/^the/, "The")} ${liveCount === 1 ? "accounts" : "account"} for roughly ${fmtCount(total)} ` +
+            `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
+            `unbranded and untracked listings are not counted.`
+          : `Weekly ${lower} volume for the brands on this page is not available in the current snapshot. ` +
+            `Any figure here is tracked-brand volume, not the whole category.`,
     },
     {
       q: `How do I use this ${lower} ranking with buy-below?`,
@@ -169,7 +178,8 @@ export default async function CategoryPage(
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 28 }}>
           {[
             [fmtCount(total), `${lower} left shelf / week`],
-            [String(entries.length), "brands ranked"],
+            // 0 ranked brands is "no figure", not a count of zero: same em-dash rule as the other tiles.
+            [liveCount > 0 ? String(liveCount) : "—", liveCount === 1 ? "brand ranked" : "brands ranked"],
             [dearest ? `${fmtEur(dearest.avg_price_eur)}` : "—", dearest ? `highest avg (${dearest.brand})` : "highest avg"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px" }}>

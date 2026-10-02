@@ -112,6 +112,8 @@ if (process.argv.includes("--built")) {
       scanned++
       const body = readFileSync(p, "utf8")
       if (body.includes("{{TRACKED}}")) leaks.push(relative(ROOT, p) + "  (raw sentinel)")
+      // The brands-tracked sentinel (src/lib/fill-brands.ts) has the same failure mode.
+      if (body.includes("{{BRANDS}}")) leaks.push(relative(ROOT, p) + "  (raw {{BRANDS}} sentinel)")
       // An un-evaluated ${...} means an interpolation was written into an
       // ordinary quoted string instead of a template literal. /support shipped
       // "... — ${tracked} items, recomputed hourly" exactly this way: it type-
@@ -132,7 +134,7 @@ if (process.argv.includes("--built")) {
     console.error(`\n✗ unresolved placeholder shipped in ${leaks.length} rendered file(s):\n`)
     leaks.forEach(l => console.error("   " + l))
     console.error(`
-   raw sentinel      -> a render site reads a data module without fillTracked()
+   raw sentinel      -> a render site reads a data module without fillTracked() / fillBrands()
    un-evaluated \${} -> an interpolation sits in a quoted string; use a template literal
 `)
     process.exit(1)

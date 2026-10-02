@@ -7,7 +7,8 @@ import { definedTermJsonLd } from "@/lib/faq-schema"
 import { footerSeePlansHrefForPost, footerSeePlansLabelForPost, footerAnonHrefForPost, footerAnonLabelForPost } from "@/lib/blog-mid-cta"
 import { SectionCta } from "@/components/section-cta"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
-import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { fillTracked, getBrandsTracked, listingsTrackedLabel } from "@/lib/stats"
+import { fillBrands } from "@/lib/fill-brands"
 import { renderRichText, stripRichText } from "@/lib/content/rich-text"
 import { howToJsonLd } from "@/lib/howto-schema"
 import { requestLocale } from "@/lib/request-locale"
@@ -64,7 +65,7 @@ async function generateMetadataRaw(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params
-  const p = fillTracked(getPost(slug), await listingsTrackedLabel())
+  const p = fillBrands(fillTracked(getPost(slug), await listingsTrackedLabel()), await getBrandsTracked())
   if (!p) return { title: "Not found — Resale IQ" }
   // seoTitle is the exact document title (CTR experiments). Otherwise keep
   // the historical "H1 — Resale IQ" suffix so other posts stay unchanged.
@@ -98,7 +99,7 @@ export default async function BlogPostPage(
   const { slug } = await params
   const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
-  const p = fillTracked(getPost(slug), tracked)
+  const p = fillBrands(fillTracked(getPost(slug), tracked), await getBrandsTracked())
   if (!p) notFound()
 
   // Live proof rows for the strip under the H1.

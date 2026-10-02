@@ -81,6 +81,9 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
     }),
     getMarketNumbers().catch(() => null),
   ])
+  // The live brands_tracked count for the FAQ answers below. null (snapshot
+  // down or predating the field) makes the sentence drop the number — never a literal.
+  const brandsTracked = market?.brandsTracked ?? null
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 24px 0" }}>
@@ -139,7 +142,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           /pricing 12 unique humans / 7d. */}
       <PricingVerdictStrip />
       <div id="pricing-plans">
-        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} />
+        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} seedBrands={brandsTracked} />
       </div>
 
       {/* H192 CRO: ROI card moved ABOVE TrustBlock — answer "worth it?" before "can I trust them?"
@@ -246,7 +249,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           CRO #4 (objection handling NEXT TO the doubt) + #7 (trust, last chance)
           + #9 (every section must do a job — this removes remaining doubt).
           Revenue 2026-09-29. H167. */}
-      <PricingFaq locale={locale} />
+      <PricingFaq locale={locale} brands={brandsTracked} />
       {/* Founder feedback 2026-09-29: /partners had no inbound links anywhere on
           the site. /pricing has no site-wide <footer> (that only exists on the
           homepage via LandingContent) — this is the smallest honest fix: one

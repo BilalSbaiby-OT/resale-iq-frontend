@@ -44,7 +44,9 @@ export default function BrandsPage() {
   // An auth/network failure is NOT "no brands exist". The old catch swallowed
   // the error and left brands=[], so a 401 rendered as "0 brands tracked" over
   // an empty void — indistinguishable from a broken server, while the database
-  // actually holds 55 brands. Track the failure so the UI can say which it is.
+  // actually holds ranked brands. Track the failure so the UI can say which it is.
+  // No count is printed on the locked states: a client component has no live
+  // source for the tracked total, so a typed number would drift.
   const [loadError, setLoadError] = useState<"auth" | "network" | null>(null)
   const [sort, setSort] = useState<keyof BrandRanking>("sold_7d")
   const [dir, setDir] = useState(-1)
@@ -73,7 +75,7 @@ export default function BrandsPage() {
   ]
 
   return (
-    <AppShell title={tx("Brand Rankings")} subtitle={loadError ? tx("55 brands tracked — unlock to see the ranking") : tx(`{0} brands tracked — click any to scan deals`, [brands.length])}>
+    <AppShell title={tx("Brand Rankings")} subtitle={loadError ? tx("Brands we track — unlock to see the ranking") : tx(`{0} brands ranked — click any to scan deals`, [brands.length])}>
       <div style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 14, overflow: "hidden" }}>
         <div className="riq-scroll-x">
           <table style={{ width: "100%", minWidth: 620, borderCollapse: "collapse" }}>
@@ -101,11 +103,11 @@ export default function BrandsPage() {
                   </div>
                   <div style={{ fontSize: 14, color: "var(--color-graphite-muted)", marginBottom: 20, maxWidth: 420, margin: "0 auto 20px" }}>
                     {loadError === "auth"
-                      ? tx("We track 55 brands across Vinted ES, FR, DE, IT and PT — ranked by what actually left the shelf this week. Starter unlocks the full table.")
+                      ? tx("We track brands across Vinted ES, FR, DE, IT and PT — ranked by what actually left the shelf this week. Starter unlocks the full table.")
                       : tx("This is a connection problem on our side, not an empty dataset. Try again in a moment.")}
                   </div>
                   {loadError === "auth"
-                    ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>{tx("Unlock 55 brands →")}</Link>
+                    ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>{tx("Unlock the brand ranking →")}</Link>
                     : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>{tx("Retry")}</button>}
                 </td></tr>
               ) : sorted.length === 0 ? (

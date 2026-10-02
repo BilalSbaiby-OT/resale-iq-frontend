@@ -18,11 +18,11 @@ export const POSTS_19: BlogPost[] = [
     readMins: 12,
     preflightQuery: "New Balance 550",
     intro:
-      "Flipping clothes for profit is a two-variable problem: buy below what the market pays on departure, and sell before holding costs eat the margin. Every other detail — sourcing location, listing quality, pricing — is in service of those two constraints. This guide covers the full process end to end, built around EU Vinted departure data for the 28 brands Resale IQ tracks.",
+      "Flipping clothes for profit is a two-variable problem: buy below what the market pays on departure, and sell before holding costs eat the margin. Every other detail — sourcing location, listing quality, pricing — is in service of those two constraints. This guide covers the full process end to end, built around EU Vinted departure data for the {{BRANDS}} brands Resale IQ tracks.",
     definedTerm: {
       name: "Flip",
       description:
-        "In clothing resale, a flip is the cycle from purchase to departure: buying an item below its expected exit price, listing it, and completing a sale for a profit. Resale IQ tracks departure rates and average exit prices across 28 brands on EU Vinted to give resellers real buy-below targets for each flip.",
+        "In clothing resale, a flip is the cycle from purchase to departure: buying an item below its expected exit price, listing it, and completing a sale for a profit. Resale IQ tracks departure rates and average exit prices across the {{BRANDS}} brands it tracks on EU Vinted to give resellers real buy-below targets for each flip.",
     },
     sections: [
       {
@@ -119,7 +119,7 @@ export const POSTS_19: BlogPost[] = [
       },
       {
         q: "How do you price clothes to flip on Vinted?",
-        a: "Price within 10% of the departure average for the brand and category. Departure averages are actual completed sales, not listed prices — they tell you what buyers paid, not what sellers hoped for. Resale IQ tracks departure averages across 28 EU Vinted brands. Example: Patagonia Hoodies at €41 average departure — price at €38–43 for fast movement. Price at €55 and you're outside the clearing range.",
+        a: "Price within 10% of the departure average for the brand and category. Departure averages are actual completed sales, not listed prices — they tell you what buyers paid, not what sellers hoped for. Resale IQ tracks departure averages across {{BRANDS}} EU Vinted brands. Example: Patagonia Hoodies at €41 average departure — price at €38–43 for fast movement. Price at €55 and you're outside the clearing range.",
       },
       {
         q: "How long does it take to sell flipped clothes on Vinted?",

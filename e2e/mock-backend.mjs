@@ -19,7 +19,7 @@ const SNAPSHOT = {
   total_listing_records: 2241000,
   updated_at: NOW,
   brand_count: 2,
-  brands_tracked: 26,
+  brands_tracked: 61,
   publish_floor_sold_7d: 5,
   sold_7d_kind: "sold_observed",
   provenance: { scope: "EU5", sold: "watched transitions", window: "trailing 7d" },
