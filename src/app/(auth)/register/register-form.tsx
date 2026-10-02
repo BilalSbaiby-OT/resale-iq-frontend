@@ -186,7 +186,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
         // signup lands on /dashboard — never /verdict. The seed is a query
         // string only. FirstRunSeed on the dashboard turns it into one
         // click. The query comes from the live public buy-list and is
-        // always a FREE_MODELS string, so the click is a real verdict.
+        // always a FREE_SAMPLES string, so the click is a real verdict.
         const q = await fetchFirstCheckQuery()
         writeFirstCheckSeed(q)
         router.push("/dashboard")

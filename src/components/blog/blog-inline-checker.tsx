@@ -84,7 +84,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import type { PaywallPayload } from "@/lib/hard-paywall"
-import { FREE_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel } from "@/lib/buy-list-display"
@@ -158,12 +158,12 @@ export function BlogInlineChecker({
     }
   }
 
-  const isActiveQueryFreeModel = (FREE_MODELS as readonly string[]).some(
+  const isActiveQueryFreeModel = (FREE_SAMPLES as readonly string[]).some(
     (m) => m.toLowerCase() === (chipQuery ?? preflightQuery).toLowerCase()
   )
   // Keep the original name for the chips logic (show chips when the POST topic is free,
   // regardless of chip state — chips only appear before any chip is clicked).
-  const isFreeModelQuery = (FREE_MODELS as readonly string[]).some(
+  const isFreeModelQuery = (FREE_SAMPLES as readonly string[]).some(
     (m) => m.toLowerCase() === preflightQuery.toLowerCase()
   )
 
@@ -372,7 +372,7 @@ export function BlogInlineChecker({
           Free-model visitors (Fred Perry Polo, AF1, Samba) get a free verdict and bounce —
           checkout_from_blog = 0 all-time. These chips let them one-tap a real paid item
           to experience the paywall CTA with context (comparable_n), not cold.
-          Chips must not be free-model queries (see FREE_MODELS). Confirmed in catalog. */}
+          Chips must not be free-model queries (see FREE_SAMPLES). Confirmed in catalog. */}
       {isFreeModelQuery && !chipQuery && (
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
           <span style={{ fontSize: 12, color: "#5b6b8c", flexShrink: 0 }}>Now try a paid item →</span>
@@ -406,7 +406,7 @@ export function BlogInlineChecker({
           driving a second auto-run → paywall → comparable_n → conversion moment.
           Guard: only show when the post topic is NOT a free model (paid posts only),
           no chip has been clicked yet, and the chip items differ from the post's own query.
-          Items are confirmed paid-model catalog entries (not FREE_MODELS). */}
+          Items are confirmed paid-model catalog entries (not FREE_SAMPLES). */}
       {!isFreeModelQuery && !chipQuery && (() => {
         // Verified PAYWALL for anonymous visitors (all return paywalled=true + comparable_n≥40).
         // H145: swapped Ralph Lauren Polo Shirt → New Balance 550 (RL returns free 200 for anon;
@@ -417,7 +417,7 @@ export function BlogInlineChecker({
         const CROSS_CHIPS = ["Stone Island Hoodie", "Balenciaga Track", "Levis 501", "New Balance 550", "Ralph Lauren Polo"]
         const chips = CROSS_CHIPS.filter(q =>
           q.toLowerCase() !== preflightQuery.toLowerCase() &&
-          !(FREE_MODELS as readonly string[]).some(m => m.toLowerCase() === q.toLowerCase())
+          !(FREE_SAMPLES as readonly string[]).some(m => m.toLowerCase() === q.toLowerCase())
         ).slice(0, 3)
         if (chips.length === 0) return null
         return (

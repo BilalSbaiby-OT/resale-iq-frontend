@@ -27,7 +27,7 @@ import {
   CHECK_VINTED_ITEM_QUERY_DESCRIPTION,
 } from "@/lib/webmcp-tools"
 import "@/types/webmcp-jsx"
-import { FREE_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
@@ -199,7 +199,7 @@ function formatSellThrough(raw: string): string {
 // New Balance 550, and New Balance 530 → 402 paywall. New Balance FuelCell 200s but
 // only as a brand-average BRAND_CATEGORIES fallback (buy_below null). Never advertise
 // any of those four as free. See src/lib/working-models.ts for the full rationale.
-const TRY_EXAMPLES = FREE_MODELS
+const TRY_EXAMPLES = FREE_SAMPLES
 
 // --- INSUFFICIENT_DATA copy (defect 2, 2026-09-01; localised 2026-09-01) ---
 // The English strings for this branch now live in src/lib/i18n.ts under
@@ -488,7 +488,7 @@ export function FreeChecker({
   buyListPreview?: SsrBuyListItem[] | null
 }) {
   const t = copy[locale].checker
-  const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} Adidas Samba, Nike Air Force 1, Fred Perry Polo`
+  const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} ${FREE_SAMPLES.join(", ")}`
   const { user, checkAuth } = useAuthStore()
   const [sessionProbed, setSessionProbed] = useState(false)
   const [tokenPlan, setTokenPlan] = useState<string | null>(null)
@@ -689,7 +689,7 @@ export function FreeChecker({
   // page with actual search intent. CRO #4 (do I have YOUR items?) + #8
   // (specificity: name the fact, not a vague "sell more"). Non-hero only —
   // homepage (hero) has E-13/#59 no-CTA constraint. Revenue 2026-09-23.
-  const isPublicSampleQuery = (FREE_MODELS as readonly string[]).some(
+  const isPublicSampleQuery = (FREE_SAMPLES as readonly string[]).some(
     (m) => m.toLowerCase() === q.toLowerCase()
   )
   const isSampleFreeResult =
@@ -980,7 +980,7 @@ export function FreeChecker({
                   make each row clickable without requiring the user to retype
                   "Carhartt Jackets". Constructed from res.categories + res.brand
                   at render time, so they stay on-brand regardless of which brand
-                  triggered BRAND_CATEGORIES. Falls back to FREE_MODELS only
+                  triggered BRAND_CATEGORIES. Falls back to FREE_SAMPLES only
                   when the backend sends no categories (shouldn't happen in prod
                   but defends the invariant). */}
               {res.categories && res.categories.length > 0 && res.brand ? (
@@ -992,7 +992,7 @@ export function FreeChecker({
                   testId="riq-brand-category-chips"
                 />
               ) : (
-                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} />
+                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} />
               )}
               {/* H95 CRO: brand-query checkout nudge — BRAND_CATEGORIES was the
                   only warm-intent branch with ZERO conversion path after H64

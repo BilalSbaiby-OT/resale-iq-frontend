@@ -10,11 +10,11 @@ import os from "node:os"
 import path from "node:path"
 import { fetchBounded, type HeroVerdict } from "./hero-verdict.ts"
 import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
+import { FREE_SAMPLES } from "./free-samples.ts"
 
-// 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
-// SKIP live with buy_below=null (73 watched departures/7d vs 125,627 active
-// listings). Keep in sync with FREE_MODELS / api/routes.py _PUBLIC_SAMPLE_QUERIES.
-export const TEASER_QUERIES = ["Adidas Samba", "Nike Air Force 1", "Fred Perry Polo"] as const
+// The teasers ARE the free samples (one list, ./free-samples.ts): anything
+// else is paywalled and must not be rendered for crawlers.
+export const TEASER_QUERIES = FREE_SAMPLES
 
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_DIR =

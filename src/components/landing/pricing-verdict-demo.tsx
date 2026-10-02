@@ -195,7 +195,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
           margin: "0 0 10px",
         }}
       >
-        Example verdict — what you see as a subscriber
+        Example verdict — {v.product}, a free sample
       </p>
 
       <div

@@ -84,3 +84,35 @@ test("no copy sentence claims New Balance 530 or FuelCell as free/no-account, in
         .join("\n")}`,
   )
 })
+
+// 2026-10-02: the guard above only fires for "New Balance 530" / "FuelCell", which
+// is how the register page's "Try Nike AF1, Adidas Samba or New Balance free" and the
+// blog clones' "Samba, AF1 and NB 530 show a live BUY" slipped through. This one
+// fires for ANY New Balance model (or "NB 530") next to a free claim, unless the
+// sentence is itself the denial ("... is not a free sample", "402", "paywall").
+test("no sentence pairs any New Balance model with a free claim unless it denies it", () => {
+  const BROAD_TARGET = /New Balance|\bNB ?530\b/i
+  const DENIAL = /not (a )?free|never|isn't|is not|\b402\b|paywall|returns free 200/i
+  const files: string[] = []
+  for (const d of SCAN_DIRS) walk(join(root, d), files)
+  const violations: { file: string; sentence: string }[] = []
+  for (const path of files) {
+    let content: string
+    try {
+      content = readFileSync(path, "utf8")
+    } catch {
+      continue
+    }
+    for (const sentence of content.split(SENT_SPLIT)) {
+      if (sentence.trim().startsWith("//")) continue // a code comment documenting history
+      if (BROAD_TARGET.test(sentence) && FREE_RE.test(sentence) && !DENIAL.test(sentence)) {
+        violations.push({ file: path.replace(root + "/", ""), sentence: sentence.trim().slice(0, 200) })
+      }
+    }
+  }
+  assert.deepEqual(
+    violations,
+    [],
+    `New Balance is not a free sample. Violations:\n${violations.map((v) => `  ${v.file}: ${v.sentence}`).join("\n")}`,
+  )
+})

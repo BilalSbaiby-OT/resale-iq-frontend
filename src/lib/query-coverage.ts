@@ -12,7 +12,7 @@
  * only. Miu Miu is not a catalog brand today → coverage, not Should I buy.
  */
 import brandsRaw from "../data/seo-brands.json" with { type: "json" }
-import { FREE_MODELS } from "./working-models.ts"
+import { FREE_SAMPLES } from "./free-samples.ts"
 
 export type QueryCoverageKind = "free_sample" | "catalog" | "untracked"
 export type CheckerFace = "paywall" | "coverage"
@@ -52,7 +52,7 @@ export function apiSignalsUntracked(body: unknown): boolean {
 export function queryCoverageKind(q: string): QueryCoverageKind {
   const query = q.trim()
   if (query.length < 2) return "untracked"
-  if ([...FREE_MODELS].some((m) => hasPhrase(query, m))) return "free_sample"
+  if ([...FREE_SAMPLES].some((m) => hasPhrase(query, m))) return "free_sample"
   if (CATALOG_BRANDS.some((b) => hasPhrase(query, b))) return "catalog"
   return "untracked"
 }

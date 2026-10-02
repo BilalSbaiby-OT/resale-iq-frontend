@@ -8,7 +8,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { FREE_MODELS } from "./working-models.ts"
+import { FREE_SAMPLES, FREE_SAMPLE_DEMO } from "./free-samples.ts"
 import { copy } from "./i18n.ts"
 import { formatHomeCite } from "./teaser-verdict.ts"
 import { brandStripNames, brandStripMoreCount, BRAND_MARK_SRC } from "./brand-marks.ts"
@@ -20,13 +20,13 @@ function read(rel: string): string {
   return readFileSync(join(root, rel), "utf8")
 }
 
-test("FREE_MODELS leads with a BUY model and never exposes paywalled SKUs", () => {
+test("FREE_SAMPLES is the one list: exactly three samples, never a paywalled SKU", () => {
   // The guard that matters is that no PAYWALLED sku reaches a free chip —
   // Levi's 501 and NB 550 402 for anonymous visitors. New Balance 530 was
   // moved fully behind the paywall (402) on 2026-09-29 and New Balance
   // FuelCell, while still 200-ing anonymously, only returns a brand-average
   // BRAND_CATEGORIES fallback (buy_below null) — neither is a usable free
-  // sample, so neither belongs in FREE_MODELS even though the backend
+  // sample, so neither belongs in FREE_SAMPLES even though the backend
   // technically lets the query through.
   //
   // The durable invariant is NOT a specific name, it is: every chip must
@@ -37,29 +37,33 @@ test("FREE_MODELS leads with a BUY model and never exposes paywalled SKUs", () =
   // Keep this list in sync with _PUBLIC_SAMPLE_QUERIES in api/routes.py —
   // a chip must be a SUBSET of that frozenset, or it will 402 — but do not
   // assume every member of that frozenset belongs here.
-  assert.equal(FREE_MODELS.length, 3)
-  assert.equal(FREE_MODELS[0], "Fred Perry Polo")
+  // 2026-10-02 (founder): ONE list, Samba / AF1 / Fred Perry Polo, in
+  // src/lib/free-samples.ts. Order is no longer a demo decision; the seed
+  // fallback is FREE_SAMPLE_DEMO.
+  assert.equal(FREE_SAMPLES.length, 3)
+  assert.deepEqual([...FREE_SAMPLES], ["Adidas Samba", "Nike Air Force 1", "Fred Perry Polo"])
+  assert.ok((FREE_SAMPLES as readonly string[]).includes(FREE_SAMPLE_DEMO))
   assert.ok(
-    !FREE_MODELS.includes("New Balance FuelCell" as never),
+    !FREE_SAMPLES.includes("New Balance FuelCell" as never),
     "FuelCell verdicts BRAND_CATEGORIES with buy_below null — it must not be a free-sample chip",
   )
   assert.ok(
-    !FREE_MODELS.includes("New Balance 530" as never),
+    !FREE_SAMPLES.includes("New Balance 530" as never),
     "New Balance 530 is HARD_PAYWALL (402) for anonymous visitors as of 2026-09-29",
   )
   for (const expected of ["Fred Perry Polo", "Nike Air Force 1", "Adidas Samba"]) {
-    assert.ok(FREE_MODELS.includes(expected as never), `${expected} missing from FREE_MODELS`)
+    assert.ok(FREE_SAMPLES.includes(expected as never), `${expected} missing from FREE_SAMPLES`)
   }
   for (const paywalled of ["Levi's 501", "New Balance 550", "New Balance 530"]) {
-    assert.ok(!FREE_MODELS.includes(paywalled as never), `${paywalled} must never be a free chip`)
+    assert.ok(!FREE_SAMPLES.includes(paywalled as never), `${paywalled} must never be a free chip`)
   }
 })
 
-test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
+test("hero chips and rescue chips use FREE_SAMPLES, not paywalled SKUs", () => {
   const checker = read("components/tools/free-checker.tsx")
-  assert.match(checker, /const TRY_EXAMPLES = FREE_MODELS/)
+  assert.match(checker, /const TRY_EXAMPLES = FREE_SAMPLES/)
   assert.match(checker, /examples=\{TRY_EXAMPLES\}/)
-  assert.match(checker, /examples=\{FREE_MODELS\}/)
+  assert.match(checker, /examples=\{FREE_SAMPLES\}/)
   assert.doesNotMatch(checker, /\["New Balance 530", "Levi's 501", "New Balance 550"\]/)
   assert.match(checker, /riq-free-scope/)
   assert.match(checker, /heroFreeScope/)
@@ -74,6 +78,12 @@ test("hero chips and rescue chips use FREE_MODELS, not paywalled SKUs", () => {
   assert.match(heroChips, /riq-hero-sample-line/)
   assert.doesNotMatch(heroChips, /Unlock \$\{truncated\} buy-below/)
   assert.doesNotMatch(heroChips, /Enter your email to unlock/)
+  // 2026-10-02: the chips ARE the free samples, and the "first check on any
+  // other item is free" promise is gone (no free tier; Starter = 7-day free
+  // trial, card required, EUR 0 today).
+  assert.match(heroChips, /const SAMPLES = FREE_SAMPLES/)
+  assert.doesNotMatch(heroChips, /first check/i)
+  assert.match(heroChips, /7-day free trial, card required, €0 today/)
 })
 
 test("above-fold free scope must not promise paywalled SKUs", () => {

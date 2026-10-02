@@ -91,17 +91,22 @@ test("every locale is complete — no English leaking through a missing key", ()
   }
 })
 
-test("every locale states the real numbers: 10 a day, 10 a month, 5 finds, 1 plan", () => {
+test("every locale states the real numbers and promises no free allowance", () => {
+  // 2026-10-02: HARD_PAYWALL is live, so there is no "10 checks a day" and no
+  // "10 full unlocks a month" for a free account. What the trial sentence
+  // still owes the reader is the 5 live finds; what the free-state sentences
+  // owe them is a way forward (a plan, or the trial) and no invented allowance.
   for (const locale of LOCALES) {
     const trial = PLAN_COPY_TABLE[locale].trial.sub(3)
     assert.ok(trial.includes("5"), `${locale} trial sentence omits the 5 live finds`)
-    assert.ok(trial.includes("10"), `${locale} trial sentence omits what happens after`)
-    for (const state of ["trial_lapsed", "trial_pending"] as const) {
-      assert.ok(
-        PLAN_COPY_TABLE[locale][state].sub.includes("10"),
-        `${locale}.${state} omits the 10/day and 10/month it must state`,
-      )
+    for (const state of ["trial", "trial_lapsed", "trial_pending"] as const) {
+      const sub = state === "trial" ? PLAN_COPY_TABLE[locale].trial.sub(3) : PLAN_COPY_TABLE[locale][state].sub
+      assert.ok(!/\b10\b/.test(sub), `${locale}.${state} promises a "10 a day / 10 a month" allowance that does not exist: ${sub}`)
     }
+    assert.ok(
+      PLAN_COPY_TABLE[locale].trial_pending.sub.includes("7"),
+      `${locale}.trial_pending must name the 7-day trial as the route to every other model`,
+    )
   }
 })
 

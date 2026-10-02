@@ -66,7 +66,7 @@ export default async function OpengraphImage() {
             flexDirection: "column",
           }}
         >
-          <span>Stop guessing what sells.</span>
+          <span>What sells. What to pay.</span>
           <span style={{ color: "#34C759" }}>Know before you buy.</span>
         </div>
 

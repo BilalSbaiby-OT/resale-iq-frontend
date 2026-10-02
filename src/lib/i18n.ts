@@ -47,6 +47,8 @@
  * Vinted's UI string, and should be checked against the real listing flow in
  * each market before this is treated as done.
  */
+import { freeSampleList } from "./free-samples.ts"
+
 export type Locale = "en" | "fr" | "es" | "de" | "it" | "pt"
 
 /** H48: FAQ items may carry an optional CTA link — used on pricing FAQ to drop
@@ -324,15 +326,15 @@ export const copy = {
       // CRO principle #3 (message match) + #10 (CTA commitment ladder).
       // Revenue 2026-09-15.
       paywallHeadlineForItem: (item: string) => `Should I buy ${item} to resell?`,
-      // H25 CRO: loss-frame leads (CRO #8). "One avoided bad buy covers 2+ months"
-      // was buried last — restructured so the financial win comes first, then the
-      // data proof, then the price. Revenue 2026-09-15.
-      paywallBody: "One avoided bad buy pays for 2+ months here. {{TRACKED}} listing records analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.",
+      // 2026-10-02 founder decision: the "one avoided bad buy pays for 2+ months"
+      // line was an unsourced ROI promise and is gone. The body now leads with the
+      // data proof and what the number is for (the most to pay before you buy).
+      paywallBody: "{{TRACKED}} listing records analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price, so you know the most to pay before you buy. Starter €19/mo, cancel anytime.",
       // H35 CRO: body message-match — names the searched item so both headline
       // and body mirror the visitor's intent at the conversion moment.
       // CRO principle #3 (message match) + #8 (specificity).
       // Revenue 2026-09-15.
-      paywallBodyForItem: (item: string, tracked: string) => `One avoided bad buy on ${item} pays for 2+ months here. ${tracked} listing records analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.`,
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} listing records analyzed — the BUY/WATCH/SKIP verdict and the exact buy-below price for ${item}. Starter €19/mo, cancel anytime.`,
       paywallCta: (price: number) => `Unlock buy-below — €${price}/mo`,
       paywallLogin: "Already have an account? Log in",
       confidenceLabel: "Confidence",
@@ -395,7 +397,7 @@ export const copy = {
         // Revenue 2026-09-16.
         "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Order Planner and Price Compare are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access starts in ~2s after payment — no waiting for an email.",
       subhead:
-        "One bad buy covers the cost. BUY / WATCH / SKIP + the exact buy-below price for every item you check. Starter €19/mo.",
+        "The most to pay, before you buy: BUY / WATCH / SKIP + the exact buy-below price for every model we track. Starter €19/mo.",
       // H19 CRO: Objection #1 ("will it work for me?") answered above the plan cards — CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15.
       scopeNote: "Built for clothing, shoes and accessories on Vinted · ES · FR · DE · IT · PT. When the sample is too thin to answer, the verdict says UNKNOWN — not a guess.",
       // Product-aware /pricing visitors: paid Starter, not /tools Fred. CRO #10. Revenue 2026-09-21.
@@ -415,7 +417,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check — LLM-cited FAQ can now route into the product. Revenue 2026-09-15.
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number.", cta: { text: "→ Try a live check now", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Is it worth €19 a month?", a: "At the default numbers — 20 items a month at €15 each — the calculator above says 2 bad buys avoided covers it. One skip on a SKIP, one take on a BUY. Slide the numbers to your own volume and see." },
+        { q: "Is it worth €19 a month?", a: "At the default numbers — 60 items a month at €20 each, about €1,200 of stock — the calculator above shows Starter costs the same as 1 bad buy a month: avoid one €20 item and the €19 is covered. That is arithmetic on your own numbers, not a promised saving. Slide them to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
         { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or Fred Perry Polo on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
@@ -470,7 +472,7 @@ export const copy = {
         features: [
           "Weekly brand volumes and average departure prices on /data, no account.",
           "The reselling manual, no signup.",
-          "No anonymous item-level buy-below.",
+          `Free samples, no account: ${freeSampleList("en")}.`,
           "Item checks are Starter at €19 a month.",
         ],
         ceiling: "There is no free item-check tier.",
@@ -579,11 +581,12 @@ export const copy = {
         heading: "Create your account",
         // C(tony)RegisterSubheadingFreeFirst: old copy said "item checks need a paid plan" which
         // was technically true for unlimited checks but misleading for new free signups — they
-        // land directly on a Nike AF1 verdict (a FREE_MODELS query) after registration. Telling
+        // land directly on a free-sample verdict (FREE_SAMPLES) after registration. Telling
         // a visitor "you need to pay" at the exact moment they're about to get a free answer
-        // suppresses signups. New copy names the free models explicitly (honest + verifiable),
-        // frames unlimited as the paid upgrade, and confirms no card needed to get started.
-        subheading: "Try Nike AF1, Adidas Samba or New Balance free. Unlimited checks unlock with a plan.",
+        // suppresses signups. The copy names the free samples from the ONE list
+        // (src/lib/free-samples.ts), never New Balance (402 anonymously), and frames every
+        // other model as Starter's 7-day free trial (card required, €0 today).
+        subheading: `Try ${freeSampleList("en")} free. Every other model starts with Starter's 7-day free trial.`,
         // H7: paid visitors already decided to pay — mirror their intent rather than explain the model.
         // paidSubheading replaces subheading when plan=operator|power.
         paidSubheading: "Unlimited item checks, live EU resale data — no extra steps after this.",
@@ -596,7 +599,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, per-size velocity",
           operator: "Unlimited verdicts, every signal, watchlist & P&L",
-          free: "Public weekly volumes on /data. No anonymous item check.",
+          free: "Public weekly volumes on /data. Item checks start with Starter's 7-day free trial.",
         },
         forever: "forever",
         perMonth: "/month",
@@ -634,7 +637,7 @@ export const copy = {
         // H9: paid arrivals see a commit-confirming button; free keeps generic "Create account".
         // {plan} is replaced at render time with t.planNames[plan] (same pattern as paidHeading).
         paidSubmit: "Activate {plan} access →",
-        freeNote: "Free account and free checks: no card. 7-day free trial: card needed, €0 today, cancel anytime.",
+        freeNote: "Free account: no card. Starter's 7-day free trial: card required, €0 today, cancel anytime.",
         paidNote: "Next: Stripe's payment page. No hidden fees — cancel in one click from Account settings.",
         // H10: trust signal placed beside the plan price row (Principle #4/#7 — proof at the point of doubt).
         paidTrustNote: "No charge until Stripe checkout opens.",
@@ -910,8 +913,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATTEINTE",
       paywallHeadline: "Arrêtez de deviner combien payer sur Vinted.",
       paywallHeadlineForItem: (item: string) => `Vaut-il le coup d'acheter ${item} sur Vinted ?`,
-      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} enregistrements d'annonces analysés — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un mauvais achat évité sur ${item} couvre 2+ mois. ${tracked} enregistrements d'annonces analysés — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.`,
+      paywallBody: "{{TRACKED}} enregistrements d'annonces analysés — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact, pour connaître le maximum à payer avant d'acheter. Starter 19 €/mois, résiliable à tout moment.",
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} enregistrements d'annonces analysés — le verdict ACHETER/SURVEILLER/ÉCARTER et le prix d'achat exact pour ${item}. Starter 19 €/mois, résiliable à tout moment.`,
       paywallCta: (price: number) => `Débloquer prix d'achat — ${price} €/mois`,
       paywallLogin: "Déjà un compte ? Connexion",
       confidenceLabel: "Confiance",
@@ -950,7 +953,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Order Planner et Price Compare sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès démarre en ~2s après le paiement — pas d'attente d'e-mail.",
-      subhead: "Un mauvais achat couvre le coût. ACHETER / SURVEILLER / ÉCARTER + le prix d'achat max exact pour chaque article vérifié. Starter 19 €/mois.",
+      subhead: "Le maximum à payer, avant d'acheter : ACHETER / SURVEILLER / ÉCARTER + le prix d'achat max exact pour chaque modèle que nous suivons. Starter 19 €/mois.",
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
       coldCtaLadder: "Commencer à 19 € →",
@@ -969,7 +972,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance.", cta: { text: "→ Essayez une vérification en direct", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "en général" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 20 articles par mois à 15 € pièce — le calculateur ci-dessus indique que 2 mauvais achats évités suffisent. Un évité sur un SKIP, un saisi sur un BUY. Ajustez les curseurs à votre propre volume." },
+        { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 60 articles par mois à 20 € pièce, soit environ 1 200 € de stock — le calculateur ci-dessus montre que Starter coûte autant qu'un mauvais achat par mois : évitez un article à 20 € et les 19 € sont couverts. C'est de l'arithmétique sur vos propres chiffres, pas une économie promise. Ajustez les curseurs à votre propre volume." },
         { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez ACHETER, SURVEILLER ou ÉCARTER avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quand l'accès démarre-t-il après le paiement ?", a: "À l'instant où Stripe confirme votre paiement — en général en moins de 2 secondes. Ensuite vous vérifiez un vrai article ; Nike Air Force 1 est déjà saisi. Pas d'e-mail à attendre. Si une erreur de connexion interrompt, connectez-vous sur /login." },
@@ -1016,7 +1019,7 @@ export const copy = {
         features: [
           "Volumes hebdo par marque et prix moyens de départ sur /data, sans compte.",
           "Le manuel de revente, sans inscription.",
-          "Pas de buy-below anonyme au niveau article.",
+          `Exemples gratuits, sans compte : ${freeSampleList("fr")}.`,
           "Les vérifications d'articles, c'est Starter à 19 € par mois.",
         ],
         ceiling: "Pas d'offre gratuite de vérification d'articles.",
@@ -1102,7 +1105,7 @@ export const copy = {
       },
       register: {
         heading: "Créez votre compte",
-        subheading: "Les volumes hebdo par marque restent publics sur /data. Les vérifications d'articles demandent un plan payant. Résiliable à tout moment.",
+        subheading: `Essayez ${freeSampleList("fr")} gratuitement. Tous les autres modèles commencent par l'essai gratuit de 7 jours de Starter.`,
         paidSubheading: "Vérifications d'articles illimitées, données de revente EU en direct — aucune étape supplémentaire après cela.",
         paidHeading: "Activez votre accès {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
@@ -1110,7 +1113,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, vitesse par taille",
           operator: "Verdicts illimités, tous les signaux, watchlist et P&L",
-          free: "Volumes hebdo publics sur /data. Pas de vérification anonyme d'article.",
+          free: "Volumes hebdo publics sur /data. Les vérifications d'articles commencent par l'essai gratuit de 7 jours de Starter.",
         },
         forever: "à vie",
         perMonth: "/mois",
@@ -1127,7 +1130,7 @@ export const copy = {
         submitting: "Création en cours…",
         submit: "Créer le compte",
         paidSubmit: "Activer l'accès {plan} →",
-        freeNote: "Compte gratuit et vérifications gratuites : sans carte. Essai gratuit de 7 jours : carte requise, 0 € aujourd'hui, résiliable à tout moment.",
+        freeNote: "Compte gratuit : sans carte. Essai gratuit de 7 jours de Starter : carte requise, 0 € aujourd'hui, résiliable à tout moment.",
         paidNote: "Étape suivante : page de paiement Stripe. Aucuns frais cachés — résiliation en un clic depuis les Paramètres du compte.",
         paidTrustNote: "Aucun frais jusqu'à l'ouverture de Stripe Checkout.",
         alreadyHaveAccount: "Vous avez déjà un compte ?",
@@ -1381,8 +1384,8 @@ export const copy = {
       limitReachedLabel: "LÍMITE ALCANZADO",
       paywallHeadline: "Deja de adivinar cuánto pagar en Vinted.",
       paywallHeadlineForItem: (item: string) => `¿Vale la pena comprar ${item} en Vinted?`,
-      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} registros de anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
-      paywallBodyForItem: (item: string, tracked: string) => `Una mala compra evitada de ${item} cubre 2+ meses. ${tracked} registros de anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.`,
+      paywallBody: "{{TRACKED}} registros de anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto, para saber lo máximo a pagar antes de comprar. Starter 19 €/mes, cancela cuando quieras.",
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} registros de anuncios analizados — el veredicto COMPRA/OBSERVA/DESCARTA y el precio de compra exacto de ${item}. Starter 19 €/mes, cancela cuando quieras.`,
       paywallCta: (price: number) => `Desbloquear precio de compra — ${price} €/mes`,
       paywallLogin: "¿Ya tienes cuenta? Entra",
       confidenceLabel: "Confianza",
@@ -1423,7 +1426,7 @@ export const copy = {
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Order Planner y Price Compare son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso empieza en ~2s después del pago — sin esperar un correo.",
       subhead:
-        "Una mala compra cubre el coste. COMPRA / OBSERVA / DESCARTA + el precio máximo de compra exacto para cada artículo que compruebes. Starter: 19 €/mes.",
+        "Lo máximo a pagar, antes de comprar: COMPRA / OBSERVA / DESCARTA + el precio máximo de compra exacto para cada modelo que seguimos. Starter: 19 €/mes.",
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
       scopeNote: "Diseñado para ropa, calzado y accesorios en Vinted · ES · FR · DE · IT · PT. Cuando la muestra es insuficiente, el veredicto muestra UNKNOWN — nunca una suposición.",
       coldCtaLadder: "Empieza por 19 € →",
@@ -1442,7 +1445,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad.", cta: { text: "→ Prueba una comprobación en directo", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "suele" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 20 artículos al mes a 15 € cada uno — la calculadora de arriba dice que bastan 2 malas compras evitadas. Una evitada en un SKIP, una aprovechada en un BUY. Ajusta los controles a tu propio volumen." },
+        { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 60 artículos al mes a 20 € cada uno, unos 1200 € de stock — la calculadora de arriba muestra que Starter cuesta lo mismo que 1 mala compra al mes: evita un artículo de 20 € y los 19 € quedan cubiertos. Es aritmética con tus propias cifras, no un ahorro prometido. Ajusta los controles a tu propio volumen." },
         { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes COMPRA, OBSERVA o DESCARTA con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "¿Cuándo empieza el acceso después de pagar?", a: "En el momento en que Stripe confirma tu pago — normalmente en menos de 2 segundos. Luego compruebas un artículo real; Nike Air Force 1 ya está rellenado. Sin esperar un correo. Si un error de conexión interrumpe, inicia sesión en /login." },
@@ -1489,7 +1492,7 @@ export const copy = {
         features: [
           "Volúmenes semanales por marca y precios medios de salida en /data, sin cuenta.",
           "El manual de reventa, sin registro.",
-          "No hay buy-below anónimo a nivel de artículo.",
+          `Ejemplos gratis, sin cuenta: ${freeSampleList("es")}.`,
           "Las comprobaciones de artículos son Starter a 19 € al mes.",
         ],
         ceiling: "No hay plan gratuito de comprobación de artículos.",
@@ -1575,7 +1578,7 @@ export const copy = {
       },
       register: {
         heading: "Cree su cuenta",
-        subheading: "Los volúmenes semanales por marca siguen públicos en /data. Las comprobaciones de artículos necesitan un plan de pago. Cancele cuando quiera.",
+        subheading: `Pruebe ${freeSampleList("es")} gratis. Todos los demás modelos empiezan con la prueba gratuita de 7 días de Starter.`,
         paidSubheading: "Comprobaciones de artículos ilimitadas, datos de reventa EU en directo — sin pasos adicionales después de esto.",
         paidHeading: "Activa tu acceso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
@@ -1583,7 +1586,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, velocidad por talla",
           operator: "Veredictos ilimitados, todas las señales, watchlist y P&L",
-          free: "Volúmenes semanales públicos en /data. No hay comprobación anónima de artículo.",
+          free: "Volúmenes semanales públicos en /data. Las comprobaciones de artículos empiezan con la prueba gratuita de 7 días de Starter.",
         },
         forever: "para siempre",
         perMonth: "/mes",
@@ -1600,7 +1603,7 @@ export const copy = {
         submitting: "Preparando…",
         submit: "Crear cuenta",
         paidSubmit: "Activar acceso {plan} →",
-        freeNote: "Cuenta gratuita y comprobaciones gratuitas: sin tarjeta. Prueba gratuita de 7 días: tarjeta necesaria, 0 € hoy, cancela cuando quieras.",
+        freeNote: "Cuenta gratuita: sin tarjeta. Prueba gratuita de 7 días de Starter: tarjeta necesaria, 0 € hoy, cancela cuando quieras.",
         paidNote: "Siguiente: página de pago de Stripe. Sin cargos ocultos — cancela con un clic desde Configuración de cuenta.",
         paidTrustNote: "Sin cargo hasta que se abra Stripe Checkout.",
         alreadyHaveAccount: "¿Ya tiene una cuenta?",
@@ -1853,8 +1856,8 @@ export const copy = {
       limitReachedLabel: "LIMIT ERREICHT",
       paywallHeadline: "Hör auf zu raten, was du auf Vinted zahlen sollst.",
       paywallHeadlineForItem: (item: string) => `Lohnt sich ${item} auf Vinted?`,
-      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Inseratseinträge analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
-      paywallBodyForItem: (item: string, tracked: string) => `Ein vermiedener Fehlkauf bei ${item} deckt 2+ Monate. ${tracked} Inseratseinträge analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.`,
+      paywallBody: "{{TRACKED}} Inseratseinträge analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis, damit du vor dem Kauf weißt, wie viel du höchstens zahlen solltest. Starter ab 19 €/Monat, jederzeit kündbar.",
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} Inseratseinträge analysiert — das Urteil KAUFEN/BEOBACHTEN/VERWERFEN und der exakte Kaufpreis für ${item}. Starter ab 19 €/Monat, jederzeit kündbar.`,
       paywallCta: (price: number) => `Kaufpreis entsperren — ${price} €/Monat`,
       paywallLogin: "Schon ein Konto? Anmelden",
       confidenceLabel: "Konfidenz",
@@ -1893,7 +1896,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Order Planner und Price Compare sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang startet in ~2s nach der Zahlung — keine Wartezeit auf eine E-Mail.",
-      subhead: "Ein schlechter Kauf deckt die Kosten. KAUFEN / BEOBACHTEN / VERWERFEN + der genaue Kaufhöchstpreis für jeden Artikel den du prüfst. Starter 19 €/Monat.",
+      subhead: "Der Höchstpreis, bevor du kaufst: KAUFEN / BEOBACHTEN / VERWERFEN + der genaue Kaufhöchstpreis für jedes Modell, das wir erfassen. Starter 19 €/Monat.",
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
       coldCtaLadder: "Für 19 € starten →",
@@ -1912,7 +1915,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl.", cta: { text: "→ Jetzt einen Live-Check ausprobieren", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "meist" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 20 Artikel im Monat zu je 15 € — zeigt der Rechner oben: 2 vermiedene Fehlkäufe decken es. Einer ausgelassen auf ein SKIP, einer mitgenommen auf ein BUY. Schiebe die Regler auf dein eigenes Volumen." },
+        { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 60 Artikel im Monat zu je 20 €, also rund 1.200 € Ware — zeigt der Rechner oben: Starter kostet so viel wie 1 Fehlkauf im Monat. Wer einen Artikel für 20 € nicht kauft, hat die 19 € wieder drin. Das ist Rechnen mit deinen eigenen Zahlen, keine versprochene Ersparnis. Schiebe die Regler auf dein eigenes Volumen." },
         { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst KAUFEN, BEOBACHTEN oder VERWERFEN mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Wann beginnt der Zugang nach der Zahlung?", a: "In dem Moment, in dem Stripe deine Zahlung bestätigt — normalerweise innerhalb von 2 Sekunden. Als Nächstes prüfst du einen echten Artikel; Nike Air Force 1 ist vorausgefüllt. Keine E-Mail abwarten. Falls ein Verbindungsfehler unterbricht, melde dich auf /login an." },
@@ -1959,7 +1962,7 @@ export const copy = {
         features: [
           "Wöchentliche Markenvolumen und durchschnittliche Abgangspreise auf /data, ohne Konto.",
           "Das Wiederverkaufs-Handbuch, ohne Anmeldung.",
-          "Kein anonymes buy-below auf Artikelebene.",
+          `Kostenlose Beispiele, ohne Konto: ${freeSampleList("de")}.`,
           "Artikelprüfungen sind Starter für 19 € im Monat.",
         ],
         ceiling: "Kein Gratis-Tarif für Artikelprüfungen.",
@@ -2045,7 +2048,7 @@ export const copy = {
       },
       register: {
         heading: "Konto erstellen",
-        subheading: "Wöchentliche Markenvolumen bleiben öffentlich auf /data. Artikelprüfungen brauchen einen bezahlten Tarif. Jederzeit kündbar.",
+        subheading: `Testen Sie ${freeSampleList("de")} kostenlos. Alle anderen Modelle starten mit der 7-tägigen kostenlosen Testphase von Starter.`,
         paidSubheading: "Unbegrenzte Artikelprüfungen, live EU-Wiederverkaufsdaten — keine weiteren Schritte danach.",
         paidHeading: "Aktiviere deinen {plan}-Zugang.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
@@ -2053,7 +2056,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, Geschwindigkeit pro Größe",
           operator: "Unbegrenzte Verdikte, alle Signale, Watchlist und P&L",
-          free: "Wöchentliche Volumen öffentlich auf /data. Keine anonyme Artikelprüfung.",
+          free: "Wöchentliche Volumen öffentlich auf /data. Artikelprüfungen beginnen mit der 7-tägigen kostenlosen Testphase von Starter.",
         },
         forever: "dauerhaft",
         perMonth: "/Monat",
@@ -2072,7 +2075,7 @@ export const copy = {
         submitting: "Wird eingerichtet…",
         submit: "Konto erstellen",
         paidSubmit: "{plan}-Zugang aktivieren →",
-        freeNote: "Kostenloses Konto und kostenlose Checks: keine Karte. 7 Tage gratis testen: Karte nötig, heute 0 €, jederzeit kündbar.",
+        freeNote: "Kostenloses Konto: keine Karte. 7 Tage Starter gratis testen: Karte nötig, heute 0 €, jederzeit kündbar.",
         paidNote: "Nächster Schritt: Stripe-Zahlungsseite. Keine versteckten Gebühren — Kündigung mit einem Klick in den Kontoeinstellungen.",
         paidTrustNote: "Keine Belastung bis zur Öffnung des Stripe-Checkouts.",
         alreadyHaveAccount: "Sie haben bereits ein Konto?",
@@ -2325,8 +2328,8 @@ export const copy = {
       limitReachedLabel: "LIMITE RAGGIUNTO",
       paywallHeadline: "Smettila di indovinare quanto pagare su Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale la pena comprare ${item} su Vinted?`,
-      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} registrazioni di inserzioni analizzate — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un acquisto sbagliato di ${item} evitato copre 2+ mesi. ${tracked} registrazioni di inserzioni analizzate — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.`,
+      paywallBody: "{{TRACKED}} registrazioni di inserzioni analizzate — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto, per sapere il massimo da pagare prima di comprare. Starter 19 €/mese, disdici quando vuoi.",
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} registrazioni di inserzioni analizzate — il verdetto COMPRA/OSSERVA/SCARTA e il prezzo d'acquisto esatto per ${item}. Starter 19 €/mese, disdici quando vuoi.`,
       paywallCta: (price: number) => `Sblocca prezzo d'acquisto — ${price} €/mese`,
       paywallLogin: "Hai già un account? Accedi",
       confidenceLabel: "Affidabilità",
@@ -2365,7 +2368,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Order Planner e Price Compare sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso parte in ~2s dopo il pagamento — nessuna attesa via email.",
-      subhead: "Un cattivo acquisto copre il costo. COMPRA / OSSERVA / SCARTA + il prezzo massimo d'acquisto esatto per ogni articolo che verifichi. Starter 19 €/mese.",
+      subhead: "Il massimo da pagare, prima di comprare: COMPRA / OSSERVA / SCARTA + il prezzo massimo d'acquisto esatto per ogni modello che seguiamo. Starter 19 €/mese.",
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
       coldCtaLadder: "Inizia a 19 € →",
@@ -2384,7 +2387,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza.", cta: { text: "→ Prova un controllo dal vivo ora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "di solito" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 20 articoli al mese a 15 € ciascuno — il calcolatore sopra dice che bastano 2 acquisti sbagliati evitati. Uno evitato su uno SKIP, uno colto su un BUY. Sposta i cursori al tuo volume reale." },
+        { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 60 articoli al mese a 20 € ciascuno, circa 1200 € di merce — il calcolatore sopra mostra che Starter costa quanto 1 acquisto sbagliato al mese: evita un articolo da 20 € e i 19 € sono coperti. È aritmetica sui tuoi numeri, non un risparmio promesso. Sposta i cursori al tuo volume reale." },
         { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni COMPRA, OSSERVA o SCARTA con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando inizia l'accesso dopo il pagamento?", a: "Nel momento in cui Stripe conferma il tuo pagamento — di solito entro 2 secondi. Poi verifichi un articolo reale; Nike Air Force 1 è già compilato. Nessuna email da aspettare. Se un errore di connessione interrompe, accedi su /login." },
@@ -2431,7 +2434,7 @@ export const copy = {
         features: [
           "Volumi settimanali per marca e prezzi medi di uscita su /data, senza account.",
           "Il manuale di rivendita, senza registrazione.",
-          "Nessun buy-below anonimo a livello di articolo.",
+          `Esempi gratuiti, senza account: ${freeSampleList("it")}.`,
           "I controlli articolo sono Starter a 19 € al mese.",
         ],
         ceiling: "Nessun piano gratuito per i controlli articolo.",
@@ -2517,7 +2520,7 @@ export const copy = {
       },
       register: {
         heading: "Crea il tuo account",
-        subheading: "I volumi settimanali per marca restano pubblici su /data. I controlli articolo richiedono un piano a pagamento. Annullabile in qualsiasi momento.",
+        subheading: `Prova ${freeSampleList("it")} gratis. Tutti gli altri modelli iniziano con la prova gratuita di 7 giorni di Starter.`,
         paidSubheading: "Controlli articolo illimitati, dati di rivendita EU in diretta — nessun passaggio aggiuntivo dopo questo.",
         paidHeading: "Attiva il tuo accesso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
@@ -2525,7 +2528,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, velocità per taglia",
           operator: "Verdetti illimitati, tutti i segnali, watchlist e P&L",
-          free: "Volumi settimanali pubblici su /data. Nessun controllo articolo anonimo.",
+          free: "Volumi settimanali pubblici su /data. I controlli articolo iniziano con la prova gratuita di 7 giorni di Starter.",
         },
         forever: "per sempre",
         perMonth: "/mese",
@@ -2542,7 +2545,7 @@ export const copy = {
         submitting: "Configurazione…",
         submit: "Crea account",
         paidSubmit: "Attiva accesso {plan} →",
-        freeNote: "Account gratuito e controlli gratuiti: nessuna carta. Prova gratuita di 7 giorni: carta richiesta, 0 € oggi, disdici quando vuoi.",
+        freeNote: "Account gratuito: nessuna carta. Prova gratuita di 7 giorni di Starter: carta richiesta, 0 € oggi, disdici quando vuoi.",
         paidNote: "Prossimo: pagina di pagamento Stripe. Nessun costo nascosto — annulla con un clic dalle Impostazioni account.",
         paidTrustNote: "Nessun addebito fino all'apertura di Stripe Checkout.",
         alreadyHaveAccount: "Hai già un account?",
@@ -2795,8 +2798,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATINGIDO",
       paywallHeadline: "Para de adivinhar quanto pagar no Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale a pena comprar ${item} no Vinted?`,
-      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} registos de anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
-      paywallBodyForItem: (item: string, tracked: string) => `Uma má compra de ${item} evitada cobre 2+ meses. ${tracked} registos de anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.`,
+      paywallBody: "{{TRACKED}} registos de anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato, para saberes o máximo a pagar antes de comprar. Starter 19 €/mês, cancela quando quiseres.",
+      paywallBodyForItem: (item: string, tracked: string) => `${tracked} registos de anúncios analisados — o veredicto COMPRAR/OBSERVAR/DESCARTAR e o preço de compra exato de ${item}. Starter 19 €/mês, cancela quando quiseres.`,
       paywallCta: (price: number) => `Desbloquear preço de compra — ${price} €/mês`,
       paywallLogin: "Já tens conta? Entra",
       confidenceLabel: "Confiança",
@@ -2835,7 +2838,7 @@ export const copy = {
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
         "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Order Planner e Price Compare são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso começa em ~2s após o pagamento — sem esperar por um e-mail.",
-      subhead: "Uma má compra cobre o custo. COMPRAR / OBSERVAR / DESCARTAR + o preço máximo de compra exato para cada artigo que verificas. Starter 19 €/mês.",
+      subhead: "O máximo a pagar, antes de comprar: COMPRAR / OBSERVAR / DESCARTAR + o preço máximo de compra exato para cada modelo que seguimos. Starter 19 €/mês.",
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
       coldCtaLadder: "Começa por 19 € →",
@@ -2854,7 +2857,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança.", cta: { text: "→ Experimenta uma verificação ao vivo agora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "costuma" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 20 artigos por mês a 15 € cada — a calculadora acima diz que bastam 2 más compras evitadas. Uma evitada num SKIP, uma aproveitada num BUY. Ajusta os controlos ao teu próprio volume." },
+        { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 60 artigos por mês a 20 € cada, cerca de 1.200 € de stock — a calculadora acima mostra que o Starter custa o mesmo que 1 má compra por mês: evita um artigo de 20 € e os 19 € ficam cobertos. É aritmética sobre os teus próprios números, não uma poupança prometida. Ajusta os controlos ao teu próprio volume." },
         { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes COMPRAR, OBSERVAR ou DESCARTAR com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando começa o acesso depois de pagar?", a: "No momento em que o Stripe confirma o teu pagamento — normalmente em menos de 2 segundos. Depois verificas um artigo real; Nike Air Force 1 já vem preenchido. Sem e-mail a aguardar. Se um erro de ligação interromper, inicia sessão em /login." },
@@ -2901,7 +2904,7 @@ export const copy = {
         features: [
           "Volumes semanais por marca e preços médios de saída em /data, sem conta.",
           "O manual de revenda, sem registo.",
-          "Não há buy-below anónimo ao nível do artigo.",
+          `Exemplos grátis, sem conta: ${freeSampleList("pt")}.`,
           "As verificações de artigos são Starter a 19 € por mês.",
         ],
         ceiling: "Não há plano grátis de verificação de artigos.",
@@ -2987,7 +2990,7 @@ export const copy = {
       },
       register: {
         heading: "Crie a sua conta",
-        subheading: "Os volumes semanais por marca continuam públicos em /data. As verificações de artigos precisam de um plano pago. Cancele quando quiser.",
+        subheading: `Experimente ${freeSampleList("pt")} grátis. Todos os outros modelos começam com o teste grátis de 7 dias do Starter.`,
         paidSubheading: "Verificações de artigos ilimitadas, dados de revenda EU em direto — sem passos adicionais depois disto.",
         paidHeading: "Ative o seu acesso {plan}.",
         planNames: { power: "Pro", operator: "Starter", free: "Free" },
@@ -2995,7 +2998,7 @@ export const copy = {
         planDesc: {
           power: "Order Planner, API, velocidade por tamanho",
           operator: "Veredictos ilimitados, todos os sinais, watchlist e P&L",
-          free: "Volumes semanais públicos em /data. Não há verificação anónima de artigo.",
+          free: "Volumes semanais públicos em /data. As verificações de artigos começam com o teste grátis de 7 dias do Starter.",
         },
         forever: "para sempre",
         perMonth: "/mês",
@@ -3012,7 +3015,7 @@ export const copy = {
         submitting: "A preparar…",
         submit: "Criar conta",
         paidSubmit: "Ativar acesso {plan} →",
-        freeNote: "Conta gratuita e verificações gratuitas: sem cartão. Teste gratuito de 7 dias: cartão necessário, 0 € hoje, cancela quando quiseres.",
+        freeNote: "Conta gratuita: sem cartão. Teste gratuito de 7 dias do Starter: cartão necessário, 0 € hoje, cancela quando quiseres.",
         paidNote: "A seguir: página de pagamento Stripe. Sem taxas escondidas — cancela com um clique nas Definições da conta.",
         paidTrustNote: "Sem cobrança até o Stripe Checkout abrir.",
         alreadyHaveAccount: "Já tem uma conta?",

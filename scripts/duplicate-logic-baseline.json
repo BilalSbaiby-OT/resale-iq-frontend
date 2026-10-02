@@ -5,5 +5,6 @@
   "src/app/category/page.tsx | src/app/flip/page.tsx",
   "src/app/data/page.tsx | src/app/manual/page.tsx",
   "src/app/flip/[brand]/[category]/page.tsx | src/app/flip/[brand]/page.tsx",
+  "src/components/landing/hero-free-chips.tsx | src/components/ui/verdict-upsell-cta.tsx",
   "src/lib/i18n.ts | src/lib/pricing.ts"
 ]

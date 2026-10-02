@@ -1,4 +1,5 @@
 import type { Locale } from "./i18n"
+import { FREE_SAMPLES } from "./free-samples.ts"
 
 /**
  * Logged-in checker (/verdict) — the first screen after Apple UX v1.
@@ -63,7 +64,7 @@ export type VerdictCopy = {
 export const verdictCopy: Record<Locale, VerdictCopy> = {
   en: {
     heading: "What should you pay?",
-    placeholder: "e.g. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `e.g. ${FREE_SAMPLES.join(", ")}`,
     check: "Check",
     checking: "Looking up watched departures…",
     errorGeneric: "We couldn't find enough comparable departures to finish that check. Try again, or a more specific model name.",
@@ -107,7 +108,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
   },
   fr: {
     heading: "Combien payer ?",
-    placeholder: "ex. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `ex. ${FREE_SAMPLES.join(", ")}`,
     check: "Vérifier",
     checking: "Recherche des départs observés…",
     errorGeneric: "Pas assez de départs comparables pour finir cette vérification. Réessayez, ou un modèle plus précis.",
@@ -151,7 +152,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
   },
   es: {
     heading: "¿Cuánto pagar?",
-    placeholder: "p. ej. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `p. ej. ${FREE_SAMPLES.join(", ")}`,
     check: "Consultar",
     checking: "Buscando salidas observadas…",
     errorGeneric: "No hay suficientes salidas comparables para terminar. Pruebe de nuevo o un modelo más concreto.",
@@ -195,7 +196,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
   },
   de: {
     heading: "Was sollen Sie zahlen?",
-    placeholder: "z. B. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `z. B. ${FREE_SAMPLES.join(", ")}`,
     check: "Prüfen",
     checking: "Beobachtete Abgänge werden geladen…",
     errorGeneric: "Nicht genug vergleichbare Abgänge für diese Prüfung. Noch einmal, oder ein genaueres Modell.",
@@ -239,7 +240,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
   },
   it: {
     heading: "Quanto pagare?",
-    placeholder: "es. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `es. ${FREE_SAMPLES.join(", ")}`,
     check: "Verifica",
     checking: "Ricerca delle uscite osservate…",
     errorGeneric: "Non ci sono abbastanza uscite comparabili. Riprova, o un modello più specifico.",
@@ -283,7 +284,7 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
   },
   pt: {
     heading: "Quanto deve pagar?",
-    placeholder: "ex. Adidas Samba, Nike Air Force 1, New Balance 530",
+    placeholder: `ex. ${FREE_SAMPLES.join(", ")}`,
     check: "Verificar",
     checking: "A procurar saídas observadas…",
     errorGeneric: "Não há saídas comparáveis suficientes. Tente de novo, ou um modelo mais específico.",

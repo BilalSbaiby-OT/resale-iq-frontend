@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url"
 import { test } from "node:test"
 import assert from "node:assert/strict"
 import { faqPageJsonLd, faqAnswerIsClean, definedTermJsonLd } from "./faq-schema.ts"
+import { FREE_SAMPLES, freeSampleList } from "./free-samples.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -229,9 +230,9 @@ test("English homepage ships 4 visible FAQs + FAQPage with no /register", () => 
   assert.match(home, /https:\/\/resaleiq\.dev\/tools/)
   assert.doesNotMatch(home, /\bUK\b/)
   assert.match(home, /Item checks start at €19/)
-  assert.match(home, /Adidas Samba/)
-  assert.match(home, /Nike Air Force 1/)
-  assert.match(home, /Fred Perry Polo/)
+  // The free-sample sentence is built from the ONE list (src/lib/free-samples.ts).
+  assert.match(home, /freeSampleList\("en"\)/)
+  for (const sample of FREE_SAMPLES) assert.ok(freeSampleList("en").includes(sample), `${sample} missing from the free list`)
   const faqBlock = home.slice(home.indexOf("const HOME_FAQS"), home.indexOf("export const metadata"))
   const questions = faqBlock.match(/\bq: "/g) ?? []
   assert.equal(questions.length, 4)

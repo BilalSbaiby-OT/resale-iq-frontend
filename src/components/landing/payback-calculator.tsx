@@ -4,6 +4,12 @@ import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import {
+  PAYBACK_DEFAULT_AVG_BUY_EUR,
+  PAYBACK_DEFAULT_ITEMS_PER_MONTH,
+  breakEvenItems,
+  monthlySpend,
+} from "@/lib/payback-defaults"
 
 /**
  * Answers the only question that decides a purchase: "will this make me more
@@ -149,16 +155,18 @@ export function PaybackCalculator({
    *  pricing cards next to it have stopped charging. */
   starterPrice?: number
 }) {
-  const [itemsPerMonth, setItems] = useState(20)
-  const [avgBuyPrice, setAvgBuy] = useState(15)
+  // Defaults live in src/lib/payback-defaults.ts (60 items x EUR 20 = EUR 1,200 a
+  // month) so the pricing FAQ that quotes them cannot drift from the sliders.
+  const [itemsPerMonth, setItems] = useState(PAYBACK_DEFAULT_ITEMS_PER_MONTH)
+  const [avgBuyPrice, setAvgBuy] = useState(PAYBACK_DEFAULT_AVG_BUY_EUR)
   const c = CALC_COPY[locale] ?? CALC_COPY.en
 
   const STARTER = starterPrice
   // Break-even expressed in items, which is the unit a reseller actually
-  // thinks in. Rounded UP so the claim is never flattering: at €15 an item,
-  // 19/15 = 1.27 becomes "2 items", not "1".
-  const breakEvenItems = Math.max(1, Math.ceil(STARTER / Math.max(avgBuyPrice, 1)))
-  const spendPerMonth = itemsPerMonth * avgBuyPrice
+  // thinks in. Rounded UP so the claim is never flattering: at €20 an item,
+  // 19/20 = 0.95 becomes "1 item"; at €15 it would be 19/15 = 1.27 -> "2 items".
+  const breakEven = breakEvenItems(STARTER, avgBuyPrice)
+  const spendPerMonth = monthlySpend(itemsPerMonth, avgBuyPrice)
   const costAsPctOfSpend = spendPerMonth > 0 ? (STARTER / spendPerMonth) * 100 : 0
 
   return (
@@ -208,7 +216,7 @@ export function PaybackCalculator({
           {c.costsSameAs}
         </div>
         <div style={{ fontSize: 40, fontWeight: 800, color: "var(--color-text-primary)", lineHeight: 1.1, letterSpacing: "-1px" }}>
-          {breakEvenItems} {breakEvenItems === 1 ? c.badItem : c.badItems}
+          {breakEven} {breakEven === 1 ? c.badItem : c.badItems}
         </div>
         <div style={{ fontSize: 13, color: "var(--color-text-secondary)", marginTop: 6 }}>
           {c.perMonth}

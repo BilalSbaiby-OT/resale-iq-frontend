@@ -8,6 +8,8 @@
 // zero customers, no Stripe price ever existed for it, nothing to provide
 // behind it right now. Removed rather than parked so nobody re-adds a tier
 // with no built entitlements behind it.
+import { freeSampleList } from "./free-samples.ts"
+
 export interface Tier {
   id: string
   name: string
@@ -90,7 +92,7 @@ export const TIERS: Tier[] = [
     features: [
       "Weekly brand volumes and average departure prices on /data, no account.",
       "The reselling manual, no signup.",
-      "No anonymous item-level buy-below.",
+      `Free samples, no account: ${freeSampleList("en")}.`,
       "Item checks are Starter at €19 a month.",
     ],
     ceiling: "There is no free item-check tier.",

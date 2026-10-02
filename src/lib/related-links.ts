@@ -198,7 +198,7 @@ function tidy(groups: RelatedGroup[], selfHref: string): RelatedGroup[] {
 }
 
 const NEXT_STEPS: RelatedLink[] = [
-  { href: "/tools", label: "Check any item free — BUY / WATCH / SKIP with a buy-below price" },
+  { href: "/tools", label: "Check a model — BUY / WATCH / SKIP with a buy-below price" },
   { href: "/data", label: "Live weekly brand volumes on Vinted (open data)" },
 ]
 
@@ -382,13 +382,13 @@ export function relatedHrefs(ref: RelatedRef): string[] {
 
 /**
  * Prominent "next step" links for the posts AI assistants send humans to:
- * free check (/tools), open data (/data) and the most relevant /flip pages.
+ * the checker (/tools), open data (/data) and the most relevant /flip pages.
  * Empty for every other post (they get the normal Related block only).
  */
 export function topLandingNextSteps(slug: string): RelatedLink[] {
   if (!TOP_AI_LANDING_SLUGS.includes(slug)) return []
   const out: RelatedLink[] = [
-    { href: "/tools", label: "Check any item free — BUY / WATCH / SKIP + buy-below price" },
+    { href: "/tools", label: "Check a model — BUY / WATCH / SKIP + buy-below price" },
     { href: "/data", label: "Live weekly Vinted brand volumes (open data)" },
   ]
   const brand = postBrand(slug)

@@ -40,6 +40,15 @@ import type { User } from "@/types"
  * refund request quotes back at us, and it also erases the difference between
  * the trial and the tiers we are asking people to pay for.
  *
+ * 2026-10-02: the "10 checks a day, 10 full unlocks a month" sentences are
+ * GONE from every free-state string below. HARD_PAYWALL is live: there is no
+ * free tier and no unlock allowance (the two config numbers above only govern
+ * views of the free samples). Free-state copy now says what is true: the free
+ * samples stay open, every other model starts with Starter's 7-day free trial
+ * (card required, EUR 0 today). Whether `trial` / `trial_pending` should exist
+ * at all while the DB reverse-trial grants no access (api/auth.py
+ * _is_trial_active) is a backend/entitlement decision, not a copy one.
+ *
  * `trial_pending` exists because trial_ends_at stays NULL until email
  * confirmation (api/auth.py:630 _start_trial_if_unset). A lapsed trial and a
  * trial that never started are both plan=free/trial_active=false, and telling
@@ -89,15 +98,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Starter trial",
-      sub: n => `${n === 1 ? "1 day" : `${n} days`} of full Starter left — Deal Scanner, plus 5 live finds and 1 order plan for the whole trial. Then 10 checks a day and 10 full unlocks a month.`,
+      sub: n => `${n === 1 ? "1 day" : `${n} days`} of full Starter left — Deal Scanner, plus 5 live finds and 1 order plan for the whole trial. Then choose a plan to keep going.`,
     },
     trial_lapsed: {
       chip: "Free",
-      sub: "Trial over — 10 checks a day, and 10 full unlocks a month.",
+      sub: "Trial over — choose a plan to keep checking models. The free samples stay open.",
     },
     trial_pending: {
       chip: "Free",
-      sub: "10 checks a day, and 10 full unlocks a month. Confirm your email to start 7 days of full Starter.",
+      sub: "Confirm your email so account mail reaches you. The free samples stay open; every other model starts with Starter's 7-day free trial.",
     },
   },
   fr: {
@@ -111,15 +120,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Essai Starter",
-      sub: n => `Il reste ${n === 1 ? "1 jour" : `${n} jours`} de Starter complet — Deal Scanner, plus 5 recherches live et 1 plan de commande pour tout l'essai. Ensuite : 10 vérifications par jour et 10 déblocages complets par mois.`,
+      sub: n => `Il reste ${n === 1 ? "1 jour" : `${n} jours`} de Starter complet — Deal Scanner, plus 5 recherches live et 1 plan de commande pour tout l'essai. Ensuite, choisissez un plan pour continuer.`,
     },
     trial_lapsed: {
       chip: "Gratuit",
-      sub: "Essai terminé — 10 vérifications par jour et 10 déblocages complets par mois.",
+      sub: "Essai terminé — choisissez un plan pour continuer à vérifier des modèles. Les exemples gratuits restent ouverts.",
     },
     trial_pending: {
       chip: "Gratuit",
-      sub: "10 vérifications par jour et 10 déblocages complets par mois. Confirmez votre e-mail pour démarrer 7 jours de Starter complet.",
+      sub: "Confirmez votre e-mail pour recevoir les messages du compte. Les exemples gratuits restent ouverts ; tous les autres modèles commencent par l'essai gratuit de 7 jours de Starter.",
     },
   },
   es: {
@@ -133,15 +142,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Prueba Starter",
-      sub: n => `${n === 1 ? "Queda 1 día" : `Quedan ${n} días`} de Starter completo — Deal Scanner, más 5 búsquedas en vivo y 1 plan de pedido para toda la prueba. Después: 10 comprobaciones al día y 10 desbloqueos completos al mes.`,
+      sub: n => `${n === 1 ? "Queda 1 día" : `Quedan ${n} días`} de Starter completo — Deal Scanner, más 5 búsquedas en vivo y 1 plan de pedido para toda la prueba. Después, elige un plan para seguir.`,
     },
     trial_lapsed: {
       chip: "Gratis",
-      sub: "Prueba terminada — 10 comprobaciones al día y 10 desbloqueos completos al mes.",
+      sub: "Prueba terminada — elige un plan para seguir comprobando modelos. Los ejemplos gratis siguen abiertos.",
     },
     trial_pending: {
       chip: "Gratis",
-      sub: "10 comprobaciones al día y 10 desbloqueos completos al mes. Confirma tu correo para empezar 7 días de Starter completo.",
+      sub: "Confirma tu correo para recibir los mensajes de la cuenta. Los ejemplos gratis siguen abiertos; los demás modelos empiezan con la prueba gratuita de 7 días de Starter.",
     },
   },
   de: {
@@ -155,15 +164,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Starter-Test",
-      sub: n => `Noch ${n === 1 ? "1 Tag" : `${n} Tage`} vollständiges Starter — Deal Scanner, dazu 5 Live-Suchen und 1 Bestellplan für die gesamte Testphase. Danach: 10 Prüfungen pro Tag und 10 vollständige Freischaltungen im Monat.`,
+      sub: n => `Noch ${n === 1 ? "1 Tag" : `${n} Tage`} vollständiges Starter — Deal Scanner, dazu 5 Live-Suchen und 1 Bestellplan für die gesamte Testphase. Danach wähle einen Tarif, um weiterzumachen.`,
     },
     trial_lapsed: {
       chip: "Kostenlos",
-      sub: "Testphase beendet — 10 Prüfungen pro Tag und 10 vollständige Freischaltungen im Monat.",
+      sub: "Testphase beendet — wähle einen Tarif, um weiter Modelle zu prüfen. Die kostenlosen Beispiele bleiben offen.",
     },
     trial_pending: {
       chip: "Kostenlos",
-      sub: "10 Prüfungen pro Tag und 10 vollständige Freischaltungen im Monat. Bestätige deine E-Mail-Adresse, um 7 Tage vollständiges Starter zu starten.",
+      sub: "Bestätige deine E-Mail-Adresse, damit dich Konto-Mails erreichen. Die kostenlosen Beispiele bleiben offen; alle anderen Modelle starten mit der 7-tägigen kostenlosen Testphase von Starter.",
     },
   },
   it: {
@@ -177,15 +186,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Prova Starter",
-      sub: n => `${n === 1 ? "Resta 1 giorno" : `Restano ${n} giorni`} di Starter completo — Deal Scanner, più 5 ricerche live e 1 piano d'ordine per tutta la prova. Poi: 10 controlli al giorno e 10 sblocchi completi al mese.`,
+      sub: n => `${n === 1 ? "Resta 1 giorno" : `Restano ${n} giorni`} di Starter completo — Deal Scanner, più 5 ricerche live e 1 piano d'ordine per tutta la prova. Poi scegli un piano per continuare.`,
     },
     trial_lapsed: {
       chip: "Gratis",
-      sub: "Prova terminata — 10 controlli al giorno e 10 sblocchi completi al mese.",
+      sub: "Prova terminata — scegli un piano per continuare a controllare i modelli. Gli esempi gratuiti restano aperti.",
     },
     trial_pending: {
       chip: "Gratis",
-      sub: "10 controlli al giorno e 10 sblocchi completi al mese. Conferma la tua email per iniziare 7 giorni di Starter completo.",
+      sub: "Conferma la tua email per ricevere i messaggi dell'account. Gli esempi gratuiti restano aperti; tutti gli altri modelli iniziano con la prova gratuita di 7 giorni di Starter.",
     },
   },
   pt: {
@@ -199,15 +208,15 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
     },
     trial: {
       chip: "Teste Starter",
-      sub: n => `${n === 1 ? "Falta 1 dia" : `Faltam ${n} dias`} de Starter completo — Deal Scanner, mais 5 pesquisas em direto e 1 plano de encomenda para todo o teste. Depois: 10 verificações por dia e 10 desbloqueios completos por mês.`,
+      sub: n => `${n === 1 ? "Falta 1 dia" : `Faltam ${n} dias`} de Starter completo — Deal Scanner, mais 5 pesquisas em direto e 1 plano de encomenda para todo o teste. Depois, escolhe um plano para continuar.`,
     },
     trial_lapsed: {
       chip: "Gratuito",
-      sub: "Teste terminado — 10 verificações por dia e 10 desbloqueios completos por mês.",
+      sub: "Teste terminado — escolhe um plano para continuares a verificar modelos. Os exemplos grátis continuam abertos.",
     },
     trial_pending: {
       chip: "Gratuito",
-      sub: "10 verificações por dia e 10 desbloqueios completos por mês. Confirma o teu email para começar 7 dias de Starter completo.",
+      sub: "Confirma o teu email para receberes as mensagens da conta. Os exemplos grátis continuam abertos; todos os outros modelos começam com o teste grátis de 7 dias do Starter.",
     },
   },
 }

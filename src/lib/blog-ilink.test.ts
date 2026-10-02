@@ -177,8 +177,10 @@ test("target post titles, metas and H1s are SERP-length safe", () => {
   assert.match(posts, /seoTitle: "How to Price Items on Vinted \(2026 Data\)"/)
   assert.match(
     posts,
-    /Price from real departure averages, not retail/,
+    /How to price a Vinted item: Stone Island hoodies leave at ~EUR52, Fred Perry shirts ~EUR15\. Price just under the departure average, not off the retail tag\./,
   )
+  // 2026-10-02: no free-check promise in a meta description (only the three free samples are free).
+  assert.doesNotMatch(posts, /description: "[^"]*(Free check|Check any item free)/)
   assert.match(posts, /title: "How to Find Vinted Flips in 2026 — Start From Demand, Not Scroll"/)
   assert.match(posts, /seoTitle: "How to Find Items to Flip on Vinted \(2026\)"/)
   assert.match(posts, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)

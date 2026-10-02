@@ -59,13 +59,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { localizeDemandNote } from "@/lib/verdict-words"
 import { buyBelowFromAvg } from "@/lib/buy-below"
-
-/** Three public sample queries — full verdicts, no account, no paywall. */
-const FREE_SAMPLES: { label: string; q: string }[] = [
-  { label: "Nike Air Force 1", q: "Nike Air Force 1" },
-  { label: "Adidas Samba", q: "Adidas Samba" },
-  { label: "Fred Perry Polo", q: "Fred Perry Polo" },
-]
+import { FREE_SAMPLE_CHIPS } from "@/lib/free-samples"
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
 
@@ -597,9 +591,9 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
         }}
       >
         <span style={{ fontSize: 12, color: "#5b6b8c", whiteSpace: "nowrap" }}>
-          Or try free live examples:
+          Or try a free sample:
         </span>
-        {FREE_SAMPLES.map(({ label, q: sampleQ }) => (
+        {FREE_SAMPLE_CHIPS.map(({ label, q: sampleQ }) => (
           <button
             key={sampleQ}
             type="button"

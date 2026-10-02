@@ -7,7 +7,8 @@ import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
-import { FREE_MODELS } from "./working-models.ts"
+import { FREE_SAMPLES } from "./free-samples.ts"
+import { support } from "./support-copy.ts"
 import { TRIAL_LIMITS_SENTENCE, TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "./trial-copy.ts"
 import type { Locale } from "./i18n.ts"
 
@@ -15,7 +16,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const read = (rel: string) => readFileSync(join(root, rel), "utf8")
 
 test("trial-copy names all three free models, including Fred Perry Polo", () => {
-  for (const model of FREE_MODELS) {
+  for (const model of FREE_SAMPLES) {
     assert.match(TRIAL_LIMITS_SENTENCE, new RegExp(model))
   }
   const locales: Locale[] = ["en", "fr", "es", "de", "it", "pt"]
@@ -26,11 +27,17 @@ test("trial-copy names all three free models, including Fred Perry Polo", () => 
   }
 })
 
-test("support FAQ names all three free models", () => {
+test("support FAQ names all three free models and the 7-day trial, in every locale", () => {
   const src = read("lib/support-copy.ts")
   assert.match(src, /three models/)
-  assert.match(src, /Fred Perry Polo/)
   assert.doesNotMatch(src, /Yes for two models/)
+  // The sentence is built from the one list, so assert on the rendered copy.
+  for (const locale of ["en", "fr", "es", "de", "it", "pt"] as const) {
+    const answer = support(locale).faq("x").find((f) => /free|gratuit|gratis|kostenlos|gratuito|grátis/i.test(f[0]))
+    assert.ok(answer, `${locale} support FAQ must have the free plan or trial question`)
+    for (const model of FREE_SAMPLES) assert.ok(answer[1].includes(model), `${locale} support FAQ omits ${model}`)
+    assert.match(answer[1], /\b7\b/, `${locale} support FAQ must mention the 7-day trial`)
+  }
 })
 
 test("brand rankings never label sold_7d as sample size n", () => {

@@ -148,7 +148,7 @@ export default function BuyHubPage() {
             href="/tools"
             style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 24px", borderRadius: 9, textDecoration: "none" }}
           >
-            Check an item free →
+            Check an item →
           </Link>
         </div>
 
