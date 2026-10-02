@@ -436,7 +436,7 @@ const research: Table = {
       },
       {
         q: "Is sell-through on the research pages?",
-        a: "No. Sell-through is withheld on public pages while discovery is noisy. You get raw watched departures and still-listed counts. Definition: https://resaleiq.dev/glossary/vinted-sell-through.",
+        a: "No. Sell-through is withheld on public pages while discovery is noisy. You get raw watched departures, with the still-listed count where it is on the same footing. Definition: https://resaleiq.dev/glossary/vinted-sell-through.",
       },
       {
         q: "Which markets?",

@@ -7,8 +7,9 @@ import {
   BUY_DATA,
   getBuyBrand,
   BUY_BATCH1_SLUGS,
+  buyDataDate,
   fmtEurBuy,
-  fmtCountBuy,
+  fmtDeparturesBuy,
   signalDisplay,
   catSlug,
 } from "@/lib/buy-data"
@@ -39,9 +40,9 @@ async function generateMetadataRaw({
   const topCat = brand.categories[0]
   const title = `${brand.brand} Resale Buy-Below Prices — What to Pay | ResaleIQ`
   const description =
-    `${brand.brand} had ${fmtCountBuy(brand.sold_30d)} departures in the last 30 days across Vinted. ` +
+    `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across Vinted. ` +
     `Buy-below for ${topCat?.category ?? "top items"}: ${topCat?.buy_below ? fmtEurBuy(topCat.buy_below) : "see below"}. ` +
-    `Real sold-through data — not supply counts.`
+    `Watched departures — not supply counts.`
 
   return {
     title,
@@ -67,11 +68,11 @@ export default async function BuyBrandPage({
   const topCat = batch1Cats[0] ?? brand.categories[0]
   const sig = signalDisplay(topCat?.signal ?? null)
 
-  const intro = `${brand.brand} had an estimated ${fmtCountBuy(brand.sold_30d)} departures in the last 30 days across Spain, France, Germany, Italy and Portugal. ` +
-    `The best-performing category is ${topCat?.category ?? "—"}, ` +
+  const intro = `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across Spain, France, Germany, Italy and Portugal (watched departures, not confirmed sales). ` +
+    `The category with the most watched departures is ${topCat?.category ?? "—"}, ` +
     (topCat?.buy_below
-      ? `where the buy-below price is ${fmtEurBuy(topCat.buy_below)} (items selling for more at auction tend to yield lower margins — the buy-below is the most you should pay to hit a ~45% gross margin after Vinted fees and postage).`
-      : `with data from multiple snapshots. Buy-below prices are derived from average departure prices.`)
+      ? `where the buy-below price is ${fmtEurBuy(topCat.buy_below)} — the most you should pay to keep a 30% margin.`
+      : `with data from multiple snapshots. Buy-below prices are derived from average prices at departure.`)
 
   const jsonLd = [
     {
@@ -88,10 +89,10 @@ export default async function BuyBrandPage({
         },
         {
           "@type": "Question",
-          name: `How many ${brand.brand} items sell on Vinted each month?`,
+          name: `How many ${brand.brand} items leave the shelf on Vinted each month?`,
           acceptedAnswer: {
             "@type": "Answer",
-            text: `${brand.brand} had approximately ${fmtCountBuy(brand.sold_30d)} listings leave the shelf in the last 30 days across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). This is confirmed sales, not active listings — supply counts are not demand.`,
+            text: `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`,
           },
         },
         {
@@ -100,8 +101,8 @@ export default async function BuyBrandPage({
           acceptedAnswer: {
             "@type": "Answer",
             text: topCat?.signal
-              ? `The demand signal for ${brand.brand} ${topCat.category} is ${topCat.signal} based on sell-through rate, listing saturation and departure momentum. ${topCat.avg_days_to_sell != null ? `Items sell in about ${topCat.avg_days_to_sell} days on average.` : ""} Check a specific model for a BUY / WATCH / SKIP verdict on the exact item you are considering.`
-              : `${brand.brand} has ${brand.categories.length} tracked categories with confirmed sales data. Use the free checker to get a verdict on a specific model.`,
+              ? `The demand signal for ${brand.brand} ${topCat.category} is ${topCat.signal} based on sell-through rate, listing saturation and departure momentum. Check a specific model for a BUY / WATCH / SKIP verdict on the exact item you are considering.`
+              : `${brand.brand} has ${brand.categories.length} tracked categories with watched-departure data. Use the free checker to get a verdict on a specific model.`,
           },
         },
       ],
@@ -140,8 +141,8 @@ export default async function BuyBrandPage({
         {/* Hero stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
-            [fmtCountBuy(brand.sold_30d), "departures / 30 days"],
-            [fmtEurBuy(brand.avg_price_eur), "avg price at exit"],
+            [fmtDeparturesBuy(brand.sold_30d), "left the shelf / 30 days"],
+            [fmtEurBuy(brand.avg_price_eur), "avg price at departure"],
             [String(brand.categories.length), "categories tracked"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
@@ -157,9 +158,9 @@ export default async function BuyBrandPage({
             {brand.brand} buy-below by category
           </h2>
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
-            Buy-below is the maximum you should pay to achieve a ~45% gross margin after Vinted&apos;s
-            selling fee and postage. It is derived from the average departure price — not from listed asking
-            prices, which are wishes not facts. Use the free checker for a model-level verdict.
+            Buy-below is the maximum you should pay to keep a 30% margin. It is derived from the average
+            price at departure — not from listed asking prices, which are wishes not facts. Use the free
+            checker for a model-level verdict.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -180,8 +181,7 @@ export default async function BuyBrandPage({
                     <div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: "#eef1f7" }}>{cat.category}</div>
                       <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
-                        {fmtCountBuy(cat.sold_30d)} sold / 30d
-                        {cat.avg_days_to_sell != null && ` · ${cat.avg_days_to_sell}d to sell`}
+                        {fmtDeparturesBuy(cat.sold_30d)} left the shelf / 30d
                       </div>
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -216,7 +216,7 @@ export default async function BuyBrandPage({
             The buy-below is a starting point. Category demand tells you the category moves. It does not tell
             you whether <em>this</em> size, in <em>this</em> condition, at <em>this</em> exact listing price
             will move. The model-level checker fills that gap: it returns a BUY / WATCH / SKIP verdict with
-            the buy-below for the specific model, the typical price at departure, and the sizes that sell fastest.
+            the buy-below for the specific model, the typical price at departure, and the sizes that leave the shelf fastest.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
             A strong buy-below on a {topCat?.category ?? "category"} means little if you pay above it.

@@ -33,7 +33,8 @@ import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
 import { collectVerdictMetrics, hasVerdictIntelligence, type ReconstructedSignals } from "@/lib/verdict-intelligence"
 import { formatStrPctString } from "@/lib/str-pct"
-import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
+import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote, localizeDemandNote } from "@/lib/verdict-words"
+import { departureDisplay, departureLabel, departurePairPrintable } from "@/lib/departure-display"
 import { trackEvent } from "@/lib/analytics"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
@@ -296,7 +297,8 @@ function blogModeCtaLabel(product: string | undefined | null): string | null {
  * to run a second check. Each row is clickable and fires that item's query.
  *
  * Design rules:
- * - demand_note is backend-owned copy — never substitute "30 days" for "weekly".
+ * - the 30-day count is worded by the departure lexicon from alt.sold_30d (never the
+ *   backend's English demand_note prose) — never substitute "30 days" for "weekly".
  * - avg_price_eur is the honest exit price — label it, never claim it is buy-below.
  * - buy_below_locked:true means the buy-below price is paid-only — show lock,
  *   never leak the number or show a blurred/fake value.
@@ -372,8 +374,8 @@ function VerdictAlternatives({
                 {alt.brand} {alt.model}
               </span>
               <span style={{ fontSize: 11.5, color: "#8FA3C4" }}>
-                {/* demand_note is backend-owned: "371 sold in 30 days" — never relabel as weekly */}
-                {t.alternativesDemand(alt.demand_note)}
+                {/* Worded from the count by the departure lexicon: "371 left the shelf in 30 days" — never relabel as weekly */}
+                {departureLabel(alt.sold_30d, "30d", locale)}
               </span>
             </div>
             {/* Right: avg price + lock on buy-below */}
@@ -601,7 +603,19 @@ export function FreeChecker({
   const sold = res?.sold_7d
   const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
-  const intel = res ? collectVerdictMetrics(res) : []
+  // The "still listed" tile is only shown beside a departure count it can be
+  // compared with (departure-display.ts: n >= 30 and at most 500 listed per
+  // departure). A handful of departures set against a six-figure listing count
+  // reads as a supply glut; it is really a slice of a shelf.
+  const intel = (res ? collectVerdictMetrics(res) : []).filter(
+    (row) => row.id !== "active_listings" || departurePairPrintable(res?.sold_7d, row.numeric),
+  )
+  const intelValue = (row: (typeof intel)[number]): string =>
+    row.id === "buy_below" || row.id === "sell_avg"
+      ? money(row.numeric)
+      : row.id === "sold_7d"
+        ? departureDisplay(row.numeric, locale).text
+        : fmtCount(row.numeric)
   const hasIntel = res ? hasVerdictIntelligence(res) : false
   // Gated / present / genuinely unmeasured — three states, never collapsed
   // into one dash. See src/lib/locked-fields.ts.
@@ -856,7 +870,7 @@ export function FreeChecker({
 
               <p style={{ fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.55, marginBottom: 12 }}>
                 {res.live_listings_total != null
-                  ? `${res.live_listings_total.toLocaleString("en-GB")} live listings on Vinted EU, almost none leaving the shelf in the last 7 days. Heavy supply with no departures means slow resale and price pressure.`
+                  ? `${res.live_listings_total.toLocaleString("en-GB")} live listings on Vinted EU, and very few of the listings we watched left the shelf in the last 7 days. Heavy supply with few departures can mean slow resale and price pressure.`
                   : res.message}
               </p>
 
@@ -878,7 +892,14 @@ export function FreeChecker({
                         fontSize: 12, color: "var(--color-text-secondary)",
                         fontFamily: "ui-monospace, 'SF Mono', monospace",
                       }}>
-                        {c.live_listings.toLocaleString("en-GB")} listed · {money(c.avg_price_eur)} · sold {c.departures_7d.toLocaleString("en-GB")} this week
+                        {[
+                          `${c.live_listings.toLocaleString("en-GB")} listed`,
+                          money(c.avg_price_eur),
+                          // Departures sit beside a six-figure listing count here, so
+                          // they print only when they clear the display floor and the
+                          // pair is on the same footing; never "sold".
+                          departurePairPrintable(c.departures_7d, c.live_listings) ? departureLabel(c.departures_7d, "7d", "en") : null,
+                        ].filter(Boolean).join(" · ")}
                       </span>
                     </div>
                   ))}
@@ -894,7 +915,7 @@ export function FreeChecker({
                   fontSize: 14, fontWeight: 600, textDecoration: "none",
                 }}
               >
-                See what IS selling this week →
+                See what&apos;s leaving the shelf this week →
               </a>
               {/* C212: OVERSUPPLIED was a conversion dead end — visitor just got
                   real value (told NOT to stock something) then had no path to
@@ -947,7 +968,8 @@ export function FreeChecker({
                     >
                       <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>{a.category}</span>
                       <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
-                        {money(a.avg_price_eur)} {t.avg} · {t.leftShelfCount(fmtCount(a.sold_7d))}
+                        {money(a.avg_price_eur)} {t.avg}
+                        {departureDisplay(a.sold_7d, locale).kind === "hidden" ? "" : ` · ${t.leftShelfCount(departureDisplay(a.sold_7d, locale, { compact: true }).text)}`}
                       </span>
                     </div>
                   ))}
@@ -1048,7 +1070,7 @@ export function FreeChecker({
                     <AnswerRow
                       key={row.id}
                       label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : t.stillListed}
-                      value={row.id === "buy_below" || row.id === "sell_avg" ? money(row.numeric) : fmtCount(row.numeric)}
+                      value={intelValue(row)}
                     />
                   ))}
                 </div>
@@ -1065,9 +1087,9 @@ export function FreeChecker({
 
               {/* D-38: 30-day demand evidence — shown when weekly shelf departures
                   are not yet observable but the model was admitted on 30d sales.
-                  This is NOT weekly departures. Label is distinct: "88 sold in 30 days". */}
-              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && res.demand_note && (
-                <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.demand_note}</p>
+                  This is NOT weekly departures. Label is distinct: "88 left the shelf over 30 days in our sample". */}
+              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && localizeDemandNote(res.demand_note, locale) && (
+                <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{localizeDemandNote(res.demand_note, locale)}</p>
               )}
 
               {shownCategory && (
@@ -1159,7 +1181,7 @@ export function FreeChecker({
                   {intel.filter((r) => r.id === "buy_below").map((r) => (
                     <AnswerRow key="buy" label={t.buyBelow} value={money(r.numeric)} />
                   ))}
-                  {sold != null && <AnswerRow label={t.leftShelf} value={fmtCount(sold)} />}
+                  {sold != null && <AnswerRow label={t.leftShelf} value={departureDisplay(sold, locale).text} />}
                   {strState === "value" ? (
                     <AnswerRow label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                   ) : strState === "locked" ? (
@@ -1193,7 +1215,7 @@ export function FreeChecker({
                   <Stat
                     key={row.id}
                     label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : row.id === "active_listings" ? t.stillListed : row.id === "comps" ? t.stillListed : row.id === "n" ? "n" : t.buyBelow}
-                    value={row.id === "buy_below" || row.id === "sell_avg" ? money(row.numeric) : fmtCount(row.numeric)}
+                    value={intelValue(row)}
                     accent={row.id === "buy_below" ? "#34C759" : undefined}
                   />
                 ))}
@@ -1258,8 +1280,8 @@ export function FreeChecker({
               )}
 
               {/* D-38: 30-day demand evidence for shelf-blind models. NOT weekly departures. */}
-              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && res.demand_note && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.55 }}>{res.demand_note}</p>
+              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && localizeDemandNote(res.demand_note, locale) && (
+                <p style={{ marginTop: 10, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.55 }}>{localizeDemandNote(res.demand_note, locale)}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has

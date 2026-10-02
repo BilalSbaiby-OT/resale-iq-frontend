@@ -57,6 +57,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { localizeDemandNote } from "@/lib/verdict-words"
 
 /** Three public sample queries — full verdicts, no account, no paywall. */
 const FREE_SAMPLES: { label: string; q: string }[] = [
@@ -280,9 +281,9 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
       </div>
 
       {/* Demand note */}
-      {result.demand_note && (
+      {localizeDemandNote(result.demand_note, locale) && (
         <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
-          {result.demand_note}
+          {localizeDemandNote(result.demand_note, locale)}
         </p>
       )}
 

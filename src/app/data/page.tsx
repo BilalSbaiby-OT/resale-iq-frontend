@@ -12,6 +12,7 @@ import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { dataChrome, dataFaqs } from "@/data/seo-data-copy"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
+import { departureDisplay } from "@/lib/departure-display"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { HeroFreeChips } from "@/components/landing/hero-free-chips"
@@ -76,7 +77,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
       "@type": "Dataset",
       name: "Vinted Resale Market Snapshot",
       description:
-        `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
+        `Weekly watched departures (listings that left the shelf in our sample) and average price at departure by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
       url: "https://resaleiq.dev/data",
       creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
       license: "https://resaleiq.dev/legal",
@@ -85,8 +86,8 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
       spatialCoverage: "Spain, France, Germany, Italy, Portugal",
       ...(market.updatedAt ? { dateModified: new Date(market.updatedAt).toISOString() } : {}),
       variableMeasured: [
-        { "@type": "PropertyValue", name: "units sold (7 days)" },
-        { "@type": "PropertyValue", name: "average sale price (EUR)" },
+        { "@type": "PropertyValue", name: "watched departures (7 days)" },
+        { "@type": "PropertyValue", name: "average price at departure (EUR)" },
         { "@type": "PropertyValue", name: "top categories" },
       ],
     },
@@ -263,7 +264,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
                       })()}
                     </td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace" }}>
-                      {fmtCount(b.sold_7d)}
+                      {departureDisplay(b.sold_7d, locale).text}
                     </td>
                     <td style={{ padding: "11px 14px", fontFamily: "monospace", color: "var(--color-buy)" }}>{fmtEur(b.avg_price_eur)}</td>
                     <td className="riq-data-cats" style={{ padding: "11px 14px", color: "#8b99b8" }}>{b.top_categories.join(", ")}</td>

@@ -1,4 +1,5 @@
 import type { MarketNumbers } from "./market-numbers.ts"
+import { departureDisplay, departureIsPrintable } from "./departure-display.ts"
 
 /**
  * Live 2-sentence opening for /blog/what-sells-best-on-vinted.
@@ -54,19 +55,21 @@ export function liveSellsBestIntro(market: MarketNumbers): LiveSellsBestIntro | 
   const second = categoriesRanked[1]
 
   const topPair = [...pairs].sort((a, b) => b.sold_7d - a.sold_7d)[0]
+  // Display floor: never lead a sentence with a count that is not printable.
+  if (!departureIsPrintable(topCategorySold) || !departureIsPrintable(topPair.sold_7d)) return null
 
   const date = new Date(market.updatedAt).toISOString().slice(0, 10)
   const brandCount = market.brandCount
 
   const sentence1 =
     `As of ${date}, ${topCategory} is the busiest category on Vinted across the 5 EU markets Resale IQ tracks ` +
-    `(Spain, France, Germany, Italy, Portugal): ${topCategorySold.toLocaleString("en-GB")} watched departures ` +
+    `(Spain, France, Germany, Italy, Portugal): ${departureDisplay(topCategorySold).text} watched departures ` +
     `in the trailing 7 days across ${brandCount} tracked brands` +
-    (second ? ` — ahead of ${second[0]} (${second[1].toLocaleString("en-GB")}).` : ".")
+    (second && departureIsPrintable(second[1]) ? ` — ahead of ${second[0]} (${departureDisplay(second[1]).text}).` : ".")
 
   const sentence2 =
     `The single busiest brand/category pair is ${topPair.brand} ${topPair.category}: ` +
-    `${topPair.sold_7d.toLocaleString("en-GB")} watched departures in 7 days` +
+    `${departureDisplay(topPair.sold_7d).text} watched departures in 7 days` +
     (topPair.avg_price_eur != null ? `, averaging €${Math.round(topPair.avg_price_eur)}.` : ".")
 
   return {

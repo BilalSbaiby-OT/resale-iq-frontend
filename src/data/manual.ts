@@ -227,7 +227,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     title: "Sell-through rate versus volume: reading demand properly",
     seoTitle: "Sell-Through Rate vs Volume — The Vinted Reselling Manual",
     description:
-      "Why a category selling thousands of units a week can still be a bad place to put your money, and how to tell demand from saturation.",
+      "Why a category with a high weekly departure count can still be a bad place to put your money, and how to tell demand from saturation.",
     minutes: 7,
     intro:
       "Volume tells you buyers exist. Sell-through tells you whether they will get to your listing. These are different questions, and the second one is the one that determines how long your money sits still.",
@@ -235,7 +235,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       {
         h2: "The two numbers and what each one hides",
         body: [
-          "Weekly sales volume is a count of what we watched leave the shelf. It is the number every brand page and category ranking leads with, and it is genuinely useful — a category with almost no departures is a category you should not be sourcing in, full stop.",
+          "Weekly departure volume is a count of what we watched leave the shelf. It is the number every brand page and category ranking leads with, and it is genuinely useful — a category with almost no departures is a category you should not be sourcing in, full stop.",
           "But volume says nothing about supply. A thousand departures a week against two thousand active listings is a healthy market. A thousand departures a week against forty thousand active listings is a graveyard where your item is buried on page nineteen. Sell-through — departures measured against the standing inventory — is what separates those two cases, and they look identical if you only read volume.",
         ],
         callout: {
@@ -574,8 +574,8 @@ export const CHAPTERS_1: ManualChapter[] = [
       {
         h2: "How much condition is actually worth",
         body: [
-          "We took sold listings on Vinted Spain and grouped them by the condition the seller selected. The gap between the top and bottom grade is not a rounding error — across the categories we checked, the best grade sold for roughly three and a half to seven times the worst.",
-          "Nike sneakers are the clearest example. Median sold price ran about €70 new with tags, €50 new without tags, €30 very good, €15 good, and €10 satisfactory. Adidas sneakers showed nearly the same shape, from about €55 down to €8. Levi's jeans compressed into a narrower band — roughly €40 down to €10 — and Zara jackets narrower still.",
+          "We took listings that left the shelf on Vinted Spain and grouped them by the condition the seller selected. The gap between the top and bottom grade is not a rounding error — across the categories we checked, the best grade left at roughly three and a half to seven times the asking price of the worst.",
+          "Nike sneakers are the clearest example. Median asking price at departure ran about €70 new with tags, €50 new without tags, €30 very good, €15 good, and €10 satisfactory. Adidas sneakers showed nearly the same shape, from about €55 down to €8. Levi's jeans compressed into a narrower band — roughly €40 down to €10 — and Zara jackets narrower still.",
           "Two things fall out of that. First, the drop from \"very good\" to \"good\" is brutal: on Nike sneakers it halved the median. One grade of honesty costs a lot, which is exactly why sellers over-grade and why you must not pay their grade's price without checking. Second, deadstock with tags carries a real premium — it is often the only condition where a premium buy price is justified.",
         ],
         callout: {
@@ -627,7 +627,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       },
     ],
     takeaways: [
-      "Condition is the biggest measurable price variable: best grade sold for ~3.5–7× the worst across the categories we checked.",
+      "Condition is the biggest measurable price variable: the best grade left the shelf at ~3.5–7× the asking price of the worst across the categories we checked.",
       "The very-good to good step alone halved the median on Nike sneakers. Never pay a grade's price without verifying the grade.",
       "Grade before paying, in daylight, to a fixed routine — and write it down immediately.",
       "Washable defects are an opportunity; repairable ones rarely pay for the repair.",

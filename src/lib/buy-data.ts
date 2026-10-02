@@ -7,8 +7,15 @@
  *
  * Rule: every number on these pages must come from this file or the live
  * market-snapshot API. No fabrication, no supply-as-demand confusion.
+ *
+ * WORDING: `sold_30d` is a count of listings we WATCHED LEAVE THE SHELF in the
+ * 30 days to `generated_at` — a watched departure, never a confirmed sale and
+ * never "sold". Days-to-sell is not published (the engine withholds it
+ * product-wide); `avg_days_to_sell` stays in the export but no page prints it.
+ * Counts go through fmtDeparturesBuy() so the display floor applies here too.
  */
 import raw from "@/data/buy-data.json"
+import { departureDisplay } from "./departure-display.ts"
 
 export interface BuyCategory {
   category: string
@@ -151,6 +158,27 @@ export function fmtEurBuy(n: number | null): string {
 export function fmtCountBuy(n: number | null): string {
   if (n == null) return "—"
   return n.toLocaleString("en-GB")
+}
+
+/** A 30-day watched-departure count through the display floor (—, "Fewer than 10", digits). */
+export function fmtDeparturesBuy(n: number | null): string {
+  return departureDisplay(n).text
+}
+
+const BUY_MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+]
+
+/**
+ * "22 September 2026" — the export date. Every sentence that prints a 30-day
+ * count says "in the 30 days to <this>", because the export is a dated
+ * snapshot, not a live figure.
+ */
+export function buyDataDate(): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(BUY_DATA.generated_at)
+  if (!m) return BUY_DATA.generated_at
+  return `${Number(m[3])} ${BUY_MONTHS[Number(m[2]) - 1]} ${m[1]}`
 }
 
 /** Signal display label + colour */

@@ -138,7 +138,7 @@ export const copy = {
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
     marketPulse: {
       liveLabel: "Live market",
-      heading: "This is what's actually selling right now.",
+      heading: "This is what's leaving the shelf right now.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `We're tracking ${records} listing records across ${brands} brands (${distinct} distinct items). Here's what left the shelf this week — watched departures, not guesses.`
@@ -162,7 +162,7 @@ export const copy = {
     signalLabel: "Signal",
     howToHeading: "How it works",
     howToSteps: [
-      "See what's selling fastest this week.",
+      "See what's leaving the shelf fastest this week.",
       "Get the buy-below price for each item.",
       "Buy under that number.",
     ],
@@ -299,7 +299,7 @@ export const copy = {
       insufficientNLabel: "watched, not enough",
       buyBelow: "Buy-below",
       marketPrice: "Market price",
-      leftShelf: "Left shelf / 7d",
+      leftShelf: "Left the shelf / 7d",
       stillListed: "Still listed",
       sellThrough: "Sell-through",
       // The homepage fold's gated state, in WORDS. E-13 (#59) correctly removed
@@ -344,7 +344,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Try "${nextStep}". For a buy-below on one item, name the model too.`,
       avg: "avg",
-      leftShelfCount: (n: string) => `${n} left shelf / 7d`,
+      leftShelfCount: (n: string) => `${n} left the shelf / 7d`,
       brandAverageLabel: "BRAND AVERAGE",
       headlineOnly: "Headline call only — market price and buy-below need an account.",
       unlockLine: "Unlock sell-through, demand, sizes and history with a plan.",
@@ -455,7 +455,7 @@ export const copy = {
           "Weekly resale signals: what stock to source and the max price",
           "Unlimited buy/sell verdicts",
           "Every product signal we compute, unblurred",
-          "Fast sellers — models that sell in all five markets",
+          "Fast movers — models leaving the shelf in all five markets",
           "Full market trends & brand rankings",
           "Watchlist & portfolio P&L",
           "Cross-platform fee calculator",
@@ -479,7 +479,7 @@ export const copy = {
     // sentence that makes the honesty posture legible, and the paid-tier
     // pitch under it).
     liveProof: {
-      heading: "Selling on Vinted this week",
+      heading: "Leaving the shelf on Vinted this week",
       perWeek: "/wk",
       avg: "avg",
       freshnessLastGood: "LAST GOOD",
@@ -494,7 +494,7 @@ export const copy = {
       planAddsHeading: "What a plan adds, per model",
       // BRAND-VOICE
       planAddsBody:
-        "The most you can pay and still profit, the price it actually sells at, how fast it moves, and which sizes clear first — for the specific item in your hand, not the brand.",
+        "The most you can pay and still profit, the price it typically leaves at, how fast it moves, and which sizes clear first — for the specific item in your hand, not the brand.",
     },
     // extension-hero.tsx — the mock Chrome panel on a Vinted listing.
     // FUNCTIONAL except caption/payMargin (BRAND-VOICE: the sentence selling
@@ -691,7 +691,7 @@ export const copy = {
       welcomeBody: "Your plan is active. We pre-filled Nike Air Force 1 so you see a buy-below on the first click.",
       welcomeCta: "Check your first item",
       emptyOpportunities: "No opportunities in this refresh. Check a real item you source.",
-      kpiLeftShelf: "Left shelf / 7d",
+      kpiLeftShelf: "Left the shelf / 7d",
       kpiListingsTracked: "Listings tracked",
       kpiAcrossMarkets: "across 5 Vinted markets",
       kpiTopCategory: "Top category",
@@ -738,7 +738,7 @@ export const copy = {
       // the same concept.
       watchAction: "Watch",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} left shelf / 7d`,
+      leftShelfCount: (n: string) => `${n} left the shelf / 7d`,
     },
   },
   fr: {
@@ -767,7 +767,7 @@ export const copy = {
     brandStripMore: (n: number) => `+${n} de plus`,
     marketPulse: {
       liveLabel: "Marché en direct",
-      heading: "Voici ce qui se vend vraiment en ce moment.",
+      heading: "Voici ce qui quitte l'étal en ce moment.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `Nous suivons ${records} annonces sur ${brands} marques (${distinct} articles distincts). Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
@@ -776,7 +776,7 @@ export const copy = {
       subNoCount: (brands: number) => `Sur ${brands} marques, voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       colBrand: "Marque",
       colVelocity: "Vélocité hebdo",
-      colSold: "Partis / 7 j",
+      colSold: "Départs / 7 j",
       colAvg: "Prix moyen",
       stamp: (s: string) => `Instantané en direct · ${s}`,
       stampNoTime: "Instantané du marché en direct",
@@ -900,7 +900,7 @@ export const copy = {
       insufficientNLabel: "observés, pas assez",
       buyBelow: "Prix d'achat max",
       marketPrice: "Prix de marché",
-      leftShelf: "Départs / 7j",
+      leftShelf: "Départs observés / 7j",
       stillListed: "Encore en ligne",
       sellThrough: "Taux d'écoulement",
       gatedFreeAccount: "sur Starter",
@@ -918,7 +918,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Essayez « ${nextStep} ». Pour un prix d'achat max sur un article précis, indiquez aussi le modèle.`,
       avg: "moy.",
-      leftShelfCount: (n: string) => `${n} départs / 7j`,
+      leftShelfCount: (n: string) => `${n} départs observés / 7j`,
       brandAverageLabel: "MOYENNE DE LA MARQUE",
       headlineOnly: "Verdict seul — le prix de marché et le prix d'achat max nécessitent un compte.",
       unlockLine: "Débloquez le taux d'écoulement, la demande, les tailles et l'historique avec un abonnement.",
@@ -1001,7 +1001,7 @@ export const copy = {
           "Signaux de revente hebdomadaires : quel stock sourcer et le prix max",
           "Verdicts d'achat/vente illimités",
           "Chaque signal produit que nous calculons, sans flou",
-          "Ventes rapides — modèles qui se vendent sur les cinq marchés",
+          "Départs rapides — modèles qui quittent l'étal sur les cinq marchés",
           "Tendances de marché et classements de marques complets",
           "Watchlist et P&L de portefeuille",
           "Calculateur de frais multiplateforme",
@@ -1048,7 +1048,7 @@ export const copy = {
     },
     watchedSample: {
       head: (sold: string, listed: string) =>
-        `Sur les annonces observées, ${sold} ont quitté le rayon contre ${listed} encore en ligne`,
+        `Sur les annonces observées, ${sold} ont quitté l'étal contre ${listed} encore en ligne`,
       skipSuffix: " — c'est un excédent d'offre dans notre échantillon, pas une affirmation que ce modèle ne se vend jamais.",
     },
     auth: {
@@ -1180,7 +1180,7 @@ export const copy = {
       welcomeBody: "Votre offre est active. Nike Air Force 1 est déjà saisi pour afficher un prix d'achat max au premier clic.",
       welcomeCta: "Vérifier un premier article",
       emptyOpportunities: "Aucune opportunité dans cette actualisation. Vérifiez un article que vous achèteriez pour revendre.",
-      kpiLeftShelf: "Départs / 7j",
+      kpiLeftShelf: "Départs observés / 7j",
       kpiListingsTracked: "Annonces suivies",
       kpiAcrossMarkets: "sur 5 marchés Vinted",
       kpiTopCategory: "Catégorie n°1",
@@ -1209,7 +1209,7 @@ export const copy = {
       analyze: "Analyser",
       watchAction: "Suivre",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} départs / 7j`,
+      leftShelfCount: (n: string) => `${n} départs observés / 7j`,
     },
   },
   es: {
@@ -1238,7 +1238,7 @@ export const copy = {
     brandStripMore: (n: number) => `+${n} más`,
     marketPulse: {
       liveLabel: "Mercado en vivo",
-      heading: "Esto es lo que se está vendiendo ahora mismo.",
+      heading: "Esto es lo que está dejando el escaparate ahora mismo.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `Seguimos ${records} anuncios en ${brands} marcas (${distinct} artículos distintos). Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
@@ -1247,7 +1247,7 @@ export const copy = {
       subNoCount: (brands: number) => `En ${brands} marcas, esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       colBrand: "Marca",
       colVelocity: "Velocidad semanal",
-      colSold: "Salidos / 7 d",
+      colSold: "Salidas / 7 d",
       colAvg: "Precio medio",
       stamp: (s: string) => `Instantánea en vivo · ${s}`,
       stampNoTime: "Instantánea del mercado en vivo",
@@ -1371,7 +1371,7 @@ export const copy = {
       insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Precio máximo de compra",
       marketPrice: "Precio de mercado",
-      leftShelf: "Salidas / 7d",
+      leftShelf: "Salidas observadas / 7d",
       stillListed: "Aún en venta",
       sellThrough: "Tasa de venta",
       gatedFreeAccount: "en Starter",
@@ -1389,7 +1389,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Prueba «${nextStep}». Para un precio máximo de compra en un artículo concreto, indica también el modelo.`,
       avg: "media",
-      leftShelfCount: (n: string) => `${n} salidas / 7d`,
+      leftShelfCount: (n: string) => `${n} salidas observadas / 7d`,
       brandAverageLabel: "MEDIA DE LA MARCA",
       headlineOnly: "Solo el veredicto — el precio de mercado y el precio máximo de compra necesitan una cuenta.",
       unlockLine: "Desbloquea la tasa de venta, la demanda, las tallas y el historial con un plan.",
@@ -1474,7 +1474,7 @@ export const copy = {
           "Señales de reventa semanales: qué stock comprar y el precio máximo",
           "Veredictos de compra/venta ilimitados",
           "Cada señal de producto que calculamos, sin difuminar",
-          "Ventas rápidas — modelos que se venden en los cinco mercados",
+          "Salidas rápidas — modelos que dejan el escaparate en los cinco mercados",
           "Tendencias de mercado y rankings de marcas completos",
           "Lista de seguimiento y P&L de cartera",
           "Calculadora de comisiones multiplataforma",
@@ -1521,7 +1521,7 @@ export const copy = {
     },
     watchedSample: {
       head: (sold: string, listed: string) =>
-        `En los anuncios que observamos, ${sold} salieron del catálogo frente a ${listed} que siguen en venta`,
+        `En los anuncios que observamos, ${sold} dejaron el escaparate frente a ${listed} que siguen en venta`,
       skipSuffix: " — eso es un exceso de oferta en nuestra muestra, no una afirmación de que este modelo nunca se vende.",
     },
     auth: {
@@ -1653,7 +1653,7 @@ export const copy = {
       welcomeBody: "Tu plan está activo. Nike Air Force 1 ya está rellenado para que veas un precio máximo de compra al primer clic.",
       welcomeCta: "Comprobar tu primer artículo",
       emptyOpportunities: "No hay oportunidades en esta actualización. Comprueba un artículo real que quieras comprar para revender.",
-      kpiLeftShelf: "Salidas / 7d",
+      kpiLeftShelf: "Salidas observadas / 7d",
       kpiListingsTracked: "Anuncios seguidos",
       kpiAcrossMarkets: "en 5 mercados Vinted",
       kpiTopCategory: "Categoría principal",
@@ -1682,7 +1682,7 @@ export const copy = {
       analyze: "Analizar",
       watchAction: "Seguir",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} salidas / 7d`,
+      leftShelfCount: (n: string) => `${n} salidas observadas / 7d`,
     },
   },
   de: {
@@ -1711,7 +1711,7 @@ export const copy = {
     brandStripMore: (n: number) => `+${n} weitere`,
     marketPulse: {
       liveLabel: "Live-Markt",
-      heading: "Das verkauft sich gerade wirklich.",
+      heading: "Das verlässt gerade das Regal.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `Wir verfolgen ${records} Inserate über ${brands} Marken (${distinct} einzelne Artikel). Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
@@ -1720,7 +1720,7 @@ export const copy = {
       subNoCount: (brands: number) => `Über ${brands} Marken hinweg — das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
       colBrand: "Marke",
       colVelocity: "Wöchentl. Tempo",
-      colSold: "Weg / 7 T",
+      colSold: "Abgänge / 7 T",
       colAvg: "Ø Preis",
       stamp: (s: string) => `Live-Snapshot · ${s}`,
       stampNoTime: "Live-Markt-Snapshot",
@@ -1843,7 +1843,7 @@ export const copy = {
       insufficientNLabel: "beobachtet, nicht genug",
       buyBelow: "Kaufobergrenze",
       marketPrice: "Marktpreis",
-      leftShelf: "Abgänge / 7T",
+      leftShelf: "Beobachtete Abgänge / 7T",
       stillListed: "Noch inseriert",
       sellThrough: "Verkaufsrate",
       gatedFreeAccount: "mit Starter",
@@ -1861,7 +1861,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Versuch's mit „${nextStep}“. Für eine Kaufobergrenze auf ein bestimmtes Produkt nenne zusätzlich das Modell.`,
       avg: "Ø",
-      leftShelfCount: (n: string) => `${n} Abgänge / 7T`,
+      leftShelfCount: (n: string) => `${n} beobachtete Abgänge / 7T`,
       brandAverageLabel: "MARKENDURCHSCHNITT",
       headlineOnly: "Nur die Kurzentscheidung — Marktpreis und Kaufobergrenze brauchen ein Konto.",
       unlockLine: "Schalte Verkaufsrate, Nachfrage, Größen und Verlauf mit einem Tarif frei.",
@@ -1991,7 +1991,7 @@ export const copy = {
     },
     watchedSample: {
       head: (sold: string, listed: string) =>
-        `In den von uns beobachteten Angeboten sind ${sold} aus dem Bestand gegangen, ${listed} sind noch inseriert`,
+        `In den von uns beobachteten Angeboten haben ${sold} das Regal verlassen, ${listed} sind noch inseriert`,
       skipSuffix: " — das ist ein Angebotsüberschuss in unserer Stichprobe, keine Aussage, dass dieses Modell nie läuft.",
     },
     auth: {
@@ -2125,7 +2125,7 @@ export const copy = {
       welcomeBody: "Dein Tarif ist aktiv. Nike Air Force 1 ist vorausgefüllt, damit du beim ersten Klick eine Kaufobergrenze siehst.",
       welcomeCta: "Ersten Artikel prüfen",
       emptyOpportunities: "Keine Chancen in dieser Aktualisierung. Prüfe einen echten Artikel, den du einkaufen würdest.",
-      kpiLeftShelf: "Abgänge / 7T",
+      kpiLeftShelf: "Beobachtete Abgänge / 7T",
       kpiListingsTracked: "Erfasste Angebote",
       kpiAcrossMarkets: "in 5 Vinted-Märkten",
       kpiTopCategory: "Top-Kategorie",
@@ -2154,7 +2154,7 @@ export const copy = {
       analyze: "Analysieren",
       watchAction: "Merken",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} Abgänge / 7T`,
+      leftShelfCount: (n: string) => `${n} beobachtete Abgänge / 7T`,
     },
   },
   it: {
@@ -2183,7 +2183,7 @@ export const copy = {
     brandStripMore: (n: number) => `+${n} altri`,
     marketPulse: {
       liveLabel: "Mercato dal vivo",
-      heading: "Ecco cosa si sta vendendo davvero adesso.",
+      heading: "Ecco cosa sta lasciando lo scaffale adesso.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `Monitoriamo ${records} inserzioni su ${brands} marchi (${distinct} articoli distinti). Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
@@ -2192,7 +2192,7 @@ export const copy = {
       subNoCount: (brands: number) => `Su ${brands} marchi, ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       colBrand: "Marchio",
       colVelocity: "Velocità settim.",
-      colSold: "Usciti / 7 g",
+      colSold: "Uscite / 7 g",
       colAvg: "Prezzo medio",
       stamp: (s: string) => `Istantanea dal vivo · ${s}`,
       stampNoTime: "Istantanea del mercato dal vivo",
@@ -2315,7 +2315,7 @@ export const copy = {
       insufficientNLabel: "osservate, non abbastanza",
       buyBelow: "Prezzo massimo di acquisto",
       marketPrice: "Prezzo di mercato",
-      leftShelf: "Uscite / 7g",
+      leftShelf: "Uscite osservate / 7g",
       stillListed: "Ancora in vendita",
       sellThrough: "Tasso di vendita",
       gatedFreeAccount: "su Starter",
@@ -2333,7 +2333,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Prova con "${nextStep}". Per un prezzo massimo di acquisto su un articolo preciso, indica anche il modello.`,
       avg: "media",
-      leftShelfCount: (n: string) => `${n} uscite / 7g`,
+      leftShelfCount: (n: string) => `${n} uscite osservate / 7g`,
       brandAverageLabel: "MEDIA DEL MARCHIO",
       headlineOnly: "Solo il verdetto — prezzo di mercato e prezzo massimo di acquisto richiedono un account.",
       unlockLine: "Sblocca tasso di vendita, domanda, taglie e storico con un piano.",
@@ -2416,7 +2416,7 @@ export const copy = {
           "Segnali di rivendita settimanali: quale stock prendere e il prezzo massimo",
           "Verdetti di acquisto/vendita illimitati",
           "Ogni segnale di prodotto che calcoliamo, senza sfocature",
-          "Vendite rapide — modelli che si vendono nei cinque mercati",
+          "Uscite rapide — modelli che lasciano lo scaffale nei cinque mercati",
           "Trend di mercato e classifiche dei marchi completi",
           "Watchlist e P&L del portafoglio",
           "Calcolatore commissioni multipiattaforma",
@@ -2463,7 +2463,7 @@ export const copy = {
     },
     watchedSample: {
       head: (sold: string, listed: string) =>
-        `Negli annunci osservati, ${sold} sono usciti dallo scaffale contro ${listed} ancora in vendita`,
+        `Negli annunci osservati, ${sold} hanno lasciato lo scaffale contro ${listed} ancora in vendita`,
       skipSuffix: " — è un eccesso di offerta nel nostro campione, non un'affermazione che questo modello non si muove mai.",
     },
     auth: {
@@ -2595,7 +2595,7 @@ export const copy = {
       welcomeBody: "Il tuo piano è attivo. Nike Air Force 1 è già compilato così al primo clic vedi un prezzo massimo di acquisto.",
       welcomeCta: "Verifica il primo articolo",
       emptyOpportunities: "Nessuna opportunità in questo aggiornamento. Verifica un articolo reale che acquisteresti per rivendere.",
-      kpiLeftShelf: "Uscite / 7g",
+      kpiLeftShelf: "Uscite osservate / 7g",
       kpiListingsTracked: "Annunci monitorati",
       kpiAcrossMarkets: "in 5 mercati Vinted",
       kpiTopCategory: "Categoria principale",
@@ -2624,7 +2624,7 @@ export const copy = {
       analyze: "Analizza",
       watchAction: "Segui",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} uscite / 7g`,
+      leftShelfCount: (n: string) => `${n} uscite osservate / 7g`,
     },
   },
   pt: {
@@ -2653,7 +2653,7 @@ export const copy = {
     brandStripMore: (n: number) => `+${n} mais`,
     marketPulse: {
       liveLabel: "Mercado ao vivo",
-      heading: "Isto é o que está mesmo a vender agora.",
+      heading: "Isto é o que está a sair da prateleira agora.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
           ? `Acompanhamos ${records} anúncios em ${brands} marcas (${distinct} artigos distintos). Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
@@ -2662,7 +2662,7 @@ export const copy = {
       subNoCount: (brands: number) => `Em ${brands} marcas, isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       colBrand: "Marca",
       colVelocity: "Velocidade semanal",
-      colSold: "Saíram / 7 d",
+      colSold: "Saídas / 7 d",
       colAvg: "Preço médio",
       stamp: (s: string) => `Instantâneo ao vivo · ${s}`,
       stampNoTime: "Instantâneo do mercado ao vivo",
@@ -2785,7 +2785,7 @@ export const copy = {
       insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Preço máximo de compra",
       marketPrice: "Preço de mercado",
-      leftShelf: "Saídas / 7d",
+      leftShelf: "Saídas observadas / 7d",
       stillListed: "Ainda anunciado",
       sellThrough: "Taxa de venda",
       gatedFreeAccount: "no Starter",
@@ -2803,7 +2803,7 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Experimenta "${nextStep}". Para um preço máximo de compra num artigo específico, indica também o modelo.`,
       avg: "média",
-      leftShelfCount: (n: string) => `${n} saídas / 7d`,
+      leftShelfCount: (n: string) => `${n} saídas observadas / 7d`,
       brandAverageLabel: "MÉDIA DA MARCA",
       headlineOnly: "Apenas o veredito — preço de mercado e preço máximo de compra precisam de uma conta.",
       unlockLine: "Desbloqueia taxa de venda, procura, tamanhos e histórico com um plano.",
@@ -2886,7 +2886,7 @@ export const copy = {
           "Sinais de revenda semanais: que stock comprar e o preço máximo",
           "Veredictos de compra/venda ilimitados",
           "Todos os sinais de produto que calculamos, sem desfoque",
-          "Vendas rápidas — modelos que vendem nos cinco mercados",
+          "Saídas rápidas — modelos que saem da prateleira nos cinco mercados",
           "Tendências de mercado e rankings de marcas completos",
           "Watchlist e P&L de carteira",
           "Calculadora de taxas multiplataforma",
@@ -3065,7 +3065,7 @@ export const copy = {
       welcomeBody: "O teu plano está ativo. Nike Air Force 1 já vem preenchido para veres um preço máximo de compra no primeiro clique.",
       welcomeCta: "Verificar o primeiro artigo",
       emptyOpportunities: "Sem oportunidades nesta atualização. Verifica um artigo real que queiras comprar para revender.",
-      kpiLeftShelf: "Saídas / 7d",
+      kpiLeftShelf: "Saídas observadas / 7d",
       kpiListingsTracked: "Anúncios monitorizados",
       kpiAcrossMarkets: "em 5 mercados Vinted",
       kpiTopCategory: "Categoria principal",
@@ -3094,7 +3094,7 @@ export const copy = {
       analyze: "Analisar",
       watchAction: "Seguir",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} saídas / 7d`,
+      leftShelfCount: (n: string) => `${n} saídas observadas / 7d`,
     },
   },
 } as const

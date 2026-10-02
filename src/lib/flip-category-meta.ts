@@ -12,10 +12,15 @@
  * Count/euro formatting matches `fmtCount` / `fmtEur` in market-numbers
  * (null → never a digit). Kept local so node --test can load this file
  * without resolving the warehouse module.
+ *
+ * A count below the display floor (departure-display.ts: 10) is never put in
+ * a meta description — countLabel() returns null and the caller falls back to
+ * its count-free sentence. "Leads with N" additionally needs n >= 30.
  */
+import { departureIsPrintable, departureSupportsConclusion } from "./departure-display.ts"
 
 function countLabel(n: number | null | undefined): string | null {
-  return typeof n === "number" && Number.isFinite(n) ? n.toLocaleString("en-GB") : null
+  return departureIsPrintable(n) ? n.toLocaleString("en-GB") : null
 }
 
 function eurLabel(n: number | null | undefined): string | null {
@@ -85,7 +90,7 @@ export function categoryLeafDescription(opts: {
   topSold: number | null | undefined
 }): string {
   const lower = opts.category.toLowerCase()
-  const topSoldLabel = countLabel(opts.topSold)
+  const topSoldLabel = departureSupportsConclusion(opts.topSold) ? countLabel(opts.topSold) : null
   if (opts.topBrand && topSoldLabel) {
     return (
       `Do ${lower} sell? ${opts.brandCount} brands ranked by watched departures on Vinted across 5 EU markets. ` +

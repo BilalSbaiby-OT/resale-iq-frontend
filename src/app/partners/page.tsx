@@ -39,7 +39,6 @@ export const metadata: Metadata = fitMetadata({
  * Data figures are VERIFIED against the live production DB before publish.
  * Source:
  *   listings total    → SELECT COUNT(*) FROM listings          → 13,371,381
- *   sold listings     → SELECT COUNT(*) FROM listings WHERE sold_at IS NOT NULL → 1,121,053
  *   tracked brands    → SELECT COUNT(DISTINCT brand) FROM demand_index → 55
  *   model rows live   → SELECT COUNT(*) FROM model_signals WHERE sold_30d > 0 → 141
  * (queried 2026-09-22 against production DB via docker exec)
@@ -48,17 +47,10 @@ export const metadata: Metadata = fitMetadata({
  * Commission paid only on money actually received from Stripe.
  */
 
-// Verified real departures from the live DB (model_signals, sold_30d):
-const EXAMPLE_BRANDS = [
-  { brand: "New Balance", category: "Sneakers", sold30d: 1235, avgEur: 38.51 },
-  { brand: "Balenciaga", category: "Other", sold30d: 891, avgEur: 290.0 },
-  { brand: "Ralph Lauren", category: "Polo / casual", sold30d: 825, avgEur: 23.88 },
-  { brand: "Patagonia", category: "Jackets", sold30d: 202, avgEur: 45.87 },
-]
-
+// No "sold transactions" card: sold_at is stamped when the scraper first sees
+// an item already marked sold, so a count of it measures discovery, not sales.
 const STAT_CARDS = [
   { value: "13.4M", label: "listings tracked across 5 EU markets" },
-  { value: "1.1M", label: "confirmed sold transactions in the DB" },
   { value: "55", label: "brands with active demand signals" },
   { value: "141", label: "brand + model pairs with live 30-day data" },
 ]
@@ -124,8 +116,8 @@ export default function PartnersPage() {
           }}
         >
           Resale IQ tracks 13.4 million active listings across Spain, France,
-          Germany, Italy and Portugal. We can tell you which brands are selling
-          in the last 30 days, the average selling price, and the buy‑below
+          Germany, Italy and Portugal. We can tell you which brands are leaving
+          the shelf fastest, the average price at departure, and the buy‑below
           number that makes a flip profitable. If you make content for resellers,
           that data is your next video.
         </p>
@@ -236,7 +228,11 @@ export default function PartnersPage() {
         </p>
       </section>
 
-      {/* ── Live data sample ── */}
+      {/* ── What the weekly drop contains ── */}
+      {/* The frozen "Sold / 30d" table that lived here was removed 2026-10-02:
+          its counts were an outage-era export, and a departure count is not a
+          sale. The live weekly brand table is published free on /data, so this
+          section points at it instead of re-printing numbers that go stale. */}
       <section
         style={{ maxWidth: 720, margin: "48px auto 0", padding: "0 24px" }}
       >
@@ -254,88 +250,15 @@ export default function PartnersPage() {
           style={{
             fontSize: 14,
             color: "var(--color-text-secondary)",
-            marginBottom: 16,
+            lineHeight: 1.6,
+            marginBottom: 0,
           }}
         >
-          Real 30-day departure counts from the live database — the exact
-          table a Creator Partner gets each week.
-        </p>
-        <div
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border-2)",
-            borderRadius: 14,
-            overflow: "hidden",
-          }}
-        >
-          {/* Table header */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr auto auto",
-              padding: "10px 16px",
-              borderBottom: "1px solid var(--color-border)",
-              fontSize: 11,
-              fontWeight: 600,
-              color: "var(--color-text-muted)",
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
-            }}
-          >
-            <span>Brand</span>
-            <span>Category</span>
-            <span style={{ textAlign: "right" }}>Sold / 30d</span>
-            <span style={{ textAlign: "right", paddingLeft: 16 }}>Avg price</span>
-          </div>
-          {EXAMPLE_BRANDS.map((row, i) => (
-            <div
-              key={row.brand + row.category}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr auto auto",
-                padding: "12px 16px",
-                borderBottom:
-                  i < EXAMPLE_BRANDS.length - 1
-                    ? "1px solid var(--color-border)"
-                    : undefined,
-                fontSize: 14,
-              }}
-            >
-              <span style={{ color: "var(--color-text-primary)", fontWeight: 600 }}>
-                {row.brand}
-              </span>
-              <span style={{ color: "var(--color-text-secondary)" }}>
-                {row.category}
-              </span>
-              <span
-                style={{
-                  color: "var(--color-buy)",
-                  fontWeight: 700,
-                  textAlign: "right",
-                }}
-              >
-                {row.sold30d.toLocaleString()}
-              </span>
-              <span
-                style={{
-                  color: "var(--color-text-primary)",
-                  textAlign: "right",
-                  paddingLeft: 16,
-                }}
-              >
-                €{row.avgEur}
-              </span>
-            </div>
-          ))}
-        </div>
-        <p
-          style={{
-            fontSize: 11,
-            color: "var(--color-text-muted)",
-            marginTop: 8,
-          }}
-        >
-          * 30-day sold count across ES/FR/DE/IT/PT Vinted. Source: resaleiq.dev production DB.
+          Every week, per brand and category: how many listings we watched leave the shelf, the average
+          price at departure, and the buy-below. A watched departure is a listing that left the shelf in our
+          tracked sample, not a confirmed sale. The live weekly brand table is public at{" "}
+          <Link href="/data" style={{ color: "var(--color-buy)", textDecoration: "none" }}>/data</Link>
+          {" "}— it is the same table a Creator Partner builds from.
         </p>
       </section>
 
@@ -946,7 +869,7 @@ export default function PartnersPage() {
             },
             {
               q: "What markets does Resale IQ cover?",
-              a: "Vinted in Spain, France, Germany, Italy, and Portugal. We track sold prices, listing velocity, and buy-below prices across all five.",
+              a: "Vinted in Spain, France, Germany, Italy, and Portugal. We track prices at departure, listing velocity, and buy-below prices across all five.",
             },
             {
               q: "Can I use my affiliate link in paid ads?",

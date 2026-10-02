@@ -181,22 +181,47 @@ test("/category/[category] generateMetadata uses the helper; FAQPage stays", () 
   assert.match(src, /faqPageJsonLd\(faqs\)/)
   assert.match(src, /<HubFaq items=\{faqs\}/)
   assert.match(src, /Which brand sells the most/)
-  assert.match(src, /How many \$\{lower\} sell on Vinted each week/)
+  // The count question names what we actually count: listings that left the shelf.
+  assert.match(src, /How many \$\{lower\} leave the shelf on Vinted each week/)
+  assert.doesNotMatch(src, /How many \$\{lower\} sell on Vinted each week/)
   assert.doesNotMatch(src, /twitter:/)
 })
 
 test("leaf H1s and tables stay on page data — titles only change metadata", () => {
   const brand = read("app/flip/[brand]/page.tsx")
   assert.match(brand, /Is \{b\.brand\} worth reselling on Vinted in 2026\?/)
-  assert.match(brand, /Left shelf per week/)
-  assert.match(brand, /fmtCount\(sold\)/)
+  assert.match(brand, /Left the shelf per week/)
+  // Every departure count goes through the display floor, never a raw fmtCount.
+  assert.match(brand, /departureDisplay\(sold\)/)
+  assert.match(brand, /soldShown\.text/)
+  assert.doesNotMatch(brand, /fmtCount\(sold\)/)
 
   const pair = read("app/flip/[brand]/[category]/page.tsx")
   assert.match(pair, /Are \{b\.brand\} \{catName\} worth reselling on Vinted\?/)
-  assert.match(pair, /fmtCount\(catSold\)/)
+  assert.match(pair, /departureDisplay\(catSold\)/)
+  assert.match(pair, /catShown\.text/)
+  assert.doesNotMatch(pair, /fmtCount\(catSold\)/)
+  // The category's own average price, never the brand-wide one under a category count.
+  assert.match(pair, /catRow\?\.avg_price_eur/)
 
   const cat = read("app/category/[category]/page.tsx")
   assert.match(cat, /Best brands for reselling \{lower\} on Vinted/)
-  assert.match(cat, /fmtCount\(total\)/)
-  assert.match(cat, /fmtCount\(e\.sold_7d\)/)
+  assert.match(cat, /departureDisplay\(total > 0 \? total : null\)/)
+  assert.match(cat, /departureDisplay\(e\.sold_7d, "en", \{ compact: true \}\)/)
+  assert.doesNotMatch(cat, /fmtCount\(e\.sold_7d\)/)
+})
+
+test("meta descriptions never print a departure count below the display floor", () => {
+  // 7 is under the 10 floor: the count-free sentence is used, so no digit reaches the SERP.
+  const thin = flipBrandDescription({ brand: "Zara", sold: 7, avg: 36 })
+  assert.doesNotMatch(thin, /\d/)
+  assert.match(thin, /watched departures/)
+  const hidden = flipBrandDescription({ brand: "Zara", sold: 3, avg: 36 })
+  assert.doesNotMatch(hidden, /\d/)
+  // "Leads with N" is a ranking claim: it needs n >= 30, so 12 falls back.
+  const lead = categoryLeafDescription({ category: "Jeans", brandCount: 9, topBrand: "Diesel", topSold: 12 })
+  assert.doesNotMatch(lead, /leads with/)
+  assert.doesNotMatch(lead, /\b12\b/)
+  const ok = categoryLeafDescription({ category: "Jeans", brandCount: 9, topBrand: "Diesel", topSold: 44 })
+  assert.match(ok, /Diesel leads with 44/)
 })

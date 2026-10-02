@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
+import { departureDisplay, departureIsPrintable } from "@/lib/departure-display"
 
 /**
  * LIVE MARKET PULSE — the honest-proof section that fills the empty landing.
@@ -29,7 +30,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
   const rows = market.brandNames
     .map((name) => ({ name, f: market.get(name) }))
     .filter((r): r is { name: string; f: NonNullable<ReturnType<typeof market.get>> & { sold_7d: number } } =>
-      r.f != null && typeof r.f.sold_7d === "number" && r.f.sold_7d > 0)
+      r.f != null && departureIsPrintable(r.f.sold_7d))
     .sort((a, b) => b.f.sold_7d - a.f.sold_7d)
     .slice(0, 8)
 
@@ -103,7 +104,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
               <span className="riq-pulse-velocity" style={{ display: "block", height: 8, background: "var(--color-bg-3)", borderRadius: 999, overflow: "hidden" }}>
                 <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "linear-gradient(90deg, var(--color-green), var(--color-cyan))", borderRadius: 999 }} />
               </span>
-              <span style={{ fontSize: 14, fontVariantNumeric: "tabular-nums", textAlign: "right", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono, ui-monospace, monospace)" }}>{sold.toLocaleString()}</span>
+              <span style={{ fontSize: 14, fontVariantNumeric: "tabular-nums", textAlign: "right", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono, ui-monospace, monospace)" }}>{departureDisplay(sold, locale).text}</span>
               <span style={{ fontSize: 14, fontVariantNumeric: "tabular-nums", textAlign: "right", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono, ui-monospace, monospace)" }}>{avg != null ? `€${avg}` : "—"}</span>
             </div>
           )

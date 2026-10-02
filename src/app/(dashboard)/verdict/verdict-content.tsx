@@ -23,7 +23,8 @@ import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy, type Locale } from "@/lib/i18n"
-import { verdictWord } from "@/lib/verdict-words"
+import { verdictWord, localizeDemandNote } from "@/lib/verdict-words"
+import { departureDisplay, departurePairPrintable } from "@/lib/departure-display"
 import { WORKING_MODELS, FREE_MODELS } from "@/lib/working-models"
 import { ModelChips } from "@/components/tools/model-chips"
 import type { HeroVerdict } from "@/lib/hero-verdict"
@@ -46,10 +47,12 @@ import { useT } from "@/components/i18n/locale-provider"
 // C(tony): fallback activation scenarios for paid cold state.
 // These are the Canva-template moment for a paid user who hasn't run a check yet.
 // Live data overrides these on mount; fallbacks ensure the panel never renders empty.
+// sold_7d is 0 on purpose: a fallback must never print a frozen departure count
+// (these were 102 / 383 / 27 from an earlier week). 0 renders as a dash, not a number.
 const ACTIVATION_FALLBACK: SnapshotBrandRow[] = [
-  { brand: "Stone Island", category: "Hoodies",    sold_7d: 102, avg_price_eur: 58 },
-  { brand: "Carhartt",     category: "Jackets",     sold_7d: 44,  avg_price_eur: 32 },
-  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+  { brand: "Stone Island", category: "Hoodies",    sold_7d: 0, avg_price_eur: 58 },
+  { brand: "Carhartt",     category: "Jackets",     sold_7d: 0, avg_price_eur: 32 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 0, avg_price_eur: 13 },
 ]
 
 
@@ -280,9 +283,9 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 This is NOT the weekly "left shelf" count — label and copy are
                 deliberately different. Only shown when sold_7d is absent/zero
                 AND the backend supplied sold_30d_evidence with a demand_note. */}
-            {result.sold_30d_evidence != null && (result.sold_7d == null || result.sold_7d === 0) && result.demand_note && result.verdict !== "BRAND_CATEGORIES" && (
+            {result.sold_30d_evidence != null && (result.sold_7d == null || result.sold_7d === 0) && localizeDemandNote(result.demand_note, locale) && result.verdict !== "BRAND_CATEGORIES" && (
               <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#8b99b8]">
-                {result.demand_note}
+                {localizeDemandNote(result.demand_note, locale)}
               </div>
             )}
 
@@ -320,7 +323,10 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
-                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {a.sold_7d != null ? t.leftShelfCount(a.sold_7d.toLocaleString(tx.locale)) : "—"}
+                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg}
+                          {a.sold_7d != null && departureDisplay(a.sold_7d, tx.locale).kind !== "hidden"
+                            ? ` · ${t.leftShelfCount(departureDisplay(a.sold_7d, tx.locale, { compact: true }).text)}`
+                            : ""}
                         </span>
                       </button>
                     ))}
@@ -343,8 +349,8 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 <div className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} />
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
-                  <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString(tx.locale) : "—"} />
-                  <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString(tx.locale) : "—"} />
+                  <Metric label={t.leftShelf} value={departureDisplay(result.sold_7d, tx.locale).text} />
+                  <Metric label={t.listedNow} value={result.active_listings != null && departurePairPrintable(result.sold_7d, result.active_listings) ? result.active_listings.toLocaleString(tx.locale) : "—"} />
                 </div>
                 <div className="p-6">
                   {/*
@@ -375,7 +381,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       background: "var(--color-buy)", color: "var(--color-on-buy)",
                       fontSize: 14, fontWeight: 600, textDecoration: "none",
                     }}
-                  >{tx("See what IS selling this week →")}</Link>
+                  >{tx("See what's leaving the shelf this week →")}</Link>
                 </div>
               </div>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
@@ -544,6 +550,7 @@ function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy
       : row.numeric.toLocaleString(loc)
   }
   if (row.id === "opportunity") return `${Math.round(row.numeric)}/100`
+  if (row.id === "sold_7d") return departureDisplay(row.numeric, loc).text
   return row.numeric.toLocaleString(loc)
 }
 
@@ -586,7 +593,10 @@ function VerdictInsightBody({
     )
   }
 
-  const shown = rows.filter((r) => r.id !== "n" || !rows.some((x) => x.id === "sell_avg" && x.kind === "measured"))
+  const shown = rows
+    .filter((r) => r.id !== "n" || !rows.some((x) => x.id === "sell_avg" && x.kind === "measured"))
+    // "Listed now" only beside a departure count it can be compared with.
+    .filter((r) => r.id !== "active_listings" || departurePairPrintable(result.sold_7d, r.numeric))
 
   return (
     <>
@@ -724,8 +734,8 @@ function SeedVerdictCard({
       <div className="riq-metric-grid">
         <Metric label={t.buyBelow} value={eur(result.buy_below)} accent="var(--color-buy)" />
         <Metric label={t.avgAtExit} value={eur(result.sell_avg)} />
-        <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString(locale) : "—"} />
-        <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString(locale) : "—"} />
+        <Metric label={t.leftShelf} value={departureDisplay(result.sold_7d, locale).text} />
+        <Metric label={t.listedNow} value={result.active_listings != null && departurePairPrintable(result.sold_7d, result.active_listings) ? result.active_listings.toLocaleString(locale) : "—"} />
       </div>
     </div>
   )

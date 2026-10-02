@@ -18,11 +18,21 @@ import type { BrandFigures } from "./market-numbers"
 import type { HeroVerdict } from "./hero-verdict"
 import { articleSocialMeta } from "./flip-category-meta.ts"
 import { isUsableVerdict } from "./usable-verdict.ts"
+import { departureDisplay } from "./departure-display.ts"
 
 export { isUsableVerdict }
 
-function fmtCount(n: number | null | undefined): string {
-  return typeof n === "number" && Number.isFinite(n) ? n.toLocaleString("en-GB") : "—"
+/**
+ * "about 44 watched departures a week" / "fewer than 10 watched departures a
+ * week" / null (below the publish floor — the caller drops the count sentence).
+ * The display floor lives in departure-display.ts; never print a raw count here.
+ */
+function weeklyDepartures(n: number | null | undefined): string | null {
+  const d = departureDisplay(n, "en")
+  if (d.kind === "hidden") return null
+  return d.kind === "band"
+    ? `${d.text.toLowerCase()} watched departures a week`
+    : `about ${d.text} watched departures a week`
 }
 
 function fmtEur(n: number | null | undefined): string {
@@ -154,7 +164,7 @@ export function modelPageDescription(opts: {
       `Other models Starter €19/mo.`
     )
   }
-  const soldLabel = typeof sold === "number" && Number.isFinite(sold) ? sold.toLocaleString("en-GB") : null
+  const weekly = weeklyDepartures(sold)
   const avgLabel = typeof avg === "number" && Number.isFinite(avg) && avg > 0 ? `€${Math.round(avg)}` : null
   if (m.freeCheck) {
     return (
@@ -162,9 +172,9 @@ export function modelPageDescription(opts: {
       `Other models Starter €19/mo. ES/FR/DE/IT/PT.`
     )
   }
-  if (soldLabel) {
+  if (weekly) {
     return (
-      `${m.query}: named ${m.category.toLowerCase()} model. ${m.brand} has about ${soldLabel} watched departures a week` +
+      `${m.query}: named ${m.category.toLowerCase()} model. ${m.brand} has ${weekly}` +
       (avgLabel ? ` at ${avgLabel}.` : ".") +
       ` BUY/WATCH/SKIP is Starter €19/mo.`
     )
@@ -212,9 +222,10 @@ export function modelDemandParagraphs(
       `A brand figure mixes every silhouette; the buy-below that matters is this model's own watched departures.`,
   )
 
-  if (sold != null) {
+  const weekly = weeklyDepartures(sold)
+  if (weekly != null) {
     paras.push(
-      `${m.brand} as a brand has about ${fmtCount(sold)} watched departures a week across Spain, France, Germany, Italy and Portugal` +
+      `${m.brand} as a brand has ${weekly} across Spain, France, Germany, Italy and Portugal` +
         (avg != null ? `, at an average asking price at departure of ${fmtEur(avg)}` : "") +
         `. That is brand demand, public on /data. It is not the ${m.model} ceiling and it is not a sell-through rate.`,
     )
@@ -278,9 +289,10 @@ export function modelFaqs(opts: {
           `${m.brand} weekly volumes stay public at https://resaleiq.dev/data.`,
       }
 
+  const weeklyA = weeklyDepartures(sold)
   const demandA =
-    sold != null
-      ? `${m.brand} has about ${fmtCount(sold)} watched departures a week` +
+    weeklyA != null
+      ? `${m.brand} has ${weeklyA}` +
         (avg != null ? ` at an average of ${fmtEur(avg)}` : "") +
         `. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Brand table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/vinted-demand`
       : `${m.brand} weekly demand is on https://resaleiq.dev/data when the snapshot has a row. A watched departure is a listing we watched leave the shelf — not a confirmed sale receipt. Definition: https://resaleiq.dev/glossary/vinted-demand`
@@ -316,16 +328,17 @@ export function brandHubFaqs(opts: {
   freeModels: SeoModel[]
 }): FaqItem[] {
   const { brand, brandSlug, sold, avg, freeModels } = opts
+  const weekly = weeklyDepartures(sold)
   const worth =
-    sold != null
-      ? `${brand} has roughly ${fmtCount(sold)} watched departures per week across Spain, France, Germany, Italy and Portugal` +
+    weekly != null
+      ? `${brand} has ${weekly.replace(" a week", " per week").replace("about ", "roughly ")} across Spain, France, Germany, Italy and Portugal` +
         (avg != null ? `, at an average asking price at departure of ${fmtEur(avg)}.` : ".") +
         ` Whether it is profitable depends on the named model and the price you source it at. Weekly table: https://resaleiq.dev/data. Definition: https://resaleiq.dev/glossary/vinted-demand`
       : `${brand} is tracked across Spain, France, Germany, Italy and Portugal. Live weekly volume is on https://resaleiq.dev/data when this snapshot has a row. Whether it is profitable depends on the named model and the price you source it at. Definition: https://resaleiq.dev/glossary/vinted-demand`
 
   const velocity =
-    sold != null
-      ? `This week ${brand} shows about ${fmtCount(sold)} watched departures` +
+    weekly != null
+      ? `This week ${brand} shows ${weekly.replace(" a week", "")}` +
         (avg != null ? ` at ${fmtEur(avg)} average asking price at departure` : "") +
         `. That is brand demand — not a sell-through rate and not a buy-below. Full ranking: https://resaleiq.dev/data. Sell-through definition: https://resaleiq.dev/glossary/vinted-sell-through`
       : `${brand} weekly velocity is listed on https://resaleiq.dev/data when the snapshot has a row. An em-dash means missing, not zero. Definition: https://resaleiq.dev/glossary/vinted-demand`

@@ -75,7 +75,7 @@ export async function GET() {
   const body = `# Resale IQ
 
 > Vinted resale signals for resellers, like trading signals for stock. Which stock to source, and the max price to pay.
-> Each signal: BUY / WATCH / SKIP, entry = max price to pay when sourcing, target = typical Vinted resale price, plus how fast it sells.
+> Each signal: BUY / WATCH / SKIP, entry = max price to pay when sourcing, target = typical Vinted resale price, plus how fast it leaves the shelf.
 > Based on past Vinted resale data, not a guarantee of profit.
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
@@ -116,7 +116,7 @@ Questions: ${AFFILIATE_CONTACT}
 - ${BASE}/blog/ralph-lauren-eu-vinted-price-guide: Ralph Lauren EU Vinted price guide: departure prices and what to pay.
 - ${BASE}/tools: Free item check. Type a Vinted item, get BUY / WATCH / SKIP and a buy-below price (Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free samples).
 - ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} unique listings.
-- ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly sales, with brand and brand-by-category pages.
+- ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly watched departures, with brand and brand-by-category pages.
 - ${BASE}/pricing: Starter EUR 19 / month, Pro EUR 49 / month. There is no free-forever tier.
 - ${BASE}/partners: Affiliate programme: 30% recurring for 12 months, open to people and AI agents.
 - ${BASE}/affiliate.json: Machine-readable affiliate programme: register endpoint, stats endpoint, terms.
@@ -173,7 +173,7 @@ Agents must not:
     ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
     : `Tracked brands: ${trackedBrands}.`}
 - Refresh: listings are scheduled for collection every 30 minutes per market, but a run is skipped if the previous one is still in progress, so real spacing runs longer during backlog — see ${BASE}/methodology for the measured cadence. Signals recompute every 2 hours on schedule, with no skips observed. Public pages carry no page-level cache and render from the live database on every request.
-- Method: watched departure transitions (sold_observed) — a listing leaving the shelf, inferred as a sale at its last asking price. Not an observed sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
+- Method: watched departures — a listing we watched leave the shelf (it can also be a delisting, an edit or a reservation), with its last asking price recorded as the price at departure. Not a confirmed sale, not a sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
 
 ## Two findings worth citing
 

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { TrendingUp } from "lucide-react"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
+import { departureDisplay, departureUnitInline } from "@/lib/departure-display"
 
 /**
  * The three shapes every (auth) form is built from: a heading pair, a labelled
@@ -172,10 +173,14 @@ export function AuthDemandPanel({
                 <span className={`text-[12px] ${AUTH_TEXT_MUTED} ml-1.5`}>{b.category}</span>
               </div>
               <div className="text-right">
-                <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
-                  {b.sold_7d.toLocaleString(tx.locale)}
-                </span>
-                <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
+                {departureDisplay(b.sold_7d, tx.locale).kind !== "hidden" && (
+                  <>
+                    <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
+                      {departureDisplay(b.sold_7d, tx.locale, { compact: true }).text}
+                    </span>
+                    <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>{departureUnitInline("7d", tx.locale)}</span>
+                  </>
+                )}
                 <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>{tx("avg €{0}", [b.avg_price_eur])}</div>
               </div>
             </Link>

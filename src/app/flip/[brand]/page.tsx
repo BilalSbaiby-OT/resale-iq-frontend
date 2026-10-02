@@ -5,7 +5,7 @@ import { BRANDS, catSlug, type BrandSeo } from "@/lib/seo-categories"
 import { Lock, TrendingUp, ArrowRight } from "lucide-react"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { brandNarrative } from "@/lib/flip-narrative"
-import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { getMarketNumbers, fmtEur } from "@/lib/market-numbers"
 import {
   flipBrandTitle,
   flipBrandDescription,
@@ -16,6 +16,7 @@ import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
 import { modelsForBrand, modelPath, brandHubFaqs } from "@/lib/seo-models"
 import { BRAND_MONEY_HREF } from "@/lib/money-cta"
+import { departureDisplay, departureSupportsConclusion } from "@/lib/departure-display"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { RelatedLinks } from "@/components/seo/related-links"
@@ -60,6 +61,10 @@ export default async function BrandFlipPage(
   const market = await getMarketNumbers()
   const live = market.get(b.brand)
   const sold = live?.sold_7d ?? null
+  // Display floor: hidden under 5, "fewer than 10" for 5-9, digits from 10.
+  // `soldShown` is what may be PRINTED; `sold` stays the raw figure for logic.
+  const soldShown = departureDisplay(sold)
+  const soldCount = soldShown.kind === "number" ? soldShown.text : null
   const avg = live?.avg_price_eur ?? null
   const modelsTracked = live?.models_tracked ?? null
   const cats = live?.categories ?? []
@@ -122,10 +127,10 @@ export default async function BrandFlipPage(
         Is {b.brand} worth reselling on Vinted in 2026?
       </h1>
       <p style={{ color: "#8b99b8", fontSize: 15, lineHeight: 1.6, marginBottom: 26 }}>
-        {sold != null ? (
+        {soldCount != null && departureSupportsConclusion(sold) ? (
           <>
             Short answer: {b.brand} moves serious volume — about{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} watched departures a week</strong>{" "}
+            <strong style={{ color: "#eef1f7" }}>{soldCount} watched departures a week</strong>{" "}
             across the five main EU Vinted markets
             {avg != null ? (
               <>
@@ -135,6 +140,13 @@ export default async function BrandFlipPage(
             ) : null}
             . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
             what you pay for it.
+          </>
+        ) : soldShown.kind !== "hidden" ? (
+          <>
+            Short answer:{" "}
+            <strong style={{ color: "#eef1f7" }}>{soldShown.text} {b.brand} listings left the shelf in our sample this week</strong>{" "}
+            across the five main EU Vinted markets. That is a small sample, not a volume reading — the margin
+            depends entirely on which model you buy and what you pay for it.
           </>
         ) : freeModels.length > 0 ? (
           <>
@@ -167,8 +179,8 @@ export default async function BrandFlipPage(
       {/* Public aggregates */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 28 }}>
         {[
-          ["Left shelf per week", fmtCount(sold)],
-          ["Avg price at exit", fmtEur(avg)],
+          ["Left the shelf per week", soldShown.text],
+          ["Avg price at departure", fmtEur(avg)],
           ["Models tracked", modelsTracked != null ? String(modelsTracked) : "—"],
         ].map(([label, value]) => (
           <div key={label} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px" }}>
@@ -182,12 +194,12 @@ export default async function BrandFlipPage(
         Weekly {b.brand} velocity
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
-        {sold != null ? (
+        {soldShown.kind !== "hidden" ? (
           <>
-            About{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtCount(sold)} watched departures</strong>
+            {soldCount != null ? "About " : ""}
+            <strong style={{ color: "#eef1f7" }}>{soldShown.text} watched departures</strong>
             {" "}this week across Spain, France, Germany, Italy and Portugal
-            {avg != null ? (
+            {avg != null && soldCount != null ? (
               <>
                 , at{" "}
                 <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
@@ -212,7 +224,7 @@ export default async function BrandFlipPage(
       </p>
 
       <h2 style={{ fontSize: 19, fontWeight: 700, color: "#eef1f7", margin: "28px 0 10px" }}>
-        What {b.brand} sells for, by category
+        What {b.brand} left the shelf at, by category
       </h2>
       {/* THIS TABLE IS WHY THE PAGE EXISTS. Measured 2026-08-13, these pages
           were 95-98% identical to each other: the template had three variables
@@ -221,12 +233,12 @@ export default async function BrandFlipPage(
           reading. Keep per-brand data ABOVE the generic explanation. */}
       <div style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "var(--color-surface)", fontSize: 11, color: "#5b6b8c" }}>
-          <span>Category</span><span style={{ textAlign: "right" }}>Left shelf/week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
+          <span>Category</span><span style={{ textAlign: "right" }}>Left the shelf / week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
         </div>
         {(cats.length ? cats : []).slice(0, 5).map(c => (
           <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid var(--color-border-ui)", fontSize: 14, color: "#a9b6d0" }}>
             <span style={{ color: "#eef1f7" }}>{c.category}</span>
-            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{fmtCount(c.sold_7d)}</span>
+            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{departureDisplay(c.sold_7d, "en", { compact: true }).text}</span>
             <span style={{ textAlign: "right", minWidth: 62, fontVariantNumeric: "tabular-nums", color: c.avg_price_eur ? "#34d399" : "#5b6b8c" }}>
               {fmtEur(c.avg_price_eur)}
             </span>
@@ -234,11 +246,11 @@ export default async function BrandFlipPage(
         ))}
       </div>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        {cats[0] && cats[0].avg_price_eur != null && cats[0].sold_7d != null ? (
+        {cats[0] && cats[0].avg_price_eur != null && departureDisplay(cats[0].sold_7d).kind === "number" ? (
           <>
             {b.brand} {cats[0].category.toLowerCase()} leave the shelf at about{" "}
             <strong style={{ color: "#eef1f7" }}>{fmtEur(cats[0].avg_price_eur)}</strong>, on{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtCount(cats[0].sold_7d)}</strong> watched departures a week.
+            <strong style={{ color: "#eef1f7" }}>{departureDisplay(cats[0].sold_7d).text}</strong> watched departures a week.
             Work backwards from that price, not from what the seller is asking.
           </>
         ) : (
@@ -266,7 +278,7 @@ export default async function BrandFlipPage(
           }}>
             <span>Are {b.brand} {c.category} worth reselling?</span>
             <span style={{ fontSize: 12.5, color: "#5b6b8c", whiteSpace: "nowrap" }}>
-              {fmtCount(c.sold_7d)}/wk
+              {departureDisplay(c.sold_7d).kind === "hidden" ? "" : `${departureDisplay(c.sold_7d, "en", { compact: true }).text}/wk`}
             </span>
           </Link>
         ))}
@@ -314,18 +326,18 @@ export default async function BrandFlipPage(
         <p style={{ color: "#8b99b8", fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>
           Averages don&apos;t tell you what to buy. Resale IQ tracks{" "}
           {b.brand} models{" "}
-          {modelsTracked != null ? `(${modelsTracked} with enough sales to show figures)` : "we track"}{" "}
+          {modelsTracked != null ? `(${modelsTracked} with enough watched departures to show figures)` : "we track"}{" "}
           individually and gives you:
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>
           {[
             "Max buy price per model — the number that targets a healthy margin after fees",
-            "Sell-through rate — how fast each model actually moves",
+            "Sell-through rate — how much of what we watched has left the shelf, model by model",
             // "which models are heating up" was a trend claim. Momentum is a
             // percentile rank of each model's recent share of its own watched
             // departures against the rest of the board — see app-copy.ts.
-            "Momentum — where each model ranks against the rest of the board on recent sales share",
-            "The exact sizes that sell fastest",
+            "Momentum — where each model ranks against the rest of the board on its recent share of watched departures",
+            "The exact sizes that leave the shelf fastest",
           ].map(t => (
             <li key={t} style={{ display: "flex", gap: 8, color: "#a9b6d0", fontSize: 13.5, lineHeight: 1.5 }}>
               <TrendingUp size={14} style={{ color: "#34C759", flexShrink: 0, marginTop: 3 }} />

@@ -115,8 +115,8 @@ export default function ApiDocs() {
         <p style={{ fontSize: 12.5, color: "#5b6b8c" }}>
           <code style={{ color: "#8fe3b0" }}>max_buy_price</code> is the highest price you can pay and still
           clear roughly 30% margin after platform fees. <code style={{ color: "#8fe3b0" }}>str_pct</code> is
-          the observed share — watched sales divided by watched sales plus still-listed items, capped at
-          100%. It is withheld (<code style={{ color: "#8fe3b0" }}>null</code>) below 30 watched sales in
+          the observed share — watched departures divided by watched departures plus still-listed items, capped at
+          100%. It is withheld (<code style={{ color: "#8fe3b0" }}>null</code>) below 30 watched departures in
           the window, or when we have no still-listed sample; null is not 0 and not 100. Weekly turnover
           (<code style={{ color: "#8fe3b0" }}>sold_7d</code> / <code style={{ color: "#8fe3b0" }}>active_listings</code>)
           is a different statistic and is never labelled sell-through.

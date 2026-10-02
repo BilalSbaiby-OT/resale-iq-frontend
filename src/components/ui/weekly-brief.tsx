@@ -78,7 +78,7 @@ export function WeeklyBrief({ brief }: { brief: WeeklyBriefData | null }) {
         </div>
       </div>
 
-      <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 12, lineHeight: 1.6 }}>{tx("Watched departures = listings we saw go from active to sold across Vinted ES, FR, DE, IT and PT in the trailing 7 days. Aggregates only. Free to cite with attribution to Resale IQ.")}</p>
+      <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 12, lineHeight: 1.6 }}>{tx("Watched departures = listings we saw leave the shelf across Vinted ES, FR, DE, IT and PT in the trailing 7 days. Aggregates only. Free to cite with attribution to Resale IQ.")}</p>
     </section>
   )
 }

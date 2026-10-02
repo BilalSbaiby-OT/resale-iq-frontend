@@ -1,4 +1,5 @@
 import type { Locale } from "./i18n"
+import { departureEvidenceNote } from "./departure-display.ts"
 
 /**
  * The words a stranger reads off a verdict card, in their own language.
@@ -117,42 +118,42 @@ const NOTES: Record<Locale, {
     sampleComparables: (n) => `Priced from ${n} comparable listings — not from shelf departures`,
     noComparables: "Too few comparable departures behind this call",
     stale: "Market snapshot is more than 48 hours old",
-    dispersed: "Sold prices are widely spread — treat the average as a range, not a point",
+    dispersed: "Departure prices are widely spread — treat the average as a range, not a point",
   },
   es: {
     fewComparables: (n) => `Solo ${n} salidas comparables detrás de esta decisión`,
     sampleComparables: (n) => `Calculado con ${n} anuncios comparables — no con salidas del catálogo`,
     noComparables: "Muy pocas salidas comparables detrás de esta decisión",
     stale: "La foto del mercado tiene más de 48 horas",
-    dispersed: "Los precios de venta están muy dispersos — trata la media como un rango, no como un punto",
+    dispersed: "Los precios de salida están muy dispersos — trata la media como un rango, no como un punto",
   },
   fr: {
     fewComparables: (n) => `Seulement ${n} départs comparables derrière cette décision`,
     sampleComparables: (n) => `Calculé à partir de ${n} annonces comparables — pas de départs du catalogue`,
     noComparables: "Trop peu de départs comparables derrière cette décision",
     stale: "L'instantané du marché date de plus de 48 heures",
-    dispersed: "Les prix de vente sont très dispersés — traitez la moyenne comme une fourchette, pas comme un point",
+    dispersed: "Les prix au départ sont très dispersés — traitez la moyenne comme une fourchette, pas comme un point",
   },
   de: {
     fewComparables: (n) => `Nur ${n} vergleichbare Abgänge hinter dieser Einschätzung`,
     sampleComparables: (n) => `Berechnet aus ${n} vergleichbaren Anzeigen — nicht aus Abgängen`,
     noComparables: "Zu wenige vergleichbare Abgänge hinter dieser Einschätzung",
     stale: "Die Marktaufnahme ist älter als 48 Stunden",
-    dispersed: "Die Verkaufspreise streuen stark — lies den Mittelwert als Spanne, nicht als Punkt",
+    dispersed: "Die Abgangspreise streuen stark — lies den Mittelwert als Spanne, nicht als Punkt",
   },
   it: {
     fewComparables: (n) => `Solo ${n} uscite comparabili dietro questa decisione`,
     sampleComparables: (n) => `Calcolato su ${n} annunci comparabili — non su uscite dal catalogo`,
     noComparables: "Troppo poche uscite comparabili dietro questa decisione",
     stale: "L'istantanea di mercato ha più di 48 ore",
-    dispersed: "I prezzi di vendita sono molto dispersi — leggi la media come un intervallo, non come un punto",
+    dispersed: "I prezzi all'uscita sono molto dispersi — leggi la media come un intervallo, non come un punto",
   },
   pt: {
     fewComparables: (n) => `Apenas ${n} saídas comparáveis por trás desta decisão`,
     sampleComparables: (n) => `Calculado a partir de ${n} anúncios comparáveis — não de saídas do catálogo`,
     noComparables: "Poucas saídas comparáveis por trás desta decisão",
     stale: "O retrato do mercado tem mais de 48 horas",
-    dispersed: "Os preços de venda estão muito dispersos — trata a média como um intervalo, não como um ponto",
+    dispersed: "Os preços à saída estão muito dispersos — trata a média como um intervalo, não como um ponto",
   },
 }
 
@@ -238,6 +239,27 @@ export function localizeConfidenceNote(
   if (sample) return t.sampleComparables(regroup(sample[1]))
   if (/^Too few (?:comparable|watched) departures$/i.test(note)) return t.noComparables
   if (/^Market snapshot is more than 48 hours old$/i.test(note)) return t.stale
-  if (/^Sold prices are widely spread/i.test(note)) return t.dispersed
+  // Both spellings: the backend says "Sold prices ..." today and will say
+  // "Departure prices ..." once its own copy is brought into line. The
+  // frontend always shows the departure wording.
+  if (/^(?:Sold|Departure) prices are widely spread/i.test(note)) return t.dispersed
   return note
+}
+
+/**
+ * The backend's 30-day demand note ("371 sold in 30 days (...)",
+ * "88 departures in 30d (...)", "88 left the shelf in 30 days") rebuilt from
+ * its COUNT in the lexicon's words, in `locale`, through the display floor.
+ *
+ * The backend sends English prose with the word "sold" in it and none of the six
+ * locales could translate it. We take the number and say it ourselves; prose we
+ * cannot parse is dropped rather than shown, because an unparsed note is
+ * exactly the "sold" claim this replaces. Returns null below the publish floor.
+ */
+export function localizeDemandNote(note: string | null | undefined, locale: Locale): string | null {
+  if (!note) return null
+  const m = note.match(/^\s*([\d.,\s]+?)\s+(?:sold|departed|departures|watched departures|left the shelf)\b[^()]*?\b30\s*(?:days|d)\b/i)
+  if (!m) return null
+  const n = Number(m[1].replace(/[,.\s]/g, ""))
+  return Number.isFinite(n) ? departureEvidenceNote(n, locale) : null
 }

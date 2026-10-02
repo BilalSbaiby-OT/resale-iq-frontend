@@ -2,7 +2,8 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { CATEGORIES, catSlug } from "@/lib/seo-categories"
 import { OG_IMAGES } from "@/lib/og-image"
-import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { getMarketNumbers, fmtEur } from "@/lib/market-numbers"
+import { departureDisplay, departureSupportsConclusion } from "@/lib/departure-display"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { faqPageJsonLd } from "@/lib/faq-schema"
@@ -16,8 +17,9 @@ import { withFittedMetadata } from "@/lib/meta-fit"
 // with no index page and almost no inbound links is what that looks like.
 //
 // The axis here is the inverse of /flip: brand-first there, category-first
-// here. Same exposure policy — aggregate weekly volume and average sale price
-// only, never the paid signals.
+// here. Same exposure policy — aggregate weekly volume and average price at
+// departure only, never the paid signals. Counts follow the display floor
+// (departure-display.ts); a "leads at N" claim needs n >= 30.
 export const revalidate = 900
 
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
@@ -53,7 +55,8 @@ export default async function CategoryHubPage() {
           brand: e.brand,
           slug: e.slug,
           sold_7d: row?.sold_7d ?? null,
-          avg_price_eur: live?.avg_price_eur ?? null,
+          // The category's own average — not the brand-wide one.
+          avg_price_eur: row?.avg_price_eur ?? null,
         }
       })
       .sort((a, b) => (b.sold_7d ?? -1) - (a.sold_7d ?? -1))
@@ -71,11 +74,17 @@ export default async function CategoryHubPage() {
   const busiest = rows.find((r) => r.total > 0) ?? null
   const grandTotal = rows.reduce((sum, r) => sum + r.total, 0)
 
-  const answer = busiest?.leader
+  const busiestTotal = departureDisplay(busiest?.total).text
+  const grandTotalShown = departureDisplay(grandTotal > 0 ? grandTotal : null).text
+  const leaderLine =
+    busiest?.leader && departureSupportsConclusion(busiest.leader.sold_7d)
+      ? `, led by ${busiest.leader.brand} at about ${departureDisplay(busiest.leader.sold_7d).text} a week`
+      : ""
+
+  const answer = busiest?.leader && departureSupportsConclusion(busiest.total)
     ? `${busiest.category} is the busiest category Resale IQ tracks — roughly ` +
-      `${fmtCount(busiest.total)} watched departures a week across ${MARKETS}, led by ${busiest.leader.brand} ` +
-      `at about ${fmtCount(busiest.leader.sold_7d)} a week. Busiest is not the same as most ` +
-      `profitable: high-volume categories sell quickly but competitively, so the margin per ` +
+      `${busiestTotal} watched departures a week across ${MARKETS}${leaderLine}. Busiest is not the same as most ` +
+      `profitable: high-volume categories move quickly but competitively, so the margin per ` +
       `item is usually thinner than in slower, higher-priced ones.`
     : `Category volume is not available in the current snapshot.`
 
@@ -88,10 +97,10 @@ export default async function CategoryHubPage() {
       a: answer,
     },
     {
-      q: "How many items sell on Vinted each week in these categories?",
+      q: "How many items leave the shelf on Vinted each week in these categories?",
       a:
         `Across the ${CATEGORIES.length} tracked categories, the brands Resale IQ follows ` +
-        `account for roughly ${fmtCount(grandTotal)} items we watch leave the shelf per week in ${MARKETS}. ` +
+        `account for roughly ${grandTotalShown} items we watch leave the shelf per week in ${MARKETS}. ` +
         `That is tracked-brand volume only — unbranded listings and untracked brands are ` +
         `not counted, so it is not the size of these categories on Vinted overall.`,
     },
@@ -117,7 +126,7 @@ export default async function CategoryHubPage() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Vinted categories ranked by weekly sales volume",
+      name: "Vinted categories ranked by weekly watched departures",
       itemListOrder: "https://schema.org/ItemListOrderDescending",
       numberOfItems: rows.length,
       itemListElement: rows.map((r, i) => ({
@@ -152,16 +161,16 @@ export default async function CategoryHubPage() {
         </h1>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{answer}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
-          Each category below ranks every tracked brand by what it actually sells in that category
-          each week. Volumes cover the tracked brands only — they are not the size of the category
-          on Vinted as a whole.
+          Each category below ranks every tracked brand by what we watched leave the shelf in that
+          category each week. Volumes cover the tracked brands only — they are not the size of the
+          category on Vinted as a whole.
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
 
         <MoneyCta href={CATEGORY_MONEY_HREF} />
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", margin: "30px 0 4px" }}>
-          Categories ranked by weekly sales
+          Categories ranked by weekly watched departures
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
           Sorted by tracked-brand volume over the last 7 days.
@@ -186,16 +195,16 @@ export default async function CategoryHubPage() {
                   Best brands for reselling {r.category.toLowerCase()} on Vinted
                 </Link>
                 <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap" }}>
-                  {r.total > 0 ? fmtCount(r.total) : "—"}
-                  <span style={{ color: "#5b6b8c" }}> left shelf/week</span>
+                  {departureDisplay(r.total > 0 ? r.total : null).text}
+                  <span style={{ color: "#5b6b8c" }}> left the shelf / week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
                   {r.brandCount}<span style={{ color: "#5b6b8c" }}> brands</span>
                 </div>
               </div>
 
-              {r.leader && (
+              {r.leader && departureSupportsConclusion(r.leader.sold_7d) && (
                 <p style={{ fontSize: 13, color: "#8b99b8", margin: "7px 0 0", lineHeight: 1.6 }}>
-                  {r.leader.brand} leads at {fmtCount(r.leader.sold_7d)} a week
+                  {r.leader.brand} leads at {departureDisplay(r.leader.sold_7d).text} a week
                   {r.leader.avg_price_eur != null ? `, averaging ${fmtEur(r.leader.avg_price_eur)} at departure` : ""}.
                 </p>
               )}

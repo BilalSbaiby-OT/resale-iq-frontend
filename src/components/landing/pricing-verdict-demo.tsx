@@ -9,7 +9,7 @@
  *
  * WHAT: Fetch the Nike AF1 free-sample verdict server-side, render the actual
  * data fields in the same visual language as the paid verdict card — verdict
- * badge, buy-below price, sell avg, demand note, sell-through, confidence.
+ * badge, buy-below price, avg at departure, demand note, sell-through, confidence.
  * Shows exactly what a subscriber sees, on first paint, no JS, no spinner.
  *
  * RULES:
@@ -32,6 +32,7 @@
  */
 
 import type { Locale } from "@/lib/i18n"
+import { departureEvidenceNote } from "@/lib/departure-display"
 
 interface SampleVerdict {
   verdict: string
@@ -165,7 +166,7 @@ const VERDICT_BG: Record<string, string> = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }) {
+export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
   const v = await fetchSampleVerdict()
   if (!v || !v.buy_below) return null
 
@@ -264,7 +265,7 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
               }}
             >
               <div style={{ fontSize: 11, color: "#6a7d9a", marginBottom: 3, fontWeight: 600 }}>
-                SELL AVG
+                AVG AT DEPARTURE
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.5px" }}>
                 €{v.sell_avg.toFixed(0)}
@@ -274,9 +275,9 @@ export async function PricingVerdictDemo({ locale: _locale }: { locale: Locale }
         </div>
 
         {/* Demand note */}
-        {v.sold_30d_evidence != null && (
+        {departureEvidenceNote(v.sold_30d_evidence, locale) && (
           <p style={{ fontSize: 13, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
-            {v.demand_note ?? `${v.sold_30d_evidence.toLocaleString("en-GB")} watched departures in 30 days`}
+            {departureEvidenceNote(v.sold_30d_evidence, locale)}
           </p>
         )}
 

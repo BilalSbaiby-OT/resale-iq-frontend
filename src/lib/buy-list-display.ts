@@ -4,16 +4,18 @@
 export const BUY_LIST_UNLOCK_LABEL = "Unlock the rest — €19/mo"
 
 import type { Locale } from "./i18n"
+import { departureLabel } from "./departure-display.ts"
 
 /** Plain signal words for buy-list rows: entry = max price to pay, target =
- *  typical resale price, sold = watched departures this week. */
-const ROW_WORDS: Record<Locale, { entry: string; target: string; sold: (n: string) => string; sold30: (n: string) => string }> = {
-  en: { entry: "entry ≤", target: "target ~", sold: n => `${n} gone this week`, sold30: n => `${n} gone in 30 days` },
-  fr: { entry: "entrée ≤", target: "cible ~", sold: n => `${n} partis cette semaine`, sold30: n => `${n} partis en 30 j` },
-  es: { entry: "entrada ≤", target: "objetivo ~", sold: n => `${n} salidos esta semana`, sold30: n => `${n} salidos en 30 d` },
-  de: { entry: "Einstieg ≤", target: "Ziel ~", sold: n => `${n} diese Woche weg`, sold30: n => `${n} weg in 30 T.` },
-  it: { entry: "ingresso ≤", target: "obiettivo ~", sold: n => `${n} usciti questa settimana`, sold30: n => `${n} usciti in 30 g` },
-  pt: { entry: "entrada ≤", target: "alvo ~", sold: n => `${n} saíram esta semana`, sold30: n => `${n} saíram em 30 d` },
+ *  typical resale price. The departure count is worded and floored by
+ *  departure-display.ts — one lexicon, one display floor. */
+const ROW_WORDS: Record<Locale, { entry: string; target: string }> = {
+  en: { entry: "entry ≤", target: "target ~" },
+  fr: { entry: "entrée ≤", target: "cible ~" },
+  es: { entry: "entrada ≤", target: "objetivo ~" },
+  de: { entry: "Einstieg ≤", target: "Ziel ~" },
+  it: { entry: "ingresso ≤", target: "obiettivo ~" },
+  pt: { entry: "entrada ≤", target: "alvo ~" },
 }
 
 /** Real stored ceiling, rounded to the euro the row prints. Null stays null —
@@ -28,10 +30,12 @@ export function targetLabel(avg: number, locale: Locale = "en"): string {
   return `${ROW_WORDS[locale].target}€${Math.round(avg)}`
 }
 
-export function soldThisWeekLabel(n: number, locale: Locale = "en"): string {
-  return ROW_WORDS[locale].sold(n.toLocaleString("en-GB"))
+/** "88 left the shelf this week" / "Fewer than 10 left the shelf this week" / null under 5. */
+export function leftShelfWeekLabel(n: number | null | undefined, locale: Locale = "en"): string | null {
+  return departureLabel(n, "7d", locale)
 }
 
-export function sold30Label(n: number, locale: Locale = "en"): string {
-  return ROW_WORDS[locale].sold30(n.toLocaleString("en-GB"))
+/** Same, over 30 days. A list must use ONE window: never print this beside a weekly label. */
+export function leftShelf30Label(n: number | null | undefined, locale: Locale = "en"): string | null {
+  return departureLabel(n, "30d", locale)
 }
