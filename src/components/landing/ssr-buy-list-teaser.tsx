@@ -22,7 +22,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { itemDisplayName } from "@/lib/item-display-name"
-import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { buyBelowLabel, targetLabel, soldThisWeekLabel, sold30Label, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -57,7 +57,7 @@ function VerdictBadge({ verdict }: { verdict: string }) {
   )
 }
 
-function RowContent({ item }: { item: SsrBuyListItem }) {
+function RowContent({ item, locale }: { item: SsrBuyListItem; locale: Locale }) {
   return (
     <>
       {/* Left: brand + model (or category if no model) */}
@@ -79,9 +79,9 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
               back to sold_7d only when 30d evidence is absent. Revisit
               after Sep 29 only if 7d becomes the more useful signal. */}
           {item.sold_30d_evidence != null
-            ? ` · ${item.sold_30d_evidence.toLocaleString()} departed/30 days`
+            ? ` · ${sold30Label(item.sold_30d_evidence, locale)}`
             : item.sold_7d != null
-              ? ` · ${item.sold_7d} departures/wk`
+              ? ` · ${soldThisWeekLabel(item.sold_7d, locale)}`
               : ""}
         </span>
       </div>
@@ -107,9 +107,9 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
           Surface: homepage 52/7d + /pricing 12/7d. Revenue 2026-09-29. H184. */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
         <VerdictBadge verdict={item.verdict} />
-        {buyBelowLabel(item.buy_below) && (
+        {buyBelowLabel(item.buy_below, locale) && (
           <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
-            {buyBelowLabel(item.buy_below)}
+            {buyBelowLabel(item.buy_below, locale)}
           </span>
         )}
         {/* H184: typical exit price — the reseller's other required number.
@@ -122,7 +122,7 @@ function RowContent({ item }: { item: SsrBuyListItem }) {
             data-testid="riq-buy-list-exit-price"
             style={{ fontSize: 11, color: "var(--color-text-muted)", fontVariantNumeric: "tabular-nums" }}
           >
-            exit ~€{Math.round(item.avg_price_eur)}
+            {targetLabel(item.avg_price_eur, locale)}
           </span>
         )}
       </div>
@@ -251,7 +251,7 @@ export function SsrBuyListTeaser({
                 href={rowHref}
                 style={{ ...baseRowStyle, borderTop, textDecoration: "none", color: "inherit" }}
               >
-                <RowContent item={item} />
+                <RowContent item={item} locale={locale} />
               </Link>
             )
           }
@@ -260,7 +260,7 @@ export function SsrBuyListTeaser({
               key={`${item.brand}-${item.category}`}
               style={{ ...baseRowStyle, borderTop }}
             >
-              <RowContent item={item} />
+              <RowContent item={item} locale={locale} />
             </div>
           )
         })}

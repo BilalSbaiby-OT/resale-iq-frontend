@@ -346,7 +346,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   }}>
                     {item.locked
                       ? <Lock size={11} color="#3A3A3C" aria-hidden />
-                      : (buyBelowLabel(item.buy_below)?.replace("buy below ", "") ?? "—")
+                      : (buyBelowLabel(item.buy_below)?.replace("entry ≤ ", "") ?? "—")
                     }
                   </span>
                 </RowEl>

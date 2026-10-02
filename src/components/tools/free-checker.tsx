@@ -875,7 +875,7 @@ export function FreeChecker({
                         fontSize: 12, color: "var(--color-text-secondary)",
                         fontFamily: "ui-monospace, 'SF Mono', monospace",
                       }}>
-                        {c.live_listings.toLocaleString("en-GB")} listed · {money(c.avg_price_eur)} · {c.departures_7d} departures/wk
+                        {c.live_listings.toLocaleString("en-GB")} listed · {money(c.avg_price_eur)} · sold {c.departures_7d.toLocaleString("en-GB")} this week
                       </span>
                     </div>
                   ))}
