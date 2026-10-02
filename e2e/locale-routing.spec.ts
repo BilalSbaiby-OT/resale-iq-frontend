@@ -270,7 +270,8 @@ test("/es/pricing serves the Spanish pricing page, not a redirect and not Englis
   // Spanish pricing has COMPRA/OBSERVA/DESCARTA equivalents; check for section existence
   await expect(page.locator("section.riq-pricing")).toBeVisible()
   await expect(page.locator("section.riq-pricing")).toContainText(/19 €/)
-  await expect(page.getByTestId("riq-starter-trust")).toContainText(/anuncios seguidos/)
+  await expect(page.getByTestId("riq-starter-trust")).toContainText(/2M\+ registros de anuncios/)
+  await expect(page.getByTestId("riq-starter-trust")).not.toContainText(/960\.000|anuncios seguidos/)
   await expect(page.getByTestId("riq-public-data-line")).toContainText(/Solo datos públicos \(no comprobaciones de artículos\)/)
   await expect(page.locator("html")).toHaveAttribute("lang", "es")
 })

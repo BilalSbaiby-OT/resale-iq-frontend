@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og"
-import { listingsTrackedLabel } from "@/lib/stats"
+import { listingRecordsHeadline } from "@/lib/stats"
 
 // Site-wide social card. Until now every share of resaleiq.dev on X, LinkedIn,
 // WhatsApp or Slack rendered as a bare blue link with no image — the single
@@ -13,7 +13,14 @@ export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
 export default async function OpengraphImage() {
-  const tracked = await listingsTrackedLabel()
+  // The ONE headline ("14M+"), the same string the meta description carries —
+  // the card used to say "6,180,000+ Vinted listings" while og:description said
+  // "14,330,000+ listing records". No records figure: drop the clause, never
+  // substitute the distinct count.
+  const tracked = await listingRecordsHeadline()
+  const proof = tracked !== "—"
+    ? `${tracked} listing records across 5 EU markets — buy-below price, sales momentum and the sizes that actually move.`
+    : "Buy-below price, sales momentum and the sizes that actually move, across 5 EU markets."
   return new ImageResponse(
     (
       <div
@@ -69,7 +76,7 @@ export default async function OpengraphImage() {
             node, and it fails the whole build, not just the image. Keep the
             sentence a single template literal. */}
         <div style={{ fontSize: 27, color: "#8b99b8", marginTop: 30, lineHeight: 1.4 }}>
-          {`${tracked} Vinted listings across 5 EU markets — buy-below price, sales momentum and the sizes that actually move.`}
+          {proof}
         </div>
 
         <div

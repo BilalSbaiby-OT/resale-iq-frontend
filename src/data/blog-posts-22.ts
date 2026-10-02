@@ -2,6 +2,7 @@
 // Honest claims only: no earnings guarantees. Sourcing tips are general guidance.
 // All departure data from /api/public/market-snapshot (2026-09-15 build).
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -121,7 +122,7 @@ export const POSTS_22: BlogPost[] = [
       },
       {
         q: "Is Vinted reselling profitable in 2026?",
-        a: "Yes for resellers who source below buy-below price and list with correct data. The EU Vinted platform tracked 5.97 million listings as of September 2026, with strong departure volume across 28 brands. The margin is captured at sourcing — buy correctly and the departure handles itself. The resellers losing money are buying at market price and trying to sell above it.",
+        a: `Yes for resellers who source below buy-below price and list with correct data. Resale IQ tracks ${TRACKED} listing records across the five EU Vinted markets, with strong departure volume across 28 brands. The margin is captured at sourcing — buy correctly and the departure handles itself. The resellers losing money are buying at market price and trying to sell above it.`,
       },
     ],
   },

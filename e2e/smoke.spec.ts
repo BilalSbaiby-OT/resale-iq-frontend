@@ -155,7 +155,11 @@ test("/data shows a number or last-good snapshot, never crashes on null", async 
   const weekly = page.getByRole("table", { name: /Weekly market snapshot/i })
   await expect(weekly).toBeVisible()
   await expect(weekly).toContainText(/Sold \(7 days\)/)
-  await expect(weekly).toContainText(/Listings tracked/)
+  // The exact distinct-item count is published here, labelled as distinct items;
+  // the headline ("2M+ listing records" from the mock's COUNT(*)) sits beside it.
+  await expect(weekly).toContainText(/Distinct items/)
+  await expect(page.getByTestId("riq-data-distinct")).toHaveText("966,236")
+  await expect(page.locator(".riq-data-cite")).toContainText(/Listing records\s*2M\+/)
   await expect(weekly).toContainText(/Freshness/)
 })
 
@@ -202,7 +206,10 @@ test("/pricing renders the tiers with one h1 and exactly one filled accent CTA",
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
   }
   await expect(page.getByTestId("riq-public-data-line")).toContainText(/Public data only \(not item checks\)/i)
-  await expect(page.getByTestId("riq-starter-trust")).toContainText(/listings watched/)
+  // ONE headline: the records count floored to the whole million, named as records.
+  // The mock's distinct count (966,236) must NOT be what the trust line quotes.
+  await expect(page.getByTestId("riq-starter-trust")).toContainText(/2M\+ listing records/)
+  await expect(page.getByTestId("riq-starter-trust")).not.toContainText(/960,000|listings watched/)
   await expect(page.getByText("€49", { exact: true })).toBeVisible()
   await expect(page.getByText("€19", { exact: true })).toBeVisible()
   // Free forever must not lead — first tier CTA is Starter (trial CTA, 2026-09-30: "Start my 7-day free trial").

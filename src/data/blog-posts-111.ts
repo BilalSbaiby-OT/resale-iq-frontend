@@ -3,6 +3,7 @@
 // This is the "how to use the tool" guide — the query every reseller has
 // but no page on resaleiq.dev answers. All numbers live from the API.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -13,7 +14,7 @@ export const POSTS_111: BlogPost[] = [
     title: "How to Check if a Vinted Item Is Worth Buying (Free Price Checker Guide)",
     seoTitle: "How to Check if a Vinted Item Is Worth Buying | Resale IQ",
     description:
-      "Use the free ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from 5.4M+ tracked listings across.",
+      `Use the free ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from ${TRACKED} listing records.`,
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 7,
@@ -34,7 +35,7 @@ export const POSTS_111: BlogPost[] = [
         h: "What the free checker gives you in 30 seconds",
         p: [
           "The ResaleIQ free price checker answers one question before you spend money: what is the most I should pay for this item? Type a brand and garment — 'Fred Perry Shirt', 'Patagonia Jacket', 'Nike Air Max 90' — and the checker returns the average exit price across 5 EU markets, the buy-below ceiling (65% of that average), and the number of watched departures in the trailing 7 days. No account needed, no card required, no signup wall.",
-          "The data is live, not a static price list. The checker reads from 5,408,984 tracked listings across Spain, France, Germany, Italy, and Portugal, updated weekly. When a brand's exit price moves — Stone Island hoodies shift from €55 to €58, or Balenciaga bags drop from €324 to €193 — the checker reflects it within the same week. You are not quoting a price you found in a forum post from March: you are quoting the market as of this week.",
+          `The data is live, not a static price list. The checker reads from ${TRACKED} listing records across Spain, France, Germany, Italy, and Portugal, updated weekly. When a brand's exit price moves — Stone Island hoodies shift from €55 to €58, or Balenciaga bags drop from €324 to €193 — the checker reflects it within the same week. You are not quoting a price you found in a forum post from March: you are quoting the market as of this week.`,
           `The checker is free because it is the top of the funnel. The free verdict shows the buy-below price, the average exit, and the departure count — enough to make a buying decision. The locked fields (sell-through rate, size breakdown, price history) are what you unlock with a paid plan, but the buy-below ceiling alone tells you whether an item at a given price is worth buying. [Check an item now →](/tools)`,
         ],
         cta: pricingMidCta("ctr_how_check_intro_20260919"),
@@ -97,7 +98,7 @@ export const POSTS_111: BlogPost[] = [
       },
       {
         q: "How often is the checker data updated?",
-        a: "The checker reads from the live ResaleIQ market snapshot, which updates weekly. The snapshot tracks 5,408,984 listings across Spain, France, Germany, Italy, and Portugal. When a brand's exit price moves, the checker reflects it within the same week.",
+        a: `The checker reads from the live ResaleIQ market snapshot, which updates weekly. The snapshot tracks ${TRACKED} listing records across Spain, France, Germany, Italy, and Portugal. When a brand's exit price moves, the checker reflects it within the same week.`,
       },
       {
         q: "Can I trust the departure numbers?",

@@ -4,6 +4,7 @@
 // competitor pricing guides (Listvore, Vinkit, WintageClub, Dresskool).
 // Zero fabrication: all numbers from the live market snapshot.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -14,7 +15,7 @@ export const POSTS_112: BlogPost[] = [
     title: "How to Price Vinted Items for Fast Sales (2026 Seller Guide)",
     seoTitle: "How to Price Vinted Items for Fast Sales — 2026 | Resale IQ",
     description:
-      "Price Vinted items to sell fast without leaving money on the table. Live departure data from 5.4M+ tracked listings, negotiation psychology.",
+      `Price Vinted items to sell fast without leaving money on the table. Live departure data from ${TRACKED} listing records, negotiation psychology.`,
     date: "2026-09-19",
     category: "Pricing",
     readMins: 8,
@@ -97,7 +98,7 @@ export const POSTS_112: BlogPost[] = [
       },
       {
         q: "How do I find the sold price for my item on Vinted?",
-        a: "Search your brand, size and garment type on Vinted, filter by 'Sold', limit to the last 30 days, and take the median of the last 5–10 confirmed sales. That median is your benchmark. ResaleIQ gives you the same signal for free — the average exit price and watched departure count for any item, from 5.4M+ tracked listings across 5 EU markets.",
+        a: `Search your brand, size and garment type on Vinted, filter by 'Sold', limit to the last 30 days, and take the median of the last 5–10 confirmed sales. That median is your benchmark. ResaleIQ gives you the same signal for free — the average exit price and watched departure count for any item, from ${TRACKED} listing records across 5 EU markets.`,
       },
       {
         q: "When should I drop my Vinted price?",
@@ -121,7 +122,7 @@ export const POSTS_112: BlogPost[] = [
       },
       {
         q: "How often does ResaleIQ update its pricing data?",
-        a: "The market snapshot updates weekly. The snapshot tracks 5,408,984 listings across Spain, France, Germany, Italy, and Portugal, with watched departures (listings going from active to sold) counted in the trailing 7 days. When a brand's exit price moves, the data reflects it within the same week.",
+        a: `The market snapshot updates weekly. The snapshot tracks ${TRACKED} listing records across Spain, France, Germany, Italy, and Portugal, with watched departures (listings going from active to sold) counted in the trailing 7 days. When a brand's exit price moves, the data reflects it within the same week.`,
       },
     ],
   },

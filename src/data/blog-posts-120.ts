@@ -12,13 +12,13 @@ export const POSTS_120: BlogPost[] = [
     title: "Should I Buy This Model to Resell? (2026 Demand Check)",
     seoTitle: "Should I Buy This Model to Resell? | Resale IQ",
     description:
-      "Decide which clothing model to buy to resell: this week’s watched departures on 5,309,568 Vinted listings (EU5), then run the model in Resale IQ /tools.",
+      "Decide which clothing model to buy to resell: this week’s watched departures across EU5 Vinted, then run the model in Resale IQ /tools.",
     date: "2026-09-20",
     category: "Sourcing",
     readMins: 5,
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "Should you buy this model to resell? Start with demand, then price. Across 5,309,568 Vinted listings we track in ES, FR, DE, IT and PT, the week to 20 September 2026 showed Stone Island leaving the shelf 62 times at €73 average — hoodies 29 at €52, jackets 19 at €137. Fred Perry moved 56 at €16. Patagonia 52 at €33. Nike only 14 at €98. Those are brand and category counts, not a Samba versus Gazelle model pick. The model you should buy is the one that still leaves the shelf at a price that covers your buy after fees. Run that exact model in the checker on /tools before you spend stock money this week. This public page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",
+      "Should you buy this model to resell? Start with demand, then price. Across ES, FR, DE, IT and PT, the week to 20 September 2026 showed Stone Island leaving the shelf 62 times at €73 average — hoodies 29 at €52, jackets 19 at €137. Fred Perry moved 56 at €16. Patagonia 52 at €33. Nike only 14 at €98. Those are brand and category counts, not a Samba versus Gazelle model pick. The model you should buy is the one that still leaves the shelf at a price that covers your buy after fees. Run that exact model in the checker on /tools before you spend stock money this week. This public page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",
     definedTerm: {
       name: "Buy this model to resell",
       description:
@@ -28,7 +28,7 @@ export const POSTS_120: BlogPost[] = [
       {
         h: "This week’s demand, not a shopping list",
         p: [
-          "Public snapshot 20 September 2026 19:49 UTC. Listings tracked: 5,309,568. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound.",
+          "Public snapshot 20 September 2026 19:49 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound.",
           "Stone Island 62 departures, €73 average. Fred Perry 56, €16. Patagonia 52, €33. Balenciaga 26, €107. Gucci 26, €303. The North Face 25, €30. New Balance 24, €46. Nike 14, €98. Adidas 5, €26. High average price with thin volume (Nike, Gucci) is not the same signal as high volume at a modest average (Fred Perry, Patagonia).",
         ],
         table: {
@@ -72,7 +72,7 @@ export const POSTS_120: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,309,568 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales.",
       },
       {
         q: "Why no buy-below for Samba or Nano Puff here?",

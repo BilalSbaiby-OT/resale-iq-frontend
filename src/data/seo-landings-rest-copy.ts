@@ -36,7 +36,7 @@ const excelEn = loc(
     ]},
     { h: "Where a sheet still wins", p: [
       "Your tax pack, your shipping labels, your “I bought at €X”. Resale IQ is not accounting software and does not pretend to be.",
-      "The mistake is using the sheet as a market. Past buys are not ES/FR/DE/IT/PT demand. {tracked} listings are.",
+      "The mistake is using the sheet as a market. Past buys are not ES/FR/DE/IT/PT demand. {tracked} listing records are.",
     ]},
     { h: "The honest split", p: [
       "Keep Excel. Add the warehouse. Starter unlocks buy-below for named models beyond the three samples. Brand volumes stay public so you can still sanity-check a house before you pay.",
@@ -74,7 +74,7 @@ export const vsForLandingCopy: Record<string, Table> = {
         ]},
         { h: "Dónde la hoja sigue ganando", p: [
           "Tu pack fiscal, tus etiquetas, tu «compré a X €». Resale IQ no es software de contabilidad.",
-          "El error es usar la hoja como mercado. Las compras pasadas no son la demanda ES/FR/DE/IT/PT. {tracked} anuncios sí.",
+          "El error es usar la hoja como mercado. Las compras pasadas no son la demanda ES/FR/DE/IT/PT. {tracked} registros de anuncios sí.",
         ]},
         { h: "La separación honesta", p: [
           "Quédate Excel. Añade el almacén. Starter abre el buy-below de modelos con nombre más allá de las tres muestras. Los volúmenes de marca siguen públicos.",
@@ -108,7 +108,7 @@ export const vsForLandingCopy: Record<string, Table> = {
         ]},
         { h: "Là où la feuille gagne encore", p: [
           "Votre liasse fiscale, vos étiquettes, votre « j’ai acheté à X € ». Resale IQ n’est pas un logiciel comptable.",
-          "L’erreur est d’utiliser la feuille comme marché. Les achats passés ne sont pas la demande ES/FR/DE/IT/PT. {tracked} annonces le sont.",
+          "L’erreur est d’utiliser la feuille comme marché. Les achats passés ne sont pas la demande ES/FR/DE/IT/PT. {tracked} enregistrements d’annonces le sont.",
         ]},
         { h: "La séparation honnête", p: [
           "Gardez Excel. Ajoutez l’entrepôt. Starter ouvre le buy-below des modèles nommés au-delà des trois échantillons. Les volumes de marque restent publics.",
@@ -142,7 +142,7 @@ export const vsForLandingCopy: Record<string, Table> = {
         ]},
         { h: "Wo die Tabelle noch gewinnt", p: [
           "Ihr Steuerpaket, Ihre Labels, Ihr «gekauft zu X €». Resale IQ ist keine Buchhaltung.",
-          "Der Fehler ist, die Tabelle als Markt zu nutzen. Vergangene Käufe sind nicht die Nachfrage ES/FR/DE/IT/PT. {tracked} Inserate sind es.",
+          "Der Fehler ist, die Tabelle als Markt zu nutzen. Vergangene Käufe sind nicht die Nachfrage ES/FR/DE/IT/PT. {tracked} Inseratseinträge sind es.",
         ]},
         { h: "Die ehrliche Trennung", p: [
           "Behalten Sie Excel. Ergänzen Sie das Lager. Starter öffnet Buy-below für benannte Modelle jenseits der drei Stichproben. Markenvolumen bleiben öffentlich.",
@@ -176,7 +176,7 @@ export const vsForLandingCopy: Record<string, Table> = {
         ]},
         { h: "Dove il foglio vince ancora", p: [
           "Il tuo pacchetto fiscale, le etichette, il «ho comprato a X €». Resale IQ non è un software di contabilità.",
-          "L’errore è usare il foglio come mercato. Gli acquisti passati non sono la domanda ES/FR/DE/IT/PT. {tracked} annunci sì.",
+          "L’errore è usare il foglio come mercato. Gli acquisti passati non sono la domanda ES/FR/DE/IT/PT. {tracked} registrazioni di inserzioni sì.",
         ]},
         { h: "La separazione onesta", p: [
           "Tieni Excel. Aggiungi il magazzino. Starter apre il buy-below dei modelli nominati oltre i tre campioni. I volumi di marca restano pubblici.",
@@ -210,7 +210,7 @@ export const vsForLandingCopy: Record<string, Table> = {
         ]},
         { h: "Onde a folha ainda ganha", p: [
           "O teu pacote fiscal, as etiquetas, o «comprei a X €». A Resale IQ não é software de contabilidade.",
-          "O erro é usar a folha como mercado. Compras passadas não são a procura ES/FR/DE/IT/PT. {tracked} anúncios são.",
+          "O erro é usar a folha como mercado. Compras passadas não são a procura ES/FR/DE/IT/PT. {tracked} registos de anúncios são.",
         ]},
         { h: "A separação honesta", p: [
           "Fica com o Excel. Acrescenta o armazém. O Starter abre o buy-below de modelos com nome para além das três amostras. Os volumes de marca continuam públicos.",

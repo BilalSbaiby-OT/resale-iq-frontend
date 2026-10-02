@@ -2,6 +2,7 @@
 // Not a brand-price clone. Numbers from /api/public/market-snapshot at publish (20 Sep 16:49).
 // Say watched departures, never sold.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -12,13 +13,13 @@ export const POSTS_119: BlogPost[] = [
     title: "Vinted Reseller Tools in 2026: What You Actually Need (and What You Don't)",
     seoTitle: "Vinted Reseller Tools 2026 — Demand Check | Resale IQ",
     description:
-      "The only tools that change a buy decision: demand check, fee math, photos. Live EU5 watched-departure numbers from 5,341,780 listings. Skip the bloated stacks.",
+      `The only tools that change a buy decision: demand check, fee math, photos. Live EU5 watched-departure data from ${TRACKED} listing records. Skip the stacks.`,
     date: "2026-09-20",
     category: "Tools",
     readMins: 7,
     preflightQuery: "Jordan 1 Mid",
     intro:
-      "Most “Vinted tool stacks” are a spreadsheet, a photo app, and a dozen browser extensions that never get opened. The job is simpler: decide whether to buy an item to resell, then list it without eating fees. On 20 Sep 2026 Resale IQ watched 443 brand-level departures across published EU5 brands on 5,341,780 tracked listings (snapshot 16:49). Fred Perry left the shelf 84 times at €16 average. Stone Island jackets 19 times at €137. Gucci bags 11 times at €500. Those numbers are the tool. Everything else is support. Below is an honest roundup: demand check first, fee math second, photos third, and the junk you can skip.",
+      "Most “Vinted tool stacks” are a spreadsheet, a photo app, and a dozen browser extensions that never get opened. The job is simpler: decide whether to buy an item to resell, then list it without eating fees. On 20 Sep 2026 Resale IQ watched 443 brand-level departures across published EU5 brands (snapshot 16:49). Fred Perry left the shelf 84 times at €16 average. Stone Island jackets 19 times at €137. Gucci bags 11 times at €500. Those numbers are the tool. Everything else is support. Below is an honest roundup: demand check first, fee math second, photos third, and the junk you can skip.",
     definedTerm: {
       name: "Vinted reseller tools",
       description:
@@ -58,7 +59,7 @@ export const POSTS_119: BlogPost[] = [
       {
         h: "Live snapshot used in this roundup",
         p: [
-          "Source: Resale IQ public market snapshot, 20 Sep 2026 16:49. 5,341,780 listings tracked. 18 brands published (floor 5 watched departures / 7d). 443 watched departures on those brands. Treat weekly watched volume as a lower bound.",
+          "Source: Resale IQ public market snapshot, 20 Sep 2026 16:49. 18 brands published (floor 5 watched departures / 7d). 443 watched departures on those brands. Treat weekly watched volume as a lower bound.",
         ],
         table: {
           caption:

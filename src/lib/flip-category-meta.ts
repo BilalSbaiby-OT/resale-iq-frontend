@@ -68,7 +68,7 @@ export function flipBrandCategoryDescription(opts: {
   const lower = category.toLowerCase()
   if (tracked && tracked !== "—") {
     return (
-      `${brand} ${lower}: watched departures from ${tracked} listings across 5 EU Vinted markets. ` +
+      `${brand} ${lower}: watched departures from ${tracked} listing records across 5 EU Vinted markets. ` +
       `Demand first — then buy-below on the exact item.`
     )
   }

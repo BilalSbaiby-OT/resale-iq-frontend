@@ -245,7 +245,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
         <Section title={t.section7}>
           <Bullets items={[
             t.bullet1_0,
-            `${t.g_overstate_a} ${tracked} ${t.g_overstate_b}`,
+            `${t.g_overstate_a} ${tracked} ${t.g_overstate_b} ${fmtCount(market.listingsTracked)} ${t.g_overstate_c}`,
             t.bullet1_1,
           ]} />
         </Section>

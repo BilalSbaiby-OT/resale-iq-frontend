@@ -15,11 +15,12 @@
  * A convention that has failed twice is not a convention, it is a hope. This is
  * the check that makes it a rule.
  *
- * Server components must call listingsTrackedLabel(); static data modules write
- * the TRACKED sentinel and their render sites pass it through fillTracked();
- * client components use the fetch-on-mount hook. Two literals are allowed and
- * enumerated below: the API-unreachable fallbacks, which are floors and so can
- * only ever understate.
+ * Server components must call listingRecordsHeadline() (listingsTrackedLabel()
+ * is its older alias); static data modules write the TRACKED sentinel and their
+ * render sites pass it through fillTracked(); client components use the
+ * fetch-on-mount hook. All three yield the ONE headline, "14M+" — the listing
+ * RECORDS count floored to the whole million (src/lib/floor-to-10k.ts). There are
+ * no allowed literals.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs"
 import { join, relative } from "node:path"
@@ -27,10 +28,23 @@ import { join, relative } from "node:path"
 const ROOT = new URL("..", import.meta.url).pathname
 const SRC = join(ROOT, "src")
 
-// A number of 6+ digits with thousands separators, followed by a "+" or the
-// word "listings"/"items"/"sales" — i.e. a dataset-size claim, not a price,
-// a timeout or a year.
-const CLAIM = /\b\d{3},\d{3}\+|\b\d{1,2}(\.\d+)?M\+?\s*(unique\s+)?(listings|items|sales)/gi
+// A dataset-size claim, not a price, a timeout or a year. Four shapes:
+//   1. "966,000+", "13.4M listings"                (the original two)
+//   2. an exact millions-scale count with up to three words before the noun:
+//      "5,309,568 EU5 Vinted listings", "6,034,566 EU Vinted listings"
+//   3. "13.4M tracked EU Vinted listings", "5.4M+ tracked listings",
+//      "13.4 million active listings", "14M+ listing records" typed by hand
+//   4. a stat-card literal: { value: "13.4M" }
+// 2-4 were the blind spot: 40+ frozen literals in blog data, /partners and the
+// buy-list teaser sailed past a check that only matched a digit run directly
+// followed by the noun. Allow-list nothing; comments are skipped below.
+const NOUN = "(?:listings|listing records|records|items)"
+const CLAIMS = [
+  /\b\d{3},\d{3}\+|\b\d{1,2}(\.\d+)?M\+?\s*(unique\s+)?(listings|items|sales)/gi,
+  new RegExp(`\\b\\d{1,3}(?:,\\d{3}){2,}\\b(?=\\s+(?:[\\w-]+\\s+){0,3}${NOUN})`, "gi"),
+  new RegExp(`\\b\\d+(?:\\.\\d+)?\\s?(?:M\\+?|million)(?=\\s+(?:[\\w-]+\\s+){0,3}${NOUN})`, "gi"),
+  /value:\s*"\d+(?:\.\d+)?M\+?"/g,
+]
 
 /** Comments may quote old literals. No source file is allowed a live claim. */
 const ALLOWED = new Set([])
@@ -52,8 +66,10 @@ for (const file of walk(SRC)) {
     const code = line.trim()
     // Comments explain the rule and must be free to quote the old values.
     if (code.startsWith("//") || code.startsWith("*") || code.startsWith("/*")) return
-    const hits = line.match(CLAIM)
-    if (hits) offences.push(`${rel}:${i + 1}  ${hits[0]}  |  ${code.slice(0, 90)}`)
+    for (const re of CLAIMS) {
+      const hits = line.match(re)
+      if (hits) offences.push(`${rel}:${i + 1}  ${hits[0]}  |  ${code.slice(0, 90)}`)
+    }
   })
 }
 
@@ -63,7 +79,7 @@ if (offences.length) {
   console.error(`
    The number moves. A literal does not.
 
-   server component  ->  const tracked = await listingsTrackedLabel()
+   server component  ->  const tracked = await listingRecordsHeadline()  (or listingsTrackedLabel())
    static data file  ->  \${TRACKED}, then fillTracked(data, tracked) at render
    client component  ->  the fetch-on-mount hook, as in paywall.tsx
 `)

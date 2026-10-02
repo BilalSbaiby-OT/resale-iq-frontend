@@ -7,7 +7,7 @@ import { GadsTag } from "@/components/gads-tag"
 import { ConsentBanner } from "@/components/consent-banner"
 import { FrontDoorTheme } from "@/components/layout/front-door-theme"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
-import { listingsTrackedLabel, listingRecordsLabel } from "@/lib/stats"
+import { listingRecordsHeadline } from "@/lib/stats"
 import { requestLocale } from "@/lib/request-locale"
 import { structuredDataCopy } from "@/lib/structured-data-copy"
 import type { Locale } from "@/lib/i18n"
@@ -31,17 +31,18 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 
 // The dataset size is FETCHED, never typed. The meta description and JSON-LD
-// lead with the listing-records figure (COUNT(*) across all 5 markets), which
-// is the larger, honestly-labelled number. The distinct-item count is shown
-// in the live-market-pulse section on the homepage. Both are live from the API.
+// carry the ONE headline ("14M+ listing records", listingRecordsHeadline() in
+// stats.ts: COUNT(*) floored to the whole million). The exact distinct-item
+// count lives on /data, /methodology and the /pricing market pulse only.
+//
+// No records figure (warehouse unreachable) means NO figure clause — never the
+// distinct count wearing the "listing records" label, which is what this used
+// to do and is how one page came to carry two different "sizes".
 const desc = (tracked: string) =>
-  `${tracked} listing records across 5 EU markets. Real sell-through data on Vinted reselling: what sells, buy-below price, BUY/WATCH/SKIP verdict per item.`
+  `${tracked !== "—" ? `${tracked} listing records across 5 EU markets. ` : ""}Real sell-through data on Vinted reselling: what sells, buy-below price, BUY/WATCH/SKIP verdict per item.`
 
 export async function generateMetadata(): Promise<Metadata> {
-  // Use listing-records figure (larger, honestly labelled); fall back to
-  // distinct-item count if the new field is not yet available.
-  const records = await listingRecordsLabel()
-  const tracked = records !== "—" ? records : await listingsTrackedLabel()
+  const tracked = await listingRecordsHeadline()
   const DESC = desc(tracked)
   const locale = await requestLocale()
   return {
@@ -203,8 +204,7 @@ const websiteJsonLd = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await requestLocale()
   const frontDoor = (await headers()).get("x-resaleiq-front-door") === "1"
-  const records = await listingRecordsLabel()
-  const trackedLabel = records !== "—" ? records : await listingsTrackedLabel()
+  const trackedLabel = await listingRecordsHeadline()
   const ORG_JSONLD = orgJsonLd(trackedLabel, locale)
   const ORGANIZATION_ENTITY_JSONLD = organizationEntityJsonLd(trackedLabel, locale)
   return (

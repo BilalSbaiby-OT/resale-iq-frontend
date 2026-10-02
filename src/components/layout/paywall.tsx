@@ -127,7 +127,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
             ? tx("The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime.")
-            : tx(`{0} listings, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`, [tracked])}
+            : tx(`{0} listing records, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`, [tracked])}
         </p>
         {/* The one reframe that collapses price resistance. */}
         <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>{tx("One good flip pays for the whole month.")}</p>

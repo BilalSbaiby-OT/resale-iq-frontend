@@ -12,13 +12,13 @@ export const POSTS_125: BlogPost[] = [
     title: "Reseller Mistakes That Kill Margin: Which Model to Buy (2026)",
     seoTitle: "Reseller Mistakes 2026 | Which Model to Buy | Resale IQ",
     description:
-      "The expensive mistake is buying a brand, not a model. This week’s watched departures on 5,309,568 EU5 Vinted listings, then check the model on /tools.",
+      "The expensive mistake is buying a brand, not a model. This week’s watched departures across EU5 Vinted, then check the model on /tools.",
     date: "2026-09-21",
     category: "How-to",
     readMins: 6,
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "The margin killer is not a missing supplier. It is buying the brand instead of the model. Across 5,309,568 Vinted listings we track in ES, FR, DE, IT and PT, the week to 20 September 2026 showed Fred Perry leaving the shelf 46 times at €16 average — shirts 18 at €12. Stone Island also moved 46 times at €67 — hoodies 23 at €44. Patagonia 43 at €34. Gucci 24 at €276. New Balance 24 at €46. Balenciaga 20 at €134. Nike only 12 at €83. Adidas 5 at €26. Supreme 5 at €58. Thin names this week are a guess unless the checker shows a live sample. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales. Ingest has been thin, so treat direction, not a 24-hour tick.",
+      "The margin killer is not a missing supplier. It is buying the brand instead of the model. Across ES, FR, DE, IT and PT, the week to 20 September 2026 showed Fred Perry leaving the shelf 46 times at €16 average — shirts 18 at €12. Stone Island also moved 46 times at €67 — hoodies 23 at €44. Patagonia 43 at €34. Gucci 24 at €276. New Balance 24 at €46. Balenciaga 20 at €134. Nike only 12 at €83. Adidas 5 at €26. Supreme 5 at €58. Thin names this week are a guess unless the checker shows a live sample. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales. Ingest has been thin, so treat direction, not a 24-hour tick.",
     definedTerm: {
       name: "Reseller margin mistake (clothing)",
       description:
@@ -28,7 +28,7 @@ export const POSTS_125: BlogPost[] = [
       {
         h: "Demand this week, then the mistake list",
         p: [
-          "Public snapshot 20 September 2026 22:38 UTC. Listings tracked: 5,309,568. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp.",
+          "Public snapshot 20 September 2026 22:38 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp.",
           "Fred Perry 46 departures, €16 average. Stone Island 46, €67. Patagonia 43, €34. Gucci 24, €276. New Balance 24, €46. Balenciaga 20, €134. The North Face 16, €33. Nike 12, €83. Ralph Lauren 12, €52. Uniqlo 12, €10. Adidas 5, €26. Supreme 5, €58. High volume at a modest average (Fred Perry shirts) turns. Thin, expensive names are a different cash bet.",
         ],
         table: {
@@ -75,7 +75,7 @@ export const POSTS_125: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,309,568 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales.",
       },
       {
         q: "Which clothing model should I buy to resell?",

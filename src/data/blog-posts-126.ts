@@ -12,14 +12,14 @@ export const POSTS_126: BlogPost[] = [
     title: "Restock or Skip: Which Clothing Model to Buy This Week (2026)",
     seoTitle: "Restock or Skip 2026 | Which Model to Buy | Resale IQ",
     description:
-      "Restock the model that still left the shelf, not the brand you like. This week’s watched departures on 5,309,568 EU5 Vinted listings, then check it on /tools.",
+      "Restock the model that still left the shelf, not the brand you like. This week’s watched departures across EU5 Vinted, then check it on /tools.",
     date: "2026-09-21",
     category: "How-to",
     readMins: 6,
     noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "A restock is a second bet on the same cash. Do not reorder the brand. Reorder the model that still left the shelf. Across 5,309,568 Vinted listings we track in ES, FR, DE, IT and PT, the week to 20 September 2026 23:38 UTC showed Stone Island leaving 41 times at €69 average — hoodies 20 at €44, jackets 13 at €140. Patagonia 40 at €35, jackets 18 at €33. Fred Perry 35 at €16, shirts 14 at €12. New Balance sneakers 22 at €48. Gucci bags 10 at €452. Nike only 8 at €64. Adidas 5 at €26. Thin names this week are a skip unless /tools shows a live sample for that exact model. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales. Ingest has been thin, so treat direction, not a 24-hour tick.",
+      "A restock is a second bet on the same cash. Do not reorder the brand. Reorder the model that still left the shelf. Across ES, FR, DE, IT and PT, the week to 20 September 2026 23:38 UTC showed Stone Island leaving 41 times at €69 average — hoodies 20 at €44, jackets 13 at €140. Patagonia 40 at €35, jackets 18 at €33. Fred Perry 35 at €16, shirts 14 at €12. New Balance sneakers 22 at €48. Gucci bags 10 at €452. Nike only 8 at €64. Adidas 5 at €26. Thin names this week are a skip unless /tools shows a live sample for that exact model. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales. Ingest has been thin, so treat direction, not a 24-hour tick.",
     definedTerm: {
       name: "Restock decision (clothing resale)",
       description:
@@ -29,7 +29,7 @@ export const POSTS_126: BlogPost[] = [
       {
         h: "This week’s volume, then the restock rule",
         p: [
-          "Public snapshot 20 September 2026 23:38 UTC. Listings tracked: 5,309,568. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp.",
+          "Public snapshot 20 September 2026 23:38 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp.",
           "Stone Island 41 departures, €69 average. Patagonia 40, €35. Fred Perry 35, €16. New Balance 24, €46. Gucci 23, €283. Balenciaga 18, €145. The North Face 16, €33. Uniqlo 12, €10. Ralph Lauren 11, €54. Nike 8, €64. Adidas 5, €26. Restock where category volume is still there. Skip where the sample is five.",
         ],
         table: {
@@ -75,7 +75,7 @@ export const POSTS_126: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,309,568 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales.",
       },
       {
         q: "Which clothing model should I buy to resell?",

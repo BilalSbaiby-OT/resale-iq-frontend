@@ -12,14 +12,14 @@ export const POSTS_122: BlogPost[] = [
     title: "Vinted vs Grailed Streetwear: Which Model to Buy (2026)",
     seoTitle: "Vinted vs Grailed Streetwear 2026 | Which Model | Resale IQ",
     description:
-      "Pick the streetwear model to buy before you pick the channel. This week’s watched departures on 5,564,932 EU5 Vinted listings.",
+      "Pick the streetwear model to buy before you pick the channel. This week’s watched departures across EU5 Vinted.",
     date: "2026-09-20",
     category: "Compare",
     readMins: 6,
     noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "Vinted vs Grailed is a channel pick after you already know which model to buy. Across 5,564,932 Vinted listings we track in ES, FR, DE, IT and PT, the week to 18 September 2026 showed Balenciaga leaving the shelf 261 times at €140 average — sneakers 76 at €152. Fred Perry moved 258 times at €17. Patagonia 234 at €38. Stone Island 197 at €71 — hoodies 108 at €55. Nike 74 at €72. Supreme 54 at €80. Adidas 39 at €54. Grailed is thinner, slower, and aimed at collectors who pay for rare cuts. Vinted is volume. Buy the model that still leaves the shelf on Vinted at a price that covers fees, then list Grailed only if the same piece is scarce. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",
+      "Vinted vs Grailed is a channel pick after you already know which model to buy. Across ES, FR, DE, IT and PT, the week to 18 September 2026 showed Balenciaga leaving the shelf 261 times at €140 average — sneakers 76 at €152. Fred Perry moved 258 times at €17. Patagonia 234 at €38. Stone Island 197 at €71 — hoodies 108 at €55. Nike 74 at €72. Supreme 54 at €80. Adidas 39 at €54. Grailed is thinner, slower, and aimed at collectors who pay for rare cuts. Vinted is volume. Buy the model that still leaves the shelf on Vinted at a price that covers fees, then list Grailed only if the same piece is scarce. Run the exact model on /tools before you spend stock money. This page does not publish a per-model buy-below. We count watched departures, not confirmed cash sales.",
     definedTerm: {
       name: "Vinted vs Grailed (streetwear)",
       description:
@@ -29,7 +29,7 @@ export const POSTS_122: BlogPost[] = [
       {
         h: "Demand first, then the channel",
         p: [
-          "Public snapshot 18 September 2026 22:43 UTC. Listings tracked: 5,564,932. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp; ingest has been thin, so treat direction not a 24h tick.",
+          "Public snapshot 18 September 2026 22:43 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. Snapshot last_calculated is that stamp; ingest has been thin, so treat direction not a 24h tick.",
           "Balenciaga 261 departures, €140 average. Fred Perry 258, €17. Patagonia 234, €38. Stone Island 197, €71. Gucci 105, €249. Nike 74, €72. The North Face 73, €38. New Balance 71, €75. Supreme 54, €80. Adidas 39, €54. High volume at a modest average (Fred Perry shirts 121 at €14) turns on Vinted. Thin, expensive names (Gucci bags 39 at €392) are the only ones worth a Grailed listing test.",
         ],
         table: {
@@ -74,7 +74,7 @@ export const POSTS_122: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,564,932 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales. We do not claim Grailed volume.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales. We do not claim Grailed volume.",
       },
       {
         q: "Which streetwear model should I buy to resell?",

@@ -3,6 +3,7 @@
 // Sources: Vinted official help centre (shipping model, 2026),
 // live API data (19 Sep 2026). Zero fabrication: all numbers from the live snapshot.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -13,7 +14,7 @@ export const POSTS_116: BlogPost[] = [
     title: "Vinted Shipping Costs for Sellers: Who Pays and How It Affects Your Profit (2026)",
     seoTitle: "Vinted Shipping Costs for Sellers 2026 | Resale IQ",
     description:
-      "Vinted buyers usually pay shipping — sellers keep the item price. Learn the two shipping models, the profit-after-shipping math with live data from 5.4M.",
+      `Vinted buyers usually pay shipping — sellers keep the item price. The two shipping models and the profit-after-shipping math, from ${TRACKED} listing records.`,
     date: "2026-09-20",
     category: "Money",
     readMins: 6,
@@ -58,7 +59,7 @@ export const POSTS_116: BlogPost[] = [
         h: "The profit-after-shipping math: which items are worth selling",
         p: [
           "The real question is not 'how much does shipping cost' but 'is this item worth selling after shipping?' If the buyer pays shipping, the answer is simple: any item with a positive margin is worth listing. If you offer free shipping, you need to subtract the carrier cost from your sale price.",
-          "Using live data from 5.4M tracked EU listings (19 Sep 2026):",
+          "Using watched-departure data from the 19 Sep 2026 snapshot:",
         ],
       },
       {
