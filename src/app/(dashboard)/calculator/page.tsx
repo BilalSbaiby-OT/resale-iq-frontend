@@ -9,8 +9,10 @@ import { useAuthStore } from "@/lib/auth-store"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { copy } from "@/lib/i18n"
 import type { CalcResult } from "@/types"
+import { useT } from "@/components/i18n/locale-provider"
 
 export default function CalculatorPage() {
+  const tx = useT()
   const { isAuthenticated, isLoading: authLoading, checkAuth } = useAuthStore()
   const locale = useLocale()
   const tCalc = copy[locale].toolsPage.calc
@@ -36,7 +38,7 @@ export default function CalculatorPage() {
     if (!Number.isFinite(n) || n < 0.01) {
       setResult(null)
       setMaxBuy(null)
-      setError("Enter a buy price greater than 0.")
+      setError(tx("Enter a buy price greater than 0."))
       return
     }
     setError("")
@@ -46,14 +48,14 @@ export default function CalculatorPage() {
       const usable = Array.isArray(r.platforms) && r.platforms.some(p => typeof p.sell_price === "number")
       if (!usable) {
         setResult(null)
-        setError("No price data for this product. Try a brand and model we track.")
+        setError(tx("No price data for this product. Try a brand and model we track."))
         return
       }
       setResult(r)
     } catch (e) {
       // why: surfaced in the form alert — a silent catch was the original bug
       setResult(null)
-      setError(e instanceof Error ? e.message : "Calculation failed")
+      setError(e instanceof Error ? e.message : tx("Calculation failed"))
     }
     finally { setLoading(false) }
   }
@@ -63,7 +65,7 @@ export default function CalculatorPage() {
     if (!Number.isFinite(n) || n < 0.01) {
       setMaxBuy(null)
       setResult(null)
-      setError("Enter a target profit greater than 0.")
+      setError(tx("Enter a target profit greater than 0."))
       return
     }
     setError("")
@@ -73,7 +75,7 @@ export default function CalculatorPage() {
       const sp = r.platforms?.[0]?.sell_price
       if (typeof sp !== "number") {
         setMaxBuy(null)
-        setError("No price data for this product. Try a brand and model we track.")
+        setError(tx("No price data for this product. Try a brand and model we track."))
         return
       }
       const net = sp * 0.95
@@ -81,7 +83,7 @@ export default function CalculatorPage() {
     } catch (e) {
       // why: surfaced in the form alert — a silent catch was the original bug
       setMaxBuy(null)
-      setError(e instanceof Error ? e.message : "Calculation failed")
+      setError(e instanceof Error ? e.message : tx("Calculation failed"))
     }
     finally { setLoading(false) }
   }
@@ -114,7 +116,7 @@ export default function CalculatorPage() {
   }
 
   return (
-    <AppShell title="Profit Calculator" subtitle="Calculate net profit across all platforms">
+    <AppShell title={tx("Profit Calculator")} subtitle={tx("Calculate net profit across all platforms")}>
       <div className="max-w-2xl">
         {/* Mode switch is navigation, not the action. It used to be an
             emerald-outlined pill sitting directly above an emerald-outlined
@@ -124,14 +126,14 @@ export default function CalculatorPage() {
           {(["single", "reverse"] as const).map(m => (
             <button key={m} onClick={() => { setMode(m); setResult(null); setMaxBuy(null); setError("") }}
               className={`px-4 py-2 rounded-lg text-[13px] font-semibold border transition-colors ${mode === m ? "bg-[var(--color-surface-elevated)] border-[var(--color-border-2)] text-[var(--color-text-primary)]" : "bg-transparent border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"}`}>
-              {m === "single" ? "Single Item" : "Reverse Mode"}
+              {m === "single" ? tx("Single Item") : tx("Reverse Mode")}
             </button>
           ))}
         </div>
 
         <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-6 mb-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-            {[["Brand", brand, setBrand, "e.g. Nike"], ["Model", model, setModel, "e.g. Air Max 90"]].map(([label, val, set, ph]) => (
+            {[[tx("Brand"), brand, setBrand, tx("e.g. Nike")], [tx("Model"), model, setModel, tx("e.g. Air Max 90")]].map(([label, val, set, ph]) => (
               <div key={String(label)}>
                 <label className="text-[13px] text-[var(--color-text-secondary)] block mb-1.5">{String(label)}</label>
                 <input value={String(val)} onChange={e => (set as (v: string) => void)(e.target.value)} placeholder={String(ph)}
@@ -140,13 +142,13 @@ export default function CalculatorPage() {
             ))}
             {mode === "single" ? (
               <div>
-                <label className="text-[13px] text-[var(--color-text-secondary)] block mb-1.5">Your buy price (€) *</label>
+                <label className="text-[13px] text-[var(--color-text-secondary)] block mb-1.5">{tx("Your buy price (€) *")}</label>
                 <input value={buyPrice} onChange={e => setBuyPrice(e.target.value)} type="number" min="0.01" placeholder="45"
                   className="w-full bg-[var(--color-bg-2)] border border-[var(--color-border-2)] rounded-lg px-3.5 py-3 text-[15px] tabular-nums text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
               </div>
             ) : (
               <div>
-                <label className="text-[13px] text-[var(--color-text-secondary)] block mb-1.5">Target profit (€)</label>
+                <label className="text-[13px] text-[var(--color-text-secondary)] block mb-1.5">{tx("Target profit (€)")}</label>
                 <input value={targetProfit} onChange={e => setTargetProfit(e.target.value)} type="number" min="1" placeholder="20"
                   className="w-full bg-[var(--color-bg-2)] border border-[var(--color-border-2)] rounded-lg px-3.5 py-3 text-[15px] tabular-nums text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
               </div>
@@ -154,7 +156,7 @@ export default function CalculatorPage() {
           </div>
           <button onClick={mode === "single" ? calculate : calculateReverse} disabled={loading}
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[15px] py-3.5 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
-            {loading ? "Calculating…" : mode === "single" ? "Calculate profit" : "Find max buy price"}
+            {loading ? tx("Calculating…") : mode === "single" ? tx("Calculate profit") : tx("Find max buy price")}
           </button>
           {error && (
             <p role="alert" className="text-[var(--color-skip)] text-[13.5px] mt-3.5 mb-0">{error}</p>
@@ -163,7 +165,7 @@ export default function CalculatorPage() {
 
         {maxBuy !== null && (
           <div className="mb-6">
-            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">Max buy to hit that profit after the 5% fee — not the product buy-below (avg × 0.95 × 0.70)</div>
+            <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">{tx("Max buy to hit that profit after the 5% fee — not the product buy-below (avg × 0.95 × 0.70)")}</div>
             <div className="font-bold text-[40px] leading-none tracking-tight text-[var(--color-buy)] tabular-nums">{eur(maxBuy)}</div>
           </div>
         )}
@@ -174,12 +176,12 @@ export default function CalculatorPage() {
                 headline numbers in three colours, so none of them led. One
                 number leads now and the other two are the sentence under it. */}
             <div className="mb-8">
-              <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">Best net profit</div>
+              <div className="text-[13px] text-[var(--color-text-secondary)] mb-2">{tx("Best net profit")}</div>
               <div className={`font-bold text-[40px] leading-none tracking-tight tabular-nums ${result.best_net_profit >= 0 ? "text-[var(--color-buy)]" : "text-[var(--color-skip)]"}`}>
                 {result.best_net_profit >= 0 ? "+" : ""}{eur(result.best_net_profit)}
               </div>
               <div className="text-[14px] text-[var(--color-text-secondary)] mt-3">
-                {result.best_roi_pct?.toFixed(0)}% ROI, selling on {result.best_platform}.
+                {result.best_roi_pct?.toFixed(0)}{tx("% ROI, selling on")}{" "}{result.best_platform}.
               </div>
             </div>
 
@@ -189,7 +191,7 @@ export default function CalculatorPage() {
             <div className="riq-scroll-x border border-[var(--color-border)] rounded-xl">
               <table className="w-full">
                 <thead>
-                  <tr>{["Platform","Sell price","Fee","Net profit","ROI","Note"].map(h => (
+                  <tr>{[tx("Platform"),tx("Sell price"),tx("Fee"),tx("Net profit"),"ROI",tx("Note")].map(h => (
                     <th key={h} className="text-[12px] font-medium text-[var(--color-text-muted)] px-4 py-3 text-left border-b border-[var(--color-border)]">{h}</th>
                   ))}</tr>
                 </thead>

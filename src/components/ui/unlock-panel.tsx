@@ -6,6 +6,7 @@ import { unlockPanelBranch } from "@/lib/unlock-panel-state"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { verdictUpsellLine } from "@/lib/verdict-upsell"
 import { trackEvent } from "@/lib/analytics"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * The post-verdict upgrade moment.
@@ -31,6 +32,7 @@ export function UnlockPanel({
   isAuthenticated: boolean
   isPaid?: boolean
 }) {
+  const tx = useT()
   // WHICH BRANCH — decided in one pure, unit-tested place (unlock-panel-state.ts).
   //
   // History: this used to key "anonymous" off `unlocks_remaining === undefined`.
@@ -57,13 +59,8 @@ export function UnlockPanel({
     const upsellLine = verdictUpsellLine({ buy_below: result.buy_below, sell_avg: result.sell_avg })
     return (
       <Shell tone="neutral" testId="riq-unlock-register">
-        <Title icon={<Lock size={15} className="text-amber-400" />}>
-          Full numbers need Starter.
-        </Title>
-        <Body>
-          You just saw the verdict on a real item, computed from watched departures.
-          Starter (€19/mo) unlocks sell-through, best sizes and the reasons why — cancel anytime.
-        </Body>
+        <Title icon={<Lock size={15} className="text-amber-400" />}>{tx("Full numbers need Starter.")}</Title>
+        <Body>{tx("You just saw the verdict on a real item, computed from watched departures. Starter (€19/mo) unlocks sell-through, best sizes and the reasons why — cancel anytime.")}</Body>
         {upsellLine && (
           <p className="mb-3 text-[12.5px] font-semibold text-[#eef1f7]">{upsellLine}</p>
         )}
@@ -71,7 +68,7 @@ export function UnlockPanel({
           <span onClick={() => trackEvent("verdict_upsell_click", "verdict_page_unlock")}>
             <GuestCheckoutButton locale="en" src="verdict_unlock" />
           </span>
-          <Secondary href="/login">Sign in</Secondary>
+          <Secondary href="/login">{tx("Sign in")}</Secondary>
         </Row>
         <p className="mt-3 text-[11.5px] text-[#5b6b8c]">
           <a
@@ -79,9 +76,7 @@ export function UnlockPanel({
             data-testid="riq-verdict-upsell-annual"
             onClick={() => trackEvent("verdict_upsell_click", "verdict_page_unlock_annual")}
             className="underline"
-          >
-            or €190/year (2 months free)
-          </a>
+          >{tx("or €190/year (2 months free)")}</a>
         </p>
       </Shell>
     )
@@ -92,14 +87,8 @@ export function UnlockPanel({
   if (branch === "entitled") {
     return (
       <Shell tone="neutral">
-        <Title icon={<Unlock size={15} className="text-emerald-400" />}>
-          Full numbers for this item are still maturing
-        </Title>
-        <Body>
-          The call above is live. Sell-through, best sizes and the reasons why
-          land as soon as we&apos;ve watched enough departures for this exact
-          model — your plan already includes them, nothing to unlock.
-        </Body>
+        <Title icon={<Unlock size={15} className="text-emerald-400" />}>{tx("Full numbers for this item are still maturing")}</Title>
+        <Body>{tx("The call above is live. Sell-through, best sizes and the reasons why land as soon as we've watched enough departures for this exact model — your plan already includes them, nothing to unlock.")}</Body>
       </Shell>
     )
   }
@@ -109,16 +98,10 @@ export function UnlockPanel({
   if (branch === "verify") {
     return (
       <Shell tone="neutral">
-        <Title icon={<Unlock size={15} className="text-emerald-400" />}>
-          Confirm your email to use your {limit} free unlocks
-        </Title>
-        <Body>
-          We sent a confirmation link when you signed up. One click and your{" "}
-          {limit} unlocks are live — sell-through, best sizes and the reasons why
-          on any {limit} items you choose.
-        </Body>
+        <Title icon={<Unlock size={15} className="text-emerald-400" />}>{tx("Confirm your email to use your {0} free unlocks", [limit])}</Title>
+        <Body>{tx("We sent a confirmation link when you signed up. One click and your {0} unlocks are live — sell-through, best sizes and the reasons why on any {1} items you choose.", [limit, limit])}</Body>
         <Row>
-          <Secondary href="/account">Resend the link</Secondary>
+          <Secondary href="/account">{tx("Resend the link")}</Secondary>
         </Row>
       </Shell>
     )
@@ -128,24 +111,17 @@ export function UnlockPanel({
   if (branch === "unlock") {
     return (
       <Shell tone="neutral">
-        <Title icon={<Unlock size={15} className="text-emerald-400" />}>
-          Unlock the full numbers
-        </Title>
-        <Body>
-          Sell-through rate, the sizes that move fastest and the reasons behind this
-          call, for this exact model.
-        </Body>
+        <Title icon={<Unlock size={15} className="text-emerald-400" />}>{tx("Unlock the full numbers")}</Title>
+        <Body>{tx("Sell-through rate, the sizes that move fastest and the reasons behind this call, for this exact model.")}</Body>
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={onUnlock}
             disabled={unlocking}
             className="rounded-lg bg-emerald-500 px-5 py-2.5 text-[13px] font-bold text-[#06090c] transition-opacity hover:opacity-90 disabled:opacity-60"
           >
-            {unlocking ? "Unlocking…" : "Unlock this item"}
+            {unlocking ? tx("Unlocking…") : tx("Unlock this item")}
           </button>
-          <span className="text-[12.5px] text-[#8b99b8]">
-            {remaining} of {limit} unlocks left this month
-          </span>
+          <span className="text-[12.5px] text-[#8b99b8]">{tx("{0} of {1} unlocks left this month", [remaining, limit])}</span>
         </div>
       </Shell>
     )
@@ -156,29 +132,17 @@ export function UnlockPanel({
   // argument rather than a manufactured one.
   return (
     <Shell tone="warm">
-      <Title icon={<Lock size={15} className="text-amber-400" />}>
-        You&apos;ve used all {limit} unlocks this month
-      </Title>
-      <Body>
-        That is this month&apos;s free allowance — it refills next calendar month.
-        You have now seen the real numbers on {limit} items. If they held up,
-        unlimited access is usually cheaper than one item bought wrong.
-      </Body>
+      <Title icon={<Lock size={15} className="text-amber-400" />}>{tx("You've used all {0} unlocks this month", [limit])}</Title>
+      <Body>{tx("That is this month's free allowance — it refills next calendar month. You have now seen the real numbers on {0} items. If they held up, unlimited access is usually cheaper than one item bought wrong.", [limit])}</Body>
       <div className="mb-4 rounded-lg border border-[#1c2333] bg-[#12151d] px-4 py-3">
         <div className="text-[12.5px] leading-5 text-[#a9b6d0]">
-          <span className="font-semibold text-[#eef1f7]">Starter is €19/month.</span>{" "}
-          Unlimited verdicts, every product signal unblurred, brand
-          rankings, watchlist and portfolio P&amp;L. One item you correctly skip usually
-          covers it.
-        </div>
+          <span className="font-semibold text-[#eef1f7]">{tx("Starter is €19/month.")}</span>{" "}{tx("Unlimited verdicts, every product signal unblurred, brand rankings, watchlist and portfolio P&L. One item you correctly skip usually covers it.")}</div>
       </div>
       <Row>
-        <Primary href="/account">See Starter — €19/mo</Primary>
-        <Secondary href="/#pricing">Compare plans</Secondary>
+        <Primary href="/account">{tx("See Starter — €19/mo")}</Primary>
+        <Secondary href="/#pricing">{tx("Compare plans")}</Secondary>
       </Row>
-      <p className="mt-3 text-[11.5px] text-[#5b6b8c]">
-        Cancel anytime. Your account and the free BUY / WATCH / SKIP verdicts stay either way.
-      </p>
+      <p className="mt-3 text-[11.5px] text-[#5b6b8c]">{tx("Cancel anytime. Your account and the free BUY / WATCH / SKIP verdicts stay either way.")}</p>
     </Shell>
   )
 }

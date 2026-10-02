@@ -12,8 +12,10 @@ import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip, planEntitlement } from "@/lib/entitlement"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
+import { useT } from "@/components/i18n/locale-provider"
 
 export default function AccountPage() {
+  const tx = useT()
   const [user, setUser] = useState<User | null>(null)
   const [logs, setLogs] = useState<Array<{ action: string; created_at: string }>>([])
   const [newPw, setNewPw] = useState(""); const [confirmPw, setConfirmPw] = useState("")
@@ -71,19 +73,19 @@ export default function AccountPage() {
     try {
       const placeholder = planId === "operator" ? "__OPERATOR__" : "__POWER__"
       const priceId = resolvePriceId(placeholder, plansList)
-      if (!priceId) { alert("Plans are still loading — try again in a moment."); return }
+      if (!priceId) { alert(tx("Plans are still loading — try again in a moment.")); return }
       const { checkout_url } = await createCheckout(priceId, { plan: planId === "power" ? "power" : "operator" })
       trackEvent("checkout_started")
       window.location.href = checkout_url
     } catch (e: unknown) {
-      alert(e instanceof Error ? e.message : "Could not start checkout")
+      alert(e instanceof Error ? e.message : tx("Could not start checkout"))
     } finally { setUpgrading("") }
   }
 
   const handleChangePw = async () => {
     if (newPw.length < 8) { setPwOk(false); setPwMsg("Min 8 characters"); return }
-    if (newPw !== confirmPw) { setPwOk(false); setPwMsg("Passwords do not match"); return }
-    try { await changePassword(newPw); setPwOk(true); setPwMsg("Password updated"); setNewPw(""); setConfirmPw("") }
+    if (newPw !== confirmPw) { setPwOk(false); setPwMsg(tx("Passwords do not match")); return }
+    try { await changePassword(newPw); setPwOk(true); setPwMsg(tx("Password updated")); setNewPw(""); setConfirmPw("") }
     catch (e: unknown) { setPwOk(false); setPwMsg(e instanceof Error ? e.message : "Error") }
   }
 
@@ -92,7 +94,7 @@ export default function AccountPage() {
     // "not available" made an account with no subscription look like a broken
     // integration — the portal works fine for anyone who actually checked out.
     try { const r = await getBillingPortal(); window.location.href = r.portal_url }
-    catch (e: unknown) { alert(e instanceof Error ? e.message : "Could not open the billing portal") }
+    catch (e: unknown) { alert(e instanceof Error ? e.message : tx("Could not open the billing portal")) }
   }
 
   const handleDelete = async () => {
@@ -105,9 +107,9 @@ export default function AccountPage() {
     try {
       const r = await issueApiKey()
       setApiKey(r.api_key)
-      setApiMsg("Copy it now — it is not shown again. Issuing a new key revokes the old one.")
+      setApiMsg(tx("Copy it now — it is not shown again. Issuing a new key revokes the old one."))
     } catch (e: unknown) {
-      setApiMsg(e instanceof Error ? e.message : "Could not issue key")
+      setApiMsg(e instanceof Error ? e.message : tx("Could not issue key"))
     }
   }
 
@@ -119,7 +121,7 @@ export default function AccountPage() {
       const r = await resendVerification()
       setResendMsg(r.message)
     } catch (e) {
-      setResendMsg(e instanceof Error ? e.message : "Could not send right now. Try again shortly.")
+      setResendMsg(e instanceof Error ? e.message : tx("Could not send right now. Try again shortly."))
     } finally { setResending(false) }
   }
 
@@ -128,57 +130,53 @@ export default function AccountPage() {
   }
 
   const handleTgConnect = async () => {
-    if (!tgChatId.trim()) { setTgMsg("Enter your Telegram chat ID"); return }
+    if (!tgChatId.trim()) { setTgMsg(tx("Enter your Telegram chat ID")); return }
     setTgBusy(true); setTgMsg("")
-    try { await connectTelegram(tgChatId.trim()); setTgMsg("Connected! We'll send you price drop alerts."); getMe().then(setUser) }
-    catch (e) { setTgMsg(e instanceof Error ? e.message : "Connection failed") }
+    try { await connectTelegram(tgChatId.trim()); setTgMsg(tx("Connected! We'll send you price drop alerts.")); getMe().then(setUser) }
+    catch (e) { setTgMsg(e instanceof Error ? e.message : tx("Connection failed")) }
     finally { setTgBusy(false) }
   }
 
   const handleTgDisconnect = async () => {
     setTgBusy(true); setTgMsg("")
-    try { await disconnectTelegram(); setTgMsg("Disconnected."); setTgChatId(""); getMe().then(setUser) }
+    try { await disconnectTelegram(); setTgMsg(tx("Disconnected.")); setTgChatId(""); getMe().then(setUser) }
     catch (e) { setTgMsg(e instanceof Error ? e.message : "Error") }
     finally { setTgBusy(false) }
   }
 
   const handleTgTest = async () => {
     setTgBusy(true); setTgMsg("")
-    try { await testTelegramAlert(); setTgMsg("Test alert sent — check your Telegram!") }
-    catch (e) { setTgMsg(e instanceof Error ? e.message : "Test failed") }
+    try { await testTelegramAlert(); setTgMsg(tx("Test alert sent — check your Telegram!")) }
+    catch (e) { setTgMsg(e instanceof Error ? e.message : tx("Test failed")) }
     finally { setTgBusy(false) }
   }
 
   const handleExport = async () => {
     try { const d = await exportData(); const b = new Blob([JSON.stringify(d, null, 2)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "resale-iq-data.json"; a.click() }
-    catch { alert("Export failed") }
+    catch { alert(tx("Export failed")) }
   }
 
   return (
-    <AppShell title="Account" subtitle="Plan, billing, password, and data">
+    <AppShell title={tx("Account")} subtitle={tx("Plan, billing, password, and data")}>
       <div className="max-w-2xl flex flex-col gap-4">
         {showWelcome && (
           <div data-testid="riq-welcome-banner" className="flex items-start gap-3 bg-[#0d1e14] border border-[#1a4028] rounded-xl px-4 py-4">
             <Rocket size={18} className="text-[#34C759] shrink-0 mt-0.5" />
             <div>
-              <div className="font-bold text-[14px] text-[#eef1f7] mb-1">You&rsquo;re in — run your first check now</div>
-              <div className="text-[12.5px] text-[#8fa3c4] leading-relaxed mb-3">
-                Your Starter plan is active. Search any item — you&rsquo;ll get the buy-below price and a BUY/WATCH/SKIP verdict from live Vinted data.
-              </div>
+              <div className="font-bold text-[14px] text-[#eef1f7] mb-1">{tx("You’re in — run your first check now")}</div>
+              <div className="text-[12.5px] text-[#8fa3c4] leading-relaxed mb-3">{tx("Your Starter plan is active. Search any item — you’ll get the buy-below price and a BUY/WATCH/SKIP verdict from live Vinted data.")}</div>
               <Link
                 href={FIRST_CHECK_HREF}
                 data-testid="riq-welcome-first-check"
                 className="inline-block bg-[#34C759] text-[#06090c] font-bold text-[13px] px-4 py-2 rounded-lg no-underline"
-              >
-                Run your first check →
-              </Link>
+              >{tx("Run your first check →")}</Link>
             </div>
           </div>
         )}
         {checkoutCancelled && (
           <div className="flex items-center gap-3 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-xl px-4 py-3 text-[12.5px] text-[#8fa3c4]">
             <CreditCard size={15} className="text-[#8fa3c4] shrink-0" />
-            <span>Checkout cancelled — you haven&rsquo;t been charged. Your plan is unchanged.</span>
+            <span>{tx("Checkout cancelled — you haven’t been charged. Your plan is unchanged.")}</span>
           </div>
         )}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-5">
@@ -207,63 +205,60 @@ export default function AccountPage() {
         </div>
         {/* Plan */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Plan</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><CreditCard size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">{tx("Your Plan")}</span></div>
           <div className="p-5">
             <div className={`flex items-center justify-between p-4 rounded-xl border ${user ? PLAN_STYLES[user.plan] : "border-[var(--color-border-2)]"} mb-4`}>
               {/* Plan name and entitlement both come from src/lib/entitlement.ts,
                   the same module the sidebar chip reads. Inlining either one here
-                  is how this card ended up promising "days of unlimited left" in
+                  is how this card ended up promising tx("days of unlimited left") in
                   English to every locale while the sidebar said "Free". */}
               <div><div className="font-extrabold text-[20px]">{planChip(user, locale)}</div><div className="text-[12px] text-[#8fa3c4] mt-0.5">{planEntitlement(user, locale)}</div></div>
               <div className="font-mono font-bold text-[22px]">{user?.plan === "operator" ? "€19/mo" : user?.plan === "power" ? "€49/mo" : "—"}</div>
             </div>
             {user?.plan === "free" ? (
               <div className="flex flex-col gap-2">
-                <button onClick={() => handleUpgrade("operator")} disabled={!!upgrading} className="block w-full text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "operator" ? "Redirecting to Stripe…" : "Upgrade to Starter — €19/mo"}</button>
-                <button onClick={() => handleUpgrade("power")} disabled={!!upgrading} className="block w-full text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "power" ? "Redirecting to Stripe…" : "Upgrade to Pro — €49/mo"}</button>
+                <button onClick={() => handleUpgrade("operator")} disabled={!!upgrading} className="block w-full text-center bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-emerald-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "operator" ? tx("Redirecting to Stripe…") : tx("Upgrade to Starter — €19/mo")}</button>
+                <button onClick={() => handleUpgrade("power")} disabled={!!upgrading} className="block w-full text-center bg-amber-500/10 border border-amber-500 text-amber-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50 cursor-pointer">{upgrading === "power" ? tx("Redirecting to Stripe…") : tx("Upgrade to Pro — €49/mo")}</button>
               </div>
             ) : (
-              <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">Manage subscription</button>
-              <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-2">Opens Stripe's secure customer portal — cancel anytime</p></div>
+              <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">{tx("Manage subscription")}</button>
+              <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-2">{tx("Opens Stripe's secure customer portal — cancel anytime")}</p></div>
             )}
           </div>
         </div>
 
         {/* Change password */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><KeyRound size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Change Password</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><KeyRound size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">{tx("Change Password")}</span></div>
           <div className="p-5 flex flex-col gap-3">
             <div>
-              <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">New password</label>
+              <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{tx("New password")}</label>
               <input type="password" value={newPw} onChange={e => setNewPw(e.target.value)} placeholder="••••••••" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             <div>
-              <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">Confirm password</label>
+              <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{tx("Confirm password")}</label>
               <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60" />
             </div>
             {pwMsg && <div className={`text-[12px] text-center ${pwOk ? "text-emerald-400" : "text-red-400"}`}>{pwMsg}</div>}
-            <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">Update password</button>
+            <button onClick={handleChangePw} className="border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-blue-500/10 transition-colors">{tx("Update password")}</button>
           </div>
         </div>
 
         {/* Email confirmation. Only rendered when actionable — a permanent
-            "confirm your email" banner on a verified account is noise that
+            tx("confirm your email") banner on a verified account is noise that
             trains people to ignore the real one. */}
         {user && user.email_verified === false && (
           <div className="bg-[var(--color-bg-3)] border border-amber-500/30 rounded-xl p-5 mb-5">
-            <div className="font-bold text-[14px] text-amber-400 mb-1">Confirm your email</div>
+            <div className="font-bold text-[14px] text-amber-400 mb-1">{tx("Confirm your email")}</div>
             <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
               {user.plan === "free"
-                ? "Your 10 full unlocks each month — sell-through, best sizes and the reasons why — need a confirmed address."
-                : "Alerts and account mail go to this address."}
-              {" "}<b className="text-[#eef1f7]">Look in spam or junk first</b> — mail from{" "}
-              <b className="text-[#eef1f7]">noreply@resaleiq.dev</b> often lands there, and
-              marking it &ldquo;not junk&rdquo; keeps later emails out of it. If it never
-              arrived or has expired, send a fresh one.
-            </p>
+                ? tx("Your 10 full unlocks each month — sell-through, best sizes and the reasons why — need a confirmed address.")
+                : tx("Alerts and account mail go to this address.")}
+              {" "}<b className="text-[#eef1f7]">{tx("Look in spam or junk first")}</b>{" "}{tx("— mail from")}{" "}
+              <b className="text-[#eef1f7]">{tx("noreply@resaleiq.dev")}</b>{" "}{tx("often lands there, and marking it “not junk” keeps later emails out of it. If it never arrived or has expired, send a fresh one.")}</p>
             <button onClick={handleResend} disabled={resending}
               className="bg-amber-500/10 border border-amber-500 text-amber-400 font-semibold text-[12px] px-4 py-2 rounded-lg hover:bg-amber-400 hover:text-[#0B0D10] transition-colors disabled:opacity-50">
-              {resending ? "Sending…" : "Resend confirmation email"}
+              {resending ? tx("Sending…") : tx("Resend confirmation email")}
             </button>
             {resendMsg && <p className="text-[11.5px] text-[#8fa3c4] mt-3">{resendMsg}</p>}
           </div>
@@ -277,19 +272,18 @@ export default function AccountPage() {
           <div className="bg-[var(--color-surface)] border border-[#1c2333] rounded-xl overflow-hidden">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]">
               <Terminal size={14} className="text-amber-400" />
-              <span className="font-bold text-[13px]">REST API</span>
+              <span className="font-bold text-[13px]">{tx("REST API")}</span>
               <span className="ml-auto text-[12px] px-2 py-0.5 rounded-full bg-amber-500/12 border border-amber-500/30 text-amber-400">Pro</span>
             </div>
             <div className="p-4">
-              <p className="text-[12.5px] text-[#8b99b8] mb-3">
-                Query your data programmatically. Send your key as an <code className="text-emerald-400">X-Api-Key</code> header.
+              <p className="text-[12.5px] text-[#8b99b8] mb-3">{tx("Query your data programmatically. Send your key as an")}{" "}<code className="text-emerald-400">{tx("X-Api-Key")}</code> header.
               </p>
 
               {apiKey ? (
                 <div className="mb-3">
                   <div className="flex items-center gap-2 bg-[#0e1118] border border-[#232c42] rounded-lg px-3 py-2.5">
                     <code className="text-[12px] text-emerald-400 break-all flex-1">{apiKey}</code>
-                    <button onClick={handleCopyKey} className="shrink-0 text-[#8b99b8] hover:text-[#eef1f7]" title="Copy">
+                    <button onClick={handleCopyKey} className="shrink-0 text-[#8b99b8] hover:text-[#eef1f7]" title={tx("Copy")}>
                       {copied ? <Check size={15} className="text-emerald-400" /> : <Copy size={15} />}
                     </button>
                   </div>
@@ -302,21 +296,16 @@ export default function AccountPage() {
 
               <button onClick={handleIssueKey}
                 className="bg-[var(--color-surface-elevated)] border border-[#232c42] hover:border-emerald-500/50 text-[12.5px] font-semibold px-4 py-2 rounded-lg transition-colors">
-                {apiKey ? "Regenerate key" : "Generate API key"}
+                {apiKey ? tx("Regenerate key") : tx("Generate API key")}
               </button>
 
               <div className="mt-4 pt-4 border-t border-[var(--color-border)]">
-                <p className="text-[12px] text-[#5b6b8c] mb-2">Example</p>
-                <pre className="bg-[#0e1118] border border-[#232c42] rounded-lg p-3 text-[12px] text-[#8b99b8] overflow-x-auto"><code>{`curl https://resaleiq.dev/api/model-signals \\
-  -H "X-Api-Key: YOUR_KEY"`}</code></pre>
-                <p className="text-[12px] text-[#5b6b8c] mt-3">
-                  Available: <code>/api/model-signals</code>, <code>/api/deals</code>, <code>/api/kpis</code>,{" "}
+                <p className="text-[12px] text-[#5b6b8c] mb-2">{tx("Example")}</p>
+                <pre className="bg-[#0e1118] border border-[#232c42] rounded-lg p-3 text-[12px] text-[#8b99b8] overflow-x-auto"><code>{tx("curl https://resaleiq.dev/api/model-signals \\ -H \"X-Api-Key: YOUR_KEY\"")}</code></pre>
+                <p className="text-[12px] text-[#5b6b8c] mt-3">{tx("Available:")}{" "}<code>/api/model-signals</code>, <code>/api/deals</code>, <code>/api/kpis</code>,{" "}
                   <code>/api/brands/rankings</code>, <code>/api/trends/summary</code>, <code>/api/watchlist</code>,{" "}
-                  <code>/api/portfolio</code>. Rate limit 60 req/min.
-                </p>
-                <Link href="/api-docs" className="inline-block mt-2 text-[11.5px] text-emerald-400 hover:underline">
-                  Full API documentation →
-                </Link>
+                  <code>/api/portfolio</code>{tx(". Rate limit 60 req/min.")}</p>
+                <Link href="/api-docs" className="inline-block mt-2 text-[11.5px] text-emerald-400 hover:underline">{tx("Full API documentation →")}</Link>
               </div>
             </div>
           </div>
@@ -324,28 +313,25 @@ export default function AccountPage() {
 
         {/* Telegram Alerts */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><Bell size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Telegram Alerts</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><Bell size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">{tx("Telegram Alerts")}</span></div>
           <div className="p-5 flex flex-col gap-3">
-            <p className="text-[12.5px] text-[#8fa3c4] leading-5">
-              Get price drop alerts for your watchlist items directly in Telegram.
-              Message <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">@userinfobot</a> on Telegram to find your chat ID.
-            </p>
+            <p className="text-[12.5px] text-[#8fa3c4] leading-5">{tx("Get price drop alerts for your watchlist items directly in Telegram. Message")}{" "}<a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">{tx("@userinfobot")}</a>{" "}{tx("on Telegram to find your chat ID.")}</p>
             {user?.telegram_chat_id ? (
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 bg-emerald-500/8 border border-emerald-500/25 rounded-lg px-3 py-2.5">
                   <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-[12px] text-emerald-400 font-mono flex-1">Connected · {user.telegram_chat_id}</span>
+                  <span className="text-[12px] text-emerald-400 font-mono flex-1">{tx("Connected · {0}", [user.telegram_chat_id])}</span>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={handleTgTest} disabled={tgBusy} className="flex-1 border border-blue-500/40 text-blue-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-blue-500/10 transition-colors disabled:opacity-50">Send test alert</button>
-                  <button onClick={handleTgDisconnect} disabled={tgBusy} className="flex-1 border border-red-500/30 text-red-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50">Disconnect</button>
+                  <button onClick={handleTgTest} disabled={tgBusy} className="flex-1 border border-blue-500/40 text-blue-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-blue-500/10 transition-colors disabled:opacity-50">{tx("Send test alert")}</button>
+                  <button onClick={handleTgDisconnect} disabled={tgBusy} className="flex-1 border border-red-500/30 text-red-400 font-semibold text-[12px] py-2 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50">{tx("Disconnect")}</button>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
-                <input value={tgChatId} onChange={e => setTgChatId(e.target.value)} placeholder="Your Telegram chat ID (e.g. 123456789)"
+                <input value={tgChatId} onChange={e => setTgChatId(e.target.value)} placeholder={tx("Your Telegram chat ID (e.g. 123456789)")}
                   className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-emerald-500/60 placeholder:text-[var(--color-text-secondary)]" />
-                <button onClick={handleTgConnect} disabled={tgBusy} className="border border-emerald-500/40 text-emerald-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-emerald-500/10 transition-colors disabled:opacity-50">{tgBusy ? "Connecting…" : "Connect Telegram"}</button>
+                <button onClick={handleTgConnect} disabled={tgBusy} className="border border-emerald-500/40 text-emerald-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-emerald-500/10 transition-colors disabled:opacity-50">{tgBusy ? tx("Connecting…") : tx("Connect Telegram")}</button>
               </div>
             )}
             {tgMsg && <div className="text-[12px] text-center text-[#8fa3c4]">{tgMsg}</div>}
@@ -354,9 +340,9 @@ export default function AccountPage() {
 
         {/* Activity */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><ScrollText size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Recent Activity</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><ScrollText size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">{tx("Recent Activity")}</span></div>
           <div className="p-3 flex flex-col gap-1.5">
-            {logs.length === 0 ? <div className="text-center py-4 text-[var(--color-text-secondary)] text-[12px]">No activity yet</div> :
+            {logs.length === 0 ? <div className="text-center py-4 text-[var(--color-text-secondary)] text-[12px]">{tx("No activity yet")}</div> :
               logs.map((l, i) => (
                 <div key={i} className="flex items-center gap-2 bg-[var(--color-surface-elevated)] rounded-lg px-3 py-2">
                   {(() => { const Ico = ACTIVITY_ICON[l.action]; return Ico ? <Ico size={13} className="text-[#8fa3c4]" /> : <span className="text-[var(--color-text-secondary)]">•</span> })()}
@@ -370,22 +356,22 @@ export default function AccountPage() {
 
         {/* GDPR */}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><Database size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">Your Data (GDPR)</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--color-border)]"><Database size={14} className="text-[#8fa3c4]" /><span className="font-bold text-[13px]">{tx("Your Data (GDPR)")}</span></div>
           <div className="p-5 flex flex-col gap-3">
-            <p className="text-[13px] text-[#8fa3c4]">Under GDPR Article 20, you have the right to receive a copy of all personal data we hold about you.</p>
-            <button onClick={handleExport} className="flex items-center justify-center gap-2 border border-[var(--color-border-2)] text-[#8fa3c4] font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-[var(--color-surface-elevated)] hover:text-[#e8ecf4] transition-colors"><Download size={14} /> Download my data (JSON)</button>
-            <p className="text-[12px] text-[var(--color-text-secondary)]"><Link href="/privacy" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Privacy Policy</Link> · <Link href="/terms" className="text-[#8fa3c4] hover:text-[#e8ecf4]">Terms of Service</Link></p>
+            <p className="text-[13px] text-[#8fa3c4]">{tx("Under GDPR Article 20, you have the right to receive a copy of all personal data we hold about you.")}</p>
+            <button onClick={handleExport} className="flex items-center justify-center gap-2 border border-[var(--color-border-2)] text-[#8fa3c4] font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-[var(--color-surface-elevated)] hover:text-[#e8ecf4] transition-colors"><Download size={14} />{" "}{tx("Download my data (JSON)")}</button>
+            <p className="text-[12px] text-[var(--color-text-secondary)]"><Link href="/privacy" className="text-[#8fa3c4] hover:text-[#e8ecf4]">{tx("Privacy Policy")}</Link> · <Link href="/terms" className="text-[#8fa3c4] hover:text-[#e8ecf4]">{tx("Terms of Service")}</Link></p>
           </div>
         </div>
 
         {/* Danger zone */}
         <div className="bg-[var(--color-bg-3)] border border-red-500/30 rounded-xl">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-red-500/20"><AlertTriangle size={14} className="text-red-400" /><span className="font-bold text-[13px] text-red-400">Danger Zone</span></div>
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-red-500/20"><AlertTriangle size={14} className="text-red-400" /><span className="font-bold text-[13px] text-red-400">{tx("Danger Zone")}</span></div>
           <div className="p-5 flex flex-col gap-3">
-            <p className="text-[13px] text-[#8fa3c4]">Deleting your account is permanent and cannot be undone.</p>
-            <div><label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">Type <strong className="text-red-400">DELETE</strong> to confirm</label>
-            <input value={deleteConfirm} onChange={e => setDeleteConfirm(e.target.value)} placeholder="DELETE" className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-red-500 mb-2" />
-            <button onClick={handleDelete} className="w-full border border-red-500/40 text-red-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-red-500/10 transition-colors">Delete my account</button></div>
+            <p className="text-[13px] text-[#8fa3c4]">{tx("Deleting your account is permanent and cannot be undone.")}</p>
+            <div><label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{tx("Type")}{" "}<strong className="text-red-400">{tx("DELETE")}</strong>{" "}{tx("to confirm")}</label>
+            <input value={deleteConfirm} onChange={e => setDeleteConfirm(e.target.value)} placeholder={tx("DELETE")} className="w-full bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-2 font-mono text-[13px] text-[#e8ecf4] outline-none focus:border-red-500 mb-2" />
+            <button onClick={handleDelete} className="w-full border border-red-500/40 text-red-400 font-semibold text-[12.5px] py-2.5 rounded-lg hover:bg-red-500/10 transition-colors">{tx("Delete my account")}</button></div>
           </div>
         </div>
       </div>

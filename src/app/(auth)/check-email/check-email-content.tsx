@@ -14,6 +14,7 @@ import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from 
 import { queryCoverageKind } from "@/lib/query-coverage"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
+import { useT } from "@/components/i18n/locale-provider"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
@@ -30,6 +31,7 @@ type BrandRow = SnapshotBrandRow
 // Deep-links to the user's inbox so they never have to leave and hunt.
 // Gmail search pre-filters for emails from noreply@resaleiq.dev in the last day.
 function EmailClientButton({ email }: { email: string }) {
+  const tx = useT()
   const domain = email.split("@")[1]?.toLowerCase() ?? ""
   type Client = { label: string; href: string }
   let client: Client | null = null
@@ -69,9 +71,7 @@ function EmailClientButton({ email }: { email: string }) {
       <a
         href="mailto:"
         className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border border-[var(--color-border-ui)] text-[13px] font-semibold text-[var(--color-text-primary)] hover:border-[var(--color-buy)] hover:text-[var(--color-buy)] transition-colors mb-4"
-      >
-        Open email app →
-      </a>
+      >{tx("Open email app →")}</a>
     )
   }
 
@@ -91,6 +91,7 @@ function EmailClientButton({ email }: { email: string }) {
 // See src/components/auth/activation-steps.tsx.
 
 export function CheckEmailContent({ locale }: { locale: Locale }) {
+  const tx = useT()
   const t = copy[locale].auth.checkEmail
   const [msg, setMsg] = useState("")
   const [error, setError] = useState("")
@@ -229,26 +230,23 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             Copy kept short: one line, one reward, one action. */}
         <div className="flex items-center gap-2.5 bg-[var(--color-buy)]/10 border border-[var(--color-buy)]/30 rounded-xl px-4 py-3 mb-5">
           <div className="w-2 h-2 rounded-full bg-[var(--color-buy)] shrink-0" />
-          <p className="text-[12.5px] font-semibold text-[var(--color-buy)] leading-snug">
-            Verify to start your 7-day Starter trial — unlimited demand checks, every buy-below signal
-          </p>
+          <p className="text-[12.5px] font-semibold text-[var(--color-buy)] leading-snug">{tx("Verify to start your 7-day Starter trial — unlimited demand checks, every buy-below signal")}</p>
         </div>
 
         <div className="flex justify-center mb-4"><Mail size={34} className={AUTH_ACCENT} /></div>
         {/* C(tony): goal-framing heading replaces admin-framing "Check your email".
             Research (yukaichou.com): the Win State at this moment must feel like
-            a reward, not homework. "One click to your verdict" names what the user
+            a reward, not homework. tx("One click to your verdict") names what the user
             gets — not the bureaucratic task of email confirmation.
             Personalised when intentQuery is available (e.g. "Stone Island Hoodie"). */}
         <h1 className="text-[18px] font-bold mb-1">
           {intentQuery
-            ? `One click — your ${intentQuery} check is ready`
-            : "One click and you're in"}
+            ? tx(`One click — your {0} check is ready`, [intentQuery])
+            : tx("One click and you're in")}
         </h1>
-        <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-4 leading-relaxed`}>
-          We emailed a verify link to{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
-          {" "}Click it and your verdict loads immediately. Check{" "}
-          <strong className={`${AUTH_TEXT} font-semibold`}>spam / junk</strong> if it isn&apos;t there — sent from <span className={AUTH_TEXT}>noreply@resaleiq.dev</span>.
+        <p className={`${AUTH_TEXT_SECONDARY} text-[13px] mb-4 leading-relaxed`}>{tx("We emailed a verify link to")}{user?.email ? <> <span className={AUTH_TEXT}>{user.email}</span></> : ` ${t.bodyNoEmail}`}.
+          {" "}{tx("Click it and your verdict loads immediately. Check")}{" "}
+          <strong className={`${AUTH_TEXT} font-semibold`}>{tx("spam / junk")}</strong>{" "}{tx("if it isn't there — sent from")}{" "}<span className={AUTH_TEXT}>{tx("noreply@resaleiq.dev")}</span>.
         </p>
         {/* C163(tony): email-app shortcut buttons — Superhuman/Notion pattern.
             The #1 reason users abandon verification: they leave the tab to find
@@ -270,11 +268,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           href={sampleHref}
           className="inline-flex items-center gap-1 text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)] mb-4 transition-colors"
         >
-          {intentRow ? "See a live verdict while you wait →" : "Preview the product while you wait →"}
+          {intentRow ? tx("See a live verdict while you wait →") : tx("Preview the product while you wait →")}
         </Link>
 
         <p className={`${AUTH_TEXT_MUTED} text-[12px] mb-6`}>
-          {t.cantFind} <a href="mailto:support@resaleiq.dev" className={`${AUTH_ACCENT} hover:underline`}>support@resaleiq.dev</a>.
+          {t.cantFind} <a href="mailto:support@resaleiq.dev" className={`${AUTH_ACCENT} hover:underline`}>{tx("support@resaleiq.dev")}</a>.
         </p>
 
         {msg && <div className={`text-[12.5px] ${AUTH_ACCENT} mb-4`}>{msg}</div>}
@@ -283,7 +281,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         {isAuthenticated && (
           <button type="button" onClick={handleResend} disabled={loading || cooldown > 0}
             className={`${AUTH_ACCENT_BUTTON} mb-3`}>
-            {loading ? t.sending : cooldown > 0 ? `Resend in ${cooldown}s` : t.resend}
+            {loading ? t.sending : cooldown > 0 ? tx(`Resend in {0}s`, [cooldown]) : t.resend}
           </button>
         )}
         {!isAuthenticated && (
@@ -310,9 +308,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           <Link
             href="/dashboard"
             className={`mt-2 text-[11.5px] ${AUTH_TEXT_MUTED} hover:text-[var(--color-text-primary)] transition-colors`}
-          >
-            Skip for now — continue to dashboard →
-          </Link>
+          >{tx("Skip for now — continue to dashboard →")}</Link>
         )}
       </AuthCard>
 
@@ -328,7 +324,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-2 mb-3">
             <Sparkles size={14} className={AUTH_ACCENT} />
             <span className={`text-[11.5px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
-              {displayIsIntent ? `Your ${displayRow!.brand} verdict is ready` : 'A live verdict — yours to unlock'}
+              {displayIsIntent ? tx(`Your {0} verdict is ready`, [displayRow!.brand]) : tx("A live verdict — yours to unlock")}
             </span>
           </div>
           <div className="flex items-center justify-between mb-3">
@@ -339,15 +335,15 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           </div>
           <div className="flex flex-col gap-2 mb-3">
             <div className="flex items-center justify-between">
-              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Watched departures (7d)</span>
-              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{displayRow!.sold_7d.toLocaleString()}</span>
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Watched departures (7d)")}</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{displayRow!.sold_7d.toLocaleString(tx.locale)}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Avg resale price</span>
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Avg resale price")}</span>
               <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>€{displayRow!.avg_price_eur}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>Buy below</span>
+              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Buy below")}</span>
               <span className="flex items-center gap-1.5">
                 <span className="blur-sm select-none text-[13px] font-semibold" aria-hidden="true">
                   €{Math.round(displayRow!.avg_price_eur * 0.7)}
@@ -360,8 +356,8 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             <Lock size={12} className={AUTH_TEXT_MUTED} />
             <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>
               {displayIsIntent
-                ? 'Verify email to unlock — one click in your inbox → your buy-below price'
-                : 'Verify email to see this check — one click in your inbox'}
+                ? tx("Verify email to unlock — one click in your inbox → your buy-below price")
+                : tx("Verify email to see this check — one click in your inbox")}
             </span>
           </div>
         </div>
@@ -375,16 +371,11 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
         <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <AlertCircle size={14} className="text-[var(--color-watch)] shrink-0" />
-            <span className="text-[11.5px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">
-              Not in catalog yet
-            </span>
+            <span className="text-[11.5px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide">{tx("Not in catalog yet")}</span>
           </div>
           <p className="text-[13px] text-[var(--color-text-secondary)] mb-3">
-            <strong className="text-[var(--color-text-primary)]">{intentQuery}</strong> isn&apos;t tracked yet — but we&apos;ll show you a live Nike Air Force 1 verdict first so you see exactly how it works.
-          </p>
-          <div className="text-[12px] text-[var(--color-text-muted)]">
-            Then search your own item — we add new brands regularly.
-          </div>
+            <strong className="text-[var(--color-text-primary)]">{intentQuery}</strong>{" "}{tx("isn't tracked yet — but we'll show you a live Nike Air Force 1 verdict first so you see exactly how it works.")}</p>
+          <div className="text-[12px] text-[var(--color-text-muted)]">{tx("Then search your own item — we add new brands regularly.")}</div>
         </div>
       )}
 

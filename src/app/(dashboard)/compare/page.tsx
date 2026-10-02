@@ -5,6 +5,7 @@ import { comparePrices, isPaymentRequired } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { PriceCompareResult, SearchItem } from "@/types"
 import { Globe, ArrowDown, ArrowUp, ExternalLink } from "lucide-react"
+import { useT } from "@/components/i18n/locale-provider"
 
 const ALL_MARKETS: Record<string, string> = {
   es: "Spain", fr: "France", de: "Germany", it: "Italy", pt: "Portugal",
@@ -18,6 +19,7 @@ const ALL_MARKETS: Record<string, string> = {
 const DEFAULT_MARKETS = ["es", "fr", "de", "it", "pt"]
 
 export default function ComparePage() {
+  const tx = useT()
   const [query, setQuery] = useState("")
   const [selectedMarkets, setSelectedMarkets] = useState<string[]>(DEFAULT_MARKETS)
   const [result, setResult] = useState<PriceCompareResult | null>(null)
@@ -39,8 +41,8 @@ export default function ComparePage() {
       setResult(await comparePrices({ q, markets: selectedMarkets, limit: 10 }))
     } catch (e) {
       setError(isPaymentRequired(e)
-        ? "Price Compare is a Pro feature. Upgrade to compare live asking prices across 26 markets."
-        : "Comparison failed. Try again.")
+        ? tx("Price Compare is a Pro feature. Upgrade to compare live asking prices across 26 markets.")
+        : tx("Comparison failed. Try again."))
     } finally { setLoading(false) }
   }
 
@@ -52,25 +54,20 @@ export default function ComparePage() {
   const priciest = result?.most_expensive_market?.tld
 
   return (
-    <AppShell title="Price Compare" subtitle="Compare prices for any product across Vinted markets — find the cheapest country to buy from">
+    <AppShell title={tx("Price Compare")} subtitle={tx("Compare prices for any product across Vinted markets — find the cheapest country to buy from")}>
       <div className="max-w-4xl">
-        <div className="text-[12px] mb-4 leading-relaxed" style={{ color: "var(--color-graphite-muted)" }}>
-          Full buy-below intelligence (verdicts, sell-through, confidence) only exists for
-          Spain, France, Germany, Italy and Portugal — the markets Resale IQ tracks. The other
-          21 markets below are live Vinted asking-price search only: current prices, no
-          buy-below price and no verdict.
-        </div>
+        <div className="text-[12px] mb-4 leading-relaxed" style={{ color: "var(--color-graphite-muted)" }}>{tx("Full buy-below intelligence (verdicts, sell-through, confidence) only exists for Spain, France, Germany, Italy and Portugal — the markets Resale IQ tracks. The other 21 markets below are live Vinted asking-price search only: current prices, no buy-below price and no verdict.")}</div>
         {/* Search */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Nike Air Force 1, Adidas Samba OG, Stone Island crewneck"
+            placeholder={tx("e.g. Nike Air Force 1, Adidas Samba OG, Stone Island crewneck")}
             className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] outline-none focus:border-[var(--color-accent)]/60 placeholder:text-[var(--color-graphite-muted)]" style={{ color: "var(--color-on-graphite)" }} />
           <button onClick={run} disabled={loading || !query.trim() || selectedMarkets.length === 0}
             className="px-5 py-3 rounded-lg text-[13px] font-bold transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap" style={{ background: "var(--color-accent)", color: "var(--color-on-accent)" }}>
-            <Globe size={15} />{loading ? "Comparing…" : "Compare"}
+            <Globe size={15} />{loading ? tx("Comparing…") : tx("Compare")}
           </button>
         </div>
 
@@ -95,18 +92,18 @@ export default function ComparePage() {
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
 
         {result?.source === "tracked_index" && (
-          <div className="text-[12px] text-[#5b6b8c] mb-3">Prices come from listings recently seen on Vinted (last 3 days), not a live lookup. Open a listing to confirm it is still available.</div>
+          <div className="text-[12px] text-[#5b6b8c] mb-3">{tx("Prices come from listings recently seen on Vinted (last 3 days), not a live lookup. Open a listing to confirm it is still available.")}</div>
         )}
         {/* Summary cards */}
         {result && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-            <SummaryCard label="Markets with results" value={`${result.markets_with_results} / ${result.markets_searched}`} />
+            <SummaryCard label={tx("Markets with results")} value={`${result.markets_with_results} / ${result.markets_searched}`} />
             {result.cheapest_market && (
-              <SummaryCard label="Cheapest" value={result.cheapest_market.country}
+              <SummaryCard label={tx("Cheapest")} value={result.cheapest_market.country}
                 sub={eur(result.cheapest_market.avg_price) + " avg"} accent="var(--color-accent)" icon={<ArrowDown size={14} />} />
             )}
             {result.most_expensive_market && (
-              <SummaryCard label="Most expensive" value={result.most_expensive_market.country}
+              <SummaryCard label={tx("Most expensive")} value={result.most_expensive_market.country}
                 sub={eur(result.most_expensive_market.avg_price) + " avg"} accent="var(--color-skip)" icon={<ArrowUp size={14} />} />
             )}
           </div>
@@ -127,8 +124,8 @@ export default function ComparePage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-[14px] font-semibold" style={{ color: "var(--color-on-graphite)" }}>{stats.country}</span>
-                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(52,199,89,.10)", color: "var(--color-accent)", borderColor: "rgba(52,199,89,.30)" }}>CHEAPEST</span>}
-                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(255,69,58,.10)", color: "var(--color-skip)", borderColor: "rgba(255,69,58,.30)" }}>PRICIEST</span>}
+                        {isCheapest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(52,199,89,.10)", color: "var(--color-accent)", borderColor: "rgba(52,199,89,.30)" }}>{tx("CHEAPEST")}</span>}
+                        {isPriciest && <span className="px-1.5 py-0.5 rounded text-[12px] font-bold border" style={{ background: "rgba(255,69,58,.10)", color: "var(--color-skip)", borderColor: "rgba(255,69,58,.30)" }}>{tx("PRICIEST")}</span>}
                       </div>
                       <div className="text-[12px] text-[var(--color-text-secondary)] mt-0.5">{stats.count} listings</div>
                     </div>
@@ -162,10 +159,7 @@ export default function ComparePage() {
         )}
 
         {!result && !loading && (
-          <div className="text-[13px] bg-[var(--color-graphite-elevated)] border border-[var(--color-hairline)] rounded-xl p-6" style={{ color: "var(--color-graphite-muted)" }}>
-            Search any product and compare prices across multiple Vinted markets simultaneously.
-            Find arbitrage opportunities — buy where it&apos;s cheapest, sell where it&apos;s most expensive.
-          </div>
+          <div className="text-[13px] bg-[var(--color-graphite-elevated)] border border-[var(--color-hairline)] rounded-xl p-6" style={{ color: "var(--color-graphite-muted)" }}>{tx("Search any product and compare prices across multiple Vinted markets simultaneously. Find arbitrage opportunities — buy where it's cheapest, sell where it's most expensive.")}</div>
         )}
       </div>
     </AppShell>

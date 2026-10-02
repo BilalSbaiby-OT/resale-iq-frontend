@@ -7,6 +7,8 @@ import { SkeletonRows } from "@/components/ui/skeleton"
 import { getMarketSignals, type MarketSignal } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import Link from "next/link"
+import { N_ } from "@/lib/ui-translate"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * MARKET SIGNALS — brand × category demand board (demand_index).
@@ -42,7 +44,12 @@ function TrendArrow({ dir }: { dir: string | null }) {
   return <span style={{ color: "var(--color-graphite-muted)" }}>—</span>
 }
 
+const SIGNAL_LABEL: Record<string, string> = {
+  "STRONG BUY": N_("STRONG BUY"), BUY: N_("BUY"), MONITOR: N_("MONITOR"), HOLD: N_("HOLD"),
+}
+
 function SignalChip({ signal }: { signal: string }) {
+  const tx = useT()
   const color = SIGNAL_COLOR[signal] ?? "var(--color-graphite-muted)"
   const bg = SIGNAL_BG[signal] ?? "rgba(139,153,184,.08)"
   return (
@@ -52,7 +59,7 @@ function SignalChip({ signal }: { signal: string }) {
       color, fontWeight: 700, fontSize: 11, letterSpacing: "0.05em",
       borderRadius: 6, padding: "2px 8px", whiteSpace: "nowrap",
     }}>
-      {signal}
+      {tx(SIGNAL_LABEL[signal] ?? signal)}
     </span>
   )
 }
@@ -69,6 +76,7 @@ const TD: React.CSSProperties = {
 }
 
 export default function MarketPage() {
+  const tx = useT()
   const [rows, setRows] = useState<MarketSignal[]>([])
   const [totals, setTotals] = useState({ strong: 0, buy: 0 })
   const [loading, setLoading] = useState(true)
@@ -102,30 +110,26 @@ export default function MarketPage() {
   }
 
   const HEADERS: [string, keyof MarketSignal | ""][] = [
-    ["Brand", "brand"], ["Category", "category"], ["Signal", "signal"],
-    ["Score", "investment_score"], ["7d Left shelf", "units_sold_all_7d"],
-    ["Demand", "overall_demand_score"], ["Speed", "overall_speed_score"],
-    ["Sell For", "recommended_list_price"], ["Trend", "trend_direction"],
+    [tx("Brand"), "brand"], [tx("Category"), "category"], [tx("Signal"), "signal"],
+    [tx("Score"), "investment_score"], [tx("7d Left shelf"), "units_sold_all_7d"],
+    [tx("Demand"), "overall_demand_score"], [tx("Speed"), "overall_speed_score"],
+    [tx("Sell For"), "recommended_list_price"], [tx("Trend"), "trend_direction"],
   ]
 
   return (
     <AppShell
-      title="Market Signals"
-      subtitle="Brand × category demand — where to point your sourcing this week"
+      title={tx("Market Signals")}
+      subtitle={tx("Brand × category demand — where to point your sourcing this week")}
     >
       {/* KPI strip — same card as the rest of the product */}
       <div className="riq-grid-3" style={{ marginBottom: 24 }}>
-        <KpiCard label="Strong buy" value={totals.strong} sublabel="High-conviction combos" accent="var(--color-buy)" />
-        <KpiCard label="Buy" value={totals.buy} sublabel="Worth sourcing now" accent="#38bdf8" />
-        <KpiCard label="Showing" value={rows.length} sublabel="Top signals by investment score" />
+        <KpiCard label={tx("Strong buy")} value={totals.strong} sublabel={tx("High-conviction combos")} accent="var(--color-buy)" />
+        <KpiCard label={tx("Buy")} value={totals.buy} sublabel={tx("Worth sourcing now")} accent="#38bdf8" />
+        <KpiCard label={tx("Showing")} value={rows.length} sublabel={tx("Top signals by investment score")} />
       </div>
 
-      <p style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginBottom: 16, lineHeight: 1.6, maxWidth: "70ch" }}>
-        Each row is a brand + category scored by demand velocity × liquidity × momentum.
-        Use it to decide <em>what kind</em> of stock to hunt for — then jump to the{" "}
-        <Link href="/deals" style={{ color: "var(--color-buy)", textDecoration: "none" }}>Deal Scanner</Link>{" "}
-        for the exact models.
-      </p>
+      <p style={{ fontSize: 13, color: "var(--color-graphite-muted)", marginBottom: 16, lineHeight: 1.6, maxWidth: "70ch" }}>{tx("Each row is a brand + category scored by demand velocity × liquidity × momentum. Use it to decide")}{" "}<em>{tx("what kind")}</em>{" "}{tx("of stock to hunt for — then jump to the")}{" "}
+        <Link href="/deals" style={{ color: "var(--color-buy)", textDecoration: "none" }}>{tx("Deal Scanner")}</Link>{" "}{tx("for the exact models.")}</p>
 
       {loading ? (
         <SkeletonRows rows={8} height={44} />
@@ -135,21 +139,19 @@ export default function MarketPage() {
           borderRadius: 14, padding: 32, textAlign: "center",
         }}>
           <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
-            {loadError === "auth" ? "Market signals are part of a paid plan" : "Couldn't load market signals"}
+            {loadError === "auth" ? tx("Market signals are part of a paid plan") : tx("Couldn't load market signals")}
           </div>
           <div style={{ fontSize: 14, color: "var(--color-graphite-muted)", marginBottom: 20, maxWidth: 420, margin: "0 auto 20px" }}>
             {loadError === "auth"
-              ? "We score every brand × category combination tracked across EU5 Vinted — ranked by investment potential. Starter unlocks the full board."
-              : "This is a connection problem on our side. Try again in a moment."}
+              ? tx("We score every brand × category combination tracked across EU5 Vinted — ranked by investment potential. Starter unlocks the full board.")
+              : tx("This is a connection problem on our side. Try again in a moment.")}
           </div>
           {loadError === "auth"
-            ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>Unlock market signals →</Link>
-            : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>Retry</button>}
+            ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>{tx("Unlock market signals →")}</Link>
+            : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>{tx("Retry")}</button>}
         </div>
       ) : rows.length === 0 ? (
-        <div style={{ padding: "80px 0", textAlign: "center", fontSize: 15, color: "var(--color-graphite-muted)" }}>
-          No signals yet — the analyzer refreshes roughly every 2 hours.
-        </div>
+        <div style={{ padding: "80px 0", textAlign: "center", fontSize: 15, color: "var(--color-graphite-muted)" }}>{tx("No signals yet — the analyzer refreshes roughly every 2 hours.")}</div>
       ) : (
         <div style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 14, overflow: "hidden" }}>
           <div className="riq-scroll-x">
@@ -194,7 +196,7 @@ export default function MarketPage() {
                       {r.investment_score != null ? Math.round(r.investment_score) : "—"}
                     </td>
                     <td style={{ ...TD, fontVariantNumeric: "tabular-nums" }}>
-                      {r.units_sold_all_7d != null ? r.units_sold_all_7d.toLocaleString("en-GB") : "—"}
+                      {r.units_sold_all_7d != null ? r.units_sold_all_7d.toLocaleString(tx.locale) : "—"}
                     </td>
                     <td style={{ ...TD, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
                       {r.overall_demand_score != null ? Math.round(r.overall_demand_score) : "—"}

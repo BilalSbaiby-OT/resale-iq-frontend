@@ -19,6 +19,7 @@
  */
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { Locale } from "@/lib/i18n"
+import { useT } from "@/components/i18n/locale-provider"
 
 export function CustomQueryInput({
   value,
@@ -48,11 +49,10 @@ export function CustomQueryInput({
   ctaSrc: string
   customerEmail?: string
 }) {
+  const tx = useT()
   return (
     <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,.06)" }}>
-      <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 7px", lineHeight: 1.5, fontWeight: 500 }}>
-        Now check YOUR item:
-      </p>
+      <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 7px", lineHeight: 1.5, fontWeight: 500 }}>{tx("Now check YOUR item:")}</p>
       <form
         onSubmit={onSubmit}
         style={{ display: "flex", gap: 7, maxWidth: 360 }}
@@ -61,7 +61,7 @@ export function CustomQueryInput({
           type="text"
           value={value}
           onChange={e => onChange(e.target.value)}
-          placeholder="e.g. Stone Island Hoodie"
+          placeholder={tx("e.g. Stone Island Hoodie")}
           autoComplete="off"
           style={{
             flex: 1,
@@ -91,7 +91,7 @@ export function CustomQueryInput({
             whiteSpace: "nowrap",
           }}
         >
-          {loading ? "…" : "Check →"}
+          {loading ? "…" : tx("Check →")}
         </button>
       </form>
 
@@ -107,15 +107,9 @@ export function CustomQueryInput({
             borderRadius: 9,
           }}
         >
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>
-            We have data on{" "}
-            <strong style={{ color: "#34C759" }}>{paywallQuery}</strong>{" "}
-            — unlock it below
-          </p>
+          <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>{tx("We have data on {0} — unlock it below", [paywallQuery])}</p>
           {paywallN != null && paywallN > 0 && (
-            <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>
-              ✓ {paywallN.toLocaleString("en-GB")} data points on this item — the answer is ready.
-            </p>
+            <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>{tx("✓ {0} data points on this item — the answer is ready.", [paywallN.toLocaleString(tx.locale)])}</p>
           )}
           <GuestCheckoutButton
             locale={locale}

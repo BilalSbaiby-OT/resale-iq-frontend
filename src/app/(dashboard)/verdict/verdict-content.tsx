@@ -41,6 +41,7 @@ import {
 } from "@/lib/verdict-intelligence"
 import { parsePaywallBody } from "@/lib/hard-paywall"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { useT } from "@/components/i18n/locale-provider"
 
 // C(tony): fallback activation scenarios for paid cold state.
 // These are the Canva-template moment for a paid user who hasn't run a check yet.
@@ -51,7 +52,6 @@ const ACTIVATION_FALLBACK: SnapshotBrandRow[] = [
   { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
 ]
 
-const ACTIVATION_CONTEXT = ["at a market", "at a kilo sale", "at a vintage fair"]
 
 function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limitReached" | "marketData" | "brandAverage">, locale: Locale) {
   return {
@@ -88,14 +88,16 @@ function verdictStyle(label: Pick<VerdictCopy, "noData" | "notMeasured" | "limit
 type SeedProps = { seedQuery: string; seedResult: HeroVerdict | null }
 
 export function VerdictContent({ seedQuery, seedResult }: SeedProps) {
+  const tx = useT()
   return (
-    <Suspense fallback={<AppShell title="Check"><div /></AppShell>}>
+    <Suspense fallback={<AppShell title={tx("Check")}><div /></AppShell>}>
       <VerdictInner seedQuery={seedQuery} seedResult={seedResult} />
     </Suspense>
   )
 }
 
 function VerdictInner({ seedQuery, seedResult }: SeedProps) {
+  const tx = useT()
   const locale = useLocale()
   const t = verdictCopy[locale]
   const checker = copy[locale].checker
@@ -201,7 +203,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
     : null
   const honestyNote = sampleNote
     || (result?.confidence === "LOW" && result.n != null
-      ? `Only ${result.n} comparable departures`
+      ? tx(`Only {0} comparable departures`, [result.n])
       : null)
 
   // THE WORKED EXAMPLE. Shown only on a genuinely cold screen: no result, not
@@ -318,7 +320,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
-                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {a.sold_7d != null ? t.leftShelfCount(a.sold_7d.toLocaleString()) : "—"}
+                          {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg} · {a.sold_7d != null ? t.leftShelfCount(a.sold_7d.toLocaleString(tx.locale)) : "—"}
                         </span>
                       </button>
                     ))}
@@ -341,14 +343,14 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 <div className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} />
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
-                  <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString() : "—"} />
-                  <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString() : "—"} />
+                  <Metric label={t.leftShelf} value={result.sold_7d != null ? result.sold_7d.toLocaleString(tx.locale) : "—"} />
+                  <Metric label={t.listedNow} value={result.active_listings != null ? result.active_listings.toLocaleString(tx.locale) : "—"} />
                 </div>
                 <div className="p-6">
                   {/*
                     FREE_MODELS, not WORKING_MODELS: this chip row was offering
                     Levi's 501 and NB 550, which are PAYWALLED. Suggesting
-                    "try one of these instead" and then walling the suggestion
+                    tx("try one of these instead") and then walling the suggestion
                     is the worst possible sequence for a first-time visitor.
                   */}
                   <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
@@ -373,9 +375,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                       background: "var(--color-buy)", color: "var(--color-on-buy)",
                       fontSize: 14, fontWeight: 600, textDecoration: "none",
                     }}
-                  >
-                    See what IS selling this week →
-                  </Link>
+                  >{tx("See what IS selling this week →")}</Link>
                 </div>
               </div>
             ) : result.verdict === "UNKNOWN" || result.verdict === "INSUFFICIENT_DATA" ? (
@@ -396,9 +396,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     <Link
                       href={canonicalPath(locale, "/data")}
                       style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
-                    >
-                      → See the 28 brands we track
-                    </Link>
+                    >{tx("→ See the 28 brands we track")}</Link>
                   </div>
                 </div>
               </>
@@ -415,7 +413,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 after={
                   <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
                     {/* C(tony)CheckAnotherFreeGuard: use FREE_MODELS for unpaid users so
-                        "Check another" chips after a result don't immediately hit the paywall.
+                        tx("Check another") chips after a result don't immediately hit the paywall.
                         WORKING_MODELS (Levi's 501, NB 550) are paywalled — offering them
                         to free users as the next click after AF1 kills the discovery loop.
                         Same guard as the cold empty-state panel at line ~466. */}
@@ -449,17 +447,14 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               // a brand-new account sees "oh — I check something BEFORE I buy it."
               // Each scenario is a button that pre-fills and runs the search immediately.
               <div className="mb-4">
-                <p className="text-[13px] font-semibold text-[#c8d0e0] mb-1">Run a check before you buy</p>
-                <p className="text-[12px] text-[#5b6b8c] mb-3">
-                  Type any brand + item you&apos;re thinking of buying. We&apos;ll tell you the max price to pay to profit on resale.
-                </p>
+                <p className="text-[13px] font-semibold text-[#c8d0e0] mb-1">{tx("Run a check before you buy")}</p>
+                <p className="text-[12px] text-[#5b6b8c] mb-3">{tx("Type any brand + item you're thinking of buying. We'll tell you the max price to pay to profit on resale.")}</p>
                 <div className="flex flex-col gap-2 mb-4" data-testid="riq-activation-scenarios">
                   {/* C(tony): live activation scenarios — top-movers from /api/public/market-snapshot.
                       Replaces hardcoded Stone Island/Carhartt/Fred Perry with whatever is actually
                       hot TODAY. ACTIVATION_CONTEXT rotates the hook phrase by position. */}
                   {activationRows.map((row, i) => {
                     const q = `${row.brand} ${row.category}`
-                    const ctx = ACTIVATION_CONTEXT[i % ACTIVATION_CONTEXT.length]
                     return (
                       <button
                         key={q}
@@ -467,13 +462,13 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                         disabled={loading}
                         className="w-full text-left px-3 py-2.5 rounded-lg border border-[#1c2333] hover:border-[rgba(52,199,89,0.35)] hover:bg-[rgba(52,199,89,0.04)] transition-colors group"
                       >
-                        <span className="text-[12px] text-[#5b6b8c] group-hover:text-[#8fa3c4]">Found {row.brand} {row.category.toLowerCase()} {ctx}?</span>
-                        <span className="ml-2 text-[11.5px] font-semibold text-[#34C759] opacity-70 group-hover:opacity-100">Check {q} →</span>
+                        <span className="text-[12px] text-[#5b6b8c] group-hover:text-[#8fa3c4]">{tx("Found {0} {1}?", [row.brand, row.category.toLowerCase()])}</span>
+                        <span className="ml-2 text-[11.5px] font-semibold text-[#34C759] opacity-70 group-hover:opacity-100">{tx("Check {0} →", [q])}</span>
                       </button>
                     )
                   })}
                 </div>
-                <p className="text-[11px] text-[#3a4458] mb-3">Or pick a top-moving item to see what a verdict looks like:</p>
+                <p className="text-[11px] text-[#3a4458] mb-3">{tx("Or pick a top-moving item to see what a verdict looks like:")}</p>
               </div>
             ) : null}
             <p>{!paidCold ? t.empty : null}</p>
@@ -510,7 +505,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 >
                   {t.seePlans} →
                 </Link>
-                <span className="text-[12px] text-[var(--color-text-secondary)]">€19/mo · no free tier</span>
+                <span className="text-[12px] text-[var(--color-text-secondary)]">{tx("€19/mo · no free tier")}</span>
               </div>
             )}
           </div>
@@ -532,7 +527,7 @@ function metricLabel(id: CollectedMetric["id"], t: VerdictCopy): string {
   }
 }
 
-function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy): ReactNode {
+function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy, loc: Locale): ReactNode {
   if (row.id === "buy_below") {
     const shown = eur(row.numeric)
     return row.kind === "reconstructed" ? `${shown} · ${t.estimate}` : shown
@@ -545,11 +540,11 @@ function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy
   }
   if (row.id === "n") {
     return row.kind === "reconstructed"
-      ? `${row.numeric.toLocaleString()} · ${t.estimate}`
-      : row.numeric.toLocaleString()
+      ? `${row.numeric.toLocaleString(loc)} · ${t.estimate}`
+      : row.numeric.toLocaleString(loc)
   }
   if (row.id === "opportunity") return `${Math.round(row.numeric)}/100`
-  return row.numeric.toLocaleString()
+  return row.numeric.toLocaleString(loc)
 }
 
 /**
@@ -568,6 +563,7 @@ function VerdictInsightBody({
   unlock?: ReactNode
   after?: ReactNode
 }) {
+  const tx = useT()
   const rows = collectVerdictMetrics(result)
   const strText = result.sell_through_rate ? formatStrPctString(result.sell_through_rate) : null
   const pair = measuredBuyAndSell(result)
@@ -613,7 +609,7 @@ function VerdictInsightBody({
             <Metric
               key={row.id}
               label={metricLabel(row.id, t)}
-              value={metricValue(row, result, t)}
+              value={metricValue(row, result, t, tx.locale)}
               accent={row.id === "buy_below" ? "var(--color-buy)" : undefined}
             />
           ))}

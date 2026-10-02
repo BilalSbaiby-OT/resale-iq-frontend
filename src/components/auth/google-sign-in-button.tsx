@@ -16,9 +16,10 @@
 
 import { useEffect, useState } from "react"
 import { getGoogleOAuthStatus } from "@/lib/google-oauth"
+import { useT } from "@/components/i18n/locale-provider"
 
 export function GoogleSignInButton({
-  label = "Continue with Google",
+  label,
   onBeforeNavigate,
 }: {
   label?: string
@@ -27,6 +28,7 @@ export function GoogleSignInButton({
    *  (e.g. intent query → localStorage). Tony C141. */
   onBeforeNavigate?: () => void
 }) {
+  const tx = useT()
   const [enabled, setEnabled] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export function GoogleSignInButton({
       href="/auth/google/login"
       onClick={() => onBeforeNavigate?.()}
       role="button"
-      aria-label="Continue with Google"
+      aria-label={tx("Continue with Google")}
       className={[
         // Layout
         "flex items-center justify-center gap-2.5",
@@ -84,7 +86,7 @@ export function GoogleSignInButton({
           fill="#EA4335"
         />
       </svg>
-      <span>{label}</span>
+      <span>{label ?? tx("Continue with Google")}</span>
     </a>
   )
 }

@@ -4,6 +4,7 @@ import { getLiveDeals, isPaymentRequired } from "@/lib/api"
 import type { Deal, LiveDeal } from "@/types"
 import { liveDealsEmptyText } from "@/lib/live-deals-gate"
 import { Zap, Search, Heart } from "lucide-react"
+import { useT } from "@/components/i18n/locale-provider"
 
 interface LiveDealsModalProps {
   deal: Deal
@@ -11,6 +12,7 @@ interface LiveDealsModalProps {
 }
 
 export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
+  const tx = useT()
   const [loading, setLoading] = useState(true)
   const [deals, setDeals] = useState<LiveDeal[]>([])
   const [markets, setMarkets] = useState<string[]>([])
@@ -40,8 +42,8 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
       } catch (e) {
         if (!cancelled) {
           setError(isPaymentRequired(e)
-            ? "Live Deal Finder is a Pro feature. Upgrade to see listings you can buy now."
-            : "Live search failed — try again shortly.")
+            ? tx("Live Deal Finder is a Pro feature. Upgrade to see listings you can buy now.")
+            : tx("Live search failed — try again shortly."))
         }
       } finally {
         if (!cancelled) setLoading(false)
@@ -61,9 +63,8 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
         {/* Header */}
         <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--color-border-ui)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#FF9F0A" }} /> Live Deals — {deal.brand} {deal.model}</div>
-            <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>
-              Buyable now · {deal.max_buy_price != null ? `under €${Math.floor(deal.max_buy_price)}` : "buy-below withheld"} · sizes {(deal.top_sizes ?? []).slice(0,4).join(", ") || "all"}
+            <div style={{ fontWeight: 800, fontSize: 16, display: "flex", alignItems: "center", gap: 6 }}><Zap size={16} style={{ color: "#FF9F0A" }} />{" "}{tx("Live Deals — {0}", [`${deal.brand} ${deal.model}`])}</div>
+            <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>{tx("Buyable now · {0} · sizes {1}", [deal.max_buy_price != null ? tx("under €{0}", [Math.floor(deal.max_buy_price)]) : tx("buy-below withheld"), (deal.top_sizes ?? []).slice(0,4).join(", ") || tx("all")])}
               {markets.length > 0 && ` · ${markets.join(" ")}`}
             </div>
           </div>
@@ -74,18 +75,17 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
         <div style={{ overflowY: "auto", padding: 12 }}>
           {loading ? (
             <div style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontFamily: "monospace", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-              <Search size={13} /> Searching live Vinted across 5 markets…
-            </div>
+              <Search size={13} />{" "}{tx("Searching live Vinted across 5 markets…")}</div>
           ) : deals.length === 0 ? (
             <div data-testid="riq-live-deals-empty" style={{ textAlign: "center", padding: "40px 0", color: "#546380", fontSize: 13, lineHeight: 1.55, maxWidth: 420, margin: "0 auto" }}>
               {liveDealsEmptyText({
                 error,
                 reason,
-                fallback: "No listings that match this brand and model under buy-below right now.",
+                fallback: tx("No listings that match this brand and model under buy-below right now."),
               })}
-              {error.includes("Pro feature") && (
+              {error.includes(tx("Pro feature")) && (
                 <div style={{ marginTop: 14 }}>
-                  <a href="/account" style={{ color: "#34C759", fontWeight: 700, textDecoration: "none" }}>Upgrade to Pro →</a>
+                  <a href="/account" style={{ color: "#34C759", fontWeight: 700, textDecoration: "none" }}>{tx("Upgrade to Pro →")}</a>
                 </div>
               )}
             </div>
@@ -105,14 +105,14 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: 13, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{d.title}</div>
                       <div style={{ fontSize: 11, color: "#546380", marginTop: 2 }}>
-                        {d.market} · size {d.size || "?"} · {d.condition || "?"}
+                        {d.market} {tx("· size {0}", [d.size || "?"])} · {d.condition || "?"}
                         {d.favourites > 0 && <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}> · <Heart size={10} style={{ color: "#f43f5e" }} /> {d.favourites}</span>}
                       </div>
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       <div style={{ fontFamily: "monospace", fontWeight: 800, fontSize: 16, color: "#34C759" }}>€{d.price_eur.toFixed(0)}</div>
                       {net != null && net > 0 && (
-                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#FF9F0A" }} title="Fee-adjusted warehouse avg minus this ask — constructed, not a forecast">Target net €{net.toFixed(0)}</div>
+                        <div style={{ fontFamily: "monospace", fontSize: 10, color: "#FF9F0A" }} title={tx("Fee-adjusted warehouse avg minus this ask — constructed, not a forecast")}>{tx("Target net €{0}", [net.toFixed(0)])}</div>
                       )}
                     </div>
                     <span style={{ color: "#0A84FF", fontSize: 13 }}>↗</span>
@@ -124,9 +124,7 @@ export function LiveDealsModal({ deal, onClose }: LiveDealsModalProps) {
         </div>
 
         {/* Footer */}
-        <div style={{ padding: "10px 20px", borderTop: "1px solid var(--color-border-ui)", fontSize: 10, color: "#546380", textAlign: "center" }}>
-          Live from Vinted · deduped across markets · cheapest first. Verify condition & authenticity before buying.
-        </div>
+        <div style={{ padding: "10px 20px", borderTop: "1px solid var(--color-border-ui)", fontSize: 10, color: "#546380", textAlign: "center" }}>{tx("Live from Vinted · deduped across markets · cheapest first. Verify condition & authenticity before buying.")}</div>
       </div>
     </div>
   )

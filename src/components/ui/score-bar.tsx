@@ -1,4 +1,5 @@
 "use client"
+import { useT } from "@/components/i18n/locale-provider"
 
 function getScoreStyle(s: number) {
   if (s >= 70) return { color: "#34C759", bar: "#34C759" }
@@ -10,6 +11,7 @@ function getScoreStyle(s: number) {
 interface ScoreBarProps { score: number | null; showNumber?: boolean; width?: number }
 
 export function ScoreBar({ score, showNumber = true, width = 64 }: ScoreBarProps) {
+  const tx = useT()
   // A WITHHELD score is not a zero score. `score ?? 0` rendered a red "0/100"
   // on every card the moment opportunity_score was suppressed — telling the
   // reseller "worst possible opportunity" about an item we had simply declined
@@ -19,7 +21,7 @@ export function ScoreBar({ score, showNumber = true, width = 64 }: ScoreBarProps
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
         {showNumber && (
           <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 800, color: "#5b6b8c", lineHeight: 1 }}
-                title="Not rated — sample too thin">—</span>
+                title={tx("Not rated — sample too thin")}>—</span>
         )}
         <div style={{ height: 3, width, borderRadius: 2, background: "#1e2535" }} />
       </div>

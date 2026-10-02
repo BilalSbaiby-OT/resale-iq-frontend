@@ -14,6 +14,7 @@ import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { FREE_MODELS } from "@/lib/working-models"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -63,6 +64,7 @@ export function HardPaywallCard({
    */
   lockedRows?: SsrBuyListItem[] | null
 }) {
+  const tx = useT()
   const t = copy[locale].checker
   const price = operatorPrice(plans)
   const tracked = useTrackedLabel()
@@ -154,9 +156,7 @@ export function HardPaywallCard({
             padding: "10px 12px",
           }}
         >
-          <span style={{ fontSize: 11, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            In your unlocked buy list
-          </span>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em" }}>{tx("In your unlocked buy list")}</span>
           {lockedRows.slice(0, 3).map((it, i) => (
             <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
               <span style={{ fontSize: 13, color: "#c3cde0", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -182,9 +182,7 @@ export function HardPaywallCard({
 
       {/* Evidence teaser — "we hold N data points on this item". Not a paid field. */}
       {comparableN != null && comparableN > 0 && (
-        <p style={{ fontSize: 12.5, color: "#34C759", marginBottom: 10, lineHeight: 1.45, fontWeight: 600 }}>
-          ✓ We hold {comparableN.toLocaleString("en-GB")} data points on this item — the answer is ready.
-        </p>
+        <p style={{ fontSize: 12.5, color: "#34C759", marginBottom: 10, lineHeight: 1.45, fontWeight: 600 }}>{tx("✓ We hold {0} data points on this item — the answer is ready.", [comparableN.toLocaleString(tx.locale)])}</p>
       )}
 
       {/* ── Inline offer — price + what you get + primary CTA ────────────────
@@ -216,17 +214,15 @@ export function HardPaywallCard({
             </span>
             <span style={{ fontSize: 13, color: "#8b99b8" }}>today</span>
           </div>
-          <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>
-            then €{price}/month after your {TRIAL_DAYS}-day trial
-            {chargeDate ? ` · first charge ${chargeDate}` : ""}
+          <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>{tx("then €{0}/month after your {1}-day trial", [price, TRIAL_DAYS])}{chargeDate ? tx(" · first charge {0}", [chargeDate]) : ""}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
           {[
-            "BUY / WATCH / SKIP verdict + exact buy-below price",
-            "Unlimited checks — every item in our catalog",
-            "Sell-through rate, demand, top sizes, market trends",
-            "Instant access · cancel anytime",
+            tx("BUY / WATCH / SKIP verdict + exact buy-below price"),
+            tx("Unlimited checks — every item in our catalog"),
+            tx("Sell-through rate, demand, top sizes, market trends"),
+            tx("Instant access · cancel anytime"),
           ].map((f) => (
             <div key={f} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
               <Check size={13} color="#34C759" strokeWidth={2.5} style={{ marginTop: 2, flexShrink: 0 }} aria-hidden />
@@ -241,7 +237,7 @@ export function HardPaywallCard({
         {!capturedEmail && (
           <input
             type="email"
-            placeholder="Enter your email to continue →"
+            placeholder={tx("Enter your email to continue →")}
             onChange={e => handleEmailChange(e.target.value)}
             style={{
               width: "100%",
@@ -273,7 +269,7 @@ export function HardPaywallCard({
           style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 9, fontSize: 12, color: "rgba(52,199,89,0.75)" }}
         >
           <Check size={12} color="rgba(52,199,89,0.75)" strokeWidth={2.5} aria-hidden />
-          <span>30-day money-back guarantee · instant access · cancel anytime</span>
+          <span>{tx("30-day money-back guarantee · instant access · cancel anytime")}</span>
         </div>
         {/* H173 CRO: annual CTA — the ONLY way to buy annual from the blog paywall.
             Otherwise visitors must navigate to /pricing, find the billing toggle,
@@ -299,9 +295,7 @@ export function HardPaywallCard({
               border: "1px solid rgba(52,199,89,0.3)",
               cursor: "pointer",
             }}
-          >
-            Save 2 months — €190/year →
-          </button>
+          >{tx("Save 2 months — €190/year →")}</button>
         </div>
       </div>
 
@@ -327,7 +321,7 @@ export function HardPaywallCard({
           a free-sample door open next to the paid ask.
           Tony 2026-09-30. */}
       <div style={{ marginBottom: 14 }}>
-        <p style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 8 }}>Or see the product free — no account needed:</p>
+        <p style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 8 }}>{tx("Or see the product free — no account needed:")}</p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {FREE_MODELS.slice(0, 3).map(model => (
             <Link
@@ -358,16 +352,14 @@ export function HardPaywallCard({
         </Link>
         {fromPricing ? (
           /* H127 CRO: visitor came from /pricing — they already saw the plans.
-             "See plans" is a dead loop. Replace with a return anchor that puts
+             tx("See plans") is a dead loop. Replace with a return anchor that puts
              them back at #pricing-plans, one click from checkout.
              Revenue 2026-09-28. */
           <Link
             href={`${canonicalPath(locale, "/pricing")}#pricing-plans`}
             data-testid="riq-paywall-back-to-pricing"
             style={{ color: "#8fa3c4", fontSize: 13 }}
-          >
-            ← Back to pricing
-          </Link>
+          >{tx("← Back to pricing")}</Link>
         ) : (
           <Link
             href={`${canonicalPath(locale, "/pricing")}?src=paywall${query?.trim() ? `&item=${encodeURIComponent(query.trim())}` : ""}`}
@@ -384,7 +376,7 @@ export function HardPaywallCard({
         data-testid="riq-paywall-guarantee"
         style={{ display: "inline-flex", alignItems: "center", gap: 7, marginTop: 14, fontSize: 11.5, color: "#4d5a75" }}
       >
-        <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+        <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>{tx("Full refund within 30 days of your first payment — see Terms")}</a>
       </div>
     </div>
   )

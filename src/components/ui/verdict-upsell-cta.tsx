@@ -1,3 +1,4 @@
+"use client"
 /**
  * H159 CRO: "Check YOUR item" inline bridge added below the post-verdict upsell.
  *
@@ -34,13 +35,13 @@
  * + #12 (conviction momentum: sample → personalize → ask).
  * Revenue 2026-09-29. H159.
  */
-"use client"
 import { useEffect, useState } from "react"
 import { verdictUpsellLine } from "@/lib/verdict-upsell"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * VerdictUpsellCta — the ONE paid block shown directly under a free verdict
@@ -93,6 +94,7 @@ export function VerdictUpsellCta({
    *  yearly toggle pre-selected (pricing-section.tsx reads ?billing=yearly). */
   annualHref: string
 }) {
+  const tx = useT()
   const line = verdictUpsellLine({ buy_below: buyBelow, sell_avg: sellAvg })
 
   // H154 CRO: pre-fill Stripe email from localStorage — same pattern as
@@ -112,9 +114,9 @@ export function VerdictUpsellCta({
   // so the button stays single-line on 375px screens.
   const ctaLabel = (() => {
     const q = query?.trim()
-    if (!q) return "Unlock the full buy list — €19/mo"
+    if (!q) return tx("Unlock the full buy list — €19/mo")
     const truncated = q.length > 28 ? `${q.slice(0, 25)}…` : q
-    return `Unlock ${truncated} buy-below — €19/mo`
+    return tx(`Unlock {0} buy-below — €19/mo`, [truncated])
   })()
 
   // H159 CRO: "Check YOUR item" inline bridge — post-verdict personalization.
@@ -184,9 +186,7 @@ export function VerdictUpsellCta({
           data-testid="riq-verdict-upsell-annual"
           onClick={() => trackEvent("verdict_upsell_click", `${src}_annual`)}
           style={{ fontSize: 12, color: "#8b99b8", textDecoration: "underline" }}
-        >
-          or €190/year (2 months free)
-        </a>
+        >{tx("or €190/year (2 months free)")}</a>
         {/* H166 CRO: 30-day refund guarantee under the primary upsell CTA.
             H153 added this to HardPaywallCard (paywall hits). VerdictUpsellCta —
             shown to anon/free visitors who just saw a REAL free verdict on
@@ -198,7 +198,7 @@ export function VerdictUpsellCta({
             CRO #4 (objection: what if it fails?) + no risk (one line, no data,
             no API, falls back to the same UI without it). Revenue 2026-09-29. H166. */}
         <p style={{ fontSize: 11, color: "#5b6b8c", margin: "6px 0 0", lineHeight: 1.45 }}>
-          <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+          <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>{tx("Full refund within 30 days of your first payment — see Terms")}</a>
         </p>
       </div>
 

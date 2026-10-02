@@ -17,6 +17,7 @@ import { googleErrorMessage } from "@/lib/google-oauth"
 import { trackEvent } from "@/lib/analytics"
 import { CheckoutInterstitialCard } from "@/components/auth/checkout-interstitial-card"
 import { consumeSignupPending, fetchFirstCheckQuery, writeFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
+import { useT } from "@/components/i18n/locale-provider"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /login is a plain sign-in form —
 // no "what do you want to check" question, no intent typeahead. A successful
@@ -36,6 +37,7 @@ import { consumeSignupPending, fetchFirstCheckQuery, writeFirstCheckSeed, readFi
 // — that is not a "what do you want to check" detour, it is completing a
 // payment they already started.
 export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {}) {
+  const tx = useT()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -149,7 +151,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
         .catch(() => {
           // If /auth/me fails, the token is bad — fall back to a clean login
           window.history.replaceState({}, "", "/login")
-          setError("Google sign-in failed. Please try again or use email.")
+          setError(tx("Google sign-in failed. Please try again or use email."))
         })
       return
     }
@@ -157,7 +159,7 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     const googleErr = params.get("google_error")
     if (googleErr) {
       window.history.replaceState({}, "", "/login")
-      setError(googleErrorMessage(googleErr) ?? "Google sign-in failed.")
+      setError(googleErrorMessage(googleErr) ?? tx("Google sign-in failed."))
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -216,11 +218,11 @@ export function LoginFormInner({ locale: localeProp }: { locale?: Locale } = {})
     <AuthCard>
       <AuthHeading heading={t.heading} subheading={t.subheading} />
 
-      <GoogleSignInButton label="Continue with Google" />
+      <GoogleSignInButton label={tx("Continue with Google")} />
       <AuthDivider text="or" />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
+        <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder={tx("you@example.com")} autoComplete="email" invalid={!!error} describedBy="auth-form-error" />
         <AuthField label={t.passwordLabel} type="password" value={password} onChange={setPassword} placeholder="••••••••" autoComplete="current-password" invalid={!!error} describedBy="auth-form-error" />
         {error && <div id="auth-form-error" role="alert" className="text-[13px] text-[var(--color-skip)] text-center">{error}</div>}
         <button

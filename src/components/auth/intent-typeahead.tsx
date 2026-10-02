@@ -1,3 +1,4 @@
+"use client"
 /**
  * C180(tony): intent-field typeahead for /register.
  *
@@ -20,10 +21,10 @@
  * it feels like a command palette — you type the item and the product
  * confirms it has data before you commit. Expectation-setting, not friction.
  */
-"use client"
 import { useState, useEffect, useRef, useCallback } from "react"
 import { CheckCircle2 } from "lucide-react"
 import brandsRaw from "@/data/seo-brands.json" with { type: "json" }
+import { useT } from "@/components/i18n/locale-provider"
 
 type Suggestion = {
   brand: string
@@ -91,11 +92,12 @@ export function IntentTypeahead({
   value,
   onChange,
   onSelect,
-  placeholder = "e.g. Stone Island Hoodie, Fred Perry Polo…",
+  placeholder,
   autoFocus = false,
   className,
   "aria-label": ariaLabel,
 }: IntentTypeaheadProps) {
+  const tx = useT()
   const [suggestions, setSuggestions] = useState<Suggestion[]>(STATIC_SUGGESTIONS)
   const [open, setOpen] = useState(false)
   const [activeIdx, setActiveIdx] = useState(-1)
@@ -216,8 +218,8 @@ export function IntentTypeahead({
           if (filtered.length > 0) setOpen(true)
         }}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        aria-label={ariaLabel ?? "What do you want to check today?"}
+        placeholder={placeholder ?? tx("e.g. Stone Island Hoodie, Fred Perry Polo…")}
+        aria-label={ariaLabel ?? tx("What do you want to check today?")}
         aria-autocomplete="list"
         aria-expanded={showDropdown}
         aria-haspopup="listbox"
@@ -232,7 +234,7 @@ export function IntentTypeahead({
       {showDropdown && (
         <ul
           role="listbox"
-          aria-label="Brand suggestions"
+          aria-label={tx("Brand suggestions")}
           style={{
             position: "absolute",
             top: "calc(100% + 4px)",

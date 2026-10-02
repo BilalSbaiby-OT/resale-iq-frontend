@@ -12,6 +12,7 @@ import { isPaidPlan, isPaidPlanId, planChip } from "@/lib/entitlement"
 import { getPlanFromToken } from "@/lib/utils"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { FirstRunSeed } from "@/components/auth/first-run-seed"
+import { useT } from "@/components/i18n/locale-provider"
 
 interface AppShellProps {
   children: React.ReactNode
@@ -39,6 +40,7 @@ const OWNER_ONLY_PREFIX = "/admin"
 const AUTH_SANDBOX = ["/verdict"]
 
 export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = false }: AppShellProps & { skipAuth?: boolean }) {
+  const tx = useT()
   const { isAuthenticated, isLoading, checkAuth, user } = useAuthStore()
   const locale = useLocale()
   const t = navCopy[locale].shell
@@ -199,16 +201,12 @@ export function AppShell({ children, title = "Dashboard", subtitle, skipAuth = f
               display: "flex", alignItems: "center", justifyContent: "center",
               gap: 16, flexWrap: "wrap"
             }}>
-              <span style={{ fontSize: 14, color: "var(--color-graphite-muted)" }}>
-                Log in to save your verdicts and track your budget
-              </span>
+              <span style={{ fontSize: 14, color: "var(--color-graphite-muted)" }}>{tx("Log in to save your verdicts and track your budget")}</span>
               <a href="/login" style={{
                 background: "var(--color-accent)", color: "var(--color-on-accent)",
                 borderRadius: 12, padding: "10px 16px", fontSize: 14,
                 fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap"
-              }}>
-                Log in →
-              </a>
+              }}>{tx("Log in →")}</a>
               <GuestCheckoutButton locale={locale} src="verdict-seed" />
             </div>
           )}

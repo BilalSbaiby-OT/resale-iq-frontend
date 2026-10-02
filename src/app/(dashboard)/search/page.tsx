@@ -5,6 +5,8 @@ import { searchVinted, isPaymentRequired } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { SearchItem } from "@/types"
 import { Search, ExternalLink, Star, Eye } from "lucide-react"
+import { N_ } from "@/lib/ui-translate"
+import { useT } from "@/components/i18n/locale-provider"
 
 const MARKETS: Record<string, string> = {
   es: "Spain", fr: "France", de: "Germany", it: "Italy", pt: "Portugal",
@@ -16,13 +18,14 @@ const MARKETS: Record<string, string> = {
 }
 
 const SORT_OPTIONS = [
-  { value: "newest_first", label: "Newest" },
-  { value: "price_low_to_high", label: "Price: Low → High" },
-  { value: "price_high_to_low", label: "Price: High → Low" },
-  { value: "relevance", label: "Relevance" },
+  { value: "newest_first", label: N_("Newest") },
+  { value: "price_low_to_high", label: N_("Price: Low → High") },
+  { value: "price_high_to_low", label: N_("Price: High → Low") },
+  { value: "relevance", label: N_("Relevance") },
 ]
 
 export default function SearchPage() {
+  const tx = useT()
   const [query, setQuery] = useState("")
   const [market, setMarket] = useState("es")
   const [sort, setSort] = useState("newest_first")
@@ -43,13 +46,13 @@ export default function SearchPage() {
       setSearched(true)
     } catch (e) {
       setError(isPaymentRequired(e)
-        ? "Live Search needs Starter or Pro. Upgrade to look up listings across markets."
-        : "Search failed. Try again.")
+        ? tx("Live Search needs Starter or Pro. Upgrade to look up listings across markets.")
+        : tx("Search failed. Try again."))
     } finally { setLoading(false) }
   }
 
   return (
-    <AppShell title="Live Search" subtitle="Search Vinted listings across 26 European markets in real time — live asking prices only outside ES/FR/DE/IT/PT, no buy-below or verdict">
+    <AppShell title={tx("Live Search")} subtitle={tx("Search Vinted listings across 26 European markets in real time — live asking prices only outside ES/FR/DE/IT/PT, no buy-below or verdict")}>
       <div className="max-w-4xl">
         {/* Search bar */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4">
@@ -57,7 +60,7 @@ export default function SearchPage() {
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={e => e.key === "Enter" && run()}
-            placeholder="e.g. Nike Air Force 1, Levi's 501, Stone Island jacket"
+            placeholder={tx("e.g. Nike Air Force 1, Levi's 501, Stone Island jacket")}
             className="flex-1 bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-4 py-3 text-[14px] text-[#e8ecf4] outline-none focus:border-[rgba(52,199,89,0.60)] placeholder:text-[var(--color-text-secondary)]" />
           <select value={market} onChange={e => setMarket(e.target.value)}
             className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
@@ -68,12 +71,12 @@ export default function SearchPage() {
           <select value={sort} onChange={e => setSort(e.target.value)}
             className="bg-[var(--color-surface-elevated)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 text-[13px] text-[#a9b6d0] outline-none">
             {SORT_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+              <option key={o.value} value={o.value}>{tx(o.label)}</option>
             ))}
           </select>
           <button onClick={run} disabled={loading || !query.trim()}
             className="px-5 py-3 rounded-lg text-[13px] font-bold bg-[var(--color-accent)] text-[var(--color-on-accent)] hover:opacity-90 transition-colors disabled:opacity-40 flex items-center gap-2 whitespace-nowrap">
-            <Search size={15} />{loading ? "Searching…" : "Search"}
+            <Search size={15} />{loading ? tx("Searching…") : tx("Search")}
           </button>
         </div>
 
@@ -81,7 +84,7 @@ export default function SearchPage() {
 
         {/* Results */}
         {items.length > 0 && (
-          <div className="text-[12px] text-[#5b6b8c] mb-3">{items.length} listings found in {MARKETS[market] || market}{recent && " — recently seen on Vinted (last 3 days), not a live lookup; open the listing to confirm it is still available"}</div>
+          <div className="text-[12px] text-[#5b6b8c] mb-3">{tx("{0} listings found in {1}{2}", [items.length, MARKETS[market] || market, recent && " — recently seen on Vinted (last 3 days), not a live lookup; open the listing to confirm it is still available"])}</div>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -112,15 +115,11 @@ export default function SearchPage() {
         </div>
 
         {searched && items.length === 0 && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
-            No listings found for &quot;{query}&quot; in {MARKETS[market] || market}. Try a different market or broader search term.
-          </div>
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">{tx("No listings found for \"{0}\" in {1}. Try a different market or broader search term.", [query, MARKETS[market] || market])}</div>
         )}
 
         {!searched && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">
-            Search any product across 26 Vinted markets. Results come directly from Vinted&apos;s live catalog — click any listing to view it on Vinted.
-          </div>
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">{tx("Search any product across 26 Vinted markets. Results come directly from Vinted's live catalog — click any listing to view it on Vinted.")}</div>
         )}
       </div>
     </AppShell>

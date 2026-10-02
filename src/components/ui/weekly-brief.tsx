@@ -1,3 +1,4 @@
+"use client"
 /**
  * The dated weekly-brief block (EXP-4).
  *
@@ -13,8 +14,10 @@
  */
 import type { MarketNumbers } from "@/lib/market-numbers"
 import { buildWeeklyBrief, briefSentence } from "@/lib/weekly-brief"
+import { useT } from "@/components/i18n/locale-provider"
 
 export function WeeklyBrief({ market }: { market: MarketNumbers }) {
+  const tx = useT()
   const brief = buildWeeklyBrief(market)
   if (!brief) return null
 
@@ -22,7 +25,7 @@ export function WeeklyBrief({ market }: { market: MarketNumbers }) {
 
   return (
     <section
-      aria-label={`Vinted resale brief for the week to ${brief.dateLabel}`}
+      aria-label={tx(`Vinted resale brief for the week to {0}`, [brief.dateLabel])}
       style={{
         marginTop: 22,
         padding: "18px 20px",
@@ -32,12 +35,11 @@ export function WeeklyBrief({ market }: { market: MarketNumbers }) {
       }}
     >
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: 0, letterSpacing: "-0.2px" }}>
-          Vinted resale brief — week to{" "}
+        <h2 style={{ fontSize: 17, fontWeight: 700, color: "#eef1f7", margin: 0, letterSpacing: "-0.2px" }}>{tx("Vinted resale brief — week to")}{" "}
           <time dateTime={brief.dateISO}>{brief.dateLabel}</time>
         </h2>
         <span style={{ fontSize: 11.5, color: brief.stale ? "#FF9F0A" : "#5b6b8c", fontFamily: "monospace" }}>
-          {brief.stale ? "last-good snapshot" : "updated weekly"}
+          {brief.stale ? tx("last-good snapshot") : tx("updated weekly")}
         </span>
       </div>
 
@@ -48,24 +50,20 @@ export function WeeklyBrief({ market }: { market: MarketNumbers }) {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 12, marginTop: 16 }}>
         <div style={{ background: "var(--color-bg)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "12px 14px" }}>
-          <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Most watched departures
-          </div>
+          <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>{tx("Most watched departures")}</div>
           <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 5 }}>
             {brief.topMovers.map((m) => (
               <li key={m.brand} style={{ display: "flex", justifyContent: "space-between", gap: 10, fontSize: 13.5, color: "#a9b6d0" }}>
                 <span style={{ color: "#eef1f7", fontWeight: 600 }}>{m.brand}</span>
                 <span style={{ fontFamily: "monospace", fontVariantNumeric: "tabular-nums" }}>
-                  {m.sold_7d.toLocaleString("en-GB")}/wk
+                  {m.sold_7d.toLocaleString(tx.locale)}/wk
                 </span>
               </li>
             ))}
           </ol>
         </div>
         <div style={{ background: "var(--color-bg)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "12px 14px" }}>
-          <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-            Highest average price at exit
-          </div>
+          <div style={{ fontSize: 11, color: "#5b6b8c", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.5px" }}>{tx("Highest average price at exit")}</div>
           <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 5 }}>
             {brief.priciest.map((m) => (
               <li key={m.brand} style={{ display: "flex", justifyContent: "space-between", gap: 10, fontSize: 13.5, color: "#a9b6d0" }}>
@@ -79,10 +77,7 @@ export function WeeklyBrief({ market }: { market: MarketNumbers }) {
         </div>
       </div>
 
-      <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 12, lineHeight: 1.6 }}>
-        Watched departures = listings we saw go from active to sold across Vinted ES, FR, DE, IT and PT
-        in the trailing 7 days. Aggregates only. Free to cite with attribution to Resale IQ.
-      </p>
+      <p style={{ fontSize: 11.5, color: "#5b6b8c", marginTop: 12, lineHeight: 1.6 }}>{tx("Watched departures = listings we saw go from active to sold across Vinted ES, FR, DE, IT and PT in the trailing 7 days. Aggregates only. Free to cite with attribution to Resale IQ.")}</p>
     </section>
   )
 }

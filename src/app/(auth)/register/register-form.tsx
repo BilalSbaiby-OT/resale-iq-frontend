@@ -12,6 +12,7 @@ import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/
 import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-in-button"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { fetchFirstCheckQuery, markSignupPending, writeFirstCheckSeed } from "@/lib/first-check-seed"
+import { useT } from "@/components/i18n/locale-provider"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /register is a PLAIN account form.
 // No "what do you want to check" question, no intent typeahead, no demand
@@ -44,6 +45,7 @@ function planFromQuery(raw: string | null): PlanId {
 }
 
 function RegisterContent({ locale }: { locale: Locale }) {
+  const tx = useT()
   const t = copy[locale].auth.register
   const [chargeDate, setChargeDate] = useState<string | null>(null)
   useEffect(() => { setChargeDate(firstChargeDate(locale)) }, [locale])
@@ -90,7 +92,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
         router.push("/dashboard")
       }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Sign-in failed — check your password and try again.")
+      setError(err instanceof Error ? err.message : tx("Sign-in failed — check your password and try again."))
       setConflictLoading(false)
     }
   }
@@ -219,7 +221,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
         setError("")
       } else {
         const reason: RegisterFailReason =
-          err instanceof Error && err.message.startsWith("Network error")
+          err instanceof Error && err.message.startsWith(tx("Network error"))
             ? "network"
             : "generic"
         track("register_submit_failed", { reason })
@@ -257,7 +259,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
               still route to Stripe checkout afterwards — Google bypasses
               this form's own checkout call entirely. */}
           <GoogleSignInButton
-            label="Continue with Google"
+            label={tx("Continue with Google")}
             onBeforeNavigate={() => {
               try {
                 if (isPaidPlan) {
@@ -293,16 +295,12 @@ function RegisterContent({ locale }: { locale: Locale }) {
                   <a
                     href={`${pathname}?plan=power`}
                     className="text-[11.5px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)]"
-                  >
-                    Want Pro (€{prices["power"] ?? 49}/mo instead)?
-                  </a>
+                  >{tx("Want Pro (€{0}/mo instead)?", [prices["power"] ?? 49])}</a>
                 ) : (
                   <a
                     href={`${pathname}?plan=operator`}
                     className="text-[11.5px] text-[var(--color-text-muted)] hover:text-[var(--color-buy)]"
-                  >
-                    ← Switch to Starter (€{prices["operator"] ?? 19}/mo)
-                  </a>
+                  >{tx("← Switch to Starter (€{0}/mo)", [prices["operator"] ?? 19])}</a>
                 )}
               </div>
               {/* Card-required 7-day trial disclosure (single source: lib/trial-cta.ts). */}
@@ -316,7 +314,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
 
           <div>
             <label className="text-[12px] text-[var(--color-text-secondary)] block mb-1.5">{t.emailLabel}</label>
-            <input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
+            <input type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} placeholder={tx("you@example.com")}
               className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-3 min-h-[44px] text-[16px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)]" />
           </div>
           <div>
@@ -330,7 +328,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
               separately-ticked consent — and only once there is an actual
               purchase to waive it for. This checkbox therefore only renders
               on the paid (?plan=operator|power) path, right next to the price
-              it applies to, and only gates the "Continue to Stripe" action —
+              it applies to, and only gates the tx("Continue to Stripe") action —
               never account creation (see header comment + 2026-09-28
               register_submit_failed(reason=waiver) incident this fixes).
 
@@ -341,9 +339,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
             <>
               {!waiver && (
                 <p className="text-[11px] text-[var(--color-text-muted)] flex items-center gap-1 mb-1">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-skip)] shrink-0" />
-                  Tick the box below to continue to payment
-                </p>
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-skip)] shrink-0" />{tx("Tick the box below to continue to payment")}</p>
               )}
               <label ref={waiverRef} className={`flex items-start gap-2.5 text-[12px] text-[var(--color-text-secondary)] rounded-lg transition-colors duration-300 ${waiverHighlight ? "bg-red-500/10 ring-1 ring-red-500/50 px-2 py-1" : ""}`} data-i18n-pending="waiver-legal-review">
                 <input ref={waiverCheckboxRef} type="checkbox" checked={waiver} onChange={e => setWaiver(e.target.checked)} className="mt-0.5 w-[20px] h-[20px] shrink-0 accent-[var(--color-buy)]" />
@@ -355,18 +351,16 @@ function RegisterContent({ locale }: { locale: Locale }) {
           {/* C152(tony): 409 conflict → inline "welcome back" login. */}
           {conflictEmail && (
             <div className="rounded-xl border border-[var(--color-border-2)] p-4 bg-[var(--color-bg-4)]">
-              <p className="text-[13px] font-semibold text-[var(--color-text-primary)] mb-0.5">
-                Welcome back — you already have an account.
-              </p>
+              <p className="text-[13px] font-semibold text-[var(--color-text-primary)] mb-0.5">{tx("Welcome back — you already have an account.")}</p>
               <p className="text-[12px] text-[var(--color-text-secondary)] mb-3">
-                {isPaidPlan ? "Enter your password to continue to checkout." : "Enter your password to sign in."}
+                {isPaidPlan ? tx("Enter your password to continue to checkout.") : tx("Enter your password to sign in.")}
               </p>
               <input
                 type="password"
                 value={conflictPassword}
                 onChange={e => setConflictPassword(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && handleConflictLogin()}
-                placeholder="Your password"
+                placeholder={tx("Your password")}
                 autoFocus
                 className="w-full bg-[var(--color-bg-4)] border border-[var(--color-border-2)] rounded-lg px-3 py-2.5 text-[14px] text-[var(--color-text-primary)] outline-none focus:border-[var(--color-buy)] placeholder:text-[var(--color-text-muted)] mb-2"
               />
@@ -376,10 +370,9 @@ function RegisterContent({ locale }: { locale: Locale }) {
                 disabled={conflictLoading || !conflictPassword}
                 className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-2.5 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                {conflictLoading ? "Signing in…" : isPaidPlan ? `Continue to ${plan === "power" ? "Pro" : "Starter"} checkout →` : "Sign in →"}
+                {conflictLoading ? tx("Signing in…") : isPaidPlan ? `Continue to ${plan === "power" ? "Pro" : "Starter"} checkout →` : tx("Sign in →")}
               </button>
-              <p className="text-[11px] text-[var(--color-text-muted)] mt-2 text-center">
-                Not you? <a href="/register" className="text-[var(--color-buy)] hover:underline">Use a different email</a>
+              <p className="text-[11px] text-[var(--color-text-muted)] mt-2 text-center">{tx("Not you?")}{" "}<a href="/register" className="text-[var(--color-buy)] hover:underline">{tx("Use a different email")}</a>
               </p>
             </div>
           )}

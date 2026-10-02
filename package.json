@@ -15,6 +15,7 @@
     "check:untracked-brands": "node scripts/check-untracked-brand-claims.mjs",
     "check:dupes": "node scripts/check-duplicate-logic.mjs",
     "check:silent": "node scripts/check-silent-failure.mjs",
+    "check:app-english": "node scripts/check-app-english.mjs",
     "check:locale-english": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-locale-english.mjs",
     "check:gates": "node scripts/check-stale-gates.mjs",
     "check:inventory": "node scripts/build-inventory.mjs --check",

@@ -5,12 +5,19 @@ import { AppShell } from "@/components/layout/app-shell"
 import { getBrandRankings } from "@/lib/api"
 import { eur } from "@/lib/utils"
 import type { BrandRanking } from "@/types"
+import { N_ } from "@/lib/ui-translate"
+import { useT } from "@/components/i18n/locale-provider"
 
 const SPEED_STYLE: Record<string, React.CSSProperties> = {
   "Very Fast": { color: "#30D158", background: "rgba(48,209,88,.15)", border: "1px solid rgba(48,209,88,.3)" },
   "Fast":      { color: "#30D158", background: "rgba(48,209,88,.15)", border: "1px solid rgba(48,209,88,.3)" },
   "Medium":    { color: "#FF9F0A", background: "rgba(255,159,10,.15)", border: "1px solid rgba(255,159,10,.3)" },
   "Slow":      { color: "#8E8E93", background: "rgba(142,142,147,.12)", border: "1px solid rgba(142,142,147,.25)" },
+}
+
+// API enum labels → translated on the frontend (the backend sends English words).
+const API_LABEL: Record<string, string> = {
+  "Very Fast": N_("Very Fast"), Fast: N_("Fast"), Medium: N_("Medium"), Slow: N_("Slow"), High: N_("High"), Low: N_("Low"),
 }
 
 function profitStyle(label: string): React.CSSProperties {
@@ -31,6 +38,7 @@ const TD: React.CSSProperties = {
 }
 
 export default function BrandsPage() {
+  const tx = useT()
   const [brands, setBrands] = useState<BrandRanking[]>([])
   const [loading, setLoading] = useState(true)
   // An auth/network failure is NOT "no brands exist". The old catch swallowed
@@ -59,13 +67,13 @@ export default function BrandsPage() {
   const toggleSort = (col: keyof BrandRanking) => { if (sort === col) setDir(d => d * -1); else { setSort(col); setDir(-1) } }
 
   const HEADERS: [string, keyof BrandRanking | ""][] = [
-    ["#", "rank"], ["Brand", "brand"], ["Avg Price", "avg_price_eur"],
-    ["7d Left shelf", "sold_7d"], ["Sell Speed", "speed_score"],
-    ["Profit", "profit_label"], ["Score", "demand_score"], ["Categories", ""],
+    ["#", "rank"], [tx("Brand"), "brand"], [tx("Avg Price"), "avg_price_eur"],
+    [tx("7d Left shelf"), "sold_7d"], [tx("Sell Speed"), "speed_score"],
+    [tx("Profit"), "profit_label"], [tx("Score"), "demand_score"], [tx("Categories"), ""],
   ]
 
   return (
-    <AppShell title="Brand Rankings" subtitle={loadError ? "55 brands tracked — unlock to see the ranking" : `${brands.length} brands tracked — click any to scan deals`}>
+    <AppShell title={tx("Brand Rankings")} subtitle={loadError ? tx("55 brands tracked — unlock to see the ranking") : tx(`{0} brands tracked — click any to scan deals`, [brands.length])}>
       <div style={{ background: "var(--color-graphite-elevated)", border: "1px solid var(--color-hairline)", borderRadius: 14, overflow: "hidden" }}>
         <div className="riq-scroll-x">
           <table style={{ width: "100%", minWidth: 620, borderCollapse: "collapse" }}>
@@ -85,25 +93,23 @@ export default function BrandsPage() {
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>Loading brand rankings…</td></tr>
+                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>{tx("Loading brand rankings…")}</td></tr>
               ) : loadError ? (
                 <tr><td colSpan={8} style={{ padding: "32px 16px", textAlign: "center" }}>
                   <div style={{ fontSize: 17, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
-                    {loadError === "auth" ? "Brand rankings are part of a paid plan" : "Couldn't load brand rankings"}
+                    {loadError === "auth" ? tx("Brand rankings are part of a paid plan") : tx("Couldn't load brand rankings")}
                   </div>
                   <div style={{ fontSize: 14, color: "var(--color-graphite-muted)", marginBottom: 20, maxWidth: 420, margin: "0 auto 20px" }}>
                     {loadError === "auth"
-                      ? "We track 55 brands across Vinted ES, FR, DE, IT and PT — ranked by what actually left the shelf this week. Starter unlocks the full table."
-                      : "This is a connection problem on our side, not an empty dataset. Try again in a moment."}
+                      ? tx("We track 55 brands across Vinted ES, FR, DE, IT and PT — ranked by what actually left the shelf this week. Starter unlocks the full table.")
+                      : tx("This is a connection problem on our side, not an empty dataset. Try again in a moment.")}
                   </div>
                   {loadError === "auth"
-                    ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>Unlock 55 brands →</Link>
-                    : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>Retry</button>}
+                    ? <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", background: "var(--color-buy)", color: "#06090c", borderRadius: 12, padding: "10px 20px", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>{tx("Unlock 55 brands →")}</Link>
+                    : <button onClick={() => window.location.reload()} style={{ background: "transparent", border: "1px solid var(--color-hairline)", color: "var(--color-on-graphite)", borderRadius: 12, padding: "10px 20px", fontSize: 15, cursor: "pointer" }}>{tx("Retry")}</button>}
                 </td></tr>
               ) : sorted.length === 0 ? (
-                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>
-                  No brand rankings yet — the weekly ranking rebuilds as departures are observed.
-                </td></tr>
+                <tr><td colSpan={8} style={{ ...TD, textAlign: "center", padding: "48px 12px" }}>{tx("No brand rankings yet — the weekly ranking rebuilds as departures are observed.")}</td></tr>
               ) : sorted.map((b) => (
                 <tr key={b.brand}
                   style={{ background: "transparent", transition: "background var(--motion-fast)", cursor: "pointer" }}
@@ -113,15 +119,15 @@ export default function BrandsPage() {
                   <td style={{ ...TD, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>#{b.rank}</td>
                   <td style={{ ...TD, fontWeight: 600 }}>{b.brand}</td>
                   <td style={{ ...TD, fontVariantNumeric: "tabular-nums" }}>{eur(b.avg_price_eur)}</td>
-                  <td style={{ ...TD, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? b.sold_7d.toLocaleString("en-GB") : "—"}</td>
+                  <td style={{ ...TD, fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>{typeof b.sold_7d === "number" && Number.isFinite(b.sold_7d) ? b.sold_7d.toLocaleString(tx.locale) : "—"}</td>
                   <td style={TD}>
                     <span style={{ ...SPEED_STYLE[b.speed_label] ?? {}, fontSize: 12, fontWeight: 700, padding: "2px 8px", borderRadius: 6, display: "inline-block", fontVariantNumeric: "tabular-nums" }}>
-                      {b.speed_label}
+                      {tx(API_LABEL[b.speed_label] ?? b.speed_label)}
                     </span>
                   </td>
                   <td style={TD}>
                     <span style={{ ...profitStyle(b.profit_label), fontSize: 12, fontWeight: 700, padding: "2px 8px", borderRadius: 6, display: "inline-block" }}>
-                      {b.profit_label}
+                      {tx(API_LABEL[b.profit_label] ?? b.profit_label)}
                     </span>
                   </td>
                   <td style={{ ...TD, fontVariantNumeric: "tabular-nums" }}>{b.demand_score?.toFixed(0) ?? "—"}</td>

@@ -9,9 +9,11 @@ import {
   CONSENT_COPY, CONSENT_EVENT, CONSENT_REOPEN_EVENT,
   readConsent, writeConsent, type ConsentChoice,
 } from "@/lib/consent"
+import { useT } from "@/components/i18n/locale-provider"
 
 /** Compact bottom bar. Accept and Reject are identical in size, weight and colour. */
 export function ConsentBanner() {
+  const tx = useT()
   const locale = useLocale()
   const pathname = usePathname()
   const light = isFrontDoorPath(pathname || "/")
@@ -45,7 +47,7 @@ export function ConsentBanner() {
   return (
     <div
       role="region"
-      aria-label="Cookie consent"
+      aria-label={tx("Cookie consent")}
       data-testid="riq-consent"
       style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 60,

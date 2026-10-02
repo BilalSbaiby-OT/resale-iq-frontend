@@ -11,6 +11,7 @@ import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * The dataset size, fetched client-side via the shared useTrackedLabel hook.
@@ -27,6 +28,7 @@ import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 // HARD_PAYWALL: unpaid item checks 402. This screen is the paid ladder.
 // TRIAL_LIMITS_SENTENCE is the same public sentence as JSON-LD / methodology.
 export function Paywall({ pro = false }: { pro?: boolean }) {
+  const tx = useT()
   const tracked = useTrackedLabel()
   const router = useRouter()
   const { logout } = useAuthStore()
@@ -77,21 +79,15 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
       <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <Unlock size={15} style={{ color: "#34C759" }} />
-          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{queryParam ? `Unlock ${queryParam} analysis` : "Item checks need a plan"}</span>
+          <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{queryParam ? `Unlock ${queryParam} analysis` : tx("Item checks need a plan")}</span>
         </div>
-        <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>
-          {TRIAL_LIMITS_SENTENCE} Buy-below, typical departure price, sell-through and best
-          sizes sit on Starter.
-        </p>
+        <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65, marginBottom: 14 }}>{tx("{0} Buy-below, typical departure price, sell-through and best sizes sit on Starter.", [TRIAL_LIMITS_SENTENCE])}</p>
         {verified === false && (
           <div style={{ background: "rgba(251,191,36,.07)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 9, padding: "11px 13px", marginBottom: 14 }}>
-            <div style={{ fontSize: 12.5, color: "#FF9F0A", fontWeight: 700, marginBottom: 3 }}>One step first</div>
-            <div style={{ fontSize: 12.5, color: "#a9b6d0", lineHeight: 1.55 }}>
-              Confirm your email to switch the unlocks on — we sent a link when you signed up.{" "}
-              <b style={{ color: "#eef1f7" }}>It often lands in spam or junk</b> — search
-              for <b style={{ color: "#eef1f7" }}>noreply@resaleiq.dev</b> and mark it
-              &ldquo;not junk&rdquo; so later emails reach you.{" "}
-              <Link href="/account" style={{ color: "#34C759", textDecoration: "none" }}>Resend it</Link>.
+            <div style={{ fontSize: 12.5, color: "#FF9F0A", fontWeight: 700, marginBottom: 3 }}>{tx("One step first")}</div>
+            <div style={{ fontSize: 12.5, color: "#a9b6d0", lineHeight: 1.55 }}>{tx("Confirm your email to switch the unlocks on — we sent a link when you signed up.")}{" "}
+              <b style={{ color: "#eef1f7" }}>{tx("It often lands in spam or junk")}</b>{" "}{tx("— search for")}{" "}<b style={{ color: "#eef1f7" }}>{tx("noreply@resaleiq.dev")}</b>{" "}{tx("and mark it “not junk” so later emails reach you.")}{" "}
+              <Link href="/account" style={{ color: "#34C759", textDecoration: "none" }}>{tx("Resend it")}</Link>.
             </div>
           </div>
         )}
@@ -100,7 +96,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           onClick={() => { try { if (queryParam) localStorage.setItem("riq_intent_query", queryParam) } catch { /* private mode */ } }}
           style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 13.5, padding: "10px 20px", borderRadius: 9, textDecoration: "none" }}
         >
-          {queryParam ? `Check ${queryParam} now →` : "Check your first item →"}
+          {queryParam ? tx(`Check {0} now →`, [queryParam]) : tx("Check your first item →")}
         </Link>
       </div>
       )}
@@ -108,11 +104,9 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         <div style={{ width: "100%", maxWidth: 560, marginBottom: 26, background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 14, padding: "20px 22px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <Lock size={15} style={{ color: "#34C759" }} />
-            <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>This is a Pro feature</span>
+            <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{tx("This is a Pro feature")}</span>
           </div>
-          <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>
-            Order Planner and Price Compare are on Pro. Starter keeps unlimited verdicts.
-          </p>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>{tx("Order Planner and Price Compare are on Pro. Starter keeps unlimited verdicts.")}</p>
         </div>
       )}
 
@@ -125,20 +119,18 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
 
       <div style={{ textAlign: "center", maxWidth: 560, marginBottom: 20 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#34C759", marginBottom: 18 }}>
-          <Lock size={13} /> {pro ? "Order Planner & Compare are Pro features" : "Upgrade for the full dashboard"}
+          <Lock size={13} /> {pro ? tx("Order Planner & Compare are Pro features") : tx("Upgrade for the full dashboard")}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
-          {pro ? "Source at volume. Track five markets, search 26." : "The data that pays for itself on your first flip."}
+          {pro ? tx("Source at volume. Track five markets, search 26.") : tx("The data that pays for itself on your first flip.")}
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
-            ? "The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime."
-            : `${tracked} listings, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`}
+            ? tx("The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime.")
+            : tx(`{0} listings, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`, [tracked])}
         </p>
         {/* The one reframe that collapses price resistance. */}
-        <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>
-          One good flip pays for the whole month.
-        </p>
+        <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>{tx("One good flip pays for the whole month.")}</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>
@@ -151,7 +143,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             border: `1px solid ${t.highlight ? "#34C759" : "#1c2333"}`, borderRadius: 16, padding: "26px 22px",
             boxShadow: t.highlight ? "0 12px 40px rgba(34,197,94,.12)" : "none",
           }}>
-            {t.highlight && <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", background: "#34C759", color: "#06090c", fontSize: 10.5, fontWeight: 800, padding: "4px 12px", borderRadius: 20 }}>MOST POPULAR</div>}
+            {t.highlight && <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", background: "#34C759", color: "#06090c", fontSize: 10.5, fontWeight: 800, padding: "4px 12px", borderRadius: 20 }}>{tx("MOST POPULAR")}</div>}
             <div style={{ fontSize: 15, fontWeight: 700 }}>{t.name}</div>
             <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 3, minHeight: 32 }}>{t.tagline}</div>
             {/* H196 CRO: €0 today trial framing — matches H189 on HardPaywallCard + PricingSection.
@@ -165,8 +157,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
                 <span style={{ fontSize: 36, fontWeight: 800, letterSpacing: "-1px", color: "#34C759" }}>€0</span>
                 <span style={{ fontSize: 13, color: "#5b6b8c" }}>today</span>
               </div>
-              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
-                then €{t.price}/month after your {TRIAL_DAYS}-day trial{chargeDate ? ` · first charge ${chargeDate}` : ""}
+              <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>{tx("then €{0}/month after your {1}-day trial", [t.price, TRIAL_DAYS])}{chargeDate ? tx(" · first charge {0}", [chargeDate]) : ""}
               </div>
             </div>
             <button onClick={() => subscribe(t.priceId)} disabled={busy === t.priceId} style={{
@@ -181,7 +172,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
                 directly below the button. CRO #4 (objection: what if I forget to cancel?) */}
             {t.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "#5b6b8c", margin: "5px 0 0", lineHeight: 1.4 }}>
-                <span aria-hidden="true">&#128274;</span>{" "}Card stored · charged only after day {TRIAL_DAYS}
+                <span aria-hidden="true">&#128274;</span>{" "}{tx("Card stored · charged only after day {0}", [TRIAL_DAYS])}
               </p>
             )}
             <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 9 }}>
@@ -198,11 +189,10 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
 
       {/* Fine-print refund */}
       <div style={{ marginTop: 22 }}>
-        <a href="/terms" style={{ fontSize: 11.5, color: "#4d5a75", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+        <a href="/terms" style={{ fontSize: 11.5, color: "#4d5a75", textDecoration: "underline" }}>{tx("Full refund within 30 days of your first payment — see Terms")}</a>
       </div>
 
-      <div style={{ marginTop: 20, fontSize: 12, color: "#5b6b8c" }}>
-        Secure checkout by Stripe · <button onClick={logout} style={{ background: "none", border: "none", color: "#8b99b8", cursor: "pointer", textDecoration: "underline" }}>Sign out</button>
+      <div style={{ marginTop: 20, fontSize: 12, color: "#5b6b8c" }}>{tx("Secure checkout by Stripe ·")}{" "}<button onClick={logout} style={{ background: "none", border: "none", color: "#8b99b8", cursor: "pointer", textDecoration: "underline" }}>{tx("Sign out")}</button>
       </div>
     </div>
   )

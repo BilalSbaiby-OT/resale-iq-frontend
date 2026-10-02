@@ -1,6 +1,7 @@
 "use client"
 import { createContext, useContext } from "react"
 import type { Locale } from "@/lib/i18n"
+import { makeT, type TFn } from "@/lib/ui-translate"
 
 /**
  * Makes the proxy-stamped locale readable from CLIENT components.
@@ -39,4 +40,9 @@ export function LocaleProvider({
 /** Locale for the current request. "en" if no provider is mounted above. */
 export function useLocale(): Locale {
   return useContext(LocaleContext)
+}
+
+/** Translator bound to the request locale: `const t = useT(); t("English text")`. */
+export function useT(): TFn {
+  return makeT(useLocale())
 }

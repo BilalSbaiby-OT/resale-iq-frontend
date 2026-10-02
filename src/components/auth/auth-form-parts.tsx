@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { TrendingUp } from "lucide-react"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * The three shapes every (auth) form is built from: a heading pair, a labelled
@@ -140,18 +141,17 @@ export function AuthField({
  */
 export function AuthDemandPanel({
   rows,
-  footer = "Your verdict unlocks the moment you\u2019re back in. Tap a row to preview the data.",
+  footer,
 }: {
   rows: SnapshotBrandRow[]
   footer?: string
 }) {
+  const tx = useT()
   return (
     <div className="bg-[var(--color-surface)] border border-[var(--color-border-ui)] rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-4">
         <TrendingUp size={16} className={AUTH_ACCENT} />
-        <span className={`text-[12px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>
-          What&apos;s moving on Vinted right now
-        </span>
+        <span className={`text-[12px] font-semibold ${AUTH_TEXT_SECONDARY} uppercase tracking-wide`}>{tx("What's moving on Vinted right now")}</span>
       </div>
       <div className="flex flex-col gap-2 mb-4">
         {rows.map(b => {
@@ -173,16 +173,16 @@ export function AuthDemandPanel({
               </div>
               <div className="text-right">
                 <span className={`text-[13px] font-bold ${AUTH_ACCENT}`}>
-                  {b.sold_7d.toLocaleString()}
+                  {b.sold_7d.toLocaleString(tx.locale)}
                 </span>
                 <span className={`text-[11px] ${AUTH_TEXT_MUTED} ml-1`}>departures/7d</span>
-                <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>avg €{b.avg_price_eur}</div>
+                <div className={`text-[11.5px] ${AUTH_TEXT_SECONDARY}`}>{tx("avg €{0}", [b.avg_price_eur])}</div>
               </div>
             </Link>
           )
         })}
       </div>
-      <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed`}>{footer}</p>
+      <p className={`text-[11.5px] ${AUTH_TEXT_MUTED} leading-relaxed`}>{footer ?? tx("Your verdict unlocks the moment you’re back in. Tap a row to preview the data.")}</p>
     </div>
   )
 }

@@ -331,7 +331,14 @@ export function proxy(request: NextRequest) {
   }
 
   const stored = request.cookies.get(COOKIE)?.value
-  const chosen = stored && isPathLocale(stored) ? stored : null
+  // No stored choice: on the noindex app routes fall back to the browser's
+  // Accept-Language (no cookie is set, so an explicit switcher pick still wins).
+  // A French browser opening /login or /dashboard directly used to get English.
+  const chosen = stored && isPathLocale(stored)
+    ? stored
+    : !stored && isAppLocalePath(pathname)
+      ? acceptLanguageLocale(request.headers.get("accept-language"))
+      : null
 
   if (chosen) {
     // THE ROOT ITSELF. Measured live, 2026-09-04: a visitor with

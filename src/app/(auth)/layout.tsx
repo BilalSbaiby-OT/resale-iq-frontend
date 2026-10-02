@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { LocaleSwitcher } from "@/components/i18n/locale-switcher"
 import { requestLocale } from "@/lib/request-locale"
+import { getT } from "@/lib/ui-t"
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
  * visible but inert — indistinguishable from broken").
  */
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  const tx = await getT()
   const locale = await requestLocale()
   return (
     <div className="min-h-screen bg-[var(--color-bg)] flex flex-col items-center justify-center p-6">
@@ -43,7 +45,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
           gradient put a second and third green on a surface whose only accent
           is the submit button, so the wordmark competed with the one action on
           the page. One accent, one token. */}
-      <Link href="/" aria-label="Resale IQ home" className="flex items-center gap-2 mb-8">
+      <Link href="/" aria-label={tx("Resale IQ home")} className="flex items-center gap-2 mb-8">
         <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
         <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>
       </Link>

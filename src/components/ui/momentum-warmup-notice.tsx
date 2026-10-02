@@ -1,3 +1,5 @@
+"use client"
+import { useT } from "@/components/i18n/locale-provider"
 /**
  * Tells a paying customer when the momentum signal cannot yet rank models.
  *
@@ -11,6 +13,7 @@
  * that shows momentum without a conditional at the call site.
  */
 export function MomentumWarmupNotice({ warmingUp }: { warmingUp?: boolean }) {
+  const tx = useT()
   if (!warmingUp) return null
 
   return (
@@ -20,11 +23,7 @@ export function MomentumWarmupNotice({ warmingUp }: { warmingUp?: boolean }) {
     >
       <span aria-hidden className="text-[13px] leading-5 text-amber-400">◔</span>
       <div className="text-[12.5px] leading-5 text-[#c3cde0]">
-        <span className="font-semibold text-amber-400">Momentum is still warming up.</span>{" "}
-        There isn&apos;t enough history yet to rank models against each other, so most are
-        showing <span className="font-mono">Mid 40%</span>. Judge these on sell-through and
-        volume until roughly 30 days of history has built up.
-      </div>
+        <span className="font-semibold text-amber-400">{tx("Momentum is still warming up.")}</span>{" "}{tx("There isn't enough history yet to rank models against each other, so most are showing {0}. Judge these on sell-through and volume until roughly 30 days of history has built up.", [tx("Mid 40%")])}</div>
     </div>
   )
 }

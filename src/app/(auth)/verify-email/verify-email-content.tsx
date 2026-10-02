@@ -12,6 +12,7 @@ import { ActivationSteps } from "@/components/auth/activation-steps"
 import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 import { fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
+import { useT } from "@/components/i18n/locale-provider"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -38,6 +39,7 @@ const AF1_FALLBACK: SnapshotBrandRow = { brand: "Nike", category: "Sneakers", so
 // That is not a "what to check" detour, it's completing a payment already
 // in flight, same exception login-form.tsx keeps for the Google OAuth path.
 export function VerifyEmailContent({ locale }: { locale: Locale }) {
+  const tx = useT()
   const t = copy[locale].auth.verifyEmail
   const [state, setState] = useState<State>("checking")
   const [message, setMessage] = useState("")
@@ -189,12 +191,8 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             <div className="flex justify-center mb-4">
               <TrendingUp size={30} className="text-[var(--color-buy)] animate-pulse" />
             </div>
-            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-2">
-              Confirming your email…
-            </p>
-            <p className="text-[var(--color-text-muted)] text-[12px]">
-              One moment.
-            </p>
+            <p className="text-[var(--color-text-primary)] text-[15px] font-semibold mb-2">{tx("Confirming your email…")}</p>
+            <p className="text-[var(--color-text-muted)] text-[12px]">{tx("One moment.")}</p>
           </div>
         )}
 
@@ -214,18 +212,18 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
             <div className="bg-[var(--color-bg-4)] border border-[var(--color-border-ui)] rounded-xl p-4 mb-4 text-left">
               <div className="flex items-center justify-between mb-2">
                 <div>
-                  <div className="text-[13.5px] font-bold text-[var(--color-text-primary)]">Nike Air Force 1</div>
-                  <div className="text-[11.5px] text-[var(--color-text-muted)]">Sneakers</div>
+                  <div className="text-[13.5px] font-bold text-[var(--color-text-primary)]">{tx("Nike Air Force 1")}</div>
+                  <div className="text-[11.5px] text-[var(--color-text-muted)]">{tx("Sneakers")}</div>
                 </div>
                 <TrendingUp size={16} className="text-[var(--color-buy)]" />
               </div>
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] text-[var(--color-text-muted)]">Watched departures (7d)</span>
-                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString()}</span>
+                  <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Watched departures (7d)")}</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString(tx.locale)}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] text-[var(--color-text-muted)]">Avg resale price</span>
+                  <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Avg resale price")}</span>
                   <span className="text-[13px] font-semibold text-[var(--color-buy)]">€{af1Row.avg_price_eur}</span>
                 </div>
               </div>
@@ -234,12 +232,8 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               href={`/verdict?q=${encodeURIComponent(firstCheckQuery)}&src=email_verified`}
               onClick={handleFirstCheckClick}
               className="inline-block w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity mb-3"
-            >
-              Run your first check →
-            </Link>
-            <p className="text-[var(--color-text-muted)] text-[12px]">
-              Or wait — we&apos;re taking you to your dashboard…
-            </p>
+            >{tx("Run your first check →")}</Link>
+            <p className="text-[var(--color-text-muted)] text-[12px]">{tx("Or wait — we're taking you to your dashboard…")}</p>
           </div>
         )}
 

@@ -2,6 +2,7 @@
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * VerdictTrialCta — ONE direct trial CTA under a verdict that has a real
@@ -36,6 +37,7 @@ export function VerdictTrialCta({
   /** placement tag: checkout src= and the verdict_upsell_click path. */
   src: string
 }) {
+  const tx = useT()
   return (
     <div
       data-testid="riq-verdict-trial-cta"
@@ -51,9 +53,7 @@ export function VerdictTrialCta({
         gap: 8,
       }}
     >
-      <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#eef1f7", lineHeight: 1.5 }}>
-        Want the full buy list — every item with its max price?
-      </p>
+      <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#eef1f7", lineHeight: 1.5 }}>{tx("Want the full buy list — every item with its max price?")}</p>
       <span onClick={() => trackEvent("verdict_upsell_click", src)}>
         <GuestCheckoutButton locale={locale} src={src} query={query} />
       </span>

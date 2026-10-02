@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { clearFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
 import { FREE_MODELS } from "@/lib/working-models"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * One button, not a blank input.
@@ -35,6 +36,7 @@ import { FREE_MODELS } from "@/lib/working-models"
  * with src=signup_seed_dismissed for funnel measurement.
  */
 export function FirstRunSeed() {
+  const tx = useT()
   const pathname = usePathname()
   const [query, setQuery] = useState<string | null>(null)
   // C(tony)SeedDismissedFallback: after "Not now" the seed is cleared;
@@ -78,9 +80,7 @@ export function FirstRunSeed() {
             color: "var(--color-graphite-muted)",
             whiteSpace: "nowrap",
           }}
-        >
-          Try a free check:
-        </span>
+        >{tx("Try a free check:")}</span>
         {FREE_MODELS.map((m) => (
           <Link
             key={m}
@@ -102,7 +102,7 @@ export function FirstRunSeed() {
         ))}
         <button
           type="button"
-          aria-label="Dismiss free check suggestions"
+          aria-label={tx("Dismiss free check suggestions")}
           onClick={() => setDismissed(false)}
           style={{
             background: "none",
@@ -137,9 +137,7 @@ export function FirstRunSeed() {
       }}
     >
       <div style={{ flex: "1 1 180px", minWidth: 0 }}>
-        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)" }}>
-          Your first check is ready
-        </div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)" }}>{tx("Your first check is ready")}</div>
         <div style={{ fontSize: 14, color: "var(--color-graphite-muted)", marginTop: 4 }}>
           {query}
         </div>
@@ -158,9 +156,7 @@ export function FirstRunSeed() {
           textDecoration: "none",
           whiteSpace: "nowrap",
         }}
-      >
-        See the verdict →
-      </Link>
+      >{tx("See the verdict →")}</Link>
       <button
         type="button"
         onClick={() => { clearFirstCheckSeed(); setDismissed(true) }}
@@ -172,9 +168,7 @@ export function FirstRunSeed() {
           color: "var(--color-graphite-muted)",
           cursor: "pointer",
         }}
-      >
-        Not now
-      </button>
+      >{tx("Not now")}</button>
     </div>
   )
 }

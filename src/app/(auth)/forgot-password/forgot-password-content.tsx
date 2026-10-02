@@ -7,6 +7,7 @@ import { copy } from "@/lib/i18n"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { AuthHeading, AuthField, AuthSubmit, AuthDemandPanel } from "@/components/auth/auth-form-parts"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
+import { useT } from "@/components/i18n/locale-provider"
 
 // C(tony): Plausible/Duolingo pattern — show live product value alongside the
 // sent-confirmation. A user who just requested a reset went straight to their
@@ -19,6 +20,7 @@ const DEMAND_FALLBACK: SnapshotBrandRow[] = [
 ]
 
 export function ForgotPasswordContent() {
+  const tx = useT()
   const [email, setEmail] = useState("")
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -45,7 +47,7 @@ export function ForgotPasswordContent() {
             <p className="text-[var(--color-text-secondary)] text-[13px] mb-3">{t.sentBody}</p>
             <p className="text-[var(--color-text-secondary)] text-[13px] mb-6">
               <b className="text-[var(--color-text-primary)]">{t.spamBold}</b>{t.spamRest}
-              <b className="text-[var(--color-text-primary)]">noreply@resaleiq.dev</b>.
+              <b className="text-[var(--color-text-primary)]">{tx("noreply@resaleiq.dev")}</b>.
             </p>
             <Link href="/login" className="text-[var(--color-buy)] hover:underline text-[13px]">{t.backToSignIn}</Link>
           </div>
@@ -53,7 +55,7 @@ export function ForgotPasswordContent() {
           <>
             <AuthHeading heading={t.heading} subheading={t.subheading} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" />
+              <AuthField label={t.emailLabel} type="email" value={email} onChange={setEmail} placeholder={tx("you@example.com")} autoComplete="email" />
               <AuthSubmit loading={loading} submitting={t.submitting} submit={t.submit} />
             </form>
             <div className="text-center mt-5"><Link href="/login" className="text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]">{t.backToSignIn}</Link></div>
@@ -64,7 +66,7 @@ export function ForgotPasswordContent() {
       {sent && (
         <AuthDemandPanel
           rows={demandRows}
-          footer="Your verdict unlocks the moment you reset your password — tap a row to preview."
+          footer={tx("Your verdict unlocks the moment you reset your password — tap a row to preview.")}
         />
       )}
     </div>

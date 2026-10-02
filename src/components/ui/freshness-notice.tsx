@@ -1,3 +1,4 @@
+"use client"
 /**
  * P0-8 — if the scrape behind these figures is >2h old, say so, and still
  * show the numbers. Stale-but-labelled beats empty; unlabelled-stale is a lie.
@@ -6,6 +7,7 @@
  * as MomentumWarmupNotice. Renders nothing when the stamp is fresh.
  */
 import { scrapeIsStale } from "@/lib/snapshot-freshness"
+import { useT } from "@/components/i18n/locale-provider"
 
 export function FreshnessNotice({
   stamp,
@@ -16,6 +18,7 @@ export function FreshnessNotice({
   updatedAt?: string | null
   stale?: boolean
 }) {
+  const tx = useT()
   const old = scrapeIsStale(updatedAt)
   if (!stale && !old) return null
 
@@ -34,15 +37,10 @@ export function FreshnessNotice({
       }}
     >
       {stale ? (
-        <>
-          Live feed unavailable right now — showing the last complete snapshot
-          {stamp ? <> from <strong>{stamp}</strong></> : null}. The figures below are real, just not current.
-        </>
+        <>{tx("Live feed unavailable right now — showing the last complete snapshot")}{stamp ? <> from <strong>{stamp}</strong></> : null}{tx(". The figures below are real, just not current.")}</>
       ) : (
-        <>
-          These figures were last computed {stamp ? <strong>{stamp}</strong> : "more than 2 hours ago"}.
-          {" "}They are still real measurements — the scrape is just behind.
-        </>
+        <>{tx("These figures were last computed")}{" "}{stamp ? <strong>{stamp}</strong> : tx("more than 2 hours ago")}.
+          {" "}{tx("They are still real measurements — the scrape is just behind.")}</>
       )}
     </p>
   )

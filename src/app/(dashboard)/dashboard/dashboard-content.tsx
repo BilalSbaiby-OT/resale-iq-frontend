@@ -24,6 +24,7 @@ import { isPaidPlan, planState } from "@/lib/entitlement"
 import { TrialLine } from "@/components/dashboard/trial-line"
 import { WeeklyBuyList } from "@/components/dashboard/weekly-buy-list"
 import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
+import { useT } from "@/components/i18n/locale-provider"
 
 /**
  * C206: Quick-check input at the top of the dashboard.
@@ -41,6 +42,7 @@ import type { KPIs, Deal, BrandRanking, RecentSold, ModelSignal } from "@/types"
  * src=dashboard_suggestion tracks activation from this surface.
  */
 function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; suggestions?: string[]; paid?: boolean }) {
+  const tx = useT()
   const [query, setQuery] = useState("")
   const router = useRouter()
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,9 +54,7 @@ function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; sugges
   return (
     <div style={{ marginBottom: 24 }}>
       {paid && (
-        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>
-          Type the brand, get the max price to pay.
-        </div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", marginBottom: 8 }}>{tx("Type the brand, get the max price to pay.")}</div>
       )}
       <form
         onSubmit={handleSubmit}
@@ -69,8 +69,8 @@ function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; sugges
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Check an item — e.g. Stone Island Hoodie"
-          aria-label="Check an item"
+          placeholder={tx("Check an item — e.g. Stone Island Hoodie")}
+          aria-label={tx("Check an item")}
           style={{
             flex: 1,
             background: "var(--color-graphite-elevated)",
@@ -98,18 +98,14 @@ function QuickCheckInput({ locale, suggestions, paid }: { locale: Locale; sugges
             whiteSpace: "nowrap",
             flexShrink: 0,
           }}
-        >
-          Check →
-        </button>
+        >{tx("Check →")}</button>
       </form>
       {suggestions && suggestions.length > 0 && (
         <div
           data-testid="riq-dashboard-suggestions"
           style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}
         >
-          <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", alignSelf: "center", marginRight: 2 }}>
-            Try:
-          </span>
+          <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", alignSelf: "center", marginRight: 2 }}>{tx("Try:")}</span>
           {suggestions.map((s) => (
             <button
               key={s}
@@ -228,6 +224,7 @@ interface PublicBuyItem {
 }
 
 export function DashboardContent({ locale }: { locale: Locale }) {
+  const tx = useT()
   const t = copy[locale].dashboard
   const a = appCopy[locale]
   // Reuses the free checker's own "buy-below" term rather than a fresh
@@ -368,7 +365,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
 
       {/* Paid + active trial: the whole week's list, every row unlocked. Same
           /api/buy-list the teaser below falls back from — no new data path.
-          Trial users see "Top this week" label (not BUY) per product spec. */}
+          Trial users see tx("Top this week") label (not BUY) per product spec. */}
       {canSeeFullList && fullBuys && fullBuys.length > 0 && (
         <WeeklyBuyList rows={fullBuys.filter(r => !r.locked)} trialMode={isTrialOnly} />
       )}
@@ -413,7 +410,7 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           {/* C217: direct Starter checkout — skip the /pricing detour.
               /pricing gets 12/7d; most free users who see this banner never
               reach it. GuestCheckoutButton fires Stripe directly (same as
-              blog/tools/HardPaywallCard). "See plans" stays as a secondary
+              blog/tools/HardPaywallCard). tx("See plans") stays as a secondary
               text link for users who want to compare tiers first.
               Dashboard 15/7d visitors, 19 free accounts, 0 upgrades. */}
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
@@ -441,10 +438,8 @@ export function DashboardContent({ locale }: { locale: Locale }) {
           style={{ ...CARD, marginBottom: 24, padding: "16px 20px" }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>
-              What to buy today
-            </div>
-            <div style={{ fontSize: 12, color: "var(--color-graphite-muted)" }}>Ranked by demand · EU5 Vinted</div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", letterSpacing: "-0.01em" }}>{tx("What to buy today")}</div>
+            <div style={{ fontSize: 12, color: "var(--color-graphite-muted)" }}>{tx("Ranked by demand · EU5 Vinted")}</div>
           </div>
           <div>
             {publicBuys.map((item, i) => {
@@ -472,13 +467,11 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                   >
                     <span style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>{label.trim()}</span>
                     {!item.locked && item.sold_30d_evidence != null && (
-                      <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", display: "block", marginTop: 1 }}>
-                        {item.sold_30d_evidence.toLocaleString()} watched departures / 30d
-                      </span>
+                      <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", display: "block", marginTop: 1 }}>{tx("{0} watched departures / 30d", [item.sold_30d_evidence.toLocaleString(tx.locale)])}</span>
                     )}
                   </Link>
                   {item.locked
-                    ? <Lock size={12} color="var(--color-graphite-muted)" aria-label="Upgrade to unlock" />
+                    ? <Lock size={12} color="var(--color-graphite-muted)" aria-label={tx("Upgrade to unlock")} />
                     : <VerdictChip v={v} />}
                   <span style={{ fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums", flexShrink: 0, width: 52, textAlign: "right" }}>
                     {item.locked
@@ -498,15 +491,11 @@ export function DashboardContent({ locale }: { locale: Locale }) {
               href="/deals"
               data-testid="riq-hero-buy-list-scanner"
               style={{ fontSize: 14, fontWeight: 600, color: "var(--color-accent)", textDecoration: "none" }}
-            >
-              Open deal scanner →
-            </Link>
+            >{tx("Open deal scanner →")}</Link>
             {!isPaidPlan(user) && (
               <>
                 <span style={{ color: "var(--color-hairline)", fontSize: 14 }}>·</span>
-                <Link href="/account" style={{ fontSize: 13, color: "var(--color-graphite-muted)", textDecoration: "none" }}>
-                  Unlock buy-below
-                </Link>
+                <Link href="/account" style={{ fontSize: 13, color: "var(--color-graphite-muted)", textDecoration: "none" }}>{tx("Unlock buy-below")}</Link>
               </>
             )}
           </div>
