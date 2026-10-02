@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { PageviewTracker } from "@/components/pageview-tracker"
 import { GadsTag } from "@/components/gads-tag"
+import { ConsentBanner } from "@/components/consent-banner"
 import { FrontDoorTheme } from "@/components/layout/front-door-theme"
 import { LocaleProvider } from "@/components/i18n/locale-provider"
 import { listingsTrackedLabel, listingRecordsLabel } from "@/lib/stats"
@@ -217,7 +218,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <FrontDoorTheme />
         <PageviewTracker />
         <GadsTag />
-        <LocaleProvider locale={locale}>{children}</LocaleProvider>
+        <LocaleProvider locale={locale}>{children}<ConsentBanner /></LocaleProvider>
       </body>
     </html>
   )

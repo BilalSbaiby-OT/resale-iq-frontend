@@ -2,12 +2,9 @@
  * Google Ads conversion tag. INERT unless NEXT_PUBLIC_GADS_ID (e.g. "AW-123")
  * is set at build time, and even then it loads only after ad-consent is given.
  *
- * CONSENT: the site has no cookie-consent banner yet (first-party analytics
- * only, no third-party scripts). gtag.js is a third-party tracker, so it must
- * not load without opt-in. Until a consent UI exists nothing writes
- * CONSENT_KEY, so this stays dormant by design.
- * TODO(consent): when a consent banner ships, have it set
- * localStorage[CONSENT_KEY] = "granted" (and call loadGtag()).
+ * CONSENT: gtag.js is a third-party tracker, so it must not load without
+ * opt-in. src/components/consent-banner.tsx writes CONSENT_KEY ("granted" |
+ * "denied") and gads-tag.tsx loads the tag on the change event.
  *
  * No PII is ever sent: only the conversion `send_to` target.
  */

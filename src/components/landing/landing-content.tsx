@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/consent-banner"
 import Link from "next/link"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { BrandStrip } from "./brand-strip"
@@ -321,6 +322,7 @@ export function LandingContent({
           <Link href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.terms}</Link>
           <Link href="/privacy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.privacy}</Link>
           <Link href="/legal" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.legalNotice}</Link>
+          <CookieSettingsLink style={{ color: "var(--color-text-muted)" }} />
           <Link href={canonicalPath(locale, "/support")} style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.support}</Link>
           <Link href="/login" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.signIn}</Link>
         </div>

@@ -13,6 +13,8 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   use: {
     baseURL: BASE,
+    // Consent already answered, so the cookie banner never covers e2e clicks.
+    storageState: { cookies: [], origins: [{ origin: BASE, localStorage: [{ name: "riq_consent_ads", value: "denied" }] }] },
     trace: "on-first-retry",
   },
   projects: [
