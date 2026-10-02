@@ -74,9 +74,9 @@ export async function GET() {
 
   const body = `# Resale IQ
 
-> Demand intelligence for people who buy second-hand to resell. What sells, what it is worth, whether to buy.
-> Flow: DATA → ANALYSIS → DECISION (BUY / WATCH / SKIP with a why).
-> Vinted is the first marketplace we cover; where you source is not the product.
+> Vinted resale signals for resellers, like trading signals for stock. Which stock to source, and the max price to pay.
+> Each signal: BUY / WATCH / SKIP, entry = max price to pay when sourcing, target = typical Vinted resale price, plus how fast it sells.
+> Based on past Vinted resale data, not a guarantee of profit.
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
 any brand named on the site.
