@@ -79,9 +79,9 @@ function RowContent({ item, locale }: { item: SsrBuyListItem; locale: Locale }) 
               back to sold_7d only when 30d evidence is absent. Revisit
               after Sep 29 only if 7d becomes the more useful signal. */}
           {item.sold_30d_evidence != null
-            ? ` · ${sold30Label(item.sold_30d_evidence, locale)}`
+            ? `, ${sold30Label(item.sold_30d_evidence, locale)}`
             : item.sold_7d != null
-              ? ` · ${soldThisWeekLabel(item.sold_7d, locale)}`
+              ? `, ${soldThisWeekLabel(item.sold_7d, locale)}`
               : ""}
         </span>
       </div>
@@ -324,7 +324,7 @@ export function SsrBuyListTeaser({
                  the only honest trust signal we own.
                  Live value passed from SSR page to keep in sync with meta desc. */
               <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
-                {trackedLabel ?? "13.4M"} tracked Vinted listings · 5 EU markets
+                {trackedLabel ?? "13.4M"} tracked listings, 5 EU markets
               </p>
             )}
           </div>
@@ -392,7 +392,7 @@ export function SsrBuyListTeaser({
                     display: "inline-block",
                   }}
                 >
-                  {copy[locale].checkItem} →
+                  {copy[locale].checkItem}
                 </a>
                 <a
                   href="#pricing"
@@ -405,7 +405,7 @@ export function SsrBuyListTeaser({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {copy[locale].pricing} →
+                  {copy[locale].pricing}
                 </a>
               </>
             )}
