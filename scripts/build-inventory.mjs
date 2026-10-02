@@ -5,6 +5,11 @@
  *   node scripts/build-inventory.mjs           # regenerate
  *   node scripts/build-inventory.mjs --check    # fail if stale
  *
+ * Runs identically from the main checkout, from any git worktree, and from a
+ * subdirectory of either — see `repoRoot()` and `schemaPath()` below for why
+ * that needed saying. `INVENTORY_REQUIRE_SIBLING=1` additionally makes an
+ * unresolvable `demand-intel` a hard failure instead of a loud skip.
+ *
  * WHY THIS EXISTS
  *
  * "Asserting absence" was one of five failure classes in the 2026-09-01
@@ -33,11 +38,45 @@
  * having.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from "node:fs"
-import { join, relative } from "node:path"
+import { join, relative, dirname, resolve } from "node:path"
 import { execSync } from "node:child_process"
 
-const ROOT = process.cwd()
+const git = (args, cwd) => execSync(`git ${args}`, { cwd, stdio: ["ignore", "pipe", "ignore"] }).toString().trim()
+
+/**
+ * ROOT is the repo root, not the cwd, so `npm run check:inventory` gives the
+ * same answer from `scripts/` as from the top. Falls back to cwd outside git.
+ */
+function repoRoot() {
+  try { return git("rev-parse --show-toplevel", process.cwd()) } catch { return process.cwd() }
+}
+
+const ROOT = repoRoot()
 const OUT = join(ROOT, "docs", "company", "INVENTORY.md")
+
+/**
+ * The production schema lives in a SIBLING repo, `../demand-intel`. "../" from
+ * where, though, was the bug: this check ran green in the main checkout and red
+ * in every git worktree, because `.worktrees/<name>/../demand-intel` does not
+ * exist. The generator then quietly emitted a 1-line placeholder in place of 52
+ * tables, so regenerating from a worktree DELETED 54 lines of real inventory,
+ * and --check failed for a reason that had nothing to do with the change under
+ * test. Three deploys in one day stepped over that red.
+ *
+ * So anchor the sibling to the MAIN checkout, which every worktree can name:
+ * `--git-common-dir` always points at the main checkout's `.git`, from any
+ * worktree, wherever on disk that worktree lives (several of ours are under
+ * /private/tmp). Its grandparent is the directory `demand-intel` sits beside.
+ */
+function schemaPath() {
+  const candidates = []
+  try {
+    const commonDir = resolve(ROOT, git("rev-parse --git-common-dir", ROOT))
+    candidates.push(join(dirname(dirname(commonDir)), "demand-intel", "db", "schema.py"))
+  } catch {}
+  candidates.push(join(dirname(ROOT), "demand-intel", "db", "schema.py"))
+  return candidates.find(existsSync) ?? null
+}
 
 function walk(dir, re, out = []) {
   let entries
@@ -55,10 +94,23 @@ function walk(dir, re, out = []) {
 
 /** Production tables, read from the schema in the sibling repo. */
 function tables() {
-  const schema = join(ROOT, "..", "demand-intel", "db", "schema.py")
-  if (!existsSync(schema)) return ["(demand-intel/db/schema.py not readable from here)"]
+  const schema = schemaPath()
+  if (!schema) return null
   const src = readFileSync(schema, "utf8")
   return [...src.matchAll(/CREATE TABLE(?: IF NOT EXISTS)? (\w+)/g)].map(m => m[1]).sort()
+}
+
+const TABLES_HEADING = "## Production tables"
+
+/** The committed tables section, verbatim — used when the sibling is absent. */
+function committedTablesBlock() {
+  if (!existsSync(OUT)) return null
+  const lines = readFileSync(OUT, "utf8").split("\n")
+  const start = lines.findIndex(l => l.startsWith(TABLES_HEADING))
+  if (start === -1) return null
+  let end = start + 1
+  while (end < lines.length && !lines[end].startsWith("## ")) end++
+  return lines.slice(start, end).join("\n").replace(/\s+$/, "")
 }
 
 const checks = walk(join(ROOT, "scripts"), /^check-.*\.(mjs|js|py)$/).sort()
@@ -74,6 +126,18 @@ const companyDocs = walk(join(ROOT, "docs", "company"), /\.md$/)
   .filter(d => !d.endsWith("INVENTORY.md")).sort()
 const tbl = tables()
 
+// Two parts, deliberately separated. The repo-local part (checks, npm scripts,
+// workflows, docs) is always asserted. The cross-repo part is asserted whenever
+// the sibling resolves — which, after the anchor fix above, is everywhere we
+// actually run. If it genuinely is not on disk (a bare CI checkout), carry the
+// COMMITTED block through unchanged and say so loudly, rather than silently
+// overwriting 52 real table names with a placeholder. Set
+// INVENTORY_REQUIRE_SIBLING=1 to make an unresolved sibling a hard failure.
+const carried = tbl === null ? committedTablesBlock() : null
+const tablesBlock = tbl !== null
+  ? `${TABLES_HEADING} (${tbl.length}) — from \`demand-intel/db/schema.py\`\n\n${tbl.map(t => `- \`${t}\``).join("\n")}`
+  : carried ?? `${TABLES_HEADING} (UNRESOLVED) — from \`demand-intel/db/schema.py\`\n\n- _sibling repo \`demand-intel\` not found on disk; this section has never been generated here_`
+
 let head = ""
 try { head = execSync("git rev-parse --short HEAD", { cwd: ROOT }).toString().trim() } catch {}
 
@@ -88,9 +152,7 @@ telling the founder we had no telemetry at all.
 
 **Before writing "there is no ...", look here. A grep that finds nothing proves you did not find it.**
 
-## Production tables (${tbl.length}) — from \`demand-intel/db/schema.py\`
-
-${tbl.map(t => `- \`${t}\``).join("\n")}
+${tablesBlock}
 
 ## Check scripts (${checks.length})
 
@@ -109,6 +171,17 @@ ${workflows.map(w => `- \`.github/workflows/${w}\``).join("\n")}
 ${companyDocs.map(d => `- \`${d}\``).join("\n")}
 `
 
+const siblingNote = tbl !== null
+  ? `  cross-repo: production tables read from ${relative(ROOT, schemaPath())}`
+  : `  cross-repo: SKIPPED — sibling repo \`demand-intel\` is not on disk (looked beside the
+              main checkout and beside ${ROOT}). The committed table list was
+              carried through unchanged; it was NOT re-verified this run.`
+
+if (tbl === null && process.env.INVENTORY_REQUIRE_SIBLING === "1") {
+  console.log(`\n✗ INVENTORY: sibling repo \`demand-intel\` not found and INVENTORY_REQUIRE_SIBLING=1.\n${siblingNote}\n`)
+  process.exit(1)
+}
+
 if (process.argv.includes("--check")) {
   if (!existsSync(OUT)) {
     console.log("\n✗ INVENTORY.md missing — run: node scripts/build-inventory.mjs\n")
@@ -122,12 +195,12 @@ if (process.argv.includes("--check")) {
   still describes the old shape. That is exactly how "it does not exist" gets
   asserted about something that does.
 
-  Run: node scripts/build-inventory.mjs\n`)
+  Run: node scripts/build-inventory.mjs\n\n${siblingNote}\n`)
     process.exit(1)
   }
-  console.log(`\n✓ inventory fresh — ${tbl.length} tables, ${checks.length} checks, ${companyDocs.length} docs\n`)
+  console.log(`\n✓ inventory fresh — ${tbl === null ? "tables carried (not re-read)" : `${tbl.length} tables`}, ${checks.length} checks, ${companyDocs.length} docs\n${siblingNote}\n`)
   process.exit(0)
 }
 
 writeFileSync(OUT, body)
-console.log(`\n✓ wrote ${relative(ROOT, OUT)} — ${tbl.length} tables, ${checks.length} checks, ${npmScripts.length} npm scripts, ${companyDocs.length} docs\n`)
+console.log(`\n✓ wrote ${relative(ROOT, OUT)} — ${tbl === null ? "tables carried (not re-read)" : `${tbl.length} tables`}, ${checks.length} checks, ${npmScripts.length} npm scripts, ${companyDocs.length} docs\n${siblingNote}\n`)
