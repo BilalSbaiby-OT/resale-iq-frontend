@@ -12,13 +12,14 @@
  * "Watched departures", aggregates only. Renders nothing when the brief is too
  * thin to speak honestly.
  */
-import type { MarketNumbers } from "@/lib/market-numbers"
-import { buildWeeklyBrief, briefSentence } from "@/lib/weekly-brief"
+import { briefSentence, type WeeklyBrief as WeeklyBriefData } from "@/lib/weekly-brief"
 import { useT } from "@/components/i18n/locale-provider"
 
-export function WeeklyBrief({ market }: { market: MarketNumbers }) {
+// Client component: props must be serializable. Pass the plain brief built on the
+// server (buildWeeklyBrief(market)), never the MarketNumbers object (it carries
+// functions -> RSC error -> /data and /flip 500).
+export function WeeklyBrief({ brief }: { brief: WeeklyBriefData | null }) {
   const tx = useT()
-  const brief = buildWeeklyBrief(market)
   if (!brief) return null
 
   const sentence = briefSentence(brief)

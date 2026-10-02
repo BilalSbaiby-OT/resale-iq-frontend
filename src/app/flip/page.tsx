@@ -5,6 +5,7 @@ import { OG_IMAGES } from "@/lib/og-image"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
+import { buildWeeklyBrief } from "@/lib/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { SEO_MODELS } from "@/lib/seo-models"
@@ -191,7 +192,7 @@ export default async function FlipHubPage() {
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
 
-        <WeeklyBrief market={market} />
+        <WeeklyBrief brief={buildWeeklyBrief(market)} />
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "30px 0 4px", letterSpacing: "-0.4px" }}>
           Every tracked brand, ranked by weekly sales

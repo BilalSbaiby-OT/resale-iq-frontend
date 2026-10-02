@@ -6,6 +6,7 @@ import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
+import { buildWeeklyBrief } from "@/lib/weekly-brief"
 import { HubFaq } from "@/components/seo/hub-faq"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { dataChrome, dataFaqs } from "@/data/seo-data-copy"
@@ -176,7 +177,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
 
         <FreshnessNotice stamp={stamp} updatedAt={market.updatedAt} stale={market.stale} />
 
-        <WeeklyBrief market={market} />
+        <WeeklyBrief brief={buildWeeklyBrief(market)} />
 
         {market.listingsTracked != null && market.brandCount < (market.brandsTracked ?? 26) ? (
           <p
