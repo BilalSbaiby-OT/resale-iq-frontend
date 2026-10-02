@@ -13,6 +13,8 @@ import { GoogleSignInButton, AuthDivider } from "@/components/auth/google-sign-i
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { fetchFirstCheckQuery, markSignupPending, writeFirstCheckSeed } from "@/lib/first-check-seed"
 import { useT } from "@/components/i18n/locale-provider"
+import { useAbVariant } from "@/hooks/use-ab-variant"
+import { AB_REG_CTA_B } from "@/lib/ab-copy"
 
 // FOUNDER AUTH RULES (2026-09-29, binding): /register is a PLAIN account form.
 // No "what do you want to check" question, no intent typeahead, no demand
@@ -46,6 +48,7 @@ function planFromQuery(raw: string | null): PlanId {
 
 function RegisterContent({ locale }: { locale: Locale }) {
   const tx = useT()
+  const regAb = useAbVariant("reg_cta")
   const t = copy[locale].auth.register
   const [chargeDate, setChargeDate] = useState<string | null>(null)
   useEffect(() => { setChargeDate(firstChargeDate(locale)) }, [locale])
@@ -387,7 +390,7 @@ function RegisterContent({ locale }: { locale: Locale }) {
             className="w-full bg-[var(--color-buy)] text-[var(--color-on-buy)] font-bold text-[13.5px] py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
             {loading ? t.submitting : (
               <>
-                {isPaidPlan ? trialCtaLabel(locale) : t.submit}
+                {isPaidPlan ? (regAb === "B" ? AB_REG_CTA_B[locale] : trialCtaLabel(locale)) : t.submit}
                 <Check size={15} />
               </>
             )}

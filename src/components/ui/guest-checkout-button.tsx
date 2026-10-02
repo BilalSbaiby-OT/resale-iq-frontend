@@ -4,6 +4,8 @@ import { useGuestCheckout } from "@/hooks/use-guest-checkout"
 import type { Locale } from "@/lib/i18n"
 import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
 import { TIERS } from "@/lib/pricing"
+import { useAbVariant } from "@/hooks/use-ab-variant"
+import { AB_CTA_LABEL_B } from "@/lib/ab-copy"
 
 /**
  * GuestCheckoutButton — shared green "start Starter checkout" button.
@@ -41,6 +43,7 @@ export function GuestCheckoutButton({
   annual?: boolean
 }) {
   const { ready, busy, start } = useGuestCheckout({ locale, src, query, customerEmail, annual })
+  const ab = useAbVariant("cta_label")
   const [date, setDate] = useState<string | null>(null)
   useEffect(() => { setDate(firstChargeDate(locale)) }, [locale])
   const starter = TIERS.find((x) => x.id === "operator")
@@ -70,7 +73,7 @@ export function GuestCheckoutButton({
         cursor: ready && !busy ? "pointer" : "wait",
       }}
     >
-      {trialCtaLabel(locale)}
+      {ab === "B" ? AB_CTA_LABEL_B[locale] : trialCtaLabel(locale)}
     </button>
   )
   if (asLink) return button

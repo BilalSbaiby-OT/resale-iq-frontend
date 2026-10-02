@@ -14,7 +14,7 @@ export default defineConfig({
   use: {
     baseURL: BASE,
     // Consent already answered, so the cookie banner never covers e2e clicks.
-    storageState: { cookies: [], origins: [{ origin: BASE, localStorage: [{ name: "riq_consent_ads", value: "denied" }] }] },
+    storageState: { cookies: [], origins: [{ origin: BASE, localStorage: [{ name: "riq_consent_ads", value: "denied" }, { name: "riq_ab_cta_label", value: "A" }, { name: "riq_ab_reg_cta", value: "A" }] }] },
     trace: "on-first-retry",
   },
   projects: [

@@ -5,9 +5,12 @@
  * Never throws. Never blocks navigation.
  */
 import { CTA_VARIANT } from "./cta-variant.ts"
+import { abTag } from "./ab.ts"
 
 export type FunnelEvent =
   | "landing_view"
+  /** One per browser per experiment, when its variant is first shown. Path carries ab=exp:V. */
+  | "ab_exposure"
   | "signup_started"
   | "signup_completed"
   | "first_analysis"
@@ -402,6 +405,11 @@ const CTA_VARIANT_EVENTS: ReadonlySet<FunnelEvent> = new Set<FunnelEvent>([
   "checkout_from_blog",
 ])
 
+const AB_EVENTS: ReadonlySet<FunnelEvent> = new Set<FunnelEvent>([
+  "ab_exposure", "pricing_view", "signup_started", "register_form_focused", "register_submit_attempted",
+  "signup_completed", "checkout_started", "checkout_intent_guest", "checkout_from_blog",
+])
+
 export function trackEvent(
   event: FunnelEvent,
   path?: string,
@@ -413,6 +421,11 @@ export function trackEvent(
   // persists only event/path/utm_*, so a body field would be dropped.
   if (CTA_VARIANT_EVENTS.has(event) && !/[?&]cta_variant=/.test(outPath)) {
     outPath = `${outPath}${outPath.includes("?") ? "&" : "?"}cta_variant=${CTA_VARIANT}`
+  }
+  // A/B tag on the conversion-relevant events so every variant is attributable.
+  if (AB_EVENTS.has(event)) {
+    const tag = abTag()
+    if (tag && !/[?&]ab=/.test(outPath)) outPath = `${outPath}${outPath.includes("?") ? "&" : "?"}ab=${tag}`
   }
   // reason is stored on path, not as a body field: the track sink's Pydantic
   // model only persists event/path/utm_*, and extra JSON keys are dropped.
