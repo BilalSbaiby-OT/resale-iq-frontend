@@ -36,7 +36,7 @@ test("buy-list surfaces use the real price, the shared CTA, and itemDisplayName"
 })
 
 test("row wording is plain signal words in every locale, no jargon, no stray space", () => {
-  assert.equal(soldThisWeekLabel(88), "sold 88 this week")
+  assert.equal(soldThisWeekLabel(88), "88 gone this week")
   assert.equal(targetLabel(55.6), "target ~€56")
   assert.equal(buyBelowLabel(37.2, "fr"), "entrée ≤ €37")
   for (const l of ["en", "fr", "es", "de", "it", "pt"] as const) {
