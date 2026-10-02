@@ -39,4 +39,24 @@ test.describe("checkout branding + first check", () => {
     await expect(page.getByText(/You're in/i)).toBeVisible()
     expect(page.url()).toMatch(/\/billing\/success/)
   })
+
+  test("/billing/success with login_required says to check email and offers Log in, not an error", async ({ page }) => {
+    // The checkout email already has an account: the API signs nobody in (the
+    // address was typed on Stripe's page) and mails the holder a sign-in link.
+    await page.route("**/stripe/verify-session**", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ paid: true, plan: "operator", login_required: true }),
+      })
+    })
+    await page.goto("/billing/success?session_id=cs_test_existing_account")
+    await expect(page.getByTestId("riq-billing-login-required")).toHaveText(/Payment received/i)
+    await expect(page.getByText(/emailed you a link to sign in/i)).toBeVisible()
+    await expect(page.getByText(/Couldn't verify the session/i)).toHaveCount(0)
+    // No token was issued, so this browser must not look signed in.
+    expect(await page.evaluate(() => localStorage.getItem("di_jwt"))).toBeNull()
+    await page.getByTestId("riq-billing-login").click()
+    await expect(page).toHaveURL(/\/login/)
+  })
 })

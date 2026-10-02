@@ -25,6 +25,36 @@ import { BAKED_PRICE_IDS } from "./pricing.ts"
 export const FIRST_CHECK_QUERY = "Nike Air Force 1"
 export const FIRST_CHECK_HREF = `/verdict?q=${encodeURIComponent(FIRST_CHECK_QUERY)}`
 
+/**
+ * GET /stripe/verify-session reply.
+ *
+ * `login_required` (no `access_token`) means the checkout email already has an
+ * account. The API deliberately signs nobody in for that: the address was typed
+ * on Stripe's page, which proves nothing about who owns the account. The holder
+ * is emailed a sign-in link instead, and the payer is told to look there.
+ */
+export type VerifySessionResult = {
+  paid: boolean
+  plan: string
+  access_token?: string
+  plan_unchanged?: boolean
+  login_required?: boolean
+}
+
+export type VerifyOutcome = "unpaid" | "token" | "login_required" | "paid"
+
+/** What the success page should do with a verify-session reply. `paid` with
+ *  neither a token nor login_required is the original token-less shape (a
+ *  buyer whose browser already holds a session) and keeps the normal view. */
+export function verifyOutcome(
+  d: Pick<VerifySessionResult, "paid" | "access_token" | "login_required">,
+): VerifyOutcome {
+  if (!d.paid) return "unpaid"
+  if (d.access_token) return "token"
+  if (d.login_required) return "login_required"
+  return "paid"
+}
+
 export const CHECKOUT_COUNTRIES = [
   { code: "ES", native: "España" },
   { code: "FR", native: "France" },

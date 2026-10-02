@@ -1,14 +1,15 @@
 "use client"
-import { useEffect, useState, Suspense } from "react"
+import { useEffect, useRef, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { setToken, getToken } from "@/lib/utils"
 import { verifyCheckoutSession, getMe } from "@/lib/api"
 import { useAuthStore } from "@/lib/auth-store"
-import { FIRST_CHECK_HREF, FIRST_CHECK_QUERY } from "@/lib/checkout"
-import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight, Tag, BarChart2, TrendingUp, Zap } from "lucide-react"
+import { FIRST_CHECK_HREF, FIRST_CHECK_QUERY, verifyOutcome } from "@/lib/checkout"
+import { CheckCircle2, Clock, AlertTriangle, Loader2, ArrowRight, Tag, BarChart2, TrendingUp, Zap, Mail } from "lucide-react"
 import { fireConversion } from "@/lib/gads"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
+import type { User } from "@/types"
 
 // C159(tony): live demand rows shown right after payment — Canva-template moment.
 // User is at maximum motivation; show them specific items to check immediately
@@ -24,63 +25,104 @@ const BILLING_DEMAND_FALLBACK: SnapshotBrandRow[] = [
  * localStorage. session_id is enough: the API upgrades the bound account and
  * may return a login token so this page can sign them in.
  *
+ * Three replies from verify-session (see verifyOutcome):
+ *   - access_token: a new account was created for this payer; sign them in.
+ *   - login_required: the checkout email ALREADY has an account. The address was
+ *     typed on Stripe's page and proves nothing about who owns it, so the API
+ *     signs nobody in. It emailed the account holder a sign-in link; this page
+ *     says so and offers Log in. No token, no error.
+ *   - neither (already-signed-in buyer): the normal success view.
+ *
  * H-AFTER-PAYMENT (Revenue 2026-09-19): a paid user who lands here and is
  * auto-redirected to /dashboard has no idea what to do next. The dashboard
  * for a brand-new account is an empty state. Do not auto-eject. The only
  * primary action is a pre-filled first check.
  */
 
+/** The user this browser is ALREADY signed in as, if on a paid plan. The login
+ *  token is single-use per checkout session, so reloading this page after the
+ *  first fulfilment is answered login_required even though the browser holds a
+ *  working session; that case should still show the success view. */
+async function signedInPaidUser(): Promise<User | null> {
+  const stored = getToken()
+  if (!stored) return null
+  try {
+    const user = await getMe(stored)
+    return user.plan !== "free" ? user : null
+  } catch {
+    return null // stale token: request() already cleared it
+  }
+}
+
 function BillingSuccessContent() {
   const tx = useT()
   const params = useSearchParams()
   const router = useRouter()
-  const [state, setState] = useState<"verifying" | "ok" | "unpaid" | "error">("verifying")
+  const [state, setState] = useState<"verifying" | "ok" | "login_required" | "unpaid" | "error">("verifying")
   const [plan, setPlan] = useState("")
   const [guestNeedsPassword, setGuestNeedsPassword] = useState(false)
   const [firstCheckHref, setFirstCheckHref] = useState(FIRST_CHECK_HREF)
   const [firstCheckLabel, setFirstCheckLabel] = useState<string | null>(null)
   // C159(tony): live hot items to check right now — Canva-template moment.
   const [demandRows, setDemandRows] = useState<SnapshotBrandRow[]>(BILLING_DEMAND_FALLBACK)
+  // One verification per session. The API mints the login token once, so a
+  // second call (Strict Mode's double effect, or `params` changing identity)
+  // would be answered login_required right after the first one signed us in.
+  const verifiedSession = useRef<string | null>(null)
 
   useEffect(() => {
     const sessionId = params.get("session_id")
     if (!sessionId) { setState("error"); return }
+    if (verifiedSession.current === sessionId) return
+    verifiedSession.current = sessionId
     // A guest is someone who reached this page with no stored token — they paid
     // without registering. Captured BEFORE verify-session mints one.
     const wasGuest = !getToken()
     ;(async () => {
       try {
         const d = await verifyCheckoutSession(sessionId)
-        if (d.paid) {
-          if (d.access_token) {
-            setToken(d.access_token)
-            try {
-              const user = await getMe(d.access_token)
-              useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
-            } catch {
-              useAuthStore.setState({ isAuthenticated: true, isLoading: false })
-            }
-          }
-          setPlan(d.plan)
-          setGuestNeedsPassword(Boolean(wasGuest && d.access_token))
-          setState("ok")
-          // Google Ads conversion: inert unless NEXT_PUBLIC_GADS_ID + _CONV_LABEL are set and ad consent is granted. No PII.
+        const outcome = verifyOutcome(d)
+        if (outcome === "unpaid") { setState("unpaid"); return }
+        // Google Ads conversion: inert unless NEXT_PUBLIC_GADS_ID + _CONV_LABEL are set and ad consent is granted. No PII.
+        // A paid checkout is a conversion whichever way the buyer gets signed in.
+        const fireAdsConversion = () => {
           try {
             if (!sessionStorage.getItem("riq_gads_fired_" + sessionId)) {
               if (fireConversion()) sessionStorage.setItem("riq_gads_fired_" + sessionId, "1")
             }
           } catch { /* never block the success page */ }
-          try {
-            const saved = localStorage.getItem("riq_intent_query")
-            if (saved) {
-              setFirstCheckHref("/verdict?q=" + encodeURIComponent(saved))
-              setFirstCheckLabel(saved)
-              localStorage.removeItem("riq_intent_query")
-            }
-          } catch { /* private mode fallback */ }
-        } else {
-          setState("unpaid")
         }
+        let planName = d.plan
+        if (outcome === "token" && d.access_token) {
+          setToken(d.access_token)
+          try {
+            const user = await getMe(d.access_token)
+            useAuthStore.setState({ user, isAuthenticated: true, isLoading: false })
+          } catch {
+            useAuthStore.setState({ isAuthenticated: true, isLoading: false })
+          }
+        } else if (outcome === "login_required") {
+          const live = await signedInPaidUser()
+          if (!live) {
+            setState("login_required")
+            fireAdsConversion()
+            return
+          }
+          planName = live.plan
+          useAuthStore.setState({ user: live, isAuthenticated: true, isLoading: false })
+        }
+        setPlan(planName)
+        setGuestNeedsPassword(Boolean(wasGuest && outcome === "token"))
+        setState("ok")
+        fireAdsConversion()
+        try {
+          const saved = localStorage.getItem("riq_intent_query")
+          if (saved) {
+            setFirstCheckHref("/verdict?q=" + encodeURIComponent(saved))
+            setFirstCheckLabel(saved)
+            localStorage.removeItem("riq_intent_query")
+          }
+        } catch { /* private mode fallback */ }
       } catch { setState("error") }
     })()
   }, [params])
@@ -194,6 +236,16 @@ function BillingSuccessContent() {
               style={{ fontSize: 12.5, color: "#8fa3c4", textDecoration: "none" }}
             >{tx("Go to dashboard →")}</a>
           </div>
+        </>)}
+        {state === "login_required" && (<>
+          <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><Mail size={34} style={{ color: "#34C759" }} /></div>
+          <div data-testid="riq-billing-login-required" style={{ fontSize: 18, fontWeight: 750 }}>{tx("Payment received")}</div>
+          <div style={{ fontSize: 12.5, color: "#8b99b8", marginTop: 6 }}>{tx("We've emailed you a link to sign in to your account. Open it to log in, and check your spam folder if you can't see it.")}</div>
+          <button
+            onClick={() => router.push("/login")}
+            data-testid="riq-billing-login"
+            style={{ marginTop: 16, padding: "10px 24px", borderRadius: 8, background: "#34C759", color: "#06090c", border: "none", fontWeight: 700, cursor: "pointer" }}
+          >{tx("Log in")}</button>
         </>)}
         {state === "unpaid" && (<>
           <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}><Clock size={34} style={{ color: "#FF9F0A" }} /></div>

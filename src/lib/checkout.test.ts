@@ -11,6 +11,7 @@ import {
   isCheckoutCountry,
   productCopy,
   resolveCheckoutCountry,
+  verifyOutcome,
 } from "./checkout.ts"
 
 test("first-check CTA is a pre-filled verdict, not an empty dashboard", () => {
@@ -110,4 +111,27 @@ test("ref_code is absent when not provided", () => {
     locale: "en",
   })
   assert.equal(body.ref_code, undefined)
+})
+
+test("verify-session: a minted token is the original sign-in path, untouched", () => {
+  assert.equal(verifyOutcome({ paid: true, access_token: "jwt" }), "token")
+})
+
+test("verify-session: login_required with no token is its own outcome, not an error", () => {
+  assert.equal(verifyOutcome({ paid: true, login_required: true }), "login_required")
+})
+
+test("verify-session: a token always wins over login_required", () => {
+  assert.equal(verifyOutcome({ paid: true, access_token: "jwt", login_required: true }), "token")
+})
+
+test("verify-session: paid with neither token nor login_required keeps the normal success view", () => {
+  // The token-less shape an already-signed-in buyer (and the e2e mock) gets.
+  assert.equal(verifyOutcome({ paid: true }), "paid")
+})
+
+test("verify-session: unpaid never reads as signed in or login_required", () => {
+  assert.equal(verifyOutcome({ paid: false }), "unpaid")
+  assert.equal(verifyOutcome({ paid: false, login_required: true }), "unpaid")
+  assert.equal(verifyOutcome({ paid: false, access_token: "jwt" }), "unpaid")
 })

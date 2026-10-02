@@ -1,5 +1,5 @@
 import { getAttribution, getLandingPath } from "@/lib/analytics"
-import { buildCheckoutBody, readStoredCountry, type CheckoutPlan } from "@/lib/checkout"
+import { buildCheckoutBody, readStoredCountry, type CheckoutPlan, type VerifySessionResult } from "@/lib/checkout"
 import { readReferral } from "@/lib/referral"
 import type {
   User, ModelSignal, Deal, KPIs, BrandRanking, TrendsSummary, BrandDetail,
@@ -269,7 +269,7 @@ export const createCheckout = (price_id: string, opts?: { country?: string; plan
   })
 }
 export const verifyCheckoutSession = (sessionId: string) =>
-  request<{ paid: boolean; plan: string; access_token?: string; plan_unchanged?: boolean }>(
+  request<VerifySessionResult>(
     `/stripe/verify-session?session_id=${encodeURIComponent(sessionId)}`,
   )
 export const getBillingPortal = () => request<{ portal_url: string }>("/stripe/portal")
