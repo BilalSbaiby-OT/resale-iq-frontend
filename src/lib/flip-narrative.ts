@@ -1,4 +1,9 @@
 import type { BrandSeo } from "@/lib/seo-categories"
+import {
+  departureIsPrintable,
+  departureLabel,
+  departureSupportsConclusion,
+} from "./departure-display.ts"
 
 // Data-driven prose for the /flip/[brand] pages.
 //
@@ -20,6 +25,11 @@ import type { BrandSeo } from "@/lib/seo-categories"
 //
 // Every claim traces to a number already shown on the page. Nothing is invented,
 // and nothing asserts a measured accuracy or profit figure we do not have.
+//
+// DEPARTURE COUNTS follow the display floor (departure-display.ts): a category
+// below 10 watched departures is not narrated at all, and a sentence that
+// RANKS ("highest-volume", "leads on volume") needs n >= 30. Below that the
+// prose says what we watched, not what the market does.
 
 interface Cat { category: string; sold_7d: number; avg_price_eur: number }
 
@@ -37,15 +47,17 @@ export function brandNarrative(b: BrandSeo): string[] {
     .filter((c): c is Cat =>
       !!c &&
       typeof c.sold_7d === "number" &&
-      c.sold_7d > 0 &&
+      departureIsPrintable(c.sold_7d) &&
       typeof c.avg_price_eur === "number" &&
       c.avg_price_eur > 0
     )
   if (cats.length < 2) {
+    const seen = departureLabel(b.sold_7d, "7d", "en", { sample: true })
     return [
-      `${b.brand} has about ${k(b.sold_7d)} watched departures a week across the five EU Vinted ` +
-      `markets at an average price at departure of ${eur(b.avg_price_eur)}. With only one category deep ` +
-      `enough to report, the decision comes down to the specific model and size — ` +
+      (seen
+        ? `${b.brand}: ${seen} across the five EU Vinted markets at an average price at departure of ${eur(b.avg_price_eur)}. `
+        : `We watch ${b.brand} across the five EU Vinted markets, but too few listings left the shelf this week to report a count. `) +
+      `With only one category deep enough to report, the decision comes down to the specific model and size — ` +
       `check the exact piece before you buy rather than trusting the brand average.`,
     ]
   }
@@ -60,18 +72,25 @@ export function brandNarrative(b: BrandSeo): string[] {
   // 1) Volume leader vs value leader — the core "which flip is this" insight.
   if (dear && cheap && topVol.category !== dear.category) {
     paras.push(
-      `On Vinted, ${b.brand}'s highest-volume category is ${topVol.category.toLowerCase()} ` +
+      `On Vinted, ${b.brand}'s ${departureSupportsConclusion(topVol.sold_7d) ? "highest-volume" : "most-watched"} category is ${topVol.category.toLowerCase()} ` +
       `at about ${k(topVol.sold_7d)} watched departures a week (${eur(topVol.avg_price_eur)} average), ` +
       `while its priciest pieces are ${dear.category.toLowerCase()} at ${eur(dear.avg_price_eur)}. ` +
       `Those are two different games: one rewards turnover, the other rewards margin per ` +
       `item. Which one you play decides what you should be paying at the source.`,
     )
-  } else {
+  } else if (departureSupportsConclusion(topVol.sold_7d)) {
     paras.push(
       `For ${b.brand}, ${topVol.category.toLowerCase()} leads on volume ` +
       `(~${k(topVol.sold_7d)} left the shelf a week at ${eur(topVol.avg_price_eur)}) — the obvious ` +
       `place to start, and also the most crowded, so your buy-below discipline matters ` +
       `more here than anywhere else in the catalogue.`,
+    )
+  } else {
+    paras.push(
+      `For ${b.brand}, ${topVol.category.toLowerCase()} had the most watched departures ` +
+      `(~${k(topVol.sold_7d)} left the shelf this week at ${eur(topVol.avg_price_eur)}). That is a small ` +
+      `sample, so treat it as a place to look first, not a verdict — your buy-below discipline ` +
+      `matters more than the category.`,
     )
   }
 
@@ -98,13 +117,15 @@ export function brandNarrative(b: BrandSeo): string[] {
 
   // 3) Where the brand sits on the volume spectrum — a claim true only of THIS
   //    brand's number, and directly actionable.
-  if (b.sold_7d >= 25000) {
+  //    A brand total below the display floor gets no count and no volume verdict.
+  const brandPrintable = departureIsPrintable(b.sold_7d)
+  if (brandPrintable && b.sold_7d >= 25000) {
     paras.push(
       `At ${k(b.sold_7d)} watched departures a week ${b.brand} is one of the highest-volume brands on ` +
       `the platform. High volume means high liquidity but also heavy competition, so the ` +
       `edge is not "can I sell it" — it is "did I buy it cheaply enough", every time.`,
     )
-  } else if (b.sold_7d <= 6000) {
+  } else if (brandPrintable && b.sold_7d <= 6000) {
     paras.push(
       `${b.brand} is a lower-volume brand here at roughly ${k(b.sold_7d)} watched departures a week, ` +
       `which cuts both ways: less competition when you list, but you need the size and ` +

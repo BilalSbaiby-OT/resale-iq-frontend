@@ -181,7 +181,7 @@ test("sell-through post ships an answer-first Sell-through rate lead and FAQ", (
   assert.match(post, /name: "Sell-through rate"/)
   assert.match(
     post,
-    /Sell-through rate is the share of listings that sold in a period: watched departures divided by those departures plus items still listed/,
+    /Sell-through rate is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed/,
   )
   assert.match(post, /not weekly turns, which can exceed 100%/)
   assert.match(post, /q: "What is a sell-through rate\?"/)

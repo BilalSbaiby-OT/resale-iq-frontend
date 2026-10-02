@@ -17,6 +17,7 @@
  */
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
+import { departureLabel } from "@/lib/departure-display"
 
 export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
   // Find best (highest avg price) free, unlocked row with a price
@@ -34,11 +35,13 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
   const coversMonth = margin >= 19
 
   const label = itemDisplayName(row.brand, row.model)
+  // One sentence from the departure lexicon, through the display floor: null
+  // (no sentence) under 5, "Fewer than 10 ..." for 5-9, digits from 10.
   const demand =
     row.sold_30d_evidence != null
-      ? `${row.sold_30d_evidence.toLocaleString()} watched departures in 30 days`
+      ? departureLabel(row.sold_30d_evidence, "30d", "en", { sample: true })
       : row.sold_7d != null
-        ? `${row.sold_7d} watched departures last week`
+        ? departureLabel(row.sold_7d, "7d", "en", { sample: true })
         : null
 
   return (
@@ -134,7 +137,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
               lineHeight: 1.4,
             }}
           >
-            {demand} — watched departures, not confirmed sales.
+            {demand} — departures, not confirmed sales.
           </p>
         )}
         {coversMonth && (

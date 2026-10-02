@@ -7,6 +7,7 @@ import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import type { Locale } from "@/lib/i18n"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { departureDisplay } from "@/lib/departure-display"
 
 /**
  * HomeBuyList — ranked teaser of top buying opportunities.
@@ -173,7 +174,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
   if (error || items.length === 0) return null
 
   const lockedCount = items.filter(i => i.locked).length
-  // True once the departure tracker supplies real sold-per-week counts; drives
+  // True once the departure tracker supplies real watched-departure counts; drives
   // the column header so the label always matches the number below it.
   const hasDepartures = items.some(i => i.sold_7d != null)
 
@@ -234,8 +235,9 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                 { label: "Item",      align: "left"  as const },
                 { label: "Verdict",   align: "left"  as const },
                 // Header must name the number underneath it: once a row carries
-                // real departures, "Listings" would mislabel sold-per-week as supply.
-                { label: hasDepartures ? "Sold/wk" : "Listings", align: "right" as const },
+                // real departures, "Listings" would mislabel departures-per-week as supply.
+                // "Left/wk" = left the shelf this week; never "Sold".
+                { label: hasDepartures ? "Left/wk" : "Listings", align: "right" as const },
                 { label: "Buy below", align: "right" as const },
               ].map(({ label, align }) => (
                 <span key={label} style={{ ...HEADER_STYLE, textAlign: align }}>{label}</span>
@@ -311,15 +313,16 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                   </div>
 
                   {/*
-                    Demand column. sold_7d (departures — what actually LEFT the
-                    shelf) is the signal a reseller buys on, and the hero subhead
-                    promises it.
+                    Demand column. sold_7d (watched departures — what we watched
+                    LEAVE the shelf) is the signal a reseller buys on, and the hero
+                    subhead promises it. Printed through the display floor: "—"
+                    under 5, "<10" for 5-9, digits from 10.
 
                     NEVER fall back to comparable_n here. That was live on
                     2026-09-22 and printed SUPPLY under a "Sold/wk" header:
                     Stone Island Jackets showed "362" and New Balance Sneakers
                     "3,984" when the real departures were 9 and 8. A reseller
-                    reading 3,984 weekly sales would stock hard on a near-dead
+                    reading 3,984 weekly departures would stock hard on a near-dead
                     line. comparable_n is close to the OPPOSITE signal, so an
                     unknown departure count must render as "—", not as a number
                     that means something else.
@@ -330,9 +333,7 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                     fontFamily: "ui-monospace, 'SF Mono', monospace",
                     textAlign:  "right",
                   }}>
-                    {item.sold_7d != null
-                      ? item.sold_7d.toLocaleString("en-GB")
-                      : "—"}
+                    {departureDisplay(item.sold_7d, "en", { compact: true }).text}
                   </span>
 
                   {/* Buy below — the stored ceiling on unlocked rows. Locked rows

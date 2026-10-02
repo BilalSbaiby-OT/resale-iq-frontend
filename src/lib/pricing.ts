@@ -73,7 +73,7 @@ export const TIERS: Tier[] = [
       "Weekly resale signals: what stock to source and the max price",
       "Unlimited buy/sell verdicts",
       "Every product signal we compute, unblurred",
-      "Fast sellers — models that sell in all five markets",
+      "Fast movers — models leaving the shelf in all five markets",
       "Full market trends & brand rankings",
       "Watchlist & portfolio P&L",
       "Cross-platform fee calculator",

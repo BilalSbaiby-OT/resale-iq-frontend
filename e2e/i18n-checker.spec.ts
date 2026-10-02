@@ -92,14 +92,14 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "En vente sur Vinted cette semaine",
     liveProofSeeHow: "Voir comment on calcule ça →",
     liveProofPlanAddsHeading: "Ce qu'un abonnement ajoute, par modèle",
-    pulseHeading: "Voici ce qui se vend vraiment en ce moment.",
+    pulseHeading: "Voici ce qui quitte l'étal en ce moment.",
     pulseLiveLabel: "Marché en direct",
     extHeroDomain: "vinted.fr",
     extHeroSize: "Taille",
     extHeroCondition: "Très bon état",
     extHeroMatched: "correspondance :",
     extHeroCaption: "Exemple du panneau Chrome sur une annonce Adidas Samba",
-    watchedSampleHead: "Sur les annonces observées, 120 ont quitté le rayon contre 300 encore en ligne.",
+    watchedSampleHead: "Sur les annonces observées, 120 ont quitté l'étal contre 300 encore en ligne.",
     // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy —
     // "What do you want to check?" no longer exists (removed with the
     // intent-question funnel). registerSubmit is the FREE-path submit label
@@ -125,14 +125,14 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "A la venta en Vinted esta semana",
     liveProofSeeHow: "Ver cómo lo calculamos →",
     liveProofPlanAddsHeading: "Lo que añade un plan, por modelo",
-    pulseHeading: "Esto es lo que se está vendiendo ahora mismo.",
+    pulseHeading: "Esto es lo que está dejando el escaparate ahora mismo.",
     pulseLiveLabel: "Mercado en vivo",
     extHeroDomain: "vinted.es",
     extHeroSize: "Talla",
     extHeroCondition: "Muy bueno",
     extHeroMatched: "coincide con:",
     extHeroCaption: "Ejemplo del panel de Chrome en un anuncio de Adidas Samba",
-    watchedSampleHead: "En los anuncios que observamos, 120 salieron del catálogo frente a 300 que siguen en venta.",
+    watchedSampleHead: "En los anuncios que observamos, 120 dejaron el escaparate frente a 300 que siguen en venta.",
     // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
     registerHeading: "Cree su cuenta",
     registerSubmit: "Crear cuenta",
@@ -155,14 +155,14 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "Diese Woche auf Vinted im Angebot",
     liveProofSeeHow: "So berechnen wir das →",
     liveProofPlanAddsHeading: "Was ein Tarif zusätzlich bringt, pro Modell",
-    pulseHeading: "Das verkauft sich gerade wirklich.",
+    pulseHeading: "Das verlässt gerade das Regal.",
     pulseLiveLabel: "Live-Markt",
     extHeroDomain: "vinted.de",
     extHeroSize: "Größe",
     extHeroCondition: "Sehr gut",
     extHeroMatched: "gefunden:",
     extHeroCaption: "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot",
-    watchedSampleHead: "In den von uns beobachteten Angeboten sind 120 aus dem Bestand gegangen, 300 sind noch inseriert.",
+    watchedSampleHead: "In den von uns beobachteten Angeboten haben 120 das Regal verlassen, 300 sind noch inseriert.",
     // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
     registerHeading: "Konto erstellen",
     registerSubmit: "Konto erstellen",
@@ -185,14 +185,14 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "In vendita su Vinted questa settimana",
     liveProofSeeHow: "Guarda come lo calcoliamo →",
     liveProofPlanAddsHeading: "Cosa aggiunge un piano, per modello",
-    pulseHeading: "Ecco cosa si sta vendendo davvero adesso.",
+    pulseHeading: "Ecco cosa sta lasciando lo scaffale adesso.",
     pulseLiveLabel: "Mercato dal vivo",
     extHeroDomain: "vinted.it",
     extHeroSize: "Taglia",
     extHeroCondition: "Molto buono",
     extHeroMatched: "corrispondenza:",
     extHeroCaption: "Esempio del pannello Chrome su un annuncio Adidas Samba",
-    watchedSampleHead: "Negli annunci osservati, 120 sono usciti dallo scaffale contro 300 ancora in vendita.",
+    watchedSampleHead: "Negli annunci osservati, 120 hanno lasciato lo scaffale contro 300 ancora in vendita.",
     // FOUNDER AUTH RULE (2026-09-29): /register is plain, localised copy.
     registerHeading: "Crea il tuo account",
     registerSubmit: "Crea account",
@@ -215,7 +215,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     liveProofHeading: "À venda na Vinted esta semana",
     liveProofSeeHow: "Vê como calculamos isto →",
     liveProofPlanAddsHeading: "O que um plano acrescenta, por modelo",
-    pulseHeading: "Isto é o que está mesmo a vender agora.",
+    pulseHeading: "Isto é o que está a sair da prateleira agora.",
     pulseLiveLabel: "Mercado ao vivo",
     extHeroDomain: "vinted.pt",
     extHeroSize: "Tamanho",
@@ -349,6 +349,7 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       await expect(page.getByText("Nike", { exact: true }).first()).toBeVisible()
 
       await expect(page.getByText("This is what's actually selling right now.", { exact: true })).toHaveCount(0)
+      await expect(page.getByText("This is what's leaving the shelf right now.", { exact: true })).toHaveCount(0)
     })
 
     // W9: extension-hero.tsx — the mock Chrome panel on the hero. Desktop

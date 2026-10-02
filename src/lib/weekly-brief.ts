@@ -24,6 +24,7 @@
 import type { MarketNumbers } from "./market-numbers"
 // .ts extension: node --test loads this file directly (no bundler resolution).
 import { ofTracked } from "./fill-brands.ts"
+import { departureSupportsConclusion } from "./departure-display.ts"
 
 export interface BriefEntry {
   brand: string
@@ -91,7 +92,10 @@ export function buildWeeklyBrief(market: MarketNumbers): WeeklyBrief | null {
   if (entries.length === 0) return null
 
   const topMovers = [...entries].sort((a, b) => b.sold_7d - a.sold_7d).slice(0, 3)
+  // A "highest average price" ranking is a conclusion: it needs the same n >= 30
+  // as every other published finding, or one thin brand tops the table.
   const priciest = entries
+    .filter((e) => departureSupportsConclusion(e.sold_7d))
     .filter((e) => typeof e.avg_price_eur === "number" && (e.avg_price_eur as number) > 0)
     .sort((a, b) => (b.avg_price_eur as number) - (a.avg_price_eur as number))
     .slice(0, 3)

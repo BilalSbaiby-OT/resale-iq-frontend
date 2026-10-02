@@ -31,7 +31,7 @@ export const POSTS_31: BlogPost[] = [
       {
         h: "Stone Island jackets on EU Vinted: what the data shows",
         p: [
-          "Of Stone Island's 731 total watched departures per week across EU Vinted (week to 15 September 2026), Jackets account for 169 of them at a €140 average exit price — 23% of weekly volume at double the brand average. The remaining volume is dominated by Hoodies (178 departures in the last 30 days, €55 avg), but jackets punch far above their weight by cash value. At 169 units per week × €140 average, Stone Island jackets represent €23,660 of weekly secondary market activity across five EU countries.",
+          "Of Stone Island's 731 watched departures across EU Vinted in the week to 15 September 2026, Jackets account for 169 of them at a €140 average exit price — 23% of that week's volume at double the brand average. The remaining volume is dominated by Hoodies (178 departures in the last 30 days, €55 avg), but jackets punch far above their weight by cash value. 169 watched departures × a €140 average asking price is about €23,660 of asking-price value that left the shelf that week across five EU countries.",
           "The €140 average is the central estimate across all tracked jacket lines. The distribution is wide: standard quilted outers and regular outer shells typically exit at €80–130 in good condition. Technical lines (Nylon Metal, Membrana 3L, Crinkle Reps) exit at €120–250. Premium and rare lines (Ghost, Ice Jacket, Shadow Project) command €200–600+ depending on condition, colourway, and season. Knowing which product line you have before you set a buy-below is not optional — it is the entire sourcing decision.",
           `[Current Stone Island departure data →](${ilinkHref("flip")})`,
         ],

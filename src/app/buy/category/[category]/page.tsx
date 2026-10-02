@@ -5,8 +5,9 @@ import {
   BUY_DATA,
   BUY_CATEGORIES,
   catSlug,
+  buyDataDate,
   fmtEurBuy,
-  fmtCountBuy,
+  fmtDeparturesBuy,
   signalDisplay,
   type BuyBrand,
   type BuyCategory,
@@ -53,8 +54,8 @@ async function generateMetadataRaw({
   const title = `Best Brands for ${categoryName} Resale — Buy-Below Prices | ResaleIQ`
   const description =
     `${rows.length} brands tracked for ${categoryName} resale on Vinted. ` +
-    `${fmtCountBuy(total30d)} total departures in 30 days. ` +
-    (top ? `${top.brand.brand} leads with ${fmtCountBuy(top.cat.sold_30d)} sold — buy below ${fmtEurBuy(top.cat.buy_below)}.` : "")
+    `${fmtDeparturesBuy(total30d)} listings left the shelf in 30 days. ` +
+    (top ? `${top.brand.brand} leads with ${fmtDeparturesBuy(top.cat.sold_30d)} — buy below ${fmtEurBuy(top.cat.buy_below)}.` : "")
 
   return {
     title,
@@ -79,12 +80,12 @@ export default async function BuyCategoryPage({
   const lower = categoryName.toLowerCase()
 
   const directAnswer =
-    `${rows.length} brands had ${categoryName.toLowerCase()} depart on Vinted in the last 30 days. ` +
-    `Combined, that is ${fmtCountBuy(total30d)} departures across Spain, France, Germany, Italy and Portugal. ` +
+    `${rows.length} brands had ${categoryName.toLowerCase()} leave the shelf on Vinted in the 30 days to ${buyDataDate()}. ` +
+    `Combined, that is ${fmtDeparturesBuy(total30d)} watched departures across Spain, France, Germany, Italy and Portugal. ` +
     (top
-      ? `${top.brand.brand} leads with ${fmtCountBuy(top.cat.sold_30d)} ${lower} sold — buy below ${fmtEurBuy(top.cat.buy_below)} to target a 45% gross margin. `
+      ? `${top.brand.brand} leads with ${fmtDeparturesBuy(top.cat.sold_30d)} ${lower} — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. `
       : "") +
-    `These are confirmed departures, not active listings.`
+    `These are watched departures, not confirmed sales and not active listings.`
 
   const jsonLd = [
     {
@@ -106,11 +107,11 @@ export default async function BuyCategoryPage({
             "@type": "Answer",
             text:
               top
-                ? `${top.brand.brand} has the highest ${lower} departure volume — ${fmtCountBuy(top.cat.sold_30d)} in 30 days — with a buy-below of ${fmtEurBuy(top.cat.buy_below)}. ` +
+                ? `${top.brand.brand} has the highest ${lower} departure volume — ${fmtDeparturesBuy(top.cat.sold_30d)} left the shelf in 30 days — with a buy-below of ${fmtEurBuy(top.cat.buy_below)}. ` +
                   `However, volume and margin don't always point the same direction: ` +
-                  `high-volume brands sell fast at thin margins, premium brands carry more margin per unit but sit longer. ` +
+                  `high-volume brands move fast at thin margins, premium brands carry more margin per unit but sit longer. ` +
                   `Check the specific brand page for model-level data before sourcing.`
-                : `Check the brand listings below for real sold-through data. Volume and margin trade off differently per brand.`,
+                : `Check the brand listings below for watched-departure data. Volume and margin trade off differently per brand.`,
           },
         },
       ],
@@ -166,7 +167,7 @@ export default async function BuyCategoryPage({
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
             [String(rows.length), "brands tracked"],
-            [fmtCountBuy(total30d), "total departed / 30d"],
+            [fmtDeparturesBuy(total30d), "total left the shelf / 30d"],
             [top ? fmtEurBuy(top.cat.buy_below) : "—", `top brand buy below (${top?.brand.brand ?? "—"})`],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
@@ -200,8 +201,7 @@ export default async function BuyCategoryPage({
                     <div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: "#eef1f7" }}>{r.brand.brand}</div>
                       <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
-                        {fmtCountBuy(r.cat.sold_30d)} sold / 30d
-                        {r.cat.avg_days_to_sell != null && ` · ${r.cat.avg_days_to_sell}d to sell`}
+                        {fmtDeparturesBuy(r.cat.sold_30d)} left the shelf / 30d
                       </div>
                     </div>
                     <div style={{ textAlign: "right" }}>
@@ -233,7 +233,7 @@ export default async function BuyCategoryPage({
             Volume vs margin in {lower} resale
           </h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
-            High-volume brands sell fast but at lower price points — meaning thinner gross margins per sale.
+            High-volume brands move fast but at lower price points — meaning thinner gross margins per item.
             Premium brands carry higher margins per unit but sit longer and require more capital tied up between
             buy and sell. The right choice depends on your cash flow, sourcing opportunity and storage capacity.
           </p>

@@ -13,13 +13,16 @@ import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 import { fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
 import { useT } from "@/components/i18n/locale-provider"
+import { departureDisplay } from "@/lib/departure-display"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
 // C(tony)VerifyEmailFirstCheckCTA: hardcoded fallback for the AF1 live-data
 // card shown on the signed-in flash — used if the snapshot fetch hasn't
 // resolved yet or Nike isn't present in the top rows.
-const AF1_FALLBACK: SnapshotBrandRow = { brand: "Nike", category: "Sneakers", sold_7d: 312, avg_price_eur: 89 }
+// sold_7d is 0 on purpose: a fallback must never print a frozen departure count
+// (these were 102 / 383 / 27 from an earlier week). 0 renders as a dash, not a number.
+const AF1_FALLBACK: SnapshotBrandRow = { brand: "Nike", category: "Sneakers", sold_7d: 0, avg_price_eur: 89 }
 
 // FOUNDER AUTH RULES (2026-09-29, binding): after Google or email
 // login/signup completes, land on /dashboard — not /verdict, not /pricing.
@@ -220,7 +223,7 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Watched departures (7d)")}</span>
-                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{af1Row.sold_7d.toLocaleString(tx.locale)}</span>
+                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{departureDisplay(af1Row.sold_7d, tx.locale).text}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Avg resale price")}</span>

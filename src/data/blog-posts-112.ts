@@ -28,7 +28,7 @@ export const POSTS_112: BlogPost[] = [
     definedTerm: {
       name: "Sold-price benchmark",
       description:
-        "The median price of comparable items that actually sold on Vinted in the last 30 days — not the asking price of items still listed. ResaleIQ tracks watched departures (listings going from active to sold) across 5 EU markets, giving you a real transaction-price signal that active listings cannot provide.",
+        "The median asking price of comparable listings at the moment they left the shelf on Vinted in the last 30 days — not the asking price of items still listed. ResaleIQ tracks watched departures (listings going from active to no longer listed) across 5 EU markets, giving you a price-at-departure signal that active listings cannot provide.",
     },
 
     sections: [
@@ -75,7 +75,7 @@ export const POSTS_112: BlogPost[] = [
           "A well-priced item that has not sold in 14 days needs a small correction, not a panic cut. Drop 8–10% — enough to trigger the favourites notification and reset the algorithmic clock, not enough to signal desperation. This is the 'relist and refresh' move: the algorithm treats a price-dropped listing as recently active.",
           "Day 30 is the real decision point. If an item has 30 days on the shelf and no sale at the corrected price, drop 15–20% from the original. This is not failure — it is the market telling you the item was overpriced or the demand is thinner than the departure count suggested. The notification to favouriters is the best re-engagement channel Vinted offers.",
           "Day 60 is the stop-loss. If the item has not sold at a 20% markdown, it is not going to sell at any price this season. Donate, bundle, or accept it as a cost of inventory turnover. Tying up capital in dead stock is the most expensive pricing mistake — the €15 you could have had beats the €40 you are waiting for.",
-          `The data tells you when an item is slow: ResaleIQ's sell-through rate (paid) shows what percentage of tracked listings sold within 30 days. Below 25% is slow-moving; above 50% is fast. Price accordingly from day one. [Check sell-through for your item →](/tools)`,
+          `The data tells you when an item is slow: ResaleIQ's sell-through rate (paid) shows what percentage of tracked listings left the shelf within 30 days. Below 25% is slow-moving; above 50% is fast. Price accordingly from day one. [Check sell-through for your item →](/tools)`,
         ],
         cta: pricingBodyCta("ctr_howprice_markdown_20260919"),
       },
@@ -122,7 +122,7 @@ export const POSTS_112: BlogPost[] = [
       },
       {
         q: "How often does ResaleIQ update its pricing data?",
-        a: `The market snapshot updates weekly. The snapshot tracks ${TRACKED} listing records across Spain, France, Germany, Italy, and Portugal, with watched departures (listings going from active to sold) counted in the trailing 7 days. When a brand's exit price moves, the data reflects it within the same week.`,
+        a: `The market snapshot updates weekly. The snapshot tracks ${TRACKED} listing records across Spain, France, Germany, Italy, and Portugal, with watched departures (listings going from active to no longer listed) counted in the trailing 7 days. When a brand's exit price moves, the data reflects it within the same week.`,
       },
     ],
   },

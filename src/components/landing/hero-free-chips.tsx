@@ -37,6 +37,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { localizeDemandNote } from "@/lib/verdict-words"
 
 // 2026-09-29: New Balance 530 replaced with Fred Perry Polo (NB530 verdicts
 // SKIP live with buy_below=null — see src/lib/working-models.ts for the
@@ -232,9 +233,9 @@ function HeroInlineVerdictCard({
       </div>
 
       {/* Demand note */}
-      {result.demand_note && (
+      {localizeDemandNote(result.demand_note, locale) && (
         <p style={{ fontSize: 11.5, color: "var(--color-text-secondary)", margin: "0 0 9px", lineHeight: 1.5 }}>
-          {result.demand_note}
+          {localizeDemandNote(result.demand_note, locale)}
         </p>
       )}
 

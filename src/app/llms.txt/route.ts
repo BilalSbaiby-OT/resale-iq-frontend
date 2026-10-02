@@ -79,7 +79,7 @@ export async function GET() {
   const body = `# Resale IQ
 
 > Vinted resale signals for resellers, like trading signals for stock. Which stock to source, and the max price to pay.
-> Each signal: BUY / WATCH / SKIP, entry = max price to pay when sourcing, target = typical Vinted resale price, plus how fast it sells.
+> Each signal: BUY / WATCH / SKIP, entry = max price to pay when sourcing, target = typical Vinted resale price, plus how fast it leaves the shelf.
 > Based on past Vinted resale data, not a guarantee of profit.
 
 Independent tool. Not affiliated with, endorsed by, or connected to Vinted or
@@ -179,7 +179,7 @@ Agents must not:
     ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor${trackedBrands != null ? ` (${trackedBrands} brands tracked)` : ""}. This is not catalogue size.`
     : trackedBrands != null ? `Tracked brands: ${trackedBrands}.` : "Weekly volume is not available in this snapshot."}
 - Refresh: listings are scheduled for collection every 30 minutes per market, but a run is skipped if the previous one is still in progress, so real spacing runs longer during backlog — see ${BASE}/methodology for the measured cadence. Signals recompute every 2 hours on schedule, with no skips observed. Public pages carry no page-level cache and render from the live database on every request.
-- Method: watched departure transitions (sold_observed) — a listing leaving the shelf, inferred as a sale at its last asking price. Not an observed sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
+- Method: watched departures — a listing we watched leave the shelf (it can also be a delisting, an edit or a reservation), with its last asking price recorded as the price at departure. Not a confirmed sale, not a sale price, not asking prices from active listings, and not every departed listing we ever indexed. Full mechanism and its limits: ${BASE}/methodology.
 
 ## Two findings worth citing
 

@@ -399,7 +399,7 @@ export function topLandingNextSteps(slug: string): RelatedLink[] {
     if (top) out.push({ href: `/flip/${b.slug}/${catSlug(top.category)}`, label: `Are ${b.brand} ${top.category.toLowerCase()} worth reselling?` })
     if (hasBuyBrand(b.slug)) out.push({ href: `/buy/${b.slug}`, label: `What to pay for ${b.brand}` })
   } else {
-    out.push({ href: "/flip", label: "Every tracked brand ranked by weekly sales" })
+    out.push({ href: "/flip", label: "Every tracked brand ranked by weekly watched departures" })
     for (const t of TOP_BRANDS.slice(0, 2)) out.push({ href: `/flip/${t.slug}`, label: `${t.brand}: what sells and what to pay` })
   }
   return out

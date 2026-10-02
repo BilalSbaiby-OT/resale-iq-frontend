@@ -10,6 +10,7 @@ import { BlogIndexCheckoutCta } from "@/components/blog/blog-index-checkout-cta"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { BlogIndexFreeChecker } from "@/components/blog/blog-index-free-checker"
 import { getMarketNumbers } from "@/lib/market-numbers"
+import { departureDisplay, departureIsPrintable } from "@/lib/departure-display"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
@@ -67,17 +68,17 @@ export default async function BlogIndex() {
     const brands = market.brandNames
       .slice(0, 5)
       .map(name => ({ name, f: market.get(name) }))
-      .filter((b): b is { name: string; f: NonNullable<ReturnType<typeof market.get>> } => b.f !== null && b.f.sold_7d != null)
+      .filter((b): b is { name: string; f: NonNullable<ReturnType<typeof market.get>> } => b.f !== null && departureIsPrintable(b.f.sold_7d))
     if (brands.length < 3) return null
     const date = new Date().toISOString().slice(0, 10)
     const parts = brands.map(({ name, f }) => {
-      const sold = f.sold_7d!.toLocaleString("en-GB")
+      const sold = departureDisplay(f.sold_7d).text
       const avg = f.avg_price_eur != null ? ` averaging €${Math.round(f.avg_price_eur)}` : ""
       const cats = f.top_categories?.slice(0, 1)[0]
       const catNote = cats ? ` (mostly ${cats.toLowerCase()})` : ""
-      return `${name} at ${sold} departures${catNote}${avg}`
+      return `${name} at ${sold} watched departures${catNote}${avg}`
     })
-    return `What\u2019s selling on Vinted this week (updated ${date}): ${parts.join("; ")}. Observed active-to-sold transitions over the trailing 7 days across 5 EU markets\u2014a directional lower bound, useful for comparing brands. Full rankings at resaleiq.dev/data, sourced from ${tracked} listing records.`
+    return `What\u2019s leaving the shelf on Vinted this week (updated ${date}): ${parts.join("; ")}. Watched departures are listings we watched leave the shelf over the trailing 7 days across 5 EU markets\u2014a directional lower bound, useful for comparing brands. Full rankings at resaleiq.dev/data, sourced from ${tracked} listing records.`
   })()
 
   const jsonLd = {

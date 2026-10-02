@@ -10,6 +10,7 @@ import { HubFaq } from "@/components/seo/hub-faq"
 import { definedTermJsonLd, faqPageJsonLd } from "@/lib/faq-schema"
 import { SEO_MODELS } from "@/lib/seo-models"
 import { ModelChips } from "@/components/seo/model-chips"
+import { departureDisplay, departureIsPrintable, departureSupportsConclusion } from "@/lib/departure-display"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { flipHubTitle, flipHubDescription, rankedBrandsPhrase } from "@/lib/flip-category-meta"
@@ -84,12 +85,12 @@ export default async function FlipHubPage() {
   // 134–167 word self-contained block for "what sells best on Vinted 2026".
   // Live numbers only. Coverage bias stated in the same passage so a citation
   // cannot quote the ranking as Vinted-wide.
-  const sellsBest2026 = top
-    ? `What sells best on Vinted in 2026, among the brands Resale IQ tracks, is ${top.brand}: about ${fmtCount(top.sold_7d)} watched departures in the last 7 days across ${MARKETS}` +
+  const sellsBest2026 = top && departureSupportsConclusion(top.sold_7d)
+    ? `What sells best on Vinted in 2026, among the brands Resale IQ tracks, is ${top.brand}: about ${departureDisplay(top.sold_7d).text} watched departures in the last 7 days across ${MARKETS}` +
       (top.avg_price_eur != null ? `, at an average asking price at departure of ${fmtEur(top.avg_price_eur)}` : "") +
       `.` +
-      (second && third
-        ? ` ${second.brand} (${fmtCount(second.sold_7d)}/week) and ${third.brand} (${fmtCount(third.sold_7d)}/week) follow.`
+      (second && third && departureIsPrintable(second.sold_7d) && departureIsPrintable(third.sold_7d)
+        ? ` ${second.brand} (${departureDisplay(second.sold_7d).text}/week) and ${third.brand} (${departureDisplay(third.sold_7d).text}/week) follow.`
         : "") +
       ` These are listings we watched leave the shelf, not confirmed sale receipts, and they cover ${rankedPhrase}${ofTracked(ranked.length, market.brandsTracked)} on Vinted's five EU domains — not the whole catalogue, and not unbranded listings.` +
       (dearest?.avg_price_eur != null
@@ -139,7 +140,7 @@ export default async function FlipHubPage() {
     },
     {
       // Coverage-bias guard. Tracked-brand volume is not the size of Vinted.
-      q: "How many items do these brands sell on Vinted each week?",
+      q: "How many items do these brands see leave the shelf on Vinted each week?",
       a:
         `${rankedPhrase[0].toUpperCase()}${rankedPhrase.slice(1)} account for roughly ${fmtCount(total)} ` +
         `items we watch leave the shelf per week across ${MARKETS}. That is tracked-brand volume only — ` +
@@ -158,7 +159,7 @@ export default async function FlipHubPage() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Brands ranked by weekly sales volume on Vinted",
+      name: "Brands ranked by weekly watched departures on Vinted",
       itemListOrder: "https://schema.org/ItemListOrderDescending",
       numberOfItems: rows.length,
       itemListElement: rows.slice(0, 10).map((r, i) => ({
@@ -197,20 +198,20 @@ export default async function FlipHubPage() {
         <p style={{ fontSize: 15.5, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 16 }}>{howWeRank}</p>
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 10 }}>{sellsBest2026}</p>
         <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.7, marginBottom: 8 }}>
-          Every brand below links to its own page — weekly volume, average sale price and the
-          categories that actually move. Volumes are what {rankedPhrase} sell
-          across {MARKETS}; they are not the size of Vinted as a whole.
+          Every brand below links to its own page — weekly watched departures, average price at
+          departure and the categories that move. Volumes are the departures we watched across{" "}
+          {MARKETS} for {rankedPhrase}; they are not the size of Vinted as a whole.
         </p>
         <FreshnessNotice stamp={market.stamp} updatedAt={market.updatedAt} />
 
         <WeeklyBrief brief={buildWeeklyBrief(market)} />
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "30px 0 4px", letterSpacing: "-0.4px" }}>
-          Every tracked brand, ranked by weekly sales
+          Every tracked brand, ranked by weekly watched departures
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
           Sorted by items watched leaving the shelf in the last 7 days. An em-dash means the current snapshot has no
-          figure for that brand — not that it sells nothing.
+          figure for that brand — not that it had no departures. Fewer than 10 is shown as a bound, not a count.
         </p>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -236,7 +237,7 @@ export default async function FlipHubPage() {
                   </Link>
                 )}
                 <div style={{ fontSize: 13, color: "#8b99b8", whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
-                  {fmtCount(r.sold_7d)}<span style={{ color: "#5b6b8c" }}> left shelf/week</span>
+                  {departureDisplay(r.sold_7d).text}<span style={{ color: "#5b6b8c" }}> left the shelf / week</span>
                   <span style={{ color: "#3f4a63" }}> · </span>
                   {fmtEur(r.avg_price_eur)}<span style={{ color: "#5b6b8c" }}> avg</span>
                 </div>
@@ -262,7 +263,7 @@ export default async function FlipHubPage() {
         </div>
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "#eef1f7", margin: "34px 0 8px", letterSpacing: "-0.4px" }}>
-          Named models — know what sells, then decide whether to buy
+          Named models — see what leaves the shelf, then decide whether to buy
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
           Brand averages mix every silhouette. These pages name the model. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are a free sample. Other models are Starter at €19 a month — not a free check. Definitions:{" "}

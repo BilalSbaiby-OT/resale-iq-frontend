@@ -39,7 +39,7 @@ const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 // distinct count wearing the "listing records" label, which is what this used
 // to do and is how one page came to carry two different "sizes".
 const desc = (tracked: string) =>
-  `${tracked !== "—" ? `${tracked} listing records across 5 EU markets. ` : ""}Real sell-through data on Vinted reselling: what sells, buy-below price, BUY/WATCH/SKIP verdict per item.`
+  `${tracked !== "—" ? `${tracked} listing records across 5 EU markets. ` : ""}Vinted resale signals: what leaves the shelf, buy-below price, BUY/WATCH/SKIP verdict per item.`
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingRecordsHeadline()

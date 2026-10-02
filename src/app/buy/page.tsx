@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, fmtCountBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, buyDataDate, fmtDeparturesBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
 
 import { fitMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
@@ -8,12 +8,12 @@ import { hasBuyBrand } from "@/lib/related-links"
 export const metadata: Metadata = fitMetadata({
   title: "What to Pay for Secondhand Resale — Buy-Below Prices by Brand",
   description:
-    "Buy-below prices for 231 brand-category pairs on EU Vinted. Real 30-day departure data: what to pay when sourcing secondhand inventory to resell.",
+    "Buy-below prices for 231 brand-category pairs on EU Vinted, from listings we watched leave the shelf over 30 days: what to pay when sourcing secondhand inventory to resell.",
   alternates: { canonical: "https://resaleiq.dev/buy" },
   openGraph: {
     title: "Resale Buy-Below Intelligence — ResaleIQ",
     description:
-      "Stop guessing what to pay. 231 tracked brand-category pairs, real 30-day sold data, buy-below prices built from actual departure averages.",
+      "231 tracked brand-category pairs, 30-day watched departures, and buy-below prices built from the average price at departure.",
     url: "https://resaleiq.dev/buy",
   },
 })
@@ -23,7 +23,7 @@ const jsonLd = {
   "@type": "ItemList",
   name: "Resale Buy-Below Prices by Brand",
   description:
-    "What resellers should pay for secondhand inventory by brand and category, based on 30-day Vinted departures across Spain, France, Germany, Italy and Portugal.",
+    "What resellers should pay for secondhand inventory by brand and category, based on listings we watched leave the shelf over 30 days across Vinted Spain, France, Germany, Italy and Portugal.",
   url: "https://resaleiq.dev/buy",
   numberOfItems: BUY_DATA.total_pairs,
   itemListElement: BUY_DATA.brands.filter((b) => hasBuyBrand(b.slug)).slice(0, 20).map((b, i) => ({
@@ -38,6 +38,9 @@ export default function BuyHubPage() {
   // Batch 1: top 20 highest-evidence pairs. See lib/buy-data.ts for rationale.
   const batch1 = BUY_BATCH1_PAIRS
   const totalPairs = BUY_DATA.total_pairs
+  // The evidence floor of the batch is read from the data, never typed: it was
+  // a literal 189 that went stale the moment the export was refreshed.
+  const batchFloor = Math.min(...batch1.map(({ cat }) => cat.sold_30d))
 
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
@@ -55,14 +58,14 @@ export default function BuyHubPage() {
         </h1>
 
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
-          Every number here comes from real Vinted departures — listings that actually sold — tracked across
-          Spain, France, Germany, Italy and Portugal. We track{" "}
+          Every number here is a watched departure — a listing we watched leave the shelf on Vinted, not a
+          confirmed sale — tracked across Spain, France, Germany, Italy and Portugal. We track{" "}
           <strong style={{ color: "#eef1f7" }}>{totalPairs.toLocaleString()} brand-category pairs</strong>{" "}
-          with at least 3 real sales in the last 30 days. The buy-below prices are derived from average
-          departure prices less a 45% gross margin target to cover platform fees, postage and risk.
+          with at least 3 watched departures in the 30 days to {buyDataDate()}. The buy-below prices are derived from
+          the average price at departure, less a 30% margin target.
         </p>
         <p style={{ fontSize: 14.5, color: "#8b99b8", lineHeight: 1.6, marginBottom: 32 }}>
-          Active listings are NOT sales. We never use supply as a proxy for demand — only confirmed departures count.
+          Active listings are not departures. We never use supply as a proxy for demand — only listings we watched leave the shelf count.
         </p>
 
         {/* Category quick-nav */}
@@ -95,7 +98,7 @@ export default function BuyHubPage() {
           Buy-below by brand &amp; category
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
-          Showing {batch1.length} highest-evidence pairs (≥189 real departures / 30 days). All numbers from confirmed Vinted sales.
+          Showing {batch1.length} highest-evidence pairs (at least {batchFloor.toLocaleString("en-GB")} watched departures in the 30 days to {buyDataDate()}). Departures, not confirmed sales.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 12, marginBottom: 40 }}>
           {batch1.map(({ brand: b, cat: c }) => (
@@ -123,9 +126,9 @@ export default function BuyHubPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>
-                      {fmtCountBuy(c.sold_30d)}
+                      {fmtDeparturesBuy(c.sold_30d)}
                     </div>
-                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>sold / 30d</div>
+                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>left the shelf / 30d</div>
                   </div>
                 </div>
               </div>

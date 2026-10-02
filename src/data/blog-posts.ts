@@ -557,7 +557,7 @@ export const POSTS: BlogPost[] = [
     definedTerm: {
       name: "Sell-through rate",
       description:
-        "Sell-through rate is the share of listings that sold in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate.",
+        "Sell-through rate is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate.",
     },
     sections: [
       {
@@ -587,7 +587,7 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "What is a sell-through rate?", a: "Sell-through rate is the share of listings that sold in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate." },
+      { q: "What is a sell-through rate?", a: "Sell-through rate is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate." },
       { q: "What is a good sell-through rate for reselling?", a: "Higher is better — it means your stock sells quickly and your cash recycles fast. Prioritise items with proven fast sell-through in the sizes you can source, rather than chasing high margins on slow movers." },
       { q: "Is sell-through rate more important than profit margin?", a: "Often, yes. A moderate margin that sells every week compounds faster than a big margin that sells once a year. Speed of sale keeps your capital working." },
     ],

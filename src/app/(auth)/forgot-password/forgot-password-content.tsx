@@ -13,10 +13,12 @@ import { useT } from "@/components/i18n/locale-provider"
 // sent-confirmation. A user who just requested a reset went straight to their
 // inbox — highest-intent moment on this page. Same fallback approach as
 // reset-password/check-email.
+// sold_7d is 0 on purpose: a fallback must never print a frozen departure count
+// (these were 102 / 383 / 27 from an earlier week). 0 renders as a dash, not a number.
 const DEMAND_FALLBACK: SnapshotBrandRow[] = [
-  { brand: "Stone Island", category: "Hoodies",     sold_7d: 102, avg_price_eur: 58 },
-  { brand: "New Balance",  category: "Sneakers",    sold_7d: 383, avg_price_eur: 43 },
-  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27,  avg_price_eur: 13 },
+  { brand: "Stone Island", category: "Hoodies",     sold_7d: 0, avg_price_eur: 58 },
+  { brand: "New Balance",  category: "Sneakers",    sold_7d: 0, avg_price_eur: 43 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 0, avg_price_eur: 13 },
 ]
 
 export function ForgotPasswordContent() {

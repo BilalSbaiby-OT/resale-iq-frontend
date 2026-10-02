@@ -29,7 +29,7 @@ export const INTENTS: SearchIntent[] = [
       `Typical Vinted departure price and buy-below from ${TRACKED} listing records across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
     h1: "Vinted Price Checker",
     lede:
-      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% seller fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan. Most item checks unlock with Starter at €19 a month. Weekly brand volumes stay public on /data.`,
+      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% seller fee we model. Weekly brand volumes and average prices at departure stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan. Most item checks unlock with Starter at €19 a month. Weekly brand volumes stay public on /data.`,
     bullets: [
       { h: "Real departure prices, not asking prices", p: "Active listings show what people hope to get. We anchor on the asking price at the moment a comparable listing left the shelf — a real signal, though not an observed sale." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
@@ -66,7 +66,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "What is the best sourcing tool for Vinted resellers?", a: `A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from ${TRACKED} listing records across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price.` },
-      { q: "How do resellers decide what to buy on Vinted?", a: "Experienced resellers check demand (weekly sales volume), sell-through rate, and size demand before buying, then only pay under their buy-below price. Guessing is what creates dead stock." },
+      { q: "How do resellers decide what to buy on Vinted?", a: "Experienced resellers check demand (weekly watched departures), sell-through rate, and size demand before buying, then only pay under their buy-below price. Guessing is what creates dead stock." },
     ],
   },
   {
@@ -79,8 +79,8 @@ export const INTENTS: SearchIntent[] = [
     lede:
       "Analytics built specifically for secondhand resale. Resale IQ continuously analyses live Vinted listings across five EU markets, and watches which ones leave the shelf, and turns them into the metrics that actually drive profit.",
     bullets: [
-      { h: "Sell-through rate", p: "The share of the market that sells each week — the metric that decides how fast your capital recycles." },
-      { h: "Brand rankings", p: "Which brands are moving right now by weekly sales volume and average price, not by reputation." },
+      { h: "Sell-through rate", p: "The share of watched listings that leave the shelf — the metric that decides how fast your capital recycles." },
+      { h: "Brand rankings", p: "Which brands are moving right now by weekly watched departures and average price at departure, not by reputation." },
       { h: "Per-size demand", p: "Sell-through varies enormously by size. We break it down so you never buy a dead size again." },
     ],
     faq: [

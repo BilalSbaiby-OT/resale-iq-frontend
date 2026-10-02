@@ -10,14 +10,17 @@ import { fireConversion } from "@/lib/gads"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
 import type { User } from "@/types"
+import { departureDisplay } from "@/lib/departure-display"
 
 // C159(tony): live demand rows shown right after payment — Canva-template moment.
 // User is at maximum motivation; show them specific items to check immediately
 // rather than making them guess what to type. Same fallback pattern as register.
+// sold_7d is 0 on purpose: a fallback must never print a frozen departure count
+// (these were 102 / 383 / 27 from an earlier week). 0 renders as a dash, not a number.
 const BILLING_DEMAND_FALLBACK: SnapshotBrandRow[] = [
-  { brand: "Stone Island", category: "Hoodies",    sold_7d: 102, avg_price_eur: 58 },
-  { brand: "New Balance",  category: "Sneakers",   sold_7d: 383, avg_price_eur: 43 },
-  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 27, avg_price_eur: 13 },
+  { brand: "Stone Island", category: "Hoodies",    sold_7d: 0, avg_price_eur: 58 },
+  { brand: "New Balance",  category: "Sneakers",   sold_7d: 0, avg_price_eur: 43 },
+  { brand: "Fred Perry",   category: "Polo Shirts", sold_7d: 0, avg_price_eur: 13 },
 ]
 
 /**
@@ -194,7 +197,9 @@ function BillingSuccessContent() {
                   >
                     <div style={{ textAlign: "left" }}>
                       <div style={{ fontSize: 13, fontWeight: 600, color: "#eef1f7" }}>{row.brand} <span style={{ color: "#8b99b8", fontWeight: 400 }}>{row.category}</span></div>
-                      <div style={{ fontSize: 11.5, color: "#8b99b8", marginTop: 1 }}>{tx("{0} watched departures/7d · avg €{1}", [row.sold_7d, row.avg_price_eur])}</div>
+                      <div style={{ fontSize: 11.5, color: "#8b99b8", marginTop: 1 }}>{departureDisplay(row.sold_7d, tx.locale).kind === "hidden"
+                        ? tx("avg €{0}", [row.avg_price_eur])
+                        : tx("{0} watched departures/7d · avg €{1}", [departureDisplay(row.sold_7d, tx.locale, { compact: true }).text, row.avg_price_eur])}</div>
                     </div>
                     <ArrowRight size={13} style={{ color: "#34C759", flexShrink: 0, marginLeft: 8 }} />
                   </a>

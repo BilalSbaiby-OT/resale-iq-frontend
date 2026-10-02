@@ -25,6 +25,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { CheckCircle2 } from "lucide-react"
 import brandsRaw from "@/data/seo-brands.json" with { type: "json" }
 import { useT } from "@/components/i18n/locale-provider"
+import { DEPARTURE_PUBLISH_FLOOR, departureCountUnit, departureDisplay } from "@/lib/departure-display"
 
 type Suggestion = {
   brand: string
@@ -35,6 +36,9 @@ type Suggestion = {
 
 // Static fallback — brand names from the catalog without live counts.
 // Used when the market-snapshot fetch fails so the typeahead still works.
+// The counts in seo-brands.json are a frozen build-time export (Fred Perry 1,092
+// there against 203 live), so they are NOT carried over: sold_7d is 0 here and a
+// 0 prints nothing. A missing count is honest; a stale one is not.
 const STATIC_BRAND_ROWS = (
   brandsRaw as { brands: { brand: string; sold_7d?: number; avg_price_eur?: number }[] }
 ).brands.filter((b) => b.brand)
@@ -42,7 +46,7 @@ const STATIC_BRAND_ROWS = (
 const STATIC_SUGGESTIONS: Suggestion[] = STATIC_BRAND_ROWS.map((b) => ({
   brand: b.brand,
   category: "",
-  sold_7d: b.sold_7d ?? 0,
+  sold_7d: 0,
   avg_price_eur: b.avg_price_eur,
 }))
 
@@ -117,7 +121,7 @@ export function IntentTypeahead({
           if (!b.brand) continue
           if (Array.isArray(b.categories) && b.categories.length > 0) {
             for (const c of b.categories) {
-              if (c.sold_7d >= 3) {
+              if (c.sold_7d >= DEPARTURE_PUBLISH_FLOOR) {
                 pairs.push({
                   brand: b.brand,
                   category: c.category,
@@ -298,7 +302,7 @@ export function IntentTypeahead({
                     {label}
                   </span>
                 </div>
-                {s.sold_7d > 0 && (
+                {departureDisplay(s.sold_7d).kind !== "hidden" && (
                   <span
                     style={{
                       fontSize: 11,
@@ -308,7 +312,7 @@ export function IntentTypeahead({
                       flexShrink: 0,
                     }}
                   >
-                    {s.sold_7d} dep/7d
+                    {departureCountUnit(departureDisplay(s.sold_7d, tx.locale, { compact: true }).text, "7d", tx.locale)}
                   </span>
                 )}
               </li>

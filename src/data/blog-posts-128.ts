@@ -51,7 +51,7 @@ export const POSTS_128: BlogPost[] = [
     definedTerm: {
       name: "Watched departure",
       description:
-        "A watched departure is a listing Resale IQ tracked from active to sold — not a confirmed buyer receipt. " +
+        "A watched departure is a listing Resale IQ tracked from active to no longer listed — not a confirmed buyer receipt. " +
         "Sold_30d counts those transitions in the trailing 30 days across 5 EU Vinted markets (ES/FR/DE/IT/PT), " +
         "not every transaction on Vinted as a whole. Buy-below is modelled as avg departure price × 0.95 × 0.70 " +
         "(5% platform fee model, 30% margin target). Treat it as a sourcing ceiling, not a profit guarantee.",
@@ -60,13 +60,13 @@ export const POSTS_128: BlogPost[] = [
       {
         h: "How to read this table",
         p: [
-          "Sold/30d is watched departures across the 5 EU Vinted markets in the trailing 30 days — minimums, not totals. A Sep 14–22 outage in our sold-detection means the real figures are likely up to ~25% higher. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin after a ~5% platform fee.",
-          "The table is ordered by sold/30d descending. Volume and margin are different things — the New Balance 550 moves 825 units at €24 avg, while the Balenciaga Track moves 891 units at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
+          "Left the shelf/30d is watched departures across the 5 EU Vinted markets in the trailing 30 days — minimums, not totals. A Sep 14–22 outage in our shelf-detection means the real figures are likely up to ~25% higher. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin after a ~5% platform fee.",
+          "The table is ordered by left-the-shelf/30d descending. Volume and margin are different things — the New Balance 550 moves 825 units at €24 avg, while the Balenciaga Track moves 891 units at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
         ],
         table: {
           caption:
-            "Ranked buy list — September 2026, EU Vinted (ES/FR/DE/IT/PT). Sold/30d = watched departures in trailing 30 days (minimum, outage-adjusted). Buy-below = sourcing ceiling for ~30% margin after ~5% platform fee.",
-          head: ["#", "Model", "Category", "Sold/30d (min)", "Avg exit price", "Buy-below"],
+            "Ranked buy list — September 2026, EU Vinted (ES/FR/DE/IT/PT). Left the shelf/30d = watched departures in trailing 30 days (minimum, outage-adjusted). Buy-below = sourcing ceiling for ~30% margin after ~5% platform fee.",
+          head: ["#", "Model", "Category", "Left the shelf/30d (min)", "Avg exit price", "Buy-below"],
           rows: [
             ["1", "[New Balance 530](/blog/new-balance-530-resell-guide-vinted)", "Sneakers", "1,235", "€38.51", "€25.61"],
             ["2", "[Balenciaga Track](/blog/balenciaga-track-eu-vinted-price-guide)", "Other", "891", "€290.00", "€192.85"],
@@ -117,7 +117,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What should I buy to resell on Vinted right now?",
         a:
-          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €25.61), Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85), New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to sold, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
+          "As of 22 September 2026, the highest-volume models with confirmed buy-below signals across EU Vinted (ES/FR/DE/IT/PT) are: New Balance 530 (1,235 watched departures/30d, avg €38.51, buy-below €25.61), Balenciaga Track (891 dep/30d, avg €290, buy-below €192.85), New Balance 550 (825 dep/30d, avg €23.88, buy-below €15.88). These are minimums — a Sep 14–22 data gap means real demand is likely higher. Departures are watched transitions from active to no longer listed, not confirmed receipts. Full ranked table at https://resaleiq.dev/blog/what-to-buy-to-resell-on-vinted-right-now",
       },
       {
         q: "What is a buy-below price?",
@@ -152,12 +152,12 @@ export const POSTS_128: BlogPost[] = [
     readMins: 6,
     preflightQuery: "New Balance 550",
     intro:
-      `As of 22 September 2026, Resale IQ tracks ${TRACKED} listing records across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 sold-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on whether you mean volume (Stone Island, Patagonia, Fred Perry) or sell speed in days (Balenciaga Track at avg 0.3 days). Here is the full breakdown.`,
+      `As of 22 September 2026, Resale IQ tracks ${TRACKED} listing records across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 shelf-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on what you mean: departure volume (Stone Island, Patagonia, Fred Perry) or how quickly listings leave the shelf. Here is the full breakdown.`,
     definedTerm: {
       name: "Watched departure",
       description:
-        "A watched departure is a listing Resale IQ tracked from active to sold — not a confirmed sale receipt. " +
-        "Sold/30d counts those transitions in the trailing 30 days. Sell speed (days) is time from listing to departure. " +
+        "A watched departure is a listing Resale IQ tracked from active to no longer listed — not a confirmed sale receipt. " +
+        "Left the shelf/30d counts those transitions in the trailing 30 days. Sell speed (days) is time from listing to departure. " +
         "These are tracked-brand figures across ES/FR/DE/IT/PT — not a measure of Vinted as a whole.",
     },
     sections: [
@@ -185,11 +185,11 @@ export const POSTS_128: BlogPost[] = [
         },
       },
       {
-        h: "Sell speed vs sell volume — they are not the same thing",
+        h: "Departure volume vs how fast listings leave — they are not the same thing",
         p: [
-          "Volume is how many items leave the shelf in 30 days. Speed is how quickly each individual listing departs. The two rankings look very different.",
-          "By model-level sell speed, Balenciaga Track (0.3 days avg), Balenciaga Runner (0.3 days), and New Balance 530 (0.2 days) are the fastest in the tracked set — these items leave within hours of listing. By brand-level volume, Stone Island and Patagonia dwarf Balenciaga because they have far more listings at lower price points.",
-          "For a reseller asking 'what sells fastest on Vinted', the right question is: fastest by volume (more transactions, lower margin per unit) or fastest by individual listing speed (higher ticket, fewer transactions)? The NB 530 sits at the rare overlap: 1,235 dep/30d AND 0.2-day avg sell time.",
+          "Volume is how many listings we watched leave the shelf in 30 days. Speed is how quickly each individual listing departs, and that is only directly observed for a very small share of listings, so it is not ranked here.",
+          "Per-model speed to departure is not published here: the time from listing to departure is only directly observed for a very small share of listings. By brand-level volume, Stone Island and Patagonia dwarf Balenciaga because they have far more listings at lower price points.",
+          "For a reseller asking 'what sells fastest on Vinted', the measurable question is departure volume: more listings leaving the shelf, usually at a lower margin per unit. The NB 530 leads that table with at least 1,235 watched departures in 30 days.",
         ],
         cta: pricingMidCta("ctr_brands_20260922"),
       },
@@ -215,7 +215,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Which brand sells fastest on Vinted?",
         a:
-          "As of 22 September 2026, Stone Island leads by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT): ~13,900 watched departures, avg exit ~€60. By individual listing sell speed, Balenciaga Track (avg 0.3 days) and New Balance 530 (avg 0.2 days) are fastest. By volume-speed overlap, New Balance 530 (1,235 dep/30d AND 0.2-day sell time) is the strongest signal in the tracked set. Live ranking: https://resaleiq.dev/flip",
+          "As of 22 September 2026, Stone Island leads by 30-day departure volume across EU Vinted (ES/FR/DE/IT/PT): ~13,900 watched departures, avg exit ~€60. By volume, New Balance 530 (1,235 watched departures in 30 days) is the strongest single-model signal in the tracked set. Live ranking: https://resaleiq.dev/flip",
       },
       {
         q: "Is Stone Island worth reselling on Vinted?",
@@ -230,7 +230,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Does Balenciaga sell on Vinted?",
         a:
-          "Yes. As of September 2026, Balenciaga had ~10,300 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) at an avg exit of ~€155. Model leaders: Track (891 dep/30d, avg €290, buy-below €192.85), Runner (389 dep/30d, avg €141.56, buy-below €94.14), City Bag (309 dep/30d, avg €346.19, buy-below €230.22). These move within 0.3 days of listing on average — very fast, high-ticket. Full guide: https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide",
+          "Yes. As of September 2026, Balenciaga had ~10,300 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT) at an avg exit of ~€155. Model leaders: Track (891 dep/30d, avg €290, buy-below €192.85), Runner (389 dep/30d, avg €141.56, buy-below €94.14), City Bag (309 dep/30d, avg €346.19, buy-below €230.22). These are high-ticket models. Full guide: https://resaleiq.dev/blog/balenciaga-reselling-vinted-guide",
       },
       {
         q: "What brand has the most sales on EU Vinted?",
@@ -250,11 +250,11 @@ export const POSTS_128: BlogPost[] = [
     readMins: 5,
     preflightQuery: "New Balance 530",
     intro:
-      "As of 22 September 2026, the New Balance 530 is the highest-volume single model in Resale IQ's tracked set: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure. Average sell time: 0.2 days — within hours of listing. Buy-below sourcing ceiling: €25.61. If you are deciding whether to buy a New Balance 530 to flip on EU Vinted, the signal says yes — at the right source price.",
+      "As of 22 September 2026, the New Balance 530 is the highest-volume single model in Resale IQ's tracked set: at least 1,235 watched departures in the trailing 30 days across Spain, France, Germany, Italy and Portugal, averaging €38.51 at departure. Buy-below sourcing ceiling: €25.61. If you are deciding whether to buy a New Balance 530 to flip on EU Vinted, the signal says yes — at the right source price.",
     definedTerm: {
       name: "Watched departure",
       description:
-        "A watched departure is a New Balance 530 listing Resale IQ tracked from active to sold — not a confirmed buyer receipt. " +
+        "A watched departure is a New Balance 530 listing Resale IQ tracked from active to no longer listed — not a confirmed buyer receipt. " +
         "1,235 dep/30d counts those transitions in the trailing 30 days across 5 EU Vinted markets. " +
         "This is a minimum: a Sep 14–22 data gap means real 30-day demand is likely higher.",
     },
@@ -263,8 +263,8 @@ export const POSTS_128: BlogPost[] = [
         h: "New Balance 530 EU Vinted signal — September 2026",
         p: [
           "Production figures queried 22 September 2026:",
-          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling for ~30% margin) €25.61 · avg sell time 0.2 days (within hours of listing) · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
-          "The 1,235 figure is a minimum. A Sep 14–22 sold-detection outage left an ~8-day gap in the trailing 30d window — real demand is likely up to ~25% higher. We publish the measured figure.",
+          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling for ~30% margin) €25.61 · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
+          "The 1,235 figure is a minimum. A Sep 14–22 shelf-detection outage left an ~8-day gap in the trailing 30d window — real demand is likely up to ~25% higher. We publish the measured figure.",
         ],
       },
       {
@@ -292,14 +292,14 @@ export const POSTS_128: BlogPost[] = [
         h: "How the NB 530 compares to other New Balance models",
         p: [
           "The 530 is not the only strong NB signal, but it is the most volume-consistent. Here are the New Balance models in Resale IQ's tracked set with confirmed buy-below prices, queried 22 September 2026:",
-          "NB 530: 1,235 dep/30d · avg €38.51 · buy-below €25.61 · 0.2d sell time. NB 9060: 371 dep/30d · avg €47.76 · buy-below €31.76 · 0.2d sell time. NB FuelCell: 314 dep/30d · avg €71.03 · buy-below €47.23. NB 740: 66 dep/30d · avg €34.85 · buy-below €23.18. NB 1906R: 53 dep/30d · avg €56.35 · buy-below €37.47. NB 574: 53 dep/30d · avg €30.50 · buy-below €20.28.",
+          "NB 530: 1,235 dep/30d · avg €38.51 · buy-below €25.61. NB 9060: 371 dep/30d · avg €47.76 · buy-below €31.76. NB FuelCell: 314 dep/30d · avg €71.03 · buy-below €47.23. NB 740: 66 dep/30d · avg €34.85 · buy-below €23.18. NB 1906R: 53 dep/30d · avg €56.35 · buy-below €37.47. NB 574: 53 dep/30d · avg €30.50 · buy-below €20.28.",
           "The 530 wins on raw volume. The 9060 and FuelCell have a higher ticket if you can source them. The 1906R and 574 are slower movers but still viable at the right price. [Check any NB model live →](/tools)",
         ],
       },
       {
         h: "Where to source New Balance 530 under buy-below",
         p: [
-          "At €25.61 buy-below, you need a reliable source below that threshold. Charity shops (particularly in France and Germany) regularly price NB 530s at €8–18. Vinted itself (searching active listings below €25) works when sellers misprice — the 0.2-day average sell time means well-priced listings go fast, so check daily.",
+          "At €25.61 buy-below, you need a reliable source below that threshold. Charity shops (particularly in France and Germany) regularly price NB 530s at €8–18. Vinted itself (searching active listings below €25) works when sellers misprice — well-priced listings can go fast, so check daily.",
           "Car boot sales and estate sales carry risk on condition but produce the best margins. Avoid buying at Vinted active prices above €25 to resell on the same platform — the differential does not survive fees.",
           `Live rankings and the most current buy-below: [check the NB 530 on /tools](/tools) with Starter. The buy-below shown there may differ slightly from the September 2026 figure here as the production snapshot refreshes. [Full New Balance guide](/blog/new-balance-reselling-vinted-guide) · [weekly market data](/data).`,
         ],
@@ -310,7 +310,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",
         a:
-          "Based on 22 September 2026 production data: yes, if sourced below €25.61. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €25.61 (avg × 0.95 × 0.70). Average sell time 0.2 days. It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal at https://resaleiq.dev/tools with Starter — NB 530 is not a free sample.",
+          "Based on 22 September 2026 production data: yes, if sourced below €25.61. The NB 530 had at least 1,235 watched departures in 30 days across EU Vinted (ES/FR/DE/IT/PT), averaging €38.51 at departure, with a buy-below of €25.61 (avg × 0.95 × 0.70). It is the highest-volume single model in Resale IQ's tracked set with a confirmed buy-below signal. Check the live signal at https://resaleiq.dev/tools with Starter — NB 530 is not a free sample.",
       },
       {
         q: "How much does a New Balance 530 sell for on Vinted?",
@@ -344,7 +344,7 @@ export const POSTS_128: BlogPost[] = [
     definedTerm: {
       name: "Watched departure",
       description:
-        "A watched departure is a Patagonia listing Resale IQ tracked from active to sold — not a confirmed buyer receipt. " +
+        "A watched departure is a Patagonia listing Resale IQ tracked from active to no longer listed — not a confirmed buyer receipt. " +
         "Sold_30d counts those transitions in the trailing 30 days across 5 EU Vinted markets (ES/FR/DE/IT/PT). " +
         "All figures as of 22 September 2026 and are minimums (Sep 14–22 data gap).",
     },

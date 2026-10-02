@@ -15,14 +15,17 @@ import { queryCoverageKind } from "@/lib/query-coverage"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { useT } from "@/components/i18n/locale-provider"
+import { departureDisplay } from "@/lib/departure-display"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
 // for their verification email: the goal is to make them WANT to click the link.
+// sold_7d is 0 on purpose: a fallback must never print a frozen departure count
+// (these were 102 / 383 / 27 from an earlier week). 0 renders as a dash, not a number.
 const FALLBACK_BRANDS: SnapshotBrandRow[] = [
-  { brand: "New Balance", category: "Sneakers", sold_7d: 383, avg_price_eur: 43 },
-  { brand: "Nike",        category: "Sneakers", sold_7d: 129, avg_price_eur: 48 },
-  { brand: "Adidas",      category: "Sneakers", sold_7d: 126, avg_price_eur: 57 },
+  { brand: "New Balance", category: "Sneakers", sold_7d: 0, avg_price_eur: 43 },
+  { brand: "Nike",        category: "Sneakers", sold_7d: 0, avg_price_eur: 48 },
+  { brand: "Adidas",      category: "Sneakers", sold_7d: 0, avg_price_eur: 57 },
 ]
 
 type BrandRow = SnapshotBrandRow
@@ -336,7 +339,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
           <div className="flex flex-col gap-2 mb-3">
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Watched departures (7d)")}</span>
-              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{displayRow!.sold_7d.toLocaleString(tx.locale)}</span>
+              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{departureDisplay(displayRow!.sold_7d, tx.locale).text}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Avg resale price")}</span>

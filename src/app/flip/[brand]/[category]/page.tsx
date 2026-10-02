@@ -3,7 +3,8 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import seo from "@/data/seo-brands.json"
 import { listingsTrackedLabel } from "@/lib/stats"
-import { getMarketNumbers, categoryFigure, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { getMarketNumbers, categoryFigure, fmtEur } from "@/lib/market-numbers"
+import { departureDisplay, departureSupportsConclusion } from "@/lib/departure-display"
 import {
   flipBrandCategoryTitle,
   flipBrandCategoryDescription,
@@ -85,14 +86,37 @@ export default async function BrandCategoryPage(
   const catRow = categoryFigure(figures, catName)
   const catSold = catRow?.sold_7d ?? null
   const brandSold = figures?.sold_7d ?? null
-  const avgPrice = figures?.avg_price_eur ?? null
-  const share = catSold && brandSold ? Math.round((catSold / brandSold) * 100) : null
+  // The category's own average price at departure, when the snapshot has one.
+  // The brand-wide average is a different number (Zara jeans EUR 63 against a
+  // Zara average of EUR 36) and must never be labelled as the category's.
+  const catAvg = catRow?.avg_price_eur ?? null
+  const brandAvg = figures?.avg_price_eur ?? null
+  // Display floor: hidden under 5, "fewer than 10" for 5-9, digits from 10.
+  const catShown = departureDisplay(catSold)
+  const catPrintable = catShown.kind === "number"
+  const brandShown = departureDisplay(brandSold)
+  const share = catPrintable && brandShown.kind === "number" ? Math.round(((catSold as number) / (brandSold as number)) * 100) : null
+  const avgPhrase = catAvg
+    ? `, with ${b.brand} ${catName.toLowerCase()} averaging about €${Math.round(catAvg)} in asking price at departure`
+    : brandAvg
+      ? `, with the ${b.brand} brand average at about €${Math.round(brandAvg)} in asking price at departure`
+      : ""
 
-  const answer = catSold
-    ? `${b.brand} ${catName} see roughly ${catSold.toLocaleString()} watched departures a week across the five main EU Vinted markets` +
-      (avgPrice ? `, with ${b.brand} averaging about €${avgPrice} in asking price at departure` : "") +
-      `. That is real, current demand — whether an individual item is worth buying depends on its condition, size and the price you pay.`
-    : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Live weekly volume is not on this snapshot — check a specific model rather than trusting a frozen category average.`
+  // The sentence only claims what the count can carry: a conclusion needs
+  // n >= 30, a bare count needs 10, and below that we say so instead.
+  const answer = departureSupportsConclusion(catSold)
+    ? `${b.brand} ${catName} see roughly ${catShown.text} watched departures a week across the five main EU Vinted markets` +
+      avgPhrase +
+      `. That is a sample of what left the shelf, not total sales — whether an individual item is worth buying depends on its condition, size and the price you pay.`
+    : catPrintable
+      ? `About ${catShown.text} ${b.brand} ${catName.toLowerCase()} left the shelf in our sample this week across the five main EU Vinted markets` +
+        avgPhrase +
+        `. That is a small sample, so check the specific model — whether an individual item is worth buying depends on its condition, size and the price you pay.`
+      : catShown.kind === "band"
+        ? `${catShown.text} ${b.brand} ${catName.toLowerCase()} left the shelf in our sample this week across the five main EU Vinted markets. That is too few to read a trend — check the specific model, because whether an item is worth buying depends on its condition, size and the price you pay.`
+        : catSold == null
+          ? `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Live weekly volume is not on this snapshot — check a specific model rather than trusting a frozen category average.`
+          : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Too few listings left the shelf in our sample this week to report a count — check a specific model rather than trusting a category average.`
 
   const jsonLd = [
     {
@@ -101,8 +125,8 @@ export default async function BrandCategoryPage(
         { "@type": "Question", name: `Are ${b.brand} ${catName} worth reselling on Vinted?`,
           acceptedAnswer: { "@type": "Answer", text: answer } },
         { "@type": "Question", name: `How much do ${b.brand} ${catName} sell for on Vinted?`,
-          acceptedAnswer: { "@type": "Answer", text: avgPrice
-            ? `${b.brand} items average around €${avgPrice} in asking price at the moment listings left the shelf, across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
+          acceptedAnswer: { "@type": "Answer", text: catAvg || brandAvg
+            ? `${catAvg ? `${b.brand} ${catName.toLowerCase()} average` : `${b.brand} items average (brand-wide)`} around €${Math.round((catAvg || brandAvg) as number)} in asking price at the moment listings left the shelf, across Spain, France, Germany, Italy and Portugal. ${catName} pricing varies by model, condition and size.`
             : `Prices vary by model, condition and size. Check listings that recently left the shelf rather than active ones, since active listings show hopeful asking prices, not the price at departure.` } },
       ],
     },
@@ -140,9 +164,11 @@ export default async function BrandCategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 26 }}>
           {[
-            [fmtCount(catSold), `${catName} left shelf / week`],
-            [fmtEur(avgPrice), `avg ${b.brand} price at exit`],
-            [share != null ? `${share}%` : "—", `of ${b.brand} volume`],
+            [catShown.text, `${catName} left the shelf / week`],
+            catAvg
+              ? [fmtEur(catAvg), `avg ${b.brand} ${catName.toLowerCase()} price at departure`]
+              : [fmtEur(brandAvg), `${b.brand} brand average price at departure`],
+            [share != null ? `${share}%` : "—", `of ${b.brand} watched departures`],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>

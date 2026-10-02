@@ -2,7 +2,8 @@ import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
 import type { Metadata } from "next"
 import { CATEGORIES, getCategory, catSlug, type CategoryEntry } from "@/lib/seo-categories"
-import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
+import { getMarketNumbers, fmtEur } from "@/lib/market-numbers"
+import { departureDisplay, departureIsPrintable, departureSupportsConclusion } from "@/lib/departure-display"
 import {
   categoryLeafTitle,
   categoryLeafDescription,
@@ -16,12 +17,18 @@ import { faqPageJsonLd } from "@/lib/faq-schema"
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { RelatedLinks } from "@/components/seo/related-links"
 // Programmatic SEO, cross-brand cut: one page per category, ranking every
-// tracked brand by that category's own weekly sales volume. This is the axis
+// tracked brand by that category's own weekly watched-departure volume. This is the axis
 // the brand pages can't answer — "I want to flip sneakers, which brand?" —
 // and the ranking is data nobody else publishes.
 //
 // Exposure policy is unchanged from /flip: aggregate weekly volume and average
-// brand sale price only. No buy-below prices, no scores, no model names.
+// price at departure only. No buy-below prices, no scores, no model names.
+//
+// Counts follow the display floor (departure-display.ts): under 5 an em-dash,
+// 5-9 "<10", digits from 10. A RANKING claim ("has the most", "highest average
+// price", "easy to shift") needs n >= 30 — on this board a third of the
+// brand x category cells are below 10, and a brand with one departure must not
+// head a table or win a "highest average" card.
 export const revalidate = 900
 
 const MARKETS = "Spain, France, Germany, Italy and Portugal"
@@ -68,7 +75,10 @@ function withLiveVolumes(entries: CategoryEntry[], category: string, market: Awa
         brand: e.brand,
         slug: e.slug,
         sold_7d: row?.sold_7d ?? null,
-        avg_price_eur: live?.avg_price_eur ?? null,
+        // The CATEGORY's own average price at departure. The brand-wide average
+        // (`live.avg_price_eur`) is a different number and was being printed
+        // beside this category's count.
+        avg_price_eur: row?.avg_price_eur ?? null,
       }
     })
     .sort((a, b) => (b.sold_7d ?? -1) - (a.sold_7d ?? -1))
@@ -93,18 +103,24 @@ export default async function CategoryPage(
   // `total` sums. entries.length also counts brands that render an em-dash.
   const liveCount = entries.filter(e => e.sold_7d != null).length
   const top = entries.find(e => e.sold_7d != null) ?? entries[0]
-  const dearest = [...entries].filter(e => e.avg_price_eur != null).sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
+  // A "highest average price" is a ranking: only brands with n >= 30 may win it.
+  const dearest = [...entries]
+    .filter(e => e.avg_price_eur != null && departureSupportsConclusion(e.sold_7d))
+    .sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
+  const topRanked = top != null && departureSupportsConclusion(top.sold_7d)
+  const topCount = departureDisplay(top?.sold_7d).text
+  const totalShown = departureDisplay(total > 0 ? total : null)
 
   const answer =
-    top && top.sold_7d != null
+    top && topRanked
       ? `Across the tracked brands, ${top.brand} has the most ${lower} leave the shelf on Vinted — about ` +
-        `${fmtCount(top.sold_7d)} a week across ${MARKETS}. ` +
+        `${topCount} a week across ${MARKETS}. ` +
         (dearest?.avg_price_eur != null
           ? `${dearest.brand} carries the highest average price at departure at ${fmtEur(dearest.avg_price_eur)}. `
           : "") +
-        `Volume and price pull in opposite directions: the high-volume brands sell fast at thin margins, ` +
+        `Volume and price pull in opposite directions: the high-volume brands move fast at thin margins, ` +
         `the expensive ones carry more margin per unit but sit longer.`
-      : `${c.category} demand across ${MARKETS} is tracked live. Weekly volume for this snapshot is not yet available for ranked brands.`
+      : `${c.category} demand across ${MARKETS} is tracked live. No brand has enough watched departures in this snapshot to rank (we need at least 30 in a week), so check a specific model rather than a brand average.`
 
   const faqs = [
     {
@@ -112,10 +128,10 @@ export default async function CategoryPage(
       a: answer,
     },
     {
-      q: `How many ${lower} sell on Vinted each week?`,
+      q: `How many ${lower} leave the shelf on Vinted each week?`,
       a:
         liveCount > 0
-          ? `${rankedBrandsPhrase(liveCount).replace(/^the/, "The")} ${liveCount === 1 ? "accounts" : "account"} for roughly ${fmtCount(total)} ` +
+          ? `${rankedBrandsPhrase(liveCount).replace(/^the/, "The")} ${liveCount === 1 ? "accounts" : "account"} for roughly ${totalShown.text} ` +
             `${lower} watched leaving the shelf per week across ${MARKETS}. That is tracked-brand volume, not the whole category — ` +
             `unbranded and untracked listings are not counted.`
           : `Weekly ${lower} volume for the brands on this page is not available in the current snapshot. ` +
@@ -136,7 +152,7 @@ export default async function CategoryPage(
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `Brands ranked by weekly ${lower} sales on Vinted`,
+      name: `Brands ranked by weekly ${lower} watched departures on Vinted`,
       itemListOrder: "https://schema.org/ItemListOrderDescending",
       numberOfItems: entries.length,
       itemListElement: entries.slice(0, 10).map((e, i) => ({
@@ -177,7 +193,7 @@ export default async function CategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 28 }}>
           {[
-            [fmtCount(total), `${lower} left shelf / week`],
+            [totalShown.text, `${lower} left the shelf / week`],
             // 0 ranked brands is "no figure", not a count of zero: same em-dash rule as the other tiles.
             [liveCount > 0 ? String(liveCount) : "—", liveCount === 1 ? "brand ranked" : "brands ranked"],
             [dearest ? `${fmtEur(dearest.avg_price_eur)}` : "—", dearest ? `highest avg (${dearest.brand})` : "highest avg"],
@@ -198,7 +214,7 @@ export default async function CategoryPage(
               <tr style={{ textAlign: "left", color: "#5b6b8c", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.4px" }}>
                 <th style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>#</th>
                 <th style={{ padding: "8px 10px", fontWeight: 600 }}>Brand</th>
-                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Left shelf / week</th>
+                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Left the shelf / week</th>
                 <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Share</th>
                 <th style={{ padding: "8px 0 8px 10px", fontWeight: 600, textAlign: "right" }}>Avg price</th>
               </tr>
@@ -213,10 +229,10 @@ export default async function CategoryPage(
                     </Link>
                   </td>
                   <td style={{ padding: "10px", textAlign: "right", color: "#eef1f7", fontWeight: 600 }}>
-                    {fmtCount(e.sold_7d)}
+                    {departureDisplay(e.sold_7d, "en", { compact: true }).text}
                   </td>
                   <td style={{ padding: "10px", textAlign: "right", color: "#5b6b8c" }}>
-                    {total > 0 && e.sold_7d != null ? (() => {
+                    {total > 0 && departureIsPrintable(e.sold_7d) ? (() => {
                       const raw = (e.sold_7d / total) * 100
                       const rounded = Math.round(raw)
                       return rounded === 0 && raw > 0 ? "<1%" : `${rounded}%`
@@ -233,7 +249,8 @@ export default async function CategoryPage(
         <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginBottom: 28 }}>
           Units we watched leave the shelf in the last 7 days across Vinted ES, FR, DE, IT and PT, for the brands Resale IQ tracks —
           a departure, not a confirmed sale (see <Link href="/methodology" style={{ color: "#8fa3c4" }}>methodology</Link>).
-          Average price is the brand&apos;s average across all its categories, not {lower} alone. This page has no page-level cache and renders from the live database on every request.
+          Counts under 10 show as &quot;&lt;10&quot; and under 5 as an em-dash. Average price is the average asking price at
+          departure for {lower} alone, not the brand&apos;s average across all its categories.
         </p>
 
         <section style={{ marginBottom: 22 }}>
@@ -241,13 +258,15 @@ export default async function CategoryPage(
             How to read this ranking
           </h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
-            The top of the table is where the buyers are, not where the profit is. A brand selling{" "}
-            {fmtCount(top?.sold_7d)} {lower} a week is easy to shift, which also means the supply side is crowded
-            and the price is well known to everyone sourcing. The margin usually lives one or two rows down, or at the
-            expensive end of the list where fewer people can afford the buy-in.
+            The top of the table is where the most listings leave the shelf, not where the profit is.{" "}
+            {topRanked
+              ? <>A brand with {topCount} {lower} leaving the shelf a week is easy to shift, which also means</>
+              : <>A brand that moves quickly is easy to shift, which also means</>}{" "}
+            the supply side is crowded and the price is well known to everyone sourcing. The margin usually lives one or two
+            rows down, or at the expensive end of the list where fewer people can afford the buy-in.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
-            Read the share column as competition. A brand holding {top?.sold_7d != null && total > 0 ? `${Math.round((top.sold_7d / total) * 100)}%` : "—"}
+            Read the share column as competition. A brand holding {topRanked && top?.sold_7d != null && total > 0 ? `${Math.round((top.sold_7d / total) * 100)}%` : "a large share"}
             of {lower} volume is the default choice for every reseller in the market. That is fine if you can source
             below everyone else, and a trap if you cannot.
           </p>

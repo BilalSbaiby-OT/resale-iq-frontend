@@ -158,10 +158,17 @@ test("/data shows a number or last-good snapshot, never crashes on null", async 
   const body = await page.locator("body").innerText()
   expect(body).not.toMatch(/undefined|NaN/)
   // Either live/last-good figures or the honest empty state — not a 500.
-  expect(body.includes("Nike") || body.includes("being refreshed") || body.includes("Sold")).toBeTruthy()
+  expect(body.includes("Nike") || body.includes("being refreshed") || body.includes("Watched departures")).toBeTruthy()
   const weekly = page.getByRole("table", { name: /Weekly market snapshot/i })
   await expect(weekly).toBeVisible()
-  await expect(weekly).toContainText(/Sold \(7 days\)/)
+  // A departure is never "sold": the column says what was watched.
+  await expect(weekly).toContainText(/Watched departures \(7 days\)/)
+  await expect(weekly).not.toContainText(/Sold/)
+  if (body.includes("Nike")) {
+    const brandsTable = page.locator("table.riq-data-brands")
+    await expect(brandsTable).toContainText(/Left the shelf \/ 7 days/)
+    await expect(brandsTable).not.toContainText(/Sold/)
+  }
   // The exact distinct-item count is published here, labelled as distinct items;
   // the headline ("2M+ listing records" from the mock's COUNT(*)) sits beside it.
   await expect(weekly).toContainText(/Distinct items/)

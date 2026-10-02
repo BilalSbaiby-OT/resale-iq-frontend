@@ -23,7 +23,7 @@ const DEMAND_LEAD =
   "Vinted demand, as Resale IQ publishes it, is a count of watched departures — listings we watched leave the shelf across Spain, France, Germany, Italy and Portugal — not a confirmed sale receipt and not every sold listing on Vinted."
 
 const SELL_LEAD =
-  "Vinted sell-through is the share of listings that sold in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate."
+  "Vinted sell-through is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate."
 
 const BUY_BELOW_MARKET_LEAD =
   "A buy-below on the market is the most you can pay for a typical comparable and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
@@ -154,7 +154,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     body: [
       "You can be right about the brand, right about the model, right about the condition and still be left holding stock, because the size is one almost nobody wears, or because the category is saturated even while the volume number looks busy.",
       "Edge sizes are cheap to source because other resellers already learned the wait. The discount is the market pricing in the hold — it is not an opportunity others missed. Price an edge-size piece for the wait from day one.",
-      "Public pages show watched departures and still-listed counts when sell-through is withheld. That pair is the honest tell: lots of departures against a mountain of active listings is how dead stock looks before you buy it.",
+      "Public pages show watched departures when sell-through is withheld, and the still-listed count only where the two are on the same footing. That pair is the honest tell: lots of departures against a mountain of active listings is how dead stock looks before you buy it.",
     ],
     seeAlso: [
       { href: "/glossary/vinted-sell-through", label: "Vinted sell-through" },
@@ -307,7 +307,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Vinted condition is seller-selected. Best-to-worst grade gaps are large (about 3.5×–7× in measured medians). Over-grade is how you overpay.",
     lead: CONDITION_LEAD,
     body: [
-      "We grouped sold listings by the condition the seller selected. The direction is solid: better grades leave at higher asks. The exact multiple is indicative — an item listed new-with-tags is also more likely to be a newer, more desirable model, so not all of the gap is condition alone.",
+      "We grouped listings that left the shelf by the condition the seller selected, using the asking price at departure. The direction is solid: better grades leave at higher asks. The exact multiple is indicative — an item listed new-with-tags is also more likely to be a newer, more desirable model, so not all of the gap is condition alone.",
       "On Nike sneakers, the measured shape ran roughly €70 new with tags, €50 new without, €30 very good, €15 good, €10 satisfactory. The drop from “very good” to “good” halved the median. Grade in daylight before money moves. If you cannot stand behind the grade, do not buy it.",
       "Resale IQ does not verify authenticity. We tell you whether the brand is moving and what comparable listings left at. Starter €19 a month for named-model BUY / WATCH / SKIP. Weekly volumes stay public on /data.",
     ],
