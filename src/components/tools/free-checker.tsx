@@ -718,7 +718,10 @@ export function FreeChecker({
         <input
           name="query"
           required
-          autoFocus={hero}
+          // No autoFocus: when the checker sits below the fold (homepage, pricing),
+          // focusing it makes mobile browsers scroll ~580px down on load, so visitors
+          // never see the hero, and the keyboard pops up uninvited.
+          autoFocus={false}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={resolvedPlaceholder}
