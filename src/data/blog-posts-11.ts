@@ -36,8 +36,8 @@ export const POSTS_11: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €32.29 (brand-level, 208 departures/30d on EU Vinted) and Vinted modelling roughly a 5% platform deduction, the departure-net is around €30.68. Applying a 30% target margin gives a rough buy-below of approximately €21. For BOSS blazers specifically — which exit at €50–90 in very good condition — the implied buy-below stretches to €35–65. ResaleIQ does not publish a per-model buy-below for Hugo Boss (not in per-model catalogue).",
-          "Hoodies at €16.91 average give a rough buy-below near €11. Shirts at €12.82 give a buy-below near €8. Tracksuits at €17.66 give a buy-below near €11.50. T-Shirts at €13.51 give a buy-below near €8.80. The Jacket category is where the practical sourcing case lives — particularly BOSS blazers at €50–90 exit.",
+          "With Jackets averaging €32.29 (brand-level, 208 departures/30d on EU Vinted), applying a 30% target margin gives a rough buy-below of approximately €23. For BOSS blazers specifically — which exit at €50–90 in very good condition — the implied buy-below stretches to €35–65. ResaleIQ does not publish a per-model buy-below for Hugo Boss (not in per-model catalogue).",
+          "Hoodies at €16.91 average give a rough buy-below near €12. Shirts at €12.82 give a buy-below near €9. Tracksuits at €17.66 give a buy-below near €11.50. T-Shirts at €13.51 give a buy-below near €8.80. The Jacket category is where the practical sourcing case lives — particularly BOSS blazers at €50–90 exit.",
         ],
         cta: pricingMidCta("ctr_hugoboss_20260915"),
       },
@@ -78,7 +78,7 @@ export const POSTS_11: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Hugo Boss on Vinted?",
-        a: "For Hugo Boss Jackets (brand-level avg €32.29, 208 departures/30d): rough buy-below ~€21. For BOSS blazers specifically (which exit at €55–95 in very good condition), the implied buy-below is €38–65. Hoodies at €16.91 avg give rough buy-below ~€11. Shirts at €12.82 give rough buy-below ~€8. T-Shirts and Tracksuits are below practical sourcing floor. ResaleIQ does not publish per-model ceilings for Hugo Boss (not in per-model catalogue).",
+        a: "For Hugo Boss Jackets (brand-level avg €32.29, 208 departures/30d): rough buy-below ~€23. For BOSS blazers specifically (which exit at €55–95 in very good condition), the implied buy-below is €38–65. Hoodies at €16.91 avg give rough buy-below ~€12. Shirts at €12.82 give rough buy-below ~€9. T-Shirts and Tracksuits are below practical sourcing floor. ResaleIQ does not publish per-model ceilings for Hugo Boss (not in per-model catalogue).",
       },
       {
         q: "What Hugo Boss items sell best on Vinted?",
@@ -99,7 +99,7 @@ export const POSTS_11: BlogPost[] = [
     title: "Ralph Lauren Reselling on Vinted: Polo Logo, €46 Hoodies and the Vintage 90s Premium",
     seoTitle: "Is Ralph Lauren Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Ralph Lauren ranks #19 by watched departures across 5 EU Vinted markets — 62/week at €37 average. Hoodies lead at €46 avg (buy-below ~€31).",
+      "Ralph Lauren ranks #19 by watched departures across 5 EU Vinted markets — 62/week at €37 average. Hoodies lead at €46 avg (buy-below ~€32).",
     date: "2026-09-15",
     category: "Sourcing",
     readMins: 7,
@@ -120,8 +120,8 @@ export const POSTS_11: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Hoodies averaging €46 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €43.70. Applying a 30% target margin gives a buy-below of approximately €31. For vintage Polo hoodies specifically (which exit at €80–200), the buy-below stretches to €55–140 — making any vintage Polo hoodie found below €55 at a charity shop a rational sourcing decision at current EU Vinted departure prices.",
-          "Jackets at €50 average give a buy-below near €33. Shirts at €30 give a buy-below near €20. T-Shirts at €19 give a buy-below near €13. Caps at €20 give a buy-below near €14. The Hoodie and Jacket categories have the strongest sourcing cases — Shirts at a €20 buy-below are viable if sourcing prices remain under €12, which is achievable at charity shops but requires consistent stock volume to be a deliberate sourcing line.",
+          "With Hoodies averaging €46 at departure, applying a 30% target margin gives a buy-below of approximately €32. For vintage Polo hoodies specifically (which exit at €80–200), the buy-below stretches to €55–140 — making any vintage Polo hoodie found below €55 at a charity shop a rational sourcing decision at current EU Vinted departure prices.",
+          "Jackets at €50 average give a buy-below near €35. Shirts at €30 give a buy-below near €21. T-Shirts at €19 give a buy-below near €13. Caps at €20 give a buy-below near €14. The Hoodie and Jacket categories have the strongest sourcing cases — Shirts at a €21 buy-below are viable if sourcing prices remain under €12, which is achievable at charity shops but requires consistent stock volume to be a deliberate sourcing line.",
         ],
         cta: pricingMidCta("ctr_rl_20260915"),
       },
@@ -165,11 +165,11 @@ export const POSTS_11: BlogPost[] = [
     faq: [
       {
         q: "Is Ralph Lauren worth reselling on Vinted?",
-        a: "Yes — particularly Hoodies and Jackets, and especially vintage 90s Polo. Ralph Lauren ranked #19 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 62 departures at €37 average. Hoodies average €46 (buy-below ~€31). The standout opportunity is vintage 90s Polo identification: big-logo 90s Polo hoodies exit at €80–200 at EU Vinted but are priced at €10–25 at EU charity shops.",
+        a: "Yes — particularly Hoodies and Jackets, and especially vintage 90s Polo. Ralph Lauren ranked #19 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 62 departures at €37 average. Hoodies average €46 (buy-below ~€32). The standout opportunity is vintage 90s Polo identification: big-logo 90s Polo hoodies exit at €80–200 at EU Vinted but are priced at €10–25 at EU charity shops.",
       },
       {
         q: "What is the buy-below price for Ralph Lauren on Vinted?",
-        a: "For Ralph Lauren Hoodies: with an average departure of €46 and 5% platform deduction, buy-below sits around €31. For vintage 90s Polo hoodies (which exit at €80–200), buy-below stretches to €55–140. Jackets at €50 avg give buy-below near €33. Shirts at €30 give buy-below near €20. T-Shirts at €19 give buy-below near €13. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Ralph Lauren Hoodies: with an average departure of €46, buy-below sits around €32. For vintage 90s Polo hoodies (which exit at €80–200), buy-below stretches to €55–140. Jackets at €50 avg give buy-below near €35. Shirts at €30 give buy-below near €21. T-Shirts at €19 give buy-below near €13. Resale IQ returns exact buy-below by brand, model, and condition.",
       },
       {
         q: "What Ralph Lauren items sell best on Vinted?",

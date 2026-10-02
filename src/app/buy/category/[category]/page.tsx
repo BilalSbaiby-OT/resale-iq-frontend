@@ -82,7 +82,7 @@ export default async function BuyCategoryPage({
     `${rows.length} brands had ${categoryName.toLowerCase()} depart on Vinted in the last 30 days. ` +
     `Combined, that is ${fmtCountBuy(total30d)} departures across Spain, France, Germany, Italy and Portugal. ` +
     (top
-      ? `${top.brand.brand} leads with ${fmtCountBuy(top.cat.sold_30d)} ${lower} sold — buy below ${fmtEurBuy(top.cat.buy_below)} to target a 45% gross margin. `
+      ? `${top.brand.brand} leads with ${fmtCountBuy(top.cat.sold_30d)} ${lower} sold — buy below ${fmtEurBuy(top.cat.buy_below)} to target a 30% gross margin. `
       : "") +
     `These are confirmed departures, not active listings.`
 

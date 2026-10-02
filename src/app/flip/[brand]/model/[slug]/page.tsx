@@ -81,7 +81,7 @@ export default async function ModelFlipPage(
     definedTermJsonLd({
       name: "Buy-below price",
       description:
-        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70.",
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.70.",
       url: `${BASE}${modelPath(m)}`,
     }),
     {

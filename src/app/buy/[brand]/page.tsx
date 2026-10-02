@@ -70,7 +70,7 @@ export default async function BuyBrandPage({
   const intro = `${brand.brand} had an estimated ${fmtCountBuy(brand.sold_30d)} departures in the last 30 days across Spain, France, Germany, Italy and Portugal. ` +
     `The best-performing category is ${topCat?.category ?? "—"}, ` +
     (topCat?.buy_below
-      ? `where the buy-below price is ${fmtEurBuy(topCat.buy_below)} (items selling for more at auction tend to yield lower margins — the buy-below is the most you should pay to hit a ~45% gross margin after Vinted fees and postage).`
+      ? `where the buy-below price is ${fmtEurBuy(topCat.buy_below)} (items selling for more at auction tend to yield lower margins — the buy-below is the most you should pay to hit a ~30% gross margin).`
       : `with data from multiple snapshots. Buy-below prices are derived from average departure prices.`)
 
   const jsonLd = [
@@ -157,8 +157,8 @@ export default async function BuyBrandPage({
             {brand.brand} buy-below by category
           </h2>
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
-            Buy-below is the maximum you should pay to achieve a ~45% gross margin after Vinted&apos;s
-            selling fee and postage. It is derived from the average departure price — not from listed asking
+            Buy-below is the maximum you should pay to achieve a ~30% gross margin: the average departure
+            price × 0.70. It is derived from the average departure price — not from listed asking
             prices, which are wishes not facts. Use the free checker for a model-level verdict.
           </p>
 

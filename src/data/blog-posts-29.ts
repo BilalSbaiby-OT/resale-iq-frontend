@@ -39,7 +39,7 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Handball Spezial: the leading Adidas model on EU Vinted",
         p: [
-          "The Handball Spezial is the single most-departed Adidas sneaker on EU Vinted in our September 2026 data: 12 watched departures in 7 days at an average exit price of €79.38. The buy-below price — the maximum sourcing cost that leaves a defensible margin at that exit — is €52.79.",
+          "The Handball Spezial is the single most-departed Adidas sneaker on EU Vinted in our September 2026 data: 12 watched departures in 7 days at an average exit price of €79.38. The buy-below price — the maximum sourcing cost that leaves a defensible margin at that exit — is €55.57.",
           "The Handball Spezial benefits from the same cultural moment as the broader Adidas heritage revival (Samba, Gazelle, Campus) but exits at a higher average price than any of those models, reflecting its narrower retail availability and stronger buyer recognition. Sourcing at charity shops and flea markets at €30–45 and exiting at €79 creates 40%+ gross margins — the model is worth prioritising at those sourcing levels.",
           "The key condition factor for Handball Spezials is the suede upper: scuffing, staining, and flattened nap all compress the exit price significantly. Budget for a suede brush and cleaner; a clean pair fetches the full departure average, a tired pair drops €15–20 below it.",
         ],
@@ -47,16 +47,16 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Stan Smith: steady exits at the highest average",
         p: [
-          "The Stan Smith is the highest average-exit Adidas model tracked: €84.14 average departure price, buy-below €55.95, with 7 watched departures in the 7-day window. Volume is lower than the Handball Spezial, but exit prices are higher and relatively consistent — the model has been a Vinted staple for years and buyer demand is well-established.",
+          "The Stan Smith is the highest average-exit Adidas model tracked: €84.14 average departure price, buy-below €58.90, with 7 watched departures in the 7-day window. Volume is lower than the Handball Spezial, but exit prices are higher and relatively consistent — the model has been a Vinted staple for years and buyer demand is well-established.",
           "Stan Smiths on EU Vinted are overwhelmingly the standard white/green colourway. Premium colourways (monochrome, Lux leather editions, collaborations with Pharrell or Prada) exit at €150–300+, but those pairs require authentication and are less frequently sourced casually. For standard sourcing — charity shops, flea markets — price everything as though it is the standard colourway until confirmed otherwise.",
-          "Stan Smith condition is primarily about the leather upper and toe box: yellowed soles and scuffed toes are the most common value reducers. A clean pair at €84 versus a worn pair at €55–60 is the realistic spread. Budget accordingly when sourcing. The buy-below of €55.95 assumes average condition — very clean pairs can exit above the departure average.",
+          "Stan Smith condition is primarily about the leather upper and toe box: yellowed soles and scuffed toes are the most common value reducers. A clean pair at €84 versus a worn pair at €55–60 is the realistic spread. Budget accordingly when sourcing. The buy-below of €58.90 assumes average condition — very clean pairs can exit above the departure average.",
         ],
       },
       {
         h: "Samba and Samba OG: the trend models",
         p: [
-          "The Samba is the most culturally prominent Adidas shoe on Vinted right now — but not the most profitable sourcing target on volume/margin criteria. Samba exits average €48.01 with 6 departures in the last 30 days; Samba OG exits at €60.61 with 5 departures. The buy-below prices are €31.93 (Samba) and €40.31 (Samba OG).",
-          "Those buy-below ceilings are meaningful: a standard Samba in good condition sells for just under €50 on EU Vinted. Sourcing above €31.93 erodes the margin below defensible levels at that exit average. The model's high retail demand keeps secondhand supply relatively thin — which supports the price but means fewer sourcing opportunities per month compared to a model with higher turnover.",
+          "The Samba is the most culturally prominent Adidas shoe on Vinted right now — but not the most profitable sourcing target on volume/margin criteria. Samba exits average €48.01 with 6 departures in the last 30 days; Samba OG exits at €60.61 with 5 departures. The buy-below prices are €33.61 (Samba) and €42.43 (Samba OG).",
+          "Those buy-below ceilings are meaningful: a standard Samba in good condition sells for just under €50 on EU Vinted. Sourcing above €33.61 erodes the margin below defensible levels at that exit average. The model's high retail demand keeps secondhand supply relatively thin — which supports the price but means fewer sourcing opportunities per month compared to a model with higher turnover.",
           "Samba OG exits higher (€60.61) because it is the premium-construction variant with a slightly different silhouette — buyers who know the range specifically seek OG. If you find both at the same source price, always prefer the OG. The colourway split follows the same pattern as Stan Smiths: black/white and gum-sole colourways are the most liquid.",
           `[Current Samba departure data →](${ilinkHref("data")})`,
         ],
@@ -64,9 +64,9 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Campus 00s and Gazelle Indoor: the wider catalogue",
         p: [
-          "The Campus 00s exits at €37.99 with 4 departures in the last 30 days — the lowest exit price of the tracked Adidas models. Buy-below is €25.26. The low absolute exit price means smaller per-unit margin in euros, even at defensible margin percentages. Campus 00s are worth sourcing at charity shop prices (€8–20 clean) but not at prices that require competitive above-floor sourcing.",
-          "The Gazelle Indoor is a newer entrant to Vinted resale: 4 departures in the last 30 days at €58.00 average exit, buy-below €38.57. The model benefits from strong editorial coverage in 2025–2026 and is still in growth phase for Vinted demand. It is worth watching as a sourcing category — the current volume is modest but the exit price is reasonable.",
-          "The Forum Low rounds out the tracked catalogue: €42.17 average exit, buy-below €28.04, 3 departures in the last 30 days. Low volume makes it a secondary sourcing target — only buy Forum Lows if sourced below €28 and in clean condition.",
+          "The Campus 00s exits at €37.99 with 4 departures in the last 30 days — the lowest exit price of the tracked Adidas models. Buy-below is €26.59. The low absolute exit price means smaller per-unit margin in euros, even at defensible margin percentages. Campus 00s are worth sourcing at charity shop prices (€8–20 clean) but not at prices that require competitive above-floor sourcing.",
+          "The Gazelle Indoor is a newer entrant to Vinted resale: 4 departures in the last 30 days at €58.00 average exit, buy-below €40.60. The model benefits from strong editorial coverage in 2025–2026 and is still in growth phase for Vinted demand. It is worth watching as a sourcing category — the current volume is modest but the exit price is reasonable.",
+          "The Forum Low rounds out the tracked catalogue: €42.17 average exit, buy-below €29.52, 3 departures in the last 30 days. Low volume makes it a secondary sourcing target — only buy Forum Lows if sourced below €28 and in clean condition.",
         ],
       },
       {
@@ -81,9 +81,9 @@ export const POSTS_29: BlogPost[] = [
       {
         h: "Setting your Adidas buy-below price per model",
         p: [
-          "The buy-below formula is consistent across brands: (EU Vinted departure average) × (1 − target margin %) − selling costs. On Vinted, seller fees are zero — only shipping if included. A 30% gross margin target gives: Handball Spezial ceiling = €79.38 × 0.7 = €55.57 (ResaleIQ reports €52.79, slightly tighter). Stan Smith ceiling = €84.14 × 0.7 = €58.90 (ResaleIQ: €55.95). The gap between the formula estimate and ResaleIQ's reported buy-below reflects condition-adjusted departure averages and a more conservative margin assumption.",
-          "Use the ResaleIQ buy-below as the hard ceiling and the formula estimate as the aspiration. Sourcing below the formula figure (€55 for Handball Spezial vs €52.79 ceiling) means the margin survives condition variance. Sourcing right at the ceiling means condition must be clean — any wear wipes the margin.",
-          `For models not in ResaleIQ's catalogue, use the Adidas brand average (approximately €59) and apply a 30–35% buy-below ceiling (€39–41). That is more conservative than the actual Handball Spezial or Stan Smith ceiling but protects you from mistaking a lower-value model for a higher-value one. [Check live Adidas model data →](${ilinkHref("data")})`,
+          "The buy-below formula is consistent across brands: (EU Vinted departure average) × (1 − target margin %) − selling costs. On Vinted, seller fees are zero — only shipping if included. A 30% gross margin target gives: Handball Spezial ceiling = €79.38 × 0.7 = €55.57 (ResaleIQ reports €55.57, slightly tighter). Stan Smith ceiling = €84.14 × 0.7 = €58.90 (ResaleIQ: €58.90). The gap between the formula estimate and ResaleIQ's reported buy-below reflects condition-adjusted departure averages and a more conservative margin assumption.",
+          "Use the ResaleIQ buy-below as the hard ceiling and the formula estimate as the aspiration. Sourcing below the formula figure (€55 for Handball Spezial vs €55.57 ceiling) means the margin survives condition variance. Sourcing right at the ceiling means condition must be clean — any wear wipes the margin.",
+          `For models not in ResaleIQ's catalogue, use the Adidas brand average (approximately €59) and apply a 30–35% buy-below ceiling (€41–41). That is more conservative than the actual Handball Spezial or Stan Smith ceiling but protects you from mistaking a lower-value model for a higher-value one. [Check live Adidas model data →](${ilinkHref("data")})`,
         ],
       },
     ],
@@ -94,7 +94,7 @@ export const POSTS_29: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Adidas Samba on EU Vinted?",
-        a: "The ResaleIQ buy-below price for Adidas Samba on EU Vinted is €31.93, based on an average exit price of €48.01. The Samba OG has a higher buy-below of €40.31 (exit average €60.61). Both figures assume standard colourways in good condition. Sourcing above these ceilings at average exits does not leave a defensible margin.",
+        a: "The ResaleIQ buy-below price for Adidas Samba on EU Vinted is €33.61, based on an average exit price of €48.01. The Samba OG has a higher buy-below of €42.43 (exit average €60.61). Both figures assume standard colourways in good condition. Sourcing above these ceilings at average exits does not leave a defensible margin.",
       },
       {
         q: "Which Adidas sneaker sells best on Vinted?",
@@ -102,7 +102,7 @@ export const POSTS_29: BlogPost[] = [
       },
       {
         q: "Is it worth reselling Adidas sneakers on Vinted?",
-        a: "Yes for the right models at the right source price. The Handball Spezial at €79 average exit and €52.79 buy-below ceiling offers a strong margin for sourcing at charity shop or flea market prices. Stan Smith (€84.14 exit, €55.95 ceiling) is also a reliable sourcing target. Campus 00s and Forum Lows exit lower and require very cheap sourcing to make margin.",
+        a: "Yes for the right models at the right source price. The Handball Spezial at €79 average exit and €55.57 buy-below ceiling offers a strong margin for sourcing at charity shop or flea market prices. Stan Smith (€84.14 exit, €58.90 ceiling) is also a reliable sourcing target. Campus 00s and Forum Lows exit lower and require very cheap sourcing to make margin.",
       },
       {
         q: "How do I price Adidas Samba listings on Vinted?",

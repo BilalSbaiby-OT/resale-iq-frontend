@@ -15,6 +15,7 @@ import { queryCoverageKind } from "@/lib/query-coverage"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { useT } from "@/components/i18n/locale-provider"
+import { buyBelowFromAvg } from "@/lib/buy-below"
 
 // The three brands most likely to resonate with a new reseller — confirmed
 // moving at volume in the public market-snapshot. Shown while the user waits
@@ -315,8 +316,8 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
       {/* C(tony)WaitingVerdictPreview: blurred verdict teaser for tracked intent
           queries. Mirrors the real verdict card format (brand, category, demand,
           avg price, buy-below) but locks the buy-below number behind a blur —
-          the €value shown is a DISPLAY-ONLY approximation (avg_price * 0.7), not
-          the real buy-below formula. Goal: make the shape of the payoff visible
+          the €value shown is a DISPLAY-ONLY approximation (avg_price × 0.70 from
+          buy-below.ts), not the verdict API's own buy_below. Goal: make the shape of the payoff visible
           without giving away the actual number, so verification feels like the
           last step to an already-computed answer. */}
       {!intentIsUntracked && displayRow && (
@@ -346,7 +347,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Buy below")}</span>
               <span className="flex items-center gap-1.5">
                 <span className="blur-sm select-none text-[13px] font-semibold" aria-hidden="true">
-                  €{Math.round(displayRow!.avg_price_eur * 0.7)}
+                  €{Math.round(buyBelowFromAvg(displayRow!.avg_price_eur))}
                 </span>
                 <Lock size={11} className={AUTH_TEXT_MUTED} />
               </span>

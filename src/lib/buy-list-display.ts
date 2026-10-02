@@ -17,7 +17,7 @@ const ROW_WORDS: Record<Locale, { entry: string; target: string; sold: (n: strin
 }
 
 /** Real stored ceiling, rounded to the euro the row prints. Null stays null —
- *  never avg × 0.665. A missing number is not a price. */
+ *  never avg × 0.70. A missing number is not a price. */
 export function buyBelowLabel(buyBelow: number | null | undefined, locale: Locale = "en"): string | null {
   if (typeof buyBelow !== "number" || !Number.isFinite(buyBelow)) return null
   return `${ROW_WORDS[locale].entry} €${Math.round(buyBelow)}`

@@ -61,9 +61,10 @@ export const POSTS_20: BlogPost[] = [
         h: "How to calculate profit for tax purposes",
         p: [
           "Gross sales on the platform is not profit. Taxable profit in reselling is roughly: **sale price − cost of goods − platform fees − shipping − other direct costs**.",
-          "For Vinted: sale price × 0.95 ≈ what you receive after the ~5% Vinted deduction (varies slightly by country and listing type). Subtract the price you paid for the item. Subtract any shipping materials. What remains is your taxable margin on that transaction.",
-          "Example: You buy a Stone Island hoodie for €30 at a charity shop. It sells on Vinted at €72. After Vinted's 5% deduction, you receive ~€68.40. Taxable profit: €68.40 − €30 − €1.50 (packaging) = €36.90.",
-          "Resale IQ's buy-below calculation models this: `departure average × 0.95 × 0.70`. The 0.95 is the platform-fee model; the 0.70 represents 30% of the net proceeds as your target margin. If you are consistently hitting that 30% margin, that is approximately what you would declare as profit per transaction.",
+          "For Vinted: declare what you actually received. Vinted charges private sellers no selling fee, so on a Vinted sale that is the full sale price (the buyer pays Buyer Protection on top, and it never reaches you). If you resell on another platform, use the amount actually paid out to you after its fees. Subtract the price you paid for the item. Subtract any shipping materials. What remains is your taxable margin on that transaction.",
+          "Example: You buy a Stone Island hoodie for €30 at a charity shop. It sells on Vinted at €72, and you receive €72. Taxable profit: €72 − €30 − €1.50 (packaging) = €40.50.",
+          "Resale IQ's buy-below calculation models this: `departure average × 0.70`. The 0.70 leaves 30% of the sale price as your target margin. If you are consistently hitting that 30% margin, that is approximately what you would declare as profit per transaction.",
+          "This is general information, not tax advice. Rules differ by country and by whether you count as a trader, so check with an accountant or your tax authority before you file.",
           "The departure average you see in the [flip tracker](" + ilinkHref("flip") + ") is based on watched listings across EU Vinted markets — use it as the reference price for your records.",
         ],
       },
@@ -71,7 +72,7 @@ export const POSTS_20: BlogPost[] = [
         h: "Record keeping: what to log for each transaction",
         p: [
           "Whether or not you owe tax today, building a records habit now protects you if a tax authority queries a future year. The minimum records for each transaction:",
-          "1. Item description (brand, type, condition)\n2. Purchase price and where you bought it (charity shop, flea market, eBay — keep receipts where possible)\n3. Sale price and date\n4. Platform fee deducted\n5. Shipping cost\n6. Net profit on the transaction",
+          "1. Item description (brand, type, condition)\n2. Purchase price and where you bought it (charity shop, flea market, eBay — keep receipts where possible)\n3. Sale price and date\n4. Platform fee deducted (if any — none on Vinted for private sellers)\n5. Shipping cost\n6. Net profit on the transaction",
           "A spreadsheet with one row per item is sufficient. The manual chapter on [tax and the rules](/manual/tax-and-the-rules) covers which fields matter.",
           "Resale IQ's buy-below tool already gives you the expected margin before you source. If you record your actual buy price alongside the departure average at the time of purchase, your margin log is largely built from the platform's data.",
         ],
@@ -116,7 +117,7 @@ export const POSTS_20: BlogPost[] = [
       },
       {
         q: "How do I calculate profit from Vinted sales for tax?",
-        a: "Profit = sale price × 0.95 (after ~5% Vinted deduction) − cost of goods − shipping materials. Declare this net figure, not the gross sale price. Keep a record of every purchase with its buy price and source — this is your cost-of-goods evidence if the tax authority queries a year's returns.",
+        a: "Profit = the amount you actually received (on Vinted, the full sale price, because Vinted charges private sellers no selling fee) − cost of goods − shipping materials. Declare that profit figure, not the gross sale price. This is general information, not tax advice — check with an accountant. Keep a record of every purchase with its buy price and source — this is your cost-of-goods evidence if the tax authority queries a year's returns.",
       },
       {
         q: "What expenses can I deduct as a Vinted reseller?",

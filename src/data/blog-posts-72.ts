@@ -22,11 +22,11 @@ export const POSTS_72: BlogPost[] = [
 
     preflightQuery: "Adidas Samba",
     intro:
-      "The Adidas Samba is EU Vinted's most searched sneaker — and the one resellers most frequently get burned by. In the week to 15 September 2026, ResaleIQ tracked 6 watched departures of the Adidas Samba across EU Vinted against 27,338 active listings. That is 210 months of supply at current departure rates. The average exit price is €48.01, with a buy-below ceiling of €31.93 — but finding a Samba under €32 at a charity shop that you can reliably exit at the average is harder than it sounds with that much competition. The exception is size 41: buyers in that size pay a €82 average and sourcing ceiling rises to €54.53. This guide gives you the full Samba data for September 2026, explains why the oversupply exists, where the exceptions are, and which Adidas models are better sourcing targets right now.",
+      "The Adidas Samba is EU Vinted's most searched sneaker — and the one resellers most frequently get burned by. In the week to 15 September 2026, ResaleIQ tracked 6 watched departures of the Adidas Samba across EU Vinted against 27,338 active listings. That is 210 months of supply at current departure rates. The average exit price is €48.01, with a buy-below ceiling of €33.61 — but finding a Samba under €34 at a charity shop that you can reliably exit at the average is harder than it sounds with that much competition. The exception is size 41: buyers in that size pay a €82 average and sourcing ceiling rises to €57.40. This guide gives you the full Samba data for September 2026, explains why the oversupply exists, where the exceptions are, and which Adidas models are better sourcing targets right now.",
     definedTerm: {
       name: "Adidas Samba departure average",
       description:
-        "The Adidas Samba departure average is the average price at which a tracked Adidas Samba listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Adidas Samba tracks 6 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €48.01 average exit price, with 27,338 active listings. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at category level is €31.93 — the maximum sourcing price that keeps gross margin positive after Vinted's seller protection fee, targeting a 35% gross margin. The Samba OG variant tracks separately at 3 departures in the last 30 days at a €60.61 average, with a buy-below of €40.31. The best-performing EU market for Samba exits is Germany.",
+        "The Adidas Samba departure average is the average price at which a tracked Adidas Samba listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Adidas Samba tracks 6 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €48.01 average exit price, with 27,338 active listings. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at category level is €33.61 — the maximum sourcing price that keeps gross margin positive, targeting a 30% gross margin. The Samba OG variant tracks separately at 3 departures in the last 30 days at a €60.61 average, with a buy-below of €42.43. The best-performing EU market for Samba exits is Germany.",
     },
     sections: [
       {
@@ -53,7 +53,7 @@ export const POSTS_72: BlogPost[] = [
             ["Watched departures/7d", "6", "3"],
             ["Average exit price", "€48.01", "€60.61"],
             ["Median exit price", "€39.00", "€60.00"],
-            ["Buy-below ceiling", "€31.93", "€40.31"],
+            ["Buy-below ceiling", "€33.61", "€42.43"],
             ["Active listings", "27,338", "3,082"],
             ["Months supply", "210", "67"],
             ["Best EU market", "Germany", "Spain"],
@@ -64,9 +64,9 @@ export const POSTS_72: BlogPost[] = [
       {
         h: "Size-level buy-below prices: where the Samba economics work",
         p: [
-          "The category-level buy-below of €31.93 is the floor — but size-level data tells a more nuanced story. Adidas Sambas exit at significantly different prices by size, creating targeted sourcing opportunities that the category average hides.",
-          "Size 41 is the stand-out: 3 exits at an average of €82.00 over the tracking period, with a buy-below ceiling of €54.53. Buyers paying €82 for a Samba in size 41 are likely seeking a specific colourway or the OG version in that size — supply scarcity for larger EU men's sizes drives the premium. If you find a clean Samba in size 41 priced under €54, the economics work regardless of the oversupply at the category level.",
-          "Size 39 exits at an average of €60.27 with a buy-below of €40.08. Sizes 38 and 40 cluster near or below the general category average; size 37 is the weakest exit at €30.52 average. The practical rule: prioritise sizes 39 and above when sourcing Sambas — exit prices are meaningfully higher and buy-below ceilings are more achievable at charity-shop sourcing levels.",
+          "The category-level buy-below of €33.61 is the floor — but size-level data tells a more nuanced story. Adidas Sambas exit at significantly different prices by size, creating targeted sourcing opportunities that the category average hides.",
+          "Size 41 is the stand-out: 3 exits at an average of €82.00 over the tracking period, with a buy-below ceiling of €57.40. Buyers paying €82 for a Samba in size 41 are likely seeking a specific colourway or the OG version in that size — supply scarcity for larger EU men's sizes drives the premium. If you find a clean Samba in size 41 priced under €54, the economics work regardless of the oversupply at the category level.",
+          "Size 39 exits at an average of €60.27 with a buy-below of €42.19. Sizes 38 and 40 cluster near or below the general category average; size 37 is the weakest exit at €30.52 average. The practical rule: prioritise sizes 39 and above when sourcing Sambas — exit prices are meaningfully higher and buy-below ceilings are more achievable at charity-shop sourcing levels.",
         ],
         table: {
           caption: "Adidas Samba EU Vinted size-level data — Sep 2026",
@@ -84,7 +84,7 @@ export const POSTS_72: BlogPost[] = [
       {
         h: "Samba OG vs Samba: which to source",
         p: [
-          "The Samba OG is a distinct model from the standard Samba — it carries the original gum-sole construction, a slightly different last, and the authentic 1950s silhouette versus the more lifestyle-oriented standard Samba. On EU Vinted, the Samba OG exits at €60.61 average versus €48.01 for the standard, with a buy-below ceiling of €40.31.",
+          "The Samba OG is a distinct model from the standard Samba — it carries the original gum-sole construction, a slightly different last, and the authentic 1950s silhouette versus the more lifestyle-oriented standard Samba. On EU Vinted, the Samba OG exits at €60.61 average versus €48.01 for the standard, with a buy-below ceiling of €42.43.",
           "The supply overhang is less severe on the OG: 3,082 active listings versus 27,338 for the standard, giving 67 months of supply versus 210. That is still elevated, but significantly less saturated. If a source has both variants priced identically, always take the OG.",
           "Authentication is the critical skill: at a charity shop, the OG and standard Samba look similar to non-specialists. The OG has a thicker gum sole, a slightly lower profile, and 'OG' text on the heel. Verify before pricing as standard — a correct OG identification at a charity shop priced at €5–8 gives you a €60+ exit asset versus a €30–40 one.",
           `[Check current Samba and Samba OG departure data →](${ilinkHref("data")})`,
@@ -95,8 +95,8 @@ export const POSTS_72: BlogPost[] = [
         h: "Better Adidas sourcing alternatives: Handball Spezial and Stan Smith",
         p: [
           "If you want Adidas exposure on EU Vinted, the Samba is not the best model to focus on in September 2026. Two models significantly outperform it on the criteria that matter for resellers:",
-          "The Handball Spezial is the highest-volume Adidas model in our tracked data: 12 departures in the last 30 days at a €79.38 average exit, with a buy-below of €52.79. The supply situation is entirely different — active listings are manageable, the STABLE momentum label means the model is holding its exit price without declining, and the exit average is 65% higher than the Samba's. Size 39 and 38 dominate volume, both with strong exits. The Handball Spezial is harder to find at charity shops than the Samba — precisely because it has not been mass-produced at the same scale — but that scarcity is what makes it a better sourcing target.",
-          "The Stan Smith exits at the highest Adidas average tracked: €84.14 with 7 departures in the last 30 days and RISING momentum. The white/green OG colourway is liquid and consistently demanded; supply is present at charity shops across EU without the extreme saturation of the Samba. Buy-below ceiling €55.95.",
+          "The Handball Spezial is the highest-volume Adidas model in our tracked data: 12 departures in the last 30 days at a €79.38 average exit, with a buy-below of €55.57. The supply situation is entirely different — active listings are manageable, the STABLE momentum label means the model is holding its exit price without declining, and the exit average is 65% higher than the Samba's. Size 39 and 38 dominate volume, both with strong exits. The Handball Spezial is harder to find at charity shops than the Samba — precisely because it has not been mass-produced at the same scale — but that scarcity is what makes it a better sourcing target.",
+          "The Stan Smith exits at the highest Adidas average tracked: €84.14 with 7 departures in the last 30 days and RISING momentum. The white/green OG colourway is liquid and consistently demanded; supply is present at charity shops across EU without the extreme saturation of the Samba. Buy-below ceiling €58.90.",
           "Neither the Handball Spezial nor the Stan Smith generates the social-media recognition of the Samba — but on EU Vinted, resale buyers are spending real money, not looking for hype signals. The Handball Spezial and Stan Smith convert at higher prices with healthier supply dynamics.",
         ],
         table: {
@@ -115,8 +115,8 @@ export const POSTS_72: BlogPost[] = [
       {
         h: "When Samba sourcing still makes sense",
         p: [
-          "Despite the SKIP verdict and oversupply, Adidas Sambas still make sense to source in three scenarios. First: size 41 sourced under €54.53 — the size-specific buy-below creates a defensible margin even with the category's supply overhang. Second: Samba colourway arbitrage — specific limited colourways (Wales Bonner, Humanrace, Patta) exit at €150–300 when correctly identified, and charity-shop sources that mislabel them as generic Sambas are the opportunity. Identification requires knowing the specific colourway details; a basic eye for unusual Samba colourways with a label check is enough. Third: standard colourways at deeply discounted sourcing levels below €15, where even a €35–40 median exit gives a positive margin.",
-          "The common mistake is buying a standard Samba in a common size (38, 40) at €20–30 from another reseller or at a curated vintage shop, then being surprised that it exits at €35–40 after platform fees rather than the €48 category average. The category average includes premium colourways and rare sizes that distort the mean. For standard colourways in common sizes, the realistic exit is the €39 median — plan buy-below around that figure.",
+          "Despite the SKIP verdict and oversupply, Adidas Sambas still make sense to source in three scenarios. First: size 41 sourced under €57.40 — the size-specific buy-below creates a defensible margin even with the category's supply overhang. Second: Samba colourway arbitrage — specific limited colourways (Wales Bonner, Humanrace, Patta) exit at €150–300 when correctly identified, and charity-shop sources that mislabel them as generic Sambas are the opportunity. Identification requires knowing the specific colourway details; a basic eye for unusual Samba colourways with a label check is enough. Third: standard colourways at deeply discounted sourcing levels below €15, where even a €35–40 median exit gives a positive margin.",
+          "The common mistake is buying a standard Samba in a common size (38, 40) at €20–30 from another reseller or at a curated vintage shop, then being surprised that it exits at €35–40 rather than the €48 category average. The category average includes premium colourways and rare sizes that distort the mean. For standard colourways in common sizes, the realistic exit is the €39 median — plan buy-below around that figure.",
           `ResaleIQ's Deal Scanner surfaces the current Samba buy-below ceiling alongside all other EU Vinted models in real time. For size-specific prices and the current opportunity score across all Adidas models, the full data is in the app. [See Adidas model data →](${ilinkHref("flip")})`,
         ],
         cta: pricingBodyCta("ctr_adidas_samba_bottom_20260915"),
@@ -129,7 +129,7 @@ export const POSTS_72: BlogPost[] = [
       },
       {
         q: "What is the Adidas Samba buy-below price for EU Vinted resellers?",
-        a: "The category-level buy-below ceiling is €31.93 — the maximum sourcing price that maintains a positive gross margin at the €48 category average after Vinted's platform fee. For size 41 specifically, the buy-below rises to €54.53. For size 39, it is €40.08. For size 37, it drops to €20.30.",
+        a: "The category-level buy-below ceiling is €33.61 — the maximum sourcing price that maintains a positive gross margin at the €48 category average. For size 41 specifically, the buy-below rises to €57.40. For size 39, it is €42.19. For size 37, it drops to €20.30.",
       },
       {
         q: "Is the Adidas Samba oversaturated on Vinted?",

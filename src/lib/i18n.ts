@@ -240,15 +240,15 @@ export const copy = {
       // Change the EN wording and that test goes red — on purpose.
       calc: {
         pageTitle: "Profit calculator",
-        pageSubtitle: "Net profit after Vinted fees. No account required.",
+        pageSubtitle: "Net profit on your own numbers. No account required.",
         buyLabel: "Buy price (€)",
         sellLabel: "Expected sale price (€)",
         submit: "Calculate",
         errBuy: "Enter a buy price greater than 0.",
         errSell: "Enter an expected sale price greater than 0.",
-        netLabel: "Net after Vinted 5% fee",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Sale ${sale} − fee ${fee} − buy ${buy}. Arithmetic on your figures — the 5% is the published Vinted seller-side rate, not a hit-rate claim.`,
+        netLabel: "Net profit",
+        breakdown: (sale: string, buy: string) =>
+          `Sale ${sale} − buy ${buy}. Arithmetic on your figures: Vinted charges private sellers no selling fee (the buyer pays Buyer Protection on top). Paid promotion, packaging and travel are not included.`,
       },
     },
     // The free checker — the conversion moment. Everything a visitor sees
@@ -852,15 +852,15 @@ export const copy = {
       seePlansFooter: "Voir les offres →",
       calc: {
         pageTitle: "Calculateur de profit",
-        pageSubtitle: "Profit net après commission Vinted. Sans compte.",
+        pageSubtitle: "Profit net sur vos propres chiffres. Sans compte.",
         buyLabel: "Prix d'achat (€)",
         sellLabel: "Prix de vente estimé (€)",
         submit: "Calculer",
         errBuy: "Saisissez un prix d'achat supérieur à 0.",
         errSell: "Saisissez un prix de vente estimé supérieur à 0.",
-        netLabel: "Net après la commission Vinted de 5 %",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Vente ${sale} − commission ${fee} − achat ${buy}. Un calcul sur vos propres chiffres — les 5 % sont le taux vendeur publié par Vinted, pas une promesse de résultat.`,
+        netLabel: "Profit net",
+        breakdown: (sale: string, buy: string) =>
+          `Vente ${sale} − achat ${buy}. Un calcul sur vos propres chiffres : Vinted ne prélève aucun frais de vente aux vendeurs particuliers (la protection acheteurs est payée par l'acheteur, en plus). La promotion payante, l'emballage et les déplacements ne sont pas inclus.`,
       },
     },
     checker: {
@@ -1323,15 +1323,15 @@ export const copy = {
       seePlansFooter: "Ver planes →",
       calc: {
         pageTitle: "Calculadora de beneficios",
-        pageSubtitle: "Beneficio neto tras las comisiones de Vinted. Sin cuenta.",
+        pageSubtitle: "Beneficio neto sobre tus propias cifras. Sin cuenta.",
         buyLabel: "Precio de compra (€)",
         sellLabel: "Precio de venta estimado (€)",
         submit: "Calcular",
         errBuy: "Introduce un precio de compra mayor que 0.",
         errSell: "Introduce un precio de venta estimado mayor que 0.",
-        netLabel: "Neto tras la comisión del 5 % de Vinted",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Venta ${sale} − comisión ${fee} − compra ${buy}. Aritmética sobre tus cifras: el 5 % es la tarifa de vendedor publicada por Vinted, no una promesa de resultados.`,
+        netLabel: "Beneficio neto",
+        breakdown: (sale: string, buy: string) =>
+          `Venta ${sale} − compra ${buy}. Aritmética sobre tus cifras: Vinted no cobra comisión de venta a los vendedores particulares (la protección del comprador la paga el comprador, aparte). No se incluyen la promoción de pago, el embalaje ni los desplazamientos.`,
       },
     },
     checker: {
@@ -1795,15 +1795,15 @@ export const copy = {
       seePlansFooter: "Tarife ansehen →",
       calc: {
         pageTitle: "Gewinnrechner",
-        pageSubtitle: "Nettogewinn nach Vinted-Gebühren. Ohne Konto.",
+        pageSubtitle: "Nettogewinn auf Basis deiner eigenen Zahlen. Ohne Konto.",
         buyLabel: "Einkaufspreis (€)",
         sellLabel: "Erwarteter Verkaufspreis (€)",
         submit: "Berechnen",
         errBuy: "Gib einen Einkaufspreis größer als 0 ein.",
         errSell: "Gib einen erwarteten Verkaufspreis größer als 0 ein.",
-        netLabel: "Netto nach 5 % Vinted-Gebühr",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Verkauf ${sale} − Gebühr ${fee} − Einkauf ${buy}. Rechnung auf deinen eigenen Zahlen — die 5 % sind der von Vinted veröffentlichte Verkäufersatz, keine Erfolgszusage.`,
+        netLabel: "Nettogewinn",
+        breakdown: (sale: string, buy: string) =>
+          `Verkauf ${sale} − Einkauf ${buy}. Rechnung auf deinen eigenen Zahlen: Vinted erhebt von privaten Verkäufern keine Verkaufsgebühr (den Käuferschutz zahlt der Käufer obendrauf). Bezahlte Bewerbung, Verpackung und Fahrtkosten sind nicht enthalten.`,
       },
     },
     checker: {
@@ -2267,15 +2267,15 @@ export const copy = {
       seePlansFooter: "Vedi i piani →",
       calc: {
         pageTitle: "Calcolatore di profitto",
-        pageSubtitle: "Profitto netto dopo le commissioni Vinted. Senza account.",
+        pageSubtitle: "Profitto netto sui tuoi numeri. Senza account.",
         buyLabel: "Prezzo di acquisto (€)",
         sellLabel: "Prezzo di vendita previsto (€)",
         submit: "Calcola",
         errBuy: "Inserisci un prezzo di acquisto maggiore di 0.",
         errSell: "Inserisci un prezzo di vendita previsto maggiore di 0.",
-        netLabel: "Netto dopo la commissione Vinted del 5%",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Vendita ${sale} − commissione ${fee} − acquisto ${buy}. Aritmetica sui tuoi numeri: il 5% è la tariffa venditore pubblicata da Vinted, non una promessa di risultato.`,
+        netLabel: "Profitto netto",
+        breakdown: (sale: string, buy: string) =>
+          `Vendita ${sale} − acquisto ${buy}. Aritmetica sui tuoi numeri: Vinted non applica commissioni di vendita ai venditori privati (la protezione acquirenti la paga l'acquirente, in più). Promozioni a pagamento, imballaggio e spostamenti non sono inclusi.`,
       },
     },
     checker: {
@@ -2737,15 +2737,15 @@ export const copy = {
       seePlansFooter: "Ver planos →",
       calc: {
         pageTitle: "Calculadora de lucro",
-        pageSubtitle: "Lucro líquido após as comissões da Vinted. Sem conta.",
+        pageSubtitle: "Lucro líquido sobre os seus próprios números. Sem conta.",
         buyLabel: "Preço de compra (€)",
         sellLabel: "Preço de venda previsto (€)",
         submit: "Calcular",
         errBuy: "Introduza um preço de compra superior a 0.",
         errSell: "Introduza um preço de venda previsto superior a 0.",
-        netLabel: "Líquido após a comissão de 5% da Vinted",
-        breakdown: (sale: string, fee: string, buy: string) =>
-          `Venda ${sale} − comissão ${fee} − compra ${buy}. Aritmética sobre os seus números: os 5% são a taxa de vendedor publicada pela Vinted, não uma promessa de resultado.`,
+        netLabel: "Lucro líquido",
+        breakdown: (sale: string, buy: string) =>
+          `Venda ${sale} − compra ${buy}. Aritmética sobre os seus números: a Vinted não cobra comissão de venda a vendedores particulares (a proteção do comprador é paga pelo comprador, por cima). Promoção paga, embalagem e deslocações não estão incluídas.`,
       },
     },
     checker: {

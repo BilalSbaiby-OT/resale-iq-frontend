@@ -25,7 +25,7 @@ export const POSTS_42: BlogPost[] = [
     definedTerm: {
       name: "Patagonia hoodie departure average",
       description:
-        "The Patagonia hoodie departure average is the average price at which a tracked Patagonia hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Patagonia hoodies track 780 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. This makes hoodies Patagonia's second-highest-volume category on EU Vinted behind jackets (780 departures in the last 30 days at €51). The buy-below ceiling at the hoodie category level is €26 — that is €40 × 0.65, targeting a 35% gross margin after platform fees. The Better Sweater Hoody is the highest-exiting hoodie model within the category, typically departing €8–12 above the €40 category average in clean condition.",
+        "The Patagonia hoodie departure average is the average price at which a tracked Patagonia hoodie listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Patagonia hoodies track 780 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €40 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. This makes hoodies Patagonia's second-highest-volume category on EU Vinted behind jackets (780 departures in the last 30 days at €51). The buy-below ceiling at the hoodie category level is €28 — that is €40 × 0.70, targeting a 30% gross margin. The Better Sweater Hoody is the highest-exiting hoodie model within the category, typically departing €8–12 above the €40 category average in clean condition.",
     },
     sections: [
       {
@@ -42,7 +42,7 @@ export const POSTS_42: BlogPost[] = [
           "The Better Sweater Hoody is Patagonia's most recognisable hoodie and consistently the highest-exiting model in the category on EU Vinted. Clean examples in core colourways (black, navy, forge grey) exit at €46–54; lightly worn examples exit at €36–44. Men's silhouettes slightly outperform women's at the top end. The Better Sweater is what most EU resellers mean when they say 'Patagonia hoodie' — it is the single model most frequently found at charity shop prices in the €5–12 range.",
           "The Retro Pile Fleece Hoody is the higher-ceiling outlier within the category. On-trend colourways (orange, yellow, oat) in near-new condition exit at €58–75, making it the only Patagonia hoodie that approaches the Patagonia jacket average on a good unit. Plain or worn Retro Pile examples exit at €35–48 — similar to the category average. The Retro Pile is rarer in charity shops and typically found through private sellers or end-of-season retail discounts.",
           "The Synchilla Snap-T Pullover exits at €32–44 for clean examples, generally at or slightly below the €40 category average. The Snap-T's signature chest pocket and pipe trim colourways create higher demand for 1990s–2000s vintage versions, which can exit at €55–80 when correctly identified and in clean condition. The Los Gatos Hoody and Lightweight Better Sweater exit at €28–38 — below category average — because they are lighter-weight versions without the brand salience of the Better Sweater or Snap-T.",
-          `Buy-below at the category level is €26 — that is €40 × 0.65, targeting a 35% gross margin after platform fees. For Better Sweater and Retro Pile sourced for €48+ exit, buy-below rises to €31–35. For Los Gatos or Lightweight models expected to exit at €30–35, the buy-below is €19–23. [Check any Patagonia item →](${ilinkHref("flip")})`,
+          `Buy-below at the category level is €28 — that is €40 × 0.70, targeting a 30% gross margin. For Better Sweater and Retro Pile sourced for €48+ exit, buy-below rises to €34–35. For Los Gatos or Lightweight models expected to exit at €30–35, the buy-below is €21–25. [Check any Patagonia item →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_patagonia_hoodie_guide_models_20260915"),
       },
@@ -89,7 +89,7 @@ export const POSTS_42: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Patagonia hoodie on Vinted?",
-        a: "The buy-below ceiling at the Patagonia hoodie category level is €26 — that is the €40 average exit price × 0.65, targeting a 35% gross margin after platform fees. For Better Sweater units in clean condition expected to exit at €46–54, the buy-below rises to €30–35. For lighter models (Los Gatos, Lightweight Better Sweater) expected to exit at €30–35, buy-below is €19–23.",
+        a: "The buy-below ceiling at the Patagonia hoodie category level is €28 — that is the €40 average exit price × 0.70, targeting a 30% gross margin. For Better Sweater units in clean condition expected to exit at €46–54, the buy-below rises to €32–38. For lighter models (Los Gatos, Lightweight Better Sweater) expected to exit at €32–38 buy-below is €21–25.",
       },
       {
         q: "Which Patagonia hoodie model exits highest on EU Vinted?",

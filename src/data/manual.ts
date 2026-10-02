@@ -95,7 +95,7 @@ export const CHAPTERS_1: ManualChapter[] = [
         ],
         list: [
           "Sale price — what the buyer actually pays you, not the list price",
-          "Platform fee — Resale IQ models 5% on Vinted; other platforms run 9.5% to 20%",
+          "Platform fee — none on Vinted for private sellers (the buyer pays Buyer Protection on top); other platforms run 9.5% to 20%",
           "Shipping absorbed — anything you covered to close the sale",
           "Buy price — including petrol, parking, entry fees and the items you bought in the same lot that you cannot sell",
           "Loss allowance — the write-offs and deep discounts spread across everything that did sell",
@@ -155,22 +155,22 @@ export const CHAPTERS_1: ManualChapter[] = [
     title: "How to work out the most you can pay",
     seoTitle: "What Is a Buy-Below Price? — The Vinted Reselling Manual",
     description:
-      "Buy-below is the most you can pay and still profit after Vinted fees: average departure ask × 0.95 × 0.70. How to calculate it before you source.",
+      "Buy-below is the most you can pay and still leave a 30% margin: average departure ask × 0.70. How to calculate it before you source.",
     minutes: 6,
     intro:
       "You compute the number before you go sourcing, not as a feeling while standing in front of a rail. Pay under it and the flip is set up to profit; pay over it and you are speculating.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
-        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
         h2: "The derivation",
         body: [
-          "Start from the price the item realistically sells for — the asking price similar items were last listed at before they left the shelf, not the price hopeful sellers are currently asking. Take off whatever the platform deducts from you. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
-          "Concretely, using the 5% deduction Resale IQ models for Vinted: an item that reliably sells for €40 nets about €38. If you want a 30% margin on the sale, you can pay up to about €26.60. Pay €30 and you are working for roughly 21%. Pay €34 and you are working for free once one item in ten fails to sell.",
-          "Substitute your own figure — fee structures differ by platform, by market and by whether you sell as a private individual or a business, and they change. The arithmetic does not care what the number is, only that you use the real one. The profit calculator applies the current per-platform rates so you are not working from a figure you memorised a year ago.",
+          "Start from the price the item realistically sells for — the asking price similar items were last listed at before they left the shelf, not the price hopeful sellers are currently asking. Take off whatever the platform deducts from you — on Vinted, for a private seller, that is nothing. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
+          "Concretely: Vinted charges private sellers no selling fee, so an item that reliably sells for €40 nets €40. If you want a 30% margin on the sale, you can pay up to €28. Pay €32 and you are working for 20%. Pay €36 and you are working for 10%, which one item in ten failing to sell wipes out.",
+          "If you resell somewhere that does charge a fee — other platforms take their own commission, and business accounts can differ — take it off before you multiply. The arithmetic does not care what the number is, only that you use the real one, so check the platform's own fee page rather than a figure you memorised a year ago.",
           "The arithmetic is trivial. The hard part is the first input — the realistic sale price — and that is where almost every bad buy originates.",
         ],
         callout: {
@@ -194,7 +194,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       },
     ],
     takeaways: [
-      "Max buy price = realistic sale price, minus platform fee, times (1 − target margin).",
+      "Max buy price = realistic sale price, minus any platform fee (none on Vinted for private sellers), times (1 − target margin).",
       "Use the asking price at departure, never a currently-active asking price, as the input.",
       "Adjust that departure price down for condition, edge sizes and out-of-season stock before you compute anything.",
       "Fix the target margin before sourcing and refuse to renegotiate it item by item.",
@@ -202,11 +202,11 @@ export const CHAPTERS_1: ManualChapter[] = [
     faq: [
       {
         q: "What is a buy-below price?",
-        a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.95 × 0.70: the departure-price input reflects watched listings leaving the shelf, 0.95 models a 5% platform deduction, and 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
       },
       {
         q: "How do you calculate a buy-below price?",
-        a: "Buy-below price = average asking price at departure × 0.95 × 0.70. The 0.95 is the 5% platform deduction Resale IQ models for Vinted; the 0.70 targets about a 30% margin. On a €40 departure that is about €26.60. Substitute your own fee if yours differs.",
+        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 targets about a 30% margin, and there is no fee factor because Vinted charges private sellers no selling fee. On a €40 departure that is €28. If you resell on a platform that does charge a fee, take it off first.",
       },
       {
         q: "Where do I find real departure prices on Vinted?",

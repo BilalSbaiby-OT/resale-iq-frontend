@@ -70,10 +70,13 @@ test("extension treats HTTP 402 as paywall, not an outage", () => {
   assert.match(content, /resaleiq\.dev\/pricing/)
 })
 
-test("tools lede models the 5% seller fee, not a buyer-side fee", () => {
+test("tools lede states buy-below as avg × 0.70 and never builds a Vinted seller fee into it", () => {
   const src = read("data/search-intents.ts")
-  assert.match(src, /5% seller fee/)
-  assert.doesNotMatch(src, /buyer-side fee we model/)
+  assert.match(src, /average departure ask × 0\.70, aiming at about a 30% margin/)
+  assert.match(src, /Vinted charges private sellers no selling fee/)
+  assert.doesNotMatch(src, /5% seller fee/)
+  assert.doesNotMatch(src, /5% platform deduction/)
+  assert.doesNotMatch(src, /× 0\.95/)
 })
 
 test("authenticated verdict formats sell-through through formatStrPctString", () => {

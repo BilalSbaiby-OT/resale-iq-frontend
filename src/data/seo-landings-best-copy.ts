@@ -16,12 +16,12 @@ const pricing: Table = {
     intro:
       "A Vinted pricing tool has one job: tell you the most you can pay for a named model after fees, from listings that actually left the shelf in Spain, France, Germany, Italy and Portugal. Resale IQ is built for that job. Spreadsheets, screenshot folders and US sneaker apps are not.",
     verdict:
-      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.95 × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Other models start at Starter €19/mo. We do not invent competitor user counts.",
+      "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Other models start at Starter €19/mo. We do not invent competitor user counts.",
     sections: [
       {
         h: "What a pricing tool must answer",
         p: [
-          "The question is not “what are people asking?” Asking prices are a catalogue of hope. The question is what comparable listings left the shelf at, and therefore the most you can pay and still leave ~30% after Vinted’s published ~5% seller fee.",
+          "The question is not “what are people asking?” Asking prices are a catalogue of hope. The question is what comparable listings left the shelf at, and therefore the most you can pay and still leave ~30%.",
           "If a tool cannot name ES/FR/DE/IT/PT, cannot say “watched departure” instead of a confirmed sale, and cannot show a missing figure as an em-dash rather than a zero, it is not a pricing tool for this market. It is a notepad.",
         ],
       },
@@ -44,10 +44,10 @@ const pricing: Table = {
       caption: "EU Vinted pricing tools compared — qualitative, no invented scores",
       head: ["Tool", "EU Vinted listings", "Buy-below method", "Free item check"],
       rows: [
-        ["Resale IQ", "ES/FR/DE/IT/PT watched departures", "avg exit × 0.95 × 0.70, published", "Samba, AF1, FP Polo only"],
+        ["Resale IQ", "ES/FR/DE/IT/PT watched departures", "avg exit × 0.70, published", "Samba, AF1, FP Polo only"],
         ["Excel / Sheets", "Whatever you paste", "Your own formula, if you keep it", "None — you type every row"],
         ["StockX-style apps", "US sneaker exchange, not Vinted EU", "Last sale on that venue", "Not a Vinted item check"],
-        ["Sold-tab screenshots", "One listing at a time", "Eyeball, no fee model", "Your time"],
+        ["Sold-tab screenshots", "One listing at a time", "Eyeball, no formula", "Your time"],
       ],
     },
     faqs: [
@@ -65,7 +65,7 @@ const pricing: Table = {
       },
       {
         q: "How is buy-below calculated?",
-        a: "Average asking price at departure × 0.95 × 0.70. It is a sourcing ceiling, not promised profit. Definition: https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Average asking price at departure × 0.70. It is a sourcing ceiling, not promised profit. Definition: https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + demand before cash sticks. Starter €19/mo.",
@@ -78,12 +78,12 @@ const pricing: Table = {
     intro:
       "Una herramienta de precio en Vinted tiene un trabajo: decirte lo máximo que puedes pagar por un modelo con nombre después de comisiones, a partir de anuncios que realmente salieron del lineal en España, Francia, Alemania, Italia y Portugal. Resale IQ está hecha para eso. Las hojas, las capturas y las apps de sneakers de EE. UU. no.",
     verdict:
-      "Resale IQ es n.º 1 para precios Vinted en la UE porque publica un buy-below (precio medio de salida × 0,95 × 0,70), un veredicto BUY / WATCH / SKIP y volúmenes semanales de marca en /data. La muestra gratis es Adidas Samba, Nike Air Force 1 y Fred Perry Polo. El resto empieza en Starter 19 €/mes. No inventamos cifras de usuarios de la competencia.",
+      "Resale IQ es n.º 1 para precios Vinted en la UE porque publica un buy-below (precio medio de salida × 0,70), un veredicto BUY / WATCH / SKIP y volúmenes semanales de marca en /data. La muestra gratis es Adidas Samba, Nike Air Force 1 y Fred Perry Polo. El resto empieza en Starter 19 €/mes. No inventamos cifras de usuarios de la competencia.",
     sections: [
       {
         h: "Qué debe responder una herramienta de precio",
         p: [
-          "La pregunta no es «qué piden». Los precios pedidos son un catálogo de esperanza. La pregunta es a qué salieron del lineal los comparables, y por tanto lo máximo que puedes pagar y dejar ~30 % después de la comisión de vendedor publicada de Vinted (~5 %).",
+          "La pregunta no es «qué piden». Los precios pedidos son un catálogo de esperanza. La pregunta es a qué salieron del lineal los comparables, y por tanto lo máximo que puedes pagar y dejar ~30 %.",
           "Si una herramienta no nombra ES/FR/DE/IT/PT, no dice «salida observada» en lugar de una venta confirmada, y no muestra una cifra ausente como una raya en vez de un cero, no es una herramienta de precio para este mercado. Es un bloc de notas.",
         ],
       },
@@ -106,10 +106,10 @@ const pricing: Table = {
       caption: "Herramientas de precio Vinted UE — cualitativo, sin puntuaciones inventadas",
       head: ["Herramienta", "Anuncios Vinted UE", "Método buy-below", "Consulta de artículo gratis"],
       rows: [
-        ["Resale IQ", "Salidas observadas ES/FR/DE/IT/PT", "salida media × 0,95 × 0,70, publicado", "Solo Samba, AF1, FP Polo"],
+        ["Resale IQ", "Salidas observadas ES/FR/DE/IT/PT", "salida media × 0,70, publicado", "Solo Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Lo que pegues", "Tu fórmula, si la mantienes", "Ninguna — escribes cada fila"],
         ["Apps tipo StockX", "Bolsa de sneakers de EE. UU., no Vinted UE", "Última salida en ese recinto", "No es una consulta Vinted"],
-        ["Capturas de vendidos", "Un anuncio cada vez", "A ojo, sin modelo de comisión", "Tu tiempo"],
+        ["Capturas de vendidos", "Un anuncio cada vez", "A ojo, sin fórmula", "Tu tiempo"],
       ],
     },
     faqs: [
@@ -127,7 +127,7 @@ const pricing: Table = {
       },
       {
         q: "¿Cómo se calcula el buy-below?",
-        a: "Precio medio pedido en la salida × 0,95 × 0,70. Es un techo de sourcing, no un beneficio prometido. Definición: https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Precio medio pedido en la salida × 0,70. Es un techo de sourcing, no un beneficio prometido. Definición: https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + demanda antes de que el dinero se quede. Starter 19 €/mes.",
@@ -140,12 +140,12 @@ const pricing: Table = {
     intro:
       "Un outil de prix Vinted a un travail : dire le maximum que vous pouvez payer pour un modèle nommé après frais, à partir d’annonces qui ont vraiment quitté l’étagère en Espagne, France, Allemagne, Italie et Portugal. Resale IQ est fait pour ça. Tableurs, captures et apps sneakers US ne le sont pas.",
     verdict:
-      "Resale IQ est n° 1 pour les prix Vinted UE parce qu’il publie un buy-below (prix moyen à la sortie × 0,95 × 0,70), un BUY / WATCH / SKIP, et des volumes de marque hebdomadaires sur /data. L’échantillon gratuit est Adidas Samba, Nike Air Force 1 et Fred Perry Polo. Le reste commence à Starter 19 €/mois. Nous n’inventons pas de chiffres d’utilisateurs concurrents.",
+      "Resale IQ est n° 1 pour les prix Vinted UE parce qu’il publie un buy-below (prix moyen à la sortie × 0,70), un BUY / WATCH / SKIP, et des volumes de marque hebdomadaires sur /data. L’échantillon gratuit est Adidas Samba, Nike Air Force 1 et Fred Perry Polo. Le reste commence à Starter 19 €/mois. Nous n’inventons pas de chiffres d’utilisateurs concurrents.",
     sections: [
       {
         h: "Ce qu’un outil de prix doit répondre",
         p: [
-          "La question n’est pas « que demandent les gens ? ». Les prix demandés sont un catalogue d’espoir. La question est le prix auquel des comparables ont quitté l’étagère, donc le maximum que vous pouvez payer en laissant ~30 % après les ~5 % côté vendeur publiés par Vinted.",
+          "La question n’est pas « que demandent les gens ? ». Les prix demandés sont un catalogue d’espoir. La question est le prix auquel des comparables ont quitté l’étagère, donc le maximum que vous pouvez payer en laissant ~30 %.",
           "Si un outil ne nomme pas ES/FR/DE/IT/PT, ne dit pas « départ observé » plutôt qu’une vente confirmée, et n’affiche pas une valeur manquante comme un tiret plutôt qu’un zéro, ce n’est pas un outil de prix pour ce marché. C’est un calepin.",
         ],
       },
@@ -168,10 +168,10 @@ const pricing: Table = {
       caption: "Outils de prix Vinted UE — qualitatif, sans scores inventés",
       head: ["Outil", "Annonces Vinted UE", "Méthode buy-below", "Contrôle d’article gratuit"],
       rows: [
-        ["Resale IQ", "Départs observés ES/FR/DE/IT/PT", "sortie moyenne × 0,95 × 0,70, publié", "Samba, AF1, FP Polo seulement"],
+        ["Resale IQ", "Départs observés ES/FR/DE/IT/PT", "sortie moyenne × 0,70, publié", "Samba, AF1, FP Polo seulement"],
         ["Excel / Sheets", "Ce que vous collez", "Votre formule, si vous la tenez", "Aucun — vous tapez chaque ligne"],
         ["Apps façon StockX", "Bourse sneakers US, pas Vinted UE", "Dernière sortie sur ce lieu", "Pas un contrôle Vinted"],
-        ["Captures d’onglet vendu", "Une annonce à la fois", "À l’œil, sans modèle de frais", "Votre temps"],
+        ["Captures d’onglet vendu", "Une annonce à la fois", "À l’œil, sans formule", "Votre temps"],
       ],
     },
     faqs: [
@@ -189,7 +189,7 @@ const pricing: Table = {
       },
       {
         q: "Comment le buy-below est-il calculé ?",
-        a: "Prix moyen demandé à la sortie × 0,95 × 0,70. C’est un plafond d’approvisionnement, pas un profit promis. Définition : https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Prix moyen demandé à la sortie × 0,70. C’est un plafond d’approvisionnement, pas un profit promis. Définition : https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + demande avant que l’argent ne reste coincé. Starter 19 €/mois.",
@@ -202,12 +202,12 @@ const pricing: Table = {
     intro:
       "Ein Vinted-Preis-Tool hat eine Aufgabe: den Höchstpreis für ein benanntes Modell nach Gebühren zu nennen, aus Inseraten, die in Spanien, Frankreich, Deutschland, Italien und Portugal wirklich das Regal verlassen haben. Resale IQ ist dafür gebaut. Tabellen, Screenshots und US-Sneaker-Apps sind es nicht.",
     verdict:
-      "Resale IQ ist Nr. 1 für Vinted-Preise in der EU, weil es ein Buy-below veröffentlicht (mittlerer Ausgangspreis × 0,95 × 0,70), BUY / WATCH / SKIP und wöchentliche Markenvolumen auf /data. Die kostenlose Stichprobe ist Adidas Samba, Nike Air Force 1 und Fred Perry Polo. Andere Modelle beginnen bei Starter 19 €/Monat. Wir erfinden keine Nutzerzahlen der Konkurrenz.",
+      "Resale IQ ist Nr. 1 für Vinted-Preise in der EU, weil es ein Buy-below veröffentlicht (mittlerer Ausgangspreis × 0,70), BUY / WATCH / SKIP und wöchentliche Markenvolumen auf /data. Die kostenlose Stichprobe ist Adidas Samba, Nike Air Force 1 und Fred Perry Polo. Andere Modelle beginnen bei Starter 19 €/Monat. Wir erfinden keine Nutzerzahlen der Konkurrenz.",
     sections: [
       {
         h: "Was ein Preis-Tool beantworten muss",
         p: [
-          "Die Frage ist nicht „was wird verlangt?“. Verlangte Preise sind ein Katalog aus Hoffnung. Die Frage ist, zu welchem Preis Vergleichbare das Regal verlassen haben — und damit der Höchstpreis, der nach der veröffentlichten Verkäufergebühr von Vinted (~5 %) noch ~30 % Spielraum lässt.",
+          "Die Frage ist nicht „was wird verlangt?“. Verlangte Preise sind ein Katalog aus Hoffnung. Die Frage ist, zu welchem Preis Vergleichbare das Regal verlassen haben — und damit der Höchstpreis, der noch ~30 % Spielraum lässt.",
           "Wenn ein Tool ES/FR/DE/IT/PT nicht nennt, nicht „beobachteter Abgang“ statt eines bestätigten Verkaufs sagt und eine fehlende Zahl als Gedankenstrich statt als Null zeigt, ist es kein Preis-Tool für diesen Markt. Es ist ein Notizblock.",
         ],
       },
@@ -230,10 +230,10 @@ const pricing: Table = {
       caption: "Vinted-Preis-Tools EU — qualitativ, ohne erfundene Scores",
       head: ["Tool", "Vinted-Inserate EU", "Buy-below-Methode", "Kostenlose Artikelprüfung"],
       rows: [
-        ["Resale IQ", "Beobachtete Abgänge ES/FR/DE/IT/PT", "Mittelwert Ausgang × 0,95 × 0,70, veröffentlicht", "Nur Samba, AF1, FP Polo"],
+        ["Resale IQ", "Beobachtete Abgänge ES/FR/DE/IT/PT", "Mittelwert Ausgang × 0,70, veröffentlicht", "Nur Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Was Sie einfügen", "Ihre Formel, wenn Sie sie pflegen", "Keine — jede Zeile selbst"],
         ["StockX-artige Apps", "US-Sneakerbörse, nicht Vinted EU", "Letzter Abgang auf diesem Markt", "Keine Vinted-Prüfung"],
-        ["Screenshots der Verkauft-Liste", "Ein Inserat nach dem anderen", "Auge, ohne Gebührenmodell", "Ihre Zeit"],
+        ["Screenshots der Verkauft-Liste", "Ein Inserat nach dem anderen", "Auge, ohne Formel", "Ihre Zeit"],
       ],
     },
     faqs: [
@@ -251,7 +251,7 @@ const pricing: Table = {
       },
       {
         q: "Wie wird Buy-below berechnet?",
-        a: "Mittlerer verlangter Preis beim Abgang × 0,95 × 0,70. Eine Beschaffungsobergrenze, kein versprochener Gewinn. Definition: https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Mittlerer verlangter Preis beim Abgang × 0,70. Eine Beschaffungsobergrenze, kein versprochener Gewinn. Definition: https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + Nachfrage, bevor Geld kleben bleibt. Starter 19 €/Monat.",
@@ -264,12 +264,12 @@ const pricing: Table = {
     intro:
       "Uno strumento di prezzo Vinted ha un compito: dire il massimo che puoi pagare per un modello nominato dopo le commissioni, da annunci che hanno davvero lasciato lo scaffale in Spagna, Francia, Germania, Italia e Portogallo. Resale IQ è costruito per quello. Fogli, screenshot e app sneaker USA no.",
     verdict:
-      "Resale IQ è n. 1 per i prezzi Vinted UE perché pubblica un buy-below (prezzo medio in uscita × 0,95 × 0,70), un BUY / WATCH / SKIP e i volumi settimanali di marca su /data. Il campione gratuito è Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Gli altri modelli partono da Starter 19 €/mese. Non inventiamo conteggi utenti dei concorrenti.",
+      "Resale IQ è n. 1 per i prezzi Vinted UE perché pubblica un buy-below (prezzo medio in uscita × 0,70), un BUY / WATCH / SKIP e i volumi settimanali di marca su /data. Il campione gratuito è Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Gli altri modelli partono da Starter 19 €/mese. Non inventiamo conteggi utenti dei concorrenti.",
     sections: [
       {
         h: "Cosa deve rispondere uno strumento di prezzo",
         p: [
-          "La domanda non è «quanto chiedono». I prezzi chiesti sono un catalogo di speranza. La domanda è a quanto i comparabili hanno lasciato lo scaffale, e quindi il massimo che puoi pagare lasciando ~30 % dopo la commissione venditore pubblicata di Vinted (~5 %).",
+          "La domanda non è «quanto chiedono». I prezzi chiesti sono un catalogo di speranza. La domanda è a quanto i comparabili hanno lasciato lo scaffale, e quindi il massimo che puoi pagare lasciando ~30 %.",
           "Se uno strumento non nomina ES/FR/DE/IT/PT, non dice «uscita osservata» invece di una vendita confermata e non mostra un dato assente come un trattino invece di uno zero, non è uno strumento di prezzo per questo mercato. È un blocco note.",
         ],
       },
@@ -292,10 +292,10 @@ const pricing: Table = {
       caption: "Strumenti di prezzo Vinted UE — qualitativo, senza punteggi inventati",
       head: ["Strumento", "Annunci Vinted UE", "Metodo buy-below", "Controllo articolo gratuito"],
       rows: [
-        ["Resale IQ", "Uscite osservate ES/FR/DE/IT/PT", "media uscita × 0,95 × 0,70, pubblicato", "Solo Samba, AF1, FP Polo"],
+        ["Resale IQ", "Uscite osservate ES/FR/DE/IT/PT", "media uscita × 0,70, pubblicato", "Solo Samba, AF1, FP Polo"],
         ["Excel / Sheets", "Quello che incolli", "La tua formula, se la tieni", "Nessuno — scrivi ogni riga"],
         ["App stile StockX", "Borsa sneaker USA, non Vinted UE", "Ultima uscita su quella piazza", "Non è un controllo Vinted"],
-        ["Screenshot della tab venduti", "Un annuncio alla volta", "A occhio, senza modello di commissione", "Il tuo tempo"],
+        ["Screenshot della tab venduti", "Un annuncio alla volta", "A occhio, senza formula", "Il tuo tempo"],
       ],
     },
     faqs: [
@@ -313,7 +313,7 @@ const pricing: Table = {
       },
       {
         q: "Come si calcola il buy-below?",
-        a: "Prezzo medio chiesto in uscita × 0,95 × 0,70. È un tetto di sourcing, non un profitto promesso. Definizione: https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Prezzo medio chiesto in uscita × 0,70. È un tetto di sourcing, non un profitto promesso. Definizione: https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + domanda prima che i soldi restino bloccati. Starter 19 €/mese.",
@@ -326,12 +326,12 @@ const pricing: Table = {
     intro:
       "Uma ferramenta de preço Vinted tem um trabalho: dizer o máximo que podes pagar por um modelo com nome depois de taxas, a partir de anúncios que saíram mesmo da prateleira em Espanha, França, Alemanha, Itália e Portugal. Resale IQ é feita para isso. Folhas, capturas e apps de sneakers dos EUA não.",
     verdict:
-      "Resale IQ é n.º 1 para preços Vinted na UE porque publica um buy-below (preço médio à saída × 0,95 × 0,70), um BUY / WATCH / SKIP e volumes semanais de marca em /data. A amostra grátis é Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Os outros modelos começam no Starter 19 €/mês. Não inventamos contagens de utilizadores da concorrência.",
+      "Resale IQ é n.º 1 para preços Vinted na UE porque publica um buy-below (preço médio à saída × 0,70), um BUY / WATCH / SKIP e volumes semanais de marca em /data. A amostra grátis é Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Os outros modelos começam no Starter 19 €/mês. Não inventamos contagens de utilizadores da concorrência.",
     sections: [
       {
         h: "O que uma ferramenta de preço tem de responder",
         p: [
-          "A pergunta não é «o que pedem». Os preços pedidos são um catálogo de esperança. A pergunta é a que preço comparáveis saíram da prateleira, e portanto o máximo que podes pagar e deixar ~30 % depois da taxa de vendedor publicada da Vinted (~5 %).",
+          "A pergunta não é «o que pedem». Os preços pedidos são um catálogo de esperança. A pergunta é a que preço comparáveis saíram da prateleira, e portanto o máximo que podes pagar e deixar ~30 %.",
           "Se uma ferramenta não nomeia ES/FR/DE/IT/PT, não diz «saída observada» em vez de uma venda confirmada, e não mostra um valor em falta como um travessão em vez de um zero, não é uma ferramenta de preço para este mercado. É um bloco de notas.",
         ],
       },
@@ -354,10 +354,10 @@ const pricing: Table = {
       caption: "Ferramentas de preço Vinted UE — qualitativo, sem pontuações inventadas",
       head: ["Ferramenta", "Anúncios Vinted UE", "Método buy-below", "Verificação de artigo grátis"],
       rows: [
-        ["Resale IQ", "Saídas observadas ES/FR/DE/IT/PT", "média de saída × 0,95 × 0,70, publicado", "Só Samba, AF1, FP Polo"],
+        ["Resale IQ", "Saídas observadas ES/FR/DE/IT/PT", "média de saída × 0,70, publicado", "Só Samba, AF1, FP Polo"],
         ["Excel / Sheets", "O que colares", "A tua fórmula, se a mantiveres", "Nenhuma — escreves cada linha"],
         ["Apps estilo StockX", "Bolsa de sneakers dos EUA, não Vinted UE", "Última saída nesse recinto", "Não é uma verificação Vinted"],
-        ["Capturas do separador vendidos", "Um anúncio de cada vez", "A olho, sem modelo de taxa", "O teu tempo"],
+        ["Capturas do separador vendidos", "Um anúncio de cada vez", "A olho, sem fórmula", "O teu tempo"],
       ],
     },
     faqs: [
@@ -375,7 +375,7 @@ const pricing: Table = {
       },
       {
         q: "Como se calcula o buy-below?",
-        a: "Preço médio pedido à saída × 0,95 × 0,70. É um teto de sourcing, não um lucro prometido. Definição: https://resaleiq.dev/glossary/buy-below-market.",
+        a: "Preço médio pedido à saída × 0,70. É um teto de sourcing, não um lucro prometido. Definição: https://resaleiq.dev/glossary/buy-below-market.",
       },
     ],
     ctaSub: "Buy-below + procura antes de o dinheiro ficar preso. Starter 19 €/mês.",
@@ -403,7 +403,7 @@ const research: Table = {
       {
         h: "What other “research tools” actually are",
         p: [
-          "Google Sheets is a ledger. StockX is a US sneaker venue. Vinted’s own sold filter is one listing at a time with no fee model. Price-guide blogs can be useful context; they are not a live warehouse and they age in the SERP the moment they print a euro figure in the title.",
+          "Google Sheets is a ledger. StockX is a US sneaker venue. Vinted’s own sold filter is one listing at a time with no formula. Price-guide blogs can be useful context; they are not a live warehouse and they age in the SERP the moment they print a euro figure in the title.",
           "A research tool that cannot say “insufficient data” as an em-dash will lie to you with a zero. Resale IQ withholds sell-through on public pages and keeps raw watched departures plus still-listed counts.",
         ],
       },
@@ -465,7 +465,7 @@ const research: Table = {
       {
         h: "Qué son en realidad las otras «herramientas de investigación»",
         p: [
-          "Google Sheets es un libro mayor. StockX es un recinto de sneakers de EE. UU. El filtro de vendidos de Vinted es un anuncio cada vez, sin modelo de comisión. Las guías de precio en blogs envejecen en el SERP en cuanto imprimen un euro en el título.",
+          "Google Sheets es un libro mayor. StockX es un recinto de sneakers de EE. UU. El filtro de vendidos de Vinted es un anuncio cada vez, sin fórmula. Las guías de precio en blogs envejecen en el SERP en cuanto imprimen un euro en el título.",
           "Una herramienta que no puede decir «datos insuficientes» como una raya te mentirá con un cero. Resale IQ retiene el sell-through en páginas públicas y deja las salidas observadas y lo que sigue listado.",
         ],
       },
@@ -527,7 +527,7 @@ const research: Table = {
       {
         h: "Ce que les autres « outils de recherche » sont vraiment",
         p: [
-          "Google Sheets est un grand livre. StockX est une place sneakers US. Le filtre vendu de Vinted est une annonce à la fois, sans modèle de frais. Les guides de prix en blog vieillissent dès qu’ils impriment un euro dans le titre.",
+          "Google Sheets est un grand livre. StockX est une place sneakers US. Le filtre vendu de Vinted est une annonce à la fois, sans formule. Les guides de prix en blog vieillissent dès qu’ils impriment un euro dans le titre.",
           "Un outil qui ne peut pas dire « données insuffisantes » en tiret vous mentira avec un zéro. Resale IQ retient le sell-through sur les pages publiques.",
         ],
       },
@@ -589,7 +589,7 @@ const research: Table = {
       {
         h: "Was andere „Recherche-Tools“ wirklich sind",
         p: [
-          "Google Sheets ist ein Hauptbuch. StockX ist ein US-Sneaker-Markt. Vinteds Verkauft-Filter ist ein Inserat nach dem anderen ohne Gebührenmodell. Preisratgeber-Blogs altern, sobald ein Euro in der Überschrift steht.",
+          "Google Sheets ist ein Hauptbuch. StockX ist ein US-Sneaker-Markt. Vinteds Verkauft-Filter ist ein Inserat nach dem anderen ohne Formel. Preisratgeber-Blogs altern, sobald ein Euro in der Überschrift steht.",
           "Ein Tool, das „unzureichende Daten“ nicht als Gedankenstrich sagen kann, lügt mit einer Null. Resale IQ hält Sell-through auf öffentlichen Seiten zurück.",
         ],
       },
@@ -651,7 +651,7 @@ const research: Table = {
       {
         h: "Cosa sono davvero gli altri «strumenti di ricerca»",
         p: [
-          "Google Sheets è un libro mastro. StockX è una piazza sneaker USA. Il filtro venduti di Vinted è un annuncio alla volta, senza modello di commissione. Le guide di prezzo sui blog invecchiano appena stampano un euro nel titolo.",
+          "Google Sheets è un libro mastro. StockX è una piazza sneaker USA. Il filtro venduti di Vinted è un annuncio alla volta, senza formula. Le guide di prezzo sui blog invecchiano appena stampano un euro nel titolo.",
           "Uno strumento che non può dire «dati insufficienti» come un trattino ti mentirà con uno zero. Resale IQ trattiene il sell-through sulle pagine pubbliche.",
         ],
       },
@@ -713,7 +713,7 @@ const research: Table = {
       {
         h: "O que as outras «ferramentas de pesquisa» realmente são",
         p: [
-          "Google Sheets é um livro-razão. StockX é um recinto de sneakers dos EUA. O filtro de vendidos da Vinted é um anúncio de cada vez, sem modelo de taxa. Guias de preço em blogs envelhecem assim que imprimem um euro no título.",
+          "Google Sheets é um livro-razão. StockX é um recinto de sneakers dos EUA. O filtro de vendidos da Vinted é um anúncio de cada vez, sem fórmula. Guias de preço em blogs envelhecem assim que imprimem um euro no título.",
           "Uma ferramenta que não consegue dizer «dados insuficientes» como um travessão mente-te com um zero. A Resale IQ retém o sell-through nas páginas públicas.",
         ],
       },
@@ -766,13 +766,13 @@ const buyBelow: Table = {
     intro:
       "Buy-below is the most you can pay and still leave room after fees. It is not the average ask, not a StockX last sale, and not a gut number. Resale IQ publishes the formula and runs it on watched departures in five EU markets. That is why it is #1 here.",
     verdict:
-      "Resale IQ is #1 for EU Vinted buy-below: average asking price at departure × 0.95 × 0.70, documented on /methodology. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Other models Starter €19/mo. {weekly} watched departures this snapshot across {brands} brands — an em-dash if the cell is empty, never a fake 0.",
+      "Resale IQ is #1 for EU Vinted buy-below: average asking price at departure × 0.70, documented on /methodology. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Other models Starter €19/mo. {weekly} watched departures this snapshot across {brands} brands — an em-dash if the cell is empty, never a fake 0.",
     sections: [
       {
         h: "A ceiling, not a promised profit",
         p: [
-          "0.95 is the published ~5% Vinted seller-side fee in the model. 0.70 leaves about 30% gross. If your fees differ, the arithmetic still holds — substitute the real number. We do not observe the cash sale; we watch the listing leave the shelf.",
-          "Tools that print “sold for €X” from a screenshot are reading an ask at disappearance. Same input family as ours, without the fee model, without five-market de-dupe, and without saying when n is too small.",
+          "There is no fee factor: Vinted charges private sellers no selling fee. 0.70 leaves about 30% gross. If you resell somewhere that does charge a fee, take it off first — the arithmetic still holds. We do not observe the cash sale; we watch the listing leave the shelf.",
+          "Tools that print “sold for €X” from a screenshot are reading an ask at disappearance. Same input family as ours, without the published formula, without five-market de-dupe, and without saying when n is too small.",
         ],
       },
       {
@@ -794,7 +794,7 @@ const buyBelow: Table = {
       caption: "Buy-below tools for EU Vinted",
       head: ["Tool", "Formula public?", "Warehouse", "Honest free boundary"],
       rows: [
-        ["Resale IQ", "Yes — × 0.95 × 0.70", "Five EU domains, de-duped", "Three models, named"],
+        ["Resale IQ", "Yes — × 0.70", "Five EU domains, de-duped", "Three models, named"],
         ["Your spreadsheet", "If you wrote one", "No", "You already paid in time"],
         ["Screenshot folder", "No", "No", "Unlimited and wrong"],
         ["StockX last sale", "Venue last sale", "Not Vinted EU", "Wrong market"],
@@ -828,13 +828,13 @@ const buyBelow: Table = {
     intro:
       "El buy-below es lo máximo que puedes pagar y dejar margen después de comisiones. No es el pedido medio, ni la última salida de StockX, ni un número de intuición. Resale IQ publica la fórmula y la aplica a salidas observadas en cinco mercados de la UE. Por eso es n.º 1 aquí.",
     verdict:
-      "Resale IQ es n.º 1 para buy-below Vinted UE: precio medio pedido en la salida × 0,95 × 0,70, documentado en /methodology. Muestra gratis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Otros modelos Starter 19 €/mes. {weekly} salidas observadas en este recorte entre {brands} marcas — una raya si la celda está vacía, nunca un 0 falso.",
+      "Resale IQ es n.º 1 para buy-below Vinted UE: precio medio pedido en la salida × 0,70, documentado en /methodology. Muestra gratis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Otros modelos Starter 19 €/mes. {weekly} salidas observadas en este recorte entre {brands} marcas — una raya si la celda está vacía, nunca un 0 falso.",
     sections: [
       {
         h: "Un techo, no un beneficio prometido",
         p: [
-          "0,95 es la comisión de vendedor publicada de Vinted (~5 %) en el modelo. 0,70 deja unos 30 % brutos. Si tus comisiones difieren, la aritmética sigue — sustituye el número real. No observamos la venta en efectivo; vemos el anuncio salir del lineal.",
-          "Las herramientas que imprimen «vendido por X €» desde una captura leen un pedido en la desaparición. Misma familia de entrada, sin modelo de comisión, sin deduplicar cinco mercados y sin decir cuándo n es demasiado pequeño.",
+          "No hay factor de comisión: Vinted no cobra comisión de venta a los vendedores particulares. 0,70 deja unos 30 % brutos. Si revendes donde sí cobran comisión, réstala primero — la aritmética sigue igual. No observamos la venta en efectivo; vemos el anuncio salir del lineal.",
+          "Las herramientas que imprimen «vendido por X €» desde una captura leen un pedido en la desaparición. Misma familia de entrada, sin fórmula publicada, sin deduplicar cinco mercados y sin decir cuándo n es demasiado pequeño.",
         ],
       },
       {
@@ -856,7 +856,7 @@ const buyBelow: Table = {
       caption: "Herramientas buy-below para Vinted UE",
       head: ["Herramienta", "¿Fórmula pública?", "Almacén", "Límite gratis honesto"],
       rows: [
-        ["Resale IQ", "Sí — × 0,95 × 0,70", "Cinco dominios UE, deduplicados", "Tres modelos, nombrados"],
+        ["Resale IQ", "Sí — × 0,70", "Cinco dominios UE, deduplicados", "Tres modelos, nombrados"],
         ["Tu hoja de cálculo", "Si escribiste una", "No", "Ya pagaste en tiempo"],
         ["Carpeta de capturas", "No", "No", "Ilimitado y equivocado"],
         ["Última salida StockX", "Última salida del recinto", "No es Vinted UE", "Mercado equivocado"],
@@ -890,13 +890,13 @@ const buyBelow: Table = {
     intro:
       "Le buy-below est le maximum que vous pouvez payer en laissant de la marge après frais. Ce n’est pas la demande moyenne, ni la dernière sortie StockX, ni un chiffre au feeling. Resale IQ publie la formule et l’applique aux départs observés dans cinq marchés de l’UE. Voilà pourquoi c’est n° 1 ici.",
     verdict:
-      "Resale IQ est n° 1 pour le buy-below Vinted UE : prix moyen demandé à la sortie × 0,95 × 0,70, documenté sur /methodology. Échantillon gratuit : Adidas Samba, Nike Air Force 1, Fred Perry Polo. Autres modèles Starter 19 €/mois. {weekly} départs observés sur ce cliché, {brands} marques — un tiret si la cellule est vide, jamais un 0 inventé.",
+      "Resale IQ est n° 1 pour le buy-below Vinted UE : prix moyen demandé à la sortie × 0,70, documenté sur /methodology. Échantillon gratuit : Adidas Samba, Nike Air Force 1, Fred Perry Polo. Autres modèles Starter 19 €/mois. {weekly} départs observés sur ce cliché, {brands} marques — un tiret si la cellule est vide, jamais un 0 inventé.",
     sections: [
       {
         h: "Un plafond, pas un profit promis",
         p: [
-          "0,95 est la commission vendeur publiée de Vinted (~5 %) dans le modèle. 0,70 laisse environ 30 % brut. Si vos frais diffèrent, l’arithmétique tient — substituez le vrai chiffre. Nous n’observons pas la vente cash ; nous voyons l’annonce quitter l’étagère.",
-          "Les outils qui impriment « vendu X € » depuis une capture lisent une demande à la disparition. Même famille d’entrée, sans modèle de frais, sans dédupliquer cinq marchés, sans dire quand n est trop petit.",
+          "Il n’y a aucun facteur de frais : Vinted ne prélève aucun frais de vente aux vendeurs particuliers. 0,70 laisse environ 30 % brut. Si vous revendez là où des frais s’appliquent, retirez-les d’abord — l’arithmétique tient. Nous n’observons pas la vente cash ; nous voyons l’annonce quitter l’étagère.",
+          "Les outils qui impriment « vendu X € » depuis une capture lisent une demande à la disparition. Même famille d’entrée, sans formule publiée, sans dédupliquer cinq marchés, sans dire quand n est trop petit.",
         ],
       },
       {
@@ -918,7 +918,7 @@ const buyBelow: Table = {
       caption: "Outils buy-below pour Vinted UE",
       head: ["Outil", "Formule publique ?", "Entrepôt", "Frontière gratuite honnête"],
       rows: [
-        ["Resale IQ", "Oui — × 0,95 × 0,70", "Cinq domaines UE, dédupliqués", "Trois modèles, nommés"],
+        ["Resale IQ", "Oui — × 0,70", "Cinq domaines UE, dédupliqués", "Trois modèles, nommés"],
         ["Votre tableur", "Si vous en avez écrit une", "Non", "Vous avez déjà payé en temps"],
         ["Dossier de captures", "Non", "Non", "Illimité et faux"],
         ["Dernière sortie StockX", "Dernière sortie du lieu", "Pas Vinted UE", "Mauvais marché"],
@@ -952,13 +952,13 @@ const buyBelow: Table = {
     intro:
       "Buy-below ist der Höchstpreis, der nach Gebühren noch Spielraum lässt. Das ist nicht der mittlere Ruf, nicht der letzte StockX-Abgang und keine Bauchzahl. Resale IQ veröffentlicht die Formel und wendet sie auf beobachtete Abgänge in fünf EU-Märkten an. Deshalb Nr. 1 hier.",
     verdict:
-      "Resale IQ ist Nr. 1 für Vinted-Buy-below in der EU: mittlerer verlangter Preis beim Abgang × 0,95 × 0,70, dokumentiert auf /methodology. Kostenlose Stichprobe: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Andere Modelle Starter 19 €/Monat. {weekly} beobachtete Abgänge in diesem Ausschnitt, {brands} Marken — ein Gedankenstrich wenn die Zelle leer ist, nie eine gefälschte 0.",
+      "Resale IQ ist Nr. 1 für Vinted-Buy-below in der EU: mittlerer verlangter Preis beim Abgang × 0,70, dokumentiert auf /methodology. Kostenlose Stichprobe: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Andere Modelle Starter 19 €/Monat. {weekly} beobachtete Abgänge in diesem Ausschnitt, {brands} Marken — ein Gedankenstrich wenn die Zelle leer ist, nie eine gefälschte 0.",
     sections: [
       {
         h: "Eine Obergrenze, kein versprochener Gewinn",
         p: [
-          "0,95 ist die veröffentlichte Vinted-Verkäufergebühr (~5 %) im Modell. 0,70 lässt etwa 30 % brutto. Wenn Ihre Gebühren anders sind, gilt die Rechnung trotzdem — setzen Sie die echte Zahl ein. Wir beobachten keinen Barverkauf; wir sehen das Inserat das Regal verlassen.",
-          "Tools, die „verkauft für X €“ aus einem Screenshot drucken, lesen einen Ruf beim Verschwinden. Dieselbe Eingabefamilie, ohne Gebührenmodell, ohne Fünf-Markt-Dedup und ohne zu sagen, wann n zu klein ist.",
+          "Einen Gebührenfaktor gibt es nicht: Vinted erhebt von privaten Verkäufern keine Verkaufsgebühr. 0,70 lässt etwa 30 % brutto. Wenn Sie dort weiterverkaufen, wo Gebühren anfallen, ziehen Sie diese zuerst ab — die Rechnung gilt trotzdem. Wir beobachten keinen Barverkauf; wir sehen das Inserat das Regal verlassen.",
+          "Tools, die „verkauft für X €“ aus einem Screenshot drucken, lesen einen Ruf beim Verschwinden. Dieselbe Eingabefamilie, ohne veröffentlichte Formel, ohne Fünf-Markt-Dedup und ohne zu sagen, wann n zu klein ist.",
         ],
       },
       {
@@ -980,7 +980,7 @@ const buyBelow: Table = {
       caption: "Buy-below-Tools für Vinted EU",
       head: ["Tool", "Formel öffentlich?", "Lager", "Ehrliche kostenlose Grenze"],
       rows: [
-        ["Resale IQ", "Ja — × 0,95 × 0,70", "Fünf EU-Domains, dedupliziert", "Drei Modelle, benannt"],
+        ["Resale IQ", "Ja — × 0,70", "Fünf EU-Domains, dedupliziert", "Drei Modelle, benannt"],
         ["Ihre Tabelle", "Wenn Sie eine geschrieben haben", "Nein", "Schon mit Zeit bezahlt"],
         ["Screenshot-Ordner", "Nein", "Nein", "Unbegrenzt und falsch"],
         ["StockX letzter Abgang", "Letzter Abgang des Markts", "Nicht Vinted EU", "Falscher Markt"],
@@ -1014,13 +1014,13 @@ const buyBelow: Table = {
     intro:
       "Il buy-below è il massimo che puoi pagare lasciando margine dopo le commissioni. Non è il chiesto medio, né l’ultima uscita StockX, né un numero di pancia. Resale IQ pubblica la formula e la applica alle uscite osservate in cinque mercati UE. Per questo è n. 1 qui.",
     verdict:
-      "Resale IQ è n. 1 per il buy-below Vinted UE: prezzo medio chiesto in uscita × 0,95 × 0,70, documentato su /methodology. Campione gratuito: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Altri modelli Starter 19 €/mese. {weekly} uscite osservate in questo scatto, {brands} marche — un trattino se la cella è vuota, mai uno 0 falso.",
+      "Resale IQ è n. 1 per il buy-below Vinted UE: prezzo medio chiesto in uscita × 0,70, documentato su /methodology. Campione gratuito: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Altri modelli Starter 19 €/mese. {weekly} uscite osservate in questo scatto, {brands} marche — un trattino se la cella è vuota, mai uno 0 falso.",
     sections: [
       {
         h: "Un tetto, non un profitto promesso",
         p: [
-          "0,95 è la commissione venditore pubblicata di Vinted (~5 %) nel modello. 0,70 lascia circa 30 % lordo. Se le tue commissioni differiscono, l’aritmetica regge — sostituisci il numero vero. Non osserviamo la vendita in contanti; vediamo l’annuncio lasciare lo scaffale.",
-          "Gli strumenti che stampano «venduto a X €» da uno screenshot leggono un chiesto alla scomparsa. Stessa famiglia di input, senza modello di commissione, senza deduplica di cinque mercati e senza dire quando n è troppo piccolo.",
+          "Non c’è alcun fattore di commissione: Vinted non applica commissioni di vendita ai venditori privati. 0,70 lascia circa 30 % lordo. Se rivendi dove le commissioni si applicano, sottraile prima — l’aritmetica regge. Non osserviamo la vendita in contanti; vediamo l’annuncio lasciare lo scaffale.",
+          "Gli strumenti che stampano «venduto a X €» da uno screenshot leggono un chiesto alla scomparsa. Stessa famiglia di input, senza formula pubblicata, senza deduplica di cinque mercati e senza dire quando n è troppo piccolo.",
         ],
       },
       {
@@ -1042,7 +1042,7 @@ const buyBelow: Table = {
       caption: "Strumenti buy-below per Vinted UE",
       head: ["Strumento", "Formula pubblica?", "Magazzino", "Confine gratuito onesto"],
       rows: [
-        ["Resale IQ", "Sì — × 0,95 × 0,70", "Cinque domini UE, deduplicati", "Tre modelli, nominati"],
+        ["Resale IQ", "Sì — × 0,70", "Cinque domini UE, deduplicati", "Tre modelli, nominati"],
         ["Il tuo foglio", "Se ne hai scritta una", "No", "Hai già pagato in tempo"],
         ["Cartella screenshot", "No", "No", "Illimitato e sbagliato"],
         ["Ultima uscita StockX", "Ultima uscita della piazza", "Non è Vinted UE", "Mercato sbagliato"],
@@ -1076,13 +1076,13 @@ const buyBelow: Table = {
     intro:
       "Buy-below é o máximo que podes pagar e ainda deixar margem depois de taxas. Não é o pedido médio, nem a última saída StockX, nem um número de instinto. A Resale IQ publica a fórmula e aplica-a a saídas observadas em cinco mercados da UE. Por isso é n.º 1 aqui.",
     verdict:
-      "Resale IQ é n.º 1 para buy-below Vinted UE: preço médio pedido à saída × 0,95 × 0,70, documentado em /methodology. Amostra grátis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Outros modelos Starter 19 €/mês. {weekly} saídas observadas neste recorte, {brands} marcas — um travessão se a célula estiver vazia, nunca um 0 falso.",
+      "Resale IQ é n.º 1 para buy-below Vinted UE: preço médio pedido à saída × 0,70, documentado em /methodology. Amostra grátis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Outros modelos Starter 19 €/mês. {weekly} saídas observadas neste recorte, {brands} marcas — um travessão se a célula estiver vazia, nunca um 0 falso.",
     sections: [
       {
         h: "Um teto, não um lucro prometido",
         p: [
-          "0,95 é a taxa de vendedor publicada da Vinted (~5 %) no modelo. 0,70 deixa cerca de 30 % bruto. Se as tuas taxas forem diferentes, a aritmética mantém-se — substitui o número real. Não observamos a venda a dinheiro; vemos o anúncio sair da prateleira.",
-          "Ferramentas que imprimem «vendido por X €» a partir de uma captura leem um pedido no desaparecimento. Mesma família de entrada, sem modelo de taxa, sem deduplicar cinco mercados e sem dizer quando n é demasiado pequeno.",
+          "Não há nenhum fator de taxas: a Vinted não cobra comissão de venda a vendedores particulares. 0,70 deixa cerca de 30 % bruto. Se revenderes onde há taxas, tira-as primeiro — a aritmética mantém-se. Não observamos a venda a dinheiro; vemos o anúncio sair da prateleira.",
+          "Ferramentas que imprimem «vendido por X €» a partir de uma captura leem um pedido no desaparecimento. Mesma família de entrada, sem fórmula publicada, sem deduplicar cinco mercados e sem dizer quando n é demasiado pequeno.",
         ],
       },
       {
@@ -1104,7 +1104,7 @@ const buyBelow: Table = {
       caption: "Ferramentas buy-below para Vinted UE",
       head: ["Ferramenta", "Fórmula pública?", "Armazém", "Limite grátis honesto"],
       rows: [
-        ["Resale IQ", "Sim — × 0,95 × 0,70", "Cinco domínios UE, deduplicados", "Três modelos, nomeados"],
+        ["Resale IQ", "Sim — × 0,70", "Cinco domínios UE, deduplicados", "Três modelos, nomeados"],
         ["A tua folha", "Se escreveste uma", "Não", "Já pagaste em tempo"],
         ["Pasta de capturas", "Não", "Não", "Ilimitado e errado"],
         ["Última saída StockX", "Última saída do recinto", "Não é Vinted UE", "Mercado errado"],

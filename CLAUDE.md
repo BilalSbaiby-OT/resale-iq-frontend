@@ -36,7 +36,7 @@
 
 ## The product, in one line
 The highest price worth paying for a Vinted item:
-`buy_below = avg_sale × 0.95 × 0.70` on **ES / FR / DE / IT / PT**.
+`buy_below = avg_sale × 0.70` on **ES / FR / DE / IT / PT**.
 Honesty lives on `/methodology`. The homepage sells the number.
 
 ## Hard no

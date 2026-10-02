@@ -29,7 +29,7 @@ export const POSTS_95: BlogPost[] = [
     preflightQuery: "Tommy Hilfiger Jacket",
 
     intro:
-      "Tommy Hilfiger jackets track 129 departures in the last 30 days (across all tracked Tommy Hilfiger jackets on EU Vinted, brand-level — observation window to 22 September 2026) at a €36.10 average exit price. Tommy Hilfiger's brand total across all categories is 991 departures in the last 30 days; jackets are 129 of those, above hoodies (510) in count but at a higher average exit. The Tommy Jeans Sherpa Trucker Jacket — TH's most sought-after secondhand jacket on EU Vinted — exits at €55–80. ResaleIQ does not publish a per-model buy-below ceiling for Tommy Hilfiger jackets (the brand is not in our per-model catalogue). As a rough guide, sourcing below 65% of the exit you expect (below €23.47 at the €36.10 brand-level average) targets a 35% gross margin. This guide covers exit prices by jacket type, the Sherpa Trucker opportunity, and how Tommy Hilfiger jackets compare to Ralph Lauren.",
+      "Tommy Hilfiger jackets track 129 departures in the last 30 days (across all tracked Tommy Hilfiger jackets on EU Vinted, brand-level — observation window to 22 September 2026) at a €36.10 average exit price. Tommy Hilfiger's brand total across all categories is 991 departures in the last 30 days; jackets are 129 of those, above hoodies (510) in count but at a higher average exit. The Tommy Jeans Sherpa Trucker Jacket — TH's most sought-after secondhand jacket on EU Vinted — exits at €55–80. ResaleIQ does not publish a per-model buy-below ceiling for Tommy Hilfiger jackets (the brand is not in our per-model catalogue). As a rough guide, sourcing below 70% of the exit you expect (below €25.27 at the €36.10 brand-level average) targets a 30% gross margin. This guide covers exit prices by jacket type, the Sherpa Trucker opportunity, and how Tommy Hilfiger jackets compare to Ralph Lauren.",
 
     definedTerm: {
       name: "Tommy Hilfiger jacket departure average",
@@ -50,7 +50,7 @@ export const POSTS_95: BlogPost[] = [
       {
         h: "Buy-below ceiling and condition tiers for Tommy Hilfiger jackets",
         p: [
-          "ResaleIQ does not publish a per-model buy-below for Tommy Hilfiger jackets (the brand is not in our per-model catalogue). The brand-level average exit is €36.10 across 129 tracked TH jacket transactions in the last 30 days. As a rough guide, sourcing below €23.47 (65% of €36.10) targets a 35% gross margin. At EU charity shops where TH outerwear prices at €8–20, the margin buffer is substantial.",
+          "ResaleIQ does not publish a per-model buy-below for Tommy Hilfiger jackets (the brand is not in our per-model catalogue). The brand-level average exit is €36.10 across 129 tracked TH jacket transactions in the last 30 days. As a rough guide, sourcing below €25.27 (70% of €36.10) targets a 30% gross margin. At EU charity shops where TH outerwear prices at €8–20, the margin buffer is substantial.",
           "Condition tiers for Tommy Hilfiger jackets: Excellent/Like New — target €40–55 exit for mainline, €55–80 for Tommy Jeans Sherpa Trucker. Very Good (light wear, clean exterior, functional closures) — target €30–45. Good (visible wear on collar or cuffs, minor Sherpa pilling) — target €22–32. Fair (significant pilling, broken zip) — skip. TH jacket buyers purchase for regular wear and expect functional condition. The Tommy Jeans Sherpa Trucker at Very Good condition under €25 at a charity shop remains a high-confidence buy given its €55–80 exit range.",
           "The Tommy Jeans Sherpa Trucker has a €65–80 exit window on EU Vinted. At charity shops pricing it at €10–15, the margin per unit can exceed €25–37 net. Any Tommy Jeans Sherpa Trucker in Very Good condition under €25 at a charity shop is a high-confidence buy.",
         ],
@@ -93,7 +93,7 @@ export const POSTS_95: BlogPost[] = [
       },
       {
         q: "What should I pay for a Tommy Hilfiger jacket to make a profit on Vinted?",
-        a: "ResaleIQ does not publish a per-model buy-below for Tommy Hilfiger jackets (not in per-model catalogue). The brand-level average exit is €36.10 across 129 tracked TH jacket transactions in the last 30 days. As a rough guide, sourcing below €23.47 (65% of €36.10) targets a 35% gross margin after Vinted fees. At EU charity shops where TH outerwear prices at €8–20, this is consistently achievable. For Tommy Jeans Sherpa Trucker (€65–80 exit), any piece in Very Good condition under €25 is a high-confidence buy. Skip jackets with broken closures or heavy lining damage.",
+        a: "ResaleIQ does not publish a per-model buy-below for Tommy Hilfiger jackets (not in per-model catalogue). The brand-level average exit is €36.10 across 129 tracked TH jacket transactions in the last 30 days. As a rough guide, sourcing below €25.27 (70% of €36.10) targets a 30% gross margin. At EU charity shops where TH outerwear prices at €8–20, this is consistently achievable. For Tommy Jeans Sherpa Trucker (€65–80 exit), any piece in Very Good condition under €25 is a high-confidence buy. Skip jackets with broken closures or heavy lining damage.",
       },
       {
         q: "Is the Tommy Jeans Sherpa Trucker worth reselling on EU Vinted?",

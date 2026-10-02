@@ -29,7 +29,7 @@ export const INTENTS: SearchIntent[] = [
       `Typical Vinted departure price and buy-below from ${TRACKED} listings across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
     h1: "Vinted Price Checker",
     lede:
-      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% seller fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan. Most item checks unlock with Starter at €19 a month. Weekly brand volumes stay public on /data.`,
+      `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.70, aiming at about a 30% margin. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan. Most item checks unlock with Starter at €19 a month. Weekly brand volumes stay public on /data.`,
     bullets: [
       { h: "Real departure prices, not asking prices", p: "Active listings show what people hope to get. We anchor on the asking price at the moment a comparable listing left the shelf — a real signal, though not an observed sale." },
       { h: "The buy-below number", p: "For sourcing, the number that matters is the maximum you can pay and still profit after fees — we calculate it for you." },
@@ -39,13 +39,13 @@ export const INTENTS: SearchIntent[] = [
       h: "From departure price to BUY, WATCH or SKIP",
       p: [
         "Asking prices are hopes. A departure price is the last ask when a comparable listing left the shelf — the closest public proxy for what buyers paid, not a confirmed receipt.",
-        "From that average departure ask we work backwards to a buy-below price: average × 0.95 × 0.70. The 0.95 is the 5% platform deduction we model for Vinted. The 0.70 targets about a 30% margin. Pay under that number and the flip has room; pay over it and you are speculating.",
+        "From that average departure ask we work backwards to a buy-below price: average × 0.70. The 0.70 targets about a 30% margin, and no platform cut is built in: Vinted charges private sellers no selling fee. Pay under that number and the flip has room; pay over it and you are speculating.",
         "The check then returns BUY, WATCH or SKIP against that number. Try the checker — most items unlock with Starter at €19 a month. Weekly brand volumes stay public on /data. Sell-through and sizes stay on a plan.",
       ],
     },
     faq: [
       { q: "What does a Vinted price checker do?", a: "A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Resale IQ returns a buy-below price and a BUY, WATCH or SKIP call across Spain, France, Germany, Italy and Portugal." },
-      { q: "What is a buy-below price?", a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.95 × 0.70. The 0.95 covers the 5% platform deduction we model for Vinted, and the 0.70 targets about a 30% margin." },
+      { q: "What is a buy-below price?", a: "Buy-below price is the most you can pay for an item and still keep a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.70, which targets about a 30% margin. Vinted charges private sellers no selling fee, so no platform cut is built into that number." },
       { q: "Why departure prices?", a: "Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. We do not see a receipt, so treat it as the closest honest proxy, not a confirmed sale price." },
       { q: "Is the Vinted price checker free?", a: "Weekly brand volumes and average departure prices stay public on /data with no account. Item-level BUY, WATCH or SKIP and buy-below start at Starter €19 a month. You can try the checker; most items unlock with Starter. Sell-through and sizes stay on a plan." },
     ],
@@ -122,8 +122,8 @@ export const INTENTS: SearchIntent[] = [
       { h: "Buy-below built in", p: "Work backwards from the sale price to the maximum you can pay and still hit your margin." },
     ],
     faq: [
-      { q: "How do I calculate profit on Vinted?", a: "Take the realistic sale price, subtract the platform fee (~5% on Vinted) and your cost of goods. What remains is your gross profit. Resale IQ does this automatically and compares it against other platforms." },
-      { q: "Does Vinted charge sellers a fee?", a: "Vinted lets sellers list for free and charges buyers a Buyer Protection fee, so sellers keep more of the listed price than on platforms that take a seller commission." },
+      { q: "How do I calculate profit on Vinted?", a: "Take the realistic sale price and subtract your cost of goods. Vinted charges private sellers no selling fee, so there is no platform cut to take off the sale price. What remains is your gross profit. Resale IQ does this automatically and compares it against other platforms." },
+      { q: "Does Vinted charge sellers a fee?", a: "Not private sellers. Vinted lets them list and sell for free and charges the buyer a Buyer Protection fee on top, so a private seller receives the full sale price — unlike platforms that take a seller commission." },
     ],
   },
 ]

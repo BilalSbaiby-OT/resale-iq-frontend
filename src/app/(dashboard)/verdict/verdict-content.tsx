@@ -336,7 +336,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                   number — while the homepage advertised Stone Island Hoodies as
                   STRONG BUY. A reseller standing in a shop needs the max price
                   to pay; that is the entire product. The backend now returns
-                  buy_below on aggregates (avg × 0.95 × 0.70, the same published
+                  buy_below on aggregates (avg × 0.70, the same published
                   rule used everywhere else), and `limitation` still states this
                   is the brand/category average rather than that exact model.
                 */}

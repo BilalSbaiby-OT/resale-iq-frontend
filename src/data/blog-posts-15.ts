@@ -63,7 +63,7 @@ export const POSTS_15: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Bershka on Vinted?",
-        a: "For Bershka Jeans: with an average departure of €12 and 5% platform deduction, buy-below sits around €8.40. For Hoodies at €18 avg, buy-below is near €12.60. For T-Shirts at €5 avg, buy-below is near €3.50. None of these are achievable at EU charity shop pricing for branded basics. Bershka is not a viable deliberate sourcing target.",
+        a: "For Bershka Jeans: with an average departure of €12, buy-below sits around €8.40. For Hoodies at €18 avg, buy-below is near €12.60. For T-Shirts at €5 avg, buy-below is near €3.50. None of these are achievable at EU charity shop pricing for branded basics. Bershka is not a viable deliberate sourcing target.",
       },
       {
         q: "Why are Bershka Jackets so expensive on Vinted?",
@@ -71,7 +71,7 @@ export const POSTS_15: BlogPost[] = [
       },
       {
         q: "How does Bershka compare to Zara for resale on Vinted?",
-        a: "Zara is significantly more resellable. Zara (82 dep/wk at €20 avg) has 3× Bershka's volume and a higher reliable average. Zara Jackets exit at €35 avg (buy-below ~€23) with a consistent supply; Bershka Jackets at €97 avg are a low-sample outlier. Zara Studio identification (limited-edition pieces exiting at €40–80) gives a real sourcing edge without a Bershka equivalent. Both are Inditex brands; Zara's higher global recognition creates stronger secondary market pricing.",
+        a: "Zara is significantly more resellable. Zara (82 dep/wk at €20 avg) has 3× Bershka's volume and a higher reliable average. Zara Jackets exit at €35 avg (buy-below ~€25) with a consistent supply; Bershka Jackets at €97 avg are a low-sample outlier. Zara Studio identification (limited-edition pieces exiting at €40–80) gives a real sourcing edge without a Bershka equivalent. Both are Inditex brands; Zara's higher global recognition creates stronger secondary market pricing.",
       },
     ],
   },
@@ -109,7 +109,7 @@ export const POSTS_15: BlogPost[] = [
         h: "The only viable Mango case: Mango premium sub-lines",
         p: [
           "Mango has two premium sub-lines that exit above the brand average: Mango Committed (the sustainable fabric line, using certified organic cotton, recycled fibres, and responsible supply chains) and Mango Premium (the elevated fabric line, using linen, silk blends, and premium wool). Neither has a strong secondary market identity — buyers on EU Vinted do not search for 'Mango Committed' specifically — but pieces from these lines in very good condition and a clean, versatile silhouette exit at €20–35.",
-          "The Coats category at €30 average (1 departure, low confidence) likely reflects premium-line outerwear. Mango premium wool coats and linen-blend blazers in classic colourways (navy, camel, black) exit at €25–50 on EU Vinted — above the brand average but requiring a buy-below of €17–35 that is occasionally achievable at estate sales or higher-end charity shops that stock premium brands. This is an opportunistic edge case, not a systematic sourcing strategy.",
+          "The Coats category at €30 average (1 departure, low confidence) likely reflects premium-line outerwear. Mango premium wool coats and linen-blend blazers in classic colourways (navy, camel, black) exit at €25–50 on EU Vinted — above the brand average but requiring a buy-below of €18–35 that is occasionally achievable at estate sales or higher-end charity shops that stock premium brands. This is an opportunistic edge case, not a systematic sourcing strategy.",
         ],
       },
       {
@@ -128,7 +128,7 @@ export const POSTS_15: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Mango on Vinted?",
-        a: "For Mango Jackets: with an average departure of €11 and 5% platform deduction, buy-below sits around €7.70. For Jeans at €8 avg, buy-below is near €5.60. For Hoodies at €18 avg, buy-below is near €12.60. None of these thresholds are achievable at EU charity shop pricing for recognisable branded basics. Skip Mango and invest sourcing time in higher-average brands.",
+        a: "For Mango Jackets: with an average departure of €11, buy-below sits around €7.70. For Jeans at €8 avg, buy-below is near €5.60. For Hoodies at €18 avg, buy-below is near €12.60. None of these thresholds are achievable at EU charity shop pricing for recognisable branded basics. Skip Mango and invest sourcing time in higher-average brands.",
       },
       {
         q: "What Mango items sell best on Vinted?",

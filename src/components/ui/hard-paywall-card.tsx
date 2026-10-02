@@ -15,6 +15,7 @@ import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { FREE_MODELS } from "@/lib/working-models"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 import { useT } from "@/components/i18n/locale-provider"
+import { buyBelowFromAvg } from "@/lib/buy-below"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -173,7 +174,7 @@ export function HardPaywallCard({
                   userSelect: "none",
                 }}
               >
-                {it.avg_price_eur != null ? `€${Math.round(it.avg_price_eur * 0.665)}` : "€••"}
+                {it.avg_price_eur != null ? `€${Math.round(buyBelowFromAvg(it.avg_price_eur))}` : "€••"}
               </span>
             </div>
           ))}

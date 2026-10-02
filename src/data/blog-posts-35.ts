@@ -25,7 +25,7 @@ export const POSTS_35: BlogPost[] = [
     definedTerm: {
       name: "Carhartt WIP jacket departure average",
       description:
-        "The Carhartt WIP jacket departure average is the average price at which a tracked Carhartt WIP jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Carhartt WIP jacket departure average is €53 across 21 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest-exit-price category for any brand tracked by ResaleIQ below the €200 retail tier. The buy-below ceiling based on this departure average is €34.45.",
+        "The Carhartt WIP jacket departure average is the average price at which a tracked Carhartt WIP jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Carhartt WIP jacket departure average is €53 across 21 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest-exit-price category for any brand tracked by ResaleIQ below the €200 retail tier. The buy-below ceiling based on this departure average is €37.10.",
     },
     sections: [
       {
@@ -48,7 +48,7 @@ export const POSTS_35: BlogPost[] = [
       {
         h: "Buy-below ceiling and size breakdown",
         p: [
-          "The buy-below ceiling for Carhartt WIP jackets at the category level is €34.45 — 65% of the €53 departure average. Any jacket sourced below €25 at a charity shop or flea market has strong margin at the lowest realistic exit prices. Carhartt WIP jackets appear at charity shops across France, Germany, Spain, Italy and Portugal with enough frequency that this price is achievable — more often than Stone Island, less often than Nike or Adidas.",
+          "The buy-below ceiling for Carhartt WIP jackets at the category level is €37.10 — 70% of the €53 departure average. Any jacket sourced below €25 at a charity shop or flea market has strong margin at the lowest realistic exit prices. Carhartt WIP jackets appear at charity shops across France, Germany, Spain, Italy and Portugal with enough frequency that this price is achievable — more often than Stone Island, less often than Nike or Adidas.",
           "Size breakdown follows EU street fashion norms. M and L are the highest-volume and most liquid sizes, exiting at or above the category average. S exits slightly above (€55–65) because EU Vinted's buyer pool skews toward smaller sizing in outerwear. XL exits at €45–55 — liquid but slightly below average due to lower demand relative to supply. XXL and above is a long tail: fewer buyers, slower turnover, exits at €35–45. Sourcing XS is inadvisable — almost no EU buyer pool for outerwear in that size.",
           "Colourway affects exit price meaningfully. Black exits fastest (the most searches, the most liquid colourway across EU Vinted). Hamilton Brown exits at the highest absolute price but has a narrower buyer pool — more trend-sensitive, can sit for 2–3 extra weeks. OG brown/duck canvas exits reliably at mid-range prices year-round. Seasonal colourways (pastels, seasonal drops) exit faster when in-season, slower when out.",
         ],
@@ -87,7 +87,7 @@ export const POSTS_35: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Carhartt WIP jacket on EU Vinted?",
-        a: "The buy-below ceiling for a standard Carhartt WIP jacket is €34.45 — 65% of the €53 departure average. Any jacket sourced below €25 at a charity shop or flea market maintains workable margin even at the lower end of the exit range. The WIP Detroit Jacket is the primary resale model; the Active Jacket and Byrd Jacket are secondary targets.",
+        a: "The buy-below ceiling for a standard Carhartt WIP jacket is €37.10 — 70% of the €53 departure average. Any jacket sourced below €25 at a charity shop or flea market maintains workable margin even at the lower end of the exit range. The WIP Detroit Jacket is the primary resale model; the Active Jacket and Byrd Jacket are secondary targets.",
       },
       {
         q: "Is the Carhartt WIP Detroit Jacket worth reselling on EU Vinted?",

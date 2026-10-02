@@ -30,8 +30,8 @@ export const POSTS_28: BlogPost[] = [
         p: [
           "Most resellers lose money not at the listing stage but at the buying stage — they pay too much because they guessed the resale price from asking prices, not from actual departures.",
           "Asking prices on Vinted or Depop are wishes. Departure averages — the prices recent sales actually closed at — are facts. The gap between the two is where resellers either make or lose money.",
-          "The formula is simple: Departure average × (1 − platform fee) − shipping − your time cost = maximum buy price. Anything you pay above that number is margin you've already given away before the item is listed.",
-          "For example: if a pair of Carhartt work trousers departs at an average of €42 on Vinted (0% buyer fee, seller gets full €42 minus the 5% Vinted balance withdrawal fee = ~€39.90), and shipping costs €4, your time cost for listing and packing is ~€3, then the break-even buy price is €32.90. To hit a 30% margin you need to buy below €22.",
+          "The formula is simple: Departure average − platform fee (none on Vinted for private sellers) − shipping − your time cost = maximum buy price. Anything you pay above that number is margin you've already given away before the item is listed.",
+          "For example: if a pair of Carhartt work trousers departs at an average of €42 on Vinted (the seller receives the full €42; the buyer pays Buyer Protection on top), and shipping costs €4, your time cost for listing and packing is ~€3, then the break-even buy price is €35. To hit a 30% margin on the sale you need to buy below about €22 (€42 × 0.70 = €29.40, less €7 for shipping and time).",
           "This number — the buy-below price — is the only number that matters when you are standing at a charity shop rail or scrolling a Facebook Marketplace listing.",
         ],
       },
@@ -105,7 +105,7 @@ export const POSTS_28: BlogPost[] = [
       },
       {
         q: "How do I know what price to pay for an item to resell?",
-        a: "Calculate the buy-below price: departure average (what similar items actually sold for recently) × (1 − platform fee) − shipping − time cost. Anything above that number is margin you have already lost before listing.",
+        a: "Calculate the buy-below price: departure average (what similar items actually sold for recently) − platform fee (none on Vinted for private sellers) − shipping − time cost. Anything above that number is margin you have already lost before listing.",
       },
       {
         q: "Is sourcing from charity shops still worth it in 2026?",

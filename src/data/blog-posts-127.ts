@@ -11,7 +11,7 @@
 // Data integrity: no figures invented here. All departure counts and averages
 // are from the public /api/public/market-snapshot, snapshot 2026-09-20 and
 // the best-brands-to-resell-on-vinted post (2026-09-14 data). Buy-below is
-// computed as avg × 0.95 × 0.70 throughout, matching our published methodology.
+// computed as avg × 0.70 throughout, matching our published methodology.
 // Free check models: Adidas Samba, Nike Air Force 1, Fred Perry Polo ONLY.
 // New Balance FuelCell needs Starter — it 200s anonymously but only returns a
 // brand-average BRAND_CATEGORIES fallback (buy_below null), not a priced verdict.
@@ -37,7 +37,7 @@ export const POSTS_127: BlogPost[] = [
     definedTerm: {
       name: "Should I buy New Balance FuelCell to resell?",
       description:
-        "New Balance FuelCell resale data on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with Starter. The buy-below is the most you can pay and still keep a 30% margin after Vinted's ~5% fee, computed from watched departures across Spain, France, Germany, Italy and Portugal.",
+        "New Balance FuelCell resale data on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with Starter. The buy-below is the most you can pay and still keep a 30% margin, computed from watched departures across Spain, France, Germany, Italy and Portugal.",
     },
     intro:
       "New Balance FuelCell needs Starter at €19 a month for a priced BUY, WATCH or SKIP verdict on /tools — the buy-below is the most you can pay and still keep a healthy margin after fees. The verdict and buy-below update from watched departures across Spain, France, Germany, Italy and Portugal. This guide explains what the FuelCell is, where it sits in the New Balance catalogue, and how to use the checker before you source.",
@@ -54,7 +54,7 @@ export const POSTS_127: BlogPost[] = [
         h: "How to use the checker",
         p: [
           "Visit /tools and type 'New Balance FuelCell' as a Starter subscriber. The checker runs against the live Vinted departure data and returns: BUY, WATCH or SKIP; the buy-below price (the most you can pay and still keep margin after fees); the watched-departure count behind the verdict; and confidence level.",
-          "The buy-below is computed as average asking price at departure × 0.95 × 0.70. The 0.95 models Vinted's ~5% platform deduction; the 0.70 targets roughly a 30% margin. It is a sourcing ceiling, not a guaranteed profit — adjust for condition, size, and how far you are from the average case. A FuelCell in good rather than very good condition should be bought below the buy-below, not at it.",
+          "The buy-below is computed as average asking price at departure × 0.70. The 0.70 targets roughly a 30% margin, and there is no fee factor because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a guaranteed profit — adjust for condition, size, and how far you are from the average case. A FuelCell in good rather than very good condition should be bought below the buy-below, not at it.",
           "The FuelCell is a Starter model, same as the rest of the New Balance catalogue — the 550, 2002R, 9060. The free samples are Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Weekly New Balance brand volumes stay public on /data.",
         ],
         cta: pricingMidCta("ctr_fuelcell_20260922"),
@@ -87,7 +87,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for New Balance FuelCell?",
-        a: "The live buy-below is on https://resaleiq.dev/tools — it changes with the data and should be checked fresh, not cited as a fixed number. The formula is average asking price at departure × 0.95 × 0.70, reflecting Vinted's ~5% fee and a 30% margin target. Adjust downward for condition below very good and for edge sizes.",
+        a: "The live buy-below is on https://resaleiq.dev/tools — it changes with the data and should be checked fresh, not cited as a fixed number. The formula is average asking price at departure × 0.70, which targets a 30% margin. Adjust downward for condition below very good and for edge sizes.",
       },
       {
         q: "What markets does the FuelCell check cover?",
@@ -121,12 +121,12 @@ export const POSTS_127: BlogPost[] = [
       {
         h: "The SKIP list: brands where buy-below sits below sourcing floor",
         p: [
-          "A brand earns a SKIP verdict when the buy-below price — computed as average departure price × 0.95 × 0.70 — sits below the price you can reliably source that brand's items for. It is not that buyers do not exist. It is that the margin math does not close.",
-          "Checked 22 September 2026, across Spain, France, Germany, Italy and Portugal, the clearest SKIP cases all share one trait: we track zero departures for them. Pull&Bear (Hoodies exit €8.11, buy-below ~€5.39), Mango (Shirts exit €7.46, buy-below ~€4.96), and Bershka (Jackets exit €18.14, buy-below ~€12.06) carry an AVOID signal in every category we hold. Uniqlo and Zara are the same story — Zara Jackets exit at €27.40 with no tracked departures. Heavy live supply with nothing leaving the shelf is the SKIP. Full brand table at /data.",
+          "A brand earns a SKIP verdict when the buy-below price — computed as average departure price × 0.70 — sits below the price you can reliably source that brand's items for. It is not that buyers do not exist. It is that the margin math does not close.",
+          "Checked 22 September 2026, across Spain, France, Germany, Italy and Portugal, the clearest SKIP cases all share one trait: we track zero departures for them. Pull&Bear (Hoodies exit €8.11, buy-below ~€5.68), Mango (Shirts exit €7.46, buy-below ~€5.22), and Bershka (Jackets exit €18.14, buy-below ~€12.70) carry an AVOID signal in every category we hold. Uniqlo and Zara are the same story — Zara Jackets exit at €27.40 with no tracked departures. Heavy live supply with nothing leaving the shelf is the SKIP. Full brand table at /data.",
         ],
         table: {
           caption:
-            "SKIP-verdict brands on EU Vinted, checked 22 September 2026. Avg exit = recommended_list_price from Resale IQ demand_index. Buy-below = avg × 0.95 × 0.70. Departures/7d is 0 for every one of these rows — that IS the SKIP signal: heavy live supply with nothing leaving the shelf. These buy-belows sit below achievable charity shop or bale sourcing prices for recognisable branded stock.",
+            "SKIP-verdict brands on EU Vinted, checked 22 September 2026. Avg exit = recommended_list_price from Resale IQ demand_index. Buy-below = avg × 0.70. Departures/7d is 0 for every one of these rows — that IS the SKIP signal: heavy live supply with nothing leaving the shelf. These buy-belows sit below achievable charity shop or bale sourcing prices for recognisable branded stock.",
           head: ["Brand", "Dep/7d", "Avg exit", "Buy-below", "Why SKIP"],
           rows: [
             ["Pull&Bear", "0", "€8.11 (Hoodies)", "~€5.39", "Zero departures tracked; below charity shop floor"],
@@ -163,7 +163,7 @@ export const POSTS_127: BlogPost[] = [
         h: "How to avoid building a SKIP portfolio",
         p: [
           "The trap is buying by brand recognition rather than departure data. 'Zara is popular' is a true statement and a misleading sourcing signal — popularity in the primary market does not translate to secondary market margin. The question is always: what does this brand's actual departure price allow, at the sourcing price I can realistically achieve?",
-          "Before adding any brand to your sourcing list: check the weekly departure average at /data. Compute the buy-below (avg × 0.95 × 0.70). Compare that number to what you actually pay for that brand's items at your sourcing channel. If buy-below is below your typical sourcing price, it is a SKIP regardless of how well-known the brand is.",
+          "Before adding any brand to your sourcing list: check the weekly departure average at /data. Compute the buy-below (avg × 0.70). Compare that number to what you actually pay for that brand's items at your sourcing channel. If buy-below is below your typical sourcing price, it is a SKIP regardless of how well-known the brand is.",
           "The brands that generate the best reselling margins on EU Vinted share a structural feature: their secondary market exit price is decoupled from retail availability. Fred Perry Shirts exit at €14 average but can be sourced at €3–8; the brand is recognisable but not available at a comparable price in EU retail currently. Stone Island Hoodies exit at €55 but can be sourced at €15–30 when found; the brand's retail price (€200–350 new) means the secondary premium is large and durable. The SKIP brands have lost that decoupling.",
         ],
         cta: pricingBodyCta("body_avoid_20260922"),
@@ -172,11 +172,11 @@ export const POSTS_127: BlogPost[] = [
     faq: [
       {
         q: "Which brands should I avoid reselling on Vinted?",
-        a: "Based on Resale IQ demand data from Spain, France, Germany, Italy and Portugal (checked 22 September 2026): Pull&Bear (Hoodies €8.11, buy-below ~€5.39), Mango (Shirts €7.46, buy-below ~€4.96), and Bershka (Jackets €18.14, buy-below ~€12.06) are documented AVOID cases with zero tracked departures. Uniqlo (Jackets €30.48) and Zara (Jackets €27.40) are also AVOID across every category we hold. Brands where buy-below sits below your achievable sourcing price are a SKIP regardless of brand recognition. Weekly table: https://resaleiq.dev/data.",
+        a: "Based on Resale IQ demand data from Spain, France, Germany, Italy and Portugal (checked 22 September 2026): Pull&Bear (Hoodies €8.11, buy-below ~€5.68), Mango (Shirts €7.46, buy-below ~€5.22), and Bershka (Jackets €18.14, buy-below ~€12.70) are documented AVOID cases with zero tracked departures. Uniqlo (Jackets €30.48) and Zara (Jackets €27.40) are also AVOID across every category we hold. Brands where buy-below sits below your achievable sourcing price are a SKIP regardless of brand recognition. Weekly table: https://resaleiq.dev/data.",
       },
       {
         q: "Is Zara worth reselling on Vinted?",
-        a: "Selectively. Zara Jackets (14 departures in the last 30 days at €35 avg, buy-below ~€23) and Zara Studio pieces (€45–70 exit) are viable when sourced below the buy-below. Zara T-Shirts (€10 avg), Shirts (€9), and Hoodies (€16) are SKIP — buy-below thresholds of €6–11 sit below realistic sourcing prices. Full guide: https://resaleiq.dev/blog/zara-reselling-vinted-guide.",
+        a: "Selectively. Zara Jackets (14 departures in the last 30 days at €35 avg, buy-below ~€25) and Zara Studio pieces (€49–70 exit) are viable when sourced below the buy-below. Zara T-Shirts (€10 avg), Shirts (€9), and Hoodies (€16) are SKIP — buy-below thresholds of €6–11 sit below realistic sourcing prices. Full guide: https://resaleiq.dev/blog/zara-reselling-vinted-guide.",
       },
       {
         q: "Is Uniqlo worth reselling on Vinted?",
@@ -184,7 +184,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "What is an oversupplied brand on Vinted?",
-        a: "A brand is oversupplied on Vinted when supply heavily outpaces watched departures, leaving exit prices too low to source profitably. The practical test: compute buy-below (avg departure × 0.95 × 0.70) and compare it to what you can actually source that brand for. If buy-below is below your sourcing floor, it is a SKIP. Weekly brand averages are free at https://resaleiq.dev/data.",
+        a: "A brand is oversupplied on Vinted when supply heavily outpaces watched departures, leaving exit prices too low to source profitably. The practical test: compute buy-below (avg departure × 0.70) and compare it to what you can actually source that brand for. If buy-below is below your sourcing floor, it is a SKIP. Weekly brand averages are free at https://resaleiq.dev/data.",
       },
       {
         q: "Does low departure volume always mean a brand is a SKIP?",
@@ -206,7 +206,7 @@ export const POSTS_127: BlogPost[] = [
     definedTerm: {
       name: "Charity shop flip (Vinted resale)",
       description:
-        "Buying secondhand items at a charity shop and reselling them on Vinted. The margin is created by the gap between charity shop prices (typically €3–20 for named branded items) and Vinted departure prices. The gap is only profitable when you buy below your buy-below price — average departure × 0.95 × 0.70.",
+        "Buying secondhand items at a charity shop and reselling them on Vinted. The margin is created by the gap between charity shop prices (typically €3–20 for named branded items) and Vinted departure prices. The gap is only profitable when you buy below your buy-below price — average departure × 0.70.",
     },
     intro:
       "Charity shops in France, Germany, Spain, Italy and Portugal regularly price named branded items at €5–20 regardless of their secondary market value. A Stone Island hoodie in a German charity shop priced at €18 exits at ~€52 on EU Vinted (42 tracked departures in 7 days). A Fred Perry shirt at €6 exits at ~€15 (12 tracked departures). The gap is real — but only for specific brands and categories. Zara, Uniqlo and Pull&Bear have no margin: Pull&Bear hoodies exit at €8.11 and we track zero departures for any of their categories, so the buy-below sits at or below charity shop prices once you factor fees. This guide gives you the actual buy list and the skip list, backed by watched departure data from Spain, France, Germany, Italy and Portugal.",
@@ -215,10 +215,10 @@ export const POSTS_127: BlogPost[] = [
         h: "The charity shop buy list — brands where the gap is real",
         p: [
           "These brands exit at prices materially above achievable charity shop sourcing costs for the same items. Figures are watched departures from Resale IQ's tracking across Spain, France, Germany, Italy and Portugal, week to 14 September 2026.",
-          "Stone Island: Hoodies average ~€55 at departure (buy-below ~€36). Stone Island Hoodies at EU charity shops price at €12–25 — uninformed pricing against the external label. Jackets average ~€142 (buy-below ~€94); Jackets at charity shops price at €20–50. Stone Island is the single most consistent charity-shop-to-Vinted gap in the tracked catalogue.",
-          "Fred Perry: Shirts average ~€14 (buy-below ~€9). Fred Perry Shirts at EU charity shops price at €4–10. The unit margin is thin (~€5–8 net) but the volume is highest of any brand/category pair we track — 455 watched shirt departures in the week to 14 September 2026. This is a cash-flow play, not a unit-margin play.",
-          "Patagonia: Jackets average ~€36 (buy-below ~€24). Patagonia Fleeces average ~€45 (buy-below ~€30). EU charity shops price Patagonia outerwear at €8–25. Better Sweater fleeces are the highest-volume sourcing target; Patagonia Nuptse equivalents (puffer jackets) reach €80+ exit.",
-          "The North Face: Jackets average ~€52 (buy-below ~€35). Nuptse-family puffers exit higher; standard shells exit lower. Charity shop pricing: €10–30.",
+          "Stone Island: Hoodies average ~€55 at departure (buy-below ~€39). Stone Island Hoodies at EU charity shops price at €12–25 — uninformed pricing against the external label. Jackets average ~€142 (buy-below ~€99); Jackets at charity shops price at €20–50. Stone Island is the single most consistent charity-shop-to-Vinted gap in the tracked catalogue.",
+          "Fred Perry: Shirts average ~€14 (buy-below ~€10). Fred Perry Shirts at EU charity shops price at €4–10. The unit margin is thin (~€5–8 net) but the volume is highest of any brand/category pair we track — 455 watched shirt departures in the week to 14 September 2026. This is a cash-flow play, not a unit-margin play.",
+          "Patagonia: Jackets average ~€36 (buy-below ~€25). Patagonia Fleeces average ~€45 (buy-below ~€32). EU charity shops price Patagonia outerwear at €8–25. Better Sweater fleeces are the highest-volume sourcing target; Patagonia Nuptse equivalents (puffer jackets) reach €80+ exit.",
+          "The North Face: Jackets average ~€52 (buy-below ~€36). Nuptse-family puffers exit higher; standard shells exit lower. Charity shop pricing: €10–30.",
           "Carhartt WIP: Detroit Jacket exits ~€75–120; mainline Carhartt exits €35–50. Charity shops price all Carhartt at the external label — 'Carhartt at €12' regardless of WIP vs mainline. The identification step (WIP interior label) is the sourcing skill.",
           "Ralph Lauren RRL (Double RL): exits at €120–160 vs mainline Polo at €37 average. Charity shops price all Ralph Lauren identically at the polo pony label. RRL interior label is the four-second identification.",
         ],
@@ -248,9 +248,9 @@ export const POSTS_127: BlogPost[] = [
         h: "The skip list — what not to buy at a charity shop",
         p: [
           "These categories have buy-belows at or below charity shop pricing for recognisable branded stock. Buying them is not a guaranteed loss — it is that the margin math requires sourcing below charity shop floor prices, which is unreliable at scale.",
-          "Pull&Bear, Mango, Bershka: exit prices of €7–18 (buy-belows ~€5–12) sit at or below what you typically pay for these items at charity shops when you can identify the brand on the label, and we track zero departures for them. The brands are Inditex/Mango group — identical mass-market positioning. Not worth deliberate sourcing.",
+          "Pull&Bear, Mango, Bershka: exit prices of €7–18 (buy-belows ~€5–13) sit at or below what you typically pay for these items at charity shops when you can identify the brand on the label, and we track zero departures for them. The brands are Inditex/Mango group — identical mass-market positioning. Not worth deliberate sourcing.",
           "Zara T-Shirts, Shirts, Hoodies: exit at €9–16 (buy-belows €6–11). Charity shop prices for Zara basics: €3–8. The gap barely exists, and a single bad listing or return erases it.",
-          "Uniqlo HeatTech, Airism, standard fleece: exit at €8–14 (buy-belows €5–10). Uniqlo sells the same items new for €8–15. Secondary market premium: zero. Exception: KAWS × Uniqlo, JW Anderson × Uniqlo, UNIQLO U (see the Uniqlo guide).",
+          "Uniqlo HeatTech, Airism, standard fleece: exit at €8–14 (buy-belows €6–11). Uniqlo sells the same items new for €8–15. Secondary market premium: zero. Exception: KAWS × Uniqlo, JW Anderson × Uniqlo, UNIQLO U (see the Uniqlo guide).",
           "Generic branded basics from Nike, Adidas, or New Balance without a named model: the brand average masks huge variance between a €5 basic tee and a €100 running shoe. 'Nike' at a charity shop is not a buy signal. A named model — Air Force 1, Samba, FuelCell — at a price below buy-below is a buy signal.",
         ],
         cta: pricingMidCta("ctr_charity_20260922"),
@@ -268,7 +268,7 @@ export const POSTS_127: BlogPost[] = [
         p: [
           "The discipline that separates systematic flippers from buyers of junk is a target list checked before entry. Know the 8–12 brands you are hunting and their approximate buy-below prices. Check /data before you leave the house for the week's departure averages — they update and seasonal shifts change what is worth hunting.",
           "In the shop: check brand labels first, then model identification (for model-sensitive brands — Nike, Adidas, NB, the named model matters enormously), then condition (seams, armpits, cuffs, zips), then size. The size filter is the fastest rejection: a Stone Island Hoodie in an XS that almost no one wears is a different item from one in an M or L.",
-          "Check the live buy-below on /tools before paying for anything with a material price tag. Samba, Air Force 1 and Fred Perry Polo are free checks. The FuelCell and other models need Starter €19 a month. But the brand departure averages on /data are free and update weekly — if you know the average, you can estimate the buy-below (avg × 0.95 × 0.70) in your head.",
+          "Check the live buy-below on /tools before paying for anything with a material price tag. Samba, Air Force 1 and Fred Perry Polo are free checks. The FuelCell and other models need Starter €19 a month. But the brand departure averages on /data are free and update weekly — if you know the average, you can estimate the buy-below (avg × 0.70) in your head.",
         ],
         cta: pricingBodyCta("body_charity_20260922"),
       },
@@ -276,7 +276,7 @@ export const POSTS_127: BlogPost[] = [
     faq: [
       {
         q: "What should I buy at a charity shop to resell on Vinted?",
-        a: "Based on watched departures across Spain, France, Germany, Italy and Portugal (week to 14 September 2026): Stone Island Hoodies (€55 avg exit, buy-below ~€36, charity shop price €12–25), Fred Perry Shirts (€14 avg, buy-below ~€9, €4–10 at charity shops), Patagonia Jackets (€36 avg, buy-below ~€24), The North Face Jackets (€52 avg, buy-below ~€35), and Carhartt WIP (Detroit Jacket ~€95 exit when identified correctly). Sub-brand identification (Carhartt WIP, UNIQLO U, Ralph Lauren RRL, Tommy Jeans) creates the highest per-item margins.",
+        a: "Based on watched departures across Spain, France, Germany, Italy and Portugal (week to 14 September 2026): Stone Island Hoodies (€55 avg exit, buy-below ~€39, charity shop price €12–25), Fred Perry Shirts (€14 avg, buy-below ~€10, €4–10 at charity shops), Patagonia Jackets (€39 avg, buy-below ~€25), The North Face Jackets (€52 avg, buy-below ~€36), and Carhartt WIP (Detroit Jacket ~€95 exit when identified correctly). Sub-brand identification (Carhartt WIP, UNIQLO U, Ralph Lauren RRL, Tommy Jeans) creates the highest per-item margins.",
       },
       {
         q: "What NOT to buy at a charity shop for reselling on Vinted?",
@@ -284,11 +284,11 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "How much should I pay at a charity shop for items to resell?",
-        a: "No more than the buy-below price for that brand and category. Buy-below = average asking price at departure × 0.95 × 0.70. Free weekly brand averages are at https://resaleiq.dev/data. Item-level buy-below (by specific model) is on the paid checker at https://resaleiq.dev/tools — Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the no-account samples. New Balance FuelCell needs Starter.",
+        a: "No more than the buy-below price for that brand and category. Buy-below = average asking price at departure × 0.70. Free weekly brand averages are at https://resaleiq.dev/data. Item-level buy-below (by specific model) is on the paid checker at https://resaleiq.dev/tools — Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the no-account samples. New Balance FuelCell needs Starter.",
       },
       {
         q: "What is the best brand to find at a charity shop for Vinted?",
-        a: "Stone Island has the widest departure premium over typical charity shop pricing: Hoodies average ~€55 on EU Vinted (buy-below ~€36) while charity shops price them at €12–25. Jackets average ~€142 (buy-below ~€94) at €20–50 in charity shops. Fred Perry Shirts offer the most volume (199 departures in the last 30 days) at thin unit margins. Carhartt WIP has the highest surprise premium when identified — WIP Detroit Jacket at €12 charity shop exits at €95 Vinted.",
+        a: "Stone Island has the widest departure premium over typical charity shop pricing: Hoodies average ~€55 on EU Vinted (buy-below ~€39) while charity shops price them at €12–25. Jackets average ~€142 (buy-below ~€99) at €20–50 in charity shops. Fred Perry Shirts offer the most volume (199 departures in the last 30 days) at thin unit margins. Carhartt WIP has the highest surprise premium when identified — WIP Detroit Jacket at €12 charity shop exits at €95 Vinted.",
       },
       {
         q: "Does the country I source from matter for EU Vinted reselling?",

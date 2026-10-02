@@ -155,7 +155,7 @@ Agents can:
   also on /tools/vinted-price-checker): the verdict + buy-below render in the
   HTML for the three free samples; other models return the Starter paywall.
 - Call ${CALCULATE_VINTED_PROFIT_NAME} on /tools/vinted-profit-calculator
-  (buy_price + sell_price; published ~5% seller fee). Without WebMCP, GET
+  (buy_price + sell_price; Vinted charges private sellers no selling fee, so net = sale price - buy price). Without WebMCP, GET
   ${BASE}/tools/vinted-profit-calculator?buy_price=20&sell_price=45 renders the net.
 - Read public weekly volumes on /data and ${BASE}/api/public/market-snapshot.
 

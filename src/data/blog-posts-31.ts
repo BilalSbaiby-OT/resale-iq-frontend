@@ -41,14 +41,14 @@ export const POSTS_31: BlogPost[] = [
         h: "Stone Island Nylon Metal: the volume-weighted technical jacket",
         p: [
           "Nylon Metal is Stone Island's signature technical woven line — a reflective, wire-woven outer fabric that shifts in light and is one of the most recognisable Stone Island materials in the secondhand market. Nylon Metal jackets are not rare, but they are consistently in demand. On EU Vinted, Nylon Metal outers typically exit in the €150–250 range for standard seasons (AW18–AW24); earlier seasons and limited colourways command more.",
-          "The buy-below for a Nylon Metal jacket targeting a €180 mid-range exit is approximately €119 at 30% net margin after Vinted's platform fee. Sourcing Nylon Metal below €120 at charity shops or estate sales is uncommon but not impossible — the line has circulated in secondhand markets since the early 2000s and occasionally surfaces at generalist charity shops in the UK and Germany where the donating household did not recognise the brand.",
+          "The buy-below for a Nylon Metal jacket targeting a €180 mid-range exit is approximately €126 at a 30% margin. Sourcing Nylon Metal below €125 at charity shops or estate sales is uncommon but not impossible — the line has circulated in secondhand markets since the early 2000s and occasionally surfaces at generalist charity shops in the UK and Germany where the donating household did not recognise the brand.",
           "Authentication priority on Nylon Metal: the woven reflective fabric is distinctive and cannot be easily faked at the material level, but the compass badge (sewn to the left sleeve) should be intact and consistent with the season. Check the interior label for a season code (e.g. AW20 = Autumn/Winter 2020). Nylon Metal pieces have a specific hand feel — the outer fabric should be slightly stiff and produce a subtle metallic sheen in directional light.",
         ],
       },
       {
         h: "Stone Island Membrana 3L: technical waterproof departing above average",
         p: [
-          "Membrana 3L is Stone Island's technical waterproof shell line — a three-layer laminate construction used on their core outerwear for practical weather protection. On EU Vinted, Membrana jackets exit in the €120–200 range depending on season and condition; the buy-below at 30% margin for a €160 target exit is approximately €106.",
+          "Membrana 3L is Stone Island's technical waterproof shell line — a three-layer laminate construction used on their core outerwear for practical weather protection. On EU Vinted, Membrana jackets exit in the €120–200 range depending on season and condition; the buy-below at 30% margin for a €160 target exit is approximately €112.",
           "Membrana pieces are prized by buyers who want Stone Island functionality alongside resale value. Seam sealing and waterproof treatment integrity are the two condition factors that most affect exit price — a Membrana jacket with damaged seam tape or delamination will exit at the bottom of the range. Before buying to resell: check the seams at the shoulders and underarms, test the zip (YKK zips are standard on Membrana; broken or sticky zips cut exit price by 20–30%), and check whether the DWR water-repellent treatment is intact by flicking water on the surface — beading intact means high-condition signal.",
           "Membrana and Nylon Metal are often confused by non-specialist buyers. The tell: Membrana has a matte, smooth surface; Nylon Metal has a metallic woven sheen. Listing with the correct product line name (not just 'Stone Island jacket') improves buyer confidence and reduces negotiation on price.",
         ],
@@ -74,7 +74,7 @@ export const POSTS_31: BlogPost[] = [
         h: "Standard outer shells and quilted jackets: the entry-level tier",
         p: [
           "Outside the named technical lines, Stone Island produces a large volume of seasonal outerwear — standard quilted jackets, padded outers, basic Reps Nylon shells, and garment-dyed field jackets — that exits in the €80–130 range on EU Vinted. These are the pieces most likely to appear in charity shops and at estate sales, as the original buyers are less likely to have been dedicated Stone Island collectors.",
-          "For standard outers, the buy-below at 30% margin for a €100 target exit is approximately €66. That sourcing ceiling is achievable: Stone Island standard outerwear surfaces at UK charity shops (where the brand has stronger retail penetration than mainland Europe) in the €20–50 range sporadically. The compass badge must be intact — a missing badge drops a standard outer to €20–30 regardless of garment condition.",
+          "For standard outers, the buy-below at 30% margin for a €100 target exit is approximately €70. That sourcing ceiling is achievable: Stone Island standard outerwear surfaces at UK charity shops (where the brand has stronger retail penetration than mainland Europe) in the €20–50 range sporadically. The compass badge must be intact — a missing badge drops a standard outer to €20–30 regardless of garment condition.",
           "The practical difference between a standard outer and a Nylon Metal or Membrana piece is the fabric: standard outers use woven polyester or cotton-poly blends without the technical treatment. If you cannot identify the product line from the exterior fabric, check the interior label — Stone Island labels typically list the specific fabric treatment (e.g. 'Nylon Metal', 'Membrana 3L') as the material composition.",
           `[Check the departure average for Stone Island this week →](${ilinkHref("data")})`,
         ],
@@ -94,7 +94,7 @@ export const POSTS_31: BlogPost[] = [
         ],
         table: {
           caption:
-            "Stone Island EU Vinted jacket lines: typical exit ranges and buy-below at 30% margin after ~5% platform fee. Week to 15 Sep 2026. Exit ranges are market-observed approximations across standard condition pieces.",
+            "Stone Island EU Vinted jacket lines: typical exit ranges and buy-below at a 30% margin. Week to 15 Sep 2026. Exit ranges are market-observed approximations across standard condition pieces.",
           head: [
             "Product line",
             "Exit range (EU Vinted)",
@@ -160,7 +160,7 @@ export const POSTS_31: BlogPost[] = [
     faq: [
       {
         q: "What do Stone Island jackets sell for on Vinted?",
-        a: "Stone Island jackets averaged €140 per departure across EU Vinted in the week to 15 September 2026, across 169 observed jacket departures in France, Germany, Spain, Italy, and Portugal. The range is wide: standard quilted outers and basic outer shells exit at €80–130; Nylon Metal and Membrana technical jackets at €120–250; Ghost pieces at €200–450; Ice Jacket pieces at €300–700 for working-treatment examples. The buy-below at 30% net margin for the €140 average is approximately €93.",
+        a: "Stone Island jackets averaged €140 per departure across EU Vinted in the week to 15 September 2026, across 169 observed jacket departures in France, Germany, Spain, Italy, and Portugal. The range is wide: standard quilted outers and basic outer shells exit at €80–130; Nylon Metal and Membrana technical jackets at €120–250; Ghost pieces at €200–450; Ice Jacket pieces at €300–700 for working-treatment examples. The buy-below at 30% net margin for the €140 average is approximately €98.",
       },
       {
         q: "Is Stone Island worth reselling on Vinted?",
@@ -168,7 +168,7 @@ export const POSTS_31: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Stone Island jacket?",
-        a: "Using the EU Vinted jacket departure average of €140 (week to 15 Sep 2026), the buy-below at 30% net margin after Vinted's approximately 5% platform fee is €93. This is the maximum sourcing cost to hit a defensible margin at the category average. For higher-ticket lines: Ghost buy-below ~€185 (exits at €280+ avg), Ice Jacket buy-below ~€230 (exits at €350+ for working treatment). For lower-ticket lines: standard quilted outers buy-below ~€66 (exits at €100 avg). Real-time buy-below prices update weekly via Resale IQ.",
+        a: "Using the EU Vinted jacket departure average of €140 (week to 15 Sep 2026), the buy-below at a 30% margin is €98. This is the maximum sourcing cost to hit a defensible margin at the category average. For higher-ticket lines: Ghost buy-below ~€196 (exits at €280+ avg), Ice Jacket buy-below ~€245 (exits at €350+ for working treatment). For lower-ticket lines: standard quilted outers buy-below ~€70 (exits at €100 avg). Real-time buy-below prices update weekly via Resale IQ.",
       },
       {
         q: "How do I authenticate a Stone Island jacket?",

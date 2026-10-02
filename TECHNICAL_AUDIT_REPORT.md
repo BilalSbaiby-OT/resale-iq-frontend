@@ -43,7 +43,7 @@ This audit inspected the tree, confirmed several real bugs on `main`, and shippe
 11. **`BRAND_CATEGORIES` aggregates called `.toLocaleString()` on `sold_7d` without a null guard.**
 12. **Live market pulse used `sold_7d ?? 0` after already filtering finite counts** (display path still coerced).
 13. **`VerdictResult.verdict` omitted `PAYWALL`** while runtime uses it.
-14. **Tools lede said “5% buyer-side fee”; methodology models a 5% seller deduction (`× 0.95`).**
+14. **Tools lede said “5% buyer-side fee”; methodology models a 5% seller deduction (`× 0.95`).** *(Superseded 2026-10-02: Vinted charges private sellers no selling fee, so the `× 0.95` factor was removed everywhere — `buy_below = avg × 0.70`.)*
 15. **Portfolio stats used truthy checks**, so invested/profit `0` rendered as em-dash.
 
 ### P3 / policy (not rewritten)

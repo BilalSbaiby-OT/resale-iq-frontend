@@ -7,14 +7,15 @@ import {
   CALCULATE_VINTED_PROFIT_NAME,
   CALCULATE_VINTED_PROFIT_SELL_DESCRIPTION,
 } from "@/lib/webmcp-tools"
-import { computeProfit, parseMoney, VINTED_FEE_PCT } from "@/lib/tool-params"
+import { computeProfit, netProfit, parseMoney } from "@/lib/tool-params"
 import "@/types/webmcp-jsx"
 
 /**
- * Public Vinted profit calculator. Visitor supplies both prices; we only
- * apply the published ~5% Vinted seller-side fee already stated on this
- * page's FAQ and in /methodology. Never calls /api/calc — that endpoint
- * is paid (402 for anon) because it returns observed market sell prices.
+ * Public Vinted profit calculator. Visitor supplies both prices; the result
+ * is true Vinted arithmetic: Vinted charges private sellers no selling fee,
+ * so net = sale price − buy price (see VINTED_FEE_PCT in tool-params.ts).
+ * Never calls /api/calc — that endpoint is paid (402 for anon) because it
+ * returns observed market sell prices.
  *
  * Contract: Calculate with a filled buy price always shows a result OR a
  * visible validation error. Never a silent return.
@@ -58,7 +59,6 @@ export function PublicProfitCalculator({
   const [result, setResult] = useState<null | {
     buy: number
     sell: number
-    fee: number
     net: number
   }>(computeProfit(initialBuy, initialSell))
 
@@ -76,10 +76,8 @@ export function PublicProfitCalculator({
       setError(t.errSell)
       return
     }
-    const fee = sell * VINTED_FEE_PCT
-    const net = sell - fee - buy
     setError("")
-    setResult({ buy, sell, fee, net })
+    setResult({ buy, sell, net: netProfit(sell, buy) })
   }
 
   return (
@@ -182,7 +180,7 @@ export function PublicProfitCalculator({
             {result.net >= 0 ? "+" : ""}{money(result.net)}
           </div>
           <div style={{ fontSize: 13.5, color: "var(--color-text-secondary)", marginTop: 14, lineHeight: 1.65 }}>
-            {t.breakdown(money(result.sell), money(result.fee), money(result.buy))}
+            {t.breakdown(money(result.sell), money(result.buy))}
           </div>
         </div>
       )}

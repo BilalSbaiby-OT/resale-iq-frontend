@@ -25,7 +25,7 @@ export const POSTS_37: BlogPost[] = [
     definedTerm: {
       name: "Fred Perry polo shirt departure average",
       description:
-        "The Fred Perry polo shirt departure average is the average price at which a tracked Fred Perry shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Fred Perry shirt departure average is €14 across 403 observed departures in France, Germany, Spain, Italy, and Portugal. This is the single highest-volume shirt category in the ResaleIQ EU Vinted database. Individual exit prices range from €8–10 for faded or poorly photographed pieces to €30–50 for rare colourways or limited collaborations. Fred Perry overall tracks 199 departures in the last 30 days at an €18 brand average — the top brand by volume in the EU tracked database. The buy-below ceiling at the shirt category level is €9.10.",
+        "The Fred Perry polo shirt departure average is the average price at which a tracked Fred Perry shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Fred Perry shirt departure average is €14 across 403 observed departures in France, Germany, Spain, Italy, and Portugal. This is the single highest-volume shirt category in the ResaleIQ EU Vinted database. Individual exit prices range from €8–10 for faded or poorly photographed pieces to €30–50 for rare colourways or limited collaborations. Fred Perry overall tracks 199 departures in the last 30 days at an €18 brand average — the top brand by volume in the EU tracked database. The buy-below ceiling at the shirt category level is €9.80.",
     },
     sections: [
       {
@@ -48,8 +48,8 @@ export const POSTS_37: BlogPost[] = [
       {
         h: "Buy-below ceiling and volume sourcing",
         p: [
-          "The buy-below ceiling for Fred Perry polo shirts at the category level is €9.10 — 65% of the €14 departure average. This is the maximum you can pay for a standard M12 in a common colour in good condition and maintain workable margin after Vinted's seller fee and domestic shipping. Any shirt sourced below €5 at a charity shop or flea market has clear margin even at the lowest exit prices.",
-          "Fred Perry is one of the few brands where volume sourcing is viable at entry reselling scale. The €9.10 buy-below ceiling is reachable — Fred Perry polos appear frequently at UK charity shops (£3–6 tier), French vide-greniers (€2–5), and German Kleiderkreisel lots. The combination of high 30-day departure volume (199 departures in the last 30 days) and accessible sourcing prices means a reseller can build a Fred Perry polo pipeline with lower capital commitment than most other tracked brands.",
+          "The buy-below ceiling for Fred Perry polo shirts at the category level is €9.80 — 70% of the €14 departure average. This is the maximum you can pay for a standard M12 in a common colour in good condition and maintain workable margin after domestic shipping. Any shirt sourced below €5 at a charity shop or flea market has clear margin even at the lowest exit prices.",
+          "Fred Perry is one of the few brands where volume sourcing is viable at entry reselling scale. The €9.80 buy-below ceiling is reachable — Fred Perry polos appear frequently at UK charity shops (£3–6 tier), French vide-greniers (€2–5), and German Kleiderkreisel lots. The combination of high 30-day departure volume (199 departures in the last 30 days) and accessible sourcing prices means a reseller can build a Fred Perry polo pipeline with lower capital commitment than most other tracked brands.",
           "The limit on volume sourcing is condition and colourway selection. Buying every Fred Perry polo you find, regardless of state, produces a slow-moving pile of items that exit at €8–9 — barely clearing margin. Selective buying — M12, standard sizes (M or L), no badge damage, no pilling, strong colour saturation — produces items that exit in 7–10 days at €14–18. The selection discipline is the skill, not the sourcing access.",
         ],
         cta: pricingBodyCta("ctr_fp_polo_guide_buybellow_20260915"),
@@ -66,7 +66,7 @@ export const POSTS_37: BlogPost[] = [
         h: "Fred Perry polo vs Fred Perry hoodies and jackets",
         p: [
           "The polo is not the best-margin Fred Perry item — that distinction belongs to jackets, which exit at a €37 average across 460 departures in the last 30 days. A Fred Perry Harrington jacket in good condition exits at €35–60; archive or limited-run jackets reach €80–120. The sourcing cost for a jacket is proportionally higher (€15–25 at a well-stocked charity shop), but the margin is better per item than polo shirts.",
-          "Hoodies sit between the two: 199 departures in the last 30 days at a €22 average, buy-below ceiling €14.30. Fred Perry hoodies in the standard track-top style are accessible at charity shop prices of €5–10, and the €22 average exit price means a reasonable margin per item without the volume scale of polos. The hoodie is the intermediate tier — better margin than polo, lower capital commitment than jackets.",
+          "Hoodies sit between the two: 199 departures in the last 30 days at a €22 average, buy-below ceiling €15.40. Fred Perry hoodies in the standard track-top style are accessible at charity shop prices of €5–10, and the €22 average exit price means a reasonable margin per item without the volume scale of polos. The hoodie is the intermediate tier — better margin than polo, lower capital commitment than jackets.",
           `For resellers, the Fred Perry portfolio strategy is: polos for volume and capital velocity (199 departures in the last 30 days exit at €14), hoodies for intermediate margin (199 departures in the last 30 days at €22), jackets for per-unit margin when opportunity arises (460 departures in the last 30 days at €37). Running all three in parallel maximises the brand's EU Vinted presence. [Fred Perry brand page →](${ilinkHref("flip")})`,
         ],
         cta: pricingBodyCta("ctr_fp_polo_guide_hoodies_20260915"),
@@ -87,7 +87,7 @@ export const POSTS_37: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Fred Perry polo on EU Vinted?",
-        a: "The buy-below ceiling for a standard Fred Perry polo shirt is €9.10 — 65% of the €14 departure average. For a clean M12 in a core colour sourced at a charity shop (£3–6 or €3–5 typically), the margin is clear even at the lower end of the exit range. Items with badge damage or heavy condition issues should be sourced below €4 or not at all, as they exit at €8–9 and leave almost no margin after fees.",
+        a: "The buy-below ceiling for a standard Fred Perry polo shirt is €9.80 — 70% of the €14 departure average. For a clean M12 in a core colour sourced at a charity shop (£3–6 or €3–5 typically), the margin is clear even at the lower end of the exit range. Items with badge damage or heavy condition issues should be sourced below €4 or not at all, as they exit at €8–9 and leave almost no margin after fees.",
       },
       {
         q: "Which Fred Perry polo model is most valuable on EU Vinted?",
@@ -95,7 +95,7 @@ export const POSTS_37: BlogPost[] = [
       },
       {
         q: "Is Fred Perry worth reselling on EU Vinted?",
-        a: "Yes — Fred Perry is the highest-volume brand in the ResaleIQ EU Vinted database with 199 departures in the last 30 days at an €18 brand average. The polo shirt category alone contributes 403 of those departures at €14 average. The buy-below ceiling of €9.10 for shirts is reachable at charity shops and flea markets across France, Germany, Spain, and the UK. The limitation is exit price: at €14 average, the margin per item is modest. The business case rests on volume and selection discipline, not per-item premium.",
+        a: "Yes — Fred Perry is the highest-volume brand in the ResaleIQ EU Vinted database with 199 departures in the last 30 days at an €18 brand average. The polo shirt category alone contributes 403 of those departures at €14 average. The buy-below ceiling of €9.80 for shirts is reachable at charity shops and flea markets across France, Germany, Spain, and the UK. The limitation is exit price: at €14 average, the margin per item is modest. The business case rests on volume and selection discipline, not per-item premium.",
       },
       {
         q: "How does Fred Perry compare to other brands on EU Vinted?",

@@ -54,7 +54,7 @@ From `CONTENT-RULES.md` and `ORGANIC-GROWTH.md` (doctrine, not a preference):
 - **ES · FR · DE · IT · PT only.** No UK claim, no UK flag, no "we cover the UK." 71% of our search
   impressions are US/GB — markets we cannot serve — so English-only content actively recruits the
   wrong audience. Default to the market the query/insight is actually drawn from.
-- **`buy_below = avg_price × 0.95 × 0.70`** is public and fine to show on screen mid-demo.
+- **`buy_below = avg_price × 0.70`** is public and fine to show on screen mid-demo.
 - **Never state or imply a guaranteed return.** "Double your money in a week" survives only as a
   question or a demonstration, never as a promise.
 - **Never manufacture proof.** No invented customers, testimonials, revenue, or stats. Every number on

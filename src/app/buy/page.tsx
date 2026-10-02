@@ -59,7 +59,7 @@ export default function BuyHubPage() {
           Spain, France, Germany, Italy and Portugal. We track{" "}
           <strong style={{ color: "#eef1f7" }}>{totalPairs.toLocaleString()} brand-category pairs</strong>{" "}
           with at least 3 real sales in the last 30 days. The buy-below prices are derived from average
-          departure prices less a 45% gross margin target to cover platform fees, postage and risk.
+          departure prices × 0.70, which targets a 30% gross margin. Vinted charges private sellers no selling fee.
         </p>
         <p style={{ fontSize: 14.5, color: "#8b99b8", lineHeight: 1.6, marginBottom: 32 }}>
           Active listings are NOT sales. We never use supply as a proxy for demand — only confirmed departures count.

@@ -26,7 +26,7 @@ export const POSTS_39: BlogPost[] = [
     definedTerm: {
       name: "Balenciaga sneaker departure average",
       description:
-        "The Balenciaga sneaker departure average is the average price at which a tracked Balenciaga sneaker listing leaves the shelf on EU Vinted — not the asking price, not the retail price, and not a sold price estimate. As of the week to 19 September 2026, the Balenciaga sneaker departure average is €164 across 61 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest-volume category within Balenciaga's EU Vinted footprint, accounting for approximately 29% of the brand's total weekly departures. Individual exit prices range from around €90 for worn general-release colourways to €260 or more for Triple S in archive or limited colourways in near-new condition. The buy-below ceiling at the sneaker category level is €106.60.",
+        "The Balenciaga sneaker departure average is the average price at which a tracked Balenciaga sneaker listing leaves the shelf on EU Vinted — not the asking price, not the retail price, and not a sold price estimate. As of the week to 19 September 2026, the Balenciaga sneaker departure average is €164 across 61 observed departures in France, Germany, Spain, Italy, and Portugal. This is the highest-volume category within Balenciaga's EU Vinted footprint, accounting for approximately 29% of the brand's total weekly departures. Individual exit prices range from around €90 for worn general-release colourways to €260 or more for Triple S in archive or limited colourways in near-new condition. The buy-below ceiling at the sneaker category level is €114.80.",
     },
     sections: [
       {
@@ -42,7 +42,7 @@ export const POSTS_39: BlogPost[] = [
           "Not every Balenciaga sneaker exits at the same price. The category average of €164 blends several model types with different liquidity profiles.",
           "The Triple S is the highest-ceiling model and the highest-volume individual style within the category. Clean pairs in popular colourways (triple white, triple black, white/black multicolour) in sizes 40–44 typically depart between €140 and €200. Archive colourways and collaboration pieces occasionally reach €220–260. Worn or minor-scuff pairs in common sizes still exit around €90–110.",
           "The Speed Trainer exits faster but at a lower ceiling — roughly €80–130 for clean pairs. The elastic sock silhouette is polarising; the resale window is narrow (roughly 6–12 months post-season before the market saturates a colourway). Track and Track.2 runners depart in the €90–140 range. Bulkier than the Speed Trainer, they have a broader size appeal across EU markets but attract a slightly lower ceiling than the Triple S.",
-          `Buy-below ceiling across the sneaker category: €106.60 — that is €164 × 0.65, targeting a 35% gross margin after platform fees. For near-new Triple S in core colourways, you can source up to €120–130 and still expect to exit at or above the category average. [See all Balenciaga departure data →](${ilinkHref("flip")})`,
+          `Buy-below ceiling across the sneaker category: €114.80 — that is €164 × 0.70, targeting a 30% gross margin. For near-new Triple S in core colourways, you can source up to €120–130 and still expect to exit at or above the category average. [See all Balenciaga departure data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_balenciaga_sneakers_20260919"),
       },
@@ -87,7 +87,7 @@ export const POSTS_39: BlogPost[] = [
         p: [
           "EU charity shop sourcing — Emmaus in France, SOS in Spain, Humana in Germany and Italy — produces genuine Balenciaga pairs sporadically. Luxury sneakers arrive from estate clearances and apartment moves, not regular household donations. Visiting branches near affluent residential areas in Paris, Munich, or Barcelona is materially more productive than branches in light commercial zones.",
           "Vinted itself is a sourcing market for condition-arbitrage: pairs listed with poor photos, vague descriptions, or wrong category placement occasionally sit at prices well below the departure average. A Triple S listed as 'Nike-style chunky trainer' by a seller who cannot identify the brand is exactly the arbitrage opportunity the data supports — the departure average is €147 regardless of how it was listed.",
-          "Buy-below for sourcing confidence: €106.60 is the ceiling for an average-condition pair across the whole sneaker category. For near-new Triple S in a core colourway, stretch to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
+          "Buy-below for sourcing confidence: €114.80 is the ceiling for an average-condition pair across the whole sneaker category. For near-new Triple S in a core colourway, stretch to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
           `Check the exact model and size before sourcing. The data behind this guide — by model, colourway, and size — is what Resale IQ provides to subscribers. [See plans →](${ilinkHref("pricing")})`,
         ],
         cta: pricingBodyCta("body_balenciaga_sneakers_20260919"),
@@ -100,11 +100,11 @@ export const POSTS_39: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Balenciaga Triple S on Vinted?",
-        a: "At the sneaker category level, the buy-below ceiling is €106.60 — calculated at 65% of the €164 departure average to target a 35% gross margin after Vinted's platform fees. For near-new Triple S in core colourways (triple white, triple black, white/black), you can source up to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
+        a: "At the sneaker category level, the buy-below ceiling is €114.80 — calculated at 70% of the €164 departure average to target a 30% gross margin. For near-new Triple S in core colourways (triple white, triple black, white/black), you can source up to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
       },
       {
         q: "Is the Balenciaga Triple S still worth reselling on Vinted in 2026?",
-        a: "Yes, with caveats. The Triple S remains the highest-ceiling Balenciaga sneaker on EU Vinted, exiting between €150 and €210 for clean pairs in popular colourways. The main risk is authentication — Balenciaga is one of the most counterfeited brands in EU second-hand markets. If you can authenticate reliably at the point of sourcing and buy below €106.60, the Triple S is one of the highest-margin single-unit events available to an EU reseller.",
+        a: "Yes, with caveats. The Triple S remains the highest-ceiling Balenciaga sneaker on EU Vinted, exiting between €150 and €210 for clean pairs in popular colourways. The main risk is authentication — Balenciaga is one of the most counterfeited brands in EU second-hand markets. If you can authenticate reliably at the point of sourcing and buy below €114.80, the Triple S is one of the highest-margin single-unit events available to an EU reseller.",
       },
       {
         q: "How do Balenciaga sneakers compare to Gucci sneakers on EU Vinted?",

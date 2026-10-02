@@ -87,7 +87,7 @@ test("price checker HowTo uses on-page lede, Check this item, and FAQ sentences"
   assert.equal(toolHowToHeading(intent), "What does a Vinted price checker do?")
 })
 
-test("profit calculator HowTo uses field labels, Calculate, and the 5% fee copy", () => {
+test("profit calculator HowTo uses field labels, Calculate, and the no-seller-fee copy", () => {
   const intent = intentFromSource("vinted-profit-calculator")
   const schema = toolsHowToJsonLd(intent)
   assert.ok(schema)
@@ -98,12 +98,14 @@ test("profit calculator HowTo uses field labels, Calculate, and the 5% fee copy"
   assert.equal(schema.step[0].name, calc.buyLabel)
   assert.equal(schema.step[0].text, "Know your true margin before you buy.")
   assert.equal(schema.step[1].name, calc.sellLabel)
-  assert.match(schema.step[1].text, /platform fee \(~5% on Vinted\)/)
+  assert.match(schema.step[1].text, /subtract your cost of goods/)
+  assert.doesNotMatch(schema.step[1].text, /5%/)
   assert.equal(schema.step[2].name, calc.submit)
   assert.equal(schema.step[2].text, "Resale IQ calculates net profit after platform fees.")
   assert.equal(schema.step[3].name, calc.netLabel)
   assert.match(schema.step[3].text, /What remains is your gross profit/)
-  assert.match(schema.step[3].text, /published Vinted seller-side rate/)
+  assert.match(schema.step[3].text, /Vinted charges private sellers no selling fee/)
+  assert.doesNotMatch(schema.step[3].text, /5%/)
   assert.equal(toolHowToHeading(intent), "How do I calculate profit on Vinted?")
 })
 
@@ -152,11 +154,9 @@ test("HowTo UI labels match copy.en checker and calculator strings", () => {
   assert.match(i18n, /buyLabel: "Buy price \(€\)"/)
   assert.match(i18n, /sellLabel: "Expected sale price \(€\)"/)
   assert.match(i18n, /submit: "Calculate"/)
-  assert.match(i18n, /netLabel: "Net after Vinted 5% fee"/)
-  assert.match(
-    i18n,
-    /Arithmetic on your figures — the 5% is the published Vinted seller-side rate, not a hit-rate claim/,
-  )
+  assert.match(i18n, /netLabel: "Net profit"/)
+  assert.match(i18n, /Vinted charges private sellers no selling fee/)
+  assert.doesNotMatch(i18n, /netLabel: "Net after Vinted 5% fee"/)
 })
 
 test("money-tool titles name departure price / net profit after fees", () => {

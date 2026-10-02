@@ -25,7 +25,7 @@ export const POSTS_40: BlogPost[] = [
     definedTerm: {
       name: "Supreme EU Vinted departure average",
       description:
-        "The Supreme EU Vinted departure average is the average price at which a tracked Supreme listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Supreme tracks 178 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €66 brand average — the highest average exit price of any streetwear brand without luxury positioning in the ResaleIQ EU database. By category: hoodies 47 departures in the last 30 days at €74, t-shirts 33 departures in the last 30 days at €34, caps 21 departures in the last 30 days at €47, bags 19 departures in the last 30 days at €44, jackets 16 departures in the last 30 days at €132. The Box Logo tee is the most recognised Supreme model and trades at a significant premium to the €34 t-shirt average — clean seasonal drops exit at €60–120, archive or collaboration pieces at €130–180. The buy-below ceiling at the t-shirt category level is €22.10.",
+        "The Supreme EU Vinted departure average is the average price at which a tracked Supreme listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Supreme tracks 178 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €66 brand average — the highest average exit price of any streetwear brand without luxury positioning in the ResaleIQ EU database. By category: hoodies 47 departures in the last 30 days at €74, t-shirts 33 departures in the last 30 days at €34, caps 21 departures in the last 30 days at €47, bags 19 departures in the last 30 days at €44, jackets 16 departures in the last 30 days at €132. The Box Logo tee is the most recognised Supreme model and trades at a significant premium to the €34 t-shirt average — clean seasonal drops exit at €60–120, archive or collaboration pieces at €130–180. The buy-below ceiling at the t-shirt category level is €23.80.",
     },
     sections: [
       {
@@ -48,7 +48,7 @@ export const POSTS_40: BlogPost[] = [
       {
         h: "Buy-below ceiling and sourcing for Supreme tees",
         p: [
-          "The buy-below ceiling for Supreme t-shirts at the category level is €22.10 — 65% of the €34 departure average. For Box Logo tees specifically, the buy-below ceiling rises with the exit tier: at a €60–100 exit range, the ceiling is €39–65. These figures assume Vinted's seller fee structure and domestic EU shipping.",
+          "The buy-below ceiling for Supreme t-shirts at the category level is €23.80 — 70% of the €34 departure average. For Box Logo tees specifically, the buy-below ceiling rises with the exit tier: at a €60–100 exit range, the ceiling is €42–70. These figures assume domestic EU shipping.",
           "Supreme tees rarely appear at charity shops and flea markets at the prices they did in 2015–2018. The rise of platform reselling has trained donors and flea-market sellers to recognise the brand. Realistic sourcing channels for EU resellers in 2026 are: EU Vinted itself (buying underpriced listings where the seller has not identified the piece correctly), Depop and eBay cross-platform arbitrage where EU Vinted exits above the purchase platform, and estate sales in the UK and Germany where pieces from the pre-hype era still surface without brand recognition.",
           `The maximum arbitrage opportunity is buying a Box Logo tee listed as a generic 'red Supreme t-shirt' by a seller with no resale knowledge. This happens more often on Vinted than on specialist platforms because Vinted's user base includes non-resellers clearing wardrobes. Correctly identifying and re-listing with the season, colourway, and 'Box Logo' in the title is the sole work — the price delta does the rest. [Supreme brand page →](${ilinkHref("flip")})`,
         ],
@@ -87,7 +87,7 @@ export const POSTS_40: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Supreme Box Logo tee?",
-        a: "The buy-below ceiling at the Supreme t-shirt category level is €22.10 — 65% of the €34 departure average. For Box Logo tees specifically, the ceiling scales with the exit tier: at a €60–100 exit range, the buy-below ceiling is approximately €39–65. For archive or collaboration Box Logos at €130–180 exit, the ceiling rises to €85–117. These figures assume Vinted's standard seller fee and domestic EU shipping. Authentication cost (time spent verifying tags and print) should be factored as a fixed overhead for this category.",
+        a: "The buy-below ceiling at the Supreme t-shirt category level is €23.80 — 70% of the €34 departure average. For Box Logo tees specifically, the ceiling scales with the exit tier: at a €60–100 exit range, the buy-below ceiling is approximately €42–70. For archive or collaboration Box Logos at €130–180 exit, the ceiling rises to €91–126. These figures assume domestic EU shipping. Authentication cost (time spent verifying tags and print) should be factored as a fixed overhead for this category.",
       },
       {
         q: "Which Supreme items are most valuable on EU Vinted?",

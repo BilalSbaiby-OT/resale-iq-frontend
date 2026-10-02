@@ -318,8 +318,8 @@ additions, same format as the file:
 > the panel won't have a verdict for it yet.
 
 **"Where does the buy-below number come from?"**
-> `buy_below = average sold price × 0.95 × 0.70` — 0.95 removes Vinted's 5% selling fee, 0.70
-> targets a 30% margin on what's left. It's on every verdict and on
+> `buy_below = average asking price at departure × 0.70` — the 0.70 targets a 30% margin. There
+> is no fee step: Vinted doesn't charge private sellers a selling fee. It's on every verdict and on
 > [/methodology](/methodology) in full. We log every verdict so accuracy can be checked
 > honestly later; until enough of those are scored against real outcomes, we don't publish an
 > accuracy number — a number we couldn't back would be worse than none.

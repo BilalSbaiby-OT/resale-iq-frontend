@@ -15,7 +15,7 @@ export const POSTS_6: BlogPost[] = [
     title: "Nike Reselling on Vinted: Sneakers at €96 Average, the Models That Drive Margin",
     seoTitle: "Is Nike Worth Reselling on Vinted? — Resale IQ",
     description:
-      "Nike ranks #9 by watched departures across 5 EU Vinted markets — 172/week at €62 average. Sneakers lead: 78 departures at €96 average (buy-below ~€64).",
+      "Nike ranks #9 by watched departures across 5 EU Vinted markets — 172/week at €62 average. Sneakers lead: 78 departures at €96 average (buy-below ~€67).",
     date: "2026-09-14",
 
     preflightQuery: "Nike Air Force 1",
@@ -36,8 +36,8 @@ export const POSTS_6: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €96 at departure and Vinted modelling roughly a 5% platform deduction, the departure-net is around €91.20. Applying a 30% target margin gives a buy-below of approximately €64. Any Nike Sneaker sourced below that price — in sellable condition, correct model — has a realistic margin at current departure prices.",
-          "Jackets at €55 average give a buy-below near €37. Tracksuits at €30 give a buy-below near €20. Hoodies at €23 give a buy-below near €15. T-Shirts at €19 give a buy-below near €13. The apparel categories are viable but volume plays — the per-unit margin is thinner than Sneakers, and sourcing depth matters more than model selection.",
+          "With Sneakers averaging €96 at departure, applying a 30% target margin gives a buy-below of approximately €67. Any Nike Sneaker sourced below that price — in sellable condition, correct model — has a realistic margin at current departure prices.",
+          "Jackets at €55 average give a buy-below near €39. Tracksuits at €30 give a buy-below near €21. Hoodies at €23 give a buy-below near €16. T-Shirts at €19 give a buy-below near €13. The apparel categories are viable but volume plays — the per-unit margin is thinner than Sneakers, and sourcing depth matters more than model selection.",
         ],
         cta: pricingMidCta("ctr_nike_20260914"),
       },
@@ -51,7 +51,7 @@ export const POSTS_6: BlogPost[] = [
       {
         h: "Air Jordan 1: highest ceiling, narrowest target",
         p: [
-          "The Jordan 1 is the highest-ceiling Nike resale model in EU5 Vinted. OG colourways — Bred, Shadow, Royal, Chicago — exit at €120–180 when in clean condition with original box. Mid-tier Retros exit at €80–120. The condition premium is higher than any other Nike model: a Jordan 1 with creasing across the toe box sells for €20–40 less than the same colourway uncreased. If you can toe-stuff, clean, and photograph a Jordan correctly, the prep adds real money.",
+          "The Jordan 1 is the highest-ceiling Nike resale model in EU5 Vinted. OG colourways — Bred, Shadow, Royal, Chicago — exit at €120–180 when in clean condition with original box. Mid-tier Retros exit at €84–126. The condition premium is higher than any other Nike model: a Jordan 1 with creasing across the toe box sells for €20–40 less than the same colourway uncreased. If you can toe-stuff, clean, and photograph a Jordan correctly, the prep adds real money.",
           "The authentication challenge: Jordan 1 fakes are common across all price points and increasingly convincing. The core checks — look for clean stitching on the 'Nike Air' text on the insole, consistent leather grain (genuine leather has irregular texture; fakes often show uniform plastic-like grain), and lace tips that are firmly crimped with no loose threads. For OG colourways, heat the toe area gently — genuine leather is warm and flexible; PU leather substitutes feel stiffer and cool. An authentic Jordan 1 in OG colourway sourced below €100 in clean condition is one of the highest-margin individual transactions in EU5 secondhand resale.",
         ],
       },
@@ -66,14 +66,14 @@ export const POSTS_6: BlogPost[] = [
       {
         h: "Jackets: €55 average, Tech Fleece leads",
         p: [
-          "At 23 departures and €55 average, Jackets are the second-strongest Nike category by revenue velocity. The Tech Fleece range — particularly the full-zip hoodie and the tailored trouser, which pairs with the jacket — has sustained EU5 secondary demand. The Tech Fleece jacket buy-below sits around €37, and clean pieces in grey, black, or olive consistently reach €55–70 at departure.",
+          "At 23 departures and €55 average, Jackets are the second-strongest Nike category by revenue velocity. The Tech Fleece range — particularly the full-zip hoodie and the tailored trouser, which pairs with the jacket — has sustained EU5 secondary demand. The Tech Fleece jacket buy-below sits around €39, and clean pieces in grey, black, or olive consistently reach €55–70 at departure.",
           "N98 track jackets (the heritage zip-through) also trade above the Jacket average in EU markets — France and Spain have particularly strong demand for retro Nike track pieces. Size S and M move fastest; L and XL take longer in most EU markets. Condition note: check the zip pull and zip teeth on every Tech Fleece before sourcing — the zip is the most common failure point and dramatically affects salability.",
         ],
       },
       {
         h: "Tracksuits and Hoodies: volume at thin margins",
         p: [
-          "Tracksuits (13 departures, avg €30) and Hoodies (23 departures, avg €23) are the lowest-margin Nike categories — buy-belows of €20 and €15 respectively mean sourcing discipline needs to be tight. The Tracksuit opportunity is primarily the Tech Fleece suit or the NSW Club set (solid-colour, clean condition) — branded tracksuits sourced below €10 at charity shops or car boots and listed at €25–30 are viable, but the margin is thin and turn rate slower.",
+          "Tracksuits (13 departures, avg €30) and Hoodies (23 departures, avg €23) are the lowest-margin Nike categories — buy-belows of €21 and €16 respectively mean sourcing discipline needs to be tight. The Tracksuit opportunity is primarily the Tech Fleece suit or the NSW Club set (solid-colour, clean condition) — branded tracksuits sourced below €10 at charity shops or car boots and listed at €25–30 are viable, but the margin is thin and turn rate slower.",
           "Hoodies follow the same logic: Club Fleece pullover in black, grey, or navy at below €10 sourcing cost gives margin at the €23 departure floor. Nike hoodies without clear model identity — generic polyester blends, faded prints — will not exit at or above floor. Condition and colourway tightness are non-negotiable at this margin.",
         ],
       },
@@ -81,11 +81,11 @@ export const POSTS_6: BlogPost[] = [
     faq: [
       {
         q: "Is Nike worth reselling on Vinted?",
-        a: "Yes — Nike ranked #9 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 172 listings left the shelf at an average of €62. Sneakers lead at 78 departures averaging €96 (buy-below ~€64). The Air Max 1, Jordan 1, and Vapormax drive the premium. Model selection is the primary sourcing skill.",
+        a: "Yes — Nike ranked #9 by watched departures across Spain, France, Germany, Italy and Portugal in the week to 14 September 2026: 172 listings left the shelf at an average of €62. Sneakers lead at 78 departures averaging €96 (buy-below ~€67). The Air Max 1, Jordan 1, and Vapormax drive the premium. Model selection is the primary sourcing skill.",
       },
       {
         q: "What is the buy-below price for Nike Sneakers on Vinted?",
-        a: "With Nike Sneakers averaging €96 at departure across EU Vinted markets (to 14 September 2026), and modelling a ~5% platform deduction and 30% target margin, the buy-below sits around €64. This applies only to models that actually exit at or above €96 — Air Max 1, Jordan 1, Vapormax. Budget models exit well below €96 and have correspondingly lower buy-below prices. Resale IQ returns the exact buy-below for a specific Nike model.",
+        a: "With Nike Sneakers averaging €96 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €67. This applies only to models that actually exit at or above €96 — Air Max 1, Jordan 1, Vapormax. Budget models exit well below €96 and have correspondingly lower buy-below prices. Resale IQ returns the exact buy-below for a specific Nike model.",
       },
       {
         q: "What Nike items sell best on Vinted?",

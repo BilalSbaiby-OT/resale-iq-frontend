@@ -2,15 +2,15 @@
  * RoiExampleCard — a concrete worked example computed from a real buy-list row.
  *
  * CRO principle #4 (objection handling) + #8 (behavioral: specificity beats abstraction).
- * Shows: "Buy Balenciaga Track at €71, typical Vinted exit €106, after 5% fee = ~€30 profit."
- * The buy-below is the stored ceiling on the row (buy_below), not a recomputed margin.
+ * Shows: "Buy Balenciaga Track at €74, typical Vinted exit €106, margin ≈ €32."
+ * The buy-below is the stored ceiling on the row (buy_below = average × 0.70), and
+ * the margin is exit minus buy-below. Vinted charges private sellers no selling
+ * fee, so there is no fee row: the three printed numbers add up as printed.
  *
  * Honesty rules:
  * - Numbers come from the live SSR buy list passed in — never hardcoded.
  * - Labels say "typical exit" not "average sold" (watched departures, not sales).
- * - "1 good flip covers your Starter month" is shown only when the computed margin
- *   is ≥ €19 (the subscription cost) from the real data row.
- * - No fake testimonials, no invented users.
+ * - No fake testimonials, no invented users, no payback promises.
  *
  * If no free row with avg_price_eur is available: renders nothing.
  * Picks the highest-avg-price free row for the most impressive honest example.
@@ -28,10 +28,9 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
 
   const avg = row.avg_price_eur
   const buyBelow = Math.round(row.buy_below)
-  const fee = +(avg * 0.05).toFixed(2)
-  const margin = +(avg - buyBelow - fee).toFixed(0)
-  // Only show "covers the month" if the margin genuinely exceeds Starter price
-  const coversMonth = margin >= 19
+  const exit = Math.round(avg)
+  // Printed numbers must add up: exit − buy-below, both as displayed.
+  const margin = exit - buyBelow
 
   const label = itemDisplayName(row.brand, row.model)
   const demand =
@@ -103,11 +102,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
           </span>
           <span style={{ color: "var(--color-text-dim)" }}>Typical Vinted exit</span>
           <span style={{ fontWeight: 500, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>
-            €{Math.round(avg)}
-          </span>
-          <span style={{ color: "var(--color-text-dim)" }}>Vinted fee (5%)</span>
-          <span style={{ fontWeight: 500, color: "var(--color-text-dim)", fontVariantNumeric: "tabular-nums" }}>
-            −€{fee.toFixed(0)}
+            €{exit}
           </span>
           <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid var(--color-hairline)" }}>
             Margin per flip
@@ -135,19 +130,6 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
             }}
           >
             {demand} — watched departures, not confirmed sales.
-          </p>
-        )}
-        {coversMonth && (
-          <p
-            style={{
-              fontSize: 12.5,
-              fontWeight: 600,
-              color: "var(--color-text-primary)",
-              margin: "10px 0 0",
-              lineHeight: 1.4,
-            }}
-          >
-            One flip like this covers your entire Starter month (€19).
           </p>
         )}
       </div>
