@@ -141,12 +141,12 @@ export default async function BrandFlipPage(
             . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
             what you pay for it.
           </>
-        ) : soldShown.kind !== "hidden" ? (
+        ) : avg != null ? (
           <>
-            Short answer:{" "}
-            <strong style={{ color: "#eef1f7" }}>{soldShown.text} {b.brand} listings left the shelf in our sample this week</strong>{" "}
-            across the five main EU Vinted markets. That is a small sample, not a volume reading — the margin
-            depends entirely on which model you buy and what you pay for it.
+            Short answer: {b.brand} listings leave the shelf at an average price of{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>{" "}
+            across the five main EU Vinted markets. Whether a flip makes money depends entirely on which model you
+            buy and what you pay for it — check the exact model for its buy-below price.
           </>
         ) : freeModels.length > 0 ? (
           <>
@@ -158,7 +158,7 @@ export default async function BrandFlipPage(
               </span>
             ))}
             {" "}before you buy to resell. That named model is a free sample — BUY / WATCH / SKIP
-            and the most to pay after fees. Other {b.brand} models need Starter at €19/month.
+            and the most to pay. Other {b.brand} models need Starter at €19/month.
           </>
         ) : (
           <>
@@ -179,8 +179,10 @@ export default async function BrandFlipPage(
       {/* Public aggregates */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, marginBottom: 28 }}>
         {[
-          ["Left the shelf per week", soldShown.text],
           ["Avg price at departure", fmtEur(avg)],
+          // Brand-level volume only when it can carry a conclusion (>= 30): a
+          // small count reads as "this brand barely sells" (founder decision 2026-10-02).
+          ...(soldCount != null && departureSupportsConclusion(sold) ? [["Left the shelf per week", soldCount]] : []),
           ["Models tracked", modelsTracked != null ? String(modelsTracked) : "—"],
         ].map(([label, value]) => (
           <div key={label} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 10, padding: "14px 16px" }}>
@@ -194,12 +196,12 @@ export default async function BrandFlipPage(
         Weekly {b.brand} velocity
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 24 }}>
-        {soldShown.kind !== "hidden" ? (
+        {soldCount != null && departureSupportsConclusion(sold) ? (
           <>
-            {soldCount != null ? "About " : ""}
-            <strong style={{ color: "#eef1f7" }}>{soldShown.text} watched departures</strong>
+            About{" "}
+            <strong style={{ color: "#eef1f7" }}>{soldCount} watched departures</strong>
             {" "}this week across Spain, France, Germany, Italy and Portugal
-            {avg != null && soldCount != null ? (
+            {avg != null ? (
               <>
                 , at{" "}
                 <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
@@ -207,6 +209,12 @@ export default async function BrandFlipPage(
               </>
             ) : null}
             . That is brand demand — not a sell-through rate and not a buy-below.
+          </>
+        ) : avg != null ? (
+          <>
+            {b.brand} listings leave the shelf at an average asking price of{" "}
+            <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>{" "}
+            across Spain, France, Germany, Italy and Portugal. That is a brand average — not a buy-below.
           </>
         ) : (
           <>
@@ -232,13 +240,12 @@ export default async function BrandFlipPage(
           only get here are what makes the page worth indexing — and worth
           reading. Keep per-brand data ABOVE the generic explanation. */}
       <div style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "9px 14px", background: "var(--color-surface)", fontSize: 11, color: "#5b6b8c" }}>
-          <span>Category</span><span style={{ textAlign: "right" }}>Left the shelf / week</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price</span>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 12, padding: "9px 14px", background: "var(--color-surface)", fontSize: 11, color: "#5b6b8c" }}>
+          <span>Category</span><span style={{ textAlign: "right", minWidth: 62 }}>Avg price at departure</span>
         </div>
         {(cats.length ? cats : []).slice(0, 5).map(c => (
-          <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: 12, padding: "10px 14px", borderTop: "1px solid var(--color-border-ui)", fontSize: 14, color: "#a9b6d0" }}>
+          <div key={c.category} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 12, padding: "10px 14px", borderTop: "1px solid var(--color-border-ui)", fontSize: 14, color: "#a9b6d0" }}>
             <span style={{ color: "#eef1f7" }}>{c.category}</span>
-            <span style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{departureDisplay(c.sold_7d, "en", { compact: true }).text}</span>
             <span style={{ textAlign: "right", minWidth: 62, fontVariantNumeric: "tabular-nums", color: c.avg_price_eur ? "#34d399" : "#5b6b8c" }}>
               {fmtEur(c.avg_price_eur)}
             </span>
@@ -246,11 +253,10 @@ export default async function BrandFlipPage(
         ))}
       </div>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        {cats[0] && cats[0].avg_price_eur != null && departureDisplay(cats[0].sold_7d).kind === "number" ? (
+        {cats[0] && cats[0].avg_price_eur != null ? (
           <>
             {b.brand} {cats[0].category.toLowerCase()} leave the shelf at about{" "}
-            <strong style={{ color: "#eef1f7" }}>{fmtEur(cats[0].avg_price_eur)}</strong>, on{" "}
-            <strong style={{ color: "#eef1f7" }}>{departureDisplay(cats[0].sold_7d).text}</strong> watched departures a week.
+            <strong style={{ color: "#eef1f7" }}>{fmtEur(cats[0].avg_price_eur)}</strong>.
             Work backwards from that price, not from what the seller is asking.
           </>
         ) : (
@@ -278,7 +284,7 @@ export default async function BrandFlipPage(
           }}>
             <span>Are {b.brand} {c.category} worth reselling?</span>
             <span style={{ fontSize: 12.5, color: "#5b6b8c", whiteSpace: "nowrap" }}>
-              {departureDisplay(c.sold_7d).kind === "hidden" ? "" : `${departureDisplay(c.sold_7d, "en", { compact: true }).text}/wk`}
+              {c.avg_price_eur ? `${fmtEur(c.avg_price_eur)} avg` : ""}
             </span>
           </Link>
         ))}

@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation"
 import type { Metadata } from "next"
 import { CATEGORIES, getCategory, catSlug, type CategoryEntry } from "@/lib/seo-categories"
 import { getMarketNumbers, fmtEur } from "@/lib/market-numbers"
-import { departureDisplay, departureIsPrintable, departureSupportsConclusion } from "@/lib/departure-display"
+import { departureDisplay, departureSupportsConclusion } from "@/lib/departure-display"
 import {
   categoryLeafTitle,
   categoryLeafDescription,
@@ -108,16 +108,18 @@ export default async function CategoryPage(
     .filter(e => e.avg_price_eur != null && departureSupportsConclusion(e.sold_7d))
     .sort((a, b) => (b.avg_price_eur ?? 0) - (a.avg_price_eur ?? 0))[0]
   const topRanked = top != null && departureSupportsConclusion(top.sold_7d)
-  const topCount = departureDisplay(top?.sold_7d).text
   const totalShown = departureDisplay(total > 0 ? total : null)
 
+  // NO per-brand departure count anywhere on this page (founder decision
+  // 2026-10-02): "only 6 Zara pants got sold" costs trust. The answer leads with
+  // price; the ranking order (by weekly volume) stays, the numbers do not. Only
+  // the category-wide total below is quoted.
   const answer =
     top && topRanked
-      ? `Across the tracked brands, ${top.brand} has the most ${lower} leave the shelf on Vinted — about ` +
-        `${topCount} a week across ${MARKETS}. ` +
-        (dearest?.avg_price_eur != null
-          ? `${dearest.brand} carries the highest average price at departure at ${fmtEur(dearest.avg_price_eur)}. `
+      ? (dearest?.avg_price_eur != null
+          ? `${c.category} on Vinted carry the most margin at ${dearest.brand}, with an average price at departure of ${fmtEur(dearest.avg_price_eur)}. `
           : "") +
+        `${top.brand} is the brand with the most ${lower} leaving the shelf across ${MARKETS}. ` +
         `Volume and price pull in opposite directions: the high-volume brands move fast at thin margins, ` +
         `the expensive ones carry more margin per unit but sit longer.`
       : `${c.category} demand across ${MARKETS} is tracked live. No brand has enough watched departures in this snapshot to rank (we need at least 30 in a week), so check a specific model rather than a brand average.`
@@ -206,7 +208,7 @@ export default async function CategoryPage(
         </div>
 
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 12 }}>
-          {c.category} on Vinted, ranked by weekly volume
+          {c.category} on Vinted: brands ranked by weekly volume, with average price
         </h2>
         <div style={{ overflowX: "auto", marginBottom: 10 }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14, minWidth: 460 }}>
@@ -214,9 +216,7 @@ export default async function CategoryPage(
               <tr style={{ textAlign: "left", color: "#5b6b8c", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.4px" }}>
                 <th style={{ padding: "8px 10px 8px 0", fontWeight: 600 }}>#</th>
                 <th style={{ padding: "8px 10px", fontWeight: 600 }}>Brand</th>
-                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Left the shelf / week</th>
-                <th style={{ padding: "8px 10px", fontWeight: 600, textAlign: "right" }}>Share</th>
-                <th style={{ padding: "8px 0 8px 10px", fontWeight: 600, textAlign: "right" }}>Avg price</th>
+                <th style={{ padding: "8px 0 8px 10px", fontWeight: 600, textAlign: "right" }}>Avg price at departure</th>
               </tr>
             </thead>
             <tbody>
@@ -228,16 +228,6 @@ export default async function CategoryPage(
                       {e.brand}
                     </Link>
                   </td>
-                  <td style={{ padding: "10px", textAlign: "right", color: "#eef1f7", fontWeight: 600 }}>
-                    {departureDisplay(e.sold_7d, "en", { compact: true }).text}
-                  </td>
-                  <td style={{ padding: "10px", textAlign: "right", color: "#5b6b8c" }}>
-                    {total > 0 && departureIsPrintable(e.sold_7d) ? (() => {
-                      const raw = (e.sold_7d / total) * 100
-                      const rounded = Math.round(raw)
-                      return rounded === 0 && raw > 0 ? "<1%" : `${rounded}%`
-                    })() : "—"}
-                  </td>
                   <td style={{ padding: "10px 0 10px 10px", textAlign: "right", color: "#a9b6d0" }}>
                     {fmtEur(e.avg_price_eur)}
                   </td>
@@ -247,9 +237,9 @@ export default async function CategoryPage(
           </table>
         </div>
         <p style={{ fontSize: 12, color: "#5b6b8c", lineHeight: 1.6, marginBottom: 28 }}>
-          Units we watched leave the shelf in the last 7 days across Vinted ES, FR, DE, IT and PT, for the brands Resale IQ tracks —
-          a departure, not a confirmed sale (see <Link href="/methodology" style={{ color: "#8fa3c4" }}>methodology</Link>).
-          Counts under 10 show as &quot;&lt;10&quot; and under 5 as an em-dash. Average price is the average asking price at
+          Brands are ordered by the listings we watched leave the shelf in the last 7 days across Vinted ES, FR, DE, IT and PT,
+          for the brands Resale IQ tracks — a departure, not a confirmed sale (see{" "}
+          <Link href="/methodology" style={{ color: "#8fa3c4" }}>methodology</Link>). Average price is the average asking price at
           departure for {lower} alone, not the brand&apos;s average across all its categories.
         </p>
 
@@ -259,16 +249,13 @@ export default async function CategoryPage(
           </h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             The top of the table is where the most listings leave the shelf, not where the profit is.{" "}
-            {topRanked
-              ? <>A brand with {topCount} {lower} leaving the shelf a week is easy to shift, which also means</>
-              : <>A brand that moves quickly is easy to shift, which also means</>}{" "}
+            A brand that moves quickly is easy to shift, which also means
             the supply side is crowded and the price is well known to everyone sourcing. The margin usually lives one or two
             rows down, or at the expensive end of the list where fewer people can afford the buy-in.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
-            Read the share column as competition. A brand holding {topRanked && top?.sold_7d != null && total > 0 ? `${Math.round((top.sold_7d / total) * 100)}%` : "a large share"}
-            of {lower} volume is the default choice for every reseller in the market. That is fine if you can source
-            below everyone else, and a trap if you cannot.
+            Read the rank as competition. The brand at the top is the default choice for every reseller in the market.
+            That is fine if you can source below everyone else, and a trap if you cannot.
           </p>
         </section>
 

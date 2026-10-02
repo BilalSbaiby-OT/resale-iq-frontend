@@ -57,7 +57,6 @@ import { canonicalPath } from "@/lib/locale-routes"
 import type { Locale } from "@/lib/i18n"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-import { localizeDemandNote } from "@/lib/verdict-words"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLE_CHIPS } from "@/lib/free-samples"
 
@@ -274,13 +273,6 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
           </div>
         )}
       </div>
-
-      {/* Demand note */}
-      {localizeDemandNote(result.demand_note, locale) && (
-        <p style={{ fontSize: 12, color: "#8b99b8", margin: "0 0 10px", lineHeight: 1.5 }}>
-          {localizeDemandNote(result.demand_note, locale)}
-        </p>
-      )}
 
       {/* H150 CRO: replace hardcoded fake-field chips with real locked buy-list items.
           Before: 4 blurred chips ("Sell-through rate", "Top sizes", …) — fake field

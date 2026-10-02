@@ -18,7 +18,7 @@ import type { BrandFigures } from "./market-numbers"
 import type { HeroVerdict } from "./hero-verdict"
 import { articleSocialMeta } from "./flip-category-meta.ts"
 import { isUsableVerdict } from "./usable-verdict.ts"
-import { departureDisplay } from "./departure-display.ts"
+import { departureDisplay, departureSupportsConclusion } from "./departure-display.ts"
 import { freeSampleList } from "./free-samples.ts"
 
 export { isUsableVerdict }
@@ -27,16 +27,16 @@ export { isUsableVerdict }
 const FREE_LIST = freeSampleList("en")
 
 /**
- * "about 44 watched departures a week" / "fewer than 10 watched departures a
- * week" / null (below the publish floor — the caller drops the count sentence).
- * The display floor lives in departure-display.ts; never print a raw count here.
+ * "about 44 watched departures a week" for a BRAND-level figure, or null (the
+ * caller drops the count sentence). Only brand totals reach this function and
+ * only when they can carry a conclusion (>= 30, departure-display.ts): a small
+ * count reads as "this brand barely sells" (founder decision 2026-10-02), and a
+ * per-model or per-category count is never printed at all. Never print a raw
+ * count here.
  */
 function weeklyDepartures(n: number | null | undefined): string | null {
-  const d = departureDisplay(n, "en")
-  if (d.kind === "hidden") return null
-  return d.kind === "band"
-    ? `${d.text.toLowerCase()} watched departures a week`
-    : `about ${d.text} watched departures a week`
+  if (!departureSupportsConclusion(n)) return null
+  return `about ${departureDisplay(n, "en").text} watched departures a week`
 }
 
 function fmtEur(n: number | null | undefined): string {

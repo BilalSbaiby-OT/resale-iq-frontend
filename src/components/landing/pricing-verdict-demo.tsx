@@ -32,7 +32,6 @@
  */
 
 import type { Locale } from "@/lib/i18n"
-import { departureEvidenceNote } from "@/lib/departure-display"
 
 interface SampleVerdict {
   verdict: string
@@ -273,13 +272,6 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
             </div>
           )}
         </div>
-
-        {/* Demand note */}
-        {departureEvidenceNote(v.sold_30d_evidence, locale) && (
-          <p style={{ fontSize: 13, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
-            {departureEvidenceNote(v.sold_30d_evidence, locale)}
-          </p>
-        )}
 
         {/* Locked fields — blurred to show depth without leaking paid data */}
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>

@@ -1,7 +1,6 @@
 import type { BrandSeo } from "@/lib/seo-categories"
 import {
   departureIsPrintable,
-  departureLabel,
   departureSupportsConclusion,
 } from "./departure-display.ts"
 
@@ -26,10 +25,12 @@ import {
 // Every claim traces to a number already shown on the page. Nothing is invented,
 // and nothing asserts a measured accuracy or profit figure we do not have.
 //
-// DEPARTURE COUNTS follow the display floor (departure-display.ts): a category
-// below 10 watched departures is not narrated at all, and a sentence that
-// RANKS ("highest-volume", "leads on volume") needs n >= 30. Below that the
-// prose says what we watched, not what the market does.
+// NO PER-CATEGORY DEPARTURE COUNT is printed here (founder decision
+// 2026-10-02): "only 6 Zara pants got sold" costs trust. Categories are still
+// ranked and named, and the prose leads with prices. The display floor still
+// governs WHICH categories are narrated (>= 10) and a sentence that RANKS
+// ("highest-volume", "leads on volume") needs n >= 30. Only the brand-wide
+// figure, and only when it is large, is quoted.
 
 interface Cat { category: string; sold_7d: number; avg_price_eur: number }
 
@@ -52,11 +53,8 @@ export function brandNarrative(b: BrandSeo): string[] {
       c.avg_price_eur > 0
     )
   if (cats.length < 2) {
-    const seen = departureLabel(b.sold_7d, "7d", "en", { sample: true })
     return [
-      (seen
-        ? `${b.brand}: ${seen} across the five EU Vinted markets at an average price at departure of ${eur(b.avg_price_eur)}. `
-        : `We watch ${b.brand} across the five EU Vinted markets, but too few listings left the shelf this week to report a count. `) +
+      `${b.brand} listings leave the shelf at an average price at departure of ${eur(b.avg_price_eur)} across the five EU Vinted markets. ` +
       `With only one category deep enough to report, the decision comes down to the specific model and size — ` +
       `check the exact piece before you buy rather than trusting the brand average.`,
     ]
@@ -73,7 +71,7 @@ export function brandNarrative(b: BrandSeo): string[] {
   if (dear && cheap && topVol.category !== dear.category) {
     paras.push(
       `On Vinted, ${b.brand}'s ${departureSupportsConclusion(topVol.sold_7d) ? "highest-volume" : "most-watched"} category is ${topVol.category.toLowerCase()} ` +
-      `at about ${k(topVol.sold_7d)} watched departures a week (${eur(topVol.avg_price_eur)} average), ` +
+      `at ${eur(topVol.avg_price_eur)} average at departure, ` +
       `while its priciest pieces are ${dear.category.toLowerCase()} at ${eur(dear.avg_price_eur)}. ` +
       `Those are two different games: one rewards turnover, the other rewards margin per ` +
       `item. Which one you play decides what you should be paying at the source.`,
@@ -81,16 +79,15 @@ export function brandNarrative(b: BrandSeo): string[] {
   } else if (departureSupportsConclusion(topVol.sold_7d)) {
     paras.push(
       `For ${b.brand}, ${topVol.category.toLowerCase()} leads on volume ` +
-      `(~${k(topVol.sold_7d)} left the shelf a week at ${eur(topVol.avg_price_eur)}) — the obvious ` +
+      `(${eur(topVol.avg_price_eur)} average at departure) — the obvious ` +
       `place to start, and also the most crowded, so your buy-below discipline matters ` +
       `more here than anywhere else in the catalogue.`,
     )
   } else {
     paras.push(
-      `For ${b.brand}, ${topVol.category.toLowerCase()} had the most watched departures ` +
-      `(~${k(topVol.sold_7d)} left the shelf this week at ${eur(topVol.avg_price_eur)}). That is a small ` +
-      `sample, so treat it as a place to look first, not a verdict — your buy-below discipline ` +
-      `matters more than the category.`,
+      `For ${b.brand}, ${topVol.category.toLowerCase()} is the category we watched most, at ` +
+      `${eur(topVol.avg_price_eur)} average at departure. Treat it as a place to look first, not a ` +
+      `verdict — your buy-below discipline matters more than the category.`,
     )
   }
 
@@ -127,7 +124,7 @@ export function brandNarrative(b: BrandSeo): string[] {
     )
   } else if (brandPrintable && b.sold_7d <= 6000) {
     paras.push(
-      `${b.brand} is a lower-volume brand here at roughly ${k(b.sold_7d)} watched departures a week, ` +
+      `${b.brand} is a lower-volume brand here, ` +
       `which cuts both ways: less competition when you list, but you need the size and ` +
       `condition right or the piece can sit. Patience beats volume with a brand like this.`,
     )

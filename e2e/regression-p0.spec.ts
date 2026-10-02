@@ -173,7 +173,7 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     await expect(panel.getByText(/try one of these instead/i)).toBeVisible()
     await expect(panel.getByRole("button", { name: "Fred Perry Polo" })).toBeVisible()
 
-    // The priced-metrics grid (Buy-below / Market price / Left shelf / Listed)
+    // The priced-metrics grid (Buy-below / Market price)
     // must not render at all — there is no price to show, and rendering the
     // grid with dashes reads as "we have this and it is zero."
     await expect(panel.getByText("Buy-below", { exact: true })).toHaveCount(0)
@@ -317,7 +317,11 @@ test.describe("P0 — DATA TRUTH on the public verdict card", () => {
   // "N left the shelf vs M still listed", answering a different question than
   // the label asks. Live Samba is 43 departures against 20 comparables; the
   // fixture keeps them distinct (48 vs 20) so a swap cannot pass.
-  test("the departures count is sold_7d, never the comparable count n", async ({ page }) => {
+  //
+  // Founder decision 2026-10-02: NO per-item departure count is rendered at all
+  // ("customers won't trust that only 6 got sold"), so neither number may appear
+  // under a "left the shelf" label on the verdict card.
+  test("neither sold_7d nor the comparable count n is rendered as a departures count", async ({ page }) => {
     const body = await (await search(page, "Adidas Samba")).json()
     expect(body.sold_7d).not.toEqual(body.n) // the fixture must be able to tell them apart
 
@@ -325,9 +329,9 @@ test.describe("P0 — DATA TRUTH on the public verdict card", () => {
     const comparables = String(body.n)
 
     await expect(
-      page.getByText(new RegExp(`${departures} left the shelf`, "i")),
-      "the sample sentence must count watched departures (sold_7d)",
-    ).toBeVisible()
+      page.getByText(new RegExp(`\\b${departures} left the shelf`, "i")),
+      "a per-item departure count (sold_7d) must not be rendered",
+    ).toHaveCount(0)
     await expect(
       page.getByText(new RegExp(`\\b${comparables} left the shelf`, "i")),
       "comparable_n must never be rendered as a departures count",

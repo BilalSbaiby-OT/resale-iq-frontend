@@ -155,7 +155,7 @@ export function PaybackCalculator({
    *  pricing cards next to it have stopped charging. */
   starterPrice?: number
 }) {
-  // Defaults live in src/lib/payback-defaults.ts (60 items x EUR 20 = EUR 1,200 a
+  // Defaults live in src/lib/payback-defaults.ts (30 items x EUR 20 = EUR 600 a
   // month) so the pricing FAQ that quotes them cannot drift from the sliders.
   const [itemsPerMonth, setItems] = useState(PAYBACK_DEFAULT_ITEMS_PER_MONTH)
   const [avgBuyPrice, setAvgBuy] = useState(PAYBACK_DEFAULT_AVG_BUY_EUR)

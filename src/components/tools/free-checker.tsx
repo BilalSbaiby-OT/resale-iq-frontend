@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Lock, Unlock, Search, Loader2 } from "lucide-react"
-import { watchedSampleNote } from "@/lib/watched-sample"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictCopy } from "@/lib/verdict-copy"
@@ -33,8 +32,7 @@ import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
 import { collectVerdictMetrics, hasVerdictIntelligence, type ReconstructedSignals } from "@/lib/verdict-intelligence"
 import { formatStrPctString } from "@/lib/str-pct"
-import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote, localizeDemandNote } from "@/lib/verdict-words"
-import { departureDisplay, departureLabel, departurePairPrintable } from "@/lib/departure-display"
+import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 import { trackEvent } from "@/lib/analytics"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
@@ -368,14 +366,10 @@ function VerdictAlternatives({
               textAlign: "left",
             }}
           >
-            {/* Left: brand + model, demand note (30-day NOT weekly) */}
+            {/* Left: brand + model. No departure count (founder decision 2026-10-02); the price sits on the right. */}
             <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0, flex: 1 }}>
               <span style={{ fontSize: 13.5, fontWeight: 600, color: "#EEF1F7", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {alt.brand} {alt.model}
-              </span>
-              <span style={{ fontSize: 11.5, color: "#8FA3C4" }}>
-                {/* Worded from the count by the departure lexicon: "371 left the shelf in 30 days" — never relabel as weekly */}
-                {departureLabel(alt.sold_30d, "30d", locale)}
               </span>
             </div>
             {/* Right: avg price + lock on buy-below */}
@@ -587,35 +581,16 @@ export function FreeChecker({
   useEffect(() => { if (initialQuery && !initialResult) run(initialQuery) }, [])
 
   const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
-  // WATCHED DEPARTURES ONLY. This was `res.sold_7d ?? res.n`, and `n` is NOT a
-  // departure count — it is `comparable_n`, the fenced subset of clean comps the
-  // confidence band and the price stats are computed from (api/routes.py
-  // `_verdict_display_n`). Production, Adidas Samba: sold_7d 43, n 20. The
-  // fallback therefore put the comparable count under the "Left shelf (watched)"
-  // label and inside "N left the shelf vs M still listed" — a real number
-  // answering a different question than the label asks.
-  //
-  // No substitute is honest here, so there is none: when sold_7d is absent the
-  // tile and the sample sentence simply do not render. (Live check 2026-09-05:
-  // 0 of 100 catalogue rows have a null/0 sold_7d with a positive comparable_n,
-  // so this fallback was never firing in production — it was a latent mislabel,
-  // removed before it could.)
-  const sold = res?.sold_7d
-  const listed = res?.active_listings
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
-  // The "still listed" tile is only shown beside a departure count it can be
-  // compared with (departure-display.ts: n >= 30 and at most 500 listed per
-  // departure). A handful of departures set against a six-figure listing count
-  // reads as a supply glut; it is really a slice of a shelf.
+  // No per-item departure count and no "still listed" supply count beside it
+  // (founder decision 2026-10-02): the card leads with the price answer.
   const intel = (res ? collectVerdictMetrics(res) : []).filter(
-    (row) => row.id !== "active_listings" || departurePairPrintable(res?.sold_7d, row.numeric),
+    (row) => row.id !== "sold_7d" && row.id !== "active_listings",
   )
   const intelValue = (row: (typeof intel)[number]): string =>
     row.id === "buy_below" || row.id === "sell_avg"
       ? money(row.numeric)
-      : row.id === "sold_7d"
-        ? departureDisplay(row.numeric, locale).text
-        : fmtCount(row.numeric)
+      : fmtCount(row.numeric)
   const hasIntel = res ? hasVerdictIntelligence(res) : false
   // Gated / present / genuinely unmeasured — three states, never collapsed
   // into one dash. See src/lib/locked-fields.ts.
@@ -636,7 +611,6 @@ export function FreeChecker({
   // LockedStat is best served by signing in to their existing account.
   // Revenue 2026-09-16.
   const unlockHref = canonicalPath(locale, "/login")
-  const sample = watchedSampleNote(sold, listed, res?.verdict, locale)
   // INSUFFICIENT_DATA no longer reaches this label — it has its own branch
   // below (defect 2, 2026-09-01) so it never renders as a big coloured tag
   // that looks like a verdict.
@@ -895,10 +869,6 @@ export function FreeChecker({
                         {[
                           `${c.live_listings.toLocaleString("en-GB")} listed`,
                           money(c.avg_price_eur),
-                          // Departures sit beside a six-figure listing count here, so
-                          // they print only when they clear the display floor and the
-                          // pair is on the same footing; never "sold".
-                          departurePairPrintable(c.departures_7d, c.live_listings) ? departureLabel(c.departures_7d, "7d", "en") : null,
                         ].filter(Boolean).join(" · ")}
                       </span>
                     </div>
@@ -969,7 +939,6 @@ export function FreeChecker({
                       <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>{a.category}</span>
                       <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
                         {money(a.avg_price_eur)} {t.avg}
-                        {departureDisplay(a.sold_7d, locale).kind === "hidden" ? "" : ` · ${t.leftShelfCount(departureDisplay(a.sold_7d, locale, { compact: true }).text)}`}
                       </span>
                     </div>
                   ))}
@@ -1069,7 +1038,7 @@ export function FreeChecker({
                   {intel.filter((row) => row.id !== "n").map((row) => (
                     <AnswerRow
                       key={row.id}
-                      label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : t.stillListed}
+                      label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : t.stillListed}
                       value={intelValue(row)}
                     />
                   ))}
@@ -1083,13 +1052,6 @@ export function FreeChecker({
               )}
               {res.confidence_note && res.message && res.message !== res.confidence_note && (
                 <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{res.message}</p>
-              )}
-
-              {/* D-38: 30-day demand evidence — shown when weekly shelf departures
-                  are not yet observable but the model was admitted on 30d sales.
-                  This is NOT weekly departures. Label is distinct: "88 left the shelf over 30 days in our sample". */}
-              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && localizeDemandNote(res.demand_note, locale) && (
-                <p style={{ marginTop: 6, fontSize: 12.5, color: "#7f8da9", lineHeight: 1.55 }}>{localizeDemandNote(res.demand_note, locale)}</p>
               )}
 
               {shownCategory && (
@@ -1176,12 +1138,11 @@ export function FreeChecker({
                 <p style={{ marginTop: "var(--space-1)", fontSize: "var(--text-meta)", color: "var(--color-text-dim)", lineHeight: 1.5 }}>{res.match_note}</p>
               )}
 
-              {(hasPrices || intel.some((r) => r.id === "sold_7d" || r.id === "buy_below") || strState !== "absent") && (
+              {(hasPrices || intel.some((r) => r.id === "buy_below") || strState !== "absent") && (
                 <div data-testid="riq-answer-rows" style={{ marginTop: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--color-hairline)", display: "grid", gap: "var(--space-1)", maxWidth: "min(100%, 420px)" }}>
                   {intel.filter((r) => r.id === "buy_below").map((r) => (
                     <AnswerRow key="buy" label={t.buyBelow} value={money(r.numeric)} />
                   ))}
-                  {sold != null && <AnswerRow label={t.leftShelf} value={departureDisplay(sold, locale).text} />}
                   {strState === "value" ? (
                     <AnswerRow label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
                   ) : strState === "locked" ? (
@@ -1214,7 +1175,7 @@ export function FreeChecker({
                 {intel.map((row) => (
                   <Stat
                     key={row.id}
-                    label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "sold_7d" ? t.leftShelf : row.id === "active_listings" ? t.stillListed : row.id === "comps" ? t.stillListed : row.id === "n" ? "n" : t.buyBelow}
+                    label={row.id === "buy_below" ? t.buyBelow : row.id === "sell_avg" ? t.marketPrice : row.id === "active_listings" ? t.stillListed : row.id === "comps" ? t.stillListed : row.id === "n" ? "n" : t.buyBelow}
                     value={intelValue(row)}
                     accent={row.id === "buy_below" ? "#34C759" : undefined}
                   />
@@ -1269,19 +1230,6 @@ export function FreeChecker({
 
               {shownNote && (
                 <p style={{ marginTop: 10, fontSize: 13, color: "#FF9F0A" }}>{shownNote}</p>
-              )}
-              {/* XOR: "left the shelf" is sold_7d, never also n. The homepage
-                  fold does not render this sentence at all (it has its own
-                  branch above and restating two counts there would be a third
-                  and fourth figure); /tools keeps it, built from sold_7d +
-                  active_listings only. */}
-              {sample && (
-                <p style={{ marginTop: 10, fontSize: 13.5, color: "#FF9F0A", lineHeight: 1.55 }}>{sample}</p>
-              )}
-
-              {/* D-38: 30-day demand evidence for shelf-blind models. NOT weekly departures. */}
-              {res.sold_30d_evidence != null && (res.sold_7d == null || res.sold_7d === 0) && localizeDemandNote(res.demand_note, locale) && (
-                <p style={{ marginTop: 10, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.55 }}>{localizeDemandNote(res.demand_note, locale)}</p>
               )}
 
               {/* res.verdict is never INSUFFICIENT_DATA here — that verdict has

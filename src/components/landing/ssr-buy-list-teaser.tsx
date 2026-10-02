@@ -23,7 +23,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
-import { buyBelowLabel, targetLabel, leftShelfWeekLabel, leftShelf30Label, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { buyBelowLabel, targetLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -58,14 +58,7 @@ function VerdictBadge({ verdict }: { verdict: string }) {
   )
 }
 
-function RowContent({ item, locale, win }: { item: SsrBuyListItem; locale: Locale; win: "7d" | "30d" }) {
-  // ONE window per list. A 30-day count printed above a 7-day count reads as an
-  // 18x difference between two items (live homepage: "1,285 in 30 days" over
-  // "69 this week"). The list picks its window once; a row with no count in
-  // that window prints no count rather than borrowing the other one.
-  const departures = win === "30d"
-    ? leftShelf30Label(item.sold_30d_evidence, locale)
-    : leftShelfWeekLabel(item.sold_7d, locale)
+function RowContent({ item, locale }: { item: SsrBuyListItem; locale: Locale }) {
   return (
     <>
       {/* Left: brand + model (or category if no model) */}
@@ -75,18 +68,9 @@ function RowContent({ item, locale, win }: { item: SsrBuyListItem; locale: Local
         </span>
         <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
           {item.category}
-          {/* DEMAND FIGURE — 2026-09-22.
-              This used to prefer sold_7d, which made the buy list read
-              "New Balance 530 · 7 sold/wk" for an item with 1,235 sold in
-              30 days. The Sep 14-22 ingest outage sits inside the 7-day
-              window, so sold_7d is a near-zero artefact until ~Sep 29 and
-              understates our single best item by ~176x. Leading a buy
-              list with a dead-looking number on its top row is worse than
-              showing nothing.
-              Prefer the 30-day evidence, which is honest and stable; fall
-              back to sold_7d only when 30d evidence is absent. Revisit
-              after Sep 29 only if 7d becomes the more useful signal. */}
-          {departures ? `, ${departures}` : ""}
+          {/* No departure count on a per-product row (founder decision
+              2026-10-02): the right-hand side carries the price answer, buy
+              below and typical exit price. */}
         </span>
       </div>
 
@@ -203,10 +187,6 @@ export function SsrBuyListTeaser({
 
   if (freeRows.length === 0 && lockedRows.length === 0) return null
 
-  // The 30-day count is the stable one (the weekly window still carries the
-  // mid-September ingest gap); use it for the whole list when any row has it.
-  const win: "7d" | "30d" = freeRows.some(i => i.sold_30d_evidence != null) ? "30d" : "7d"
-
   const baseRowStyle = {
     display: "flex",
     alignItems: "center",
@@ -260,7 +240,7 @@ export function SsrBuyListTeaser({
                 href={rowHref}
                 style={{ ...baseRowStyle, borderTop, textDecoration: "none", color: "inherit" }}
               >
-                <RowContent item={item} locale={locale} win={win} />
+                <RowContent item={item} locale={locale} />
               </Link>
             )
           }
@@ -269,7 +249,7 @@ export function SsrBuyListTeaser({
               key={`${item.brand}-${item.category}`}
               style={{ ...baseRowStyle, borderTop }}
             >
-              <RowContent item={item} locale={locale} win={win} />
+              <RowContent item={item} locale={locale} />
             </div>
           )
         })}

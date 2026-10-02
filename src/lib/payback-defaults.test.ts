@@ -4,7 +4,7 @@
  * copy[locale].pricingSection.faq). Before this test nothing pinned them: the
  * defaults were two inline useState literals and the FAQ prose was typed by hand.
  *
- * Founder decision 2026-10-02: default = 60 items x EUR 20 = EUR 1,200 a month.
+ * Founder decision 2026-10-02 (revised): default = 30 items x EUR 20 = EUR 600 a month.
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
@@ -26,11 +26,10 @@ const LOCALES = ["en", "es", "fr", "de", "it", "pt"] as const
 const norm = (s: string) => s.replace(/[  ]/g, " ")
 const STARTER = TIERS.find((t) => t.id === "operator")!.price
 
-test("defaults are a volume buyer: 60 items x EUR 20 = EUR 1,200 a month", () => {
-  assert.equal(PAYBACK_DEFAULT_ITEMS_PER_MONTH, 60)
+test("defaults are a realistic part-time buyer: 30 items x EUR 20 = EUR 600 a month", () => {
+  assert.equal(PAYBACK_DEFAULT_ITEMS_PER_MONTH, 30)
   assert.equal(PAYBACK_DEFAULT_AVG_BUY_EUR, 20)
-  assert.equal(monthlySpend(PAYBACK_DEFAULT_ITEMS_PER_MONTH, PAYBACK_DEFAULT_AVG_BUY_EUR), 1200)
-  assert.ok(monthlySpend(PAYBACK_DEFAULT_ITEMS_PER_MONTH, PAYBACK_DEFAULT_AVG_BUY_EUR) >= 1000)
+  assert.equal(monthlySpend(PAYBACK_DEFAULT_ITEMS_PER_MONTH, PAYBACK_DEFAULT_AVG_BUY_EUR), 600)
 })
 
 test("both defaults sit on the existing slider grid and bounds (no slider change needed)", () => {
@@ -72,6 +71,8 @@ test("the 'Is it worth EUR 19 a month?' FAQ quotes the calculator defaults in ev
     // The old defaults must be gone.
     assert.ok(!/\b20 (items|articles|artículos|Artikel|articoli|artigos)\b/i.test(a), `${locale} FAQ still quotes the old 20 items`)
     assert.ok(!/\b15 ?€/.test(a), `${locale} FAQ still quotes the old EUR 15 average`)
+    assert.ok(!/\b60 (items|articles|artículos|Artikel|articoli|artigos)\b/i.test(a), `${locale} FAQ still quotes the 60-item default`)
+    assert.ok(!/1[ .,]?200/.test(a), `${locale} FAQ still quotes EUR 1,200 of stock`)
     // Honesty: it is arithmetic, never a promised saving or a hit rate.
     assert.ok(!/\b(guarantee|garantie|garantía|garantiert|garanzia|garantia)\b/i.test(a), `${locale} FAQ must not promise a saving`)
   }

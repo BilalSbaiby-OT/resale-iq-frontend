@@ -17,7 +17,6 @@
  */
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
-import { departureLabel } from "@/lib/departure-display"
 
 export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
   // Find best (highest avg price) free, unlocked row with a price
@@ -34,15 +33,6 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
   const margin = exit - buyBelow
 
   const label = itemDisplayName(row.brand, row.model)
-  // One sentence from the departure lexicon, through the display floor: null
-  // (no sentence) under 5, "Fewer than 10 ..." for 5-9, digits from 10.
-  const demand =
-    row.sold_30d_evidence != null
-      ? departureLabel(row.sold_30d_evidence, "30d", "en", { sample: true })
-      : row.sold_7d != null
-        ? departureLabel(row.sold_7d, "7d", "en", { sample: true })
-        : null
-
   return (
     <section
       aria-labelledby="riq-roi-heading"
@@ -123,18 +113,6 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
             ≈ €{margin}
           </span>
         </div>
-        {demand && (
-          <p
-            style={{
-              fontSize: 12,
-              color: "var(--color-text-dim)",
-              margin: "10px 0 0",
-              lineHeight: 1.4,
-            }}
-          >
-            {demand} — departures, not confirmed sales.
-          </p>
-        )}
       </div>
       <p
         style={{

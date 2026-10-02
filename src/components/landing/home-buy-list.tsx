@@ -7,7 +7,6 @@ import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import type { Locale } from "@/lib/i18n"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
-import { departureDisplay } from "@/lib/departure-display"
 
 /**
  * HomeBuyList — ranked teaser of top buying opportunities.
@@ -117,7 +116,7 @@ function VerdictBadge({ verdict }: { verdict: string }) {
   )
 }
 
-// 4-column grid — Item | Verdict | Listings | Avg price
+// 4-column grid — Item | Verdict | Resells ~ (avg price at departure) | Buy below
 // "Buy below" is always locked; removed as a standalone column so we don't
 // waste a column showing nothing but a padlock on every row.
 // Sized to fit within 390px viewport: 4×col + 3×gap(8) + 2×padding(14) = 344px < 390px
@@ -176,7 +175,6 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
   const lockedCount = items.filter(i => i.locked).length
   // True once the departure tracker supplies real watched-departure counts; drives
   // the column header so the label always matches the number below it.
-  const hasDepartures = items.some(i => i.sold_7d != null)
 
   return (
     <div
@@ -234,10 +232,9 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
               {[
                 { label: "Item",      align: "left"  as const },
                 { label: "Verdict",   align: "left"  as const },
-                // Header must name the number underneath it: once a row carries
-                // real departures, "Listings" would mislabel departures-per-week as supply.
-                // "Left/wk" = left the shelf this week; never "Sold".
-                { label: hasDepartures ? "Left/wk" : "Listings", align: "right" as const },
+                // Founder decision 2026-10-02: no departure count on a per-product row.
+                // The row leads with the price answer: what it resells for, what to pay.
+                { label: "Resells ~", align: "right" as const },
                 { label: "Buy below", align: "right" as const },
               ].map(({ label, align }) => (
                 <span key={label} style={{ ...HEADER_STYLE, textAlign: align }}>{label}</span>
@@ -312,28 +309,20 @@ export function HomeBuyList({ locale }: { locale: Locale }) {
                     }
                   </div>
 
-                  {/*
-                    Demand column. sold_7d (watched departures — what we watched
-                    LEAVE the shelf) is the signal a reseller buys on, and the hero
-                    subhead promises it. Printed through the display floor: "—"
-                    under 5, "<10" for 5-9, digits from 10.
-
-                    NEVER fall back to comparable_n here. That was live on
-                    2026-09-22 and printed SUPPLY under a "Sold/wk" header:
-                    Stone Island Jackets showed "362" and New Balance Sneakers
-                    "3,984" when the real departures were 9 and 8. A reseller
-                    reading 3,984 weekly departures would stock hard on a near-dead
-                    line. comparable_n is close to the OPPOSITE signal, so an
-                    unknown departure count must render as "—", not as a number
-                    that means something else.
-                  */}
+                  {/* Resale price column. avg_price_eur is the average price at
+                      departure: what the item typically resells for. No departure
+                      count here (founder decision 2026-10-02): a small per-product
+                      count reads as "this barely sells" and is the wrong number to
+                      lead a buy list with. */}
                   <span style={{
                     fontSize:   13,
                     color:      item.locked ? "#3A3A3C" : "#A0ABBA",
                     fontFamily: "ui-monospace, 'SF Mono', monospace",
                     textAlign:  "right",
                   }}>
-                    {departureDisplay(item.sold_7d, "en", { compact: true }).text}
+                    {typeof item.avg_price_eur === "number" && Number.isFinite(item.avg_price_eur)
+                      ? `€${Math.round(item.avg_price_eur)}`
+                      : "—"}
                   </span>
 
                   {/* Buy below — the stored ceiling on unlocked rows. Locked rows

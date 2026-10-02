@@ -99,6 +99,7 @@ function words(s: string): string[] {
 }
 
 const TAIL =
+  "The buy-below is the average price at departure × 0.70, which targets a 30% margin. " +
   "Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK. " +
   "These figures are listings we watched leave the shelf, not sale receipts we did not see. " +
   "Demand is treated as the same trend unless the numbers split. " +
@@ -132,15 +133,10 @@ export function formatTeaserCite(query: string, r: HeroVerdict | null): string |
     }
     bits.push(avg + ".")
   }
-  if (typeof r.sold_7d === "number" && Number.isFinite(r.sold_7d) && r.sold_7d > 0) {
-    bits.push(`Watched departures in 7 days: ${Math.round(r.sold_7d)}.`)
-  }
-  if (typeof r.active_listings === "number" && Number.isFinite(r.active_listings) && r.active_listings > 0) {
-    bits.push(`Active listings watched: ${r.active_listings.toLocaleString("en-GB")}.`)
-  }
-  if (r.confidence_note && r.confidence_note.trim()) {
-    bits.push(r.confidence_note.trim().replace(/\.?$/, "."))
-  } else if (r.confidence) {
+  // No per-item departure or active-listing count in the cite (founder decision
+  // 2026-10-02). The confidence band is kept; the backend's confidence_note is
+  // not, because it quotes the count ("Only 20 watched departures").
+  if (r.confidence) {
     bits.push(`Confidence ${r.confidence}.`)
   }
   let text = `${bits.join(" ")} ${TAIL}`

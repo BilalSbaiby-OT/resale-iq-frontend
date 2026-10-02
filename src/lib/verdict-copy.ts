@@ -26,8 +26,6 @@ export type VerdictCopy = {
   why: string
   buyBelow: string
   avgAtExit: string
-  leftShelf: string
-  listedNow: string
   sellThrough: string
   targetNet: string
   opportunity: string
@@ -39,7 +37,6 @@ export type VerdictCopy = {
   limitReached: string
   marketData: string
   brandAverage: string
-  leftShelfCount: (n: string) => string
   tryNext: (q: string) => string
   avg: string
   tryTheseInstead: string
@@ -82,8 +79,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Why",
     buyBelow: "Buy below",
     avgAtExit: "Avg at exit",
-    leftShelf: "Left the shelf / 7d",
-    listedNow: "Listed now",
     sellThrough: "Sell-through",
     targetNet: "Target net",
     opportunity: "Opportunity",
@@ -95,7 +90,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LIMIT REACHED",
     marketData: "MARKET DATA",
     brandAverage: "BRAND AVERAGE",
-    leftShelfCount: (n) => `${n} left the shelf / 7d`,
     tryNext: (q) => `Try "${q}" for a priced verdict on one item →`,
     avg: "avg",
     tryTheseInstead: "Try one of these instead",
@@ -126,8 +120,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Pourquoi",
     buyBelow: "Prix d'achat max",
     avgAtExit: "Moy. à la sortie",
-    leftShelf: "Départs observés / 7j",
-    listedNow: "Encore en ligne",
     sellThrough: "Taux d'écoulement",
     targetNet: "Net cible",
     opportunity: "Opportunité",
@@ -139,7 +131,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LIMITE ATTEINTE",
     marketData: "DONNÉES MARCHÉ",
     brandAverage: "MOYENNE MARQUE",
-    leftShelfCount: (n) => `${n} départs observés / 7j`,
     tryNext: (q) => `Essayez « ${q} » pour un verdict chiffré sur un article →`,
     avg: "moy.",
     tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
@@ -170,8 +161,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Por qué",
     buyBelow: "Precio máximo de compra",
     avgAtExit: "Media al salir",
-    leftShelf: "Salidas observadas / 7d",
-    listedNow: "En venta ahora",
     sellThrough: "Rotación",
     targetNet: "Neto objetivo",
     opportunity: "Oportunidad",
@@ -183,7 +172,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LÍMITE ALCANZADO",
     marketData: "DATOS DE MERCADO",
     brandAverage: "MEDIA DE MARCA",
-    leftShelfCount: (n) => `${n} salidas observadas / 7d`,
     tryNext: (q) => `Pruebe «${q}» para un veredicto de un artículo →`,
     avg: "media",
     tryTheseInstead: "Prueba con uno de estos",
@@ -214,8 +202,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Warum",
     buyBelow: "Kaufobergrenze",
     avgAtExit: "Schnitt beim Abgang",
-    leftShelf: "Beobachtete Abgänge / 7T",
-    listedNow: "Jetzt inseriert",
     sellThrough: "Abverkauf",
     targetNet: "Ziel-Netto",
     opportunity: "Chance",
@@ -227,7 +213,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LIMIT ERREICHT",
     marketData: "MARKTDATEN",
     brandAverage: "MARKEN-DURCHSCHNITT",
-    leftShelfCount: (n) => `${n} beobachtete Abgänge / 7T`,
     tryNext: (q) => `„${q}“ für ein bepreistes Urteil zu einem Artikel →`,
     avg: "Ø",
     tryTheseInstead: "Probier stattdessen eines davon",
@@ -258,8 +243,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Perché",
     buyBelow: "Prezzo max di acquisto",
     avgAtExit: "Media all'uscita",
-    leftShelf: "Uscite osservate / 7g",
-    listedNow: "Ancora in vendita",
     sellThrough: "Sell-through",
     targetNet: "Netto obiettivo",
     opportunity: "Opportunità",
@@ -271,7 +254,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LIMITE RAGGIUNTO",
     marketData: "DATI DI MERCATO",
     brandAverage: "MEDIA MARCHIO",
-    leftShelfCount: (n) => `${n} uscite osservate / 7g`,
     tryNext: (q) => `Prova «${q}» per un verdetto su un articolo →`,
     avg: "media",
     tryTheseInstead: "Prova uno di questi",
@@ -302,8 +284,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     why: "Porquê",
     buyBelow: "Preço máximo de compra",
     avgAtExit: "Média à saída",
-    leftShelf: "Saídas observadas / 7d",
-    listedNow: "Ainda anunciados",
     sellThrough: "Sell-through",
     targetNet: "Líquido alvo",
     opportunity: "Oportunidade",
@@ -315,7 +295,6 @@ export const verdictCopy: Record<Locale, VerdictCopy> = {
     limitReached: "LIMITE ATINGIDO",
     marketData: "DADOS DE MERCADO",
     brandAverage: "MÉDIA DA MARCA",
-    leftShelfCount: (n) => `${n} saídas observadas / 7d`,
     tryNext: (q) => `Tente «${q}» para um veredicto de um artigo →`,
     avg: "média",
     tryTheseInstead: "Experimente um destes",

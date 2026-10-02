@@ -77,15 +77,17 @@ test("every brand and category title is number-free, branded, and <=60 chars", (
 })
 
 test("metas may cite live warehouse figures and never invent a fallback count", () => {
+  // Founder decision 2026-10-02: the brand description leads with the price and
+  // never prints a departure count.
   const withLive = flipBrandDescription({ brand: "Adidas", sold: 809, avg: 42 })
-  assert.match(withLive, /809/)
-  assert.match(withLive, /watched departures/)
+  assert.match(withLive, /€42/)
+  assert.doesNotMatch(withLive, /809/)
   assert.match(withLive, /buy-below/)
   assert.ok(withLive.length <= 155)
 
   const withheld = flipBrandDescription({ brand: "Adidas", sold: null, avg: null })
   assert.doesNotMatch(withheld, /\d/)
-  assert.match(withheld, /watched departures/)
+  assert.match(withheld, /asking price at departure/)
   assert.match(withheld, /buy-below/)
   assert.ok(withheld.length <= 155)
 
@@ -116,7 +118,8 @@ test("metas may cite live warehouse figures and never invent a fallback count", 
   assert.match(cat, /watched departures/)
   assert.match(cat, /buy-below/)
   assert.match(cat, /12 brands ranked by watched departures/)
-  assert.match(cat, /Adidas leads with 809/)
+  assert.match(cat, /Adidas leads/)
+  assert.doesNotMatch(cat, /809/)
   assert.ok(cat.length <= 155)
 
   const catEmpty = categoryLeafDescription({
@@ -193,40 +196,41 @@ test("/category/[category] generateMetadata uses the helper; FAQPage stays", () 
 test("leaf H1s and tables stay on page data — titles only change metadata", () => {
   const brand = read("app/flip/[brand]/page.tsx")
   assert.match(brand, /Is \{b\.brand\} worth reselling on Vinted in 2026\?/)
-  assert.match(brand, /Left the shelf per week/)
-  // Every departure count goes through the display floor, never a raw fmtCount.
+  // The brand-level weekly count shows only when it can carry a conclusion, and
+  // goes through the display floor, never a raw fmtCount.
+  assert.match(brand, /departureSupportsConclusion\(sold\)/)
   assert.match(brand, /departureDisplay\(sold\)/)
-  assert.match(brand, /soldShown\.text/)
   assert.doesNotMatch(brand, /fmtCount\(sold\)/)
 
   const pair = read("app/flip/[brand]/[category]/page.tsx")
   assert.match(pair, /Are \{b\.brand\} \{catName\} worth reselling on Vinted\?/)
-  assert.match(pair, /departureDisplay\(catSold\)/)
-  assert.match(pair, /catShown\.text/)
-  assert.doesNotMatch(pair, /fmtCount\(catSold\)/)
+  // No departure count on a brand x category page at all.
+  assert.doesNotMatch(pair, /departureDisplay|catSold|catShown|fmtCount\(/)
   // The category's own average price, never the brand-wide one under a category count.
   assert.match(pair, /catRow\?\.avg_price_eur/)
 
   const cat = read("app/category/[category]/page.tsx")
   assert.match(cat, /Best brands for reselling \{lower\} on Vinted/)
   assert.match(cat, /departureDisplay\(total > 0 \? total : null\)/)
-  assert.match(cat, /departureDisplay\(e\.sold_7d, "en", \{ compact: true \}\)/)
+  // The table ranks brands but prints no per-brand count.
+  assert.doesNotMatch(cat, /departureDisplay\(e\.sold_7d/)
   assert.doesNotMatch(cat, /fmtCount\(e\.sold_7d\)/)
 })
 
 test("meta descriptions never print a departure count below the display floor", () => {
-  // 7 is under the 10 floor: the count-free sentence is used, so no digit reaches the SERP.
-  const thin = flipBrandDescription({ brand: "Zara", sold: 7, avg: 36 })
-  assert.doesNotMatch(thin, /\d/)
-  assert.match(thin, /watched departures/)
-  const hidden = flipBrandDescription({ brand: "Zara", sold: 3, avg: 36 })
-  assert.doesNotMatch(hidden, /\d/)
-  // "Leads with N" is a ranking claim: it needs n >= 30, so 12 falls back.
+  // No departure count reaches the SERP from a brand description at any size.
+  for (const sold of [7, 3, 44, 809]) {
+    const d = flipBrandDescription({ brand: "Zara", sold, avg: 36 })
+    assert.doesNotMatch(d, new RegExp(`\\b${sold}\\b`), String(sold))
+    assert.match(d, /€36/)
+  }
+  // "Leads" is a ranking claim: it needs n >= 30, so 12 falls back; and no count is printed.
   const lead = categoryLeafDescription({ category: "Jeans", brandCount: 9, topBrand: "Diesel", topSold: 12 })
-  assert.doesNotMatch(lead, /leads with/)
+  assert.doesNotMatch(lead, /leads/)
   assert.doesNotMatch(lead, /\b12\b/)
   const ok = categoryLeafDescription({ category: "Jeans", brandCount: 9, topBrand: "Diesel", topSold: 44 })
-  assert.match(ok, /Diesel leads with 44/)
+  assert.match(ok, /Diesel leads/)
+  assert.doesNotMatch(ok, /\b44\b/)
 })
 
 // Coats had one ranked brand and printed "1 brands ranked"; the count also came

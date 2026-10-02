@@ -39,7 +39,6 @@ import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-import { localizeDemandNote } from "@/lib/verdict-words"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
 
@@ -235,7 +234,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               {result.verdict}
             </span>
           </div>
-          <div style={{ display: "flex", gap: 18, marginBottom: localizeDemandNote(result.demand_note, locale) ? 8 : 0 }}>
+          <div style={{ display: "flex", gap: 18, marginBottom: 10 }}>
             {result.buy_below != null && (
               <div>
                 <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Buy below</div>
@@ -249,9 +248,6 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
               </div>
             )}
           </div>
-          {localizeDemandNote(result.demand_note, locale) && (
-            <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>{localizeDemandNote(result.demand_note, locale)}</p>
-          )}
           {/* H165 CRO: real locked buy-list rows in blog index inline verdict.
               Pattern from H150 (/pricing InlineVerdictCard) + H155 (homepage)
               + H158 (CustomItemPaywallCard) + H228(elon) (HardPaywallCard).

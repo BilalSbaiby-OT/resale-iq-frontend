@@ -17,14 +17,12 @@ import { VerdictTrialCta } from "@/components/ui/verdict-trial-cta"
 import { verdictTrialCtaVisible } from "@/lib/verdict-trial-cta"
 import { MedianN } from "@/components/ui/median-n"
 import { MomentumBadge } from "@/components/ui/momentum-badge"
-import { watchedSampleNote } from "@/lib/watched-sample"
 import { trackEvent } from "@/lib/analytics"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy, type Locale } from "@/lib/i18n"
-import { verdictWord, localizeDemandNote } from "@/lib/verdict-words"
-import { departureDisplay, departurePairPrintable } from "@/lib/departure-display"
+import { verdictWord } from "@/lib/verdict-words"
 import { WORKING_MODELS } from "@/lib/working-models"
 import { FREE_SAMPLES } from "@/lib/free-samples"
 import { ModelChips } from "@/components/tools/model-chips"
@@ -191,24 +189,14 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
   const vs = result ? (styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN) : null
   const opportunityState = fieldState(result?.opportunity_score, result?.locked_fields, "opportunity_score")
-  // TWO REAL COUNTS, NEVER INTERCHANGEABLE — and this card shows both, so each
-  // has to be the right one under its own label:
-  //   sold_7d — every watched departure in the window (Samba: 43). What the
-  //             sample sentence below counts.
-  //   n       — `comparable_n`, the fenced subset of clean comps the price and
-  //             the confidence band are computed from (Samba: 20). What the
-  //             "n" beside the exit price counts, and what confidence_note
-  //             quotes ("Only 20 watched departures").
-  // The `??` fallbacks that used to be on both lines let each render the other
-  // one under its own label. Nothing substitutes for a missing count now: the
-  // line just does not render.
-  const sampleNote = result
-    ? watchedSampleNote(result.sold_7d, result.active_listings, result.verdict, locale)
+  // NO PER-ITEM DEPARTURE COUNT is rendered on this card (founder decision
+  // 2026-10-02): a small number for one item reads as "this does not sell". The
+  // result leads with the price answer — buy below, average at exit, margin.
+  // The one caveat we keep is the confidence band's own: a LOW band says the
+  // comparable set behind the price is thin, in words and without a count.
+  const honestyNote = result?.confidence === "LOW" && result.n != null
+    ? tx("Limited comparable data: treat this price as a guide")
     : null
-  const honestyNote = sampleNote
-    || (result?.confidence === "LOW" && result.n != null
-      ? tx(`Only {0} comparable departures`, [result.n])
-      : null)
 
   // THE WORKED EXAMPLE. Shown only on a genuinely cold screen: no result, not
   // loading, and no `?q=` in the URL (a deep link is about to run its own
@@ -279,16 +267,6 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             )}
 
-            {/* D-38 (2026-09-22): 30-day demand evidence for models admitted on
-                30d sales but where weekly shelf departures are not yet observable.
-                This is NOT the weekly "left shelf" count — label and copy are
-                deliberately different. Only shown when sold_7d is absent/zero
-                AND the backend supplied sold_30d_evidence with a demand_note. */}
-            {result.sold_30d_evidence != null && (result.sold_7d == null || result.sold_7d === 0) && localizeDemandNote(result.demand_note, locale) && result.verdict !== "BRAND_CATEGORIES" && (
-              <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#8b99b8]">
-                {localizeDemandNote(result.demand_note, locale)}
-              </div>
-            )}
 
             {result.verdict === "LIMIT_REACHED" ? (
               <div className="p-6 text-[13px] text-[#8b99b8] leading-6">
@@ -325,9 +303,6 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>
                         <span className="text-[12.5px] text-[#8b99b8]">
                           {a.avg_price_eur != null ? eur(a.avg_price_eur) : "—"} {t.avg}
-                          {a.sold_7d != null && departureDisplay(a.sold_7d, tx.locale).kind !== "hidden"
-                            ? ` · ${t.leftShelfCount(departureDisplay(a.sold_7d, tx.locale, { compact: true }).text)}`
-                            : ""}
                         </span>
                       </button>
                     ))}
@@ -350,8 +325,6 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 <div className="riq-metric-grid border-b border-[rgba(255,255,255,0.07)]">
                   <Metric label={t.buyBelow} value={result.buy_below != null ? eur(result.buy_below) : "—"} />
                   <Metric label={t.avgAtExit} value={result.sell_avg != null ? eur(result.sell_avg) : "—"} />
-                  <Metric label={t.leftShelf} value={departureDisplay(result.sold_7d, tx.locale).text} />
-                  <Metric label={t.listedNow} value={result.active_listings != null && departurePairPrintable(result.sold_7d, result.active_listings) ? result.active_listings.toLocaleString(tx.locale) : "—"} />
                 </div>
                 <div className="p-6">
                   {/*
@@ -522,12 +495,13 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   )
 }
 
-function metricLabel(id: CollectedMetric["id"], t: VerdictCopy): string {
+/** The metric ids this card renders. sold_7d / active_listings are collected but never shown (see `shown`). */
+type ShownMetricId = Exclude<CollectedMetric["id"], "sold_7d" | "active_listings">
+
+function metricLabel(id: ShownMetricId, t: VerdictCopy): string {
   switch (id) {
     case "buy_below": return t.buyBelow
     case "sell_avg": return t.avgAtExit
-    case "sold_7d": return t.leftShelf
-    case "active_listings": return t.listedNow
     case "n": return "n"
     case "comps": return t.comps
     case "opportunity": return t.opportunity
@@ -551,7 +525,6 @@ function metricValue(row: CollectedMetric, result: VerdictResult, t: VerdictCopy
       : row.numeric.toLocaleString(loc)
   }
   if (row.id === "opportunity") return `${Math.round(row.numeric)}/100`
-  if (row.id === "sold_7d") return departureDisplay(row.numeric, loc).text
   return row.numeric.toLocaleString(loc)
 }
 
@@ -596,8 +569,9 @@ function VerdictInsightBody({
 
   const shown = rows
     .filter((r) => r.id !== "n" || !rows.some((x) => x.id === "sell_avg" && x.kind === "measured"))
-    // "Listed now" only beside a departure count it can be compared with.
-    .filter((r) => r.id !== "active_listings" || departurePairPrintable(result.sold_7d, r.numeric))
+    // No per-item departure count (or the "listed now" supply count that is only
+    // meaningful beside one): founder decision 2026-10-02.
+    .filter((r): r is CollectedMetric & { id: ShownMetricId } => r.id !== "sold_7d" && r.id !== "active_listings")
 
   return (
     <>
@@ -699,7 +673,6 @@ function SeedVerdictCard({
 }) {
   const vs = styles[result.verdict as keyof typeof styles] ?? styles.UNKNOWN
   const product = result.product || query
-  const sample = watchedSampleNote(result.sold_7d, result.active_listings, result.verdict, locale)
   return (
     <div data-testid="riq-seed-verdict" className="bg-[var(--color-bg-3)] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
       <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.07)] bg-[var(--color-surface)]">
@@ -726,17 +699,9 @@ function SeedVerdictCard({
         </div>
       </div>
 
-      {sample && (
-        <div className="px-6 py-3 border-b border-[rgba(255,255,255,0.07)] text-[12.5px] text-[#FF9F0A] bg-[#16140f]">
-          {sample}
-        </div>
-      )}
-
       <div className="riq-metric-grid">
         <Metric label={t.buyBelow} value={eur(result.buy_below)} accent="var(--color-buy)" />
         <Metric label={t.avgAtExit} value={eur(result.sell_avg)} />
-        <Metric label={t.leftShelf} value={departureDisplay(result.sold_7d, locale).text} />
-        <Metric label={t.listedNow} value={result.active_listings != null && departurePairPrintable(result.sold_7d, result.active_listings) ? result.active_listings.toLocaleString(locale) : "—"} />
       </div>
     </div>
   )

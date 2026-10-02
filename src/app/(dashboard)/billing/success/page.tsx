@@ -10,7 +10,6 @@ import { fireConversion } from "@/lib/gads"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
 import type { User } from "@/types"
-import { departureDisplay } from "@/lib/departure-display"
 
 // C159(tony): live demand rows shown right after payment — Canva-template moment.
 // User is at maximum motivation; show them specific items to check immediately
@@ -197,9 +196,7 @@ function BillingSuccessContent() {
                   >
                     <div style={{ textAlign: "left" }}>
                       <div style={{ fontSize: 13, fontWeight: 600, color: "#eef1f7" }}>{row.brand} <span style={{ color: "#8b99b8", fontWeight: 400 }}>{row.category}</span></div>
-                      <div style={{ fontSize: 11.5, color: "#8b99b8", marginTop: 1 }}>{departureDisplay(row.sold_7d, tx.locale).kind === "hidden"
-                        ? tx("avg €{0}", [row.avg_price_eur])
-                        : tx("{0} watched departures/7d · avg €{1}", [departureDisplay(row.sold_7d, tx.locale, { compact: true }).text, row.avg_price_eur])}</div>
+                      <div style={{ fontSize: 11.5, color: "#8b99b8", marginTop: 1 }}>{tx("avg €{0}", [row.avg_price_eur])}</div>
                     </div>
                     <ArrowRight size={13} style={{ color: "#34C759", flexShrink: 0, marginLeft: 8 }} />
                   </a>

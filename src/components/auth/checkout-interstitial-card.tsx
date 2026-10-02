@@ -24,7 +24,6 @@ import { queryCoverageKind } from "@/lib/query-coverage"
 import type { Locale } from "@/lib/i18n"
 import { trialCtaLabel, trialLine, firstChargeDate } from "@/lib/trial-cta"
 import { useT } from "@/components/i18n/locale-provider"
-import { departureDisplay } from "@/lib/departure-display"
 
 export interface DemandMatchLike {
   sold_7d: number
@@ -78,13 +77,7 @@ export function CheckoutInterstitialCard({
             </p>
             {demandMatch && (
               <p className="text-[12px] text-[var(--color-text-secondary)]">
-                {[
-                  departureDisplay(demandMatch.sold_7d, tx.locale).kind === "hidden"
-                    ? null
-                    : `${departureDisplay(demandMatch.sold_7d, tx.locale, { compact: true }).text} ${tx("watched departures this week")}`,
-                  demandMatch.avg_price_eur ? `avg €${demandMatch.avg_price_eur}` : null,
-                ].filter(Boolean).join(" · ")}
-                {" — "}<span className="font-semibold text-[var(--color-buy)]">{tx("buy-below price unlocking now")}</span>
+                {demandMatch.avg_price_eur ? `avg €${demandMatch.avg_price_eur} — ` : ""}<span className="font-semibold text-[var(--color-buy)]">{tx("buy-below price unlocking now")}</span>
               </p>
             )}
           </>

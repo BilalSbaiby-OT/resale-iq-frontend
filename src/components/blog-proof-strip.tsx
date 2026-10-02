@@ -39,7 +39,7 @@ import Link from "next/link"
 import { Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
-import { buyBelowLabel, leftShelf30Label, leftShelfWeekLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 export const VERDICT_COLOR: Record<string, string> = {
@@ -90,11 +90,6 @@ export function BlogProofStrip({
   // lock — never a recomputed price. Top 3 are the free taste; the rest stay shut.
   const unlocked = items.filter(i => !i.locked).slice(0, 3)
   const locked = items.filter(i => i.locked)
-  // One window for the whole strip: a 30-day count beside a 7-day count reads
-  // as a difference between two items. Rows without a count in the chosen
-  // window print none.
-  const strip30d = unlocked.some(i => i.sold_30d_evidence != null)
-
   // C216: show topic teaser if we have coverage data for this post's item.
   const showTopicTeaser = !!topicQuery && topicComparableN != null && topicComparableN > 0
 
@@ -169,12 +164,6 @@ export function BlogProofStrip({
             >
               <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {itemDisplayName(it.brand, it.model)}
-                <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
-                  {(() => {
-                    const d = strip30d ? leftShelf30Label(it.sold_30d_evidence) : leftShelfWeekLabel(it.sold_7d)
-                    return d ? ` · ${d}` : ""
-                  })()}
-                </span>
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                 <span style={{ color, fontWeight: 700, fontSize: 11 }}>{it.verdict}</span>

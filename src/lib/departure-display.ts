@@ -21,12 +21,10 @@
  * Client-safe on purpose (no node:fs, no market-numbers import): free-checker,
  * home-buy-list and the dashboard all render in the browser.
  *
- * WORDING: each locale uses the phrase the methodology page already uses for
- * the same event — noun "watched departures" (salidas observadas, départs
- * observés, beobachtete Abgänge, uscite osservate, saídas observadas) and verb
- * "left the shelf" (dejaron el escaparate, ont quitté l'étal, haben das Regal
- * verlassen, hanno lasciato lo scaffale, saíram da prateleira). Do not add a
- * second verb for the same event.
+ * WHERE IT IS USED (founder decision 2026-10-02): brand-level and category-level
+ * aggregates only (/data, /flip index, category totals, the weekly brief). No
+ * per-product and no per-brand-x-category surface prints a departure count; the
+ * label / unit / sample-sentence helpers that fed those surfaces are gone.
  */
 import type { Locale } from "./i18n"
 
@@ -43,34 +41,17 @@ export const DEPARTURE_DISPLAY_FLOOR = 10
  *  MIN_STR_OBSERVED and the company's n >= 30 rule for published findings. */
 export const DEPARTURE_CONCLUSION_FLOOR = 30
 
-/** A "N left the shelf vs M still listed" pair is only honest when the two
- *  numbers are on the same footing. The widest ratio the company has published
- *  at brand x category granularity is 409.6 : 1; beyond 500 : 1 the pair says
- *  "supply glut" about what is really the detector reading a slice of a shelf. */
-export const MAX_LISTED_PER_DEPARTURE = 500
-
-export type DepartureWindow = "7d" | "30d"
-
 export type DepartureDisplay =
   | { kind: "number"; text: string; value: number }
   | { kind: "band"; text: string; value: null }
   | { kind: "hidden"; text: string; value: null }
 
 interface Words {
-  /** "watched departures" — the noun, for prose. */
-  noun: string
-  /** Column / stat labels. */
-  unit7: string
-  unit30: string
   /** "Fewer than 10". */
   fewer: (n: number) => string
-  /** "Too few watched to report a count." — said INSTEAD of a number below the publish floor. */
-  few: string
-  /** Full clause: "<count> left the shelf in our sample this week". */
-  line: (count: string, win: DepartureWindow, sample: boolean) => string
 }
 
-export const NUMBER_LOCALE: Record<Locale, string> = {
+const NUMBER_LOCALE: Record<Locale, string> = {
   en: "en-GB",
   fr: "fr-FR",
   es: "es-ES",
@@ -80,86 +61,16 @@ export const NUMBER_LOCALE: Record<Locale, string> = {
 }
 
 const WORDS: Record<Locale, Words> = {
-  en: {
-    noun: "watched departures",
-    unit7: "Left the shelf / 7d",
-    unit30: "Left the shelf / 30d",
-    fewer: n => `Fewer than ${n}`,
-    few: "Too few watched to report a count.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} left the shelf${s ? " in our sample" : ""} this week`
-        : `${c} left the shelf ${s ? "over 30 days in our sample" : "in 30 days"}`,
-  },
-  es: {
-    noun: "salidas observadas",
-    unit7: "Salidas observadas / 7d",
-    unit30: "Salidas observadas / 30d",
-    fewer: n => `Menos de ${n}`,
-    few: "Muy pocas observadas para dar una cifra.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} dejaron el escaparate${s ? " en nuestra muestra" : ""} esta semana`
-        : `${c} dejaron el escaparate ${s ? "durante 30 días en nuestra muestra" : "en 30 días"}`,
-  },
-  fr: {
-    noun: "départs observés",
-    unit7: "Départs observés / 7j",
-    unit30: "Départs observés / 30j",
-    fewer: n => `Moins de ${n}`,
-    few: "Trop peu observés pour donner un chiffre.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} ont quitté l'étal${s ? " dans notre échantillon" : ""} cette semaine`
-        : `${c} ont quitté l'étal en 30 jours${s ? " dans notre échantillon" : ""}`,
-  },
-  de: {
-    noun: "beobachtete Abgänge",
-    unit7: "Beobachtete Abgänge / 7T",
-    unit30: "Beobachtete Abgänge / 30T",
-    fewer: n => `Weniger als ${n}`,
-    few: "Zu wenige beobachtet, um eine Zahl zu nennen.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} haben${s ? " in unserer Stichprobe" : ""} diese Woche das Regal verlassen`
-        : `${c} haben ${s ? "innerhalb von 30 Tagen in unserer Stichprobe" : "in 30 Tagen"} das Regal verlassen`,
-  },
-  it: {
-    noun: "uscite osservate",
-    unit7: "Uscite osservate / 7g",
-    unit30: "Uscite osservate / 30g",
-    fewer: n => `Meno di ${n}`,
-    few: "Troppo poche osservate per dare un numero.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} hanno lasciato lo scaffale${s ? " nel nostro campione" : ""} questa settimana`
-        : `${c} hanno lasciato lo scaffale in 30 giorni${s ? " nel nostro campione" : ""}`,
-  },
-  pt: {
-    noun: "saídas observadas",
-    unit7: "Saídas observadas / 7d",
-    unit30: "Saídas observadas / 30d",
-    fewer: n => `Menos de ${n}`,
-    few: "Poucas observadas para dar um número.",
-    line: (c, w, s) =>
-      w === "7d"
-        ? `${c} saíram da prateleira${s ? " na nossa amostra" : ""} esta semana`
-        : `${c} saíram da prateleira em 30 dias${s ? " na nossa amostra" : ""}`,
-  },
+  en: { fewer: n => `Fewer than ${n}` },
+  es: { fewer: n => `Menos de ${n}` },
+  fr: { fewer: n => `Moins de ${n}` },
+  de: { fewer: n => `Weniger als ${n}` },
+  it: { fewer: n => `Meno di ${n}` },
+  pt: { fewer: n => `Menos de ${n}` },
 }
 
 function isCount(n: number | null | undefined): n is number {
   return typeof n === "number" && Number.isFinite(n) && n >= 0
-}
-
-/** The noun phrase for prose, e.g. "watched departures". */
-export function departureNoun(locale: Locale = "en"): string {
-  return WORDS[locale].noun
-}
-
-/** Column / stat label for a 7-day or 30-day departure count. */
-export function departureUnit(win: DepartureWindow, locale: Locale = "en"): string {
-  return win === "7d" ? WORDS[locale].unit7 : WORDS[locale].unit30
 }
 
 /**
@@ -188,61 +99,4 @@ export function departureIsPrintable(n: number | null | undefined): n is number 
 /** True when a sentence may draw a conclusion from the count (>= 30). */
 export function departureSupportsConclusion(n: number | null | undefined): n is number {
   return isCount(n) && n >= DEPARTURE_CONCLUSION_FLOOR
-}
-
-/**
- * "88 left the shelf this week" / "Fewer than 10 left the shelf this week" /
- * null below the publish floor (callers drop the clause rather than print a 0).
- * `sample: true` adds "in our sample" — use it in prose; row labels are compact.
- */
-export function departureLabel(
-  n: number | null | undefined,
-  win: DepartureWindow,
-  locale: Locale = "en",
-  opts: { sample?: boolean } = {},
-): string | null {
-  const d = departureDisplay(n, locale)
-  if (d.kind === "hidden") return null
-  return WORDS[locale].line(d.text, win, opts.sample === true)
-}
-
-/** The unit in running text: "left the shelf / 7d" (first letter lower-cased). */
-export function departureUnitInline(win: DepartureWindow, locale: Locale = "en"): string {
-  const unit = departureUnit(win, locale)
-  return `${unit.charAt(0).toLowerCase()}${unit.slice(1)}`
-}
-
-/** "88 left the shelf / 7d" — a pre-formatted count plus the unit, for tight rows. */
-export function departureCountUnit(count: string, win: DepartureWindow, locale: Locale = "en"): string {
-  return `${count} ${departureUnitInline(win, locale)}`
-}
-
-/**
- * The 30-day evidence sentence for a model admitted on 30-day departures:
- * "88 left the shelf over 30 days in our sample." / null below the publish
- * floor. Built from the NUMBER (sold_30d_evidence), never from the backend's
- * English prose, so it is translated, floored and worded like everything else.
- */
-export function departureEvidenceNote(n: number | null | undefined, locale: Locale = "en"): string | null {
-  const line = departureLabel(n, "30d", locale, { sample: true })
-  return line ? `${line}.` : null
-}
-
-/** The sentence said INSTEAD of a number when the count is below the publish floor. */
-export function departureHiddenNote(locale: Locale = "en"): string {
-  return WORDS[locale].few
-}
-
-/**
- * May "N left the shelf vs M still listed" be printed? Only when the count is
- * big enough to carry a conclusion AND the two numbers are within the widest
- * ratio we have ever published. Otherwise print the departure line alone.
- */
-export function departurePairPrintable(
-  departures: number | null | undefined,
-  listed: number | null | undefined,
-): boolean {
-  if (!departureSupportsConclusion(departures)) return false
-  if (typeof listed !== "number" || !Number.isFinite(listed) || listed < 0) return false
-  return listed <= departures * MAX_LISTED_PER_DEPARTURE
 }

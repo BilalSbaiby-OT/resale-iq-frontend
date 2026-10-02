@@ -54,8 +54,8 @@ async function generateMetadataRaw({
   const title = `Best Brands for ${categoryName} Resale — Buy-Below Prices | ResaleIQ`
   const description =
     `${rows.length} brands tracked for ${categoryName} resale on Vinted. ` +
-    `${fmtDeparturesBuy(total30d)} listings left the shelf in 30 days. ` +
-    (top ? `${top.brand.brand} leads with ${fmtDeparturesBuy(top.cat.sold_30d)} — buy below ${fmtEurBuy(top.cat.buy_below)}.` : "")
+    (top ? `${top.brand.brand} leads — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. ` : "") +
+    `${fmtDeparturesBuy(total30d)} listings left the shelf in 30 days.`
 
   return {
     title,
@@ -83,7 +83,7 @@ export default async function BuyCategoryPage({
     `${rows.length} brands had ${categoryName.toLowerCase()} leave the shelf on Vinted in the 30 days to ${buyDataDate()}. ` +
     `Combined, that is ${fmtDeparturesBuy(total30d)} watched departures across Spain, France, Germany, Italy and Portugal. ` +
     (top
-      ? `${top.brand.brand} leads with ${fmtDeparturesBuy(top.cat.sold_30d)} ${lower} — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. `
+      ? `${top.brand.brand} leads the ${lower} ranking — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. `
       : "") +
     `These are watched departures, not confirmed sales and not active listings.`
 
@@ -107,7 +107,7 @@ export default async function BuyCategoryPage({
             "@type": "Answer",
             text:
               top
-                ? `${top.brand.brand} has the highest ${lower} departure volume — ${fmtDeparturesBuy(top.cat.sold_30d)} left the shelf in 30 days — with a buy-below of ${fmtEurBuy(top.cat.buy_below)}. ` +
+                ? `${top.brand.brand} has the highest ${lower} departure volume, with a buy-below of ${fmtEurBuy(top.cat.buy_below)}. ` +
                   `However, volume and margin don't always point the same direction: ` +
                   `high-volume brands move fast at thin margins, premium brands carry more margin per unit but sit longer. ` +
                   `Check the specific brand page for model-level data before sourcing.`
@@ -200,9 +200,6 @@ export default async function BuyCategoryPage({
                     <div style={{ fontSize: 13, fontWeight: 600, color: "#3f4a63" }}>#{i + 1}</div>
                     <div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: "#eef1f7" }}>{r.brand.brand}</div>
-                      <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
-                        {fmtDeparturesBuy(r.cat.sold_30d)} left the shelf / 30d
-                      </div>
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <div style={{ fontSize: 12, color: "#5b6b8c" }}>avg exit</div>

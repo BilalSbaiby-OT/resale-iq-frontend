@@ -80,7 +80,7 @@ export default async function CategoryHubPage() {
   const grandTotalShown = departureDisplay(grandTotal > 0 ? grandTotal : null).text
   const leaderLine =
     busiest?.leader && departureSupportsConclusion(busiest.leader.sold_7d)
-      ? `, led by ${busiest.leader.brand} at about ${departureDisplay(busiest.leader.sold_7d).text} a week`
+      ? `, led by ${busiest.leader.brand}`
       : ""
 
   const answer = busiest?.leader && departureSupportsConclusion(busiest.total)
@@ -206,7 +206,7 @@ export default async function CategoryHubPage() {
 
               {r.leader && departureSupportsConclusion(r.leader.sold_7d) && (
                 <p style={{ fontSize: 13, color: "#8b99b8", margin: "7px 0 0", lineHeight: 1.6 }}>
-                  {r.leader.brand} leads at {departureDisplay(r.leader.sold_7d).text} a week
+                  {r.leader.brand} leads
                   {r.leader.avg_price_eur != null ? `, averaging ${fmtEur(r.leader.avg_price_eur)} at departure` : ""}.
                 </p>
               )}

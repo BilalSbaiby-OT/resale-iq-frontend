@@ -111,7 +111,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     verdictBuy: "ACHETER",
     confidenceMedium: "MOYENNE",
     categorySneakers: "Sneakers",
-    confidenceNoteFew: /Seulement 11 départs comparables/,
+    confidenceNoteFew: /Peu de données comparables derrière cette décision/,
   },
   es: {
     ctxLocale: "es-ES",
@@ -141,7 +141,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     verdictBuy: "COMPRA",
     confidenceMedium: "MEDIA",
     categorySneakers: "Zapatillas",
-    confidenceNoteFew: /Solo 11 salidas comparables/,
+    confidenceNoteFew: /Pocos datos comparables detrás de esta decisión/,
   },
   de: {
     ctxLocale: "de-DE",
@@ -171,7 +171,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     verdictBuy: "KAUFEN",
     confidenceMedium: "MITTEL",
     categorySneakers: "Sneaker",
-    confidenceNoteFew: /Nur 11 vergleichbare Abgänge/,
+    confidenceNoteFew: /Wenige vergleichbare Daten hinter dieser Einschätzung/,
   },
   it: {
     ctxLocale: "it-IT",
@@ -201,7 +201,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     verdictBuy: "COMPRA",
     confidenceMedium: "MEDIA",
     categorySneakers: "Sneakers",
-    confidenceNoteFew: /Solo 11 uscite comparabili/,
+    confidenceNoteFew: /Pochi dati comparabili dietro questa decisione/,
   },
   pt: {
     ctxLocale: "pt-PT",
@@ -231,7 +231,7 @@ const LOCALES: Record<string, LocaleFixture> = {
     verdictBuy: "COMPRAR",
     confidenceMedium: "MÉDIA",
     categorySneakers: "Ténis",
-    confidenceNoteFew: /Apenas 11 saídas comparáveis/,
+    confidenceNoteFew: /Poucos dados comparáveis por trás desta decisão/,
   },
 }
 
@@ -282,7 +282,8 @@ for (const [locale, l] of Object.entries(LOCALES)) {
     // The three orphans an external review found on the live /es hero at 390px,
     // 2026-09-05: a 26px green "BUY", "Confianza MEDIUM" and "Sneakers", all
     // English inside a fully translated Spanish card — plus the amber
-    // "Only 11 watched departures" underneath it. "Nike Air Force 1 Low" is
+    // "Only 11 watched departures" underneath it (now re-said without the count,
+    // founder decision 2026-10-02). "Nike Air Force 1 Low" is
     // the fixture that reproduces all four at once (BUY / MEDIUM / Sneakers /
     // an "Only N" note), which is why it stayed in the mock catalogue after
     // being retired as the hero seed.

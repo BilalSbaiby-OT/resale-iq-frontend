@@ -25,7 +25,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { CheckCircle2 } from "lucide-react"
 import brandsRaw from "@/data/seo-brands.json" with { type: "json" }
 import { useT } from "@/components/i18n/locale-provider"
-import { DEPARTURE_PUBLISH_FLOOR, departureCountUnit, departureDisplay } from "@/lib/departure-display"
+import { DEPARTURE_PUBLISH_FLOOR } from "@/lib/departure-display"
 
 type Suggestion = {
   brand: string
@@ -302,19 +302,6 @@ export function IntentTypeahead({
                     {label}
                   </span>
                 </div>
-                {departureDisplay(s.sold_7d).kind !== "hidden" && (
-                  <span
-                    style={{
-                      fontSize: 11,
-                      color: "var(--color-text-muted)",
-                      whiteSpace: "nowrap",
-                      marginLeft: 8,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {departureCountUnit(departureDisplay(s.sold_7d, tx.locale, { compact: true }).text, "7d", tx.locale)}
-                  </span>
-                )}
               </li>
             )
           })}

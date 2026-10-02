@@ -5,7 +5,6 @@ import { addToWatchlist } from "@/lib/api"
 import { itemDisplayName } from "@/lib/item-display-name"
 import type { Locale } from "@/lib/i18n"
 import { fmtDate } from "@/lib/ui-translate"
-import { departureCountUnit, departureDisplay } from "@/lib/departure-display"
 import { useT } from "@/components/i18n/locale-provider"
 
 export interface BuyRow {
@@ -73,15 +72,6 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
                 <span style={{ fontSize: 14.5, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.25 }}>{label}</span>
                 <span style={{ display: "block", fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 1 }}>
                   <span style={{ color: VC[v] ?? "#8E8E93", fontWeight: 700, letterSpacing: "0.03em" }}>{v}</span>
-                  {(() => {
-                    // Each count carries its own window in words, via the shared
-                    // departure lexicon ("left the shelf / 7d"), floored like every other surface.
-                    const d7 = r.sold_7d != null ? departureDisplay(r.sold_7d, tx.locale, { compact: true }) : null
-                    if (d7 && d7.kind !== "hidden") return ` · ${departureCountUnit(d7.text, "7d", tx.locale)}`
-                    const d30 = r.sold_30d != null ? departureDisplay(r.sold_30d, tx.locale, { compact: true }) : null
-                    if (d30 && d30.kind !== "hidden") return ` · ${departureCountUnit(d30.text, "30d", tx.locale)}`
-                    return ""
-                  })()}
                 </span>
               </Link>
               <span style={{ textAlign: "right", fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums" }}>{eur0(r.max_buy_price)}</span>

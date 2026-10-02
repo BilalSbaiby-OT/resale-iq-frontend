@@ -1,5 +1,6 @@
 import { RelatedLinks } from "@/components/seo/related-links"
 import { withFittedMetadata } from "@/lib/meta-fit"
+import { departureSupportsConclusion } from "@/lib/departure-display"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -40,9 +41,9 @@ async function generateMetadataRaw({
   const topCat = brand.categories[0]
   const title = `${brand.brand} Resale Buy-Below Prices — What to Pay | ResaleIQ`
   const description =
-    `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across Vinted. ` +
-    `Buy-below for ${topCat?.category ?? "top items"}: ${topCat?.buy_below ? fmtEurBuy(topCat.buy_below) : "see below"}. ` +
-    `Watched departures — not supply counts.`
+    `What to pay for ${brand.brand} to resell on Vinted. ` +
+    `Buy-below for ${topCat?.category ?? "top items"}: ${topCat?.buy_below ? fmtEurBuy(topCat.buy_below) : "see below"}, ` +
+    `from the average price at departure with a 30% margin target, across ES, FR, DE, IT and PT.`
 
   return {
     title,
@@ -68,11 +69,17 @@ export default async function BuyBrandPage({
   const topCat = batch1Cats[0] ?? brand.categories[0]
   const sig = signalDisplay(topCat?.signal ?? null)
 
-  const intro = `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across Spain, France, Germany, Italy and Portugal (watched departures, not confirmed sales). ` +
-    `The category with the most watched departures is ${topCat?.category ?? "—"}, ` +
+  // Brand-level volume is quoted only when it can carry a conclusion (>= 30);
+  // per-category counts are never printed (founder decision 2026-10-02).
+  const brandVolume = departureSupportsConclusion(brand.sold_30d) ? fmtDeparturesBuy(brand.sold_30d) : null
+  const intro =
     (topCat?.buy_below
-      ? `where the buy-below price is ${fmtEurBuy(topCat.buy_below)} — the most you should pay to keep a 30% margin.`
-      : `with data from multiple snapshots. Buy-below prices are derived from average prices at departure.`)
+      ? `To keep a 30% margin on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
+        (topCat.avg_price_eur ? ` — the average price at departure is ${fmtEurBuy(topCat.avg_price_eur)}.` : ".")
+      : `${brand.brand} buy-below prices are derived from average prices at departure, with data from multiple snapshots.`) +
+    (brandVolume
+      ? ` Across Spain, France, Germany, Italy and Portugal, ${brandVolume} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} (watched departures, not confirmed sales).`
+      : "")
 
   const jsonLd = [
     {
@@ -92,7 +99,9 @@ export default async function BuyBrandPage({
           name: `How many ${brand.brand} items leave the shelf on Vinted each month?`,
           acceptedAnswer: {
             "@type": "Answer",
-            text: `${fmtDeparturesBuy(brand.sold_30d)} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`,
+            text: brandVolume
+              ? `${brandVolume} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`
+              : `Weekly ${brand.brand} brand volume is published on https://resaleiq.dev/data. These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`,
           },
         },
         {
@@ -141,8 +150,8 @@ export default async function BuyBrandPage({
         {/* Hero stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
-            [fmtDeparturesBuy(brand.sold_30d), "left the shelf / 30 days"],
             [fmtEurBuy(brand.avg_price_eur), "avg price at departure"],
+            ...(brandVolume ? [[brandVolume, "left the shelf / 30 days"]] : []),
             [String(brand.categories.length), "categories tracked"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
@@ -179,9 +188,6 @@ export default async function BuyBrandPage({
                   }}>
                     <div>
                       <div style={{ fontSize: 15, fontWeight: 600, color: "#eef1f7" }}>{cat.category}</div>
-                      <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 2 }}>
-                        {fmtDeparturesBuy(cat.sold_30d)} left the shelf / 30d
-                      </div>
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <div style={{ fontSize: 13, color: "#5b6b8c" }}>avg exit</div>

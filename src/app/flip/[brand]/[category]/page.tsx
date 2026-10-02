@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import seo from "@/data/seo-brands.json"
 import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, categoryFigure, fmtEur } from "@/lib/market-numbers"
-import { departureDisplay, departureSupportsConclusion } from "@/lib/departure-display"
 import {
   flipBrandCategoryTitle,
   flipBrandCategoryDescription,
@@ -84,39 +83,22 @@ export default async function BrandCategoryPage(
   const market = await getMarketNumbers()
   const figures = market.get(b.brand)
   const catRow = categoryFigure(figures, catName)
-  const catSold = catRow?.sold_7d ?? null
-  const brandSold = figures?.sold_7d ?? null
   // The category's own average price at departure, when the snapshot has one.
   // The brand-wide average is a different number (Zara jeans EUR 63 against a
   // Zara average of EUR 36) and must never be labelled as the category's.
   const catAvg = catRow?.avg_price_eur ?? null
   const brandAvg = figures?.avg_price_eur ?? null
-  // Display floor: hidden under 5, "fewer than 10" for 5-9, digits from 10.
-  const catShown = departureDisplay(catSold)
-  const catPrintable = catShown.kind === "number"
-  const brandShown = departureDisplay(brandSold)
-  const share = catPrintable && brandShown.kind === "number" ? Math.round(((catSold as number) / (brandSold as number)) * 100) : null
-  const avgPhrase = catAvg
-    ? `, with ${b.brand} ${catName.toLowerCase()} averaging about €${Math.round(catAvg)} in asking price at departure`
+  // NO departure count on this page (founder decision 2026-10-02): a small
+  // brand x category count reads as "only 6 of these sold" and costs trust. The
+  // page leads with the price answer — what the category resells for — and
+  // sends the reader to the exact model for the buy-below price.
+  const answer = catAvg
+    ? `${b.brand} ${catName} resell for about €${Math.round(catAvg)} in asking price at departure across the five main EU Vinted markets. ` +
+      `Buy well below that: the buy-below that keeps a 30% margin depends on the exact model, size and condition, so check the specific item before you pay.`
     : brandAvg
-      ? `, with the ${b.brand} brand average at about €${Math.round(brandAvg)} in asking price at departure`
-      : ""
-
-  // The sentence only claims what the count can carry: a conclusion needs
-  // n >= 30, a bare count needs 10, and below that we say so instead.
-  const answer = departureSupportsConclusion(catSold)
-    ? `${b.brand} ${catName} see roughly ${catShown.text} watched departures a week across the five main EU Vinted markets` +
-      avgPhrase +
-      `. That is a sample of what left the shelf, not total sales — whether an individual item is worth buying depends on its condition, size and the price you pay.`
-    : catPrintable
-      ? `About ${catShown.text} ${b.brand} ${catName.toLowerCase()} left the shelf in our sample this week across the five main EU Vinted markets` +
-        avgPhrase +
-        `. That is a small sample, so check the specific model — whether an individual item is worth buying depends on its condition, size and the price you pay.`
-      : catShown.kind === "band"
-        ? `${catShown.text} ${b.brand} ${catName.toLowerCase()} left the shelf in our sample this week across the five main EU Vinted markets. That is too few to read a trend — check the specific model, because whether an item is worth buying depends on its condition, size and the price you pay.`
-        : catSold == null
-          ? `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Live weekly volume is not on this snapshot — check a specific model rather than trusting a frozen category average.`
-          : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Too few listings left the shelf in our sample this week to report a count — check a specific model rather than trusting a category average.`
+      ? `The ${b.brand} brand average at departure is about €${Math.round(brandAvg)} across the five main EU Vinted markets. ` +
+        `Buy well below the average for the item in your hands: the buy-below that keeps a 30% margin depends on the exact model, size and condition, so check it before you pay.`
+      : `${b.brand} ${catName} is tracked across the five main EU Vinted markets. Check a specific model for its average price at departure and the buy-below price that keeps a 30% margin.`
 
   const jsonLd = [
     {
@@ -164,11 +146,10 @@ export default async function BrandCategoryPage(
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 26 }}>
           {[
-            [catShown.text, `${catName} left the shelf / week`],
             catAvg
               ? [fmtEur(catAvg), `avg ${b.brand} ${catName.toLowerCase()} price at departure`]
               : [fmtEur(brandAvg), `${b.brand} brand average price at departure`],
-            [share != null ? `${share}%` : "—", `of ${b.brand} watched departures`],
+            ["30%", "margin built into every buy-below price"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 24, fontWeight: 800, color: "#eef1f7" }}>{v}</div>

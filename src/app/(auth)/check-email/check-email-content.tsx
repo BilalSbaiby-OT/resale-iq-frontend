@@ -16,7 +16,6 @@ import { isFreeSample } from "@/lib/free-samples"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { useT } from "@/components/i18n/locale-provider"
-import { departureDisplay } from "@/lib/departure-display"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 
 // The three brands most likely to resonate with a new reseller — confirmed
@@ -334,10 +333,6 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
             </div>
           </div>
           <div className="flex flex-col gap-2 mb-3">
-            <div className="flex items-center justify-between">
-              <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Watched departures (7d)")}</span>
-              <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>{departureDisplay(displayRow!.sold_7d, tx.locale).text}</span>
-            </div>
             <div className="flex items-center justify-between">
               <span className={`text-[12px] ${AUTH_TEXT_MUTED}`}>{tx("Avg resale price")}</span>
               <span className={`text-[13px] font-semibold ${AUTH_TEXT}`}>€{displayRow!.avg_price_eur}</span>

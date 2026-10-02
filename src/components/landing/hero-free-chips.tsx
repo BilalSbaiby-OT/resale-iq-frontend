@@ -37,7 +37,6 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-import { localizeDemandNote } from "@/lib/verdict-words"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLES } from "@/lib/free-samples"
 
@@ -231,13 +230,6 @@ function HeroInlineVerdictCard({
           </div>
         )}
       </div>
-
-      {/* Demand note */}
-      {localizeDemandNote(result.demand_note, locale) && (
-        <p style={{ fontSize: 11.5, color: "var(--color-text-secondary)", margin: "0 0 9px", lineHeight: 1.5 }}>
-          {localizeDemandNote(result.demand_note, locale)}
-        </p>
-      )}
 
       {/* H155 CRO: real locked buy-list rows — mirrors H150 (/pricing InlineVerdictCard).
           Before: 4 abstract field-name chips ("Sell-through rate", "Top sizes"…) with blur.

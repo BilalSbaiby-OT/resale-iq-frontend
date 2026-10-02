@@ -13,7 +13,6 @@ import { fetchTopBrandRows } from "@/lib/market-snapshot"
 import type { SnapshotBrandRow } from "@/lib/market-snapshot"
 import { fetchFirstCheckQuery, writeFirstCheckSeed } from "@/lib/first-check-seed"
 import { useT } from "@/components/i18n/locale-provider"
-import { departureDisplay } from "@/lib/departure-display"
 
 type State = "checking" | "signed-in" | "already" | "bad"
 
@@ -221,10 +220,6 @@ export function VerifyEmailContent({ locale }: { locale: Locale }) {
                 <TrendingUp size={16} className="text-[var(--color-buy)]" />
               </div>
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Watched departures (7d)")}</span>
-                  <span className="text-[13px] font-semibold text-[var(--color-buy)]">{departureDisplay(af1Row.sold_7d, tx.locale).text}</span>
-                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[12px] text-[var(--color-text-muted)]">{tx("Avg resale price")}</span>
                   <span className="text-[13px] font-semibold text-[var(--color-buy)]">€{af1Row.avg_price_eur}</span>

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, buyDataDate, fmtDeparturesBuy, fmtEurBuy, catSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, buyDataDate, fmtEurBuy, catSlug } from "@/lib/buy-data"
 
 import { fitMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
@@ -38,10 +38,6 @@ export default function BuyHubPage() {
   // Batch 1: top 20 highest-evidence pairs. See lib/buy-data.ts for rationale.
   const batch1 = BUY_BATCH1_PAIRS
   const totalPairs = BUY_DATA.total_pairs
-  // The evidence floor of the batch is read from the data, never typed: it was
-  // a literal 189 that went stale the moment the export was refreshed.
-  const batchFloor = Math.min(...batch1.map(({ cat }) => cat.sold_30d))
-
   return (
     <div style={{ background: "#0B0D10", color: "#c3cde0", minHeight: "100vh", padding: "44px 24px" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, breadcrumbJsonLd([["Resale IQ", "/"], ["Buy prices", "/buy"]])]) }} />
@@ -58,10 +54,10 @@ export default function BuyHubPage() {
         </h1>
 
         <p style={{ fontSize: 16, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
-          Every number here is a watched departure — a listing we watched leave the shelf on Vinted, not a
-          confirmed sale — tracked across Spain, France, Germany, Italy and Portugal. We track{" "}
+          Every price here comes from listings we watched leave the shelf on Vinted — not confirmed sales — across
+          Spain, France, Germany, Italy and Portugal. We track{" "}
           <strong style={{ color: "#eef1f7" }}>{totalPairs.toLocaleString()} brand-category pairs</strong>{" "}
-          with at least 3 watched departures in the 30 days to {buyDataDate()}. The buy-below prices are derived from
+          with enough watched departures in the 30 days to {buyDataDate()}. The buy-below prices are derived from
           the average price at departure, × 0.70, which targets a 30% margin. Vinted charges private sellers no selling fee.
         </p>
         <p style={{ fontSize: 14.5, color: "#8b99b8", lineHeight: 1.6, marginBottom: 32 }}>
@@ -98,7 +94,7 @@ export default function BuyHubPage() {
           Buy-below by brand &amp; category
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
-          Showing {batch1.length} highest-evidence pairs (at least {batchFloor.toLocaleString("en-GB")} watched departures in the 30 days to {buyDataDate()}). Departures, not confirmed sales.
+          Showing the {batch1.length} highest-evidence pairs in the 30 days to {buyDataDate()}. Built on watched departures, not confirmed sales.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 12, marginBottom: 40 }}>
           {batch1.map(({ brand: b, cat: c }) => (
@@ -126,9 +122,9 @@ export default function BuyHubPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>
-                      {fmtDeparturesBuy(c.sold_30d)}
+                      {fmtEurBuy(c.avg_price_eur)}
                     </div>
-                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>left the shelf / 30d</div>
+                    <div style={{ fontSize: 11, color: "#5b6b8c" }}>avg price at departure</div>
                   </div>
                 </div>
               </div>

@@ -155,7 +155,7 @@ test.describe("390px: no horizontal page scroll, checker not clipped", () => {
     expect(await pricedRows.count(), "buy list must show at least 3 priced rows").toBeGreaterThanOrEqual(3)
   })
 
-  test("/verdict check row stacks and a STR-null result still shows shelf numbers", async ({ page }) => {
+  test("/verdict check row stacks and a STR-null result still shows the price numbers", async ({ page }) => {
     await page.goto("/verdict")
     const row = page.locator("div.riq-checker-row")
     const input = row.locator("input")
@@ -171,7 +171,8 @@ test.describe("390px: no horizontal page scroll, checker not clipped", () => {
     const insights = page.getByTestId("riq-verdict-insights")
     await expect(insights).toBeVisible()
     await expect(insights).toContainText("€27")
-    await expect(insights).toContainText("562")
+    // sold_7d (562 in the mock) is a per-item departure count: never rendered (2026-10-02).
+    await expect(insights).not.toContainText("562")
     await expect(page.getByText(/See plans/i)).toHaveCount(0)
   })
 })

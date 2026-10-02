@@ -2,8 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { Lock, ArrowRight } from "lucide-react"
-import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
-import { departureDisplay, departurePairPrintable } from "@/lib/departure-display"
+import { getMarketNumbers, fmtEur } from "@/lib/market-numbers"
 import { getTeaserVerdict } from "@/lib/teaser-verdict"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { HubFaq } from "@/components/seo/hub-faq"
@@ -76,12 +75,6 @@ export default async function ModelFlipPage(
   })
   const cite = liveAnswerLead(m.query, live)
   const usable = isUsableVerdict(live)
-  // Display floor, and no "still listed" tile beside a thin departure count: a
-  // few departures set against a six-figure listing count reads as a supply
-  // glut, and it is really the detector reading a slice of a shelf.
-  const modelDepartures = departureDisplay(live?.sold_7d)
-  const showStillListed = departurePairPrintable(live?.sold_7d, live?.active_listings)
-
   const jsonLd = [
     faqPageJsonLd(faqs),
     definedTermJsonLd({
@@ -146,24 +139,13 @@ export default async function ModelFlipPage(
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 12 }}>
             <div>
-              <div style={{ fontSize: 11, color: "#5b6b8c" }}>Watched departures / 7d</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>{modelDepartures.text}</div>
-            </div>
-            {showStillListed ? (
-              <div>
-                <div style={{ fontSize: 11, color: "#5b6b8c" }}>Still listed</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>{fmtCount(live?.active_listings)}</div>
-              </div>
-            ) : null}
-            <div>
               <div style={{ fontSize: 11, color: "#5b6b8c" }}>Avg at departure</div>
               <div style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7" }}>{fmtEur(live.sell_avg)}</div>
             </div>
           </div>
           <p style={{ fontSize: 13, color: "#8b99b8", marginTop: 12, lineHeight: 1.55 }}>
-            Sell-through is withheld on public pages. Watched departures show from 10 (under that, a bound);
-            the still-listed count shows only when it is on the same footing as the departures.
-            Other models need Starter at €19 a month.
+            Sell-through is withheld on public pages. The buy-below is the most to pay to keep a 30% margin
+            against the average price at departure. Other models need Starter at €19 a month.
           </p>
         </div>
       ) : m.freeCheck ? null : (
@@ -216,7 +198,6 @@ export default async function ModelFlipPage(
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: 12, margin: "8px 0 28px" }}>
         {[
-          ["Brand left the shelf / week", departureDisplay(figures?.sold_7d).text],
           ["Brand avg at departure", fmtEur(figures?.avg_price_eur)],
           ["Category", m.category],
         ].map(([label, value]) => (

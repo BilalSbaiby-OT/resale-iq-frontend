@@ -5,15 +5,15 @@
  * drift apart: src/lib/payback-defaults.test.ts fails if copy[locale].pricingSection.faq
  * stops matching these.
  *
- * Founder decision 2026-10-02: the default is a VOLUME buyer, 60 items a month at
- * EUR 20 each = EUR 1,200 of stock a month (it was 20 x EUR 15 = EUR 300). Both
- * values sit on the existing slider steps (items 5-200 step 5, price 5-120 step 1),
+ * Founder decision 2026-10-02 (revised the same day): the default is 30 items a
+ * month at EUR 20 each = EUR 600 of stock a month (it was 20 x EUR 15 = EUR 300,
+ * then briefly 60 x EUR 20 = EUR 1,200). Both values sit on the existing slider steps (items 5-200 step 5, price 5-120 step 1),
  * so no slider bound changed. The EUR 20 is a plausibility pick against the live
  * public buy-list (unlocked rows buy below EUR 8-35), not a measured average:
  * the calculator's own disclaimer says it is arithmetic on the reader's figures
  * and claims no hit rate. Plain .ts with no imports so node:test can load it.
  */
-export const PAYBACK_DEFAULT_ITEMS_PER_MONTH = 60
+export const PAYBACK_DEFAULT_ITEMS_PER_MONTH = 30
 export const PAYBACK_DEFAULT_AVG_BUY_EUR = 20
 
 /**

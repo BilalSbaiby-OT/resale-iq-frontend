@@ -67,10 +67,10 @@ export function liveSellsBestIntro(market: MarketNumbers): LiveSellsBestIntro | 
     `in the trailing 7 days across ${brandCount} brands with published weekly data` +
     (second && departureIsPrintable(second[1]) ? ` — ahead of ${second[0]} (${departureDisplay(second[1]).text}).` : ".")
 
+  // No count for the pair (founder decision 2026-10-02): it is named and priced.
   const sentence2 =
-    `The single busiest brand/category pair is ${topPair.brand} ${topPair.category}: ` +
-    `${departureDisplay(topPair.sold_7d).text} watched departures in 7 days` +
-    (topPair.avg_price_eur != null ? `, averaging €${Math.round(topPair.avg_price_eur)}.` : ".")
+    `The single busiest brand/category pair is ${topPair.brand} ${topPair.category}` +
+    (topPair.avg_price_eur != null ? `, averaging €${Math.round(topPair.avg_price_eur)} at departure.` : ".")
 
   return {
     text: `${sentence1} ${sentence2}`,

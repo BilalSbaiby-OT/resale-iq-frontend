@@ -38,11 +38,13 @@ test("the sample-size note is translated in every locale, not passed through", (
   }
 })
 
-test("every locale keeps the count, in its own digit grouping", () => {
+test("no locale prints the per-item count (founder decision 2026-10-02)", () => {
   for (const locale of LOCALES) {
-    const out = localizeConfidenceNote("1,234 comparables in the sample — not shelf departures", locale)!
-    const expected = (1234).toLocaleString(NUMBER_LOCALE[locale])
-    assert.ok(out.includes(expected), `${locale}: expected "${expected}" in "${out}"`)
+    for (const note of ["1,234 comparables in the sample — not shelf departures", "Only 20 comparable departures"]) {
+      const out = localizeConfidenceNote(note, locale)!
+      assert.ok(!/\d/.test(out), `${locale}: a digit leaked: "${out}"`)
+      assert.ok(!out.includes((1234).toLocaleString(NUMBER_LOCALE[locale])), `${locale}: count leaked: "${out}"`)
+    }
   }
 })
 
@@ -55,7 +57,7 @@ test("the singular spelling and a trailing-clause variant both match", () => {
 
 test("the four pre-existing patterns still translate", () => {
   const es = (n: string) => localizeConfidenceNote(n, "es")!
-  assert.ok(es("Only 20 comparable departures").startsWith("Solo 20"))
+  assert.ok(es("Only 20 comparable departures").startsWith("Pocos datos comparables"))
   assert.ok(!/Too few/i.test(es("Too few comparable departures")))
   assert.ok(!/48 hours/i.test(es("Market snapshot is more than 48 hours old")))
   assert.ok(!/widely spread/i.test(es("Sold prices are widely spread — treat the average as a range")))

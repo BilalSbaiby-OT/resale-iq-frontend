@@ -67,14 +67,13 @@ test.describe("the public result face on /", () => {
     await page.goto("/")
     const card = await check(page, "Adidas Samba")
 
-    // Three rows is the ceiling: buy-below, watched departures, and the gated
-    // sell-through. The card this replaced carried five tiles, which is what
+    // Three rows is the ceiling: buy-below and the gated sell-through (no
+    // per-item departure count since 2026-10-02). The card this replaced carried five tiles, which is what
     // made an answer read as a telemetry board.
     const rows = card.getByTestId("riq-answer-rows")
     expect(await rows.evaluate((el) => el.childElementCount)).toBeLessThanOrEqual(3)
 
-    // `n` is comparable_n, not a departure count (#54). It must never appear as
-    // a second number beside sold_7d.
+    // `n` is comparable_n, not a departure count (#54). It must never appear on the card.
     await expect(card).not.toContainText(/\bn\s*=\s*\d/)
 
     // The unlock bar (GuestCheckoutButton + login link) may sit inside the card boundary.

@@ -25,7 +25,8 @@
  * does not own. That gap is real and is backend-eng's, not papered over.
  *
  * 2026-09-01 (W9): `liveProof` (live-market-proof.tsx), `extensionHero`
- * (extension-hero.tsx) and `watchedSample` (lib/watched-sample.ts) close the
+ * (extension-hero.tsx) and `watchedSample` (lib/watched-sample.ts, removed
+ * 2026-10-02 with every per-item departure count) closed the
  * three surfaces that were still 100% English on every `/es /fr /de /it /pt`
  * route — locale routing (seo/i18n-routing-hreflang) made this visible: a
  * visitor now lands on a real translated URL and hits English proof content
@@ -303,7 +304,6 @@ export const copy = {
       insufficientNLabel: "watched, not enough",
       buyBelow: "Buy-below",
       marketPrice: "Market price",
-      leftShelf: "Left the shelf / 7d",
       stillListed: "Still listed",
       sellThrough: "Sell-through",
       // The homepage fold's gated state, in WORDS. E-13 (#59) correctly removed
@@ -348,7 +348,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Try "${nextStep}". For a buy-below on one item, name the model too.`,
       avg: "avg",
-      leftShelfCount: (n: string) => `${n} left the shelf / 7d`,
       brandAverageLabel: "BRAND AVERAGE",
       headlineOnly: "Headline call only — market price and buy-below need an account.",
       unlockLine: "Unlock sell-through, demand, sizes and history with a plan.",
@@ -417,7 +416,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check — LLM-cited FAQ can now route into the product. Revenue 2026-09-15.
         { q: "Will it work for what I sell?", a: "It's built for clothing, shoes and accessories on Vinted across Spain, France, Germany, Italy and Portugal, with live asking-price search reaching 26 markets on Pro. When we haven't watched enough of an item to answer, the verdict says UNKNOWN instead of guessing, because an admitted gap costs you less than a confident wrong number.", cta: { text: "→ Try a live check now", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "usually" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Is it worth €19 a month?", a: "At the default numbers — 60 items a month at €20 each, about €1,200 of stock — the calculator above shows Starter costs the same as 1 bad buy a month: avoid one €20 item and the €19 is covered. That is arithmetic on your own numbers, not a promised saving. Slide them to your own volume and see." },
+        { q: "Is it worth €19 a month?", a: "At the default numbers — 30 items a month at €20 each, about €600 of stock — the calculator above shows Starter costs the same as 1 bad buy a month: avoid one €20 item and the €19 is covered. That is arithmetic on your own numbers, not a promised saving. Slide them to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
         { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or Fred Perry Polo on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Order Planner, Price Compare and API access." },
         { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
@@ -515,14 +514,6 @@ export const copy = {
       // BRAND-VOICE
       caption:
         "Example of the Chrome panel on an Adidas Samba listing — not a live quote. Check the model on this page to see today's number.",
-    },
-    // lib/watched-sample.ts — the honesty line under a BUY/WATCH/SKIP.
-    // FUNCTIONAL: this is a data-integrity sentence (the sample size behind a
-    // verdict), not a marketing line, and it must stay literal.
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `In the listings we watched, ${sold} left the shelf vs ${listed} still listed`,
-      skipSuffix: " — that is a supply glut in our sample, not a claim this model never sells.",
     },
     // W19: (auth)/register, check-email, verify-email, dashboard first
     // screen — the four routes of the post-signup funnel, previously
@@ -696,7 +687,6 @@ export const copy = {
       welcomeBody: "Your plan is active. We pre-filled Nike Air Force 1 so you see a buy-below on the first click.",
       welcomeCta: "Check your first item",
       emptyOpportunities: "No opportunities in this refresh. Check a real item you source.",
-      kpiLeftShelf: "Left the shelf / 7d",
       kpiListingsTracked: "Listings tracked",
       kpiAcrossMarkets: "across 5 Vinted markets",
       kpiTopCategory: "Top category",
@@ -743,7 +733,6 @@ export const copy = {
       // the same concept.
       watchAction: "Watch",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} left the shelf / 7d`,
     },
   },
   fr: {
@@ -905,7 +894,6 @@ export const copy = {
       insufficientNLabel: "observés, pas assez",
       buyBelow: "Prix d'achat max",
       marketPrice: "Prix de marché",
-      leftShelf: "Départs observés / 7j",
       stillListed: "Encore en ligne",
       sellThrough: "Taux d'écoulement",
       gatedFreeAccount: "sur Starter",
@@ -923,7 +911,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Essayez « ${nextStep} ». Pour un prix d'achat max sur un article précis, indiquez aussi le modèle.`,
       avg: "moy.",
-      leftShelfCount: (n: string) => `${n} départs observés / 7j`,
       brandAverageLabel: "MOYENNE DE LA MARQUE",
       headlineOnly: "Verdict seul — le prix de marché et le prix d'achat max nécessitent un compte.",
       unlockLine: "Débloquez le taux d'écoulement, la demande, les tailles et l'historique avec un abonnement.",
@@ -972,7 +959,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec une recherche des prix affichés en direct couvrant 26 marchés sur Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance.", cta: { text: "→ Essayez une vérification en direct", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "en général" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 60 articles par mois à 20 € pièce, soit environ 1 200 € de stock — le calculateur ci-dessus montre que Starter coûte autant qu'un mauvais achat par mois : évitez un article à 20 € et les 19 € sont couverts. C'est de l'arithmétique sur vos propres chiffres, pas une économie promise. Ajustez les curseurs à votre propre volume." },
+        { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 30 articles par mois à 20 € pièce, soit environ 600 € de stock — le calculateur ci-dessus montre que Starter coûte autant que 1 mauvais achat par mois : évitez un article à 20 € et les 19 € sont couverts. C'est de l'arithmétique sur vos propres chiffres, pas une économie promise. Ajustez les curseurs à votre propre volume." },
         { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez ACHETER, SURVEILLER ou ÉCARTER avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quand l'accès démarre-t-il après le paiement ?", a: "À l'instant où Stripe confirme votre paiement — en général en moins de 2 secondes. Ensuite vous vérifiez un vrai article ; Nike Air Force 1 est déjà saisi. Pas d'e-mail à attendre. Si une erreur de connexion interrompt, connectez-vous sur /login." },
@@ -1050,11 +1037,6 @@ export const copy = {
       avgExit: "prix moyen de sortie",
       caption:
         "Exemple du panneau Chrome sur une annonce Adidas Samba — pas un prix en direct. Vérifiez le modèle sur cette page pour voir le chiffre du jour.",
-    },
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `Sur les annonces observées, ${sold} ont quitté l'étal contre ${listed} encore en ligne`,
-      skipSuffix: " — c'est un excédent d'offre dans notre échantillon, pas une affirmation que ce modèle ne se vend jamais.",
     },
     auth: {
       login: {
@@ -1185,7 +1167,6 @@ export const copy = {
       welcomeBody: "Votre offre est active. Nike Air Force 1 est déjà saisi pour afficher un prix d'achat max au premier clic.",
       welcomeCta: "Vérifier un premier article",
       emptyOpportunities: "Aucune opportunité dans cette actualisation. Vérifiez un article que vous achèteriez pour revendre.",
-      kpiLeftShelf: "Départs observés / 7j",
       kpiListingsTracked: "Annonces suivies",
       kpiAcrossMarkets: "sur 5 marchés Vinted",
       kpiTopCategory: "Catégorie n°1",
@@ -1214,7 +1195,6 @@ export const copy = {
       analyze: "Analyser",
       watchAction: "Suivre",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} départs observés / 7j`,
     },
   },
   es: {
@@ -1376,7 +1356,6 @@ export const copy = {
       insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Precio máximo de compra",
       marketPrice: "Precio de mercado",
-      leftShelf: "Salidas observadas / 7d",
       stillListed: "Aún en venta",
       sellThrough: "Tasa de venta",
       gatedFreeAccount: "en Starter",
@@ -1394,7 +1373,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Prueba «${nextStep}». Para un precio máximo de compra en un artículo concreto, indica también el modelo.`,
       avg: "media",
-      leftShelfCount: (n: string) => `${n} salidas observadas / 7d`,
       brandAverageLabel: "MEDIA DE LA MARCA",
       headlineOnly: "Solo el veredicto — el precio de mercado y el precio máximo de compra necesitan una cuenta.",
       unlockLine: "Desbloquea la tasa de venta, la demanda, las tallas y el historial con un plan.",
@@ -1445,7 +1423,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con búsqueda de precios en vivo que llega a 26 mercados en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad.", cta: { text: "→ Prueba una comprobación en directo", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "suele" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 60 artículos al mes a 20 € cada uno, unos 1200 € de stock — la calculadora de arriba muestra que Starter cuesta lo mismo que 1 mala compra al mes: evita un artículo de 20 € y los 19 € quedan cubiertos. Es aritmética con tus propias cifras, no un ahorro prometido. Ajusta los controles a tu propio volumen." },
+        { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 30 artículos al mes a 20 € cada uno, unos 600 € de stock — la calculadora de arriba muestra que Starter cuesta lo mismo que 1 mala compra al mes: evita un artículo de 20 € y los 19 € quedan cubiertos. Es aritmética con tus propias cifras, no un ahorro prometido. Ajusta los controles a tu propio volumen." },
         { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes COMPRA, OBSERVA o DESCARTA con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "¿Cuándo empieza el acceso después de pagar?", a: "En el momento en que Stripe confirma tu pago — normalmente en menos de 2 segundos. Luego compruebas un artículo real; Nike Air Force 1 ya está rellenado. Sin esperar un correo. Si un error de conexión interrumpe, inicia sesión en /login." },
@@ -1523,11 +1501,6 @@ export const copy = {
       avgExit: "precio medio de salida",
       caption:
         "Ejemplo del panel de Chrome en un anuncio de Adidas Samba — no es un precio en vivo. Comprueba el modelo en esta página para ver el número de hoy.",
-    },
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `En los anuncios que observamos, ${sold} dejaron el escaparate frente a ${listed} que siguen en venta`,
-      skipSuffix: " — eso es un exceso de oferta en nuestra muestra, no una afirmación de que este modelo nunca se vende.",
     },
     auth: {
       login: {
@@ -1658,7 +1631,6 @@ export const copy = {
       welcomeBody: "Tu plan está activo. Nike Air Force 1 ya está rellenado para que veas un precio máximo de compra al primer clic.",
       welcomeCta: "Comprobar tu primer artículo",
       emptyOpportunities: "No hay oportunidades en esta actualización. Comprueba un artículo real que quieras comprar para revender.",
-      kpiLeftShelf: "Salidas observadas / 7d",
       kpiListingsTracked: "Anuncios seguidos",
       kpiAcrossMarkets: "en 5 mercados Vinted",
       kpiTopCategory: "Categoría principal",
@@ -1687,7 +1659,6 @@ export const copy = {
       analyze: "Analizar",
       watchAction: "Seguir",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} salidas observadas / 7d`,
     },
   },
   de: {
@@ -1848,7 +1819,6 @@ export const copy = {
       insufficientNLabel: "beobachtet, nicht genug",
       buyBelow: "Kaufobergrenze",
       marketPrice: "Marktpreis",
-      leftShelf: "Beobachtete Abgänge / 7T",
       stillListed: "Noch inseriert",
       sellThrough: "Verkaufsrate",
       gatedFreeAccount: "mit Starter",
@@ -1866,7 +1836,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Versuch's mit „${nextStep}“. Für eine Kaufobergrenze auf ein bestimmtes Produkt nenne zusätzlich das Modell.`,
       avg: "Ø",
-      leftShelfCount: (n: string) => `${n} beobachtete Abgänge / 7T`,
       brandAverageLabel: "MARKENDURCHSCHNITT",
       headlineOnly: "Nur die Kurzentscheidung — Marktpreis und Kaufobergrenze brauchen ein Konto.",
       unlockLine: "Schalte Verkaufsrate, Nachfrage, Größen und Verlauf mit einem Tarif frei.",
@@ -1915,7 +1884,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit Live-Preissuche über 26 Märkte in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl.", cta: { text: "→ Jetzt einen Live-Check ausprobieren", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "meist" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 60 Artikel im Monat zu je 20 €, also rund 1.200 € Ware — zeigt der Rechner oben: Starter kostet so viel wie 1 Fehlkauf im Monat. Wer einen Artikel für 20 € nicht kauft, hat die 19 € wieder drin. Das ist Rechnen mit deinen eigenen Zahlen, keine versprochene Ersparnis. Schiebe die Regler auf dein eigenes Volumen." },
+        { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 30 Artikel im Monat zu je 20 €, also rund 600 € Ware — zeigt der Rechner oben: Starter kostet so viel wie 1 Fehlkauf im Monat. Wer einen Artikel für 20 € nicht kauft, hat die 19 € wieder drin. Das ist Rechnen mit deinen eigenen Zahlen, keine versprochene Ersparnis. Schiebe die Regler auf dein eigenes Volumen." },
         { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst KAUFEN, BEOBACHTEN oder VERWERFEN mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Wann beginnt der Zugang nach der Zahlung?", a: "In dem Moment, in dem Stripe deine Zahlung bestätigt — normalerweise innerhalb von 2 Sekunden. Als Nächstes prüfst du einen echten Artikel; Nike Air Force 1 ist vorausgefüllt. Keine E-Mail abwarten. Falls ein Verbindungsfehler unterbricht, melde dich auf /login an." },
@@ -1993,11 +1962,6 @@ export const copy = {
       avgExit: "Ø Abgangspreis",
       caption:
         "Beispiel des Chrome-Panels bei einem Adidas-Samba-Angebot — kein Live-Preis. Prüfe das Modell auf dieser Seite für die heutige Zahl.",
-    },
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `In den von uns beobachteten Angeboten haben ${sold} das Regal verlassen, ${listed} sind noch inseriert`,
-      skipSuffix: " — das ist ein Angebotsüberschuss in unserer Stichprobe, keine Aussage, dass dieses Modell nie läuft.",
     },
     auth: {
       login: {
@@ -2130,7 +2094,6 @@ export const copy = {
       welcomeBody: "Dein Tarif ist aktiv. Nike Air Force 1 ist vorausgefüllt, damit du beim ersten Klick eine Kaufobergrenze siehst.",
       welcomeCta: "Ersten Artikel prüfen",
       emptyOpportunities: "Keine Chancen in dieser Aktualisierung. Prüfe einen echten Artikel, den du einkaufen würdest.",
-      kpiLeftShelf: "Beobachtete Abgänge / 7T",
       kpiListingsTracked: "Erfasste Angebote",
       kpiAcrossMarkets: "in 5 Vinted-Märkten",
       kpiTopCategory: "Top-Kategorie",
@@ -2159,7 +2122,6 @@ export const copy = {
       analyze: "Analysieren",
       watchAction: "Merken",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} beobachtete Abgänge / 7T`,
     },
   },
   it: {
@@ -2320,7 +2282,6 @@ export const copy = {
       insufficientNLabel: "osservate, non abbastanza",
       buyBelow: "Prezzo massimo di acquisto",
       marketPrice: "Prezzo di mercato",
-      leftShelf: "Uscite osservate / 7g",
       stillListed: "Ancora in vendita",
       sellThrough: "Tasso di vendita",
       gatedFreeAccount: "su Starter",
@@ -2338,7 +2299,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Prova con "${nextStep}". Per un prezzo massimo di acquisto su un articolo preciso, indica anche il modello.`,
       avg: "media",
-      leftShelfCount: (n: string) => `${n} uscite osservate / 7g`,
       brandAverageLabel: "MEDIA DEL MARCHIO",
       headlineOnly: "Solo il verdetto — prezzo di mercato e prezzo massimo di acquisto richiedono un account.",
       unlockLine: "Sblocca tasso di vendita, domanda, taglie e storico con un piano.",
@@ -2387,7 +2347,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con ricerca dei prezzi in tempo reale che raggiunge 26 mercati su Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza.", cta: { text: "→ Prova un controllo dal vivo ora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "di solito" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 60 articoli al mese a 20 € ciascuno, circa 1200 € di merce — il calcolatore sopra mostra che Starter costa quanto 1 acquisto sbagliato al mese: evita un articolo da 20 € e i 19 € sono coperti. È aritmetica sui tuoi numeri, non un risparmio promesso. Sposta i cursori al tuo volume reale." },
+        { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 30 articoli al mese a 20 € ciascuno, circa 600 € di merce — il calcolatore sopra mostra che Starter costa quanto 1 acquisto sbagliato al mese: evita un articolo da 20 € e i 19 € sono coperti. È aritmetica sui tuoi numeri, non un risparmio promesso. Sposta i cursori al tuo volume reale." },
         { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni COMPRA, OSSERVA o SCARTA con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando inizia l'accesso dopo il pagamento?", a: "Nel momento in cui Stripe conferma il tuo pagamento — di solito entro 2 secondi. Poi verifichi un articolo reale; Nike Air Force 1 è già compilato. Nessuna email da aspettare. Se un errore di connessione interrompe, accedi su /login." },
@@ -2465,11 +2425,6 @@ export const copy = {
       avgExit: "prezzo medio di uscita",
       caption:
         "Esempio del pannello Chrome su un annuncio Adidas Samba — non è un prezzo live. Controlla il modello su questa pagina per il numero di oggi.",
-    },
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `Negli annunci osservati, ${sold} hanno lasciato lo scaffale contro ${listed} ancora in vendita`,
-      skipSuffix: " — è un eccesso di offerta nel nostro campione, non un'affermazione che questo modello non si muove mai.",
     },
     auth: {
       login: {
@@ -2600,7 +2555,6 @@ export const copy = {
       welcomeBody: "Il tuo piano è attivo. Nike Air Force 1 è già compilato così al primo clic vedi un prezzo massimo di acquisto.",
       welcomeCta: "Verifica il primo articolo",
       emptyOpportunities: "Nessuna opportunità in questo aggiornamento. Verifica un articolo reale che acquisteresti per rivendere.",
-      kpiLeftShelf: "Uscite osservate / 7g",
       kpiListingsTracked: "Annunci monitorati",
       kpiAcrossMarkets: "in 5 mercati Vinted",
       kpiTopCategory: "Categoria principale",
@@ -2629,7 +2583,6 @@ export const copy = {
       analyze: "Analizza",
       watchAction: "Segui",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} uscite osservate / 7g`,
     },
   },
   pt: {
@@ -2790,7 +2743,6 @@ export const copy = {
       insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Preço máximo de compra",
       marketPrice: "Preço de mercado",
-      leftShelf: "Saídas observadas / 7d",
       stillListed: "Ainda anunciado",
       sellThrough: "Taxa de venda",
       gatedFreeAccount: "no Starter",
@@ -2808,7 +2760,6 @@ export const copy = {
       brandCategoriesModelHint: (nextStep: string) =>
         `Experimenta "${nextStep}". Para um preço máximo de compra num artigo específico, indica também o modelo.`,
       avg: "média",
-      leftShelfCount: (n: string) => `${n} saídas observadas / 7d`,
       brandAverageLabel: "MÉDIA DA MARCA",
       headlineOnly: "Apenas o veredito — preço de mercado e preço máximo de compra precisam de uma conta.",
       unlockLine: "Desbloqueia taxa de venda, procura, tamanhos e histórico com um plano.",
@@ -2857,7 +2808,7 @@ export const copy = {
         // H48 CRO: cta drops the visitor into a live check. Revenue 2026-09-15.
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com pesquisa de preços em direto que chega a 26 mercados no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança.", cta: { text: "→ Experimenta uma verificação ao vivo agora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "costuma" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
-        { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 60 artigos por mês a 20 € cada, cerca de 1.200 € de stock — a calculadora acima mostra que o Starter custa o mesmo que 1 má compra por mês: evita um artigo de 20 € e os 19 € ficam cobertos. É aritmética sobre os teus próprios números, não uma poupança prometida. Ajusta os controlos ao teu próprio volume." },
+        { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 30 artigos por mês a 20 € cada, cerca de 600 € de stock — a calculadora acima mostra que o Starter custa o mesmo que 1 má compra por mês: evita um artigo de 20 € e os 19 € ficam cobertos. É aritmética sobre os teus próprios números, não uma poupança prometida. Ajusta os controlos ao teu próprio volume." },
         { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes COMPRAR, OBSERVAR ou DESCARTAR com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando começa o acesso depois de pagar?", a: "No momento em que o Stripe confirma o teu pagamento — normalmente em menos de 2 segundos. Depois verificas um artigo real; Nike Air Force 1 já vem preenchido. Sem e-mail a aguardar. Se um erro de ligação interromper, inicia sessão em /login." },
@@ -2935,11 +2886,6 @@ export const copy = {
       avgExit: "preço médio de saída",
       caption:
         "Exemplo do painel Chrome num anúncio Adidas Samba — não é uma cotação em direto. Verifica o modelo nesta página para veres o número de hoje.",
-    },
-    watchedSample: {
-      head: (sold: string, listed: string) =>
-        `Nos anúncios que observámos, ${sold} saíram da prateleira contra ${listed} ainda anunciados`,
-      skipSuffix: " — isso é um excesso de oferta na nossa amostra, não uma afirmação de que este modelo nunca vende.",
     },
     auth: {
       login: {
@@ -3070,7 +3016,6 @@ export const copy = {
       welcomeBody: "O teu plano está ativo. Nike Air Force 1 já vem preenchido para veres um preço máximo de compra no primeiro clique.",
       welcomeCta: "Verificar o primeiro artigo",
       emptyOpportunities: "Sem oportunidades nesta atualização. Verifica um artigo real que queiras comprar para revender.",
-      kpiLeftShelf: "Saídas observadas / 7d",
       kpiListingsTracked: "Anúncios monitorizados",
       kpiAcrossMarkets: "em 5 mercados Vinted",
       kpiTopCategory: "Categoria principal",
@@ -3099,7 +3044,6 @@ export const copy = {
       analyze: "Analisar",
       watchAction: "Seguir",
       strDash: "STR —",
-      leftShelfCount: (n: string) => `${n} saídas observadas / 7d`,
     },
   },
 } as const

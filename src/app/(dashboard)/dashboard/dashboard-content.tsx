@@ -466,9 +466,6 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                     style={{ flex: 1, textDecoration: "none", minWidth: 0 }}
                   >
                     <span style={{ fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "block" }}>{label.trim()}</span>
-                    {!item.locked && item.sold_30d_evidence != null && (
-                      <span style={{ fontSize: 12, color: "var(--color-graphite-muted)", display: "block", marginTop: 1 }}>{tx("{0} watched departures / 30d", [item.sold_30d_evidence.toLocaleString(tx.locale)])}</span>
-                    )}
                   </Link>
                   {item.locked
                     ? <Lock size={12} color="var(--color-graphite-muted)" aria-label={tx("Upgrade to unlock")} />
@@ -624,15 +621,19 @@ export function DashboardContent({ locale }: { locale: Locale }) {
                         retired — it was an untranslatable English initialism
                         beside a fully translated label. */}
                     <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, fontSize: 13, color: "var(--color-graphite-muted)", fontVariantNumeric: "tabular-nums" }}>
+                      {/* No per-item departure count here (founder decision
+                          2026-10-02): when sell-through is neither measured nor
+                          gated the slot stays empty and the momentum chip alone
+                          carries the "does it move" signal. */}
                       <div style={{ minWidth: 0 }}>
-                        <div>{str != null || strLocked ? a.metric.sellThrough : t.kpiLeftShelf}</div>
-                        <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
-                          {str != null
-                            ? str
-                            : strLocked
-                              ? <LockedInline label={a.locked.label} />
-                              : (d.sold_7d != null ? formatCount(d.sold_7d, locale) : "—")}
-                        </div>
+                        {str != null || strLocked ? (
+                          <>
+                            <div>{a.metric.sellThrough}</div>
+                            <div style={{ fontSize: 16, color: "var(--color-on-graphite)", marginTop: 2 }}>
+                              {str != null ? str : <LockedInline label={a.locked.label} />}
+                            </div>
+                          </>
+                        ) : null}
                       </div>
                       {/* Not a third metric: an ordinal rank chip, one word and
                           a dot, and the only thing on the card that lets a grid

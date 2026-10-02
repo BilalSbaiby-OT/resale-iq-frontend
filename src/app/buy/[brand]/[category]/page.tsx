@@ -2,7 +2,6 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { withFittedMetadata } from "@/lib/meta-fit"
-import { departurePairPrintable } from "@/lib/departure-display"
 import { RelatedLinks } from "@/components/seo/related-links"
 import {
   BUY_DATA,
@@ -11,8 +10,6 @@ import {
   BUY_BATCH1_SLUGS,
   buyDataDate,
   fmtEurBuy,
-  fmtCountBuy,
-  fmtDeparturesBuy,
   signalDisplay,
   catSlug,
 } from "@/lib/buy-data"
@@ -40,9 +37,9 @@ async function generateMetadataRaw({
   const { brand, cat } = pair
   const title = `What to Pay for ${brand.brand} ${cat.category} — Buy-Below Price | ResaleIQ`
   const description =
-    `${brand.brand} ${cat.category}: ${fmtDeparturesBuy(cat.sold_30d)} left the shelf in 30 days on Vinted. ` +
-    `Average exit price ${fmtEurBuy(cat.avg_price_eur)} — buy below ${fmtEurBuy(cat.buy_below)} to hit a 30% gross margin. ` +
-    `Watched departures, not supply counts.`
+    `${brand.brand} ${cat.category}: buy below ${fmtEurBuy(cat.buy_below)} to hit a 30% gross margin. ` +
+    `Average price at departure ${fmtEurBuy(cat.avg_price_eur)} on Vinted across ES, FR, DE, IT and PT. ` +
+    `Check the exact model before you pay.`
 
   return {
     title,
@@ -65,17 +62,15 @@ export default async function BuyBrandCategoryPage({
   const sig = signalDisplay(cat.signal)
 
   // Self-contained 134-167 word answer block (GEO / AI citation optimised)
+  // NO departure count anywhere on this page (founder decision 2026-10-02): a
+  // small brand x category count reads as "only 6 of these sold". The answer
+  // leads with the price: what to pay, what it resells for, the margin.
   const directAnswer =
-    `${fmtDeparturesBuy(cat.sold_30d)} ${brand.brand} ${cat.category} listings left the shelf on Vinted in the 30 days to ${buyDataDate()} ` +
-    `across Spain, France, Germany, Italy and Portugal (watched departures, not confirmed sales). ` +
+    `To hit a 30% gross margin on ${brand.brand} ${cat.category}, buy below ${fmtEurBuy(cat.buy_below)}. ` +
     `The average price at departure was ${fmtEurBuy(cat.avg_price_eur)}` +
     (cat.median_price_eur ? ` (median ${fmtEurBuy(cat.median_price_eur)})` : "") +
-    `. To hit a 30% gross margin, ` +
-    `buy below ${fmtEurBuy(cat.buy_below)}. ` +
-    (cat.active_listings != null && departurePairPrintable(cat.sold_30d, cat.active_listings)
-      ? `There are currently about ${fmtCountBuy(cat.active_listings)} active ${brand.brand} ${cat.category} listings — ` +
-        `but active listings are supply, not demand. The ${fmtDeparturesBuy(cat.sold_30d)} watched departures are the number to read. `
-      : "") +
+    ` across Vinted in Spain, France, Germany, Italy and Portugal in the 30 days to ${buyDataDate()} ` +
+    `(listings we watched leave the shelf, not confirmed sales). ` +
     (cat.signal ? `Demand signal: ${cat.signal}.` : "")
 
   const jsonLd = [
@@ -108,12 +103,11 @@ export default async function BuyBrandCategoryPage({
               cat.signal === "STRONG BUY" || cat.signal === "BUY"
                 ? `Yes — the demand signal for ${brand.brand} ${cat.category} is ${cat.signal} based on sell-through rate, ` +
                   `listing saturation and departure momentum from listings we watched leave the shelf. ` +
-                  `${fmtDeparturesBuy(cat.sold_30d)} left the shelf in the 30 days to ${buyDataDate()} — a sample of the market, not total sales. ` +
-                  `Check the specific item you are considering on /tools before buying.`
+                  `Buy below ${fmtEurBuy(cat.buy_below)} to keep a 30% margin, and check the specific item you are considering on /tools before buying.`
                 : cat.signal === "AVOID"
-                ? `With care. The demand signal is ${cat.signal} — ${fmtDeparturesBuy(cat.sold_30d)} listings left the shelf in the 30 days to ${buyDataDate()} but the sell-through rate or saturation level suggests caution. ` +
+                ? `With care. The demand signal is ${cat.signal} — the sell-through rate or saturation level suggests caution. ` +
                   `Check specific models rather than buying on category-level data alone.`
-                : `${fmtDeparturesBuy(cat.sold_30d)} ${brand.brand} ${cat.category} listings left the shelf in the 30 days to ${buyDataDate()}. ` +
+                : `${brand.brand} ${cat.category} resell for about ${fmtEurBuy(cat.avg_price_eur)} at departure. ` +
                   `Whether it is worth buying depends on the specific model, condition and the price. Check the exact model below.`,
           },
         },
@@ -128,7 +122,6 @@ export default async function BuyBrandCategoryPage({
       dateModified: BUY_DATA.generated_at,
       creator: { "@type": "Organization", name: "ResaleIQ" },
       variableMeasured: [
-        { "@type": "PropertyValue", name: "Watched departures (30 days)", value: cat.sold_30d },
         { "@type": "PropertyValue", name: "Average price at departure EUR", value: cat.avg_price_eur },
         { "@type": "PropertyValue", name: "Buy below EUR", value: cat.buy_below },
       ],
@@ -188,9 +181,11 @@ export default async function BuyBrandCategoryPage({
         {/* Key stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
-            [fmtDeparturesBuy(cat.sold_30d), "left the shelf / 30 days"],
-            [fmtEurBuy(cat.avg_price_eur), "avg price at departure"],
             [fmtEurBuy(cat.buy_below), "buy below (30% margin)"],
+            [fmtEurBuy(cat.avg_price_eur), "avg price at departure"],
+            ...(typeof cat.avg_price_eur === "number" && typeof cat.buy_below === "number"
+              ? [[fmtEurBuy(cat.avg_price_eur - cat.buy_below), "margin per item at the buy-below"]]
+              : []),
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
               <div style={{ fontSize: 22, fontWeight: 800, color: l === "buy below (30% margin)" ? "#34C759" : "#eef1f7" }}>{v}</div>
@@ -198,21 +193,6 @@ export default async function BuyBrandCategoryPage({
             </div>
           ))}
         </div>
-
-        {/* Supply vs demand explainer */}
-        {cat.active_listings != null && departurePairPrintable(cat.sold_30d, cat.active_listings) && (
-          <section style={{ marginBottom: 24, padding: "16px 20px", background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 10 }}>
-            <h2 style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7", marginBottom: 6 }}>
-              Supply vs demand — know the difference
-            </h2>
-            <p style={{ fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-              There are about <strong style={{ color: "#eef1f7" }}>{fmtCountBuy(cat.active_listings)}</strong> active {brand.brand} {cat.category} listings right now.
-              That is supply — what sellers <em>want</em> to sell. The number that matters for sourcing is the{" "}
-              <strong style={{ color: "#34C759" }}>{fmtDeparturesBuy(cat.sold_30d)}</strong> that we watched leave the shelf in
-              the 30 days to {buyDataDate()}. Demand shows up as departures, not listings.
-            </p>
-          </section>
-        )}
 
         {/* How buy-below works */}
         <section style={{ marginBottom: 28 }}>
@@ -246,7 +226,7 @@ export default async function BuyBrandCategoryPage({
               {cat.signal === "STRONG BUY" && `STRONG BUY means high sell-through rate, healthy departure momentum and low listing saturation relative to watched departures. In our sample, listings in this category have been leaving the shelf steadily. Buy-below discipline is still essential — overpaying into a hot category kills margin just as fast as buying into a cold one.`}
               {cat.signal === "BUY" && `BUY means the sell-through rate is positive and departure momentum is consistent. In our sample, listings in this category leave the shelf regularly. Whether the margin is worthwhile depends on the buy-below discipline and the specific model.`}
               {cat.signal === "MONITOR" && `MONITOR means the data shows some demand but the signal is mixed — either the sell-through rate is inconsistent, saturation is rising, or departure momentum is slowing. Worth tracking but exercise caution with large buys.`}
-              {cat.signal === "AVOID" && `AVOID means the data shows this category is oversupplied relative to demand, or sell-through rate is below threshold. ${fmtDeparturesBuy(cat.sold_30d)} listings left the shelf in 30 days but the ratio of listings to departures is unfavourable. Consider other categories.`}
+              {cat.signal === "AVOID" && `AVOID means the data shows this category is oversupplied relative to demand, or sell-through rate is below threshold. the ratio of listings to departures is unfavourable. Consider other categories.`}
             </p>
           </section>
         )}
